@@ -1,65 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D30444CE97
-	for <lists+dm-devel@lfdr.de>; Thu, 11 Nov 2021 02:08:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636592887;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=ch2SxOumIvKWp92EMNz7wYQtiSUlXCdj9ZStG713zvk=;
-	b=ZFErn4BTRjHF/lNeJ/ypPPyQjxm9XMrYr9n7Uyie7Aw4quR2cxWmDkIrrxbACHRjJRXR/x
-	W1Xjj4klkf9voRXMIHIvwdsHqHQ6i+nkwHjVdQsA30DSLxoTzN+3d15SPr4yajZ3cNTKLJ
-	NhjgboB08L4KE4/0AHod5cvcsXCapPg=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F07DA44D309
+	for <lists+dm-devel@lfdr.de>; Thu, 11 Nov 2021 09:17:00 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-507-Ka2nPWhGOpurxXFgWawdMw-1; Wed, 10 Nov 2021 20:07:15 -0500
-X-MC-Unique: Ka2nPWhGOpurxXFgWawdMw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-509-RqP7f9JUP_-9TzVys9JnWg-1; Thu, 11 Nov 2021 03:16:56 -0500
+X-MC-Unique: RqP7f9JUP_-9TzVys9JnWg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 36E558B0596;
-	Thu, 11 Nov 2021 01:07:10 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A81E104A9C6;
-	Thu, 11 Nov 2021 01:07:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D8D51019983;
+	Thu, 11 Nov 2021 08:16:50 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D44467841;
+	Thu, 11 Nov 2021 08:16:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 251C24EA31;
-	Thu, 11 Nov 2021 01:07:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1C3A1181A1D0;
+	Thu, 11 Nov 2021 08:16:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AB16gwW013191 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 10 Nov 2021 20:06:42 -0500
+	id 1AB7rekZ018155 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 11 Nov 2021 02:53:40 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2D771794A4; Thu, 11 Nov 2021 01:06:42 +0000 (UTC)
+	id 932C7404727C; Thu, 11 Nov 2021 07:53:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A40C794A3;
-	Thu, 11 Nov 2021 01:06:41 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AB16drJ020465; 
-	Wed, 10 Nov 2021 19:06:40 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AB16dVl020464;
-	Wed, 10 Nov 2021 19:06:39 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 10 Nov 2021 19:06:20 -0600
-Message-Id: <1636592780-20391-10-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1636592780-20391-1-git-send-email-bmarzins@redhat.com>
-References: <1636592780-20391-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8ED814047279
+	for <dm-devel@redhat.com>; Thu, 11 Nov 2021 07:53:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7589780A0AB
+	for <dm-devel@redhat.com>; Thu, 11 Nov 2021 07:53:40 +0000 (UTC)
+Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
+	[209.85.216.49]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-566-jnGdKreIOxiyPD3f1wwysw-1; Thu, 11 Nov 2021 02:53:38 -0500
+X-MC-Unique: jnGdKreIOxiyPD3f1wwysw-1
+Received: by mail-pj1-f49.google.com with SMTP id
+	t5-20020a17090a4e4500b001a0a284fcc2so3988691pjl.2; 
+	Wed, 10 Nov 2021 23:53:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+	:content-transfer-encoding;
+	bh=diz0NWx3rdvWrK+h2Sf0MO5zGVzedXNR+hpSRRnycnA=;
+	b=z1SBtB/GXnc5jtgyPs1kQ2tdMrdOVVUKIre8YqOz5692xIzdHSvloKY8NJ7B5zd0dL
+	h0/iYmcNa2Y4kXDZtU3gOKkR3d5h69IvBq8BjdKAHidUO0LBy5cWA0iNMYNbBQCIkNvB
+	un9oQQ1T+Wra6+L1aL6Ng6YnImvG8VaNygmP8FKkC4Lk1jPHcddNhQvgS9904BNtSisB
+	2BQeT5L/TkHGQ1VgzH9l2CRgutenvwiH25vpOV+X9V0vmGg1PdAHE7zjQtpsOuj4hSHP
+	QSObX7IoWbhYUsQDmqSEOmC/aTLOgzLfsmLiQqjXX/eNDeqpEItrqreeilvYzpv4Awuq
+	yxyg==
+X-Gm-Message-State: AOAM532O6LrewHUNrCnDr0AEs4GZNQkudeQIo2MfKy9Hj68X46iyMvRI
+	JKuCdtkFMuj2C+Khd/xVdX6ut6C1188=
+X-Google-Smtp-Source: ABdhPJx4gxlJQ++7M32dN0ueUqjuOYAZbpVnYJHLFS+S2wzEmX735KSmG143dJm161eSP05yi7z94Q==
+X-Received: by 2002:a17:902:e9c6:b0:141:c588:99b2 with SMTP id
+	6-20020a170902e9c600b00141c58899b2mr5882063plk.63.1636617216784;
+	Wed, 10 Nov 2021 23:53:36 -0800 (PST)
+Received: from localhost.localdomain ([193.203.214.57])
+	by smtp.gmail.com with ESMTPSA id
+	il13sm4703883pjb.52.2021.11.10.23.53.35
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Wed, 10 Nov 2021 23:53:36 -0800 (PST)
+From: cgel.zte@gmail.com
+X-Google-Original-From: ran.jianping@zte.com.cn
+To: agk@redhat.com
+Date: Thu, 11 Nov 2021 07:53:31 +0000
+Message-Id: <20211111075331.158061-1-ran.jianping@zte.com.cn>
+MIME-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v2 9/9] libmultipath: cleanup invalid config
-	handling
+X-Mailman-Approved-At: Thu, 11 Nov 2021 03:16:24 -0500
+Cc: dm-devel@redhat.com, ran jianping <ran.jianping@zte.com.cn>,
+	linux-kernel@vger.kernel.org, snitzer@redhat.com,
+	Zeal Robot <zealci@zte.com.cn>
+Subject: [dm-devel] [PATCH] dm: remove unneeded variable
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,10 +98,9 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -82,204 +108,42 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add error reporting to the remaining config handlers. If the value is
-invalid, do not change the existing config option's value. Also print
-an error whenever 0 is returned for an invalid value. When the handler
-returns 1, config processing already fails with an error message.
+From: ran jianping <ran.jianping@zte.com.cn>
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+Fix the following coccicheck review:
+./drivers/md/dm-ps-round-robin.c:91:5-7:Unneeded variable
+
+Remove unneeded variable used to store return value.
+
+Reported-by: Zeal Robot <zealci@zte.com.cn>
+Signed-off-by: ran jianping <ran.jianping@zte.com.cn>
 ---
- libmultipath/dict.c | 73 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 51 insertions(+), 22 deletions(-)
+ drivers/md/dm-ps-round-robin.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index 3212d14c..37347482 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -199,8 +199,11 @@ set_yes_no(vector strvec, void *ptr, const char *file, int line_nr)
+diff --git a/drivers/md/dm-ps-round-robin.c b/drivers/md/dm-ps-round-robin.c
+index 27f44c5fa04e..455fc02af1cf 100644
+--- a/drivers/md/dm-ps-round-robin.c
++++ b/drivers/md/dm-ps-round-robin.c
+@@ -88,7 +88,6 @@ static int rr_status(struct path_selector *ps, struct dm_path *path,
+ 		     status_type_t type, char *result, unsigned int maxlen)
+ {
+ 	struct path_info *pi;
+-	int sz = 0;
  
- 	if (strcmp(buff, "yes") == 0 || strcmp(buff, "1") == 0)
- 		*int_ptr = YN_YES;
--	else
-+	else if (strcmp(buff, "no") == 0 || strcmp(buff, "0") == 0)
- 		*int_ptr = YN_NO;
-+	else
-+		condlog(1, "%s line %d, invalid value for %s: \"%s\"",
-+			file, line_nr, (char*)VECTOR_SLOT(strvec, 0), buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -221,7 +224,8 @@ set_yes_no_undef(vector strvec, void *ptr, const char *file, int line_nr)
- 	else if (strcmp(buff, "yes") == 0 || strcmp(buff, "1") == 0)
- 		*int_ptr = YNU_YES;
- 	else
--		*int_ptr = YNU_UNDEF;
-+		condlog(1, "%s line %d, invalid value for %s: \"%s\"",
-+			file, line_nr, (char*)VECTOR_SLOT(strvec, 0), buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -491,9 +495,6 @@ def_find_multipaths_handler(struct config *conf, vector strvec,
- 	char *buff;
- 	int i;
- 
--	if (set_yes_no_undef(strvec, &conf->find_multipaths, file, line_nr) == 0 && conf->find_multipaths != FIND_MULTIPATHS_UNDEF)
--		return 0;
--
- 	buff = set_value(strvec);
- 	if (!buff)
- 		return 1;
-@@ -506,9 +507,14 @@ def_find_multipaths_handler(struct config *conf, vector strvec,
+ 	if (!path)
+ 		DMEMIT("0 ");
+@@ -107,7 +106,7 @@ static int rr_status(struct path_selector *ps, struct dm_path *path,
  		}
  	}
  
--	if (conf->find_multipaths == YNU_UNDEF) {
--		condlog(0, "illegal value for find_multipaths: %s", buff);
--		conf->find_multipaths = DEFAULT_FIND_MULTIPATHS;
-+	if (i >= __FIND_MULTIPATHS_LAST) {
-+		if (strcmp(buff, "no") == 0 || strcmp(buff, "0") == 0)
-+			conf->find_multipaths = FIND_MULTIPATHS_OFF;
-+		else if (strcmp(buff, "yes") == 0 || strcmp(buff, "1") == 0)
-+			conf->find_multipaths = FIND_MULTIPATHS_ON;
-+		else
-+			condlog(1, "%s line %d, invalid value for find_multipaths: \"%s\"",
-+				file, line_nr, buff);
- 	}
- 
- 	FREE(buff);
-@@ -557,8 +563,10 @@ static int uid_attrs_handler(struct config *conf, vector strvec,
- 	if (!val)
- 		return 1;
- 	if (parse_uid_attrs(val, conf))
--		condlog(1, "error parsing uid_attrs: \"%s\"", val);
--	condlog(3, "parsed %d uid_attrs", VECTOR_SIZE(&conf->uid_attrs));
-+		condlog(1, "%s line %d,error parsing uid_attrs: \"%s\"", file,
-+			line_nr, val);
-+	else
-+		condlog(4, "parsed %d uid_attrs", VECTOR_SIZE(&conf->uid_attrs));
- 	FREE(val);
- 	return 0;
+-	return sz;
++	return 0;
  }
-@@ -786,8 +794,11 @@ def_config_dir_handler(struct config *conf, vector strvec, const char *file,
- 		       int line_nr)
- {
- 	/* this is only valid in the main config file */
--	if (conf->processed_main_config)
-+	if (conf->processed_main_config) {
-+		condlog(1, "%s line %d, config_dir option only valid in /etc/multipath.conf",
-+			file, line_nr);
- 		return 0;
-+	}
- 	condlog(2, "%s line %d, \"config_dir\" is deprecated and will be disabled in a future release",
- 		file, line_nr);
- 	return set_path(strvec, &conf->config_dir, file, line_nr);
-@@ -847,7 +858,9 @@ set_mode(vector strvec, void *ptr, int *flags, const char *file, int line_nr)
- 	if (sscanf(buff, "%o", &mode) == 1 && mode <= 0777) {
- 		*flags |= (1 << ATTR_MODE);
- 		*mode_ptr = mode;
--	}
-+	} else
-+		condlog(1, "%s line %d, invalid value for mode: \"%s\"",
-+			file, line_nr, buff);
  
- 	FREE(buff);
- 	return 0;
-@@ -872,7 +885,9 @@ set_uid(vector strvec, void *ptr, int *flags, const char *file, int line_nr)
- 	else if (sscanf(buff, "%u", &uid) == 1){
- 		*flags |= (1 << ATTR_UID);
- 		*uid_ptr = uid;
--	}
-+	} else
-+		condlog(1, "%s line %d, invalid value for uid: \"%s\"",
-+			file, line_nr, buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -898,7 +913,9 @@ set_gid(vector strvec, void *ptr, int *flags, const char *file, int line_nr)
- 	else if (sscanf(buff, "%u", &gid) == 1){
- 		*flags |= (1 << ATTR_GID);
- 		*gid_ptr = gid;
--	}
-+	} else
-+		condlog(1, "%s line %d, invalid value for gid: \"%s\"",
-+			file, line_nr, buff);
- 	FREE(buff);
- 	return 0;
- }
-@@ -1000,7 +1017,8 @@ set_dev_loss(vector strvec, void *ptr, const char *file, int line_nr)
- 	if (!strcmp(buff, "infinity"))
- 		*uint_ptr = MAX_DEV_LOSS_TMO;
- 	else if (sscanf(buff, "%u", uint_ptr) != 1)
--		*uint_ptr = DEV_LOSS_TMO_UNSET;
-+		condlog(1, "%s line %d, invalid value for dev_loss_tmo: \"%s\"",
-+			file, line_nr, buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -1034,13 +1052,19 @@ static int
- set_pgpolicy(vector strvec, void *ptr, const char *file, int line_nr)
- {
- 	char * buff;
-+	int policy;
- 	int *int_ptr = (int *)ptr;
- 
- 	buff = set_value(strvec);
- 	if (!buff)
- 		return 1;
- 
--	*int_ptr = get_pgpolicy_id(buff);
-+	policy = get_pgpolicy_id(buff);
-+	if (policy != IOPOLICY_UNDEF)
-+		*int_ptr = policy;
-+	else
-+		condlog(1, "%s line %d, invalid value for path_grouping_policy: \"%s\"",
-+			file, line_nr, buff);
- 	FREE(buff);
- 
- 	return 0;
-@@ -1153,10 +1177,11 @@ set_rr_weight(vector strvec, void *ptr, const char *file, int line_nr)
- 
- 	if (!strcmp(buff, "priorities"))
- 		*int_ptr = RR_WEIGHT_PRIO;
--
--	if (!strcmp(buff, "uniform"))
-+	else if (!strcmp(buff, "uniform"))
- 		*int_ptr = RR_WEIGHT_NONE;
--
-+	else
-+		condlog(1, "%s line %d, invalid value for rr_weight: \"%s\"",
-+			file, line_nr, buff);
- 	FREE(buff);
- 
- 	return 0;
-@@ -1295,10 +1320,13 @@ def_log_checker_err_handler(struct config *conf, vector strvec,
- 	if (!buff)
- 		return 1;
- 
--	if (strlen(buff) == 4 && !strcmp(buff, "once"))
-+	if (!strcmp(buff, "once"))
- 		conf->log_checker_err = LOG_CHKR_ERR_ONCE;
--	else if (strlen(buff) == 6 && !strcmp(buff, "always"))
-+	else if (!strcmp(buff, "always"))
- 		conf->log_checker_err = LOG_CHKR_ERR_ALWAYS;
-+	else
-+		condlog(1, "%s line %d, invalid value for log_checker_err: \"%s\"",
-+			file, line_nr, buff);
- 
- 	free(buff);
- 	return 0;
-@@ -1562,7 +1590,8 @@ hw_vpd_vendor_handler(struct config *conf, vector strvec, const char *file,
- 			goto out;
- 		}
- 	}
--	hwe->vpd_vendor_id = 0;
-+	condlog(1, "%s line %d, invalid value for vpd_vendor: \"%s\"",
-+		file, line_nr, buff);
- out:
- 	FREE(buff);
- 	return 0;
+ /*
 -- 
-2.17.2
+2.25.1
 
 --
 dm-devel mailing list
