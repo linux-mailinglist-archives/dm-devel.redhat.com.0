@@ -1,65 +1,147 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D77D44DBD4
-	for <lists+dm-devel@lfdr.de>; Thu, 11 Nov 2021 19:54:41 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1636656880;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=ILyQmJOBXflNlo1ko487u1WPGMMf0K6/b+C3u2C4oV4=;
-	b=ie2JMLVsxOsffo/mjfB2ajaRRXN3uwGqNviuLbl9MBeUnVG5qnb/ILNViTqNjyTX5taDqu
-	4YGySnvJC6w5tOv29wPCtuYouLr3g0yCH9xBjEzpe5KyXXz9rXvjT7eNfrFae0uaLxNk9p
-	A+YyV2vy0rX06uslVVLJppgJc8wbbIU=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4055044DC8C
+	for <lists+dm-devel@lfdr.de>; Thu, 11 Nov 2021 21:39:07 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-192-dm0ZiKveOOqCmWps1odxHg-1; Thu, 11 Nov 2021 13:54:36 -0500
-X-MC-Unique: dm0ZiKveOOqCmWps1odxHg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-579-y-pILGa-MZW9zxNo-3kpww-1; Thu, 11 Nov 2021 15:39:04 -0500
+X-MC-Unique: y-pILGa-MZW9zxNo-3kpww-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2DF26824F96;
-	Thu, 11 Nov 2021 18:54:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F3EB2271F;
-	Thu, 11 Nov 2021 18:54:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2ED4B875047;
+	Thu, 11 Nov 2021 20:38:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AFCD367843;
+	Thu, 11 Nov 2021 20:38:55 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 711C4181A1D1;
-	Thu, 11 Nov 2021 18:54:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 63A9C4E9F4;
+	Thu, 11 Nov 2021 20:38:46 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ABIsS26027854 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 11 Nov 2021 13:54:28 -0500
+	id 1ABKccUP007505 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 11 Nov 2021 15:38:38 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0B2A610495BA; Thu, 11 Nov 2021 18:54:28 +0000 (UTC)
+	id 1E9C3404727C; Thu, 11 Nov 2021 20:38:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BBC951042B7E;
-	Thu, 11 Nov 2021 18:54:17 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1ABIsFSl026138; 
-	Thu, 11 Nov 2021 12:54:15 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1ABIsDhJ026137;
-	Thu, 11 Nov 2021 12:54:13 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu, 11 Nov 2021 12:53:52 -0600
-Message-Id: <1636656832-26062-10-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1636656832-26062-1-git-send-email-bmarzins@redhat.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 19E964047279
+	for <dm-devel@redhat.com>; Thu, 11 Nov 2021 20:38:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02FCC801212
+	for <dm-devel@redhat.com>; Thu, 11 Nov 2021 20:38:38 +0000 (UTC)
+Received: from de-smtp-delivery-102.mimecast.com
+	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) (Using TLS) by
+	relay.mimecast.com with ESMTP id us-mta-118-kytXlNuKOVm6uX8fKwrM2A-1;
+	Thu, 11 Nov 2021 15:38:36 -0500
+X-MC-Unique: kytXlNuKOVm6uX8fKwrM2A-1
+Received: from EUR01-DB5-obe.outbound.protection.outlook.com
+	(mail-db5eur01lp2050.outbound.protection.outlook.com [104.47.2.50])
+	(Using TLS) by relay.mimecast.com with ESMTP id
+	de-mta-15-Ut4g8ZJGPMuixJgshr-Z9Q-1; Thu, 11 Nov 2021 21:38:33 +0100
+X-MC-Unique: Ut4g8ZJGPMuixJgshr-Z9Q-1
+Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
+	by DB8PR04MB6473.eurprd04.prod.outlook.com (2603:10a6:10:106::17)
+	with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4669.11;
+	Thu, 11 Nov 2021 20:38:33 +0000
+Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
+	([fe80::d0d9:a949:8409:bbc7]) by
+	DB8PR04MB6555.eurprd04.prod.outlook.com
+	([fe80::d0d9:a949:8409:bbc7%3]) with mapi id 15.20.4669.016;
+	Thu, 11 Nov 2021 20:38:33 +0000
+From: Martin Wilck <martin.wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
+	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
+Thread-Topic: [PATCH v3 7/9] libmultipath: deprecate file and directory config
+	options
+Thread-Index: AQHX1y2J0ZeDeFaMWEOC2/wDa8Pgj6v+ydMA
+Date: Thu, 11 Nov 2021 20:38:33 +0000
+Message-ID: <2eb254e1b1393a75dc486bda8527e79e66ce3ac4.camel@suse.com>
 References: <1636656832-26062-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+	<1636656832-26062-8-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1636656832-26062-8-git-send-email-bmarzins@redhat.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.42.1
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: bc01c3c0-e533-42d1-eb99-08d9a5533a78
+x-ms-traffictypediagnostic: DB8PR04MB6473:
+x-microsoft-antispam-prvs: <DB8PR04MB6473F01E5515EC5BD321B4FFFC949@DB8PR04MB6473.eurprd04.prod.outlook.com>
+x-ms-oob-tlc-oobclassifiers: OLM:7219
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: jqLUyNvzG19nWBJBd/tnWLBHT6cNUOWjkA/GhZIGRFWv/SQpjMhU2hPcTOllzQnIm759beRUEjRjmDlMWyAdw0nsZV/0z/ZjB7ackviK+QUYU4EUeLW3CKetYj2MXeB+QjaftcDO8eH8kLoH9At2KZutp1/1HRsJS8YnqBxHbmfJ4DAt2Lj1tdVlExDmpkQMGUOQ4e76Jagrc524qvDRyfZN16yOSN+pzU4ozEYQq8lwnZUpq/JvbS3clc9rxqUXKf5ZhuXPjZnIxgasqEiHFNqZHaN7k2yYigPAzacqaVaQAnvlDBlgYmMQceYZmypvfkz6eOEzSOAq+VvA7T/QZlMNTOSA7xX2fHTYOTZB0WyeYU3+Q9HdqPAMlSkBCjDVkhSWqgfcpfx4uTDEyV6D3ixnT2hUMoKpbCebHzSqUfn6SmD9+kAjvtMsqbYFLsdstp1AE3t1evzOL01s15nN2SgZweKwHPc79mFriu7wZUWriHSerbs7Ti4Pp2uf3jY87hL++uy5mX2mLU1KKPQK/1AzfT4Y2eTnMWHcXIQ9ND/HHbMsSdcO0OZPvUOOM6OuyBkfeQnhwxN06MoBI/2Ab8qraGoycYj2Nzwg6EQIktWEaam1w5F/OIX78x0dPSs0Y6AJQYmS8PFCMPirUHBKJRmRJPaVi8NLZ7o580Ej78woo5WcqQyD9S4opWahfnts5MQHDzURMwztyay9CGKz8Q==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(366004)(508600001)(38100700002)(66476007)(66446008)(86362001)(4744005)(64756008)(38070700005)(122000001)(6486002)(36756003)(66556008)(110136005)(76116006)(186003)(66946007)(2906002)(4326008)(91956017)(4001150100001)(316002)(8676002)(5660300002)(2616005)(26005)(44832011)(71200400001)(6506007)(6512007)(8936002);
+	DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?rFOqbHDxmQtAx3rZPYxRnV+Q6OHkqLg1hp+eAK7MfzWd6RAsdI6BRQgex?=
+	=?iso-8859-15?Q?ywTobNdnKvee95KlHOsQ4RRLyn/oNKiRFx0gI5lHgZbFRPiShCSZqUYRJ?=
+	=?iso-8859-15?Q?n6x5sNnkhukFqz2QjkzH52zyiiizAVr/WRg6d62UCU+A1Z0oUIk8glzNw?=
+	=?iso-8859-15?Q?kQvBs98vU3svyc3R/CCvYgyc/E7ZsEQ9M6/XATWFQjiV/p2Ch9am+QlIJ?=
+	=?iso-8859-15?Q?HlCEUCMBgFSmUUn9/EKmO6fErcp/BCI6J5cL/ajCH3SwmLoTAPKFvFsql?=
+	=?iso-8859-15?Q?NbuUIAW95bfxuo9y+YR4n1UDmSRbh40xfv/oLXEpTeZ+SsWNyWh9p5i/m?=
+	=?iso-8859-15?Q?wDG+/TFA4NoFoV9W/5TN14E1d27Kx+RVSuLrA4+3gFObfhuQ7+8pMHTzF?=
+	=?iso-8859-15?Q?QvM9IvOxK7U4ScZwdFumSpWkP0joiNgzlCP++ksiS+vVnbLnyBt7Bc3W2?=
+	=?iso-8859-15?Q?zo6aGKeKTKr3r+N+Tr9hlEh2uBMgU7fiPnNp7yjbRnFIx/oh2Bt14j/Gu?=
+	=?iso-8859-15?Q?evppg/fN1oB6lulXNm+tZWRoox4HlsFqjX5UWPQaI5Uv/covKt4IIcQp4?=
+	=?iso-8859-15?Q?AvuDTsIbkDShI2kBohwjhT6BhDvgSdk739oMQ4UkeDAxrd5/+eHs5s1KS?=
+	=?iso-8859-15?Q?cP4vhckzrrEavTi90X64zqSbGONJ4nDcTYO/sFRdht8T13lS6p5KdXgT5?=
+	=?iso-8859-15?Q?1PMYcCyXGtYqTnm9fCPOyxRPEKiPtJ3Pplbcpm4CS5fEbj1vR/6SKAE1v?=
+	=?iso-8859-15?Q?Tfx6ahK2EG+qCvk4URyFyWAnf5u1t2AnFG7zTI9xVJ8EcP/ag4Ypxwy1C?=
+	=?iso-8859-15?Q?lxBxZoJcr883EnUxycSUlDRiOnawZUcLE/7PtIm6b0HObmBI5qjfrnPiA?=
+	=?iso-8859-15?Q?Kqeq/yRlRkZxoigTtPo0WpS3TSe5k0E9G/AKfSh1ueHeFDHCojdDcQdqp?=
+	=?iso-8859-15?Q?Y/hzSqp92XQfMcQxsPH7HPsALOqncNbKtInp+A0YgcqDDehBuwBp0Ak9k?=
+	=?iso-8859-15?Q?J2ELRJzO9gLjMqqGW514mx/CqGA+kkgByjHipDbg5Y6Bxt/2YJg1x14Od?=
+	=?iso-8859-15?Q?7qWCKQRErkxWkWud/34rqg5x+JJ4tNj2TAu5O6A8lBSI3UYNWyg0Hec6s?=
+	=?iso-8859-15?Q?ZeRxfPFGEYkEQDw/9SuS3k+MLZ84w+iYXnc2yVc+6XlYJMASWm7+L9gVR?=
+	=?iso-8859-15?Q?Vm0pk6wSAxrIRbd6FKp/ojPvt12WkLu8RhQMH7hI6RQ43XunWqv+8uR01?=
+	=?iso-8859-15?Q?3duZ9yeoI5qjW3D9tFY43nypmkMRhVNMrSGPcLMnziJ95IkpbPh2OvaG3?=
+	=?iso-8859-15?Q?Rf5PyC+Q8PQ/zgBxvXC5b7K97II4Kvozt3Yc1bRfQlbaVekFIjuENOoOw?=
+	=?iso-8859-15?Q?MwbPqEVJbDviG9VKqB494AeDuDkRmuz0SiRYZ381WMvz1pCcMDLLTHl5a?=
+	=?iso-8859-15?Q?BOZcojEkLKI3LgBTlGCmLS/4juc2NboIf3Lf6aXbbKeIygDJnyaIqJmUO?=
+	=?iso-8859-15?Q?swKbZt82Wiw2hDjI20nf5K48b8iSIwlQBeBaLLVe2I/WCc/qHERw/qnNB?=
+	=?iso-8859-15?Q?wVw7OP+RWCEUczMVlpNPwczhS0Kdb7LukiQwg+CSzTsuJcsoVnia/yt9S?=
+	=?iso-8859-15?Q?NB6vEzbLuZFlnpPORMpMIYu3SxcI668fVpfmFq8n3dwhQs/Qtbxs2PobT?=
+	=?iso-8859-15?Q?ExPV5tyEG4huR/QK7LQwhfRDU7L4cPEwKw++amwqCppUu/A=3D?=
+MIME-Version: 1.0
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bc01c3c0-e533-42d1-eb99-08d9a5533a78
+X-MS-Exchange-CrossTenant-originalarrivaltime: 11 Nov 2021 20:38:33.0608 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: YJ8ObnNzExl7clUC5uBNrk46kR+OywjvK5Ub3qMBjdvvbajgPYXvXBPihUM/py5mk3yTRXUV/9RONry803dKyA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB8PR04MB6473
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ABKccUP007505
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v3 9/9] libmultipath: cleanup invalid config
-	handling
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH v3 7/9] libmultipath: deprecate file and
+ directory config options
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -71,216 +153,28 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
+Content-ID: <98FD7B0CB385D84A834D882F033EC68F@eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add error reporting to the remaining config handlers. If the value is
-invalid, do not change the existing config option's value. Also print
-an error whenever 0 is returned for an invalid value. When the handler
-returns 1, config processing already fails with an error message.
+On Thu, 2021-11-11 at 12:53 -0600, Benjamin Marzinski wrote:
+> Having multipath able to select pathnames for the files and directories
+> it needs causes unnecessary maintainer headaches. Mark these as
+> deprecated, but still support them for now.
+> 
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 Reviewed-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/dict.c | 73 +++++++++++++++++++++++++++++++--------------
- 1 file changed, 51 insertions(+), 22 deletions(-)
 
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index 68647061..c534d703 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -199,8 +199,11 @@ set_yes_no(vector strvec, void *ptr, const char *file, int line_nr)
- 
- 	if (strcmp(buff, "yes") == 0 || strcmp(buff, "1") == 0)
- 		*int_ptr = YN_YES;
--	else
-+	else if (strcmp(buff, "no") == 0 || strcmp(buff, "0") == 0)
- 		*int_ptr = YN_NO;
-+	else
-+		condlog(1, "%s line %d, invalid value for %s: \"%s\"",
-+			file, line_nr, (char*)VECTOR_SLOT(strvec, 0), buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -221,7 +224,8 @@ set_yes_no_undef(vector strvec, void *ptr, const char *file, int line_nr)
- 	else if (strcmp(buff, "yes") == 0 || strcmp(buff, "1") == 0)
- 		*int_ptr = YNU_YES;
- 	else
--		*int_ptr = YNU_UNDEF;
-+		condlog(1, "%s line %d, invalid value for %s: \"%s\"",
-+			file, line_nr, (char*)VECTOR_SLOT(strvec, 0), buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -480,9 +484,6 @@ def_find_multipaths_handler(struct config *conf, vector strvec,
- 	char *buff;
- 	int i;
- 
--	if (set_yes_no_undef(strvec, &conf->find_multipaths, file, line_nr) == 0 && conf->find_multipaths != FIND_MULTIPATHS_UNDEF)
--		return 0;
--
- 	buff = set_value(strvec);
- 	if (!buff)
- 		return 1;
-@@ -495,9 +496,14 @@ def_find_multipaths_handler(struct config *conf, vector strvec,
- 		}
- 	}
- 
--	if (conf->find_multipaths == YNU_UNDEF) {
--		condlog(0, "illegal value for find_multipaths: %s", buff);
--		conf->find_multipaths = DEFAULT_FIND_MULTIPATHS;
-+	if (i >= __FIND_MULTIPATHS_LAST) {
-+		if (strcmp(buff, "no") == 0 || strcmp(buff, "0") == 0)
-+			conf->find_multipaths = FIND_MULTIPATHS_OFF;
-+		else if (strcmp(buff, "yes") == 0 || strcmp(buff, "1") == 0)
-+			conf->find_multipaths = FIND_MULTIPATHS_ON;
-+		else
-+			condlog(1, "%s line %d, invalid value for find_multipaths: \"%s\"",
-+				file, line_nr, buff);
- 	}
- 
- 	FREE(buff);
-@@ -546,8 +552,10 @@ static int uid_attrs_handler(struct config *conf, vector strvec,
- 	if (!val)
- 		return 1;
- 	if (parse_uid_attrs(val, conf))
--		condlog(1, "error parsing uid_attrs: \"%s\"", val);
--	condlog(3, "parsed %d uid_attrs", VECTOR_SIZE(&conf->uid_attrs));
-+		condlog(1, "%s line %d,error parsing uid_attrs: \"%s\"", file,
-+			line_nr, val);
-+	else
-+		condlog(4, "parsed %d uid_attrs", VECTOR_SIZE(&conf->uid_attrs));
- 	FREE(val);
- 	return 0;
- }
-@@ -775,8 +783,11 @@ def_config_dir_handler(struct config *conf, vector strvec, const char *file,
- 		       int line_nr)
- {
- 	/* this is only valid in the main config file */
--	if (conf->processed_main_config)
-+	if (conf->processed_main_config) {
-+		condlog(1, "%s line %d, config_dir option only valid in /etc/multipath.conf",
-+			file, line_nr);
- 		return 0;
-+	}
- 	condlog(2, "%s line %d, \"config_dir\" is deprecated and will be disabled in a future release",
- 		file, line_nr);
- 	return set_path(strvec, &conf->config_dir, file, line_nr);
-@@ -836,7 +847,9 @@ set_mode(vector strvec, void *ptr, int *flags, const char *file, int line_nr)
- 	if (sscanf(buff, "%o", &mode) == 1 && mode <= 0777) {
- 		*flags |= (1 << ATTR_MODE);
- 		*mode_ptr = mode;
--	}
-+	} else
-+		condlog(1, "%s line %d, invalid value for mode: \"%s\"",
-+			file, line_nr, buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -861,7 +874,9 @@ set_uid(vector strvec, void *ptr, int *flags, const char *file, int line_nr)
- 	else if (sscanf(buff, "%u", &uid) == 1){
- 		*flags |= (1 << ATTR_UID);
- 		*uid_ptr = uid;
--	}
-+	} else
-+		condlog(1, "%s line %d, invalid value for uid: \"%s\"",
-+			file, line_nr, buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -887,7 +902,9 @@ set_gid(vector strvec, void *ptr, int *flags, const char *file, int line_nr)
- 	else if (sscanf(buff, "%u", &gid) == 1){
- 		*flags |= (1 << ATTR_GID);
- 		*gid_ptr = gid;
--	}
-+	} else
-+		condlog(1, "%s line %d, invalid value for gid: \"%s\"",
-+			file, line_nr, buff);
- 	FREE(buff);
- 	return 0;
- }
-@@ -989,7 +1006,8 @@ set_dev_loss(vector strvec, void *ptr, const char *file, int line_nr)
- 	if (!strcmp(buff, "infinity"))
- 		*uint_ptr = MAX_DEV_LOSS_TMO;
- 	else if (sscanf(buff, "%u", uint_ptr) != 1)
--		*uint_ptr = DEV_LOSS_TMO_UNSET;
-+		condlog(1, "%s line %d, invalid value for dev_loss_tmo: \"%s\"",
-+			file, line_nr, buff);
- 
- 	FREE(buff);
- 	return 0;
-@@ -1023,13 +1041,19 @@ static int
- set_pgpolicy(vector strvec, void *ptr, const char *file, int line_nr)
- {
- 	char * buff;
-+	int policy;
- 	int *int_ptr = (int *)ptr;
- 
- 	buff = set_value(strvec);
- 	if (!buff)
- 		return 1;
- 
--	*int_ptr = get_pgpolicy_id(buff);
-+	policy = get_pgpolicy_id(buff);
-+	if (policy != IOPOLICY_UNDEF)
-+		*int_ptr = policy;
-+	else
-+		condlog(1, "%s line %d, invalid value for path_grouping_policy: \"%s\"",
-+			file, line_nr, buff);
- 	FREE(buff);
- 
- 	return 0;
-@@ -1142,10 +1166,11 @@ set_rr_weight(vector strvec, void *ptr, const char *file, int line_nr)
- 
- 	if (!strcmp(buff, "priorities"))
- 		*int_ptr = RR_WEIGHT_PRIO;
--
--	if (!strcmp(buff, "uniform"))
-+	else if (!strcmp(buff, "uniform"))
- 		*int_ptr = RR_WEIGHT_NONE;
--
-+	else
-+		condlog(1, "%s line %d, invalid value for rr_weight: \"%s\"",
-+			file, line_nr, buff);
- 	FREE(buff);
- 
- 	return 0;
-@@ -1281,10 +1306,13 @@ def_log_checker_err_handler(struct config *conf, vector strvec,
- 	if (!buff)
- 		return 1;
- 
--	if (strlen(buff) == 4 && !strcmp(buff, "once"))
-+	if (!strcmp(buff, "once"))
- 		conf->log_checker_err = LOG_CHKR_ERR_ONCE;
--	else if (strlen(buff) == 6 && !strcmp(buff, "always"))
-+	else if (!strcmp(buff, "always"))
- 		conf->log_checker_err = LOG_CHKR_ERR_ALWAYS;
-+	else
-+		condlog(1, "%s line %d, invalid value for log_checker_err: \"%s\"",
-+			file, line_nr, buff);
- 
- 	free(buff);
- 	return 0;
-@@ -1545,7 +1573,8 @@ hw_vpd_vendor_handler(struct config *conf, vector strvec, const char *file,
- 			goto out;
- 		}
- 	}
--	hwe->vpd_vendor_id = 0;
-+	condlog(1, "%s line %d, invalid value for vpd_vendor: \"%s\"",
-+		file, line_nr, buff);
- out:
- 	FREE(buff);
- 	return 0;
--- 
-2.17.2
+
 
 --
 dm-devel mailing list
