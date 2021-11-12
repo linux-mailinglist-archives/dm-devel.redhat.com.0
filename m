@@ -1,68 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E166144EE58
-	for <lists+dm-devel@lfdr.de>; Fri, 12 Nov 2021 22:06:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4DA8244EED8
+	for <lists+dm-devel@lfdr.de>; Fri, 12 Nov 2021 22:47:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-371-x_SA5WkhNoS_quLfs-fhNg-1; Fri, 12 Nov 2021 16:06:38 -0500
-X-MC-Unique: x_SA5WkhNoS_quLfs-fhNg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-136-NghXUWTSPDC4Nlwq5JvQIw-1; Fri, 12 Nov 2021 16:47:52 -0500
+X-MC-Unique: NghXUWTSPDC4Nlwq5JvQIw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4E6051006AA1;
-	Fri, 12 Nov 2021 21:06:32 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1EAF857CAD;
-	Fri, 12 Nov 2021 21:06:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B61FE102CB29;
+	Fri, 12 Nov 2021 21:47:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 49AAF5C1B4;
+	Fri, 12 Nov 2021 21:47:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 099934A703;
-	Fri, 12 Nov 2021 21:06:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0A0AF181A1CF;
+	Fri, 12 Nov 2021 21:47:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ACL6ENR016420 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 12 Nov 2021 16:06:14 -0500
+	id 1ACLjjPj019435 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 12 Nov 2021 16:45:45 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5915D112131B; Fri, 12 Nov 2021 21:06:14 +0000 (UTC)
+	id 6990B404727D; Fri, 12 Nov 2021 21:45:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 547161121319
-	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:06:13 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 60BA2404727C
+	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:45:45 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 853E885A5B5
-	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:06:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 404B1185A7B2
+	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:45:45 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-226-2adREm5UPeyG81Gj9Bgzdw-1; Fri, 12 Nov 2021 16:06:09 -0500
-X-MC-Unique: 2adREm5UPeyG81Gj9Bgzdw-1
+	us-mta-28-OqKl7Sv8MUCXJt2I33z4Jw-1; Fri, 12 Nov 2021 16:45:43 -0500
+X-MC-Unique: OqKl7Sv8MUCXJt2I33z4Jw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 358802199D;
-	Fri, 12 Nov 2021 21:06:08 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 50B812170C;
+	Fri, 12 Nov 2021 21:45:42 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ECEA813CCC;
-	Fri, 12 Nov 2021 21:06:07 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 12B4913C96;
+	Fri, 12 Nov 2021 21:45:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id kOOVNz/XjmGyXwAAMHmgww
-	(envelope-from <mwilck@suse.com>); Fri, 12 Nov 2021 21:06:07 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 12 Nov 2021 22:05:51 +0100
-Message-Id: <20211112210551.12744-3-mwilck@suse.com>
-In-Reply-To: <20211112210551.12744-1-mwilck@suse.com>
-References: <20211112210551.12744-1-mwilck@suse.com>
+	by imap2.suse-dmz.suse.de with ESMTPSA id MMKOAobgjmFvawAAMHmgww
+	(envelope-from <mwilck@suse.com>); Fri, 12 Nov 2021 21:45:42 +0000
+Message-ID: <843cdc61e0b49d9d3dbddc82d1175ea176fa8b9e.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Fri, 12 Nov 2021 22:45:41 +0100
+In-Reply-To: <20210916000128.GX3087@octiron.msp.redhat.com>
+References: <20210910114120.13665-1-mwilck@suse.com>
+	<20210910114120.13665-13-mwilck@suse.com>
+	<20210916000128.GX3087@octiron.msp.redhat.com>
+User-Agent: Evolution 3.42.1
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -72,13 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ACL6ENR016420
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ACLjjPj019435
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 3/3] multipath-tools: support generating
-	compile_commands.json
+Cc: lixiaokeng@huawei.com, dm-devel@redhat.com,
+	Chongyun Wu <wu.chongyun@h3c.com>
+Subject: Re: [dm-devel] [PATCH 12/35] multipathd: add and set cli_handlers
+ in a single step
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,56 +95,57 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-From: Martin Wilck <mwilck@suse.com>
+On Wed, 2021-09-15 at 19:01 -0500, Benjamin Marzinski wrote:
+> On Fri, Sep 10, 2021 at 01:40:57PM +0200, mwilck@suse.com=A0wrote:
+> > From: Martin Wilck <mwilck@suse.com>
+> >=20
+> > Modify set_handler_callback() such that a missing slot is created
+> > if no matching slot is found. This way, we can skip the
+> > initialization
+> > with NULL handlers on startup.
+> >=20
+> > Signed-off-by: Martin Wilck <mwilck@suse.com>
+> > ---
+> > =A0multipathd/cli.c | 85 +++++++-------------------------------------
+> > ----
+> > =A0multipathd/cli.h |=A0 6 ++--
+> > =A02 files changed, 15 insertions(+), 76 deletions(-)
+> >=20
+> > diff --git a/multipathd/cli.c b/multipathd/cli.c
+> > index 5213813..7020d2b 100644
+> > --- a/multipathd/cli.c
+> > +++ b/multipathd/cli.c
+> > @@ -100,26 +100,20 @@ find_handler (uint64_t fp)
+> > =A0}
+> > =A0
+> > =A0int
+> > -set_handler_callback (uint64_t fp, cli_handler *fn)
+> > +__set_handler_callback (uint64_t fp, cli_handler *fn, bool locked)
+> > =A0{
+> > -=A0=A0=A0=A0=A0=A0=A0struct handler * h =3D find_handler(fp);
+> > +=A0=A0=A0=A0=A0=A0=A0struct handler *h =3D find_handler(fp);
+> > =A0
+>=20
+> Wouldn't it be a bug if we reset the handler? Is this really
+> something
+> we need to check for? Also, if add_handler() just returned a pointer
+> to
+> the handler, we wouldn't need to call fail_handler() immediately
+> after
+> creating it.
 
-This file is necessary to run clangd as helper for an IDE, e.g.
-with emacs lsp-mode.
+I'll fix this in an add-on patch in v2.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- .gitignore | 1 +
- Makefile   | 6 ++++++
- 2 files changed, 7 insertions(+)
-
-diff --git a/.gitignore b/.gitignore
-index 5dbac39..8e09f95 100644
---- a/.gitignore
-+++ b/.gitignore
-@@ -17,6 +17,7 @@ mpathpersist/mpathpersist
- abi.tar.gz
- abi
- abi-test
-+compile_commands.json
- .nfs*
- *.swp
- *.patch
-diff --git a/Makefile b/Makefile
-index 1cec777..82e0ea3 100644
---- a/Makefile
-+++ b/Makefile
-@@ -66,6 +66,12 @@ abi-test:	abi reference-abi $(wildcard abi/*.abi)
- 	fi; \
- 	[ $$err -eq 0 ]
- 
-+# Create compile_commands.json, useful for using clangd with an IDE
-+# Requires bear (https://github.com/rizsotto/Bear)
-+compile_commands.json: Makefile Makefile.inc $(BUILDDIRS:=/Makefile)
-+	$(MAKE) clean
-+	bear -- $(MAKE)
-+
- libmultipath libdmmp: libmpathcmd
- libmpathpersist libmpathvalid multipath multipathd: libmultipath
- libmultipath/prioritizers libmultipath/checkers libmultipath/foreign: libmultipath
--- 
-2.33.1
+Regards
+Martin
 
 
 --
