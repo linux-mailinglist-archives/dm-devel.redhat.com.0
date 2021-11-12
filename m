@@ -1,66 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FC1E44EE59
-	for <lists+dm-devel@lfdr.de>; Fri, 12 Nov 2021 22:06:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E166144EE58
+	for <lists+dm-devel@lfdr.de>; Fri, 12 Nov 2021 22:06:42 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-332-tb25vMjHNbqzpodmnjimWQ-1; Fri, 12 Nov 2021 16:06:37 -0500
-X-MC-Unique: tb25vMjHNbqzpodmnjimWQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-371-x_SA5WkhNoS_quLfs-fhNg-1; Fri, 12 Nov 2021 16:06:38 -0500
+X-MC-Unique: x_SA5WkhNoS_quLfs-fhNg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D36AA1006AA0;
-	Fri, 12 Nov 2021 21:06:31 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C6A9177C0;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4E6051006AA1;
+	Fri, 12 Nov 2021 21:06:32 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1EAF857CAD;
 	Fri, 12 Nov 2021 21:06:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 03179181A1CF;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 099934A703;
 	Fri, 12 Nov 2021 21:06:23 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ACL6EgR016421 for <dm-devel@listman.util.phx.redhat.com>;
+	id 1ACL6ENR016420 for <dm-devel@listman.util.phx.redhat.com>;
 	Fri, 12 Nov 2021 16:06:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 59315112131E; Fri, 12 Nov 2021 21:06:14 +0000 (UTC)
+	id 5915D112131B; Fri, 12 Nov 2021 21:06:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 546CE1121318
-	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:06:11 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 547161121319
+	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:06:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 603861066681
-	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:06:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 853E885A5B5
+	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 21:06:13 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
 	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-220-Y_wQVMJ1N9yXofFOh2j71Q-1; Fri, 12 Nov 2021 16:06:09 -0500
-X-MC-Unique: Y_wQVMJ1N9yXofFOh2j71Q-1
+	us-mta-226-2adREm5UPeyG81Gj9Bgzdw-1; Fri, 12 Nov 2021 16:06:09 -0500
+X-MC-Unique: 2adREm5UPeyG81Gj9Bgzdw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id DD062218B8;
-	Fri, 12 Nov 2021 21:06:07 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 358802199D;
+	Fri, 12 Nov 2021 21:06:08 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A1AA913CCC;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ECEA813CCC;
 	Fri, 12 Nov 2021 21:06:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id YGAzJT/XjmGyXwAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id kOOVNz/XjmGyXwAAMHmgww
 	(envelope-from <mwilck@suse.com>); Fri, 12 Nov 2021 21:06:07 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 12 Nov 2021 22:05:50 +0100
-Message-Id: <20211112210551.12744-2-mwilck@suse.com>
+Date: Fri, 12 Nov 2021 22:05:51 +0100
+Message-Id: <20211112210551.12744-3-mwilck@suse.com>
 In-Reply-To: <20211112210551.12744-1-mwilck@suse.com>
 References: <20211112210551.12744-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,11 +74,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ACL6EgR016421
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ACL6ENR016420
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 2/3] multipath-tools: add github workflow to save
-	and check ABI
+Subject: [dm-devel] [PATCH 3/3] multipath-tools: support generating
+	compile_commands.json
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,81 +102,44 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This adds a workflow that saves the ABI of libmultipath and the
-other libraries, and optionally tests it against a known-good state,
-which is taken from the configurable ABI_BRANCH. If the ABI differs,
-the workflow fails, and the abidiff output is saved in GH actions
-as artifact "abi-test".
-
-To configure the reference branch, set the repository secret ABI_BRANCH to the
-name of the branch that contains the ABI reference. The default is "master".
+This file is necessary to run clangd as helper for an IDE, e.g.
+with emacs lsp-mode.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- .github/workflows/abi.yaml | 54 ++++++++++++++++++++++++++++++++++++++
- 1 file changed, 54 insertions(+)
- create mode 100644 .github/workflows/abi.yaml
+ .gitignore | 1 +
+ Makefile   | 6 ++++++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/.github/workflows/abi.yaml b/.github/workflows/abi.yaml
-new file mode 100644
-index 0000000..53f10d4
---- /dev/null
-+++ b/.github/workflows/abi.yaml
-@@ -0,0 +1,54 @@
-+name: check-abi
-+on:
-+  - push
-+  - pull_request
-+env:
-+  ABI_BRANCH: ${{ secrets.ABI_BRANCH }}
+diff --git a/.gitignore b/.gitignore
+index 5dbac39..8e09f95 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -17,6 +17,7 @@ mpathpersist/mpathpersist
+ abi.tar.gz
+ abi
+ abi-test
++compile_commands.json
+ .nfs*
+ *.swp
+ *.patch
+diff --git a/Makefile b/Makefile
+index 1cec777..82e0ea3 100644
+--- a/Makefile
++++ b/Makefile
+@@ -66,6 +66,12 @@ abi-test:	abi reference-abi $(wildcard abi/*.abi)
+ 	fi; \
+ 	[ $$err -eq 0 ]
+ 
++# Create compile_commands.json, useful for using clangd with an IDE
++# Requires bear (https://github.com/rizsotto/Bear)
++compile_commands.json: Makefile Makefile.inc $(BUILDDIRS:=/Makefile)
++	$(MAKE) clean
++	bear -- $(MAKE)
 +
-+jobs:
-+  save-and-test-ABI:
-+    runs-on: ubuntu-20.04
-+    steps:
-+      - name: set ABI branch
-+        if: ${{ env.ABI_BRANCH == '' }}
-+        run: echo "ABI_BRANCH=master" >> $GITHUB_ENV
-+      - name: checkout
-+        uses: actions/checkout@v2
-+      - name: get reference ABI
-+        id: reference
-+        continue-on-error: true
-+        uses: dawidd6/action-download-artifact@v2
-+        with:
-+          workflow: abi.yaml
-+          branch: ${{ env.ABI_BRANCH }}
-+          name: abi
-+          path: reference-abi
-+      - name: update
-+        run: sudo apt-get update
-+      - name: dependencies
-+        run: >
-+          sudo apt-get install --yes gcc
-+          gcc make pkg-config abigail-tools
-+          libdevmapper-dev libreadline-dev libaio-dev libsystemd-dev
-+          libudev-dev libjson-c-dev liburcu-dev libcmocka-dev
-+      - name: create ABI
-+        run: make -O -j$(grep -c ^processor /proc/cpuinfo) abi.tar.gz
-+      - name: save ABI
-+        uses: actions/upload-artifact@v1
-+        with:
-+          name: abi
-+          path: abi
-+      - name: compare ABI against reference
-+        id: compare
-+        continue-on-error: true
-+        if: ${{ steps.reference.outcome == 'success' }}
-+        run: make abi-test
-+      - name: save differences
-+        if: ${{ steps.compare.outcome == 'failure' }}
-+        uses: actions/upload-artifact@v1
-+        with:
-+          name: abi-test
-+          path: abi-test
-+      - name: fail
-+        if: ${{ steps.compare.outcome == 'failure' }}
-+        run: false
+ libmultipath libdmmp: libmpathcmd
+ libmpathpersist libmpathvalid multipath multipathd: libmultipath
+ libmultipath/prioritizers libmultipath/checkers libmultipath/foreign: libmultipath
 -- 
 2.33.1
 
