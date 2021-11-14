@@ -1,73 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB61144FEDC
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C46E644FEDD
 	for <lists+dm-devel@lfdr.de>; Mon, 15 Nov 2021 07:55:00 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-267--1H0sGQANYGEwVL5bRg4fA-1; Mon, 15 Nov 2021 01:54:58 -0500
-X-MC-Unique: -1H0sGQANYGEwVL5bRg4fA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-494-_8Dw3MlCNDyl_81yOK-D5w-1; Mon, 15 Nov 2021 01:54:58 -0500
+X-MC-Unique: _8Dw3MlCNDyl_81yOK-D5w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D50681023F55;
-	Mon, 15 Nov 2021 06:54:52 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F2D95C1BB;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0A1B0824F97;
+	Mon, 15 Nov 2021 06:54:53 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8FAE960BE5;
 	Mon, 15 Nov 2021 06:54:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D248C181A1D1;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D1E844E590;
 	Mon, 15 Nov 2021 06:54:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AC7J9JI004099 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 12 Nov 2021 02:19:09 -0500
+	id 1AE76R7w004315 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 14 Nov 2021 02:06:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8BF3A404727C; Fri, 12 Nov 2021 07:19:09 +0000 (UTC)
+	id 14DE52166B26; Sun, 14 Nov 2021 07:06:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8824A4047279
-	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 07:19:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EC3F2166B25
+	for <dm-devel@redhat.com>; Sun, 14 Nov 2021 07:06:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F0BD106655A
-	for <dm-devel@redhat.com>; Fri, 12 Nov 2021 07:19:09 +0000 (UTC)
-Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
-	[209.85.208.46]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-587-daZHGl2hMoCv7-YHoSkEZQ-1; Fri, 12 Nov 2021 02:19:07 -0500
-X-MC-Unique: daZHGl2hMoCv7-YHoSkEZQ-1
-Received: by mail-ed1-f46.google.com with SMTP id f4so33957622edx.12;
-	Thu, 11 Nov 2021 23:19:07 -0800 (PST)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC6D0811E76
+	for <dm-devel@redhat.com>; Sun, 14 Nov 2021 07:06:18 +0000 (UTC)
+Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
+	[209.85.208.43]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-570-hFEHgQzsOFCl3Br8bvtRBQ-1; Sun, 14 Nov 2021 02:06:14 -0500
+X-MC-Unique: hFEHgQzsOFCl3Br8bvtRBQ-1
+Received: by mail-ed1-f43.google.com with SMTP id r12so56561313edt.6;
+	Sat, 13 Nov 2021 23:06:13 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to;
-	bh=23MuWJBgLsmpo3DWwY1zc1kp+jWhxY7Ijuwd9E4NgEk=;
-	b=LWH9EXDwCBL4Tk1g+jUSaqq6dnGaizb+oxmDF6VT382fchWJWXskmhD1vtW7Pb9qRm
-	ziyl425JOoI4MSfKzeaiup/MGBeSPj/EDPHZ2GA0GOkcvDrW3P3g2xfLkNdDJ50GZ6lj
-	74vMANYiB+Ai7h98MHGRrfCK0y3FwyUqVvaAW3VCpIdeOZY91wB/2xdXJCEEF6NPaWKv
-	/m5wz4LlclBucqn47jDrk6iUGwi5KJXgBi97B0YOda3C5fqZkV/IrGd6mf5OVCS5CbZF
-	SCvs4XBKpRDGeG5BFYeQto7cMhvefqk5RmDuWjlSkrPWQYdX3R7rn8p3zV3rTlDD16iv
-	eCBA==
-X-Gm-Message-State: AOAM532FU8enYsbNXZxJJHrdps9SDlIMmTWLt/X79UQZad+rm8e/72Ev
-	rNnHDLgPIUfKcbop/He4rjbcEkUKGjCrD5GnOS0=
-X-Google-Smtp-Source: ABdhPJx13NMWj+ghQdIXzWAZXD21zp7HK2PPcgzpsVoQ5oiXGPhrERb6kk1sCFUWYPnyLmUI/dMVXMZ3WHQjPvatP2I=
-X-Received: by 2002:a17:906:fca3:: with SMTP id
-	qw3mr17312375ejb.285.1636701546085; 
-	Thu, 11 Nov 2021 23:19:06 -0800 (PST)
+	bh=lTAWwzCDf/mzTJzs3+RMQBARAQp9pv2hNSSRu5s7rGk=;
+	b=kPvrL/OEfh6fqoc+857YQuFBg+L5BOhB6ysbZytY+JyFB3KS2dnl64F0ocCzirmvz5
+	NAC+xWbSR5I/mqgFNS/aU3l5WpXPAGTH7X7/uhT+jtkKYiMstdAYiXoBrEJv5b40mk9u
+	5lVIHKnP/gl24q9d3UXs1znrguKBRih/G5FlLfiCeNoQ+mJdEQ5wiihwQsMbRQlrxgg/
+	mYIj9f6HZg/NqFJvbbxCLjfBQO9p21NYkmqPyVksoeX6/lW22lgUKCOZ5XU1w1fvf+tr
+	fvJWpmJkNe/pOX/q90zNMpIyYROsuOrIy6VSW731ENo4ssdA/HlkeUO5jhDaBiCrz5JK
+	gXIQ==
+X-Gm-Message-State: AOAM533WfxqAs1lXHuCH33joR1sVClvsLaSyjalS7KNjV5XPmPY2t2qc
+	NQi2sBi/IKKEMoQpmOa52PVcWyKeFvuNCwqeEGg=
+X-Google-Smtp-Source: ABdhPJz6F7eb7ZlPz+uZ1ryBjKV5MJY+6g8VTzYPNDQv8d/IMiyQJel1uICTBXlYxhNSBRKxb1cJsAgM4Rtiu1G511Y=
+X-Received: by 2002:a17:906:b084:: with SMTP id
+	x4mr35926642ejy.214.1636873572801; 
+	Sat, 13 Nov 2021 23:06:12 -0800 (PST)
 MIME-Version: 1.0
 References: <CAOuPNLinoW5Cx=xbUcT-DB4RiQkAPpe=9hsc-Rkch0LxD0mh+Q@mail.gmail.com>
 	<CAOuPNLgquwOJg85kDcf67+4kTYP9N=45FvV+VDTJr6txYi5-wg@mail.gmail.com>
 	<CAOuPNLjFtS7ftg=+-K3S+0ndyNYmUNqXo7SHkyV4zK4G9bZ4Og@mail.gmail.com>
-In-Reply-To: <CAOuPNLjFtS7ftg=+-K3S+0ndyNYmUNqXo7SHkyV4zK4G9bZ4Og@mail.gmail.com>
+	<CAOuPNLg_YwyhK6iPZZbRWe57Kkr1d8LjJaDniCvvOqk4t2-Sog@mail.gmail.com>
+In-Reply-To: <CAOuPNLg_YwyhK6iPZZbRWe57Kkr1d8LjJaDniCvvOqk4t2-Sog@mail.gmail.com>
 From: Pintu Agarwal <pintu.ping@gmail.com>
-Date: Fri, 12 Nov 2021 12:48:55 +0530
-Message-ID: <CAOuPNLg_YwyhK6iPZZbRWe57Kkr1d8LjJaDniCvvOqk4t2-Sog@mail.gmail.com>
+Date: Sun, 14 Nov 2021 12:36:01 +0530
+Message-ID: <CAOuPNLgYhm=goOiABjUFsAvRW+s2NqHjHYdm5MA9PvoUAMxOpg@mail.gmail.com>
 To: open list <linux-kernel@vger.kernel.org>,
 	linux-mtd <linux-mtd@lists.infradead.org>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>, dm-devel@redhat.com,
@@ -75,9 +75,10 @@ To: open list <linux-kernel@vger.kernel.org>,
 	Mikulas Patocka <mpatocka@redhat.com>, Richard Weinberger <richard@nod.at>,
 	Florian Fainelli <f.fainelli@gmail.com>,
 	Sumit Semwal <sumit.semwal@linaro.org>,
-	Thomas Petazzoni <thomas.petazzoni@bootlin.com>, drosen@google.com,
-	astrachan@google.com, speed.eom@samsung.com,
-	Sami Tolvanen <samitolvanen@google.com>, snitzer@redhat.com
+	Thomas Petazzoni <thomas.petazzoni@bootlin.com>,
+	Daniel Rosenberg <drosen@google.com>, astrachan@google.com,
+	speed.eom@samsung.com, Sami Tolvanen <samitolvanen@google.com>,
+	snitzer@redhat.com, squashfs-devel@lists.sourceforge.net
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -86,7 +87,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 15 Nov 2021 01:54:31 -0500
 Subject: Re: [dm-devel] Kernel-4.14: With ubuntu-18.04 building rootfs
@@ -105,7 +106,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -113,46 +114,75 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
++ Adding squashfs-devel to get opinion from squashfs side.
 
-On Tue, 9 Nov 2021 at 21:04, Pintu Agarwal <pintu.ping@gmail.com> wrote:
+On Fri, 12 Nov 2021 at 12:48, Pintu Agarwal <pintu.ping@gmail.com> wrote:
+>
+> Hi,
+>
+> On Tue, 9 Nov 2021 at 21:04, Pintu Agarwal <pintu.ping@gmail.com> wrote:
+>
+> > > > We only get these squashfs errors flooded in the boot logs:
+> > > > {{{
+> > > > ....
+> > > > [    5.153479] device-mapper: init: dm-0 is ready
+> > > > [    5.334282] VFS: Mounted root (squashfs filesystem) readonly on device 253:0.
+> > > > ....
+> > > > [    8.954120] SQUASHFS error: xz decompression failed, data probably corrupt
+> > > > [    8.954153] SQUASHFS error: squashfs_read_data failed to read block 0x1106
+> > > > [    8.970316] SQUASHFS error: Unable to read data cache entry [1106]
+> > > > [    8.970349] SQUASHFS error: Unable to read page, block 1106, size 776c
+> > > > [    8.980298] SQUASHFS error: Unable to read data cache entry [1106]
+> > > > [    8.981911] SQUASHFS error: Unable to read page, block 1106, size 776c
+> > > > [    8.988280] SQUASHFS error: Unable to read data cache entry [1106]
+> > > > ....
+> > > > }}}
+> > > >
+>
+> One more observation:
+> When I disable FEC flag in bootloader, I see the below error:
+> [    8.360791] device-mapper: verity: 253:0: data block 2 is corrupted
+> [    8.361134] device-mapper: verity: 253:0: data block 3 is corrupted
+> [    8.366016] SQUASHFS error: squashfs_read_data failed to read block 0x1106
+> [    8.379652] SQUASHFS error: Unable to read data cache entry [1106]
+> [    8.379680] SQUASHFS error: Unable to read page, block 1106, size 7770
+>
+> Also, now I see that the decompress error is gone, but the read error
+> is still there.
+>
+> This seems to me that dm-verity detects some corrupted blocks but with
+> FEC it auto corrects itself, how when dm-verity auto corrects itself,
+> the squashfs decompression algorithm somehow could not understand it.
+>
+> So, it seems like there is some mis-match between the way FEC
+> correction and the squashfs decompression happens ?
+>
+> Is this issue seen by anybody else here ?
+>
 
-> > > We only get these squashfs errors flooded in the boot logs:
-> > > {{{
-> > > ....
-> > > [    5.153479] device-mapper: init: dm-0 is ready
-> > > [    5.334282] VFS: Mounted root (squashfs filesystem) readonly on device 253:0.
-> > > ....
-> > > [    8.954120] SQUASHFS error: xz decompression failed, data probably corrupt
-> > > [    8.954153] SQUASHFS error: squashfs_read_data failed to read block 0x1106
-> > > [    8.970316] SQUASHFS error: Unable to read data cache entry [1106]
-> > > [    8.970349] SQUASHFS error: Unable to read page, block 1106, size 776c
-> > > [    8.980298] SQUASHFS error: Unable to read data cache entry [1106]
-> > > [    8.981911] SQUASHFS error: Unable to read page, block 1106, size 776c
-> > > [    8.988280] SQUASHFS error: Unable to read data cache entry [1106]
-> > > ....
-> > > }}}
-> > >
+The squashfs version used by Kernel:
+[    0.355958] squashfs: version 4.0 (2009/01/31) Phillip Lougher
 
-One more observation:
-When I disable FEC flag in bootloader, I see the below error:
-[    8.360791] device-mapper: verity: 253:0: data block 2 is corrupted
-[    8.361134] device-mapper: verity: 253:0: data block 3 is corrupted
-[    8.366016] SQUASHFS error: squashfs_read_data failed to read block 0x1106
-[    8.379652] SQUASHFS error: Unable to read data cache entry [1106]
-[    8.379680] SQUASHFS error: Unable to read page, block 1106, size 7770
+The squashfs version available on Ubuntu:
+mksquashfs version 4.3-git (2014/06/09)
 
-Also, now I see that the decompress error is gone, but the read error
-is still there.
+The squashfs version used by Yocto 2.6:
+squashfs-tools/0001-squashfs-tools-Allow-setting-selinux-xattrs-through-.patch:61:
+   printf("mksquashfs version 4.3-git (2014/09/12)\n");
 
-This seems to me that dm-verity detects some corrupted blocks but with
-FEC it auto corrects itself, how when dm-verity auto corrects itself,
-the squashfs decompression algorithm somehow could not understand it.
+We create dm-verity squashfs image using version 4.3 whereas, the
+kernel uses 4.0 version to decompress it.
+Is there something missing here?
 
-So, it seems like there is some mis-match between the way FEC
-correction and the squashfs decompression happens ?
+When FEC (Forward Error Correction) comes into picture, then squashfs
+decompress fails.
+When we remove FEC flag from dm-verity then decompress works but read
+error still occurs.
+This seems as if something is missing either in FEC handling or either
+in squashfs decompress logic.
 
-Is this issue seen by anybody else here ?
+Just wanted to know if there are any fixes already available in the
+mainline for this ?
 
 
 Thanks,
