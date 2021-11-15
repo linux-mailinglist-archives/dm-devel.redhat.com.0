@@ -1,84 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BA520451524
-	for <lists+dm-devel@lfdr.de>; Mon, 15 Nov 2021 21:24:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDEEF451AFF
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 00:46:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1637019980;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=VM3Hm8YInWm3+aMFdSyp0avc1wwW02xJj88px/V9f0U=;
+	b=fD8qfQEFW6SRdf9SpL7P81t+cmfpOV2pJ6PrNIghII78oCLJ+5cTZKjlmK3VbzYTHn7rX6
+	gqRcy01BYuXviNv3LCW+F3Np13mFIAVSt+6ABCyvybAc1SHzeS7OjfQOAgngSUkfce7i35
+	mAZOGzLGKlCad9XrPb7u9dwfZzYQ2Jg=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
- [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-323-kOZCv5oLMpKpDgWWTD53Rw-1; Mon, 15 Nov 2021 15:24:00 -0500
-X-MC-Unique: kOZCv5oLMpKpDgWWTD53Rw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-46-Pa0OAXXbMHS7PERWLEPgag-1; Mon, 15 Nov 2021 18:46:18 -0500
+X-MC-Unique: Pa0OAXXbMHS7PERWLEPgag-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9FA348799EC;
-	Mon, 15 Nov 2021 20:23:53 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C76975D6D7;
-	Mon, 15 Nov 2021 20:23:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9B851102CB3A;
+	Mon, 15 Nov 2021 23:46:12 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9973A5DEFB;
+	Mon, 15 Nov 2021 23:46:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9D7081806D03;
-	Mon, 15 Nov 2021 20:23:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C1DC4A703;
+	Mon, 15 Nov 2021 23:45:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AFKMFXY015162 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 15 Nov 2021 15:22:15 -0500
+	id 1AFNjkRm000526 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 15 Nov 2021 18:45:46 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A44C040CFD10; Mon, 15 Nov 2021 20:22:15 +0000 (UTC)
+	id 3ACCE100164A; Mon, 15 Nov 2021 23:45:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EE7A4010FE9
-	for <dm-devel@redhat.com>; Mon, 15 Nov 2021 20:22:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8405E1066689
-	for <dm-devel@redhat.com>; Mon, 15 Nov 2021 20:22:15 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) (Using
-	TLS) by relay.mimecast.com with ESMTP id
-	us-mta-601-NhGjhrPpNvKhdMHqdeHWEA-1; Mon, 15 Nov 2021 15:22:13 -0500
-X-MC-Unique: NhGjhrPpNvKhdMHqdeHWEA-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 2F36B21954;
-	Mon, 15 Nov 2021 20:22:12 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DB6C313A95;
-	Mon, 15 Nov 2021 20:22:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id CFBvM3PBkmGRDAAAMHmgww
-	(envelope-from <mwilck@suse.com>); Mon, 15 Nov 2021 20:22:11 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
-	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 15 Nov 2021 21:22:01 +0100
-Message-Id: <20211115202201.755-3-mwilck@suse.com>
-In-Reply-To: <20211115202201.755-1-mwilck@suse.com>
-References: <20211115202201.755-1-mwilck@suse.com>
+Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D3D70100EBBE;
+	Mon, 15 Nov 2021 23:45:35 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AFNjYqA022244; 
+	Mon, 15 Nov 2021 17:45:34 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AFNjX6a022243;
+	Mon, 15 Nov 2021 17:45:33 -0600
+Date: Mon, 15 Nov 2021 17:45:33 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <martin.wilck@suse.com>
+Message-ID: <20211115234533.GV19591@octiron.msp.redhat.com>
+References: <1632180076-9294-1-git-send-email-bmarzins@redhat.com>
+	<1632180076-9294-2-git-send-email-bmarzins@redhat.com>
+	<6ff4fe373d52e282af83aa0ca7c116b71fe9480e.camel@suse.com>
+	<b908909b2370f188872b0da5e9d90524af848370.camel@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AFKMFXY015162
+In-Reply-To: <b908909b2370f188872b0da5e9d90524af848370.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 3/3] kpartx: find_unused_loop_device(): add
-	newlines
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/4] multipathd: move delayed_reconfig out of
+ struct config
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,63 +78,44 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+On Mon, Nov 15, 2021 at 04:27:40PM +0000, Martin Wilck wrote:
+> On Mon, 2021-11-15 at 17:10 +0100, Martin Wilck wrote:
+> > On Mon, 2021-09-20 at 18:21 -0500, Benjamin Marzinski wrote:
+> > > delayed_reconfig was inside the config struct, but it wasn't updated
+> > > during an RCU write section, so there's no synchronization on it.
+> > > Instead, pull it out of the config structure, and use the config_lock
+> > > to synchronize it.
+> > > 
+> > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> > 
+> > Reviewed-by: Martin Wilck <mwilck@suse.com>
+> > 
+> 
+> I forgot: this patch changes the ABI of libmpathpersist and
+> libmultipath. Not in a bad way, because "struct config" is opaque to
+> users of libmpathpersist, but for staying consistent, we should adapt
+> the library versions.
 
-... to avoid these messages being joined with the error message
-from the caller.
+Oops. Yeah, I can bump the version.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- kpartx/lopart.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/kpartx/lopart.c b/kpartx/lopart.c
-index fccb522..ba9f2c0 100644
---- a/kpartx/lopart.c
-+++ b/kpartx/lopart.c
-@@ -209,26 +209,26 @@ nothing_found:
- 	}
+-Ben
  
- 	if (!somedev)
--		fprintf(stderr, "mount: could not find any device /dev/loop#");
-+		fprintf(stderr, "mount: could not find any device /dev/loop#\n");
- 
- 	else if (!someloop) {
- 		if (loop_known == 1)
- 			fprintf(stderr,
- 				"mount: Could not find any loop device.\n"
--				"       Maybe /dev/loop# has a wrong major number?");
-+				"       Maybe /dev/loop# has a wrong major number?\n");
- 		else if (loop_known == -1)
- 			fprintf(stderr,
- 				"mount: Could not find any loop device, and, according to %s,\n"
- 				"       this kernel does not know about the loop device.\n"
--				"       (If so, then recompile or `modprobe loop'.)",
-+				"       (If so, then recompile or `modprobe loop'.)\n",
- 				PROC_DEVICES);
- 		else
- 			fprintf(stderr,
- 				"mount: Could not find any loop device. Maybe this kernel does not know\n"
- 				"       about the loop device (then recompile or `modprobe loop'), or\n"
--				"       maybe /dev/loop# has the wrong major number?");
-+				"       maybe /dev/loop# has the wrong major number?\n");
- 	} else
--		fprintf(stderr, "mount: could not find any free loop device");
-+		fprintf(stderr, "mount: could not find any free loop device\n");
- 	return NULL;
- }
- 
--- 
-2.33.1
-
+> See https://github.com/openSUSE/multipath-tools/actions/runs/1455114454
+> (open the "abi-test" artifact to check the details).
+> 
+> Regards
+> Martin
+> 
+> 
 
 --
 dm-devel mailing list
