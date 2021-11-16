@@ -2,63 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 411C8453373
-	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 15:01:00 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3EBC045339F
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 15:05:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-268-Ld7B9M_sMvaLg69sdpSK9w-1; Tue, 16 Nov 2021 09:00:55 -0500
-X-MC-Unique: Ld7B9M_sMvaLg69sdpSK9w-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-510-tyB8GdrVNp6l52i926KiJw-1; Tue, 16 Nov 2021 09:05:08 -0500
+X-MC-Unique: tyB8GdrVNp6l52i926KiJw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1C2E4100CC85;
-	Tue, 16 Nov 2021 14:00:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CEF051023F54;
+	Tue, 16 Nov 2021 14:05:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A5214781B1;
-	Tue, 16 Nov 2021 14:00:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 92B2260BF1;
+	Tue, 16 Nov 2021 14:05:00 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 13A434EA29;
-	Tue, 16 Nov 2021 14:00:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8941A4EA29;
+	Tue, 16 Nov 2021 14:04:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AGE0Ld4002273 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Nov 2021 09:00:22 -0500
+	id 1AGE17LC002386 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Nov 2021 09:01:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BD17151E2; Tue, 16 Nov 2021 14:00:21 +0000 (UTC)
+	id A00EE2166B25; Tue, 16 Nov 2021 14:01:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B669B51DD
-	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:00:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFA9418A6582
-	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:00:18 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98ECD2166B2F
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:01:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90C9481DA1A
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:01:02 +0000 (UTC)
 Received: from szxga08-in.huawei.com (szxga08-in.huawei.com
-	[45.249.212.255]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-135-JXHFHpyQMDWxwkmIOfMFgw-1; Tue, 16 Nov 2021 09:00:14 -0500
-X-MC-Unique: JXHFHpyQMDWxwkmIOfMFgw-1
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.56])
-	by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Htngx0qbyz1DJSV;
-	Tue, 16 Nov 2021 21:57:49 +0800 (CST)
+	[45.249.212.255]) (Using TLS) by relay.mimecast.com with ESMTP id
+	us-mta-432-196FdXkePWC3CVhT2vzxoA-1; Tue, 16 Nov 2021 09:01:00 -0500
+X-MC-Unique: 196FdXkePWC3CVhT2vzxoA-1
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.55])
+	by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Htnhm6mN5z1DJSh;
+	Tue, 16 Nov 2021 21:58:32 +0800 (CST)
 Received: from kwepemm600010.china.huawei.com (7.193.23.86) by
-	dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
+	dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.20; Tue, 16 Nov 2021 22:00:10 +0800
+	15.1.2308.20; Tue, 16 Nov 2021 22:00:54 +0800
 Received: from [10.174.179.176] (10.174.179.176) by
 	kwepemm600010.china.huawei.com (7.193.23.86) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.15; Tue, 16 Nov 2021 22:00:10 +0800
+	15.1.2308.15; Tue, 16 Nov 2021 22:00:54 +0800
 From: lixiaokeng <lixiaokeng@huawei.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
 	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
 	mailing list" <dm-devel@redhat.com>
 References: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
-Message-ID: <8d2e8d87-67dd-e4e1-3253-abcd229c4546@huawei.com>
-Date: Tue, 16 Nov 2021 22:00:09 +0800
+Message-ID: <483a6cc1-10f1-a702-2e44-42ab7cb8e3cd@huawei.com>
+Date: Tue, 16 Nov 2021 22:00:53 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
@@ -75,11 +75,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>,
 	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] [PATCH 3/5] remove unnecessary free
+Subject: [dm-devel] [PATCH 4/5] Match FREE and MALLOC/STRDUP/REALLOC
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,32 +102,202 @@ Content-Language: en-GB
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-arg will be free by cleanup_charp. FREE(args)
-is unnecessary before return. Remove it.
+In _DEBUG_ mode, MALLOC/STRDUP/REALLOC and FREE will record
+the memory usage. Match them.
 
 Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
 ---
- libmultipath/prioritizers/weightedpath.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ kpartx/dasd.c                        | 5 +++--
+ kpartx/kpartx.c                      | 7 ++++---
+ libmultipath/blacklist.c             | 6 +++---
+ libmultipath/checkers/emc_clariion.c | 2 +-
+ libmultipath/config.c                | 4 ++--
+ libmultipath/configure.c             | 4 ++--
+ libmultipath/dmparser.c              | 2 +-
+ libmultipath/parser.c                | 2 +-
+ libmultipath/structs.c               | 2 +-
+ multipathd/main.c                    | 2 +-
+ 10 files changed, 19 insertions(+), 17 deletions(-)
 
-diff --git a/libmultipath/prioritizers/weightedpath.c b/libmultipath/prioritizers/weightedpath.c
-index ea03fc3d..32d1cf0c 100644
---- a/libmultipath/prioritizers/weightedpath.c
-+++ b/libmultipath/prioritizers/weightedpath.c
-@@ -75,13 +75,12 @@ int prio_path_weight(struct path *pp, char *prio_args)
- 	if (!prio_args)
- 		return priority;
+diff --git a/kpartx/dasd.c b/kpartx/dasd.c
+index f0398645..14744048 100644
+--- a/kpartx/dasd.c
++++ b/kpartx/dasd.c
+@@ -40,6 +40,7 @@
+ #include "kpartx.h"
+ #include "byteorder.h"
+ #include "dasd.h"
++#include "memory.h"
 
--	arg = temp = STRDUP(prio_args);
-+	arg = temp = strdup(prio_args);
+ unsigned long long sectors512(unsigned long long sectors, int blocksize)
+ {
+@@ -100,10 +101,10 @@ read_dasd_pt(int fd, __attribute__((unused)) struct slice all,
+ 		 * Get the first target and operate on that instead.
+ 		 */
+ 		if (!(dev = dm_get_first_dep(devname))) {
+-			free(devname);
++			FREE(devname);
+ 			return -1;
+ 		}
+-		free(devname);
++		FREE(devname);
 
- 	regex = get_next_string(&temp, split_char);
+ 		if ((unsigned int)major(dev) != 94) {
+ 			/* Not a DASD */
+diff --git a/kpartx/kpartx.c b/kpartx/kpartx.c
+index 7bc64543..5e59063d 100644
+--- a/kpartx/kpartx.c
++++ b/kpartx/kpartx.c
+@@ -39,6 +39,7 @@
+ #include "lopart.h"
+ #include "kpartx.h"
+ #include "version.h"
++#include "memory.h"
 
- 	/* Return default priority if the argument is not parseable */
- 	if (!regex) {
--		FREE(arg);
- 		return priority;
+ #define SIZE(a) (sizeof(a)/sizeof((a)[0]))
+
+@@ -177,7 +178,7 @@ get_hotplug_device(void)
+
+ 	/* Dirname + mapname + \0 */
+ 	if (!(device = (char *)malloc(sizeof(char) * (off + len + 1)))) {
+-		free(mapname);
++		FREE(mapname);
+ 		return NULL;
  	}
+
+@@ -187,10 +188,10 @@ get_hotplug_device(void)
+
+ 	if (strlen(device) != (off + len)) {
+ 		free(device);
+-		free(mapname);
++		FREE(mapname);
+ 		return NULL;
+ 	}
+-	free(mapname);
++	FREE(mapname);
+ 	return device;
+ }
+
+diff --git a/libmultipath/blacklist.c b/libmultipath/blacklist.c
+index 4e315c97..573df152 100644
+--- a/libmultipath/blacklist.c
++++ b/libmultipath/blacklist.c
+@@ -39,7 +39,7 @@ int store_ble(vector blist, const char *str, int origin)
+ 	if (!str)
+ 		return 0;
+
+-	strdup_str = strdup(str);
++	strdup_str = STRDUP(str);
+ 	if (!strdup_str)
+ 		return 1;
+
+@@ -134,8 +134,8 @@ out1:
+ 		ble->vendor = NULL;
+ 	}
+ out:
+-	free(vendor_str);
+-	free(product_str);
++	FREE(vendor_str);
++	FREE(product_str);
+ 	return 1;
+ }
+
+diff --git a/libmultipath/checkers/emc_clariion.c b/libmultipath/checkers/emc_clariion.c
+index 5cd63aca..b3f0aded 100644
+--- a/libmultipath/checkers/emc_clariion.c
++++ b/libmultipath/checkers/emc_clariion.c
+@@ -128,7 +128,7 @@ int libcheck_mp_init (struct checker * c)
+
+ void libcheck_free (struct checker * c)
+ {
+-	free(c->context);
++	FREE(c->context);
+ }
+
+ int libcheck_check (struct checker * c)
+diff --git a/libmultipath/config.c b/libmultipath/config.c
+index 30046a17..667b500b 100644
+--- a/libmultipath/config.c
++++ b/libmultipath/config.c
+@@ -1051,10 +1051,10 @@ int parse_uid_attrs(char *uid_attrs, struct config *conf)
+ 		if (!tmp) {
+ 			condlog(2, "invalid record in uid_attrs: %s",
+ 				uid_attr_record);
+-			free(uid_attr_record);
++			FREE(uid_attr_record);
+ 			ret = 1;
+ 		} else if (!vector_alloc_slot(attrs)) {
+-			free(uid_attr_record);
++			FREE(uid_attr_record);
+ 			ret = 1;
+ 		} else
+ 			vector_set_slot(attrs, uid_attr_record);
+diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+index 7edb355b..9545854b 100644
+--- a/libmultipath/configure.c
++++ b/libmultipath/configure.c
+@@ -738,8 +738,8 @@ void select_action (struct multipath *mpp, const struct _vector *curmp,
+ 		condlog(1, "%s: can't use alias \"%s\" used by %s, falling back to WWID",
+ 			mpp->wwid, mpp->alias, cmpp_by_name->wwid);
+ 		/* We can do this because wwid wasn't found */
+-		free(mpp->alias);
+-		mpp->alias = strdup(mpp->wwid);
++		FREE(mpp->alias);
++		mpp->alias = STRDUP(mpp->wwid);
+ 		mpp->action = ACT_CREATE;
+ 		condlog(3, "%s: set ACT_CREATE (map does not exist, name changed)",
+ 			mpp->alias);
+diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
+index 4ba7f339..96beeb6d 100644
+--- a/libmultipath/dmparser.c
++++ b/libmultipath/dmparser.c
+@@ -30,7 +30,7 @@ merge_words(char **dst, const char *word)
+ 	*dst = REALLOC(*dst, len);
+
+ 	if (!*dst) {
+-		free(p);
++		FREE(p);
+ 		return 1;
+ 	}
+
+diff --git a/libmultipath/parser.c b/libmultipath/parser.c
+index 68262d0e..f0047c4d 100644
+--- a/libmultipath/parser.c
++++ b/libmultipath/parser.c
+@@ -364,7 +364,7 @@ set_value(vector strvec)
+ 	for (i = 2; i < VECTOR_SIZE(strvec); i++) {
+ 		str = VECTOR_SLOT(strvec, i);
+ 		if (!str) {
+-			free(alloc);
++			FREE(alloc);
+ 			condlog(0, "parse error for option '%s'",
+ 				(char *)VECTOR_SLOT(strvec, 0));
+ 			return NULL;
+diff --git a/libmultipath/structs.c b/libmultipath/structs.c
+index 6e5a1038..e8cacb4b 100644
+--- a/libmultipath/structs.c
++++ b/libmultipath/structs.c
+@@ -106,7 +106,7 @@ alloc_path (void)
+ 		dm_path_to_gen(pp)->ops = &dm_gen_path_ops;
+ 		pp->hwe = vector_alloc();
+ 		if (pp->hwe == NULL) {
+-			free(pp);
++			FREE(pp);
+ 			return NULL;
+ 		}
+ 	}
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 1defeaf1..82ab3ed1 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -3555,7 +3555,7 @@ void *  mpath_pr_event_handler_fn (void * pathp )
+ 		goto out;
+ 	}
+
+-	param = (struct prout_param_descriptor *)MALLOC(sizeof(struct prout_param_descriptor));
++	param = (struct prout_param_descriptor *)calloc(1, sizeof(struct prout_param_descriptor));
+ 	if (!param)
+ 		goto out;
 
 -- 
 
