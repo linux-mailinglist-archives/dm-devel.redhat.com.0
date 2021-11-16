@@ -1,68 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50D5B4533E8
-	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 15:15:35 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C90B5453372
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 15:00:27 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-478-HXSIHNNjM6CCmCeLnfE3qQ-1; Tue, 16 Nov 2021 09:15:29 -0500
-X-MC-Unique: HXSIHNNjM6CCmCeLnfE3qQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-519-A9_PNWkZPEi55l8BvGA95w-1; Tue, 16 Nov 2021 09:00:17 -0500
+X-MC-Unique: A9_PNWkZPEi55l8BvGA95w-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0E7951023F6C;
-	Tue, 16 Nov 2021 14:15:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2B5D1F41E;
-	Tue, 16 Nov 2021 14:15:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D400219200C1;
+	Tue, 16 Nov 2021 14:00:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 39C291053B37;
+	Tue, 16 Nov 2021 14:00:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 322801806D03;
-	Tue, 16 Nov 2021 14:15:13 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43AA94A703;
+	Tue, 16 Nov 2021 13:59:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AGEF6To005105 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Nov 2021 09:15:06 -0500
+	id 1AGDxfEY002123 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Nov 2021 08:59:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4A61A2166B2D; Tue, 16 Nov 2021 14:15:06 +0000 (UTC)
+	id CBF17400F3C4; Tue, 16 Nov 2021 13:59:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 452392166B26
-	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:15:03 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E01D181E066
-	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:15:03 +0000 (UTC)
-Received: from szxga08-in.huawei.com (szxga08-in.huawei.com
-	[45.249.212.255]) by relay.mimecast.com with ESMTP with STARTTLS
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C77AE400F3C1
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 13:59:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD43480A0F6
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 13:59:41 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
+	[45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-36-TR9ygYrqN6Oz67_tsFzqSA-1; Tue, 16 Nov 2021 09:15:01 -0500
-X-MC-Unique: TR9ygYrqN6Oz67_tsFzqSA-1
-Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.57])
-	by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Htnf42KySz1DJVW;
-	Tue, 16 Nov 2021 21:56:12 +0800 (CST)
+	us-mta-155--V9t8HKSP9eIy0j4xtW9xQ-1; Tue, 16 Nov 2021 08:59:39 -0500
+X-MC-Unique: -V9t8HKSP9eIy0j4xtW9xQ-1
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.57])
+	by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4Htnbx415gzbhsQ;
+	Tue, 16 Nov 2021 21:54:21 +0800 (CST)
 Received: from kwepemm600010.china.huawei.com (7.193.23.86) by
-	dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+	dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.20; Tue, 16 Nov 2021 21:58:34 +0800
+	15.1.2308.20; Tue, 16 Nov 2021 21:59:16 +0800
 Received: from [10.174.179.176] (10.174.179.176) by
 	kwepemm600010.china.huawei.com (7.193.23.86) with Microsoft SMTP Server
 	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.15; Tue, 16 Nov 2021 21:58:33 +0800
+	15.1.2308.15; Tue, 16 Nov 2021 21:59:15 +0800
+From: lixiaokeng <lixiaokeng@huawei.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
 	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
 	mailing list" <dm-devel@redhat.com>
-From: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
-Date: Tue, 16 Nov 2021 21:58:32 +0800
+References: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
+Message-ID: <7a7efb76-ae21-0630-aab5-52d6b06d93ef@huawei.com>
+Date: Tue, 16 Nov 2021 21:59:14 +0800
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
 	Thunderbird/68.10.0
 MIME-Version: 1.0
+In-Reply-To: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
 X-Originating-IP: [10.174.179.176]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
 	kwepemm600010.china.huawei.com (7.193.23.86)
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -73,12 +75,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
 Cc: linfeilong <linfeilong@huawei.com>,
 	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] =?utf-8?q?=5BPATCH_0/5=5D_multipath-tools_series?=
- =?utf-8?q?=EF=BC=9A_some_codeclean_and_add_prflag_to_path?=
+Subject: [dm-devel] [PATCH 1/5] Fix potential null pointer dereference
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,33 +102,85 @@ Content-Language: en-GB
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-lixiaokeng (5):
-  Fix potential null pointer dereference
-  remove unnecessary memset
-  remove unnecessary free
-  Match FREE and MALLOC/STRDUP/REALLOC
-  add prflag to path
+udev_device_* may return NULL, check it.
 
- kpartx/dasd.c                            |  5 +++--
- kpartx/kpartx.c                          |  7 ++++---
- libmpathpersist/mpath_persist.c          |  2 +-
- libmultipath/blacklist.c                 |  6 +++---
- libmultipath/checkers/emc_clariion.c     |  2 +-
- libmultipath/config.c                    |  4 ++--
- libmultipath/configure.c                 |  4 ++--
- libmultipath/discovery.c                 |  8 +++++---
- libmultipath/dmparser.c                  |  2 +-
- libmultipath/foreign/nvme.c              |  4 +++-
- libmultipath/log.c                       |  1 -
- libmultipath/parser.c                    |  2 +-
- libmultipath/prioritizers/weightedpath.c |  3 +--
- libmultipath/structs.c                   |  3 ++-
- libmultipath/structs.h                   | 12 ++++++++++++
- libmultipath/util.c                      | 10 +++++++++-
- multipathd/cli_handlers.c                | 15 ++++++++++-----
- multipathd/main.c                        |  9 ++++++---
- multipathd/waiter.c                      |  1 -
- 19 files changed, 66 insertions(+), 34 deletions(-)
+Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+---
+ libmultipath/discovery.c    |  8 +++++---
+ libmultipath/foreign/nvme.c |  4 +++-
+ libmultipath/util.c         | 10 +++++++++-
+ 3 files changed, 17 insertions(+), 5 deletions(-)
+
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index f25fe9e3..48f3d8b2 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -388,8 +388,10 @@ sysfs_get_tgt_nodename(struct path *pp, char *node)
+ 		if (value && !strcmp(value, "usb")) {
+ 			pp->sg_id.proto_id = SCSI_PROTOCOL_USB;
+ 			tgtname = udev_device_get_sysname(tgtdev);
+-			strlcpy(node, tgtname, NODE_NAME_SIZE);
+-			return 0;
++			if (!tgtname) {
++				strlcpy(node, tgtname, NODE_NAME_SIZE);
++				return 0;
++			}
+ 		}
+ 		tgtdev = udev_device_get_parent(tgtdev);
+ 	}
+@@ -803,7 +805,7 @@ sysfs_set_nexus_loss_tmo(struct multipath *mpp, struct path *pp)
+ 	     parent = udev_device_get_parent(parent)) {
+ 		const char *ed = udev_device_get_sysname(parent);
+
+-		if (!strncmp(ed, ed_str, sizeof(ed_str) - 1)) {
++		if (ed && !strncmp(ed, ed_str, sizeof(ed_str) - 1)) {
+ 			end_dev_id = ed;
+ 			break;
+ 		}
+diff --git a/libmultipath/foreign/nvme.c b/libmultipath/foreign/nvme.c
+index d40c0869..f778410a 100644
+--- a/libmultipath/foreign/nvme.c
++++ b/libmultipath/foreign/nvme.c
+@@ -184,7 +184,9 @@ static int snprint_nvme_map(const struct gen_multipath *gmp,
+ 							      "firmware_rev"));
+ 	case 'r':
+ 		val = udev_device_get_sysattr_value(nvm->udev, "ro");
+-		if (val[0] == 1)
++		if (!val)
++			return -1;
++		else if (val[0] == 1)
+ 			return append_strbuf_str(buff, "ro");
+ 		else
+ 			return append_strbuf_str(buff, "rw");
+diff --git a/libmultipath/util.c b/libmultipath/util.c
+index ea858409..3d036e19 100644
+--- a/libmultipath/util.c
++++ b/libmultipath/util.c
+@@ -168,6 +168,7 @@ size_t strlcat(char * restrict dst, const char * restrict src, size_t size)
+ int devt2devname(char *devname, int devname_len, const char *devt)
+ {
+ 	struct udev_device *u_dev;
++	const char * dev_name;
+ 	int r;
+
+ 	if (!devname || !devname_len || !devt)
+@@ -178,7 +179,14 @@ int devt2devname(char *devname, int devname_len, const char *devt)
+ 		condlog(0, "\"%s\": invalid major/minor numbers, not found in sysfs", devt);
+ 		return 1;
+ 	}
+-	r = strlcpy(devname, udev_device_get_sysname(u_dev), devname_len);
++
++	dev_name = udev_device_get_sysname(u_dev);
++	if (!dev_name) {
++		condlog(2, "\"%s\": fail to get sysname\n", devt);
++		udev_device_unref(u_dev);
++		return 1;
++	}
++	r = strlcpy(devname, dev_name, devname_len);
+ 	udev_device_unref(u_dev);
+
+ 	return !(r < devname_len);
+-- 
 
 --
 dm-devel mailing list
