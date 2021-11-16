@@ -1,71 +1,91 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE6E445337D
-	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 15:02:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7B81B453922
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 19:03:13 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-346-wqB6KEsaNZCSVeQbkPvF3A-1; Tue, 16 Nov 2021 09:02:15 -0500
-X-MC-Unique: wqB6KEsaNZCSVeQbkPvF3A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-381-93YZnOE9N3eiYS3uIZjw2g-1; Tue, 16 Nov 2021 13:03:10 -0500
+X-MC-Unique: 93YZnOE9N3eiYS3uIZjw2g-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E03AF802C94;
-	Tue, 16 Nov 2021 14:01:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 74F26871829;
+	Tue, 16 Nov 2021 18:02:57 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D9A75BAE5;
-	Tue, 16 Nov 2021 14:01:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AB9DD101E816;
+	Tue, 16 Nov 2021 18:02:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CE04D181A1D0;
-	Tue, 16 Nov 2021 14:01:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CC1FE1819AC1;
+	Tue, 16 Nov 2021 18:02:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AGE1Rpa002444 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 16 Nov 2021 09:01:27 -0500
+	id 1AGHxopa026940 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Nov 2021 12:59:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5992B2166B25; Tue, 16 Nov 2021 14:01:27 +0000 (UTC)
+	id 29A9251E3; Tue, 16 Nov 2021 17:59:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C4C72166B3F
-	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:01:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C6FD868910
-	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:01:24 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com
-	[45.249.212.189]) (Using TLS) by relay.mimecast.com with ESMTP id
-	us-mta-583-UAwNUT5GP4apqPcwMLyJwA-1; Tue, 16 Nov 2021 09:01:20 -0500
-X-MC-Unique: UAwNUT5GP4apqPcwMLyJwA-1
-Received: from dggemv711-chm.china.huawei.com (unknown [172.30.72.54])
-	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Htnjx6KVwz8vRS;
-	Tue, 16 Nov 2021 21:59:33 +0800 (CST)
-Received: from kwepemm600010.china.huawei.com (7.193.23.86) by
-	dggemv711-chm.china.huawei.com (10.1.198.66) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.20; Tue, 16 Nov 2021 22:01:16 +0800
-Received: from [10.174.179.176] (10.174.179.176) by
-	kwepemm600010.china.huawei.com (7.193.23.86) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.15; Tue, 16 Nov 2021 22:01:15 +0800
-From: lixiaokeng <lixiaokeng@huawei.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
-	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
-	mailing list" <dm-devel@redhat.com>
-References: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
-Message-ID: <adf675e0-1ed6-f395-e428-548fe145ea64@huawei.com>
-Date: Tue, 16 Nov 2021 22:01:15 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
-	Thunderbird/68.10.0
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2038251E1
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 17:59:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF7B7811E81
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 17:59:45 +0000 (UTC)
+Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
+	[209.85.215.169]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-52-Z2W_GoAYPOyKpLkC6x3Bgg-1; Tue, 16 Nov 2021 12:59:42 -0500
+X-MC-Unique: Z2W_GoAYPOyKpLkC6x3Bgg-1
+Received: by mail-pg1-f169.google.com with SMTP id r5so12414701pgi.6;
+	Tue, 16 Nov 2021 09:59:41 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+	:content-language:to:cc:references:from:in-reply-to
+	:content-transfer-encoding;
+	bh=HMNPM/fgk1MNRXov4s8Yb+E4mhC1XJHGgm4p3VUdnQM=;
+	b=pkycJ5/GDdM/jmnj1GkL4bzoyn1/gxUsJ5GTbc3kXfA8Mumz/19J8+duFPr59TMi8D
+	UQ4fw6j9xl6iIgF4w1gQ4hZGwEvOglknlPPpTxxoADtwzMtAlnCaFpLqACevKF/k3ti9
+	iEVd7TQDnUH5lZGUY2YTMOYDol2ovjOUlQdBA7aGyUNCDgAOSfmMkGUnMNRzYw2iXA9k
+	IKfGcO8ivDnwbEYlegwVLk8c0eCN6ukiq08zriO4z4tKCOyaCtvIeYxKdp2rzN12lTro
+	Fwb6sv9m7hoLVxyWGDq9zOpmysl3UqDkT6cYQWKs2gA13flNnNXub+522w5XjvjaG/Cn
+	8owg==
+X-Gm-Message-State: AOAM533AbMi5mLRcoJWkBDL9go4Db2GCiaWBIFNfSlkdV01NjDbawI89
+	QZixzAHoqPCkdOHdEaUtZ8c=
+X-Google-Smtp-Source: ABdhPJzQD9bdY0VMmDxiCswmvq2I7y2fm9Zu6J87Vg5yOKJcwCnM9HD6kc+dZh6uUa9ezmqsxHqBag==
+X-Received: by 2002:a63:b241:: with SMTP id t1mr604217pgo.154.1637085580607;
+	Tue, 16 Nov 2021 09:59:40 -0800 (PST)
+Received: from ?IPV6:2601:647:4000:d7:feaa:14ff:fe9d:6dbd?
+	([2601:647:4000:d7:feaa:14ff:fe9d:6dbd])
+	by smtp.gmail.com with ESMTPSA id
+	v16sm15096386pgo.71.2021.11.16.09.59.38
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 16 Nov 2021 09:59:39 -0800 (PST)
+Message-ID: <ab4ec640-9a89-ea25-fe68-85bae2ae5d8d@acm.org>
+Date: Tue, 16 Nov 2021 09:59:37 -0800
 MIME-Version: 1.0
-In-Reply-To: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
-X-Originating-IP: [10.174.179.176]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
-	kwepemm600010.china.huawei.com (7.193.23.86)
-X-CFilter-Loop: Reflected
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	Thunderbird/91.3.0
+To: =?UTF-8?Q?Javier_Gonz=c3=a1lez?= <javier@javigon.com>,
+	Chaitanya Kulkarni <chaitanyak@nvidia.com>
+References: <PH0PR04MB74161CD0BD15882BBD8838AB9B529@PH0PR04MB7416.namprd04.prod.outlook.com>
+	<CGME20210928191342eucas1p23448dcd51b23495fa67cdc017e77435c@eucas1p2.samsung.com>
+	<20210928191340.dcoj7qrclpudtjbo@mpHalley.domain_not_set.invalid>
+	<c2d0dff9-ad6d-c32b-f439-00b7ee955d69@acm.org>
+	<20211006100523.7xrr3qpwtby3bw3a@mpHalley.domain_not_set.invalid>
+	<fbe69cc0-36ea-c096-d247-f201bad979f4@acm.org>
+	<20211008064925.oyjxbmngghr2yovr@mpHalley.local>
+	<2a65e231-11dd-d5cc-c330-90314f6a8eae@nvidia.com>
+	<20211029081447.ativv64dofpqq22m@ArmHalley.local>
+	<20211103192700.clqzvvillfnml2nu@mpHalley-2>
+	<20211116134324.hbs3tp5proxootd7@ArmHalley.localdomain>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20211116134324.hbs3tp5proxootd7@ArmHalley.localdomain>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,11 +94,32 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: [dm-devel] [PATCH 5/5] add prflag to path
+Cc: Vincent Fu <vincent.fu@samsung.com>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	Adam Manzanares <a.manzanares@samsung.com>,
+	"osandov@fb.com" <osandov@fb.com>,
+	"msnitzer@redhat.com" <msnitzer@redhat.com>,
+	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
+	"hch@lst.de" <hch@lst.de>,
+	"roland@purestorage.com" <roland@purestorage.com>,
+	Nitesh Shetty <nj.shetty@samsung.com>,
+	"zach.brown@ni.com" <zach.brown@ni.com>,
+	SelvaKumar S <selvakuma.s1@samsung.com>,
+	Chaitanya Kulkarni <Chaitanya.Kulkarni@wdc.com>,
+	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+	"mpatocka@redhat.com" <mpatocka@redhat.com>,
+	"kbusch@kernel.org" <kbusch@kernel.org>,
+	"Frederick.Knight@netapp.com" <Frederick.Knight@netapp.com>,
+	"axboe@kernel.dk" <axboe@kernel.dk>, Kanchan Joshi <joshi.k@samsung.com>,
+	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
+	Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
+	"lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>,
+	"rwheeler@redhat.com" <rwheeler@redhat.com>
+Subject: Re: [dm-devel] [LSF/MM/BFP ATTEND] [LSF/MM/BFP TOPIC] Storage: Copy
+	Offload
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,156 +133,28 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-The update_map will frequently be called and there will be
-unnecessary checks of reseravtion. We add prflag to path
-to avoid this.
-
-The pp->state changes from others to up or ghost, the
-mpath_pr_event_handle should be called. The
-mpath_pr_event_handle in ev_add_path may not be called,
-so set pp->prkey PRKEY_NO when path is removed.
-
-Fix: 4db4fa
-Signed-off-by: Lixiaokeng <lixiaokeng>
----
- libmpathpersist/mpath_persist.c |  2 +-
- libmultipath/structs.c          |  1 +
- libmultipath/structs.h          | 12 ++++++++++++
- multipathd/cli_handlers.c       | 15 ++++++++++-----
- multipathd/main.c               |  5 +++--
- 5 files changed, 27 insertions(+), 8 deletions(-)
-
-diff --git a/libmpathpersist/mpath_persist.c b/libmpathpersist/mpath_persist.c
-index 803a2a28..f88a2e89 100644
---- a/libmpathpersist/mpath_persist.c
-+++ b/libmpathpersist/mpath_persist.c
-@@ -924,7 +924,7 @@ int update_map_pr(struct multipath *mpp)
-
- 	if (isFound)
- 	{
--		mpp->prflag = 1;
-+		mpp->prflag = PRFLAG_OK;
- 		condlog(2, "%s: prflag flag set.", mpp->alias );
- 	}
-
-diff --git a/libmultipath/structs.c b/libmultipath/structs.c
-index e8cacb4b..82dbd565 100644
---- a/libmultipath/structs.c
-+++ b/libmultipath/structs.c
-@@ -122,6 +122,7 @@ uninitialize_path(struct path *pp)
- 	pp->dmstate = PSTATE_UNDEF;
- 	pp->uid_attribute = NULL;
- 	pp->getuid = NULL;
-+	pp->prflag = PRFLAG_NO;
-
- 	if (checker_selected(&pp->checker))
- 		checker_put(&pp->checker);
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 399540e7..5b77218b 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -249,6 +249,17 @@ enum recheck_wwid_states {
- 	RECHECK_WWID_ON = YNU_YES,
- };
-
-+/*
-+ * PRFLAG_NO for path, it means reservation should be checked.
-+ * PRFLAG_NO for multipath, it means mpp has no prkey.
-+ * PRFLAG_OK for path, it means reservation has been checked.
-+ * PRFLAG_OK for multipath, it means mpp has prkey.
-+ */
-+enum prflag_states {
-+	PRFLAG_NO = 0,
-+	PRFLAG_OK = 1,
-+};
-+
- struct vpd_vendor_page {
- 	int pg;
- 	const char *name;
-@@ -327,6 +338,7 @@ struct path {
- 	/* configlet pointers */
- 	vector hwe;
- 	struct gen_path generic_path;
-+	int prflag;
- };
-
- typedef int (pgpolicyfn) (struct multipath *, vector);
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index 6d3a0ae2..8662fad7 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -1341,7 +1341,7 @@ cli_setprstatus(void * v, char ** reply, int * len, void * data)
- 		return 1;
-
- 	if (!mpp->prflag) {
--		mpp->prflag = 1;
-+		mpp->prflag = PRFLAG_OK;
- 		condlog(2, "%s: prflag set", param);
- 	}
-
-@@ -1352,9 +1352,11 @@ cli_setprstatus(void * v, char ** reply, int * len, void * data)
- int
- cli_unsetprstatus(void * v, char ** reply, int * len, void * data)
- {
--	struct multipath * mpp;
--	struct vectors * vecs = (struct vectors *)data;
--	char * param = get_keyparam(v, MAP);
-+	int i;
-+	struct multipath *mpp;
-+	struct path *pp;
-+	struct vectors *vecs = (struct vectors *)data;
-+	char *param = get_keyparam(v, MAP);
-
- 	param = convert_dev(param, 0);
- 	get_path_layout(vecs->pathvec, 0);
-@@ -1364,7 +1366,10 @@ cli_unsetprstatus(void * v, char ** reply, int * len, void * data)
- 		return 1;
-
- 	if (mpp->prflag) {
--		mpp->prflag = 0;
-+		mpp->prflag = PRFLAG_NO;
-+		vector_foreach_slot(mpp->paths, pp, i) {
-+			pp->prflag = PRFLAG_NO;
-+		}
- 		condlog(2, "%s: prflag unset", param);
- 	}
-
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 82ab3ed1..6ef6495b 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -506,7 +506,7 @@ retry:
-
- 	if (mpp->prflag) {
- 		vector_foreach_slot(mpp->paths, pp, i) {
--			if ((pp->state == PATH_UP)  || (pp->state == PATH_GHOST)) {
-+			if (!pp->prflag && ((pp->state == PATH_UP) || (pp->state == PATH_GHOST))) {
- 				/* persistent reseravtion check*/
- 				mpath_pr_event_handle(pp);
- 			}
-@@ -3570,7 +3570,8 @@ void *  mpath_pr_event_handler_fn (void * pathp )
- 	{
- 		condlog(0,"%s: Reservation registration failed. Error: %d", pp->dev, ret);
- 	}
--	mpp->prflag = 1;
-+	mpp->prflag = PRFLAG_OK;
-+	pp->prflag = PRFLAG_OK;
-
- 	free(param);
- out:
--- 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gMTEvMTYvMjEgMDU6NDMsIEphdmllciBHb256w6FsZXogd3JvdGU6Cj4gIMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqAgLSBIZXJlLCB3ZSBuZWVkIGNvcHkgZW11bGF0aW9uIHRvIHN1cHBvcnQgZW5j
+cnlwdGlvbiAKPiB3aXRob3V0IGRlYWxpbmcgd2l0aCBIVyBpc3N1ZXMgYW5kIGdhcmJhZ2UKCkhp
+IEphdmllciwKClRoYW5rcyB2ZXJ5IG11Y2ggZm9yIGhhdmluZyB0YWtlbiBub3RlcyBhbmQgYWxz
+byBmb3IgaGF2aW5nIHNoYXJlZCAKdGhlc2UuIFJlZ2FyZGluZyB0aGUgYWJvdmUgY29tbWVudCwg
+YWZ0ZXIgdGhlIG1lZXRpbmcgSSBsZWFybmVkIHRoYXQgdGhlIAphYm92ZSBpcyBub3QgY29ycmVj
+dC4gRW5jcnlwdGlvbiBpbiBBbmRyb2lkIGlzIExCQSBpbmRlcGVuZGVudCBhbmQgaGVuY2UgCml0
+IHNob3VsZCBiZSBwb3NzaWJsZSB0byBvZmZsb2FkIEYyRlMgZ2FyYmFnZSBjb2xsZWN0aW9uIGlu
+IEFuZHJvaWQgb25jZSAKdGhlIChVRlMpIHN0b3JhZ2UgY29udHJvbGxlciBzdXBwb3J0cyB0aGlz
+LgoKRm9yIHRoZSBnZW5lcmFsIGNhc2UsIEkgcHJvcG9zZSB0byBsZXQgdGhlIGRtLWNyeXB0IGRy
+aXZlciBkZWNpZGUgCndoZXRoZXIgb3Igbm90IHRvIG9mZmxvYWQgZGF0YSBjb3B5aW5nIHNpbmNl
+IHRoYXQgZHJpdmVyIGtub3dzIHdoZXRoZXIgCm9yIG5vdCBkYXRhIGNvcHlpbmcgY2FuIGJlIG9m
+ZmxvYWRlZC4KClRoYW5rcywKCkJhcnQuCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2
+ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2RtLWRldmVs
 
