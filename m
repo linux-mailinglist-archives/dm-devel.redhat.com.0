@@ -2,67 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BE8F6451B00
-	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 00:46:30 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637019989;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=D94VNzb33H+Nj7sK3ZeRgIAM/B/fYIPGK07dmWFd8NE=;
-	b=MWssli2w3C0H3BZc557YDUsIaTPZPN7BHlefCis5zlo/l9Ct2XU2+YLAqHEjCebkkOiWkB
-	vkAcoZYOrae8b9Sc5Qn2vrZewpCk/p6ciHU1r75lEi/HGoyWVQMyuGjsR4fG6/DW1GgWK9
-	qJ+4Tgf6vCW8JaN+BXht1Gn3eSpyKHc=
+	by mail.lfdr.de (Postfix) with ESMTPS id 50D5B4533E8
+	for <lists+dm-devel@lfdr.de>; Tue, 16 Nov 2021 15:15:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-422-l-dDw1MrPeG7LEZ_HEZhYg-1; Mon, 15 Nov 2021 18:46:26 -0500
-X-MC-Unique: l-dDw1MrPeG7LEZ_HEZhYg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-478-HXSIHNNjM6CCmCeLnfE3qQ-1; Tue, 16 Nov 2021 09:15:29 -0500
+X-MC-Unique: HXSIHNNjM6CCmCeLnfE3qQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ECD2B871811;
-	Mon, 15 Nov 2021 23:46:20 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BBA160657;
-	Mon, 15 Nov 2021 23:46:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0E7951023F6C;
+	Tue, 16 Nov 2021 14:15:22 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2B5D1F41E;
+	Tue, 16 Nov 2021 14:15:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 824BA4E58F;
-	Mon, 15 Nov 2021 23:46:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 322801806D03;
+	Tue, 16 Nov 2021 14:15:13 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AFNkECC000576 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 15 Nov 2021 18:46:14 -0500
+	id 1AGEF6To005105 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 16 Nov 2021 09:15:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E1E1F60C13; Mon, 15 Nov 2021 23:46:14 +0000 (UTC)
+	id 4A61A2166B2D; Tue, 16 Nov 2021 14:15:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C57860BE5;
-	Mon, 15 Nov 2021 23:46:10 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AFNk8vX022250; 
-	Mon, 15 Nov 2021 17:46:08 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AFNk8nC022249;
-	Mon, 15 Nov 2021 17:46:08 -0600
-Date: Mon, 15 Nov 2021 17:46:08 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <martin.wilck@suse.com>
-Message-ID: <20211115234608.GW19591@octiron.msp.redhat.com>
-References: <1632180076-9294-1-git-send-email-bmarzins@redhat.com>
-	<1632180076-9294-4-git-send-email-bmarzins@redhat.com>
-	<0b1c32c80fb5263df6263570f26b60247576f1b5.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 452392166B26
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:15:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E01D181E066
+	for <dm-devel@redhat.com>; Tue, 16 Nov 2021 14:15:03 +0000 (UTC)
+Received: from szxga08-in.huawei.com (szxga08-in.huawei.com
+	[45.249.212.255]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-36-TR9ygYrqN6Oz67_tsFzqSA-1; Tue, 16 Nov 2021 09:15:01 -0500
+X-MC-Unique: TR9ygYrqN6Oz67_tsFzqSA-1
+Received: from dggemv704-chm.china.huawei.com (unknown [172.30.72.57])
+	by szxga08-in.huawei.com (SkyGuard) with ESMTP id 4Htnf42KySz1DJVW;
+	Tue, 16 Nov 2021 21:56:12 +0800 (CST)
+Received: from kwepemm600010.china.huawei.com (7.193.23.86) by
+	dggemv704-chm.china.huawei.com (10.3.19.47) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.2308.20; Tue, 16 Nov 2021 21:58:34 +0800
+Received: from [10.174.179.176] (10.174.179.176) by
+	kwepemm600010.china.huawei.com (7.193.23.86) with Microsoft SMTP Server
+	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+	15.1.2308.15; Tue, 16 Nov 2021 21:58:33 +0800
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Martin Wilck
+	<mwilck@suse.com>, Benjamin Marzinski <bmarzins@redhat.com>, "dm-devel
+	mailing list" <dm-devel@redhat.com>
+From: lixiaokeng <lixiaokeng@huawei.com>
+Message-ID: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
+Date: Tue, 16 Nov 2021 21:58:32 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <0b1c32c80fb5263df6263570f26b60247576f1b5.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Originating-IP: [10.174.179.176]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+	kwepemm600010.china.huawei.com (7.193.23.86)
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH 3/4] multipathd: pass in the type of
-	reconfigure
+Cc: linfeilong <linfeilong@huawei.com>,
+	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
+Subject: [dm-devel] =?utf-8?q?=5BPATCH_0/5=5D_multipath-tools_series?=
+ =?utf-8?q?=EF=BC=9A_some_codeclean_and_add_prflag_to_path?=
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -76,347 +92,42 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Language: en-GB
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 15, 2021 at 04:23:54PM +0000, Martin Wilck wrote:
-> On Mon, 2021-09-20 at 18:21 -0500, Benjamin Marzinski wrote:
-> > This code doesn't actually change how multipathd reconfigures. It still
-> > does a weak reconfigure at the start, and full reconfigures later.
->=20
-> AFAICS it does change this, at least for the cases where reconfigure()
-> is called from ev_add_map() and missing_uev_wait_tick, where you call
-> schedule_reconfigure(false). The old code was using a static variable
-> and thus always doing a hard reconfigure when called more than once.
->=20
-> I'm find with this change (the old behavior was arguably wrong), but
-> the commit message should be clarified in this respect.
+lixiaokeng (5):
+  Fix potential null pointer dereference
+  remove unnecessary memset
+  remove unnecessary free
+  Match FREE and MALLOC/STRDUP/REALLOC
+  add prflag to path
 
-Sure.
-
--Ben
-
->=20
-> > But
-> > now schedule_reconfigure() takes the type of reconfigure to do, and
-> > that
-> > gets passed down to reconfigure(). If a full reconfigure has already
-> > been requested but not started, weak reconfigure requests will be
-> > upgraded. A future patch will enable users to control what kind of
-> > reconfigures happen.
-> >=20
-> > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > ---
-> > =A0libmultipath/configure.c=A0 |=A0 2 +-
-> > =A0multipathd/cli_handlers.c |=A0 2 +-
-> > =A0multipathd/main.c=A0=A0=A0=A0=A0=A0=A0=A0 | 62 ++++++++++++++++++++-=
-------------------
-> > =A0multipathd/main.h=A0=A0=A0=A0=A0=A0=A0=A0 |=A0 2 +-
-> > =A04 files changed, 35 insertions(+), 33 deletions(-)
-> >=20
-> > diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-> > index 7edb355b..eb8ec1bd 100644
-> > --- a/libmultipath/configure.c
-> > +++ b/libmultipath/configure.c
-> > @@ -1098,7 +1098,7 @@ out:
-> > =A0 * FORCE_RELOAD_NONE: existing maps aren't touched at all
-> > =A0 * FORCE_RELOAD_YES: all maps are rebuilt from scratch and (re)loade=
-d
-> > in DM
-> > =A0 * FORCE_RELOAD_WEAK: existing maps are compared to the current conf
-> > and only
-> > - * reloaded in DM if there's a difference. This is useful during
-> > startup.
-> > + * reloaded in DM if there's a difference. This is normally
-> > sufficient.
-> > =A0 */
-> > =A0int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwi=
-d,
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 int force_rel=
-oad, enum mpath_cmds cmd)
-> > diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-> > index f59db3ab..b12a4e7e 100644
-> > --- a/multipathd/cli_handlers.c
-> > +++ b/multipathd/cli_handlers.c
-> > @@ -1012,7 +1012,7 @@ cli_reconfigure(void * v, struct strbuf *reply,
-> > void * data)
-> > =A0{
-> > =A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "reconfigure (operator)");
-> > =A0
-> > -=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure();
-> > +=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure(true);
-> > =A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > =A0}
-> > =A0
-> > diff --git a/multipathd/main.c b/multipathd/main.c
-> > index 1ead0904..5c831e8d 100644
-> > --- a/multipathd/main.c
-> > +++ b/multipathd/main.c
-> > @@ -162,13 +162,6 @@ static bool get_delayed_reconfig(void)
-> > =A0=A0=A0=A0=A0=A0=A0=A0return val;
-> > =A0}
-> > =A0
-> > -static void set_delayed_reconfig(bool val)
-> > -{
-> > -=A0=A0=A0=A0=A0=A0=A0pthread_mutex_lock(&config_lock);
-> > -=A0=A0=A0=A0=A0=A0=A0__delayed_reconfig =3D val;
-> > -=A0=A0=A0=A0=A0=A0=A0pthread_mutex_unlock(&config_lock);
-> > -}
-> > -
-> > =A0/*
-> > =A0 * global copy of vecs for use in sig handlers
-> > =A0 */
-> > @@ -290,7 +283,18 @@ enum daemon_status wait_for_state_change_if(enum
-> > daemon_status oldstate,
-> > =A0}
-> > =A0
-> > =A0/* Don't access this variable without holding config_lock */
-> > -static bool reconfigure_pending;
-> > +static enum force_reload_types reconfigure_pending =3D
-> > FORCE_RELOAD_NONE;
-> > +/* Only set while changing to DAEMON_CONFIGURE, and only access while
-> > + * reconfiguring in DAEMON_CONFIGURE */
-> > +static volatile enum force_reload_types reload_type =3D
-> > FORCE_RELOAD_NONE;
-> > +
-> > +static void enable_delayed_reconfig(enum force_reload_types type)
-> > +{
-> > +=A0=A0=A0=A0=A0=A0=A0pthread_mutex_lock(&config_lock);
-> > +=A0=A0=A0=A0=A0=A0=A0reconfigure_pending =3D type;
-> > +=A0=A0=A0=A0=A0=A0=A0__delayed_reconfig =3D true;
-> > +=A0=A0=A0=A0=A0=A0=A0pthread_mutex_unlock(&config_lock);
-> > +}
-> > =A0
-> > =A0/* must be called with config_lock held */
-> > =A0static void __post_config_state(enum daemon_status state)
-> > @@ -305,7 +309,8 @@ static void __post_config_state(enum daemon_status
-> > state)
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * In either case, chil=
-d() will see DAEMON_CONFIGURE
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * again and start anot=
-her reconfigure cycle.
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 */
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (reconfigure_pending &=
-& state =3D=3D DAEMON_IDLE &&
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (reconfigure_pending !=
-=3D FORCE_RELOAD_NONE &&
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 state =3D=3D DA=
-EMON_IDLE &&
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 (old_state =
-=3D=3D DAEMON_CONFIGURE ||
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 old_state =
-=3D=3D DAEMON_RUNNING)) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0/*
-> > @@ -317,7 +322,8 @@ static void __post_config_state(enum daemon_status
-> > state)
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0state =3D DAEMON_CONFIGURE;
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (state =3D=3D DAEMON=
-_CONFIGURE) {
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
-econfigure_pending =3D false;
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
-eload_type =3D (reconfigure_pending =3D=3D
-> > FORCE_RELOAD_YES) ? FORCE_RELOAD_YES : FORCE_RELOAD_WEAK;
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
-econfigure_pending =3D FORCE_RELOAD_NONE;
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0__delayed_reconfig =3D false;
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0running_state =3D state=
-;
-> > @@ -334,20 +340,25 @@ void post_config_state(enum daemon_status state)
-> > =A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_pop(1);
-> > =A0}
-> > =A0
-> > -void schedule_reconfigure(void)
-> > +void schedule_reconfigure(bool force_reload_yes)
-> > =A0{
-> > =A0=A0=A0=A0=A0=A0=A0=A0pthread_mutex_lock(&config_lock);
-> > =A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_push(config_cleanup, NULL);
-> > +=A0=A0=A0=A0=A0=A0=A0enum force_reload_types type;
-> > +
-> > +=A0=A0=A0=A0=A0=A0=A0type =3D (reconfigure_pending =3D=3D FORCE_RELOAD=
-_YES ||
-> > force_reload_yes) ?
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 FORCE_RELOAD_YES : FORCE_RELOA=
-D_WEAK;
-> > =A0=A0=A0=A0=A0=A0=A0=A0switch (running_state)
-> > =A0=A0=A0=A0=A0=A0=A0=A0{
-> > =A0=A0=A0=A0=A0=A0=A0=A0case DAEMON_SHUTDOWN:
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> > =A0=A0=A0=A0=A0=A0=A0=A0case DAEMON_IDLE:
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reconfigure_pending =3D t=
-ype;
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0__post_config_state(DAE=
-MON_CONFIGURE);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> > =A0=A0=A0=A0=A0=A0=A0=A0case DAEMON_CONFIGURE:
-> > =A0=A0=A0=A0=A0=A0=A0=A0case DAEMON_RUNNING:
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reconfigure_pending =3D t=
-rue;
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reconfigure_pending =3D t=
-ype;
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> > =A0=A0=A0=A0=A0=A0=A0=A0default:
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> > @@ -812,7 +823,7 @@ ev_add_map (char * dev, const char * alias, struct
-> > vectors * vecs)
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0if (get_delayed_reconfig() &&
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 !need_to_delay_reconfig(vecs)) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "reconfigure (delayed)");
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure();
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure(false);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0}
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > @@ -1830,7 +1841,7 @@ missing_uev_wait_tick(struct vectors *vecs)
-> > =A0=A0=A0=A0=A0=A0=A0=A0if (timed_out && get_delayed_reconfig() &&
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 !need_to_delay_reconfig(vecs)) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "reconfigure=
- (delayed)");
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure();
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure(fals=
-e);
-> > =A0=A0=A0=A0=A0=A0=A0=A0}
-> > =A0}
-> > =A0
-> > @@ -2588,14 +2599,13 @@ checkerloop (void *ap)
-> > =A0}
-> > =A0
-> > =A0int
-> > -configure (struct vectors * vecs)
-> > +configure (struct vectors * vecs, enum force_reload_types type)
-> > =A0{
-> > =A0=A0=A0=A0=A0=A0=A0=A0struct multipath * mpp;
-> > =A0=A0=A0=A0=A0=A0=A0=A0struct path * pp;
-> > =A0=A0=A0=A0=A0=A0=A0=A0vector mpvec;
-> > =A0=A0=A0=A0=A0=A0=A0=A0int i, ret;
-> > =A0=A0=A0=A0=A0=A0=A0=A0struct config *conf;
-> > -=A0=A0=A0=A0=A0=A0=A0static int force_reload =3D FORCE_RELOAD_WEAK;
-> > =A0
-> > =A0=A0=A0=A0=A0=A0=A0=A0if (!vecs->pathvec && !(vecs->pathvec =3D vecto=
-r_alloc())) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(0, "couldn't al=
-locate path vec in configure");
-> > @@ -2643,15 +2653,7 @@ configure (struct vectors * vecs)
-> > =A0=A0=A0=A0=A0=A0=A0=A0if (should_exit())
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0goto fail;
-> > =A0
-> > -=A0=A0=A0=A0=A0=A0=A0/*
-> > -=A0=A0=A0=A0=A0=A0=A0 * create new set of maps & push changed ones int=
-o dm
-> > -=A0=A0=A0=A0=A0=A0=A0 * In the first call, use FORCE_RELOAD_WEAK to av=
-oid making
-> > -=A0=A0=A0=A0=A0=A0=A0 * superfluous ACT_RELOAD ioctls. Later calls are=
- done
-> > -=A0=A0=A0=A0=A0=A0=A0 * with FORCE_RELOAD_YES.
-> > -=A0=A0=A0=A0=A0=A0=A0 */
-> > -=A0=A0=A0=A0=A0=A0=A0ret =3D coalesce_paths(vecs, mpvec, NULL, force_r=
-eload,
-> > CMD_NONE);
-> > -=A0=A0=A0=A0=A0=A0=A0if (force_reload =3D=3D FORCE_RELOAD_WEAK)
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0force_reload =3D FORCE_RE=
-LOAD_YES;
-> > +=A0=A0=A0=A0=A0=A0=A0ret =3D coalesce_paths(vecs, mpvec, NULL, type, C=
-MD_NONE);
->=20
->=20
-> Can we please rename this variable from "type" to "reload_type" here,
-> for the sake of readability? Likewise, in reconfigure()?
->=20
-> > =A0=A0=A0=A0=A0=A0=A0=A0if (ret !=3D CP_OK) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(0, "configure f=
-ailed while coalescing paths");
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0goto fail;
-> > @@ -2729,7 +2731,7 @@ void rcu_free_config(struct rcu_head *head)
-> > =A0}
-> > =A0
-> > =A0int
-> > -reconfigure (struct vectors * vecs)
-> > +reconfigure (struct vectors * vecs, enum force_reload_types type)
-> > =A0{
-> > =A0=A0=A0=A0=A0=A0=A0=A0struct config * old, *conf;
-> > =A0
-> > @@ -2763,7 +2765,7 @@ reconfigure (struct vectors * vecs)
-> > =A0=A0=A0=A0=A0=A0=A0=A0rcu_assign_pointer(multipath_conf, conf);
-> > =A0=A0=A0=A0=A0=A0=A0=A0call_rcu(&old->rcu, rcu_free_config);
-> > =A0
-> > -=A0=A0=A0=A0=A0=A0=A0configure(vecs);
-> > +=A0=A0=A0=A0=A0=A0=A0configure(vecs, type);
-> > =A0
-> > =A0
-> > =A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > @@ -2815,7 +2817,7 @@ handle_signals(bool nonfatal)
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> > =A0=A0=A0=A0=A0=A0=A0=A0if (reconfig_sig) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "reconfigure=
- (signal)");
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure();
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0schedule_reconfigure(true=
-);
-> > =A0=A0=A0=A0=A0=A0=A0=A0}
-> > =A0=A0=A0=A0=A0=A0=A0=A0if (log_reset_sig) {
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "reset log (=
-signal)");
-> > @@ -3274,9 +3276,9 @@ child (__attribute__((unused)) void *param)
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0lock(&vecs->lock);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0pthread_testcancel();
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0if (!need_to_delay_reconfig(vecs))
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0reconfigure(vecs);
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0reconfigure(vecs, reload_type);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0else
-> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0set_delayed_reconfig(true);
-> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0enable_delayed_reconfig(reload_type);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0lock_cleanup_pop(vecs->lock);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0post_config_state(DAEMON_IDLE);
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > diff --git a/multipathd/main.h b/multipathd/main.h
-> > index a1697a74..c8a1ce92 100644
-> > --- a/multipathd/main.h
-> > +++ b/multipathd/main.h
-> > @@ -37,7 +37,7 @@ void exit_daemon(void);
-> > =A0const char * daemon_status(void);
-> > =A0enum daemon_status wait_for_state_change_if(enum daemon_status
-> > oldstate,
-> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 unsigned long =
-ms);
-> > -void schedule_reconfigure(void);
-> > +void schedule_reconfigure(bool reconfig_all);
->=20
-> For consistency, please consider using an "enum force_reload_types" as
-> argument to schedule_reconfigure() rather than a boolean.
->=20
-> Otherwise, the patch looks good.
->=20
-> Cheers
-> Martin
+ kpartx/dasd.c                            |  5 +++--
+ kpartx/kpartx.c                          |  7 ++++---
+ libmpathpersist/mpath_persist.c          |  2 +-
+ libmultipath/blacklist.c                 |  6 +++---
+ libmultipath/checkers/emc_clariion.c     |  2 +-
+ libmultipath/config.c                    |  4 ++--
+ libmultipath/configure.c                 |  4 ++--
+ libmultipath/discovery.c                 |  8 +++++---
+ libmultipath/dmparser.c                  |  2 +-
+ libmultipath/foreign/nvme.c              |  4 +++-
+ libmultipath/log.c                       |  1 -
+ libmultipath/parser.c                    |  2 +-
+ libmultipath/prioritizers/weightedpath.c |  3 +--
+ libmultipath/structs.c                   |  3 ++-
+ libmultipath/structs.h                   | 12 ++++++++++++
+ libmultipath/util.c                      | 10 +++++++++-
+ multipathd/cli_handlers.c                | 15 ++++++++++-----
+ multipathd/main.c                        |  9 ++++++---
+ multipathd/waiter.c                      |  1 -
+ 19 files changed, 66 insertions(+), 34 deletions(-)
 
 --
 dm-devel mailing list
