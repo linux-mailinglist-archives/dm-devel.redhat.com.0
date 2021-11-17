@@ -2,69 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8442454CC6
-	for <lists+dm-devel@lfdr.de>; Wed, 17 Nov 2021 19:05:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D7EE1454CFE
+	for <lists+dm-devel@lfdr.de>; Wed, 17 Nov 2021 19:21:08 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637172351;
+	s=mimecast20190719; t=1637173267;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Tk3bm34yH8r5enLcUtB1wkXqJunChQhyuQjwx+M8zgA=;
-	b=YgneKNLX7YWVhGj5tqfOUoSJL2bm+KHewSU3cy9CGd6/vF5ubeyWyW+mNNa1nsHyfPVRSi
-	Nl8TXJv0keHY/h79qgmRrMtf/OxHXF0FCoaeWU3jK0WHjL/fXDJSxEVerogj10X194ye1p
-	MK9OHghrI5/BwwvDaK18rOPn39sXWVU=
+	bh=xmB9XTKIZzqemhkj+uk+JzC8eA7OvTSRZe1SFFWQN5E=;
+	b=DW+9ZtRDIz/Y5b24aJvqGwe92ayZSTtxWfAGrsQIJxK4K+RjHXOQr+xjBExyIpXYziD0zP
+	bHh4smiphRGf+IlbJPGnMAquRrpf4qWTZGFacEAz95un71ZrZNTl0i4zAt02/AYk/Nk+v/
+	+K21B0JQFBhtafD5IL/gJjDNeJMaUbs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-63--t_9vghHNNm1SNvis27t4A-1; Wed, 17 Nov 2021 13:05:49 -0500
-X-MC-Unique: -t_9vghHNNm1SNvis27t4A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-33-j6U19ei8MqeOLlT_xTukZg-1; Wed, 17 Nov 2021 13:21:05 -0500
+X-MC-Unique: j6U19ei8MqeOLlT_xTukZg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 219A7814247;
-	Wed, 17 Nov 2021 18:05:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id ECED01F470;
-	Wed, 17 Nov 2021 18:05:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 032AC804146;
+	Wed, 17 Nov 2021 18:21:00 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91AF61B5C0;
+	Wed, 17 Nov 2021 18:20:59 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 742024EA2A;
-	Wed, 17 Nov 2021 18:05:28 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com
-	[10.5.11.12])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BB0E1180BAD2;
+	Wed, 17 Nov 2021 18:20:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com
+	[10.5.11.15])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AHI5L1s004695 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Nov 2021 13:05:21 -0500
+	id 1AHIKcGD005919 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Nov 2021 13:20:38 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3C98E60BF1; Wed, 17 Nov 2021 18:05:21 +0000 (UTC)
+	id 96EFD5F4EE; Wed, 17 Nov 2021 18:20:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 148AE60C13;
-	Wed, 17 Nov 2021 18:05:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C9E25F4ED;
+	Wed, 17 Nov 2021 18:20:19 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AHI5Iw9003748; 
-	Wed, 17 Nov 2021 12:05:18 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AHIKH1n003768; 
+	Wed, 17 Nov 2021 12:20:17 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AHI5Hv8003747;
-	Wed, 17 Nov 2021 12:05:17 -0600
-Date: Wed, 17 Nov 2021 12:05:17 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AHIKH59003767;
+	Wed, 17 Nov 2021 12:20:17 -0600
+Date: Wed, 17 Nov 2021 12:20:17 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
-To: lixiaokeng <lixiaokeng@huawei.com>
-Message-ID: <20211117180517.GX19591@octiron.msp.redhat.com>
-References: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
-	<7a7efb76-ae21-0630-aab5-52d6b06d93ef@huawei.com>
+To: mwilck@suse.com
+Message-ID: <20211117182016.GY19591@octiron.msp.redhat.com>
+References: <20211112210551.12744-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <7a7efb76-ae21-0630-aab5-52d6b06d93ef@huawei.com>
+In-Reply-To: <20211112210551.12744-1-mwilck@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 X-loop: dm-devel@redhat.com
-Cc: linfeilong <linfeilong@huawei.com>,
-	dm-devel mailing list <dm-devel@redhat.com>,
-	Martin Wilck <mwilck@suse.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
-Subject: Re: [dm-devel] [PATCH 1/5] Fix potential null pointer dereference
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH 1/3] multipath-tools: support ABI testing
+	with libabigail
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,7 +75,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -87,95 +84,275 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 16, 2021 at 09:59:14PM +0800, lixiaokeng wrote:
-> udev_device_* may return NULL, check it.
+On Fri, Nov 12, 2021 at 10:05:49PM +0100, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
 > 
-> Signed-off-by: Lixiaokeng <lixiaokeng@huawei.com>
+> Use abidw and abidiff (https://sourceware.org/libabigail/) to
+> generate a formal representation of our ABI, and check for changes.
+> This will reduce the amount of attention required to detect and
+> track library version changes.
+> 
+> To check for differences, run "make abi" on some branch, rename the
+> "abi" directory to "reference-abi", checkout a different branch,
+> and run "make abi-test".
+> 
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 > ---
->  libmultipath/discovery.c    |  8 +++++---
->  libmultipath/foreign/nvme.c |  4 +++-
->  libmultipath/util.c         | 10 +++++++++-
->  3 files changed, 17 insertions(+), 5 deletions(-)
+>  .gitignore               |  4 +++
+>  Makefile                 | 55 ++++++++++++++++++++++++++++++++++------
+>  Makefile.inc             |  6 +++++
+>  libdmmp/Makefile         |  8 ++++--
+>  libmpathcmd/Makefile     |  4 ++-
+>  libmpathpersist/Makefile |  4 ++-
+>  libmpathvalid/Makefile   |  4 ++-
+>  libmultipath/Makefile    |  4 ++-
+>  8 files changed, 75 insertions(+), 14 deletions(-)
 > 
-> diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-> index f25fe9e3..48f3d8b2 100644
-> --- a/libmultipath/discovery.c
-> +++ b/libmultipath/discovery.c
-> @@ -388,8 +388,10 @@ sysfs_get_tgt_nodename(struct path *pp, char *node)
->  		if (value && !strcmp(value, "usb")) {
->  			pp->sg_id.proto_id = SCSI_PROTOCOL_USB;
->  			tgtname = udev_device_get_sysname(tgtdev);
-> -			strlcpy(node, tgtname, NODE_NAME_SIZE);
-> -			return 0;
-> +			if (!tgtname) {
-
-I assume that you mean "if (tgtname)"
-
-> +				strlcpy(node, tgtname, NODE_NAME_SIZE);
-> +				return 0;
-> +			}
->  		}
->  		tgtdev = udev_device_get_parent(tgtdev);
->  	}
-> @@ -803,7 +805,7 @@ sysfs_set_nexus_loss_tmo(struct multipath *mpp, struct path *pp)
->  	     parent = udev_device_get_parent(parent)) {
->  		const char *ed = udev_device_get_sysname(parent);
-> 
-> -		if (!strncmp(ed, ed_str, sizeof(ed_str) - 1)) {
-> +		if (ed && !strncmp(ed, ed_str, sizeof(ed_str) - 1)) {
->  			end_dev_id = ed;
->  			break;
->  		}
-> diff --git a/libmultipath/foreign/nvme.c b/libmultipath/foreign/nvme.c
-> index d40c0869..f778410a 100644
-> --- a/libmultipath/foreign/nvme.c
-> +++ b/libmultipath/foreign/nvme.c
-> @@ -184,7 +184,9 @@ static int snprint_nvme_map(const struct gen_multipath *gmp,
->  							      "firmware_rev"));
->  	case 'r':
->  		val = udev_device_get_sysattr_value(nvm->udev, "ro");
-> -		if (val[0] == 1)
-> +		if (!val)
-> +			return -1;
-
-sprint_ro() returns "undef" for a similar case. Perhaps we should do
-that here as well.
-
--Ben
-
-> +		else if (val[0] == 1)
->  			return append_strbuf_str(buff, "ro");
->  		else
->  			return append_strbuf_str(buff, "rw");
-> diff --git a/libmultipath/util.c b/libmultipath/util.c
-> index ea858409..3d036e19 100644
-> --- a/libmultipath/util.c
-> +++ b/libmultipath/util.c
-> @@ -168,6 +168,7 @@ size_t strlcat(char * restrict dst, const char * restrict src, size_t size)
->  int devt2devname(char *devname, int devname_len, const char *devt)
->  {
->  	struct udev_device *u_dev;
-> +	const char * dev_name;
->  	int r;
-> 
->  	if (!devname || !devname_len || !devt)
-> @@ -178,7 +179,14 @@ int devt2devname(char *devname, int devname_len, const char *devt)
->  		condlog(0, "\"%s\": invalid major/minor numbers, not found in sysfs", devt);
->  		return 1;
->  	}
-> -	r = strlcpy(devname, udev_device_get_sysname(u_dev), devname_len);
+> diff --git a/.gitignore b/.gitignore
+> index 087dffc..5dbac39 100644
+> --- a/.gitignore
+> +++ b/.gitignore
+> @@ -3,6 +3,7 @@
+>  *~
+>  *.so
+>  *.so.0
+> +*.abi
+>  *.a
+>  *.gz
+>  *.d
+> @@ -13,6 +14,9 @@ kpartx/kpartx
+>  multipath/multipath
+>  multipathd/multipathd
+>  mpathpersist/mpathpersist
+> +abi.tar.gz
+> +abi
+> +abi-test
+>  .nfs*
+>  *.swp
+>  *.patch
+> diff --git a/Makefile b/Makefile
+> index 7f21db8..1cec777 100644
+> --- a/Makefile
+> +++ b/Makefile
+> @@ -2,33 +2,70 @@
+>  # Copyright (C) 2003 Christophe Varoqui, <christophe.varoqui@opensvc.com>
+>  #
+>  
+> -BUILDDIRS := \
+> +LIB_BUILDDIRS := \
+>  	libmpathcmd \
+>  	libmultipath \
+> +	libmpathpersist \
+> +	libmpathvalid
 > +
-> +	dev_name = udev_device_get_sysname(u_dev);
-> +	if (!dev_name) {
-> +		condlog(2, "\"%s\": fail to get sysname\n", devt);
-> +		udev_device_unref(u_dev);
-> +		return 1;
-> +	}
-> +	r = strlcpy(devname, dev_name, devname_len);
->  	udev_device_unref(u_dev);
-> 
->  	return !(r < devname_len);
+> +ifneq ($(ENABLE_LIBDMMP),0)
+> +LIB_BUILDDIRS += \
+> +	libdmmp
+> +endif
+> +
+> +BUILDDIRS := $(LIB_BUILDDIRS) \
+>  	libmultipath/prioritizers \
+>  	libmultipath/checkers \
+>  	libmultipath/foreign \
+> -	libmpathpersist \
+> -	libmpathvalid \
+>  	multipath \
+>  	multipathd \
+>  	mpathpersist \
+>  	kpartx
+>  
+> -ifneq ($(ENABLE_LIBDMMP),0)
+> -BUILDDIRS += \
+> -	libdmmp
+> -endif
+>  
+>  BUILDDIRS.clean := $(BUILDDIRS:=.clean) tests.clean
+>  
+> -.PHONY:	$(BUILDDIRS) $(BUILDDIRS:=.uninstall) $(BUILDDIRS:=.install) $(BUILDDIRS.clean)
+> +.PHONY:	$(BUILDDIRS) $(BUILDDIRS:=.uninstall) $(BUILDDIRS:=.install) $(BUILDDIRS:=.clean) $(LIB_BUILDDIRS:=.abi)
+>  
+>  all:	$(BUILDDIRS)
+>  
+>  $(BUILDDIRS):
+>  	$(MAKE) -C $@
+>  
+> +$(LIB_BUILDDIRS:=.abi): $(LIB_BUILDDIRS)
+> +	$(MAKE) -C ${@:.abi=} abi
+> +
+> +# Create formal representation of the ABI
+> +# Useful for verifying ABI compatibility
+> +# Requires abidw from the abigail suite (https://sourceware.org/libabigail/)
+> +.PHONY: abi
+> +abi:	$(LIB_BUILDDIRS:=.abi)
+> +	mkdir -p $@
+> +	ln -ft $@ $(LIB_BUILDDIRS:=/*.abi)
+> +
+> +abi.tar.gz:	abi
+> +	tar cfz $@ abi
+> +
+> +# Check the ABI against a reference.
+> +# This requires the ABI from a previous run to be present
+> +# in the directory "reference-abi"
+> +# Requires abidiff from the abigail suite
+> +abi-test:	abi reference-abi $(wildcard abi/*.abi)
+> +	@err=0; \
+> +	for lib in abi/*.abi; do \
+> +	    diff=$$(abidiff "reference-$$lib" "$$lib") || { \
+> +	        err=1; \
+> +		echo "==== ABI differences in for $$lib ===="; \
+> +		echo "$$diff"; \
+> +	    }; \
+> +	done >$@; \
+> +	if [ $$err -eq 0 ]; then \
+> +	    echo "*** OK, ABI unchanged ***"; \
+> +	else \
+> +	    echo "*** WARNING: ABI has changed, see file $@ ***"; \
+> +	fi; \
+> +	[ $$err -eq 0 ]
+> +
+>  libmultipath libdmmp: libmpathcmd
+>  libmpathpersist libmpathvalid multipath multipathd: libmultipath
+>  libmultipath/prioritizers libmultipath/checkers libmultipath/foreign: libmultipath
+> @@ -48,6 +85,8 @@ $(BUILDDIRS:=.uninstall):
+>  	$(MAKE) -C ${@:.uninstall=} uninstall
+>  
+>  clean: $(BUILDDIRS.clean)
+> +	rm -rf abi abi.tar.gz abi-test compile_commands.json
+> +
+>  install: all $(BUILDDIRS:=.install)
+>  uninstall: $(BUILDDIRS:=.uninstall)
+>  
+> diff --git a/Makefile.inc b/Makefile.inc
+> index d0ec9b4..17071ef 100644
+> --- a/Makefile.inc
+> +++ b/Makefile.inc
+> @@ -140,3 +140,9 @@ check_file = $(shell \
+>  %.o:	%.c
+>  	@echo building $@ because of $?
+>  	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+> +
+> +%.abi:  %.so.0
+> +	abidw $< >$@
+> +
+> +%.abi:  %.so
+> +	abidw $< >$@
+> diff --git a/libdmmp/Makefile b/libdmmp/Makefile
+> index 79b92fb..c91f0c3 100644
+> --- a/libdmmp/Makefile
+> +++ b/libdmmp/Makefile
+> @@ -25,7 +25,11 @@ all: $(LIBS) doc
+>  
+>  $(LIBS): $(OBJS)
+>  	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS)
+> -	$(LN) $@ $(DEVLIB)
+> +
+> +$(DEVLIB): $(LIBS)
+> +	$(LN) $(LIBS) $@
+> +
+> +abi:    $(DEVLIB:%.so=%.abi)
+>  
+>  install:	doc.gz
+>  	mkdir -p $(DESTDIR)$(usrlibdir)
+> @@ -54,7 +58,7 @@ uninstall:
+>  	$(RM) $(DESTDIR)$(pkgconfdir)/$(PKGFILE)
+>  
+>  clean: dep_clean
+> -	$(RM) core *.a *.o *.gz *.so *.so.*
+> +	$(RM) core *.a *.o *.gz *.so *.so.* *.abi
+>  	$(RM) docs/man/*.gz
+>  	$(MAKE) -C test clean
+>  
+> diff --git a/libmpathcmd/Makefile b/libmpathcmd/Makefile
+> index 2591019..5a7a6e9 100644
+> --- a/libmpathcmd/Makefile
+> +++ b/libmpathcmd/Makefile
+> @@ -15,6 +15,8 @@ $(LIBS): $(OBJS) $(VERSION_SCRIPT)
+>  	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ \
+>  		-Wl,--version-script=$(VERSION_SCRIPT) -o $@ $(OBJS) $(LIBDEPS)
+>  
+> +abi:    $(LIBS:%.so.0=%.abi)
+> +
+>  $(DEVLIB): $(LIBS)
+>  	$(LN) $(LIBS) $@
+>  
+> @@ -31,7 +33,7 @@ uninstall:
+>  	$(RM) $(DESTDIR)$(includedir)/mpath_cmd.h
+>  
+>  clean: dep_clean
+> -	$(RM) core *.a *.o *.so *.so.* *.gz
+> +	$(RM) core *.a *.o *.so *.so.* *.gz *.abi
+>  
+>  include $(wildcard $(OBJS:.o=.d))
+>  
+> diff --git a/libmpathpersist/Makefile b/libmpathpersist/Makefile
+> index 57103e5..d76918f 100644
+> --- a/libmpathpersist/Makefile
+> +++ b/libmpathpersist/Makefile
+> @@ -18,6 +18,8 @@ $(LIBS): $(OBJS) $(VERSION_SCRIPT)
+>  	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ \
+>  		-Wl,--version-script=$(VERSION_SCRIPT) -o $@ $(OBJS) $(LIBDEPS)
+>  
+> +abi:    $(LIBS:%.so.0=%.abi)
+> +
+>  $(DEVLIB): $(LIBS)
+>  	$(LN) $(LIBS) $@
+>  
+> @@ -44,7 +46,7 @@ uninstall:
+>  	$(RM) $(DESTDIR)$(syslibdir)/$(DEVLIB)
+>  
+>  clean: dep_clean
+> -	$(RM) core *.a *.o *.so *.so.* *.gz
+> +	$(RM) core *.a *.o *.so *.so.* *.gz *.abi
+>  
+>  include $(wildcard $(OBJS:.o=.d))
+>  
+> diff --git a/libmpathvalid/Makefile b/libmpathvalid/Makefile
+> index 6bea4bc..b579535 100644
+> --- a/libmpathvalid/Makefile
+> +++ b/libmpathvalid/Makefile
+> @@ -18,6 +18,8 @@ $(LIBS): $(OBJS) $(VERSION_SCRIPT)
+>  	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ -o $@ $(OBJS) $(LIBDEPS) -Wl,--version-script=libmpathvalid.version
+>  	$(LN) $(LIBS) $(DEVLIB)
+>  
+> +abi:    $(LIBS:%.so.0=%.abi)
+> +
+>  install: $(LIBS)
+>  	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(syslibdir)
+>  	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
+> @@ -31,7 +33,7 @@ uninstall:
+>  	$(RM) $(DESTDIR)$(includedir)/mpath_valid.h
+>  
+>  clean: dep_clean
+> -	$(RM) core *.a *.o *.so *.so.* *.gz
+> +	$(RM) core *.a *.o *.so *.so.* *.gz *.abi
+>  
+>  include $(wildcard $(OBJS:.o=.d))
+>  
+> diff --git a/libmultipath/Makefile b/libmultipath/Makefile
+> index 7f3921c..42692b3 100644
+> --- a/libmultipath/Makefile
+> +++ b/libmultipath/Makefile
+> @@ -81,6 +81,8 @@ $(LIBS): $(OBJS) $(VERSION_SCRIPT)
+>  $(DEVLIB): $(LIBS)
+>  	$(LN) $(LIBS) $@
+>  
+> +abi:    $(LIBS:%.so.0=%.abi)
+> +
+>  ../tests/$(LIBS): $(OBJS) $(VERSION_SCRIPT)
+>  	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=`basename $@` \
+>  		-o $@ $(OBJS) $(LIBDEPS)
+> @@ -99,7 +101,7 @@ uninstall:
+>  	$(RM) $(DESTDIR)$(syslibdir)/$(DEVLIB)
+>  
+>  clean: dep_clean
+> -	$(RM) core *.a *.o *.so *.so.* *.gz nvme-ioctl.c nvme-ioctl.h
+> +	$(RM) core *.a *.o *.so *.so.* *.gz *.abi nvme-ioctl.c nvme-ioctl.h
+>  
+>  include $(wildcard $(OBJS:.o=.d))
+>  
 > -- 
+> 2.33.1
 
 --
 dm-devel mailing list
