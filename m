@@ -1,68 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 243CD45666C
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:20:43 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1CF6C45665C
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:18:46 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-269-8xspw-sVOIW8Ck0SpSCr2A-1; Thu, 18 Nov 2021 18:20:40 -0500
-X-MC-Unique: 8xspw-sVOIW8Ck0SpSCr2A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-58-ms8bjPWLN7aegg_WKvSYxQ-1; Thu, 18 Nov 2021 18:18:43 -0500
+X-MC-Unique: ms8bjPWLN7aegg_WKvSYxQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A2090180831E;
-	Thu, 18 Nov 2021 23:20:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB1971006AA4;
+	Thu, 18 Nov 2021 23:18:37 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82C2F1017CF5;
-	Thu, 18 Nov 2021 23:20:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FF6D608BA;
+	Thu, 18 Nov 2021 23:18:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7C5201832DD9;
-	Thu, 18 Nov 2021 23:20:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B9C81832DD2;
+	Thu, 18 Nov 2021 23:18:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AINEAX4005148 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 18:14:10 -0500
+	id 1AINE8Ap005129 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 18:14:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0DCDE404727A; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
+	id E265540CFD14; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 09D754047279
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DCFBA4010E98
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E5347811E84
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:09 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3D9F1066694
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-200-7r6tnJttOjWQrqZK5pWrew-1; Thu, 18 Nov 2021 18:14:05 -0500
-X-MC-Unique: 7r6tnJttOjWQrqZK5pWrew-1
+	us-mta-549-vBBnISd2OJur9OXX4yR2Dw-1; Thu, 18 Nov 2021 18:14:06 -0500
+X-MC-Unique: vBBnISd2OJur9OXX4yR2Dw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 69A7D2170E;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id C341A1FD3C;
 	Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2ABB613AA8;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7949913AA8;
 	Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id uCf1BzzelmGAQAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id OOY+GzzelmGAQAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:04 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 19 Nov 2021 00:13:33 +0100
-Message-Id: <20211118231338.22358-17-mwilck@suse.com>
+Date: Fri, 19 Nov 2021 00:13:34 +0100
+Message-Id: <20211118231338.22358-18-mwilck@suse.com>
 In-Reply-To: <20211118231338.22358-1-mwilck@suse.com>
 References: <20211118231338.22358-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,13 +74,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINEAX4005148
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE8Ap005129
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 16/21] kpartx: find_unused_loop_device(): add
-	newlines
+Subject: [dm-devel] [PATCH 17/21] multipathd (coverity): daemonize(): use
+	dup2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,50 +104,71 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-... to avoid these messages being joined with the error message
-from the caller.
+Modify the file descriptors atomically usign dup2(), and make
+sure to cleanup properly even in case of an error, and to not
+close stdout/in/err if the program had been started with any of
+them closed.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- kpartx/lopart.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ multipathd/main.c | 23 +++++++++++++----------
+ 1 file changed, 13 insertions(+), 10 deletions(-)
 
-diff --git a/kpartx/lopart.c b/kpartx/lopart.c
-index 7041ddf..512a59f 100644
---- a/kpartx/lopart.c
-+++ b/kpartx/lopart.c
-@@ -210,26 +210,26 @@ no_loop_fd:
- 	}
- 
- 	if (!somedev)
--		fprintf(stderr, "mount: could not find any device /dev/loop#");
-+		fprintf(stderr, "mount: could not find any device /dev/loop#\n");
- 
- 	else if (!someloop) {
- 		if (loop_known == 1)
- 			fprintf(stderr,
- 				"mount: Could not find any loop device.\n"
--				"       Maybe /dev/loop# has a wrong major number?");
-+				"       Maybe /dev/loop# has a wrong major number?\n");
- 		else if (loop_known == -1)
- 			fprintf(stderr,
- 				"mount: Could not find any loop device, and, according to %s,\n"
- 				"       this kernel does not know about the loop device.\n"
--				"       (If so, then recompile or `modprobe loop'.)",
-+				"       (If so, then recompile or `modprobe loop'.)\n",
- 				PROC_DEVICES);
- 		else
- 			fprintf(stderr,
- 				"mount: Could not find any loop device. Maybe this kernel does not know\n"
- 				"       about the loop device (then recompile or `modprobe loop'), or\n"
--				"       maybe /dev/loop# has the wrong major number?");
-+				"       maybe /dev/loop# has the wrong major number?\n");
- 	} else
--		fprintf(stderr, "mount: could not find any free loop device");
-+		fprintf(stderr, "mount: could not find any free loop device\n");
- 	return NULL;
+diff --git a/multipathd/main.c b/multipathd/main.c
+index b8d4fcf..8bd680d 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -3341,11 +3341,18 @@ failed:
+ 	return sd_notify_exit(exit_code);
  }
  
++static void cleanup_close(int *pfd)
++{
++	if (*pfd != -1 && *pfd != STDIN_FILENO && *pfd != STDOUT_FILENO &&
++	    *pfd != STDERR_FILENO)
++		close(*pfd);
++}
++
+ static int
+ daemonize(void)
+ {
+ 	int pid;
+-	int dev_null_fd;
++	int dev_null_fd __attribute__((cleanup(cleanup_close))) = -1;
+ 
+ 	if( (pid = fork()) < 0){
+ 		fprintf(stderr, "Failed first fork : %s\n", strerror(errno));
+@@ -3371,25 +3378,21 @@ daemonize(void)
+ 		_exit(0);
+ 	}
+ 
+-	close(STDIN_FILENO);
+-	if (dup(dev_null_fd) < 0) {
+-		fprintf(stderr, "cannot dup /dev/null to stdin : %s\n",
++	if (dup2(dev_null_fd, STDIN_FILENO) < 0) {
++		fprintf(stderr, "cannot dup2 /dev/null to stdin : %s\n",
+ 			strerror(errno));
+ 		_exit(0);
+ 	}
+-	close(STDOUT_FILENO);
+-	if (dup(dev_null_fd) < 0) {
+-		fprintf(stderr, "cannot dup /dev/null to stdout : %s\n",
++	if (dup2(dev_null_fd, STDOUT_FILENO) < 0) {
++		fprintf(stderr, "cannot dup2 /dev/null to stdout : %s\n",
+ 			strerror(errno));
+ 		_exit(0);
+ 	}
+-	close(STDERR_FILENO);
+-	if (dup(dev_null_fd) < 0) {
++	if (dup2(dev_null_fd, STDERR_FILENO) < 0) {
+ 		fprintf(stderr, "cannot dup /dev/null to stderr : %s\n",
+ 			strerror(errno));
+ 		_exit(0);
+ 	}
+-	close(dev_null_fd);
+ 	daemon_pid = getpid();
+ 	return 0;
+ }
 -- 
 2.33.1
 
