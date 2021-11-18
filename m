@@ -1,67 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F36345665E
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:18:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 94894456660
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:19:42 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-196-A1iLDOBqPKqbtbgFi_ly8g-1; Thu, 18 Nov 2021 18:18:47 -0500
-X-MC-Unique: A1iLDOBqPKqbtbgFi_ly8g-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-389-qaDaDd-CNpixEpJjqNccww-1; Thu, 18 Nov 2021 18:19:40 -0500
+X-MC-Unique: qaDaDd-CNpixEpJjqNccww-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 509C110151EE;
-	Thu, 18 Nov 2021 23:18:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3055D5D6B1;
-	Thu, 18 Nov 2021 23:18:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B6D7D804144;
+	Thu, 18 Nov 2021 23:19:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95D925FC25;
+	Thu, 18 Nov 2021 23:19:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4DE101832DD5;
-	Thu, 18 Nov 2021 23:18:41 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8DB364E9E2;
+	Thu, 18 Nov 2021 23:19:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AINEHHC005256 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 18:14:17 -0500
+	id 1AINE50W005065 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 18:14:05 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6112E2026D69; Thu, 18 Nov 2021 23:14:17 +0000 (UTC)
+	id 1438740CFD12; Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B4962026D64
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E92740CFD11
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F880857FAD
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E9D7A857D02
 	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-436-YpOqdlWjO1-yFjXUqihn-g-1; Thu, 18 Nov 2021 18:14:02 -0500
-X-MC-Unique: YpOqdlWjO1-yFjXUqihn-g-1
+	us-mta-406-PsJmrJf7OQeMBD453rn9ew-1; Thu, 18 Nov 2021 18:14:03 -0500
+X-MC-Unique: PsJmrJf7OQeMBD453rn9ew-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 698451FD3D;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AC61F2170E;
 	Thu, 18 Nov 2021 23:14:01 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1423313AA8;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6C82113DC0;
 	Thu, 18 Nov 2021 23:14:01 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id aOeUAjnelmGAQAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id UN08GDnelmGAQAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:01 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 19 Nov 2021 00:13:24 +0100
-Message-Id: <20211118231338.22358-8-mwilck@suse.com>
+Date: Fri, 19 Nov 2021 00:13:25 +0100
+Message-Id: <20211118231338.22358-9-mwilck@suse.com>
 In-Reply-To: <20211118231338.22358-1-mwilck@suse.com>
 References: <20211118231338.22358-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -73,13 +73,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINEHHC005256
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE50W005065
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 07/21] libmultipath: use strbuf in
-	parse_vpd_pg83()
+Subject: [dm-devel] [PATCH 08/21] libmultipath (coverity): fix tainted
+	values in alua_rtpg.c
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,170 +103,129 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-By using the strbuf API, the code gets more readable, as we need
-less output size checks.
-
-While at it, avoid a possible crash by passing a NULL pointer
-to memchr().
+Coverity needs tainted values limited by constant expressions.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/discovery.c | 113 +++++++++++++++++----------------------
- 1 file changed, 49 insertions(+), 64 deletions(-)
+ libmultipath/prioritizers/alua_rtpg.c | 13 ++++++------
+ libmultipath/prioritizers/alua_spc3.h | 30 ++++++++++++++++++++++-----
+ 2 files changed, 31 insertions(+), 12 deletions(-)
 
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 5ce9031..16b6fae 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -1120,6 +1120,7 @@ parse_vpd_pg83(const unsigned char *in, size_t in_len,
- 	size_t len, vpd_len, i;
- 	int vpd_type, prio = -1;
- 	int err = -ENODATA;
-+	STRBUF_ON_STACK(buf);
+diff --git a/libmultipath/prioritizers/alua_rtpg.c b/libmultipath/prioritizers/alua_rtpg.c
+index 420a2e3..3f9c0e7 100644
+--- a/libmultipath/prioritizers/alua_rtpg.c
++++ b/libmultipath/prioritizers/alua_rtpg.c
+@@ -27,7 +27,6 @@
+ #include "../structs.h"
+ #include "../prio.h"
+ #include "../discovery.h"
+-#include "../unaligned.h"
+ #include "../debug.h"
+ #include "alua_rtpg.h"
  
-         /* Need space at least for one digit */
- 	if (out_len <= 1)
-@@ -1237,92 +1238,76 @@ parse_vpd_pg83(const unsigned char *in, size_t in_len,
- 	if (vpd_type == 0x2 || vpd_type == 0x3) {
- 		size_t i;
+@@ -252,12 +251,12 @@ int
+ get_target_port_group(const struct path * pp, unsigned int timeout)
+ {
+ 	unsigned char		*buf;
+-	struct vpd83_data *	vpd83;
+-	struct vpd83_dscr *	dscr;
++	const struct vpd83_data *	vpd83;
++	const struct vpd83_dscr *	dscr;
+ 	int			rc;
+ 	int			buflen, scsi_buflen;
  
--		len = sprintf(out, "%d", vpd_type);
--		if (2 * vpd_len >= out_len - len) {
--			condlog(1, "%s: WWID overflow, type %d, %zu/%zu bytes required",
--				__func__, vpd_type,
--				2 * vpd_len + len + 1, out_len);
--			vpd_len = (out_len - len - 1) / 2;
--		}
-+		if ((err = print_strbuf(&buf, "%d", vpd_type)) < 0)
-+			return err;
- 		for (i = 0; i < vpd_len; i++)
--			len += sprintf(out + len,
--				       "%02x", vpd[i]);
-+			if ((err = print_strbuf(&buf, "%02x", vpd[i])) < 0)
-+				return err;
- 	} else if (vpd_type == 0x8) {
--		if (!memcmp("eui.", vpd, 4))
--			out[0] =  '2';
-+		char type;
-+
-+                if (!memcmp("eui.", vpd, 4))
-+			type =  '2';
- 		else if (!memcmp("naa.", vpd, 4))
--			out[0] = '3';
-+			type = '3';
- 		else
--			out[0] = '8';
-+			type = '8';
-+		if ((err = fill_strbuf(&buf, type, 1)) < 0)
-+			return err;
- 
- 		vpd += 4;
- 		len = vpd_len - 4;
--		while (len > 2 && vpd[len - 2] == '\0')
--			--len;
--		if (len > out_len - 1) {
--			condlog(1, "%s: WWID overflow, type 8/%c, %zu/%zu bytes required",
--				__func__, out[0], len + 1, out_len);
--			len = out_len - 1;
-+		if ((err = __append_strbuf_str(&buf, (const char *)vpd, len)) < 0)
-+			return err;
-+
-+                /* The input is 0-padded, make sure the length is correct */
-+		truncate_strbuf(&buf, strlen(get_strbuf_str(&buf)));
-+		len = get_strbuf_len(&buf);
-+		if (type != '8') {
-+			char *buffer = __get_strbuf_buf(&buf);
-+
-+			for (i = 0; i < len; ++i)
-+				buffer[i] = tolower(buffer[i]);
- 		}
- 
--		if (out[0] == '8')
--			for (i = 0; i < len; ++i)
--				out[1 + i] = vpd[i];
--		else
--			for (i = 0; i < len; ++i)
--				out[1 + i] = tolower(vpd[i]);
--
--		/* designator should be 0-terminated, but let's make sure */
--		out[len] = '\0';
--
- 	} else if (vpd_type == 0x1) {
- 		const unsigned char *p;
- 		size_t p_len;
- 
--		out[0] = '1';
--		len = 1;
--		while ((p = memchr(vpd, ' ', vpd_len))) {
-+		if ((err = fill_strbuf(&buf, '1', 1)) < 0)
-+			return err;
-+		while (vpd && (p = memchr(vpd, ' ', vpd_len))) {
- 			p_len = p - vpd;
--			if (len + p_len > out_len - 1) {
--				condlog(1, "%s: WWID overflow, type 1, %zu/%zu bytes required",
--					__func__, len + p_len, out_len);
--				p_len = out_len - len - 1;
--			}
--			memcpy(out + len, vpd, p_len);
--			len += p_len;
--			if (len >= out_len - 1) {
--				out[len] = '\0';
--				break;
--			}
--			out[len] = '_';
--			len ++;
--			if (len >= out_len - 1) {
--				out[len] = '\0';
--				break;
--			}
-+			if ((err = __append_strbuf_str(&buf, (const char *)vpd,
-+						       p_len)) < 0)
-+				return err;
- 			vpd = p;
- 			vpd_len -= p_len;
--			while (vpd && *vpd == ' ') {
-+			while (vpd && vpd_len > 0 && *vpd == ' ') {
- 				vpd++;
- 				vpd_len --;
+-	buflen = 4096;
++	buflen = VPD_BUFLEN;
+ 	buf = (unsigned char *)malloc(buflen);
+ 	if (!buf) {
+ 		PRINT_DEBUG("malloc failed: could not allocate"
+@@ -298,13 +297,13 @@ get_target_port_group(const struct path * pp, unsigned int timeout)
+ 	rc = -RTPG_NO_TPG_IDENTIFIER;
+ 	FOR_EACH_VPD83_DSCR(vpd83, dscr) {
+ 		if (vpd83_dscr_istype(dscr, IDTYPE_TARGET_PORT_GROUP)) {
+-			struct vpd83_tpg_dscr *p;
++			const struct vpd83_tpg_dscr *p;
+ 			if (rc != -RTPG_NO_TPG_IDENTIFIER) {
+ 				PRINT_DEBUG("get_target_port_group: more "
+ 					    "than one TPG identifier found!");
+ 				continue;
  			}
-+			if (vpd_len > 0 && (err = fill_strbuf(&buf, '_', 1)) < 0)
-+				return err;
- 		}
--		p_len = vpd_len;
--		if (p_len > 0 && len < out_len - 1) {
--			if (len + p_len > out_len - 1) {
--				condlog(1, "%s: WWID overflow, type 1, %zu/%zu bytes required",
--					__func__, len + p_len + 1, out_len);
--				p_len = out_len - len - 1;
--			}
--			memcpy(out + len, vpd, p_len);
--			len += p_len;
--			out[len] = '\0';
--		}
--		if (len > 1 && out[len - 1] == '_') {
--			out[len - 1] = '\0';
--			len--;
-+		if (vpd_len > 0) {
-+			if ((err = __append_strbuf_str(&buf, (const char *)vpd,
-+						       vpd_len)) < 0)
-+				return err;
+-			p  = (struct vpd83_tpg_dscr *)dscr->data;
++			p  = (const struct vpd83_tpg_dscr *)dscr->data;
+ 			rc = get_unaligned_be16(p->tpg);
  		}
  	}
-+
-+        len = get_strbuf_len(&buf);
-+	if (len >= out_len) {
-+		condlog(1, "%s: WWID overflow, type %d, %zu/%zu bytes required",
-+			__func__, vpd_type, len, out_len);
-+                if (vpd_type == 2 || vpd_type == 3)
-+			/* designator must have an even number of characters */
-+			len = 2 * (out_len / 2) - 1;
-+		else
-+			len = out_len - 1;
-+	}
-+	strlcpy(out, get_strbuf_str(&buf), len + 1);
- 	return len;
- }
+@@ -377,7 +376,7 @@ get_asymmetric_access_state(const struct path *pp, unsigned int tpg,
+ 	uint64_t		scsi_buflen;
+ 	int fd = pp->fd;
  
+-	buflen = 4096;
++	buflen = VPD_BUFLEN;
+ 	buf = (unsigned char *)malloc(buflen);
+ 	if (!buf) {
+ 		PRINT_DEBUG ("malloc failed: could not allocate"
+diff --git a/libmultipath/prioritizers/alua_spc3.h b/libmultipath/prioritizers/alua_spc3.h
+index 7ba2cf4..611d67e 100644
+--- a/libmultipath/prioritizers/alua_spc3.h
++++ b/libmultipath/prioritizers/alua_spc3.h
+@@ -14,6 +14,7 @@
+  */
+ #ifndef __SPC3_H__
+ #define __SPC3_H__
++#include "../unaligned.h"
+ 
+ /*=============================================================================
+  * Definitions to support the standard inquiry command as defined in SPC-3.
+@@ -177,7 +178,7 @@ struct vpd83_dscr {
+ } __attribute__((packed));
+ 
+ static inline int
+-vpd83_dscr_istype(struct vpd83_dscr *d, unsigned char type)
++vpd83_dscr_istype(const struct vpd83_dscr *d, unsigned char type)
+ {
+ 	return ((d->b1 & 7) == type);
+ }
+@@ -190,6 +191,26 @@ struct vpd83_data {
+ 	struct vpd83_dscr	data[0];
+ } __attribute__((packed));
+ 
++#define VPD_BUFLEN 4096
++
++static inline unsigned int vpd83_length(const struct vpd83_data *p)
++{
++	uint16_t len = get_unaligned_be16(p->length);
++
++	return len <= VPD_BUFLEN ? len : VPD_BUFLEN;
++}
++
++static inline const struct vpd83_dscr *
++vpd83_next_dscr(const struct vpd83_dscr *d, const struct vpd83_data *p)
++{
++	uint16_t pg_len = vpd83_length(p);
++	ptrdiff_t offs = ((const char *)d - (const char *)p) + d->length + 4;
++
++	offs = offs < 0 ? 0 : offs > pg_len ? pg_len : offs;
++	return (const struct vpd83_dscr *)((const char *)p + offs);
++}
++
++
+ /*-----------------------------------------------------------------------------
+  * This macro should be used to walk through all identification descriptors
+  * defined in the code page 0x83.
+@@ -200,10 +221,9 @@ struct vpd83_data {
+ #define FOR_EACH_VPD83_DSCR(p, d) \
+ 		for( \
+ 			d = p->data; \
+-			(((char *) d) - ((char *) p)) < \
+-			get_unaligned_be16(p->length); \
+-			d = (struct vpd83_dscr *) \
+-				((char *) d + d->length + 4) \
++			(((const char *) d) - ((const char *) p)) \
++				< (ptrdiff_t)vpd83_length(p);	  \
++			d = vpd83_next_dscr(d, p) \
+ 		)
+ 
+ /*=============================================================================
 -- 
 2.33.1
 
