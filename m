@@ -2,66 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C95E445665F
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:19:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E55D6456667
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:20:28 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-556-4o5CE7hUMs2SwNJrQImgnA-1; Thu, 18 Nov 2021 18:19:35 -0500
-X-MC-Unique: 4o5CE7hUMs2SwNJrQImgnA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-428-TWu09rhZPoqo182PgwZa4Q-1; Thu, 18 Nov 2021 18:20:25 -0500
+X-MC-Unique: TWu09rhZPoqo182PgwZa4Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A74ED10151E3;
-	Thu, 18 Nov 2021 23:19:29 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B79E4ABA5;
-	Thu, 18 Nov 2021 23:19:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 91AED1808324;
+	Thu, 18 Nov 2021 23:20:20 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7224979447;
+	Thu, 18 Nov 2021 23:20:20 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C26731832DDB;
-	Thu, 18 Nov 2021 23:19:27 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D90E04EA2F;
+	Thu, 18 Nov 2021 23:20:18 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AINE4jg005048 for <dm-devel@listman.util.phx.redhat.com>;
+	id 1AINE4DI005049 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 18 Nov 2021 18:14:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 2AA2C400DFBC; Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
+	id 5CD1440CFD13; Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2561A4010E8A
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 56D2D40CFD11
 	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B6A9811765
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EEDF833B17
 	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-287-6v2impCvO2Kp-isWhxQxrQ-1; Thu, 18 Nov 2021 18:14:01 -0500
-X-MC-Unique: 6v2impCvO2Kp-isWhxQxrQ-1
+	us-mta-172-bgbAYPnrNpOjJ31UvjygCQ-1; Thu, 18 Nov 2021 18:14:02 -0500
+X-MC-Unique: bgbAYPnrNpOjJ31UvjygCQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A5CE71FD3C;
-	Thu, 18 Nov 2021 23:14:00 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0368F212CC;
+	Thu, 18 Nov 2021 23:14:01 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5DB8513AA8;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B755A13AA8;
 	Thu, 18 Nov 2021 23:14:00 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id yLuAFDjelmGAQAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id iNJwKjjelmGAQAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:00 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 19 Nov 2021 00:13:22 +0100
-Message-Id: <20211118231338.22358-6-mwilck@suse.com>
+Date: Fri, 19 Nov 2021 00:13:23 +0100
+Message-Id: <20211118231338.22358-7-mwilck@suse.com>
 In-Reply-To: <20211118231338.22358-1-mwilck@suse.com>
 References: <20211118231338.22358-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -75,11 +76,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE4jg005048
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE4DI005049
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 05/21] libmultipath (coverity): improve input
-	checking in parse_vpd_pg83
+Subject: [dm-devel] [PATCH 06/21] multipath-tools: add tests for broken VPD
+	page 83
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,261 +104,204 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Check offsets and other obvious errors in the VPD83 data.
-
-The original reason to do this was to fix "tained scalar"
-warnings from coverity. But this doesn't suffice for coverity
-without using a constant boundary (WWID_SIZE) for "len" in
-parse_vpd_pg80() and for "vpd_len" in parse_vpd_pg83(), even
-though the computed boundaries are tighter than the constant
-ones.
+Add some tests for the consistency checks in the VPD.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/discovery.c | 139 +++++++++++++++++++++++++--------------
- 1 file changed, 90 insertions(+), 49 deletions(-)
+ tests/vpd.c | 108 ++++++++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 108 insertions(+)
 
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 5edf959..5ce9031 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -37,6 +37,8 @@
- #include "print.h"
- #include "strbuf.h"
+diff --git a/tests/vpd.c b/tests/vpd.c
+index 8e730d3..d42e109 100644
+--- a/tests/vpd.c
++++ b/tests/vpd.c
+@@ -9,6 +9,7 @@
+ #include <stdint.h>
+ #include <stdlib.h>
+ #include <unistd.h>
++#include <errno.h>
+ #include <stdarg.h>
+ #include <stddef.h>
+ #include <setjmp.h>
+@@ -500,6 +501,27 @@ static void test_vpd_naa_ ## naa ## _ ## wlen(void **state)             \
+ 			    test_id, vt->wwid);				\
+ }
  
-+#define VPD_BUFLEN 4096
++/**
++ * test_cpd_naa_NAA_badlen_BAD() - test detection of bad length fields
++ * @NAA:	Network Name Authority (2, 3, 5, 16)
++ * @BAD:        Value for designator length field
++ * @ERR:        Expected error code
++ */
++#define make_test_vpd_naa_badlen(NAA, BAD, ERR)			\
++static void test_vpd_naa_##NAA##_badlen_##BAD(void **state)	\
++{								\
++	struct vpdtest *vt = *state;					\
++	int n, ret;							\
++									\
++	n = create_vpd83(vt->vpdbuf, sizeof(vt->vpdbuf), test_id, 3, NAA, 0); \
++									\
++	vt->vpdbuf[7] = BAD;						\
++	will_return(__wrap_ioctl, n);					\
++	will_return(__wrap_ioctl, vt->vpdbuf);				\
++	ret = get_vpd_sgio(10, 0x83, 0, vt->wwid, 40);			\
++	assert_int_equal(-ret, -ERR);					\
++}
 +
- struct vpd_vendor_page vpd_vendor_pages[VPD_VP_ARRAY_SIZE] = {
- 	[VPD_VP_UNDEF]	= { 0x00, "undef" },
- 	[VPD_VP_HP3PAR]	= { 0xc0, "hp3par" },
-@@ -1085,6 +1087,8 @@ parse_vpd_pg80(const unsigned char *in, char *out, size_t out_len)
- 	if (out_len == 0)
- 		return 0;
+ /**
+  * test_vpd_eui_LEN_WLEN() - test code for VPD 83, EUI64
+  * @LEN:	EUI64 length (8, 12, or 16)
+@@ -532,6 +554,27 @@ static void test_vpd_eui_ ## len ## _ ## wlen ## _ ## sml(void **state)	\
+ 			    test_id, vt->wwid);				\
+ }
  
-+	if (len > WWID_SIZE)
-+		len = WWID_SIZE;
- 	/*
- 	 * Strip leading and trailing whitespace
- 	 */
-@@ -1114,84 +1118,122 @@ parse_vpd_pg83(const unsigned char *in, size_t in_len,
- 	const unsigned char *d;
- 	const unsigned char *vpd = NULL;
- 	size_t len, vpd_len, i;
--	int vpd_type, prio = -1, naa_prio;
-+	int vpd_type, prio = -1;
-+	int err = -ENODATA;
- 
--	d = in + 4;
--	while (d < in + in_len) {
--		/* Select 'association: LUN' */
--		if ((d[1] & 0x30) != 0) {
--			d += d[3] + 4;
--			continue;
--		}
--		switch (d[1] & 0xf) {
-+        /* Need space at least for one digit */
-+	if (out_len <= 1)
-+		return 0;
++/**
++ * test_cpd_eui_LEN_badlen_BAD() - test detection of bad length fields
++ * @NAA:	correct length(8, 12, 16)
++ * @BAD:        value for designator length field
++ * @ERR:        expected error code
++ */
++#define make_test_vpd_eui_badlen(LEN, BAD, ERR)			\
++static void test_vpd_eui_badlen_##LEN##_##BAD(void **state)	\
++{								\
++	struct vpdtest *vt = *state;					\
++	int n, ret;							\
++									\
++	n = create_vpd83(vt->vpdbuf, sizeof(vt->vpdbuf), test_id, 2, 0, LEN); \
++									\
++	vt->vpdbuf[7] = BAD;						\
++	will_return(__wrap_ioctl, n);					\
++	will_return(__wrap_ioctl, vt->vpdbuf);				\
++	ret = get_vpd_sgio(10, 0x83, 0, vt->wwid, 40);			\
++	assert_int_equal(-ret, -ERR);					\
++}
 +
-+        d = in + 4;
-+	while (d <= in + in_len - 4) {
-+		bool invalid = false;
-+		int new_prio = -1;
+ /**
+  * test_vpd80_SIZE_LEN_WLEN() - test code for VPD 80
+  * @SIZE, @LEN:	see create_vpd80()
+@@ -621,6 +664,13 @@ make_test_vpd_eui(8, 17, 0);
+ make_test_vpd_eui(8, 16, 0);
+ make_test_vpd_eui(8, 10, 0);
+ 
++make_test_vpd_eui_badlen(8, 8, 17);
++make_test_vpd_eui_badlen(8, 12, -EOVERFLOW);
++make_test_vpd_eui_badlen(8, 9, -EOVERFLOW);
++make_test_vpd_eui_badlen(8, 7, -EINVAL);
++make_test_vpd_eui_badlen(8, 4, -EINVAL);
++make_test_vpd_eui_badlen(8, 0, -EINVAL);
 +
-+                /* Select 'association: LUN' */
-+		if ((d[1] & 0x30) == 0x30) {
-+			invalid = true;
-+			goto next_designator;
-+		} else if ((d[1] & 0x30) != 0x00)
-+			goto next_designator;
+ /* 96 bit, WWID size: 26 */
+ make_test_vpd_eui(12, 32, 0);
+ make_test_vpd_eui(12, 26, 0);
+@@ -628,12 +678,27 @@ make_test_vpd_eui(12, 25, 0);
+ make_test_vpd_eui(12, 20, 0);
+ make_test_vpd_eui(12, 10, 0);
+ 
++make_test_vpd_eui_badlen(12, 12, 25);
++make_test_vpd_eui_badlen(12, 16, -EOVERFLOW);
++make_test_vpd_eui_badlen(12, 13, -EOVERFLOW);
++make_test_vpd_eui_badlen(12, 11, -EINVAL);
++/* non-fatal */
++make_test_vpd_eui_badlen(12, 8, 17);
++make_test_vpd_eui_badlen(12, 0, -EINVAL);
 +
-+                switch (d[1] & 0xf) {
-+			unsigned char good_len;
- 		case 0x3:
- 			/* NAA: Prio 5 */
- 			switch (d[4] >> 4) {
- 			case 6:
- 				/* IEEE Registered Extended: Prio 8 */
--				naa_prio = 8;
-+				new_prio = 8;
-+				good_len = 16;
- 				break;
- 			case 5:
- 				/* IEEE Registered: Prio 7 */
--				naa_prio = 7;
-+				new_prio = 7;
-+				good_len = 8;
- 				break;
- 			case 2:
- 				/* IEEE Extended: Prio 6 */
--				naa_prio = 6;
-+				new_prio = 6;
-+				good_len = 8;
- 				break;
- 			case 3:
- 				/* IEEE Locally assigned: Prio 1 */
--				naa_prio = 1;
-+				new_prio = 1;
-+				good_len = 8;
- 				break;
- 			default:
- 				/* Default: no priority */
--				naa_prio = -1;
-+				good_len = 0xff;
- 				break;
- 			}
--			if (prio < naa_prio) {
--				prio = naa_prio;
--				vpd = d;
--			}
+ /* 128 bit, WWID size: 34 */
+ make_test_vpd_eui(16, 40, 0);
+ make_test_vpd_eui(16, 34, 0);
+ make_test_vpd_eui(16, 33, 0);
+ make_test_vpd_eui(16, 20, 0);
+ 
++make_test_vpd_eui_badlen(16, 16, 33);
++make_test_vpd_eui_badlen(16, 17, -EOVERFLOW);
++make_test_vpd_eui_badlen(16, 15, -EINVAL);
++/* non-fatal */
++make_test_vpd_eui_badlen(16, 12, 25);
++make_test_vpd_eui_badlen(16, 0, -EINVAL);
 +
-+                        invalid = good_len == 0xff || good_len != d[3];
- 			break;
- 		case 0x2:
- 			/* EUI-64: Prio 4 */
--			if (prio < 4) {
--				prio = 4;
--				vpd = d;
--			}
-+			invalid = (d[3] != 8 && d[3] != 12 && d[3] != 16);
-+			new_prio = 4;
- 			break;
- 		case 0x8:
- 			/* SCSI Name: Prio 3 */
--			if (memcmp(d + 4, "eui.", 4) &&
--			    memcmp(d + 4, "naa.", 4) &&
--			    memcmp(d + 4, "iqn.", 4))
--				break;
--			if (prio < 3) {
--				prio = 3;
--				vpd = d;
--			}
-+			invalid = (d[3] < 4 || (memcmp(d + 4, "eui.", 4) &&
-+						memcmp(d + 4, "naa.", 4) &&
-+						memcmp(d + 4, "iqn.", 4)));
-+			new_prio = 3;
- 			break;
- 		case 0x1:
- 			/* T-10 Vendor ID: Prio 2 */
--			if (prio < 2) {
--				prio = 2;
--				vpd = d;
--			}
-+			invalid = (d[3] < 8);
-+			new_prio = 2;
- 			break;
-+		case 0xa:
-+			condlog(2, "%s: UUID identifiers not yet supported",
-+				__func__);
-+			break;
-+		default:
-+			invalid = true;
-+			break;
-+		}
+ /* NAA IEEE registered extended (36), WWID size: 34 */
+ make_test_vpd_naa(6, 40);
+ make_test_vpd_naa(6, 34);
+@@ -641,12 +706,27 @@ make_test_vpd_naa(6, 33);
+ make_test_vpd_naa(6, 32);
+ make_test_vpd_naa(6, 20);
+ 
++/* NAA IEEE registered extended with bad designator length */
++make_test_vpd_naa_badlen(6, 16, 33);
++make_test_vpd_naa_badlen(6, 15, -EINVAL);
++make_test_vpd_naa_badlen(6, 8, -EINVAL);
++make_test_vpd_naa_badlen(6, 17, -EOVERFLOW);
++make_test_vpd_naa_badlen(6, 0, -EINVAL);
 +
-+	next_designator:
-+		if (d + d[3] + 4 - in > (ssize_t)in_len) {
-+			condlog(2, "%s: device descriptor length overflow: %zd > %zu",
-+				__func__, d + d[3] + 4 - in, in_len);
-+			err = -EOVERFLOW;
-+			break;
-+		}
-+                if (invalid) {
-+			condlog(2, "%s: invalid device designator at offset %zd: %02x%02x%02x%02x",
-+				__func__, d - in, d[0], d[1], d[2], d[3]);
-+			err = -EINVAL;
-+			break;
-+		}
-+		if (new_prio > prio) {
-+			vpd = d;
-+			prio = new_prio;
- 		}
- 		d += d[3] + 4;
- 	}
+ /* NAA IEEE registered (35), WWID size: 18 */
+ make_test_vpd_naa(5, 20);
+ make_test_vpd_naa(5, 18);
+ make_test_vpd_naa(5, 17);
+ make_test_vpd_naa(5, 16);
  
- 	if (prio <= 0)
--		return -ENODATA;
--	/* Need space at least for one digit */
--	else if (out_len <= 1)
--		return 0;
-+		return err;
++/* NAA IEEE registered with bad designator length */
++make_test_vpd_naa_badlen(5, 8, 17);
++make_test_vpd_naa_badlen(5, 7, -EINVAL);
++make_test_vpd_naa_badlen(5, 4, -EINVAL);
++make_test_vpd_naa_badlen(5, 16, -EOVERFLOW);
++make_test_vpd_naa_badlen(5, 9, -EOVERFLOW);
++make_test_vpd_naa_badlen(5, 0, -EINVAL);
 +
-+	if (d != in + in_len)
-+		/* Should this be fatal? (overflow covered above) */
-+		condlog(2, "%s: warning: last descriptor end %zd != VPD length %zu",
-+			__func__, d - in, in_len);
- 
- 	len = 0;
- 	vpd_type = vpd[1] & 0xf;
- 	vpd_len = vpd[3];
- 	vpd += 4;
-+	/* untaint vpd_len for coverity */
-+	if (vpd_len > WWID_SIZE) {
-+		condlog(1, "%s: suspicious designator length %zu truncated to %u",
-+			__func__, vpd_len, WWID_SIZE);
-+		vpd_len = WWID_SIZE;
-+	}
- 	if (vpd_type == 0x2 || vpd_type == 0x3) {
- 		size_t i;
- 
-@@ -1205,10 +1247,6 @@ parse_vpd_pg83(const unsigned char *in, size_t in_len,
- 		for (i = 0; i < vpd_len; i++)
- 			len += sprintf(out + len,
- 				       "%02x", vpd[i]);
--	} else if (vpd_type == 0x8 && vpd_len < 4) {
--		condlog(1, "%s: VPD length %zu too small for designator type 8",
--			__func__, vpd_len);
--		return -EINVAL;
- 	} else if (vpd_type == 0x8) {
- 		if (!memcmp("eui.", vpd, 4))
- 			out[0] =  '2';
-@@ -1315,11 +1353,12 @@ parse_vpd_c0_hp3par(const unsigned char *in, size_t in_len,
- static int
- get_vpd_sysfs (struct udev_device *parent, int pg, char * str, int maxlen)
- {
--	int len, buff_len;
--	unsigned char buff[4096];
-+	int len;
-+	size_t buff_len;
-+	unsigned char buff[VPD_BUFLEN];
- 
--	memset(buff, 0x0, 4096);
--	if (!parent || sysfs_get_vpd(parent, pg, buff, 4096) <= 0) {
-+	memset(buff, 0x0, VPD_BUFLEN);
-+	if (!parent || sysfs_get_vpd(parent, pg, buff, VPD_BUFLEN) <= 0) {
- 		condlog(3, "failed to read sysfs vpd pg%02x", pg);
- 		return -EINVAL;
- 	}
-@@ -1330,8 +1369,10 @@ get_vpd_sysfs (struct udev_device *parent, int pg, char * str, int maxlen)
- 		return -ENODATA;
- 	}
- 	buff_len = get_unaligned_be16(&buff[2]) + 4;
--	if (buff_len > 4096)
-+	if (buff_len > VPD_BUFLEN) {
- 		condlog(3, "vpd pg%02x page truncated", pg);
-+		buff_len = VPD_BUFLEN;
-+	}
- 
- 	if (pg == 0x80)
- 		len = parse_vpd_pg80(buff, str, maxlen);
-@@ -1375,7 +1416,7 @@ bool
- is_vpd_page_supported(int fd, int pg)
- {
- 	int i, len;
--	unsigned char buff[4096];
-+	unsigned char buff[VPD_BUFLEN];
- 
- 	len = fetch_vpd_page(fd, 0x00, buff, sizeof(buff));
- 	if (len < 0)
-@@ -1391,7 +1432,7 @@ int
- get_vpd_sgio (int fd, int pg, int vend_id, char * str, int maxlen)
- {
- 	int len, buff_len;
--	unsigned char buff[4096];
-+	unsigned char buff[VPD_BUFLEN];
- 
- 	buff_len = fetch_vpd_page(fd, pg, buff, sizeof(buff));
- 	if (buff_len < 0)
+ /* NAA local (33), WWID size: 18 */
+ make_test_vpd_naa(3, 20);
+ make_test_vpd_naa(3, 18);
+@@ -741,24 +821,52 @@ static int test_vpd(void)
+ 		cmocka_unit_test(test_vpd_eui_8_17_0),
+ 		cmocka_unit_test(test_vpd_eui_8_16_0),
+ 		cmocka_unit_test(test_vpd_eui_8_10_0),
++		cmocka_unit_test(test_vpd_eui_badlen_8_8),
++		cmocka_unit_test(test_vpd_eui_badlen_8_12),
++		cmocka_unit_test(test_vpd_eui_badlen_8_9),
++		cmocka_unit_test(test_vpd_eui_badlen_8_7),
++		cmocka_unit_test(test_vpd_eui_badlen_8_4),
++		cmocka_unit_test(test_vpd_eui_badlen_8_0),
+ 		cmocka_unit_test(test_vpd_eui_12_32_0),
+ 		cmocka_unit_test(test_vpd_eui_12_26_0),
+ 		cmocka_unit_test(test_vpd_eui_12_25_0),
+ 		cmocka_unit_test(test_vpd_eui_12_20_0),
+ 		cmocka_unit_test(test_vpd_eui_12_10_0),
++		cmocka_unit_test(test_vpd_eui_badlen_12_12),
++		cmocka_unit_test(test_vpd_eui_badlen_12_16),
++		cmocka_unit_test(test_vpd_eui_badlen_12_13),
++		cmocka_unit_test(test_vpd_eui_badlen_12_11),
++		cmocka_unit_test(test_vpd_eui_badlen_12_8),
++		cmocka_unit_test(test_vpd_eui_badlen_12_0),
+ 		cmocka_unit_test(test_vpd_eui_16_40_0),
+ 		cmocka_unit_test(test_vpd_eui_16_34_0),
+ 		cmocka_unit_test(test_vpd_eui_16_33_0),
+ 		cmocka_unit_test(test_vpd_eui_16_20_0),
++		cmocka_unit_test(test_vpd_eui_badlen_16_16),
++		cmocka_unit_test(test_vpd_eui_badlen_16_17),
++		cmocka_unit_test(test_vpd_eui_badlen_16_15),
++		cmocka_unit_test(test_vpd_eui_badlen_16_12),
++		cmocka_unit_test(test_vpd_eui_badlen_16_0),
+ 		cmocka_unit_test(test_vpd_naa_6_40),
+ 		cmocka_unit_test(test_vpd_naa_6_34),
+ 		cmocka_unit_test(test_vpd_naa_6_33),
+ 		cmocka_unit_test(test_vpd_naa_6_32),
+ 		cmocka_unit_test(test_vpd_naa_6_20),
++		cmocka_unit_test(test_vpd_naa_6_badlen_16),
++		cmocka_unit_test(test_vpd_naa_6_badlen_15),
++		cmocka_unit_test(test_vpd_naa_6_badlen_8),
++		cmocka_unit_test(test_vpd_naa_6_badlen_17),
++		cmocka_unit_test(test_vpd_naa_6_badlen_0),
+ 		cmocka_unit_test(test_vpd_naa_5_20),
+ 		cmocka_unit_test(test_vpd_naa_5_18),
+ 		cmocka_unit_test(test_vpd_naa_5_17),
+ 		cmocka_unit_test(test_vpd_naa_5_16),
++		cmocka_unit_test(test_vpd_naa_5_badlen_8),
++		cmocka_unit_test(test_vpd_naa_5_badlen_7),
++		cmocka_unit_test(test_vpd_naa_5_badlen_4),
++		cmocka_unit_test(test_vpd_naa_5_badlen_16),
++		cmocka_unit_test(test_vpd_naa_5_badlen_9),
++		cmocka_unit_test(test_vpd_naa_5_badlen_0),
+ 		cmocka_unit_test(test_vpd_naa_3_20),
+ 		cmocka_unit_test(test_vpd_naa_3_18),
+ 		cmocka_unit_test(test_vpd_naa_3_17),
 -- 
 2.33.1
 
