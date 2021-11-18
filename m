@@ -1,63 +1,84 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724ED4565E2
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Nov 2021 23:49:58 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637275797;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=F0t3WuHLdqmt7ieVMbFir4UARxjdLA58OO+zKNb3MIc=;
-	b=GoOV7IQPnQv1cW34+hdNQJvMUSVEO12jRiC6kHDP0WxK84G9zaw/7OPsxlURGaw6TBNZEw
-	zYKjk175T6T71Tf8sgAvyTEJpykG3iG7XeTc1lfHz+JBtiyWwrL9v90tNOuIuFOlz9kS8k
-	W1TqMdABydeZMZU3Nv8yhv18OoMlwCY=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90F1D456628
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:05:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-114-NXTN2VVaPtWGT7OZJJpSLg-1; Thu, 18 Nov 2021 17:49:55 -0500
-X-MC-Unique: NXTN2VVaPtWGT7OZJJpSLg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-501-kUryLZn3OsKy2P_APXTvWQ-1; Thu, 18 Nov 2021 18:05:41 -0500
+X-MC-Unique: kUryLZn3OsKy2P_APXTvWQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDE7C1922023;
-	Thu, 18 Nov 2021 22:49:48 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 775304ABA0;
-	Thu, 18 Nov 2021 22:49:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E7FCC10151E0;
+	Thu, 18 Nov 2021 23:05:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 95F1C5D6B1;
+	Thu, 18 Nov 2021 23:05:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EFFAC181A1D1;
-	Thu, 18 Nov 2021 22:49:30 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A7C114EA2A;
+	Thu, 18 Nov 2021 23:05:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AIMlquN001442 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 17:47:52 -0500
+	id 1AIMx3nF002002 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 17:59:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BD94D5C1D5; Thu, 18 Nov 2021 22:47:52 +0000 (UTC)
+	id 351CE218013A; Thu, 18 Nov 2021 22:59:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B26E5C1D0;
-	Thu, 18 Nov 2021 22:47:50 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AIMlmck013474; 
-	Thu, 18 Nov 2021 16:47:48 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AIMllL3013473;
-	Thu, 18 Nov 2021 16:47:47 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Thu, 18 Nov 2021 16:47:47 -0600
-Message-Id: <1637275667-13436-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Received: from mimecast-mx02.redhat.com
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B5B8218012A
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A8388027FB
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:00 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-205-KGIU3cucNLOPwbW6AGuS-w-1; Thu, 18 Nov 2021 17:58:58 -0500
+X-MC-Unique: KGIU3cucNLOPwbW6AGuS-w-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id D03DE1FD38;
+	Thu, 18 Nov 2021 22:58:56 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 71D4913B11;
+	Thu, 18 Nov 2021 22:58:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id lrJfGbDalmGHPAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 22:58:56 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 18 Nov 2021 23:57:52 +0100
+Message-Id: <20211118225840.19810-1-mwilck@suse.com>
+MIME-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMx3nF002002
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH] multipathd: avoid unnecessary path read-only
-	reloads
+Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
+	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH v2 00/47] multipathd: uxlsnr overhaul
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,10 +90,9 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -80,132 +100,174 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A mulitpath device can only be reloaded read/write when all paths are
-read/write. Also, whenever a read-only device is rescanned, the scsi
-subsystem will first unconditionally issue a uevent with DISK_RO=0
-before checking the read-only status, and if it the device is still
-read-only, issuing another uevent with DISK_RO=1. These uevents cause
-pointless reloads when read-only paths are rescanned. To avoid this,
-check to see if all paths are read/write before changing a multipath
-device from read-only to read/write.
+From: Martin Wilck <mwilck@suse.com>
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+Hello Christophe, hello Ben,
+
+The current multipathd unix listener code has various deficiencies.
+
+ - client disconnects aren't handled correctly,
+ - the uxsock_timeout is applied for receiving, handling, and
+   responding to the client requests separately, rather than for
+   the entire operation,
+ - timeouts are logged, but not acted upon, causing the timeout
+   to be noticed in the client rather than in the server.
+ - clients may see a timeout while "reconfigure" is running,
+ - unpriviledged (non-root) client connections don't work
+   correctly
+ - most importantly, the code busy-loops, polls, or waits in
+   various places in called subroutines, which is a no-go in a
+   piece of code designed as an event handler and may lead
+   to spurious timeouts and delayed reaction e.g. to signals
+   or client requests.
+
+This patch set approaches all these issues. Fixing the last one,
+in particular, requires a major refactoring of the uxlsnr code.
+Overall, the reliability and latency of client request handling
+and signal handling by multipathd should be noticeably improved
+by this patch set.
+
+The biggest problem (waiting for the vecs lock in a client handler)
+can only be fixed by moving this wait into the handlers ppoll()
+loop (another possible fix would have been to handle all clients
+in separate threads, but that would have required even more
+complexity). The patch set achieves this by adding an eventfd-based
+notification mechanism to the vecs lock, which can be passed to
+ppoll() to wake up when the lock is freed.
+
+Furthermore, client requests can't be handled in a single poll
+iteration any more. Therefore the client connection becomes stateful,
+and is handled by a state machine using the states RECEIVE, PARSE,
+WAIT FOR LOCK, WORK, and SEND.
+
+The refactoring is done step by step for ease (hopefully) of
+review. 1/35-4/35 add utility code that will be used by the uxlsnr
+refactoring. 5/35-7/35 are some independent patches that
+aren't directly related to uxlnsr, but fix issues that I observed
+while working on this set.
+
+8/35-13/35 are minor fixups in the client handling code. This code is
+strongly related to the uxlsnr, thus I thought I'd rather fix it
+before making the other changes. In 25/35, the cli-handlers are
+converted to use the strbuf API everywhere instead of separate "reply"
+and "len" arguments. 15/35-18/35 are minor fixes for the
+uxlsnr. 19/35-34/35 are the actual refactoring patches for the uxlsnr
+code. First I move some code around unchanged, then I add the
+state machine (handle_client()) and move the code into it piece
+by piece. 35/35 adds a fix for the client side (multipathd -k).
+
+CC'ing Lixiaokeng and Chongyun Wu, as they have test cases that use
+the client code heavily AFAIR. Testing by 3rd parties would be
+very welcome.
+
 ---
- libmultipath/libmultipath.version |  5 +++++
- libmultipath/sysfs.c              | 22 ++++++++++++++++++++++
- libmultipath/sysfs.h              |  1 +
- multipathd/main.c                 | 31 ++++++++++++++++++++++++++++++-
- 4 files changed, 58 insertions(+), 1 deletion(-)
 
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index 58a7d1be..ab4c7e30 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -296,3 +296,8 @@ global:
- local:
- 	*;
- };
-+
-+LIBMULTIPATH_11.1.0 {
-+global:
-+	sysfs_get_ro;
-+} LIBMULTIPATH_11.0.0;
-diff --git a/libmultipath/sysfs.c b/libmultipath/sysfs.c
-index 9ff145f2..24c12b6a 100644
---- a/libmultipath/sysfs.c
-+++ b/libmultipath/sysfs.c
-@@ -236,6 +236,28 @@ sysfs_get_size (struct path *pp, unsigned long long * size)
- 	return 0;
- }
- 
-+int
-+sysfs_get_ro (struct path *pp)
-+{
-+	int ro;
-+	char buff[3]; /* Either "0\n\0" or "1\n\0" */
-+
-+	if (!pp->udev)
-+		return -1;
-+
-+	if (sysfs_attr_get_value(pp->udev, "ro", buff, sizeof(buff)) <= 0) {
-+		condlog(3, "%s: Cannot read ro attribute in sysfs", pp->dev);
-+		return -1;
-+	}
-+
-+	if (sscanf(buff, "%d\n", &ro) != 1 || ro < 0 || ro > 1) {
-+		condlog(3, "%s: Cannot parse ro attribute", pp->dev);
-+		return -1;
-+	}
-+
-+	return ro;
-+}
-+
- int sysfs_check_holders(char * check_devt, char * new_devt)
- {
- 	unsigned int major, new_minor, table_minor;
-diff --git a/libmultipath/sysfs.h b/libmultipath/sysfs.h
-index 72b39ab2..c948c467 100644
---- a/libmultipath/sysfs.h
-+++ b/libmultipath/sysfs.h
-@@ -13,6 +13,7 @@ ssize_t sysfs_attr_get_value(struct udev_device *dev, const char *attr_name,
- ssize_t sysfs_bin_attr_get_value(struct udev_device *dev, const char *attr_name,
- 				 unsigned char * value, size_t value_len);
- int sysfs_get_size (struct path *pp, unsigned long long * size);
-+int sysfs_get_ro(struct path *pp);
- int sysfs_check_holders(char * check_devt, char * new_devt);
- bool sysfs_is_multipathed(struct path *pp, bool set_wwid);
- #endif
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 08a8a592..a1665494 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -1440,6 +1440,35 @@ finish_path_init(struct path *pp, struct vectors * vecs)
- 	return -1;
- }
- 
-+static bool
-+needs_ro_update(struct multipath *mpp, int ro)
-+{
-+	struct pathgroup * pgp;
-+	struct path * pp;
-+	unsigned int i, j;
-+	struct dm_info *dmi = NULL;
-+
-+	if (!mpp || ro < 0)
-+		return false;
-+	dm_get_info(mpp->alias, &dmi);
-+	if (!dmi) /* assume we do need to reload the device */
-+		return true;
-+	if (dmi->read_only == ro) {
-+		free(dmi);
-+		return false;
-+	}
-+	free(dmi);
-+	if (ro == 1)
-+		return true;
-+	vector_foreach_slot (mpp->pg, pgp, i) {
-+		vector_foreach_slot (pgp->paths, pp, j) {
-+			if (sysfs_get_ro(pp) == 1)
-+				return false;
-+		}
-+	}
-+	return true;
-+}
-+
- static int
- uev_update_path (struct uevent *uev, struct vectors * vecs)
- {
-@@ -1512,7 +1541,7 @@ uev_update_path (struct uevent *uev, struct vectors * vecs)
- 		}
- 
- 		ro = uevent_get_disk_ro(uev);
--		if (mpp && ro >= 0) {
-+		if (needs_ro_update(mpp, ro)) {
- 			condlog(2, "%s: update path write_protect to '%d' (uevent)", uev->kernel, ro);
- 
- 			if (mpp->wait_for_udev)
+Changes wrt v1 (Ben Marzinski):
+  03: this is a major library version change.
+  07: make set_config_state() static
+  12: further simplify add_handler, make it static, and use assert
+        to check for multiply-defined handlers
+  14: dropped in favor of Ben's "reconfigure all" set, numbering changes
+        from here on
+  29 (was 30): don't use fallthrough; call state machine in a loop instead.
+     fix signedness of return codes. Fix double messages.
+  30 (was 31): The lock handling in this patch was broken. It could happen that
+     the uxlsnr was cancelled without releasing the lock. Fixed by
+     simplification. 
+  35 (new): Use recv() for getting the command length, as suggested by Ben.
+
+Moreover, I'm reposting Ben's rebased series on top of mine.
+
+Comments welcome, regards,
+Martin
+
+Benjamin Marzinski (12):
+  multipathd: move delayed_reconfig out of struct config
+  multipathd: remove reconfigure from header file.
+  multipathd: pass in the type of reconfigure
+  multipathd: add "reconfigure all" command.
+  multipathd: remove missing paths on startup
+  libmultipath: skip unneeded steps to get path name
+  libmultipath: don't use fallback wwid in update_pathvec_from_dm
+  libmultipath: always set INIT_REMOVED in set_path_removed
+  multipathd: fully initialize paths added by update_pathvec_from_dm
+  multipathd: retrigger uevent for partial paths
+  multipathd: remove INIT_PARTIAL paths that aren't in a multipath
+    device
+  multipathd: Remove dependency on systemd-udev-settle.service
+
+Martin Wilck (36):
+  libmultipath: add timespeccmp() utility function
+  libmultipath: add trylock() helper
+  libmultipath: add optional wakeup functionality to lock.c
+  libmultipath: print: add __snprint_config()
+  libmultipath: improve cleanup of uevent queues on exit
+  multipathd: fix systemd notification when stopping while reloading
+  multipathd: improve delayed reconfigure
+  multipathd: cli.h: formatting improvements
+  multipathd: cli_del_map: fix reply for delayed action
+  multipathd: add prototype for cli_handler functions
+  multipathd: make all cli_handlers static
+  multipathd: add and set cli_handlers in a single step
+  multipathd: cli.c: use ESRCH for "command not found"
+  multipathd: uxlsnr: avoid stalled clients during reconfigure
+  multipathd: uxlsnr: handle client HUP
+  multipathd: uxlsnr: use symbolic values for pollfd indices
+  multipathd: uxlsnr: avoid using fd -1 in ppoll()
+  multipathd: uxlsnr: data structure for stateful client connection
+  multipathd: move uxsock_trigger() to uxlsnr.c
+  multipathd: move parse_cmd() to uxlsnr.c
+  multipathd: uxlsnr: remove check_timeout()
+  multipathd: uxlsnr: move client handling to separate function
+  multipathd: uxlsnr: use main poll loop for receiving
+  multipathd: use strbuf in cli_handler functions
+  multipathd: uxlsnr: check root on connection startup
+  multipathd: uxlsnr: pass struct client to uxsock_trigger() and
+    parse_cmd()
+  multipathd: uxlsnr: move handler execution to separate function
+  multipathd: uxlsnr: use parser to determine non-root commands
+  multipathd: uxlsnr: merge uxsock_trigger() into state machine
+  multipathd: uxlsnr: add idle notification
+  multipathd: uxlsnr: add timeout handling
+  multipathd: uxlsnr: use poll loop for sending, too
+  multipathd: uxlsnr: drop client_lock
+  multipathd: uxclt: allow client mode for non-root, too
+  multipathd: uxlsnr: use recv() for command length
+  libmultipath: add path wildcard "%I" for init state
+
+ libmpathpersist/libmpathpersist.version |  12 +-
+ libmultipath/config.h                   |   1 -
+ libmultipath/configure.c                |   4 +-
+ libmultipath/devmapper.c                |   2 +
+ libmultipath/discovery.c                |   7 +-
+ libmultipath/discovery.h                |   2 +
+ libmultipath/libmultipath.version       |  10 +-
+ libmultipath/lock.c                     |  12 +-
+ libmultipath/lock.h                     |  11 +-
+ libmultipath/print.c                    |  55 ++-
+ libmultipath/print.h                    |   2 +
+ libmultipath/structs.h                  |   9 +
+ libmultipath/structs_vec.c              |  41 +-
+ libmultipath/structs_vec.h              |   2 +-
+ libmultipath/time-util.c                |  12 +
+ libmultipath/time-util.h                |   1 +
+ libmultipath/uevent.c                   |  49 +-
+ multipath/main.c                        |   2 +-
+ multipathd/cli.c                        | 181 ++-----
+ multipathd/cli.h                        | 102 ++--
+ multipathd/cli_handlers.c               | 596 ++++++++++++------------
+ multipathd/cli_handlers.h               |  61 +--
+ multipathd/main.c                       | 357 +++++++-------
+ multipathd/main.h                       |   4 +-
+ multipathd/multipathd.8                 |  10 +-
+ multipathd/multipathd.service           |   3 +-
+ multipathd/uxlsnr.c                     | 542 +++++++++++++++------
+ multipathd/uxlsnr.h                     |   4 +-
+ 28 files changed, 1193 insertions(+), 901 deletions(-)
+
 -- 
-2.17.2
+2.33.1
+
 
 --
 dm-devel mailing list
