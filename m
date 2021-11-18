@@ -2,66 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0BEB45666D
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:20:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C0C245665D
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:18:51 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-69-dg_h3cj8MECPNtY8lS5CmA-1; Thu, 18 Nov 2021 18:20:42 -0500
-X-MC-Unique: dg_h3cj8MECPNtY8lS5CmA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-235-N2jYa-SEOLKBO6io7BQVBQ-1; Thu, 18 Nov 2021 18:18:46 -0500
+X-MC-Unique: N2jYa-SEOLKBO6io7BQVBQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3240AA40C5;
-	Thu, 18 Nov 2021 23:20:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DCA95E274;
-	Thu, 18 Nov 2021 23:20:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 222CA10151E3;
+	Thu, 18 Nov 2021 23:18:40 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 01CF31000324;
+	Thu, 18 Nov 2021 23:18:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 12ED44EA39;
-	Thu, 18 Nov 2021 23:20:36 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F3C091832DD4;
+	Thu, 18 Nov 2021 23:18:38 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AINEAA3005151 for <dm-devel@listman.util.phx.redhat.com>;
+	id 1AINEA7u005165 for <dm-devel@listman.util.phx.redhat.com>;
 	Thu, 18 Nov 2021 18:14:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3464540CFD12; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
+	id 8C7B940CFD12; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E52F40CFD11
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87AD640CFD11
 	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1654080B719
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F973811E98
 	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-420-WrPheqZOOk-GiYuIEYJd_w-1; Thu, 18 Nov 2021 18:14:06 -0500
-X-MC-Unique: WrPheqZOOk-GiYuIEYJd_w-1
+	us-mta-400-2GSqhw6VNN-IT4dWAnRakg-1; Thu, 18 Nov 2021 18:14:06 -0500
+X-MC-Unique: 2GSqhw6VNN-IT4dWAnRakg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 0FC1B217BA;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 5E7FB218B0;
 	Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C6ED513DC0;
-	Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2093D13AA8;
+	Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id wPlJLjzelmGAQAAAMHmgww
-	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:04 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id aPOABT3elmGAQAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:05 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 19 Nov 2021 00:13:35 +0100
-Message-Id: <20211118231338.22358-19-mwilck@suse.com>
+Date: Fri, 19 Nov 2021 00:13:36 +0100
+Message-Id: <20211118231338.22358-20-mwilck@suse.com>
 In-Reply-To: <20211118231338.22358-1-mwilck@suse.com>
 References: <20211118231338.22358-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -75,11 +75,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINEAA3005151
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINEA7u005165
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 18/21] libmultipath (coverity): avoid sleeping in
-	dm_mapname()
+Subject: [dm-devel] [PATCH 19/21] libmultipath (coverity): Revert
+	"setup_map: wait for pending path checkers to finish"
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,59 +103,120 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-dm_mapname is called while holding the vecs lock, and shouldn't
-sleep. All callers handle a NULL return value.
+This reverts commit adf551f601596aac0774884c8a5b6b0f74721cfc.
 
-This code dates back to the initial commit creating multipathd,
-66b457b ("[multipathd]") from 2005. I am pretty certain that the comment
-"device map might not be ready when we get here from uevent trigger"
-doesn't hold any more (if it has ever been true). Perhaps the early
-code acted on "add" events for maps, which would indeed not necessarily
-have been set up. On the actually relevant "change" events, the map
-name has to be set.
+Since 2b1fe13 ("libmultipath: allow force reload with no active paths"),
+reloading maps with pending paths is no issue any more. The path checker
+is going to set the correct status of the path quickly. If the paths are
+down, I/O will eventually fail.
+
+Sleeping with the vecs lock held is undesirable though, so avoid waiting
+in setup_map().
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/devmapper.c | 17 +----------------
- 1 file changed, 1 insertion(+), 16 deletions(-)
+ libmultipath/configure.c | 63 +---------------------------------------
+ 1 file changed, 1 insertion(+), 62 deletions(-)
 
-diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
-index 3e1a726..6c3ca1f 100644
---- a/libmultipath/devmapper.c
-+++ b/libmultipath/devmapper.c
-@@ -1390,7 +1390,6 @@ dm_mapname(int major, int minor)
- 	const char *map;
- 	struct dm_task *dmt;
- 	int r;
--	int loop = MAX_WAIT * LOOPS_PER_SEC;
+diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+index f1a890a..79670f9 100644
+--- a/libmultipath/configure.c
++++ b/libmultipath/configure.c
+@@ -44,10 +44,6 @@
+ #include "sysfs.h"
+ #include "io_err_stat.h"
  
- 	if (!(dmt = libmp_dm_task_create(DM_DEVICE_STATUS)))
- 		return NULL;
-@@ -1400,23 +1399,9 @@ dm_mapname(int major, int minor)
- 		goto bad;
- 
- 	dm_task_no_open_count(dmt);
+-/* Time in ms to wait for pending checkers in setup_map() */
+-#define WAIT_CHECKERS_PENDING_MS 10
+-#define WAIT_ALL_CHECKERS_PENDING_MS 90
 -
+ /* group paths in pg by host adapter
+  */
+ int group_by_host_adapter(struct pathgroup *pgp, vector adapters)
+@@ -261,42 +257,11 @@ int rr_optimize_path_order(struct pathgroup *pgp)
+ 	return 0;
+ }
+ 
+-static int wait_for_pending_paths(struct multipath *mpp,
+-				  struct config *conf,
+-				  int n_pending, int goal, int wait_ms)
+-{
+-	static const struct timespec millisec =
+-		{ .tv_sec = 0, .tv_nsec = 1000*1000 };
+-	int i, j;
+-	struct path *pp;
+-	struct pathgroup *pgp;
+-	struct timespec ts;
+-
+-	do {
+-		vector_foreach_slot(mpp->pg, pgp, i) {
+-			vector_foreach_slot(pgp->paths, pp, j) {
+-				if (pp->state != PATH_PENDING)
+-					continue;
+-				pp->state = get_state(pp, conf,
+-						      0, PATH_PENDING);
+-				if (pp->state != PATH_PENDING &&
+-				    --n_pending <= goal)
+-					return 0;
+-			}
+-		}
+-		ts = millisec;
+-		while (nanosleep(&ts, &ts) != 0 && errno == EINTR)
+-			/* nothing */;
+-	} while (--wait_ms > 0);
+-
+-	return n_pending;
+-}
+-
+ int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
+ {
+ 	struct pathgroup * pgp;
+ 	struct config *conf;
+-	int i, n_paths, marginal_pathgroups;
++	int i, marginal_pathgroups;
+ 	char *save_attr;
+ 
+ 	/*
+@@ -395,7 +360,6 @@ int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
+ 	if (marginal_path_check_enabled(mpp))
+ 		start_io_err_stat_thread(vecs);
+ 
+-	n_paths = VECTOR_SIZE(mpp->paths);
+ 	/*
+ 	 * assign paths to path groups -- start with no groups and all paths
+ 	 * in mpp->paths
+@@ -410,31 +374,6 @@ int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
+ 	if (group_paths(mpp, marginal_pathgroups))
+ 		return 1;
+ 
 -	/*
--	 * device map might not be ready when we get here from
--	 * daemon uev_trigger -> uev_add_map
+-	 * If async state detection is used, see if pending state checks
+-	 * have finished, to get nr_active right. We can't wait until the
+-	 * checkers time out, as that may take 30s or more, and we are
+-	 * holding the vecs lock.
 -	 */
--	while (--loop) {
--		r = libmp_dm_task_run(dmt);
+-	if (conf->force_sync == 0 && n_paths > 0) {
+-		int n_pending = pathcount(mpp, PATH_PENDING);
 -
--		if (r)
--			break;
--
--		usleep(1000 * 1000 / LOOPS_PER_SEC);
+-		if (n_pending > 0)
+-			n_pending = wait_for_pending_paths(
+-				mpp, conf, n_pending, 0,
+-				WAIT_CHECKERS_PENDING_MS);
+-		/* ALL paths pending - wait some more, but be satisfied
+-		   with only some paths finished */
+-		if (n_pending == n_paths)
+-			n_pending = wait_for_pending_paths(
+-				mpp, conf, n_pending,
+-				n_paths >= 4 ? 2 : 1,
+-				WAIT_ALL_CHECKERS_PENDING_MS);
+-		if (n_pending > 0)
+-			condlog(2, "%s: setting up map with %d/%d path checkers pending",
+-				mpp->alias, n_pending, n_paths);
 -	}
 -
-+	r = libmp_dm_task_run(dmt);
- 	if (!r) {
- 		dm_log_error(2, DM_DEVICE_STATUS, dmt);
--		condlog(0, "%i:%i: timeout fetching map name", major, minor);
- 		goto bad;
- 	}
- 
+ 	/*
+ 	 * ponders each path group and determine highest prio pg
+ 	 * to switch over (default to first)
 -- 
 2.33.1
 
