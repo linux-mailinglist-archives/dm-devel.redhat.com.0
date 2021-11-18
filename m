@@ -1,67 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83BE0456610
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:03:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B5B99456627
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:05:29 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-288-mT20eJ_NPPuWbPM2eufs8Q-1; Thu, 18 Nov 2021 18:03:32 -0500
-X-MC-Unique: mT20eJ_NPPuWbPM2eufs8Q-1
+ us-mta-495-FtZbZVbKMd6zYssSsbX8zA-1; Thu, 18 Nov 2021 18:05:25 -0500
+X-MC-Unique: FtZbZVbKMd6zYssSsbX8zA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4A47910168C3;
-	Thu, 18 Nov 2021 23:03:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EE98604CC;
-	Thu, 18 Nov 2021 23:03:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 25EB49F941;
+	Thu, 18 Nov 2021 23:05:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B10918A50;
+	Thu, 18 Nov 2021 23:05:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD3471832DD7;
-	Thu, 18 Nov 2021 23:03:25 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 013C94EA31;
+	Thu, 18 Nov 2021 23:05:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AIMxIJS002379 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 17:59:18 -0500
+	id 1AIMxKlT002415 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 17:59:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 27FAC1121315; Thu, 18 Nov 2021 22:59:18 +0000 (UTC)
+	id DF0BC404727A; Thu, 18 Nov 2021 22:59:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 238701121314
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DB2494047279
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C5B685A5A8
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:18 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C19138027FB
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:19 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-294-9hPYvajHNeOwjnXPlbKQoA-1; Thu, 18 Nov 2021 17:59:14 -0500
-X-MC-Unique: 9hPYvajHNeOwjnXPlbKQoA-1
+	us-mta-379-AcSZOOUJNKuIdd30RjfEow-1; Thu, 18 Nov 2021 17:59:14 -0500
+X-MC-Unique: AcSZOOUJNKuIdd30RjfEow-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 16A5C212CC;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 6CB701FD39;
 	Thu, 18 Nov 2021 22:59:13 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C269513B11;
-	Thu, 18 Nov 2021 22:59:12 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24F1813B11;
+	Thu, 18 Nov 2021 22:59:13 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id 0LN2LcDalmGHPAAAMHmgww
-	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 22:59:12 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id 2JC4BsHalmGHPAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 22:59:13 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 18 Nov 2021 23:58:38 +0100
-Message-Id: <20211118225840.19810-47-mwilck@suse.com>
+Date: Thu, 18 Nov 2021 23:58:39 +0100
+Message-Id: <20211118225840.19810-48-mwilck@suse.com>
 In-Reply-To: <20211118225840.19810-1-mwilck@suse.com>
 References: <20211118225840.19810-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -73,14 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMxIJS002379
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMxKlT002415
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 46/48] multipathd: remove INIT_PARTIAL paths
-	that aren't in a multipath device
+Subject: [dm-devel] [PATCH v2 47/48] multipathd: Remove dependency on
+	systemd-udev-settle.service
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,57 +105,34 @@ Content-Transfer-Encoding: 7bit
 
 From: Benjamin Marzinski <bmarzins@redhat.com>
 
-The only reason multipath is monitoring an INIT_PARTIAL path is because
-it was discovered in a multipath device table. If it stops being part
-of a multipath device before it gets fully initialized, drop it.
+multipathd can now handle starting up with incompletely initialized
+paths, so it no longer needs to wait for the device Coldplug to
+complete. However multipathd may need to write to /etc (for the wwids
+and bindings files), so in needs to wait for the root filesystem to
+be remounted read/write before starting.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/structs_vec.c | 22 ++++++++++++++--------
- 1 file changed, 14 insertions(+), 8 deletions(-)
+ multipathd/multipathd.service | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
-index 9b6407b..df5709a 100644
---- a/libmultipath/structs_vec.c
-+++ b/libmultipath/structs_vec.c
-@@ -308,9 +308,12 @@ void orphan_paths(vector pathvec, struct multipath *mpp, const char *reason)
- 
- 	vector_foreach_slot (pathvec, pp, i) {
- 		if (pp->mpp == mpp) {
--			if (pp->initialized == INIT_REMOVED) {
--				condlog(3, "%s: freeing path in removed state",
--					pp->dev);
-+			if (pp->initialized == INIT_REMOVED ||
-+			    pp->initialized == INIT_PARTIAL) {
-+				condlog(3, "%s: freeing path in %s state",
-+					pp->dev,
-+					pp->initialized == INIT_REMOVED ?
-+					"removed" : "partial");
- 				vector_del_slot(pathvec, i--);
- 				free_path(pp);
- 			} else
-@@ -469,11 +472,14 @@ static void check_removed_paths(const struct multipath *mpp, vector pathvec)
- 	int i;
- 
- 	vector_foreach_slot(pathvec, pp, i) {
--		if (pp->initialized != INIT_REMOVED || pp->mpp != mpp)
--			continue;
--		if (!find_devt_in_pathgroups(mpp, pp->dev_t)) {
--			condlog(2, "%s: %s: freeing path in removed state",
--				__func__, pp->dev);
-+		if (pp->mpp == mpp &&
-+		    (pp->initialized == INIT_REMOVED ||
-+		     pp->initialized == INIT_PARTIAL) &&
-+		    !find_devt_in_pathgroups(mpp, pp->dev_t)) {
-+			condlog(2, "%s: %s: freeing path in %s state",
-+				__func__, pp->dev,
-+				pp->initialized == INIT_REMOVED ?
-+				"removed" : "partial");
- 			vector_del_slot(pathvec, i--);
- 			free_path(pp);
- 		}
+diff --git a/multipathd/multipathd.service b/multipathd/multipathd.service
+index 0b2ac81..87cb534 100644
+--- a/multipathd/multipathd.service
++++ b/multipathd/multipathd.service
+@@ -1,9 +1,8 @@
+ [Unit]
+ Description=Device-Mapper Multipath Device Controller
+-Wants=systemd-udev-trigger.service systemd-udev-settle.service
+ Before=iscsi.service iscsid.service lvm2-activation-early.service
+ Before=local-fs-pre.target blk-availability.service shutdown.target
+-After=multipathd.socket systemd-udev-trigger.service systemd-udev-settle.service
++After=multipathd.socket systemd-remount-fs.service
+ DefaultDependencies=no
+ Conflicts=shutdown.target
+ ConditionKernelCommandLine=!nompath
 -- 
 2.33.1
 
