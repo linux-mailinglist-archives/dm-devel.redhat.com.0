@@ -2,64 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C17A45517A
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Nov 2021 01:08:16 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2AF3A455179
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Nov 2021 01:08:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637194095;
+	s=mimecast20190719; t=1637194094;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ijgwUDEJH9A4M5MOuh19dd2x9SS66TRuFXxmFmKYpVw=;
-	b=hepGkCzHhkGU2P/m8AgX7dk6/p0D4TMP5IrNvP7hTmUAOInar+MXJkGoZ6xCPkTVhDBv7I
-	z6T70hZy3XD6YFjC9W7BrZSpfb9/gsPTBYwoq3IkXe56bZhCQQZbVTr1IPSmQCcP/RGPXN
-	47cseT9AQ+P+dffGFXYGBV2GSxxdxZg=
+	bh=ZTwUfiI8z+tHviOUSWVsRkrFvxH2+tC2jl2U/LED5U0=;
+	b=iI2xR7aqrTx5M3HeAT96RqK2aLroBjUMhqRg0I/rWz1HBACwaPGrufGCws7Rv91YsLansE
+	JgFg/y7TYpXaV0DP5IV+Js6fCM6RS4YxCXulvzV8lqCNAkp4fJMY+f/w6AD6EGhyv/Fqps
+	ZsPxfz/7QVlgAM7OMuYTG6acftyO5cs=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) (Using TLS) by relay.mimecast.com with ESMTP id
- us-mta-383-R4rkJHxaOpmkeecJQ7q-nQ-1; Wed, 17 Nov 2021 19:08:13 -0500
-X-MC-Unique: R4rkJHxaOpmkeecJQ7q-nQ-1
+ us-mta-487-RRdVUukDMh-EeGx0FrfYhw-1; Wed, 17 Nov 2021 19:08:12 -0500
+X-MC-Unique: RRdVUukDMh-EeGx0FrfYhw-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0ADD2102CC41;
-	Thu, 18 Nov 2021 00:08:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE1321006AA0;
+	Thu, 18 Nov 2021 00:08:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DAAF979448;
-	Thu, 18 Nov 2021 00:08:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADCFB5C25D;
+	Thu, 18 Nov 2021 00:08:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CA0731832DD2;
-	Thu, 18 Nov 2021 00:08:06 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
-	[10.5.11.22])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E08A41832DD2;
+	Thu, 18 Nov 2021 00:08:04 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AI07g4T006777 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 17 Nov 2021 19:07:42 -0500
+	id 1AI081mD006808 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 17 Nov 2021 19:08:01 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 58CC5100EBAD; Thu, 18 Nov 2021 00:07:42 +0000 (UTC)
+	id A3D4218A50; Thu, 18 Nov 2021 00:08:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 10D21101E814;
-	Thu, 18 Nov 2021 00:07:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 654F657CAD;
+	Thu, 18 Nov 2021 00:07:40 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AI07bn8006035; 
-	Wed, 17 Nov 2021 18:07:37 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AI07cVs006039; 
+	Wed, 17 Nov 2021 18:07:38 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AI07bXd006034;
-	Wed, 17 Nov 2021 18:07:37 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AI07co4006038;
+	Wed, 17 Nov 2021 18:07:38 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 17 Nov 2021 18:07:31 -0600
-Message-Id: <1637194052-5985-4-git-send-email-bmarzins@redhat.com>
+Date: Wed, 17 Nov 2021 18:07:32 -0600
+Message-Id: <1637194052-5985-5-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1637194052-5985-1-git-send-email-bmarzins@redhat.com>
 References: <1637194052-5985-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH v3 3/4] multipathd: pass in the type of
-	reconfigure
+Subject: [dm-devel] [PATCH v3 4/4] multipathd: add "reconfigure all" command.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,209 +81,130 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-schedule_reconfigure() now takes the type of reconfigure to do, and that
-gets passed down to reconfigure(). If a full reconfigure has already
-been requested but not started, weak reconfigure requests will be
-upgraded. Currently cli_reconfigure() and the HUP signal request full
-reconfigures, while the initial reconfigure, ev_add_map(), and
-missing_uev_wait_tick() request weak reconfigures. A future patch will
-enable users to control what kind of reconfigures happen.
+With this commit, multipathd no longer defaults to full reconfigures for
+the "reconfigure" command and the HUP signal. The default is a weak
+reconfigure. A new command, "reconfigure all", has been added to do
+a full reconfigure.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/configure.c  |  2 +-
- multipathd/cli_handlers.c |  2 +-
- multipathd/main.c         | 55 +++++++++++++++++++++------------------
- multipathd/main.h         |  2 +-
- 4 files changed, 32 insertions(+), 29 deletions(-)
+ multipath/main.c          |  2 +-
+ multipathd/cli.c          |  1 +
+ multipathd/cli.h          |  2 ++
+ multipathd/cli_handlers.c | 10 ++++++++++
+ multipathd/main.c         |  2 +-
+ multipathd/multipathd.8   | 10 ++++++++--
+ 6 files changed, 23 insertions(+), 4 deletions(-)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 7edb355b..eb8ec1bd 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -1098,7 +1098,7 @@ out:
-  * FORCE_RELOAD_NONE: existing maps aren't touched at all
-  * FORCE_RELOAD_YES: all maps are rebuilt from scratch and (re)loaded in DM
-  * FORCE_RELOAD_WEAK: existing maps are compared to the current conf and only
-- * reloaded in DM if there's a difference. This is useful during startup.
-+ * reloaded in DM if there's a difference. This is normally sufficient.
-  */
- int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 		    int force_reload, enum mpath_cmds cmd)
+diff --git a/multipath/main.c b/multipath/main.c
+index 65ece830..7b9797ec 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -759,7 +759,7 @@ int delegate_to_multipathd(enum mpath_cmds cmd,
+ 		return NOT_DELEGATED;
+ 
+ 	if (cmd == CMD_CREATE && conf->force_reload == FORCE_RELOAD_YES) {
+-		p += snprintf(p, n, "reconfigure");
++		p += snprintf(p, n, "reconfigure all");
+ 	}
+ 	else if (cmd == CMD_FLUSH_ONE && dev && dev_type == DEV_DEVMAP) {
+ 		p += snprintf(p, n, "del map %s", dev);
+diff --git a/multipathd/cli.c b/multipathd/cli.c
+index 414f6608..d9308bdf 100644
+--- a/multipathd/cli.c
++++ b/multipathd/cli.c
+@@ -212,6 +212,7 @@ load_keys (void)
+ 	r += add_key(keys, "local", LOCAL, 0);
+ 	r += add_key(keys, "setmarginal", SETMARGINAL, 0);
+ 	r += add_key(keys, "unsetmarginal", UNSETMARGINAL, 0);
++	r += add_key(keys, "all", ALL, 0);
+ 
+ 
+ 	if (r) {
+diff --git a/multipathd/cli.h b/multipathd/cli.h
+index fcb6af00..bba705e8 100644
+--- a/multipathd/cli.h
++++ b/multipathd/cli.h
+@@ -47,6 +47,7 @@ enum {
+ 	__LOCAL,			/* 40 */
+ 	__SETMARGINAL,
+ 	__UNSETMARGINAL,
++	__ALL,
+ };
+ 
+ #define LIST		(1ULL << __LIST)
+@@ -93,6 +94,7 @@ enum {
+ #define LOCAL		(1ULL << __LOCAL)
+ #define SETMARGINAL	(1ULL << __SETMARGINAL)
+ #define UNSETMARGINAL	(1ULL << __UNSETMARGINAL)
++#define ALL		(1ULL << __ALL)
+ 
+ #define INITIAL_REPLY_LEN	1200
+ 
 diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index f59db3ab..d1656754 100644
+index d1656754..f89f4e77 100644
 --- a/multipathd/cli_handlers.c
 +++ b/multipathd/cli_handlers.c
-@@ -1012,7 +1012,7 @@ cli_reconfigure(void * v, struct strbuf *reply, void * data)
+@@ -1012,6 +1012,15 @@ cli_reconfigure(void * v, struct strbuf *reply, void * data)
  {
  	condlog(2, "reconfigure (operator)");
  
--	schedule_reconfigure();
-+	schedule_reconfigure(FORCE_RELOAD_YES);
++	schedule_reconfigure(FORCE_RELOAD_WEAK);
++	return 0;
++}
++
++int
++cli_reconfigure_all(void * v, struct strbuf *reply, void * data)
++{
++	condlog(2, "reconfigure all (operator)");
++
+ 	schedule_reconfigure(FORCE_RELOAD_YES);
  	return 0;
  }
- 
+@@ -1497,6 +1506,7 @@ void init_handler_callbacks(void)
+ 	set_handler_callback(DEL+MAPS, cli_del_maps);
+ 	set_handler_callback(SWITCH+MAP+GROUP, cli_switch_group);
+ 	set_unlocked_handler_callback(RECONFIGURE, cli_reconfigure);
++	set_unlocked_handler_callback(RECONFIGURE+ALL, cli_reconfigure_all);
+ 	set_handler_callback(SUSPEND+MAP, cli_suspend);
+ 	set_handler_callback(RESUME+MAP, cli_resume);
+ 	set_handler_callback(RESIZE+MAP, cli_resize);
 diff --git a/multipathd/main.c b/multipathd/main.c
-index 1ead0904..735fdb53 100644
+index 735fdb53..404c7321 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -162,13 +162,6 @@ static bool get_delayed_reconfig(void)
- 	return val;
- }
- 
--static void set_delayed_reconfig(bool val)
--{
--	pthread_mutex_lock(&config_lock);
--	__delayed_reconfig = val;
--	pthread_mutex_unlock(&config_lock);
--}
--
- /*
-  * global copy of vecs for use in sig handlers
-  */
-@@ -290,7 +283,18 @@ enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
- }
- 
- /* Don't access this variable without holding config_lock */
--static bool reconfigure_pending;
-+static enum force_reload_types reconfigure_pending = FORCE_RELOAD_NONE;
-+/* Only set while changing to DAEMON_CONFIGURE, and only access while
-+ * reconfiguring or scheduling a delayed reconfig in DAEMON_CONFIGURE */
-+static volatile enum force_reload_types reload_type = FORCE_RELOAD_NONE;
-+
-+static void enable_delayed_reconfig(void)
-+{
-+	pthread_mutex_lock(&config_lock);
-+	reconfigure_pending = reload_type;
-+	__delayed_reconfig = true;
-+	pthread_mutex_unlock(&config_lock);
-+}
- 
- /* must be called with config_lock held */
- static void __post_config_state(enum daemon_status state)
-@@ -305,7 +309,8 @@ static void __post_config_state(enum daemon_status state)
- 		 * In either case, child() will see DAEMON_CONFIGURE
- 		 * again and start another reconfigure cycle.
- 		 */
--		if (reconfigure_pending && state == DAEMON_IDLE &&
-+		if (reconfigure_pending != FORCE_RELOAD_NONE &&
-+		    state == DAEMON_IDLE &&
- 		    (old_state == DAEMON_CONFIGURE ||
- 		     old_state == DAEMON_RUNNING)) {
- 			/*
-@@ -317,7 +322,8 @@ static void __post_config_state(enum daemon_status state)
- 			state = DAEMON_CONFIGURE;
- 		}
- 		if (state == DAEMON_CONFIGURE) {
--			reconfigure_pending = false;
-+			reload_type = (reconfigure_pending == FORCE_RELOAD_YES) ? FORCE_RELOAD_YES : FORCE_RELOAD_WEAK;
-+			reconfigure_pending = FORCE_RELOAD_NONE;
- 			__delayed_reconfig = false;
- 		}
- 		running_state = state;
-@@ -334,20 +340,26 @@ void post_config_state(enum daemon_status state)
- 	pthread_cleanup_pop(1);
- }
- 
--void schedule_reconfigure(void)
-+void schedule_reconfigure(enum force_reload_types requested_type)
- {
- 	pthread_mutex_lock(&config_lock);
- 	pthread_cleanup_push(config_cleanup, NULL);
-+	enum force_reload_types type;
-+
-+	type = (reconfigure_pending == FORCE_RELOAD_YES ||
-+		requested_type == FORCE_RELOAD_YES) ?
-+	       FORCE_RELOAD_YES : FORCE_RELOAD_WEAK;
- 	switch (running_state)
- 	{
- 	case DAEMON_SHUTDOWN:
- 		break;
- 	case DAEMON_IDLE:
-+		reconfigure_pending = type;
- 		__post_config_state(DAEMON_CONFIGURE);
- 		break;
- 	case DAEMON_CONFIGURE:
- 	case DAEMON_RUNNING:
--		reconfigure_pending = true;
-+		reconfigure_pending = type;
- 		break;
- 	default:
- 		break;
-@@ -812,7 +824,7 @@ ev_add_map (char * dev, const char * alias, struct vectors * vecs)
- 			if (get_delayed_reconfig() &&
- 			    !need_to_delay_reconfig(vecs)) {
- 				condlog(2, "reconfigure (delayed)");
--				schedule_reconfigure();
-+				schedule_reconfigure(FORCE_RELOAD_WEAK);
- 				return 0;
- 			}
- 		}
-@@ -1830,7 +1842,7 @@ missing_uev_wait_tick(struct vectors *vecs)
- 	if (timed_out && get_delayed_reconfig() &&
- 	    !need_to_delay_reconfig(vecs)) {
- 		condlog(2, "reconfigure (delayed)");
--		schedule_reconfigure();
-+		schedule_reconfigure(FORCE_RELOAD_WEAK);
- 	}
- }
- 
-@@ -2595,7 +2607,6 @@ configure (struct vectors * vecs)
- 	vector mpvec;
- 	int i, ret;
- 	struct config *conf;
--	static int force_reload = FORCE_RELOAD_WEAK;
- 
- 	if (!vecs->pathvec && !(vecs->pathvec = vector_alloc())) {
- 		condlog(0, "couldn't allocate path vec in configure");
-@@ -2643,15 +2654,7 @@ configure (struct vectors * vecs)
- 	if (should_exit())
- 		goto fail;
- 
--	/*
--	 * create new set of maps & push changed ones into dm
--	 * In the first call, use FORCE_RELOAD_WEAK to avoid making
--	 * superfluous ACT_RELOAD ioctls. Later calls are done
--	 * with FORCE_RELOAD_YES.
--	 */
--	ret = coalesce_paths(vecs, mpvec, NULL, force_reload, CMD_NONE);
--	if (force_reload == FORCE_RELOAD_WEAK)
--		force_reload = FORCE_RELOAD_YES;
-+	ret = coalesce_paths(vecs, mpvec, NULL, reload_type, CMD_NONE);
- 	if (ret != CP_OK) {
- 		condlog(0, "configure failed while coalescing paths");
- 		goto fail;
-@@ -2815,7 +2818,7 @@ handle_signals(bool nonfatal)
+@@ -2818,7 +2818,7 @@ handle_signals(bool nonfatal)
  		return;
  	if (reconfig_sig) {
  		condlog(2, "reconfigure (signal)");
--		schedule_reconfigure();
-+		schedule_reconfigure(FORCE_RELOAD_YES);
+-		schedule_reconfigure(FORCE_RELOAD_YES);
++		schedule_reconfigure(FORCE_RELOAD_WEAK);
  	}
  	if (log_reset_sig) {
  		condlog(2, "reset log (signal)");
-@@ -3276,7 +3279,7 @@ child (__attribute__((unused)) void *param)
- 			if (!need_to_delay_reconfig(vecs))
- 				reconfigure(vecs);
- 			else
--				set_delayed_reconfig(true);
-+				enable_delayed_reconfig();
- 			lock_cleanup_pop(vecs->lock);
- 			post_config_state(DAEMON_IDLE);
- 		}
-diff --git a/multipathd/main.h b/multipathd/main.h
-index a1697a74..c8aac398 100644
---- a/multipathd/main.h
-+++ b/multipathd/main.h
-@@ -37,7 +37,7 @@ void exit_daemon(void);
- const char * daemon_status(void);
- enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
- 					    unsigned long ms);
--void schedule_reconfigure(void);
-+void schedule_reconfigure(enum force_reload_types requested_type);
- int need_to_delay_reconfig (struct vectors *);
- int ev_add_path (struct path *, struct vectors *, int);
- int ev_remove_path (struct path *, struct vectors *, int);
+diff --git a/multipathd/multipathd.8 b/multipathd/multipathd.8
+index 048a838d..e60d7f7f 100644
+--- a/multipathd/multipathd.8
++++ b/multipathd/multipathd.8
+@@ -195,10 +195,16 @@ group index, starting with 1.
+ .
+ .TP
+ .B reconfigure
+-Reconfigures the multipaths. This should be triggered automatically after anyi
+-hotplug event.
++Rereads the configuration, and reloads all changed multipath devices. This
++also happens at startup, when the service is reload, or when a SIGHUP is
++received.
+ .
+ .TP
++.B reconfigure all
++Rereads the configuration, and reloads all multipath devices regardless of
++whether or not they have changed. This also happens when \fImultipath -r\fR is
++run.
++.TP
+ .B suspend map|multipath $map
+ Sets map $map into suspend state.
+ .
 -- 
 2.17.2
 
