@@ -1,72 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [216.205.24.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51629455FD2
-	for <lists+dm-devel@lfdr.de>; Thu, 18 Nov 2021 16:47:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A4EBF455FA7
+	for <lists+dm-devel@lfdr.de>; Thu, 18 Nov 2021 16:37:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-585-Yb_-nJu4MbWpJ50_yfkD2A-1; Thu, 18 Nov 2021 10:47:47 -0500
-X-MC-Unique: Yb_-nJu4MbWpJ50_yfkD2A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-469-na49ZlRWM1ObtQmnRt3xPw-1; Thu, 18 Nov 2021 10:37:08 -0500
+X-MC-Unique: na49ZlRWM1ObtQmnRt3xPw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C23FC1006AA0;
-	Thu, 18 Nov 2021 15:47:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D12429403;
-	Thu, 18 Nov 2021 15:47:40 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DB38519253C0;
+	Thu, 18 Nov 2021 15:37:01 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B8D160C05;
+	Thu, 18 Nov 2021 15:37:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0F50B4EA2A;
-	Thu, 18 Nov 2021 15:47:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 65BA2180BAD1;
+	Thu, 18 Nov 2021 15:36:57 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AIFgeHi023059 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 10:42:40 -0500
+	id 1AIFapYO022726 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 10:36:51 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A43702026D46; Thu, 18 Nov 2021 15:42:40 +0000 (UTC)
+	id 8B4A9112131B; Thu, 18 Nov 2021 15:36:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A02062026D60
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 15:42:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8941818A045E
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 15:35:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 862681121315
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 15:36:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DA6A181E085
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 15:36:46 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-351-uxUliy23MweaUvmPtTYoLQ-1; Thu, 18 Nov 2021 10:35:13 -0500
-X-MC-Unique: uxUliy23MweaUvmPtTYoLQ-1
+	us-mta-190-TKM35PNkNPKSvYgZR70BYg-1; Thu, 18 Nov 2021 10:36:44 -0500
+X-MC-Unique: TKM35PNkNPKSvYgZR70BYg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id B9C931FD29;
-	Thu, 18 Nov 2021 15:35:11 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E179A1FD38;
+	Thu, 18 Nov 2021 15:36:42 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5FAFC13D43;
-	Thu, 18 Nov 2021 15:35:11 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8E9FC13D48;
+	Thu, 18 Nov 2021 15:36:42 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id bXMQFa9ylmFiIwAAMHmgww
-	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 15:35:11 +0000
-Message-ID: <c12a8f41b41d213bd6e7cb1196e63f22cb3afab1.camel@suse.com>
+	by imap2.suse-dmz.suse.de with ESMTPSA id 2ryKIApzlmEAJAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 15:36:42 +0000
+Message-ID: <f416a25130ecc8834ea3946bbb58151a5ccab26c.camel@suse.com>
 From: Martin Wilck <mwilck@suse.com>
-To: lixiaokeng <lixiaokeng@huawei.com>, Benjamin Marzinski
-	<bmarzins@redhat.com>
-Date: Thu, 18 Nov 2021 16:35:10 +0100
-In-Reply-To: <38da7635-d5cb-3d14-2358-e06dbd7fce24@huawei.com>
+To: lixiaokeng <lixiaokeng@huawei.com>, Christophe Varoqui
+	<christophe.varoqui@opensvc.com>, Benjamin Marzinski <bmarzins@redhat.com>,
+	dm-devel mailing list <dm-devel@redhat.com>
+Date: Thu, 18 Nov 2021 16:36:41 +0100
+In-Reply-To: <adf675e0-1ed6-f395-e428-548fe145ea64@huawei.com>
 References: <78637f61-851d-cf9d-d308-9c22396d2071@huawei.com>
-	<483a6cc1-10f1-a702-2e44-42ab7cb8e3cd@huawei.com>
-	<20211118004716.GF19591@octiron.msp.redhat.com>
-	<38da7635-d5cb-3d14-2358-e06dbd7fce24@huawei.com>
+	<adf675e0-1ed6-f395-e428-548fe145ea64@huawei.com>
 User-Agent: Evolution 3.42.1
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -77,14 +76,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIFgeHi023059
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIFapYO022726
 X-loop: dm-devel@redhat.com
-Cc: dm-devel, list <dm-devel@redhat.com>,
-	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>,
-	linfeilong <linfeilong@huawei.com>
-Subject: Re: [dm-devel] [PATCH 4/5] Match FREE and MALLOC/STRDUP/REALLOC
+Cc: linfeilong <linfeilong@huawei.com>,
+	"liuzhiqiang \(I\)" <liuzhiqiang26@huawei.com>
+Subject: Re: [dm-devel] [PATCH 5/5] add prflag to path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,7 +96,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -106,39 +104,43 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="iso-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
-On Thu, 2021-11-18 at 10:46 +0800, lixiaokeng wrote:
+On Tue, 2021-11-16 at 22:01 +0800, lixiaokeng wrote:
+> The update_map will frequently be called and there will be
+> unnecessary checks of reseravtion. We add prflag to path
+> to avoid this.
 >=20
+> The pp->state changes from others to up or ghost, the
+> mpath_pr_event_handle should be called. The
+> mpath_pr_event_handle in ev_add_path may not be called,
+> so set pp->prkey PRKEY_NO when path is removed.
 >=20
-> On 2021/11/18 8:47, Benjamin Marzinski wrote:
-> > On Tue, Nov 16, 2021 at 10:00:53PM +0800, lixiaokeng wrote:
-> > > In _DEBUG_ mode, MALLOC/STRDUP/REALLOC and FREE will record
-> > > the memory usage. Match them.
-> >=20
-> > This looks fine, but personally, I'd rather just have all the DEBUG
-> > memory code removed. If people want to check memory usage, there's
-> > always valgrind.
-> >=20
-> > -Ben
-> >=20
-> > >=20
+> Fix: 4db4fa
+> Signed-off-by: Lixiaokeng <lixiaokeng>
+> ---
+> =A0libmpathpersist/mpath_persist.c |=A0 2 +-
+> =A0libmultipath/structs.c=A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0 1 +
+> =A0libmultipath/structs.h=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 12 ++++++++++++
+> =A0multipathd/cli_handlers.c=A0=A0=A0=A0=A0=A0 | 15 ++++++++++-----
+> =A0multipathd/main.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0 5 +++=
+--
+> =A05 files changed, 27 insertions(+), 8 deletions(-)
 >=20
-> If MALLOC/STRDUP/REALLOC and FREE is unnecessary, I'll remove this
-> patch
-> in this series and make a patch remove them latter. What is Martin's
-> opinion?
+> diff --git a/libmpathpersist/mpath_persist.c
+> b/libmpathpersist/mpath_persist.c
+> index 803a2a28..f88a2e89 100644
+> --- a/libmpathpersist/mpath_persist.c
+> +++ b/libmpathpersist/mpath_persist.c
+>=20
+> +/*
+> + * PRFLAG_NO for path, it means reservation should be checked.
+> + * PRFLAG_NO for multipath, it means mpp has no prkey.
+> + * PRFLAG_OK for path, it means reservation has been checked.
+> + * PRFLAG_OK for multipath, it means mpp has prkey.
+> + */
 
-As you saw, I agree with Ben. If you want to make a major contribution,
-prepare a patch that gets rid of all those. :-)=A0
+Please don't use the same enum with different meanings in different
+context.
 
-Just note that MALLOC() is really calloc().=20
-
-The only one that that's useful in non-debug mode is FREE(), because it
-sets the pointer to NULL, avoiding double-free. Therefore a patch
-replacing FREE() with free() would need to assess where that's
-necessary (basically always if the data structure that holds the
-pointer lives on after the free() call).
-
-Regards
 Martin
 
 
