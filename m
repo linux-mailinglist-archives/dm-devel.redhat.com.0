@@ -2,66 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D914D456624
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:05:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 884A9456621
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:05:12 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-184-4JZK0ijQM2OXiWOBQhmbag-1; Thu, 18 Nov 2021 18:05:15 -0500
-X-MC-Unique: 4JZK0ijQM2OXiWOBQhmbag-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-534-JYCI8hf6OWqfV-Duh61OKA-1; Thu, 18 Nov 2021 18:05:09 -0500
+X-MC-Unique: JYCI8hf6OWqfV-Duh61OKA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C66B387D549;
-	Thu, 18 Nov 2021 23:05:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5AD861926DA0;
+	Thu, 18 Nov 2021 23:05:04 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A13823AEA;
-	Thu, 18 Nov 2021 23:05:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34E575C1D0;
+	Thu, 18 Nov 2021 23:05:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 63B304EA31;
-	Thu, 18 Nov 2021 23:05:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D08984EA37;
+	Thu, 18 Nov 2021 23:05:02 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AIMxFfb002337 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 17:59:15 -0500
+	id 1AIMxEvJ002311 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 17:59:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B6BE72026D64; Thu, 18 Nov 2021 22:59:15 +0000 (UTC)
+	id 4300C4047279; Thu, 18 Nov 2021 22:59:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B25CA2026D46
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E69E404727A
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A3001066682
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:15 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 11EE7185A79C
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:14 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-370-YKwze_dZN6mXnrEspRHcpw-1; Thu, 18 Nov 2021 17:59:11 -0500
-X-MC-Unique: YKwze_dZN6mXnrEspRHcpw-1
+	us-mta-508-7_hb_B2nOxyCFOFFY6uhgg-1; Thu, 18 Nov 2021 17:59:12 -0500
+X-MC-Unique: 7_hb_B2nOxyCFOFFY6uhgg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 88AB22177B;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id DE92B1FD3A;
 	Thu, 18 Nov 2021 22:59:10 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 41AF313B11;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 94ED713B11;
 	Thu, 18 Nov 2021 22:59:10 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id +OMfDr7almGHPAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id sDpXIr7almGHPAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 22:59:10 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 18 Nov 2021 23:58:31 +0100
-Message-Id: <20211118225840.19810-40-mwilck@suse.com>
+Date: Thu, 18 Nov 2021 23:58:32 +0100
+Message-Id: <20211118225840.19810-41-mwilck@suse.com>
 In-Reply-To: <20211118225840.19810-1-mwilck@suse.com>
 References: <20211118225840.19810-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -73,14 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMxFfb002337
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMxEvJ002311
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 39/48] multipathd: add "reconfigure all"
-	command.
+Subject: [dm-devel] [PATCH v2 40/48] multipathd: remove missing paths on
+	startup
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +95,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,132 +105,77 @@ Content-Transfer-Encoding: 7bit
 
 From: Benjamin Marzinski <bmarzins@redhat.com>
 
-With this commit, multipathd no longer defaults to full reconfigures for
-the "reconfigure" command and the HUP signal. The default is a weak
-reconfigure. A new command, "reconfigure all", has been added to do
-a full reconfigure.
+If a path device was removed from the system while multipathd was not
+running, multipathd would not remove the path from the multipath table
+on start-up, or on a weak reconfigure. update_pathvec_from_dm() would
+return that a reload was necessary, but that information wasn't
+propigated back to where it could be used to reload the device.
+
+Multipath devices now remember if they need to be reloaded, and if so,
+force_reload is set in select_action().  This means that even when
+configure is called with FORCE_RELOAD_WEAK, these devices will still be
+reloaded.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipath/main.c          |  2 +-
- multipathd/cli.c          |  1 +
- multipathd/cli.h          |  2 ++
- multipathd/cli_handlers.c | 10 ++++++++++
- multipathd/main.c         |  2 +-
- multipathd/multipathd.8   | 10 ++++++++--
- 6 files changed, 23 insertions(+), 4 deletions(-)
+ libmultipath/configure.c   | 2 ++
+ libmultipath/devmapper.c   | 2 ++
+ libmultipath/structs.h     | 1 +
+ libmultipath/structs_vec.c | 1 +
+ 4 files changed, 6 insertions(+)
 
-diff --git a/multipath/main.c b/multipath/main.c
-index b2d300e..47e799b 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -760,7 +760,7 @@ int delegate_to_multipathd(enum mpath_cmds cmd,
- 		return NOT_DELEGATED;
+diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+index eb8ec1b..f1a890a 100644
+--- a/libmultipath/configure.c
++++ b/libmultipath/configure.c
+@@ -715,6 +715,8 @@ void select_action (struct multipath *mpp, const struct _vector *curmp,
  
- 	if (cmd == CMD_CREATE && conf->force_reload == FORCE_RELOAD_YES) {
--		p += snprintf(p, n, "reconfigure");
-+		p += snprintf(p, n, "reconfigure all");
- 	}
- 	else if (cmd == CMD_FLUSH_ONE && dev && dev_type == DEV_DEVMAP) {
- 		p += snprintf(p, n, "del map %s", dev);
-diff --git a/multipathd/cli.c b/multipathd/cli.c
-index 1c6351e..b42db81 100644
---- a/multipathd/cli.c
-+++ b/multipathd/cli.c
-@@ -210,6 +210,7 @@ load_keys (void)
- 	r += add_key(keys, "local", LOCAL, 0);
- 	r += add_key(keys, "setmarginal", SETMARGINAL, 0);
- 	r += add_key(keys, "unsetmarginal", UNSETMARGINAL, 0);
-+	r += add_key(keys, "all", ALL, 0);
+ 	cmpp = find_mp_by_wwid(curmp, mpp->wwid);
+ 	cmpp_by_name = find_mp_by_alias(curmp, mpp->alias);
++	if (mpp->need_reload || (cmpp && cmpp->need_reload))
++		force_reload = 1;
  
+ 	if (!cmpp_by_name) {
+ 		if (cmpp) {
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index c05dc20..3e1a726 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -522,6 +522,8 @@ freeout:
+ addout:
+ 	dm_task_destroy (dmt);
  
- 	if (r) {
-diff --git a/multipathd/cli.h b/multipathd/cli.h
-index b05746f..21685fc 100644
---- a/multipathd/cli.h
-+++ b/multipathd/cli.h
-@@ -47,6 +47,7 @@ enum {
- 	__LOCAL,			/* 40 */
- 	__SETMARGINAL,
- 	__UNSETMARGINAL,
-+	__ALL,
- };
- 
- #define LIST		(1ULL << __LIST)
-@@ -93,6 +94,7 @@ enum {
- #define LOCAL		(1ULL << __LOCAL)
- #define SETMARGINAL	(1ULL << __SETMARGINAL)
- #define UNSETMARGINAL	(1ULL << __UNSETMARGINAL)
-+#define ALL		(1ULL << __ALL)
- 
- #define INITIAL_REPLY_LEN	1200
- 
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index d165675..f89f4e7 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -1012,6 +1012,15 @@ cli_reconfigure(void * v, struct strbuf *reply, void * data)
- {
- 	condlog(2, "reconfigure (operator)");
- 
-+	schedule_reconfigure(FORCE_RELOAD_WEAK);
-+	return 0;
-+}
-+
-+int
-+cli_reconfigure_all(void * v, struct strbuf *reply, void * data)
-+{
-+	condlog(2, "reconfigure all (operator)");
-+
- 	schedule_reconfigure(FORCE_RELOAD_YES);
- 	return 0;
++	if (r)
++		mpp->need_reload = false;
+ 	return r;
  }
-@@ -1497,6 +1506,7 @@ void init_handler_callbacks(void)
- 	set_handler_callback(DEL+MAPS, cli_del_maps);
- 	set_handler_callback(SWITCH+MAP+GROUP, cli_switch_group);
- 	set_unlocked_handler_callback(RECONFIGURE, cli_reconfigure);
-+	set_unlocked_handler_callback(RECONFIGURE+ALL, cli_reconfigure_all);
- 	set_handler_callback(SUSPEND+MAP, cli_suspend);
- 	set_handler_callback(RESUME+MAP, cli_resume);
- 	set_handler_callback(RESIZE+MAP, cli_resize);
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 1efbaab..f8a422a 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -2818,7 +2818,7 @@ handle_signals(bool nonfatal)
- 		return;
- 	if (reconfig_sig) {
- 		condlog(2, "reconfigure (signal)");
--		schedule_reconfigure(FORCE_RELOAD_YES);
-+		schedule_reconfigure(FORCE_RELOAD_WEAK);
+ 
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index 399540e..d0b266b 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -355,6 +355,7 @@ struct multipath {
+ 	int retain_hwhandler;
+ 	int deferred_remove;
+ 	bool in_recovery;
++	bool need_reload;
+ 	int san_path_err_threshold;
+ 	int san_path_err_forget_rate;
+ 	int san_path_err_recovery_time;
+diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
+index 85d97ac..e52db0c 100644
+--- a/libmultipath/structs_vec.c
++++ b/libmultipath/structs_vec.c
+@@ -237,6 +237,7 @@ bool update_pathvec_from_dm(vector pathvec, struct multipath *mpp,
+ 		free_pathgroup(pgp, KEEP_PATHS);
+ 		must_reload = true;
  	}
- 	if (log_reset_sig) {
- 		condlog(2, "reset log (signal)");
-diff --git a/multipathd/multipathd.8 b/multipathd/multipathd.8
-index 048a838..e60d7f7 100644
---- a/multipathd/multipathd.8
-+++ b/multipathd/multipathd.8
-@@ -195,10 +195,16 @@ group index, starting with 1.
- .
- .TP
- .B reconfigure
--Reconfigures the multipaths. This should be triggered automatically after anyi
--hotplug event.
-+Rereads the configuration, and reloads all changed multipath devices. This
-+also happens at startup, when the service is reload, or when a SIGHUP is
-+received.
- .
- .TP
-+.B reconfigure all
-+Rereads the configuration, and reloads all multipath devices regardless of
-+whether or not they have changed. This also happens when \fImultipath -r\fR is
-+run.
-+.TP
- .B suspend map|multipath $map
- Sets map $map into suspend state.
- .
++	mpp->need_reload = mpp->need_reload || must_reload;
+ 	return must_reload;
+ }
+ 
 -- 
 2.33.1
 
