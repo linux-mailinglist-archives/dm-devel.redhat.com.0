@@ -1,68 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96FE545661E
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:05:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68ED6456634
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:06:19 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-448-t_w9qdszNWGrzfVyx8Ez5g-1; Thu, 18 Nov 2021 18:05:00 -0500
-X-MC-Unique: t_w9qdszNWGrzfVyx8Ez5g-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-121-asgGOlm-NT6Jis5I0Zi-oQ-1; Thu, 18 Nov 2021 18:06:14 -0500
+X-MC-Unique: asgGOlm-NT6Jis5I0Zi-oQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7C6F94236B;
-	Thu, 18 Nov 2021 23:04:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4D459A40C9;
+	Thu, 18 Nov 2021 23:06:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B0FF5C1D0;
-	Thu, 18 Nov 2021 23:04:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2A9BC5D6B1;
+	Thu, 18 Nov 2021 23:06:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 467B31832DD6;
-	Thu, 18 Nov 2021 23:04:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EBF02181A1D1;
+	Thu, 18 Nov 2021 23:06:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AIMxBvR002245 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 17:59:11 -0500
+	id 1AIMxD38002283 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 17:59:13 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 883B3218012A; Thu, 18 Nov 2021 22:59:11 +0000 (UTC)
+	id EFB881121315; Thu, 18 Nov 2021 22:59:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8299C218013F
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:11 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB9181121314
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:12 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AA9B811E76
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:11 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D33BC800C00
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 22:59:12 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-386-RT2zIH81OvSJrJxAuRg-eQ-1; Thu, 18 Nov 2021 17:59:07 -0500
-X-MC-Unique: RT2zIH81OvSJrJxAuRg-eQ-1
+	us-mta-125-puOEDRJUMnCmfpdCZa4LvQ-1; Thu, 18 Nov 2021 17:59:07 -0500
+X-MC-Unique: puOEDRJUMnCmfpdCZa4LvQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 58A971FD3D;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id AE4EC2177B;
 	Thu, 18 Nov 2021 22:59:06 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 11F0013B11;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 66B0513B11;
 	Thu, 18 Nov 2021 22:59:06 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id OHRqArralmGHPAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id cAkfF7ralmGHPAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 22:59:06 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 18 Nov 2021 23:58:19 +0100
-Message-Id: <20211118225840.19810-28-mwilck@suse.com>
+Date: Thu, 18 Nov 2021 23:58:20 +0100
+Message-Id: <20211118225840.19810-29-mwilck@suse.com>
 In-Reply-To: <20211118225840.19810-1-mwilck@suse.com>
 References: <20211118225840.19810-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,14 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMxBvR002245
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AIMxD38002283
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 27/48] multipathd: uxlsnr: move handler
-	execution to separate function
+Subject: [dm-devel] [PATCH v2 28/48] multipathd: uxlsnr: use parser to
+	determine non-root commands
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,7 +95,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -105,111 +105,65 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Move the actual execution of the handler out of parse_cmd(). For now,
-we do it in uxsock_trigger().
+Rather than using a separate poor-man's parser for checking root
+commands, use the real parser. It will return "LIST" as first verb
+for the read-only commands that non-root users may execute.
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/uxlsnr.c | 47 ++++++++++++++++++++++++++++-----------------
- 1 file changed, 29 insertions(+), 18 deletions(-)
+ multipathd/uxlsnr.c | 27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
 diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 65cb5ca..cfff0ae 100644
+index cfff0ae..ff9604f 100644
 --- a/multipathd/uxlsnr.c
 +++ b/multipathd/uxlsnr.c
-@@ -293,11 +293,9 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
+@@ -362,16 +362,15 @@ static int uxsock_trigger(struct client *c, void *trigger_data)
  
- static const struct timespec ts_zero = { .tv_sec = 0, };
+ 	vecs = (struct vectors *)trigger_data;
  
--static int parse_cmd (struct client *c, void *data, int timeout)
-+static int parse_cmd(struct client *c)
- {
- 	int r;
--	struct handler * h;
--	struct timespec tmo;
- 
- 	r = get_cmdvec(c->cmd, &c->cmdvec);
- 
-@@ -308,26 +306,35 @@ static int parse_cmd (struct client *c, void *data, int timeout)
- 		return 0;
- 	}
- 
--	h = find_handler_for_cmdvec(c->cmdvec);
-+	c->handler = find_handler_for_cmdvec(c->cmdvec);
- 
--	if (!h || !h->fn) {
-+	if (!c->handler || !c->handler->fn) {
- 		genhelp_handler(c->cmd, EINVAL, &c->reply);
- 		if (get_strbuf_len(&c->reply) == 0)
- 			r = EINVAL;
--		goto free_cmdvec;
-+		else
-+			r = 0;
- 	}
- 
--	/*
--	 * execute handler
--	 */
-+	return r;
-+}
-+
-+static int execute_handler(struct client *c, struct vectors *vecs, int timeout)
-+{
-+	int r;
-+	struct timespec tmo;
-+
-+	if (!c->handler)
-+		return EINVAL;
-+
- 	if (clock_gettime(CLOCK_REALTIME, &tmo) == 0) {
- 		tmo.tv_sec += timeout;
- 	} else {
- 		tmo.tv_sec = 0;
- 	}
--	if (h->locked) {
-+
-+	if (c->handler->locked) {
- 		int locked = 0;
--		struct vectors * vecs = (struct vectors *)data;
- 
- 		pthread_cleanup_push(cleanup_lock, &vecs->lock);
- 		if (tmo.tv_sec) {
-@@ -339,15 +346,11 @@ static int parse_cmd (struct client *c, void *data, int timeout)
- 		if (r == 0) {
- 			locked = 1;
- 			pthread_testcancel();
--			r = h->fn(c->cmdvec, &c->reply, data);
-+			r = c->handler->fn(c->cmdvec, &c->reply, vecs);
- 		}
- 		pthread_cleanup_pop(locked);
- 	} else
--		r = h->fn(c->cmdvec, &c->reply, data);
 -
--free_cmdvec:
--	free_keys(c->cmdvec);
--	c->cmdvec = NULL;
-+		r = c->handler->fn(c->cmdvec, &c->reply, vecs);
+-	if (!c->is_root &&
+-	    (strncmp(c->cmd, "list", strlen("list")) != 0) &&
+-	    (strncmp(c->cmd, "show", strlen("show")) != 0)) {
+-		append_strbuf_str(&c->reply, "permission deny: need to be root");
+-		return r;
+-	}
+-
+ 	r = parse_cmd(c);
  
- 	return r;
- }
-@@ -367,7 +370,15 @@ static int uxsock_trigger(struct client *c, void *trigger_data)
- 		return r;
- 	}
- 
--	r = parse_cmd(c, vecs, uxsock_timeout / 1000);
-+	r = parse_cmd(c);
++	if (r == 0 && c->cmdvec && VECTOR_SIZE(c->cmdvec) > 0) {
++		struct key *kw = VECTOR_SLOT(c->cmdvec, 0);
 +
-+	if (r == 0 && c->handler)
-+		r = execute_handler(c, vecs, uxsock_timeout / 1000);
-+
-+	if (c->cmdvec) {
-+		free_keys(c->cmdvec);
-+		c->cmdvec = NULL;
++		if (!c->is_root && kw->code != LIST)
++			r = EPERM;
 +	}
++
+ 	if (r == 0 && c->handler)
+ 		r = execute_handler(c, vecs, uxsock_timeout / 1000);
+ 
+@@ -381,10 +380,18 @@ static int uxsock_trigger(struct client *c, void *trigger_data)
+ 	}
  
  	if (r > 0) {
- 		if (r == ETIMEDOUT)
+-		if (r == ETIMEDOUT)
++		switch(r) {
++		case ETIMEDOUT:
+ 			append_strbuf_str(&c->reply, "timeout\n");
+-		else
++			break;
++		case EPERM:
++			append_strbuf_str(&c->reply,
++					  "permission deny: need to be root\n");
++			break;
++		default:
+ 			append_strbuf_str(&c->reply, "fail\n");
++			break;
++		}
+ 	}
+ 	else if (!r && get_strbuf_len(&c->reply) == 0) {
+ 		append_strbuf_str(&c->reply, "ok\n");
 -- 
 2.33.1
 
