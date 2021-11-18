@@ -1,68 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CF6C45665C
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:18:46 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E0BEB45666D
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:20:45 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-58-ms8bjPWLN7aegg_WKvSYxQ-1; Thu, 18 Nov 2021 18:18:43 -0500
-X-MC-Unique: ms8bjPWLN7aegg_WKvSYxQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-69-dg_h3cj8MECPNtY8lS5CmA-1; Thu, 18 Nov 2021 18:20:42 -0500
+X-MC-Unique: dg_h3cj8MECPNtY8lS5CmA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB1971006AA4;
-	Thu, 18 Nov 2021 23:18:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FF6D608BA;
-	Thu, 18 Nov 2021 23:18:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3240AA40C5;
+	Thu, 18 Nov 2021 23:20:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DCA95E274;
+	Thu, 18 Nov 2021 23:20:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0B9C81832DD2;
-	Thu, 18 Nov 2021 23:18:37 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 12ED44EA39;
+	Thu, 18 Nov 2021 23:20:36 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AINE8Ap005129 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 18:14:08 -0500
+	id 1AINEAA3005151 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 18:14:10 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E265540CFD14; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
+	id 3464540CFD12; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DCFBA4010E98
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E52F40CFD11
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3D9F1066694
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1654080B719
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:10 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-549-vBBnISd2OJur9OXX4yR2Dw-1; Thu, 18 Nov 2021 18:14:06 -0500
-X-MC-Unique: vBBnISd2OJur9OXX4yR2Dw-1
+	us-mta-420-WrPheqZOOk-GiYuIEYJd_w-1; Thu, 18 Nov 2021 18:14:06 -0500
+X-MC-Unique: WrPheqZOOk-GiYuIEYJd_w-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id C341A1FD3C;
-	Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 0FC1B217BA;
+	Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7949913AA8;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C6ED513DC0;
 	Thu, 18 Nov 2021 23:14:04 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id OOY+GzzelmGAQAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id wPlJLjzelmGAQAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:04 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 19 Nov 2021 00:13:34 +0100
-Message-Id: <20211118231338.22358-18-mwilck@suse.com>
+Date: Fri, 19 Nov 2021 00:13:35 +0100
+Message-Id: <20211118231338.22358-19-mwilck@suse.com>
 In-Reply-To: <20211118231338.22358-1-mwilck@suse.com>
 References: <20211118231338.22358-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -76,11 +75,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE8Ap005129
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINEAA3005151
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 17/21] multipathd (coverity): daemonize(): use
-	dup2
+Subject: [dm-devel] [PATCH 18/21] libmultipath (coverity): avoid sleeping in
+	dm_mapname()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,71 +103,59 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Modify the file descriptors atomically usign dup2(), and make
-sure to cleanup properly even in case of an error, and to not
-close stdout/in/err if the program had been started with any of
-them closed.
+dm_mapname is called while holding the vecs lock, and shouldn't
+sleep. All callers handle a NULL return value.
+
+This code dates back to the initial commit creating multipathd,
+66b457b ("[multipathd]") from 2005. I am pretty certain that the comment
+"device map might not be ready when we get here from uevent trigger"
+doesn't hold any more (if it has ever been true). Perhaps the early
+code acted on "add" events for maps, which would indeed not necessarily
+have been set up. On the actually relevant "change" events, the map
+name has to be set.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/main.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ libmultipath/devmapper.c | 17 +----------------
+ 1 file changed, 1 insertion(+), 16 deletions(-)
 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index b8d4fcf..8bd680d 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -3341,11 +3341,18 @@ failed:
- 	return sd_notify_exit(exit_code);
- }
+diff --git a/libmultipath/devmapper.c b/libmultipath/devmapper.c
+index 3e1a726..6c3ca1f 100644
+--- a/libmultipath/devmapper.c
++++ b/libmultipath/devmapper.c
+@@ -1390,7 +1390,6 @@ dm_mapname(int major, int minor)
+ 	const char *map;
+ 	struct dm_task *dmt;
+ 	int r;
+-	int loop = MAX_WAIT * LOOPS_PER_SEC;
  
-+static void cleanup_close(int *pfd)
-+{
-+	if (*pfd != -1 && *pfd != STDIN_FILENO && *pfd != STDOUT_FILENO &&
-+	    *pfd != STDERR_FILENO)
-+		close(*pfd);
-+}
-+
- static int
- daemonize(void)
- {
- 	int pid;
--	int dev_null_fd;
-+	int dev_null_fd __attribute__((cleanup(cleanup_close))) = -1;
+ 	if (!(dmt = libmp_dm_task_create(DM_DEVICE_STATUS)))
+ 		return NULL;
+@@ -1400,23 +1399,9 @@ dm_mapname(int major, int minor)
+ 		goto bad;
  
- 	if( (pid = fork()) < 0){
- 		fprintf(stderr, "Failed first fork : %s\n", strerror(errno));
-@@ -3371,25 +3378,21 @@ daemonize(void)
- 		_exit(0);
+ 	dm_task_no_open_count(dmt);
+-
+-	/*
+-	 * device map might not be ready when we get here from
+-	 * daemon uev_trigger -> uev_add_map
+-	 */
+-	while (--loop) {
+-		r = libmp_dm_task_run(dmt);
+-
+-		if (r)
+-			break;
+-
+-		usleep(1000 * 1000 / LOOPS_PER_SEC);
+-	}
+-
++	r = libmp_dm_task_run(dmt);
+ 	if (!r) {
+ 		dm_log_error(2, DM_DEVICE_STATUS, dmt);
+-		condlog(0, "%i:%i: timeout fetching map name", major, minor);
+ 		goto bad;
  	}
  
--	close(STDIN_FILENO);
--	if (dup(dev_null_fd) < 0) {
--		fprintf(stderr, "cannot dup /dev/null to stdin : %s\n",
-+	if (dup2(dev_null_fd, STDIN_FILENO) < 0) {
-+		fprintf(stderr, "cannot dup2 /dev/null to stdin : %s\n",
- 			strerror(errno));
- 		_exit(0);
- 	}
--	close(STDOUT_FILENO);
--	if (dup(dev_null_fd) < 0) {
--		fprintf(stderr, "cannot dup /dev/null to stdout : %s\n",
-+	if (dup2(dev_null_fd, STDOUT_FILENO) < 0) {
-+		fprintf(stderr, "cannot dup2 /dev/null to stdout : %s\n",
- 			strerror(errno));
- 		_exit(0);
- 	}
--	close(STDERR_FILENO);
--	if (dup(dev_null_fd) < 0) {
-+	if (dup2(dev_null_fd, STDERR_FILENO) < 0) {
- 		fprintf(stderr, "cannot dup /dev/null to stderr : %s\n",
- 			strerror(errno));
- 		_exit(0);
- 	}
--	close(dev_null_fd);
- 	daemon_pid = getpid();
- 	return 0;
- }
 -- 
 2.33.1
 
