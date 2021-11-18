@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADA46456661
-	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:19:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 35CA8456663
+	for <lists+dm-devel@lfdr.de>; Fri, 19 Nov 2021 00:19:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-204--AuEFQJWMIWHlYlnDCjtvA-1; Thu, 18 Nov 2021 18:19:43 -0500
-X-MC-Unique: -AuEFQJWMIWHlYlnDCjtvA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-594-29o65TwqN1yPw-bfbxmzZA-1; Thu, 18 Nov 2021 18:19:48 -0500
+X-MC-Unique: 29o65TwqN1yPw-bfbxmzZA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E08EFA40C0;
-	Thu, 18 Nov 2021 23:19:37 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C07BD68D7D;
-	Thu, 18 Nov 2021 23:19:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7BB4C1006AA5;
+	Thu, 18 Nov 2021 23:19:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 509355D6B1;
+	Thu, 18 Nov 2021 23:19:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 18917181A1D1;
-	Thu, 18 Nov 2021 23:19:36 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBEE04EA29;
+	Thu, 18 Nov 2021 23:19:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AINE5R6005088 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 18 Nov 2021 18:14:05 -0500
+	id 1AINE71v005127 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 18 Nov 2021 18:14:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AFBCB2180128; Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
+	id D0E2E404727A; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA960218013E
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CCA46404727C
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F8D4857D03
-	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:05 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3EE9A09A3D
+	for <dm-devel@redhat.com>; Thu, 18 Nov 2021 23:14:07 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-311-gX1qCboPOuu5dUEt5cJujQ-1; Thu, 18 Nov 2021 18:14:03 -0500
-X-MC-Unique: gX1qCboPOuu5dUEt5cJujQ-1
+	us-mta-189-ioXBJu9jMxiwCyD4HSNNGg-1; Thu, 18 Nov 2021 18:14:03 -0500
+X-MC-Unique: ioXBJu9jMxiwCyD4HSNNGg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 6D5DE217BA;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B3FB01FD39;
 	Thu, 18 Nov 2021 23:14:02 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1935313AA8;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 71F4F13DC0;
 	Thu, 18 Nov 2021 23:14:02 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id uAzTAzrelmGAQAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id oBR4GTrelmGAQAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 18 Nov 2021 23:14:02 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 19 Nov 2021 00:13:27 +0100
-Message-Id: <20211118231338.22358-11-mwilck@suse.com>
+Date: Fri, 19 Nov 2021 00:13:28 +0100
+Message-Id: <20211118231338.22358-12-mwilck@suse.com>
 In-Reply-To: <20211118231338.22358-1-mwilck@suse.com>
 References: <20211118231338.22358-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,13 +74,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE5R6005088
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AINE71v005127
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 10/21] libmultipath (coverity): silence unchecked
-	return value warning
+Subject: [dm-devel] [PATCH 11/21] multipath: remove pointless code from
+	getopt processing
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,26 +104,30 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-path_get_tpgs() returns pp->tpgs, which we do check.
+getopt() never returns 1, and sizeof(optarg) is always sizeof(char *).
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/propsel.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ multipath/main.c | 5 +----
+ 1 file changed, 1 insertion(+), 4 deletions(-)
 
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index b287667..2984a5f 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -525,7 +525,7 @@ int select_checker(struct config *conf, struct path *pp)
- 			ckr_name = RDAC;
- 			goto out;
- 		}
--		path_get_tpgs(pp);
-+		(void)path_get_tpgs(pp);
- 		if (pp->tpgs != TPGS_NONE && pp->tpgs != TPGS_UNDEF) {
- 			ckr_name = TUR;
- 			goto out;
+diff --git a/multipath/main.c b/multipath/main.c
+index 9625e97..b7986de 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -842,11 +842,8 @@ main (int argc, char *argv[])
+ 		condlog(1, "failed to register cleanup handler for vecs: %m");
+ 	while ((arg = getopt(argc, argv, ":adDcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
+ 		switch(arg) {
+-		case 1: printf("optarg : %s\n",optarg);
+-			break;
+ 		case 'v':
+-			if (sizeof(optarg) > sizeof(char *) ||
+-			    !isdigit(optarg[0])) {
++			if (!isdigit(optarg[0])) {
+ 				usage (argv[0]);
+ 				exit(RTVL_FAIL);
+ 			}
 -- 
 2.33.1
 
