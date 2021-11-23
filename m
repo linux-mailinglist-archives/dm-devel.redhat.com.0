@@ -2,73 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 216D045AC8D
-	for <lists+dm-devel@lfdr.de>; Tue, 23 Nov 2021 20:34:39 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF78545AC9D
+	for <lists+dm-devel@lfdr.de>; Tue, 23 Nov 2021 20:36:17 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-258--uL3kT62ONuWxKwbxiyr5Q-1; Tue, 23 Nov 2021 14:34:36 -0500
-X-MC-Unique: -uL3kT62ONuWxKwbxiyr5Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-458-jgtiDNdvPV-DD3ThZj6WmA-1; Tue, 23 Nov 2021 14:36:14 -0500
+X-MC-Unique: jgtiDNdvPV-DD3ThZj6WmA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C8F55100F943;
-	Tue, 23 Nov 2021 19:34:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CE79587D561;
+	Tue, 23 Nov 2021 19:36:08 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1317060240;
-	Tue, 23 Nov 2021 19:34:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 47A3567852;
+	Tue, 23 Nov 2021 19:36:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 705F44A703;
-	Tue, 23 Nov 2021 19:34:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAD8A4A704;
+	Tue, 23 Nov 2021 19:36:01 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ANJY1eO003254 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Nov 2021 14:34:01 -0500
+	id 1ANJZvno004624 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 14:35:57 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 999F32180125; Tue, 23 Nov 2021 19:34:01 +0000 (UTC)
+	id 5DB424047279; Tue, 23 Nov 2021 19:35:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 947BA2180122
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 19:33:58 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 59C9B4047272
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 19:35:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B763F85A5AA
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 19:33:58 +0000 (UTC)
-Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
-	[209.85.210.175]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41E40185A7BA
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 19:35:57 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+	[209.85.215.176]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-60-HwbkXS6SPiSMZv5yURWSbQ-1; Tue, 23 Nov 2021 14:33:56 -0500
-X-MC-Unique: HwbkXS6SPiSMZv5yURWSbQ-1
-Received: by mail-pf1-f175.google.com with SMTP id u80so255068pfc.9
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 11:33:56 -0800 (PST)
+	us-mta-234-YOMMwnm4OFC9TaWJFebHvA-1; Tue, 23 Nov 2021 14:35:55 -0500
+X-MC-Unique: YOMMwnm4OFC9TaWJFebHvA-1
+Received: by mail-pg1-f176.google.com with SMTP id r5so38279pgi.6
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 11:35:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=Hj7PcxuLnKzRepBdxbumr3rSJH1rp9RXoQiNS6BkqqY=;
-	b=fwB6CyHyq46Wc8acSY9BseVinw46QqxGacyU7DyFfQnUDmQbZhj/XHU7MYgDKN9VQJ
-	oVLAWD9vYo6CIg3OqouYX82s7ws/il+PZcvroVpIhKGsgD1N6pzXPtTDa619TBzxhrNr
-	3PEkF2BqSsMkYOFKp9cSfZJZmWq+o0OUKPhSzPxbVYROFU4Tezbrmps2/suy+ioKM/Ad
-	PXkbXMN5hoDskqY0+FF4yEBawyP35wMiewjueO1vMLQSli0v/rDAN7igqDAYi+SdyyZz
-	RqvQ2yU0RdGuVhAB9i1QZ/y56tC9rNaBV0jiFyay5Wv/HzIquOpbarzsHxe7T/+bbgco
-	ILTg==
-X-Gm-Message-State: AOAM532H1rry6aW31g8RvIFcceTwD0n0GgZ7qlFa5E2EWLfNL7BScVvF
-	9bAw2aZyWg3tg5ki4EEe2CokS1JCsCIGuTmDJTQc8w==
-X-Google-Smtp-Source: ABdhPJzfbK/HXngr7c4SVqoUjU1z90TEgx7yZs5kS94X6ib8WevHTs6s6Lbm19DO5En0QIDCaOcGr0Q9P6r3KEtQ2kY=
-X-Received: by 2002:a63:85c6:: with SMTP id u189mr5465536pgd.377.1637696035778;
-	Tue, 23 Nov 2021 11:33:55 -0800 (PST)
+	bh=5gWZdeoaC7jqVM8zeJ3InHmY5XgJ6AqsmAXMbMD6MVc=;
+	b=hAIYVU4jDEodXVOs45QukEwRaWOhpwQxM9A1R+K76OT9wmrfHYXaECIGEpNmSdVx8k
+	MG6UnH73YCYrfKtnbjtTWY3fYhUF5MYMFnATPvCw7+03Vq+UYjOVqWoH3CcfoB+cgP0r
+	8jZNJn4NV0gHToGLAC2cnojo+Ffu8JiA3njQjRAPWRBv8RwvAMR/+7Ww8Oa8H/xsuxsC
+	Z/uPf31Fq4+qYrWnXn+TNLAt+/jhA4zdWZoMsOSqEB+Q9gm/9VSeSxzXMobKowd3aYwH
+	LWeXuQ2kbBt6wRhgHlj3n4DIUVIMKVA5OzpLzDorirwVnCz2JsHgxCk1dJJyv1QsFYe+
+	amzA==
+X-Gm-Message-State: AOAM531u5nx/lO3fKomqCXPQ0pCX4b2lJ0cOONz/ugbS+/g8siJ2BADR
+	l1S32eMkn5uOeiZOIO+DGRNDkVWr0QNitE9U021qJw==
+X-Google-Smtp-Source: ABdhPJyUgiLjRKYUsHsrV83l3gO1RrPxkMBAXyAi/veRroUOh2xEn4EazOAyxkpoKqaxXeG2LfQdh/0f6yLjguWrfLs=
+X-Received: by 2002:a63:5401:: with SMTP id i1mr5642151pgb.356.1637696154262; 
+	Tue, 23 Nov 2021 11:35:54 -0800 (PST)
 MIME-Version: 1.0
 References: <20211109083309.584081-1-hch@lst.de>
-	<20211109083309.584081-5-hch@lst.de>
-	<CAPcyv4ic=Mz_nr5biEoBikTBySJA947ZK3QQ9Mn=KhVb_HiwAA@mail.gmail.com>
-	<20211123055742.GB13711@lst.de>
-In-Reply-To: <20211123055742.GB13711@lst.de>
+	<20211109083309.584081-14-hch@lst.de>
+In-Reply-To: <20211109083309.584081-14-hch@lst.de>
 From: Dan Williams <dan.j.williams@intel.com>
-Date: Tue, 23 Nov 2021 11:33:45 -0800
-Message-ID: <CAPcyv4jd2eUo4bDfX=idG7js6W=L8uKKveG97r1a8DWa-pJ=mQ@mail.gmail.com>
+Date: Tue, 23 Nov 2021 11:35:43 -0800
+Message-ID: <CAPcyv4i=PnXu6ixHtj4Bqi0gy=bJJijrWgTNEcQ6uEJiut4PfQ@mail.gmail.com>
 To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -78,7 +76,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
 Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
 	linux-s390 <linux-s390@vger.kernel.org>, linux-erofs@lists.ozlabs.org,
@@ -87,8 +85,8 @@ Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
 	device-mapper development <dm-devel@redhat.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	linux-ext4 <linux-ext4@vger.kernel.org>, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel] [PATCH 04/29] dax: simplify the dax_device <->
-	gendisk association
+Subject: Re: [dm-devel] [PATCH 13/29] fsdax: use a saner calling convention
+	for copy_cow_page_dax
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,7 +100,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,16 +108,100 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Nov 22, 2021 at 9:58 PM Christoph Hellwig <hch@lst.de> wrote:
+On Tue, Nov 9, 2021 at 12:33 AM Christoph Hellwig <hch@lst.de> wrote:
 >
-> On Mon, Nov 22, 2021 at 07:33:06PM -0800, Dan Williams wrote:
-> > Is it time to add a "DAX" symbol namespace?
->
-> What would be the benefit?
+> Just pass the vm_fault and iomap_iter structures, and figure out the rest
+> locally.  Note that this requires moving dax_iomap_sector up in the file.
 
-Just the small benefit of identifying DAX core users with a common
-grep line, and to indicate that DAX exports are more intertwined than
-standalone exports, but yeah those are minor.
+Looks good,
+
+Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+
+>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/dax.c | 29 +++++++++++++----------------
+>  1 file changed, 13 insertions(+), 16 deletions(-)
+>
+> diff --git a/fs/dax.c b/fs/dax.c
+> index 73bd1439d8089..e51b4129d1b65 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -709,26 +709,31 @@ int dax_invalidate_mapping_entry_sync(struct address_space *mapping,
+>         return __dax_invalidate_entry(mapping, index, false);
+>  }
+>
+> -static int copy_cow_page_dax(struct block_device *bdev, struct dax_device *dax_dev,
+> -                            sector_t sector, struct page *to, unsigned long vaddr)
+> +static sector_t dax_iomap_sector(const struct iomap *iomap, loff_t pos)
+>  {
+> +       return (iomap->addr + (pos & PAGE_MASK) - iomap->offset) >> 9;
+> +}
+> +
+> +static int copy_cow_page_dax(struct vm_fault *vmf, const struct iomap_iter *iter)
+> +{
+> +       sector_t sector = dax_iomap_sector(&iter->iomap, iter->pos);
+>         void *vto, *kaddr;
+>         pgoff_t pgoff;
+>         long rc;
+>         int id;
+>
+> -       rc = bdev_dax_pgoff(bdev, sector, PAGE_SIZE, &pgoff);
+> +       rc = bdev_dax_pgoff(iter->iomap.bdev, sector, PAGE_SIZE, &pgoff);
+>         if (rc)
+>                 return rc;
+>
+>         id = dax_read_lock();
+> -       rc = dax_direct_access(dax_dev, pgoff, 1, &kaddr, NULL);
+> +       rc = dax_direct_access(iter->iomap.dax_dev, pgoff, 1, &kaddr, NULL);
+>         if (rc < 0) {
+>                 dax_read_unlock(id);
+>                 return rc;
+>         }
+> -       vto = kmap_atomic(to);
+> -       copy_user_page(vto, kaddr, vaddr, to);
+> +       vto = kmap_atomic(vmf->cow_page);
+> +       copy_user_page(vto, kaddr, vmf->address, vmf->cow_page);
+>         kunmap_atomic(vto);
+>         dax_read_unlock(id);
+>         return 0;
+> @@ -1005,11 +1010,6 @@ int dax_writeback_mapping_range(struct address_space *mapping,
+>  }
+>  EXPORT_SYMBOL_GPL(dax_writeback_mapping_range);
+>
+> -static sector_t dax_iomap_sector(const struct iomap *iomap, loff_t pos)
+> -{
+> -       return (iomap->addr + (pos & PAGE_MASK) - iomap->offset) >> 9;
+> -}
+> -
+>  static int dax_iomap_pfn(const struct iomap *iomap, loff_t pos, size_t size,
+>                          pfn_t *pfnp)
+>  {
+> @@ -1332,19 +1332,16 @@ static vm_fault_t dax_fault_synchronous_pfnp(pfn_t *pfnp, pfn_t pfn)
+>  static vm_fault_t dax_fault_cow_page(struct vm_fault *vmf,
+>                 const struct iomap_iter *iter)
+>  {
+> -       sector_t sector = dax_iomap_sector(&iter->iomap, iter->pos);
+> -       unsigned long vaddr = vmf->address;
+>         vm_fault_t ret;
+>         int error = 0;
+>
+>         switch (iter->iomap.type) {
+>         case IOMAP_HOLE:
+>         case IOMAP_UNWRITTEN:
+> -               clear_user_highpage(vmf->cow_page, vaddr);
+> +               clear_user_highpage(vmf->cow_page, vmf->address);
+>                 break;
+>         case IOMAP_MAPPED:
+> -               error = copy_cow_page_dax(iter->iomap.bdev, iter->iomap.dax_dev,
+> -                                         sector, vmf->cow_page, vaddr);
+> +               error = copy_cow_page_dax(vmf, iter);
+>                 break;
+>         default:
+>                 WARN_ON_ONCE(1);
+> --
+> 2.30.2
+>
 
 --
 dm-devel mailing list
