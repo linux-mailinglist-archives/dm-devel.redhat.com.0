@@ -2,71 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A05DF45B057
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:37:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A0B845AFC9
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:07:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-187-UataldANMTyH0k_094KUBA-1; Tue, 23 Nov 2021 18:37:05 -0500
-X-MC-Unique: UataldANMTyH0k_094KUBA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-1-k8KnLOc2OOW9V8QZrnjZfA-1; Tue, 23 Nov 2021 18:07:51 -0500
+X-MC-Unique: k8KnLOc2OOW9V8QZrnjZfA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E0FD687504C;
-	Tue, 23 Nov 2021 23:36:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF8595DF5F;
-	Tue, 23 Nov 2021 23:36:54 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 898AB1922035;
+	Tue, 23 Nov 2021 23:07:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C1BD19730;
+	Tue, 23 Nov 2021 23:07:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7EA934A703;
-	Tue, 23 Nov 2021 23:36:22 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3E8931832E7F;
+	Tue, 23 Nov 2021 23:07:26 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ANAaVm1011822 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Nov 2021 05:36:31 -0500
+	id 1ANN0XY4026334 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 18:00:33 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1BD262026D7F; Tue, 23 Nov 2021 10:36:31 +0000 (UTC)
+	id 09B642026980; Tue, 23 Nov 2021 23:00:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 169992026D67
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 10:36:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FE99811E7A
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 10:36:25 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
-	[209.85.208.41]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-567-pSO7wdoSPcCWeARh9Z-L3g-1; Tue, 23 Nov 2021 05:36:21 -0500
-X-MC-Unique: pSO7wdoSPcCWeARh9Z-L3g-1
-Received: by mail-ed1-f41.google.com with SMTP id o20so45613861eds.10;
-	Tue, 23 Nov 2021 02:36:21 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
-	bh=VQJ6CdunLhhxPVsr+8Cb/isFyJRrndJrABiFEBMcKdE=;
-	b=gR0arzD90j5tldnpGrOreVfuFdkly9FOd6lVIrr1z4B3FQ/rvZzapfu6seY+TCjf3w
-	LdMOQ8WOvscQQK4GKGukrEITCB4+DkuNDvHATZSt6aIqTm4nY+wDuvzGPTpoz5C1nBkN
-	C70C5B0aJWEtG3wZBKPHqxtEhaEMyAI8Rir+PkoM8vX0quq8RCux5F9+ZSDPncRveq5M
-	PUjZ1syrpeejDO/0tMGCL4svs9CnwvYmjUVWSTrJanhErfhHC8YV5h1htCg2tfzOXXSu
-	lqqRYP3yKVJ5Kn3JZwNGNFisx81KS2zmhltpINKk4bwZx8KyXrhILi9drZP+hfhDS+0m
-	7jZA==
-X-Gm-Message-State: AOAM531+tNWXej0o0zDLNEpsg/eLpv/c2N5E9HiW6+DhK5P7phEdSKUl
-	4qY/jvhBlmI7FsCddySXNbbuzqL2JPyZG7SBMfOHKv/wXsc=
-X-Google-Smtp-Source: ABdhPJzm3DTP1MZxdqjayOarBF034HP+d2wEyoI39+wkYagw7aqD/G2MHVKA5OJDylJTzwPzGPBa9/0UiuRqo+uiYbE=
-X-Received: by 2002:a17:906:b084:: with SMTP id
-	x4mr6307130ejy.214.1637663779673; 
-	Tue, 23 Nov 2021 02:36:19 -0800 (PST)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF7B02026D6A
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:00:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32E4380A0AB
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:00:27 +0000 (UTC)
+Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-137-dfG3CHN-Nmya_zGwqEk_5A-1; Tue, 23 Nov 2021 18:00:25 -0500
+X-MC-Unique: dfG3CHN-Nmya_zGwqEk_5A-1
+Received: by mail.kernel.org (Postfix) with ESMTPSA id DD5E660FBF;
+	Tue, 23 Nov 2021 23:00:23 +0000 (UTC)
+Date: Tue, 23 Nov 2021 15:00:23 -0800
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20211123230023.GQ266024@magnolia>
+References: <20211109083309.584081-1-hch@lst.de>
+	<20211109083309.584081-23-hch@lst.de>
 MIME-Version: 1.0
-From: Pintu Agarwal <pintu.ping@gmail.com>
-Date: Tue, 23 Nov 2021 16:06:08 +0530
-Message-ID: <CAOuPNLiXCmH+Ut8kf0DJe2Aonb11RJYeUmYQFsB=oSLbep+MdQ@mail.gmail.com>
-To: dm-devel@redhat.com, helen.koike@collabora.com, wad@chromium.org,
-	Kees Cook <keescook@chromium.org>, enric.balletbo@collabora.com,
-	snitzer@redhat.com, agk@redhat.com
+In-Reply-To: <20211109083309.584081-23-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -77,11 +63,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 23 Nov 2021 18:32:52 -0500
-Cc: open list <linux-kernel@vger.kernel.org>,
-	Kernelnewbies <kernelnewbies@kernelnewbies.org>
-Subject: [dm-devel] dm-verity: How to exactly use the dm-mod.create with
-	verity-metadata append
+Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
+	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	virtualization@lists.linux-foundation.org,
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
+Subject: Re: [dm-devel] [PATCH 22/29] iomap: add a IOMAP_DAX flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,92 +83,85 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
+On Tue, Nov 09, 2021 at 09:33:02AM +0100, Christoph Hellwig wrote:
+> Add a flag so that the file system can easily detect DAX operations.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/dax.c              | 7 ++++---
+>  include/linux/iomap.h | 1 +
+>  2 files changed, 5 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/dax.c b/fs/dax.c
+> index 5b52b878124ac..0bd6cdcbacfc4 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -1180,7 +1180,7 @@ int dax_zero_range(struct inode *inode, loff_t pos, loff_t len, bool *did_zero,
+>  		.inode		= inode,
+>  		.pos		= pos,
+>  		.len		= len,
+> -		.flags		= IOMAP_ZERO,
+> +		.flags		= IOMAP_DAX | IOMAP_ZERO,
+>  	};
+>  	int ret;
+>  
+> @@ -1308,6 +1308,7 @@ dax_iomap_rw(struct kiocb *iocb, struct iov_iter *iter,
+>  		.inode		= iocb->ki_filp->f_mapping->host,
+>  		.pos		= iocb->ki_pos,
+>  		.len		= iov_iter_count(iter),
+> +		.flags		= IOMAP_DAX,
+>  	};
+>  	loff_t done = 0;
+>  	int ret;
+> @@ -1461,7 +1462,7 @@ static vm_fault_t dax_iomap_pte_fault(struct vm_fault *vmf, pfn_t *pfnp,
+>  		.inode		= mapping->host,
+>  		.pos		= (loff_t)vmf->pgoff << PAGE_SHIFT,
+>  		.len		= PAGE_SIZE,
+> -		.flags		= IOMAP_FAULT,
+> +		.flags		= IOMAP_DAX | IOMAP_FAULT,
+>  	};
+>  	vm_fault_t ret = 0;
+>  	void *entry;
+> @@ -1570,7 +1571,7 @@ static vm_fault_t dax_iomap_pmd_fault(struct vm_fault *vmf, pfn_t *pfnp,
+>  	struct iomap_iter iter = {
+>  		.inode		= mapping->host,
+>  		.len		= PMD_SIZE,
+> -		.flags		= IOMAP_FAULT,
+> +		.flags		= IOMAP_DAX | IOMAP_FAULT,
+>  	};
+>  	vm_fault_t ret = VM_FAULT_FALLBACK;
+>  	pgoff_t max_pgoff;
+> diff --git a/include/linux/iomap.h b/include/linux/iomap.h
+> index 6d1b08d0ae930..146a7e3e3ea11 100644
+> --- a/include/linux/iomap.h
+> +++ b/include/linux/iomap.h
+> @@ -141,6 +141,7 @@ struct iomap_page_ops {
+>  #define IOMAP_NOWAIT		(1 << 5) /* do not block */
+>  #define IOMAP_OVERWRITE_ONLY	(1 << 6) /* only pure overwrites allowed */
+>  #define IOMAP_UNSHARE		(1 << 7) /* unshare_file_range */
+> +#define IOMAP_DAX		(1 << 8) /* DAX mapping */
 
-For rootfs dm-verity I am trying to pass dm-mod.create from our
-bootloader but it seems not working for me.
-So, I need some guidance on the parameters that we pass here.
-The documentation also does not seem to help much.
+Should this be #define'd to 0 ifndef CONFIG_FS_DAX so that the compiler
+will optimize out all the IOMAP_DAX bits if dax isn't enabled in
+Kconfig?  Kind of like what we do for S_DAX?
 
-Kernel: 4.14 (with dm-init patch backported)
-Target: Arm-32 / NAND / Simple Busybox / Bootloader (edk2)
-Build: Ubuntu-18.04 / Yocto 2.6
+--D
 
-Steps I followed:
-1) First I am trying to generate the root hash for our rootfs using
-the veritysetup command:
-$ ls -l system.img
-64172032 ==> IMAGE_SIZE
-$ veritysetup format system.img dm-init-verity.img
-UUID:                   eca62b73-b66a-4249-834b-471e83fc382c
-Hash type:              1
-Data blocks:            15667
-Data block size:        4096
-Hash block size:        4096
-Hash algorithm:         sha256
-Salt:
-8b66f42c07f576429109cf4e5d12ec072b23d242a9e653ac3423e49647339f5b
-Root hash:
-10d9036f6efdd48dd49f09c8ece016a36a2c4d9a01a1f77f01485c65cf0e78af
-
-2) Then I am trying to append the verity with the system image itself:
-$ cat dm-init-verity.img >> system.img
-
-3) After that I am trying to pass dm-mod.create parameter like this:
-dm-mod.create=\"system,,,ro, 0 IMAGE_SIZE/512 verity 1
-/dev/ubiblock0_0 /dev/ubiblock0_0 4096 4096 DATA_BLOCKS 1 sha256
-10d9036f6efdd48dd49f09c8ece016a36a2c4d9a01a1f77f01485c65cf0e78af
-8b66f42c07f576429109cf4e5d12ec072b23d242a9e653ac3423e49647339f5b\"
-
-4) The Kernel command line seems to be updated properly:
-[    0.000000] Kernel command line:.. rootfstype=squashfs
-ubi.mtd=40,0,30 ubi.block=0,0 root=/dev/ubiblock0_0
-dm-mod.create="system,,,ro, 0 125336 verity 1 /dev/ubiblock0_0
-/dev/ubiblock0_0 4096 4096 15667 1 sha256
-10d9036f6efdd48dd49f09c8ece016a36a2c4d9a01a1f77f01485c65cf0e78af
-8b66f42c07f576429109cf4e5d12ec072b23d242a9e653ac3423e49647339f5b" ....
-
-But it does not seem to work as expected.
-It gives below errors:
-....
-[    4.747708] block ubiblock0_0: created from ubi0:0(system)
-[    4.752313] device-mapper: init: waiting for all devices to be
-available before creating mapped devices
-[    4.752313]
-[    4.766061] device-mapper: verity: sha256 using implementation
-"sha256-generic"
-[    4.776178] device-mapper: ioctl: dm-0 (system) is ready
-[    4.848886] md: Skipping autodetection of RAID arrays.
-(raid=autodetect will force)
-[    4.849288] VFS: Cannot open root device "ubiblock0_0" or
-unknown-block(252,0): error -16
-....
-
-I followed almost the same example from dm-init document:
-"verity":
-  dm-verity,,4,ro,
-    0 1638400 verity 1 8:1 8:2 4096 4096 204800 1 sha256
-    fb1a5a0f00deb908d8b53cb270858975e76cf64105d412ce764225d53b8f3cfd
-    51934789604d1b92399c52e7cb149d1b3a1b74bbbcb103b2a0aaacbed5c08584
-
-But this seems only refer to system and verity on a different blocks.
-I am not sure what parameter should be changed if my verity metadata
-is part of system image itself.
-Also, I don't know how 1638400;204800;1 is calculated here based on image size ?
-
-So, people who have made this working successfully, please share the
-correct parameter to be used for the same block device.
-
-Thanks,
-Pintu
+>  
+>  struct iomap_ops {
+>  	/*
+> -- 
+> 2.30.2
+> 
 
 --
 dm-devel mailing list
