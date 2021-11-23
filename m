@@ -1,58 +1,90 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6740345AFBF
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:04:31 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EE6745AFCA
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:07:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-PSC1XuM8PaCJD7vmGhd_Uw-1; Tue, 23 Nov 2021 18:04:27 -0500
-X-MC-Unique: PSC1XuM8PaCJD7vmGhd_Uw-1
+ us-mta-114-Biy5ppjFPPmEceFk_3xLiQ-1; Tue, 23 Nov 2021 18:07:57 -0500
+X-MC-Unique: Biy5ppjFPPmEceFk_3xLiQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B585E100C609;
-	Tue, 23 Nov 2021 23:04:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 398FC1023F4D;
+	Tue, 23 Nov 2021 23:07:52 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A44F60C5F;
-	Tue, 23 Nov 2021 23:04:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 111F760CC3;
+	Tue, 23 Nov 2021 23:07:52 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DADB04A703;
-	Tue, 23 Nov 2021 23:03:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F1ED34A704;
+	Tue, 23 Nov 2021 23:07:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ANN2Ucm026506 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Nov 2021 18:02:30 -0500
+	id 1ANN7TEC026793 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 18:07:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 611F72166B3F; Tue, 23 Nov 2021 23:02:30 +0000 (UTC)
+	id 819954047279; Tue, 23 Nov 2021 23:07:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C6382166B2D
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:02:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DDFD4047272
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:07:29 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6921480A0AB
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:02:27 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6628F8001EA
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:07:29 +0000 (UTC)
+Received: from mout.gmx.net (mout.gmx.net [212.227.17.22]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-487-8T1rku49MpSPhGDfYplWLg-1; Tue, 23 Nov 2021 18:02:23 -0500
-X-MC-Unique: 8T1rku49MpSPhGDfYplWLg-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 8792A60F9F;
-	Tue, 23 Nov 2021 23:02:22 +0000 (UTC)
-Date: Tue, 23 Nov 2021 15:02:22 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20211123230222.GS266024@magnolia>
-References: <20211109083309.584081-1-hch@lst.de>
-	<20211109083309.584081-25-hch@lst.de>
+	us-mta-556-12uzTUD0OTqqPaFc5wFiig-1; Tue, 23 Nov 2021 18:07:27 -0500
+X-MC-Unique: 12uzTUD0OTqqPaFc5wFiig-1
+X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
+Received: from [0.0.0.0] ([149.28.201.231]) by mail.gmx.net (mrgmx104
+	[212.227.17.174]) with ESMTPSA (Nemesis) id 1MhD2Y-1mCjZA2yqQ-00eOwX;
+	Wed, 24 Nov 2021 00:07:23 +0100
+Message-ID: <133792e9-b89b-bc82-04fe-41202c3453a5@gmx.com>
+Date: Wed, 24 Nov 2021 07:07:18 +0800
 MIME-Version: 1.0
-In-Reply-To: <20211109083309.584081-25-hch@lst.de>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	Thunderbird/91.3.1
+To: "hch@infradead.org" <hch@infradead.org>,
+	Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
+References: <5d8351f1-1b09-bff0-02f2-a417c1669607@gmx.com>
+	<YZybvlheyLGAadFF@infradead.org>
+	<79d38fc2-cd2f-2980-2c4e-408078ce6079@gmx.com>
+	<YZyiuFxAeKE/WMrR@infradead.org>
+	<cca20bcb-1674-f99d-d504-b7fc928e227a@gmx.com>
+	<PH0PR04MB74169757F9CF740289B790C49B609@PH0PR04MB7416.namprd04.prod.outlook.com>
+	<YZz6jAVXun8yC/6k@infradead.org>
+From: Qu Wenruo <quwenruo.btrfs@gmx.com>
+In-Reply-To: <YZz6jAVXun8yC/6k@infradead.org>
+X-Provags-ID: V03:K1:qASjRyYRjJnLkrnZlSVGlZAZgsTMuJmguDInPrNNx+V3HgKz2ZX
+	JgTDvELnCmstXDimn/HR4QUbvaruhP53LS61RyZb1dGMlCVEiHplGwdca7UsjCw3xv9Z/QH
+	y7U/eA+HElDgXJ2TxGJzoioVeGNjOa2BN89ufziw6WSp1ohfvJTta7fy/XxIrwqwv8hoyMI
+	5RvfLURk3X0mZv+Cm544A==
+X-Spam-Flag: NO
+X-UI-Out-Filterresults: notjunk:1;V03:K0:3eFqAMexTz4=:m1BNluKfSjwvib3xt17B7Z
+	jM/IPlEZdsfA8QOqYFXaNVeAwzvc4BDQBddJt6bRMILr0A3W2toL2M7m5aHN7h7nh2Nu7Dr6g
+	rDezAhQAL7Ggd7h66IScupMbbpFBdV/+i7wKv5nb+NbsMOAfSeH5gOP8gu1R+RPLfQQQa7axM
+	fz6/qcnmsYcnj/QUsdcmgmlIQPxE0FGX2dllBTtWhYLfM1mqhEPlE+yGANuJ4HJ+piv/O7bHz
+	VIGpLhAMjzbitwYfbf1v6Ym19/jB6h7NPBynGe8Pr+tBshlhHG8ALgCCT133Ne7N5p+TOq99F
+	Evjiruoy2blCDoCfUNx4q12Khy3bFSiqK8OI2vEqlUAa//JnHAzSRioq02MblIA4rrycizDll
+	550kFYesOZ4MSslJuvd4iuOI69Vf+uImi/ZZDFppuTzotBwre75iVT7wWTsa+3pMUZGXmOBEh
+	2y5vJo5I193b7Ojvbvfpk8v4eNPpf+cmr24k+6iQrgz4qYFMgAFuvK+YhmvevPU23yuiqyBle
+	1YqGsxC5pjNq+PIDbc+YHwiE2tTumno8cUj0PAWuqwnZFDsTCosDN8EJ1rD55oWMauSskEg6h
+	++K4Hz/0pdkrEjuRSemfldT877XDqVZHma1sdfz/6J58p6s/Dld0eHAbgQPKuL0DZiUZDuC4X
+	7j5yLGvODBRLWhWdvujli/qdFxO/fO5QE1XvNQPBVpsI4IL9+GgneYp//tUdZJzP9kDcl06Px
+	4gehT7Ntz9msNwTOnbxwxVdqUTWRLtbvL4j+nzqWmourG5Rtcab6p9ISq19zWAqKdqE6bAtqD
+	6tZvkgDqscfJ0OnIBoQciYJBh2Og8zGRhnvdjwKisPnmlrrzPXL8xlyXs4BCpsYTTo6GPDz1h
+	cmJrbizN0m9HyQvBUpvemKKVmjyKCMTDvOVOSWvbD2/WsSXfsN5CW+4g3wMyGWDDVsBuzUCDZ
+	eY/glM/WDnhVR6E0SMhuBd4wpj+WVVIyj5mV1YMSZvntlPm6KEfGgB9cw1swvBq1YPjdWCYhP
+	wXivyJjXQ5evZV3iX4tmDwZnFcyJbXnCkwZMAwTEbI7o0i8D5ddjzGGhCfIxo8/UOZv9Sc7Bx
+	b3iZRCOl0nqISA=
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,16 +93,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ANN7TEC026793
 X-loop: dm-devel@redhat.com
-Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	virtualization@lists.linux-foundation.org,
-	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
-	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel] [PATCH 24/29] xfs: use xfs_direct_write_iomap_ops
-	for DAX zeroing
+Cc: Linux FS Devel <linux-fsdevel@vger.kernel.org>,
+	"dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Subject: Re: [dm-devel] Any bio_clone_slow() implementation which doesn't
+ share bi_io_vec?
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,53 +120,54 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Tue, Nov 09, 2021 at 09:33:04AM +0100, Christoph Hellwig wrote:
-> While the buffered write iomap ops do work due to the fact that zeroing
-> never allocates blocks, the DAX zeroing should use the direct ops just
-> like actual DAX I/O.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Heh.  I've wanted to fix this for a long time, but I like your
-surrounding cleanups better than anything I had time to work on. :)
 
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+On 2021/11/23 22:28, hch@infradead.org wrote:
+> On Tue, Nov 23, 2021 at 11:39:11AM +0000, Johannes Thumshirn wrote:
+>> I think we have to differentiate two cases here:
+>> A "regular" REQ_OP_ZONE_APPEND bio and a RAID stripe REQ_OP_ZONE_APPEND
+>> bio. The 1st one (i.e. the regular REQ_OP_ZONE_APPEND bio) can't be split
+>> because we cannot guarantee the order the device writes the data to disk.
 
---D
+That's correct.
 
-> ---
->  fs/xfs/xfs_iomap.c | 4 ++--
->  1 file changed, 2 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/xfs/xfs_iomap.c b/fs/xfs/xfs_iomap.c
-> index 8cef3b68cba78..704292c6ce0c7 100644
-> --- a/fs/xfs/xfs_iomap.c
-> +++ b/fs/xfs/xfs_iomap.c
-> @@ -1324,7 +1324,7 @@ xfs_zero_range(
->  
->  	if (IS_DAX(inode))
->  		return dax_zero_range(inode, pos, len, did_zero,
-> -				      &xfs_buffered_write_iomap_ops);
-> +				      &xfs_direct_write_iomap_ops);
->  	return iomap_zero_range(inode, pos, len, did_zero,
->  				&xfs_buffered_write_iomap_ops);
->  }
-> @@ -1339,7 +1339,7 @@ xfs_truncate_page(
->  
->  	if (IS_DAX(inode))
->  		return dax_truncate_page(inode, pos, did_zero,
-> -					&xfs_buffered_write_iomap_ops);
-> +					&xfs_direct_write_iomap_ops);
->  	return iomap_truncate_page(inode, pos, did_zero,
->  				   &xfs_buffered_write_iomap_ops);
->  }
-> -- 
-> 2.30.2
-> 
+But if we want to move all bio split into chunk layer, we want a initial
+bio without any limitation, and then using that bio to create real
+REQ_OP_ZONE_APPEND bios with proper size limitations.
+
+>> For the RAID stripe bio we can split it into the two (or more) parts that
+>> will end up on _different_ devices. All we need to do is a) ensure it
+>> doesn't cross the device's zone append limit and b) clamp all
+>> bi_iter.bi_sector down to the start of the target zone, a.k.a sticking to
+>> the rules of REQ_OP_ZONE_APPEND.
+>
+> Exactly.  A stacking driver must never split a REQ_OP_ZONE_APPEND bio.
+> But the file system itself can of course split it as long as each split
+> off bio has it's own bi_end_io handler to record where it has been
+> written to.
+>
+
+This makes me wonder, can we really forget the zone thing for the
+initial bio so we just create a plain bio without any special
+limitation, and let every split condition be handled in the lower layer?
+
+Including raid stripe boundary, zone limitations etc.
+
+(yeah, it's still not pure stacking driver, but it's more
+stacking-driver like).
+
+In that case, the missing piece seems to be a way to convert a splitted
+plain bio into a REQ_OP_ZONE_APPEND bio.
+
+Can this be done without slow bvec copying?
+
+Thanks,
+Qu
+
 
 --
 dm-devel mailing list
