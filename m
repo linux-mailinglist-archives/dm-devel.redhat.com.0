@@ -1,76 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39E2445AFF5
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:19:55 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637709594;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=2Aw2P1LKjRIdkkS3uu3i5NrS+a4MR27D3fdV346RliU=;
-	b=R4l5EdM8moMGlA9LeWfGo+WFqlmo8R/xolrQg+6qGRy4WCH1Iu/vECfLcck5yYiaU+phu3
-	LdsnSVbIuybJiujELOUK3j+VLxw04DR7y/HgYuGiIrfzixqMcCKxUTqMFUzwLl30px3e5+
-	U1mXFWJbsbarWTWbHzsAL551DIWqG2Y=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2D25945B059
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:37:41 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-391-sQ6mUEvcOVSyEz5I5iuOLQ-1; Tue, 23 Nov 2021 18:19:50 -0500
-X-MC-Unique: sQ6mUEvcOVSyEz5I5iuOLQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-38-xQ7AVxZyPgSQTxTaH1lvSw-1; Tue, 23 Nov 2021 18:37:38 -0500
+X-MC-Unique: xQ7AVxZyPgSQTxTaH1lvSw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 877FF809CD4;
-	Tue, 23 Nov 2021 23:19:44 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2638F100164A;
-	Tue, 23 Nov 2021 23:19:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 071A91922023;
+	Tue, 23 Nov 2021 23:37:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ADD2E19D9F;
+	Tue, 23 Nov 2021 23:37:28 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A886B1832E7F;
-	Tue, 23 Nov 2021 23:19:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A860E4E58F;
+	Tue, 23 Nov 2021 23:37:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ANNHWHc027517 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Nov 2021 18:17:32 -0500
+	id 1ANNRxMq028008 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 18:27:59 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0AFD44ABA1; Tue, 23 Nov 2021 23:17:32 +0000 (UTC)
+	id 150CF4010FE9; Tue, 23 Nov 2021 23:27:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from agk-cloud1.hosts.prod.upshift.rdu2.redhat.com
-	(agk-cloud1.hosts.prod.upshift.rdu2.redhat.com [10.0.13.154])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1BA6660843;
-	Tue, 23 Nov 2021 23:17:15 +0000 (UTC)
-Received: by agk-cloud1.hosts.prod.upshift.rdu2.redhat.com (Postfix,
-	from userid 3883)
-	id 6CF2C424F08E; Tue, 23 Nov 2021 23:15:18 +0000 (GMT)
-Date: Tue, 23 Nov 2021 23:15:18 +0000
-From: Alasdair G Kergon <agk@redhat.com>
-To: Akilesh Kailash <akailash@google.com>
-Message-ID: <20211123231518.GA63964@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
-Mail-Followup-To: Akilesh Kailash <akailash@google.com>,
+Received: from mimecast-mx02.redhat.com
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 100AD40149A9
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:27:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E96AE808784
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 23:27:58 +0000 (UTC)
+Received: from mail-ua1-f47.google.com (mail-ua1-f47.google.com
+	[209.85.222.47]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-453-HWOKgHpSOse5btZdvyPzJA-1; Tue, 23 Nov 2021 18:27:57 -0500
+X-MC-Unique: HWOKgHpSOse5btZdvyPzJA-1
+Received: by mail-ua1-f47.google.com with SMTP id p37so1200547uae.8
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 15:27:57 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to;
+	bh=CH0uplYCU+Cj7LRpYlXRpplkEzPyhoQ86Q0PlJEHWbQ=;
+	b=7wmy25AKWNFLrPHACQoNqz7i1WO5a7JXRgpFJCmRhOsaLlOatryN9R+aX1dc4PgAEd
+	wXNTPcXK/TyjQyiieNy23+GjEq3QZkHZeSKitZWLCHG3CxQeX5lkipHHtFSwmf57fkk4
+	k0GTLJsxQJ95jOIfolUykzWuajTvpB+QzSz5xENnyBxxpWNjjE4X6ZY+3boy255U/Q34
+	rxAqnjWRGK8pdW8y1PAdjB8HE7YqZ6mewr8cLnkxpjjSuPdfQINazpCIYaT4qkWemOnz
+	HHHcvtqhPmathPEA8/AlL5VK5wyFL0vDP5leOIBWa2UpgwXTVdStC73fg7YdEEfaCVuH
+	QBQg==
+X-Gm-Message-State: AOAM533EpNQSbB54on983aahGsW0dUgOJWA6z/7b/Ec+YICGD+2OEyvm
+	+cEBjeLFjFuBudu1cQKCQHYeJaBTjb6HdVCG3NoqvA==
+X-Google-Smtp-Source: ABdhPJz9ZQlQ5LgMRXAxJOy7jAn4didm0zk/ZVZnGGxHGMey0KokX1VQk4OI6m0ft8rIfSd5SSA1YWtfqOMZpNgYAQ4=
+X-Received: by 2002:a05:6102:3748:: with SMTP id
+	u8mr15561798vst.48.1637710076540; 
+	Tue, 23 Nov 2021 15:27:56 -0800 (PST)
+MIME-Version: 1.0
+References: <alpine.LRH.2.02.2111231421490.24195@file01.intranet.prod.int.rdu2.redhat.com>
+	<CABSDvDJX8tVtGbuxo_Xqo=7GNd66W_FoVk=i6Kssp-6zP5cmmA@mail.gmail.com>
+	<20211123231518.GA63964@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+In-Reply-To: <20211123231518.GA63964@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+From: David Anderson <dvander@google.com>
+Date: Tue, 23 Nov 2021 15:27:45 -0800
+Message-ID: <CA+FmFJBs9ocSbXHxdEncdGRRByamziXc+h9DMNH=r6qWPk3nzQ@mail.gmail.com>
+To: Akilesh Kailash <akailash@google.com>,
 	Mikulas Patocka <mpatocka@redhat.com>,
-	Mike Snitzer <msnitzer@redhat.com>,
-	Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <msnitzer@redhat.com>, Alasdair Kergon <agk@redhat.com>,
 	Jonathan Brassow <jbrassow@redhat.com>,
 	Heinz Mauelshagen <heinzm@redhat.com>,
 	David Anderson <dvander@google.com>, dm-devel@redhat.com
-References: <alpine.LRH.2.02.2111231421490.24195@file01.intranet.prod.int.rdu2.redhat.com>
-	<CABSDvDJX8tVtGbuxo_Xqo=7GNd66W_FoVk=i6Kssp-6zP5cmmA@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CABSDvDJX8tVtGbuxo_Xqo=7GNd66W_FoVk=i6Kssp-6zP5cmmA@mail.gmail.com>
-Organization: Red Hat UK Ltd. Registered in England and Wales, number
-	03798903. Registered Office: Amberley Place, 107-111 Peascod Street,
-	Windsor, Berkshire, SL4 1TE.
-User-Agent: Mutt/1.5.21 (2010-09-15)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <msnitzer@redhat.com>, Heinz Mauelshagen <heinzm@redhat.com>,
-	dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
-	David Anderson <dvander@google.com>, Alasdair Kergon <agk@redhat.com>
+X-Mailman-Approved-At: Tue, 23 Nov 2021 18:32:52 -0500
 Subject: Re: [dm-devel] [PATCH] announcing the dm-update target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -85,42 +101,59 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 23, 2021 at 02:27:18PM -0800, Akilesh Kailash wrote:
-> On Tue, Nov 23, 2021 at 1:03 PM Mikulas Patocka <mpatocka@redhat.com> wrote:
-> Older devices do not get new kernel features, only LTS updates. On the
-> other hand, by having
-> it in user-space, we have more control by adding in new features. For
-> ex: On Android S, we
-> introduced the first version of Android COW format. Now in Android T,
-> we plan to support
-> new features by having XOR compression (which saves more space).
+In our ecosystem, the OTA generation and on-device application process
+has evolved continually, in every release, for over 10 years now. So
+we think it's unlikely that we'll stop making improvements to it. Our
+current roadmap has other changes in the pipeline too. It's not just
+us trying to eek out diminishing returns. Other parts of the system
+change around us, and the OTA system needs to adapt.
 
-While you are developing this, sure, you're finding new ways that
-make significant space savings and want to roll them out easily
-and the userspace approach helps you to do that.
+The performance penalty is something we've been working on, and have
+improved a lot since our first iteration. We're currently
+experimenting with io_uring as well.
 
-But the law of diminishing returns will eventually kick in, where you
-have reached a format that provides "good enough" space savings and then
-reducing the runtime performance penalty will become the overriding
-concern and that'll point back to an in-kernel solution.
+Best,
 
-So that's the end point I think we are aiming for here.  Combining the
-requirements to find a sweet spot between space saving and performance.
- 
-By then, the ability still to make a tweak that saves a tiny bit more
-space isn't going to be worth paying an ongoing performance penalty
-for.  (And there could still be some sort of ebpf-style option.)
+-David
 
-Alasdair
+On Tue, Nov 23, 2021 at 3:17 PM Alasdair G Kergon <agk@redhat.com> wrote:
+>
+> On Tue, Nov 23, 2021 at 02:27:18PM -0800, Akilesh Kailash wrote:
+> > On Tue, Nov 23, 2021 at 1:03 PM Mikulas Patocka <mpatocka@redhat.com> wrote:
+> > Older devices do not get new kernel features, only LTS updates. On the
+> > other hand, by having
+> > it in user-space, we have more control by adding in new features. For
+> > ex: On Android S, we
+> > introduced the first version of Android COW format. Now in Android T,
+> > we plan to support
+> > new features by having XOR compression (which saves more space).
+>
+> While you are developing this, sure, you're finding new ways that
+> make significant space savings and want to roll them out easily
+> and the userspace approach helps you to do that.
+>
+> But the law of diminishing returns will eventually kick in, where you
+> have reached a format that provides "good enough" space savings and then
+> reducing the runtime performance penalty will become the overriding
+> concern and that'll point back to an in-kernel solution.
+>
+> So that's the end point I think we are aiming for here.  Combining the
+> requirements to find a sweet spot between space saving and performance.
+>
+> By then, the ability still to make a tweak that saves a tiny bit more
+> space isn't going to be worth paying an ongoing performance penalty
+> for.  (And there could still be some sort of ebpf-style option.)
+>
+> Alasdair
+>
 
 --
 dm-devel mailing list
