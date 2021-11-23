@@ -1,58 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C530945AF94
-	for <lists+dm-devel@lfdr.de>; Tue, 23 Nov 2021 23:56:32 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A05DF45B057
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 00:37:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-516-Rm5NyNrxPOmUg7pVkKnYgg-1; Tue, 23 Nov 2021 17:56:28 -0500
-X-MC-Unique: Rm5NyNrxPOmUg7pVkKnYgg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-187-UataldANMTyH0k_094KUBA-1; Tue, 23 Nov 2021 18:37:05 -0500
+X-MC-Unique: UataldANMTyH0k_094KUBA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C4E0C102CB29;
-	Tue, 23 Nov 2021 22:56:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 739B810246E3;
-	Tue, 23 Nov 2021 22:56:20 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E0FD687504C;
+	Tue, 23 Nov 2021 23:36:57 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DF8595DF5F;
+	Tue, 23 Nov 2021 23:36:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 70DC21832E81;
-	Tue, 23 Nov 2021 22:55:59 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7EA934A703;
+	Tue, 23 Nov 2021 23:36:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ANMtu9m025971 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Nov 2021 17:55:56 -0500
+	id 1ANAaVm1011822 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 05:36:31 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1B19B2166B26; Tue, 23 Nov 2021 22:55:56 +0000 (UTC)
+	id 1BD262026D7F; Tue, 23 Nov 2021 10:36:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 15E752166B25
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 22:55:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FB76185A7BA
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 22:55:53 +0000 (UTC)
-Received: from mail.kernel.org (mail.kernel.org [198.145.29.99]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-403-DiQY0QkTNN2wWgSeNjinJw-1; Tue, 23 Nov 2021 17:55:49 -0500
-X-MC-Unique: DiQY0QkTNN2wWgSeNjinJw-1
-Received: by mail.kernel.org (Postfix) with ESMTPSA id 4550060F5D;
-	Tue, 23 Nov 2021 22:55:48 +0000 (UTC)
-Date: Tue, 23 Nov 2021 14:55:48 -0800
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20211123225548.GP266024@magnolia>
-References: <20211109083309.584081-1-hch@lst.de>
-	<20211109083309.584081-22-hch@lst.de>
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 169992026D67
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 10:36:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FE99811E7A
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 10:36:25 +0000 (UTC)
+Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
+	[209.85.208.41]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-567-pSO7wdoSPcCWeARh9Z-L3g-1; Tue, 23 Nov 2021 05:36:21 -0500
+X-MC-Unique: pSO7wdoSPcCWeARh9Z-L3g-1
+Received: by mail-ed1-f41.google.com with SMTP id o20so45613861eds.10;
+	Tue, 23 Nov 2021 02:36:21 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:from:date:message-id:subject:to:cc;
+	bh=VQJ6CdunLhhxPVsr+8Cb/isFyJRrndJrABiFEBMcKdE=;
+	b=gR0arzD90j5tldnpGrOreVfuFdkly9FOd6lVIrr1z4B3FQ/rvZzapfu6seY+TCjf3w
+	LdMOQ8WOvscQQK4GKGukrEITCB4+DkuNDvHATZSt6aIqTm4nY+wDuvzGPTpoz5C1nBkN
+	C70C5B0aJWEtG3wZBKPHqxtEhaEMyAI8Rir+PkoM8vX0quq8RCux5F9+ZSDPncRveq5M
+	PUjZ1syrpeejDO/0tMGCL4svs9CnwvYmjUVWSTrJanhErfhHC8YV5h1htCg2tfzOXXSu
+	lqqRYP3yKVJ5Kn3JZwNGNFisx81KS2zmhltpINKk4bwZx8KyXrhILi9drZP+hfhDS+0m
+	7jZA==
+X-Gm-Message-State: AOAM531+tNWXej0o0zDLNEpsg/eLpv/c2N5E9HiW6+DhK5P7phEdSKUl
+	4qY/jvhBlmI7FsCddySXNbbuzqL2JPyZG7SBMfOHKv/wXsc=
+X-Google-Smtp-Source: ABdhPJzm3DTP1MZxdqjayOarBF034HP+d2wEyoI39+wkYagw7aqD/G2MHVKA5OJDylJTzwPzGPBa9/0UiuRqo+uiYbE=
+X-Received: by 2002:a17:906:b084:: with SMTP id
+	x4mr6307130ejy.214.1637663779673; 
+	Tue, 23 Nov 2021 02:36:19 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20211109083309.584081-22-hch@lst.de>
+From: Pintu Agarwal <pintu.ping@gmail.com>
+Date: Tue, 23 Nov 2021 16:06:08 +0530
+Message-ID: <CAOuPNLiXCmH+Ut8kf0DJe2Aonb11RJYeUmYQFsB=oSLbep+MdQ@mail.gmail.com>
+To: dm-devel@redhat.com, helen.koike@collabora.com, wad@chromium.org,
+	Kees Cook <keescook@chromium.org>, enric.balletbo@collabora.com,
+	snitzer@redhat.com, agk@redhat.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -61,16 +75,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
-	virtualization@lists.linux-foundation.org,
-	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
-	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel] [PATCH 21/29] xfs: move dax device handling into
- xfs_{alloc, free}_buftarg
+X-Mailman-Approved-At: Tue, 23 Nov 2021 18:32:52 -0500
+Cc: open list <linux-kernel@vger.kernel.org>,
+	Kernelnewbies <kernelnewbies@kernelnewbies.org>
+Subject: [dm-devel] dm-verity: How to exactly use the dm-mod.create with
+	verity-metadata append
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -84,179 +95,92 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 09, 2021 at 09:33:01AM +0100, Christoph Hellwig wrote:
-> Hide the DAX device lookup from the xfs_super.c code.
-> 
-> Reviewed-by: Christoph Hellwig <hch@lst.de>
+Hi,
 
-This looks to be a straightforward conversion.
-Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+For rootfs dm-verity I am trying to pass dm-mod.create from our
+bootloader but it seems not working for me.
+So, I need some guidance on the parameters that we pass here.
+The documentation also does not seem to help much.
 
---D
+Kernel: 4.14 (with dm-init patch backported)
+Target: Arm-32 / NAND / Simple Busybox / Bootloader (edk2)
+Build: Ubuntu-18.04 / Yocto 2.6
 
-> ---
->  fs/xfs/xfs_buf.c   |  8 ++++----
->  fs/xfs/xfs_buf.h   |  4 ++--
->  fs/xfs/xfs_super.c | 26 +++++---------------------
->  3 files changed, 11 insertions(+), 27 deletions(-)
-> 
-> diff --git a/fs/xfs/xfs_buf.c b/fs/xfs/xfs_buf.c
-> index 631c5a61d89b7..4d4553ffa7050 100644
-> --- a/fs/xfs/xfs_buf.c
-> +++ b/fs/xfs/xfs_buf.c
-> @@ -1892,6 +1892,7 @@ xfs_free_buftarg(
->  	list_lru_destroy(&btp->bt_lru);
->  
->  	blkdev_issue_flush(btp->bt_bdev);
-> +	fs_put_dax(btp->bt_daxdev);
->  
->  	kmem_free(btp);
->  }
-> @@ -1932,11 +1933,10 @@ xfs_setsize_buftarg_early(
->  	return xfs_setsize_buftarg(btp, bdev_logical_block_size(bdev));
->  }
->  
-> -xfs_buftarg_t *
-> +struct xfs_buftarg *
->  xfs_alloc_buftarg(
->  	struct xfs_mount	*mp,
-> -	struct block_device	*bdev,
-> -	struct dax_device	*dax_dev)
-> +	struct block_device	*bdev)
->  {
->  	xfs_buftarg_t		*btp;
->  
-> @@ -1945,7 +1945,7 @@ xfs_alloc_buftarg(
->  	btp->bt_mount = mp;
->  	btp->bt_dev =  bdev->bd_dev;
->  	btp->bt_bdev = bdev;
-> -	btp->bt_daxdev = dax_dev;
-> +	btp->bt_daxdev = fs_dax_get_by_bdev(bdev);
->  
->  	/*
->  	 * Buffer IO error rate limiting. Limit it to no more than 10 messages
-> diff --git a/fs/xfs/xfs_buf.h b/fs/xfs/xfs_buf.h
-> index 6b0200b8007d1..bd7f709f0d232 100644
-> --- a/fs/xfs/xfs_buf.h
-> +++ b/fs/xfs/xfs_buf.h
-> @@ -338,8 +338,8 @@ xfs_buf_update_cksum(struct xfs_buf *bp, unsigned long cksum_offset)
->  /*
->   *	Handling of buftargs.
->   */
-> -extern struct xfs_buftarg *xfs_alloc_buftarg(struct xfs_mount *,
-> -		struct block_device *, struct dax_device *);
-> +struct xfs_buftarg *xfs_alloc_buftarg(struct xfs_mount *mp,
-> +		struct block_device *bdev);
->  extern void xfs_free_buftarg(struct xfs_buftarg *);
->  extern void xfs_buftarg_wait(struct xfs_buftarg *);
->  extern void xfs_buftarg_drain(struct xfs_buftarg *);
-> diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
-> index 3a45d5caa28d5..7262716afb215 100644
-> --- a/fs/xfs/xfs_super.c
-> +++ b/fs/xfs/xfs_super.c
-> @@ -391,26 +391,19 @@ STATIC void
->  xfs_close_devices(
->  	struct xfs_mount	*mp)
->  {
-> -	struct dax_device *dax_ddev = mp->m_ddev_targp->bt_daxdev;
-> -
->  	if (mp->m_logdev_targp && mp->m_logdev_targp != mp->m_ddev_targp) {
->  		struct block_device *logdev = mp->m_logdev_targp->bt_bdev;
-> -		struct dax_device *dax_logdev = mp->m_logdev_targp->bt_daxdev;
->  
->  		xfs_free_buftarg(mp->m_logdev_targp);
->  		xfs_blkdev_put(logdev);
-> -		fs_put_dax(dax_logdev);
->  	}
->  	if (mp->m_rtdev_targp) {
->  		struct block_device *rtdev = mp->m_rtdev_targp->bt_bdev;
-> -		struct dax_device *dax_rtdev = mp->m_rtdev_targp->bt_daxdev;
->  
->  		xfs_free_buftarg(mp->m_rtdev_targp);
->  		xfs_blkdev_put(rtdev);
-> -		fs_put_dax(dax_rtdev);
->  	}
->  	xfs_free_buftarg(mp->m_ddev_targp);
-> -	fs_put_dax(dax_ddev);
->  }
->  
->  /*
-> @@ -428,8 +421,6 @@ xfs_open_devices(
->  	struct xfs_mount	*mp)
->  {
->  	struct block_device	*ddev = mp->m_super->s_bdev;
-> -	struct dax_device	*dax_ddev = fs_dax_get_by_bdev(ddev);
-> -	struct dax_device	*dax_logdev = NULL, *dax_rtdev = NULL;
->  	struct block_device	*logdev = NULL, *rtdev = NULL;
->  	int			error;
->  
-> @@ -439,8 +430,7 @@ xfs_open_devices(
->  	if (mp->m_logname) {
->  		error = xfs_blkdev_get(mp, mp->m_logname, &logdev);
->  		if (error)
-> -			goto out;
-> -		dax_logdev = fs_dax_get_by_bdev(logdev);
-> +			return error;
->  	}
->  
->  	if (mp->m_rtname) {
-> @@ -454,25 +444,24 @@ xfs_open_devices(
->  			error = -EINVAL;
->  			goto out_close_rtdev;
->  		}
-> -		dax_rtdev = fs_dax_get_by_bdev(rtdev);
->  	}
->  
->  	/*
->  	 * Setup xfs_mount buffer target pointers
->  	 */
->  	error = -ENOMEM;
-> -	mp->m_ddev_targp = xfs_alloc_buftarg(mp, ddev, dax_ddev);
-> +	mp->m_ddev_targp = xfs_alloc_buftarg(mp, ddev);
->  	if (!mp->m_ddev_targp)
->  		goto out_close_rtdev;
->  
->  	if (rtdev) {
-> -		mp->m_rtdev_targp = xfs_alloc_buftarg(mp, rtdev, dax_rtdev);
-> +		mp->m_rtdev_targp = xfs_alloc_buftarg(mp, rtdev);
->  		if (!mp->m_rtdev_targp)
->  			goto out_free_ddev_targ;
->  	}
->  
->  	if (logdev && logdev != ddev) {
-> -		mp->m_logdev_targp = xfs_alloc_buftarg(mp, logdev, dax_logdev);
-> +		mp->m_logdev_targp = xfs_alloc_buftarg(mp, logdev);
->  		if (!mp->m_logdev_targp)
->  			goto out_free_rtdev_targ;
->  	} else {
-> @@ -488,14 +477,9 @@ xfs_open_devices(
->  	xfs_free_buftarg(mp->m_ddev_targp);
->   out_close_rtdev:
->  	xfs_blkdev_put(rtdev);
-> -	fs_put_dax(dax_rtdev);
->   out_close_logdev:
-> -	if (logdev && logdev != ddev) {
-> +	if (logdev && logdev != ddev)
->  		xfs_blkdev_put(logdev);
-> -		fs_put_dax(dax_logdev);
-> -	}
-> - out:
-> -	fs_put_dax(dax_ddev);
->  	return error;
->  }
->  
-> -- 
-> 2.30.2
-> 
+Steps I followed:
+1) First I am trying to generate the root hash for our rootfs using
+the veritysetup command:
+$ ls -l system.img
+64172032 ==> IMAGE_SIZE
+$ veritysetup format system.img dm-init-verity.img
+UUID:                   eca62b73-b66a-4249-834b-471e83fc382c
+Hash type:              1
+Data blocks:            15667
+Data block size:        4096
+Hash block size:        4096
+Hash algorithm:         sha256
+Salt:
+8b66f42c07f576429109cf4e5d12ec072b23d242a9e653ac3423e49647339f5b
+Root hash:
+10d9036f6efdd48dd49f09c8ece016a36a2c4d9a01a1f77f01485c65cf0e78af
+
+2) Then I am trying to append the verity with the system image itself:
+$ cat dm-init-verity.img >> system.img
+
+3) After that I am trying to pass dm-mod.create parameter like this:
+dm-mod.create=\"system,,,ro, 0 IMAGE_SIZE/512 verity 1
+/dev/ubiblock0_0 /dev/ubiblock0_0 4096 4096 DATA_BLOCKS 1 sha256
+10d9036f6efdd48dd49f09c8ece016a36a2c4d9a01a1f77f01485c65cf0e78af
+8b66f42c07f576429109cf4e5d12ec072b23d242a9e653ac3423e49647339f5b\"
+
+4) The Kernel command line seems to be updated properly:
+[    0.000000] Kernel command line:.. rootfstype=squashfs
+ubi.mtd=40,0,30 ubi.block=0,0 root=/dev/ubiblock0_0
+dm-mod.create="system,,,ro, 0 125336 verity 1 /dev/ubiblock0_0
+/dev/ubiblock0_0 4096 4096 15667 1 sha256
+10d9036f6efdd48dd49f09c8ece016a36a2c4d9a01a1f77f01485c65cf0e78af
+8b66f42c07f576429109cf4e5d12ec072b23d242a9e653ac3423e49647339f5b" ....
+
+But it does not seem to work as expected.
+It gives below errors:
+....
+[    4.747708] block ubiblock0_0: created from ubi0:0(system)
+[    4.752313] device-mapper: init: waiting for all devices to be
+available before creating mapped devices
+[    4.752313]
+[    4.766061] device-mapper: verity: sha256 using implementation
+"sha256-generic"
+[    4.776178] device-mapper: ioctl: dm-0 (system) is ready
+[    4.848886] md: Skipping autodetection of RAID arrays.
+(raid=autodetect will force)
+[    4.849288] VFS: Cannot open root device "ubiblock0_0" or
+unknown-block(252,0): error -16
+....
+
+I followed almost the same example from dm-init document:
+"verity":
+  dm-verity,,4,ro,
+    0 1638400 verity 1 8:1 8:2 4096 4096 204800 1 sha256
+    fb1a5a0f00deb908d8b53cb270858975e76cf64105d412ce764225d53b8f3cfd
+    51934789604d1b92399c52e7cb149d1b3a1b74bbbcb103b2a0aaacbed5c08584
+
+But this seems only refer to system and verity on a different blocks.
+I am not sure what parameter should be changed if my verity metadata
+is part of system image itself.
+Also, I don't know how 1638400;204800;1 is calculated here based on image size ?
+
+So, people who have made this working successfully, please share the
+correct parameter to be used for the same block device.
+
+Thanks,
+Pintu
 
 --
 dm-devel mailing list
