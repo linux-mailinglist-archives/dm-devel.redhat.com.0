@@ -1,72 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D00A045AE42
-	for <lists+dm-devel@lfdr.de>; Tue, 23 Nov 2021 22:21:00 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F75045AE6A
+	for <lists+dm-devel@lfdr.de>; Tue, 23 Nov 2021 22:22:42 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-239-G-PCsNL0MQCXe5kXJwWneQ-1; Tue, 23 Nov 2021 16:20:56 -0500
-X-MC-Unique: G-PCsNL0MQCXe5kXJwWneQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-234-7tUwkZDpPUusDfXWGhvbAg-1; Tue, 23 Nov 2021 16:22:39 -0500
+X-MC-Unique: 7tUwkZDpPUusDfXWGhvbAg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 882501006AA1;
-	Tue, 23 Nov 2021 21:20:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1E02E8042EA;
+	Tue, 23 Nov 2021 21:22:34 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBB82ADF9;
-	Tue, 23 Nov 2021 21:20:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F3C601B46B;
+	Tue, 23 Nov 2021 21:22:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A82021832E7F;
-	Tue, 23 Nov 2021 21:20:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 64E3B1832E7F;
+	Tue, 23 Nov 2021 21:22:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ANLHF1J017210 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 23 Nov 2021 16:17:15 -0500
+	id 1ANLMR5q017564 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 16:22:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 09C8F2026D2D; Tue, 23 Nov 2021 21:17:15 +0000 (UTC)
+	id 3EDC840CFD0D; Tue, 23 Nov 2021 21:22:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 03DCC2026D7F
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 21:17:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E712B1066560
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 21:17:11 +0000 (UTC)
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com
-	[209.85.215.169]) by relay.mimecast.com with ESMTP with STARTTLS
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 39CB440CFD04
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 21:22:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FAB7181E070
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 21:22:27 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+	[209.85.215.176]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-492-DSOAKTZ0PreCIVx5BTwdgQ-1; Tue, 23 Nov 2021 16:17:10 -0500
-X-MC-Unique: DSOAKTZ0PreCIVx5BTwdgQ-1
-Received: by mail-pg1-f169.google.com with SMTP id 71so226934pgb.4
-	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 13:17:09 -0800 (PST)
+	us-mta-533-LuxIJlmyOqSWtxDVRYVszg-1; Tue, 23 Nov 2021 16:22:25 -0500
+X-MC-Unique: LuxIJlmyOqSWtxDVRYVszg-1
+Received: by mail-pg1-f176.google.com with SMTP id p17so244974pgj.2
+	for <dm-devel@redhat.com>; Tue, 23 Nov 2021 13:22:25 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=PQeh1LIqbqFtSovgn5WZ7VLYBwfefd3KuHYAxcJ6bdE=;
-	b=h+Bkj/2AwwbLOtGrwKp0pacS0PFncWW/Bphs6a8tzoBCkYXvhRlXM8FwNMTAV1MS+r
-	a133cQhVQrCKF1yQLs64SmVoTsjv9DpFNu3kUuRGV5eaHwU+FpECfSuPONdpIVFgdoGY
-	OOwmTNLMl0RTM4wXAoAvxSQr1k5tE8BZE017VknXQLYtsPznNh6bRnDQ+V0wkJ2wATpB
-	GUp8mLhwE2qVixOfhpAJv8OoxZF6zpdbW4O0fLvLKHeI8TNr7xQAhSmghJU1Ti7uFdDG
-	TRbkVGvU9er/JICD7N6eIr/7biHs3v0HYUl70YWP9JaBeEowBwDaKTvY2iLOMuSpqGNK
-	DFRw==
-X-Gm-Message-State: AOAM533/9aYDKSmdfLYpDYseZ2NAguLuSgWtLVOHpUeFSHnLeK/702FJ
-	9ZbqXKDXf0nxOJcK2BFBUt5VSj6vpcz94icsMiY8OA==
-X-Google-Smtp-Source: ABdhPJxo6xmNJWXyaaVPBEUy4anrM6xGk5zJ5S54bOFTPTbJYWg88+GG8ODe3guk693xmG8x/Zkzy+Ul3gB1uuDCJIA=
-X-Received: by 2002:a63:5401:: with SMTP id i1mr6112849pgb.356.1637702228750; 
-	Tue, 23 Nov 2021 13:17:08 -0800 (PST)
+	bh=bLSToY/Rn4QaplrUteOdrUS7Uug3uZWr/TlOz9Y1nF0=;
+	b=lIOSPMLCmCb6DC7LrI7oG57rFNbST1kjTCGlGgv9fuOApDKRhgoqevNbqIrj0MGOg5
+	ZkLxHrYDe15qhUm4UpSUo46LyWFe+i6whmxTQJYl3sOvkxnGqnzQWdVstKDwSeFPoXEq
+	1jyUvgRAga3X9FgOodCRO4V2k294P3ZVY0JHtQTBTTjLIG3xdrQrlwM0Eu1lL/5IfPK3
+	+HLUlORDy2q+fFHppgFROmwLn0ciKEH2lW/hHx55QuIIj8Lj1wUss25bcbLRc9IHNbNZ
+	77iSsqkeI5nydGmefeoAxCwKsH2IEfVMT6C8r9xZt9BFEbsppuopbByhkdOr3KE4swXD
+	3DCQ==
+X-Gm-Message-State: AOAM532eqkz2mVy0Bdpqfg0FXO3Gfiobfh9GfAbg9SbiyRaliksxHbbe
+	nC/PaRooCdNHTmwaYqG2Cwo65DRW0SlBiQOGir0ypekHvSo=
+X-Google-Smtp-Source: ABdhPJynvi8g71RwjaWWgFjo9LaoTAJgYi1+7huNhjnlJVCNZL4JsPbOJLOogDISiszVaR5xm5B316tq/pqSlm2ohsA=
+X-Received: by 2002:a05:6a00:140e:b0:444:b077:51ef with SMTP id
+	l14-20020a056a00140e00b00444b07751efmr476612pfu.61.1637702544283;
+	Tue, 23 Nov 2021 13:22:24 -0800 (PST)
 MIME-Version: 1.0
 References: <20211109083309.584081-1-hch@lst.de>
-	<20211109083309.584081-17-hch@lst.de>
-In-Reply-To: <20211109083309.584081-17-hch@lst.de>
+	<20211109083309.584081-18-hch@lst.de>
+In-Reply-To: <20211109083309.584081-18-hch@lst.de>
 From: Dan Williams <dan.j.williams@intel.com>
-Date: Tue, 23 Nov 2021 13:16:58 -0800
-Message-ID: <CAPcyv4jjvoT=aW+_Ks+8L60HG0ypesSi8A+a5F2JXu1dEWHVCw@mail.gmail.com>
+Date: Tue, 23 Nov 2021 13:22:13 -0800
+Message-ID: <CAPcyv4imPgBEbhDCQpDwCQUTxOQy=RT9ZkAueBQdPKXOLNmrAQ@mail.gmail.com>
 To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -76,7 +77,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
 	linux-s390 <linux-s390@vger.kernel.org>, linux-erofs@lists.ozlabs.org,
@@ -85,8 +86,7 @@ Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
 	device-mapper development <dm-devel@redhat.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
 	linux-ext4 <linux-ext4@vger.kernel.org>, Ira Weiny <ira.weiny@intel.com>
-Subject: Re: [dm-devel] [PATCH 16/29] fsdax: simplify the offset check in
-	dax_iomap_zero
+Subject: Re: [dm-devel] [PATCH 17/29] fsdax: factor out a dax_memzero helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -100,7 +100,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,12 +110,86 @@ Content-Transfer-Encoding: 7bit
 
 On Tue, Nov 9, 2021 at 12:34 AM Christoph Hellwig <hch@lst.de> wrote:
 >
-> The file relative offset must have the same alignment as the storage
-> offset, so use that and get rid of the call to iomap_sector.
+> Factor out a helper for the "manual" zeroing of a DAX range to clean
+> up dax_iomap_zero a lot.
+>
 
-Agree.
+Small / optional fixup below:
 
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/dax.c | 36 +++++++++++++++++++-----------------
+>  1 file changed, 19 insertions(+), 17 deletions(-)
+>
+> diff --git a/fs/dax.c b/fs/dax.c
+> index d7a923d152240..dc9ebeff850ab 100644
+> --- a/fs/dax.c
+> +++ b/fs/dax.c
+> @@ -1121,34 +1121,36 @@ static vm_fault_t dax_pmd_load_hole(struct xa_state *xas, struct vm_fault *vmf,
+>  }
+>  #endif /* CONFIG_FS_DAX_PMD */
+>
+> +static int dax_memzero(struct dax_device *dax_dev, pgoff_t pgoff,
+> +               unsigned int offset, size_t size)
+> +{
+> +       void *kaddr;
+> +       long rc;
+> +
+> +       rc = dax_direct_access(dax_dev, pgoff, 1, &kaddr, NULL);
+> +       if (rc >= 0) {
+
+Technically this should be "> 0" because dax_direct_access() returns
+nr_available_pages @pgoff, but this isn't broken because
+dax_direct_access() converts the "zero pages available" case into
+-ERANGE.
+
+> +               memset(kaddr + offset, 0, size);
+> +               dax_flush(dax_dev, kaddr + offset, size);
+> +       }
+> +       return rc;
+> +}
+> +
+>  s64 dax_iomap_zero(loff_t pos, u64 length, struct iomap *iomap)
+>  {
+>         pgoff_t pgoff = dax_iomap_pgoff(iomap, pos);
+>         long rc, id;
+> -       void *kaddr;
+> -       bool page_aligned = false;
+>         unsigned offset = offset_in_page(pos);
+>         unsigned size = min_t(u64, PAGE_SIZE - offset, length);
+>
+> -       if (IS_ALIGNED(pos, PAGE_SIZE) && size == PAGE_SIZE)
+> -               page_aligned = true;
+> -
+>         id = dax_read_lock();
+> -
+> -       if (page_aligned)
+> +       if (IS_ALIGNED(pos, PAGE_SIZE) && size == PAGE_SIZE)
+>                 rc = dax_zero_page_range(iomap->dax_dev, pgoff, 1);
+>         else
+> -               rc = dax_direct_access(iomap->dax_dev, pgoff, 1, &kaddr, NULL);
+> -       if (rc < 0) {
+> -               dax_read_unlock(id);
+> -               return rc;
+> -       }
+> -
+> -       if (!page_aligned) {
+> -               memset(kaddr + offset, 0, size);
+> -               dax_flush(iomap->dax_dev, kaddr + offset, size);
+> -       }
+> +               rc = dax_memzero(iomap->dax_dev, pgoff, offset, size);
+>         dax_read_unlock(id);
+> +
+> +       if (rc < 0)
+> +               return rc;
+>         return size;
+>  }
+>
+> --
+> 2.30.2
+>
 
 --
 dm-devel mailing list
