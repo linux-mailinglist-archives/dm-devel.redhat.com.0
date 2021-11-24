@@ -2,58 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3EE4B45B4D1
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 08:00:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3529245B51F
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Nov 2021 08:15:04 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-577-lEWyveD8OnuO8DEi1WRgPQ-1; Wed, 24 Nov 2021 02:00:05 -0500
-X-MC-Unique: lEWyveD8OnuO8DEi1WRgPQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-499-lQp3bsh9MUSXgTlBV7jPnA-1; Wed, 24 Nov 2021 02:14:53 -0500
+X-MC-Unique: lQp3bsh9MUSXgTlBV7jPnA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 73D988042E1;
-	Wed, 24 Nov 2021 06:59:59 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E98718A5F;
-	Wed, 24 Nov 2021 06:59:58 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 79EB81006AA4;
+	Wed, 24 Nov 2021 07:14:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A62B5D9C0;
+	Wed, 24 Nov 2021 07:14:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 86C5D1809C89;
-	Wed, 24 Nov 2021 06:59:50 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 73A5C4A7C9;
+	Wed, 24 Nov 2021 07:14:44 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AO6xj0J003572 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 24 Nov 2021 01:59:45 -0500
+	id 1AO3nh69022200 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 23 Nov 2021 22:49:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BA6C840CFD11; Wed, 24 Nov 2021 06:59:45 +0000 (UTC)
+	id 4EE5040CFD11; Wed, 24 Nov 2021 03:49:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B5D7040CFD0E
-	for <dm-devel@redhat.com>; Wed, 24 Nov 2021 06:59:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 49AC440CFD0E
+	for <dm-devel@redhat.com>; Wed, 24 Nov 2021 03:49:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A11008007B1
-	for <dm-devel@redhat.com>; Wed, 24 Nov 2021 06:59:45 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-564-QVTLmqRUMMG_cseULAw1qQ-1; Wed, 24 Nov 2021 01:59:41 -0500
-X-MC-Unique: QVTLmqRUMMG_cseULAw1qQ-1
-Received: by verein.lst.de (Postfix, from userid 2407)
-	id 2A62068AFE; Wed, 24 Nov 2021 07:59:38 +0100 (CET)
-Date: Wed, 24 Nov 2021 07:59:38 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <20211124065938.GB7229@lst.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2AC8A85A5AA
+	for <dm-devel@redhat.com>; Wed, 24 Nov 2021 03:49:43 +0000 (UTC)
+Received: from out4436.biz.mail.alibaba.com (out4436.biz.mail.alibaba.com
+	[47.88.44.36]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-156-b389czpBMzy2IcHH4IDB7g-1; Tue, 23 Nov 2021 22:49:39 -0500
+X-MC-Unique: b389czpBMzy2IcHH4IDB7g-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R211e4; CH=green; DM=||false|;
+	DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=e01e04423;
+	MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=12; SR=0;
+	TI=SMTPD_---0Uy37IrO_1637725454
+Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
+	fp:SMTPD_---0Uy37IrO_1637725454) by smtp.aliyun-inc.com(127.0.0.1);
+	Wed, 24 Nov 2021 11:44:16 +0800
+Date: Wed, 24 Nov 2021 11:44:14 +0800
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <YZ21Dk0Ni719o4NR@B-P7TQMD6M-0146.local>
+Mail-Followup-To: Christoph Hellwig <hch@lst.de>,
+	Dan Williams <dan.j.williams@intel.com>,
+	Mike Snitzer <snitzer@redhat.com>, Ira Weiny <ira.weiny@intel.com>,
+	dm-devel@redhat.com, linux-xfs@vger.kernel.org,
+	nvdimm@lists.linux.dev, linux-s390@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	linux-ext4@vger.kernel.org,
+	virtualization@lists.linux-foundation.org
 References: <20211109083309.584081-1-hch@lst.de>
-	<20211109083309.584081-26-hch@lst.de>
-	<CAPcyv4jtWzd3c_S1_4fYA1SXTJZfBzP_1xk_OwYkeNp0UhxwSg@mail.gmail.com>
+	<20211109083309.584081-27-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <CAPcyv4jtWzd3c_S1_4fYA1SXTJZfBzP_1xk_OwYkeNp0UhxwSg@mail.gmail.com>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20211109083309.584081-27-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -64,16 +76,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: Linux NVDIMM <nvdimm@lists.linux.dev>, Mike Snitzer <snitzer@redhat.com>,
-	linux-s390 <linux-s390@vger.kernel.org>, linux-erofs@lists.ozlabs.org,
+X-Mailman-Approved-At: Wed, 24 Nov 2021 02:14:41 -0500
+Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
+	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
 	virtualization@lists.linux-foundation.org,
-	linux-xfs <linux-xfs@vger.kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	linux-ext4 <linux-ext4@vger.kernel.org>,
-	Ira Weiny <ira.weiny@intel.com>, Christoph Hellwig <hch@lst.de>
-Subject: Re: [dm-devel] [PATCH 25/29] dax: return the partition offset from
- fs_dax_get_by_bdev
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
+Subject: Re: [dm-devel] [PATCH 26/29] fsdax: shift partition offset handling
+ into the file systems
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,7 +98,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -96,25 +107,23 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 23, 2021 at 06:56:29PM -0800, Dan Williams wrote:
-> On Tue, Nov 9, 2021 at 12:34 AM Christoph Hellwig <hch@lst.de> wrote:
-> >
-> > Prepare from removing the block_device from the DAX I/O path by returning
+On Tue, Nov 09, 2021 at 09:33:06AM +0100, Christoph Hellwig wrote:
+> Remove the last user of ->bdev in dax.c by requiring the file system to
+> pass in an address that already includes the DAX offset.  As part of the
+> only set ->bdev or ->daxdev when actually required in the ->iomap_begin
+> methods.
 > 
-> s/from removing/for the removal of/
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>  fs/dax.c                 |  6 +-----
+>  fs/erofs/data.c          | 11 ++++++++--
+>  fs/erofs/internal.h      |  1 +
 
-Fixed.
+For erofs part, it looks good to me,
+Reviewed-by: Gao Xiang <hsiangkao@linux.alibaba.com>
 
-> >         td->dm_dev.bdev = bdev;
-> > -       td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev);
-> > +       td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev, &part_off);
-> 
-> Perhaps allow NULL as an argument for callers that do not care about
-> the start offset?
-
-All callers currently care, dm just has another way to get at the
-information.  So for now I'd like to not add the NULL special case,
-but we can reconsider that as needed if/when more callers show up.
+Thanks,
+Gao Xiang
 
 --
 dm-devel mailing list
