@@ -2,69 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E2F845D4E7
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Nov 2021 07:44:51 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1637822690;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=t4IuIQLeAmjb6js7ztDNXIbCN6fYzAN5lvwCzyf4SxQ=;
-	b=LqUlaXcGVah2neeWH3jrDcaydSBCZUV19aD3bfy3OqMr1ejTl5CZBtCgAmEbMgfk/PD2N9
-	PpUWK9/gv8uuVil1JXwdH7kRptlS/LY8alIu4RrC2fgxtPKFuA0jPxSmtg5QqWhTS4jnas
-	WfV6y/vVix319yRtueKB7XgLz2OvkqY=
+	by mail.lfdr.de (Postfix) with ESMTPS id 7777845D4EA
+	for <lists+dm-devel@lfdr.de>; Thu, 25 Nov 2021 07:45:06 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-519-mio9garaPuiYvYX0g48-kw-1; Thu, 25 Nov 2021 01:44:46 -0500
-X-MC-Unique: mio9garaPuiYvYX0g48-kw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-406-dZ7_zYIvM3K7iTMCYhOPcg-1; Thu, 25 Nov 2021 01:44:48 -0500
+X-MC-Unique: dZ7_zYIvM3K7iTMCYhOPcg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EFFD1185304C;
-	Thu, 25 Nov 2021 06:44:40 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 68CDB101E594;
-	Thu, 25 Nov 2021 06:44:37 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B24E283DD24;
+	Thu, 25 Nov 2021 06:44:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 413735D9C0;
+	Thu, 25 Nov 2021 06:44:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C18B71809C8A;
-	Thu, 25 Nov 2021 06:44:16 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
-	[10.5.11.16])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EA5314BB7C;
+	Thu, 25 Nov 2021 06:44:39 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AP18LdS007264 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 24 Nov 2021 20:08:21 -0500
+	id 1AP1JPVt007769 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 24 Nov 2021 20:19:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3ED10171FF; Thu, 25 Nov 2021 01:08:21 +0000 (UTC)
+	id E5DCA51DD; Thu, 25 Nov 2021 01:19:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BA1005C25A;
-	Thu, 25 Nov 2021 01:08:16 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AP18E4f023668; 
-	Wed, 24 Nov 2021 19:08:15 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AP18EjW023667;
-	Wed, 24 Nov 2021 19:08:14 -0600
-Date: Wed, 24 Nov 2021 19:08:13 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: mwilck@suse.com
-Message-ID: <20211125010813.GU19591@octiron.msp.redhat.com>
-References: <20211118225840.19810-1-mwilck@suse.com>
-	<20211118225840.19810-31-mwilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E01BD51DC
+	for <dm-devel@redhat.com>; Thu, 25 Nov 2021 01:19:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F01D101AA63
+	for <dm-devel@redhat.com>; Thu, 25 Nov 2021 01:19:22 +0000 (UTC)
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+	[209.85.219.47]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-285-BQ3Gky5-MD66dUuLY_bUtQ-1; Wed, 24 Nov 2021 20:19:18 -0500
+X-MC-Unique: BQ3Gky5-MD66dUuLY_bUtQ-1
+Received: by mail-qv1-f47.google.com with SMTP id kl8so3043260qvb.3
+	for <dm-devel@redhat.com>; Wed, 24 Nov 2021 17:19:18 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=sLuZyfaT/4AZ6gqPLiY4IvYhA8fmmzWi6fo2HLuudC8=;
+	b=y+urZmQ8bxtOpbUJh9wPBsLLHe+njX3X2W0C2JqvucVIF16yPglNKWT0DXXJjdRlEX
+	x0NVFqJgza8vxQ0AeM8W98hOjkkOwt/eMRrzbD5NducGTvUlhqGtV/C+XO0MiUXgojfE
+	F8ZTJ04zTJrR4NT2PPxKAREtbzDgRMgPr9LYHrNY9E/uGsqKkci9YKj6Vc99QG9NsQr5
+	foZQK931e+pBngf/Dumlg6Vf62Bpk460ruTQpEWD/85f+rxTnNZ3Y4O74GwhtQPWuHOJ
+	LJG79deA6npDHI/BZyVvuY+YgVcjBo99iF5HrmADf6C78A/gzPXRGw51wSZ65Rt3Amt/
+	2qTg==
+X-Gm-Message-State: AOAM5315iJaBNKmZkrkXzkEykNgCItFbuIoRAYZ9Mg2vUbFpwtNClaMU
+	s4XXaJDaMvrzCwPObSTzmWwvNpYRM8vdSFLq5LLutg==
+X-Google-Smtp-Source: ABdhPJx7IN7634HCA9iU9yV+Rx6pHX9E6MZsOutv/zzO/syVCUMoB5cofd4wjI1KGUhc5itQE4onAzQpiD7x7dQWEeg=
+X-Received: by 2002:a05:6214:301b:: with SMTP id
+	ke27mr1081838qvb.68.1637803157652; 
+	Wed, 24 Nov 2021 17:19:17 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <20211118225840.19810-31-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+References: <alpine.LRH.2.02.2111231421490.24195@file01.intranet.prod.int.rdu2.redhat.com>
+	<CABSDvDJX8tVtGbuxo_Xqo=7GNd66W_FoVk=i6Kssp-6zP5cmmA@mail.gmail.com>
+	<20211123231518.GA63964@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+	<CA+FmFJBs9ocSbXHxdEncdGRRByamziXc+h9DMNH=r6qWPk3nzQ@mail.gmail.com>
+	<alpine.LRH.2.02.2111240819520.1631@file01.intranet.prod.int.rdu2.redhat.com>
+	<CABSDvD+_mfAJ6SAmkTAve=i8w_xpvPPg1VyC7a3+KO6YAnGRiw@mail.gmail.com>
+In-Reply-To: <CABSDvD+_mfAJ6SAmkTAve=i8w_xpvPPg1VyC7a3+KO6YAnGRiw@mail.gmail.com>
+From: Kelvin Zhang <zhangkelvin@google.com>
+Date: Wed, 24 Nov 2021 17:19:06 -0800
+Message-ID: <CAOSmRzirCpAyhdtdyvVB1u78ibHvL7UKEuLSTuggq9E1sXQNng@mail.gmail.com>
+To: Akilesh Kailash <akailash@google.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 25 Nov 2021 01:44:00 -0500
-Cc: lixiaokeng@huawei.com, dm-devel@redhat.com,
-	Chongyun Wu <wu.chongyun@h3c.com>
-Subject: Re: [dm-devel] [PATCH v2 30/48] multipathd: uxlsnr: add idle
-	notification
+Cc: Mike Snitzer <msnitzer@redhat.com>, Tianjie Xu <xunchang@google.com>,
+	Heinz Mauelshagen <heinzm@redhat.com>, dm-devel@redhat.com,
+	Mikulas Patocka <mpatocka@redhat.com>, David Anderson <dvander@google.com>,
+	Alasdair Kergon <agk@redhat.com>
+Subject: Re: [dm-devel] [PATCH] announcing the dm-update target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,399 +103,277 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Type: multipart/mixed; boundary="===============2495492856874463840=="
+
+--===============2495492856874463840==
+Content-Type: multipart/alternative; boundary="0000000000006cd86a05d192c375"
+
+--0000000000006cd86a05d192c375
+Content-Type: text/plain; charset="UTF-8"
+
+There are two different formats in Android's OTA infrastructure:
+
+1. The OTA format. This is what we generate from two android images, and
+this is what Android devices download when installing an update.
+    This format is designed to be as small as possible. Therefore it is not
+suitable to serve as an on disk COW format, as disk read performance would
+be horrible.
+2. The COW format. After the device downloads the OTA package, it will
+translate OTA format into COW format. The COW format has larger disk space
+footprint,
+    but much better disk read performance.
+
+Unfortunately you can't get example COW images easily. As we don't [yet]
+have tools to create them on host. The only way to get a COW image is to
+apply OTA on device and read data from the android device.
+
+Below are some instructions on how to produce android OTA packages(format
+#1)
+
+Android's OTA generator is open source at
+https://cs.android.com/android/platform/superproject/+/master:system/update_engine/payload_generator/generate_delta_main.cc?q=generate_delta_main
+
+We have precompiled OTA generator binaries available at
+https://ci.android.com/ . To download:
+1. Look for column "aosp_cf_x86_64_phone"
+2. Click on any green squares
+3. Click on "artifacts" tab e.g.
+https://ci.android.com/builds/submitted/7945102/aosp_cf_x86_64_phone-userdebug/latest
+4. Look for otatools.zip , download it
+
+The same https://ci.android.com/ website also has android images available
+for download. To fetch an android image:
+
+1. Look for column "aosp_cf_x86_64_phone"
+2. Click on any green squares
+3. Click on "artifacts" tab
+4. Look for "target_files" e.g.
+aosp_cf_x86_64_phone-target_files-7945102.zip . Note, this name will be
+different for each build.
+
+To generate an incremental OTA package:
+
+1. Extract otatools.zip, add bin/ subdir to your PATH, add lib/lib64 subdir
+to LD_LIBRARY_PATH
+2. ota_from_target_files -v -i source_build_target_files.zip
+target_build_target_files.zip ota.zip
+
+
+> How do you search for blocks that are similar, so that the "XOR" method is
+> benefical for them?
+
+In short, we use BSDIFF. The core algorithm is explained in
+https://www.daemonology.net/papers/bsdiff.pdf . It uses suffix array + some
+heuristics to identify similar blocks.
+
+> How do you make sure that you don't perform the "XOR"
+> operation twice, if there's system crash when performing it?
+
+That's handled by snapuserd. Akilesh can show you all the details. But
+basically:
+
+1. We compute an order which COW operation should be applied, and this
+order is guaranteed to be conflict free(an operation earlier in the order
+will never overwrite blocks needed by a later operation).
+2. The snapuserd has to write checkpoint data to disk so it can properly
+resume.
+
+On Wed, Nov 24, 2021 at 3:44 PM Akilesh Kailash <akailash@google.com> wrote:
+
+> On Wed, Nov 24, 2021 at 8:10 AM Mikulas Patocka <mpatocka@redhat.com>
+> wrote:
+> >
+> >
+> >
+> > On Tue, 23 Nov 2021, David Anderson wrote:
+> >
+> > > In our ecosystem, the OTA generation and on-device application process
+> > > has evolved continually, in every release, for over 10 years now. So
+> > > we think it's unlikely that we'll stop making improvements to it. Our
+> > > current roadmap has other changes in the pipeline too. It's not just
+> > > us trying to eek out diminishing returns. Other parts of the system
+> > > change around us, and the OTA system needs to adapt.
+> > >
+> > > The performance penalty is something we've been working on, and have
+> > > improved a lot since our first iteration. We're currently
+> > > experimenting with io_uring as well.
+> > >
+> > > Best,
+> > >
+> > > -David
+> >
+> > Hi
+> >
+> > I understand that an update format developed over 10 years will have
+> > better compression ratio than my format developed in 2 months.
+> >
+> > I'd be interested in extending dm-update to handle your your update
+> format
+> > and possibly add some abstraction, so that it can work with multiple
+> > formats.
+> >
+> > You say that you have "COPY" and "XOR" operations.
+> >
+> > How do you search for blocks that are similar, so that the "XOR" method
+> is
+> > benefical for them? How do you make sure that you don't perform the "XOR"
+> > operation twice, if there's system crash when performing it?
+>
+> CC: Kelvin and Tianjie who are familiar with the  OTA generation.
+>
+> > Could it be possible for you to give us two Android images and a program
+> > that calculates difference between them? So that we could see how well we
+> > are performing compared to the existing solution.
+> >
+> > Mikulas
+> >
+>
+
+
+-- 
+Sincerely,
+
+Kelvin Zhang
+
+--0000000000006cd86a05d192c375
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>There are two different formats in Android&#39;s OTA =
+infrastructure:</div><div><br></div><div>1. The OTA format. This is what we=
+ generate from two android images, and this is what Android devices downloa=
+d when installing an update.</div><div>=C2=A0 =C2=A0 This format is designe=
+d to be as small as possible. Therefore it is not suitable to serve as an o=
+n disk COW format, as disk read performance would be horrible.</div><div>2.=
+ The COW format. After the device downloads the OTA package, it will transl=
+ate OTA format into COW format. The COW format has larger disk space footpr=
+int,</div><div>=C2=A0 =C2=A0 but much better disk read performance.</div><d=
+iv><br></div><div>Unfortunately you can&#39;t get example COW images easily=
+. As we don&#39;t [yet] have tools to create them on host. The only way to =
+get a COW image is to apply OTA on device=C2=A0and read data from the andro=
+id device.</div><div><br></div><div>Below are some instructions on how to p=
+roduce android OTA packages(format #1)</div><div><br></div>Android&#39;s OT=
+A generator is open source at=C2=A0<a href=3D"https://cs.android.com/androi=
+d/platform/superproject/+/master:system/update_engine/payload_generator/gen=
+erate_delta_main.cc?q=3Dgenerate_delta_main">https://cs.android.com/android=
+/platform/superproject/+/master:system/update_engine/payload_generator/gene=
+rate_delta_main.cc?q=3Dgenerate_delta_main</a><div><br></div><div>We have p=
+recompiled OTA generator binaries available at=C2=A0<a href=3D"https://ci.a=
+ndroid.com/">https://ci.android.com/</a>=C2=A0. To download:</div><div>1. L=
+ook for column &quot;aosp_cf_x86_64_phone&quot;</div><div>2. Click on any g=
+reen squares</div><div>3. Click on &quot;artifacts&quot; tab e.g.=C2=A0<a h=
+ref=3D"https://ci.android.com/builds/submitted/7945102/aosp_cf_x86_64_phone=
+-userdebug/latest">https://ci.android.com/builds/submitted/7945102/aosp_cf_=
+x86_64_phone-userdebug/latest</a></div><div>4. Look for otatools.zip , down=
+load it</div><div><br></div><div>The same=C2=A0<a href=3D"https://ci.androi=
+d.com/">https://ci.android.com/</a>=C2=A0website also has android images av=
+ailable for download. To fetch an android image:</div><div><br></div><div>1=
+. Look for column &quot;aosp_cf_x86_64_phone&quot;</div><div>2. Click on an=
+y green squares</div><div>3. Click on &quot;artifacts&quot; tab</div><div>4=
+. Look for &quot;target_files&quot; e.g. aosp_cf_x86_64_phone-target_files-=
+7945102.zip . Note, this name will be different for each build.</div><div><=
+br></div><div>To generate an incremental OTA package:</div><div><br></div><=
+div>1. Extract otatools.zip, add bin/ subdir to your PATH, add lib/lib64 su=
+bdir to LD_LIBRARY_PATH</div><div>2. ota_from_target_files -v -i source_bui=
+ld_target_files.zip target_build_target_files.zip ota.zip<br><div><br></div=
+></div><div><br></div><div>&gt; How do you search for blocks that are simil=
+ar, so that the &quot;XOR&quot; method is<br>&gt; benefical for them? <br><=
+/div><div><br></div><div>In short, we use BSDIFF. The core algorithm is exp=
+lained in <a href=3D"https://www.daemonology.net/papers/bsdiff.pdf">https:/=
+/www.daemonology.net/papers/bsdiff.pdf</a> . It uses suffix array=C2=A0+ so=
+me heuristics to identify similar blocks.</div><div><br></div><div>&gt; How=
+ do you make sure that you don&#39;t perform the &quot;XOR&quot;</div>&gt; =
+operation twice, if there&#39;s system crash when performing it?<div><br></=
+div><div>That&#39;s handled by snapuserd. Akilesh can show you all the deta=
+ils. But basically:</div><div><br></div><div>1. We compute an order which C=
+OW operation should be applied, and this order is guaranteed to be conflict=
+ free(an operation earlier in the order will never overwrite blocks needed =
+by a later operation).</div><div>2. The snapuserd has to write checkpoint d=
+ata to disk so it can properly resume.</div></div><br><div class=3D"gmail_q=
+uote"><div dir=3D"ltr" class=3D"gmail_attr">On Wed, Nov 24, 2021 at 3:44 PM=
+ Akilesh Kailash &lt;<a href=3D"mailto:akailash@google.com">akailash@google=
+.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"mar=
+gin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1=
+ex">On Wed, Nov 24, 2021 at 8:10 AM Mikulas Patocka &lt;<a href=3D"mailto:m=
+patocka@redhat.com" target=3D"_blank">mpatocka@redhat.com</a>&gt; wrote:<br=
+>
+&gt;<br>
+&gt;<br>
+&gt;<br>
+&gt; On Tue, 23 Nov 2021, David Anderson wrote:<br>
+&gt;<br>
+&gt; &gt; In our ecosystem, the OTA generation and on-device application pr=
+ocess<br>
+&gt; &gt; has evolved continually, in every release, for over 10 years now.=
+ So<br>
+&gt; &gt; we think it&#39;s unlikely that we&#39;ll stop making improvement=
+s to it. Our<br>
+&gt; &gt; current roadmap has other changes in the pipeline too. It&#39;s n=
+ot just<br>
+&gt; &gt; us trying to eek out diminishing returns. Other parts of the syst=
+em<br>
+&gt; &gt; change around us, and the OTA system needs to adapt.<br>
+&gt; &gt;<br>
+&gt; &gt; The performance penalty is something we&#39;ve been working on, a=
+nd have<br>
+&gt; &gt; improved a lot since our first iteration. We&#39;re currently<br>
+&gt; &gt; experimenting with io_uring as well.<br>
+&gt; &gt;<br>
+&gt; &gt; Best,<br>
+&gt; &gt;<br>
+&gt; &gt; -David<br>
+&gt;<br>
+&gt; Hi<br>
+&gt;<br>
+&gt; I understand that an update format developed over 10 years will have<b=
+r>
+&gt; better compression ratio than my format developed in 2 months.<br>
+&gt;<br>
+&gt; I&#39;d be interested in extending dm-update to handle your your updat=
+e format<br>
+&gt; and possibly add some abstraction, so that it can work with multiple<b=
+r>
+&gt; formats.<br>
+&gt;<br>
+&gt; You say that you have &quot;COPY&quot; and &quot;XOR&quot; operations.=
+<br>
+&gt;<br>
+&gt; How do you search for blocks that are similar, so that the &quot;XOR&q=
+uot; method is<br>
+&gt; benefical for them? How do you make sure that you don&#39;t perform th=
+e &quot;XOR&quot;<br>
+&gt; operation twice, if there&#39;s system crash when performing it?<br>
+<br>
+CC: Kelvin and Tianjie who are familiar with the=C2=A0 OTA generation.<br>
+<br>
+&gt; Could it be possible for you to give us two Android images and a progr=
+am<br>
+&gt; that calculates difference between them? So that we could see how well=
+ we<br>
+&gt; are performing compared to the existing solution.<br>
+&gt;<br>
+&gt; Mikulas<br>
+&gt;<br>
+</blockquote></div><br clear=3D"all"><div><br></div>-- <br><div dir=3D"ltr"=
+ class=3D"gmail_signature"><div dir=3D"ltr">Sincerely,<div><br></div><div>K=
+elvin Zhang</div></div></div>
+
+--0000000000006cd86a05d192c375--
+
+--===============2495492856874463840==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-On Thu, Nov 18, 2021 at 11:58:22PM +0100, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
-> 
-> The previous patches added the state machine and the timeout handling,
-> but there was no wakeup mechanism for the uxlsnr for cases where
-> client connections were waiting for the vecs lock.
-> 
-> This patch uses the previously introduced wakeup mechanism of
-> struct mutex_lock for this purpose. Processes which unlock the
-> "global" vecs lock send an event in an eventfd which the uxlsnr
-> loop is polling for.
-> 
-> As we are now woken up for servicing client handlers that don't
-> wait for input but for the lock, we need to set up the pollfds
-> differently, and iterate over all clients when handling events,
-> not only over the ones that are receiving. The hangup handling
-> is changed, too. We have to look at every client, even if one has
-> hung up. Note that I don't take client_lock for the loop in
-> uxsock_listen(), it's not necessary and will be removed elsewhere
-> in a follow-up patch.
-> 
-> With this in place, the lock need not be taken in execute_handler()
-> any more. The uxlsnr only ever calls trylock() on the vecs lock,
-> avoiding any waiting for other threads to finish.
-> 
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> ---
->  multipathd/uxlsnr.c | 200 ++++++++++++++++++++++++++++----------------
->  1 file changed, 129 insertions(+), 71 deletions(-)
-> 
-> diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-> index 87134d5..bf9780d 100644
-> --- a/multipathd/uxlsnr.c
-> +++ b/multipathd/uxlsnr.c
-> @@ -24,6 +24,7 @@
->  #include <signal.h>
->  #include <stdbool.h>
->  #include <sys/inotify.h>
-> +#include <sys/eventfd.h>
->  #include "checkers.h"
->  #include "memory.h"
->  #include "debug.h"
-> @@ -70,6 +71,7 @@ struct client {
->  enum {
->  	POLLFD_UX = 0,
->  	POLLFD_NOTIFY,
-> +	POLLFD_IDLE,
->  	POLLFDS_BASE,
->  };
->  
-> @@ -90,6 +92,7 @@ static LIST_HEAD(clients);
->  static pthread_mutex_t client_lock = PTHREAD_MUTEX_INITIALIZER;
->  static struct pollfd *polls;
->  static int notify_fd = -1;
-> +static int idle_fd = -1;
->  static char *watch_config_dir;
->  
->  static bool _socket_client_is_root(int fd)
-> @@ -187,6 +190,17 @@ void uxsock_cleanup(void *arg)
->  	free_polls();
->  }
->  
-> +void wakeup_cleanup(void *arg)
-> +{
-> +	struct mutex_lock *lck = arg;
-> +	int fd = idle_fd;
-> +
-> +	idle_fd = -1;
-> +	set_wakeup_fn(lck, NULL);
-> +	if (fd != -1)
-> +		close(fd);
-> +}
-> +
->  struct watch_descriptors {
->  	int conf_wd;
->  	int dir_wd;
-> @@ -293,6 +307,18 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
->  
->  static const struct timespec ts_zero = { .tv_sec = 0, };
->  
-> +/* call with clients lock held */
-> +static bool __need_vecs_lock(void)
-> +{
-> +	struct client *c;
-> +
-> +	list_for_each_entry(c, &clients, node) {
-> +		if (c->state == CLT_WAIT_LOCK)
-> +			return true;
-> +	}
-> +	return false;
-> +}
-> +
->  static int parse_cmd(struct client *c)
->  {
->  	int r;
-> @@ -310,40 +336,31 @@ static int parse_cmd(struct client *c)
->  	return r;
->  }
->  
-> -static int execute_handler(struct client *c, struct vectors *vecs, int timeout)
-> +static int execute_handler(struct client *c, struct vectors *vecs)
->  {
-> -	int r;
-> -	struct timespec tmo;
->  
-> -	if (!c->handler)
-> +	if (!c->handler || !c->handler->fn)
->  		return -EINVAL;
->  
-> -	if (clock_gettime(CLOCK_REALTIME, &tmo) == 0) {
-> -		tmo.tv_sec += timeout;
-> -	} else {
-> -		tmo.tv_sec = 0;
-> -	}
-> +	return c->handler->fn(c->cmdvec, &c->reply, vecs);
-> +}
->  
-> -	if (c->handler->locked) {
-> -		int locked = 0;
-> +static void wakeup_listener(void)
-> +{
-> +	uint64_t one = 1;
->  
-> -		pthread_cleanup_push(cleanup_lock, &vecs->lock);
-> -		if (tmo.tv_sec) {
-> -			r = timedlock(&vecs->lock, &tmo);
-> -		} else {
-> -			lock(&vecs->lock);
-> -			r = 0;
-> -		}
-> -		if (r == 0) {
-> -			locked = 1;
-> -			pthread_testcancel();
-> -			r = c->handler->fn(c->cmdvec, &c->reply, vecs);
-> -		}
-> -		pthread_cleanup_pop(locked);
-> -	} else
-> -		r = c->handler->fn(c->cmdvec, &c->reply, vecs);
-> +	if (idle_fd != -1 &&
-> +	    write(idle_fd, &one, sizeof(one)) != sizeof(one))
-> +		condlog(1, "%s: failed", __func__);
-> +}
->  
-> -	return r;
-> +static void drain_idle_fd(int fd)
-> +{
-> +	uint64_t val;
-> +	int rc;
-> +
-> +	rc = read(fd, &val, sizeof(val));
-> +	condlog(4, "%s: %d, %"PRIu64, __func__, rc, val);
->  }
->  
->  void default_reply(struct client *c, int r)
-> @@ -397,16 +414,19 @@ enum {
->  	STM_BREAK,
->  };
->  
-> -static int client_state_machine(struct client *c, struct vectors *vecs)
-> +static int client_state_machine(struct client *c, struct vectors *vecs,
-> +				short revents)
->  {
->  	ssize_t n;
->  	const char *buf;
->  
-> -	condlog(4, "%s: cli[%d] state=%d cmd=\"%s\" repl \"%s\"", __func__,
-> -		c->fd, c->state, c->cmd, get_strbuf_str(&c->reply));
-> +	condlog(4, "%s: cli[%d] poll=%x state=%d cmd=\"%s\" repl \"%s\"", __func__,
-> +		c->fd, revents, c->state, c->cmd, get_strbuf_str(&c->reply));
->  
->          switch (c->state) {
->  	case CLT_RECV:
-> +		if (!(revents & POLLIN))
-> +			return STM_BREAK;
->  		if (c->cmd_len == 0) {
->  			/*
->  			 * We got POLLIN; assume that at least the length can
-> @@ -462,17 +482,30 @@ static int client_state_machine(struct client *c, struct vectors *vecs)
->  		}
->  		if (c->error)
->  			set_client_state(c, CLT_SEND);
-> +		else if (c->handler->locked)
-> +			set_client_state(c, CLT_WAIT_LOCK);
->  		else
->  			set_client_state(c, CLT_WORK);
->  		return STM_CONT;
->  
->  	case CLT_WAIT_LOCK:
-
-It's not a big deal, but I would prefer a name like CLT_LOCKED_WORK
-instead of CLT_WAIT_LOCK, to make it obvious that these are alternate
-possibilites.
-
-
-> -		/* tbd */
-> -		set_client_state(c, CLT_WORK);
-> -		return STM_CONT;
-> +                if (trylock(&vecs->lock) == 0) {
-> +			/* don't use cleanup_lock(), lest we wakeup ourselves */
-> +			pthread_cleanup_push_cast(__unlock, &vecs->lock);
-> +			c->error = execute_handler(c, vecs);
-> +			pthread_cleanup_pop(1);
-> +			condlog(4, "%s: cli[%d] grabbed lock", __func__, c->fd);
-> +			free_keys(c->cmdvec);
-> +			c->cmdvec = NULL;
-> +			set_client_state(c, CLT_SEND);
-> +			return STM_CONT;
-> +		} else {
-> +			condlog(4, "%s: cli[%d] waiting for lock", __func__, c->fd);
-> +			return STM_BREAK;
-> +		}
->  
->  	case CLT_WORK:
-> -		c->error = execute_handler(c, vecs, uxsock_timeout / 1000);
-> +		c->error = execute_handler(c, vecs);
->  		free_keys(c->cmdvec);
->  		c->cmdvec = NULL;
->  		set_client_state(c, CLT_SEND);
-> @@ -499,9 +532,14 @@ static int client_state_machine(struct client *c, struct vectors *vecs)
->  	}
->  }
->  
-> -static void handle_client(struct client *c, struct vectors *vecs)
-> +static void handle_client(struct client *c, struct vectors *vecs, short revents)
->  {
-> -	while (client_state_machine(c, vecs) == STM_CONT);
-> +	if (revents & (POLLHUP|POLLERR)) {
-> +		c->error = -ECONNRESET;
-> +		return;
-> +	}
-> +
-> +        while (client_state_machine(c, vecs, revents) == STM_CONT);
->  }
->  
->  /*
-> @@ -514,6 +552,8 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  	/* conf->sequence_nr will be 1 when uxsock_listen is first called */
->  	unsigned int sequence_nr = 0;
->  	struct watch_descriptors wds = { .conf_wd = -1, .dir_wd = -1 };
-> +	bool need_lock = false;
-> +	struct vectors *vecs = trigger_data;
->  
->  	condlog(3, "uxsock: startup listener");
->  	polls = MALLOC(max_pfds * sizeof(*polls));
-> @@ -524,6 +564,14 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  	notify_fd = inotify_init1(IN_NONBLOCK);
->  	if (notify_fd == -1) /* it's fine if notifications fail */
->  		condlog(3, "failed to start up configuration notifications");
-> +
-> +	pthread_cleanup_push(wakeup_cleanup, &vecs->lock);
-> +	idle_fd = eventfd(0, EFD_NONBLOCK|EFD_CLOEXEC);
-> +	if (idle_fd == -1)
-> +		condlog(1, "failed to create idle fd");
-
-If the idle_fd doesn't get correctly set, that seems like a fatal error
-to me.
-
-> +	else
-> +		set_wakeup_fn(&vecs->lock, wakeup_listener);
-> +
->  	sigfillset(&mask);
->  	sigdelset(&mask, SIGINT);
->  	sigdelset(&mask, SIGTERM);
-> @@ -575,16 +623,30 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  		else
->  			polls[POLLFD_NOTIFY].events = POLLIN;
->  
-> +		need_lock = __need_vecs_lock();
-> +		polls[POLLFD_IDLE].fd = idle_fd;
-> +		if (need_lock)
-> +			polls[POLLFD_IDLE].events = POLLIN;
-> +		else
-> +			polls[POLLFD_IDLE].events = 0;
-> +
->  		/* setup the clients */
-> -		i = POLLFDS_BASE;
-> -		list_for_each_entry(c, &clients, node) {
-> -			polls[i].fd = c->fd;
-> -			polls[i].events = POLLIN;
-> -			i++;
-> -			if (i >= max_pfds)
-> -				break;
-> -		}
-> -		n_pfds = i;
-> +                i = POLLFDS_BASE;
-> +                list_for_each_entry(c, &clients, node) {
-
-Nitpick: This would look clearer to me if, instead of a switch
-statement, it was just
-
-if (c->state != CLT_RECV)
-        continue;
-
-polls[i].events = POLLIN;
-polls[i].fd = c->fd;
-...
-
-
--Ben
-
-> +                        switch(c->state) {
-> +                        case CLT_RECV:
-> +                                polls[i].events = POLLIN;
-> +                                break;
-> +                        default:
-> +				/* don't poll for this client */
-> +                                continue;
-> +                        }
-> +                        polls[i].fd = c->fd;
-> +                        i++;
-> +                        if (i >= max_pfds)
-> +                                break;
-> +                }
-> +                n_pfds = i;
->  		pthread_cleanup_pop(1);
->  
->  		/* most of our life is spent in this call */
-> @@ -607,33 +669,28 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  			handle_signals(true);
->  			continue;
->  		}
-> +		if (polls[POLLFD_IDLE].fd != -1 &&
-> +		    polls[POLLFD_IDLE].revents & POLLIN)
-> +			drain_idle_fd(idle_fd);
->  
-> -		/* see if a client wants to speak to us */
-> -		for (i = POLLFDS_BASE; i < n_pfds; i++) {
-> -			if (polls[i].revents & (POLLIN|POLLHUP|POLLERR)) {
-> -				c = NULL;
-> -				pthread_mutex_lock(&client_lock);
-> -				list_for_each_entry(tmp, &clients, node) {
-> -					if (tmp->fd == polls[i].fd) {
-> -						c = tmp;
-> -						break;
-> -					}
-> -				}
-> -				pthread_mutex_unlock(&client_lock);
-> -				if (!c) {
-> -					condlog(4, "cli%d: new fd %d",
-> -						i, polls[i].fd);
-> -					continue;
-> -				}
-> -				if (polls[i].revents & (POLLHUP|POLLERR)) {
-> -					condlog(4, "cli[%d]: Disconnected",
-> -						c->fd);
-> -					dead_client(c);
-> -					continue;
-> -				}
-> -				handle_client(c, trigger_data);
-> -				if (c->error == -ECONNRESET)
-> -					dead_client(c);
-> +		/* see if a client needs handling */
-> +		list_for_each_entry_safe(c, tmp, &clients, node) {
-> +			short revents = 0;
-> +
-> +			for (i = POLLFDS_BASE; i < n_pfds; i++) {
-> +                                if (polls[i].fd == c->fd) {
-> +                                        revents = polls[i].revents;
-> +                                        break;
-> +                                }
-> +                        }
-> +
-> +			handle_client(c, trigger_data, revents);
-> +
-> +			if (c->error == -ECONNRESET) {
-> +				condlog(4, "cli[%d]: disconnected", c->fd);
-> +				dead_client(c);
-> +				if (i < n_pfds)
-> +					polls[i].fd = -1;
->  			}
->  		}
->  		/* see if we got a non-fatal signal */
-> @@ -649,5 +706,6 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  			handle_inotify(notify_fd, &wds);
->  	}
->  
-> +	pthread_cleanup_pop(1);
->  	return NULL;
->  }
-> -- 
-> 2.33.1
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+--===============2495492856874463840==--
 
