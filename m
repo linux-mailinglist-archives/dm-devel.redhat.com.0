@@ -1,68 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23B9045FFD3
-	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:23:12 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC69A45FFBE
+	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:21:22 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-346-JNHFwq0lNQqNPaQyZe_ZMQ-1; Sat, 27 Nov 2021 10:23:09 -0500
-X-MC-Unique: JNHFwq0lNQqNPaQyZe_ZMQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-111-KIliCuXINRCVeVh9gOZ6Lg-1; Sat, 27 Nov 2021 10:21:18 -0500
+X-MC-Unique: KIliCuXINRCVeVh9gOZ6Lg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5102B8189F7;
-	Sat, 27 Nov 2021 15:23:04 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5DE12185302C;
+	Sat, 27 Nov 2021 15:21:12 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 320D95D6D7;
-	Sat, 27 Nov 2021 15:23:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4204960854;
+	Sat, 27 Nov 2021 15:21:12 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9918B1826D01;
-	Sat, 27 Nov 2021 15:23:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CEF831802E2E;
+	Sat, 27 Nov 2021 15:21:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ARFKfP8000683 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Nov 2021 10:20:42 -0500
+	id 1ARFKhJH000694 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 27 Nov 2021 10:20:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CE7902026D7F; Sat, 27 Nov 2021 15:20:41 +0000 (UTC)
+	id 31426112131E; Sat, 27 Nov 2021 15:20:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9B7C2026D65
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B188D805B0A
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D0BA112131B
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 45FBF808784
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:40 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-72-bJD37J3bM0u43qVVqJhG0Q-1; Sat, 27 Nov 2021 10:20:37 -0500
-X-MC-Unique: bJD37J3bM0u43qVVqJhG0Q-1
+	us-mta-511-Dp4f9BdkOzSi3tbb3s_zNg-1; Sat, 27 Nov 2021 10:20:38 -0500
+X-MC-Unique: Dp4f9BdkOzSi3tbb3s_zNg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 8E230212CC;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id DC1FA212FE;
 	Sat, 27 Nov 2021 15:20:36 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 52F2A13AAD;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9AA7A13AAD;
 	Sat, 27 Nov 2021 15:20:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id +OIcEsRMomFrFgAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id CBavI8RMomFrFgAAMHmgww
 	(envelope-from <mwilck@suse.com>); Sat, 27 Nov 2021 15:20:36 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Sat, 27 Nov 2021 16:20:02 +0100
-Message-Id: <20211127152006.8035-8-mwilck@suse.com>
+Date: Sat, 27 Nov 2021 16:20:03 +0100
+Message-Id: <20211127152006.8035-9-mwilck@suse.com>
 In-Reply-To: <20211127152006.8035-1-mwilck@suse.com>
 References: <20211127152006.8035-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,13 +73,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFKfP8000683
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFKhJH000694
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 07/11] multipathd: drop unnecessary path layout
-	calls
+Subject: [dm-devel] [PATCH 08/11] libmultipath: add a cleanup function for
+	unsigned char *
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,63 +103,35 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-In cli_list_map_fmt(), we only need field widths for map properties,
-not for path properties. In json ouput, we need no field width padding
-at all. Likewise in the prstatus related functions.
-
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/cli_handlers.c | 9 ++-------
- 1 file changed, 2 insertions(+), 7 deletions(-)
+ libmultipath/util.c | 5 +++++
+ libmultipath/util.h | 1 +
+ 2 files changed, 6 insertions(+)
 
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index 1b563e7..db7646b 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -277,8 +277,7 @@ cli_list_map_json (void *v, struct strbuf *reply, void *data)
- 	struct vectors * vecs = (struct vectors *)data;
- 	char * param = get_keyparam(v, MAP);
+diff --git a/libmultipath/util.c b/libmultipath/util.c
+index b7952a5..ce5ea73 100644
+--- a/libmultipath/util.c
++++ b/libmultipath/util.c
+@@ -466,3 +466,8 @@ void cleanup_charp(char **p)
+ {
+ 	free(*p);
+ }
++
++void cleanup_ucharp(unsigned char **p)
++{
++	free(*p);
++}
+diff --git a/libmultipath/util.h b/libmultipath/util.h
+index 421842a..79d9f32 100644
+--- a/libmultipath/util.h
++++ b/libmultipath/util.h
+@@ -125,4 +125,5 @@ static inline void clear_bit_in_bitfield(unsigned int bit, struct bitfield *bf)
+ 	})
  
--	param = convert_dev(param, 0);
--	get_path_layout(vecs->pathvec, 0);
-+        param = convert_dev(param, 0);
- 	mpp = find_mp_by_str(vecs->mpvec, param);
- 
- 	if (!mpp)
-@@ -400,7 +399,6 @@ cli_list_map_fmt (void *v, struct strbuf *reply, void *data)
- 	char * fmt = get_keyparam(v, FMT);
- 
- 	param = convert_dev(param, 0);
--	get_path_layout(vecs->pathvec, 0);
- 	get_multipath_layout(vecs->mpvec, 1);
- 	mpp = find_mp_by_str(vecs->mpvec, param);
- 	if (!mpp)
-@@ -1266,8 +1264,7 @@ cli_getprstatus (void * v, struct strbuf *reply, void * data)
- 	struct vectors * vecs = (struct vectors *)data;
- 	char * param = get_keyparam(v, MAP);
- 
--	param = convert_dev(param, 0);
--	get_path_layout(vecs->pathvec, 0);
-+        param = convert_dev(param, 0);
- 	mpp = find_mp_by_str(vecs->mpvec, param);
- 
- 	if (!mpp)
-@@ -1291,7 +1288,6 @@ cli_setprstatus(void * v, struct strbuf *reply, void * data)
- 	char * param = get_keyparam(v, MAP);
- 
- 	param = convert_dev(param, 0);
--	get_path_layout(vecs->pathvec, 0);
- 	mpp = find_mp_by_str(vecs->mpvec, param);
- 
- 	if (!mpp)
-@@ -1314,7 +1310,6 @@ cli_unsetprstatus(void * v, struct strbuf *reply, void * data)
- 	char * param = get_keyparam(v, MAP);
- 
- 	param = convert_dev(param, 0);
--	get_path_layout(vecs->pathvec, 0);
- 	mpp = find_mp_by_str(vecs->mpvec, param);
- 
- 	if (!mpp)
+ void cleanup_charp(char **p);
++void cleanup_ucharp(unsigned char **p);
+ #endif /* _UTIL_H */
 -- 
 2.33.1
 
