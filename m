@@ -2,66 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C9CBD45FFC7
-	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:22:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E3A745FF9F
+	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:20:36 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-452-kS_7DF1SNL6bK9Sy_ST5qg-1; Sat, 27 Nov 2021 10:22:40 -0500
-X-MC-Unique: kS_7DF1SNL6bK9Sy_ST5qg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-258-j-_l9QFOPm-PFwQD8Dvpog-1; Sat, 27 Nov 2021 10:20:33 -0500
+X-MC-Unique: j-_l9QFOPm-PFwQD8Dvpog-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CC6D0801B25;
-	Sat, 27 Nov 2021 15:22:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF6D06060F;
-	Sat, 27 Nov 2021 15:22:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B9EEB1006AA7;
+	Sat, 27 Nov 2021 15:20:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B92018A50;
+	Sat, 27 Nov 2021 15:20:25 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8809B473D0;
-	Sat, 27 Nov 2021 15:22:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3C73B1809C88;
+	Sat, 27 Nov 2021 15:20:09 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ARFJorE032715 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Nov 2021 10:19:50 -0500
+	id 1ARFJl51032657 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 27 Nov 2021 10:19:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id A93291121319; Sat, 27 Nov 2021 15:19:50 +0000 (UTC)
+	id 07F1E404727A; Sat, 27 Nov 2021 15:19:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9FFDC112131E
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:19:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 03C3C4047272
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:19:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A79F808784
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE560185A7B2
 	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:19:46 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-378-AmhRTuAnO76y8fFk_-2VTQ-1; Sat, 27 Nov 2021 10:19:44 -0500
-X-MC-Unique: AmhRTuAnO76y8fFk_-2VTQ-1
+	us-mta-169-FtGvHSNgMnaNbV4BkOedOg-1; Sat, 27 Nov 2021 10:19:44 -0500
+X-MC-Unique: FtGvHSNgMnaNbV4BkOedOg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 1B8871FCA3;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 75834212CC;
 	Sat, 27 Nov 2021 15:19:43 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C478313AAD;
-	Sat, 27 Nov 2021 15:19:42 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2963113AAD;
+	Sat, 27 Nov 2021 15:19:43 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id +Eq3LY5MomErFgAAMHmgww
-	(envelope-from <mwilck@suse.com>); Sat, 27 Nov 2021 15:19:42 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id UIUECI9MomErFgAAMHmgww
+	(envelope-from <mwilck@suse.com>); Sat, 27 Nov 2021 15:19:43 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Sat, 27 Nov 2021 16:18:57 +0100
-Message-Id: <20211127151929.7727-5-mwilck@suse.com>
+Date: Sat, 27 Nov 2021 16:18:58 +0100
+Message-Id: <20211127151929.7727-6-mwilck@suse.com>
 In-Reply-To: <20211127151929.7727-1-mwilck@suse.com>
 References: <20211127151929.7727-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -73,14 +74,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFJorE032715
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFJl51032657
 X-loop: dm-devel@redhat.com
 Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
 	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v3 04/35] libmultipath: print: add
-	__snprint_config()
+Subject: [dm-devel] [PATCH v3 05/35] libmultipath: improve cleanup of uevent
+	queues on exit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +95,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,94 +105,134 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-exactly like snprint_config(), but takes a struct strbuf * as argument.
+uevents listed on merge_node must be cleaned up, too. uevents
+cancelled while being serviced and temporary queues, likewise.
+The global uevq must be cleaned out in the uevent listener thread,
+because it might have added events after the dispatcher thread
+had already finished.
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/libmultipath.version |  5 +++++
- libmultipath/print.c              | 34 +++++++++++++++++++++----------
- libmultipath/print.h              |  2 ++
- 3 files changed, 30 insertions(+), 11 deletions(-)
+ libmultipath/uevent.c | 49 ++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 37 insertions(+), 12 deletions(-)
 
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index 83aaa83..547a71c 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -293,3 +293,8 @@ global:
- local:
- 	*;
- };
-+
-+LIBMULTIPATH_10.1.0 {
-+global:
-+	__snprint_config;
-+} LIBMULTIPATH_10.0.0;
-diff --git a/libmultipath/print.c b/libmultipath/print.c
-index 2fb9f4e..d2ef010 100644
---- a/libmultipath/print.c
-+++ b/libmultipath/print.c
-@@ -1756,24 +1756,36 @@ static int snprint_blacklist_except(const struct config *conf,
- 	return get_strbuf_len(buff) - initial_len;
+diff --git a/libmultipath/uevent.c b/libmultipath/uevent.c
+index fd4556c..70ad217 100644
+--- a/libmultipath/uevent.c
++++ b/libmultipath/uevent.c
+@@ -90,16 +90,25 @@ struct uevent * alloc_uevent (void)
+ 	return uev;
  }
  
-+int __snprint_config(const struct config *conf, struct strbuf *buff,
-+		     const struct _vector *hwtable, const struct _vector *mpvec)
++static void uevq_cleanup(struct list_head *tmpq);
++
++static void cleanup_uev(void *arg)
 +{
-+	int rc;
++	struct uevent *uev = arg;
 +
-+	if ((rc = snprint_defaults(conf, buff)) < 0 ||
-+	    (rc = snprint_blacklist(conf, buff)) < 0 ||
-+	    (rc = snprint_blacklist_except(conf, buff)) < 0 ||
-+	    (rc = snprint_hwtable(conf, buff,
-+				  hwtable ? hwtable : conf->hwtable)) < 0 ||
-+	    (rc = snprint_overrides(conf, buff, conf->overrides)) < 0)
-+		return rc;
-+
-+	if (VECTOR_SIZE(conf->mptable) > 0 ||
-+	    (mpvec != NULL && VECTOR_SIZE(mpvec) > 0))
-+		if ((rc = snprint_mptable(conf, buff, mpvec)) < 0)
-+			return rc;
-+
-+	return 0;
++	uevq_cleanup(&uev->merge_node);
++	if (uev->udev)
++		udev_device_unref(uev->udev);
++	free(uev);
 +}
 +
- char *snprint_config(const struct config *conf, int *len,
- 		     const struct _vector *hwtable, const struct _vector *mpvec)
+ static void uevq_cleanup(struct list_head *tmpq)
  {
- 	STRBUF_ON_STACK(buff);
- 	char *reply;
--	int rc;
-+	int rc = __snprint_config(conf, &buff, hwtable, mpvec);
+ 	struct uevent *uev, *tmp;
  
--	if ((rc = snprint_defaults(conf, &buff)) < 0 ||
--	    (rc = snprint_blacklist(conf, &buff)) < 0 ||
--	    (rc = snprint_blacklist_except(conf, &buff)) < 0 ||
--	    (rc = snprint_hwtable(conf, &buff,
--				  hwtable ? hwtable : conf->hwtable)) < 0 ||
--	    (rc = snprint_overrides(conf, &buff, conf->overrides)) < 0)
-+	if (rc < 0)
- 		return NULL;
--	if (VECTOR_SIZE(conf->mptable) > 0 ||
--	    (mpvec != NULL && VECTOR_SIZE(mpvec) > 0))
--		if ((rc = snprint_mptable(conf, &buff, mpvec)) < 0)
--			return NULL;
+ 	list_for_each_entry_safe(uev, tmp, tmpq, node) {
+ 		list_del_init(&uev->node);
+-
+-		if (uev->udev)
+-			udev_device_unref(uev->udev);
+-		free(uev);
++		cleanup_uev(uev);
+ 	}
+ }
  
- 	if (len)
- 		*len = get_strbuf_len(&buff);
-diff --git a/libmultipath/print.h b/libmultipath/print.h
-index c6674a5..b149275 100644
---- a/libmultipath/print.h
-+++ b/libmultipath/print.h
-@@ -54,6 +54,8 @@ int _snprint_multipath_topology (const struct gen_multipath *, struct strbuf *,
- #define snprint_multipath_topology(buf, mpp, v) \
- 	_snprint_multipath_topology (dm_multipath_to_gen(mpp), buf, v)
- int snprint_multipath_topology_json(struct strbuf *, const struct vectors *vecs);
-+int __snprint_config(const struct config *conf, struct strbuf *buff,
-+		     const struct _vector *hwtable, const struct _vector *mpvec);
- char *snprint_config(const struct config *conf, int *len,
- 		     const struct _vector *hwtable,
- 		     const struct _vector *mpvec);
+@@ -383,14 +392,10 @@ service_uevq(struct list_head *tmpq)
+ 	list_for_each_entry_safe(uev, tmp, tmpq, node) {
+ 		list_del_init(&uev->node);
+ 
++		pthread_cleanup_push(cleanup_uev, uev);
+ 		if (my_uev_trigger && my_uev_trigger(uev, my_trigger_data))
+ 			condlog(0, "uevent trigger error");
+-
+-		uevq_cleanup(&uev->merge_node);
+-
+-		if (uev->udev)
+-			udev_device_unref(uev->udev);
+-		free(uev);
++		pthread_cleanup_pop(1);
+ 	}
+ }
+ 
+@@ -410,6 +415,18 @@ static void monitor_cleanup(void *arg)
+ 	udev_monitor_unref(monitor);
+ }
+ 
++static void cleanup_uevq(void *arg)
++{
++	uevq_cleanup(arg);
++}
++
++static void cleanup_global_uevq(void *arg __attribute__((unused)))
++{
++	pthread_mutex_lock(uevq_lockp);
++	uevq_cleanup(&uevq);
++	pthread_mutex_unlock(uevq_lockp);
++}
++
+ /*
+  * Service the uevent queue.
+  */
+@@ -424,6 +441,7 @@ int uevent_dispatch(int (*uev_trigger)(struct uevent *, void * trigger_data),
+ 	while (1) {
+ 		LIST_HEAD(uevq_tmp);
+ 
++		pthread_cleanup_push(cleanup_mutex, uevq_lockp);
+ 		pthread_mutex_lock(uevq_lockp);
+ 		servicing_uev = 0;
+ 		/*
+@@ -435,14 +453,17 @@ int uevent_dispatch(int (*uev_trigger)(struct uevent *, void * trigger_data),
+ 		}
+ 		servicing_uev = 1;
+ 		list_splice_init(&uevq, &uevq_tmp);
+-		pthread_mutex_unlock(uevq_lockp);
++		pthread_cleanup_pop(1);
++
+ 		if (!my_uev_trigger)
+ 			break;
++
++		pthread_cleanup_push(cleanup_uevq, &uevq_tmp);
+ 		merge_uevq(&uevq_tmp);
+ 		service_uevq(&uevq_tmp);
++		pthread_cleanup_pop(1);
+ 	}
+ 	condlog(3, "Terminating uev service queue");
+-	uevq_cleanup(&uevq);
+ 	return 0;
+ }
+ 
+@@ -599,6 +620,8 @@ int uevent_listen(struct udev *udev)
+ 
+ 	events = 0;
+ 	gettimeofday(&start_time, NULL);
++	pthread_cleanup_push(cleanup_global_uevq, NULL);
++	pthread_cleanup_push(cleanup_uevq, &uevlisten_tmp);
+ 	while (1) {
+ 		struct uevent *uev;
+ 		struct udev_device *dev;
+@@ -649,6 +672,8 @@ int uevent_listen(struct udev *udev)
+ 		gettimeofday(&start_time, NULL);
+ 		timeout = 30;
+ 	}
++	pthread_cleanup_pop(1);
++	pthread_cleanup_pop(1);
+ out:
+ 	pthread_cleanup_pop(1);
+ out_udev:
 -- 
 2.33.1
 
