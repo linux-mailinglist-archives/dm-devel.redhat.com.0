@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 32E7245FFB2
-	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:21:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4C31A45FFB9
+	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:21:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-483-t6Y1cLHhOrWCUU9idKRsJw-1; Sat, 27 Nov 2021 10:21:01 -0500
-X-MC-Unique: t6Y1cLHhOrWCUU9idKRsJw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-301-ezNC0ERsNmqNxXKWFE_iAA-1; Sat, 27 Nov 2021 10:21:08 -0500
+X-MC-Unique: ezNC0ERsNmqNxXKWFE_iAA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A32683DD26;
-	Sat, 27 Nov 2021 15:20:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4465F83DD21;
+	Sat, 27 Nov 2021 15:21:02 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 135995C3DF;
-	Sat, 27 Nov 2021 15:20:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 27D056C350;
+	Sat, 27 Nov 2021 15:21:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 78EB1180C667;
-	Sat, 27 Nov 2021 15:20:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C0F3F1802E28;
+	Sat, 27 Nov 2021 15:21:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ARFKdNj000638 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Nov 2021 10:20:39 -0500
+	id 1ARFKf7a000682 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 27 Nov 2021 10:20:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5D10C40CFD13; Sat, 27 Nov 2021 15:20:39 +0000 (UTC)
+	id A05C02026D69; Sat, 27 Nov 2021 15:20:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 581D840CFD07
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:39 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9C3192026D65
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3F25480122B
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:39 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83F28101AA64
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:20:41 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-598-b-DVk1hUPieuN8-b9CjcFg-1; Sat, 27 Nov 2021 10:20:36 -0500
-X-MC-Unique: b-DVk1hUPieuN8-b9CjcFg-1
+	us-mta-142-l7VhbEbBNGGxXPECMxCFaw-1; Sat, 27 Nov 2021 10:20:37 -0500
+X-MC-Unique: l7VhbEbBNGGxXPECMxCFaw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id AEF7B212CB;
-	Sat, 27 Nov 2021 15:20:35 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 006FA1FD2A;
+	Sat, 27 Nov 2021 15:20:36 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 76C9513AAD;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BC54513AAD;
 	Sat, 27 Nov 2021 15:20:35 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id GG3dGsNMomFrFgAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id kDzkK8NMomFrFgAAMHmgww
 	(envelope-from <mwilck@suse.com>); Sat, 27 Nov 2021 15:20:35 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Sat, 27 Nov 2021 16:19:59 +0100
-Message-Id: <20211127152006.8035-5-mwilck@suse.com>
+Date: Sat, 27 Nov 2021 16:20:00 +0100
+Message-Id: <20211127152006.8035-6-mwilck@suse.com>
 In-Reply-To: <20211127152006.8035-1-mwilck@suse.com>
 References: <20211127152006.8035-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,13 +74,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFKdNj000638
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFKf7a000682
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 04/11] libmultipath: use ARRAY_SIZE for iterating
-	over wildcard arrays
+Subject: [dm-devel] [PATCH 05/11] libmultipath: drop padding code in
+	_snprint_pathgroup()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,145 +104,44 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Avoid the extra empty element at the end of the array, and use the
-ARRAY_SIZE paradigm that we've adopted elsewhere in multipath-tools.
+We don't use padding for pathgroup fields, field width is always 0.
+Remove this dead code.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/print.c | 36 +++++++++++++++++-------------------
- 1 file changed, 17 insertions(+), 19 deletions(-)
+ libmultipath/print.c | 9 ---------
+ 1 file changed, 9 deletions(-)
 
 diff --git a/libmultipath/print.c b/libmultipath/print.c
-index 37222bf..fcbaa5a 100644
+index fcbaa5a..924bca3 100644
 --- a/libmultipath/print.c
 +++ b/libmultipath/print.c
-@@ -817,7 +817,6 @@ static struct multipath_data mpd[] = {
- 	{'e', "rev",           0, snprint_multipath_rev},
- 	{'G', "foreign",       0, snprint_multipath_foreign},
- 	{'g', "vpd page data", 0, snprint_multipath_vpd_data},
--	{0, NULL, 0 , NULL}
- };
- 
- static struct path_data pd[] = {
-@@ -846,7 +845,6 @@ static struct path_data pd[] = {
- 	{'0', "failures",      0, snprint_path_failures},
- 	{'P', "protocol",      0, snprint_path_protocol},
- 	{'I', "init_st",       0, snprint_initialized},
--	{0, NULL, 0 , NULL}
- };
- 
- static struct pathgroup_data pgd[] = {
-@@ -854,31 +852,31 @@ static struct pathgroup_data pgd[] = {
- 	{'p', "pri",           0, snprint_pg_pri},
- 	{'t', "dm_st",         0, snprint_pg_state},
- 	{'M', "marginal_st",   0, snprint_pg_marginal},
--	{0, NULL, 0 , NULL}
- };
- 
- int snprint_wildcards(struct strbuf *buff)
+@@ -1167,25 +1167,16 @@ int _snprint_pathgroup(const struct gen_pathgroup *ggp, struct strbuf *line,
  {
- 	int initial_len = get_strbuf_len(buff);
--	int i, rc;
-+	unsigned int i;
-+	int rc;
+ 	int initial_len = get_strbuf_len(line);
+ 	const char *f;
+-	struct pathgroup_data *data;
+ 	int rc;
  
- 	if ((rc = append_strbuf_str(buff, "multipath format wildcards:\n")) < 0)
- 		return rc;
--	for (i = 0; mpd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(mpd); i++)
- 		if ((rc = print_strbuf(buff, "%%%c  %s\n",
- 				       mpd[i].wildcard, mpd[i].header)) < 0)
+ 	for (f = strchr(format, '%'); f; f = strchr(++format, '%')) {
+-		int iwc;
+-
+ 		if ((rc = __append_strbuf_str(line, format, f - format)) < 0)
  			return rc;
  
- 	if ((rc = append_strbuf_str(buff, "\npath format wildcards:\n")) < 0)
- 		return rc;
--	for (i = 0; pd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(pd); i++)
- 		if ((rc = print_strbuf(buff, "%%%c  %s\n",
- 				       pd[i].wildcard, pd[i].header)) < 0)
+ 		format = f + 1;
+-		if ((iwc = pgd_lookup(*format)) == -1)
+-			continue; /* unknown wildcard */
+-		data = &pgd[iwc];
+ 
+ 		if ((rc = ggp->ops->snprint(ggp, line, *format)) < 0)
  			return rc;
+-		else if ((unsigned int)rc < data->width)
+-			if ((rc = fill_strbuf(line, ' ', data->width - rc)) < 0)
+-				return rc;
+ 	}
  
- 	if ((rc = append_strbuf_str(buff, "\npathgroup format wildcards:\n")) < 0)
- 		return rc;
--	for (i = 0; pgd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(pgd); i++)
- 		if ((rc = print_strbuf(buff, "%%%c  %s\n",
- 				       pgd[i].wildcard, pgd[i].header)) < 0)
- 			return rc;
-@@ -915,10 +913,10 @@ reset_width(unsigned int *width, enum layout_reset reset, const char *header)
- void
- _get_path_layout (const struct _vector *gpvec, enum layout_reset reset)
- {
--	int i, j;
-+	unsigned int i, j;
- 	const struct gen_path *gp;
- 
--	for (j = 0; pd[j].header; j++) {
-+        for (j = 0; j < ARRAY_SIZE(pd); j++) {
- 		STRBUF_ON_STACK(buff);
- 
- 		reset_width(&pd[j].width, reset, pd[j].header);
-@@ -937,9 +935,9 @@ _get_path_layout (const struct _vector *gpvec, enum layout_reset reset)
- static void
- reset_multipath_layout (void)
- {
--	int i;
-+	unsigned int i;
- 
--	for (i = 0; mpd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(mpd); i++)
- 		mpd[i].width = 0;
- }
- 
-@@ -956,10 +954,10 @@ void
- _get_multipath_layout (const struct _vector *gmvec,
- 			    enum layout_reset reset)
- {
--	int i, j;
-+	unsigned int i, j;
- 	const struct gen_multipath * gm;
- 
--	for (j = 0; mpd[j].header; j++) {
-+	for (j = 0; j < ARRAY_SIZE(mpd); j++) {
- 		STRBUF_ON_STACK(buff);
- 
- 		reset_width(&mpd[j].width, reset, mpd[j].header);
-@@ -978,9 +976,9 @@ _get_multipath_layout (const struct _vector *gmvec,
- 
- static int mpd_lookup(char wildcard)
- {
--	int i;
-+	unsigned int i;
- 
--	for (i = 0; mpd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(mpd); i++)
- 		if (mpd[i].wildcard == wildcard)
- 			return i;
- 
-@@ -1000,9 +998,9 @@ int snprint_multipath_attr(const struct gen_multipath* gm,
- 
- static int pd_lookup(char wildcard)
- {
--	int i;
-+	unsigned int i;
- 
--	for (i = 0; pd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(pd); i++)
- 		if (pd[i].wildcard == wildcard)
- 			return i;
- 
-@@ -1022,9 +1020,9 @@ int snprint_path_attr(const struct gen_path* gp,
- 
- static int pgd_lookup(char wildcard)
- {
--	int i;
-+	unsigned int i;
- 
--	for (i = 0; pgd[i].header; i++)
-+	for (i = 0; i < ARRAY_SIZE(pgd); i++)
- 		if (pgd[i].wildcard == wildcard)
- 			return i;
- 
+ 	if ((rc = print_strbuf(line, "%s\n", format)) < 0)
 -- 
 2.33.1
 
