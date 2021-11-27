@@ -1,84 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6732045FE41
-	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 12:20:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ABD9A45FFC4
+	for <lists+dm-devel@lfdr.de>; Sat, 27 Nov 2021 16:22:39 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-150-zgOWMHdFNzypcLWVL6vZ8Q-1; Sat, 27 Nov 2021 06:20:34 -0500
-X-MC-Unique: zgOWMHdFNzypcLWVL6vZ8Q-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-517-GvlwjiXaPdWHYVwOjwsnDA-1; Sat, 27 Nov 2021 10:22:35 -0500
+X-MC-Unique: GvlwjiXaPdWHYVwOjwsnDA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9DF6F8042EA;
-	Sat, 27 Nov 2021 11:20:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0575E72FA7;
-	Sat, 27 Nov 2021 11:20:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BD04D8042E1;
+	Sat, 27 Nov 2021 15:22:29 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E63E6788F;
+	Sat, 27 Nov 2021 15:22:29 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 215C01809C89;
-	Sat, 27 Nov 2021 11:20:18 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 33D7A473CE;
+	Sat, 27 Nov 2021 15:22:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ARBK5QG014832 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 27 Nov 2021 06:20:05 -0500
+	id 1ARFJmSq032670 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 27 Nov 2021 10:19:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BBEF81121319; Sat, 27 Nov 2021 11:20:05 +0000 (UTC)
+	id 78B4E2026D2E; Sat, 27 Nov 2021 15:19:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B597B1121315
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 11:20:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C168D8007B1
-	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 11:20:02 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
-	[209.85.208.54]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-441-TYuYJwVbMIedKzDY55WU5g-1; Sat, 27 Nov 2021 06:20:00 -0500
-X-MC-Unique: TYuYJwVbMIedKzDY55WU5g-1
-Received: by mail-ed1-f54.google.com with SMTP id r25so49356551edq.7;
-	Sat, 27 Nov 2021 03:20:00 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-	:content-language:to:cc:references:from:in-reply-to
-	:content-transfer-encoding;
-	bh=esifm7OLd3yqxLOv7T2NsMlK8n6nwFqq/EFFd67dRWQ=;
-	b=r4dTewGruVYUTO+WUKkyQMWA6p/LpOLoWnhRCpCvMahfikKD7Ztmq6ySa17QQLCEGr
-	PfVrTQKu6gABwIgdjErPC+lDw8tHHQsGjrp6iIKZpx+PsY2olt6+nhL7cUbkoIRBBtKJ
-	/C3MKOeGxDE0P7/Rz5VccNjLu4/prZrBo+JlUUjvlEGxPDimMx8ldiiQueThWzE8sfv/
-	iq88/RxrKuDe4ksFWhXgUkams+c/3pTq0bE32QLnI3lOzaCRXCszk4zhlGSAi+PM/Uar
-	ocEop/59rIzEFoZITTKIH0N081hAWB6U0pki9kGleqY2AeAtPCiQ/jQ4lMV32KPl55t8
-	9+hA==
-X-Gm-Message-State: AOAM532BGGxNt+jx2bCsIFeywsmVVggr9LbQw1dundgxh2NAj8gWWHQK
-	9STxVmILTvOR6x3slShA1FI=
-X-Google-Smtp-Source: ABdhPJzE87DH/RigouIemH9Y80eMqoKZddXUxK1quaclIsGIlKy4MHkZcd6N48MgYe+v/1vRNq/B0Q==
-X-Received: by 2002:a05:6402:1c09:: with SMTP id
-	ck9mr55578000edb.389.1638011998910; 
-	Sat, 27 Nov 2021 03:19:58 -0800 (PST)
-Received: from [192.168.2.27] (113.151.broadband3.iol.cz. [85.70.151.113])
-	by smtp.gmail.com with ESMTPSA id
-	sh30sm4233048ejc.117.2021.11.27.03.19.57
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Sat, 27 Nov 2021 03:19:58 -0800 (PST)
-Message-ID: <f5d040b9-3b71-91f5-d55e-ef2f4db5a86b@gmail.com>
-Date: Sat, 27 Nov 2021 12:19:57 +0100
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7450D2026D69
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:19:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7724185A5AA
+	for <dm-devel@redhat.com>; Sat, 27 Nov 2021 15:19:45 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-51-aA86kTAvMaCvgjKrwrTxPg-1; Sat, 27 Nov 2021 10:19:43 -0500
+X-MC-Unique: aA86kTAvMaCvgjKrwrTxPg-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A16E61FC9E;
+	Sat, 27 Nov 2021 15:19:41 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 497D313AAD;
+	Sat, 27 Nov 2021 15:19:41 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id RhBDD41MomErFgAAMHmgww
+	(envelope-from <mwilck@suse.com>); Sat, 27 Nov 2021 15:19:41 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Sat, 27 Nov 2021 16:18:53 +0100
+Message-Id: <20211127151929.7727-1-mwilck@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
-	Thunderbird/91.3.2
-To: Itai Handler <itai.handler@gmail.com>, dm-devel@redhat.com
-References: <CAFpOueRBb9y_Fgb3-c6_eFTKZR9DoAXZmxqqx0UH1Yb2rbV0RQ@mail.gmail.com>
-	<da6989dc-1fab-cbd0-4ea9-1b60ea9de964@gmail.com>
-	<c93ae166-faf8-f00f-7e63-b852a224310c@gmail.com>
-	<0efdd94f-94f4-1330-fe99-ec395d0c84ff@gmail.com>
-From: Milan Broz <gmazyland@gmail.com>
-In-Reply-To: <0efdd94f-94f4-1330-fe99-ec395d0c84ff@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -87,11 +72,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1ARFJmSq032670
 X-loop: dm-devel@redhat.com
-Cc: Mikulas Patocka <mpatocka@redhat.com>, agk@redhat.com, snitzer@redhat.com
-Subject: Re: [dm-devel] [RFC PATCH 1/1] dm crypt: change maximum sector size
- to PAGE_SIZE
+Cc: lixiaokeng@huawei.com, Chongyun Wu <wu.chongyun@h3c.com>,
+	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH v3 00/35] multipathd: uxlsnr overhaul
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -105,156 +92,179 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gMTEvMjUvMjEgMTc6MjgsIEl0YWkgSGFuZGxlciB3cm90ZToKPiBPbiAxNC8xMS8yMDIxIDEz
-OjU2LCBJdGFpIEhhbmRsZXIgd3JvdGU6Cj4+IE9uIDExLzExLzIwMjEgMTU6MDcsIE1pbGFuIEJy
-b3ogd3JvdGU6Cj4+PiBPbiAxMC8xMS8yMDIxIDE4OjQzLCBJdGFpIEhhbmRsZXIgd3JvdGU6Cj4+
-Pj4gTWF4aW11bSBzZWN0b3Igc2l6ZSBvZiBkbS1jcnlwdCBpcyBjdXJyZW50bHkgbGltaXRlZCB0
-byA0MDk2IGJ5dGVzLgo+Pj4+Cj4+Pj4gT24gc3lzdGVtcyB3aGVyZSBQQUdFX1NJWkUgaXMgbGFy
-Z2VyIHRoYW4gNDA5NiBieXRlcywgdXNpbmcgbGFyZ2VyCj4+Pj4gc2VjdG9ycyBjYW4gYmUgYmVu
-ZWZpY2lhbCBmb3IgcGVyZm9ybWFuY2UgcmVhc29ucy4KPj4+Cj4+PiBUaGUgbGltaXQgdG8gNDA5
-NiB3YXMgc2V0IGJlY2F1c2UgdGhpcyBpcyB0aGUgc21hbGxlc3QgcG9zc2libGUKPj4+IHBhZ2Ug
-c2l6ZSB0aGF0IGFsbCBwbGF0Zm9ybSBzdXBwb3J0cy4KPj4+Cj4+PiBJZiB5b3UgYWxsb3cgYSBo
-aWdoZXIgc2l6ZSBoZXJlLCB0aGUgZGV2aWNlIGNhbm5vdCBiZSBhY3RpdmF0ZWQgb24gYQo+Pj4g
-cGxhdGZvcm0KPj4+IHdpdGggdGhlIHNtYWxsZXIgcGFnZSBzaXplLiAoRW5jcnlwdGVkIHNlY3Rv
-ciBzaXplIGJlY29tZXMKPj4+IGF0b21pYyBzZWN0b3Igc2l6ZSBmb3IgYWxsIHVwcGVyIGxheWVy
-cyAtIGFzIHlvdSBtZW50aW9uIGJlbG93LCBub3QKPj4+IGFsbCBmcyBzdXBwb3J0IGJpZ2dlciBz
-ZWN0b3JzLikKPj4+Cj4+PiBGb3IgTFVLUywgdGhpcyBpcyBub3QgYWNjZXB0YWJsZSAtIHRoZSBm
-b3JtYXQgaXMgcG9ydGFibGUgYnkgZGVmaW5pdGlvbi4KPj4+Cj4+PiBGb3Igc3BlY2lmaWMgZG0t
-Y3J5cHQgZGV2aWNlLCBJIGFtIG5vdCBzdXJlLiBJIHdvdWxkIGJldHRlciBrZXB0Cj4+PiB0aGUg
-NDA5NiBwYWdlIHNpemUgbGltaXQgaGVyZS4KPj4KPj4gSSBjb25zaWRlcmVkIG9ubHkgcGxhaW4g
-ZG0tY3J5cHQgc2luY2UgSSBhbSB1bmZhbWlsaWFyIHdpdGggTFVLUy4KPj4gRG9lcyBMVUtTIGFz
-c3VtZSB0aGF0IGRtLWNyeXB0IHNlY3RvciBzaXplIGlzIGxpbWl0ZWQgdG8gNEs/Cj4+IElmIHNv
-LCBtYXliZSBJJ2xsIGJlIGFibGUgdG8gYWxzbyBwYXRjaCBMVUtTIHJlZ2FyZGluZyB0aGlzIGlz
-c3VlLgo+Pgo+Pj4KPj4+IEl0IGFsc28gZGVwZW5kcyBvbiBjcnlwdG8gQVBJIGRyaXZlciBoZXJl
-IChwZXJmb3JtYW5jZSBpcyB1c3VhbGx5Cj4+PiBvcHRpbWl6ZWQgdG8gNGspLgo+Pj4gV2hhdCBj
-aXBoZXIgYW5kIGVuY3J5cHRpb24gbW9kZSBkaWQgeW91IHVzZSBmb3IgdGVzdD8KPj4KPj4gVGhl
-IGNpcGhlciBJIHVzZWQgZm9yIHRoZSB0ZXN0IGlzIG5vdCBwdWJsaWNseSBhdmFpbGFibGUgYnV0
-IEkgY2FuIHNheQo+PiB0aGF0IGl0J3MgcGVyZm9ybWFuY2UKPj4gaXMgbm90IG9wdGltaXplZCB0
-byA0ayBibG9ja3MuCj4+IEkgYmVsaWV2ZSB0aGF0IHRoaXMgcmVzdWx0cyBmcm9tIHRoZSBoaWdo
-IG92ZXJoZWFkIG9mIHNldHRpbmcgdXAgRE1BCj4+IHRyYW5zZmVycy4gKG15Cj4+IGNpcGhlciB1
-c2VzIERNQSB0byB0cmFuc2ZlciBkYXRhIGJldHdlZW4gbWVtb3J5IGFuZCBwcm9ncmFtbWFibGUg
-bG9naWMpLgo+PiBUaGVyZSBhcmUgbWFueSBhZGRpdGlvbmFsIGNpcGhlcnMgdGhhdCB1c2UgRE1B
-IGluIHRoZSB0cmVlLCBidXQgSQo+PiBjYW5ub3QgcnVuIGFueQo+PiBiZW5jaG1hcmsgd2l0aCB0
-aGVtIGF0IHRoZSBtb21lbnQuCj4+Cj4+IEkgaGF2ZSBwZXJmb3JtZWQgc29tZSBhZGRpdGlvbmFs
-IGJlbmNobWFya3MgdXNpbmcgdGhlIEFSTQo+PiBDcnlwdG9ncmFwaGljIEV4dGVuc2lvbnMKPj4g
-Q1BVIGNpcGhlcnMgYW5kIHNhdyB0aGF0IGluY3JlYXNpbmcgYmxvY2sgc2l6ZSBiZXlvbmQgNEsg
-ZG9lcyBpbmNyZWFzZQo+PiBwZXJmb3JtYW5jZSwKPj4gYWxiZWl0IHRoZSBwZXJmb3JtYW5jZSBp
-bXByb3ZlbWVudCBpc24ndCBhcyBsYXJnZSBhcyBJJ3ZlIHNlZW4gd2hlbgo+PiB1c2luZyBteSBj
-aXBoZXIuCj4+Cj4+IEZvbGxvd2luZyBhcmUgInRjcnlwdCBtb2RlPTYwMCBzZWM9NSBudW1fbWI9
-NTEyIiByZXN1bHRzIGZvcgo+PiB4dHMtYWVzLWNlIGRlY3J5cHRpb24KPj4gKEFSTSBDUFUgQ3J5
-cHRvZ3JhcGhpYyBFeHRlbnNpb25zIGNpcGhlcik6Cj4+ICDCoCB0ZXN0aW5nIHNwZWVkIG9mIG11
-bHRpYnVmZmVyIHh0cyhhZXMpICh4dHMtYWVzLWNlKSBkZWNyeXB0aW9uCj4+ICDCoCAuLi4KPj4g
-IMKgIHRyY3lwdDogdGVzdCA1ICgyNTYgYml0IGtleSwgNDA5NiBieXRlIGJsb2Nrcyk6IDgwMTc5
-MiBvcGVyYXRpb25zIGluCj4+IDUgc2Vjb25kcyAoMzI4NDE0MDAzMiBieXRlcykKPj4gIMKgIC4u
-Lgo+PiAgwqAgdHJjeXB0OiB0ZXN0IDkgKDI1NiBiaXQga2V5LCA2NTUzNiBieXRlIGJsb2Nrcyk6
-IDYzNDg4IG9wZXJhdGlvbnMgaW4KPj4gNSBzZWNvbmRzICg0MTYwNzQ5NTY4IGJ5dGVzKQo+Pgo+
-PiBUaGF0IHRyYW5zbGF0ZXMgdG86Cj4+ICDCoCA2NTcgTUIvcyBmb3IgNEsgYnl0ZSBibG9ja3Mu
-Cj4+ICDCoCA4MzIgTUIvcyBmb3IgNjRLIGJsb2Nrcy4KPj4KPj4gVGhhdCBtZWFucyB0aGF0IHRo
-ZXJlIGlzIGFib3V0IDI3IHBlcmNlbnRzIGltcHJvdmVtZW50IHdoZW4KPj4gdHJhbnNpdGlvbmlu
-ZyB0byA2NEsgc2VjdG9ycywKPj4gZm9yIHRoZSBjaXBoZXIgYWxvbmUgKG9ubHkgdGNyeXB0IGJl
-bmNobWFyaykuCj4+Cj4+IFRoaXMgYmVuY2htYXJrIGhhZCBiZWVuIHBlcmZvcm1lZCBvbiBhbiBB
-Uk0gQ29ydGV4IEE1MyBDUFUuCj4+IChOb3RlIHRoYXQgaW4gYWxsIG9mIG15IGJlbmNobWFya3Mg
-UEFHRV9TSVpFPTY0SykuCj4+Cj4+PiBIb3cgdGhlIG51bWJlciBsb29rcyBmb3IgcmFuZG9tIGFj
-Y2Vzcz8gTGluZWFyIHRlc3QgaXMgdXN1YWxseQo+Pj4gbWlzbGVhZGluZy4KPj4+IEkgZXhwZWN0
-IHRoZXJlIHdpbGwgYmUgYmlnIHBlcmZvcm1hbmNlIHByb2JsZW0gaWYgeW91IHdyaXRlIHNtYWxs
-Cj4+PiBkYXRhIGNodW5rcywKPj4+IHdyaXRlcyBhbmQgZW5jcnlwdGlvbiB3aWxsIGJlIGFtcGxp
-ZmllZCB0byBmdWxsIGJpZyBzZWN0b3JzIGhlcmUuLi4pCj4+IEkgdW5kZXJzdGFuZCB5b3VyIGNv
-bmNlcm4uCj4+IEhvd2V2ZXIgbXkgcGF0Y2ggZG9lcyBub3QgZm9yY2UgYW55b25lIHRvIHVzZSBs
-YXJnZSBzZWN0b3JzIC0gaXQgb25seQo+PiBvcGVucyB1cCB0aGlzCj4+IHBvc3NpYmlsaXR5IGZv
-ciB0aG9zZSBpbnRlcmVzdGVkIGluIHRoYXQgb3B0aW9uLgo+PiBUaGlzIGlzIHNpbWlsYXJseSB0
-byB0aGUgb3B0aW9uIHRvIGZvcm1hdCBhbiBleHQ0IGZpbGVzeXN0ZW0gd2l0aCA2NEsKPj4gc2Vj
-dG9ycy4KPj4gQnkgdGhlIHdheTogd2hlbiB5b3UgZG8gdGhhdCwgeW91IGdldCBhIHdhcm5pbmcg
-c2F5aW5nIHRoYXQgdGhlCj4+IGZpbGVzeXN0ZW0KPj4gd2lsbCBub3QgYmUgdXNhYmxlIG9uIG1v
-c3Qgc3lzdGVtcy4KPj4KPj4gU29tZXRpbWUgdXNlcnMgbmVlZCB0byBzdG9yZSBtb3N0bHkgbGFy
-Z2UgZmlsZXMgb24gYSBmaWxlc3lzdGVtLCBmb3IKPj4gZXhhbXBsZSBmb3IKPj4gYmFja3VwIG9y
-IGZvciB2aWRlbyBmaWxlcy4KPj4gSSB0aGluayB0aGF0IGluIHRoZXNlIGNhc2VzIHJhbmRvbSBh
-Y2Nlc3MgdGltZSBpcyBub3Qgc28gaW1wb3J0YW50Lgo+PiBTb21lIHVzZXJzIG1heSBhbHNvIGJl
-IGFibGUgdG8gcmVzZXJ2ZSBhIGRlZGljYXRlZCBwYXJ0aXRpb24gZm9yCj4+IHN0b3Jpbmcgc3Vj
-aAo+PiBsYXJnZSBmaWxlcy4KPj4KPj4+Cj4+PiAoVGVjaG5pY2FsIGRldGFpbDogc3VjaCBwYXQg
-TVVTVCBpbmNyZWFzZSBkbS1jcnlwdCBtaW5vciB2ZXJzaW9uLikKPj4gVGhhbmtzIGZvciBwb2lu
-dGluZyB0aGF0IG91dC4gSSBiZWxpZXZlIHRoYXQgSSBjYW4gcHJlcGFyZSBhIHYyIHBhdGNoCj4+
-IHRoYXQgd2lsbAo+PiBhZGRyZXNzIHRoYXQgaXNzdWUuCj4+Pgo+Pj4gTWlsYW4KPj4+Cj4+Pj4K
-Pj4+PiBUaGlzIHBhdGNoIGNoYW5nZXMgbWF4aW11bSBzZWN0b3Igc2l6ZSBmcm9tIDQwOTYgYnl0
-ZXMgdG8gUEFHRV9TSVpFLAo+Pj4+IGFuZCBpbiBhZGRpdGlvbiBpdCBjaGFuZ2VzIHRoZSB0eXBl
-IG9mIHNlY3Rvcl9zaXplIGluCj4+Pj4gc3RydWN0IGNyeXB0X2NvbmZpZyBmcm9tICd1bnNpZ25l
-ZCBzaG9ydCBpbnQnIHRvICd1bnNpZ25lZCBpbnQnLCBpbgo+Pj4+IG9yZGVyIHRvIGJlIGFibGUg
-dG8gcmVwcmVzZW50IGxhcmdlciB2YWx1ZXMuCj4+Pj4KPj4+PiBPbiBhIHByb3RvdHlwZSBzeXN0
-ZW0gd2hpY2ggaGFzIFBBR0VfU0laRSBvZiA2NTUzNiBieXRlcywgSSBzYXcgYWJvdXQKPj4+PiB4
-MiBwZXJmb3JtYW5jZSBpbXByb3ZlbWVudCBpbiBzZXF1ZW50aWFsIHJlYWQgdGhyb3VnaHB1dCBi
-ZW5jaG1hcmsKPj4+PiB3aGlsZSB1c2luZyBvbmx5IGFib3V0IGhhbGYgb2YgdGhlIENQVSB1c2Fn
-ZSwgYWZ0ZXIgc2ltcGx5IGluY3JlYXNpbmcKPj4+PiBzZWN0b3Igc2l6ZSBmcm9tIDQwOTYgdG8g
-NjU1MzYgYnl0ZXMuCj4+Pj4gSSB1c2VkIGV4dDQgZmlsZXN5c3RlbSBmb3IgdGhhdCBiZW5jaG1h
-cmssIHdoaWNoIHN1cHBvcnRzIDY0S2lCCj4+Pj4gc2VjdG9ycy4KPj4+Pgo+Pj4+IE5vdGU6IEEg
-c21hbGwgY2hhbmdlIHNob3VsZCBiZSBtYWRlIGluIGNyeXB0c2V0dXAgaW4gb3JkZXIgdG8gYWRk
-Cj4+Pj4gc3VwcG9ydCBmb3Igc2VjdG9ycyBsYXJnZXIgdGhhbiA0MDk2IGJ5dGVzLgo+Pj4+Cj4+
-Pj4gU2lnbmVkLW9mZi1ieTogSXRhaSBIYW5kbGVyIDxpdGFpLmhhbmRsZXJAZ21haWwuY29tPgo+
-Pj4+IC0tLQo+Pj4+ICDCoCBkcml2ZXJzL21kL2RtLWNyeXB0LmMgfCA2ICsrKy0tLQo+Pj4+ICDC
-oCAxIGZpbGUgY2hhbmdlZCwgMyBpbnNlcnRpb25zKCspLCAzIGRlbGV0aW9ucygtKQo+Pj4+Cj4+
-Pj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWQvZG0tY3J5cHQuYyBiL2RyaXZlcnMvbWQvZG0tY3J5
-cHQuYwo+Pj4+IGluZGV4IDkxNmI3ZGExNmRlMi4uNzhjMjM5NDQzYmQ1IDEwMDY0NAo+Pj4+IC0t
-LSBhL2RyaXZlcnMvbWQvZG0tY3J5cHQuYwo+Pj4+ICsrKyBiL2RyaXZlcnMvbWQvZG0tY3J5cHQu
-Ywo+Pj4+IEBAIC0xNjgsNyArMTY4LDcgQEAgc3RydWN0IGNyeXB0X2NvbmZpZyB7Cj4+Pj4gIMKg
-wqDCoMKgwqDCoMKgwqAgfSBpdl9nZW5fcHJpdmF0ZTsKPj4+PiAgwqDCoMKgwqDCoMKgwqDCoCB1
-NjQgaXZfb2Zmc2V0Owo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgIHVuc2lnbmVkIGludCBpdl9zaXpl
-Owo+Pj4+IC3CoMKgwqDCoMKgwqAgdW5zaWduZWQgc2hvcnQgaW50IHNlY3Rvcl9zaXplOwo+Pj4+
-ICvCoMKgwqDCoMKgwqAgdW5zaWduZWQgaW50IHNlY3Rvcl9zaXplOwo+Pj4+ICDCoMKgwqDCoMKg
-wqDCoMKgIHVuc2lnbmVkIGNoYXIgc2VjdG9yX3NoaWZ0Owo+Pj4+Cj4+Pj4gIMKgwqDCoMKgwqDC
-oMKgwqAgdW5pb24gewo+Pj4+IEBAIC0zMTE1LDkgKzMxMTUsOSBAQCBzdGF0aWMgaW50IGNyeXB0
-X2N0cl9vcHRpb25hbChzdHJ1Y3QgZG1fdGFyZ2V0Cj4+Pj4gKnRpLCB1bnNpZ25lZCBpbnQgYXJn
-YywgY2hhciAqKmFyCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBjYy0+Y2lwaGVyX2F1dGggPSBrc3RyZHVwKHN2YWwsIEdGUF9LRVJORUwpOwo+
-Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYg
-KCFjYy0+Y2lwaGVyX2F1dGgpCj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9NRU07Cj4+Pj4gLcKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgfSBlbHNlIGlmIChzc2NhbmYob3B0X3N0cmluZywg
-InNlY3Rvcl9zaXplOiVodSVjIiwKPj4+PiAmY2MtPnNlY3Rvcl9zaXplLCAmZHVtbXkpID09IDEp
-IHsKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCB9IGVsc2UgaWYgKHNzY2FuZihv
-cHRfc3RyaW5nLCAic2VjdG9yX3NpemU6JXUlYyIsCj4+Pj4gJmNjLT5zZWN0b3Jfc2l6ZSwgJmR1
-bW15KSA9PSAxKSB7Cj4+Pj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBpZiAoY2MtPnNlY3Rvcl9zaXplIDwgKDEgPDwgU0VDVE9SX1NISUZUKSB8fAo+
-Pj4+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IGNjLT5zZWN0b3Jfc2l6ZSA+IDQwOTYgfHwKPj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBjYy0+c2VjdG9yX3NpemUgPiBQQUdFX1NJWkUg
-fHwKPj4+PiAgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqAgKGNjLT5zZWN0b3Jfc2l6ZSAmIChjYy0+c2VjdG9yX3NpemUgLQo+Pj4+IDEpKSkg
-ewo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgIHRpLT5lcnJvciA9ICJJbnZhbGlkIGZlYXR1cmUgdmFsdWUgZm9yCj4+
-Pj4gc2VjdG9yX3NpemUiOwo+Pj4+ICDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldHVybiAtRUlOVkFMOwo+Pj4+Cj4+Pgo+
-PiBJIGFwcHJlY2lhdGUgeW91ciB2YWx1YWJsZSBjb21tZW50cy4KPj4KPj4gSXRhaQo+Pgo+IE1p
-bGFuLCBjYW4geW91IGNvbW1lbnQgb24gdGhlIGFib3ZlPwoKSGksCgp3ZWxsLCBpZiB5b3Ugd2Fu
-dCBteSBvcGluaW9uLCBsZXQncyBzdW1tYXJpemUgaXQ6CgotIHlvdSB0ZXN0ZWQgaXQgb24gYSBk
-cml2ZXIgdGhhdCBpcyBwcm9wcmlldGFyeSBhbmQgaXMgbm90IGluCnRoZSBtYWlubGluZSBrZXJu
-ZWwKCi0gcHJvdmlkZWQgbnVtYmVycyBhcmUgd2l0aCB0Y3J5cHQgLSBJIHRoaW5rIHRoaXMgaXMK
-YW4gaW50ZXJuYWwgY3J5cHRvIEFQSSB0ZXN0OyBpdCBzYXlzIG5vdGhpbmcgYWJvdXQgcGVyZm9y
-bWFuY2UKd2l0aCB5b3VyIGRtLWNyeXB0IHBhdGNoIGFib3ZlIGl0LCByaWdodD8KCi0gbm8gbnVt
-YmVycyBmb3IgcmFuZG9tIGFjY2Vzcy9zbWFsbCBmaWxlIGFjY2VzcyBoZXJlIChub3RlLAppZiB5
-b3UgbmVlZCB0byByZWVuY3J5cHQgNjRrIHNlY3RvciB2cy4gNGsgb2YgbW9zdGx5IHVudXNlZCBk
-YXRhLAppdCBXSUxMIGhhdmUgYSBodWdlIHBlcmZvcm1hbmNlIGltcGFjdCkuCgpJTU8sIG9wdGlt
-aXppbmcgZm9yIGJpZyBsaW5lYXIgYWNjZXNzIGlzIGJldHRlciBvbiB0aGUgZnMgbGF5ZXIKKGFu
-ZCBldmVuIHllYXJzIGFnbywgSSBub3RpY2VkIHNvbWUgdmVuZG9yJ3MgcGF0Y2hlcyBmb3Igc2V0
-dGluZwpsYXJnZSBmcyBzZWN0b3JzIGluIHZpZGVvIHJlY29yZGluZyBlcXVpcG1lbnQpLgoKVGhl
-IHNhbWUgYXBwbGllcyB0byBlbmNyeXB0aW9uIC0gSSB0aGluayBGREUgaXMgbm90IHRoZSBiZXN0
-IGxheWVyCmhlcmUgaWYgeW91IG5lZWQgdG8gd29yayB3aXRoIGxhcmdlIHNlY3RvcnMgKGVuY3J5
-cHRpb24gb2Ygbm90LXVzZWQKc2VjdG9ycyBpcyBqdXN0IGh1Z2Ugd2FzdGUgb2YgcmVzb3VyY2Vz
-IC0gZnMgZW5jcnlwdHMgb25seSB1c2VkIHNwYWNlLApJIGhvcGUuLi4gOikuCgpJIHNhaWQgdGhh
-dCBMVUtTIG11c3QgcmVtYWluIG11bHRpcGxhdGZvcm0uIEFkZGluZyBsYXJnZXIgdGhhbgo0ayBz
-ZWN0b3JzIGlzIG5vdCBhbiBvcHRpb247IEkgd2lsbCB1bmRvdWJ0ZWRseSByZWplY3QgdGhhdCBw
-YXRjaAppbiBjcnlwdHNldHVwLgpTbyB0aGlzIHBhdGNoIGNhbiBiZSB1c2VkIG9ubHkgZm9yIHBs
-YWluIGRtLWNyeXB0IG1hcHBpbmcsCndoZXJlIHlvdSBuZWVkIHRvIGhhbmRsZSB5b3VyIGtleSBt
-YW5hZ2VtZW50ICh0aGF0IGNvdWxkIGJlIG9rLCB0aG91Z2gpLgoKU29ycnksIGJ1dCB3aXRob3V0
-IGFueSBwZXJmb3JtYW5jZSBudW1iZXJzIHRoYXQgcHJvdmUgdGhpcyByZWFsbHkKaGVscHMgYW5k
-IGRvZXMgbm90IGNyZWF0ZSBodWdlIHBlcmZvcm1hbmNlIHByb2JsZW1zLi4uCgpOQUNLIGZyb20g
-bWUgZm9yIHRoaXMgcGF0Y2ggKGJ1dCBpdCBpcyB1cCB0byBNaWtlIHRvIGRlY2lkZSBoZXJlKS4K
-Ck1pbGFuCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRw
-czovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+From: Martin Wilck <mwilck@suse.com>
+
+Hello Christophe, hello Ben,
+
+The current multipathd unix listener code has various deficiencies.
+
+ - client disconnects aren't handled correctly,
+ - the uxsock_timeout is applied for receiving, handling, and
+   responding to the client requests separately, rather than for
+   the entire operation,
+ - timeouts are logged, but not acted upon, causing the timeout
+   to be noticed in the client rather than in the server.
+ - clients may see a timeout while "reconfigure" is running,
+ - unpriviledged (non-root) client connections don't work
+   correctly
+ - most importantly, the code busy-loops, polls, or waits in
+   various places in called subroutines, which is a no-go in a
+   piece of code designed as an event handler and may lead
+   to spurious timeouts and delayed reaction e.g. to signals
+   or client requests.
+
+This patch set approaches all these issues. Fixing the last one,
+in particular, requires a major refactoring of the uxlsnr code.
+Overall, the reliability and latency of client request handling
+and signal handling by multipathd should be noticeably improved
+by this patch set.
+
+The biggest problem (waiting for the vecs lock in a client handler)
+can only be fixed by moving this wait into the handlers ppoll()
+loop (another possible fix would have been to handle all clients
+in separate threads, but that would have required even more
+complexity). The patch set achieves this by adding an eventfd-based
+notification mechanism to the vecs lock, which can be passed to
+ppoll() to wake up when the lock is freed.
+
+Furthermore, client requests can't be handled in a single poll
+iteration any more. Therefore the client connection becomes stateful,
+and is handled by a state machine using the states RECEIVE, PARSE,
+WAIT FOR LOCK, WORK, and SEND.
+
+The refactoring is done step by step for ease (hopefully) of
+review. 1/35-4/35 add utility code that will be used by the uxlsnr
+refactoring. 5/35-7/35 are some independent patches that
+aren't directly related to uxlnsr, but fix issues that I observed
+while working on this set.
+
+8/35-13/35 are minor fixups in the client handling code. This code is
+strongly related to the uxlsnr, thus I thought I'd rather fix it
+before making the other changes. In 25/35, the cli-handlers are
+converted to use the strbuf API everywhere instead of separate "reply"
+and "len" arguments. 15/35-18/35 are minor fixes for the
+uxlsnr. 19/35-34/35 are the actual refactoring patches for the uxlsnr
+code. First I move some code around unchanged, then I add the
+state machine (handle_client()) and move the code into it piece
+by piece. 35/35 adds a fix for the client side (multipathd -k).
+
+CC'ing Lixiaokeng and Chongyun Wu, as they have test cases that use
+the client code heavily AFAIR. Testing by 3rd parties would be
+very welcome.
+
+Cheers,
+Martin
+
+---
+
+Changes wrt v2 (Ben Marzinski):
+
+  - Rebased the series upon Lixiaokeng's recent patch 'remove unuseful
+    MALLOC/REALLOC/STRDUP/FREE'.
+  - changed indentation from spaces to tabs in multiple patches
+  - 03/35: Fixed comment in libmultipath.version
+  - 18/35, 30/35: Renamed CLT_WAIT_LOCK to CLT_LOCKED_WORK
+  - 30/35: fatal error if idle_fd allocation fails
+  - 32/35: check for POLLOUT before trying to send reply
+
+I didn't change the switch statement in 30/35 to an if because another
+switch clause is added in 32/35, as discussed during the review of the v2 series.
+
+I don't repost Ben's reconfigure series which I added to the v2 submission;
+it's unchanged and unaffected by the rebase.
+
+While there are numerous minor changes mostly because of the rebase and the
+whitespace fixes, I took the liberty to keep Ben's Reviewed-by: tags in the patches.
+
+Changes wrt v1 (Ben Marzinski):
+
+  03: this is a major library version change.
+  07: make set_config_state() static
+  12: further simplify add_handler, make it static, and use assert
+        to check for multiply-defined handlers
+  14: dropped in favor of Ben's "reconfigure all" set, numbering changes
+        from here on
+  29 (was 30): don't use fallthrough; call state machine in a loop instead.
+     fix signedness of return codes. Fix double messages.
+  30 (was 31): The lock handling in this patch was broken. It could happen that
+     the uxlsnr was cancelled without releasing the lock. Fixed by
+     simplification. 
+  35 (new): Use recv() for getting the command length, as suggested by Ben.
+
+Comments welcome, regards,
+Martin
+
+Martin Wilck (35):
+  libmultipath: add timespeccmp() utility function
+  libmultipath: add trylock() helper
+  libmultipath: add optional wakeup functionality to lock.c
+  libmultipath: print: add __snprint_config()
+  libmultipath: improve cleanup of uevent queues on exit
+  multipathd: fix systemd notification when stopping while reloading
+  multipathd: improve delayed reconfigure
+  multipathd: cli.h: formatting improvements
+  multipathd: cli_del_map: fix reply for delayed action
+  multipathd: add prototype for cli_handler functions
+  multipathd: make all cli_handlers static
+  multipathd: add and set cli_handlers in a single step
+  multipathd: cli.c: use ESRCH for "command not found"
+  multipathd: uxlsnr: avoid stalled clients during reconfigure
+  multipathd: uxlsnr: handle client HUP
+  multipathd: uxlsnr: use symbolic values for pollfd indices
+  multipathd: uxlsnr: avoid using fd -1 in ppoll()
+  multipathd: uxlsnr: data structure for stateful client connection
+  multipathd: move uxsock_trigger() to uxlsnr.c
+  multipathd: move parse_cmd() to uxlsnr.c
+  multipathd: uxlsnr: remove check_timeout()
+  multipathd: uxlsnr: move client handling to separate function
+  multipathd: uxlsnr: use main poll loop for receiving
+  multipathd: use strbuf in cli_handler functions
+  multipathd: uxlsnr: check root on connection startup
+  multipathd: uxlsnr: pass struct client to uxsock_trigger() and
+    parse_cmd()
+  multipathd: uxlsnr: move handler execution to separate function
+  multipathd: uxlsnr: use parser to determine non-root commands
+  multipathd: uxlsnr: merge uxsock_trigger() into state machine
+  multipathd: uxlsnr: add idle notification
+  multipathd: uxlsnr: add timeout handling
+  multipathd: uxlsnr: use poll loop for sending, too
+  multipathd: uxlsnr: drop client_lock
+  multipathd: uxclt: allow client mode for non-root, too
+  multipathd: uxlsnr: use recv() for command length
+
+ libmultipath/libmultipath.version |  13 +-
+ libmultipath/lock.c               |  12 +-
+ libmultipath/lock.h               |  11 +-
+ libmultipath/print.c              |  34 +-
+ libmultipath/print.h              |   2 +
+ libmultipath/structs_vec.h        |   2 +-
+ libmultipath/time-util.c          |  12 +
+ libmultipath/time-util.h          |   1 +
+ libmultipath/uevent.c             |  49 ++-
+ multipathd/cli.c                  | 180 ++--------
+ multipathd/cli.h                  | 100 +++---
+ multipathd/cli_handlers.c         | 553 ++++++++++++++----------------
+ multipathd/cli_handlers.h         |  61 +---
+ multipathd/main.c                 | 220 +++++-------
+ multipathd/main.h                 |   2 +-
+ multipathd/uxlsnr.c               | 528 +++++++++++++++++++++-------
+ multipathd/uxlsnr.h               |   4 +-
+ 17 files changed, 957 insertions(+), 827 deletions(-)
+
+-- 
+2.33.1
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
