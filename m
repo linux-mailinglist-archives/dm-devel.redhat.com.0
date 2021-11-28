@@ -1,67 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D87D460F0A
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 07:56:39 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 833CE460F17
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 07:57:05 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-579-p6Y57K_6OYW0P3rEYHyTrQ-1; Mon, 29 Nov 2021 01:56:36 -0500
-X-MC-Unique: p6Y57K_6OYW0P3rEYHyTrQ-1
+ us-mta-488-P6HzrKADO8GcJGi6gr5-uw-1; Mon, 29 Nov 2021 01:56:37 -0500
+X-MC-Unique: P6HzrKADO8GcJGi6gr5-uw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8419618C89C4;
-	Mon, 29 Nov 2021 06:56:29 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4150981CCB6;
+	Mon, 29 Nov 2021 06:56:32 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C06267847;
-	Mon, 29 Nov 2021 06:56:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 23C232B178;
+	Mon, 29 Nov 2021 06:56:32 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8F3D4A7C8;
-	Mon, 29 Nov 2021 06:56:27 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E43524BB7C;
+	Mon, 29 Nov 2021 06:56:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AS5rV8P027074 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 28 Nov 2021 00:53:31 -0500
+	id 1AS5rWdX027082 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 28 Nov 2021 00:53:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1837F40CFD13; Sun, 28 Nov 2021 05:53:31 +0000 (UTC)
+	id 6DA6A401E56; Sun, 28 Nov 2021 05:53:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 134FF40CFD0A
-	for <dm-devel@redhat.com>; Sun, 28 Nov 2021 05:53:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF75B8007B1
-	for <dm-devel@redhat.com>; Sun, 28 Nov 2021 05:53:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 68E1D401E27
+	for <dm-devel@redhat.com>; Sun, 28 Nov 2021 05:53:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3733A8007B1
+	for <dm-devel@redhat.com>; Sun, 28 Nov 2021 05:53:32 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-376-W2ogIjfxNAK_48GY3Cn3vA-1; Sun, 28 Nov 2021 00:53:28 -0500
-X-MC-Unique: W2ogIjfxNAK_48GY3Cn3vA-1
+	us-mta-107-i19zcbhWNtOHNcyzzoo30A-1; Sun, 28 Nov 2021 00:53:29 -0500
+X-MC-Unique: i19zcbhWNtOHNcyzzoo30A-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 5EDD51FD36;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id ADEF41FD37;
+	Sun, 28 Nov 2021 05:53:28 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B5F3313446;
 	Sun, 28 Nov 2021 05:53:27 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6693413446;
-	Sun, 28 Nov 2021 05:53:26 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id WHPHDVYZo2G7fAAAMHmgww
-	(envelope-from <wqu@suse.com>); Sun, 28 Nov 2021 05:53:26 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id eGhJIVcZo2G7fAAAMHmgww
+	(envelope-from <wqu@suse.com>); Sun, 28 Nov 2021 05:53:27 +0000
 From: Qu Wenruo <wqu@suse.com>
 To: linux-btrfs@vger.kernel.org
-Date: Sun, 28 Nov 2021 13:52:54 +0800
-Message-Id: <20211128055259.39249-7-wqu@suse.com>
+Date: Sun, 28 Nov 2021 13:52:55 +0800
+Message-Id: <20211128055259.39249-8-wqu@suse.com>
 In-Reply-To: <20211128055259.39249-1-wqu@suse.com>
 References: <20211128055259.39249-1-wqu@suse.com>
 MIME-Version: 1.0
@@ -73,14 +72,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AS5rV8P027074
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AS5rWdX027082
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 29 Nov 2021 01:55:53 -0500
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
-Subject: [dm-devel] [PATCH RFC 06/11] btrfs: make end_bio_extent_readpage()
-	to handle split bio properly
+Subject: [dm-devel] [PATCH RFC 07/11] btrfs: make
+	end_bio_extent_*_writepage() to handle split biot properly
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,173 +101,133 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This involves the following modifications:
+There are 3 call sites involved:
 
-- Use bio_for_each_segment() instead of bio_for_each_segment_all()
-  bio_for_each_segment_all() will iterate all bvecs, even if they are
-  not referred by current bi_iter.
+- end_bio_extent_writepage()
+  For data writeback
 
-  *_all() variant can only be used if the bio is never split.
+- end_bio_subpage_eb_writepage()
+  For subpage metadata writeback
 
-  Change it to bio_for_each_segment() call so we won't have endio called
-  on the same range by both split and parent bios.
+- end_bio_extent_buffer_writepage()
+  For regular metadata writeback
 
-- Make check_data_csum() to take bbio->offset_to_original into
-  consideration
-  Since btrfs bio can be split now, split/original bio can all start
-  with some offset to the original logical bytenr.
+All those functions share the same modification:
 
-  Take btrfs_bio::offset_to_original into consideration to get correct
-  checksum offset.
-
-- Remove the BIO_CLONED ASSERT() in submit_read_repair()
-
-For metadata path, there is no change as they only rely on file offset,
-doesn't care about btrfs_bio at all.
+- Remove ASSERT() to non-cloned bios
+- Use bio_for_each_segment()
+  Which can handle both unsplit bio and split biot properly.
 
 Signed-off-by: Qu Wenruo <wqu@suse.com>
 ---
- fs/btrfs/extent_io.c | 34 +++++++++++++++++++---------------
- fs/btrfs/inode.c     | 23 +++++++++++++++++++++--
- fs/btrfs/volumes.h   |  3 ++-
- 3 files changed, 42 insertions(+), 18 deletions(-)
+ fs/btrfs/extent_io.c | 50 ++++++++++++++++++++++----------------------
+ 1 file changed, 25 insertions(+), 25 deletions(-)
 
 diff --git a/fs/btrfs/extent_io.c b/fs/btrfs/extent_io.c
-index 34195891b0b5..67965faeef47 100644
+index 67965faeef47..91013c1dce25 100644
 --- a/fs/btrfs/extent_io.c
 +++ b/fs/btrfs/extent_io.c
-@@ -2735,10 +2735,9 @@ static blk_status_t submit_read_repair(struct inode *inode,
- 	ASSERT(error_bitmap);
- 
- 	/*
--	 * We only get called on buffered IO, thus page must be mapped and bio
--	 * must not be cloned.
--	 */
--	ASSERT(page->mapping && !bio_flagged(failed_bio, BIO_CLONED));
-+	 * We only get called on buffered IO, thus page must be mapped
-+	*/
-+	ASSERT(page->mapping);
- 
- 	/* Iterate through all the sectors in the range */
- 	for (i = 0; i < nr_bits; i++) {
-@@ -2992,7 +2991,8 @@ static struct extent_buffer *find_extent_buffer_readpage(
-  */
- static void end_bio_extent_readpage(struct bio *bio)
+@@ -2827,31 +2827,31 @@ void end_extent_writepage(struct page *page, int err, u64 start, u64 end)
+ static void end_bio_extent_writepage(struct bio *bio)
  {
+ 	int error = blk_status_to_errno(bio->bi_status);
 -	struct bio_vec *bvec;
-+	struct bio_vec bvec;
 +	struct bvec_iter iter;
- 	struct btrfs_bio *bbio = btrfs_bio(bio);
- 	struct extent_io_tree *tree, *failure_tree;
- 	struct processed_extent processed = { 0 };
-@@ -3003,11 +3003,15 @@ static void end_bio_extent_readpage(struct bio *bio)
- 	u32 bio_offset = 0;
- 	int mirror;
- 	int ret;
++	struct bio_vec bvec;
+ 	u64 start;
+ 	u64 end;
 -	struct bvec_iter_all iter_all;
+ 	bool first_bvec = true;
  
+-	ASSERT(!bio_flagged(bio, BIO_CLONED));
 -	bio_for_each_segment_all(bvec, bio, iter_all) {
-+	/*
-+	 * We should have saved the orignal bi_iter, and then start iterating
-+	 * using that saved iter, as at endio time bi_iter is not reliable.
-+	 */
-+	ASSERT(bbio->iter.bi_size);
-+	__bio_for_each_segment(bvec, bio, iter, bbio->iter) {
- 		bool uptodate = !bio->bi_status;
 -		struct page *page = bvec->bv_page;
++	ASSERT(btrfs_bio(bio)->iter.bi_size);
++	__bio_for_each_segment(bvec, bio, iter, btrfs_bio(bio)->iter) {
 +		struct page *page = bvec.bv_page;
  		struct inode *inode = page->mapping->host;
  		struct btrfs_fs_info *fs_info = btrfs_sb(inode->i_sb);
  		const u32 sectorsize = fs_info->sectorsize;
-@@ -3030,19 +3034,19 @@ static void end_bio_extent_readpage(struct bio *bio)
- 		 * for unaligned offsets, and an error if they don't add up to
- 		 * a full sector.
- 		 */
+ 
+ 		/* Our read/write should always be sector aligned. */
 -		if (!IS_ALIGNED(bvec->bv_offset, sectorsize))
 +		if (!IS_ALIGNED(bvec.bv_offset, sectorsize))
  			btrfs_err(fs_info,
- 		"partial page read in btrfs with offset %u and length %u",
+ 		"partial page write in btrfs with offset %u and length %u",
 -				  bvec->bv_offset, bvec->bv_len);
--		else if (!IS_ALIGNED(bvec->bv_offset + bvec->bv_len,
+-		else if (!IS_ALIGNED(bvec->bv_len, sectorsize))
 +				  bvec.bv_offset, bvec.bv_len);
-+		else if (!IS_ALIGNED(bvec.bv_offset + bvec.bv_len,
- 				     sectorsize))
++		else if (!IS_ALIGNED(bvec.bv_len, sectorsize))
  			btrfs_info(fs_info,
- 		"incomplete page read with offset %u and length %u",
+ 		"incomplete page write with offset %u and length %u",
 -				   bvec->bv_offset, bvec->bv_len);
 +				   bvec.bv_offset, bvec.bv_len);
  
 -		start = page_offset(page) + bvec->bv_offset;
 -		end = start + bvec->bv_len - 1;
--		len = bvec->bv_len;
 +		start = page_offset(page) + bvec.bv_offset;
 +		end = start + bvec.bv_len - 1;
-+		len = bvec.bv_len;
  
- 		mirror = bbio->mirror_num;
- 		if (likely(uptodate)) {
-diff --git a/fs/btrfs/inode.c b/fs/btrfs/inode.c
-index 8e6901aeeb89..1bf56c2b4bd9 100644
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -3220,6 +3220,24 @@ void btrfs_writepage_endio_finish_ordered(struct btrfs_inode *inode,
- 				       finish_ordered_fn, uptodate);
- }
+ 		if (first_bvec) {
+ 			btrfs_record_physical_zoned(inode, start, bio);
+@@ -2860,7 +2860,7 @@ static void end_bio_extent_writepage(struct bio *bio)
  
-+static u8 *bbio_get_real_csum(struct btrfs_fs_info *fs_info,
-+			      struct btrfs_bio *bbio)
-+{
-+	u8 *ret;
-+
-+	/* Split bbio needs to grab csum from its parent */
-+	if (bbio->is_split_bio)
-+		ret = btrfs_bio(bbio->parent)->csum;
-+	else
-+		ret = bbio->csum;
-+
-+	if (ret == NULL)
-+		return ret;
-+
-+	return ret + (bbio->offset_to_original >> fs_info->sectorsize_bits) *
-+		     fs_info->csum_size;
-+}
-+
- /*
-  * check_data_csum - verify checksum of one sector of uncompressed data
-  * @inode:	inode
-@@ -3247,7 +3265,8 @@ static int check_data_csum(struct inode *inode, struct btrfs_bio *bbio,
- 	ASSERT(pgoff + len <= PAGE_SIZE);
+ 		end_extent_writepage(page, error, start, end);
  
- 	offset_sectors = bio_offset >> fs_info->sectorsize_bits;
--	csum_expected = ((u8 *)bbio->csum) + offset_sectors * csum_size;
-+	csum_expected = bbio_get_real_csum(fs_info, bbio) +
-+			offset_sectors * csum_size;
- 
- 	kaddr = kmap_atomic(page);
- 	shash->tfm = fs_info->csum_shash;
-@@ -3305,7 +3324,7 @@ unsigned int btrfs_verify_data_csum(struct btrfs_bio *bbio,
- 	 * Normally this should be covered by above check for compressed read
- 	 * or the next check for NODATASUM.  Just do a quicker exit here.
- 	 */
--	if (bbio->csum == NULL)
-+	if (bbio_get_real_csum(fs_info, bbio) == NULL)
- 		return 0;
- 
- 	if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
-diff --git a/fs/btrfs/volumes.h b/fs/btrfs/volumes.h
-index baccf895a544..38028926c679 100644
---- a/fs/btrfs/volumes.h
-+++ b/fs/btrfs/volumes.h
-@@ -401,7 +401,8 @@ static inline struct btrfs_bio *btrfs_bio(struct bio *bio)
- 
- static inline void btrfs_bio_free_csum(struct btrfs_bio *bbio)
- {
--	if (bbio->csum != bbio->csum_inline) {
-+	/* Only free the csum if we're not a split bio */
-+	if (!bbio->is_split_bio && bbio->csum != bbio->csum_inline) {
- 		kfree(bbio->csum);
- 		bbio->csum = NULL;
+-		btrfs_page_clear_writeback(fs_info, page, start, bvec->bv_len);
++		btrfs_page_clear_writeback(fs_info, page, start, bvec.bv_len);
  	}
+ 
+ 	bio_put(bio);
+@@ -4475,20 +4475,20 @@ static struct extent_buffer *find_extent_buffer_nolock(
+ static void end_bio_subpage_eb_writepage(struct bio *bio)
+ {
+ 	struct btrfs_fs_info *fs_info;
+-	struct bio_vec *bvec;
+-	struct bvec_iter_all iter_all;
++	struct bvec_iter iter;
++	struct bio_vec bvec;
+ 
+ 	fs_info = btrfs_sb(bio_first_page_all(bio)->mapping->host->i_sb);
+ 	ASSERT(fs_info->sectorsize < PAGE_SIZE);
+ 
+-	ASSERT(!bio_flagged(bio, BIO_CLONED));
+-	bio_for_each_segment_all(bvec, bio, iter_all) {
+-		struct page *page = bvec->bv_page;
+-		u64 bvec_start = page_offset(page) + bvec->bv_offset;
+-		u64 bvec_end = bvec_start + bvec->bv_len - 1;
++	ASSERT(btrfs_bio(bio)->iter.bi_size);
++	__bio_for_each_segment(bvec, bio, iter, btrfs_bio(bio)->iter) {
++		struct page *page = bvec.bv_page;
++		u64 bvec_start = page_offset(page) + bvec.bv_offset;
++		u64 bvec_end = bvec_start + bvec.bv_len - 1;
+ 		u64 cur_bytenr = bvec_start;
+ 
+-		ASSERT(IS_ALIGNED(bvec->bv_len, fs_info->nodesize));
++		ASSERT(IS_ALIGNED(bvec.bv_len, fs_info->nodesize));
+ 
+ 		/* Iterate through all extent buffers in the range */
+ 		while (cur_bytenr <= bvec_end) {
+@@ -4531,14 +4531,14 @@ static void end_bio_subpage_eb_writepage(struct bio *bio)
+ 
+ static void end_bio_extent_buffer_writepage(struct bio *bio)
+ {
+-	struct bio_vec *bvec;
++	struct bvec_iter iter;
++	struct bio_vec bvec;
+ 	struct extent_buffer *eb;
+ 	int done;
+-	struct bvec_iter_all iter_all;
+ 
+-	ASSERT(!bio_flagged(bio, BIO_CLONED));
+-	bio_for_each_segment_all(bvec, bio, iter_all) {
+-		struct page *page = bvec->bv_page;
++	ASSERT(btrfs_bio(bio)->iter.bi_size);
++	__bio_for_each_segment(bvec, bio, iter, btrfs_bio(bio)->iter) {
++		struct page *page = bvec.bv_page;
+ 
+ 		eb = (struct extent_buffer *)page->private;
+ 		BUG_ON(!eb);
 -- 
 2.34.0
 
