@@ -1,55 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 391B7461295
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 11:39:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 50C154612AD
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 11:40:41 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-369-Vfn9nMwJOXGAMxYomvJqtg-1; Mon, 29 Nov 2021 05:39:47 -0500
-X-MC-Unique: Vfn9nMwJOXGAMxYomvJqtg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-26-A1wBGr1BOC6sd2WkjjI9Dg-1; Mon, 29 Nov 2021 05:40:36 -0500
+X-MC-Unique: A1wBGr1BOC6sd2WkjjI9Dg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4F7ED19251A7;
-	Mon, 29 Nov 2021 10:39:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 29DD55D6BA;
-	Mon, 29 Nov 2021 10:39:42 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 665D9801B23;
+	Mon, 29 Nov 2021 10:40:31 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4810B196F4;
+	Mon, 29 Nov 2021 10:40:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F5131806D2C;
-	Mon, 29 Nov 2021 10:39:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D9BE34A70A;
+	Mon, 29 Nov 2021 10:40:29 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ATAdMuo014269 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Nov 2021 05:39:23 -0500
+	id 1ATAePCE014663 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Nov 2021 05:40:25 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CACD3112131B; Mon, 29 Nov 2021 10:39:22 +0000 (UTC)
+	id A9ACD2180144; Mon, 29 Nov 2021 10:40:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C09711121319
-	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4C9C802802
-	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:19 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A41ED2166B26
+	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:40:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 030C8185A7BA
+	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:40:17 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-68-EjTrXM6VOxavqHa1ZhJdTA-1; Mon, 29 Nov 2021 05:39:18 -0500
-X-MC-Unique: EjTrXM6VOxavqHa1ZhJdTA-1
+	us-mta-401-iIaGPC0PP2OUT27tR-HgAQ-1; Mon, 29 Nov 2021 05:40:13 -0500
+X-MC-Unique: iIaGPC0PP2OUT27tR-HgAQ-1
 Received: from [2001:4bb8:184:4a23:724a:c057:c7bf:4643] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mrdnY-0073Kv-0W; Mon, 29 Nov 2021 10:22:13 +0000
+	id 1mrdnZ-0073LD-CV; Mon, 29 Nov 2021 10:22:14 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 29 Nov 2021 11:21:40 +0100
-Message-Id: <20211129102203.2243509-7-hch@lst.de>
+Date: Mon, 29 Nov 2021 11:21:41 +0100
+Message-Id: <20211129102203.2243509-8-hch@lst.de>
 In-Reply-To: <20211129102203.2243509-1-hch@lst.de>
 References: <20211129102203.2243509-1-hch@lst.de>
 MIME-Version: 1.0
@@ -63,16 +62,17 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
 	virtualization@lists.linux-foundation.org,
 	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	"Darrick J . Wong" <djwong@kernel.org>,
 	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
 	Ira Weiny <ira.weiny@intel.com>
-Subject: [dm-devel] [PATCH 06/29] dax: move the partition alignment check
-	into fs_dax_get_by_bdev
+Subject: [dm-devel] [PATCH 07/29] xfs: factor out a xfs_setup_dax_always
+	helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +86,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,64 +94,83 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-fs_dax_get_by_bdev is the primary interface to find a dax device for a
-block device, so move the partition alignment check there instead of
-wiring it up through ->dax_supported.
+Factor out another DAX setup helper to simplify future changes.  Also
+move the experimental warning after the checks to not clutter the log
+too much if the setup failed.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 ---
- drivers/dax/super.c | 23 ++++++-----------------
- 1 file changed, 6 insertions(+), 17 deletions(-)
+ fs/xfs/xfs_super.c | 47 +++++++++++++++++++++++++++-------------------
+ 1 file changed, 28 insertions(+), 19 deletions(-)
 
-diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-index c8500b7e2d8a2..f2cef47bdeafd 100644
---- a/drivers/dax/super.c
-+++ b/drivers/dax/super.c
-@@ -92,6 +92,12 @@ struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev)
- 	if (!blk_queue_dax(bdev->bd_disk->queue))
- 		return NULL;
+diff --git a/fs/xfs/xfs_super.c b/fs/xfs/xfs_super.c
+index e21459f9923a8..875fd3151d6c9 100644
+--- a/fs/xfs/xfs_super.c
++++ b/fs/xfs/xfs_super.c
+@@ -340,6 +340,32 @@ xfs_buftarg_is_dax(
+ 			bdev_nr_sectors(bt->bt_bdev));
+ }
  
-+	if ((get_start_sect(bdev) * SECTOR_SIZE) % PAGE_SIZE ||
-+	    (bdev_nr_sectors(bdev) * SECTOR_SIZE) % PAGE_SIZE) {
-+		pr_info("%pg: error: unaligned partition for dax\n", bdev);
-+		return NULL;
++static int
++xfs_setup_dax_always(
++	struct xfs_mount	*mp)
++{
++	struct super_block	*sb = mp->m_super;
++
++	if (!xfs_buftarg_is_dax(sb, mp->m_ddev_targp) &&
++	   (!mp->m_rtdev_targp || !xfs_buftarg_is_dax(sb, mp->m_rtdev_targp))) {
++		xfs_alert(mp,
++			"DAX unsupported by block device. Turning off DAX.");
++		goto disable_dax;
 +	}
 +
- 	id = dax_read_lock();
- 	dax_dev = xa_load(&dax_hosts, (unsigned long)bdev->bd_disk);
- 	if (!dax_dev || !dax_alive(dax_dev) || !igrab(&dax_dev->inode))
-@@ -106,10 +112,6 @@ bool generic_fsdax_supported(struct dax_device *dax_dev,
- 		struct block_device *bdev, int blocksize, sector_t start,
- 		sector_t sectors)
- {
--	pgoff_t pgoff, pgoff_end;
--	sector_t last_page;
--	int err;
++	if (xfs_has_reflink(mp)) {
++		xfs_alert(mp, "DAX and reflink cannot be used together!");
++		return -EINVAL;
++	}
++
++	xfs_warn(mp, "DAX enabled. Warning: EXPERIMENTAL, use at your own risk");
++	return 0;
++
++disable_dax:
++	xfs_mount_set_dax_mode(mp, XFS_DAX_NEVER);
++	return 0;
++}
++
+ STATIC int
+ xfs_blkdev_get(
+ 	xfs_mount_t		*mp,
+@@ -1593,26 +1619,9 @@ xfs_fs_fill_super(
+ 		sb->s_flags |= SB_I_VERSION;
+ 
+ 	if (xfs_has_dax_always(mp)) {
+-		bool rtdev_is_dax = false, datadev_is_dax;
 -
- 	if (blocksize != PAGE_SIZE) {
- 		pr_info("%pg: error: unsupported blocksize for dax\n", bdev);
- 		return false;
-@@ -120,19 +122,6 @@ bool generic_fsdax_supported(struct dax_device *dax_dev,
- 		return false;
+-		xfs_warn(mp,
+-		"DAX enabled. Warning: EXPERIMENTAL, use at your own risk");
+-
+-		datadev_is_dax = xfs_buftarg_is_dax(sb, mp->m_ddev_targp);
+-		if (mp->m_rtdev_targp)
+-			rtdev_is_dax = xfs_buftarg_is_dax(sb,
+-						mp->m_rtdev_targp);
+-		if (!rtdev_is_dax && !datadev_is_dax) {
+-			xfs_alert(mp,
+-			"DAX unsupported by block device. Turning off DAX.");
+-			xfs_mount_set_dax_mode(mp, XFS_DAX_NEVER);
+-		}
+-		if (xfs_has_reflink(mp)) {
+-			xfs_alert(mp,
+-		"DAX and reflink cannot be used together!");
+-			error = -EINVAL;
++		error = xfs_setup_dax_always(mp);
++		if (error)
+ 			goto out_filestream_unmount;
+-		}
  	}
  
--	err = bdev_dax_pgoff(bdev, start, PAGE_SIZE, &pgoff);
--	if (err) {
--		pr_info("%pg: error: unaligned partition for dax\n", bdev);
--		return false;
--	}
--
--	last_page = PFN_DOWN((start + sectors - 1) * 512) * PAGE_SIZE / 512;
--	err = bdev_dax_pgoff(bdev, last_page, PAGE_SIZE, &pgoff_end);
--	if (err) {
--		pr_info("%pg: error: unaligned partition for dax\n", bdev);
--		return false;
--	}
--
- 	return true;
- }
- EXPORT_SYMBOL_GPL(generic_fsdax_supported);
+ 	if (xfs_has_discard(mp)) {
 -- 
 2.30.2
 
