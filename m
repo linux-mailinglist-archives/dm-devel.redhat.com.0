@@ -2,53 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 484B046129E
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 11:39:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D28BF4612A0
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 11:40:04 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-140-mTJJf8yfOPqpQGDq7blXfw-1; Mon, 29 Nov 2021 05:39:54 -0500
-X-MC-Unique: mTJJf8yfOPqpQGDq7blXfw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-530-3EO7zcVANUahYnMZT_pcLA-1; Mon, 29 Nov 2021 05:40:00 -0500
+X-MC-Unique: 3EO7zcVANUahYnMZT_pcLA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CDA6F19251A6;
-	Mon, 29 Nov 2021 10:39:47 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A4AB01006AD7;
+	Mon, 29 Nov 2021 10:39:54 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A743010016F5;
-	Mon, 29 Nov 2021 10:39:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 82F8F60BF4;
+	Mon, 29 Nov 2021 10:39:54 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 670EA1805302;
-	Mon, 29 Nov 2021 10:39:46 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CABDA1803B34;
+	Mon, 29 Nov 2021 10:39:52 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ATAdaqs014332 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Nov 2021 05:39:37 -0500
+	id 1ATAdnqx014395 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Nov 2021 05:39:49 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CDD542180146; Mon, 29 Nov 2021 10:39:36 +0000 (UTC)
+	id A3D8F40CFD13; Mon, 29 Nov 2021 10:39:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C8D3A2166B26
-	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EF1A40CFD05
+	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B1EF811E7A
-	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 832D485A5A8
+	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:49 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-108-6EkNDrmPOeazP29yX4ASGQ-1; Mon, 29 Nov 2021 05:39:29 -0500
-X-MC-Unique: 6EkNDrmPOeazP29yX4ASGQ-1
+	us-mta-442-N81noJgRPr2W7gBR9rmthw-1; Mon, 29 Nov 2021 05:39:45 -0500
+X-MC-Unique: N81noJgRPr2W7gBR9rmthw-1
 Received: from [2001:4bb8:184:4a23:724a:c057:c7bf:4643] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mrdnR-0073Ig-7d; Mon, 29 Nov 2021 10:22:06 +0000
+	id 1mrdnS-0073J2-IG; Mon, 29 Nov 2021 10:22:07 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 29 Nov 2021 11:21:35 +0100
-Message-Id: <20211129102203.2243509-2-hch@lst.de>
+Date: Mon, 29 Nov 2021 11:21:36 +0100
+Message-Id: <20211129102203.2243509-3-hch@lst.de>
 In-Reply-To: <20211129102203.2243509-1-hch@lst.de>
 References: <20211129102203.2243509-1-hch@lst.de>
 MIME-Version: 1.0
@@ -62,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
@@ -70,8 +70,8 @@ Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
 	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
 	Ira Weiny <ira.weiny@intel.com>
-Subject: [dm-devel] [PATCH 01/29] dm: fix alloc_dax error handling in
-	alloc_dev
+Subject: [dm-devel] [PATCH 02/29] dm: make the DAX support depend on
+	CONFIG_FS_DAX
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +85,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,31 +93,118 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Make sure ->dax_dev is NULL on error so that the cleanup path doesn't
-trip over an ERR_PTR.
+The device mapper DAX support is all hanging off a block device and thus
+can't be used with device dax.  Make it depend on CONFIG_FS_DAX instead
+of CONFIG_DAX_DRIVER.  This also means that bdev_dax_pgoff only needs to
+be built under CONFIG_FS_DAX now.
 
-Reported-by: Dan Williams <dan.j.williams@intel.com>
 Signed-off-by: Christoph Hellwig <hch@lst.de>
+Acked-by: Mike Snitzer <snitzer@redhat.com>
 ---
- drivers/md/dm.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/dax/super.c        | 6 ++----
+ drivers/md/dm-linear.c     | 2 +-
+ drivers/md/dm-log-writes.c | 2 +-
+ drivers/md/dm-stripe.c     | 2 +-
+ drivers/md/dm-writecache.c | 2 +-
+ drivers/md/dm.c            | 2 +-
+ 6 files changed, 7 insertions(+), 9 deletions(-)
 
+diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+index b882cf8106ea3..e20d0cef10a18 100644
+--- a/drivers/dax/super.c
++++ b/drivers/dax/super.c
+@@ -63,7 +63,7 @@ static int dax_host_hash(const char *host)
+ 	return hashlen_hash(hashlen_string("DAX", host)) % DAX_HASH_SIZE;
+ }
+ 
+-#ifdef CONFIG_BLOCK
++#if defined(CONFIG_BLOCK) && defined(CONFIG_FS_DAX)
+ #include <linux/blkdev.h>
+ 
+ int bdev_dax_pgoff(struct block_device *bdev, sector_t sector, size_t size,
+@@ -80,7 +80,6 @@ int bdev_dax_pgoff(struct block_device *bdev, sector_t sector, size_t size,
+ }
+ EXPORT_SYMBOL(bdev_dax_pgoff);
+ 
+-#if IS_ENABLED(CONFIG_FS_DAX)
+ /**
+  * dax_get_by_host() - temporary lookup mechanism for filesystem-dax
+  * @host: alternate name for the device registered by a dax driver
+@@ -219,8 +218,7 @@ bool dax_supported(struct dax_device *dax_dev, struct block_device *bdev,
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(dax_supported);
+-#endif /* CONFIG_FS_DAX */
+-#endif /* CONFIG_BLOCK */
++#endif /* CONFIG_BLOCK && CONFIG_FS_DAX */
+ 
+ enum dax_device_flags {
+ 	/* !alive + rcu grace period == no new operations / mappings */
+diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
+index 66ba16713f696..0a260c35aeeed 100644
+--- a/drivers/md/dm-linear.c
++++ b/drivers/md/dm-linear.c
+@@ -162,7 +162,7 @@ static int linear_iterate_devices(struct dm_target *ti,
+ 	return fn(ti, lc->dev, lc->start, ti->len, data);
+ }
+ 
+-#if IS_ENABLED(CONFIG_DAX_DRIVER)
++#if IS_ENABLED(CONFIG_FS_DAX)
+ static long linear_dax_direct_access(struct dm_target *ti, pgoff_t pgoff,
+ 		long nr_pages, void **kaddr, pfn_t *pfn)
+ {
+diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
+index 0b3ef977ceeba..3155875d4e5b0 100644
+--- a/drivers/md/dm-log-writes.c
++++ b/drivers/md/dm-log-writes.c
+@@ -901,7 +901,7 @@ static void log_writes_io_hints(struct dm_target *ti, struct queue_limits *limit
+ 	limits->io_min = limits->physical_block_size;
+ }
+ 
+-#if IS_ENABLED(CONFIG_DAX_DRIVER)
++#if IS_ENABLED(CONFIG_FS_DAX)
+ static int log_dax(struct log_writes_c *lc, sector_t sector, size_t bytes,
+ 		   struct iov_iter *i)
+ {
+diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
+index 6660b6b53d5bf..f084607220293 100644
+--- a/drivers/md/dm-stripe.c
++++ b/drivers/md/dm-stripe.c
+@@ -300,7 +300,7 @@ static int stripe_map(struct dm_target *ti, struct bio *bio)
+ 	return DM_MAPIO_REMAPPED;
+ }
+ 
+-#if IS_ENABLED(CONFIG_DAX_DRIVER)
++#if IS_ENABLED(CONFIG_FS_DAX)
+ static long stripe_dax_direct_access(struct dm_target *ti, pgoff_t pgoff,
+ 		long nr_pages, void **kaddr, pfn_t *pfn)
+ {
+diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+index 4b8991cde223d..4f31591d2d25e 100644
+--- a/drivers/md/dm-writecache.c
++++ b/drivers/md/dm-writecache.c
+@@ -38,7 +38,7 @@
+ #define BITMAP_GRANULARITY	PAGE_SIZE
+ #endif
+ 
+-#if IS_ENABLED(CONFIG_ARCH_HAS_PMEM_API) && IS_ENABLED(CONFIG_DAX_DRIVER)
++#if IS_ENABLED(CONFIG_ARCH_HAS_PMEM_API) && IS_ENABLED(CONFIG_FS_DAX)
+ #define DM_WRITECACHE_HAS_PMEM
+ #endif
+ 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 662742a310cbb..acc84dc1bded5 100644
+index acc84dc1bded5..b93fcc91176e5 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1786,8 +1786,10 @@ static struct mapped_device *alloc_dev(int minor)
- 	if (IS_ENABLED(CONFIG_DAX_DRIVER)) {
+@@ -1783,7 +1783,7 @@ static struct mapped_device *alloc_dev(int minor)
+ 	md->disk->private_data = md;
+ 	sprintf(md->disk->disk_name, "dm-%d", minor);
+ 
+-	if (IS_ENABLED(CONFIG_DAX_DRIVER)) {
++	if (IS_ENABLED(CONFIG_FS_DAX)) {
  		md->dax_dev = alloc_dax(md, md->disk->disk_name,
  					&dm_dax_ops, 0);
--		if (IS_ERR(md->dax_dev))
-+		if (IS_ERR(md->dax_dev)) {
-+			md->dax_dev = NULL;
- 			goto bad;
-+		}
- 	}
- 
- 	format_dev_t(md->name, MKDEV(_major, minor));
+ 		if (IS_ERR(md->dax_dev)) {
 -- 
 2.30.2
 
