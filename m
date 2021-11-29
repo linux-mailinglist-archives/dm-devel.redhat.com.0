@@ -1,54 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AFE49461297
-	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 11:39:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 935E04612A8
+	for <lists+dm-devel@lfdr.de>; Mon, 29 Nov 2021 11:40:29 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-590-U_FTsW-HPwWWfe1Nd8QRmQ-1; Mon, 29 Nov 2021 05:39:50 -0500
-X-MC-Unique: U_FTsW-HPwWWfe1Nd8QRmQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-169-aFXEDhe3NXmYEOF31I4EUg-1; Mon, 29 Nov 2021 05:40:25 -0500
+X-MC-Unique: aFXEDhe3NXmYEOF31I4EUg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED2C11006AA6;
-	Mon, 29 Nov 2021 10:39:44 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B2D4819253C5;
+	Mon, 29 Nov 2021 10:40:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA24D196F4;
-	Mon, 29 Nov 2021 10:39:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9066F77E21;
+	Mon, 29 Nov 2021 10:40:19 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9A2274A709;
-	Mon, 29 Nov 2021 10:39:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8ABD14A706;
+	Mon, 29 Nov 2021 10:40:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1ATAdRJf014288 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 29 Nov 2021 05:39:27 -0500
+	id 1ATAeFWQ014582 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 29 Nov 2021 05:40:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EEB0551E1; Mon, 29 Nov 2021 10:39:26 +0000 (UTC)
+	id 23F8B1410DD8; Mon, 29 Nov 2021 10:40:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E8DCB51DC
-	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E46D811E76
-	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:39:24 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FD311410DD5
+	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:40:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C1AE805C2F
+	for <dm-devel@redhat.com>; Mon, 29 Nov 2021 10:40:14 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-90-570JDFrcNb-TVpJ7hdcXog-1; Mon, 29 Nov 2021 05:39:21 -0500
-X-MC-Unique: 570JDFrcNb-TVpJ7hdcXog-1
+	us-mta-407-1BNEoVoMOFO3erwSi74XNA-1; Mon, 29 Nov 2021 05:40:10 -0500
+X-MC-Unique: 1BNEoVoMOFO3erwSi74XNA-1
 Received: from [2001:4bb8:184:4a23:724a:c057:c7bf:4643] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mrdo1-0073YT-9F; Mon, 29 Nov 2021 10:22:42 +0000
+	id 1mrdo2-0073ZN-I8; Mon, 29 Nov 2021 10:22:43 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dan Williams <dan.j.williams@intel.com>
-Date: Mon, 29 Nov 2021 11:22:01 +0100
-Message-Id: <20211129102203.2243509-28-hch@lst.de>
+Date: Mon, 29 Nov 2021 11:22:02 +0100
+Message-Id: <20211129102203.2243509-29-hch@lst.de>
 In-Reply-To: <20211129102203.2243509-1-hch@lst.de>
 References: <20211129102203.2243509-1-hch@lst.de>
 MIME-Version: 1.0
@@ -62,7 +62,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
@@ -71,8 +71,8 @@ Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	"Darrick J . Wong" <djwong@kernel.org>,
 	linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
 	Ira Weiny <ira.weiny@intel.com>
-Subject: [dm-devel] [PATCH 27/29] dax: fix up some of the block device
-	related ifdefs
+Subject: [dm-devel] [PATCH 28/29] iomap: build the block based code
+	conditionally
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +86,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,80 +94,51 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The DAX device <-> block device association is only enabled if
-CONFIG_BLOCK is enabled.  Update dax.h to account for that and use
-the right conditions for the fs_put_dax stub as well.
+Only build the block based iomap code if CONFIG_BLOCK is set.  Currently
+that is always the case, but it will change soon.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 ---
- include/linux/dax.h | 33 ++++++++++++++++-----------------
- 1 file changed, 16 insertions(+), 17 deletions(-)
+ fs/Kconfig        | 4 ++--
+ fs/iomap/Makefile | 4 ++--
+ 2 files changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/include/linux/dax.h b/include/linux/dax.h
-index f6f353382cc90..87ae4c9b1d65b 100644
---- a/include/linux/dax.h
-+++ b/include/linux/dax.h
-@@ -108,24 +108,15 @@ static inline bool daxdev_mapping_supported(struct vm_area_struct *vma,
- #endif
+diff --git a/fs/Kconfig b/fs/Kconfig
+index a6313a969bc5f..6d608330a096e 100644
+--- a/fs/Kconfig
++++ b/fs/Kconfig
+@@ -15,11 +15,11 @@ config VALIDATE_FS_PARSER
+ 	  Enable this to perform validation of the parameter description for a
+ 	  filesystem when it is registered.
  
- struct writeback_control;
--#if IS_ENABLED(CONFIG_FS_DAX)
-+#if defined(CONFIG_BLOCK) && defined(CONFIG_FS_DAX)
- int dax_add_host(struct dax_device *dax_dev, struct gendisk *disk);
- void dax_remove_host(struct gendisk *disk);
+-if BLOCK
 -
-+struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev,
-+		u64 *start_off);
- static inline void fs_put_dax(struct dax_device *dax_dev)
- {
- 	put_dax(dax_dev);
- }
--
--struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev,
--		u64 *start_off);
--int dax_writeback_mapping_range(struct address_space *mapping,
--		struct dax_device *dax_dev, struct writeback_control *wbc);
--
--struct page *dax_layout_busy_page(struct address_space *mapping);
--struct page *dax_layout_busy_page_range(struct address_space *mapping, loff_t start, loff_t end);
--dax_entry_t dax_lock_page(struct page *page);
--void dax_unlock_page(struct page *page, dax_entry_t cookie);
- #else
- static inline int dax_add_host(struct dax_device *dax_dev, struct gendisk *disk)
- {
-@@ -134,17 +125,25 @@ static inline int dax_add_host(struct dax_device *dax_dev, struct gendisk *disk)
- static inline void dax_remove_host(struct gendisk *disk)
- {
- }
--
--static inline void fs_put_dax(struct dax_device *dax_dev)
--{
--}
--
- static inline struct dax_device *fs_dax_get_by_bdev(struct block_device *bdev,
- 		u64 *start_off)
- {
- 	return NULL;
- }
-+static inline void fs_put_dax(struct dax_device *dax_dev)
-+{
-+}
-+#endif /* CONFIG_BLOCK && CONFIG_FS_DAX */
+ config FS_IOMAP
+ 	bool
  
-+#if IS_ENABLED(CONFIG_FS_DAX)
-+int dax_writeback_mapping_range(struct address_space *mapping,
-+		struct dax_device *dax_dev, struct writeback_control *wbc);
++if BLOCK
 +
-+struct page *dax_layout_busy_page(struct address_space *mapping);
-+struct page *dax_layout_busy_page_range(struct address_space *mapping, loff_t start, loff_t end);
-+dax_entry_t dax_lock_page(struct page *page);
-+void dax_unlock_page(struct page *page, dax_entry_t cookie);
-+#else
- static inline struct page *dax_layout_busy_page(struct address_space *mapping)
- {
- 	return NULL;
+ source "fs/ext2/Kconfig"
+ source "fs/ext4/Kconfig"
+ source "fs/jbd2/Kconfig"
+diff --git a/fs/iomap/Makefile b/fs/iomap/Makefile
+index 4143a3ff89dbc..fc070184b7faa 100644
+--- a/fs/iomap/Makefile
++++ b/fs/iomap/Makefile
+@@ -9,9 +9,9 @@ ccflags-y += -I $(srctree)/$(src)		# needed for trace events
+ obj-$(CONFIG_FS_IOMAP)		+= iomap.o
+ 
+ iomap-y				+= trace.o \
+-				   buffered-io.o \
++				   iter.o
++iomap-$(CONFIG_BLOCK)		+= buffered-io.o \
+ 				   direct-io.o \
+ 				   fiemap.o \
+-				   iter.o \
+ 				   seek.o
+ iomap-$(CONFIG_SWAP)		+= swapfile.o
 -- 
 2.30.2
 
