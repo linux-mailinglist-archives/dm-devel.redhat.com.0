@@ -1,70 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B842463CDE
-	for <lists+dm-devel@lfdr.de>; Tue, 30 Nov 2021 18:32:50 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638293569;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=N9eKmMLlUgWRVTjAjtNkkvSWG/RMXeIlPQ43ZlG8gAw=;
-	b=WxaEpKZRZck+PCFu/REsID8TNY9eSkb6irFLOg7gRJB/xb+w76sVHmqk50SiiwnRvBMlQj
-	NMzSqJTJF+fnKqecTXR/jD90CEh3FUsjZsv9scV76jRZpdJLaGa/TLZ7IMAXOaf5W63BKA
-	u+4NmSwZZYTvWplnueoPL5cKoTeglEA=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E60B5463E14
+	for <lists+dm-devel@lfdr.de>; Tue, 30 Nov 2021 19:51:18 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-7-HeQBZLziMSualpehZE3zLA-1; Tue, 30 Nov 2021 12:32:47 -0500
-X-MC-Unique: HeQBZLziMSualpehZE3zLA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-36-w9qxHUC9MpS79HTPaMf7JQ-1; Tue, 30 Nov 2021 13:51:15 -0500
+X-MC-Unique: w9qxHUC9MpS79HTPaMf7JQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5681D349D9;
-	Tue, 30 Nov 2021 17:31:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0649B8E74DF;
+	Tue, 30 Nov 2021 18:50:38 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0AFB160622;
-	Tue, 30 Nov 2021 17:31:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C38260C0F;
+	Tue, 30 Nov 2021 18:50:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 548474BB7C;
-	Tue, 30 Nov 2021 17:31:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
-	[10.5.11.23])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44C534BB7C;
+	Tue, 30 Nov 2021 18:50:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AUHUs5x009152 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Nov 2021 12:30:54 -0500
+	id 1AUIo8Fp016653 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Nov 2021 13:50:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 634DE1972D; Tue, 30 Nov 2021 17:30:54 +0000 (UTC)
+	id 1F504C15E73; Tue, 30 Nov 2021 18:50:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B7CF19724;
-	Tue, 30 Nov 2021 17:30:54 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 1AUHUqTg029955; 
-	Tue, 30 Nov 2021 11:30:52 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 1AUHUqlc029954;
-	Tue, 30 Nov 2021 11:30:52 -0600
-Date: Tue, 30 Nov 2021 11:30:51 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20211130173051.GL19591@octiron.msp.redhat.com>
-References: <20211118231338.22358-1-mwilck@suse.com>
-	<20211118231338.22358-6-mwilck@suse.com>
-	<20211130011759.GG19591@octiron.msp.redhat.com>
-	<e56fcde94769fcdd44d0237b152407618be7f23e.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1AC1CC15E6F
+	for <dm-devel@redhat.com>; Tue, 30 Nov 2021 18:50:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0010585A5AA
+	for <dm-devel@redhat.com>; Tue, 30 Nov 2021 18:50:07 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-599-quvvFc5tMsOoKcRSzyfrsQ-1; Tue, 30 Nov 2021 13:50:06 -0500
+X-MC-Unique: quvvFc5tMsOoKcRSzyfrsQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id C55D8B81B84;
+	Tue, 30 Nov 2021 18:50:04 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 703C5C53FCC;
+	Tue, 30 Nov 2021 18:50:03 +0000 (UTC)
+Date: Tue, 30 Nov 2021 10:50:02 -0800
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20211130185002.GD8467@magnolia>
+References: <20211129102203.2243509-1-hch@lst.de>
+	<20211129102203.2243509-6-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <e56fcde94769fcdd44d0237b152407618be7f23e.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+In-Reply-To: <20211129102203.2243509-6-hch@lst.de>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH 05/21] libmultipath (coverity): improve input
- checking in parse_vpd_pg83
+Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
+	linux-s390@vger.kernel.org, linux-erofs@lists.ozlabs.org,
+	virtualization@lists.linux-foundation.org,
+	linux-xfs@vger.kernel.org, dm-devel@redhat.com,
+	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
+	linux-ext4@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>
+Subject: Re: [dm-devel] [PATCH 05/29] dax: remove the pgmap sanity checks in
+ generic_fsdax_supported
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -78,58 +89,102 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Nov 30, 2021 at 12:21:44PM +0100, Martin Wilck wrote:
-> On Mon, 2021-11-29 at 19:17 -0600, Benjamin Marzinski wrote:
-> > On Fri, Nov 19, 2021 at 12:13:22AM +0100, mwilck@suse.com=A0wrote:
-> > > From: Martin Wilck <mwilck@suse.com>
-> > >=20
-> > > Check offsets and other obvious errors in the VPD83 data.
-> > >=20
-> > > The original reason to do this was to fix "tained scalar"
-> > > warnings from coverity. But this doesn't suffice for coverity
-> > > without using a constant boundary (WWID_SIZE) for "len" in
-> > > parse_vpd_pg80() and for "vpd_len" in parse_vpd_pg83(), even
-> > > though the computed boundaries are tighter than the constant
-> > > ones.
-> > >=20
-> >=20
-> > This looks fine, but I do wonder if we are being too strict.=A0 I'm not
-> > sure we should be failing, if sg_inq wouldn't fail.=A0 The goal of the
-> > fallback code is to get the WWID the udev would have gotten, and
-> > being
-> > lenient with scsi devices that don't quite follow the standard is
-> > usually the best policy. Thoughts?
->=20
-> If we encounter a broken VPD entry, IMO we can't continue reading
-> further entries, because if the entry is broken, we can't trust the
-> length value which is part of the entry. We may be reading total junk
-> if we follow it.
->=20
-> We might simply discard the broken entry, stop iterating over the
-> designators, see if we got a usable designator up to that point (i.e.,
-> previously), and if yes, use that entry, printing a big fat warning.=A0
-> That means we'd ultimately fail only if there was no usable designator
-> before the broken one.
->=20
-> Would you prefer that strategy?
+On Mon, Nov 29, 2021 at 11:21:39AM +0100, Christoph Hellwig wrote:
+> Drivers that register a dax_dev should make sure it works, no need
+> to double check from the file system.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Dan Williams <dan.j.williams@intel.com>
 
-If you export scsi IDs from sg_inq, it will print them out until it
-hits an error, so I would prefer if we used the best designator we got
-before we hit the error, to match it.
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
 
--Ben
+--D
 
->=20
-> Martin
+> ---
+>  drivers/dax/super.c | 49 +--------------------------------------------
+>  1 file changed, 1 insertion(+), 48 deletions(-)
+> 
+> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
+> index bf77c3da5d56d..c8500b7e2d8a2 100644
+> --- a/drivers/dax/super.c
+> +++ b/drivers/dax/super.c
+> @@ -106,13 +106,9 @@ bool generic_fsdax_supported(struct dax_device *dax_dev,
+>  		struct block_device *bdev, int blocksize, sector_t start,
+>  		sector_t sectors)
+>  {
+> -	bool dax_enabled = false;
+>  	pgoff_t pgoff, pgoff_end;
+> -	void *kaddr, *end_kaddr;
+> -	pfn_t pfn, end_pfn;
+>  	sector_t last_page;
+> -	long len, len2;
+> -	int err, id;
+> +	int err;
+>  
+>  	if (blocksize != PAGE_SIZE) {
+>  		pr_info("%pg: error: unsupported blocksize for dax\n", bdev);
+> @@ -137,49 +133,6 @@ bool generic_fsdax_supported(struct dax_device *dax_dev,
+>  		return false;
+>  	}
+>  
+> -	id = dax_read_lock();
+> -	len = dax_direct_access(dax_dev, pgoff, 1, &kaddr, &pfn);
+> -	len2 = dax_direct_access(dax_dev, pgoff_end, 1, &end_kaddr, &end_pfn);
+> -
+> -	if (len < 1 || len2 < 1) {
+> -		pr_info("%pg: error: dax access failed (%ld)\n",
+> -				bdev, len < 1 ? len : len2);
+> -		dax_read_unlock(id);
+> -		return false;
+> -	}
+> -
+> -	if (IS_ENABLED(CONFIG_FS_DAX_LIMITED) && pfn_t_special(pfn)) {
+> -		/*
+> -		 * An arch that has enabled the pmem api should also
+> -		 * have its drivers support pfn_t_devmap()
+> -		 *
+> -		 * This is a developer warning and should not trigger in
+> -		 * production. dax_flush() will crash since it depends
+> -		 * on being able to do (page_address(pfn_to_page())).
+> -		 */
+> -		WARN_ON(IS_ENABLED(CONFIG_ARCH_HAS_PMEM_API));
+> -		dax_enabled = true;
+> -	} else if (pfn_t_devmap(pfn) && pfn_t_devmap(end_pfn)) {
+> -		struct dev_pagemap *pgmap, *end_pgmap;
+> -
+> -		pgmap = get_dev_pagemap(pfn_t_to_pfn(pfn), NULL);
+> -		end_pgmap = get_dev_pagemap(pfn_t_to_pfn(end_pfn), NULL);
+> -		if (pgmap && pgmap == end_pgmap && pgmap->type == MEMORY_DEVICE_FS_DAX
+> -				&& pfn_t_to_page(pfn)->pgmap == pgmap
+> -				&& pfn_t_to_page(end_pfn)->pgmap == pgmap
+> -				&& pfn_t_to_pfn(pfn) == PHYS_PFN(__pa(kaddr))
+> -				&& pfn_t_to_pfn(end_pfn) == PHYS_PFN(__pa(end_kaddr)))
+> -			dax_enabled = true;
+> -		put_dev_pagemap(pgmap);
+> -		put_dev_pagemap(end_pgmap);
+> -
+> -	}
+> -	dax_read_unlock(id);
+> -
+> -	if (!dax_enabled) {
+> -		pr_info("%pg: error: dax support not enabled\n", bdev);
+> -		return false;
+> -	}
+>  	return true;
+>  }
+>  EXPORT_SYMBOL_GPL(generic_fsdax_supported);
+> -- 
+> 2.30.2
+> 
 
 --
 dm-devel mailing list
