@@ -2,69 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B5641464917
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 08:48:34 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 90685464916
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 08:48:32 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-359-b6CLNFzeNGmW-V9hbVzKlw-1; Wed, 01 Dec 2021 02:48:30 -0500
-X-MC-Unique: b6CLNFzeNGmW-V9hbVzKlw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-223-_Jj2w81vPa6vP-zRQWnbgQ-1; Wed, 01 Dec 2021 02:48:30 -0500
+X-MC-Unique: _Jj2w81vPa6vP-zRQWnbgQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BE9B81006AA5;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 18C381023F58;
 	Wed,  1 Dec 2021 07:48:24 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A1C166A024;
-	Wed,  1 Dec 2021 07:48:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EBBB15DF21;
+	Wed,  1 Dec 2021 07:48:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E6B754CA9B;
-	Wed,  1 Dec 2021 07:48:22 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 82CB24BB7C;
+	Wed,  1 Dec 2021 07:48:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1AUHUwR9009169 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 30 Nov 2021 12:30:59 -0500
+	id 1AUHRNQU008904 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 30 Nov 2021 12:27:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7D4BF401E32; Tue, 30 Nov 2021 17:30:58 +0000 (UTC)
+	id 6B8AC4047279; Tue, 30 Nov 2021 17:27:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 79A35401E22
-	for <dm-devel@redhat.com>; Tue, 30 Nov 2021 17:30:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F427811E84
-	for <dm-devel@redhat.com>; Tue, 30 Nov 2021 17:30:58 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 678674047272
+	for <dm-devel@redhat.com>; Tue, 30 Nov 2021 17:27:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E83518162C1
+	for <dm-devel@redhat.com>; Tue, 30 Nov 2021 17:27:23 +0000 (UTC)
 Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-270-X_bkNXEgOrSUMkOT4BAP-A-1; Tue, 30 Nov 2021 12:30:56 -0500
-X-MC-Unique: X_bkNXEgOrSUMkOT4BAP-A-1
+	us-mta-119-ZwAbmk2BMH2QAcR8zQ4DGg-1; Tue, 30 Nov 2021 12:27:18 -0500
+X-MC-Unique: ZwAbmk2BMH2QAcR8zQ4DGg-1
 Received: from [192.168.0.2] (ip5f5aeac2.dynamic.kabel-deutschland.de
 	[95.90.234.194])
 	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
-	key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
-	SHA256) (No client certificate requested)
-	(Authenticated sender: pmenzel)
-	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 8B1EC61E5FE00;
-	Tue, 30 Nov 2021 18:25:06 +0100 (CET)
-Message-ID: <a3a1fed7-b886-8603-aa20-20d667a837a7@molgen.mpg.de>
-Date: Tue, 30 Nov 2021 18:25:06 +0100
+	key-exchange X25519 server-signature RSA-PSS (2048 bits))
+	(No client certificate requested) (Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id 583FE61E5FE02;
+	Tue, 30 Nov 2021 18:27:16 +0100 (CET)
+Message-ID: <3f2ad763-6fcb-a652-7131-9e20135a1405@molgen.mpg.de>
+Date: Tue, 30 Nov 2021 18:27:16 +0100
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
 	Thunderbird/91.3.2
-To: Song Liu <song@kernel.org>, Guoqing Jiang <guoqing.jiang@cloud.ionos.com>,
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+To: Song Liu <song@kernel.org>, Guoqing Jiang <guoqing.jiang@linux.dev>,
 	Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>
 References: <1613177399-22024-1-git-send-email-guoqing.jiang@cloud.ionos.com>
 	<36a660ed-b995-839e-ac82-dc4ca25ccb8a@molgen.mpg.de>
 	<CAPhsuW5s6fk3kua=9Z9o3VPCcN1wdUqXybXm9cp4arJW5+oBvQ@mail.gmail.com>
 	<9f28f6e2-e46a-bfed-09d8-2fec941ea881@cloud.ionos.com>
 	<CAPhsuW4V8JCCKePj11rf3zo4MJTz6TpW6DDeNmcJBfRSoN+NDA@mail.gmail.com>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <CAPhsuW4V8JCCKePj11rf3zo4MJTz6TpW6DDeNmcJBfRSoN+NDA@mail.gmail.com>
+	<a3a1fed7-b886-8603-aa20-20d667a837a7@molgen.mpg.de>
+In-Reply-To: <a3a1fed7-b886-8603-aa20-20d667a837a7@molgen.mpg.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,7 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1AUHRNQU008904
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 01 Dec 2021 02:47:50 -0500
 Cc: linux-raid <linux-raid@vger.kernel.org>, dm-devel@redhat.com,
@@ -95,95 +96,71 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-Dear Linux folks,
-
-
-Am 20.03.21 um 00:00 schrieb Song Liu:
-> On Wed, Feb 24, 2021 at 1:26 AM Guoqing Jiang wrote:
-
->> On 2/24/21 10:09, Song Liu wrote:
->>> On Mon, Feb 15, 2021 at 3:08 AM Paul Menzel wrote:
->>>>
->>>> [+cc Donald]
->>>>
->>>> Am 13.02.21 um 01:49 schrieb Guoqing Jiang:
->>>>> Unregister sync_thread doesn't need to hold reconfig_mutex since it
->>>>> doesn't reconfigure array.
->>>>>
->>>>> And it could cause deadlock problem for raid5 as follows:
->>>>>
->>>>> 1. process A tried to reap sync thread with reconfig_mutex held after echo
->>>>>       idle to sync_action.
->>>>> 2. raid5 sync thread was blocked if there were too many active stripes.
->>>>> 3. SB_CHANGE_PENDING was set (because of write IO comes from upper layer)
->>>>>       which causes the number of active stripes can't be decreased.
->>>>> 4. SB_CHANGE_PENDING can't be cleared since md_check_recovery was not able
->>>>>       to hold reconfig_mutex.
->>>>>
->>>>> More details in the link:
->>>>> https://lore.kernel.org/linux-raid/5ed54ffc-ce82-bf66-4eff-390cb23bc1ac@molgen.mpg.de/T/#t
->>>>>
->>>>> And add one parameter to md_reap_sync_thread since it could be called by
->>>>> dm-raid which doesn't hold reconfig_mutex.
->>>>>
->>>>> Reported-and-tested-by: Donald Buczek <buczek@molgen.mpg.de>
->>>>> Signed-off-by: Guoqing Jiang <guoqing.jiang@cloud.ionos.com>
->>>
->>> I don't really like this fix. But I haven't got a better (and not too
->>> complicated)
->>> alternative.
->>>
->>>>> ---
->>>>> V2:
->>>>> 1. add one parameter to md_reap_sync_thread per Jack's suggestion.
->>>>>
->>>>>     drivers/md/dm-raid.c |  2 +-
->>>>>     drivers/md/md.c      | 14 +++++++++-----
->>>>>     drivers/md/md.h      |  2 +-
->>>>>     3 files changed, 11 insertions(+), 7 deletions(-)
->>>>>
->>>>> diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
->>>>> index cab12b2..0c4cbba 100644
->>>>> --- a/drivers/md/dm-raid.c
->>>>> +++ b/drivers/md/dm-raid.c
->>>>> @@ -3668,7 +3668,7 @@ static int raid_message(struct dm_target *ti, unsigned int argc, char **argv,
->>>>>         if (!strcasecmp(argv[0], "idle") || !strcasecmp(argv[0], "frozen")) {
->>>>>                 if (mddev->sync_thread) {
->>>>>                         set_bit(MD_RECOVERY_INTR, &mddev->recovery);
->>>>> -                     md_reap_sync_thread(mddev);
->>>>> +                     md_reap_sync_thread(mddev, false);
->>>
->>> I think we can add mddev_lock() and mddev_unlock() here and then we don't
->>> need the extra parameter?
->>
->> I thought it too, but I would prefer get the input from DM people first.
->>
->> @ Mike or Alasdair
-> 
-> Hi Mike and Alasdair,
-> 
-> Could you please comment on this option: adding mddev_lock() and mddev_unlock()
-> to raid_message() around md_reap_sync_thread()?
-
-The issue is unfortunately still unresolved (at least Linux 5.10.82). 
-How can we move forward?
-
-
-Kind regards,
-
-Paul
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+W1VwZGF0ZSBHdW9xaW5n4oCZcyBlbWFpbCBhZGRyZXNzXQoKQW0gMzAuMTEuMjEgdW0gMTg6MjUg
+c2NocmllYiBQYXVsIE1lbnplbDoKPiBEZWFyIExpbnV4IGZvbGtzLAo+IAo+IAo+IEFtIDIwLjAz
+LjIxIHVtIDAwOjAwIHNjaHJpZWIgU29uZyBMaXU6Cj4+IE9uIFdlZCwgRmViIDI0LCAyMDIxIGF0
+IDE6MjYgQU0gR3VvcWluZyBKaWFuZyB3cm90ZToKPiAKPj4+IE9uIDIvMjQvMjEgMTA6MDksIFNv
+bmcgTGl1IHdyb3RlOgo+Pj4+IE9uIE1vbiwgRmViIDE1LCAyMDIxIGF0IDM6MDggQU0gUGF1bCBN
+ZW56ZWwgd3JvdGU6Cj4+Pj4+Cj4+Pj4+IFsrY2MgRG9uYWxkXQo+Pj4+Pgo+Pj4+PiBBbSAxMy4w
+Mi4yMSB1bSAwMTo0OSBzY2hyaWViIEd1b3FpbmcgSmlhbmc6Cj4+Pj4+PiBVbnJlZ2lzdGVyIHN5
+bmNfdGhyZWFkIGRvZXNuJ3QgbmVlZCB0byBob2xkIHJlY29uZmlnX211dGV4IHNpbmNlIGl0Cj4+
+Pj4+PiBkb2Vzbid0IHJlY29uZmlndXJlIGFycmF5Lgo+Pj4+Pj4KPj4+Pj4+IEFuZCBpdCBjb3Vs
+ZCBjYXVzZSBkZWFkbG9jayBwcm9ibGVtIGZvciByYWlkNSBhcyBmb2xsb3dzOgo+Pj4+Pj4KPj4+
+Pj4+IDEuIHByb2Nlc3MgQSB0cmllZCB0byByZWFwIHN5bmMgdGhyZWFkIHdpdGggcmVjb25maWdf
+bXV0ZXggaGVsZCAKPj4+Pj4+IGFmdGVyIGVjaG8KPj4+Pj4+IMKgwqDCoMKgwqAgaWRsZSB0byBz
+eW5jX2FjdGlvbi4KPj4+Pj4+IDIuIHJhaWQ1IHN5bmMgdGhyZWFkIHdhcyBibG9ja2VkIGlmIHRo
+ZXJlIHdlcmUgdG9vIG1hbnkgYWN0aXZlIAo+Pj4+Pj4gc3RyaXBlcy4KPj4+Pj4+IDMuIFNCX0NI
+QU5HRV9QRU5ESU5HIHdhcyBzZXQgKGJlY2F1c2Ugb2Ygd3JpdGUgSU8gY29tZXMgZnJvbSB1cHBl
+ciAKPj4+Pj4+IGxheWVyKQo+Pj4+Pj4gwqDCoMKgwqDCoCB3aGljaCBjYXVzZXMgdGhlIG51bWJl
+ciBvZiBhY3RpdmUgc3RyaXBlcyBjYW4ndCBiZSBkZWNyZWFzZWQuCj4+Pj4+PiA0LiBTQl9DSEFO
+R0VfUEVORElORyBjYW4ndCBiZSBjbGVhcmVkIHNpbmNlIG1kX2NoZWNrX3JlY292ZXJ5IHdhcyAK
+Pj4+Pj4+IG5vdCBhYmxlCj4+Pj4+PiDCoMKgwqDCoMKgIHRvIGhvbGQgcmVjb25maWdfbXV0ZXgu
+Cj4+Pj4+Pgo+Pj4+Pj4gTW9yZSBkZXRhaWxzIGluIHRoZSBsaW5rOgo+Pj4+Pj4gaHR0cHM6Ly9s
+b3JlLmtlcm5lbC5vcmcvbGludXgtcmFpZC81ZWQ1NGZmYy1jZTgyLWJmNjYtNGVmZi0zOTBjYjIz
+YmMxYWNAbW9sZ2VuLm1wZy5kZS9ULyN0IAo+Pj4+Pj4KPj4+Pj4+Cj4+Pj4+PiBBbmQgYWRkIG9u
+ZSBwYXJhbWV0ZXIgdG8gbWRfcmVhcF9zeW5jX3RocmVhZCBzaW5jZSBpdCBjb3VsZCBiZSAKPj4+
+Pj4+IGNhbGxlZCBieQo+Pj4+Pj4gZG0tcmFpZCB3aGljaCBkb2Vzbid0IGhvbGQgcmVjb25maWdf
+bXV0ZXguCj4+Pj4+Pgo+Pj4+Pj4gUmVwb3J0ZWQtYW5kLXRlc3RlZC1ieTogRG9uYWxkIEJ1Y3pl
+ayA8YnVjemVrQG1vbGdlbi5tcGcuZGU+Cj4+Pj4+PiBTaWduZWQtb2ZmLWJ5OiBHdW9xaW5nIEpp
+YW5nIDxndW9xaW5nLmppYW5nQGNsb3VkLmlvbm9zLmNvbT4KPj4+Pgo+Pj4+IEkgZG9uJ3QgcmVh
+bGx5IGxpa2UgdGhpcyBmaXguIEJ1dCBJIGhhdmVuJ3QgZ290IGEgYmV0dGVyIChhbmQgbm90IHRv
+bwo+Pj4+IGNvbXBsaWNhdGVkKQo+Pj4+IGFsdGVybmF0aXZlLgo+Pj4+Cj4+Pj4+PiAtLS0KPj4+
+Pj4+IFYyOgo+Pj4+Pj4gMS4gYWRkIG9uZSBwYXJhbWV0ZXIgdG8gbWRfcmVhcF9zeW5jX3RocmVh
+ZCBwZXIgSmFjaydzIHN1Z2dlc3Rpb24uCj4+Pj4+Pgo+Pj4+Pj4gwqDCoMKgIGRyaXZlcnMvbWQv
+ZG0tcmFpZC5jIHzCoCAyICstCj4+Pj4+PiDCoMKgwqAgZHJpdmVycy9tZC9tZC5jwqDCoMKgwqDC
+oCB8IDE0ICsrKysrKysrKy0tLS0tCj4+Pj4+PiDCoMKgwqAgZHJpdmVycy9tZC9tZC5owqDCoMKg
+wqDCoCB8wqAgMiArLQo+Pj4+Pj4gwqDCoMKgIDMgZmlsZXMgY2hhbmdlZCwgMTEgaW5zZXJ0aW9u
+cygrKSwgNyBkZWxldGlvbnMoLSkKPj4+Pj4+Cj4+Pj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9t
+ZC9kbS1yYWlkLmMgYi9kcml2ZXJzL21kL2RtLXJhaWQuYwo+Pj4+Pj4gaW5kZXggY2FiMTJiMi4u
+MGM0Y2JiYSAxMDA2NDQKPj4+Pj4+IC0tLSBhL2RyaXZlcnMvbWQvZG0tcmFpZC5jCj4+Pj4+PiAr
+KysgYi9kcml2ZXJzL21kL2RtLXJhaWQuYwo+Pj4+Pj4gQEAgLTM2NjgsNyArMzY2OCw3IEBAIHN0
+YXRpYyBpbnQgcmFpZF9tZXNzYWdlKHN0cnVjdCBkbV90YXJnZXQgCj4+Pj4+PiAqdGksIHVuc2ln
+bmVkIGludCBhcmdjLCBjaGFyICoqYXJndiwKPj4+Pj4+IMKgwqDCoMKgwqDCoMKgIGlmICghc3Ry
+Y2FzZWNtcChhcmd2WzBdLCAiaWRsZSIpIHx8ICFzdHJjYXNlY21wKGFyZ3ZbMF0sIAo+Pj4+Pj4g
+ImZyb3plbiIpKSB7Cj4+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgaWYgKG1k
+ZGV2LT5zeW5jX3RocmVhZCkgewo+Pj4+Pj4gwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBzZXRfYml0KE1EX1JFQ09WRVJZX0lOVFIsICZtZGRldi0+cmVjb3Zl
+cnkpOwo+Pj4+Pj4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgbWRf
+cmVhcF9zeW5jX3RocmVhZChtZGRldik7Cj4+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoMKgwqDCoMKgwqDCoCBtZF9yZWFwX3N5bmNfdGhyZWFkKG1kZGV2LCBmYWxzZSk7Cj4+Pj4K
+Pj4+PiBJIHRoaW5rIHdlIGNhbiBhZGQgbWRkZXZfbG9jaygpIGFuZCBtZGRldl91bmxvY2soKSBo
+ZXJlIGFuZCB0aGVuIHdlIAo+Pj4+IGRvbid0Cj4+Pj4gbmVlZCB0aGUgZXh0cmEgcGFyYW1ldGVy
+Pwo+Pj4KPj4+IEkgdGhvdWdodCBpdCB0b28sIGJ1dCBJIHdvdWxkIHByZWZlciBnZXQgdGhlIGlu
+cHV0IGZyb20gRE0gcGVvcGxlIGZpcnN0Lgo+Pj4KPj4+IEAgTWlrZSBvciBBbGFzZGFpcgo+Pgo+
+PiBIaSBNaWtlIGFuZCBBbGFzZGFpciwKPj4KPj4gQ291bGQgeW91IHBsZWFzZSBjb21tZW50IG9u
+IHRoaXMgb3B0aW9uOiBhZGRpbmcgbWRkZXZfbG9jaygpIGFuZCAKPj4gbWRkZXZfdW5sb2NrKCkK
+Pj4gdG8gcmFpZF9tZXNzYWdlKCkgYXJvdW5kIG1kX3JlYXBfc3luY190aHJlYWQoKT8KPiAKPiBU
+aGUgaXNzdWUgaXMgdW5mb3J0dW5hdGVseSBzdGlsbCB1bnJlc29sdmVkIChhdCBsZWFzdCBMaW51
+eCA1LjEwLjgyKS4gCj4gSG93IGNhbiB3ZSBtb3ZlIGZvcndhcmQ/Cj4gCj4gCj4gS2luZCByZWdh
+cmRzLAo+IAo+IFBhdWwKCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0
+LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
 
