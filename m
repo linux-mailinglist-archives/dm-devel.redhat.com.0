@@ -1,68 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 248BF464E0D
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 13:37:53 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 092E0464E09
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 13:37:46 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-316-ONoxd59vM7KVlrz1IYznhw-1; Wed, 01 Dec 2021 07:37:45 -0500
-X-MC-Unique: ONoxd59vM7KVlrz1IYznhw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-303-1kPvIjzTOryV-cmBsld9VA-1; Wed, 01 Dec 2021 07:37:42 -0500
+X-MC-Unique: 1kPvIjzTOryV-cmBsld9VA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5BC5F1926DA8;
-	Wed,  1 Dec 2021 12:37:34 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B90910013D6;
-	Wed,  1 Dec 2021 12:37:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EF4C0874998;
+	Wed,  1 Dec 2021 12:37:36 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C84EF5F4E7;
+	Wed,  1 Dec 2021 12:37:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C237F4A7C9;
-	Wed,  1 Dec 2021 12:37:32 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D11571809CB8;
+	Wed,  1 Dec 2021 12:37:35 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B1CbB0o008683 for <dm-devel@listman.util.phx.redhat.com>;
+	id 1B1CbB6O008694 for <dm-devel@listman.util.phx.redhat.com>;
 	Wed, 1 Dec 2021 07:37:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EE28A401E44; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
+	id 4155B401E54; Wed,  1 Dec 2021 12:37:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EABEE401E2F
-	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
+	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E2B1401E38
+	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:11 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D21CC80158D
-	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26A19811E85
+	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:11 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-190-mLQA8cT2P_KJ6j9GvPXF3A-1; Wed, 01 Dec 2021 07:37:07 -0500
-X-MC-Unique: mLQA8cT2P_KJ6j9GvPXF3A-1
+	us-mta-213-JSd1q_ZqOLSYobfeaPSt5A-1; Wed, 01 Dec 2021 07:37:07 -0500
+X-MC-Unique: JSd1q_ZqOLSYobfeaPSt5A-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id A52951FD5B;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id E68411FD5C;
 	Wed,  1 Dec 2021 12:37:05 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6443E14000;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B07FB13FF5;
 	Wed,  1 Dec 2021 12:37:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id aIiUFnFsp2GGKAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id KKosKXFsp2GGKAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Wed, 01 Dec 2021 12:37:05 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed,  1 Dec 2021 13:36:32 +0100
-Message-Id: <20211201123650.16240-4-mwilck@suse.com>
+Date: Wed,  1 Dec 2021 13:36:33 +0100
+Message-Id: <20211201123650.16240-5-mwilck@suse.com>
 In-Reply-To: <20211201123650.16240-1-mwilck@suse.com>
 References: <20211201123650.16240-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -76,11 +76,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B1CbB0o008683
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B1CbB6O008694
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 03/21] multipathd (coverity): terminate uxlsnr
-	when polls allocation fails
+Subject: [dm-devel] [PATCH v2 04/21] libmultipath: strbuf: add
+	__get_strbuf_buf()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,27 +104,57 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The polls array is dereferenced later on, so even if we are soon
-to be cancelled, we should return immediately here.
+Add a function for internal use that allows direct manipulation
+of the strbuf's content.
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/uxlsnr.c | 1 +
- 1 file changed, 1 insertion(+)
+ libmultipath/strbuf.c |  5 +++++
+ libmultipath/strbuf.h | 14 ++++++++++++++
+ 2 files changed, 19 insertions(+)
 
-diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index cd025ea..912ac3c 100644
---- a/multipathd/uxlsnr.c
-+++ b/multipathd/uxlsnr.c
-@@ -609,6 +609,7 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
- 	if (!polls) {
- 		condlog(0, "uxsock: failed to allocate poll fds");
- 		exit_daemon();
-+		return NULL;
- 	}
- 	notify_fd = inotify_init1(IN_NONBLOCK);
- 	if (notify_fd == -1) /* it's fine if notifications fail */
+diff --git a/libmultipath/strbuf.c b/libmultipath/strbuf.c
+index a24a57d..f654594 100644
+--- a/libmultipath/strbuf.c
++++ b/libmultipath/strbuf.c
+@@ -15,6 +15,11 @@
+ 
+ static const char empty_str[] = "";
+ 
++char *__get_strbuf_buf(struct strbuf *buf)
++{
++	return buf->buf;
++}
++
+ const char *get_strbuf_str(const struct strbuf *buf)
+ {
+ 	return buf->buf ? buf->buf : empty_str;
+diff --git a/libmultipath/strbuf.h b/libmultipath/strbuf.h
+index 5903572..41d7d54 100644
+--- a/libmultipath/strbuf.h
++++ b/libmultipath/strbuf.h
+@@ -54,6 +54,20 @@ void free_strbuf(struct strbuf *buf);
+  */
+ struct strbuf *new_strbuf(void);
+ 
++/**
++ * get_strbuf_buf(): retrieve a pointer to the strbuf's buffer
++ * @param buf: a struct strbuf
++ * @returns: pointer to the string written to the strbuf so far.
++ *
++ * INTERNAL ONLY.
++ * DANGEROUS: Unlike the return value of get_strbuf_str(),
++ * this string can be written to, modifying the strbuf's content.
++ * USE WITH CAUTION.
++ * If @strbuf was never written to, the function returns NULL.
++ * The return value of this function must not be free()d.
++ */
++char *__get_strbuf_buf(struct strbuf *buf);
++
+ /**
+  * get_strbuf_str(): retrieve string from strbuf
+  * @param buf: a struct strbuf
 -- 
 2.33.1
 
