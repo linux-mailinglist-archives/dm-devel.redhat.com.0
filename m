@@ -1,68 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42015464E10
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 13:38:00 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EBFFA464E08
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 13:37:44 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-37-XJQFiuDTPJur1DT7x0dfYw-1; Wed, 01 Dec 2021 07:37:57 -0500
-X-MC-Unique: XJQFiuDTPJur1DT7x0dfYw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-148-ea12RJvbMie6f7vzSTfkiA-1; Wed, 01 Dec 2021 07:37:42 -0500
+X-MC-Unique: ea12RJvbMie6f7vzSTfkiA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D4B3110144E8;
-	Wed,  1 Dec 2021 12:37:51 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ED54194DD7;
+	Wed,  1 Dec 2021 12:37:36 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9298E60C05;
-	Wed,  1 Dec 2021 12:37:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C855B5F4ED;
+	Wed,  1 Dec 2021 12:37:36 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7EBA14A705;
-	Wed,  1 Dec 2021 12:37:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.7])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CD1B84A700;
+	Wed,  1 Dec 2021 12:37:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B1CbDRl008750 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 1 Dec 2021 07:37:13 -0500
+	id 1B1CbGh2008803 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 1 Dec 2021 07:37:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 04B8E1402406; Wed,  1 Dec 2021 12:37:13 +0000 (UTC)
+	id E12362166B2F; Wed,  1 Dec 2021 12:37:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0084C1402400
-	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCD8385A5A8
-	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBE362166B26
+	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1818C85A5A8
+	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:13 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-563-qtI-eqJIPjm-DZiNaMCX-A-1; Wed, 01 Dec 2021 07:37:09 -0500
-X-MC-Unique: qtI-eqJIPjm-DZiNaMCX-A-1
+	us-mta-589-3hi2h9SDM42gMqCB7C9VGg-1; Wed, 01 Dec 2021 07:37:09 -0500
+X-MC-Unique: 3hi2h9SDM42gMqCB7C9VGg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id DE90D1FD58;
-	Wed,  1 Dec 2021 12:37:07 +0000 (UTC)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 1FFA81FD5B;
+	Wed,  1 Dec 2021 12:37:08 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9FEAA13FF5;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E08AA14000;
 	Wed,  1 Dec 2021 12:37:07 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id aEExJXNsp2GGKAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id yB3+NHNsp2GGKAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Wed, 01 Dec 2021 12:37:07 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed,  1 Dec 2021 13:36:40 +0100
-Message-Id: <20211201123650.16240-12-mwilck@suse.com>
+Date: Wed,  1 Dec 2021 13:36:41 +0100
+Message-Id: <20211201123650.16240-13-mwilck@suse.com>
 In-Reply-To: <20211201123650.16240-1-mwilck@suse.com>
 References: <20211201123650.16240-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,13 +73,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B1CbDRl008750
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B1CbGh2008803
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 11/21] multipath: remove pointless code from
-	getopt processing
+Subject: [dm-devel] [PATCH v2 12/21] libmultipath (coverity): set umask
+	before mkstemp
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +93,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,31 +103,38 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-getopt() never returns 1, and sizeof(optarg) is always sizeof(char *).
+Coverity SECURE_TEMP
+(https://scan4.coverity.com/doc/en/cov_checker_ref.html#static_checker_SECURE_TEMP).
+multipathd sets this umask anyway, but multipath doesn't.
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipath/main.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ libmultipath/alias.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/multipath/main.c b/multipath/main.c
-index 2a42748..5711acf 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -841,11 +841,8 @@ main (int argc, char *argv[])
- 		condlog(1, "failed to register cleanup handler for vecs: %m");
- 	while ((arg = getopt(argc, argv, ":adDcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
- 		switch(arg) {
--		case 1: printf("optarg : %s\n",optarg);
--			break;
- 		case 'v':
--			if (sizeof(optarg) > sizeof(char *) ||
--			    !isdigit(optarg[0])) {
-+			if (!isdigit(optarg[0])) {
- 				usage (argv[0]);
- 				exit(RTVL_FAIL);
- 			}
+diff --git a/libmultipath/alias.c b/libmultipath/alias.c
+index 6ae512c..87c33af 100644
+--- a/libmultipath/alias.c
++++ b/libmultipath/alias.c
+@@ -578,13 +578,17 @@ static int fix_bindings_file(const struct config *conf,
+ 	int rc;
+ 	long fd;
+ 	char tempname[PATH_MAX];
++	mode_t old_umask;
+ 
+ 	if (safe_sprintf(tempname, "%s.XXXXXX", conf->bindings_file))
+ 		return -1;
++	/* coverity: SECURE_TEMP */
++	old_umask = umask(0077);
+ 	if ((fd = mkstemp(tempname)) == -1) {
+ 		condlog(1, "%s: mkstemp: %m", __func__);
+ 		return -1;
+ 	}
++	umask(old_umask);
+ 	pthread_cleanup_push(close_fd, (void*)fd);
+ 	rc = write_bindings_file(bindings, fd);
+ 	pthread_cleanup_pop(1);
 -- 
 2.33.1
 
