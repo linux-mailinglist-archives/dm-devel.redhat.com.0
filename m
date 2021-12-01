@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 327DA464E00
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 13:37:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 248BF464E0D
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Dec 2021 13:37:53 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-598-Rcxed7uUOC2qKOxSznfkWw-1; Wed, 01 Dec 2021 07:37:31 -0500
-X-MC-Unique: Rcxed7uUOC2qKOxSznfkWw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-316-ONoxd59vM7KVlrz1IYznhw-1; Wed, 01 Dec 2021 07:37:45 -0500
+X-MC-Unique: ONoxd59vM7KVlrz1IYznhw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3EE5E93921;
-	Wed,  1 Dec 2021 12:37:26 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D8BDA60C05;
-	Wed,  1 Dec 2021 12:37:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5BC5F1926DA8;
+	Wed,  1 Dec 2021 12:37:34 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3B90910013D6;
+	Wed,  1 Dec 2021 12:37:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2BC7D1809CB7;
-	Wed,  1 Dec 2021 12:37:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C237F4A7C9;
+	Wed,  1 Dec 2021 12:37:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B1CbAm2008678 for <dm-devel@listman.util.phx.redhat.com>;
+	id 1B1CbB0o008683 for <dm-devel@listman.util.phx.redhat.com>;
 	Wed, 1 Dec 2021 07:37:11 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AEC0C40CFD10; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
+	id EE28A401E44; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A99F340CFD0E
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EABEE401E2F
 	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 539F6811E7F
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D21CC80158D
 	for <dm-devel@redhat.com>; Wed,  1 Dec 2021 12:37:10 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-598-ebtmLUPTMHqORcH4LJUCvQ-1; Wed, 01 Dec 2021 07:37:06 -0500
-X-MC-Unique: ebtmLUPTMHqORcH4LJUCvQ-1
+	us-mta-190-mLQA8cT2P_KJ6j9GvPXF3A-1; Wed, 01 Dec 2021 07:37:07 -0500
+X-MC-Unique: mLQA8cT2P_KJ6j9GvPXF3A-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 62FD5212BA;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id A52951FD5B;
 	Wed,  1 Dec 2021 12:37:05 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 174CD13FF5;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6443E14000;
 	Wed,  1 Dec 2021 12:37:05 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id YBXNA3Fsp2GGKAAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id aIiUFnFsp2GGKAAAMHmgww
 	(envelope-from <mwilck@suse.com>); Wed, 01 Dec 2021 12:37:05 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed,  1 Dec 2021 13:36:31 +0100
-Message-Id: <20211201123650.16240-3-mwilck@suse.com>
+Date: Wed,  1 Dec 2021 13:36:32 +0100
+Message-Id: <20211201123650.16240-4-mwilck@suse.com>
 In-Reply-To: <20211201123650.16240-1-mwilck@suse.com>
 References: <20211201123650.16240-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,13 +74,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B1CbAm2008678
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B1CbB0o008683
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH v2 02/21] multipathd (coverity): check atexit()
-	return value
+Subject: [dm-devel] [PATCH v2 03/21] multipathd (coverity): terminate uxlsnr
+	when polls allocation fails
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,26 +104,27 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
+The polls array is dereferenced later on, so even if we are soon
+to be cancelled, we should return immediately here.
+
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipath/main.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ multipathd/uxlsnr.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/multipath/main.c b/multipath/main.c
-index 151cb93..cd234ac 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -837,7 +837,8 @@ main (int argc, char *argv[])
- 	conf = get_multipath_config();
- 	conf->retrigger_tries = 0;
- 	conf->force_sync = 1;
--	atexit(cleanup_vecs);
-+	if (atexit(cleanup_vecs))
-+		condlog(1, "failed to register cleanup handler for vecs: %m");
- 	while ((arg = getopt(argc, argv, ":adDcChl::eFfM:v:p:b:BrR:itTquUwW")) != EOF ) {
- 		switch(arg) {
- 		case 1: printf("optarg : %s\n",optarg);
+diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
+index cd025ea..912ac3c 100644
+--- a/multipathd/uxlsnr.c
++++ b/multipathd/uxlsnr.c
+@@ -609,6 +609,7 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
+ 	if (!polls) {
+ 		condlog(0, "uxsock: failed to allocate poll fds");
+ 		exit_daemon();
++		return NULL;
+ 	}
+ 	notify_fd = inotify_init1(IN_NONBLOCK);
+ 	if (notify_fd == -1) /* it's fine if notifications fail */
 -- 
 2.33.1
 
