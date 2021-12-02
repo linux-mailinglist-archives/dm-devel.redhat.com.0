@@ -2,66 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 939C3466795
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Dec 2021 17:08:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D768F46679D
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Dec 2021 17:08:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-437-oFf44yZjM7K8Z0eAZVlTgg-1; Thu, 02 Dec 2021 11:08:05 -0500
-X-MC-Unique: oFf44yZjM7K8Z0eAZVlTgg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-307-_LxD1FAyPSuLJZK1ER900Q-1; Thu, 02 Dec 2021 11:08:57 -0500
+X-MC-Unique: _LxD1FAyPSuLJZK1ER900Q-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EAA0E1006AA1;
-	Thu,  2 Dec 2021 16:07:59 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 26D9E1966321;
+	Thu,  2 Dec 2021 16:08:51 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA95B5D9D5;
-	Thu,  2 Dec 2021 16:07:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EC4445F4E7;
+	Thu,  2 Dec 2021 16:08:50 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id F27884BB7C;
-	Thu,  2 Dec 2021 16:07:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAC3A4CA93;
+	Thu,  2 Dec 2021 16:08:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B2G7gWv006911 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 Dec 2021 11:07:42 -0500
+	id 1B2G7dmg006894 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Dec 2021 11:07:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 3929A401E2D; Thu,  2 Dec 2021 16:07:42 +0000 (UTC)
+	id B2F0B14582F1; Thu,  2 Dec 2021 16:07:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34F5D401E5D
-	for <dm-devel@redhat.com>; Thu,  2 Dec 2021 16:07:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEE9114582F0
+	for <dm-devel@redhat.com>; Thu,  2 Dec 2021 16:07:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D8CA181E071
-	for <dm-devel@redhat.com>; Thu,  2 Dec 2021 16:07:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96BAE801212
+	for <dm-devel@redhat.com>; Thu,  2 Dec 2021 16:07:39 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-226-twzNecYcPOmtAGEpoELK2A-1; Thu, 02 Dec 2021 11:07:34 -0500
-X-MC-Unique: twzNecYcPOmtAGEpoELK2A-1
+	us-mta-176-4SVpD5ocOsWBveYeM3uRyA-1; Thu, 02 Dec 2021 11:07:34 -0500
+X-MC-Unique: 4SVpD5ocOsWBveYeM3uRyA-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 7772B212C6;
+	by smtp-out1.suse.de (Postfix) with ESMTPS id BE1D02177B;
 	Thu,  2 Dec 2021 16:07:32 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3C37713E82;
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8526A13E82;
 	Thu,  2 Dec 2021 16:07:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id eFOMDETvqGGnEgAAMHmgww
+	by imap2.suse-dmz.suse.de with ESMTPSA id YF9yHkTvqGGnEgAAMHmgww
 	(envelope-from <mwilck@suse.com>); Thu, 02 Dec 2021 16:07:32 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu,  2 Dec 2021 17:06:50 +0100
-Message-Id: <20211202160652.4576-11-mwilck@suse.com>
+Date: Thu,  2 Dec 2021 17:06:51 +0100
+Message-Id: <20211202160652.4576-12-mwilck@suse.com>
 In-Reply-To: <20211202160652.4576-1-mwilck@suse.com>
 References: <20211202160652.4576-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -73,13 +74,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B2G7gWv006911
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B2G7dmg006894
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 09/11] libmultipath: remove
-	recv_packet_from_client()
+Subject: [dm-devel] [PATCH 10/11] libmultipath.version: drop some unused
+	symbols
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -93,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,54 +104,73 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-This function became unused after the late uxlsnr patches.
+Remove some symbols that aren't used any more, and move
+symbols "only" used by checkers / prioritizers to their respective
+places in the file (this helps assessing which symbols are used).
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/libmultipath.version | 1 -
- libmultipath/uxsock.c             | 5 -----
- libmultipath/uxsock.h             | 6 ------
- 3 files changed, 12 deletions(-)
+ libmultipath/libmultipath.version | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
 diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index a693933..941bd8f 100644
+index 941bd8f..7f845ed 100644
 --- a/libmultipath/libmultipath.version
 +++ b/libmultipath/libmultipath.version
-@@ -140,7 +140,6 @@ global:
- 	_print_multipath_topology;
- 	pthread_cond_init_mono;
- 	recv_packet;
--	recv_packet_from_client;
- 	reinstate_paths;
- 	remember_wwid;
- 	remove_map;
-diff --git a/libmultipath/uxsock.c b/libmultipath/uxsock.c
-index 0ccd1fa..2135476 100644
---- a/libmultipath/uxsock.c
-+++ b/libmultipath/uxsock.c
-@@ -128,8 +128,3 @@ int recv_packet(int fd, char **buf, unsigned int timeout)
- {
- 	return _recv_packet(fd, buf, timeout, 0 /* no limit */);
- }
+@@ -48,7 +48,6 @@ global:
+ 	checker_clear_message;
+ 	checker_disable;
+ 	checker_enable;
+-	checker_is_sync;
+ 	checker_message;
+ 	checker_name;
+ 	checker_state_name;
+@@ -209,10 +208,13 @@ global:
+ 	verify_paths;
+ 
+ 	/* checkers */
++	checker_is_sync;
+ 	sg_read;
++	start_checker_thread;
+ 
+ 	/* prioritizers */
+ 	get_asymmetric_access_state;
++	get_next_string;
+ 	get_prio_timeout;
+ 	get_target_port_group;
+ 	get_target_port_group_support;
+@@ -234,7 +236,6 @@ global:
+ 
+ 	/* added in 2.1.0 */
+ 	libmp_dm_task_run;
+-	cleanup_mutex;
+ 
+ 	/* added in 2.2.0 */
+ 	libmp_get_multipath_config;
+@@ -257,15 +258,10 @@ global:
+ 	dm_prereq;
+ 	skip_libmp_dm_init;
+ 
+-	/* added in 4.3.0 */
+-	start_checker_thread;
 -
--int recv_packet_from_client(int fd, char **buf, unsigned int timeout)
--{
--	return _recv_packet(fd, buf, timeout, _MAX_CMD_LEN);
--}
-diff --git a/libmultipath/uxsock.h b/libmultipath/uxsock.h
-index 8e7401d..e3d28cf 100644
---- a/libmultipath/uxsock.h
-+++ b/libmultipath/uxsock.h
-@@ -5,9 +5,3 @@ int recv_packet(int fd, char **buf, unsigned int timeout);
+ 	/* added in 4.4.0 */
+-	get_next_string;
  
- #define _MAX_CMD_LEN		512
+ 	/* added in 4.5.0 */
+ 	get_vpd_sgio;
+-	trigger_partitions_udev_change;
  
--/*
-- * Used for receiving socket command from untrusted socket client where data
-- * size is restricted to 512(_MAX_CMD_LEN) at most.
-- * Return -EINVAL if data length requested by client exceeded the _MAX_CMD_LEN.
-- */
--int recv_packet_from_client(int fd, char **buf, unsigned int timeout);
+ 	/* added in 7.0.0 */
+ 	cleanup_charp;
+@@ -276,7 +272,6 @@ global:
+ 	append_strbuf_str;
+ 	get_strbuf_len;
+ 	get_strbuf_str;
+-	steal_strbuf_str;
+ 	fill_strbuf;
+ 	print_strbuf;
+ 	truncate_strbuf;
 -- 
 2.34.0
 
