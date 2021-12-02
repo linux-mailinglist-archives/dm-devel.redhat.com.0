@@ -2,60 +2,81 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C238B4666EB
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Dec 2021 16:41:59 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1638459718;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=WtvkEM3WlcN1RJw1aLTIYvC3b+0p1sYQ2KnfPIVqeNw=;
-	b=FBkfT1oYldigLnZZwY8Dd/82fWMU6LOFi84beWXVbZrdjlUpXnx/ZkpVsfHpV2LGzcUjHq
-	VQSyKrr28meU4a+Etxl18KtN3AKcInQTaWMzFbNT3wuK+QmGZstnO1dnSwtokyFP+TxS7u
-	os7+Ep4Md/pz0KcZkRXSu/sGSSmhNJg=
+	by mail.lfdr.de (Postfix) with ESMTPS id 032CB466798
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Dec 2021 17:08:46 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-54-rDLkYx97MEmo-V87s6jfvw-1; Thu, 02 Dec 2021 10:41:57 -0500
-X-MC-Unique: rDLkYx97MEmo-V87s6jfvw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-204-F09AMOQAPaCrJvyND0VCFw-1; Thu, 02 Dec 2021 11:08:44 -0500
+X-MC-Unique: F09AMOQAPaCrJvyND0VCFw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AA25784B9A2;
-	Thu,  2 Dec 2021 15:41:47 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 80D0B79448;
-	Thu,  2 Dec 2021 15:41:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BC5391006AA4;
+	Thu,  2 Dec 2021 16:08:37 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A589ADC5;
+	Thu,  2 Dec 2021 16:08:37 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 225611809C89;
-	Thu,  2 Dec 2021 15:41:37 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C19014BB7C;
+	Thu,  2 Dec 2021 16:08:36 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1B2FfOUo005019 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 2 Dec 2021 10:41:24 -0500
+	id 1B2G7WZg006786 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 2 Dec 2021 11:07:33 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B3DCF4ABA2; Thu,  2 Dec 2021 15:41:24 +0000 (UTC)
+	id D4A314047279; Thu,  2 Dec 2021 16:07:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from [10.40.192.249] (unknown [10.40.192.249])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D6DB0694C0;
-	Thu,  2 Dec 2021 15:41:16 +0000 (UTC)
-Message-ID: <5ccbac2c-8eb8-3e57-3cb3-8f85038d4e01@redhat.com>
-Date: Thu, 2 Dec 2021 16:41:15 +0100
+Received: from mimecast-mx02.redhat.com
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D055E4047272
+	for <dm-devel@redhat.com>; Thu,  2 Dec 2021 16:07:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B65A61066558
+	for <dm-devel@redhat.com>; Thu,  2 Dec 2021 16:07:32 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-479-S1BvcMgYO5i3S8kHLLOTfA-1; Thu, 02 Dec 2021 11:07:30 -0500
+X-MC-Unique: S1BvcMgYO5i3S8kHLLOTfA-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 809B4212C6;
+	Thu,  2 Dec 2021 16:07:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4682313E82;
+	Thu,  2 Dec 2021 16:07:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id itYVD0HvqGGnEgAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 02 Dec 2021 16:07:29 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu,  2 Dec 2021 17:06:40 +0100
+Message-Id: <20211202160652.4576-1-mwilck@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
-	Firefox/91.0 Thunderbird/91.3.0
-To: Nikos Tsironis <ntsironis@arrikto.com>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>
-References: <1127b165-f886-e3cf-061d-141fa7fb7d97@arrikto.com>
-From: Zdenek Kabelac <zkabelac@redhat.com>
-In-Reply-To: <1127b165-f886-e3cf-061d-141fa7fb7d97@arrikto.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 1B2G7WZg006786
 X-loop: dm-devel@redhat.com
-Subject: Re: [dm-devel] Deadlock when swapping a table with a dm-era target
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH 00/11] Last-minute patches for multipath-tools
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -69,50 +90,69 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-RG5lIDAxLiAxMi4gMjEgdiAxODowNyBOaWtvcyBUc2lyb25pcyBuYXBzYWwoYSk6Cj4gSGVsbG8s
-Cj4KPiBVbmRlciBjZXJ0YWluIGNvbmRpdGlvbnMsIHN3YXBwaW5nIGEgdGFibGUsIHRoYXQgaW5j
-bHVkZXMgYSBkbS1lcmEKPiB0YXJnZXQsIHdpdGggYSBuZXcgdGFibGUsIGNhdXNlcyBhIGRlYWRs
-b2NrLgo+Cj4gVGhpcyBoYXBwZW5zIHdoZW4gYSBzdGF0dXMgKFNUQVRVU1RZUEVfSU5GTykgb3Ig
-bWVzc2FnZSBJT0NUTCBpcyBibG9ja2VkCj4gaW4gdGhlIHN1c3BlbmRlZCBkbS1lcmEgdGFyZ2V0
-Lgo+Cj4gZG0tZXJhIGV4ZWN1dGVzIGFsbCBtZXRhZGF0YSBvcGVyYXRpb25zIGluIGEgd29ya2Vy
-IHRocmVhZCwgd2hpY2ggc3RvcHMKPiBwcm9jZXNzaW5nIHJlcXVlc3RzIHdoZW4gdGhlIHRhcmdl
-dCBpcyBzdXNwZW5kZWQsIGFuZCByZXN1bWVzIGFnYWluIHdoZW4KPiB0aGUgdGFyZ2V0IGlzIHJl
-c3VtZWQuCj4KPiBTbywgcnVubmluZyAnZG1zZXR1cCBzdGF0dXMnIG9yICdkbXNldHVwIG1lc3Nh
-Z2UnIGZvciBhIHN1c3BlbmRlZCBkbS1lcmEKPiBkZXZpY2UgYmxvY2tzLCB1bnRpbCB0aGUgZGV2
-aWNlIGlzIHJlc3VtZWQuCj4KPiBUaGlzIHNlZW1zIHRvIGJlIGEgcHJvYmxlbSBvbiBpdHMgb3du
-Lgo+Cj4gSWYgd2UgdGhlbiBsb2FkIGEgbmV3IHRhYmxlIHRvIHRoZSBkZXZpY2UsIHdoaWxlIHRo
-ZSBhZm9yZW1lbnRpb25lZAo+IGRtc2V0dXAgY29tbWFuZCBpcyBibG9ja2VkIGluIGRtLWVyYSwg
-YW5kIHJlc3VtZSB0aGUgZGV2aWNlLCB3ZQo+IGRlYWRsb2NrLgo+Cj4gVGhlIHByb2JsZW0gaXMg
-dGhhdCB0aGUgJ2Rtc2V0dXAgc3RhdHVzJyBhbmQgJ2Rtc2V0dXAgbWVzc2FnZScgY29tbWFuZHMK
-PiBob2xkIGEgcmVmZXJlbmNlIHRvIHRoZSBsaXZlIHRhYmxlLCBpLmUuLCB0aGV5IGhvbGQgYW4g
-U1JDVSByZWFkIGxvY2sgb24KPiBtZC0+aW9fYmFycmllciwgd2hpbGUgdGhleSBhcmUgYmxvY2tl
-ZC4KPgo+IFdoZW4gdGhlIGRldmljZSBpcyByZXN1bWVkLCB0aGUgb2xkIHRhYmxlIGlzIHJlcGxh
-Y2VkIHdpdGggdGhlIG5ldyBvbmUKPiBieSBkbV9zd2FwX3RhYmxlKCksIHdoaWNoIGVuZHMgdXAg
-Y2FsbGluZyBzeW5jaHJvbml6ZV9zcmN1KCkgb24KPiBtZC0+aW9fYmFycmllci4KPgo+IFNpbmNl
-IHRoZSBibG9ja2VkIGRtc2V0dXAgY29tbWFuZCBpcyBob2xkaW5nIHRoZSBTUkNVIHJlYWQgbG9j
-aywgYW5kIHRoZQo+IG9sZCB0YWJsZSBpcyBuZXZlciByZXN1bWVkLCAnZG1zZXR1cCByZXN1bWUn
-IGJsb2NrcyB0b28sIGFuZCB3ZSBoYXZlIGEKPiBkZWFkbG9jay4KPgo+IFN0ZXBzIHRvIHJlcHJv
-ZHVjZToKPgo+IDEuIENyZWF0ZSBkZXZpY2Ugd2l0aCBkbS1lcmEgdGFyZ2V0Cj4KPiDCoMKgICMg
-ZG1zZXR1cCBjcmVhdGUgZXJhZGV2IC0tdGFibGUgIjAgMTA0ODU3NiBlcmEgL2Rldi9kYXRhdmcv
-ZXJhbWV0YSAKPiAvZGV2L2RhdGF2Zy9lcmFkYXRhIDgxOTIiCj4KPiAyLiBTdXNwZW5kIHRoZSBk
-ZXZpY2UKPgo+IMKgwqAgIyBkbXNldHVwIHN1c3BlbmQgZXJhZGV2Cj4KPiAzLiBMb2FkIG5ldyB0
-YWJsZSB0byBkZXZpY2UsIGUuZy4sIHRvIHJlc2l6ZSB0aGUgZGV2aWNlCj4KPiDCoMKgICMgZG1z
-ZXR1cCBsb2FkIGVyYWRldiAtLXRhYmxlICIwIDIwOTcxNTIgZXJhIC9kZXYvZGF0YXZnL2VyYW1l
-dGEgCj4gL2Rldi9kYXRhdmcvZXJhZGF0YSA4MTkyIgo+CgpZb3VyIHNlcXVlbmNlIGlzIGZhdWx0
-eSAtIHlvdSBtdXN0IGFsd2F5cyBwcmVsb2FkwqAgbmV3IHRhYmxlIGJlZm9yZSBzdXNwZW5kLgoK
-U3VzcGVuZCZSZXN1bWUgc2hvdWxkIGJlIGFic29sdXRlbHkgbWluaW1hbCBpbiBpdHMgdGltaW5n
-LgoKQWxzbyBub3RoaW5nIHNob3VsZCBiZSBhbGxvY2F0aW5nIG1lbW9yeSBpbiBzdXNwZW5kIHNv
-IHRoYXQncyB3aHkgc3VzcGVuZCBoYXMgCnRvIGJlIHVzZWQgYWZ0ZXIgdGFibGUgbGluZSBpcyBm
-dWxseSBsb2FkZWQuCgpSZWdhcmRzCgoKWmRlbmVrCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QK
-ZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2RtLWRldmVs
+From: Martin Wilck <mwilck@suse.com>
+
+Hi Christophe, hi Ben,
+
+here are some last-minute fixes that I'd like to have added to
+the currently pending multipath-tools update. None of them touches
+any real functionality, except the first one, which I already sent
+earlier today. Patch 3,4,5 were already included in my github PR
+(which I'm going to rebase to match this submission). Patch 2 supersedes
+"multipath-tools: generate abi without version script" from the first
+version of the Github PR. The rest is new, tidy-up work for
+libmultipath.version.
+
+Regards
+Martin
+
+Martin Wilck (11):
+  multipathd.service: add dependency on systemd-udevd-kernel.socket
+  multipath-tools: generate abi with dummy version script
+  multipath-tools: github abi workflow: don't fail on reference branch
+  multipath-tools: github workflows: rebuild containers for rolling
+    distros
+  multipath tools: github workflows: add coverity workflow
+  multipath-tools: .mailmap: add some more entries
+  libmultipath: make orphan_paths() static
+  libmultipath: make update_pathvec_from_dm() static
+  libmultipath: remove recv_packet_from_client()
+  libmultipath.version: drop some unused symbols
+  libmultipath.version: sort symbols
+
+ .github/workflows/abi.yaml        |  2 +-
+ .github/workflows/coverity.yaml   | 51 +++++++++++++++++
+ .github/workflows/native.yaml     | 62 +++++++++++++++++++-
+ .mailmap                          |  7 +++
+ Makefile.inc                      |  1 +
+ libdmmp/Makefile                  |  2 +-
+ libmpathcmd/Makefile              | 13 ++++-
+ libmpathpersist/Makefile          | 15 ++++-
+ libmpathvalid/Makefile            | 16 +++++-
+ libmultipath/Makefile             | 13 ++++-
+ libmultipath/libmultipath.version | 95 ++++++++++---------------------
+ libmultipath/structs_vec.c        |  4 +-
+ libmultipath/structs_vec.h        |  4 --
+ libmultipath/uxsock.c             |  5 --
+ libmultipath/uxsock.h             |  6 --
+ multipathd/multipathd.service     |  2 +
+ 16 files changed, 203 insertions(+), 95 deletions(-)
+ create mode 100644 .github/workflows/coverity.yaml
+
+-- 
+2.34.0
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
