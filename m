@@ -2,57 +2,57 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F9CA470274
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Dec 2021 15:09:49 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C2FF470292
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Dec 2021 15:17:27 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1639145388;
+	s=mimecast20190719; t=1639145846;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MyeftgpK41Om51vs8aE843Wjt/kZFhAJziy3h/Z5tiY=;
-	b=BXov26d7vA4UHRELIA9Q8Aiir0Uv4Qxfi8BcL86XhwkKNvcvCRqThSc5Cepx7uv/CrGBtr
-	/E+QDeUnkv7PmGYdBxkWeHoyXF7Br1Asizhzw3VFKgJz1deZk521BQXznee1LUOGprLWVC
-	KZpb/FdDXU9kT9oDd/seuwckN4mvZ8I=
+	bh=6LYvxJrmhGyYlwq2lzAhQ3fezq5quM/D/CFV8PHt9TI=;
+	b=Rc8gGRJSutEO6dHicy7Jbz98EnuHkc4HfZGzfT3TbNV1rcEzog/W/mFKw9OMnFBH1kc4eR
+	/gd279Q9y1cvisxVwZca916qsHfTXb5YfRTz8G7qF2rEjNWoBDnnwVhUvG3KtpsR9gSEmy
+	czxNgS/zBKQqrL0FZFri5AtdqFU1x/Y=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-570-paRncsKyMvi-DnOQiESu2g-1; Fri, 10 Dec 2021 09:09:45 -0500
-X-MC-Unique: paRncsKyMvi-DnOQiESu2g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-534-dclEBhlnM9qM0TAaArRF1g-1; Fri, 10 Dec 2021 09:17:25 -0500
+X-MC-Unique: dclEBhlnM9qM0TAaArRF1g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9172C100CCC0;
-	Fri, 10 Dec 2021 14:09:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7AA662F31;
+	Fri, 10 Dec 2021 14:17:19 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BA2D60BF4;
-	Fri, 10 Dec 2021 14:09:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1ABF345D7A;
+	Fri, 10 Dec 2021 14:17:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D67B44BB7C;
-	Fri, 10 Dec 2021 14:09:23 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 0EEFB4BB7C;
+	Fri, 10 Dec 2021 14:17:15 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BAE5Tk3003485 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 10 Dec 2021 09:05:29 -0500
+	id 1BAEH7wf004470 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 10 Dec 2021 09:17:07 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EB6A4A211; Fri, 10 Dec 2021 14:05:29 +0000 (UTC)
+	id 22A6B45D9; Fri, 10 Dec 2021 14:17:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from horse.redhat.com (unknown [10.22.17.42])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C13919C59;
-	Fri, 10 Dec 2021 14:05:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 12ED719C59;
+	Fri, 10 Dec 2021 14:16:30 +0000 (UTC)
 Received: by horse.redhat.com (Postfix, from userid 10451)
-	id AC32F2209DD; Fri, 10 Dec 2021 09:05:01 -0500 (EST)
-Date: Fri, 10 Dec 2021 09:05:01 -0500
+	id 967302209DD; Fri, 10 Dec 2021 09:16:29 -0500 (EST)
+Date: Fri, 10 Dec 2021 09:16:29 -0500
 From: Vivek Goyal <vgoyal@redhat.com>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YbNejVRF5NQB0r83@redhat.com>
+Message-ID: <YbNhPXBg7G/ridkV@redhat.com>
 References: <20211209063828.18944-1-hch@lst.de>
-	<20211209063828.18944-6-hch@lst.de>
+	<20211209063828.18944-5-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20211209063828.18944-6-hch@lst.de>
+In-Reply-To: <20211209063828.18944-5-hch@lst.de>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, linux-s390@vger.kernel.org,
@@ -65,8 +65,8 @@ Cc: nvdimm@lists.linux.dev, linux-s390@vger.kernel.org,
 	dm-devel@redhat.com, Stefan Hajnoczi <stefanha@redhat.com>,
 	linux-fsdevel@vger.kernel.org, Dan Williams <dan.j.williams@intel.com>,
 	Ira Weiny <ira.weiny@intel.com>, Alasdair Kergon <agk@redhat.com>
-Subject: Re: [dm-devel] [PATCH 5/5] dax: always use _copy_mc_to_iter in
-	dax_copy_to_iter
+Subject: Re: [dm-devel] [PATCH 4/5] dax: remove the copy_from_iter and
+ copy_to_iter methods
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +80,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,100 +89,92 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Dec 09, 2021 at 07:38:28AM +0100, Christoph Hellwig wrote:
-> While using the MC-safe copy routines is rather pointless on a virtual device
-> like virtiofs,
-
-I was wondering about that. Is it completely pointless.
-
-Typically we are just mapping host page cache into qemu address space.
-That shows as virtiofs device pfn in guest and that pfn is mapped into
-guest application address space in mmap() call.
-
-Given on host its DRAM, so I would not expect machine check on load side
-so there was no need to use machine check safe variant. But what if host
-filesystem is on persistent memory and using DAX. In that case load in
-guest can trigger a machine check. Not sure if that machine check will
-actually travel into the guest and unblock read() operation or not.
-
-But this sounds like a good change from virtiofs point of view, anyway.
-
-Thanks
-Vivek
-
-
-> it also isn't harmful at all.  So just use _copy_mc_to_iter
-> unconditionally to simplify the code.
+On Thu, Dec 09, 2021 at 07:38:27AM +0100, Christoph Hellwig wrote:
+> These methods indirect the actual DAX read/write path.  In the end pmem
+> uses magic flush and mc safe variants and fuse and dcssblk use plain ones
+> while device mapper picks redirects to the underlying device.
+> 
+> Add set_dax_virtual() and set_dax_nomcsafe() APIs for fuse to skip these
+> special variants, then use them everywhere as they fall back to the plain
+> ones on s390 anyway and remove an indirect call from the read/write path
+> as well as a lot of boilerplate code.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->  drivers/dax/super.c | 10 ----------
->  fs/fuse/virtio_fs.c |  1 -
->  include/linux/dax.h |  1 -
->  3 files changed, 12 deletions(-)
+>  drivers/dax/super.c           | 36 ++++++++++++++--
+>  drivers/md/dm-linear.c        | 20 ---------
+>  drivers/md/dm-log-writes.c    | 80 -----------------------------------
+>  drivers/md/dm-stripe.c        | 20 ---------
+>  drivers/md/dm.c               | 50 ----------------------
+>  drivers/nvdimm/pmem.c         | 20 ---------
+>  drivers/s390/block/dcssblk.c  | 14 ------
+>  fs/dax.c                      |  5 ---
+>  fs/fuse/virtio_fs.c           | 19 +--------
+>  include/linux/dax.h           |  9 ++--
+>  include/linux/device-mapper.h |  4 --
+>  11 files changed, 37 insertions(+), 240 deletions(-)
 > 
-> diff --git a/drivers/dax/super.c b/drivers/dax/super.c
-> index ff676a07480c8..fe783234ca669 100644
-> --- a/drivers/dax/super.c
-> +++ b/drivers/dax/super.c
-> @@ -107,8 +107,6 @@ enum dax_device_flags {
->  	DAXDEV_SYNC,
->  	/* do not use uncached operations to write data */
->  	DAXDEV_CACHED,
-> -	/* do not use mcsafe operations to read data */
-> -	DAXDEV_NOMCSAFE,
->  };
->  
->  /**
-> @@ -171,8 +169,6 @@ size_t dax_copy_to_iter(struct dax_device *dax_dev, pgoff_t pgoff, void *addr,
->  	 * via access_ok() in vfs_red, so use the 'no check' version to bypass
->  	 * the HARDENED_USERCOPY overhead.
->  	 */
-> -	if (test_bit(DAXDEV_NOMCSAFE, &dax_dev->flags))
-> -		return _copy_to_iter(addr, bytes, i);
->  	return _copy_mc_to_iter(addr, bytes, i);
->  }
->  
-> @@ -242,12 +238,6 @@ void set_dax_cached(struct dax_device *dax_dev)
->  }
->  EXPORT_SYMBOL_GPL(set_dax_cached);
->  
-> -void set_dax_nomcsafe(struct dax_device *dax_dev)
-> -{
-> -	set_bit(DAXDEV_NOMCSAFE, &dax_dev->flags);
-> -}
-> -EXPORT_SYMBOL_GPL(set_dax_nomcsafe);
-> -
->  bool dax_alive(struct dax_device *dax_dev)
->  {
->  	lockdep_assert_held(&dax_srcu);
+
+[..]
 > diff --git a/fs/fuse/virtio_fs.c b/fs/fuse/virtio_fs.c
-> index 754319ce2a29b..d9c20b148ac19 100644
+> index 5c03a0364a9bb..754319ce2a29b 100644
 > --- a/fs/fuse/virtio_fs.c
 > +++ b/fs/fuse/virtio_fs.c
-> @@ -838,7 +838,6 @@ static int virtio_fs_setup_dax(struct virtio_device *vdev, struct virtio_fs *fs)
+> @@ -753,20 +753,6 @@ static long virtio_fs_direct_access(struct dax_device *dax_dev, pgoff_t pgoff,
+>  	return nr_pages > max_nr_pages ? max_nr_pages : nr_pages;
+>  }
+>  
+> -static size_t virtio_fs_copy_from_iter(struct dax_device *dax_dev,
+> -				       pgoff_t pgoff, void *addr,
+> -				       size_t bytes, struct iov_iter *i)
+> -{
+> -	return copy_from_iter(addr, bytes, i);
+> -}
+> -
+> -static size_t virtio_fs_copy_to_iter(struct dax_device *dax_dev,
+> -				       pgoff_t pgoff, void *addr,
+> -				       size_t bytes, struct iov_iter *i)
+> -{
+> -	return copy_to_iter(addr, bytes, i);
+> -}
+> -
+>  static int virtio_fs_zero_page_range(struct dax_device *dax_dev,
+>  				     pgoff_t pgoff, size_t nr_pages)
+>  {
+> @@ -783,8 +769,6 @@ static int virtio_fs_zero_page_range(struct dax_device *dax_dev,
+>  
+>  static const struct dax_operations virtio_fs_dax_ops = {
+>  	.direct_access = virtio_fs_direct_access,
+> -	.copy_from_iter = virtio_fs_copy_from_iter,
+> -	.copy_to_iter = virtio_fs_copy_to_iter,
+>  	.zero_page_range = virtio_fs_zero_page_range,
+>  };
+>  
+> @@ -853,7 +837,8 @@ static int virtio_fs_setup_dax(struct virtio_device *vdev, struct virtio_fs *fs)
+>  	fs->dax_dev = alloc_dax(fs, &virtio_fs_dax_ops);
 >  	if (IS_ERR(fs->dax_dev))
 >  		return PTR_ERR(fs->dax_dev);
->  	set_dax_cached(fs->dax_dev);
-> -	set_dax_nomcsafe(fs->dax_dev);
+> -
+> +	set_dax_cached(fs->dax_dev);
+
+Looks good to me from virtiofs point of view.
+
+Reviewed-by: Vivek Goyal <vgoyal@redhat.com>
+
+Going forward, I am wondering should virtiofs use flushcache version as
+well. What if host filesystem is using DAX and mapping persistent memory
+pfn directly into qemu address space. I have never tested that.
+
+Right now we are relying on applications to do fsync/msync on virtiofs
+for data persistence.
+
+> +	set_dax_nomcsafe(fs->dax_dev);
 >  	return devm_add_action_or_reset(&vdev->dev, virtio_fs_cleanup_dax,
 >  					fs->dax_dev);
 >  }
-> diff --git a/include/linux/dax.h b/include/linux/dax.h
-> index d22cbf03d37d2..d267331bc37e7 100644
-> --- a/include/linux/dax.h
-> +++ b/include/linux/dax.h
-> @@ -90,7 +90,6 @@ static inline bool daxdev_mapping_supported(struct vm_area_struct *vma,
->  #endif
->  
->  void set_dax_cached(struct dax_device *dax_dev);
-> -void set_dax_nomcsafe(struct dax_device *dax_dev);
->  
->  struct writeback_control;
->  #if defined(CONFIG_BLOCK) && defined(CONFIG_FS_DAX)
-> -- 
-> 2.30.2
-> 
+
+Thanks
+Vivek
 
 --
 dm-devel mailing list
