@@ -1,55 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E68AA4754DB
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Dec 2021 10:09:53 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 854134754D9
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Dec 2021 10:09:50 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-267-Eq2dW34oOVmQZX4bSNNflQ-1; Wed, 15 Dec 2021 04:09:51 -0500
-X-MC-Unique: Eq2dW34oOVmQZX4bSNNflQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
+ us-mta-310-GHyUIjTcNr6SgQYFEfG-aQ-1; Wed, 15 Dec 2021 04:09:48 -0500
+X-MC-Unique: GHyUIjTcNr6SgQYFEfG-aQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B03194EE1;
-	Wed, 15 Dec 2021 09:09:45 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 573257A4B1;
-	Wed, 15 Dec 2021 09:09:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8889885B667;
+	Wed, 15 Dec 2021 09:09:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C9867E659;
+	Wed, 15 Dec 2021 09:09:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D81184CA93;
-	Wed, 15 Dec 2021 09:09:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 34B741802E27;
+	Wed, 15 Dec 2021 09:09:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BF99LaZ019844 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Dec 2021 04:09:21 -0500
+	id 1BF99JFd019839 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Dec 2021 04:09:20 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id E3863492D1F; Wed, 15 Dec 2021 09:09:20 +0000 (UTC)
+	id 76C461121332; Wed, 15 Dec 2021 09:09:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DEDF5492D18
-	for <dm-devel@redhat.com>; Wed, 15 Dec 2021 09:09:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C348D805A2E
-	for <dm-devel@redhat.com>; Wed, 15 Dec 2021 09:09:20 +0000 (UTC)
+	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71EF01121331
+	for <dm-devel@redhat.com>; Wed, 15 Dec 2021 09:09:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 872D03C0D1B0
+	for <dm-devel@redhat.com>; Wed, 15 Dec 2021 09:09:16 +0000 (UTC)
 Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-471-o3mihnX-OOGBkLfisSpfrw-1; Wed, 15 Dec 2021 04:09:17 -0500
-X-MC-Unique: o3mihnX-OOGBkLfisSpfrw-1
+	us-mta-482-9NYdz3MXOxCwFbOT-iqshQ-1; Wed, 15 Dec 2021 04:09:13 -0500
+X-MC-Unique: 9NYdz3MXOxCwFbOT-iqshQ-1
 Received: from [2001:4bb8:184:5c65:c56:ed89:c020:6100] (helo=localhost)
 	by casper.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1mxPuP-00ETyf-0H; Wed, 15 Dec 2021 08:45:10 +0000
+	id 1mxPuQ-00ETyh-BI; Wed, 15 Dec 2021 08:45:11 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Dan Williams <dan.j.williams@intel.com>,
 	Vishal Verma <vishal.l.verma@intel.com>, Dave Jiang <dave.jiang@intel.com>
-Date: Wed, 15 Dec 2021 09:45:04 +0100
-Message-Id: <20211215084508.435401-1-hch@lst.de>
+Date: Wed, 15 Dec 2021 09:45:05 +0100
+Message-Id: <20211215084508.435401-2-hch@lst.de>
+In-Reply-To: <20211215084508.435401-1-hch@lst.de>
+References: <20211215084508.435401-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	casper.infradead.org. See http://www.infradead.org/rpr.html
@@ -61,7 +64,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	Vasily Gorbik <gor@linux.ibm.com>,
@@ -73,7 +76,8 @@ Cc: nvdimm@lists.linux.dev, Mike Snitzer <snitzer@redhat.com>,
 	Stefan Hajnoczi <stefanha@redhat.com>,
 	linux-fsdevel@vger.kernel.org, Ira Weiny <ira.weiny@intel.com>,
 	Alasdair Kergon <agk@redhat.com>
-Subject: [dm-devel] devirtualize kernel access to DAX v2
+Subject: [dm-devel] [PATCH 1/4] uio: remove copy_from_iter_flushcache() and
+	copy_mc_to_iter()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,7 +91,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,32 +99,69 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Dan,
+These two wrappers are never used.
 
-this series cleans up a few loose end ends and then removes the
-copy_from_iter and copy_to_iter dax_operations methods in favor of
-straight calls.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/nvdimm/pmem.c |  4 +---
+ include/linux/uio.h   | 20 +-------------------
+ 2 files changed, 2 insertions(+), 22 deletions(-)
 
-Changes since v1:
- - reword a 'no check' comment
- - clean up the flags for the copy routine variants
- - drop the last patch
-
-Diffstat:
- drivers/dax/bus.c             |    5 ++
- drivers/dax/super.c           |   50 +++++++++++++++++++-------
- drivers/md/dm-linear.c        |   20 ----------
- drivers/md/dm-log-writes.c    |   80 ------------------------------------------
- drivers/md/dm-stripe.c        |   20 ----------
- drivers/md/dm.c               |   54 +---------------------------
- drivers/nvdimm/pmem.c         |   29 ++-------------
- drivers/s390/block/dcssblk.c  |   18 +--------
- fs/dax.c                      |    5 --
- fs/fuse/virtio_fs.c           |   19 ---------
- include/linux/dax.h           |   29 +++------------
- include/linux/device-mapper.h |    4 --
- include/linux/uio.h           |   20 ----------
- 13 files changed, 60 insertions(+), 293 deletions(-)
+diff --git a/drivers/nvdimm/pmem.c b/drivers/nvdimm/pmem.c
+index 4190c8c46ca88..d225bcfa67cf9 100644
+--- a/drivers/nvdimm/pmem.c
++++ b/drivers/nvdimm/pmem.c
+@@ -302,9 +302,7 @@ static long pmem_dax_direct_access(struct dax_device *dax_dev,
+ }
+ 
+ /*
+- * Use the 'no check' versions of copy_from_iter_flushcache() and
+- * copy_mc_to_iter() to bypass HARDENED_USERCOPY overhead. Bounds
+- * checking, both file offset and device offset, is handled by
++ * Bounds checking, both file offset and device offset, is handled by
+  * dax_iomap_actor()
+  */
+ static size_t pmem_copy_from_iter(struct dax_device *dax_dev, pgoff_t pgoff,
+diff --git a/include/linux/uio.h b/include/linux/uio.h
+index 6350354f97e90..494d552c1d663 100644
+--- a/include/linux/uio.h
++++ b/include/linux/uio.h
+@@ -196,7 +196,7 @@ bool copy_from_iter_full_nocache(void *addr, size_t bytes, struct iov_iter *i)
+ #ifdef CONFIG_ARCH_HAS_UACCESS_FLUSHCACHE
+ /*
+  * Note, users like pmem that depend on the stricter semantics of
+- * copy_from_iter_flushcache() than copy_from_iter_nocache() must check for
++ * _copy_from_iter_flushcache() than _copy_from_iter_nocache() must check for
+  * IS_ENABLED(CONFIG_ARCH_HAS_UACCESS_FLUSHCACHE) before assuming that the
+  * destination is flushed from the cache on return.
+  */
+@@ -211,24 +211,6 @@ size_t _copy_mc_to_iter(const void *addr, size_t bytes, struct iov_iter *i);
+ #define _copy_mc_to_iter _copy_to_iter
+ #endif
+ 
+-static __always_inline __must_check
+-size_t copy_from_iter_flushcache(void *addr, size_t bytes, struct iov_iter *i)
+-{
+-	if (unlikely(!check_copy_size(addr, bytes, false)))
+-		return 0;
+-	else
+-		return _copy_from_iter_flushcache(addr, bytes, i);
+-}
+-
+-static __always_inline __must_check
+-size_t copy_mc_to_iter(void *addr, size_t bytes, struct iov_iter *i)
+-{
+-	if (unlikely(!check_copy_size(addr, bytes, true)))
+-		return 0;
+-	else
+-		return _copy_mc_to_iter(addr, bytes, i);
+-}
+-
+ size_t iov_iter_zero(size_t bytes, struct iov_iter *);
+ unsigned long iov_iter_alignment(const struct iov_iter *i);
+ unsigned long iov_iter_gap_alignment(const struct iov_iter *i);
+-- 
+2.30.2
 
 --
 dm-devel mailing list
