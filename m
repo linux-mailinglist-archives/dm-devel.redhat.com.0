@@ -2,62 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AEB02475C08
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Dec 2021 16:44:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AA3AE475C54
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Dec 2021 16:54:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1639583057;
+	s=mimecast20190719; t=1639583685;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3usBJHvNr997ywF+HZi2kQrDQNQMz054ydVJ6IRMoqQ=;
-	b=MX/FPrO0+FpCdDaphTw1Ea4jwAg+v+ci+d7cGeFtRFZR0a8BjoVrVWzokaeZwJ2l41+ip5
-	4vfMEPG1vdgXREL+cIeOdfa9S8I1TVuTyF4ZZw0GjeYNbxixNKq0LOYnBs0/Sf5O4RB5RL
-	3/DsNOTyICeMvBeHX0Uv7vVmpv+9Le8=
+	bh=POfzxRcYdJFPOsQmG4nqdbZw1r2VOiZ1wyidrt0ELuQ=;
+	b=VJBycKIBdB/R0wEMrDZFvI3yUqlBhqgT4It8qjxHRvNuiwsw5bPdfxcSW5ojfI5XV4lb+M
+	ZJwcrSZSx+CWDgjlzGy1VnkaRVFc9weqQ6B9DAViy8i4MSq/EUvMZH55/Eg5dCgdmQI1di
+	dECbx+txnCMLkEwCKVQ8ISod5gdllrQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-444-nKq64dPyMDq2-UZ3C0042g-1; Wed, 15 Dec 2021 10:44:13 -0500
-X-MC-Unique: nKq64dPyMDq2-UZ3C0042g-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-30-ldNdc_NrO_qg7iEMq-H_iw-1; Wed, 15 Dec 2021 10:54:44 -0500
+X-MC-Unique: ldNdc_NrO_qg7iEMq-H_iw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 11963100C610;
-	Wed, 15 Dec 2021 15:44:07 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BD680196F1;
-	Wed, 15 Dec 2021 15:44:01 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6E363801B0C;
+	Wed, 15 Dec 2021 15:54:27 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1162160CC9;
+	Wed, 15 Dec 2021 15:54:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2C0D54BB7C;
-	Wed, 15 Dec 2021 15:43:54 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 43CD11806D03;
+	Wed, 15 Dec 2021 15:54:20 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com
 	[10.5.11.23])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BFFhYDJ007103 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 15 Dec 2021 10:43:34 -0500
+	id 1BFFrJCT009434 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 15 Dec 2021 10:53:19 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 7274A196F4; Wed, 15 Dec 2021 15:43:34 +0000 (UTC)
+	id AC42788F6; Wed, 15 Dec 2021 15:53:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from horse.redhat.com (unknown [10.22.16.227])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CCC3E196F1;
-	Wed, 15 Dec 2021 15:43:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C522E196FF;
+	Wed, 15 Dec 2021 15:52:45 +0000 (UTC)
 Received: by horse.redhat.com (Postfix, from userid 10451)
-	id 194412206B8; Wed, 15 Dec 2021 10:43:33 -0500 (EST)
-Date: Wed, 15 Dec 2021 10:43:33 -0500
+	id 2A4902206B8; Wed, 15 Dec 2021 10:52:45 -0500 (EST)
+Date: Wed, 15 Dec 2021 10:52:45 -0500
 From: Vivek Goyal <vgoyal@redhat.com>
-To: Stefan Hajnoczi <stefanha@redhat.com>
-Message-ID: <YboNJWC3jhX4Vsn7@redhat.com>
+To: Dan Williams <dan.j.williams@intel.com>
+Message-ID: <YboPTSExR05zeDil@redhat.com>
 References: <20211209063828.18944-1-hch@lst.de>
 	<20211209063828.18944-5-hch@lst.de> <YbNhPXBg7G/ridkV@redhat.com>
 	<CAPcyv4g4_yFqDeS+pnAZOxcB=Ua+iArK5mqn0iMG4PX6oL=F_A@mail.gmail.com>
 	<20211213082318.GB21462@lst.de> <YbiosqZoG8e6rDkj@redhat.com>
 	<CAPcyv4hFjKsPrPTB4NtLHiY8gyaELz9+45N1OFj3hz+uJ=9JnA@mail.gmail.com>
 	<Ybj/azxrUyU4PZEr@redhat.com>
-	<YbnD2iDmN92Bure9@stefanha-x1.localdomain>
+	<CAPcyv4h_iFe8U8UrXCbhAYaruFm-xg0n_U3H8wnK-uGoEubTvw@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <YbnD2iDmN92Bure9@stefanha-x1.localdomain>
+In-Reply-To: <CAPcyv4h_iFe8U8UrXCbhAYaruFm-xg0n_U3H8wnK-uGoEubTvw@mail.gmail.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 X-loop: dm-devel@redhat.com
 Cc: Linux NVDIMM <nvdimm@lists.linux.dev>,
@@ -69,8 +69,8 @@ Cc: Linux NVDIMM <nvdimm@lists.linux.dev>,
 	virtualization@lists.linux-foundation.org,
 	Christian Borntraeger <borntraeger@de.ibm.com>,
 	device-mapper development <dm-devel@redhat.com>,
+	Stefan Hajnoczi <stefanha@redhat.com>,
 	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	Dan Williams <dan.j.williams@intel.com>,
 	Ira Weiny <ira.weiny@intel.com>, Christoph Hellwig <hch@lst.de>,
 	Alasdair Kergon <agk@redhat.com>
 Subject: Re: [dm-devel] [PATCH 4/5] dax: remove the copy_from_iter and
@@ -88,7 +88,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -97,8 +97,9 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Dec 15, 2021 at 10:30:50AM +0000, Stefan Hajnoczi wrote:
-> On Tue, Dec 14, 2021 at 03:32:43PM -0500, Vivek Goyal wrote:
+On Tue, Dec 14, 2021 at 03:43:38PM -0800, Dan Williams wrote:
+> On Tue, Dec 14, 2021 at 12:33 PM Vivek Goyal <vgoyal@redhat.com> wrote:
+> >
 > > On Tue, Dec 14, 2021 at 08:41:30AM -0800, Dan Williams wrote:
 > > > On Tue, Dec 14, 2021 at 6:23 AM Vivek Goyal <vgoyal@redhat.com> wrote:
 > > > >
@@ -146,59 +147,83 @@ On Wed, Dec 15, 2021 at 10:30:50AM +0000, Stefan Hajnoczi wrote:
 > > > > might generate synchronous machine check. What's not clear to me is
 > > > > that if this MC safe variant should be used only in case of PMEM or
 > > > > should it be used in case of non-PMEM as well.
-> > > 
+> > >
 > > > It should be used on any memory address that can throw exception on
 > > > load, which is any physical address, in paths that can tolerate
 > > > memcpy() returning an error code, most I/O paths, and can tolerate
 > > > slower copy performance on older platforms that do not support MC
 > > > recovery with fast string operations, to date that's only PMEM users.
-> > 
+> >
 > > Ok, So basically latest cpus can do fast string operations with MC
 > > recovery so that using MC safe variant is not a problem.
-> > 
+> >
 > > Then there is range of cpus which can do MC recovery but do slower
 > > versions of memcpy and that's where the issue is.
-> > 
+> >
 > > So if we knew that virtiofs dax window is backed by a pmem device
 > > then we should always use MC safe variant. Even if it means paying
-> > the price of slow version for the sake of correctness. 
-> > 
+> > the price of slow version for the sake of correctness.
+> >
 > > But if we are not using pmem on host, then there is no point in
 > > using MC safe variant.
-> > 
+> >
 > > IOW.
-> > 
-> > 	if (virtiofs_backed_by_pmem) {
-> > 		use_mc_safe_version
-> > 	else
-> > 		use_non_mc_safe_version
-> > 	}
-> > 
+> >
+> >         if (virtiofs_backed_by_pmem) {
+> 
+> No, PMEM should not be considered at all relative to whether to use MC
+> or not, it is 100% a decision of whether you expect virtiofs users
+> will balk more at unhandled machine checks or performance regressions
+> on the platforms that set "enable_copy_mc_fragile()".
+
+If we don't handle machine check, kernel will panic(), right? So that's
+the trade off. Whether get higher performance (on select platforms) and
+crash if MC happens OR get slower memcpy() performance (on select
+platoforms) and recover from MC. Hmm...
+
+
+> See
+> quirk_intel_brickland_xeon_ras_cap() and
+> quirk_intel_purley_xeon_ras_cap() in arch/x86/kernel/quirks.c.
+> 
+> >                 use_mc_safe_version
+> >         else
+> >                 use_non_mc_safe_version
+> >         }
+> >
 > > Now question is, how do we know if virtiofs dax window is backed by
 > > a pmem or not. I checked virtio_pmem driver and that does not seem
 > > to communicate anything like that. It just communicates start of the
 > > range and size of range, nothing else.
-> > 
+> >
 > > I don't have full handle on stack of modules of virtio_pmem, but my guess
 > > is it probably is using MC safe version always (because it does not
 > > know anthing about the backing storage).
-> > 
+> >
 > > /me will definitely like to pay penalty of slower memcpy if virtiofs
 > > device is not backed by a pmem.
 > 
-> Reads from the page cache handle machine checks (filemap_read() ->
-> raw_copy_to_user()). I think virtiofs should therefore always handle
-> machine checks when reading from the DAX Window.
+> I assume you meant "not like",
 
-IIUC, raw_copy_to_user() does not handle recovery from machine check. For
-example, it can call copy_user_enhanced_fast_string() if cpu supports
-X86_FEATURE_ERMS. But equivalent machine check safe version is
-copy_mc_enhanced_fast_string() instead.
+Yes. It was a typo.
 
-Hence, I don't think reading from page cache is using machine check safe
-variants by default. This copy_mc_to_user() path has to be taken
-explicitly for machine check safe variants. And currently only pmem driver
-seems to take it by calling _copy_mc_to_iter().
+> but again PMEM has no bearing on
+> whether using that device will throw machine checks. I'm sure there
+> are people that would make the opposite tradeoff.
+
+Why pmem driver does not have to make such trade off and it always
+uses machine check variant.
+
+As you mentioned machine checks can happen with DRAM too. So why loading
+from page cache not use machine check variant (or given an option to user
+allow making a choice).
+
+BTW, stefan mentioned that we could think of adding a device feature
+bit to signal whether to do MC safe memcpy() or not if it becomes
+really necessary. For now probably let us stick to performance 
+variant and if users demand machine check handling, then either
+introduce it unconditionally or make it an opt-in based on device
+feature bit.
 
 Thanks
 Vivek
