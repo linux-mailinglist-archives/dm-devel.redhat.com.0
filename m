@@ -2,97 +2,85 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B4C77477B09
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Dec 2021 18:50:08 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1639677007;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=iVFpnsalUuOOwZ46LaQLiCBBjOASREWRIXNKnFZt9l8=;
-	b=b59C/XMVzLZFUoIsrhZIGicdkY385Wvbr7ulOy3MTKdmm38YDeTgFADYjiLBFLtaqUzYRU
-	alZvomAp+/VEyiKZ0rApXXMKGeipXdQ7j28Z8KFLG4F6PpkUh3bqWIfA9H0F8rp9yxJnUm
-	ty77RM4DEawlsvDlcMpqLFYJZJ391vw=
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DFE5477BFE
+	for <lists+dm-devel@lfdr.de>; Thu, 16 Dec 2021 19:52:55 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-222-dInqq_3gOYuXOaXRhlwrKQ-1; Thu, 16 Dec 2021 12:50:01 -0500
-X-MC-Unique: dInqq_3gOYuXOaXRhlwrKQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-280-SHN7Jzd8Md-jcijkAzwXbQ-1; Thu, 16 Dec 2021 13:52:51 -0500
+X-MC-Unique: SHN7Jzd8Md-jcijkAzwXbQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45F2810144E2;
-	Thu, 16 Dec 2021 17:49:54 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 979F17B01F;
-	Thu, 16 Dec 2021 17:49:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3AF9E84A615;
+	Thu, 16 Dec 2021 18:52:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B7DAE720;
+	Thu, 16 Dec 2021 18:52:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DC8824BB7C;
-	Thu, 16 Dec 2021 17:49:33 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 40A901809CB8;
+	Thu, 16 Dec 2021 18:52:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 1BGHnJFk016174 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 16 Dec 2021 12:49:20 -0500
+	id 1BGIqFRI020633 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 16 Dec 2021 13:52:15 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BF8BA492D4F; Thu, 16 Dec 2021 17:49:19 +0000 (UTC)
+	id A2814C33AE7; Thu, 16 Dec 2021 18:52:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BBE4B492D4D
-	for <dm-devel@redhat.com>; Thu, 16 Dec 2021 17:49:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E30DC33AE6
+	for <dm-devel@redhat.com>; Thu, 16 Dec 2021 18:52:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 84ECD800B28
+	for <dm-devel@redhat.com>; Thu, 16 Dec 2021 18:52:15 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+	[139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-227-UjpFsVNLM0GNi-dGVhjjKg-1; Thu, 16 Dec 2021 13:52:12 -0500
+X-MC-Unique: UjpFsVNLM0GNi-dGVhjjKg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1DF7811E78
-	for <dm-devel@redhat.com>; Thu, 16 Dec 2021 17:49:19 +0000 (UTC)
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
-	[209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-671-XXJh2OyFOkGNr8cTVe2fJw-1; Thu, 16 Dec 2021 12:49:18 -0500
-X-MC-Unique: XXJh2OyFOkGNr8cTVe2fJw-1
-Received: by mail-qt1-f198.google.com with SMTP id
-	a26-20020ac8001a000000b002b6596897dcso34317000qtg.19
-	for <dm-devel@redhat.com>; Thu, 16 Dec 2021 09:49:18 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
-	:content-disposition;
-	bh=Uus2LlgeYJCvwWfnb8E4TOJ1KGMOueUkeobkNgmBkvc=;
-	b=5vme1q4wZZeow47k5tzwuW8qSgG7O9GhO4JAlmTJP09nSSCIXiZLxn9wMIvGUV89DF
-	/oEchb9jrzcfgwJJBkEABmsWvIUoICFLgtI7+HTVNNmxBMXTGc21aFblHumTtX1s7TVm
-	yK3nyh8K/azf0MgxhNKIr9vl+j/wkJzVdAde3sKFOuJUkwZBZqJYEz+lvuCOSRk5/iSY
-	Nr/5WgDma1he2KBnhQKpmi3gaPHcDm5f2h3STnx+EnetHUlHxaYPLXXrW0ebqS6riHhD
-	tqEYr2q7Rm7Hv67fTuR8dTb5AZvLkL4yPHxzsaAWUgtsca0lF7UsDl+cHB2fEgwG9chd
-	/+Lw==
-X-Gm-Message-State: AOAM531YYmiDfcsNbdnLAi0ou9dqkbxrgt8cu+/misK27szwu7z1QhlS
-	lAZXyImFrrwfjmG0NOH9ugmYjKZL1V6Df8fJ4DH7smrBpVv135O0PIA+eczltH3rxkE0/yHrorK
-	1qBUK4NinFaaTDQ==
-X-Received: by 2002:a05:6214:21e8:: with SMTP id
-	p8mr3290973qvj.99.1639676957910; 
-	Thu, 16 Dec 2021 09:49:17 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwfr9CXl+tDzP8DP1paHbyAMY7lcF94YJrxp3xBRUedepEpRuRV2qjHKsXyT4vNfpZctqGQRQ==
-X-Received: by 2002:a05:6214:21e8:: with SMTP id
-	p8mr3290965qvj.99.1639676957735; 
-	Thu, 16 Dec 2021 09:49:17 -0800 (PST)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	bm35sm3169317qkb.86.2021.12.16.09.49.17
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 16 Dec 2021 09:49:17 -0800 (PST)
-Date: Thu, 16 Dec 2021 12:49:16 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <Ybt8HMQUZn7mlvTG@redhat.com>
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+	by dfw.source.kernel.org (Postfix) with ESMTPS id 463B561F2A;
+	Thu, 16 Dec 2021 18:43:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id A7725C36AE2;
+	Thu, 16 Dec 2021 18:43:13 +0000 (UTC)
+Received: from pdx-korg-docbuild-2.ci.codeaurora.org (localhost.localdomain
+	[127.0.0.1])
+	by pdx-korg-docbuild-2.ci.codeaurora.org (Postfix) with ESMTP id
+	85187609FE; Thu, 16 Dec 2021 18:43:13 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <Ybt8HMQUZn7mlvTG@redhat.com>
+References: <Ybt8HMQUZn7mlvTG@redhat.com>
+X-PR-Tracked-List-Id: <linux-block.vger.kernel.org>
+X-PR-Tracked-Message-Id: <Ybt8HMQUZn7mlvTG@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
+	tags/for-5.16/dm-fixes
+X-PR-Tracked-Commit-Id: 1cef171abd39102dcc862c6bfbf7f954f4f1f66f
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 81eebd540511a5e57ed71a0e6221186513c8841f
+Message-Id: <163968019348.23045.5413550556384158424.pr-tracker-bot@kernel.org>
+Date: Thu, 16 Dec 2021 18:43:13 +0000
+To: Mike Snitzer <snitzer@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Linus Torvalds <torvalds@linux-foundation.org>,
 	Joe Thornber <ejt@redhat.com>, Alasdair G Kergon <agk@redhat.com>
-Subject: [dm-devel] [git pull] device mapper fixes for 5.16-rc6
+Subject: Re: [dm-devel] [git pull] device mapper fixes for 5.16-rc6
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -104,50 +92,29 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Linus,
+The pull request you sent on Thu, 16 Dec 2021 12:49:16 -0500:
 
-The following changes since commit 136057256686de39cc3a07c2e39ef6bc43003ff6:
+> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.16/dm-fixes
 
-  Linux 5.16-rc2 (2021-11-21 13:47:39 -0800)
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/81eebd540511a5e57ed71a0e6221186513c8841f
 
-are available in the Git repository at:
+Thank you!
 
-  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.16/dm-fixes
-
-for you to fetch changes up to 1cef171abd39102dcc862c6bfbf7f954f4f1f66f:
-
-  dm integrity: fix data corruption due to improper use of bvec_kmap_local (2021-12-15 14:16:35 -0500)
-
-Please pull, thanks.
-Mike
-
-----------------------------------------------------------------
-- Fix use after free in DM btree remove's rebalance_children().
-
-- Fix DM integrity data corruption, introduced during 5.16 merge, due
-  to improper use of bvec_kmap_local().
-
-----------------------------------------------------------------
-Joe Thornber (1):
-      dm btree remove: fix use after free in rebalance_children()
-
-Mike Snitzer (1):
-      dm integrity: fix data corruption due to improper use of bvec_kmap_local
-
- drivers/md/dm-integrity.c                    | 2 +-
- drivers/md/persistent-data/dm-btree-remove.c | 2 +-
- 2 files changed, 2 insertions(+), 2 deletions(-)
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
 
 --
 dm-devel mailing list
