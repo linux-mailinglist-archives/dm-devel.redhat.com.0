@@ -2,59 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 01CAD486B45
-	for <lists+dm-devel@lfdr.de>; Thu,  6 Jan 2022 21:35:37 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D09B486D2E
+	for <lists+dm-devel@lfdr.de>; Thu,  6 Jan 2022 23:27:40 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-227-S9t0RfL6N423GohTc_MrMA-1; Thu, 06 Jan 2022 15:35:35 -0500
-X-MC-Unique: S9t0RfL6N423GohTc_MrMA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-231-AWv84CVQPPaZpE_2KMSS7Q-1; Thu, 06 Jan 2022 17:27:37 -0500
+X-MC-Unique: AWv84CVQPPaZpE_2KMSS7Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9C94084A618;
-	Thu,  6 Jan 2022 20:35:24 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A5900100C609;
+	Thu,  6 Jan 2022 22:27:29 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 34F0BA22D;
-	Thu,  6 Jan 2022 20:35:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A2C4D6AB81;
+	Thu,  6 Jan 2022 22:27:26 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E66031809CB8;
-	Thu,  6 Jan 2022 20:35:23 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 388BB1809CB8;
+	Thu,  6 Jan 2022 22:27:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 206KZ6hC023529 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 6 Jan 2022 15:35:06 -0500
+	id 206MR3df030460 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 6 Jan 2022 17:27:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8B1752026614; Thu,  6 Jan 2022 20:35:06 +0000 (UTC)
+	id 4B6BA2166B4D; Thu,  6 Jan 2022 22:27:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 860532026D4D
-	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 20:35:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 453992166B44
+	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 22:27:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 252783C11A31
-	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 20:35:02 +0000 (UTC)
-Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
-	[81.169.146.165]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-636-RvtufPWLMc26IsjLa1F_ig-1; Thu, 06 Jan 2022 15:35:00 -0500
-X-MC-Unique: RvtufPWLMc26IsjLa1F_ig-1
-X-RZG-AUTH: ":PHkGeUmrW+uCZmxs998QJRUX30nOwJd7nOD9sw/xoauycprg5uef7cgCEpy7sPc="
-X-RZG-CLASS-ID: mo00
-Received: from USER-PC.fritz.box by smtp.strato.de (RZmta 47.37.6 DYNA|AUTH)
-	with ESMTPSA id k3f463y06KYt05h
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
-	(Client did not present a certificate);
-	Thu, 6 Jan 2022 21:34:55 +0100 (CET)
-From: Thore Sommer <public@thson.de>
-To: dm-devel@redhat.com, agk@redhat.com, snitzer@redhat.com
-Date: Thu,  6 Jan 2022 21:34:36 +0100
-Message-Id: <20220106203436.281629-4-public@thson.de>
-In-Reply-To: <20220106203436.281629-1-public@thson.de>
-References: <20220106203436.281629-1-public@thson.de>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53C5485A5A8
+	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 22:27:00 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-349-u4IlXgPoNFaWkEskcPGeAA-1; Thu, 06 Jan 2022 17:26:58 -0500
+X-MC-Unique: u4IlXgPoNFaWkEskcPGeAA-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 51C171F397;
+	Thu,  6 Jan 2022 22:26:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 146F813C6F;
+	Thu,  6 Jan 2022 22:26:57 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id Qdb4ArFs12FnCAAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 06 Jan 2022 22:26:57 +0000
+Message-ID: <72e62330d1eb9da66b3d8c7f59e226fed63e357f.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Date: Thu, 06 Jan 2022 23:26:56 +0100
+In-Reply-To: <20220104183428.19189-1-xose.vazquez@gmail.com>
+References: <20220104183428.19189-1-xose.vazquez@gmail.com>
+User-Agent: Evolution 3.42.2
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -64,12 +74,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
-	Thore Sommer <public@thson.de>
-Subject: [dm-devel] [RFC PATCH 3/3] dm ima: add documentation target update
-	event
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH] multipath-tools: remove duplicate headers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -83,7 +91,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -91,69 +99,17 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The dm_target_update event can be triggered by targets to remeasure their
-state to reflect that change also in IMA.
+On Tue, 2022-01-04 at 19:34 +0100, Xose Vazquez Perez wrote:
+> Minimal clean up done with scripts/checkincludes.pl
+> 
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 
-This is event is currently only supported by verity.
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
-Signed-off-by: Thore Sommer <public@thson.de>
----
- .../admin-guide/device-mapper/dm-ima.rst      | 33 +++++++++++++++++++
- 1 file changed, 33 insertions(+)
-
-diff --git a/Documentation/admin-guide/device-mapper/dm-ima.rst b/Documentation/admin-guide/device-mapper/dm-ima.rst
-index a4aa50a828e0..ac9418ea99d3 100644
---- a/Documentation/admin-guide/device-mapper/dm-ima.rst
-+++ b/Documentation/admin-guide/device-mapper/dm-ima.rst
-@@ -93,6 +93,7 @@ Following device state changes will trigger IMA measurements:
-  #. Device remove
-  #. Table clear
-  #. Device rename
-+ #. Target update
- 
- 1. Table load:
- ---------------
-@@ -321,6 +322,38 @@ The IMA measurement log has the following format for 'dm_device_rename':
-  new_name=linear\=2,new_uuid=1234-5678;
-  current_device_capacity=1024;
- 
-+6. Target update:
-+------------------
-+When a target changes updates its table it can trigger an remeasurement of that table.
-+
-+This is currently only implemented for 'verity' targets to detect measure corruption occurrences.
-+Note that the active table hash of the device does not get updated.
-+
-+The IMA measurement log has the following format for 'dm_target_update':
-+
-+::
-+
-+ EVENT_NAME := "dm_target_update"
-+ EVENT_DATA := <dm_version_str> ";" <device_active_metadata> ";" <target_data_row> ";"
-+
-+ dm_version_str := As described in the 'Table load' section above.
-+ device_active_metadata := Device metadata that reflects the currently loaded active table.
-+                           The format is same as 'device_metadata' described in the 'Table load' section above.
-+ target_data_row
-+ E.g: if a verity device gets corrupted then IMA ASCII measurement log will have an entry with:
-+ (converted from ASCII to text for readability)
-+
-+ 10 1cc9c660afb7fddd1b7167f0c4e997ebca8b1c09 ima-buf sha256:e991f7692724257701c8e652682bd3246837ed2d655407b9e9f5a5b469e6c75b
-+ dm_target_update
-+ dm_version=4.45.0;
-+ name=test,uuid=CRYPT-VERITY-e0d2a85fd61e41238174adaa32d296fe-test,major=253,minor=0,minor_count=1,num_targets=1;
-+ target_index=0,target_begin=0,target_len=8,target_name=verity,target_version=1.8.0,hash_failed=C,
-+ verity_version=1,data_device_name=7:1,hash_device_name=7:0,verity_algorithm=sha256,
-+ root_digest=8c2eff0b45fc9815b94350f7a913683ef34085c734229bcf1345c31b07ac61b8,
-+ salt=63010b7c63e28e6929a2f020dc71c97a0660a9f377a83c674a62feb01c5ca6b3,
-+ ignore_zero_blocks=n,check_at_most_once=n;
-+
-+
- Supported targets:
- ==================
- 
--- 
-2.34.1
 
 --
 dm-devel mailing list
