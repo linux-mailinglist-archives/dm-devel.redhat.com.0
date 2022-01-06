@@ -2,57 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEA6D486B46
-	for <lists+dm-devel@lfdr.de>; Thu,  6 Jan 2022 21:35:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id BB252486B44
+	for <lists+dm-devel@lfdr.de>; Thu,  6 Jan 2022 21:35:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-171-dUmdjIAdNtyur9Ct0vfm-A-1; Thu, 06 Jan 2022 15:35:33 -0500
-X-MC-Unique: dUmdjIAdNtyur9Ct0vfm-A-1
+ us-mta-563-xEh53xcUNnSVlwwEtUm8MQ-1; Thu, 06 Jan 2022 15:35:32 -0500
+X-MC-Unique: xEh53xcUNnSVlwwEtUm8MQ-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 3DD88102ABE5;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 989E118B62A6;
 	Thu,  6 Jan 2022 20:35:22 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 31C7F1948C;
-	Thu,  6 Jan 2022 20:35:19 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B47E1948C;
+	Thu,  6 Jan 2022 20:35:22 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9FF321809CB9;
-	Thu,  6 Jan 2022 20:35:10 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 128CE4BB7C;
+	Thu,  6 Jan 2022 20:35:21 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 206KZ16T023491 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 6 Jan 2022 15:35:01 -0500
+	id 206KZ2Nx023508 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 6 Jan 2022 15:35:02 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 1CD42492D4B; Thu,  6 Jan 2022 20:35:01 +0000 (UTC)
+	id 09B17492D4B; Thu,  6 Jan 2022 20:35:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 187AE492D40
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 05690492D40
+	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 20:35:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E0D853800680
 	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 20:35:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F2DA92A59560
-	for <dm-devel@redhat.com>; Thu,  6 Jan 2022 20:35:00 +0000 (UTC)
 Received: from mo4-p01-ob.smtp.rzone.de (mo4-p01-ob.smtp.rzone.de
-	[81.169.146.165]) by relay.mimecast.com with ESMTP with STARTTLS
+	[85.215.255.53]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-471-sfsrRkhHMwqUZiZnMuzE2w-1; Thu, 06 Jan 2022 15:34:57 -0500
-X-MC-Unique: sfsrRkhHMwqUZiZnMuzE2w-1
+	us-mta-675-vUJgNQ8qPmSp19fBdkAIVg-1; Thu, 06 Jan 2022 15:34:58 -0500
+X-MC-Unique: vUJgNQ8qPmSp19fBdkAIVg-1
 X-RZG-AUTH: ":PHkGeUmrW+uCZmxs998QJRUX30nOwJd7nOD9sw/xoauycprg5uef7cgCEpy7sPc="
 X-RZG-CLASS-ID: mo00
 Received: from USER-PC.fritz.box by smtp.strato.de (RZmta 47.37.6 DYNA|AUTH)
-	with ESMTPSA id k3f463y06KYp05f
+	with ESMTPSA id k3f463y06KYr05g
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256 bits))
 	(Client did not present a certificate);
-	Thu, 6 Jan 2022 21:34:51 +0100 (CET)
+	Thu, 6 Jan 2022 21:34:53 +0100 (CET)
 From: Thore Sommer <public@thson.de>
 To: dm-devel@redhat.com, agk@redhat.com, snitzer@redhat.com
-Date: Thu,  6 Jan 2022 21:34:34 +0100
-Message-Id: <20220106203436.281629-2-public@thson.de>
+Date: Thu,  6 Jan 2022 21:34:35 +0100
+Message-Id: <20220106203436.281629-3-public@thson.de>
 In-Reply-To: <20220106203436.281629-1-public@thson.de>
 References: <20220106203436.281629-1-public@thson.de>
 MIME-Version: 1.0
@@ -68,8 +69,8 @@ X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-loop: dm-devel@redhat.com
 Cc: tusharsu@linux.microsoft.com, linux-integrity@vger.kernel.org,
 	Thore Sommer <public@thson.de>
-Subject: [dm-devel] [RFC PATCH 1/3] dm ima: allow targets to remeasure their
-	table entry
+Subject: [dm-devel] [RFC PATCH 2/3] dm verity: add support for IMA target
+	update event
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,126 +92,42 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A new DM event dm_target_update is introduced for targets to remeasure
-their table entry. This is intended for targets that indicate security
-relevant events by updating one of their table entries (e.g. verity for
-corruption).
-
-In the event the dm version, device metadata and target data gets
-measured.
-
-This does not update the hash of the active table because it would require
-to rehash the whole table with all the other targets entries.
+On first corruption the verity targets triggers a dm_target_update event.
+This allows other systems to check using IMA if the state of the device is
+still trustworthy via remote attestation.
 
 Signed-off-by: Thore Sommer <public@thson.de>
 ---
- drivers/md/dm-ima.c | 76 +++++++++++++++++++++++++++++++++++++++++++++
- drivers/md/dm-ima.h |  2 ++
- 2 files changed, 78 insertions(+)
+ drivers/md/dm-verity-target.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/md/dm-ima.c b/drivers/md/dm-ima.c
-index 957999998d70..3b1bb97263d9 100644
---- a/drivers/md/dm-ima.c
-+++ b/drivers/md/dm-ima.c
-@@ -750,3 +750,79 @@ void dm_ima_measure_on_device_rename(struct mapped_device *md)
- 	kfree(new_dev_name);
- 	kfree(new_dev_uuid);
- }
-+
-+/*
-+ * Give the option for targets to remeasure on state change.
-+ */
-+void dm_ima_measure_on_target_update(struct dm_target *ti)
-+{
-+	char *ima_buf = NULL, *target_metadata_buf = NULL, *target_data_buf = NULL;
-+	struct dm_target *ti2;
-+	size_t target_metadata_buf_len, target_data_buf_len;
-+	unsigned int num_targets, target_index;
-+	struct dm_table *table = ti->table;
-+	struct mapped_device *md = table->md;
-+	bool found = false;
-+	bool noio = true;
-+	int l = 0;
-+
-+	ima_buf = dm_ima_alloc(DM_IMA_MEASUREMENT_BUF_LEN, GFP_KERNEL, noio);
-+	if (!ima_buf)
-+		return;
-+
-+	target_metadata_buf = dm_ima_alloc(DM_IMA_TARGET_METADATA_BUF_LEN, GFP_KERNEL, noio);
-+	if (!target_metadata_buf)
-+		goto exit;
-+
-+	target_data_buf = dm_ima_alloc(DM_IMA_TARGET_DATA_BUF_LEN, GFP_KERNEL, noio);
-+	if (!target_data_buf)
-+		goto exit;
-+
-+	/*
-+	 * Get the index of the target in the table.
-+	 */
-+	num_targets = dm_table_get_num_targets(table);
-+	for (target_index = 0; target_index < num_targets; target_index++) {
-+		ti2 = dm_table_get_target(table, target_index);
-+		if (!ti)
-+			goto exit;
-+		if (ti == ti2) {
-+			found = true;
-+			break;
-+		}
-+	}
-+	if (!found)
-+		goto exit;
-+
-+	scnprintf(target_metadata_buf, DM_IMA_TARGET_METADATA_BUF_LEN,
-+			  "target_index=%d,target_begin=%llu,target_len=%llu,",
-+			  target_index, ti->begin, ti->len);
-+	target_metadata_buf_len = strlen(target_metadata_buf);
-+
-+	if (ti->type->status)
-+		ti->type->status(ti, STATUSTYPE_IMA, STATUSTYPE_IMA, target_data_buf,
-+					DM_IMA_TARGET_DATA_BUF_LEN);
-+	else
-+		target_data_buf[0] = '\0';
-+	target_data_buf_len = strlen(target_data_buf);
-+
-+	memcpy(ima_buf + l, DM_IMA_VERSION_STR, md->ima.dm_version_str_len);
-+	l += md->ima.dm_version_str_len;
-+
-+	memcpy(ima_buf + l, md->ima.active_table.device_metadata,
-+	       md->ima.active_table.device_metadata_len);
-+	l += md->ima.active_table.device_metadata_len;
-+
-+	memcpy(ima_buf + l, target_metadata_buf, target_metadata_buf_len);
-+	l += target_metadata_buf_len;
-+
-+	memcpy(ima_buf + l, target_data_buf, target_data_buf_len);
-+
-+	dm_ima_measure_data("dm_target_update", ima_buf, strlen(ima_buf), noio);
-+
-+exit:
-+	kfree(ima_buf);
-+	kfree(target_data_buf);
-+	kfree(target_metadata_buf);
-+}
-+EXPORT_SYMBOL_GPL(dm_ima_measure_on_target_update);
-diff --git a/drivers/md/dm-ima.h b/drivers/md/dm-ima.h
-index b8c3b614670b..281a8b65f8a9 100644
---- a/drivers/md/dm-ima.h
-+++ b/drivers/md/dm-ima.h
-@@ -63,6 +63,7 @@ void dm_ima_measure_on_device_resume(struct mapped_device *md, bool swap);
- void dm_ima_measure_on_device_remove(struct mapped_device *md, bool remove_all);
- void dm_ima_measure_on_table_clear(struct mapped_device *md, bool new_map);
- void dm_ima_measure_on_device_rename(struct mapped_device *md);
-+void dm_ima_measure_on_target_update(struct dm_target *ti);
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 80133aae0db3..09696e25bf1c 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -16,6 +16,7 @@
+ #include "dm-verity.h"
+ #include "dm-verity-fec.h"
+ #include "dm-verity-verify-sig.h"
++#include "dm-ima.h"
+ #include <linux/module.h>
+ #include <linux/reboot.h>
+ #include <linux/scatterlist.h>
+@@ -218,10 +219,15 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
+ 	char *envp[] = { verity_env, NULL };
+ 	const char *type_str = "";
+ 	struct mapped_device *md = dm_table_get_md(v->ti->table);
++	int old_hash_failed = v->hash_failed;
  
- #else
+ 	/* Corruption should be visible in device status in all modes */
+ 	v->hash_failed = 1;
  
-@@ -72,6 +73,7 @@ static inline void dm_ima_measure_on_device_resume(struct mapped_device *md, boo
- static inline void dm_ima_measure_on_device_remove(struct mapped_device *md, bool remove_all) {}
- static inline void dm_ima_measure_on_table_clear(struct mapped_device *md, bool new_map) {}
- static inline void dm_ima_measure_on_device_rename(struct mapped_device *md) {}
-+static inline void dm_ima_measure_on_target_update(struct dm_target *ti) {}
- 
- #endif /* CONFIG_IMA */
++	/* Only remeasure on first failure */
++	if (!old_hash_failed)
++		dm_ima_measure_on_target_update(v->ti);
++
+ 	if (v->corrupted_errs >= DM_VERITY_MAX_CORRUPTED_ERRS)
+ 		goto out;
  
 -- 
 2.34.1
