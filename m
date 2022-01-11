@@ -1,77 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6861348A9BF
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Jan 2022 09:43:04 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 45A7148B1F0
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Jan 2022 17:20:58 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1641918057;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=IgmLKYT+pJNQcqlHQ8BKZnbHOY5Kjv2kap79aR/Ybhw=;
+	b=W9oqZdOeZyhezkdd0UNennjJUQx9tw7AQUZowePDuWwdYL3O5xZDPGqaOfw/HJ10AXuSQU
+	5qZ8BhT6F6s7bTY3dORF8gC1XjKYxPWBy8NJNW2jnDeOlmuK7XYuKNdKj5kPRDw3m/zrrQ
+	jwZW3nCSyNTLILdDcZALfx3XwZFrhxE=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-632-96s0387eO6SxwLIxkOn1Fg-1; Tue, 11 Jan 2022 03:43:01 -0500
-X-MC-Unique: 96s0387eO6SxwLIxkOn1Fg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-59-TnB9b7TQNc600d7blwmxPQ-1; Tue, 11 Jan 2022 11:20:55 -0500
+X-MC-Unique: TnB9b7TQNc600d7blwmxPQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 004DD100C609;
-	Tue, 11 Jan 2022 08:42:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 45E0294DC6;
+	Tue, 11 Jan 2022 16:20:46 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF8D11059109;
-	Tue, 11 Jan 2022 08:42:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D0117F559;
+	Tue, 11 Jan 2022 16:20:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EB4FA4BB7C;
-	Tue, 11 Jan 2022 08:42:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ABA094BB7C;
+	Tue, 11 Jan 2022 16:20:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20B8gfLZ026888 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 11 Jan 2022 03:42:42 -0500
+	id 20BGKIlC000431 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 11 Jan 2022 11:20:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BBA411121315; Tue, 11 Jan 2022 08:42:41 +0000 (UTC)
+	id 832B8C33AE7; Tue, 11 Jan 2022 16:20:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B73DE1121321
-	for <dm-devel@redhat.com>; Tue, 11 Jan 2022 08:42:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EF30C33AE3
+	for <dm-devel@redhat.com>; Tue, 11 Jan 2022 16:20:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC315811E76
-	for <dm-devel@redhat.com>; Tue, 11 Jan 2022 08:42:38 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63CD680A0B8
+	for <dm-devel@redhat.com>; Tue, 11 Jan 2022 16:20:18 +0000 (UTC)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+	[209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-271-2phYRrrhNrulEgsxpjWbHQ-1; Tue, 11 Jan 2022 03:42:37 -0500
-X-MC-Unique: 2phYRrrhNrulEgsxpjWbHQ-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1n7CjZ-00FO7F-Gg; Tue, 11 Jan 2022 08:42:25 +0000
-Date: Tue, 11 Jan 2022 00:42:25 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Ming Lei <ming.lei@redhat.com>
-Message-ID: <Yd1C8Y6H7ZDhWY2k@infradead.org>
-References: <20220110075141.389532-1-ming.lei@redhat.com>
-	<20220110075141.389532-2-ming.lei@redhat.com>
-	<YdxuWlZAPJkPyr3h@infradead.org> <Ydzj1JSoRGz+9g8B@T590>
+	us-mta-586-n0-TbG-2PAClBtUp2h6y9A-1; Tue, 11 Jan 2022 11:20:17 -0500
+X-MC-Unique: n0-TbG-2PAClBtUp2h6y9A-1
+Received: by mail-qv1-f69.google.com with SMTP id
+	r2-20020a0562140c4200b00418e57a7b35so1974729qvj.3
+	for <dm-devel@redhat.com>; Tue, 11 Jan 2022 08:20:17 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=CC1i5tpLMiW1d6bdv7f77XtvYY1n5qxfZPIldyU34eI=;
+	b=yVocQL+Z9NhgqLt7T/1SzJB154ml+nckljRGvy/xIwJUNtC5ZUkYnhl1mvHMHOaxTP
+	Hw6FivUkqWe4ahgG/rb2KC0Il/DJwLQR5nnk0U4hyK0WeEfrB71GUzX4H5pwirsU12Av
+	L3p56e7VKUxLNPmmb0JzzVrHT8GN6zOSJN96UIcQFBKPjFBXvL6CbDPNfuBLXc6X7X00
+	F38YQAddN4OHuhs2IrwFR6Ez0yleYsERBAO0nIfmRblFIT+Tyq2lcMHhsNPTyFX1J9vb
+	7iWZOnnAFMpeBVILVcuDR89xJOzLiwqi33/8dw73IuZ667oAMkGb+xOFc5xsubL0Wsvp
+	EYkw==
+X-Gm-Message-State: AOAM531N9X306ggw0ZO7mzVQ5OVHqtqrtl9GSAt+QlGfpbZvcV4IFHqM
+	jyUMWVF9XhKzxf2Zcyz8JSHdhver2EzfuWMrVV9yUcjG/BA6x5Ly3o8Q1Cih+s2ITcQqU8ckL/v
+	G3cGWP63PGbhRbQ==
+X-Received: by 2002:a05:622a:13ce:: with SMTP id
+	p14mr4232669qtk.562.1641917712067; 
+	Tue, 11 Jan 2022 08:15:12 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJz9rn8Dc2sri+sXStNgRwr2Ijq9qi5yvFpyULm8k4zkoftteb5wEjtKYGDbnDA0U+OKT8LYwQ==
+X-Received: by 2002:a05:622a:13ce:: with SMTP id
+	p14mr4232630qtk.562.1641917711671; 
+	Tue, 11 Jan 2022 08:15:11 -0800 (PST)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	j13sm7195820qta.76.2022.01.11.08.15.10
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Tue, 11 Jan 2022 08:15:11 -0800 (PST)
+Date: Tue, 11 Jan 2022 11:15:09 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Christoph Hellwig <hch@infradead.org>, Jens Axboe <axboe@kernel.dk>
+Message-ID: <Yd2tDWuP+aT3Hxbj@redhat.com>
+References: <20211221141459.1368176-1-ming.lei@redhat.com>
+	<YcH/E4JNag0QYYAa@infradead.org> <YcP4FMG9an5ReIiV@T590>
+	<YcuB4K8P2d9WFb83@redhat.com> <Yd1BFpYTBlQSPReW@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <Ydzj1JSoRGz+9g8B@T590>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+In-Reply-To: <Yd1BFpYTBlQSPReW@infradead.org>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	Mike Snitzer <snitzer@redhat.com>,
-	Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
-	lining <lining2020x@163.com>, Tejun Heo <tj@kernel.org>,
-	Chunguang Xu <brookxu@tencent.com>
-Subject: Re: [dm-devel] [PATCH 1/2] block: add resubmit_bio_noacct()
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+	Ming Lei <ming.lei@redhat.com>
+Subject: Re: [dm-devel] [PATCH 0/3] blk-mq/dm-rq: support BLK_MQ_F_BLOCKING
+	for dm-rq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +111,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,42 +120,59 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 11, 2022 at 09:56:36AM +0800, Ming Lei wrote:
-> 2) block throttle is block layer internal stuff, and we shouldn't expose
-> blk_throtl_charge_bio_split() to driver.
+On Tue, Jan 11 2022 at  3:34P -0500,
+Christoph Hellwig <hch@infradead.org> wrote:
+
+> On Tue, Dec 28, 2021 at 04:30:08PM -0500, Mike Snitzer wrote:
+> > Yeah, people use request-based for IO scheduling and more capable path
+> > selectors. Imposing bio-based would be a pretty jarring workaround for 
+> > BLK_MQ_F_BLOCKING. request-based DM should properly support it.
 > 
-> Maybe rename the new API as submit_split_bio_noacct(), but we can't
-> reuse submit_bio_noacct() simply, otherwise blk_throtl_charge_bio_split()
-> needs to be exported.
+> Given that nvme-tcp is the only blocking driver that has multipath
+> driver that driver explicitly does not intend to support dm-multipath
+> I'm absolutely against adding block layer cruft for this particular
+> use case.
 
-submit_bio_noacct should only ever be used for resubmitting bios that
-came up from the upper layer, although they might not always be "split".
-blk_throtl_charge_bio_split
+this diffstat amounts to what you call "cruft":
 
-> Another ides is to clearing BIO_THROTTLED before calling submit_bio_noacct(),
-> meantime blk-throttle code needs to change to avoid double accounting of bio
-> bytes, so the caller of submit_bio_noacct() still needs some change.
-> This way can get smooth IOPS throttle, but needs to call __blk_throtl_bio
-> for split bio one more time.
+ block/blk-core.c       |  2 +-
+ block/blk-mq.c         |  6 +++---
+ block/blk-mq.h         |  2 +-
+ block/blk-sysfs.c      |  2 +-
+ block/genhd.c          |  5 +++--
+ drivers/md/dm-rq.c     |  5 ++++-
+ drivers/md/dm-rq.h     |  3 ++-
+ drivers/md/dm-table.c  | 14 ++++++++++++++
+ drivers/md/dm.c        |  5 +++--
+ drivers/md/dm.h        |  1 +
+ include/linux/blkdev.h |  5 +++--
+ include/linux/genhd.h  | 12 ++++++++----
+ 12 files changed, 44 insertions(+), 18 deletions(-)
+
+> SCSI even has this:
 > 
-> Or other idea for this bio split vs. iops limit issue?
+> 	        /*
+> 		 * SCSI never enables blk-mq's BLK_MQ_F_BLOCKING flag so
+> 		 * calling synchronize_rcu() once is enough.
+> 		 */
+> 		WARN_ON_ONCE(shost->tag_set.flags & BLK_MQ_F_BLOCKING);
+> 
 
-Well, if you want a helper specificly for splits, add one that actally
-specifically handles splits and makes the callers life easier, something
-like:
+Round and round we go.. Pretty tired of this.
 
-void bio_submit_splice(struct bio *split, struct bio *orig)
-{
-	split->bi_opf |= REQ_NOMERGE;
-	trace_block_split(split, orig->bi_iter.bi_sector);
-	submit_bio_noacct(orig);
-	blk_throtl_charge_bio_split(orig);
-}
+You are perfectly fine with incrementally compromising request-based
+DM's ability to evolve as block core does.
 
-including a proper kerneldoc comment.
+Seriously, this patchset shouldn't warrant bickering:
+https://patchwork.kernel.org/project/dm-devel/list/?series=598823
 
-But I still fail to grasp how a split is so different from just
-resubmitting a not split bio.
+Jens, this incremental weakening of what it is that DM is allowed to
+do is not something I can continue to work with (nor should Ming's or
+others' contributions be rejected for such reasons).
+
+This tribal war needs to stop.
+
+Mike
 
 --
 dm-devel mailing list
