@@ -2,87 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D349048D027
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Jan 2022 02:31:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 746EB48D36E
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Jan 2022 09:11:14 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-606-PjqlEKnxOnWW0bfk4Sipiw-1; Wed, 12 Jan 2022 20:31:06 -0500
-X-MC-Unique: PjqlEKnxOnWW0bfk4Sipiw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-43-zc7io-A-N4uEcWqN82DUIw-1; Thu, 13 Jan 2022 03:09:10 -0500
+X-MC-Unique: zc7io-A-N4uEcWqN82DUIw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BC8FC83DD20;
-	Thu, 13 Jan 2022 01:31:00 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A9EDA39382;
+	Thu, 13 Jan 2022 08:09:03 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E94F11009AF8;
-	Thu, 13 Jan 2022 01:30:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 71A047958C;
+	Thu, 13 Jan 2022 08:09:03 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8C364BB7C;
-	Thu, 13 Jan 2022 01:30:45 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1A5564A7C8;
+	Thu, 13 Jan 2022 08:09:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20D1UR1a004725 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jan 2022 20:30:27 -0500
+	id 20CLKgKh016051 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jan 2022 16:20:42 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8C21AC15E73; Thu, 13 Jan 2022 01:30:27 +0000 (UTC)
+	id B40D62166B4F; Wed, 12 Jan 2022 21:20:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 87855C15E6F
-	for <dm-devel@redhat.com>; Thu, 13 Jan 2022 01:30:27 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF2FB2166B44
+	for <dm-devel@redhat.com>; Wed, 12 Jan 2022 21:20:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 64BD61C05155
-	for <dm-devel@redhat.com>; Thu, 13 Jan 2022 01:30:27 +0000 (UTC)
-Received: from mout.gmx.net (mout.gmx.net [212.227.15.15]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68633805F4A
+	for <dm-devel@redhat.com>; Wed, 12 Jan 2022 21:20:39 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-148-Z3cr-YFeOpucS1Sovn3Aqg-1; Wed, 12 Jan 2022 20:30:25 -0500
-X-MC-Unique: Z3cr-YFeOpucS1Sovn3Aqg-1
-X-UI-Sender-Class: 01bb95c1-4bf8-414a-932a-4f6e2808ef9c
-Received: from [0.0.0.0] ([149.28.201.231]) by mail.gmx.net (mrgmx004
-	[212.227.17.184]) with ESMTPSA (Nemesis) id 1Mel7v-1mX7DG1drR-00algE;
-	Thu, 13 Jan 2022 02:30:24 +0100
-Message-ID: <d8a4ab1f-f6eb-06a3-cdf4-6122a6b3cbf6@gmx.com>
-Date: Thu, 13 Jan 2022 09:30:17 +0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
-	Thunderbird/91.4.1
-To: Lukas Straub <lukasstraub2@web.de>
-References: <0535d6c3-dec3-fb49-3707-709e8d26b538@gmx.com>
-	<20220108195259.33e9bdf0@gecko> <20220108202922.6b00de19@gecko>
-	<5ffc44f1-7e82-bc85-fbb1-a4f89711ae8f@gmx.com>
-	<e209bfe191442846f66d790321f2db672edfb8ca.camel@infradead.org>
-	<24998019-960c-0808-78df-72e0d08c904e@gmx.com>
-	<20220112155351.5b670d81@gecko>
-From: Qu Wenruo <quwenruo.btrfs@gmx.com>
-In-Reply-To: <20220112155351.5b670d81@gecko>
-X-Provags-ID: V03:K1:UerDNmPKLlus2Pxmptpvr2B2Iop8EYbu1P0Fdu1O8neE5S59DYe
-	xT6zzMRJR78JmWf1AmmWm9wYMi69yHPHtxpC73LPZ48//FarAODtB0yNZXkqFE9m0LjfdKy
-	nywJDLgHAjmA1H9E6f8wi87Mt1hYOa9s5ibZP3Gx3VMlenhrhYbziZo1LhTg4fEYN1zCuiZ
-	k4Wx9Vy423RxIH9tI9a2Q==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:+n/mTaIWfEM=:RhhlemtXcANIxJfX7X6c26
-	TZ5ZnwlVkKYxGafYznTogLzddIm9XwfAaZRc+ecS04UfvDGLLL8X6C2usQZ4ZHX1YB+mqsn2t
-	UvLkN/v2TwTn7OeS6CK2b0FST5lqWWowJ0htmrZBxcpuo+GumBAJTvwBL6wQXDjrQesjReuM4
-	C8EYUwDxyNqPcX3iFRT1alWdFGxKRxOqrRClFxya/PguqpIOsY4WX/DVbdLLyJ2xAzEMf08AN
-	0wde98XxP22gzx5bi+ySQiasy6I+QG2RN549G74XAYQY1J1wXeO2iRZ7Y78+6o+FqxW/zZj9X
-	1cRlds8fnISxX2ONVxMyAEdP6s5vm1gEGE0dcCMZG57F4ONf7432VsNVbNtGj/s1goHnG9BjD
-	xuWhXf12tcYwx5F7blz/A4kdFhWFhN2oXN7ZW0uYZaPirk5TgNMemF78tqZd4K5hCPbHLFMh/
-	vA4ij/mCGOmFCgRVsOOpsr9KeXBJo9rzx/0+JinDC88+3qXT/746SVv+Jv7JpdI1CPdUPK7pt
-	fUspPLGw3kakqnp841LPxBUB5UZYNlRyPfhkhINbkUYT8LYvVXqpmxPUlkOb789e1YmCE7RBq
-	z7iYfOfb0d+SXRa7owIdlghwfub4i5vyYnljMoR9ojSfqaOhXtRG2212DUzKWf0ZGrFRLzGS0
-	cRbNq76LNw7G73T1A7icIuifxEI4jXuRw9UQuXuQdfWQ1gawCU8Zp32DUION2vA4/AQR/XWfF
-	DXzbAS+p1ohdjh7OmaZKnxn5XsI1bFXVdwPB9W44ZmObNl2dbGWj11LBt6nQRLw2fNVRXG+us
-	Bnx7pJH5GLstX9gI96+XEARquP6d4b0VYoz1F7DNfY7a8blAnuEiRlO8VlHWzAntp9n/RLjxe
-	UpbCxktkfL5enSrkrgE6ZU7LT5SDzCVivCLOPnsXiXjTzLJBrelgMq10c6PeH23FylbjuAiSI
-	Y/nfVfUZpcOYiPhHL8YBObWuz1Tj+/5qQtBQekzRC89OlEB+SkmLECZGvtYLt1Sb5oIlQOJXB
-	ePcA7uOy9iZIM8BUhb3AAYGoqEUbks1WPxL9NZ4YcPXqKsqRrIKa1rJe5OJpoTHobmlE6LEhP
-	KcCUr5mJn94XWc=
+	us-mta-82-krkKhBE3Pq6KqbW8Ol2iGw-1; Wed, 12 Jan 2022 16:20:37 -0500
+X-MC-Unique: krkKhBE3Pq6KqbW8Ol2iGw-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="244060306"
+X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="244060306"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+	by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	12 Jan 2022 13:20:36 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="529378212"
+Received: from chang-linux-3.sc.intel.com ([172.25.66.175])
+	by orsmga008.jf.intel.com with ESMTP; 12 Jan 2022 13:20:35 -0800
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-crypto@vger.kernel.org, dm-devel@redhat.com,
+	herbert@gondor.apana.org.au, ebiggers@kernel.org, ardb@kernel.org,
+	x86@kernel.org, luto@kernel.org, tglx@linutronix.de, bp@suse.de,
+	dave.hansen@linux.intel.com, mingo@kernel.org
+Date: Wed, 12 Jan 2022 13:12:46 -0800
+Message-Id: <20220112211258.21115-1-chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -91,15 +67,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 20D1UR1a004725
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: Linux FS Devel <linux-fsdevel@vger.kernel.org>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>,
-	David Woodhouse <dwmw2@infradead.org>, linux-raid@vger.kernel.org
-Subject: Re: [dm-devel] Proper way to test RAID456?
+X-Mailman-Approved-At: Thu, 13 Jan 2022 03:08:37 -0500
+Cc: ravi.v.shankar@intel.com, chang.seok.bae@intel.com,
+	linux-kernel@vger.kernel.org, kumar.n.dwarakanath@intel.com,
+	dan.j.williams@intel.com, charishma1.gairuboyina@intel.com
+Subject: [dm-devel] [PATCH v5 00/12] x86: Support Key Locker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,169 +85,97 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+
+Changes from v4 [1]:
+* Drop CBC mode support (PATCH10). (Eric Biggers)
+* Update the changelog (PATCH8). (Rafael Wysocki)
+
+A couple of other things outside of these patches are still in progress:
+* Support DM-crypt/cryptsetup for Key Locker usage (Andy Lutomirski)
+  [2].
+* Understand decryption under-performance (Eric Biggers and Milan Broz)
+  [3][4].
+
+This feature's usage for the threat model can be found in the previous
+cover letter [1]. This version is based on 5.16.
+
+Thanks,
+Chang
+
+[1] V4: https://lore.kernel.org/lkml/20211214005212.20588-1-chang.seok.bae@intel.com/
+[2] https://lore.kernel.org/lkml/75ec3ad1-6234-ae1f-1b83-482793e4fd23@kernel.org/
+[3] https://lore.kernel.org/lkml/YbqRseO+TtuGQk5x@sol.localdomain/
+[4] https://lore.kernel.org/lkml/120368dc-e337-9176-936c-4db2a8bf710e@gmail.com/
+
+Chang S. Bae (12):
+  Documentation/x86: Document Key Locker
+  x86/cpufeature: Enumerate Key Locker feature
+  x86/insn: Add Key Locker instructions to the opcode map
+  x86/asm: Add a wrapper function for the LOADIWKEY instruction
+  x86/msr-index: Add MSRs for Key Locker internal wrapping key
+  x86/keylocker: Define Key Locker CPUID leaf
+  x86/cpu/keylocker: Load an internal wrapping key at boot-time
+  x86/PM/keylocker: Restore internal wrapping key on resume from ACPI
+    S3/4
+  x86/cpu: Add a configuration and command line option for Key Locker
+  crypto: x86/aes - Prepare for a new AES implementation
+  crypto: x86/aes-kl - Support AES algorithm using Key Locker
+    instructions
+  crypto: x86/aes-kl - Support XTS mode
+
+ .../admin-guide/kernel-parameters.txt         |   2 +
+ Documentation/x86/index.rst                   |   1 +
+ Documentation/x86/keylocker.rst               |  98 +++
+ arch/x86/Kconfig                              |   3 +
+ arch/x86/crypto/Makefile                      |   5 +-
+ arch/x86/crypto/aes-intel_asm.S               |  26 +
+ arch/x86/crypto/aes-intel_glue.c              | 125 ++++
+ arch/x86/crypto/aes-intel_glue.h              |  48 ++
+ arch/x86/crypto/aeskl-intel_asm.S             | 633 ++++++++++++++++++
+ arch/x86/crypto/aeskl-intel_glue.c            | 216 ++++++
+ arch/x86/crypto/aesni-intel_asm.S             |  58 +-
+ arch/x86/crypto/aesni-intel_glue.c            | 239 ++-----
+ arch/x86/crypto/aesni-intel_glue.h            |  17 +
+ arch/x86/include/asm/cpufeatures.h            |   1 +
+ arch/x86/include/asm/disabled-features.h      |   8 +-
+ arch/x86/include/asm/keylocker.h              |  45 ++
+ arch/x86/include/asm/msr-index.h              |   6 +
+ arch/x86/include/asm/special_insns.h          |  32 +
+ arch/x86/include/uapi/asm/processor-flags.h   |   2 +
+ arch/x86/kernel/Makefile                      |   1 +
+ arch/x86/kernel/cpu/common.c                  |  21 +-
+ arch/x86/kernel/cpu/cpuid-deps.c              |   1 +
+ arch/x86/kernel/keylocker.c                   | 199 ++++++
+ arch/x86/kernel/smpboot.c                     |   2 +
+ arch/x86/lib/x86-opcode-map.txt               |  11 +-
+ arch/x86/power/cpu.c                          |   2 +
+ crypto/Kconfig                                |  36 +
+ tools/arch/x86/lib/x86-opcode-map.txt         |  11 +-
+ 28 files changed, 1633 insertions(+), 216 deletions(-)
+ create mode 100644 Documentation/x86/keylocker.rst
+ create mode 100644 arch/x86/crypto/aes-intel_asm.S
+ create mode 100644 arch/x86/crypto/aes-intel_glue.c
+ create mode 100644 arch/x86/crypto/aes-intel_glue.h
+ create mode 100644 arch/x86/crypto/aeskl-intel_asm.S
+ create mode 100644 arch/x86/crypto/aeskl-intel_glue.c
+ create mode 100644 arch/x86/crypto/aesni-intel_glue.h
+ create mode 100644 arch/x86/include/asm/keylocker.h
+ create mode 100644 arch/x86/kernel/keylocker.c
 
 
-
-On 2022/1/13 00:56, Lukas Straub wrote:
-> On Sun, 9 Jan 2022 20:13:36 +0800
-> Qu Wenruo <quwenruo.btrfs@gmx.com> wrote:
->
->> On 2022/1/9 18:04, David Woodhouse wrote:
->>> On Sun, 2022-01-09 at 07:55 +0800, Qu Wenruo wrote:
->>>> On 2022/1/9 04:29, Lukas Straub wrote:
->>>>> But there is a even simpler solution for btrfs: It could just not touch
->>>>> stripes that already contain data.
->>>>
->>>> That would waste a lot of space, if the fs is fragemented.
->>>>
->>>> Or we have to write into data stripes when free space is low.
->>>>
->>>> That's why I'm trying to implement a PPL-like journal for btrfs RAID56.
->>>
->>> PPL writes the P/Q of the unmodified chunks from the stripe, doesn't
->>> it?
->>
->> Did I miss something or the PPL isn't what I thought?
->>
->> I thought PPL either:
->>
->> a) Just write a metadata entry into the journal to indicate a full
->>      stripe (along with its location) is going to be written.
->>
->> b) Write a metadata entry into the journal about a non-full stripe
->>      write, then write the new data and new P/Q into the journal
->>
->> And this is before we start any data/P/Q write.
->>
->> And after related data/P/Q write is finished, remove corresponding
->> metadata and data entry from the journal.
->>
->> Or PPL have even better solution?
->
-> Yes, PPL is a bit better than a journal as you described it (md
-> supports both). Because a journal would need to be replicated to
-> multiple devices (raid1) in the array while the PPL is only written to
-> the drive containing the parity for the particular stripe. And since the
-> parity is distributed across all drives, the PPL overhead is also
-> distributed across all drives. However, PPL only works for raid5 as
-> you'll see.
->
-> PPL works like this:
->
-> Before any data/parity write either:
->
->   a) Just write a metadata entry into the PPL on the parity drive to
->      indicate a full stripe (along with its location) is going to be
->      written.
->
->   b) Write a metadata entry into the PPL on the parity drive about a
->      non-full stripe write, including which data chunks are going to be
->      modified, then write the XOR of chunks not modified by this write in
->      to the PPL.
-
-This is a little different than I thought, and I guess that's why RAID6
-is not supported.
-
-My original assumption would be something like this for one RMW
-(X = modified data, | | = unmodified data)
-
-Data 1:    |XXXXXXXXX|   |        |
-Data 2:    |         |   |XXXXXXXX|
-P(1+2):    |XXXXXXXXX|   |XXXXXXXX|
-
-In that case, modified Data 1 and 2 will go logged into PPL for the
-corresponding disks.
-Then for P(1+2), only the modified two parts will be logged into the device.
-
-I'm wondering if we go this solution, wouldn't it be able to handle
-RAID6 too?
-Even we lost two disks, the remaining part in the PPL should still be
-enough to recover whatever is lost, as long as the unmodified sectors
-are really unmodified on-disk.
-
-Although this would greatly make the PPL management much harder, as
-different devices will have different PPL data usage.
-
-
->
-> To recover a inconsistent array with a lost drive:
->
-> In case a), the stripe consists only of newly written data, so it will
-> be affected by the write-hole (this is the trade-off that PPL makes) so
-> just standard parity recovery.
->
-> In case b), XOR what we wrote to the PPL (the XOR of chunks not
-> modified) with the modified data chunks to get our new (consistent)
-> parity. Then do standard parity recovery. This just works if we lost a
-> unmodified data chunk.
-> If we lost a modified data chunk this is not possible and just do
-> standard parity recovery from the beginning. Again, the newly written
-> data is affected by the write-hole but existing data is not.
-> If we lost the parity drive (containing the PPL) there is no need to
-> recover since all the data chunks are present.
->
-> Of course, this was a simplified explanation, see drivers/md/raid5-ppl.c
-> for details (it has good comments with examples). This also covers the
-> case where a data chunk is only partially modified and the unmodified
-> part of the chunk also needs to be protected (by working on a per-block
-> basis instead of per-chunk).
-
-Thanks for the detailed explanation.
-Qu
-
->
-> The PPL is not possible for raid6 AFAIK, because there it could happen
-> that you loose both a modified data chunk and a unmodified data chunk.
->
-> Regards,
-> Lukas Straub
->
->>>
->>> An alternative in a true file system which can do its own block
->>> allocation is to just calculate the P/Q of the final stripe after it's
->>> been modified, and write those (and) the updated data out to newly-
->>> allocated blocks instead of overwriting the original.
->>
->> This is what Johannes is considering, but for a different purpose.
->> Johannes' idea is to support zoned device. As the physical location a
->> zoned append write will only be known after it's written.
->>
->> So his idea is to maintain another mapping tree for zoned write, so that
->> full stripe update will also happen in that tree.
->>
->> But that idea is still in the future, on the other hand I still prefer
->> some tried-and-true method, as I'm 100% sure there will be new
->> difficulties waiting us for the new mapping tree method.
->>
->> Thanks,
->> Qu
->>
->>>
->>> Then the final step is to free the original data blocks and P/Q.
->>>
->>> This means that your RAID stripes no longer have a fixed topology; you
->>> need metadata to be able to *find* the component data and P/Q chunks...
->>> it ends up being non-trivial, but it has attractive properties if we
->>> can work it out.
->
->
->
->
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://listman.redhat.com/mailman/listinfo/dm-devel
-
+base-commit: df0cc57e057f18e44dac8e6c18aba47ab53202f9
+--
+2.17.1
 
 --
 dm-devel mailing list
