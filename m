@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E51248D362
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Jan 2022 09:09:23 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 076D748D36F
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Jan 2022 09:11:17 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-357-ZLnlWHGXNFqgbjInPaCjLA-1; Thu, 13 Jan 2022 03:09:13 -0500
-X-MC-Unique: ZLnlWHGXNFqgbjInPaCjLA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-447-GKkfmx8MOWuWAmgC7sQEUA-1; Thu, 13 Jan 2022 03:09:14 -0500
+X-MC-Unique: GKkfmx8MOWuWAmgC7sQEUA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id DAD611083F69;
-	Thu, 13 Jan 2022 08:09:05 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AA16D5E4BA;
-	Thu, 13 Jan 2022 08:09:05 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 27A341083F66;
+	Thu, 13 Jan 2022 08:09:08 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F34D37B01A;
+	Thu, 13 Jan 2022 08:09:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 656514A7C8;
-	Thu, 13 Jan 2022 08:09:05 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A8C4D1806D1C;
+	Thu, 13 Jan 2022 08:09:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20CLKgA1016052 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jan 2022 16:20:42 -0500
+	id 20CLKhp2016053 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 12 Jan 2022 16:20:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B7373C15E73; Wed, 12 Jan 2022 21:20:42 +0000 (UTC)
+	id F26DE141DC28; Wed, 12 Jan 2022 21:20:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B2DD2C15E6F
+	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EE1AA1402427
 	for <dm-devel@redhat.com>; Wed, 12 Jan 2022 21:20:42 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99D2A811E7A
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6D961C093E9
 	for <dm-devel@redhat.com>; Wed, 12 Jan 2022 21:20:42 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-82-J9h1UpNINrKHz7rcHm7dPA-4; Wed, 12 Jan 2022 16:20:40 -0500
-X-MC-Unique: J9h1UpNINrKHz7rcHm7dPA-4
-X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="244060316"
-X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="244060316"
+	us-mta-556-wKWGuWUpO4yZ4iNU4RS3zQ-3; Wed, 12 Jan 2022 16:20:41 -0500
+X-MC-Unique: wKWGuWUpO4yZ4iNU4RS3zQ-3
+X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="244060318"
+X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="244060318"
 Received: from orsmga008.jf.intel.com ([10.7.209.65])
 	by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	12 Jan 2022 13:20:39 -0800
+	12 Jan 2022 13:20:40 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="529378246"
+X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="529378253"
 Received: from chang-linux-3.sc.intel.com ([172.25.66.175])
 	by orsmga008.jf.intel.com with ESMTP; 12 Jan 2022 13:20:39 -0800
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
@@ -57,8 +57,8 @@ To: linux-crypto@vger.kernel.org, dm-devel@redhat.com,
 	herbert@gondor.apana.org.au, ebiggers@kernel.org, ardb@kernel.org,
 	x86@kernel.org, luto@kernel.org, tglx@linutronix.de, bp@suse.de,
 	dave.hansen@linux.intel.com, mingo@kernel.org
-Date: Wed, 12 Jan 2022 13:12:51 -0800
-Message-Id: <20220112211258.21115-6-chang.seok.bae@intel.com>
+Date: Wed, 12 Jan 2022 13:12:52 -0800
+Message-Id: <20220112211258.21115-7-chang.seok.bae@intel.com>
 In-Reply-To: <20220112211258.21115-1-chang.seok.bae@intel.com>
 References: <20220112211258.21115-1-chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -69,14 +69,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Thu, 13 Jan 2022 03:08:37 -0500
 Cc: ravi.v.shankar@intel.com, chang.seok.bae@intel.com,
 	linux-kernel@vger.kernel.org, kumar.n.dwarakanath@intel.com,
 	dan.j.williams@intel.com, charishma1.gairuboyina@intel.com
-Subject: [dm-devel] [PATCH v5 05/12] x86/msr-index: Add MSRs for Key Locker
-	internal wrapping key
+Subject: [dm-devel] [PATCH v5 06/12] x86/keylocker: Define Key Locker CPUID
+	leaf
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,7 +91,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -99,25 +99,9 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The CPU state that contains the internal wrapping key is in the same power
-domain as the cache. So any sleep state that would invalidate the cache
-(like S3) also invalidates the state of the wrapping key.
-
-But, since the state is inaccessible to software, it needs a special
-mechanism to save and restore the key during deep sleep.
-
-A set of new MSRs are provided as an abstract interface to save and restore
-the wrapping key, and to check the key status.
-
-The wrapping key is saved in a platform-scoped state of non-volatile media.
-The backup itself and its path from the CPU are encrypted and integrity
-protected.
-
-But this storage's non-volatility is not architecturally guaranteed across
-off states, such as S5 and G3.
-
-The MSRs will be used to back up the key for S3/4 sleep states. Then the
-kernel code writes one of them to restore the key in each CPU state.
+Define the feature-specific CPUID leaf and bits. Both Key Locker enabling
+code in the x86 core and AES Key Locker code in the crypto library will
+reference them.
 
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
@@ -125,27 +109,35 @@ Cc: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org
 ---
 Changes from RFC v2:
-* Update the changelog. (Dan Williams)
-* Rename the MSRs. (Dan Williams)
+* Separate out the code as a new patch.
 ---
- arch/x86/include/asm/msr-index.h | 6 ++++++
- 1 file changed, 6 insertions(+)
+ arch/x86/include/asm/keylocker.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
-index 01e2650b9585..7f11a3b3a75b 100644
---- a/arch/x86/include/asm/msr-index.h
-+++ b/arch/x86/include/asm/msr-index.h
-@@ -941,4 +941,10 @@
- #define MSR_VM_IGNNE                    0xc0010115
- #define MSR_VM_HSAVE_PA                 0xc0010117
+diff --git a/arch/x86/include/asm/keylocker.h b/arch/x86/include/asm/keylocker.h
+index df84c83228a1..e85dfb6c1524 100644
+--- a/arch/x86/include/asm/keylocker.h
++++ b/arch/x86/include/asm/keylocker.h
+@@ -5,6 +5,7 @@
  
-+/* MSRs for managing an internal wrapping key for Key Locker. */
-+#define MSR_IA32_IWKEY_COPY_STATUS		0x00000990
-+#define MSR_IA32_IWKEY_BACKUP_STATUS		0x00000991
-+#define MSR_IA32_BACKUP_IWKEY_TO_PLATFORM	0x00000d91
-+#define MSR_IA32_COPY_IWKEY_TO_LOCAL		0x00000d92
+ #ifndef __ASSEMBLY__
+ 
++#include <linux/bits.h>
+ #include <asm/fpu/types.h>
+ 
+ /**
+@@ -21,5 +22,11 @@ struct iwkey {
+ 	struct reg_128_bit encryption_key[2];
+ };
+ 
++#define KEYLOCKER_CPUID			0x019
++#define KEYLOCKER_CPUID_EAX_SUPERVISOR	BIT(0)
++#define KEYLOCKER_CPUID_EBX_AESKLE	BIT(0)
++#define KEYLOCKER_CPUID_EBX_WIDE	BIT(2)
++#define KEYLOCKER_CPUID_EBX_BACKUP	BIT(4)
 +
- #endif /* _ASM_X86_MSR_INDEX_H */
+ #endif /*__ASSEMBLY__ */
+ #endif /* _ASM_KEYLOCKER_H */
 -- 
 2.17.1
 
