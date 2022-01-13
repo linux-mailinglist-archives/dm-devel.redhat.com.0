@@ -2,65 +2,117 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A1FC48D36C
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Jan 2022 09:10:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 820EB48D644
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Jan 2022 12:01:54 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-447-ZZcQiD-0M_aHeaThZJXEKw-1; Thu, 13 Jan 2022 03:09:13 -0500
-X-MC-Unique: ZZcQiD-0M_aHeaThZJXEKw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-451-vQrtZezGPBKPPDH36k2DTg-1; Thu, 13 Jan 2022 06:01:51 -0500
+X-MC-Unique: vQrtZezGPBKPPDH36k2DTg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 12E7C83DD26;
-	Thu, 13 Jan 2022 08:09:08 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9E771F303;
-	Thu, 13 Jan 2022 08:09:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E17AF192D78C;
+	Thu, 13 Jan 2022 11:01:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8D456F95B;
+	Thu, 13 Jan 2022 11:01:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F0A54A7C8;
-	Thu, 13 Jan 2022 08:09:07 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 53B701809CBA;
+	Thu, 13 Jan 2022 11:01:42 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20CLKkrY016094 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 12 Jan 2022 16:20:46 -0500
+	id 20DAwIo9001625 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 13 Jan 2022 05:58:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 79A3346D1FD; Wed, 12 Jan 2022 21:20:46 +0000 (UTC)
+	id 9F9AE200A39A; Thu, 13 Jan 2022 10:58:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 75D2E46D1FF
-	for <dm-devel@redhat.com>; Wed, 12 Jan 2022 21:20:46 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A7012A59562
-	for <dm-devel@redhat.com>; Wed, 12 Jan 2022 21:20:46 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-556-06i4FRrJPyWHXVn2BBSpOQ-6; Wed, 12 Jan 2022 16:20:44 -0500
-X-MC-Unique: 06i4FRrJPyWHXVn2BBSpOQ-6
-X-IronPort-AV: E=McAfee;i="6200,9189,10225"; a="244060332"
-X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="244060332"
-Received: from orsmga008.jf.intel.com ([10.7.209.65])
-	by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	12 Jan 2022 13:20:43 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,284,1635231600"; d="scan'208";a="529378303"
-Received: from chang-linux-3.sc.intel.com ([172.25.66.175])
-	by orsmga008.jf.intel.com with ESMTP; 12 Jan 2022 13:20:42 -0800
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-To: linux-crypto@vger.kernel.org, dm-devel@redhat.com,
-	herbert@gondor.apana.org.au, ebiggers@kernel.org, ardb@kernel.org,
-	x86@kernel.org, luto@kernel.org, tglx@linutronix.de, bp@suse.de,
-	dave.hansen@linux.intel.com, mingo@kernel.org
-Date: Wed, 12 Jan 2022 13:12:58 -0800
-Message-Id: <20220112211258.21115-13-chang.seok.bae@intel.com>
-In-Reply-To: <20220112211258.21115-1-chang.seok.bae@intel.com>
-References: <20220112211258.21115-1-chang.seok.bae@intel.com>
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96B9F2028CE7
+	for <dm-devel@redhat.com>; Thu, 13 Jan 2022 10:58:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9740F810B43
+	for <dm-devel@redhat.com>; Thu, 13 Jan 2022 10:58:15 +0000 (UTC)
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=dkim.mimecast.com; s=201903; t=1642071495;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	to:to:cc:mime-version:mime-version:content-type:content-type:
+	dkim-signature; bh=/p7PB3kTdkpWPT//FrosgaPg9u+pHubpDqED6WfIQ1U=;
+	b=Yj/2OVg4F7vDQH46pj/FAT2Ngg3SiCgsr5G8tBt1j+80XehAqwgbbBxsp0BDfTmg9AfdkI
+	TmaVTEQTVM3yhD+A6sjlvYPsOzRrSyAA+dP1np0W2Db2+Sf7i4frtPiD/+bjjze0aeDgDu
+	p4J1l0v0zjWAFMFxQgsboFZImAv0E3j7oJ3f8AHELg3OgR6YrfmSRA1ATqh4xZ828r54xA
+	NEuG/IW6OD/Uthy8MdL649IlXdDWAAQAyNy9vP6F69EPE6UtqCxzUhWiEkiiDbXWjyvDti
+	+7mKwtfEK07dG0DMlm37eq1iT6fHlY5Py/u3ZFK0Ac/xX8Xu7/sBJ9U3QYNt7Q==
+ARC-Seal: i=1; s=201903; d=dkim.mimecast.com; t=1642071495; a=rsa-sha256;
+	cv=none;
+	b=biAvhDRYlJWFI+eq+qIngMwe6ZNVgu6q/2eZA5HCSy1mtLO6g4VuG9iwfzlsBJlbi2D0jA
+	Co9YmW4+zQqot/iCfJXsz1kMfUGuC9gCAcJy/WvJlnsxD9PVOKVxD93KoaCYi1NCc5tDWP
+	amXye2y5G1puVk6YDc/s725x9z7SYALQDvbUzAvJEA3GmfVphzux2PTYA5T2dnYSxmyWWv
+	GKyz/7kgu35TgwgDgs9/bbbUSZbGUDSnCmKg7QnQoaMZ0A6wpuNu0ONvNkyZ3ww+zWHYi1
+	WJ0q+iC6kvYOVF+e2vsC8PG5vPqn6/ZrG27TWshO0kn6yNeBGVTSr9DnJCibPg==
+ARC-Authentication-Results: i=1; relay.mimecast.com;
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=Fw87OCDV;
+	dmarc=pass (policy=none) header.from=gmail.com;
+	spf=pass (relay.mimecast.com: domain of gmazyland@gmail.com designates
+	209.85.208.47 as permitted sender)
+	smtp.mailfrom=gmazyland@gmail.com
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+	[209.85.208.47]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-549-Dwm65N23MU-FF9xI57boFg-1; Thu, 13 Jan 2022 05:58:13 -0500
+X-MC-Unique: Dwm65N23MU-FF9xI57boFg-1
+Received: by mail-ed1-f47.google.com with SMTP id c71so21576849edf.6
+	for <dm-devel@redhat.com>; Thu, 13 Jan 2022 02:58:13 -0800 (PST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=gmail.com; s=20210112;
+	h=message-id:date:mime-version:user-agent:from:subject
+	:content-language:to;
+	bh=13i87tMO13rhcve6tLJmbJeAi24UsOE6Ctym1lAxd1o=;
+	b=Fw87OCDVtdl7JKBdzRqOScDi+Ej6JzTQ0j1RZVVqPDXoT+RjxpAu3bGxUfOx1SQkRo
+	lX+JKqTUH04MlGhuy4tuCh9kxyZ5rP/yHOOIBtr+YlrAbT6o6UAH0aJMcs/RzOYwbU//
+	ad9r0v6ZOpeHz4PDGvJlVHzDzNP85Cpzw4PmkwD4Geg2LdOhYI9XWvVcKICofmvUD145
+	hDPoU94rcCoDBY/kiZJ/fTaI0fRyw58Cyr78SS6ZeWkmplmZD+IDegSLw2qv+x+KtnRB
+	xh2P08sx5mpKntq6BjX8sSFQCWX9nSS5WDRneJpZl4Zs7qBinSatxL1OYELaYX/qBX9Z
+	oU8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:message-id:date:mime-version:user-agent:from
+	:subject:content-language:to;
+	bh=13i87tMO13rhcve6tLJmbJeAi24UsOE6Ctym1lAxd1o=;
+	b=PYcHchTrsFNAELJsErWaSMdw9pVKr4+UD4YIkPyUslZrwxukqDpvCzBKqToaQmwgMH
+	2xPfmcc8bp/VGITdwPaz4eYJFpsSvysesIuC5WO4vArMwVmqCx5QHOC39y7ok0WTp99z
+	VQPAvt6snxJBzCBNn48O2o9qascROexVA80pDSCQQSdjUNngrnb85PEzo1yKS9udEXbJ
+	JByYDJ3IWoXL/SfLJ219kPBlEf1obDOPKTKjFaon0nfMpwbsazUp6s93cO0N2zNwAADy
+	8OiO0u1fvlwdoHk+o6D/3XmQ3ma7VjOZC7+DEhiLvA0GEOc3LNbNXBSRhGARSwtBvUBp
+	sYQg==
+X-Gm-Message-State: AOAM531XOCMi/3q8gvbRCI+hADcpgBvUTepfSTfg8CgGPakh0Yy1YnG8
+	R6IjxK9+eiV6JB5UL/3a/f9V1BPYZVw=
+X-Google-Smtp-Source: ABdhPJxixgzQKJwHgZCk9guqCRD2u3CACR7S6IYsVzVO8FqQ+/rsD///IdjG9Tg1YX66U9D6NvzSng==
+X-Received: by 2002:a17:906:fa8d:: with SMTP id
+	lt13mr740737ejb.711.1642071491838; 
+	Thu, 13 Jan 2022 02:58:11 -0800 (PST)
+Received: from [192.168.2.27] (113.151.broadband3.iol.cz. [85.70.151.113])
+	by smtp.gmail.com with ESMTPSA id g21sm988566edt.12.2022.01.13.02.58.10
+	for <dm-devel@redhat.com>
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Thu, 13 Jan 2022 02:58:11 -0800 (PST)
+Message-ID: <d3f7ade5-7814-b7c1-3e4e-b2b0b0fd8c32@gmail.com>
+Date: Thu, 13 Jan 2022 11:58:03 +0100
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	Thunderbird/91.4.1
+From: Milan Broz <gmazyland@gmail.com>
+To: device-mapper development <dm-devel@redhat.com>
+Authentication-Results: relay.mimecast.com;
+	dkim=pass header.d=gmail.com header.s=20210112 header.b=Fw87OCDV;
+	dmarc=pass (policy=none) header.from=gmail.com;
+	spf=pass (relay.mimecast.com: domain of gmazyland@gmail.com designates
+	209.85.208.47 as permitted sender)
+	smtp.mailfrom=gmazyland@gmail.com
+X-Mimecast-Spam-Score: 0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -69,13 +121,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Content-Language: en-US
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 13 Jan 2022 03:08:37 -0500
-Cc: ravi.v.shankar@intel.com, chang.seok.bae@intel.com,
-	linux-kernel@vger.kernel.org, kumar.n.dwarakanath@intel.com,
-	dan.j.williams@intel.com, charishma1.gairuboyina@intel.com
-Subject: [dm-devel] [PATCH v5 12/12] crypto: x86/aes-kl - Support XTS mode
+Subject: [dm-devel] [ANNOUNCE] cryptsetup 2.4.3 (CVE-2021-4122 fix)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -87,643 +136,161 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="===============0166651868430962252=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--===============0166651868430962252==
+Content-Language: en-US
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature";
+	boundary="------------acuLe0ojw1LS3K7CT7uq7gki"
+
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------------acuLe0ojw1LS3K7CT7uq7gki
+Content-Type: multipart/mixed; boundary="------------zWPsdfhXNWEaA5GJ9Rx6jsBS";
+	protected-headers="v1"
+From: Milan Broz <gmazyland@gmail.com>
+To: device-mapper development <dm-devel@redhat.com>
+Message-ID: <d3f7ade5-7814-b7c1-3e4e-b2b0b0fd8c32@gmail.com>
+Subject: [ANNOUNCE] cryptsetup 2.4.3 (CVE-2021-4122 fix)
+
+--------------zWPsdfhXNWEaA5GJ9Rx6jsBS
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: base64
+
+W0l0IGFwcGVhcnMgdGhhdCBkbS1jcnlwdCBtYWlsaW5nIGxpc3Qgbm8gbG9uZ2VyIHdvcmtzLCBj
+b3B5IHRvIGRtLWRldmVsXQ0KDQpUaGUgY3J5cHRzZXR1cCAyLjQuMyBzdGFibGUgcmVsZWFzZSBp
+cyBhdmFpbGFibGUgYXQNCg0KICAgICAgICBodHRwczovL2dpdGxhYi5jb20vY3J5cHRzZXR1cC9j
+cnlwdHNldHVwDQoNClBsZWFzZSBub3RlIHRoYXQgcmVsZWFzZSBwYWNrYWdlcyBhcmUgbG9jYXRl
+ZCBvbiBrZXJuZWwub3JnDQoNCiAgICAgICAgaHR0cHM6Ly93d3cua2VybmVsLm9yZy9wdWIvbGlu
+dXgvdXRpbHMvY3J5cHRzZXR1cC92Mi40Lw0KDQpGZWVkYmFjayBhbmQgYnVnIHJlcG9ydHMgYXJl
+IHdlbGNvbWVkLg0KDQpDcnlwdHNldHVwIDIuNC4zIFJlbGVhc2UgTm90ZXMNCj09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PQ0KU3RhYmxlIHNlY3VyaXR5IGJ1Zy1maXggcmVsZWFzZSB0aGF0
+IGZpeGVzIENWRS0yMDIxLTQxMjIuDQoNCkFsbCB1c2VycyBvZiBjcnlwdHNldHVwIDIuNC54IG11
+c3QgdXBncmFkZSB0byB0aGlzIHZlcnNpb24uDQoNCkNoYW5nZXMgc2luY2UgdmVyc2lvbiAyLjQu
+Mg0Kfn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+fn5+DQoNCiogRml4IHBvc3NpYmxlIGF0dGFja3Mg
+YWdhaW5zdCBkYXRhIGNvbmZpZGVudGlhbGl0eSB0aHJvdWdoIExVS1MyIG9ubGluZQ0KICAgIHJl
+ZW5jcnlwdGlvbiBleHRlbnNpb24gY3Jhc2ggcmVjb3ZlcnkgKENWRS0yMDIxLTQxMjIpLg0KDQog
+ICAgQW4gYXR0YWNrZXIgY2FuIG1vZGlmeSBvbi1kaXNrIG1ldGFkYXRhIHRvIHNpbXVsYXRlIGRl
+Y3J5cHRpb24gaW4NCiAgICBwcm9ncmVzcyB3aXRoIGNyYXNoZWQgKHVuZmluaXNoZWQpIHJlZW5j
+cnlwdGlvbiBzdGVwIGFuZCBwZXJzaXN0ZW50bHkNCiAgICBkZWNyeXB0IHBhcnQgb2YgdGhlIExV
+S1MgZGV2aWNlLg0KDQogICAgVGhpcyBhdHRhY2sgcmVxdWlyZXMgcmVwZWF0ZWQgcGh5c2ljYWwg
+YWNjZXNzIHRvIHRoZSBMVUtTIGRldmljZSBidXQNCiAgICBubyBrbm93bGVkZ2Ugb2YgdXNlciBw
+YXNzcGhyYXNlcy4NCg0KICAgIFRoZSBkZWNyeXB0aW9uIHN0ZXAgaXMgcGVyZm9ybWVkIGFmdGVy
+IGEgdmFsaWQgdXNlciBhY3RpdmF0ZXMNCiAgICB0aGUgZGV2aWNlIHdpdGggYSBjb3JyZWN0IHBh
+c3NwaHJhc2UgYW5kIG1vZGlmaWVkIG1ldGFkYXRhLg0KICAgIFRoZXJlIGFyZSBubyB2aXNpYmxl
+IHdhcm5pbmdzIGZvciB0aGUgdXNlciB0aGF0IHN1Y2ggcmVjb3ZlcnkgaGFwcGVuZWQNCiAgICAo
+ZXhjZXB0IHVzaW5nIHRoZSBsdWtzRHVtcCBjb21tYW5kKS4gVGhlIGF0dGFjayBjYW4gYWxzbyBi
+ZSByZXZlcnNlZA0KICAgIGFmdGVyd2FyZCAoc2ltdWxhdGluZyBjcmFzaGVkIGVuY3J5cHRpb24g
+ZnJvbSBhIHBsYWludGV4dCkgd2l0aA0KICAgIHBvc3NpYmxlIG1vZGlmaWNhdGlvbiBvZiByZXZl
+YWxlZCBwbGFpbnRleHQuDQoNCiAgICBUaGUgc2l6ZSBvZiBwb3NzaWJsZSBkZWNyeXB0ZWQgZGF0
+YSBkZXBlbmRzIG9uIGNvbmZpZ3VyZWQgTFVLUzIgaGVhZGVyDQogICAgc2l6ZSAobWV0YWRhdGEg
+c2l6ZSBpcyBjb25maWd1cmFibGUgZm9yIExVS1MyKS4NCiAgICBXaXRoIHRoZSBkZWZhdWx0IHBh
+cmFtZXRlcnMgKDE2IE1pQiBMVUtTMiBoZWFkZXIpIGFuZCBvbmx5IG9uZQ0KICAgIGFsbG9jYXRl
+ZCBrZXlzbG90ICg1MTIgYml0IGtleSBmb3IgQUVTLVhUUyksIHNpbXVsYXRlZCBkZWNyeXB0aW9u
+IHdpdGgNCiAgICBjaGVja3N1bSByZXNpbGllbmNlIFNIQTEgKDIwIGJ5dGVzIGNoZWNrc3VtIGZv
+ciA0MDk2LWJ5dGUgYmxvY2tzKSwNCiAgICB0aGUgbWF4aW1hbCBkZWNyeXB0ZWQgc2l6ZSBjYW4g
+YmUgb3ZlciAzR2lCLg0KDQogICAgVGhlIGF0dGFjayBpcyBub3QgYXBwbGljYWJsZSB0byBMVUtT
+MSBmb3JtYXQsIGJ1dCB0aGUgYXR0YWNrZXIgY2FuDQogICAgdXBkYXRlIG1ldGFkYXRhIGluIHBs
+YWNlIHRvIExVS1MyIGZvcm1hdCBhcyBhbiBhZGRpdGlvbmFsIHN0ZXAuDQogICAgRm9yIHN1Y2gg
+YSBjb252ZXJ0ZWQgTFVLUzIgaGVhZGVyLCB0aGUga2V5c2xvdCBhcmVhIGlzIGxpbWl0ZWQgdG8N
+CiAgICBkZWNyeXB0ZWQgc2l6ZSAod2l0aCBTSEExIGNoZWNrc3Vtcykgb3ZlciAzMDAgTWlCLg0K
+DQogICAgVGhlIGlzc3VlIGlzIHByZXNlbnQgaW4gYWxsIGNyeXB0c2V0dXAgcmVsZWFzZXMgc2lu
+Y2UgMi4yLjAuDQogICAgVmVyc2lvbnMgMS54LCAyLjAueCwgYW5kIDIuMS54IGFyZSBub3QgYWZm
+ZWN0ZWQsIGFzIHRoZXNlIGRvIG5vdA0KICAgIGNvbnRhaW4gTFVLUzIgcmVlbmNyeXB0aW9uIGV4
+dGVuc2lvbi4NCg0KICAgIFRoZSBwcm9ibGVtIHdhcyBjYXVzZWQgYnkgcmV1c2luZyBhIG1lY2hh
+bmlzbSBkZXNpZ25lZCBmb3IgYWN0dWFsDQogICAgcmVlbmNyeXB0aW9uIG9wZXJhdGlvbiB3aXRo
+b3V0IHJlYXNzZXNzaW5nIHRoZSBzZWN1cml0eSBpbXBhY3QgZm9yIG5ldw0KICAgIGVuY3J5cHRp
+b24gYW5kIGRlY3J5cHRpb24gb3BlcmF0aW9ucy4gV2hpbGUgdGhlIHJlZW5jcnlwdGlvbiByZXF1
+aXJlcw0KICAgIGNhbGN1bGF0aW5nIGFuZCB2ZXJpZnlpbmcgYm90aCBrZXkgZGlnZXN0cywgbm8g
+ZGlnZXN0IHdhcyBuZWVkZWQgdG8NCiAgICBpbml0aWF0ZSBkZWNyeXB0aW9uIHJlY292ZXJ5IGlm
+IHRoZSBkZXN0aW5hdGlvbiBpcyBwbGFpbnRleHQgKG5vDQogICAgZW5jcnlwdGlvbiBrZXkpLiBB
+bHNvLCBzb21lIG1ldGFkYXRhIChsaWtlIGVuY3J5cHRpb24gY2lwaGVyKSBpcyBub3QNCiAgICBw
+cm90ZWN0ZWQsIGFuZCBhbiBhdHRhY2tlciBjb3VsZCBjaGFuZ2UgaXQuIE5vdGUgdGhhdCBMVUtT
+MiBwcm90ZWN0cw0KICAgIHZpc2libGUgbWV0YWRhdGEgb25seSB3aGVuIGEgcmFuZG9tIGNoYW5n
+ZSBvY2N1cnMuIEl0IGRvZXMgbm90IHByb3RlY3QNCiAgICBhZ2FpbnN0IGludGVudGlvbmFsIG1v
+ZGlmaWNhdGlvbiBidXQgc3VjaCBtb2RpZmljYXRpb24gbXVzdCBub3QgY2F1c2UNCiAgICBhIHZp
+b2xhdGlvbiBvZiBkYXRhIGNvbmZpZGVudGlhbGl0eS4NCg0KICAgIFRoZSBmaXggaW50cm9kdWNl
+cyBhZGRpdGlvbmFsIGRpZ2VzdCBwcm90ZWN0aW9uIG9mIHJlZW5jcnlwdGlvbg0KICAgIG1ldGFk
+YXRhLiBUaGUgZGlnZXN0IGlzIGNhbGN1bGF0ZWQgZnJvbSBrbm93biBrZXlzIGFuZCBjcml0aWNh
+bA0KICAgIHJlZW5jcnlwdGlvbiBtZXRhZGF0YS4gTm93IGFuIGF0dGFja2VyIGNhbm5vdCBjcmVh
+dGUgY29ycmVjdCBtZXRhZGF0YQ0KICAgIGRpZ2VzdCB3aXRob3V0IGtub3dsZWRnZSBvZiBhIHBh
+c3NwaHJhc2UgZm9yIHVzZWQga2V5c2xvdHMuDQogICAgRm9yIG1vcmUgZGV0YWlscywgc2VlIExV
+S1MyIE9uLURpc2sgRm9ybWF0IFNwZWNpZmljYXRpb24gdmVyc2lvbiAxLjEuMC4NCg0KICAgIFRo
+ZSBmb3JtZXIgcmVlbmNyeXB0aW9uIG9wZXJhdGlvbiAod2l0aG91dCB0aGUgYWRkaXRpb25hbCBk
+aWdlc3QpIGlzIG5vDQogICAgbG9uZ2VyIHN1cHBvcnRlZCAocmVlbmNyeXB0aW9uIHdpdGggdGhl
+IGRpZ2VzdCBpcyBub3QgYmFja3dhcmQNCiAgICBjb21wYXRpYmxlKS4gWW91IG5lZWQgdG8gZmlu
+aXNoIGluLXByb2dyZXNzIHJlZW5jcnlwdGlvbiBiZWZvcmUNCiAgICB1cGRhdGluZyB0byBuZXcg
+cGFja2FnZXMuIFRoZSBhbHRlcm5hdGl2ZSBhcHByb2FjaCBpcyB0byBwZXJmb3JtDQogICAgYSBy
+ZXBhaXIgY29tbWFuZCBmcm9tIHRoZSB1cGRhdGVkIHBhY2thZ2UgdG8gcmVjYWxjdWxhdGUgcmVl
+bmNyeXB0aW9uDQogICAgZGlnZXN0IGFuZCBmaXggbWV0YWRhdGEuDQogICAgVGhlIHJlZW5jcnlw
+dGlvbiByZXBhaXIgb3BlcmF0aW9uIGFsd2F5cyByZXF1aXJlIGEgdXNlciBwYXNzcGhyYXNlLg0K
+DQogICAgV0FSTklORzogRGV2aWNlcyB3aXRoIG9sZGVyIHJlZW5jcnlwdGlvbiBpbiBwcm9ncmVz
+cyBjYW4gYmUgbm8gbG9uZ2VyDQogICAgYWN0aXZhdGVkIHdpdGhvdXQgcGVyZm9ybWluZyB0aGUg
+YWN0aW9uIG1lbnRpb25lZCBhYm92ZS4NCg0KICAgIEVuY3J5cHRpb24gaW4gcHJvZ3Jlc3MgY2Fu
+IGJlIGRldGVjdGVkIGJ5IHJ1bm5pbmcgdGhlIGx1a3NEdW1wIGNvbW1hbmQNCiAgICAob3V0cHV0
+IGluY2x1ZGVzIHJlZW5jcnlwdCBrZXlzbG90IHdpdGggcmVlbmNyeXB0aW9uIHBhcmFtZXRlcnMp
+LiBBbHNvLA0KICAgIGR1cmluZyB0aGUgYWN0aXZlIHJlZW5jcnlwdGlvbiwgbm8ga2V5c2xvdCBv
+cGVyYXRpb25zIGFyZSBhdmFpbGFibGUNCiAgICAoY2hhbmdlIG9mIHBhc3NwaHJhc2VzLCBldGMu
+KS4NCg0KICAgIFRoZSBpc3N1ZSB3YXMgZm91bmQgYnkgTWlsYW4gQnJveiBhcyBjcnlwdHNldHVw
+IG1haW50YWluZXIuDQoNCk90aGVyIGNoYW5nZXMNCn5+fn5+fn5+fn5+fn4NCiogQWRkIGNvbmZp
+Z3VyZSBvcHRpb24gLS1kaXNhYmxlLWx1a3MyLXJlZW5jcnlwdGlvbiB0byBjb21wbGV0ZWx5IGRp
+c2FibGUNCiAgICBMVUtTMiByZWVuY3J5cHRpb24gY29kZS4NCg0KICAgIFdoZW4gdXNlZCwgdGhl
+IGxpYmNyeXB0c2V0dXAgbGlicmFyeSBjYW4gcmVhZCBtZXRhZGF0YSB3aXRoDQogICAgcmVlbmNy
+eXB0aW9uIGNvZGUsIGJ1dCBhbGwgcmVlbmNyeXB0aW9uIEFQSSBjYWxscyBhbmQgY3J5cHRzZXR1
+cA0KICAgIHJlZW5jcnlwdCBjb21tYW5kcyBhcmUgZGlzYWJsZWQuDQoNCiAgICBEZXZpY2VzIHdp
+dGggb25saW5lIHJlZW5jcnlwdGlvbiBpbiBwcm9ncmVzcyBjYW5ub3QgYmUgYWN0aXZhdGVkLg0K
+ICAgIFRoaXMgb3B0aW9uIGNhbiBjYXVzZSBzb21lIGluY29tcGF0aWJpbGl0aWVzLiBQbGVhc2Ug
+dXNlIHdpdGggY2FyZS4NCg0KKiBJbXByb3ZlIGludGVybmFsIG1ldGFkYXRhIHZhbGlkYXRpb24g
+Y29kZSBmb3IgcmVlbmNyeXB0aW9uIG1ldGFkYXRhLg0KDQoqIEFkZCB1cGRhdGVkIGRvY3VtZW50
+YXRpb24gZm9yIExVS1MyIE9uLURpc2sgRm9ybWF0IFNwZWNpZmljYXRpb24NCiAgICB2ZXJzaW9u
+IDEuMS4wICh3aXRoIHJlZW5jcnlwdGlvbiBleHRlbnNpb24gZGVzY3JpcHRpb24gYW5kIHVwZGF0
+ZWQNCiAgICBtZXRhZGF0YSBkZXNjcmlwdGlvbikuIFNlZSBkb2NzL29uLWRpc2stZm9ybWF0LWx1
+a3MyLnBkZiBvciBvbmxpbmUNCiAgICB2ZXJzaW9uIGluIGh0dHBzOi8vZ2l0bGFiLmNvbS9jcnlw
+dHNldHVwL0xVS1MyLWRvY3MgcmVwb3NpdG9yeS4NCg0KKiBGaXggc3VwcG9ydCBmb3IgYml0bGsg
+KEJpdExvY2tlciBjb21wYXRpYmxlKSBzdGFydHVwIGtleSB3aXRoIG5ldw0KICAgIG1ldGFkYXRh
+IGVudHJ5IGludHJvZHVjZWQgaW4gV2luZG93cyAxMS4NCg0KKiBGaXggc3BhY2UgcmVzdHJpY3Rp
+b24gZm9yIExVS1MyIHJlZW5jcnlwdGlvbiB3aXRoIGRhdGEgc2hpZnQuDQogICAgVGhlIGNvZGUg
+cmVxdWlyZWQgbW9yZSBzcGFjZSB0aGFuIHdhcyBuZWVkZWQuDQoNCg==
+--------------zWPsdfhXNWEaA5GJ9Rx6jsBS--
+
+--------------acuLe0ojw1LS3K7CT7uq7gki
+Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="OpenPGP_signature"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEKikYJD/eRmSNBob52bBXe9k+mPwFAmHgBbsACgkQ2bBXe9k+
+mPzgLRAAyNA/0v5aObujxHXDfzx+b0dLMha1Mwdyp3yMtvKpq7RldEy6H0oMaNx4
+REKaBQHoj6YbZUiTlC+luHPu8dYTg16upkzp67/AoTDe4woIUNVx1hMBl2EvAaY6
+2wxSYRsQ7l4LlkliMnDvV3F0nVz8ByKu959blutt3MuVtPWbpJo0iFPo/kWDq/Cy
+FziME9kuS0Oa4tdsJS5DqULlXNhpNRCPNnQdJiSqVOXRjQohZpVtniNdkeqx89Uh
+7rp7TE9cLHeNQgkQgOhcH7BOgvcSPuOW2gbbshZmUgJOOhUZ7EQTT1zEvPcPkXl2
+Vdz8c0s2KYtsdMTL1GIAIsu7IsnyaOK2RHFDWXFA2V5HXLEqSu/SKu3je/VY1/1o
+JjjPeRFSmcg0HzbsuYzNVXODc4cdG0YznnRJTAut7oRLhwfkVZ/Ssnxtd1ZKqPEL
+UcUQ4f1VZL0UD0Kpu7vG0JwhUzNhs8t30qVko9qEjLHg+MGPzenfQU5JITarZIz1
+wjRiR73qHcEtNr2R3C488Y1tW9sxT3Ge8p2ByOcmGA73aceo69IMDlkMXO7IQ14z
+6MRW56NiZAp2iLYWlpA7bqbsNukcWOfAnTWUAJcvH6oeMv76aqVS3sFmh2xEUnNF
+BrFRGpL/gLFe9X3Ka268l2190UMKOZXjYM97m9Ai2MDs1DMT4Bs=
+=HjaK
+-----END PGP SIGNATURE-----
+
+--------------acuLe0ojw1LS3K7CT7uq7gki--
+
+
+--===============0166651868430962252==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-Implement XTS mode using AES-KL. Export the methods with a lower priority
-than AES-NI to avoid from selected by default.
-
-The assembly code clobbers more than eight 128-bit registers to make use of
-performant wide instructions that process eight 128-bit blocks at once.
-But that many 128-bit registers are not available in 32-bit mode, so
-support 64-bit mode only.
-
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Acked-by: Dan Williams <dan.j.williams@intel.com>
-Cc: Herbert Xu <herbert@gondor.apana.org.au>
-Cc: x86@kernel.org
-Cc: linux-crypto@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org
----
-Changes from RFC v2:
-* Separate out the code as a new patch.
----
- arch/x86/crypto/aeskl-intel_asm.S  | 449 +++++++++++++++++++++++++++++
- arch/x86/crypto/aeskl-intel_glue.c | 107 ++++++-
- 2 files changed, 553 insertions(+), 3 deletions(-)
-
-diff --git a/arch/x86/crypto/aeskl-intel_asm.S b/arch/x86/crypto/aeskl-intel_asm.S
-index d56ec8dd6644..cb4680461f25 100644
---- a/arch/x86/crypto/aeskl-intel_asm.S
-+++ b/arch/x86/crypto/aeskl-intel_asm.S
-@@ -182,3 +182,452 @@ SYM_FUNC_START(_aeskl_dec)
- 	ret
- SYM_FUNC_END(_aeskl_dec)
- 
-+#ifdef __x86_64__
-+
-+/*
-+ * XTS implementation
-+ */
-+
-+/*
-+ * _aeskl_gf128mul_x_ble: 	internal ABI
-+ *	Multiply in GF(2^128) for XTS IVs
-+ * input:
-+ *	IV:	current IV
-+ *	GF128MUL_MASK == mask with 0x87 and 0x01
-+ * output:
-+ *	IV:	next IV
-+ * changed:
-+ *	CTR:	== temporary value
-+ */
-+#define _aeskl_gf128mul_x_ble() \
-+	pshufd $0x13, IV, KEY; \
-+	paddq IV, IV; \
-+	psrad $31, KEY; \
-+	pand GF128MUL_MASK, KEY; \
-+	pxor KEY, IV;
-+
-+/*
-+ * int _aeskl_xts_encrypt(const struct crypto_aes_ctx *ctx, u8 *dst,
-+ *			  const u8 *src, unsigned int len, le128 *iv)
-+ */
-+SYM_FUNC_START(_aeskl_xts_encrypt)
-+	FRAME_BEGIN
-+	movdqa .Lgf128mul_x_ble_mask(%rip), GF128MUL_MASK
-+	movups (IVP), IV
-+
-+	mov 480(HANDLEP), KLEN
-+
-+.Lxts_enc8:
-+	sub $128, LEN
-+	jl .Lxts_enc1_pre
-+
-+	movdqa IV, STATE1
-+	movdqu (INP), INC
-+	pxor INC, STATE1
-+	movdqu IV, (OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE2
-+	movdqu 0x10(INP), INC
-+	pxor INC, STATE2
-+	movdqu IV, 0x10(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE3
-+	movdqu 0x20(INP), INC
-+	pxor INC, STATE3
-+	movdqu IV, 0x20(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE4
-+	movdqu 0x30(INP), INC
-+	pxor INC, STATE4
-+	movdqu IV, 0x30(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE5
-+	movdqu 0x40(INP), INC
-+	pxor INC, STATE5
-+	movdqu IV, 0x40(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE6
-+	movdqu 0x50(INP), INC
-+	pxor INC, STATE6
-+	movdqu IV, 0x50(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE7
-+	movdqu 0x60(INP), INC
-+	pxor INC, STATE7
-+	movdqu IV, 0x60(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE8
-+	movdqu 0x70(INP), INC
-+	pxor INC, STATE8
-+	movdqu IV, 0x70(OUTP)
-+
-+	cmp $16, KLEN
-+	je .Lxts_enc8_128
-+	aesencwide256kl (%rdi)
-+	jz .Lxts_enc_ret_err
-+	jmp .Lxts_enc8_end
-+.Lxts_enc8_128:
-+	aesencwide128kl (%rdi)
-+	jz .Lxts_enc_ret_err
-+
-+.Lxts_enc8_end:
-+	movdqu 0x00(OUTP), INC
-+	pxor INC, STATE1
-+	movdqu STATE1, 0x00(OUTP)
-+
-+	movdqu 0x10(OUTP), INC
-+	pxor INC, STATE2
-+	movdqu STATE2, 0x10(OUTP)
-+
-+	movdqu 0x20(OUTP), INC
-+	pxor INC, STATE3
-+	movdqu STATE3, 0x20(OUTP)
-+
-+	movdqu 0x30(OUTP), INC
-+	pxor INC, STATE4
-+	movdqu STATE4, 0x30(OUTP)
-+
-+	movdqu 0x40(OUTP), INC
-+	pxor INC, STATE5
-+	movdqu STATE5, 0x40(OUTP)
-+
-+	movdqu 0x50(OUTP), INC
-+	pxor INC, STATE6
-+	movdqu STATE6, 0x50(OUTP)
-+
-+	movdqu 0x60(OUTP), INC
-+	pxor INC, STATE7
-+	movdqu STATE7, 0x60(OUTP)
-+
-+	movdqu 0x70(OUTP), INC
-+	pxor INC, STATE8
-+	movdqu STATE8, 0x70(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+
-+	add $128, INP
-+	add $128, OUTP
-+	test LEN, LEN
-+	jnz .Lxts_enc8
-+
-+.Lxts_enc_ret_iv:
-+	movups IV, (IVP)
-+.Lxts_enc_ret_noerr:
-+	xor AREG, AREG
-+	jmp .Lxts_enc_ret
-+.Lxts_enc_ret_err:
-+	mov $1, AREG
-+.Lxts_enc_ret:
-+	FRAME_END
-+	ret
-+
-+.Lxts_enc1_pre:
-+	add $128, LEN
-+	jz .Lxts_enc_ret_iv
-+	sub $16, LEN
-+	jl .Lxts_enc_cts4
-+
-+.Lxts_enc1:
-+	movdqu (INP), STATE1
-+	pxor IV, STATE1
-+
-+	cmp $16, KLEN
-+	je .Lxts_enc1_128
-+	aesenc256kl (HANDLEP), STATE1
-+	jz .Lxts_enc_ret_err
-+	jmp .Lxts_enc1_end
-+.Lxts_enc1_128:
-+	aesenc128kl (HANDLEP), STATE1
-+	jz .Lxts_enc_ret_err
-+
-+.Lxts_enc1_end:
-+	pxor IV, STATE1
-+	_aeskl_gf128mul_x_ble()
-+
-+	test LEN, LEN
-+	jz .Lxts_enc1_out
-+
-+	add $16, INP
-+	sub $16, LEN
-+	jl .Lxts_enc_cts1
-+
-+	movdqu STATE1, (OUTP)
-+	add $16, OUTP
-+	jmp .Lxts_enc1
-+
-+.Lxts_enc1_out:
-+	movdqu STATE1, (OUTP)
-+	jmp .Lxts_enc_ret_iv
-+
-+.Lxts_enc_cts4:
-+	movdqu STATE8, STATE1
-+	sub $16, OUTP
-+
-+.Lxts_enc_cts1:
-+	lea .Lcts_permute_table(%rip), T1
-+	add LEN, INP		/* rewind input pointer */
-+	add $16, LEN		/* # bytes in final block */
-+	movups (INP), IN1
-+
-+	mov T1, IVP
-+	add $32, IVP
-+	add LEN, T1
-+	sub LEN, IVP
-+	add OUTP, LEN
-+
-+	movups (T1), STATE2
-+	movaps STATE1, STATE3
-+	pshufb STATE2, STATE1
-+	movups STATE1, (LEN)
-+
-+	movups (IVP), STATE1
-+	pshufb STATE1, IN1
-+	pblendvb STATE3, IN1
-+	movaps IN1, STATE1
-+
-+	pxor IV, STATE1
-+
-+	cmp $16, KLEN
-+	je .Lxts_enc1_cts_128
-+	aesenc256kl (HANDLEP), STATE1
-+	jz .Lxts_enc_ret_err
-+	jmp .Lxts_enc1_cts_end
-+.Lxts_enc1_cts_128:
-+	aesenc128kl (HANDLEP), STATE1
-+	jz .Lxts_enc_ret_err
-+
-+.Lxts_enc1_cts_end:
-+	pxor IV, STATE1
-+	movups STATE1, (OUTP)
-+	jmp .Lxts_enc_ret_noerr
-+SYM_FUNC_END(_aeskl_xts_encrypt)
-+
-+/*
-+ * int _aeskl_xts_decrypt(const struct crypto_aes_ctx *ctx, u8 *dst,
-+ *			  const u8 *src, unsigned int len, le128 *iv)
-+ */
-+SYM_FUNC_START(_aeskl_xts_decrypt)
-+	FRAME_BEGIN
-+	movdqa .Lgf128mul_x_ble_mask(%rip), GF128MUL_MASK
-+	movups (IVP), IV
-+
-+	mov 480(HANDLEP), KLEN
-+
-+	test $15, LEN
-+	jz .Lxts_dec8
-+	sub $16, LEN
-+
-+.Lxts_dec8:
-+	sub $128, LEN
-+	jl .Lxts_dec1_pre
-+
-+	movdqa IV, STATE1
-+	movdqu (INP), INC
-+	pxor INC, STATE1
-+	movdqu IV, (OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE2
-+	movdqu 0x10(INP), INC
-+	pxor INC, STATE2
-+	movdqu IV, 0x10(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE3
-+	movdqu 0x20(INP), INC
-+	pxor INC, STATE3
-+	movdqu IV, 0x20(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE4
-+	movdqu 0x30(INP), INC
-+	pxor INC, STATE4
-+	movdqu IV, 0x30(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE5
-+	movdqu 0x40(INP), INC
-+	pxor INC, STATE5
-+	movdqu IV, 0x40(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE6
-+	movdqu 0x50(INP), INC
-+	pxor INC, STATE6
-+	movdqu IV, 0x50(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE7
-+	movdqu 0x60(INP), INC
-+	pxor INC, STATE7
-+	movdqu IV, 0x60(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+	movdqa IV, STATE8
-+	movdqu 0x70(INP), INC
-+	pxor INC, STATE8
-+	movdqu IV, 0x70(OUTP)
-+
-+	cmp $16, KLEN
-+	je .Lxts_dec8_128
-+	aesdecwide256kl (%rdi)
-+	jz .Lxts_dec_ret_err
-+	jmp .Lxts_dec8_end
-+.Lxts_dec8_128:
-+	aesdecwide128kl (%rdi)
-+	jz .Lxts_dec_ret_err
-+
-+.Lxts_dec8_end:
-+	movdqu 0x00(OUTP), INC
-+	pxor INC, STATE1
-+	movdqu STATE1, 0x00(OUTP)
-+
-+	movdqu 0x10(OUTP), INC
-+	pxor INC, STATE2
-+	movdqu STATE2, 0x10(OUTP)
-+
-+	movdqu 0x20(OUTP), INC
-+	pxor INC, STATE3
-+	movdqu STATE3, 0x20(OUTP)
-+
-+	movdqu 0x30(OUTP), INC
-+	pxor INC, STATE4
-+	movdqu STATE4, 0x30(OUTP)
-+
-+	movdqu 0x40(OUTP), INC
-+	pxor INC, STATE5
-+	movdqu STATE5, 0x40(OUTP)
-+
-+	movdqu 0x50(OUTP), INC
-+	pxor INC, STATE6
-+	movdqu STATE6, 0x50(OUTP)
-+
-+	movdqu 0x60(OUTP), INC
-+	pxor INC, STATE7
-+	movdqu STATE7, 0x60(OUTP)
-+
-+	movdqu 0x70(OUTP), INC
-+	pxor INC, STATE8
-+	movdqu STATE8, 0x70(OUTP)
-+
-+	_aeskl_gf128mul_x_ble()
-+
-+	add $128, INP
-+	add $128, OUTP
-+	test LEN, LEN
-+	jnz .Lxts_dec8
-+
-+.Lxts_dec_ret_iv:
-+	movups IV, (IVP)
-+.Lxts_dec_ret_noerr:
-+	xor AREG, AREG
-+	jmp .Lxts_dec_ret
-+.Lxts_dec_ret_err:
-+	mov $1, AREG
-+.Lxts_dec_ret:
-+	FRAME_END
-+	ret
-+
-+.Lxts_dec1_pre:
-+	add $128, LEN
-+	jz .Lxts_dec_ret_iv
-+
-+.Lxts_dec1:
-+	movdqu (INP), STATE1
-+
-+	add $16, INP
-+	sub $16, LEN
-+	jl .Lxts_dec_cts1
-+
-+	pxor IV, STATE1
-+
-+	cmp $16, KLEN
-+	je .Lxts_dec1_128
-+	aesdec256kl (HANDLEP), STATE1
-+	jz .Lxts_dec_ret_err
-+	jmp .Lxts_dec1_end
-+.Lxts_dec1_128:
-+	aesdec128kl (HANDLEP), STATE1
-+	jz .Lxts_dec_ret_err
-+
-+.Lxts_dec1_end:
-+	pxor IV, STATE1
-+	_aeskl_gf128mul_x_ble()
-+
-+	test LEN, LEN
-+	jz .Lxts_dec1_out
-+
-+	movdqu STATE1, (OUTP)
-+	add $16, OUTP
-+	jmp .Lxts_dec1
-+
-+.Lxts_dec1_out:
-+	movdqu STATE1, (OUTP)
-+	jmp .Lxts_dec_ret_iv
-+
-+.Lxts_dec_cts1:
-+	movdqa IV, STATE5
-+	_aeskl_gf128mul_x_ble()
-+
-+	pxor IV, STATE1
-+
-+	cmp $16, KLEN
-+	je .Lxts_dec1_cts_pre_128
-+	aesdec256kl (HANDLEP), STATE1
-+	jz .Lxts_dec_ret_err
-+	jmp .Lxts_dec1_cts_pre_end
-+.Lxts_dec1_cts_pre_128:
-+	aesdec128kl (HANDLEP), STATE1
-+	jz .Lxts_dec_ret_err
-+
-+.Lxts_dec1_cts_pre_end:
-+	pxor IV, STATE1
-+
-+	lea .Lcts_permute_table(%rip), T1
-+	add LEN, INP		/* rewind input pointer */
-+	add $16, LEN		/* # bytes in final block */
-+	movups (INP), IN1
-+
-+	mov T1, IVP
-+	add $32, IVP
-+	add LEN, T1
-+	sub LEN, IVP
-+	add OUTP, LEN
-+
-+	movups (T1), STATE2
-+	movaps STATE1, STATE3
-+	pshufb STATE2, STATE1
-+	movups STATE1, (LEN)
-+
-+	movups (IVP), STATE1
-+	pshufb STATE1, IN1
-+	pblendvb STATE3, IN1
-+	movaps IN1, STATE1
-+
-+	pxor STATE5, STATE1
-+
-+	cmp $16, KLEN
-+	je .Lxts_dec1_cts_128
-+	aesdec256kl (HANDLEP), STATE1
-+	jz .Lxts_dec_ret_err
-+	jmp .Lxts_dec1_cts_end
-+.Lxts_dec1_cts_128:
-+	aesdec128kl (HANDLEP), STATE1
-+	jz .Lxts_dec_ret_err
-+
-+.Lxts_dec1_cts_end:
-+	pxor STATE5, STATE1
-+
-+	movups STATE1, (OUTP)
-+	jmp .Lxts_dec_ret_noerr
-+
-+SYM_FUNC_END(_aeskl_xts_decrypt)
-+
-+#endif
-diff --git a/arch/x86/crypto/aeskl-intel_glue.c b/arch/x86/crypto/aeskl-intel_glue.c
-index 0062baaaf7b2..6616a2fc6f04 100644
---- a/arch/x86/crypto/aeskl-intel_glue.c
-+++ b/arch/x86/crypto/aeskl-intel_glue.c
-@@ -27,8 +27,15 @@ asmlinkage int aeskl_setkey(struct crypto_aes_ctx *ctx, const u8 *in_key, unsign
- asmlinkage int _aeskl_enc(const void *ctx, u8 *out, const u8 *in);
- asmlinkage int _aeskl_dec(const void *ctx, u8 *out, const u8 *in);
- 
--static int __maybe_unused aeskl_setkey_common(struct crypto_tfm *tfm, void *raw_ctx,
--					      const u8 *in_key, unsigned int key_len)
-+#ifdef CONFIG_X86_64
-+asmlinkage int _aeskl_xts_encrypt(const struct crypto_aes_ctx *ctx, u8 *out, const u8 *in,
-+				  unsigned int len, u8 *iv);
-+asmlinkage int _aeskl_xts_decrypt(const struct crypto_aes_ctx *ctx, u8 *out, const u8 *in,
-+				  unsigned int len, u8 *iv);
-+#endif
-+
-+static int aeskl_setkey_common(struct crypto_tfm *tfm, void *raw_ctx, const u8 *in_key,
-+			       unsigned int key_len)
- {
- 	struct crypto_aes_ctx *ctx = aes_ctx(raw_ctx);
- 	int err;
-@@ -86,11 +93,99 @@ static inline int aeskl_dec(const void *ctx, u8 *out, const u8 *in)
- 		return 0;
- }
- 
-+#ifdef CONFIG_X86_64
-+
-+static inline int aeskl_xts_encrypt(const struct crypto_aes_ctx *ctx, u8 *out, const u8 *in,
-+				    unsigned int len, u8 *iv)
-+{
-+	if (unlikely(ctx->key_length == AES_KEYSIZE_192))
-+		return -EINVAL;
-+	else if (!valid_keylocker())
-+		return -ENODEV;
-+	else if (_aeskl_xts_encrypt(ctx, out, in, len, iv))
-+		return -EINVAL;
-+	else
-+		return 0;
-+}
-+
-+static inline int aeskl_xts_decrypt(const struct crypto_aes_ctx *ctx, u8 *out, const u8 *in,
-+				    unsigned int len, u8 *iv)
-+{
-+	if (unlikely(ctx->key_length == AES_KEYSIZE_192))
-+		return -EINVAL;
-+	else if (!valid_keylocker())
-+		return -ENODEV;
-+	else if (_aeskl_xts_decrypt(ctx, out, in, len, iv))
-+		return -EINVAL;
-+	else
-+		return 0;
-+}
-+
-+static int aeskl_xts_setkey(struct crypto_skcipher *tfm, const u8 *key,
-+			    unsigned int keylen)
-+{
-+	return xts_setkey_common(tfm, key, keylen, aeskl_setkey_common);
-+}
-+
-+static int xts_encrypt(struct skcipher_request *req)
-+{
-+	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-+
-+	if (likely(keylength(crypto_skcipher_ctx(tfm)) != AES_KEYSIZE_192))
-+		return xts_crypt_common(req, aeskl_xts_encrypt, aeskl_enc);
-+	else
-+		return xts_crypt_common(req, aesni_xts_encrypt, aesni_enc);
-+}
-+
-+static int xts_decrypt(struct skcipher_request *req)
-+{
-+	struct crypto_skcipher *tfm = crypto_skcipher_reqtfm(req);
-+
-+	if (likely(keylength(crypto_skcipher_ctx(tfm)) != AES_KEYSIZE_192))
-+		return xts_crypt_common(req, aeskl_xts_decrypt, aeskl_enc);
-+	else
-+		return xts_crypt_common(req, aesni_xts_decrypt, aesni_enc);
-+}
-+
-+#endif /* CONFIG_X86_64 */
-+
-+static struct skcipher_alg aeskl_skciphers[] = {
-+	{
-+#ifdef CONFIG_X86_64
-+		.base = {
-+			.cra_name		= "__xts(aes)",
-+			.cra_driver_name	= "__xts-aes-aeskl",
-+			.cra_priority		= 200,
-+			.cra_flags		= CRYPTO_ALG_INTERNAL,
-+			.cra_blocksize		= AES_BLOCK_SIZE,
-+			.cra_ctxsize		= XTS_AES_CTX_SIZE,
-+			.cra_module		= THIS_MODULE,
-+		},
-+		.min_keysize	= 2 * AES_MIN_KEY_SIZE,
-+		.max_keysize	= 2 * AES_MAX_KEY_SIZE,
-+		.ivsize		= AES_BLOCK_SIZE,
-+		.walksize	= 2 * AES_BLOCK_SIZE,
-+		.setkey		= aeskl_xts_setkey,
-+		.encrypt	= xts_encrypt,
-+		.decrypt	= xts_decrypt,
-+#endif
-+	}
-+};
-+
-+static struct simd_skcipher_alg *aeskl_simd_skciphers[ARRAY_SIZE(aeskl_skciphers)];
-+
- static int __init aeskl_init(void)
- {
-+	u32 eax, ebx, ecx, edx;
-+	int err;
-+
- 	if (!valid_keylocker())
- 		return -ENODEV;
- 
-+	cpuid_count(KEYLOCKER_CPUID, 0, &eax, &ebx, &ecx, &edx);
-+	if (!(ebx & KEYLOCKER_CPUID_EBX_WIDE))
-+		return -ENODEV;
-+
- 	/*
- 	 * AES-KL itself does not depend on AES-NI. But AES-KL does not
- 	 * support 192-bit keys. To make itself AES-compliant, it falls
-@@ -99,12 +194,18 @@ static int __init aeskl_init(void)
- 	if (!boot_cpu_has(X86_FEATURE_AES))
- 		return -ENODEV;
- 
-+	err = simd_register_skciphers_compat(aeskl_skciphers, ARRAY_SIZE(aeskl_skciphers),
-+					     aeskl_simd_skciphers);
-+	if (err)
-+		return err;
-+
- 	return 0;
- }
- 
- static void __exit aeskl_exit(void)
- {
--	return;
-+	simd_unregister_skciphers(aeskl_skciphers, ARRAY_SIZE(aeskl_skciphers),
-+				  aeskl_simd_skciphers);
- }
- 
- late_initcall(aeskl_init);
--- 
-2.17.1
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+--===============0166651868430962252==--
 
