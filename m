@@ -1,57 +1,60 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4896D490330
-	for <lists+dm-devel@lfdr.de>; Mon, 17 Jan 2022 08:53:28 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B6E9F490375
+	for <lists+dm-devel@lfdr.de>; Mon, 17 Jan 2022 09:09:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-317-0ZovZLGPM1S9vPZMNdggQA-1; Mon, 17 Jan 2022 02:53:20 -0500
-X-MC-Unique: 0ZovZLGPM1S9vPZMNdggQA-1
+ us-mta-320-YRz90MxaNyWo5EL4KUWcXQ-1; Mon, 17 Jan 2022 03:09:54 -0500
+X-MC-Unique: YRz90MxaNyWo5EL4KUWcXQ-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E1CF2814243;
-	Mon, 17 Jan 2022 07:53:12 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 680A3607B6;
-	Mon, 17 Jan 2022 07:53:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC43F84BA42;
+	Mon, 17 Jan 2022 08:09:48 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CE16519D4;
+	Mon, 17 Jan 2022 08:09:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D18064BB7C;
-	Mon, 17 Jan 2022 07:52:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9F2711809CB8;
+	Mon, 17 Jan 2022 08:09:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20H7qQQf029029 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Jan 2022 02:52:28 -0500
+	id 20H88dnT029737 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Jan 2022 03:08:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id C8D8E404727C; Mon, 17 Jan 2022 07:52:26 +0000 (UTC)
+	id 0ED2D1400E70; Mon, 17 Jan 2022 08:08:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C50AC4047272
-	for <dm-devel@redhat.com>; Mon, 17 Jan 2022 07:52:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A8D21410F36
+	for <dm-devel@redhat.com>; Mon, 17 Jan 2022 08:08:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD314185A7B2
-	for <dm-devel@redhat.com>; Mon, 17 Jan 2022 07:52:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E389E3C1CD3A
+	for <dm-devel@redhat.com>; Mon, 17 Jan 2022 08:08:36 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-220-hytDrAKCP6C2TZaEKQe3gw-1; Mon, 17 Jan 2022 02:52:24 -0500
-X-MC-Unique: hytDrAKCP6C2TZaEKQe3gw-1
+	us-mta-1-fvi5NzVbNOi9DrdyqyU6Pw-1; Mon, 17 Jan 2022 03:08:34 -0500
+X-MC-Unique: fvi5NzVbNOi9DrdyqyU6Pw-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1n9MoQ-00DzRd-7k; Mon, 17 Jan 2022 07:52:22 +0000
-Date: Sun, 16 Jan 2022 23:52:22 -0800
+	Hat Linux)) id 1n9N44-00E1mQ-8b; Mon, 17 Jan 2022 08:08:32 +0000
+Date: Mon, 17 Jan 2022 00:08:32 -0800
 From: Christoph Hellwig <hch@infradead.org>
-To: Milan Broz <gmazyland@gmail.com>
-Message-ID: <YeUgNpFeg9LmW4Um@infradead.org>
-References: <1642097341-6521-1-git-send-email-israelr@nvidia.com>
-	<9ef95bbc-4eee-4c00-f199-0daa3cdd03ed@gmail.com>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <YeUkABLBcStfJxNp@infradead.org>
+References: <20211221141459.1368176-1-ming.lei@redhat.com>
+	<YcH/E4JNag0QYYAa@infradead.org> <YcP4FMG9an5ReIiV@T590>
+	<YcuB4K8P2d9WFb83@redhat.com> <Yd1BFpYTBlQSPReW@infradead.org>
+	<Yd2tDWuP+aT3Hxbj@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <9ef95bbc-4eee-4c00-f199-0daa3cdd03ed@gmail.com>
+In-Reply-To: <Yd2tDWuP+aT3Hxbj@redhat.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -62,13 +65,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
-Cc: Israel Rukshin <israelr@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>,
-	dm-devel <dm-devel@redhat.com>, Nitzan Carmi <nitzanc@nvidia.com>,
-	Eric Biggers <ebiggers@google.com>
-Subject: Re: [dm-devel] [RFC PATCH 0/1] Add inline encryption support for
- dm-crypt
+Cc: Christoph Hellwig <hch@infradead.org>, Jens Axboe <axboe@kernel.dk>,
+	dm-devel@redhat.com, linux-block@vger.kernel.org,
+	Ming Lei <ming.lei@redhat.com>
+Subject: Re: [dm-devel] [PATCH 0/3] blk-mq/dm-rq: support BLK_MQ_F_BLOCKING
+ for dm-rq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,19 +94,20 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jan 14, 2022 at 09:51:20PM +0100, Milan Broz wrote:
-> I think dm-crypt should stay as SW crypto only (using kernel crypto API,
-> so HW acceleration is done through crypto drivers there).
-> 
-> A cleaner solution is to write a much simpler new dm-crypt-inline target,
-> which will implement only inline encryption.
-> (And userspace can decide which target to use.)
-> Code should be just an extension to the dm-linear target, most
-> of dm-crypt complexity is not needed here.
+On Tue, Jan 11, 2022 at 11:15:09AM -0500, Mike Snitzer wrote:
+> Round and round we go.. Pretty tired of this.
 
-Why do we even need a dm target for this as well?  There should be no
-need to clone or remap bios, so I think hamdling inline crypto should be
-just a small addition to the core block layer.
+Same here.
+
+> You are perfectly fine with incrementally compromising request-based
+> DM's ability to evolve as block core does.
+
+I would not word it that way, but I think we mean the same thing.  Yes,
+I do not want to add more hooks for a complete oddball that has no
+actual use case.  dm-rq does a good enough job for SCSI and has all
+the infrastucture for it.  We should not more cruft to exteded it to
+use cases for which there is no consesus and which are much better
+covered by alredy existing code in the kernel.
 
 --
 dm-devel mailing list
