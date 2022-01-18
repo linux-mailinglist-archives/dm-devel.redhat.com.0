@@ -2,65 +2,65 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E97E491D3B
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Jan 2022 04:28:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id B2618491D3C
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Jan 2022 04:28:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1642476486;
+	s=mimecast20190719; t=1642476497;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=t8+ggFj3zxmKjzBMNVqOha59cVHJoHld3+kcFtwKs6I=;
-	b=WDvuQU86ZzwtnlDdos572zeapEUvHcJTdI7iM/YCSoUJ12SSq+V4fQUVdYbUjRCV3MfB2d
-	LwUJp60WgV5ucAj3/5CI38wz68w7FvF53mdoda3n0J4q/gkAB+cuLRLnTa51S+LLuyzJRQ
-	mLzeLtVtYVsux+wsbJU5qQQFAI4gTtk=
+	bh=q0hcDVNYIzylWeJkEz6qbpBOC2EJZMx/6SUnRELTbpo=;
+	b=bXuJ7E/xhvAdX2cDM83NF+RGV3bKQ5o6oHMjK42ZSVrYLJg1Rx3Vsx2hhGWjKselgIRuL8
+	I77/GBX13y+HAOzwji54Co2G/6ZD+I6d71SN+ULFF1NLrGwfb4P01qohj0d80wiTTFcCcM
+	rwvq0jVpuPOP8HbGrnLoykw3k1+jay4=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-550-C_nCDapmMxeoPAwm5BpWaw-1; Mon, 17 Jan 2022 22:28:02 -0500
-X-MC-Unique: C_nCDapmMxeoPAwm5BpWaw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-652-rmor6Z2ZMPi6szC-YPFT1Q-1; Mon, 17 Jan 2022 22:28:14 -0500
+X-MC-Unique: rmor6Z2ZMPi6szC-YPFT1Q-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id ACB2F1006ABE;
-	Tue, 18 Jan 2022 03:27:56 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id DDC3D1037F39;
-	Tue, 18 Jan 2022 03:27:55 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1324114751;
+	Tue, 18 Jan 2022 03:28:09 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E61E912E2F;
+	Tue, 18 Jan 2022 03:28:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8BE834BB7C;
-	Tue, 18 Jan 2022 03:27:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com
-	[10.5.11.13])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F5CF1809CBF;
+	Tue, 18 Jan 2022 03:28:08 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
+	[10.5.11.11])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20I3Rl86028845 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Jan 2022 22:27:47 -0500
+	id 20I3RwgC028873 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 17 Jan 2022 22:27:58 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id F41DB1B5B7; Tue, 18 Jan 2022 03:27:47 +0000 (UTC)
+	id 91C1C56F7C; Tue, 18 Jan 2022 03:27:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C4004D739;
-	Tue, 18 Jan 2022 03:27:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 679915DB86;
+	Tue, 18 Jan 2022 03:27:41 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 20I3RbGJ006020; 
-	Mon, 17 Jan 2022 21:27:37 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 20I3RcPk006024; 
+	Mon, 17 Jan 2022 21:27:38 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 20I3RaIo006019;
-	Mon, 17 Jan 2022 21:27:36 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 20I3Rcbx006023;
+	Mon, 17 Jan 2022 21:27:38 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 17 Jan 2022 21:27:32 -0600
-Message-Id: <1642476453-5974-3-git-send-email-bmarzins@redhat.com>
+Date: Mon, 17 Jan 2022 21:27:33 -0600
+Message-Id: <1642476453-5974-4-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1642476453-5974-1-git-send-email-bmarzins@redhat.com>
 References: <1642476453-5974-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 X-loop: dm-devel@redhat.com
 Cc: device-mapper development <dm-devel@redhat.com>,
 	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 2/3] libmultipath: make helper function to
-	trigger path uevents
+Subject: [dm-devel] [PATCH 3/3] multipathd: trigger udev change on path
+	addition
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,7 +75,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -83,134 +83,54 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Pull the code that checks if a path needs to trigger a uevent, and
-triggers, out of trigger_paths_udev_change() and into a new function,
-trigger_path_udev_change(). This function will be used separately by
-a future patch. No functional changes.
+When a multipath device is created for the first time, there is a window
+where some path devices way be added to the multipath device, but never
+claimed in udev. This can allow other device owners, like lvm, to think
+they can use the device.
+
+When a multipath device is first created, all the existing paths that
+are not claimed by multipath have a uevent triggered so that they can
+get claimed. After that, multipath assumes all future paths added to the
+multipath device will have been claimed by multipath, since the device's
+WWID is now in the wwids file.  This doesn't work for any paths that
+have already been processed by the multipath.rules udev rules before
+the multipath device was created.
+
+To close this window, when path device is added, and a matching
+multipath device already exists, multipathd now checks if the device is
+claimed by multipath, and if not, triggers a uevent to claim it.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/configure.c | 79 +++++++++++++++++++++-------------------
- libmultipath/configure.h |  1 +
- 2 files changed, 43 insertions(+), 37 deletions(-)
+ libmultipath/libmultipath.version | 1 +
+ multipathd/main.c                 | 2 ++
+ 2 files changed, 3 insertions(+)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index ec38f325..eca11ba0 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -503,11 +503,8 @@ unref:
- }
- 
- void
--trigger_paths_udev_change(struct multipath *mpp, bool is_mpath)
-+trigger_path_udev_change(struct path *pp, bool is_mpath)
- {
--	struct pathgroup *pgp;
--	struct path *pp;
--	int i, j;
- 	/*
- 	 * If a path changes from multipath to non-multipath, we must
- 	 * synthesize an artificial "add" event, otherwise the LVM2 rules
-@@ -515,6 +512,45 @@ trigger_paths_udev_change(struct multipath *mpp, bool is_mpath)
- 	 * irritate ourselves with an "add", so use "change".
- 	 */
- 	const char *action = is_mpath ? "change" : "add";
-+	const char *env;
-+
-+	if (!pp->udev)
-+		return;
-+	/*
-+	 * Paths that are already classified as multipath
-+	 * members don't need another uevent.
-+	 */
-+	env = udev_device_get_property_value(
-+		pp->udev, "DM_MULTIPATH_DEVICE_PATH");
-+
-+	if (is_mpath && env != NULL && !strcmp(env, "1")) {
-+		/*
-+		 * If FIND_MULTIPATHS_WAIT_UNTIL is not "0",
-+		 * path is in "maybe" state and timer is running
-+		 * Send uevent now (see multipath.rules).
-+		 */
-+		env = udev_device_get_property_value(
-+			pp->udev, "FIND_MULTIPATHS_WAIT_UNTIL");
-+		if (env == NULL || !strcmp(env, "0"))
-+			return;
-+	} else if (!is_mpath &&
-+		   (env == NULL || !strcmp(env, "0")))
-+		return;
-+
-+	condlog(3, "triggering %s uevent for %s (is %smultipath member)",
-+		action, pp->dev, is_mpath ? "" : "no ");
-+	sysfs_attr_set_value(pp->udev, "uevent",
-+			     action, strlen(action));
-+	trigger_partitions_udev_change(pp->udev, action,
-+				       strlen(action));
-+}
-+
-+void
-+trigger_paths_udev_change(struct multipath *mpp, bool is_mpath)
-+{
-+	struct pathgroup *pgp;
-+	struct path *pp;
-+	int i, j;
- 
- 	if (!mpp || !mpp->pg)
- 		return;
-@@ -522,39 +558,8 @@ trigger_paths_udev_change(struct multipath *mpp, bool is_mpath)
- 	vector_foreach_slot (mpp->pg, pgp, i) {
- 		if (!pgp->paths)
- 			continue;
--		vector_foreach_slot(pgp->paths, pp, j) {
--			const char *env;
--
--			if (!pp->udev)
--				continue;
--			/*
--			 * Paths that are already classified as multipath
--			 * members don't need another uevent.
--			 */
--			env = udev_device_get_property_value(
--				pp->udev, "DM_MULTIPATH_DEVICE_PATH");
--
--			if (is_mpath && env != NULL && !strcmp(env, "1")) {
--				/*
--				 * If FIND_MULTIPATHS_WAIT_UNTIL is not "0",
--				 * path is in "maybe" state and timer is running
--				 * Send uevent now (see multipath.rules).
--				 */
--				env = udev_device_get_property_value(
--					pp->udev, "FIND_MULTIPATHS_WAIT_UNTIL");
--				if (env == NULL || !strcmp(env, "0"))
--					continue;
--			} else if (!is_mpath &&
--				   (env == NULL || !strcmp(env, "0")))
--				continue;
--
--			condlog(3, "triggering %s uevent for %s (is %smultipath member)",
--				action, pp->dev, is_mpath ? "" : "no ");
--			sysfs_attr_set_value(pp->udev, "uevent",
--					     action, strlen(action));
--			trigger_partitions_udev_change(pp->udev, action,
--						       strlen(action));
--		}
-+		vector_foreach_slot(pgp->paths, pp, j)
-+			trigger_path_udev_change(pp, is_mpath);
+diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
+index d8cee0c3..b663cb29 100644
+--- a/libmultipath/libmultipath.version
++++ b/libmultipath/libmultipath.version
+@@ -210,6 +210,7 @@ global:
+ 	sysfs_is_multipathed;
+ 	timespeccmp;
+ 	timespecsub;
++	trigger_path_udev_change;
+ 	trigger_paths_udev_change;
+ 	truncate_strbuf;
+ 	udev;
+diff --git a/multipathd/main.c b/multipathd/main.c
+index c241dad5..44ca5b12 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -1157,6 +1157,8 @@ ev_add_path (struct path * pp, struct vectors * vecs, int need_do_map)
+ 		free_path(pp);
+ 		return 1;
  	}
- 
- 	mpp->needs_paths_uevent = 0;
-diff --git a/libmultipath/configure.h b/libmultipath/configure.h
-index efe18b7d..2bf73e65 100644
---- a/libmultipath/configure.h
-+++ b/libmultipath/configure.h
-@@ -56,6 +56,7 @@ int coalesce_paths (struct vectors *vecs, vector curmp, char * refwwid, int forc
- int get_refwwid (enum mpath_cmds cmd, const char *dev, enum devtypes dev_type,
- 		 vector pathvec, char **wwid);
- struct udev_device *get_udev_device(const char *dev, enum devtypes dev_type);
-+void trigger_path_udev_change(struct path *pp, bool is_mpath);
- void trigger_paths_udev_change(struct multipath *mpp, bool is_mpath);
- void trigger_partitions_udev_change(struct udev_device *dev, const char *action,
- 				    int len);
++	if (mpp)
++		trigger_path_udev_change(pp, true);
+ 	if (mpp && mpp->wait_for_udev &&
+ 	    (pathcount(mpp, PATH_UP) > 0 ||
+ 	     (pathcount(mpp, PATH_GHOST) > 0 &&
 -- 
 2.17.2
 
