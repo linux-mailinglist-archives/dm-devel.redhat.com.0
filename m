@@ -2,65 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B2618491D3C
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Jan 2022 04:28:18 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1642476497;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=q0hcDVNYIzylWeJkEz6qbpBOC2EJZMx/6SUnRELTbpo=;
-	b=bXuJ7E/xhvAdX2cDM83NF+RGV3bKQ5o6oHMjK42ZSVrYLJg1Rx3Vsx2hhGWjKselgIRuL8
-	I77/GBX13y+HAOzwji54Co2G/6ZD+I6d71SN+ULFF1NLrGwfb4P01qohj0d80wiTTFcCcM
-	rwvq0jVpuPOP8HbGrnLoykw3k1+jay4=
+	by mail.lfdr.de (Postfix) with ESMTPS id 5337B4920C9
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Jan 2022 09:00:06 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-rmor6Z2ZMPi6szC-YPFT1Q-1; Mon, 17 Jan 2022 22:28:14 -0500
-X-MC-Unique: rmor6Z2ZMPi6szC-YPFT1Q-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-550-W4ee1TklMDulIMDg1fhcOA-1; Tue, 18 Jan 2022 03:00:01 -0500
+X-MC-Unique: W4ee1TklMDulIMDg1fhcOA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1324114751;
-	Tue, 18 Jan 2022 03:28:09 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E61E912E2F;
-	Tue, 18 Jan 2022 03:28:08 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 570D4100C660;
+	Tue, 18 Jan 2022 07:59:55 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A0B577B020;
+	Tue, 18 Jan 2022 07:59:51 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8F5CF1809CBF;
-	Tue, 18 Jan 2022 03:28:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com
-	[10.5.11.11])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 64AF54BB7C;
+	Tue, 18 Jan 2022 07:59:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20I3RwgC028873 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 17 Jan 2022 22:27:58 -0500
+	id 20I7xTlX016254 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Jan 2022 02:59:29 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 91C1C56F7C; Tue, 18 Jan 2022 03:27:58 +0000 (UTC)
+	id BD1AC401E44; Tue, 18 Jan 2022 07:59:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 679915DB86;
-	Tue, 18 Jan 2022 03:27:41 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 20I3RcPk006024; 
-	Mon, 17 Jan 2022 21:27:38 -0600
-Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 20I3Rcbx006023;
-	Mon, 17 Jan 2022 21:27:38 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 17 Jan 2022 21:27:33 -0600
-Message-Id: <1642476453-5974-4-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1642476453-5974-1-git-send-email-bmarzins@redhat.com>
-References: <1642476453-5974-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+Received: from mimecast-mx02.redhat.com
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B8F13401E22
+	for <dm-devel@redhat.com>; Tue, 18 Jan 2022 07:59:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F921858EED
+	for <dm-devel@redhat.com>; Tue, 18 Jan 2022 07:59:29 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-164-TsLbumSxNRuZxq0obiNFHA-1; Tue, 18 Jan 2022 02:59:26 -0500
+X-MC-Unique: TsLbumSxNRuZxq0obiNFHA-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1n9iTq-000VJK-1i; Tue, 18 Jan 2022 07:00:34 +0000
+Date: Mon, 17 Jan 2022 23:00:34 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Ming Lei <ming.lei@redhat.com>
+Message-ID: <YeZlkpvCJ97nIzOS@infradead.org>
+References: <1642183128-17875-1-git-send-email-bmarzins@redhat.com>
+	<YeUf9dRHky81/bs4@infradead.org> <YeYKGPxVZFM8pneN@T590>
+MIME-Version: 1.0
+In-Reply-To: <YeYKGPxVZFM8pneN@T590>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>,
-	Martin Wilck <Martin.Wilck@suse.com>
-Subject: [dm-devel] [PATCH 3/3] multipathd: trigger udev change on path
-	addition
+Cc: Christoph Hellwig <hch@infradead.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	Mike Snitzer <snitzer@redhat.com>
+Subject: Re: [dm-devel] [PATCH] dm rq: clear cloned bio ->bi_bdev to fix I/O
+ accounting
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -72,67 +81,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When a multipath device is created for the first time, there is a window
-where some path devices way be added to the multipath device, but never
-claimed in udev. This can allow other device owners, like lvm, to think
-they can use the device.
+On Tue, Jan 18, 2022 at 08:30:16AM +0800, Ming Lei wrote:
+> On Sun, Jan 16, 2022 at 11:51:17PM -0800, Christoph Hellwig wrote:
+> > So I actually noticed this during code inspection a while ago, but I
+> > think we need to use the actual underlying device instead of NULL here
+> > to keep our block layer gurantees.  See the patch in my queue below.
+> > 
+> > ---
+> > From 1e330b8e57fc0d6c6fb07c0ec2915dca5d7a585a Mon Sep 17 00:00:00 2001
+> > From: Christoph Hellwig <hch@lst.de>
+> > Date: Thu, 13 Jan 2022 10:53:59 +0100
+> > Subject: block: assign bi_bdev for cloned bios in blk_rq_prep_clone
+> > 
+> > The cloned bios for the cloned request in blk_rq_prep_clone currently
+> > still point to the original bi_bdev.  This is harmless because dm-mpath
+> 
+> It breaks io accounting, so not harmless, but the code in this patch is
+> fine:
 
-When a multipath device is first created, all the existing paths that
-are not claimed by multipath have a uevent triggered so that they can
-get claimed. After that, multipath assumes all future paths added to the
-multipath device will have been claimed by multipath, since the device's
-WWID is now in the wwids file.  This doesn't work for any paths that
-have already been processed by the multipath.rules udev rules before
-the multipath device was created.
-
-To close this window, when path device is added, and a matching
-multipath device already exists, multipathd now checks if the device is
-claimed by multipath, and if not, triggers a uevent to claim it.
-
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/libmultipath.version | 1 +
- multipathd/main.c                 | 2 ++
- 2 files changed, 3 insertions(+)
-
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index d8cee0c3..b663cb29 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -210,6 +210,7 @@ global:
- 	sysfs_is_multipathed;
- 	timespeccmp;
- 	timespecsub;
-+	trigger_path_udev_change;
- 	trigger_paths_udev_change;
- 	truncate_strbuf;
- 	udev;
-diff --git a/multipathd/main.c b/multipathd/main.c
-index c241dad5..44ca5b12 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -1157,6 +1157,8 @@ ev_add_path (struct path * pp, struct vectors * vecs, int need_do_map)
- 		free_path(pp);
- 		return 1;
- 	}
-+	if (mpp)
-+		trigger_path_udev_change(pp, true);
- 	if (mpp && mpp->wait_for_udev &&
- 	    (pathcount(mpp, PATH_UP) > 0 ||
- 	     (pathcount(mpp, PATH_GHOST) > 0 &&
--- 
-2.17.2
+That's what I thought at the time.  Based on the patch from
+Benjamin that is obviously not true, so I'll reword the commit message
+and add a Fixes tag.
 
 --
 dm-devel mailing list
