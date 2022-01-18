@@ -1,55 +1,55 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EECED491FDB
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Jan 2022 08:20:52 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 51706492028
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Jan 2022 08:22:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-119-xsd3OdOOMjiV-QFWjUrWoQ-1; Tue, 18 Jan 2022 02:20:49 -0500
-X-MC-Unique: xsd3OdOOMjiV-QFWjUrWoQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-182-ly4mW394OTSOdVW0nK1gKg-1; Tue, 18 Jan 2022 02:20:59 -0500
+X-MC-Unique: ly4mW394OTSOdVW0nK1gKg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 324F283DB24;
-	Tue, 18 Jan 2022 07:20:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 106BE80D680;
+	Tue, 18 Jan 2022 07:20:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C4464EC71;
-	Tue, 18 Jan 2022 07:20:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AE4C46E1E2;
+	Tue, 18 Jan 2022 07:20:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BB0014BB7B;
-	Tue, 18 Jan 2022 07:20:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7234B4BB7C;
+	Tue, 18 Jan 2022 07:20:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20I7KJOL012944 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 18 Jan 2022 02:20:19 -0500
+	id 20I7KUMB012987 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 18 Jan 2022 02:20:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EDED4C080B3; Tue, 18 Jan 2022 07:20:18 +0000 (UTC)
+	id 1E63953C4; Tue, 18 Jan 2022 07:20:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E9A52C080AF
-	for <dm-devel@redhat.com>; Tue, 18 Jan 2022 07:20:18 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 198A353D3
+	for <dm-devel@redhat.com>; Tue, 18 Jan 2022 07:20:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D01D2811E78
-	for <dm-devel@redhat.com>; Tue, 18 Jan 2022 07:20:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07134800B21
+	for <dm-devel@redhat.com>; Tue, 18 Jan 2022 07:20:27 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-621-0CosxU1UNiitRVur6ycrgw-1; Tue, 18 Jan 2022 02:20:17 -0500
-X-MC-Unique: 0CosxU1UNiitRVur6ycrgw-1
+	us-mta-486-UsbUihjhO-GOxfirhN344A-1; Tue, 18 Jan 2022 02:20:25 -0500
+X-MC-Unique: UsbUihjhO-GOxfirhN344A-1
 Received: from [2001:4bb8:184:72a4:a4a9:19c0:5242:7768] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1n9ims-000ZTk-8m; Tue, 18 Jan 2022 07:20:14 +0000
+	id 1n9imv-000ZUu-0D; Tue, 18 Jan 2022 07:20:17 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 18 Jan 2022 08:19:40 +0100
-Message-Id: <20220118071952.1243143-8-hch@lst.de>
+Date: Tue, 18 Jan 2022 08:19:41 +0100
+Message-Id: <20220118071952.1243143-9-hch@lst.de>
 In-Reply-To: <20220118071952.1243143-1-hch@lst.de>
 References: <20220118071952.1243143-1-hch@lst.de>
 MIME-Version: 1.0
@@ -63,7 +63,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
 	linux-nilfs@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
@@ -77,7 +77,7 @@ Cc: linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>, ntfs3@lists.linux.dev,
 	Jack Wang <jinpu.wang@ionos.com>, Pavel Begunkov <asml.silence@gmail.com>,
 	drbd-dev@lists.linbit.com
-Subject: [dm-devel] [PATCH 07/19] dm-snap: use blkdev_issue_flush instead of
+Subject: [dm-devel] [PATCH 08/19] dm-thin: use blkdev_issue_flush instead of
 	open coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -92,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,73 +101,57 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 Use blkdev_issue_flush, which uses an on-stack bio instead of an
-opencoded version with a bio embedded into struct dm_snapshot.
+opencoded version with a bio embedded into struct pool.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm-snap.c | 21 +--------------------
- 1 file changed, 1 insertion(+), 20 deletions(-)
+ drivers/md/dm-thin.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index dcf34c6b05ad3..0d336b5ec5714 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -141,11 +141,6 @@ struct dm_snapshot {
- 	 * for them to be committed.
- 	 */
- 	struct bio_list bios_queued_during_merge;
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 76a9c2e9aeeea..411a3f56ed90c 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -282,8 +282,6 @@ struct pool {
+ 	struct dm_bio_prison_cell **cell_sort_array;
+ 
+ 	mempool_t mapping_pool;
 -
--	/*
--	 * Flush data after merge.
--	 */
 -	struct bio flush_bio;
  };
  
- /*
-@@ -1127,17 +1122,6 @@ static void snapshot_merge_next_chunks(struct dm_snapshot *s)
+ static void metadata_operation_failed(struct pool *pool, const char *op, int r);
+@@ -2906,7 +2904,6 @@ static void __pool_destroy(struct pool *pool)
+ 	if (pool->next_mapping)
+ 		mempool_free(pool->next_mapping, &pool->mapping_pool);
+ 	mempool_exit(&pool->mapping_pool);
+-	bio_uninit(&pool->flush_bio);
+ 	dm_deferred_set_destroy(pool->shared_read_ds);
+ 	dm_deferred_set_destroy(pool->all_io_ds);
+ 	kfree(pool);
+@@ -2987,7 +2984,6 @@ static struct pool *pool_create(struct mapped_device *pool_md,
+ 	pool->low_water_triggered = false;
+ 	pool->suspended = true;
+ 	pool->out_of_data_space = false;
+-	bio_init(&pool->flush_bio, NULL, 0);
  
- static void error_bios(struct bio *bio);
- 
--static int flush_data(struct dm_snapshot *s)
--{
--	struct bio *flush_bio = &s->flush_bio;
+ 	pool->shared_read_ds = dm_deferred_set_create();
+ 	if (!pool->shared_read_ds) {
+@@ -3194,13 +3190,8 @@ static void metadata_low_callback(void *context)
+ static int metadata_pre_commit_callback(void *context)
+ {
+ 	struct pool *pool = context;
+-	struct bio *flush_bio = &pool->flush_bio;
 -
 -	bio_reset(flush_bio);
--	bio_set_dev(flush_bio, s->origin->bdev);
+-	bio_set_dev(flush_bio, pool->data_dev);
 -	flush_bio->bi_opf = REQ_OP_WRITE | REQ_PREFLUSH;
--
+ 
 -	return submit_bio_wait(flush_bio);
--}
--
- static void merge_callback(int read_err, unsigned long write_err, void *context)
- {
- 	struct dm_snapshot *s = context;
-@@ -1151,7 +1135,7 @@ static void merge_callback(int read_err, unsigned long write_err, void *context)
- 		goto shut;
- 	}
++	return blkdev_issue_flush(pool->data_dev);
+ }
  
--	if (flush_data(s) < 0) {
-+	if (blkdev_issue_flush(s->origin->bdev) < 0) {
- 		DMERR("Flush after merge failed: shutting down merge");
- 		goto shut;
- 	}
-@@ -1340,7 +1324,6 @@ static int snapshot_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	s->first_merging_chunk = 0;
- 	s->num_merging_chunks = 0;
- 	bio_list_init(&s->bios_queued_during_merge);
--	bio_init(&s->flush_bio, NULL, 0);
- 
- 	/* Allocate hash table for COW data */
- 	if (init_hash_tables(s)) {
-@@ -1528,8 +1511,6 @@ static void snapshot_dtr(struct dm_target *ti)
- 
- 	dm_exception_store_destroy(s->store);
- 
--	bio_uninit(&s->flush_bio);
--
- 	dm_put_device(ti, s->cow);
- 
- 	dm_put_device(ti, s->origin);
+ static sector_t get_dev_size(struct block_device *bdev)
 -- 
 2.30.2
 
