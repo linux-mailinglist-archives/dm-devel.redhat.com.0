@@ -2,62 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A0ECB493441
-	for <lists+dm-devel@lfdr.de>; Wed, 19 Jan 2022 06:19:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3522493B16
+	for <lists+dm-devel@lfdr.de>; Wed, 19 Jan 2022 14:27:45 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-509-3yRY2ZroMVygQs6lgo130g-1; Wed, 19 Jan 2022 00:19:27 -0500
-X-MC-Unique: 3yRY2ZroMVygQs6lgo130g-1
+ us-mta-125-SFDjwjbGOGGTMKPdxyE9eg-1; Wed, 19 Jan 2022 08:27:41 -0500
+X-MC-Unique: SFDjwjbGOGGTMKPdxyE9eg-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0162D1006AA3;
-	Wed, 19 Jan 2022 05:19:19 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5894A1054F90;
+	Wed, 19 Jan 2022 13:27:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C5D8A5ED36;
-	Wed, 19 Jan 2022 05:19:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 112E5752D3;
+	Wed, 19 Jan 2022 13:27:31 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DC67C4BB7C;
-	Wed, 19 Jan 2022 05:18:54 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 629524BB7C;
+	Wed, 19 Jan 2022 13:27:22 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20J5IZ1q031233 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 19 Jan 2022 00:18:37 -0500
+	id 20JDR8kS008557 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 19 Jan 2022 08:27:09 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 45D3776C4; Wed, 19 Jan 2022 05:18:35 +0000 (UTC)
+	id 7154040F9D6D; Wed, 19 Jan 2022 13:27:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 417F8740A
-	for <dm-devel@redhat.com>; Wed, 19 Jan 2022 05:18:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D04840F9D68
+	for <dm-devel@redhat.com>; Wed, 19 Jan 2022 13:27:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35EFD811E76
-	for <dm-devel@redhat.com>; Wed, 19 Jan 2022 05:18:32 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
-	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49007811E76
+	for <dm-devel@redhat.com>; Wed, 19 Jan 2022 13:27:08 +0000 (UTC)
+Received: from mail-il1-f171.google.com (mail-il1-f171.google.com
+	[209.85.166.171]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-610-g0wtdouNOUuT2uUDhb62pQ-1; Wed, 19 Jan 2022 00:18:30 -0500
-X-MC-Unique: g0wtdouNOUuT2uUDhb62pQ-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1nA3MZ-003qbP-0c; Wed, 19 Jan 2022 05:18:27 +0000
-Date: Tue, 18 Jan 2022 21:18:26 -0800
-From: Christoph Hellwig <hch@infradead.org>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <YeefInTrcsQRZVwY@infradead.org>
-References: <1642097341-6521-1-git-send-email-israelr@nvidia.com>
-	<9ef95bbc-4eee-4c00-f199-0daa3cdd03ed@gmail.com>
-	<YeH4yhy1FFGooOrR@sol.localdomain>
-	<139878d0-d1bb-02d9-30c2-9334ffb5b3b3@gmail.com>
-	<YecXNYm63BL50hFL@sol.localdomain>
+	us-mta-623-IK6Ep0lWMkeH_Tb_9VkqeQ-1; Wed, 19 Jan 2022 08:27:06 -0500
+X-MC-Unique: IK6Ep0lWMkeH_Tb_9VkqeQ-1
+Received: by mail-il1-f171.google.com with SMTP id h30so2120994ila.12
+	for <dm-devel@redhat.com>; Wed, 19 Jan 2022 05:27:06 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:subject:to:cc:references:from:message-id:date
+	:user-agent:mime-version:in-reply-to:content-language
+	:content-transfer-encoding;
+	bh=bOtjTSupMPdLeWMiVKrD7jaORGYKT+sk6BwRJT6YH5k=;
+	b=zeX1bALyOO9nyVLyrwttfohIRsWelaySuqbvvom/QK7M9ev9r2CTKgxf9JE2JCRnxI
+	RRApbc6Z1MevoMWnb5eaHlUbX4JA62DSmsbJbePqEgvfYzk90nf53ErDLO8wbvSv2kCh
+	LgiWoKXHay9M8V7XzB3nzWJnDa8c41YPfLymTl6Zx8nhp9pENpfjrkMqv600HmMYBzPm
+	bUs4bHo0FN+Ry9WY8mkmwU0hmWNp3buKyoEFiXQAhewHWhKG0aIVX62cX5UPBzsLfIaZ
+	nNim7XknK/tY7JWl8J+aVPO8vaG8N8GzUorUBTCo/q9Bm81yD4b0CdMOObFBimct98Mf
+	8TvA==
+X-Gm-Message-State: AOAM532eLnBjEcnR880n6f1QcChbuk8FIbcQtKW/OPKjjPIAnAgQycA4
+	2Vb0IaQzWBQ5km+ONgFIMbsLSg==
+X-Google-Smtp-Source: ABdhPJy/gK+ACUkzeActiCIlSLAxm2cSY3hrzhU1AqADv9+8T7xomkwrCDZtFgg9hB/5uCyhH7Qi5A==
+X-Received: by 2002:a05:6e02:144a:: with SMTP id
+	p10mr9326688ilo.152.1642598825847; 
+	Wed, 19 Jan 2022 05:27:05 -0800 (PST)
+Received: from [192.168.1.116] ([66.219.217.159])
+	by smtp.gmail.com with ESMTPSA id c7sm4569815ioi.18.2022.01.19.05.27.04
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Wed, 19 Jan 2022 05:27:05 -0800 (PST)
+To: Christoph Hellwig <hch@lst.de>
+References: <20220118071952.1243143-1-hch@lst.de>
+From: Jens Axboe <axboe@kernel.dk>
+Message-ID: <2b9aedb6-4531-91fe-3493-133470ebee80@kernel.dk>
+Date: Wed, 19 Jan 2022 06:27:04 -0700
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101
+	Thunderbird/68.10.0
 MIME-Version: 1.0
-In-Reply-To: <YecXNYm63BL50hFL@sol.localdomain>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
-	bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20220118071952.1243143-1-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -66,13 +84,21 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: Israel Rukshin <israelr@nvidia.com>, Max Gurtovoy <mgurtovoy@nvidia.com>,
-	dm-devel <dm-devel@redhat.com>, Nitzan Carmi <nitzanc@nvidia.com>,
-	Milan Broz <gmazyland@gmail.com>
-Subject: Re: [dm-devel] [RFC PATCH 0/1] Add inline encryption support for
- dm-crypt
+Cc: linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
+	linux-nilfs@vger.kernel.org, Mike Snitzer <snitzer@redhat.com>,
+	Philipp Reisner <philipp.reisner@linbit.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	=?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.co>,
+	dm-devel@redhat.com, "Md . Haris Iqbal" <haris.iqbal@ionos.com>,
+	Lars Ellenberg <lars.ellenberg@linbit.com>,
+	linux-fsdevel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	Andrew Morton <akpm@linux-foundation.org>, ntfs3@lists.linux.dev,
+	Jack Wang <jinpu.wang@ionos.com>, Pavel Begunkov <asml.silence@gmail.com>,
+	drbd-dev@lists.linbit.com
+Subject: Re: [dm-devel] improve the bio allocation interface
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -91,35 +117,28 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 18, 2022 at 11:38:29AM -0800, Eric Biggers wrote:
-> I doubt that people would find Android's dm-default-key to be acceptable, given
-> that it's a layering violation, and a similar approach was rejected in the past
-> (https://lore.kernel.org/dm-devel/20170614234040.4326-1-mhalcrow@google.com/T/#u).
-> dm-default-key's purpose is filesystem metadata encryption; it encrypts all
-> blocks that aren't already part of an encrypted file's contents.  It differs
-> from dm-crypt + fscrypt together (which the upstream kernel already supports) in
-> that file contents aren't encrypted twice; this was a non-negotiable performance
-> requirement.  Obviously, this required a new flag in struct bio to indicate
-> which bios are reading/writing from an encrypted file's contents.  I doubt the
-> block layer people would find that to be acceptable.
-
-Well, it was rejected because it pokes a hole into dm-crypt.  In a
-purely inline crypto world a way to assign a key context if there is
-none before is a little different, especially if it requires a different
-setup than an unconditional encryption for the device.  It would also
-not even require a flag.
-
+On 1/18/22 12:19 AM, Christoph Hellwig wrote:
+> Hi Jens,
 > 
-> In principle, the filesystem is the right place to implement metadata encryption
-> in this way.  This would also allow the kernel to enforce (via the key
-> hierarchy) that fscrypt keys are never weaker than the metadata encryption key.
+> this series is posted early because it has wide-ranging changes and
+> could use some early ACKs before -rc1.
+> 
+> It changes the interface to the bio allocators to always pass a
+> block_device and the operation, which is information needed for every
+> bio submitted through bio_submit.  This means the fields can be
+> directly initialized in bio_init instead of first being zeroed and
+> thus should help to micro-optimize even better than the __bio_set_dev
+> that Pavel proposed while also cleaning up code.
 
-Yes.  Especially in the inline crypto world it would seem just as
-trivial to assign a default key in the file system itself.
+Looks pretty straight forward from the block core point of view. Didn't
+look too closely at the fs/driver changes yet.
+
+-- 
+Jens Axboe
 
 --
 dm-devel mailing list
