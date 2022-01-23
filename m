@@ -2,90 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D8E849740B
-	for <lists+dm-devel@lfdr.de>; Sun, 23 Jan 2022 19:02:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73DBD4978E9
+	for <lists+dm-devel@lfdr.de>; Mon, 24 Jan 2022 07:27:02 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609-B3dBg_EDOiWf6DHDqMm5Nw-1; Sun, 23 Jan 2022 13:02:03 -0500
-X-MC-Unique: B3dBg_EDOiWf6DHDqMm5Nw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-454-cZfSDuKhPcuQA02x4Ek_DA-1; Mon, 24 Jan 2022 01:26:15 -0500
+X-MC-Unique: cZfSDuKhPcuQA02x4Ek_DA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1041D1083F62;
-	Sun, 23 Jan 2022 18:01:57 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BBB601091DA3;
+	Mon, 24 Jan 2022 06:26:09 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C7A377744F;
-	Sun, 23 Jan 2022 18:01:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AF17C55F78;
+	Mon, 24 Jan 2022 06:26:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A7A734BB7C;
-	Sun, 23 Jan 2022 18:01:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 985FD4CA93;
+	Mon, 24 Jan 2022 06:25:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20NI1TmH022011 for <dm-devel@listman.util.phx.redhat.com>;
-	Sun, 23 Jan 2022 13:01:30 -0500
+	id 20NLdELY002329 for <dm-devel@listman.util.phx.redhat.com>;
+	Sun, 23 Jan 2022 16:39:16 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B8960401E37; Sun, 23 Jan 2022 18:01:29 +0000 (UTC)
+	id 9C99B40CFD11; Sun, 23 Jan 2022 21:39:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 996AB401DBD
-	for <dm-devel@redhat.com>; Sun, 23 Jan 2022 18:01:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98AD840CFD0B
+	for <dm-devel@redhat.com>; Sun, 23 Jan 2022 21:39:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 810EB803D66
-	for <dm-devel@redhat.com>; Sun, 23 Jan 2022 18:01:29 +0000 (UTC)
-Received: from mout.web.de (mout.web.de [212.227.17.12]) by
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 801D480B711
+	for <dm-devel@redhat.com>; Sun, 23 Jan 2022 21:39:14 +0000 (UTC)
+Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-170-VFozxIB-OhePDNyxPXZeTg-1; Sun, 23 Jan 2022 13:01:27 -0500
-X-MC-Unique: VFozxIB-OhePDNyxPXZeTg-1
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=web.de;
-	s=dbaedf251592; t=1642960885;
-	bh=bJsXUuPlICLfbiMkqCIV04KvOojmltiJuRPCGGD/u4U=;
-	h=X-UI-Sender-Class:Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=nbY02BpE2Kqki6uJfnLbdJJ/jJ0v/4ZSgx98Zf41cEi9U/wGWt2a/hvF5oU6EP9ga
-	ZGFznj3fJFalfn0wo99vxCStNh0uLo6JeFQHwvN5GNHwio6uI8nJKJ9A8vX3oKYfVP
-	6a2lkVJTwiCPL2ME2/0EDvRZHUEaWz+HdLNNqkVw=
-X-UI-Sender-Class: c548c8c5-30a9-4db5-a2e7-cb6cb037b8f9
-Received: from gecko.fritz.box ([88.130.61.190]) by smtp.web.de (mrweb105
-	[213.165.67.124]) with ESMTPSA (Nemesis) id 1N2jWI-1m8liL0rs4-013RFz;
-	Sun, 23 Jan 2022 19:01:25 +0100
-Date: Sun, 23 Jan 2022 18:00:58 +0000
-From: Lukas Straub <lukasstraub2@web.de>
-To: Roger Willcocks <roger@filmlight.ltd.uk>
-Message-ID: <20220123180058.372f72ce@gecko.fritz.box>
-In-Reply-To: <747C2684-B570-473E-9146-E8AB53102236@filmlight.ltd.uk>
-References: <747C2684-B570-473E-9146-E8AB53102236@filmlight.ltd.uk>
+	us-mta-592-NdXAIx15PLOE4WoWWLb9tg-1; Sun, 23 Jan 2022 16:39:12 -0500
+X-MC-Unique: NdXAIx15PLOE4WoWWLb9tg-1
+Received: from [192.168.0.2] (ip5f5aeacb.dynamic.kabel-deutschland.de
+	[95.90.234.203])
+	(using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
+	key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest
+	SHA256) (No client certificate requested)
+	(Authenticated sender: pmenzel)
+	by mx.molgen.mpg.de (Postfix) with ESMTPSA id D07E361E6478B;
+	Sun, 23 Jan 2022 22:34:03 +0100 (CET)
+Message-ID: <70008df6-ef90-6e8d-8a57-9b30077508e7@molgen.mpg.de>
+Date: Sun, 23 Jan 2022 22:34:02 +0100
 MIME-Version: 1.0
-X-Provags-ID: V03:K1:kPWNIjImIHtuCjzpGybCkDSuTRJFlUEXHw8hoVW59PKAIbK2WEp
-	SqypDWP/V44GOWjrPD/PIwM1hRp8jyONukUuWUNThzrwRpkZBLetPO5mEqh1LDNhw7ucx5f
-	bGcZcRJr3iRsLeM2Eh2Hlrw+ScpBPfMrz3R5jAM/66Vm4P+oOYZgXr5JVzcWxTYpZmxU/KA
-	eg8QqnPgwbN1+IwzdoH5A==
-X-Spam-Flag: NO
-X-UI-Out-Filterresults: notjunk:1;V03:K0:7DHrsCfIh00=:H9N7OWxrwBp/8CgtS6PCb1
-	6ilP9T8pGFRJ171de7chibE+7APLwkWJxGlXUAs3ybf4O7rRKAwJauL6Youaj+Kqr6Oc0ybcJ
-	mgtT/NbkkC21gtog5W/OUS1DaNyPnWz4r5UxlxGxVh1Yea74gqRsOdXftuvCE0HQnJSPzprAU
-	HZO8kJaRoSIitxRTfi7BaHfgtI4R2hZcgRJFAYAH8Ysa+h/rLN7X4//bQe+7kmFH5j9kUq6Bg
-	XZWzPetr4OjIYV4/5zmyy0w7v7XRtoO36T19LT/838WYBPscO7cqrtO37wIXpJ3JQXTaehlhg
-	VkFHUaGJlHrJr9BQtP/GRP0eNfd6hSgQ5c9oZpXXnwWbgzlf/Kse3xeckamK8Bta2JjXfgr9s
-	pRFRtCn/1TIZzQ2sGa5L/cuFYuU48aem/P/aFB3iJ41KORYpAQ2VbXlqTSDHa/zE+PXfARXlU
-	3cGgtL/+HQEu1j6cEsNsRiNC8HFGVPU8andb/Heqeqpx+qCjmvwc8YnAffzDF7YFHJ4FzOxp6
-	ngMCGasROZkP4ZKLLd4AgMpmtUxuIPGwoGnL1j1M20qG0NLNQHI86kcl+st4HfmZubCT4PNc5
-	xJdfmhMdG0hLxW+IiT5TbVhz2+TpyEm98oD+Dv9bX9FPpU1dmC4GVBzs4vTlp9u6MBE7bmR90
-	HhStCEvi66SeYnYmezVNyRGCjE0gaeYYOLGrP0Pnzre0Q5oKRNme/5zvJpxxoi4JBUvw8d08V
-	KwqYcDJDpYrpiMv1puhIyQ4ZQ0wA13d2SDToVPYV5hkV22ES2xT171IgzqN7bqyJ7porApNPc
-	5XkcalVZv1Xgp6lury7AQ4g62vxuDo179bosBNQTVSoLik+ycWKt2omD7JqP441iWx3OR1H4D
-	Fb+PmxFlHIQuMq1q4Qp5TF6RV46qnxKeib7jlLBt0yUmwoOzHYpBKKsprYr1QPExPOcQtJkoR
-	F2L1ym8BG+pUjvs/cv2197CouzEEKgQLPB8u/JpMHYie0XwV41dPVEb3iuolVreWBi9EzN4Dw
-	dZoBN6Adi1gvUu3pRXctvVkl1jypdZkGNL73cw1/pAAO7O/mo7RBwPhteaolV4N/ds7ANKjZh
-	rYkb3gFZ3yDuqU=
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	Thunderbird/91.5.0
+To: Roger Willcocks <roger@filmlight.ltd.uk>
+References: <747C2684-B570-473E-9146-E8AB53102236@filmlight.ltd.uk>
+	<20220123180058.372f72ce@gecko.fritz.box>
+From: Paul Menzel <pmenzel@molgen.mpg.de>
+In-Reply-To: <20220123180058.372f72ce@gecko.fritz.box>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
-Cc: linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com
+X-Mailman-Approved-At: Mon, 24 Jan 2022 01:25:45 -0500
+Cc: linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
+	Lukas Straub <lukasstraub2@web.de>
 Subject: Re: [dm-devel] Raid0 performance regression
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
@@ -98,153 +85,118 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============2144499198061939889=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-
---===============2144499198061939889==
-Content-Type: multipart/signed; boundary="Sig_/GZ0tmCs_SnSHS/nelJGggip";
-	protocol="application/pgp-signature"; micalg=pgp-sha256
-
---Sig_/GZ0tmCs_SnSHS/nelJGggip
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: quoted-printable
-
-CC'ing Song Liu (md-raid maintainer) and linux-raid mailing list.
-
-On Fri, 21 Jan 2022 16:38:03 +0000
-Roger Willcocks <roger@filmlight.ltd.uk> wrote:
-
-> Hi folks,
->=20
-> we noticed a thirty percent drop in performance on one of our raid
-> arrays when switching from CentOS 6.5 to 8.4; it uses raid0-like
-> striping to balance (by time) access to a pair of hardware raid-6
-> arrays. The underlying issue is also present in the native raid0
-> driver so herewith the gory details; I'd appreciate your thoughts.
->=20
-> --
->=20
-> blkdev_direct_IO() calls submit_bio() which calls an outermost
-> generic_make_request() (aka submit_bio_noacct()).
->=20
-> md_make_request() calls blk_queue_split() which cuts an incoming
-> request into two parts with the first no larger than get_max_io_size()
-> bytes (which in the case of raid0, is the chunk size):
->=20
->   R -> AB
->  =20
-> blk_queue_split() gives the second part 'B' to generic_make_request()
-> to worry about later and returns the first part 'A'.
->=20
-> md_make_request() then passes 'A' to a more specific request handler,
-> In this case raid0_make_request().
->=20
-> raid0_make_request() cuts its incoming request into two parts at the
-> next chunk boundary:
->=20
-> A -> ab
->=20
-> it then fixes up the device (chooses a physical device) for 'a', and
-> gives both parts, separately, to generic make request()
->=20
-> This is where things go awry, because 'b' is still targetted to the
-> original device (same as 'B'), but 'B' was queued before 'b'. So we
-> end up with:
->=20
->   R -> Bab
->=20
-> The outermost generic_make_request() then cuts 'B' at
-> get_max_io_size(), and the process repeats. Ascii art follows:
->=20
->=20
->     /---------------------------------------------------/   incoming rq
->=20
->     /--------/--------/--------/--------/--------/------/   max_io_size
->      =20
-> |--------|--------|--------|--------|--------|--------|--------| chunks
->=20
-> |...=3D=3D=3D=3D=3D|---=3D=3D=3D=3D=3D|---=3D=3D=3D=3D=3D|---=3D=3D=3D=3D=
-=3D|---=3D=3D=3D=3D=3D|---=3D=3D=3D=3D=3D|--......| rq out
->       a    b  c     d  e     f  g     h  i     j  k     l
->=20
-> Actual submission order for two-disk raid0: 'aeilhd' and 'cgkjfb'
->=20
-> --
->=20
-> There are several potential fixes -
->=20
-> simplest is to set raid0 blk_queue_max_hw_sectors() to UINT_MAX
-> instead of chunk_size, so that raid0_make_request() receives the
-> entire transfer length and cuts it up at chunk boundaries;
->=20
-> neatest is for raid0_make_request() to recognise that 'b' doesn't
-> cross a chunk boundary so it can be sent directly to the physical
-> device;
->=20
-> and correct is for blk_queue_split to requeue 'A' before 'B'.
->=20
-> --
->=20
-> There's also a second issue - with large raid0 chunk size (256K), the
-> segments submitted to the physical device are at least 128K and
-> trigger the early unplug code in blk_mq_make_request(), so the
-> requests are never merged. There are legitimate reasons for a large
-> chunk size so this seems unhelpful.
->=20
-> --
->=20
-> As I said, I'd appreciate your thoughts.
->=20
-> --
->=20
-> Roger
->=20
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://listman.redhat.com/mailman/listinfo/dm-devel
->=20
-
-
-
---=20
-
-
---Sig_/GZ0tmCs_SnSHS/nelJGggip
-Content-Type: application/pgp-signature
-Content-Description: OpenPGP digital signature
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEg/qxWKDZuPtyYo+kNasLKJxdslgFAmHtl9oACgkQNasLKJxd
-sli4Sw/+N9iq8lks5gThYPYEHqhuC6L6uxjdOaKbogXJeJTFOJgeEVK2h8uDmmRF
-O2v0r6+GVf9NUL6PDYPKYyixprJVIFAlnysylH/dWxXoQpfOgy43ZZ1GzsHabuvb
-zNUszjQZup1siYl4aPm/XmHF3IhaQWlM0zRVSC/A5kysJaAWvdRV2ZW8G0kO5kBP
-kDTF0oNEaq2LuYhH5V//9gXJnG7uNAqh+m+vEs/spYLiExkvBv4zHnKIJqA46ZxZ
-zb/NXlRuAKE7EQZUzKCUhErSaMz/YDxA9eb/6lDFq44SwjE3tJoW269ED5pKNxm9
-yiZebo+iWCKm1qkzyECSTNAQ/qqVb+jXCI8864tQjjd/tRYnV15MGeFfJkhmUKJP
-E2cjz5jmNNg6m95qzQKB0dAepJSq4b6xWdg2CvfPdxnj5UQU5PXVpeopldaE9DER
-pCXHPPpBwbYDkIVWgFP2HV8GQ71xHl3Y9jfrMzMrA44vUPK7agU4gZcqEdP80mle
-mrv/xbkqo/uvZ2AVBs89Ohxdd5AdnbcVJjfnDRWHAC5HFMDB4wJoLPQX0cByMhlr
-QQbfxv1/QdPWGugwSxPMkET0ya8xlMNgGADn1aCzmGCgnhih33s0YxyDFPaQBV4N
-oAFbVrpJW068KXTSyBwTN5migxe58FEkOjDQKfdvATOZfpMaIag=
-=MMEp
------END PGP SIGNATURE-----
-
---Sig_/GZ0tmCs_SnSHS/nelJGggip--
-
-
---===============2144499198061939889==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+
+Dear Roger,
+
+
+Am 23.01.22 um 19:00 schrieb Lukas Straub:
+> CC'ing Song Liu (md-raid maintainer) and linux-raid mailing list.
+> 
+> On Fri, 21 Jan 2022 16:38:03 +0000 Roger Willcocks wrote:
+
+>> we noticed a thirty percent drop in performance on one of our raid
+>> arrays when switching from CentOS 6.5 to 8.4; it uses raid0-like
+
+For those outside the CentOS universe, what Linux kernel versions are those?
+
+>> striping to balance (by time) access to a pair of hardware raid-6
+>> arrays. The underlying issue is also present in the native raid0
+>> driver so herewith the gory details; I'd appreciate your thoughts.
+>>
+>> --
+>>
+>> blkdev_direct_IO() calls submit_bio() which calls an outermost
+>> generic_make_request() (aka submit_bio_noacct()).
+>>
+>> md_make_request() calls blk_queue_split() which cuts an incoming
+>> request into two parts with the first no larger than get_max_io_size()
+>> bytes (which in the case of raid0, is the chunk size):
+>>
+>>    R -> AB
+>>    
+>> blk_queue_split() gives the second part 'B' to generic_make_request()
+>> to worry about later and returns the first part 'A'.
+>>
+>> md_make_request() then passes 'A' to a more specific request handler,
+>> In this case raid0_make_request().
+>>
+>> raid0_make_request() cuts its incoming request into two parts at the
+>> next chunk boundary:
+>>
+>> A -> ab
+>>
+>> it then fixes up the device (chooses a physical device) for 'a', and
+>> gives both parts, separately, to generic make request()
+>>
+>> This is where things go awry, because 'b' is still targetted to the
+>> original device (same as 'B'), but 'B' was queued before 'b'. So we
+>> end up with:
+>>
+>>    R -> Bab
+>>
+>> The outermost generic_make_request() then cuts 'B' at
+>> get_max_io_size(), and the process repeats. Ascii art follows:
+>>
+>>
+>>      /---------------------------------------------------/   incoming rq
+>>
+>>      /--------/--------/--------/--------/--------/------/   max_io_size
+>>        
+>> |--------|--------|--------|--------|--------|--------|--------| chunks
+>>
+>> |...=====|---=====|---=====|---=====|---=====|---=====|--......| rq out
+>>        a    b  c     d  e     f  g     h  i     j  k     l
+>>
+>> Actual submission order for two-disk raid0: 'aeilhd' and 'cgkjfb'
+>>
+>> --
+>>
+>> There are several potential fixes -
+>>
+>> simplest is to set raid0 blk_queue_max_hw_sectors() to UINT_MAX
+>> instead of chunk_size, so that raid0_make_request() receives the
+>> entire transfer length and cuts it up at chunk boundaries;
+>>
+>> neatest is for raid0_make_request() to recognise that 'b' doesn't
+>> cross a chunk boundary so it can be sent directly to the physical
+>> device;
+>>
+>> and correct is for blk_queue_split to requeue 'A' before 'B'.
+>>
+>> --
+>>
+>> There's also a second issue - with large raid0 chunk size (256K), the
+>> segments submitted to the physical device are at least 128K and
+>> trigger the early unplug code in blk_mq_make_request(), so the
+>> requests are never merged. There are legitimate reasons for a large
+>> chunk size so this seems unhelpful.
+>>
+>> --
+>>
+>> As I said, I'd appreciate your thoughts.
+
+Thank you for the report and the analysis.
+
+Is the second issue also a regression? If not, I suggest to split it 
+into a separate thread.
+
+
+Kind regards,
+
+Paul
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
---===============2144499198061939889==--
 
