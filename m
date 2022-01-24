@@ -1,55 +1,54 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A69F6497B55
-	for <lists+dm-devel@lfdr.de>; Mon, 24 Jan 2022 10:12:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 08CE6497B39
+	for <lists+dm-devel@lfdr.de>; Mon, 24 Jan 2022 10:11:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609-7e1IYdV_PAazTnrH2RgIeQ-1; Mon, 24 Jan 2022 04:11:54 -0500
-X-MC-Unique: 7e1IYdV_PAazTnrH2RgIeQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-572-9YdlKzEEO2W1vvsajNLeFg-1; Mon, 24 Jan 2022 04:11:52 -0500
+X-MC-Unique: 9YdlKzEEO2W1vvsajNLeFg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 135A28519EB;
-	Mon, 24 Jan 2022 09:11:46 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E199073145;
-	Mon, 24 Jan 2022 09:11:45 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6DB241923B8D;
+	Mon, 24 Jan 2022 09:11:44 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CF071059174;
+	Mon, 24 Jan 2022 09:11:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 9F5674A7C8;
-	Mon, 24 Jan 2022 09:11:45 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D15D81809CB9;
+	Mon, 24 Jan 2022 09:11:43 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20O9BWoB016903 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 24 Jan 2022 04:11:32 -0500
+	id 20O9BaaJ016914 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 24 Jan 2022 04:11:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DD088492CAE; Mon, 24 Jan 2022 09:11:31 +0000 (UTC)
+	id E3A3B492CAE; Mon, 24 Jan 2022 09:11:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D9458492CA3
-	for <dm-devel@redhat.com>; Mon, 24 Jan 2022 09:11:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DFD9E492CA3
+	for <dm-devel@redhat.com>; Mon, 24 Jan 2022 09:11:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C13E2101A52D
-	for <dm-devel@redhat.com>; Mon, 24 Jan 2022 09:11:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8D81800B29
+	for <dm-devel@redhat.com>; Mon, 24 Jan 2022 09:11:35 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-308-YMfN7casNZ6HMKIWONCxkw-1; Mon, 24 Jan 2022 04:11:26 -0500
-X-MC-Unique: YMfN7casNZ6HMKIWONCxkw-1
+	us-mta-62-Uuwb9IPYPcC74iHlJU8MNw-1; Mon, 24 Jan 2022 04:11:34 -0500
+X-MC-Unique: Uuwb9IPYPcC74iHlJU8MNw-1
 Received: from [2001:4bb8:184:72a4:a337:a75f:a24e:7e39] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nBvNj-002k3M-8B; Mon, 24 Jan 2022 09:11:23 +0000
+	id 1nBvNm-002k5I-1V; Mon, 24 Jan 2022 09:11:26 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 24 Jan 2022 10:10:53 +0100
-Message-Id: <20220124091107.642561-6-hch@lst.de>
+Date: Mon, 24 Jan 2022 10:10:54 +0100
+Message-Id: <20220124091107.642561-7-hch@lst.de>
 In-Reply-To: <20220124091107.642561-1-hch@lst.de>
 References: <20220124091107.642561-1-hch@lst.de>
 MIME-Version: 1.0
@@ -77,8 +76,7 @@ Cc: linux-block@vger.kernel.org, linux-nfs@vger.kernel.org,
 	Andrew Morton <akpm@linux-foundation.org>, ntfs3@lists.linux.dev,
 	Jack Wang <jinpu.wang@ionos.com>, Pavel Begunkov <asml.silence@gmail.com>,
 	drbd-dev@lists.linbit.com
-Subject: [dm-devel] [PATCH 05/19] dm: bio_alloc can't fail if it is allowed
-	to sleep
+Subject: [dm-devel] [PATCH 06/19] dm-crypt: remove clone_init
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,7 +90,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,185 +98,71 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Remove handling of NULL returns from sleeping bio_alloc calls given that
-those can't fail.
+Just open code it next to the bio allocations, which saves a few lines
+of code, prepares for future changes and allows to remove the duplicate
+bi_opf assignment for the bio_clone_fast case in kcryptd_io_read.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm-crypt.c          |  5 +----
- drivers/md/dm-log-writes.c     | 18 ------------------
- drivers/md/dm-thin.c           | 25 +++++++++----------------
- drivers/md/dm-zoned-metadata.c | 11 -----------
- drivers/md/dm.c                |  2 --
- 5 files changed, 10 insertions(+), 51 deletions(-)
+ drivers/md/dm-crypt.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index d4ae31558826a..20abe3486aba1 100644
+index 20abe3486aba1..3c5ecd35d3483 100644
 --- a/drivers/md/dm-crypt.c
 +++ b/drivers/md/dm-crypt.c
-@@ -1673,9 +1673,6 @@ static struct bio *crypt_alloc_buffer(struct dm_crypt_io *io, unsigned size)
+@@ -234,7 +234,7 @@ static volatile unsigned long dm_crypt_pages_per_client;
+ #define DM_CRYPT_MEMORY_PERCENT			2
+ #define DM_CRYPT_MIN_PAGES_PER_CLIENT		(BIO_MAX_VECS * 16)
+ 
+-static void clone_init(struct dm_crypt_io *, struct bio *);
++static void crypt_endio(struct bio *clone);
+ static void kcryptd_queue_crypt(struct dm_crypt_io *io);
+ static struct scatterlist *crypt_get_sg_data(struct crypt_config *cc,
+ 					     struct scatterlist *sg);
+@@ -1673,7 +1673,10 @@ static struct bio *crypt_alloc_buffer(struct dm_crypt_io *io, unsigned size)
  		mutex_lock(&cc->bio_alloc_lock);
  
  	clone = bio_alloc_bioset(GFP_NOIO, nr_iovecs, &cc->bs);
--	if (!clone)
--		goto out;
--
- 	clone_init(io, clone);
+-	clone_init(io, clone);
++	clone->bi_private = io;
++	clone->bi_end_io = crypt_endio;
++	bio_set_dev(clone, cc->dev->bdev);
++	clone->bi_opf = io->base_bio->bi_opf;
  
  	remaining_size = size;
-@@ -1702,7 +1699,7 @@ static struct bio *crypt_alloc_buffer(struct dm_crypt_io *io, unsigned size)
- 		bio_put(clone);
- 		clone = NULL;
- 	}
--out:
-+
- 	if (unlikely(gfp_mask & __GFP_DIRECT_RECLAIM))
- 		mutex_unlock(&cc->bio_alloc_lock);
  
-diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
-index 139b09b06eda9..25f5e8d2d417b 100644
---- a/drivers/md/dm-log-writes.c
-+++ b/drivers/md/dm-log-writes.c
-@@ -218,10 +218,6 @@ static int write_metadata(struct log_writes_c *lc, void *entry,
- 	size_t ret;
- 
- 	bio = bio_alloc(GFP_KERNEL, 1);
--	if (!bio) {
--		DMERR("Couldn't alloc log bio");
--		goto error;
--	}
- 	bio->bi_iter.bi_size = 0;
- 	bio->bi_iter.bi_sector = sector;
- 	bio_set_dev(bio, lc->logdev->bdev);
-@@ -276,11 +272,6 @@ static int write_inline_data(struct log_writes_c *lc, void *entry,
- 		atomic_inc(&lc->io_blocks);
- 
- 		bio = bio_alloc(GFP_KERNEL, bio_pages);
--		if (!bio) {
--			DMERR("Couldn't alloc inline data bio");
--			goto error;
--		}
--
- 		bio->bi_iter.bi_size = 0;
- 		bio->bi_iter.bi_sector = sector;
- 		bio_set_dev(bio, lc->logdev->bdev);
-@@ -322,7 +313,6 @@ static int write_inline_data(struct log_writes_c *lc, void *entry,
- error_bio:
- 	bio_free_pages(bio);
- 	bio_put(bio);
--error:
- 	put_io_block(lc);
- 	return -1;
- }
-@@ -364,10 +354,6 @@ static int log_one_block(struct log_writes_c *lc,
- 
- 	atomic_inc(&lc->io_blocks);
- 	bio = bio_alloc(GFP_KERNEL, bio_max_segs(block->vec_cnt));
--	if (!bio) {
--		DMERR("Couldn't alloc log bio");
--		goto error;
--	}
- 	bio->bi_iter.bi_size = 0;
- 	bio->bi_iter.bi_sector = sector;
- 	bio_set_dev(bio, lc->logdev->bdev);
-@@ -387,10 +373,6 @@ static int log_one_block(struct log_writes_c *lc,
- 			submit_bio(bio);
- 			bio = bio_alloc(GFP_KERNEL,
- 					bio_max_segs(block->vec_cnt - i));
--			if (!bio) {
--				DMERR("Couldn't alloc log bio");
--				goto error;
--			}
- 			bio->bi_iter.bi_size = 0;
- 			bio->bi_iter.bi_sector = sector;
- 			bio_set_dev(bio, lc->logdev->bdev);
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index ec119d2422d5d..76a9c2e9aeeea 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -1180,24 +1180,17 @@ static void process_prepared_discard_passdown_pt1(struct dm_thin_new_mapping *m)
- 	}
- 
- 	discard_parent = bio_alloc(GFP_NOIO, 1);
--	if (!discard_parent) {
--		DMWARN("%s: unable to allocate top level discard bio for passdown. Skipping passdown.",
--		       dm_device_name(tc->pool->pool_md));
--		queue_passdown_pt2(m);
-+	discard_parent->bi_end_io = passdown_endio;
-+	discard_parent->bi_private = m;
- 
--	} else {
--		discard_parent->bi_end_io = passdown_endio;
--		discard_parent->bi_private = m;
--
--		if (m->maybe_shared)
--			passdown_double_checking_shared_status(m, discard_parent);
--		else {
--			struct discard_op op;
-+	if (m->maybe_shared)
-+		passdown_double_checking_shared_status(m, discard_parent);
-+	else {
-+		struct discard_op op;
- 
--			begin_discard(&op, tc, discard_parent);
--			r = issue_discard(&op, m->data_block, data_end);
--			end_discard(&op, r);
--		}
-+		begin_discard(&op, tc, discard_parent);
-+		r = issue_discard(&op, m->data_block, data_end);
-+		end_discard(&op, r);
- 	}
+@@ -1826,16 +1829,6 @@ static void crypt_endio(struct bio *clone)
+ 	crypt_dec_pending(io);
  }
  
-diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index ee4626d085574..5718b83cc7182 100644
---- a/drivers/md/dm-zoned-metadata.c
-+++ b/drivers/md/dm-zoned-metadata.c
-@@ -551,10 +551,6 @@ static struct dmz_mblock *dmz_get_mblock_slow(struct dmz_metadata *zmd,
- 		return ERR_PTR(-ENOMEM);
- 
- 	bio = bio_alloc(GFP_NOIO, 1);
--	if (!bio) {
--		dmz_free_mblock(zmd, mblk);
--		return ERR_PTR(-ENOMEM);
--	}
- 
- 	spin_lock(&zmd->mblk_lock);
- 
-@@ -726,10 +722,6 @@ static int dmz_write_mblock(struct dmz_metadata *zmd, struct dmz_mblock *mblk,
- 		return -EIO;
- 
- 	bio = bio_alloc(GFP_NOIO, 1);
--	if (!bio) {
--		set_bit(DMZ_META_ERROR, &mblk->state);
--		return -ENOMEM;
--	}
- 
- 	set_bit(DMZ_META_WRITING, &mblk->state);
- 
-@@ -760,9 +752,6 @@ static int dmz_rdwr_block(struct dmz_dev *dev, int op,
- 		return -EIO;
- 
- 	bio = bio_alloc(GFP_NOIO, 1);
--	if (!bio)
--		return -ENOMEM;
+-static void clone_init(struct dm_crypt_io *io, struct bio *clone)
+-{
+-	struct crypt_config *cc = io->cc;
 -
- 	bio->bi_iter.bi_sector = dmz_blk2sect(block);
- 	bio_set_dev(bio, dev->bdev);
- 	bio_set_op_attrs(bio, op, REQ_SYNC | REQ_META | REQ_PRIO);
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index c0ae8087c6027..81449cbdafa81 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -520,8 +520,6 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	struct bio *clone;
+-	clone->bi_private = io;
+-	clone->bi_end_io  = crypt_endio;
+-	bio_set_dev(clone, cc->dev->bdev);
+-	clone->bi_opf	  = io->base_bio->bi_opf;
+-}
+-
+ static int kcryptd_io_read(struct dm_crypt_io *io, gfp_t gfp)
+ {
+ 	struct crypt_config *cc = io->cc;
+@@ -1850,10 +1843,12 @@ static int kcryptd_io_read(struct dm_crypt_io *io, gfp_t gfp)
+ 	clone = bio_clone_fast(io->base_bio, gfp, &cc->bs);
+ 	if (!clone)
+ 		return 1;
++	clone->bi_private = io;
++	clone->bi_end_io = crypt_endio;
++	bio_set_dev(clone, cc->dev->bdev);
  
- 	clone = bio_alloc_bioset(GFP_NOIO, 0, &md->io_bs);
--	if (!clone)
--		return NULL;
+ 	crypt_inc_pending(io);
  
- 	tio = container_of(clone, struct dm_target_io, clone);
- 	tio->inside_dm_io = true;
+-	clone_init(io, clone);
+ 	clone->bi_iter.bi_sector = cc->start + io->sector;
+ 
+ 	if (dm_crypt_integrity_io_alloc(io, clone)) {
 -- 
 2.30.2
 
