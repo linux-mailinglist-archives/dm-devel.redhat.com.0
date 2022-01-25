@@ -1,66 +1,66 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA8CB49C2BB
-	for <lists+dm-devel@lfdr.de>; Wed, 26 Jan 2022 05:42:31 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 30F7A49C2BA
+	for <lists+dm-devel@lfdr.de>; Wed, 26 Jan 2022 05:41:56 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-RLeE70E1ML-C5G8UB2liqw-1; Tue, 25 Jan 2022 23:42:27 -0500
-X-MC-Unique: RLeE70E1ML-C5G8UB2liqw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-258-N8kl5DhWPsSH4XWo3hEBRg-1; Tue, 25 Jan 2022 23:41:53 -0500
+X-MC-Unique: N8kl5DhWPsSH4XWo3hEBRg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A27B7345BA;
-	Wed, 26 Jan 2022 04:42:21 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EF7C68D90;
-	Wed, 26 Jan 2022 04:42:21 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AD0E8345B3;
+	Wed, 26 Jan 2022 04:41:46 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id DBA4F12E36;
+	Wed, 26 Jan 2022 04:41:45 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 79C1F1809CB8;
-	Wed, 26 Jan 2022 04:42:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 5D8354BB7C;
+	Wed, 26 Jan 2022 04:41:45 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20PEQrdV025747 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Jan 2022 09:26:53 -0500
+	id 20PHC69F005651 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 Jan 2022 12:12:06 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AB9812026990; Tue, 25 Jan 2022 14:26:52 +0000 (UTC)
+	id EE4311454548; Tue, 25 Jan 2022 17:12:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A75B52026976
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 14:26:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BF243C11A10
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 14:26:42 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
-	[209.85.208.45]) by relay.mimecast.com with ESMTP with STARTTLS
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA6FC1454539
+	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 17:12:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D1B453803919
+	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 17:12:05 +0000 (UTC)
+Received: from mail-ej1-f49.google.com (mail-ej1-f49.google.com
+	[209.85.218.49]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-621-6t0XijdSONapE_6FJTyZug-1; Tue, 25 Jan 2022 09:26:30 -0500
-X-MC-Unique: 6t0XijdSONapE_6FJTyZug-1
-Received: by mail-ed1-f45.google.com with SMTP id a18so63143331edj.7
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 06:26:30 -0800 (PST)
+	us-mta-532-UdYZio87MfOtJkmm-1YKcA-1; Tue, 25 Jan 2022 12:12:04 -0500
+X-MC-Unique: UdYZio87MfOtJkmm-1YKcA-1
+Received: by mail-ej1-f49.google.com with SMTP id d10so31951941eje.10
+	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 09:12:03 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to;
-	bh=uLYc4GfafSgmS5JKXh594CfMmA35aGk/ExImBcGXGtA=;
-	b=rT8Wdbsn0Lidh9evh0jHtewzxu8HYVEEKf5eGOq/GtZeo8bLDQLfIGTjizkPeRAWqO
-	/BmScriWTTf4VOh9duFMBDZhyVMB6lFN3BXuMFf1D5K2PhdjTJqme4BGwFmcMq7Qr8Ur
-	14w66TdCArRajdQVZMdi3+kl+PEFxoNf1YFvkrseFmsQ1eKpiuMAWQQfFbIyjRICXE41
-	lAXcMLJO+5zsF85kUxSAP6fIha4tzlSmx/mUFpQRPB+BJb1NYwPAnUC+Yz3tgxv6AWj4
-	5hClKmt+fPsuJoXgAgs4tBAybU84pBlGAJqqUpKiYNAIn0K8XyDdMX2b5CmqG9xQSdn2
-	opbQ==
-X-Gm-Message-State: AOAM532VkSdp1QGVKjw7+w+GZsK5rqEbjB7c0HRTPbEXj+rvVNZ82D7u
-	CQUqQp6gncscldauo9gM3pEqTpt/sQvjcQctrsbJXg==
-X-Google-Smtp-Source: ABdhPJweYum/ZG0CXLwcWx/cLh6hSzOrvhiqGj8hBYQ0eR5iW7lIA8q2idFX0Mg3J25eq6LZ46gmxJ6XpwWSSMv5SQs=
-X-Received: by 2002:a17:906:c116:: with SMTP id
-	do22mr16628213ejc.592.1643120789060; 
-	Tue, 25 Jan 2022 06:26:29 -0800 (PST)
+	bh=nNrS4+Y2kpA/4I+O0j+MEfMovuuGqzczw7+9uw0ZYvg=;
+	b=M15zLhFx+rfo6oLTUclE9WgbbRkXn1HmOSolMNwLtFA48tqOM+Zct9rPvb6ssU7cXq
+	g7GlYBjimtQp/IyQ5Hxo8dhpmlvMJewJRGfyt69jpRtE9+QvHhZTADTOQEgg+mHdIJPk
+	EPnq+at/WF4dmN6yrELBKyzWn84fjGARAS1qGZFpyU3+gyLNwaYuPqKApaqxNHtYPmAn
+	YJ/vRWs9r0/AuNwD9REYHT7XsaExlj3Q0Y1/z3wr3JsX4c+6bRBmKHJvWmyoTGoiCHrn
+	DMopONJLdcHJEkmtm0iduqZ0LoX1aey2ZxTXfhlQ7q7H/PEi6TviypPGCB6adRvEswF2
+	rfuw==
+X-Gm-Message-State: AOAM531lF3xPvqBbXyLvYYcRl8yWQ3n+3NGgYE08uSqH9EkVZHBaowek
+	EY9hQg/2AVDIlfWDm2kIbBDlGt5mHlrezsm/zQDCcA==
+X-Google-Smtp-Source: ABdhPJyLfH1HWR8h43VVS0XIc2bSN8+5RKivIAAJh8I8ticiEoS9VRmwfk9Jaw3pumNtgYCON/DHMifOOqFaP9jHNro=
+X-Received: by 2002:a17:907:e87:: with SMTP id
+	ho7mr1513006ejc.481.1643130722625; 
+	Tue, 25 Jan 2022 09:12:02 -0800 (PST)
 MIME-Version: 1.0
 References: <20220124150209.22202-1-bgeffon@google.com>
 	<20220124151434.GB20331@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
@@ -68,8 +68,8 @@ References: <20220124150209.22202-1-bgeffon@google.com>
 	<20220125002025.GA21887@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
 In-Reply-To: <20220125002025.GA21887@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
 From: Brian Geffon <bgeffon@google.com>
-Date: Tue, 25 Jan 2022 09:25:52 -0500
-Message-ID: <CADyq12zS5ZP+0DBdiVWq0_kt4-n0ykdwH_Nw=kJj0V7oF=3OdQ@mail.gmail.com>
+Date: Tue, 25 Jan 2022 12:11:26 -0500
+Message-ID: <CADyq12wE7mx2tPeK0gaLhBaUStrvV7cgfXqj7vWZ4F=KfR7zzQ@mail.gmail.com>
 To: Brian Geffon <bgeffon@google.com>, Alasdair Kergon <agk@redhat.com>,
 	Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
 	LKML <linux-kernel@vger.kernel.org>
@@ -81,7 +81,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 25 Jan 2022 23:35:56 -0500
 Subject: Re: [dm-devel] [PATCH] dm: introduce a no open flag for deferred
@@ -99,7 +99,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -126,11 +126,6 @@ On Mon, Jan 24, 2022 at 7:21 PM Alasdair G Kergon <agk@redhat.com> wrote:
 > And is that the reason you propose this?
 > - You want a special exclusive 'one time open' device that
 >   self-destructs when closed?
-
-Yes, this is the primary reason I'm exploring this. I tried to find an
-implementation that might be useful in other situations which is why I
-landed on this approach.
-
 >
 > > No, this is fully backwards compatible with the current deferred
 > > remove behavior, it's not required. Additionally, since on the actual
@@ -142,9 +137,6 @@ landed on this approach.
 > the code the way we did.  The state can be long-lived, the code
 > that has it open might legitimately want to open it again in
 > parallel etc. - in general this seems a bad idea.
-
-Thanks for explaining and providing that context.
-
 >
 > But if the reason for this is basically "make it harder for
 > anything else to access my encrypted swap" and to deliberately
@@ -152,32 +144,15 @@ Thanks for explaining and providing that context.
 > Are there alternative implementations with interventions at different
 > points?
 
-Absolutely, we could perhaps create a new ioctl which allows the
-caller to specify the maximum open count, and when the open count hits
-that value it fails any new opens with -EBUSY. Perhaps this would be
-enforced in dm_get_device? This type of behavior could theoretically
-mimic the patch I mailed when used in conjunction with deferred
-removal. Is this an approach you think might make more sense with the
-existing design? Are there any implementation points you believe might
-make more sense for such a feature?
+I was thinking perhaps another implementation might involve using
+open_count on dm_ioctl as an in param on DM_DEV_CREATE only. Using
+open_count as an in parameter on DM_DEV_CREATE could be activated by a
+new flag, perhaps DM_ENFORCE_OPEN_COUNT_FLAG. This would allow the
+behavior to be baked into the device from the start. We would then
+enforce it in dm_blk_open. What would you think about an approach like
+this?
 
->  Are there similar requirements for devices that don't need
-> deferred remove?
-
-I cannot immediately think of a situation where you'd do this without
-deferred removal.
-
->  If this is indeed the best place to insert this type
-> of restriction, then we should label it and document it accordingly so
-> people don't mistakenly use it for the 'normal' case.  (We always keep
-> libdevmapper and dmsetup in sync with kernel interface extensions, so
-> we'd seek a tiny patch to do that too.)
-
-Yes, absolutely. I'll happily send patches for userspace libraries,
-applications, and documentation once we converge on an acceptable
-approach.
-
-Thanks again for spending your time discussing this,
+Thanks,
 Brian
 
 --
