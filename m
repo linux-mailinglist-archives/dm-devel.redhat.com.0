@@ -1,73 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E8E149C2B9
-	for <lists+dm-devel@lfdr.de>; Wed, 26 Jan 2022 05:41:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AA8CB49C2BB
+	for <lists+dm-devel@lfdr.de>; Wed, 26 Jan 2022 05:42:31 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-164-0n_Zx3IIMligEUVnX3jqRA-1; Tue, 25 Jan 2022 23:41:34 -0500
-X-MC-Unique: 0n_Zx3IIMligEUVnX3jqRA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-595-RLeE70E1ML-C5G8UB2liqw-1; Tue, 25 Jan 2022 23:42:27 -0500
+X-MC-Unique: RLeE70E1ML-C5G8UB2liqw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id B87CB83DD65;
-	Wed, 26 Jan 2022 04:41:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A27B7345BA;
+	Wed, 26 Jan 2022 04:42:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 672B64E2DB;
-	Wed, 26 Jan 2022 04:41:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4EF7C68D90;
+	Wed, 26 Jan 2022 04:42:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3A86F1809CB8;
-	Wed, 26 Jan 2022 04:41:10 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 79C1F1809CB8;
+	Wed, 26 Jan 2022 04:42:20 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20P88K7e028998 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 25 Jan 2022 03:08:20 -0500
+	id 20PEQrdV025747 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 25 Jan 2022 09:26:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0C78A2166B4D; Tue, 25 Jan 2022 08:08:20 +0000 (UTC)
+	id AB9812026990; Tue, 25 Jan 2022 14:26:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 078C92166B46
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 08:08:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D5F580B717
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 08:08:13 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
-	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-569-HZbkwHkzM-6n3r4hXYIR-w-1; Tue, 25 Jan 2022 03:08:10 -0500
-X-MC-Unique: HZbkwHkzM-6n3r4hXYIR-w-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by ams.source.kernel.org (Postfix) with ESMTPS id B658FB8172B
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 08:00:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AA86C340EB
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 08:00:56 +0000 (UTC)
-Received: by mail-yb1-f173.google.com with SMTP id g81so59165967ybg.10
-	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 00:00:56 -0800 (PST)
-X-Gm-Message-State: AOAM532APaMo3/MwETlb8p9/a8IdnXhoPqQqbu++QjhG4E6MKWiQx/kv
-	xgD92CATHpPevsVSHOEULHEgKCmKS8gy7O1kB1w=
-X-Google-Smtp-Source: ABdhPJzE0ChTuzHVQV+U/wv6ARwukapx8IFQmD8hO10Utrm5YQG3XSGHnX1S3Gu/DHqdZz0HjBdopf5B3i+qfwg6+kU=
-X-Received: by 2002:a25:bc0e:: with SMTP id i14mr28436551ybh.670.1643097655496;
-	Tue, 25 Jan 2022 00:00:55 -0800 (PST)
+	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A75B52026976
+	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 14:26:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BF243C11A10
+	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 14:26:42 +0000 (UTC)
+Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
+	[209.85.208.45]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-621-6t0XijdSONapE_6FJTyZug-1; Tue, 25 Jan 2022 09:26:30 -0500
+X-MC-Unique: 6t0XijdSONapE_6FJTyZug-1
+Received: by mail-ed1-f45.google.com with SMTP id a18so63143331edj.7
+	for <dm-devel@redhat.com>; Tue, 25 Jan 2022 06:26:30 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to;
+	bh=uLYc4GfafSgmS5JKXh594CfMmA35aGk/ExImBcGXGtA=;
+	b=rT8Wdbsn0Lidh9evh0jHtewzxu8HYVEEKf5eGOq/GtZeo8bLDQLfIGTjizkPeRAWqO
+	/BmScriWTTf4VOh9duFMBDZhyVMB6lFN3BXuMFf1D5K2PhdjTJqme4BGwFmcMq7Qr8Ur
+	14w66TdCArRajdQVZMdi3+kl+PEFxoNf1YFvkrseFmsQ1eKpiuMAWQQfFbIyjRICXE41
+	lAXcMLJO+5zsF85kUxSAP6fIha4tzlSmx/mUFpQRPB+BJb1NYwPAnUC+Yz3tgxv6AWj4
+	5hClKmt+fPsuJoXgAgs4tBAybU84pBlGAJqqUpKiYNAIn0K8XyDdMX2b5CmqG9xQSdn2
+	opbQ==
+X-Gm-Message-State: AOAM532VkSdp1QGVKjw7+w+GZsK5rqEbjB7c0HRTPbEXj+rvVNZ82D7u
+	CQUqQp6gncscldauo9gM3pEqTpt/sQvjcQctrsbJXg==
+X-Google-Smtp-Source: ABdhPJweYum/ZG0CXLwcWx/cLh6hSzOrvhiqGj8hBYQ0eR5iW7lIA8q2idFX0Mg3J25eq6LZ46gmxJ6XpwWSSMv5SQs=
+X-Received: by 2002:a17:906:c116:: with SMTP id
+	do22mr16628213ejc.592.1643120789060; 
+	Tue, 25 Jan 2022 06:26:29 -0800 (PST)
 MIME-Version: 1.0
-References: <747C2684-B570-473E-9146-E8AB53102236@filmlight.ltd.uk>
-	<20220123180058.372f72ce@gecko.fritz.box>
-	<70008df6-ef90-6e8d-8a57-9b30077508e7@molgen.mpg.de>
-	<C5CCA1CE-E120-4BCB-925E-981DBA7A29F4@filmlight.ltd.uk>
-In-Reply-To: <C5CCA1CE-E120-4BCB-925E-981DBA7A29F4@filmlight.ltd.uk>
-From: Song Liu <song@kernel.org>
-Date: Tue, 25 Jan 2022 00:00:44 -0800
-X-Gmail-Original-Message-ID: <CAPhsuW6wc2iPfzb+9DZ130RqNWfOmxJpkA59x58WN1s18Uuahg@mail.gmail.com>
-Message-ID: <CAPhsuW6wc2iPfzb+9DZ130RqNWfOmxJpkA59x58WN1s18Uuahg@mail.gmail.com>
-To: Roger Willcocks <roger@filmlight.ltd.uk>
+References: <20220124150209.22202-1-bgeffon@google.com>
+	<20220124151434.GB20331@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+	<CADyq12ykDCswWZw05OdyYfP-zT6afuhXbckii1m1egQ2fSwB4w@mail.gmail.com>
+	<20220125002025.GA21887@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+In-Reply-To: <20220125002025.GA21887@agk-cloud1.hosts.prod.upshift.rdu2.redhat.com>
+From: Brian Geffon <bgeffon@google.com>
+Date: Tue, 25 Jan 2022 09:25:52 -0500
+Message-ID: <CADyq12zS5ZP+0DBdiVWq0_kt4-n0ykdwH_Nw=kJj0V7oF=3OdQ@mail.gmail.com>
+To: Brian Geffon <bgeffon@google.com>, Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
+	LKML <linux-kernel@vger.kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -76,13 +81,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 25 Jan 2022 23:35:56 -0500
-Cc: linux-raid <linux-raid@vger.kernel.org>,
-	Paul Menzel <pmenzel@molgen.mpg.de>, dm-devel@redhat.com,
-	Lukas Straub <lukasstraub2@web.de>
-Subject: Re: [dm-devel] Raid0 performance regression
+Subject: Re: [dm-devel] [PATCH] dm: introduce a no open flag for deferred
+	remove
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,7 +99,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -104,139 +107,78 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 24, 2022 at 8:49 AM Roger Willcocks <roger@filmlight.ltd.uk> wrote:
+On Mon, Jan 24, 2022 at 7:21 PM Alasdair G Kergon <agk@redhat.com> wrote:
 >
+> On Mon, Jan 24, 2022 at 10:25:47AM -0500, Brian Geffon wrote:
+> > Thank you for looking at this. There are a few reasons this might be
+> > useful, the first is if you're trying to speed up a graceful teardown
+> > of the device by informing userspace that this device is going to be
+> > removed in the near future. Another might be on systems where it might
+> > be worthwhile to not have users with CAP_DAC_OVERRIDE be able to open
+> > the device. The logic on this second case is that, suppose you have a
+> > dm-crypt block device which is backing swap, the data on this device
+> > is ephemeral so a flow might be to setup swap followed by dmsetup
+> > remove --deferred /dev/mapper/encrypted-swap. This will guarantee that
+> > as soon as swap is torn down the encrypted block device is dropped,
+> > additionally with this new flag you'll be guaranteed that there can be
+> > no further opens on it.
 >
->
-> > On 23 Jan 2022, at 21:34, Paul Menzel <pmenzel@molgen.mpg.de> wrote:
-> >
-> > Dear Roger,
-> >
-> >
-> > Am 23.01.22 um 19:00 schrieb Lukas Straub:
-> >> CC'ing Song Liu (md-raid maintainer) and linux-raid mailing list.
-> >> On Fri, 21 Jan 2022 16:38:03 +0000 Roger Willcocks wrote:
-> >
-> >>> we noticed a thirty percent drop in performance on one of our raid
-> >>> arrays when switching from CentOS 6.5 to 8.4; it uses raid0-like
-> >
-> > For those outside the CentOS universe, what Linux kernel versions are those?
-> >
->
-> 2.6.32 (and backported changes) and 4.18.0 (sim.)
->
-> >>> striping to balance (by time) access to a pair of hardware raid-6
-> >>> arrays. The underlying issue is also present in the native raid0
-> >>> driver so herewith the gory details; I'd appreciate your thoughts.
-> >>>
-> >>> --
-> >>>
-> >>> blkdev_direct_IO() calls submit_bio() which calls an outermost
-> >>> generic_make_request() (aka submit_bio_noacct()).
-> >>>
-> >>> md_make_request() calls blk_queue_split() which cuts an incoming
-> >>> request into two parts with the first no larger than get_max_io_size()
-> >>> bytes (which in the case of raid0, is the chunk size):
-> >>>
-> >>>   R -> AB
-> >>>   blk_queue_split() gives the second part 'B' to generic_make_request()
-> >>> to worry about later and returns the first part 'A'.
-> >>>
-> >>> md_make_request() then passes 'A' to a more specific request handler,
-> >>> In this case raid0_make_request().
-> >>>
-> >>> raid0_make_request() cuts its incoming request into two parts at the
-> >>> next chunk boundary:
-> >>>
-> >>> A -> ab
-> >>>
-> >>> it then fixes up the device (chooses a physical device) for 'a', and
-> >>> gives both parts, separately, to generic make request()
-> >>>
-> >>> This is where things go awry, because 'b' is still targetted to the
-> >>> original device (same as 'B'), but 'B' was queued before 'b'. So we
-> >>> end up with:
-> >>>
-> >>>   R -> Bab
-> >>>
-> >>> The outermost generic_make_request() then cuts 'B' at
-> >>> get_max_io_size(), and the process repeats. Ascii art follows:
-> >>>
-> >>>
-> >>>     /---------------------------------------------------/   incoming rq
-> >>>
-> >>>     /--------/--------/--------/--------/--------/------/   max_io_size
-> >>>       |--------|--------|--------|--------|--------|--------|--------| chunks
-> >>>
-> >>> |...=====|---=====|---=====|---=====|---=====|---=====|--......| rq out
-> >>>       a    b  c     d  e     f  g     h  i     j  k     l
-> >>>
-> >>> Actual submission order for two-disk raid0: 'aeilhd' and 'cgkjfb'
-> >>>
-> >>> --
-> >>>
-> >>> There are several potential fixes -
-> >>>
-> >>> simplest is to set raid0 blk_queue_max_hw_sectors() to UINT_MAX
-> >>> instead of chunk_size, so that raid0_make_request() receives the
-> >>> entire transfer length and cuts it up at chunk boundaries;
-> >>>
-> >>> neatest is for raid0_make_request() to recognise that 'b' doesn't
-> >>> cross a chunk boundary so it can be sent directly to the physical
-> >>> device;
-> >>>
-> >>> and correct is for blk_queue_split to requeue 'A' before 'B'.
-> >>>
-> >>> --
-> >>>
-> >>> There's also a second issue - with large raid0 chunk size (256K), the
-> >>> segments submitted to the physical device are at least 128K and
-> >>> trigger the early unplug code in blk_mq_make_request(), so the
-> >>> requests are never merged. There are legitimate reasons for a large
-> >>> chunk size so this seems unhelpful.
-> >>>
-> >>> --
-> >>>
-> >>> As I said, I'd appreciate your thoughts.
-> >
-> > Thank you for the report and the analysis.
-> >
-> > Is the second issue also a regression? If not, I suggest to split it into a separate thread.
-> >
->
-> Yes this is also a regression, both issues above have to be addressed to recover the
-> original performance.
->
-> Specifically, an md raid0 array with 256K chunk size interleaving two x 12-disk raid6
-> devices (Adaptec 3154 controller, 50MB files stored contiguously on disk, four threads)
-> can achieve a sequential read rate of 3800 MB/sec with the (very) old 6.5 kernel; this
-> falls to 2500 MB/sec with the relatively newer kernel.
->
-> This change to raid0.c:
->
-> -               blk_queue_max_hw_sectors(mddev->queue, mddev->chunk_sectors);
-> +              blk_queue_max_hw_sectors(mddev->queue, UINT_MAX);
+> And is that the reason you propose this?
+> - You want a special exclusive 'one time open' device that
+>   self-destructs when closed?
 
-I guess this is OK.
+Yes, this is the primary reason I'm exploring this. I tried to find an
+implementation that might be useful in other situations which is why I
+landed on this approach.
 
 >
-> improves things somewhat, the sub-chunk requests are now submitted in order but we
-> still only get 2800 MB/sec because no merging takes place; the controller struggles to
-> keep up with the large number of sub-chunk transfers. This additional change to
-> blk-mq.c:
+> > No, this is fully backwards compatible with the current deferred
+> > remove behavior, it's not required. Additionally, since on the actual
+> > remove userspace would receive an -ENXIO already once the remove
+> > process has started it seems reasonable to return -ENXIO in the
+> > deferred remove case when this flag is enabled.
 >
-> -               if (request_count >= BLK_MAX_REQUEST_COUNT || (last &&
-> +               if (request_count >= BLK_MAX_REQUEST_COUNT || (false && last &&
->                     blk_rq_bytes(last) >= BLK_PLUG_FLUSH_SIZE)) {
->                         blk_flush_plug_list(plug, false);
+> Well I feel it does break existing semantics which is why we wrote
+> the code the way we did.  The state can be long-lived, the code
+> that has it open might legitimately want to open it again in
+> parallel etc. - in general this seems a bad idea.
 
-We recently did some optimization for BLK_MAX_REQUEST_COUNT ([1] and some
-follow up). We can probably do something similar for BLK_PLUG_FLUSH_SIZE.
+Thanks for explaining and providing that context.
 
-Thanks,
-Song
+>
+> But if the reason for this is basically "make it harder for
+> anything else to access my encrypted swap" and to deliberately
+> prevent access, then let's approach the requirement from that angle.
+> Are there alternative implementations with interventions at different
+> points?
 
-[1] https://lore.kernel.org/all/20210907230338.227903-1-songliubraving@fb.com/
+Absolutely, we could perhaps create a new ioctl which allows the
+caller to specify the maximum open count, and when the open count hits
+that value it fails any new opens with -EBUSY. Perhaps this would be
+enforced in dm_get_device? This type of behavior could theoretically
+mimic the patch I mailed when used in conjunction with deferred
+removal. Is this an approach you think might make more sense with the
+existing design? Are there any implementation points you believe might
+make more sense for such a feature?
+
+>  Are there similar requirements for devices that don't need
+> deferred remove?
+
+I cannot immediately think of a situation where you'd do this without
+deferred removal.
+
+>  If this is indeed the best place to insert this type
+> of restriction, then we should label it and document it accordingly so
+> people don't mistakenly use it for the 'normal' case.  (We always keep
+> libdevmapper and dmsetup in sync with kernel interface extensions, so
+> we'd seek a tiny patch to do that too.)
+
+Yes, absolutely. I'll happily send patches for userspace libraries,
+applications, and documentation once we converge on an acceptable
+approach.
+
+Thanks again for spending your time discussing this,
+Brian
 
 --
 dm-devel mailing list
