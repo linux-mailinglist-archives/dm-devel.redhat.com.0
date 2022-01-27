@@ -2,109 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55C8249E895
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jan 2022 18:11:58 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BA6549EADA
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jan 2022 20:08:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1643303517;
+	s=mimecast20190719; t=1643310498;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pgIH+eQ1aWtao6gpD79OZzfs3+eFBN8EajStjfTqS4s=;
-	b=GOTdDgrUQiN+ZDesBM9dDgNDzXbFlTAGa+8Cy5BX07WHDgL7Q//7MjRcw5VQsZ1C9QGk8c
-	0wOg9AklszCJplZYp8//oi0a5KpbBNRg9kLBvBd1dy3w6V2vPLU18Kb1o2yIGiLSlNjmDY
-	5ZaPRP7zAIPxoHlXJjEGGuHQ92PiGMQ=
+	bh=XWDAKUKN0sEnJQdf5EB9jBTxfTT/QQVHa1pZmLHgdMY=;
+	b=RfxcqXKR+d/0ooJSorY1yERy3oq2f0wV4I+m6QMy8mKBI7cenjBO7vVcqMWElF/9nW9aqk
+	6Ua48D/+8UMFPBGjTJge+QoVGjseZVOgBft5k3sZDH5p45MFYN6u1GWtJpTPN+Kua29Sd0
+	VroxhYIkH2vshoqA/TPAvbakHAtK37o=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-290--mqIAklJM9WeIM9KR5A4LA-1; Thu, 27 Jan 2022 12:11:55 -0500
-X-MC-Unique: -mqIAklJM9WeIM9KR5A4LA-1
+ us-mta-186-1x--pbjKNQOBjL3XCcasZQ-1; Thu, 27 Jan 2022 14:08:16 -0500
+X-MC-Unique: 1x--pbjKNQOBjL3XCcasZQ-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E3434101872D;
-	Thu, 27 Jan 2022 17:11:49 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BDD9C7A3FA;
-	Thu, 27 Jan 2022 17:11:49 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BB5C618C8C05;
+	Thu, 27 Jan 2022 19:08:10 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 953085D9DE;
+	Thu, 27 Jan 2022 19:08:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 281514BB7C;
-	Thu, 27 Jan 2022 17:11:49 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.1])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 243A41802E34;
+	Thu, 27 Jan 2022 19:08:00 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20RHBj6G020172 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 27 Jan 2022 12:11:46 -0500
+	id 20RJ7lBJ004291 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 27 Jan 2022 14:07:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D2AA040CFD7B; Thu, 27 Jan 2022 17:11:45 +0000 (UTC)
+	id 16D4F40885B5; Thu, 27 Jan 2022 19:07:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEF6740CFD45
-	for <dm-devel@redhat.com>; Thu, 27 Jan 2022 17:11:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4DD9185A7BA
-	for <dm-devel@redhat.com>; Thu, 27 Jan 2022 17:11:45 +0000 (UTC)
-Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
-	[209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
+	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13AF640885BD
+	for <dm-devel@redhat.com>; Thu, 27 Jan 2022 19:07:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE36A2BD19E9
+	for <dm-devel@redhat.com>; Thu, 27 Jan 2022 19:07:46 +0000 (UTC)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+	[209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-557-1soJHvFwPKa8M_qizdSB0A-1; Thu, 27 Jan 2022 12:11:42 -0500
-X-MC-Unique: 1soJHvFwPKa8M_qizdSB0A-1
-Received: by mail-qt1-f198.google.com with SMTP id
-	g18-20020ac84b72000000b002cf274754c5so2685207qts.14
-	for <dm-devel@redhat.com>; Thu, 27 Jan 2022 09:11:42 -0800 (PST)
+	us-mta-3-HGJtCm8jOJGaZdLpWC6VdA-1; Thu, 27 Jan 2022 14:07:45 -0500
+X-MC-Unique: HGJtCm8jOJGaZdLpWC6VdA-1
+Received: by mail-qk1-f200.google.com with SMTP id
+	p20-20020a05620a22b400b0047ecab0db4fso3160541qkh.2
+	for <dm-devel@redhat.com>; Thu, 27 Jan 2022 11:07:45 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=xtKZnu3m4MJ1lsPgVyhgN06mFCH9uLK+At7c0q3e4j8=;
-	b=qug0LyOy2lyAb3Z7IIWCv43JVVxurXj6hbwjs4KCbB+0kRc6bhUoZl3eeSw1b3HvBQ
-	oNsaKr78cfZ7g6UsV7E5bkZ5asvOkut2Q+nPJxAjz5A6xtbv5ALnUPJeEyarfd8DDLMp
-	eD0uYLo/jxuNQT5t/xpG6jZoQ1Koc4UYAug+XzSk7NhUEgwQDvcWEShJc2mKF8a9T4le
-	rgpi762tFpzLFyKD118xO9a6FGsHswRDDYWUw5yM1a/kr/iJzWWRJKORBtJVvjQUB/eZ
-	rlcx408HYSN8TY7P0OPH/or/9wU049sJ/Cn+D4vs62rulJU/DKAo+eoHUfWdFBEBclKq
-	n85w==
-X-Gm-Message-State: AOAM531sUDPaET/vaobL2jGapsohOOQhYHhlZ/ktK06ft+Ad29BHnYEO
-	cAjRU7hrdgr9KpfpMMMbn5K2u19/T9IRWzIGw1TdHQvnKqOVn5Ja4SMPsbmk9g9L6dTfK4FO9NF
-	xoWZm07loXcItog==
-X-Received: by 2002:ad4:5968:: with SMTP id eq8mr3808177qvb.80.1643303501892; 
-	Thu, 27 Jan 2022 09:11:41 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJztPCW/ls/HGsD9xe/WMaahh4UjrJsfEVpwqwRI5tHMnXcgyiZLuuvrhgvmY/MRUsNQeYYfvQ==
-X-Received: by 2002:ad4:5968:: with SMTP id eq8mr3808154qvb.80.1643303501730; 
-	Thu, 27 Jan 2022 09:11:41 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=OaRzF3xvYhcODcVUOmZQDjADhYKacgp04Z3+AcxkRnM=;
+	b=RSwjKVNarUOtqLn1usbAMYSwu1SD2KtEVdPGU8SyTuStTToOBXaBOPVE31o/rpgHP1
+	9kG7kTBbVcG/8RiRweWFJOYgMttOzaX2aLD7glBvqmU4RSEnSdGlY6KOXO7TKfBp76I8
+	uXk5/2Nm9exTlt20X6+WPnzIYcP7FTcPUpU4nJBY4kkv/CxUjh4zBM16TSnWJPboahXe
+	l0X/jqvgTs0VmxrjpgBDjPj7c0aBq88WY0qn+pCVtJdhOrGaNpMjjB8Cnp9Rq/sCBt3k
+	2Z/27WgvZX+ddb4YJq6KFdRxiopejdEdSul2cwVZNqW6dSMPDCki94kcb3M3utOXwTRI
+	fGLQ==
+X-Gm-Message-State: AOAM533AOedJx2+H8gocR5hXYdhEIF/fDY/LDXAnzvLWtFefYTbwp9wl
+	8a05CbnOjyHs4Ce4oBRL3vE2/5LqWTX66AT2l69PWRlOBmqUrBfq5Sy/WNRLJNRL9QUUTbHmOB2
+	eMiv9tIUjaPkUdg==
+X-Received: by 2002:a05:6214:76a:: with SMTP id
+	f10mr4489259qvz.85.1643310464982; 
+	Thu, 27 Jan 2022 11:07:44 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJynf7Rz6AS8mWVd28TKss0f24ARumnzqA4qfRaxnHbQp6Zr3lwHM7g2J6br5z8MWE6Gpw7AKA==
+X-Received: by 2002:a05:6214:76a:: with SMTP id
+	f10mr4489237qvz.85.1643310464748; 
+	Thu, 27 Jan 2022 11:07:44 -0800 (PST)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52])
-	by smtp.gmail.com with ESMTPSA id w8sm119796qti.21.2022.01.27.09.11.41
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	l1sm1934493qkp.100.2022.01.27.11.07.44
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 27 Jan 2022 09:11:41 -0800 (PST)
-Date: Thu, 27 Jan 2022 12:11:40 -0500
+	Thu, 27 Jan 2022 11:07:44 -0800 (PST)
 From: Mike Snitzer <snitzer@redhat.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YfLSTPB7UUZKqQKL@redhat.com>
-References: <20220124091107.642561-1-hch@lst.de>
-	<20220124091107.642561-9-hch@lst.de>
-MIME-Version: 1.0
-In-Reply-To: <20220124091107.642561-9-hch@lst.de>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+To: axboe@kernel.dk
+Date: Thu, 27 Jan 2022 14:07:39 -0500
+Message-Id: <20220127190742.12776-1-snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
-	linux-nfs@vger.kernel.org, linux-nilfs@vger.kernel.org,
-	Philipp Reisner <philipp.reisner@linbit.com>,
-	Ryusuke Konishi <konishi.ryusuke@gmail.com>,
-	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.co>,
-	dm-devel@redhat.com, "Md . Haris Iqbal " <haris.iqbal@ionos.com>,
-	Lars Ellenberg <lars.ellenberg@linbit.com>,
-	linux-fsdevel@vger.kernel.org, xen-devel@lists.xenproject.org,
-	Andrew Morton <akpm@linux-foundation.org>, ntfs3@lists.linux.dev,
-	Jack Wang <jinpu.wang@ionos.com>, Pavel Begunkov <asml.silence@gmail.com>,
-	drbd-dev@lists.linbit.com
-Subject: Re: [dm-devel] [PATCH 08/19] dm-thin: use blkdev_issue_flush
- instead of open coding it
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
+Subject: [dm-devel] [PATCH 0/3] block/dm: fix bio-based DM IO accounting
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -116,6 +101,7 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
@@ -123,19 +109,46 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Jan 24 2022 at  4:10P -0500,
-Christoph Hellwig <hch@lst.de> wrote:
+Hi Jens,
 
-> Use blkdev_issue_flush, which uses an on-stack bio instead of an
-> opencoded version with a bio embedded into struct pool.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
+Just over 3 years ago, with commit a1e1cb72d9649 ("dm: fix redundant
+IO accounting for bios that need splitting") I focused too narrowly on
+fixing the reported potential for redundant accounting for IO totals.
+Which, at least mentally for me, papered over how inaccurate all other
+bio-based DM's IO accounting is for bios that get split.
 
-Acked-by: Mike Snitzer <snitzer@redhat.com>
+This set fixes things up properly by allowing DM to start IO
+accounting _after_ IO is submitted and a split is occurred.  The
+proper start_time is still established (prior to submission), it is
+passed in to a new __bio_start_io_acct().  This eliminates the need
+for any DM hack to rewind block core's excessive accounting in the
+face of a split bio recursing back to block core.
+
+All said: If you'd provide your Acked-by(s) I'm happy to send this set
+to Linus for v5.17-rc (and shepherd the changes into stable@ kernels).
+Or you're welcome to pickup this set to send along (I'd obviously
+still do any stable@ backports). NOTE: the 3rd patch references the
+linux-dm.git commit id for the 1st patch.. so that'll require tweaking
+no matter who sends the changes to Linus.
+
+Please advise, thanks.
+Mike
+
+Mike Snitzer (3):
+  block: add __bio_start_io_acct() to control start_time
+  dm: revert partial fix for redundant bio-based IO accounting
+  dm: properly fix redundant bio-based IO accounting
+
+ block/blk-core.c       | 27 ++++++++++++++++++++-------
+ drivers/md/dm.c        | 20 +++-----------------
+ include/linux/blkdev.h |  1 +
+ 3 files changed, 24 insertions(+), 24 deletions(-)
+
+-- 
+2.15.0
 
 --
 dm-devel mailing list
