@@ -2,88 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7AE0F49FD49
-	for <lists+dm-devel@lfdr.de>; Fri, 28 Jan 2022 16:58:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C9BCD49FD63
+	for <lists+dm-devel@lfdr.de>; Fri, 28 Jan 2022 16:59:32 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1643385571;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=XTePsFOZXNA0I68UesCNTtkiU5MPykZnYt8riSdaQLk=;
+	b=SRqHK+T1oQPdkQhuvuZSG40/Ajs4ZpIzqd8Dtbhyz6GTybA8cwTvw1nuNCCDLpWGl/gUb8
+	rOe9R9jsQOg8a2zzRlCCDwlSE8HVlK+t5UEdJM0FbNdpuLO8jrmIO+pRKDjzmqU0/WACj9
+	yOV1a6/o8P6gghrBF2BjQTgQeuu67Os=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-154--YRobGT5M7-33Qe1DCczKw-1; Fri, 28 Jan 2022 10:58:44 -0500
-X-MC-Unique: -YRobGT5M7-33Qe1DCczKw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
+ us-mta-662-5rvIG6PpNGCW8WafQ7yLMw-1; Fri, 28 Jan 2022 10:59:28 -0500
+X-MC-Unique: 5rvIG6PpNGCW8WafQ7yLMw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 57CC31083F6A;
-	Fri, 28 Jan 2022 15:58:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 424DB5F9F8;
+	Fri, 28 Jan 2022 15:59:21 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 13CC82379D;
-	Fri, 28 Jan 2022 15:58:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id ACAA6798DF;
+	Fri, 28 Jan 2022 15:59:14 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 280634BB7C;
-	Fri, 28 Jan 2022 15:58:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 73E524A7C8;
+	Fri, 28 Jan 2022 15:59:03 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20SFw4QV025929 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 28 Jan 2022 10:58:04 -0500
+	id 20SFwmeL026006 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 28 Jan 2022 10:58:48 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8E6734328D9; Fri, 28 Jan 2022 15:58:04 +0000 (UTC)
+	id 761812144B25; Fri, 28 Jan 2022 15:58:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8A7D24292D2
-	for <dm-devel@redhat.com>; Fri, 28 Jan 2022 15:58:04 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7182B2144B24
+	for <dm-devel@redhat.com>; Fri, 28 Jan 2022 15:58:45 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7161118162C0
-	for <dm-devel@redhat.com>; Fri, 28 Jan 2022 15:58:04 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-480-HZBAhapONnObyENrjQoDIA-1; Fri, 28 Jan 2022 10:58:00 -0500
-X-MC-Unique: HZBAhapONnObyENrjQoDIA-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id B318F2114E;
-	Fri, 28 Jan 2022 15:57:58 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 55D9C134CD;
-	Fri, 28 Jan 2022 15:57:58 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id bMXlEoYS9GF9VwAAMHmgww
-	(envelope-from <mwilck@suse.com>); Fri, 28 Jan 2022 15:57:58 +0000
-Message-ID: <a1f472a89e9825f90a4104bea535086f0cde6b93.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Zdenek Kabelac <zdenek.kabelac@gmail.com>, Zdenek Kabelac
-	<zkabelac@redhat.com>, David Teigland <teigland@redhat.com>, Peter Rajnoha
-	<prajnoha@redhat.com>
-Date: Fri, 28 Jan 2022 16:57:57 +0100
-In-Reply-To: <10ad6fc0-6c24-c98b-4a02-2140883af72d@gmail.com>
-References: <20220128134229.1783-1-mwilck@suse.com>
-	<10ad6fc0-6c24-c98b-4a02-2140883af72d@gmail.com>
-User-Agent: Evolution 3.42.3
-MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 20SFw4QV025929
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40B62108C0E1
+	for <dm-devel@redhat.com>; Fri, 28 Jan 2022 15:58:45 +0000 (UTC)
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com
+	[209.85.222.199]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-2-YkygBcotN3WzwoZivaY7UA-1; Fri, 28 Jan 2022 10:58:44 -0500
+X-MC-Unique: YkygBcotN3WzwoZivaY7UA-1
+Received: by mail-qk1-f199.google.com with SMTP id
+	d11-20020a37680b000000b0047d87e46f4aso5084950qkc.11
+	for <dm-devel@redhat.com>; Fri, 28 Jan 2022 07:58:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:from:to:cc:subject:date:message-id;
+	bh=4mmE2BDklC4kbyMzrXLJtoHLPinScMnYfFrJMWf1e+U=;
+	b=Few5BBUlWG/kKDceGwA+p/n1+tYHvF/30galnR57RbJRynxImOC2su4R80c5SGKU0A
+	osOnSvuO9LRcYhAb+2+2/I7hJESHu49TdZQvJowgtZ7MJ+m7aXYOhpIJNOcY7BOAXdSd
+	yAie+JVdUx1WxmWoaLNIUwFYJajMcvL2PbSmvjL4FbrIkGRFRpUkL5gX/5wRSw9YmsOm
+	hfzQN2LW1mBQkv76IxDBaJ67YoGdCKSNF1rlcQZ/En6hiXMNqlu77Q9ZkcQz1xx/4ZIO
+	ZzzysJwdvUqiUTe8rFgo8M00w0YDgA6LUSTvbxrgQARJb2IdyqP+hPc+MixKSOPg/dqE
+	0jLA==
+X-Gm-Message-State: AOAM532yHvNaAQn3E0fY3WR1ret/+L+OzfoNusUbyyGtkmzRm3v6s3dY
+	3p3xGrl7gMJ0MZLz9SDelEehT4pxXnzIPjP35vz6jRTc9bILkLBS71IraApB1iqeJlrfRNZZ8ek
+	TkEAJNylXMc6RJw==
+X-Received: by 2002:a05:620a:1790:: with SMTP id
+	ay16mr6070285qkb.330.1643385523336; 
+	Fri, 28 Jan 2022 07:58:43 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJx1Sp8T3UlIDPcX8b/jwkTUzeQeOx03Ve8v0cn9k0JmN8doT4Ho3uDIdTRk9+2Xvyywgk7lgA==
+X-Received: by 2002:a05:620a:1790:: with SMTP id
+	ay16mr6070276qkb.330.1643385523160; 
+	Fri, 28 Jan 2022 07:58:43 -0800 (PST)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	o10sm3457427qtx.33.2022.01.28.07.58.42
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Fri, 28 Jan 2022 07:58:42 -0800 (PST)
+From: Mike Snitzer <snitzer@redhat.com>
+To: axboe@kernel.dk
+Date: Fri, 28 Jan 2022 10:58:38 -0500
+Message-Id: <20220128155841.39644-1-snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-Cc: dm-devel@redhat.com, Heming Zhao <heming.zhao@suse.com>,
-	Franck Bui <fbui@suse.de>, lvm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH] udev: create symlinks and watch even in
-	suspended state
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, hch@lst.de
+Subject: [dm-devel] [PATCH v4 0/3] block/dm: fix bio-based DM IO accounting
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -95,149 +100,61 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Fri, 2022-01-28 at 16:33 +0100, Zdenek Kabelac wrote:
-> Dne 28. 01. 22 v 14:42 mwilck@suse.com=A0napsal(a):
-> > From: Martin Wilck <mwilck@suse.com>
-> >=20
-> > If a dm device is suspended, we can't run blkid on it. But earlier
-> > rules (e.g. 11-dm-parts.rules) might have imported previously
-> > scanned
-> > properties from the udev db, in particular if the device had been
-> > correctly
-> > set up beforehand (DM_UDEV_PRIMARY_SOURCE_FLAG=3D=3D1). Symlinks for
-> > existing
-> > ID_FS_xyz properties must be preserved in this case. Otherwise
-> > lower-priority
-> > devices (such as multipath components) might take over the symlink
-> > temporarily.
-> >=20
-> > Likewise, we should't stop watching a temporarily suspended, but
-> > previously
-> > correctly configured dm device.
->=20
->=20
-> I'm a bit confused here what is the purpose of this patch.
->=20
-> blkid is supposed to scan 'every' disk it's told to scan -=A0 if device
-> is=20
-> suspend - blkid shall fait till it's resumed.
+[this v4 is final iteration, should be "ready"...]
 
-Here we're talking about a device that had been successfully scanned
-before (during initramfs processing). In my case it was a partition-on-
-multipath device (linear mapping on top of multipath mapping) hosting a
-btrfs file system with multiple subvolumes. The problem occurs when the
-coldplug "add" event is processed after switching to the real root, and
-if the device is in suspended state for whatever reason when that
-happens. If the SYMLINK+=3D directive for the /dev/disk/by-uuid link for
-the device is skipped in the udev rules, udev will notice and remove
-the symlink (which means in the case of multipath: assign it to a
-component SCSI device instead).
+Hi Jens,
 
-systemd, however, thinks that the /dev/disk/by-uuid device is ready for
-processing and tries to mount it while the symlink wrongly points to
-the SCSI device. That fails (the SCSI device is mapped by multipath),
-and thus booting fails. See a log excerpt below.=20
+Just over 3 years ago, with commit a1e1cb72d9649 ("dm: fix redundant
+IO accounting for bios that need splitting") I focused too narrowly on
+fixing the reported potential for redundant accounting for IO totals.
+Which, at least mentally for me, papered over how inaccurate all other
+bio-based DM's IO accounting is for bios that get split.
 
-> Suspend operation itself is meant to be quick - and process
-> suspending any=20
-> device should be doing it rather 'quickly'=A0 (aka reload DM table)
->=20
-> So now - how do you get 'suspended' devices that are blocking blkid ?
+This set fixes things up properly by allowing DM to start IO
+accounting _after_ IO is submitted and a split may have occurred. The
+proper start_time is still established (prior to submission), it is
+passed in to a new bio_start_io_acct_time().  This eliminates the need
+for any DM hack to rewind block core's accounting that was started
+before any potential bio split.
 
-It's a race condition. It probably happens while multipathd is
-reloading a map (*), suspending it during the table reload. The device
-will be resumed a few fractions of a second later (so yes, it's
-"quick"), but then it's too late - systemd will already have tried to
-mount it, and failed. When emergency mode is reached, all looks fine,
-because the device has been resumed and the correct symlink has been
-restored by udev while processing the associated CHANGE event.
+All said: If you'd provide your Acked-by(s) I'm happy to send this set
+to Linus for v5.17-rc (and shepherd the changes into stable@ kernels).
 
-I can actually see that some of the subvolumes are mounted successfully
-and some are not. It all depends on the timing, which device mount(2)
-actually accesses when it follows the by-uuid symlink.
+Or you're welcome to pickup this set to send along (I'd obviously
+still do any stable@ backports). NOTE: the 3rd patch references the
+linux-dm.git commit id for the 1st patch.. so that'll require tweaking
+no matter who sends the changes to Linus.
 
+Please advise, thanks.
+Mike
 
+v4: added Christoph's Reviewed-bys. Removed READ_ONCE from patch 3
+v3: fix patch 3 to call bio_start_io_acct_time
+v2: made block changes suggested by Christoph
 
-> lvm2 has implemented some sort of 'optional' hack to avoid scanning
-> suspended=20
-> devices - but this shouldn't be normally needed - unless your system
-> is flawed=20
-> with some set of suspended devices (maybe from some crashed lvm
-> command).
+Mike Snitzer (3):
+  block: add bio_start_io_acct_time() to control start_time
+  dm: revert partial fix for redundant bio-based IO accounting
+  dm: properly fix redundant bio-based IO accounting
 
-I'm not sure what "hack" you're talking about. 13-dm-disk.rules always
-skips calling "blkid" for suspended devices. And that's correct.
-The point is not to "forget" valid symlinks because scanning is
-skipped.
+ block/blk-core.c       | 25 +++++++++++++++++++------
+ drivers/md/dm.c        | 20 +++-----------------
+ include/linux/blkdev.h |  1 +
+ 3 files changed, 23 insertions(+), 23 deletions(-)
 
-Regards
-Martin
-
-(*) If a dm device is encountered in such a transient suspended state,
-it is very difficult to figure out why / by which process it was
-suspended, in particular during boot (tell me if you know a good trick
-to figure it out). But multipathd is a likely candidate.
-
-Sample boot log:
-
-> [  127.532674] localhost systemd-udevd[1080]: dm-13: Updating old device =
-symlink '/dev/disk/by-uuid/e40d3005-ab2f-4845-bd83-be5fd09e62a0', which is =
-no longer belonging to this device.
-> [  127.532784] localhost systemd-udevd[1080]: dm-13: Found 'b8:18' claimi=
-ng '/run/udev/links/disk\x2fby-uuid\x2fe40d3005-ab2f-4845-bd83-be5fd09e62a0=
-'
-> [  127.533079] localhost systemd-udevd[1080]: sdb2: Device claims priorit=
-y 0 for '/run/udev/links/disk\x2fby-uuid\x2fe40d3005-ab2f-4845-bd83-be5fd09=
-e62a0'
-> [  127.533150] localhost systemd-udevd[1080]: dm-13: Found 'b8:146' claim=
-ing '/run/udev/links/disk\x2fby-uuid\x2fe40d3005-ab2f-4845-bd83-be5fd09e62a=
-0'
-> [  127.533397] localhost systemd-udevd[1080]: dm-13: Found 'b8:82' claimi=
-ng '/run/udev/links/disk\x2fby-uuid\x2fe40d3005-ab2f-4845-bd83-be5fd09e62a0=
-'
-> [  127.533678] localhost systemd-udevd[1080]: dm-13: Atomically replace '=
-/dev/disk/by-uuid/e40d3005-ab2f-4845-bd83-be5fd09e62a0'
-> [  127.535494] localhost systemd[1]: srv.mount: About to execute /usr/bin=
-/mount /dev/disk/by-uuid/e40d3005-ab2f-4845-bd83-be5fd09e62a0 /srv -t btrfs=
- -o subvol=3D/@/srv
-> [  127.535845] localhost systemd[1]: srv.mount: Forked /usr/bin/mount as =
-1343
-> [  127.535992] localhost systemd[1]: srv.mount: Changed dead -> mounting
-> [  127.536278] localhost systemd[1343]: srv.mount: Executing: /usr/bin/mo=
-unt /dev/disk/by-uuid/e40d3005-ab2f-4845-bd83-be5fd09e62a0 /srv -t btrfs -o=
- subvol=3D/@/srv
-> [  127.657542] localhost mount[1343]: mount: /srv: /dev/sdb2 already moun=
-ted or mount point busy.
-> [  127.888332] localhost systemd[1]: srv.mount: Failed to read oom_kill f=
-ield of memory.events cgroup attribute: No such file or directory
-> [  127.888532] localhost systemd[1]: srv.mount: Child 1343 belongs to srv=
-.mount.
-> [  127.888779] localhost systemd[1]: srv.mount: Mount process exited, cod=
-e=3Dexited, status=3D32/n/a
-> [  127.888961] localhost systemd[1]: srv.mount: Failed with result 'exit-=
-code'.
-> [  127.889200] localhost systemd[1]: srv.mount: Changed mounting -> faile=
-d
-> [  127.890046] localhost systemd[1]: srv.mount: Job 180 srv.mount/start f=
-inished, result=3Dfailed
-> [  127.890283] localhost systemd[1]: Failed to mount /srv.
-> [  127.918072] localhost systemd[1]: srv.mount: Unit entered failed state=
-.
-
-Note the message "Updating old device symlink '/dev/disk/by-
-uuid/e40d3005-ab2f-4845-bd83-be5fd09e62a0', which is no longer
-belonging to this device"), which is where the trouble starts.
-
+-- 
+2.15.0
 
 --
 dm-devel mailing list
