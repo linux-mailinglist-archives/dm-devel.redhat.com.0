@@ -2,67 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF14A4A3E9E
-	for <lists+dm-devel@lfdr.de>; Mon, 31 Jan 2022 09:31:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76D554A3EA1
+	for <lists+dm-devel@lfdr.de>; Mon, 31 Jan 2022 09:31:26 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-321-CCdy2y75OSWIQDvgwfjPNA-1; Mon, 31 Jan 2022 03:31:20 -0500
-X-MC-Unique: CCdy2y75OSWIQDvgwfjPNA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-423-iUooyHNKNsikCzrAdiju8A-1; Mon, 31 Jan 2022 03:31:24 -0500
+X-MC-Unique: iUooyHNKNsikCzrAdiju8A-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9BA8E1006AA4;
-	Mon, 31 Jan 2022 08:31:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E2BA562D53;
-	Mon, 31 Jan 2022 08:31:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5BC101006ABA;
+	Mon, 31 Jan 2022 08:31:18 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C5B61F43C;
+	Mon, 31 Jan 2022 08:31:18 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3AFC2180BAAE;
-	Mon, 31 Jan 2022 08:31:02 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D9DB74A705;
+	Mon, 31 Jan 2022 08:31:17 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 20TExF3C018508 for <dm-devel@listman.util.phx.redhat.com>;
-	Sat, 29 Jan 2022 09:59:16 -0500
+	id 20THdgE4028265 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 29 Jan 2022 12:39:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id CA9551121325; Sat, 29 Jan 2022 14:59:15 +0000 (UTC)
+	id 8F82340CFD17; Sat, 29 Jan 2022 17:39:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C68701121315
-	for <dm-devel@redhat.com>; Sat, 29 Jan 2022 14:59:10 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8ACDB40CFD0A
+	for <dm-devel@redhat.com>; Sat, 29 Jan 2022 17:39:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9DC463C01C1E
-	for <dm-devel@redhat.com>; Sat, 29 Jan 2022 14:59:10 +0000 (UTC)
-Received: from h4.fbrelay.privateemail.com (h4.fbrelay.privateemail.com
-	[131.153.2.45]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-10-0uox-FTON7qNqBMtP9W5qw-1; Sat, 29 Jan 2022 09:59:08 -0500
-X-MC-Unique: 0uox-FTON7qNqBMtP9W5qw-1
-Received: from MTA-15-3.privateemail.com (MTA-15-1.privateemail.com
-	[198.54.118.208])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature RSA-PSS (2048 bits))
-	(No client certificate requested)
-	by h3.fbrelay.privateemail.com (Postfix) with ESMTPS id 3AB9018000B2;
-	Sat, 29 Jan 2022 09:59:08 -0500 (EST)
-Received: from mta-15.privateemail.com (localhost [127.0.0.1])
-	by mta-15.privateemail.com (Postfix) with ESMTP id 0C82F18000A1;
-	Sat, 29 Jan 2022 09:59:05 -0500 (EST)
-Received: from localhost.localdomain (unknown [10.20.151.152])
-	by mta-15.privateemail.com (Postfix) with ESMTPA id A85C118000BC;
-	Sat, 29 Jan 2022 09:59:03 -0500 (EST)
-From: Jordy Zomer <jordy@jordyzomer.github.io>
-To: linux-kernel@vger.kernel.org
-Date: Sat, 29 Jan 2022 15:58:39 +0100
-Message-Id: <20220129145839.3461330-1-jordy@pwning.systems>
-In-Reply-To: <20220129143722.3460829-1-jordy@pwning.systems>
-References: <20220129143722.3460829-1-jordy@pwning.systems>
-MIME-Version: 1.0
-X-Virus-Scanned: ClamAV using ClamSMTP
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E436101A54C
+	for <dm-devel@redhat.com>; Sat, 29 Jan 2022 17:39:42 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-608-N4KZleiMPUugKiKqR5EHuQ-1; Sat, 29 Jan 2022 12:39:40 -0500
+X-MC-Unique: N4KZleiMPUugKiKqR5EHuQ-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10242"; a="247507158"
+X-IronPort-AV: E=Sophos;i="5.88,327,1635231600"; d="scan'208";a="247507158"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+	by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	29 Jan 2022 09:39:39 -0800
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="5.88,327,1635231600"; d="scan'208";a="536545334"
+Received: from chang-linux-3.sc.intel.com ([172.25.66.175])
+	by orsmga008.jf.intel.com with ESMTP; 29 Jan 2022 09:39:38 -0800
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-crypto@vger.kernel.org, dm-devel@redhat.com,
+	herbert@gondor.apana.org.au, ebiggers@kernel.org, ardb@kernel.org,
+	x86@kernel.org, luto@kernel.org, tglx@linutronix.de, bp@suse.de,
+	dave.hansen@linux.intel.com, mingo@kernel.org
+Date: Sat, 29 Jan 2022 09:31:53 -0800
+Message-Id: <20220129173153.27899-1-chang.seok.bae@intel.com>
+In-Reply-To: <20220112211258.21115-9-chang.seok.bae@intel.com>
+References: <20220112211258.21115-9-chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -71,14 +68,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 20TExF3C018508
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 31 Jan 2022 03:30:51 -0500
-Cc: Mike Snitzer <snitzer@redhat.com>, dm-devel@redhat.com,
-	Alasdair Kergon <agk@redhat.com>, Jordy Zomer <jordy@jordyzomer.github.io>
-Subject: [dm-devel] [PATCH v2] dm ioct: prevent potential specter v1 gadget
+Cc: ravi.v.shankar@intel.com, marvin.hsu@intel.com, linux-pm@vger.kernel.org,
+	chang.seok.bae@intel.com, linux-kernel@vger.kernel.org,
+	kumar.n.dwarakanath@intel.com, dan.j.williams@intel.com,
+	charishma1.gairuboyina@intel.com
+Subject: [dm-devel] [PATCH v5-fix 08/12] x86/PM/keylocker: Restore internal
+	wrapping key on resume from ACPI S3/4
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -90,9 +88,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
+MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,41 +99,293 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-It appears like cmd could be a Spectre v1 gadget as it's supplied by a
-user and used as an array index. Prevent the contents
-of kernel memory from being leaked to userspace via speculative
-execution by using array_index_nospec.
+When the system enters the ACPI S3 or S4 sleep states, the internal
+wrapping key is discarded.
 
-Forgot to add the nospec include, that's the reason for the v2 :)
+The primary use case for the feature is bare metal dm-crypt. The key needs
+to be restored properly on wakeup, as dm-crypt does not prompt for the key
+on resume from suspend. Even the prompt it does perform for unlocking
+the volume where the hibernation image is stored, it still expects to reuse
+the key handles within the hibernation image once it is loaded. So it is
+motivated to meet dm-crypt's expectation that the key handles in the
+suspend-image remain valid after resume from an S-state.
 
-Signed-off-by: Jordy Zomer <jordy@pwning.systems>
+Key Locker provides a mechanism to back up the internal wrapping key in
+non-volatile storage. The kernel requests a backup right after the key is
+loaded at boot time. It is copied back to each CPU upon wakeup.
+
+While the backup may be maintained in NVM across S5 and G3 "off"
+states it is not architecturally guaranteed, nor is it expected by dm-crypt
+which expects to prompt for the key each time the volume is started.
+
+The entirety of Key Locker needs to be disabled if the backup mechanism is
+not available unless CONFIG_SUSPEND=n, otherwise dm-crypt requires the
+backup to be available.
+
+In the event of a key restore failure the kernel proceeds with an
+initialized IWKey state. This has the effect of invalidating any key
+handles that might be present in a suspend-image. When this happens
+dm-crypt will see I/O errors resulting from error returns from
+crypto_skcipher_{en,de}crypt(). While this will disrupt operations in the
+current boot, data is not at risk and access is restored at the next reboot
+to create new handles relative to the current IWKey.
+
+Manage a feature-specific flag to communicate with the crypto
+implementation. This ensures to stop using the AES instructions upon the
+key restore failure while not turning off the feature.
+
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+Acked-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
+Cc: x86@kernel.org
+Cc: linux-kernel@vger.kernel.org
+Cc: linux-pm@vger.kernel.org
 ---
- drivers/md/dm-ioctl.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes from v5:
+* Fix the valid_kl flag setting when the feature is disabled.
+  (Reported by Marvin Hsu <marvin.hsu@intel.com>)
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 21fe8652b095..901abd6dea41 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -18,6 +18,7 @@
- #include <linux/dm-ioctl.h>
- #include <linux/hdreg.h>
- #include <linux/compat.h>
-+#include <linux/nospec.h>
+Changes from v4:
+* Update the changelog and title. (Rafael Wysocki)
+
+Changes from v3:
+* Fix the build issue with !X86_KEYLOCKER. (Eric Biggers)
+
+Changes from RFC v2:
+* Change the backup key failure handling. (Dan Williams)
+
+Changes from RFC v1:
+* Folded the warning message into the if condition check. (Rafael
+Wysocki)
+* Rebased on the changes of the previous patches.
+* Added error code for key restoration failures.
+* Moved the restore helper.
+* Added function descriptions.
+---
+ arch/x86/include/asm/keylocker.h |   4 +
+ arch/x86/kernel/keylocker.c      | 128 ++++++++++++++++++++++++++++++-
+ arch/x86/power/cpu.c             |   2 +
+ 3 files changed, 132 insertions(+), 2 deletions(-)
+
+diff --git a/arch/x86/include/asm/keylocker.h b/arch/x86/include/asm/keylocker.h
+index 820ac29c06d9..c1d27fb5a1c3 100644
+--- a/arch/x86/include/asm/keylocker.h
++++ b/arch/x86/include/asm/keylocker.h
+@@ -32,9 +32,13 @@ struct iwkey {
+ #ifdef CONFIG_X86_KEYLOCKER
+ void setup_keylocker(struct cpuinfo_x86 *c);
+ void destroy_keylocker_data(void);
++void restore_keylocker(void);
++extern bool valid_keylocker(void);
+ #else
+ #define setup_keylocker(c) do { } while (0)
+ #define destroy_keylocker_data() do { } while (0)
++#define restore_keylocker() do { } while (0)
++static inline bool valid_keylocker(void) { return false; }
+ #endif
  
- #include <linux/uaccess.h>
- #include <linux/ima.h>
-@@ -1788,6 +1789,7 @@ static ioctl_fn lookup_ioctl(unsigned int cmd, int *ioctl_flags)
- 	if (unlikely(cmd >= ARRAY_SIZE(_ioctls)))
- 		return NULL;
+ #endif /*__ASSEMBLY__ */
+diff --git a/arch/x86/kernel/keylocker.c b/arch/x86/kernel/keylocker.c
+index 87d775a65716..981c1f5517e7 100644
+--- a/arch/x86/kernel/keylocker.c
++++ b/arch/x86/kernel/keylocker.c
+@@ -11,11 +11,26 @@
+ #include <asm/fpu/api.h>
+ #include <asm/keylocker.h>
+ #include <asm/tlbflush.h>
++#include <asm/msr.h>
  
-+	cmd = array_index_nospec(cmd, ARRAY_SIZE(_ioctls));
- 	*ioctl_flags = _ioctls[cmd].flags;
- 	return _ioctls[cmd].fn;
+ static __initdata struct keylocker_setup_data {
++	bool initialized;
+ 	struct iwkey key;
+ } kl_setup;
+ 
++/*
++ * This flag is set with IWKey load. When the key restore fails, it is
++ * reset. This restore state is exported to the crypto library, then AES-KL
++ * will not be used there. So, the feature is soft-disabled with this flag.
++ */
++static bool valid_kl;
++
++bool valid_keylocker(void)
++{
++	return valid_kl;
++}
++EXPORT_SYMBOL_GPL(valid_keylocker);
++
+ static void __init generate_keylocker_data(void)
+ {
+ 	get_random_bytes(&kl_setup.key.integrity_key,  sizeof(kl_setup.key.integrity_key));
+@@ -24,7 +39,13 @@ static void __init generate_keylocker_data(void)
+ 
+ void __init destroy_keylocker_data(void)
+ {
++	if (!cpu_feature_enabled(X86_FEATURE_KEYLOCKER) ||
++	    cpu_feature_enabled(X86_FEATURE_HYPERVISOR))
++		return;
++
+ 	memset(&kl_setup.key, KEY_DESTROY, sizeof(kl_setup.key));
++	kl_setup.initialized = true;
++	valid_kl = true;
  }
+ 
+ static void __init load_keylocker(void)
+@@ -34,6 +55,27 @@ static void __init load_keylocker(void)
+ 	kernel_fpu_end();
+ }
+ 
++/**
++ * copy_keylocker - Copy the internal wrapping key from the backup.
++ *
++ * Request hardware to copy the key in non-volatile storage to the CPU
++ * state.
++ *
++ * Returns:	-EBUSY if the copy fails, 0 if successful.
++ */
++static int copy_keylocker(void)
++{
++	u64 status;
++
++	wrmsrl(MSR_IA32_COPY_IWKEY_TO_LOCAL, 1);
++
++	rdmsrl(MSR_IA32_IWKEY_COPY_STATUS, status);
++	if (status & BIT(0))
++		return 0;
++	else
++		return -EBUSY;
++}
++
+ /**
+  * setup_keylocker - Enable the feature.
+  * @c:		A pointer to struct cpuinfo_x86
+@@ -49,6 +91,7 @@ void __ref setup_keylocker(struct cpuinfo_x86 *c)
+ 
+ 	if (c == &boot_cpu_data) {
+ 		u32 eax, ebx, ecx, edx;
++		bool backup_available;
+ 
+ 		cpuid_count(KEYLOCKER_CPUID, 0, &eax, &ebx, &ecx, &edx);
+ 		/*
+@@ -62,10 +105,49 @@ void __ref setup_keylocker(struct cpuinfo_x86 *c)
+ 			goto disable;
+ 		}
+ 
++		backup_available = !!(ebx & KEYLOCKER_CPUID_EBX_BACKUP);
++		/*
++		 * The internal wrapping key in CPU state is volatile in
++		 * S3/4 states. So ensure the backup capability along with
++		 * S-states.
++		 */
++		if (!backup_available && IS_ENABLED(CONFIG_SUSPEND)) {
++			pr_debug("x86/keylocker: No key backup support with possible S3/4.\n");
++			goto disable;
++		}
++
+ 		generate_keylocker_data();
+-	}
++		load_keylocker();
++
++		/* Backup an internal wrapping key in non-volatile media. */
++		if (backup_available)
++			wrmsrl(MSR_IA32_BACKUP_IWKEY_TO_PLATFORM, 1);
++	} else {
++		int rc;
+ 
+-	load_keylocker();
++		/*
++		 * Load the internal wrapping key directly when available
++		 * in memory, which is only possible at boot-time.
++		 *
++		 * NB: When system wakes up, this path also recovers the
++		 * internal wrapping key.
++		 */
++		if (!kl_setup.initialized) {
++			load_keylocker();
++		} else if (valid_kl) {
++			rc = copy_keylocker();
++			/*
++			 * The boot CPU was successful but the key copy
++			 * fails here. Then, the subsequent feature use
++			 * will have inconsistent keys and failures. So,
++			 * invalidate the feature via the flag.
++			 */
++			if (rc) {
++				valid_kl = false;
++				pr_err_once("x86/keylocker: Invalid copy status (rc: %d).\n", rc);
++			}
++		}
++	}
+ 
+ 	pr_info_once("x86/keylocker: Enabled.\n");
+ 	return;
+@@ -77,3 +159,45 @@ void __ref setup_keylocker(struct cpuinfo_x86 *c)
+ 	/* Make sure the feature disabled for kexec-reboot. */
+ 	cr4_clear_bits(X86_CR4_KEYLOCKER);
+ }
++
++/**
++ * restore_keylocker - Restore the internal wrapping key.
++ *
++ * The boot CPU executes this while other CPUs restore it through the setup
++ * function.
++ */
++void restore_keylocker(void)
++{
++	u64 backup_status;
++	int rc;
++
++	if (!cpu_feature_enabled(X86_FEATURE_KEYLOCKER) || !valid_kl)
++		return;
++
++	/*
++	 * The IA32_IWKEYBACKUP_STATUS MSR contains a bitmap that indicates
++	 * an invalid backup if bit 0 is set and a read (or write) error if
++	 * bit 2 is set.
++	 */
++	rdmsrl(MSR_IA32_IWKEY_BACKUP_STATUS, backup_status);
++	if (backup_status & BIT(0)) {
++		rc = copy_keylocker();
++		if (rc)
++			pr_err("x86/keylocker: Invalid copy state (rc: %d).\n", rc);
++		else
++			return;
++	} else {
++		pr_err("x86/keylocker: The key backup access failed with %s.\n",
++		       (backup_status & BIT(2)) ? "read error" : "invalid status");
++	}
++
++	/*
++	 * Now the backup key is not available. Invalidate the feature via
++	 * the flag to avoid any subsequent use. But keep the feature with
++	 * zero IWKeys instead of disabling it. The current users will see
++	 * key handle integrity failure but that's because of the internal
++	 * key change.
++	 */
++	pr_err("x86/keylocker: Failed to restore internal wrapping key.\n");
++	valid_kl = false;
++}
+diff --git a/arch/x86/power/cpu.c b/arch/x86/power/cpu.c
+index 9f2b251e83c5..1a290f529c73 100644
+--- a/arch/x86/power/cpu.c
++++ b/arch/x86/power/cpu.c
+@@ -25,6 +25,7 @@
+ #include <asm/cpu.h>
+ #include <asm/mmu_context.h>
+ #include <asm/cpu_device_id.h>
++#include <asm/keylocker.h>
+ 
+ #ifdef CONFIG_X86_32
+ __visible unsigned long saved_context_ebx;
+@@ -262,6 +263,7 @@ static void notrace __restore_processor_state(struct saved_context *ctxt)
+ 	mtrr_bp_restore();
+ 	perf_restore_debug_store();
+ 	msr_restore_context(ctxt);
++	restore_keylocker();
+ 
+ 	c = &cpu_data(smp_processor_id());
+ 	if (cpu_has(c, X86_FEATURE_MSR_IA32_FEAT_CTL))
 -- 
-2.27.0
-
+2.17.1
 
 --
 dm-devel mailing list
