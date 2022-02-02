@@ -2,53 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A98024A7527
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Feb 2022 17:01:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8FC534A756A
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Feb 2022 17:06:10 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-402-bOwOw1HjOn6Yh4eIGa9giA-1; Wed, 02 Feb 2022 11:01:50 -0500
-X-MC-Unique: bOwOw1HjOn6Yh4eIGa9giA-1
+ us-mta-384-VREaTgXsOHuXikzk26j-fw-1; Wed, 02 Feb 2022 11:01:52 -0500
+X-MC-Unique: VREaTgXsOHuXikzk26j-fw-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 76A0B5A07E;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5C3165A064;
 	Wed,  2 Feb 2022 16:01:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 484FD23784;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 493D123798;
 	Wed,  2 Feb 2022 16:01:42 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7BD524BB7C;
-	Wed,  2 Feb 2022 16:01:32 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 1673F1806D1C;
+	Wed,  2 Feb 2022 16:01:33 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 212G1K5G018626 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Feb 2022 11:01:20 -0500
+	id 212G1MsP018631 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Feb 2022 11:01:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id AA5622027EB4; Wed,  2 Feb 2022 16:01:20 +0000 (UTC)
+	id E595A76CD; Wed,  2 Feb 2022 16:01:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id A58C72026609
-	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E66185A5BB
-	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:16 +0000 (UTC)
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E0E1F76C5
+	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DEFC7185A79C
+	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:18 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-634-EFtN4h9nO4GkELoL_gQmOw-1; Wed, 02 Feb 2022 11:01:14 -0500
-X-MC-Unique: EFtN4h9nO4GkELoL_gQmOw-1
+	us-mta-633-lVQ7yTJ4NQOIuB1qAEboVg-1; Wed, 02 Feb 2022 11:01:17 -0500
+X-MC-Unique: lVQ7yTJ4NQOIuB1qAEboVg-1
 Received: from [2001:4bb8:191:327d:b3e5:1ccd:eaac:6609] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nFI4F-00G7vu-Ff; Wed, 02 Feb 2022 16:01:11 +0000
+	id 1nFI4I-00G7wt-54; Wed, 02 Feb 2022 16:01:14 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Feb 2022 17:00:56 +0100
-Message-Id: <20220202160109.108149-1-hch@lst.de>
+Date: Wed,  2 Feb 2022 17:00:57 +0100
+Message-Id: <20220202160109.108149-2-hch@lst.de>
+In-Reply-To: <20220202160109.108149-1-hch@lst.de>
+References: <20220202160109.108149-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
@@ -60,14 +62,14 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	Lars Ellenberg <lars.ellenberg@linbit.com>,
 	Pavel Begunkov <asml.silence@gmail.com>, drbd-dev@lists.linbit.com
-Subject: [dm-devel] improve the bio cloning interface v2
+Subject: [dm-devel] [PATCH 01/13] drbd: set ->bi_bdev in drbd_req_new
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -89,51 +91,37 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+Make sure the newly allocated bio has the correct bi_bdev set from the
+start.
 
-this series changes the bio cloning interface to match the rest changes
-to the bio allocation interface and passes the block_device and operation
-to the cloning helpers.  In addition it renames the cloning helpers to
-be more descriptive.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/block/drbd/drbd_req.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-To get there it requires a bit of refactoring in the device mapper code.
-
-Changes since v1:
- - rebased to the lastest for-5.18/block tree
- - fix a fatal double initialization in device mapper
-
-A git tree is also available here:
-
-    git://git.infradead.org/users/hch/block.git bio_alloc-cleanup-part2
-
-Gitweb:
-
-    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/bio_alloc-cleanup-part2
-
-Diffstat:
- Documentation/block/biodoc.rst   |    5 -
- block/bio-integrity.c            |    1 
- block/bio.c                      |  106 +++++++++++++-----------
- block/blk-crypto.c               |    1 
- block/blk-mq.c                   |    4 
- block/bounce.c                   |    3 
- drivers/block/drbd/drbd_req.c    |    5 -
- drivers/block/drbd/drbd_worker.c |    4 
- drivers/block/pktcdvd.c          |    4 
- drivers/md/bcache/request.c      |    6 -
- drivers/md/dm-cache-target.c     |   26 ++----
- drivers/md/dm-crypt.c            |   11 +-
- drivers/md/dm-zoned-target.c     |    3 
- drivers/md/dm.c                  |  166 +++++++++++++--------------------------
- drivers/md/md-faulty.c           |    4 
- drivers/md/md-multipath.c        |    4 
- drivers/md/md.c                  |    5 -
- drivers/md/raid1.c               |   34 +++----
- drivers/md/raid10.c              |   16 +--
- drivers/md/raid5.c               |    4 
- fs/btrfs/extent_io.c             |    4 
- include/linux/bio.h              |    6 -
- 22 files changed, 183 insertions(+), 239 deletions(-)
+diff --git a/drivers/block/drbd/drbd_req.c b/drivers/block/drbd/drbd_req.c
+index 3235532ae0778..8d44e96c4c4ef 100644
+--- a/drivers/block/drbd/drbd_req.c
++++ b/drivers/block/drbd/drbd_req.c
+@@ -31,6 +31,7 @@ static struct drbd_request *drbd_req_new(struct drbd_device *device, struct bio
+ 	memset(req, 0, sizeof(*req));
+ 
+ 	req->private_bio = bio_clone_fast(bio_src, GFP_NOIO, &drbd_io_bio_set);
++	bio_set_dev(req->private_bio, device->ldev->backing_bdev);
+ 	req->private_bio->bi_private = req;
+ 	req->private_bio->bi_end_io = drbd_request_endio;
+ 
+@@ -1151,8 +1152,6 @@ drbd_submit_req_private_bio(struct drbd_request *req)
+ 	else
+ 		type = DRBD_FAULT_DT_RD;
+ 
+-	bio_set_dev(bio, device->ldev->backing_bdev);
+-
+ 	/* State may have changed since we grabbed our reference on the
+ 	 * ->ldev member. Double check, and short-circuit to endio.
+ 	 * In case the last activity log transaction failed to get on
+-- 
+2.30.2
 
 --
 dm-devel mailing list
