@@ -2,54 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 907834A754B
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Feb 2022 17:03:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72FFE4A753D
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Feb 2022 17:02:11 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-194-bijWhhBhNAKTzasrk6-Hmw-1; Wed, 02 Feb 2022 11:02:05 -0500
-X-MC-Unique: bijWhhBhNAKTzasrk6-Hmw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-128-AwO6c9xmMnidEbLK8Fjrwg-1; Wed, 02 Feb 2022 11:01:56 -0500
+X-MC-Unique: AwO6c9xmMnidEbLK8Fjrwg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A49E518982B1;
-	Wed,  2 Feb 2022 16:01:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6B033189829A;
+	Wed,  2 Feb 2022 16:01:44 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 750E3838E1;
-	Wed,  2 Feb 2022 16:01:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2686B22E0A;
+	Wed,  2 Feb 2022 16:01:44 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2FA804BB7B;
-	Wed,  2 Feb 2022 16:01:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CAACD4BB7C;
+	Wed,  2 Feb 2022 16:01:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 212G1Zip018680 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Feb 2022 11:01:35 -0500
+	id 212G1RQe018657 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Feb 2022 11:01:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 82C441121334; Wed,  2 Feb 2022 16:01:35 +0000 (UTC)
+	id 2EA1714582F5; Wed,  2 Feb 2022 16:01:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7D89A1121320
-	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D31AD80B719
-	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:29 +0000 (UTC)
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2AE0514582F2
+	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10FB81078464
+	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 16:01:27 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-169-OWNdSuLZNYS0zJyCtK1qcQ-1; Wed, 02 Feb 2022 11:01:23 -0500
-X-MC-Unique: OWNdSuLZNYS0zJyCtK1qcQ-1
+	us-mta-259-g7jPxMGAMTq3tZP28dznrw-1; Wed, 02 Feb 2022 11:01:25 -0500
+X-MC-Unique: g7jPxMGAMTq3tZP28dznrw-1
 Received: from [2001:4bb8:191:327d:b3e5:1ccd:eaac:6609] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nFI4N-00G7yw-LV; Wed, 02 Feb 2022 16:01:20 +0000
+	id 1nFI4Q-00G80Z-AJ; Wed, 02 Feb 2022 16:01:22 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed,  2 Feb 2022 17:00:59 +0100
-Message-Id: <20220202160109.108149-4-hch@lst.de>
+Date: Wed,  2 Feb 2022 17:01:00 +0100
+Message-Id: <20220202160109.108149-5-hch@lst.de>
 In-Reply-To: <20220202160109.108149-1-hch@lst.de>
 References: <20220202160109.108149-1-hch@lst.de>
 MIME-Version: 1.0
@@ -63,15 +62,15 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
 Cc: Mike Snitzer <snitzer@redhat.com>,
 	Philipp Reisner <philipp.reisner@linbit.com>,
 	linux-block@vger.kernel.org, dm-devel@redhat.com,
 	Lars Ellenberg <lars.ellenberg@linbit.com>,
 	Pavel Begunkov <asml.silence@gmail.com>, drbd-dev@lists.linbit.com
-Subject: [dm-devel] [PATCH 03/13] dm: fold clone_bio into
-	__clone_and_map_data_bio
+Subject: [dm-devel] [PATCH 04/13] dm: fold __send_duplicate_bios into
+	__clone_and_map_simple_bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -85,7 +84,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,100 +92,59 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fold clone_bio into its only caller to prepare for refactoring.
+Fold __send_duplicate_bios into its only caller to prepare for
+refactoring.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm.c | 43 +++++++++++++++++--------------------------
- 1 file changed, 17 insertions(+), 26 deletions(-)
+ drivers/md/dm.c | 27 +++++++++++----------------
+ 1 file changed, 11 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 5543e18f3c3bc..9384d250a3e4e 100644
+index 9384d250a3e4e..2527b287ead0f 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1190,17 +1190,22 @@ static void bio_setup_sector(struct bio *bio, sector_t sector, unsigned len)
- /*
-  * Creates a bio that consists of range of complete bvecs.
-  */
--static int clone_bio(struct dm_target_io *tio, struct bio *bio,
--		     sector_t sector, unsigned len)
-+static int __clone_and_map_data_bio(struct clone_info *ci, struct dm_target *ti,
-+				    sector_t sector, unsigned *len)
- {
--	struct bio *clone = &tio->clone;
-+	struct bio *bio = ci->bio, *clone;
-+	struct dm_target_io *tio;
- 	int r;
- 
-+	tio = alloc_tio(ci, ti, 0, GFP_NOIO);
-+	tio->len_ptr = len;
-+
-+	clone = &tio->clone;
- 	__bio_clone_fast(clone, bio);
- 
- 	r = bio_crypt_clone(clone, bio, GFP_NOIO);
- 	if (r < 0)
--		return r;
-+		goto free_tio;
- 
- 	if (bio_integrity(bio)) {
- 		if (unlikely(!dm_target_has_integrity(tio->ti->type) &&
-@@ -1208,21 +1213,26 @@ static int clone_bio(struct dm_target_io *tio, struct bio *bio,
- 			DMWARN("%s: the target %s doesn't support integrity data.",
- 				dm_device_name(tio->io->md),
- 				tio->ti->type->name);
--			return -EIO;
-+			r = -EIO;
-+			goto free_tio;
- 		}
- 
- 		r = bio_integrity_clone(clone, bio, GFP_NOIO);
- 		if (r < 0)
--			return r;
-+			goto free_tio;
+@@ -1273,29 +1273,24 @@ static void alloc_multiple_bios(struct bio_list *blist, struct clone_info *ci,
  	}
- 
- 	bio_advance(clone, to_bytes(sector - clone->bi_iter.bi_sector));
--	clone->bi_iter.bi_size = to_bytes(len);
-+	clone->bi_iter.bi_size = to_bytes(*len);
- 
- 	if (bio_integrity(bio))
- 		bio_integrity_trim(clone);
- 
-+	__map_bio(tio);
- 	return 0;
-+free_tio:
-+	free_tio(tio);
-+	return r;
  }
  
- static void alloc_multiple_bios(struct bio_list *blist, struct clone_info *ci,
-@@ -1313,25 +1323,6 @@ static int __send_empty_flush(struct clone_info *ci)
- 	return 0;
- }
- 
--static int __clone_and_map_data_bio(struct clone_info *ci, struct dm_target *ti,
--				    sector_t sector, unsigned *len)
+-static void __clone_and_map_simple_bio(struct clone_info *ci,
+-					   struct dm_target_io *tio, unsigned *len)
 -{
--	struct bio *bio = ci->bio;
--	struct dm_target_io *tio;
--	int r;
+-	struct bio *clone = &tio->clone;
 -
--	tio = alloc_tio(ci, ti, 0, GFP_NOIO);
 -	tio->len_ptr = len;
--	r = clone_bio(tio, bio, sector, *len);
--	if (r < 0) {
--		free_tio(tio);
--		return r;
--	}
--	__map_bio(tio);
 -
--	return 0;
+-	__bio_clone_fast(clone, ci->bio);
+-	if (len)
+-		bio_setup_sector(clone, ci->sector, *len);
+-	__map_bio(tio);
 -}
 -
- static int __send_changing_extent_only(struct clone_info *ci, struct dm_target *ti,
- 				       unsigned num_bios)
+ static void __send_duplicate_bios(struct clone_info *ci, struct dm_target *ti,
+ 				  unsigned num_bios, unsigned *len)
  {
+ 	struct bio_list blist = BIO_EMPTY_LIST;
+-	struct bio *bio;
++	struct bio *clone;
+ 
+ 	alloc_multiple_bios(&blist, ci, ti, num_bios);
+ 
+-	while ((bio = bio_list_pop(&blist)))
+-		__clone_and_map_simple_bio(ci, clone_to_tio(bio), len);
++	while ((clone = bio_list_pop(&blist))) {
++		struct dm_target_io *tio = clone_to_tio(clone);
++
++		tio->len_ptr = len;
++
++		__bio_clone_fast(clone, ci->bio);
++		if (len)
++			bio_setup_sector(clone, ci->sector, *len);
++		__map_bio(tio);
++	}
+ }
+ 
+ static int __send_empty_flush(struct clone_info *ci)
 -- 
 2.30.2
 
