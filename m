@@ -1,57 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98C8F4A717A
-	for <lists+dm-devel@lfdr.de>; Wed,  2 Feb 2022 14:24:21 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BB02D4A7193
+	for <lists+dm-devel@lfdr.de>; Wed,  2 Feb 2022 14:29:09 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-302-R3MalFfPNsuqSiGvBd2RIg-1; Wed, 02 Feb 2022 08:24:17 -0500
-X-MC-Unique: R3MalFfPNsuqSiGvBd2RIg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-369-KqrR9giZOyGJQ3J2UaeBMg-1; Wed, 02 Feb 2022 08:29:07 -0500
+X-MC-Unique: KqrR9giZOyGJQ3J2UaeBMg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D006E193F560;
-	Wed,  2 Feb 2022 13:24:10 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D1E4184635F;
+	Wed,  2 Feb 2022 13:29:01 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 189AF703B7;
-	Wed,  2 Feb 2022 13:24:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 81AD7108649B;
+	Wed,  2 Feb 2022 13:29:01 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 291AF1809CB8;
-	Wed,  2 Feb 2022 13:23:53 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id DCF991809CB8;
+	Wed,  2 Feb 2022 13:28:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 212DNCqp027878 for <dm-devel@listman.util.phx.redhat.com>;
-	Wed, 2 Feb 2022 08:23:13 -0500
+	id 212DSqA2028320 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 2 Feb 2022 08:28:53 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 92135C080B1; Wed,  2 Feb 2022 13:23:12 +0000 (UTC)
+	id 0AE2C401E4E; Wed,  2 Feb 2022 13:28:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E7ABC080AA
-	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 13:23:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 06717401E4A
+	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 13:28:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75DB0811E78
-	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 13:23:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E092D28ECA82
+	for <dm-devel@redhat.com>; Wed,  2 Feb 2022 13:28:51 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-314-sDZi4oEBPTGysG2f4xXHYQ-1; Wed, 02 Feb 2022 08:23:10 -0500
-X-MC-Unique: sDZi4oEBPTGysG2f4xXHYQ-1
+	us-mta-375-bx4CGLfxP_CHcwtmLeK1Fw-1; Wed, 02 Feb 2022 08:28:50 -0500
+X-MC-Unique: bx4CGLfxP_CHcwtmLeK1Fw-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
-	Hat Linux)) id 1nFFbF-00FLX5-Ie; Wed, 02 Feb 2022 13:23:05 +0000
-Date: Wed, 2 Feb 2022 05:23:05 -0800
+	Hat Linux)) id 1nFFgh-00FM5N-4U; Wed, 02 Feb 2022 13:28:43 +0000
+Date: Wed, 2 Feb 2022 05:28:43 -0800
 From: Christoph Hellwig <hch@infradead.org>
 To: Jane Chu <jane.chu@oracle.com>
-Message-ID: <YfqFuUsvuUUUWKfu@infradead.org>
+Message-ID: <YfqHC8zpPlyWhVkj@infradead.org>
 References: <20220128213150.1333552-1-jane.chu@oracle.com>
-	<20220128213150.1333552-3-jane.chu@oracle.com>
+	<20220128213150.1333552-8-jane.chu@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20220128213150.1333552-3-jane.chu@oracle.com>
+In-Reply-To: <20220128213150.1333552-8-jane.chu@oracle.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -62,7 +63,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: dm-devel@redhat.com
 Cc: nvdimm@lists.linux.dev, dave.jiang@intel.com, snitzer@redhat.com,
 	djwong@kernel.org, david@fromorbit.com,
@@ -71,8 +72,8 @@ Cc: nvdimm@lists.linux.dev, dave.jiang@intel.com, snitzer@redhat.com,
 	vishal.l.verma@intel.com, linux-fsdevel@vger.kernel.org,
 	dan.j.williams@intel.com, ira.weiny@intel.com,
 	linux-xfs@vger.kernel.org, agk@redhat.com
-Subject: Re: [dm-devel] [PATCH v5 2/7] dax: introduce dax device flag
-	DAXDEV_RECOVERY
+Subject: Re: [dm-devel] [PATCH v5 7/7] pmem: fix pmem_do_write() avoid
+ writing to 'np' page
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -86,7 +87,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -95,20 +96,33 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jan 28, 2022 at 02:31:45PM -0700, Jane Chu wrote:
-> +int dax_prep_recovery(struct dax_device *dax_dev, void **kaddr)
-> +{
-> +	if (dax_recovery_capable(dax_dev)) {
-> +		set_bit(DAXDEV_RECOVERY, (unsigned long *)kaddr);
-> +		return 0;
-> +	}
-> +	return -EINVAL;
+On Fri, Jan 28, 2022 at 02:31:50PM -0700, Jane Chu wrote:
+> +	if (!bad_pmem) {
+>  		write_pmem(pmem_addr, page, page_off, len);
+> +	} else {
+> +		rc = pmem_clear_poison(pmem, pmem_off, len);
+> +		if (rc == BLK_STS_OK)
+> +			write_pmem(pmem_addr, page, page_off, len);
+> +		else
+> +			pr_warn("%s: failed to clear poison\n",
+> +				__func__);
 
-Setting a random bit on a passed in memory address looks a little
-dangerous to me.
+This warning probably needs ratelimiting.
 
-Also I'd return early for the EINVAL case to make the flow a little
-more clear.
+Also this flow looks a little odd.  I'd redo the whole function with a
+clear bad_mem case:
+
+	if (unlikely(is_bad_pmem(&pmem->bb, sector, len))) {
+		blk_status_t rc = pmem_clear_poison(pmem, pmem_off, len);
+
+		if (rc != BLK_STS_OK) {
+			pr_warn("%s: failed to clear poison\n", __func__);
+			return rc;
+		}
+	}
+	flush_dcache_page(page);
+	write_pmem(pmem_addr, page, page_off, len);
+	return BLK_STS_OK;
 
 --
 dm-devel mailing list
