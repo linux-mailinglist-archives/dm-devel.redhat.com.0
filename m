@@ -2,82 +2,65 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A895F4A94C2
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Feb 2022 08:51:59 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C0164A9700
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Feb 2022 10:42:10 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-107-K2Ia9XayPEievDCfeSsc2A-1; Fri, 04 Feb 2022 02:51:57 -0500
-X-MC-Unique: K2Ia9XayPEievDCfeSsc2A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-213-UBtJ-CGROBKN0MgIgNcBJA-1; Fri, 04 Feb 2022 04:42:07 -0500
+X-MC-Unique: UBtJ-CGROBKN0MgIgNcBJA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9DE9D344B0;
-	Fri,  4 Feb 2022 07:51:51 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 336B378DD0;
-	Fri,  4 Feb 2022 07:51:50 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8101D10B7464;
+	Fri,  4 Feb 2022 09:42:02 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CC224DC3B;
+	Fri,  4 Feb 2022 09:42:02 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C11681809CB8;
-	Fri,  4 Feb 2022 07:51:44 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 049034CA93;
+	Fri,  4 Feb 2022 09:41:54 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 2147i5dV001295 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Feb 2022 02:44:06 -0500
+	id 213Gql81020013 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 3 Feb 2022 11:52:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id DC7B940885CA; Fri,  4 Feb 2022 07:44:05 +0000 (UTC)
+	id 05B40492D50; Thu,  3 Feb 2022 16:52:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D85C540885BE
-	for <dm-devel@redhat.com>; Fri,  4 Feb 2022 07:44:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 01829492D53
+	for <dm-devel@redhat.com>; Thu,  3 Feb 2022 16:52:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F23585A5B9
-	for <dm-devel@redhat.com>; Fri,  4 Feb 2022 07:44:05 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
-	[209.85.218.54]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-186-EGJ6o6khP-2nVZuKBEzdkg-1; Fri, 04 Feb 2022 02:44:02 -0500
-X-MC-Unique: EGJ6o6khP-2nVZuKBEzdkg-1
-Received: by mail-ej1-f54.google.com with SMTP id d10so16731669eje.10;
-	Thu, 03 Feb 2022 23:44:01 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
-	:content-language:to:cc:references:from:in-reply-to
-	:content-transfer-encoding;
-	bh=I+eZ5r9Zo5doiib4NPJfnmz4nNAlQRvPDILFlHosWIo=;
-	b=Cw5RWq6e/uthkaNJkGyBrFbrirW+rScqWl6m983GZaL6zpUBmjpspSzPDt7DJjOqFB
-	5sfzN72N9G6D8C64QMUCS7rvd4K2yYGFPJkRp942fCtAJsy1I0MtyCprTVcG0ZLzt2ug
-	l5ZrWIRELaada7866dhdYNwErDi7PQmxSYIIgy4lHl9wu6bhq4pjNuet79H1AR+lcTMt
-	U7ygedhuX2jiHk87MctTATkcUhB6ZwO9g3DgVA6WBoajZHX1kMSntDLOJ7zyX8D5MOpg
-	bsvci3j0OmkrjqyDYJ0UB8Dg7iolHPtdjeivnaszCGihK8Fwqv6no/lTeW2B+F2Bijl6
-	4cSQ==
-X-Gm-Message-State: AOAM530WKIkfSw5ZnGKaAFYdMNZf5H8Bs1nVVyPD9jhXGMIzLD66TN0T
-	n55xhVqcOD2ooaMJZgul6G8=
-X-Google-Smtp-Source: ABdhPJx1amdsi5+ctCgbOedLbQzMNVsDB7TAIXU/ONObuYY5mkNoRQvRdS4empd7YgKXCXePfLmhfQ==
-X-Received: by 2002:a17:907:3f1a:: with SMTP id
-	hq26mr1452818ejc.562.1643960640534; 
-	Thu, 03 Feb 2022 23:44:00 -0800 (PST)
-Received: from [192.168.2.27] (85-70-151-113.rcd.o2.cz. [85.70.151.113])
-	by smtp.gmail.com with ESMTPSA id v23sm374545ejf.21.2022.02.03.23.43.59
-	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-	Thu, 03 Feb 2022 23:43:59 -0800 (PST)
-Message-ID: <e033bbdf-5c07-8085-030d-a9954b321f08@gmail.com>
-Date: Fri, 4 Feb 2022 08:43:58 +0100
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D777685A5AA
+	for <dm-devel@redhat.com>; Thu,  3 Feb 2022 16:52:46 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-244-bc8DgEa1PEShf4ro0SmPAQ-1; Thu, 03 Feb 2022 11:52:45 -0500
+X-MC-Unique: bc8DgEa1PEShf4ro0SmPAQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by ams.source.kernel.org (Postfix) with ESMTPS id E02DAB834DE;
+	Thu,  3 Feb 2022 16:52:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6E2C340E8;
+	Thu,  3 Feb 2022 16:52:40 +0000 (UTC)
+Date: Thu, 3 Feb 2022 08:52:38 -0800
+From: Keith Busch <kbusch@kernel.org>
+To: Luis Chamberlain <mcgrof@kernel.org>
+Message-ID: <20220203165238.GA142129@dhcp-10-100-145-180.wdc.com>
+References: <f0e19ae4-b37a-e9a3-2be7-a5afb334a5c3@nvidia.com>
+	<20220201102122.4okwj2gipjbvuyux@mpHalley-2>
+	<alpine.LRH.2.02.2202011327350.22481@file01.intranet.prod.int.rdu2.redhat.com>
+	<alpine.LRH.2.02.2202011333160.22481@file01.intranet.prod.int.rdu2.redhat.com>
+	<270f30df-f14c-b9e4-253f-bff047d32ff0@nvidia.com>
+	<20220203153843.szbd4n65ru4fx5hx@garbanzo>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
-	Thunderbird/91.5.1
-To: "Martin K. Petersen" <martin.petersen@oracle.com>,
-	"Ivanov, Dmitry (HPC)" <dmitry.ivanov2@hpe.com>
-References: <SJ0PR84MB18220278F9CA4C597E2467E8C2279@SJ0PR84MB1822.NAMPRD84.PROD.OUTLOOK.COM>
-	<yq1tudfz49v.fsf@ca-mkp.ca.oracle.com>
-From: Milan Broz <gmazyland@gmail.com>
-In-Reply-To: <yq1tudfz49v.fsf@ca-mkp.ca.oracle.com>
+In-Reply-To: <20220203153843.szbd4n65ru4fx5hx@garbanzo>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -86,18 +69,33 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-loop: dm-devel@redhat.com
-Cc: Jens Axboe <axboe@kernel.dk>, Damien Le Moal <damien.lemoal@wdc.com>,
+X-Mailman-Approved-At: Fri, 04 Feb 2022 04:41:43 -0500
+Cc: "djwong@kernel.org" <djwong@kernel.org>,
+	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+	"clm@fb.com" <clm@fb.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
+	"osandov@fb.com" <osandov@fb.com>,
+	"msnitzer@redhat.com >> msnitzer@redhat.com" <msnitzer@redhat.com>,
 	Bart Van Assche <bvanassche@acm.org>,
 	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	Dmitry Fomichev <dmitry.fomichev@wdc.com>,
-	Mike Snitzer <snitzer@redhat.com>,
+	Christoph Hellwig <hch@lst.de>,
+	"roland@purestorage.com" <roland@purestorage.com>,
+	"zach.brown@ni.com" <zach.brown@ni.com>,
+	Chaitanya Kulkarni <chaitanyak@nvidia.com>,
+	Javier =?iso-8859-1?Q?Gonz=E1lez?= <javier@javigon.com>,
+	"josef@toxicpanda.com" <josef@toxicpanda.com>,
 	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Mikulas Patocka <mpatocka@redhat.com>, "Lyashkov,
-	Alexey" <alexey.lyashkov@hpe.com>
-Subject: Re: [dm-devel] [PATCH 0/1] t10-pi bio split fix
+	Mikulas Patocka <mpatocka@redhat.com>,
+	"dsterba@suse.com" <dsterba@suse.com>,
+	"Frederick.Knight@netapp.com" <Frederick.Knight@netapp.com>,
+	Jens Axboe <axboe@kernel.dk>, "tytso@mit.edu" <tytso@mit.edu>,
+	Kanchan Joshi <joshi.k@samsung.com>,
+	"martin.petersen@oracle.com >> Martin K. Petersen"
+	<martin.petersen@oracle.com>, "jack@suse.com" <jack@suse.com>,
+	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+	"lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>
+Subject: Re: [dm-devel] [RFC PATCH 3/3] nvme: add the "debug" host driver
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -111,70 +109,45 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 04/02/2022 04:44, Martin K. Petersen wrote:
+On Thu, Feb 03, 2022 at 07:38:43AM -0800, Luis Chamberlain wrote:
+> On Wed, Feb 02, 2022 at 08:00:12AM +0000, Chaitanya Kulkarni wrote:
+> > Mikulas,
+> > 
+> > On 2/1/22 10:33 AM, Mikulas Patocka wrote:
+> > > External email: Use caution opening links or attachments
+> > > 
+> > > 
+> > > This patch adds a new driver "nvme-debug". It uses memory as a backing
+> > > store and it is used to test the copy offload functionality.
+> > > 
+> > > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> > > 
+> > 
+> > 
+> > NVMe Controller specific memory backed features needs to go into
+> > QEMU which are targeted for testing and debugging, just like what
+> > we have done for NVMe ZNS QEMU support and not in kernel.
+> > 
+> > I don't see any special reason to make copy offload an exception.
 > 
-> Dmitry,
+> One can instantiate scsi devices with qemu by using fake scsi devices,
+> but one can also just use scsi_debug to do the same. I see both efforts
+> as desirable, so long as someone mantains this.
 > 
->> My only concern is dm_crypt target which operates on bip_iter directly
->> with the code copy-pasted from bio_integrity_advance:
->>
->> static int dm_crypt_integrity_io_alloc(struct dm_crypt_io *io, struct bio *bio)
->> {
->> 	struct bio_integrity_payload *bip;
->> 	unsigned int tag_len;
->> 	int ret;
->>
->> 	if (!bio_sectors(bio) || !io->cc->on_disk_tag_size)
->> 		return 0;
->>
->> 	bip = bio_integrity_alloc(bio, GFP_NOIO, 1);
->> 	if (IS_ERR(bip))
->> 		return PTR_ERR(bip);
->>
->> 	tag_len = io->cc->on_disk_tag_size * (bio_sectors(bio) >> io->cc->sector_shift);
->>
->> 	bip->bip_iter.bi_size = tag_len;
->> 	bip->bip_iter.bi_sector = io->cc->start + io->sector;
->>                 ^^^
->>
->> 	ret = bio_integrity_add_page(bio, virt_to_page(io->integrity_metadata),
->> 				     tag_len, offset_in_page(io->integrity_metadata));
->> ...
->> }
+> For instance, blktests uses scsi_debug for simplicity.
 > 
-> I copied Milan and Mike who are more familiar with the dm-drypt internals.
+> In the end you decide what you want to use.
 
-Hi,
-
-What's the problem here you are trying to fix?
-Even if I read linux-block posts, I do not understand the context...
-
-Anyway, cc to Mikulas and dm-devel, as dm-integrity/dm-crypt is
-the major user of bio_integrity here.
-
-If you touch the code, please be sure you run cryptsetup testsuite
-with the integrity tests.
-(IOW integritysetup tests and LUKS2 with authenticated encryption
-that uses dm-crypt over dm-integrity.)
-
-All we need is that dm-integrity can process bio integrity data
-directly. (I know some people do not like it, but this was
-the most "elegant" solution here.)
-
-Here dm-crypt uses the data for authenticated encryption (additional
-auth tag in bio field), so because dm-crypt owns bio, integrity data
-must be allocated in dm-crypt (stacked over dm-integrity).
-
-Milan
+Can we use the nvme-loop target instead?
 
 --
 dm-devel mailing list
