@@ -1,86 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 941354AE4CB
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 23:38:02 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E1E3A4AE47D
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 23:35:45 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1644359745;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=OOx8rE1wvcRt7HuufHYBGUDKUiJ05JdijRzzgmQLptY=;
+	b=QxaQlJcWGYxlB1i1mH7BE6rotfcdareJX+QkKK0wxrLkfm/H8GIkS7sDfO9jfC7KWEHsLT
+	QvsMkE+vWH9HTjBALzmZFLslaJgtQvyjTl/faYgdUBPsXB8Xl/GEIhMbLVnP+d7B3LlRAw
+	nBBgXwQjzOlWF+OWw7wVTkgbN2VCBpo=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-8-75QmgLnMO5ufnzeLxxRLHw-1; Tue, 08 Feb 2022 17:37:32 -0500
-X-MC-Unique: 75QmgLnMO5ufnzeLxxRLHw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-654-8IpXc35xPSCp39jjj6pNLg-1; Tue, 08 Feb 2022 17:35:41 -0500
+X-MC-Unique: 8IpXc35xPSCp39jjj6pNLg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22A1D100C66D;
-	Tue,  8 Feb 2022 22:37:27 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EB13355F52;
-	Tue,  8 Feb 2022 22:37:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E592583DD21;
+	Tue,  8 Feb 2022 22:35:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C07F85DB92;
+	Tue,  8 Feb 2022 22:35:35 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 545AB4BB7B;
-	Tue,  8 Feb 2022 22:37:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6960F1826D01;
+	Tue,  8 Feb 2022 22:35:35 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
+	[10.5.11.14])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 217KBcTT004543 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Feb 2022 15:11:38 -0500
+	id 217KLIfd005315 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Feb 2022 15:21:18 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 26BF5C15E6F; Mon,  7 Feb 2022 20:11:38 +0000 (UTC)
+	id 544E5452F3; Mon,  7 Feb 2022 20:21:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 22E39C0809E
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 20:11:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 076478027FC
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 20:11:38 +0000 (UTC)
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
-	[209.85.160.174]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-608-YhB3LMiXMHO7bae1sXyh2Q-1; Mon, 07 Feb 2022 15:11:34 -0500
-X-MC-Unique: YhB3LMiXMHO7bae1sXyh2Q-1
-Received: by mail-qt1-f174.google.com with SMTP id s1so12945588qtw.9
-	for <dm-devel@redhat.com>; Mon, 07 Feb 2022 12:11:34 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
-	:message-id:subject:to:cc;
-	bh=gNN8FSbqW/28ZmsRURCN6lI2eFXOmMZXjim5krXiZyo=;
-	b=fNrwZckBVRwSCIWaint89oO9xOc7ol4JLFEzX8RY4Yt7sPvQer8IDXJLdrxjwa0xP4
-	cgTDSSl8W4Pz58oSWiKeSMFDVNwkwIRwZoW87i4dr+ePuIfS4QIT1XP7msaHY4MDqraI
-	rzdRlMIuDDQSJRn5Y5eG3AdPiBjf1u4pdB6sL6rv4wbjJSJFz6RygzGBgF6MYLRHy49O
-	+gxWHM65OsTaw7YZvPf+dHrpkfwOg6rudCSe7rlWejZKl5JuIcZzufCU95nN1X998BEe
-	HkE8FZpGdZtcdDzVHWPRpsd4huJW06CHOzSIjpanv2SN3f94MmVPLWnrOqcR1xPUGCVX
-	WxcA==
-X-Gm-Message-State: AOAM533xgNdbjMngvEFjpuaCmB1ixcprZLtJ8JDakuQBRh4TmYcn89O8
-	hpH9yuIXC/rHpH3+tkuCDpPciitHolaZEIalngznnxP6
-X-Google-Smtp-Source: ABdhPJydcWRD0WqbtlLlpSuD0y0GE3E32XBC/b3rksX2Tq2+SwTY0/AhAwObTaUNb37w0y322V+HT1iwebT4QmR3FVI=
-X-Received: by 2002:a05:622a:1448:: with SMTP id
-	v8mr863731qtx.412.1644264694367; 
-	Mon, 07 Feb 2022 12:11:34 -0800 (PST)
+Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11355452F1;
+	Mon,  7 Feb 2022 20:21:17 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 217KLGx1023447; 
+	Mon, 7 Feb 2022 14:21:16 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 217KLFIt023446;
+	Mon, 7 Feb 2022 14:21:15 -0600
+Date: Mon, 7 Feb 2022 14:21:15 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20220207202115.GY24684@octiron.msp.redhat.com>
+References: <20220204073036.19523-1-mwilck@suse.com>
 MIME-Version: 1.0
-References: <CAPx-8MP6zbPACu-HaYeBO8AqBwqxt4YQarSm6vaZHSApiQWX7Q@mail.gmail.com>
-In-Reply-To: <CAPx-8MP6zbPACu-HaYeBO8AqBwqxt4YQarSm6vaZHSApiQWX7Q@mail.gmail.com>
-From: Roger Heflin <rogerheflin@gmail.com>
-Date: Mon, 7 Feb 2022 14:14:27 -0600
-Message-ID: <CAAMCDee5y=JKkd+=7SbmS=hE=z4JJfU9st+0Fv2Jwfs=7HR+gg@mail.gmail.com>
-To: Aidan Walton <aidan.walton@gmail.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+In-Reply-To: <20220204073036.19523-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 X-loop: dm-devel@redhat.com
-Cc: device-mapper development <dm-devel@redhat.com>
-Subject: Re: [dm-devel] Can not remove device. No files open,
- no processes attached. Forced to reboot server.
+Cc: dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 5/6] multipath: Makefile: modules-load.d
+ file for SCSI device handlers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -94,82 +75,98 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 7, 2022 at 3:35 AM Aidan Walton <aidan.walton@gmail.com> wrote:
->
-> Hi,
-> I've been chasing a problem now for a few weeks. I have a flaky SATA
-> controller that fails unpredictably and upon doing so all drives
-> attached are disconnected by the kernel. I have 2 discs on this
-> controller which are the components of a RAID1 array. mdraid fails the
-> disc (in its strange way) stating that one device is removed and the
-> other is active. Apparently this is the default mdraid approach. Even
-> though both devices are in fact failed. Regardless, the devmapper
-> device which is supporting an LVM logical volume on top of this raid
-> array, remains active. The logical volume is no longer listed by
-> lvdisplay, but dmsetup -c info shows:
-> Name                                Maj Min Stat Open Targ Event  UUID
-> storage.mx.vg2-shared_sun_NAS.lv1   253   2 L--w    1    1      0
-> LVM-Ud9pj6QE4hK1K3xiAFMVCnno3SrXaRyTXJLtTGDOPjBUppJgzr4t0jJowixEOtx7
-> storage.mx.vg1-shared_sun_users.lv1 253   1 L--w    1    1      0
-> LVM-ypcHlbNXu36FLRgU0EcUiXBSIvcOlHEP3MHkBKsBeHf6Q68TIuGA9hd5UfCpvOeo
-> ubuntu_server--vg-ubuntu_server--lv 253   0 L--w    1    1      0
-> LVM-eGBUJxP1vlW3MfNNeC2r5JfQUiKKWZ73t3U3Jji3lggXe8LPrUf0xRE0YyPzSorO
->
-> The device in question is 'storage.mx.vg2-shared_sun_NAS.lv1'
->
-> As can be seen is displays 'open'
->
-> however lsof /dev/mapper/storage.mx.vg2-shared_sun_NAS.lv1
-> <blank>
->
-> fuser -m /dev/storage.mx.vg1/shared_sun_users.lv1
-> <blank>
->
-> dmsetup status storage.mx.vg2-shared_sun_NAS.lv1
-> 0 976502784 error
->
-> dmsetup remove storage.mx.vg2-shared_sun_NAS.lv1
-> device-mapper: remove ioctl on storage.mx.vg2-shared_sun_NAS.lv1
-> failed: Device or resource busy
->
-> dmsetup wipe_table storage.mx.vg2-shared_sun_NAS.lv1
-> device-mapper: resume ioctl on storage.mx.vg2-shared_sun_NAS.lv1
-> failed: Invalid argument
->
->
-> and so on. Nothing appears to be attached to this device but it
-> refuses to be removed. As a consequence I can not disable the mdraid
-> array and can not recover the controller. Which is possible by
-> resetting the pci slot.
->
-> Currently the only possible way I have to recover this problem is to
-> reboot the server.
->
-> Please see.
-> https://marc.info/?l=linux-raid&m=164159457011525&w=2
->
-> for the discussion regarding the same problem on the linux-raid mailing list.
-> No progress so far, help appreciated
-> Aidan
->
-
-
-Was the filesystem mounted when this happened and if so how did you
-get it unmounted?  If the filesystem is mounted and has any dirty
-cache, that cache won't flush with the device missing and won't allow
-the device to be umounted.
-
-The in-kernel opens will not show for lsof (mounts, nfs exports on the
-fs, and probably other direct users in the kernel of the lv), so
-likely one of those is still there.
+On Fri, Feb 04, 2022 at 08:30:36AM +0100, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> The kernel's autoload mechanism for SCSI device handlers doesn't
+> work during SCSI device probing. While it's possible to load and
+> attach device handlers after probing, it has disadvantages: the
+> handlers are useful for error handling even before multipathd has
+> started, and at least up to kernel 5.17, the sysfs "access_state" attribute
+> will remain invisible for already probed devices.
+> 
+> Distributions will therefore want to make sure the handlers are either
+> built-in in the kernel, or loaded early. Add functionality to
+> create and install a modules-load.d file with a list of handlers
+> to load. By default, the list is empty, and no file will be generated.
+> The list can be specified at install-time like this:
+> 
+>    make SCSI_DH_MODULES_PRELOAD="scsi_dh_rdac scsi_dh_emc" install
+> 
+> dracut automatically adds modules-load.d files and the modules they
+> reference to the initramfs.
+> 
+> Note: distributions that compile scsi_mod as a module may rather want
+> to use a modprobe.d file with a statement like this:
+> 
+> softdep scsi_mod post: scsi_dh_alua scsi_dh_rdac
+> 
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  Makefile.inc           | 5 +++++
+>  multipath/Makefile     | 6 ++++++
+>  multipath/scsi_dh.conf | 2 ++
+>  3 files changed, 13 insertions(+)
+>  create mode 100644 multipath/scsi_dh.conf
+> 
+> diff --git a/Makefile.inc b/Makefile.inc
+> index 5223c96..3342af6 100644
+> --- a/Makefile.inc
+> +++ b/Makefile.inc
+> @@ -9,6 +9,11 @@
+>  # Uncomment to disable dmevents polling support
+>  # ENABLE_DMEVENTS_POLL = 0
+>  
+> +# List of scsi device handler modules to load on boot, e.g.
+> +# SCSI_DH_MODULES_PRELOAD := scsi_dh_alua scsi_dh_rdac
+> +SCSI_DH_MODULES_PRELOAD :=
+> +
+> +
+>  PKGCONFIG	?= pkg-config
+>  
+>  ifeq ($(TOPDIR),)
+> diff --git a/multipath/Makefile b/multipath/Makefile
+> index 015f73c..c930499 100644
+> --- a/multipath/Makefile
+> +++ b/multipath/Makefile
+> @@ -29,11 +29,17 @@ install:
+>  	$(INSTALL_PROGRAM) -m 644 $(EXEC).8 $(DESTDIR)$(man8dir)
+>  	$(INSTALL_PROGRAM) -d $(DESTDIR)$(man5dir)
+>  	$(INSTALL_PROGRAM) -m 644 $(EXEC).conf.5 $(DESTDIR)$(man5dir)
+> +ifneq ($(SCSI_DH_MODULES_PRELOAD),)
+> +	$(INSTALL_PROGRAM) -m 644 scsi_dh.conf $(DESTDIR)$(modulesloaddir)/scsi_dh.conf
+> +	for _x in $(SCSI_DH_MODULES_PRELOAD); do echo "$$_x"; done \
+> +	    >>$(DESTDIR)$(modulesloaddir)/scsi_dh.conf
+> +endif
+>  
+>  uninstall:
+>  	$(RM) $(DESTDIR)$(bindir)/$(EXEC)
+>  	$(RM) $(DESTDIR)$(udevrulesdir)/11-dm-mpath.rules
+>  	$(RM) $(DESTDIR)$(modulesloaddir)/multipath.conf
+> +	$(RM) $(DESTDIR)$(modulesloaddir)/scsi_dh.conf
+>  	$(RM) $(DESTDIR)$(libudevdir)/rules.d/56-multipath.rules
+>  	$(RM) $(DESTDIR)$(man8dir)/$(EXEC).8
+>  	$(RM) $(DESTDIR)$(man5dir)/$(EXEC).conf.5
+> diff --git a/multipath/scsi_dh.conf b/multipath/scsi_dh.conf
+> new file mode 100644
+> index 0000000..a13dd82
+> --- /dev/null
+> +++ b/multipath/scsi_dh.conf
+> @@ -0,0 +1,2 @@
+> +# Load SCSI device handler modules for multipath early
+> +# This file may be empty
+> -- 
+> 2.34.1
 
 --
 dm-devel mailing list
