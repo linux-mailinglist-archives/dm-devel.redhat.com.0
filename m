@@ -2,66 +2,65 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E3A4AE47D
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 23:35:45 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BDA64AE47F
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 23:36:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1644359745;
+	s=mimecast20190719; t=1644359770;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=OOx8rE1wvcRt7HuufHYBGUDKUiJ05JdijRzzgmQLptY=;
-	b=QxaQlJcWGYxlB1i1mH7BE6rotfcdareJX+QkKK0wxrLkfm/H8GIkS7sDfO9jfC7KWEHsLT
-	QvsMkE+vWH9HTjBALzmZFLslaJgtQvyjTl/faYgdUBPsXB8Xl/GEIhMbLVnP+d7B3LlRAw
-	nBBgXwQjzOlWF+OWw7wVTkgbN2VCBpo=
+	bh=OVZrshln6Tvij79JXCy9HlSV83EoVEGmbALTyZG/4pY=;
+	b=B7H03B4LRfUil/WFBSnDBjYuL1EdAzankm3NdWyEwrKXEFiwhmkVL86TO+K+xzGTI2zaTB
+	TZvWaTAiSb0EyWSguTGT3YlhH7IZDrskFP2iQeA0fum62S0CNZkAk75AqWQlU9YA1idAfS
+	sMZKuVS4C23Md/VD5nn+1AtbjTzLwEI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-654-8IpXc35xPSCp39jjj6pNLg-1; Tue, 08 Feb 2022 17:35:41 -0500
-X-MC-Unique: 8IpXc35xPSCp39jjj6pNLg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-99-NIqrwEmpMaivlHWmnAR-FQ-1; Tue, 08 Feb 2022 17:34:56 -0500
+X-MC-Unique: NIqrwEmpMaivlHWmnAR-FQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id E592583DD21;
-	Tue,  8 Feb 2022 22:35:35 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C07F85DB92;
-	Tue,  8 Feb 2022 22:35:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id BAAF71091DBD;
+	Tue,  8 Feb 2022 22:34:49 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 96FDF1037F51;
+	Tue,  8 Feb 2022 22:34:49 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6960F1826D01;
-	Tue,  8 Feb 2022 22:35:35 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com
-	[10.5.11.14])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2046D4BB7C;
+	Tue,  8 Feb 2022 22:34:49 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com
+	[10.5.11.16])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 217KLIfd005315 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Feb 2022 15:21:18 -0500
+	id 217LGsNE009126 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Feb 2022 16:16:54 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 544E5452F3; Mon,  7 Feb 2022 20:21:18 +0000 (UTC)
+	id C900C4BC52; Mon,  7 Feb 2022 21:16:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 11355452F1;
-	Mon,  7 Feb 2022 20:21:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4371F6AB95;
+	Mon,  7 Feb 2022 21:16:44 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
-	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 217KLGx1023447; 
-	Mon, 7 Feb 2022 14:21:16 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 217LGgAn024980; 
+	Mon, 7 Feb 2022 15:16:42 -0600
 Received: (from bmarzins@localhost)
-	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 217KLFIt023446;
-	Mon, 7 Feb 2022 14:21:15 -0600
-Date: Mon, 7 Feb 2022 14:21:15 -0600
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 217LGgsZ024979;
+	Mon, 7 Feb 2022 15:16:42 -0600
+Date: Mon, 7 Feb 2022 15:16:41 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: mwilck@suse.com
-Message-ID: <20220207202115.GY24684@octiron.msp.redhat.com>
-References: <20220204073036.19523-1-mwilck@suse.com>
+Message-ID: <20220207211641.GA24684@octiron.msp.redhat.com>
+References: <20220207171819.7091-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20220204073036.19523-1-mwilck@suse.com>
+In-Reply-To: <20220207171819.7091-1-mwilck@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com
-Subject: Re: [dm-devel] [PATCH v2 5/6] multipath: Makefile: modules-load.d
- file for SCSI device handlers
+Subject: Re: [dm-devel] [PATCH] kpartx.rules: skip MD devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -75,7 +74,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -84,87 +83,45 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 04, 2022 at 08:30:36AM +0100, mwilck@suse.com wrote:
+On Mon, Feb 07, 2022 at 06:18:19PM +0100, mwilck@suse.com wrote:
 > From: Martin Wilck <mwilck@suse.com>
 > 
-> The kernel's autoload mechanism for SCSI device handlers doesn't
-> work during SCSI device probing. While it's possible to load and
-> attach device handlers after probing, it has disadvantages: the
-> handlers are useful for error handling even before multipathd has
-> started, and at least up to kernel 5.17, the sysfs "access_state" attribute
-> will remain invisible for already probed devices.
+> With the mdadm metadata format v1.0 (and DDF), the MD superblock is at the end
+> of the device, keeping the partition table at the beginning. This may cause
+> wrong partition mappings to be created by kpartx on RAID component devices.
 > 
-> Distributions will therefore want to make sure the handlers are either
-> built-in in the kernel, or loaded early. Add functionality to
-> create and install a modules-load.d file with a list of handlers
-> to load. By default, the list is empty, and no file will be generated.
-> The list can be specified at install-time like this:
+> So far I've only seen ugly error messages, but at least in principle it can
+> happen that kpartx wins a race with MD, and prevents correct setup of the
+> MD device.
 > 
->    make SCSI_DH_MODULES_PRELOAD="scsi_dh_rdac scsi_dh_emc" install
+> Sample error messages:
 > 
-> dracut automatically adds modules-load.d files and the modules they
-> reference to the initramfs.
+> [    4.029490] systemd-udevd[445]: dm-0: '/sbin/kpartx -un -p -part /dev/dm-0'(err) 'device-mapper: reload ioctl on 3600140508dbcf02acb448188d73ec97d-part1  failed: Device or resource busy'
+> [    4.075666] kernel: device-mapper: table: 254:1: linear: Device lookup failed
+> [    4.075945] kernel: device-mapper: ioctl: error adding target to table
 > 
-> Note: distributions that compile scsi_mod as a module may rather want
-> to use a modprobe.d file with a statement like this:
+> Skip creating partition mappings on MD components.
 > 
-> softdep scsi_mod post: scsi_dh_alua scsi_dh_rdac
-> 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 > Signed-off-by: Martin Wilck <mwilck@suse.com>
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 > ---
->  Makefile.inc           | 5 +++++
->  multipath/Makefile     | 6 ++++++
->  multipath/scsi_dh.conf | 2 ++
->  3 files changed, 13 insertions(+)
->  create mode 100644 multipath/scsi_dh.conf
+>  kpartx/kpartx.rules | 3 +++
+>  1 file changed, 3 insertions(+)
 > 
-> diff --git a/Makefile.inc b/Makefile.inc
-> index 5223c96..3342af6 100644
-> --- a/Makefile.inc
-> +++ b/Makefile.inc
-> @@ -9,6 +9,11 @@
->  # Uncomment to disable dmevents polling support
->  # ENABLE_DMEVENTS_POLL = 0
+> diff --git a/kpartx/kpartx.rules b/kpartx/kpartx.rules
+> index d7527d7..1969dee 100644
+> --- a/kpartx/kpartx.rules
+> +++ b/kpartx/kpartx.rules
+> @@ -12,6 +12,9 @@ ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}=="1", GOTO="kpartx_end"
+>  # Create dm tables for partitions on multipath devices.
+>  ENV{DM_UUID}!="mpath-?*", GOTO="mpath_kpartx_end"
 >  
-> +# List of scsi device handler modules to load on boot, e.g.
-> +# SCSI_DH_MODULES_PRELOAD := scsi_dh_alua scsi_dh_rdac
-> +SCSI_DH_MODULES_PRELOAD :=
+> +# Ignore RAID members
+> +ENV{ID_FS_TYPE}=="linux_raid_member|isw_raid_member|ddf_raid_member", GOTO="mpath_kpartx_end"
 > +
-> +
->  PKGCONFIG	?= pkg-config
->  
->  ifeq ($(TOPDIR),)
-> diff --git a/multipath/Makefile b/multipath/Makefile
-> index 015f73c..c930499 100644
-> --- a/multipath/Makefile
-> +++ b/multipath/Makefile
-> @@ -29,11 +29,17 @@ install:
->  	$(INSTALL_PROGRAM) -m 644 $(EXEC).8 $(DESTDIR)$(man8dir)
->  	$(INSTALL_PROGRAM) -d $(DESTDIR)$(man5dir)
->  	$(INSTALL_PROGRAM) -m 644 $(EXEC).conf.5 $(DESTDIR)$(man5dir)
-> +ifneq ($(SCSI_DH_MODULES_PRELOAD),)
-> +	$(INSTALL_PROGRAM) -m 644 scsi_dh.conf $(DESTDIR)$(modulesloaddir)/scsi_dh.conf
-> +	for _x in $(SCSI_DH_MODULES_PRELOAD); do echo "$$_x"; done \
-> +	    >>$(DESTDIR)$(modulesloaddir)/scsi_dh.conf
-> +endif
->  
->  uninstall:
->  	$(RM) $(DESTDIR)$(bindir)/$(EXEC)
->  	$(RM) $(DESTDIR)$(udevrulesdir)/11-dm-mpath.rules
->  	$(RM) $(DESTDIR)$(modulesloaddir)/multipath.conf
-> +	$(RM) $(DESTDIR)$(modulesloaddir)/scsi_dh.conf
->  	$(RM) $(DESTDIR)$(libudevdir)/rules.d/56-multipath.rules
->  	$(RM) $(DESTDIR)$(man8dir)/$(EXEC).8
->  	$(RM) $(DESTDIR)$(man5dir)/$(EXEC).conf.5
-> diff --git a/multipath/scsi_dh.conf b/multipath/scsi_dh.conf
-> new file mode 100644
-> index 0000000..a13dd82
-> --- /dev/null
-> +++ b/multipath/scsi_dh.conf
-> @@ -0,0 +1,2 @@
-> +# Load SCSI device handler modules for multipath early
-> +# This file may be empty
+>  # DM_SUBSYSTEM_UDEV_FLAG1 is the "skip_kpartx" flag.
+>  # For events not generated by libdevmapper, we need to fetch it from db:
+>  # - "change" events with DM_ACTIVATION!="1" (e.g. partition table changes)
 > -- 
 > 2.34.1
 
