@@ -1,64 +1,63 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B28E64AE480
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 23:36:12 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 00CD44AE47C
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 23:35:35 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-35-9dY7RfSKNM6Cl5wcDtdmLw-1; Tue, 08 Feb 2022 17:36:09 -0500
-X-MC-Unique: 9dY7RfSKNM6Cl5wcDtdmLw-1
+ us-mta-592-LD6y7PhAP7WoBmLLTmBQHA-1; Tue, 08 Feb 2022 17:35:31 -0500
+X-MC-Unique: LD6y7PhAP7WoBmLLTmBQHA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AFF9B1091DC7;
-	Tue,  8 Feb 2022 22:36:03 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 86B9F4CEF8;
-	Tue,  8 Feb 2022 22:36:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 02C58814250;
+	Tue,  8 Feb 2022 22:35:25 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CFB824CEED;
+	Tue,  8 Feb 2022 22:35:24 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2CBA550039;
-	Tue,  8 Feb 2022 22:36:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.7])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 20E6D1802E34;
+	Tue,  8 Feb 2022 22:35:24 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 217MkGD6018030 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Feb 2022 17:46:16 -0500
+	id 217NR84L021021 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 7 Feb 2022 18:27:08 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 52FE81402406; Mon,  7 Feb 2022 22:46:16 +0000 (UTC)
+	id 41DC440CFD1F; Mon,  7 Feb 2022 23:27:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4F1C31402403
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 22:46:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F8A73803502
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 22:46:16 +0000 (UTC)
-Received: from mga05.intel.com (mga05.intel.com [192.55.52.43]) by
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D76D40CFD0B
+	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 23:27:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2348F802A5A
+	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 23:27:08 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-475-JVkpnfkNNfSpuWhgucH_FA-1; Mon, 07 Feb 2022 17:46:14 -0500
-X-MC-Unique: JVkpnfkNNfSpuWhgucH_FA-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="335225442"
-X-IronPort-AV: E=Sophos;i="5.88,351,1635231600"; d="scan'208";a="335225442"
-Received: from fmsmga001.fm.intel.com ([10.253.24.23])
-	by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	07 Feb 2022 14:46:05 -0800
+	us-mta-91-zl9D2UGBOBy0VXxV4l7dVA-1; Mon, 07 Feb 2022 18:27:04 -0500
+X-MC-Unique: zl9D2UGBOBy0VXxV4l7dVA-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10251"; a="232395908"
+X-IronPort-AV: E=Sophos;i="5.88,351,1635231600"; d="scan'208";a="232395908"
+Received: from orsmga003.jf.intel.com ([10.7.209.27])
+	by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	07 Feb 2022 15:27:03 -0800
 X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="5.88,351,1635231600"; d="scan'208";a="677911526"
+X-IronPort-AV: E=Sophos;i="5.88,351,1635231600"; d="scan'208";a="481746035"
 Received: from lkp-server01.sh.intel.com (HELO 9dd77a123018) ([10.239.97.150])
-	by fmsmga001.fm.intel.com with ESMTP; 07 Feb 2022 14:45:57 -0800
+	by orsmga003.jf.intel.com with ESMTP; 07 Feb 2022 15:27:00 -0800
 Received: from kbuild by 9dd77a123018 with local (Exim 4.92)
 	(envelope-from <lkp@intel.com>)
-	id 1nHClh-00013p-3V; Mon, 07 Feb 2022 22:45:57 +0000
-Date: Tue, 8 Feb 2022 06:45:20 +0800
+	id 1nHDPP-00015f-CT; Mon, 07 Feb 2022 23:26:59 +0000
+Date: Tue, 8 Feb 2022 07:26:02 +0800
 From: kernel test robot <lkp@intel.com>
 To: Nitesh Shetty <nj.shetty@samsung.com>, mpatocka@redhat.com
-Message-ID: <202202080650.48C9Ps00-lkp@intel.com>
+Message-ID: <202202080735.lyaEe5Bq-lkp@intel.com>
 References: <20220207141348.4235-4-nj.shetty@samsung.com>
 MIME-Version: 1.0
 In-Reply-To: <20220207141348.4235-4-nj.shetty@samsung.com>
@@ -71,13 +70,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: axboe@kernel.dk, javier@javigon.com, msnitzer@redhat.com,
 	kbuild-all@lists.01.org, linux-scsi@vger.kernel.org,
-	chaitanyak@nvidia.com, linux-nvme@lists.infradead.org,
-	linux-block@vger.kernel.org, dm-devel@redhat.com,
-	linux-fsdevel@vger.kernel.org
+	llvm@lists.linux.dev, chaitanyak@nvidia.com,
+	linux-nvme@lists.infradead.org, linux-block@vger.kernel.org,
+	dm-devel@redhat.com, linux-fsdevel@vger.kernel.org
 Subject: Re: [dm-devel] [PATCH v2 03/10] block: Add copy offload support
 	infrastructure
 X-BeenThere: dm-devel@redhat.com
@@ -114,8 +113,8 @@ https://git-scm.com/docs/git-format-patch]
 
 url:    https://github.com/0day-ci/linux/commits/Nitesh-Shetty/block-make-bio_map_kern-non-static/20220207-231407
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux-block.git for-next
-config: nios2-randconfig-r001-20220207 (https://download.01.org/0day-ci/archive/20220208/202202080650.48C9Ps00-lkp@intel.com/config)
-compiler: nios2-linux-gcc (GCC) 11.2.0
+config: hexagon-randconfig-r045-20220207 (https://download.01.org/0day-ci/archive/20220208/202202080735.lyaEe5Bq-lkp@intel.com/config)
+compiler: clang version 15.0.0 (https://github.com/llvm/llvm-project 0d8850ae2cae85d49bea6ae0799fa41c7202c05c)
 reproduce (this is a W=1 build):
         wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
         chmod +x ~/bin/make.cross
@@ -125,16 +124,21 @@ reproduce (this is a W=1 build):
         git checkout 12a9801a7301f1a1e2ea355c5a4438dab17894cf
         # save the config file to linux build tree
         mkdir build_dir
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=nios2 SHELL=/bin/bash
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=clang make.cross W=1 O=build_dir ARCH=hexagon SHELL=/bin/bash
 
 If you fix the issue, kindly add following tag as appropriate
 Reported-by: kernel test robot <lkp@intel.com>
 
 All warnings (new ones prefixed by >>):
 
->> block/blk-lib.c:185:5: warning: no previous prototype for 'blk_copy_offload' [-Wmissing-prototypes]
-     185 | int blk_copy_offload(struct block_device *src_bdev, int nr_srcs,
-         |     ^~~~~~~~~~~~~~~~
+>> block/blk-lib.c:185:5: warning: no previous prototype for function 'blk_copy_offload' [-Wmissing-prototypes]
+   int blk_copy_offload(struct block_device *src_bdev, int nr_srcs,
+       ^
+   block/blk-lib.c:185:1: note: declare 'static' if the function is not intended to be used outside of this translation unit
+   int blk_copy_offload(struct block_device *src_bdev, int nr_srcs,
+   ^
+   static 
+   1 warning generated.
 
 
 vim +/blk_copy_offload +185 block/blk-lib.c
