@@ -2,93 +2,66 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A917F4AB783
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Feb 2022 10:34:36 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A1C44ADB9B
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 15:54:00 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1644332038;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=hOobpsTLSXKJ7WxcC/rDz36sl47C2H6qEau31/fia/s=;
+	b=Xqk9ruiWvHg6EdWi4Gwo3oZSg9D0AYCFFOu1pqMiE0CAUW6sgIHec1RUgIiYsvjdh7ZQo6
+	LP9BBveggOtcmwi+as3XC+b98kBXrNbdknMGGldExkzl1Zlh1FV+b9DYrpGkyCiC7k70jb
+	nSXMPfaGpddeTE/L8T1biKFzcqqQoM0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-569-7mM87GugO9iSvNGFdymEeg-1; Mon, 07 Feb 2022 04:34:33 -0500
-X-MC-Unique: 7mM87GugO9iSvNGFdymEeg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-341-78iiOGW0NEyI7_oAMKUtPg-1; Tue, 08 Feb 2022 09:53:55 -0500
+X-MC-Unique: 78iiOGW0NEyI7_oAMKUtPg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5A5A5343CB;
-	Mon,  7 Feb 2022 09:34:28 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EA9341124C40;
+	Tue,  8 Feb 2022 14:53:45 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3437766E11;
-	Mon,  7 Feb 2022 09:34:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CDE4747B4;
+	Tue,  8 Feb 2022 14:53:40 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E48631806D1C;
-	Mon,  7 Feb 2022 09:34:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EAC2E1809CB8;
+	Tue,  8 Feb 2022 14:53:18 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com
+	[10.5.11.22])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21796l5p019067 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Feb 2022 04:06:47 -0500
+	id 218Er3uj023996 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Feb 2022 09:53:03 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BA65553AC; Mon,  7 Feb 2022 09:06:47 +0000 (UTC)
+	id 4B80F105C89A; Tue,  8 Feb 2022 14:53:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B622F53D6
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 09:06:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5CE0B106655B
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 09:06:44 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
-	[209.85.214.176]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-375-nGgijuyQOqeA9gT3ce39VA-1; Mon, 07 Feb 2022 04:06:40 -0500
-X-MC-Unique: nGgijuyQOqeA9gT3ce39VA-1
-Received: by mail-pl1-f176.google.com with SMTP id x4so3049082plb.4;
-	Mon, 07 Feb 2022 01:06:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
-	:content-transfer-encoding;
-	bh=z4u5w4bPw3yV/b+kwX1aHYBXd+5cdgt0I+HhlG81Y0w=;
-	b=kUvWp3O/PcZ1c3mmTUZodTnKhO0uBrXpQt1fwjrw7JdL80akMGHSJOsgYJvyUVtzEX
-	tkHKAmSRWSSzSgFBn1P5HbzjUJGkkIZ4+07Ihym55Ze9XP0VNNr/gEraSD5yu+oRCLS0
-	ih0wtXmtu0Qok2wYksz/8cg0sUD76CyKZ/PPRBlaPrf+PpvmF0fan7GX/TxkLvhS8ac0
-	b1fhscuMGE9ei3TLpilAnhfX7tizu3kVliSdnPZPDPl2cf12TgxLm8wRVFTkoF16aA6c
-	LHD93Boo3icjduSF0MSGD5+6Tb9dNlIsmU+nABriwRpPcjjscj4S1MiaHtaLmtSyf+/M
-	SDmw==
-X-Gm-Message-State: AOAM530gL3Xwx6l1RaRZfoEo1FF46S3rdEPkuUhoXaRu2G9E++xQaGbN
-	ZR99H1svaYwkrlJHbC1j8mNI8EvzrVk=
-X-Google-Smtp-Source: ABdhPJx4GR2wsbDJLP7wI3RIxadSj0ipCMY9VI0P/l4mi9o0gHOe/FMyPrBofsFJ5cLht8dSGeBJGw==
-X-Received: by 2002:a17:90b:4c06:: with SMTP id
-	na6mr13168872pjb.37.1644224798980; 
-	Mon, 07 Feb 2022 01:06:38 -0800 (PST)
-Received: from baohua-VirtualBox.localdomain (47-72-151-34.dsl.dyn.ihug.co.nz.
-	[47.72.151.34]) by smtp.gmail.com with ESMTPSA id
-	s17sm10660126pfk.156.2022.02.07.01.06.35
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Mon, 07 Feb 2022 01:06:38 -0800 (PST)
-From: Barry Song <21cnbao@gmail.com>
-X-Google-Original-From: Barry Song <song.bao.hua@hisilicon.com>
-To: agk@redhat.com, snitzer@redhat.com, dm-devel@redhat.com,
-	linux-block@vger.kernel.org
-Date: Mon,  7 Feb 2022 17:06:20 +0800
-Message-Id: <20220207090620.21207-1-song.bao.hua@hisilicon.com>
+Received: from octiron.msp.redhat.com (unknown [10.15.80.209])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C71B310631EA;
+	Tue,  8 Feb 2022 14:52:56 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+	by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 218Eqsfm009700; 
+	Tue, 8 Feb 2022 08:52:54 -0600
+Received: (from bmarzins@localhost)
+	by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 218EqsdJ009699;
+	Tue, 8 Feb 2022 08:52:54 -0600
+Date: Tue, 8 Feb 2022 08:52:53 -0600
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20220208145253.GB24684@octiron.msp.redhat.com>
+References: <20220202115025.29214-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+In-Reply-To: <20220202115025.29214-1-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 07 Feb 2022 04:33:18 -0500
-Cc: Barry Song <song.bao.hua@hisilicon.com>, Jens Axboe <axboe@kernel.dk>,
-	linux-kernel@vger.kernel.org, linuxarm@huawei.com
-Subject: [dm-devel] [PATCH] dm io: Drop the obsolete and incorrect doc for
-	dm_io()
+Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>
+Subject: Re: [dm-devel] [PATCH] libmultipath: hwtable: use ALUA for all LIO
+	targets
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,45 +75,41 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Commit 7eaceaccab5f ("block: remove per-queue plugging") dropped
-unplug_delay() and blk_unplug(). And the current code has no
-fundamental difference between sync_io() and async_io() except
-sync_io() uses sync_io_complete() as the notify.fn and explicitly
-calls wait_for_completion_io() to sync. The comment isn't valid
-any more.
-
-Cc: Jens Axboe <axboe@kernel.dk>
-Signed-off-by: Barry Song <song.bao.hua@hisilicon.com>
----
- drivers/md/dm-io.c | 5 -----
- 1 file changed, 5 deletions(-)
-
-diff --git a/drivers/md/dm-io.c b/drivers/md/dm-io.c
-index 2d3cda0acacb..7dba193de28b 100644
---- a/drivers/md/dm-io.c
-+++ b/drivers/md/dm-io.c
-@@ -528,11 +528,6 @@ static int dp_init(struct dm_io_request *io_req, struct dpages *dp,
- 
- /*
-  * New collapsed (a)synchronous interface.
-- *
-- * If the IO is asynchronous (i.e. it has notify.fn), you must either unplug
-- * the queue with blk_unplug() some time later or set REQ_SYNC in
-- * io_req->bi_opf. If you fail to do one of these, the IO will be submitted to
-- * the disk after q->unplug_delay, which defaults to 3ms in blk-settings.c.
-  */
- int dm_io(struct dm_io_request *io_req, unsigned num_regions,
- 	  struct dm_io_region *where, unsigned long *sync_error_bits)
--- 
-2.25.1
+On Wed, Feb 02, 2022 at 12:50:25PM +0100, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> LIO supports ALUA for all backends. Use it by default.
+> 
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  libmultipath/hwtable.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
+> index c65e5e1..bd15710 100644
+> --- a/libmultipath/hwtable.c
+> +++ b/libmultipath/hwtable.c
+> @@ -1039,7 +1039,7 @@ static struct hwentry default_hw[] = {
+>  	{
+>  		/* Linux-IO Target */
+>  		.vendor        = "(LIO-ORG|SUSE)",
+> -		.product       = "RBD",
+> +		.product       = ".",
+>  		.hwhandler     = "1 alua",
+>  		.pgpolicy      = GROUP_BY_PRIO,
+>  		.pgfailback    = -FAILBACK_IMMEDIATE,
+> -- 
+> 2.34.1
 
 --
 dm-devel mailing list
