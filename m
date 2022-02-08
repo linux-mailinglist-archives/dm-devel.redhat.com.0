@@ -1,70 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B35514AE15A
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 19:48:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F415A4AE29F
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Feb 2022 21:37:55 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-518-YtfKwvD3OkSk_WfqGyli8Q-1; Tue, 08 Feb 2022 13:48:32 -0500
-X-MC-Unique: YtfKwvD3OkSk_WfqGyli8Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-313-5c0UaXP1PMqoD6FoyhPBOw-1; Tue, 08 Feb 2022 15:37:50 -0500
+X-MC-Unique: 5c0UaXP1PMqoD6FoyhPBOw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 133C41091DB6;
-	Tue,  8 Feb 2022 18:48:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 81EE618C89CC;
+	Tue,  8 Feb 2022 20:37:43 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id BAC547E11C;
-	Tue,  8 Feb 2022 18:48:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D59136AB95;
+	Tue,  8 Feb 2022 20:37:39 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id AC2431806D1C;
-	Tue,  8 Feb 2022 18:48:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C81CF1809CB8;
+	Tue,  8 Feb 2022 20:37:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 217AqWvc028146 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 7 Feb 2022 05:52:32 -0500
+	id 218KbGVp030557 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 8 Feb 2022 15:37:17 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 047C2492CAA; Mon,  7 Feb 2022 10:52:32 +0000 (UTC)
+	id B8EDBC080A9; Tue,  8 Feb 2022 20:37:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 006E5492CA4
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 10:52:31 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B50F1C07F5D
+	for <dm-devel@redhat.com>; Tue,  8 Feb 2022 20:37:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D943B2999B29
-	for <dm-devel@redhat.com>; Mon,  7 Feb 2022 10:52:31 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-191-OTVhhygMPnmotBHm0zO6fA-1; Mon, 07 Feb 2022 05:52:30 -0500
-X-MC-Unique: OTVhhygMPnmotBHm0zO6fA-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by smtp-out1.suse.de (Postfix) with ESMTPS id 04D37210E6;
-	Mon,  7 Feb 2022 10:45:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	key-exchange X25519 server-signature ECDSA (P-521) server-digest
-	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 42E3213B53;
-	Mon,  7 Feb 2022 10:45:55 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id 1Eq0DmP4AGJsRwAAMHmgww
-	(envelope-from <ddiss@suse.de>); Mon, 07 Feb 2022 10:45:55 +0000
-Date: Mon, 7 Feb 2022 11:45:54 +0100
-From: David Disseldorp <ddiss@suse.de>
-To: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-Message-ID: <20220207114554.7a739042@suse.de>
-In-Reply-To: <f0e19ae4-b37a-e9a3-2be7-a5afb334a5c3@nvidia.com>
-References: <f0e19ae4-b37a-e9a3-2be7-a5afb334a5c3@nvidia.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B9E3802E5B
+	for <dm-devel@redhat.com>; Tue,  8 Feb 2022 20:37:16 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+	[209.85.208.48]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-329-0ZNn7fY0PXm3Iku3j7RZVw-1; Tue, 08 Feb 2022 15:37:13 -0500
+X-MC-Unique: 0ZNn7fY0PXm3Iku3j7RZVw-1
+Received: by mail-ed1-f48.google.com with SMTP id eg42so814137edb.7;
+	Tue, 08 Feb 2022 12:37:12 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+	:content-language:to:cc:references:from:in-reply-to
+	:content-transfer-encoding;
+	bh=tTVqdHz6utN6OoFKFhh+5Z+3IXoE9U96hd6oLCK9Q8g=;
+	b=Vll4ZNwBZxJmKBmssTK6NaAvDtnOc5/+9GjPkltxN0hHig6sxoVphDpxda35IKX6Ii
+	mGW/NpfRq3/cJT7/ted+251i1AhJpstoUpM2vAOnK//gS1e4WR12SRy1TPfygW8E3d9M
+	irumJygES6mmMXscYJ6pXVUiVxV6iyR7fbSK/C/Eoyg2EZoWqGrpsHrcni/Q9tomlwnm
+	mpI/uajvcgx3/GDr/XM1ci91SsJ9dQW815Qat1Rgu42c0EE7GRijq/FiwQEf8D2sJtRI
+	vP6ALjoo/xG8RwpidzVm8katJuliYmVo2/f/g/GW6EdRarm4elCYfAzktDGeCJZ8CRhA
+	t+vA==
+X-Gm-Message-State: AOAM5300kWUKGQaoe0p4Sfv94A6JCXNv96WRwLrZfHtpK+hP5tLhR/6I
+	bviCkoZg/l1jeQbzlT6pdfNru/6iEMVii9Bb
+X-Google-Smtp-Source: ABdhPJxZiaODbkYiZ2asY2KY7boTGBqhjc8kTaOPG8gRR/AcZVrk2UOlXePFyUxcm+djbqkgA0VtoQ==
+X-Received: by 2002:aa7:d815:: with SMTP id v21mr6232706edq.160.1644352630527; 
+	Tue, 08 Feb 2022 12:37:10 -0800 (PST)
+Received: from [192.168.0.99] ([83.148.32.207])
+	by smtp.gmail.com with ESMTPSA id p1sm4565598edy.69.2022.02.08.12.37.09
+	(version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+	Tue, 08 Feb 2022 12:37:10 -0800 (PST)
+Message-ID: <9a14a7a5-a8a1-a4d6-f9fd-012d3c170f2a@gmail.com>
+Date: Tue, 8 Feb 2022 21:37:08 +0100
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	Firefox/91.0 Thunderbird/91.4.0
+To: LVM general discussion and development <linux-lvm@redhat.com>,
+	Demi Marie Obenour <demi@invisiblethingslab.com>,
+	device-mapper development <dm-devel@redhat.com>
+References: <YgK+Avj+VURDqo7j@itl-email>
+From: Zdenek Kabelac <zdenek.kabelac@gmail.com>
+In-Reply-To: <YgK+Avj+VURDqo7j@itl-email>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -73,23 +85,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 08 Feb 2022 02:51:50 -0500
-Cc: Jens Axboe <axboe@kernel.dk>,
-	"msnitzer@redhat.com >> msnitzer@redhat.com" <msnitzer@redhat.com>,
-	"tytso@mit.edu" <tytso@mit.edu>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"djwong@kernel.org" <djwong@kernel.org>,
-	"josef@toxicpanda.com" <josef@toxicpanda.com>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"clm@fb.com" <clm@fb.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"dsterba@suse.com" <dsterba@suse.com>, "jack@suse.com" <jack@suse.com>,
-	linux-fsdevel <linux-fsdevel@vger.kernel.org>,
-	lsf-pc@lists.linux-foundation.org
-Subject: Re: [dm-devel] [LSF/MM/BFP ATTEND] [LSF/MM/BFP TOPIC] Storage: Copy
-	Offload
+Cc: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>,
+	=?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
+	<marmarek@invisiblethingslab.com>
+Subject: Re: [dm-devel] Thin pool performance when allocating lots of blocks
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,113 +104,48 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Thu, 27 Jan 2022 07:14:13 +0000, Chaitanya Kulkarni wrote:
+Dne 08. 02. 22 v 20:00 Demi Marie Obenour napsal(a):
+> Are thin volumes (which start as snapshots of a blank volume) efficient
+> for building virtual machine images?  Given the nature of this workload
+> (writing to lots of new, possibly-small files, then copying data from
+> them to a huge disk image), I expect that this will cause sharing to be
+> broken many, many times, and the kernel code that breaks sharing appears
+> to be rather heavyweight.  Furthermore, since zeroing is enabled, this
+> might cause substantial write amplification.  Turning zeroing off is not
+> an option for security reasons.
+> 
+> Is there a way to determine if breaking sharing is the cause of
+> performance problems?  If it is, are there any better solutions?
 
-> Hi,
-> 
-> * Background :-
-> -----------------------------------------------------------------------
-> 
-> Copy offload is a feature that allows file-systems or storage devices
-> to be instructed to copy files/logical blocks without requiring
-> involvement of the local CPU.
-> 
-> With reference to the RISC-V summit keynote [1] single threaded
-> performance is limiting due to Denard scaling and multi-threaded
-> performance is slowing down due Moore's law limitations. With the rise
-> of SNIA Computation Technical Storage Working Group (TWG) [2],
-> offloading computations to the device or over the fabrics is becoming
-> popular as there are several solutions available [2]. One of the common
-> operation which is popular in the kernel and is not merged yet is Copy
-> offload over the fabrics or on to the device.
-> 
-> * Problem :-
-> -----------------------------------------------------------------------
-> 
-> The original work which is done by Martin is present here [3]. The
-> latest work which is posted by Mikulas [4] is not merged yet. These two
-> approaches are totally different from each other. Several storage
-> vendors discourage mixing copy offload requests with regular READ/WRITE
-> I/O. Also, the fact that the operation fails if a copy request ever
-> needs to be split as it traverses the stack it has the unfortunate
-> side-effect of preventing copy offload from working in pretty much
-> every common deployment configuration out there.
-> 
-> * Current state of the work :-
-> -----------------------------------------------------------------------
-> 
-> With [3] being hard to handle arbitrary DM/MD stacking without
-> splitting the command in two, one for copying IN and one for copying
-> OUT. Which is then demonstrated by the [4] why [3] it is not a suitable
-> candidate. Also, with [4] there is an unresolved problem with the
-> two-command approach about how to handle changes to the DM layout
-> between an IN and OUT operations.
-> 
-> We have conducted a call with interested people late last year since 
-> lack of LSFMMM and we would like to share the details with broader
-> community members.
-> 
-> * Why Linux Kernel Storage System needs Copy Offload support now ?
-> -----------------------------------------------------------------------
-> 
-> With the rise of the SNIA Computational Storage TWG and solutions [2],
-> existing SCSI XCopy support in the protocol, recent advancement in the
-> Linux Kernel File System for Zoned devices (Zonefs [5]), Peer to Peer
-> DMA support in the Linux Kernel mainly for NVMe devices [7] and
-> eventually NVMe Devices and subsystem (NVMe PCIe/NVMeOF) will benefit
-> from Copy offload operation.
-> 
-> With this background we have significant number of use-cases which are
-> strong candidates waiting for outstanding Linux Kernel Block Layer Copy
-> Offload support, so that Linux Kernel Storage subsystem can to address
-> previously mentioned problems [1] and allow efficient offloading of the
-> data related operations. (Such as move/copy etc.)
-> 
-> For reference following is the list of the use-cases/candidates waiting
-> for Copy Offload support :-
-> 
-> 1. SCSI-attached storage arrays.
-> 2. Stacking drivers supporting XCopy DM/MD.
-> 3. Computational Storage solutions.
-> 7. File systems :- Local, NFS and Zonefs.
-> 4. Block devices :- Distributed, local, and Zoned devices.
-> 5. Peer to Peer DMA support solutions.
-> 6. Potentially NVMe subsystem both NVMe PCIe and NVMeOF.
-> 
-> * What we will discuss in the proposed session ?
-> -----------------------------------------------------------------------
-> 
-> I'd like to propose a session to go over this topic to understand :-
-> 
-> 1. What are the blockers for Copy Offload implementation ?
-> 2. Discussion about having a file system interface.
-> 3. Discussion about having right system call for user-space.
-> 4. What is the right way to move this work forward ?
-> 5. How can we help to contribute and move this work forward ?
-> 
-> * Required Participants :-
-> -----------------------------------------------------------------------
-> 
-> I'd like to invite file system, block layer, and device drivers
-> developers to:-
-> 
-> 1. Share their opinion on the topic.
-> 2. Share their experience and any other issues with [4].
-> 3. Uncover additional details that are missing from this proposal.
+Hi
 
-I'd like to attend this discussion. I've worked on the LIO XCOPY
-implementation in drivers/target/target_core_xcopy.c and added Samba's
-FSCTL_SRV_COPYCHUNK/FSCTL_DUPLICATE_EXTENTS_TO_FILE support.
+Usually the smaller the thin chunks size is the smaller the problem gets.
+With current released version of thin-provisioning minimal chunk size is 
+64KiB. So you can't use smaller value to further reduce this impact.
 
-Cheers, David
+Note - even if you do a lot of tiny 4KiB writes  - only the 'first' such write 
+into 64K area breaks sharing all following writes to same location no longer 
+have this penalty (also zeroing with 64K is less impactful...)
+
+But it's clear thin-provisioning comes with some price - so if it's not good 
+enough from time constrains some other solutions might need to be explored.
+(i.e. caching, better hw, splitting  FS into multiple partitions with 
+'read-only sections,....)
+
+For analysis of device hot points you could check 'dmstats' tool for DM devices.
+
+Regards
+
+Zdenek
 
 --
 dm-devel mailing list
