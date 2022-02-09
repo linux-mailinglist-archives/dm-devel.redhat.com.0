@@ -1,103 +1,170 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AC7814AEBEF
-	for <lists+dm-devel@lfdr.de>; Wed,  9 Feb 2022 09:12:24 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C28D4AEB87
+	for <lists+dm-devel@lfdr.de>; Wed,  9 Feb 2022 08:54:23 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-436-DKjpLg3VOwu6RoT07rWG6A-1; Wed, 09 Feb 2022 03:12:19 -0500
-X-MC-Unique: DKjpLg3VOwu6RoT07rWG6A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-619-pAE75ge-OPumvZJIIM8Cag-1; Wed, 09 Feb 2022 02:54:19 -0500
+X-MC-Unique: pAE75ge-OPumvZJIIM8Cag-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 249FF10199A5;
-	Wed,  9 Feb 2022 08:12:14 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CA3AF4F84D;
-	Wed,  9 Feb 2022 08:12:13 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C9DF61091DA1;
+	Wed,  9 Feb 2022 07:54:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66F657A223;
+	Wed,  9 Feb 2022 07:54:05 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BADE01809CBF;
-	Wed,  9 Feb 2022 08:12:09 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 94F1B4BB7C;
+	Wed,  9 Feb 2022 07:53:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 218L3Hbx032615 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 8 Feb 2022 16:03:17 -0500
+	id 2197oVZx014370 for <dm-devel@listman.util.phx.redhat.com>;
+	Wed, 9 Feb 2022 02:50:31 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 0A0D02166B16; Tue,  8 Feb 2022 21:03:17 +0000 (UTC)
+	id B7B8E401E59; Wed,  9 Feb 2022 07:50:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 049A32166B48
-	for <dm-devel@redhat.com>; Tue,  8 Feb 2022 21:03:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01A621C05AFB
-	for <dm-devel@redhat.com>; Tue,  8 Feb 2022 21:03:11 +0000 (UTC)
-Received: from wout1-smtp.messagingengine.com
-	(wout1-smtp.messagingengine.com [64.147.123.24]) by relay.mimecast.com
-	with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-369-oQtM7BYBOHWWqm_ZS2nKHA-1; Tue, 08 Feb 2022 16:03:08 -0500
-X-MC-Unique: oQtM7BYBOHWWqm_ZS2nKHA-1
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
-	by mailout.west.internal (Postfix) with ESMTP id 105543202255;
-	Tue,  8 Feb 2022 16:03:06 -0500 (EST)
-Received: from mailfrontend1 ([10.202.2.162])
-	by compute4.internal (MEProxy); Tue, 08 Feb 2022 16:03:07 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:sender:subject:subject:to:to:x-me-proxy:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm2; bh=DIkbOFBmbUGur4wua
-	Kfii0G8UH/Nq6ecEvh000YVJKM=; b=XExIgpUQ3HkvwmyOnFotDGjK79vDuTqaR
-	t+Un0aYhr8GNzzQBjNX/vStSlMN4Nx/xu+qGmzDHC+3/EI2R/ctajvBu/927MFLU
-	/1wTI3nEhxG1FN58sXPIM9qwNPFAOv3M+by4fGoeglIzcoDNMy3FYg0ROjyG9dLm
-	kehri7VQqKs/kWQIIKB0L1waZsh4M7dy/lL6RI79PAaU23PqFJN4TnqHjGaTZeOG
-	4Qs1gBxmd0feIg2YZ8FRZCkcYkHwlSGSIbNaFJpaoKmPwkjHu1A7ROZRbIyB7/Bu
-	uwE/SblIRHkBsgJ6hdFNpsWeavGcaEneZ/XfZMhstqK0iR+oLXI9w==
-X-ME-Sender: <xms:itoCYhqeWKri4uVCVD-eY11rU6Ui7Bhc5CLWahxGjLYi40FsGzMeow>
-	<xme:itoCYjrJtLlJuujBGWUAfd0fT8K41j1WEaabyMoSIYj9ELN9Zt_k4x_3zNCw6pVC0
-	FwUtHcbMLv3uXc>
-X-ME-Received: <xmr:itoCYuMhnEMvWBE_4YnfzL5XbYJpE5yzUj1KLljHv4VfioIVhGg3PI9rVKBDC9QnbfQrTQ>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrheejgddugedtucetufdoteggodetrfdotf
-	fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
-	uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
-	cujfgurhepkfffgggfuffvfhfhjggtsehgtderredtfeejnecuhfhrohhmpeffvghmihcu
-	ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
-	hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeukeefhefffeetheffffeftdeigedv
-	leetffehvdekuefhfeduteetfeetvdelhfenucevlhhushhtvghrufhiiigvpedtnecurf
-	grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
-	rggsrdgtohhm
-X-ME-Proxy: <xmx:itoCYs7LE2xyhApXj6PXqmgbWiuc_GznCo2eIlKejcPuf0W_quXcAw>
-	<xmx:itoCYg6ftI_Ys4eC9GZtVPGDbEQFWs-2juIIjkHGYEpnIuX8BnOBZg>
-	<xmx:itoCYkjpnLw9dFujCPLYQDIyI_HxaNXROQXglCziQGSdGUdfDeEUMw>
-	<xmx:itoCYgFA4yAKuu0qnjfWh46yD0Fh54GCep7yQnn1IGFA6hOdpadQpQ>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
-	8 Feb 2022 16:03:05 -0500 (EST)
-Message-ID: <733f87f3-5ed9-b266-b951-4526f872bad1@invisiblethingslab.com>
-Date: Tue, 8 Feb 2022 16:02:40 -0500
+	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id B1EA4401E58
+	for <dm-devel@redhat.com>; Wed,  9 Feb 2022 07:50:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95D543C01B81
+	for <dm-devel@redhat.com>; Wed,  9 Feb 2022 07:50:31 +0000 (UTC)
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
+	[205.220.165.32]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-594--5DlYBkfNqi0k3ovlg1vpg-1; Wed, 09 Feb 2022 02:50:28 -0500
+X-MC-Unique: -5DlYBkfNqi0k3ovlg1vpg-1
+Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id
+	2193kZ2C007536; Wed, 9 Feb 2022 07:50:03 GMT
+Received: from userp3020.oracle.com (userp3020.oracle.com [156.151.31.79])
+	by mx0b-00069f02.pphosted.com with ESMTP id 3e368tw4bm-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 09 Feb 2022 07:50:03 +0000
+Received: from pps.filterd (userp3020.oracle.com [127.0.0.1])
+	by userp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 2197l5Q7058601;
+	Wed, 9 Feb 2022 07:50:01 GMT
+Received: from nam10-dm6-obe.outbound.protection.outlook.com
+	(mail-dm6nam10lp2104.outbound.protection.outlook.com [104.47.58.104])
+	by userp3020.oracle.com with ESMTP id 3e1jpsaytu-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 09 Feb 2022 07:50:01 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+	(2603:10b6:301:2d::28) by DS7PR10MB5149.namprd10.prod.outlook.com
+	(2603:10b6:5:3a7::13) with Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.11;
+	Wed, 9 Feb 2022 07:49:58 +0000
+Received: from MWHPR1001MB2365.namprd10.prod.outlook.com
+	([fe80::e5a5:8f49:7ec4:b7b8]) by
+	MWHPR1001MB2365.namprd10.prod.outlook.com
+	([fe80::e5a5:8f49:7ec4:b7b8%5]) with mapi id 15.20.4951.018;
+	Wed, 9 Feb 2022 07:49:58 +0000
+Date: Wed, 9 Feb 2022 10:48:44 +0300
+From: Dan Carpenter <dan.carpenter@oracle.com>
+To: kbuild@lists.01.org, Nitesh Shetty <nj.shetty@samsung.com>,
+	mpatocka@redhat.com
+Message-ID: <202202090703.U5riBMIn-lkp@intel.com>
+In-Reply-To: <20220207141348.4235-4-nj.shetty@samsung.com>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-ClientProxiedBy: JNXP275CA0038.ZAFP275.PROD.OUTLOOK.COM (2603:1086:0:18::26)
+	To MWHPR1001MB2365.namprd10.prod.outlook.com
+	(2603:10b6:301:2d::28)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
-	Thunderbird/91.5.0
-Content-Language: en-US
-To: Zdenek Kabelac <zdenek.kabelac@gmail.com>,
-	LVM general discussion and development <linux-lvm@redhat.com>,
-	device-mapper development <dm-devel@redhat.com>
-References: <YgK+Avj+VURDqo7j@itl-email>
-	<9a14a7a5-a8a1-a4d6-f9fd-012d3c170f2a@gmail.com>
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-In-Reply-To: <9a14a7a5-a8a1-a4d6-f9fd-012d3c170f2a@gmail.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: 108b7a0f-6174-44ad-11f6-08d9eba0c46b
+X-MS-TrafficTypeDiagnostic: DS7PR10MB5149:EE_
+X-Microsoft-Antispam-PRVS: <DS7PR10MB5149A424EFD26ACFACEED7798E2E9@DS7PR10MB5149.namprd10.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3826
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: ofe8/xT3ve24a8k+HC/PuVOqTV6P4AcepG3RXjMnjwMQNGvKkOba4nhwUrlMteeheigFD33DbhJ7hQYhftaBZhWOgv4pj1iJEbHEG9d8STAUBpda1NEw2nE4Wqp2rHPyGkqnHDDOLVCgEno2yOXjcpnIhUXnUIPwe+rJQVp9SoWFSRmiH7W2Cwb+w9ODpybs5DYpBrkOdmsY8Z2NYcHHsoTW7Q8cDPqEz35/SZ9d8XT1qFgh0pCGRRo3lbAAxWOqoevadSAQUd6/q8TnFpDqSOEicw/lMkajhCCnSm57LLmW/Tt87nF01l/xEMshs7blxme1nmF72CM5fEK3icZD4FXUmldXcRknDSPvztopJ9J6rEamgEd790t0AeYOn7R4QqCn3Rl0nabjvprtGy1J2EU7bl+h2j7PI+uzUlNSA4SREXpGKFEo+AE0rjGCoIwh4pf3Vb6uXQ3i1U9BYz2VAcT6r4J8gjyDnXuGIM78/SHIerQsCPVegqvUylFRm41Wrbw9pVBK5qYGi4EQ33qyR62MccmfnLnC3tkLr5tPxLyHkTJYFWYYG00dx3uAJfC0ODdD9noK9iwo71+aJbJm1V2Pw2/CjvPmBv5FPDI7KOomBV6MD4SPBoDVXngzJBe52HxCTiYJ318PMZcc+tRAw4H7My6CwWRopVpSwwGQB8ci0AvwkQkhaCmch4nVrEHBXBlDv2ihYUHjt+kSYtkm9/bw8Pmnki7Rj0yw4s3QWUVxkAARLnMsbFRN3P0Wtr0u3sa/SQ1COQWUjRaiQBFm8cpvf5y+DHThQ9KsoONYnaeuh4FBZ18o2DiZp0Qc2zLmKsBo6Vup5KTY9g2EV7lLlA==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:MWHPR1001MB2365.namprd10.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(13230001)(366004)(8936002)(8676002)(66946007)(4326008)(2906002)(66556008)(66476007)(6666004)(6512007)(6506007)(1076003)(52116002)(186003)(38350700002)(36756003)(9686003)(38100700002)(7416002)(316002)(508600001)(7406005)(44832011)(6486002)(966005)(86362001)(83380400001)(26005)(5660300002);
+	DIR:OUT; SFP:1101
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?qn2SKiX4ff8/ryIyyGsAmU8btwVNyfzYOoUm3CVEYURCiHvpx4sjiFybfn4+?=
+	=?us-ascii?Q?XPXEO6kvlOwztShStFE+lAQRR5Yo24yEX6Y/B/d7EbcMPfuKfZYfWxCWhwSU?=
+	=?us-ascii?Q?7Uku5h/vIbX+diJO+RlqFzxBVizPGLwMwUmP1uuGKgFlU2K5GboMLBUM0+3Z?=
+	=?us-ascii?Q?GLe+Iad51yMGYPAz46neKstPVRXppIiqg4D/AhkUdnTXnBLgJt1qrWxAUTAA?=
+	=?us-ascii?Q?PwoT47Hx+2SLib80xS7W3azovFM9aCBHdC17d+6kyrnGceeNBCRTOg/gWaaX?=
+	=?us-ascii?Q?Qzqbk2DwqzFquwwhzCMWotuwqXvVhkbQT4WrzQ0IrFkkel1+i9oobRbQn2Fk?=
+	=?us-ascii?Q?uWl93Z3upTvUO/8eRsMZNYKT5EIDffHolWyHWi/Mv8CRg1gOC59KhUGyp03l?=
+	=?us-ascii?Q?xZ/uL6tJ7kAx+L9SLW0sPoMyQaTI80/RMssBI+Kw3jAGykiH3f/Xbrp7f7/k?=
+	=?us-ascii?Q?TpS3v/qHfnLtlyaxbwGBde4zE9YAVAOnci4JuyjJm3sR/rve44l7EE6NrUTP?=
+	=?us-ascii?Q?wfy7aKr6x33Akgb095jTBg/XYNFQHNhvAJOSScKw3pzZPjbR3/baZEo78NlS?=
+	=?us-ascii?Q?N6h2b9AcRz5Z4EyUDn1qYwzFwt0jN//ktFdjoCQCgmHrxx1M3F5uGEFCkOWG?=
+	=?us-ascii?Q?3Lhpq9VClPnjaWmfUkZ1MA7cB+1WhjX+vMoka3yP+/IdHtBIRjk9SJWzI2xZ?=
+	=?us-ascii?Q?XeqVGQu/6S/tSfGg6y/TAAt31ADf6aX+SDG9hIXVytdgIQot6AwGiabd+X4h?=
+	=?us-ascii?Q?dKHKXvzxM/CPh3Ko/u1AuO7LgzjBIL6hc5ZloBqkO+8fqRsGMuGMGds65tJP?=
+	=?us-ascii?Q?ITOOZdM40hB0+8wi80ML/c6RCkztC5L7KJ+eCVNntMMbkO1jJ9ZpO4hraVm3?=
+	=?us-ascii?Q?mzuAe9xjv1BEO55IpRWZeqYFhA8y4+bK7Bb/CQAtJJ/83ecOtWf5W4EkSHAS?=
+	=?us-ascii?Q?ZJ3oYOf4SiVdo76GDUxj6KNbT6N3uYI6+lhlFcbxd2u1XtZiBVHg7OSpEc2w?=
+	=?us-ascii?Q?erqc8SzPwoOo9yA3zYr606jCx9I7pDcxdufrm2NRiOCkEPzPkAfFchsHsY49?=
+	=?us-ascii?Q?WEzlZF67lHKNf6HJEiGmtcgRV3257C8XeN9+bH9Jk6B4n7xLPZag8rndGJuG?=
+	=?us-ascii?Q?ybajJVwcLVfDr5+2G6KqtFAX6Lv1oB4Nk5qCbQudZZ+ddEbmkX1/8+NrlOoB?=
+	=?us-ascii?Q?B91I80/bnHCIvrgGzmEzfOIPWtktlAk8jwETTgW8idCB33KJsVe0GlLfmso2?=
+	=?us-ascii?Q?m3mXBp+yEpVhIt1Kobh/QgymBqK4j27iMqYBYiaonHUemTW2lzcLi6GHNmHw?=
+	=?us-ascii?Q?x+LauMWRRucr7bJZPhTdA6GjFMKiOlRe605eSvqrrCFExsu+7DDg05O/BkP9?=
+	=?us-ascii?Q?I0muVc3qe7abfr0cO1r+kIS87PEgh+WhdhcUn9lJW74+JKU5GK7issNfT1LQ?=
+	=?us-ascii?Q?ySljYYYipkx9JeEnpRhJHXYR7BN6Ub/QlfA4F3jiFXu8kD22YauQMCnKzmyZ?=
+	=?us-ascii?Q?1J7imkNJSSfo3kssW4qQjYaMmQGxxx4tFFklY0MDNuxdxobE4nv7sDyN33ZE?=
+	=?us-ascii?Q?2eAl22PIRT8G44B3J23EXR/saG+7yN8mhT3/C8OgzaZGAcZUdGpQ3wWSSNjk?=
+	=?us-ascii?Q?FxYDZUHcPFUCTL2BQisMlC7VJReVmijXky+L3Czaa2V8EMWmCA3x/OmtFwBo?=
+	=?us-ascii?Q?x2R7RA=3D=3D?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 108b7a0f-6174-44ad-11f6-08d9eba0c46b
+X-MS-Exchange-CrossTenant-AuthSource: MWHPR1001MB2365.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Feb 2022 07:49:58.4780 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: hXLUeWCrH40a8GyJAC0B8sJmDvvKyOzQ/e/q7jrkxZ88wDNC6Z0jWnnVqHxAIu8SIM4s9EdiglR+bkt+e9yTVQTfr+8jZQ7uZQcSwEWEFe4=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS7PR10MB5149
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10252
+	signatures=673431
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxlogscore=999
+	mlxscore=0 bulkscore=0
+	malwarescore=0 suspectscore=0 phishscore=0 adultscore=0 spamscore=0
+	classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2201110000 definitions=main-2202090052
+X-Proofpoint-ORIG-GUID: XYOaZ5K02SYUt3ZMxeLa-jELX3i6JA9E
+X-Proofpoint-GUID: XYOaZ5K02SYUt3ZMxeLa-jELX3i6JA9E
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Wed, 09 Feb 2022 03:12:00 -0500
-Cc: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>,
-	=?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
-	<marmarek@invisiblethingslab.com>
-Subject: Re: [dm-devel] Thin pool performance when allocating lots of blocks
+Cc: djwong@kernel.org, linux-nvme@lists.infradead.org, clm@fb.com,
+	dm-devel@redhat.com, osandov@fb.com, javier@javigon.com,
+	lkp@intel.com, linux-scsi@vger.kernel.org, hch@lst.de,
+	roland@purestorage.com, nj.shetty@samsung.com, zach.brown@ni.com,
+	chaitanyak@nvidia.com, SelvaKumar S <selvakuma.s1@samsung.com>,
+	msnitzer@redhat.com, josef@toxicpanda.com,
+	linux-block@vger.kernel.org, dsterba@suse.com, kbusch@kernel.org,
+	tytso@mit.edu, Frederick.Knight@netapp.com, bvanassche@acm.org,
+	axboe@kernel.dk, kbuild-all@lists.01.org, joshi.k@samsung.com,
+	martin.petersen@oracle.com, arnav.dawn@samsung.com,
+	jack@suse.com, linux-fsdevel@vger.kernel.org,
+	lsf-pc@lists.linux-foundation.org
+Subject: Re: [dm-devel] [PATCH v2 03/10] block: Add copy offload support
+	infrastructure
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,214 +176,132 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
-Content-Type: multipart/mixed; boundary="===============0676031080906658772=="
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---===============0676031080906658772==
-Content-Language: en-US
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature";
-	boundary="------------vGGc1CdQiVCEEy26YxeSaoWa"
-
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------vGGc1CdQiVCEEy26YxeSaoWa
-Content-Type: multipart/mixed; boundary="------------tomwkswKn8t6bL0N0O9LU62C";
-	protected-headers="v1"
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Zdenek Kabelac <zdenek.kabelac@gmail.com>,
-	LVM general discussion and development <linux-lvm@redhat.com>,
-	device-mapper development <dm-devel@redhat.com>
-Cc: =?UTF-8?B?RnLDqWTDqXJpYyBQaWVycmV0?= <frederic.pierret@qubes-os.org>,
-	=?UTF-8?Q?Marek_Marczykowski-G=c3=b3recki?=
-	<marmarek@invisiblethingslab.com>
-Message-ID: <733f87f3-5ed9-b266-b951-4526f872bad1@invisiblethingslab.com>
-Subject: Re: Thin pool performance when allocating lots of blocks
-References: <YgK+Avj+VURDqo7j@itl-email>
-	<9a14a7a5-a8a1-a4d6-f9fd-012d3c170f2a@gmail.com>
-In-Reply-To: <9a14a7a5-a8a1-a4d6-f9fd-012d3c170f2a@gmail.com>
-
---------------tomwkswKn8t6bL0N0O9LU62C
-Content-Type: multipart/mixed; boundary="------------J991s0grMXKVkyL81RffJdDF"
-
---------------J991s0grMXKVkyL81RffJdDF
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: quoted-printable
-
-On 2/8/22 15:37, Zdenek Kabelac wrote:
-> Dne 08. 02. 22 v 20:00 Demi Marie Obenour napsal(a):
->> Are thin volumes (which start as snapshots of a blank volume) efficien=
-t
->> for building virtual machine images?  Given the nature of this workloa=
-d
->> (writing to lots of new, possibly-small files, then copying data from
->> them to a huge disk image), I expect that this will cause sharing to b=
-e
->> broken many, many times, and the kernel code that breaks sharing appea=
-rs
->> to be rather heavyweight.  Furthermore, since zeroing is enabled, this=
-
->> might cause substantial write amplification.  Turning zeroing off is n=
-ot
->> an option for security reasons.
->>
->> Is there a way to determine if breaking sharing is the cause of
->> performance problems?  If it is, are there any better solutions?
->=20
-> Hi
->=20
-> Usually the smaller the thin chunks size is the smaller the problem get=
-s.
-> With current released version of thin-provisioning minimal chunk size i=
-s=20
-> 64KiB. So you can't use smaller value to further reduce this impact.
->=20
-> Note - even if you do a lot of tiny 4KiB writes  - only the 'first' suc=
-h write=20
-> into 64K area breaks sharing all following writes to same location no l=
-onger=20
-> have this penalty (also zeroing with 64K is less impactful...)
->=20
-> But it's clear thin-provisioning comes with some price - so if it's not=
- good=20
-> enough from time constrains some other solutions might need to be explo=
-red.
-> (i.e. caching, better hw, splitting  FS into multiple partitions with=20
-> 'read-only sections,....)
-
-Are the code paths that break sharing as heavyweight as I was worried
-about?  Would a hypothetical dm-thin2 that used dm-bio-prison-v2 be
-faster?
-
---=20
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
---------------J991s0grMXKVkyL81RffJdDF
-Content-Type: application/pgp-keys; name="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Disposition: attachment; filename="OpenPGP_0xB288B55FFF9C22C1.asc"
-Content-Description: OpenPGP public key
-Content-Transfer-Encoding: quoted-printable
-
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-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
-=3Dx+Ro
------END PGP PUBLIC KEY BLOCK-----
-
---------------J991s0grMXKVkyL81RffJdDF--
-
---------------tomwkswKn8t6bL0N0O9LU62C--
-
---------------vGGc1CdQiVCEEy26YxeSaoWa
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmIC2ogACgkQsoi1X/+c
-IsFaRw//cG9prIY9FF6bJ+qVw3qZUK+R5X5egf6DK/iKejzsLiQpFlmuqhLTdryA
-VmpLbJsdKzC+vQCpRgzsSFQR9oPCxw6ioKTcUAkcL+HPQCZjMVP8GxBVYO0Zx68m
-8mueFlcGsKnSshXVlFwgXdm3mKj9ucNB5dnOS14EY8VVrvSwfPC3jyKFkWOF6HnZ
-LXXfRa3TIHditYlHowGRDYJIrBVTUKIqnGbnHAJf8TKt94JUjFWd/V5AwedeB273
-E6prwioaTWNiLPUuCldOwg1ZmTvx4rjhX0gH2NiZ++69SrYabhpkMUv75FRxIaMY
-xPsNp57Oi8RHb+Oqkf7fo51jMWZF9zpVzyR9XHstv9sfjXrINqIlBELxotTwpoix
-lZbwkL+lHu6Os8cdVjtZ5uYHhD6VBdBJvJ3+YwhKH+DIAT+soBDGaD/gOMD2vnL1
-ynwPfplK/osWDQ9VpV2FMNhkrJHE9H9GPw+2SBIDJr3SHA0M1/2ynkB0dlh6QkyJ
-9Rh9eze4bE29ypsUSCauszycQHlYW+yQ6yKl855w4TkMlO0fbeR6dJK+r9CgTZxT
-YcBNWnjjAZUSPqHzYzvKOjh8d2MLohwA8L/11KpgW7EHTjdy7tu33ExYqQP9JNrL
-79+tx2qIWhF8F1AifX0LqH+ML8zweKFLQAGAMiRsdAsHWHaK8Kw=
-=5VlF
------END PGP SIGNATURE-----
-
---------------vGGc1CdQiVCEEy26YxeSaoWa--
-
-
---===============0676031080906658772==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+Hi Nitesh,
+
+url:    https://github.com/0day-ci/linux/commits/Nitesh-Shetty/block-make-bio_map_kern-non-static/20220207-231407
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux-block.git for-next
+config: i386-randconfig-m021-20220207 (https://download.01.org/0day-ci/archive/20220209/202202090703.U5riBMIn-lkp@intel.com/config)
+compiler: gcc-9 (Debian 9.3.0-22) 9.3.0
+
+If you fix the issue, kindly add following tag as appropriate
+Reported-by: kernel test robot <lkp@intel.com>
+Reported-by: Dan Carpenter <dan.carpenter@oracle.com>
+
+smatch warnings:
+block/blk-lib.c:272 blk_copy_offload() warn: possible memory leak of 'ctx'
+
+vim +/ctx +272 block/blk-lib.c
+
+12a9801a7301f1 Nitesh Shetty 2022-02-07  185  int blk_copy_offload(struct block_device *src_bdev, int nr_srcs,
+12a9801a7301f1 Nitesh Shetty 2022-02-07  186  		struct range_entry *rlist, struct block_device *dst_bdev, gfp_t gfp_mask)
+12a9801a7301f1 Nitesh Shetty 2022-02-07  187  {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  188  	struct request_queue *sq = bdev_get_queue(src_bdev);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  189  	struct request_queue *dq = bdev_get_queue(dst_bdev);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  190  	struct bio *read_bio, *write_bio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  191  	struct copy_ctx *ctx;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  192  	struct cio *cio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  193  	struct page *token;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  194  	sector_t src_blk, copy_len, dst_blk;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  195  	sector_t remaining, max_copy_len = LONG_MAX;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  196  	int ri = 0, ret = 0;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  197  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  198  	cio = kzalloc(sizeof(struct cio), GFP_KERNEL);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  199  	if (!cio)
+12a9801a7301f1 Nitesh Shetty 2022-02-07  200  		return -ENOMEM;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  201  	atomic_set(&cio->refcount, 0);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  202  	cio->rlist = rlist;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  203  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  204  	max_copy_len = min3(max_copy_len, (sector_t)sq->limits.max_copy_sectors,
+12a9801a7301f1 Nitesh Shetty 2022-02-07  205  			(sector_t)dq->limits.max_copy_sectors);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  206  	max_copy_len = min3(max_copy_len, (sector_t)sq->limits.max_copy_range_sectors,
+12a9801a7301f1 Nitesh Shetty 2022-02-07  207  			(sector_t)dq->limits.max_copy_range_sectors) << SECTOR_SHIFT;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  208  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  209  	for (ri = 0; ri < nr_srcs; ri++) {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  210  		cio->rlist[ri].comp_len = rlist[ri].len;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  211  		for (remaining = rlist[ri].len, src_blk = rlist[ri].src, dst_blk = rlist[ri].dst;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  212  			remaining > 0;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  213  			remaining -= copy_len, src_blk += copy_len, dst_blk += copy_len) {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  214  			copy_len = min(remaining, max_copy_len);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  215  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  216  			token = alloc_page(gfp_mask);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  217  			if (unlikely(!token)) {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  218  				ret = -ENOMEM;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  219  				goto err_token;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  220  			}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  221  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  222  			read_bio = bio_alloc(src_bdev, 1, REQ_OP_READ | REQ_COPY | REQ_NOMERGE,
+12a9801a7301f1 Nitesh Shetty 2022-02-07  223  					gfp_mask);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  224  			if (!read_bio) {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  225  				ret = -ENOMEM;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  226  				goto err_read_bio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  227  			}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  228  			read_bio->bi_iter.bi_sector = src_blk >> SECTOR_SHIFT;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  229  			read_bio->bi_iter.bi_size = copy_len;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  230  			__bio_add_page(read_bio, token, PAGE_SIZE, 0);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  231  			ret = submit_bio_wait(read_bio);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  232  			if (ret) {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  233  				bio_put(read_bio);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  234  				goto err_read_bio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  235  			}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  236  			bio_put(read_bio);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  237  			ctx = kzalloc(sizeof(struct copy_ctx), gfp_mask);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  238  			if (!ctx) {
+12a9801a7301f1 Nitesh Shetty 2022-02-07  239  				ret = -ENOMEM;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  240  				goto err_read_bio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  241  			}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  242  			ctx->cio = cio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  243  			ctx->range_idx = ri;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  244  			ctx->start_sec = rlist[ri].src;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  245  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  246  			write_bio = bio_alloc(dst_bdev, 1, REQ_OP_WRITE | REQ_COPY | REQ_NOMERGE,
+12a9801a7301f1 Nitesh Shetty 2022-02-07  247  					gfp_mask);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  248  			if (!write_bio) {
+
+Please call kfree(ctx) before the goto.
+
+12a9801a7301f1 Nitesh Shetty 2022-02-07  249  				ret = -ENOMEM;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  250  				goto err_read_bio;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  251  			}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  252  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  253  			write_bio->bi_iter.bi_sector = dst_blk >> SECTOR_SHIFT;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  254  			write_bio->bi_iter.bi_size = copy_len;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  255  			__bio_add_page(write_bio, token, PAGE_SIZE, 0);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  256  			write_bio->bi_end_io = bio_copy_end_io;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  257  			write_bio->bi_private = ctx;
+12a9801a7301f1 Nitesh Shetty 2022-02-07  258  			atomic_inc(&cio->refcount);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  259  			submit_bio(write_bio);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  260  		}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  261  	}
+12a9801a7301f1 Nitesh Shetty 2022-02-07  262  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  263  	/* Wait for completion of all IO's*/
+12a9801a7301f1 Nitesh Shetty 2022-02-07  264  	return cio_await_completion(cio);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  265  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  266  err_read_bio:
+12a9801a7301f1 Nitesh Shetty 2022-02-07  267  	__free_page(token);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  268  err_token:
+12a9801a7301f1 Nitesh Shetty 2022-02-07  269  	rlist[ri].comp_len = min_t(sector_t, rlist[ri].comp_len, (rlist[ri].len - remaining));
+12a9801a7301f1 Nitesh Shetty 2022-02-07  270  
+12a9801a7301f1 Nitesh Shetty 2022-02-07  271  	cio->io_err = ret;
+12a9801a7301f1 Nitesh Shetty 2022-02-07 @272  	return cio_await_completion(cio);
+12a9801a7301f1 Nitesh Shetty 2022-02-07  273  }
+
+---
+0-DAY CI Kernel Test Service, Intel Corporation
+https://lists.01.org/hyperkitty/list/kbuild-all@lists.01.org
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
---===============0676031080906658772==--
 
