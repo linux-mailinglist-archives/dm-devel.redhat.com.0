@@ -1,93 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0E514B1862
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Feb 2022 23:41:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8438E4B1878
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Feb 2022 23:44:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1644532864;
+	s=mimecast20190719; t=1644533042;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=G85xol9ccgNMIpjmsnt4DAWSE2vba6VP1ofi3YcEctU=;
-	b=ZjJSCSCvuHze9QhvYDk2RHd0VlvSLlKXjHwsMueY4ZQzOg9sHgRdBF2zpErHpIMfGNeecV
-	8duLpPP5IG9Gtp4LtaxAOjhCoBhF+Q29gDuUWvjyTb3M3GLX4x7V5w3XwxVVTS1QY26WV5
-	50Cpi6LSC+HPWscoJhmwjlqrhnuU8/A=
+	bh=1NNstZck6QaNsyN+snY++Z1Od1f/LlrQ/HE5U2jnNCo=;
+	b=Ln6ZXKuPz+tUqOt2nIKwXqe6KIGhBcXvVrBC4D9YjuqeV+FU9cHvEZNh1vl8DD6AZ+83J+
+	tPvK0vAqk8H+Uw0BBBG93dhW3DdS8iY4gO1xyvvEC3GlEVGfTJ4hNtKXr97im+uCFcXW0i
+	d0YapmIRRD6h51nQl47y0X4FYEmgkhQ=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-596-uMU1W47bOiqOcy_TDqDfzg-1; Thu, 10 Feb 2022 17:40:45 -0500
-X-MC-Unique: uMU1W47bOiqOcy_TDqDfzg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-317-BQREq1W0PdedEJxTRZ69tg-1; Thu, 10 Feb 2022 17:43:16 -0500
+X-MC-Unique: BQREq1W0PdedEJxTRZ69tg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D3AA618C8C12;
-	Thu, 10 Feb 2022 22:40:38 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C32EB1018723;
+	Thu, 10 Feb 2022 22:43:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D4FA04CED7;
-	Thu, 10 Feb 2022 22:40:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D04AE728;
+	Thu, 10 Feb 2022 22:43:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BD1D81809CB8;
-	Thu, 10 Feb 2022 22:40:20 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 44ECC1806D2D;
+	Thu, 10 Feb 2022 22:43:10 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21AMcaEl014758 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Feb 2022 17:38:36 -0500
+	id 21AMccU5014767 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Feb 2022 17:38:38 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 42093401E7F; Thu, 10 Feb 2022 22:38:36 +0000 (UTC)
+	id F2F4CC080AE; Thu, 10 Feb 2022 22:38:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E74E401E7A
-	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF2EEC07F5D
+	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 259531C05157
-	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:36 +0000 (UTC)
-Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
-	[209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D58983803916
+	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:37 +0000 (UTC)
+Received: from mail-qt1-f198.google.com (mail-qt1-f198.google.com
+	[209.85.160.198]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-528-8sTo4tq_OUqnHAIbvP7l5w-1; Thu, 10 Feb 2022 17:38:35 -0500
-X-MC-Unique: 8sTo4tq_OUqnHAIbvP7l5w-1
-Received: by mail-qv1-f71.google.com with SMTP id
-	jn13-20020ad45ded000000b0042c3394cafaso3965092qvb.22
-	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 14:38:34 -0800 (PST)
+	us-mta-538-3bfscm5xOiyQB-riMzQDsA-1; Thu, 10 Feb 2022 17:38:36 -0500
+X-MC-Unique: 3bfscm5xOiyQB-riMzQDsA-1
+Received: by mail-qt1-f198.google.com with SMTP id
+	z1-20020ac87ca1000000b002d11bc8d795so5506865qtv.17
+	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 14:38:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
-	h=x-gm-message-state:from:to:cc:subject:date:message-id;
-	bh=5zsO3Fp/ELwIYD28/txcroKMAxj9kdpSixyYpBN1Xrw=;
-	b=vyBrIUR5Qe9zE7kkVvwDCdWLdSrLrpJw2HKLYnMxYhmNP8umFpl6jIb1tA4VlHtT6Z
-	pRYMbZ7iK1LwWPZYX6Am3R67YrecqscHH8nustNSomdAwNipjLXV0OKvt3WTW5//Le+v
-	SP/kGfRRjw6ybaxFD6+vxhxHAofBlQioNb/6dItnTvdtTZPEeo6fffBmEjCMFBu/77fl
-	TKjClBN8DQGKSNHsbT5dycQ9NQvOHD01X8mpbUTJjCOiMDpJJlp1/kOYv4DU3pzdo42H
-	XlEo8TRjk4Sf+wnzuFgKh1K4Yiq7haYBEJDIXLVm1xpM34FUo//eZN+9JZPhMMJ5XhOb
-	KiXQ==
-X-Gm-Message-State: AOAM533dj1XsXxP3Wrzu1jgmW77IjrG8egDMQK2sd+aY+lf9JToDkEBT
-	8TFimaIz89AC7/9r01uHy1A6Bma4AKse5XtBWeMSwt+1JRuFmgHQ16y8yUYjyPPxykQaBAeuvOp
-	DG34k2vQ5oljPC1yVJyZGzf+lEeIuE4PqdjUqOI6XRpVaghjHkaj6XU0AD3sT+Dj95A==
-X-Received: by 2002:ad4:5b83:: with SMTP id 3mr6625813qvp.103.1644532714237;
-	Thu, 10 Feb 2022 14:38:34 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwZUXcOQHDRnivoNe930Kbl9CSrwP87HKASyNcGBndoZSfIJ5t7gykPiUrhOnJ90EtUlhGs5A==
-X-Received: by 2002:ad4:5b83:: with SMTP id 3mr6625803qvp.103.1644532713898;
-	Thu, 10 Feb 2022 14:38:33 -0800 (PST)
+	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+	:references;
+	bh=Aelm5YgrbgtRcjh/7giXHAljK3Fp2NuUOh2H4+pquFs=;
+	b=CzGreNh8pVsS00ghq1rKvm4fnJRtOG7HqeXjSE4SK0wN0UD5QqzB8FK+QwblpxpfTq
+	ZXTIlj83bnB+ED/h3QB2a6/s93gHX+Ylyg/CoK/9GWRM/jWtcbQapFrQ+Aeo66me3s6I
+	DvL0brMd+s2DqF7BwVR7Z7zoJHKY9FypeJYAasFg7swScItvEnmubXAqJtDQkJcNkeKq
+	2JyqwOuS03UVhSrG7nmt1S3AxNxF6AgKeSeAeQaVGbriHpnpv/xTJ62X00OYjKBkh82g
+	0n/HhJbegVI0UuFgTyszKhlKddBuHkrLWBfcbqE4ejwS5xA0vm1aT/7/UK7EPkmCv0mp
+	XXTg==
+X-Gm-Message-State: AOAM533H3s4v26h6X1UY5ucKSD37Qfy/Zs3fueO9F+eXNJlcERVd8xwe
+	yqVUJ1t7VeAKukFG2318e2VMwKwneK5+aEEqsXWYtWxQgEoMR1SFKupIYohLba2JOvlUXNK91DP
+	i1CKJMpKXStLNeqib7BArucx0dA+sKXTwunlph7ZwIMepLYKebM57zc4FLsoBmAWuHA==
+X-Received: by 2002:a37:aa08:: with SMTP id t8mr5051598qke.773.1644532715689; 
+	Thu, 10 Feb 2022 14:38:35 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyQixOwmD12PZY5UkjFPZ06AUK+aTARpLaV0mdw92GohG9RThiH7FoXYWT3NRL1ycsq0RFu0w==
+X-Received: by 2002:a37:aa08:: with SMTP id t8mr5051585qke.773.1644532715338; 
+	Thu, 10 Feb 2022 14:38:35 -0800 (PST)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
 	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	b10sm11641506qtb.34.2022.02.10.14.38.33
+	w5sm10477933qko.34.2022.02.10.14.38.34
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 10 Feb 2022 14:38:33 -0800 (PST)
+	Thu, 10 Feb 2022 14:38:34 -0800 (PST)
 From: Mike Snitzer <snitzer@redhat.com>
 To: dm-devel@redhat.com
-Date: Thu, 10 Feb 2022 17:38:18 -0500
-Message-Id: <20220210223832.99412-1-snitzer@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Date: Thu, 10 Feb 2022 17:38:19 -0500
+Message-Id: <20220210223832.99412-2-snitzer@redhat.com>
+In-Reply-To: <20220210223832.99412-1-snitzer@redhat.com>
+References: <20220210223832.99412-1-snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org
-Subject: [dm-devel] [PATCH 00/14] dm: improve bio-based IO accounting
+Subject: [dm-devel] [PATCH 01/14] dm: rename split functions
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -102,7 +105,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,63 +113,88 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
+Rename __split_and_process_bio to dm_split_and_process_bio.
+Rename __split_and_process_non_flush to __split_and_process_bio.
 
-All the changes from this patchset are available here:
-https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.18
+Also fix a stale comment and whitespace.
 
-This work is based on Jens' for-5.18/block
+Signed-off-by: Mike Snitzer <snitzer@redhat.com>
+---
+ drivers/md/dm.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-For the linux-block crowd, I'm spamming you purely to seek review of
-the last patch in this patchset (but welcome review of the entire set
-if you're willing). Given all the DM changes that precede the last
-block patch I'd appreciate review so it can be merged for 5.18 via
-linux-dm.git.
-
-DM is the only consumer of the recently added bio_start_io_acct_time
-that the last patch enhances and renames to bio_start_io_acct_remapped
-
-This patchset's primary purpose is to add the dm_submit_bio_remap()
-interface to improve the bio-based IO accounting for DM targets that
-take ownership of bios and use their own workqueues to process/remap
-and later submit the bios.
-
-Motivation is to fix the relatively useless nature of dm-crypt's
-buffered IO stats.  DM core shouldn't immediately start IO accounting
-for bios that dm-crypt goes on to queue in workqueues. The IO should
-only have its IO started once submitted.  Otherwise the iostats for
-dm-crypt just looks like an upfront flood of IO but then offer little
-indication that anything is happening.  Given dm-crypt's cpu intensive
-nature it takes time to complete IO but unless you look at the
-underlying devices' iostats you wouldn't see it occurring.
-
-Mike
-
-Mike Snitzer (14):
-  dm: rename split functions
-  dm: fold __clone_and_map_data_bio into __split_and_process_bio
-  dm: refactor dm_split_and_process_bio a bit
-  dm: reduce code duplication in __map_bio
-  dm: remove impossible BUG_ON in __send_empty_flush
-  dm: remove unused mapped_device argument from free_tio
-  dm: remove code only needed before submit_bio recursion
-  dm: record old_sector in dm_target_io before calling map function
-  dm: prep for following changes
-  dm: add dm_submit_bio_remap interface
-  dm crypt: use dm_submit_bio_remap
-  dm delay: dm_submit_bio_remap
-  dm: improve correctness and efficiency of bio-based IO accounting
-  block: add bio_start_io_acct_remapped for the benefit of DM
-
- block/blk-core.c              |  24 ++---
- drivers/md/dm-core.h          |   4 +-
- drivers/md/dm-crypt.c         |   7 +-
- drivers/md/dm-delay.c         |   3 +-
- drivers/md/dm.c               | 224 ++++++++++++++++++++++--------------------
- include/linux/blkdev.h        |  16 ++-
- include/linux/device-mapper.h |   7 ++
- 7 files changed, 156 insertions(+), 129 deletions(-)
-
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index ab9cc91931f9..2cecb8832936 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1359,7 +1359,7 @@ static bool __process_abnormal_io(struct clone_info *ci, struct dm_target *ti,
+ /*
+  * Select the correct strategy for processing a non-flush bio.
+  */
+-static int __split_and_process_non_flush(struct clone_info *ci)
++static int __split_and_process_bio(struct clone_info *ci)
+ {
+ 	struct dm_target *ti;
+ 	unsigned len;
+@@ -1395,8 +1395,8 @@ static void init_clone_info(struct clone_info *ci, struct mapped_device *md,
+ /*
+  * Entry point to split a bio into clones and submit them to the targets.
+  */
+-static void __split_and_process_bio(struct mapped_device *md,
+-					struct dm_table *map, struct bio *bio)
++static void dm_split_and_process_bio(struct mapped_device *md,
++				     struct dm_table *map, struct bio *bio)
+ {
+ 	struct clone_info ci;
+ 	int error = 0;
+@@ -1409,19 +1409,19 @@ static void __split_and_process_bio(struct mapped_device *md,
+ 	} else if (op_is_zone_mgmt(bio_op(bio))) {
+ 		ci.bio = bio;
+ 		ci.sector_count = 0;
+-		error = __split_and_process_non_flush(&ci);
++		error = __split_and_process_bio(&ci);
+ 	} else {
+ 		ci.bio = bio;
+ 		ci.sector_count = bio_sectors(bio);
+-		error = __split_and_process_non_flush(&ci);
++		error = __split_and_process_bio(&ci);
+ 		if (ci.sector_count && !error) {
+ 			/*
+ 			 * Remainder must be passed to submit_bio_noacct()
+ 			 * so that it gets handled *after* bios already submitted
+ 			 * have been completely processed.
+ 			 * We take a clone of the original to store in
+-			 * ci.io->orig_bio to be used by end_io_acct() and
+-			 * for dec_pending to use for completion handling.
++			 * ci.io->orig_bio to be used by end_io_acct() and for
++			 * dm_io_dec_pending() to use for completion handling.
+ 			 */
+ 			struct bio *b = bio_split(bio, bio_sectors(bio) - ci.sector_count,
+ 						  GFP_NOIO, &md->queue->bio_split);
+@@ -1470,7 +1470,7 @@ static void dm_submit_bio(struct bio *bio)
+ 	if (is_abnormal_io(bio))
+ 		blk_queue_split(&bio);
+ 
+-	__split_and_process_bio(md, map, bio);
++	dm_split_and_process_bio(md, map, bio);
+ out:
+ 	dm_put_live_table(md, srcu_idx);
+ }
+@@ -2283,11 +2283,11 @@ static int __dm_suspend(struct mapped_device *md, struct dm_table *map,
+ 	/*
+ 	 * Here we must make sure that no processes are submitting requests
+ 	 * to target drivers i.e. no one may be executing
+-	 * __split_and_process_bio from dm_submit_bio.
++	 * dm_split_and_process_bio from dm_submit_bio.
+ 	 *
+-	 * To get all processes out of __split_and_process_bio in dm_submit_bio,
++	 * To get all processes out of dm_split_and_process_bio in dm_submit_bio,
+ 	 * we take the write lock. To prevent any process from reentering
+-	 * __split_and_process_bio from dm_submit_bio and quiesce the thread
++	 * dm_split_and_process_bio from dm_submit_bio and quiesce the thread
+ 	 * (dm_wq_work), we set DMF_BLOCK_IO_FOR_SUSPEND and call
+ 	 * flush_workqueue(md->wq).
+ 	 */
 -- 
 2.15.0
 
