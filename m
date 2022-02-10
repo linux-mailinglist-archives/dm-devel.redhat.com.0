@@ -1,98 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3CC4B1860
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Feb 2022 23:41:02 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4811F4B186A
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Feb 2022 23:43:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1644532861;
+	s=mimecast20190719; t=1644532982;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=z39c3PnbQqBq0iaoSuZLL7aE+nQLdWiI/9JLG7NjeqA=;
-	b=R0YGRSgc7KPllKVgVZdBBwBzE0PKBkgYwcMvrnDjoJOusEtSNJWokqOr6DV/47ozR3fab1
-	+ssKHF1UzyPGuaTkEfKhDLRTpzw5fpz/QpfnB9f40ysk4p5FdRY7bsV8+TDikWXDgHzIrb
-	w5EI/BGNXmGze+/s4WpJL5GqxftmMQw=
+	bh=/VhCMdTv5Mhg5vcxTHoMYOEWje88pTGIqo+gz5oab80=;
+	b=PPPwRLnpQfcjLFlMpcN3IgaRRRzWbfz4IQ9zblqFIzNnurm1Q5SiSJsgtqCdEpkfRvpYJZ
+	CEdw/EITiodhwfzdpJVSUktpGQ/g29fq5yLTZH5UzG7DxBCYE7vQSQ0aaJkJAbyWBWw75q
+	59bDvap55Qi4+Bw36uSND57HCtvYCO8=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-329-fwadS9FZOjijbTmSpPiNHg-1; Thu, 10 Feb 2022 17:40:54 -0500
-X-MC-Unique: fwadS9FZOjijbTmSpPiNHg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-624-rlFhSSVAMGG8YKrXfADuWw-1; Thu, 10 Feb 2022 17:42:47 -0500
+X-MC-Unique: rlFhSSVAMGG8YKrXfADuWw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9DF4E64160;
-	Thu, 10 Feb 2022 22:40:41 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 14F6155F4D;
-	Thu, 10 Feb 2022 22:40:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 15AF81091DA2;
+	Thu, 10 Feb 2022 22:42:42 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E6097E715;
+	Thu, 10 Feb 2022 22:42:41 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id C6A0D1809CB8;
-	Thu, 10 Feb 2022 22:40:40 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 80BD54A7C8;
+	Thu, 10 Feb 2022 22:42:41 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21AMcs1M014865 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Feb 2022 17:38:54 -0500
+	id 21AMcoGc014840 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Feb 2022 17:38:50 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 00D7C2026609; Thu, 10 Feb 2022 22:38:54 +0000 (UTC)
+	id A309EC07F5D; Thu, 10 Feb 2022 22:38:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id F030D2026D6B
-	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 9EDD4C1D38B
+	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B9FF51066559
-	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 86A7485A5A8
+	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 22:38:50 +0000 (UTC)
 Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
 	[209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-52-6MZB7qj1P6Kbletr0WFjBA-1; Thu, 10 Feb 2022 17:38:47 -0500
-X-MC-Unique: 6MZB7qj1P6Kbletr0WFjBA-1
+	us-mta-588-jzo0LSOeNcy65xVsviOU6Q-1; Thu, 10 Feb 2022 17:38:49 -0500
+X-MC-Unique: jzo0LSOeNcy65xVsviOU6Q-1
 Received: by mail-qv1-f70.google.com with SMTP id
-	eo11-20020ad4594b000000b0042151b7180aso5025222qvb.8
-	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 14:38:47 -0800 (PST)
+	3-20020ad45b83000000b00423e8603906so5041553qvp.1
+	for <dm-devel@redhat.com>; Thu, 10 Feb 2022 14:38:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references;
-	bh=NJDDntpX1bDz2HHZg4ERdrCl6N9td/COm3CwT3DXHyU=;
-	b=uITbS5S5jdpEk5liH2dgj+xveiAFUXeJWvJhHYlhwFhGjeQmhXuSTpI99VidTqSbWi
-	x+oTjP6s4Z4Hx1XVA67XPzxyE9+aClKBPB2PyhuTg3Lj26hrWmi62fLVzR8rGQ4MLjwH
-	Pui4AXMTwRzYKXnL6WqyEFmyc83JjpV6Pirq5/8+6j0sZdH5lZmz+JEpvad9/BmaIs8e
-	lMfhdQqV2HCMot62uSAa/599BcKigki5FonnUFgxlsU38DF3zms0pfcIqSEA2XDmLi+p
-	F6XELfQa8Nb3u8kliP6Nfxvs6aYqUEy88uRf820P+4ZtLgHXdggJ+hPqzgr5dpLnx7vH
-	saVw==
-X-Gm-Message-State: AOAM533pZAh8BdPtyQ14d5P96rfKFfn5amRZ0oGZLg+d5e7y0712T/M3
-	aCdbck+f+0I6VZ56VflINO/YjNa1YmlBvr0aKYRyCte2jR6JIGFqbBP2g55Y7cJrqR+wq1Pbs/x
-	KLfvt60+w/rWV1vTDrqZJtmUYQS8CFxyF4KGJbw5dxNhS1xY4Gc9OKXWBdt8wYAi/Ew==
-X-Received: by 2002:a05:6214:2308:: with SMTP id
-	gc8mr6697708qvb.108.1644532726960; 
-	Thu, 10 Feb 2022 14:38:46 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJx/swioXpnZqj/ggEJ7xdDFKsnoeOBasBsyZ13Up+u3iQ8ukuq5/OcxD8Z9zGj3LPPEVFxxxw==
-X-Received: by 2002:a05:6214:2308:: with SMTP id
-	gc8mr6697693qvb.108.1644532726554; 
-	Thu, 10 Feb 2022 14:38:46 -0800 (PST)
+	bh=clg1j9AsWGf13nZ+cL57xlbQXn238yrRMLtUXnWXd9Q=;
+	b=Vu1RBgHBpCLAS2fdZigUOGL8WY8dpdAQ5svNhyjm/GKmUpGC/YLxSQHGKf9/SccoNZ
+	hiUZRRDjj1O1oMmjeBcze2GtfTUjKVKwwzLq6zBoVMJ41JtGU+zT2jHXVkLgdKIdZDst
+	Ll5CR+Rb1I+JaivmPv3yOTUDQoF7MMT8IbjO8tDQaGhELXxmTdZCjyftnFs19ibfPdTq
+	6elKIQ9HZVqytN/AeC4NDluJmiCvDO5QZuFa2pG+QiXlzdx7sKq1tXde+FDdu+Onu1iR
+	zeoexACfDjLVsMdvMSDg+4ok8qI2hLtJqVVSOjU2605avyTwNAfqfi012cNijXN/bVlX
+	dk6A==
+X-Gm-Message-State: AOAM531yNQFZGTPE73fFpJo+q1DevR7zJC7Jtdd78EfqwdP9RkH0ekLL
+	3v6OJdIbsrhOMFAsvlUpkPazJ0Onl9Onwk5KfTYyzk4Ho+reYxvTgjDFh0baXnvzcw9uv+Ux7qD
+	RRmPDP3fFtAm0+/j2fUqQra2z/uEcKR4XBhP5HEabha53swNc21a8gBneXHr+D7j2/Q==
+X-Received: by 2002:a37:61ca:: with SMTP id v193mr5007963qkb.177.1644532728515;
+	Thu, 10 Feb 2022 14:38:48 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJz2IldN0gw3kZyxdPqUqit4+42CSSY2elFZp9qQdt60LjZzqSwEFWIWb3gl3fnkNs62ee8TQw==
+X-Received: by 2002:a37:61ca:: with SMTP id v193mr5007952qkb.177.1644532728122;
+	Thu, 10 Feb 2022 14:38:48 -0800 (PST)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52])
-	by smtp.gmail.com with ESMTPSA id z4sm12115514qtw.4.2022.02.10.14.38.46
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	w14sm12344783qtc.29.2022.02.10.14.38.47
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 10 Feb 2022 14:38:46 -0800 (PST)
+	Thu, 10 Feb 2022 14:38:47 -0800 (PST)
 From: Mike Snitzer <snitzer@redhat.com>
 To: dm-devel@redhat.com
-Date: Thu, 10 Feb 2022 17:38:27 -0500
-Message-Id: <20220210223832.99412-10-snitzer@redhat.com>
+Date: Thu, 10 Feb 2022 17:38:28 -0500
+Message-Id: <20220210223832.99412-11-snitzer@redhat.com>
 In-Reply-To: <20220210223832.99412-1-snitzer@redhat.com>
 References: <20220210223832.99412-1-snitzer@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org
-Subject: [dm-devel] [PATCH 09/14] dm: prep for following changes
+Subject: [dm-devel] [PATCH 10/14] dm: add dm_submit_bio_remap interface
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -107,7 +106,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -115,139 +114,213 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Rename dm_io struct's 'endio_lock' member to 'lock' to reuse spinlock
-to protect new member used to flag if IO accounting has been started.
+Switch from early bio-based IO accounting (at the time DM clones each
+incoming bio) to late IO accounting just before each remapped bio is
+issued to underlying device via submit_bio_noacct().
 
-Also move kicking of the suspend queue out to dm_io_dec_pending (the
-only caller) since end_io_acct will soon only be called if IO
-accounting was started.
-
-Some comment tweaks and removal of local variables. No functional
-change.
+Allows more precise bio-based IO accounting for DM targets that use
+their own workqueues to perform additional processing of each bio in
+conjunction with their DM_MAPIO_SUBMITTED return from their map
+function.
 
 Signed-off-by: Mike Snitzer <snitzer@redhat.com>
 ---
- drivers/md/dm-core.h |  2 +-
- drivers/md/dm.c      | 32 ++++++++++++++------------------
- 2 files changed, 15 insertions(+), 19 deletions(-)
+ drivers/md/dm-core.h          |  1 +
+ drivers/md/dm.c               | 93 +++++++++++++++++++++++++++++++++++++++----
+ include/linux/device-mapper.h |  7 ++++
+ 3 files changed, 93 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index f40be01cca81..8dd196aec130 100644
+index 8dd196aec130..3ecd6f294f53 100644
 --- a/drivers/md/dm-core.h
 +++ b/drivers/md/dm-core.h
-@@ -230,7 +230,7 @@ struct dm_io {
+@@ -230,6 +230,7 @@ struct dm_io {
  	atomic_t io_count;
  	struct bio *orig_bio;
  	unsigned long start_time;
--	spinlock_t endio_lock;
-+	spinlock_t lock;
++	unsigned long io_acct_time;
+ 	spinlock_t lock;
  	struct dm_stats_aux stats_aux;
  	/* last member of dm_target_io is 'struct bio' */
- 	struct dm_target_io tio;
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 3bd872b0e891..8c0e96b8e1a5 100644
+index 8c0e96b8e1a5..ad512f40716e 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -487,12 +487,12 @@ EXPORT_SYMBOL_GPL(dm_start_time_ns_from_clone);
+@@ -485,21 +485,54 @@ u64 dm_start_time_ns_from_clone(struct bio *bio)
+ }
+ EXPORT_SYMBOL_GPL(dm_start_time_ns_from_clone);
  
- static void start_io_acct(struct dm_io *io)
+-static void start_io_acct(struct dm_io *io)
++static void __start_io_acct(struct dm_io *io, struct bio *bio)
  {
--	struct mapped_device *md = io->md;
- 	struct bio *bio = io->orig_bio;
+-	struct bio *bio = io->orig_bio;
++	unsigned long flags;
  
- 	bio_start_io_acct_time(bio, io->start_time);
--	if (unlikely(dm_stats_used(&md->stats)))
--		dm_stats_account_io(&md->stats, bio_data_dir(bio),
-+
-+	if (unlikely(dm_stats_used(&io->md->stats)))
-+		dm_stats_account_io(&io->md->stats, bio_data_dir(bio),
+-	bio_start_io_acct_time(bio, io->start_time);
++	/* Ensure IO accounting is only ever started once */
++	spin_lock_irqsave(&io->lock, flags);
++	if (smp_load_acquire(&io->io_acct_time)) {
++		spin_unlock_irqrestore(&io->lock, flags);
++		return;
++	}
++	smp_store_release(&io->io_acct_time, jiffies);
++	spin_unlock_irqrestore(&io->lock, flags);
+ 
++	bio_start_io_acct_time(bio, io->start_time);
+ 	if (unlikely(dm_stats_used(&io->md->stats)))
+ 		dm_stats_account_io(&io->md->stats, bio_data_dir(bio),
  				    bio->bi_iter.bi_sector, bio_sectors(bio),
  				    false, 0, &io->stats_aux);
  }
-@@ -500,18 +500,12 @@ static void start_io_acct(struct dm_io *io)
+ 
++static void start_io_acct(struct dm_io *io, struct bio *bio)
++{
++	/* Only start_io_acct() once for this IO */
++	if (smp_load_acquire(&io->io_acct_time))
++		return;
++
++	__start_io_acct(io, bio);
++}
++
++static void clone_and_start_io_acct(struct dm_io *io, struct bio *bio)
++{
++	struct bio io_acct_clone;
++
++	/* Only clone_and_start_io_acct() once for this IO */
++	if (smp_load_acquire(&io->io_acct_time))
++		return;
++
++	bio_init_clone(io->orig_bio->bi_bdev,
++		       &io_acct_clone, bio, GFP_NOIO);
++	__start_io_acct(io, &io_acct_clone);
++}
++
  static void end_io_acct(struct mapped_device *md, struct bio *bio,
  			unsigned long start_time, struct dm_stats_aux *stats_aux)
  {
--	unsigned long duration = jiffies - start_time;
--
++	if (!start_time)
++		return;
++
  	bio_end_io_acct(bio, start_time);
  
  	if (unlikely(dm_stats_used(&md->stats)))
- 		dm_stats_account_io(&md->stats, bio_data_dir(bio),
- 				    bio->bi_iter.bi_sector, bio_sectors(bio),
--				    true, duration, stats_aux);
--
--	/* nudge anyone waiting on suspend queue */
--	if (unlikely(wq_has_sleeper(&md->wait)))
--		wake_up(&md->wait);
-+				    true, jiffies - start_time, stats_aux);
- }
- 
- static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
-@@ -532,7 +526,7 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	atomic_set(&io->io_count, 1);
- 	io->orig_bio = bio;
- 	io->md = md;
--	spin_lock_init(&io->endio_lock);
-+	spin_lock_init(&io->lock);
+@@ -529,6 +562,7 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
+ 	spin_lock_init(&io->lock);
  
  	io->start_time = jiffies;
++	io->io_acct_time = 0;
  
-@@ -796,10 +790,10 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 	return io;
+ }
+@@ -818,7 +852,8 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 		}
  
- 	/* Push-back supersedes any I/O errors */
- 	if (unlikely(error)) {
--		spin_lock_irqsave(&io->endio_lock, flags);
-+		spin_lock_irqsave(&io->lock, flags);
- 		if (!(io->status == BLK_STS_DM_REQUEUE && __noflush_suspending(md)))
- 			io->status = error;
--		spin_unlock_irqrestore(&io->endio_lock, flags);
-+		spin_unlock_irqrestore(&io->lock, flags);
- 	}
- 
- 	if (atomic_dec_and_test(&io->io_count)) {
-@@ -829,6 +823,10 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 		io_error = io->status;
+-		start_time = io->start_time;
++		if (io->io_acct_time)
++			start_time = io->start_time;
+ 		stats_aux = io->stats_aux;
  		free_io(io);
  		end_io_acct(md, bio, start_time, &stats_aux);
+@@ -1099,6 +1134,43 @@ void dm_accept_partial_bio(struct bio *bio, unsigned n_sectors)
+ }
+ EXPORT_SYMBOL_GPL(dm_accept_partial_bio);
  
-+		/* nudge anyone waiting on suspend queue */
-+		if (unlikely(wq_has_sleeper(&md->wait)))
-+			wake_up(&md->wait);
++/*
++ * @clone: clone bio that DM core passed to target's .map function
++ * @tgt_clone: bio that target needs to submit (after DM_MAPIO_SUBMITTED)
++ *
++ * Targets should use this interface to submit bios they take
++ * ownership of when returning DM_MAPIO_SUBMITTED.
++ *
++ * Target should also enable ti->accounts_remapped_io
++ */
++void dm_submit_bio_remap(struct bio *clone, struct bio *tgt_clone)
++{
++	struct dm_target_io *tio = clone_to_tio(clone);
++	struct dm_io *io = tio->io;
++	struct block_device *clone_bdev = clone->bi_bdev;
 +
- 		if (io_error == BLK_STS_DM_REQUEUE)
- 			return;
- 
-@@ -1127,9 +1125,7 @@ static void __map_bio(struct bio *clone)
- 	clone->bi_end_io = clone_endio;
- 
- 	/*
--	 * Map the clone.  If r == 0 we don't need to do
--	 * anything, the target has assumed ownership of
--	 * this io.
-+	 * Map the clone.
- 	 */
- 	dm_io_inc_pending(io);
- 	tio->old_sector = clone->bi_iter.bi_sector;
-@@ -1154,6 +1150,7 @@ static void __map_bio(struct bio *clone)
- 
++	/* establish bio that will get submitted */
++	if (!tgt_clone)
++		tgt_clone = clone;
++
++	/*
++	 * account IO to DM device in terms of clone's
++	 * payload to avoid concern about late bio splitting.
++	 * - clone will reflect any dm_accept_partial_bio()
++	 * - any bio splitting is ultimately reflected in
++	 *   io->orig_bio so there is no IO imbalance in
++	 *   end_io_acct().
++	 */
++	clone->bi_bdev = io->orig_bio->bi_bdev;
++	start_io_acct(io, clone);
++	clone->bi_bdev = clone_bdev;
++
++	trace_block_bio_remap(tgt_clone, bio_dev(io->orig_bio),
++			      tio->old_sector);
++	submit_bio_noacct(tgt_clone);
++}
++EXPORT_SYMBOL_GPL(dm_submit_bio_remap);
++
+ static noinline void __set_swap_bios_limit(struct mapped_device *md, int latch)
+ {
+ 	mutex_lock(&md->swap_bios_lock);
+@@ -1151,12 +1223,18 @@ static void __map_bio(struct bio *clone)
  	switch (r) {
  	case DM_MAPIO_SUBMITTED:
-+		/* target has assumed ownership of this io */
+ 		/* target has assumed ownership of this io */
++		if (!ti->accounts_remapped_io) {
++			/*
++			 * Any split isn't reflected in io->orig_bio yet. And bio
++			 * cannot be modified because target is submitting it.
++			 * Clone bio and account IO to DM device.
++			 */
++			clone_and_start_io_acct(io, clone);
++		}
  		break;
  	case DM_MAPIO_REMAPPED:
  		/* the bio has been remapped so dispatch it */
-@@ -1301,10 +1298,9 @@ static bool is_abnormal_io(struct bio *bio)
- static bool __process_abnormal_io(struct clone_info *ci, struct dm_target *ti,
- 				  int *result)
- {
--	struct bio *bio = ci->bio;
- 	unsigned num_bios = 0;
- 
--	switch (bio_op(bio)) {
-+	switch (bio_op(ci->bio)) {
- 	case REQ_OP_DISCARD:
- 		num_bios = ti->num_discard_bios;
+-		trace_block_bio_remap(clone, bio_dev(io->orig_bio),
+-				      tio->old_sector);
+-		submit_bio_noacct(clone);
++		dm_submit_bio_remap(clone, NULL);
  		break;
+ 	case DM_MAPIO_KILL:
+ 	case DM_MAPIO_REQUEUE:
+@@ -1403,7 +1481,6 @@ static void dm_split_and_process_bio(struct mapped_device *md,
+ 		submit_bio_noacct(bio);
+ 	}
+ out:
+-	start_io_acct(ci.io);
+ 	/* drop the extra reference count */
+ 	dm_io_dec_pending(ci.io, errno_to_blk_status(error));
+ }
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index b26fecf6c8e8..a3e397155bc9 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -362,6 +362,12 @@ struct dm_target {
+ 	 * zone append operations using regular writes.
+ 	 */
+ 	bool emulate_zone_append:1;
++
++	/*
++	 * Set if the target will submit IO using dm_submit_bio_remap()
++	 * after returning DM_MAPIO_SUBMITTED from its map function.
++	 */
++	bool accounts_remapped_io:1;
+ };
+ 
+ void *dm_per_bio_data(struct bio *bio, size_t data_size);
+@@ -465,6 +471,7 @@ int dm_suspended(struct dm_target *ti);
+ int dm_post_suspending(struct dm_target *ti);
+ int dm_noflush_suspending(struct dm_target *ti);
+ void dm_accept_partial_bio(struct bio *bio, unsigned n_sectors);
++void dm_submit_bio_remap(struct bio *clone, struct bio *tgt_clone);
+ union map_info *dm_get_rq_mapinfo(struct request *rq);
+ 
+ #ifdef CONFIG_BLK_DEV_ZONED
 -- 
 2.15.0
 
