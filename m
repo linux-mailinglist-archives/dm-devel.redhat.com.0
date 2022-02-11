@@ -2,71 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 162954B44C7
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 09:48:26 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8014A4B44CC
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 09:48:29 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-134-uV31chPCPZ-uV7vfngH8eA-1; Mon, 14 Feb 2022 03:48:21 -0500
-X-MC-Unique: uV31chPCPZ-uV7vfngH8eA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-84-uN39UyGfOp-vTS_HtVo_wA-1; Mon, 14 Feb 2022 03:48:24 -0500
+X-MC-Unique: uN39UyGfOp-vTS_HtVo_wA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F3856189DF42;
-	Mon, 14 Feb 2022 08:48:15 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 97200189DF51;
+	Mon, 14 Feb 2022 08:48:17 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 00A1655F5C;
-	Mon, 14 Feb 2022 08:48:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7621B5F939;
+	Mon, 14 Feb 2022 08:48:17 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 555171809CB8;
-	Mon, 14 Feb 2022 08:48:03 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id BBA951806D2B;
+	Mon, 14 Feb 2022 08:48:16 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.3])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21BCFnZp008089 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Feb 2022 07:15:49 -0500
+	id 21BFm3w9029544 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Feb 2022 10:48:04 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 78445C202C6; Fri, 11 Feb 2022 12:15:49 +0000 (UTC)
+	id D84A8112131B; Fri, 11 Feb 2022 15:48:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 748D5C19149
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 12:15:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BF42811E7A
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 12:15:49 +0000 (UTC)
-Received: from mail-pj1-f73.google.com (mail-pj1-f73.google.com
-	[209.85.216.73]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-456-yBKMsS3jOtWMBAGYd-XBug-1; Fri, 11 Feb 2022 07:15:45 -0500
-X-MC-Unique: yBKMsS3jOtWMBAGYd-XBug-1
-Received: by mail-pj1-f73.google.com with SMTP id
-	ay10-20020a17090b030a00b001b8a4029ba0so8135523pjb.5
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 04:15:45 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:message-id:mime-version:subject:from:to:cc;
-	bh=dHcRBMyYOzUwhslp5JRE655B9xCzIebKFjgXEXXATO4=;
-	b=lmTF8XLwl4jbODrIwctyX+TWPg+IqHjWas9pNdAHGJMuv1clKOexDnFlb2ptEKSDha
-	lwlmOLlEBkIWIwOqvN8ZyVJw0/dQjGQb95OJtaw28kONbbTa9A2J2uXoK5avqIHHVyaC
-	uL7Ukm/fuK1DUH7aQZjHHKKaRqOi4IidwKA5AWHV6Bcw5MA7WbSToy1MW5Y/rMTwFsf9
-	OIV1yoamZTwkJ7iNXv/n83FsZ0x57CZ8pAj5wA/MfTymRMfKkQ1yBmK9X3FU/SvR/i+i
-	IGoqEZxNJECM3TFnfC6l7qaHRbTj9Cmj3jgx4N4+rojAU33M81GrKQPabaSnXynK6Mxk
-	kliQ==
-X-Gm-Message-State: AOAM533B+xQ9jS6lbiA724x2EfK3E/hYJYHKsIIV1BVNMMhUNaZO1i6r
-	1nPrRxLO8p3rsEx4/Ncgg+oAygrfW2UE
-X-Google-Smtp-Source: ABdhPJy7sBPtRxK0skNt82llh8Dm6SEUyT6OPVuRpGC7qERJhH/4cznimN+5yN/os6Q6UDXSavGQkZ2g6g+7
-X-Received: from ezekiel.c.googlers.com
-	([fda3:e722:ac3:cc00:4f:4b78:c0a8:108e])
-	(user=shraash job=sendgmr) by 2002:a17:90a:e7ce:: with SMTP id
-	kb14mr75272pjb.202.1644581744235; Fri, 11 Feb 2022 04:15:44 -0800 (PST)
-Date: Fri, 11 Feb 2022 12:15:38 +0000
-Message-Id: <20220211121538.1636240-1-shraash@google.com>
-Mime-Version: 1.0
-From: Aashish Sharma <shraash@google.com>
-To: Alasdair Kergon <agk@redhat.com>
+	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D429D1120AB7
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 15:48:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA52A28EC10A
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 15:48:00 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-315-vHrDgmvYMYWSmZLeW8GgIQ-1; Fri, 11 Feb 2022 10:47:58 -0500
+X-MC-Unique: vHrDgmvYMYWSmZLeW8GgIQ-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10254"; a="336175145"
+X-IronPort-AV: E=Sophos;i="5.88,361,1635231600"; d="scan'208";a="336175145"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+	by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	11 Feb 2022 07:46:53 -0800
+X-IronPort-AV: E=Sophos;i="5.88,361,1635231600"; d="scan'208";a="542134195"
+Received: from ankitata-mobl1.amr.corp.intel.com (HELO
+	spandruv-desk1.amr.corp.intel.com) ([10.212.170.20])
+	by orsmga008-auth.jf.intel.com with
+	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 11 Feb 2022 07:46:51 -0800
+Message-ID: <077501bfcb710c66754c61d69e45cac66fccf38a.camel@linux.intel.com>
+From: srinivas pandruvada <srinivas.pandruvada@linux.intel.com>
+To: Qing Wang <wangqing@vivo.com>, Konrad Rzeszutek Wilk
+	<konrad.wilk@oracle.com>, Roger Pau =?ISO-8859-1?Q?Monn=E9?=
+	<roger.pau@citrix.com>, Jens Axboe <axboe@kernel.dk>, Michael Turquette
+	<mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Jani Nikula
+	<jani.nikula@linux.intel.com>, Joonas Lahtinen
+	<joonas.lahtinen@linux.intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, David Airlie <airlied@linux.ie>, 
+	Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
+	Christian =?ISO-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
+	"Pan, Xinhui" <Xinhui.Pan@amd.com>, Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <benjamin.tissoires@redhat.com>, Dmitry Torokhov
+	<dmitry.torokhov@gmail.com>, Alasdair Kergon <agk@redhat.com>, Mike
+	Snitzer <snitzer@redhat.com>, dm-devel@redhat.com, Mauro Carvalho Chehab
+	<mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@xs4all.nl>, xen-devel@lists.xenproject.org,
+	linux-block@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
+	linux-input@vger.kernel.org, linux-media@vger.kernel.org
+Date: Fri, 11 Feb 2022 07:46:51 -0800
+In-Reply-To: <1644546640-23283-6-git-send-email-wangqing@vivo.com>
+References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
+	<1644546640-23283-6-git-send-email-wangqing@vivo.com>
+User-Agent: Evolution 3.42.3 (3.42.3-1.fc35)
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -75,14 +87,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 14 Feb 2022 03:47:51 -0500
-Cc: groeck@chromium.org, Aashish Sharma <shraash@google.com>,
-	dm-devel@redhat.com, linux-kernel@vger.kernel.org,
-	Mike Snitzer <snitzer@redhat.com>
-Subject: [dm-devel] [PATCH] dm crypt: fixed compiler warning in conditional
-	expression
+Subject: Re: [dm-devel] [PATCH V2 5/13] hid: use time_is_after_jiffies()
+ instead of jiffies judgment
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -96,45 +105,32 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Explicitly converting unsigned int in the right of the
-conditional expression to int to match the left side operand
-and the return type, fixing the following compiler warning:
-
-drivers/md/dm-crypt.c:2593:43: warning: signed and unsigned
-type in conditional expression [-Wsign-compare]
-
-Signed-off-by: Aashish Sharma <shraash@google.com>
----
- drivers/md/dm-crypt.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index d4ae31558826..489b23cb37c3 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -2590,7 +2590,8 @@ static int crypt_set_keyring_key(struct crypt_config *cc, const char *key_string
- 
- static int get_key_size(char **key_string)
- {
--	return (*key_string[0] == ':') ? -EINVAL : strlen(*key_string) >> 1;
-+	return (*key_string[0] == ':') ? -EINVAL
-+				: (int)(strlen(*key_string) >> 1);
- }
- 
- #endif /* CONFIG_KEYS */
--- 
-2.35.1.265.g69c8d7142f-goog
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gVGh1LCAyMDIyLTAyLTEwIGF0IDE4OjMwIC0wODAwLCBRaW5nIFdhbmcgd3JvdGU6Cj4gRnJv
+bTogV2FuZyBRaW5nIDx3YW5ncWluZ0B2aXZvLmNvbT4KPiAKPiBJdCBpcyBiZXR0ZXIgdG8gdXNl
+IHRpbWVfeHh4KCkgZGlyZWN0bHkgaW5zdGVhZCBvZiBqaWZmaWVzIGp1ZGdtZW50Cj4gZm9yIHVu
+ZGVyc3RhbmRpbmcuCj4gCj4gU2lnbmVkLW9mZi1ieTogV2FuZyBRaW5nIDx3YW5ncWluZ0B2aXZv
+LmNvbT4KQWNrZWQtYnk6IFNyaW5pdmFzIFBhbmRydXZhZGEgPHNyaW5pdmFzLnBhbmRydXZhZGFA
+bGludXguaW50ZWwuY29tPgoKPiAtLS0KPiDCoGRyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXBj
+L2lwYy5jIHwgMiArLQo+IMKgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0
+aW9uKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvaGlkL2ludGVsLWlzaC1oaWQvaXBjL2lw
+Yy5jIGIvZHJpdmVycy9oaWQvaW50ZWwtCj4gaXNoLWhpZC9pcGMvaXBjLmMKPiBpbmRleCA4Y2Ni
+MjQ2Li4xNWUxNDIzCj4gLS0tIGEvZHJpdmVycy9oaWQvaW50ZWwtaXNoLWhpZC9pcGMvaXBjLmMK
+PiArKysgYi9kcml2ZXJzL2hpZC9pbnRlbC1pc2gtaGlkL2lwYy9pcGMuYwo+IEBAIC01NzgsNyAr
+NTc4LDcgQEAgc3RhdGljIHZvaWQgX2lzaF9zeW5jX2Z3X2Nsb2NrKHN0cnVjdAo+IGlzaHRwX2Rl
+dmljZSAqZGV2KQo+IMKgwqDCoMKgwqDCoMKgwqBzdGF0aWMgdW5zaWduZWQgbG9uZ8KgwqDCoMKg
+cHJldl9zeW5jOwo+IMKgwqDCoMKgwqDCoMKgwqB1aW50NjRfdMKgwqDCoMKgwqDCoMKgwqB1c2Vj
+Owo+IMKgCj4gLcKgwqDCoMKgwqDCoMKgaWYgKHByZXZfc3luYyAmJiBqaWZmaWVzIC0gcHJldl9z
+eW5jIDwgMjAgKiBIWikKPiArwqDCoMKgwqDCoMKgwqBpZiAocHJldl9zeW5jICYmIHRpbWVfaXNf
+YWZ0ZXJfamlmZmllcyhwcmV2X3N5bmMgKyAyMCAqIEhaKSkKPiDCoMKgwqDCoMKgwqDCoMKgwqDC
+oMKgwqDCoMKgwqDCoHJldHVybjsKPiDCoAo+IMKgwqDCoMKgwqDCoMKgwqBwcmV2X3N5bmMgPSBq
+aWZmaWVzOwoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0
+cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbA==
 
