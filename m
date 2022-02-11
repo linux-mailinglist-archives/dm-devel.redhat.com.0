@@ -1,59 +1,58 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 370B04B1E2F
-	for <lists+dm-devel@lfdr.de>; Fri, 11 Feb 2022 07:08:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 15CCE4B1E2A
+	for <lists+dm-devel@lfdr.de>; Fri, 11 Feb 2022 07:08:33 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-551-pWBswmLONxqdMS7Zzo9Aag-1; Fri, 11 Feb 2022 01:08:33 -0500
-X-MC-Unique: pWBswmLONxqdMS7Zzo9Aag-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
+ us-mta-584-96c4phF1N2uhUFyq2NdA4Q-1; Fri, 11 Feb 2022 01:08:30 -0500
+X-MC-Unique: 96c4phF1N2uhUFyq2NdA4Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 9F1AE1091DA4;
-	Fri, 11 Feb 2022 06:08:27 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1BB6B3E767;
+	Fri, 11 Feb 2022 06:08:22 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 783FC55F76;
-	Fri, 11 Feb 2022 06:08:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C97AB108D9;
+	Fri, 11 Feb 2022 06:08:21 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id B5E904A707;
-	Fri, 11 Feb 2022 06:08:26 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 8C67D4A707;
+	Fri, 11 Feb 2022 06:08:21 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21B2X1tC031685 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 10 Feb 2022 21:33:01 -0500
+	id 21B2XDvu031716 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 10 Feb 2022 21:33:13 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 5B4291120AA9; Fri, 11 Feb 2022 02:33:01 +0000 (UTC)
+	id 24520C202C5; Fri, 11 Feb 2022 02:33:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 565D21120AA8
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 02:32:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5505C802319
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 02:32:58 +0000 (UTC)
+	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F2DF7C1D38B
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 02:33:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D59421C04B4A
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 02:33:12 +0000 (UTC)
 Received: from APC01-SG2-obe.outbound.protection.outlook.com
 	(mail-sgaapc01on2132.outbound.protection.outlook.com [40.107.215.132])
 	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-621-6Bvs0-MqOcCipAhLB1FYQg-1; Thu, 10 Feb 2022 21:32:56 -0500
-X-MC-Unique: 6Bvs0-MqOcCipAhLB1FYQg-1
+	us-mta-287-oteKDIaNPke9jmaYOrT4Ng-1; Thu, 10 Feb 2022 21:33:08 -0500
+X-MC-Unique: oteKDIaNPke9jmaYOrT4Ng-1
 Received: from SL2PR06MB3082.apcprd06.prod.outlook.com (2603:1096:100:37::17)
 	by PS1PR0601MB3705.apcprd06.prod.outlook.com (2603:1096:300:80::14)
 	with Microsoft SMTP Server (version=TLS1_2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4951.12;
-	Fri, 11 Feb 2022 02:32:51 +0000
+	Fri, 11 Feb 2022 02:33:02 +0000
 Received: from SL2PR06MB3082.apcprd06.prod.outlook.com
 	([fe80::80b4:e787:47a9:41bb]) by
 	SL2PR06MB3082.apcprd06.prod.outlook.com
 	([fe80::80b4:e787:47a9:41bb%4]) with mapi id 15.20.4975.014;
-	Fri, 11 Feb 2022 02:32:51 +0000
+	Fri, 11 Feb 2022 02:33:01 +0000
 From: Qing Wang <wangqing@vivo.com>
 To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
@@ -75,8 +74,8 @@ To: Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
 	linux-clk@vger.kernel.org, intel-gfx@lists.freedesktop.org,
 	dri-devel@lists.freedesktop.org, amd-gfx@lists.freedesktop.org,
 	linux-input@vger.kernel.org, linux-media@vger.kernel.org
-Date: Thu, 10 Feb 2022 18:30:34 -0800
-Message-Id: <1644546640-23283-12-git-send-email-wangqing@vivo.com>
+Date: Thu, 10 Feb 2022 18:30:35 -0800
+Message-Id: <1644546640-23283-13-git-send-email-wangqing@vivo.com>
 In-Reply-To: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
 References: <1644546640-23283-1-git-send-email-wangqing@vivo.com>
 X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
@@ -84,57 +83,57 @@ X-ClientProxiedBy: HK2PR02CA0178.apcprd02.prod.outlook.com
 	(2603:1096:100:37::17)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: cd8769e6-d363-4ee5-4a94-08d9ed06cca8
+X-MS-Office365-Filtering-Correlation-Id: a0c82371-8017-4197-5f91-08d9ed06d2ea
 X-MS-TrafficTypeDiagnostic: PS1PR0601MB3705:EE_
-X-Microsoft-Antispam-PRVS: <PS1PR0601MB370540B185341396776FBE22BD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
-X-MS-Oob-TLC-OOBClassifiers: OLM:1751
+X-Microsoft-Antispam-PRVS: <PS1PR0601MB3705AF49C75AC16BA5099910BD309@PS1PR0601MB3705.apcprd06.prod.outlook.com>
+X-MS-Oob-TLC-OOBClassifiers: OLM:3631
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: ap7cwPaUAtNcN60g89R7HvJFIlY8DkMtY273D4LMkoqQfd0JkwOfeTniOqvhhDmdcgQDoqcPA+4JIUnqYVEvpMY3Dxu5BQDVnVr29loaChOH8HquGgiN1QPnQIDczyyXWE+CPfDW7TkI7i128MAOkSuUSSqTCXm+nek7xImLdHJ1WlMuRK3ZPGskZkhIPdWvW7rIj9hRhyc/4ogsBY02mA7uayw9Ze1gS0Y0YGohY6F56oj7+4rht1taKTFtkFIlyhMFvkPYKUBiSRTveuXc5oIkoDQb38aVSRX1xcLekMs/78YNm2G4OjKFBSOjIlxtBzWkFMELHPNddvn6u65fz/cIsOFhAbPX/QXrBV2KkyczwiR/nvSOLhN+DdFDO1iW7QndGPyE3OMKrRgz6QwvRo3hjL68myq0ILZl3t2QfovI7mikeVch4tNe+YdyuwxuwA/aJTmB+UpBrZVSVjUCQutrMZZP9ZXNBd+57npHdia7GeKv55Yc9y1mTjgeOSnfTd+Ep9SIGtS+Q7Y5Pi1CtTMuTHmF0RL6vIOC9Qm5jY8Gexnsm0e1N4feg9BhxixDxt5E4F1FNiZdlTVA/giIVU8zoBYOM0XTQ+1b8p3CYvzx2wD3W48B3GiuMjwoD6kWJgwYyLgkfqIKArNTlIYdxQRbS9ctwuFMRoxVoyPee0ztOPefN5M1kF/IBa4pwCrMKtlEmRs2DhWxgQQhI0obSfd/E2yhZVh++W0NA9LKTgUqz2Fpe/rDcgwfQDzGpg6j
+X-Microsoft-Antispam-Message-Info: 11djht2qCnSHMekgjn3yfBRNtKoR0UKGRdDeekosS2A4AcFGfSf+QKEcjVSnzr3ieJMEzCCnbyUD7zK7fd2IcVdw0r4yjmIqyF2yGbTm+2HU4IlFNRVNlCKKDzRlZ/6cCVK37j2tZ0Mw55gBsf2CFgFEpdmKeIS+UijpaMSkOLATA7oqL0OIuuQVDg+p4PfEZaN8rqN1A2VQH7ttB9uBIX1QuI7bQLdAdVou+oIweYykJdmldP2YkkYJJxj8P9cFqoqSruo+mu2cJaEx0HEeAHnMIiO2tAhoUJQM5465VSFPX8O0eoMKKQuNpCyjC5sIljeXf0enq7aKAT6lbhSVB1nreAIimblP2EiIuFzqnnsURNqftyYJxzUPDBLAM5kenQUdKj5zUvGSpqhgiqLrHx0MtWB28l6sbzxD52d6iHp3EM1j3KM6T98sYHvMbFX0oOZRroNIYvYKkVQ41UTrURd+fIF69cftcJiBCa2U4TxXtre2edAL7Xf3Dmr5zRlq2lbuFtffgfkBkv4YbzE+Nqlwg36WM7ihe6PospLDzLIrL25Z3iXeEQz10a3Ko6R89PJzcS7JGG0eOGV1u+wijPYeha6073Gp7Mecq2MK1wX4vfIblPMSue9oHRzEojZpvmBbZx2B/+DhzfB+rH1xuC5F63LNPO4aD5udzwWf2fz6s/XwP8QuzB/cxV7XJrrd/BRaTaXaCA5ozq8eLq5y1gtQUD2ZTAdcWp005htUYf8JtG4kn7FB4qp40LfQrBdB
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
 	IPV:NLI; SFV:NSPM; H:SL2PR06MB3082.apcprd06.prod.outlook.com;
 	PTR:; CAT:NONE;
-	SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(4744005)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);
+	SFS:(13230001)(4636009)(366004)(186003)(2906002)(7416002)(66946007)(316002)(36756003)(2616005)(107886003)(26005)(921005)(7406005)(110136005)(5660300002)(83380400001)(6486002)(6512007)(6506007)(66556008)(86362001)(6666004)(508600001)(4326008)(52116002)(8676002)(8936002)(66476007)(38100700002)(38350700002)(21314003);
 	DIR:OUT; SFP:1102
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?XvPcCmrYkA7Du7Opc3xsGLAaIokoQ7W1OShKVIydnA+J7YAcXUPMplhB79ad?=
-	=?us-ascii?Q?BS1jV2QoRFBmYSqZQgElNmIAUjkiAxOKdm/qa4lVPqW2DdOZvKVWQ0cGw9xY?=
-	=?us-ascii?Q?0CAMD2rtEg4e9h8GgWiOH02JP69rahWcYtbq/ikqxOtMql0i1T7GazuXXFjK?=
-	=?us-ascii?Q?HABeZfp4WEdy6FhduNh60ZJMfd3ynm2QnV7BJSBWsyeriCUJZ7ZLwAZFn89I?=
-	=?us-ascii?Q?ny1flmH1D0EUlGAXmDdIdFcf+okHQKWXY70+Kfkw5n1d9uE0pYXcNSalyEYJ?=
-	=?us-ascii?Q?KY4ZxjEaWZANn9DfPu07IcKp+x/ycvKGA5WkYsr6G3zeE4yT8gCyusBQXEmY?=
-	=?us-ascii?Q?kR2HnTHczSgnWg5GV+NOToEuJ/x2HkqvWNn6PLjRprHjacRyGHVWPQ+1UClM?=
-	=?us-ascii?Q?6ADzqlB0gLDiaedxuLYKler9/eozVLtqOBDW48G2Usp1ZDAmCCl8RUjsSnv6?=
-	=?us-ascii?Q?Pq8PapRcBTAuRnGEQVBKmV+8V3yyl25Obo9lT/q044qh+5DrS1HZEq5PNPb5?=
-	=?us-ascii?Q?i4sfY5LZGhvDZoGyJTmvPssqm4JzfBsdZGgrYunCMdi1oPCnQ7mJuaAl9FWI?=
-	=?us-ascii?Q?pPkn/3DqYYVt+MQ4Z1ZkNXMJreHXOHpxILcCKOjfiBUKsr2QWyQPGd6lafpV?=
-	=?us-ascii?Q?YpAPACIvar7lNhGei3TkMwYX8nIfonqCyU++KJVxYnBiavQgpB82cqpPEGID?=
-	=?us-ascii?Q?10fzmPpFAXyw0/o+sYDe6Hd7vhNpGaBQ35pyWyprLZoE4gDfCOHX2S3SF9/r?=
-	=?us-ascii?Q?/jYsy0Wz4r4p89rH2aliKggG5OzOyBb3JEKB9JkJTJDMZYzfQM5ffQ9tJkbC?=
-	=?us-ascii?Q?1YrB7xfaf5QO2LDsra6rhgkfPvUJ8+YYf3FadrvifDHGZ2ChrAUUckkWTqgb?=
-	=?us-ascii?Q?d1yPZayI6nq2LTy70KM7y0II7Ah/f+sF/MpfD7KOonHNKT7HDuYSD/TMI77C?=
-	=?us-ascii?Q?x1uftmRAxkEZ/S7oKeZh6kUeYA/Enw/exb4hFxz/9PNrBpL+DcYgLFTSIXwn?=
-	=?us-ascii?Q?cCG8oj+0rv87jJsNnjdGzx8neujGdRtM+WPFdWsYcQfRYBzBzLjxu/jsLEIB?=
-	=?us-ascii?Q?mmdyfXhh79+bLkmtL/suJKl7O6by4z6r/yGen3lxMxX2rhneaeX9SFdAh8aS?=
-	=?us-ascii?Q?pAxvQJW3zTGlEAXkSnZJWy5tzgWb4gEiCtJR59EMPl1GjZVlwX061IKIDjew?=
-	=?us-ascii?Q?dpXoTnIZncRRuZjeuNoga5f/8bVBcOJuYckD33D5dYsky8erptryBYosZcjf?=
-	=?us-ascii?Q?4DzxdHpPOxqErz8MILaTs4zqqjAM1YSrq+5lIKktfVOaEOmH9o0D9GohmtWr?=
-	=?us-ascii?Q?HUK9REILIRNJlnIRS0X/VNO8hO4fn88pnY5DQKLCr/L11xTyhxLot/gGGWqP?=
-	=?us-ascii?Q?75R/t9t6s6bqCxdyCdzGoJJaxs+qOY9pc4KF7YbKAoj67h0XLyO4NLQThd66?=
-	=?us-ascii?Q?hq2NWJVXU7senmUKbKsKi68dyNG2oh1+XuKBYSE77hdLG27BFnWSEVAI4PmZ?=
-	=?us-ascii?Q?DASJsafXRxMJrG/rEXeTS8s23Y5aMjwrvGfgwz1EgAXNGxzdmc3BI26eI8FT?=
-	=?us-ascii?Q?IEjVHGUQQVrlePgOMkzaCSDEcT0x17+/68J6deTXkvrOUs5rmIao4MTx5mBr?=
-	=?us-ascii?Q?NOr2LJNZoFcItflcG2P7krg=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?j9fyLt2pN3iVlwuQgYSDuidhHBuXIqGYNxxdAxZxiLqMohOtaeQ4vcG95cj4?=
+	=?us-ascii?Q?8tk23Bxd/fSNFy190paiTPbZL3vhMrekLNGVOImi/gPBk1Nmv9rA5EhMuCUP?=
+	=?us-ascii?Q?je1dnQHm49etj4mp/Q/gankTIjbTVaB62MwksFHWLaiLP/pNgQUEJYyr5WoC?=
+	=?us-ascii?Q?OMjBLuNNTc/mwvq11hwxOagLktLUfBsWIWzyh5eGr+/IobCHbnsPjJejsNRY?=
+	=?us-ascii?Q?xZbJUywMZtmYConMfnjZ+w0HCd+Uft3dek8DObgX88vbFk1wnhyvfwk1AQ0x?=
+	=?us-ascii?Q?uYuIbot6Bkxx33EGOf8p83qlCg8m0YznvJsThw3o3CGJHmiM7vv+uNLaMtlw?=
+	=?us-ascii?Q?usupnjPdxbrdZXbzikVs312ML/TVP6s8qMU8b7DtjE4EqVhixvtN+ZGxIVJK?=
+	=?us-ascii?Q?0KzoC8C8bktQol0RNWc818k8cAcO6wruT8ZEgZ5R8Zk+qy7bmpcdGi2FCbsW?=
+	=?us-ascii?Q?s9je5QH/Yn6UCHJ1c5oG9uCwsy+NTWu5Iw/UyZUrFlveovYFyzZXsXIA3K0a?=
+	=?us-ascii?Q?lxExdE3NfIXWcMgetjHAtg6j5PT2NZFgeIC/RUQaNnV4o6HVpSewEuPC0pwr?=
+	=?us-ascii?Q?VgHexVgfvMw/FLOaoG/R+lKAproLn+ODDh3D1pBjq0e/gCJuBSWILxeHKahW?=
+	=?us-ascii?Q?q5Jna0NBrGCp5GZ3+qrGLpGy0UCXiQUqxoi+EHYPhuY3AxYxPhR2nUlPIuXb?=
+	=?us-ascii?Q?5yFuSIUekF7EchRUNEHzaK1T0eBkIkvdkOvtJRFx2/1YcA2uasFAjbzVvBHV?=
+	=?us-ascii?Q?MSxF+3SACPq6sNMNgm0Cu/UH7JxUz0TCBh/SZUBT49E+7Yes8YWgFBDj205N?=
+	=?us-ascii?Q?Mp+TOTxnEq/Sf/nEQPhey2gV08XSH5+37sUQo71qI16kkeOSHoUiZxZ92IR9?=
+	=?us-ascii?Q?glj+z7pMxkcYjul7sFNTksL8yoKrvPERGBvpUgaRElg5qmlK2bUKO5diNCLj?=
+	=?us-ascii?Q?HaewpMmmXkY5Xf7TmEQOZhAwT9/T8KrKjxzBmUpDkyo6N8Z1iijvF6S1rU5X?=
+	=?us-ascii?Q?6doyYzqhqNcMQnhkv2bK27LTFrUXktrhC0ABsnJ2xZiRnWgbrFzsoblnlebD?=
+	=?us-ascii?Q?rKoVD9/mufSXio0kFwHGCy8kihdYplrZdv8XCNgYMdqVkTbSILPM7+QT3feE?=
+	=?us-ascii?Q?lAeO4y6o3g4K8R1jUgNrg7f0pe8o2xN5oqw+wTJXj75JdqPzbeufTeyw0YPi?=
+	=?us-ascii?Q?kDFmcPQZ1YQ7aAOv9e8x37tsOHwwDeqz/N9s/rpyqto+GyGqVjh3w1KMwrgK?=
+	=?us-ascii?Q?NEt2SLFP5Eb6KdYskenPL0wzNkd0yLDMz0yCNIPoDpJ44z4P2APDeA5Xzgh4?=
+	=?us-ascii?Q?s7Db7ETALugxj5MA9fTSin7gcOkwlJDzxeravTfwq7laIXqNF+Mt4IEi94Rs?=
+	=?us-ascii?Q?RGtman4w0dQhnGfzetD8P4kt0GstkLSxXwmeezCGkmK2tBRHEqN5Olrimr/P?=
+	=?us-ascii?Q?jb5MSFNcL+dHhWKg0Cibf6vl5j1o3ZmE4CzOI6/xz2kBgG/W9YnAIg4sBXRE?=
+	=?us-ascii?Q?jmYw42Kp2ugl7V2ivgeqwjtyl43EwCq3BBYSKg9FL55TxqFMyCAs/U+7bVtm?=
+	=?us-ascii?Q?/7PCgwOqunni2VGWvO06JdDBSksstiVDmNMy9W3uYmtPM6SGbTApPcjW+bem?=
+	=?us-ascii?Q?Uq3uRUmeM0yZNeBmyxrTv8k=3D?=
 X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: cd8769e6-d363-4ee5-4a94-08d9ed06cca8
+X-MS-Exchange-CrossTenant-Network-Message-Id: a0c82371-8017-4197-5f91-08d9ed06d2ea
 X-MS-Exchange-CrossTenant-AuthSource: SL2PR06MB3082.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:32:51.1459 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 11 Feb 2022 02:33:01.6141 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: FIOV+VJxkJuy36z1KAD455OyGjtcPWPNha6WYplMGJurR2u+NV8i5/TONQWOZGXQcVf1YatOzY/HvVtoXP9poQ==
+X-MS-Exchange-CrossTenant-UserPrincipalName: HDxsZ8OVzzcn3EziFmxkt3V6wB/ovplKbr+7kX4+3TE38TD3TwdWdWogUoybm0UyyF1ke3SnrbndMi04Mm7HgQ==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: PS1PR0601MB3705
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -144,12 +143,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Fri, 11 Feb 2022 01:07:42 -0500
 Cc: Wang Qing <wangqing@vivo.com>
-Subject: [dm-devel] [PATCH V2 11/13] media: tda8083: use
-	time_is_after_jiffies() instead of jiffies judgment
+Subject: [dm-devel] [PATCH V2 12/13] media: wl128x: use
+	time_is_before_jiffies() instead of jiffies judgment
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -163,7 +162,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -178,22 +177,30 @@ for understanding.
 
 Signed-off-by: Wang Qing <wangqing@vivo.com>
 ---
- drivers/media/dvb-frontends/tda8083.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/media/radio/wl128x/fmdrv_common.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/dvb-frontends/tda8083.c b/drivers/media/dvb-frontends/tda8083.c
-index 5be11fd..49c4fe1
---- a/drivers/media/dvb-frontends/tda8083.c
-+++ b/drivers/media/dvb-frontends/tda8083.c
-@@ -162,7 +162,7 @@ static void tda8083_wait_diseqc_fifo (struct tda8083_state* state, int timeout)
- {
- 	unsigned long start = jiffies;
+diff --git a/drivers/media/radio/wl128x/fmdrv_common.c b/drivers/media/radio/wl128x/fmdrv_common.c
+index 6142484d..a599d08
+--- a/drivers/media/radio/wl128x/fmdrv_common.c
++++ b/drivers/media/radio/wl128x/fmdrv_common.c
+@@ -23,6 +23,7 @@
+ #include <linux/firmware.h>
+ #include <linux/module.h>
+ #include <linux/nospec.h>
++#include <linux/jiffies.h>
  
--	while (jiffies - start < timeout &&
-+	while (time_is_after_jiffies(start + timeout) &&
- 	       !(tda8083_readreg(state, 0x02) & 0x80))
- 	{
- 		msleep(50);
+ #include "fmdrv.h"
+ #include "fmdrv_v4l2.h"
+@@ -342,7 +343,7 @@ static void send_tasklet(struct tasklet_struct *t)
+ 		return;
+ 
+ 	/* Check, is there any timeout happened to last transmitted packet */
+-	if ((jiffies - fmdev->last_tx_jiffies) > FM_DRV_TX_TIMEOUT) {
++	if (time_is_before_jiffies(fmdev->last_tx_jiffies + FM_DRV_TX_TIMEOUT)) {
+ 		fmerr("TX timeout occurred\n");
+ 		atomic_set(&fmdev->tx_cnt, 1);
+ 	}
 -- 
 2.7.4
 
