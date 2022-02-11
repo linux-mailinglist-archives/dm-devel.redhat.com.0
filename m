@@ -2,99 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 935E24B2FBC
-	for <lists+dm-devel@lfdr.de>; Fri, 11 Feb 2022 22:46:19 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1754B2FC0
+	for <lists+dm-devel@lfdr.de>; Fri, 11 Feb 2022 22:47:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1644615978;
+	s=mimecast20190719; t=1644616035;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vy8Y/QczxPmWGPAdYlKd4RMoLpPMQKPaIITKcmpYjug=;
-	b=cn+VpSlVN/f0nOfSufpC/ZK9Sq9g0fZxmfec7TwEs2wKQOjDOH2+Yd7QMSv1LsRVutfuP3
-	6EZ1TWMJNwVPFR2P7pu/4192vYl8yMrysP18oexWfZazFG1fr7Flrz84ClBwYlrBBaHV7C
-	l68q25z6epvOzpqKQanyLmO1XmWVKps=
+	bh=KqOMbmzf07yxQMw0jXQE+h4LJua9aGVGFgr4nhC42RQ=;
+	b=CHWVx7/nZOaYIYaINXAmk6n8ghEzXqyxosiObgs/r8pvyofSa2yxCQCrcw/tEX2Snm2p1c
+	dlKie79cVeB9NB0FcftVreq86j1ipTvjTckVwISEQxl1SVFIAgISRFiGAv/eIcA6AoarHu
+	Bee3/9LJ/bAZlYuCOD0h6rqMxZkHwW0=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-22-9rqr_PzWPpKCVMRW3mRbkQ-1; Fri, 11 Feb 2022 16:46:15 -0500
-X-MC-Unique: 9rqr_PzWPpKCVMRW3mRbkQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-156-d3wfeUSQPgu8-Jl3CefJdg-1; Fri, 11 Feb 2022 16:47:12 -0500
+X-MC-Unique: d3wfeUSQPgu8-Jl3CefJdg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AABD4839A7F;
-	Fri, 11 Feb 2022 21:46:09 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A2B2F83DEAA;
+	Fri, 11 Feb 2022 21:47:06 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3222356A86;
-	Fri, 11 Feb 2022 21:46:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5386B4EC7E;
+	Fri, 11 Feb 2022 21:47:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 30AB04BB7C;
-	Fri, 11 Feb 2022 21:46:08 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 16E5E4BB7C;
+	Fri, 11 Feb 2022 21:47:06 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21BLfNdV024735 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 11 Feb 2022 16:41:23 -0500
+	id 21BLfSuU024762 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 11 Feb 2022 16:41:28 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BC05840E80E0; Fri, 11 Feb 2022 21:41:22 +0000 (UTC)
+	id 04588492D5A; Fri, 11 Feb 2022 21:41:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B892C40E80E4
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 21:41:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 0061248FB01
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 21:41:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42C78803533
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 21:41:20 +0000 (UTC)
-Received: from mail-oo1-f72.google.com (mail-oo1-f72.google.com
-	[209.85.161.72]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D809B1066567
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 21:41:16 +0000 (UTC)
+Received: from mail-oo1-f69.google.com (mail-oo1-f69.google.com
+	[209.85.161.69]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-611-MEMjC3dcMCO9pUODyI6tvQ-1; Fri, 11 Feb 2022 16:41:13 -0500
-X-MC-Unique: MEMjC3dcMCO9pUODyI6tvQ-1
-Received: by mail-oo1-f72.google.com with SMTP id
-	bb33-20020a056820162100b0031619149c44so6360977oob.5
-	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 13:41:13 -0800 (PST)
+	us-mta-670-jrG2IcnzPjuBmQrEdYl3KA-1; Fri, 11 Feb 2022 16:41:15 -0500
+X-MC-Unique: jrG2IcnzPjuBmQrEdYl3KA-1
+Received: by mail-oo1-f69.google.com with SMTP id
+	h7-20020a4aa287000000b002eb15de5797so6313906ool.23
+	for <dm-devel@redhat.com>; Fri, 11 Feb 2022 13:41:15 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
 	:references;
-	bh=8TzXai5XoIS8MdPbsH2K1r9uRN0R+imGzFYy55uIM5k=;
-	b=TooP22p6TyxIOg/cU0pVtNWM6ylWem76q7pnRTkWjY2FctS6MFBbuafIjq1MnAKtrT
-	F61aOvtMt1xHNmJrTpnAlSc49mymXS7dFFeRoj5Il1YBvyrAG5n3EHGmw8TxXcvG0j6Y
-	5+W8QVExTInOy5aPqiyWK3fLusdKyadc6j32EYT3T+p60VAnWSzIcRDA/gJLtBRpjGda
-	hPA4imZ6DGV+vjc23uFBWXU5me2SyPvpbMRXY8wXlp834w10mZx6ewtw0Y3mGv1xj4Y1
-	y5FupzEuAV1iQKjsZ6vJE/zGvhhKZgzI2HvUP4FUYtpKLVSmd7tgTBg7g4ApwUt9Vb1L
-	DEiw==
-X-Gm-Message-State: AOAM5331eNu9Sm7UcF10TietY8bAWqE8nJsnzRaYvNFDVizuFr6FELQo
-	k2YQ9inQUw14qCscvK4V029kWbaLmBmzfINvflB9RFNQwy/M6C0iXhAEGZiwWI5Qr0jfkM6I+4I
-	zIGq9eFt3w+ofTvZA22bYo4XgXdf86Qrk9IrUZ1Z3ErEAUaXiuxE3hD7Js1SbfKzmDg==
-X-Received: by 2002:a05:6870:2b0b:: with SMTP id
-	ld11mr762370oab.208.1644615672589; 
-	Fri, 11 Feb 2022 13:41:12 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJxuvVk1tr6R6mjs2QBFnD7weYNLfWqReEpv/lo9zB9fvtwYyowwbNBaoeAkADickixXuBf1Aw==
-X-Received: by 2002:a05:6870:2b0b:: with SMTP id
-	ld11mr762363oab.208.1644615672407; 
-	Fri, 11 Feb 2022 13:41:12 -0800 (PST)
+	bh=2nmpafQ891zGruDm7dwh6CvU71ZYy/KSzMouVi0m1L4=;
+	b=OFFYRdS/6mwK821E7x+tyGUBTxw08RqE/onZEJfWIoIrAP8mXv8haG70C/FAhjOngK
+	citypFUkZnMjoN/otXg0FceUoJxAW5Ef/NMB/cGqlVos9QTyXKvOqkULJirFprVpqrgP
+	VJOlTJsYhm7QHX8YQAcGtHXWpnC0glQOAnfuVw/RWooexrhXe+kG+C2chvqOrlToA9i6
+	9VCRXoJeUMRcaKqACEjWzsfWhGtb+2i9oA4pWtzFFlbTTI68BKijO8zr5jtPNS6Tyzvl
+	i5EKuoZHOdUAzklF6TqQILX0k8DzJlPFzD2dDuAH0pbV5rR86EM92zxLx747BwyJKyQT
+	GaEQ==
+X-Gm-Message-State: AOAM531vPJS3O5fds6XjOZAxwKwAFtHpPgw1LS7o751g+1W1I+38CDXe
+	3fxwlI9RiJVW3yBNkzRySfX4YSCMr6wrRDjj/QDm/8+giPGz1oYHyW4LoqkrBXAgD6jvHW9I3wq
+	M7a4SvEUxQZHLZw/CX1YRf1CUY/I0pWd8qZFooX4dtBduN/jkEstJRyQC+2A1XY9Nvw==
+X-Received: by 2002:a05:6808:21aa:: with SMTP id
+	be42mr1202433oib.181.1644615674318; 
+	Fri, 11 Feb 2022 13:41:14 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJzPfXPPLsFfj5jCNwhbMCjHAtWwuF5IJFLhrkJvKUleXUnCO1B4gxuNTOXX8lKI2/HhrYfUdA==
+X-Received: by 2002:a05:6808:21aa:: with SMTP id
+	be42mr1202427oib.181.1644615674109; 
+	Fri, 11 Feb 2022 13:41:14 -0800 (PST)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
 	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
-	100sm9697215oth.75.2022.02.11.13.41.11
+	b20sm9518934otq.20.2022.02.11.13.41.13
 	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Fri, 11 Feb 2022 13:41:12 -0800 (PST)
+	Fri, 11 Feb 2022 13:41:13 -0800 (PST)
 From: Mike Snitzer <snitzer@redhat.com>
 To: dm-devel@redhat.com
-Date: Fri, 11 Feb 2022 16:40:48 -0500
-Message-Id: <20220211214057.40612-6-snitzer@redhat.com>
+Date: Fri, 11 Feb 2022 16:40:49 -0500
+Message-Id: <20220211214057.40612-7-snitzer@redhat.com>
 In-Reply-To: <20220211214057.40612-1-snitzer@redhat.com>
 References: <20220211214057.40612-1-snitzer@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org
-Subject: [dm-devel] [PATCH v2 05/14] dm: remove impossible BUG_ON in
-	__send_empty_flush
+Subject: [dm-devel] [PATCH v2 06/14] dm: remove unused mapped_device
+	argument from free_tio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -109,7 +108,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -117,27 +116,34 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The flush_bio in question was just initialized to be empty, so there
-is no way bio_has_data() will return true.  So remove stale BUG_ON().
-
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Mike Snitzer <snitzer@redhat.com>
 ---
- drivers/md/dm.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/md/dm.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 8f2288a3b35b..bd07ccadbf01 100644
+index bd07ccadbf01..137e578785f6 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -1255,7 +1255,6 @@ static int __send_empty_flush(struct clone_info *ci)
- 	ci->bio = &flush_bio;
- 	ci->sector_count = 0;
+@@ -539,7 +539,7 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
+ 	return io;
+ }
  
--	BUG_ON(bio_has_data(ci->bio));
- 	while ((ti = dm_table_get_target(ci->map, target_nr++)))
- 		__send_duplicate_bios(ci, ti, ti->num_flush_bios, NULL);
+-static void free_io(struct mapped_device *md, struct dm_io *io)
++static void free_io(struct dm_io *io)
+ {
+ 	bio_put(&io->tio.clone);
+ }
+@@ -825,7 +825,7 @@ void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ 		io_error = io->status;
+ 		start_time = io->start_time;
+ 		stats_aux = io->stats_aux;
+-		free_io(md, io);
++		free_io(io);
+ 		end_io_acct(md, bio, start_time, &stats_aux);
  
+ 		if (io_error == BLK_STS_DM_REQUEUE)
 -- 
 2.15.0
 
