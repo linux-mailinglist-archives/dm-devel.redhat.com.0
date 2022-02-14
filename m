@@ -1,69 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A33E4B44C8
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 09:48:26 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A90054B52B2
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 15:05:58 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-235-8yFgUoveMTi9ymvT2bH7VA-1; Mon, 14 Feb 2022 03:48:21 -0500
-X-MC-Unique: 8yFgUoveMTi9ymvT2bH7VA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-190-J0vinaNTMBCzF7WXEIz9Tg-1; Mon, 14 Feb 2022 09:05:54 -0500
+X-MC-Unique: J0vinaNTMBCzF7WXEIz9Tg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AC53E1091DA0;
-	Mon, 14 Feb 2022 08:48:15 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D45324F873;
-	Mon, 14 Feb 2022 08:48:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC250814246;
+	Mon, 14 Feb 2022 14:05:47 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A77B82AA96;
+	Mon, 14 Feb 2022 14:05:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7BCFE4CA93;
-	Mon, 14 Feb 2022 08:48:03 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 22CE41809CB8;
+	Mon, 14 Feb 2022 14:05:32 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21E8U6Ue008947 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Feb 2022 03:30:07 -0500
+	id 21EE5D6r011880 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Feb 2022 09:05:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4031753C8; Mon, 14 Feb 2022 08:30:06 +0000 (UTC)
+	id 96F9853CE; Mon, 14 Feb 2022 14:05:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A39F53CE
-	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 08:30:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 989D68047D6
-	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 08:30:02 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com
-	[45.249.212.189]) by relay.mimecast.com with ESMTP with STARTTLS
+	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 91B5276C2
+	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 14:05:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BAB23C11A14
+	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 14:05:02 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-197-BJGxrzQ8OMyVoVjXyQbseg-1; Mon, 14 Feb 2022 03:29:58 -0500
-X-MC-Unique: BJGxrzQ8OMyVoVjXyQbseg-1
-Received: from canpemm500005.china.huawei.com (unknown [172.30.72.56])
-	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4Jxy4D5pH9z8wd3;
-	Mon, 14 Feb 2022 16:26:36 +0800 (CST)
-Received: from [10.174.178.134] (10.174.178.134) by
-	canpemm500005.china.huawei.com (7.192.104.229) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.21; Mon, 14 Feb 2022 16:29:53 +0800
-To: <dm-devel@redhat.com>
-References: <20220209093751.2986716-1-yi.zhang@huawei.com>
-From: Zhang Yi <yi.zhang@huawei.com>
-Message-ID: <0410123a-5da5-073a-fa08-f0038870b464@huawei.com>
-Date: Mon, 14 Feb 2022 16:29:53 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
-	Thunderbird/78.12.0
+	us-mta-317-BhSw5fvfMtO1-kfagIN7-A-1; Mon, 14 Feb 2022 09:04:58 -0500
+X-MC-Unique: BhSw5fvfMtO1-kfagIN7-A-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
+	Hat Linux)) id 1nJbyL-00FZPt-Bq; Mon, 14 Feb 2022 14:04:57 +0000
+Date: Mon, 14 Feb 2022 06:04:57 -0800
+From: Christoph Hellwig <hch@infradead.org>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <YgphictFE2qgXBPy@infradead.org>
+References: <20220211214057.40612-1-snitzer@redhat.com>
+	<20220211214057.40612-15-snitzer@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20220209093751.2986716-1-yi.zhang@huawei.com>
-X-Originating-IP: [10.174.178.134]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
-	canpemm500005.china.huawei.com (7.192.104.229)
-X-CFilter-Loop: Reflected
+In-Reply-To: <20220211214057.40612-15-snitzer@redhat.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+	bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,11 +64,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Mon, 14 Feb 2022 03:47:51 -0500
-Cc: linux-block@vger.kernel.org, axboe@kernel.dk, snitzer@redhat.com,
-	agk@redhat.com, yukuai3@huawei.com
-Subject: Re: [dm-devel] [PATCH] dm: make sure dm_table is binded before
-	queue request
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 14/14] dm: move duplicate code in callers
+ of alloc_tio into alloc_tio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -92,53 +80,18 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Friendly ping.
+Looks good,
 
-On 2022/2/9 17:37, Zhang Yi wrote:
-> We found a NULL pointer dereference problem when using dm-mpath target.
-> The problem is if we submit IO between loading and binding the table,
-> we could neither get a valid dm_target nor a valid dm table when
-> submitting request in dm_mq_queue_rq(). BIO based dm target could
-> handle this case in dm_submit_bio(). This patch fix this by checking
-> the mapping table before submitting request.
-> 
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> ---
->  drivers/md/dm-rq.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-> index 579ab6183d4d..af2cf71519e9 100644
-> --- a/drivers/md/dm-rq.c
-> +++ b/drivers/md/dm-rq.c
-> @@ -499,8 +499,15 @@ static blk_status_t dm_mq_queue_rq(struct blk_mq_hw_ctx *hctx,
->  
->  	if (unlikely(!ti)) {
->  		int srcu_idx;
-> -		struct dm_table *map = dm_get_live_table(md, &srcu_idx);
-> -
-> +		struct dm_table *map;
-> +
-> +		map = dm_get_live_table(md, &srcu_idx);
-> +		if (!map) {
-> +			DMERR_LIMIT("%s: mapping table unavailable, erroring io",
-> +				    dm_device_name(md));
-> +			dm_put_live_table(md, srcu_idx);
-> +			return BLK_STS_IOERR;
-> +		}
->  		ti = dm_table_find_target(map, 0);
->  		dm_put_live_table(md, srcu_idx);
->  	}
-> 
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
 --
 dm-devel mailing list
