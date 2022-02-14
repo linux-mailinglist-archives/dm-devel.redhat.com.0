@@ -1,134 +1,104 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0CD134B5674
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 17:36:15 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7A4194B5A43
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 19:57:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-359-onNxRl77OcuIqdsnsu1BtA-1; Mon, 14 Feb 2022 11:36:13 -0500
-X-MC-Unique: onNxRl77OcuIqdsnsu1BtA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-10-yf_53Fn2NbaxitDUOXteXQ-1; Mon, 14 Feb 2022 13:57:00 -0500
+X-MC-Unique: yf_53Fn2NbaxitDUOXteXQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 05DD4802927;
-	Mon, 14 Feb 2022 16:36:06 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 16D4F814245;
+	Mon, 14 Feb 2022 18:56:55 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8424D838E9;
-	Mon, 14 Feb 2022 16:36:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E979A2BCC1;
+	Mon, 14 Feb 2022 18:56:53 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 212DB4A7C8;
-	Mon, 14 Feb 2022 16:35:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 866E14BB7C;
+	Mon, 14 Feb 2022 18:56:47 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21EGZmlO027989 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Feb 2022 11:35:48 -0500
+	id 21EIuWms007341 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Feb 2022 13:56:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 839535361C0; Mon, 14 Feb 2022 16:35:48 +0000 (UTC)
+	id 01D742026D60; Mon, 14 Feb 2022 18:56:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7EB135361C1
-	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 16:35:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
+	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F0E752026D69
+	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 18:56:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63D1528EC104
-	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 16:35:48 +0000 (UTC)
-Received: from de-smtp-delivery-102.mimecast.com
-	(de-smtp-delivery-102.mimecast.com [194.104.109.102]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-563-TcGKWzqtO6Wq2-hGwcreIw-1; Mon, 14 Feb 2022 11:35:46 -0500
-X-MC-Unique: TcGKWzqtO6Wq2-hGwcreIw-1
-Received: from EUR03-DB5-obe.outbound.protection.outlook.com
-	(mail-db5eur03lp2056.outbound.protection.outlook.com [104.47.10.56]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	de-mta-19-Apr1zlyVO_SIRHcuAMjyyw-1; Mon, 14 Feb 2022 17:35:44 +0100
-X-MC-Unique: Apr1zlyVO_SIRHcuAMjyyw-1
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com (2603:10a6:10:103::20)
-	by VI1PR04MB6206.eurprd04.prod.outlook.com (2603:10a6:803:fa::19)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.18;
-	Mon, 14 Feb 2022 16:35:41 +0000
-Received: from DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::4081:2960:b740:3d47]) by
-	DB8PR04MB6555.eurprd04.prod.outlook.com
-	([fe80::4081:2960:b740:3d47%3]) with mapi id 15.20.4951.019;
-	Mon, 14 Feb 2022 16:35:41 +0000
-From: Martin Wilck <martin.wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
-	"christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH] multipathd: disallow changing to/from fpin marginal
-	paths on reconfig
-Thread-Index: AQHYIb9l3UccMF95MUaIz3EbpTh9D6yTPk8A
-Date: Mon, 14 Feb 2022 16:35:41 +0000
-Message-ID: <6338bec1a2be41aae59dcf57da09f2d3d070a0a8.camel@suse.com>
-References: <1644855876-394-1-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1644855876-394-1-git-send-email-bmarzins@redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.42.3
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: d97f23f2-1676-4802-c8cf-08d9efd80a37
-x-ms-traffictypediagnostic: VI1PR04MB6206:EE_
-x-microsoft-antispam-prvs: <VI1PR04MB6206C4142CA084D881DE0190FC339@VI1PR04MB6206.eurprd04.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:3826
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: mBlFa/1BbI9FuR6io1QDYlP+XPAkY/21/W68sUGT6hjsmKU1MTRxqVV1cTRZ94EtPwds+WJ4M2PaBiQFRaOHNKXIjDpGfLQVp28x/EqzFRdMiJKUYCsgw79deW4/r/b/ebwcXq7/IZYY8WwM7SAWmeyhwvk4lrUldxYQV/mhgf/SRzG4Ksc0TGABldNzLiIcE9IYSD/NuCYgfYzIIM6h8c9akAS2LgLJZ73BPvCNGjptrxTr/fb0tnvBD0kya9WOEKN0WxVd2w+2QdKKdG9amTgiQz0FFMvssGWK5cIeMtT83g+TD1ftCP1bKwdhH7KeLjjmJ1rT20Z5s4RegCaSDFfqUeZ7nzxTrk4a/JE05/EOTASSsv1EW0FdwPIn+q+agphKQbsagai6VrIvBGRZgX3cKGudCfh3RjYBfxlVrOLyARvsS/a29Nh1w0M9pwupNtVQ8hiPeSIHKMN76S7lBAhGMxAA5rKrZXA73WDesoqxYR4/xFbwOckZmNi/pK0SCxHXdnWUvPtRdG7UfAPZfWk9z/45W8fbTr9PwlcHjKt8kgkkGaCUMNdU67FJEe4n6LSk8Gjar6spIfuJLSBrTK+dQa9wFd46lbag5B0DSwDzjkMqEkq2p2/PzgB5i+Lb+IVGPQOIiE9DaOMC+EYLQ+YJ/t0eeawHA223MbLZtJL80Ualh8Iyn9Wt6AKh16/lx5LbNWkUl4knJwMjwj1S+w==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:DB8PR04MB6555.eurprd04.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(13230001)(366004)(66946007)(66446008)(38070700005)(26005)(64756008)(186003)(66476007)(66556008)(4326008)(8676002)(2906002)(86362001)(2616005)(36756003)(76116006)(71200400001)(6506007)(91956017)(8936002)(6486002)(38100700002)(122000001)(508600001)(5660300002)(6512007)(44832011)(4744005)(54906003)(110136005)(316002);
-	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?/5tB8ndK9Q4j4pSgnLAsXp5Pu8RIGqKE5nZOv73keq3DJff7Yf0/mF6Dl?=
-	=?iso-8859-15?Q?lzW46tC65dyonYFmOrlRC9zxHRbxUSJy33mSvFwL6/L//yZbrz+8ZucF4?=
-	=?iso-8859-15?Q?3JouXJ73dMZVL+vJjEt1MSHUuWEr2hqfh+FOKDqSwGO8rgr1tYdAqqEel?=
-	=?iso-8859-15?Q?LJ7gzpBsrIbdQ08nrdMGTD3dQeYkmjFAXT6Jyab4PwB/4kQJ040Y9k36T?=
-	=?iso-8859-15?Q?3Wf9ZlviqExX2m0KHXX8J/Wz6TA1dx1EyX00wt18urL9zcpUL6KHnyhxg?=
-	=?iso-8859-15?Q?Qv7O6ScN2PCbuybm5qjw57Yht+LRMUfaGxILG3j7SPOqlnr7vOdyoLi6K?=
-	=?iso-8859-15?Q?LeXmMH0V1/b8nQ46xgh70Zyc2YN8+Ndt3lH/kQhsNBRbPn7TdxtxzTU5B?=
-	=?iso-8859-15?Q?8kQj8U0fRGCeL5BUVxYCMqQ0+TwGCbU1CD4yNEpY73POlRi6fRo2Kvwil?=
-	=?iso-8859-15?Q?+/e2pSCJF1Ll4cwLk9FDvTz3I4aqzDbIVzYTJcYTFWWsc02kfqOB9GtZ6?=
-	=?iso-8859-15?Q?ydvnVRSpfn+sU8Jp16O3NkXIv/jaaj8GYQ4H5dTvnRz64jmnRzoPjOcne?=
-	=?iso-8859-15?Q?C6xOTvX27PvNvFhuuC4Jfs0OjFOpm4yrmGchLfuMut1itSlWeADhfd+e4?=
-	=?iso-8859-15?Q?aQNGtN0JISwxcYP3AuR6R/dNqkLKmzsNh5+ZHnRHpTC64SDeXLeqkW1SW?=
-	=?iso-8859-15?Q?MX8kTRQI9jbKqE6hE2oO5a/vZ7MEJKaEaf9ptXHVv9OgOQ1CVqRk8tVRD?=
-	=?iso-8859-15?Q?MriV6XfA1cGaqu893lJBfxcIHpY0CrwmiASjhxppCOWfWTS+cw/ert9SI?=
-	=?iso-8859-15?Q?L8o93oz5JuOg4fcRmL6QMyXKkOm1ReTiXboX7BfTRKp4uFhrurymFmGqt?=
-	=?iso-8859-15?Q?9uFhcNN0QewRdfqNXTUnFEXDhO7TBi79upqZNnmgeNL1+N+KZEi5pKMEv?=
-	=?iso-8859-15?Q?t7FoixJtyZpKXqCt9Eyze0KvWIlmSu7UfjPxhWSQAldFa5bzo2PGICOKy?=
-	=?iso-8859-15?Q?OwJJ5rAxxdPN/6sElLq64uYTZWKHPubelv2P30O8jnMw3SyLyXKUm81nY?=
-	=?iso-8859-15?Q?V9owD0VpJ64kVSfzLIwN7hpZBiQXctb8Ry5Yq//ox9f+U/D9joDyApCA0?=
-	=?iso-8859-15?Q?pfw+V9oQbKnF8TARK1feML6i0IiKYigx95i8vcyAq58//Wy3ZnH0ozYIH?=
-	=?iso-8859-15?Q?D2G92+QdGZP9vRLKGzBNXVga66kIL62OQHhAmT30EuZDlO83KokvxmAA7?=
-	=?iso-8859-15?Q?xI7v5YjwCDmlD3wU4yZw1okoHIz9qEfoC6K6jTG12hF4lqFkA/l1A8X/G?=
-	=?iso-8859-15?Q?bEhGo+iX1VMDjMXZ+DiKbL9Heovq7FRmq0bRhGwj0c+t02BGvF0AMeXaq?=
-	=?iso-8859-15?Q?kIIMeXj5wm9mnF1fxJ3OT7iDxipVxU/nU1tmrjWWIPNaPZViUBnr0ZdXZ?=
-	=?iso-8859-15?Q?azth+OGkqNNi2TGjZodKXthEA/U8I/5Tmo6yvsPanTFs0ub4ZztYLUiRS?=
-	=?iso-8859-15?Q?fkf9+GoSglxjIQhtfg8SkwW/CU6n7WbO8NekFUKisAaoS5vxmeREBtZ10?=
-	=?iso-8859-15?Q?LNXGRWu6QZKL2JNCS/LhNEumejkDQ04ameT/jBv/zRu3MYNtdjmQU26y9?=
-	=?iso-8859-15?Q?1XJ+GazXDZC9PnIWYdKBeLJ+I382PVUcGxgFOClyu85Bk5JZZ9sC474AT?=
-	=?iso-8859-15?Q?Qs/5XLId8zdoMDJDYWwp4jtJxdRVH9s6PudhFGyR9BtGd+A=3D?=
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 124BC185A79C
+	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 18:56:29 +0000 (UTC)
+Received: from mx0a-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+	[148.163.158.5]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-426-tZV3_obuMSiOJsOWzmjCGQ-1; Mon, 14 Feb 2022 13:56:26 -0500
+X-MC-Unique: tZV3_obuMSiOJsOWzmjCGQ-1
+Received: from pps.filterd (m0098413.ppops.net [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id
+	21EHbGwU002151; Mon, 14 Feb 2022 18:56:25 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 3e7avf7t5d-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Mon, 14 Feb 2022 18:56:25 +0000
+Received: from m0098413.ppops.net (m0098413.ppops.net [127.0.0.1])
+	by pps.reinject (8.16.0.43/8.16.0.43) with SMTP id 21EIYehq022333;
+	Mon, 14 Feb 2022 18:56:24 GMT
+Received: from ppma03ams.nl.ibm.com (62.31.33a9.ip4.static.sl-reverse.com
+	[169.51.49.98])
+	by mx0b-001b2d01.pphosted.com with ESMTP id 3e7avf7t52-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Mon, 14 Feb 2022 18:56:24 +0000
+Received: from pps.filterd (ppma03ams.nl.ibm.com [127.0.0.1])
+	by ppma03ams.nl.ibm.com (8.16.1.2/8.16.1.2) with SMTP id 21EIs4hh002818;
+	Mon, 14 Feb 2022 18:56:23 GMT
+Received: from b06avi18878370.portsmouth.uk.ibm.com
+	(b06avi18878370.portsmouth.uk.ibm.com [9.149.26.194])
+	by ppma03ams.nl.ibm.com with ESMTP id 3e64h9ra4b-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=NOT); Mon, 14 Feb 2022 18:56:22 +0000
+Received: from d06av25.portsmouth.uk.ibm.com (d06av25.portsmouth.uk.ibm.com
+	[9.149.105.61])
+	by b06avi18878370.portsmouth.uk.ibm.com (8.14.9/8.14.9/NCO v10.0) with
+	ESMTP id 21EIuKe637749148
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256
+	verify=OK); Mon, 14 Feb 2022 18:56:20 GMT
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id A744B11C052;
+	Mon, 14 Feb 2022 18:56:20 +0000 (GMT)
+Received: from d06av25.portsmouth.uk.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3789011C04A;
+	Mon, 14 Feb 2022 18:56:20 +0000 (GMT)
+Received: from li-c43276cc-23ad-11b2-a85c-bda00957cb67.ibm.com.com (unknown
+	[9.145.68.17]) by d06av25.portsmouth.uk.ibm.com (Postfix) with ESMTP;
+	Mon, 14 Feb 2022 18:56:20 +0000 (GMT)
+From: Steffen Maier <maier@linux.ibm.com>
+To: dm-devel@redhat.com, Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Mon, 14 Feb 2022 19:55:57 +0100
+Message-Id: <20220214185559.28363-1-maier@linux.ibm.com>
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DB8PR04MB6555.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d97f23f2-1676-4802-c8cf-08d9efd80a37
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2022 16:35:41.2569 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 9CiAv0+4tHCUe49ewCFA7+mDyJ8sjrLmBIv0R3PzAymxIF/+JJ+KDH1rKIRaEgsbe0zCwEJeeNEOl/6NhQ87ig==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: VI1PR04MB6206
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: O9EoAr2Zl3vzgHr8Ezjc_aZwrRqhX1sS
+X-Proofpoint-ORIG-GUID: -Bg_ht-WcSwrpyKuZq-fxi5cgIS6m08S
+X-Proofpoint-Virus-Version: vendor=baseguard
+	engine=ICAP:2.0.205, Aquarius:18.0.816, Hydra:6.0.425,
+	FMLib:17.11.62.513
+	definitions=2022-02-14_07,2022-02-14_03,2021-12-02_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+	clxscore=1015
+	priorityscore=1501 suspectscore=0 mlxscore=0 lowpriorityscore=0
+	mlxlogscore=999 phishscore=0 impostorscore=0 spamscore=0 adultscore=0
+	bulkscore=0 malwarescore=0 classifier=spam adjust=0 reason=mlx
+	scancount=1
+	engine=8.12.0-2201110000 definitions=main-2202140109
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -137,14 +107,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 21EGZmlO027989
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
-Cc: "muneendra.kumar@broadcom.com" <muneendra.kumar@broadcom.com>,
-	"dm-devel@redhat.com" <dm-devel@redhat.com>
-Subject: Re: [dm-devel] [PATCH] multipathd: disallow changing to/from fpin
- marginal paths on reconfig
+Cc: Steffen Maier <maier@linux.ibm.com>, Martin Wilck <martin.wilck@suse.com>
+Subject: [dm-devel] [PATCH v2 0/2] multipath-tools: FCP addressing display
+	support (for s390x)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -158,31 +125,32 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <0DB8E663B926E440B9465190248C9E83@eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Mon, 2022-02-14 at 10:24 -0600, Benjamin Marzinski wrote:
-> Setting marginal_pathgroups to fpin causes two new threads to be
-> created
-> when multipathd starts.=A0 Turning it on after multipathd starts up
-> won't
-> cause the theads to start, and turing it off won't keep the threads
-> from
-> working. So disallow changing marginal_pathgroups to/from "fpin" on
-> reconfigure.
->=20
-> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> Cc: Muneendra Kumar <muneendra.kumar@broadcom.com>
+It is quicker and easier than writing some script to correlate
+multipath output with other query tooling for FCP addressing.
 
-Reviewed-by: Martin Wilck <mwilck@suse.com>
+For patch set version ChangeLog, see indidivual patches.
 
+Steffen Maier (2):
+  libmultipath: support host adapter name lookup for s390x ccw bus
+  libmultipath: add %L path wildcard for 64-bit hex LUN
+
+ libmultipath/discovery.c | 69 ++++++++++++++++++++++------------------
+ libmultipath/discovery.h |  1 -
+ libmultipath/print.c     | 20 ++++++++++++
+ 3 files changed, 58 insertions(+), 32 deletions(-)
+
+
+base-commit: 70602364987e27739b5521d94d684993d877157a
+-- 
+2.27.0
 
 --
 dm-devel mailing list
