@@ -1,92 +1,90 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 75AFB4B80A4
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Feb 2022 07:28:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16F804B80AB
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Feb 2022 07:30:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1644992917;
+	s=mimecast20190719; t=1644993016;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=G0btGRdn8g8faxFre/PYIKEo67BnfcgU+G5sO9PskUo=;
-	b=TU+lqYB/8SP1zx1LqXv8JcnCefPPShrHfzxahzaQo4ubADTRIQqXFRwwGS2mr2SQN52x7g
-	CZA+701o3ndTW0YK3JHjeWip5ln9yA02r6DZWSxKfZluXS6iZqyb7fatJYxRr9W4+3092k
-	5SZYijPVTisRXILkF8+fHe7C0Vdu3Ss=
+	bh=WlP9w8LFQc/5j7iDV2eL0D3tJodHoqA9WPAroKsXl+g=;
+	b=GwzLYTEUfcff32H8O01W+5qSWGQx8fp0T2War1HZa4nQN1nEiXeRIXleLIlj3r2Me/8j7W
+	hb5LYutgMeJpvqwyM6vXAuVSUpAuEnL4oXD+kaQXSmAKThg5H6Z5PJ+mq9eYnrXk39n8pC
+	mEX8Q6+uW82iBjhBCOsZbZqRAXe2yqY=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-AaIsi5KFPDe_n-HnmoS3Og-1; Wed, 16 Feb 2022 01:28:33 -0500
-X-MC-Unique: AaIsi5KFPDe_n-HnmoS3Og-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-141-FzrdT_cQPmmKtvRws1D6cA-1; Wed, 16 Feb 2022 01:30:14 -0500
+X-MC-Unique: FzrdT_cQPmmKtvRws1D6cA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 46579801B0E;
-	Wed, 16 Feb 2022 06:28:28 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AC57D5C2EF;
-	Wed, 16 Feb 2022 06:28:26 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 5D5591091DA0;
+	Wed, 16 Feb 2022 06:30:08 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id F282E5E485;
+	Wed, 16 Feb 2022 06:30:07 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A54A61809C88;
-	Wed, 16 Feb 2022 06:28:19 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 29B6C5003B;
+	Wed, 16 Feb 2022 06:30:07 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.8])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21F8m0dh004412 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Feb 2022 03:48:00 -0500
+	id 21F8mdQH004447 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Feb 2022 03:48:39 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 16E5E492D1F; Tue, 15 Feb 2022 08:48:00 +0000 (UTC)
+	id A6378C3598D; Tue, 15 Feb 2022 08:48:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 127F548FB0C
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 08:48:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFFCB10B952F
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 08:47:59 +0000 (UTC)
+	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A2283C3598B
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 08:48:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 886311C05152
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 08:48:39 +0000 (UTC)
 Received: from mail-pj1-f71.google.com (mail-pj1-f71.google.com
 	[209.85.216.71]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-466-BHgmhKdZOXmR1xUSTypnyA-1; Tue, 15 Feb 2022 03:47:55 -0500
-X-MC-Unique: BHgmhKdZOXmR1xUSTypnyA-1
+	us-mta-669-fK8IflGzNoeEPRMXtJN8Ig-1; Tue, 15 Feb 2022 03:48:36 -0500
+X-MC-Unique: fK8IflGzNoeEPRMXtJN8Ig-1
 Received: by mail-pj1-f71.google.com with SMTP id
-	t12-20020a17090a448c00b001b9cbac9c43so1375739pjg.2
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 00:47:55 -0800 (PST)
+	y10-20020a17090a134a00b001b8b7e5983bso12673650pjf.6
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 00:48:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
 	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
 	:message-id:subject:to:cc;
-	bh=+0eleqiUVBeAPaQGD2Q6ihFW/Z9JIAN0Kj0GeNRsLaA=;
-	b=YnKijBtZhb9LxUQxD9EdC2Td620qrYjX3MyZN9HLhZ11l1Uj05EkpMT1YAdL6NkT2r
-	2HIdAvFtzIWW0oHu7FYeAGzTKb6SD7Nmja9FquAA9AKkYp6YQGMejoWopktMRe+6JTny
-	/v8h7KWXZtZSXb6n4/laGe4xDyUhPMzpfzgBZeMKCaTdtygvip4/1tzfTlyjYqnZk+x5
-	cjOFO0suADpgqUL2+iETBz5kOMazCe3a+J5v6PYbDtdnPsw+Fh0E+lNFtln8C2AkhFwm
-	m9f8SLFnvRPiiHnDTdsSt8ORaSdfpiXp1RYsXDIh8CguOpfQc9nmPIayMimG+7474cEf
-	CnUw==
-X-Gm-Message-State: AOAM533Zh5zVu3WMbdMCcHkU5g5DzgF93UK1kDycSEOd8bJ/XfU38aCN
-	E0PM9Wd3yBHhFqZFFl0UWcjk/qHmtzJcQPHwSNBsk9BlqHrjp4w9pOrjBs2ZF37U+yQQV9EZq6E
-	/zVTtQmDzUJuibh5Y12l6yQXAywyrj5o=
-X-Received: by 2002:a05:6a00:9a9:: with SMTP id
-	u41mr3233709pfg.83.1644914874668; 
-	Tue, 15 Feb 2022 00:47:54 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJy1RXfHqGKUOwHiOd9TXDCmkRfLOApnv8+NP4UBdUIs2zHseVmQ3Z770IwhZgE/Zg1NSmgYeteqUdN9fAOzix8=
-X-Received: by 2002:a05:6a00:9a9:: with SMTP id
-	u41mr3233676pfg.83.1644914874405; 
-	Tue, 15 Feb 2022 00:47:54 -0800 (PST)
+	bh=cAghCw6nMXIP8DbPC2ZTmMjVdzgtfdV0Q4rDuIo9NkY=;
+	b=Ww71Fh5QOqibn56HpRa4R6VQljTI9iMnWYsHqLYqRz7ooaZ3yiGEQGEXOBKVt5ic1B
+	VfpWCfL31cLYDg+4FBXgkkRdNZW+uX0yOQw2YtNnTfzNxM/sCv/NQ4vIATRjYS+ouPrY
+	SbJ6eyt8pkB1fLNcE4hc4wtjfjNIalejtXckdkjmTOwZLE5R7ig4dDcdS6c6mBsGuo4a
+	dc1aX4Mi6MBjEOM9V2GMH4W6ve9dD32ap9NQ9PgPWnzCk7pJyWzCTfW8U4bzuonjZvOu
+	tCXqmD2NF5AokvgrfnPXvxnKDGnVfArLMb6jdgxtJmKU12dmns0WAQqUSYRUGzR5ee+6
+	qIfg==
+X-Gm-Message-State: AOAM530IkTmHGuFTwDRV6Kt5fSvHDuLi07Yj+DhCoubIJkKqhu5nCJec
+	kwLIloDndqD2olfnoxodegwclBgB52OOF7IwAbdLHeXdypun/z8p51xLs8W+U1t0ShFF3uFDVaB
+	VymFEw5N22reLRkfUJXA8UJJ3AFcWkns=
+X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644601pgr.363.1644914915604;
+	Tue, 15 Feb 2022 00:48:35 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJxNykZwzg4bf+5n8EbXDkY7JRsdOTnLNDPgNJlOcTDejNQ8sWs8DiYpM4W3ztHYleOanIdgFMhO3Rj6Rj63QAs=
+X-Received: by 2002:a63:2bc5:: with SMTP id r188mr2644575pgr.363.1644914915393;
+	Tue, 15 Feb 2022 00:48:35 -0800 (PST)
 MIME-Version: 1.0
 References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
-	<1644890154-64915-6-git-send-email-wangqing@vivo.com>
-In-Reply-To: <1644890154-64915-6-git-send-email-wangqing@vivo.com>
+	<1644890154-64915-7-git-send-email-wangqing@vivo.com>
+In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
 From: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-Date: Tue, 15 Feb 2022 09:47:43 +0100
-Message-ID: <CAO-hwJJK5yeW+K_vLpWV9t3TsEdk0xCO-ETxeJsXM2c117JzNw@mail.gmail.com>
+Date: Tue, 15 Feb 2022 09:48:24 +0100
+Message-ID: <CAO-hwJLwomyHyjza8x3cEhR97HkK7Z7yPWVXwA4-1jmM=WKqeQ@mail.gmail.com>
 To: Qing Wang <wangqing@vivo.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 16 Feb 2022 01:28:09 -0500
 Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
@@ -110,8 +108,8 @@ Cc: Dmitry Torokhov <dmitry.torokhov@gmail.com>,
 	Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
 	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>,
 	=?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH V3 5/13] hid: use time_is_after_jiffies()
- instead of open coding it
+Subject: Re: [dm-devel] [PATCH V3 6/13] input: serio: use
+ time_is_before_jiffies() instead of open coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -125,7 +123,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -133,7 +131,7 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Feb 15, 2022 at 2:56 AM Qing Wang <wangqing@vivo.com> wrote:
+On Tue, Feb 15, 2022 at 2:57 AM Qing Wang <wangqing@vivo.com> wrote:
 >
 > From: Wang Qing <wangqing@vivo.com>
 >
@@ -141,34 +139,38 @@ On Tue, Feb 15, 2022 at 2:56 AM Qing Wang <wangqing@vivo.com> wrote:
 > code readability.
 >
 > Signed-off-by: Wang Qing <wangqing@vivo.com>
-> Acked-by: Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>
+> ---
 
-FWIW, this one is
-Acked-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
-
-Wang, is there any plan to take this series through the trivial tree
-or should each maintainer take the matching patches?
+Reviewed-by: Benjamin Tissoires <benjamin.tissoires@redhat.com>
 
 Cheers,
 Benjamin
 
-> ---
->  drivers/hid/intel-ish-hid/ipc/ipc.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/input/serio/ps2-gpio.c | 4 ++--
+>  1 file changed, 2 insertions(+), 2 deletions(-)
 >
-> diff --git a/drivers/hid/intel-ish-hid/ipc/ipc.c b/drivers/hid/intel-ish-hid/ipc/ipc.c
-> index 8ccb246..15e1423
-> --- a/drivers/hid/intel-ish-hid/ipc/ipc.c
-> +++ b/drivers/hid/intel-ish-hid/ipc/ipc.c
-> @@ -578,7 +578,7 @@ static void _ish_sync_fw_clock(struct ishtp_device *dev)
->         static unsigned long    prev_sync;
->         uint64_t        usec;
+> diff --git a/drivers/input/serio/ps2-gpio.c b/drivers/input/serio/ps2-gpio.c
+> index 8970b49..7834296
+> --- a/drivers/input/serio/ps2-gpio.c
+> +++ b/drivers/input/serio/ps2-gpio.c
+> @@ -136,7 +136,7 @@ static irqreturn_t ps2_gpio_irq_rx(struct ps2_gpio_data *drvdata)
+>         if (old_jiffies == 0)
+>                 old_jiffies = jiffies;
 >
-> -       if (prev_sync && jiffies - prev_sync < 20 * HZ)
-> +       if (prev_sync && time_is_after_jiffies(prev_sync + 20 * HZ))
->                 return;
+> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
+> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
+>                 dev_err(drvdata->dev,
+>                         "RX: timeout, probably we missed an interrupt\n");
+>                 goto err;
+> @@ -237,7 +237,7 @@ static irqreturn_t ps2_gpio_irq_tx(struct ps2_gpio_data *drvdata)
+>         if (old_jiffies == 0)
+>                 old_jiffies = jiffies;
 >
->         prev_sync = jiffies;
+> -       if ((jiffies - old_jiffies) > usecs_to_jiffies(100)) {
+> +       if (time_is_before_jiffies(old_jiffies + usecs_to_jiffies(100))) {
+>                 dev_err(drvdata->dev,
+>                         "TX: timeout, probably we missed an interrupt\n");
+>                 goto err;
 > --
 > 2.7.4
 >
