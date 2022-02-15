@@ -1,95 +1,101 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D2E9F4B5DB9
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Feb 2022 23:36:21 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 638034B6120
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Feb 2022 03:41:21 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1644892880;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=E0tXMUeBzhe/wPRuIIXQ26Al/8WhWKagoytq9L4MWoI=;
+	b=aO55P1U4eMLneOQ71AHMva7pj9B7/jD22TymuD6dZvSVkudKjSU6uvw3It0MAHewbBHKV4
+	vf65rj9/oVENYeu5yTW8da5UgqskHwW5J7xQw18QZox1QNbCNlZghfSG33YGwk5MoXPbxD
+	blZaohRZRtOEaxqLgwT5EvHXR9sf+AU=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-423-Q_TSj3g6MgyOMzVoFHRpyQ-1; Mon, 14 Feb 2022 17:36:17 -0500
-X-MC-Unique: Q_TSj3g6MgyOMzVoFHRpyQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-610-4hL9OQ7bPgCqWH655G3e5g-1; Mon, 14 Feb 2022 21:41:17 -0500
+X-MC-Unique: 4hL9OQ7bPgCqWH655G3e5g-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C89B118C89D9;
-	Mon, 14 Feb 2022 22:36:07 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 16CB4344AF;
+	Tue, 15 Feb 2022 02:41:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C4E8105B203;
-	Mon, 14 Feb 2022 22:36:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 043895F4E9;
+	Tue, 15 Feb 2022 02:41:06 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 6284A4BB7C;
-	Mon, 14 Feb 2022 22:35:52 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2B71F4BB7C;
+	Tue, 15 Feb 2022 02:40:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21EMZcXd024160 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 14 Feb 2022 17:35:38 -0500
+	id 21F2ebMM007930 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 14 Feb 2022 21:40:37 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EC5BB7AD6; Mon, 14 Feb 2022 22:35:37 +0000 (UTC)
+	id 0A006145FBAA; Tue, 15 Feb 2022 02:40:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E3DBA7AD5
-	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 22:35:26 +0000 (UTC)
+	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 065BE145FBA0
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 02:40:37 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B1EB108C1C3
-	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 22:35:26 +0000 (UTC)
-Received: from mail104.syd.optusnet.com.au (mail104.syd.optusnet.com.au
-	[211.29.132.246]) by relay.mimecast.com with ESMTP id
-	us-mta-99-lEOxJtPeOBy3XcTdMGe6gQ-1; Mon, 14 Feb 2022 17:35:22 -0500
-X-MC-Unique: lEOxJtPeOBy3XcTdMGe6gQ-1
-Received: from dread.disaster.area (pa49-186-85-251.pa.vic.optusnet.com.au
-	[49.186.85.251])
-	by mail104.syd.optusnet.com.au (Postfix) with ESMTPS id 793C852DCD8;
-	Tue, 15 Feb 2022 09:08:12 +1100 (AEDT)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
-	(envelope-from <david@fromorbit.com>)
-	id 1nJjW0-00C4n4-91; Tue, 15 Feb 2022 09:08:12 +1100
-Date: Tue, 15 Feb 2022 09:08:12 +1100
-From: Dave Chinner <david@fromorbit.com>
-To: Nitesh Shetty <nj.shetty@samsung.com>
-Message-ID: <20220214220741.GB2872883@dread.disaster.area>
-References: <CGME20220214080551epcas5p201d4d85e9d66077f97585bb3c64517c0@epcas5p2.samsung.com>
-	<20220214080002.18381-1-nj.shetty@samsung.com>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFA551C07CCE
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 02:40:36 +0000 (UTC)
+Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
+	[209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-141-Ko_2cuVPMh6rOv2XWuAQMw-1; Mon, 14 Feb 2022 21:40:35 -0500
+X-MC-Unique: Ko_2cuVPMh6rOv2XWuAQMw-1
+Received: by mail-qv1-f69.google.com with SMTP id
+	c8-20020a0ce7c8000000b0042c12357076so13067924qvo.6
+	for <dm-devel@redhat.com>; Mon, 14 Feb 2022 18:40:35 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=7xZ94wx0xxHGjFOz2gdvaz5q0yIBiNDZwqvRJ9bfyDQ=;
+	b=5Ox/2WBFNk3c/XeerZO4ICTmdDVANSW2B/CRIU/C+PGtfJLkbQzOaV2s1WoLpsQBhz
+	Lk9Hkzp/MSf7emVatAw7i+YGg52IUMMknMD2Rr8T1pPclN93hhtkTg8w7xuaBK6EIkmN
+	bik2drvnNkE70ipjBnzJPHKhuMN+wdIZgo054qTXc3NAy8kadfLz5/0hqW9ySz44oyuP
+	fz8CEa5cMOcXPmAF3yIsihHdCsHqps9mntB4BA96ZkxcBCLOTRQKH+Mjh8U56jra0lvw
+	q8GhjouqRd1C3jsij0J3JT34VlStP1ND5H4+KOzmY0bwus9IR+/swLsXcKR+rgGWdJQt
+	A4qA==
+X-Gm-Message-State: AOAM530JaEGKlnmm3S7vKUncU4IBKSfkG9KquyiIHcy25iuKxCesX3v6
+	cOCJKAn7uS40GXnRB0aRALiM3mmwt9Z28ww2v/uv5kaRqIkTz3Kfkuy3CrffPjdhOprivRY7/d2
+	BMMsARxM2wu+LEg==
+X-Received: by 2002:ad4:576b:: with SMTP id r11mr1174316qvx.34.1644892834729; 
+	Mon, 14 Feb 2022 18:40:34 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJyjUxIh8PAkN+Wc/wo+m+HrG05WY5hQjIOeVqxluyBFBdCgdkI1egd9MPDeXG+iCh1nwO6+rA==
+X-Received: by 2002:ad4:576b:: with SMTP id r11mr1174306qvx.34.1644892834506; 
+	Mon, 14 Feb 2022 18:40:34 -0800 (PST)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+	[68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+	r2sm19304798qta.15.2022.02.14.18.40.33
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 14 Feb 2022 18:40:34 -0800 (PST)
+Date: Mon, 14 Feb 2022 21:40:33 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <YgsSoZvc8YHBflfM@redhat.com>
+References: <20220211214057.40612-1-snitzer@redhat.com>
+	<20220211214057.40612-11-snitzer@redhat.com>
+	<YgphC67SVZIWfhhs@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <20220214080002.18381-1-nj.shetty@samsung.com>
-X-Optus-CM-Score: 0
-X-Optus-CM-Analysis: v=2.4 cv=deDjYVbe c=1 sm=1 tr=0 ts=620ad2d3
-	a=2CV4XU02g+4RbH+qqUnf+g==:117 a=2CV4XU02g+4RbH+qqUnf+g==:17
-	a=IkcTkHD0fZMA:10 a=oGFeUVbbRNcA:10 a=7-415B0cAAAA:8
-	a=JFXMuzjNVKxm2W9Oq_QA:9 a=QEXdDO2ut3YA:10 a=biEYGPWJfzWAr4FL6Ov7:22
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 21EMZcXd024160
+In-Reply-To: <YgphC67SVZIWfhhs@infradead.org>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
-Cc: Mike Snitzer <snitzer@redhat.com>, djwong@kernel.org,
-	linux-nvme@lists.infradead.org, clm@fb.com, dm-devel@redhat.com,
-	osandov@fb.com, Alasdair Kergon <agk@redhat.com>,
-	javier@javigon.com, bvanassche@acm.org,
-	linux-scsi@vger.kernel.org, nitheshshetty@gmail.com,
-	James Smart <james.smart@broadcom.com>, hch@lst.de,
-	chaitanyak@nvidia.com, Chaitanya Kulkarni <kch@nvidia.com>,
-	msnitzer@redhat.com, josef@toxicpanda.com,
-	linux-block@vger.kernel.org, dsterba@suse.com, kbusch@kernel.org,
-	Frederick.Knight@netapp.com, Sagi Grimberg <sagi@grimberg.me>,
-	axboe@kernel.dk, tytso@mit.edu, joshi.k@samsung.com,
-	martin.petersen@oracle.com, linux-kernel@vger.kernel.org,
-	arnav.dawn@samsung.com, jack@suse.com,
-	linux-fsdevel@vger.kernel.org, lsf-pc@lists.linux-foundation.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [dm-devel] [PATCH v3 00/10] Add Copy offload support
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
+Subject: Re: [dm-devel] [PATCH v2 10/14] block: add
+ bio_start_io_acct_remapped for the benefit of DM
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -103,51 +109,45 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gTW9uLCBGZWIgMTQsIDIwMjIgYXQgMDE6Mjk6NTBQTSArMDUzMCwgTml0ZXNoIFNoZXR0eSB3
-cm90ZToKPiBUaGUgcGF0Y2ggc2VyaWVzIGNvdmVycyB0aGUgcG9pbnRzIGRpc2N1c3NlZCBpbiBO
-b3ZlbWJlciAyMDIxIHZpcnR1YWwgY2FsbAo+IFtMU0YvTU0vQkZQIFRPUElDXSBTdG9yYWdlOiBD
-b3B5IE9mZmxvYWRbMF0uCj4gV2UgaGF2ZSBjb3ZlcmVkIHRoZSBJbml0aWFsIGFncmVlZCByZXF1
-aXJlbWVudHMgaW4gdGhpcyBwYXRjaHNldC4KPiBQYXRjaHNldCBib3Jyb3dzIE1pa3VsYXMncyB0
-b2tlbiBiYXNlZCBhcHByb2FjaCBmb3IgMiBiZGV2Cj4gaW1wbGVtZW50YXRpb24uCj4gCj4gT3Zl
-cmFsbCBzZXJpZXMgc3VwcG9ydHMg4oCTCj4gCj4gMS4gRHJpdmVyCj4gLSBOVk1lIENvcHkgY29t
-bWFuZCAoc2luZ2xlIE5TKSwgaW5jbHVkaW5nIHN1cHBvcnQgaW4gbnZtZS10YXJnZXQgKGZvcgo+
-IAlibG9jayBhbmQgZmlsZSBiYWNrZW5kKQo+IAo+IDIuIEJsb2NrIGxheWVyCj4gLSBCbG9jay1n
-ZW5lcmljIGNvcHkgKFJFUV9DT1BZIGZsYWcpLCB3aXRoIGludGVyZmFjZSBhY2NvbW1vZGF0aW5n
-Cj4gCXR3byBibG9jay1kZXZzLCBhbmQgbXVsdGktc291cmNlL2Rlc3RpbmF0aW9uIGludGVyZmFj
-ZQo+IC0gRW11bGF0aW9uLCB3aGVuIG9mZmxvYWQgaXMgbmF0aXZlbHkgYWJzZW50Cj4gLSBkbS1s
-aW5lYXIgc3VwcG9ydCAoZm9yIGNhc2VzIG5vdCByZXF1aXJpbmcgc3BsaXQpCj4gCj4gMy4gVXNl
-ci1pbnRlcmZhY2UKPiAtIG5ldyBpb2N0bAo+IAo+IDQuIEluLWtlcm5lbCB1c2VyCj4gLSBkbS1r
-Y29weWQKClRoZSBiaWdnZXN0IG1pc3NpbmcgcGllY2UgLSBhbmQgYXJndWFibHkgdGhlIHNpbmds
-ZSBtb3N0IHVzZWZ1bApwaWVjZSBvZiB0aGlzIGZ1bmN0aW9uYWxpdHkgZm9yIHVzZXJzIC0gaXMg
-aG9va2luZyB0aGlzIHVwIHRvIHRoZQpjb3B5X2ZpbGVfcmFuZ2UoKSBzeXNjYWxsIHNvIHRoYXQg
-dXNlciBmaWxlIGNvcGllcyBjYW4gYmUgb2ZmbG9hZGVkCnRvIHRoZSBoYXJkd2FyZSBlZmZpY2ll
-bnRseS4KClRoaXMgc2VlbXMgbGlrZSBpdCB3b3VsZCByZWxhdGl2ZWx5IGVhc3kgdG8gZG8gd2l0
-aCBhbiBmcy9pb21hcCBpdGVyCmxvb3AgdGhhdCBtYXBzIHNyYyArIGRzdCBmaWxlIHJhbmdlcyBh
-bmQgaXNzdWVzIGJsb2NrIGNvcHkgb2ZmbG9hZApjb21tYW5kcyBvbiB0aGUgZXh0ZW50cy4gV2Ug
-YWxyZWFkeSBkbyBzaW1pbGFyICJyZWFkIGZyb20gc291cmNlLAp3cml0ZSB0byBkZXN0aW5hdGlv
-biIgb3BlcmF0aW9ucyBpbiBpb21hcCwgc28gaXQncyBub3QgYSBodWdlCnN0cmV0Y2ggdG8gZXh0
-ZW50IHRoZSBpb21hcCBpbnRlcmZhY2VzIHRvIHByb3ZpZGUgYW4gY29weSBvZmZsb2FkCm1lY2hh
-bmlzbSB1c2luZyB0aGlzIGluZnJhc3RydWN0dXJlLgoKQWxzbywgaG9va2luZyB0aGlzIHVwIHRv
-IGNvcHktZmlsZS1yYW5nZSgpIHdpbGwgYWxzbyBnZXQgeW91CmltbWVkaWF0ZSBkYXRhIGludGVn
-cml0eSB0ZXN0aW5nIHJpZ2h0IGRvd24gdG8gdGhlIGhhcmR3YXJlIHZpYSBmc3gKaW4gZnN0ZXN0
-cyAtIGl0IHVzZXMgY29weV9maWxlX3JhbmdlKCkgYXMgb25lIG9mIGl0J3Mgb3BlcmF0aW9ucyBh
-bmQKaXQgd2lsbCBmaW5kIGFsbCB0aGUgb2ZmLWJ5LW9uZSBmYWlsdXJlcyBpbiBib3RoIHRoZSBs
-aW51eCBJTyBzdGFjawppbXBsZW1lbnRhdGlvbiBhbmQgdGhlIGhhcmR3YXJlIGl0c2VsZi4KCkFu
-ZCwgaW4gcmVhbGl0eSwgSSB3b3VsZG4ndCB0cnVzdCBhIGJsb2NrIGNvcHkgb2ZmbG9hZCBtZWNo
-YW5pc20KdW50aWwgaXQgaXMgaW50ZWdyYXRlZCB3aXRoIGZpbGVzeXN0ZW1zLCB0aGUgcGFnZSBj
-YWNoZSBhbmQgaGFzCnNvbGlkIGVuZC10by1lbmQgZGF0YSBpbnRlZ3JpdHkgdGVzdGluZyBhdmFp
-bGFibGUgdG8gc2hha2Ugb3V0IGFsbAp0aGUgYnVncyB0aGF0IHdpbGwgaW5ldml0YWJseSBleGlz
-dCBpbiB0aGlzIHN0YWNrLi4uLgoKQ2hlZXJzLAoKRGF2ZS4KLS0gCkRhdmUgQ2hpbm5lcgpkYXZp
-ZEBmcm9tb3JiaXQuY29tCgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhh
-dC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZl
-bA==
+On Mon, Feb 14 2022 at  9:02P -0500,
+Christoph Hellwig <hch@infradead.org> wrote:
+
+> On Fri, Feb 11, 2022 at 04:40:53PM -0500, Mike Snitzer wrote:
+> > DM needs the ability to account a clone bio's IO to the original
+> > block_device. So add @orig_bdev argument to bio_start_io_acct_time.
+> > 
+> > Rename bio_start_io_acct_time to bio_start_io_acct_remapped.
+> > 
+> > Also, follow bio_end_io_acct and bio_end_io_acct_remapped pattern by
+> > moving bio_start_io_acct to blkdev.h and have it call
+> > bio_start_io_acct_remapped.
+> 
+> Looks good:
+> 
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> 
+
+Thanks.
+
+But turns out I don't need this patch afterall.
+
+DM can't account IO to the DM device in terms of clone bios because
+they may not be simple remaps, the payload could change in size such
+that the original vs clone varies widely.  Also, dmstats imposes the
+additional constraint that the same bio be used for the
+{start,end}_io_acct's calls to dm_stats_account_io().
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
