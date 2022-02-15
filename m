@@ -2,55 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B43344B6A0C
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Feb 2022 12:00:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E0CDB4B6A25
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Feb 2022 12:02:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-561-uT0fVnsWMP6tJMAbDLJw9A-1; Tue, 15 Feb 2022 06:00:37 -0500
-X-MC-Unique: uT0fVnsWMP6tJMAbDLJw9A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-7-GI1GwNIbMbyF-u0z9Vwq2w-1; Tue, 15 Feb 2022 06:02:39 -0500
+X-MC-Unique: GI1GwNIbMbyF-u0z9Vwq2w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.phx2.redhat.com [10.5.11.14])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CD9731091DA1;
-	Tue, 15 Feb 2022 11:00:30 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A9707B9D1;
-	Tue, 15 Feb 2022 11:00:25 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 61FC32F4A;
+	Tue, 15 Feb 2022 11:02:33 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 40481607AA;
+	Tue, 15 Feb 2022 11:02:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CBDCD1809C88;
-	Tue, 15 Feb 2022 11:00:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.6])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 50B1E4CA9B;
+	Tue, 15 Feb 2022 11:02:32 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.1])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21FAxwO9014586 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Feb 2022 05:59:58 -0500
+	id 21FB2Rs4014798 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Feb 2022 06:02:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id EA7802166B4D; Tue, 15 Feb 2022 10:59:57 +0000 (UTC)
+	id 51106407E1C4; Tue, 15 Feb 2022 11:02:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id E629A2166B2F
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 10:59:54 +0000 (UTC)
+	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D0B9407E1C0
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 11:02:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C22F85A5A8
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 10:59:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 354F31C0514E
+	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 11:02:27 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-557-ua2CR371MeCqNFIBjIExqQ-1; Tue, 15 Feb 2022 05:59:52 -0500
-X-MC-Unique: ua2CR371MeCqNFIBjIExqQ-1
+	us-mta-551-O5iK-R_TNsG_AzgQ6IGQMw-1; Tue, 15 Feb 2022 06:02:17 -0500
+X-MC-Unique: O5iK-R_TNsG_AzgQ6IGQMw-1
 Received: from [2001:4bb8:184:543c:6bdf:22f4:7f0a:fe97] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nJuia-002E73-9Y; Tue, 15 Feb 2022 10:05:56 +0000
+	id 1nJuiM-002Dzz-Js; Tue, 15 Feb 2022 10:05:43 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@redhat.com>
-Date: Tue, 15 Feb 2022 11:05:40 +0100
-Message-Id: <20220215100540.3892965-6-hch@lst.de>
-In-Reply-To: <20220215100540.3892965-1-hch@lst.de>
-References: <20220215100540.3892965-1-hch@lst.de>
+Date: Tue, 15 Feb 2022 11:05:35 +0100
+Message-Id: <20220215100540.3892965-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
@@ -62,10 +60,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-loop: dm-devel@redhat.com
 Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
-Subject: [dm-devel] [PATCH 5/5] dm: remove dm_dispatch_clone_request
+Subject: [dm-devel] make the blk-mq stacking interface optional
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -79,7 +77,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.14
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -87,62 +85,21 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fold dm_dispatch_clone_request into it's only caller, and use a switch
-statement to single dispatch for the handling of the different return
-values from blk_insert_cloned_request.
+Hi Jens,
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- drivers/md/dm-rq.c | 22 +++++++++-------------
- 1 file changed, 9 insertions(+), 13 deletions(-)
+this series requires an explicit select to use the blk-mq stacking
+interfaces.  This means they don't get build without dm support, and
+thus the buildbot should catch abuses like the one we had in the ufs
+driver more easily.  And while I touched this code I also ended up
+cleaning up various loose ends.
 
-diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-index 8f6117342d322..6948d5db90925 100644
---- a/drivers/md/dm-rq.c
-+++ b/drivers/md/dm-rq.c
-@@ -303,17 +303,6 @@ static void end_clone_request(struct request *clone, blk_status_t error)
- 	dm_complete_request(tio->orig, error);
- }
- 
--static blk_status_t dm_dispatch_clone_request(struct request *clone, struct request *rq)
--{
--	blk_status_t r;
--
--	r = blk_insert_cloned_request(clone);
--	if (r != BLK_STS_OK && r != BLK_STS_RESOURCE && r != BLK_STS_DEV_RESOURCE)
--		/* must complete clone in terms of original request */
--		dm_complete_request(rq, r);
--	return r;
--}
--
- static int dm_rq_bio_constructor(struct bio *bio, struct bio *bio_orig,
- 				 void *data)
- {
-@@ -394,13 +383,20 @@ static int map_request(struct dm_rq_target_io *tio)
- 		/* The target has remapped the I/O so dispatch it */
- 		trace_block_rq_remap(clone, disk_devt(dm_disk(md)),
- 				     blk_rq_pos(rq));
--		ret = dm_dispatch_clone_request(clone, rq);
--		if (ret == BLK_STS_RESOURCE || ret == BLK_STS_DEV_RESOURCE) {
-+		ret = blk_insert_cloned_request(clone);
-+		switch (ret) {
-+		case BLK_STS_OK:
-+			break;
-+		case BLK_STS_RESOURCE:
-+		case BLK_STS_DEV_RESOURCE:
- 			blk_rq_unprep_clone(clone);
- 			blk_mq_cleanup_rq(clone);
- 			tio->ti->type->release_clone_rq(clone, &tio->info);
- 			tio->clone = NULL;
- 			return DM_MAPIO_REQUEUE;
-+		default:
-+			/* must complete clone in terms of original request */
-+			dm_complete_request(rq, ret);
- 		}
- 		break;
- 	case DM_MAPIO_REQUEUE:
--- 
-2.30.2
+Diffstat:
+ block/Kconfig          |    3 +++
+ block/blk-mq.c         |   45 +++++++++------------------------------------
+ drivers/md/Kconfig     |    1 +
+ drivers/md/dm-rq.c     |   26 +++++++++-----------------
+ include/linux/blk-mq.h |    3 +--
+ 5 files changed, 23 insertions(+), 55 deletions(-)
 
 --
 dm-devel mailing list
