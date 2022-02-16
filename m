@@ -1,79 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C9934B80A6
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Feb 2022 07:28:41 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3DF114B80A8
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Feb 2022 07:30:05 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-646-YrzrlSEwPDKXxVjUfCWb7A-1; Wed, 16 Feb 2022 01:28:36 -0500
-X-MC-Unique: YrzrlSEwPDKXxVjUfCWb7A-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-171-HQXUZejVNgCLLDDGyKrprg-1; Wed, 16 Feb 2022 01:29:18 -0500
+X-MC-Unique: HQXUZejVNgCLLDDGyKrprg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE6CB18397BF;
-	Wed, 16 Feb 2022 06:28:31 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 54D7E1006AA8;
+	Wed, 16 Feb 2022 06:29:13 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CAFE4CED5;
-	Wed, 16 Feb 2022 06:28:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32C5F105C732;
+	Wed, 16 Feb 2022 06:29:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4CA3E1809CB9;
-	Wed, 16 Feb 2022 06:28:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id EBDF418048A7;
+	Wed, 16 Feb 2022 06:29:12 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21FMxYPq016946 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 15 Feb 2022 17:59:34 -0500
+	id 21G1SUKn029327 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 15 Feb 2022 20:28:30 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 4A6705361F7; Tue, 15 Feb 2022 22:59:34 +0000 (UTC)
+	id 6DB322144B25; Wed, 16 Feb 2022 01:28:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 46BC0401E37
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 22:59:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+	(mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 66CC52144B24
+	for <dm-devel@redhat.com>; Wed, 16 Feb 2022 01:28:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DC691800046
-	for <dm-devel@redhat.com>; Tue, 15 Feb 2022 22:59:34 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
-	[209.85.216.50]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0829C106655A
+	for <dm-devel@redhat.com>; Wed, 16 Feb 2022 01:28:26 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+	[209.85.166.53]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-32-oHfupT18OHOpz9lML3Kg-g-1; Tue, 15 Feb 2022 17:59:30 -0500
-X-MC-Unique: oHfupT18OHOpz9lML3Kg-g-1
-Received: by mail-pj1-f50.google.com with SMTP id
-	ki18-20020a17090ae91200b001b8be87e9abso2763414pjb.1; 
-	Tue, 15 Feb 2022 14:59:29 -0800 (PST)
+	us-mta-93-g2CcMakxMU2zlRD34X2FXw-1; Tue, 15 Feb 2022 20:28:24 -0500
+X-MC-Unique: g2CcMakxMU2zlRD34X2FXw-1
+Received: by mail-io1-f53.google.com with SMTP id s1so484315iob.9;
+	Tue, 15 Feb 2022 17:28:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=Ydg/QaEHk+YtzGHqWPzjDmBjfyy2f1JmjiAxPzP8crc=;
-	b=E/OW3wSrX8JMu5RFVkHdtwu/dk4Uuw1SxtpRfAi0tnU1ItoKL67iWH4g/QRs7bLm7v
-	m4IWqbu9Gw0TfEHIvsmXdrR6ihuEbZMiXz0Wu5cplZrDHqILYLWLk7wu6DZIx7Mdg84R
-	o0XjPpkhcOGxLM7KxSBQlBKTCjrPBiwG53jjtG3uy9g54ueBLUHoP0rIQ1dpUoyir3dM
-	bYv1QrVEKpkvSEJHjb9KqrUaU3TCjm+V3MPxJAqLsTiwL+mUVYetBtQp5Kj7wgkWL8Kd
-	s/VWMwUxliRBLyEFAU41/9zmjyRk0iVUnqIgGPYqCTe45n5b7Zy4sjUsjZeeuhDxqQwg
-	5Vjw==
-X-Gm-Message-State: AOAM530SHvvHAsOa1fbtLFIfQDHNQrPXfmdxYywV9zR5y8ZaaDcmx8a7
-	g8Af6hOgJiRaXh08mh1E6Wg=
-X-Google-Smtp-Source: ABdhPJzD5VTWuMUJjUi6d0x1rXiN3okRfTcvfy3+tsDIIsH6bfb6SZ+FiyUr2n1wCBp6WTu5fGOOUA==
-X-Received: by 2002:a17:902:f686:: with SMTP id l6mr1079179plg.7.1644965965923;
-	Tue, 15 Feb 2022 14:59:25 -0800 (PST)
-Received: from google.com ([2620:15c:202:201:4e4a:b0ff:e926:40e2])
-	by smtp.gmail.com with ESMTPSA id
-	n85sm10430319pfd.142.2022.02.15.14.59.23
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 15 Feb 2022 14:59:25 -0800 (PST)
-Date: Tue, 15 Feb 2022 14:59:21 -0800
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Qing Wang <wangqing@vivo.com>
-Message-ID: <YgwwSUlZVakiYF8j@google.com>
-References: <1644890154-64915-1-git-send-email-wangqing@vivo.com>
-	<1644890154-64915-7-git-send-email-wangqing@vivo.com>
+	h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+	:message-id:subject:to:cc;
+	bh=Z2OvqLfZl+hYuGhPphHFvWMwyNyMYmTbKrVX+fI0uIY=;
+	b=UX4Cv1buK2lmE1DxP7PsRqWuQ5JrNBQaZWDHtIhUEd96FsoyKnC2F7Zp84azJuBnfx
+	0Mt7tpQr/qdOut+w3aj3qdVSAHkIPYcWXfDsEUIm1528ayZK34xy5hGGN3wS3MfGjDVj
+	YftxSFSiYWzdYbh0kAFI8RwP4p7W9Vl6LBGRDiD18fBUW9ov3c3GP6PqkrzS/sN42CRt
+	grqeou7LSx0wMKt2JsmygGqIKhMF1FJ8NRxUujy4uPeVy9/gYZvz8kpizwwkaMbOz6nP
+	duPby4zt+XaquIkwwn93a8vmcBk5A7VV43oSXbxgrW0cXG4fiSH5v2ywVpibuA+w2Di1
+	2rHw==
+X-Gm-Message-State: AOAM532GBnjRr/a6TI77fIPdyBgFcPaMoj3NZpbLGjL7Wcv5NR9NvXf+
+	TzBbKxU7mE6TO7M3kVxFHv2WnOgzMitovmcF9PI=
+X-Google-Smtp-Source: ABdhPJz7DsrPBvGZlDWuLBLGgUZa4AMDb918/ama7iYOx1jfyS9JIKqDPdJqnLBKyunjmRdBHfHe0u8pu28jtx7KyXc=
+X-Received: by 2002:a6b:4f07:0:b0:613:f763:7d67 with SMTP id
+	d7-20020a6b4f07000000b00613f7637d67mr374953iob.4.1644974903589;
+	Tue, 15 Feb 2022 17:28:23 -0800 (PST)
 MIME-Version: 1.0
-In-Reply-To: <1644890154-64915-7-git-send-email-wangqing@vivo.com>
+References: <CAOOPZo4uNCicVmoHa2za0=O1_XiBdtBvTuUzqBTeBc3FmDqEJw@mail.gmail.com>
+	<828ac69a-fe28-0869-bc1f-7fd106dff0aa@oracle.com>
+In-Reply-To: <828ac69a-fe28-0869-bc1f-7fd106dff0aa@oracle.com>
+From: Zhengyuan Liu <liuzhengyuang521@gmail.com>
+Date: Wed, 16 Feb 2022 09:28:12 +0800
+Message-ID: <CAOOPZo4Z2x_W7i=Vbnm-SsDgj5PndLVtOz6MqRzQxW-NeBwhRg@mail.gmail.com>
+To: Mike Christie <michael.christie@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -82,31 +78,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Wed, 16 Feb 2022 01:28:09 -0500
-Cc: Mike Snitzer <snitzer@redhat.com>, David Airlie <airlied@linux.ie>,
-	Michael Turquette <mturquette@baylibre.com>,
-	Joonas Lahtinen <joonas.lahtinen@linux.intel.com>,
-	dri-devel@lists.freedesktop.org,
-	Hans Verkuil <hverkuil@xs4all.nl>, dm-devel@redhat.com,
-	Benjamin Tissoires <benjamin.tissoires@redhat.com>,
-	Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
-	linux-clk@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
-	amd-gfx@lists.freedesktop.org, linux-input@vger.kernel.org,
-	xen-devel@lists.xenproject.org, linux-media@vger.kernel.org,
-	Konrad Rzeszutek Wilk <konrad.wilk@oracle.com>,
-	intel-gfx@lists.freedesktop.org, Jiri Kosina <jikos@kernel.org>,
-	Jani Nikula <jani.nikula@linux.intel.com>, linux-block@vger.kernel.org,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jens Axboe <axboe@kernel.dk>, Stephen Boyd <sboyd@kernel.org>,
-	"Pan, Xinhui" <Xinhui.Pan@amd.com>, linux-kernel@vger.kernel.org,
-	Daniel Vetter <daniel@ffwll.ch>, Alex Deucher <alexander.deucher@amd.com>,
-	Christian =?iso-8859-1?Q?K=F6nig?= <christian.koenig@amd.com>,
-	Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
-Subject: Re: [dm-devel] [PATCH V3 6/13] input: serio: use
- time_is_before_jiffies() instead of open coding it
+Cc: dm-devel@redhat.com, open-iscsi <open-iscsi@googlegroups.com>,
+	leech@redhat.com, lduncan@suse.com, linux-scsi@vger.kernel.org
+Subject: Re: [dm-devel] Question about iscsi session block
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -120,31 +97,57 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Wang,
+On Wed, Feb 16, 2022 at 12:31 AM Mike Christie
+<michael.christie@oracle.com> wrote:
+>
+> On 2/15/22 9:49 AM, Zhengyuan Liu wrote:
+> > Hi, all
+> >
+> > We have an online server which uses multipath + iscsi to attach storage
+> > from Storage Server. There are two NICs on the server and for each it
+> > carries about 20 iscsi sessions and for each session it includes about 50
+> >  iscsi devices (yes, there are totally about 2*20*50=2000 iscsi block devices
+> >  on the server). The problem is: once a NIC gets faulted, it will take too long
+> > (nearly 80s) for multipath to switch to another good NIC link, because it
+> > needs to block all iscsi devices over that faulted NIC firstly. The callstack is
+> >  shown below:
+> >
+> >     void iscsi_block_session(struct iscsi_cls_session *session)
+> >     {
+> >         queue_work(iscsi_eh_timer_workq, &session->block_work);
+> >     }
+> >
+> >  __iscsi_block_session() -> scsi_target_block() -> target_block() ->
+> >   device_block() ->  scsi_internal_device_block() -> scsi_stop_queue() ->
+> >  blk_mq_quiesce_queue()>synchronize_rcu()
+> >
+> > For all sessions and all devices, it was processed sequentially, and we have
+> > traced that for each synchronize_rcu() call it takes about 80ms, so
+> > the total cost
+> > is about 80s (80ms * 20 * 50). It's so long that the application can't
+> > tolerate and
+> > may interrupt service.
+> >
+> > So my question is that can we optimize the procedure to reduce the time cost on
+> > blocking all iscsi devices?  I'm not sure if it is a good idea to increase the
+> > workqueue's max_active of iscsi_eh_timer_workq to improve concurrency.
+>
+> We need a patch, so the unblock call waits/cancels/flushes the block call or
+> they could be running in parallel.
+>
+> I'll send a patchset later today so you can test it.
 
-On Mon, Feb 14, 2022 at 05:55:43PM -0800, Qing Wang wrote:
-> From: Wang Qing <wangqing@vivo.com>
-> 
-> Use the helper function time_is_{before,after}_jiffies() to improve
-> code readability.
+I'm glad to test once you push the patchset.
 
-I applied changes by Danilo Krummrich converting the driver to use
-ktime_t (see https://lore.kernel.org/r/20220215160208.34826-3-danilokrummrich@dk-develop.de)
-which makes this change not applicable.
-
-Thanks.
-
--- 
-Dmitry
+Thank you, Mike.
 
 --
 dm-devel mailing list
