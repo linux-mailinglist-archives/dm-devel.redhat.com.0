@@ -2,66 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55E6E4BAA69
-	for <lists+dm-devel@lfdr.de>; Thu, 17 Feb 2022 20:56:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 697E44BAA68
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Feb 2022 20:56:06 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-310-VNRJuZbxP5uQU2aQTAIbTg-1; Thu, 17 Feb 2022 14:56:02 -0500
-X-MC-Unique: VNRJuZbxP5uQU2aQTAIbTg-1
+ us-mta-602-I-6uKQJtMwqt9LEVPLYu1w-1; Thu, 17 Feb 2022 14:56:02 -0500
+X-MC-Unique: I-6uKQJtMwqt9LEVPLYu1w-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C7491091DA1;
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 4C70B801B0B;
 	Thu, 17 Feb 2022 19:55:57 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id EF2D21017E35;
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA0AA1017CF5;
 	Thu, 17 Feb 2022 19:55:56 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BD2B4BB7C;
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 3BCF71809CAB;
 	Thu, 17 Feb 2022 19:55:50 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21HJtfdg005139 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Feb 2022 14:55:41 -0500
+	id 21HJth6r005155 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 17 Feb 2022 14:55:43 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6065414582FA; Thu, 17 Feb 2022 19:55:41 +0000 (UTC)
+	id B5B3576F0; Thu, 17 Feb 2022 19:55:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
 	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5C5C914582F7
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 19:55:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id AEEFD53AA
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 19:55:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
 	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3F7D11C05EC4
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 19:55:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 637091C05EBA
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 19:55:39 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-449-t6GqWNrsOGa19QInTrj0Mw-1; Thu, 17 Feb 2022 14:55:37 -0500
-X-MC-Unique: t6GqWNrsOGa19QInTrj0Mw-1
+	us-mta-607-P-DZ0Z1MMQKyb5tlHDrKOw-1; Thu, 17 Feb 2022 14:55:37 -0500
+X-MC-Unique: P-DZ0Z1MMQKyb5tlHDrKOw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by smtp-out2.suse.de (Postfix) with ESMTPS id 433551F383;
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 91FFC1F3A2;
 	Thu, 17 Feb 2022 19:55:36 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	key-exchange X25519 server-signature ECDSA (P-521) server-digest
 	SHA512) (No client certificate requested)
-	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 01E9313476;
-	Thu, 17 Feb 2022 19:55:35 +0000 (UTC)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 5369013476;
+	Thu, 17 Feb 2022 19:55:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
-	by imap2.suse-dmz.suse.de with ESMTPSA id SHfiODeoDmLBVgAAMHmgww
-	(envelope-from <mwilck@suse.com>); Thu, 17 Feb 2022 19:55:35 +0000
+	by imap2.suse-dmz.suse.de with ESMTPSA id yPEGEjioDmLBVgAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 17 Feb 2022 19:55:36 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
 	Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 17 Feb 2022 20:55:29 +0100
-Message-Id: <20220217195533.4251-1-mwilck@suse.com>
+Date: Thu, 17 Feb 2022 20:55:30 +0100
+Message-Id: <20220217195533.4251-2-mwilck@suse.com>
+In-Reply-To: <20220217195533.4251-1-mwilck@suse.com>
+References: <20220217195533.4251-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
@@ -71,13 +73,13 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 21HJtfdg005139
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 21HJth6r005155
 X-loop: dm-devel@redhat.com
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
-Subject: [dm-devel] [PATCH 0/4] libmultipath: utter less dev_loss_tmo
-	warnings
+Subject: [dm-devel] [PATCH 1/4] libmultipath: enable linear ordering of
+	bus/proto tuple
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,35 +103,73 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Hi Christophe,
+We categorized protocols by bus/proto_id, while we only differentiate
+protocol IDs for SCSI. Allow transforming this into a linear sequence
+of bus/protocol IDs by having non-SCSI first, and follwing up with
+the different SCSI protocols.
 
-since 3ab1f3b ("libmultipath: print message if setting dev_loss_tmo is unsupported"),
-multipathd prints a warning at level 2 for every map for which dev_loss_tmo can't
-be set. This results in a large number of warnings if there are many maps with such
-unsupported protocols, like this:
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libmultipath/structs.c | 10 ++++++++++
+ libmultipath/structs.h | 13 +++++++++++--
+ 2 files changed, 21 insertions(+), 2 deletions(-)
 
-multipathd[1398]: 36001405328d6683b6cb4739943adf643: setting dev_loss_tmo is unsupported for protocol scsi:unspec
-
-This patch set makes changes the code to print this warning only once per unsupported
-protocol. It would have been simpler to never print the warning more than once, but
-I figured that might suppress important information in some cases.
-
-Regards
-Martin
-
-Martin Wilck (4):
-  libmultipath: enable linear ordering of bus/proto tuple
-  libmultipath: use bus_protocol_id() in snprint_path_protocol()
-  libmultipath: enable defining a static bitfield
-  libmultipath: only warn once about unsupported dev_loss_tmo
-
- libmultipath/discovery.c |  4 ++-
- libmultipath/print.c     | 58 +++++++++++++++-------------------------
- libmultipath/structs.c   | 10 +++++++
- libmultipath/structs.h   | 13 +++++++--
- libmultipath/util.h      | 10 +++++++
- 5 files changed, 55 insertions(+), 40 deletions(-)
-
+diff --git a/libmultipath/structs.c b/libmultipath/structs.c
+index 17f4baf..5849bf1 100644
+--- a/libmultipath/structs.c
++++ b/libmultipath/structs.c
+@@ -753,3 +753,13 @@ out:
+ 
+ 	return 0;
+ }
++
++unsigned int bus_protocol_id(const struct path *pp) {
++	if (!pp || pp->bus < 0 || pp->bus > SYSFS_BUS_SCSI)
++		return SYSFS_BUS_UNDEF;
++	if (pp->bus != SYSFS_BUS_SCSI)
++		return pp->bus;
++	if (pp->sg_id.proto_id < 0 || pp->sg_id.proto_id > SCSI_PROTOCOL_UNSPEC)
++		return SYSFS_BUS_UNDEF;
++	return SYSFS_BUS_SCSI + pp->sg_id.proto_id;
++}
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index 205cf64..d94f93a 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -57,12 +57,13 @@ enum failback_mode {
+ 	FAILBACK_FOLLOWOVER
+ };
+ 
++/* SYSFS_BUS_SCSI should be last, see bus_protocol_id() */
+ enum sysfs_buses {
+ 	SYSFS_BUS_UNDEF,
+-	SYSFS_BUS_SCSI,
+ 	SYSFS_BUS_CCW,
+ 	SYSFS_BUS_CCISS,
+ 	SYSFS_BUS_NVME,
++	SYSFS_BUS_SCSI,
+ };
+ 
+ enum pathstates {
+@@ -181,9 +182,17 @@ enum scsi_protocol {
+ 	SCSI_PROTOCOL_ADT = 7,	/* Media Changers */
+ 	SCSI_PROTOCOL_ATA = 8,
+ 	SCSI_PROTOCOL_USB = 9,  /* USB Attached SCSI (UAS), and others */
+-	SCSI_PROTOCOL_UNSPEC = 0xf, /* No specific protocol */
++	SCSI_PROTOCOL_UNSPEC = 0xa, /* No specific protocol */
+ };
+ 
++/*
++ * Linear ordering of bus/protocol
++ * This assumes that SYSFS_BUS_SCSI is last in enum sysfs_buses
++ * SCSI is the only bus type for which we distinguish protocols.
++ */
++#define LAST_BUS_PROTOCOL_ID (SYSFS_BUS_SCSI + SCSI_PROTOCOL_UNSPEC)
++unsigned int bus_protocol_id(const struct path *pp);
++
+ #define SCSI_INVALID_LUN ~0ULL
+ 
+ enum no_undef_states {
 -- 
 2.35.1
 
