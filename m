@@ -1,180 +1,105 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 615DB4BA141
-	for <lists+dm-devel@lfdr.de>; Thu, 17 Feb 2022 14:31:59 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D60C94BA0AC
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Feb 2022 14:10:16 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1645103415;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=fwegztzdJYUKR0nmu/jwzCCaMIY7v2+bz2ESvJOF8As=;
+	b=gjsVcZx44F1rmPT+whvjA9UQQpddRsiF9Mqy4fARSkTQ5YXQnptjJ+5xjK2qd449sjDSFL
+	WTSuHJmcaXOtn6KS1k+NA43oGxTBE1br8nAHjeDV6n22gz8YWvrKb3TN5LWvsdWDgkzAUE
+	SjYzpKfViaUC/UzuNrQtYyaTU0yKsRI=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-450-eIIPW4PvO8qbpF3o5w6Oug-1; Thu, 17 Feb 2022 08:31:56 -0500
-X-MC-Unique: eIIPW4PvO8qbpF3o5w6Oug-1
+ us-mta-171-WLzIsxQMMOaaUFIdXOKq6w-1; Thu, 17 Feb 2022 08:10:12 -0500
+X-MC-Unique: WLzIsxQMMOaaUFIdXOKq6w-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 51C80185302F;
-	Thu, 17 Feb 2022 13:31:48 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 8A1E4180D1E4;
+	Thu, 17 Feb 2022 13:10:05 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5B7732B4A3;
-	Thu, 17 Feb 2022 13:31:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id BFA9D2B4DD;
+	Thu, 17 Feb 2022 13:10:04 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 77DDC1832DA0;
-	Thu, 17 Feb 2022 13:31:39 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.2])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E61FD1832DA0;
+	Thu, 17 Feb 2022 13:09:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21HAGR3A019757 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Feb 2022 05:16:27 -0500
+	id 21HD9i8Q001130 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 17 Feb 2022 08:09:44 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 6A8004010A14; Thu, 17 Feb 2022 10:16:27 +0000 (UTC)
+	id 4B6462166B14; Thu, 17 Feb 2022 13:09:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 65717400F3FE
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 10:16:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 493F41C05EB9
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 10:16:27 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
-	(mail-bn8nam12on2069.outbound.protection.outlook.com [40.107.237.69])
-	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-512-j9r5l-TlOhCN6jUYIluvOg-1; Thu, 17 Feb 2022 05:16:23 -0500
-X-MC-Unique: j9r5l-TlOhCN6jUYIluvOg-1
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
-	by BL0PR12MB4724.namprd12.prod.outlook.com (2603:10b6:208:87::23)
-	with Microsoft SMTP Server (version=TLS1_2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4975.15;
-	Thu, 17 Feb 2022 10:16:21 +0000
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com
-	([fe80::846c:d3cd:5a30:c35]) by MW2PR12MB4667.namprd12.prod.outlook.com
-	([fe80::846c:d3cd:5a30:c35%5]) with mapi id 15.20.4975.017;
-	Thu, 17 Feb 2022 10:16:21 +0000
-From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-To: Luis Chamberlain <mcgrof@kernel.org>, "hch@lst.de" <hch@lst.de>
-Thread-Topic: [PATCH v3 02/10] block: Introduce queue limits for copy-offload
-	support
-Thread-Index: AQHYIX3XHL9e7GOdFkmJOxrEFUhCJ6yXeHUAgAATXwA=
-Date: Thu, 17 Feb 2022 10:16:21 +0000
-Message-ID: <f0f9317f-839e-2be2-dec6-c5b94d7022b7@nvidia.com>
-References: <20220214080002.18381-1-nj.shetty@samsung.com>
-	<CGME20220214080605epcas5p16868dae515a6355cf9fecf22df4f3c3d@epcas5p1.samsung.com>
-	<20220214080002.18381-3-nj.shetty@samsung.com>
-	<20220217090700.b7n33vbkx5s4qbfq@garbanzo>
-In-Reply-To: <20220217090700.b7n33vbkx5s4qbfq@garbanzo>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
-	Thunderbird/78.11.0
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c1a1b84c-f0d8-4872-61b9-08d9f1fe8b6d
-x-ms-traffictypediagnostic: BL0PR12MB4724:EE_
-x-microsoft-antispam-prvs: <BL0PR12MB4724CEDBE5856A6200C3BE8CA3369@BL0PR12MB4724.namprd12.prod.outlook.com>
-x-ms-oob-tlc-oobclassifiers: OLM:8882
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: 6Z2W2wzGF0dUKXoe8V/PLOCWOIuMlgKpU5gl8Pwl6MCfuWCN8GbKrZhj3+tkHr/NXWl4aXzmuAVFpWTFDdjoA5eHGYMoIT7MoJMNxFjCgmChl2pZ51+6jhLkh9hXtYnklZjcbkdAWYHFMYHJa//bQWwPcDkP0T7gAlBbtEunI9GOOYcsXUjIg0qbqC72gpDyicngffJOqe2FGJeQKbZHT7kas6h3NXGvOQ6at1qTBBXM0fNxgfWjTHJhStuP+VsAgNIHWCT2zx69ARWu3SU0OHnM7A7m5H6vdBZDbLWXyQJTgWp3yOdbrtFwYtFhDwfMH+NBajtQCxQfr7X7lEP6mb3hWHfJXISN1R1e3LsCl1wQ1IU3Yx1TmLIbfGHaPpR0GcrDyHBujf4cbtslcoCCFbVENAg7XvKfNBkuXwtSUnokCT+dUBDGTadlya9n1d/htTcSt1izAI8Emrt1o5qbYDO1opySeDmMSa6nvjqxVNou9oKrHP1JrRBuMPTtUuQq+NrhmJzk8+OU+6vrr9gU1S3InhBQpr3w9YXIeSWOR3om6ivPJ4I/thEPa9GZo8mKIl6dlj8AIs0eVGyyCiZi21WV91zDXf95Xd3EskUtBEdKc1XbwjjKnFTs8DNhvV0QHROpuS6X3JoiiSkmYCLGIjw6SfBrKR7/mAnqTYHhd8Kf/FIuaVcY9x2kl92rMpG5lWdiYTaZxz/izqE9bp29XCaLgV26Jydn/cxStSJ0sODDswZOuSxmsGGzZyBF5J/VcxGUub9Q4wl6X0BexxsDsA==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
-	IPV:NLI; SFV:NSPM; H:MW2PR12MB4667.namprd12.prod.outlook.com;
-	PTR:; CAT:NONE;
-	SFS:(13230001)(4636009)(366004)(71200400001)(7406005)(66946007)(64756008)(66476007)(66446008)(91956017)(86362001)(4326008)(7416002)(6486002)(2906002)(6512007)(8936002)(66556008)(38100700002)(508600001)(8676002)(5660300002)(110136005)(54906003)(122000001)(316002)(76116006)(83380400001)(31686004)(38070700005)(53546011)(2616005)(186003)(36756003)(31696002)(6506007)(45980500001)(43740500002);
-	DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?VUtEZUh2OGVJdzhZWVVtQVhyNkZuTDFrSldVVlNoWWgzd0YwNzBIZVhZaEhv?=
-	=?utf-8?B?MjdXNFMwU2FTVWtaVGlCb3U0eU96NjRJYjY4cXA1YkR3WUJxYXRxcjBWT3VN?=
-	=?utf-8?B?Y3dlYnU0b2RETngrbkZjK09qeWZCYjJCSVpTRlUzaEVrd3JuLzRrQ0N3YVVQ?=
-	=?utf-8?B?cVgyY01kT2lqQ3V4RXpkSzRBaEl6cnhJWHVUWSsvcTdYRFNKSGxXUTRhVDln?=
-	=?utf-8?B?M3dNeEdPTFFZQXJMMm52UDJrZ1dtQjBlaThQWWdYV0JBSEVkeWtZazVyZnNI?=
-	=?utf-8?B?ZWkyNXR2OTl6aXVKcHdjVlArWEtJNkNudCtHQnAyMGFFdnBRYklrQXdXK2NM?=
-	=?utf-8?B?anpIN3kzNmlKRGljUys5TmlGZTc3V3MyK3I4V01YRDcvYURaYUJFeXVFb2xF?=
-	=?utf-8?B?elMwbkVUR2lia2xOZ3RrczZLcjgva2k3cFpvZmtLcm5oOTlicEFpRWFPKzZP?=
-	=?utf-8?B?RTV3RDRHejhWenlSajR4U0pRUG1OUmhPMW80VTUvNzNFa2RVeUFTMlI4dWRC?=
-	=?utf-8?B?OCsrYXVEVEQ4akZLR3Rlc1A1anZnWFFhL0dLVms4UXBNWkJPbldVbnhVNDMz?=
-	=?utf-8?B?VnYwdytFZnRuQzlQV2FFMzBPRHFkbEZKUXRVaEtjZjZuZGQ0WkNpTHMveWdz?=
-	=?utf-8?B?QmNtWmVIMWVRd3lwSkgyKzE0RnNqNnEzY1BTU3djRlNyRERRQWhXa0pUNjJj?=
-	=?utf-8?B?ak54WTNXUnFVUENVZGh2STRWaDhsT1cwV2NnT1p5WnEzNW9Od2hTT2ZjeERl?=
-	=?utf-8?B?UWVLS0Y1VFRydXI1TDRtMVRSNnI4OStJd1JqK1B6bkFLdXFCeFlxVWJiRU9B?=
-	=?utf-8?B?TG81cllTNndUYkhBdFB6aEkzOGNPUW15MUpJSDJiWHR4K05wdGhCRzgwZHpT?=
-	=?utf-8?B?MUZkUGF1QkFvQm5uT0dPNWhLMkIxa04wSTYrUnJuMngza2syWjRsNHNkT1Vu?=
-	=?utf-8?B?bDZjSHpmbldEeFN3dnNiZnpGS211VDdiK2RjK1JLSWJIeVordEZGNlFrZjVJ?=
-	=?utf-8?B?dlg1NEN5WnFwSExNNXQ4NCsyL0p2MkYyejhVbnZPOVJKOGZZTWMyZ3A5aWp1?=
-	=?utf-8?B?TXhOQ1JBRjRLYU5uTEZrV0laOEVFTVBDdjV5VitsaFEyVmI5SWJnbi90cW5V?=
-	=?utf-8?B?T2dvMS96T0doODlSb1M0MzhvZkdKVDBGZExRUXEybVFQd3JBUXdRa255cmln?=
-	=?utf-8?B?L1Jaa0x0ZXZFcGRVYVYzMHNjOEtVSTF1QnpxTzh4RWI2OFBTSzVsZS9vbUEw?=
-	=?utf-8?B?UzViYkVqWEY4ZjQ0aE16dmliQTFvUmFIZlV1SzAxS2lkeGVlWGlBQTdNZGNh?=
-	=?utf-8?B?OEtoMWFkTi9LbTdmQTdRVC9UNFVIMjZlRllZeUZFNUZ0QW1XYVU3bTNrNUhQ?=
-	=?utf-8?B?QXM2SWJPdTBBTmh1RFR4Q2ZQbnJXVGpoVWpTUVJaTFV6QzhnZ3c2STVPN0RX?=
-	=?utf-8?B?NjVtTlV6RE5HS1c0UytubFhVK2ZjN3JMcW9FdEFHbmRYWExldGdJcnl3QklG?=
-	=?utf-8?B?TGFERDZkR0krMTBFc1dzdkNvYzg0UVp1dit1TWNoRVlEbEJveFUvcVBvWGtp?=
-	=?utf-8?B?SjJYeENUblA1eVVraEVlZ3hPalV2cWxBbUMrOU10Mk9wVktTeUZoL2g0cHZt?=
-	=?utf-8?B?bnZoNm9ubHhGRU53M0VtalZVTEtUeDJpbFExUWFPMlhKRDlXRDdPcVo3RG9Y?=
-	=?utf-8?B?MkJDNm1FbmFURkxDSi9UR0I2QTR4RUFxdXczZGJNeDlHVnRvTHFmYU1BOEd1?=
-	=?utf-8?B?dWlmeXRhVWFGcE5DWkl0VHpIYzl6b0N5Ky9yRnBKUkR5eE54M3pNcVNndEF2?=
-	=?utf-8?B?WEhYam43bTFtazlNL3FzY1ZyeVRZSkxHVEpSOWxEM0FxMDF2UUVUVjIxdEZD?=
-	=?utf-8?B?OVNSV1V2UmI5NVVja1lwNjJKcFJMK0xBOUJyUElqUmNwaHJPNTlqZTZHWFZi?=
-	=?utf-8?B?cWhVU3RWQmk4R0tJd2NrNENrS3pObmo0dUV5K3ltK3V0ZWdzSC8wU2dycklV?=
-	=?utf-8?B?Uk5ldTF6V09wTVVqeTA1S1JKdE8vNGVkdXpIUWN3T3QxZENvL2JFMGFqV1Qx?=
-	=?utf-8?B?QnR2SVRiOWozK1lDc2ZVcnNZSC9hSGxtODE3NmQ2V3ZYNTFzUWEzeXluaU13?=
-	=?utf-8?B?c1RBTUVRQVJkRFBtVytIbFhlVHpvN1AzYjc5c0ZMc0hucHk1ZkJESGZQL3dv?=
-	=?utf-8?Q?/ZP6IG4hSLaoX4cTPLBF5yo2G6c6LkusoAacJHs0f/T/?=
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 475962166B17
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 13:09:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29E553806648
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 13:09:41 +0000 (UTC)
+Received: from mail-ej1-f69.google.com (mail-ej1-f69.google.com
+	[209.85.218.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-79-GcKe_2lcOQiC4ANAXC_kGw-1; Thu, 17 Feb 2022 08:09:39 -0500
+X-MC-Unique: GcKe_2lcOQiC4ANAXC_kGw-1
+Received: by mail-ej1-f69.google.com with SMTP id
+	m12-20020a1709062acc00b006cfc98179e2so1509124eje.6
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 05:09:39 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:content-transfer-encoding
+	:in-reply-to;
+	bh=8lDd+d0+b5xK8fo8ENNAgO2m2RDI+tkbli47DWuk46o=;
+	b=tKLYyjBpxhm22CO6NgUG1p/Td/Y73gLHmLfLmEFChg8NKbyJk/wqw5knlU0fgsIC+b
+	gVbjCqR2agv67W4e3TaQjAwuWt5sSGvEfQUbxb8v+9xI/5cxusJc1CwSpRgh+/4Uv6SN
+	XRrqHnJyUTtDvI2ms48IEw2m/7AJbqHmJLCM4F/q9GfkDMwEaqBy+weBJ4Z0a/9I09NN
+	ETUm2xuzuKv5uJ8k9z1OE0sx47uPu7lm+/1AIWIwxxP5N9fZ84ACchxfwPzHu5lq9KkP
+	iFG9JTlHtjfPTKI4aAGiavuHVfIk3kip84rvsrdYW590zLz1MY2w/PzNXJZ1bPRDzQkK
+	i1Rg==
+X-Gm-Message-State: AOAM532qelNrPNPmuBMte9tFU7aeXv8hZ2lG4z3vUiLaoxzppAlLYslj
+	54umnmW+hjpKORzZTbXc4FyJEEym0UiW+6ZoU60WlRFfbvg7qhQ5/RbCa4cLHBa6YJbp6Jd83aA
+	DP5sMCQ5IVaM4hHA=
+X-Received: by 2002:a17:906:c0c:b0:6ce:e59c:c38a with SMTP id
+	s12-20020a1709060c0c00b006cee59cc38amr2244943ejf.483.1645103378582;
+	Thu, 17 Feb 2022 05:09:38 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy5/z/iiObCZMgwVxFkb04RLg9rkx7e1/Ff9ghNhkaOd+XT62fzOC6h6f1Hb4XPww5EtgvPBw==
+X-Received: by 2002:a17:906:c0c:b0:6ce:e59c:c38a with SMTP id
+	s12-20020a1709060c0c00b006cee59cc38amr2244922ejf.483.1645103378270;
+	Thu, 17 Feb 2022 05:09:38 -0800 (PST)
+Received: from alatyr-rpi.brq.redhat.com (nat-pool-brq-t.redhat.com.
+	[213.175.37.10]) by smtp.gmail.com with ESMTPSA id
+	r11sm1154152ejc.212.2022.02.17.05.09.37
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Thu, 17 Feb 2022 05:09:37 -0800 (PST)
+Date: Thu, 17 Feb 2022 14:09:34 +0100
+From: Peter Rajnoha <prajnoha@redhat.com>
+To: Martin Wilck <mwilck@suse.com>
+Message-ID: <20220217130934.lh2b33255kyx2pax@alatyr-rpi.brq.redhat.com>
+References: <20220216205914.7575-1-mwilck@suse.com>
+	<164504936873.10228.7361167610237544463@noble.neil.brown.name>
+	<e8720e3f8734cbad1af34d5e54afc47ba3ef1b8f.camel@suse.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c1a1b84c-f0d8-4872-61b9-08d9f1fe8b6d
-X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Feb 2022 10:16:21.1574 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: meGMcDWO4GHdInb5gwSpsB1ykzvj2VMwEtrwv7nc1iLYS4BbHuyOOGCx3L2XN+DrhlGRpRe3OhTHYKh1e8op9Q==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL0PR12MB4724
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-X-MIME-Autoconverted: from base64 to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 21HAGR3A019757
+In-Reply-To: <e8720e3f8734cbad1af34d5e54afc47ba3ef1b8f.camel@suse.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Thu, 17 Feb 2022 08:30:58 -0500
-Cc: Mike Snitzer <snitzer@redhat.com>, "djwong@kernel.org" <djwong@kernel.org>,
-	"linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
-	"clm@fb.com" <clm@fb.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
-	"osandov@fb.com" <osandov@fb.com>, Kergon <agk@redhat.com>,
-	"javier@javigon.com" <javier@javigon.com>,
-	"bvanassche@acm.org" <bvanassche@acm.org>,
-	"linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
-	"nitheshshetty@gmail.com" <nitheshshetty@gmail.com>,
-	James Smart <james.smart@broadcom.com>, Chaitanya, Alasdair,
-	Nitesh Shetty <nj.shetty@samsung.com>, Kulkarni <chaitanyak@nvidia.com>,
-	SelvaKumar S <selvakuma.s1@samsung.com>,
-	"msnitzer@redhat.com" <msnitzer@redhat.com>,
-	"josef@toxicpanda.com" <josef@toxicpanda.com>,
-	"linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
-	"dsterba@suse.com" <dsterba@suse.com>,
-	"kbusch@kernel.org" <kbusch@kernel.org>,
-	"Frederick.Knight@netapp.com" <Frederick.Knight@netapp.com>,
-	Sagi Grimberg <sagi@grimberg.me>, "axboe@kernel.dk" <axboe@kernel.dk>,
-	"tytso@mit.edu" <tytso@mit.edu>,
-	"martin.petersen@oracle.com" <martin.petersen@oracle.com>,
-	"joshi.k@samsung.com" <joshi.k@samsung.com>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"arnav.dawn@samsung.com" <arnav.dawn@samsung.com>,
-	"jack@suse.com" <jack@suse.com>,
-	"linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
-	"lsf-pc@lists.linux-foundation.org" <lsf-pc@lists.linux-foundation.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>
-Subject: Re: [dm-devel] [PATCH v3 02/10] block: Introduce queue limits for
- copy-offload support
+Cc: Jes Sorensen <jsorensen@fb.com>, lvm-devel@redhat.com,
+	linux-raid@vger.kernel.org, Coly Li <colyli@suse.com>,
+	dm-devel@redhat.com, Heming Zhao <heming.zhao@suse.com>
+Subject: Re: [dm-devel] [PATCH] udev-md-raid-assembly.rules: skip if
+ DM_UDEV_DISABLE_OTHER_RULES_FLAG
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -193,178 +118,182 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <3C7747923854C747A3CF9C4661B64B1E@namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-On 2/17/22 1:07 AM, Luis Chamberlain wrote:
-> The subject says limits for copy-offload...
-> 
-> On Mon, Feb 14, 2022 at 01:29:52PM +0530, Nitesh Shetty wrote:
->> Add device limits as sysfs entries,
->>          - copy_offload (RW)
->>          - copy_max_bytes (RW)
->>          - copy_max_hw_bytes (RO)
->>          - copy_max_range_bytes (RW)
->>          - copy_max_range_hw_bytes (RO)
->>          - copy_max_nr_ranges (RW)
->>          - copy_max_nr_ranges_hw (RO)
-> 
-> Some of these seem like generic... and also I see a few more max_hw ones
-> not listed above...
-> 
->> --- a/block/blk-settings.c
->> +++ b/block/blk-settings.c
->> +/**
->> + * blk_queue_max_copy_sectors - set max sectors for a single copy payload
->> + * @q:  the request queue for the device
->> + * @max_copy_sectors: maximum number of sectors to copy
->> + **/
->> +void blk_queue_max_copy_sectors(struct request_queue *q,
->> +		unsigned int max_copy_sectors)
->> +{
->> +	q->limits.max_hw_copy_sectors = max_copy_sectors;
->> +	q->limits.max_copy_sectors = max_copy_sectors;
->> +}
->> +EXPORT_SYMBOL(blk_queue_max_copy_sectors);
-> 
-> Please use EXPORT_SYMBOL_GPL() for all new things.
-> 
-> Why is this setting both? The documentation does't seem to say.
-> What's the point?
-> 
->> +
->> +/**
->> + * blk_queue_max_copy_range_sectors - set max sectors for a single range, in a copy payload
->> + * @q:  the request queue for the device
->> + * @max_copy_range_sectors: maximum number of sectors to copy in a single range
->> + **/
->> +void blk_queue_max_copy_range_sectors(struct request_queue *q,
->> +		unsigned int max_copy_range_sectors)
->> +{
->> +	q->limits.max_hw_copy_range_sectors = max_copy_range_sectors;
->> +	q->limits.max_copy_range_sectors = max_copy_range_sectors;
->> +}
->> +EXPORT_SYMBOL(blk_queue_max_copy_range_sectors);
-> 
-> Same here.
-> 
->> +/**
->> + * blk_queue_max_copy_nr_ranges - set max number of ranges, in a copy payload
->> + * @q:  the request queue for the device
->> + * @max_copy_nr_ranges: maximum number of ranges
->> + **/
->> +void blk_queue_max_copy_nr_ranges(struct request_queue *q,
->> +		unsigned int max_copy_nr_ranges)
->> +{
->> +	q->limits.max_hw_copy_nr_ranges = max_copy_nr_ranges;
->> +	q->limits.max_copy_nr_ranges = max_copy_nr_ranges;
->> +}
->> +EXPORT_SYMBOL(blk_queue_max_copy_nr_ranges);
-> 
-> Same.
-> 
->> +
->>   /**
->>    * blk_queue_max_write_same_sectors - set max sectors for a single write same
->>    * @q:  the request queue for the device
->> @@ -541,6 +592,14 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
->>   	t->max_segment_size = min_not_zero(t->max_segment_size,
->>   					   b->max_segment_size);
->>   
->> +	t->max_copy_sectors = min(t->max_copy_sectors, b->max_copy_sectors);
->> +	t->max_hw_copy_sectors = min(t->max_hw_copy_sectors, b->max_hw_copy_sectors);
->> +	t->max_copy_range_sectors = min(t->max_copy_range_sectors, b->max_copy_range_sectors);
->> +	t->max_hw_copy_range_sectors = min(t->max_hw_copy_range_sectors,
->> +						b->max_hw_copy_range_sectors);
->> +	t->max_copy_nr_ranges = min(t->max_copy_nr_ranges, b->max_copy_nr_ranges);
->> +	t->max_hw_copy_nr_ranges = min(t->max_hw_copy_nr_ranges, b->max_hw_copy_nr_ranges);
->> +
->>   	t->misaligned |= b->misaligned;
->>   
->>   	alignment = queue_limit_alignment_offset(b, start);
->> diff --git a/block/blk-sysfs.c b/block/blk-sysfs.c
->> index 9f32882ceb2f..9ddd07f142d9 100644
->> --- a/block/blk-sysfs.c
->> +++ b/block/blk-sysfs.c
->> @@ -212,6 +212,129 @@ static ssize_t queue_discard_zeroes_data_show(struct request_queue *q, char *pag
->>   	return queue_var_show(0, page);
->>   }
->>   
->> +static ssize_t queue_copy_offload_show(struct request_queue *q, char *page)
->> +{
->> +	return queue_var_show(blk_queue_copy(q), page);
->> +}
->> +
->> +static ssize_t queue_copy_offload_store(struct request_queue *q,
->> +				       const char *page, size_t count)
->> +{
->> +	unsigned long copy_offload;
->> +	ssize_t ret = queue_var_store(&copy_offload, page, count);
->> +
->> +	if (ret < 0)
->> +		return ret;
->> +
->> +	if (copy_offload && !q->limits.max_hw_copy_sectors)
->> +		return -EINVAL;
-> 
-> 
-> If the kernel schedules, copy_offload may still be true and
-> max_hw_copy_sectors may be set to 0. Is that an issue?
-> 
->> +
->> +	if (copy_offload)
->> +		blk_queue_flag_set(QUEUE_FLAG_COPY, q);
->> +	else
->> +		blk_queue_flag_clear(QUEUE_FLAG_COPY, q);
-> 
-> The flag may be set but the queue flag could be set. Is that an issue?
-> 
->> @@ -597,6 +720,14 @@ QUEUE_RO_ENTRY(queue_nr_zones, "nr_zones");
->>   QUEUE_RO_ENTRY(queue_max_open_zones, "max_open_zones");
->>   QUEUE_RO_ENTRY(queue_max_active_zones, "max_active_zones");
->>   
->> +QUEUE_RW_ENTRY(queue_copy_offload, "copy_offload");
->> +QUEUE_RO_ENTRY(queue_copy_max_hw, "copy_max_hw_bytes");
->> +QUEUE_RW_ENTRY(queue_copy_max, "copy_max_bytes");
->> +QUEUE_RO_ENTRY(queue_copy_range_max_hw, "copy_max_range_hw_bytes");
->> +QUEUE_RW_ENTRY(queue_copy_range_max, "copy_max_range_bytes");
->> +QUEUE_RO_ENTRY(queue_copy_nr_ranges_max_hw, "copy_max_nr_ranges_hw");
->> +QUEUE_RW_ENTRY(queue_copy_nr_ranges_max, "copy_max_nr_ranges");
-> 
-> Seems like you need to update Documentation/ABI/stable/sysfs-block.
-> 
->> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
->> index efed3820cbf7..792e6d556589 100644
->> --- a/include/linux/blkdev.h
->> +++ b/include/linux/blkdev.h
->> @@ -254,6 +254,13 @@ struct queue_limits {
->>   	unsigned int		discard_alignment;
->>   	unsigned int		zone_write_granularity;
->>   
->> +	unsigned long		max_hw_copy_sectors;
->> +	unsigned long		max_copy_sectors;
->> +	unsigned int		max_hw_copy_range_sectors;
->> +	unsigned int		max_copy_range_sectors;
->> +	unsigned short		max_hw_copy_nr_ranges;
->> +	unsigned short		max_copy_nr_ranges;
-> 
-> Before limits start growing more.. I wonder if we should just
-> stuff hw offload stuff to its own struct within queue_limits.
-> 
-> Christoph?
-> 
+On Thu 17 Feb 2022 11:58, Martin Wilck wrote:
+> On Thu, 2022-02-17 at 09:09 +1100, NeilBrown wrote:
+> > On Thu, 17 Feb 2022, mwilck@suse.com=A0wrote:
+> > > From: Martin Wilck <mwilck@suse.com>
+> > >=20
+> > > device-mapper sets the flag DM_UDEV_DISABLE_OTHER_RULES_FLAG to 1
+> > > for
+> > > devices which are unusable. They may be no set up yet, suspended,
+> > > or
+> > > otherwise unusable (e.g. multipath maps without usable path). This
+> > > flag does not necessarily imply SYSTEMD_READY=3D0 and must therefore
+> > > be tested separately.
+> >=20
+> > I really don't like this - looks like a hack.=A0 A Kludge.
+>=20
+> These are strong words. You didn't go into detail, so I'm assuming that
+> your reasoning is that DM_UDEV_DISABLE_OTHER_RULES_FLAG is an internal
+> flag of the device-mapper subsystem. Still, you can see that is's used
+> both internally by dm, and by other subsystems:
+>=20
+> https://github.com/lvmteam/lvm2/blob/8dccc2314e2482370bc6e5cf007eb210994a=
+bdef/udev/13-dm-disk.rules.in#L15
+> https://github.com/g2p/bcache-tools/blob/a73679b22c333763597d39c72112ef5a=
+53f55419/69-bcache.rules#L6
+> https://github.com/opensvc/multipath-tools/blob/d9d7ae9e2125116b465b4ff4d=
+98ce65fe0eac3cc/kpartx/kpartx.rules#L10
+>=20
 
-Potentially use a pointer to structure and maybe make it configurable,
-although I'm not sure about the later part, I'll let Christoph decide
-that.
+The flags that DM use for udev were introduced before systemd project
+even existed. We needed to introduce the DM_UDEV_DISABLE_OTHER_RULES_FLAG
+to have a possibility for all the "other" (non-dm) udev rules to check
+for if there's another subsystem stacking its own devices on top of DM ones=
+.
 
->    Luis
-> 
+The flag is used to communicate the other rules a condition when a DM
+device underneath is either not yet set up completely or it's not ready
+to be read/scanned for a reason (e.g. the device is suspended, not yet
+loaded with a table...).
 
--ck
+The reason we needed to introduce such a flag is simple - there's
+limited amount of event types and DM devices are not ready on the usual
+ADD event. It's after the CHANGE event that originates from the DM
+device having a table loaded and resumed. At the same time, a CHANGE
+event can be generated for various different reasons. So checking a
+single flag that we set based in out own udev rules based on our best
+knowledge and let other other rules to check for this single flag
+seemed to be the best option to solve this.
 
+> Would you call these others "hacks", too?
+>=20
+> > Can you provide a reference to a detailed discussion that explains
+> > why
+> > SYSTEMD_READY=3D0 cannot be used?
+>=20
+> The main reason is that SYSTEMD_READY=3D0 is set too late, in 99-systemd-
+> rules, and only on "add" events:
+> https://github.com/systemd/systemd/blob/bfae960e53f6986f1c4d234ea82681d0a=
+cad57df/rules.d/99-systemd.rules.in#L18
+>=20
+> I guess the device-mapper rules themselves could be setting
+> SYSTEMD_READY=3D"0". @Peter Rajnoha, do you want to comment on that? My
+> concern wrt such a change would be possible side effects. Setting
+> SYSTEMD_READY=3D0 on "change" events could actually be wrong, see below.
+>=20
+
+First of all, as already mentioned, DM udev rules with all the flags
+pre-date the systemd project itself.
+
+When systemd was introduced, we communicated the flag use with systemd
+right away and so this line was added to 99-systemd.rules:
+
+  SUBSYSTEM=3D=3D"block", ACTION=3D=3D"add", ENV{DM_UDEV_DISABLE_OTHER_RULE=
+S_FLAG}=3D=3D"1", ENV{SYSTEMD_READY}=3D"0"
+
+At that early time, the SYSTEMD_READY flag was used solely for systemd
+purpose of setting its own device units properly. Just later, other subsyst=
+ems
+started (mis)using this flag for notifying about device readiness and so
+the very original intention of the SYSTEMD_READY flag has diverted this
+way a little bit.
+
+Last but not the least, systemd is just one of the init systems/service
+managers around so it's not any standard for block devices to set the
+SYSTEMD_READY flag to notify about device readiness. Yes, it's true
+that systemd is widespread now, but still not a single standard...
+
+> I the case I was observing, there was a multipath device without valid
+> paths, which had switched to queueing mode [*]. If this happens for
+> whatever reason (and it could be something else, like a suspended DM
+> device), IO on such a device hangs. IO that may hang must not be
+> attempted from an udev rule. Therefore it makes sense that layers
+> stacked on top of DM try to avoid it, and checking udev properties set
+> by DM is a reasonable way to do that.
+>=20
+> The core of the problem is that there is no well-defined "API"
+> specifying how different udev rule sets can communicate, iow which udev
+> properties are well-defined enough to be consumed outside of the
+> subsystem that defines them. SYSTEMD_READY is about the only "global"
+> property. IMO it's somewhat overloaded: The actual semantics of
+> SYSTEMD_READY=3D0 is "systemd shouldn't activate the associated device
+> unit". Various udev rule sets use it with similar but not 100%
+> identical semantics like "don't touch this" or "don't probe this".=A0
+>=20
+
+Exactly!
+
+The SID - Storage Instantiation Daemon, which is still in development,
+is trying to cover exactly this part, among other things.
+
+> In the case I was looking at, the device had already been activated by
+> systemd. Later, the device had lost all active paths and thus became
+> unusable. We can't easily set SYSTEMD_READY=3D0 on such a device. Doing
+> so would actually be dangerous, because systemd might remove the
+> device. Moreover, while processing the udev rule, we just don't know if
+> the problem is temporary or permanent.=20
+>=20
+> Other properties, like those set by the DM subsystem, are less well-
+> defined. There's no official spec defining their names and semantics,
+> and there are multiple flags which aren't easly differentiated
+> (DM_UDEV_DISABLE_DISK_RULES_FLAG, DM_UDEV_DISABLE_OTHER_RULES_FLAG,
+> DM_NOSCAN, DM_SUSPENDED, MPATH_DEVICE_READY). OTOH, most of these flags
+> have been around for many years without changing, and thus have
+> acquired the status of a semi-official API, which is actually used in
+> other rule sets. In particular DM_UDEV_DISABLE_OTHER_RULES_FLAG has a
+> few users, see above. I believe this is for good reason, and therefore
+> I don't consider my patch a "hack".
+>=20
+
+Maybe we (DM) should have documented this better, more clearly, but the
+DM_UDEV_DISABLE_OTHER_RULES_FLAG is really designed to be checked by
+"other" foreign subsystems to notify them whether they can process their
+udev rules on such a DM device.
+
+Full documentation for the generic DM udev flags is here:
+
+https://sourceware.org/git/?p=3Dlvm2.git;a=3Dblob;f=3Dlibdm/libdevmapper.h;=
+=3De9412da7d33fc7534cd1eccd88c21b75c6c221b1;hb=3DHEAD#l3644
+
+In summary, the meaning of the flags:
+
+  DM_UDEV_DISABLE_DISK_RULES_FLAG is controlling 13-dm-disk.rules (where
+blkid is called for DM devices and /dev/disk/by-* symlinks are set)
+
+  DM_UDEV_DISABLE_DM_RULES_FLAG is controlling 10-dm.rules
+
+  DM_UDEV_DISABLE_SUBSYSTEM_RULES_FLAG is controlling DM subsystem (LVM,
+multipath, crypt, ...)
+
+  DM_NOSCAN is just a helper DM-internal flag in udev to help inside
+DM's own rules and/or its subsystem rules
+
+  DM_SUSPENDED is something that is set and can be checked, but foreign
+(non-DM) udev rules don't need to bother about this at all. DM udev
+rules already set DM_UDEV_DISABLE_OTHER_RULES_FLAG to notify other rules
+if the DM device becomes unreadable.
+
+  DM_NAME, DM_UUID - normally, other rules don't need to bother about
+DM name or UUID - they're set mainly to hook custom permission rules on
+(for which DM has a template 12-dm-permissions.rules).
+
+So the only flag a non-DM rule should be concerned about is exactly the
+single DM_UDEV_DISABLE_OTHER_RULES_FLAG. That's its exact purpose it
+was designed for within DM block devices and uevent processing.
+
+Definitely not a hack!
+
+(I'm just a bit surprised that we haven't sent a patch to MD yet.
+Wasn't there a check for this flag anytime before? I thought all
+major block subsystems have already been covered.)
+
+--=20
+Peter
 
 --
 dm-devel mailing list
