@@ -2,103 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B9CF4BA0FA
-	for <lists+dm-devel@lfdr.de>; Thu, 17 Feb 2022 14:22:42 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1645104162;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=LsjdU6mS0Kt3GhUPE+v4GbYi0beL3HWFPa7g+Q0ym4M=;
-	b=ZyPYdtj1g9JM3+/7e55dtO3w8X4Uq/3H2NGwBMpaW2JYTl2UcGx4mHBPpw8CKa75Wz446k
-	7za4ORpRvgaN53Uhb643yTS2XLg0OArQ9z1wpbCPfVyAmFGEp4MwlCjboUOTfa3BpDMIWT
-	7o+jyhbNloc5moq8shR0/CvCyctCcW4=
+	by mail.lfdr.de (Postfix) with ESMTPS id 162614BA6A6
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Feb 2022 18:06:01 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-147-nM3FJFrrOU6fInI9bUTZpg-1; Thu, 17 Feb 2022 08:22:40 -0500
-X-MC-Unique: nM3FJFrrOU6fInI9bUTZpg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
+ us-mta-453-MvkcY3pFOluDoH5y4BDfww-1; Thu, 17 Feb 2022 12:05:57 -0500
+X-MC-Unique: MvkcY3pFOluDoH5y4BDfww-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 962F48015BA;
-	Thu, 17 Feb 2022 13:22:30 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 0AA891006AA4;
+	Thu, 17 Feb 2022 17:05:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 711207C0F0;
-	Thu, 17 Feb 2022 13:22:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id A4AE210A4B37;
+	Thu, 17 Feb 2022 17:05:46 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2D1224A7CB;
-	Thu, 17 Feb 2022 13:22:21 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.3])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id D6F224BB7C;
+	Thu, 17 Feb 2022 17:05:37 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21HDKqCh003406 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 17 Feb 2022 08:20:52 -0500
+	id 21HGxauc022233 for <dm-devel@listman.util.phx.redhat.com>;
+	Thu, 17 Feb 2022 11:59:36 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 69A2C1120AB8; Thu, 17 Feb 2022 13:20:52 +0000 (UTC)
+	id EED302166B14; Thu, 17 Feb 2022 16:59:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 652891120AB2
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 13:20:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B0BE28EB7A4
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 13:20:49 +0000 (UTC)
-Received: from mail-ed1-f72.google.com (mail-ed1-f72.google.com
-	[209.85.208.72]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-665-s8ACg1uwPbu71cOBZTPWUg-1; Thu, 17 Feb 2022 08:20:47 -0500
-X-MC-Unique: s8ACg1uwPbu71cOBZTPWUg-1
-Received: by mail-ed1-f72.google.com with SMTP id
-	n7-20020a05640205c700b0040b7be76147so3500541edx.10
-	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 05:20:47 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=k3CtLIYPfTzwt5ZNE3qDndhQiDTLTVFRSOAzXK0i2vw=;
-	b=LzyZFo/9K8Qvabt6lI3VbJcoSQ0mlXroc9ywClAAzw+QM+IlUEWL8KVamSVQAMm420
-	CAZt0O48LU7sJ7k1vthSZ9mVXJVYQxLgJJhsLK3fpsRc4bOKs1vZf4L21DI6yFZH9wIr
-	6X69HvRpSY2oyMc0NaSkQ6N1zj4OVIGL5EYU3D0Ojm44Li4mIWO/bWtGT1tM2vyMt3PK
-	Pbvp+ZD1Mxwv5cj4T40OI0a+Wdl0s6PsObPdIdlMMxNjh+KVLq+EXy/Mz0Tfr115tr3y
-	7XP8Zkk7q7JbC99GQ90EFrPcwUnivSU39CNa+9hacoHMOOe3rd7ASHlAeqq0CyTUeKTB
-	Co6Q==
-X-Gm-Message-State: AOAM5313MfzbdUMbUyvtZa8278sDQfwsTQX2A8RlOQTajeKtbFgMFhPO
-	B0UcLuR2DH4ZHbXoSoqyDD+BSEMGE9XMmbOMMOBcgTyrDzU7efLpeUT6csinksk3ChQzLI/WPs7
-	HknFTDEg2zC0+mrc=
-X-Received: by 2002:a05:6402:35c8:b0:410:b9fd:67bb with SMTP id
-	z8-20020a05640235c800b00410b9fd67bbmr2485145edc.69.1645104046574;
-	Thu, 17 Feb 2022 05:20:46 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJzzG+5YCeI2QCHM8NsHJGOwaygRT178a8hfMJag9L17lixwktIJKGCIddnV26daajuC/ekHVg==
-X-Received: by 2002:a05:6402:35c8:b0:410:b9fd:67bb with SMTP id
-	z8-20020a05640235c800b00410b9fd67bbmr2485135edc.69.1645104046424;
-	Thu, 17 Feb 2022 05:20:46 -0800 (PST)
-Received: from alatyr-rpi.brq.redhat.com (nat-pool-brq-t.redhat.com.
-	[213.175.37.10])
-	by smtp.gmail.com with ESMTPSA id 18sm1132582ejj.1.2022.02.17.05.20.45
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Thu, 17 Feb 2022 05:20:46 -0800 (PST)
-Date: Thu, 17 Feb 2022 14:20:42 +0100
-From: Peter Rajnoha <prajnoha@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20220217132042.dmmkhecvvylnyc3b@alatyr-rpi.brq.redhat.com>
-References: <20220216205914.7575-1-mwilck@suse.com>
-	<164504936873.10228.7361167610237544463@noble.neil.brown.name>
-	<e8720e3f8734cbad1af34d5e54afc47ba3ef1b8f.camel@suse.com>
+	(mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id EA5BF2166B2D
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 16:59:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A3BD1C05EC0
+	for <dm-devel@redhat.com>; Thu, 17 Feb 2022 16:59:32 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-113-tscUjTvsNY28n3LPSYb47g-1; Thu, 17 Feb 2022 11:59:28 -0500
+X-MC-Unique: tscUjTvsNY28n3LPSYb47g-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 8A1411F37D;
+	Thu, 17 Feb 2022 16:59:27 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4793113C23;
+	Thu, 17 Feb 2022 16:59:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id wZGMD+9+DmLVCwAAMHmgww
+	(envelope-from <mwilck@suse.com>); Thu, 17 Feb 2022 16:59:27 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+	Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 17 Feb 2022 17:58:48 +0100
+Message-Id: <20220217165852.28230-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <e8720e3f8734cbad1af34d5e54afc47ba3ef1b8f.camel@suse.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-MIME-Autoconverted: from quoted-printable to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 21HGxauc022233
 X-loop: dm-devel@redhat.com
-Cc: Jes Sorensen <jsorensen@fb.com>, lvm-devel@redhat.com,
-	linux-raid@vger.kernel.org, Coly Li <colyli@suse.com>,
-	dm-devel@redhat.com, Heming Zhao <heming.zhao@suse.com>
-Subject: Re: [dm-devel] [PATCH] udev-md-raid-assembly.rules: skip if
- DM_UDEV_DISABLE_OTHER_RULES_FLAG
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Subject: [dm-devel] [PATCH 0/4] libmultipath: utter less dev_loss_tmo
+	warnings
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -112,37 +92,48 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu 17 Feb 2022 11:58, Martin Wilck wrote:
-> The main reason is that SYSTEMD_READY=0 is set too late, in 99-systemd-
-> rules, and only on "add" events:
-> https://github.com/systemd/systemd/blob/bfae960e53f6986f1c4d234ea82681d0acad57df/rules.d/99-systemd.rules.in#L18
-> 
-> I guess the device-mapper rules themselves could be setting
-> SYSTEMD_READY="0". @Peter Rajnoha, do you want to comment on that? My
-> concern wrt such a change would be possible side effects. Setting
-> SYSTEMD_READY=0 on "change" events could actually be wrong, see below.
+From: Martin Wilck <mwilck@suse.com>
 
-We need to be very careful with SYSTEMD_READY as switching that from 1
-to 0 would cause the systemd device unit to stop. And services can be
-bound to device existence (that is, systemd device unit). If we just
-temporarily suspend a DM device and not completely removing it, then
-we might get out-of-sync easily when it comes to notion of device
-presence in various parts of the system.
+Hi Christophe,
 
-One thing is device presence, the other are various sub-states that
-a single SYSTEMD_READY is not covering, like the suspended state...
+since 3ab1f3b ("libmultipath: print message if setting dev_loss_tmo is unsupported"),
+multipathd prints a warning at level 2 for every map for which dev_loss_tmo can't
+be set. This results in a large number of warnings if there are many maps with such
+unsupported protocols, like this:
+
+multipathd[1398]: 36001405328d6683b6cb4739943adf643: setting dev_loss_tmo is unsupported for protocol scsi:unspec
+
+This patch set makes changes the code to print this warning only once per unsupported
+protocol. It would have been simpler to never print the warning more than once, but
+I figured that might suppress important information in some cases.
+
+Regards
+Martin
+
+Martin Wilck (4):
+  libmultipath: enable linear ordering of bus/proto tuple
+  libmultipath: use bus_protocol_id() in snprint_path_protocol()
+  libmultipath: enable defining a static bitfield
+  libmultipath: only warn once about unsupported dev_loss_tmo
+
+ libmultipath/discovery.c |  4 ++-
+ libmultipath/print.c     | 58 +++++++++++++++-------------------------
+ libmultipath/structs.c   | 10 +++++++
+ libmultipath/structs.h   | 13 +++++++--
+ libmultipath/util.h      | 10 +++++++
+ 5 files changed, 55 insertions(+), 40 deletions(-)
 
 -- 
-Peter
+2.35.1
+
 
 --
 dm-devel mailing list
