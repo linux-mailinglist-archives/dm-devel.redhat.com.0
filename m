@@ -2,99 +2,170 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A7E924C0145
-	for <lists+dm-devel@lfdr.de>; Tue, 22 Feb 2022 19:28:14 +0100 (CET)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1645554493;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=s7Y5mbwUaRH95OQkesq/iwSFU39a97C1cd9KD5P9gzY=;
-	b=Jis3lKjh/R9Vu7b5GUYXxvjPwBgS37CxGXA5AlcpUrAUS9t4hiqw+NgN9B5mPeTh6fygiX
-	kU8Jx3Yq3aLU2n9LdfDXgMXFn1AWLFlLKUxnZ8R6AfVM13CXOZdGgOb3H5hskR0ulOy68n
-	ZN8wuAVK+f3PpoBvwtePDqJSQeJ9Tpo=
+	by mail.lfdr.de (Postfix) with ESMTPS id 8442E4C033E
+	for <lists+dm-devel@lfdr.de>; Tue, 22 Feb 2022 21:44:20 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-186-3N4mWw26Opa5UA8HbAM85w-1; Tue, 22 Feb 2022 13:28:11 -0500
-X-MC-Unique: 3N4mWw26Opa5UA8HbAM85w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-516-ifM2hoZlOMGOQpRbWOZ6UQ-1; Tue, 22 Feb 2022 15:44:17 -0500
+X-MC-Unique: ifM2hoZlOMGOQpRbWOZ6UQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id C845F801AAD;
-	Tue, 22 Feb 2022 18:28:03 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 6C839804B65;
+	Tue, 22 Feb 2022 20:44:10 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F9A880010;
-	Tue, 22 Feb 2022 18:28:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 83EE999D1;
+	Tue, 22 Feb 2022 20:44:08 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 460011809C98;
-	Tue, 22 Feb 2022 18:27:58 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.10])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E8A251809C98;
+	Tue, 22 Feb 2022 20:43:58 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.5])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21MIRnGR024835 for <dm-devel@listman.util.phx.redhat.com>;
-	Tue, 22 Feb 2022 13:27:49 -0500
+	id 21MKhldw002700 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 22 Feb 2022 15:43:47 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 8D4D25361F5; Tue, 22 Feb 2022 18:27:49 +0000 (UTC)
+	id 7EB737AC7; Tue, 22 Feb 2022 20:43:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 896455361F1
-	for <dm-devel@redhat.com>; Tue, 22 Feb 2022 18:27:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70618381AA02
-	for <dm-devel@redhat.com>; Tue, 22 Feb 2022 18:27:49 +0000 (UTC)
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
-	[209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 789D879DC
+	for <dm-devel@redhat.com>; Tue, 22 Feb 2022 20:43:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 76AA080B707
+	for <dm-devel@redhat.com>; Tue, 22 Feb 2022 20:43:41 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+	[205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-610-hTQsS2XeMqaEwsT3i0E08g-1; Tue, 22 Feb 2022 13:27:46 -0500
-X-MC-Unique: hTQsS2XeMqaEwsT3i0E08g-1
-Received: by mail-qv1-f70.google.com with SMTP id
-	kc30-20020a056214411e00b0042cb92fe8bbso586845qvb.8
-	for <dm-devel@redhat.com>; Tue, 22 Feb 2022 10:27:46 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=1e100.net; s=20210112;
-	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
-	:mime-version:content-disposition:in-reply-to;
-	bh=8o8ifDV4Wsp9MNzW990jQZJGn8aGjNxzSGrWcKFlJGk=;
-	b=LXJu2fCFY3LFQnEjsaWObT+6jjeYD3zyxqOgrKutk8uxV9O4NeW9sM1y3zKL9LHF6p
-	qDK45JAmzyc7QpJTPa2LluOYAjTPWGHVAuMhu7kA/0uJ5mXKNs/JEb5nOhLSkVswbr6y
-	TPrJjWiHkQYMaltxev6QJqRzUNyoPoM1u3/l8zFYVSjZSa4oZcpKi8sUXcYPWpM+k35d
-	EdrbZuz5PziUS9YXMxbOUKb45lJVs0rTUSLHR2ByfIAtAVoVktY1yqQy75y8sX2cFGeW
-	13pTeQnxrt0dCnA/D/U8n4tPHILHzlekGRlYaBis30czeRZUs05jpX1UxdcKTvwCa6s2
-	uzfQ==
-X-Gm-Message-State: AOAM530zSKF6rNunDN+EhD8EjT6BMp/ZZGpQszpHlFcm/bqnJudhjqKO
-	Hk26YB7Qda+/mLjtWSJNmhqsSU8J8Hk+egYfjIeFUyRmeOHxk7JXOHjxa+4iLb5vsEez0kzIOaj
-	mgzNydUhXSUrl+Q==
-X-Received: by 2002:a37:f903:0:b0:648:ca74:b7dc with SMTP id
-	l3-20020a37f903000000b00648ca74b7dcmr8244569qkj.666.1645554465582;
-	Tue, 22 Feb 2022 10:27:45 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJyJwe2A38a6zFFVbDJ5FVEGv+t77RVoOuoYWwujx17APD/tpCaZ1mdM7EjHGn9xFuEOZjYRuA==
-X-Received: by 2002:a37:f903:0:b0:648:ca74:b7dc with SMTP id
-	l3-20020a37f903000000b00648ca74b7dcmr8244554qkj.666.1645554465307;
-	Tue, 22 Feb 2022 10:27:45 -0800 (PST)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
-	[68.160.176.52])
-	by smtp.gmail.com with ESMTPSA id h18sm169800qkl.90.2022.02.22.10.27.44
-	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-	Tue, 22 Feb 2022 10:27:44 -0800 (PST)
-Date: Tue, 22 Feb 2022 13:27:43 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: Zhang Yi <yi.zhang@huawei.com>
-Message-ID: <YhUrH7UfBN3Uw5HP@redhat.com>
-References: <20220209093751.2986716-1-yi.zhang@huawei.com>
+	us-mta-241-7dvJt9pPMC6GY7RV7225KA-1; Tue, 22 Feb 2022 15:43:39 -0500
+X-MC-Unique: 7dvJt9pPMC6GY7RV7225KA-1
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id
+	21MHwug5018150; Tue, 22 Feb 2022 18:59:14 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+	by mx0b-00069f02.pphosted.com with ESMTP id 3ecvar1sdt-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 22 Feb 2022 18:59:13 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+	by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 21MIuRf9074906;
+	Tue, 22 Feb 2022 18:59:13 GMT
+Received: from nam11-co1-obe.outbound.protection.outlook.com
+	(mail-co1nam11lp2172.outbound.protection.outlook.com [104.47.56.172])
+	by aserp3020.oracle.com with ESMTP id 3eb481d6f2-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 22 Feb 2022 18:59:12 +0000
+Received: from SJ0PR10MB4654.namprd10.prod.outlook.com (2603:10b6:a03:2d2::16)
+	by DM6PR10MB3322.namprd10.prod.outlook.com (2603:10b6:5:1ac::19) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.4995.24;
+	Tue, 22 Feb 2022 18:59:10 +0000
+Received: from SJ0PR10MB4654.namprd10.prod.outlook.com
+	([fe80::f81a:f3f8:6f54:fbbd]) by
+	SJ0PR10MB4654.namprd10.prod.outlook.com
+	([fe80::f81a:f3f8:6f54:fbbd%7]) with mapi id 15.20.4995.027;
+	Tue, 22 Feb 2022 18:59:10 +0000
+From: Ritika Srivastava <ritika.srivastava@oracle.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Thread-Topic: [dm-devel] [PATCH] kpartx: Add -P option for partition scanning
+Thread-Index: AQHYKBnsJmIySWp7m0mbNAOxajLQBayfZjwA
+Date: Tue, 22 Feb 2022 18:59:10 +0000
+Message-ID: <89458D66-751C-4FCC-8735-E94645EA9AD8@oracle.com>
+References: <1644612108-2445-1-git-send-email-ritika.srivastava@oracle.com>
+	<20220222182732.GV24684@octiron.msp.redhat.com>
+In-Reply-To: <20220222182732.GV24684@octiron.msp.redhat.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-publictraffictype: Email
+x-ms-office365-filtering-correlation-id: 495daafa-8b5e-4a43-28f2-08d9f635692c
+x-ms-traffictypediagnostic: DM6PR10MB3322:EE_
+x-microsoft-antispam-prvs: <DM6PR10MB3322D56F61AF1FB69ADC3CDC8F3B9@DM6PR10MB3322.namprd10.prod.outlook.com>
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: VovQpIcoFMjRU5xr+gQtLJJGCKjmRnQVnuUTTaerjGgcMkW12vr8PBalksth5I6A4QmZjt+tW2pGRWLekrCmZAHQkkQ5PknQRY3WCb8oh1Q8WpYXNtG6/x/YoeLGkKijFqMK3LLr0CSrVfNJ4xfI4abJJU1tsQWQxvyWq0bfjTAeiInnvkn2WG/H0cj6vqgf0JThs1Gw/vm2IfVCmYwj78m4iiF6XdQyDdji8WSLQagPhz4mGJThyBzW68IU/Pm7/r8Mo3x/vzAT4H4zqBPwx4PHU3c2G++S8HxRdvpCWpThE29ILEmWoXREJnKHH8TJr6fik4q/rBzNKdtbbCzqBPyuHcjahXfX2ymhip/hBs+CzdDgkcVkJoIP+DxAIKoPnf827AU/kAi9E/Ghp2RynBLW4Jm26A2+skGluO/byIoIfPiv/D4l7YcLQGh+1sgvQc5IaQfZRPgxGYfV78H7SQT7zqZ7q+2FEZVEm3ExwS9iJAKVDYestGfptc7sVoM9JpyM2RSwZL4EzeiAyAPYR17GbkY+vvMrumC9OlyHE+Jt9yBfVOkMHKa6KUML9L8UCoijPsGU/wnfgCpwN6jgKa/kOwRv74wueo+xYXNxxYHsP9/FdPA3hkLAIbxj2OTBaz7F7tjAZ7rNocmqM7A/XoNNYcLmSwmvn77sdBhgLpTPF3J4PqzPh/DJmepjauyzLeAnlE+eOmIJZPESpkFMPwzcFVFsb40g9suXMvKeDf+uG0whB8Wl0vVNH1CtD8XO
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:SJ0PR10MB4654.namprd10.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(13230001)(366004)(4326008)(38100700002)(38070700005)(83380400001)(8936002)(36756003)(44832011)(5660300002)(2906002)(33656002)(2616005)(53546011)(6506007)(6486002)(186003)(66946007)(76116006)(6512007)(66556008)(122000001)(450100002)(86362001)(508600001)(66446008)(316002)(64756008)(66476007)(71200400001)(8676002)(6916009)(45980500001);
+	DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ejhLNzY0dFN6WU1WNDhtdTl4ZUpPYmpFcitQK1o5OVFCUHRiSWpmcG5TRFl6?=
+	=?utf-8?B?QkRobzdaNUtKWUwzVWxsYlBhTFJzMk5YNS9tQnpJOXJlZW9TODBUbTFaUXR1?=
+	=?utf-8?B?KzFXeDlNWktDR2lKeFFaL3dLaVlFYjRQLzJKVXVyMkRZQ2JFUmNxY2I2NXdZ?=
+	=?utf-8?B?c01xN3A1dmVVSWNhTkRYSFF2WlRIREViOGM4cVJRRksxODBDZmxtSmNDcGxU?=
+	=?utf-8?B?SU9Ud0Z5cCtiUUZ1T1p2SzVQU3FuNEdpNW9HcVgzTndRcEkxYituWnlxSDBz?=
+	=?utf-8?B?SHFSMCsyL1VXcmdqbmN1NFlOQ05TUmFVdE1zVFRnTFR4WmZBK0hyNjZIUXNG?=
+	=?utf-8?B?TDcwR1FOZVM1M0tSVTA3c28rMVBXY2JHVzlBUVMxWXppSjF1VSttdU5QUWZ3?=
+	=?utf-8?B?OEp5engydmhYeUF4OU1NWnk3bXQzKytIV1FhTmYzcm1HMGtsN0d6WEZpb1Ur?=
+	=?utf-8?B?NWlFanNERFpMM1daMVFieFlCdE1QNTE3QlV6QmtYdi9VdXhCUUJVSVFVRE9p?=
+	=?utf-8?B?YVlGVDArMnhvMEF0eXEvREJoUTdqdVh6V3dzYzRxVW9Kc0VWT3VsNkJrcGN4?=
+	=?utf-8?B?SzdnL0J0eFBlb2hlY3NyUDZqL3I5L1NNWW4yYXp4VEVSNHhTdTUrbEs1OXI5?=
+	=?utf-8?B?alhXNGxHQzFqOTh2QVlMMkFqS3M4d3gyMGtSWGgzSGdGelA2YnQrc2hJaG04?=
+	=?utf-8?B?NEVYTzVONk80TlVOZC9TTEJub1Qvc25oZ01KeUNBNkdLV1VnV0kzbWR4VUFi?=
+	=?utf-8?B?N1RtV1NTQm9xRlp0OWQyU1R0dTB5N3pCTnFkQnFPcE5BLzM2bTNURkRlU0w2?=
+	=?utf-8?B?ODc1azk4WXd3cGdvWFEvN2hoUzlSSGRROVNiV1VCS2tYOXlLeENvSEhmNUxM?=
+	=?utf-8?B?Rnc1Rk1VNkovR0FCU295em92K3VBdG9kN3hDT28rdXZaQXpsT25pZ0xmMTg4?=
+	=?utf-8?B?aTFkck9Gc0t5ZEZQenRvMHZOSmVSOE1MK2lDWmRpbHRNLzFxVXFLVUZtR2Zi?=
+	=?utf-8?B?NlhmNTdtWnEwN2t6enp2VHd2Rml4RjNGK0g0SGJBdFZsN0x6YTZzZXphZ1VB?=
+	=?utf-8?B?Yml4N1hzcVZQM0dqUDhTQkVSTDJ4R3A0czYzSGxkL2hWeWFCdGQ0eGE0UlFP?=
+	=?utf-8?B?TU53aXhVREZ4cVpBNGl2bFpYdS9idjhwR0lnYUk5N2NlM21pZmJ1NzJVelg2?=
+	=?utf-8?B?a29QT21tNHVpeFJpWVJ4STIrUTNzZ0ZuMUtvWUFoaDVhM2xkRkk1NnBxT0Ry?=
+	=?utf-8?B?L1V2eXRUMFd2ajZxV3VQenFJOTJZb01UbU9lSlJudWU3UFYyRHdwTXcvYkFW?=
+	=?utf-8?B?ZlRaSmIyZVRtU0UrQWMzdFNrQnFhRk9uN1lveUNCWXU3ditjNVNmQURnb21k?=
+	=?utf-8?B?bTJhWmNCRlJUUFJZYTF3UFEwcEk1VmdiN2FuanJRR0hwbHQ4ZlQ0SDJ5bmR4?=
+	=?utf-8?B?OWs2V0sveEdvRnArUVhHa3ZvOU51NUJ5dVRBMURvMGNDa2RKQXpGbUMwL2xF?=
+	=?utf-8?B?a09JZEVneXFzb3I2Rlc1RVhSK3NPTFQvZlVEUVdNMUVzMHV3WjVWclRaUEh6?=
+	=?utf-8?B?SldtM3RUTG1seGNLMkZVeldFaGZublhOblJ3SUtGcTZCYXMvYWtrOW9KQlUz?=
+	=?utf-8?B?aDN5Sy9lSkRrYzk2OFFnSkpZOG9QMUt0c202RHAxUGhZNkQwTEpQZFRTVWo0?=
+	=?utf-8?B?WHowUm4waGs4blN5c050WjBaR0Q1UjRWVUtTQU0zcVFmbC9SbHVLaG5EOEN3?=
+	=?utf-8?B?TUFtTFdWYjYzZjBMaFQvV0NiNUdqRzJqcC9tcTZ6disrbnFWVWpObHFSQkVZ?=
+	=?utf-8?B?N0VUV2RrNmlSV253elRaQ29BNkQyTW93M2JKOGZ6MEFWV2JZdUxTdUJLWldT?=
+	=?utf-8?B?S1d1S2Vib1IxZEplTnY2KzN1Y1BxUDFnSmdJSjd2a3MxOGVPNDZhVGVURksw?=
+	=?utf-8?B?ODVFSFMrTzRSZzJIb3ZBMWIwNVhVakFER05pazFhZUttKzZJeDQ0US9zeDFa?=
+	=?utf-8?B?bEJWdkdYZS9YUFFWamVNVEdUZG9Gbnd5N3RXTVI2bGN5N1J2QUVvMzdBY3V2?=
+	=?utf-8?B?Unl4UEFrNS96djRxMDFQVUpxNlFZYi9XS0trdVBCOStEU2pRbXlCUW1iekJC?=
+	=?utf-8?B?NHNrYktyUlVCeWpmd0VObElBUUZodTJFRWJOQjRpNDZPakZ0MlREOGQ1YVAv?=
+	=?utf-8?B?aTB5a1g0QVFsWHpoSnUwdDdhWmU2OVVrY2lkZHQvVHI3UzJCaUVtZmJzSEw1?=
+	=?utf-8?B?RG1QaC9aSGlQNXlicnJET3NnSFlvZjU2OWhZR20wVUQxWmJFWmNFOWc4S1lt?=
+	=?utf-8?Q?LK23nvn6gU9plepjAo?=
 MIME-Version: 1.0
-In-Reply-To: <20220209093751.2986716-1-yi.zhang@huawei.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB4654.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 495daafa-8b5e-4a43-28f2-08d9f635692c
+X-MS-Exchange-CrossTenant-originalarrivaltime: 22 Feb 2022 18:59:10.6743 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: VQEz/TybIbzbZUoZ6MZLJFGcQO76s4LPXjxmkyCBJcnux/wtrKnQPBKGu858XQc5bTOKma7U59iF40ds9gCjJTPElrz//7BA2bUEElb77Ic=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR10MB3322
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10266
+	signatures=677939
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
+	malwarescore=0
+	mlxlogscore=999 adultscore=0 bulkscore=0 phishscore=0 suspectscore=0
+	spamscore=0 classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2201110000 definitions=main-2202220116
+X-Proofpoint-GUID: 4TIpvuwSZEpJuHLX6kDr51JPNConeEo8
+X-Proofpoint-ORIG-GUID: 4TIpvuwSZEpJuHLX6kDr51JPNConeEo8
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+	Definition; Similar Internal Domain=false;
+	Similar Monitored External Domain=false;
+	Custom External Domain=false; Mimecast External Domain=false;
+	Newly Observed Domain=false; Internal User Name=false;
+	Custom Display Name List=false; Reply-to Address Mismatch=false;
+	Targeted Threat Dictionary=false;
+	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-MIME-Autoconverted: from base64 to 8bit by
+	lists01.pubmisc.prod.ext.phx2.redhat.com id 21MKhldw002700
 X-loop: dm-devel@redhat.com
-Cc: linux-block@vger.kernel.org, axboe@kernel.dk, dm-devel@redhat.com,
-	agk@redhat.com, yukuai3@huawei.com
-Subject: Re: [dm-devel] dm: make sure dm_table is binded before queue request
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH] kpartx: Add -P option for partition scanning
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -108,104 +179,93 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
+Content-ID: <AD686926ED261F4E9EA2A671F24A9B43@namprd10.prod.outlook.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Feb 09 2022 at  4:37P -0500,
-Zhang Yi <yi.zhang@huawei.com> wrote:
+On 2/22/22, 10:28 AM, "Benjamin Marzinski" wrote:
 
-> We found a NULL pointer dereference problem when using dm-mpath target.
-> The problem is if we submit IO between loading and binding the table,
-> we could neither get a valid dm_target nor a valid dm table when
-> submitting request in dm_mq_queue_rq(). BIO based dm target could
-> handle this case in dm_submit_bio(). This patch fix this by checking
-> the mapping table before submitting request.
-> 
-> Signed-off-by: Zhang Yi <yi.zhang@huawei.com>
-> ---
->  drivers/md/dm-rq.c | 11 +++++++++--
->  1 file changed, 9 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-> index 579ab6183d4d..af2cf71519e9 100644
-> --- a/drivers/md/dm-rq.c
-> +++ b/drivers/md/dm-rq.c
-> @@ -499,8 +499,15 @@ static blk_status_t dm_mq_queue_rq(struct blk_mq_hw_ctx *hctx,
->  
->  	if (unlikely(!ti)) {
->  		int srcu_idx;
-> -		struct dm_table *map = dm_get_live_table(md, &srcu_idx);
-> -
-> +		struct dm_table *map;
-> +
-> +		map = dm_get_live_table(md, &srcu_idx);
-> +		if (!map) {
-> +			DMERR_LIMIT("%s: mapping table unavailable, erroring io",
-> +				    dm_device_name(md));
-> +			dm_put_live_table(md, srcu_idx);
-> +			return BLK_STS_IOERR;
-> +		}
->  		ti = dm_table_find_target(map, 0);
->  		dm_put_live_table(md, srcu_idx);
->  	}
-> -- 
-> 2.31.1
-> 
+    On Fri, Feb 11, 2022 at 12:41:48PM -0800, Ritika Srivastava wrote:
+    >> Add -P, partition scanning option to kpartx which would set
+    >> LO_FLAGS_PARTSCAN flag during loop device creation.
+    >> This option is same as losetup -P option.
 
-I think both dm_submit_bio() and now dm_mq_queue_rq() should _not_
-error the IO.  This is such a narrow race during device setup that it
-best to requeue the IO.
+    >I'm confused here. What's the benefit of doing this? Doesn't this create
+    >partition devices, just like kpartx would?
 
-I'll queue this for 5.18:
+This enables partition scanning for loop devices created via kpartx.
+When enabled, LO_FLAGS_PARTSCAN flag will be set during loop creation via kpartx -a.
+On detach (kpartx -d), any partitions (/dev/loopXpY) would also be removed.
+It has similar use cases as losetup -P option.
 
-diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-index 6948d5db9092..3dd040a56318 100644
---- a/drivers/md/dm-rq.c
-+++ b/drivers/md/dm-rq.c
-@@ -491,8 +491,13 @@ static blk_status_t dm_mq_queue_rq(struct blk_mq_hw_ctx *hctx,
- 
- 	if (unlikely(!ti)) {
- 		int srcu_idx;
--		struct dm_table *map = dm_get_live_table(md, &srcu_idx);
-+		struct dm_table *map;
- 
-+		map = dm_get_live_table(md, &srcu_idx);
-+		if (unlikely(!map)) {
-+			dm_put_live_table(md, srcu_idx);
-+			return BLK_STS_RESOURCE;
-+		}
- 		ti = dm_table_find_target(map, 0);
- 		dm_put_live_table(md, srcu_idx);
- 	}
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 082366d0ad49..c70be6e5ed55 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1533,15 +1533,10 @@ static void dm_submit_bio(struct bio *bio)
- 	struct dm_table *map;
- 
- 	map = dm_get_live_table(md, &srcu_idx);
--	if (unlikely(!map)) {
--		DMERR_LIMIT("%s: mapping table unavailable, erroring io",
--			    dm_device_name(md));
--		bio_io_error(bio);
--		goto out;
--	}
- 
--	/* If suspended, queue this IO for later */
--	if (unlikely(test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags))) {
-+	/* If suspended, or map not yet available, queue this IO for later */
-+	if (unlikely(test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags)) ||
-+	    unlikely(!map)) {
- 		if (bio->bi_opf & REQ_NOWAIT)
- 			bio_wouldblock_error(bio);
- 		else if (bio->bi_opf & REQ_RAHEAD)
+Currently, kpartx does not create partition loop devices (/dev/loopXpY)  via kpartx -a
+
+Example:
+1. Current behavior: kpartx -a does not create /dev/loop0p1
+
+# kpartx -av test.img
+add map loop0p1 (252:0): 0 99937 linear /dev/loop0 64
+
+(Notice below: /dev/loop0p1 NOT created)
+# ls -l /dev/loop0*
+brw-rw----. 1 root disk  7,   0 Jan 14 20:46 /dev/loop0 
+
+2. IF -P IS USED to create loop device, /dev/loop0p1 IS created.
+
+# kpartx -av -P test.img
+add map loop0p1 (252:0): 0 99937 linear /dev/loop0 64
+
+(Notice below: /dev/loop0p1 IS created)
+# ls -l /dev/loop0*
+brw-rw----. 1 root disk   7,   0 Jan 14 20:50 /dev/loop0
+brw-rw----. 1 root disk 259,   0 Jan 14 20:50 /dev/loop0p1
+
+
+Similar behavior can also be observed during detach
+1. Current Behavior:  kpartx -d does NOT delete partitions
+
+# kpartx -a -v test.img
+# parted -a none -s /dev/loop0 mkpart primary 64s 100000s
+
+# ls -l /dev/loop0*
+brw-rw----. 1 root disk   7,   0 Jan 14 20:54 /dev/loop0
+brw-rw----. 1 root disk 259,   0 Jan 14 20:54 /dev/loop0p1
+
+# kpartx -d test.img
+loop deleted : /dev/loop0
+
+(Notice: /dev/loop0p1 NOT deleted)
+# ls -l /dev/loop0*
+brw-rw----. 1 root disk   7,   0 Jan 14 20:54 /dev/loop0
+brw-rw----. 1 root disk 259,   0 Jan 14 20:54 /dev/loop0p1
+
+2. IF -P IS added while creating loop, kpartx -d DOES delete loop0p1
+
+# kpartx -a -v -P test.img
+# parted -a none -s /dev/loop0 mkpart primary 64s 100000s
+
+# ls -l /dev/loop0*
+brw-rw----. 1 root disk   7,   0 Jan 14 20:46 /dev/loop0
+brw-rw----. 1 root disk 259,   0 Jan 14 20:46 /dev/loop0p1
+
+# kpartx -d test.img
+loop deleted : /dev/loop0
+
+(Notice: /dev/loop0p1 IS deleted)
+# ls -l /dev/loop0*
+brw-rw----. 1 root disk  7,   0 Jan 14 20:46 /dev/loop0
+
+Thanks,
+Ritika
+
+
+
 
 --
 dm-devel mailing list
