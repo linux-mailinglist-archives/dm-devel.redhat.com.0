@@ -1,137 +1,158 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 241F24C62E1
-	for <lists+dm-devel@lfdr.de>; Mon, 28 Feb 2022 07:25:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 986EA4C62E3
+	for <lists+dm-devel@lfdr.de>; Mon, 28 Feb 2022 07:26:03 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-621-2HGA-CsiOgWdPhdOSIG3mA-1; Mon, 28 Feb 2022 01:25:39 -0500
-X-MC-Unique: 2HGA-CsiOgWdPhdOSIG3mA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-124-2pwlT9IVPFyFqlsKVwNy6g-1; Mon, 28 Feb 2022 01:25:41 -0500
+X-MC-Unique: 2pwlT9IVPFyFqlsKVwNy6g-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.phx2.redhat.com [10.5.11.23])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id CFCE1800422;
-	Mon, 28 Feb 2022 06:25:33 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4724770A05;
-	Mon, 28 Feb 2022 06:25:33 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 1F7941854E2D;
+	Mon, 28 Feb 2022 06:25:35 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id E268726E40;
+	Mon, 28 Feb 2022 06:25:34 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 7EF3B46F9A;
-	Mon, 28 Feb 2022 06:25:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.8])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id A09A11808800;
+	Mon, 28 Feb 2022 06:25:34 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.7])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21P3j1XX002751 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 24 Feb 2022 22:45:01 -0500
+	id 21QN0Drs020222 for <dm-devel@listman.util.phx.redhat.com>;
+	Sat, 26 Feb 2022 18:00:14 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 932ECC50948; Fri, 25 Feb 2022 03:45:01 +0000 (UTC)
+	id C5176141DC57; Sat, 26 Feb 2022 23:00:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E8D3C50941
-	for <dm-devel@redhat.com>; Fri, 25 Feb 2022 03:45:01 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C02E8141DC2D
+	for <dm-devel@redhat.com>; Sat, 26 Feb 2022 23:00:13 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[205.139.110.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 744603C01C2C
-	for <dm-devel@redhat.com>; Fri, 25 Feb 2022 03:45:01 +0000 (UTC)
-Received: from mailout4.samsung.com (mailout4.samsung.com [203.254.224.34])
-	by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-456-zuWBEFHfN1yIMcVWR4DI2A-1; Thu, 24 Feb 2022 22:44:59 -0500
-X-MC-Unique: zuWBEFHfN1yIMcVWR4DI2A-1
-Received: from epcas5p3.samsung.com (unknown [182.195.41.41])
-	by mailout4.samsung.com (KnoxPortal) with ESMTP id
-	20220225034456epoutp04ea0148d8989bbee8ee855c4e3ffcf3ab~W6qJIgCbC1072710727epoutp04J
-	for <dm-devel@redhat.com>; Fri, 25 Feb 2022 03:44:56 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout4.samsung.com
-	20220225034456epoutp04ea0148d8989bbee8ee855c4e3ffcf3ab~W6qJIgCbC1072710727epoutp04J
-Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
-	epcas5p2.samsung.com (KnoxPortal) with ESMTP id
-	20220225034455epcas5p26a20b70a651c5c4813b20d1e48f2ba38~W6qIW7Vke0148301483epcas5p2P;
-	Fri, 25 Feb 2022 03:44:55 +0000 (GMT)
-Received: from epsmges5p1new.samsung.com (unknown [182.195.38.183]) by
-	epsnrtp4.localdomain (Postfix) with ESMTP id 4K4bJ31YBBz4x9Px;
-	Fri, 25 Feb 2022 03:44:51 +0000 (GMT)
-Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
-	epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	26.C9.06423.9A058126; Fri, 25 Feb 2022 12:44:41 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
-	epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
-	20220224124713epcas5p17e353eef4fb4990f0442bc0614217227~WuaVbgzqc2876728767epcas5p15;
-	Thu, 24 Feb 2022 12:47:13 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
-	epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
-	20220224124713epsmtrp2ee80afa62db594176e0e55aba7521d29~WuaVZNiVv0741907419epsmtrp2H;
-	Thu, 24 Feb 2022 12:47:13 +0000 (GMT)
-X-AuditID: b6c32a49-b13ff70000001917-22-621850a9e292
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
-	epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
-	F7.83.29871.15E77126; Thu, 24 Feb 2022 21:47:13 +0900 (KST)
-Received: from test-zns (unknown [107.110.206.5]) by epsmtip2.samsung.com
-	(KnoxPortal) with ESMTPA id
-	20220224124709epsmtip22be20cc572111b6fe3937746e483cc64~WuaR4KTdj1429314293epsmtip2W;
-	Thu, 24 Feb 2022 12:47:09 +0000 (GMT)
-Date: Thu, 24 Feb 2022 18:12:13 +0530
-From: Nitesh Shetty <nj.shetty@samsung.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20220224124213.GD9117@test-zns>
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A336780159B
+	for <dm-devel@redhat.com>; Sat, 26 Feb 2022 23:00:13 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+	[205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-578-UlKOaeM1Odqi0iVGk0N7dQ-1; Sat, 26 Feb 2022 18:00:11 -0500
+X-MC-Unique: UlKOaeM1Odqi0iVGk0N7dQ-1
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.16.1.2/8.16.1.2) with SMTP id
+	21QIHOf4008190; Sat, 26 Feb 2022 23:00:08 GMT
+Received: from aserp3020.oracle.com (aserp3020.oracle.com [141.146.126.70])
+	by mx0b-00069f02.pphosted.com with ESMTP id 3efb02hbaa-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 26 Feb 2022 23:00:08 +0000
+Received: from pps.filterd (aserp3020.oracle.com [127.0.0.1])
+	by aserp3020.oracle.com (8.16.1.2/8.16.1.2) with SMTP id 21QMueW4129187;
+	Sat, 26 Feb 2022 23:00:07 GMT
+Received: from nam10-bn7-obe.outbound.protection.outlook.com
+	(mail-bn7nam10lp2103.outbound.protection.outlook.com [104.47.70.103])
+	by aserp3020.oracle.com with ESMTP id 3efc11pd8f-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Sat, 26 Feb 2022 23:00:07 +0000
+Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
+	MW4PR10MB5750.namprd10.prod.outlook.com (2603:10b6:303:18e::19) with
+	Microsoft SMTP Server (version=TLS1_2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5017.22;
+	Sat, 26 Feb 2022 23:00:04 +0000
+Received: from DM5PR10MB1466.namprd10.prod.outlook.com
+	([fe80::3dd8:6b8:e2e6:c3a2]) by DM5PR10MB1466.namprd10.prod.outlook.com
+	([fe80::3dd8:6b8:e2e6:c3a2%12]) with mapi id 15.20.5017.026;
+	Sat, 26 Feb 2022 23:00:04 +0000
+Message-ID: <ec8d0b97-e94a-21e1-acdb-e90a7df39b72@oracle.com>
+Date: Sat, 26 Feb 2022 17:00:02 -0600
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+	Thunderbird/91.6.1
+From: Mike Christie <michael.christie@oracle.com>
+To: Zhengyuan Liu <liuzhengyuang521@gmail.com>
+References: <CAOOPZo4uNCicVmoHa2za0=O1_XiBdtBvTuUzqBTeBc3FmDqEJw@mail.gmail.com>
+	<828ac69a-fe28-0869-bc1f-7fd106dff0aa@oracle.com>
+	<CAOOPZo4Z2x_W7i=Vbnm-SsDgj5PndLVtOz6MqRzQxW-NeBwhRg@mail.gmail.com>
+	<be26ef80-c3cf-713d-2a9f-4fb73cec7e17@oracle.com>
+In-Reply-To: <be26ef80-c3cf-713d-2a9f-4fb73cec7e17@oracle.com>
+X-ClientProxiedBy: DM5PR07CA0029.namprd07.prod.outlook.com
+	(2603:10b6:3:16::15) To DM5PR10MB1466.namprd10.prod.outlook.com
+	(2603:10b6:3:b::7)
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.02.2202160845210.22021@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Te0xTVxzHPfe2txe2sgtCOHYwu+qcqBQqDw+LDBN0u5NJGCxjc3FY4IYS
-	Stu0ZRvbxEIhCohIGbPAAsSBBJCJzPCuCo4wBAyMlzIfMECUlzwmg4iylpbF/z6/7/l+f+ec
-	38khcbtaDo+MlqkZpUwsFRDWrJqbLjtdy4JguPvFaifUdHeRjSruZxLop7kVHD1tHmUjXaae
-	g3rHbJBhNp+NupcTMTRavYahpgs6DJVVtGJoovQXgFI7ujG0OiJCrWszBNK1DABkGNqNmgzt
-	LFR4cZyD0gfrCHRtyoCj0raXGMo63Y+h23mrBLr5oJ+FKlYRSjmzwkGT17864ET39gXQWdpZ
-	Dq0tuseie7vi6OryVIL+rfgknX2nFNCNdzUEndTZitP6hX8IerCzFqMztLMEPT8+xKJrRjI4
-	9NNr/QR99mo5CLI/GrNfwogjGSWfkUXII6NlUb6CgJAw/zAvb3eRq8gH7RPwZeJYxldw8OMg
-	1w+ipcb5CPhfi6VxRilIrFIJ3N7fr5THqRm+RK5S+woYRaRU4akQqsSxqjhZlFDGqN8Tubvv
-	9TIaj8dI9IX5hGLutW/L12ZZGjBslQasSEh5wtTkK3gasCbtqEYAl3MGOeZiAcD56ny2uVgC
-	sGS6gL0ReZyYaHEZACzUbuQfAViZVIibXCzqHbhWWmZMkCRB7YYda6RJtqdc4J8/T693xakh
-	FtQPjnBMC5spP5iyXLnu51J7YP7tfSaZS9nC9twxlomtqC9hT3bSOjtQ2+CNmjbM1AdSf1vB
-	56VduPl0B2HeTC3HzJvhZNtVC/Pg4qyBMAfSjRftfGhJ6wHUntMSZpcf7Gl6gZkYpySwPnfZ
-	knaGObd+teg2MOP5GGbWubCuYIO3wUuXiyx9tsCBfxMtTMOugReWQfZjcPxSDXEObM175Xp5
-	r+xn5j2wqHGByDNOA6fehKUvSTO6wMsNbkWAXQ62MApVbBSj8lKIZMw3/795hDy2Gqz/oF0f
-	1YH7w3PCFoCRoAVAEhfYc0dPOIbbcSPF8d8xSnmYMk7KqFqAl/G1snCeQ4Tc+AVl6jCRp4+7
-	p7e3t6ePh7dI4MjtiKoS21FRYjUTwzAKRrmRw0grngb7vim44Nlhh5lNkpPVy4tdQ0fC39bU
-	Vcyzy/x5xVd+rPyMHMvzCPV7qww4f5F67K+SUxUrtavRwY+SNSE2Hk47HlhnvhESmLYpfqq9
-	JKZYZ5OZuzLhc+yH7fIbRw9P+iz87uoRv5iTIDTY3nOK1tpmR/g69JGC+ltVd6rCCkLttzZr
-	Pm1IlYghKyPpyYdnNWqH84su+sejBzbxczo0oER++pTOOuW6UFAXKnJOiB14knyI07Dj4fmI
-	pHcDhMfx4cDF7J1/uDS/nrwUFHgBtC/0HAmdomB6Pe32bODzib5pXa+ddPsJ5pOEejJ4SaFr
-	3uvfPXBmitcZ4jznODTtqq+05c8LWCqJWLQLV6rE/wGLOMDxygQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrCIsWRmVeSWpSXmKPExsWy7bCSvG5gnXiSQcd3RYs9Nz+zWqy+289m
-	Me3DT2aL9wcfs1pM6p/BbnH5CZ/F3nezWS0u/Ghksni86T+TxZ5Fk5gsVq4+ymTxfPliRovO
-	0xeYLP48NLQ4+v8tm8WkQ9cYLfbe0rbYs/cki8X8ZU/ZLbqv72Cz2Pd6L7PF8uP/mCwmdlxl
-	sjg36w+bxeF7V1ksVv+xsGjt+clu8Wp/nIOMx+Ur3h4Tm9+xezQvuMPicflsqcemVZ1sHpuX
-	1HtMvrGc0WP3zQY2j6YzR5k9Znz6wuZx/cx2Jo/e5ndsHh+f3mLx2Pawl93j/b6rbB59W1Yx
-	BohEcdmkpOZklqUW6dslcGWs77zAXLCBs+LWSssGxp3sXYycHBICJhIvGhvBbCGB3YwSUz7r
-	Q8QlJZb9PcIMYQtLrPz3HKiGC6jmCaPEyXdPmEASLAKqEv+Xr2TtYuTgYBPQljj9nwMkLCKg
-	KXFpzhtWkHpmgTssErv+PAMbJCxgL9H6Yy1YPa+AjsTsc+YQM68ySWzcPIMRpIZXQFDi5Mwn
-	LCA2s4CWxI1/L5lA6pkFpCWW/wObzykQLXFxchNYiaiAssSBbceZJjAKzkLSPQtJ9yyE7gWM
-	zKsYJVMLinPTc4sNCwzzUsv1ihNzi0vz0vWS83M3MYIThpbmDsbtqz7oHWJk4mA8xCjBwawk
-	wmtaKJYkxJuSWFmVWpQfX1Sak1p8iFGag0VJnPdC18l4IYH0xJLU7NTUgtQimCwTB6dUA1Nt
-	Rhj70op5z0xtc6esmRqwSjwgbqXToigz7esFRfMLY3ddqhN4kfC4L+T/MkUjW5GwS4c5Td2X
-	bqxtY6413Bx5a7WgwUvdb6sfM98L3dgUbn/g/YXXfAWT3kzKe35tu5+27S/d0zclvzi/Eg1R
-	dji5VrU+2Nbc+4Fawv73pyVPu97awP/lYH0RA8vVD5uMM2ZVzD3/IqWnepOsWkeM7OnrMco8
-	OjzhOfnHFzWmPrPzFFypedbRa2+l8eU/7309zA683Dqh64bofvlLi5fxfvKQiDPLtjHtrvvu
-	al5VuvPVG69VEhOKgx+rars5FFfxT1566u+8t7q3C4y/TPZ/fPx84MM9s4KkHuxdyT5F0FyJ
-	pTgj0VCLuag4EQCXTrmYhwMAAA==
-X-CMS-MailID: 20220224124713epcas5p17e353eef4fb4990f0442bc0614217227
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20220207141948epcas5p4534f6bdc5a1e2e676d7d09c04f8b4a5b
-References: <CAOSviJ0HmT9iwdHdNtuZ8vHETCosRMpR33NcYGVWOV0ki3EYgw@mail.gmail.com>
-	<20220207141348.4235-1-nj.shetty@samsung.com>
-	<CGME20220207141948epcas5p4534f6bdc5a1e2e676d7d09c04f8b4a5b@epcas5p4.samsung.com>
-	<20220207141348.4235-9-nj.shetty@samsung.com>
-	<alpine.LRH.2.02.2202160845210.22021@file01.intranet.prod.int.rdu2.redhat.com>
+X-MS-PublicTrafficType: Email
+X-MS-Office365-Filtering-Correlation-Id: bfda1d5d-68a3-43b1-6380-08d9f97bb981
+X-MS-TrafficTypeDiagnostic: MW4PR10MB5750:EE_
+X-Microsoft-Antispam-PRVS: <MW4PR10MB57506F2541BB6333ACCC6553F13F9@MW4PR10MB5750.namprd10.prod.outlook.com>
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: HOnWY6IjpmJrqKzseKJp2uud+YW1Soj8t/amdgkFi0BhhNy8LLHLq7WXIvVfxhzG+w0/hGTgGZxUeBTbOZo7HomMjS6gTyp0rxyXWAMn/wcL5XBtKVPfN5C83atUonaibAeregpa+VvVCh7AzhWwquBNTi1APT+dB7m8Q2Icye3xAheTiyLct9+G4E4eujhQhb2Jpm4g1oEK6uFC0Dj7/HtXM6h3Z7dEtumuBMkxKYFzdEVyVRbiNueOZk6ho62wkeM4Szg0wcyiZ/iJ78L7PwICfJGreiyCyYK278PnFXuzwqfBVD2lPD0jU/gvElYKUmuW/7FyCOLauClhbezDFLAsbzpK3oX6GdadsGRRsk4OP5xLcwfE9DFlUImcsL20svWaCdgRTQMaBa7w+YYvrkOz6/nrSLyUDYuuBx8oyyfswQDi7Vz2yDY72XFXS+ts1LbgKmHQppgUJHfjY0BN3awkA2fo1Sa4bkCUBqh4eKEs8rPxvkP5A8jAARzxf/gIeixQZ+TLX2E2d6gN+tPUkUD6Ry/3O1d5nq+aOyDo9sutJg9JlUOK3JdU8UTW3qQD76Smt1ietKVFb0EHlwiKhElaP89W/TK/QSPzvBSxDq/JBZEz9cxKIGQuCBhrqTDgGBV1+XgJMkxRblkNYLsek3ynfKGHj53tnjRGaLTS48lSTkuD8PW1y4zUzB4OEhaPssTY9l4v2FehqinF83xDJAIfzx0vakbFeoKVRpHJ2Xw=
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+	IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com;
+	PTR:; CAT:NONE;
+	SFS:(13230001)(366004)(2906002)(5660300002)(31686004)(66946007)(4326008)(8676002)(36756003)(186003)(26005)(38100700002)(2616005)(66556008)(66476007)(53546011)(31696002)(8936002)(6512007)(6486002)(6506007)(83380400001)(86362001)(508600001)(316002)(6916009)(45980500001)(43740500002);
+	DIR:OUT; SFP:1101
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?K2VUU0ZyRTFIOHJXeUhvQnNyTVBuSHNPWloxYjVwVW5LMlA2cXRranZZckxn?=
+	=?utf-8?B?UDlFenFybzNhclhIaWY4R3o3VzFYNHRzcEVlNi9ISjhPN3U5SGdRY2hNQm1l?=
+	=?utf-8?B?a1hWdSs4dmpsa3hmVGpUQ3BTMStFOW4rUW1QcDRhL29tL1VENFF3RXN5TnRo?=
+	=?utf-8?B?N2tnY3ZRUzNuRHUzN1ZSNG5jOFJUeEZhbVEwS0EwN29Wdzk5UkxWWW5PYWFo?=
+	=?utf-8?B?WFE3SGhzTE00Y0o0K0VjUUdhempPNzJuTUNZN21GblZKNEVaV0lRcE54clN0?=
+	=?utf-8?B?dU1FMmpUdElpblBFUXBiNHBKRU5tTlBodHRGdUZDOTZtMDhHM0hWaWZBZmk3?=
+	=?utf-8?B?N1VPT0tYSTB4YjZtb1pialNGZlg3UDVJT3pINTZXODJRQkliN3owM3ZWK3dt?=
+	=?utf-8?B?Z0dCd2hGVmIzQmN1aEoyVzA0VEhvdCtsMDdzK3F5cXdLWVRISjUxVVNTYXhT?=
+	=?utf-8?B?bkoyMjMvOWpwOFBjZWlJSGNkSDZKbHBkNzNvVDdUMFNUZjFFZjVYeERIaWlG?=
+	=?utf-8?B?RE04YTlMdStYSU1RR3EwK3NyTGlLZzRNWDB5VmFZMUsyQzdhb1hsVTdkUE5w?=
+	=?utf-8?B?MWNENmZmMy9QVzZ0QWpZditQd05CL3pLMmIwNkg1alZFdWNmMGNNMC9NQ2VO?=
+	=?utf-8?B?UEhxNXdkejRaTmxzMXNSYTBCQ0pHTFFSU3JpZjVGWlpLV0wrZDhCQjBwczA3?=
+	=?utf-8?B?V1M1VnZXcC9vSlVyWUV2SXQzS0s5TlY3cVpha0NXT2YxNjA5bVg0cU1mY0Uz?=
+	=?utf-8?B?eVFMbmhyTTB3WTRNSVdQc2pzMi8rR09ucjNodGlMQlFCd1dRb0lIVHp1N0lw?=
+	=?utf-8?B?TVhHUW9wcURoZ29tcTZJR2hnbjNCcGxadTJJbHUvZGN0eFZWd1NYRjVQQ3JD?=
+	=?utf-8?B?STVYVFYyWWhTNXMvUkFrNW92U2tkUFBaQTV1RWYrV3ZhVFRvbDFGQWNlZjFN?=
+	=?utf-8?B?K015YkR3a1ZZNCtjcjI3Z3hoclV2aVFFK2FpOTdSeVJ2Q2VBMWJ2SXprMFp2?=
+	=?utf-8?B?QjBST1oycjJSVnNaS1ltald1OEkyNGVGS3VvZHF5eExuYzNYUktaMDErSkE4?=
+	=?utf-8?B?cmdWUG9tVUszb1Q5RjdhVlJDbFJ0MUgrVmpHZzJ4dm5kQW0xWUM5YklSaDNT?=
+	=?utf-8?B?eXpFbWxjY1V6c1ExTUJyalkzcXR3SUxpTHNoUXpGbng4VEVIUlJzTWQxYkN1?=
+	=?utf-8?B?L0E1VWp4Ui92TnlaUCtacUFhZXlrK3BCR1AvbXp1TW0rdVhjMFo0ZG44ZVlm?=
+	=?utf-8?B?ZXowdk1walgyV3MybHROT2tYOGFkMmNWU1U5WWlhY3ZZbVMzeUtNZ3V4RUM5?=
+	=?utf-8?B?TTVVUVV5QnNaNlRVTGxMRGRLYU5Bd25HMDJwbllFMFVpNWd5WXY3VVNRVndu?=
+	=?utf-8?B?dUZxMncvamRwcjRhVitveUpjbGMyOXRYMDlmUHl1b2hYcXpkblJCaVAvTGdX?=
+	=?utf-8?B?ZkhaWFpDbVdOZHdKMGUyWERqdmFNdHRNK1p6R3gwakVybUdVdUkxS1NBeEMy?=
+	=?utf-8?B?cXZqSm8reTlZbmVISW01Tk93WWJxc2cyZkxydVNPRW9peHltMVV1ZnQ1ekox?=
+	=?utf-8?B?MENoQ05OWkpYbld6c3JEVXR2YURRZGRreFBQRFJUVDhnUTdDNU01VDFqS2kw?=
+	=?utf-8?B?d0lyMjRoR2puWU84eDlDdHpvSmkrRjhXMmdtaUtvMmFHd3hpbHNVMnZQdHFB?=
+	=?utf-8?B?SGpTczdaTlZYb2xjdXRBSXlpWEZ6anNOT0xZcDZIc05KQjNiTUNCN01HbzJB?=
+	=?utf-8?B?VU5KVmY1S0s2TnZJaHZ3cEtFZUhPc25VZGd2bk1hNmQ1aFhYY292eTMzYUQ1?=
+	=?utf-8?B?d1dhU29qM1hENEJlLytzdWU4UWxQWjZHazJocDZjODRwMlNxbit5bHdmdUNp?=
+	=?utf-8?B?bElhR0pqZC9sUjZhK3pQOHd2MnNxcS9yWHlsUWhWWTh6b1FBZHBVSjVLT1Jp?=
+	=?utf-8?B?a2RHKzhFVHlwSFMvb1I4ODN5S0pYbExpcFQxRXM3UklSQ1pZTGRvbTFBUStS?=
+	=?utf-8?B?cHFQeEgxSWlWUG9rNVZEVUd2dTJJMkg5ZW5qbjZtQ0M1cldONWxHOHBmSmtt?=
+	=?utf-8?B?TTNWaEY1eCtWVzd0Njlic0VCay9RcWxtaFJWUTZqREdqWWFRRnFqRXU0cVJR?=
+	=?utf-8?B?NHBGTXRyZVJvWUR1OFZ2WjdDUjJDVytCVHBMN2NKYTlUSjNxU2RuWjA4Yng3?=
+	=?utf-8?B?QmhPSDk0Q0R6MnNvMnQra21GK3BTcEVuenRMYVgreklBaFIyVXlSRkxIRmVZ?=
+	=?utf-8?B?ZmpGYmc5TGkwRjVTS04zL1ptTjhBPT0=?=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: bfda1d5d-68a3-43b1-6380-08d9f97bb981
+X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 26 Feb 2022 23:00:04.0694 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: HcczFeDn/5caNcbo5g96YrTQgiXybFqSfoV9F7Kimqb8UybT1GBOoiW9Xp/DyTfR9IPnVgJJqoVOw8zXcr/PDcSDFKI5qoElpnDSXlSyNic=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR10MB5750
+X-Proofpoint-Virus-Version: vendor=nai engine=6300 definitions=10270
+	signatures=684655
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+	mlxscore=0 phishscore=0
+	bulkscore=0 adultscore=0 spamscore=0 suspectscore=0 mlxlogscore=999
+	classifier=spam adjust=0 reason=mlx scancount=1
+	engine=8.12.0-2201110000 definitions=main-2202260163
+X-Proofpoint-GUID: UIMzvDhPgAf6XmvM-jFjmk50IszIShCL
+X-Proofpoint-ORIG-GUID: UIMzvDhPgAf6XmvM-jFjmk50IszIShCL
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -140,20 +161,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Mon, 28 Feb 2022 01:25:13 -0500
-Cc: djwong@kernel.org, linux-nvme@lists.infradead.org, clm@fb.com,
-	dm-devel@redhat.com, osandov@fb.com, javier@javigon.com,
-	bvanassche@acm.org, linux-scsi@vger.kernel.org, hch@lst.de,
-	roland@purestorage.com, zach.brown@ni.com, chaitanyak@nvidia.com,
-	msnitzer@redhat.com, josef@toxicpanda.com,
-	linux-block@vger.kernel.org, dsterba@suse.com, kbusch@kernel.org,
-	Frederick.Knight@netapp.com, axboe@kernel.dk, tytso@mit.edu,
-	joshi.k@samsung.com, martin.petersen@oracle.com,
-	arnav.dawn@samsung.com, jack@suse.com,
-	linux-fsdevel@vger.kernel.org, lsf-pc@lists.linux-foundation.org
-Subject: Re: [dm-devel] [PATCH v2 08/10] dm: Add support for copy offload.
+Cc: dm-devel@redhat.com, open-iscsi <open-iscsi@googlegroups.com>,
+	leech@redhat.com, lduncan@suse.com, linux-scsi@vger.kernel.org
+Subject: Re: [dm-devel] Question about iscsi session block
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -167,63 +180,88 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.84 on 10.5.11.23
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed;
-	boundary="----.rW42XXn7_Ji6OxwuAF4RAMbP.qed.OeqKlvEhSLhB3noATS=_b2668_"
-
-------.rW42XXn7_Ji6OxwuAF4RAMbP.qed.OeqKlvEhSLhB3noATS=_b2668_
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-
-On Wed, Feb 16, 2022 at 08:51:08AM -0500, Mikulas Patocka wrote:
-> 
-> 
-> On Mon, 7 Feb 2022, Nitesh Shetty wrote:
-> 
-> > Before enabling copy for dm target, check if underlaying devices and
-> > dm target support copy. Avoid split happening inside dm target.
-> > Fail early if the request needs split, currently spliting copy
-> > request is not supported
-> > 
-> > Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
-> 
-> If a dm device is reconfigured, you must invalidate all the copy tokens 
-> that are in flight, otherwise they would copy stale data.
-> 
-> I suggest that you create a global variable "atomic64_t dm_changed".
-> In nvme_setup_copy_read you copy this variable to the token.
-> In nvme_setup_copy_write you compare the variable with the value in the 
-> token and fail if there is mismatch.
-> In dm.c:__bind you increase the variable, so that all the tokens will be 
-> invalidated if a dm table is changed.
-> 
-> Mikulas
-> 
->
-Yes, you are right about the reconfiguration of dm device. But wouldn't having a
-single global counter(dm_changed), will invalidate for all in-flight copy IO's
-across all dm devices. Is my understanding correct?
-
---
-Nitesh Shetty
-
-------.rW42XXn7_Ji6OxwuAF4RAMbP.qed.OeqKlvEhSLhB3noATS=_b2668_
-Content-Type: text/plain; charset="utf-8"
-
-
-------.rW42XXn7_Ji6OxwuAF4RAMbP.qed.OeqKlvEhSLhB3noATS=_b2668_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+On 2/15/22 8:19 PM, michael.christie@oracle.com wrote:
+> On 2/15/22 7:28 PM, Zhengyuan Liu wrote:
+>> On Wed, Feb 16, 2022 at 12:31 AM Mike Christie
+>> <michael.christie@oracle.com> wrote:
+>>>
+>>> On 2/15/22 9:49 AM, Zhengyuan Liu wrote:
+>>>> Hi, all
+>>>>
+>>>> We have an online server which uses multipath + iscsi to attach storage
+>>>> from Storage Server. There are two NICs on the server and for each it
+>>>> carries about 20 iscsi sessions and for each session it includes about 50
+>>>>  iscsi devices (yes, there are totally about 2*20*50=2000 iscsi block devices
+>>>>  on the server). The problem is: once a NIC gets faulted, it will take too long
+>>>> (nearly 80s) for multipath to switch to another good NIC link, because it
+>>>> needs to block all iscsi devices over that faulted NIC firstly. The callstack is
+>>>>  shown below:
+>>>>
+>>>>     void iscsi_block_session(struct iscsi_cls_session *session)
+>>>>     {
+>>>>         queue_work(iscsi_eh_timer_workq, &session->block_work);
+>>>>     }
+>>>>
+>>>>  __iscsi_block_session() -> scsi_target_block() -> target_block() ->
+>>>>   device_block() ->  scsi_internal_device_block() -> scsi_stop_queue() ->
+>>>>  blk_mq_quiesce_queue()>synchronize_rcu()
+>>>>
+>>>> For all sessions and all devices, it was processed sequentially, and we have
+>>>> traced that for each synchronize_rcu() call it takes about 80ms, so
+>>>> the total cost
+>>>> is about 80s (80ms * 20 * 50). It's so long that the application can't
+>>>> tolerate and
+>>>> may interrupt service.
+>>>>
+>>>> So my question is that can we optimize the procedure to reduce the time cost on
+>>>> blocking all iscsi devices?  I'm not sure if it is a good idea to increase the
+>>>> workqueue's max_active of iscsi_eh_timer_workq to improve concurrency.
+>>>
+>>> We need a patch, so the unblock call waits/cancels/flushes the block call or
+>>> they could be running in parallel.
+>>>
+>>> I'll send a patchset later today so you can test it.
+>>
+>> I'm glad to test once you push the patchset.
+>>
+>> Thank you, Mike.
+> 
+> I forgot I did this recently :)
+> 
+> commit 7ce9fc5ecde0d8bd64c29baee6c5e3ce7074ec9a
+> Author: Mike Christie <michael.christie@oracle.com>
+> Date:   Tue May 25 13:18:09 2021 -0500
+> 
+>     scsi: iscsi: Flush block work before unblock
+>     
+>     We set the max_active iSCSI EH works to 1, so all work is going to execute
+>     in order by default. However, userspace can now override this in sysfs. If
+>     max_active > 1, we can end up with the block_work on CPU1 and
+>     iscsi_unblock_session running the unblock_work on CPU2 and the session and
+>     target/device state will end up out of sync with each other.
+>     
+>     This adds a flush of the block_work in iscsi_unblock_session.
+> 
+> 
+> It was merged in 5.14.
+
+Hey, I found one more bug when max_active > 1. While fixing it I decided to just
+fix this so we can do the sessions recoveries in parallel and the user doesn't have
+to worry about setting max_active.
+
+I'll send a patchset and cc you.
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-------.rW42XXn7_Ji6OxwuAF4RAMbP.qed.OeqKlvEhSLhB3noATS=_b2668_--
 
