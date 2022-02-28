@@ -2,69 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23F104C84C7
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Mar 2022 08:18:08 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E2B84C84C4
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Mar 2022 08:17:52 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-fSIdyZcWNAqe0lgRPowDTA-1; Tue, 01 Mar 2022 02:17:48 -0500
-X-MC-Unique: fSIdyZcWNAqe0lgRPowDTA-1
+ us-mta-213-2mlonxEJOimGiyIb0hor_Q-1; Tue, 01 Mar 2022 02:17:49 -0500
+X-MC-Unique: 2mlonxEJOimGiyIb0hor_Q-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id EC9571006AA6;
-	Tue,  1 Mar 2022 07:17:42 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D23A6827AD;
-	Tue,  1 Mar 2022 07:17:41 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F1159824FA9;
+	Tue,  1 Mar 2022 07:17:43 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEE7E827A9;
+	Tue,  1 Mar 2022 07:17:43 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id E89281809CB2;
-	Tue,  1 Mar 2022 07:17:31 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.9])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 319F54EE76;
+	Tue,  1 Mar 2022 07:17:43 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.4])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21SEGIhG012231 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 28 Feb 2022 09:16:19 -0500
+	id 21SKdQep007949 for <dm-devel@listman.util.phx.redhat.com>;
+	Mon, 28 Feb 2022 15:39:27 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id B29A344F707; Mon, 28 Feb 2022 14:16:18 +0000 (UTC)
+	id D5FBC2026D6A; Mon, 28 Feb 2022 20:39:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id AECEE44F709
-	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 14:16:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[205.139.110.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9663D811E75
-	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 14:16:18 +0000 (UTC)
-Received: from szxga03-in.huawei.com (szxga03-in.huawei.com
-	[45.249.212.189]) by relay.mimecast.com with ESMTP with STARTTLS
-	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-204-wjauTrk3PcaH1Q-jy_YYOg-1; Mon, 28 Feb 2022 09:16:14 -0500
-X-MC-Unique: wjauTrk3PcaH1Q-jy_YYOg-1
-Received: from dggpeml500023.china.huawei.com (unknown [172.30.72.56])
-	by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4K6hhY4HZKz9sQf;
-	Mon, 28 Feb 2022 21:54:53 +0800 (CST)
-Received: from dggpeml500006.china.huawei.com (7.185.36.76) by
-	dggpeml500023.china.huawei.com (7.185.36.114) with Microsoft SMTP
-	Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.21; Mon, 28 Feb 2022 21:58:25 +0800
-Received: from localhost.localdomain (10.175.127.227) by
-	dggpeml500006.china.huawei.com (7.185.36.76) with Microsoft SMTP Server
-	(version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
-	15.1.2308.21; Mon, 28 Feb 2022 21:58:25 +0800
-From: Luo Meng <luomeng12@huawei.com>
-To: <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>,
-	<ejt@redhat.com>
-Date: Mon, 28 Feb 2022 22:13:54 +0800
-Message-ID: <20220228141354.1091687-1-luomeng12@huawei.com>
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id D10402026D69
+	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 20:39:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 551993802ADA
+	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 20:39:23 +0000 (UTC)
+Received: from mga07.intel.com (mga07.intel.com [134.134.136.100]) by
+	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-403-f8nHC5pnNcSfRGid36256Q-1; Mon, 28 Feb 2022 15:39:21 -0500
+X-MC-Unique: f8nHC5pnNcSfRGid36256Q-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="316198800"
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="316198800"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+	by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+	28 Feb 2022 12:39:20 -0800
+X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="510236616"
+Received: from silpixa00400314.ir.intel.com (HELO silpixa00400314)
+	([10.237.222.76]) by orsmga006-auth.jf.intel.com with
+	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Feb 2022 12:39:17 -0800
+Date: Mon, 28 Feb 2022 20:39:11 +0000
+From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <Yh0y75aegqS4jIP7@silpixa00400314>
+References: <CACsaVZ+mt3CfdXV0_yJh7d50tRcGcRZ12j3n6-hoX2cz3+njsg@mail.gmail.com>
+	<20220219210354.GF59715@dread.disaster.area>
+	<CACsaVZ+LZUebtsGuiKhNV_No8fNLTv5kJywFKOigieB1cZcKUw@mail.gmail.com>
+	<YhN76/ONC9qgIKQc@silpixa00400314>
+	<CACsaVZJFane88cXxG_E1VkcMcJm8YVN+GDqQ2+tRYNpCf+m8zA@mail.gmail.com>
+	<CAHk-=whVT2GcwiJM8m-XzgJj8CjytTHi_pmgmOnSpzvGWzZM1A@mail.gmail.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.175.127.227]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
-	dggpeml500006.china.huawei.com (7.185.36.76)
-X-CFilter-Loop: Reflected
+In-Reply-To: <CAHk-=whVT2GcwiJM8m-XzgJj8CjytTHi_pmgmOnSpzvGWzZM1A@mail.gmail.com>
+Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
+	Collinstown Industrial Park, Leixlip, County Kildare - Ireland
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -73,14 +73,18 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-X-MIME-Autoconverted: from quoted-printable to 8bit by
-	lists01.pubmisc.prod.ext.phx2.redhat.com id 21SEGIhG012231
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-loop: dm-devel@redhat.com
 X-Mailman-Approved-At: Tue, 01 Mar 2022 02:17:20 -0500
-Cc: luomeng12@huawei.com, yukuai3@huawei.com
-Subject: [dm-devel] [PTACH] Revert "dm space maps: don't reset space map
-	allocation cursor when committing"
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+	Greg KH <gregkh@linuxfoundation.org>, Dave Chinner <david@fromorbit.com>,
+	Linux-Kernal <linux-kernel@vger.kernel.org>, qat-linux@intel.com,
+	linux-xfs <linux-xfs@vger.kernel.org>,
+	device-mapper development <dm-devel@redhat.com>,
+	Kyle Sanderson <kyle.leet@gmail.com>,
+	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>
+Subject: Re: [dm-devel] Intel QAT on A2SDi-8C-HLN4F causes massive data
+ corruption with dm-crypt + xfs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -99,84 +103,32 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This reverts commit 5faafc77f7de69147d1e818026b9a0cbf036a7b2.
+On Mon, Feb 28, 2022 at 11:25:49AM -0800, Linus Torvalds wrote:
+> On Mon, Feb 28, 2022 at 12:18 AM Kyle Sanderson <kyle.leet@gmail.com> wrote:
+> >
+> > Makes sense - this kernel driver has been destroying users for many
+> > years. I'm disappointed that this critical bricking failure isn't
+> > searchable for others.
+> 
+> It does sound like we should just disable that driver entirely until
+> it is fixed.
+> 
+> Or at least the configuration that can cause problems, if there is
+> some particular sub-case.
+The dm-crypt + QAT use-case is already disabled since kernel 5.10 due to
+a different issue.
+Is it an option to port those patches to stable till I provide a fix for
+the driver? I drafted already few alternatives for the fix and I am aiming
+for a final set by end of week.
 
-This commit 5faafc77f7de ("dm space maps: don't reset space map allocation
-cursor when committing") change the way to find free block.
+Thanks,
 
-But when use ramdisk(not support discard) for thin-pool,and storage
-over-commitment. Then constantly create and delete file, can find block
-in thin-pool, but can't find block in ramdisk.
-
-So need revert this patch.
-
-Fixes: 5faafc77f7de ("dm space maps: don't reset space map allocation cursor when committing")
-Signed-off-by: Luo Meng <luomeng12@huawei.com>
----
- drivers/md/persistent-data/dm-space-map-disk.c     | 9 +--------
- drivers/md/persistent-data/dm-space-map-metadata.c | 9 +--------
- 2 files changed, 2 insertions(+), 16 deletions(-)
-
-diff --git a/drivers/md/persistent-data/dm-space-map-disk.c b/drivers/md/persistent-data/dm-space-map-disk.c
-index d0a8d5e73c28..17afbebd9244 100644
---- a/drivers/md/persistent-data/dm-space-map-disk.c
-+++ b/drivers/md/persistent-data/dm-space-map-disk.c
-@@ -134,14 +134,6 @@ static int sm_disk_new_block(struct dm_space_map *sm, dm_block_t *b)
- 	 * Any block we allocate has to be free in both the old and current ll.
- 	 */
- 	r = sm_ll_find_common_free_block(&smd->old_ll, &smd->ll, smd->begin, smd->ll.nr_blocks, b);
--	if (r == -ENOSPC) {
--		/*
--		 * There's no free block between smd->begin and the end of the metadata device.
--		 * We search before smd->begin in case something has been freed.
--		 */
--		r = sm_ll_find_common_free_block(&smd->old_ll, &smd->ll, 0, smd->begin, b);
--	}
--
- 	if (r)
- 		return r;
- 
-@@ -164,6 +156,7 @@ static int sm_disk_commit(struct dm_space_map *sm)
- 		return r;
- 
- 	memcpy(&smd->old_ll, &smd->ll, sizeof(smd->old_ll));
-+	smd->begin = 0;
- 	smd->nr_allocated_this_transaction = 0;
- 
- 	return 0;
-diff --git a/drivers/md/persistent-data/dm-space-map-metadata.c b/drivers/md/persistent-data/dm-space-map-metadata.c
-index 392ae26134a4..42920e930dbd 100644
---- a/drivers/md/persistent-data/dm-space-map-metadata.c
-+++ b/drivers/md/persistent-data/dm-space-map-metadata.c
-@@ -453,14 +453,6 @@ static int sm_metadata_new_block_(struct dm_space_map *sm, dm_block_t *b)
- 	 * Any block we allocate has to be free in both the old and current ll.
- 	 */
- 	r = sm_ll_find_common_free_block(&smm->old_ll, &smm->ll, smm->begin, smm->ll.nr_blocks, b);
--	if (r == -ENOSPC) {
--		/*
--		 * There's no free block between smm->begin and the end of the metadata device.
--		 * We search before smm->begin in case something has been freed.
--		 */
--		r = sm_ll_find_common_free_block(&smm->old_ll, &smm->ll, 0, smm->begin, b);
--	}
--
- 	if (r)
- 		return r;
- 
-@@ -512,6 +504,7 @@ static int sm_metadata_commit(struct dm_space_map *sm)
- 		return r;
- 
- 	memcpy(&smm->old_ll, &smm->ll, sizeof(smm->old_ll));
-+	smm->begin = 0;
- 	smm->allocated_this_transaction = 0;
- 
- 	return 0;
 -- 
-2.31.1
-
+Giovanni
 
 --
 dm-devel mailing list
