@@ -2,89 +2,107 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4E2B84C84C4
-	for <lists+dm-devel@lfdr.de>; Tue,  1 Mar 2022 08:17:52 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AF91F4C859A
+	for <lists+dm-devel@lfdr.de>; Tue,  1 Mar 2022 08:54:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1646121264;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=B8EqtTtsH028kDO3/LMCIRsZ33poelfm0VbM+hmGpX0=;
+	b=ZIDpKxMh2dFgoxPwZr3FKFix7mXf3VASoNI3ZwYZpIpV7FZOYFqmvxHhqgBamX1CrotjyQ
+	GcB+n3xsOf2b1mrFrTLsPKw3oumlmvLWx4Tu7sO6PjQAVowPKqYt0ShYi/JFjNEpZHsWMV
+	nLdJy253om1Oekuh1JRatuHO+1LOD1A=
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-213-2mlonxEJOimGiyIb0hor_Q-1; Tue, 01 Mar 2022 02:17:49 -0500
-X-MC-Unique: 2mlonxEJOimGiyIb0hor_Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-635-QMOeaZ1FPPGdrh7ni7nMSQ-1; Tue, 01 Mar 2022 02:54:21 -0500
+X-MC-Unique: QMOeaZ1FPPGdrh7ni7nMSQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id F1159824FA9;
-	Tue,  1 Mar 2022 07:17:43 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id CEE7E827A9;
-	Tue,  1 Mar 2022 07:17:43 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 22B0E1091DA3;
+	Tue,  1 Mar 2022 07:54:15 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D61612E14;
+	Tue,  1 Mar 2022 07:54:13 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 319F54EE76;
-	Tue,  1 Mar 2022 07:17:43 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id ACA111809C98;
+	Tue,  1 Mar 2022 07:54:05 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.10])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 21SKdQep007949 for <dm-devel@listman.util.phx.redhat.com>;
-	Mon, 28 Feb 2022 15:39:27 -0500
+	id 2217ru94024589 for <dm-devel@listman.util.phx.redhat.com>;
+	Tue, 1 Mar 2022 02:53:56 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id D5FBC2026D6A; Mon, 28 Feb 2022 20:39:26 +0000 (UTC)
+	id 9C816401E57; Tue,  1 Mar 2022 07:53:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id D10402026D69
-	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 20:39:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 551993802ADA
-	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 20:39:23 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100]) by
-	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
-	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-403-f8nHC5pnNcSfRGid36256Q-1; Mon, 28 Feb 2022 15:39:21 -0500
-X-MC-Unique: f8nHC5pnNcSfRGid36256Q-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10272"; a="316198800"
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="316198800"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
-	by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	28 Feb 2022 12:39:20 -0800
-X-IronPort-AV: E=Sophos;i="5.90,144,1643702400"; d="scan'208";a="510236616"
-Received: from silpixa00400314.ir.intel.com (HELO silpixa00400314)
-	([10.237.222.76]) by orsmga006-auth.jf.intel.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 28 Feb 2022 12:39:17 -0800
-Date: Mon, 28 Feb 2022 20:39:11 +0000
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-To: Linus Torvalds <torvalds@linux-foundation.org>
-Message-ID: <Yh0y75aegqS4jIP7@silpixa00400314>
-References: <CACsaVZ+mt3CfdXV0_yJh7d50tRcGcRZ12j3n6-hoX2cz3+njsg@mail.gmail.com>
-	<20220219210354.GF59715@dread.disaster.area>
-	<CACsaVZ+LZUebtsGuiKhNV_No8fNLTv5kJywFKOigieB1cZcKUw@mail.gmail.com>
-	<YhN76/ONC9qgIKQc@silpixa00400314>
-	<CACsaVZJFane88cXxG_E1VkcMcJm8YVN+GDqQ2+tRYNpCf+m8zA@mail.gmail.com>
-	<CAHk-=whVT2GcwiJM8m-XzgJj8CjytTHi_pmgmOnSpzvGWzZM1A@mail.gmail.com>
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 98C04401E31
+	for <dm-devel@redhat.com>; Tue,  1 Mar 2022 07:53:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[205.139.110.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A03C8047D6
+	for <dm-devel@redhat.com>; Tue,  1 Mar 2022 07:53:56 +0000 (UTC)
+Received: from mail-ed1-f69.google.com (mail-ed1-f69.google.com
+	[209.85.208.69]) by relay.mimecast.com with ESMTP with STARTTLS
+	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+	us-mta-446-JsVVZ2C5NWiZKoZJifUomg-1; Tue, 01 Mar 2022 02:53:55 -0500
+X-MC-Unique: JsVVZ2C5NWiZKoZJifUomg-1
+Received: by mail-ed1-f69.google.com with SMTP id
+	y10-20020a056402358a00b00410deddea4cso7308840edc.16
+	for <dm-devel@redhat.com>; Mon, 28 Feb 2022 23:53:54 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=1e100.net; s=20210112;
+	h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+	:mime-version:content-disposition:in-reply-to;
+	bh=QVnFIZhFNYTKL1SBRvgDq8aonG+DvL7dUgSwlUWc5mM=;
+	b=CEoI7chtX08dSmMh4L6Tg2seXWG5HPPfC4mBypp8CQNplFnCLoOWCqR3Y7OcBlQqvm
+	VS1lyfpbpz2+20QAdDyEECyLxu8xqyo1BTZWR9EvlpgCsNhkyNrA1FtxKUEyRRPNalzW
+	hPTUMNZL/dRWz+VcPNUjaJ0/ZHZ0PeAbtdt0RBMeIbLfzx0ljplzRjrwC4bCzVs+jA2+
+	6vtwxMpDsNKhtdZsbwUNodtosquUTeUJu52TvBjiyrr47E4/shJO+VvKN0hgDQKDhNdr
+	7iT9+SotOo4+gfZjbmOE6HSZd5bdyxozg2vyzULqjtq6FkYbtaCTHTlYxR5O9tcCxOK5
+	4Spw==
+X-Gm-Message-State: AOAM530g2KJ7CgE+JevsTvCK6WWHhMBpkqkmD25FfZkNTDMA3VOMo6yP
+	v8RpGptZqfRlneUVRRYG7e9J7BWOM+29z+A1/NAylm+kO1nGNPTiN7+yam08UsrzzLZt2bVkcTI
+	aqgZrWPgk7hVIgVk=
+X-Received: by 2002:a17:906:d935:b0:6cc:fcfc:c286 with SMTP id
+	rn21-20020a170906d93500b006ccfcfcc286mr18098682ejb.423.1646121234053;
+	Mon, 28 Feb 2022 23:53:54 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJysts8BwR7kcT2eYdWIeAKaNDkPSFZ3Y7NmajZMDMKGdqDOlJPCJrK4VFsbK9YtcY5F4jFAyA==
+X-Received: by 2002:a17:906:d935:b0:6cc:fcfc:c286 with SMTP id
+	rn21-20020a170906d93500b006ccfcfcc286mr18098675ejb.423.1646121233798;
+	Mon, 28 Feb 2022 23:53:53 -0800 (PST)
+Received: from alatyr-rpi.brq.redhat.com (nat-pool-brq-t.redhat.com.
+	[213.175.37.10]) by smtp.gmail.com with ESMTPSA id
+	c4-20020a170906340400b006d077e850b5sm5073999ejb.23.2022.02.28.23.53.53
+	(version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+	Mon, 28 Feb 2022 23:53:53 -0800 (PST)
+Date: Tue, 1 Mar 2022 08:53:49 +0100
+From: Peter Rajnoha <prajnoha@redhat.com>
+To: Xiao Ni <xni@redhat.com>
+Message-ID: <20220301075349.ao7a2rbjqn627oq4@alatyr-rpi.brq.redhat.com>
+References: <20220216205914.7575-1-mwilck@suse.com>
+	<164504936873.10228.7361167610237544463@noble.neil.brown.name>
+	<e8720e3f8734cbad1af34d5e54afc47ba3ef1b8f.camel@suse.com>
+	<20220217130934.lh2b33255kyx2pax@alatyr-rpi.brq.redhat.com>
+	<CALTww2-_rJDyVh2GLehJ8Yg9LOy4MnkvDeJnF2uunaOy6ONu7g@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAHk-=whVT2GcwiJM8m-XzgJj8CjytTHi_pmgmOnSpzvGWzZM1A@mail.gmail.com>
-Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
-	Collinstown Industrial Park, Leixlip, County Kildare - Ireland
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
-	Definition; Similar Internal Domain=false;
-	Similar Monitored External Domain=false;
-	Custom External Domain=false; Mimecast External Domain=false;
-	Newly Observed Domain=false; Internal User Name=false;
-	Custom Display Name List=false; Reply-to Address Mismatch=false;
-	Targeted Threat Dictionary=false;
-	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+In-Reply-To: <CALTww2-_rJDyVh2GLehJ8Yg9LOy4MnkvDeJnF2uunaOy6ONu7g@mail.gmail.com>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Tue, 01 Mar 2022 02:17:20 -0500
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	Greg KH <gregkh@linuxfoundation.org>, Dave Chinner <david@fromorbit.com>,
-	Linux-Kernal <linux-kernel@vger.kernel.org>, qat-linux@intel.com,
-	linux-xfs <linux-xfs@vger.kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Kyle Sanderson <kyle.leet@gmail.com>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>
-Subject: Re: [dm-devel] Intel QAT on A2SDi-8C-HLN4F causes massive data
- corruption with dm-crypt + xfs
+Cc: Jes Sorensen <jsorensen@fb.com>, Coly Li <colyli@suse.com>,
+	lvm-devel@redhat.com, linux-raid <linux-raid@vger.kernel.org>,
+	dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>,
+	Heming Zhao <heming.zhao@suse.com>
+Subject: Re: [dm-devel] [PATCH] udev-md-raid-assembly.rules: skip if
+ DM_UDEV_DISABLE_OTHER_RULES_FLAG
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -98,7 +116,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,28 +125,45 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 28, 2022 at 11:25:49AM -0800, Linus Torvalds wrote:
-> On Mon, Feb 28, 2022 at 12:18 AM Kyle Sanderson <kyle.leet@gmail.com> wrote:
-> >
-> > Makes sense - this kernel driver has been destroying users for many
-> > years. I'm disappointed that this critical bricking failure isn't
-> > searchable for others.
-> 
-> It does sound like we should just disable that driver entirely until
-> it is fixed.
-> 
-> Or at least the configuration that can cause problems, if there is
-> some particular sub-case.
-The dm-crypt + QAT use-case is already disabled since kernel 5.10 due to
-a different issue.
-Is it an option to port those patches to stable till I provide a fix for
-the driver? I drafted already few alternatives for the fix and I am aiming
-for a final set by end of week.
+Hi!
 
-Thanks,
+On Mon 28 Feb 2022 23:28, Xiao Ni wrote:
+> Hi Peter
+> 
+> In rhel, we have a rhel only udev rule that checks
+> DM_UDEV_DISABLE_OTHER_RULES_FLAG. Maybe it's the reason why you don't
+> notice this. Besides DM_UDEV_DISABLE_OTHER_RULES_FLAG, it still checks
+> other flags.
+> 
+
+Ah yes, that's it! I've been still recalling this to be patched once.
+So looks like it just didn't get propagated upstream :-/
+
+> # Next make sure that this isn't a dm device we should skip for some reason
+> ENV{DM_UDEV_RULES_VSN}!="?*", GOTO="dm_change_end"
+> ENV{DM_UDEV_DISABLE_OTHER_RULES_FLAG}=="1", GOTO="dm_change_end"
+> ENV{DM_SUSPENDED}=="1", GOTO="dm_change_end"
+> KERNEL=="dm-*", SUBSYSTEM=="block", ENV{ID_FS_TYPE}=="linux_raid_member", \
+>         ACTION=="change", RUN+="/sbin/mdadm -I $env{DEVNAME}"
+> LABEL="dm_change_end"
+> 
+> In 10-dm.rules, if DM_SUSPENDED is 1, it sets
+> DM_UDEV_DISABLE_OTHER_RULES_FLAG to 1. So we don't need the check of
+> DM_SUSPENDED. But how DM_UDEV_RULES_VSN? Do we need to check it?
+> 
+
+Yes, right, the check for DM_SUSPENDED is superfluous here so we don't
+actually need that one. The single check for DM_UDEV_DISABLE_OTHER_RULES_FLAG
+covers it.
+
+The DM_UDEV_RULES_VSN - this was meant for future changes in case a new
+set of DM udev variables is used or existing set changed so the other rules
+know what exact variable set is available for checking. But I think the rules
+are settled down for a few years now and I don't expect any more radical
+changes here, so we can remove that check for DM_UDEV_RULES_VSN as well.
 
 -- 
-Giovanni
+Peter
 
 --
 dm-devel mailing list
