@@ -2,70 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D32714CCDA0
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 07:19:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 496124CD033
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 09:39:20 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-271-mdyDqitsNlelmqrmgW2PPg-1; Fri, 04 Mar 2022 01:19:45 -0500
-X-MC-Unique: mdyDqitsNlelmqrmgW2PPg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.phx2.redhat.com [10.5.11.22])
+ us-mta-517-HNHPIpJGOxm1rN24rpcDHA-1; Fri, 04 Mar 2022 03:39:17 -0500
+X-MC-Unique: HNHPIpJGOxm1rN24rpcDHA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 85D26180FD73;
-	Fri,  4 Mar 2022 06:19:39 +0000 (UTC)
-Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4984210074E0;
-	Fri,  4 Mar 2022 06:19:34 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id D7C69180FD74;
+	Fri,  4 Mar 2022 08:39:11 +0000 (UTC)
+Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 746557B6E9;
+	Fri,  4 Mar 2022 08:39:10 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 2D64D1809C98;
-	Fri,  4 Mar 2022 06:19:15 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.4])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 237CB4A701;
+	Fri,  4 Mar 2022 08:38:51 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.2])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 223LP3BW029743 for <dm-devel@listman.util.phx.redhat.com>;
-	Thu, 3 Mar 2022 16:25:03 -0500
+	id 2248cWmd013386 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Mar 2022 03:38:32 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 84D3C20268FE; Thu,  3 Mar 2022 21:25:03 +0000 (UTC)
+	id 6157D404779C; Fri,  4 Mar 2022 08:38:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F04F2026D65
-	for <dm-devel@redhat.com>; Thu,  3 Mar 2022 21:24:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F8508002BF
-	for <dm-devel@redhat.com>; Thu,  3 Mar 2022 21:24:54 +0000 (UTC)
-Received: from mga11.intel.com (mga11.intel.com [192.55.52.93]) by
+	(mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D3CD40C1244
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 08:38:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 422B43803518
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 08:38:32 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
 	relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
 	cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-329-5ZPmWEFZPxKpjqpwN9xpBg-1; Thu, 03 Mar 2022 16:24:52 -0500
-X-MC-Unique: 5ZPmWEFZPxKpjqpwN9xpBg-1
-X-IronPort-AV: E=McAfee;i="6200,9189,10275"; a="251393912"
-X-IronPort-AV: E=Sophos;i="5.90,153,1643702400"; d="scan'208";a="251393912"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
-	by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
-	03 Mar 2022 13:24:51 -0800
-X-IronPort-AV: E=Sophos;i="5.90,153,1643702400"; d="scan'208";a="536016037"
-Received: from silpixa00400314.ir.intel.com (HELO silpixa00400314)
-	([10.237.222.76]) by orsmga007-auth.jf.intel.com with
-	ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 03 Mar 2022 13:24:48 -0800
-Date: Thu, 3 Mar 2022 21:24:42 +0000
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <YiEyGoHacN80FcOL@silpixa00400314>
-References: <CAHk-=wi+xewHz=BH7LcZAxrj9JXi66s9rp+kBqRchVG3a-b2BA@mail.gmail.com>
-	<Yh2c4Vwu61s51d6N@gondor.apana.org.au> <Yh9G7FyCLtsm2mFA@kroah.com>
-	<Yh9ZvLHuztwQCu0d@silpixa00400314> <Yh+FpKuoyj3G16lK@kroah.com>
-	<Yh/vY4t3xnuoCW3Q@gondor.apana.org.au>
-	<Yh/yr6oB5yeOUErL@silpixa00400314>
-	<Yh/znCnZzWaL49+o@gondor.apana.org.au>
-	<YiDHT31ujlGdQEe/@silpixa00400314> <YiEVPc2cd38AnLZB@gmail.com>
+	us-mta-202-Yz1nZI0GMDyAOD3P79wZcQ-1; Fri, 04 Mar 2022 03:38:30 -0500
+X-MC-Unique: Yz1nZI0GMDyAOD3P79wZcQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id 606C71F384;
+	Fri,  4 Mar 2022 08:38:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	key-exchange X25519 server-signature ECDSA (P-521) server-digest
+	SHA512) (No client certificate requested)
+	by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 15B2013AF7;
+	Fri,  4 Mar 2022 08:38:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+	by imap2.suse-dmz.suse.de with ESMTPSA id 2tQFAwXQIWKuaQAAMHmgww
+	(envelope-from <mwilck@suse.com>); Fri, 04 Mar 2022 08:38:29 +0000
+Message-ID: <dac1d42e9c06abf957fdc9677d62e57739000ba1.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Date: Fri, 04 Mar 2022 09:38:28 +0100
+In-Reply-To: <20220224210608.24502-1-xose.vazquez@gmail.com>
+References: <20220224210608.24502-1-xose.vazquez@gmail.com>
+User-Agent: Evolution 3.42.4
 MIME-Version: 1.0
-In-Reply-To: <YiEVPc2cd38AnLZB@gmail.com>
-Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
-	Collinstown Industrial Park, Leixlip, County Kildare - Ireland
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Definition; Similar Internal Domain=false;
 	Similar Monitored External Domain=false;
@@ -74,20 +73,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-loop: dm-devel@redhat.com
-X-Mailman-Approved-At: Fri, 04 Mar 2022 01:18:24 -0500
-Cc: Herbert Xu <herbert@gondor.apana.org.au>,
-	Greg KH <gregkh@linuxfoundation.org>,
-	Dave Chinner <david@fromorbit.com>, qat-linux@intel.com,
-	Linux-Kernal <linux-kernel@vger.kernel.org>,
-	linux-xfs <linux-xfs@vger.kernel.org>,
-	device-mapper development <dm-devel@redhat.com>,
-	Kyle Sanderson <kyle.leet@gmail.com>,
-	Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
-	Linus Torvalds <torvalds@linux-foundation.org>
-Subject: Re: [dm-devel] Intel QAT on A2SDi-8C-HLN4F causes massive data
- corruption with dm-crypt + xfs
+Cc: DM-DEVEL ML <dm-devel@redhat.com>
+Subject: Re: [dm-devel] [PATCH 1/3] multipath-tools: identify more arrays
+ under IBM/2145 ID
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -101,77 +91,23 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.84 on 10.5.11.22
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 03, 2022 at 07:21:33PM +0000, Eric Biggers wrote:
-> If these algorithms have critical bugs, which it appears they do, then IMO it
-> would be better to disable them (either stop registering them, or disable the
-> whole driver) than to leave them available with low cra_priority.  Low
-> cra_priority doesn't guarantee that they aren't used.
-Thanks for your feedback Eric.
+On Thu, 2022-02-24 at 22:06 +0100, Xose Vazquez Perez wrote:
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 
-Here is a patch that disables the registration of the algorithms in the
-QAT driver by setting, a config time, the number of HW queues (aka
-instances) to zero.
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
----8<---
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Subject: [PATCH] crypto: qat - disable registration of algorithms
-Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 - Collinstown Industrial Park, Leixlip, County Kildare - Ireland
-
-The implementations of aead and skcipher in the QAT driver do not
-support properly requests with the CRYPTO_TFM_REQ_MAY_BACKLOG flag set.
-If the HW queue is full, the driver returns -EBUSY but does not enqueue
-the request.
-This can result in applications like dm-crypt waiting indefinitely for a
-completion of a request that was never submitted to the hardware.
-
-To avoid this problem, disable the registration of all skcipher and aead
-implementations in the QAT driver by setting the number of crypto
-instances to 0 at configuration time.
-
-This patch deviates from the original upstream solution, that prevents
-dm-crypt to use drivers registered with the flag
-CRYPTO_ALG_ALLOCATES_MEMORY, since a backport of that set to stable
-kernels may have a too wide effect.
-
-commit 7bcb2c99f8ed032cfb3f5596b4dccac6b1f501df upstream
-commit 2eb27c11937ee9984c04b75d213a737291c5f58c upstream
-commit fbb6cda44190d72aa5199d728797aabc6d2ed816 upstream
-commit b8aa7dc5c7535f9abfca4bceb0ade9ee10cf5f54 upstream
-commit cd74693870fb748d812867ba49af733d689a3604 upstream
-
-Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
----
- drivers/crypto/qat/qat_common/qat_crypto.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
-
-diff --git a/drivers/crypto/qat/qat_common/qat_crypto.c b/drivers/crypto/qat/qat_common/qat_crypto.c
-index 3852d31ce0a4..611d214d5198 100644
---- a/drivers/crypto/qat/qat_common/qat_crypto.c
-+++ b/drivers/crypto/qat/qat_common/qat_crypto.c
-@@ -159,9 +159,7 @@ struct qat_crypto_instance *qat_crypto_get_instance_node(int node)
-  */
- int qat_crypto_dev_config(struct adf_accel_dev *accel_dev)
- {
--	int cpus = num_online_cpus();
--	int banks = GET_MAX_BANKS(accel_dev);
--	int instances = min(cpus, banks);
-+	int instances = 0;
- 	char key[ADF_CFG_MAX_KEY_LEN_IN_BYTES];
- 	int i;
- 	unsigned long val;
-
-base-commit: 866ae42cf4788c8b18de6bda0a522362702861d7
--- 
-2.35.1
 
 --
 dm-devel mailing list
