@@ -2,54 +2,53 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 28C6E4CDD76
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 20:57:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8DB8C4CDD5D
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 20:37:43 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-100-dXP6iT8BNsuueMQjZcCISQ-1; Fri, 04 Mar 2022 14:57:20 -0500
-X-MC-Unique: dXP6iT8BNsuueMQjZcCISQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.12])
+ us-mta-578-IaWaXC7vMNGdbtJoNb81rw-1; Fri, 04 Mar 2022 14:37:41 -0500
+X-MC-Unique: IaWaXC7vMNGdbtJoNb81rw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id A9CD8824FA8;
-	Fri,  4 Mar 2022 19:57:14 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE33251DF;
+	Fri,  4 Mar 2022 19:37:35 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 823C861008;
-	Fri,  4 Mar 2022 19:57:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9EEE5D6B1;
+	Fri,  4 Mar 2022 19:37:33 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 4F7F14A701;
-	Fri,  4 Mar 2022 19:57:11 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.7])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB65746F98;
+	Fri,  4 Mar 2022 19:37:28 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 224Jv63l004833 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Mar 2022 14:57:06 -0500
+	id 224JbOnR003629 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Mar 2022 14:37:24 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 70CF5141DC29; Fri,  4 Mar 2022 19:57:06 +0000 (UTC)
+	id 50EF5442904; Fri,  4 Mar 2022 19:37:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 6CC73141DEDE
-	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:57:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
-	[207.211.31.120])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52D0D80088A
-	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:57:06 +0000 (UTC)
+	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CCF142D3C0
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:37:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+	bits)) (No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34D2385A5BC
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:37:24 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-399-_DjNpuIDMSq49-hgCfgJAA-1; Fri, 04 Mar 2022 14:57:04 -0500
-X-MC-Unique: _DjNpuIDMSq49-hgCfgJAA-1
+	us-mta-487-bpAL4UgoMdu1Ot9cjqiaPg-1; Fri, 04 Mar 2022 14:37:22 -0500
+X-MC-Unique: bpAL4UgoMdu1Ot9cjqiaPg-1
 Received: from [2001:4bb8:180:5296:cded:8d4b:ace6:f3c] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nQCEz-00BUpr-2n; Fri, 04 Mar 2022 18:01:21 +0000
+	id 1nQCF1-00BUru-RD; Fri, 04 Mar 2022 18:01:24 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri,  4 Mar 2022 19:01:00 +0100
-Message-Id: <20220304180105.409765-6-hch@lst.de>
+Date: Fri,  4 Mar 2022 19:01:01 +0100
+Message-Id: <20220304180105.409765-7-hch@lst.de>
 In-Reply-To: <20220304180105.409765-1-hch@lst.de>
 References: <20220304180105.409765-1-hch@lst.de>
 MIME-Version: 1.0
@@ -63,12 +62,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 X-loop: dm-devel@redhat.com
 Cc: linux-raid@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
 	linux-block@vger.kernel.org, Song Liu <song@kernel.org>,
 	dm-devel@redhat.com, linux-ext4@vger.kernel.org
-Subject: [dm-devel] [PATCH 05/10] dm-integrity: stop using bio_devname
+Subject: [dm-devel] [PATCH 06/10] md-multipath: stop using bio_devname
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -82,7 +81,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.12
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,28 +93,39 @@ Use the %pg format specifier to save on stack consuption and code size.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm-integrity.c | 5 ++---
- 1 file changed, 2 insertions(+), 3 deletions(-)
+ drivers/md/md-multipath.c | 9 ++++-----
+ 1 file changed, 4 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index eb4b5e52bd6ff..c58a5111cb575 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -1788,12 +1788,11 @@ static void integrity_metadata(struct work_struct *w)
- 						checksums_ptr - checksums, dio->op == REQ_OP_READ ? TAG_CMP : TAG_WRITE);
- 			if (unlikely(r)) {
- 				if (r > 0) {
--					char b[BDEVNAME_SIZE];
- 					sector_t s;
+diff --git a/drivers/md/md-multipath.c b/drivers/md/md-multipath.c
+index c056a7d707b09..bc38a6133cda3 100644
+--- a/drivers/md/md-multipath.c
++++ b/drivers/md/md-multipath.c
+@@ -294,7 +294,6 @@ static void multipathd(struct md_thread *thread)
  
- 					s = sector - ((r + ic->tag_size - 1) / ic->tag_size);
--					DMERR_LIMIT("%s: Checksum failed at sector 0x%llx",
--						    bio_devname(bio, b), s);
-+					DMERR_LIMIT("%pg: Checksum failed at sector 0x%llx",
-+						    bio->bi_bdev, s);
- 					r = -EILSEQ;
- 					atomic64_inc(&ic->number_of_mismatches);
- 					dm_audit_log_bio(DM_MSG_PREFIX, "integrity-checksum",
+ 	md_check_recovery(mddev);
+ 	for (;;) {
+-		char b[BDEVNAME_SIZE];
+ 		spin_lock_irqsave(&conf->device_lock, flags);
+ 		if (list_empty(head))
+ 			break;
+@@ -306,13 +305,13 @@ static void multipathd(struct md_thread *thread)
+ 		bio->bi_iter.bi_sector = mp_bh->master_bio->bi_iter.bi_sector;
+ 
+ 		if ((mp_bh->path = multipath_map (conf))<0) {
+-			pr_err("multipath: %s: unrecoverable IO read error for block %llu\n",
+-			       bio_devname(bio, b),
++			pr_err("multipath: %pg: unrecoverable IO read error for block %llu\n",
++			       bio->bi_bdev,
+ 			       (unsigned long long)bio->bi_iter.bi_sector);
+ 			multipath_end_bh_io(mp_bh, BLK_STS_IOERR);
+ 		} else {
+-			pr_err("multipath: %s: redirecting sector %llu to another IO path\n",
+-			       bio_devname(bio, b),
++			pr_err("multipath: %pg: redirecting sector %llu to another IO path\n",
++			       bio->bi_bdev,
+ 			       (unsigned long long)bio->bi_iter.bi_sector);
+ 			*bio = *(mp_bh->master_bio);
+ 			bio->bi_iter.bi_sector +=
 -- 
 2.30.2
 
