@@ -2,53 +2,54 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8DB8C4CDD5D
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 20:37:43 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B9ED4CDD6D
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 20:53:59 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-578-IaWaXC7vMNGdbtJoNb81rw-1; Fri, 04 Mar 2022 14:37:41 -0500
-X-MC-Unique: IaWaXC7vMNGdbtJoNb81rw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.phx2.redhat.com [10.5.11.15])
+ us-mta-370-m1i6AZHJOCKbQhjh-6y5gQ-1; Fri, 04 Mar 2022 14:53:56 -0500
+X-MC-Unique: m1i6AZHJOCKbQhjh-6y5gQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.phx2.redhat.com [10.5.11.16])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id AE33251DF;
-	Fri,  4 Mar 2022 19:37:35 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 7B85F824FA9;
+	Fri,  4 Mar 2022 19:53:49 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx02.intmail.prod.int.phx2.redhat.com [10.5.11.21])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id C9EEE5D6B1;
-	Fri,  4 Mar 2022 19:37:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 81E4B6AB81;
+	Fri,  4 Mar 2022 19:53:47 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id CB65746F98;
-	Fri,  4 Mar 2022 19:37:28 +0000 (UTC)
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 08EDF46F98;
+	Fri,  4 Mar 2022 19:53:42 +0000 (UTC)
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
 	[10.11.54.9])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 224JbOnR003629 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Mar 2022 14:37:24 -0500
+	id 224JrZ3K004591 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Mar 2022 14:53:35 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id 50EF5442904; Fri,  4 Mar 2022 19:37:24 +0000 (UTC)
+	id 361207CB821; Fri,  4 Mar 2022 19:53:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CCF142D3C0
-	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:37:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
-	bits)) (No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34D2385A5BC
-	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:37:24 +0000 (UTC)
+	(mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 32030469A5C
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:53:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+	[207.211.31.120])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1969980088A
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:53:35 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-487-bpAL4UgoMdu1Ot9cjqiaPg-1; Fri, 04 Mar 2022 14:37:22 -0500
-X-MC-Unique: bpAL4UgoMdu1Ot9cjqiaPg-1
+	us-mta-611-7Xo2fNj_NkCUwaiNBkb_Zg-1; Fri, 04 Mar 2022 14:53:33 -0500
+X-MC-Unique: 7Xo2fNj_NkCUwaiNBkb_Zg-1
 Received: from [2001:4bb8:180:5296:cded:8d4b:ace6:f3c] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nQCF1-00BUru-RD; Fri, 04 Mar 2022 18:01:24 +0000
+	id 1nQCF4-00BUtw-JU; Fri, 04 Mar 2022 18:01:27 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri,  4 Mar 2022 19:01:01 +0100
-Message-Id: <20220304180105.409765-7-hch@lst.de>
+Date: Fri,  4 Mar 2022 19:01:02 +0100
+Message-Id: <20220304180105.409765-8-hch@lst.de>
 In-Reply-To: <20220304180105.409765-1-hch@lst.de>
 References: <20220304180105.409765-1-hch@lst.de>
 MIME-Version: 1.0
@@ -67,7 +68,7 @@ X-loop: dm-devel@redhat.com
 Cc: linux-raid@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
 	linux-block@vger.kernel.org, Song Liu <song@kernel.org>,
 	dm-devel@redhat.com, linux-ext4@vger.kernel.org
-Subject: [dm-devel] [PATCH 06/10] md-multipath: stop using bio_devname
+Subject: [dm-devel] [PATCH 07/10] raid1: stop using bio_devname
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -81,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.15
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.16
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -93,39 +94,31 @@ Use the %pg format specifier to save on stack consuption and code size.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/md-multipath.c | 9 ++++-----
- 1 file changed, 4 insertions(+), 5 deletions(-)
+ drivers/md/raid1.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/md/md-multipath.c b/drivers/md/md-multipath.c
-index c056a7d707b09..bc38a6133cda3 100644
---- a/drivers/md/md-multipath.c
-+++ b/drivers/md/md-multipath.c
-@@ -294,7 +294,6 @@ static void multipathd(struct md_thread *thread)
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index c180c188da574..97574575ad0b4 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -2069,15 +2069,14 @@ static int fix_sync_read_error(struct r1bio *r1_bio)
+ 		} while (!success && d != r1_bio->read_disk);
  
- 	md_check_recovery(mddev);
- 	for (;;) {
--		char b[BDEVNAME_SIZE];
- 		spin_lock_irqsave(&conf->device_lock, flags);
- 		if (list_empty(head))
- 			break;
-@@ -306,13 +305,13 @@ static void multipathd(struct md_thread *thread)
- 		bio->bi_iter.bi_sector = mp_bh->master_bio->bi_iter.bi_sector;
- 
- 		if ((mp_bh->path = multipath_map (conf))<0) {
--			pr_err("multipath: %s: unrecoverable IO read error for block %llu\n",
--			       bio_devname(bio, b),
-+			pr_err("multipath: %pg: unrecoverable IO read error for block %llu\n",
-+			       bio->bi_bdev,
- 			       (unsigned long long)bio->bi_iter.bi_sector);
- 			multipath_end_bh_io(mp_bh, BLK_STS_IOERR);
- 		} else {
--			pr_err("multipath: %s: redirecting sector %llu to another IO path\n",
--			       bio_devname(bio, b),
-+			pr_err("multipath: %pg: redirecting sector %llu to another IO path\n",
-+			       bio->bi_bdev,
- 			       (unsigned long long)bio->bi_iter.bi_sector);
- 			*bio = *(mp_bh->master_bio);
- 			bio->bi_iter.bi_sector +=
+ 		if (!success) {
+-			char b[BDEVNAME_SIZE];
+ 			int abort = 0;
+ 			/* Cannot read from anywhere, this block is lost.
+ 			 * Record a bad block on each device.  If that doesn't
+ 			 * work just disable and interrupt the recovery.
+ 			 * Don't fail devices as that won't really help.
+ 			 */
+-			pr_crit_ratelimited("md/raid1:%s: %s: unrecoverable I/O read error for block %llu\n",
+-					    mdname(mddev), bio_devname(bio, b),
++			pr_crit_ratelimited("md/raid1:%s: %pg: unrecoverable I/O read error for block %llu\n",
++					    mdname(mddev), bio->bi_bdev,
+ 					    (unsigned long long)r1_bio->sector);
+ 			for (d = 0; d < conf->raid_disks * 2; d++) {
+ 				rdev = conf->mirrors[d].rdev;
 -- 
 2.30.2
 
