@@ -2,54 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCB1C4CDD46
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 20:17:51 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 706994CDD5C
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Mar 2022 20:36:48 +0100 (CET)
 Received: from mimecast-mx01.redhat.com (mimecast-mx01.redhat.com
  [209.132.183.4]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-660-zm3X80G_PGq7uW1hbJqZaw-1; Fri, 04 Mar 2022 14:17:46 -0500
-X-MC-Unique: zm3X80G_PGq7uW1hbJqZaw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.11])
+ us-mta-86-yneTUQxuP2CvTP_3W2Vf5w-1; Fri, 04 Mar 2022 14:36:45 -0500
+X-MC-Unique: yneTUQxuP2CvTP_3W2Vf5w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.phx2.redhat.com [10.5.11.13])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 2BF7A801DDC;
-	Fri,  4 Mar 2022 19:17:39 +0000 (UTC)
+	by mimecast-mx01.redhat.com (Postfix) with ESMTPS id 03F5C824FA6;
+	Fri,  4 Mar 2022 19:36:40 +0000 (UTC)
 Received: from colo-mx.corp.redhat.com (colo-mx01.intmail.prod.int.phx2.redhat.com [10.5.11.20])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id 085722BFB6;
-	Fri,  4 Mar 2022 19:17:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id 422B91B42C;
+	Fri,  4 Mar 2022 19:36:38 +0000 (UTC)
 Received: from lists01.pubmisc.prod.ext.phx2.redhat.com (lists01.pubmisc.prod.ext.phx2.redhat.com [10.5.19.33])
-	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 268621809C98;
-	Fri,  4 Mar 2022 19:17:38 +0000 (UTC)
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
-	[10.11.54.5])
+	by colo-mx.corp.redhat.com (Postfix) with ESMTP id 865171809C98;
+	Fri,  4 Mar 2022 19:36:30 +0000 (UTC)
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+	[10.11.54.6])
 	by lists01.pubmisc.prod.ext.phx2.redhat.com (8.13.8/8.13.8) with ESMTP
-	id 224JHXkR002397 for <dm-devel@listman.util.phx.redhat.com>;
-	Fri, 4 Mar 2022 14:17:33 -0500
+	id 224JaLir003580 for <dm-devel@listman.util.phx.redhat.com>;
+	Fri, 4 Mar 2022 14:36:22 -0500
 Received: by smtp.corp.redhat.com (Postfix)
-	id BDCDF9E6A; Fri,  4 Mar 2022 19:17:33 +0000 (UTC)
+	id C75E92166BDD; Fri,  4 Mar 2022 19:36:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
-	(mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
-	by smtp.corp.redhat.com (Postfix) with ESMTPS id B9A5B9E69
-	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:17:28 +0000 (UTC)
+	(mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+	by smtp.corp.redhat.com (Postfix) with ESMTPS id C11662166BCC
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:36:15 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
 	[207.211.31.120])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41D54899EC5
-	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:17:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 659B482A682
+	for <dm-devel@redhat.com>; Fri,  4 Mar 2022 19:36:15 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
 	[198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
 	(version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
-	us-mta-73-TKt_hY-pPsSRFG6Au6E0Tw-1; Fri, 04 Mar 2022 14:17:26 -0500
-X-MC-Unique: TKt_hY-pPsSRFG6Au6E0Tw-1
+	us-mta-79-VeG-7KQzOAeJU6pR95r1EA-1; Fri, 04 Mar 2022 14:36:13 -0500
+X-MC-Unique: VeG-7KQzOAeJU6pR95r1EA-1
 Received: from [2001:4bb8:180:5296:cded:8d4b:ace6:f3c] (helo=localhost)
 	by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
-	id 1nQCEl-00BUgO-51; Fri, 04 Mar 2022 18:01:07 +0000
+	id 1nQCEq-00BUjX-Jo; Fri, 04 Mar 2022 18:01:13 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Fri,  4 Mar 2022 19:00:55 +0100
-Message-Id: <20220304180105.409765-1-hch@lst.de>
+Date: Fri,  4 Mar 2022 19:00:57 +0100
+Message-Id: <20220304180105.409765-3-hch@lst.de>
+In-Reply-To: <20220304180105.409765-1-hch@lst.de>
+References: <20220304180105.409765-1-hch@lst.de>
 MIME-Version: 1.0
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
 	bombadil.infradead.org. See http://www.infradead.org/rpr.html
@@ -61,12 +63,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
 	Custom Display Name List=false; Reply-to Address Mismatch=false;
 	Targeted Threat Dictionary=false;
 	Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 X-loop: dm-devel@redhat.com
 Cc: linux-raid@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
 	linux-block@vger.kernel.org, Song Liu <song@kernel.org>,
 	dm-devel@redhat.com, linux-ext4@vger.kernel.org
-Subject: [dm-devel] remove bio_devname
+Subject: [dm-devel] [PATCH 02/10] block: remove handle_bad_sector
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.12
 Precedence: junk
@@ -80,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 	<mailto:dm-devel-request@redhat.com?subject=subscribe>
 Sender: dm-devel-bounces@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
-X-Scanned-By: MIMEDefang 2.79 on 10.5.11.11
+X-Scanned-By: MIMEDefang 2.79 on 10.5.11.13
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -88,23 +90,51 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Jens,
+Use the %pg format specifier instead of the stack hungry bdevname
+function, and remove handle_bad_sector given that it is not pointless.
 
-this series removes the bio_devname helper and just switches all users
-to use the %pg format string directly.
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ block/blk-core.c | 17 +++++------------
+ 1 file changed, 5 insertions(+), 12 deletions(-)
 
-Diffstat
- block/bio.c               |    6 ------
- block/blk-core.c          |   25 +++++++------------------
- drivers/block/pktcdvd.c   |    9 +--------
- drivers/md/dm-crypt.c     |   10 ++++------
- drivers/md/dm-integrity.c |    5 ++---
- drivers/md/md-multipath.c |    9 ++++-----
- drivers/md/raid1.c        |    5 ++---
- drivers/md/raid5-ppl.c    |   13 ++++---------
- fs/ext4/page-io.c         |    5 ++---
- include/linux/bio.h       |    2 --
- 10 files changed, 26 insertions(+), 63 deletions(-)
+diff --git a/block/blk-core.c b/block/blk-core.c
+index 34e1b7fdb7c89..4d858fc08f8ba 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -540,17 +540,6 @@ bool blk_get_queue(struct request_queue *q)
+ }
+ EXPORT_SYMBOL(blk_get_queue);
+ 
+-static void handle_bad_sector(struct bio *bio, sector_t maxsector)
+-{
+-	char b[BDEVNAME_SIZE];
+-
+-	pr_info_ratelimited("%s: attempt to access beyond end of device\n"
+-			    "%s: rw=%d, want=%llu, limit=%llu\n",
+-			    current->comm,
+-			    bio_devname(bio, b), bio->bi_opf,
+-			    bio_end_sector(bio), maxsector);
+-}
+-
+ #ifdef CONFIG_FAIL_MAKE_REQUEST
+ 
+ static DECLARE_FAULT_ATTR(fail_make_request);
+@@ -612,7 +601,11 @@ static inline int bio_check_eod(struct bio *bio)
+ 	if (nr_sectors && maxsector &&
+ 	    (nr_sectors > maxsector ||
+ 	     bio->bi_iter.bi_sector > maxsector - nr_sectors)) {
+-		handle_bad_sector(bio, maxsector);
++		pr_info_ratelimited("%s: attempt to access beyond end of device\n"
++				    "%pg: rw=%d, want=%llu, limit=%llu\n",
++				    current->comm,
++				    bio->bi_bdev, bio->bi_opf,
++				    bio_end_sector(bio), maxsector);
+ 		return -EIO;
+ 	}
+ 	return 0;
+-- 
+2.30.2
 
 --
 dm-devel mailing list
