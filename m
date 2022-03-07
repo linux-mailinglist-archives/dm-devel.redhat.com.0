@@ -1,102 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9F02C4D04B8
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Mar 2022 17:56:40 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4C814D06F5
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Mar 2022 19:53:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1646672199;
+	s=mimecast20190719; t=1646679203;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6Lj7pfZVxyCqLdWrLV9V6FRVTeeYEfCkD2dhI44F+j8=;
-	b=VA5a1yRAOWkr20wCyE89MIl6AdIkfExDnbF484ryQnL7eTUpRVKBc8EC2h+HJFw0fq9aQz
-	r5Vwb5/Ld7cRsc8ewgNMhyiWzzopLGRpPj3AowfrxC4q1K59UEAs45hdELevmBU2JB85WI
-	U3XV9CNyDqphcjvE5geOSbuFM1VP8og=
+	bh=8zlJ7Fw/CqPkpLaMCW324ab8+CrKr9jmc3n5JjkBJfM=;
+	b=GLdgXaRZfbMyJp+horqs2a0J7Wr2OwEFXDeb2+h6SGHU5s5tErCwGlf0ue5NX5GykHNHlO
+	62OV9wDvbn7kgvNWa9tv5yv4zmQGucKSn6HRTFgPF/cfCr/BhDaM9uhaFDdd06vugXgBdi
+	7so1UjHwqNzkPFKw8Gdb+eXL9/9IlUI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-661-YArJuFG0MeWrv52V7Sf-8g-1; Mon, 07 Mar 2022 11:56:37 -0500
-X-MC-Unique: YArJuFG0MeWrv52V7Sf-8g-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-228-umd2_Mf-PhCBKB7122lxDw-1; Mon, 07 Mar 2022 13:53:19 -0500
+X-MC-Unique: umd2_Mf-PhCBKB7122lxDw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE8A285A5BE;
-	Mon,  7 Mar 2022 16:56:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0C5C80159B;
+	Mon,  7 Mar 2022 18:53:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D308340CFD14;
-	Mon,  7 Mar 2022 16:56:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 377A9C08099;
+	Mon,  7 Mar 2022 18:53:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B01F196634E;
-	Mon,  7 Mar 2022 16:56:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 85913196637C;
+	Mon,  7 Mar 2022 18:53:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 94F8319305AA
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Mar 2022 16:56:28 +0000 (UTC)
+ ESMTP id 2728E19305AC
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Mar 2022 18:53:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 738EE145FBAE; Mon,  7 Mar 2022 16:56:28 +0000 (UTC)
+ id E0981C07F5D; Mon,  7 Mar 2022 18:53:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 70055145FBAD
- for <dm-devel@redhat.com>; Mon,  7 Mar 2022 16:56:28 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D6243C1D3AE
+ for <dm-devel@redhat.com>; Mon,  7 Mar 2022 18:53:06 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56A21811E80
- for <dm-devel@redhat.com>; Mon,  7 Mar 2022 16:56:28 +0000 (UTC)
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A450108C185
+ for <dm-devel@redhat.com>; Mon,  7 Mar 2022 18:53:06 +0000 (UTC)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-96-qXhTfsXFNWO0nTbIdBrJVw-1; Mon, 07 Mar 2022 11:56:26 -0500
-X-MC-Unique: qXhTfsXFNWO0nTbIdBrJVw-1
-Received: by mail-qt1-f197.google.com with SMTP id
- e28-20020ac8415c000000b002c5e43ca6b7so13051547qtm.9
- for <dm-devel@redhat.com>; Mon, 07 Mar 2022 08:56:26 -0800 (PST)
+ us-mta-80-lzbgqmXFMROWl4-ljRNY2g-1; Mon, 07 Mar 2022 13:53:05 -0500
+X-MC-Unique: lzbgqmXFMROWl4-ljRNY2g-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ 207-20020a3703d8000000b0067b14f0844dso3717518qkd.22
+ for <dm-devel@redhat.com>; Mon, 07 Mar 2022 10:53:04 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=GKvX1sl7p58ECEtwztu/8ZgveUC73k+ES14SIrLarpQ=;
- b=4gG7Amhf6jasKFNFgbcB6ltGne+unlNLk7uGe6vGT1G37CVIDzv+RDPerlJrzih2j/
- kgrjky4E7N+QI0wiXfcxbrMd+tkC0vHtmHhXRN8/2E6THiXG4UJRcYQdC7iqJqrbnHxZ
- SCtnyhqBDUW+g1LbhV5e5RwG00NARNSDUf4T3xSpMX8cmk4fp7GMzDomzTPxOOIh4yc0
- sS/btsvnd7fnwl+3SCjsnXjbvdB+/YtEWgNZ+vNcEeBTuJLgJTkn9ioP7FI19X6IXiA0
- u1ZTeCzQb/k71ijweykDpVsH5yvNLyLu4Y4JZFxmdj+jaAN70MIT9O7h0F1uJs+seIef
- m6DA==
-X-Gm-Message-State: AOAM533+hGBYB2TP7RTBvErnvwHf1CrLVMktCCFRt+rS34tZFvJ6x8vM
- JHNMRDCbDQSsnAwbiNWLQGOUuHaE9VzGnOe73rQgbqJK+peRcCTjVYBe48UVm1Nms/3g+PwECK7
- S2+5fiqlCT1BaoQ==
-X-Received: by 2002:a37:e303:0:b0:47b:b0e1:fc3f with SMTP id
- y3-20020a37e303000000b0047bb0e1fc3fmr7411353qki.108.1646672185820; 
- Mon, 07 Mar 2022 08:56:25 -0800 (PST)
-X-Google-Smtp-Source: ABdhPJwgimeaJmCviuje97Vzy/Bu8ddKoAbj4Lj2WFLdHhsuRx8YeCO+5ZEp3hBleQ9OYyyKUFJxWg==
-X-Received: by 2002:a37:e303:0:b0:47b:b0e1:fc3f with SMTP id
- y3-20020a37e303000000b0047bb0e1fc3fmr7411341qki.108.1646672185573; 
- Mon, 07 Mar 2022 08:56:25 -0800 (PST)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=PIrPGInHSFz6WNm2eA20N9PIF/z1AQDXcwiipcOk5RY=;
+ b=pNQ5Ns4fl6rVQH1PMa2EjQGKgg8CW9HbrG0/PQ2oM5JCwP45mlrQQrEtoVmwDB8ntf
+ gwQqqP2wz8vFJVwn0Yqaf9osvW4GcqPhI2OILuJm4fKfuGFVoD81nzEQnf5/1H+oePVp
+ OgwmXmS1U3UV8j7jw4DfdWmHltWkna81UaVNqcGfjljW/gAehMYOkvZvfraTebpNpEtc
+ 2WHejY2Svkb2K1P0ubSihV0jU69CvYWTW0fH4egfP8aXOf4/wzYjPKF4v4Cd14UMJWH5
+ cnzmYuo2Yffjxf/PEqOqtdhnBHag8wQIOLvsI3XzQUzKjIjDz1uveZD/lCHJfesrmCZZ
+ EBow==
+X-Gm-Message-State: AOAM531+sEai7zTDSbzPGKxm/kzTHBye1OY79QX3NB8vytsJs9yE/Qsc
+ 5nr63F8r5Hyr8ScfFotYmYQkfjRGTVSdGgWnCQ+R6MTu0zLxwQ6X/LUsH+MozyK9bhdkN87Cc7k
+ 47p4W8xq0lctsdw==
+X-Received: by 2002:a05:6214:4013:b0:435:8b0f:a127 with SMTP id
+ kd19-20020a056214401300b004358b0fa127mr5268772qvb.31.1646679184567; 
+ Mon, 07 Mar 2022 10:53:04 -0800 (PST)
+X-Google-Smtp-Source: ABdhPJy9csigrfNznVmFZq2Q9zzriqWpGxcyNHJVTL9cD9sj+DHv7P9mtBvYYX+RHoMj/pfPQRrZJw==
+X-Received: by 2002:a05:6214:4013:b0:435:8b0f:a127 with SMTP id
+ kd19-20020a056214401300b004358b0fa127mr5268757qvb.31.1646679184337; 
+ Mon, 07 Mar 2022 10:53:04 -0800 (PST)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
  [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- l19-20020a05622a175300b002de935a94c9sm9086902qtk.8.2022.03.07.08.56.25
+ s8-20020a05622a1a8800b002de08a30becsm9075790qtc.80.2022.03.07.10.53.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Mar 2022 08:56:25 -0800 (PST)
-Date: Mon, 7 Mar 2022 11:56:24 -0500
+ Mon, 07 Mar 2022 10:53:04 -0800 (PST)
 From: Mike Snitzer <snitzer@redhat.com>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <YiY5OLhi1WMFUgGH@redhat.com>
-References: <20220304180105.409765-1-hch@lst.de>
- <164666057398.15541.7415780807920631127.b4-ty@kernel.dk>
- <YiY2wUVIz3NXIjlc@redhat.com> <20220307164814.GA12591@lst.de>
-MIME-Version: 1.0
-In-Reply-To: <20220307164814.GA12591@lst.de>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [dm-devel] remove bio_devname
+To: axboe@kernel.dk
+Date: Mon,  7 Mar 2022 13:53:01 -0500
+Message-Id: <20220307185303.71201-1-snitzer@redhat.com>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: [dm-devel] [PATCH v6 0/2] block/dm: support bio polling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,32 +101,72 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
- Theodore Ts'o <tytso@mit.edu>, linux-block@vger.kernel.org,
- Song Liu <song@kernel.org>, dm-devel@redhat.com, linux-ext4@vger.kernel.org
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, hch@lst.de,
+ ming.lei@redhat.com
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Mar 07 2022 at 11:48P -0500,
-Christoph Hellwig <hch@lst.de> wrote:
+Hi,
 
-> On Mon, Mar 07, 2022 at 11:45:53AM -0500, Mike Snitzer wrote:
-> > Should those go through block too? Or is there no plan to remove
-> > bdevname()?
-> 
-> My preference would be:  do the full bio_devname removal through Jens'
-> tree and you keep the bvdevname removal.  I hope bdevname will go away
-> as well, but certainly not in this merge window.
+I've rebased Ming's latest [1] ontop of dm-5.18 [2] (which is based on
+for-5.18/block). End result available in dm-5.18-biopoll branch [3]
 
-OK, sounds good. Thanks
+These changes add bio polling support to DM.  Tested with linear and
+striped DM targets.
+
+IOPS improvement was ~5% on my baremetal system with a single Intel
+Optane NVMe device (561K hipri=1 vs 530K hipri=0).
+
+Ming has seen better improvement while testing within a VM:
+ dm-linear: hipri=1 vs hipri=0 15~20% iops improvement
+ dm-stripe: hipri=1 vs hipri=0 ~30% iops improvement
+
+I'd like to merge these changes via the DM tree when the 5.18 merge
+window opens.  The first block patch that adds ->poll_bio to
+block_device_operations will need review so that I can take it
+through the DM tree.  Reason for going through the DM tree is there
+have been some fairly extensive changes queued in dm-5.18 that build
+on for-5.18/block.  So I think it easiest to just add the block
+depenency via DM tree since DM is first consumer of ->poll_bio
+
+Thanks,
+Mike
+
+[1] https://github.com/ming1/linux/commits/my_v5.18-dm-bio-poll
+[2] https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.18
+[3] https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.18-biopoll
+[4] https://github.com/ming1/linux/commit/c107c30e15041ac1ce672f56809961406e2a3e52
+
+v6: Ming switched from reusing .bi_end_io to .bi_private and added a
+    comment to comment-block above dm_get_bio_hlist_head as suggested
+    by Jens.
+
+v5: remove WARN_ONs in ->poll_bio interface patch. Fixed comment typo
+    along the way (found while seeing how other
+    block_device_operations are referenced in block's code comments).
+
+Ming Lei (2):
+  block: add ->poll_bio to block_device_operations
+  dm: support bio polling
+
+ block/blk-core.c       |  14 +++--
+ block/genhd.c          |   4 ++
+ drivers/md/dm-core.h   |   2 +
+ drivers/md/dm-table.c  |  27 ++++++++++
+ drivers/md/dm.c        | 143 +++++++++++++++++++++++++++++++++++++++++++++++--
+ include/linux/blkdev.h |   2 +
+ 6 files changed, 184 insertions(+), 8 deletions(-)
+
+-- 
+2.15.0
 
 --
 dm-devel mailing list
