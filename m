@@ -1,71 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 950D04D8EB2
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Mar 2022 22:31:39 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B4244D8EAF
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Mar 2022 22:31:37 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-110-M_Pq_TNXNGKrmuL4uvC5cg-1; Mon, 14 Mar 2022 17:31:34 -0400
-X-MC-Unique: M_Pq_TNXNGKrmuL4uvC5cg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-499-OU9w1HdcMXulU6jzf8h1lg-1; Mon, 14 Mar 2022 17:31:34 -0400
+X-MC-Unique: OU9w1HdcMXulU6jzf8h1lg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29090101CC74;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2940B3800503;
 	Mon, 14 Mar 2022 21:31:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AAE307BB893;
-	Mon, 14 Mar 2022 21:31:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B64F71417200;
+	Mon, 14 Mar 2022 21:31:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2AC7E1932122;
-	Mon, 14 Mar 2022 21:31:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 83C11193213E;
+	Mon, 14 Mar 2022 21:31:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD689195356B
- for <dm-devel@listman.corp.redhat.com>; Mon, 14 Mar 2022 21:31:24 +0000 (UTC)
+ ESMTP id B3F33195354F
+ for <dm-devel@listman.corp.redhat.com>; Mon, 14 Mar 2022 21:31:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9E1722EF83; Mon, 14 Mar 2022 21:31:24 +0000 (UTC)
+ id 91AB77BB86B; Mon, 14 Mar 2022 21:31:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 97F0F2EF8E
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8DC9D5B173B
  for <dm-devel@redhat.com>; Mon, 14 Mar 2022 21:31:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCDEF811E76
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73F63185A7A4
  for <dm-devel@redhat.com>; Mon, 14 Mar 2022 21:31:22 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-313-M5PGZWzgNPaXOr5LpMPClQ-1; Mon, 14 Mar 2022 17:31:21 -0400
-X-MC-Unique: M5PGZWzgNPaXOr5LpMPClQ-1
+ us-mta-117-YFe-i5i_NIe167CEINwHdQ-1; Mon, 14 Mar 2022 17:31:20 -0400
+X-MC-Unique: YFe-i5i_NIe167CEINwHdQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2566C1F387;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 682CC218FF;
  Mon, 14 Mar 2022 21:31:19 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CED5613B3D;
- Mon, 14 Mar 2022 21:31:18 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 27C8013B9A;
+ Mon, 14 Mar 2022 21:31:19 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +AqGMCa0L2JBGwAAMHmgww
- (envelope-from <mwilck@suse.com>); Mon, 14 Mar 2022 21:31:18 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id iEqyBye0L2JBGwAAMHmgww
+ (envelope-from <mwilck@suse.com>); Mon, 14 Mar 2022 21:31:19 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>,
  Guozhonghua <guozh88@chinatelecom.cn>
-Date: Mon, 14 Mar 2022 22:30:34 +0100
-Message-Id: <20220314213036.12074-4-mwilck@suse.com>
+Date: Mon, 14 Mar 2022 22:30:35 +0100
+Message-Id: <20220314213036.12074-5-mwilck@suse.com>
 In-Reply-To: <20220314213036.12074-1-mwilck@suse.com>
 References: <20220314213036.12074-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -76,9 +75,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: [dm-devel] [PATCH 3/5] multipathd: avoid busy loop in child() for
- delayed reconfigure
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [PATCH 4/5] multipathd: reset __delayed_reconfig from
+ ev_add_map()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +92,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,104 +102,108 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-If need_to_delay_reconfig() returned true, the logic introduced
-by 250708c ("multipathd: improve delayed reconfigure") and
-4b104e6 ("multipathd: pass in the type of reconfigure") could cause
-child() to run in a tight loop, switching back and forth between
-DAEMON_CONFIGURE and DAEMON_IDLE states without actually calling
-reconfigure().
+With the previous patch, one race condition between child() and
+the uevent handler (ev_add_map()) remains: 1. child() sets
+__delayed_reconfig, 2. ev_add_map() calls schedule_reconfigure() and
+thus DAEMON_CONFIGURE, 3. child() sets DAEMON_IDLE. This would cause
+the pending reconfigure request to be missed.
 
-Move the logic to postpone reconfigure() calls from __post_config_state()
-into child(), entirely, to avoid this situation. This means that child()
-needs to poll for reconfigure_pending besides running_state changes.
+To fix this, reset __delayed_reconfig immediately from ev_add_map()
+(and likewise, missing_uev_wait_tick()). This way the wait loop in
+child() terminates on the reconfigure_pending condition.
 
-Fixes: 250708c ("multipathd: improve delayed reconfigure")
-Fixes: 4b104e6 ("multipathd: pass in the type of reconfigure")
+Also, these schedule_reconfigure() callers don't really request a
+reconfigure() call; they just unblock processing previously requested
+reconfigure() calls. Add a new helper, unblock_reconfigure(), that
+does just that.
+
+Suggested-by: Benjamin Marzinski <bmarzins@redhat.com>
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/main.c | 48 +++++++++++++++++++----------------------------
- 1 file changed, 19 insertions(+), 29 deletions(-)
+ multipathd/main.c | 41 ++++++++++++++++++++---------------------
+ 1 file changed, 20 insertions(+), 21 deletions(-)
 
 diff --git a/multipathd/main.c b/multipathd/main.c
-index 7ecf3bd..d033a9a 100644
+index d033a9a..2424db7 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -288,38 +288,12 @@ enum daemon_status wait_for_state_change_if(enum daemon_status oldstate,
- /* Don't access this variable without holding config_lock */
- static enum force_reload_types reconfigure_pending = FORCE_RELOAD_NONE;
+@@ -155,16 +155,6 @@ int should_exit(void)
+ 	return get_running_state() == DAEMON_SHUTDOWN;
+ }
  
--static void enable_delayed_reconfig(void)
+-static bool get_delayed_reconfig(void)
 -{
+-	bool val;
+-
 -	pthread_mutex_lock(&config_lock);
--	__delayed_reconfig = true;
+-	val = __delayed_reconfig;
 -	pthread_mutex_unlock(&config_lock);
+-	return val;
 -}
 -
- /* must be called with config_lock held */
- static void __post_config_state(enum daemon_status state)
- {
- 	if (state != running_state && running_state != DAEMON_SHUTDOWN) {
- 		enum daemon_status old_state = running_state;
+ /*
+  * global copy of vecs for use in sig handlers
+  */
+@@ -308,6 +298,22 @@ void post_config_state(enum daemon_status state)
+ 	pthread_cleanup_pop(1);
+ }
  
--		/*
--		 * Handle a pending reconfigure request.
--		 * DAEMON_IDLE is set from child() after reconfigure(),
--		 * or from checkerloop() after completing checkers.
--		 * In either case, child() will see DAEMON_CONFIGURE
--		 * again and start another reconfigure cycle.
--		 */
--		if (reconfigure_pending != FORCE_RELOAD_NONE &&
--		    state == DAEMON_IDLE &&
--		    (old_state == DAEMON_CONFIGURE ||
--		     old_state == DAEMON_RUNNING)) {
--			/*
--			 * notify systemd of transient idle state, lest systemd
--			 * thinks the reload lasts forever.
--			 */
--			do_sd_notify(old_state, DAEMON_IDLE);
--			old_state = DAEMON_IDLE;
--			state = DAEMON_CONFIGURE;
--		}
- 		running_state = state;
- 		pthread_cond_broadcast(&config_cond);
- 		do_sd_notify(old_state, state);
-@@ -3390,8 +3364,21 @@ child (__attribute__((unused)) void *param)
- 		pthread_cleanup_push(config_cleanup, NULL);
- 		pthread_mutex_lock(&config_lock);
- 		while (running_state != DAEMON_CONFIGURE &&
--		       running_state != DAEMON_SHUTDOWN)
-+		       running_state != DAEMON_SHUTDOWN &&
-+		       /*
-+			* Check if another reconfigure request was scheduled
-+			* while we last ran reconfigure().
-+			* We have to test __delayed_reconfig here
-+			* to avoid a busy loop
-+			*/
-+		       (reconfigure_pending == FORCE_RELOAD_NONE
-+			 || __delayed_reconfig))
- 			pthread_cond_wait(&config_cond, &config_lock);
++static bool unblock_reconfigure(void)
++{
++	bool was_delayed;
 +
-+		if (running_state != DAEMON_CONFIGURE &&
-+		    running_state != DAEMON_SHUTDOWN)
-+			/* This sets running_state to DAEMON_CONFIGURE */
-+			__post_config_state(DAEMON_CONFIGURE);
- 		state = running_state;
- 		pthread_cleanup_pop(1);
- 		if (state == DAEMON_SHUTDOWN)
-@@ -3412,8 +3399,11 @@ child (__attribute__((unused)) void *param)
++	pthread_mutex_lock(&config_lock);
++	was_delayed = __delayed_reconfig;
++	if (was_delayed) {
++		__delayed_reconfig = false;
++		__post_config_state(DAEMON_CONFIGURE);
++	}
++	pthread_mutex_unlock(&config_lock);
++	if (was_delayed)
++		condlog(2, "reconfigure (delayed)");
++	return was_delayed;
++}
++
+ void schedule_reconfigure(enum force_reload_types requested_type)
+ {
+ 	pthread_mutex_lock(&config_lock);
+@@ -790,12 +796,9 @@ ev_add_map (char * dev, const char * alias, struct vectors * vecs)
+ 		dm_get_info(mpp->alias, &mpp->dmi);
+ 		if (mpp->wait_for_udev) {
+ 			mpp->wait_for_udev = 0;
+-			if (get_delayed_reconfig() &&
+-			    !need_to_delay_reconfig(vecs)) {
+-				condlog(2, "reconfigure (delayed)");
+-				schedule_reconfigure(FORCE_RELOAD_WEAK);
++			if (!need_to_delay_reconfig(vecs) &&
++			    unblock_reconfigure())
+ 				return 0;
+-			}
+ 		}
+ 		/*
+ 		 * Not really an error -- we generate our own uevent
+@@ -1899,11 +1902,8 @@ missing_uev_wait_tick(struct vectors *vecs)
+ 		}
+ 	}
+ 
+-	if (timed_out && get_delayed_reconfig() &&
+-	    !need_to_delay_reconfig(vecs)) {
+-		condlog(2, "reconfigure (delayed)");
+-		schedule_reconfigure(FORCE_RELOAD_WEAK);
+-	}
++	if (timed_out && !need_to_delay_reconfig(vecs))
++		unblock_reconfigure();
+ }
+ 
+ static void
+@@ -3395,7 +3395,6 @@ child (__attribute__((unused)) void *param)
+ 			reload_type = reconfigure_pending == FORCE_RELOAD_YES ?
+ 				FORCE_RELOAD_YES : FORCE_RELOAD_WEAK;
+ 			reconfigure_pending = FORCE_RELOAD_NONE;
+-			__delayed_reconfig = false;
  			pthread_mutex_unlock(&config_lock);
  
  			rc = reconfigure(vecs, reload_type);
--		} else
--			enable_delayed_reconfig();
-+		} else {
-+			pthread_mutex_lock(&config_lock);
-+			__delayed_reconfig = true;
-+			pthread_mutex_unlock(&config_lock);
-+		}
- 		lock_cleanup_pop(vecs->lock);
- 		if (!rc)
- 			post_config_state(DAEMON_IDLE);
 -- 
 2.35.1
 
