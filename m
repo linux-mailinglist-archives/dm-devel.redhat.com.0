@@ -2,80 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8C2E94DC09A
-	for <lists+dm-devel@lfdr.de>; Thu, 17 Mar 2022 09:04:05 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 403914DC4DA
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Mar 2022 12:30:06 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-661-WNYaH28iM1eX3Yy_90atQQ-1; Thu, 17 Mar 2022 04:04:00 -0400
-X-MC-Unique: WNYaH28iM1eX3Yy_90atQQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-623-OS1ekXDJM52w0lBTH3OSeA-1; Thu, 17 Mar 2022 07:30:03 -0400
+X-MC-Unique: OS1ekXDJM52w0lBTH3OSeA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCF661C05EC1;
-	Thu, 17 Mar 2022 08:03:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5888180005D;
+	Thu, 17 Mar 2022 11:30:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 15ACEC15D57;
-	Thu, 17 Mar 2022 08:03:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 899032156893;
+	Thu, 17 Mar 2022 11:29:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 95470193F50C;
-	Thu, 17 Mar 2022 08:03:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6583A193F511;
+	Thu, 17 Mar 2022 11:29:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 580B61949761
- for <dm-devel@listman.corp.redhat.com>; Wed, 16 Mar 2022 21:38:23 +0000 (UTC)
+ ESMTP id 56863194035E
+ for <dm-devel@listman.corp.redhat.com>; Thu, 17 Mar 2022 11:29:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 35B76401E7A; Wed, 16 Mar 2022 21:38:23 +0000 (UTC)
+ id 30707200E296; Thu, 17 Mar 2022 11:29:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 31AEE401E79
- for <dm-devel@redhat.com>; Wed, 16 Mar 2022 21:38:23 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B628200C0D2
+ for <dm-devel@redhat.com>; Thu, 17 Mar 2022 11:29:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1734E899EC2
- for <dm-devel@redhat.com>; Wed, 16 Mar 2022 21:38:23 +0000 (UTC)
-Received: from mail-il1-f180.google.com (mail-il1-f180.google.com
- [209.85.166.180]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4065D185A794
+ for <dm-devel@redhat.com>; Thu, 17 Mar 2022 11:29:46 +0000 (UTC)
+Received: from szxga03-in.huawei.com (szxga03-in.huawei.com
+ [45.249.212.189]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-RueIdQAmN36XIkoyUgimoA-1; Wed, 16 Mar 2022 17:38:21 -0400
-X-MC-Unique: RueIdQAmN36XIkoyUgimoA-1
-Received: by mail-il1-f180.google.com with SMTP id b9so2498996ila.8
- for <dm-devel@redhat.com>; Wed, 16 Mar 2022 14:38:21 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=5j/Sq8viQeL/hoyzW74KMLICeOJJ3w8lbHfpe3/YTVU=;
- b=AFBxmGdULqwTCZAQpCz76tlfRK4bxLjyFO/BAqfHV8jUVerm7ypY9l4EE2E+CUk+Pi
- zhhhjqITxY5JqG4s9A+LH1pouGAb5QQKgK1LdPQc9vlfYcFWFqWHIkOgmfIyNbjCISAY
- BTjPXr3DoqVTaPDxho25VyaPRJUJa/QTT1P0t4LG55tcjAcga0lm5/B8XbDwDuTTS4YS
- prTmxBXoayvI7LkV3XBF73V4Bil/rWa5zxNu7RvFFiOY7eCxLa76msFUiuacFlPmbv0y
- t9NAXsHwcSbUpK5rFnBjsQid0ZB5XUBvC9L3e+1z/UMb9bjRLASB36g2N1oMWejCtbKp
- ojww==
-X-Gm-Message-State: AOAM531y9x5rmrQrshVXeSb5W04DyFpkyVrSPSu0kTSPGJG1cO7VwF6P
- UHBZ1IEkFGgyfADz9aIyptovIVvwHiF04ezieE+bNAp6WXg=
-X-Google-Smtp-Source: ABdhPJzyY7nVOwSZFU6XgRHIUFHXdyAf8u1zf1zxe/TFlHeKO0VEOG5DoWkiwO5oi6A6Zcq1sk6IKlUs0qteIMjGX5k=
-X-Received: by 2002:a92:c5aa:0:b0:2c5:f753:9069 with SMTP id
- r10-20020a92c5aa000000b002c5f7539069mr608362ilt.71.1647466700640; Wed, 16 Mar
- 2022 14:38:20 -0700 (PDT)
+ us-mta-122-1ANppeeLMpq73zx1YP5nqQ-1; Thu, 17 Mar 2022 07:29:44 -0400
+X-MC-Unique: 1ANppeeLMpq73zx1YP5nqQ-1
+Received: from dggpeml500025.china.huawei.com (unknown [172.30.72.56])
+ by szxga03-in.huawei.com (SkyGuard) with ESMTP id 4KK4Zk21rJz9sbs;
+ Thu, 17 Mar 2022 19:25:50 +0800 (CST)
+Received: from dggpeml500006.china.huawei.com (7.185.36.76) by
+ dggpeml500025.china.huawei.com (7.185.36.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Thu, 17 Mar 2022 19:29:39 +0800
+Received: from [10.174.176.127] (10.174.176.127) by
+ dggpeml500006.china.huawei.com (7.185.36.76) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Thu, 17 Mar 2022 19:29:39 +0800
+To: <agk@redhat.com>, <snitzer@redhat.com>, <dm-devel@redhat.com>
+References: <20220309094148.2164043-1-luomeng12@huawei.com>
+From: luomeng <luomeng12@huawei.com>
+Message-ID: <24d3d805-1a9a-78a5-a767-2c4d20a70a00@huawei.com>
+Date: Thu, 17 Mar 2022 19:29:38 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.8.1
 MIME-Version: 1.0
-References: <Yh9G7FyCLtsm2mFA@kroah.com> <Yh9ZvLHuztwQCu0d@silpixa00400314>
- <Yh+FpKuoyj3G16lK@kroah.com> <Yh/vY4t3xnuoCW3Q@gondor.apana.org.au>
- <Yh/yr6oB5yeOUErL@silpixa00400314> <Yh/znCnZzWaL49+o@gondor.apana.org.au>
- <YiDHT31ujlGdQEe/@silpixa00400314> <YiEVPc2cd38AnLZB@gmail.com>
- <YiEyGoHacN80FcOL@silpixa00400314> <YiE21aPGG5DHwJvb@gmail.com>
- <YiJRQQmSxA/fbm6P@silpixa00400314>
-In-Reply-To: <YiJRQQmSxA/fbm6P@silpixa00400314>
-From: Kyle Sanderson <kyle.leet@gmail.com>
-Date: Wed, 16 Mar 2022 14:38:10 -0700
-Message-ID: <CACsaVZJ2JH1M9-fB9uO=XKDuO74ZPKBHX81TQ4+bBvr_iSNiWQ@mail.gmail.com>
-To: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+In-Reply-To: <20220309094148.2164043-1-luomeng12@huawei.com>
+X-Originating-IP: [10.174.176.127]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggpeml500006.china.huawei.com (7.185.36.76)
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,11 +76,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-Mailman-Approved-At: Thu, 17 Mar 2022 08:03:49 +0000
-Subject: Re: [dm-devel] Intel QAT on A2SDi-8C-HLN4F causes massive data
- corruption with dm-crypt + xfs
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: Re: [dm-devel] [PTACH] dm-mpath: fix UAF in multipath_message()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,93 +89,106 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-xfs <linux-xfs@vger.kernel.org>,
- Herbert Xu <herbert@gondor.apana.org.au>, Greg KH <gregkh@linuxfoundation.org>,
- Dave Chinner <david@fromorbit.com>, qat-linux@intel.com,
- Linux-Kernal <linux-kernel@vger.kernel.org>,
- Eric Biggers <ebiggers@kernel.org>,
- device-mapper development <dm-devel@redhat.com>,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Linus Torvalds <torvalds@linux-foundation.org>
+Cc: yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 
-> Makes sense. I'm going to send it upstream and Cc stable as documented
-> in https://www.kernel.org/doc/html/v4.10/process/stable-kernel-rules.html#option-1
-> I will then revert this change in the set that fixes the problem.
-
-Did this go anywhere? I'm still not seeing it in any of the stable trees.
-
-Kyle.
-
-On Fri, Mar 4, 2022 at 9:50 AM Giovanni Cabiddu
-<giovanni.cabiddu@intel.com> wrote:
->
-> On Thu, Mar 03, 2022 at 09:44:53PM +0000, Eric Biggers wrote:
-> > On Thu, Mar 03, 2022 at 09:24:42PM +0000, Giovanni Cabiddu wrote:
-> > > On Thu, Mar 03, 2022 at 07:21:33PM +0000, Eric Biggers wrote:
-> > > > If these algorithms have critical bugs, which it appears they do, then IMO it
-> > > > would be better to disable them (either stop registering them, or disable the
-> > > > whole driver) than to leave them available with low cra_priority.  Low
-> > > > cra_priority doesn't guarantee that they aren't used.
-> > > Thanks for your feedback Eric.
-> > >
-> > > Here is a patch that disables the registration of the algorithms in the
-> > > QAT driver by setting, a config time, the number of HW queues (aka
-> > > instances) to zero.
-> > >
-> > > ---8<---
-> > > From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-> > > Subject: [PATCH] crypto: qat - disable registration of algorithms
-> > > Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 - Collinstown Industrial Park, Leixlip, County Kildare - Ireland
-> > >
-> > > The implementations of aead and skcipher in the QAT driver do not
-> > > support properly requests with the CRYPTO_TFM_REQ_MAY_BACKLOG flag set.
-> > > If the HW queue is full, the driver returns -EBUSY but does not enqueue
-> > > the request.
-> > > This can result in applications like dm-crypt waiting indefinitely for a
-> > > completion of a request that was never submitted to the hardware.
-> > >
-> > > To avoid this problem, disable the registration of all skcipher and aead
-> > > implementations in the QAT driver by setting the number of crypto
-> > > instances to 0 at configuration time.
-> > >
-> > > This patch deviates from the original upstream solution, that prevents
-> > > dm-crypt to use drivers registered with the flag
-> > > CRYPTO_ALG_ALLOCATES_MEMORY, since a backport of that set to stable
-> > > kernels may have a too wide effect.
-> > >
-> > > commit 7bcb2c99f8ed032cfb3f5596b4dccac6b1f501df upstream
-> > > commit 2eb27c11937ee9984c04b75d213a737291c5f58c upstream
-> > > commit fbb6cda44190d72aa5199d728797aabc6d2ed816 upstream
-> > > commit b8aa7dc5c7535f9abfca4bceb0ade9ee10cf5f54 upstream
-> > > commit cd74693870fb748d812867ba49af733d689a3604 upstream
-> > >
-> > > Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-> > > ---
-> > >  drivers/crypto/qat/qat_common/qat_crypto.c | 4 +---
-> > >  1 file changed, 1 insertion(+), 3 deletions(-)
-> >
-> > Sounds good; is there any reason not to apply this upstream too, though?
-> > You could revert it later as part of the patch series that fixes the driver.
-> Makes sense. I'm going to send it upstream and Cc stable as documented
-> in https://www.kernel.org/doc/html/v4.10/process/stable-kernel-rules.html#option-1
-> I will then revert this change in the set that fixes the problem.
->
-> Thanks,
->
-> --
-> Giovanni
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+ZnJpZW5kbHkgcGluZy4KCtTaIDIwMjIvMy85IDE3OjQxLCBMdW8gTWVuZyDQtLXAOgo+IElmIGRt
+X2dldF9kZXZpY2UoKSBjcmVhdGUgZGQgaW4gbXVsdGlwYXRoX21lc3NhZ2UoKSwKPiBhbmQgdGhl
+biBjYWxsIHRhYmxlX2RlcHMoKSBhZnRlciBkbV9wdXRfdGFibGVfZGV2aWNlKCksCj4gaXQgd2ls
+bCBsZWFkIHRvIGNvbmN1cnJlbmN5IFVBRiBidWdzLgo+IAo+IE9uZSBvZiB0aGUgY29uY3VycmVu
+Y3kgVUFGIGNhbiBiZSBzaG93biBhcyBiZWxvdzoKPiAKPiAgICAgICAgICAgKFVTRSkgICAgICAg
+ICAgICAgICAgICAgICAgICB8ICAgIChGUkVFKQo+ICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgIHwgIHRhcmdldF9tZXNzYWdlCj4gICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgfCAgICBtdWx0aXBhdGhfbWVzc2FnZQo+ICAgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgIHwgICAgICBkbV9wdXRfZGV2aWNlCj4gICAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgZG1fcHV0X3RhYmxlX2RldmljZSAj
+Cj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICBrZnJl
+ZSh0ZCkgICMgdGFibGVfZGV2aWNlICp0ZAo+IGlvY3RsICMgRE1fVEFCTEVfREVQU19DTUQgICAg
+ICAgICAgICAgfCAgICAgICAgIC4uLgo+ICAgIHRhYmxlX2RlcHMgICAgICAgICAgICAgICAgICAg
+ICAgICAgIHwgICAgICAgICAuLi4KPiAgICBkbV9nZXRfbGl2ZV9vcl9pbmFjdGl2ZV90YWJsZSAg
+ICAgICB8ICAgICAgICAgLi4uCj4gICAgICByZXRyaWV2ZV9kZXAgICAgICAgICAgICAgICAgICAg
+ICAgfCAgICAgICAgIC4uLgo+ICAgICAgbGlzdF9mb3JfZWFjaF9lbnRyeSAgICAgICAgICAgICAg
+IHwgICAgICAgICAuLi4KPiAgICAgICAgZGVwcy0+ZGV2W2NvdW50KytdID0gICAgICAgICAgICB8
+ICAgICAgICAgLi4uCj4gICAgICAgICAgICBodWdlX2VuY29kZV9kZXYgICAgICAgICAgICAgfCAg
+ICAgICAgIC4uLgo+ICAgICAgICAgICAgKGRkLT5kbV9kZXYtPmJkZXYtPmJkX2RldikgIHwgICAg
+ICAgIGxpc3RfZGVsKCZkZC0+bGlzdCkKPiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgICB8ICAgICAgICBrZnJlZShkZCkgIyBkbV9kZXZfaW50ZXJuYWwKPiAKPiBUaGUgcm9v
+dCBjYXVzZSBvZiBVQUYgYnVncyBpcyB0aGF0IGZpbmRfZGV2aWNlKCkgZmFpbGVkIGluCj4gZG1f
+Z2V0X2RldmljZSgpIGFuZCB3aWxsIGNyZWF0ZSBkZCBhbmQgcmVmY291bnQgc2V0IDEsIGtmcmVl
+KCkKPiBpbiBkbV9wdXRfdGFibGUoKSBpcyBub3QgcHJvdGVjdGVkLiBXaGVuIHRkLCB3aGljaCB0
+aGVyZSBhcmUKPiBzdGlsbCBwb2ludGVycyBwb2ludCB0bywgaXMgcmVsZWFzZWQsIHRoZSBjb25j
+dXJyZW5jeSBVQUYgYnVnCj4gd2lsbCBoYXBwZW4uCj4gCj4gVGhpcyBwYXRjaCBhZGQgYSBmbGFn
+IHRvIGRldGVybWluZSB3aGV0aGVyIHRvIGNyZWF0ZSBhIG5ldyBkZC4KPiAKPiBTaWduZWQtb2Zm
+LWJ5OiBMdW8gTWVuZyA8bHVvbWVuZzEyQGh1YXdlaS5jb20+Cj4gLS0tCj4gICBkcml2ZXJzL21k
+L2RtLW1wYXRoLmMgICAgICAgICB8ICAyICstCj4gICBkcml2ZXJzL21kL2RtLXRhYmxlLmMgICAg
+ICAgICB8IDQzICsrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCj4gICBpbmNsdWRl
+L2xpbnV4L2RldmljZS1tYXBwZXIuaCB8ICAyICsrCj4gICAzIGZpbGVzIGNoYW5nZWQsIDI5IGlu
+c2VydGlvbnMoKyksIDE4IGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21k
+L2RtLW1wYXRoLmMgYi9kcml2ZXJzL21kL2RtLW1wYXRoLmMKPiBpbmRleCBmNDcxOWI2NWU1ZTMu
+LjFmOGIyOWVkNzk3OSAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL21kL2RtLW1wYXRoLmMKPiArKysg
+Yi9kcml2ZXJzL21kL2RtLW1wYXRoLmMKPiBAQCAtMTk5OSw3ICsxOTk5LDcgQEAgc3RhdGljIGlu
+dCBtdWx0aXBhdGhfbWVzc2FnZShzdHJ1Y3QgZG1fdGFyZ2V0ICp0aSwgdW5zaWduZWQgYXJnYywg
+Y2hhciAqKmFyZ3YsCj4gICAJCWdvdG8gb3V0Owo+ICAgCX0KPiAgIAo+IC0JciA9IGRtX2dldF9k
+ZXZpY2UodGksIGFyZ3ZbMV0sIGRtX3RhYmxlX2dldF9tb2RlKHRpLT50YWJsZSksICZkZXYpOwo+
+ICsJciA9IF9fZG1fZ2V0X2RldmljZSh0aSwgYXJndlsxXSwgZG1fdGFibGVfZ2V0X21vZGUodGkt
+PnRhYmxlKSwgJmRldiwgZmFsc2UpOwo+ICAgCWlmIChyKSB7Cj4gICAJCURNV0FSTigibWVzc2Fn
+ZTogZXJyb3IgZ2V0dGluZyBkZXZpY2UgJXMiLAo+ICAgCQkgICAgICAgYXJndlsxXSk7Cj4gZGlm
+ZiAtLWdpdCBhL2RyaXZlcnMvbWQvZG0tdGFibGUuYyBiL2RyaXZlcnMvbWQvZG0tdGFibGUuYwo+
+IGluZGV4IGU0MzA5NmNmZTllMi4uYjhmYzdlMGFmYjg0IDEwMDY0NAo+IC0tLSBhL2RyaXZlcnMv
+bWQvZG0tdGFibGUuYwo+ICsrKyBiL2RyaXZlcnMvbWQvZG0tdGFibGUuYwo+IEBAIC0zNDAsMTIg
+KzM0MCw4IEBAIGRldl90IGRtX2dldF9kZXZfdChjb25zdCBjaGFyICpwYXRoKQo+ICAgfQo+ICAg
+RVhQT1JUX1NZTUJPTF9HUEwoZG1fZ2V0X2Rldl90KTsKPiAgIAo+IC0vKgo+IC0gKiBBZGQgYSBk
+ZXZpY2UgdG8gdGhlIGxpc3QsIG9yIGp1c3QgaW5jcmVtZW50IHRoZSB1c2FnZSBjb3VudCBpZgo+
+IC0gKiBpdCdzIGFscmVhZHkgcHJlc2VudC4KPiAtICovCj4gLWludCBkbV9nZXRfZGV2aWNlKHN0
+cnVjdCBkbV90YXJnZXQgKnRpLCBjb25zdCBjaGFyICpwYXRoLCBmbW9kZV90IG1vZGUsCj4gLQkJ
+ICBzdHJ1Y3QgZG1fZGV2ICoqcmVzdWx0KQo+ICtpbnQgX19kbV9nZXRfZGV2aWNlKHN0cnVjdCBk
+bV90YXJnZXQgKnRpLCBjb25zdCBjaGFyICpwYXRoLCBmbW9kZV90IG1vZGUsCj4gKwkJICAgIHN0
+cnVjdCBkbV9kZXYgKipyZXN1bHQsIGJvb2wgY3JlYXRlX2RkKQo+ICAgewo+ICAgCWludCByOwo+
+ICAgCWRldl90IGRldjsKPiBAQCAtMzY5LDE5ICszNjUsMjEgQEAgaW50IGRtX2dldF9kZXZpY2Uo
+c3RydWN0IGRtX3RhcmdldCAqdGksIGNvbnN0IGNoYXIgKnBhdGgsIGZtb2RlX3QgbW9kZSwKPiAg
+IAo+ICAgCWRkID0gZmluZF9kZXZpY2UoJnQtPmRldmljZXMsIGRldik7Cj4gICAJaWYgKCFkZCkg
+ewo+IC0JCWRkID0ga21hbGxvYyhzaXplb2YoKmRkKSwgR0ZQX0tFUk5FTCk7Cj4gLQkJaWYgKCFk
+ZCkKPiAtCQkJcmV0dXJuIC1FTk9NRU07Cj4gLQo+IC0JCWlmICgociA9IGRtX2dldF90YWJsZV9k
+ZXZpY2UodC0+bWQsIGRldiwgbW9kZSwgJmRkLT5kbV9kZXYpKSkgewo+IC0JCQlrZnJlZShkZCk7
+Cj4gLQkJCXJldHVybiByOwo+IC0JCX0KPiArCQlpZiAoY3JlYXRlX2RkKSB7Cj4gKwkJCWRkID0g
+a21hbGxvYyhzaXplb2YoKmRkKSwgR0ZQX0tFUk5FTCk7Cj4gKwkJCWlmICghZGQpCj4gKwkJCQly
+ZXR1cm4gLUVOT01FTTsKPiAgIAo+IC0JCXJlZmNvdW50X3NldCgmZGQtPmNvdW50LCAxKTsKPiAt
+CQlsaXN0X2FkZCgmZGQtPmxpc3QsICZ0LT5kZXZpY2VzKTsKPiAtCQlnb3RvIG91dDsKPiArCQkJ
+aWYgKChyID0gZG1fZ2V0X3RhYmxlX2RldmljZSh0LT5tZCwgZGV2LCBtb2RlLCAmZGQtPmRtX2Rl
+dikpKSB7Cj4gKwkJCQlrZnJlZShkZCk7Cj4gKwkJCQlyZXR1cm4gcjsKPiArCQkJfQo+ICAgCj4g
+KwkJCXJlZmNvdW50X3NldCgmZGQtPmNvdW50LCAxKTsKPiArCQkJbGlzdF9hZGQoJmRkLT5saXN0
+LCAmdC0+ZGV2aWNlcyk7Cj4gKwkJCWdvdG8gb3V0Owo+ICsJCX0gZWxzZQo+ICsJCQlyZXR1cm4g
+LUVOT0RFVjsKPiAgIAl9IGVsc2UgaWYgKGRkLT5kbV9kZXYtPm1vZGUgIT0gKG1vZGUgfCBkZC0+
+ZG1fZGV2LT5tb2RlKSkgewo+ICAgCQlyID0gdXBncmFkZV9tb2RlKGRkLCBtb2RlLCB0LT5tZCk7
+Cj4gICAJCWlmIChyKQo+IEBAIC0zOTIsNiArMzkwLDE3IEBAIGludCBkbV9nZXRfZGV2aWNlKHN0
+cnVjdCBkbV90YXJnZXQgKnRpLCBjb25zdCBjaGFyICpwYXRoLCBmbW9kZV90IG1vZGUsCj4gICAJ
+KnJlc3VsdCA9IGRkLT5kbV9kZXY7Cj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4gK0VYUE9SVF9TWU1C
+T0woX19kbV9nZXRfZGV2aWNlKTsKPiArCj4gKy8qCj4gKyAqIEFkZCBhIGRldmljZSB0byB0aGUg
+bGlzdCwgb3IganVzdCBpbmNyZW1lbnQgdGhlIHVzYWdlIGNvdW50IGlmCj4gKyAqIGl0J3MgYWxy
+ZWFkeSBwcmVzZW50Lgo+ICsgKi8KPiAraW50IGRtX2dldF9kZXZpY2Uoc3RydWN0IGRtX3Rhcmdl
+dCAqdGksIGNvbnN0IGNoYXIgKnBhdGgsIGZtb2RlX3QgbW9kZSwKPiArCQkgIHN0cnVjdCBkbV9k
+ZXYgKipyZXN1bHQpCj4gK3sKPiArCXJldHVybiBfX2RtX2dldF9kZXZpY2UodGksIHBhdGgsIG1v
+ZGUsIHJlc3VsdCwgdHJ1ZSk7Cj4gK30KPiAgIEVYUE9SVF9TWU1CT0woZG1fZ2V0X2RldmljZSk7
+Cj4gICAKPiAgIHN0YXRpYyBpbnQgZG1fc2V0X2RldmljZV9saW1pdHMoc3RydWN0IGRtX3Rhcmdl
+dCAqdGksIHN0cnVjdCBkbV9kZXYgKmRldiwKPiBkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9k
+ZXZpY2UtbWFwcGVyLmggYi9pbmNsdWRlL2xpbnV4L2RldmljZS1tYXBwZXIuaAo+IGluZGV4IGIy
+NmZlY2Y2YzhlOC4uYTFiNDQ3ODllM2RjIDEwMDY0NAo+IC0tLSBhL2luY2x1ZGUvbGludXgvZGV2
+aWNlLW1hcHBlci5oCj4gKysrIGIvaW5jbHVkZS9saW51eC9kZXZpY2UtbWFwcGVyLmgKPiBAQCAt
+MTY4LDYgKzE2OCw4IEBAIGRldl90IGRtX2dldF9kZXZfdChjb25zdCBjaGFyICpwYXRoKTsKPiAg
+IGludCBkbV9nZXRfZGV2aWNlKHN0cnVjdCBkbV90YXJnZXQgKnRpLCBjb25zdCBjaGFyICpwYXRo
+LCBmbW9kZV90IG1vZGUsCj4gICAJCSAgc3RydWN0IGRtX2RldiAqKnJlc3VsdCk7Cj4gICB2b2lk
+IGRtX3B1dF9kZXZpY2Uoc3RydWN0IGRtX3RhcmdldCAqdGksIHN0cnVjdCBkbV9kZXYgKmQpOwo+
+ICtpbnQgX19kbV9nZXRfZGV2aWNlKHN0cnVjdCBkbV90YXJnZXQgKnRpLCBjb25zdCBjaGFyICpw
+YXRoLCBmbW9kZV90IG1vZGUsCj4gKwkJICAgIHN0cnVjdCBkbV9kZXYgKipyZXN1bHQsIGJvb2wg
+Y3JlYXRlX2RkKTsKPiAgIAo+ICAgLyoKPiAgICAqIEluZm9ybWF0aW9uIGFib3V0IGEgdGFyZ2V0
+IHR5cGUKPiAKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0
+dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
