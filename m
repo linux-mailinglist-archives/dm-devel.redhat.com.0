@@ -1,87 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C76FA4DDAFE
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Mar 2022 14:54:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E4A54DE418
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Mar 2022 23:34:14 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-633-2BTpzu6KMlq8eIug-hn7eg-1; Fri, 18 Mar 2022 09:53:59 -0400
-X-MC-Unique: 2BTpzu6KMlq8eIug-hn7eg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-54-mv9WRcsLNHq8JxtSWjenIQ-1; Fri, 18 Mar 2022 18:34:09 -0400
+X-MC-Unique: mv9WRcsLNHq8JxtSWjenIQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC275811E9B;
-	Fri, 18 Mar 2022 13:53:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F6DF10544A8;
+	Fri, 18 Mar 2022 22:34:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 83023401E87;
-	Fri, 18 Mar 2022 13:53:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 34DC9C27E81;
+	Fri, 18 Mar 2022 22:33:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3558A1953541;
-	Fri, 18 Mar 2022 13:53:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A5DB51964190;
+	Fri, 18 Mar 2022 22:33:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B7E8F194034E
- for <dm-devel@listman.corp.redhat.com>; Fri, 18 Mar 2022 13:53:45 +0000 (UTC)
+ ESMTP id C20261940370
+ for <dm-devel@listman.corp.redhat.com>; Fri, 18 Mar 2022 22:33:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A577B4021AD; Fri, 18 Mar 2022 13:53:45 +0000 (UTC)
+ id 76AB040FF415; Fri, 18 Mar 2022 22:33:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A11EF492CB1
- for <dm-devel@redhat.com>; Fri, 18 Mar 2022 13:53:45 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 72D3540FF40F
+ for <dm-devel@redhat.com>; Fri, 18 Mar 2022 22:33:52 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88D613C163F7
- for <dm-devel@redhat.com>; Fri, 18 Mar 2022 13:53:45 +0000 (UTC)
-Received: from mail-wm1-f47.google.com (mail-wm1-f47.google.com
- [209.85.128.47]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-146-WPb7u5f0NdmNnlF9K0yPWA-1; Fri, 18 Mar 2022 09:53:41 -0400
-X-MC-Unique: WPb7u5f0NdmNnlF9K0yPWA-1
-Received: by mail-wm1-f47.google.com with SMTP id
- 7-20020a05600c228700b00385fd860f49so4867928wmf.0; 
- Fri, 18 Mar 2022 06:53:40 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=b7mi92NL1Au3kNjhkOmUgX0hQow1JPh6u+4eSDIWQIc=;
- b=eiEMNzlmepkgdR9HlR/zbNdXJzQcWuFKlmD5GYhxiUE7LWvZ8jbyWry2ad7QLU9y1u
- nUczWvlL8tDhxhnqOe3rADCKkxuPzzGq8ffmppvieqRViMfWb7SYg699JxRpV+pVVHfO
- HYWRhX87dXJQy0HACV9xDfuVt+LzLQA9yaUfOwVOSqi/YNzLyBx663NS1smLsD1TwSLr
- 2qhp2ko42n5KfE7izTxvxJ1ySVWEDQWKYsXExgmUsyZtIm2Vohw9xDI0jVCSb/UtVDbL
- M2DP5tbljc0pNREUKPKrkHV31PXpaSkKi/6SWmIR+4Y0anuh+fsmi+B71joM4+p+O6dy
- 22Iw==
-X-Gm-Message-State: AOAM533JKnizF3aUfoM+8sMsmh3KPN4nRvWypW5gzsZsQICFBiF9PQKK
- pQl5Lq/Xzm+9pl6HlBHjf9ajM04KlURofQ==
-X-Google-Smtp-Source: ABdhPJzbNwQi18YYbbmjFbq5mvgLobh+pg7PjXQ2Tq3BPsBF8eSR7ZTyQpPBTqXupvpWSH7bJsmHlg==
-X-Received: by 2002:a05:600c:35ce:b0:389:ec57:1d7f with SMTP id
- r14-20020a05600c35ce00b00389ec571d7fmr15752827wmq.149.1647611619732; 
- Fri, 18 Mar 2022 06:53:39 -0700 (PDT)
-Received: from [192.168.2.27] (85-70-151-113.rcd.o2.cz. [85.70.151.113])
- by smtp.gmail.com with ESMTPSA id
- n16-20020a5d4010000000b001f07772457csm6252032wrp.101.2022.03.18.06.53.38
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 18 Mar 2022 06:53:39 -0700 (PDT)
-Message-ID: <a5b9e66c-235b-51dd-234c-b543dbacc464@gmail.com>
-Date: Fri, 18 Mar 2022 14:53:37 +0100
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 45A303C02B89
+ for <dm-devel@redhat.com>; Fri, 18 Mar 2022 22:33:52 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-154-grNRKKHONTKvQYjNDi7kbQ-1; Fri, 18 Mar 2022 18:33:50 -0400
+X-MC-Unique: grNRKKHONTKvQYjNDi7kbQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 6EAF421108;
+ Fri, 18 Mar 2022 22:33:48 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 310AC132D4;
+ Fri, 18 Mar 2022 22:33:48 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 1A4QCswINWLSdwAAMHmgww
+ (envelope-from <mwilck@suse.com>); Fri, 18 Mar 2022 22:33:48 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>,
+ Guozhonghua <guozh88@chinatelecom.cn>
+Date: Fri, 18 Mar 2022 23:33:28 +0100
+Message-Id: <20220318223339.4226-1-mwilck@suse.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-To: Coiby Xu <coxu@redhat.com>
-References: <20220318103423.286410-1-coxu@redhat.com>
- <c857dcf8-024e-ab8a-fd26-295ce2e0ae41@gmail.com>
- <20220318122110.7qjrnrduwytjle3w@Rk>
-From: Milan Broz <gmazyland@gmail.com>
-In-Reply-To: <20220318122110.7qjrnrduwytjle3w@Rk>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,9 +74,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: Re: [dm-devel] [RFC 0/4] Support kdump with LUKS encryption by
- reusing LUKS master key
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [PATCH v2 00/11] multipathd: fix __delayed_reconfig logic
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,67 +87,60 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Snitzer <snitzer@redhat.com>, Baoquan He <bhe@redhat.com>,
- kexec@lists.infradead.org, dm-devel@redhat.com, linux-kernel@vger.kernel.org,
- Kairui Song <ryncsn@gmail.com>, Thomas Staudt <tstaudt@de.ibm.com>,
- Dave Young <dyoung@redhat.com>
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 18/03/2022 13:21, Coiby Xu wrote:
-...
->> Why is it not done through keyring and forcing kdump to retain key there
->> (under the same keyring key name as dm-crypt used)?
->> Kernel dm-crypt supports this already; LUKS2 uses keyring by default too.
->> That's all you need, or not? Why do you need to add another "kdump:" thing?
->> IOW why kdump cannot copy the key to keyring under the name dm-crypt
->> has in the mapping table and let dm-crypt activate the device almost without
->> code changes?
-> 
-> Sorry, I haven't explained how kdump works. Once the 1st kernel crashes and
-> the system boots into the kdump kernel, the kdump kernel only have direct
-> access to the memory exclusively reserved for it i.e. the kdump kernel
-> loses the direct access to the keyring constructed in the 1st kernel. In
-> theory, the kdump kernel could do some "hacking" to find out the key
-> stored in the memory directly managed by the 1st kernel but I imagine
-> this would be difficult task (imagine I present the memory dump of my
-> computer to you and ask you to rebuild all the relevant kernel data
-> structures and find the key). Besides, it's not reliable to read the
-> memory directly managed by the first kernel for example the memory could
-> be corrupt. So we have to pass the master key from the 1st kernel to the kdump
-> kernel.
+From: Martin Wilck <mwilck@suse.com>
 
-OK, then why you cannot store it to the (2nd) kdump kernel keyring?
-(From the kdump area copy, then you do not need to patch anything else
-in dm-crypt than that one line storing the key to the kdump area.)
+Hi Ben, hi Christophe, hi Guozhonghua,
 
-A clear approach would be to store the key in the 2nd kernel kdump keyring
-and allow userspace to read it.
-Then cryptsetup can just validate the key (LUKS key digest does not use Argon)
-and activates it without asking for a passphrase.
-Perhaps this will need some new cryptsetup option (or API call), but I think
-it can be done.
+here's my new take at the race condition issue reported by Guozhonghua.
+This patch set is meant as an alternative to Ben's recent series
+"fix looping when reconfigure is delayed". I believe that by removing
+the special case from __post_config_state(), the state change logic
+becomes somewhat easier to understand again.
 
-Or, you can actually simulate it with
-   cryptsetup open ... --master-key-file <file>
-where this keyfile contains directly the volume key, not a passphrase.
-The key digest is verified in this case only; no costly PBKDF is needed.
+I hope I got it right this time.
 
-If you have a way to retrieve the kdump stored key to kdump userspace, this
-is perhaps a much simpler solution.
+Changes v1->v2:
 
-All this is against all countermeasures to not expose encryption key
-directly - but if kdump is debugging environment, just saying...
+ 04: reset __delayed_reconfig if no delay needed (Ben)
+     only call __post_config_state in IDLE state (Ben)
+ 06/07: unblock reconfigure if maps are removed, as suggested by Ben
+ 08-11: minor logging fixes I found useful
 
-Milan
+Regards
+Martin
+
+Martin Wilck (11):
+  multipathd: child(): remove superfluous if condition
+  multipathd: set reload_type in when calling reconfigure()
+  multipathd: avoid busy loop in child() for delayed reconfigure
+  multipathd: reset __delayed_reconfig from ev_add_map()
+  multipathd: remove volatile qualifier from running_state
+  libmultipath: add callback for remove_map()
+  multipathd: use remove_map_callback for delayed reconfigure
+  libmultipath: warn only once about deprecated options
+  multipathd: improve logging of reconfigure()
+  multipathd: log state changes
+  multipathd: remove unhelpful startup / shutdown messages
+
+ libmultipath/dict.c               |  15 ++-
+ libmultipath/libmultipath.version |   3 +-
+ libmultipath/structs_vec.c        |   6 ++
+ multipathd/main.c                 | 172 ++++++++++++++++--------------
+ 4 files changed, 109 insertions(+), 87 deletions(-)
+
+-- 
+2.35.1
 
 --
 dm-devel mailing list
