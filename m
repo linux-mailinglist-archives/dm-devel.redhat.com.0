@@ -2,72 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F08644DE413
-	for <lists+dm-devel@lfdr.de>; Fri, 18 Mar 2022 23:34:12 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 34FF44DE422
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Mar 2022 23:43:01 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-90-Ndw6KPwTPMuFPMWoISoBPw-1; Fri, 18 Mar 2022 18:34:10 -0400
-X-MC-Unique: Ndw6KPwTPMuFPMWoISoBPw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-516-ym8-OuYfN4WFynX9eydprg-1; Fri, 18 Mar 2022 18:42:58 -0400
+X-MC-Unique: ym8-OuYfN4WFynX9eydprg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F17383396E;
-	Fri, 18 Mar 2022 22:34:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B8A13803929;
+	Fri, 18 Mar 2022 22:42:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4366758BAB2;
-	Fri, 18 Mar 2022 22:34:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A6EC5140265C;
+	Fri, 18 Mar 2022 22:42:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DE3BD1937114;
-	Fri, 18 Mar 2022 22:34:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7C17B194E109;
+	Fri, 18 Mar 2022 22:42:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E369E194035B
- for <dm-devel@listman.corp.redhat.com>; Fri, 18 Mar 2022 22:33:56 +0000 (UTC)
+ ESMTP id D1AD3194035B
+ for <dm-devel@listman.corp.redhat.com>; Fri, 18 Mar 2022 22:42:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C8756C27E96; Fri, 18 Mar 2022 22:33:56 +0000 (UTC)
+ id AD04E41F378; Fri, 18 Mar 2022 22:42:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C48B9C27E80
- for <dm-devel@redhat.com>; Fri, 18 Mar 2022 22:33:56 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A92A840679D
+ for <dm-devel@redhat.com>; Fri, 18 Mar 2022 22:42:53 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB2C01C05ED6
- for <dm-devel@redhat.com>; Fri, 18 Mar 2022 22:33:56 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BFDD3C02B89
+ for <dm-devel@redhat.com>; Fri, 18 Mar 2022 22:42:53 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-455-W5mWbANhNzq21x1znyslZA-1; Fri, 18 Mar 2022 18:33:53 -0400
-X-MC-Unique: W5mWbANhNzq21x1znyslZA-1
+ us-mta-25-g-xRUFIHNM2lliFLVfuSuw-1; Fri, 18 Mar 2022 18:42:49 -0400
+X-MC-Unique: g-xRUFIHNM2lliFLVfuSuw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CF47E212C4;
- Fri, 18 Mar 2022 22:33:51 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6C49B1F37C;
+ Fri, 18 Mar 2022 22:42:48 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 93A16132D4;
- Fri, 18 Mar 2022 22:33:51 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 108DA132C1;
+ Fri, 18 Mar 2022 22:42:48 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id mEgCIs8INWLSdwAAMHmgww
- (envelope-from <mwilck@suse.com>); Fri, 18 Mar 2022 22:33:51 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Guozhonghua <guozh88@chinatelecom.cn>
-Date: Fri, 18 Mar 2022 23:33:39 +0100
-Message-Id: <20220318223339.4226-12-mwilck@suse.com>
-In-Reply-To: <20220318223339.4226-1-mwilck@suse.com>
-References: <20220318223339.4226-1-mwilck@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id +XWTAegKNWJSegAAMHmgww
+ (envelope-from <mwilck@suse.com>); Fri, 18 Mar 2022 22:42:48 +0000
+Message-ID: <070c14f1a5e3a57bb45579991447d3267375e48f.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Jes Sorensen <jsorensen@fb.com>, NeilBrown <neilb@suse.de>
+Date: Fri, 18 Mar 2022 23:42:47 +0100
+In-Reply-To: <ff8030340e30963a1772f43e8bdfb6b610219887.camel@suse.com>
+References: <20220216205914.7575-1-mwilck@suse.com>
+ , <164504936873.10228.7361167610237544463@noble.neil.brown.name>
+ , <e8720e3f8734cbad1af34d5e54afc47ba3ef1b8f.camel@suse.com>
+ , <20220217130934.lh2b33255kyx2pax@alatyr-rpi.brq.redhat.com>
+ , <164548656531.8827.3365536065813085321@noble.neil.brown.name>
+ , <4b61ca1eafb35e3fdfbc9bb260dc89d56d181499.camel@suse.com>
+ <164557016782.28944.17731814770525408828@noble.neil.brown.name>
+ <ff8030340e30963a1772f43e8bdfb6b610219887.camel@suse.com>
+User-Agent: Evolution 3.42.4
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -76,9 +82,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [dm-devel] [PATCH v2 11/11] multipathd: remove unhelpful startup /
- shutdown messages
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH] udev-md-raid-assembly.rules: skip if
+ DM_UDEV_DISABLE_OTHER_RULES_FLAG
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,10 +96,12 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Cc: Coly Li <colyli@suse.com>, Peter Rajnoha <prajnoha@redhat.com>,
+ lvm-devel@redhat.com, linux-raid@vger.kernel.org, dm-devel@redhat.com,
+ Heming Zhao <heming.zhao@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,47 +109,23 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+Jes,
 
-These messages are noisy in the system log without being actually helpful.
+On Mon, 2022-02-28 at 09:48 +0100, Martin Wilck wrote:
+> On Wed, 2022-02-23 at 09:49 +1100, NeilBrown wrote:
+> > 
+> > But if libdevmapper.h is the best you have, then maybe it'll have
+> > to
+> > do.
+> > It is up to Jes what he accepts of course.
+> 
+> Jes, have you made up your mind on this patch yet?
+> Please contact me if you have remarks or questions.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- multipathd/main.c | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+Gentle reminder ...
 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 4b4fa9c..6e6635b 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -2560,7 +2560,6 @@ checkerloop (void *ap)
- 	rcu_register_thread();
- 	mlockall(MCL_CURRENT | MCL_FUTURE);
- 	vecs = (struct vectors *)ap;
--	condlog(2, "path checkers start up");
- 
- 	/* Tweak start time for initial path check */
- 	get_monotonic_time(&last_time);
-@@ -3241,8 +3240,7 @@ child (__attribute__((unused)) void *param)
- 
- 	post_config_state(DAEMON_START);
- 
--	condlog(2, "--------start up--------");
--	condlog(2, "read " DEFAULT_CONFIGFILE);
-+	condlog(3, "read " DEFAULT_CONFIGFILE);
- 
- 	if (verbosity)
- 		libmp_verbosity = verbosity;
-@@ -3435,7 +3433,6 @@ child (__attribute__((unused)) void *param)
- 
- 	exit_code = 0;
- failed:
--	condlog(2, "--------shut down-------");
- 	/* All cleanup is done in the cleanup_child() exit handler */
- 	return sd_notify_exit(exit_code);
- }
--- 
-2.35.1
+Regards
+Martin
 
 --
 dm-devel mailing list
