@@ -1,64 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBBA94E6616
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Mar 2022 16:35:08 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DC0FD4E6608
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Mar 2022 16:34:57 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-282-guyklk0aP_-lx8uB1UWnlw-1; Thu, 24 Mar 2022 11:34:52 -0400
-X-MC-Unique: guyklk0aP_-lx8uB1UWnlw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-390-f6DblaLnP9K6fF6o7my7Qg-1; Thu, 24 Mar 2022 11:34:55 -0400
+X-MC-Unique: f6DblaLnP9K6fF6o7my7Qg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2CDF299E751;
-	Thu, 24 Mar 2022 15:34:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A8741C0B04C;
+	Thu, 24 Mar 2022 15:34:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 495841457F12;
-	Thu, 24 Mar 2022 15:34:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 756DCC202C8;
+	Thu, 24 Mar 2022 15:34:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 82AD41940363;
-	Thu, 24 Mar 2022 15:34:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 03820194034E;
+	Thu, 24 Mar 2022 15:34:49 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD97619451F1
- for <dm-devel@listman.corp.redhat.com>; Mon, 21 Mar 2022 12:28:57 +0000 (UTC)
+ ESMTP id 86F0A1947BBC
+ for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 11:01:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id ACC371410F35; Mon, 21 Mar 2022 12:28:57 +0000 (UTC)
+ id 7500E400E54A; Tue, 22 Mar 2022 11:01:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A933C1410DD5
- for <dm-devel@redhat.com>; Mon, 21 Mar 2022 12:28:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8EC5D1066558
- for <dm-devel@redhat.com>; Mon, 21 Mar 2022 12:28:57 +0000 (UTC)
-Received: from fanzine2.igalia.com (fanzine.igalia.com [178.60.130.6]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-147-5Y3oyvEdOzKwB40ayiGmKg-1; Mon, 21 Mar 2022 08:28:52 -0400
-X-MC-Unique: 5Y3oyvEdOzKwB40ayiGmKg-1
-Received: from [187.39.124.208] (helo=[192.168.0.110])
- by fanzine2.igalia.com with esmtpsa 
- (Cipher TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_128_GCM:128) (Exim)
- id 1nWH9I-000BLL-CG; Mon, 21 Mar 2022 13:28:36 +0100
-Message-ID: <1ccc06f4-3fff-8a6e-2a66-3f117ca6f282@igalia.com>
-Date: Mon, 21 Mar 2022 09:28:15 -0300
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7107A40CF8EF
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 11:01:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E2AC53C01C08
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 11:01:19 +0000 (UTC)
+Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
+ [185.176.79.56]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-79-YgQ46PhANFaJeUSO5K5bIA-1; Tue, 22 Mar 2022 07:01:18 -0400
+X-MC-Unique: YgQ46PhANFaJeUSO5K5bIA-1
+Received: from fraeml704-chm.china.huawei.com (unknown [172.18.147.201])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KN7PY4fsNz67Q1X;
+ Tue, 22 Mar 2022 18:43:29 +0800 (CST)
+Received: from lhreml724-chm.china.huawei.com (10.201.108.75) by
+ fraeml704-chm.china.huawei.com (10.206.15.53) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA256_P256) id
+ 15.1.2375.24; Tue, 22 Mar 2022 11:45:39 +0100
+Received: from localhost.localdomain (10.69.192.58) by
+ lhreml724-chm.china.huawei.com (10.201.108.75) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2308.21; Tue, 22 Mar 2022 10:45:36 +0000
+From: John Garry <john.garry@huawei.com>
+To: <axboe@kernel.dk>, <damien.lemoal@opensource.wdc.com>,
+ <bvanassche@acm.org>, <jejb@linux.ibm.com>, <martin.petersen@oracle.com>,
+ <hch@lst.de>, <ming.lei@redhat.com>, <hare@suse.de>
+Date: Tue, 22 Mar 2022 18:39:34 +0800
+Message-ID: <1647945585-197349-1-git-send-email-john.garry@huawei.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-To: Coiby Xu <coxu@redhat.com>
-References: <20220318103423.286410-1-coxu@redhat.com>
- <c06a21cc-e1c1-e627-f908-ebc2a041e29a@igalia.com>
- <20220321014150.w6wux5azabweu7dr@Rk>
-From: "Guilherme G. Piccoli" <gpiccoli@igalia.com>
-In-Reply-To: <20220321014150.w6wux5azabweu7dr@Rk>
+X-Originating-IP: [10.69.192.58]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ lhreml724-chm.china.huawei.com (10.201.108.75)
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -66,10 +74,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mailman-Approved-At: Thu, 24 Mar 2022 15:34:41 +0000
-Subject: Re: [dm-devel] [RFC 0/4] Support kdump with LUKS encryption by
- reusing LUKS master key
+Subject: [dm-devel] [PATCH RFC 00/11] blk-mq/libata/scsi: SCSI driver
+ tagging improvements
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,39 +89,82 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Baoquan He <bhe@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
- kexec@lists.infradead.org, dm-devel@redhat.com, linux-kernel@vger.kernel.org,
- Kairui Song <ryncsn@gmail.com>, Thomas Staudt <tstaudt@de.ibm.com>,
- Dave Young <dyoung@redhat.com>, Milan Broz <gmazyland@gmail.com>
+Cc: linux-scsi@vger.kernel.org, chenxiang66@hisilicon.com,
+ John Garry <john.garry@huawei.com>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-ide@vger.kernel.org, dm-devel@redhat.com,
+ beanhuo@micron.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 20/03/2022 22:41, Coiby Xu wrote:
-> [...]
-> 
-> I believe some users have security concern for where to save vmcore.
-> This use case exactly fits your description and your proposed solution
-> shall be good for this type of users. But I think many more users may
-> just choose to encrypt the hard drive when installing the system and
-> they would naturally expect kdump to work for the case of full disk
-> encryption. So your proposed solution may not address the latter case 
-> where there is a much large user base.
-> 
+Currently SCSI low-level drivers are required to manage tags for commands
+which do not come via the block layer - libata internal commands would be
+an example of one of these.
 
-Thanks Coiby, makes sense, your idea is more generic and seems to
-address all the use cases!
-Cheers,
+There was some work to provide "reserved commands" support in such series
+as https://lore.kernel.org/linux-scsi/20211125151048.103910-1-hare@suse.de/
 
+This was based on allocating a request for the lifetime of the "internal"
+command.
 
-Guilherme
+This series tries to solve that problem by not just allocating the request
+but also sending it through the block layer, that being the normal flow
+for a request. We need to do this as we may only poll completion of
+requests through the block layer, so would need to do this for poll queue
+support.
+
+There is still scope to allocate commands just to get a tag as token as
+that may suit some other scenarios, but it's not what we do here.
+
+This series extends blk-mq to support a request queue having a custom set
+of ops. In addition SCSI core code adds support for these type of requests.
+
+This series does not include SCSI core handling for enabling reserved
+tags per tagset, but that would be easy to add.
+
+Based on mkp-scsi 5.18/scsi-staging @ 66daf3e6b993 
+
+Please consider as an RFC for now. I think that the libata change has the
+largest scope for improvement...
+
+John Garry (11):
+  blk-mq: Add blk_mq_init_queue_ops()
+  scsi: core: Add SUBMITTED_BY_SCSI_CUSTOM_OPS
+  libata: Send internal commands through the block layer
+  scsi: libsas: Send SMP commands through the block layer
+  scsi: libsas: Send TMF commands through the block layer
+  scsi: core: Add scsi_alloc_request_hwq()
+  scsi: libsas: Send internal abort commands through the block layer
+  scsi: libsas: Change ATA support to deal with each qc having a SCSI
+    command
+  scsi: libsas: Add sas_task_to_unique_tag()
+  scsi: libsas: Add sas_task_to_hwq()
+  scsi: hisi_sas: Remove private tag management
+
+ block/blk-mq.c                         |  23 +++-
+ drivers/ata/libata-core.c              | 121 +++++++++++++------
+ drivers/md/dm-rq.c                     |   2 +-
+ drivers/scsi/hisi_sas/hisi_sas_main.c  |  66 +----------
+ drivers/scsi/hisi_sas/hisi_sas_v2_hw.c |   3 +-
+ drivers/scsi/hisi_sas/hisi_sas_v3_hw.c |   3 +-
+ drivers/scsi/libsas/sas_ata.c          |  11 +-
+ drivers/scsi/libsas/sas_expander.c     |  38 ++++--
+ drivers/scsi/libsas/sas_internal.h     |   1 +
+ drivers/scsi/libsas/sas_scsi_host.c    | 153 ++++++++++++++++++++-----
+ drivers/scsi/scsi_lib.c                |  14 +++
+ include/linux/blk-mq.h                 |   5 +-
+ include/scsi/libsas.h                  |   4 +-
+ include/scsi/scsi_cmnd.h               |   4 +
+ 14 files changed, 298 insertions(+), 150 deletions(-)
+
+-- 
+2.26.2
 
 --
 dm-devel mailing list
