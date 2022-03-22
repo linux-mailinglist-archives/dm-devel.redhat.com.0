@@ -2,95 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 865B64E3581
-	for <lists+dm-devel@lfdr.de>; Tue, 22 Mar 2022 01:36:09 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7763D4E359F
+	for <lists+dm-devel@lfdr.de>; Tue, 22 Mar 2022 01:38:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1647909368;
+	s=mimecast20190719; t=1647909483;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ozyv0XhURgD7VzYEelodYGgioZMMWQFACsMv6Ui/K5Q=;
-	b=IrL+Qab04xgTL9pTAddWTUCT8E3yUDv8JeGCjnty/TWLAXJ2aYhr7Etpo1MeoHSQHOu2z4
-	yf7DycVXHKRiG4ro03uxPX0EhrHP1HvYpwRGK1C6e/FPnhMZYTentjxHMnCtEX0fw0tNhZ
-	nlX2kLKjJB1yWMK8/kjfMtcO4UZVAF4=
+	bh=vqolWqZSryOFCGSv+IlwVUZT9g9K3Hf7kU37SZ1MUH0=;
+	b=VjY3GnK/bxTOcuQk/DZ2exl/DpN/UVh43OLUG4zeZQ+wXi5L0J38GxQLYt/18//T1w3iRw
+	CraGTYijhCrwYr4C341vmDaTdARj/cTDGOJgACKQlV5V2jED4EJ/CmJSw14M5i+/XoAdoH
+	CDexv2EoFCIW1yfhTB4qtWqRdCsaLe8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-d6sAhPxSNiqRTsJ4NV5zpA-1; Mon, 21 Mar 2022 20:36:07 -0400
-X-MC-Unique: d6sAhPxSNiqRTsJ4NV5zpA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-621-U0iTwipcNoipgl-nKKQb3A-1; Mon, 21 Mar 2022 20:38:02 -0400
+X-MC-Unique: U0iTwipcNoipgl-nKKQb3A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED0D0803D7C;
-	Tue, 22 Mar 2022 00:36:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E72D80B710;
+	Tue, 22 Mar 2022 00:38:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9FAFD401E50;
-	Tue, 22 Mar 2022 00:36:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9FFDC40CF8FB;
+	Tue, 22 Mar 2022 00:37:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5ECB3194034A;
-	Tue, 22 Mar 2022 00:36:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D4823194034A;
+	Tue, 22 Mar 2022 00:37:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B9BBB1947BBC
- for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 00:36:02 +0000 (UTC)
+ ESMTP id 02C381947BBC
+ for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 00:37:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A695CC26E9A; Tue, 22 Mar 2022 00:36:02 +0000 (UTC)
+ id E50F976C4; Tue, 22 Mar 2022 00:37:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A2AECC26EA1
- for <dm-devel@redhat.com>; Tue, 22 Mar 2022 00:36:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8712185A5BE
- for <dm-devel@redhat.com>; Tue, 22 Mar 2022 00:36:02 +0000 (UTC)
-Received: from mail-lj1-f197.google.com (mail-lj1-f197.google.com
- [209.85.208.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E0DA47774
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 00:37:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 926E3899EC5
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 00:37:53 +0000 (UTC)
+Received: from mail-lj1-f198.google.com (mail-lj1-f198.google.com
+ [209.85.208.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-249-k6tAHwyAM5eu_lH5enHeqw-1; Mon, 21 Mar 2022 20:36:01 -0400
-X-MC-Unique: k6tAHwyAM5eu_lH5enHeqw-1
-Received: by mail-lj1-f197.google.com with SMTP id
- e3-20020a2e9303000000b00249765c005cso3201912ljh.17
- for <dm-devel@redhat.com>; Mon, 21 Mar 2022 17:36:01 -0700 (PDT)
+ us-mta-20-BpXkUHK6PQ-0T89FSBANcQ-1; Mon, 21 Mar 2022 20:37:52 -0400
+X-MC-Unique: BpXkUHK6PQ-0T89FSBANcQ-1
+Received: by mail-lj1-f198.google.com with SMTP id
+ f12-20020a2e918c000000b002496651f1d6so5151344ljg.0
+ for <dm-devel@redhat.com>; Mon, 21 Mar 2022 17:37:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:mime-version:references:in-reply-to:from:date
  :message-id:subject:to:cc;
- bh=aG+/w5jPulTPWmJx4HYSeLKqHOGmQjsyRIJAx+OfEMM=;
- b=XsyOsv3I8J7LTM3zSzUMPCJqgaHGTnxV/+/rWlI7yPq09B864ugI8ATKvThv8QORvK
- HYsg9bzpKVxZtNN6m2OkKyrmc0Ph6F3yzLnGE72CwYtjeWipebxr294RWzg8iBNvC3Jy
- 9fazLd3Jg3q2yzlgIpmiMOJv+7eMcvv/Qqsv8lPP9kyIJuZ39dYbpakxsYhA65AjBljX
- +jaFolpjJwj/X2lSIjI7SlTnD4PlOAZy3ZIg1giQyYnSmtcl/EO5TaziMuzDsmFZGhJd
- fu4io5F2LNl8ylzlPDhA5ons0hcGAFpIZM6nAw9zeBabluXuI3Mt4dXiKeQ1P7XrfONO
- wBvQ==
-X-Gm-Message-State: AOAM533QlMxsq5j2Dhs3gynrkA0Gl+Z6RMEWOLOr7J4Jfd/o64hf8h7F
- drvGJbdvvhGKxuHz5bMx5p9NlkJ3BjZ8qTW0U/8S43IX0aYO1690C86OEdi7HDFSsapYZxlX/pH
- mgul2mDWenWvTQuqjr8kD1TdVMvYem7I=
-X-Received: by 2002:a05:6512:3f0a:b0:44a:e3f:2862 with SMTP id
- y10-20020a0565123f0a00b0044a0e3f2862mr11703326lfa.397.1647909359811; 
- Mon, 21 Mar 2022 17:35:59 -0700 (PDT)
-X-Google-Smtp-Source: ABdhPJxuMXSBByM2P100Pgs/4YGi+41nlKMl9IkaYmOxtg5+vnKTs0BVcsarFe3DHUVwZoFeeIAdYzHAs97m2d1JUqI=
-X-Received: by 2002:a05:6512:3f0a:b0:44a:e3f:2862 with SMTP id
- y10-20020a0565123f0a00b0044a0e3f2862mr11703316lfa.397.1647909359666; Mon, 21
- Mar 2022 17:35:59 -0700 (PDT)
+ bh=+uSxq1TmRKBpu6eHr8pRcn9H2mls4H9KC5aW+qtpnyY=;
+ b=5+t85RupeB8uriLmAYnHKIpp8BGY26IoEMoHC+23HIiK2u0jIc6+t8hLcHE0Qh2HRo
+ a5xdntGGCHlGvsY+1XFsaSM9OgtDc8snARBixGXi/U4wyk9icGxBVTqNk4iW3VlEppAF
+ Aly7fXyIKE8asbU2PFF/74LjGr88wOLM4qkTpqqgU6wn36EIxu+grt6i0XdxyY8x7+WU
+ gbSlaHxJ40gNe8lS8p+cRAlZ0vw23M+HRKPUVHYaOJWjLmE22JQCcCsElP5iMwEk8bed
+ wIzph5uy+V9+4vw33B8CAMU+4+TT/QKTQdvjS5OPWNEKd8e5dtNw8is/JP9OWP70NpIF
+ Q7Lg==
+X-Gm-Message-State: AOAM531Gyx95YOvrSRZ7YtwmgBhNmqXRjnUe0UtsDHsNbJWOxi5+29l/
+ tlNeqWD/fQS5rTLt5eFbRz9ZV4Cq0wEZvaZK9RoboXaX3NXOn5Co6pBRNkDBBeUPk5S1wIR6rT7
+ OFb+LQhJVMY9bJj8T9Fxe6eF9StysgNg=
+X-Received: by 2002:a2e:a58d:0:b0:247:eb93:e747 with SMTP id
+ m13-20020a2ea58d000000b00247eb93e747mr16697415ljp.153.1647909470754; 
+ Mon, 21 Mar 2022 17:37:50 -0700 (PDT)
+X-Google-Smtp-Source: ABdhPJxZrIwrmmESxzhK2MZHmhqjpiIRGxH0RmPJ1W3IxJ2A4ifSMwsZ2esOqUXv9d2p70HKtl8IlkXedX+hQbBRMCc=
+X-Received: by 2002:a2e:a58d:0:b0:247:eb93:e747 with SMTP id
+ m13-20020a2ea58d000000b00247eb93e747mr16697410ljp.153.1647909470608; Mon, 21
+ Mar 2022 17:37:50 -0700 (PDT)
 MIME-Version: 1.0
 References: <20220318223339.4226-1-mwilck@suse.com>
- <20220318223339.4226-10-mwilck@suse.com>
-In-Reply-To: <20220318223339.4226-10-mwilck@suse.com>
+ <20220318223339.4226-11-mwilck@suse.com>
+In-Reply-To: <20220318223339.4226-11-mwilck@suse.com>
 From: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 21 Mar 2022 19:35:48 -0500
-Message-ID: <CAPt1nt4y15sr9jEagLt14wHEb-WVYuZ4w9KzgHdOnEu5um_5Qw@mail.gmail.com>
+Date: Mon, 21 Mar 2022 19:37:39 -0500
+Message-ID: <CAPt1nt4Gk5AbW6DaAqxqGp2=2+ukMTYbm9AKp1omGy5M3s4A-A@mail.gmail.com>
 To: mwilck@suse.com
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH v2 09/11] multipathd: improve logging of
- reconfigure()
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH v2 10/11] multipathd: log state changes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Guozhonghua <guozh88@chinatelecom.cn>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -117,9 +116,6 @@ On Fri, Mar 18, 2022 at 5:33 PM <mwilck@suse.com> wrote:
 >
 > From: Martin Wilck <mwilck@suse.com>
 >
-> Print a message when reconfigure() actually starts doing something,
-> and when a reconfigure() call is delayed.
->
 > Signed-off-by: Martin Wilck <mwilck@suse.com>
 
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
@@ -129,25 +125,18 @@ Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 >  1 file changed, 2 insertions(+)
 >
 > diff --git a/multipathd/main.c b/multipathd/main.c
-> index 4721cd8..e841ba8 100644
+> index e841ba8..4b4fa9c 100644
 > --- a/multipathd/main.c
 > +++ b/multipathd/main.c
-> @@ -2840,6 +2840,7 @@ reconfigure (struct vectors *vecs, enum force_reload_types reload_type)
->         if (verbosity)
->                 libmp_verbosity = verbosity;
->         setlogmask(LOG_UPTO(libmp_verbosity + 3));
-> +       condlog(2, "%s: setting up paths and maps", __func__);
+> @@ -287,6 +287,8 @@ static void __post_config_state(enum daemon_status state)
+>                 running_state = state;
+>                 pthread_cond_broadcast(&config_cond);
+>                 do_sd_notify(old_state, state);
+> +               condlog(4, "daemon state %s -> %s",
+> +                       daemon_status_msg[old_state], daemon_status_msg[state]);
+>         }
+>  }
 >
->         /*
->          * free old map and path vectors ... they use old conf state
-> @@ -3419,6 +3420,7 @@ child (__attribute__((unused)) void *param)
->                         pthread_mutex_lock(&config_lock);
->                         __delayed_reconfig = true;
->                         pthread_mutex_unlock(&config_lock);
-> +                       condlog(3, "delaying reconfigure()");
->                 }
->                 lock_cleanup_pop(vecs->lock);
->                 if (!rc)
 > --
 > 2.35.1
 >
