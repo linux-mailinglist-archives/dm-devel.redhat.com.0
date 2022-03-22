@@ -1,71 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 616774E6610
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Mar 2022 16:35:03 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF4B74E6614
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Mar 2022 16:35:06 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-580-TBEfYqKVN9yOevTWL7dBUg-1; Thu, 24 Mar 2022 11:34:57 -0400
-X-MC-Unique: TBEfYqKVN9yOevTWL7dBUg-1
+ us-mta-589-iODX9m-ZNAG0xAtEU8hETw-1; Thu, 24 Mar 2022 11:35:02 -0400
+X-MC-Unique: iODX9m-ZNAG0xAtEU8hETw-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D1313C01BB6;
-	Thu, 24 Mar 2022 15:34:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13B091066565;
+	Thu, 24 Mar 2022 15:34:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4454940F165;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F17C1432476;
 	Thu, 24 Mar 2022 15:34:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 69DEF193F50D;
-	Thu, 24 Mar 2022 15:34:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A3FEA194035B;
+	Thu, 24 Mar 2022 15:34:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E458B1947BBC
- for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 11:33:24 +0000 (UTC)
+ ESMTP id E6D8F1947BBC
+ for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 11:36:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C35AB1417201; Tue, 22 Mar 2022 11:33:24 +0000 (UTC)
+ id B0F077774; Tue, 22 Mar 2022 11:36:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BF73B1410F3B
- for <dm-devel@redhat.com>; Tue, 22 Mar 2022 11:33:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A511F811E75
- for <dm-devel@redhat.com>; Tue, 22 Mar 2022 11:33:24 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AC93653D8
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 11:36:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78FB91C07829
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 11:36:13 +0000 (UTC)
 Received: from frasgout.his.huawei.com (frasgout.his.huawei.com
  [185.176.79.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-379-CJR7wVaYM7iy6TLcP6gy9A-1; Tue, 22 Mar 2022 07:33:22 -0400
-X-MC-Unique: CJR7wVaYM7iy6TLcP6gy9A-1
-Received: from fraeml743-chm.china.huawei.com (unknown [172.18.147.200])
- by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KN8SY1MNkz67pCt;
- Tue, 22 Mar 2022 19:31:09 +0800 (CST)
+ us-mta-140-ykLK4l8tPbmTmkxrETA1Sw-1; Tue, 22 Mar 2022 07:36:09 -0400
+X-MC-Unique: ykLK4l8tPbmTmkxrETA1Sw-1
+Received: from fraeml740-chm.china.huawei.com (unknown [172.18.147.226])
+ by frasgout.his.huawei.com (SkyGuard) with ESMTP id 4KN8Y2430zz67yKG;
+ Tue, 22 Mar 2022 19:35:02 +0800 (CST)
 Received: from lhreml724-chm.china.huawei.com (10.201.108.75) by
- fraeml743-chm.china.huawei.com (10.206.15.224) with Microsoft SMTP Server
+ fraeml740-chm.china.huawei.com (10.206.15.221) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Tue, 22 Mar 2022 12:33:19 +0100
+ 15.1.2375.24; Tue, 22 Mar 2022 12:36:06 +0100
 Received: from [10.47.85.68] (10.47.85.68) by lhreml724-chm.china.huawei.com
  (10.201.108.75) with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2308.21; Tue, 22 Mar
- 2022 11:33:18 +0000
-Message-ID: <cacc3f7b-c8be-0f72-1c52-562c15b468a4@huawei.com>
-Date: Tue, 22 Mar 2022 11:33:17 +0000
+ 2022 11:36:04 +0000
+Message-ID: <8498ddc5-e5a5-16b3-bc70-2cfbc79d5258@huawei.com>
+Date: Tue, 22 Mar 2022 11:36:03 +0000
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
  Thunderbird/91.6.1
 To: Christoph Hellwig <hch@lst.de>
 References: <1647945585-197349-1-git-send-email-john.garry@huawei.com>
- <1647945585-197349-2-git-send-email-john.garry@huawei.com>
- <20220322111848.GA29270@lst.de>
+ <1647945585-197349-4-git-send-email-john.garry@huawei.com>
+ <20220322112057.GC29270@lst.de>
 From: John Garry <john.garry@huawei.com>
-In-Reply-To: <20220322111848.GA29270@lst.de>
+In-Reply-To: <20220322112057.GC29270@lst.de>
 X-Originating-IP: [10.47.85.68]
 X-ClientProxiedBy: lhreml730-chm.china.huawei.com (10.201.108.81) To
  lhreml724-chm.china.huawei.com (10.201.108.75)
@@ -77,9 +78,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-Mailman-Approved-At: Thu, 24 Mar 2022 15:34:42 +0000
-Subject: Re: [dm-devel] [PATCH 01/11] blk-mq: Add blk_mq_init_queue_ops()
+Subject: Re: [dm-devel] [PATCH 03/11] libata: Send internal commands through
+ the block layer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,27 +108,30 @@ X-Mimecast-Originator: redhat.com
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 22/03/2022 11:18, Christoph Hellwig wrote:
-> On Tue, Mar 22, 2022 at 06:39:35PM +0800, John Garry wrote:
->> Add an API to allocate a request queue which accepts a custom set of
->> blk_mq_ops for that request queue.
+On 22/03/2022 11:20, Christoph Hellwig wrote:
+> On Tue, Mar 22, 2022 at 06:39:37PM +0800, John Garry wrote:
+>> When SCSI HBA device drivers are required to process an ATA internal
+>> command they still need a tag for the IO. This often requires the driver
+>> to set aside a set of tags for these sorts of IOs and manage the tags
+>> themselves.
 >>
->> The reason which we may want custom ops is for queuing requests which we
->> don't want to go through the normal queuing path.
+>> If we associate a SCSI command (and request) with an ATA internal command
+>> then the tag is already provided, so introduce the change to send ATA
+>> internal commands through the block layer with a set of custom blk-mq ops.
+>>
+>> note: I think that the timeout handling needs to be fixed up.
 > 
-> Eww.  I really do not think we should do separate ops per queue, as that
-> is going to get us into a deep mess eventually.
+> Any reason to not just send them through an ATA_16 passthrough CDB and
+> just use all the normal SCSI command handling?
 > 
+> .
 
-Yeah... so far (here) it works out quite nicely, as we don't need to 
-change the SCSI blk mq ops nor allocate a scsi_device - everything is 
-just separate.
+No reason that I know about.
 
-The other method mentioned previously was to add the request "reserved" 
-flag and add new paths in scsi_queue_rq() et al to handle this, but that 
-gets messy.
+TBH, I was hoping that someone woud have a better idea on how to do this 
+as what I was doing was messy.
 
-Any other ideas ...?
+Let me check it.
 
 Cheers,
 John
