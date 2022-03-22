@@ -1,60 +1,59 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC6CB4E3B40
-	for <lists+dm-devel@lfdr.de>; Tue, 22 Mar 2022 09:53:31 +0100 (CET)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 714024E3B64
+	for <lists+dm-devel@lfdr.de>; Tue, 22 Mar 2022 10:03:36 +0100 (CET)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-65-GgTx73P4OJawsgEeKlI3Ww-1; Tue, 22 Mar 2022 04:53:29 -0400
-X-MC-Unique: GgTx73P4OJawsgEeKlI3Ww-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-58-s8kxkjEpNg2gKcCwWmvZug-1; Tue, 22 Mar 2022 05:03:33 -0400
+X-MC-Unique: s8kxkjEpNg2gKcCwWmvZug-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDE2E1066558;
-	Tue, 22 Mar 2022 08:53:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 302FC1C01E82;
+	Tue, 22 Mar 2022 09:03:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 82B96C27E80;
-	Tue, 22 Mar 2022 08:53:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7CCA94B6940;
+	Tue, 22 Mar 2022 09:03:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E2730194034B;
-	Tue, 22 Mar 2022 08:53:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AF34F194034B;
+	Tue, 22 Mar 2022 09:03:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 571721947BBC
- for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 08:53:22 +0000 (UTC)
+ ESMTP id 75E161947BBC
+ for <dm-devel@listman.corp.redhat.com>; Tue, 22 Mar 2022 09:03:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 48C3676C2; Tue, 22 Mar 2022 08:53:22 +0000 (UTC)
+ id 5F928C26EA4; Tue, 22 Mar 2022 09:03:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 434C37AD1
- for <dm-devel@redhat.com>; Tue, 22 Mar 2022 08:53:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BC36C23DB1
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 09:03:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F26DD28035E1
- for <dm-devel@redhat.com>; Tue, 22 Mar 2022 08:53:13 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 431E0833967
+ for <dm-devel@redhat.com>; Tue, 22 Mar 2022 09:03:28 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-501-rhVoFqePPE6Oj0a4UPRVTQ-1; Tue, 22 Mar 2022 04:53:09 -0400
-X-MC-Unique: rhVoFqePPE6Oj0a4UPRVTQ-1
+ us-mta-308-HfUWh9p2OvuSPePcwYAx8A-1; Tue, 22 Mar 2022 05:03:24 -0400
+X-MC-Unique: HfUWh9p2OvuSPePcwYAx8A-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nWaGF-00AVAX-ND; Tue, 22 Mar 2022 08:53:03 +0000
-Date: Tue, 22 Mar 2022 01:53:03 -0700
+ Hat Linux)) id 1nWa4N-00ARy0-D1; Tue, 22 Mar 2022 08:40:47 +0000
+Date: Tue, 22 Mar 2022 01:40:47 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: Jane Chu <jane.chu@oracle.com>
-Message-ID: <YjmOb0dSY9GG/Q6r@infradead.org>
+Message-ID: <YjmLj78jjoieT2nm@infradead.org>
 References: <20220319062833.3136528-1-jane.chu@oracle.com>
- <20220319062833.3136528-6-jane.chu@oracle.com>
+ <20220319062833.3136528-2-jane.chu@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20220319062833.3136528-6-jane.chu@oracle.com>
+In-Reply-To: <20220319062833.3136528-2-jane.chu@oracle.com>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -64,8 +63,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH v6 5/6] pmem: refactor pmem_clear_poison()
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH v6 1/6] x86/mm: fix comment
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -85,7 +84,7 @@ Cc: nvdimm@lists.linux.dev, dave.jiang@intel.com, snitzer@redhat.com,
  agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -94,63 +93,15 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> -static void hwpoison_clear(struct pmem_device *pmem,
-> -		phys_addr_t phys, unsigned int len)
-> +static phys_addr_t to_phys(struct pmem_device *pmem, phys_addr_t offset)
->  {
-> +	return pmem->phys_addr + offset;
-> +}
-> +
-> +static sector_t to_sect(struct pmem_device *pmem, phys_addr_t offset)
-> +{
-> +	return (offset - pmem->data_offset) / 512;
-> +}
-> +
-> +static phys_addr_t to_offset(struct pmem_device *pmem, sector_t sector)
-> +{
-> +	return sector * 512 + pmem->data_offset;
-> +}
+On Sat, Mar 19, 2022 at 12:28:28AM -0600, Jane Chu wrote:
+> There is no _set_memory_prot internal helper, while coming across
+> the code, might as well fix the comment.
+> 
+> Signed-off-by: Jane Chu <jane.chu@oracle.com>
 
-The multiplicate / divison using 512 could use shifts using
-SECTOR_SHIFT.
+Looks good:
 
-> +
-> +static void clear_hwpoison(struct pmem_device *pmem, phys_addr_t offset,
-> +		unsigned int len)
-
-> +static void clear_bb(struct pmem_device *pmem, sector_t sector, long blks)
-
-All these functions lack a pmem_ prefix.
-
-> +static blk_status_t __pmem_clear_poison(struct pmem_device *pmem,
-> +		phys_addr_t offset, unsigned int len,
-> +		unsigned int *blks)
-> +{
-> +	phys_addr_t phys = to_phys(pmem, offset);
->  	long cleared;
-> +	blk_status_t rc;
->  
-> +	cleared = nvdimm_clear_poison(to_dev(pmem), phys, len);
-> +	*blks = cleared / 512;
-> +	rc = (cleared < len) ? BLK_STS_IOERR : BLK_STS_OK;
-> +	if (cleared <= 0 || *blks == 0)
-> +		return rc;
-
-This look odd.  I think just returing the cleared byte value would
-make much more sense:
-
-static long __pmem_clear_poison(struct pmem_device *pmem,
-		phys_addr_t offset, unsigned int len)
-{
-	long cleared = nvdimm_clear_poison(to_dev(pmem), phys, len);
-
-	if (cleared > 0) {
-		clear_hwpoison(pmem, offset, cleared);
-		arch_invalidate_pmem(pmem->virt_addr + offset, len);
-	}
-
-	return cleared;
-}
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
 --
 dm-devel mailing list
