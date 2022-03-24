@@ -2,69 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 777F44E6DCB
-	for <lists+dm-devel@lfdr.de>; Fri, 25 Mar 2022 06:35:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6B1D94E6EDA
+	for <lists+dm-devel@lfdr.de>; Fri, 25 Mar 2022 08:28:05 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-192-is41Df0qMd2trURBHDOUgw-1; Fri, 25 Mar 2022 01:35:51 -0400
-X-MC-Unique: is41Df0qMd2trURBHDOUgw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-59-9uo9yfZNOTi4EprFEwD_6Q-1; Fri, 25 Mar 2022 03:27:28 -0400
+X-MC-Unique: 9uo9yfZNOTi4EprFEwD_6Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36870954719;
-	Fri, 25 Mar 2022 05:35:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82C1C80159B;
+	Fri, 25 Mar 2022 07:27:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A92472166B2D;
-	Fri, 25 Mar 2022 05:35:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D1DFCC15D78;
+	Fri, 25 Mar 2022 07:27:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 88C10194035D;
-	Fri, 25 Mar 2022 05:35:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 23263194036E;
+	Fri, 25 Mar 2022 07:27:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 04F521940341
- for <dm-devel@listman.corp.redhat.com>; Fri, 25 Mar 2022 05:35:25 +0000 (UTC)
+ ESMTP id 357981940341
+ for <dm-devel@listman.corp.redhat.com>; Thu, 24 Mar 2022 20:35:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C03424010E5D; Fri, 25 Mar 2022 05:35:24 +0000 (UTC)
+ id EA66040CFD0D; Thu, 24 Mar 2022 20:35:29 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BC7D1400F8FD
- for <dm-devel@redhat.com>; Fri, 25 Mar 2022 05:35:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E5EE3400E550
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 20:35:29 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06D02803D65
- for <dm-devel@redhat.com>; Fri, 25 Mar 2022 05:35:19 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-458-YqENVRTZN9CvaFMmigLJpg-1; Fri, 25 Mar 2022 01:35:14 -0400
-X-MC-Unique: YqENVRTZN9CvaFMmigLJpg-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 6795168B05; Fri, 25 Mar 2022 06:35:10 +0100 (CET)
-Date: Fri, 25 Mar 2022 06:35:10 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Mike Snitzer <snitzer@kernel.org>
-Message-ID: <20220325053510.GA5327@lst.de>
-References: <20220324203526.62306-1-snitzer@kernel.org>
- <20220324203526.62306-3-snitzer@kernel.org>
-MIME-Version: 1.0
-In-Reply-To: <20220324203526.62306-3-snitzer@kernel.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH v3 2/3] block: allow use of per-cpu bio alloc
- cache by block drivers
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB56A85A5BE
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 20:35:29 +0000 (UTC)
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
+ [209.85.219.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-635-GUnhGoyJN8SrDIPPKll3NQ-1; Thu, 24 Mar 2022 16:35:28 -0400
+X-MC-Unique: GUnhGoyJN8SrDIPPKll3NQ-1
+Received: by mail-qv1-f41.google.com with SMTP id kc20so4685990qvb.3
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 13:35:28 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=/DA2QpPVPr3enZ27mGPd7ho97R+A7tobG2oweYbaoNA=;
+ b=4FiV/cIFP0cGR7Qlws03pPPxjne4T1yi7IXfxn7518A3gJ1DyL/HylKX8Jy4p/goe2
+ ZvB7as/NuVEgnITnQ+0jhiZ2WA2LoKxTlCvgkUMSLB59hXa4cq3UsHxC93zjdBtLOfw6
+ KVXD8a4FVBkd8R7GW/JQtFWFQO27SFAuzD47ET8+iQ8qN6F+rk/0/zv4mkPk5Xc0YiFh
+ t06ix8oAeiyyhBm6e4cebHlkwJisyOxJkJJZsuIf9vihQxwQyzT6AmnJQbqv8UQ9dNA3
+ EhGAHoYk/zgU1N4nDNe8H8o6USm+WjqK6IoRilCx3j735hZ+Nq1G2yYNhuExkhUD+5VG
+ Ex+g==
+X-Gm-Message-State: AOAM531U9b/aDj3c6XHLOXeEmuoDSrN176hMaK5yF8Xqc8KrjfObJq4h
+ d8X+h/r4AYieN9RbujkIOV1tzes=
+X-Google-Smtp-Source: ABdhPJyGBdmnolpgAFuBdwe78chN1I2/ElrtcKyGcbdJw04vnJanHfFxqWQMoGpNfYfYLSKcO7xQdw==
+X-Received: by 2002:ad4:5f4b:0:b0:441:4d40:f8d2 with SMTP id
+ p11-20020ad45f4b000000b004414d40f8d2mr6070094qvg.33.1648154127897; 
+ Thu, 24 Mar 2022 13:35:27 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+ [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+ o21-20020ac85a55000000b002e16389b501sm3174633qta.96.2022.03.24.13.35.26
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 24 Mar 2022 13:35:26 -0700 (PDT)
+From: Mike Snitzer <snitzer@kernel.org>
+To: axboe@kernel.dk
+Date: Thu, 24 Mar 2022 16:35:23 -0400
+Message-Id: <20220324203526.62306-1-snitzer@kernel.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Mailman-Approved-At: Fri, 25 Mar 2022 07:27:18 +0000
+Subject: [dm-devel] [PATCH v3 0/3] block/dm: use BIOSET_PERCPU_CACHE from
+ bio_alloc_bioset
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,35 +87,53 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, dm-devel@redhat.com,
- hch@lst.de, ming.lei@redhat.com
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, hch@lst.de,
+ ming.lei@redhat.com
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 24, 2022 at 04:35:25PM -0400, Mike Snitzer wrote:
-> Refine per-cpu bio alloc cache interfaces so that DM and other block
-> drivers can properly create and use the cache:
-> 
-> DM uses bioset_init_from_src() to do its final bioset initialization,
-> so must update bioset_init_from_src() to set BIOSET_PERCPU_CACHE if
-> %src bioset has a cache.
-> 
-> Also move bio_clear_polled() to include/linux/bio.h to allow users
-> outside of block core.
-> 
-> Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+Hi Jens,
 
-Looks good:
+This v3 is a rebase of the previous v2 series ontop of the revised v2
+patch that Christoph provided.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Linus hasn't pulled the for-5.18/dm-changes branch yet, so the 3rd DM
+patch cannot be applied yet.  But feel free to pickup the first 2
+block patches for 5.19 and I'll rebase dm-5.19 on block accordingly.
+
+Thanks,
+Mike
+
+v3: tweaked some code comments, refined patch headers and folded DM
+    patches so only one DM patch now.
+v2: add REQ_ALLOC_CACHE and move use of bio_alloc_percpu_cache to
+    bio_alloc_bioset
+
+Mike Snitzer (3):
+  block: allow using the per-cpu bio cache from bio_alloc_bioset
+  block: allow use of per-cpu bio alloc cache by block drivers
+  dm: conditionally enable BIOSET_PERCPU_CACHE for dm_io bioset
+
+ block/bio.c               | 88 +++++++++++++++++++++++------------------------
+ block/blk.h               |  7 ----
+ block/fops.c              | 11 ++++--
+ drivers/md/dm-table.c     | 11 ++++--
+ drivers/md/dm.c           |  8 ++---
+ drivers/md/dm.h           |  4 +--
+ include/linux/bio.h       |  8 +++--
+ include/linux/blk_types.h |  3 +-
+ 8 files changed, 73 insertions(+), 67 deletions(-)
+
+-- 
+2.15.0
 
 --
 dm-devel mailing list
