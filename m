@@ -2,82 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19BFF4E6ED9
-	for <lists+dm-devel@lfdr.de>; Fri, 25 Mar 2022 08:27:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 38D924E6ED7
+	for <lists+dm-devel@lfdr.de>; Fri, 25 Mar 2022 08:27:31 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-59-kz-hunP4M2yTr1ZCnLljVA-1; Fri, 25 Mar 2022 03:27:28 -0400
-X-MC-Unique: kz-hunP4M2yTr1ZCnLljVA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-177-Wb3zkR2rNI6HSEcBjpzIdQ-1; Fri, 25 Mar 2022 03:27:28 -0400
+X-MC-Unique: Wb3zkR2rNI6HSEcBjpzIdQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82B99811E76;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81D12954707;
 	Fri, 25 Mar 2022 07:27:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6BF8D5E8A2E;
-	Fri, 25 Mar 2022 07:27:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9EA814010E5A;
+	Fri, 25 Mar 2022 07:27:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C7F39194036D;
-	Fri, 25 Mar 2022 07:27:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 093C51940369;
+	Fri, 25 Mar 2022 07:27:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E6DF0194034B
- for <dm-devel@listman.corp.redhat.com>; Thu, 24 Mar 2022 20:35:32 +0000 (UTC)
+ ESMTP id CBAC2194034B
+ for <dm-devel@listman.corp.redhat.com>; Thu, 24 Mar 2022 20:35:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D7AEAC27D8D; Thu, 24 Mar 2022 20:35:32 +0000 (UTC)
+ id BF4A6400E122; Thu, 24 Mar 2022 20:35:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D4021C27D8A
- for <dm-devel@redhat.com>; Thu, 24 Mar 2022 20:35:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8C293802AD2
- for <dm-devel@redhat.com>; Thu, 24 Mar 2022 20:35:32 +0000 (UTC)
-Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
- [209.85.160.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BB20940E80E2
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 20:35:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0E4B3802AE9
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 20:35:33 +0000 (UTC)
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-613-LxTx66YUMl-cOGymbT_lWQ-1; Thu, 24 Mar 2022 16:35:31 -0400
-X-MC-Unique: LxTx66YUMl-cOGymbT_lWQ-1
-Received: by mail-qt1-f176.google.com with SMTP id t19so4945833qtc.4
+ us-mta-613-FypgEtA-N8CD2DGC28TWHA-2; Thu, 24 Mar 2022 16:35:32 -0400
+X-MC-Unique: FypgEtA-N8CD2DGC28TWHA-2
+Received: by mail-qt1-f173.google.com with SMTP id t7so4924748qta.10
  for <dm-devel@redhat.com>; Thu, 24 Mar 2022 13:35:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=dtKGQivDhkGsgWB7I0CubwUBOrK/SvKeob7r58iokR8=;
- b=y5mgU5QKdy16IGJmJcS8D+ZM6ts+zSb/0w9439WjKKNSBtttoapiErUyNV+og21UoF
- yokhOTi9W8BhReeW3+ok4BcJcTM5YCgEYsJc9uFe8rQcj8ZWew9dsgBuvRFsRw8tg9kx
- XbTyJM8NTrbNybx5pmFhndJRvhvFiK2L8Q7RtDGw0x5sGcBShJKAEp/DBVNLA2UnwOy5
- WiB092rtX0TlVweG4XOUtTI1Arb6EaLYei/YgWds8K32JGhR/v7gmCZZtd9EktqBynFT
- Xd00cZ1r7rpKuXNQqn7ual/xHLjFzkLL6BdFMMIjHf4h0O9JyoJovHvG2MGn175EHX51
- T/Fw==
-X-Gm-Message-State: AOAM531HjHCX5gqPsVMoHrnmrs16OM8vvnKcyMgcCMhHdehxmHB/9sOj
- Krvlxsaik7bZFMERCXhE1vX1Mdz8tXeOKMo=
-X-Google-Smtp-Source: ABdhPJzQ9W1d7krZRbk35jIeuKkkOV5bjpJV2+501iJSjml1aPEcHX8qWgNTa4kTu18M39ra1BzSXw==
-X-Received: by 2002:ac8:5e13:0:b0:2e1:cd7e:a29e with SMTP id
- h19-20020ac85e13000000b002e1cd7ea29emr6090711qtx.31.1648154130521; 
- Thu, 24 Mar 2022 13:35:30 -0700 (PDT)
+ bh=Yd52i0i0a5XNUmDGQ87h84LHgrvu7ZnpYDPKqDqFs1o=;
+ b=hEfnr3B73QqxtN8e9yTxWNYRRO2oFyJkrw1c+7Ek3s87oLnOEtPJ9JfK6Rz2wx0Zfa
+ /s01Vv7ZzR0kNjd0qkoPp6Fwgoxnv9PRS+Vq+gPON4pR9LOb+q9IV4zjHAStipcYd9R8
+ QLddPCaa7KDuSWVKNyxd9UJSkOBx5GsjhZ2LGYtzfjlOKpdiuL3d+VdHokHrY9rZnglb
+ 3PPkg/vnBUZA1h/ia1+wONQtBq+JE5w6llwbIxTqJ0cv5/+rOhB53X1LqNlzUTz21vcu
+ 7dyhFXx3hj8vbU0dXploYrpNmbtxKCrKbb+HLLhbQVn20L4KeNcxnoNSXnV/DLtoOhdM
+ SeBQ==
+X-Gm-Message-State: AOAM532sp3BDWPgHqGoge1IVqBDcvLbcYAOyHb6r7+Lzr+K6wr9nOYqT
+ r2GV7sC1kSpZX5GSpk556ULDcNE=
+X-Google-Smtp-Source: ABdhPJxZ6t3UdQbj3qpY2z9A3nIrwL17ZMx/IWJPv3yGVUOB5gE/GLjHEMCnf/vE7K3JiRWmi0un2w==
+X-Received: by 2002:ac8:7e8d:0:b0:2e0:6314:d5f3 with SMTP id
+ w13-20020ac87e8d000000b002e06314d5f3mr6313001qtj.352.1648154131721; 
+ Thu, 24 Mar 2022 13:35:31 -0700 (PDT)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
  [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- s21-20020a05620a16b500b0067b1205878esm2005527qkj.7.2022.03.24.13.35.29
+ k1-20020ac85fc1000000b002e1c6420790sm3492494qta.40.2022.03.24.13.35.31
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 24 Mar 2022 13:35:30 -0700 (PDT)
+ Thu, 24 Mar 2022 13:35:31 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: axboe@kernel.dk
-Date: Thu, 24 Mar 2022 16:35:25 -0400
-Message-Id: <20220324203526.62306-3-snitzer@kernel.org>
+Date: Thu, 24 Mar 2022 16:35:26 -0400
+Message-Id: <20220324203526.62306-4-snitzer@kernel.org>
 In-Reply-To: <20220324203526.62306-1-snitzer@kernel.org>
 References: <20220324203526.62306-1-snitzer@kernel.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-Mailman-Approved-At: Fri, 25 Mar 2022 07:27:19 +0000
-Subject: [dm-devel] [PATCH v3 2/3] block: allow use of per-cpu bio alloc
- cache by block drivers
+Subject: [dm-devel] [PATCH v3 3/3] dm: conditionally enable
+ BIOSET_PERCPU_CACHE for dm_io bioset
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,7 +95,7 @@ Cc: linux-block@vger.kernel.org, dm-devel@redhat.com, hch@lst.de,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,70 +103,111 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Refine per-cpu bio alloc cache interfaces so that DM and other block
-drivers can properly create and use the cache:
+A bioset's per-cpu alloc cache may have broader utility in the future
+but for now constrain it to being tightly coupled to QUEUE_FLAG_POLL.
 
-DM uses bioset_init_from_src() to do its final bioset initialization,
-so must update bioset_init_from_src() to set BIOSET_PERCPU_CACHE if
-%src bioset has a cache.
+Also change dm_io_complete() to use bio_clear_polled() so that it
+properly clears all associated bio state on requeue.
 
-Also move bio_clear_polled() to include/linux/bio.h to allow users
-outside of block core.
+This commit improves DM's hipri bio polling (REQ_POLLED) perf by
+7 - 20% depending on the system.
 
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- block/bio.c         | 2 ++
- block/blk.h         | 6 ------
- include/linux/bio.h | 6 ++++++
- 3 files changed, 8 insertions(+), 6 deletions(-)
+ drivers/md/dm-table.c | 11 ++++++++---
+ drivers/md/dm.c       |  8 ++++----
+ drivers/md/dm.h       |  4 ++--
+ 3 files changed, 14 insertions(+), 9 deletions(-)
 
-diff --git a/block/bio.c b/block/bio.c
-index 09b714469b06..859f728e42dc 100644
---- a/block/bio.c
-+++ b/block/bio.c
-@@ -1769,6 +1769,8 @@ int bioset_init_from_src(struct bio_set *bs, struct bio_set *src)
- 		flags |= BIOSET_NEED_BVECS;
- 	if (src->rescue_workqueue)
- 		flags |= BIOSET_NEED_RESCUER;
-+	if (src->cache)
-+		flags |= BIOSET_PERCPU_CACHE;
- 
- 	return bioset_init(bs, src->bio_pool.min_nr, src->front_pad, flags);
- }
-diff --git a/block/blk.h b/block/blk.h
-index 9cb04f24ba8a..4f6b172c3342 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -451,12 +451,6 @@ extern struct device_attribute dev_attr_events;
- extern struct device_attribute dev_attr_events_async;
- extern struct device_attribute dev_attr_events_poll_msecs;
- 
--static inline void bio_clear_polled(struct bio *bio)
--{
--	/* can't support alloc cache if we turn off polling */
--	bio->bi_opf &= ~(REQ_POLLED | REQ_ALLOC_CACHE);
--}
--
- long blkdev_ioctl(struct file *file, unsigned cmd, unsigned long arg);
- long compat_blkdev_ioctl(struct file *file, unsigned cmd, unsigned long arg);
- 
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 10406f57d339..a40a4ba2771f 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -783,6 +783,12 @@ static inline void bio_set_polled(struct bio *bio, struct kiocb *kiocb)
- 		bio->bi_opf |= REQ_NOWAIT;
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index c0be4f60b427..7ebc70e3eb2f 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -1002,6 +1002,8 @@ bool dm_table_request_based(struct dm_table *t)
+ 	return __table_type_request_based(dm_table_get_type(t));
  }
  
-+static inline void bio_clear_polled(struct bio *bio)
-+{
-+	/* can't support alloc cache if we turn off polling */
-+	bio->bi_opf &= ~(REQ_POLLED | REQ_ALLOC_CACHE);
-+}
++static int dm_table_supports_poll(struct dm_table *t);
 +
- struct bio *blk_next_bio(struct bio *bio, struct block_device *bdev,
- 		unsigned int nr_pages, unsigned int opf, gfp_t gfp);
+ static int dm_table_alloc_md_mempools(struct dm_table *t, struct mapped_device *md)
+ {
+ 	enum dm_queue_mode type = dm_table_get_type(t);
+@@ -1009,21 +1011,24 @@ static int dm_table_alloc_md_mempools(struct dm_table *t, struct mapped_device *
+ 	unsigned min_pool_size = 0;
+ 	struct dm_target *ti;
+ 	unsigned i;
++	bool poll_supported = false;
  
+ 	if (unlikely(type == DM_TYPE_NONE)) {
+ 		DMWARN("no table type is set, can't allocate mempools");
+ 		return -EINVAL;
+ 	}
+ 
+-	if (__table_type_bio_based(type))
++	if (__table_type_bio_based(type)) {
+ 		for (i = 0; i < t->num_targets; i++) {
+ 			ti = t->targets + i;
+ 			per_io_data_size = max(per_io_data_size, ti->per_io_data_size);
+ 			min_pool_size = max(min_pool_size, ti->num_flush_bios);
+ 		}
++		poll_supported = !!dm_table_supports_poll(t);
++	}
+ 
+-	t->mempools = dm_alloc_md_mempools(md, type, t->integrity_supported,
+-					   per_io_data_size, min_pool_size);
++	t->mempools = dm_alloc_md_mempools(md, type, per_io_data_size, min_pool_size,
++					   t->integrity_supported, poll_supported);
+ 	if (!t->mempools)
+ 		return -ENOMEM;
+ 
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index b762a48d3fdf..b3e32116c31f 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -898,7 +898,7 @@ static void dm_io_complete(struct dm_io *io)
+ 		 * may only reflect a subset of the pre-split original,
+ 		 * so clear REQ_POLLED in case of requeue
+ 		 */
+-		bio->bi_opf &= ~REQ_POLLED;
++		bio_clear_polled(bio);
+ 		return;
+ 	}
+ 
+@@ -2915,8 +2915,8 @@ int dm_noflush_suspending(struct dm_target *ti)
+ EXPORT_SYMBOL_GPL(dm_noflush_suspending);
+ 
+ struct dm_md_mempools *dm_alloc_md_mempools(struct mapped_device *md, enum dm_queue_mode type,
+-					    unsigned integrity, unsigned per_io_data_size,
+-					    unsigned min_pool_size)
++					    unsigned per_io_data_size, unsigned min_pool_size,
++					    bool integrity, bool poll)
+ {
+ 	struct dm_md_mempools *pools = kzalloc_node(sizeof(*pools), GFP_KERNEL, md->numa_node_id);
+ 	unsigned int pool_size = 0;
+@@ -2932,7 +2932,7 @@ struct dm_md_mempools *dm_alloc_md_mempools(struct mapped_device *md, enum dm_qu
+ 		pool_size = max(dm_get_reserved_bio_based_ios(), min_pool_size);
+ 		front_pad = roundup(per_io_data_size, __alignof__(struct dm_target_io)) + DM_TARGET_IO_BIO_OFFSET;
+ 		io_front_pad = roundup(per_io_data_size,  __alignof__(struct dm_io)) + DM_IO_BIO_OFFSET;
+-		ret = bioset_init(&pools->io_bs, pool_size, io_front_pad, 0);
++		ret = bioset_init(&pools->io_bs, pool_size, io_front_pad, poll ? BIOSET_PERCPU_CACHE : 0);
+ 		if (ret)
+ 			goto out;
+ 		if (integrity && bioset_integrity_create(&pools->io_bs, pool_size))
+diff --git a/drivers/md/dm.h b/drivers/md/dm.h
+index 9013dc1a7b00..3f89664fea01 100644
+--- a/drivers/md/dm.h
++++ b/drivers/md/dm.h
+@@ -221,8 +221,8 @@ void dm_kcopyd_exit(void);
+  * Mempool operations
+  */
+ struct dm_md_mempools *dm_alloc_md_mempools(struct mapped_device *md, enum dm_queue_mode type,
+-					    unsigned integrity, unsigned per_bio_data_size,
+-					    unsigned min_pool_size);
++					    unsigned per_io_data_size, unsigned min_pool_size,
++					    bool integrity, bool poll);
+ void dm_free_md_mempools(struct dm_md_mempools *pools);
+ 
+ /*
 -- 
 2.15.0
 
