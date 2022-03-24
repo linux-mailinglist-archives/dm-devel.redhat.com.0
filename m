@@ -1,81 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C212F4E661D
-	for <lists+dm-devel@lfdr.de>; Thu, 24 Mar 2022 16:35:19 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 80B714E6606
+	for <lists+dm-devel@lfdr.de>; Thu, 24 Mar 2022 16:34:56 +0100 (CET)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-516-n6ZmC7mMMyaf4Ty09Ql4Bw-1; Thu, 24 Mar 2022 11:35:11 -0400
-X-MC-Unique: n6ZmC7mMMyaf4Ty09Ql4Bw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-517-B5BY1SAjN4ip5unta1rn9w-1; Thu, 24 Mar 2022 11:34:52 -0400
+X-MC-Unique: B5BY1SAjN4ip5unta1rn9w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECF12899EDE;
-	Thu, 24 Mar 2022 15:34:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B29D785A5BE;
+	Thu, 24 Mar 2022 15:34:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D6AB2C27D8E;
-	Thu, 24 Mar 2022 15:34:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2532B401A994;
+	Thu, 24 Mar 2022 15:34:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE96F1940368;
-	Thu, 24 Mar 2022 15:34:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9DB7A1940365;
+	Thu, 24 Mar 2022 15:34:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F15871940347
- for <dm-devel@listman.corp.redhat.com>; Wed, 23 Mar 2022 09:29:40 +0000 (UTC)
+ ESMTP id F2AF81940347
+ for <dm-devel@listman.corp.redhat.com>; Thu, 24 Mar 2022 00:32:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8A7C640D2824; Wed, 23 Mar 2022 09:29:40 +0000 (UTC)
+ id B44E5141DEC7; Thu, 24 Mar 2022 00:32:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 864EC40D2823
- for <dm-devel@redhat.com>; Wed, 23 Mar 2022 09:29:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66884101AA42
- for <dm-devel@redhat.com>; Wed, 23 Mar 2022 09:29:40 +0000 (UTC)
-Received: from mail-yw1-f172.google.com (mail-yw1-f172.google.com
- [209.85.128.172]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-237-w3tDjGKAMLeyBNf7gYK7GQ-1; Wed, 23 Mar 2022 05:29:35 -0400
-X-MC-Unique: w3tDjGKAMLeyBNf7gYK7GQ-1
-Received: by mail-yw1-f172.google.com with SMTP id
- 00721157ae682-2e5e31c34bfso9897337b3.10; 
- Wed, 23 Mar 2022 02:29:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:mime-version:references:in-reply-to:from:date
- :message-id:subject:to:cc;
- bh=RTdntLwWP7UcoqdxIbtO2gBEwkCYFZ/lgUjrNqmrzxY=;
- b=DNV0ooTA7N0R26y3vqIreGlEh1owXCSWe0Cf03ANIV11D07IRJD9C4ScnezsZVt9Ch
- NHHu6AzKRoZYGbgIOgiDrRCjo6WtWDXCZz4uV7ZzuZ8mrdy22rRBwMoxCVuFOOpZAX5H
- bQC7jnhUGBuq/D4+4BtnSgOLrqlJFW2KR7baj/QTac+s34ppqZhAeQQ0eaWWQ9mfU767
- ynqiYJv4W27jwviqBDWns4KqFCV4lNLMZoJauWnwlQ2PngKOvcvV1DVOz7PWqL9X4j6E
- NRKdY1whuReX4WDI/GzhdAajgcolYdV2NPXqXuOlN7K8obRUyftlwVrAYpiC1QEyr52s
- +WSw==
-X-Gm-Message-State: AOAM532pQVRLimnu7T0AvO8dZVvWov+oMnBTJjuVE5mbCAzKdGnfbfHW
- LML4F1UAvL4ieqWDH4pm3NBy74uR1yx63BoZKeE=
-X-Google-Smtp-Source: ABdhPJxsStnlEm2/XrSzPGOBMOTw5PlnKDFjWTj/c9kKouVbhUo8itraPrOCZBSFmdgor+QYZSqQ1SYIOcVDz/aGNlE=
-X-Received: by 2002:a0d:c284:0:b0:2dc:37ec:f02c with SMTP id
- e126-20020a0dc284000000b002dc37ecf02cmr33701891ywd.503.1648027774854; Wed, 23
- Mar 2022 02:29:34 -0700 (PDT)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B052E1410DD5
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 00:32:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B7E4805A30
+ for <dm-devel@redhat.com>; Thu, 24 Mar 2022 00:32:22 +0000 (UTC)
+Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-567-wp1vG-2PMUS1dliYJslpNA-1; Wed, 23 Mar 2022 20:32:20 -0400
+X-MC-Unique: wp1vG-2PMUS1dliYJslpNA-1
+X-IronPort-AV: E=McAfee;i="6200,9189,10295"; a="240416200"
+X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; d="scan'208";a="240416200"
+Received: from orsmga008.jf.intel.com ([10.7.209.65])
+ by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 17:31:16 -0700
+X-IronPort-AV: E=Sophos;i="5.90,205,1643702400"; d="scan'208";a="561150781"
+Received: from rongch2-mobl.ccr.corp.intel.com (HELO [10.249.174.249])
+ ([10.249.174.249])
+ by orsmga008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 23 Mar 2022 17:31:14 -0700
+To: Mike Snitzer <snitzer@redhat.com>, kernel test robot <lkp@intel.com>
+References: <202203240638.crXQjFY5-lkp@intel.com> <YjuoF88MzBALI+l8@redhat.com>
+From: "Chen, Rong A" <rong.a.chen@intel.com>
+Message-ID: <2c10ed96-4558-3438-e889-f5b9ff4cea84@intel.com>
+Date: Thu, 24 Mar 2022 08:31:12 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Firefox/78.0 Thunderbird/78.12.0
 MIME-Version: 1.0
-References: <20220124091107.642561-1-hch@lst.de>
- <20220124091107.642561-2-hch@lst.de>
- <20220322211915.GA2413063@roeck-us.net>
- <CAKFNMonRd5QQMzLoH3T=M=C=2Q_j9d86EYzZeY4DU2HQAE3E8w@mail.gmail.com>
- <20220323064248.GA24874@lst.de>
-In-Reply-To: <20220323064248.GA24874@lst.de>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Wed, 23 Mar 2022 18:29:23 +0900
-Message-ID: <CAKFNMonANUN7_99oVBOq=iCJpt6jQs3qhu1ez5SwMm2g7sZUyw@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>, Guenter Roeck <linux@roeck-us.net>
+In-Reply-To: <YjuoF88MzBALI+l8@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,9 +70,12 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-Mailman-Approved-At: Thu, 24 Mar 2022 15:34:43 +0000
-Subject: Re: [dm-devel] [PATCH 01/19] fs: remove mpage_alloc
+Subject: Re: [dm-devel] [kbuild-all] Re: [device-mapper-dm:dm-5.19 132/132]
+ drivers/md/dm.c:1542:18: error: 'result' undeclared
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,67 +87,79 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>,
- Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
- linux-nfs@vger.kernel.org, linux-nilfs <linux-nilfs@vger.kernel.org>,
- Mike Snitzer <snitzer@redhat.com>,
- Philipp Reisner <philipp.reisner@linbit.com>,
- Pavel Begunkov <asml.silence@gmail.com>, linux-block@vger.kernel.org,
- =?UTF-8?Q?Roger_Pau_Monn=C3=A9?= <roger.pau@citrix.co>,
- device-mapper development <dm-devel@redhat.com>,
- "Md . Haris Iqbal" <haris.iqbal@ionos.com>, linux-fsdevel@vger.kernel.org,
- xen-devel@lists.xenproject.org, Lars Ellenberg <lars.ellenberg@linbit.com>,
- ntfs3@lists.linux.dev, Jack Wang <jinpu.wang@ionos.com>,
- Andrew Morton <akpm@linux-foundation.org>, drbd-dev@lists.linbit.com
+Cc: kbuild-all@lists.01.org, dm-devel@redhat.com,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Wed, Mar 23, 2022 at 3:42 PM Christoph Hellwig <hch@lst.de> wrote:
->
-> On Wed, Mar 23, 2022 at 06:38:22AM +0900, Ryusuke Konishi wrote:
-> > This looks because the mask of GFP_KERNEL is removed along with
-> > the removal of mpage_alloc().
-> >
->
-> > The default value of the gfp flag is set to GFP_HIGHUSER_MOVABLE by
-> > inode_init_always().
-> > So, __GFP_HIGHMEM hits the gfp warning at bio_alloc() that
-> > do_mpage_readpage() calls.
->
-> Yeah.  Let's try this to match the iomap code:
->
-> diff --git a/fs/mpage.c b/fs/mpage.c
-> index 9ed1e58e8d70b..d465883edf719 100644
-> --- a/fs/mpage.c
-> +++ b/fs/mpage.c
-> @@ -148,13 +148,11 @@ static struct bio *do_mpage_readpage(struct mpage_readpage_args *args)
->         int op = REQ_OP_READ;
->         unsigned nblocks;
->         unsigned relative_block;
-> -       gfp_t gfp;
-> +       gfp_t gfp = mapping_gfp_constraint(page->mapping, GFP_KERNEL);
->
->         if (args->is_readahead) {
->                 op |= REQ_RAHEAD;
-> -               gfp = readahead_gfp_mask(page->mapping);
-> -       } else {
-> -               gfp = mapping_gfp_constraint(page->mapping, GFP_KERNEL);
-> +               gfp |= __GFP_NORETRY | __GFP_NOWARN;
->         }
->
->         if (page_has_buffers(page))
 
-I did not test for iomap, but this patch has fixed the same regression on the
-latest mainline at least for ext2, exfat, vfat and nilfs2.  Thanks!
 
-Ryusuke Konishi
+On 3/24/2022 7:07 AM, Mike Snitzer wrote:
+> On Wed, Mar 23 2022 at  6:57P -0400,
+> kernel test robot <lkp@intel.com> wrote:
+> 
+>> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git dm-5.19
+>> head:   7f8ac95a6464b895e3d2b6175f7ee64a4c10fcfe
+>> commit: 7f8ac95a6464b895e3d2b6175f7ee64a4c10fcfe [132/132] dm: push error handling down to __split_and_process_bio
+>> config: s390-buildonly-randconfig-r005-20220323 (https://download.01.org/0day-ci/archive/20220324/202203240638.crXQjFY5-lkp@intel.com/config)
+>> compiler: s390-linux-gcc (GCC) 11.2.0
+>> reproduce (this is a W=1 build):
+>>          wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+>>          chmod +x ~/bin/make.cross
+>>          # https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?id=7f8ac95a6464b895e3d2b6175f7ee64a4c10fcfe
+>>          git remote add device-mapper-dm https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
+>>          git fetch --no-tags device-mapper-dm dm-5.19
+>>          git checkout 7f8ac95a6464b895e3d2b6175f7ee64a4c10fcfe
+>>          # save the config file to linux build tree
+>>          mkdir build_dir
+>>          COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-11.2.0 make.cross O=build_dir ARCH=s390 SHELL=/bin/bash drivers/md/
+>>
+>> If you fix the issue, kindly add following tag as appropriate
+>> Reported-by: kernel test robot <lkp@intel.com>
+>>
+>> All errors (new ones prefixed by >>):
+>>
+>>     drivers/md/dm.c: In function '__process_abnormal_io':
+>>>> drivers/md/dm.c:1542:18: error: 'result' undeclared (first use in this function)
+>>      1542 |                 *result = BLK_STS_NOTSUPP;
+>>           |                  ^~~~~~
+>>     drivers/md/dm.c:1542:18: note: each undeclared identifier is reported only once for each function it appears in
+>>
+> 
+> Yeah, I pushed this too soon, fixed now.
+> 
+> But why are you even testing this branch? I didn't include dm-5.19 in
+> linux-next yet.
+
+Hi Mike,
+
+The bot picks up all branches to test, do you want it to only test few 
+branches?
+
+
+> 
+> Given that it seems strange for the bot to just pick up some branch,
+> and then spam LKML, dm-devel, etc like it found a meaningful problem.
+
+we also support sending reports privately, do you want this way?
+
+Best Regards,
+Rong Chen
+
+> 
+> Mike
+> _______________________________________________
+> kbuild-all mailing list -- kbuild-all@lists.01.org
+> To unsubscribe send an email to kbuild-all-leave@lists.01.org
+> 
 
 --
 dm-devel mailing list
