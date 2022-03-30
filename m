@@ -1,70 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 058FE4ECF67
-	for <lists+dm-devel@lfdr.de>; Thu, 31 Mar 2022 00:15:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BEAC44ECF68
+	for <lists+dm-devel@lfdr.de>; Thu, 31 Mar 2022 00:15:41 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-634-ngL2d7Q8OT-BC2G9Wxl2Bg-1; Wed, 30 Mar 2022 18:15:38 -0400
-X-MC-Unique: ngL2d7Q8OT-BC2G9Wxl2Bg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-325-4v_UKdt4PdKtmXJ36tvucA-1; Wed, 30 Mar 2022 18:15:38 -0400
+X-MC-Unique: 4v_UKdt4PdKtmXJ36tvucA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B567C1C07856;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2F5B3C01D9A;
 	Wed, 30 Mar 2022 22:15:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 79A8440CF8F8;
-	Wed, 30 Mar 2022 22:15:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1D6A3400E407;
+	Wed, 30 Mar 2022 22:15:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 01C85194035D;
-	Wed, 30 Mar 2022 22:15:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 92FB91947BBD;
+	Wed, 30 Mar 2022 22:15:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C866019466DF
- for <dm-devel@listman.corp.redhat.com>; Wed, 30 Mar 2022 22:15:30 +0000 (UTC)
+ ESMTP id A7C631940355
+ for <dm-devel@listman.corp.redhat.com>; Wed, 30 Mar 2022 22:15:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A8052400E554; Wed, 30 Mar 2022 22:15:30 +0000 (UTC)
+ id 856C5C15D75; Wed, 30 Mar 2022 22:15:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A38F840CF915
- for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:30 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 81ACFC15D42
+ for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:31 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F716185A794
- for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:30 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68911101A54C
+ for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:31 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-227-9Yo__gyPNxeTj2e5mbh6CA-1; Wed, 30 Mar 2022 18:15:28 -0400
-X-MC-Unique: 9Yo__gyPNxeTj2e5mbh6CA-1
+ us-mta-583-FlNXNUuQNY-RTjkHDAGmXw-1; Wed, 30 Mar 2022 18:15:29 -0400
+X-MC-Unique: FlNXNUuQNY-RTjkHDAGmXw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 1CBCC21900;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6A9F41F86A;
  Wed, 30 Mar 2022 22:15:27 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D141A13AF3;
- Wed, 30 Mar 2022 22:15:26 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2A3BA13AF3;
+ Wed, 30 Mar 2022 22:15:27 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id WPUDMX7WRGL8JgAAMHmgww
- (envelope-from <mwilck@suse.com>); Wed, 30 Mar 2022 22:15:26 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 6C1GCH/WRGL8JgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Wed, 30 Mar 2022 22:15:27 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 31 Mar 2022 00:15:07 +0200
-Message-Id: <20220330221510.22578-12-mwilck@suse.com>
+Date: Thu, 31 Mar 2022 00:15:08 +0200
+Message-Id: <20220330221510.22578-13-mwilck@suse.com>
 In-Reply-To: <20220330221510.22578-1-mwilck@suse.com>
 References: <20220330221510.22578-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -75,9 +75,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [dm-devel] [PATCH 11/14] libmultipath: merge_uevq(): filter first,
- then merge
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: [dm-devel] [PATCH 12/14] libmultipath: uevent_filter(): filter
+ previously merged events
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,56 +92,70 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>, tang.junhui@zte.com.cn
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============0493583229292523395=="
+Content-Type: multipart/mixed; boundary="===============0411803433557675775=="
 
---===============0493583229292523395==
+--===============0411803433557675775==
 Content-Transfer-Encoding: quoted-printable
 Content-Type: application/octet-stream; x-default=true
 
 From: Martin Wilck <mwilck@suse.com>
 
-Run filtering over the entire list before merging.
-Otherwise it can happen that the filter (which is more efficient
-at saving work) doesn't find events to drop, because they have been
-merged. Also, the the merging logic needs to be run for less events.
+With the new list-appending logic, it can happen that previously
+merged events can now be filtered. Do it.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/uevent.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+ libmultipath/uevent.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
 
 diff --git a/libmultipath/uevent.c b/libmultipath/uevent.c
-index c49171f..eb900ec 100644
+index eb900ec..809c74c 100644
 --- a/libmultipath/uevent.c
 +++ b/libmultipath/uevent.c
-@@ -403,11 +403,13 @@ static void merge_uevq(struct uevent_filter_state *st=
-)
- =09struct uevent *later;
+@@ -305,7 +305,7 @@ static void uevent_delete_from_list(struct uevent *to_d=
+elete,
+ =09 * for the anchor), "old_tail" must be moved. It can happen that
+ =09 * "old_tail" ends up pointing at the anchor.
+ =09 */
+-=09if (*old_tail =3D=3D &to_delete->node)
++=09if (old_tail && *old_tail =3D=3D &to_delete->node)
+ =09=09*old_tail =3D to_delete->node.prev;
 =20
- =09uevent_prepare(st);
--=09list_for_some_entry_reverse(later, &st->uevq, st->old_tail, node) {
+ =09list_del_init(&to_delete->node);
+@@ -360,6 +360,20 @@ uevent_filter(struct uevent *later, struct uevent_filt=
+er_state *st)
+ =09=09 * filter unnessary earlier uevents
+ =09=09 * by the later uevent
+ =09=09 */
++=09=09if (!list_empty(&earlier->merge_node)) {
++=09=09=09struct uevent *mn, *t;
 +
-+=09list_for_some_entry_reverse(later, &st->uevq, st->old_tail, node)
- =09=09uevent_filter(later, st);
--=09=09if(uevent_need_merge(st->conf))
-+
-+=09if(uevent_need_merge(st->conf))
-+=09=09list_for_some_entry_reverse(later, &st->uevq, st->old_tail, node)
- =09=09=09uevent_merge(later, st);
--=09}
- }
-=20
- static void
++=09=09=09list_for_each_entry_reverse_safe(mn, t, &earlier->merge_node, nod=
+e) {
++=09=09=09=09if (uevent_can_filter(mn, later)) {
++=09=09=09=09=09condlog(4, "uevent: \"%s %s\" (merged into \"%s %s\") filte=
+red by \"%s %s\"",
++=09=09=09=09=09=09mn->action, mn->kernel,
++=09=09=09=09=09=09earlier->action, earlier->kernel,
++=09=09=09=09=09=09later->action, later->kernel);
++=09=09=09=09=09uevent_delete_from_list(mn, &t, NULL);
++=09=09=09=09=09st->filtered++;
++=09=09=09=09}
++=09=09=09}
++=09=09}
+ =09=09if (uevent_can_filter(earlier, later)) {
+ =09=09=09condlog(3, "uevent: %s-%s has filtered by uevent: %s-%s",
+ =09=09=09=09earlier->kernel, earlier->action,
 --=20
 2.35.1
 
 
---===============0493583229292523395==
+--===============0411803433557675775==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -152,5 +166,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============0493583229292523395==--
+--===============0411803433557675775==--
 
