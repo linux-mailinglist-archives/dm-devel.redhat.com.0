@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 220C04ECF73
-	for <lists+dm-devel@lfdr.de>; Thu, 31 Mar 2022 00:16:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7079B4ECF70
+	for <lists+dm-devel@lfdr.de>; Thu, 31 Mar 2022 00:15:48 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-172-WiwGa2fmOh2c1H_6yiZayg-1; Wed, 30 Mar 2022 18:15:42 -0400
-X-MC-Unique: WiwGa2fmOh2c1H_6yiZayg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-262-9ep5k-nBOUOqmVTzsjA-Ow-1; Wed, 30 Mar 2022 18:15:45 -0400
+X-MC-Unique: 9ep5k-nBOUOqmVTzsjA-Ow-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8D17100BAB8;
-	Wed, 30 Mar 2022 22:15:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47C1789C7E3;
+	Wed, 30 Mar 2022 22:15:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B2261C08096;
-	Wed, 30 Mar 2022 22:15:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2D33E40CFD02;
+	Wed, 30 Mar 2022 22:15:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D09E81940351;
-	Wed, 30 Mar 2022 22:15:34 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D0A2F19451F3;
+	Wed, 30 Mar 2022 22:15:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0B18319466DF
- for <dm-devel@listman.corp.redhat.com>; Wed, 30 Mar 2022 22:15:33 +0000 (UTC)
+ ESMTP id 95DEB1947BBE
+ for <dm-devel@listman.corp.redhat.com>; Wed, 30 Mar 2022 22:15:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E3BE62026D6A; Wed, 30 Mar 2022 22:15:32 +0000 (UTC)
+ id 8680D2166B14; Wed, 30 Mar 2022 22:15:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DF3252026D6B
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 80D312166B5D
  for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:28 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5DFA038008AF
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A960610115F6
  for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:28 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609-N_t8MkjXO8GP7qBPcbVvfw-1; Wed, 30 Mar 2022 18:15:26 -0400
-X-MC-Unique: N_t8MkjXO8GP7qBPcbVvfw-1
+ us-mta-210-SFNhXwjkMx2QN2myIP_Gkw-1; Wed, 30 Mar 2022 18:15:27 -0400
+X-MC-Unique: SFNhXwjkMx2QN2myIP_Gkw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 76D891F86E;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C87C61F86F;
  Wed, 30 Mar 2022 22:15:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 372A213AF3;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8513C13AF3;
  Wed, 30 Mar 2022 22:15:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 8BNGC33WRGL8JgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id KApfHn3WRGL8JgAAMHmgww
  (envelope-from <mwilck@suse.com>); Wed, 30 Mar 2022 22:15:25 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 31 Mar 2022 00:15:02 +0200
-Message-Id: <20220330221510.22578-7-mwilck@suse.com>
+Date: Thu, 31 Mar 2022 00:15:03 +0200
+Message-Id: <20220330221510.22578-8-mwilck@suse.com>
 In-Reply-To: <20220330221510.22578-1-mwilck@suse.com>
 References: <20220330221510.22578-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,9 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [dm-devel] [PATCH 06/14] multipathd: reconfigure: disallow changing
- uid_attrs
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [dm-devel] [PATCH 07/14] libmultipath: microoptimize uevent
+ filtering and merging
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,127 +91,110 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>, tang.junhui@zte.com.cn
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============4735785370397585856=="
+Content-Type: multipart/mixed; boundary="===============3094553296602123435=="
 
---===============4735785370397585856==
+--===============3094553296602123435==
 Content-Transfer-Encoding: quoted-printable
 Content-Type: application/octet-stream; x-default=true
 
 From: Martin Wilck <mwilck@suse.com>
 
-uevent merging by WWID relies on the uid_attrs config option. As we
-drop struct config between calls to uevent_merge(), we must be sure
-that the WWID is not changed in reconfigure().
+Simplify and microoptimize the filtering and merging tests.
+E.g. do the WWID comparison last.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipath/multipath.conf.5 |  2 ++
- multipathd/main.c          | 53 +++++++++++++++++++++++++++++++-------
- 2 files changed, 46 insertions(+), 9 deletions(-)
+ libmultipath/uevent.c | 30 ++++++++++++++----------------
+ 1 file changed, 14 insertions(+), 16 deletions(-)
 
-diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index 605b46e..a9cd776 100644
---- a/multipath/multipath.conf.5
-+++ b/multipath/multipath.conf.5
-@@ -264,6 +264,8 @@ If this option is configured and matches the device
- node name of a device, it overrides any other configured  methods for
- determining the WWID for this device.
- .PP
-+This option cannot be changed during runtime with the multipathd \fBreconf=
-igure\fR command.
-+.PP
- The default is: \fB<unset>\fR. To enable uevent merging, set it e.g. to
- \(dqsd:ID_SERIAL dasd:ID_UID nvme:ID_WWN\(dq.
- .RE
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 13b1948..f514b32 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -2835,11 +2835,52 @@ void rcu_free_config(struct rcu_head *head)
- =09free_config(conf);
- }
-=20
-+static bool reconfigure_check_uid_attrs(const struct _vector *old_attrs,
-+=09=09=09=09=09const struct _vector *new_attrs)
-+{
-+=09int i;
-+=09char *old;
-+
-+=09if (VECTOR_SIZE(old_attrs) !=3D VECTOR_SIZE(new_attrs))
-+=09=09return true;
-+
-+=09vector_foreach_slot(old_attrs, old, i) {
-+=09=09char *new =3D VECTOR_SLOT(new_attrs, i);
-+
-+=09=09if (strcmp(old, new))
-+=09=09=09return true;
-+=09}
-+
-+=09return false;
-+}
-+
-+static void reconfigure_check(struct config *old, struct config *new)
-+{
-+=09int old_marginal_pathgroups;
-+
-+=09old_marginal_pathgroups =3D old->marginal_pathgroups;
-+=09if ((old_marginal_pathgroups =3D=3D MARGINAL_PATHGROUP_FPIN) !=3D
-+=09    (new->marginal_pathgroups =3D=3D MARGINAL_PATHGROUP_FPIN)) {
-+=09=09condlog(1, "multipathd must be restarted to turn %s fpin marginal pa=
-ths",
-+=09=09=09(old_marginal_pathgroups =3D=3D MARGINAL_PATHGROUP_FPIN)?
-+=09=09=09"off" : "on");
-+=09=09new->marginal_pathgroups =3D old_marginal_pathgroups;
-+=09}
-+
-+=09if (reconfigure_check_uid_attrs(&old->uid_attrs, &new->uid_attrs)) {
-+=09=09struct _vector v =3D new->uid_attrs;
-+
-+=09=09condlog(1, "multipathd must be restarted to change uid_attrs, keepin=
-g old values");
-+=09=09new->uid_attrs =3D old->uid_attrs;
-+=09=09vector_reset(&v);
-+=09=09old->uid_attrs =3D v;
-+=09}
-+}
-+
- static int
- reconfigure (struct vectors *vecs, enum force_reload_types reload_type)
+diff --git a/libmultipath/uevent.c b/libmultipath/uevent.c
+index 2779703..0de9c6b 100644
+--- a/libmultipath/uevent.c
++++ b/libmultipath/uevent.c
+@@ -220,6 +220,10 @@ static bool
+ uevent_can_filter(struct uevent *earlier, struct uevent *later)
  {
- =09struct config * old, *conf;
--=09int old_marginal_pathgroups;
 =20
- =09conf =3D load_config(DEFAULT_CONFIGFILE);
- =09if (!conf)
-@@ -2870,14 +2911,8 @@ reconfigure (struct vectors *vecs, enum force_reload=
-_types reload_type)
- =09uxsock_timeout =3D conf->uxsock_timeout;
-=20
- =09old =3D rcu_dereference(multipath_conf);
--=09old_marginal_pathgroups =3D old->marginal_pathgroups;
--=09if ((old_marginal_pathgroups =3D=3D MARGINAL_PATHGROUP_FPIN) !=3D
--=09    (conf->marginal_pathgroups =3D=3D MARGINAL_PATHGROUP_FPIN)) {
--=09=09condlog(1, "multipathd must be restarted to turn %s fpin marginal pa=
-ths",
--=09=09=09(old_marginal_pathgroups =3D=3D MARGINAL_PATHGROUP_FPIN)?
--=09=09=09"off" : "on");
--=09=09conf->marginal_pathgroups =3D old_marginal_pathgroups;
--=09}
-+=09reconfigure_check(old, conf);
++=09if (!strncmp(later->kernel, "dm-", 3) ||
++=09    strcmp(earlier->kernel, later->kernel))
++=09=09return false;
 +
- =09conf->sequence_nr =3D old->sequence_nr + 1;
- =09rcu_assign_pointer(multipath_conf, conf);
- =09call_rcu(&old->rcu, rcu_free_config);
+ =09/*
+ =09 * filter earlier uvents if path has removed later. Eg:
+ =09 * "add path1 |chang path1 |add path2 |remove path1"
+@@ -227,11 +231,8 @@ uevent_can_filter(struct uevent *earlier, struct ueven=
+t *later)
+ =09 * "add path2 |remove path1"
+ =09 * uevents "add path1" and "chang path1" are filtered out
+ =09 */
+-=09if (!strcmp(earlier->kernel, later->kernel) &&
+-=09=09!strcmp(later->action, "remove") &&
+-=09=09strncmp(later->kernel, "dm-", 3)) {
++=09if (!strcmp(later->action, "remove"))
+ =09=09return true;
+-=09}
+=20
+ =09/*
+ =09 * filter change uvents if add uevents exist. Eg:
+@@ -240,12 +241,9 @@ uevent_can_filter(struct uevent *earlier, struct ueven=
+t *later)
+ =09 * "add path1 |add path2"
+ =09 * uevent "chang path1" is filtered out
+ =09 */
+-=09if (!strcmp(earlier->kernel, later->kernel) &&
+-=09=09!strcmp(earlier->action, "change") &&
+-=09=09!strcmp(later->action, "add") &&
+-=09=09strncmp(later->kernel, "dm-", 3)) {
++=09if (!strcmp(earlier->action, "change") &&
++=09    !strcmp(later->action, "add"))
+ =09=09return true;
+-=09}
+=20
+ =09return false;
+ }
+@@ -278,10 +276,10 @@ merge_need_stop(struct uevent *earlier, struct uevent=
+ *later)
+ =09 * with the same wwid and different action
+ =09 * it would be better to stop merging.
+ =09 */
+-=09if (!strcmp(earlier->wwid, later->wwid) &&
+-=09    strcmp(earlier->action, later->action) &&
++=09if (strcmp(earlier->action, later->action) &&
+ =09    strcmp(earlier->action, "change") &&
+-=09    strcmp(later->action, "change"))
++=09    strcmp(later->action, "change") &&
++=09    !strcmp(earlier->wwid, later->wwid))
+ =09=09return true;
+=20
+ =09return false;
+@@ -296,12 +294,12 @@ uevent_can_merge(struct uevent *earlier, struct ueven=
+t *later)
+ =09 * and actions are addition or deletion
+ =09 */
+ =09if (earlier->wwid && later->wwid &&
+-=09    !strcmp(earlier->wwid, later->wwid) &&
++=09    strncmp(earlier->kernel, "dm-", 3) &&
+ =09    !strcmp(earlier->action, later->action) &&
+-=09    strncmp(earlier->action, "change", 6) &&
+-=09    strncmp(earlier->kernel, "dm-", 3)) {
++=09    (!strcmp(earlier->action, "add") ||
++=09     !strcmp(earlier->action, "remove")) &&
++=09    !strcmp(earlier->wwid, later->wwid))
+ =09=09return true;
+-=09}
+=20
+ =09return false;
+ }
 --=20
 2.35.1
 
 
---===============4735785370397585856==
+--===============3094553296602123435==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -222,5 +205,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============4735785370397585856==--
+--===============3094553296602123435==--
 
