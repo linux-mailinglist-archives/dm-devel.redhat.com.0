@@ -1,62 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E62E84ECDC4
-	for <lists+dm-devel@lfdr.de>; Wed, 30 Mar 2022 22:15:22 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1648671321;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=zm5TUgU5VWRuJdrIds55W5WLhWyTVnM+dftW+lOrUeI=;
-	b=Jcst/znwU1cLk7s2W5pomyPM2iDM0rdK4Admczb3UDehffJOk1NcwUfSfSDEfoNHZfBwLv
-	65JCHHQ+qL89oKeL4pIKTPqYI79cp6nfgAuJZr7MEkj9San5d4kDQbY1yG3CViChtWeOb3
-	GIXil3PvhX4md+itasZXfMW8UcmlZWg=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7CD744ECF74
+	for <lists+dm-devel@lfdr.de>; Thu, 31 Mar 2022 00:16:10 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-Vr4fO6skNPC610Jbhgd-ug-1; Wed, 30 Mar 2022 16:15:18 -0400
-X-MC-Unique: Vr4fO6skNPC610Jbhgd-ug-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-634-mcglS3DhNp2g0g4UW0h3bQ-1; Wed, 30 Mar 2022 18:15:39 -0400
+X-MC-Unique: mcglS3DhNp2g0g4UW0h3bQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27E1D101A54C;
-	Wed, 30 Mar 2022 20:15:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B2692899EDE;
+	Wed, 30 Mar 2022 22:15:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A336240D0160;
-	Wed, 30 Mar 2022 20:15:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2F2A2C15D75;
+	Wed, 30 Mar 2022 22:15:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B145A194034C;
-	Wed, 30 Mar 2022 20:14:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E3F7C1949763;
+	Wed, 30 Mar 2022 22:15:28 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 60DB219451F3
- for <dm-devel@listman.corp.redhat.com>; Wed, 30 Mar 2022 20:14:58 +0000 (UTC)
+ ESMTP id 1E58319466DF
+ for <dm-devel@listman.corp.redhat.com>; Wed, 30 Mar 2022 22:15:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 13D6140147D; Wed, 30 Mar 2022 20:14:58 +0000 (UTC)
+ id DA6E040CF8F8; Wed, 30 Mar 2022 22:15:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F2978401E48;
- Wed, 30 Mar 2022 20:14:57 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 22UKEuYe001145;
- Wed, 30 Mar 2022 15:14:56 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 22UKEuKH001144;
- Wed, 30 Mar 2022 15:14:56 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 30 Mar 2022 15:14:56 -0500
-Message-Id: <1648671296-1107-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH v2] multipath: return failure on an invalid
- remove command
+Received: from mimecast-mx02.redhat.com
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D63BE40CF8E4
+ for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD795811E75
+ for <dm-devel@redhat.com>; Wed, 30 Mar 2022 22:15:26 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-594-yTMzUY42NvmGOkIxuW63uA-1; Wed, 30 Mar 2022 18:15:25 -0400
+X-MC-Unique: yTMzUY42NvmGOkIxuW63uA-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 988A9210E3;
+ Wed, 30 Mar 2022 22:15:23 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4C96A13AF3;
+ Wed, 30 Mar 2022 22:15:23 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 62ufEHvWRGL8JgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Wed, 30 Mar 2022 22:15:23 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 31 Mar 2022 00:14:56 +0200
+Message-Id: <20220330221510.22578-1-mwilck@suse.com>
+MIME-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [dm-devel] [PATCH 00/14] Rework uevent filtering and merging
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,57 +86,89 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
-MIME-Version: 1.0
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>, tang.junhui@zte.com.cn
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed; boundary="===============2119261226117719653=="
+
+--===============2119261226117719653==
+Content-Transfer-Encoding: quoted-printable
+Content-Type: application/octet-stream; x-default=true
+
+From: Martin Wilck <mwilck@suse.com>
+
+Hi Ben, hi Christophe, hi Tang Junhui,
+
+the bulk of this patch set (3-8) is a rework of the uevent filtering and
+merging logic introduced in commit ee8888f ("multipath-tools: improve=20
+processing efficiency for addition and deletion of multipath devices"),
+by Tang Junhui.
+
+The rationale is explained in detail in the commit message in patch 08/14.
+TL;DR: The previous approach delayed uevent handling, possibly a lot, which
+is often undesirable. The new logic passes events to the dispatcher
+immediately, but if they queue up (because the dispatcher can't keep
+up with the rate at which events arrive, or is blocked e.g. by the
+path checker), the dispatcher will apply filtering and merging
+between servicing individual events. This worked well in my own testing,
+but I'd appreciate if ZTE could give it a shot in their special test
+environment.
+
+Patch 9-14 add some more improvements to the uevent handling code, and
+improve logging. The first 2 patches are unrelated fixes.
+
+Comments welcome,
+
+Martin
+
+Martin Wilck (14):
+  multipathd: allow adding git rev as version suffix
+  multipathd: don't switch to DAEMON_IDLE during startup
+  uevent_dispatch(): use while in wait loop
+  libmultipath: uevent_dispatch(): process uevents one by one
+  libmultipath: uevent_dispatch(): only filter/merge new uevents
+  multipathd: reconfigure: disallow changing uid_attrs
+  libmultipath: microoptimize uevent filtering and merging
+  libmultipath: uevent_listen(): don't delay uevents
+  libmultipath: uevent: use struct to pass parameters around
+  libmultipath: uevent: log statistics about filtering and merging
+  libmultipath: merge_uevq(): filter first, then merge
+  libmultipath: uevent_filter(): filter previously merged events
+  libmultipath: uevent: improve log messages
+  libmultipath: uevent: add debug messages for event queue
+
+ Makefile.inc               |   3 +-
+ libmultipath/config.c      |   6 +-
+ libmultipath/config.h      |   4 +-
+ libmultipath/discovery.c   |   2 +-
+ libmultipath/list.h        |  53 +++++
+ libmultipath/structs.h     |   2 +-
+ libmultipath/uevent.c      | 407 ++++++++++++++++++++++---------------
+ libmultipath/uevent.h      |   3 +-
+ multipath/multipath.conf.5 |   2 +
+ multipathd/main.c          |  59 ++++--
+ tests/uevent.c             |   2 +-
+ 11 files changed, 354 insertions(+), 189 deletions(-)
+
+--=20
+2.35.1
+
+
+--===============2119261226117719653==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-When "multipath -f" is run on a device that doesn't exist or isn't a
-multipath device, the command will not remove any device, but it will
-still return success.  Multiple functions rely on _dm_flush_map()
-returning success when called with name that doesn't match any
-multipath device. So before calling _dm_flush_map(), call dm_is_mpath(),
-to check if the device exists and is a multipath device, and return
-failure if it's not.
-
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
-
-changes since v1:
-	- more meaningful error message. Suggested by mwilck
-
- multipath/main.c | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/multipath/main.c b/multipath/main.c
-index d09f62db..01eba9ae 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -1060,6 +1060,11 @@ main (int argc, char *argv[])
- 	if (retries < 0)
- 		retries = conf->remove_retries;
- 	if (cmd == CMD_FLUSH_ONE) {
-+		if (dm_is_mpath(dev) != 1) {
-+			condlog(0, "%s is not a multipath device", dev);
-+			r = RTVL_FAIL;
-+			goto out;
-+		}
- 		r = dm_suspend_and_flush_map(dev, retries) ?
- 		    RTVL_FAIL : RTVL_OK;
- 		goto out;
--- 
-2.17.2
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============2119261226117719653==--
 
