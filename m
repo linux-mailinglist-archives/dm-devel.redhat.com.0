@@ -2,76 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 942494F0F9A
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 08:48:43 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 8C9C04F0F9C
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 08:48:44 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-106-rs0bM0iOMhCxu7_suxPzfA-1; Mon, 04 Apr 2022 02:48:41 -0400
-X-MC-Unique: rs0bM0iOMhCxu7_suxPzfA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-452-L4Ncyw_iM02pahzNVOP0CQ-1; Mon, 04 Apr 2022 02:48:42 -0400
+X-MC-Unique: L4Ncyw_iM02pahzNVOP0CQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 986A6811E81;
-	Mon,  4 Apr 2022 06:48:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D25F29DD985;
+	Mon,  4 Apr 2022 06:48:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 418DA49AFD;
-	Mon,  4 Apr 2022 06:48:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2767343F4EC;
+	Mon,  4 Apr 2022 06:48:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0E4EF1940373;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BF22B193F6E5;
 	Mon,  4 Apr 2022 06:48:36 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EE58A19451F3
- for <dm-devel@listman.corp.redhat.com>; Thu, 31 Mar 2022 22:03:33 +0000 (UTC)
+ ESMTP id B7DD919451F3
+ for <dm-devel@listman.corp.redhat.com>; Thu, 31 Mar 2022 22:03:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C1F3B40C1438; Thu, 31 Mar 2022 22:03:33 +0000 (UTC)
+ id 1E4EC400DB1C; Thu, 31 Mar 2022 22:03:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BDE15400F8FD
- for <dm-devel@redhat.com>; Thu, 31 Mar 2022 22:03:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 19E9340CF8F7
+ for <dm-devel@redhat.com>; Thu, 31 Mar 2022 22:03:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 735C8800B28
- for <dm-devel@redhat.com>; Thu, 31 Mar 2022 22:03:28 +0000 (UTC)
-Received: from mail-ed1-f41.google.com (mail-ed1-f41.google.com
- [209.85.208.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFF86185A7BA
+ for <dm-devel@redhat.com>; Thu, 31 Mar 2022 22:03:23 +0000 (UTC)
+Received: from mail-ed1-f51.google.com (mail-ed1-f51.google.com
+ [209.85.208.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-568-bOPzKmYvMm2kiiizqR-ghQ-1; Thu, 31 Mar 2022 18:03:20 -0400
-X-MC-Unique: bOPzKmYvMm2kiiizqR-ghQ-1
-Received: by mail-ed1-f41.google.com with SMTP id b15so874753edn.4;
+ us-mta-54-__g_5dZUMDaD57K2fc04PA-1; Thu, 31 Mar 2022 18:03:21 -0400
+X-MC-Unique: __g_5dZUMDaD57K2fc04PA-1
+Received: by mail-ed1-f51.google.com with SMTP id b24so843787edu.10;
  Thu, 31 Mar 2022 15:03:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=TIkpZXU6eDpzo3cMVd1sBQyW2EHQ/n+w+rqxQP5ETUw=;
- b=dWVOjCJzyPamC9Xg1Fl7KONwocsNrRfHPGk0Cdp41S+nc55swsuPspS4VkuvNKmlla
- HOspOCJ0ihq/b/7XEZc0YcV6++VMNAmeRVO0D7a97CmPPyoHpPEssgMFbz9uBbhH6K4b
- iVywLuRFYzt4i9w9bpt8txCsUa1Za2R3HErwDeOSpRwDxzwVQmygiCqz/J2SPB+qbBgF
- GKdRDeXlnhyJH/eAm/qD9HR+5TGZ27kK3KxzDmQKFkKEkoU+WXAxp/zVQoL3XbajFMdz
- SOWPnsn8IPEjAVhUPedWWOGzIMWyYcJIJJsuyLRB7NZCkTkIH7u9zUQEBh1+QQMPVPek
- VQTA==
-X-Gm-Message-State: AOAM530IWnucvaGiHdi35eiN52nCZaphhHpfCY7ABgHwoWpmZkYawpX8
- AORYzh3ZL1GMnb0WhXrERU9tuq1LxDwVmg==
-X-Google-Smtp-Source: ABdhPJwrocf5wfA3uY8P68HIYW1QfY4wsiYuxLMBN3abwaj3bbyno9YqIO5Vdj98GczqduyWM46BQw==
-X-Received: by 2002:aa7:c64c:0:b0:418:ecf7:afaa with SMTP id
- z12-20020aa7c64c000000b00418ecf7afaamr18660269edr.38.1648764199045; 
- Thu, 31 Mar 2022 15:03:19 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=g06L8lJBLjLYpTtLuAhJfyTVoQvqpjZZgd66GLledb8=;
+ b=xtgWAPw9omlgYMTVhDt8DjWrtPLPD2b4+QGxtlA5fqGhV836xODQqPKJUmjWnK2XqS
+ V48A6FtYSN3NqtbE7bOysjkAqWhodFLXmYLGARSjMAort5zapKnh7McLth9uw84bnoIe
+ dElOtJl2lTLXEkgx6931OTS9/f7evhl/mWhNhFZ4IEufvDMTZjw8Nx8GOHPD05xFIyb+
+ yudR8HjNGHR3qo17DeLanBOhJBY/Yl2c4WNKcmTyJxkhy66IbotrNjb4SI323S+aiQ/R
+ 5dDA3JWFKpgYca8A3Vc4bG/LqCy67rY0EZvwG2GzHXlm9vS8D8i/5yg0NT+Tsgi+HbPV
+ tIKQ==
+X-Gm-Message-State: AOAM530156d9WvxyZkhswq0oy5J+VCuzpvi+t9ZdoKFfuiMc1RZD0VKf
+ JRfVy85twXz2ZZqx6nom1XgPkRy1ewcjUQ==
+X-Google-Smtp-Source: ABdhPJwCH+OkQyo2XKVNWbEL35S6WpC2JL9Zv8VMjXcUGl4e9aJJrg5dIUbzSnOjO+lbBJjllHNdBQ==
+X-Received: by 2002:a05:6402:1742:b0:419:2707:747a with SMTP id
+ v2-20020a056402174200b004192707747amr18500745edx.238.1648764200063; 
+ Thu, 31 Mar 2022 15:03:20 -0700 (PDT)
 Received: from localhost.localdomain (i130160.upc-i.chello.nl.
  [62.195.130.160]) by smtp.googlemail.com with ESMTPSA id
- sb15-20020a1709076d8f00b006dfe4cda58fsm247312ejc.95.2022.03.31.15.03.17
+ sb15-20020a1709076d8f00b006dfe4cda58fsm247312ejc.95.2022.03.31.15.03.19
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 31 Mar 2022 15:03:18 -0700 (PDT)
+ Thu, 31 Mar 2022 15:03:19 -0700 (PDT)
 From: Jakob Koschel <jakobkoschel@gmail.com>
 To: Alasdair Kergon <agk@redhat.com>
-Date: Fri,  1 Apr 2022 00:02:35 +0200
-Message-Id: <20220331220236.884887-1-jakobkoschel@gmail.com>
+Date: Fri,  1 Apr 2022 00:02:36 +0200
+Message-Id: <20220331220236.884887-2-jakobkoschel@gmail.com>
+In-Reply-To: <20220331220236.884887-1-jakobkoschel@gmail.com>
+References: <20220331220236.884887-1-jakobkoschel@gmail.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -80,10 +83,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mailman-Approved-At: Mon, 04 Apr 2022 06:48:34 +0000
-Subject: [dm-devel] [PATCH 1/2] dm snapshot: remove usage of list iterator
- for list_add() after the loop body
+Subject: [dm-devel] [PATCH 2/2] dm: replace usage of found with dedicated
+ list iterator variable
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,7 +105,7 @@ Cc: Mike Snitzer <snitzer@redhat.com>, Cristiano Giuffrida <c.giuffrida@vu.nl>,
  Mike Rapoport <rppt@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -110,49 +113,50 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-In preparation to limit the scope of a list iterator to the list
-traversal loop, use a dedicated pointer to point to the found element
-[1].
+To move the list iterator variable into the list_for_each_entry_*()
+macro in the future it should be avoided to use the list iterator
+variable after the loop body.
 
-Before, the code implicitly used the head when no element was found
-when using &pos->list. Since the new variable is only set if an
-element was found, the list_add() is performed within the loop
-and only done after the loop if it is done on the list head directly.
+To *never* use the list iterator variable after the loop it was
+concluded to use a separate iterator variable instead of a
+found boolean [1].
+
+This removes the need to use a found variable and simply checking if
+the variable was set, can determine if the break/goto was hit.
 
 Link: https://lore.kernel.org/all/CAHk-=wgRr_D8CB-D9Kg-c=EHreAsk5SqXPwr9Y7k9sA6cWXJ6w@mail.gmail.com/ [1]
 Signed-off-by: Jakob Koschel <jakobkoschel@gmail.com>
 ---
- drivers/md/dm-snap.c | 12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ drivers/md/dm-table.c | 11 +++++------
+ 1 file changed, 5 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 0d336b5ec571..23386a6e67e7 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -528,13 +528,17 @@ static int __validate_exception_handover(struct dm_snapshot *snap)
- 
- static void __insert_snapshot(struct origin *o, struct dm_snapshot *s)
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 03541cfc2317..9cf87954c05a 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -424,17 +424,16 @@ static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
+  */
+ void dm_put_device(struct dm_target *ti, struct dm_dev *d)
  {
--	struct dm_snapshot *l;
-+	struct dm_snapshot *l = NULL, *iter;
+-	int found = 0;
+ 	struct list_head *devices = &ti->table->devices;
+-	struct dm_dev_internal *dd;
++	struct dm_dev_internal *dd = NULL, *iter;
  
- 	/* Sort the list according to chunk size, largest-first smallest-last */
--	list_for_each_entry(l, &o->snapshots, list)
--		if (l->store->chunk_size < s->store->chunk_size)
-+	list_for_each_entry(iter, &o->snapshots, list)
-+		if (iter->store->chunk_size < s->store->chunk_size) {
-+			l = iter;
-+			list_add_tail(&s->list, &iter->list);
+-	list_for_each_entry(dd, devices, list) {
+-		if (dd->dm_dev == d) {
+-			found = 1;
++	list_for_each_entry(iter, devices, list) {
++		if (iter->dm_dev == d) {
++			dd = iter;
  			break;
--	list_add_tail(&s->list, &l->list);
-+		}
-+	if (!l)
-+		list_add_tail(&s->list, &o->snapshots);
- }
- 
- /*
-
-base-commit: f82da161ea75dc4db21b2499e4b1facd36dab275
+ 		}
+ 	}
+-	if (!found) {
++	if (!dd) {
+ 		DMWARN("%s: device %s not in table devices list",
+ 		       dm_device_name(ti->table->md), d->name);
+ 		return;
 -- 
 2.25.1
 
