@@ -2,63 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5065B4EF20D
-	for <lists+dm-devel@lfdr.de>; Fri,  1 Apr 2022 16:47:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 943884EF212
+	for <lists+dm-devel@lfdr.de>; Fri,  1 Apr 2022 16:48:11 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-634-S-5QkpBYPOKxbPQdI3exJg-1; Fri, 01 Apr 2022 10:47:18 -0400
-X-MC-Unique: S-5QkpBYPOKxbPQdI3exJg-1
+ us-mta-576-rvpQt5nDOIS7S438-bPPlw-1; Fri, 01 Apr 2022 10:48:09 -0400
+X-MC-Unique: rvpQt5nDOIS7S438-bPPlw-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B54E1C05AF6;
-	Fri,  1 Apr 2022 14:47:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 472D71C01E86;
+	Fri,  1 Apr 2022 14:48:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BD98763B21C;
-	Fri,  1 Apr 2022 14:47:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2E38A63B21E;
+	Fri,  1 Apr 2022 14:48:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 061D11940348;
-	Fri,  1 Apr 2022 14:47:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 43DE81940348;
+	Fri,  1 Apr 2022 14:48:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CC1711947BBE
- for <dm-devel@listman.corp.redhat.com>; Fri,  1 Apr 2022 14:47:11 +0000 (UTC)
+ ESMTP id D5EA41947BBE
+ for <dm-devel@listman.corp.redhat.com>; Fri,  1 Apr 2022 14:48:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BE81240CFD06; Fri,  1 Apr 2022 14:47:11 +0000 (UTC)
+ id A7A5C63B22A; Fri,  1 Apr 2022 14:48:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BA46240CF91E
- for <dm-devel@redhat.com>; Fri,  1 Apr 2022 14:47:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A3FCD63B21C
+ for <dm-devel@redhat.com>; Fri,  1 Apr 2022 14:48:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9EA081010421
- for <dm-devel@redhat.com>; Fri,  1 Apr 2022 14:47:11 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B9D43C0011F
+ for <dm-devel@redhat.com>; Fri,  1 Apr 2022 14:48:03 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-399-rT7_xYIOO7OU-76hz_lOuA-1; Fri, 01 Apr 2022 10:46:58 -0400
-X-MC-Unique: rT7_xYIOO7OU-76hz_lOuA-1
+ us-mta-222-GcuKmDqePlmvI7W-tDZcmg-1; Fri, 01 Apr 2022 10:48:02 -0400
+X-MC-Unique: GcuKmDqePlmvI7W-tDZcmg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E2831B824FD;
- Fri,  1 Apr 2022 14:46:56 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B25DBC34112;
- Fri,  1 Apr 2022 14:46:54 +0000 (UTC)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A054BB8250D;
+ Fri,  1 Apr 2022 14:48:00 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 589B1C34111;
+ Fri,  1 Apr 2022 14:47:58 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Date: Fri,  1 Apr 2022 10:45:58 -0400
-Message-Id: <20220401144612.1955177-15-sashal@kernel.org>
-In-Reply-To: <20220401144612.1955177-1-sashal@kernel.org>
-References: <20220401144612.1955177-1-sashal@kernel.org>
+Date: Fri,  1 Apr 2022 10:47:17 -0400
+Message-Id: <20220401144729.1955554-10-sashal@kernel.org>
+In-Reply-To: <20220401144729.1955554-1-sashal@kernel.org>
+References: <20220401144729.1955554-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-stable: review
 X-Patchwork-Hint: Ignore
@@ -69,8 +68,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [dm-devel] [PATCH AUTOSEL 4.19 15/29] dm ioctl: prevent potential
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [PATCH AUTOSEL 4.14 10/22] dm ioctl: prevent potential
  spectre v1 gadget
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -93,9 +92,9 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============7331200545404921421=="
+Content-Type: multipart/mixed; boundary="===============0138784930781486190=="
 
---===============7331200545404921421==
+--===============0138784930781486190==
 Content-Transfer-Encoding: quoted-printable
 Content-Type: application/octet-stream; x-default=true
 
@@ -116,7 +115,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+)
 
 diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 17cbad58834f..0aae4a46db66 100644
+index 2f020401d5ba..ddfea5324b58 100644
 --- a/drivers/md/dm-ioctl.c
 +++ b/drivers/md/dm-ioctl.c
 @@ -17,6 +17,7 @@
@@ -127,7 +126,7 @@ index 17cbad58834f..0aae4a46db66 100644
 =20
  #include <linux/uaccess.h>
 =20
-@@ -1670,6 +1671,7 @@ static ioctl_fn lookup_ioctl(unsigned int cmd, int *i=
+@@ -1669,6 +1670,7 @@ static ioctl_fn lookup_ioctl(unsigned int cmd, int *i=
 octl_flags)
  =09if (unlikely(cmd >=3D ARRAY_SIZE(_ioctls)))
  =09=09return NULL;
@@ -140,7 +139,7 @@ octl_flags)
 2.34.1
 
 
---===============7331200545404921421==
+--===============0138784930781486190==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -151,5 +150,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============7331200545404921421==--
+--===============0138784930781486190==--
 
