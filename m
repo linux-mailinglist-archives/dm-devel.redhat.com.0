@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BFF314EFE3D
-	for <lists+dm-devel@lfdr.de>; Sat,  2 Apr 2022 05:40:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A2A54EFE40
+	for <lists+dm-devel@lfdr.de>; Sat,  2 Apr 2022 05:44:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1648870842;
+	s=mimecast20190719; t=1648871049;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aQLf/KA7BMqLWKIycDeUUjolH0lbLijypEPgknEhyEU=;
-	b=NESWd7XSIjhgtKRAFGVvW8lgS+qwHn1XLkBm+uNvO1DnS3NRlHg9IROK1xwhW52YfiylVj
-	nxEDHby3X7hkwg9EYUgafTsF8PAgoKSaGi53wBd9QV5A825tsZea89/hT29nI5ugZDZ588
-	crnOxtvw1XjAZPQhgXAiDNpYvUK3/dE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=v3xnPkhDd5qVdibsNDGqqdH0sT2QHNqz0HIhQ+RczeU=;
+	b=VYVysZqszyLJn8dUSuokLZWJa6Aa4pPQjpgKqB0dFx9uVezz9R7EKqL+aZ56wrARF4VrMG
+	uZ3B/bXFQWQRnwKr8nZNtbeUdWZjzixWUKeRRMGut/4ol+Htr6QOjC2TS1rwew3YyYAvNy
+	rMlPeDg+HkKGVnqwRWO7O6VYsrY6uRU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-IU7wSFDkNnS4CBdTKSpEBQ-1; Fri, 01 Apr 2022 23:40:38 -0400
-X-MC-Unique: IU7wSFDkNnS4CBdTKSpEBQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-487-xp_4zV9WPZCklw4O2q2gyw-1; Fri, 01 Apr 2022 23:44:08 -0400
+X-MC-Unique: xp_4zV9WPZCklw4O2q2gyw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 406C0811E76;
-	Sat,  2 Apr 2022 03:40:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D3523802AD9;
+	Sat,  2 Apr 2022 03:44:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 59E4840E58A4;
-	Sat,  2 Apr 2022 03:40:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B0A64C4C7C5;
+	Sat,  2 Apr 2022 03:44:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4586B1940349;
-	Sat,  2 Apr 2022 03:40:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F234D1940349;
+	Sat,  2 Apr 2022 03:44:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2E2A51947BBE
- for <dm-devel@listman.corp.redhat.com>; Sat,  2 Apr 2022 03:40:29 +0000 (UTC)
+ ESMTP id 44F521947BBE
+ for <dm-devel@listman.corp.redhat.com>; Sat,  2 Apr 2022 03:44:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F3A1B558EFF; Sat,  2 Apr 2022 03:40:28 +0000 (UTC)
+ id 53D184010144; Sat,  2 Apr 2022 03:44:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DA68D558EE0;
- Sat,  2 Apr 2022 03:40:28 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4427840CF8F2;
+ Sat,  2 Apr 2022 03:44:02 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 2323eRVJ015925;
- Fri, 1 Apr 2022 22:40:27 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 2323i1h7015933;
+ Fri, 1 Apr 2022 22:44:01 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 2323eRDT015924;
- Fri, 1 Apr 2022 22:40:27 -0500
-Date: Fri, 1 Apr 2022 22:40:26 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 2323i0BD015932;
+ Fri, 1 Apr 2022 22:44:00 -0500
+Date: Fri, 1 Apr 2022 22:44:00 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: mwilck@suse.com
-Message-ID: <20220402034026.GU24684@octiron.msp.redhat.com>
+Message-ID: <20220402034400.GV24684@octiron.msp.redhat.com>
 References: <20220330221510.22578-1-mwilck@suse.com>
- <20220330221510.22578-7-mwilck@suse.com>
+ <20220330221510.22578-13-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20220330221510.22578-7-mwilck@suse.com>
+In-Reply-To: <20220330221510.22578-13-mwilck@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [dm-devel] [PATCH 06/14] multipathd: reconfigure: disallow
- changing uid_attrs
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH 12/14] libmultipath: uevent_filter(): filter
+ previously merged events
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,7 +77,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, tang.junhui@zte.com.cn
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,111 +86,56 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> On Thu, Mar 31, 2022 at 12:15:02AM +0200, mwilck@suse.com wrote:
-> uevent merging by WWID relies on the uid_attrs config option. As we
-> drop struct config between calls to uevent_merge(), we must be sure
-> that the WWID is not changed in reconfigure().
+ On Thu, Mar 31, 2022 at 12:15:08AM +0200, mwilck@suse.com wrote:
+> With the new list-appending logic, it can happen that previously
+> merged events can now be filtered. Do it.
 > 
 > Signed-off-by: Martin Wilck <mwilck@suse.com>
 > ---
->  multipath/multipath.conf.5 |  2 ++
->  multipathd/main.c          | 53 +++++++++++++++++++++++++++++++-------
->  2 files changed, 46 insertions(+), 9 deletions(-)
+>  libmultipath/uevent.c | 16 +++++++++++++++-
+>  1 file changed, 15 insertions(+), 1 deletion(-)
 > 
-> diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-> index 605b46e..a9cd776 100644
-> --- a/multipath/multipath.conf.5
-> +++ b/multipath/multipath.conf.5
-> @@ -264,6 +264,8 @@ If this option is configured and matches the device
->  node name of a device, it overrides any other configured  methods for
->  determining the WWID for this device.
->  .PP
-> +This option cannot be changed during runtime with the multipathd \fBreconfigure\fR command.
-> +.PP
->  The default is: \fB<unset>\fR. To enable uevent merging, set it e.g. to
->  \(dqsd:ID_SERIAL dasd:ID_UID nvme:ID_WWN\(dq.
->  .RE
-> diff --git a/multipathd/main.c b/multipathd/main.c
-> index 13b1948..f514b32 100644
-> --- a/multipathd/main.c
-> +++ b/multipathd/main.c
-> @@ -2835,11 +2835,52 @@ void rcu_free_config(struct rcu_head *head)
->  	free_config(conf);
->  }
+> diff --git a/libmultipath/uevent.c b/libmultipath/uevent.c
+> index eb900ec..809c74c 100644
+> --- a/libmultipath/uevent.c
+> +++ b/libmultipath/uevent.c
+> @@ -305,7 +305,7 @@ static void uevent_delete_from_list(struct uevent *to_delete,
+>  	 * for the anchor), "old_tail" must be moved. It can happen that
+>  	 * "old_tail" ends up pointing at the anchor.
+>  	 */
+> -	if (*old_tail == &to_delete->node)
+> +	if (old_tail && *old_tail == &to_delete->node)
+>  		*old_tail = to_delete->node.prev;
 >  
-> +static bool reconfigure_check_uid_attrs(const struct _vector *old_attrs,
-> +					const struct _vector *new_attrs)
-> +{
-> +	int i;
-> +	char *old;
+>  	list_del_init(&to_delete->node);
+> @@ -360,6 +360,20 @@ uevent_filter(struct uevent *later, struct uevent_filter_state *st)
+>  		 * filter unnessary earlier uevents
+>  		 * by the later uevent
+>  		 */
+> +		if (!list_empty(&earlier->merge_node)) {
+> +			struct uevent *mn, *t;
 > +
-> +	if (VECTOR_SIZE(old_attrs) != VECTOR_SIZE(new_attrs))
-> +		return true;
-> +
-> +	vector_foreach_slot(old_attrs, old, i) {
-> +		char *new = VECTOR_SLOT(new_attrs, i);
-> +
-> +		if (strcmp(old, new))
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
-> +static void reconfigure_check(struct config *old, struct config *new)
-> +{
-> +	int old_marginal_pathgroups;
-> +
-> +	old_marginal_pathgroups = old->marginal_pathgroups;
-> +	if ((old_marginal_pathgroups == MARGINAL_PATHGROUP_FPIN) !=
-> +	    (new->marginal_pathgroups == MARGINAL_PATHGROUP_FPIN)) {
-> +		condlog(1, "multipathd must be restarted to turn %s fpin marginal paths",
-> +			(old_marginal_pathgroups == MARGINAL_PATHGROUP_FPIN)?
-> +			"off" : "on");
-> +		new->marginal_pathgroups = old_marginal_pathgroups;
-> +	}
-> +
-> +	if (reconfigure_check_uid_attrs(&old->uid_attrs, &new->uid_attrs)) {
-> +		struct _vector v = new->uid_attrs;
-> +
-> +		condlog(1, "multipathd must be restarted to change uid_attrs, keeping old values");
-> +		new->uid_attrs = old->uid_attrs;
-> +		vector_reset(&v);
+> +			list_for_each_entry_reverse_safe(mn, t, &earlier->merge_node, node) {
+> +				if (uevent_can_filter(mn, later)) {
+> +					condlog(4, "uevent: \"%s %s\" (merged into \"%s %s\") filtered by \"%s %s\"",
+> +						mn->action, mn->kernel,
+> +						earlier->action, earlier->kernel,
+> +						later->action, later->kernel);
+> +					uevent_delete_from_list(mn, &t, NULL);
 
-This leaks the strings that v points to, right?  This also can happen in
-uid_attrs_handler(), I just noticed.
+Just like with 05/14, you could just use a much simpler delete function
+here, since moving old_tail and merged nodes is unnecessary. I guess I
+don't care that much, if you'd rather just have one function, so
 
--Ben
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-> +		old->uid_attrs = v;
-> +	}
-> +}
-> +
->  static int
->  reconfigure (struct vectors *vecs, enum force_reload_types reload_type)
->  {
->  	struct config * old, *conf;
-> -	int old_marginal_pathgroups;
->  
->  	conf = load_config(DEFAULT_CONFIGFILE);
->  	if (!conf)
-> @@ -2870,14 +2911,8 @@ reconfigure (struct vectors *vecs, enum force_reload_types reload_type)
->  	uxsock_timeout = conf->uxsock_timeout;
->  
->  	old = rcu_dereference(multipath_conf);
-> -	old_marginal_pathgroups = old->marginal_pathgroups;
-> -	if ((old_marginal_pathgroups == MARGINAL_PATHGROUP_FPIN) !=
-> -	    (conf->marginal_pathgroups == MARGINAL_PATHGROUP_FPIN)) {
-> -		condlog(1, "multipathd must be restarted to turn %s fpin marginal paths",
-> -			(old_marginal_pathgroups == MARGINAL_PATHGROUP_FPIN)?
-> -			"off" : "on");
-> -		conf->marginal_pathgroups = old_marginal_pathgroups;
-> -	}
-> +	reconfigure_check(old, conf);
-> +
->  	conf->sequence_nr = old->sequence_nr + 1;
->  	rcu_assign_pointer(multipath_conf, conf);
->  	call_rcu(&old->rcu, rcu_free_config);
+> +					st->filtered++;
+> +				}
+> +			}
+> +		}
+>  		if (uevent_can_filter(earlier, later)) {
+>  			condlog(3, "uevent: %s-%s has filtered by uevent: %s-%s",
+>  				earlier->kernel, earlier->action,
 > -- 
 > 2.35.1
 --
