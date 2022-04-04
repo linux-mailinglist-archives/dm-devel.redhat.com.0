@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9964B4F1987
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 19:05:57 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C036B4F1982
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 19:05:55 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-82-ysrOEJSzOECeO4GS8l7Dow-1; Mon, 04 Apr 2022 13:05:51 -0400
-X-MC-Unique: ysrOEJSzOECeO4GS8l7Dow-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-124-WLdj3djtOuuQ1u7VNldtpQ-1; Mon, 04 Apr 2022 13:05:51 -0400
+X-MC-Unique: WLdj3djtOuuQ1u7VNldtpQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36CE23C14128;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36FB538009F9;
 	Mon,  4 Apr 2022 17:05:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1966340CF8FE;
-	Mon,  4 Apr 2022 17:05:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DE396536BB3;
+	Mon,  4 Apr 2022 17:05:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75876194EB94;
-	Mon,  4 Apr 2022 17:05:38 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5C4BD194EB8C;
+	Mon,  4 Apr 2022 17:05:37 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E680E193F6EB
+ ESMTP id E616D193F6EA
  for <dm-devel@listman.corp.redhat.com>; Mon,  4 Apr 2022 17:05:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D288340D296B; Mon,  4 Apr 2022 17:05:35 +0000 (UTC)
+ id BAF9340D2962; Mon,  4 Apr 2022 17:05:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CDDC240D2969
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B6FA940D2969
  for <dm-devel@redhat.com>; Mon,  4 Apr 2022 17:05:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5985801585
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B7D5185A7BA
  for <dm-devel@redhat.com>; Mon,  4 Apr 2022 17:05:35 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-303-UXlrZV61MWWHPicq1vyYuQ-1; Mon, 04 Apr 2022 13:05:31 -0400
-X-MC-Unique: UXlrZV61MWWHPicq1vyYuQ-1
+ us-mta-414-me2x2rhUOROueZxdvZeCAw-1; Mon, 04 Apr 2022 13:05:32 -0400
+X-MC-Unique: me2x2rhUOROueZxdvZeCAw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id A6CC1210FD;
- Mon,  4 Apr 2022 17:05:30 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 0261C21100;
+ Mon,  4 Apr 2022 17:05:31 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6CB7412FC5;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B5AB212FC5;
  Mon,  4 Apr 2022 17:05:30 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4Ok2GFolS2LICAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id oDY2KlolS2LICAAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 04 Apr 2022 17:05:30 +0000
 From: mwilck@suse.com
 To: Benjamin Marzinski <bmarzins@redhat.com>,
  Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon,  4 Apr 2022 19:04:49 +0200
-Message-Id: <20220404170457.16021-8-mwilck@suse.com>
+Date: Mon,  4 Apr 2022 19:04:50 +0200
+Message-Id: <20220404170457.16021-9-mwilck@suse.com>
 In-Reply-To: <20220404170457.16021-1-mwilck@suse.com>
 References: <20220404170457.16021-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -75,8 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [dm-devel] [PATCH v2 07/15] libmultipath: uevent_listen(): don't
- delay uevents
+Subject: [dm-devel] [PATCH v2 08/15] libmultipath: uevent: use struct to
+ pass parameters around
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,227 +91,394 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============1248845124840996526=="
+Content-Type: multipart/mixed; boundary="===============7350780541711347362=="
 
---===============1248845124840996526==
+--===============7350780541711347362==
 Content-Transfer-Encoding: quoted-printable
 Content-Type: application/octet-stream; x-default=true
 
 From: Martin Wilck <mwilck@suse.com>
 
-When multipathd starts up early, basically all devices are added
-through uevent processing. This takes much more time than necessary
-because of the artificial delays introduced for passing uevents
-between the listener and the receiver thread in ee8888f
-("multipath-tools: improve processing efficiency for addition and deletion =
-of
-multipath devices"). This delay could be up to 30s.
+libmultipath: uevent_dispatch(): just grab config once
 
-It's generally not a good idea to delay uevent processing in multipathd.
-ADD events must normally be handled ASAP in order to avoid maps entering
-queueing mode or eventually failing. Handling REMOVE events quickly is
-also important to make multipathd aware of deleted devices and keep
-kernel and multipathd state in sync.
+Introduce struct uevent_filter_state to pass parameters around.
+This simplifies the function signatures and allows for easy extension
+later.
 
-If uevents arrive quickly, the assumption is that the dispatcher will proce=
-ss
-them more slowly than the listener. This was the idea of commit ee8888f,
-AFAIU: if a queue of unprocessed events piles up because the dispatcher is
-too slow, use filtering and merging to reduce the length of the queue, and
-thus the work to be done for the uevent dispatcher, especially the work
-that needs to be done while holding the vecs lock. In ee8888f, the
-queue was created by allowing uevents to accumulate in the listener.
+Instead of grabbing multipath config repeatedly, do it just
+once per dispatcher iteration, and pass the pointer around in
+struct uevent_filter_state. We shouldn't use different configs
+for different paths in a single iteration, anyway.
 
-This patch changes the logic of ee8888f, while keeping the uevent
-filtering and discarding features. The idea is that the uevent dispatcher
-shouldn't be idle if there are uevents to process. Therefore uevents
-are passed to it immediately. But it now checks for new uevents after
-processing every individual event, before processing the entire queue,
-and it applies filtering and merging to the queue as it grows.
-
-This patch set avoids any delay when the uevent dispatcher is idle or
-able to keep up with the rate of incoming uevents, while applying an
-increasing amount of filtering and merging as pressure on the uevent
-dispatcher increases. It's reasonable to assume that filtering and
-merging get more efficient with increasing queue length, because the
-probability of finding matching events will increase.
+Also, properly constify get_uid_attribute_by_attrs() and
+pp->uid_attribute.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/uevent.c | 108 +++++++++++++++---------------------------
- 1 file changed, 37 insertions(+), 71 deletions(-)
+ libmultipath/config.c    |   6 +--
+ libmultipath/config.h    |   4 +-
+ libmultipath/discovery.c |   2 +-
+ libmultipath/structs.h   |   2 +-
+ libmultipath/uevent.c    | 110 +++++++++++++++++----------------------
+ libmultipath/uevent.h    |   3 +-
+ tests/uevent.c           |   2 +-
+ 7 files changed, 58 insertions(+), 71 deletions(-)
 
+diff --git a/libmultipath/config.c b/libmultipath/config.c
+index c595e76..7346c37 100644
+--- a/libmultipath/config.c
++++ b/libmultipath/config.c
+@@ -1018,10 +1018,10 @@ out:
+ =09return 1;
+ }
+=20
+-char *get_uid_attribute_by_attrs(struct config *conf,
+-=09=09=09=09 const char *path_dev)
++const char *get_uid_attribute_by_attrs(const struct config *conf,
++=09=09=09=09       const char *path_dev)
+ {
+-=09vector uid_attrs =3D &conf->uid_attrs;
++=09const struct _vector *uid_attrs =3D &conf->uid_attrs;
+ =09int j;
+ =09char *att, *col;
+=20
+diff --git a/libmultipath/config.h b/libmultipath/config.h
+index c73389b..5351ecd 100644
+--- a/libmultipath/config.h
++++ b/libmultipath/config.h
+@@ -314,7 +314,7 @@ void libmp_put_multipath_config(void *);
+ void put_multipath_config(void *);
+=20
+ int parse_uid_attrs(char *uid_attrs, struct config *conf);
+-char *get_uid_attribute_by_attrs(struct config *conf,
+-=09=09=09=09 const char *path_dev);
++const char *get_uid_attribute_by_attrs(const struct config *conf,
++=09=09=09=09       const char *path_dev);
+=20
+ #endif
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index b969fba..589eca1 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -2044,7 +2044,7 @@ fix_broken_nvme_wwid(struct path *pp, const char *val=
+ue, size_t size)
+ }
+=20
+ static int
+-get_udev_uid(struct path * pp, char *uid_attribute, struct udev_device *ud=
+ev)
++get_udev_uid(struct path * pp, const char *uid_attribute, struct udev_devi=
+ce *udev)
+ {
+ =09ssize_t len;
+ =09const char *value;
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index d94f93a..afd4674 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -327,7 +327,7 @@ struct path {
+ =09int detect_prio;
+ =09int detect_checker;
+ =09int tpgs;
+-=09char * uid_attribute;
++=09const char *uid_attribute;
+ =09char * getuid;
+ =09struct prio prio;
+ =09struct checker checker;
 diff --git a/libmultipath/uevent.c b/libmultipath/uevent.c
-index d39f388..58760e8 100644
+index 58760e8..8809f5c 100644
 --- a/libmultipath/uevent.c
 +++ b/libmultipath/uevent.c
-@@ -52,10 +52,6 @@
- #include "blacklist.h"
- #include "devmapper.h"
+@@ -63,6 +63,12 @@ static uev_trigger *my_uev_trigger;
+ static void *my_trigger_data;
+ static int servicing_uev;
 =20
--#define MAX_ACCUMULATION_COUNT 2048
--#define MAX_ACCUMULATION_TIME 30*1000
--#define MIN_BURST_SPEED 10
--
- typedef int (uev_trigger)(struct uevent *, void * trigger_data);
-=20
- static LIST_HEAD(uevq);
-@@ -582,44 +578,43 @@ static struct uevent *uevent_from_udev_device(struct =
-udev_device *dev)
- =09return uev;
- }
-=20
--static bool uevent_burst(struct timeval *start_time, int events)
-+#define MAX_UEVENTS 1000
-+static int uevent_receive_events(int fd, struct list_head *tmpq,
-+=09=09=09=09 struct udev_monitor *monitor)
- {
--=09struct timeval diff_time, end_time;
--=09unsigned long speed;
--=09unsigned long eclipse_ms;
-+=09struct pollfd ev_poll;
-+=09int n =3D 0;
-=20
--=09if(events > MAX_ACCUMULATION_COUNT) {
--=09=09condlog(2, "burst got %u uevents, too much uevents, stopped", events=
-);
--=09=09return false;
--=09}
-+=09do {
-+=09=09struct uevent *uev;
-+=09=09struct udev_device *dev;
-=20
--=09gettimeofday(&end_time, NULL);
--=09timersub(&end_time, start_time, &diff_time);
-+=09=09dev =3D udev_monitor_receive_device(monitor);
-+=09=09if (!dev) {
-+=09=09=09condlog(0, "failed getting udev device");
-+=09=09=09break;
-+=09=09}
-+=09=09uev =3D uevent_from_udev_device(dev);
-+=09=09if (!uev)
-+=09=09=09break;
-=20
--=09eclipse_ms =3D diff_time.tv_sec * 1000 + diff_time.tv_usec / 1000;
-+=09=09list_add_tail(&uev->node, tmpq);
-+=09=09n++;
-+=09=09condlog(4, "received uevent \"%s %s\"", uev->action, uev->kernel);
-=20
--=09if (eclipse_ms =3D=3D 0)
--=09=09return true;
-+=09=09ev_poll.fd =3D fd;
-+=09=09ev_poll.events =3D POLLIN;
-=20
--=09if (eclipse_ms > MAX_ACCUMULATION_TIME) {
--=09=09condlog(2, "burst continued %lu ms, too long time, stopped", eclipse=
-_ms);
--=09=09return false;
--=09}
-+=09} while (n < MAX_UEVENTS && poll(&ev_poll, 1, 0) > 0);
-=20
--=09speed =3D (events * 1000) / eclipse_ms;
--=09if (speed > MIN_BURST_SPEED)
--=09=09return true;
--
--=09return false;
-+=09return n;
- }
-=20
- int uevent_listen(struct udev *udev)
- {
- =09int err =3D 2;
- =09struct udev_monitor *monitor =3D NULL;
--=09int fd, socket_flags, events;
--=09struct timeval start_time;
--=09int timeout =3D 30;
-+=09int fd, socket_flags;
- =09LIST_HEAD(uevlisten_tmp);
-=20
- =09/*
-@@ -671,59 +666,30 @@ int uevent_listen(struct udev *udev)
- =09=09goto out;
- =09}
-=20
--=09events =3D 0;
--=09gettimeofday(&start_time, NULL);
- =09pthread_cleanup_push(cleanup_global_uevq, NULL);
- =09pthread_cleanup_push(cleanup_uevq, &uevlisten_tmp);
- =09while (1) {
--=09=09struct uevent *uev;
--=09=09struct udev_device *dev;
--=09=09struct pollfd ev_poll;
--=09=09int poll_timeout;
--=09=09int fdcount;
-+=09=09int fdcount, events;
-+=09=09struct pollfd ev_poll =3D { .fd =3D fd, .events =3D POLLIN, };
-=20
--=09=09memset(&ev_poll, 0, sizeof(struct pollfd));
--=09=09ev_poll.fd =3D fd;
--=09=09ev_poll.events =3D POLLIN;
--=09=09poll_timeout =3D timeout * 1000;
--=09=09errno =3D 0;
--=09=09fdcount =3D poll(&ev_poll, 1, poll_timeout);
--=09=09if (fdcount > 0 && ev_poll.revents & POLLIN) {
--=09=09=09timeout =3D uevent_burst(&start_time, events + 1) ? 1 : 0;
--=09=09=09dev =3D udev_monitor_receive_device(monitor);
--=09=09=09if (!dev) {
--=09=09=09=09condlog(0, "failed getting udev device");
--=09=09=09=09continue;
--=09=09=09}
--=09=09=09uev =3D uevent_from_udev_device(dev);
--=09=09=09if (!uev)
--=09=09=09=09continue;
--=09=09=09list_add_tail(&uev->node, &uevlisten_tmp);
--=09=09=09events++;
--=09=09=09continue;
--=09=09}
-+=09=09fdcount =3D poll(&ev_poll, 1, -1);
- =09=09if (fdcount < 0) {
- =09=09=09if (errno =3D=3D EINTR)
- =09=09=09=09continue;
-=20
--=09=09=09condlog(0, "error receiving "
--=09=09=09=09"uevent message: %m");
-+=09=09=09condlog(0, "error receiving uevent message: %m");
- =09=09=09err =3D -errno;
- =09=09=09break;
- =09=09}
--=09=09if (!list_empty(&uevlisten_tmp)) {
--=09=09=09/*
--=09=09=09 * Queue uevents and poke service pthread.
--=09=09=09 */
--=09=09=09condlog(3, "Forwarding %d uevents", events);
--=09=09=09pthread_mutex_lock(uevq_lockp);
--=09=09=09list_splice_tail_init(&uevlisten_tmp, &uevq);
--=09=09=09pthread_cond_signal(uev_condp);
--=09=09=09pthread_mutex_unlock(uevq_lockp);
--=09=09=09events =3D 0;
--=09=09}
--=09=09gettimeofday(&start_time, NULL);
--=09=09timeout =3D 30;
-+=09=09events =3D uevent_receive_events(fd, &uevlisten_tmp, monitor);
-+=09=09if (events <=3D 0)
-+=09=09=09continue;
++struct uevent_filter_state {
++=09struct list_head uevq;
++=09struct list_head *old_tail;
++=09struct config *conf;
++};
 +
-+=09=09condlog(4, "Forwarding %d uevents", events);
-+=09=09pthread_mutex_lock(uevq_lockp);
-+=09=09list_splice_tail_init(&uevlisten_tmp, &uevq);
-+=09=09pthread_cond_signal(uev_condp);
-+=09=09pthread_mutex_unlock(uevq_lockp);
+ int is_uevent_busy(void)
+ {
+ =09int empty;
+@@ -158,40 +164,24 @@ int uevent_get_env_positive_int(const struct uevent *=
+uev,
+ }
+=20
+ void
+-uevent_get_wwid(struct uevent *uev)
++uevent_get_wwid(struct uevent *uev, const struct config *conf)
+ {
+-=09char *uid_attribute;
++=09const char *uid_attribute;
+ =09const char *val;
+-=09struct config * conf;
+=20
+-=09conf =3D get_multipath_config();
+-=09pthread_cleanup_push(put_multipath_config, conf);
+ =09uid_attribute =3D get_uid_attribute_by_attrs(conf, uev->kernel);
+-=09pthread_cleanup_pop(1);
+-
+ =09val =3D uevent_get_env_var(uev, uid_attribute);
+ =09if (val)
+ =09=09uev->wwid =3D val;
+ }
+=20
+-static bool uevent_need_merge(void)
++static bool uevent_need_merge(const struct config *conf)
+ {
+-=09struct config * conf;
+-=09bool need_merge =3D false;
+-
+-=09conf =3D get_multipath_config();
+-=09if (VECTOR_SIZE(&conf->uid_attrs) > 0)
+-=09=09need_merge =3D true;
+-=09put_multipath_config(conf);
+-
+-=09return need_merge;
++=09return VECTOR_SIZE(&conf->uid_attrs) > 0;
+ }
+=20
+-static bool uevent_can_discard(struct uevent *uev)
++static bool uevent_can_discard(struct uevent *uev, const struct config *co=
+nf)
+ {
+-=09int invalid =3D 0;
+-=09struct config * conf;
+-
+ =09/*
+ =09 * do not filter dm devices by devnode
+ =09 */
+@@ -200,15 +190,10 @@ static bool uevent_can_discard(struct uevent *uev)
+ =09/*
+ =09 * filter paths devices by devnode
+ =09 */
+-=09conf =3D get_multipath_config();
+-=09pthread_cleanup_push(put_multipath_config, conf);
+ =09if (filter_devnode(conf->blist_devnode, conf->elist_devnode,
+ =09=09=09   uev->kernel) > 0)
+-=09=09invalid =3D 1;
+-=09pthread_cleanup_pop(1);
+-
+-=09if (invalid)
+ =09=09return true;
++
+ =09return false;
+ }
+=20
+@@ -350,29 +335,28 @@ static void uevent_delete_simple(struct uevent *to_de=
+lete)
+ =09free(to_delete);
+ }
+=20
+-static void
+-uevent_prepare(struct list_head *tmpq, const struct list_head *stop)
++static void uevent_prepare(struct uevent_filter_state *st)
+ {
+ =09struct uevent *uev, *tmp;
+=20
+-=09list_for_some_entry_reverse_safe(uev, tmp, tmpq, stop, node) {
+-=09=09if (uevent_can_discard(uev)) {
++=09list_for_some_entry_reverse_safe(uev, tmp, &st->uevq, st->old_tail, nod=
+e) {
++=09=09if (uevent_can_discard(uev, st->conf)) {
+ =09=09=09uevent_delete_simple(uev);
+ =09=09=09continue;
+ =09=09}
+=20
+ =09=09if (strncmp(uev->kernel, "dm-", 3) &&
+-=09=09    uevent_need_merge())
+-=09=09=09uevent_get_wwid(uev);
++=09=09    uevent_need_merge(st->conf))
++=09=09=09uevent_get_wwid(uev, st->conf);
+ =09}
+ }
+=20
+ static void
+-uevent_filter(struct uevent *later, struct list_head *tmpq, struct list_he=
+ad **stop)
++uevent_filter(struct uevent *later, struct uevent_filter_state *st)
+ {
+ =09struct uevent *earlier, *tmp;
+=20
+-=09list_for_some_entry_reverse_safe(earlier, tmp, &later->node, tmpq, node=
+) {
++=09list_for_some_entry_reverse_safe(earlier, tmp, &later->node, &st->uevq,=
+ node) {
+ =09=09/*
+ =09=09 * filter unnessary earlier uevents
+ =09=09 * by the later uevent
+@@ -382,17 +366,16 @@ uevent_filter(struct uevent *later, struct list_head =
+*tmpq, struct list_head **s
+ =09=09=09=09earlier->kernel, earlier->action,
+ =09=09=09=09later->kernel, later->action);
+=20
+-=09=09=09uevent_delete_from_list(earlier, &tmp, stop);
++=09=09=09uevent_delete_from_list(earlier, &tmp, &st->old_tail);
+ =09=09}
+ =09}
+ }
+=20
+-static void
+-uevent_merge(struct uevent *later, struct list_head *tmpq, struct list_hea=
+d **stop)
++static void uevent_merge(struct uevent *later, struct uevent_filter_state =
+*st)
+ {
+ =09struct uevent *earlier, *tmp;
+=20
+-=09list_for_some_entry_reverse_safe(earlier, tmp, &later->node, tmpq, node=
+) {
++=09list_for_some_entry_reverse_safe(earlier, tmp, &later->node, &st->uevq,=
+ node) {
+ =09=09if (merge_need_stop(earlier, later))
+ =09=09=09break;
+ =09=09/*
+@@ -404,8 +387,8 @@ uevent_merge(struct uevent *later, struct list_head *tm=
+pq, struct list_head **st
+ =09=09=09=09later->action, later->kernel, later->wwid);
+=20
+ =09=09=09/* See comment in uevent_delete_from_list() */
+-=09=09=09if (&earlier->node =3D=3D *stop)
+-=09=09=09=09*stop =3D earlier->node.prev;
++=09=09=09if (&earlier->node =3D=3D st->old_tail)
++=09=09=09=09st->old_tail =3D earlier->node.prev;
+=20
+ =09=09=09list_move(&earlier->node, &later->merge_node);
+ =09=09=09list_splice_init(&earlier->merge_node,
+@@ -414,16 +397,15 @@ uevent_merge(struct uevent *later, struct list_head *=
+tmpq, struct list_head **st
+ =09}
+ }
+=20
+-static void
+-merge_uevq(struct list_head *tmpq, struct list_head *stop)
++static void merge_uevq(struct uevent_filter_state *st)
+ {
+ =09struct uevent *later;
+=20
+-=09uevent_prepare(tmpq, stop);
+-=09list_for_some_entry_reverse(later, tmpq, stop, node) {
+-=09=09uevent_filter(later, tmpq, &stop);
+-=09=09if(uevent_need_merge())
+-=09=09=09uevent_merge(later, tmpq, &stop);
++=09uevent_prepare(st);
++=09list_for_some_entry_reverse(later, &st->uevq, st->old_tail, node) {
++=09=09uevent_filter(later, st);
++=09=09if(uevent_need_merge(st->conf))
++=09=09=09uevent_merge(later, st);
+ =09}
+ }
+=20
+@@ -475,41 +457,45 @@ static void cleanup_global_uevq(void *arg __attribute=
+__((unused)))
+ int uevent_dispatch(int (*uev_trigger)(struct uevent *, void * trigger_dat=
+a),
+ =09=09    void * trigger_data)
+ {
+-=09LIST_HEAD(uevq_work);
++=09struct uevent_filter_state filter_state;
+=20
++=09INIT_LIST_HEAD(&filter_state.uevq);
+ =09my_uev_trigger =3D uev_trigger;
+ =09my_trigger_data =3D trigger_data;
+=20
+ =09mlockall(MCL_CURRENT | MCL_FUTURE);
+=20
+-=09pthread_cleanup_push(cleanup_uevq, &uevq_work);
++=09pthread_cleanup_push(cleanup_uevq, &filter_state.uevq);
+ =09while (1) {
+-=09=09struct list_head *stop;
+-
+ =09=09pthread_cleanup_push(cleanup_mutex, uevq_lockp);
+ =09=09pthread_mutex_lock(uevq_lockp);
+=20
+-=09=09servicing_uev =3D !list_empty(&uevq_work);
++=09=09servicing_uev =3D !list_empty(&filter_state.uevq);
+=20
+-=09=09while (list_empty(&uevq_work) && list_empty(&uevq))
++=09=09while (list_empty(&filter_state.uevq) && list_empty(&uevq))
+ =09=09=09pthread_cond_wait(uev_condp, uevq_lockp);
+=20
+ =09=09servicing_uev =3D 1;
+ =09=09/*
+-=09=09 * "stop" is the list element towards which merge_uevq()
+-=09=09 * will iterate: the last element of uevq_work before
+-=09=09 * appending new uevents. If uveq_is empty, uevq_work.prev
+-=09=09 * equals &uevq_work, which is what we need.
++=09=09 * "old_tail" is the list element towards which merge_uevq()
++=09=09 * will iterate: the last element of uevq before
++=09=09 * appending new uevents. If uveq  empty, uevq.prev
++=09=09 * equals &uevq, which is what we need.
+ =09=09 */
+-=09=09stop =3D uevq_work.prev;
+-=09=09list_splice_tail_init(&uevq, &uevq_work);
++=09=09filter_state.old_tail =3D filter_state.uevq.prev;
++=09=09list_splice_tail_init(&uevq, &filter_state.uevq);
+ =09=09pthread_cleanup_pop(1);
+=20
+ =09=09if (!my_uev_trigger)
+ =09=09=09break;
+=20
+-=09=09merge_uevq(&uevq_work, stop);
+-=09=09service_uevq(&uevq_work);
++
++=09=09pthread_cleanup_push(put_multipath_config, filter_state.conf);
++=09=09filter_state.conf =3D get_multipath_config();
++=09=09merge_uevq(&filter_state);
++=09=09pthread_cleanup_pop(1);
++
++=09=09service_uevq(&filter_state.uevq);
  =09}
  =09pthread_cleanup_pop(1);
- =09pthread_cleanup_pop(1);
+ =09condlog(3, "Terminating uev service queue");
+diff --git a/libmultipath/uevent.h b/libmultipath/uevent.h
+index 61ca1b5..53a7ca2 100644
+--- a/libmultipath/uevent.h
++++ b/libmultipath/uevent.h
+@@ -10,6 +10,7 @@
+ #define OBJECT_SIZE=09=09=09512
+=20
+ struct udev;
++struct config;
+=20
+ struct uevent {
+ =09struct list_head node;
+@@ -31,7 +32,7 @@ int uevent_listen(struct udev *udev);
+ int uevent_dispatch(int (*store_uev)(struct uevent *, void * trigger_data)=
+,
+ =09=09    void * trigger_data);
+ bool uevent_is_mpath(const struct uevent *uev);
+-void uevent_get_wwid(struct uevent *uev);
++void uevent_get_wwid(struct uevent *uev, const struct config *conf);
+=20
+ int uevent_get_env_positive_int(const struct uevent *uev,
+ =09=09=09=09const char *attr);
+diff --git a/tests/uevent.c b/tests/uevent.c
+index 7523fec..6a010ab 100644
+--- a/tests/uevent.c
++++ b/tests/uevent.c
+@@ -111,7 +111,7 @@ static void test_uid_attrs(void **state)
+ static void test_wwid(void **state)
+ {
+ =09struct uevent *uev =3D *state;
+-=09uevent_get_wwid(uev);
++=09uevent_get_wwid(uev, &conf);
+=20
+ =09assert_string_equal(uev->wwid, WWID);
+ }
 --=20
 2.35.1
 
 
---===============1248845124840996526==
+--===============7350780541711347362==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -322,5 +489,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============1248845124840996526==--
+--===============7350780541711347362==--
 
