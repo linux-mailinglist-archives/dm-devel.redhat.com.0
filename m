@@ -2,79 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 30A844F0F99
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 08:48:43 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 31A0B4F0F8B
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 08:42:58 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-503-0tVh3OAfMJmO6c_YEWEYhg-1; Mon, 04 Apr 2022 02:48:41 -0400
-X-MC-Unique: 0tVh3OAfMJmO6c_YEWEYhg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-287-av36iQ2ZMceUMuqo0abqdg-1; Mon, 04 Apr 2022 02:42:56 -0400
+X-MC-Unique: av36iQ2ZMceUMuqo0abqdg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2E988002BF;
-	Mon,  4 Apr 2022 06:48:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3C831C05AB4;
+	Mon,  4 Apr 2022 06:42:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 893221468707;
-	Mon,  4 Apr 2022 06:48:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D29C1465029;
+	Mon,  4 Apr 2022 06:42:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3D99F194037E;
-	Mon,  4 Apr 2022 06:48:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 273651940369;
+	Mon,  4 Apr 2022 06:42:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B1318194035F
- for <dm-devel@listman.corp.redhat.com>; Sun,  3 Apr 2022 03:56:29 +0000 (UTC)
+ ESMTP id 904B619452D2
+ for <dm-devel@listman.corp.redhat.com>; Mon,  4 Apr 2022 06:42:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8F317553384; Sun,  3 Apr 2022 03:56:29 +0000 (UTC)
+ id 2FCE9202E4A6; Mon,  4 Apr 2022 06:42:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B32D553381
- for <dm-devel@redhat.com>; Sun,  3 Apr 2022 03:56:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2AB78202E4A0
+ for <dm-devel@redhat.com>; Mon,  4 Apr 2022 06:42:34 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 729FA85A5A8
- for <dm-devel@redhat.com>; Sun,  3 Apr 2022 03:56:29 +0000 (UTC)
-Received: from mail-pj1-f51.google.com (mail-pj1-f51.google.com
- [209.85.216.51]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-468-luemGLOjNJqU6n7SLRBe1A-1; Sat, 02 Apr 2022 23:56:26 -0400
-X-MC-Unique: luemGLOjNJqU6n7SLRBe1A-1
-Received: by mail-pj1-f51.google.com with SMTP id
- l4-20020a17090a49c400b001c6840df4a3so6053864pjm.0; 
- Sat, 02 Apr 2022 20:56:25 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=aq3tVUArEckm4a747xQx+SdBWz59m2Jh3U4GOewQ4uE=;
- b=DkU+msF9FEAVdFdhCKAUZnMvK7FoyoMFb06qWpX/OOLlZ+BP/3pygMWeAXNsozw2OL
- q5LsV280mmxxnXnZpM4/lrw97+G0D9muNLAnidF3uTHAZhaDWV8YENLlFPDuhSaAF7gH
- NBTRqVtaJe9EGKGtSF3QtQJMVS22XNlfenfUGc/Vodb/g5oz+9UCA8pslxYJbHSYu/ag
- +RdxvkCejVY0OhQcSQkwSYjanmcPlHB1NaViVoa6mnfLvL71AinV1kLmFHoUTTTOmFZd
- SJduO5FgM9aXBRJf7eYAqZB+pWJNAO3C17DFDgjxfVLKqyG1HV4ae6Wvh0bXmA4Ka0hF
- Gjfg==
-X-Gm-Message-State: AOAM532kmSerA0vydQZCc3gQQqcSSeTyFzahzgmHNLzx1Cg3bnobSyen
- fh7jNet3/H2RJDVFTJkKoZ0FKmkE1S72jNF2
-X-Google-Smtp-Source: ABdhPJxUT5CbGHWP7XJ0MkUXkzUaa9hbM7mE7aEECrruz/Rjj3hGl2iTan9I1XVfje+10AmndVSIHA==
-X-Received: by 2002:a17:90b:1bc6:b0:1c7:3229:652a with SMTP id
- oa6-20020a17090b1bc600b001c73229652amr19831973pjb.65.1648958184216; 
- Sat, 02 Apr 2022 20:56:24 -0700 (PDT)
-Received: from localhost.localdomain ([183.156.181.188])
- by smtp.googlemail.com with ESMTPSA id
- i187-20020a62c1c4000000b004faafada2ffsm7785714pfg.204.2022.04.02.20.56.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Apr 2022 20:56:23 -0700 (PDT)
-From: Xiaomeng Tong <xiam0nd.tong@gmail.com>
-To: snitzer@redhat.com
-Date: Sun,  3 Apr 2022 11:56:03 +0800
-Message-Id: <20220403035603.16169-1-xiam0nd.tong@gmail.com>
-In-Reply-To: <YkcQdjE6uTfScyEy@redhat.com>
-References: <YkcQdjE6uTfScyEy@redhat.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8E9085A5BC
+ for <dm-devel@redhat.com>; Mon,  4 Apr 2022 06:42:34 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-450-nUAl7EePNe6k0ptAC_33Ew-1; Mon, 04 Apr 2022 02:42:31 -0400
+X-MC-Unique: nUAl7EePNe6k0ptAC_33Ew-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 6702D1F380;
+ Mon,  4 Apr 2022 06:42:29 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2E61313B6A;
+ Mon,  4 Apr 2022 06:42:29 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id s0VKCVWTSmJHVwAAMHmgww
+ (envelope-from <mwilck@suse.com>); Mon, 04 Apr 2022 06:42:29 +0000
+Message-ID: <b3ed857621d9c6b387c8e0de2516674f462b57ec.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Mon, 04 Apr 2022 08:42:28 +0200
+In-Reply-To: <20220402034026.GU24684@octiron.msp.redhat.com>
+References: <20220330221510.22578-1-mwilck@suse.com>
+ <20220330221510.22578-7-mwilck@suse.com>
+ <20220402034026.GU24684@octiron.msp.redhat.com>
+User-Agent: Evolution 3.44.0
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -82,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-X-Mailman-Approved-At: Mon, 04 Apr 2022 06:48:34 +0000
-Subject: Re: [dm-devel] md: fix missing check on list iterator
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: Re: [dm-devel] [PATCH 06/14] multipathd: reconfigure: disallow
+ changing uid_attrs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,38 +91,130 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: stable@vger.kernel.org, dm-devel@redhat.com, xiam0nd.tong@gmail.com,
- linux-kernel@vger.kernel.org, agk@redhat.com
-MIME-Version: 1.0
+Cc: dm-devel@redhat.com, tang.junhui@zte.com.cn
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, 1 Apr 2022 10:47:18 -0400, Mike Snitzer wrote:
-> Did you acually hit a bug (invalid memory access)?
-> 
-> I cannot see how given the checks prior to iterating m->priority_groups:
-> 
->         if (!pgstr || (sscanf(pgstr, "%u%c", &pgnum, &dummy) != 1) || !pgnum ||
->             !m->nr_priority_groups || (pgnum > m->nr_priority_groups)) {
->                 DMWARN("invalid PG number supplied to bypass_pg");
->                 return -EINVAL;
->         }
-> 
-> So I have _not_ taken your "fix".
+On Fri, 2022-04-01 at 22:40 -0500, Benjamin Marzinski wrote:
+> > On Thu, Mar 31, 2022 at 12:15:02AM +0200, mwilck@suse.com=A0wrote:
+> > uevent merging by WWID relies on the uid_attrs config option. As we
+> > drop struct config between calls to uevent_merge(), we must be sure
+> > that the WWID is not changed in reconfigure().
+> >=20
+> > Signed-off-by: Martin Wilck <mwilck@suse.com>
+> > ---
+> > =A0multipath/multipath.conf.5 |=A0 2 ++
+> > =A0multipathd/main.c=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 53 ++++++++++++++++++=
++++++++++++++---
+> > ----
+> > =A02 files changed, 46 insertions(+), 9 deletions(-)
+> >=20
+> > diff --git a/multipath/multipath.conf.5
+> > b/multipath/multipath.conf.5
+> > index 605b46e..a9cd776 100644
+> > --- a/multipath/multipath.conf.5
+> > +++ b/multipath/multipath.conf.5
+> > @@ -264,6 +264,8 @@ If this option is configured and matches the
+> > device
+> > =A0node name of a device, it overrides any other configured=A0 methods
+> > for
+> > =A0determining the WWID for this device.
+> > =A0.PP
+> > +This option cannot be changed during runtime with the multipathd
+> > \fBreconfigure\fR command.
+> > +.PP
+> > =A0The default is: \fB<unset>\fR. To enable uevent merging, set it
+> > e.g. to
+> > =A0\(dqsd:ID_SERIAL dasd:ID_UID nvme:ID_WWN\(dq.
+> > =A0.RE
+> > diff --git a/multipathd/main.c b/multipathd/main.c
+> > index 13b1948..f514b32 100644
+> > --- a/multipathd/main.c
+> > +++ b/multipathd/main.c
+> > @@ -2835,11 +2835,52 @@ void rcu_free_config(struct rcu_head *head)
+> > =A0=A0=A0=A0=A0=A0=A0=A0free_config(conf);
+> > =A0}
+> > =A0
+> > +static bool reconfigure_check_uid_attrs(const struct _vector
+> > *old_attrs,
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0const struct _vector
+> > *new_attrs)
+> > +{
+> > +=A0=A0=A0=A0=A0=A0=A0int i;
+> > +=A0=A0=A0=A0=A0=A0=A0char *old;
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0if (VECTOR_SIZE(old_attrs) !=3D VECTOR_SIZE(new_a=
+ttrs))
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot(old_attrs, old, i) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0char *new =3D VECTOR_SLOT=
+(new_attrs, i);
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (strcmp(old, new))
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
+eturn true;
+> > +=A0=A0=A0=A0=A0=A0=A0}
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0return false;
+> > +}
+> > +
+> > +static void reconfigure_check(struct config *old, struct config
+> > *new)
+> > +{
+> > +=A0=A0=A0=A0=A0=A0=A0int old_marginal_pathgroups;
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0old_marginal_pathgroups =3D old->marginal_pathgro=
+ups;
+> > +=A0=A0=A0=A0=A0=A0=A0if ((old_marginal_pathgroups =3D=3D MARGINAL_PATH=
+GROUP_FPIN) !=3D
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 (new->marginal_pathgroups =3D=3D MARGIN=
+AL_PATHGROUP_FPIN))
+> > {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(1, "multipathd mu=
+st be restarted to turn %s
+> > fpin marginal paths",
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0(=
+old_marginal_pathgroups =3D=3D
+> > MARGINAL_PATHGROUP_FPIN)?
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0"=
+off" : "on");
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0new->marginal_pathgroups =
+=3D old_marginal_pathgroups;
+> > +=A0=A0=A0=A0=A0=A0=A0}
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0if (reconfigure_check_uid_attrs(&old->uid_attrs, =
+&new-
+> > >uid_attrs)) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0struct _vector v =3D new-=
+>uid_attrs;
+> > +
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(1, "multipathd mu=
+st be restarted to change
+> > uid_attrs, keeping old values");
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0new->uid_attrs =3D old->u=
+id_attrs;
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0vector_reset(&v);
+>=20
+> This leaks the strings that v points to, right?=A0=A0
+> This also can happen in
+> uid_attrs_handler(), I just noticed.
 
-Yes, you are correct. It has been checked before, thus not a bug and
-no need to fix. And I have sent a PATCH v2 to use list iterator only
-inside the loop, please check it. Thank you very much.
+I was wondering about the same thing. But vector_reset() calls free()
+on every slot. So no, I don't think anything is leaked here. The API
+behaves admittedly in a surprising manner.
 
---
-Xiaomeng Tong
+Martin
+
+
 
 --
 dm-devel mailing list
