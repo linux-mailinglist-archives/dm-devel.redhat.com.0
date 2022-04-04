@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2EA034F1985
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 19:05:57 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 06AA74F197E
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Apr 2022 19:05:52 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-502-r4_OwuVkNEaNJxM5rBfKnA-1; Mon, 04 Apr 2022 13:05:52 -0400
-X-MC-Unique: r4_OwuVkNEaNJxM5rBfKnA-1
+ us-mta-609-1Yzsh43gNLaqlPJTVBQA9A-1; Mon, 04 Apr 2022 13:05:50 -0400
+X-MC-Unique: 1Yzsh43gNLaqlPJTVBQA9A-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07B0B804183;
-	Mon,  4 Apr 2022 17:05:46 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BC4A18E5355;
+	Mon,  4 Apr 2022 17:05:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E40281454553;
-	Mon,  4 Apr 2022 17:05:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 80D50140265E;
+	Mon,  4 Apr 2022 17:05:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9E81D1940372;
-	Mon,  4 Apr 2022 17:05:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ABA8C194EB99;
+	Mon,  4 Apr 2022 17:05:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B433919451EF
- for <dm-devel@listman.corp.redhat.com>; Mon,  4 Apr 2022 17:05:44 +0000 (UTC)
+ ESMTP id E2DEC19451EF
+ for <dm-devel@listman.corp.redhat.com>; Mon,  4 Apr 2022 17:05:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 90A992024CC6; Mon,  4 Apr 2022 17:05:44 +0000 (UTC)
+ id C46BB536BB3; Mon,  4 Apr 2022 17:05:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8C5A92024CB9
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C0F9C536BBC
  for <dm-devel@redhat.com>; Mon,  4 Apr 2022 17:05:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9770E811E75
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7B9A2803587
  for <dm-devel@redhat.com>; Mon,  4 Apr 2022 17:05:37 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-389-yW6S4I1BNvGICjPz8Mdstg-1; Mon, 04 Apr 2022 13:05:34 -0400
-X-MC-Unique: yW6S4I1BNvGICjPz8Mdstg-1
+ us-mta-250-g74qzttbMCevdV9ED_UD9w-1; Mon, 04 Apr 2022 13:05:34 -0400
+X-MC-Unique: g74qzttbMCevdV9ED_UD9w-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BF66F210FC;
- Mon,  4 Apr 2022 17:05:32 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0F48D1F390;
+ Mon,  4 Apr 2022 17:05:33 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7FADA12FC5;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CD34612FC5;
  Mon,  4 Apr 2022 17:05:32 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id IDInHVwlS2LICAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id eMYJMFwlS2LICAAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 04 Apr 2022 17:05:32 +0000
 From: mwilck@suse.com
 To: Benjamin Marzinski <bmarzins@redhat.com>,
  Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon,  4 Apr 2022 19:04:56 +0200
-Message-Id: <20220404170457.16021-15-mwilck@suse.com>
+Date: Mon,  4 Apr 2022 19:04:57 +0200
+Message-Id: <20220404170457.16021-16-mwilck@suse.com>
 In-Reply-To: <20220404170457.16021-1-mwilck@suse.com>
 References: <20220404170457.16021-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -74,9 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [dm-devel] [PATCH v2 14/15] libmultipath: apply_format(): prevent
- buffer overflow
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [dm-devel] [PATCH v2 15/15] libmultipath: avoid memory leak with
+ uid_attrs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,38 +96,69 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============8271931857840902873=="
+Content-Type: multipart/mixed; boundary="===============5134501382820336681=="
 
---===============8271931857840902873==
+--===============5134501382820336681==
 Content-Transfer-Encoding: quoted-printable
 Content-Type: application/octet-stream; x-default=true
 
 From: Martin Wilck <mwilck@suse.com>
 
-Potential overflow found by coverity (CID 376918).
----
- libmultipath/callout.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Free all vector elements when freeing uid_attrs.
 
-diff --git a/libmultipath/callout.c b/libmultipath/callout.c
-index dac088c..57c3481 100644
---- a/libmultipath/callout.c
-+++ b/libmultipath/callout.c
-@@ -160,7 +160,7 @@ int apply_format(char * string, char * cmd, struct path=
- * pp)
- =09myfree =3D CALLOUT_MAX_SIZE;
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+---
+ libmultipath/config.c | 5 +++++
+ libmultipath/dict.c   | 5 +++++
+ 2 files changed, 10 insertions(+)
+
+diff --git a/libmultipath/config.c b/libmultipath/config.c
+index 7346c37..bfaf041 100644
+--- a/libmultipath/config.c
++++ b/libmultipath/config.c
+@@ -656,6 +656,9 @@ static struct config *alloc_config (void)
 =20
- =09if (!pos) {
--=09=09strcpy(dst, string);
-+=09=09strlcpy(dst, string, CALLOUT_MAX_SIZE);
- =09=09return 0;
- =09}
+ static void _uninit_config(struct config *conf)
+ {
++=09void *ptr;
++=09int i;
++
+ =09if (!conf)
+ =09=09conf =3D &__internal_config;
 =20
+@@ -668,6 +671,8 @@ static void _uninit_config(struct config *conf)
+ =09if (conf->uid_attribute)
+ =09=09free(conf->uid_attribute);
+=20
++=09vector_foreach_slot(&conf->uid_attrs, ptr, i)
++=09=09free(ptr);
+ =09vector_reset(&conf->uid_attrs);
+=20
+ =09if (conf->getuid)
+diff --git a/libmultipath/dict.c b/libmultipath/dict.c
+index 26cbe78..3b99296 100644
+--- a/libmultipath/dict.c
++++ b/libmultipath/dict.c
+@@ -597,8 +597,13 @@ static int uid_attrs_handler(struct config *conf, vect=
+or strvec,
+ =09=09=09     const char *file, int line_nr)
+ {
+ =09char *val;
++=09void *ptr;
++=09int i;
+=20
++=09vector_foreach_slot(&conf->uid_attrs, ptr, i)
++=09=09free(ptr);
+ =09vector_reset(&conf->uid_attrs);
++
+ =09val =3D set_value(strvec);
+ =09if (!val)
+ =09=09return 1;
 --=20
 2.35.1
 
 
---===============8271931857840902873==
+--===============5134501382820336681==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -138,5 +169,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============8271931857840902873==--
+--===============5134501382820336681==--
 
