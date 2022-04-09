@@ -1,62 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5541C4FA4FC
-	for <lists+dm-devel@lfdr.de>; Sat,  9 Apr 2022 07:16:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B9474FA900
+	for <lists+dm-devel@lfdr.de>; Sat,  9 Apr 2022 16:33:24 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-641-bLkHft_bN-mnE_vVYHYt1w-1; Sat, 09 Apr 2022 01:15:59 -0400
-X-MC-Unique: bLkHft_bN-mnE_vVYHYt1w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-124-RQYxC3vbMkuuQPfca-rPWQ-1; Sat, 09 Apr 2022 10:33:22 -0400
+X-MC-Unique: RQYxC3vbMkuuQPfca-rPWQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1A1280B71C;
-	Sat,  9 Apr 2022 05:15:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 77F6E811E7A;
+	Sat,  9 Apr 2022 14:33:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4E7B740D296C;
-	Sat,  9 Apr 2022 05:15:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D2B5AC33AE6;
+	Sat,  9 Apr 2022 14:33:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8503B1940351;
-	Sat,  9 Apr 2022 05:15:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3498D193F6E1;
+	Sat,  9 Apr 2022 14:33:13 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C4D471940341
- for <dm-devel@listman.corp.redhat.com>; Sat,  9 Apr 2022 05:15:50 +0000 (UTC)
+ ESMTP id 6A5A319452D2
+ for <dm-devel@listman.corp.redhat.com>; Sat,  9 Apr 2022 14:33:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6592B41637F; Sat,  9 Apr 2022 05:15:50 +0000 (UTC)
+ id 5510D40317F; Sat,  9 Apr 2022 14:33:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6191041637D
- for <dm-devel@redhat.com>; Sat,  9 Apr 2022 05:15:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 46A8A101A52C
- for <dm-devel@redhat.com>; Sat,  9 Apr 2022 05:15:50 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-593-DOckbprLPCqavdgC4DDjJA-1; Sat, 09 Apr 2022 01:15:48 -0400
-X-MC-Unique: DOckbprLPCqavdgC4DDjJA-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1nd3Rl-002DAU-Bg; Sat, 09 Apr 2022 05:15:41 +0000
-Date: Fri, 8 Apr 2022 22:15:41 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Mike Snitzer <snitzer@redhat.com>
-Message-ID: <YlEWfc39+H+esrQm@infradead.org>
-References: <YkSK6mU1fja2OykG@redhat.com> <YkRM7Iyp8m6A1BCl@fedora>
- <YkUwmyrIqnRGIOHm@infradead.org> <YkVBjUy9GeSMbh5Q@fedora>
- <YkVxLN9p0t6DI5ie@infradead.org> <YlBX+ytxxeSj2neQ@redhat.com>
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 50F6840317B
+ for <dm-devel@redhat.com>; Sat,  9 Apr 2022 14:33:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35F7A185A794
+ for <dm-devel@redhat.com>; Sat,  9 Apr 2022 14:33:12 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-139-LAtDhqNjOk6YF0fyCGGveA-1; Sat, 09 Apr 2022 10:33:08 -0400
+X-MC-Unique: LAtDhqNjOk6YF0fyCGGveA-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 207A11F864;
+ Sat,  9 Apr 2022 14:33:06 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3F41913AA1;
+ Sat,  9 Apr 2022 14:32:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id m2GpARiZUWLHIgAAMHmgww
+ (envelope-from <colyli@suse.de>); Sat, 09 Apr 2022 14:32:56 +0000
+Message-ID: <f01ac878-9b0d-972b-70dc-6f3f61b9947b@suse.de>
+Date: Sat, 9 Apr 2022 22:32:52 +0800
 MIME-Version: 1.0
-In-Reply-To: <YlBX+ytxxeSj2neQ@redhat.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.7.0
+To: Christoph Hellwig <hch@lst.de>
+References: <20220409045043.23593-1-hch@lst.de>
+ <20220409045043.23593-27-hch@lst.de>
+From: Coly Li <colyli@suse.de>
+In-Reply-To: <20220409045043.23593-27-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -65,8 +78,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [dm-devel] can we reduce bio_set_dev overhead due to
- bio_associate_blkg?
+Subject: Re: [dm-devel] [PATCH 26/27] block: decouple REQ_OP_SECURE_ERASE
+ from REQ_OP_DISCARD
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,32 +91,46 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org,
- Mike Snitzer <snitzer@kernel.org>, Christoph Hellwig <hch@infradead.org>,
- dm-devel@redhat.com, tj@kernel.org, Dennis Zhou <dennis@kernel.org>
+Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ dm-devel@redhat.com, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, drbd-dev@lists.linbit.com,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, cluster-devel@redhat.com,
+ xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+ linux-um@lists.infradead.org, nbd@other.debian.org,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ David Sterba <dsterba@suse.com>, ceph-devel@vger.kernel.org,
+ Ryusuke Konishi <konishi.ryusuke@gmail.com>, Jens Axboe <axboe@kernel.dk>,
+ linux-raid@vger.kernel.org, "Martin K . Petersen" <martin.petersen@oracle.com>,
+ linux-mmc@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org,
+ =?UTF-8?Q?Christoph_B=c3=b6hmwalder?= <christoph.boehmwalder@linbit.com>,
+ ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+ ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On Fri, Apr 08, 2022 at 11:42:51AM -0400, Mike Snitzer wrote:
-> I think we can achieve the goal of efficient cloning/remapping for
-> both usecases simply by splitting out the bio_set_dev() and leaving it
-> to the caller to pick which interface to use (e.g. clone vs
-> clone_and_remap).
-
-You can just pass a NULL bdev to bio_alloc_clone/bio_init_clone.
-I've been hoping to get rid of that, but if we have a clear use case
-it will have to stay.
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gNC85LzIyIDEyOjUwIFBNLCBDaHJpc3RvcGggSGVsbHdpZyB3cm90ZToKPiBTZWN1cmUgZXJh
+c2UgaXMgYSB2ZXJ5IGRpZmZlcmVudCBvcGVyYXRpb24gZnJvbSBkaXNjYXJkIGluIHRoYXQgaXQg
+aXMKPiBhIGRhdGEgaW50ZWdyaXR5IG9wZXJhdGlvbiB2cyBoaW50LiAgRnVsbHkgc3BsaXQgdGhl
+IGxpbWl0cyBhbmQgaGVscGVyCj4gaW5mcmFzdHJ1Y3R1cmUgdG8gbWFrZSB0aGUgc2VwYXJhdGlv
+biBtb3JlIGNsZWFyLgo+Cj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBs
+c3QuZGU+Cj4gUmV2aWV3ZWQtYnk6IE1hcnRpbiBLLiBQZXRlcnNlbiA8bWFydGluLnBldGVyc2Vu
+QG9yYWNsZS5jb20+Cj4gQWNrZWQtYnk6IENocmlzdG9waCBCw7ZobXdhbGRlciA8Y2hyaXN0b3Bo
+LmJvZWhtd2FsZGVyQGxpbmJpdC5jb20+IFtkcmJkXQo+IEFja2VkLWJ5OiBSeXVzdWtlIEtvbmlz
+aGkgPGtvbmlzaGkucnl1c3VrZUBnbWFpbC5jb20+IFtuaWZzMl0KPiBBY2tlZC1ieTogQ29seSBM
+aSA8Y29seWxpQHN1c2UuZGU+IFtkcmJkXQoKSGkgQ2hyaXN0b3BoLAoKTXkgQUNLIGlzIGZvciBi
+Y2FjaGUsIG5vdCBkcmJkIGhlcmUuCgpUaGFua3MuCgoKQ29seSBMaQoKCgo+IEFja2VkLWJ5OiBE
+YXZpZCBTdGVyYmEgPGRzdGVyYmFAc3VzZS5jb20+IFtidHJmc10KCgoKCgotLQpkbS1kZXZlbCBt
+YWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
