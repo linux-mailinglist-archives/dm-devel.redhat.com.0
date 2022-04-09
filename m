@@ -1,58 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B22904FA52E
-	for <lists+dm-devel@lfdr.de>; Sat,  9 Apr 2022 07:34:03 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7D7CB4FA3D8
+	for <lists+dm-devel@lfdr.de>; Sat,  9 Apr 2022 06:54:04 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-TmnkHEdmNlW2sLsEIn_3yA-1; Sat, 09 Apr 2022 01:33:03 -0400
-X-MC-Unique: TmnkHEdmNlW2sLsEIn_3yA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-380-y7_qTpfRPz6savKd2E5TlA-1; Sat, 09 Apr 2022 00:53:56 -0400
+X-MC-Unique: y7_qTpfRPz6savKd2E5TlA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA4DE811E7A;
-	Sat,  9 Apr 2022 05:33:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 426A31C08DD9;
+	Sat,  9 Apr 2022 04:53:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A63B4407E1C2;
-	Sat,  9 Apr 2022 05:33:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C4F0040BB4F;
+	Sat,  9 Apr 2022 04:53:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3C2C21940356;
-	Sat,  9 Apr 2022 05:33:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 461341940354;
+	Sat,  9 Apr 2022 04:53:53 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4ED101940341
- for <dm-devel@listman.corp.redhat.com>; Sat,  9 Apr 2022 05:32:59 +0000 (UTC)
+ ESMTP id A477B194034C
+ for <dm-devel@listman.corp.redhat.com>; Sat,  9 Apr 2022 04:53:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 431DB111E3F8; Sat,  9 Apr 2022 05:32:59 +0000 (UTC)
+ id 956C1111E3E9; Sat,  9 Apr 2022 04:53:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E6CC111E3EB
- for <dm-devel@redhat.com>; Sat,  9 Apr 2022 05:32:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 523AF1C04B52
- for <dm-devel@redhat.com>; Sat,  9 Apr 2022 05:32:54 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 90A55111E3E8
+ for <dm-devel@redhat.com>; Sat,  9 Apr 2022 04:53:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 42EA685A5BC
+ for <dm-devel@redhat.com>; Sat,  9 Apr 2022 04:53:48 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-RXmEsGj6MC6QsFT6qqg7EQ-1; Sat, 09 Apr 2022 01:32:52 -0400
-X-MC-Unique: RXmEsGj6MC6QsFT6qqg7EQ-1
+ us-mta-65-EN_6thFdNFGoxa3rDr2lNw-1; Sat, 09 Apr 2022 00:53:44 -0400
+X-MC-Unique: EN_6thFdNFGoxa3rDr2lNw-1
 Received: from 213-147-167-116.nat.highway.webapn.at ([213.147.167.116]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1nd345-0020fc-8h; Sat, 09 Apr 2022 04:51:13 +0000
+ id 1nd348-0020i9-Di; Sat, 09 Apr 2022 04:51:16 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Sat,  9 Apr 2022 06:50:24 +0200
-Message-Id: <20220409045043.23593-9-hch@lst.de>
+Date: Sat,  9 Apr 2022 06:50:25 +0200
+Message-Id: <20220409045043.23593-10-hch@lst.de>
 In-Reply-To: <20220409045043.23593-1-hch@lst.de>
 References: <20220409045043.23593-1-hch@lst.de>
 MIME-Version: 1.0
@@ -67,7 +66,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Spam-Signature: yes
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [dm-devel] [PATCH 08/27] btrfs: use bdev_max_active_zones instead
+Subject: [dm-devel] [PATCH 09/27] ntfs3: use bdev_logical_block_size instead
  of open coding it
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -96,7 +95,7 @@ Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
  ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,30 +106,22 @@ Content-Transfer-Encoding: 7bit
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 ---
- fs/btrfs/zoned.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ fs/ntfs3/super.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
-index 1b1b310c3c510..f72cad7391a11 100644
---- a/fs/btrfs/zoned.c
-+++ b/fs/btrfs/zoned.c
-@@ -350,7 +350,6 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
- 	struct btrfs_fs_info *fs_info = device->fs_info;
- 	struct btrfs_zoned_device_info *zone_info = NULL;
- 	struct block_device *bdev = device->bdev;
--	struct request_queue *queue = bdev_get_queue(bdev);
- 	unsigned int max_active_zones;
- 	unsigned int nactive;
- 	sector_t nr_sectors;
-@@ -410,7 +409,7 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
- 	if (!IS_ALIGNED(nr_sectors, zone_sectors))
- 		zone_info->nr_zones++;
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index 278dcf5024102..cd30e81abbce0 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -920,7 +920,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
+ 	}
  
--	max_active_zones = queue_max_active_zones(queue);
-+	max_active_zones = bdev_max_active_zones(bdev);
- 	if (max_active_zones && max_active_zones < BTRFS_MIN_ACTIVE_ZONES) {
- 		btrfs_err_in_rcu(fs_info,
- "zoned: %s: max active zones %u is too small, need at least %u active zones",
+ 	/* Parse boot. */
+-	err = ntfs_init_from_boot(sb, rq ? queue_logical_block_size(rq) : 512,
++	err = ntfs_init_from_boot(sb, bdev_logical_block_size(bdev),
+ 				  bdev_nr_bytes(bdev));
+ 	if (err)
+ 		goto out;
 -- 
 2.30.2
 
