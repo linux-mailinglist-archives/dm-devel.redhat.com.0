@@ -2,94 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADF534FB39A
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Apr 2022 08:19:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E894FB395
+	for <lists+dm-devel@lfdr.de>; Mon, 11 Apr 2022 08:19:36 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-264-MJ1mw7eRM9KNAY04enC_xA-1; Mon, 11 Apr 2022 02:19:33 -0400
-X-MC-Unique: MJ1mw7eRM9KNAY04enC_xA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-82-SaofxWbLM0W_JTsSf0_1oA-1; Mon, 11 Apr 2022 02:19:33 -0400
+X-MC-Unique: SaofxWbLM0W_JTsSf0_1oA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 728E2803D4E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C198E1014A82;
 	Mon, 11 Apr 2022 06:19:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8ABF6432026;
-	Mon, 11 Apr 2022 06:19:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 986774050C44;
+	Mon, 11 Apr 2022 06:19:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4DDD71940343;
-	Mon, 11 Apr 2022 06:19:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4BDA4194EB97;
+	Mon, 11 Apr 2022 06:19:25 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AA42C1940341
- for <dm-devel@listman.corp.redhat.com>; Sat,  9 Apr 2022 08:17:04 +0000 (UTC)
+ ESMTP id 73EDA19466DF
+ for <dm-devel@listman.corp.redhat.com>; Sun, 10 Apr 2022 22:11:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 95287492D17; Sat,  9 Apr 2022 08:17:04 +0000 (UTC)
+ id 652327C55; Sun, 10 Apr 2022 22:11:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 90DAF492CAF
- for <dm-devel@redhat.com>; Sat,  9 Apr 2022 08:17:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 60B987C4E
+ for <dm-devel@redhat.com>; Sun, 10 Apr 2022 22:11:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 793B229AB443
- for <dm-devel@redhat.com>; Sat,  9 Apr 2022 08:17:04 +0000 (UTC)
-Received: from mail-wr1-f51.google.com (mail-wr1-f51.google.com
- [209.85.221.51]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-622-2JTNT_I0O4yARQ8eixTn8A-1; Sat, 09 Apr 2022 04:17:02 -0400
-X-MC-Unique: 2JTNT_I0O4yARQ8eixTn8A-1
-Received: by mail-wr1-f51.google.com with SMTP id w21so16078221wra.2
- for <dm-devel@redhat.com>; Sat, 09 Apr 2022 01:17:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=Ga61vN/TMGQoWv5pdVva9yHEVEk7JvDu8SvkqTkiHOU=;
- b=njExP1onb6zC8Gz7F+TM7pS7lnJ2Xkd2w161fv7QQwZdamn/ILWREePUmRpiRFLzMu
- RD7qyWfMpjW15Uu3GdScwLgpo9b8+JwSAAPIA4xxibWTx7IckmaVrD9UVYFB1KAS4waF
- TVn9zYK2E5H4mYw8C2faZme2Q6Bern1LF950I9sjNhf4DPL68HhvrRrcJYd4qXJU6vZC
- KvTsWEinoyw0d8yh090w8wG38wwe10vzddQYeglk72x9eYUBRcWV1Yqgrws2zZ0hXxVC
- HgwAq5lfCkdBSO5Mq03sUrzaMsXcCBu18ZLvRGXeZY7ArsSGKknsb+6Evb+dZMJx7PKc
- HhJw==
-X-Gm-Message-State: AOAM530oCKAiZhc1Pl2zLCefAnlzn5adI77QH/dFR6IKa1tiYDlXjieh
- WXThrp0mzBa/7KtDVwg+mvMxvWkuAlPi9AkC1Kk=
-X-Google-Smtp-Source: ABdhPJyMl7hUdRWB67QUv24ZWK8mJRwBaxhnGq09ejE28bU5zjvkHivlidIC/JIf/EdWqVvIZNI6nA==
-X-Received: by 2002:adf:9581:0:b0:1ed:c341:4ed1 with SMTP id
- p1-20020adf9581000000b001edc3414ed1mr16998132wrp.299.1649492221449; 
- Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
-Received: from [192.168.169.127] (178.115.52.210.wireless.dyn.drei.com.
- [178.115.52.210]) by smtp.gmail.com with ESMTPSA id
- r14-20020a05600c35ce00b0038c9f469979sm12169802wmq.40.2022.04.09.01.16.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 09 Apr 2022 01:17:01 -0700 (PDT)
-Message-ID: <5a26cdb1-b63b-8d35-640b-bc0e0f78a181@linbit.com>
-Date: Sat, 9 Apr 2022 10:16:58 +0200
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 212D51C05AAF
+ for <dm-devel@redhat.com>; Sun, 10 Apr 2022 22:11:08 +0000 (UTC)
+Received: from wout5-smtp.messagingengine.com
+ (wout5-smtp.messagingengine.com [64.147.123.21]) by relay.mimecast.com with
+ ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-60-IiRXuEAuPzOuYu8nUopfqQ-1; Sun, 10 Apr 2022 18:11:06 -0400
+X-MC-Unique: IiRXuEAuPzOuYu8nUopfqQ-1
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.west.internal (Postfix) with ESMTP id 8C6EF3200FA9;
+ Sun, 10 Apr 2022 18:04:56 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute5.internal (MEProxy); Sun, 10 Apr 2022 18:04:56 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:message-id:mime-version:reply-to:sender:subject
+ :subject:to:to:x-me-proxy:x-me-proxy:x-me-sender:x-me-sender
+ :x-sasl-enc; s=fm3; bh=1NFkjAQyamI41mY2q+y6ewEGpFGU8QkAic+IrSg3q
+ Oo=; b=nMRstEptLC2pmexha3KYB57DlFvUMvo+eT9n/qUHdKpY2h/05hYwGnKWF
+ 7fAT9OEvVtmCnyQSJXketIKijR1geQUYuXRJrZIuaWF8O2B1CEJ1v9O8ipiV9Az4
+ bRiv4FeIFZhLXirKM1c2UYTqK85RW6GtCkPN084me5HTKm5PK8WL67zCgjB6H7Gn
+ gletuurmBNgzYR/gd/K6AXSRqozMpMLzPug/t6JO9XYGAmKss5VPR9EhDfnWOxFB
+ pCnftf0z+uOzBnymu3M9xtDXV/Ob+U5h3/JnGoJ3IlTH4zwxi0usmePF7xx41nyj
+ H0OWnpUFvxIMXJVg/LtB8ZweSdw1g==
+X-ME-Sender: <xms:iFRTYvCH90C4xDYIne2GdgdXi9JuJhJz3wH0gKL2ec2oylhcqghbuQ>
+ <xme:iFRTYlidvMbzdWL6bJlv9X_2fFqinrUang9xQmw-qy52RrmEVATH7r5rDKHsg_YrE
+ uP16Xv1051fbq8>
+X-ME-Received: <xmr:iFRTYqlmLGhU8M93IgxCpBmAwG0D-GKL1dxGCwQ1v-dW3WppzRdHo0-EOYb0>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvvddrudekhecutefuodetggdotefrodftvfcurf
+ hrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecuuegr
+ ihhlohhuthemuceftddtnecunecujfgurhepfffhvffukfggtggusehgtderredttdejne
+ cuhfhrohhmpeffvghmihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhi
+ shhisghlvghthhhinhhgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeeljedtge
+ ejffelveefueelheejgfdvfefhhefgjeegleetgedtteejleeuueevfeenucevlhhushht
+ vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhish
+ hisghlvghthhhinhhgshhlrggsrdgtohhm
+X-ME-Proxy: <xmx:iFRTYhz40rUkEdxQSiutBiUHeA83zfChcFpYiwBHf8j-kJsk8XBtBQ>
+ <xmx:iFRTYkSQ0DN3fNP-M9xOzeOVgnEcayXanmOcjfjTx_jzyoYMaO51kw>
+ <xmx:iFRTYkYhAelgQV_nL9dGfpMMqGJ3Z0nSO1fcW1ZUvW7-gyOHR8lsGQ>
+ <xmx:iFRTYjMjhpnELBontmiG4ef75cz3xYN6jHo3gZgHWsaxIG4WoqlNSQ>
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
+ 10 Apr 2022 18:04:55 -0400 (EDT)
+Date: Sun, 10 Apr 2022 18:03:56 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Joe Thornber <ejt@redhat.com>
+Message-ID: <YlNUhtXltj8vgvcZ@itl-email>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.6.2
-To: Christoph Hellwig <hch@lst.de>
-References: <20220409045043.23593-1-hch@lst.de>
- <20220409045043.23593-5-hch@lst.de>
-From: =?UTF-8?Q?Christoph_B=c3=b6hmwalder?= <christoph.boehmwalder@linbit.com>
-In-Reply-To: <20220409045043.23593-5-hch@lst.de>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-X-Mailman-Approved-At: Mon, 11 Apr 2022 06:19:20 +0000
-Subject: Re: [dm-devel] [Drbd-dev] [PATCH 04/27] drbd: remove
- assign_p_sizes_qlim
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Mailman-Approved-At: Mon, 11 Apr 2022 06:19:21 +0000
+Subject: [dm-devel] Potential enhancements to dm-thin v2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,89 +99,103 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, cluster-devel@redhat.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- linux-um@lists.infradead.org, nbd@other.debian.org, linux-raid@vger.kernel.org,
- linux-bcache@vger.kernel.org, ceph-devel@vger.kernel.org,
- Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- linux-mmc@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-btrfs@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, ntfs3@lists.linux.dev,
- ocfs2-devel@oss.oracle.com
+Cc: dm-devel@redhat.com
+Content-Type: multipart/mixed; boundary="===============1387832672996918267=="
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Authentication-Results: relay.mimecast.com;
-	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 
-T24gMDkuMDQuMjIgMDY6NTAsIENocmlzdG9waCBIZWxsd2lnIHdyb3RlOgo+IEZvbGQgZWFjaCBi
-cmFuY2ggaW50byBpdHMgb25seSBjYWxsZXIuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3Bo
-IEhlbGx3aWcgPGhjaEBsc3QuZGU+Cj4gLS0tCj4gICBkcml2ZXJzL2Jsb2NrL2RyYmQvZHJiZF9t
-YWluLmMgfCA0NyArKysrKysrKysrKysrKystLS0tLS0tLS0tLS0tLS0tLS0tCj4gICAxIGZpbGUg
-Y2hhbmdlZCwgMjAgaW5zZXJ0aW9ucygrKSwgMjcgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvYmxvY2svZHJiZC9kcmJkX21haW4uYyBiL2RyaXZlcnMvYmxvY2svZHJiZC9k
-cmJkX21haW4uYwo+IGluZGV4IDk2NzZhMWQyMTRiYzUuLjEyNjJmZTFjMzM2MTggMTAwNjQ0Cj4g
-LS0tIGEvZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfbWFpbi5jCj4gKysrIGIvZHJpdmVycy9ibG9j
-ay9kcmJkL2RyYmRfbWFpbi5jCj4gQEAgLTkwMywzMSArOTAzLDYgQEAgdm9pZCBkcmJkX2dlbl9h
-bmRfc2VuZF9zeW5jX3V1aWQoc3RydWN0IGRyYmRfcGVlcl9kZXZpY2UgKnBlZXJfZGV2aWNlKQo+
-ICAgCX0KPiAgIH0KPiAgIAo+IC0vKiBjb21tdW5pY2F0ZWQgaWYgKGFncmVlZF9mZWF0dXJlcyAm
-IERSQkRfRkZfV1NBTUUpICovCj4gLXN0YXRpYyB2b2lkCj4gLWFzc2lnbl9wX3NpemVzX3FsaW0o
-c3RydWN0IGRyYmRfZGV2aWNlICpkZXZpY2UsIHN0cnVjdCBwX3NpemVzICpwLAo+IC0JCQkJCXN0
-cnVjdCByZXF1ZXN0X3F1ZXVlICpxKQo+IC17Cj4gLQlpZiAocSkgewo+IC0JCXAtPnFsaW0tPnBo
-eXNpY2FsX2Jsb2NrX3NpemUgPSBjcHVfdG9fYmUzMihxdWV1ZV9waHlzaWNhbF9ibG9ja19zaXpl
-KHEpKTsKPiAtCQlwLT5xbGltLT5sb2dpY2FsX2Jsb2NrX3NpemUgPSBjcHVfdG9fYmUzMihxdWV1
-ZV9sb2dpY2FsX2Jsb2NrX3NpemUocSkpOwo+IC0JCXAtPnFsaW0tPmFsaWdubWVudF9vZmZzZXQg
-PSBjcHVfdG9fYmUzMihxdWV1ZV9hbGlnbm1lbnRfb2Zmc2V0KHEpKTsKPiAtCQlwLT5xbGltLT5p
-b19taW4gPSBjcHVfdG9fYmUzMihxdWV1ZV9pb19taW4ocSkpOwo+IC0JCXAtPnFsaW0tPmlvX29w
-dCA9IGNwdV90b19iZTMyKHF1ZXVlX2lvX29wdChxKSk7Cj4gLQkJcC0+cWxpbS0+ZGlzY2FyZF9l
-bmFibGVkID0gYmxrX3F1ZXVlX2Rpc2NhcmQocSk7Cj4gLQkJcC0+cWxpbS0+d3JpdGVfc2FtZV9j
-YXBhYmxlID0gMDsKPiAtCX0gZWxzZSB7Cj4gLQkJcSA9IGRldmljZS0+cnFfcXVldWU7Cj4gLQkJ
-cC0+cWxpbS0+cGh5c2ljYWxfYmxvY2tfc2l6ZSA9IGNwdV90b19iZTMyKHF1ZXVlX3BoeXNpY2Fs
-X2Jsb2NrX3NpemUocSkpOwo+IC0JCXAtPnFsaW0tPmxvZ2ljYWxfYmxvY2tfc2l6ZSA9IGNwdV90
-b19iZTMyKHF1ZXVlX2xvZ2ljYWxfYmxvY2tfc2l6ZShxKSk7Cj4gLQkJcC0+cWxpbS0+YWxpZ25t
-ZW50X29mZnNldCA9IDA7Cj4gLQkJcC0+cWxpbS0+aW9fbWluID0gY3B1X3RvX2JlMzIocXVldWVf
-aW9fbWluKHEpKTsKPiAtCQlwLT5xbGltLT5pb19vcHQgPSBjcHVfdG9fYmUzMihxdWV1ZV9pb19v
-cHQocSkpOwo+IC0JCXAtPnFsaW0tPmRpc2NhcmRfZW5hYmxlZCA9IDA7Cj4gLQkJcC0+cWxpbS0+
-d3JpdGVfc2FtZV9jYXBhYmxlID0gMDsKPiAtCX0KPiAtfQo+IC0KPiAgIGludCBkcmJkX3NlbmRf
-c2l6ZXMoc3RydWN0IGRyYmRfcGVlcl9kZXZpY2UgKnBlZXJfZGV2aWNlLCBpbnQgdHJpZ2dlcl9y
-ZXBseSwgZW51bSBkZHNfZmxhZ3MgZmxhZ3MpCj4gICB7Cj4gICAJc3RydWN0IGRyYmRfZGV2aWNl
-ICpkZXZpY2UgPSBwZWVyX2RldmljZS0+ZGV2aWNlOwo+IEBAIC05NTcsMTQgKzkzMiwzMiBAQCBp
-bnQgZHJiZF9zZW5kX3NpemVzKHN0cnVjdCBkcmJkX3BlZXJfZGV2aWNlICpwZWVyX2RldmljZSwg
-aW50IHRyaWdnZXJfcmVwbHksIGVudQo+ICAgCQlxX29yZGVyX3R5cGUgPSBkcmJkX3F1ZXVlX29y
-ZGVyX3R5cGUoZGV2aWNlKTsKPiAgIAkJbWF4X2Jpb19zaXplID0gcXVldWVfbWF4X2h3X3NlY3Rv
-cnMocSkgPDwgOTsKPiAgIAkJbWF4X2Jpb19zaXplID0gbWluKG1heF9iaW9fc2l6ZSwgRFJCRF9N
-QVhfQklPX1NJWkUpOwo+IC0JCWFzc2lnbl9wX3NpemVzX3FsaW0oZGV2aWNlLCBwLCBxKTsKPiAr
-CQlwLT5xbGltLT5waHlzaWNhbF9ibG9ja19zaXplID0KPiArCQkJY3B1X3RvX2JlMzIocXVldWVf
-cGh5c2ljYWxfYmxvY2tfc2l6ZShxKSk7Cj4gKwkJcC0+cWxpbS0+bG9naWNhbF9ibG9ja19zaXpl
-ID0KPiArCQkJY3B1X3RvX2JlMzIocXVldWVfbG9naWNhbF9ibG9ja19zaXplKHEpKTsKPiArCQlw
-LT5xbGltLT5hbGlnbm1lbnRfb2Zmc2V0ID0KPiArCQkJY3B1X3RvX2JlMzIocXVldWVfYWxpZ25t
-ZW50X29mZnNldChxKSk7Cj4gKwkJcC0+cWxpbS0+aW9fbWluID0gY3B1X3RvX2JlMzIocXVldWVf
-aW9fbWluKHEpKTsKPiArCQlwLT5xbGltLT5pb19vcHQgPSBjcHVfdG9fYmUzMihxdWV1ZV9pb19v
-cHQocSkpOwo+ICsJCXAtPnFsaW0tPmRpc2NhcmRfZW5hYmxlZCA9IGJsa19xdWV1ZV9kaXNjYXJk
-KHEpOwo+ICAgCQlwdXRfbGRldihkZXZpY2UpOwo+ICAgCX0gZWxzZSB7Cj4gKwkJc3RydWN0IHJl
-cXVlc3RfcXVldWUgKnEgPSBkZXZpY2UtPnJxX3F1ZXVlOwo+ICsKPiArCQlwLT5xbGltLT5waHlz
-aWNhbF9ibG9ja19zaXplID0KPiArCQkJY3B1X3RvX2JlMzIocXVldWVfcGh5c2ljYWxfYmxvY2tf
-c2l6ZShxKSk7Cj4gKwkJcC0+cWxpbS0+bG9naWNhbF9ibG9ja19zaXplID0KPiArCQkJY3B1X3Rv
-X2JlMzIocXVldWVfbG9naWNhbF9ibG9ja19zaXplKHEpKTsKPiArCQlwLT5xbGltLT5hbGlnbm1l
-bnRfb2Zmc2V0ID0gMDsKPiArCQlwLT5xbGltLT5pb19taW4gPSBjcHVfdG9fYmUzMihxdWV1ZV9p
-b19taW4ocSkpOwo+ICsJCXAtPnFsaW0tPmlvX29wdCA9IGNwdV90b19iZTMyKHF1ZXVlX2lvX29w
-dChxKSk7Cj4gKwkJcC0+cWxpbS0+ZGlzY2FyZF9lbmFibGVkID0gMDsKPiArCj4gICAJCWRfc2l6
-ZSA9IDA7Cj4gICAJCXVfc2l6ZSA9IDA7Cj4gICAJCXFfb3JkZXJfdHlwZSA9IFFVRVVFX09SREVS
-RURfTk9ORTsKPiAgIAkJbWF4X2Jpb19zaXplID0gRFJCRF9NQVhfQklPX1NJWkU7IC8qIC4uLiBt
-dWx0aXBsZSBCSU9zIHBlciBwZWVyX3JlcXVlc3QgKi8KPiAtCQlhc3NpZ25fcF9zaXplc19xbGlt
-KGRldmljZSwgcCwgTlVMTCk7Cj4gICAJfQo+ICAgCj4gICAJaWYgKHBlZXJfZGV2aWNlLT5jb25u
-ZWN0aW9uLT5hZ3JlZWRfcHJvX3ZlcnNpb24gPD0gOTQpCgpMR1RNIG5vdywgdGhhbmtzLgoKQWNr
-ZWQtYnk6IENocmlzdG9waCBCw7ZobXdhbGRlciA8Y2hyaXN0b3BoLmJvZWhtd2FsZGVyQGxpbmJp
-dC5jb20+CgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRw
-czovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+
+--===============1387832672996918267==
+Content-Type: multipart/signed; micalg=pgp-sha256;
+	protocol="application/pgp-signature"; boundary="BSM3hf3au0I54JDH"
+Content-Disposition: inline
+
+
+--BSM3hf3au0I54JDH
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Sun, 10 Apr 2022 18:03:56 -0400
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Joe Thornber <ejt@redhat.com>
+Cc: dm-devel@redhat.com
+Subject: Potential enhancements to dm-thin v2
+
+For quite a while, I have wanted to write a tool to manage thin volumes
+that is not based on LVM.  The main thing holding me back is that the
+current dm-thin interface is extremely error-prone.  The only per-thin
+metadata stored by the kernel is a 24-bit thin ID, and userspace must
+take great care to keep that ID in sync with its own metadata.  Failure
+to do so results in data loss, data corruption, or even security
+vulnerabilities.  Furthermore, having to suspend a thin volume before
+one can take a snapshot of it creates a critical section during which
+userspace must be very careful, as I/O or a crash can lead to deadlock.
+I believe both of these problems can be solved without overly
+complicating the kernel implementation.
+
+The metadata problem can be solved by allowing userspace to (1)
+associate a 256-byte binary blob with each thin volume and (2) easily
+enumerate the thin volumes in a pool.  Even with 16777216 thins, this
+would only use 4GiB of space, and dm-thin v2 will support far larger
+metadata volumes.  While being able to look up thins by the blob would
+be awesome, I would be okay with just enumerating thins at startup and
+caching the ID =E2=87=94 blob mapping in userspace, at least if thin IDs be=
+come
+64-bit so I do not have to worry about reuse.  Being able to enumerate
+the thin volumes would allow me to rely solely on the metadata in the
+thin pool, without having to manage any metadata in userspace.  Looking
+at the existing implementation, this seems to be fairly simple: the
+current B-tree code supports arbitrary value sizes already, so the blob
+could be appended to 'struct disk_device_details'.  (Requiring the size
+of the blob to be set at pool creation, or when the pool is empty, is
+fine.)
+
+The suspend problem can be solved by having the kernel automatically
+suspend a thin volume before taking a snapshot of it, and resuming
+afterwards.  This removes a footgun from the userspace API, and should
+improve reliability too, as it reduces the number of error conditions
+that can hang the system.  Per discussion with Zdenek, having the kernel
+do this automatically is infeasible for arbitrary device stacks, but
+this is a common special case.
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--BSM3hf3au0I54JDH
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCAAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmJTVIYACgkQsoi1X/+c
+IsE3DRAAqPMnYTPeaOzaig51bEzNQF85nJP+gy2TdYSvxOiTw4IXBryDbVV1wiRF
+gsHun2okgURAjlCaWDxX+hCzG0w7iSz4nh08WpnDPjIsEx5F8BB8JrD7Bc6fT0rz
+Jy4WWho/GV0KcQAu4vssUO1F297Kj66tTQoy/OCpP+yrJ6L4RckXX6Mtk0SDRU+v
+taA18ZWTZPNY7p1J/v2RwFWoQ8p47k07QgjxDSE9u4YrcD/FlS3FX9aJ1RC8wuUQ
+ItmCm8YnSgEQIEVH7pXT0/8pW0rST8dU8sf2N1IQbDawBVu0trURlzjRjLBxGPta
+pJG5ZQzkhtWa8fHHfvLvqgC/icNYVqWQgKZvZ+JhISL/TMoyAM4ePuFlFV/psEet
+jxWVx0DQbCCOm/TOXUN1caDnZkpeXKoHpOa4Ql/IY2JQn48whlYH+C0rsh4IgRBX
+TmtVBzLGzKgTtTt/Wxv0vkVrQtEEcZQ1y1YZ8zRfByWollw4b7O1HIbg7j1LOY/k
+SGPf377JnYTILEIKF9ys3d2q22TLXPREbn6+MVaoooDmlaUpWO5sM3wgvNXw+4Sj
+I/6J1fVvMy46CdOCwfJ/x0B37iB3LV1ZIiq7QJJsDNu/9kzwHOBpBjw/SlmPRm5B
+yz4socIQtiswAETSZ5URPik9xZtqcZZvydumcKpSjzVD98iu9tY=
+=v2t8
+-----END PGP SIGNATURE-----
+
+--BSM3hf3au0I54JDH--
+
+
+--===============1387832672996918267==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============1387832672996918267==--
 
