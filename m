@@ -2,60 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E214FD31D
-	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 10:57:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B361E4FD31E
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 10:57:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649753835;
+	s=mimecast20190719; t=1649753838;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vMhjms0E2gSV96dapVnhhioWpXGd9PiB2zNNauuoono=;
-	b=OnDS4l038JlbuUNKuERUXBbOR9UDiPeEx/2RO237kMH+nl9M9RQb6ljlmzOWPZVSsg83WN
-	k9whIP1X6xbEl1Ha4gGUavi0OT4PHS6YpnwAoNESbC+cc8r13ukKx+I3GUZR5aRkpvwVS2
-	tlta+1J0DvEiohPktAIXo3cpdPrYi0E=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=HWUjNqR6a0KAVssoySThku2mZK95OEt5SIaY1cRN/28=;
+	b=GBiSGZf5Kzxjp3p0oa1MY/P6RyxLUKiItnlMs3GXGfiYkzjZSBnExQHA+jyteyT+BEWGfN
+	GU7DsP1CG3eOnDZkb1QxcKJ51srLQ8xUbO8DsVIQtV9HB2ELLR+7BvFIvimEzp/kXXFrk3
+	j2eGvpJsEX/QiOPxI3aSKEdHK1kg6vY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-7bheJZk2NpmyIdClf7KEvQ-1; Tue, 12 Apr 2022 04:57:11 -0400
-X-MC-Unique: 7bheJZk2NpmyIdClf7KEvQ-1
+ us-mta-558-gXq9KPtiMmSFiIbxRxOcyg-1; Tue, 12 Apr 2022 04:57:15 -0400
+X-MC-Unique: gXq9KPtiMmSFiIbxRxOcyg-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB3851C07836;
-	Tue, 12 Apr 2022 08:57:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAAD71014A6A;
+	Tue, 12 Apr 2022 08:57:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B4D4B54ACAF;
-	Tue, 12 Apr 2022 08:57:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BC98454ACAF;
+	Tue, 12 Apr 2022 08:57:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 51EB71940376;
-	Tue, 12 Apr 2022 08:57:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8A4E51940376;
+	Tue, 12 Apr 2022 08:57:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0E8151947BBF
- for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 08:57:07 +0000 (UTC)
+ ESMTP id A033C1947BBF
+ for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 08:57:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F2A111400AFB; Tue, 12 Apr 2022 08:57:06 +0000 (UTC)
+ id 7F96BC44B1E; Tue, 12 Apr 2022 08:57:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (ovpn-8-19.pek2.redhat.com [10.72.8.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id 0D73E145BA42;
- Tue, 12 Apr 2022 08:57:05 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 83520C44B1D;
+ Tue, 12 Apr 2022 08:57:09 +0000 (UTC)
 From: Ming Lei <ming.lei@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	Mike Snitzer <snitzer@redhat.com>
-Date: Tue, 12 Apr 2022 16:56:11 +0800
-Message-Id: <20220412085616.1409626-4-ming.lei@redhat.com>
+Date: Tue, 12 Apr 2022 16:56:12 +0800
+Message-Id: <20220412085616.1409626-5-ming.lei@redhat.com>
 In-Reply-To: <20220412085616.1409626-1-ming.lei@redhat.com>
 References: <20220412085616.1409626-1-ming.lei@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [dm-devel] [PATCH 3/8] dm: pass 'dm_io' instance to dm_io_acct
- directly
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: [dm-devel] [PATCH 4/8] dm: switch to bdev based io accounting
+ interface
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,51 +80,59 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-All the other 4 parameters are retrieved from the 'dm_io' instance, so
-not necessary to pass all four to dm_io_acct().
+DM won't account sectors in flush IO, also we can retrieve sectors
+from 'dm_io' for avoiding to allocate & update new original bio, which
+will be done in the following patch.
+
+So switch to bdev based io accounting interface.
 
 Signed-off-by: Ming Lei <ming.lei@redhat.com>
 ---
- drivers/md/dm.c | 11 +++++++----
- 1 file changed, 7 insertions(+), 4 deletions(-)
+ drivers/md/dm.c | 21 ++++++++-------------
+ 1 file changed, 8 insertions(+), 13 deletions(-)
 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 62f7af815ef8..ed85cd1165a4 100644
+index ed85cd1165a4..31eacc0e93ed 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -498,9 +498,12 @@ static bool bio_is_flush_with_data(struct bio *bio)
- 	return ((bio->bi_opf & REQ_PREFLUSH) && bio->bi_iter.bi_size);
+@@ -504,29 +504,24 @@ static void dm_io_acct(struct dm_io *io, bool end)
+ 	unsigned long start_time = io->start_time;
+ 	struct mapped_device *md = io->md;
+ 	struct bio *bio = io->orig_bio;
+-	bool is_flush_with_data;
+-	unsigned int bi_size;
++	unsigned int sectors;
+ 
+ 	/* If REQ_PREFLUSH set save any payload but do not account it */
+-	is_flush_with_data = bio_is_flush_with_data(bio);
+-	if (is_flush_with_data) {
+-		bi_size = bio->bi_iter.bi_size;
+-		bio->bi_iter.bi_size = 0;
+-	}
++	if (bio_is_flush_with_data(bio))
++		sectors = 0;
++	else
++		sectors = bio_sectors(bio);
+ 
+ 	if (!end)
+-		bio_start_io_acct_time(bio, start_time);
++		bdev_start_io_acct(bio->bi_bdev, sectors, bio_op(bio),
++				start_time);
+ 	else
+-		bio_end_io_acct(bio, start_time);
++		bdev_end_io_acct(bio->bi_bdev, bio_op(bio), start_time);
+ 
+ 	if (unlikely(dm_stats_used(&md->stats)))
+ 		dm_stats_account_io(&md->stats, bio_data_dir(bio),
+ 				    bio->bi_iter.bi_sector, bio_sectors(bio),
+ 				    end, start_time, stats_aux);
+-
+-	/* Restore bio's payload so it does get accounted upon requeue */
+-	if (is_flush_with_data)
+-		bio->bi_iter.bi_size = bi_size;
  }
- 
--static void dm_io_acct(bool end, struct mapped_device *md, struct bio *bio,
--		       unsigned long start_time, struct dm_stats_aux *stats_aux)
-+static void dm_io_acct(struct dm_io *io, bool end)
- {
-+	struct dm_stats_aux *stats_aux = &io->stats_aux;
-+	unsigned long start_time = io->start_time;
-+	struct mapped_device *md = io->md;
-+	struct bio *bio = io->orig_bio;
- 	bool is_flush_with_data;
- 	unsigned int bi_size;
- 
-@@ -528,7 +531,7 @@ static void dm_io_acct(bool end, struct mapped_device *md, struct bio *bio,
  
  static void __dm_start_io_acct(struct dm_io *io)
- {
--	dm_io_acct(false, io->md, io->orig_bio, io->start_time, &io->stats_aux);
-+	dm_io_acct(io, false);
- }
- 
- static void dm_start_io_acct(struct dm_io *io, struct bio *clone)
-@@ -557,7 +560,7 @@ static void dm_start_io_acct(struct dm_io *io, struct bio *clone)
- 
- static void dm_end_io_acct(struct dm_io *io)
- {
--	dm_io_acct(true, io->md, io->orig_bio, io->start_time, &io->stats_aux);
-+	dm_io_acct(io, true);
- }
- 
- static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
 -- 
 2.31.1
 
