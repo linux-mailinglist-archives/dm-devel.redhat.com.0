@@ -1,60 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C49E44FD324
-	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 10:58:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0C5B4FD31F
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 10:57:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649753881;
+	s=mimecast20190719; t=1649753844;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=I/wbdTybM5EoAkgoFwuMIDJZitQqZGJdZIyDrPUbn/A=;
-	b=KFLAWbC3qwmHL+aYvAvN8ox89K3mK7alGD0YNZLVZ59g9NS5E75Z+2dpx50dVWRkpx5qxq
-	gplZ5SDV5L8Yg2GJR5pAz97QfJKjN4+u0rtPj4wve9p0CBij7VgSi0EyDojp7In91mIuwJ
-	6riaislmdvr+jb68xJjitdcvRMWjliI=
+	bh=3icUmd176o97ELEaf+bWqv6t3mzigSy6jJ2H7Fj4CK8=;
+	b=H9v8rHCptetZQgDwJcKBE0bmJu0TvYXwnnk/S0wVcvCOlRjZd3YNfQDxN7oHvm4ebOW21I
+	sWVYdEpK4w7umRMeXiJGeQrEG1VnzSW7tayiRAx0LEUZ4DtVA2Y7NZbSCRgYNXjx6lU5UP
+	/9Z/WEYDkgVmzxJ7dOjkjAdocoioUKU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-fBCgLcJZOjOPDMR_QS9tKg-1; Tue, 12 Apr 2022 04:57:24 -0400
-X-MC-Unique: fBCgLcJZOjOPDMR_QS9tKg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-329-q4O20G0-McmGsSnjjINTnw-1; Tue, 12 Apr 2022 04:57:23 -0400
+X-MC-Unique: q4O20G0-McmGsSnjjINTnw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BE89803F3A;
-	Tue, 12 Apr 2022 08:57:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BDAE803524;
+	Tue, 12 Apr 2022 08:57:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0E611145BA52;
-	Tue, 12 Apr 2022 08:57:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 471D92166BDC;
+	Tue, 12 Apr 2022 08:57:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C26D11940374;
-	Tue, 12 Apr 2022 08:57:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 291221940374;
+	Tue, 12 Apr 2022 08:57:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1AB8D1947BBF
- for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 08:57:16 +0000 (UTC)
+ ESMTP id CA6D11947BBF
+ for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 08:57:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DF5D240C1241; Tue, 12 Apr 2022 08:57:15 +0000 (UTC)
+ id A9DAF401DFD; Tue, 12 Apr 2022 08:57:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from localhost (ovpn-8-19.pek2.redhat.com [10.72.8.19])
- by smtp.corp.redhat.com (Postfix) with ESMTP id E878040470F2;
- Tue, 12 Apr 2022 08:57:13 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTP id E5922401DF3;
+ Tue, 12 Apr 2022 08:57:17 +0000 (UTC)
 From: Ming Lei <ming.lei@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>,
 	Mike Snitzer <snitzer@redhat.com>
-Date: Tue, 12 Apr 2022 16:56:13 +0800
-Message-Id: <20220412085616.1409626-6-ming.lei@redhat.com>
+Date: Tue, 12 Apr 2022 16:56:14 +0800
+Message-Id: <20220412085616.1409626-7-ming.lei@redhat.com>
 In-Reply-To: <20220412085616.1409626-1-ming.lei@redhat.com>
 References: <20220412085616.1409626-1-ming.lei@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [dm-devel] [PATCH 5/8] dm: always setup ->orig_bio in alloc_io
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [PATCH 6/8] dm: don't grab target io reference in
+ dm_zone_map_bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,7 +72,7 @@ Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
  Ming Lei <ming.lei@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -79,157 +80,88 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The current DM codes setup ->orig_bio after __map_bio() returns,
-and not only cause kernel panic for dm zone, but also a bit ugly
-and tricky, especially the waiting until ->orig_bio is set in
-dm_submit_bio_remap().
+dm_zone_map_bio() is only called from __map_bio in which the io's
+reference is grabbed already, and the reference won't be released
+until the bio is submitted, so no necessary to do it dm_zone_map_bio
+any more.
 
-The reason is that one new bio is cloned from original FS bio to
-represent the mapped part, which just serves io accounting.
-
-Now we have switched to bdev based io accounting interface, and we
-can retrieve sectors/bio_op from both the real original bio and the
-added fields of .sector_offset & .sectors easily, so the new cloned
-bio isn't necessary any more.
-
-Not only fixes dm-zone's kernel panic, but also cleans up dm io
-accounting & split a bit.
-
+Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Tested-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 Signed-off-by: Ming Lei <ming.lei@redhat.com>
 ---
- drivers/md/dm-core.h |  8 ++++++-
- drivers/md/dm.c      | 51 ++++++++++++++++++++++----------------------
- 2 files changed, 32 insertions(+), 27 deletions(-)
+ drivers/md/dm-core.h |  7 -------
+ drivers/md/dm-zone.c | 10 ----------
+ drivers/md/dm.c      |  7 ++++++-
+ 3 files changed, 6 insertions(+), 18 deletions(-)
 
 diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index 4277853c7535..aefb080c230d 100644
+index aefb080c230d..811c0ccbc63d 100644
 --- a/drivers/md/dm-core.h
 +++ b/drivers/md/dm-core.h
-@@ -247,7 +247,12 @@ struct dm_io {
- 	blk_short_t flags;
- 	atomic_t io_count;
- 	struct mapped_device *md;
-+
-+	/* The three fields represent mapped part of original bio */
- 	struct bio *orig_bio;
-+	unsigned int sector_offset; /* offset to end of orig_bio */
-+	unsigned int sectors;
-+
- 	blk_status_t status;
- 	spinlock_t lock;
- 	unsigned long start_time;
-@@ -264,7 +269,8 @@ struct dm_io {
-  */
- enum {
- 	DM_IO_START_ACCT,
--	DM_IO_ACCOUNTED
-+	DM_IO_ACCOUNTED,
-+	DM_IO_SPLITTED
- };
- 
- static inline bool dm_io_flagged(struct dm_io *io, unsigned int bit)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 31eacc0e93ed..df1d013fb793 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -509,8 +509,10 @@ static void dm_io_acct(struct dm_io *io, bool end)
- 	/* If REQ_PREFLUSH set save any payload but do not account it */
- 	if (bio_is_flush_with_data(bio))
- 		sectors = 0;
--	else
-+	else if (likely(!(dm_io_flagged(io, DM_IO_SPLITTED))))
- 		sectors = bio_sectors(bio);
-+	else
-+		sectors = io->sectors;
- 
- 	if (!end)
- 		bdev_start_io_acct(bio->bi_bdev, sectors, bio_op(bio),
-@@ -518,10 +520,21 @@ static void dm_io_acct(struct dm_io *io, bool end)
- 	else
- 		bdev_end_io_acct(bio->bi_bdev, bio_op(bio), start_time);
- 
--	if (unlikely(dm_stats_used(&md->stats)))
-+	if (unlikely(dm_stats_used(&md->stats))) {
-+		sector_t sector;
-+
-+		if (likely(!dm_io_flagged(io, DM_IO_SPLITTED))) {
-+			sector = bio->bi_iter.bi_sector;
-+			sectors = bio_sectors(bio);
-+		} else {
-+			sector = bio_end_sector(bio) - io->sector_offset;
-+			sectors = io->sectors;
-+		}
-+
- 		dm_stats_account_io(&md->stats, bio_data_dir(bio),
--				    bio->bi_iter.bi_sector, bio_sectors(bio),
-+				    sector, sectors,
- 				    end, start_time, stats_aux);
-+	}
+@@ -283,13 +283,6 @@ static inline void dm_io_set_flag(struct dm_io *io, unsigned int bit)
+ 	io->flags |= (1U << bit);
  }
  
- static void __dm_start_io_acct(struct dm_io *io)
-@@ -576,7 +589,7 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	io->status = 0;
- 	atomic_set(&io->io_count, 1);
- 	this_cpu_inc(*md->pending_io);
--	io->orig_bio = NULL;
-+	io->orig_bio = bio;
- 	io->md = md;
- 	io->map_task = current;
- 	spin_lock_init(&io->lock);
-@@ -1222,13 +1235,6 @@ void dm_submit_bio_remap(struct bio *clone, struct bio *tgt_clone)
- 		/* Still in target's map function */
- 		dm_io_set_flag(io, DM_IO_START_ACCT);
- 	} else {
--		/*
--		 * Called by another thread, managed by DM target,
--		 * wait for dm_split_and_process_bio() to store
--		 * io->orig_bio
--		 */
--		while (unlikely(!smp_load_acquire(&io->orig_bio)))
--			msleep(1);
- 		dm_start_io_acct(io, clone);
+-static inline void dm_io_inc_pending(struct dm_io *io)
+-{
+-	atomic_inc(&io->io_count);
+-}
+-
+-void dm_io_dec_pending(struct dm_io *io, blk_status_t error);
+-
+ static inline struct completion *dm_get_completion_from_kobject(struct kobject *kobj)
+ {
+ 	return &container_of(kobj, struct dm_kobject_holder, kobj)->completion;
+diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
+index c1ca9be4b79e..85d3c158719f 100644
+--- a/drivers/md/dm-zone.c
++++ b/drivers/md/dm-zone.c
+@@ -545,13 +545,6 @@ int dm_zone_map_bio(struct dm_target_io *tio)
+ 		return DM_MAPIO_KILL;
  	}
  
-@@ -1557,7 +1563,6 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 				     struct dm_table *map, struct bio *bio)
- {
- 	struct clone_info ci;
--	struct bio *orig_bio = NULL;
- 	int error = 0;
- 
- 	init_clone_info(&ci, md, map, bio);
-@@ -1573,22 +1578,16 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 	if (error || !ci.sector_count)
- 		goto out;
- 
 -	/*
--	 * Remainder must be passed to submit_bio_noacct() so it gets handled
--	 * *after* bios already submitted have been completely processed.
--	 * We take a clone of the original to store in ci.io->orig_bio to be
--	 * used by dm_end_io_acct() and for dm_io_complete() to use for
--	 * completion handling.
+-	 * The target map function may issue and complete the IO quickly.
+-	 * Take an extra reference on the IO to make sure it does disappear
+-	 * until we run dm_zone_map_bio_end().
 -	 */
--	orig_bio = bio_split(bio, bio_sectors(bio) - ci.sector_count,
--			     GFP_NOIO, &md->queue->bio_split);
--	bio_chain(orig_bio, bio);
--	trace_block_split(orig_bio, bio->bi_iter.bi_sector);
-+	/* setup the mapped part for accounting */
-+	dm_io_set_flag(ci.io, DM_IO_SPLITTED);
-+	ci.io->sectors = bio_sectors(bio) - ci.sector_count;
-+	ci.io->sector_offset = bio_end_sector(bio) - bio->bi_iter.bi_sector;
-+
-+	bio_trim(bio, ci.io->sectors, ci.sector_count);
-+	trace_block_split(bio, bio->bi_iter.bi_sector);
-+	bio_inc_remaining(bio);
- 	submit_bio_noacct(bio);
- out:
--	if (!orig_bio)
--		orig_bio = bio;
--	smp_store_release(&ci.io->orig_bio, orig_bio);
- 	if (dm_io_flagged(ci.io, DM_IO_START_ACCT))
- 		dm_start_io_acct(ci.io, NULL);
+-	dm_io_inc_pending(io);
+-
+ 	/* Let the target do its work */
+ 	r = ti->type->map(ti, clone);
+ 	switch (r) {
+@@ -580,9 +573,6 @@ int dm_zone_map_bio(struct dm_target_io *tio)
+ 		break;
+ 	}
  
+-	/* Drop the extra reference on the IO */
+-	dm_io_dec_pending(io, sts);
+-
+ 	if (sts != BLK_STS_OK)
+ 		return DM_MAPIO_KILL;
+ 
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index df1d013fb793..3c3ba6b4e19b 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -937,11 +937,16 @@ static inline bool dm_tio_is_normal(struct dm_target_io *tio)
+ 		!dm_tio_flagged(tio, DM_TIO_IS_DUPLICATE_BIO));
+ }
+ 
++static void dm_io_inc_pending(struct dm_io *io)
++{
++	atomic_inc(&io->io_count);
++}
++
+ /*
+  * Decrements the number of outstanding ios that a bio has been
+  * cloned into, completing the original io if necc.
+  */
+-void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
++static void dm_io_dec_pending(struct dm_io *io, blk_status_t error)
+ {
+ 	/* Push-back supersedes any I/O errors */
+ 	if (unlikely(error)) {
 -- 
 2.31.1
 
