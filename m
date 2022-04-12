@@ -1,62 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C61B44FD0DB
-	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 08:52:34 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D0FEE4FD2C0
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 09:52:41 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-207-A6sBR1QpMG6zvRnwHMtZ3A-1; Tue, 12 Apr 2022 02:52:30 -0400
-X-MC-Unique: A6sBR1QpMG6zvRnwHMtZ3A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-224-ENEAsXHgM26iKMSXAHEZxg-1; Tue, 12 Apr 2022 03:52:37 -0400
+X-MC-Unique: ENEAsXHgM26iKMSXAHEZxg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C2D580346F;
-	Tue, 12 Apr 2022 06:52:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8E871C07829;
+	Tue, 12 Apr 2022 07:52:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A8D312166BDC;
-	Tue, 12 Apr 2022 06:52:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 890CB40D0160;
+	Tue, 12 Apr 2022 07:52:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 496DE1940374;
-	Tue, 12 Apr 2022 06:52:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 43E011940373;
+	Tue, 12 Apr 2022 07:52:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 69A281947BBF
- for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 06:52:22 +0000 (UTC)
+ ESMTP id 890391947BBF
+ for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 07:52:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 46501492D4F; Tue, 12 Apr 2022 06:52:22 +0000 (UTC)
+ id 64B6E2166BDD; Tue, 12 Apr 2022 07:52:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E2C1492D4E
- for <dm-devel@redhat.com>; Tue, 12 Apr 2022 06:52:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05F96101A52C
- for <dm-devel@redhat.com>; Tue, 12 Apr 2022 06:52:22 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 600712166BDC
+ for <dm-devel@redhat.com>; Tue, 12 Apr 2022 07:52:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6161B1C04B47
+ for <dm-devel@redhat.com>; Tue, 12 Apr 2022 07:52:19 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-5jRZRhtjNICv65N7F9VaTA-1; Tue, 12 Apr 2022 02:52:20 -0400
-X-MC-Unique: 5jRZRhtjNICv65N7F9VaTA-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1ne8fR-00Bjrs-9H; Tue, 12 Apr 2022 05:02:17 +0000
-Date: Mon, 11 Apr 2022 22:02:17 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Dan Williams <dan.j.williams@intel.com>
-Message-ID: <YlUH2f66hMyXOP1r@infradead.org>
-References: <20220405194747.2386619-1-jane.chu@oracle.com>
- <20220405194747.2386619-5-jane.chu@oracle.com>
- <CAPcyv4jpOss6hzPgM913v_QsZ+PB6Jzo1WV=YdUvnKZiwtfjiA@mail.gmail.com>
+ us-mta-43-EdxxPFZ0Ob66jPyQG5_NaQ-1; Tue, 12 Apr 2022 03:52:17 -0400
+X-MC-Unique: EdxxPFZ0Ob66jPyQG5_NaQ-1
+Received: by mail-pj1-f46.google.com with SMTP id
+ s14-20020a17090a880e00b001caaf6d3dd1so1922647pjn.3
+ for <dm-devel@redhat.com>; Tue, 12 Apr 2022 00:52:17 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=PdNJO9jKeiU6aIag2xubkGaXQwXjChJyaN34FakShGY=;
+ b=hJihVKTGCDeAPdcwY2b0KbeF3sK+ed1fIhGq31vv2TcQSto5uY+Jqhk0MIi99llxzG
+ KYvgZrVOEuSdPP89cUuYL5GAy5K4h2iQzQlNZ1dUN8zpkBcGDC49niieK2uEWZNWKwDc
+ 5zsFy1fWQJHwE6EcbtLdRih4IDEAZam9fvXJnQ5/Xl30AG+wLnThpb+I+Nm/QGinU+kj
+ Hl0G0FqY2bLYHUyzGnSc4CXgAW8Yos1PJCImOAMy/IVwdK0RALyTtetljwm4qn+Hzxbm
+ kgNCervXjmr96HvrEAWNxoNFELlI/+h1R/E08lhpmpMGzGM1GgslfMdYPeIs5CzRKF/k
+ Xvng==
+X-Gm-Message-State: AOAM533ndXDoJrUyzBXOko0miucMPCX/6/TkuqunWiPRW/WQEGSF8Gyp
+ u/XoqKT/4J+j9EQk6CTeJpU=
+X-Google-Smtp-Source: ABdhPJw3kPhCuAbQ5kwytznaF5rAWDrtwt4O2z2AZ5FETVqH+AjSQrIjZkQ9M2KwrcrdOTXs8Khxlw==
+X-Received: by 2002:a17:902:7247:b0:156:9d3d:756d with SMTP id
+ c7-20020a170902724700b001569d3d756dmr36508813pll.6.1649749935972; 
+ Tue, 12 Apr 2022 00:52:15 -0700 (PDT)
+Received: from fedora (136-24-99-118.cab.webpass.net. [136.24.99.118])
+ by smtp.gmail.com with ESMTPSA id
+ k187-20020a636fc4000000b003983a01b896sm1881676pgc.90.2022.04.12.00.52.15
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 12 Apr 2022 00:52:15 -0700 (PDT)
+Date: Tue, 12 Apr 2022 00:52:13 -0700
+From: Dennis Zhou <dennis@kernel.org>
+To: Christoph Hellwig <hch@infradead.org>
+Message-ID: <YlUvrXX2M3VqsgCQ@fedora>
+References: <YkRM7Iyp8m6A1BCl@fedora> <YkUwmyrIqnRGIOHm@infradead.org>
+ <YkVBjUy9GeSMbh5Q@fedora> <YkVxLN9p0t6DI5ie@infradead.org>
+ <YlBX+ytxxeSj2neQ@redhat.com> <YlEWfc39+H+esrQm@infradead.org>
+ <YlReKjjWhvTZjfg/@redhat.com> <YlRiUVFK+a0DwQhu@redhat.com>
+ <YlRmhlL8TtQow0W0@redhat.com> <YlUN2pVsIn1dbzHg@infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <CAPcyv4jpOss6hzPgM913v_QsZ+PB6Jzo1WV=YdUvnKZiwtfjiA@mail.gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <YlUN2pVsIn1dbzHg@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -64,9 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: Re: [dm-devel] [PATCH v7 4/6] dax: add DAX_RECOVERY flag and
- .recovery_write dev_pgmap_ops
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH] block: remove redundant blk-cgroup init from
+ __bio_clone
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,20 +101,11 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jane Chu <jane.chu@oracle.com>, Linux NVDIMM <nvdimm@lists.linux.dev>,
- Dave Jiang <dave.jiang@intel.com>, Mike Snitzer <snitzer@redhat.com>,
- "Darrick J. Wong" <djwong@kernel.org>, X86 ML <x86@kernel.org>,
- david <david@fromorbit.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Christoph Hellwig <hch@infradead.org>,
- device-mapper development <dm-devel@redhat.com>,
- Vivek Goyal <vgoyal@redhat.com>, Vishal L Verma <vishal.l.verma@intel.com>,
- linux-fsdevel <linux-fsdevel@vger.kernel.org>, "Weiny,
- Ira" <ira.weiny@intel.com>, linux-xfs <linux-xfs@vger.kernel.org>,
- Alasdair Kergon <agk@redhat.com>
+Cc: linux-block@vger.kernel.org, tj@kernel.org, dm-devel@redhat.com,
+ Mike Snitzer <snitzer@kernel.org>, axboe@kernel.dk
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -100,30 +114,41 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 11, 2022 at 09:57:36PM -0700, Dan Williams wrote:
-> So how about change 'int flags' to 'enum dax_access_mode mode' where
-> dax_access_mode is:
+On Mon, Apr 11, 2022 at 10:27:54PM -0700, Christoph Hellwig wrote:
+> On Mon, Apr 11, 2022 at 01:33:58PM -0400, Mike Snitzer wrote:
+> > When bio_{alloc,init}_clone are passed a bdev, bio_init() will call
+> > bio_associate_blkg() so the __bio_clone() work to initialize blkcg
+> > isn't needed.
 > 
-> /**
->  * enum dax_access_mode - operational mode for dax_direct_access()
->  * @DAX_ACCESS: nominal access, fail / trim access on encountering poison
->  * @DAX_RECOVERY_WRITE: ignore poison and provide a pointer suitable
-> for use with dax_recovery_write()
->  */
-> enum dax_access_mode {
->     DAX_ACCESS,
->     DAX_RECOVERY_WRITE,
-> };
-> 
-> Then the conversions look like this:
-> 
->  -       rc = dax_direct_access(iter->iomap.dax_dev, pgoff, 1, &kaddr, NULL);
->  +       rc = dax_direct_access(iter->iomap.dax_dev, pgoff, 1,
-> DAX_ACCESS, &kaddr, NULL);
-> 
-> ...and there's less chance of confusion with the @nr_pages argument.
+> No, unfortunately it isn't as simple as that.  There are bios that do
+> not use the default cgroup and thus blkg, e.g. those that come from
+> cgroup writeback.
 
-Yes, this might be a little nicer.
+Yeah I wasn't quite right earlier. But, the new api isn't in line with
+the original semantics. Cloning the blkg preserves the original bios
+request_queue which likely differs from the bdev passed into clone. This
+means an IO might be charged to the wrong device.
+
+So, the blkg combines the who, blkcg, and the where, the corresponding
+request_queue. Before bios were inited in 2 phases:
+    bio_alloc();
+    bio_set_dev();
+
+This meant at clone time, we didn't have the where, but the who was
+encased in the blkg. So, after bio_clone_blkg_association() expected a
+bio_set_dev() call which called bio_associate_blkg(). When the bio
+already has a blkg, it attempts to reuse the blkcg while using the new
+bdev to find the correct blkg.
+
+The tricky part seems to be how to seamlessly expose the appropriate
+blkcg without being intrusive to bio_alloc*() apis.
+
+Regarding the NULL bdev, I think that works as long as we keep the
+bio_clone_blkg_association() call to carry the correct blkcg to the
+bio_set_dev() call.
+
+Thanks,
+Dennis
 
 --
 dm-devel mailing list
