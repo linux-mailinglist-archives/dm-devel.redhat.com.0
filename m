@@ -2,64 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8E754FCC13
-	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 04:00:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D75614FCC19
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Apr 2022 04:01:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649728815;
+	s=mimecast20190719; t=1649728861;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rb7GtDs/9/B7qelGyrpgE7dCcuyEOZiMGe4s2V6AAtE=;
-	b=CCoUkXwZSH4jlFLb0390WrIW7ZTeGFkN70oJaf62wh559mdUn6Dbd53FEf2q2BnBPHUDlG
-	p6WBCqBsB+VHfUxV8DchL/HLu1XaLO+g5F6JI3v0lkmuXqqQdL4rF5Wwfj1QZcRIjuhyrT
-	kIGXXncGpugn3QmhTy+jj/TNkTwRw2Y=
+	bh=T2AqUfWJVhozQhpajO/ccDhlwKYb5XAgyZ1NDfRYjkM=;
+	b=Z467cQu7V3Bj2A/jrtfVe7XRB6WOBzL34dzyO2UYEnC8Dtd600bziC+N8giDxgGmEomGeP
+	yXtPKrddKJL75FE6gYKjPdXdelAVUHjPG+laNcOfkXwb3oiyNO8ohbIEaWEJvKajbzrxbK
+	5+3t9+LCp0kLQjb5Uhhfae6WFDQtGws=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-35-1wM3uHrHN9-538adqD1pLA-1; Mon, 11 Apr 2022 22:00:14 -0400
-X-MC-Unique: 1wM3uHrHN9-538adqD1pLA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-192-kRaUWVp-Ofa-vkdrQZE6HQ-1; Mon, 11 Apr 2022 22:00:13 -0400
+X-MC-Unique: kRaUWVp-Ofa-vkdrQZE6HQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E6961014A76;
-	Tue, 12 Apr 2022 02:00:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C75FA83396E;
+	Tue, 12 Apr 2022 02:00:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 88F9A1458316;
-	Tue, 12 Apr 2022 02:00:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A6FDF40BAE6;
+	Tue, 12 Apr 2022 02:00:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3EE141940369;
-	Tue, 12 Apr 2022 02:00:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 701751940374;
+	Tue, 12 Apr 2022 02:00:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D98EE194037A
- for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 02:00:07 +0000 (UTC)
+ ESMTP id 22AA91940369
+ for <dm-devel@listman.corp.redhat.com>; Tue, 12 Apr 2022 02:00:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C56A740E80E0; Tue, 12 Apr 2022 02:00:07 +0000 (UTC)
+ id 0688740E80F3; Tue, 12 Apr 2022 02:00:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B733740E80F0;
- Tue, 12 Apr 2022 02:00:07 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ECEE440E80F0;
+ Tue, 12 Apr 2022 02:00:08 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 23C2065u011848;
- Mon, 11 Apr 2022 21:00:06 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 23C207xq011852;
+ Mon, 11 Apr 2022 21:00:07 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 23C206di011847;
- Mon, 11 Apr 2022 21:00:06 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 23C207Lk011851;
+ Mon, 11 Apr 2022 21:00:07 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Mon, 11 Apr 2022 20:59:55 -0500
-Message-Id: <1649728799-11790-6-git-send-email-bmarzins@redhat.com>
+Date: Mon, 11 Apr 2022 20:59:56 -0500
+Message-Id: <1649728799-11790-7-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1649728799-11790-1-git-send-email-bmarzins@redhat.com>
 References: <1649728799-11790-1-git-send-email-bmarzins@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [dm-devel] [PATCH 5/9] libmultipath: check the hwentry pctable for
- path variables
+Subject: [dm-devel] [PATCH 6/9] libmultipath: make snprint_pctable indent a
+ variable amount
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,7 +76,7 @@ Cc: device-mapper development <dm-devel@redhat.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -84,85 +84,85 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-For the config values that exist in the proctol subsection of the device
-configs, paths will now also check the pctable when checking a hwentry
-for a value. Values in a matching pcentry will be used in preference to
-values in that hwentry.
+Instead of always indenting two tabs, which is what is needed in for
+the protocol subsection of the device subsection, indent a variable
+amount. This will be needed in a future patch.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/propsel.c | 30 +++++++++++++++++++++++++++---
- 1 file changed, 27 insertions(+), 3 deletions(-)
+ libmultipath/print.c | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index d2d70090..762b7fcb 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -73,6 +73,8 @@ do {									\
- static const char default_origin[] = "(setting: multipath internal)";
- static const char hwe_origin[] =
- 	"(setting: storage device configuration)";
-+static const char hwe_pce_origin[] =
-+	"(setting: storage device procotol section)";
- static const char multipaths_origin[] =
- 	"(setting: multipath.conf multipaths section)";
- static const char conf_origin[] =
-@@ -146,6 +148,28 @@ do {									\
- 	}								\
- } while (0)
+diff --git a/libmultipath/print.c b/libmultipath/print.c
+index 46d231ed..093e43aa 100644
+--- a/libmultipath/print.c
++++ b/libmultipath/print.c
+@@ -1407,28 +1407,42 @@ int snprint_multipath_topology_json (struct strbuf *buff,
+ }
  
-+#define pp_set_hwe_pce(var)						\
-+do {									\
-+	struct hwentry *_hwe;						\
-+	struct pcentry *_pce;						\
-+	int _i, _j;							\
-+									\
-+	vector_foreach_slot(pp->hwe, _hwe, _i) {			\
-+		vector_foreach_slot(_hwe->pctable, _pce, _j) {		\
-+			if (_pce->type == (int)bus_protocol_id(pp) && _pce->var) {	\
-+				pp->var = _pce->var;			\
-+				origin = hwe_pce_origin;		\
-+				goto out;				\
-+			}						\
-+		}							\
-+		if (_hwe->var) {					\
-+			pp->var = _hwe->var;				\
-+			origin = hwe_origin;				\
-+			goto out;					\
-+		}							\
-+	}								\
-+} while (0)
-+
- int select_mode(struct config *conf, struct multipath *mp)
+ static int
+-snprint_pcentry (struct strbuf *buff, const struct pcentry *pce,
++snprint_pcentry (struct strbuf *buff, int indent, const struct pcentry *pce,
+ 		 const struct keyword *rootkw)
  {
- 	const char *origin;
-@@ -775,7 +799,7 @@ int select_fast_io_fail(struct config *conf, struct path *pp)
- 	STRBUF_ON_STACK(buff);
+ 	int i, rc;
+ 	struct keyword *kw;
+ 	size_t initial_len = get_strbuf_len(buff);
++	STRBUF_ON_STACK(fmt);
  
- 	pp_set_ovr(fast_io_fail);
--	pp_set_hwe(fast_io_fail);
-+	pp_set_hwe_pce(fast_io_fail);
- 	pp_set_conf(fast_io_fail);
- 	pp_set_default(fast_io_fail, DEFAULT_FAST_IO_FAIL);
- out:
-@@ -791,7 +815,7 @@ int select_dev_loss(struct config *conf, struct path *pp)
- 	STRBUF_ON_STACK(buff);
+-	if ((rc = append_strbuf_str(buff, "\t\tprotocol {\n")) < 0)
++	for (i = 0; i < indent; i++)
++		if ((rc = append_strbuf_str(&fmt, "\t")) < 0)
++			return rc;
++	if ((rc = append_strbuf_str(&fmt, "\t%k %v\n")) < 0)
++			return rc;
++
++	for (i = 0; i < indent; i++)
++		if ((rc = append_strbuf_str(buff, "\t")) < 0)
++			return rc;
++	if ((rc = append_strbuf_str(buff, "protocol {\n")) < 0)
+ 		return rc;
  
- 	pp_set_ovr(dev_loss);
--	pp_set_hwe(dev_loss);
-+	pp_set_hwe_pce(dev_loss);
- 	pp_set_conf(dev_loss);
- 	pp->dev_loss = DEV_LOSS_TMO_UNSET;
- 	return 0;
-@@ -808,7 +832,7 @@ int select_eh_deadline(struct config *conf, struct path *pp)
- 	STRBUF_ON_STACK(buff);
+ 	iterate_sub_keywords(rootkw, kw, i) {
+-		if ((rc = snprint_keyword(buff, "\t\t\t%k %v\n", kw, pce)) < 0)
++		if ((rc = snprint_keyword(buff, get_strbuf_str(&fmt), kw,
++					  pce)) < 0)
+ 			return rc;
+ 	}
  
- 	pp_set_ovr(eh_deadline);
--	pp_set_hwe(eh_deadline);
-+	pp_set_hwe_pce(eh_deadline);
- 	pp_set_conf(eh_deadline);
- 	pp->eh_deadline = EH_DEADLINE_UNSET;
- 	/* not changing sysfs in default cause, so don't print anything */
+-	if ((rc = append_strbuf_str(buff, "\t\t}\n")) < 0)
++	for (i = 0; i < indent; i++)
++		if ((rc = append_strbuf_str(buff, "\t")) < 0)
++			return rc;
++	if ((rc = append_strbuf_str(buff, "}\n")) < 0)
+ 		return rc;
+ 	return get_strbuf_len(buff) - initial_len;
+ }
+ 
+ static int
+-snprint_pctable (const struct config *conf, struct strbuf *buff,
++snprint_pctable (const struct config *conf, struct strbuf *buff, int indent,
+ 		 const struct _vector *pctable, const struct keyword *rootkw)
+ {
+ 	int i, rc;
+@@ -1439,7 +1453,7 @@ snprint_pctable (const struct config *conf, struct strbuf *buff,
+ 	assert(rootkw);
+ 
+ 	vector_foreach_slot(pctable, pce, i) {
+-		if ((rc = snprint_pcentry(buff, pce, rootkw)) < 0)
++		if ((rc = snprint_pcentry(buff, indent, pce, rootkw)) < 0)
+ 			return rc;
+ 	}
+ 	return get_strbuf_len(buff) - initial_len;
+@@ -1468,7 +1482,7 @@ snprint_hwentry (const struct config *conf,
+ 	}
+ 
+ 	if (hwe->pctable &&
+-	    (rc = snprint_pctable(conf, buff, hwe->pctable, rootkw)) < 0)
++	    (rc = snprint_pctable(conf, buff, 2, hwe->pctable, rootkw)) < 0)
+ 		return rc;
+ 
+ 	if ((rc = append_strbuf_str(buff, "\t}\n")) < 0)
 -- 
 2.17.2
 
