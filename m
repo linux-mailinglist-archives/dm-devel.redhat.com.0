@@ -2,64 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3CFB5500538
-	for <lists+dm-devel@lfdr.de>; Thu, 14 Apr 2022 06:29:08 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1B7F2500533
+	for <lists+dm-devel@lfdr.de>; Thu, 14 Apr 2022 06:28:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649910547;
+	s=mimecast20190719; t=1649910479;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yQpDzKZtcqQnHC2K20g7T5l2pq75GFV0MqbAxgH42F0=;
-	b=AJmGePqzmzi0/EdhN1luebsCl/CZktYoKKRvi0APTphz5hbPyf8o/9yW6ObWt0S4eyMBgt
-	IvuihQ3Es3iHVVo0w+ucSrTUxzEjHdyBtedunJrI7ph+6j9DADSKb8VUdlSJGcxAdtmW0X
-	IZmc+C6Kuc7w9dCkX6l+7K1P9keRBFw=
+	bh=399NikyeoYVAm31KoEhcPWR2w6c4J9fqtht4UlWAgao=;
+	b=Pk0tUqAhZkS5MHTuzKBeDbBs4+/DjU7xtRzbIIH759y+G4F76V+obISby33fWKqhhE69d2
+	FBO9Q562uRcBy0baxQcJa77WmaEfQVgm7EXS/z1/Fbt0NSfHgeirb/hDK3ZRQU3418icb1
+	MTttOS7wNNV+xlz7Qp21VGpIDcRtUsQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-620--ggSM_uPM2qEvtojwkkqTQ-1; Thu, 14 Apr 2022 00:27:55 -0400
-X-MC-Unique: -ggSM_uPM2qEvtojwkkqTQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-327-cOrrtY2iOwSW-GI1AWKelw-1; Thu, 14 Apr 2022 00:27:56 -0400
+X-MC-Unique: cOrrtY2iOwSW-GI1AWKelw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2620338035C9;
-	Thu, 14 Apr 2022 04:27:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACA6838035BF;
+	Thu, 14 Apr 2022 04:27:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D1A34416158;
-	Thu, 14 Apr 2022 04:27:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9257440CF8F7;
+	Thu, 14 Apr 2022 04:27:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8D4F9194037C;
-	Thu, 14 Apr 2022 04:27:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B7531940373;
+	Thu, 14 Apr 2022 04:27:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DF4E41940344
- for <dm-devel@listman.corp.redhat.com>; Thu, 14 Apr 2022 04:27:50 +0000 (UTC)
+ ESMTP id 066D31940344
+ for <dm-devel@listman.corp.redhat.com>; Thu, 14 Apr 2022 04:27:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C0F1B2166B1B; Thu, 14 Apr 2022 04:27:50 +0000 (UTC)
+ id DCE68141ADA5; Thu, 14 Apr 2022 04:27:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7652F2166B4F;
- Thu, 14 Apr 2022 04:27:47 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BBE8D14582F6;
+ Thu, 14 Apr 2022 04:27:48 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 23E4Rkq7025313;
- Wed, 13 Apr 2022 23:27:46 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 23E4Rlih025317;
+ Wed, 13 Apr 2022 23:27:47 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 23E4RjLN025312;
- Wed, 13 Apr 2022 23:27:45 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 23E4RlS6025316;
+ Wed, 13 Apr 2022 23:27:47 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed, 13 Apr 2022 23:27:37 -0500
-Message-Id: <1649910461-25263-4-git-send-email-bmarzins@redhat.com>
+Date: Wed, 13 Apr 2022 23:27:38 -0500
+Message-Id: <1649910461-25263-5-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1649910461-25263-1-git-send-email-bmarzins@redhat.com>
 References: <1649910461-25263-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [dm-devel] [PATCH v2 3/7] libmultipath: add a protocol subsection
- to multipath.conf
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [dm-devel] [PATCH v2 4/7] libmultipath: Set the scsi timeout
+ parameters by path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,7 +76,7 @@ Cc: device-mapper development <dm-devel@redhat.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -84,425 +84,515 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Some storage arrays can be accessed using multiple protocols at the same
-time.  In these cases, users may want to set path attributes
-differently, depending on the protocol that the path is using. To allow
-this, add a protocol subsection to the overrides section in
-multipath.conf, which allows select path-specific options to be set.
-This commit simply adds the subsection, and handles merging matching
-entries. Future patches will make use of the section.
+Instead of dev_loss, fast_io_fail, and eh_deadline belonging to the
+multipath structure, have them belong to the path structure. This means
+that they are selected per path, and that sysfs_set_scsi_tmo() doesn't
+assume that all paths of a multipath device will have the same value.
+Currently they will all be the same, but a future patch will make it
+possible for paths to have different values based on their protocol.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/config.c | 83 ++++++++++++++++++++++++++++++++++++
- libmultipath/config.h | 10 +++++
- libmultipath/dict.c   | 99 +++++++++++++++++++++++++++++++++++++++++++
- libmultipath/print.c  | 50 ++++++++++++++++++++++
- 4 files changed, 242 insertions(+)
+ libmultipath/configure.c |   5 +-
+ libmultipath/discovery.c | 174 ++++++++++++++++++++++-----------------
+ libmultipath/discovery.h |   2 +-
+ libmultipath/propsel.c   |  42 +++++-----
+ libmultipath/propsel.h   |   6 +-
+ libmultipath/structs.c   |   1 -
+ libmultipath/structs.h   |   6 +-
+ 7 files changed, 127 insertions(+), 109 deletions(-)
 
-diff --git a/libmultipath/config.c b/libmultipath/config.c
-index 612941b8..5fe71562 100644
---- a/libmultipath/config.c
-+++ b/libmultipath/config.c
-@@ -237,6 +237,18 @@ const char *get_mpe_wwid(const struct _vector *mptable, const char *alias)
- 	return NULL;
- }
+diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+index eca11ba0..09ae708d 100644
+--- a/libmultipath/configure.c
++++ b/libmultipath/configure.c
+@@ -329,9 +329,6 @@ int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
+ 	select_mode(conf, mpp);
+ 	select_uid(conf, mpp);
+ 	select_gid(conf, mpp);
+-	select_fast_io_fail(conf, mpp);
+-	select_dev_loss(conf, mpp);
+-	select_eh_deadline(conf, mpp);
+ 	select_reservation_key(conf, mpp);
+ 	select_deferred_remove(conf, mpp);
+ 	select_marginal_path_err_sample_time(conf, mpp);
+@@ -347,7 +344,7 @@ int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
+ 	select_ghost_delay(conf, mpp);
+ 	select_flush_on_last_del(conf, mpp);
  
-+static void
-+free_pctable (vector pctable)
-+{
-+	int i;
-+	struct pcentry *pce;
-+
-+	vector_foreach_slot(pctable, pce, i)
-+		free(pce);
-+
-+	vector_free(pctable);
-+}
-+
- void
- free_hwe (struct hwentry * hwe)
- {
-@@ -282,6 +294,9 @@ free_hwe (struct hwentry * hwe)
- 	if (hwe->bl_product)
- 		free(hwe->bl_product);
- 
-+	if (hwe->pctable)
-+		free_pctable(hwe->pctable);
-+
- 	free(hwe);
- }
- 
-@@ -363,6 +378,15 @@ alloc_hwe (void)
- 	return hwe;
- }
- 
-+struct pcentry *
-+alloc_pce (void)
-+{
-+	struct pcentry *pce = (struct pcentry *)
-+				calloc(1, sizeof(struct pcentry));
-+	pce->type = -1;
-+	return pce;
-+}
-+
- static char *
- set_param_str(const char * str)
- {
-@@ -396,6 +420,13 @@ set_param_str(const char * str)
- 	if (!dst->s && src->s) \
- 		dst->s = src->s
- 
-+static void
-+merge_pce(struct pcentry *dst, struct pcentry *src)
-+{
-+	merge_num(fast_io_fail);
-+	merge_num(dev_loss);
-+	merge_num(eh_deadline);
-+}
- 
- static void
- merge_hwe (struct hwentry * dst, struct hwentry * src)
-@@ -602,6 +633,51 @@ out:
- 	return 1;
- }
- 
-+static void
-+validate_pctable(struct hwentry *ovr, int idx, const char *table_desc)
-+{
-+	struct pcentry *pce;
-+
-+	if (!ovr || !ovr->pctable)
-+		return;
-+
-+	vector_foreach_slot_after(ovr->pctable, pce, idx) {
-+		if (pce->type < 0) {
-+			condlog(0, "protocol section in %s missing type",
-+				table_desc);
-+			vector_del_slot(ovr->pctable, idx--);
-+			free(pce);
-+		}
-+	}
-+
-+	if (VECTOR_SIZE(ovr->pctable) == 0) {
-+		vector_free(ovr->pctable);
-+		ovr->pctable = NULL;
-+	}
-+}
-+
-+static void
-+merge_pctable(struct hwentry *ovr)
-+{
-+	struct pcentry *pce1, *pce2;
-+	int i, j;
-+
-+	if (!ovr || !ovr->pctable)
-+		return;
-+
-+	vector_foreach_slot(ovr->pctable, pce1, i) {
-+		j = i + 1;
-+		vector_foreach_slot_after(ovr->pctable, pce2, j) {
-+			if (pce1->type != pce2->type)
-+				continue;
-+			merge_pce(pce2,pce1);
-+			vector_del_slot(ovr->pctable, i--);
-+			free(pce1);
-+			break;
-+		}
-+	}
-+}
-+
- static void
- factorize_hwtable (vector hw, int n, const char *table_desc)
- {
-@@ -750,6 +826,7 @@ process_config_dir(struct config *conf, char *dir)
- 	int i, n;
- 	char path[LINE_MAX];
- 	int old_hwtable_size;
-+	int old_pctable_size = 0;
- 
- 	if (dir[0] != '/') {
- 		condlog(1, "config_dir '%s' must be a fully qualified path",
-@@ -776,11 +853,15 @@ process_config_dir(struct config *conf, char *dir)
- 			continue;
- 
- 		old_hwtable_size = VECTOR_SIZE(conf->hwtable);
-+		old_pctable_size = conf->overrides ?
-+				   VECTOR_SIZE(conf->overrides->pctable) : 0;
- 		snprintf(path, LINE_MAX, "%s/%s", dir, namelist[i]->d_name);
- 		path[LINE_MAX-1] = '\0';
- 		process_file(conf, path);
- 		factorize_hwtable(conf->hwtable, old_hwtable_size,
- 				  namelist[i]->d_name);
-+		validate_pctable(conf->overrides, old_pctable_size,
-+				 namelist[i]->d_name);
- 	}
+-	sysfs_set_scsi_tmo(mpp, conf->checkint);
++	sysfs_set_scsi_tmo(conf, mpp);
+ 	marginal_pathgroups = conf->marginal_pathgroups;
  	pthread_cleanup_pop(1);
+ 
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index b969fba1..c6ba1967 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -598,13 +598,13 @@ sysfs_get_asymmetric_access_state(struct path *pp, char *buff, int buflen)
  }
-@@ -888,6 +969,7 @@ int _init_config (const char *file, struct config *conf)
- 			goto out;
+ 
+ static int
+-sysfs_set_eh_deadline(struct multipath *mpp, struct path *pp)
++sysfs_set_eh_deadline(struct path *pp)
+ {
+ 	struct udev_device *hostdev;
+ 	char host_name[HOST_NAME_LEN], value[16];
+ 	int ret, len;
+ 
+-	if (mpp->eh_deadline == EH_DEADLINE_UNSET)
++	if (pp->eh_deadline == EH_DEADLINE_UNSET)
+ 		return 0;
+ 
+ 	sprintf(host_name, "host%d", pp->sg_id.host_no);
+@@ -613,12 +613,12 @@ sysfs_set_eh_deadline(struct multipath *mpp, struct path *pp)
+ 	if (!hostdev)
+ 		return 1;
+ 
+-	if (mpp->eh_deadline == EH_DEADLINE_OFF)
++	if (pp->eh_deadline == EH_DEADLINE_OFF)
+ 		len = sprintf(value, "off");
+-	else if (mpp->eh_deadline == EH_DEADLINE_ZERO)
++	else if (pp->eh_deadline == EH_DEADLINE_ZERO)
+ 		len = sprintf(value, "0");
+ 	else
+-		len = sprintf(value, "%d", mpp->eh_deadline);
++		len = sprintf(value, "%d", pp->eh_deadline);
+ 
+ 	ret = sysfs_attr_set_value(hostdev, "eh_deadline",
+ 				   value, len + 1);
+@@ -642,8 +642,8 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
+ 	unsigned int tmo;
+ 	int ret;
+ 
+-	if (mpp->dev_loss == DEV_LOSS_TMO_UNSET &&
+-	    mpp->fast_io_fail == MP_FAST_IO_FAIL_UNSET)
++	if (pp->dev_loss == DEV_LOSS_TMO_UNSET &&
++	    pp->fast_io_fail == MP_FAST_IO_FAIL_UNSET)
+ 		return;
+ 
+ 	sprintf(rport_id, "rport-%d:%d-%d",
+@@ -685,14 +685,14 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
+ 	 * then set fast_io_fail, and _then_ set dev_loss_tmo
+ 	 * to the correct value.
+ 	 */
+-	if (mpp->fast_io_fail != MP_FAST_IO_FAIL_UNSET &&
+-	    mpp->fast_io_fail != MP_FAST_IO_FAIL_ZERO &&
+-	    mpp->fast_io_fail != MP_FAST_IO_FAIL_OFF) {
++	if (pp->fast_io_fail != MP_FAST_IO_FAIL_UNSET &&
++	    pp->fast_io_fail != MP_FAST_IO_FAIL_ZERO &&
++	    pp->fast_io_fail != MP_FAST_IO_FAIL_OFF) {
+ 		/* Check if we need to temporarily increase dev_loss_tmo */
+-		if ((unsigned int)mpp->fast_io_fail >= tmo) {
++		if ((unsigned int)pp->fast_io_fail >= tmo) {
+ 			/* Increase dev_loss_tmo temporarily */
+ 			snprintf(value, sizeof(value), "%u",
+-				 (unsigned int)mpp->fast_io_fail + 1);
++				 (unsigned int)pp->fast_io_fail + 1);
+ 			ret = sysfs_attr_set_value(rport_dev, "dev_loss_tmo",
+ 						   value, strlen(value));
+ 			if (ret <= 0) {
+@@ -706,20 +706,20 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
+ 				goto out;
+ 			}
  		}
- 		factorize_hwtable(conf->hwtable, builtin_hwtable_size, file);
-+		validate_pctable(conf->overrides, 0, file);
+-	} else if (mpp->dev_loss > DEFAULT_DEV_LOSS_TMO &&
+-		mpp->no_path_retry != NO_PATH_RETRY_QUEUE) {
++	} else if (pp->dev_loss > DEFAULT_DEV_LOSS_TMO &&
++		   mpp->no_path_retry != NO_PATH_RETRY_QUEUE) {
+ 		condlog(2, "%s: limiting dev_loss_tmo to %d, since "
+ 			"fast_io_fail is not set",
+ 			rport_id, DEFAULT_DEV_LOSS_TMO);
+-		mpp->dev_loss = DEFAULT_DEV_LOSS_TMO;
++		pp->dev_loss = DEFAULT_DEV_LOSS_TMO;
  	}
- 
- 	conf->processed_main_config = 1;
-@@ -988,6 +1070,7 @@ int _init_config (const char *file, struct config *conf)
- 			goto out;
+-	if (mpp->fast_io_fail != MP_FAST_IO_FAIL_UNSET) {
+-		if (mpp->fast_io_fail == MP_FAST_IO_FAIL_OFF)
++	if (pp->fast_io_fail != MP_FAST_IO_FAIL_UNSET) {
++		if (pp->fast_io_fail == MP_FAST_IO_FAIL_OFF)
+ 			sprintf(value, "off");
+-		else if (mpp->fast_io_fail == MP_FAST_IO_FAIL_ZERO)
++		else if (pp->fast_io_fail == MP_FAST_IO_FAIL_ZERO)
+ 			sprintf(value, "0");
+ 		else
+-			snprintf(value, 16, "%u", mpp->fast_io_fail);
++			snprintf(value, 16, "%u", pp->fast_io_fail);
+ 		ret = sysfs_attr_set_value(rport_dev, "fast_io_fail_tmo",
+ 					   value, strlen(value));
+ 		if (ret <= 0) {
+@@ -730,8 +730,8 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
+ 					rport_id, value, -ret);
+ 		}
  	}
+-	if (mpp->dev_loss != DEV_LOSS_TMO_UNSET) {
+-		snprintf(value, 16, "%u", mpp->dev_loss);
++	if (pp->dev_loss != DEV_LOSS_TMO_UNSET) {
++		snprintf(value, 16, "%u", pp->dev_loss);
+ 		ret = sysfs_attr_set_value(rport_dev, "dev_loss_tmo",
+ 					   value, strlen(value));
+ 		if (ret <= 0) {
+@@ -747,15 +747,15 @@ out:
+ }
  
-+	merge_pctable(conf->overrides);
- 	merge_mptable(conf->mptable);
- 	merge_blacklist(conf->blist_devnode);
- 	merge_blacklist(conf->blist_property);
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index c73389b5..b7bca9a8 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -40,6 +40,13 @@ enum force_reload_types {
- 	FORCE_RELOAD_WEAK,
- };
+ static void
+-sysfs_set_session_tmo(struct multipath *mpp, struct path *pp)
++sysfs_set_session_tmo(struct path *pp)
+ {
+ 	struct udev_device *session_dev = NULL;
+ 	char session_id[64];
+ 	char value[11];
  
-+struct pcentry {
-+	int type;
+-	if (mpp->dev_loss != DEV_LOSS_TMO_UNSET)
++	if (pp->dev_loss != DEV_LOSS_TMO_UNSET)
+ 		condlog(3, "%s: ignoring dev_loss_tmo on iSCSI", pp->dev);
+-	if (mpp->fast_io_fail == MP_FAST_IO_FAIL_UNSET)
++	if (pp->fast_io_fail == MP_FAST_IO_FAIL_UNSET)
+ 		return;
+ 
+ 	sprintf(session_id, "session%d", pp->sg_id.transport_id);
+@@ -769,15 +769,15 @@ sysfs_set_session_tmo(struct multipath *mpp, struct path *pp)
+ 	condlog(4, "target%d:%d:%d -> %s", pp->sg_id.host_no,
+ 		pp->sg_id.channel, pp->sg_id.scsi_id, session_id);
+ 
+-	if (mpp->fast_io_fail != MP_FAST_IO_FAIL_UNSET) {
+-		if (mpp->fast_io_fail == MP_FAST_IO_FAIL_OFF) {
++	if (pp->fast_io_fail != MP_FAST_IO_FAIL_UNSET) {
++		if (pp->fast_io_fail == MP_FAST_IO_FAIL_OFF) {
+ 			condlog(3, "%s: can't switch off fast_io_fail_tmo "
+ 				"on iSCSI", pp->dev);
+-		} else if (mpp->fast_io_fail == MP_FAST_IO_FAIL_ZERO) {
++		} else if (pp->fast_io_fail == MP_FAST_IO_FAIL_ZERO) {
+ 			condlog(3, "%s: can't set fast_io_fail_tmo to '0'"
+ 				"on iSCSI", pp->dev);
+ 		} else {
+-			snprintf(value, 11, "%u", mpp->fast_io_fail);
++			snprintf(value, 11, "%u", pp->fast_io_fail);
+ 			if (sysfs_attr_set_value(session_dev, "recovery_tmo",
+ 						 value, strlen(value)) <= 0) {
+ 				condlog(3, "%s: Failed to set recovery_tmo, "
+@@ -790,14 +790,14 @@ sysfs_set_session_tmo(struct multipath *mpp, struct path *pp)
+ }
+ 
+ static void
+-sysfs_set_nexus_loss_tmo(struct multipath *mpp, struct path *pp)
++sysfs_set_nexus_loss_tmo(struct path *pp)
+ {
+ 	struct udev_device *parent, *sas_dev = NULL;
+ 	const char *end_dev_id = NULL;
+ 	char value[11];
+ 	static const char ed_str[] = "end_device-";
+ 
+-	if (!pp->udev || mpp->dev_loss == DEV_LOSS_TMO_UNSET)
++	if (!pp->udev || pp->dev_loss == DEV_LOSS_TMO_UNSET)
+ 		return;
+ 
+ 	for (parent = udev_device_get_parent(pp->udev);
+@@ -824,8 +824,8 @@ sysfs_set_nexus_loss_tmo(struct multipath *mpp, struct path *pp)
+ 	condlog(4, "target%d:%d:%d -> %s", pp->sg_id.host_no,
+ 		pp->sg_id.channel, pp->sg_id.scsi_id, end_dev_id);
+ 
+-	if (mpp->dev_loss != DEV_LOSS_TMO_UNSET) {
+-		snprintf(value, 11, "%u", mpp->dev_loss);
++	if (pp->dev_loss != DEV_LOSS_TMO_UNSET) {
++		snprintf(value, 11, "%u", pp->dev_loss);
+ 		if (sysfs_attr_set_value(sas_dev, "I_T_nexus_loss_timeout",
+ 					 value, strlen(value)) <= 0)
+ 			condlog(3, "%s: failed to update "
+@@ -836,76 +836,98 @@ sysfs_set_nexus_loss_tmo(struct multipath *mpp, struct path *pp)
+ 	return;
+ }
+ 
++static void
++scsi_tmo_error_msg(struct path *pp)
++{
++	STATIC_BITFIELD(bf, LAST_BUS_PROTOCOL_ID + 1);
++	STRBUF_ON_STACK(proto_buf);
++	unsigned int proto_id = bus_protocol_id(pp);
++
++	snprint_path_protocol(&proto_buf, pp);
++	condlog(2, "%s: setting scsi timeouts is unsupported for protocol %s",
++		pp->dev, get_strbuf_str(&proto_buf));
++	set_bit_in_bitfield(proto_id, bf);
++}
++
+ int
+-sysfs_set_scsi_tmo (struct multipath *mpp, unsigned int checkint)
++sysfs_set_scsi_tmo (struct config *conf, struct multipath *mpp)
+ {
+ 	struct path *pp;
+ 	int i;
+-	unsigned int dev_loss_tmo = mpp->dev_loss;
+-	struct path *err_path = NULL;
+-	STATIC_BITFIELD(bf, LAST_BUS_PROTOCOL_ID + 1);
++	unsigned int min_dev_loss = 0;
++	bool warn_dev_loss = false;
++	bool warn_fast_io_fail = false;
+ 
+ 	if (mpp->no_path_retry > 0) {
+ 		uint64_t no_path_retry_tmo =
+-			(uint64_t)mpp->no_path_retry * checkint;
++			(uint64_t)mpp->no_path_retry * conf->checkint;
+ 
+ 		if (no_path_retry_tmo > MAX_DEV_LOSS_TMO)
+-			no_path_retry_tmo = MAX_DEV_LOSS_TMO;
+-		if (no_path_retry_tmo > dev_loss_tmo)
+-			dev_loss_tmo = no_path_retry_tmo;
+-	} else if (mpp->no_path_retry == NO_PATH_RETRY_QUEUE) {
+-		dev_loss_tmo = MAX_DEV_LOSS_TMO;
+-	}
+-	if (mpp->dev_loss != DEV_LOSS_TMO_UNSET &&
+-	    mpp->dev_loss != dev_loss_tmo) {
+-		condlog(2, "%s: Using dev_loss_tmo=%u instead of %u because of no_path_retry setting",
+-			mpp->alias, dev_loss_tmo, mpp->dev_loss);
+-		mpp->dev_loss = dev_loss_tmo;
+-	}
+-	if (mpp->dev_loss != DEV_LOSS_TMO_UNSET &&
+-	    mpp->fast_io_fail != MP_FAST_IO_FAIL_UNSET &&
+-	    (unsigned int)mpp->fast_io_fail >= mpp->dev_loss) {
+-		condlog(3, "%s: turning off fast_io_fail (%d is not smaller than dev_loss_tmo)",
+-			mpp->alias, mpp->fast_io_fail);
+-		mpp->fast_io_fail = MP_FAST_IO_FAIL_OFF;
+-	}
+-	if (mpp->dev_loss == DEV_LOSS_TMO_UNSET &&
+-	    mpp->fast_io_fail == MP_FAST_IO_FAIL_UNSET &&
+-	    mpp->eh_deadline == EH_DEADLINE_UNSET)
+-		return 0;
++			min_dev_loss = MAX_DEV_LOSS_TMO;
++		else
++			min_dev_loss = no_path_retry_tmo;
++	} else if (mpp->no_path_retry == NO_PATH_RETRY_QUEUE)
++		min_dev_loss = MAX_DEV_LOSS_TMO;
+ 
+ 	vector_foreach_slot(mpp->paths, pp, i) {
++		select_fast_io_fail(conf, pp);
++		select_dev_loss(conf, pp);
++		select_eh_deadline(conf, pp);
++
++		if (pp->dev_loss == DEV_LOSS_TMO_UNSET &&
++		    pp->fast_io_fail == MP_FAST_IO_FAIL_UNSET &&
++		    pp->eh_deadline == EH_DEADLINE_UNSET)
++			continue;
++
+ 		if (pp->bus != SYSFS_BUS_SCSI) {
+-			if (!err_path)
+-				err_path = pp;
++			scsi_tmo_error_msg(pp);
+ 			continue;
+ 		}
++		sysfs_set_eh_deadline(pp);
++
++		if (pp->dev_loss == DEV_LOSS_TMO_UNSET &&
++		    pp->fast_io_fail == MP_FAST_IO_FAIL_UNSET)
++			continue;
++
++		if (pp->sg_id.proto_id != SCSI_PROTOCOL_FCP &&
++		    pp->sg_id.proto_id != SCSI_PROTOCOL_ISCSI &&
++		    pp->sg_id.proto_id != SCSI_PROTOCOL_SAS) {
++			scsi_tmo_error_msg(pp);
++			continue;
++		}
++
++		if (pp->dev_loss != DEV_LOSS_TMO_UNSET &&
++		    pp->dev_loss < min_dev_loss) {
++			warn_dev_loss = true;
++			pp->dev_loss = min_dev_loss;
++		}
++		if (pp->dev_loss != DEV_LOSS_TMO_UNSET &&
++		    pp->fast_io_fail > 0 &&
++		    (unsigned int)pp->fast_io_fail >= pp->dev_loss) {
++			warn_fast_io_fail = true;
++			pp->fast_io_fail = MP_FAST_IO_FAIL_OFF;
++		}
+ 
+ 		switch (pp->sg_id.proto_id) {
+ 		case SCSI_PROTOCOL_FCP:
+ 			sysfs_set_rport_tmo(mpp, pp);
+ 			break;
+ 		case SCSI_PROTOCOL_ISCSI:
+-			sysfs_set_session_tmo(mpp, pp);
++			sysfs_set_session_tmo(pp);
+ 			break;
+ 		case SCSI_PROTOCOL_SAS:
+-			sysfs_set_nexus_loss_tmo(mpp, pp);
++			sysfs_set_nexus_loss_tmo(pp);
+ 			break;
+ 		default:
+-			if (!err_path)
+-				err_path = pp;
++			break;
+ 		}
+-		sysfs_set_eh_deadline(mpp, pp);
+-	}
+-
+-	if (err_path && !is_bit_set_in_bitfield(bus_protocol_id(pp), bf)) {
+-		STRBUF_ON_STACK(proto_buf);
+-
+-		snprint_path_protocol(&proto_buf, err_path);
+-		condlog(2, "%s: setting dev_loss_tmo is unsupported for protocol %s",
+-			mpp->alias, get_strbuf_str(&proto_buf));
+-		set_bit_in_bitfield(bus_protocol_id(pp), bf);
+ 	}
++	if (warn_dev_loss)
++		condlog(2, "%s: Raising dev_loss_tmo to %u because of no_path_retry setting",
++			mpp->alias, min_dev_loss);
++	if (warn_fast_io_fail)
++		condlog(3, "%s: turning off fast_io_fail (not smaller than dev_loss_tmo)",
++			mpp->alias);
+ 	return 0;
+ }
+ 
+diff --git a/libmultipath/discovery.h b/libmultipath/discovery.h
+index 466af345..acd51792 100644
+--- a/libmultipath/discovery.h
++++ b/libmultipath/discovery.h
+@@ -42,7 +42,7 @@ int alloc_path_with_pathinfo (struct config *conf, struct udev_device *udevice,
+ int store_pathinfo (vector pathvec, struct config *conf,
+ 		    struct udev_device *udevice, int flag,
+ 		    struct path **pp_ptr);
+-int sysfs_set_scsi_tmo (struct multipath *mpp, unsigned int checkint);
++int sysfs_set_scsi_tmo (struct config *conf, struct multipath *mpp);
+ int sysfs_get_timeout(const struct path *pp, unsigned int *timeout);
+ int sysfs_get_iscsi_ip_address(const struct path *pp, char *ip_address);
+ int sysfs_get_host_adapter_name(const struct path *pp,
+diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+index 1419ec6f..d2d70090 100644
+--- a/libmultipath/propsel.c
++++ b/libmultipath/propsel.c
+@@ -769,53 +769,53 @@ int select_minio(struct config *conf, struct multipath *mp)
+ 		return select_minio_bio(conf, mp);
+ }
+ 
+-int select_fast_io_fail(struct config *conf, struct multipath *mp)
++int select_fast_io_fail(struct config *conf, struct path *pp)
+ {
+ 	const char *origin;
+ 	STRBUF_ON_STACK(buff);
+ 
+-	mp_set_ovr(fast_io_fail);
+-	mp_set_hwe(fast_io_fail);
+-	mp_set_conf(fast_io_fail);
+-	mp_set_default(fast_io_fail, DEFAULT_FAST_IO_FAIL);
++	pp_set_ovr(fast_io_fail);
++	pp_set_hwe(fast_io_fail);
++	pp_set_conf(fast_io_fail);
++	pp_set_default(fast_io_fail, DEFAULT_FAST_IO_FAIL);
+ out:
+-	print_undef_off_zero(&buff, mp->fast_io_fail);
+-	condlog(3, "%s: fast_io_fail_tmo = %s %s", mp->alias,
++	print_undef_off_zero(&buff, pp->fast_io_fail);
++	condlog(3, "%s: fast_io_fail_tmo = %s %s", pp->dev,
+ 		get_strbuf_str(&buff), origin);
+ 	return 0;
+ }
+ 
+-int select_dev_loss(struct config *conf, struct multipath *mp)
++int select_dev_loss(struct config *conf, struct path *pp)
+ {
+ 	const char *origin;
+ 	STRBUF_ON_STACK(buff);
+ 
+-	mp_set_ovr(dev_loss);
+-	mp_set_hwe(dev_loss);
+-	mp_set_conf(dev_loss);
+-	mp->dev_loss = DEV_LOSS_TMO_UNSET;
++	pp_set_ovr(dev_loss);
++	pp_set_hwe(dev_loss);
++	pp_set_conf(dev_loss);
++	pp->dev_loss = DEV_LOSS_TMO_UNSET;
+ 	return 0;
+ out:
+-	print_dev_loss(&buff, mp->dev_loss);
+-	condlog(3, "%s: dev_loss_tmo = %s %s", mp->alias,
++	print_dev_loss(&buff, pp->dev_loss);
++	condlog(3, "%s: dev_loss_tmo = %s %s", pp->dev,
+ 		get_strbuf_str(&buff), origin);
+ 	return 0;
+ }
+ 
+-int select_eh_deadline(struct config *conf, struct multipath *mp)
++int select_eh_deadline(struct config *conf, struct path *pp)
+ {
+ 	const char *origin;
+ 	STRBUF_ON_STACK(buff);
+ 
+-	mp_set_ovr(eh_deadline);
+-	mp_set_hwe(eh_deadline);
+-	mp_set_conf(eh_deadline);
+-	mp->eh_deadline = EH_DEADLINE_UNSET;
++	pp_set_ovr(eh_deadline);
++	pp_set_hwe(eh_deadline);
++	pp_set_conf(eh_deadline);
++	pp->eh_deadline = EH_DEADLINE_UNSET;
+ 	/* not changing sysfs in default cause, so don't print anything */
+ 	return 0;
+ out:
+-	print_undef_off_zero(&buff, mp->eh_deadline);
+-	condlog(3, "%s: eh_deadline = %s %s", mp->alias,
++	print_undef_off_zero(&buff, pp->eh_deadline);
++	condlog(3, "%s: eh_deadline = %s %s", pp->dev,
+ 		get_strbuf_str(&buff), origin);
+ 	return 0;
+ }
+diff --git a/libmultipath/propsel.h b/libmultipath/propsel.h
+index 72a7e33c..152ca44c 100644
+--- a/libmultipath/propsel.h
++++ b/libmultipath/propsel.h
+@@ -16,9 +16,9 @@ int select_minio(struct config *conf, struct multipath *mp);
+ int select_mode(struct config *conf, struct multipath *mp);
+ int select_uid(struct config *conf, struct multipath *mp);
+ int select_gid(struct config *conf, struct multipath *mp);
+-int select_fast_io_fail(struct config *conf, struct multipath *mp);
+-int select_dev_loss(struct config *conf, struct multipath *mp);
+-int select_eh_deadline(struct config *conf, struct multipath *mp);
++int select_fast_io_fail(struct config *conf, struct path *pp);
++int select_dev_loss(struct config *conf, struct path *pp);
++int select_eh_deadline(struct config *conf, struct path *pp);
+ int select_reservation_key(struct config *conf, struct multipath *mp);
+ int select_retain_hwhandler (struct config *conf, struct multipath * mp);
+ int select_detect_prio(struct config *conf, struct path * pp);
+diff --git a/libmultipath/structs.c b/libmultipath/structs.c
+index 04cfdcdc..2c9be041 100644
+--- a/libmultipath/structs.c
++++ b/libmultipath/structs.c
+@@ -246,7 +246,6 @@ alloc_multipath (void)
+ 		mpp->bestpg = 1;
+ 		mpp->mpcontext = NULL;
+ 		mpp->no_path_retry = NO_PATH_RETRY_UNDEF;
+-		mpp->fast_io_fail = MP_FAST_IO_FAIL_UNSET;
+ 		dm_multipath_to_gen(mpp)->ops = &dm_gen_multipath_ops;
+ 	}
+ 	return mpp;
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index 3722e31b..a6749367 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -349,6 +349,9 @@ struct path {
+ 	int marginal;
+ 	int vpd_vendor_id;
+ 	int recheck_wwid;
 +	int fast_io_fail;
 +	unsigned int dev_loss;
 +	int eh_deadline;
-+};
-+
- struct hwentry {
- 	char * vendor;
- 	char * product;
-@@ -85,6 +92,8 @@ struct hwentry {
- 	int vpd_vendor_id;
- 	int recheck_wwid;
- 	char * bl_product;
-+
-+	vector pctable;
- };
- 
- struct mpentry {
-@@ -284,6 +293,7 @@ const char *get_mpe_wwid (const struct _vector *mptable, const char *alias);
- 
- struct hwentry * alloc_hwe (void);
- struct mpentry * alloc_mpe (void);
-+struct pcentry * alloc_pce (void);
- 
- void free_hwe (struct hwentry * hwe);
- void free_hwtable (vector hwtable);
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index 26cbe785..8e11fd70 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -417,6 +417,29 @@ snprint_mp_ ## option (struct config *conf, struct strbuf *buff,	\
- 	return function(buff, mpe->option);				\
- }
- 
-+#define declare_pc_handler(option, function)				\
-+static int								\
-+pc_ ## option ## _handler (struct config *conf, vector strvec,		\
-+			   const char *file, int line_nr)		\
-+{									\
-+	struct pcentry *pce;						\
-+	if (!conf->overrides || !conf->overrides->pctable)		\
-+		return 1;						\
-+	pce = VECTOR_LAST_SLOT(conf->overrides->pctable);		\
-+	if (!pce)							\
-+		return 1;						\
-+	return function (strvec, &pce->option, file, line_nr);		\
-+}
-+
-+#define declare_pc_snprint(option, function)				\
-+static int								\
-+snprint_pc_ ## option (struct config *conf, struct strbuf *buff,	\
-+		       const void *data)				\
-+{									\
-+	const struct pcentry *pce  = (const struct pcentry *)data;	\
-+	return function(buff, pce->option);				\
-+}
-+
- static int checkint_handler(struct config *conf, vector strvec,
- 			    const char *file, int line_nr)
- {
-@@ -1046,6 +1069,8 @@ declare_ovr_handler(fast_io_fail, set_undef_off_zero)
- declare_ovr_snprint(fast_io_fail, print_undef_off_zero)
- declare_hw_handler(fast_io_fail, set_undef_off_zero)
- declare_hw_snprint(fast_io_fail, print_undef_off_zero)
-+declare_pc_handler(fast_io_fail, set_undef_off_zero)
-+declare_pc_snprint(fast_io_fail, print_undef_off_zero)
- 
- static int
- set_dev_loss(vector strvec, void *ptr, const char *file, int line_nr)
-@@ -1083,6 +1108,8 @@ declare_ovr_handler(dev_loss, set_dev_loss)
- declare_ovr_snprint(dev_loss, print_dev_loss)
- declare_hw_handler(dev_loss, set_dev_loss)
- declare_hw_snprint(dev_loss, print_dev_loss)
-+declare_pc_handler(dev_loss, set_dev_loss)
-+declare_pc_snprint(dev_loss, print_dev_loss)
- 
- declare_def_handler(eh_deadline, set_undef_off_zero)
- declare_def_snprint(eh_deadline, print_undef_off_zero)
-@@ -1090,6 +1117,8 @@ declare_ovr_handler(eh_deadline, set_undef_off_zero)
- declare_ovr_snprint(eh_deadline, print_undef_off_zero)
- declare_hw_handler(eh_deadline, set_undef_off_zero)
- declare_hw_snprint(eh_deadline, print_undef_off_zero)
-+declare_pc_handler(eh_deadline, set_undef_off_zero)
-+declare_pc_snprint(eh_deadline, print_undef_off_zero)
- 
- static int
- set_pgpolicy(vector strvec, void *ptr, const char *file, int line_nr)
-@@ -1897,6 +1926,69 @@ declare_mp_snprint(wwid, print_str)
- declare_mp_handler(alias, set_str_noslash)
- declare_mp_snprint(alias, print_str)
- 
-+
-+static int
-+protocol_handler(struct config *conf, vector strvec, const char *file,
-+               int line_nr)
-+{
-+	struct pcentry *pce;
-+
-+	if (!conf->overrides)
-+		return 1;
-+
-+	if (!conf->overrides->pctable &&
-+	    !(conf->overrides->pctable = vector_alloc()))
-+		return 1;
-+
-+	if (!(pce = alloc_pce()))
-+		return 1;
-+
-+	if (!vector_alloc_slot(conf->overrides->pctable)) {
-+		free(pce);
-+		return 1;
-+	}
-+	vector_set_slot(conf->overrides->pctable, pce);
-+
-+	return 0;
-+}
-+
-+static int
-+set_protocol_type(vector strvec, void *ptr, const char *file, int line_nr)
-+{
-+	int *int_ptr = (int *)ptr;
-+	char *buff;
-+	int i;
-+
-+	buff = set_value(strvec);
-+
-+	if (!buff)
-+		return 1;
-+
-+	for (i = 0; i <= LAST_BUS_PROTOCOL_ID; i++) {
-+		if (protocol_name[i] && !strcmp(buff, protocol_name[i])) {
-+			*int_ptr = i;
-+			break;
-+		}
-+	}
-+	if (i > LAST_BUS_PROTOCOL_ID)
-+		condlog(1, "%s line %d, invalid value for type: \"%s\"",
-+			file, line_nr, buff);
-+
-+	free(buff);
-+	return 0;
-+}
-+
-+static int
-+print_protocol_type(struct strbuf *buff, int type)
-+{
-+	if (type < 0)
-+		return 0;
-+	return append_strbuf_quoted(buff, protocol_name[type]);
-+}
-+
-+declare_pc_handler(type, set_protocol_type)
-+declare_pc_snprint(type, print_protocol_type)
-+
- /*
-  * deprecated handlers
-  */
-@@ -2138,6 +2230,13 @@ init_keywords(vector keywords)
- 	install_keyword("ghost_delay", &ovr_ghost_delay_handler, &snprint_ovr_ghost_delay);
- 	install_keyword("all_tg_pt", &ovr_all_tg_pt_handler, &snprint_ovr_all_tg_pt);
- 	install_keyword("recheck_wwid", &ovr_recheck_wwid_handler, &snprint_ovr_recheck_wwid);
-+	install_keyword_multi("protocol", &protocol_handler, NULL);
-+	install_sublevel();
-+	install_keyword("type", &pc_type_handler, &snprint_pc_type);
-+	install_keyword("fast_io_fail_tmo", &pc_fast_io_fail_handler, &snprint_pc_fast_io_fail);
-+	install_keyword("dev_loss_tmo", &pc_dev_loss_handler, &snprint_pc_dev_loss);
-+	install_keyword("eh_deadline", &pc_eh_deadline_handler, &snprint_pc_eh_deadline);
-+	install_sublevel_end();
- 
- 	install_keyword_root("multipaths", &multipaths_handler);
- 	install_keyword_multi("multipath", &multipath_handler, NULL);
-diff --git a/libmultipath/print.c b/libmultipath/print.c
-index 27c2cf1a..68a793e7 100644
---- a/libmultipath/print.c
-+++ b/libmultipath/print.c
-@@ -1406,6 +1406,52 @@ int snprint_multipath_topology_json (struct strbuf *buff,
- 	return get_strbuf_len(buff) - initial_len;
- }
- 
-+static int
-+snprint_pcentry (const struct config *conf, struct strbuf *buff,
-+		 const struct pcentry *pce)
-+{
-+	int i, rc;
-+	struct keyword *kw;
-+	struct keyword * rootkw;
-+	size_t initial_len = get_strbuf_len(buff);
-+
-+	rootkw = find_keyword(conf->keywords, NULL, "overrides");
-+	assert(rootkw && rootkw->sub);
-+	rootkw = find_keyword(conf->keywords, rootkw->sub, "protocol");
-+	assert(rootkw);
-+
-+	if ((rc = append_strbuf_str(buff, "\tprotocol {\n")) < 0)
-+		return rc;
-+
-+	iterate_sub_keywords(rootkw, kw, i) {
-+		if ((rc = snprint_keyword(buff, "\t\t%k %v\n", kw, pce)) < 0)
-+			return rc;
-+	}
-+
-+	if ((rc = append_strbuf_str(buff, "\t}\n")) < 0)
-+		return rc;
-+	return get_strbuf_len(buff) - initial_len;
-+}
-+
-+static int
-+snprint_pctable (const struct config *conf, struct strbuf *buff,
-+		 const struct _vector *pctable)
-+{
-+	int i, rc;
-+	struct pcentry *pce;
-+	struct keyword * rootkw;
-+	size_t initial_len = get_strbuf_len(buff);
-+
-+	rootkw = find_keyword(conf->keywords, NULL, "overrides");
-+	assert(rootkw);
-+
-+	vector_foreach_slot(pctable, pce, i) {
-+		if ((rc = snprint_pcentry(conf, buff, pce)) < 0)
-+			return rc;
-+	}
-+	return get_strbuf_len(buff) - initial_len;
-+}
-+
- static int
- snprint_hwentry (const struct config *conf,
- 		 struct strbuf *buff, const struct hwentry * hwe)
-@@ -1560,6 +1606,10 @@ static int snprint_overrides(const struct config *conf, struct strbuf *buff,
- 		if ((rc = snprint_keyword(buff, "\t%k %v\n", kw, NULL)) < 0)
- 			return rc;
- 	}
-+
-+	if (overrides->pctable &&
-+	    (rc = snprint_pctable(conf, buff, overrides->pctable)) < 0)
-+		return rc;
- out:
- 	if ((rc = append_strbuf_str(buff, "}\n")) < 0)
- 		return rc;
+ 	/* configlet pointers */
+ 	vector hwe;
+ 	struct gen_path generic_path;
+@@ -376,7 +379,6 @@ struct multipath {
+ 	int minio;
+ 	int flush_on_last_del;
+ 	int attribute_flags;
+-	int fast_io_fail;
+ 	int retain_hwhandler;
+ 	int deferred_remove;
+ 	bool in_recovery;
+@@ -395,8 +397,6 @@ struct multipath {
+ 	int needs_paths_uevent;
+ 	int ghost_delay;
+ 	int ghost_delay_tick;
+-	unsigned int dev_loss;
+-	int eh_deadline;
+ 	uid_t uid;
+ 	gid_t gid;
+ 	mode_t mode;
 -- 
 2.17.2
 
