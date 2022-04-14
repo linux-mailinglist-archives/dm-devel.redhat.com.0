@@ -1,64 +1,61 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D7C295004E3
-	for <lists+dm-devel@lfdr.de>; Thu, 14 Apr 2022 05:58:29 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 79D85500535
+	for <lists+dm-devel@lfdr.de>; Thu, 14 Apr 2022 06:28:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1649908708;
+	s=mimecast20190719; t=1649910487;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NyPhjHwL6kjE9Rv14ZYXkwGVl5sRL2q4zEqao6mReLI=;
-	b=LZlFr08yrD3U5+ODZCEQXtNuosR3t3uWZHPEU8wmMYdnNRDzfqgaNJ4fHZ3To+MAkrIEdG
-	HuFYW40THzfIyA/ssN+eDWLxHwJ+ViaxgPvsn/tyewtqLFGSd0f57bKc6Nhq3kR98ab2wm
-	eE1GzO8xE5n1aBMxnmeM540trXNEuO4=
+	bh=u58zYEJsO+K4X7esxcq/0Vhr/nuSAR8p3Hh6XmtVWCo=;
+	b=O+LUttigdMO8kKVmvJMaJgw4vUqhsEjscHlTXJsu7lll1AbTUOMrtSoI6MKKlTm8LTvgiH
+	OWDgBl+na1N/F1VZHGKXRGgUF1GDuJobRgPCNYvJykPaU/JP8QvoriXxQeuCz4XojmRR86
+	TqNNq7YlnlIAwAAWBGGf0lIpQZ/FYRE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-626-27vK4--lMAOcrk_M5HQ8vg-1; Wed, 13 Apr 2022 23:58:25 -0400
-X-MC-Unique: 27vK4--lMAOcrk_M5HQ8vg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-492-YYw7I1I4OOyRF6zVUFUfhw-1; Thu, 14 Apr 2022 00:27:51 -0400
+X-MC-Unique: YYw7I1I4OOyRF6zVUFUfhw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1F50800882;
-	Thu, 14 Apr 2022 03:58:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E99B83395E;
+	Thu, 14 Apr 2022 04:27:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3EA61404D2DB;
-	Thu, 14 Apr 2022 03:58:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6CCEE111D3CB;
+	Thu, 14 Apr 2022 04:27:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 94DBE194036B;
-	Thu, 14 Apr 2022 03:58:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EF544194036B;
+	Thu, 14 Apr 2022 04:27:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 960D41940344
- for <dm-devel@listman.corp.redhat.com>; Thu, 14 Apr 2022 03:58:16 +0000 (UTC)
+ ESMTP id D83F61940344
+ for <dm-devel@listman.corp.redhat.com>; Thu, 14 Apr 2022 04:27:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 676CE2166BA4; Thu, 14 Apr 2022 03:58:16 +0000 (UTC)
+ id B9848C28127; Thu, 14 Apr 2022 04:27:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from T590 (ovpn-8-18.pek2.redhat.com [10.72.8.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E8E912166B4F;
- Thu, 14 Apr 2022 03:57:59 +0000 (UTC)
-Date: Thu, 14 Apr 2022 11:57:54 +0800
-From: Ming Lei <ming.lei@redhat.com>
-To: Mike Snitzer <snitzer@redhat.com>
-Message-ID: <YlebwjTKH2MU9tCD@T590>
-References: <20220412085616.1409626-1-ming.lei@redhat.com>
- <20220412085616.1409626-6-ming.lei@redhat.com>
- <YlXmmB6IO7usz2c1@redhat.com> <YlYt2rzM0NBPARVp@T590>
- <YlZp3+VrP930VjIQ@redhat.com> <YlbBf0mJa/BPHSSq@T590>
- <YlcPXslr6Y7cHOSU@redhat.com> <Yldsqh2YsclXYl3s@T590>
- <YleGKbZiHeBIJidI@redhat.com>
-MIME-Version: 1.0
-In-Reply-To: <YleGKbZiHeBIJidI@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 5/8] dm: always setup ->orig_bio in alloc_io
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A6A97C28114;
+ Thu, 14 Apr 2022 04:27:43 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 23E4RgbL025301;
+ Wed, 13 Apr 2022 23:27:42 -0500
+Received: (from bmarzins@localhost)
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 23E4RfC7025300;
+ Wed, 13 Apr 2022 23:27:41 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Wed, 13 Apr 2022 23:27:34 -0500
+Message-Id: <1649910461-25263-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: [dm-devel] [PATCH v2 0/7] Add protocol specific config subsection
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -70,110 +67,63 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Cc: device-mapper development <dm-devel@redhat.com>,
+ Martin Wilck <Martin.Wilck@suse.com>
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 13, 2022 at 10:25:45PM -0400, Mike Snitzer wrote:
-> On Wed, Apr 13 2022 at  8:36P -0400,
-> Ming Lei <ming.lei@redhat.com> wrote:
-> 
-> > On Wed, Apr 13, 2022 at 01:58:54PM -0400, Mike Snitzer wrote:
-> > > 
-> > > The bigger issue with this patch is that you've caused
-> > > dm_submit_bio_remap() to go back to accounting the entire original bio
-> > > before any split occurs.  That is a problem because you'll end up
-> > > accounting that bio for every split, so in split heavy workloads the
-> > > IO accounting won't reflect when the IO is actually issued and we'll
-> > > regress back to having very inaccurate and incorrect IO accounting for
-> > > dm_submit_bio_remap() heavy targets (e.g. dm-crypt).
-> > 
-> > Good catch, but we know the length of mapped part in original bio before
-> > calling __map_bio(), so io->sectors/io->offset_sector can be setup here,
-> > something like the following delta change should address it:
-> > 
-> > diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-> > index db23efd6bbf6..06b554f3104b 100644
-> > --- a/drivers/md/dm.c
-> > +++ b/drivers/md/dm.c
-> > @@ -1558,6 +1558,13 @@ static int __split_and_process_bio(struct clone_info *ci)
-> >  
-> >  	len = min_t(sector_t, max_io_len(ti, ci->sector), ci->sector_count);
-> >  	clone = alloc_tio(ci, ti, 0, &len, GFP_NOIO);
-> > +
-> > +	if (ci->sector_count > len) {
-> > +		/* setup the mapped part for accounting */
-> > +		dm_io_set_flag(ci->io, DM_IO_SPLITTED);
-> > +		ci->io->sectors = len;
-> > +		ci->io->sector_offset = bio_end_sector(ci->bio) - ci->sector;
-> > +	}
-> >  	__map_bio(clone);
-> >  
-> >  	ci->sector += len;
-> > @@ -1603,11 +1610,6 @@ static void dm_split_and_process_bio(struct mapped_device *md,
-> >  	if (error || !ci.sector_count)
-> >  		goto out;
-> >  
-> > -	/* setup the mapped part for accounting */
-> > -	dm_io_set_flag(ci.io, DM_IO_SPLITTED);
-> > -	ci.io->sectors = bio_sectors(bio) - ci.sector_count;
-> > -	ci.io->sector_offset = bio_end_sector(bio) - bio->bi_iter.bi_sector;
-> > -
-> >  	bio_trim(bio, ci.io->sectors, ci.sector_count);
-> >  	trace_block_split(bio, bio->bi_iter.bi_sector);
-> >  	bio_inc_remaining(bio);
-> > 
-> > -- 
-> > Ming
-> > 
-> 
-> Unfortunately we do need splitting after __map_bio() because a dm
-> target's ->map can use dm_accept_partial_bio() to further reduce a
-> bio's mapped part.
-> 
-> But I think dm_accept_partial_bio() could be trained to update
-> tio->io->sectors?
+Some storage arrays can be accessed using multiple protocols at the same
+time.  I've have customers request the ability to set different values
+for the path specific timeouts, like fast_io_fail_tmo, based on the
+protocol used to access the path. In order to make this possible, this
+patchset adds a new protocol subsection to the overrides section. This
+allows users to set a device config's path specific timeouts, such as
+dev_loss_tmo, fast_io_fail_tmo, and eh_deadline on a per-protocol basis.
 
-->orig_bio is just for serving io accounting, but ->orig_bio isn't
-passed to dm_accept_partial_bio(), and not gets updated after
-dm_accept_partial_bio() is called.
+Changes from v1 (all based on suggestions from Martin Wilck):
+0003: Adds the protocol subsection to the overrides section instead of
+      the device subsection, pulling in code from original patch 0007
+0005: Checks the pctable of the overrides section instead of the
+      hwes, pulling in code from original patch 0007
+Original patches 0006 and 0007 have been removed.
+0007: (original patch 0009) modified the man page to no longer
+      reference the protocol subsection under the device
+      subsection
 
-If that is one issue, it must be one existed issue in dm io accounting
-since ->orig_bio isn't updated when dm_accept_partial_bio() is called.
+Benjamin Marzinski (7):
+  libmultipath: steal the src string pointer in merge_str()
+  libmultipath: make protocol_name global
+  libmultipath: add a protocol subsection to multipath.conf
+  libmultipath: Set the scsi timeout parameters by path
+  libmultipath: check the overrides pctable for path variables
+  libmultipath: fix eh_deadline documentation
+  libmultipath: Add documentation for the protocol subsection
 
-So do we have to update it?
+ libmultipath/config.c      |  99 ++++++++++++++++++---
+ libmultipath/config.h      |  10 +++
+ libmultipath/configure.c   |   5 +-
+ libmultipath/dict.c        |  99 +++++++++++++++++++++
+ libmultipath/discovery.c   | 174 +++++++++++++++++++++----------------
+ libmultipath/discovery.h   |   2 +-
+ libmultipath/print.c       |  67 ++++++++++----
+ libmultipath/propsel.c     |  65 +++++++++-----
+ libmultipath/propsel.h     |   6 +-
+ libmultipath/structs.c     |  19 +++-
+ libmultipath/structs.h     |   7 +-
+ multipath/multipath.conf.5 |  36 ++++++++
+ 12 files changed, 452 insertions(+), 137 deletions(-)
 
-> 
-> dm_accept_partial_bio() has been around for a long time, it keeps
-> growing BUG_ONs that are actually helpful to narrow its use to "normal
-> IO", so it should be OK.
-> 
-> Running 'make check' in a built cryptsetup source tree should be a
-> good test for DM target interface functionality.
+-- 
+2.17.2
 
-Care to share the test tree?
-
-> 
-> But there aren't automated tests for IO accounting correctness yet.
-
-I did verify io accounting by running dm-thin with blk-throttle, and the
-observed throughput is same with expected setting. Running both small bs
-and large bs, so non-split and split code path are covered.
-
-Maybe you can add this kind of test into dm io accounting automated test.
-
-
-Thanks,
-Ming
 --
 dm-devel mailing list
 dm-devel@redhat.com
