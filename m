@@ -1,81 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EE3D500EBE
-	for <lists+dm-devel@lfdr.de>; Thu, 14 Apr 2022 15:19:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C3BC5018AD
+	for <lists+dm-devel@lfdr.de>; Thu, 14 Apr 2022 18:30:03 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-Bgvrggr3P-Wf0gKdlg0TPw-1; Thu, 14 Apr 2022 09:18:31 -0400
-X-MC-Unique: Bgvrggr3P-Wf0gKdlg0TPw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-495-JF_4CM75Mw-gnFBCi4LqGA-1; Thu, 14 Apr 2022 12:29:57 -0400
+X-MC-Unique: JF_4CM75Mw-gnFBCi4LqGA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8FC286B8A7;
-	Thu, 14 Apr 2022 13:18:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE7E1811E78;
+	Thu, 14 Apr 2022 16:29:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A1F90416157;
-	Thu, 14 Apr 2022 13:18:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2FB6BC44AFE;
+	Thu, 14 Apr 2022 16:29:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4BC271940357;
-	Thu, 14 Apr 2022 13:18:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E8A37194034E;
+	Thu, 14 Apr 2022 16:29:43 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2AE761940351
- for <dm-devel@listman.corp.redhat.com>; Thu, 14 Apr 2022 13:18:25 +0000 (UTC)
+ ESMTP id 402AD19451F2
+ for <dm-devel@listman.corp.redhat.com>; Thu, 14 Apr 2022 16:29:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0FDBC14583C8; Thu, 14 Apr 2022 13:18:25 +0000 (UTC)
+ id 0F1F543E79C; Thu, 14 Apr 2022 16:29:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C1ED14583EB
- for <dm-devel@redhat.com>; Thu, 14 Apr 2022 13:18:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFF8186B8A0
- for <dm-devel@redhat.com>; Thu, 14 Apr 2022 13:18:24 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-173-N6W_ptewO8WkM_ll7Re_hg-1; Thu, 14 Apr 2022 09:18:21 -0400
-X-MC-Unique: N6W_ptewO8WkM_ll7Re_hg-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B21043E79B
+ for <dm-devel@redhat.com>; Thu, 14 Apr 2022 16:29:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 33A041F74C;
- Thu, 14 Apr 2022 13:18:19 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 056BF132C0;
- Thu, 14 Apr 2022 13:18:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ONxQOxofWGKcQQAAMHmgww
- (envelope-from <mwilck@suse.com>); Thu, 14 Apr 2022 13:18:18 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu, 14 Apr 2022 15:18:11 +0200
-Message-Id: <20220414131811.2551-8-mwilck@suse.com>
-In-Reply-To: <20220414131811.2551-1-mwilck@suse.com>
-References: <20220414131811.2551-1-mwilck@suse.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E7DAB85A5BC
+ for <dm-devel@redhat.com>; Thu, 14 Apr 2022 16:29:42 +0000 (UTC)
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-640-4SPpW64KMMO-azOFs4yzNA-1; Thu, 14 Apr 2022 12:29:41 -0400
+X-MC-Unique: 4SPpW64KMMO-azOFs4yzNA-1
+Received: by mail-qt1-f170.google.com with SMTP id o18so3886949qtk.7
+ for <dm-devel@redhat.com>; Thu, 14 Apr 2022 09:29:40 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=J8HID19Q8B8HZA/NjZ+E3p+UXxrSu3cxNQ/w6L3ksOI=;
+ b=ro+SaA2m3JdTrxCrVSroK8zzZnOiA6PkN+eseLsyKe2Gy/T29F9aqRvfnhusL9YtLi
+ GzkxALFhLuLTL0sr11KQfEmIyQMKoA4g5x34xU8r+048ZZk9TiDOIVvOLz9z49ZOKj3k
+ oH4jlndvJSDBMS8NNp1Wm/1iLE9fO7W1yHCPMYXITYwBs1aL/jkP53Hu6BJCb5yUnrU7
+ WcDkAa3Vq9Cpyx707ib+TqEu+OxWKzNhthKi9WqxctK6TV+qvzS6o1r5PynBugfXUW3/
+ HTkDYYJJIcSTThrtsDwhXDor0hFLF2JllKwCO+71MQJBEZKkTSQyje+3Xvx2JwuKRgMq
+ llCg==
+X-Gm-Message-State: AOAM53160YxDhdLDyNfWx/9CMbhpiIct81Pctxzc0LsCJvwgYT59QiMI
+ wB87XNRG0qildpNYmn3fyqU2B3BRPYae96c=
+X-Google-Smtp-Source: ABdhPJwHArNeOEc32Cv7CYMuIlz2AFJAHWnc8uBMzLlwuw5pMXm8ispj2rTH2VNZzubll9Erl/2FPA==
+X-Received: by 2002:a05:622a:650:b0:2e1:e5cb:e47d with SMTP id
+ a16-20020a05622a065000b002e1e5cbe47dmr2468137qtb.223.1649953780373; 
+ Thu, 14 Apr 2022 09:29:40 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+ [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+ a200-20020a3766d1000000b0069c1125b7bbsm1199951qkc.57.2022.04.14.09.29.39
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Apr 2022 09:29:40 -0700 (PDT)
+Date: Thu, 14 Apr 2022 12:29:39 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+Message-ID: <YlhL878nAVPkNK1n@redhat.com>
+References: <20220414083436.pweunapygdtuzwaf@shindev>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [dm-devel] [PATCH 7/7] libmultipath.version: bump version
+In-Reply-To: <20220414083436.pweunapygdtuzwaf@shindev>
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: Re: [dm-devel] [bug report] BUG for REQ_OP_WRITE_ZEROES to dm-zoned
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,64 +89,87 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
+ Damien Le Moal <Damien.LeMoal@wdc.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============2324726943851228526=="
-
---===============2324726943851228526==
-Content-Transfer-Encoding: quoted-printable
-Content-Type: application/octet-stream; x-default=true
-
-From: Martin Wilck <mwilck@suse.com>
-
-After the recent changes related to protocol-specific path properties
-and removal/deprecation of various options, both struct path and struct
-multipath have changed, requiring an ABI change.
-
-Note: abigail also detects changes in libmpathpersist, but they only
-apply to internally used functions. As far as the public libmpathpersist
-API is concerned, struct multipath is opaque. It's only written or read
-by calls into libmultipath.
-
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/libmultipath.version | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.=
-version
-index 8132df7..b3690ac 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -31,7 +31,7 @@
-  *   The new version inherits the previous ones.
-  */
-=20
--LIBMULTIPATH_14.1.0 {
-+LIBMULTIPATH_15.0.0 {
- global:
- =09/* symbols referenced by multipath and multipathd */
- =09add_foreign;
---=20
-2.35.1
-
-
---===============2324726943851228526==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
 Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
+
+On Thu, Apr 14 2022 at  4:34P -0400,
+Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com> wrote:
+
+> Hello Mike,
+> 
+> Let me share a BUG I observed with v5.18-rcX and ask comments for the fix.
+> 
+> BUG_ON(dm_tio_flagged(tio, DM_TIO_IS_DUPLICATE_BIO)) in dm_accept_partial_bio()
+> was triggered for dm-zoned. It happens when a bio with REQ_OP_WRITE_ZEROES and
+> sector range which goes across zone boundaries of the zoned devices that
+> dm-zoned maps. For such bios, dm-zoned calls dm_accept_partial_bio() to trim the
+> bio to fit in a zone. And dm core sets the flag DM_TIO_IS_DUPLICATE_BIO to the
+> tio of the bio.
+> 
+>     The BUG_ON symptom can be recreated with command as follows:
+> 
+>     # xfs_io -C "fzero 4096 $((512 * $(</sys/block/sdf/queue/chunk_sectors)))" /dev/dm-0
+> 
+>     In this command, /dev/dm-0 is the dm-zoned device. /dev/sdf is the zoned
+>     block device. Its zone size is obtained from sysfs chunk_sectors attribute.
+> 
+> The trigger commit is e6fc9f62ce6e ("dm: flag clones created by
+> __send_duplicate_bios") which introduced the new flag (it was named
+> is_duplicated_bio, and following commit renamed it to DM_TIO_IS_DUPLICATE_BIO).
+> I understand that the flag is set to the bios cloned in __send_duplicate_bios()
+> to guard tio->len_ptr shared among the cloned bios from updates in
+> dm_accept_partial_bio().
+> 
+> One point I can not understand is that the flag is set even when
+> __send_duplicate_bios() clones only single bio. I think bio is not duplicated in
+> this case, and there is no need to guard tio->len_ptr. Dm-zoned sets 1 to
+> ti->num_write_zeroes_bios (and ti->num_discard_bios), then I think
+> __send_duplicate_bios() always clones single bio for dm-zoned. I tried
+> following patch below, which removes the flag set for the single bio clone case.
+> 
+> diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+> index f2397546b93f..d886c57e49ed 100644
+> --- a/drivers/md/dm.c
+> +++ b/drivers/md/dm.c
+> @@ -1363,7 +1363,6 @@ static void __send_duplicate_bios(struct clone_info *ci, struct dm_target *ti,
+>                 break;
+>         case 1:
+>                 clone = alloc_tio(ci, ti, 0, len, GFP_NOIO);
+> -               dm_tio_set_flag(clone_to_tio(clone), DM_TIO_IS_DUPLICATE_BIO);
+>                 __map_bio(clone);
+>                 break;
+>         default:
+> 
+> With this patch, the BUG is no longer triggered. Is this a right fix approach?
+> It looks for me the DM_TIO_IS_DUPLICATE_BIO check is too tight and I think we
+> can relax it for the single clone case.
+> 
+> If I miss anything and the len_ptr guard by DM_TIO_IS_DUPLICATE_BIO is required
+> even for the single bio clone case, I will think about dm-zoned change to avoid
+> dm_accept_partial_bio() call, which will need bio split within dm-zoned.
+
+Thanks for the report, I've staged a fix here (btw, your change above
+needs to be paired with the 2nd hunk of my fix otherwise you won't get
+the bio split you desire):
+
+https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-5.18&id=3dfb6f5e95f26215ca08d348ca2ddb5ea6ea2349
+
+I'll be sending this to Linus later today or tomorrow.
+
+Mike
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============2324726943851228526==--
 
