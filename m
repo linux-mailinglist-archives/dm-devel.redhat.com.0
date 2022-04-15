@@ -2,138 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A2EF506433
-	for <lists+dm-devel@lfdr.de>; Tue, 19 Apr 2022 08:10:46 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A75506444
+	for <lists+dm-devel@lfdr.de>; Tue, 19 Apr 2022 08:11:09 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-120-HION_3NqOLG9XNJocLyviQ-1; Tue, 19 Apr 2022 02:10:43 -0400
-X-MC-Unique: HION_3NqOLG9XNJocLyviQ-1
+ us-mta-625-l6toz-EGOC2IRVoFPNQCeA-1; Tue, 19 Apr 2022 02:10:43 -0400
+X-MC-Unique: l6toz-EGOC2IRVoFPNQCeA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCE7086B8C0;
-	Tue, 19 Apr 2022 06:10:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7276C1C10470;
+	Tue, 19 Apr 2022 06:10:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9036DC52D94;
-	Tue, 19 Apr 2022 06:10:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B3BD1C53522;
+	Tue, 19 Apr 2022 06:10:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 50750194EB99;
-	Tue, 19 Apr 2022 06:10:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B7FD5194036D;
+	Tue, 19 Apr 2022 06:10:28 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 75B3E19451EC
- for <dm-devel@listman.corp.redhat.com>; Fri, 15 Apr 2022 05:51:34 +0000 (UTC)
+ ESMTP id 16667194034A
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Apr 2022 08:45:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3DBF4580456; Fri, 15 Apr 2022 05:51:34 +0000 (UTC)
+ id C5293453854; Fri, 15 Apr 2022 08:45:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 38E2448FB08
- for <dm-devel@redhat.com>; Fri, 15 Apr 2022 05:51:34 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C1635416165
+ for <dm-devel@redhat.com>; Fri, 15 Apr 2022 08:45:17 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C3641857F02
- for <dm-devel@redhat.com>; Fri, 15 Apr 2022 05:51:34 +0000 (UTC)
-Received: from NAM02-SN1-obe.outbound.protection.outlook.com
- (mail-sn1anam02on2049.outbound.protection.outlook.com [40.107.96.49]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A79D33C32B82
+ for <dm-devel@redhat.com>; Fri, 15 Apr 2022 08:45:17 +0000 (UTC)
+Received: from esa6.hgst.iphmx.com (esa6.hgst.iphmx.com [216.71.154.45]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-SkJpO0vJNaeubFLUyJMJHA-1; Fri, 15 Apr 2022 01:51:32 -0400
-X-MC-Unique: SkJpO0vJNaeubFLUyJMJHA-1
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
- by DM5PR1201MB0169.namprd12.prod.outlook.com (2603:10b6:4:55::22)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5144.29; Fri, 15 Apr
- 2022 05:51:29 +0000
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com
- ([fe80::a90b:9df2:370c:e76b]) by MW2PR12MB4667.namprd12.prod.outlook.com
- ([fe80::a90b:9df2:370c:e76b%3]) with mapi id 15.20.5144.030; Fri, 15 Apr 2022
- 05:51:29 +0000
-From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [PATCH 26/27] block: decouple REQ_OP_SECURE_ERASE from
- REQ_OP_DISCARD
-Thread-Index: AQHYUITx2Wbm58EJ9UyANBYH5JqbHKzweKgA
-Date: Fri, 15 Apr 2022 05:51:29 +0000
-Message-ID: <ad050f78-2d64-0ff9-a6b0-968cfa53eacf@nvidia.com>
-References: <20220415045258.199825-1-hch@lst.de>
- <20220415045258.199825-27-hch@lst.de>
-In-Reply-To: <20220415045258.199825-27-hch@lst.de>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: c9fd5094-8dc8-417c-1c9a-08da1ea3fcca
-x-ms-traffictypediagnostic: DM5PR1201MB0169:EE_
-x-microsoft-antispam-prvs: <DM5PR1201MB0169C8FEB54422A788EA47EFA3EE9@DM5PR1201MB0169.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: AmVfwKV6cd4uqx7He4BuZiTWp0+dFZvn6EzYAM/qM8fTafRDgAWKcLgUoMlxzsJPYe+yQX6WDo7+kOOvNSP1qP781PM+B2kjgmIo08YtxKcDWv8NCW+TpQR3IvIHAgE1OUK6c+WT4VB3oJrcV2vmJoS/+ddH6IHDewe2Ftogor2p+oKFRxGJj7A5qQ6NBla1a1aBdvnEZyIuQsvkx3H+FW6X2mGTjy4lO1K3ZmAq2Z/ycAshtZs6BVUFDr3C60r/jBPzVuGmm2kSQ3/xsgW1l/B1vIsQnRVXFm1cff8PyptIUiXNozdrEZ5eTeV1aX0zyp7TJTEMIL8jbd5Lel1KdL0iwNiYFC9BYAC3rMKweU/Q+5Ec8Vdz5xcpoZGYlj1FYv/SWNzZA0KFL9itvVdJte10Pcl6KQaU5mMRUQBTrWn9J9EmBuNqdbpSbvtdX7N12XqQ163AFebLWjsUVIJTMEJohi8GMAT7ShaGokObl+W37caJWbNxCs3NPznZAiSRdu12XyL14x8V1XFdDoibTUectDnELKTbuJ9hdUv6/6Y9ixL2uacBcUzLvhzwXS2P8xfrcItzXmQFBPx1OAsWvc6zYc/IfF6hSofnZCOqRNya6ocs0d8cjvnlr7+3NoOWeoLFSZqV/6QGmKKdmPKdWVoYx8NRG0dpBtVU8qUigY1IERlt4Y0kMx90+EZymw29N313FbUSHIZ/M4Ww2HQNApkHt6ZXb7eZrVYIqdrmmLknsJ2VEU+KBkOiekjlqC1YM32UJ8GWmnhbxrQX55cNdQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW2PR12MB4667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(7416002)(66556008)(76116006)(66476007)(66946007)(91956017)(66446008)(7406005)(122000001)(186003)(86362001)(4326008)(31696002)(508600001)(36756003)(5660300002)(6486002)(54906003)(38100700002)(8936002)(83380400001)(4744005)(2616005)(64756008)(8676002)(110136005)(71200400001)(38070700005)(316002)(6506007)(53546011)(6512007)(2906002)(31686004)(45980500001)(43740500002);
- DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?QzF4enRGVEozclBWQ2xUVjF5L1g3NzRQZkxXZmdSbGxpZVZLMkJtY1NkV1lR?=
- =?utf-8?B?aHFveDlYcnVyVUNXQXVYc3lZN1ZtRWt3dk5vNHEwN1lXUkdlRVEvVkIvazVw?=
- =?utf-8?B?Q3dTa0lsdnlyRk15ejFpTTIwd2EyK2Jnd3RNQS9WbzZHL3U2enYzSHU2bExl?=
- =?utf-8?B?dHlRckZXSmlPNEIwenZTcmFXdlEvUXI3b0tQd01KQ3RiNkxDbU9qZk5MOWNL?=
- =?utf-8?B?b3hRVUduTG1VQmJIYnFuNDNSZGFNK1FxSks4dTRleit5S0ZBSHJKN2dzWXE2?=
- =?utf-8?B?OW5qVGpUYmV1dTFSWGlnMUtkNzJPUDl4d0prZ0RsVFBBZ0JPTHhlY0xvdDFa?=
- =?utf-8?B?eW50T3FJc0J5YkNVcms5QldtMkJmamMvakZMUVl2SU9acUs3eElDQmxSUnBq?=
- =?utf-8?B?ZnkyL01hcy82YmtqQlJUSEJUd3lEaC9Ld3JacXRTNy9mQ0V5dHRhQm9FRjJQ?=
- =?utf-8?B?b3BOU1BtWXpqSUVoUFd0UGZBWUFmL2Y2U0FBQXVqOVVGMlFuRlU4ZTBSbDMr?=
- =?utf-8?B?K29nbDBZRTJPNHJXNnBqdnRRbWxLSnVNbWtnNnhoTVBKNU42UWlMSjRNYXVJ?=
- =?utf-8?B?ZjE2QjJac1lhd1ZFUXRaMDFsWVJLbmU2azZoV1VRd3FMYnkzcUNmcjNpN1F0?=
- =?utf-8?B?ejJPNmxyTVZqblBucUdEQ29VRFlLT1pUb0tOTUJyQkc0SGtrSS84UEhhNFUy?=
- =?utf-8?B?bGhpY1lKcUxzNWdqYnE3anI3S3dWeE1Sa3B1OEdhNi94UVl6TXZ2NGlUSUY3?=
- =?utf-8?B?dC9hZnR5RmIrUWN1OUp4TjZQOTc4ZXpIZU9kazUwUEJETDBhOSticFdYMDRo?=
- =?utf-8?B?Ti9DL2R5bVV6TnFpeDVYdzhnQzZOcDJYQVhxVHRiWkxqYjBoMWdiUjZrU1pa?=
- =?utf-8?B?d3RMVURoRHg4SlBJeTBraDZqK1RpMHlndnZCN1h3bDZjc0haN0I1K1JTYWVo?=
- =?utf-8?B?c016dkNObFNVa2VDU01Va2hubDdLbC8yS09TdGNHSVM0TFdVYldHckRNbUk3?=
- =?utf-8?B?RXhNdkZQcWRCTUJzdHBveUtBVVpQTkl2WGNHd0ZLeVVWUC9IbzYyck5lTDJV?=
- =?utf-8?B?SDQyRjJMN0RmL1dyL0xVZ2FKTVRBcjVUNTFDR3NFbUl2Y0gybjFwTFFoOUJ4?=
- =?utf-8?B?T1lKTzcyS1lKbVBGYlVOU0hqSHFUbTF0dXpMYXRTTVgxcmNzdHBIVnZ4N29z?=
- =?utf-8?B?YW9CYUhSekxRSy8rTGVvdllhU0VnWmZSZE8vejhNbnptWnZOQm4rUFRrS3Nx?=
- =?utf-8?B?aU9RQXdYRElEakFpM1RkL0N1YnVuVDh6Z2VPdUZBWDdJU3FRaTRYYlphQVFT?=
- =?utf-8?B?cGdNZDkwYUs0UUN4TlhGdUZCOENsbXNqbjh6QUZ5TThGTGM4eXZJa3luc1o2?=
- =?utf-8?B?TGtCR3VKYkthbXUxaHJMZmdjMkZhZlJOU3kzUWxMSlpFK05hTEhWQlZCWlFB?=
- =?utf-8?B?b0ROckVJcW52RWFxWUFpeGpWOWZ0WFNWTVZzUm15aWU2R2d4ZGwvT0k0OHIr?=
- =?utf-8?B?eGJ5Q1VYZWJGZ3RHQktJSE1RQWRBVFFza0J5SGhmQm1KVGhMdE1YSmMxUDY5?=
- =?utf-8?B?VmNiTjdJOWJhMnBsVHBFVTJaWm13d2d3VjhoaFpSSm1sVERMZkVGUTlFSWtH?=
- =?utf-8?B?OTY1QUN6UlhtbFhsNUIydW9Bb1VDTUs4L3pSMEIxYktlZ1hidy81aHBIOTZC?=
- =?utf-8?B?RWgwOXlPZ2E3Ti8vM25yRG4xUFZSblBjM2ZGVVBEck1qM2JmYU4xVzJTVW1r?=
- =?utf-8?B?SkQ0dDV4V1JRaWFxTTl2cEp4aFdwRjZ4ZTJsaWErVjIxT2d5cUJKbkpaQlFN?=
- =?utf-8?B?NWtzd2ZNYlZUenZwOG1zREFGOU1LVGovRHl6THRpWWkydlFnN3VoN1V0TEZU?=
- =?utf-8?B?YVBkQy9ZRncyK2g5OXVrL3BkZTYvcVVTbG9wdUhpNkttaGlIOVhuRlFSWmRL?=
- =?utf-8?B?YkJMd0dNNUJnTmdqNFFRZDNNQU84VUZVdHc0ZnJObmpYYTNrZEhmMXpLS1Vk?=
- =?utf-8?B?MVdETlYzeGxUZHJCL1IyeFNrU1Z3YlpqQjFrd2lJdlhXaG9sSG1GU2pBQTlD?=
- =?utf-8?B?RGNVd0RGa0s0ZU9vL09PL1RjZDFHbytOL3BHRzB4NTAzU2c3anNENDJsMGRT?=
- =?utf-8?B?Q0NNblVSMklrVTN5MHd6ZUxOeGRTbXN4YnUwL3o3ajJlbzVpZXhObmMvZHdm?=
- =?utf-8?B?NkpnaWo3QjIyZUdNREhOWkppd0V3TzllSFNreWVEV1J0MGhVSFhwLzVTejNB?=
- =?utf-8?B?QndGdTN1NzMrM0RyLzYzRVhDUDhQYytNYWU2OEQrKzFYSVQxNFh1bzZ5MXBX?=
- =?utf-8?B?djB5eEw2WXRYNERJQi9EaVp6dE1pdlBZY0Y5SDRHSld5QXpCNlJLcHkvdmN5?=
- =?utf-8?Q?3X2JVDPgqkisQy2o=3D?=
+ us-mta-147-C8FJKXpNMaC8snSHDr3E-A-1; Fri, 15 Apr 2022 04:45:15 -0400
+X-MC-Unique: C8FJKXpNMaC8snSHDr3E-A-1
+X-IronPort-AV: E=Sophos;i="5.90,262,1643644800"; d="scan'208";a="198878322"
+Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 15 Apr 2022 16:45:15 +0800
+IronPort-SDR: k+XtxwXs+HyKucQYwvUsPdXETxPjUusk518Blwf4NDkKnP9O3ROfJtfby39I5R/MlmmHMZsvLy
+ DCoqUNcTpN3KuPB0NZ0FJXJF1ZpNOFedWlAtMAlvAckJeySnicZm3ebIfSGetTemLIJjRpnzda
+ msfsgpqkP6C7GfAvBeS7mGrzaC0XqvQB7HYMjtHTe4fLI8yDrY4iWmSZ0prUNxcaWLqvHnvdqp
+ qja8N07KyDMgsDvIo5VVPs400COpFo9kUZPjleuGHk8FhqQSK773Shp1rw9DRai6xzWCLHKOAZ
+ I/wVjYGo+J4yLOmwLot5zLqW
+Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 15 Apr 2022 01:16:26 -0700
+IronPort-SDR: Y0ZiPxHabn85gfo/aeiShpy3r/UcGQIscqpa2oX4+PVFekI7204Ci07clWaOktW8nsPsfNlVJp
+ /E1MCLltHfQATPpF1Mv5YT1xWvphHN+JTnkKWvg/HXLTnjYh9DUFsfzosR96/nAnOxENaFF19r
+ /W5qpMwhf19OiWDIP0YQVPUB7PaSk1Qq8sDrA5o/Oas2Q51SrMiaZpdULQ1urgfgQ/YL0xlh2s
+ mFXlvLU3m7K5Nsp3DDWBjjhHFV7ElXhkniRecE/ai/ehGc9Q8HU3mdZLoKuXQ7ymX2y9IwNpQF
+ kI0=
+WDCIronportException: Internal
+Received: from shindev.dhcp.fujisawa.hgst.com (HELO shindev.fujisawa.hgst.com)
+ ([10.149.52.173])
+ by uls-op-cesaip02.wdc.com with ESMTP; 15 Apr 2022 01:45:14 -0700
+From: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+To: dm-devel@redhat.com,
+	Mike Snitzer <snitzer@redhat.com>
+Date: Fri, 15 Apr 2022 17:45:13 +0900
+Message-Id: <20220415084513.790722-1-shinichiro.kawasaki@wdc.com>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c9fd5094-8dc8-417c-1c9a-08da1ea3fcca
-X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Apr 2022 05:51:29.4703 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: IPcAt18WzYDe1ZXZaQ67IfuhtbBuQMqjGvQ61935BGXjt8u7waNpeop0EhPBq1EGBFzNYdvWpPbakAPDA6Tcaw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM5PR1201MB0169
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -141,10 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Mailman-Approved-At: Tue, 19 Apr 2022 06:10:27 +0000
-Subject: Re: [dm-devel] [PATCH 26/27] block: decouple REQ_OP_SECURE_ERASE
- from REQ_OP_DISCARD
+Subject: [dm-devel] [PATCH] dm: fix bio length of empty flush
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,40 +93,8 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "jfs-discussion@lists.sourceforge.net"
- <jfs-discussion@lists.sourceforge.net>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "target-devel@vger.kernel.org" <target-devel@vger.kernel.org>,
- "linux-mtd@lists.infradead.org" <linux-mtd@lists.infradead.org>,
- "drbd-dev@lists.linbit.com" <drbd-dev@lists.linbit.com>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- "linux-nilfs@vger.kernel.org" <linux-nilfs@vger.kernel.org>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "cluster-devel@redhat.com" <cluster-devel@redhat.com>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-ext4@vger.kernel.org" <linux-ext4@vger.kernel.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- "nbd@other.debian.org" <nbd@other.debian.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "linux-bcache@vger.kernel.org" <linux-bcache@vger.kernel.org>,
- David Sterba <dsterba@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- "ceph-devel@vger.kernel.org" <ceph-devel@vger.kernel.org>,
- Coly Li <colyli@suse.de>, Ryusuke Konishi <konishi.ryusuke@gmail.com>,
- "linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- "linux-mmc@vger.kernel.org" <linux-mmc@vger.kernel.org>,
- "linux-f2fs-devel@lists.sourceforge.net"
- <linux-f2fs-devel@lists.sourceforge.net>,
- "linux-xfs@vger.kernel.org" <linux-xfs@vger.kernel.org>,
- =?utf-8?B?Q2hyaXN0b3BoIELDtmhtd2FsZGVy?= <christoph.boehmwalder@linbit.com>,
- "ocfs2-devel@oss.oracle.com" <ocfs2-devel@oss.oracle.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "ntfs3@lists.linux.dev" <ntfs3@lists.linux.dev>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Cc: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>,
+ Damien Le Moal <Damien.LeMoal@wdc.com>, Christoph Hellwig <hch@lst.de>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
@@ -197,24 +102,48 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <C5A7864F5C266F4ABDCFD32C055621F9@namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gNC8xNC8yMiAyMTo1MiwgQ2hyaXN0b3BoIEhlbGx3aWcgd3JvdGU6DQo+IFNlY3VyZSBlcmFz
-ZSBpcyBhIHZlcnkgZGlmZmVyZW50IG9wZXJhdGlvbiBmcm9tIGRpc2NhcmQgaW4gdGhhdCBpdCBp
-cw0KPiBhIGRhdGEgaW50ZWdyaXR5IG9wZXJhdGlvbiB2cyBoaW50LiAgRnVsbHkgc3BsaXQgdGhl
-IGxpbWl0cyBhbmQgaGVscGVyDQo+IGluZnJhc3RydWN0dXJlIHRvIG1ha2UgdGhlIHNlcGFyYXRp
-b24gbW9yZSBjbGVhci4NCj4gDQo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9waCBIZWxsd2lnIDxo
-Y2hAbHN0LmRlPg0KPiBSZXZpZXdlZC1ieTogTWFydGluIEsuIFBldGVyc2VuIDxtYXJ0aW4ucGV0
-ZXJzZW5Ab3JhY2xlLmNvbT4NCj4gQWNrZWQtYnk6IENocmlzdG9waCBCw7ZobXdhbGRlciA8Y2hy
-aXN0b3BoLmJvZWhtd2FsZGVyQGxpbmJpdC5jb20+IFtkcmJkXQ0KPiBBY2tlZC1ieTogUnl1c3Vr
-ZSBLb25pc2hpIDxrb25pc2hpLnJ5dXN1a2VAZ21haWwuY29tPiBbbmlmczJdDQo+IEFja2VkLWJ5
-OiBKYWVnZXVrIEtpbSA8amFlZ2V1a0BrZXJuZWwub3JnPiBbZjJmc10NCj4gQWNrZWQtYnk6IENv
-bHkgTGkgPGNvbHlsaUBzdXNlLmRlPiBbYmNhY2hlXQ0KPiBBY2tlZC1ieTogRGF2aWQgU3RlcmJh
-IDxkc3RlcmJhQHN1c2UuY29tPiBbYnRyZnNdDQo+IC0tLQ0KDQpMb29rcyBnb29kLg0KDQpSZXZp
-ZXdlZC1ieTogQ2hhaXRhbnlhIEt1bGthcm5pIDxrY2hAbnZpZGlhLmNvbT4NCg0KLWNrDQoNCi0t
-CmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1h
-bi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
+The commit 92986f6b4c8a ("dm: use bio_clone_fast in alloc_io/alloc_tio")
+removed bio_clone_fast() call from alloc_tio() when ci->io->tio is
+available. In this case, ci->bio is not copied to ci->io->tio.clone.
+This is fine since init_clone_info() sets same values to ci->bio and
+ci->io->tio.clone.
+
+However, when incoming bios have REQ_PREFLUSH flag, __send_empty_flush()
+prepares a zero length bio on stack and set it to ci->bio. At this time,
+ci->io->tio.clone still keeps non-zero length. When alloc_tio() chooses
+this ci->io->tio.clone as the bio to map, it is passed to targets as
+non-empty flush bio. It causes bio length check failure in dm-zoned and
+unexpected operation such as dm_accept_partial_bio() call.
+
+To avoid the non-empty flush bio, set zero length to ci->io->tio.clone
+in __send_empty_flush().
+
+Fixes: 92986f6b4c8a ("dm: use bio_clone_fast in alloc_io/alloc_tio")
+Signed-off-by: Shin'ichiro Kawasaki <shinichiro.kawasaki@wdc.com>
+---
+ drivers/md/dm.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 3c5fad7c4ee6..f2397546b93f 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1392,6 +1392,7 @@ static void __send_empty_flush(struct clone_info *ci)
+ 
+ 	ci->bio = &flush_bio;
+ 	ci->sector_count = 0;
++	ci->io->tio.clone.bi_iter.bi_size = 0;
+ 
+ 	while ((ti = dm_table_get_target(ci->map, target_nr++)))
+ 		__send_duplicate_bios(ci, ti, ti->num_flush_bios, NULL);
+-- 
+2.35.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
