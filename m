@@ -2,56 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 03BCF504C3F
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 07:22:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C7BCA504C4E
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 07:30:31 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-626-ZBPxX0uBNQ-XzOry6tqKkw-1; Mon, 18 Apr 2022 01:22:17 -0400
-X-MC-Unique: ZBPxX0uBNQ-XzOry6tqKkw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-272-UlkrL8awMWOY0pih4-437Q-1; Mon, 18 Apr 2022 01:30:27 -0400
+X-MC-Unique: UlkrL8awMWOY0pih4-437Q-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09A6B1014A6F;
-	Mon, 18 Apr 2022 05:22:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BBF481014A60;
+	Mon, 18 Apr 2022 05:30:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8B7D340FD34F;
-	Mon, 18 Apr 2022 05:22:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CBB865744F6;
+	Mon, 18 Apr 2022 05:30:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C59931940347;
-	Mon, 18 Apr 2022 05:22:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 848BD1940346;
+	Mon, 18 Apr 2022 05:30:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2D54219451F1
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 05:22:13 +0000 (UTC)
+ ESMTP id 065A019451F1
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 05:30:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 20299409B400; Mon, 18 Apr 2022 05:22:13 +0000 (UTC)
+ id D718040FD34F; Mon, 18 Apr 2022 05:30:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1BFD940FD35A
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:22:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01CF2811E76
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:22:13 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D33E940F9D67
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:30:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B989529AB3F3
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:30:20 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-657-STCiXWdQPqamjGOVN96fow-1; Mon, 18 Apr 2022 01:19:24 -0400
-X-MC-Unique: STCiXWdQPqamjGOVN96fow-1
+ us-mta-593-8G19D7qPPt6IxfgUeaciVw-1; Mon, 18 Apr 2022 01:30:15 -0400
+X-MC-Unique: 8G19D7qPPt6IxfgUeaciVw-1
 Received: from [2a02:1205:504b:4280:f5dd:42a4:896c:d877] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ngJO3-00FYha-FT; Mon, 18 Apr 2022 04:53:20 +0000
+ id 1ngJO6-00FYhe-Hq; Mon, 18 Apr 2022 04:53:23 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Apr 2022 06:53:04 +0200
-Message-Id: <20220418045314.360785-2-hch@lst.de>
+Date: Mon, 18 Apr 2022 06:53:05 +0200
+Message-Id: <20220418045314.360785-3-hch@lst.de>
 In-Reply-To: <20220418045314.360785-1-hch@lst.de>
 References: <20220418045314.360785-1-hch@lst.de>
 MIME-Version: 1.0
@@ -65,7 +64,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [dm-devel] [PATCH 01/11] ubd: don't set the discard_alignment queue
+Subject: [dm-devel] [PATCH 02/11] nbd: don't set the discard_alignment queue
  limit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -93,7 +92,7 @@ Cc: Jan Hoeppner <hoeppner@linux.ibm.com>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -103,26 +102,42 @@ Content-Transfer-Encoding: 7bit
 
 The discard_alignment queue limit is named a bit misleading means the
 offset into the block device at which the discard granularity starts.
-Setting it to the discard granularity as done by ubd is mostly harmless
+Setting it to the discard granularity as done by nbd is mostly harmless
 but also useless.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- arch/um/drivers/ubd_kern.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/block/nbd.c | 3 ---
+ 1 file changed, 3 deletions(-)
 
-diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
-index 085ffdf98e57e..c4344b67628dd 100644
---- a/arch/um/drivers/ubd_kern.c
-+++ b/arch/um/drivers/ubd_kern.c
-@@ -799,7 +799,6 @@ static int ubd_open_dev(struct ubd *ubd_dev)
+diff --git a/drivers/block/nbd.c b/drivers/block/nbd.c
+index 4729aef8c6462..102597a4277b9 100644
+--- a/drivers/block/nbd.c
++++ b/drivers/block/nbd.c
+@@ -333,7 +333,6 @@ static int nbd_set_size(struct nbd_device *nbd, loff_t bytesize,
+ 
+ 	if (nbd->config->flags & NBD_FLAG_SEND_TRIM) {
+ 		nbd->disk->queue->limits.discard_granularity = blksize;
+-		nbd->disk->queue->limits.discard_alignment = blksize;
+ 		blk_queue_max_discard_sectors(nbd->disk->queue, UINT_MAX);
  	}
- 	if (ubd_dev->no_trim == 0) {
- 		ubd_dev->queue->limits.discard_granularity = SECTOR_SIZE;
--		ubd_dev->queue->limits.discard_alignment = SECTOR_SIZE;
- 		blk_queue_max_discard_sectors(ubd_dev->queue, UBD_MAX_REQUEST);
- 		blk_queue_max_write_zeroes_sectors(ubd_dev->queue, UBD_MAX_REQUEST);
- 	}
+ 	blk_queue_logical_block_size(nbd->disk->queue, blksize);
+@@ -1316,7 +1315,6 @@ static void nbd_config_put(struct nbd_device *nbd)
+ 
+ 		nbd->tag_set.timeout = 0;
+ 		nbd->disk->queue->limits.discard_granularity = 0;
+-		nbd->disk->queue->limits.discard_alignment = 0;
+ 		blk_queue_max_discard_sectors(nbd->disk->queue, 0);
+ 
+ 		mutex_unlock(&nbd->config_lock);
+@@ -1781,7 +1779,6 @@ static struct nbd_device *nbd_dev_add(int index, unsigned int refs)
+ 	blk_queue_flag_set(QUEUE_FLAG_NONROT, disk->queue);
+ 	blk_queue_flag_clear(QUEUE_FLAG_ADD_RANDOM, disk->queue);
+ 	disk->queue->limits.discard_granularity = 0;
+-	disk->queue->limits.discard_alignment = 0;
+ 	blk_queue_max_discard_sectors(disk->queue, 0);
+ 	blk_queue_max_segment_size(disk->queue, UINT_MAX);
+ 	blk_queue_max_segments(disk->queue, USHRT_MAX);
 -- 
 2.30.2
 
