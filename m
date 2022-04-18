@@ -1,83 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E7A89504AFA
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:27:51 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF4FD504AFB
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:27:53 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-382-WfUTAAo6Mua1TRRCk0zhvg-1; Sun, 17 Apr 2022 22:27:47 -0400
-X-MC-Unique: WfUTAAo6Mua1TRRCk0zhvg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-481-wguyv47QOnShEth7fxoVlg-1; Sun, 17 Apr 2022 22:27:51 -0400
+X-MC-Unique: wguyv47QOnShEth7fxoVlg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F50C866DF9;
-	Mon, 18 Apr 2022 02:27:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96B501014A66;
+	Mon, 18 Apr 2022 02:27:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 702A440F495E;
-	Mon, 18 Apr 2022 02:27:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7EB57574772;
+	Mon, 18 Apr 2022 02:27:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2481A194034C;
-	Mon, 18 Apr 2022 02:27:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5585A194034E;
+	Mon, 18 Apr 2022 02:27:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 57F0219466DF
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:42 +0000 (UTC)
+ ESMTP id 4496C19466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 47A51145BA58; Mon, 18 Apr 2022 02:27:42 +0000 (UTC)
+ id 37F5040F496D; Mon, 18 Apr 2022 02:27:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 43D04145BA54
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A70180418A
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:42 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 332F340F4941
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:43 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B27D811E78
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:43 +0000 (UTC)
 Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
  [209.85.222.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-101-4Yl3YKECN4SIPHn9h9yczQ-1; Sun, 17 Apr 2022 22:27:40 -0400
-X-MC-Unique: 4Yl3YKECN4SIPHn9h9yczQ-1
+ us-mta-101-w84csCdqODKOORa5sMt6Fg-2; Sun, 17 Apr 2022 22:27:41 -0400
+X-MC-Unique: w84csCdqODKOORa5sMt6Fg-2
 Received: by mail-qk1-f169.google.com with SMTP id c1so10333853qkf.13
- for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:40 -0700 (PDT)
+ for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:41 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=WC4/CipdzgTN3se8d+L028AZTt4ZJzV49kXsLuFQgrs=;
- b=o+U1rpMaZc316p5nPZgA7mb5iwWZBjYVYkPNuM/EYCwT7Y58fDMu085kOYBteYXh16
- l0dPqW6HzhREzKMb0WQ96gu08KU6WEWCua/yy83mHq/CTil9HR0S8XSFbbQPGsy574kP
- 2Dlrl/I01maUtUuzl5NVrJwrCivjEoxMQe0qGbFLNry1AyJ4jx3gj2AfovsovROlAmUb
- 4n0yuAR0ddn28cKcJqlKageOUcZyam0sDeCQPFvtNM7aGQ4qYvjHpEIJDhObVnux3q+f
- waY+k4+scd1R/JaAYR9mrel4+FhS9VGThAtvoeosp2Zc6yVDZdeQ8O2jq0tdMxVNGzID
- cq8Q==
-X-Gm-Message-State: AOAM530Wy+5X2IuOStVPelKUdFhXNeoV5pU+pa5KH05A+xgidD2GLgoJ
- FqUxaBkv0zHEIZ3U0O1Q2VTMCzzlxkVDeaz15ZXKGa4iCIv6kH3JNpMqrThi0vGEdFD74KLDUJL
- +kl4SRMfaTqPKZYBpSBMNH+FdnNZz95OPaG4RqinydX/YWUk7uDy/fhTf3C8LQHq+cXo=
-X-Google-Smtp-Source: ABdhPJz4n4y68aJDDFsswEA//XUAbPWLiUmjKKXE4RCNiC0p6NUvBHon5kuWKFkPj9sBF6992edKfQ==
-X-Received: by 2002:a05:620a:448c:b0:67d:4fe3:2b96 with SMTP id
- x12-20020a05620a448c00b0067d4fe32b96mr5288849qkp.663.1650248859720; 
- Sun, 17 Apr 2022 19:27:39 -0700 (PDT)
+ bh=NEDNcRPXSM0l6lC/0mgd34uV1HMyQSsxxM6AAdfWrHs=;
+ b=f4DRwWoHNJZcVZUPns/v1TEYTk01rVMt4b+6OgPxAQvWJiNDlPGN0I07XzGzWn06dz
+ 5N9iQPDsISDx7G+u3p3fzmaPwcmnxg6S/7kv4lpRRl24B18afGx6sTE54GTgaSRS8P2E
+ zqo6SDsBCCkjuDJ76JRnwqn1dpH9r86O9QcchhiMOItKlIoGu9I+uOj4AUjTT9rScxW9
+ uZVfYpX5EfVFOThd9h8YUnM2pPPUN/xIJbZXVh2LjVsrdo69kvu7WdX9pNY+Ed0NAXKL
+ gGuEjXbS+HbAviHiZ22TRD4+qg7qeeaBGcVEC7c741KARX+iYKww9hSlmH4f55RVu5aZ
+ xUXA==
+X-Gm-Message-State: AOAM533lb29kPpioH0iR9fwJ8PHlAziDUb/6bOjJzC4p/pwsKdte3LpJ
+ aErVM7PdTGdhxMe9XY09RGeZNFXVwZ2fCK/vCs/6ANr4BTjWZTOnl90N6mWdKlChrsVhlGSw7cw
+ BiRhFbTg42iiDpss1DlMhWycWarR6vkQlQ0Di06baV2p06+I4m6b3frY5PbgPGNdhuw8=
+X-Google-Smtp-Source: ABdhPJwFsovSNtvBbK9uIY0LhyNR9wHduKHfqBlQ7bHkcQ7LmmQE/PfGgJABcYyAhVgUXXSpiXzgEQ==
+X-Received: by 2002:a05:620a:4102:b0:69c:67ba:ee79 with SMTP id
+ j2-20020a05620a410200b0069c67baee79mr5385164qko.627.1650248860852; 
+ Sun, 17 Apr 2022 19:27:40 -0700 (PDT)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
  [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- t198-20020a3746cf000000b0069c51337badsm6014134qka.45.2022.04.17.19.27.39
+ v23-20020ae9e317000000b0069ea555b54dsm485965qkf.128.2022.04.17.19.27.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Apr 2022 19:27:39 -0700 (PDT)
+ Sun, 17 Apr 2022 19:27:40 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Sun, 17 Apr 2022 22:27:16 -0400
-Message-Id: <20220418022733.56168-5-snitzer@kernel.org>
+Date: Sun, 17 Apr 2022 22:27:17 -0400
+Message-Id: <20220418022733.56168-6-snitzer@kernel.org>
 In-Reply-To: <20220418022733.56168-1-snitzer@kernel.org>
 References: <20220418022733.56168-1-snitzer@kernel.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [dm-devel] [dm-5.19 PATCH 04/21] dm: simplify dm_io access in
- dm_split_and_process_bio
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [dm-5.19 PATCH 05/21] dm: simplify dm_start_io_acct
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +93,7 @@ Cc: axboe@kernel.dk, hch@lst.de, ming.lei@redhat.com
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,69 +101,72 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use local variable instead of redudant access using ci.io
+Pull common DM_IO_ACCOUNTED check out to beginning of dm_start_io_acct.
+Also, use dm_tio_is_normal (and move it to dm-core.h).
 
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+ drivers/md/dm-core.h |  6 ++++++
+ drivers/md/dm.c      | 18 +++++-------------
+ 2 files changed, 11 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 88ff5c3311aa..48f93c55c992 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1566,10 +1566,12 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 				     struct dm_table *map, struct bio *bio)
- {
- 	struct clone_info ci;
-+	struct dm_io *io;
- 	struct bio *orig_bio = NULL;
- 	blk_status_t error = BLK_STS_OK;
- 
- 	init_clone_info(&ci, md, map, bio);
-+	io = ci.io;
- 
- 	if (bio->bi_opf & REQ_PREFLUSH) {
- 		__send_empty_flush(&ci);
-@@ -1578,14 +1580,14 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 	}
- 
- 	error = __split_and_process_bio(&ci);
--	ci.io->map_task = NULL;
-+	io->map_task = NULL;
- 	if (error || !ci.sector_count)
- 		goto out;
- 
- 	/*
- 	 * Remainder must be passed to submit_bio_noacct() so it gets handled
- 	 * *after* bios already submitted have been completely processed.
--	 * We take a clone of the original to store in ci.io->orig_bio to be
-+	 * We take a clone of the original to store in io->orig_bio to be
- 	 * used by dm_end_io_acct() and for dm_io_complete() to use for
- 	 * completion handling.
- 	 */
-@@ -1597,9 +1599,9 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- out:
- 	if (!orig_bio)
- 		orig_bio = bio;
--	smp_store_release(&ci.io->orig_bio, orig_bio);
--	if (dm_io_flagged(ci.io, DM_IO_START_ACCT))
--		dm_start_io_acct(ci.io, NULL);
-+	smp_store_release(&io->orig_bio, orig_bio);
-+	if (dm_io_flagged(io, DM_IO_START_ACCT))
-+		dm_start_io_acct(io, NULL);
- 
- 	/*
- 	 * Drop the extra reference count for non-POLLED bio, and hold one
-@@ -1611,7 +1613,7 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 	if (error || !ci.submit_as_polled)
- 		dm_io_dec_pending(ci.io, error);
- 	else
--		dm_queue_poll_io(bio, ci.io);
-+		dm_queue_poll_io(bio, io);
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index 4277853c7535..db069fa9cee5 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -237,6 +237,12 @@ static inline void dm_tio_set_flag(struct dm_target_io *tio, unsigned int bit)
+ 	tio->flags |= (1U << bit);
  }
  
- static void dm_submit_bio(struct bio *bio)
++static inline bool dm_tio_is_normal(struct dm_target_io *tio)
++{
++	return (dm_tio_flagged(tio, DM_TIO_INSIDE_DM_IO) &&
++		!dm_tio_flagged(tio, DM_TIO_IS_DUPLICATE_BIO));
++}
++
+ /*
+  * One of these is allocated per original bio.
+  * It contains the first clone used for that original.
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 48f93c55c992..0974498c68e7 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -538,17 +538,15 @@ static void dm_start_io_acct(struct dm_io *io, struct bio *clone)
+ 
+ 	/*
+ 	 * Ensure IO accounting is only ever started once.
+-	 * Expect no possibility for race unless DM_TIO_IS_DUPLICATE_BIO.
+ 	 */
+-	if (!clone ||
+-	    likely(!dm_tio_flagged(clone_to_tio(clone), DM_TIO_IS_DUPLICATE_BIO))) {
+-		if (WARN_ON_ONCE(dm_io_flagged(io, DM_IO_ACCOUNTED)))
+-			return;
++	if (dm_io_flagged(io, DM_IO_ACCOUNTED))
++		return;
++
++	/* Expect no possibility for race unless DM_TIO_IS_DUPLICATE_BIO. */
++	if (!clone || likely(dm_tio_is_normal(clone_to_tio(clone)))) {
+ 		dm_io_set_flag(io, DM_IO_ACCOUNTED);
+ 	} else {
+ 		unsigned long flags;
+-		if (dm_io_flagged(io, DM_IO_ACCOUNTED))
+-			return;
+ 		/* Can afford locking given DM_TIO_IS_DUPLICATE_BIO */
+ 		spin_lock_irqsave(&io->lock, flags);
+ 		dm_io_set_flag(io, DM_IO_ACCOUNTED);
+@@ -923,12 +921,6 @@ static void dm_io_complete(struct dm_io *io)
+ 	}
+ }
+ 
+-static inline bool dm_tio_is_normal(struct dm_target_io *tio)
+-{
+-	return (dm_tio_flagged(tio, DM_TIO_INSIDE_DM_IO) &&
+-		!dm_tio_flagged(tio, DM_TIO_IS_DUPLICATE_BIO));
+-}
+-
+ /*
+  * Decrements the number of outstanding ios that a bio has been
+  * cloned into, completing the original io if necc.
 -- 
 2.15.0
 
