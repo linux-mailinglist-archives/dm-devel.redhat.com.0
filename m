@@ -1,138 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B46F506439
-	for <lists+dm-devel@lfdr.de>; Tue, 19 Apr 2022 08:10:50 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A8CB250642E
+	for <lists+dm-devel@lfdr.de>; Tue, 19 Apr 2022 08:10:42 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-164-Gq116EIPO-WfAwqbYMIK9A-1; Tue, 19 Apr 2022 02:10:45 -0400
-X-MC-Unique: Gq116EIPO-WfAwqbYMIK9A-1
+ us-mta-609-28emEEuuPhm6h2WblNlmCA-1; Tue, 19 Apr 2022 02:10:38 -0400
+X-MC-Unique: 28emEEuuPhm6h2WblNlmCA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4A7061C10468;
-	Tue, 19 Apr 2022 06:10:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7214280378F;
+	Tue, 19 Apr 2022 06:10:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2CCF7C5097E;
-	Tue, 19 Apr 2022 06:10:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 72BADC27EBC;
+	Tue, 19 Apr 2022 06:10:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B9501194EBA2;
-	Tue, 19 Apr 2022 06:10:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 932AC193F6EE;
+	Tue, 19 Apr 2022 06:10:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6CA141947BBB
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 21:23:12 +0000 (UTC)
+ ESMTP id 8AB551947BBB
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 22:43:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 317BA40FD37D; Mon, 18 Apr 2022 21:23:12 +0000 (UTC)
+ id 54121C5097E; Mon, 18 Apr 2022 22:43:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C85E407E1C1
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 21:23:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0FE463804072
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 21:23:12 +0000 (UTC)
-Received: from NAM12-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam12on2041.outbound.protection.outlook.com [40.107.237.41]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-528-EXp9GNwuPouroZzWI5suvA-1; Mon, 18 Apr 2022 17:23:08 -0400
-X-MC-Unique: EXp9GNwuPouroZzWI5suvA-1
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
- by BYAPR12MB5703.namprd12.prod.outlook.com (2603:10b6:a03:a5::32)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5164.18; Mon, 18 Apr
- 2022 21:23:05 +0000
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com
- ([fe80::a90b:9df2:370c:e76b]) by MW2PR12MB4667.namprd12.prod.outlook.com
- ([fe80::a90b:9df2:370c:e76b%3]) with mapi id 15.20.5164.025; Mon, 18 Apr 2022
- 21:23:05 +0000
-From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
-Thread-Topic: [PATCH 09/11] nvme: remove a spurious clear of discard_alignment
-Thread-Index: AQHYUuBcFEm/XfqSQ0uW2E3HX2krVaz2LzqA
-Date: Mon, 18 Apr 2022 21:23:05 +0000
-Message-ID: <66df636c-b98a-23f7-20f5-f124109b81c1@nvidia.com>
-References: <20220418045314.360785-1-hch@lst.de>
- <20220418045314.360785-10-hch@lst.de>
-In-Reply-To: <20220418045314.360785-10-hch@lst.de>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.7.0
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 8ea33572-46a0-4def-4816-08da2181a0a0
-x-ms-traffictypediagnostic: BYAPR12MB5703:EE_
-x-microsoft-antispam-prvs: <BYAPR12MB57034654840D806181EA4705A3F39@BYAPR12MB5703.namprd12.prod.outlook.com>
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: wZRIafoMZ+RNEv0jR3059UeyDTFK32ryaMGSLWdws/jWK1ZLHE9hYQAuxaagMVs/LEd/tpZiQVJDQf1nmESaKq+E5Cog4yW9qJs+ajxMRBm0ihATE22BxMXT67QvxcLPHLKUxtogqLjr2S3bccK0HG8KLBQgdD7S4N1dtflpco/vndZ9fHtv8ZVS44KE+gAB7iIu1cFQeZX00WRBwVkiIPbxklRZ7reZXWoinrMqonA+BbWykmn9TA6hOVhJkz+a4LV2zrC2nBas3p2lgORI24Re5BSDJaXDU71ZPwsW/FJY3K58yAj/q3xPJWAvcAzpClVyBI/ieTTMTanbP75jut6qk8WNQb7/Vn0m7SA19hWgKnRK/K+ONQrHCQR5N78AMkwuS+Fsl48/Y0Om1/cP0nF7aWaKnJ6dhQvQgK1wY+Lnmvoy+BE6li5iHNeJW1nlfWQ/A3HXyZ2MKDaObYA841BmXGhg3Fy4GVlTz/bkvccGcD5D0u5ncn7CJd9BRyI9HT4voIcBXJZEfYvnhiMQWgI+awGaihUto+et5YyvXTdHpJX1lg0tU6U3DQPO1sdLiez5LvX+/BVai9Rkxh846t7jct1VZnTXRVGqZYkIamc4I66l6G1W2ypSWvc6XABmk2hgEj3iAZbAcCsedSHS6h5dAxJXHpYA9nR2zGUkWfm0HSdv/eRAd8LZ6qz4Zjq5pVf670aNRxbNeWA42OmJ1kRJ7dXwgG38AMo2qb1kid+PSZXlzehAFA+FXLA4LD+7+h3ile31o23bjx8fvRA7Nw==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW2PR12MB4667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(558084003)(71200400001)(86362001)(5660300002)(66946007)(76116006)(31696002)(186003)(316002)(38070700005)(6486002)(38100700002)(2616005)(122000001)(66446008)(110136005)(7416002)(54906003)(64756008)(91956017)(4326008)(8676002)(66476007)(66556008)(508600001)(8936002)(31686004)(6506007)(36756003)(2906002)(6512007)(53546011)(43740500002)(45980500001);
- DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?K3JyUHJGTk9VOGd4ejRtQ2k2SktOU0RoODU2STdRZ2Juc1lvMFFsRzdBUkRm?=
- =?utf-8?B?b0hxTGpHME5nWGs0bkxZRE5KUUpLZjg2U1NmY1VLUHNRVG56YXVEMnQwWHRL?=
- =?utf-8?B?YXNGQmNISmNxQjRxV2F5am1VZU5sV2hhb0ppSGtUT242b0U3OWVyUTE2eGt5?=
- =?utf-8?B?cnhLeHpNRC9uQ2hQNTFJNE9vWTkxUVRndmpnYmYwVjdqVDJnMldhVFhxVmhk?=
- =?utf-8?B?RTAvbm9yZVYxbDBDdlpWblJxRldKMVk1OVcwWi8xQWhxd1JVN0kzeHpsRkZC?=
- =?utf-8?B?M1YxMEoveUpVT2YxZFB2T2NmSkNBOGRlV0p5ZG43STJBMW1vVFJMdXNHUXVK?=
- =?utf-8?B?K1UrL21mcFk1Z3Nta3N2Y0xncE9tZnB0S1FKTzF3OHQ5VkNvYUtxUEgvYkVR?=
- =?utf-8?B?Y3hnWmY3ZGdQZEVuL2JaK1FndE9iaEJxbkJuSmFkZGFxckEyMTJkdEJ0VUFh?=
- =?utf-8?B?M2VlbUxXTVgwWUh5TGxqbkQyNUVTU05QcHRBcm1XQUNla0VKTzY0UUFYODAr?=
- =?utf-8?B?MjZucUQ3VDRpazRZRTFWeGt2QXZDWXhrdWowTjBUUHpwYUVvK0dYVnpiVE5l?=
- =?utf-8?B?Q2NKNEo5Z3ZuSlN4bXVvK3FvaHlUdHJTZVNLenBEQm53ekpiekxNeGYvOXZh?=
- =?utf-8?B?WUZLQjR6dWlXczl5VXFmVXg5TkplY1UzeWdVMGFzTmlaaGlBZjJETEhVbjhx?=
- =?utf-8?B?eFU0SXdBZ09zOEZtQU1rc2tIR1NlRTFzQXNzZnpWM3RCdE5rOXZKV1FwMksy?=
- =?utf-8?B?NFBralNBei9kOG1PWlhCZmFFa0szY1I5WHlZR3J2am5FMEUwRkp4Zk42VTc4?=
- =?utf-8?B?N3J6L1Z5YURoRVphVjMvdmxiR0NwMForU21QblVXUWN6Y2hOVTM4LzBqeUM4?=
- =?utf-8?B?NXV4aFlLUFFrdHpza1RtN3A2TkhDYnN5ZEZuRnlQVWRta0JiQTd1aEVQL2d0?=
- =?utf-8?B?ZlVXVVUwdllzTzFYN2dqQWVhNjYxVGZ5bUJEMXM0NGZHdnlsUUFSRFVVU1FF?=
- =?utf-8?B?TzhJQmhpZ0hZSG1oVjl0ODhsRXlYOC9lVVBETEZlaEZXWkhhNENnbytlYlJP?=
- =?utf-8?B?bnpyVXlMaE5XNzhUMFVYclF2aTFFQ2d4ZkUwTFhuUWxTRmpiSmYydnFYdHhh?=
- =?utf-8?B?bG9BWFp3TFcrVW1KN2xBWm84dnY1N3FoZ0NQcFhYRGtIeUM3ekxrVGFXL2Fk?=
- =?utf-8?B?NWRZQkVHZm1xb1I4RUt5Q0lKb2d4c3NSNkdlS1ZhTVptNjBQUUFhZHdXS09H?=
- =?utf-8?B?ZGxINlE1WDAzOUZNNlJObnVuaU93ckY1ZzJpMW9rYWN6c1RNdkZJdTBLTXZK?=
- =?utf-8?B?S1BJZnF1YXEyWmpiNVhNNXZ0d0FxZ0dDZHFOVm1URi9YUzMxc0VBMWFuSm94?=
- =?utf-8?B?L0xBWDhTUldOQjJZOG8xYnVzOHhWVzBvcDN4UmJmN0VadWd6OTZIVE16TTF1?=
- =?utf-8?B?OUxVbCtOOVRZR0oySW8raDhLalh6SDhwZXV4ZGI1aTVFWkh0ZTc3MUwvS1lC?=
- =?utf-8?B?UjVRdE9NWDJrRWdMKy9iaXRMMTV2c1VhLzBFVW4yU3JTblpicHQ4cDVPNC9n?=
- =?utf-8?B?b1VpTVN4b0VHalZVTzJrNFpTWHBreHU4L01IZE1VOU9LNHh4TWRBcXFtY1oz?=
- =?utf-8?B?RWVvVDYvYmRzUCszVE1adk4rNUp0Y3JSOHRNeVdOd3lvZCtEcTdWMFMxQTFM?=
- =?utf-8?B?bWNHVytkWXVjakNmKzgvV1RzZ01EWGFZdFRHYlVHSXNFSGxFODZqOTJJN2xI?=
- =?utf-8?B?RllFTHBybk1zeUxnU2FEbVBRa2tGWDNWcTRScTE4TWtvQ1R2bEQvQ25SWFd5?=
- =?utf-8?B?d0lWcWw2aURlYzR0VDZpay9SZy84VGVSU2tCSnlLOE9ZZ3ZseExMU2pUM1ha?=
- =?utf-8?B?bzg3SjJSc3I1V21Xc0FPOUVrci9LQmx5SkxpZThDRjdkTTEvdVk2ZWF4RXp4?=
- =?utf-8?B?NEhlK1NKdjBiU1gxT0k4UFA3U1l2cWRpNlprSnd2cVQ4SG5aWWIrdTRKVkto?=
- =?utf-8?B?QnFNU0hucTl1QWRwKzJaUFMzNTN2aVh2dGRJZEdkYUpKVCtPY21sVUtWbHor?=
- =?utf-8?B?L2ZRSkZBYjVQK1Jpd3dzcTNQRmltaDVXbVp2Zm4yVUE5azdFUTc5MEtWdVJ2?=
- =?utf-8?B?Wk1XQ0NmTEJHQnptT0tpNERWdXVzbk9xbG11VDBjMFpQNmhqK05tMkNKaTAw?=
- =?utf-8?B?T0tkbVhwSjZrMDEzR0lnMDgwak8zZVlXMXg5OVNlOWdBc0trSnpyellyWERK?=
- =?utf-8?B?L1dtT3FLaTYvUk9RdFU1NEFOSHFhOFNHcTJHQ3hBMkNDbSswUkd2K1JBMUNS?=
- =?utf-8?B?R0dUWEt1eTJXWExteGIrczUzWXMvVXE3eUIxejVJdVFneEQxZFR2SzBJVDc5?=
- =?utf-8?Q?3ThODCQ/tQz/cwX0=3D?=
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FE4BC50975
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 22:43:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34F0B80005D
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 22:43:32 +0000 (UTC)
+Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
+ [209.85.215.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-75-pYBjgS0qO5eY7RT-AHqgbQ-1; Mon, 18 Apr 2022 18:43:30 -0400
+X-MC-Unique: pYBjgS0qO5eY7RT-AHqgbQ-1
+Received: by mail-pg1-f175.google.com with SMTP id k29so21425639pgm.12
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 15:43:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=MWGw+I8Rgl/opd43ebHHMAj95ulAD46oHN9fU4DvNpo=;
+ b=xO9vNwv7DcbgV5F2FXXxI4nF+iA1P8WfxWdt0t4KYl0sl+TnGVBlwNE146QBaZKzpF
+ hyhNKsniqy0Ll+DFkrWI5ACjCEAJxt2JvlgTHS37IxLWcgaIk5emgRR4gJ9DMjEl+SIJ
+ CDghoB68wFZovfTpt7BiuuXUo0SlidAeauVl2I2PwNZBnqtg0AlCutE1CfSvqVkCIg/p
+ EBbjCS2Sg/zpJnb9UUKSt2oLvnOv7z25lSVDBFKxD5UsjtpE2P8y85P8DJ4+w51TJkou
+ nO6taOPLPpkb+9MYHhblt0rz/MyFK6sO3gI5u6XfUTUT7SYj6NiCZLTkkxjTEyq57DoR
+ 82qA==
+X-Gm-Message-State: AOAM530tImhjLRQaBq1sXiW7HQz67Iuks6bTR0ZzYACE36ubuWtD6LUA
+ vcpy9lvwbOW7mDcGJarloAT7sQ==
+X-Google-Smtp-Source: ABdhPJzCwRyTVg95a0VNni8DDkvimLaSN54/K64RZIVo/TLCFqUrkHEvTzI8UPMiQhfcOb3Sebf+WQ==
+X-Received: by 2002:a63:5013:0:b0:399:5816:fd0d with SMTP id
+ e19-20020a635013000000b003995816fd0dmr11795301pgb.68.1650321809394; 
+ Mon, 18 Apr 2022 15:43:29 -0700 (PDT)
+Received: from localhost ([2620:15c:202:201:6b32:a0a5:ec32:c287])
+ by smtp.gmail.com with UTF8SMTPSA id
+ e13-20020a63370d000000b003810782e0cdsm14078821pga.56.2022.04.18.15.43.28
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 18 Apr 2022 15:43:28 -0700 (PDT)
+Date: Mon, 18 Apr 2022 15:43:27 -0700
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <Yl3pj72hM/Bo+Kf5@google.com>
+References: <20220418211559.3832724-1-mka@chromium.org>
+ <202204181512.DA0C0C6EBD@keescook>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ea33572-46a0-4def-4816-08da2181a0a0
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Apr 2022 21:23:05.4140 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: bX94/9AH8QVpG+ra0QBfSC7XQkW0/5sNBc2d1BEGlO4VFk0lgNSO6gOFfRnduTdTtrVmVUtGs0aqwIqvFg029g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR12MB5703
+In-Reply-To: <202204181512.DA0C0C6EBD@keescook>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -140,10 +83,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 19 Apr 2022 06:10:27 +0000
-Subject: Re: [dm-devel] [PATCH 09/11] nvme: remove a spurious clear of
- discard_alignment
+Subject: Re: [dm-devel] [PATCH 0/3] LoadPin: Enable loading from trusted
+ dm-verity devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,25 +98,11 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, "Michael S.
- Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "virtualization@lists.linux-foundation.org"
- <virtualization@lists.linux-foundation.org>, Song Liu <song@kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>, "Md. Haris
- Iqbal" <haris.iqbal@ionos.com>, Jack Wang <jinpu.wang@ionos.com>,
- "linux-s390@vger.kernel.org" <linux-s390@vger.kernel.org>,
- Richard Weinberger <richard@nod.at>,
- "xen-devel@lists.xenproject.org" <xen-devel@lists.xenproject.org>,
- "linux-um@lists.infradead.org" <linux-um@lists.infradead.org>,
- Mike Snitzer <snitzer@kernel.org>, Josef Bacik <josef@toxicpanda.com>,
- "nbd@other.debian.org" <nbd@other.debian.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- Stefan Haberland <sth@linux.ibm.com>,
- "linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>, "Martin K.
- Petersen" <martin.petersen@oracle.com>,
- Johannes Berg <johannes@sipsolutions.net>,
- =?utf-8?B?Um9nZXIgUGF1IE1vbm7DqQ==?= <roger.pau@citrix.com>
+Cc: Douglas Anderson <dianders@chromium.org>, dm-devel@redhat.com,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ James Morris <jmorris@namei.org>, linux-raid@vger.kernel.org,
+ Song Liu <song@kernel.org>, linux-security-module@vger.kernel.org,
+ Alasdair Kergon <agk@redhat.com>, "Serge E . Hallyn" <serge@hallyn.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
@@ -181,22 +110,53 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <2261F5F6E0810744877DAE4E412E6B80@namprd12.prod.outlook.com>
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/17/22 21:53, Christoph Hellwig wrote:
-> The nvme driver never sets a discard_alignment, so it also doens't need
-> to clear it to zero.
+Hi Kees,
+
+On Mon, Apr 18, 2022 at 03:14:14PM -0700, Kees Cook wrote:
+> [oops, resending to actual CC list]
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
+> On Mon, Apr 18, 2022 at 02:15:56PM -0700, Matthias Kaehlcke wrote:
+> > This series extends LoadPin to allow loading of kernel files
+> > from trusted dm-verity devices. It adds the concept of
+> > trusted verity devices to LoadPin. Userspace can use the
+> > new systl file 'loadpin/trusted_verity_root_digests' to
+> > provide LoadPin with a list of root digests from dm-verity
+> > devices that LoadPin should consider as trusted. When a
+> > kernel file is read LoadPin first checks (as usual) whether
+> > the file is located on the pinned root, if so the file can
+> > be loaded. Otherwise, if the verity extension is enabled,
+> > LoadPin determines whether the file is located on a verity
+> > backed device and whether the root digest of that device
+> > is in the list of trusted digests. The file can be loaded
+> > if the verity device has a trusted root digest.
+> > 
+> > The list of trusted root digests can only be written once
+> > (typically at boot time), to limit the possiblity of
+> > attackers setting up rogue verity devices and marking them
+> > as trusted.
 
-Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 
--ck
+> Thanks for working all this out! Where does the list of trusted
+> roothashes come from? I assume some chain of trust exists. Is the list
+> maybe already stored on the rootfs?
 
+Yes, at least the content of the list comes from the rootfs. The
+userspace part is still TBD (also pending on the evolution of this
+patchset), having the list pre-formatted in a single file on the
+rootfs should be fine.
+
+> It'd be nice if there was some way to pass the trust chain to LoadPin
+> more directly.
+
+I imagine you envision LoadPin reading the file itself, instead of
+just processing the content. That should be doable. One option would
+be to pass the path of the file with the hashes through the sysctl
+file and use kernel_read_file_from_path() to read it if the path is
+in the pinned root (or maybe even in any trusted file system ;-)
 
 --
 dm-devel mailing list
