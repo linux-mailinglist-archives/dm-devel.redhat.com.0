@@ -2,89 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5F268504A7B
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 03:33:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BB1D504B04
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:28:03 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-572-loPvoHYzONGKoNmYmijK-g-1; Sun, 17 Apr 2022 21:33:06 -0400
-X-MC-Unique: loPvoHYzONGKoNmYmijK-g-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-554-kv8l4TZPPTCJa3zpi_mLKA-1; Sun, 17 Apr 2022 22:27:43 -0400
+X-MC-Unique: kv8l4TZPPTCJa3zpi_mLKA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03CE3185A79C;
-	Mon, 18 Apr 2022 01:33:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C57F833967;
+	Mon, 18 Apr 2022 02:27:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6FACB40F9D5B;
-	Mon, 18 Apr 2022 01:32:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9B75657476A;
+	Mon, 18 Apr 2022 02:27:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5D4081940343;
-	Mon, 18 Apr 2022 01:32:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 46AC21940343;
+	Mon, 18 Apr 2022 02:27:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9570A19466DF
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 01:32:51 +0000 (UTC)
+ ESMTP id 3F52C19466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7FD7D401E9C; Mon, 18 Apr 2022 01:32:51 +0000 (UTC)
+ id 2A7AF409B410; Mon, 18 Apr 2022 02:27:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7BFF0400F24
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 01:32:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 26956409B409
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 61B9680159B
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 01:32:51 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EB15811E78
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:37 +0000 (UTC)
+Received: from mail-qt1-f176.google.com (mail-qt1-f176.google.com
+ [209.85.160.176]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-371-uFrLqqcpOeWWvbfq27y8ZA-1; Sun, 17 Apr 2022 21:32:49 -0400
-X-MC-Unique: uFrLqqcpOeWWvbfq27y8ZA-1
-Received: by mail-pj1-f47.google.com with SMTP id
- z6-20020a17090a398600b001cb9fca3210so12794350pjb.1
- for <dm-devel@redhat.com>; Sun, 17 Apr 2022 18:32:49 -0700 (PDT)
+ us-mta-568-yBnaS168NLyF6OlQkmC2mw-1; Sun, 17 Apr 2022 22:27:35 -0400
+X-MC-Unique: yBnaS168NLyF6OlQkmC2mw-1
+Received: by mail-qt1-f176.google.com with SMTP id o18so9295379qtk.7
+ for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject
- :message-id:date:mime-version:content-transfer-encoding;
- bh=KJfLbwgngO3OiGtIZhQTnGZUpV/6KTf4a6VxaVn0jHA=;
- b=EepCAWy6fBD/doFkatbsHNf4aY8qLEym9OA9FoCJdRtK7CYbVjpMcEIkQsIoA6ixOz
- 6jEyDQb2mMhQR2v6CKU5oXhizRkHiQSXCJSBfgXBL3JqF3/UaijQjW9z2aAN9WNumu8r
- 4/hjTmH5LxAfUPZWMc0c8s3yZ6wHoWeKxEtJIX3KVhiZuZLXtJdnvdge08FwWU4Edi30
- ZUzXsYNedyI+xQpAyYbgX5TvhUBvyfETZwcUd+xhpYc2sXlFRDcE5VssmHzfmZMCmUeT
- nmWQP1CMPnPTH55FYRVPgHgZvX5eOfwMzXG2zqlOIpVinBd66YeEePIx+mUF7zxBs9Bq
- 0AvQ==
-X-Gm-Message-State: AOAM533g00HoZ5/bbPqja3vDbraQWi/QDumL8XqCJNmTjzHx1cPVWkP0
- f6ZyliedrXbz2Wyjni3S1nwuCA==
-X-Google-Smtp-Source: ABdhPJxH3Tcv8urG8TWDL99aaKBrMqsxLK1RCMCg75RZRVpxh7Td568gOGSDadX3DzyNp9aRqA2iCg==
-X-Received: by 2002:a17:903:2406:b0:158:f6f0:6c44 with SMTP id
- e6-20020a170903240600b00158f6f06c44mr4676524plo.88.1650245568439; 
- Sun, 17 Apr 2022 18:32:48 -0700 (PDT)
-Received: from [127.0.1.1] ([198.8.77.157]) by smtp.gmail.com with ESMTPSA id
- g15-20020a63be4f000000b0039934531e95sm10726611pgo.18.2022.04.17.18.32.44
+ h=x-gm-message-state:from:to:cc:subject:date:message-id;
+ bh=cL6LjqFAEAfiZyXAATZ+FZCFsdDlPWYrSf1d+drmfhg=;
+ b=2EEV3GGVEKjYwod0S9CXevUPkGGp8KFq2khJCeevquyy+7PeNWi4LfBi09LadjJbcA
+ Z0B/ZcsQLml/qmq5RpZMo5YzZ8AAJECUC+w+oj5LN2iIppmlK8UaYOOqJ78xGqY1LVQR
+ GSYrfZYqej3IYmB/CiwcxaB+U74Hyx+0379D62R15LNOwF5pKonSaGrVQ7HKJFYm5/oY
+ 3idpBEspJgAH7LIsazgCHWDsISVpGP0sXJ0OS4jNZQPc4xoAdGE854olS/zpnltWZuKq
+ CS2B8jDaMQrZgiyC8ATJo5lm3WXplz43BjtEUstql1h6lef5e9sin0keCLVq4Slb7/ME
+ LSXg==
+X-Gm-Message-State: AOAM531KYAgVAax7YGG6bsgl2geTy+QL0Eum4wt6FqR5Q+Ef/kPlCzt9
+ RpmhJaqQFPPLntWbI8vYIKcHuu7ZOHrxwmn1YtdXjjEgSuukES8/ESaZjj1OW3JKJzfEqBdQCRz
+ XdU7t+T1cnkPSmtfRIN2IP3QajjLiO+VJ4vUEbbmtYXwX1BPgmEUlTckJqr8KWZthUhc=
+X-Google-Smtp-Source: ABdhPJw6/Evf53gGmr7V6GmE2a2BP75ZOHx15G7dK4OMRUFpGecAcaALykhIRaUUq3ZW/mxdcO74dg==
+X-Received: by 2002:ac8:5855:0:b0:2eb:87af:ab50 with SMTP id
+ h21-20020ac85855000000b002eb87afab50mr5840120qth.406.1650248854856; 
+ Sun, 17 Apr 2022 19:27:34 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+ [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+ p5-20020ae9f305000000b0069e6dcc4188sm3126425qkg.57.2022.04.17.19.27.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Apr 2022 18:32:47 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: Christoph Hellwig <hch@lst.de>
-In-Reply-To: <20220406061228.410163-1-hch@lst.de>
-References: <20220406061228.410163-1-hch@lst.de>
-Message-Id: <165024556441.258485.6980891929042026868.b4-ty@kernel.dk>
-Date: Sun, 17 Apr 2022 19:32:44 -0600
-MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: Re: [dm-devel] cleanup bio_kmalloc v3
+ Sun, 17 Apr 2022 19:27:34 -0700 (PDT)
+From: Mike Snitzer <snitzer@kernel.org>
+To: dm-devel@redhat.com
+Date: Sun, 17 Apr 2022 22:27:12 -0400
+Message-Id: <20220418022733.56168-1-snitzer@kernel.org>
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [dm-devel] [dm-5.19 PATCH 00/21] dm: changes staged for 5.19
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,14 +85,11 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-raid@vger.kernel.org,
- snitzer@redhat.com, martin.petersen@oracle.com, linux-kernel@vger.kernel.org,
- josef@toxicpanda.com, colyli@suse.de, linux-block@vger.kernel.org,
- song@kernel.org, dm-devel@redhat.com, target-devel@vger.kernel.org,
- dsterba@suse.com, phillip@squashfs.org.uk, linux-btrfs@vger.kernel.org
+Cc: axboe@kernel.dk, hch@lst.de, ming.lei@redhat.com
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -111,38 +97,65 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 6 Apr 2022 08:12:23 +0200, Christoph Hellwig wrote:
-> this series finishes off the bio allocation interface cleanups by dealing
-> with the weirdest member of the famility.  bio_kmalloc combines a kmalloc
-> for the bio and bio_vecs with a hidden bio_init call and magic cleanup
-> semantics.
-> 
-> This series moves a few callers away from bio_kmalloc and then turns
-> bio_kmalloc into a simple wrapper for a slab allocation of a bio and the
-> inline biovecs.  The callers need to manually call bio_init instead with
-> all that entails and the magic that turns bio_put into a kfree goes away
-> as well, allowing for a proper debug check in bio_put that catches
-> accidental use on a bio_init()ed bio.
-> 
-> [...]
+Hi,
 
-Applied, thanks!
+This patchset reflects what I've staged in linux-dm.git's "dm-5.19"
+branch (also staged in "for-next" for linux-next):
+https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.19
 
-[1/5] btrfs: simplify ->flush_bio handling
-      commit: f9e69aa9ccd7e51c47b147e45e03987ea0ef9aa3
-[2/5] squashfs: always use bio_kmalloc in squashfs_bio_read
-      commit: 46a2d4ccc49903923506685a8368ca88312bbdc9
-[3/5] target/pscsi: remove pscsi_get_bio
-      commit: 7655db80932d95f501a0811544d9520ec720e38d
-[4/5] block: turn bio_kmalloc into a simple kmalloc wrapper
-      commit: 066ff571011d8416e903d3d4f1f41e0b5eb91e1d
-[5/5] pktcdvd: stop using bio_reset
-      commit: 852ad96cb03621f7995764b4b31cbff9801d8bcd
+It build's on jens/for-5.19/block branch (which is based on v5.18-rc3)
 
-Best regards,
+I can still make changes or add Reviewed-by:s, etc. So please feel
+free to review.
+
+Jens, I'd appreciate it if you could pickup the first patch:
+"block: change exported IO accounting interface from gendisk to bdev"
+(still not in love with that subject but...)
+
+Thanks,
+Mike
+
+Mike Snitzer (13):
+  dm: conditionally enable BIOSET_PERCPU_CACHE for dm_io bioset
+  dm: factor out dm_io_set_error and __dm_io_dec_pending
+  dm: simplify dm_io access in dm_split_and_process_bio
+  dm: simplify dm_start_io_acct
+  dm: mark various branches unlikely
+  dm: add local variables to clone_endio and __map_bio
+  dm: move hot dm_io members to same cacheline as dm_target_io
+  dm: introduce dm_{get,put}_live_table_bio called from dm_submit_bio
+  dm: conditionally enable branching for less used features
+  dm: simplify basic targets
+  dm: use bio_sectors in dm_aceept_partial_bio
+  dm: simplify bio-based IO accounting further
+  dm: improve abnormal bio processing
+
+Ming Lei (8):
+  block: change exported IO accounting interface from gendisk to bdev
+  dm: don't pass bio to __dm_start_io_acct and dm_end_io_acct
+  dm: pass dm_io instance to dm_io_acct directly
+  dm: switch to bdev based IO accounting interfaces
+  dm: improve bio splitting and associated IO accounting
+  dm: don't grab target io reference in dm_zone_map_bio
+  dm: improve dm_io reference counting
+  dm: put all polled dm_io instances into a single list
+
+ block/blk-core.c              |  52 ++---
+ drivers/block/zram/zram_drv.c |   5 +-
+ drivers/md/dm-core.h          |  38 ++--
+ drivers/md/dm-delay.c         |   3 +-
+ drivers/md/dm-flakey.c        |   4 +-
+ drivers/md/dm-linear.c        |  11 +-
+ drivers/md/dm-stats.c         |   3 +
+ drivers/md/dm-table.c         |  16 +-
+ drivers/md/dm-zone.c          |  10 -
+ drivers/md/dm.c               | 515 ++++++++++++++++++++++++------------------
+ drivers/md/dm.h               |   4 +-
+ include/linux/blkdev.h        |   7 +-
+ 12 files changed, 367 insertions(+), 301 deletions(-)
+
 -- 
-Jens Axboe
-
+2.15.0
 
 --
 dm-devel mailing list
