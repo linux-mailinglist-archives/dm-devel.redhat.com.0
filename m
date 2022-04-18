@@ -2,56 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819FB504C41
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 07:23:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 846E7504C47
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 07:27:15 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-176-2tO2sk-ZOzaHupeq1RCgmg-1; Mon, 18 Apr 2022 01:22:34 -0400
-X-MC-Unique: 2tO2sk-ZOzaHupeq1RCgmg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-346-gisPqN00N7OReWKjWWA6gQ-1; Mon, 18 Apr 2022 01:27:10 -0400
+X-MC-Unique: gisPqN00N7OReWKjWWA6gQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1A7C86B8A0;
-	Mon, 18 Apr 2022 05:22:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 379C483396A;
+	Mon, 18 Apr 2022 05:27:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D7D9C5094A;
-	Mon, 18 Apr 2022 05:22:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C154340FD35F;
+	Mon, 18 Apr 2022 05:27:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 09D1D1940346;
-	Mon, 18 Apr 2022 05:22:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B7AF1940346;
+	Mon, 18 Apr 2022 05:27:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B477719451F1
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 05:22:29 +0000 (UTC)
+ ESMTP id B3DFC19451F1
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 05:27:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 957BAC4C7DA; Mon, 18 Apr 2022 05:22:29 +0000 (UTC)
+ id 9E9C0574B5C; Mon, 18 Apr 2022 05:27:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 91A6BC4C7D8
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:22:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 77B7386B8A0
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:22:29 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9ADF85744ED
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:27:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 825251C05157
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:27:05 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-551-vI0YNzKlMP-32eFeYp44wA-1; Mon, 18 Apr 2022 01:22:25 -0400
-X-MC-Unique: vI0YNzKlMP-32eFeYp44wA-1
+ us-mta-201-E9SzFgJwMdeFo6HLLqNqyw-1; Mon, 18 Apr 2022 01:27:04 -0400
+X-MC-Unique: E9SzFgJwMdeFo6HLLqNqyw-1
 Received: from [2a02:1205:504b:4280:f5dd:42a4:896c:d877] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ngJOR-00FYpT-19; Mon, 18 Apr 2022 04:53:43 +0000
+ id 1ngJOU-00FYrv-1m; Mon, 18 Apr 2022 04:53:46 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Apr 2022 06:53:12 +0200
-Message-Id: <20220418045314.360785-10-hch@lst.de>
+Date: Mon, 18 Apr 2022 06:53:13 +0200
+Message-Id: <20220418045314.360785-11-hch@lst.de>
 In-Reply-To: <20220418045314.360785-1-hch@lst.de>
 References: <20220418045314.360785-1-hch@lst.de>
 MIME-Version: 1.0
@@ -64,9 +63,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [dm-devel] [PATCH 09/11] nvme: remove a spurious clear of
- discard_alignment
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [PATCH 10/11] rnbd-srv: use bdev_discard_alignment
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +91,7 @@ Cc: Jan Hoeppner <hoeppner@linux.ibm.com>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,26 +99,27 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The nvme driver never sets a discard_alignment, so it also doens't need
-to clear it to zero.
+Use bdev_discard_alignment to calculate the correct discard alignment
+offset even for partitions instead of just looking at the queue limit.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/nvme/host/core.c | 1 -
- 1 file changed, 1 deletion(-)
+ drivers/block/rnbd/rnbd-srv-dev.h | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index b9b0fbde97c80..76a9ccd5d064a 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -1628,7 +1628,6 @@ static void nvme_config_discard(struct gendisk *disk, struct nvme_ns *ns)
- 	BUILD_BUG_ON(PAGE_SIZE / sizeof(struct nvme_dsm_range) <
- 			NVME_DSM_MAX_RANGES);
+diff --git a/drivers/block/rnbd/rnbd-srv-dev.h b/drivers/block/rnbd/rnbd-srv-dev.h
+index d080a0de59225..4309e52524691 100644
+--- a/drivers/block/rnbd/rnbd-srv-dev.h
++++ b/drivers/block/rnbd/rnbd-srv-dev.h
+@@ -59,7 +59,7 @@ static inline int rnbd_dev_get_discard_granularity(const struct rnbd_dev *dev)
  
--	queue->limits.discard_alignment = 0;
- 	queue->limits.discard_granularity = size;
+ static inline int rnbd_dev_get_discard_alignment(const struct rnbd_dev *dev)
+ {
+-	return bdev_get_queue(dev->bdev)->limits.discard_alignment;
++	return bdev_discard_alignment(dev->bdev);
+ }
  
- 	/* If discard is already enabled, don't reset queue limits */
+ #endif /* RNBD_SRV_DEV_H */
 -- 
 2.30.2
 
