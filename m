@@ -1,84 +1,83 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 866BB504B08
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:28:05 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 24B42504B0C
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:28:11 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-634-6_K5QYXfNfqa-9JVXziR4A-1; Sun, 17 Apr 2022 22:28:03 -0400
-X-MC-Unique: 6_K5QYXfNfqa-9JVXziR4A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-593-bceE2-ODO86PDvJ5aCD30Q-1; Sun, 17 Apr 2022 22:28:06 -0400
+X-MC-Unique: bceE2-ODO86PDvJ5aCD30Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6304F38035AA;
-	Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F110804198;
+	Mon, 18 Apr 2022 02:28:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4366E574779;
-	Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 59054C44CC2;
+	Mon, 18 Apr 2022 02:28:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 18AF81940352;
-	Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 243C519451F3;
+	Mon, 18 Apr 2022 02:28:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6CDF919466DF
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:59 +0000 (UTC)
+ ESMTP id E1A2F19466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 60B80574775; Mon, 18 Apr 2022 02:27:59 +0000 (UTC)
+ id D14532029F8F; Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D0A0574776
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4549838035A7
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:59 +0000 (UTC)
-Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
- [209.85.219.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CCBAC200D8FC
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B314A1014A6C
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:28:00 +0000 (UTC)
+Received: from mail-qv1-f46.google.com (mail-qv1-f46.google.com
+ [209.85.219.46]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-361-cjJpHXRwOIS8h6gUBuX-og-1; Sun, 17 Apr 2022 22:27:57 -0400
-X-MC-Unique: cjJpHXRwOIS8h6gUBuX-og-1
-Received: by mail-qv1-f47.google.com with SMTP id x20so10111849qvl.10
- for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:57 -0700 (PDT)
+ us-mta-471-oHswBzvMNB2_IS_qZoFQ0A-1; Sun, 17 Apr 2022 22:27:59 -0400
+X-MC-Unique: oHswBzvMNB2_IS_qZoFQ0A-1
+Received: by mail-qv1-f46.google.com with SMTP id hu11so10129526qvb.7
+ for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=GNcw3xAgsQN5mPHUurWFw9gPtsM2cDJn56O6M42+2rE=;
- b=fdonv+pvyp6OmXIJoWUHBXRs3YX1nuJBbIWFoIOyMeClxNNURieb3ooMFUz6OJEyiv
- QzIdCw3aBLl9gV8v2PNMTDhS5XjFuVRdDZWRbDz+HPRom6GMEjal9ERx/gx++pSeCAfB
- Ig2sFEgA+kly+0E0CdDiFJxyzzae6zuLLoWb6OKVwqY4S+UB5RCvZCKIKpibGPfm/Dnx
- IgJLeOx3+stJxhXS0AHduiklezgSnjGbFk47Mq+uA+7WZClYkLqFi1AoPQda20+3nMsi
- ikMD041YgizbCNlq/OesLdq0Ai6OVWSJZDaU8eMVa/MRQgu95pXRV+Obz5fGPlCZ22SP
- KCCQ==
-X-Gm-Message-State: AOAM532UzmCHtt0p0yVLpFaTvUwfmlqKcASisofRPEGaXZTlDBsXHiBk
- sxtDMD+7y4AwWVCYwBFG5NanmGkhmEsw7mSHxn6cZ5PH4Bdigxfj+0SE0DlazhiZvlfLdMih2p7
- bqBw/LGo4bElcbxcwFK/nqzSDOQswkbHd1YdPa3cQ2JNaWufurrYgBJ+yT2D0kbl0CkE=
-X-Google-Smtp-Source: ABdhPJxWtTb1WOnkrb9Tas1kDy3//DyDDD/EqlBhNFkHc8Tfr9Mdwc0q3duUHgTeKJ3/AT1EkaaFMA==
-X-Received: by 2002:a05:6214:625:b0:441:1578:620b with SMTP id
- a5-20020a056214062500b004411578620bmr6770004qvx.126.1650248876949; 
- Sun, 17 Apr 2022 19:27:56 -0700 (PDT)
+ bh=rW/RKjSRN252kEm+ZBoiR7dmJQ5iT4G3RMI5g2+VLGw=;
+ b=UExUdflao6HGr9IneKDIXcxahmchYBGW5uBPYDwrdG9jdMm2eL7yn/kvlsKfsKvP83
+ VXJ4hWtxIblgPOxEb5tfdGIMx4QNJ79ZoxOCcC3qgUXp1GGArP9ZzebWUyUcM1OrKv3q
+ yLlWs+gz2a+gvZNj40SqvDM0bVXgmWF7V80o7GB5lFu6sOyiIwIUJFEmM/fZ9W+VKnfW
+ RSy5qZK8u7ZnbD5NH49BS8aFvxMu4D8rdDPQTiLoKR15k+2pnqlmNuAlJJGgqL7k98BZ
+ 9uEih/DcxSAO4qtbL88L1BsPS+ZAIW7FG2G5Ct+UokcnlPf8xNnHa5DL1xpQEEXeJLiO
+ QWZg==
+X-Gm-Message-State: AOAM530K4x2ASiQvQDs1NfY34yURQxLL9QUe/Xrp9B67fgafL9RH62TY
+ LowpCfztTH46o287mw57S+nT9V8LvjiFuZrHLhVPFd6bCQ/vmXydDvdjgp7PtEJ++JSrUBAtW2b
+ TtVdr7rOh6aSUU5jUtqxpEL1RtCrOJXYXTtZEOJSv86vvlF+IiWRpFrmK2lVB/6zLVMg=
+X-Google-Smtp-Source: ABdhPJzvkwil0ZxfKvwiYwVBi5AQViI3Mo3cRCphyDKkTdGO00A/ooppIfK88mIKEusGaqWdZuBtYA==
+X-Received: by 2002:a05:6214:d48:b0:446:3a33:2dba with SMTP id
+ 8-20020a0562140d4800b004463a332dbamr6499931qvr.78.1650248878094; 
+ Sun, 17 Apr 2022 19:27:58 -0700 (PDT)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
  [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- l18-20020a37f512000000b0069e73cde8b1sm2869251qkk.118.2022.04.17.19.27.56
+ i136-20020a379f8e000000b0069c7f8b69b8sm5414923qke.82.2022.04.17.19.27.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Apr 2022 19:27:56 -0700 (PDT)
+ Sun, 17 Apr 2022 19:27:57 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Sun, 17 Apr 2022 22:27:30 -0400
-Message-Id: <20220418022733.56168-19-snitzer@kernel.org>
+Date: Sun, 17 Apr 2022 22:27:31 -0400
+Message-Id: <20220418022733.56168-20-snitzer@kernel.org>
 In-Reply-To: <20220418022733.56168-1-snitzer@kernel.org>
 References: <20220418022733.56168-1-snitzer@kernel.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [dm-devel] [dm-5.19 PATCH 18/21] dm: improve dm_io reference
- counting
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [dm-devel] [dm-5.19 PATCH 19/21] dm: put all polled dm_io instances
+ into a single list
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,168 +93,179 @@ Cc: axboe@kernel.dk, hch@lst.de, ming.lei@redhat.com
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============6240393758633908272=="
+Content-Type: multipart/mixed; boundary="===============2179410130108015795=="
 
---===============6240393758633908272==
+--===============2179410130108015795==
 Content-Type: application/octet-stream; x-default=true
 
 From: Ming Lei <ming.lei@redhat.com>
 
-Currently each dm_io's reference counter is grabbed before calling
-__map_bio(), this way isn't efficient since we can move this grabbing
-to initialization time inside alloc_io().
+Now that bio_split() isn't used by DM's bio splitting, it is a bit
+overkill to link dm_io into an hlist given there is only single dm_io
+in the list.
 
-Meantime it becomes typical async io reference counter model: one is
-for submission side, the other is for completion side, and the io won't
-be completed until both sides are done.
+Convert to using a single list for holding all dm_io instances
+associated with this bio.
 
 Signed-off-by: Ming Lei <ming.lei@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm.c | 53 +++++++++++++++++++++++++++++++++++++++--------------
- 1 file changed, 39 insertions(+), 14 deletions(-)
+ drivers/md/dm-core.h |  2 +-
+ drivers/md/dm.c      | 52 +++++++++++++++++++++++++++-------------------------
+ 2 files changed, 28 insertions(+), 26 deletions(-)
 
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index d2d188c9b632..f3cfc7affd12 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -259,7 +259,7 @@ struct dm_io {
+ 	spinlock_t lock;
+ 	unsigned long start_time;
+ 	void *data;
+-	struct hlist_node node;
++	struct dm_io *next;
+ 	struct task_struct *map_task;
+ 	struct dm_stats_aux stats_aux;
+ 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index e4ccd0cce8f3..9b5cdd4b734d 100644
+index 9b5cdd4b734d..c5a79712de1d 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -590,7 +590,9 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	io = container_of(tio, struct dm_io, tio);
- 	io->magic = DM_IO_MAGIC;
- 	io->status = BLK_STS_OK;
--	atomic_set(&io->io_count, 1);
-+
-+	/* one ref is for submission, the other is for completion */
-+	atomic_set(&io->io_count, 2);
- 	this_cpu_inc(*md->pending_io);
- 	io->orig_bio = bio;
- 	io->md = md;
-@@ -955,11 +957,6 @@ static void dm_io_complete(struct dm_io *io)
- 	}
+@@ -1560,7 +1560,7 @@ static bool __process_abnormal_io(struct clone_info *ci, struct dm_target *ti,
  }
  
--static void dm_io_inc_pending(struct dm_io *io)
--{
--	atomic_inc(&io->io_count);
--}
--
  /*
-  * Decrements the number of outstanding ios that a bio has been
-  * cloned into, completing the original io if necc.
-@@ -1317,7 +1314,6 @@ static void __map_bio(struct bio *clone)
+- * Reuse ->bi_private as hlist head for storing all dm_io instances
++ * Reuse ->bi_private as dm_io list head for storing all dm_io instances
+  * associated with this bio, and this bio's bi_private needs to be
+  * stored in dm_io->data before the reuse.
+  *
+@@ -1568,36 +1568,37 @@ static bool __process_abnormal_io(struct clone_info *ci, struct dm_target *ti,
+  * touch it after splitting. Meantime it won't be changed by anyone after
+  * bio is submitted. So this reuse is safe.
+  */
+-static inline struct hlist_head *dm_get_bio_hlist_head(struct bio *bio)
++static inline struct dm_io **dm_poll_list_head(struct bio *bio)
+ {
+-	return (struct hlist_head *)&bio->bi_private;
++	return (struct dm_io **)&bio->bi_private;
+ }
+ 
+ static void dm_queue_poll_io(struct bio *bio, struct dm_io *io)
+ {
+-	struct hlist_head *head = dm_get_bio_hlist_head(bio);
++	struct dm_io **head = dm_poll_list_head(bio);
+ 
+ 	if (!(bio->bi_opf & REQ_DM_POLL_LIST)) {
+ 		bio->bi_opf |= REQ_DM_POLL_LIST;
+ 		/*
+ 		 * Save .bi_private into dm_io, so that we can reuse
+-		 * .bi_private as hlist head for storing dm_io list
++		 * .bi_private as dm_io list head for storing dm_io list
+ 		 */
+ 		io->data = bio->bi_private;
+ 
+-		INIT_HLIST_HEAD(head);
+-
+ 		/* tell block layer to poll for completion */
+ 		bio->bi_cookie = ~BLK_QC_T_NONE;
++
++		io->next = NULL;
+ 	} else {
+ 		/*
+ 		 * bio recursed due to split, reuse original poll list,
+ 		 * and save bio->bi_private too.
+ 		 */
+-		io->data = hlist_entry(head->first, struct dm_io, node)->data;
++		io->data = (*head)->data;
++		io->next = *head;
+ 	}
+ 
+-	hlist_add_head(&io->node, head);
++	*head = io;
+ }
+ 
+ /*
+@@ -1686,8 +1687,8 @@ static void dm_split_and_process_bio(struct mapped_device *md,
+ 	 * Drop the extra reference count for non-POLLED bio, and hold one
+ 	 * reference for POLLED bio, which will be released in dm_poll_bio
+ 	 *
+-	 * Add every dm_io instance into the hlist_head which is stored in
+-	 * bio->bi_private, so that dm_poll_bio can poll them all.
++	 * Add every dm_io instance into the dm_io list head which is stored
++	 * in bio->bi_private, so that dm_poll_bio can poll them all.
+ 	 */
+ 	if (error || !ci.submit_as_polled) {
+ 		/*
+@@ -1749,18 +1750,16 @@ static bool dm_poll_dm_io(struct dm_io *io, struct io_comp_batch *iob,
+ static int dm_poll_bio(struct bio *bio, struct io_comp_batch *iob,
+ 		       unsigned int flags)
+ {
+-	struct hlist_head *head = dm_get_bio_hlist_head(bio);
+-	struct hlist_head tmp = HLIST_HEAD_INIT;
+-	struct hlist_node *next;
+-	struct dm_io *io;
++	struct dm_io **head = dm_poll_list_head(bio);
++	struct dm_io *list = *head;
++	struct dm_io *tmp = NULL;
++	struct dm_io *curr, *next;
+ 
+ 	/* Only poll normal bio which was marked as REQ_DM_POLL_LIST */
+ 	if (!(bio->bi_opf & REQ_DM_POLL_LIST))
+ 		return 0;
+ 
+-	WARN_ON_ONCE(hlist_empty(head));
+-
+-	hlist_move_list(head, &tmp);
++	WARN_ON_ONCE(!list);
+ 
  	/*
- 	 * Map the clone.
+ 	 * Restore .bi_private before possibly completing dm_io.
+@@ -1771,24 +1770,27 @@ static int dm_poll_bio(struct bio *bio, struct io_comp_batch *iob,
+ 	 * clearing REQ_DM_POLL_LIST here.
  	 */
--	dm_io_inc_pending(io);
- 	tio->old_sector = clone->bi_iter.bi_sector;
+ 	bio->bi_opf &= ~REQ_DM_POLL_LIST;
+-	bio->bi_private = hlist_entry(tmp.first, struct dm_io, node)->data;
++	bio->bi_private = list->data;
  
- 	if (static_branch_unlikely(&swap_bios_enabled) &&
-@@ -1427,11 +1423,12 @@ static void alloc_multiple_bios(struct bio_list *blist, struct clone_info *ci,
- 	}
- }
- 
--static void __send_duplicate_bios(struct clone_info *ci, struct dm_target *ti,
-+static int __send_duplicate_bios(struct clone_info *ci, struct dm_target *ti,
- 				  unsigned num_bios, unsigned *len)
- {
- 	struct bio_list blist = BIO_EMPTY_LIST;
- 	struct bio *clone;
-+	int ret = 0;
- 
- 	switch (num_bios) {
- 	case 0:
-@@ -1441,6 +1438,7 @@ static void __send_duplicate_bios(struct clone_info *ci, struct dm_target *ti,
- 			setup_split_accounting(ci, *len);
- 		clone = alloc_tio(ci, ti, 0, len, GFP_NOIO);
- 		__map_bio(clone);
-+		ret = 1;
- 		break;
- 	default:
- 		/* dm_accept_partial_bio() is not supported with shared tio->len_ptr */
-@@ -1448,9 +1446,12 @@ static void __send_duplicate_bios(struct clone_info *ci, struct dm_target *ti,
- 		while ((clone = bio_list_pop(&blist))) {
- 			dm_tio_set_flag(clone_to_tio(clone), DM_TIO_IS_DUPLICATE_BIO);
- 			__map_bio(clone);
-+			ret += 1;
+-	hlist_for_each_entry_safe(io, next, &tmp, node) {
+-		if (dm_poll_dm_io(io, iob, flags)) {
+-			hlist_del_init(&io->node);
++	for (curr = list, next = curr->next; curr; curr = next, next =
++			curr ? curr->next : NULL) {
++		if (dm_poll_dm_io(curr, iob, flags)) {
+ 			/*
+ 			 * clone_endio() has already occurred, so no
+ 			 * error handling is needed here.
+ 			 */
+-			__dm_io_dec_pending(io);
++			__dm_io_dec_pending(curr);
++		} else {
++			curr->next = tmp;
++			tmp = curr;
  		}
- 		break;
  	}
-+
-+	return ret;
- }
  
- static void __send_empty_flush(struct clone_info *ci)
-@@ -1471,8 +1472,19 @@ static void __send_empty_flush(struct clone_info *ci)
- 	ci->sector_count = 0;
- 	ci->io->tio.clone.bi_iter.bi_size = 0;
- 
--	while ((ti = dm_table_get_target(ci->map, target_nr++)))
--		__send_duplicate_bios(ci, ti, ti->num_flush_bios, NULL);
-+	while ((ti = dm_table_get_target(ci->map, target_nr++))) {
-+		int bios;
-+
-+		atomic_add(ti->num_flush_bios, &ci->io->io_count);
-+		bios = __send_duplicate_bios(ci, ti, ti->num_flush_bios, NULL);
-+		atomic_sub(ti->num_flush_bios - bios, &ci->io->io_count);
-+	}
-+
-+	/*
-+	 * alloc_io() takes one extra reference for submission, so the
-+	 * reference won't reach 0 without the following subtraction
-+	 */
-+	atomic_sub(1, &ci->io->io_count);
- 
- 	bio_uninit(ci->bio);
- }
-@@ -1481,11 +1493,18 @@ static void __send_changing_extent_only(struct clone_info *ci, struct dm_target
- 					unsigned num_bios)
- {
- 	unsigned len;
-+	int bios;
- 
- 	len = min_t(sector_t, ci->sector_count,
- 		    max_io_len_target_boundary(ti, dm_target_offset(ti, ci->sector)));
- 
--	__send_duplicate_bios(ci, ti, num_bios, &len);
-+	atomic_add(num_bios, &ci->io->io_count);
-+	bios = __send_duplicate_bios(ci, ti, num_bios, &len);
-+	/*
-+	 * alloc_io() takes one extra reference for submission, so the
-+	 * reference won't reach 0 without the following (+1) subtraction
-+	 */
-+	atomic_sub(num_bios - bios + 1, &ci->io->io_count);
- 
- 	ci->sector += len;
- 	ci->sector_count -= len;
-@@ -1670,9 +1689,15 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 	 * Add every dm_io instance into the hlist_head which is stored in
- 	 * bio->bi_private, so that dm_poll_bio can poll them all.
- 	 */
--	if (error || !ci.submit_as_polled)
--		dm_io_dec_pending(ci.io, error);
--	else
-+	if (error || !ci.submit_as_polled) {
-+		/*
-+		 * In case of submission failure, the extra reference for
-+		 * submitting io isn't consumed yet
-+		 */
-+		if (error)
-+			atomic_dec(&io->io_count);
-+		dm_io_dec_pending(io, error);
-+	} else
- 		dm_queue_poll_io(bio, io);
- }
- 
+ 	/* Not done? */
+-	if (!hlist_empty(&tmp)) {
++	if (tmp) {
+ 		bio->bi_opf |= REQ_DM_POLL_LIST;
+ 		/* Reset bio->bi_private to dm_io list head */
+-		hlist_move_list(&tmp, head);
++		*head = tmp;
+ 		return 0;
+ 	}
+ 	return 1;
 -- 
 2.15.0
 
 
---===============6240393758633908272==
+--===============2179410130108015795==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -266,5 +276,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============6240393758633908272==--
+--===============2179410130108015795==--
 
