@@ -2,82 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA4FE504B3E
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 05:17:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id C5636504B78
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 05:59:28 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-515-Yd8nCbudMquh3kBguABgOg-1; Sun, 17 Apr 2022 23:17:02 -0400
-X-MC-Unique: Yd8nCbudMquh3kBguABgOg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-459-BrgG1b-UMRWACwUU6wFGfQ-1; Sun, 17 Apr 2022 23:59:26 -0400
+X-MC-Unique: BrgG1b-UMRWACwUU6wFGfQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 673B585A5A8;
-	Mon, 18 Apr 2022 03:17:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D35C7811E75;
+	Mon, 18 Apr 2022 03:59:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 324D1111C4A1;
-	Mon, 18 Apr 2022 03:16:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D13EE2166B26;
+	Mon, 18 Apr 2022 03:59:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E260A1940343;
-	Mon, 18 Apr 2022 03:16:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 37BDE1940347;
+	Mon, 18 Apr 2022 03:59:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 27BA519466DF
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 03:16:57 +0000 (UTC)
+ ESMTP id CAE2119451F1
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 03:59:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0BF2F574771; Mon, 18 Apr 2022 03:16:57 +0000 (UTC)
+ id 97F72167EE; Mon, 18 Apr 2022 03:59:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 07BC9574768
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 03:16:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9376D7AD9
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 03:59:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E461C185A7B2
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 03:16:56 +0000 (UTC)
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-534-p4s6Tc-QPJqtztOQ14AxtQ-1; Sun, 17 Apr 2022 23:16:55 -0400
-X-MC-Unique: p4s6Tc-QPJqtztOQ14AxtQ-1
-Received: by mail-qt1-f173.google.com with SMTP id o18so9335787qtk.7
- for <dm-devel@redhat.com>; Sun, 17 Apr 2022 20:16:55 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=Xg66rN/k7YXbXVlhfm9XM2FMk2dwtaKqTQCkUOQCLY4=;
- b=drQ8SLCfZLUp5ZPFdfRHMZ4yfo3zQhjALiiK0ShSvV/LuRUV6OBC0GlSNOsS/JSbCr
- yUEw/QZBfVkqNU7alnoduafaPMlsHr9/IRhtSuim4A7ctlkLeL5bZu+uveJqZ4qEo28B
- 6SzWnqjmmkBBLJ7l52d3j66vCWMXqzEZqD6O/QgYg7tmhICb59qQ53IZedG/BxSvWQ4U
- Ow6y97QmuhYkyGJ5IRE1Md7EPm2VbSauiGDkqJS2nAwmX0mD+Bpi9OmLgBBnN7j/EJBt
- CVDen5nLf1uxyrs7PxvjdasiPwLqSlnVDhI3GartRUG0yyYsKHgw6RTlmSyaY6niYpSh
- x9mw==
-X-Gm-Message-State: AOAM532u19qi2ziO54iJxfB/38aHNRhiuns/bGQhKxqhWMHnLsZSjC6p
- /AH295nGe716T0F9BlVhYdYuVjo=
-X-Google-Smtp-Source: ABdhPJyE78mIy/MYgQOeRWnwSUwxKxbVBsUvqSAKZ5f39HtCksxvs/vJseVWf9/PuP7b13DQGwyVHQ==
-X-Received: by 2002:a05:622a:208:b0:2e1:b3ec:b7ce with SMTP id
- b8-20020a05622a020800b002e1b3ecb7cemr5906810qtx.345.1650251814817; 
- Sun, 17 Apr 2022 20:16:54 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
- [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- w6-20020a05622a190600b002f1f91ad3e7sm2728970qtc.22.2022.04.17.20.16.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Apr 2022 20:16:54 -0700 (PDT)
-Date: Sun, 17 Apr 2022 23:16:53 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Message-ID: <YlzYJS7gWBbEIaw6@redhat.com>
-References: <20220418022733.56168-1-snitzer@kernel.org>
- <378611be-45ea-6085-7848-83380642c81a@opensource.wdc.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA61385A5A8
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 03:59:13 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-295-KvvVGpELOxSrUdi4oE_BvA-1; Sun, 17 Apr 2022 23:59:10 -0400
+X-MC-Unique: KvvVGpELOxSrUdi4oE_BvA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id AC127B80E1A;
+ Mon, 18 Apr 2022 03:59:08 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B90FAC385A1;
+ Mon, 18 Apr 2022 03:59:06 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable-commits@vger.kernel.org,
+	khazhy@google.com
+Date: Sun, 17 Apr 2022 23:59:04 -0400
+Message-Id: <20220418035905.361802-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <378611be-45ea-6085-7848-83380642c81a@opensource.wdc.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: Re: [dm-devel] [dm-5.19 PATCH 00/21] dm: changes staged for 5.19
+X-Patchwork-Hint: ignore
+X-stable: review
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: [dm-devel] Patch "dm mpath: only use ktime_get_ns() in historical
+ selector" has been added to the 5.17-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,53 +81,97 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, dm-devel@redhat.com, hch@lst.de, ming.lei@redhat.com
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sun, Apr 17 2022 at 11:00P -0400,
-Damien Le Moal <damien.lemoal@opensource.wdc.com> wrote:
+This is a note to let you know that I've just added the patch titled
 
-> On 4/18/22 11:27, Mike Snitzer wrote:
-> > Hi,
-> > 
-> > This patchset reflects what I've staged in linux-dm.git's "dm-5.19"
-> > branch (also staged in "for-next" for linux-next):
-> > https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.19
-> > 
-> > It build's on jens/for-5.19/block branch (which is based on v5.18-rc3)
-> 
-> Mike, thanks for posting. We will run this on zoned stuff to check.
+    dm mpath: only use ktime_get_ns() in historical selector
 
-OK, I appreciate it..
+to the 5.17-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-> Note that patches 13 to 20 are empty...
+The filename of the patch is:
+     dm-mpath-only-use-ktime_get_ns-in-historical-selecto.patch
+and it can be found in the queue-5.17 subdirectory.
 
-Not sure what's going on there... basically any patch that wasn't from
-me (so 1, 13-19) isn't showing up in patchwork or the dm-devel
-archive.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
-This is my first submission of patches using my snitzer@kernel.org
-alias with redhat's smtp server that is really anal about not sending
-email that isn't from me.  Yet it sent the email but seized on the
-following to have the body be empty:
-"From: Ming Lei <ming.lei@redhat.com>"
 
-Best part is my email account shows all the emails sent like all was
-perfect.  Sorting this out will have to wait until Tuesday.
 
-Sorry, but please just pull the dm-5.19 branch via git ;)
+commit b155f7f8b5dfbeab9d530c8557a62835553a4105
+Author: Khazhismel Kumykov <khazhy@google.com>
+Date:   Mon Apr 11 15:03:35 2022 -0700
 
-Thanks,
-Mike
+    dm mpath: only use ktime_get_ns() in historical selector
+    
+    [ Upstream commit ce40426fdc3c92acdba6b5ca74bc7277ffaa6a3d ]
+    
+    Mixing sched_clock() and ktime_get_ns() usage will give bad results.
+    
+    Switch hst_select_path() from using sched_clock() to ktime_get_ns().
+    Also rename path_service_time()'s 'sched_now' variable to 'now'.
+    
+    Fixes: 2613eab11996 ("dm mpath: add Historical Service Time Path Selector")
+    Signed-off-by: Khazhismel Kumykov <khazhy@google.com>
+    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+diff --git a/drivers/md/dm-ps-historical-service-time.c b/drivers/md/dm-ps-historical-service-time.c
+index 875bca30a0dd..82f2a06153dc 100644
+--- a/drivers/md/dm-ps-historical-service-time.c
++++ b/drivers/md/dm-ps-historical-service-time.c
+@@ -27,7 +27,6 @@
+ #include <linux/blkdev.h>
+ #include <linux/slab.h>
+ #include <linux/module.h>
+-#include <linux/sched/clock.h>
+ 
+ 
+ #define DM_MSG_PREFIX	"multipath historical-service-time"
+@@ -433,7 +432,7 @@ static struct dm_path *hst_select_path(struct path_selector *ps,
+ {
+ 	struct selector *s = ps->context;
+ 	struct path_info *pi = NULL, *best = NULL;
+-	u64 time_now = sched_clock();
++	u64 time_now = ktime_get_ns();
+ 	struct dm_path *ret = NULL;
+ 	unsigned long flags;
+ 
+@@ -474,7 +473,7 @@ static int hst_start_io(struct path_selector *ps, struct dm_path *path,
+ 
+ static u64 path_service_time(struct path_info *pi, u64 start_time)
+ {
+-	u64 sched_now = ktime_get_ns();
++	u64 now = ktime_get_ns();
+ 
+ 	/* if a previous disk request has finished after this IO was
+ 	 * sent to the hardware, pretend the submission happened
+@@ -483,11 +482,11 @@ static u64 path_service_time(struct path_info *pi, u64 start_time)
+ 	if (time_after64(pi->last_finish, start_time))
+ 		start_time = pi->last_finish;
+ 
+-	pi->last_finish = sched_now;
+-	if (time_before64(sched_now, start_time))
++	pi->last_finish = now;
++	if (time_before64(now, start_time))
+ 		return 0;
+ 
+-	return sched_now - start_time;
++	return now - start_time;
+ }
+ 
+ static int hst_end_io(struct path_selector *ps, struct dm_path *path,
 
 --
 dm-devel mailing list
