@@ -2,56 +2,56 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DD426504C36
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 07:19:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E3B4504C4C
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 07:29:02 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-654-hcTIfWTMN1qMeDFT1wlo_g-1; Mon, 18 Apr 2022 01:19:10 -0400
-X-MC-Unique: hcTIfWTMN1qMeDFT1wlo_g-1
+ us-mta-126-C00AtmVIPXGcqQbBzsHuYQ-1; Mon, 18 Apr 2022 01:28:39 -0400
+X-MC-Unique: C00AtmVIPXGcqQbBzsHuYQ-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 173D980005D;
-	Mon, 18 Apr 2022 05:19:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DEDA4857A83;
+	Mon, 18 Apr 2022 05:28:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DB7D145B98E;
-	Mon, 18 Apr 2022 05:19:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 940EE145B98F;
+	Mon, 18 Apr 2022 05:28:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6DB431940346;
-	Mon, 18 Apr 2022 05:19:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C9B961940346;
+	Mon, 18 Apr 2022 05:28:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 66EE919451F1
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 05:19:00 +0000 (UTC)
+ ESMTP id 9E81719451F1
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 05:28:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1E4882166B26; Mon, 18 Apr 2022 05:19:00 +0000 (UTC)
+ id 5ED1840FD34D; Mon, 18 Apr 2022 05:28:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A1EF2166BDC
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:18:52 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A0AB40F9D67
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:28:33 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCA3B380665D
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:18:51 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3F8AC80005D
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 05:28:33 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-473-ScRJlF9nOKKN24E4kHod9g-1; Mon, 18 Apr 2022 01:18:48 -0400
-X-MC-Unique: ScRJlF9nOKKN24E4kHod9g-1
+ us-mta-651-Pk8zoq9IMOygIMjWFEgQnA-1; Mon, 18 Apr 2022 01:28:31 -0400
+X-MC-Unique: Pk8zoq9IMOygIMjWFEgQnA-1
 Received: from [2a02:1205:504b:4280:f5dd:42a4:896c:d877] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ngJOI-00FYkg-0o; Mon, 18 Apr 2022 04:53:34 +0000
+ id 1ngJOK-00FYlu-W5; Mon, 18 Apr 2022 04:53:37 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 18 Apr 2022 06:53:09 +0200
-Message-Id: <20220418045314.360785-7-hch@lst.de>
+Date: Mon, 18 Apr 2022 06:53:10 +0200
+Message-Id: <20220418045314.360785-8-hch@lst.de>
 In-Reply-To: <20220418045314.360785-1-hch@lst.de>
 References: <20220418045314.360785-1-hch@lst.de>
 MIME-Version: 1.0
@@ -64,8 +64,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [dm-devel] [PATCH 06/11] raid5: don't set the discard_alignment
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [dm-devel] [PATCH 07/11] dasd: don't set the discard_alignment
  queue limit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -103,26 +103,27 @@ Content-Transfer-Encoding: 7bit
 
 The discard_alignment queue limit is named a bit misleading means the
 offset into the block device at which the discard granularity starts.
-Setting it to the discard granularity as done by raid5 is mostly
+Setting it to PAGE_SIZE while the discard granularity is the block size
+that is smaller or the same as PAGE_SIZE as done by dasd is mostly
 harmless but also useless.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/raid5.c | 1 -
+ drivers/s390/block/dasd_fba.c | 1 -
  1 file changed, 1 deletion(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index 59f91e392a2ae..39b0afdf40d0a 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7749,7 +7749,6 @@ static int raid5_run(struct mddev *mddev)
- 		 */
- 		stripe = stripe * PAGE_SIZE;
- 		stripe = roundup_pow_of_two(stripe);
--		mddev->queue->limits.discard_alignment = stripe;
- 		mddev->queue->limits.discard_granularity = stripe;
+diff --git a/drivers/s390/block/dasd_fba.c b/drivers/s390/block/dasd_fba.c
+index 8bd5665db9198..60be7f7bf2d16 100644
+--- a/drivers/s390/block/dasd_fba.c
++++ b/drivers/s390/block/dasd_fba.c
+@@ -782,7 +782,6 @@ static void dasd_fba_setup_blk_queue(struct dasd_block *block)
+ 	blk_queue_segment_boundary(q, PAGE_SIZE - 1);
  
- 		blk_queue_max_write_zeroes_sectors(mddev->queue, 0);
+ 	q->limits.discard_granularity = logical_block_size;
+-	q->limits.discard_alignment = PAGE_SIZE;
+ 
+ 	/* Calculate max_discard_sectors and make it PAGE aligned */
+ 	max_bytes = USHRT_MAX * logical_block_size;
 -- 
 2.30.2
 
