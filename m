@@ -2,83 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C64DF504B01
+	by mail.lfdr.de (Postfix) with ESMTPS id CCEF7504B02
 	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:28:01 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-73-iIGwc8lMPWKS0LgrMMr4Ew-1; Sun, 17 Apr 2022 22:27:57 -0400
-X-MC-Unique: iIGwc8lMPWKS0LgrMMr4Ew-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-59-KEb-wIVtPe6Jw4XhF99Ceg-1; Sun, 17 Apr 2022 22:27:59 -0400
+X-MC-Unique: KEb-wIVtPe6Jw4XhF99Ceg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B5C6803B22;
-	Mon, 18 Apr 2022 02:27:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 903A429ABA36;
+	Mon, 18 Apr 2022 02:27:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C846F574775;
-	Mon, 18 Apr 2022 02:27:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 70C4E17586;
+	Mon, 18 Apr 2022 02:27:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A2DEA194034F;
-	Mon, 18 Apr 2022 02:27:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 30185194034F;
+	Mon, 18 Apr 2022 02:27:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 36E6919466DF
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:53 +0000 (UTC)
+ ESMTP id 60C2019466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2190E416363; Mon, 18 Apr 2022 02:27:53 +0000 (UTC)
+ id 49977416363; Mon, 18 Apr 2022 02:27:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E1DE41617F
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:53 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4638F401E9A
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:54 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0496C3C00104
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:53 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CBEF803D7C
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:54 +0000 (UTC)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-199-mGTANf8CPZuv5etW22IjZA-2; Sun, 17 Apr 2022 22:27:51 -0400
-X-MC-Unique: mGTANf8CPZuv5etW22IjZA-2
-Received: by mail-qk1-f170.google.com with SMTP id b68so5589612qkc.4
- for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:51 -0700 (PDT)
+ us-mta-101-AeBIvqsuMeCBw_cTK-jXLQ-6; Sun, 17 Apr 2022 22:27:52 -0400
+X-MC-Unique: AeBIvqsuMeCBw_cTK-jXLQ-6
+Received: by mail-qk1-f169.google.com with SMTP id c1so10333853qkf.13
+ for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=MPtMBridXKBpzZXbwYmtGjKb3t3TUfTcOiaglG3U56U=;
- b=D0TEaiTSO6gZOH0Ls0TeQNtVzxFUaD+G1UxNAHi84BqBxdNQjm9gjDajRqlPXTly9m
- ufnDt3CeATgEdkrpgkqxbfZmhHW4GXqW5HJeLVaMq6L4hN8x89l+LvbCZg5d6rrG0Wx5
- XkoSkticFhj5rLr8ao1GgmjGt3f5NrRAqQXabdhHvfZ8hlx1nxAFxnukQ8yTaXOahAZt
- H8tXf3jRD+vsfYNQrEiYiW3hIc4vVLpX4c4Md3gagO5tf04+IVjNAvCSGpy8grGo2f4Y
- aqlc1jg3UnxIIJDYukYuCeO3vFDG3CyaW4O1OxWFBoQWv96y0yOj2fDujHn0L/lHbv2N
- sOjg==
-X-Gm-Message-State: AOAM530RN8yeijCx4d2RsxMYu3RqAU8LdlktII3mRRbLIbrPilRwIBbc
- R+b/VsyyDAQve41s2nApNSeRklyHo2LqB23NMh7ZSTLmeniOoHJWpqaLKbHs3krYhR2+8NeVOVt
- LHFPxsOL6UQkbXYIa2SRhwgzwfanwEtEZdK1O9jCy1r1gxlLCF4VvF7mHg/8cYRU7twM=
-X-Google-Smtp-Source: ABdhPJxS69CJZ5yQam01AFrSfuxuOxZq4pb8RPRxJ7YU8TVCHpTcqAaNHIsy2p4EaOVBgtY69yR3tA==
-X-Received: by 2002:a05:620a:4403:b0:67d:b78d:9ece with SMTP id
- v3-20020a05620a440300b0067db78d9ecemr5295955qkp.515.1650248870710; 
- Sun, 17 Apr 2022 19:27:50 -0700 (PDT)
+ bh=dQ9JsuvkqaeV0u/P5qcjq2a/yhHZyU2CtqcgbhCt5mY=;
+ b=tE1lClaeURYcqYLXWWZq1ajyhyEYLpxcQ28K/+SYF4VVCAIzPW8cJ4B/T76ffrgDtw
+ X4fblqc9pCb4TpgtWCYDBQlDj71HrD/9cKbrpa+cqj5FLI+t9vnL+jU7i4PE4LrSoc+Q
+ 8FlscdmjlPTqtkv0x24S6mdiWBTzn582T6XArmwd1jZp/OGYBuBjcHaFz5UZ+pWUV+YR
+ YyE57DkTg8SRUdaBQknZcPV/vbce2vszI8RbCntYwddooc+s41qFohSGJPStZ3TNOnaJ
+ g1VmnRyX2gKXUl85thG6CHo5CnBMXXAH1lYgsBJ84gP2HgZzx1ATXsHUVm56pAvOomuO
+ wrPA==
+X-Gm-Message-State: AOAM530o97av6KwbwM0JhsEytz5eEjY1wjah7kp7QXwMQeVncfO8N/eL
+ fAEX8phLzBpCc2xVmEYj7V/paMS5kTQPxRZcOvMgPfnRoh5zhRXOLGMDS6X+FmAr3gUk+2I0VU+
+ OslyEIxMfn2kkpV8QSynT76vRlQPDPh0/5NqlzlIfNgu0mSn49N4NZBPktn7oUZUbmzA=
+X-Google-Smtp-Source: ABdhPJy4lWMi6x4Gm27iaHO2SeoroM82SqmhnueY7DHUihF9VERAz4+33ZiY57dAqljYYJjWheFAzg==
+X-Received: by 2002:a05:620a:2804:b0:67d:1e7b:b528 with SMTP id
+ f4-20020a05620a280400b0067d1e7bb528mr5418927qkp.193.1650248872075; 
+ Sun, 17 Apr 2022 19:27:52 -0700 (PDT)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
  [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- y66-20020a37af45000000b0067dc0fc539fsm6054298qke.86.2022.04.17.19.27.50
+ c28-20020a05620a269c00b0069e8a1950fdsm1822261qkp.22.2022.04.17.19.27.51
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Apr 2022 19:27:50 -0700 (PDT)
+ Sun, 17 Apr 2022 19:27:51 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Sun, 17 Apr 2022 22:27:25 -0400
-Message-Id: <20220418022733.56168-14-snitzer@kernel.org>
+Date: Sun, 17 Apr 2022 22:27:26 -0400
+Message-Id: <20220418022733.56168-15-snitzer@kernel.org>
 In-Reply-To: <20220418022733.56168-1-snitzer@kernel.org>
 References: <20220418022733.56168-1-snitzer@kernel.org>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [dm-5.19 PATCH 13/21] dm: don't pass bio to
- __dm_start_io_acct and dm_end_io_acct
+Subject: [dm-devel] [dm-5.19 PATCH 14/21] dm: pass dm_io instance to
+ dm_io_acct directly
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,89 +94,69 @@ Cc: axboe@kernel.dk, hch@lst.de, ming.lei@redhat.com
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============1790744504145117934=="
+Content-Type: multipart/mixed; boundary="===============3742127568998941160=="
 
---===============1790744504145117934==
+--===============3742127568998941160==
 Content-Type: application/octet-stream; x-default=true
 
 From: Ming Lei <ming.lei@redhat.com>
 
-dm->orig_bio is always passed to __dm_start_io_acct and dm_end_io_acct,
-so it isn't necessary to take one bio parameter for the two helpers.
+All the other 4 parameters are retrieved from the 'dm_io' instance, so
+it's not necessary to pass all four to dm_io_acct().
 
 Signed-off-by: Ming Lei <ming.lei@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm.c | 19 ++++++++-----------
- 1 file changed, 8 insertions(+), 11 deletions(-)
+ drivers/md/dm.c | 11 +++++++----
+ 1 file changed, 7 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index c8933d7e6a78..9012cd1eff1f 100644
+index 9012cd1eff1f..f100ced29e0d 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -531,16 +531,13 @@ static void dm_io_acct(bool end, struct mapped_device *md, struct bio *bio,
- 		bio->bi_iter.bi_size = bi_size;
+@@ -502,9 +502,12 @@ static bool bio_is_flush_with_data(struct bio *bio)
+ 	return ((bio->bi_opf & REQ_PREFLUSH) && bio->bi_iter.bi_size);
  }
  
--static void __dm_start_io_acct(struct dm_io *io, struct bio *bio)
-+static void __dm_start_io_acct(struct dm_io *io)
+-static void dm_io_acct(bool end, struct mapped_device *md, struct bio *bio,
+-		       unsigned long start_time, struct dm_stats_aux *stats_aux)
++static void dm_io_acct(struct dm_io *io, bool end)
  {
--	dm_io_acct(false, io->md, bio, io->start_time, &io->stats_aux);
-+	dm_io_acct(false, io->md, io->orig_bio, io->start_time, &io->stats_aux);
++	struct dm_stats_aux *stats_aux = &io->stats_aux;
++	unsigned long start_time = io->start_time;
++	struct mapped_device *md = io->md;
++	struct bio *bio = io->orig_bio;
+ 	bool is_flush_with_data;
+ 	unsigned int bi_size;
+ 
+@@ -533,7 +536,7 @@ static void dm_io_acct(bool end, struct mapped_device *md, struct bio *bio,
+ 
+ static void __dm_start_io_acct(struct dm_io *io)
+ {
+-	dm_io_acct(false, io->md, io->orig_bio, io->start_time, &io->stats_aux);
++	dm_io_acct(io, false);
  }
  
  static void dm_start_io_acct(struct dm_io *io, struct bio *clone)
- {
--	/* Must account IO to DM device in terms of orig_bio */
--	struct bio *bio = io->orig_bio;
--
- 	/*
- 	 * Ensure IO accounting is only ever started once.
- 	 */
-@@ -558,12 +555,12 @@ static void dm_start_io_acct(struct dm_io *io, struct bio *clone)
- 		spin_unlock_irqrestore(&io->lock, flags);
- 	}
+@@ -560,7 +563,7 @@ static void dm_start_io_acct(struct dm_io *io, struct bio *clone)
  
--	__dm_start_io_acct(io, bio);
-+	__dm_start_io_acct(io);
- }
- 
--static void dm_end_io_acct(struct dm_io *io, struct bio *bio)
-+static void dm_end_io_acct(struct dm_io *io)
+ static void dm_end_io_acct(struct dm_io *io)
  {
--	dm_io_acct(true, io->md, bio, io->start_time, &io->stats_aux);
-+	dm_io_acct(true, io->md, io->orig_bio, io->start_time, &io->stats_aux);
+-	dm_io_acct(true, io->md, io->orig_bio, io->start_time, &io->stats_aux);
++	dm_io_acct(io, true);
  }
  
  static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
-@@ -899,14 +896,14 @@ static void dm_io_complete(struct dm_io *io)
- 
- 	io_error = io->status;
- 	if (dm_io_flagged(io, DM_IO_ACCOUNTED))
--		dm_end_io_acct(io, bio);
-+		dm_end_io_acct(io);
- 	else if (!io_error) {
- 		/*
- 		 * Must handle target that DM_MAPIO_SUBMITTED only to
- 		 * then bio_endio() rather than dm_submit_bio_remap()
- 		 */
--		__dm_start_io_acct(io, bio);
--		dm_end_io_acct(io, bio);
-+		__dm_start_io_acct(io);
-+		dm_end_io_acct(io);
- 	}
- 	free_io(io);
- 	smp_wmb();
 -- 
 2.15.0
 
 
---===============1790744504145117934==
+--===============3742127568998941160==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -187,5 +167,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============1790744504145117934==--
+--===============3742127568998941160==--
 
