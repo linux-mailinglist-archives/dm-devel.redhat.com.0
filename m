@@ -1,83 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E7CF504B0A
-	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:28:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66FD9504AFD
+	for <lists+dm-devel@lfdr.de>; Mon, 18 Apr 2022 04:27:58 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-106-8YY1H57IOSSkeLh_5Bq4ow-1; Sun, 17 Apr 2022 22:28:00 -0400
-X-MC-Unique: 8YY1H57IOSSkeLh_5Bq4ow-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-5-M6at9YOGMmKB_WGWI-hjhQ-1; Sun, 17 Apr 2022 22:27:54 -0400
+X-MC-Unique: M6at9YOGMmKB_WGWI-hjhQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A73B8299E753;
-	Mon, 18 Apr 2022 02:27:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20A381C06916;
+	Mon, 18 Apr 2022 02:27:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8CAF840F4941;
-	Mon, 18 Apr 2022 02:27:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 05ACC145D82E;
+	Mon, 18 Apr 2022 02:27:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 681151940352;
-	Mon, 18 Apr 2022 02:27:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C1573194034E;
+	Mon, 18 Apr 2022 02:27:51 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4498F1940352
- for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:56 +0000 (UTC)
+ ESMTP id 900C219466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon, 18 Apr 2022 02:27:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 365822166B1E; Mon, 18 Apr 2022 02:27:56 +0000 (UTC)
+ id 7F30A574772; Mon, 18 Apr 2022 02:27:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 31ABE2166B1C
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:49 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B3D757476A
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:50 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 44DC580159B
- for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:49 +0000 (UTC)
-Received: from mail-qt1-f182.google.com (mail-qt1-f182.google.com
- [209.85.160.182]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 642AA811E76
+ for <dm-devel@redhat.com>; Mon, 18 Apr 2022 02:27:50 +0000 (UTC)
+Received: from mail-qv1-f48.google.com (mail-qv1-f48.google.com
+ [209.85.219.48]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-324-PdA9sxftPXyFqdXo24hAWw-1; Sun, 17 Apr 2022 22:27:47 -0400
-X-MC-Unique: PdA9sxftPXyFqdXo24hAWw-1
-Received: by mail-qt1-f182.google.com with SMTP id a11so9280049qtb.12
- for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:47 -0700 (PDT)
+ us-mta-18-AmAvjXQeP8ClMS2QygF19Q-1; Sun, 17 Apr 2022 22:27:48 -0400
+X-MC-Unique: AmAvjXQeP8ClMS2QygF19Q-1
+Received: by mail-qv1-f48.google.com with SMTP id c1so10144917qvl.3
+ for <dm-devel@redhat.com>; Sun, 17 Apr 2022 19:27:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references;
- bh=Nf0mm/AnzvT816f+pNuqDw1vTu75lzlkj5IDnLDhk6I=;
- b=rGJTgPO/5Sc6SsUNqQmywJmcI5CxcwEDk08ipMKNUaGctwtHxbVuKrfu3zwr6kGfe9
- fw+o/t9BZpeaplkr5eKlku/BBBWXaRVq/HmLf/nc5GqTU/rB87jYVNQ8t+NkJvTBBS6L
- fhZ2XbDJwSlxS0394PtJpV7pjmJC0xB09cbmFnLQnlkVJyzWOZd3Pvbe61MDeLs/wFuT
- 4SQlxFNvkIjNpY7XkzbbSc5S8DsUKT8bwFIyeEbVfN9wF52Sl5Gzu163gu2iP79IX5Ti
- lyK6eZvk8s4onvEMXsnVwA6NXTmdPyq0p6uJU8snC01FXjyq5DhJPsmUmVfd3w3pUmcO
- EaYA==
-X-Gm-Message-State: AOAM5322DvGPabNAgX5GpHXBrxYproXQDp3oLn8Xb5iGwCU5bnZBE6JI
- 39dkxBl+ScTyauyuireTeXBtnrF8XlBNXIXi0tDF1hyrXzanmQVF1PqKdNXd8YGqrxjSNnnLnH2
- aQWQjQAzVyEObnWi1U9leBk/AknLfeNQwjkZWZ/+8kmeKTa4pahI0OVFee2sPkLVyiWI=
-X-Google-Smtp-Source: ABdhPJyMZYD5yvrA3uMQQTKtbhCchGyGJ7GrADx6RZYVernNDOHoXoQwV6GheB/Ds+lKcscWHOWrtg==
-X-Received: by 2002:a05:622a:302:b0:2e0:7aed:d653 with SMTP id
- q2-20020a05622a030200b002e07aedd653mr5894440qtw.492.1650248866876; 
- Sun, 17 Apr 2022 19:27:46 -0700 (PDT)
+ bh=mOq2yPZnQf8TffJEk8a4huokoENYVwScfH7hTgDzmm8=;
+ b=ZWvvIv6xhLBzAUCTZw+XgpXkz1g8N0Hh+9wXhD8FcXBvHHe2WPIumf0hTDhTa/gbG4
+ gKKPD96JWaM3K4ggMHhz1UfQbmlmrDOAyl3aX7lC6Mna5+tdFLUCHaoZxrIhUswJfR7S
+ OEXsB/H3Tl+KPq3vw7vWDCIgVfG81Uif+mRlacgIsu98ijEIIOc/Bh9a1bqJtcFEIRAv
+ TsqmBFBQ5tHHTnqgwc74YRcRLd8Ir1xvA/O5F6fvEn3exRA4D1gMdnksTIsGk8vtHRm0
+ SbhT/JNZ6XheK/7WVgv/vDViOF8nLRdyehy75XDSePfakIbd+gdPW9bScs9KiDKAkqFR
+ DSVA==
+X-Gm-Message-State: AOAM532PJtdMv9Lu4nnha3kgAeKm8NwYn7zkf/1Y2fHmwmg2PytpMF2t
+ 4LP7Z9iCRTPFPwGRBHAONvCrrGIgyBd8aI8twpXn7/7EYwP3QtmwyRiTZIyKb7OUQLRN5k/kMSe
+ v5+sH4W9ZjeYPNSe+3/vheARvm7DjgXnvc+ulGUVaUigtjjSNQmxx6/b1OmdH+S7afHI=
+X-Google-Smtp-Source: ABdhPJzEOHHia9AIFniU6bUh+Ety47iTiUVICPOU3K+DY1NOAlqyoZWS3bEc68Y9FHD/F6QZmDBvYA==
+X-Received: by 2002:a0c:c587:0:b0:443:cec4:5b55 with SMTP id
+ a7-20020a0cc587000000b00443cec45b55mr6623852qvj.25.1650248868054; 
+ Sun, 17 Apr 2022 19:27:48 -0700 (PDT)
 Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
  [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- j131-20020a37a089000000b0069e7ebc625bsm2405183qke.78.2022.04.17.19.27.46
+ 22-20020ac85756000000b002e1cabad999sm7124719qtx.89.2022.04.17.19.27.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 17 Apr 2022 19:27:46 -0700 (PDT)
+ Sun, 17 Apr 2022 19:27:47 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Sun, 17 Apr 2022 22:27:22 -0400
-Message-Id: <20220418022733.56168-11-snitzer@kernel.org>
+Date: Sun, 17 Apr 2022 22:27:23 -0400
+Message-Id: <20220418022733.56168-12-snitzer@kernel.org>
 In-Reply-To: <20220418022733.56168-1-snitzer@kernel.org>
 References: <20220418022733.56168-1-snitzer@kernel.org>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [dm-devel] [dm-5.19 PATCH 10/21] dm: conditionally enable branching
- for less used features
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [dm-5.19 PATCH 11/21] dm: simplify basic targets
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +92,7 @@ Cc: axboe@kernel.dk, hch@lst.de, ming.lei@redhat.com
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,212 +100,71 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use jump_labels to further reduce cost of unlikely branches for zoned
-block devices, dm-stats and swap_bios throttling.
+Remove needless factoring and remap bi_sector regardless of
+bio_sectors() being non-zero.
 
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-core.h  |  5 ++++
- drivers/md/dm-stats.c |  3 +++
- drivers/md/dm-table.c |  5 ++++
- drivers/md/dm.c       | 63 ++++++++++++++++++++++++++++++++-------------------
- 4 files changed, 53 insertions(+), 23 deletions(-)
+ drivers/md/dm-delay.c  |  3 +--
+ drivers/md/dm-flakey.c |  4 +---
+ drivers/md/dm-linear.c | 11 ++---------
+ 3 files changed, 4 insertions(+), 14 deletions(-)
 
-diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index 41d6511dc7cf..8ba99eaa0872 100644
---- a/drivers/md/dm-core.h
-+++ b/drivers/md/dm-core.h
-@@ -13,6 +13,7 @@
- #include <linux/ktime.h>
- #include <linux/blk-mq.h>
- #include <linux/blk-crypto-profile.h>
-+#include <linux/jump_label.h>
+diff --git a/drivers/md/dm-delay.c b/drivers/md/dm-delay.c
+index 9a51bf51a859..869afef5654a 100644
+--- a/drivers/md/dm-delay.c
++++ b/drivers/md/dm-delay.c
+@@ -296,8 +296,7 @@ static int delay_map(struct dm_target *ti, struct bio *bio)
+ 	}
+ 	delayed->class = c;
+ 	bio_set_dev(bio, c->dev->bdev);
+-	if (bio_sectors(bio))
+-		bio->bi_iter.bi_sector = c->start + dm_target_offset(ti, bio->bi_iter.bi_sector);
++	bio->bi_iter.bi_sector = c->start + dm_target_offset(ti, bio->bi_iter.bi_sector);
  
- #include <trace/events/block.h>
+ 	return delay_bio(dc, c, bio);
+ }
+diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
+index 345229d7e59c..f2305eb758a2 100644
+--- a/drivers/md/dm-flakey.c
++++ b/drivers/md/dm-flakey.c
+@@ -280,9 +280,7 @@ static void flakey_map_bio(struct dm_target *ti, struct bio *bio)
+ 	struct flakey_c *fc = ti->private;
  
-@@ -154,6 +155,10 @@ static inline struct dm_stats *dm_get_stats(struct mapped_device *md)
- 	return &md->stats;
+ 	bio_set_dev(bio, fc->dev->bdev);
+-	if (bio_sectors(bio) || op_is_zone_mgmt(bio_op(bio)))
+-		bio->bi_iter.bi_sector =
+-			flakey_map_sector(ti, bio->bi_iter.bi_sector);
++	bio->bi_iter.bi_sector = flakey_map_sector(ti, bio->bi_iter.bi_sector);
  }
  
-+DECLARE_STATIC_KEY_FALSE(stats_enabled);
-+DECLARE_STATIC_KEY_FALSE(swap_bios_enabled);
-+DECLARE_STATIC_KEY_FALSE(zoned_enabled);
-+
- static inline bool dm_emulate_zone_append(struct mapped_device *md)
+ static void corrupt_bio_data(struct bio *bio, struct flakey_c *fc)
+diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
+index 76b486e4d2be..0a6abbbe3745 100644
+--- a/drivers/md/dm-linear.c
++++ b/drivers/md/dm-linear.c
+@@ -84,19 +84,12 @@ static sector_t linear_map_sector(struct dm_target *ti, sector_t bi_sector)
+ 	return lc->start + dm_target_offset(ti, bi_sector);
+ }
+ 
+-static void linear_map_bio(struct dm_target *ti, struct bio *bio)
++static int linear_map(struct dm_target *ti, struct bio *bio)
  {
- 	if (blk_queue_is_zoned(md->queue))
-diff --git a/drivers/md/dm-stats.c b/drivers/md/dm-stats.c
-index 0e039a8c0bf2..86e0697330e8 100644
---- a/drivers/md/dm-stats.c
-+++ b/drivers/md/dm-stats.c
-@@ -396,6 +396,9 @@ static int dm_stats_create(struct dm_stats *stats, sector_t start, sector_t end,
+ 	struct linear_c *lc = ti->private;
  
- 	dm_stats_recalc_precise_timestamps(stats);
+ 	bio_set_dev(bio, lc->dev->bdev);
+-	if (bio_sectors(bio) || op_is_zone_mgmt(bio_op(bio)))
+-		bio->bi_iter.bi_sector =
+-			linear_map_sector(ti, bio->bi_iter.bi_sector);
+-}
+-
+-static int linear_map(struct dm_target *ti, struct bio *bio)
+-{
+-	linear_map_bio(ti, bio);
++	bio->bi_iter.bi_sector = linear_map_sector(ti, bio->bi_iter.bi_sector);
  
-+	if (!static_key_enabled(&stats_enabled.key))
-+		static_branch_enable(&stats_enabled);
-+
- 	mutex_unlock(&stats->mutex);
- 
- 	resume_callback(md);
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index ffd97cb6d1c1..a9d2fc5d9ad9 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -719,6 +719,9 @@ int dm_table_add_target(struct dm_table *t, const char *type,
- 		DMWARN("%s: %s: ignoring discards_supported because num_discard_bios is zero.",
- 		       dm_device_name(t->md), type);
- 
-+	if (tgt->limit_swap_bios && !static_key_enabled(&swap_bios_enabled.key))
-+		static_branch_enable(&swap_bios_enabled);
-+
- 	return 0;
- 
-  bad:
-@@ -2051,6 +2054,8 @@ int dm_table_set_restrictions(struct dm_table *t, struct request_queue *q,
- 		r = dm_set_zones_restrictions(t, q);
- 		if (r)
- 			return r;
-+		if (!static_key_enabled(&zoned_enabled.key))
-+			static_branch_enable(&zoned_enabled);
- 	}
- 
- 	dm_update_crypto_profile(q, t);
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 073b41ce7a30..3359b55daa99 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -71,6 +71,10 @@ void dm_issue_global_event(void)
- 	wake_up(&dm_global_eventq);
+ 	return DM_MAPIO_REMAPPED;
  }
- 
-+DEFINE_STATIC_KEY_FALSE(stats_enabled);
-+DEFINE_STATIC_KEY_FALSE(swap_bios_enabled);
-+DEFINE_STATIC_KEY_FALSE(zoned_enabled);
-+
- /*
-  * One of these is allocated (on-stack) per original bio.
-  */
-@@ -516,7 +520,8 @@ static void dm_io_acct(bool end, struct mapped_device *md, struct bio *bio,
- 	else
- 		bio_end_io_acct(bio, start_time);
- 
--	if (unlikely(dm_stats_used(&md->stats)))
-+	if (static_branch_unlikely(&stats_enabled) &&
-+	    unlikely(dm_stats_used(&md->stats)))
- 		dm_stats_account_io(&md->stats, bio_data_dir(bio),
- 				    bio->bi_iter.bi_sector, bio_sectors(bio),
- 				    end, start_time, stats_aux);
-@@ -586,7 +591,8 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	io->start_time = jiffies;
- 	io->flags = 0;
- 
--	dm_stats_record_start(&md->stats, &io->stats_aux);
-+	if (static_branch_unlikely(&stats_enabled))
-+		dm_stats_record_start(&md->stats, &io->stats_aux);
- 
- 	return io;
- }
-@@ -1013,21 +1019,25 @@ static void clone_endio(struct bio *bio)
- 			disable_write_zeroes(md);
- 	}
- 
--	if (unlikely(blk_queue_is_zoned(q)))
-+	if (static_branch_unlikely(&zoned_enabled) &&
-+	    unlikely(blk_queue_is_zoned(q)))
- 		dm_zone_endio(io, bio);
- 
- 	if (endio) {
- 		int r = endio(ti, bio, &error);
- 		switch (r) {
- 		case DM_ENDIO_REQUEUE:
--			/*
--			 * Requeuing writes to a sequential zone of a zoned
--			 * target will break the sequential write pattern:
--			 * fail such IO.
--			 */
--			if (WARN_ON_ONCE(dm_is_zone_write(md, bio)))
--				error = BLK_STS_IOERR;
--			else
-+			if (static_branch_unlikely(&zoned_enabled)) {
-+				/*
-+				 * Requeuing writes to a sequential zone of a zoned
-+				 * target will break the sequential write pattern:
-+				 * fail such IO.
-+				 */
-+				if (WARN_ON_ONCE(dm_is_zone_write(md, bio)))
-+					error = BLK_STS_IOERR;
-+				else
-+					error = BLK_STS_DM_REQUEUE;
-+			} else
- 				error = BLK_STS_DM_REQUEUE;
- 			fallthrough;
- 		case DM_ENDIO_DONE:
-@@ -1041,7 +1051,8 @@ static void clone_endio(struct bio *bio)
- 		}
- 	}
- 
--	if (unlikely(swap_bios_limit(ti, bio)))
-+	if (static_branch_unlikely(&swap_bios_enabled) &&
-+	    unlikely(swap_bios_limit(ti, bio)))
- 		up(&md->swap_bios_semaphore);
- 
- 	free_tio(bio);
-@@ -1296,21 +1307,25 @@ static void __map_bio(struct bio *clone)
- 	dm_io_inc_pending(io);
- 	tio->old_sector = clone->bi_iter.bi_sector;
- 
--	if (unlikely(swap_bios_limit(ti, clone))) {
-+	if (static_branch_unlikely(&swap_bios_enabled) &&
-+	    unlikely(swap_bios_limit(ti, clone))) {
- 		int latch = get_swap_bios();
- 		if (unlikely(latch != md->swap_bios))
- 			__set_swap_bios_limit(md, latch);
- 		down(&md->swap_bios_semaphore);
- 	}
- 
--	/*
--	 * Check if the IO needs a special mapping due to zone append emulation
--	 * on zoned target. In this case, dm_zone_map_bio() calls the target
--	 * map operation.
--	 */
--	if (unlikely(dm_emulate_zone_append(md)))
--		r = dm_zone_map_bio(tio);
--	else
-+	if (static_branch_unlikely(&zoned_enabled)) {
-+		/*
-+		 * Check if the IO needs a special mapping due to zone append
-+		 * emulation on zoned target. In this case, dm_zone_map_bio()
-+		 * calls the target map operation.
-+		 */
-+		if (unlikely(dm_emulate_zone_append(md)))
-+			r = dm_zone_map_bio(tio);
-+		else
-+			r = ti->type->map(ti, clone);
-+	} else
- 		r = ti->type->map(ti, clone);
- 
- 	switch (r) {
-@@ -1330,7 +1345,8 @@ static void __map_bio(struct bio *clone)
- 		break;
- 	case DM_MAPIO_KILL:
- 	case DM_MAPIO_REQUEUE:
--		if (unlikely(swap_bios_limit(ti, clone)))
-+		if (static_branch_unlikely(&swap_bios_enabled) &&
-+		    unlikely(swap_bios_limit(ti, clone)))
- 			up(&md->swap_bios_semaphore);
- 		free_tio(clone);
- 		if (r == DM_MAPIO_KILL)
-@@ -1566,7 +1582,8 @@ static void init_clone_info(struct clone_info *ci, struct mapped_device *md,
- 	ci->sector_count = bio_sectors(bio);
- 
- 	/* Shouldn't happen but sector_count was being set to 0 so... */
--	if (WARN_ON_ONCE(op_is_zone_mgmt(bio_op(bio)) && ci->sector_count))
-+	if (static_branch_unlikely(&zoned_enabled) &&
-+	    WARN_ON_ONCE(op_is_zone_mgmt(bio_op(bio)) && ci->sector_count))
- 		ci->sector_count = 0;
- }
- 
 -- 
 2.15.0
 
