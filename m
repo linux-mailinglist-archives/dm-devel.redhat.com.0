@@ -2,69 +2,89 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61976508161
-	for <lists+dm-devel@lfdr.de>; Wed, 20 Apr 2022 08:47:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id ECC1C508160
+	for <lists+dm-devel@lfdr.de>; Wed, 20 Apr 2022 08:47:05 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-632-F2XImX1aORqMe7C8rcRWTQ-1; Wed, 20 Apr 2022 02:47:01 -0400
-X-MC-Unique: F2XImX1aORqMe7C8rcRWTQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-632-C5v8EUdqPaCfY34dQv4TMQ-1; Wed, 20 Apr 2022 02:47:01 -0400
+X-MC-Unique: C5v8EUdqPaCfY34dQv4TMQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2076D1C00B88;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FE55296A603;
 	Wed, 20 Apr 2022 06:46:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CB39B1415101;
-	Wed, 20 Apr 2022 06:46:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8839540314E;
+	Wed, 20 Apr 2022 06:46:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0809C1940345;
-	Wed, 20 Apr 2022 06:46:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 544FD194034E;
+	Wed, 20 Apr 2022 06:46:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3E6DA1947BBE
- for <dm-devel@listman.corp.redhat.com>; Tue, 19 Apr 2022 10:33:06 +0000 (UTC)
+ ESMTP id 2D9F71947BBE
+ for <dm-devel@listman.corp.redhat.com>; Tue, 19 Apr 2022 12:59:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2067D40FF720; Tue, 19 Apr 2022 10:33:06 +0000 (UTC)
+ id 0C982C15D40; Tue, 19 Apr 2022 12:59:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C5B440FF71F
- for <dm-devel@redhat.com>; Tue, 19 Apr 2022 10:33:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 08853C53532
+ for <dm-devel@redhat.com>; Tue, 19 Apr 2022 12:59:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04CB83811A30
- for <dm-devel@redhat.com>; Tue, 19 Apr 2022 10:33:06 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E37C085A5BC
+ for <dm-devel@redhat.com>; Tue, 19 Apr 2022 12:59:25 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-352-rf4icdSENCW0hG6vTzHieQ-1; Tue, 19 Apr 2022 06:33:04 -0400
-X-MC-Unique: rf4icdSENCW0hG6vTzHieQ-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10321"; a="326631385"
-X-IronPort-AV: E=Sophos;i="5.90,272,1643702400"; d="scan'208";a="326631385"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 03:32:00 -0700
-X-IronPort-AV: E=Sophos;i="5.90,272,1643702400"; d="scan'208";a="529259623"
-Received: from silpixa00400314.ir.intel.com (HELO silpixa00400314)
- ([10.237.222.76])
- by orsmga006-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 19 Apr 2022 03:31:58 -0700
-Date: Tue, 19 Apr 2022 11:31:50 +0100
-From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-To: Eric Biggers <ebiggers@kernel.org>
-Message-ID: <Yl6PlqyucVLCzwF5@silpixa00400314>
-References: <20220410194707.9746-1-giovanni.cabiddu@intel.com>
- <20220410194707.9746-2-giovanni.cabiddu@intel.com>
- <YlRnVBYl1eJ+zvM5@gmail.com>
+ us-mta-604-o6U8mCasMRW04WxEeLd1Qg-1; Tue, 19 Apr 2022 08:59:22 -0400
+X-MC-Unique: o6U8mCasMRW04WxEeLd1Qg-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C99F51F38D;
+ Tue, 19 Apr 2022 12:59:20 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 550DC139BE;
+ Tue, 19 Apr 2022 12:59:20 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id BH7rEyiyXmLxeQAAMHmgww
+ (envelope-from <dsterba@suse.cz>); Tue, 19 Apr 2022 12:59:20 +0000
+Date: Tue, 19 Apr 2022 14:55:17 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20220419125517.GB2348@twin.jikos.cz>
+Mail-Followup-To: dsterba@suse.cz, Christoph Hellwig <hch@lst.de>,
+ Jens Axboe <axboe@kernel.dk>, dm-devel@redhat.com,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-um@lists.infradead.org, linux-block@vger.kernel.org,
+ drbd-dev@lists.linbit.com, nbd@other.debian.org,
+ ceph-devel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org,
+ xen-devel@lists.xenproject.org, linux-bcache@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-nvme@lists.infradead.org,
+ linux-s390@vger.kernel.org, linux-scsi@vger.kernel.org,
+ target-devel@vger.kernel.org, linux-btrfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ cluster-devel@redhat.com, jfs-discussion@lists.sourceforge.net,
+ linux-nilfs@vger.kernel.org, ntfs3@lists.linux.dev,
+ ocfs2-devel@oss.oracle.com, linux-mm@kvack.org
+References: <20220415045258.199825-1-hch@lst.de>
+ <20220415045258.199825-28-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <YlRnVBYl1eJ+zvM5@gmail.com>
-Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
- Collinstown Industrial Park, Leixlip, County Kildare - Ireland
+In-Reply-To: <20220415045258.199825-28-hch@lst.de>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -72,10 +92,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Wed, 20 Apr 2022 06:46:52 +0000
-Subject: Re: [dm-devel] [PATCH v3 1/3] crypto: qat - use pre-allocated
- buffers in datapath
+Subject: Re: [dm-devel] [PATCH 27/27] direct-io: remove random prefetches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,13 +106,24 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Marco Chiappero <marco.chiappero@intel.com>, herbert@gondor.apana.org.au,
- qat-linux@intel.com, stable@vger.kernel.org, dm-devel@redhat.com,
- Mikulas Patocka <mpatocka@redhat.com>, linux-crypto@vger.kernel.org,
- Wojciech Ziemba <wojciech.ziemba@intel.com>
+Reply-To: dsterba@suse.cz
+Cc: jfs-discussion@lists.sourceforge.net, linux-nvme@lists.infradead.org,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ dm-devel@redhat.com, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, drbd-dev@lists.linbit.com,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, cluster-devel@redhat.com,
+ xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
+ linux-um@lists.infradead.org, nbd@other.debian.org,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ ceph-devel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+ linux-raid@vger.kernel.org, linux-mmc@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ ocfs2-devel@oss.oracle.com, linux-fsdevel@vger.kernel.org,
+ ntfs3@lists.linux.dev, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -102,36 +132,26 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Belated response on this - I was out last week.
-
-On Mon, Apr 11, 2022 at 05:37:24PM +0000, Eric Biggers wrote:
-> On Sun, Apr 10, 2022 at 08:47:05PM +0100, Giovanni Cabiddu wrote:
-> > If requests exceed 4 entries buffers, memory is allocated dynamically.
-> > 
-> > In addition, remove the CRYPTO_ALG_ALLOCATES_MEMORY flag from both aead
-> > and skcipher alg structures.
-> > 
+On Fri, Apr 15, 2022 at 06:52:58AM +0200, Christoph Hellwig wrote:
+> Randomly poking into block device internals for manual prefetches isn't
+> exactly a very maintainable thing to do.  And none of the performance
+> criticil direct I/O implementations still use this library function
+> anyway, so just drop it.
 > 
-> There is nothing that says that algorithms can ignore
-> !CRYPTO_ALG_ALLOCATES_MEMORY if there are too many scatterlist entries.  See the
-> comment above the definition of CRYPTO_ALG_ALLOCATES_MEMORY.
-From the conversation in [1], I assumed that a cap on the number of
-pre-allocated entries in the scatterlists was already agreed.
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-> If you need to introduce this constraint, then you will need to audit the users
-> of !CRYPTO_ALG_ALLOCATES_MEMORY to verify that none of them are issuing requests
-> that violate this constraint, then add this to the documentation comment for
-> CRYPTO_ALG_ALLOCATES_MEMORY.
-Makes sense. I see that the only users of !CRYPTO_ALG_ALLOCATES_MEMORY
-are dm-crypt and dm-integrity but I haven't done an audit on those yet
-to understand if they use more than 4 entries.
+That the direct io function needed a valid bdev just for the prefetch
+but nothing else was one of the reasons we had to keep the latest_bdev
+in btrfs, so good riddance.
 
-Regards,
+You may want to add the reference to the patch that added the prefetch,
+65dd2aa90aa1 ("dio: optimize cache misses in the submission path") and
+also remove #include <linux/prefetch.h> as there are no more uses of
+prefetch in the file.
 
-[1] https://lore.kernel.org/linux-crypto/20200722072932.GA27544@gondor.apana.org.au/
+With that
 
--- 
-Giovanni
+Reviewed-by: David Sterba <dsterba@suse.com>
 
 --
 dm-devel mailing list
