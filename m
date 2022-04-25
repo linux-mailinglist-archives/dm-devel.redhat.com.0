@@ -1,91 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D534950DBF5
-	for <lists+dm-devel@lfdr.de>; Mon, 25 Apr 2022 11:05:59 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9FD6450DE6D
+	for <lists+dm-devel@lfdr.de>; Mon, 25 Apr 2022 13:04:21 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1650884660;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=M2K6jo5neO6kB4emM6FFV57I/xfPZDaDsWqM7qu+szY=;
+	b=LmMLc0aUbgGlvKISLNAhTYSzLyl6dbjrW+cheIYlXWQ9+Bu8X9JVf4IGQPjgoCz4k+6ozk
+	OoypuToLQeWWKGqiU9sIphmxy6Xzoub3MDOClZsndQZLMlO+X31OVwydMYi7cF2r9OM2F6
+	0lJMntOvwinXrarQKay0fNmvXfqFg9A=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-622-x19odOtAMi2zPOvgGYfATw-1; Mon, 25 Apr 2022 05:05:57 -0400
-X-MC-Unique: x19odOtAMi2zPOvgGYfATw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-561-TnHlsPkfMNiKBnJFP3vw1Q-1; Mon, 25 Apr 2022 07:04:17 -0400
+X-MC-Unique: TnHlsPkfMNiKBnJFP3vw1Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57B1D3C21F85;
-	Mon, 25 Apr 2022 09:05:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 572C7185A79C;
+	Mon, 25 Apr 2022 11:04:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 76CDE40CF910;
-	Mon, 25 Apr 2022 09:05:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 89BA42024CD0;
+	Mon, 25 Apr 2022 11:04:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 40D731940359;
-	Mon, 25 Apr 2022 09:05:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 162001940358;
+	Mon, 25 Apr 2022 11:04:08 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2921F1947BBE
- for <dm-devel@listman.corp.redhat.com>; Mon, 25 Apr 2022 09:05:51 +0000 (UTC)
+ ESMTP id 89F611947BBE
+ for <dm-devel@listman.corp.redhat.com>; Mon, 25 Apr 2022 11:04:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 04C164087D91; Mon, 25 Apr 2022 09:05:51 +0000 (UTC)
+ id 294AD463DF5; Mon, 25 Apr 2022 11:04:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F414640CF910
- for <dm-devel@redhat.com>; Mon, 25 Apr 2022 09:05:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC11E8038E3
- for <dm-devel@redhat.com>; Mon, 25 Apr 2022 09:05:50 +0000 (UTC)
-Received: from wout1-smtp.messagingengine.com
- (wout1-smtp.messagingengine.com [64.147.123.24]) by relay.mimecast.com with
- ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-130-aigILFcsO0u0oyGa8fFVCQ-1; Mon, 25 Apr 2022 05:05:47 -0400
-X-MC-Unique: aigILFcsO0u0oyGa8fFVCQ-1
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id 396B13200E79;
- Mon, 25 Apr 2022 04:57:03 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Mon, 25 Apr 2022 04:57:04 -0400
-X-ME-Sender: <xms:XmJmYlHeUZu3LGPPmk40s5RLcoZ7W7IajN0ohWLklNe6zIXKiajhuQ>
- <xme:XmJmYqWKOii65KNE4vg_yI-_3CjtB4g3_J7--r_WFrYo59ZbPcuXx4wZID2HHrp5O
- wOBB2SSeV0Luw>
-X-ME-Received: <xmr:XmJmYnKe-ZaiLG54i4xxDlLQO0N3On5zvmv_1k-aLMCRwZn9vfPAj8flDDs_Ax_w8okhC5Azwtxvw1pIbo6N_ev_XrhtrF9S>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvfedruddugddtkecutefuodetggdotefrodftvf
- curfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfghnecu
- uegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmdenuc
- fjughrpeffhffvvefukfhfgggtuggjsehttdertddttddvnecuhfhrohhmpefirhgvghcu
- mffjuceoghhrvghgsehkrhhorghhrdgtohhmqeenucggtffrrghtthgvrhhnpeehgedvve
- dvleejuefgtdduudfhkeeltdeihfevjeekjeeuhfdtueefhffgheekteenucevlhhushht
- vghrufhiiigvpedtnecurfgrrhgrmhepmhgrihhlfhhrohhmpehgrhgvgheskhhrohgrhh
- drtghomh
-X-ME-Proxy: <xmx:XmJmYrFOnr64ORQ5FTauihsRBkrKmy-qQjRBbfu5g1U36wRSTXqCDA>
- <xmx:XmJmYrVLiqmAJzPm_ij1lQ3X8w4Ed702Ec-ZFiZSOP-ZKU4ke-PZaw>
- <xmx:XmJmYmN2qbG8WTpyai_Y4vKUCIlp5XuCUp5eBcGolMDdNCnzI_JBLA>
- <xmx:XmJmYvkmg_ZQbVQhY95LS2OzroLOwwlnxDDGn7ot_hXOxNK-J10xeA>
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Mon,
- 25 Apr 2022 04:57:01 -0400 (EDT)
-Date: Mon, 25 Apr 2022 10:56:59 +0200
-From: Greg KH <greg@kroah.com>
-To: Akilesh Kailash <akailash@google.com>
-Message-ID: <YmZiW0TUSjxrEGGZ@kroah.com>
-References: <20220425082812.780445-1-akailash@google.com>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+ (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 191FA401475;
+ Mon, 25 Apr 2022 11:04:06 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
+ 23PB463w025596; Mon, 25 Apr 2022 07:04:06 -0400
+Received: from localhost (mpatocka@localhost)
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
+ id 23PB45Cv025592; Mon, 25 Apr 2022 07:04:05 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+ owned process doing -bs
+Date: Mon, 25 Apr 2022 07:04:05 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: David Laight <David.Laight@ACULAB.COM>
+In-Reply-To: <789f0463ce974e90a93f4dbf8c471156@AcuMS.aculab.com>
+Message-ID: <alpine.LRH.2.02.2204250701410.10912@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2204241648270.17244@file01.intranet.prod.int.rdu2.redhat.com>
+ <CAHk-=wh+Z+OKH3jRttWGHbWSQq2wVMtdnA=ntDiadZu=VxAC7w@mail.gmail.com>
+ <CAHk-=wibmkFz6dybsdpW_3kUnV20FhJazerWDcbm7yCp_Xv+CA@mail.gmail.com>
+ <789f0463ce974e90a93f4dbf8c471156@AcuMS.aculab.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <20220425082812.780445-1-akailash@google.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH] dm: fix mempool NULL pointer race when
- completing IO
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH] hex2bin: make the function hex_to_bin
+ constant-time
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,32 +80,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Snitzer <snitzer@redhat.com>, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, dm-devel@redhat.com, Jiazi Li <jqqlijiazi@gmail.com>,
- Jiazi Li <lijiazi@xiaomi.com>, kernel-team@android.com,
- Alasdair Kergon <agk@redhat.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Mike Snitzer <msnitzer@redhat.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Milan Broz <gmazyland@gmail.com>,
+ device-mapper development <dm-devel@redhat.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ 'Linus Torvalds' <torvalds@linux-foundation.org>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 25, 2022 at 08:28:12AM +0000, Akilesh Kailash wrote:
-> From: Jiazi Li <jqqlijiazi@gmail.com>
+
+
+On Mon, 25 Apr 2022, David Laight wrote:
+
+> From: Linus Torvalds
+> > Sent: 24 April 2022 22:42
+> > 
+> > On Sun, Apr 24, 2022 at 2:37 PM Linus Torvalds
+> > <torvalds@linux-foundation.org> wrote:
+> > >
+> > > Finally, for the same reason - please don't use ">> 8".  Because I do
+> > > not believe that bit 8 is well-defined in your arithmetic. The *sign*
+> > > bit will be, but I'm not convinced bit 8 is.
+> > 
+> > Hmm.. I think it's ok. It can indeed overflow in 'char' and change the
+> > sign in bit #7, but I suspect bit #8 is always fine.
+> > 
+> > Still, If you want to just extend the sign bit, ">> 31" _is_ the
+> > obvious thing to use (yeah, yeah, properly "sizeof(int)*8-1" or
+> > whatever, you get my drift).
 > 
-> commit d208b89401e073de986dc891037c5a668f5d5d95 upstream.
+> Except that right shifts of signed values are UB.
+> In particular it has always been valid to do an unsigned
+> shift right on a 2's compliment negative number.
 > 
-> This is a backport of the upstream patch to 5.10.y stable branch.
+> 	David
 
-Now queued up, thanks.
+Yes. All the standard versions (C89, C99, C11, C2X) say that right shift 
+of a negative value is implementation-defined.
 
-greg k-h
+So, we should cast it to "unsigned" before shifting it.
 
+Mikulas
 --
 dm-devel mailing list
 dm-devel@redhat.com
