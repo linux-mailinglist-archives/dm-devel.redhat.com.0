@@ -1,75 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6A65E5114E4
-	for <lists+dm-devel@lfdr.de>; Wed, 27 Apr 2022 12:37:19 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F20485116A1
+	for <lists+dm-devel@lfdr.de>; Wed, 27 Apr 2022 14:19:27 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-663--YIYQkgkMcSj4e-49BAHng-1; Wed, 27 Apr 2022 06:37:17 -0400
-X-MC-Unique: -YIYQkgkMcSj4e-49BAHng-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-546-IzJyqjQqMDuj-0kkB8KuUg-1; Wed, 27 Apr 2022 08:19:25 -0400
+X-MC-Unique: IzJyqjQqMDuj-0kkB8KuUg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0121D801E67;
-	Wed, 27 Apr 2022 10:37:15 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3B93C403149;
-	Wed, 27 Apr 2022 10:37:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E380F29DD998;
+	Wed, 27 Apr 2022 12:19:22 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9354A14C1E83;
+	Wed, 27 Apr 2022 12:19:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 27F50194704C;
-	Wed, 27 Apr 2022 10:37:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 27A9B1947043;
+	Wed, 27 Apr 2022 12:19:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ACC731947041
- for <dm-devel@listman.corp.redhat.com>; Wed, 27 Apr 2022 10:37:11 +0000 (UTC)
+ ESMTP id 52C541947BBE
+ for <dm-devel@listman.corp.redhat.com>; Mon, 25 Apr 2022 09:37:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8FF8CC52C89; Wed, 27 Apr 2022 10:37:11 +0000 (UTC)
+ id 3327340CF91E; Mon, 25 Apr 2022 09:37:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8BF61C52C84
- for <dm-devel@redhat.com>; Wed, 27 Apr 2022 10:37:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 735A01014A61
- for <dm-devel@redhat.com>; Wed, 27 Apr 2022 10:37:11 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2EB1740CF910
+ for <dm-devel@redhat.com>; Mon, 25 Apr 2022 09:37:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1021986B8A1
+ for <dm-devel@redhat.com>; Mon, 25 Apr 2022 09:37:59 +0000 (UTC)
+Received: from eu-smtp-delivery-151.mimecast.com
+ (eu-smtp-delivery-151.mimecast.com [185.58.85.151]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-38-3Dlw-8PtPSa_mamueIcc2w-1; Wed, 27 Apr 2022 06:37:09 -0400
-X-MC-Unique: 3Dlw-8PtPSa_mamueIcc2w-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DE5591F747;
- Wed, 27 Apr 2022 10:37:07 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 942411323E;
- Wed, 27 Apr 2022 10:37:07 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id VQRnI9McaWJTBQAAMHmgww
- (envelope-from <hare@suse.de>); Wed, 27 Apr 2022 10:37:07 +0000
-Message-ID: <a885def5-7373-28d9-6ed6-bc836864c67c@suse.de>
-Date: Wed, 27 Apr 2022 12:37:07 +0200
+ us-mta-25-Ah28vS6GMo-xccGXigp2xA-1; Mon, 25 Apr 2022 05:37:56 -0400
+X-MC-Unique: Ah28vS6GMo-xccGXigp2xA-1
+Received: from AcuMS.aculab.com (156.67.243.121 [156.67.243.121]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ uk-mta-264-gSzupilVOGmWAUMzmc48-Q-1; Mon, 25 Apr 2022 10:37:54 +0100
+X-MC-Unique: gSzupilVOGmWAUMzmc48-Q-1
+Received: from AcuMS.Aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) by
+ AcuMS.aculab.com (fd9f:af1c:a25b:0:994c:f5c2:35d6:9b65) with Microsoft SMTP
+ Server (TLS) id 15.0.1497.32; Mon, 25 Apr 2022 10:37:53 +0100
+Received: from AcuMS.Aculab.com ([fe80::994c:f5c2:35d6:9b65]) by
+ AcuMS.aculab.com ([fe80::994c:f5c2:35d6:9b65%12]) with mapi id
+ 15.00.1497.033; Mon, 25 Apr 2022 10:37:53 +0100
+From: David Laight <David.Laight@ACULAB.COM>
+To: 'Linus Torvalds' <torvalds@linux-foundation.org>, Mikulas Patocka
+ <mpatocka@redhat.com>
+Thread-Topic: [PATCH] hex2bin: make the function hex_to_bin constant-time
+Thread-Index: AQHYWCRFXKVloRHnAkSgNzNf81l36q0AX1Cg
+Date: Mon, 25 Apr 2022 09:37:53 +0000
+Message-ID: <789f0463ce974e90a93f4dbf8c471156@AcuMS.aculab.com>
+References: <alpine.LRH.2.02.2204241648270.17244@file01.intranet.prod.int.rdu2.redhat.com>
+ <CAHk-=wh+Z+OKH3jRttWGHbWSQq2wVMtdnA=ntDiadZu=VxAC7w@mail.gmail.com>
+ <CAHk-=wibmkFz6dybsdpW_3kUnV20FhJazerWDcbm7yCp_Xv+CA@mail.gmail.com>
+In-Reply-To: <CAHk-=wibmkFz6dybsdpW_3kUnV20FhJazerWDcbm7yCp_Xv+CA@mail.gmail.com>
+Accept-Language: en-GB, en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+x-ms-exchange-transport-fromentityheader: Hosted
+x-originating-ip: [10.202.205.107]
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-To: Nitesh Shetty <nj.shetty@samsung.com>
-References: <20220426101241.30100-1-nj.shetty@samsung.com>
- <CGME20220426101938epcas5p291690dd1f0e931cd9f8139daaf3f9296@epcas5p2.samsung.com>
- <20220426101241.30100-4-nj.shetty@samsung.com>
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20220426101241.30100-4-nj.shetty@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -77,9 +80,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH v4 03/10] block: Introduce a new ioctl for
- copy
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Mailman-Approved-At: Wed, 27 Apr 2022 12:14:17 +0000
+Subject: Re: [dm-devel] [PATCH] hex2bin: make the function hex_to_bin
+ constant-time
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,72 +95,52 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: djwong@kernel.org, linux-nvme@lists.infradead.org, clm@fb.com,
- dm-devel@redhat.com, osandov@fb.com, Alasdair Kergon <agk@redhat.com>,
- Naohiro Aota <naohiro.aota@wdc.com>, msnitzer@redhat.com, bvanassche@acm.org,
- linux-scsi@vger.kernel.org, gost.dev@samsung.com, nitheshshetty@gmail.com,
- James Smart <james.smart@broadcom.com>, hch@lst.de, chaitanyak@nvidia.com,
- Chaitanya Kulkarni <kch@nvidia.com>, Mike Snitzer <snitzer@kernel.org>,
- josef@toxicpanda.com, linux-block@vger.kernel.org, dsterba@suse.com,
- Alexander Viro <viro@zeniv.linux.org.uk>, kbusch@kernel.org,
- Frederick.Knight@netapp.com, Sagi Grimberg <sagi@grimberg.me>, axboe@kernel.dk,
- Johannes Thumshirn <jth@kernel.org>, tytso@mit.edu, martin.petersen@oracle.com,
- linux-kernel@vger.kernel.org, Arnav Dawn <arnav.dawn@samsung.com>,
- jack@suse.com, linux-fsdevel@vger.kernel.org,
- =?UTF-8?Q?Javier_Gonz=c3=a1lez?= <javier.gonz@samsung.com>,
- lsf-pc@lists.linux-foundation.org,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Cc: Andy Shevchenko <andy@kernel.org>, Mike Snitzer <msnitzer@redhat.com>,
+ Herbert Xu <herbert@gondor.apana.org.au>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Milan Broz <gmazyland@gmail.com>,
+ device-mapper development <dm-devel@redhat.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gNC8yNi8yMiAxMjoxMiwgTml0ZXNoIFNoZXR0eSB3cm90ZToKPiBBZGQgbmV3IEJMS0NPUFkg
-aW9jdGwgdGhhdCBvZmZsb2FkcyBjb3B5aW5nIG9mIG9uZSBvciBtb3JlIHNvdXJjZXMgcmFuZ2Vz
-Cj4gdG8gb25lIG9yIG1vcmUgZGVzdGluYXRpb24gaW4gYSBkZXZpY2UuIENPUFkgaW9jdGwgYWNj
-ZXB0cyBhICdjb3B5X3JhbmdlJwo+IHN0cnVjdHVyZSB0aGF0IGNvbnRhaW5zIG5vIG9mIHJhbmdl
-LCBhIHJlc2VydmVkIGZpZWxkICwgZm9sbG93ZWQgYnkgYW4KPiBhcnJheSBvZiByYW5nZXMuIEVh
-Y2ggc291cmNlIHJhbmdlIGlzIHJlcHJlc2VudGVkIGJ5ICdyYW5nZV9lbnRyeScgdGhhdAo+IGNv
-bnRhaW5zIHNvdXJjZSBzdGFydCBvZmZzZXQsIGRlc3RpbmF0aW9uIHN0YXJ0IG9mZnNldCBhbmQg
-bGVuZ3RoIG9mCj4gc291cmNlIHJhbmdlcyAoaW4gYnl0ZXMpCj4gCj4gTUFYX0NPUFlfTlJfUkFO
-R0UsIGxpbWl0cyB0aGUgbnVtYmVyIG9mIGVudHJpZXMgZm9yIHRoZSBJT0NUTCBhbmQKPiBNQVhf
-Q09QWV9UT1RBTF9MRU5HVEggbGltaXRzIHRoZSB0b3RhbCBjb3B5IGxlbmd0aCwgSU9DVEwgY2Fu
-IGhhbmRsZS4KPiAKPiBFeGFtcGxlIGNvZGUsIHRvIGlzc3VlIEJMS0NPUFk6Cj4gLyogU2FtcGxl
-IGV4YW1wbGUgdG8gY29weSB0aHJlZSBlbnRyaWVzIHdpdGggW2Rlc3Qsc3JjLGxlbl0sCj4gKiBb
-MzI3NjgsIDAsIDQwOTZdIFszNjg2NCwgNDA5NiwgNDA5Nl0gWzQwOTYwLDgxOTIsNDA5Nl0gb24g
-c2FtZSBkZXZpY2UgKi8KPiAKPiBpbnQgbWFpbih2b2lkKQo+IHsKPiAJaW50IGksIHJldCwgZmQ7
-Cj4gCXVuc2lnbmVkIGxvbmcgc3JjID0gMCwgZHN0ID0gMzI3NjgsIGxlbiA9IDQwOTY7Cj4gCXN0
-cnVjdCBjb3B5X3JhbmdlICpjcjsKPiAJY3IgPSAoc3RydWN0IGNvcHlfcmFuZ2UgKiltYWxsb2Mo
-c2l6ZW9mKCpjcikrCj4gCQkJCQkoc2l6ZW9mKHN0cnVjdCByYW5nZV9lbnRyeSkqMykpOwo+IAlj
-ci0+bnJfcmFuZ2UgPSAzOwo+IAljci0+cmVzZXJ2ZWQgPSAwOwo+IAlmb3IgKGkgPSAwOyBpPCBj
-ci0+bnJfcmFuZ2U7IGkrKywgc3JjICs9IGxlbiwgZHN0ICs9IGxlbikgewo+IAkJY3ItPnJhbmdl
-X2xpc3RbaV0uZHN0ID0gZHN0Owo+IAkJY3ItPnJhbmdlX2xpc3RbaV0uc3JjID0gc3JjOwo+IAkJ
-Y3ItPnJhbmdlX2xpc3RbaV0ubGVuID0gbGVuOwo+IAkJY3ItPnJhbmdlX2xpc3RbaV0uY29tcF9s
-ZW4gPSAwOwo+IAl9Cj4gCWZkID0gb3BlbigiL2Rldi9udm1lMG4xIiwgT19SRFdSKTsKPiAJaWYg
-KGZkIDwgMCkgcmV0dXJuIDE7Cj4gCXJldCA9IGlvY3RsKGZkLCBCTEtDT1BZLCBjcik7Cj4gCWlm
-IChyZXQgIT0gMCkKPiAJICAgICAgIHByaW50ZigiY29weSBmYWlsZWQsIHJldD0gJWRcbiIsIHJl
-dCk7Cj4gCWZvciAoaT0wOyBpPCBjci0+bnJfcmFuZ2U7IGkrKykKPiAJCWlmIChjci0+cmFuZ2Vf
-bGlzdFtpXS5sZW4gIT0gY3ItPnJhbmdlX2xpc3RbaV0uY29tcF9sZW4pCj4gCQkJcHJpbnRmKCJQ
-YXJ0aWFsIGNvcHkgZm9yIGVudHJ5ICVkOiByZXF1ZXN0ZWQgJWxsdSwgY29tcGxldGVkICVsbHVc
-biIsCj4gCQkJCQkJCQlpLCBjci0+cmFuZ2VfbGlzdFtpXS5sZW4sCj4gCQkJCQkJCQljci0+cmFu
-Z2VfbGlzdFtpXS5jb21wX2xlbik7Cj4gCWNsb3NlKGZkKTsKPiAJZnJlZShjcik7Cj4gCXJldHVy
-biByZXQ7Cj4gfQo+IAo+IFNpZ25lZC1vZmYtYnk6IE5pdGVzaCBTaGV0dHkgPG5qLnNoZXR0eUBz
-YW1zdW5nLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBKYXZpZXIgR29uesOhbGV6IDxqYXZpZXIuZ29u
-ekBzYW1zdW5nLmNvbT4KPiBTaWduZWQtb2ZmLWJ5OiBBcm5hdiBEYXduIDxhcm5hdi5kYXduQHNh
-bXN1bmcuY29tPgo+IC0tLQo+ICAgYmxvY2svaW9jdGwuYyAgICAgICAgICAgfCAzMiArKysrKysr
-KysrKysrKysrKysrKysrKysrKysrKysrKwo+ICAgaW5jbHVkZS91YXBpL2xpbnV4L2ZzLmggfCAg
-OSArKysrKysrKysKPiAgIDIgZmlsZXMgY2hhbmdlZCwgNDEgaW5zZXJ0aW9ucygrKQo+IApSZXZp
-ZXdlZC1ieTogSGFubmVzIFJlaW5lY2tlIDxoYXJlQHN1c2UuZGU+CgpDaGVlcnMsCgpIYW5uZXMK
-LS0gCkRyLiBIYW5uZXMgUmVpbmVja2UJCSAgICAgICAgICAgS2VybmVsIFN0b3JhZ2UgQXJjaGl0
-ZWN0CmhhcmVAc3VzZS5kZQkJCSAgICAgICAgICAgICAgICAgICs0OSA5MTEgNzQwNTMgNjg4ClNV
-U0UgU29mdHdhcmUgU29sdXRpb25zIEdlcm1hbnkgR21iSCwgTWF4ZmVsZHN0ci4gNSwgOTA0MDkg
-TsO8cm5iZXJnCkhSQiAzNjgwOSAoQUcgTsO8cm5iZXJnKSwgR0Y6IEZlbGl4IEltZW5kw7ZyZmZl
-cgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9s
-aXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+From: Linus Torvalds
+> Sent: 24 April 2022 22:42
+> 
+> On Sun, Apr 24, 2022 at 2:37 PM Linus Torvalds
+> <torvalds@linux-foundation.org> wrote:
+> >
+> > Finally, for the same reason - please don't use ">> 8".  Because I do
+> > not believe that bit 8 is well-defined in your arithmetic. The *sign*
+> > bit will be, but I'm not convinced bit 8 is.
+> 
+> Hmm.. I think it's ok. It can indeed overflow in 'char' and change the
+> sign in bit #7, but I suspect bit #8 is always fine.
+> 
+> Still, If you want to just extend the sign bit, ">> 31" _is_ the
+> obvious thing to use (yeah, yeah, properly "sizeof(int)*8-1" or
+> whatever, you get my drift).
+
+Except that right shifts of signed values are UB.
+In particular it has always been valid to do an unsigned
+shift right on a 2's compliment negative number.
+
+	David
+
+-
+Registered Address Lakeside, Bramley Road, Mount Farm, Milton Keynes, MK1 1PT, UK
+Registration No: 1397386 (Wales)
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
