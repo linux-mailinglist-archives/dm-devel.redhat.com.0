@@ -2,65 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99979511699
-	for <lists+dm-devel@lfdr.de>; Wed, 27 Apr 2022 14:15:34 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 6478451169A
+	for <lists+dm-devel@lfdr.de>; Wed, 27 Apr 2022 14:16:15 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-556-IbOYveSGPc-o52pYr8THlQ-1; Wed, 27 Apr 2022 08:15:30 -0400
-X-MC-Unique: IbOYveSGPc-o52pYr8THlQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-350-mg-bKhiiPTiNCsiMTl7zGw-1; Wed, 27 Apr 2022 08:16:10 -0400
+X-MC-Unique: mg-bKhiiPTiNCsiMTl7zGw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1678B29DD996;
-	Wed, 27 Apr 2022 12:15:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDC2D804192;
+	Wed, 27 Apr 2022 12:16:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EB71B40EC000;
-	Wed, 27 Apr 2022 12:15:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6D29C4644EB;
+	Wed, 27 Apr 2022 12:16:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6B114194704C;
-	Wed, 27 Apr 2022 12:15:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B2A6B194704C;
+	Wed, 27 Apr 2022 12:16:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 932DD1947BBB
- for <dm-devel@listman.corp.redhat.com>; Tue, 26 Apr 2022 13:19:17 +0000 (UTC)
+ ESMTP id E3D5B1947BBB
+ for <dm-devel@listman.corp.redhat.com>; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6CB83404776F; Tue, 26 Apr 2022 13:19:17 +0000 (UTC)
+ id D10F4C15D4F; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6876C4047D37
- for <dm-devel@redhat.com>; Tue, 26 Apr 2022 13:19:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A4A13C18528
- for <dm-devel@redhat.com>; Tue, 26 Apr 2022 13:19:17 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CCEACC28115
+ for <dm-devel@redhat.com>; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B823E185A79C
+ for <dm-devel@redhat.com>; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
 Received: from mga09.intel.com (mga09.intel.com [134.134.136.24]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-68-ktncFrTOP_-GlPyKPG8f_w-1; Tue, 26 Apr 2022 09:19:15 -0400
-X-MC-Unique: ktncFrTOP_-GlPyKPG8f_w-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="265097542"
-X-IronPort-AV: E=Sophos;i="5.90,290,1643702400"; d="scan'208";a="265097542"
-Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ us-mta-461-zQw05-BfPdy9IMCUd4Nldw-1; Tue, 26 Apr 2022 09:19:43 -0400
+X-MC-Unique: zQw05-BfPdy9IMCUd4Nldw-1
+X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="265098276"
+X-IronPort-AV: E=Sophos;i="5.90,290,1643702400"; d="scan'208";a="265098276"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 06:18:09 -0700
-X-IronPort-AV: E=Sophos;i="5.90,290,1643702400"; d="scan'208";a="595758011"
+ 26 Apr 2022 06:19:42 -0700
+X-IronPort-AV: E=Sophos;i="5.90,290,1643702400"; d="scan'208";a="730245502"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 06:18:07 -0700
+ by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 26 Apr 2022 06:19:40 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andy.shevchenko@gmail.com>) id 1njL4u-008KxI-2Y;
- Tue, 26 Apr 2022 16:18:04 +0300
-Date: Tue, 26 Apr 2022 16:18:03 +0300
+ (envelope-from <andy.shevchenko@gmail.com>) id 1njL6P-008Kz0-6l;
+ Tue, 26 Apr 2022 16:19:37 +0300
+Date: Tue, 26 Apr 2022 16:19:36 +0300
 From: Andy Shevchenko <andy.shevchenko@gmail.com>
 To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <YmfxCxbneEcs44Ch@smile.fi.intel.com>
+Message-ID: <YmfxaB1j65p8dOyj@smile.fi.intel.com>
 References: <alpine.LRH.2.02.2204241643030.17244@file01.intranet.prod.int.rdu2.redhat.com>
  <CAHp75VdHnvv6FH1BKcs8WgGF3nJpj77TsrmsQGBSpsAQU_S-bw@mail.gmail.com>
  <alpine.LRH.2.02.2204260759540.2737@file01.intranet.prod.int.rdu2.redhat.com>
@@ -74,7 +73,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Wed, 27 Apr 2022 12:14:17 +0000
 Subject: Re: [dm-devel] [PATCH v2] hex2bin: fix access beyond string end
 X-BeenThere: dm-devel@redhat.com
@@ -96,7 +95,7 @@ Cc: Andy Shevchenko <andy@kernel.org>, Mike Snitzer <msnitzer@redhat.com>,
  Milan Broz <gmazyland@gmail.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -108,26 +107,18 @@ Content-Transfer-Encoding: 7bit
 On Tue, Apr 26, 2022 at 08:07:44AM -0400, Mikulas Patocka wrote:
 > On Tue, 26 Apr 2022, Andy Shevchenko wrote:
 > > On Sun, Apr 24, 2022 at 10:48 PM Mikulas Patocka <mpatocka@redhat.com> wrote:
-> > >
-> > > If we pass too short string to "hex2bin" (and the string size without the
-> > > terminating NUL character is even), "hex2bin" reads one byte after the
-> > > terminating NUL character. This patch fixes it.
-> > >
-> > > Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-> > > Cc: stable@vger.kernel.org
-> > 
+
+...
+
 > > You need to provide a Fixes tag.
 > 
 > OK. Here I resend it with the "Fixes" tag.
-> 
-> > And on top of that it would be nice to understand if we need to
-> > support half-bytes, but in any case it's not a scope of the patch
-> > right now.
-> 
-> Do you think that there are any users who need this?
 
-If my memory doesn't do any tricks with me, I have seen the patterns like
-hex2bin() + hex_to_bin() in some places in the kernel.
+Still shadows error codes.
+
+> +			return -EINVAL;
+
+>  			return -EINVAL;
 
 -- 
 With Best Regards,
