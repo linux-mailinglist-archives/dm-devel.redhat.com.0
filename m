@@ -2,70 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6478451169A
-	for <lists+dm-devel@lfdr.de>; Wed, 27 Apr 2022 14:16:15 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 03B7F5116A7
+	for <lists+dm-devel@lfdr.de>; Wed, 27 Apr 2022 14:20:43 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-350-mg-bKhiiPTiNCsiMTl7zGw-1; Wed, 27 Apr 2022 08:16:10 -0400
-X-MC-Unique: mg-bKhiiPTiNCsiMTl7zGw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-106-Dmgopkv7O2OSe0VX8p5mcw-1; Wed, 27 Apr 2022 08:20:41 -0400
+X-MC-Unique: Dmgopkv7O2OSe0VX8p5mcw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDC2D804192;
-	Wed, 27 Apr 2022 12:16:07 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6D29C4644EB;
-	Wed, 27 Apr 2022 12:16:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2B593C0CD51;
+	Wed, 27 Apr 2022 12:20:38 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 038AD40D282F;
+	Wed, 27 Apr 2022 12:20:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B2A6B194704C;
-	Wed, 27 Apr 2022 12:16:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C1300194704C;
+	Wed, 27 Apr 2022 12:20:36 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E3D5B1947BBB
- for <dm-devel@listman.corp.redhat.com>; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
+ ESMTP id 9166A1947BBB
+ for <dm-devel@listman.corp.redhat.com>; Tue, 26 Apr 2022 21:31:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D10F4C15D4F; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
+ id 6AC34463EEB; Tue, 26 Apr 2022 21:31:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CCEACC28115
- for <dm-devel@redhat.com>; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B823E185A79C
- for <dm-devel@redhat.com>; Tue, 26 Apr 2022 13:19:45 +0000 (UTC)
-Received: from mga09.intel.com (mga09.intel.com [134.134.136.24]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-461-zQw05-BfPdy9IMCUd4Nldw-1; Tue, 26 Apr 2022 09:19:43 -0400
-X-MC-Unique: zQw05-BfPdy9IMCUd4Nldw-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10328"; a="265098276"
-X-IronPort-AV: E=Sophos;i="5.90,290,1643702400"; d="scan'208";a="265098276"
-Received: from orsmga005.jf.intel.com ([10.7.209.41])
- by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 06:19:42 -0700
-X-IronPort-AV: E=Sophos;i="5.90,290,1643702400"; d="scan'208";a="730245502"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 26 Apr 2022 06:19:40 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.95)
- (envelope-from <andy.shevchenko@gmail.com>) id 1njL6P-008Kz0-6l;
- Tue, 26 Apr 2022 16:19:37 +0300
-Date: Tue, 26 Apr 2022 16:19:36 +0300
-From: Andy Shevchenko <andy.shevchenko@gmail.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <YmfxaB1j65p8dOyj@smile.fi.intel.com>
-References: <alpine.LRH.2.02.2204241643030.17244@file01.intranet.prod.int.rdu2.redhat.com>
- <CAHp75VdHnvv6FH1BKcs8WgGF3nJpj77TsrmsQGBSpsAQU_S-bw@mail.gmail.com>
- <alpine.LRH.2.02.2204260759540.2737@file01.intranet.prod.int.rdu2.redhat.com>
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 66BA2463EE5
+ for <dm-devel@redhat.com>; Tue, 26 Apr 2022 21:31:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C82E1E17FEE
+ for <dm-devel@redhat.com>; Tue, 26 Apr 2022 21:31:18 +0000 (UTC)
+Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
+ [209.85.214.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-533-2lpHqY-HMQi-lkpvYZ7LFg-1; Tue, 26 Apr 2022 17:31:16 -0400
+X-MC-Unique: 2lpHqY-HMQi-lkpvYZ7LFg-1
+Received: by mail-pl1-f178.google.com with SMTP id d15so31381770pll.10
+ for <dm-devel@redhat.com>; Tue, 26 Apr 2022 14:31:16 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=NmMY7ZEC2LA8ubdNrSjDuhNzkyHfOdHj22q0EtJVAhk=;
+ b=FrNARUSf/qj7tsbTGDSMiHOy+lLGSHE8P9ocFoY+7kZ+Q65M+qU0/eAL8/jAA8FHR2
+ uULV6e1Rhu1dsVoM6GM3sxjjHRPPRy2+/HsqU9+SriFcUhdmbG+SPwvLiEaPBS2loXm1
+ 7R6muKBo8bfQDzPb0oKGavtYPgxIbxsgKrA4tClsOYTVewS4K4fnImOxjkpG/N3eowTg
+ NaNRVhSgnvL2ajvW4rYFTH1q0ju+2g60KIIvy9Knmp541liqNkJ8mL5WMHeFHmY1AvJ5
+ jlDLKDLyycPoCyQY1FW8AvfX8Ph084RJYap09ytgeuFiAkpBPSjaQCNMRRcy8HFiTeIR
+ S23g==
+X-Gm-Message-State: AOAM532/m0aFPZAYw4cowLTJ15QMFxMgOlefIwvvMLaS05tyztjTzZm9
+ xcRB2W/QtlMJww2/jBFZ05YbPg==
+X-Google-Smtp-Source: ABdhPJzp4X5v15GE3Zc7zJfgHgDSaqiSDbZ9++70lo/F1w6eUXoCvxD8/KcNhsSXYbz+c+W3/7EE0Q==
+X-Received: by 2002:a17:90a:f3cb:b0:1d9:62d4:25db with SMTP id
+ ha11-20020a17090af3cb00b001d962d425dbmr15694380pjb.222.1651008675551; 
+ Tue, 26 Apr 2022 14:31:15 -0700 (PDT)
+Received: from localhost ([2620:15c:202:201:eb63:4211:eb5d:f6b])
+ by smtp.gmail.com with UTF8SMTPSA id
+ d5-20020a056a0024c500b004fae56b2921sm17137609pfv.167.2022.04.26.14.31.14
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 26 Apr 2022 14:31:15 -0700 (PDT)
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Kees Cook <keescook@chromium.org>, James Morris <jmorris@namei.org>,
+ "Serge E . Hallyn" <serge@hallyn.com>
+Date: Tue, 26 Apr 2022 14:31:07 -0700
+Message-Id: <20220426213110.3572568-1-mka@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.02.2204260759540.2737@file01.intranet.prod.int.rdu2.redhat.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -73,9 +83,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Mailman-Approved-At: Wed, 27 Apr 2022 12:14:17 +0000
-Subject: Re: [dm-devel] [PATCH v2] hex2bin: fix access beyond string end
+Subject: [dm-devel] [PATCH v2 0/3] LoadPin: Enable loading from trusted
+ dm-verity devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,43 +98,77 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Andy Shevchenko <andy@kernel.org>, Mike Snitzer <msnitzer@redhat.com>,
- Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Mimi Zohar <zohar@linux.ibm.com>,
- device-mapper development <dm-devel@redhat.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Milan Broz <gmazyland@gmail.com>
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>, linux-raid@vger.kernel.org,
+ Song Liu <song@kernel.org>, linux-security-module@vger.kernel.org,
+ Matthias Kaehlcke <mka@chromium.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Apr 26, 2022 at 08:07:44AM -0400, Mikulas Patocka wrote:
-> On Tue, 26 Apr 2022, Andy Shevchenko wrote:
-> > On Sun, Apr 24, 2022 at 10:48 PM Mikulas Patocka <mpatocka@redhat.com> wrote:
+As of now LoadPin restricts loading of kernel files to a single
+pinned filesystem, typically the rootfs. This works for many
+systems, however it can result in a bloated rootfs (and OTA
+updates) on platforms where multiple boards with different
+hardware configurations use the same rootfs image. Especially
+when 'optional' files are large it may be preferable to
+download/install them only when they are actually needed by a
+given board. Chrome OS uses Downloadable Content (DLC) [1] to
+deploy certain 'packages' at runtime. As an example a DLC
+package could contain firmware for a peripheral that is not
+present on all boards. DLCs use dm-verity [2] to verify the
+integrity of the DLC content.
 
-...
+This series extends LoadPin to allow loading of kernel files
+from trusted dm-verity devices. It adds the concept of
+trusted verity devices to LoadPin. Userspace can use the new
+systl file 'loadpin/trusted_verity_root_digests_path' to
+provide LoadPin with the path of a file with a list of root
+digests from dm-verity devices that LoadPin should consider
+as trusted. This file must be located on the pinned root.
 
-> > You need to provide a Fixes tag.
-> 
-> OK. Here I resend it with the "Fixes" tag.
+When a kernel file is read LoadPin first checks (as usual)
+whether the file is located on the pinned root, if so the
+file can be loaded. Otherwise, if the verity extension is
+enabled, LoadPin determines whether the file is located
+on a verity backed device and whether the root digest of
+that device is in the list of trusted digests. The file
+can be loaded if the verity device has a trusted root
+digest.
 
-Still shadows error codes.
+The path of the file with the trusted root digests can
+only be written once, which is typically done at boot time.
 
-> +			return -EINVAL;
+[1] https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/dlcservice/docs/developer.md
+[2] https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/verity.html
 
->  			return -EINVAL;
+(no changes since v1)
+
+Matthias Kaehlcke (3):
+  dm: Add verity helpers for LoadPin
+  LoadPin: Enable loading from trusted dm-verity devices
+  dm: verity-loadpin: Use CONFIG_SECURITY_LOADPIN_VERITY for conditional
+    compilation
+
+ drivers/md/Makefile               |   1 +
+ drivers/md/dm-verity-loadpin.c    |  80 ++++++++++++
+ drivers/md/dm-verity-target.c     |  33 +++++
+ drivers/md/dm-verity.h            |   4 +
+ include/linux/dm-verity-loadpin.h |  27 ++++
+ security/loadpin/Kconfig          |  16 +++
+ security/loadpin/loadpin.c        | 200 +++++++++++++++++++++++++++++-
+ 7 files changed, 360 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/md/dm-verity-loadpin.c
+ create mode 100644 include/linux/dm-verity-loadpin.h
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.36.0.rc2.479.g8af0fa9b8e-goog
 
 --
 dm-devel mailing list
