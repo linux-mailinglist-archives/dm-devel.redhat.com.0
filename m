@@ -2,64 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 019BB514414
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Apr 2022 10:24:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 59EB4514419
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Apr 2022 10:24:05 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-410-2FGo69NlOlqzswWF3hnPmQ-1; Fri, 29 Apr 2022 04:23:51 -0400
-X-MC-Unique: 2FGo69NlOlqzswWF3hnPmQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-517-j7BVpiiYP5yBxy2j6JG8IQ-1; Fri, 29 Apr 2022 04:23:54 -0400
+X-MC-Unique: j7BVpiiYP5yBxy2j6JG8IQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F06BD3C0F099;
-	Fri, 29 Apr 2022 08:23:47 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E0003838CA1;
+	Fri, 29 Apr 2022 08:23:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D7C7540869DA;
-	Fri, 29 Apr 2022 08:23:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 31E8840D2828;
+	Fri, 29 Apr 2022 08:23:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3B25F194707C;
-	Fri, 29 Apr 2022 08:23:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 914B21947074;
+	Fri, 29 Apr 2022 08:23:48 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3D9A21947046
- for <dm-devel@listman.corp.redhat.com>; Thu, 28 Apr 2022 05:41:52 +0000 (UTC)
+ ESMTP id 9CD601947046
+ for <dm-devel@listman.corp.redhat.com>; Thu, 28 Apr 2022 06:54:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1FE29464516; Thu, 28 Apr 2022 05:41:52 +0000 (UTC)
+ id 72F0840F9D6B; Thu, 28 Apr 2022 06:54:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B981464511
- for <dm-devel@redhat.com>; Thu, 28 Apr 2022 05:41:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0517E811E76
- for <dm-devel@redhat.com>; Thu, 28 Apr 2022 05:41:52 +0000 (UTC)
-Received: from mx1.molgen.mpg.de (mx3.molgen.mpg.de [141.14.17.11]) by
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6EA3840F9D68
+ for <dm-devel@redhat.com>; Thu, 28 Apr 2022 06:54:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 568AD85A5A8
+ for <dm-devel@redhat.com>; Thu, 28 Apr 2022 06:54:31 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-197-kgjO1yQFPkaOgY8pSmof7A-1; Thu, 28 Apr 2022 01:41:10 -0400
-X-MC-Unique: kgjO1yQFPkaOgY8pSmof7A-1
-Received: from [192.168.0.2] (ip5f5aeb1b.dynamic.kabel-deutschland.de
- [95.90.235.27])
- (using TLSv1.3 with cipher TLS_AES_128_GCM_SHA256 (128/128 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
- (No client certificate requested) (Authenticated sender: pmenzel)
- by mx.molgen.mpg.de (Postfix) with ESMTPSA id 5957C61EA1923;
- Thu, 28 Apr 2022 07:32:45 +0200 (CEST)
-Message-ID: <e5aa84ee-69b3-b02a-014d-597a5a03987d@molgen.mpg.de>
-Date: Thu, 28 Apr 2022 07:32:44 +0200
+ us-mta-582-sDxaOzodP4ipNRGU5v6pDQ-1; Thu, 28 Apr 2022 02:54:29 -0400
+X-MC-Unique: sDxaOzodP4ipNRGU5v6pDQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 80B90210EE;
+ Thu, 28 Apr 2022 06:54:27 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6D7E313A8C;
+ Thu, 28 Apr 2022 06:54:27 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id UAizGSM6amLtWQAAMHmgww
+ (envelope-from <mliska@suse.cz>); Thu, 28 Apr 2022 06:54:27 +0000
+Message-ID: <568d96f5-470d-8d46-cfb7-10411cde3e9f@suse.cz>
+Date: Thu, 28 Apr 2022 08:54:26 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.8.1
-To: Matthias Kaehlcke <mka@chromium.org>
-References: <20220426213110.3572568-1-mka@chromium.org>
-From: Paul Menzel <pmenzel@molgen.mpg.de>
-In-Reply-To: <20220426213110.3572568-1-mka@chromium.org>
+To: Martin Wilck <mwilck@suse.com>, dm-devel@redhat.com
+References: <ecddb51d-7666-b18b-f295-58fc0397b4c7@suse.cz>
+ <b002e110e01345eaee7ad46187fa2b1980faa275.camel@suse.com>
+From: =?UTF-8?Q?Martin_Li=c5=a1ka?= <mliska@suse.cz>
+In-Reply-To: <b002e110e01345eaee7ad46187fa2b1980faa275.camel@suse.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -67,10 +77,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mailman-Approved-At: Fri, 29 Apr 2022 08:23:40 +0000
-Subject: Re: [dm-devel] [PATCH v2 0/3] LoadPin: Enable loading from trusted
- dm-verity devices
+Subject: Re: [dm-devel] [PATCH][V2] Fix possibility to redefine
+ -D_FORTIFY_SOURCE macro.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -82,30 +92,25 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Douglas Anderson <dianders@chromium.org>, Kees Cook <keescook@chromium.org>,
- dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
- linux-raid@vger.kernel.org, Song Liu <song@kernel.org>,
- linux-security-module@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
- "Serge E . Hallyn" <serge@hallyn.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-RGVhciBNYXR0aGlhcywKCgpUaGFuayB5b3UgZm9yIHlvdXIgcGF0Y2hlcy4KCkFtIDI2LjA0LjIy
-IHVtIDIzOjMxIHNjaHJpZWIgTWF0dGhpYXMgS2FlaGxja2U6Cj4gQXMgb2Ygbm93IExvYWRQaW4g
-cmVzdHJpY3RzIGxvYWRpbmcgb2Yga2VybmVsIGZpbGVzIHRvIGEgc2luZ2xlCj4gcGlubmVkIGZp
-bGVzeXN0ZW0sIHR5cGljYWxseSB0aGUgcm9vdGZzLiBUaGlzIHdvcmtzIGZvciBtYW55Cgpb4oCm
-XQoKQSBzbWFsbCBuaXQsIGlmIHlvdSBzaG91bGQgcmVyb2xsIHRoZSBwYXRjaGVzLCBwbGVhc2Ug
-dXNlIDc1IGNoYXJhY3RlcnMgCnBlciBsaW5lIGluIGNvbW1pdCBtZXNzYWdlcy4gKGBzY3JpcHRz
-L2NoZWNrcGF0Y2gucGxgIHVzZXMgdGhhdCBudW1iZXIuKQoKCktpbmQgcmVnYXJkcywKClBhdWwK
-Ci0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlz
-dG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
+T24gNC8xMi8yMiAyMjoyNCwgTWFydGluIFdpbGNrIHdyb3RlOgo+IE9uIFR1ZSwgMjAyMi0wNC0x
+MiBhdCAxMzoxOSArMDIwMCwgTWFydGluIExpxaFrYSB3cm90ZToKPj4gQXMgZXhwbGFpbmVkIGhl
+cmU6Cj4+IGh0dHBzOi8vZ2l0aHViLmNvbS9vcGVuc3ZjL211bHRpcGF0aC10b29scy9pc3N1ZXMv
+MjkKPj4KPj4gdXNpbmcgLVdwLC1EX0ZPUlRJRllfU09VUkNFIGNhbm5vdCBiZSByZWRlZmluZWQg
+d2l0aAo+PiAtVV9GT1JUSUZZX1NPVVJDRSAtRF9GT1JUSUZZX1NPVVJDRT0zLgo+Pgo+PiBTaWdu
+ZWQtb2ZmLWJ5OiBNYXJ0aW4gTGlza2EgPG1saXNrYUBzdXNlLmN6Pgo+IAo+IFJldmlld2VkLWJ5
+OiBNYXJ0aW4gV2lsY2sgPG13aWxja0BzdXNlLmNvbT4KPiAKPiAKCkhpLgoKTWF5IEkgcGxlYXNl
+IHBpbmcgdGhpcz8KClRoYW5rcywKTWFydGluCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0t
+ZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2RtLWRldmVsCg==
 
