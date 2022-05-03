@@ -1,87 +1,107 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E03A518C8C
-	for <lists+dm-devel@lfdr.de>; Tue,  3 May 2022 20:47:57 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 16810518F6F
+	for <lists+dm-devel@lfdr.de>; Tue,  3 May 2022 22:52:32 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-606-O9pmrjA4OFeNktfDjm8nVg-1; Tue, 03 May 2022 14:47:44 -0400
-X-MC-Unique: O9pmrjA4OFeNktfDjm8nVg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-613-UlEFkuUgMlOCXtDiz7D9OA-1; Tue, 03 May 2022 16:52:28 -0400
+X-MC-Unique: UlEFkuUgMlOCXtDiz7D9OA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F242D86B8C6;
-	Tue,  3 May 2022 18:47:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A2B529AA389;
+	Tue,  3 May 2022 20:52:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5749B400F735;
-	Tue,  3 May 2022 18:47:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B80D740D2820;
+	Tue,  3 May 2022 20:52:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 183D71947079;
-	Tue,  3 May 2022 18:47:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 079D9194705F;
+	Tue,  3 May 2022 20:52:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E1C231947043
- for <dm-devel@listman.corp.redhat.com>; Tue,  3 May 2022 18:47:35 +0000 (UTC)
+ ESMTP id 90A9319466DF
+ for <dm-devel@listman.corp.redhat.com>; Tue,  3 May 2022 20:52:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B159315385B5; Tue,  3 May 2022 18:47:35 +0000 (UTC)
+ id 78B7B1545849; Tue,  3 May 2022 20:52:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ACA76153CE2E
- for <dm-devel@redhat.com>; Tue,  3 May 2022 18:47:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B40394A910
- for <dm-devel@redhat.com>; Tue,  3 May 2022 18:47:35 +0000 (UTC)
-Received: from mail-pg1-f180.google.com (mail-pg1-f180.google.com
- [209.85.215.180]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-370-vMmTzB9VPYmaD4hfWsDLbA-1; Tue, 03 May 2022 14:47:33 -0400
-X-MC-Unique: vMmTzB9VPYmaD4hfWsDLbA-1
-Received: by mail-pg1-f180.google.com with SMTP id k14so14728919pga.0
- for <dm-devel@redhat.com>; Tue, 03 May 2022 11:47:33 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=+o3H2wSew0BRA4vqTAN2Yx+wDwTltnzrE6YOchX4Xao=;
- b=I3qOfttbxZ3DzQBeHUsvlQEoH4KcV0ZBzviDQRVskGA1twumpRNp2gEGiqXmGczM7Q
- oy58S66N126zjeXQxvKNMTMFr6avkQbwDrGltSQH37ZM6dfR/CjH/vJKrk4BxDisnjkq
- +A8V3S5MNxgdR5+BjYLb2vVowRchqAQeFySh0Coq9PP+gdybqgUc9gJP16lOSldH6UuV
- gUEe/71OAtaFsHhSnl4ASfIg1/N/DIMTHf83n3w1jQDJPYiyCpNqD+uvgxUAQDX8ZvT1
- IAXHiIdcZn+qfxLn/WgixyMkXyY2cBcW2Iot3kVfe2B6wUXhk1QKwajTNH3AJzKmKtbS
- nWzw==
-X-Gm-Message-State: AOAM533Ewlz7tom8tg1AczB+Y9CR+D7ScYKn5Nz3EVWxHm8RtoO0wGVj
- x6cJD+PSKOCKYPPk8Ze36ji7/bTZjjsVTGY=
-X-Google-Smtp-Source: ABdhPJwYXB+4mnODVKNOGfQ4/JnFfiz9n96ZB2gWIV2EhSPXMJ6znu5z3zyH2qA0O9C2o/JyHrUUvA==
-X-Received: by 2002:a05:6214:f6f:b0:45a:8bcf:8274 with SMTP id
- iy15-20020a0562140f6f00b0045a8bcf8274mr9082718qvb.14.1651602737583; 
- Tue, 03 May 2022 11:32:17 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
- [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- v185-20020a372fc2000000b0069fc13ce252sm6430137qkh.131.2022.05.03.11.32.16
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 03 May 2022 11:32:17 -0700 (PDT)
-Date: Tue, 3 May 2022 14:32:15 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <YnF1L4opPwLvBTLJ@redhat.com>
-References: <alpine.LRH.2.02.2204211407220.761@file01.intranet.prod.int.rdu2.redhat.com>
- <YmeUXC3DZGLPJlWw@kroah.com>
- <alpine.LRH.2.02.2204281155460.5963@file01.intranet.prod.int.rdu2.redhat.com>
- <Ymuj0Y2A6WHOi05c@kroah.com>
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 749E71544F99
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 20:52:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3C40C3806701
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 20:52:20 +0000 (UTC)
+Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-463-ueVKJOM5OFu6f6M4HqRtyg-2; Tue, 03 May 2022 15:58:32 -0400
+X-MC-Unique: ueVKJOM5OFu6f6M4HqRtyg-2
+X-IronPort-AV: E=Sophos;i="5.91,195,1647273600"; d="scan'208";a="303650398"
+Received: from uls-op-cesaip02.wdc.com (HELO uls-op-cesaep02.wdc.com)
+ ([199.255.45.15])
+ by ob1.hgst.iphmx.com with ESMTP; 04 May 2022 00:43:24 +0800
+IronPort-SDR: 4WvfBAWknbvvug9fTSjv46Hveu2CE6DfI4OuSHxX+DyUvFGhqxbzOtg1TPvkmx1ntpwIDId7AW
+ 7pylGpWy0+TsAFmDLCu82y5aWYCTGnm3DVZqlIWGfK6951qwAqcOsptx9Yn1PgTe0Oy8pTeYbw
+ XTtW62mGY8QWcNM+yOdBQIiPxdJC5WeT9fvsQM4E7XB2+4aGvYDq4G58j5VV+4bNglCwTHKa6Y
+ uTjxp13MfassmW5OYvndBZOlm4fXh9413xjivta6tJfPB+XzW5mOOiIMrktNXaiX4uvGrbIhxI
+ bWG7bbpp+4EkWx4NfLA3hrJP
+Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
+ by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 03 May 2022 09:13:27 -0700
+IronPort-SDR: U/KG7Qg9iA/eskoXi7fT4LYPEr0rN7Ud15hOvuAzZJmqrNQePgO9dh1Fje7maACAA4frtpYo7b
+ u/1Xi5NLZgQgidUeDLxD+A1nhHl+csGsqA0F9A/qvxBBug2yAT6T7PM8DeJ2fgcGTi4yP8CVXN
+ zQHL8C9MsmPvihoj+7PbNOdf8rQ+TiYFZGVBWSoocN3zFdkIabMcpxkll73o+mjsdR1SfLlHoY
+ seqHeqUZVQfB8kDjHuDnctdVCKahNrqRfZIuOSWDdVj1N9ZtjIf0wzZyHdje2sl8IUs6Xzoj6f
+ 0Tw=
+WDCIronportException: Internal
+Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
+ by uls-op-cesaip02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 03 May 2022 09:43:24 -0700
+Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Kt5PR0XtWz1Rvlx
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 09:43:23 -0700 (PDT)
+X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
+Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
+ by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
+ port 10026) with ESMTP id k5I8VcsFPTwe for <dm-devel@redhat.com>;
+ Tue,  3 May 2022 09:43:21 -0700 (PDT)
+Received: from [10.225.81.200] (hq6rw33.ad.shared [10.225.81.200])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Kt5PN0Cqnz1Rvlc;
+ Tue,  3 May 2022 09:43:19 -0700 (PDT)
+Message-ID: <2c275ab0-c813-22ae-16e3-b16885d06c4c@opensource.wdc.com>
+Date: Wed, 4 May 2022 01:43:19 +0900
 MIME-Version: 1.0
-In-Reply-To: <Ymuj0Y2A6WHOi05c@kroah.com>
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.8.1
+To: Bart Van Assche <bvanassche@acm.org>, Pankaj Raghav
+ <p.raghav@samsung.com>, jaegeuk@kernel.org, axboe@kernel.dk,
+ snitzer@kernel.org, hch@lst.de, mcgrof@kernel.org, naohiro.aota@wdc.com,
+ sagi@grimberg.me, dsterba@suse.com, johannes.thumshirn@wdc.com
+References: <20220427160255.300418-1-p.raghav@samsung.com>
+ <CGME20220427160257eucas1p21fb58d0129376a135fdf0b9c2fe88895@eucas1p2.samsung.com>
+ <20220427160255.300418-2-p.raghav@samsung.com>
+ <3a178153-62c0-e298-ccb0-0edfd41b7ee2@acm.org>
+From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Organization: Western Digital Research
+In-Reply-To: <3a178153-62c0-e298-ccb0-0edfd41b7ee2@acm.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v5.10] dm: fix mempool NULL pointer race when
- completing IO
+Subject: Re: [dm-devel] [PATCH 01/16] block: make blkdev_nr_zones and
+ blk_queue_zone_no generic for npo2 zsze
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,83 +113,101 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
- stable@vger.kernel.org
+Cc: jiangbo.365@bytedance.com, kch@nvidia.com, matias.bjorling@wdc.com,
+ gost.dev@samsung.com, chao@kernel.org, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-block@vger.kernel.org, clm@fb.com, dm-devel@redhat.com, agk@redhat.com,
+ jonathan.derrick@linux.dev, kbusch@kernel.org, linux-fsdevel@vger.kernel.org,
+ josef@toxicpanda.com, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Apr 29 2022 at  4:37P -0400,
-Greg Kroah-Hartman <gregkh@linuxfoundation.org> wrote:
-
-> On Thu, Apr 28, 2022 at 12:22:26PM -0400, Mikulas Patocka wrote:
-> > 
-> > 
-> > On Tue, 26 Apr 2022, Greg Kroah-Hartman wrote:
-> > 
-> > > On Thu, Apr 21, 2022 at 02:08:30PM -0400, Mikulas Patocka wrote:
-> > > > Hi
-> > > 
-> > > Not really needed in a changelog text :)
-> > > 
-> > > > This is backport of patches d208b89401e0 ("dm: fix mempool NULL pointer
-> > > > race when completing IO") and 9f6dc6337610 ("dm: interlock pending dm_io
-> > > > and dm_wait_for_bios_completion") for the kernel 5.10.
-> > > 
-> > > Can you just make these 2 different patches?
-> > > 
-> > > > 
-> > > > The bugs fixed by these patches can cause random crashing when reloading
-> > > > dm table, so it is eligible for stable backport.
-> > > > 
-> > > > This patch is different from the upstream patches because the code
-> > > > diverged significantly.
-> > > > 
-> > > 
-> > > This change is _VERY_ different.  I would need acks from the maintainers
-> > > of this code before I could accept this, along with a much more detailed
-> > > description of why the original commits will not work here as well.
-> > > 
-> > > Same for the other backports.
-> > 
-> > Regarding backporting of 9f6dc633:
-> > 
-> > My reasoning was that introducing "md->pending_io" in the backported 
-> > stable kernels is useless - it will just degrade performance by consuming 
-> > one more cache line per I/O without providing any gain.
-> > 
-> > In the upstream kernels, Mike needs that "md->pending_io" variable for 
-> > other reasons (the I/O accounting was reworked there in order to avoid 
-> > some spikes with dm-crypt), but there is no need for it in the stable 
-> > kernels.
-> > 
-> > In order to fix that race condition, all we need to do is to make sure 
-> > that dm_stats_account_io is called before bio_end_io_acct - and the patch 
-> > does that - it swaps them.
-> > 
-> > Do you still insist that this useless percpu variable must be added to the 
-> > stable kernels? If you do, I can make it, but I think it's better to just 
-> > swap those two functions.
+On 2022/05/04 1:37, Bart Van Assche wrote:
+> On 4/27/22 09:02, Pankaj Raghav wrote:
+>> Adapt blkdev_nr_zones and blk_queue_zone_no function so that it can
+>> also work for non-power-of-2 zone sizes.
+>>
+>> As the existing deployments of zoned devices had power-of-2
+>> assumption, power-of-2 optimized calculation is kept for those devices.
+>>
+>> There are no direct hot paths modified and the changes just
+>> introduce one new branch per call.
+>>
+>> Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
+>> Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
+>> ---
+>>   block/blk-zoned.c      | 8 +++++++-
+>>   include/linux/blkdev.h | 8 +++++++-
+>>   2 files changed, 14 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/block/blk-zoned.c b/block/blk-zoned.c
+>> index 38cd840d8838..1dff4a8bd51d 100644
+>> --- a/block/blk-zoned.c
+>> +++ b/block/blk-zoned.c
+>> @@ -117,10 +117,16 @@ EXPORT_SYMBOL_GPL(__blk_req_zone_write_unlock);
+>>   unsigned int blkdev_nr_zones(struct gendisk *disk)
+>>   {
+>>   	sector_t zone_sectors = blk_queue_zone_sectors(disk->queue);
+>> +	sector_t capacity = get_capacity(disk);
+>>   
+>>   	if (!blk_queue_is_zoned(disk->queue))
+>>   		return 0;
+>> -	return (get_capacity(disk) + zone_sectors - 1) >> ilog2(zone_sectors);
+>> +
+>> +	if (is_power_of_2(zone_sectors))
+>> +		return (capacity + zone_sectors - 1) >>
+>> +		       ilog2(zone_sectors);
+>> +
+>> +	return div64_u64(capacity + zone_sectors - 1, zone_sectors);
+>>   }
+>>   EXPORT_SYMBOL_GPL(blkdev_nr_zones);
 > 
-> I am no insisting on anything, I want the dm maintainers to agree that
-> this change is acceptable to take as it is not what is in Linus's tree.
-> Every time we take a "not upstream" commit, the odds are 90% that it
-> ends up being wrong, so I need extra review and assurances that it is
-> acceptable before I can apply it.
+> Does anyone need support for more than 4 billion sectors per zone? If 
+> not, do_div() should be sufficient.
+> 
+>> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+>> index 60d016138997..c4e4c7071b7b 100644
+>> --- a/include/linux/blkdev.h
+>> +++ b/include/linux/blkdev.h
+>> @@ -665,9 +665,15 @@ static inline unsigned int blk_queue_nr_zones(struct request_queue *q)
+>>   static inline unsigned int blk_queue_zone_no(struct request_queue *q,
+>>   					     sector_t sector)
+>>   {
+>> +	sector_t zone_sectors = blk_queue_zone_sectors(q);
+>> +
+>>   	if (!blk_queue_is_zoned(q))
+>>   		return 0;
+>> -	return sector >> ilog2(q->limits.chunk_sectors);
+>> +
+>> +	if (is_power_of_2(zone_sectors))
+>> +		return sector >> ilog2(zone_sectors);
+>> +
+>> +	return div64_u64(sector, zone_sectors);
+>>   }
+> 
+> Same comment here.
 
-FYI, I've reviewed Mikulas's latest stable backport patches (not yet
-posted) and provided by Reviewed-by.  So once you see them you can
-trust I've looked at the changes and am fine with you picking them up.
+sector_t is 64-bits even on 32-bits arch, no ?
+so div64_u64 is needed here I think, which will be a simple regular division for
+64-bit arch.
 
-Thanks,
-Mike
+> 
+> Thanks,
+> 
+> Bart.
+
+
+-- 
+Damien Le Moal
+Western Digital Research
 
 --
 dm-devel mailing list
