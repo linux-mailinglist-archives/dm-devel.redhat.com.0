@@ -1,68 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 83FD551916F
-	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 00:29:18 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1651616957;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=yPcfeU8+//JQRKt9Aj73t/4RgfCXFG9t3EPM8PBOUT0=;
-	b=MisIaRP80oUjhH5zdg4S3wQLPrvOCBDnQ4L+EjYbhDyNSVnUvz1pWybhze/ZfMUy+l/0Xy
-	iCPntB/jf84BoSZIJ5SWzt26UyocZaeFnfTaZrb8XHSXzs39k6f6ZFuG7oXlGhUXPQhTlF
-	A1RfwevJSIPaR1GU7hGmuPpP/KzJu3c=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 516235191E9
+	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 00:54:58 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-615-5Mczlzn6NF25T-TqEIVXhg-1; Tue, 03 May 2022 16:41:08 -0400
-X-MC-Unique: 5Mczlzn6NF25T-TqEIVXhg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-383-q_XCHs4dMI6tKq2-Mt_dSA-1; Tue, 03 May 2022 18:54:54 -0400
+X-MC-Unique: q_XCHs4dMI6tKq2-Mt_dSA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B56CB86B8BB;
-	Tue,  3 May 2022 20:41:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6577811E80;
+	Tue,  3 May 2022 22:54:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 44E452026D2D;
-	Tue,  3 May 2022 20:40:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A6339153F5F4;
+	Tue,  3 May 2022 22:54:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 51273194707F;
-	Tue,  3 May 2022 20:40:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6495B1947079;
+	Tue,  3 May 2022 22:54:48 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CFA311947043
- for <dm-devel@listman.corp.redhat.com>; Tue,  3 May 2022 20:40:48 +0000 (UTC)
+ ESMTP id 0799C19466DF
+ for <dm-devel@listman.corp.redhat.com>; Tue,  3 May 2022 22:54:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AB7E05521CD; Tue,  3 May 2022 20:40:48 +0000 (UTC)
+ id D82E840CFD32; Tue,  3 May 2022 22:54:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
- (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A4286551E89;
- Tue,  3 May 2022 20:40:48 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
- 243KemZF011921; Tue, 3 May 2022 16:40:48 -0400
-Received: from localhost (mpatocka@localhost)
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
- id 243Kem4K011917; Tue, 3 May 2022 16:40:48 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
- owned process doing -bs
-Date: Tue, 3 May 2022 16:40:48 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Message-ID: <alpine.LRH.2.02.2205031640060.11434@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
+Received: from mimecast-mx02.redhat.com
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D3DD340CFD19
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 22:54:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB3151014A6D
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 22:54:46 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-116-ccklmTGPOCmwC7YBR7yV5g-1; Tue, 03 May 2022 18:07:32 -0400
+X-MC-Unique: ccklmTGPOCmwC7YBR7yV5g-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 08C38210C2;
+ Tue,  3 May 2022 22:07:16 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CE2B413ABE;
+ Tue,  3 May 2022 22:07:15 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 35ylMJOncWLfFgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Tue, 03 May 2022 22:07:15 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>
+Date: Wed,  4 May 2022 00:06:39 +0200
+Message-Id: <20220503220646.16925-1-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [dm-devel] [PATCH v4.19] dm: interlock pending dm_io and
- dm_wait_for_bios_completion
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [dm-devel] [PATCH 0/7] multipath-tools: fix unit test breakage
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,11 +85,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Snitzer <msnitzer@redhat.com>, dm-devel@redhat.com,
- stable@vger.kernel.org
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -86,40 +96,49 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This is backport of the patch 9f6dc6337610 ("dm: interlock pending dm_io
-and dm_wait_for_bios_completion") for the kernel 4.19.
+From: Martin Wilck <mwilck@suse.com>
 
-The bugs fixed by this patch can cause random crashing when reloading dm
-table, so it is eligible for stable backport.
+Hi Christophe, hi Ben,
 
-Note that the kernel 4.19 uses md->pending to count the number of
-in-progress I/Os and md->pending is decremented after dm_stats_account_io,
-so the race condition doesn't really exist there (except for missing
-smp_rmb()).
+The previous patches 
 
-The percpu variable md->pending_io is not needed in the stable kernels,
-because md->pending counts the same value, so it is not backported.
+af15832 multipath-tools: make multipath_dir a compiled-in option
+1fc7c4d multipath-tools: make config_dir a compiled-in option
+21b3d6b multipath-tools: stop supporting getuid_callout
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
-Reviewed-by: Mike Snitzer <snitzer@kernel.org>
+have caused breakage in the unit tests. Not so much because they'd
+actually break the tests, but because they broke the compilation and
+the search paths for the configuration files (for the former two commits)
+and because the hwtable test relied on being able to the retrieve
+the now removed "getuid_callout" property from config files.
 
----
- drivers/md/dm.c |    2 ++
- 1 file changed, 2 insertions(+)
+Fix it. As always, comments welcome.
 
-Index: linux-stable/drivers/md/dm.c
-===================================================================
---- linux-stable.orig/drivers/md/dm.c	2022-05-01 16:26:09.000000000 +0200
-+++ linux-stable/drivers/md/dm.c	2022-05-01 16:26:09.000000000 +0200
-@@ -2475,6 +2475,8 @@ static int dm_wait_for_completion(struct
- 	}
- 	finish_wait(&md->wait, &wait);
- 
-+	smp_rmb(); /* paired with atomic_dec_return in end_io_acct */
-+
- 	return r;
- }
- 
+Regards
+Martin
+
+Martin Wilck (7):
+  multipath-tools: enable local configdir and plugindir for unit tests
+  tests/mpathvalid: fix check for DEFAULT_CONFIG_FILE
+  multipath-tools tests: hwtable: adapt after removal of getuid
+  tests/hwtable: fix test_regex_2_strings_hwe_dir
+  libmultipath: fix valgrind_test
+  tests/Makefile: make TESTDIR configurable
+  github workflows: foreign.yaml: fix config dir in run environment
+
+ .github/workflows/foreign.yaml |   7 +-
+ libmultipath/Makefile          |  24 ++++--
+ libmultipath/config.c          |   3 +
+ tests/Makefile                 |  12 ++-
+ tests/hwtable.c                | 151 ++++++++++++++++-----------------
+ tests/mpathvalid.c             |   2 +-
+ tests/test-lib.c               |  89 ++++++++++++++-----
+ tests/test-lib.h               |   2 +-
+ 8 files changed, 180 insertions(+), 110 deletions(-)
+
+-- 
+2.36.0
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
