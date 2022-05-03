@@ -2,77 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E800518A88
-	for <lists+dm-devel@lfdr.de>; Tue,  3 May 2022 18:54:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20132518AA9
+	for <lists+dm-devel@lfdr.de>; Tue,  3 May 2022 19:02:33 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-474-9mAXwiWjNsiDBhEyhQLpRQ-1; Tue, 03 May 2022 12:54:32 -0400
-X-MC-Unique: 9mAXwiWjNsiDBhEyhQLpRQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-62-Fd_hLv-eNfyDFpdJYDg8bg-1; Tue, 03 May 2022 13:02:30 -0400
+X-MC-Unique: Fd_hLv-eNfyDFpdJYDg8bg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F0F4C29AA3AC;
-	Tue,  3 May 2022 16:54:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1AD8829AA38B;
+	Tue,  3 May 2022 17:02:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3E3A240D2820;
-	Tue,  3 May 2022 16:54:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DC5AB153CE01;
+	Tue,  3 May 2022 17:02:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8A3641947076;
-	Tue,  3 May 2022 16:54:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9557A1947078;
+	Tue,  3 May 2022 17:02:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C13B01947043
- for <dm-devel@listman.corp.redhat.com>; Tue,  3 May 2022 16:54:27 +0000 (UTC)
+ ESMTP id 2735D1947043
+ for <dm-devel@listman.corp.redhat.com>; Tue,  3 May 2022 17:02:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9AB3F9E94; Tue,  3 May 2022 16:54:27 +0000 (UTC)
+ id 12F2840D2820; Tue,  3 May 2022 17:02:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 940999E8D
- for <dm-devel@redhat.com>; Tue,  3 May 2022 16:54:20 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E8A640D1B9F
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 17:02:22 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51AEE86B8B4
- for <dm-devel@redhat.com>; Tue,  3 May 2022 16:54:20 +0000 (UTC)
-Received: from mail-oa1-f51.google.com (mail-oa1-f51.google.com
- [209.85.160.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA86C86B8B3
+ for <dm-devel@redhat.com>; Tue,  3 May 2022 17:02:21 +0000 (UTC)
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
+ [209.85.167.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-567-Ws5d6qIVNQeCfeBWtqdqPg-1; Tue, 03 May 2022 12:54:18 -0400
-X-MC-Unique: Ws5d6qIVNQeCfeBWtqdqPg-1
-Received: by mail-oa1-f51.google.com with SMTP id
- 586e51a60fabf-ed9a75c453so7213541fac.11; 
- Tue, 03 May 2022 09:54:18 -0700 (PDT)
+ us-mta-10-19XyRQA6Nhi1-peji5PA4w-1; Tue, 03 May 2022 13:01:50 -0400
+X-MC-Unique: 19XyRQA6Nhi1-peji5PA4w-1
+Received: by mail-oi1-f181.google.com with SMTP id r1so18603074oie.4;
+ Tue, 03 May 2022 10:01:50 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
  :content-language:to:cc:references:from:in-reply-to
  :content-transfer-encoding;
- bh=1eh4gXcwKDJaVq28NyDGAP5u0RiukLhIIz4+qOM8ls8=;
- b=PHGLIJbR2Q8IJxmLBdgWjsQ04xXYlolh76DoKGqMzJ+y3m9WILZUKgmmDuXgkB0QD3
- n38ofW7+TeVaaHMoEOvZpst793JIdP/QYQ1kc+hhibORLNZ3fwiiFNnHKQWUOsxws0g8
- 8y6cBO/4TZvT+jHxFOAtsuK4Sl1wP6Q1V5qNEciDdCVWWGzUdQQZdTAulJHENIstjrvG
- taUSLOWTFrgnJOWNGTdkzyJp1rTDkivrCnj0VjTY1AZY8keuEalXTREko/CxAI0B9yRU
- A+eBdFG9fU6Msui8fxf0DzY1uS2HdPVkNKPLD3CdhtcaQgYNkhdZavCmKJQjzqj4Vtb/
- YXTQ==
-X-Gm-Message-State: AOAM532FkyUf9CapWJratAVmlTsvlzOA63qS7za4LsIFextBOq75cBeO
- l0Jy04ln4pF+HzBDH2ddeqtD4Hheke4=
-X-Google-Smtp-Source: ABdhPJwIYsdQ5p1P5Q1mznCaYxjTnd/hJJG6oVZ/Lc+drskzCLzSd9wtxgyiNOjNc1Eeeh2wyOvvEw==
-X-Received: by 2002:a05:6870:b693:b0:de:7356:a3a3 with SMTP id
- cy19-20020a056870b69300b000de7356a3a3mr2077698oab.24.1651596857587; 
- Tue, 03 May 2022 09:54:17 -0700 (PDT)
+ bh=DRk7BATbee0He7UZ5VJP77cBX11TJXZ34BYAwZ+8AgM=;
+ b=J8TpBPDJcnd7Q3McyywyLLpxQUlIqw2HpFCucbAAiN7b5gkke7Oc35ZlX0h/KKKiqF
+ 0FzDVvmjtdvcNpsp1vDvaNCXzf7Uzfs/o1CrcwBPgxf8kj5G/z1uyt31kT2mYSRzHiOo
+ Wyz2mn3XpcNCIEQu+WmpuUZkF+26gnjnIAKpKPD+2UG2myO8fC84yZl3nk99byetAH+e
+ KlKQC5WBGVVg8DNi0rPUafZRp0OqT1+oiS1DkFDXjBczTU2Ef2Dqm4O5HB32qwjtFd0H
+ MqFyI+E1u9cU9JvKZp4isXRsfLDv2GSzRyt4c/Pg+NeHXxVyGTyRS0nAGds354DRmsmR
+ nARg==
+X-Gm-Message-State: AOAM530yIzjHiTwXl4Xxz7xOA0IkEp61IKDsgjCiuplYfSwYwsG1mhFE
+ G6DWPT/Iqec6BioI97h1Ko0=
+X-Google-Smtp-Source: ABdhPJzQ7nN1tdLufKhuqG6pqOb+aTzQGH1sI9Wd1lN/gZWKJGxCZu7MZvXiQsv6VotmI9tLD36qJQ==
+X-Received: by 2002:a05:6808:1b10:b0:326:40f5:930c with SMTP id
+ bx16-20020a0568081b1000b0032640f5930cmr840804oib.281.1651597309459; 
+ Tue, 03 May 2022 10:01:49 -0700 (PDT)
 Received: from [10.10.69.251] ([8.34.116.185])
  by smtp.gmail.com with ESMTPSA id
- v186-20020aca61c3000000b00325cda1ffa1sm3506854oib.32.2022.05.03.09.54.14
+ a8-20020a4ad5c8000000b0035eb4e5a6c6sm5071917oot.28.2022.05.03.10.01.46
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 03 May 2022 09:54:16 -0700 (PDT)
-Message-ID: <78730bd4-a184-e0f0-4634-d09dbaf59958@acm.org>
-Date: Tue, 3 May 2022 09:54:13 -0700
+ Tue, 03 May 2022 10:01:48 -0700 (PDT)
+Message-ID: <1b7f3aac-0941-2554-d966-01a6bf76cc58@acm.org>
+Date: Tue, 3 May 2022 10:01:45 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.7.0
@@ -81,10 +80,10 @@ To: Pankaj Raghav <p.raghav@samsung.com>, jaegeuk@kernel.org,
  naohiro.aota@wdc.com, sagi@grimberg.me, damien.lemoal@opensource.wdc.com,
  dsterba@suse.com, johannes.thumshirn@wdc.com
 References: <20220427160255.300418-1-p.raghav@samsung.com>
- <CGME20220427160302eucas1p1aaba7a309778d3440c3315ad899e4035@eucas1p1.samsung.com>
- <20220427160255.300418-7-p.raghav@samsung.com>
+ <CGME20220427160310eucas1p28cd3c5ff4fb7a04bc77c4c0b9d96bb74@eucas1p2.samsung.com>
+ <20220427160255.300418-14-p.raghav@samsung.com>
 From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20220427160255.300418-7-p.raghav@samsung.com>
+In-Reply-To: <20220427160255.300418-14-p.raghav@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -92,8 +91,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH 06/16] nvmet: use blk_queue_zone_no()
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH 13/16] null_blk: allow non power of 2 zoned
+ devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,7 +113,7 @@ Cc: jiangbo.365@bytedance.com, kch@nvidia.com, matias.bjorling@wdc.com,
  josef@toxicpanda.com, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -123,18 +123,27 @@ Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
 On 4/27/22 09:02, Pankaj Raghav wrote:
-> From: Luis Chamberlain <mcgrof@kernel.org>
-> 
-> Instead of open coding the number of zones given a sector, use the helper
-                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-I can't parse this. Please rephrase this.
+> diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
+> index c441a4972064..82a62b543782 100644
+> --- a/drivers/block/null_blk/main.c
+> +++ b/drivers/block/null_blk/main.c
+> @@ -1931,8 +1931,8 @@ static int null_validate_conf(struct nullb_device *dev)
+>   		dev->mbps = 0;
+>   
+>   	if (dev->zoned &&
+> -	    (!dev->zone_size || !is_power_of_2(dev->zone_size))) {
+> -		pr_err("zone_size must be power-of-two\n");
+> +	    (!dev->zone_size)) {
+> +		pr_err("zone_size must not be zero\n");
+>   		return -EINVAL;
+>   	}
 
-> blk_queue_zone_no(). This let's us make modifications to the math if
-> needed in one place and adds now support for npo2 zone devices.
+Please combine "if (dev->zoned &&" and "(!dev->zone_size)) {" into a 
+single line and leave out the parentheses that became superfluous.
 
-But since the code looks fine:
+Thanks,
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+Bart.
 
 --
 dm-devel mailing list
