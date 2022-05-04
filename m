@@ -2,120 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 414E551B06A
-	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 23:23:36 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id E2C1B51B06E
+	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 23:23:38 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-570-WQNlqrtuNSewHMtlckTrZQ-1; Wed, 04 May 2022 17:23:33 -0400
-X-MC-Unique: WQNlqrtuNSewHMtlckTrZQ-1
+ us-mta-594-fE9n6jv4P86QIN5Fksq2NA-1; Wed, 04 May 2022 17:23:34 -0400
+X-MC-Unique: fE9n6jv4P86QIN5Fksq2NA-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD2A9833969;
-	Wed,  4 May 2022 21:23:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9992C29ABA0B;
+	Wed,  4 May 2022 21:23:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 93BE1C28114;
-	Wed,  4 May 2022 21:23:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 80EBFC28117;
+	Wed,  4 May 2022 21:23:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE9821947B9E;
-	Wed,  4 May 2022 21:23:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 036C91947B84;
+	Wed,  4 May 2022 21:23:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 70B741947046
- for <dm-devel@listman.corp.redhat.com>; Wed,  4 May 2022 16:29:20 +0000 (UTC)
+ ESMTP id 3F8E31947043
+ for <dm-devel@listman.corp.redhat.com>; Wed,  4 May 2022 19:54:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 61BBF15674EE; Wed,  4 May 2022 16:29:20 +0000 (UTC)
+ id 1C3FDC27EBD; Wed,  4 May 2022 19:54:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3310E15674EC
- for <dm-devel@redhat.com>; Wed,  4 May 2022 16:29:20 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 184BDC27EB0
+ for <dm-devel@redhat.com>; Wed,  4 May 2022 19:54:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B5C9811E80
- for <dm-devel@redhat.com>; Wed,  4 May 2022 16:29:20 +0000 (UTC)
-Received: from APC01-SG2-obe.outbound.protection.outlook.com
- (mail-sgaapc01on2097.outbound.protection.outlook.com [40.107.215.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-360-zundS2T0O2ezPeoHDCupnA-1; Wed, 04 May 2022 12:29:18 -0400
-X-MC-Unique: zundS2T0O2ezPeoHDCupnA-1
-Received: from HK2PR06MB3492.apcprd06.prod.outlook.com (2603:1096:202:2f::10)
- by HK0PR06MB2466.apcprd06.prod.outlook.com (2603:1096:203:66::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5206.24; Wed, 4 May
- 2022 16:29:12 +0000
-Received: from HK2PR06MB3492.apcprd06.prod.outlook.com
- ([fe80::88e1:dc04:6851:ad08]) by HK2PR06MB3492.apcprd06.prod.outlook.com
- ([fe80::88e1:dc04:6851:ad08%7]) with mapi id 15.20.5206.014; Wed, 4 May 2022
- 16:29:12 +0000
-From: Guo Zhengkui <guozhengkui@vivo.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F17E93AF42A8
+ for <dm-devel@redhat.com>; Wed,  4 May 2022 19:54:26 +0000 (UTC)
+Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
+ [209.85.210.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-255-oY0Fnh3NMVqmR3Pzkg_EuQ-1; Wed, 04 May 2022 15:54:25 -0400
+X-MC-Unique: oY0Fnh3NMVqmR3Pzkg_EuQ-1
+Received: by mail-pf1-f177.google.com with SMTP id h1so1934626pfv.12
+ for <dm-devel@redhat.com>; Wed, 04 May 2022 12:54:25 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=h3ETif9Foq2WWYlVvzrpzb/TRJhspVBRsqqlMfFf5RE=;
+ b=0AGxWdCuYrt5QXwDQx79NDRuRd7wYVpBEBqumzeJmzJsnANg4wed21VAZDdPEHedOV
+ q7Ahbi+mK8kq3JAA7joCCAFAw/SeXTYMZFDTiNAmLkZyDM9I383drJshAgU0wfom/TRH
+ hxci9iJITqAoOz6nZWxk1LaPiOM2PO8Boee3WMHyWnnqwCMOP03TTs35vMJC21v7zruJ
+ z0vMMibS4lyA7umxAkLcNeuAKwisihcZttaxsW9ao6b3LFszMs6KozJN2FGkqo/VkIVq
+ 4atKNFhh2kVc5nazw3zAySy/eJIIRKWctb9AU1Zdugld2P+mM3te6YULuWmALiSdg9bx
+ It2A==
+X-Gm-Message-State: AOAM530JZsMX13nFBC2rDrIzLtkk3tOBD9JCKVI5cDRvE14YmdSLzp/x
+ MM37zjKCkQ1n91RF5GSlpg3K5Q==
+X-Google-Smtp-Source: ABdhPJw3OEAXuCRHeeH+ekWBhlrlqMKIX2kvZ+3Yz7JTRDJfzJoF2x0zxnO0Fgykowymq6svm7lI3g==
+X-Received: by 2002:a65:6051:0:b0:39d:1b00:e473 with SMTP id
+ a17-20020a656051000000b0039d1b00e473mr18737927pgp.578.1651694063968; 
+ Wed, 04 May 2022 12:54:23 -0700 (PDT)
+Received: from localhost ([2620:15c:202:201:35b6:c77b:be04:3bd5])
+ by smtp.gmail.com with UTF8SMTPSA id
+ v13-20020aa7808d000000b0050dc762819esm8622355pff.120.2022.05.04.12.54.22
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 May 2022 12:54:23 -0700 (PDT)
+From: Matthias Kaehlcke <mka@chromium.org>
 To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- dm-devel@redhat.com, linux-kernel@vger.kernel.org
-Date: Thu,  5 May 2022 00:28:26 +0800
-Message-ID: <20220504162827.9429-1-guozhengkui@vivo.com>
-X-ClientProxiedBy: HK2PR03CA0045.apcprd03.prod.outlook.com
- (2603:1096:202:17::15) To HK2PR06MB3492.apcprd06.prod.outlook.com
- (2603:1096:202:2f::10)
+ Kees Cook <keescook@chromium.org>, James Morris <jmorris@namei.org>,
+ "Serge E . Hallyn" <serge@hallyn.com>
+Date: Wed,  4 May 2022 12:54:16 -0700
+Message-Id: <20220504195419.1143099-1-mka@chromium.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: c19f9637-187f-4550-5792-08da2deb3895
-X-MS-TrafficTypeDiagnostic: HK0PR06MB2466:EE_
-X-Microsoft-Antispam-PRVS: <HK0PR06MB246630C2D278CE0DF5BDA801C7C39@HK0PR06MB2466.apcprd06.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: tGXE4ju8lRfxJnmddZay+S1MDj8G2ZfekYRSiu2yis+bu+xtdA8/Bn2trIRogkE5fCpCTCc7Y42ZLzhlrCxVZI8oJbyLKK3GaIuRlqAQmaEqo+zmpBbjoQdCs5Nh8UyPipNjvfHnfWjUk89BoEzKimfQJyDDFgTH9rvZOcRA/Es/WrkEInA4TSTN4EXjAKSyYp75m1Z1j733kbNv5b81jm/IVg/eAyY75sJNY/r64GoFxxTvdxDJNw6Zw3svQz18o3usftwmdERR9aQR9NpBGpb74e6KlbufoSMrFWgDVafRU4rqu9Dt4ROMlFjO/qBeni7UxePEMqsngSq4dbcTcof6a7KcI43TqRC016rmhfndHTCzGXnBRryi3/U0uegAqnJO7tFtRVluNf48YJCO4ts51pE7v9Mbm0qEHJeFRWmU8Gg+HqYORDozvZXRgt1lPp3lzxgi77N3tyvA67DleJ2JHpoXfEk5EXMjziO2NGyIVpJb6ie6k3UhlVxzoCPgrQWVCV0+F7AAubnccBMhmrnrgIzbc5VKyAif9B3rA3I68fPluAEcJ89iYSfkXI0qZEks95FoiOy0eUaMuLnRZ7di6dEZnPYIxtFhwusa80NbW5lE80RnaFNDLczmvOP259+ZrmnQwNbGVvwQg1Pnvpk2136dFWErlbZT6Bh3yaYPG/rRIcOC9A72O1dsGsWJ3ZscprfTvGuN+d2FPHrTXA==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:HK2PR06MB3492.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(8936002)(1076003)(66556008)(66476007)(107886003)(52116002)(8676002)(2906002)(4326008)(508600001)(5660300002)(66946007)(38100700002)(6666004)(6486002)(186003)(4744005)(26005)(38350700002)(2616005)(36756003)(86362001)(83380400001)(110136005)(316002)(6512007)(6506007);
- DIR:OUT; SFP:1102
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?JAvUhpwiF5BllO4q6Iv+cNybVLXHaSuknpzNhW+NeEBbdZSy7C6rHKxkfGa5?=
- =?us-ascii?Q?jILodI/zxuFyuMdFLnuzKcPi2EO0okqjXaJsZuH/msHKCx+fkjQ3+9saKL3z?=
- =?us-ascii?Q?FSoq7Cb/SyGzt65/jwB1DdaP0ofvD875DaFud2l9a/qd9Ik5D2uRcYWcvpx/?=
- =?us-ascii?Q?FAeG7b7LrOpqdgC8VyoRqEtiF/mNA2ha0EwsHIjAC9fRFZzqEEy4s4/k8Qy4?=
- =?us-ascii?Q?oUocJ6CVdit9xMivpoRQC70FBMsJRqZ1xFQ08wtUo9/Lq+b3Bm66yvRRY42C?=
- =?us-ascii?Q?MG3sxTqYHAzCIUoaMrQZlzv9OvlzgYgnSVj86ZSXw45p98JnXYwAuaLKUZWz?=
- =?us-ascii?Q?+f82PcRAg0JWIPnFyNdqTCVH5K9DyGJV9teEvkkFk5CTvpkC06E3xtYZr3rU?=
- =?us-ascii?Q?5nXzd1SBgk5ELqfLyS9HrqH8nTLonr4kHGmQpMBGNmJ8BhkNFcORqT+vd2v0?=
- =?us-ascii?Q?rfuaGLUR3R+C/WpDYw5buyUZISU/x0uAJF6HvEGnw5/9Lh1swV9rBBjZ799k?=
- =?us-ascii?Q?x4WhOQo81Vi+AwEM9mPYVZSWJsfS7MYKfjbyDQBndVTOa1YQ6UuCutuARY4H?=
- =?us-ascii?Q?l3V/bw0CjDj3QSX3r7hqQ8ZZ3D9nGF4aXcGzgRfJ/KfUSWBj5PoWiAhVi6wM?=
- =?us-ascii?Q?wTjel3Wi3jrFaOYeFqLqZ6HlosD3ZtsOcxU3PqxzQGkj5b6zhoanpACaLIEC?=
- =?us-ascii?Q?8165DtKQFS/I4TTyaWMXlAl2Z9EKIIalH99zSbDMoHqvjJ6ws1LdrziprR51?=
- =?us-ascii?Q?z8jvfZAOf04UnU5zOZ7K+ei20HZ+9qe0cvpH3O+TK+xsYAPvwUsa1DY9koUS?=
- =?us-ascii?Q?fVbVlCbpil1U7tY2oitONwskrHO+JyXxkE8ZzsR0Mb5Ag5xd1n1ZTea73F4f?=
- =?us-ascii?Q?DwRVjBHgJFvdqZKnAhHgLaXDaOzAUW44a9pZ8IYXqHld5Q2coZluQKjX1a5S?=
- =?us-ascii?Q?GCVhGQ6kmvhfXnmqrLXZm1Kj1xXy0uBys9cqI85GvH9rsnPvhWsiebOFn+04?=
- =?us-ascii?Q?ZJ5N+w+hag7cY1VVPgVYj/PJQS07anZweZreBRl00/gchaZCIUNsNujDnPYH?=
- =?us-ascii?Q?tENh/JD06ylpqifuyoYGuXu9kKf24JAjgXmFjhaffrhJPCMqMn5+BoC9SWNM?=
- =?us-ascii?Q?5l2Q1UrYH7VlzJAMrjeYPXGgbRSVjD3dp/RD7O0zu94PxnAGlqWCZllNwPAP?=
- =?us-ascii?Q?1fFGYaLZR/zhBuXVIBk3EUNbj61DR5137Qb6Fg7PcXxhXmWneAm6xS4dUeCS?=
- =?us-ascii?Q?n3Vzk60WO+sX6P0cbaG/FVXBd4Wj00VyiJqrYrn1M504gM6vC5zoL8lPHBIs?=
- =?us-ascii?Q?ILOPdQjoEVP6TTJl/tOb02glUNpKIpkXYObtOJyFg++WPhdd0TkeSrA0lXzV?=
- =?us-ascii?Q?OA4LA5M43OmqCBKsVxf71T3OfPHKtaTzBUL/H7cUIdB8rLg5os+D82s7NRD8?=
- =?us-ascii?Q?2GPoM3UYYYoJL/YTp6cahStTpwoA0bWi6RKDtjUzhgWIHnlYubGIqln08+2B?=
- =?us-ascii?Q?1k51qaRLlgBJB5VrLqpeApy5hYi1Q0GlEjUpPT1g2xoc36wNi1swgVA1Pqnp?=
- =?us-ascii?Q?Ul02KPx6SZ9J2eZRmtERHGRPOXAsQ5RHIayqTn0omFQMXOUjEUmeXnfZzIcc?=
- =?us-ascii?Q?Vd0HwdZ5m6KrT//1IQpfLRL8nV6hxPxovHNY1YIXEJq/5dqkBNfM3vdoWi7Z?=
- =?us-ascii?Q?vu7BdhZHBmmNnoTvN8G37injENRByi24oPdUwgInRLo18tMRjHkoUluVLpd5?=
- =?us-ascii?Q?ckbRWPxqGw=3D=3D?=
-X-OriginatorOrg: vivo.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: c19f9637-187f-4550-5792-08da2deb3895
-X-MS-Exchange-CrossTenant-AuthSource: HK2PR06MB3492.apcprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 04 May 2022 16:29:12.1534 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: yJi81VqXLQblMGTbxisS33LLwHvBuWQE8JQYuoWkvrFEqm4HB4lffYN3JLnk0IsJvjt1yANHz1YnVLF7wDJNCw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: HK0PR06MB2466
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -123,9 +83,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Wed, 04 May 2022 21:23:25 +0000
-Subject: [dm-devel] [PATCH] dm cache metadata: fix returnvar.cocci warning
+Subject: [dm-devel] [PATCH v3 0/3] LoadPin: Enable loading from trusted
+ dm-verity devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,7 +98,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: zhengkui_guo@outlook.com, Guo Zhengkui <guozhengkui@vivo.com>
+Cc: Douglas Anderson <dianders@chromium.org>,
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
+ Matthias Kaehlcke <mka@chromium.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
@@ -148,39 +112,78 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Fix the following coccicheck warning:
+As of now LoadPin restricts loading of kernel files to a single pinned
+filesystem, typically the rootfs. This works for many systems, however it
+can result in a bloated rootfs (and OTA updates) on platforms where
+multiple boards with different hardware configurations use the same rootfs
+image. Especially when 'optional' files are large it may be preferable to
+download/install them only when they are actually needed by a given board.
+Chrome OS uses Downloadable Content (DLC) [1] to deploy certain 'packages'
+at runtime. As an example a DLC package could contain firmware for a
+peripheral that is not present on all boards. DLCs use dm-verity [2] to
+verify the integrity of the DLC content.
 
-drivers/md/dm-cache-metadata.c:1512:5-6: Unneeded variable: "r".
-Return "0" on line 1520.
+This series extends LoadPin to allow loading of kernel files from trusted
+dm-verity devices. LoadPin maintains a list of root digests of verity
+devices it considers trusted. Userspace can populate this list through an
+ioctl on the new LoadPin securityfs entry 'dm-verity'. The ioctl receives
+a file descriptor of a file with verity digests as parameter. Verity reads
+the digests from this file after confirming that the file is located on the
+pinned root. The list of trusted digests can only be set up once, which is
+typically done at boot time.
 
-Signed-off-by: Guo Zhengkui <guozhengkui@vivo.com>
----
- drivers/md/dm-cache-metadata.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+When a kernel file is read LoadPin first checks (as usual) whether the file
+is located on the pinned root, if so the file can be loaded. Otherwise, if
+the verity extension is enabled, LoadPin determines whether the file is
+located on a verity backed device and whether the root digest of that
+device is in the list of trusted digests. The file can be loaded if the
+verity device has a trusted root digest.
 
-diff --git a/drivers/md/dm-cache-metadata.c b/drivers/md/dm-cache-metadata.c
-index 2874f222c313..ab13b7380265 100644
---- a/drivers/md/dm-cache-metadata.c
-+++ b/drivers/md/dm-cache-metadata.c
-@@ -1509,7 +1509,6 @@ int dm_cache_load_mappings(struct dm_cache_metadata *cmd,
- 
- static int __dump_mapping(void *context, uint64_t cblock, void *leaf)
- {
--	int r = 0;
- 	__le64 value;
- 	dm_oblock_t oblock;
- 	unsigned flags;
-@@ -1517,7 +1516,7 @@ static int __dump_mapping(void *context, uint64_t cblock, void *leaf)
- 	memcpy(&value, leaf, sizeof(value));
- 	unpack_value(value, &oblock, &flags);
- 
--	return r;
-+	return 0;
- }
- 
- static int __dump_mappings(struct dm_cache_metadata *cmd)
+[1] https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/dlcservice/docs/developer.md
+[2] https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/verity.html
+
+Changes in v3:
+- added securityfs for LoadPin (currently only populated when
+  CONFIG_SECURITY_LOADPIN_VERITY=y)
+- added uapi include for LoadPin
+- changed the interface for setting up the list of trusted
+  digests from sysctl to ioctl on securityfs entry
+- added stub for loadpin_is_fs_trusted() to be used
+  CONFIG_SECURITY_LOADPIN_VERITY is not select
+- depend on CONFIG_SECURITYFS instead of CONFIG_SYSTCL
+- updated Kconfig help
+- minor changes in read_trusted_verity_root_digests()
+- updated commit message
+
+Changes in v2:
+- userspace now passes the path of the file with the verity digests
+  via systcl, instead of the digests themselves
+- renamed sysctl file to 'trusted_verity_root_digests_path'
+- have CONFIG_SECURITY_LOADPIN_VERITY depend on CONFIG_SYSCTL
+- updated Kconfig doc
+- updated commit message
+
+Matthias Kaehlcke (3):
+  dm: Add verity helpers for LoadPin
+  LoadPin: Enable loading from trusted dm-verity devices
+  dm: verity-loadpin: Use CONFIG_SECURITY_LOADPIN_VERITY for conditional
+    compilation
+
+ drivers/md/Makefile               |   1 +
+ drivers/md/dm-verity-loadpin.c    |  80 +++++++++++++
+ drivers/md/dm-verity-target.c     |  33 ++++++
+ drivers/md/dm-verity.h            |   4 +
+ include/linux/dm-verity-loadpin.h |  27 +++++
+ include/uapi/linux/loadpin.h      |  19 +++
+ security/loadpin/Kconfig          |  16 +++
+ security/loadpin/loadpin.c        | 184 +++++++++++++++++++++++++++++-
+ 8 files changed, 363 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/md/dm-verity-loadpin.c
+ create mode 100644 include/linux/dm-verity-loadpin.h
+ create mode 100644 include/uapi/linux/loadpin.h
+
 -- 
-2.20.1
+2.36.0.464.gb9c8b46e94-goog
 
 --
 dm-devel mailing list
