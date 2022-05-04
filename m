@@ -1,83 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D742551B067
-	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 23:23:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EFC3E51AEBB
+	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 22:10:35 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-225-QfxBH5UpO5-9_6XW58lnyw-1; Wed, 04 May 2022 17:23:32 -0400
-X-MC-Unique: QfxBH5UpO5-9_6XW58lnyw-1
+ us-mta-284-j4jG3dYsNcSxeD7IosBN3Q-1; Wed, 04 May 2022 16:10:31 -0400
+X-MC-Unique: j4jG3dYsNcSxeD7IosBN3Q-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89C20185A7BA;
-	Wed,  4 May 2022 21:23:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 716138047D6;
+	Wed,  4 May 2022 20:10:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C097640D2825;
-	Wed,  4 May 2022 21:23:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2B1F3400D277;
+	Wed,  4 May 2022 20:10:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2DD221947B86;
-	Wed,  4 May 2022 21:23:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 34A6F1947076;
+	Wed,  4 May 2022 20:10:26 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 07BC91947046
- for <dm-devel@listman.corp.redhat.com>; Wed,  4 May 2022 19:54:32 +0000 (UTC)
+ ESMTP id 8E8051947043
+ for <dm-devel@listman.corp.redhat.com>; Wed,  4 May 2022 20:10:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EE92CC28112; Wed,  4 May 2022 19:54:31 +0000 (UTC)
+ id 65F9940E7F12; Wed,  4 May 2022 20:10:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EA122C28101
- for <dm-devel@redhat.com>; Wed,  4 May 2022 19:54:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D23D0185A7B2
- for <dm-devel@redhat.com>; Wed,  4 May 2022 19:54:31 +0000 (UTC)
-Received: from mail-pj1-f45.google.com (mail-pj1-f45.google.com
- [209.85.216.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 615B740E7F06
+ for <dm-devel@redhat.com>; Wed,  4 May 2022 20:10:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 463321C05EA6
+ for <dm-devel@redhat.com>; Wed,  4 May 2022 20:10:24 +0000 (UTC)
+Received: from mail-lj1-f172.google.com (mail-lj1-f172.google.com
+ [209.85.208.172]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-646-WB8oQN8PP0WOrsOUBc94Zw-1; Wed, 04 May 2022 15:54:30 -0400
-X-MC-Unique: WB8oQN8PP0WOrsOUBc94Zw-1
-Received: by mail-pj1-f45.google.com with SMTP id
- cx11-20020a17090afd8b00b001d9fe5965b3so6085204pjb.3
- for <dm-devel@redhat.com>; Wed, 04 May 2022 12:54:29 -0700 (PDT)
+ us-mta-161-q_SBMhIEOdqxkUWkfcJlSQ-1; Wed, 04 May 2022 16:10:22 -0400
+X-MC-Unique: q_SBMhIEOdqxkUWkfcJlSQ-1
+Received: by mail-lj1-f172.google.com with SMTP id v4so3061620ljd.10
+ for <dm-devel@redhat.com>; Wed, 04 May 2022 13:10:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=qM82pLe5LIpNsG3poDlPVKU5bEYefBi/IlcSrVO4JAI=;
- b=NNSHYZSZtfoFv/zdMFl7CDo/xmAfkDceHEQQ9hxJ5ZxfjNGva9YeIcfkvY/YxhdH/q
- +Oouf6LNOqJNIf3p5jXZ7UfaJT/dns4VDyuVY1fvrAb8KPL5svFRWrrSOARZWc6UDAnD
- EK1Um9vl99UHBa4HBnosIueZD0OydgTtc3feFYA+g4eCYFnqp67DXhapwz/NqroE7elH
- HtNL6Z88+dIZSAICg/dRccThNqBPJHk0QXQL6i7J2IKPrR7sKCr9xR7+qswcz+gxDJTm
- RflMXkONkAvHalxcrHV3qx8qQyQENqhn9dDqmKT25D3HsaQ77Q8Nnbt1Tu/o4GURF0qX
- kuDA==
-X-Gm-Message-State: AOAM5317XByXht3QNunPG7PpBD6eMyGXji3pPj4U1cU1d7V07ashCWyv
- +6aaowaCmgs/ql+HhlP/DFWSXQ==
-X-Google-Smtp-Source: ABdhPJyQN0M+9153jv/w/MlWINhzXu1GoODr13+92d+vbgDekp0dhUhMFOATx1GkA2fDTz3kWcPUcw==
-X-Received: by 2002:a17:903:1249:b0:15e:8b15:b7d2 with SMTP id
- u9-20020a170903124900b0015e8b15b7d2mr24555926plh.150.1651694068934; 
- Wed, 04 May 2022 12:54:28 -0700 (PDT)
-Received: from localhost ([2620:15c:202:201:35b6:c77b:be04:3bd5])
- by smtp.gmail.com with UTF8SMTPSA id
- t3-20020a17090aae0300b001d5e1b124a0sm3727332pjq.7.2022.05.04.12.54.28
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=O0/hKmkvb5BoU0+UFK3i+vBfCGj7h/+eV5+6M1+ExZM=;
+ b=SJfOi0M7S/aYI1OiJZq/r4x5FsF9PqIfZwo7nBokmyin4jXfw8Qm33gn2XisIWcFo+
+ oqFg7IbJOHRkHbTrHbj2jHY4VCgurvJNIbMiTfsHNuM4z463CTYfEwswjL3/eHvVukz8
+ w94K7h1lfou45gzzE+k2a3R6GaIHVKGMCBkNSPFFtnhVjavP1Ug+ZnXaL+BjyNuUQ6gJ
+ 2Ic0GZ1HfTlx7uUriFvGu/PepUJwU3J79g7rkguPC/pzaaNcCkleFsIsHhbR2wUj7nek
+ B2+FpcsPPqiNtwG4+7xwKrWuOlVv84bzTUHAEK1P26miO87SYbw49rb5DokMhaNDQpCq
+ 7oGQ==
+X-Gm-Message-State: AOAM532nFsLId+yL1OSZNvaW9KcICDnQ4IpMR3N1d7BvoHBygNbttRYl
+ uv7d5XOjK0sYI7lE+HHTxHD54U4SihyK5ZrySeA=
+X-Google-Smtp-Source: ABdhPJzVS+1VzuWKkf1nZ/JwBm6ndGlVCE7dInB0IhZ95JHqBxnhZtXH/3J/2r2IKvxmUgFue8kClQ==
+X-Received: by 2002:a2e:9197:0:b0:24f:2a75:f026 with SMTP id
+ f23-20020a2e9197000000b0024f2a75f026mr13875371ljg.289.1651695020837; 
+ Wed, 04 May 2022 13:10:20 -0700 (PDT)
+Received: from mail-lj1-f180.google.com (mail-lj1-f180.google.com.
+ [209.85.208.180]) by smtp.gmail.com with ESMTPSA id
+ t9-20020a2e8e69000000b0024f3d1dae9esm1766484ljk.38.2022.05.04.13.10.20
+ for <dm-devel@redhat.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 04 May 2022 12:54:28 -0700 (PDT)
-From: Matthias Kaehlcke <mka@chromium.org>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- Kees Cook <keescook@chromium.org>, James Morris <jmorris@namei.org>,
- "Serge E . Hallyn" <serge@hallyn.com>
-Date: Wed,  4 May 2022 12:54:19 -0700
-Message-Id: <20220504125404.v3.3.I5aca2dcc3b06de4bf53696cd21329dce8272b8aa@changeid>
-In-Reply-To: <20220504195419.1143099-1-mka@chromium.org>
-References: <20220504195419.1143099-1-mka@chromium.org>
+ Wed, 04 May 2022 13:10:20 -0700 (PDT)
+Received: by mail-lj1-f180.google.com with SMTP id m23so3106019ljc.0
+ for <dm-devel@redhat.com>; Wed, 04 May 2022 13:10:20 -0700 (PDT)
+X-Received: by 2002:a2e:914d:0:b0:24f:6374:3eba with SMTP id
+ q13-20020a2e914d000000b0024f63743ebamr10017408ljg.506.1651695019712; Wed, 04
+ May 2022 13:10:19 -0700 (PDT)
 MIME-Version: 1.0
+References: <alpine.LRH.2.02.2204241648270.17244@file01.intranet.prod.int.rdu2.redhat.com>
+ <CAHk-=wh+Z+OKH3jRttWGHbWSQq2wVMtdnA=ntDiadZu=VxAC7w@mail.gmail.com>
+ <alpine.LRH.2.02.2204250723120.26714@file01.intranet.prod.int.rdu2.redhat.com>
+ <YnI7hE4cIfjsdKSF@antec> <YnJI4Ru0AlUgrr9C@zx2c4.com>
+ <YnJOCbLtdATzC+jn@zx2c4.com>
+ <YnJQXr3igEMTqY3+@smile.fi.intel.com> <YnJSQ3jJyvhmIstD@zx2c4.com>
+ <CAHk-=wgb_eBdjM_mzEvXfRG2EhrSK5MHNGyAj7=4vxvN4U9Rug@mail.gmail.com>
+ <CAHmME9q_-nfGxp8_VCqaritm4N8v8g67AzRjXs9du846JhhpoQ@mail.gmail.com>
+ <CAAfxs77yaLvWx9KnkDZX7E1eDm9N-NVJn5n8=mCK9BU-cSob=A@mail.gmail.com>
+In-Reply-To: <CAAfxs77yaLvWx9KnkDZX7E1eDm9N-NVJn5n8=mCK9BU-cSob=A@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 4 May 2022 13:10:03 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wjLRo-6PbhbvMUDojbMo=L+2jc5VpCYTyF-LGxZPhUngA@mail.gmail.com>
+Message-ID: <CAHk-=wjLRo-6PbhbvMUDojbMo=L+2jc5VpCYTyF-LGxZPhUngA@mail.gmail.com>
+To: Stafford Horne <shorne@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -85,10 +97,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-X-Mailman-Approved-At: Wed, 04 May 2022 21:23:25 +0000
-Subject: [dm-devel] [PATCH v3 3/3] dm: verity-loadpin: Use
- CONFIG_SECURITY_LOADPIN_VERITY for conditional compilation
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH v2] hex2bin: make the function hex_to_bin
+ constant-time
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,10 +111,16 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Douglas Anderson <dianders@chromium.org>,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
- Matthias Kaehlcke <mka@chromium.org>
+Cc: Andy Shevchenko <andy@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Mike Snitzer <msnitzer@redhat.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Milan Broz <gmazyland@gmail.com>,
+ device-mapper development <dm-devel@redhat.com>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Herbert Xu <herbert@gondor.apana.org.au>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
@@ -114,63 +131,30 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The verity glue for LoadPin is only needed when CONFIG_SECURITY_LOADPIN_VERITY
-is set, use this option for conditional compilation instead of the combo of
-CONFIG_DM_VERITY and CONFIG_SECURITY_LOADPIN.
+On Wed, May 4, 2022 at 12:58 PM Stafford Horne <shorne@gmail.com> wrote:
+>
+> I have uploaded a diff I created here:
+>   https://gist.github.com/54334556f2907104cd12374872a0597c
+>
+> It shows the same output.
 
-Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
----
+In hex_to_bin itself it seems to only be a difference due to some
+register allocation (r19 and r3 switched around).
 
-Changes in v3:
-- none
+But then it gets inlined into hex2bin and there changes there seem to
+be about instruction and basic block scheduling, so it's a lot harder
+to see what's going on.
 
-Changes in v2:
-- none
+And a lot of constant changes, which honestly look just like code code
+moved around by 16 bytes and offsets changed due to that.
 
- drivers/md/Makefile               | 7 +------
- include/linux/dm-verity-loadpin.h | 2 +-
- 2 files changed, 2 insertions(+), 7 deletions(-)
+So I doubt it's hex_to_bin() that is causing problems, I think it's
+purely code movement. Which explains why adding a nop or a fake printk
+fixes things.
 
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index e12cd004d375..a96441752ec7 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -83,6 +83,7 @@ obj-$(CONFIG_DM_LOG_WRITES)	+= dm-log-writes.o
- obj-$(CONFIG_DM_INTEGRITY)	+= dm-integrity.o
- obj-$(CONFIG_DM_ZONED)		+= dm-zoned.o
- obj-$(CONFIG_DM_WRITECACHE)	+= dm-writecache.o
-+obj-$(CONFIG_SECURITY_LOADPIN_VERITY)	+= dm-verity-loadpin.o
- 
- ifeq ($(CONFIG_DM_INIT),y)
- dm-mod-objs			+= dm-init.o
-@@ -100,12 +101,6 @@ ifeq ($(CONFIG_IMA),y)
- dm-mod-objs			+= dm-ima.o
- endif
- 
--ifeq ($(CONFIG_DM_VERITY),y)
--ifeq ($(CONFIG_SECURITY_LOADPIN),y)
--dm-mod-objs			+= dm-verity-loadpin.o
--endif
--endif
--
- ifeq ($(CONFIG_DM_VERITY_FEC),y)
- dm-verity-objs			+= dm-verity-fec.o
- endif
-diff --git a/include/linux/dm-verity-loadpin.h b/include/linux/dm-verity-loadpin.h
-index 12a86911d05a..be63ac76f98d 100644
---- a/include/linux/dm-verity-loadpin.h
-+++ b/include/linux/dm-verity-loadpin.h
-@@ -13,7 +13,7 @@ struct trusted_root_digest {
- 	struct list_head node;
- };
- 
--#if IS_ENABLED(CONFIG_SECURITY_LOADPIN) && IS_BUILTIN(CONFIG_DM_VERITY)
-+#if IS_ENABLED(CONFIG_SECURITY_LOADPIN_VERITY)
- void dm_verity_loadpin_set_trusted_root_digests(struct list_head *digests);
- bool dm_verity_loadpin_is_md_trusted(struct mapped_device *md);
- #else
--- 
-2.36.0.464.gb9c8b46e94-goog
+Some alignment assumption that got broken?
+
+               Linus
 
 --
 dm-devel mailing list
