@@ -2,103 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BB61D51B06B
-	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 23:23:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 26F7951B078
+	for <lists+dm-devel@lfdr.de>; Wed,  4 May 2022 23:25:06 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-484-tG8V8e8pNhKRX1lisKllYQ-1; Wed, 04 May 2022 17:23:35 -0400
-X-MC-Unique: tG8V8e8pNhKRX1lisKllYQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-528-kAjIMtKFOguqz-EB_IAQhw-1; Wed, 04 May 2022 17:25:02 -0400
+X-MC-Unique: kAjIMtKFOguqz-EB_IAQhw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6954833978;
-	Wed,  4 May 2022 21:23:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 572D7833959;
+	Wed,  4 May 2022 21:24:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CDE61415F5E;
-	Wed,  4 May 2022 21:23:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 058662166B41;
+	Wed,  4 May 2022 21:24:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CEAF11947B87;
-	Wed,  4 May 2022 21:23:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 329031947056;
+	Wed,  4 May 2022 21:24:53 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D70401947043
- for <dm-devel@listman.corp.redhat.com>; Wed,  4 May 2022 21:18:56 +0000 (UTC)
+ ESMTP id 544071947043
+ for <dm-devel@listman.corp.redhat.com>; Wed,  4 May 2022 21:24:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8CA4B40CF8F8; Wed,  4 May 2022 21:18:56 +0000 (UTC)
+ id 2826D41373D; Wed,  4 May 2022 21:24:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8872B40CF8EA
- for <dm-devel@redhat.com>; Wed,  4 May 2022 21:18:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70B3D29AB453
- for <dm-devel@redhat.com>; Wed,  4 May 2022 21:18:56 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-580-32NNwjsPPoGxsrHXZGA2Aw-1; Wed, 04 May 2022 17:18:54 -0400
-X-MC-Unique: 32NNwjsPPoGxsrHXZGA2Aw-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id BABED210E5;
- Wed,  4 May 2022 21:18:52 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B60DD131BD;
- Wed,  4 May 2022 21:18:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ptTKKrvtcmJMMQAAMHmgww
- (envelope-from <dsterba@suse.cz>); Wed, 04 May 2022 21:18:51 +0000
-Date: Wed, 4 May 2022 23:14:40 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Pankaj Raghav <p.raghav@samsung.com>
-Message-ID: <20220504211440.GU18596@suse.cz>
-Mail-Followup-To: dsterba@suse.cz, Pankaj Raghav <p.raghav@samsung.com>,
- Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
- "jaegeuk@kernel.org" <jaegeuk@kernel.org>,
- "axboe@kernel.dk" <axboe@kernel.dk>,
- "snitzer@kernel.org" <snitzer@kernel.org>,
- "hch@lst.de" <hch@lst.de>, "mcgrof@kernel.org" <mcgrof@kernel.org>,
- Naohiro Aota <Naohiro.Aota@wdc.com>,
- "sagi@grimberg.me" <sagi@grimberg.me>,
- "damien.lemoal@opensource.wdc.com" <damien.lemoal@opensource.wdc.com>,
- "dsterba@suse.com" <dsterba@suse.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>,
- "clm@fb.com" <clm@fb.com>,
- "gost.dev@samsung.com" <gost.dev@samsung.com>,
- "chao@kernel.org" <chao@kernel.org>,
- "linux-f2fs-devel@lists.sourceforge.net"
- <linux-f2fs-devel@lists.sourceforge.net>, 
- "josef@toxicpanda.com" <josef@toxicpanda.com>,
- "jonathan.derrick@linux.dev" <jonathan.derrick@linux.dev>,
- "agk@redhat.com" <agk@redhat.com>,
- "kbusch@kernel.org" <kbusch@kernel.org>,
- "kch@nvidia.com" <kch@nvidia.com>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>,
- "jiangbo.365@bytedance.com" <jiangbo.365@bytedance.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- Matias =?iso-8859-1?Q?Bj=F8rling?= <Matias.Bjorling@wdc.com>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>
-References: <CGME20220427160256eucas1p2db2b58792ffc93026d870c260767da14@eucas1p2.samsung.com>
- <20220427160255.300418-1-p.raghav@samsung.com>
- <PH0PR04MB74167FC8BA634A3DA09586489BC19@PH0PR04MB7416.namprd04.prod.outlook.com>
- <a702c7f7-9719-9f3e-63de-1e96f2912432@samsung.com>
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 242B1415F4E
+ for <dm-devel@redhat.com>; Wed,  4 May 2022 21:24:51 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0AB68811E78
+ for <dm-devel@redhat.com>; Wed,  4 May 2022 21:24:51 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-589-Gv851CaLPmmtmZxchFmc6A-1; Wed, 04 May 2022 17:24:48 -0400
+X-MC-Unique: Gv851CaLPmmtmZxchFmc6A-1
+Received: by mail-lf1-f49.google.com with SMTP id w1so4484274lfa.4
+ for <dm-devel@redhat.com>; Wed, 04 May 2022 14:24:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=XjGyI9MSGnU0qCNLMFpaviA7GndbKZ2IDx6hLyctHX4=;
+ b=sKXbFXEn0EjMJCMD2847jXmDrY+nqiXJnYyttKBldrvxgc7sEKh1otpOlgtVQ0Luav
+ iARl1O5kdqEJfVV6n0AP1JR1T9Ue5tVzhA0E/1BWb9PvGmb8tUNL35N7M+xlCN4U3bqj
+ GXZs6Zuxdh01eMCx4MzXsq7+c6h5nTi0RSIv1S68kTSvBQPfhuic2LqR+aoBekaa2TK9
+ yeNrj3eDydhjwHl+1Y2Iv11gBAzHOWWUU8zY3uhq5XbGQkOIFuNfAKduuBFBYu+ce+A2
+ ft538pCJ+8ypwtk4JDgUTR5aElOTSvYRVkoNefY25WxR+UVsSeod9bsgo5YR40HSMoWz
+ sTRg==
+X-Gm-Message-State: AOAM533KKk83tg1kWWVN+pDmZkJzhTB+Ng5lSkO0GHR2DTcAQ5qJiz5C
+ 4/RTC00wER5zhhLy2BIchhRU4C7Xd0CCadnoVe0=
+X-Google-Smtp-Source: ABdhPJwgkzPIouCvDsLb5YJQgoO1HE28gM1mnvIiRehNj3HGx2zTPGYEGX1g7d2GWyg/WHklKHvNOw==
+X-Received: by 2002:ac2:5f6e:0:b0:472:4922:f610 with SMTP id
+ c14-20020ac25f6e000000b004724922f610mr15330368lfc.555.1651699486816; 
+ Wed, 04 May 2022 14:24:46 -0700 (PDT)
+Received: from mail-lj1-f169.google.com (mail-lj1-f169.google.com.
+ [209.85.208.169]) by smtp.gmail.com with ESMTPSA id
+ h7-20020a2ea487000000b0024f3d1dae7csm1778797lji.4.2022.05.04.14.24.45
+ for <dm-devel@redhat.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 04 May 2022 14:24:46 -0700 (PDT)
+Received: by mail-lj1-f169.google.com with SMTP id c15so3282443ljr.9
+ for <dm-devel@redhat.com>; Wed, 04 May 2022 14:24:45 -0700 (PDT)
+X-Received: by 2002:a2e:9d46:0:b0:24c:7f1d:73cc with SMTP id
+ y6-20020a2e9d46000000b0024c7f1d73ccmr13958171ljj.358.1651699485493; Wed, 04
+ May 2022 14:24:45 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <a702c7f7-9719-9f3e-63de-1e96f2912432@samsung.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+References: <alpine.LRH.2.02.2204250723120.26714@file01.intranet.prod.int.rdu2.redhat.com>
+ <YnI7hE4cIfjsdKSF@antec> <YnJI4Ru0AlUgrr9C@zx2c4.com>
+ <YnJOCbLtdATzC+jn@zx2c4.com>
+ <YnJQXr3igEMTqY3+@smile.fi.intel.com> <YnJSQ3jJyvhmIstD@zx2c4.com>
+ <CAHk-=wgb_eBdjM_mzEvXfRG2EhrSK5MHNGyAj7=4vxvN4U9Rug@mail.gmail.com>
+ <CAHmME9q_-nfGxp8_VCqaritm4N8v8g67AzRjXs9du846JhhpoQ@mail.gmail.com>
+ <CAHk-=wiaj8SMSQTWAx2cUFqzRWRqBspO5YV=qA8M+QOC2vDorw@mail.gmail.com>
+ <CAHk-=witNAEG7rRsbxD0-4mxhtijRT8fwSc3QCi5HN1sR=0YcA@mail.gmail.com>
+ <YnLeH7kBImX5XLNn@antec>
+ <CAHk-=wj5UXrsLz3GzYWLaU1b=_dRQWqj1ZC-buf6MHmLrJF_Og@mail.gmail.com>
+In-Reply-To: <CAHk-=wj5UXrsLz3GzYWLaU1b=_dRQWqj1ZC-buf6MHmLrJF_Og@mail.gmail.com>
+From: Linus Torvalds <torvalds@linux-foundation.org>
+Date: Wed, 4 May 2022 14:24:29 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wgKEbppgxafYchqQ6X_VFa0d_vdtVmfqGQC6kQ+Hg9cAw@mail.gmail.com>
+Message-ID: <CAHk-=wgKEbppgxafYchqQ6X_VFa0d_vdtVmfqGQC6kQ+Hg9cAw@mail.gmail.com>
+To: Stafford Horne <shorne@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -106,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-X-Mailman-Approved-At: Wed, 04 May 2022 21:23:25 +0000
-Subject: Re: [dm-devel] [PATCH 00/16] support non power of 2 zoned devices
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH v2] hex2bin: make the function hex_to_bin
+ constant-time
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,69 +112,42 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Reply-To: dsterba@suse.cz
-Cc: "jiangbo.365@bytedance.com" <jiangbo.365@bytedance.com>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "clm@fb.com" <clm@fb.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "hch@lst.de" <hch@lst.de>, "agk@redhat.com" <agk@redhat.com>,
- Naohiro Aota <Naohiro.Aota@wdc.com>, "sagi@grimberg.me" <sagi@grimberg.me>,
- "gost.dev@samsung.com" <gost.dev@samsung.com>,
- "damien.lemoal@opensource.wdc.com" <damien.lemoal@opensource.wdc.com>,
- "jonathan.derrick@linux.dev" <jonathan.derrick@linux.dev>,
- "kch@nvidia.com" <kch@nvidia.com>, "chao@kernel.org" <chao@kernel.org>,
- "snitzer@kernel.org" <snitzer@kernel.org>,
- "josef@toxicpanda.com" <josef@toxicpanda.com>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "dsterba@suse.com" <dsterba@suse.com>, "kbusch@kernel.org" <kbusch@kernel.org>,
- "jaegeuk@kernel.org" <jaegeuk@kernel.org>,
- Matias =?iso-8859-1?Q?Bj=F8rling?= <Matias.Bjorling@wdc.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>, "axboe@kernel.dk" <axboe@kernel.dk>,
- Johannes Thumshirn <Johannes.Thumshirn@wdc.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-f2fs-devel@lists.sourceforge.net"
- <linux-f2fs-devel@lists.sourceforge.net>,
- "mcgrof@kernel.org" <mcgrof@kernel.org>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Cc: Andy Shevchenko <andy@kernel.org>, "Jason A. Donenfeld" <Jason@zx2c4.com>,
+ Mike Snitzer <msnitzer@redhat.com>,
+ Andy Shevchenko <andriy.shevchenko@intel.com>,
+ Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
+ Mimi Zohar <zohar@linux.ibm.com>, Milan Broz <gmazyland@gmail.com>,
+ device-mapper development <dm-devel@redhat.com>,
+ Mikulas Patocka <mpatocka@redhat.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ "David S. Miller" <davem@davemloft.net>,
+ Herbert Xu <herbert@gondor.apana.org.au>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, May 03, 2022 at 11:12:04AM +0200, Pankaj Raghav wrote:
-> Hi Johannes,
-> On 2022-05-03 00:07, Johannes Thumshirn wrote:
-> >> There was an effort previously [1] to add support to non po2 devices via
-> >> device level emulation but that was rejected with a final conclusion
-> >> to add support for non po2 zoned device in the complete stack[2].
-> > 
-> > Hey Pankaj,
-> > 
-> > One thing I'm concerned with this patches is, once we have npo2 zones (or to be precise 
-> > not fs_info->sectorsize aligned zones) we have to check on every allocation if we still 
-> > have at least have fs_info->sectorsize bytes left in a zone. If not we need to 
-> > explicitly finish the zone, otherwise we'll run out of max active zones. 
-> > 
-> This commit: `btrfs: zoned: relax the alignment constraint for zoned
-> devices` makes sure the zone size is BTRFS_STRIPE_LEN aligned (64K). So
-> even the npo2 zoned device should be aligned to `fs_info->sectorsize`,
-> which is typically 4k.
-> 
-> This was one of the comment that came from David Sterba:
-> https://lore.kernel.org/all/20220315142740.GU12643@twin.jikos.cz/
-> where he suggested to have some sane alignment for the zone sizes.
+On Wed, May 4, 2022 at 1:26 PM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
+>
+> Could be anywhere. Xfinity, Nest WiFi, or the cable router. They all
+> are doing their own dns thing.
+>
+> Probably my cable box, since it's likely the oldest thing in the chain.
 
-My idea of 'sane' value would be 1M, that we have 4K for sectors is
-because of the 1:1 mapping to pages, but RAM sizes are on a different
-scale than storage devices. The 4K is absolute minimum but if the page
-size is taken as a basic constraint, ARM has 64K and there are some 256K
-arches.
+No, it seems to be my Nest WiFi router. I told it to use google DNS to
+avoid Xfinity or the cable box, and it still shows the same behavior.
+
+Not that I care much, since I consider those IDN names to be dangerous
+anyway, but I think it would have been less sad if it had been some
+old cable modem.
+
+               Linus
 
 --
 dm-devel mailing list
