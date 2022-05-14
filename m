@@ -2,77 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 90A98527493
-	for <lists+dm-devel@lfdr.de>; Sun, 15 May 2022 01:02:14 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 125EE527498
+	for <lists+dm-devel@lfdr.de>; Sun, 15 May 2022 01:02:32 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-411-DQYGq_huOi2LxCwDGfMRfw-1; Sat, 14 May 2022 19:02:12 -0400
-X-MC-Unique: DQYGq_huOi2LxCwDGfMRfw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-611-rTLxDOjEOhuskcEP0TkAjw-1; Sat, 14 May 2022 19:02:28 -0400
+X-MC-Unique: rTLxDOjEOhuskcEP0TkAjw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87C3429AB3E9;
-	Sat, 14 May 2022 23:02:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1BFB802A5B;
+	Sat, 14 May 2022 23:02:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 72E1F14E2ECD;
-	Sat, 14 May 2022 23:02:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CBF7CC27E89;
+	Sat, 14 May 2022 23:02:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 35809193223E;
-	Sat, 14 May 2022 23:02:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9C4C5193223C;
+	Sat, 14 May 2022 23:02:26 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 17E78194F4BF
- for <dm-devel@listman.corp.redhat.com>; Sat, 14 May 2022 23:02:09 +0000 (UTC)
+ ESMTP id 8A1661947040
+ for <dm-devel@listman.corp.redhat.com>; Sat, 14 May 2022 23:02:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 07DEC15063FC; Sat, 14 May 2022 23:02:09 +0000 (UTC)
+ id 55A2D2166B4A; Sat, 14 May 2022 23:02:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C6C0115063E7
- for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:08 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D5582166B18
+ for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:09 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD3D5101AA52
- for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:08 +0000 (UTC)
-Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
- [209.85.221.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39B2A811E78
+ for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:09 +0000 (UTC)
+Received: from mail-wr1-f49.google.com (mail-wr1-f49.google.com
+ [209.85.221.49]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-504-woXXtVwMO-ypIMnGEbpPNQ-1; Sat, 14 May 2022 19:02:04 -0400
-X-MC-Unique: woXXtVwMO-ypIMnGEbpPNQ-1
-Received: by mail-wr1-f47.google.com with SMTP id u3so15965891wrg.3;
- Sat, 14 May 2022 16:02:04 -0700 (PDT)
+ us-mta-211-Wu_dfs39MpWl-SRvbMAwAQ-1; Sat, 14 May 2022 19:02:05 -0400
+X-MC-Unique: Wu_dfs39MpWl-SRvbMAwAQ-1
+Received: by mail-wr1-f49.google.com with SMTP id e29so6299696wrc.11;
+ Sat, 14 May 2022 16:02:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=G+qdfan40+GbHhDMkz2ecKLnSU3wMGKVFRP+RaEC9ig=;
- b=KoXifLfYdVMtgApv/OrYHKZtn8ZENjXsSpSbt/VeHs4gUmNs3uhCmAvQxoI2fZAOYP
- qufx5jbjcWkf6Cb3Ux7ZE5VJ2lXIW3/Iaw7bMyPCFJbJZCxhD/w1ePDn5AvCiPbhLa07
- 70v3mgmvnM5Nd2zEbzpcrg59ByC9F1f9CSsdj8zlbK3uUsmXJEQPXqCl7dInQbHD2ODm
- GV2w/bwpMvx3981KYXB5cQrvCnmgFZBmpbg2ENhurGiQiFfeXTKhWTBMg7w3HXGUs4z4
- hbgnAgzFk3TP7LN/RQCE4wBKtYzHFd1qtAZ0/ScRXVDyGIWJD0IpCsvfQ4WaIEDlQh5O
- FStg==
-X-Gm-Message-State: AOAM530LwT1FNg9YgwUKSMu3YMtuSyLiTaqQH7s8k4w67ihHb+AkdqJx
- mt9e3wb6sWFSayeV/vAaPQ==
-X-Google-Smtp-Source: ABdhPJw4XB7bRlwBj9lenCooAVGMdYyW/G3txhPypeWgboHduDOUpm3XkQkOc6W2FW+LFOduhZSK5w==
-X-Received: by 2002:a05:6000:1acd:b0:20c:726a:3840 with SMTP id
- i13-20020a0560001acd00b0020c726a3840mr8611457wry.507.1652569322965; 
- Sat, 14 May 2022 16:02:02 -0700 (PDT)
+ bh=HyJwkPInLLequ5oXZm09KsMZtHfGi+Ntfku1e3vcVQ8=;
+ b=Q86KfnyYsxO0w/BVj8YbEfjpGmTNxYYqZyfZkV7wdmwhttTrT4orKsg9Hre1BGejoG
+ 4wJsyzQQ36c94Ejeo2+VjwV3vvVtjJnt1E1dZRK2j2GzFcOcIskdT4NFBapcKNrW0D5G
+ 4UpvfhJjNNToj5v6Qp7YoFaeP3tMc1HH6Dp/uczH0RUKVTzzTVTXknxoKuLITA+IvZwX
+ uErdHlOGIpd4igXkJtjHYF5CaYpBAW6KmGNgWrI2tFZcq5vVJU1S6njXyW9GiwxBb2bP
+ 95EK75GU2duVrFethW+BFbgPeEqKySQ5acE3QAcrb52LlTPR5vaZD/9XDRbCj9k0CvVt
+ y2rw==
+X-Gm-Message-State: AOAM530KKFXAc47NCkkdV23mPUBKjYWY2JVeXLo/+9Riu8yHiA+oK1oI
+ x7Nq75Vy8uFWhchTYOzCTqpa+kmRkSj0
+X-Google-Smtp-Source: ABdhPJwghqXQ2OPvslTPp61T+dv/+8Y36nbePc6/W1Z/i2qPqRsgnJligwYfWmycjlbxJe1FPYlilA==
+X-Received: by 2002:a5d:6102:0:b0:20a:db89:724f with SMTP id
+ v2-20020a5d6102000000b0020adb89724fmr8866220wrt.59.1652569324269; 
+ Sat, 14 May 2022 16:02:04 -0700 (PDT)
 Received: from localhost (50.red-81-44-142.dynamicip.rima-tde.net.
  [81.44.142.50]) by smtp.gmail.com with ESMTPSA id
- y13-20020a7bc18d000000b003942a244ee4sm1109454wmi.41.2022.05.14.16.02.02
+ p2-20020adfaa02000000b0020cd0762f37sm5584708wrd.107.2022.05.14.16.02.03
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 May 2022 16:02:02 -0700 (PDT)
+ Sat, 14 May 2022 16:02:04 -0700 (PDT)
 From: Xose Vazquez Perez <xose.vazquez@gmail.com>
 To: 
-Date: Sun, 15 May 2022 01:01:44 +0200
-Message-Id: <20220514230148.139675-6-xose.vazquez@gmail.com>
+Date: Sun, 15 May 2022 01:01:45 +0200
+Message-Id: <20220514230148.139675-7-xose.vazquez@gmail.com>
 In-Reply-To: <20220514230148.139675-1-xose.vazquez@gmail.com>
 References: <20220514230148.139675-1-xose.vazquez@gmail.com>
 MIME-Version: 1.0
@@ -84,9 +84,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [dm-devel] [PATCH 5/9] multipath-tools: add Huawei OceanStor NVMe
- to hardware table
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [dm-devel] [PATCH 6/9] multipath-tools: add IBM FlashSystem(TMS
+ RamSan) NVMe to hardware table
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,13 +98,12 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Zou Ming <zouming.zouming@huawei.com>,
- Xose Vazquez Perez <xose.vazquez@gmail.com>, DM-DEVEL ML <dm-devel@redhat.com>,
- Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Zhouweigang <zhouweigang09@huawei.com>, Martin Wilck <mwilck@suse.com>
+Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Xose Vazquez Perez <xose.vazquez@gmail.com>, Martin Wilck <mwilck@suse.com>,
+ DM-DEVEL ML <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,40 +111,36 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Info from (config removed in latest edition):
-https://download.huawei.com/edownload/e/download.do?actionFlag=download&nid=EDOC1100154490&partNo=6001&mid=SUPE_DOC&_t=1612885603000
-Old version (page 61-62): https://drive.google.com/file/d/1c5RK4GXX7ofZBFxTtZ_IN1qHyIjw5eR1
+Info from:
+https://www.ibm.com/docs/en/flashsystem-900/1.6.1?topic=configurations-multipathing-information-linux
 
-Cc: Zhouweigang (Jack) <zhouweigang09@huawei.com>
-Cc: Zou Ming <zouming.zouming@huawei.com>
 Cc: Martin Wilck <mwilck@suse.com>
 Cc: Benjamin Marzinski <bmarzins@redhat.com>
 Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
 Cc: DM-DEVEL ML <dm-devel@redhat.com>
 Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 ---
- libmultipath/hwtable.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ libmultipath/hwtable.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
 diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index 61a5aa16..e5adc2a3 100644
+index e5adc2a3..f825f6d3 100644
 --- a/libmultipath/hwtable.c
 +++ b/libmultipath/hwtable.c
-@@ -1106,6 +1106,14 @@ static struct hwentry default_hw[] = {
- 		.pgfailback    = -FAILBACK_IMMEDIATE,
- 		.no_path_retry = 15,
+@@ -733,6 +733,13 @@ static struct hwentry default_hw[] = {
+ 		.product       = "(RamSan|FlashSystem)",
+ 		.pgpolicy      = MULTIBUS,
  	},
 +	{
-+		/* OceanStor NVMe */
-+		.vendor        = "NVME",
-+		.product       = "Huawei-XSG1",
++		/* FlashSystem(RamSan) NVMe */
++		.vendor        = "NVMe",
++		.product       = "FlashSystem",
 +		.pgpolicy      = MULTIBUS,
-+		.checker_name  = DIRECTIO,
-+		.no_path_retry = 12,
++		.no_path_retry = NO_PATH_RETRY_FAIL,
 +	},
- 	/*
- 	 * Kove
- 	 */
+ 	{
+ 		/* (DDN) DCS9900, SONAS 2851-DR1 */
+ 		.vendor        = "IBM",
 -- 
 2.36.1
 
