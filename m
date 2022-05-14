@@ -1,78 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 98AC5527495
-	for <lists+dm-devel@lfdr.de>; Sun, 15 May 2022 01:02:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 90A98527493
+	for <lists+dm-devel@lfdr.de>; Sun, 15 May 2022 01:02:14 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-620-K9olNlREOsqkNuVILgxH7Q-1; Sat, 14 May 2022 19:02:15 -0400
-X-MC-Unique: K9olNlREOsqkNuVILgxH7Q-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-411-DQYGq_huOi2LxCwDGfMRfw-1; Sat, 14 May 2022 19:02:12 -0400
+X-MC-Unique: DQYGq_huOi2LxCwDGfMRfw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C893D3C02184;
-	Sat, 14 May 2022 23:02:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87C3429AB3E9;
+	Sat, 14 May 2022 23:02:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B2F64401E9D;
-	Sat, 14 May 2022 23:02:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 72E1F14E2ECD;
+	Sat, 14 May 2022 23:02:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 812661947BA3;
-	Sat, 14 May 2022 23:02:12 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 35809193223E;
+	Sat, 14 May 2022 23:02:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 66E5C1947040
- for <dm-devel@listman.corp.redhat.com>; Sat, 14 May 2022 23:02:05 +0000 (UTC)
+ ESMTP id 17E78194F4BF
+ for <dm-devel@listman.corp.redhat.com>; Sat, 14 May 2022 23:02:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4A8694411CF; Sat, 14 May 2022 23:02:05 +0000 (UTC)
+ id 07DEC15063FC; Sat, 14 May 2022 23:02:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 463904411CB
- for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:05 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C6C0115063E7
+ for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F54F801210
- for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:05 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD3D5101AA52
+ for <dm-devel@redhat.com>; Sat, 14 May 2022 23:02:08 +0000 (UTC)
 Received: from mail-wr1-f47.google.com (mail-wr1-f47.google.com
  [209.85.221.47]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-92-nqxtQMbbNt--XMM2SlV2rQ-1; Sat, 14 May 2022 19:02:03 -0400
-X-MC-Unique: nqxtQMbbNt--XMM2SlV2rQ-1
-Received: by mail-wr1-f47.google.com with SMTP id d5so15950923wrb.6;
- Sat, 14 May 2022 16:02:02 -0700 (PDT)
+ us-mta-504-woXXtVwMO-ypIMnGEbpPNQ-1; Sat, 14 May 2022 19:02:04 -0400
+X-MC-Unique: woXXtVwMO-ypIMnGEbpPNQ-1
+Received: by mail-wr1-f47.google.com with SMTP id u3so15965891wrg.3;
+ Sat, 14 May 2022 16:02:04 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=OiSMjCxa5fTZ4bjI04p+LdM1WgAKDGQOza45PbA3bwg=;
- b=2J/1uefZb39mCxU9DGkpJTXvJ5sZDz/XLGY4hWY5DxjdP36q8mar36xe8t/2GhV7/0
- yVyfCGi9GcIWVCv+EjXnx62FERJfjpHuCHVHMiuWTDEbsxRSAUyLUGsqxQsyXlPC03fA
- 1f7JAmCbjRzVBqlQ2hZhO6Q1CZkIMQfBTJ9lPhbqNCkMKpwrC87U3j0oMurdROCysx5H
- 5Dxv2S0F+oOYIyzoSa3sHfSn2ZgF6WtDLW6ZC2fTlgmc7n1a5dSehl6l18JBchVQczlf
- gC9ij41pVqTKjws9CHPbjkgY6YS+WFqZqxEq7el9I9RYF3ufEOYrriJa0sWNnbSyYa4x
- DrqQ==
-X-Gm-Message-State: AOAM5316Kateof3GFn0xkOB6oFb8TSlEbtHdyjasq4CAIEuQXBvKCi2N
- nIHjianyyUUvzDiX1HdtMQ==
-X-Google-Smtp-Source: ABdhPJzPd9KH2gEVeVav93PX8uuykOInh0f9n57osXbbPpBSxw7Vxaq/Y53aMt7c1x7jPsYZZTHzMQ==
-X-Received: by 2002:adf:dd92:0:b0:20a:d831:222f with SMTP id
- x18-20020adfdd92000000b0020ad831222fmr8446817wrl.401.1652569321741; 
- Sat, 14 May 2022 16:02:01 -0700 (PDT)
+ bh=G+qdfan40+GbHhDMkz2ecKLnSU3wMGKVFRP+RaEC9ig=;
+ b=KoXifLfYdVMtgApv/OrYHKZtn8ZENjXsSpSbt/VeHs4gUmNs3uhCmAvQxoI2fZAOYP
+ qufx5jbjcWkf6Cb3Ux7ZE5VJ2lXIW3/Iaw7bMyPCFJbJZCxhD/w1ePDn5AvCiPbhLa07
+ 70v3mgmvnM5Nd2zEbzpcrg59ByC9F1f9CSsdj8zlbK3uUsmXJEQPXqCl7dInQbHD2ODm
+ GV2w/bwpMvx3981KYXB5cQrvCnmgFZBmpbg2ENhurGiQiFfeXTKhWTBMg7w3HXGUs4z4
+ hbgnAgzFk3TP7LN/RQCE4wBKtYzHFd1qtAZ0/ScRXVDyGIWJD0IpCsvfQ4WaIEDlQh5O
+ FStg==
+X-Gm-Message-State: AOAM530LwT1FNg9YgwUKSMu3YMtuSyLiTaqQH7s8k4w67ihHb+AkdqJx
+ mt9e3wb6sWFSayeV/vAaPQ==
+X-Google-Smtp-Source: ABdhPJw4XB7bRlwBj9lenCooAVGMdYyW/G3txhPypeWgboHduDOUpm3XkQkOc6W2FW+LFOduhZSK5w==
+X-Received: by 2002:a05:6000:1acd:b0:20c:726a:3840 with SMTP id
+ i13-20020a0560001acd00b0020c726a3840mr8611457wry.507.1652569322965; 
+ Sat, 14 May 2022 16:02:02 -0700 (PDT)
 Received: from localhost (50.red-81-44-142.dynamicip.rima-tde.net.
  [81.44.142.50]) by smtp.gmail.com with ESMTPSA id
- s18-20020a7bc0d2000000b003942a244eebsm6143279wmh.48.2022.05.14.16.02.01
+ y13-20020a7bc18d000000b003942a244ee4sm1109454wmi.41.2022.05.14.16.02.02
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 14 May 2022 16:02:01 -0700 (PDT)
+ Sat, 14 May 2022 16:02:02 -0700 (PDT)
 From: Xose Vazquez Perez <xose.vazquez@gmail.com>
 To: 
-Date: Sun, 15 May 2022 01:01:43 +0200
-Message-Id: <20220514230148.139675-5-xose.vazquez@gmail.com>
+Date: Sun, 15 May 2022 01:01:44 +0200
+Message-Id: <20220514230148.139675-6-xose.vazquez@gmail.com>
 In-Reply-To: <20220514230148.139675-1-xose.vazquez@gmail.com>
 References: <20220514230148.139675-1-xose.vazquez@gmail.com>
 MIME-Version: 1.0
@@ -84,9 +84,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [dm-devel] [PATCH 4/9] multipath-tools: add NetApp E-Series NVMe to
- hardware table
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [dm-devel] [PATCH 5/9] multipath-tools: add Huawei OceanStor NVMe
+ to hardware table
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,14 +98,13 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>,
- NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>,
- DM-DEVEL ML <dm-devel@redhat.com>,
+Cc: Zou Ming <zouming.zouming@huawei.com>,
+ Xose Vazquez Perez <xose.vazquez@gmail.com>, DM-DEVEL ML <dm-devel@redhat.com>,
  Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Martin Wilck <mwilck@suse.com>
+ Zhouweigang <zhouweigang09@huawei.com>, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -113,38 +112,39 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Info from (page 12):
-https://docs.netapp.com/us-en/e-series/pdfs/sidebar/NVMe_over_Fibre_Channel_setup.pdf
+Info from (config removed in latest edition):
+https://download.huawei.com/edownload/e/download.do?actionFlag=download&nid=EDOC1100154490&partNo=6001&mid=SUPE_DOC&_t=1612885603000
+Old version (page 61-62): https://drive.google.com/file/d/1c5RK4GXX7ofZBFxTtZ_IN1qHyIjw5eR1
 
-Cc: NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>
+Cc: Zhouweigang (Jack) <zhouweigang09@huawei.com>
+Cc: Zou Ming <zouming.zouming@huawei.com>
 Cc: Martin Wilck <mwilck@suse.com>
 Cc: Benjamin Marzinski <bmarzins@redhat.com>
 Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
 Cc: DM-DEVEL ML <dm-devel@redhat.com>
 Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
 ---
- libmultipath/hwtable.c | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ libmultipath/hwtable.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index 814e727a..61a5aa16 100644
+index 61a5aa16..e5adc2a3 100644
 --- a/libmultipath/hwtable.c
 +++ b/libmultipath/hwtable.c
-@@ -845,6 +845,15 @@ static struct hwentry default_hw[] = {
- 		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = NO_PATH_RETRY_QUEUE,
+@@ -1106,6 +1106,14 @@ static struct hwentry default_hw[] = {
+ 		.pgfailback    = -FAILBACK_IMMEDIATE,
+ 		.no_path_retry = 15,
  	},
 +	{
-+		/* E-Series NVMe */
++		/* OceanStor NVMe */
 +		.vendor        = "NVME",
-+		.product       = "NetApp E-Series",
-+		.pgpolicy      = GROUP_BY_PRIO,
-+		.prio_name     = PRIO_ANA,
-+		.pgfailback    = -FAILBACK_IMMEDIATE,
-+		.no_path_retry = 30,
++		.product       = "Huawei-XSG1",
++		.pgpolicy      = MULTIBUS,
++		.checker_name  = DIRECTIO,
++		.no_path_retry = 12,
 +	},
  	/*
- 	 * NEC
+ 	 * Kove
  	 */
 -- 
 2.36.1
