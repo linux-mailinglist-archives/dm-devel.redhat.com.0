@@ -1,127 +1,126 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E37D6528B1A
-	for <lists+dm-devel@lfdr.de>; Mon, 16 May 2022 18:54:36 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6EF29528B40
+	for <lists+dm-devel@lfdr.de>; Mon, 16 May 2022 18:55:04 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-205-z2ZeOvskMoKP2v-fzFyVnQ-1; Mon, 16 May 2022 12:54:34 -0400
-X-MC-Unique: z2ZeOvskMoKP2v-fzFyVnQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-413-P8WTS9tvOTOd40EUiAsXgA-1; Mon, 16 May 2022 12:54:42 -0400
+X-MC-Unique: P8WTS9tvOTOd40EUiAsXgA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30F55801210;
-	Mon, 16 May 2022 16:54:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03B021857F20;
+	Mon, 16 May 2022 16:54:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 125B47AD5;
-	Mon, 16 May 2022 16:54:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DBAAF153768D;
+	Mon, 16 May 2022 16:54:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ACE561947054;
-	Mon, 16 May 2022 16:54:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 89ACC1947060;
+	Mon, 16 May 2022 16:54:39 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 615C2194704E
- for <dm-devel@listman.corp.redhat.com>; Mon, 16 May 2022 16:54:28 +0000 (UTC)
+ ESMTP id 2BBCF194704E
+ for <dm-devel@listman.corp.redhat.com>; Mon, 16 May 2022 16:54:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3EED254EAE2; Mon, 16 May 2022 16:54:28 +0000 (UTC)
+ id 1B5942166B2D; Mon, 16 May 2022 16:54:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3982254E895
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 16D622166B25
  for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D73429ABA1F
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADD9885A5A8
  for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:27 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-557-rWCQyP6WPEGRCdWIMHNqvg-1; Mon, 16 May 2022 12:54:24 -0400
-X-MC-Unique: rWCQyP6WPEGRCdWIMHNqvg-1
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220516165423euoutp02326697203faf46405e5bbb26d238546c~vpCQptFyr2422624226euoutp02y
- for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:23 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20220516165423euoutp02326697203faf46405e5bbb26d238546c~vpCQptFyr2422624226euoutp02y
+ us-mta-453-CVLit1UDNDyoR8CqV4gyCg-1; Mon, 16 May 2022 12:54:26 -0400
+X-MC-Unique: CVLit1UDNDyoR8CqV4gyCg-1
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20220516165425euoutp016923b17af37531c040f1a5eb42e4257a~vpCSGzikC2241022410euoutp016
+ for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:25 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20220516165425euoutp016923b17af37531c040f1a5eb42e4257a~vpCSGzikC2241022410euoutp016
 Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20220516165422eucas1p1162a8ccdd29e06f930ca66dececc3667~vpCPT6nb52560525605eucas1p1W;
- Mon, 16 May 2022 16:54:22 +0000 (GMT)
+ 20220516165423eucas1p158930326081e188da90c844c41449d67~vpCQpqA1T3100231002eucas1p1G;
+ Mon, 16 May 2022 16:54:23 +0000 (GMT)
 Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id 33.40.10009.DB182826; Mon, 16
- May 2022 17:54:21 +0100 (BST)
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id B4.40.10009.FB182826; Mon, 16
+ May 2022 17:54:23 +0100 (BST)
 Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20220516165421eucas1p2515446ac290987bdb9af24ffb835b287~vpCO3QdmY2457324573eucas1p2W;
- Mon, 16 May 2022 16:54:21 +0000 (GMT)
+ eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
+ 20220516165422eucas1p174acec28848a9c2178376f092af3fa1c~vpCQK_Iy22562625626eucas1p1X;
+ Mon, 16 May 2022 16:54:22 +0000 (GMT)
 Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
  eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220516165421eusmtrp214587cb0a00813fc775c1106b7d30871~vpCO2blGP1030710307eusmtrp2q;
- Mon, 16 May 2022 16:54:21 +0000 (GMT)
-X-AuditID: cbfec7f2-e7fff70000002719-42-628281bd5f1f
+ 20220516165422eusmtrp2535ec901b9fcfc699f53e88d7145bca3~vpCQKB3a51030710307eusmtrp2r;
+ Mon, 16 May 2022 16:54:22 +0000 (GMT)
+X-AuditID: cbfec7f2-e95ff70000002719-45-628281bf30ff
 Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 9B.00.09404.DB182826; Mon, 16
- May 2022 17:54:21 +0100 (BST)
+ eusmgms2.samsung.com (EUCPMTA) with SMTP id 9C.00.09404.EB182826; Mon, 16
+ May 2022 17:54:22 +0100 (BST)
 Received: from localhost (unknown [106.210.248.7]) by eusmtip1.samsung.com
  (KnoxPortal) with ESMTPA id
- 20220516165421eusmtip1899df696a585dc3044e16754fe6b8fbb~vpCOd7A2K2383023830eusmtip1Y;
- Mon, 16 May 2022 16:54:21 +0000 (GMT)
+ 20220516165422eusmtip15250a2577700f87549716a5010c26ef5~vpCP3mI__2390423904eusmtip1u;
+ Mon, 16 May 2022 16:54:22 +0000 (GMT)
 From: Pankaj Raghav <p.raghav@samsung.com>
 To: axboe@kernel.dk, damien.lemoal@opensource.wdc.com, pankydev8@gmail.com,
  dsterba@suse.com, hch@lst.de
-Date: Mon, 16 May 2022 18:54:05 +0200
-Message-Id: <20220516165416.171196-3-p.raghav@samsung.com>
+Date: Mon, 16 May 2022 18:54:06 +0200
+Message-Id: <20220516165416.171196-4-p.raghav@samsung.com>
 In-Reply-To: <20220516165416.171196-1-p.raghav@samsung.com>
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrAKsWRmVeSWpSXmKPExsWy7djP87p7G5uSDL4+s7RYfbefzeL32fPM
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrEKsWRmVeSWpSXmKPExsWy7djP87r7G5uSDKbckLRYfbefzeL32fPM
  FnvfzWa1uPCjkcni5oGdTBYrVx9lsug58IHFYu8tbYtLj1ewW+zZe5LF4vKuOWwW85c9Zbe4
  MeEpo8XnpS3sFmtuPmVx4Pf4d2INm8fOWXfZPS6fLfXYtKqTzWPzknqP3TcbgMKt91k93u+7
- yubRt2UVo8f6LVdZPD5vkgvgjuKySUnNySxLLdK3S+DKuLryCXvBV9WKx9OvMjYwXpLrYuTk
- kBAwkWi4cIWxi5GLQ0hgBaPEods9LBDOF0aJ7QfvQTmfGSWWvj7B1MXIAdaycJY3RHw5o8TU
- 5ztZIZznjBKvtnWxgBSxCWhJNHayg6wQEciSmHbiIdgKZoHFTBIr90xmAUkIC0RLtF87yQxS
- zyKgKnH1TxVImFfASmLNzAlsEOfJS8y89J0dpIRTwFpidRc3RImgxMmZT8CmMAOVNG+dzQxR
- PptTYv1FZQjbReLS088sELawxKvjW9ghbBmJ/zvnM0HY1RJPb/xmBjlNQqCFUaJ/53o2iB+t
- JfrO5ICYzAKaEut36UOUO0rMO3MPGgp8EjfeCkJcwCcxadt0Zogwr0RHmxBEtZLEzp9PoJZK
- SFxumgN1jIfEhvlrmScwKs5C8sssJL/MQti7gJF5FaN4amlxbnpqsWFearlecWJucWleul5y
- fu4mRmCiO/3v+KcdjHNffdQ7xMjEwXiIUYKDWUmE16CiIUmINyWxsiq1KD++qDQntfgQozQH
- i5I4b3LmhkQhgfTEktTs1NSC1CKYLBMHp1QDE4ss7xpvr42T9+z0TVrJ2ZfcGJW942HcRNaV
- VSJx+8Je1xppmEZOql3Sv3nmbqG3i4XPdLrL2J5RPJVgl3VXoGlDe9WfN79nb09ax3be+veC
- 9K+7i0Q/F4oHuNpeMesKDWF4ddU2Nlm/s82ieKNetEnO1I4XVidXzFyxr2vzVqNJP7gvRC7/
- ks3o9eaOaNjFecvNj/en7+G/92/Nsu8nor/7fQ7YLSDmNdV/njB/zSHfEHsZjzb5cpGT85sS
- g1d+P/K8b21ZwrSyuD6Nu8IbQ+/XKX6/NVGoXGo+G1esxQTdH5NLOWzduG1zXxY8vPUl8dCe
- F6oyi32eJ7zb0irZztO16I0ll+ulF5FPag4rKbEUZyQaajEXFScCABLs197jAwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrAIsWRmVeSWpSXmKPExsVy+t/xu7p7G5uSDG49l7RYfbefzeL32fPM
+ yubRt2UVo8f6LVdZPD5vkgvgjuKySUnNySxLLdK3S+DK2LpgClPBFrGKj7cOsDQwrhXqYuTk
+ kBAwkXj05BhbFyMXh5DACkaJH00vWCCcL4wSSze3MUM4nxklDt/tYodpOXQOJrGcUeLJ9i5G
+ COc5o8Tytf+B+jk42AS0JBo7wRpEBLIkpp14CFbDLLCYSWLlnslgNcICURJXNjmA1LAIqEo8
+ +7KQFcTmFbCS+LyxlxVimbzEzEvf2UHKOQWsJVZ3cUOUCEqcnPmEBcRmBipp3job7B4Jgfmc
+ EjPffGWG6HWR6DsBM0dY4tXxLVAPyEj83zmfCcKulnh64zdUcwujRP/O9WwgyySAlvWdyQEx
+ mQU0Jdbv0ocod5S4uWQ2VAWfxI23ghAn8ElM2jadGSLMK9HRBg1cJYmdP59ALZWQuNw0hwXC
+ 9pC4cX4V0wRGxVlInpmF5JlZCHsXMDKvYhRPLS3OTU8tNsxLLdcrTswtLs1L10vOz93ECEx2
+ p/8d/7SDce6rj3qHGJk4GA8xSnAwK4nwGlQ0JAnxpiRWVqUW5ccXleakFh9ilOZgURLnTc7c
+ kCgkkJ5YkpqdmlqQWgSTZeLglGpgmuSs6+WTvTBt5Tan/oTrV9zFzfWfiBodeq/he5yjmzHn
+ 3oum2a98jxQm/2Z3OKjZ53ozYoltu8e3o7Ea05ccNXALvztH9drG9LfZdgmnjRVqj9V0N7/R
+ Dsye1ndhbWBH8J7bYde3WL/3zdPMjvj7b0dta4p5/yW++dzavZVndu8LeJZ6ynqbXSD/78ln
+ M/47POYs0JiTWqehZ5X/PSZ0kzLn18XyVpzfFbk9Lli86nuS8uS03LmoB29PKEsfeLynmyF1
+ wtPf1cUyW4PlBYX33d3Vb9JcKrGEZ2sf+89JM2sUVql4/Z/6O3mFT8mxvHMn/sWu+6DL+T3d
+ s/R4ldWW3U0P47POr385g33KgQu6SizFGYmGWsxFxYkAHlO3teUDAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEIsWRmVeSWpSXmKPExsVy+t/xu7r7GpuSDE4uNrNYfbefzeL32fPM
  FnvfzWa1uPCjkcni5oGdTBYrVx9lsug58IHFYu8tbYtLj1ewW+zZe5LF4vKuOWwW85c9Zbe4
  MeEpo8XnpS3sFmtuPmVx4Pf4d2INm8fOWXfZPS6fLfXYtKqTzWPzknqP3TcbgMKt91k93u+7
  yubRt2UVo8f6LVdZPD5vkgvgjtKzKcovLUlVyMgvLrFVija0MNIztLTQMzKx1DM0No+1MjJV
- 0rezSUnNySxLLdK3S9DLuLryCXvBV9WKx9OvMjYwXpLrYuTgkBAwkVg4y7uLkYtDSGApo8SU
- L+vZuhg5geISErcXNjFC2MISf651sUEUPWWU+Pd4HQtIM5uAlkRjJztIjYhAgcSc/i0sIDXM
- AmuZJF7/eA/WLCwQKdHe/YQNpJ5FQFXi6p8qkDCvgJXEmpkToHbJS8y89J0dpIRTwFpidRc3
- SFgIqOTrk1vsEOWCEidnPmEBsZmBypu3zmaewCgwC0lqFpLUAkamVYwiqaXFuem5xUZ6xYm5
- xaV56XrJ+bmbGIFRue3Yzy07GFe++qh3iJGJg/EQowQHs5IIr0FFQ5IQb0piZVVqUX58UWlO
- avEhRlOgqycyS4km5wPTQl5JvKGZgamhiZmlgamlmbGSOK9nQUeikEB6YklqdmpqQWoRTB8T
- B6dUA5OogkPBl8x4JzU513Ucmlo7p1Qvud/gsJO9I77jscCcJW6L2CL/PsxWrjV8z6p9xHp1
- UFZhYWP+hdUxu4/tMNVl03BlDJic/Wke9/mTirc1Fuz9/dfgbF+WxM80ltS3y2RDxL++euBh
- OXnF9q2/Qx1UVkaZKPqeuS318s/VMp3g0+4a2TIZRrGFb7ydb6h/+SO3a3dvqN+Zef5MEx0U
- ru4/uCbm26mp8/fPbJ2+8MXm/Jmrrsp685ldbVBc0OMUfi5c3yvChLVAybZjkqJynQ6/4wuN
- 1w9eKx+LFgvwKBHOrPn19l6yHG9q+439U9ht96+f+bCl0JFJhvHmk+zoB5odt/fpr33QsDVu
- poJelBJLcUaioRZzUXEiAD2Ugp9TAwAA
-X-CMS-MailID: 20220516165421eucas1p2515446ac290987bdb9af24ffb835b287
+ 0rezSUnNySxLLdK3S9DL2LpgClPBFrGKj7cOsDQwrhXqYuTkkBAwkTh0ro25i5GLQ0hgKaPE
+ rU1P2SESEhK3FzYxQtjCEn+udbFBFD1llGg5fBkowcHBJqAl0dgJVi8iUCAxp38LC0gNs8Ba
+ JonXP96DNQsLREhcfL6AGcRmEVCVePZlISuIzStgJfF5Yy8rxAJ5iZmXvrODzOQUsJZY3cUN
+ EhYCKvn65BY7RLmgxMmZT1hAbGag8uats5knMArMQpKahSS1gJFpFaNIamlxbnpusZFecWJu
+ cWleul5yfu4mRmBkbjv2c8sOxpWvPuodYmTiYDzEKMHBrCTCa1DRkCTEm5JYWZValB9fVJqT
+ WnyI0RTo7InMUqLJ+cDUkFcSb2hmYGpoYmZpYGppZqwkzutZ0JEoJJCeWJKanZpakFoE08fE
+ wSnVwJTtXWfCzMs3t5YrfM+9w/OKrcv3FO1V59/Sb6jNqWZquEXvqunu1BANBrf32ZNnSc58
+ 2ir+pox31e2OH6/8itJvXeiZsNLpwLvdO74xp5xZnN1Sa/nBrzyZbffZLTfjArW3svwsWNjT
+ 9tH+w8zTrAu6bnDPvfxgavqvxOBpF6e/jgt4M+WWuIvYb58dMma3Ckt4Pt7Z7WL+jPUyT9fv
+ sy8eiN/dcPfV1/7l1+V9bsydIPTGN+RwX2PDsWYp7nVVCcf3srf8iBLZtPmZ5Kqqx2lbVrDN
+ v3nSQs7vmuEMPgWOvqRjFUWilwOP77GUvLo9lXdO+eGVntIfXV5kFfqesBWb6J05vWurUtXr
+ 3rAPrPxKLMUZiYZazEXFiQCIvkauVQMAAA==
+X-CMS-MailID: 20220516165422eucas1p174acec28848a9c2178376f092af3fa1c
 X-Msg-Generator: CA
-X-RootMTR: 20220516165421eucas1p2515446ac290987bdb9af24ffb835b287
+X-RootMTR: 20220516165422eucas1p174acec28848a9c2178376f092af3fa1c
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20220516165421eucas1p2515446ac290987bdb9af24ffb835b287
+X-CMS-RootMailID: 20220516165422eucas1p174acec28848a9c2178376f092af3fa1c
 References: <20220516165416.171196-1-p.raghav@samsung.com>
- <CGME20220516165421eucas1p2515446ac290987bdb9af24ffb835b287@eucas1p2.samsung.com>
+ <CGME20220516165422eucas1p174acec28848a9c2178376f092af3fa1c@eucas1p1.samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -129,9 +128,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [dm-devel] [PATCH v4 02/13] block: allow blk-zoned devices to have
- non-power-of-2 zone size
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [dm-devel] [PATCH v4 03/13] nvme: zns: Allow ZNS drives that have
+ non-power_of_2 zone size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -150,7 +149,7 @@ Cc: p.raghav@samsung.com, gost.dev@samsung.com, jiangbo.365@bytedance.com,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -158,139 +157,79 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Checking if a given sector is aligned to a zone is a common
-operation that is performed for zoned devices. Add
-blk_queue_is_zone_start helper to check for this instead of opencoding it
-everywhere.
+Remove the condition which disallows non-power_of_2 zone size ZNS drive
+to be updated and use generic method to calculate number of zones
+instead of relying on log and shift based calculation on zone size.
 
-Convert the calculations on zone size to be generic instead of relying on
-power_of_2 based logic in the block layer using the helpers wherever
-possible.
-
-The only hot path affected by this change for power_of_2 zoned devices
-is in blk_check_zone_append() but blk_queue_is_zone_start() helper is
-used to optimize the calculation for po2 zone sizes. Note that the append
-path cannot be accessed by direct raw access to the block device but only
-through a filesystem abstraction.
-
-Finally, allow non power of 2 zoned devices provided that their zone
-capacity and zone size are equal. The main motivation to allow non
-power_of_2 zoned device is to remove the unmapped LBA between zcap and
-zsze for devices that cannot have a power_of_2 zcap.
+The power_of_2 calculation has been replaced directly with generic
+calculation without special handling. Both modified functions are not
+used in hot paths, they are only used during initialization &
+revalidation of the ZNS device.
 
 Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
+Reviewed by: Adam Manzanares <a.manzanares@samsung.com>
 Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
 ---
- block/blk-core.c       |  3 +--
- block/blk-zoned.c      | 27 +++++++++++++++++++++------
- include/linux/blkdev.h | 22 ++++++++++++++++++++++
- 3 files changed, 44 insertions(+), 8 deletions(-)
+ drivers/nvme/host/zns.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index f305cb66c..b7051b7ea 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -634,8 +634,7 @@ static inline blk_status_t blk_check_zone_append(struct request_queue *q,
- 		return BLK_STS_NOTSUPP;
+diff --git a/drivers/nvme/host/zns.c b/drivers/nvme/host/zns.c
+index 9f81beb4d..65d2aa68a 100644
+--- a/drivers/nvme/host/zns.c
++++ b/drivers/nvme/host/zns.c
+@@ -101,13 +101,6 @@ int nvme_update_zone_info(struct nvme_ns *ns, unsigned lbaf)
+ 	}
  
- 	/* The bio sector must point to the start of a sequential zone */
--	if (pos & (blk_queue_zone_sectors(q) - 1) ||
--	    !blk_queue_zone_is_seq(q, pos))
-+	if (!blk_queue_is_zone_start(q, pos) || !blk_queue_zone_is_seq(q, pos))
- 		return BLK_STS_IOERR;
+ 	ns->zsze = nvme_lba_to_sect(ns, le64_to_cpu(id->lbafe[lbaf].zsze));
+-	if (!is_power_of_2(ns->zsze)) {
+-		dev_warn(ns->ctrl->device,
+-			"invalid zone size:%llu for namespace:%u\n",
+-			ns->zsze, ns->head->ns_id);
+-		status = -ENODEV;
+-		goto free_data;
+-	}
  
- 	/*
-diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 140230134..cfc2fb804 100644
---- a/block/blk-zoned.c
-+++ b/block/blk-zoned.c
-@@ -289,10 +289,10 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
- 		return -EINVAL;
+ 	blk_queue_set_zoned(ns->disk, BLK_ZONED_HM);
+ 	blk_queue_flag_set(QUEUE_FLAG_ZONE_RESETALL, q);
+@@ -128,8 +121,13 @@ static void *nvme_zns_alloc_report_buffer(struct nvme_ns *ns,
+ 	const size_t min_bufsize = sizeof(struct nvme_zone_report) +
+ 				   sizeof(struct nvme_zone_descriptor);
  
- 	/* Check alignment (handle eventual smaller last zone) */
--	if (sector & (zone_sectors - 1))
-+	if (!blk_queue_is_zone_start(q, sector))
- 		return -EINVAL;
++	/*
++	 * Division is used to calculate nr_zones with no special handling
++	 * for power of 2 zone sizes as this function is not invoked in a
++	 * hot path
++	 */
+ 	nr_zones = min_t(unsigned int, nr_zones,
+-			 get_capacity(ns->disk) >> ilog2(ns->zsze));
++			 div64_u64(get_capacity(ns->disk), ns->zsze));
  
--	if ((nr_sectors & (zone_sectors - 1)) && end_sector != capacity)
-+	if (!blk_queue_is_zone_start(q, nr_sectors) && end_sector != capacity)
- 		return -EINVAL;
- 
- 	/*
-@@ -490,14 +490,29 @@ static int blk_revalidate_zone_cb(struct blk_zone *zone, unsigned int idx,
- 	 * smaller last zone.
- 	 */
- 	if (zone->start == 0) {
--		if (zone->len == 0 || !is_power_of_2(zone->len)) {
--			pr_warn("%s: Invalid zoned device with non power of two zone size (%llu)\n",
--				disk->disk_name, zone->len);
-+		if (zone->len == 0) {
-+			pr_warn("%s: Invalid zone size",
-+				disk->disk_name);
-+			return -ENODEV;
-+		}
-+
-+		/*
-+		 * Don't allow zoned device with non power_of_2 zone size with
-+		 * zone capacity less than zone size.
-+		 */
-+		if (!is_power_of_2(zone->len) &&
-+		    zone->capacity < zone->len) {
-+			pr_warn("%s: Invalid zoned size with non power of 2 zone size and zone capacity < zone size",
-+				disk->disk_name);
- 			return -ENODEV;
- 		}
- 
- 		args->zone_sectors = zone->len;
--		args->nr_zones = (capacity + zone->len - 1) >> ilog2(zone->len);
-+		/*
-+		 * Division is used to calculate nr_zones for both power_of_2
-+		 * and non power_of_2 zone sizes as it is not in the hot path.
-+		 */
-+		args->nr_zones = div64_u64(capacity + zone->len - 1, zone->len);
- 	} else if (zone->start + args->zone_sectors < capacity) {
- 		if (zone->len != args->zone_sectors) {
- 			pr_warn("%s: Invalid zoned device with non constant zone size\n",
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 22fe512ee..32d7bd7b1 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -686,6 +686,22 @@ static inline unsigned int blk_queue_zone_no(struct request_queue *q,
- 	return div64_u64(sector, zone_sectors);
- }
- 
-+static inline bool blk_queue_is_zone_start(struct request_queue *q, sector_t sec)
-+{
-+	sector_t zone_sectors = blk_queue_zone_sectors(q);
+ 	bufsize = sizeof(struct nvme_zone_report) +
+ 		nr_zones * sizeof(struct nvme_zone_descriptor);
+@@ -182,6 +180,7 @@ int nvme_ns_report_zones(struct nvme_ns *ns, sector_t sector,
+ 	int ret, zone_idx = 0;
+ 	unsigned int nz, i;
+ 	size_t buflen;
 +	u64 remainder = 0;
-+
-+	if (!blk_queue_is_zoned(q))
-+		return false;
-+
-+	if (is_power_of_2(zone_sectors))
-+		return IS_ALIGNED(sec, zone_sectors);
-+
-+	div64_u64_rem(sec, zone_sectors, &remainder);
-+	/* if there is a remainder, then the sector is not aligned */
-+	return remainder == 0;
-+}
-+
- static inline bool blk_queue_zone_is_seq(struct request_queue *q,
- 					 sector_t sector)
- {
-@@ -732,6 +748,12 @@ static inline unsigned int blk_queue_zone_no(struct request_queue *q,
- {
- 	return 0;
- }
-+
-+static inline bool blk_queue_is_zone_start(struct request_queue *q, sector_t sec)
-+{
-+	return false;
-+}
-+
- static inline unsigned int queue_max_open_zones(const struct request_queue *q)
- {
- 	return 0;
+ 
+ 	if (ns->head->ids.csi != NVME_CSI_ZNS)
+ 		return -EINVAL;
+@@ -197,7 +196,14 @@ int nvme_ns_report_zones(struct nvme_ns *ns, sector_t sector,
+ 	c.zmr.zrasf = NVME_ZRASF_ZONE_REPORT_ALL;
+ 	c.zmr.pr = NVME_REPORT_ZONE_PARTIAL;
+ 
+-	sector &= ~(ns->zsze - 1);
++	/*
++	 * rounddown the sector value to the nearest zone size. roundown macro
++	 * provided in math.h will not work for 32 bit architectures.
++	 * Division is used here with no special handling for power of 2
++	 * zone sizes as this function is not invoked in a hot path
++	 */
++	div64_u64_rem(sector, ns->zsze, &remainder);
++	sector -= remainder;
+ 	while (zone_idx < nr_zones && sector < get_capacity(ns->disk)) {
+ 		memset(report, 0, buflen);
+ 
 -- 
 2.25.1
 
