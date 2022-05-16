@@ -1,128 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E8041528B41
-	for <lists+dm-devel@lfdr.de>; Mon, 16 May 2022 18:55:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FA13528CC1
+	for <lists+dm-devel@lfdr.de>; Mon, 16 May 2022 20:18:08 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-440-0BTUJc6iPAyy0M20o-m0AA-1; Mon, 16 May 2022 12:54:47 -0400
-X-MC-Unique: 0BTUJc6iPAyy0M20o-m0AA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-416-CQR50NS6MlScufja_1jmMg-1; Mon, 16 May 2022 14:18:05 -0400
+X-MC-Unique: CQR50NS6MlScufja_1jmMg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0ADBE805F69;
-	Mon, 16 May 2022 16:54:44 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6EDD40CF8F4;
-	Mon, 16 May 2022 16:54:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4C31800882;
+	Mon, 16 May 2022 18:18:02 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7EBA77C2A;
+	Mon, 16 May 2022 18:17:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8C90F1947071;
-	Mon, 16 May 2022 16:54:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5AE27194706E;
+	Mon, 16 May 2022 18:17:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2A8EA194704E
- for <dm-devel@listman.corp.redhat.com>; Mon, 16 May 2022 16:54:42 +0000 (UTC)
+ ESMTP id 6BC071947054
+ for <dm-devel@listman.corp.redhat.com>; Mon, 16 May 2022 18:17:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1457140147D; Mon, 16 May 2022 16:54:42 +0000 (UTC)
+ id 5BF371121320; Mon, 16 May 2022 18:17:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0FD67492C14
- for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB752811E81
- for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:41 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 542EE112131E
+ for <dm-devel@redhat.com>; Mon, 16 May 2022 18:17:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D2FB805B25
+ for <dm-devel@redhat.com>; Mon, 16 May 2022 18:17:49 +0000 (UTC)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-115-h4whxek_NuOIGvdQ2oax2A-1; Mon, 16 May 2022 12:54:39 -0400
-X-MC-Unique: h4whxek_NuOIGvdQ2oax2A-1
-Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220516165438euoutp018967267b2117aeddab48144b81e176ec~vpCeviCGs2241322413euoutp016
- for <dm-devel@redhat.com>; Mon, 16 May 2022 16:54:38 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20220516165438euoutp018967267b2117aeddab48144b81e176ec~vpCeviCGs2241322413euoutp016
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20220516165437eucas1p15eb77c4c9a68927fe7695a2e5830dcb7~vpCdkUKeT1545715457eucas1p1f;
- Mon, 16 May 2022 16:54:37 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id 66.E6.10260.DC182826; Mon, 16
- May 2022 17:54:37 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20220516165436eucas1p178d079302dae3a9fca696b13b0390deb~vpCdOIri62560525605eucas1p1b;
- Mon, 16 May 2022 16:54:36 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220516165436eusmtrp28837a89a06654af7c04d36f8d5949f97~vpCdNanu61030710307eusmtrp26;
- Mon, 16 May 2022 16:54:36 +0000 (GMT)
-X-AuditID: cbfec7f5-bddff70000002814-5f-628281cdd3f8
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 23.10.09404.CC182826; Mon, 16
- May 2022 17:54:36 +0100 (BST)
-Received: from localhost (unknown [106.210.248.7]) by eusmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20220516165436eusmtip27c52763e39356a08b7d9cbb75f4140dd~vpCc05sQp3184631846eusmtip2E;
- Mon, 16 May 2022 16:54:36 +0000 (GMT)
-From: Pankaj Raghav <p.raghav@samsung.com>
-To: axboe@kernel.dk, damien.lemoal@opensource.wdc.com, pankydev8@gmail.com,
- dsterba@suse.com, hch@lst.de
-Date: Mon, 16 May 2022 18:54:16 +0200
-Message-Id: <20220516165416.171196-14-p.raghav@samsung.com>
-In-Reply-To: <20220516165416.171196-1-p.raghav@samsung.com>
+ us-mta-491-OLESY_9cMp257qCjEs6jLQ-1; Mon, 16 May 2022 14:17:47 -0400
+X-MC-Unique: OLESY_9cMp257qCjEs6jLQ-1
+Received: by mail-pl1-f173.google.com with SMTP id c9so15242629plh.2
+ for <dm-devel@redhat.com>; Mon, 16 May 2022 11:17:47 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=uT/H9lZy9IyzIRo1BQPyvaimIM9+75W3QLmIxSLbuUU=;
+ b=csWIhZHyrhVSwG3lrAd0BfI71SK53lrCAqhcHdayGhVlkJz7X0fOCVXnDtF1RzhqF2
+ 7UDCPpXP3oIs8JS7MY80FGNtr5DjnmmVKuJSjfcLd3pudYj6h0ZhincHu9r2PdEBwORx
+ iH6bh2DxId3S9ZauobKNseNLMUmcu0tD2ErhO2ztDuNrKp9SRv0LkCKrtwfAEuLVdJcR
+ dm12NjL9jwi2voyTWKKipt7GlKWYIKGBr3XDQYWGHtWFH1NKKfRZy/jSGhVQ3g+xs/0Y
+ QDyPSISmH7aqMqo8f7+rhIfLeB1rMy93eAjCSvMF3VDGxGbBygH3zsd6ed++Ld32JsF8
+ yFMQ==
+X-Gm-Message-State: AOAM53371DVUptrZAQqUfvxHusgKzdAGxj3Sl0lIkDeUZ2EKX09gMLfu
+ cN3wknBytEX3Sr6ciWQ9gHWs1Q==
+X-Google-Smtp-Source: ABdhPJwB7aNz9FzyraE3HZ214E4qpUBNZvJ5G0yqjEDlZDbTxbrjUI8/xzb3tlOkPTBXN2yurcWawg==
+X-Received: by 2002:a17:902:b906:b0:158:3120:3b69 with SMTP id
+ bf6-20020a170902b90600b0015831203b69mr18435617plb.33.1652725066427; 
+ Mon, 16 May 2022 11:17:46 -0700 (PDT)
+Received: from localhost ([2620:15c:11a:202:4ee0:ca4c:63fd:81d2])
+ by smtp.gmail.com with UTF8SMTPSA id
+ p11-20020a170902e74b00b0015e8d4eb1d8sm7431343plf.34.2022.05.16.11.17.45
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Mon, 16 May 2022 11:17:46 -0700 (PDT)
+Date: Mon, 16 May 2022 11:17:44 -0700
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Kees Cook <keescook@chromium.org>
+Message-ID: <YoKVSEJyHvFg/V9+@google.com>
+References: <20220504195419.1143099-1-mka@chromium.org>
+ <20220504125404.v3.2.I01c67af41d2f6525c6d023101671d7339a9bc8b5@changeid>
+ <B7FB2BE6-DF1C-414A-B4C2-0C15FD1CBF75@chromium.org>
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrNKsWRmVeSWpSXmKPExsWy7djP87pnG5uSDLb9FbJYfbefzeL32fPM
- FnvfzWa1uPCjkcni5oGdTBZ7Fk1isli5+iiTRc+BDywWe29pW1x6vILdYs/ekywWl3fNYbOY
- v+wpu8WNCU8ZLT4vbWG3WHPzKYuDgMe/E2vYPHbOusvucflsqcemVZ1sHpuX1HvsvtkAFG69
- z+rxft9VNo++LasYPdZvucrisfl0tcfnTXIBPFFcNimpOZllqUX6dglcGT277jEVzOCquHX2
- AGsD4yqOLkZODgkBE4npK7YydzFycQgJrGCUOPphLRuE84VR4tflmUwQzmdGiVNPTrDAtOyZ
- fBkqsZxRonXqK3YI5zmjRMOWaYxdjBwcbAJaEo2d7CANIgJZEtNOPGQEqWEWOMwk8fzofFaQ
- hLBAsMSqZ7fYQGwWAVWJztfPwOK8AtYSr1a8ZoXYJi8x89J3dpCZnEDx1V3cECWCEidnPgE7
- iBmopHnrbLAfJASWc0q0Hj4KVi8h4CLRedYHYoywxKvjW9ghbBmJ/zvnM0HY1RJPb/yG6m1h
- lOjfuZ4Notdaou9MDojJLKApsX6XPkS5o8TWLytZISr4JG68FYS4gE9i0rbpzBBhXomONiGI
- aiWJnT+fQC2VkLjcNAcagh4S99d/YJ/AqDgLyS+zkPwyC2HvAkbmVYziqaXFuempxcZ5qeV6
- xYm5xaV56XrJ+bmbGIHp7/S/4193MK549VHvECMTB+MhRgkOZiURXoOKhiQh3pTEyqrUovz4
- otKc1OJDjNIcLErivMmZGxKFBNITS1KzU1MLUotgskwcnFINTEE/cltaBJZybQq4ve86NzeT
- VsGkKjd2sZ22K8P8759Y+qz3xz4bkY9dmtyd4jGs2+5rhDmlVKxL3z9T3b3OfbVggsbU5QcY
- 3/+56/HP6Ed60qln1ZMVV1f8j55/UehI/AW93O4jSeznVgdVvHuR9vr0QjdJhQ1Gh1/eZV3e
- 8E7s64SSitWaLjx3VrimPebbt+7VvoWpp9PWRO7rnXObS7B1MdOKRoPTPCa2h5qvRxyM2MM9
- P25955LzhvxfXGWc7A6t0z39MnL+vtPLk7OzzyptnCIe+kuwX07RTXePS/r0h3P5K3eYq8kx
- 7xbgOCRn/shmDu995+d7L2S+zQrI0/X2Wc7v2LRoObPOsbfTK5VYijMSDbWYi4oTAX69IDHu
- AwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrFIsWRmVeSWpSXmKPExsVy+t/xe7pnGpuSDO5tN7ZYfbefzeL32fPM
- FnvfzWa1uPCjkcni5oGdTBZ7Fk1isli5+iiTRc+BDywWe29pW1x6vILdYs/ekywWl3fNYbOY
- v+wpu8WNCU8ZLT4vbWG3WHPzKYuDgMe/E2vYPHbOusvucflsqcemVZ1sHpuX1HvsvtkAFG69
- z+rxft9VNo++LasYPdZvucrisfl0tcfnTXIBPFF6NkX5pSWpChn5xSW2StGGFkZ6hpYWekYm
- lnqGxuaxVkamSvp2NimpOZllqUX6dgl6GT277jEVzOCquHX2AGsD4yqOLkZODgkBE4k9ky8z
- dTFycQgJLGWUOLjjKQtEQkLi9sImRghbWOLPtS42iKKnjBInJxwHSnBwsAloSTR2soPUiAgU
- SMzp3wLWyyxwnkli/3p3EFtYIFBi0rZmJhCbRUBVovP1M1YQm1fAWuLVitesEPPlJWZe+s4O
- MpITKL66ixskLCRgJfH1yS12iHJBiZMzn0CNl5do3jqbeQKjwCwkqVlIUgsYmVYxiqSWFuem
- 5xYb6RUn5haX5qXrJefnbmIERuq2Yz+37GBc+eqj3iFGJg7GQ4wSHMxKIrwGFQ1JQrwpiZVV
- qUX58UWlOanFhxhNgc6eyCwlmpwPTBV5JfGGZgamhiZmlgamlmbGSuK8ngUdiUIC6Yklqdmp
- qQWpRTB9TBycUg1Mk6fvdjfa5ON/83dYHLet8aHDRgZJm/7YMf6cwtBzuV9CcP2hI984F6z/
- seXGjM/F12TvZ65qnTA74+361NWKzd1vUmt975ZEH01/uWZJ6bX7DEdaLcJcd29JOizBtSrp
- /ZxYBjkRM9OMFQYs7780Rlw1CcpKK14we0//w40XXTsfr6lyDPmRmXv+6+q8JsuPd7iq890/
- NKztO32j2k/8xM/V/+43BTOsWGIi95gla1/szVtnXB6FxSsd47z/WPRCpMyzahaujsfW23oZ
- FLZ0GJYLeLIIOs7s2Z5f0ST/oPfmzT8XwhN95j1bnOKeecU2YY39l+OzpF49miMRb77ok5qX
- ycEXx+bd+KtxtLG5XYmlOCPRUIu5qDgRAFdHucBdAwAA
-X-CMS-MailID: 20220516165436eucas1p178d079302dae3a9fca696b13b0390deb
-X-Msg-Generator: CA
-X-RootMTR: 20220516165436eucas1p178d079302dae3a9fca696b13b0390deb
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20220516165436eucas1p178d079302dae3a9fca696b13b0390deb
-References: <20220516165416.171196-1-p.raghav@samsung.com>
- <CGME20220516165436eucas1p178d079302dae3a9fca696b13b0390deb@eucas1p1.samsung.com>
+In-Reply-To: <B7FB2BE6-DF1C-414A-B4C2-0C15FD1CBF75@chromium.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -130,9 +84,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH v4 13/13] dm-zoned: ensure only power of 2 zone
- sizes are allowed
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH v3 2/3] LoadPin: Enable loading from trusted
+ dm-verity devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -144,60 +98,217 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: p.raghav@samsung.com, gost.dev@samsung.com, jiangbo.365@bytedance.com,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Luis Chamberlain <mcgrof@kernel.org>, linux-fsdevel@vger.kernel.org,
- linux-btrfs@vger.kernel.org
+Cc: linux-security-module@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
+ linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
+ Alasdair Kergon <agk@redhat.com>, "Serge E . Hallyn" <serge@hallyn.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Luis Chamberlain <mcgrof@kernel.org>
+Hi Kees,
 
-Today dm-zoned relies on the assumption that you have a zone size
-with a power of 2. Even though the block layer today enforces this
-requirement, these devices do exist and so provide a stop-gap measure
-to ensure these devices cannot be used by mistake
+thanks for the review!
 
-Reviewed-by: Hannes Reinecke <hare@suse.de>
-Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
-Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
----
- drivers/md/dm-zone.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+On Fri, May 13, 2022 at 03:36:26PM -0700, Kees Cook wrote:
+> 
+> 
+> On May 4, 2022 12:54:18 PM PDT, Matthias Kaehlcke <mka@chromium.org> wrote:
+> >Extend LoadPin to allow loading of kernel files from trusted dm-verity [1]
+> >devices.
+> >
+> >This change adds the concept of trusted verity devices to LoadPin. LoadPin
+> >maintains a list of root digests of verity devices it considers trusted.
+> >Userspace can populate this list through an ioctl on the new LoadPin
+> >securityfs entry 'dm-verity'. The ioctl receives a file descriptor of
+> >a file with verity digests as parameter. Verity reads the digests from
+> >this file after confirming that the file is located on the pinned root.
+> >The list of trusted digests can only be set up once, which is typically
+> >done at boot time.
+> >
+> >When a kernel file is read LoadPin first checks (as usual) whether the file
+> >is located on the pinned root, if so the file can be loaded. Otherwise, if
+> >the verity extension is enabled, LoadPin determines whether the file is
+> >located on a verity backed device and whether the root digest of that
+> 
+> I think this should be "... on an already trusted device ..."
 
-diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
-index 3e7b1fe15..f0c588c02 100644
---- a/drivers/md/dm-zone.c
-+++ b/drivers/md/dm-zone.c
-@@ -231,6 +231,18 @@ static int dm_revalidate_zones(struct mapped_device *md, struct dm_table *t)
- 	struct request_queue *q = md->queue;
- 	unsigned int noio_flag;
- 	int ret;
-+	struct block_device *bdev = md->disk->part0;
-+	sector_t zone_sectors;
-+	char bname[BDEVNAME_SIZE];
-+
-+	zone_sectors = bdev_zone_sectors(bdev);
-+
-+	if (!is_power_of_2(zone_sectors)) {
-+		DMWARN("%s: %s only power of two zone size supported",
-+		       dm_device_name(md),
-+		       bdevname(bdev, bname));
-+		return -EINVAL;
-+	}
- 
- 	/*
- 	 * Check if something changed. If yes, cleanup the current resources
--- 
-2.25.1
+It's not entirely clear which part you want me to substitute. 'an already
+trusted device' makes me wonder whether you are thinking about reading the
+list of digests, and not the general case of reading a kernel file, which
+this paragraph intends to describe.
+
+> >device is in the list of trusted digests. The file can be loaded if the
+> >verity device has a trusted root digest.
+> >
+> >Background:
+> >
+> >As of now LoadPin restricts loading of kernel files to a single pinned
+> >filesystem, typically the rootfs. This works for many systems, however it
+> >can result in a bloated rootfs (and OTA updates) on platforms where
+> >multiple boards with different hardware configurations use the same rootfs
+> >image. Especially when 'optional' files are large it may be preferable to
+> >download/install them only when they are actually needed by a given board.
+> >Chrome OS uses Downloadable Content (DLC) [2] to deploy certain 'packages'
+> >at runtime. As an example a DLC package could contain firmware for a
+> >peripheral that is not present on all boards. DLCs use dm-verity to verify
+> >the integrity of the DLC content.
+> >
+> >[1] https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/verity.html
+> >[2] https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/dlcservice/docs/developer.md
+> >
+> >Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+> >---
+> >
+> >Changes in v3:
+> >- added securityfs for LoadPin (currently only populated when
+> >  CONFIG_SECURITY_LOADPIN_VERITY=y)
+> >- added uapi include for LoadPin
+> >- changed the interface for setting up the list of trusted
+> >  digests from sysctl to ioctl on securityfs entry
+> >- added stub for loadpin_is_fs_trusted() to be used
+> >  CONFIG_SECURITY_LOADPIN_VERITY is not select
+> >- depend on CONFIG_SECURITYFS instead of CONFIG_SYSTCL
+> >- updated Kconfig help
+> >- minor changes in read_trusted_verity_root_digests()
+> >- updated commit message
+> >
+> >Changes in v2:
+> >- userspace now passes the path of the file with the verity digests
+> >  via systcl, instead of the digests themselves
+> >- renamed sysctl file to 'trusted_verity_root_digests_path'
+> >- have CONFIG_SECURITY_LOADPIN_VERITY depend on CONFIG_SYSCTL
+> >- updated Kconfig doc
+> >- updated commit message
+> >
+> > include/uapi/linux/loadpin.h |  19 ++++
+> > security/loadpin/Kconfig     |  16 +++
+> > security/loadpin/loadpin.c   | 184 ++++++++++++++++++++++++++++++++++-
+> > 3 files changed, 218 insertions(+), 1 deletion(-)
+> > create mode 100644 include/uapi/linux/loadpin.h
+> >
+> >diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
+> >index b12f7d986b1e..c29ce562a366 100644
+> >--- a/security/loadpin/loadpin.c
+> >+++ b/security/loadpin/loadpin.c
+>
+> ...
+>
+> >+static int read_trusted_verity_root_digests(unsigned int fd)
+> >+{
+> >+	struct fd f;
+> >+	void *data;
+> 
+> Probably easier if this is u8 *?
+
+Maybe slightly, it would then require a cast when passing it to
+kernel_read_file()
+
+> >+	int rc;
+> >+	char *p, *d;
+> >+
+> >+	/* The list of trusted root digests can only be set up once */
+> >+	if (!list_empty(&trusted_verity_root_digests))
+> >+		return -EPERM;
+> >+
+> >+	f = fdget(fd);
+> >+	if (!f.file)
+> >+		return -EINVAL;
+> >+
+> >+	data = kzalloc(SZ_4K, GFP_KERNEL);
+> >+	if (!data) {
+> >+		rc = -ENOMEM;
+> >+		goto err;
+> >+	}
+> >+
+> >+	rc = kernel_read_file(f.file, 0, &data, SZ_4K - 1, NULL, READING_POLICY);
+> >+	if (rc < 0)
+> >+		goto err;
+> >+
+> >+	((char *)data)[rc] = '\0';
+> >+
+> >+	p = strim(data);
+> >+	while ((d = strsep(&p, ",")) != NULL) {
+> 
+> Maybe be flexible and add newline as a separator too?
+
+Sure, I can add that. I'd also be fine with just allowing a newline as
+separator, which seems a reasonable format for a sysfs file.
+
+> >+		int len = strlen(d);
+> >+		struct trusted_root_digest *trd;
+> >+
+> >+		if (len % 2) {
+> >+			rc = -EPROTO;
+> >+			goto err;
+> >+		}
+> >+
+> >+		len /= 2;
+> >+
+> >+		trd = kzalloc(sizeof(*trd), GFP_KERNEL);
+> 
+> With the struct change, this could be:
+> 
+> kzalloc(struct_size(trd, data, len), ...)
+
+Will change
+
+> >+		if (!trd) {
+> >+			rc = -ENOMEM;
+> >+			goto err;
+> >+		}
+> >+
+> >+		trd->data = kzalloc(len, GFP_KERNEL);
+> >+		if (!trd->data) {
+> >+			kfree(trd);
+> >+			rc = -ENOMEM;
+> >+			goto err;
+> >+		}
+> >+
+> >+		if (hex2bin(trd->data, d, len)) {
+> >+			kfree(trd);
+> >+			kfree(trd->data);
+> >+			rc = -EPROTO;
+> >+			goto err;
+> >+		}
+> >+
+> >+		trd->len = len;
+> >+
+> >+		list_add_tail(&trd->node, &trusted_verity_root_digests);
+> >+	}
+> >+
+> >+	kfree(data);
+> >+	fdput(f);
+> >+
+> >+	if (!list_empty(&trusted_verity_root_digests))
+> >+		dm_verity_loadpin_set_trusted_root_digests(&trusted_verity_root_digests);
+> >+
+> >+	return 0;
+> >+
+> >+err:
+> >+	kfree(data);
+> >+
+> 
+> Maybe add a comment that any load failure will invalidate the entire list?
+
+ok
+
+> Otherwise looks good! The only other thing I can think of is pondering more
+> about more carefully failing closed. E.g. instead of just throwing away all
+> the other hashes on a file load failure, maybe lock out future attempts to
+> set it too? I'm not sure this is actually useful, though. :P it shouldn't be
+> possible to corrupt the file, etc. But in the universe where things like
+> DirtyCOW happens, I've gotten even more paranoid. ;)
+
+Sure, we can do that
 
 --
 dm-devel mailing list
