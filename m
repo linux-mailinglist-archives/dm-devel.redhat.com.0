@@ -1,83 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 09E3052ABE8
-	for <lists+dm-devel@lfdr.de>; Tue, 17 May 2022 21:28:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A2D8552AEB2
+	for <lists+dm-devel@lfdr.de>; Wed, 18 May 2022 01:35:33 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-21-zmEJNcmlMKOEMNHs4kAwoQ-1; Tue, 17 May 2022 15:28:25 -0400
-X-MC-Unique: zmEJNcmlMKOEMNHs4kAwoQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-296-RIlk8FFDNbmVveX2Y_fRmQ-1; Tue, 17 May 2022 19:35:31 -0400
+X-MC-Unique: RIlk8FFDNbmVveX2Y_fRmQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29AF938149A1;
-	Tue, 17 May 2022 19:28:23 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9D0A7C15D70;
-	Tue, 17 May 2022 19:28:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 075243C01DA0;
+	Tue, 17 May 2022 23:35:29 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E7678492CA2;
+	Tue, 17 May 2022 23:35:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9BA9E19259F4;
-	Tue, 17 May 2022 19:28:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 60F2919259D4;
+	Tue, 17 May 2022 23:35:28 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 05BED19259E8
- for <dm-devel@listman.corp.redhat.com>; Tue, 17 May 2022 19:28:12 +0000 (UTC)
+ ESMTP id 14D7F1949759
+ for <dm-devel@listman.corp.redhat.com>; Tue, 17 May 2022 23:35:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D24DA1410DDB; Tue, 17 May 2022 19:28:12 +0000 (UTC)
+ id 035B2202699A; Tue, 17 May 2022 23:35:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CEB221410DD5
- for <dm-devel@redhat.com>; Tue, 17 May 2022 19:28:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F34B12026987
+ for <dm-devel@redhat.com>; Tue, 17 May 2022 23:35:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B67B8101AA44
- for <dm-devel@redhat.com>; Tue, 17 May 2022 19:28:12 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0930F1C068CC
+ for <dm-devel@redhat.com>; Tue, 17 May 2022 23:35:03 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-616-ECq-RnsdOKuH5hP1P30d2Q-1; Tue, 17 May 2022 15:28:11 -0400
-X-MC-Unique: ECq-RnsdOKuH5hP1P30d2Q-1
-Received: by mail-pl1-f178.google.com with SMTP id s14so18225078plk.8
- for <dm-devel@redhat.com>; Tue, 17 May 2022 12:28:10 -0700 (PDT)
+ us-mta-321-N847UBCwMNO7l9HmIEGEBw-1; Tue, 17 May 2022 19:35:01 -0400
+X-MC-Unique: N847UBCwMNO7l9HmIEGEBw-1
+Received: by mail-pl1-f170.google.com with SMTP id q4so190686plr.11
+ for <dm-devel@redhat.com>; Tue, 17 May 2022 16:35:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=sRnxrATUFurY+xdKnn0z6Pv7TbtVcM0Bq4eah/DEREU=;
- b=kXQonqfix98eRdthn3sthzNMUJA6mWjB6KZzguEOvBKiZT776tljfEUV/ZuPMj1HI6
- mBExsklgcGlNybMqBAtTwF6i1RbGoLcNbA+vqElxsL70IZ11CybGNJWqKBVL5Qk8IRuS
- frgntLyXq1xCpQw+L6/V779mHzLtRd8SThzDaM37F5W5XW46ZdLMeCS/9LF/HEV8+lVI
- 08+OYS+KxMrI7M7iC3hQzf/WIjubAoJJ/65FFV27BRhWeE6PC1VtFeRxSzhGwBxLNo7q
- /tS0q6UfWvCKemYzpx+axWukPm+YG2S5MNiwWRem9mUlH6ApOSxNXwx36kCX7lHeoP1a
- pK0g==
-X-Gm-Message-State: AOAM533aqiPzQ4TLBOPgxk6xyeJyQh9hur3S60NrH25X+gCI3CRNGEWX
- n3amCQ+KRttw14yTT9n3VpiPNg==
-X-Google-Smtp-Source: ABdhPJzb6NxCGOhL9QfuLNbvRAfqqVCHjnAogoMxMJEoG6YKx2Kx62sZPGUOs+pIjzwhzNyg+KiRSQ==
-X-Received: by 2002:a17:90a:9914:b0:1db:d10f:1fcf with SMTP id
- b20-20020a17090a991400b001dbd10f1fcfmr37464999pjp.241.1652815689928; 
- Tue, 17 May 2022 12:28:09 -0700 (PDT)
-Received: from localhost ([2620:15c:11a:202:641e:de1c:873b:321e])
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
+ :content-transfer-encoding;
+ bh=9RzasHWL24EeSBATPMbqbdUHGSH0f06CyC7XznUSbQM=;
+ b=tQcLsjZ5l1cKXvf6ep6JYvQZ7TFFkxOYQpiC4fma3gjKgWohursKMF5CFeV75eCvkj
+ 8dydsExtMp35vfxVehM2hZe3/rd9myq0FVC1/9xn3fefBnDx5KzulmDrUbCUPJFIbMuW
+ JPZFdNImcIGMAkHscAnlqVXpVAd83B2BMXWdYTxgRGGjSiiKTVZmo/p2Ce0LkR0ZhAaU
+ gyGUAIgUrLMa8iZW9CF+Q16e9n0qksARvqRMW7vrqh5cNs3mA7YVAnekmvKqk7LJ/IRA
+ ZPvQ4edBlVFRe0u9ih+1UJl1FYaShMhiu+7/6UIUHstBfQkSCtWSZpE+xcGcBivHboSd
+ Fufg==
+X-Gm-Message-State: AOAM532BxvTXFA6Tc8zae3fZ8Jy9zfs9rdGK+/h3Pog1ePVS0dUP1zhh
+ BbPJKA3ljtROZ8Hc1skXktz34w==
+X-Google-Smtp-Source: ABdhPJwLpJsEsDMCc9C6tx8HCu70Xu9hN6jrAsbx+Sr1+zbbbmR3L1grNSd3M5FMoDJnngO6WEXaZA==
+X-Received: by 2002:a17:902:eb87:b0:15e:bd77:a91 with SMTP id
+ q7-20020a170902eb8700b0015ebd770a91mr24827170plg.49.1652830500281; 
+ Tue, 17 May 2022 16:35:00 -0700 (PDT)
+Received: from localhost ([2620:15c:11a:202:a14:3166:4b67:b688])
  by smtp.gmail.com with UTF8SMTPSA id
- k1-20020a170902694100b0015e8d4eb2bcsm9412366plt.262.2022.05.17.12.28.09
+ g14-20020a62f94e000000b0050dc762815csm303836pfm.54.2022.05.17.16.34.59
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 17 May 2022 12:28:09 -0700 (PDT)
-Date: Tue, 17 May 2022 12:28:08 -0700
+ Tue, 17 May 2022 16:34:59 -0700 (PDT)
 From: Matthias Kaehlcke <mka@chromium.org>
-To: Kees Cook <keescook@chromium.org>
-Message-ID: <YoP3SJ62uHI7nrXy@google.com>
-References: <20220504195419.1143099-1-mka@chromium.org>
- <20220504125404.v3.2.I01c67af41d2f6525c6d023101671d7339a9bc8b5@changeid>
- <B7FB2BE6-DF1C-414A-B4C2-0C15FD1CBF75@chromium.org>
- <YoKVSEJyHvFg/V9+@google.com> <202205162038.B2D1BBAB3@keescook>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Kees Cook <keescook@chromium.org>, James Morris <jmorris@namei.org>,
+ "Serge E . Hallyn" <serge@hallyn.com>
+Date: Tue, 17 May 2022 16:34:54 -0700
+Message-Id: <20220517233457.1123309-1-mka@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <202205162038.B2D1BBAB3@keescook>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -85,8 +83,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v3 2/3] LoadPin: Enable loading from trusted
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+Subject: [dm-devel] [PATCH v4 0/3] LoadPin: Enable loading from trusted
  dm-verity devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -99,118 +97,107 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-security-module@vger.kernel.org,
- Douglas Anderson <dianders@chromium.org>, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
- linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
- Alasdair Kergon <agk@redhat.com>, "Serge E . Hallyn" <serge@hallyn.com>
+Cc: dm-devel@redhat.com, Douglas Anderson <dianders@chromium.org>,
+ linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
+ Song Liu <song@kernel.org>, linux-security-module@vger.kernel.org,
+ Matthias Kaehlcke <mka@chromium.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, May 16, 2022 at 08:44:37PM -0700, Kees Cook wrote:
-> On Mon, May 16, 2022 at 11:17:44AM -0700, Matthias Kaehlcke wrote:
-> > On Fri, May 13, 2022 at 03:36:26PM -0700, Kees Cook wrote:
-> > > 
-> > > 
-> > > On May 4, 2022 12:54:18 PM PDT, Matthias Kaehlcke <mka@chromium.org> wrote:
-> > > >Extend LoadPin to allow loading of kernel files from trusted dm-verity [1]
-> > > >devices.
-> > > >
-> > > >This change adds the concept of trusted verity devices to LoadPin. LoadPin
-> > > >maintains a list of root digests of verity devices it considers trusted.
-> > > >Userspace can populate this list through an ioctl on the new LoadPin
-> > > >securityfs entry 'dm-verity'. The ioctl receives a file descriptor of
-> > > >a file with verity digests as parameter. Verity reads the digests from
-> > > >this file after confirming that the file is located on the pinned root.
-> > > >The list of trusted digests can only be set up once, which is typically
-> > > >done at boot time.
-> > > >
-> > > >When a kernel file is read LoadPin first checks (as usual) whether the file
-> > > >is located on the pinned root, if so the file can be loaded. Otherwise, if
-> > > >the verity extension is enabled, LoadPin determines whether the file is
-> > > >located on a verity backed device and whether the root digest of that
-> > > 
-> > > I think this should be "... on an already trusted device ..."
-> > 
-> > It's not entirely clear which part you want me to substitute. 'an already
-> > trusted device' makes me wonder whether you are thinking about reading the
-> > list of digests, and not the general case of reading a kernel file, which
-> > this paragraph intends to describe.
-> 
-> Sorry, I think I confused myself while reading what you'd written. I
-> think it's fine as is. I think I had skipped around in my mind thinking
-> about the trusted verity hashes file coming from the pinned root, but
-> you basically already said that. :) Nevermind!
-> 
-> > > >+static int read_trusted_verity_root_digests(unsigned int fd)
-> > > >+{
-> > > >+	struct fd f;
-> > > >+	void *data;
-> > > 
-> > > Probably easier if this is u8 *?
-> > 
-> > Maybe slightly, it would then require a cast when passing it to
-> > kernel_read_file()
-> 
-> Oh, good point. That is a kinda weird API.
-> 
-> > 
-> > > >+	int rc;
-> > > >+	char *p, *d;
-> > > >+
-> > > >+	/* The list of trusted root digests can only be set up once */
-> > > >+	if (!list_empty(&trusted_verity_root_digests))
-> > > >+		return -EPERM;
-> > > >+
-> > > >+	f = fdget(fd);
-> > > >+	if (!f.file)
-> > > >+		return -EINVAL;
-> > > >+
-> > > >+	data = kzalloc(SZ_4K, GFP_KERNEL);
-> > > >+	if (!data) {
-> > > >+		rc = -ENOMEM;
-> > > >+		goto err;
-> > > >+	}
-> > > >+
-> > > >+	rc = kernel_read_file(f.file, 0, &data, SZ_4K - 1, NULL, READING_POLICY);
-> > > >+	if (rc < 0)
-> > > >+		goto err;
-> 
-> So maybe, here, you could do:
-> 
-> 	p = data;
-> 	p[rc] '\0';
-> 	p = strim(p);
-> 
-> etc... (the void * -> char * cast in the assignment should be accepted
-> without warning?)
+As of now LoadPin restricts loading of kernel files to a single pinned
+filesystem, typically the rootfs. This works for many systems, however it
+can result in a bloated rootfs (and OTA updates) on platforms where
+multiple boards with different hardware configurations use the same rootfs
+image. Especially when 'optional' files are large it may be preferable to
+download/install them only when they are actually needed by a given board.
+Chrome OS uses Downloadable Content (DLC) [1] to deploy certain 'packages'
+at runtime. As an example a DLC package could contain firmware for a
+peripheral that is not present on all boards. DLCs use dm-verity [2] to
+verify the integrity of the DLC content.
 
-Yes, that would work, I'll change it accordingly, thanks!
+This series extends LoadPin to allow loading of kernel files from trusted
+dm-verity devices. LoadPin maintains a list of root digests of verity
+devices it considers trusted. Userspace can populate this list through an
+ioctl on the new LoadPin securityfs entry 'dm-verity'. The ioctl receives
+a file descriptor of a file with verity digests as parameter. Verity reads
+the digests from this file after confirming that the file is located on the
+pinned root. The digest file must contain one digest per line. The list of
+trusted digests can only be set up once, which is typically done at boot
+time.
 
-> > > >+
-> > > >+	((char *)data)[rc] = '\0';
-> > > >+
-> > > >+	p = strim(data);
-> > > >+	while ((d = strsep(&p, ",")) != NULL) {
-> > > 
-> > > Maybe be flexible and add newline as a separator too?
-> > 
-> > Sure, I can add that. I'd also be fine with just allowing a newline as
-> > separator, which seems a reasonable format for a sysfs file.
-> 
-> Yeah, that was my thinking too. And easier to parse for command line
-> tools, etc. Not a requirement at all, but might make testing easier,
-> etc.
+When a kernel file is read LoadPin first checks (as usual) whether the file
+is located on the pinned root, if so the file can be loaded. Otherwise, if
+the verity extension is enabled, LoadPin determines whether the file is
+located on a verity backed device and whether the root digest of that
+device is in the list of trusted digests. The file can be loaded if the
+verity device has a trusted root digest.
 
-Ok, I'll change it to use newline as the only separator.
+[1] https://chromium.googlesource.com/chromiumos/platform2/+/HEAD/dlcservice/docs/developer.md
+[2] https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/verity.html
+
+Changes in v4:
+- a trusted verity device must have a single target of
+  type 'verity'
+- changed struct trusted_root_digest to have an unsized
+  u8 array instead of a pointer
+- use shared list of verity digests, deleted
+  dm_verity_loadpin_set_trusted_root_digests()
+- use newline as separator in digest file instead of comma
+- after reading an invalid/corrupt digest file deny further attempts
+  of setting up the list of digests
+- added comment to read_trusted_verity_root_digests() explaining that
+  an invalid digests entry invalidates the entire list of digests
+- minor refactoring of verity related code in LoadPin
+
+Changes in v3:
+- added securityfs for LoadPin (currently only populated when
+  CONFIG_SECURITY_LOADPIN_VERITY=y)
+- added uapi include for LoadPin
+- changed the interface for setting up the list of trusted
+  digests from sysctl to ioctl on securityfs entry
+- added stub for loadpin_is_fs_trusted() to be used
+  CONFIG_SECURITY_LOADPIN_VERITY is not select
+- depend on CONFIG_SECURITYFS instead of CONFIG_SYSTCL
+- updated Kconfig help
+- minor changes in read_trusted_verity_root_digests()
+- updated commit message
+
+Changes in v2:
+- userspace now passes the path of the file with the verity digests
+  via systcl, instead of the digests themselves
+- renamed sysctl file to 'trusted_verity_root_digests_path'
+- have CONFIG_SECURITY_LOADPIN_VERITY depend on CONFIG_SYSCTL
+- updated Kconfig doc
+- updated commit message
+
+Matthias Kaehlcke (3):
+  dm: Add verity helpers for LoadPin
+  LoadPin: Enable loading from trusted dm-verity devices
+  dm: verity-loadpin: Use CONFIG_SECURITY_LOADPIN_VERITY for conditional
+    compilation
+
+ drivers/md/Makefile               |   1 +
+ drivers/md/dm-verity-loadpin.c    |  74 +++++++++++++
+ drivers/md/dm-verity-target.c     |  33 ++++++
+ drivers/md/dm-verity.h            |   4 +
+ include/linux/dm-verity-loadpin.h |  27 +++++
+ include/uapi/linux/loadpin.h      |  22 ++++
+ security/loadpin/Kconfig          |  16 +++
+ security/loadpin/loadpin.c        | 167 +++++++++++++++++++++++++++++-
+ 8 files changed, 343 insertions(+), 1 deletion(-)
+ create mode 100644 drivers/md/dm-verity-loadpin.c
+ create mode 100644 include/linux/dm-verity-loadpin.h
+ create mode 100644 include/uapi/linux/loadpin.h
+
+-- 
+2.36.0.550.gb090851708-goog
 
 --
 dm-devel mailing list
