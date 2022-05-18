@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99BF852E59D
-	for <lists+dm-devel@lfdr.de>; Fri, 20 May 2022 09:02:14 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 7187C52E598
+	for <lists+dm-devel@lfdr.de>; Fri, 20 May 2022 09:02:06 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-383-VnbF0WZoOzGRGUUiluZ3lQ-1; Fri, 20 May 2022 03:02:11 -0400
-X-MC-Unique: VnbF0WZoOzGRGUUiluZ3lQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-205-SliN_NsAMHC5vPBnyLAYVQ-1; Fri, 20 May 2022 03:02:03 -0400
+X-MC-Unique: SliN_NsAMHC5vPBnyLAYVQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 624D6858284;
-	Fri, 20 May 2022 07:02:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12FCC1C04B54;
+	Fri, 20 May 2022 07:02:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 49BD7492C3B;
-	Fri, 20 May 2022 07:02:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E26040316C;
+	Fri, 20 May 2022 07:01:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 948A9194EB86;
-	Fri, 20 May 2022 07:02:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 464D9194EB8A;
+	Fri, 20 May 2022 07:01:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 18FF81947068
- for <dm-devel@listman.corp.redhat.com>; Wed, 18 May 2022 20:24:48 +0000 (UTC)
+ ESMTP id 64A661947068
+ for <dm-devel@listman.corp.redhat.com>; Wed, 18 May 2022 20:38:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EE8D41121314; Wed, 18 May 2022 20:24:47 +0000 (UTC)
+ id 38826400DFAB; Wed, 18 May 2022 20:38:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E89FB1121315
- for <dm-devel@redhat.com>; Wed, 18 May 2022 20:24:47 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3126540CF8F0
+ for <dm-devel@redhat.com>; Wed, 18 May 2022 20:38:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD165811E75
- for <dm-devel@redhat.com>; Wed, 18 May 2022 20:24:47 +0000 (UTC)
-Received: from NAM11-BN8-obe.outbound.protection.outlook.com
- (mail-bn8nam11on2078.outbound.protection.outlook.com [40.107.236.78]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18B86382ECCF
+ for <dm-devel@redhat.com>; Wed, 18 May 2022 20:38:23 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12on2068.outbound.protection.outlook.com [40.107.244.68]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-592-IRUlQ2pcN0ql5bZ08HJ7bQ-1; Wed, 18 May 2022 16:24:46 -0400
-X-MC-Unique: IRUlQ2pcN0ql5bZ08HJ7bQ-1
+ us-mta-342-cVZlfdzrN4K2ezBNWcEoIA-1; Wed, 18 May 2022 16:38:21 -0400
+X-MC-Unique: cVZlfdzrN4K2ezBNWcEoIA-1
 Received: from SN6PR06MB4495.namprd06.prod.outlook.com (2603:10b6:805:92::24)
- by CO6PR06MB7748.namprd06.prod.outlook.com (2603:10b6:5:354::23) with
- Microsoft SMTP Server (version=TLS1_2,
+ by MWHPR06MB2623.namprd06.prod.outlook.com (2603:10b6:300:47::18)
+ with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.14; Wed, 18 May
- 2022 20:24:44 +0000
+ 2022 20:38:18 +0000
 Received: from SN6PR06MB4495.namprd06.prod.outlook.com
  ([fe80::397c:6fd3:92be:8efe]) by SN6PR06MB4495.namprd06.prod.outlook.com
  ([fe80::397c:6fd3:92be:8efe%3]) with mapi id 15.20.5273.014; Wed, 18 May 2022
- 20:24:44 +0000
+ 20:38:18 +0000
 From: "Schremmer, Steven" <Steve.Schremmer@netapp.com>
 To: Xose Vazquez Perez <xose.vazquez@gmail.com>
-Thread-Topic: [PATCH 4/9] multipath-tools: add NetApp E-Series NVMe to
- hardware table
-Thread-Index: AQHYZ+aiCmhVT7meYkS+M9Uf6jWdcq0lGSig
-Date: Wed, 18 May 2022 20:24:44 +0000
-Message-ID: <SN6PR06MB4495FAEC26D7A272C2DEDA498CD19@SN6PR06MB4495.namprd06.prod.outlook.com>
-References: <20220514230148.139675-1-xose.vazquez@gmail.com>
- <20220514230148.139675-5-xose.vazquez@gmail.com>
-In-Reply-To: <20220514230148.139675-5-xose.vazquez@gmail.com>
+Thread-Topic: [PATCH] multipath-tools: add ETERNUS AB/HB (relabeled NetApp
+ E-Series) NVMe to hardware table
+Thread-Index: AQHYaFzZ1bNkKLzomUKwibwV8VDd6q0lG/tg
+Date: Wed, 18 May 2022 20:38:18 +0000
+Message-ID: <SN6PR06MB449521624D788931B0714B078CD19@SN6PR06MB4495.namprd06.prod.outlook.com>
+References: <20220515130812.189374-1-xose.vazquez@gmail.com>
+In-Reply-To: <20220515130812.189374-1-xose.vazquez@gmail.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
@@ -71,59 +71,59 @@ dlp-product: dlpe-windows
 dlp-version: 11.6.500.17
 dlp-reaction: no-action
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 21dc5d59-6c43-460a-8cef-08da390c7212
-x-ms-traffictypediagnostic: CO6PR06MB7748:EE_
-x-microsoft-antispam-prvs: <CO6PR06MB7748701876B8B3001061DAEB8CD19@CO6PR06MB7748.namprd06.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 1dbc619a-1b5d-49a1-d5b3-08da390e578d
+x-ms-traffictypediagnostic: MWHPR06MB2623:EE_
+x-microsoft-antispam-prvs: <MWHPR06MB2623EA8AFDFECBA44E04F16B8CD19@MWHPR06MB2623.namprd06.prod.outlook.com>
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: cY6L3lslXjQe7VDIX3OEzYCj1j/RtQvXRU8XapbQ42LFZSQvirtjR/kYL941b8yWMGKdboOO8CTr4ndnDksWaUVT9ntw9Dy5g6cO+ETGnp3vlCBjaDQDwzYiebmDQzdpRDguMVcQ6pfJSYxbgJxCVK6aDh2AExlY6TD4rS0UKGpHALWHhz0MbYu9l/bljgMv6/2fYosf4mddDXv0FiIU0haRJMHZGjhi3LJsPDMlXl9EJriljDwp8pNMjh8lhiCeIqjyy31aNoi11pZbgsDdklzXjhwJJU9tFzshbRIiwGe7v5pxrGhorr+8XL6mNngPD+/C93EKqmAVDDjBOGvXUhbSjV6tMxBVKDTZ7BmromSqZU8NgMnKEKDsSUB0gvO6nzcLJy0TSJaejxXOFEpG2tlE9H2eIDw6RJPvfO9mE8oYZyBFl5+3RpaOGtjhj0WtEHsnQgnKDTDh5B/SVLf0Bqu3adFz8KP7BaMhqrC6JTmDTcCPlydfS/XN7F006WRI1wBaYHpS3nu8RQdHgRa78S4R7zV3OGgl+SIwrNDhPTOEiw1HIriyZpFHRKs472r+vyAhTLZoYmqTt4hbfElQiQLp1CiBmIc228C5TASETRe+KnFBYbqUGyhMjh8z0hyOkHEpc0dZb2jTQ9diX2zyUFkIfsqicA6/2GKsNoYZnoIUxIsY4Lt1wvZ5620Gnqx54I4jt3576Wq8euVqRbOBkQ==
+x-microsoft-antispam-message-info: wo/JOxnGgFRFK5STvNtDScgk5Wnp3GkNLlViLQ84DK2CYd2NjBWjcjvKfbee7W8z49jReXgyTLlLvnf2SvXbHyHET90aftWjfwQMf6Uw9j//7RBro/9+Qh1CCZDT/T3+bHTWuYN+mygxQd53YVMe2ZPW0wse+dWfMs37/Qbihwv5UIb9ZshIQ7PjZ6megVPgkm6UxDvhbWGsvYDQdz/Lj+9areMeNCzjgZ3t0EbaV+X6y69mmloyccrQfiq5/LvqL4tWkMNdgPuorhZXVP4i4iwZK2YepeIYZpDlccb8Jd1GeGw9lHRsh7gQDh31+d1Os0gwPnNTGfwq2+cniJOwjTXQW9dMixJWJ+QwEYPXH97w17SZVy4aLfn+H+0VMcm22q/fpbEt3H3+MYsORyNxY2tiKEMMXYeq9cKVUnNQqoSDMIfx3zgttjlE+LJnZ13uamTjx785AWnJwsuhlsYtF8MWlE1DAUbqmYttMZ1UsrOcIyuiWcol9WgHJlm0tu77sCeAXzAfVAcaNWZy30sgqcx+XeYzRcIhLRj/QSi6ZTGO67JS3dbvrOupFDAXPyOo29+OlqKKDepelBi5AJVYa63ejgpXpKZN3IoiYymljDP9XWd0EY5AyXw7X4+9ydnH9GeWV87pi7QsLPMbkMiUzp9H6vn5oZfUvrpJgNH4Gp0dUwmGCq0hQ9jvFsWKZ5oS1Myj62SlINgQVQJLic3Tfe5d4Sp9QuugiA2WpOcSxocSjCgiWg6Y3esjoabPxJxXgv/55lDVvc6uKmJ5SKas1f4zakfCu7MtCZQGUqXkcVI=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:SN6PR06MB4495.namprd06.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(4636009)(366004)(6916009)(9686003)(54906003)(26005)(4744005)(86362001)(6506007)(316002)(186003)(52536014)(38100700002)(2906002)(76116006)(8676002)(64756008)(66556008)(66476007)(7696005)(8936002)(33656002)(38070700005)(122000001)(5660300002)(66446008)(4326008)(66946007)(71200400001)(55016003)(508600001);
+ SFS:(13230001)(4636009)(366004)(508600001)(66446008)(64756008)(316002)(2906002)(33656002)(55016003)(966005)(54906003)(6916009)(38100700002)(38070700005)(66946007)(66556008)(7696005)(8676002)(86362001)(122000001)(4326008)(66476007)(4744005)(26005)(71200400001)(9686003)(5660300002)(186003)(8936002)(52536014)(76116006)(6506007);
  DIR:OUT; SFP:1101
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?G5mIpTKDIz7lZ4kEc1m4WgegJhHtZJpMzpdl6NPvVneTW5mQPXUbbmXmLyv8?=
- =?us-ascii?Q?bGPonJlcrx2SzOAQzpk4pYrb/vtFe45i/KU0sJm32LTigTw3QWFF0wGC63hN?=
- =?us-ascii?Q?sKy2IPEu/t/w1qsjt6WBPf5ITGYWozy2lzaK1MwBvEsIlTqRym/u/WBsotxP?=
- =?us-ascii?Q?83o+8ectBW5wpnQjnqMXD8RJMjNb/0jl7jLq+KGYHaNKTxSeKUmlK4Db00y4?=
- =?us-ascii?Q?EHV+lOUV7vksu4PNmRvuYaTFdfbKxh3fdwhqPBARJz/ynjT5Gq98vVjCrwz6?=
- =?us-ascii?Q?z0TXEI6YZ95d3LsLLrOFU3QKhXCDgFjcRcl51/WfJUz6WW6UqT0UM3BQF8y1?=
- =?us-ascii?Q?QNGvB8tOUvuPGnVl4ikP/IEoDAHvTdzgSdhJvLS9ot24e7cMUc0FJwSSfYqB?=
- =?us-ascii?Q?t/wB5Mzy2KaLEmZEHm/iezdSlfa/yl5ytRYxf5c5WpcqsMvlL9CSZ69kBt0W?=
- =?us-ascii?Q?xQ1S0lmP3Ti7ayb5gz6jCr77W344kQAYIwELlVYegngOgr/8G5bLpMcwAnlR?=
- =?us-ascii?Q?N1ewYeposuiY+46x3q7niCjOVAR/+FRDyPJngYaYUQX+kGP98iswU4X8u90k?=
- =?us-ascii?Q?UwK7nZXAzojdA+mb7ntWhBk5ekgYwkFmkjVKUHpHMK9U18AQBDmy5gHTMFiq?=
- =?us-ascii?Q?p21j4XEDZ+o2u/rHRAKNrIhJ6EHsTkSDSzaIR7/PpR27VnXdFEe1dU64q/cd?=
- =?us-ascii?Q?gdXxQc4ZrEhpwdbQXzM2JdvRweoysY5SqjCTt1ty8rbAgBY6CdLcuyzdHoQV?=
- =?us-ascii?Q?rhwr2y02Nop72rVTYjZzhAkUl+/o1+kSehRclbtqcNqfu5qPPBvhyf7ZMRTe?=
- =?us-ascii?Q?u4IqIcU/TRAWgc9GK6punfUCXHjVAQEmTeiQz3GvYIP3uhbO56kQEBsU12VT?=
- =?us-ascii?Q?sd1Cc+vgwjoZxlOKiqyAbTK7HG9vacvsv/Ln3CB1cWtwWqs+jTXMbPqdaX6o?=
- =?us-ascii?Q?2mLTXfy4ivHW754ARIhWPwWDBvvfooGpSNnOA+MebnwbaB38GrqoQn2MN3K+?=
- =?us-ascii?Q?H2SbnI/UsSVDO65juQlrIPTWdnZ6yXNdV97IB1ZsKHe1XJw+WzMA1lPStSmP?=
- =?us-ascii?Q?31OXtnLzj6AHb67E0+lgaSuLw5MKLFCOYovgvFOE8E6sfsUQAH2FaXfygO/J?=
- =?us-ascii?Q?kFDvs/8z+werUZ51zO3ohkANSX8PSWcJNDhiCkLOVdOl9d2rtzlJV0WwTnnp?=
- =?us-ascii?Q?AK7z243avO03HYCfmBr4m1zDSg4dFPv3HXH9UCp6aKrQaBws+rOwBlOQbFFw?=
- =?us-ascii?Q?pFI5NnB+xEA9Wxbz4ivGkRc1x9ejCz39EJpCtIcrfIyw4+/EWhcKuLv65sBB?=
- =?us-ascii?Q?P88AncTkU9tot4sCJecUo8IvzJUB9IJFwlFYxx7tPnnT3OCKwlX6MvxmFQrA?=
- =?us-ascii?Q?4FWgsbK/bA+zSns1qBs05bJmz0TFkoRwJPuBuwd/v8iaYmfwxhJbIZPmNg/X?=
- =?us-ascii?Q?M0mn2hnSHBAe4ysfC0tjefRvoyh+ZAV9JWN75lgv3plXAoymrXOK5gRK6Xt6?=
- =?us-ascii?Q?fPpGnbKusoXHMI0OXLnYX0QmuSv0nEKPh22Grjuj5lMfQcresRLNewh1NHbR?=
- =?us-ascii?Q?ImZ3fzJBjs2gWgTN7ZdOz0/tG/DxXTmj6/RoB1aBeZtcPqG3xH3r+SsdkwRJ?=
- =?us-ascii?Q?AkWsgWf5Shu0xVtlthbZ2P74WNtuHcPbEf+HY0sjycI07WjXEU4iB7vPOLbg?=
- =?us-ascii?Q?LjljvSep/UPBc/eXe+ZwazsjA1iDqhO2i/+GuneyZLigrQ+VDB3fmIx/SZ8A?=
- =?us-ascii?Q?rszkmo/LgQ=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?A0JBott/PPnD+oqg9f5QCPJcMAm7zcTITmb2wzlEMKXtT2icKQRGXQE6xzmO?=
+ =?us-ascii?Q?kmTsSvMbs/yO/UHryYs0pGDAsQeLujK+5B8KWxQWgwxljeJppZXMDxDZADfx?=
+ =?us-ascii?Q?+Z3DPRAESskUamtmNgEysHSZgLRQktOlvQmpwpGUOUAXrQnzCLz/FVLIJoQH?=
+ =?us-ascii?Q?VrYZSlnERISW3CM7ZMlQEBy/4Umt0U9wXDvk+4QuqYLSqSjf7dsTIY2voW5M?=
+ =?us-ascii?Q?9yhDRUf4RCad5+0TF+Gz2tnP1X1pS/2bDe8aBfHrbLrbK6o4BmJBh/0S8Chv?=
+ =?us-ascii?Q?nE+HurAQzeYxRLroeIhGXrUwwdipsCPdy1SU3Pxku2rds4Nf1Afs7WAAnXUN?=
+ =?us-ascii?Q?0vo0HF9d6bIqGS3llPrcXJxJIh6jZ9PdpaEf2eWmvajaQNWd5qgxDHk6OrUV?=
+ =?us-ascii?Q?cIB3MmzA93Ra1i6WlDUypppbAw5OzmYkCSzZVWy6xlBtOq1Tyg94Ul+sR/Ep?=
+ =?us-ascii?Q?+oYvIOMXBBdBiAZvmo46dh/iZM/wzk5F/JbgF5JEJL9i/NVpL6VnoILijvgr?=
+ =?us-ascii?Q?Cs9qlsGGQ4938QZDUyJFnPnF6OYihMp9Q7pMmLnmsyy+KluNNJ242x+rLfzz?=
+ =?us-ascii?Q?oSQg2XpfFz4fhOgERIen0JKIrB7qMZZU5C2vcxAlzvqRV5Eyjq45QQTpu1+B?=
+ =?us-ascii?Q?roLqgk9at53xDjpWmN2s4vOQfLJ09UOqEUr2GZlnlGrRzhqke4J3LaE3PuVD?=
+ =?us-ascii?Q?vcASTtAh+dUrDMtq5Jh+fv1lhla8Ysio8BjoTQWm1sj9UxgB/ZjJFQbzZKUz?=
+ =?us-ascii?Q?OGQDgTlqdgmDPq3mg6kc8ND8N98sfC9sl4tTbG4gN44kwyzcY5nBy+kfAtJa?=
+ =?us-ascii?Q?ZP6YCO1wdF9CLhk+IJUgB0HQ0cJhqj1QRFdfRIXL4ZI8gPTcI0qS4rieu0PS?=
+ =?us-ascii?Q?G824P+EiYvPZxgzcBk40Rhf6uPXIRz4t+H2rwLLWgpPVzfT0XVM9/ZsRt/+c?=
+ =?us-ascii?Q?N7hEZ672SdM0wD7t5tiNuapU8Y+2TzBV1UUi+mSiajCMiPFqdVfPvKkEoedh?=
+ =?us-ascii?Q?6GTJuAoDn4uyrfMoirprSy81kwY5mQKioSk1mrYGI1npbYEq5cTO4K3SuIP+?=
+ =?us-ascii?Q?Ge573dlM3vCCj95Q3plJYLoJOtV+TnrIdjDNMqRdU2v54wnwn3FP9FZWibSo?=
+ =?us-ascii?Q?nw+8WeZQCjFbMGjfb/J2/cTa0GgjrOeHjzS0ZMXUmMitLgVHEK3BqL3Wid4R?=
+ =?us-ascii?Q?9seu+9BHXIwWtZiIdVsgMQnItlyX1MGA7j8DIdS6wZdAGhCAqBQYV/++pt8r?=
+ =?us-ascii?Q?ku/NIeTrlIMei1YZsNl/PTxGjiA4Zh1bbIl0OGDlcXFARQ4Kg2bOrKPXi92S?=
+ =?us-ascii?Q?IPjQUEXIi6W+2h+iOrhqDukkiHB2vEI+e2uJrImrOr1JfAgKEoPJlISO4HT0?=
+ =?us-ascii?Q?ME3IpmQhWOT0cTP3dVLxjiB8SKrh8ozr/+jNK7NJxsJnCNF5Fsr5cnIPSGTM?=
+ =?us-ascii?Q?N+2LfuM8iCnvLQp3k7nYF6UARNViWaMRVnLKX6rPPq4LDh1rYzESYJ9vN/OC?=
+ =?us-ascii?Q?X9SglEii9z84N3zyaUYpvwxaXFwW6kk2Q1k4MkvYrSsKWL5n9JP/dvH/mU6x?=
+ =?us-ascii?Q?nQem6n/wRBjKnt5dZik3mJV6zLbEx0FnWI3o5K+dnglyeiy3+uXmV/zCh+B5?=
+ =?us-ascii?Q?LMjPBbf4SVwwOVx2v0nro4VwIrJgC+q54IbWfMblp/ePAjkXM0ROOjLijTCy?=
+ =?us-ascii?Q?wDqf8nNLqWYvuzh1fxo+pNj86NZaGxdiVI3ZmVXeaH6OK75rCZ858ym2KRRv?=
+ =?us-ascii?Q?PZP3l5eKXw=3D=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: netapp.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: SN6PR06MB4495.namprd06.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 21dc5d59-6c43-460a-8cef-08da390c7212
-X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2022 20:24:44.2399 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 1dbc619a-1b5d-49a1-d5b3-08da390e578d
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 May 2022 20:38:18.7272 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: 4b0911a0-929b-4715-944b-c03745165b3a
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: Y6ILr14iMTr5gODm7QvZsJibEePrlUQzNSbVW+p9/hIfGQnNDUFVc/3h0ydBlEFQzal++UEnELZQ9480wCCCVg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CO6PR06MB7748
+X-MS-Exchange-CrossTenant-userprincipalname: rMNTGKeF5Gny4TH2La5WKhMzonP97zwoQcZuNzI2xaquQziOeJJtxHtxsfAHbeydEwUEqDW96OOhIRft+Qaf3w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MWHPR06MB2623
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -131,10 +131,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mailman-Approved-At: Fri, 20 May 2022 07:01:49 +0000
-Subject: Re: [dm-devel] [PATCH 4/9] multipath-tools: add NetApp E-Series
- NVMe to hardware table
+Subject: Re: [dm-devel] [PATCH] multipath-tools: add ETERNUS AB/HB
+ (relabeled NetApp E-Series) NVMe to hardware table
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -152,7 +152,7 @@ Cc: ng-eseries-upstream-maintainers
  Christophe Varoqui <christophe.varoqui@opensvc.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -162,6 +162,9 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 > From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+> Info from (page 88):
+> https://sp.ts.fujitsu.com/dmsp/Publications/public/a3ca08733-a105-EN.pdf
+> 
 > Cc: NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>
 > Cc: Martin Wilck <mwilck@suse.com>
 > Cc: Benjamin Marzinski <bmarzins@redhat.com>
@@ -173,29 +176,29 @@ Content-Transfer-Encoding: 7bit
 >  1 file changed, 9 insertions(+)
 > 
 > diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-> index 814e727a..61a5aa16 100644
+> index 47ea5d3d..39daadc2 100644
 > --- a/libmultipath/hwtable.c
 > +++ b/libmultipath/hwtable.c
-> @@ -845,6 +845,15 @@ static struct hwentry default_hw[] = {
->                 .pgpolicy      = MULTIBUS,
->                 .no_path_retry = NO_PATH_RETRY_QUEUE,
+> @@ -477,6 +477,15 @@ static struct hwentry default_hw[] = {
+>                 .pgfailback    = -FAILBACK_IMMEDIATE,
+>                 .no_path_retry = 30,
 >         },
 > +       {
-> +               /* E-Series NVMe */
+> +               /* ETERNUS AB/HB NVMe */
 > +               .vendor        = "NVME",
-> +               .product       = "NetApp E-Series",
+> +               .product       = "Fujitsu ETERNUS AB/HB Series",
 > +               .pgpolicy      = GROUP_BY_PRIO,
 > +               .prio_name     = PRIO_ANA,
 > +               .pgfailback    = -FAILBACK_IMMEDIATE,
 > +               .no_path_retry = 30,
 > +       },
 >         /*
->          * NEC
->          */
+>          * Hitachi Vantara
+>          *
 > --
 > 2.36.1
 
-Nak. NetApp E-Series only supports these settings in certain configurations, and we prefer to handle it via our installation documentation.
+Nak. These settings are only supported in certain configurations.
 
 Thanks,
 Steve
