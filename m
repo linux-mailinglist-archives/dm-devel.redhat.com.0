@@ -1,55 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C1F2F52B3B3
-	for <lists+dm-devel@lfdr.de>; Wed, 18 May 2022 09:41:39 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1652859698;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=+FVbKjD3jycvtQ2eq9NPuSByaQcTyiRWz3Q1k9q22dE=;
-	b=FCjYcxr4n0OFZWH0pfulGR4o48X9AWF0OgVnQavZAMUpH2J+vFFoiO59liIK27UGzcqD0m
-	EIniy68z9lYbLMA0ZgN8ETiYBiyZLEj7AOBM1FHQfw4jmYgJPJviKu2PXjHdmUrsJcjQuN
-	7Vtr/UQ7JuS2YFc12Lm18UFGJdmskzg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9C6152B2C1
+	for <lists+dm-devel@lfdr.de>; Wed, 18 May 2022 08:54:15 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-411-adFg39vmNcKB4_9VV5p_CA-1; Wed, 18 May 2022 03:41:35 -0400
-X-MC-Unique: adFg39vmNcKB4_9VV5p_CA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-556-BmnSs5enPE2IqALAbv955A-1; Wed, 18 May 2022 02:54:11 -0400
+X-MC-Unique: BmnSs5enPE2IqALAbv955A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B5CC82A682;
-	Wed, 18 May 2022 07:41:33 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DC7F440D2826;
-	Wed, 18 May 2022 07:41:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52C55382ECD0;
+	Wed, 18 May 2022 06:54:09 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D49A440CF8EE;
+	Wed, 18 May 2022 06:54:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E85F519259E7;
-	Wed, 18 May 2022 07:41:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A77AB194F4BF;
+	Wed, 18 May 2022 06:54:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5D1201947B84
- for <dm-devel@listman.corp.redhat.com>; Wed, 18 May 2022 06:30:42 +0000 (UTC)
+ ESMTP id 5DDD31947B84
+ for <dm-devel@listman.corp.redhat.com>; Wed, 18 May 2022 06:54:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 45D13492CA6; Wed, 18 May 2022 06:30:42 +0000 (UTC)
+ id 3A5CB40CF8F6; Wed, 18 May 2022 06:54:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from localhost (unknown [10.39.192.212])
- by smtp.corp.redhat.com (Postfix) with ESMTP id D72E6492C3B;
- Wed, 18 May 2022 06:30:41 +0000 (UTC)
-Date: Wed, 18 May 2022 07:30:40 +0100
-From: Stefan Hajnoczi <stefanha@redhat.com>
-To: Kirill Tkhai <kirill.tkhai@openvz.org>
-Message-ID: <YoSSkOQaGL0sBNOI@stefanha-x1.localdomain>
+Received: from mimecast-mx02.redhat.com
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3591840CF8EE
+ for <dm-devel@redhat.com>; Wed, 18 May 2022 06:54:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D4D9185A79C
+ for <dm-devel@redhat.com>; Wed, 18 May 2022 06:54:00 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-221-ZFKVbH85Pom6uZf5YnU9ig-1; Wed, 18 May 2022 02:53:58 -0400
+X-MC-Unique: ZFKVbH85Pom6uZf5YnU9ig-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 2819921B9B;
+ Wed, 18 May 2022 06:53:57 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C215E13A6D;
+ Wed, 18 May 2022 06:53:56 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id g60kLQSYhGKXPwAAMHmgww
+ (envelope-from <mwilck@suse.com>); Wed, 18 May 2022 06:53:56 +0000
+Message-ID: <60c1def627811b09f81d1d9a7fafd861144ffb81.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+Date: Wed, 18 May 2022 08:53:56 +0200
+In-Reply-To: <20220514230431.139763-1-xose.vazquez@gmail.com>
+References: <20220514230431.139763-1-xose.vazquez@gmail.com>
+User-Agent: Evolution 3.44.1
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-X-Mailman-Approved-At: Wed, 18 May 2022 07:41:18 +0000
-Subject: [dm-devel] Attaching qcow2 images to containers
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH 0/9] add new devices to hw table
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -61,101 +88,63 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Kevin Wolf <kwolf@redhat.com>, linux-kernel@vger.kernel.org,
- dm-devel@redhat.com, qemu-devel@nongnu.org,
- Xie Yongji <xieyongji@bytedance.com>, hreitz@redhat.com, sgarzare@redhat.com
-Content-Type: multipart/mixed; boundary="===============8837637723414676949=="
+Cc: Zou Ming <zouming.zouming@huawei.com>,
+ Uday Shankar <ushankar@purestorage.com>,
+ NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>,
+ DM-DEVEL ML <dm-devel@redhat.com>, Brian Bunker <brian@purestorage.com>,
+ Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Zhouweigang <zhouweigang09@huawei.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Authentication-Results: relay.mimecast.com;
+	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
+On Sun, 2022-05-15 at 01:04 +0200, Xose Vazquez Perez wrote:
+> Xose Vazquez Perez (9):
+> =A0 multipath-tools: fix misspellings
+> =A0 multipath-tools: add HPE Alletra 9000 NVMe to hardware table
+> =A0 multipath-tools: delete redundant ONTAP NVMe comment
+> =A0 multipath-tools: add NetApp E-Series NVMe to hardware table
+> =A0 multipath-tools: add Huawei OceanStor NVMe to hardware table
+> =A0 multipath-tools: add IBM FlashSystem(TMS RamSan) NVMe to hardware
+> table
+> =A0 multipath-tools: add IBM FlashSystem(Storwize/SVC) NVMe to hardware
+> table
+> =A0 multipath-tools: add Pure FlashArray NVMe to hardware table
+> =A0 multipath-tools: add Dell EMC PowerStore NVMe to hardware table
+>=20
+> =A0README.md=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0 |=A0 2 +-
+> =A0libmultipath/checkers/rdac.c=A0=A0=A0 |=A0 2 +-
+> =A0libmultipath/hwtable.c=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 60 +++++++++++++++=
++++++++++++++++-
+> --
+> =A0libmultipath/prioritizers/iet.c |=A0 2 +-
+> =A0multipath/multipath.conf.5=A0=A0=A0=A0=A0 |=A0 2 +-
+> =A0tests/directio.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 |=A0 2 +=
+-
+> =A06 files changed, 60 insertions(+), 10 deletions(-)
+>=20
+> Cc: NetApp RDAC team <ng-eseries-upstream-maintainers@netapp.com>
+> Cc: Uday Shankar <ushankar@purestorage.com>
+> Cc: Brian Bunker <brian@purestorage.com>
+> Cc: Zhouweigang (Jack) <zhouweigang09@huawei.com>
+> Cc: Zou Ming <zouming.zouming@huawei.com>
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
 
---===============8837637723414676949==
-Content-Type: multipart/signed; micalg=pgp-sha256;
-	protocol="application/pgp-signature"; boundary="VxVmuJGtHcUMbdkL"
-Content-Disposition: inline
-
-
---VxVmuJGtHcUMbdkL
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-
-Hi Kirill,
-I saw your "[PATCH 0/4] dm: Introduce dm-qcow2 driver to attach QCOW2
-files as block device" patch series:
-https://lore.kernel.org/linux-kernel/YkME5ZS2CpXuNmN6@infradead.org/T/
-
-There has been recent work in vDPA (VIRTIO Data Path Acceleration) to
-achieve similar functionality. The qemu-storage-daemon VDUSE export
-attaches a virtio-blk device to the host kernel and QEMU's qcow2
-implementation can be used:
-https://patchew.org/QEMU/20220504074051.90-1-xieyongji@bytedance.com/
-
-A container can then access this virtio-blk device (/dev/vda). Note that
-the virtio-blk device is implemented in software using vDPA/VDUSE, there
-is no virtio-pci device.
-
-As a quick comparison with a dm-qcow2 target, this approach keeps the
-qcow2 code in QEMU userspace and can take advantage of QEMU block layer
-features (storage migration/mirroring/backup, snapshots, etc). On the
-other hand, it's likely to be more heavyweight because bounce buffers
-are required in VDUSE for security reasons, there is a separate
-userspace process involved, and there's the virtio_blk.ko driver and an
-emulated virtio-blk device involved.
-
-Another similar feature that was recently added to QEMU is the
-qemu-storage-daemon FUSE export:
-
-  $ qemu-storage-daemon \
-        --blockdev file,filename=test.img,node-name=drive0 \
-	--export fuse,node-name=drive0,id=fuse0,mountpoint=/tmp/foo
-  $ ls -alF /tmp/foo
-  -r--------. 1 me me 10737418240 May 18 07:22 /tmp/foo
-
-This exports a disk image as a file via FUSE. Programs can access it
-like a regular file and qemu-storage-daemon will do the qcow2 I/O on the
-underlying file.
-
-I wanted to mention these options for exposing qcow2 disk images to
-processes/containers on the host. Depending on your use cases they might
-be interesting. Performance comparisons against VDUSE and FUSE exports
-would be interesting since these new approaches seem to be replacing
-qemu-nbd.
-
-Can you share more about your use cases for the dm-qcow2 target? It
-could be useful for everyone I've CCed to be aware of various efforts in
-this area.
-
-Thanks,
-Stefan
-
---VxVmuJGtHcUMbdkL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCAAdFiEEhpWov9P5fNqsNXdanKSrs4Grc8gFAmKEkpAACgkQnKSrs4Gr
-c8hBOggAjwLYdNLqHIo1rQgUfb93kau+ER5YddjUvSxG65CLZGYWeB86JOUfT+rR
-hVi2bBGX1OkL1a66tWLK2Tcbakc6XfQXQ6JCbzJUoKCTI9gIA9i3ztjqrQEzoagn
-liMWkk89XmdrLE8gsA7MOKHdFELKRiFds8JKU0Pny/VDJkOlYO/6gcqCw5fcXkrv
-58PTohwKlOgOVdQ1wzlkFGRtTPtc5/JeFzJOIUs4i+GnqtjubKl4VfbjRiAoqTEj
-uOO5gsJ9mdTHyWd1lugxiSqttqVVZZb6VEQvsnZUwFUoNkB/KHoILTcMWd9GWRn0
-HNO2R2xD/zhG2j+x7dw6n7RBczgUdw==
-=Wa4Q
------END PGP SIGNATURE-----
-
---VxVmuJGtHcUMbdkL--
-
---===============8837637723414676949==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+For the set:=A0
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============8837637723414676949==--
 
