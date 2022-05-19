@@ -2,131 +2,130 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E019C52E59A
-	for <lists+dm-devel@lfdr.de>; Fri, 20 May 2022 09:02:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0835A52E59C
+	for <lists+dm-devel@lfdr.de>; Fri, 20 May 2022 09:02:13 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-75-izPxHJhnOVuRB5skBfp2OA-1; Fri, 20 May 2022 03:02:03 -0400
-X-MC-Unique: izPxHJhnOVuRB5skBfp2OA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-487-wx0DcZKbPn6ItA9cjNGjew-1; Fri, 20 May 2022 03:02:09 -0400
+X-MC-Unique: wx0DcZKbPn6ItA9cjNGjew-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12129811E78;
-	Fri, 20 May 2022 07:02:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9DB5785A5BC;
+	Fri, 20 May 2022 07:02:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 392321410DD5;
-	Fri, 20 May 2022 07:01:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 851902166B26;
+	Fri, 20 May 2022 07:02:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC6B9194705A;
-	Fri, 20 May 2022 07:01:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 091A3194EB84;
+	Fri, 20 May 2022 07:02:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7B125194704A
- for <dm-devel@listman.corp.redhat.com>; Thu, 19 May 2022 04:14:37 +0000 (UTC)
+ ESMTP id 986B71947B8F
+ for <dm-devel@listman.corp.redhat.com>; Thu, 19 May 2022 08:00:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 64E871121319; Thu, 19 May 2022 04:14:37 +0000 (UTC)
+ id 785131121319; Thu, 19 May 2022 08:00:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F0631121314
- for <dm-devel@redhat.com>; Thu, 19 May 2022 04:14:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 733F41121314
+ for <dm-devel@redhat.com>; Thu, 19 May 2022 08:00:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FB8F3C01B82
- for <dm-devel@redhat.com>; Thu, 19 May 2022 04:14:37 +0000 (UTC)
-Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 540C4801210
+ for <dm-devel@redhat.com>; Thu, 19 May 2022 08:00:35 +0000 (UTC)
+Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-100-yroXFd1sO-6E6P3Bg-V4DQ-1; Thu, 19 May 2022 00:14:35 -0400
-X-MC-Unique: yroXFd1sO-6E6P3Bg-V4DQ-1
-X-IronPort-AV: E=Sophos;i="5.91,236,1647273600"; d="scan'208";a="205617609"
-Received: from mail-dm6nam11lp2176.outbound.protection.outlook.com (HELO
- NAM11-DM6-obe.outbound.protection.outlook.com) ([104.47.57.176])
- by ob1.hgst.iphmx.com with ESMTP; 19 May 2022 12:13:28 +0800
-Received: from DM8PR04MB7765.namprd04.prod.outlook.com (2603:10b6:8:36::14) by
- DM6PR04MB6699.namprd04.prod.outlook.com (2603:10b6:5:241::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5250.14; Thu, 19 May 2022 04:13:29 +0000
-Received: from DM8PR04MB7765.namprd04.prod.outlook.com
- ([fe80::f9ca:774a:df15:c95b]) by DM8PR04MB7765.namprd04.prod.outlook.com
- ([fe80::f9ca:774a:df15:c95b%4]) with mapi id 15.20.5250.018; Thu, 19 May 2022
- 04:13:29 +0000
+ us-mta-612-3us442dQPvSbGJ39egdJAw-1; Thu, 19 May 2022 04:00:33 -0400
+X-MC-Unique: 3us442dQPvSbGJ39egdJAw-1
+X-IronPort-AV: E=Sophos;i="5.91,237,1647273600"; d="scan'208";a="312747531"
+Received: from mail-dm6nam10lp2109.outbound.protection.outlook.com (HELO
+ NAM10-DM6-obe.outbound.protection.outlook.com) ([104.47.58.109])
+ by ob1.hgst.iphmx.com with ESMTP; 19 May 2022 15:59:29 +0800
+Received: from SJ0PR04MB7776.namprd04.prod.outlook.com (2603:10b6:a03:300::11)
+ by CY4PR04MB0185.namprd04.prod.outlook.com (2603:10b6:903:39::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5273.13; Thu, 19 May
+ 2022 07:59:28 +0000
+Received: from SJ0PR04MB7776.namprd04.prod.outlook.com
+ ([fe80::65d0:a39a:4bca:3eb5]) by SJ0PR04MB7776.namprd04.prod.outlook.com
+ ([fe80::65d0:a39a:4bca:3eb5%6]) with mapi id 15.20.5273.016; Thu, 19 May 2022
+ 07:59:28 +0000
 From: Naohiro Aota <Naohiro.Aota@wdc.com>
 To: Pankaj Raghav <p.raghav@samsung.com>
-Thread-Topic: [PATCH v4 07/13] btrfs: zoned: use generic btrfs zone helpers to
- support npo2 zoned devices
-Thread-Index: AQHYaUWsYuDhrEl/OEabFy4UgQ7IPq0lmwkA
-Date: Thu, 19 May 2022 04:13:29 +0000
-Message-ID: <20220519041328.rcfd2jk6pslwvyfm@naota-xeon>
+Thread-Topic: [PATCH v4 08/13] btrfs:zoned: make sb for npo2 zone devices
+ align with sb log offsets
+Thread-Index: AQHYaUWuK9pdWulqgUKkXVqwDmJuba0l2iwA
+Date: Thu, 19 May 2022 07:59:27 +0000
+Message-ID: <20220519075926.6h4ka3qbo3vv26ve@naota-xeon>
 References: <20220516165416.171196-1-p.raghav@samsung.com>
- <CGME20220516165428eucas1p1374b5f9592db3ca6a6551aff975537ce@eucas1p1.samsung.com>
- <20220516165416.171196-8-p.raghav@samsung.com>
-In-Reply-To: <20220516165416.171196-8-p.raghav@samsung.com>
+ <CGME20220516165429eucas1p272c8b4325a488675f08f2d7016aa6230@eucas1p2.samsung.com>
+ <20220516165416.171196-9-p.raghav@samsung.com>
+In-Reply-To: <20220516165416.171196-9-p.raghav@samsung.com>
 Accept-Language: ja-JP, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: 5eacd7ba-6c1c-438a-ff09-08da394dedf2
-x-ms-traffictypediagnostic: DM6PR04MB6699:EE_
-x-microsoft-antispam-prvs: <DM6PR04MB6699792867014CCA50272A2E8CD09@DM6PR04MB6699.namprd04.prod.outlook.com>
+x-ms-office365-filtering-correlation-id: 9c1be9c4-5f5a-46ca-3042-08da396d7f96
+x-ms-traffictypediagnostic: CY4PR04MB0185:EE_
+x-microsoft-antispam-prvs: <CY4PR04MB0185D8F46F90B48A3E3ADE168CD09@CY4PR04MB0185.namprd04.prod.outlook.com>
 wdcipoutbound: EOP-TRUE
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: ac3bO6xAvwRXALm6j+HksnDQxdrxxiyPnOi+nTqxj4XFL4wHa6Y4Fr5BLUhVkiA804m07ZJwVHoBXjUg4RAaHGrHL53sR7sVwMhAPCkCGw0dDZoFNn43ZKD1v2W5QYpeyTh9eBZSvHtXo2T5HgTsh0fQuZHy3bowLycHeknDoO7QVxWkK7XBezqJ/xlubrplJKS1Nuv5X/ycJfFN/thWMT7NKM8RQ6cVgA3hYw3Sey7PErjB3b2jq7+aUALQut5IMwO/4zFs5UBD8fLZFTm8DFdwPa2ruJWirdw/90jyarSSOudmaDkIXzNMEUHCh6jbuMHHQC5tPJx4PAXnqM8wmctNb7akByS86gLaBlQnmGHSv3t2Q0d7S+rADCH5LDEcoBBa7/bRHAreZ2n+YyTVyhjH5LAmrX1TwoRxBPvtLBU/tQ+sEAM52YxpuDxlRUgWJWy8rYJCKFzIbK6BTr1OD4HrdoW5fQs3AsaIN5rOwlMTXghkb0O0T2mUGDxkKvbId5wzUGZIUOYA2bi/nKe9jMAKZA6PEzuqJjwtEJ3sEiZsqJ8aAPxOz/SqkwRPRLnPg1/V67Mu8hlWitU2CemB/wFyCOjs4T4arf1T4qt1UajiOIbLYCMLV+S99LjyDbElPyIMgihUo80XvUySu7FUn8vpDR+CXV8v7gWZXWRHn+DQ5P4gd628bsjgmnK8eDoieWZRpYq/dOEZMv132CutLQ0+hcFDnZX8TLUdcdl9fsw=
+x-microsoft-antispam-message-info: jPTtZvGaDzov0qmE/4snG3XCS2e5fV1ofS7DXxoeI6+0AwitSamPDucpBmvPaYHDt6s+qfd0jS4rL0ikasJn/fiTej9eKA3cFglKUSjmybLA4uV6WR6mHerY8cRmUJDLi4LMtnpSzyRL5I8dmdf89A2T3fH0/II4s9Hn0xmnhA6KhJX4Do9S00v59UBw24o8zR+9W7d2IkOJ1+ztNGd1HKpopVJAjbMhyFsHwBnj4NTlPcPH9ZXu7IOW1q8kwK9rqI1fxDzDTV/IY3II9jGL1KQvCD5G0WRtNJoosjhSH+Ms4ozp+6dPBp676hJX9NY7LrRxL3hEo9/FjAgh91OnH4EQZ0PykgQHPJ3wuzzvPtVBXmxDVHMn0j0vBVwNZJGSE2B7Y/I0yZ5FZtciyUnLv7uYJYApwifbl5vVzdXTnYA6UHZSEBsy7Xl4SYmFPXRCEt8FFPcdq+B39x3OHWh5OQUy3KGxBiLsaAYhsQGYoLV9v0XTVEn6kS2FGv/NoYq6YGniCtsjillU6vRKHGzWpO6KvUVLPleDkDJ2pUUh7D4KPJwKj2RnWeObxFpVLXbY7Cf4oqku/0f93Be+nRqccGUMPDGhunFThTrjgFaFaws86JRO/9bO0llDp24T1YbkKLZlx0P/PymOTvJOn+/LvshOaodManM1720lM849sPt7QUTHlLTwEwvYjRi+eOYeS8BFfxy17X9ny9+exMrzhQ==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR04MB7765.namprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(7916004)(4636009)(366004)(8676002)(38100700002)(4326008)(6512007)(38070700005)(9686003)(26005)(33716001)(186003)(76116006)(66556008)(66946007)(66446008)(66476007)(64756008)(91956017)(1076003)(83380400001)(8936002)(508600001)(6486002)(6506007)(86362001)(82960400001)(71200400001)(7416002)(316002)(5660300002)(122000001)(54906003)(2906002)(6916009)(41533002);
+ IPV:NLI; SFV:NSPM; H:SJ0PR04MB7776.namprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230001)(7916004)(4636009)(366004)(2906002)(6486002)(316002)(8676002)(83380400001)(66556008)(4326008)(66476007)(38100700002)(82960400001)(71200400001)(6506007)(33716001)(91956017)(7416002)(76116006)(66446008)(66946007)(122000001)(508600001)(1076003)(186003)(6916009)(64756008)(26005)(6512007)(5660300002)(86362001)(38070700005)(54906003)(8936002)(9686003);
  DIR:OUT; SFP:1102
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?2kY03wkwYbIrQsmWF+X4p6cYZANYjyUYtGg2j1EAeDZDGON/Pv1jUtp7lEFg?=
- =?us-ascii?Q?mkIZ1x+VkJ1t5uQsi90wGvd4BoqLKJBE0CBEHg9l3HAG+Os7RbLcVzsTEQaB?=
- =?us-ascii?Q?UbGFrTfoMMflbV1ULfXR3pYQ4n6Zkzl7M/HvQyzvUffEO5RI95H6dKuJg5+7?=
- =?us-ascii?Q?vXCr/3IhyjbiP80jJG0eefSZfaQfG/RIiOkaJTCZEzWexH6QYKXz1m5m2bOF?=
- =?us-ascii?Q?UyYtuRbygNEmV3nZoW0Cpgm1N/TF+U08Q9VOv22wJw8CXnQ/U+ffDve/rGSW?=
- =?us-ascii?Q?9AOH6BEJZUoPq5IIi1qZeSu4JlsgJNN8XZreVa9iNcc4IHqGXqah/I4zyALv?=
- =?us-ascii?Q?ggAo0vBAq0WkiO1HpmZZwd9WdrujUaG6RDnmykeOcKQrYxmcILSk+HUOaOwd?=
- =?us-ascii?Q?cXQbPJdxnLVlgvM7wHNmodKSuuxJNFZLjv+z9HDVh9M9xaDm7YBIAwgkksz+?=
- =?us-ascii?Q?f/FiGVnGdEiWmDTTo7e6pghqUzJCseD5R01eW1WYU5svUtMHKXyQWlXctHqB?=
- =?us-ascii?Q?3nJflAmNcoRSuwc8t1DVGHygZMZlwpdMOtrxcfgh34HVI4WblcdwWb2ioCvf?=
- =?us-ascii?Q?01Si2DEtO68+EzT8/uAh3ZLZEsvnTAVjbi7WPvDi6R8bobh/tITIfw0ydKS9?=
- =?us-ascii?Q?qqU9lojf2q+s4WlHTvQCwkfrs9yN5zPDv70yc/CWYmqxuyFOBXa9OWby43s3?=
- =?us-ascii?Q?+Wje56B5fRw4AcwHDC/q0TBMq7KjxJbU+WzZjA1j2LSTkEF+oM/nhGx9m07y?=
- =?us-ascii?Q?NCKZsKFJFkqBLzo+jvdZOYkcl18D6A8B0zZpDI0ceWEMwqBdn5FvW/19mglv?=
- =?us-ascii?Q?HY+G2Dt3Z4rnk9rVhdWjveSlCL7C5sCZCc1N0TPrWm4sIrjguG8WBK63hETH?=
- =?us-ascii?Q?rmlOgfoYCMBbC9C5W6iJmhZzvL6N92Q8SrBU6YgP/qltl6Btdee+smuI2Ov+?=
- =?us-ascii?Q?wZK7k5O/hUf8L9eSjofMWcrk2pebzp+Y8G6TUnycd1FBUmtUfp5S0tPufJ+H?=
- =?us-ascii?Q?cHov+aqB/zuUyVu8Smpb7g36yzeX70CZFH8NFHb6sWJOqQ07d4zB2CNlMwtR?=
- =?us-ascii?Q?HY8K5NSYcLqTgSWdtY0bQcqGXaeB7o8HVlbVfY/omYdkZ9yMPYGgWytBR00Y?=
- =?us-ascii?Q?egJ3v4jvkP/MjvYnki3B+ny6LJIbHXBe+mavmN3fJoVxCE5nuun8MBpDUuwa?=
- =?us-ascii?Q?q4jgM3cPUYZdBlooJSMH+i5nzZnf/P7KnpySRz2zVkED6Qmh5mmEr7jHQjtk?=
- =?us-ascii?Q?SO12rKdaV+EXwTOWvWvknXm6MKS27MOX+hlNx9DKvNdEfe2iJk2B356wKpuu?=
- =?us-ascii?Q?YpMSQWlJqSgaQLJVeWzVxv7p/OJP+vwojL6dgo5iDKI+R+ya5MmGpNUo2I6L?=
- =?us-ascii?Q?S+vY+nFYc4bB0T1wbZtqC3yx3CCRMOJUT4EFlkV1fl8kRiii3iNzPelo7/7D?=
- =?us-ascii?Q?z9hE/EBjiskvqAPfImDi+aTyMgNMz+V/1j3mFNMg9zjAtcQh6hVvJQku7VQx?=
- =?us-ascii?Q?6asdGkwb9wRYtkplsRMOPzPoRS7mT9kWe+cRcCgBWtO9d0A0h+sZnWcrXHVH?=
- =?us-ascii?Q?KshjTFRG3B5fnOXmbr1PeZaVncBrbh99K5dtt3G3qJVQ1dgYa9aZFlOt96fs?=
- =?us-ascii?Q?1y0u/jl7/oObNFlbW/appWbHw76uXOyI7cQUo7HynMU0ff1bVjvxW65giEHp?=
- =?us-ascii?Q?zy/ygL1vEdvGyGRD5HQNu2sKT1J+tDLhgXQ54+rpZFfEJxiL3zKvtFgUVsjD?=
- =?us-ascii?Q?PJN5AHGa+RGbDgajlAgHM/tP6w1Zz38=3D?=
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0XmuPBaHCfJ6a0hZb0AY6Beme9KkZ6YkZSdDbQpu9TtESSupukodetyobN3s?=
+ =?us-ascii?Q?L+6zYJ12L7ZEhl6gOnaxQq279nrMK4vJB/6g2VF0GsMv8b7xfceuzSe8ZQyZ?=
+ =?us-ascii?Q?TdQ9Fxas6klCiMMRtxg/CvYLaGYc34BWoHsv0a9FI9D/eXGx/UszgWImUPdA?=
+ =?us-ascii?Q?zVd/cdXX1kg81fscOrX/qh1gMvhY6od6E22tUcXtXzZ0dKqxosrGDnySFEbU?=
+ =?us-ascii?Q?oN4EoePDOgSG+AEi9/kYPMeaNKfPM+MqFcBwBYidYtXuE2aFp+nGfu2VzK8N?=
+ =?us-ascii?Q?y6Cvk86TKWpoVmhPecPHNK7F+xqnnUJof6dja2f/1rJ6tydynzM1WbsnjKpO?=
+ =?us-ascii?Q?YuQDjBmlQqgYyD+Arfm4/dWjzIIJF22ZIlFtOGsiGzaQn1P5qlwYRAzwyjS3?=
+ =?us-ascii?Q?x1YdUCpUOsmDW3t/I97M1CyYqObUxOYhYC0Gi1ELgCR6ukaClPFIpLtkVRCH?=
+ =?us-ascii?Q?0GdjADumknm58SjAQZ2nVSsgZbDQGEb8d3G52lebZPAhjEnLygHB3mPAmOa1?=
+ =?us-ascii?Q?pW93L7h0rgZl8unQcZnj22Wc5KLM6pzuVzwLzAdBKe4L2gZtoeta9E6GzWF2?=
+ =?us-ascii?Q?R5feTZyE7S09YaSZNhytoGbXLcsncL2XlCWS4/Hs5vf+TBMkRpjPJoof1+3t?=
+ =?us-ascii?Q?89tOfwHQJ2LX1IPmpqAa3mwfEpphS3/DARC+wDoLdMbM6/VXKtyGKBQ0eAvF?=
+ =?us-ascii?Q?Lg1qX+Xt97Hvzu0O9P2z18qnacKQ5e7Lz/HCf1eiJg1afog3guErVPrdkiqr?=
+ =?us-ascii?Q?LGkJ25h6REGZ7uLLpe4BvcsjWbdsuSAvMYxoTKzZ6T/2ncjjoYMCTHxmmCmo?=
+ =?us-ascii?Q?QuD9kWFFDD2rWYx0zB3j/M+DjdwEAg/CSriWw8L+1pQtfy5Z50Kve1cnWow7?=
+ =?us-ascii?Q?D0Mq94NOcWhnUJqFSAqdNfWvulcwYDbUYKNQg0VOIsuyYqN/gXd2GnjwPPZk?=
+ =?us-ascii?Q?mnSs82ZeqjGXHpiRADT1uug0SjDBFHIlVzCBhLiT/nPF6AiBC4LumHYSbU7+?=
+ =?us-ascii?Q?bAkJ0VoR3wMZ7etEvkaDRPL3wu1cEPLo1ukVEpB2bFIoROHurFaKfacUqsjw?=
+ =?us-ascii?Q?T+VbqI71j3ZRkLG/Irl/EoOVcOh88+3xD35XwYo2xTyNQJi5zp+QvWLJSYz2?=
+ =?us-ascii?Q?1ql749EVevSKS6Kkfkh5BsZ1j4K+rJo+JgYWuIgI9lXs6AJlAhQ5IricsA5F?=
+ =?us-ascii?Q?+0tT8OTTQ7QmXOJ4wfLsbSqhID2w2eIxXiwP+lcan8uV0aDuUqvIiF0DNKuD?=
+ =?us-ascii?Q?16Gx2eVq9TJqNZhA8GwjKdvKf4J8mM1RDSq2yJw4jE7xk7NgGiv51FwnMkQG?=
+ =?us-ascii?Q?gb3wo7T2mly9b8mRsW+ELccb3gZmZmReJTMBc6Qx75+9yjXItw62Mg46b4jt?=
+ =?us-ascii?Q?LmyWAoolrcmh1e2OIzRth59nieUtcp6HBEd6x4bpXayJGf+rznSGiK4DWu6s?=
+ =?us-ascii?Q?w2GldoP1fm8E2p1szoeaVbryZ2la4LT/K0bpLnYdhuLBlAUu+iq4aFiR+lCJ?=
+ =?us-ascii?Q?QSJvlOzkW4a6IlcKKOB6Z6zQ7fgm+LiJ+FbPk6DPg86yCvLzoSPY8Z3BNL+Z?=
+ =?us-ascii?Q?vl/7BxIr8rHPA7u7Vhdub2tQ0vtO5sfAwmuImXFIq8KXlQCFj7iLZFFFT8KQ?=
+ =?us-ascii?Q?zhQZmN/sSZ+Ym4e/C5DIZITEBMYnGxp8cY4Au2IhE4pftPnKEb7UtqBwjVhS?=
+ =?us-ascii?Q?wzjse+4UOuQY4n2DnIgpkmHSgG6WJzUTbpDa5R5KpCFYRftliaBjTwFgf5w1?=
+ =?us-ascii?Q?zZm0P4kndXjiuBjgMjk0h+zy9dhEobw=3D?=
 MIME-Version: 1.0
 X-OriginatorOrg: wdc.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR04MB7765.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 5eacd7ba-6c1c-438a-ff09-08da394dedf2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2022 04:13:29.3268 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR04MB7776.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 9c1be9c4-5f5a-46ca-3042-08da396d7f96
+X-MS-Exchange-CrossTenant-originalarrivaltime: 19 May 2022 07:59:28.0645 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 0KGOWvXXJAf9YGRkC19Z0RQcXYJndFHSZkmdKiSOWt/NMs0mcVAgdXn0qgR4AMW2H1nD3dhcMe/8CEp+19Ic9g==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR04MB6699
+X-MS-Exchange-CrossTenant-userprincipalname: z2Zog4ru/vb4vmw93OTC8/MzTsV9ZvamhHuiG2Y3PXn/vnIcYCac56mdrjWVvYTZ8FsSeD6zmJwTktbWjq2m8Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB0185
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -136,8 +135,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-Mailman-Approved-At: Fri, 20 May 2022 07:01:49 +0000
-Subject: Re: [dm-devel] [PATCH v4 07/13] btrfs: zoned: use generic btrfs
- zone helpers to support npo2 zoned devices
+Subject: Re: [dm-devel] [PATCH v4 08/13] btrfs:zoned: make sb for npo2 zone
+ devices align with sb log offsets
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,128 +158,162 @@ Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
  "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
  "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
  "dm-devel@redhat.com" <dm-devel@redhat.com>,
- Luis Chamberlain <mcgrof@kernel.org>, "dsterba@suse.com" <dsterba@suse.com>,
- "hch@lst.de" <hch@lst.de>,
+ "dsterba@suse.com" <dsterba@suse.com>, "hch@lst.de" <hch@lst.de>,
  "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-ID: <FB1D8211A2248D4D9C8FDEB51CAEB0DB@namprd04.prod.outlook.com>
+Content-ID: <0F953BA55E83C847B01213B4210A659D@namprd04.prod.outlook.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, May 16, 2022 at 06:54:10PM +0200, Pankaj Raghav wrote:
-> Add helpers to calculate alignment, round up and round down
-> for zoned devices. These helpers encapsulates the necessary handling for
-> power_of_2 and non-power_of_2 zone sizes. Optimized calculations are
-> performed for zone sizes that are power_of_2 with log and shifts.
+On Mon, May 16, 2022 at 06:54:11PM +0200, Pankaj Raghav wrote:
+> Superblocks for zoned devices are fixed as 2 zones at 0, 512GB and 4TB.
+> These are fixed at these locations so that recovery tools can reliably
+> retrieve the superblocks even if one of the mirror gets corrupted.
 > 
-> btrfs_zoned_is_aligned() is added instead of reusing bdev_zone_aligned()
-> helper due to some use cases in btrfs where zone alignment is checked
-> before having access to the underlying block device such as in this
-> function: btrfs_load_block_group_zone_info().
+> power of 2 zone sizes align at these offsets irrespective of their
+> value but non power of 2 zone sizes will not align.
 > 
-> Use the generic btrfs zone helpers to calculate zone index, check zone
-> alignment, round up and round down operations.
+> To make sure the first zone at mirror 1 and mirror 2 align, write zero
+> operation is performed to move the write pointer of the first zone to
+> the expected offset. This operation is performed only after a zone reset
+> of the first zone, i.e., when the second zone that contains the sb is FULL.
 > 
-> The zone_size_shift field is not needed anymore as generic helpers are
-> used for calculation.
-> 
-> Reviewed-by: Luis Chamberlain <mcgrof@kernel.org>
 > Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
 > ---
->  fs/btrfs/volumes.c | 24 +++++++++-------
->  fs/btrfs/zoned.c   | 72 ++++++++++++++++++++++------------------------
->  fs/btrfs/zoned.h   | 43 +++++++++++++++++++++++----
->  3 files changed, 85 insertions(+), 54 deletions(-)
+>  fs/btrfs/zoned.c | 68 ++++++++++++++++++++++++++++++++++++++++++++----
+>  1 file changed, 63 insertions(+), 5 deletions(-)
 > 
-><snip>
-> diff --git a/fs/btrfs/zoned.h b/fs/btrfs/zoned.h
-> index 694ab6d1e..b94ce4d1f 100644
-> --- a/fs/btrfs/zoned.h
-> +++ b/fs/btrfs/zoned.h
-> @@ -9,6 +9,7 @@
->  #include "disk-io.h"
->  #include "block-group.h"
->  #include "btrfs_inode.h"
-> +#include "misc.h"
+> diff --git a/fs/btrfs/zoned.c b/fs/btrfs/zoned.c
+> index 3023c871e..805aeaa76 100644
+> --- a/fs/btrfs/zoned.c
+> +++ b/fs/btrfs/zoned.c
+> @@ -760,11 +760,44 @@ int btrfs_check_mountopts_zoned(struct btrfs_fs_info *info)
+>  	return 0;
+>  }
 >  
->  #define BTRFS_DEFAULT_RECLAIM_THRESH           			(75)
->  
-> @@ -18,7 +19,6 @@ struct btrfs_zoned_device_info {
->  	 * zoned block device.
->  	 */
->  	u64 zone_size;
-> -	u8  zone_size_shift;
->  	u32 nr_zones;
->  	unsigned int max_active_zones;
->  	atomic_t active_zones_left;
-> @@ -30,6 +30,36 @@ struct btrfs_zoned_device_info {
->  	u32 sb_zone_location[BTRFS_SUPER_MIRROR_MAX];
->  };
->  
-> +static inline bool btrfs_zoned_is_aligned(u64 pos, u64 zone_size)
+> +static int fill_sb_wp_offset(struct block_device *bdev, struct blk_zone *zone,
+> +			     int mirror, u64 *wp_ret)
 > +{
-> +	u64 remainder = 0;
+> +	u64 offset = 0;
+> +	int ret = 0;
 > +
-> +	if (is_power_of_two_u64(zone_size))
-> +		return IS_ALIGNED(pos, zone_size);
+> +	ASSERT(!is_power_of_two_u64(zone->len));
+> +	ASSERT(zone->wp == zone->start);
+> +	ASSERT(mirror != 0);
 > +
-> +	div64_u64_rem(pos, zone_size, &remainder);
-> +	return remainder == 0;
+> +	switch (mirror) {
+> +	case 1:
+> +		div64_u64_rem(BTRFS_SB_LOG_FIRST_OFFSET >> SECTOR_SHIFT,
+> +			      zone->len, &offset);
+> +		break;
+> +	case 2:
+> +		div64_u64_rem(BTRFS_SB_LOG_SECOND_OFFSET >> SECTOR_SHIFT,
+> +			      zone->len, &offset);
+> +		break;
+> +	}
+> +
+> +	ret =  blkdev_issue_zeroout(bdev, zone->start, offset, GFP_NOFS, 0);
+> +	if (ret)
+> +		return ret;
+> +
+> +	zone->wp += offset;
+> +	zone->cond = BLK_ZONE_COND_IMP_OPEN;
+> +	*wp_ret = zone->wp << SECTOR_SHIFT;
+> +
+> +	return 0;
 > +}
 > +
-> +static inline u64 btrfs_zoned_roundup(u64 pos, u64 zone_size)
-> +{
-> +	if (is_power_of_two_u64(zone_size))
-> +		return ALIGN(pos, zone_size);
-> +
-> +	return div64_u64(pos + zone_size - 1, zone_size) * zone_size;
-> +}
-> +
-> +static inline u64 btrfs_zoned_rounddown(u64 pos, u64 zone_size)
-> +{
-> +	u64 remainder = 0;
-> +	if (is_power_of_two_u64(zone_size))
-> +		return round_down(pos, zone_size);
-> +
-> +	div64_u64_rem(pos, zone_size, &remainder);
-> +	pos -= remainder;
-> +	return pos;
-> +}
+>  static int sb_log_location(struct block_device *bdev, struct blk_zone *zones,
+> -			   int rw, u64 *bytenr_ret)
+> +			   int rw, int mirror, u64 *bytenr_ret)
+>  {
+>  	u64 wp;
+>  	int ret;
+> +	bool zones_empty = false;
+>  
+>  	if (zones[0].type == BLK_ZONE_TYPE_CONVENTIONAL) {
+>  		*bytenr_ret = zones[0].start << SECTOR_SHIFT;
+> @@ -775,13 +808,31 @@ static int sb_log_location(struct block_device *bdev, struct blk_zone *zones,
+>  	if (ret != -ENOENT && ret < 0)
+>  		return ret;
+>  
+> +	if (ret == -ENOENT)
+> +		zones_empty = true;
 > +
 
-This is just a preference, but how about naming these helpers not related
-to "zoned"? While they take "zone_size" as an argument, it does not do
-anything special on zoned things. For my preference, I would take
-btrfs_device or btrfs_zoned_device_info for "btrfs_zoned_*" function.
+I think, we don't need this. We need to issue the zeroout when
+zones[0]->cond == BLK_ZONE_COND_EMPTY && !is_power_of_2(...) after sending
+ZONE_RESET if necessary. No?
 
-Actually, I was a bit confused seeing the part
-below. btrfs_zoned_is_aligned() takes "sector_t" values while the arguments
-are often byte granularity address. Yeah, actually sector_t == u64 and the
-code does not relies on the unit ... so, it is OK as long as the values are
-in the same unit.
-
-    @@ -409,9 +409,8 @@ int btrfs_get_dev_zone_info(struct btrfs_device *device, bool populate_cache)
-            }
-    
-            nr_sectors = bdev_nr_sectors(bdev);
-    -       zone_info->zone_size_shift = ilog2(zone_info->zone_size);
-    -       zone_info->nr_zones = nr_sectors >> ilog2(zone_sectors);
-    -       if (!IS_ALIGNED(nr_sectors, zone_sectors))
-    +       zone_info->nr_zones = bdev_zone_no(bdev, nr_sectors);
-    +       if (!btrfs_zoned_is_aligned(nr_sectors, zone_sectors))
-                    zone_info->nr_zones++;
-    
-            max_active_zones = bdev_max_active_zones(bdev);
-
-BTW, aren't these helpers used in other subsystems? Maybe adding these in
-include/linux/math64.h or so?
+>  	if (rw == WRITE) {
+>  		struct blk_zone *reset = NULL;
+> +		bool is_sb_offset_write_req = false;
+> +		u32 reset_zone_nr = -1;
+>  
+> -		if (wp == zones[0].start << SECTOR_SHIFT)
+> +		if (wp == zones[0].start << SECTOR_SHIFT) {
+>  			reset = &zones[0];
+> -		else if (wp == zones[1].start << SECTOR_SHIFT)
+> +			reset_zone_nr = 0;
+> +		} else if (wp == zones[1].start << SECTOR_SHIFT) {
+>  			reset = &zones[1];
+> +			reset_zone_nr = 1;
+> +		}
+> +
+> +		/*
+> +		 * Non po2 zone sizes will not align naturally at
+> +		 * mirror 1 (512GB) and mirror 2 (4TB). The wp of the
+> +		 * 1st zone in those superblock mirrors need to be
+> +		 * moved to align at those offsets.
+> +		 */
+> +		is_sb_offset_write_req =
+> +			(zones_empty || (reset_zone_nr == 0)) && mirror &&
+> +			!is_power_of_2(zones[0].len);
+>  
+>  		if (reset && reset->cond != BLK_ZONE_COND_EMPTY) {
+>  			ASSERT(sb_zone_is_full(reset));
+> @@ -795,6 +846,13 @@ static int sb_log_location(struct block_device *bdev, struct blk_zone *zones,
+>  			reset->cond = BLK_ZONE_COND_EMPTY;
+>  			reset->wp = reset->start;
+>  		}
+> +
+> +		if (is_sb_offset_write_req) {
+> +			ret = fill_sb_wp_offset(bdev, &zones[0], mirror, &wp);
+> +			if (ret)
+> +				return ret;
+> +		}
+> +
+>  	} else if (ret != -ENOENT) {
+>  		/*
+>  		 * For READ, we want the previous one. Move write pointer to
+> @@ -851,7 +909,7 @@ int btrfs_sb_log_location_bdev(struct block_device *bdev, int mirror, int rw,
+>  	if (ret != BTRFS_NR_SB_LOG_ZONES)
+>  		return -EIO;
+>  
+> -	return sb_log_location(bdev, zones, rw, bytenr_ret);
+> +	return sb_log_location(bdev, zones, rw, mirror, bytenr_ret);
+>  }
+>  
+>  int btrfs_sb_log_location(struct btrfs_device *device, int mirror, int rw,
+> @@ -877,7 +935,7 @@ int btrfs_sb_log_location(struct btrfs_device *device, int mirror, int rw,
+>  
+>  	return sb_log_location(device->bdev,
+>  			       &zinfo->sb_zones[BTRFS_NR_SB_LOG_ZONES * mirror],
+> -			       rw, bytenr_ret);
+> +			       rw, mirror, bytenr_ret);
+>  }
+>  
+>  static inline bool is_sb_log_zone(struct btrfs_zoned_device_info *zinfo,
+> -- 
+> 2.25.1
+> 
 
 --
 dm-devel mailing list
