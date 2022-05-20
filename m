@@ -1,81 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5028452FED6
-	for <lists+dm-devel@lfdr.de>; Sat, 21 May 2022 20:45:20 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 390C353374E
+	for <lists+dm-devel@lfdr.de>; Wed, 25 May 2022 09:23:06 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-488-wHoNfncPPfumh4DgQVWCqw-1; Sat, 21 May 2022 14:45:15 -0400
-X-MC-Unique: wHoNfncPPfumh4DgQVWCqw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-195-qWG4vF3pMZmp87xEZ9mdbA-1; Wed, 25 May 2022 03:23:03 -0400
+X-MC-Unique: qWG4vF3pMZmp87xEZ9mdbA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C438D85A5AA;
-	Sat, 21 May 2022 18:45:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A87A51C16B4D;
+	Wed, 25 May 2022 07:23:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 943ADC27E8F;
-	Sat, 21 May 2022 18:45:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 77F8282886;
+	Wed, 25 May 2022 07:22:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 295E11947062;
-	Sat, 21 May 2022 18:45:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D8531932121;
+	Wed, 25 May 2022 07:22:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 387F31947040
- for <dm-devel@listman.corp.redhat.com>; Sat, 21 May 2022 18:45:01 +0000 (UTC)
+ ESMTP id 425DF1947058
+ for <dm-devel@listman.corp.redhat.com>; Fri, 20 May 2022 09:08:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 121692166B25; Sat, 21 May 2022 18:45:01 +0000 (UTC)
+ id 2225840CF8F5; Fri, 20 May 2022 09:08:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DE6B2166B3F
- for <dm-devel@redhat.com>; Sat, 21 May 2022 18:45:01 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E62E40CF8EB
+ for <dm-devel@redhat.com>; Fri, 20 May 2022 09:08:47 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6A7E811E75
- for <dm-devel@redhat.com>; Sat, 21 May 2022 18:45:00 +0000 (UTC)
-Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com
- [209.85.128.53]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 06E7E29AB3F5
+ for <dm-devel@redhat.com>; Fri, 20 May 2022 09:08:47 +0000 (UTC)
+Received: from mail-vs1-f42.google.com (mail-vs1-f42.google.com
+ [209.85.217.42]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-648-KbOyniHkOwWcwNw9_DWSjQ-1; Sat, 21 May 2022 14:44:59 -0400
-X-MC-Unique: KbOyniHkOwWcwNw9_DWSjQ-1
-Received: by mail-wm1-f53.google.com with SMTP id
- 67-20020a1c1946000000b00397382b44f4so2764254wmz.2; 
- Sat, 21 May 2022 11:44:58 -0700 (PDT)
+ us-mta-368-2E_0l1DEOdeyVZ9sIjOjoQ-1; Fri, 20 May 2022 05:08:45 -0400
+X-MC-Unique: 2E_0l1DEOdeyVZ9sIjOjoQ-1
+Received: by mail-vs1-f42.google.com with SMTP id c26so7772631vsl.6
+ for <dm-devel@redhat.com>; Fri, 20 May 2022 02:08:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=2hAwLyfdQrWIlOQ2c9K4BpFYE/fVM9FqZ+xBK+qg9+g=;
- b=rxZf99w0mogxQosl9nLwnrm0Zy3fYybd5oZSn3PlOROWFJ+cXH4JVSmB1VIAXDE/Qs
- 49nf6ttDewIYxQVGQgJ2BVaD+VJrbNIov4XBoyHQ2ggS2tw4vi8lZOKyaJZliEZZt+L2
- xv++tqSHUT1y//Ww12sGnrbm91q2L2HfcvnTOZ5WwPG3k+CDFMV9T+RsxjM29e9yumTe
- nHIXto1HWVAtxYAGrwhCJKuY6jdsm42umIF41pu3WEcRWrL+auvwzr3DQJrGWW+PyD97
- nOg10sbESLCWDC8BhEUtklF6SxJqLnQ+jAlGlsgiNJjWxywhD6UYQdCEiF2gTEpal1oC
- VN+Q==
-X-Gm-Message-State: AOAM531k27MdxFAudJnUHwlXnICRg9xWFIQKyVo+71QRDbwFTXvVwF3k
- YOH+36gE9h2SUlam+LT1zIa/y88S7bO4
-X-Google-Smtp-Source: ABdhPJwBxM9hF7HlV64MFBt1K7/lZmmZMa1HjOj7AtBEe42MzHPfZxVL5+MTfI15ixAoEt4AKj1C2g==
-X-Received: by 2002:a7b:c310:0:b0:38c:f07a:e10d with SMTP id
- k16-20020a7bc310000000b0038cf07ae10dmr13478525wmj.110.1653158697546; 
- Sat, 21 May 2022 11:44:57 -0700 (PDT)
-Received: from localhost (53.red-81-44-209.dynamicip.rima-tde.net.
- [81.44.209.53]) by smtp.gmail.com with ESMTPSA id
- i17-20020a05600c355100b00397470a8226sm536249wmq.15.2022.05.21.11.44.56
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 21 May 2022 11:44:56 -0700 (PDT)
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-To: 
-Date: Sat, 21 May 2022 20:44:55 +0200
-Message-Id: <20220521184455.73855-1-xose.vazquez@gmail.com>
+ h=x-gm-message-state:mime-version:from:date:message-id:subject:to;
+ bh=LP4RUW2X4gd93NV/k6yvJ+PBTOUEtjcm8kWRfEEJZks=;
+ b=vZ2IrQXpNzdm68UZzBSEus6AGhRVLlEWuLt1DZuv4IDgm5GRUnBMEk748cNorQospc
+ waqt+eCDozFrWWlbhaPqIr+H5h+SoWrssCIM2HMM4MYV0EuDqsHbL6/rmOBAxtZZLI96
+ SXO71SNozUxwOREhJDH5bDPOqeub+fIYcEqK7h/Mxd71vtBtqDZKQeeXNrKv3TZ0fhbB
+ my1Ef8KiqTuRsLHyyO2wRSC0Lff5bz3o/Al9ZL35jzzuBdJ17JJsyef9cOjSxwQZkUe/
+ u1COMWDUuS8+vkh/5RKmuWgaao9VCB0Y7qjNkCVT3OWDb72fuFGTHzBa/hHnAO3BxfIa
+ 8W/A==
+X-Gm-Message-State: AOAM530w7tGqbNVj9fqpSP+58FcIAwGvWsQvl2FYIncuS2HSxV3gO19n
+ FCFbhIu4LrPzHSL1ifxyZgzxlv6/6CeLxU3AB92JfporMR2pYA==
+X-Google-Smtp-Source: ABdhPJyaX/cH/r1Acb+5ohB8KnuycJOBRkuFt0VcKp+DklDvnAFG+t0JkhueoY9TwfOm2LG6L+Vt4fhzl9UlMp078YA=
+X-Received: by 2002:a67:e15a:0:b0:335:e5c6:9381 with SMTP id
+ o26-20020a67e15a000000b00335e5c69381mr4088794vsl.0.1653037724571; Fri, 20 May
+ 2022 02:08:44 -0700 (PDT)
 MIME-Version: 1.0
-X-Patchwork-Bot: notify
+From: Jasper Surmont <surmontjasper@gmail.com>
+Date: Fri, 20 May 2022 12:08:34 +0300
+Message-ID: <CAH4tiUu0P2FSQaN9Rk+-BC=wPntC=bBZxxj-b=3i3R6gzU8i5g@mail.gmail.com>
+To: dm-devel@redhat.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,9 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [dm-devel] [PATCH] multipath-tools: fix Huawei OceanStor NVMe
- vendor tag
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Mailman-Approved-At: Wed, 25 May 2022 07:22:55 +0000
+Subject: [dm-devel] [Question] Changes to dm do not reflect in underlying
+ block device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,15 +90,9 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Zou Ming <zouming.zouming@huawei.com>,
- Xose Vazquez Perez <xose.vazquez@gmail.com>, chengjike.cheng@huawei.com,
- DM-DEVEL ML <dm-devel@redhat.com>,
- Christophe Varoqui <christophe.varoqui@opensvc.com>, sunao.sun@huawei.com,
- jiangtao62@huawei.com, Zhouweigang <zhouweigang09@huawei.com>,
- Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -113,40 +100,20 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-"NVME" in the doc, but "NVMe" is the real output:
-(page 61-62): https://drive.google.com/file/d/1c5RK4GXX7ofZBFxTtZ_IN1qHyIjw5eR1
-https://marc.info/?l=dm-devel&m=163393151312418
-Use both, just in case.
+I created my own dm which performs some checks on writing / reading
+before it remaps the request to an underlying block dev. After I set
+it up and write changes (eg using 'dd') to /dev/mapper/<name>, I see
+it happened correctly (eg using 'hd' on /dev/mapper/<name>). However,
+the underlying block device did not change at all (again using 'hd' on
+/dev/sdb1 for example).
+1. How is it possible that, even though the changes are not yet
+persisted to /dev/sdb1, the dm has the correct data?
+2. Is this normal behavior? If not, what can I do or what am I doing
+wrong to fix this?
 
-Cc: <chengjike.cheng@huawei.com>
-Cc: <sunao.sun@huawei.com>
-Cc: <jiangtao62@huawei.com>
-Cc: Zhouweigang (Jack) <zhouweigang09@huawei.com>
-Cc: Zou Ming <zouming.zouming@huawei.com>
-Cc: Martin Wilck <mwilck@suse.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>
-Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Cc: DM-DEVEL ML <dm-devel@redhat.com>
-Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
----
- libmultipath/hwtable.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+Thanks!
 
-diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index 39daadc2..c2b3642c 100644
---- a/libmultipath/hwtable.c
-+++ b/libmultipath/hwtable.c
-@@ -1147,7 +1147,7 @@ static struct hwentry default_hw[] = {
- 	},
- 	{
- 		/* OceanStor NVMe */
--		.vendor        = "NVME",
-+		.vendor        = "NVM[eE]",
- 		.product       = "Huawei-XSG1",
- 		.pgpolicy      = MULTIBUS,
- 		.checker_name  = DIRECTIO,
--- 
-2.36.1
+Cheers, Jasper
 
 --
 dm-devel mailing list
