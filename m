@@ -2,160 +2,124 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C654530B0F
-	for <lists+dm-devel@lfdr.de>; Mon, 23 May 2022 10:25:48 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D1A45311D4
+	for <lists+dm-devel@lfdr.de>; Mon, 23 May 2022 18:16:27 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-615-7CrEXm4OP1qsRZW0Ghg9jA-1; Mon, 23 May 2022 04:25:45 -0400
-X-MC-Unique: 7CrEXm4OP1qsRZW0Ghg9jA-1
+ us-mta-79-qpK6iqgdO_yvyQ5LjhpnQg-1; Mon, 23 May 2022 12:16:22 -0400
+X-MC-Unique: qpK6iqgdO_yvyQ5LjhpnQg-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 342741D32367;
-	Mon, 23 May 2022 08:25:43 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 432FA492CA2;
-	Mon, 23 May 2022 08:25:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF335185A79C;
+	Mon, 23 May 2022 16:16:19 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BD90B492CA3;
+	Mon, 23 May 2022 16:16:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8EBFA1947061;
-	Mon, 23 May 2022 08:25:34 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4245E194706D;
+	Mon, 23 May 2022 16:16:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5D06B1947059
- for <dm-devel@listman.corp.redhat.com>; Mon, 23 May 2022 08:25:33 +0000 (UTC)
+ ESMTP id 803E71947059
+ for <dm-devel@listman.corp.redhat.com>; Mon, 23 May 2022 16:16:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 481AA1121319; Mon, 23 May 2022 08:25:33 +0000 (UTC)
+ id 3876140314F; Mon, 23 May 2022 16:16:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 432AA1121314
- for <dm-devel@redhat.com>; Mon, 23 May 2022 08:25:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28746811E76
- for <dm-devel@redhat.com>; Mon, 23 May 2022 08:25:33 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 348D6492C14
+ for <dm-devel@redhat.com>; Mon, 23 May 2022 16:16:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1878585A5B5
+ for <dm-devel@redhat.com>; Mon, 23 May 2022 16:16:10 +0000 (UTC)
 Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
  [210.118.77.11]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-494-QS1g12RkOPSjFCG9fgUu9A-1; Mon, 23 May 2022 04:25:30 -0400
-X-MC-Unique: QS1g12RkOPSjFCG9fgUu9A-1
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
+ us-mta-501-Y9Uf2IMZOh6kemaLystL3Q-1; Mon, 23 May 2022 12:16:08 -0400
+X-MC-Unique: Y9Uf2IMZOh6kemaLystL3Q-1
+Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
  by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220523082529euoutp01d0fb407e745411fe78cd6c2a924b60ce~xrm7rbGDh1786117861euoutp01f
- for <dm-devel@redhat.com>; Mon, 23 May 2022 08:25:29 +0000 (GMT)
+ 20220523161605euoutp01372c1a11e9aeaf0d984a5c4b0a3994b1~xyB0gdllt1771117711euoutp01H
+ for <dm-devel@redhat.com>; Mon, 23 May 2022 16:16:05 +0000 (GMT)
 DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20220523082529euoutp01d0fb407e745411fe78cd6c2a924b60ce~xrm7rbGDh1786117861euoutp01f
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ 20220523161605euoutp01372c1a11e9aeaf0d984a5c4b0a3994b1~xyB0gdllt1771117711euoutp01H
+Received: from eusmges2new.samsung.com (unknown [203.254.199.244]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTP id
- 20220523082529eucas1p16589ffdf204dbfad55d0aefbf2f68dc4~xrm7SFYkL1415614156eucas1p1n;
- Mon, 23 May 2022 08:25:29 +0000 (GMT)
+ 20220523161604eucas1p18e1599366870ced2caaea6e714e3fdab~xyBzELZfI1866318663eucas1p10;
+ Mon, 23 May 2022 16:16:04 +0000 (GMT)
 Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id AD.47.10260.9F44B826; Mon, 23
- May 2022 09:25:29 +0100 (BST)
+ eusmges2new.samsung.com (EUCPMTA) with SMTP id 64.7E.09887.343BB826; Mon, 23
+ May 2022 17:16:03 +0100 (BST)
 Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
  eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20220523082528eucas1p154de304dc76b15b99d571399400530f3~xrm6ymVAt2444124441eucas1p1a;
- Mon, 23 May 2022 08:25:28 +0000 (GMT)
+ 20220523161603eucas1p1719a165f769b5ad69717ad9b5f4decc3~xyByloXg21867818678eucas1p15;
+ Mon, 23 May 2022 16:16:03 +0000 (GMT)
 Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
  eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220523082528eusmtrp2fe33f2de7b5f28c5c3c8fa8198f3e58b~xrm6xlJgz1491314913eusmtrp2F;
- Mon, 23 May 2022 08:25:28 +0000 (GMT)
-X-AuditID: cbfec7f5-bddff70000002814-7d-628b44f9a9ab
+ 20220523161603eusmtrp26c910ee4d3c1c2403b8ff21385aedc84~xyBykw9vH0219002190eusmtrp2D;
+ Mon, 23 May 2022 16:16:03 +0000 (GMT)
+X-AuditID: cbfec7f4-45bff7000000269f-0a-628bb3433873
 Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 1B.D1.09522.8F44B826; Mon, 23
- May 2022 09:25:28 +0100 (BST)
-Received: from CAMSVWEXC01.scsc.local (unknown [106.1.227.71]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20220523082528eusmtip137c716859f4c05ff6297ff5668064f79~xrm6ktjUt2896028960eusmtip1F;
- Mon, 23 May 2022 08:25:28 +0000 (GMT)
-Received: from [106.110.32.130] (106.110.32.130) by CAMSVWEXC01.scsc.local
- (2002:6a01:e347::6a01:e347) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Mon, 23 May 2022 09:25:23 +0100
-Message-ID: <43bac47d-5ef6-2b6c-e747-58e5a2fb7b52@samsung.com>
-Date: Mon, 23 May 2022 10:25:22 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.1
-To: <dsterba@suse.cz>, Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- =?UTF-8?Q?Javier_Gonz=c3=a1lez?= <javier.gonz@samsung.com>, Hannes Reinecke
- <hare@suse.de>, Johannes Thumshirn <Johannes.Thumshirn@wdc.com>, Mike
- Snitzer <snitzer@redhat.com>, Christoph Hellwig <hch@lst.de>, Luis
- Chamberlain <mcgrof@kernel.org>, Theodore Ts'o <tytso@mit.edu>,
- "axboe@kernel.dk" <axboe@kernel.dk>, "pankydev8@gmail.com"
- <pankydev8@gmail.com>, "gost.dev@samsung.com" <gost.dev@samsung.com>,
- "jiangbo.365@bytedance.com" <jiangbo.365@bytedance.com>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>, "dsterba@suse.com"
- <dsterba@suse.com>, "linux-btrfs@vger.kernel.org"
- <linux-btrfs@vger.kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>, Keith Busch
- <kbusch@kernel.org>, Adam Manzanares <a.manzanares@samsung.com>
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 36.92.09522.343BB826; Mon, 23
+ May 2022 17:16:03 +0100 (BST)
+Received: from localhost (unknown [106.210.248.20]) by eusmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20220523161603eusmtip17e3440713797cf86bc0c026d7bcd57c4~xyByMjd5u2231022310eusmtip1T;
+ Mon, 23 May 2022 16:16:03 +0000 (GMT)
 From: Pankaj Raghav <p.raghav@samsung.com>
-In-Reply-To: <20220520171830.GR18596@twin.jikos.cz>
-X-Originating-IP: [106.110.32.130]
-X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
- CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347)
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Se0xbVRzHPbeXey+NhbuC4YSxqnXOiFpqIMtJ9tB1GK5PmBofxMjuypU1
- K2VpV3yQRZiWt8BKgllhlDDdsN1ESwF5TVYpjNC6aWEryMbMYI/ihgiMlQq49m6G/z6/8/t+
- c77fk0MJxEVELKXSHOC0GlYtJYR4W7//3HP+5LI98qPjBLJeqiRQwH1OgHpu14ah83cLMHQs
- sIij7kYjhr6zOjE02WwSoPLev3G0XHoZQ0bHBYB6xp5Bv19tIlF3zyCOPJ11BDIfnyKRt2oK
- oJOjUzgq/HEBIEO5n3wxmlk5e5JgOkyXSMbj1jM2SwnBtHzzOdM1mk8wh1xOAdNhmAhjZk6P
- EEyzfQRnXA19JNMylMfM2SRMUW8ZlhaRLtyayalVuZw2Yftu4V6v5xDYb8Q/mXGcCMsHxwSl
- IJyCdBI0X5vES4GQEtNNAN6x+jF+mAdwZtQcxg9zAJ6Z7sEfWFar/yX4xQkAb7prif9VluVV
- kh+6AJydrQlZRPR2aJswEEHG6SehvaKY4M/XwcEjkyHNI/R7sMbkCp1H0anwcOd4iAV0DByb
- NIdCRdOtFDzfVn3vBooi6HhYUEIGNeF0Irx85SrJ65+GhvbAfX4Utt+qEwTlkJbCWo+Mb3AQ
- nup3hXJC+ogQmk934bwmGfbVR/KaKOgbsJM8x8HVjmCEIOfBKW9AwHu/BLCyo5ngvVtghUvN
- 4w5Y4NzFYwT03lrHh4mAxrav74cRweJCcRXYaFrzDKY1dU1rqpjWVGkAuAXEcHpddhanS9Rw
- H8t0bLZOr8mSKXOybeDeXx1aGVj4CTT5ZmUOgFHAASAlkEaL2tniPWJRJvvpZ5w2J0OrV3M6
- B1hP4dIYkVL1Ayums9gD3D6O289pH2wxKjw2HzMoMi+Ul2iM7upX0x7u9n7R+tjC7jnJ98Nx
- yhtv/jkY7yl4Ac4ffv8lyZZtVUs+e/1D/fa4LDixil3Ji60Fv+0cWOp+x9t7UaV+vGR69on1
- 9b4PkpMWG1ZsAXbDrkLwbq5s5PpMZ0oGWdmfUHNcuWKR30j9ZXORzbIvY975lPG1zXfdMuWO
- wVSV9Lr7muLlXO/trz5K23hzvMI3YZSnWH9NX8xpbmwcfns5SZstCf/DZrRfvKNjWvuc3NlM
- keLZKGyo7pV5xwbVwb/Gf27Vp06/Jdw0lPLPGC45sy1yk/DoG5HTO7fKxz70JyhfbymzwsXK
- JaX8VP6wIrExQVE5zH6rTJfiur3s8/ECrY79Dy66qUsaBAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrIKsWRmVeSWpSXmKPExsVy+t/xu7o/XLqTDC5+UrRYfbefzeL32fPM
- FnvfzWa1uPCjkcli8e/vLBZ7Fk1isli5+iiTxZP1s5gteg58YLH423WPyWLSoWuMFntvaVtc
- eryC3WLP3pMsFpd3zWGzmL/sKbvFjQlPGS3W3HzKYtG28SujRWvPT3YHEY9/J9aweeycdZfd
- 4/LZUo9NqzrZPDYvqffYfbOBzaPpzFFmj52t91k93u+7yuaxfstVFo8zC46we2w+Xe3xeZOc
- R/uBbqYAvig9m6L80pJUhYz84hJbpWhDCyM9Q0sLPSMTSz1DY/NYKyNTJX07m5TUnMyy1CJ9
- uwS9jBuXmxgLJrFUvD+0nLWBcTFzFyMnh4SAicT/yX/Yuhi5OIQEljJKzDp1jBEiISPx6cpH
- dghbWOLPtS6ooo+MEvumHmUCSQgJ7GaU6FshB2LzCthJbLrfygZiswioSmzp62CDiAtKnJz5
- hAXEFhWIkHiw+ywriC0s4CtxdcobsDizgLjErSfzmUAWiAhs5pD49W8Z1IItrBIvX+Z1MXJw
- sAloSTR2gh3EKWAsce/BY3aIXk2J1u2/oWx5ie1v5zCDlEsIKEnMvqwHcX+txKv7uxknMIrM
- QnLRLCSbZyGZNAvJpAWMLKsYRVJLi3PTc4sN9YoTc4tL89L1kvNzNzEC0862Yz8372Cc9+qj
- 3iFGJg7GQ4wSHMxKIrzbEzuShHhTEiurUovy44tKc1KLDzGaAoNlIrOUaHI+MPHllcQbmhmY
- GpqYWRqYWpoZK4nzehZ0JAoJpCeWpGanphakFsH0MXFwSjUwxe17x7rj/5vnH5fG9B80T49V
- MX0zYfXp/e7Bs+y9lk3//vFU8l+WfX2xZ5cvPV76p0pb99ieS9pTK38pezHJfV4YuKl8lXPj
- UxvbjE7NCtU5/9s37jL5mLR+SkcRr7Be/6Pv1h/k4yX/Lj0VL+pjvH3jzSaNWJ7Vs6cv+HH4
- 4dVLiy/k5Tg9mZKm9+ZoZPCZSC/bB3/NZZ4miFUeO9xafesCa9CrugdLTgdu+WrI1TLjUvEU
- jeyNte2OH1kZlrOv22NxScJ+tsoXIW/1jfv0Vvkosf/kjt0uf/S5+g7fAG77HXp+KbP3PKuN
- 2LaRa9euN/eMH308WmH35q2Ixc+Atk7ul4ey6xwZTU5+PX2wTkOJpTgj0VCLuag4EQB2tdxI
- xAMAAA==
-X-CMS-MailID: 20220523082528eucas1p154de304dc76b15b99d571399400530f3
+To: axboe@kernel.dk, hch@lst.de, snitzer@redhat.com,
+ damien.lemoal@opensource.wdc.com, hare@suse.de, Johannes.Thumshirn@wdc.com
+Date: Mon, 23 May 2022 18:15:54 +0200
+Message-Id: <20220523161601.58078-1-p.raghav@samsung.com>
+MIME-Version: 1.0
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrBKsWRmVeSWpSXmKPExsWy7djP87rOm7uTDPYfsbFYfbefzeL32fPM
+ FnvfzWa1uPCjkcni5oGdTBZ7Fk1isli5+iiTxZP1s5gteg58YLH423WPyWLvLW2Ly7vmsFnM
+ X/aU3eLz0hZ2i7aNXxkd+D3+nVjD5nH5bKnHplWdbB6bl9R77L7ZwOaxs/U+q8f7fVfZPPq2
+ rGL0WL/lKovH5tPVHp83yXm0H+hmCuCJ4rJJSc3JLEst0rdL4MpouNXKUnBQu6J351u2BsZ+
+ 5S5GTg4JAROJc+uuMncxcnEICaxglJjzaRkLhPOFUeLXpgYWkCohgc+MEldeyMN0/D80kw2i
+ aDmjRNfc3awQzgtGidt9E5m6GDk42AS0JBo72UHiIgKNjBLvj84DK2IW+Moo0f5wPhvIKGEB
+ G4l1WxeCrWARUJW4tOQ9I4jNK2ApcWTKD1aIdfISMy99Z4eIC0qcnPkErJ4ZKN68dTbY4RIC
+ szkl3p09zALR4CIxZ8ZXJghbWOLV8S3sELaMxP+d86Hi1RJPb/yGam5hlOjfuZ4N5GwJAWuJ
+ vjM5ICazgKbE+l36EOWOEtvWz2WCqOCTuPFWEOIEPolJ26YzQ4R5JTrahCCqlSR2/nwCtVRC
+ 4nLTHKjDPCTmdN1nggRorMSZA+/YJzAqzELy2Cwkj81CuGEBI/MqRvHU0uLc9NRio7zUcr3i
+ xNzi0rx0veT83E2MwMR3+t/xLzsYl7/6qHeIkYmD8RCjBAezkgjv9sSOJCHelMTKqtSi/Pii
+ 0pzU4kOM0hwsSuK8yZkbEoUE0hNLUrNTUwtSi2CyTBycUg1ME1c2nvpzi/v/tWMhJUovEmc2
+ L3d0nnPH3EdU4xebf9TlV3dbf34POjnRzq82R6aktEhF6olrQZr4IQGj9KlHz/arfpbTsP21
+ xzLJV+jc73rhMMn7n50XXWAwmMlWKMf4582KWU3B7PeWb3qhz3ZvZY/IVFvTb/OzlJ326equ
+ ZQqzLqr5+l/v394ll79tOSX279OMu2yF+mpFBtaRfy9qv89L9L71TKA2gDP/Q+7E+eu5OxZF
+ /v2iJF+u9vv29fPNq86v+rOu7sa6QPnt5qk6dXvOS3QIhMjOP94XFKX3XLZyl94RGduUDAFu
+ 6VMTgp5rH5Y9L+PUeXJVDOOEZwXVQfcfzBANVm08qv+kapa1EktxRqKhFnNRcSIArmFOWesD
+ AAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrGIsWRmVeSWpSXmKPExsVy+t/xu7rOm7uTDOYclLFYfbefzeL32fPM
+ FnvfzWa1uPCjkcni5oGdTBZ7Fk1isli5+iiTxZP1s5gteg58YLH423WPyWLvLW2Ly7vmsFnM
+ X/aU3eLz0hZ2i7aNXxkd+D3+nVjD5nH5bKnHplWdbB6bl9R77L7ZwOaxs/U+q8f7fVfZPPq2
+ rGL0WL/lKovH5tPVHp83yXm0H+hmCuCJ0rMpyi8tSVXIyC8usVWKNrQw0jO0tNAzMrHUMzQ2
+ j7UyMlXSt7NJSc3JLEst0rdL0MtouNXKUnBQu6J351u2BsZ+5S5GTg4JAROJ/4dmsnUxcnEI
+ CSxllDjQupUVIiEhcXthEyOELSzx51oXVNEzRolfSzqBijg42AS0JBo72UHiIgKdjBJHV5xi
+ AXGYBf4zSnx+swVskrCAjcS6rQtZQGwWAVWJS0veg03lFbCUODLlB9Q2eYmZl76zgwxlFtCU
+ WL9LH6JEUOLkzCdgrcxAJc1bZzNPYOSfhVA1C0nVLCRVCxiZVzGKpJYW56bnFhvqFSfmFpfm
+ pesl5+duYgRG6LZjPzfvYJz36qPeIUYmDsZDjBIczEoivNsTO5KEeFMSK6tSi/Lji0pzUosP
+ MZoCXT2RWUo0OR+YIvJK4g3NDEwNTcwsDUwtzYyVxHk9CzoShQTSE0tSs1NTC1KLYPqYODil
+ GpiMNZ0Z5C/aJl/Z3j5tWwKnxuaXE7QDWWMWp+lk7D/J8+3wbJVF/fF3Dov2qKzfbW3/W7Zt
+ 0t+Y/+Xe8txvP7HEyCmfW1bK1zaVNXrHXvOP2+8l8exqvDKzp0YvY4esnax/ZrxWoQZDfUe6
+ QQJby5ltc/tv/La3ac7uFr517NdW3+OGL5ea7Lu2V+j1PiMupsrnidOPbXy4MN9/9vxNQYuN
+ 8zZETXJcNC1b49mOm37HDaLXZnIGJLMrv3N4sD6Di1ni4JuDGu1mrc5hiTfvnT/hJ700mYH9
+ Lfv+hs3n8z5d7qjnL6gOmnnZWFNY7VrG1wK97DCTlDdyPb9EZPV3ipnNnH0u4+Nbj82Xq+ui
+ liuxFGckGmoxFxUnAgDtDJstWQMAAA==
+X-CMS-MailID: 20220523161603eucas1p1719a165f769b5ad69717ad9b5f4decc3
 X-Msg-Generator: CA
-X-RootMTR: 20220520172257eucas1p1b94b150d71352587ced5d46b8c3f3537
+X-RootMTR: 20220523161603eucas1p1719a165f769b5ad69717ad9b5f4decc3
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20220520172257eucas1p1b94b150d71352587ced5d46b8c3f3537
-References: <YoPAnj9ufkt5nh1G@mit.edu>
- <7f9cb19b-621b-75ea-7273-2d2769237851@opensource.wdc.com>
- <20220519031237.sw45lvzrydrm7fpb@garbanzo>
- <69f06f90-d31b-620b-9009-188d1d641562@opensource.wdc.com>
- <PH0PR04MB74166C87F694B150A5AE0F009BD09@PH0PR04MB7416.namprd04.prod.outlook.com>
- <4a8f0e1b-0acb-1ed4-8d7a-c9ba93fcfd02@opensource.wdc.com>
- <16f3f9ee-7db7-2173-840c-534f67bcaf04@suse.de>
- <20220520062720.wxdcp5lkscesppch@mpHalley-2.localdomain>
- <be429864-09cb-e3fb-2afe-46a3453c4d73@opensource.wdc.com>
- <aee22e8a-b89b-378c-3d5b-238c1215b01d@samsung.com>
- <CGME20220520172257eucas1p1b94b150d71352587ced5d46b8c3f3537@eucas1p1.samsung.com>
- <20220520171830.GR18596@twin.jikos.cz>
+X-CMS-RootMailID: 20220523161603eucas1p1719a165f769b5ad69717ad9b5f4decc3
+References: <CGME20220523161603eucas1p1719a165f769b5ad69717ad9b5f4decc3@eucas1p1.samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -163,8 +127,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH v4 00/13] support non power of 2 zoned devices
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [dm-devel] [PATCH v5 0/7] support non power of 2 zoned devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -176,6 +140,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Cc: Pankaj Raghav <p.raghav@samsung.com>, gost.dev@samsung.com,
+ jiangbo.365@bytedance.com, linux-nvme@lists.infradead.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, dm-devel@redhat.com,
+ dsterba@suse.com, jaegeuk@kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
@@ -183,20 +151,134 @@ Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 5/20/22 19:18, David Sterba wrote:
->> I see that many people in the community feel it is better to target the
->> dm layer for the initial support of npo2 devices. I can give it a shot
->> and maintain a native out-of-tree support for FSs for npo2 devices and
->> merge it upstream as we see fit later.
-> 
-> Some of the changes from your patchset are cleanups or abstracting the
-> alignment and zone calculations, so this can be merged to minimize the
-> out of tree code.
-Sounds good. I will send it separately. Thanks.
+Hello,
+  The previous revision ended up leading to a new direction to add npo2
+  device support as a dm target instead of adding support to filesystems
+  directly[0]. I would like to hear some inputs from the community,
+  especially from Christoph and Mike Snitzer about this approach.
+
+- Background and Motivation:
+
+The zone storage implementation in Linux, introduced since v4.10, first
+targetted SMR drives which have a power of 2 (po2) zone size alignment
+requirement. The po2 zone size was further imposed implicitly by the
+block layer's blk_queue_chunk_sectors(), used to prevent IO merging
+across chunks beyond the specified size, since v3.16 through commit
+762380ad9322 ("block: add notion of a chunk size for request merging").
+But this same general block layer po2 requirement for blk_queue_chunk_sectors()
+was removed on v5.10 through commit 07d098e6bbad ("block: allow 'chunk_sectors'
+to be non-power-of-2").
+
+NAND, which is the media used in newer zoned storage devices, does not
+naturally align to po2. In these devices, zone cap is not the same as the
+po2 zone size. When the zone cap != zone size, then unmapped LBAs are
+introduced to cover the space between the zone cap and zone size. po2
+requirement does not make sense for these type of zone storage devices.
+This patch series aims to remove these unmapped LBAs for zoned devices when
+zone cap is npo2. This is done by relaxing the po2 zone size constraint
+in the kernel and allowing zoned device with npo2 zone sizes if zone cap
+== zone size.
+
+Removing the po2 requirement from zone storage should be possible
+now provided that no userspace regression and no performance regressions are
+introduced. Stop-gap patches have been already merged into f2fs-tools to
+proactively not allow npo2 zone sizes until proper support is added [1].
+
+There were two efforts previously to add support to npo2 devices: 1) via
+device level emulation [2] but that was rejected with a final conclusion
+to add support for non po2 zoned device in the complete stack[3] 2)
+adding support to the complete stack by removing the constraint in the
+block layer and NVMe layer with support to btrfs, zonefs, etc which was
+rejected with a conclusion to add a dm target for FS support [0]
+to reduce the regression impact.
+
+- Patchset description:
+
+The support is planned to be added in two phases:
+- Add npo2 support to block, nvme layer and necessary stop gap patches
+  in the filesystems
+- Add dm target for npo2 devices so that they are presented as a po2
+  device to filesystems
+
+This patchset addresses the first phase for adding support to npo2
+devices.
+
+Patches 1-2 deals with removing the po2 constraint from the
+block layer.
+
+Patches 3-4 deals with removing the constraint from nvme zns.
+
+Patch 5-6 removes the po2 contraint in null blk
+
+Patches 7 adds conditions to not allow non power of 2 devices in
+DM.
+
+The patch series is based on linux-next tag: next-20220520
+
+- Future work
+Add DM target for npo2 devices to be presented as a po2 device.
+
+[0] https://lore.kernel.org/lkml/PH0PR04MB74166C87F694B150A5AE0F009BD09@PH0PR04MB7416.namprd04.prod.outlook.com/
+[1] https://git.kernel.org/pub/scm/linux/kernel/git/jaegeuk/f2fs-tools.git/commit/?h=dev-test&id=6afcf6493578e77528abe65ab8b12f3e1c16749f
+[2] https://lore.kernel.org/all/20220310094725.GA28499@lst.de/T/
+[3] https://lore.kernel.org/all/20220315135245.eqf4tqngxxb7ymqa@unifi/
+
+Changes since v1:
+- Put the function declaration and its usage in the same commit (Bart)
+- Remove bdev_zone_aligned function (Bart)
+- Change the name from blk_queue_zone_aligned to blk_queue_is_zone_start
+  (Damien)
+- q is never null in from bdev_get_queue (Damien)
+- Add condition during bringup and check for zsze == zcap for npo2
+  drives (Damien)
+- Rounddown operation should be made generic to work in 32 bits arch
+  (bart)
+- Add comments where generic calculation is directly used instead having
+  special handling for po2 zone sizes (Hannes)
+- Make the minimum zone size alignment requirement for btrfs to be 1M
+  instead of BTRFS_STRIPE_LEN(David)
+
+Changes since v2:
+- Minor formatting changes
+
+Changes since v3:
+- Make superblock mirror align with the existing superblock log offsets
+  (David)
+- DM change return value and remove extra newline
+- Optimize null blk zone index lookup with shift for po2 zone size
+
+Changes since v4:
+- Remove direct filesystems support for npo2 devices (Johannes, Hannes,
+  Damien)
+
+Luis Chamberlain (1):
+  dm-zoned: ensure only power of 2 zone sizes are allowed
+
+Pankaj Raghav (6):
+  block: make blkdev_nr_zones and blk_queue_zone_no generic for npo2
+    zsze
+  block: allow blk-zoned devices to have non-power-of-2 zone size
+  nvme: zns: Allow ZNS drives that have non-power_of_2 zone size
+  nvmet: Allow ZNS target to support non-power_of_2 zone sizes
+  null_blk: allow non power of 2 zoned devices
+  null_blk: use zone_size_sects_shift for power of 2 zoned devices
+
+ block/blk-core.c                  |  3 +--
+ block/blk-zoned.c                 | 38 +++++++++++++++++++++++--------
+ drivers/block/null_blk/main.c     |  5 ++--
+ drivers/block/null_blk/null_blk.h |  6 +++++
+ drivers/block/null_blk/zoned.c    | 20 ++++++++++------
+ drivers/md/dm-zone.c              | 12 ++++++++++
+ drivers/nvme/host/zns.c           | 21 +++++++++--------
+ drivers/nvme/target/zns.c         |  2 +-
+ include/linux/blkdev.h            | 36 ++++++++++++++++++++++++++++-
+ 9 files changed, 111 insertions(+), 32 deletions(-)
+
+-- 
+2.25.1
 
 --
 dm-devel mailing list
