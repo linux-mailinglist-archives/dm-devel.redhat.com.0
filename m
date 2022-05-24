@@ -1,77 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CD36B53226B
-	for <lists+dm-devel@lfdr.de>; Tue, 24 May 2022 07:23:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 66EE6533752
+	for <lists+dm-devel@lfdr.de>; Wed, 25 May 2022 09:23:09 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-402-r1fcJD_GPqapzl33LD_qDA-1; Tue, 24 May 2022 01:22:57 -0400
-X-MC-Unique: r1fcJD_GPqapzl33LD_qDA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-653-sIokaIkfN5q1aNC_NxnDJw-1; Wed, 25 May 2022 03:23:03 -0400
+X-MC-Unique: sIokaIkfN5q1aNC_NxnDJw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5364D1D33865;
-	Tue, 24 May 2022 05:22:55 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A92C1410DD5;
-	Tue, 24 May 2022 05:22:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A855B29DD9A1;
+	Wed, 25 May 2022 07:23:00 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D756C400F36;
+	Wed, 25 May 2022 07:22:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8BF9B1947BA8;
-	Tue, 24 May 2022 05:22:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B1CCA194F4BF;
+	Wed, 25 May 2022 07:22:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 30BA51947068
- for <dm-devel@listman.corp.redhat.com>; Tue, 24 May 2022 05:22:53 +0000 (UTC)
+ ESMTP id BB71E194704A
+ for <dm-devel@listman.corp.redhat.com>; Tue, 24 May 2022 06:29:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1375B1410DD7; Tue, 24 May 2022 05:22:53 +0000 (UTC)
+ id AD8792026E03; Tue, 24 May 2022 06:29:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0F8F11410DD5
- for <dm-devel@redhat.com>; Tue, 24 May 2022 05:22:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A9C712026D2F
+ for <dm-devel@redhat.com>; Tue, 24 May 2022 06:29:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EBA763C025C4
- for <dm-devel@redhat.com>; Tue, 24 May 2022 05:22:52 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-568-LGkCTEijP2mWRJzHHOwe2w-1; Tue, 24 May 2022 01:22:50 -0400
-X-MC-Unique: LGkCTEijP2mWRJzHHOwe2w-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 16494219FE;
- Tue, 24 May 2022 05:22:49 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B708013ADF;
- Tue, 24 May 2022 05:22:48 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id nXFgK6hrjGIBGwAAMHmgww
- (envelope-from <hare@suse.de>); Tue, 24 May 2022 05:22:48 +0000
-Message-ID: <3d387876-342d-1516-92aa-24d39aa3f95c@suse.de>
-Date: Tue, 24 May 2022 07:22:48 +0200
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E8311011637
+ for <dm-devel@redhat.com>; Tue, 24 May 2022 06:29:37 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-547-ZCJhsgW9NXukVH4dmDSQfQ-1; Tue, 24 May 2022 02:29:35 -0400
+X-MC-Unique: ZCJhsgW9NXukVH4dmDSQfQ-1
+Received: by mail-wr1-f45.google.com with SMTP id e2so12583793wrc.1;
+ Mon, 23 May 2022 23:29:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=v0KfzzJTrDnu9+V7St5lQ99gi7CdINuYwUWUnVmQOYI=;
+ b=ty6Fbl6kHve1uOMlILnIzIima1ZJQ29JiiqWYTp/CQFaRL38+mdBemEyugQpY1EUGh
+ 4ybk+yVf5IGOZHx2/IUZ0/nLe7OwCBNz80gKkDdFXqZQf3h42V23KZITwaNUeRidZx5/
+ tFdE2GN1qX0CKN/28POifJHRPaHWkayUogA2a52XEh4OgRFm3FCd9UiS5MeGjB4OdY9A
+ k84ochPlT8hGg8WEepW2g+MqnHu8Pnohdkr10oM43S4g6x0AaHpNcuNntP+LDBeRCyFb
+ DSS2jXTEQFwRrQAyqfFONVUrRapJCsdZehvHyZ0eaKj4fWd4YzFEdCukcfO2SaXdlzs3
+ os3g==
+X-Gm-Message-State: AOAM530+cc25hMMrRfzOBd6aHq1xllgOsWqvSChqdA77hOE2/IznxihA
+ +3OGJo8dF0cVGrZcTlGZmXPSseyRERP2KVx0mwo=
+X-Google-Smtp-Source: ABdhPJzoc8SJzNK/+30i+3SovXvrcAvAJQfZIg0PL7ZISuVlVsZo9PDmjZD6+1/2I+JaOXOBXIShmAtRptw4HPqfj1s=
+X-Received: by 2002:a5d:6b07:0:b0:20d:97f:ca6b with SMTP id
+ v7-20020a5d6b07000000b0020d097fca6bmr21420959wrw.390.1653373774400; Mon, 23
+ May 2022 23:29:34 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.4.0
-To: Pankaj Raghav <p.raghav@samsung.com>, axboe@kernel.dk, hch@lst.de,
- snitzer@redhat.com, damien.lemoal@opensource.wdc.com,
- Johannes.Thumshirn@wdc.com
-References: <20220523161601.58078-1-p.raghav@samsung.com>
- <CGME20220523161612eucas1p102a76ba431c934230309042521018915@eucas1p1.samsung.com>
- <20220523161601.58078-7-p.raghav@samsung.com>
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20220523161601.58078-7-p.raghav@samsung.com>
+References: <CAOOPZo4uNCicVmoHa2za0=O1_XiBdtBvTuUzqBTeBc3FmDqEJw@mail.gmail.com>
+ <828ac69a-fe28-0869-bc1f-7fd106dff0aa@oracle.com>
+ <CAOOPZo4Z2x_W7i=Vbnm-SsDgj5PndLVtOz6MqRzQxW-NeBwhRg@mail.gmail.com>
+ <be26ef80-c3cf-713d-2a9f-4fb73cec7e17@oracle.com>
+ <ec8d0b97-e94a-21e1-acdb-e90a7df39b72@oracle.com>
+In-Reply-To: <ec8d0b97-e94a-21e1-acdb-e90a7df39b72@oracle.com>
+From: Zhengyuan Liu <liuzhengyuang521@gmail.com>
+Date: Tue, 24 May 2022 14:29:22 +0800
+Message-ID: <CAOOPZo58sfhqFEMvpUfnoU1ceHDpPnagMbPvDGrDXHZHq7bZLg@mail.gmail.com>
+To: Mike Christie <michael.christie@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +82,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v5 6/7] null_blk: use zone_size_sects_shift
- for power of 2 zoned devices
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Mailman-Approved-At: Wed, 25 May 2022 07:22:55 +0000
+Subject: Re: [dm-devel] Question about iscsi session block
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,68 +96,106 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Damien Le Moal <damien.lemoal@wdc.com>, gost.dev@samsung.com,
- jiangbo.365@bytedance.com, linux-nvme@lists.infradead.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, dm-devel@redhat.com,
- dsterba@suse.com, jaegeuk@kernel.org
+Cc: dm-devel@redhat.com, open-iscsi <open-iscsi@googlegroups.com>,
+ leech@redhat.com, lduncan@suse.com, linux-scsi@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gNS8yMy8yMiAxODoxNiwgUGFua2FqIFJhZ2hhdiB3cm90ZToKPiBJbnN0ZWFkIG9mIGRvaW5n
-IGlzX3Bvd2VyX29mXzIgYW5kIGlsb2cyIG9wZXJhdGlvbiBmb3IgZXZlcnkgSU8sIGNhY2hlCj4g
-dGhlIHpvbmVfc2l6ZV9zZWN0c19zaGlmdCB2YXJpYWJsZSBhbmQgdXNlIGl0IGZvciBwb3dlciBv
-ZiAyIHpvbmVkCj4gZGV2aWNlcy4KPiAKPiBUaGlzIHZhcmlhYmxlIHdpbGwgYmUgc2V0IHRvIHpl
-cm8gZm9yIG5vbiBwb3dlciBvZiAyIHpvbmVkIGRldmljZXMuCj4gCj4gU3VnZ2VzdGVkLWJ5OiBE
-YW1pZW4gTGUgTW9hbCA8ZGFtaWVuLmxlbW9hbEB3ZGMuY29tPgo+IFNpZ25lZC1vZmYtYnk6IFBh
-bmthaiBSYWdoYXYgPHAucmFnaGF2QHNhbXN1bmcuY29tPgo+IC0tLQo+ICAgZHJpdmVycy9ibG9j
-ay9udWxsX2Jsay9udWxsX2Jsay5oIHwgIDYgKysrKysrCj4gICBkcml2ZXJzL2Jsb2NrL251bGxf
-YmxrL3pvbmVkLmMgICAgfCAxMCArKysrKysrKy0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDE0IGlu
-c2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4gCj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvYmxv
-Y2svbnVsbF9ibGsvbnVsbF9ibGsuaCBiL2RyaXZlcnMvYmxvY2svbnVsbF9ibGsvbnVsbF9ibGsu
-aAo+IGluZGV4IDc4ZWI1NmIwY2E1NS4uM2Q2ZTQxYTk0OTFmIDEwMDY0NAo+IC0tLSBhL2RyaXZl
-cnMvYmxvY2svbnVsbF9ibGsvbnVsbF9ibGsuaAo+ICsrKyBiL2RyaXZlcnMvYmxvY2svbnVsbF9i
-bGsvbnVsbF9ibGsuaAo+IEBAIC03NCw2ICs3NCwxMiBAQCBzdHJ1Y3QgbnVsbGJfZGV2aWNlIHsK
-PiAgIAl1bnNpZ25lZCBpbnQgaW1wX2Nsb3NlX3pvbmVfbm87Cj4gICAJc3RydWN0IG51bGxiX3pv
-bmUgKnpvbmVzOwo+ICAgCXNlY3Rvcl90IHpvbmVfc2l6ZV9zZWN0czsKPiArCS8qCj4gKwkgKiB6
-b25lX3NpemVfc2VjdHNfc2hpZnQgaXMgb25seSB1c2VmdWwgd2hlbiB0aGUgem9uZSBzaXplIGlz
-Cj4gKwkgKiBwb3dlciBvZiAyLiBUaGlzIHZhcmlhYmxlIGlzIHNldCB0byB6ZXJvIHdoZW4gem9u
-ZSBzaXplIGlzIG5vbgo+ICsJICogcG93ZXIgb2YgMi4KPiArCSAqLwo+ICsJdW5zaWduZWQgaW50
-IHpvbmVfc2l6ZV9zZWN0c19zaGlmdDsKPiAgIAlib29sIG5lZWRfem9uZV9yZXNfbWdtdDsKPiAg
-IAlzcGlubG9ja190IHpvbmVfcmVzX2xvY2s7Cj4gICAKPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9i
-bG9jay9udWxsX2Jsay96b25lZC5jIGIvZHJpdmVycy9ibG9jay9udWxsX2Jsay96b25lZC5jCj4g
-aW5kZXggMDBjMzRlNjVlZjBhLi44MDZiZWY5OGFjODMgMTAwNjQ0Cj4gLS0tIGEvZHJpdmVycy9i
-bG9jay9udWxsX2Jsay96b25lZC5jCj4gKysrIGIvZHJpdmVycy9ibG9jay9udWxsX2Jsay96b25l
-ZC5jCj4gQEAgLTEzLDggKzEzLDggQEAgc3RhdGljIGlubGluZSBzZWN0b3JfdCBtYl90b19zZWN0
-cyh1bnNpZ25lZCBsb25nIG1iKQo+ICAgCj4gICBzdGF0aWMgaW5saW5lIHVuc2lnbmVkIGludCBu
-dWxsX3pvbmVfbm8oc3RydWN0IG51bGxiX2RldmljZSAqZGV2LCBzZWN0b3JfdCBzZWN0KQo+ICAg
-ewo+IC0JaWYgKGlzX3Bvd2VyX29mXzIoZGV2LT56b25lX3NpemVfc2VjdHMpKQo+IC0JCXJldHVy
-biBzZWN0ID4+IGlsb2cyKGRldi0+em9uZV9zaXplX3NlY3RzKTsKPiArCWlmIChkZXYtPnpvbmVf
-c2l6ZV9zZWN0c19zaGlmdCkKPiArCQlyZXR1cm4gc2VjdCA+PiBkZXYtPnpvbmVfc2l6ZV9zZWN0
-c19zaGlmdDsKPiAgIAo+ICAgCXJldHVybiBkaXY2NF91NjQoc2VjdCwgZGV2LT56b25lX3NpemVf
-c2VjdHMpOwo+ICAgfQo+IEBAIC04Miw2ICs4MiwxMiBAQCBpbnQgbnVsbF9pbml0X3pvbmVkX2Rl
-dihzdHJ1Y3QgbnVsbGJfZGV2aWNlICpkZXYsIHN0cnVjdCByZXF1ZXN0X3F1ZXVlICpxKQo+ICAg
-CXpvbmVfY2FwYWNpdHlfc2VjdHMgPSBtYl90b19zZWN0cyhkZXYtPnpvbmVfY2FwYWNpdHkpOwo+
-ICAgCWRldl9jYXBhY2l0eV9zZWN0cyA9IG1iX3RvX3NlY3RzKGRldi0+c2l6ZSk7Cj4gICAJZGV2
-LT56b25lX3NpemVfc2VjdHMgPSBtYl90b19zZWN0cyhkZXYtPnpvbmVfc2l6ZSk7Cj4gKwo+ICsJ
-aWYgKGlzX3Bvd2VyX29mXzIoZGV2LT56b25lX3NpemVfc2VjdHMpKQo+ICsJCWRldi0+em9uZV9z
-aXplX3NlY3RzX3NoaWZ0ID0gaWxvZzIoZGV2LT56b25lX3NpemVfc2VjdHMpOwo+ICsJZWxzZQo+
-ICsJCWRldi0+em9uZV9zaXplX3NlY3RzX3NoaWZ0ID0gMDsKPiArCj4gICAJZGV2LT5ucl96b25l
-cyA9Cj4gICAJCWRpdjY0X3U2NChyb3VuZHVwKGRldl9jYXBhY2l0eV9zZWN0cywgZGV2LT56b25l
-X3NpemVfc2VjdHMpLAo+ICAgCQkJICBkZXYtPnpvbmVfc2l6ZV9zZWN0cyk7ClJldmlld2VkLWJ5
-OiBIYW5uZXMgUmVpbmVja2UgPGhhcmVAc3VzZS5kZT4KCkNoZWVycywKCkhhbm5lcwotLSAKRHIu
-IEhhbm5lcyBSZWluZWNrZSAgICAgICAgICAgICAgICBLZXJuZWwgU3RvcmFnZSBBcmNoaXRlY3QK
-aGFyZUBzdXNlLmRlICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgKzQ5IDkxMSA3NDA1MyA2
-ODgKU1VTRSBTb2Z0d2FyZSBTb2x1dGlvbnMgR21iSCwgTWF4ZmVsZHN0ci4gNSwgOTA0MDkgTsO8
-cm5iZXJnCkhSQiAzNjgwOSAoQUcgTsO8cm5iZXJnKSwgR2VzY2jDpGZ0c2bDvGhyZXI6IEl2byBU
-b3RldiwgQW5kcmV3Ck15ZXJzLCBBbmRyZXcgTWNEb25hbGQsIE1hcnRqZSBCb3VkaWVuIE1vZXJt
-YW4KCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
-bGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
+Hi, Mike,
+
+Sorry for the delayed reply since I have no  environment to check your
+bellow patcheset untile recently
+
+https://lore.kernel.org/all/20220226230435.38733-1-michael.christie@oracle.com/
+
+After applied those series, the total time has dropped from 80s to
+nearly 10s, it's a great improvement.
+
+Thanks, again
+
+On Sun, Feb 27, 2022 at 7:00 AM Mike Christie
+<michael.christie@oracle.com> wrote:
+>
+> On 2/15/22 8:19 PM, michael.christie@oracle.com wrote:
+> > On 2/15/22 7:28 PM, Zhengyuan Liu wrote:
+> >> On Wed, Feb 16, 2022 at 12:31 AM Mike Christie
+> >> <michael.christie@oracle.com> wrote:
+> >>>
+> >>> On 2/15/22 9:49 AM, Zhengyuan Liu wrote:
+> >>>> Hi, all
+> >>>>
+> >>>> We have an online server which uses multipath + iscsi to attach storage
+> >>>> from Storage Server. There are two NICs on the server and for each it
+> >>>> carries about 20 iscsi sessions and for each session it includes about 50
+> >>>>  iscsi devices (yes, there are totally about 2*20*50=2000 iscsi block devices
+> >>>>  on the server). The problem is: once a NIC gets faulted, it will take too long
+> >>>> (nearly 80s) for multipath to switch to another good NIC link, because it
+> >>>> needs to block all iscsi devices over that faulted NIC firstly. The callstack is
+> >>>>  shown below:
+> >>>>
+> >>>>     void iscsi_block_session(struct iscsi_cls_session *session)
+> >>>>     {
+> >>>>         queue_work(iscsi_eh_timer_workq, &session->block_work);
+> >>>>     }
+> >>>>
+> >>>>  __iscsi_block_session() -> scsi_target_block() -> target_block() ->
+> >>>>   device_block() ->  scsi_internal_device_block() -> scsi_stop_queue() ->
+> >>>>  blk_mq_quiesce_queue()>synchronize_rcu()
+> >>>>
+> >>>> For all sessions and all devices, it was processed sequentially, and we have
+> >>>> traced that for each synchronize_rcu() call it takes about 80ms, so
+> >>>> the total cost
+> >>>> is about 80s (80ms * 20 * 50). It's so long that the application can't
+> >>>> tolerate and
+> >>>> may interrupt service.
+> >>>>
+> >>>> So my question is that can we optimize the procedure to reduce the time cost on
+> >>>> blocking all iscsi devices?  I'm not sure if it is a good idea to increase the
+> >>>> workqueue's max_active of iscsi_eh_timer_workq to improve concurrency.
+> >>>
+> >>> We need a patch, so the unblock call waits/cancels/flushes the block call or
+> >>> they could be running in parallel.
+> >>>
+> >>> I'll send a patchset later today so you can test it.
+> >>
+> >> I'm glad to test once you push the patchset.
+> >>
+> >> Thank you, Mike.
+> >
+> > I forgot I did this recently :)
+> >
+> > commit 7ce9fc5ecde0d8bd64c29baee6c5e3ce7074ec9a
+> > Author: Mike Christie <michael.christie@oracle.com>
+> > Date:   Tue May 25 13:18:09 2021 -0500
+> >
+> >     scsi: iscsi: Flush block work before unblock
+> >
+> >     We set the max_active iSCSI EH works to 1, so all work is going to execute
+> >     in order by default. However, userspace can now override this in sysfs. If
+> >     max_active > 1, we can end up with the block_work on CPU1 and
+> >     iscsi_unblock_session running the unblock_work on CPU2 and the session and
+> >     target/device state will end up out of sync with each other.
+> >
+> >     This adds a flush of the block_work in iscsi_unblock_session.
+> >
+> >
+> > It was merged in 5.14.
+>
+> Hey, I found one more bug when max_active > 1. While fixing it I decided to just
+> fix this so we can do the sessions recoveries in parallel and the user doesn't have
+> to worry about setting max_active.
+>
+> I'll send a patchset and cc you.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
