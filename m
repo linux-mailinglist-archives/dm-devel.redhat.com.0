@@ -1,91 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39641539DDE
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Jun 2022 09:10:31 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39C25539534
+	for <lists+dm-devel@lfdr.de>; Tue, 31 May 2022 19:05:54 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1654016753;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=HXw9bCvyhLBwOJRAKjmMdTEEY1FM1kGZoc7XHsyXh4s=;
+	b=OXL9dby09z0THvON55nfn6+GG45gsGlnwM2a8V5kZNJQFi/SYJjP/RgqPdQhlnzgBi8AOA
+	4YfxtXPNIHuGgFlbbDUSiak9TIbSWAMSD5yIfmNfUI4n5t0oTnWDlwmq/FJi2eLExU2CgG
+	1JSdPdbyk3q3kKBTKDhBlgpYao0ON98=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-634-8g0t-kW6OxOESJk0lmR44g-1; Wed, 01 Jun 2022 03:10:28 -0400
-X-MC-Unique: 8g0t-kW6OxOESJk0lmR44g-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-131-Bj5uPe6lNya_iSbDHwWJsQ-1; Tue, 31 May 2022 13:05:51 -0400
+X-MC-Unique: Bj5uPe6lNya_iSbDHwWJsQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F97B811E83;
-	Wed,  1 Jun 2022 07:10:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7EB3185A7BA;
+	Tue, 31 May 2022 17:05:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 05DF7492CA3;
-	Wed,  1 Jun 2022 07:10:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 937D91121314;
+	Tue, 31 May 2022 17:05:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BABC719451F0;
-	Wed,  1 Jun 2022 07:10:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7AA0C1947071;
+	Tue, 31 May 2022 17:05:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8E1D31947065
- for <dm-devel@listman.corp.redhat.com>; Tue, 31 May 2022 16:15:05 +0000 (UTC)
+ ESMTP id 54B721947065
+ for <dm-devel@listman.corp.redhat.com>; Tue, 31 May 2022 17:05:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6FF161121315; Tue, 31 May 2022 16:15:05 +0000 (UTC)
+ id 3FCFF1410F36; Tue, 31 May 2022 17:05:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C6741121314
- for <dm-devel@redhat.com>; Tue, 31 May 2022 16:15:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 519E680B71A
- for <dm-devel@redhat.com>; Tue, 31 May 2022 16:15:05 +0000 (UTC)
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
- [209.85.128.45]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-572-uu4DbOchPViPyw1mBU_7NQ-1; Tue, 31 May 2022 12:15:03 -0400
-X-MC-Unique: uu4DbOchPViPyw1mBU_7NQ-1
-Received: by mail-wm1-f45.google.com with SMTP id
- r123-20020a1c2b81000000b0039c1439c33cso1482487wmr.5; 
- Tue, 31 May 2022 09:15:02 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=GBVGXc+1SeVm8+Dhr1BGRRweZbVkKpH/bDYOi0S9+xI=;
- b=FJ7u1nr0mopx3ReIJRKIicW/9kDMYNs9tHVwGT3gQ/1wDXHMgGURiCAH/eU0nm91ET
- uiqrTXQyugnCJbWXelS84WCU/nZW+5QAjsDJJwpV8eLFgndwQIyB4fQCEyZvjsGznWeb
- G1atK+QVmMJ0n5M2iEDZGEhe3UFHBy6ilNKZX/bBCsqQstlQ4APteVRK3EYi1JBjjmxe
- rt3pIs9tq1Z06T7Wbtdy6c6iSma4EeKhIFmrtprbBewjRrKdWubJBu9rzUAbifuDXY8k
- /uJdZhEPIsqBuu1bJCn2LsNlOBZs4+uGjbGr6eaySliaiIVT7RHYr7Qxd2G3VaEEs3+B
- l86Q==
-X-Gm-Message-State: AOAM532IkL4NK/3dYjfSLoi3yViW+gEdSD1aCXD6sIXv9j/XAr4zoyEK
- x0ZyI5NcJ+btD7KPMc6R56A/kCTDqxo=
-X-Google-Smtp-Source: ABdhPJw4g+iNLaRfFvHUC1tQE80ssPGpZq3EN1SonBUuB3Ynm8f3geQDIYVxJRBciQ8tQW1hn+l9mg==
-X-Received: by 2002:a7b:c2e8:0:b0:397:4a00:6955 with SMTP id
- e8-20020a7bc2e8000000b003974a006955mr24464732wmk.74.1654013701507; 
- Tue, 31 May 2022 09:15:01 -0700 (PDT)
-Received: from kali.home (2a01cb088e0b5b002be75de2a1caa253.ipv6.abo.wanadoo.fr.
- [2a01:cb08:8e0b:5b00:2be7:5de2:a1ca:a253])
- by smtp.gmail.com with ESMTPSA id
- t4-20020adfdc04000000b0021024f82e01sm9151392wri.16.2022.05.31.09.15.00
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 31 May 2022 09:15:01 -0700 (PDT)
-From: Fabrice Fontaine <fontaine.fabrice@gmail.com>
-To: dm-devel@redhat.com
-Date: Tue, 31 May 2022 18:12:30 +0200
-Message-Id: <20220531161230.3820698-1-fontaine.fabrice@gmail.com>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 22C381410DDB;
+ Tue, 31 May 2022 17:05:40 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 24VH5cZK032484;
+ Tue, 31 May 2022 12:05:38 -0500
+Received: (from bmarzins@localhost)
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 24VH5bEO032483;
+ Tue, 31 May 2022 12:05:37 -0500
+Date: Tue, 31 May 2022 12:05:37 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Martin Wilck <mwilck@suse.com>
+Message-ID: <20220531170537.GN5254@octiron.msp.redhat.com>
+References: <20220514230148.139675-1-xose.vazquez@gmail.com>
+ <20220514230148.139675-5-xose.vazquez@gmail.com>
+ <SN6PR06MB4495FAEC26D7A272C2DEDA498CD19@SN6PR06MB4495.namprd06.prod.outlook.com>
+ <e014a5ee6e313404bb4d1d29c1cd4791f9660c5e.camel@suse.com>
+ <SN6PR06MB44955631FFA648B74BB939318CD09@SN6PR06MB4495.namprd06.prod.outlook.com>
+ <6d6f31c7e9c03eead93cc5b528bcd8979446fc91.camel@suse.com>
+ <SN6PR06MB4495843B676A209F9AA0085A8CD99@SN6PR06MB4495.namprd06.prod.outlook.com>
+ <a008223fcb69037c76fabd3dd5b10e81aa93ba2e.camel@suse.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-Mailman-Approved-At: Wed, 01 Jun 2022 07:10:21 +0000
-Subject: [dm-devel] [PATCH] multipathd/fpin_handlers.c: include stdint.h
+In-Reply-To: <a008223fcb69037c76fabd3dd5b10e81aa93ba2e.camel@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: Re: [dm-devel] [PATCH 4/9] multipath-tools: add NetApp E-Series
+ NVMe to hardware table
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,48 +80,217 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: mwilck@suse.com, Fabrice Fontaine <fontaine.fabrice@gmail.com>
+Cc: "George, Martin" <Martin.George@netapp.com>,
+ Hannes Reinecke <hare@suse.com>, Xose Vazquez Perez <xose.vazquez@gmail.com>,
+ "Schremmer, Steven" <Steve.Schremmer@netapp.com>,
+ ng-eseries-upstream-maintainers <ng-eseries-upstream-maintainers@netapp.com>,
+ DM-DEVEL ML <dm-devel@redhat.com>,
+ Christophe Varoqui <christophe.varoqui@opensvc.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-Include stdint.h to avoid the following build failure since version
-0.8.9 and commit cfff03efbca753ef485ad717087464dced9c721a:
+On Tue, May 31, 2022 at 10:43:01AM +0200, Martin Wilck wrote:
+> Hi Steve,
+>=20
+> On Thu, 2022-05-26 at 20:10 +0000, Schremmer, Steven wrote:
+> > > From: Martin Wilck <mwilck@suse.com>
+> > > Sent: Thursday, May 19, 2022 9:47 AM
+> > > Hi Steve,
+> > >=20
+> > > On Thu, 2022-05-19 at 13:18 +0000, Schremmer, Steven wrote:
+> > > > Martin W,
+> > > >=20
+> > > > > Steve,
+> > > > >=20
+> > > > > On Wed, 2022-05-18 at 20:24 +0000, Schremmer, Steven wrote:
+> > > > > >=20
+> > > > > > Nak. NetApp E-Series only supports these settings in certain
+> > > > > > configurations, and we prefer to handle it via our
+> > > > > > installation
+> > > > > > documentation.
+> > > > > >=20
+> > > > >=20
+> > > > > I don't follow. What harm is done to Netapp if these settings
+> > > > > are
+> > > > > included? People can still follow your documentation, the end
+> > > > > result
+> > > > > will be the same... no?
+> > > > >=20
+> > > > > AFAICS, the only setting above that would only be supported in
+> > > > > certain
+> > > > > configurations is PRIO_ANA, without which GROUP_BY_PRIO doesn't
+> > > > > make
+> > > > > much sense. If the array is configured not to support ANA, this
+> > > > > configuration would lead to error messages and PRIO_UNDEF for
+> > > > > all
+> > > > > paths, and thus "imply" multibus topology. Not beautiful, but
+> > > > > also
+> > > > > no
+> > > > > big harm done, IMO.
+> > > > >=20
+> > > > > If it's that you're concerned about, please provide the set of
+> > > > > defaults
+> > > > > you prefer for E-Series, or explictly state that you prefer to
+> > > > > run
+> > > > > with
+> > > > > the generic NVMe defaults (const prio, failover policy).
+> > > > >=20
+> > > > > In general, if vendor-recommended settings are strongly
+> > > > > dependent
+> > > > > on
+> > > > > storage configuration, host-side software defaults must try to
+> > > > > match
+> > > > > the storage array's defaults. We shoud do this for E-Series,
+> > > > > too.
+> > > > > If
+> > > > > ANA needs to be explicitly enabled on the array by the admin,
+> > > > > we
+> > > > > shouldn't enable it by default; but otherwise, we should.
+> > > > >=20
+> > > > > Martin
+> > > >=20
+> > > > NVMe-attached E-Series is moving towards only using the native
+> > > > NVMe
+> > > > multipathing in the kernel rather than DM-MP with NVMe. At some
+> > > > point
+> > > > we will stop interoperability testing with NVMe DM-MP and not
+> > > > certify
+> > > > new
+> > > > solutions with it.
+> > > >=20
+> > > > The set of defaults listed for NVMe E-Series are the correct
+> > > > ones,
+> > > > but I'm not sure
+> > > > they should be included if we aren't going to continue to test
+> > > > the
+> > > > interoperability
+> > > > of NVMe-attached E-Series and DM-MP.
+> > >=20
+> > > Thanks for the explanation.
+> > >=20
+> > > I believe everyone understands that the fact that the built-in
+> > > hwtable
+> > > in multipath-tools contains sensible defaults for a given storage
+> > > array
+> > > does *not* imply that this array has been tested or officially
+> > > released
+> > > by Netapp (or any storage vendor). If you want, we can add a
+> > > statement
+> > > of this kind (vendor-neutral) to our man page and/or README.
+> > >=20
+> > > It's also understood that Netapp, like the kernel community,
+> > > recommends
+> > > native multipathing for NVMe, and discourages use of device-mapper
+> > > multipath for NVMe devices. Native multipathing is the kernel
+> > > default,
+> > > and must be explicitly disabled either at build time or on the
+> > > kernel
+> > > command line before dm-multipath would even see the devices. IMO it
+> > > can
+> > > be assumed that a user who employs such a setup knows what she's
+> > > doing,
+> > > and is aware that the setup doesn't comply with common
+> > > recommendations.
+> > >=20
+> > > Netapp currently publishes configuration recommendations for
+> > > multipath-
+> > > tools with E-Series and NVMe. Xose's patch simply changes the
+> > > built-in
+> > > defaults to match these recommendations. We have been doing this
+> > > for
+> > > years with the intention to improve the "out of the box"
+> > > experience,
+> > > and it's a good thing.
+> > >=20
+> > > If we didn't take this patch, we'd knowingly force suboptimal
+> > > default
+> > > settings on (admittedly few) users. Who would benefit from that?
+> > >=20
+> > > We want to ship multipath-tools with the most reasonable defaults
+> > > that
+> > > we are aware of. Xose's continued efforts in this area have been
+> > > immensely useful for the community of dm-multipath users. I don't
+> > > think
+> > > we should give this up. I'd like to encourage everyone to continue
+> > > submitting improvements for the hardware table.
+> > >=20
+> > > Regards,
+> > > Martin
+> > >=20
+> >=20
+> > Martin,
+> >=20
+> > Sorry for being slow to respond to this. NetApp publishes settings
+> > for
+> > multipath-tools for NVMe-attach E-Series for specific distribution
+> > versions
+> > that we have qualified. Anyone using these settings outside of these
+> > versions would NOT be in a valid system configuration for NetApp
+> > support.=A0
+>=20
+> Anyone using wrong or suboptimal settings on an unsupported
+> distribution would also NOT be a valid configuration for NetApp
+> support, right? But they'd be more likely to call support.
+>=20
+> > Are
+> > reasonable defaults in the hardware table really useful if they cause
+> > a user
+> > to follow a path that leads them to an unsupported system
+> > configuration?
+>=20
+> Do you have any evidence that such an hardware table entry would
+> "cause" users to follow this path? I have to say it sounds far-fetched
+> to me. People who buy NetApp storage should have evaluated the system
+> requirements and support restrictions beforehand. If they decide to use
+> an unsupported distribution nonetheless, they will have strong reasons,
+> and won't be deterred by wrong defaults in multipath-tools. Rather,
+> they'll look up the settings in your manuals and configure them
+> manually. If they call NetApp support, support engineers can still ask
+> them to reproduce their issue in a supported environment.
+>=20
+> AFAIU, NetApp doesn't support using upstream multipath-tools at all.
+> Should we consequently just drop all settings for NetApp storage and
+> OEMs from the upstream code base? You're certainly aware that distros
+> like RHEL or SLES get their default settings through upstream, which is
+> a good thing. Without good upstream defaults, users of these distros
+> would need to enter the settings manually in multipath.conf rather than
+> having reasonable settings applied out of the box. That'd be a serious
+> deterioration of the user experience.
 
-In file included from /nvmedata/autobuild/instance-7/output-1/host/nios2-buildroot-linux-gnu/sysroot/usr/include/scsi/scsi_netlink_fc.h:25,
-                 from fpin_handlers.c:6:
-/nvmedata/autobuild/instance-7/output-1/host/nios2-buildroot-linux-gnu/sysroot/usr/include/scsi/scsi_netlink.h:44:2: error: unknown type name 'uint8_t'
-   44 |  uint8_t version;
-      |  ^~~~~~~
+With RHEL-9 and going forward, RHEL is recommending and defaulting to
+using native multipathing for NVMe devices over dm-multipathing. That
+means that people who use dm-multipath for these devices will already
+actively be making the decision to not use the recommended settings.
 
-Fixes:
- - http://autobuild.buildroot.org/results/32f4ada6c49261924ca78f62dee43241bda379a3
+We don't make any claims that the multipath.conf defaults have any
+official support. We have always included default configs that have no
+official blessing from their vendors. The goal is to give the average
+user a good starting point for configuring their system.  If you do have
+an official recommened dm-multipath configuration, we will certainly use
+that. But if there simply isn't any recommended config because you don't
+recommend that people use dm-multipath, then I don't see the harm in
+providing "reasonable defaults" (as the multipath.conf man page calls
+them) to the users that make the choice to use dm-multipath for NVMe
+devices.
 
-Signed-off-by: Fabrice Fontaine <fontaine.fabrice@gmail.com>
----
- multipathd/fpin_handlers.c | 1 +
- 1 file changed, 1 insertion(+)
+- Ben
 
-diff --git a/multipathd/fpin_handlers.c b/multipathd/fpin_handlers.c
-index aaf5655d..384ae318 100644
---- a/multipathd/fpin_handlers.c
-+++ b/multipathd/fpin_handlers.c
-@@ -1,5 +1,6 @@
- #include <errno.h>
- #include <unistd.h>
-+#include <stdint.h>
- #include <sys/types.h>
- #include <sys/socket.h>
- #include <libudev.h>
--- 
-2.35.1
-
+> Regards
+> Martin
+>=20
+> PS: Every Linux user understands that "it works" and "it's supported by
+> the hardware vendor" are two _very_ different things, simply because
+> there are so few vendors that support Linux at all. I don't think I
+> ever had a laptop running an officially supported OS.
+>=20
 --
 dm-devel mailing list
 dm-devel@redhat.com
