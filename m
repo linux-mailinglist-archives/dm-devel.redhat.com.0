@@ -1,85 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 755D453ADA3
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Jun 2022 22:27:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D3A7553AE65
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Jun 2022 23:01:11 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-53-MnGEzrhaPL-eQf_SHQpWcg-1; Wed, 01 Jun 2022 16:26:59 -0400
-X-MC-Unique: MnGEzrhaPL-eQf_SHQpWcg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-195-sjMo2t_tPLmCFFbhoNlAgA-1; Wed, 01 Jun 2022 17:01:09 -0400
+X-MC-Unique: sjMo2t_tPLmCFFbhoNlAgA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B61B858EEE;
-	Wed,  1 Jun 2022 20:26:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40DE08339AB;
+	Wed,  1 Jun 2022 21:01:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3D9CC2166B26;
-	Wed,  1 Jun 2022 20:26:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 380D4492C3B;
+	Wed,  1 Jun 2022 21:00:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B71051947B94;
-	Wed,  1 Jun 2022 20:26:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1A8721947B93;
+	Wed,  1 Jun 2022 21:00:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6E68C19452D2
- for <dm-devel@listman.corp.redhat.com>; Wed,  1 Jun 2022 20:26:48 +0000 (UTC)
+ ESMTP id 47B831947B8E
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Jun 2022 21:00:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 406A7492C3B; Wed,  1 Jun 2022 20:26:48 +0000 (UTC)
+ id 1817C1731B; Wed,  1 Jun 2022 21:00:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C12940F06C
- for <dm-devel@redhat.com>; Wed,  1 Jun 2022 20:26:48 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 13E7E8288A
+ for <dm-devel@redhat.com>; Wed,  1 Jun 2022 21:00:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E87CE858EED
- for <dm-devel@redhat.com>; Wed,  1 Jun 2022 20:26:47 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-558-T76w27MKPmuCvXETMyLDGg-1; Wed, 01 Jun 2022 16:26:46 -0400
-X-MC-Unique: T76w27MKPmuCvXETMyLDGg-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 2D5BA21B25;
- Wed,  1 Jun 2022 20:26:45 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DFEF41330F;
- Wed,  1 Jun 2022 20:26:44 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KAcUNYTLl2IFJwAAMHmgww
- (envelope-from <mwilck@suse.com>); Wed, 01 Jun 2022 20:26:44 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Xose Vazquez Perez <xose.vazquez@gmail.com>,
- Benjamin Marzinski <bmarzins@redhat.com>,
- Steven Schremmer <Steve.Schremmer@netapp.com>
-Date: Wed,  1 Jun 2022 22:26:28 +0200
-Message-Id: <20220601202628.5469-3-mwilck@suse.com>
-In-Reply-To: <20220601202628.5469-1-mwilck@suse.com>
-References: <20220601202628.5469-1-mwilck@suse.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EAAF31066682
+ for <dm-devel@redhat.com>; Wed,  1 Jun 2022 21:00:55 +0000 (UTC)
+Received: from mail-qk1-f182.google.com (mail-qk1-f182.google.com
+ [209.85.222.182]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-103-P4Ab9YQIOWOKPJ-E9jQf-g-1; Wed, 01 Jun 2022 17:00:00 -0400
+X-MC-Unique: P4Ab9YQIOWOKPJ-E9jQf-g-1
+Received: by mail-qk1-f182.google.com with SMTP id 14so2302585qkl.6
+ for <dm-devel@redhat.com>; Wed, 01 Jun 2022 13:59:56 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:mime-version
+ :content-disposition;
+ bh=3Il2sr4cXjU8yOwsfjBHoPflo5uLJpNZAFsBDi52fpw=;
+ b=j/wWT70eBjtleLaBgseiBRBDvu1WDv4nG59K+qvd4tezwDNj0GmoRQiODr/y4PWHiX
+ 4MRjg4m3t6e/VvvLKJQbyqKBiBJrWTJEgLoMJTbVNaF4z2BvHVn1wDXguiyk9qWeK263
+ W5c8o0BoEg5/+nOogVcivnR+gvPJgUcsjrSVLZlM918eWFSY7U1kjKOhMhZnaj9ZpSPh
+ Tx8CfsqU0G1KdzvTgwkZA5W5HVvciLVji2cO+9c4QCTPyjj28mSJXc/M/dzApkvmz8/M
+ B5vYumiwr7ldllb+d5bu1FJZzP0/ZAyy/bphmZPyxPx6czCngwsBCtE52sGx1hyB/dRL
+ HNAQ==
+X-Gm-Message-State: AOAM5329ZD2IzwS9pL99dxJu1Wu0YVi5MbWcbbXJcLqs9UDy9EYhzBJY
+ wMXW9CUxDztS+Z44UmHeh1lcZKBFfBLYIXY=
+X-Google-Smtp-Source: ABdhPJyD9xv6RupucWCiGGBWA4YEtS55Ndss4nBseM+kOnW6oYvBleLUYOueHZSBL+6CJAA6y254sg==
+X-Received: by 2002:a05:620a:1a22:b0:6a5:dac3:7fb1 with SMTP id
+ bk34-20020a05620a1a2200b006a5dac37fb1mr1077202qkb.377.1654117188277; 
+ Wed, 01 Jun 2022 13:59:48 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+ [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+ d16-20020ac81190000000b002f93ece0df3sm1681790qtj.71.2022.06.01.13.59.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Jun 2022 13:59:47 -0700 (PDT)
+Date: Wed, 1 Jun 2022 16:59:46 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <YpfTQgw6RsEYxSFD@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH 2/2] libmultipath: hwtable: remove obsolete NVMe
- entries
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: [dm-devel] [git pull] device mapper fixes for 5.19-rc1
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,124 +87,54 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Cc: linux-block@vger.kernel.org, Sarthak Kukreti <sarthakkukreti@google.com>,
+ dm-devel@redhat.com, Kees Cook <keescook@chromium.org>,
+ Alasdair G Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+Hi Linus,
 
-With the previous patch, lots of specific settings for NVMe devices
-can be removed, because they match the general NVMe defaults.
-E-Series NVMe is removed entirely.
----
- libmultipath/hwtable.c | 27 ---------------------------
- 1 file changed, 27 deletions(-)
+The following changes since commit ca522482e3eafd005b8d4e8b1331c911505a58d5:
 
-diff --git a/libmultipath/hwtable.c b/libmultipath/hwtable.c
-index e0dce84..fd4573f 100644
---- a/libmultipath/hwtable.c
-+++ b/libmultipath/hwtable.c
-@@ -124,7 +124,6 @@ static struct hwentry default_hw[] = {
- 		/* Alletra 9000 NVMe */
- 		.vendor        = "NVME",
- 		.product       = "HPE Alletra",
--		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = NO_PATH_RETRY_QUEUE,
- 	},
- 	{
-@@ -387,12 +386,6 @@ static struct hwentry default_hw[] = {
- 		.pgfailback    = -FAILBACK_IMMEDIATE,
- 		.no_path_retry = 30,
- 	},
--	{
--		/* EMC PowerMax NVMe */
--		.vendor        = "NVME",
--		.product       = "^EMC PowerMax_",
--		.pgpolicy      = MULTIBUS,
--	},
- 	{
- 		/* PowerStore */
- 		.vendor        = "DellEMC",
-@@ -408,9 +401,6 @@ static struct hwentry default_hw[] = {
- 		/* PowerStore NVMe */
- 		.vendor        = ".*",
- 		.product       = "dellemc-powerstore",
--		.pgpolicy      = GROUP_BY_PRIO,
--		.prio_name     = PRIO_ANA,
--		.pgfailback    = -FAILBACK_IMMEDIATE,
- 		.no_path_retry = 3,
- 	},
- 	{
-@@ -482,9 +472,6 @@ static struct hwentry default_hw[] = {
- 		/* ETERNUS AB/HB NVMe */
- 		.vendor        = "NVME",
- 		.product       = "Fujitsu ETERNUS AB/HB Series",
--		.pgpolicy      = GROUP_BY_PRIO,
--		.prio_name     = PRIO_ANA,
--		.pgfailback    = -FAILBACK_IMMEDIATE,
- 		.no_path_retry = 30,
- 	},
- 	/*
-@@ -703,7 +690,6 @@ static struct hwentry default_hw[] = {
- 		/* FlashSystem(Storwize/SVC) NVMe */
- 		.vendor        = "NVME",
- 		.product       = "IBM[ ]+2145",
--		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = NO_PATH_RETRY_QUEUE,
- 	},
- 	{
-@@ -763,7 +749,6 @@ static struct hwentry default_hw[] = {
- 		/* FlashSystem(RamSan) NVMe */
- 		.vendor        = "NVMe",
- 		.product       = "FlashSystem",
--		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = NO_PATH_RETRY_FAIL,
- 	},
- 	{
-@@ -875,18 +860,8 @@ static struct hwentry default_hw[] = {
- 		/* ONTAP NVMe */
- 		.vendor        = "NVME",
- 		.product       = "^NetApp ONTAP Controller",
--		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = NO_PATH_RETRY_QUEUE,
- 	},
--	{
--		/* E-Series NVMe */
--		.vendor        = "NVME",
--		.product       = "NetApp E-Series",
--		.pgpolicy      = GROUP_BY_PRIO,
--		.prio_name     = PRIO_ANA,
--		.pgfailback    = -FAILBACK_IMMEDIATE,
--		.no_path_retry = 30,
--	},
- 	/*
- 	 * NEC
- 	 */
-@@ -1130,7 +1105,6 @@ static struct hwentry default_hw[] = {
- 		/* FlashArray NVMe */
- 		.vendor        = "NVME",
- 		.product       = "Pure Storage FlashArray",
--		.pgpolicy      = MULTIBUS,
- 		.no_path_retry = 10,
- 	},
- 	/*
-@@ -1150,7 +1124,6 @@ static struct hwentry default_hw[] = {
- 		/* OceanStor NVMe */
- 		.vendor        = "NVME",
- 		.product       = "Huawei-XSG1",
--		.pgpolicy      = MULTIBUS,
- 		.checker_name  = DIRECTIO,
- 		.no_path_retry = 12,
- 	},
--- 
-2.36.1
+  dm: pass NULL bdev to bio_alloc_clone (2022-05-11 13:58:52 -0400)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-5.19/dm-fixes
+
+for you to fetch changes up to 4caae58406f8ceb741603eee460d79bacca9b1b5:
+
+  dm verity: set DM_TARGET_IMMUTABLE feature flag (2022-05-31 16:22:30 -0400)
+
+Please pull, thanks.
+Mike
+
+----------------------------------------------------------------
+- Fix DM core's dm_table_supports_poll to return false if no data
+  devices.
+
+- Fix DM verity target so that it cannot be switched to a different DM
+  target type (e.g. dm-linear) via DM table reload.
+
+----------------------------------------------------------------
+Mike Snitzer (1):
+      dm table: fix dm_table_supports_poll to return false if no data devices
+
+Sarthak Kukreti (1):
+      dm verity: set DM_TARGET_IMMUTABLE feature flag
+
+ drivers/md/dm-table.c         | 19 +++++++++++++++----
+ drivers/md/dm-verity-target.c |  1 +
+ 2 files changed, 16 insertions(+), 4 deletions(-)
 
 --
 dm-devel mailing list
