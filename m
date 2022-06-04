@@ -2,161 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C930353E112
-	for <lists+dm-devel@lfdr.de>; Mon,  6 Jun 2022 08:46:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4856D53D5F6
+	for <lists+dm-devel@lfdr.de>; Sat,  4 Jun 2022 09:38:28 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-507-4HBJe4UoP9KU3X0kd4SMLw-1; Mon, 06 Jun 2022 02:46:26 -0400
-X-MC-Unique: 4HBJe4UoP9KU3X0kd4SMLw-1
+ us-mta-155-s07P_OZRNMCOSYtBJ687NQ-1; Sat, 04 Jun 2022 03:38:25 -0400
+X-MC-Unique: s07P_OZRNMCOSYtBJ687NQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 360D3100BABC;
-	Mon,  6 Jun 2022 06:46:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E2DCA80A0B5;
+	Sat,  4 Jun 2022 07:38:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8793C40EC002;
-	Mon,  6 Jun 2022 06:46:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4D6BA40E80E0;
+	Sat,  4 Jun 2022 07:38:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B778D1947B9A;
-	Mon,  6 Jun 2022 06:46:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E6EBF1947068;
+	Sat,  4 Jun 2022 07:38:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3BAE1194704D
- for <dm-devel@listman.corp.redhat.com>; Fri,  3 Jun 2022 23:09:15 +0000 (UTC)
+ ESMTP id 95628194704D
+ for <dm-devel@listman.corp.redhat.com>; Sat,  4 Jun 2022 07:38:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2B3452166B2E; Fri,  3 Jun 2022 23:09:15 +0000 (UTC)
+ id 64861C28103; Sat,  4 Jun 2022 07:38:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BBD512166B26
- for <dm-devel@redhat.com>; Fri,  3 Jun 2022 23:09:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FE0AC28101
+ for <dm-devel@redhat.com>; Sat,  4 Jun 2022 07:38:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4809D185A79C
+ for <dm-devel@redhat.com>; Sat,  4 Jun 2022 07:38:10 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-157-cG5PkZ_yMpqra2F_9nNTXQ-1; Sat, 04 Jun 2022 03:38:08 -0400
+X-MC-Unique: cG5PkZ_yMpqra2F_9nNTXQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99EB538005D8
- for <dm-devel@redhat.com>; Fri,  3 Jun 2022 23:09:14 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-388-DYvnSW72MQWJJwAxDGqZxA-1; Fri, 03 Jun 2022 19:09:13 -0400
-X-MC-Unique: DYvnSW72MQWJJwAxDGqZxA-1
-Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 253LTmCT016569;
- Fri, 3 Jun 2022 23:09:05 GMT
-Received: from phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta02.appoci.oracle.com [147.154.114.232])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3gbc6xdyby-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 03 Jun 2022 23:09:04 +0000
-Received: from pps.filterd
- (phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 253MeLwl011626; Fri, 3 Jun 2022 23:09:03 GMT
-Received: from nam10-bn7-obe.outbound.protection.outlook.com
- (mail-bn7nam10lp2105.outbound.protection.outlook.com [104.47.70.105])
- by phxpaimrmta02.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
- 3gc8j0ke6b-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 03 Jun 2022 23:09:03 +0000
-Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
- BYAPR10MB3061.namprd10.prod.outlook.com (2603:10b6:a03:83::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5293.17; Fri, 3 Jun 2022 23:09:00 +0000
-Received: from DM5PR10MB1466.namprd10.prod.outlook.com
- ([fe80::f81d:b8ef:c5a4:9c9b]) by DM5PR10MB1466.namprd10.prod.outlook.com
- ([fe80::f81d:b8ef:c5a4:9c9b%3]) with mapi id 15.20.5293.019; Fri, 3 Jun 2022
- 23:09:00 +0000
-Message-ID: <7aa54c8a-7f2e-694d-882e-2ae967690607@oracle.com>
-Date: Fri, 3 Jun 2022 18:08:58 -0500
+ by smtp-out2.suse.de (Postfix) with ESMTPS id DD23B1F8DE;
+ Sat,  4 Jun 2022 07:38:06 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 965CA13A5F;
+ Sat,  4 Jun 2022 07:38:06 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id I6rzIt4Lm2KfSwAAMHmgww
+ (envelope-from <hare@suse.de>); Sat, 04 Jun 2022 07:38:06 +0000
+Message-ID: <fdd77f3b-691a-a9bf-b31f-0aa845e68e59@suse.de>
+Date: Sat, 4 Jun 2022 09:38:05 +0200
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-To: Keith Busch <kbusch@kernel.org>
+ Thunderbird/91.4.0
+To: Keith Busch <kbusch@kernel.org>,
+ Mike Christie <michael.christie@oracle.com>
 References: <20220603065536.5641-1-michael.christie@oracle.com>
  <20220603065536.5641-10-michael.christie@oracle.com>
  <Yppkz4HIPVxr54hn@kbusch-mbp.dhcp.thefacebook.com>
-From: Mike Christie <michael.christie@oracle.com>
+From: Hannes Reinecke <hare@suse.de>
 In-Reply-To: <Yppkz4HIPVxr54hn@kbusch-mbp.dhcp.thefacebook.com>
-X-ClientProxiedBy: CH2PR20CA0017.namprd20.prod.outlook.com
- (2603:10b6:610:58::27) To DM5PR10MB1466.namprd10.prod.outlook.com
- (2603:10b6:3:b::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 1489ff64-290a-42e3-a49a-08da45b60b37
-X-MS-TrafficTypeDiagnostic: BYAPR10MB3061:EE_
-X-Microsoft-Antispam-PRVS: <BYAPR10MB3061CBA26E102CCE6C073287F1A19@BYAPR10MB3061.namprd10.prod.outlook.com>
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: bzogrDPge9BfJZgSocbZZljDndVJZa0XW1zW1rauks8fzIxdU51T8xONpcDNlV3hMn2s/QsCY3C4CALxdGEuuSn+SyujBirADl/sJHM4V0pLsGwtH9J4O0A6p3uKfzKz7YcYYAytuDSQ5aKavqfGrHjOObkle7xCqHDiXjjpT8kdtH4LNUj+SP9otf/MLiJ96Ye8nxp6Oy990+q4UY4nFQd1dN0zzQtk2huNQwMP9gA3QZDPV6RrfMWAfspXz1YYDz+xAllkkrqOnuGN8EndCCCRqzCFGwuknTm5YRDwk+dNW/bLUpSxK3+pug8yCWYUxZRAkBL4BEHsaPc4XlmteX8X9IUbFHbbiqwH2oLroEcJtTJ+SA+apQDIE4xceliDMmQ3PZFUWz16q2L/hppxHjHuzmj+EUhKbIU3Rm81es9nVrV+YjqTzf6O0JYHL+BQs03Zo3SZ/LErgxllJwWwstzvzf3BQziDdgyTGoGa6tcvrb6JryrXGr1FqYszSP5YXYY0335kBdsvQXOgtZWv4MoqJFGk2pT5CpRFzcULukNrj8gx+X9qDE7cM3hyHpd8miEO5kYS3FXrGhogTn2Mrb54sw411H8ZVqd+iosZzAh2pBdx0pahlvUltodBEbmJE0wUDs0XnDTXwMzLcd3ExqY39rgbUmAtPf4vIc1D5uB9J979k7ikmK75sCNK+g4UGhruMvqLj/kJFPgHvJiqwDTVMC4OlezaK+kRKkvvSu0=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230001)(366004)(5660300002)(316002)(66556008)(66476007)(66946007)(8676002)(53546011)(508600001)(4326008)(31686004)(36756003)(6506007)(6916009)(26005)(2616005)(6486002)(86362001)(2906002)(186003)(31696002)(83380400001)(38100700002)(6512007)(8936002)(45980500001)(43740500002);
- DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?d3ZyazRtRmxVQit6N2xYNWt1ZGJjVmFaSkE4akk5dlhCNldiNUc3eXlWYVUx?=
- =?utf-8?B?NXZXREp2SFhWZmYwLy9ITnlwdzdjOW9xRk5GQ29BL2VXMjkrUm01c2p5V0Vz?=
- =?utf-8?B?bUlpMm9yRkp5RTVWc2NTaW5wb0VBM0p4QVo4M29yVWp1NjB5WkxjeEJjalQ0?=
- =?utf-8?B?TjhUZEVvRDJjYm1kTWI1d2dXR0Z6NDBOT2ZxMzAyMVB6ekJqTHhLUjBDSjRJ?=
- =?utf-8?B?bnRESzRqQXR4WU9TQWhJL0duWjhJaUoxVmtRbVRteDB0SmVoRXNsTGFuWGNj?=
- =?utf-8?B?VDZWYjZpazFYa2VPUklBWmE5bDFGbm8raFZJVnpabG5zZFZwWE4vcmdmWEVT?=
- =?utf-8?B?R1BWbnZkWnUrR1hXdlFwcHVSL1JZZkFDSHk5alB4TUNpWkExWDhmakk5WDZU?=
- =?utf-8?B?YzRjcDVEcVBzVnloSmRYZ2tiR3VhSU1QVnlQYkpCQXJFVER5UE10ejI2Z1Ny?=
- =?utf-8?B?WmpaTXlDTi8ya2FoM1N3bHpVaW5LYitKVHV2cU9iVSsxajZDc0JtSUZmcHA3?=
- =?utf-8?B?cVVXNUlJaWZYRExna05sNEtOekN4NVJJam5TRXN1NEVaYmlucnU0YUkwQVRm?=
- =?utf-8?B?c0dZcnM4M0tBT2lpZ2dzSVg0YVJXbTBJcW1ZUHgxbTc3THFKRDU3TVFkMFF6?=
- =?utf-8?B?NW9DeFJsZmtvU1pabkFIanp6VTdsbXBHcWZnbjkweEJzTnN5bkEwbnFSNUU4?=
- =?utf-8?B?bDJ6UjJRem4yWjdiN0tBaTY3MjdWNFUzaTZHRXRyVUVNRWxRQzhITEQ5ZHJ3?=
- =?utf-8?B?bGw3SlN4ejErb1MrK0gza2t3R0VxdW1vSXV4Umc0WExVUTFQK3RJbUFjT01N?=
- =?utf-8?B?Q0d1NERKaFhKYXVQQWRjSVcwTWhTeG9nTGMrODYybmhtczBnR2djdG9ZcDI3?=
- =?utf-8?B?S3V6dlBqUGt6QmxtODF0M2ZuRUNLL2NzWGdMK3NEbks2VmdJVEMrelU3UlpG?=
- =?utf-8?B?WlNVNFJGMDNrU1VaSk45ZXlMWW5ZSWhEZFN3amhDeDVoa3RxK3dtUmQxa1ZO?=
- =?utf-8?B?NGxEN2dyUEM3QVhYY01IL3JXbXJES2NrTS9Sc2MvZjQrNXNWZk0rRGZYdzlh?=
- =?utf-8?B?K25jOFM0cnBHTTNZL2h1R3MwazU3S1FoelJzL0pRSFE3TWhIYUtkZzRZU0pR?=
- =?utf-8?B?aVJkZFdQUm13UG80YTJnbG1sV3FCT2Z4eUJ5SnNDWXNYZlVOZG9kR01vZWww?=
- =?utf-8?B?d2IxVTdpU1grQkhuVUx4NldtVVl3RW1IaGJaYlc3Q2RMZkMrdXMxMkpzRlEv?=
- =?utf-8?B?L3RPYndXUEwxVjFNekZZdTdqT3hqMnM1Z3lIODhOaE8yV3NOdGI2aE1YOEkx?=
- =?utf-8?B?MHhNTzlhSjk2a1ArK1hqK1ZZTFhDampmMmlVbis0QWNuUmNPaU5PZGJLOXdE?=
- =?utf-8?B?N1lEWERIdlg1U2treTNNV0VxM2lEWjdLRzZlekkzVjI4WmY2azZBQjFJUkEy?=
- =?utf-8?B?UFA4WWxySTRwMmlUSXVCRmVhakRwdzQxeEg2eU96M1JnSDV5ck95cWRXdXNJ?=
- =?utf-8?B?eGV3TG1CbjFSVGE1YllMRFRQbGlXSmNOeHdOdk95L01MM1krNkNRbmFYcHBG?=
- =?utf-8?B?cGE3emhvU2tSZU15RmdZajZzYTUvOHMrdDM4Vy9NVEM2QUNoQU41cmR2NGU0?=
- =?utf-8?B?aFJONXdXQUthRDd2NTNoSTFrWHFuSE9MNmFURy9yYmY5S202RjFPTStNaXh0?=
- =?utf-8?B?Z1BCVlErZzA4UEtxdVEwKzNYZysxUGNJdFI1clZ1RWJWYURqb3FhdUExdGZn?=
- =?utf-8?B?RS9ET2xPM1hCRTJqc3BuY1NZM3hBdWVOYUhZL1lhWDZvaGh2QTJvWVFRT0V2?=
- =?utf-8?B?S1FqTmxIWkpHRi9GUGVGc0U0VVBadzFpb3JVUk5zQTVpVnBIM0hOSnYyK2NB?=
- =?utf-8?B?OW9kckQ2UkhENDU2Wmhjc3N6MzN3aEZBUG5FeEVNekUzTTM3VkRjM2JWWEtV?=
- =?utf-8?B?Qy9QSVBzcWNGQzN2RUc2VjQyVTcyMW01NUh1dXFodSs3WlNoMUQrUjJjNUtG?=
- =?utf-8?B?Uy80Zjg3UXlnd1dFeGRFRXpCTWppUlpUdklHbWhnZ2VGSjVsNmEvR3krcnhs?=
- =?utf-8?B?V1YwdWpjYW51ZHBZR01UTUdmWVNTVnI0SFd4b3hZYlZBT054aHNJbW9uZzFr?=
- =?utf-8?B?WDEvWSthWC9DM2t3MkE0SVhhRk1QMUxEcVJZT2ZheW5SQjdHejVCVkUrdHpP?=
- =?utf-8?B?ekRsU0ZnazNGMzBzUEpKSWRTQ3RQanlnc3RJdzdsaCtTZWt6YzlvZnZibmJM?=
- =?utf-8?B?QWgxMjhpWXErV1JiNlBjdGdCRzJESjdoL3lPcVE0em5uaWVmWFVHeVRWL2dz?=
- =?utf-8?B?QWhRMFJ2emVwT3ovdkRkOERzelR3OHQxVmZvTFA1TlJyaG9EYkZSMlN4ZE5j?=
- =?utf-8?Q?auNAnN7JmWTcUsGE=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 1489ff64-290a-42e3-a49a-08da45b60b37
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 03 Jun 2022 23:09:00.2625 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 4nJkXVCEZ3MTE8LtO3pdcnk9TJvUHp6IJ6OkbAR8m82mDMcqE51JIoudiVZWhVa8Qhu8CtItTAnay2qfp5wUohMetF3mNfzZRWqSg6wZTUk=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BYAPR10MB3061
-X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517, 18.0.874
- definitions=2022-06-03_08:2022-06-02,
- 2022-06-03 signatures=0
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- bulkscore=0 suspectscore=0
- mlxlogscore=999 mlxscore=0 spamscore=0 adultscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2204290000
- definitions=main-2206030089
-X-Proofpoint-GUID: BlcyF_pARbor1dDkIktOvxmqpZYqXTvo
-X-Proofpoint-ORIG-GUID: BlcyF_pARbor1dDkIktOvxmqpZYqXTvo
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -164,8 +78,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-Mailman-Approved-At: Mon, 06 Jun 2022 06:46:17 +0000
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Subject: Re: [dm-devel] [PATCH 09/11] block,
  nvme: Add error for reservation conflicts.
 X-BeenThere: dm-devel@redhat.com
@@ -191,40 +104,32 @@ Authentication-Results: relay.mimecast.com;
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On 6/3/22 2:45 PM, Keith Busch wrote:
-> On Fri, Jun 03, 2022 at 01:55:34AM -0500, Mike Christie wrote:
->> @@ -171,6 +171,7 @@ static const struct {
->>  	/* zone device specific errors */
->>  	[BLK_STS_ZONE_OPEN_RESOURCE]	= { -ETOOMANYREFS, "open zones exceeded" },
->>  	[BLK_STS_ZONE_ACTIVE_RESOURCE]	= { -EOVERFLOW, "active zones exceeded" },
->> +	[BLK_STS_RSV_CONFLICT]	= { -EBADE,	"resevation conflict" },
-> 
-> You misspelled "reservation". :)
-
-Will fix.
-
-> 
-> And since you want a different error, why reuse EBADE for the errno? That is
-> already used for BLK_STS_NEXUS that you're trying to differentiate from, right?
-> At least for nvme, this error code is returned when the host lacks sufficient
-> rights, so something like EACCESS might make sense.
->
-
-Ah ok I might have misuderstood the reason/usage of the -Exyz error.
-
-The patches in this set use the pr_ops in the kernel so I can see the BLK_STS
-value. We do bio based IO so we get that value in the end io callback.
-
-I thought the -Exyx error can get returned to userspace. Because scsi and nvme
-currently return -EBADE for reservation conflicts I thought I had to keep doing
-that. If that's not the case, then yeah -EACCESS is better and I'll definitely
-use it.
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gNi8zLzIyIDIxOjQ1LCBLZWl0aCBCdXNjaCB3cm90ZToKPiBPbiBGcmksIEp1biAwMywgMjAy
+MiBhdCAwMTo1NTozNEFNIC0wNTAwLCBNaWtlIENocmlzdGllIHdyb3RlOgo+PiBAQCAtMTcxLDYg
+KzE3MSw3IEBAIHN0YXRpYyBjb25zdCBzdHJ1Y3Qgewo+PiAgIAkvKiB6b25lIGRldmljZSBzcGVj
+aWZpYyBlcnJvcnMgKi8KPj4gICAJW0JMS19TVFNfWk9ORV9PUEVOX1JFU09VUkNFXQk9IHsgLUVU
+T09NQU5ZUkVGUywgIm9wZW4gem9uZXMgZXhjZWVkZWQiIH0sCj4+ICAgCVtCTEtfU1RTX1pPTkVf
+QUNUSVZFX1JFU09VUkNFXQk9IHsgLUVPVkVSRkxPVywgImFjdGl2ZSB6b25lcyBleGNlZWRlZCIg
+fSwKPj4gKwlbQkxLX1NUU19SU1ZfQ09ORkxJQ1RdCT0geyAtRUJBREUsCSJyZXNldmF0aW9uIGNv
+bmZsaWN0IiB9LAo+IAo+IFlvdSBtaXNzcGVsbGVkICJyZXNlcnZhdGlvbiIuIDopCj4gCj4gQW5k
+IHNpbmNlIHlvdSB3YW50IGEgZGlmZmVyZW50IGVycm9yLCB3aHkgcmV1c2UgRUJBREUgZm9yIHRo
+ZSBlcnJubz8gVGhhdCBpcwo+IGFscmVhZHkgdXNlZCBmb3IgQkxLX1NUU19ORVhVUyB0aGF0IHlv
+dSdyZSB0cnlpbmcgdG8gZGlmZmVyZW50aWF0ZSBmcm9tLCByaWdodD8KPiBBdCBsZWFzdCBmb3Ig
+bnZtZSwgdGhpcyBlcnJvciBjb2RlIGlzIHJldHVybmVkIHdoZW4gdGhlIGhvc3QgbGFja3Mgc3Vm
+ZmljaWVudAo+IHJpZ2h0cywgc28gc29tZXRoaW5nIGxpa2UgRUFDQ0VTUyBtaWdodCBtYWtlIHNl
+bnNlLgo+IAo+IExvb2tzIGdvb2Qgb3RoZXJ3aXNlLgoKV2VsbGwgLi4uIEJMS19TVFNfTkVYVVMg
+X2lzXyB0aGUgcmVzZXJ2YXRpb24gZXJyb3IuCgpJJ2QgcmF0aGVyIG1vZGlmeSB0aGUgZXhpc3Rp
+bmcgY29kZSB0byByZXR1cm4gQkxLX1NUU19SU1ZfQ09ORkxJQ1QgCmluc3RlYWQgb2YgQkxLX1NU
+U19ORVhVUywgYnV0IGtlZXAgdGhlICdFQkFERScgbWFwcGluZy4KVXNlcnNwYWNlIEFCSSBhbmQg
+YWxsIHRoYXQuCgpDaGVlcnMsCgpIYW5uZXMKLS0gCkRyLiBIYW5uZXMgUmVpbmVja2UgICAgICAg
+ICAgICAgICAgS2VybmVsIFN0b3JhZ2UgQXJjaGl0ZWN0CmhhcmVAc3VzZS5kZSAgICAgICAgICAg
+ICAgICAgICAgICAgICAgICAgICs0OSA5MTEgNzQwNTMgNjg4ClNVU0UgU29mdHdhcmUgU29sdXRp
+b25zIEdtYkgsIE1heGZlbGRzdHIuIDUsIDkwNDA5IE7DvHJuYmVyZwpIUkIgMzY4MDkgKEFHIE7D
+vHJuYmVyZyksIEdlc2Now6RmdHNmw7xocmVyOiBJdm8gVG90ZXYsIEFuZHJldwpNeWVycywgQW5k
+cmV3IE1jRG9uYWxkLCBNYXJ0amUgQm91ZGllbiBNb2VybWFuCgotLQpkbS1kZXZlbCBtYWlsaW5n
+IGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWls
+bWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
