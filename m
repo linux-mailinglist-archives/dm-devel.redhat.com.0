@@ -1,56 +1,57 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4E5354AD92
-	for <lists+dm-devel@lfdr.de>; Tue, 14 Jun 2022 11:50:08 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F29C54AD62
+	for <lists+dm-devel@lfdr.de>; Tue, 14 Jun 2022 11:29:41 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-212-UvPdFbtdM9aNK6oYGIn_wQ-1; Tue, 14 Jun 2022 05:50:05 -0400
-X-MC-Unique: UvPdFbtdM9aNK6oYGIn_wQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-117-J3r6tmFZOM2x6-aV4Y_ttQ-1; Tue, 14 Jun 2022 05:29:39 -0400
+X-MC-Unique: J3r6tmFZOM2x6-aV4Y_ttQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDDB2100BAC4;
-	Tue, 14 Jun 2022 09:50:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBF67811E76;
+	Tue, 14 Jun 2022 09:29:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A3101121314;
-	Tue, 14 Jun 2022 09:50:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 02EFC492C3B;
+	Tue, 14 Jun 2022 09:29:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A48EC19451EC;
-	Tue, 14 Jun 2022 09:50:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BF7C31947067;
+	Tue, 14 Jun 2022 09:29:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6A19D1947070
- for <dm-devel@listman.corp.redhat.com>; Tue, 14 Jun 2022 09:50:01 +0000 (UTC)
+ ESMTP id 7E7671947067
+ for <dm-devel@listman.corp.redhat.com>; Tue, 14 Jun 2022 09:29:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 23A971121319; Tue, 14 Jun 2022 09:50:01 +0000 (UTC)
+ id 4BB8D4010E32; Tue, 14 Jun 2022 09:29:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F5171121314
- for <dm-devel@redhat.com>; Tue, 14 Jun 2022 09:50:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02ADB811E81
- for <dm-devel@redhat.com>; Tue, 14 Jun 2022 09:50:01 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4762240D282F
+ for <dm-devel@redhat.com>; Tue, 14 Jun 2022 09:29:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DF251C0513E
+ for <dm-devel@redhat.com>; Tue, 14 Jun 2022 09:29:33 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-643-aCyjsfl2Nmy4DERtoJ5QBw-1; Tue, 14 Jun 2022 05:49:59 -0400
-X-MC-Unique: aCyjsfl2Nmy4DERtoJ5QBw-1
+ us-mta-625-cypDc1QdPtqXysh90-xX3w-1; Tue, 14 Jun 2022 05:29:31 -0400
+X-MC-Unique: cypDc1QdPtqXysh90-xX3w-1
 Received: from [2001:4bb8:180:36f6:1fed:6d48:cf16:d13c] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o12Ya-008Ziu-T7; Tue, 14 Jun 2022 09:09:53 +0000
+ id 1o12Yd-008Zl3-In; Tue, 14 Jun 2022 09:09:56 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 14 Jun 2022 11:09:33 +0200
-Message-Id: <20220614090934.570632-6-hch@lst.de>
+Date: Tue, 14 Jun 2022 11:09:34 +0200
+Message-Id: <20220614090934.570632-7-hch@lst.de>
 In-Reply-To: <20220614090934.570632-1-hch@lst.de>
 References: <20220614090934.570632-1-hch@lst.de>
 MIME-Version: 1.0
@@ -63,9 +64,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [dm-devel] [PATCH 5/6] block: fold blk_max_size_offset into
- get_max_io_size
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [PATCH 6/6] block: move blk_queue_get_max_sectors to
+ blk.h
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,7 +82,7 @@ Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
  Mike Snitzer <snitzer@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -89,65 +90,62 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Now that blk_max_size_offset has a single caller left, fold it into that
-and clean up the naming convention for the local variables there.
+blk_queue_get_max_sectors is private to the block layer, so move it out
+of blkdev.h.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-merge.c      |  9 +++++++--
- include/linux/blkdev.h | 19 -------------------
- 2 files changed, 7 insertions(+), 21 deletions(-)
+ block/blk.h            | 13 +++++++++++++
+ include/linux/blkdev.h | 13 -------------
+ 2 files changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/block/blk-merge.c b/block/blk-merge.c
-index 4da981efddeed..0f5f42ebd0bb0 100644
---- a/block/blk-merge.c
-+++ b/block/blk-merge.c
-@@ -166,9 +166,14 @@ static inline unsigned get_max_io_size(struct request_queue *q,
- {
- 	unsigned pbs = queue_physical_block_size(q) >> SECTOR_SHIFT;
- 	unsigned lbs = queue_logical_block_size(q) >> SECTOR_SHIFT;
--	unsigned max_sectors, start, end;
-+	unsigned max_sectors = queue_max_sectors(q), start, end;
-+
-+	if (q->limits.chunk_sectors) {
-+		max_sectors = min(max_sectors,
-+			blk_chunk_sectors_left(bio->bi_iter.bi_sector,
-+					       q->limits.chunk_sectors));
-+	}
- 
--	max_sectors = blk_max_size_offset(q, bio->bi_iter.bi_sector, 0);
- 	start = bio->bi_iter.bi_sector & (pbs - 1);
- 	end = (start + max_sectors) & ~(pbs - 1);
- 	if (end > start)
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index e66ad451274ec..05e60ee269d91 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -944,25 +944,6 @@ static inline unsigned int blk_chunk_sectors_left(sector_t offset,
- 	return chunk_sectors - (offset & (chunk_sectors - 1));
+diff --git a/block/blk.h b/block/blk.h
+index 434017701403f..8e79296ee97a2 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -159,6 +159,19 @@ static inline bool blk_discard_mergable(struct request *req)
+ 	return false;
  }
  
--/*
-- * Return maximum size of a request at given offset. Only valid for
-- * file system requests.
-- */
--static inline unsigned int blk_max_size_offset(struct request_queue *q,
--					       sector_t offset,
--					       unsigned int chunk_sectors)
++static inline unsigned int blk_queue_get_max_sectors(struct request_queue *q,
++						     int op)
++{
++	if (unlikely(op == REQ_OP_DISCARD || op == REQ_OP_SECURE_ERASE))
++		return min(q->limits.max_discard_sectors,
++			   UINT_MAX >> SECTOR_SHIFT);
++
++	if (unlikely(op == REQ_OP_WRITE_ZEROES))
++		return q->limits.max_write_zeroes_sectors;
++
++	return q->limits.max_sectors;
++}
++
+ #ifdef CONFIG_BLK_DEV_INTEGRITY
+ void blk_flush_integrity(void);
+ bool __bio_integrity_endio(struct bio *);
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index 05e60ee269d91..5ef2f061feb08 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -920,19 +920,6 @@ static inline unsigned int bio_zone_is_seq(struct bio *bio)
+ }
+ #endif /* CONFIG_BLK_DEV_ZONED */
+ 
+-static inline unsigned int blk_queue_get_max_sectors(struct request_queue *q,
+-						     int op)
 -{
--	if (!chunk_sectors) {
--		if (q->limits.chunk_sectors)
--			chunk_sectors = q->limits.chunk_sectors;
--		else
--			return q->limits.max_sectors;
--	}
+-	if (unlikely(op == REQ_OP_DISCARD || op == REQ_OP_SECURE_ERASE))
+-		return min(q->limits.max_discard_sectors,
+-			   UINT_MAX >> SECTOR_SHIFT);
 -
--	return min(q->limits.max_sectors,
--			blk_chunk_sectors_left(offset, chunk_sectors));
+-	if (unlikely(op == REQ_OP_WRITE_ZEROES))
+-		return q->limits.max_write_zeroes_sectors;
+-
+-	return q->limits.max_sectors;
 -}
 -
  /*
-  * Access functions for manipulating queue properties
+  * Return how much of the chunk is left to be used for I/O at a given offset.
   */
 -- 
 2.30.2
