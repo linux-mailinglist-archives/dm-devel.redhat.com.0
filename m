@@ -2,146 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7FAD454E6B7
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Jun 2022 18:12:32 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E646D54E8A0
+	for <lists+dm-devel@lfdr.de>; Thu, 16 Jun 2022 19:29:18 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1655400557;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=qsWQpfP+NOGO1f+KOCTAtC8/IGVxol1nF8ZaCTB/5lw=;
+	b=PteFp5dRHTuXz1EKvUYbkbMRlezCMWv4UfZkZWoec8NY9piq8TmeCBMlewD5WwRycgnoEk
+	iEm3qCXkWX3iieLegxzARpvCwMkcu5BTp6XXw3htasLU500Z3Ou4tsSIf4qfzATrT0kG1N
+	McWjKbbrAdWvxZiQjmtw3uJFaxAcMHE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-169-V_Lihyi4Mbq5qGikGEaVfw-1; Thu, 16 Jun 2022 12:12:27 -0400
-X-MC-Unique: V_Lihyi4Mbq5qGikGEaVfw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-453-Y_cv2yTCPzGJCuM9uXxLHA-1; Thu, 16 Jun 2022 13:29:16 -0400
+X-MC-Unique: Y_cv2yTCPzGJCuM9uXxLHA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9C25185A7B2;
-	Thu, 16 Jun 2022 16:12:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1BB285A586;
+	Thu, 16 Jun 2022 17:29:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 48AAA2166B26;
-	Thu, 16 Jun 2022 16:12:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 169A040334E;
+	Thu, 16 Jun 2022 17:29:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1887D1947066;
-	Thu, 16 Jun 2022 16:12:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 03D1A1947069;
+	Thu, 16 Jun 2022 17:29:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6EAF4194705A
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Jun 2022 16:12:15 +0000 (UTC)
+ ESMTP id CF310194705D
+ for <dm-devel@listman.corp.redhat.com>; Thu, 16 Jun 2022 17:21:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3C6EE1415107; Thu, 16 Jun 2022 16:12:15 +0000 (UTC)
+ id 9B0BA40E80E2; Thu, 16 Jun 2022 17:21:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 37D001415106
- for <dm-devel@redhat.com>; Thu, 16 Jun 2022 16:12:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C8B185A580
- for <dm-devel@redhat.com>; Thu, 16 Jun 2022 16:12:15 +0000 (UTC)
-Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
- [210.118.77.11]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-479-w3aRwL5xNd6gGqyt3shqdA-1; Thu, 16 Jun 2022 12:12:13 -0400
-X-MC-Unique: w3aRwL5xNd6gGqyt3shqdA-1
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220616161211euoutp01bfc1cda800222f5961257ff13042c5da~5JdRWoLuM1978219782euoutp01f
- for <dm-devel@redhat.com>; Thu, 16 Jun 2022 16:12:11 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
- 20220616161211euoutp01bfc1cda800222f5961257ff13042c5da~5JdRWoLuM1978219782euoutp01f
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20220616161211eucas1p295ba6d89667f807ae527a12483909950~5JdRAPlNH0245502455eucas1p2v;
- Thu, 16 Jun 2022 16:12:11 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id F0.8F.09580.B565BA26; Thu, 16
- Jun 2022 17:12:11 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20220616161210eucas1p115d523e8dc5355e1179e2b267cf9800d~5JdQTfYih1246312463eucas1p1Z;
- Thu, 16 Jun 2022 16:12:10 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220616161210eusmtrp2ef0db1527aba0e69896207e120906c94~5JdQShJpJ2110121101eusmtrp27;
- Thu, 16 Jun 2022 16:12:10 +0000 (GMT)
-X-AuditID: cbfec7f5-9adff7000000256c-e6-62ab565bd508
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 21.2E.09095.A565BA26; Thu, 16
- Jun 2022 17:12:10 +0100 (BST)
-Received: from CAMSVWEXC01.scsc.local (unknown [106.1.227.71]) by
- eusmtip1.samsung.com (KnoxPortal) with ESMTPA id
- 20220616161210eusmtip1cbfd7c21dec8ce375bc53c0501d87964~5JdQEJVXq1192611926eusmtip1F;
- Thu, 16 Jun 2022 16:12:10 +0000 (GMT)
-Received: from [192.168.1.12] (106.210.248.244) by CAMSVWEXC01.scsc.local
- (2002:6a01:e347::6a01:e347) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Thu, 16 Jun 2022 17:12:03 +0100
-Message-ID: <0b819562-8b16-37b6-9220-28bf1960bccb@samsung.com>
-Date: Thu, 16 Jun 2022 18:12:00 +0200
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+ (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 93E4140E80E1;
+ Thu, 16 Jun 2022 17:21:27 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
+ 25GHLRnt024919; Thu, 16 Jun 2022 13:21:27 -0400
+Received: from localhost (mpatocka@localhost)
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
+ id 25GHLRRV024915; Thu, 16 Jun 2022 13:21:27 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+ owned process doing -bs
+Date: Thu, 16 Jun 2022 13:21:27 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Mike Snitzer <msnitzer@redhat.com>
+Message-ID: <alpine.LRH.2.02.2206161222001.22594@file01.intranet.prod.int.rdu2.redhat.com>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-To: Damien Le Moal <damien.lemoal@opensource.wdc.com>, <hch@lst.de>,
- <snitzer@redhat.com>, <axboe@kernel.dk>
-From: Pankaj Raghav <p.raghav@samsung.com>
-In-Reply-To: <63b0cfb6-eb24-f058-e502-2637039c5a98@opensource.wdc.com>
-X-Originating-IP: [106.210.248.244]
-X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
- CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347)
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrMKsWRmVeSWpSXmKPExsWy7djPc7rRYauTDLY/lbJYfbefzWLah5/M
- Fr/Pnme2aG3/xmSx991sVosLPxqZLPYsmsRksXL1USaLJ+tnMVv0HPjAYvG36x5QrOUhs8Xe
- W9oWl3fNYbOYv+wpu8Wam09ZLNo2fmV0EPS4fMXb49+JNWweO2fdZfe4fLbUY9OqTjaPhQ1T
- mT02L6n32H2zASjXep/V4/2+q2we67dcZfHYfLra4/MmOY/2A91MAXxRXDYpqTmZZalF+nYJ
- XBmXLi5kL7iVUnFup1oD42z/LkYODgkBE4kDM9m6GLk4hARWMEq0LFvPBOF8YZQ483wzI4Tz
- mVFi7+RfLDAdN3dXQ8SXM0q82fmOGa5obed9qPZdjBK3dr1hBOngFbCT2Lo+p4uRk4NFQFVi
- xdYHLCA2r4CgxMmZT8BsUYEIiZWtb8AWCAs4SjSdSAIJMwuIS9x6Mp8JJCwikCcx718SyHRm
- gRZmia79D5lB4mwCWhKNnewgJqeAm8S2KfEQnZoSrdt/s0PY8hLb385hhrheWeLfTmaQsIRA
- rcTaY2fYQSZKCDRxSdzongOVcJHYvaCJCcIWlnh1fAs7hC0j8X/nfKh4tcTTG7+ZIZpbGCX6
- d65ng1hgLdF3JgeixlFiVcsTRogwn8SNt4IQ5/BJTNo2nXkCo+ospGCYheTfWUg+mIXkgwWM
- LKsYxVNLi3PTU4uN81LL9YoTc4tL89L1kvNzNzEC0+Xpf8e/7mBc8eqj3iFGJg7GQ4wSHMxK
- IrxmwSuThHhTEiurUovy44tKc1KLDzFKc7AoifMmZ25IFBJITyxJzU5NLUgtgskycXBKNTAZ
- +TRFehvHMVdI8+d4qRse6nmzxfHctgzvv8s+ue668OPUdc4rNxrWVX88zMtXIPZ8dsLhpSHs
- DBsVL54zPXXhwqZDwusvd5p5XP+5sKvo+nruUwoqtlEXGrM/VB+ZFKu2zjLu6tm1q8uWKh1a
- tXN9/+oj0avMGWcUlauo3c0INuw8Nlf+U8GF/i3FdQ84L+f+P1/A8vx7Vd/8M8/ldjsVrvng
- 4Su/YM9jO4c+qY/lIQbhwRdXm5v7ng1NK9p0Z//lbZt/FGfe5Jkj9oiJ44vYddODnx39D8fI
- JcUf/av4wc77x9NPVnWbNZ/srnnmtuzzgRtvHjWqHulKc2M2VX/sdLJoc9on+4WJRhcvHORg
- VGIpzkg01GIuKk4EAG9QZ9EGBAAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrBKsWRmVeSWpSXmKPExsVy+t/xu7pRYauTDOa3alqsvtvPZjHtw09m
- i99nzzNbtLZ/Y7LY+242q8WFH41MFnsWTWKyWLn6KJPFk/WzmC16DnxgsfjbdQ8o1vKQ2WLv
- LW2Ly7vmsFnMX/aU3WLNzacsFm0bvzI6CHpcvuLt8e/EGjaPnbPusntcPlvqsWlVJ5vHwoap
- zB6bl9R77L7ZAJRrvc/q8X7fVTaP9VuusnhsPl3t8XmTnEf7gW6mAL4oPZui/NKSVIWM/OIS
- W6VoQwsjPUNLCz0jE0s9Q2PzWCsjUyV9O5uU1JzMstQifbsEvYxLFxeyF9xKqTi3U62BcbZ/
- FyMHh4SAicTN3dVdjFwcQgJLGSWW3pvB3sXICRSXkfh05SOULSzx51oXG4gtJPCRUeJ2rxRE
- wy5GiZcPHrGBDOIVsJPYuj4HpIZFQFVixdYHLCA2r4CgxMmZT8BsUYEIiU/LJrCClAsLOEo0
- nUgCCTMLiEvcejKfCSQsIpAnMe9fEsh0ZoEWZomu/Q+ZIVb9AVo79xE7SBGbgJZEYyeYySng
- JrFtSjzEGE2J1u2/2SFseYntb+cwQ3yoLPFvJzPEI7USr+7vZpzAKDoLyW2zkBwxC8mkWUgm
- LWBkWcUoklpanJueW2yoV5yYW1yal66XnJ+7iRGYZLYd+7l5B+O8Vx/1DjEycTAeYpTgYFYS
- 4TULXpkkxJuSWFmVWpQfX1Sak1p8iNEUGEATmaVEk/OBaS6vJN7QzMDU0MTM0sDU0sxYSZzX
- s6AjUUggPbEkNTs1tSC1CKaPiYNTqoEp36quXPHgOcnjBRMUv3HNlbC+ZXThlt2txy7q/lf8
- npzLOn7v4F3/LObj678VOXVMvfc3K6pkalxiw9KSVIHvM+VTmifP66hNZj5j2HrvZ/+xJXx2
- zor/9eO7OOyyTn6Rf9q1fEO9ja7IkmnNGsErfCy/SObvZHu8aLphxsvwa3vnSG9b7pJz4e6V
- HTOnZf5fuHQrR0xQ/aVjl+u02XIbWh1/Rp/RSPdslu98ITJj0Zm0WD0909N5apcfcj8N5hN/
- fDblzRoNsf1KB3Z0rX4h1jnL83dt0IbFihpTLLUmnnds/R0kI1qVPj2zsSoi5pFcz9vGR9Os
- /pY8d3z6abPBEe51lme3/3i6OmHqpAWKSizFGYmGWsxFxYkAAGyT5bsDAAA=
-X-CMS-MailID: 20220616161210eucas1p115d523e8dc5355e1179e2b267cf9800d
-X-Msg-Generator: CA
-X-RootMTR: 20220615102011eucas1p220368db4a186181b1927dea50a79e5d4
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20220615102011eucas1p220368db4a186181b1927dea50a79e5d4
-References: <20220615101920.329421-1-p.raghav@samsung.com>
- <CGME20220615102011eucas1p220368db4a186181b1927dea50a79e5d4@eucas1p2.samsung.com>
- <20220615101920.329421-14-p.raghav@samsung.com>
- <63b0cfb6-eb24-f058-e502-2637039c5a98@opensource.wdc.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v7 13/13] dm: add non power of 2 zoned target
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [PATCH] dm: fix accessing of freed memory in
+ dm_put_live_table_bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -153,370 +74,82 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Damien Le Moal <damien.lemoal@wdc.com>, bvanassche@acm.org,
- pankydev8@gmail.com, gost.dev@samsung.com, jiangbo.365@bytedance.com,
- linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com, jonathan.derrick@linux.dev,
- Johannes.Thumshirn@wdc.com, dsterba@suse.com, jaegeuk@kernel.org
+Cc: dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Damien,
-On 2022-06-15 13:49, Damien Le Moal wrote:
-> On 6/15/22 19:19, Pankaj Raghav wrote:
->> Only power of 2(po2) zoned devices were supported in linux but now non
->> power of 2(npo2) zoned device support has been added to the block layer.
->>
->> Filesystems such as F2FS and btrfs have support for zoned devices with
->> po2 zone size assumption. Before adding native support for npo2 zoned
->> devices, it was suggested to create a dm target for npo2 zoned device to
->> appear as po2 device so that file systems can initially work without any
->> explicit changes by using this target.
->>
->> The design of this target is very simple: introduce gaps between the zone
->> capacity and the po2 zone size of the underlying device. All IOs will be
->> remapped from target to the actual device location. For devices that use
->> zone append, the bi_sector is remapped from device to target's layout.
-> 
-> Nothing special for zone append in this respect. All IOs are remapped
-> likewise, right ?
-> 
-This is what is being done: when we submit, we adjust the sector value
-from target to device, and the actual sector value from bio gets updated
-in the endio function where we transform from device -> target for zone
-appends.
->>
->> The read IOs that fall in the "emulated" gap area will return 0 and all
->> the other IOs in that area will result in an error. If an read IO span
->> across the zone capacity boundary, then the IOs are split between the
->> boundary. All other IO operations that span across a zone capacity
->> boundary will result in an error.
->>
->> The target can be easily updated as follows:
-> 
-> Updated ? you mean created, no ?
-> 
-Yeah. I will fix it.
->> dmsetup create <label> --table '0 <size_sects> zoned-npo2 /dev/nvme<id>'
->>
->> Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
->> Suggested-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
->> Suggested-by: Damien Le Moal <damien.lemoal@wdc.com>
->> Suggested-by: Hannes Reinecke <hare@suse.de>
->> ---
->>  drivers/md/Kconfig                |   9 +
->>  drivers/md/Makefile               |   2 +
->>  drivers/md/dm-zone.c              |   9 +
->>  drivers/md/dm-zoned-npo2-target.c | 268 ++++++++++++++++++++++++++++++
->>  4 files changed, 288 insertions(+)
->>  create mode 100644 drivers/md/dm-zoned-npo2-target.c
->>
->> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
->> index 998a5cfdb..773314536 100644
->> --- a/drivers/md/Kconfig
->> +++ b/drivers/md/Kconfig
->> @@ -518,6 +518,15 @@ config DM_FLAKEY
->>  	help
->>  	 A target that intermittently fails I/O for debugging purposes.
->>  
->> +config DM_ZONED_NPO2
->> +	tristate "Zoned non power of 2 target"
->> +	depends on BLK_DEV_DM
->> +	depends on BLK_DEV_ZONED
->> +	help
->> +	A target that converts a zoned device with non power of 2 zone size to
->> +	be power of 2. This is done by introducing gaps in between the zone
->> +	capacity and the power of 2 zone size.
->> +
->>  config DM_VERITY
->>  	tristate "Verity target support"
->>  	depends on BLK_DEV_DM
->> diff --git a/drivers/md/Makefile b/drivers/md/Makefile
->> index 0454b0885..2863a94a7 100644
->> --- a/drivers/md/Makefile
->> +++ b/drivers/md/Makefile
->> @@ -26,6 +26,7 @@ dm-era-y	+= dm-era-target.o
->>  dm-clone-y	+= dm-clone-target.o dm-clone-metadata.o
->>  dm-verity-y	+= dm-verity-target.o
->>  dm-zoned-y	+= dm-zoned-target.o dm-zoned-metadata.o dm-zoned-reclaim.o
->> +dm-zoned-npo2-y       += dm-zoned-npo2-target.o
-> 
-> This naming is in my opinion very bad as it seems related to the dm-zoned
-> target. e.g. dm-po2z, dm-zp2, etc.
-> 
-Probably dm-po2z sounds good. I will go for it if others don't have any
-objection.
->>  
->>  md-mod-y	+= md.o md-bitmap.o
->>  raid456-y	+= raid5.o raid5-cache.o raid5-ppl.o
->> @@ -60,6 +61,7 @@ obj-$(CONFIG_DM_CRYPT)		+= dm-crypt.o
->>  obj-$(CONFIG_DM_DELAY)		+= dm-delay.o
->>  obj-$(CONFIG_DM_DUST)		+= dm-dust.o
->>  obj-$(CONFIG_DM_FLAKEY)		+= dm-flakey.o
->> +obj-$(CONFIG_DM_ZONED_NPO2)	+= dm-zoned-npo2.o
->>  obj-$(CONFIG_DM_MULTIPATH)	+= dm-multipath.o dm-round-robin.o
->>  obj-$(CONFIG_DM_MULTIPATH_QL)	+= dm-queue-length.o
->>  obj-$(CONFIG_DM_MULTIPATH_ST)	+= dm-service-time.o
->> diff --git a/drivers/md/dm-zone.c b/drivers/md/dm-zone.c
->> index af36d33f9..5efb31ba0 100644
->> --- a/drivers/md/dm-zone.c
->> +++ b/drivers/md/dm-zone.c
->> @@ -210,6 +210,11 @@ static int dm_zone_revalidate_cb(struct blk_zone *zone, unsigned int idx,
->>  		}
->>  		md->zwp_offset[idx] = dm_get_zone_wp_offset(zone);
->>  
->> +		if (q->limits.chunk_sectors != zone->len) {
-> 
-> Why is this if needed ?
-> 
-Explanation below.
->> +			blk_queue_chunk_sectors(q, zone->len);
->> +			q->nr_zones = blkdev_nr_zones(md->disk);
->> +		}
->> +
->>  		break;
->>  	default:
->>  		DMERR("Invalid zone type 0x%x at sectors %llu",
->> @@ -307,6 +312,9 @@ int dm_set_zones_restrictions(struct dm_table *t, struct request_queue *q)
->>  	if (dm_table_supports_zone_append(t)) {
->>  		clear_bit(DMF_EMULATE_ZONE_APPEND, &md->flags);
->>  		dm_cleanup_zoned_dev(md);
->> +
-> 
-> no need for the blank line.
-> 
->> +		if (!is_power_of_2(blk_queue_zone_sectors(q)))
->> +			goto revalidate_zones;
->>  		return 0;
->>  	}
-> 
-> Why do you need to change dm_set_zones_restrictions() at all ?
-> 
-When the device mapper is created, the q->limits gets inherited from the
-underlying device. The chunk sectors of the target and the device will
-be the same but we want the chunk sector of the target to be different
-(rounded to po2) compared to the underlying device's chunk sector. This
-needs to be done only for the dm-po2z target and not for other targets
-that uses npo2 zoned devices (like dm-linear). So to perform this
-operation in a target independent way in dm-zone.c, I chose to always
-revalidate npo2 zoned device and update the chunk sector and nr_zones in
-dm_zone_revalidate_cb based on the zone information from the target.
-This allows to set the limits correctly for dm-po2z target.
->>  
-<snip>
-return -EINVAL;
->> +	}
->> +
->> +	if (is_power_of_2(zsze)) {
->> +		DMERR("%pg zone size is power of 2", dmh->dev->bdev);
-> 
-> Hmmm... You would end up with no remapping needed so it would still
-> work... Why error this ? A warning would work too.
-> 
-You mean a DMWARN and not return -EINVAL? I mean there is no usecase for
-po2 device to use this target so why allow it in the first place?
->> +		return -EINVAL;
->> +	}
->> +
->> +	dmh->zsze = zsze;
->> +	dmh->zsze_po2 = 1 << get_count_order_long(zsze);
->> +	dmh->zsze_diff = dmh->zsze_po2 - dmh->zsze;
->> +
->> +	ti->private = dmh;
->> +	ti->num_flush_bios = 1;
->> +	ti->num_discard_bios = 1;
->> +	ti->num_secure_erase_bios = 1;
->> +	ti->num_write_zeroes_bios = 1;
-> 
-> Why all these ? I know dm-linear do that but I do not see why they would
-> be necessary for a single device target.
-> 
-Good point. I will remove them
+dm_put_live_table_bio is called from the end of dm_submit_bio. However, at
+this point, the bio may be already finished and the caller may have freed
+the bio. Consequently, dm_put_live_table_bio accesses the stale "bio"
+pointer.
 
-<snip>
->> +		return DMZ_NPO2_IO_INSIDE_ZONE;
->> +	else if (relative_sect >= dmh->zsze)
-> 
-> no need for the else. And this is super confusing. This case correspond to
-> the BIO going beyond the zone capacity in the target address space,
-> meaning it is still WITHIN the target zone. But you call that "outside"
-> because it is for the device zone. Super confusing. It took me a lot of
-> rereading to finally get it.
-> 
-Probably my naming choice was not correct here for the enum. It should
-be s/IO_INSIDE_ZONE/IO_INSIDE_ZONE_CAP, etc to be clear. I mainly wanted
-to handle the case where a read across zone capacity should return
-something valid instead of just an error as we emulate the LBAs from
-zone cap to zone size.
+This patch fixes the bug by loading the bi_opf value and passing this
+value to dm_get_live_table_bio and dm_put_live_table_bio
+instead of the bio.
 
-DMZ_NPO2_IO_INSIDE_ZONE_CAP:
-             zcap   zsize
----------------|-----|
-      <------>
-        bio
-Normal scenario we just send what is there in the device.
+This bug was found by running the lvm testsuite with kasan.
 
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Fixes: 563a225c9fd20 ("dm: introduce dm_{get,put}_live_table_bio called from dm_submit_bio")
 
-DMZ_NPO2_IO_OUTSIDE_ZONE_CAP:
-             zcap       zsize
----------------|---------|
-                 <---->
-                   bio
+---
+ drivers/md/dm.c |   13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-Read should return zero filled bio and other operation will return an
-error because we are touching the emulated area.
-
-DMZ_NPO2_IO_ACROSS_ZONE_CAP:
-             zcap   zsize
----------------|-----|
-           <------>
-              bio
-For reads, the bio should be split across zone cap and the bio on the
-left hand side returns what is there in the device and the split bio on
-the right hand side should just return zeroes. All other requests will
-return an error.
-
->> +		return DMZ_NPO2_IO_OUTSIDE_ZONE;
->> +
->> +	return DMZ_NPO2_IO_ACROSS_ZONE;
-> 
-> So you BIO is eeither fully contained within the zone or it is not. So why
-> not just return a bool ?
-> 
-As I explained above, I was considering the boundary as zone cap inside
-a zone. The bio can be within zone cap, across zone cap into the
-emulated zone size and outside zone capacity.
-
-I didn't take into account the read across zone. I will make sure it is
-correctly handled in the next revision.
-
-             zcap  zsize          zcap
----------------|-----|--------------|
-                  <------>
-                     bio
->> +}
->> +
->> +static void split_io_across_zone_boundary(struct dmz_npo2_target *dmh,
->> +					  struct bio *bio)
->> +{
->> +	sector_t sect = bio->bi_iter.bi_sector;
->> +	sector_t sects_from_zone_start;
->> +
->> +	sect = target_to_device_sect(dmh, sect);
-> 
-> 	sect = target_to_device_sect(dmh, bio->bi_iter.bi_sector);
-> 
-> is more readable.
-> 
->> +	div64_u64_rem(sect, dmh->zsze, &sects_from_zone_start);
->> +	dm_accept_partial_bio(bio, dmh->zsze - sects_from_zone_start);
-> 
-> So if this is a read BIO starting exactly at the target zone capacity
-> (sects_from_zone_start == zsze), then you accept 0 sectors ? What am I
-> missing here ?
-> 
-Your condition will not even touch this function. This function comes
-into play only when the bio runs across the zone capacity as I mentioned
-before.
->> +	bio->bi_iter.bi_sector = sect;
->> +}
->> +
->> +static int handle_zone_boundary_violation(struct dmz_npo2_target *dmh,
->> +					  struct bio *bio,
->> +					  enum dmz_npo2_io_cond cond)
->> +{
->> +	/* Read should return zeroed page */
->> +	if (bio_op(bio) == REQ_OP_READ) {
->> +		if (cond == DMZ_NPO2_IO_ACROSS_ZONE) {
->> +			split_io_across_zone_boundary(dmh, bio);
->> +			return DM_MAPIO_REMAPPED;
->> +		}
->> +		zero_fill_bio(bio);
->> +		bio_endio(bio);
->> +		return DM_MAPIO_SUBMITTED;
->> +	}
->> +	return DM_MAPIO_KILL;
->> +}
->> +
->> +static int dmz_npo2_end_io(struct dm_target *ti, struct bio *bio,
->> +			   blk_status_t *error)
->> +{
->> +	struct dmz_npo2_target *dmh = ti->private;
->> +
->> +	if (bio->bi_status == BLK_STS_OK && bio_op(bio) == REQ_OP_ZONE_APPEND)
->> +		bio->bi_iter.bi_sector =
->> +			device_to_target_sect(dmh, bio->bi_iter.bi_sector);
->> +
->> +	return DM_ENDIO_DONE;
->> +}
->> +
->> +static int dmz_npo2_map(struct dm_target *ti, struct bio *bio)
->> +{
->> +	struct dmz_npo2_target *dmh = ti->private;
->> +	enum dmz_npo2_io_cond cond;
->> +
->> +	bio_set_dev(bio, dmh->dev->bdev);
->> +	if (bio_sectors(bio) || op_is_zone_mgmt(bio_op(bio))) {
->> +		cond = check_zone_boundary_violation(dmh, bio->bi_iter.bi_sector,
->> +						     bio->bi_iter.bi_size >> SECTOR_SHIFT);
-> 
-> Why check this for zone management BIOs ? These have length = 0, always.
-> 
->> +
->> +		/*
->> +		 * If the starting sector is in the emulated area then fill
->> +		 * all the bio with zeros. If bio is across boundaries,
->> +		 * split the bio across boundaries and fill zeros only for the
->> +		 * bio that is outside the zone capacity
->> +		 */
->> +		switch (cond) {
->> +		case DMZ_NPO2_IO_INSIDE_ZONE:
->> +			bio->bi_iter.bi_sector = target_to_device_sect(dmh,
->> +								       bio->bi_iter.bi_sector);
->> +			break;
->> +		case DMZ_NPO2_IO_ACROSS_ZONE:
->> +		case DMZ_NPO2_IO_OUTSIDE_ZONE:
->> +			return handle_zone_boundary_violation(dmh, bio, cond);
->> +		}
->> +	}
->> +	return DM_MAPIO_REMAPPED;
-> 
-> This entire function is very hard to read because everything is hidden in
-> helpers that are not super useful in my opinion. I would prefer seeing
-> cases for:
-> * zone management BIOs
-> * Reads and writes
-> * Everything else
-> 
-> where tests against the bio sector and length are visible, so one can
-> understand what is going on. If you need helpers, have handle_zone_mgmt(),
-> handle_read() etc. Something clear.
-> 
-Got it. I see the confusion here. I will rearrange it properly in the
-next revision. Thanks for this comment.
->> +}
->> +
->> +static int dmz_npo2_iterate_devices(struct dm_target *ti,
->> +				    iterate_devices_callout_fn fn, void *data)
->> +{
->> +	struct dmz_npo2_target *dmh = ti->private;
->> +	sector_t len = 0;
->> +
->> +	len = dmh->nr_zones * dmh->zsze;
-> 
-> Move this to the declaration instead of setting len to 0 for nothing.
-> 
-Ok.
->> +	return fn(ti, dmh->dev, 0, len, data);
-
+Index: linux-2.6/drivers/md/dm.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm.c	2022-06-13 13:01:16.000000000 +0200
++++ linux-2.6/drivers/md/dm.c	2022-06-16 09:20:45.000000000 +0200
+@@ -711,18 +711,18 @@ static void dm_put_live_table_fast(struc
+ }
+ 
+ static inline struct dm_table *dm_get_live_table_bio(struct mapped_device *md,
+-						     int *srcu_idx, struct bio *bio)
++						     int *srcu_idx, unsigned bio_opf)
+ {
+-	if (bio->bi_opf & REQ_NOWAIT)
++	if (bio_opf & REQ_NOWAIT)
+ 		return dm_get_live_table_fast(md);
+ 	else
+ 		return dm_get_live_table(md, srcu_idx);
+ }
+ 
+ static inline void dm_put_live_table_bio(struct mapped_device *md, int srcu_idx,
+-					 struct bio *bio)
++					 unsigned bio_opf)
+ {
+-	if (bio->bi_opf & REQ_NOWAIT)
++	if (bio_opf & REQ_NOWAIT)
+ 		dm_put_live_table_fast(md);
+ 	else
+ 		dm_put_live_table(md, srcu_idx);
+@@ -1711,8 +1711,9 @@ static void dm_submit_bio(struct bio *bi
+ 	struct mapped_device *md = bio->bi_bdev->bd_disk->private_data;
+ 	int srcu_idx;
+ 	struct dm_table *map;
++	unsigned bio_opf = bio->bi_opf;
+ 
+-	map = dm_get_live_table_bio(md, &srcu_idx, bio);
++	map = dm_get_live_table_bio(md, &srcu_idx, bio_opf);
+ 
+ 	/* If suspended, or map not yet available, queue this IO for later */
+ 	if (unlikely(test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags)) ||
+@@ -1728,7 +1729,7 @@ static void dm_submit_bio(struct bio *bi
+ 
+ 	dm_split_and_process_bio(md, map, bio);
+ out:
+-	dm_put_live_table_bio(md, srcu_idx, bio);
++	dm_put_live_table_bio(md, srcu_idx, bio_opf);
+ }
+ 
+ static bool dm_poll_dm_io(struct dm_io *io, struct io_comp_batch *iob,
 --
 dm-devel mailing list
 dm-devel@redhat.com
