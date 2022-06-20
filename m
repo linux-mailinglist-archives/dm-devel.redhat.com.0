@@ -2,59 +2,58 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E1E99551120
-	for <lists+dm-devel@lfdr.de>; Mon, 20 Jun 2022 09:13:42 +0200 (CEST)
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	by mail.lfdr.de (Postfix) with ESMTPS id CAFD455112A
+	for <lists+dm-devel@lfdr.de>; Mon, 20 Jun 2022 09:14:54 +0200 (CEST)
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-115-F8-tsegZP5C3qNoehoipkg-1; Mon, 20 Jun 2022 03:13:40 -0400
-X-MC-Unique: F8-tsegZP5C3qNoehoipkg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-347-fKcGUJTWN_iHX8GQaa9wHQ-1; Mon, 20 Jun 2022 03:14:51 -0400
+X-MC-Unique: fKcGUJTWN_iHX8GQaa9wHQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16B46101AA47;
-	Mon, 20 Jun 2022 07:13:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 444DE29ABA3A;
+	Mon, 20 Jun 2022 07:14:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 009C740CFD0B;
-	Mon, 20 Jun 2022 07:13:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9CACE2166B26;
+	Mon, 20 Jun 2022 07:14:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77A891947079;
-	Mon, 20 Jun 2022 07:13:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 228F71947079;
+	Mon, 20 Jun 2022 07:14:48 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 058001947069
- for <dm-devel@listman.corp.redhat.com>; Mon, 20 Jun 2022 07:13:35 +0000 (UTC)
+ ESMTP id A96791947069
+ for <dm-devel@listman.corp.redhat.com>; Mon, 20 Jun 2022 07:14:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C7125C28112; Mon, 20 Jun 2022 07:13:35 +0000 (UTC)
+ id 883DE112131B; Mon, 20 Jun 2022 07:14:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C2FF2C08087
- for <dm-devel@redhat.com>; Mon, 20 Jun 2022 07:13:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 847BC1121314
+ for <dm-devel@redhat.com>; Mon, 20 Jun 2022 07:14:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF33A85A583
- for <dm-devel@redhat.com>; Mon, 20 Jun 2022 07:13:35 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6DF4885A581
+ for <dm-devel@redhat.com>; Mon, 20 Jun 2022 07:14:46 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-581-M3CnW_QhOvO2kgWK6qZPtg-1; Mon, 20 Jun 2022 03:13:33 -0400
-X-MC-Unique: M3CnW_QhOvO2kgWK6qZPtg-1
+ us-mta-340-6asq6i3OMvG269MT0t2iSg-1; Mon, 20 Jun 2022 03:14:36 -0400
+X-MC-Unique: 6asq6i3OMvG269MT0t2iSg-1
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 9486468AA6; Mon, 20 Jun 2022 09:13:30 +0200 (CEST)
-Date: Mon, 20 Jun 2022 09:13:30 +0200
+ id 1010868AA6; Mon, 20 Jun 2022 09:14:34 +0200 (CEST)
+Date: Mon, 20 Jun 2022 09:14:33 +0200
 From: Christoph Hellwig <hch@lst.de>
 To: Mike Christie <michael.christie@oracle.com>
-Message-ID: <20220620071330.GE11418@lst.de>
+Message-ID: <20220620071433.GF11418@lst.de>
 References: <20220603065536.5641-1-michael.christie@oracle.com>
- <20220603065536.5641-4-michael.christie@oracle.com>
+ <20220603065536.5641-5-michael.christie@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <20220603065536.5641-4-michael.christie@oracle.com>
+In-Reply-To: <20220603065536.5641-5-michael.christie@oracle.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -63,9 +62,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH 03/11] scsi: Move sd_pr_type to header to
- share.
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH 04/11] block: Add PR callouts for read keys
+ and reservation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -83,7 +82,7 @@ Cc: axboe@kernel.dk, james.bottomley@hansenpartnership.com,
  hch@lst.de
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -92,9 +91,17 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Looks good modulo the u8 cleanup suggestion:
+On Fri, Jun 03, 2022 at 01:55:29AM -0500, Mike Christie wrote:
+> Add callouts for reading keys and reservations.
+> 
+> Note: This only initially adds the struct definitions in the kernel as I'm
+> not sure if we wanted to export the interface to userspace yet. We may
+> want to refine internally for LIO and when we can enable it for NVMe then
+> add the finished interface to userspace.
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+Yes, this sounds like a good plan.  I can see how they would be useful
+for userspace, but I'm also perfectly fine with us not locking ourselves
+into an ABI quite yet.
 
 --
 dm-devel mailing list
