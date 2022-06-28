@@ -2,99 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B8E9555F8FF
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Jun 2022 09:32:26 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C37855EB7B
+	for <lists+dm-devel@lfdr.de>; Tue, 28 Jun 2022 19:55:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656487945;
+	s=mimecast20190719; t=1656438912;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=f0UAj96g1URlrCdNLtO535wT0a5Vt1GUTTRkp7XEKEM=;
-	b=EWNtkglS/Cs+D4fzLMztpeTvXn0+Sy+P6X8/IO3cv3DEluYhOr99kKxySpC/HNyCIZoNO+
-	jgJCSaZMsKTOIB61km6N436ChMRWC5qFwk9T23obbx+27wx1IQal7pKI/pHRsj32fSwkVk
-	F1g6v8/CjjZ9R+Js+h7szdFCSnNt2gY=
+	bh=s0eaMDOU7P9oUaR+hhTfJiNyu6GfRMLAM1aNwIjPp6c=;
+	b=iIrvIqgNl5eTdHSf2bWZGOcaqrxvHiWC+6YGSvauWU2yYorUw1f3OC0Z6IjHulBg4Nv/t7
+	O5YS57n6inPsWsmdR9Nlb1L3j2LidxIIFGUUrlRJrI6ertOnnVoSJei4Tr6WVEmus21eH0
+	zPSWaqhgvXmexZ3UFhcVf9x41++FlMY=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-86-eioin6L8NTiUaiq9rnDeww-1; Wed, 29 Jun 2022 03:31:08 -0400
-X-MC-Unique: eioin6L8NTiUaiq9rnDeww-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-203-FYlOlcqwNqWSxK25XTL4Dw-1; Tue, 28 Jun 2022 13:55:10 -0400
+X-MC-Unique: FYlOlcqwNqWSxK25XTL4Dw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 204731C006AA;
-	Wed, 29 Jun 2022 07:31:06 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8934317452;
-	Wed, 29 Jun 2022 07:31:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83B613810795;
+	Tue, 28 Jun 2022 17:55:07 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4F58D141510C;
+	Tue, 28 Jun 2022 17:55:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DAA38194707A;
-	Wed, 29 Jun 2022 07:31:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E169D194705E;
+	Tue, 28 Jun 2022 17:55:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 92CF519466DF
- for <dm-devel@listman.corp.redhat.com>; Tue, 28 Jun 2022 17:53:02 +0000 (UTC)
+ ESMTP id 479F319466DF
+ for <dm-devel@listman.corp.redhat.com>; Tue, 28 Jun 2022 17:55:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7A46A1410F3B; Tue, 28 Jun 2022 17:53:02 +0000 (UTC)
+ id 157D741616B; Tue, 28 Jun 2022 17:55:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 751E81410DD8
- for <dm-devel@redhat.com>; Tue, 28 Jun 2022 17:53:02 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 10F2C41615A
+ for <dm-devel@redhat.com>; Tue, 28 Jun 2022 17:55:03 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5CB793C1016A
- for <dm-devel@redhat.com>; Tue, 28 Jun 2022 17:53:02 +0000 (UTC)
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED32A800971
+ for <dm-devel@redhat.com>; Tue, 28 Jun 2022 17:55:02 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-117-a0u5xQb6N9muJwb82rJ6yw-1; Tue, 28 Jun 2022 13:52:56 -0400
-X-MC-Unique: a0u5xQb6N9muJwb82rJ6yw-1
-Received: by mail-qk1-f175.google.com with SMTP id k20so10327136qkj.1;
- Tue, 28 Jun 2022 10:52:55 -0700 (PDT)
+ us-mta-220-zBKeO-vCOrCcbCD_N2zYsg-1; Tue, 28 Jun 2022 13:55:00 -0400
+X-MC-Unique: zBKeO-vCOrCcbCD_N2zYsg-1
+Received: by mail-pj1-f53.google.com with SMTP id
+ g16-20020a17090a7d1000b001ea9f820449so16701163pjl.5
+ for <dm-devel@redhat.com>; Tue, 28 Jun 2022 10:55:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=ewm/D54QJwPydqqMESWdGD9ZAIStLXJg44P7oeFTnc4=;
- b=78St5DIpymYsCtS3p5Agy/aetSC4qbd8/IZ1Gt0hjMvwO7fpPjOdX9HS4naOiNwoRI
- KWxQylKwGK+N0FSl84+suhFxTj3Xa+5+96H5kznqQkZiYMA9veaCUyh9Z98eS42KWK57
- vSDPPfmvBcSg+uAsh1YawMQIdjPFl9dJXgxqBP57LvAYklJDxjfwQ/ouWdX/R6Qh+nyT
- 0NzMTeDrY2jOsuGCBLi9veo9MW9yeERf4mMnSROkeECv0vA9smtKDqprux+gCrcWm6tU
- zImxI3XIXoGLCC/IH+3Mj4Q11n5eQtJhipNu5/CT3wdVax+UXFuDcIbko5WAYKraoxTY
- Agog==
-X-Gm-Message-State: AJIora/VY79c9F4/uJ1pJel3x5n/wwnjjHo2wYo3g7Z3EBgvweDqOpv7
- 3RWD3KOT4EzGN7K3tagepcrO0Gd/iVuhsxAaHA==
-X-Google-Smtp-Source: AGRyM1v2jHOLNo75aMnY6qO6lwP4wH61BoDXlZP+NDawv2fIOw5rhViYFT1b6L+U1xEzQTF8j+LSKQ==
-X-Received: by 2002:a37:355:0:b0:6ae:e5a7:bb5c with SMTP id
- 82-20020a370355000000b006aee5a7bb5cmr12528898qkd.758.1656438774998; 
- Tue, 28 Jun 2022 10:52:54 -0700 (PDT)
-Received: from localhost (c-73-219-103-14.hsd1.vt.comcast.net. [73.219.103.14])
+ bh=Ifakbg1KSXljeCc2KlqlOz+XfzIBohlTVCEx+b5hm2Y=;
+ b=ImdZO/7QQwVIMZLwbKsz0e8kitExPkSq17Qn1eK2rbt24DAt3kJcJPWpNxAWzrMNzR
+ sRtf2aBQsPriJ4zpCuvTOWGozQWTlhG/65FzxJN1iWjyvN1huhKHycc0kiK9USMyIOiv
+ gO3lKkw7vR+4pLIdCZmnsQ0FCMXl+TxqygNmJPdMo5hfGNOrZ4wtOknuPvGav1G2/l0n
+ HeMnWhLAb4InW9ugSa1p9drDlrUCoCjKuXehVLTG5TodC0+bKPkJYje8ZPpjGh2O7wLU
+ AGM44ZtbXzvOolRTDf6XWs8bL54azZL0WSj69Om/gmK+pNcRzGeiBXVsKV2If2hsrMA7
+ /j0g==
+X-Gm-Message-State: AJIora8zbR6uKuTW63JlUyZWPJTpi7N5JpFgz0v9qHM2qxpfVhwIvtl+
+ gh+mqsg6xVwJy5v/3p97pVNVwg==
+X-Google-Smtp-Source: AGRyM1vNNODoy68cNcew+BOwykVJS5AyiEbndqdKVVh3DpwTH+wUBJ1HcGxnO6zSsyx2Hva19xbd8w==
+X-Received: by 2002:a17:90b:3b52:b0:1ec:db2a:b946 with SMTP id
+ ot18-20020a17090b3b5200b001ecdb2ab946mr838564pjb.229.1656438899502; 
+ Tue, 28 Jun 2022 10:54:59 -0700 (PDT)
+Received: from www.outflux.net (smtp.outflux.net. [198.145.64.163])
  by smtp.gmail.com with ESMTPSA id
- cb24-20020a05622a1f9800b003187c484027sm3631751qtb.73.2022.06.28.10.52.53
+ f15-20020a170902ff0f00b0016a84d232a6sm5432810plj.46.2022.06.28.10.54.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jun 2022 10:52:53 -0700 (PDT)
-Date: Tue, 28 Jun 2022 13:52:53 -0400
-From: Kent Overstreet <kent.overstreet@gmail.com>
-To: Mike Snitzer <snitzer@redhat.com>
-Message-ID: <20220628175253.s2ghizfucumpot5l@moria.home.lan>
-References: <20220624141255.2461148-1-ming.lei@redhat.com>
- <20220624141255.2461148-2-ming.lei@redhat.com>
- <20220626201458.ytn4mrix2pobm2mb@moria.home.lan>
- <Yrld9rLPY6L3MhlZ@T590>
- <20220628042610.wuittagsycyl4uwa@moria.home.lan>
- <YrqyiCcnvPCqsn8F@T590>
- <20220628163617.h3bmq3opd7yuiaop@moria.home.lan>
- <Yrs9OLNZ8xUs98OB@redhat.com>
+ Tue, 28 Jun 2022 10:54:59 -0700 (PDT)
+Date: Tue, 28 Jun 2022 10:54:58 -0700
+From: Kees Cook <keescook@chromium.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Message-ID: <202206281009.4332AA33@keescook>
+References: <20220627180432.GA136081@embeddedor>
+ <6bc1e94c-ce1d-a074-7d0c-8dbe6ce22637@iogearbox.net>
+ <20220628004052.GM23621@ziepe.ca>
 MIME-Version: 1.0
-In-Reply-To: <Yrs9OLNZ8xUs98OB@redhat.com>
+In-Reply-To: <20220628004052.GM23621@ziepe.ca>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -102,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-X-Mailman-Approved-At: Wed, 29 Jun 2022 07:31:01 +0000
-Subject: Re: [dm-devel] [PATCH 5.20 1/4] block: add bio_rewind() API
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH][next] treewide: uapi: Replace zero-length
+ arrays with flexible-array members
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,14 +112,27 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>,
- "Martin K . Petersen" <martin.petersen@oracle.com>,
- Eric Biggers <ebiggers@google.com>, Ming Lei <ming.lei@redhat.com>,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Dmitry Monakhov <dmonakhov@openvz.org>
+Cc: nvdimm@lists.linux.dev, alsa-devel@alsa-project.org, kvm@vger.kernel.org,
+ dri-devel@lists.freedesktop.org, "Gustavo A. R. Silva" <gustavoars@kernel.org>,
+ dm-devel@redhat.com, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-hardening@vger.kernel.org,
+ linux1394-devel@lists.sourceforge.net,
+ linux-stm32@st-md-mailman.stormreply.com, linux-s390@vger.kernel.org,
+ Daniel Borkmann <daniel@iogearbox.net>, linux-rdma@vger.kernel.org,
+ x86@kernel.org, kasan-dev@googlegroups.com, lvs-devel@vger.kernel.org,
+ coreteam@netfilter.org, v9fs-developer@lists.sourceforge.net,
+ linux-mips@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-can@vger.kernel.org, linux-raid@vger.kernel.org,
+ linux-m68k@lists.linux-m68k.org, virtualization@lists.linux-foundation.org,
+ io-uring@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-scsi@vger.kernel.org, netdev@vger.kernel.org, linux-usb@vger.kernel.org,
+ linux-mmc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-perf-users@vger.kernel.org, linux-sctp@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ bpf@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -132,91 +141,92 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 28, 2022 at 01:41:12PM -0400, Mike Snitzer wrote:
-> On Tue, Jun 28 2022 at 12:36P -0400,
-> Kent Overstreet <kent.overstreet@gmail.com> wrote:
-> 
-> > On Tue, Jun 28, 2022 at 03:49:28PM +0800, Ming Lei wrote:
-> > > On Tue, Jun 28, 2022 at 12:26:10AM -0400, Kent Overstreet wrote:
-> > > > On Mon, Jun 27, 2022 at 03:36:22PM +0800, Ming Lei wrote:
-> > > > > Not mention bio_iter, bvec_iter has been 32 bytes, which is too big to
-> > > > > hold in per-io data structure. With this patch, 8bytes is enough
-> > > > > to rewind one bio if the end sector is fixed.
-> > > > 
-> > > > And with rewind, you're making an assumption about the state the iterator is
-> > > > going to be in when the IO has completed.
-> > > > 
-> > > > What if the iterator was never advanced?
-> > > 
-> > > bio_rewind() works as expected if the iterator doesn't advance, since bytes
-> > > between the recorded position and the end position isn't changed, same
-> > > with the end position.
-> > > 
-> > > > 
-> > > > So say you check for that by saving some other part of the iterator - but that
-> > > > may have legitimately changed too, if the bio was redirected (bi_sector changes)
-> > > > or trimmed (bi_size changes)
-> > > > 
-> > > > I still think this is an inherently buggy interface, the way it's being proposed
-> > > > to be used.
-> > > 
-> > > The patch did mention that the interface should be for situation in which end
-> > > sector of bio won't change.
+On Mon, Jun 27, 2022 at 09:40:52PM -0300, Jason Gunthorpe wrote:
+> On Mon, Jun 27, 2022 at 08:27:37PM +0200, Daniel Borkmann wrote:
+> > [...]
+> > Fyi, this breaks BPF CI:
 > > 
-> > But that's an assumption that you simply can't make!
+> > https://github.com/kernel-patches/bpf/runs/7078719372?check_suite_focus=true
+> > 
+> >   [...]
+> >   progs/map_ptr_kern.c:314:26: error: field 'trie_key' with variable sized type 'struct bpf_lpm_trie_key' not at the end of a struct or class is a GNU extension [-Werror,-Wgnu-variable-sized-type-not-at-end]
+> >           struct bpf_lpm_trie_key trie_key;
+> >                                   ^
+
+The issue here seems to be a collision between "unknown array size"
+and known sizes:
+
+struct bpf_lpm_trie_key {
+        __u32   prefixlen;      /* up to 32 for AF_INET, 128 for AF_INET6 */
+        __u8    data[0];        /* Arbitrary size */
+};
+
+struct lpm_key {
+	struct bpf_lpm_trie_key trie_key;
+	__u32 data;
+};
+
+This is treating trie_key as a header, which it's not: it's a complete
+structure. :)
+
+Perhaps:
+
+struct lpm_key {
+        __u32 prefixlen;
+        __u32 data;
+};
+
+I don't see anything else trying to include bpf_lpm_trie_key.
+
 > 
-> Why not?  There is clear use-case for this API, as demonstrated in the
-> patchset: DM can/will make use of it for the purposes of enhancing its
-> more unlikely bio requeuing work (that is needed to make the more
-> likely bio splitting scenario more efficient).
+> This will break the rdma-core userspace as well, with a similar
+> error:
 > 
-> > We allow block device drivers to be stacked in _any_ combination. After a bio is
-> > completed it may have been partially advanced, fully advanced, trimmed, not
-> > trimmed, anything - and bi_sector and thus also bio_end_sector() may have
-> > changed, and will have if there's partition tables involved.
-> 
-> We don't _need_ this API to cure cancer for all hypothetical block
-> drivers.
-> 
-> If consumers of the API follow the rule that end sector of the
-> _original bio_ isn't changed then it is all fine.  It is that simple.
-> 
-> Stacked drivers will work just fine.  The lower layers will be
-> modifying their bios as needed. Because for DM those bios happen to
-> be clones, so there is isolation to the broader design flaw you are
-> trying to say is a major problem. As this patchset demonstrates.
-> 
-> I do concede that policing who can use an API is hard.  But if some
-> consumer of an API tries something that invalidates rules of the API
-> they get to keep the N pieces when it breaks.
+> /usr/bin/clang-13 -DVERBS_DEBUG -Dibverbs_EXPORTS -Iinclude -I/usr/include/libnl3 -I/usr/include/drm -g -O2 -fdebug-prefix-map=/__w/1/s=. -fstack-protector-strong -Wformat -Werror=format-security -Wdate-time -D_FORTIFY_SOURCE=2 -Wmissing-prototypes -Wmissing-declarations -Wwrite-strings -Wformat=2 -Wcast-function-type -Wformat-nonliteral -Wdate-time -Wnested-externs -Wshadow -Wstrict-prototypes -Wold-style-definition -Werror -Wredundant-decls -g -fPIC   -std=gnu11 -MD -MT libibverbs/CMakeFiles/ibverbs.dir/cmd_flow.c.o -MF libibverbs/CMakeFiles/ibverbs.dir/cmd_flow.c.o.d -o libibverbs/CMakeFiles/ibverbs.dir/cmd_flow.c.o   -c ../libibverbs/cmd_flow.c
+> In file included from ../libibverbs/cmd_flow.c:33:
+> In file included from include/infiniband/cmd_write.h:36:
+> In file included from include/infiniband/cmd_ioctl.h:41:
+> In file included from include/infiniband/verbs.h:48:
+> In file included from include/infiniband/verbs_api.h:66:
+> In file included from include/infiniband/ib_user_ioctl_verbs.h:38:
+> include/rdma/ib_user_verbs.h:436:34: error: field 'base' with variable sized type 'struct ib_uverbs_create_cq_resp' not at the end of a struct or class is a GNU extension [-Werror,-Wgnu-variable-sized-type-not-at-end]
+>         struct ib_uverbs_create_cq_resp base;
+>                                         ^
+> include/rdma/ib_user_verbs.h:644:34: error: field 'base' with variable sized type 'struct ib_uverbs_create_qp_resp' not at the end of a struct or class is a GNU extension [-Werror,-Wgnu-variable-sized-type-not-at-end]
+>         struct ib_uverbs_create_qp_resp base;
 
-Mike, keep in mind that when bio_rewind() was originally introduced, it
-immediately grew users that were _inherently buggy_ (of the "users can break
-this trivially") variety, and the whole thing had to be reverted, and I was
-really annoyed - mostly at myself, because I would have caught it if I'd been
-paying attention to the mailing list more.
+This looks very similar, a struct of unknown size is being treated as a
+header struct:
 
-And I _guarantee_ you that if this makes it in, we'll have the same thing
-happening all over again - we have a lot of different block drivers being
-written by a lot of different people, and most of them do not understand all the
-subtleties of the block layer and the ways different things can interact, and so
-the onus is on us to not add tools that they aren't going to immediately turn
-around and slice themselves with.
+struct ib_uverbs_create_cq_resp {
+        __u32 cq_handle;
+        __u32 cqe;
+        __aligned_u64 driver_data[0];
+};
 
-The 32 bytes you're trying to save is meaningless. Think instead about the weeks
-of engineer time that get wasted by bugs like this - chasing the bugs,
-babysitting the patches in to fix it, then the _endless_ -stable backports.
+struct ib_uverbs_ex_create_cq_resp {
+        struct ib_uverbs_create_cq_resp base;
+        __u32 comp_mask;
+        __u32 response_length;
+};
 
-_Please_ try to think more defensively when you're writing code.
+And it only gets used here:
 
-So, and I'm sorry I have to be the killjoy here, but hard NACK on this patchset.
-Hard, hard NACK.
+                DECLARE_UVERBS_WRITE(IB_USER_VERBS_CMD_CREATE_CQ,
+                                     ib_uverbs_create_cq,
+                                     UAPI_DEF_WRITE_UDATA_IO(
+                                             struct ib_uverbs_create_cq,
+                                             struct ib_uverbs_create_cq_resp),
+                                             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                                     UAPI_DEF_METHOD_NEEDS_FN(create_cq)),
 
-I'll be happy to assist in coming up with alternate, less dangerous solutions
-though (and I think introducing a real bio_iter is overdue, so that's probably
-the first thing we should look at).
+which must also be assuming it's a header. So probably better to just
+drop the driver_data field? I don't see anything using it (that I can
+find) besides as a sanity-check that the field exists and is at the end
+of the struct.
 
-Cheers
+-- 
+Kees Cook
 
 --
 dm-devel mailing list
