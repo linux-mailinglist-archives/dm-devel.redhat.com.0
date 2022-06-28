@@ -1,100 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D42055F8F4
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Jun 2022 09:31:13 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5C33F55F8FD
+	for <lists+dm-devel@lfdr.de>; Wed, 29 Jun 2022 09:32:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656487872;
+	s=mimecast20190719; t=1656487925;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+iJIziUs4bco/SXZFO4rVyCRIXvDlrJcrgipQl52RRg=;
-	b=EAmvpOFO9mRUizhQjqdFPwMCjsenF8GTlFWxvW5OKjCSwXcObhW1rkRcvafc0cKxYVS+WH
-	5A3qKCDghpJFCLaiBycwz7gTMUrq1M6jl0x6VnSfnUpy+fCSwr2mDv+WkevEqMsCp3hSxp
-	mMhJRtzypSrLalw+f619RXtfO4V9v78=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=s7Fuqxq/6TjcNx3/MHsTo3bEt0csMHb9wXbo2ue5a2g=;
+	b=fF2YfRTrXSPQFhDQHcnfjTQ/opiNtkTkilqfRiAnQjS10ddToAbMO2HiHrEZlVteT/b3hR
+	riZfukdhbhzsV0WtGX5FEEEuHoduqazsdtzJKtu91QllpEvehpWeDbWZRmNyWHlIX+6pX3
+	1yDPYeB9Dxz/y3Mcj/eGJqztABcp5bg=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-385-2wQlk3fsN8mDAwThV6gK4g-1; Wed, 29 Jun 2022 03:31:08 -0400
-X-MC-Unique: 2wQlk3fsN8mDAwThV6gK4g-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-385-X1N6yDg4MFm-O-GVlw7FSw-1; Wed, 29 Jun 2022 03:31:08 -0400
+X-MC-Unique: X1N6yDg4MFm-O-GVlw7FSw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2352A811E84;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 208463800C2C;
 	Wed, 29 Jun 2022 07:31:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7335C141510C;
-	Wed, 29 Jun 2022 07:31:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 663BC2026987;
+	Wed, 29 Jun 2022 07:31:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 47B30194705F;
-	Wed, 29 Jun 2022 07:31:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9AA261947061;
+	Wed, 29 Jun 2022 07:31:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 01D6819466DF
- for <dm-devel@listman.corp.redhat.com>; Tue, 28 Jun 2022 13:36:55 +0000 (UTC)
+ ESMTP id D69BC19466DF
+ for <dm-devel@listman.corp.redhat.com>; Tue, 28 Jun 2022 14:02:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CBD2C141510C; Tue, 28 Jun 2022 13:36:55 +0000 (UTC)
+ id ABE4B404E4C8; Tue, 28 Jun 2022 14:02:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C72211415108
- for <dm-devel@redhat.com>; Tue, 28 Jun 2022 13:36:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A816C40C1240
+ for <dm-devel@redhat.com>; Tue, 28 Jun 2022 14:02:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9D663C11E60
- for <dm-devel@redhat.com>; Tue, 28 Jun 2022 13:36:55 +0000 (UTC)
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-363-W59XADk3PDGAtX83QJidrA-1; Tue, 28 Jun 2022 09:36:53 -0400
-X-MC-Unique: W59XADk3PDGAtX83QJidrA-1
-Received: by mail-qv1-f49.google.com with SMTP id 2so5016493qvc.0
- for <dm-devel@redhat.com>; Tue, 28 Jun 2022 06:36:53 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:date:from:to:cc:subject:message-id:references
- :mime-version:content-disposition:in-reply-to;
- bh=gN4ZNyT9GRZ46Vwx3CUzNgwGxKE3ptwelsb3O/2waMc=;
- b=r/XG9crcFWK4KMj3vEAiEIszRQpqfX3youyBTf30/+QCNNu8kxnoSNfIhebtVTY9yM
- bqR7AK3SB9G9sJyXlu0cgxBPovpb8TNElSz8Sd8/4iZ+uMCYV6AFwiBOpCzEiYSQ7Y/F
- 34D1+s5AvJVI9ch8nj7grHqjCSMf3O/dBnrxKcWlrXY/73dt9blPwvmeMM6v0Wb9zaDf
- 9CtooupvZno8WqDl5UR6OaFu//vx7JVY4lL4BwjjGbEwY+BtQWr8ZzzBnDC4hZiuptGa
- 6Uc/GJAJwZghnVKdMwdzHlscS6PRu+aam552MUiaJg6uqf4zaq7q69u9NfHvWrKqTmGR
- HlLw==
-X-Gm-Message-State: AJIora9Adh0GVIsy9EsIeU5yk5xzx/pfTb588d5XXskYWF2AassH0hCo
- Joqdx7HEoQsbPriMu9ABi+xpnQ==
-X-Google-Smtp-Source: AGRyM1uooXTVlKXYemR9EvbrrQp4i2XA4BpQT09bjvN7I6xIwm3cKCnpXCNHNGqwd+HxVz52pv3Omw==
-X-Received: by 2002:ac8:5b0d:0:b0:31b:f519:4107 with SMTP id
- m13-20020ac85b0d000000b0031bf5194107mr1237416qtw.331.1656423413317; 
- Tue, 28 Jun 2022 06:36:53 -0700 (PDT)
-Received: from ziepe.ca
- (hlfxns017vw-142-162-113-129.dhcp-dynamic.fibreop.ns.bellaliant.net.
- [142.162.113.129]) by smtp.gmail.com with ESMTPSA id
- s10-20020a05620a29ca00b006a79479657fsm708363qkp.108.2022.06.28.06.36.52
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 28 Jun 2022 06:36:52 -0700 (PDT)
-Received: from jgg by mlx with local (Exim 4.94) (envelope-from <jgg@ziepe.ca>)
- id 1o6BOd-002vAA-VA; Tue, 28 Jun 2022 10:36:51 -0300
-Date: Tue, 28 Jun 2022 10:36:51 -0300
-From: Jason Gunthorpe <jgg@ziepe.ca>
-To: "Gustavo A. R. Silva" <gustavoars@kernel.org>
-Message-ID: <20220628133651.GO23621@ziepe.ca>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 910E1801E80
+ for <dm-devel@redhat.com>; Tue, 28 Jun 2022 14:02:06 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-90-6NOSacCPPNe8mIVwcLA7aQ-1; Tue, 28 Jun 2022 10:02:05 -0400
+X-MC-Unique: 6NOSacCPPNe8mIVwcLA7aQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 0A731B81B97;
+ Tue, 28 Jun 2022 13:56:30 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C80ADC341CA;
+ Tue, 28 Jun 2022 13:56:25 +0000 (UTC)
+Date: Tue, 28 Jun 2022 15:56:23 +0200
+From: "Gustavo A. R. Silva" <gustavoars@kernel.org>
+To: Jason Gunthorpe <jgg@ziepe.ca>
+Message-ID: <20220628135623.GA25163@embeddedor>
 References: <20220627180432.GA136081@embeddedor>
  <6bc1e94c-ce1d-a074-7d0c-8dbe6ce22637@iogearbox.net>
  <20220628004052.GM23621@ziepe.ca>
  <20220628005825.GA161566@embeddedor>
  <20220628022129.GA8452@embeddedor>
+ <20220628133651.GO23621@ziepe.ca>
 MIME-Version: 1.0
-In-Reply-To: <20220628022129.GA8452@embeddedor>
+In-Reply-To: <20220628133651.GO23621@ziepe.ca>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -102,7 +82,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-Mailman-Approved-At: Wed, 29 Jun 2022 07:31:01 +0000
 Subject: Re: [dm-devel] [PATCH][next] treewide: uapi: Replace zero-length
  arrays with flexible-array members
@@ -137,7 +117,7 @@ Cc: nvdimm@lists.linux.dev, alsa-devel@alsa-project.org, kvm@vger.kernel.org,
  bpf@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -146,30 +126,48 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 28, 2022 at 04:21:29AM +0200, Gustavo A. R. Silva wrote:
+On Tue, Jun 28, 2022 at 10:36:51AM -0300, Jason Gunthorpe wrote:
+> On Tue, Jun 28, 2022 at 04:21:29AM +0200, Gustavo A. R. Silva wrote:
+> 
+> > > > Though maybe we could just switch off -Wgnu-variable-sized-type-not-at-end  during configuration ?
+> 
+> > We need to think in a different strategy.
+> 
+> I think we will need to switch off the warning in userspace - this is
+> doable for rdma-core.
+> 
+> On the other hand, if the goal is to enable the array size check
+> compiler warning I would suggest focusing only on those structs that
+> actually hit that warning in the kernel. IIRC infiniband doesn't
+> trigger it because it just pointer casts the flex array to some other
+> struct.
 
-> > > Though maybe we could just switch off -Wgnu-variable-sized-type-not-at-end  during configuration ?
+Yep; this is actually why I reverted those changes in rdma (before
+sending out the patch) when 0-day reported the same problems you pointed
+out[1].
 
-> We need to think in a different strategy.
+Also, that's the strategy I'm following right now with the one-element
+array into flex-array member transformations. I'm addressing those cases
+in which the trailing array is actually being iterated over, first.
 
-I think we will need to switch off the warning in userspace - this is
-doable for rdma-core.
+I just added the patch to my -next tree, so it can be build-tested by
+other people, and let's see what else is reported this week. :)
 
-On the other hand, if the goal is to enable the array size check
-compiler warning I would suggest focusing only on those structs that
-actually hit that warning in the kernel. IIRC infiniband doesn't
-trigger it because it just pointer casts the flex array to some other
-struct.
+--
+Gustavo
 
-It isn't actually an array it is a placeholder for a trailing
-structure, so it is never indexed.
+[1] https://lore.kernel.org/lkml/620ca2a5.NkAEIDEfiYoxE9%2Fu%25lkp@intel.com/
 
-This is also why we hit the warning because the convient way for
-userspace to compose the message is to squash the header and trailer
-structs together in a super struct on the stack, then invoke the
-ioctl.
-
-Jason 
+> 
+> It isn't actually an array it is a placeholder for a trailing
+> structure, so it is never indexed.
+> 
+> This is also why we hit the warning because the convient way for
+> userspace to compose the message is to squash the header and trailer
+> structs together in a super struct on the stack, then invoke the
+> ioctl.
+> 
+> Jason 
 
 --
 dm-devel mailing list
