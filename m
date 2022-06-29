@@ -1,102 +1,101 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CEBF15609E7
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Jun 2022 21:03:33 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D107561342
+	for <lists+dm-devel@lfdr.de>; Thu, 30 Jun 2022 09:31:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656529412;
+	s=mimecast20190719; t=1656574295;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dlq04NxbxJw3JFBR6C4258zCxjsVi5cRjhsVY7mrE9k=;
-	b=IZLbIQaX/aK4dpZbamDuOgxNsyDRCR4+MKfWunkWpq4DUL4VgKWL41QYn8vJ+I9NIkwlzH
-	M2vKtPHJ8U/5Vf5DG1RM9rNYrfjsf97ae7RhtRDidLfYS2eBEBmFqCipyEqHlBNnISubx6
-	KA13dWlo1nO/BYU1fXicotnWcG6MKcw=
+	bh=H9jM5gq+oXdIdw+dmsIraNgOjw/WW4/GkgChw4JIURc=;
+	b=T5TLeSiW5XYO2sDMPDHQ64l3bhmOK4cXjA9Fklr4QLMqsMZ4F+3Js2P9d9txlcySgMpiW5
+	OpKdPohXUVSrTwlkQpP5K93FqY/L5Dv99VL6myqaJ8XOOS0Xe9rRKHXgYtItk9D+KFWrYf
+	Ip1kq5FjuOR4B5/S6Nl1wM/+haTHhIA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-496-ZJCqi-4LPQK2ahlcveEAow-1; Wed, 29 Jun 2022 15:03:29 -0400
-X-MC-Unique: ZJCqi-4LPQK2ahlcveEAow-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-637-pZB-xB0APxmaY4V0sHSqJg-1; Thu, 30 Jun 2022 03:31:31 -0400
+X-MC-Unique: pZB-xB0APxmaY4V0sHSqJg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 834BA185A79C;
-	Wed, 29 Jun 2022 19:03:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6D321029F7A;
+	Thu, 30 Jun 2022 07:31:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2A63217452;
-	Wed, 29 Jun 2022 19:03:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 88511112131E;
+	Thu, 30 Jun 2022 07:31:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C98B31947068;
-	Wed, 29 Jun 2022 19:03:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 90DFE1947B97;
+	Thu, 30 Jun 2022 07:31:25 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D92FD1947058
- for <dm-devel@listman.corp.redhat.com>; Wed, 29 Jun 2022 19:00:59 +0000 (UTC)
+ ESMTP id D7AE81947058
+ for <dm-devel@listman.corp.redhat.com>; Wed, 29 Jun 2022 19:05:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C91FE2166B29; Wed, 29 Jun 2022 19:00:59 +0000 (UTC)
+ id C64B940334D; Wed, 29 Jun 2022 19:05:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C52C02166B26
- for <dm-devel@redhat.com>; Wed, 29 Jun 2022 19:00:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AAC35811E81
- for <dm-devel@redhat.com>; Wed, 29 Jun 2022 19:00:59 +0000 (UTC)
-Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
- [209.85.214.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C21AC40336E
+ for <dm-devel@redhat.com>; Wed, 29 Jun 2022 19:05:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A91DF3C0E218
+ for <dm-devel@redhat.com>; Wed, 29 Jun 2022 19:05:44 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-368-Hna_B1gyPUW00mtjsl2aNg-1; Wed, 29 Jun 2022 15:00:55 -0400
-X-MC-Unique: Hna_B1gyPUW00mtjsl2aNg-1
-Received: by mail-pl1-f176.google.com with SMTP id l6so14925101plg.11
- for <dm-devel@redhat.com>; Wed, 29 Jun 2022 12:00:55 -0700 (PDT)
+ us-mta-611-__WVWlNIOc-8HPrxLBfbsQ-1; Wed, 29 Jun 2022 15:05:42 -0400
+X-MC-Unique: __WVWlNIOc-8HPrxLBfbsQ-1
+Received: by mail-qk1-f175.google.com with SMTP id z12so12788532qki.3;
+ Wed, 29 Jun 2022 12:05:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=m3AG9RdQkKvq+okquL9cMs8wgYGcDdlD+r9O3qTKjIk=;
- b=Z5wiiCW9g/ANC+LZhmjJ00jcX7ieS042xzuEkADsnma64wLILjHAi70ItSdqEWsrUF
- 30o7MBGWHFsy/lUwP/N48EXk8cs9/EqVH5tijLvfftlvdczQaZNbFGep8fTw/0Wj9Q5S
- B8cP7FrmXEiE1qV2tPqF6KUMh+gW5nnGpqDwyOZZRHj0HereRuATJh6mtXRWb9AFTXtk
- bS50qnAkUTVYP7p0g9ngiRzY4Zci46HUAIa/gtjizmIqIbIeVoRjlMUPhbejtI8pW4Dg
- mtl6tbrDjw+QDafdEHV4e1bB484uGlTAQNeeybeSV5LIpcnyWgEIJzhu00WeT2n/I62/
- IYbg==
-X-Gm-Message-State: AJIora/SphM+8noRVVhnlFkluTsr7fZ9rVDlf4YOtW9i2L2XscZ0LEiO
- kSLHwHAqZ99Y7ok33UKKhBfA7A==
-X-Google-Smtp-Source: AGRyM1vuUg9v9LRXc8uTqf92k9LYfHqZPSVlOEAAitzYpiY+LZKy6uPkHW5NHxFB8qV8uBBcrBjMgw==
-X-Received: by 2002:a17:90a:404a:b0:1ea:e936:b69 with SMTP id
- k10-20020a17090a404a00b001eae9360b69mr5299705pjg.133.1656529254467; 
- Wed, 29 Jun 2022 12:00:54 -0700 (PDT)
-Received: from [192.168.1.100] ([198.8.77.157])
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=+/ROI7j6XCNaDwyMGvVc2IaTPuaglS7jy5/jfdxPf9U=;
+ b=zAALsMBLlyN2zsBE2pQ7sNW9O4e6xKhnhMNk2xuTpjYRtet/JDuOCKNYSCWchv0vu9
+ MicZBZ4qOXL3ZAwcI0ys4NLFBJiCMzB+YWd0PX+zM3XdlkXdLE3PwflZDRhdNQv5NXE/
+ xuzgtXHJUontRRKU6/aQE6Z32iyBcb+kMUAux4R9rxVFYQbtIFwMJ4T/qA766ljJWOe0
+ jRGJGS4RAg+z1TmUJEWgd495oH8l736HgzcOvgAY7ppOhyjVYPmoRJjro+37i9+TyK7/
+ /+i0kSKvS9FtNxJz2GuUY1oB+UD1nyztnSCUDRMb/vAOs7bC93WjxTRFIdF4xmS3XqLI
+ oVnA==
+X-Gm-Message-State: AJIora8dIgN5Qcxgv8HvBX8mhbNcAg6qzChPUNNKLVNwFiMEx+ZFtl61
+ pwZ2UW2j8Ym4e5x+KuGteywOZ5kx/NXW34g=
+X-Google-Smtp-Source: AGRyM1tVeCJUGS2aol+VvZfxynL1eHutTl8RCZi/SI3TvJoy/Vatp2e3ezxQ0Pclb5eXY/ZcZ+EfKw==
+X-Received: by 2002:ae9:f718:0:b0:6af:5c0:6cdf with SMTP id
+ s24-20020ae9f718000000b006af05c06cdfmr3381385qkg.426.1656529541996; 
+ Wed, 29 Jun 2022 12:05:41 -0700 (PDT)
+Received: from localhost (c-73-219-103-14.hsd1.vt.comcast.net. [73.219.103.14])
  by smtp.gmail.com with ESMTPSA id
- pj4-20020a17090b4f4400b001ece6f492easm2602662pjb.44.2022.06.29.12.00.53
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 29 Jun 2022 12:00:53 -0700 (PDT)
-Message-ID: <3e15e116-ea64-501d-1292-7b2936b19681@kernel.dk>
-Date: Wed, 29 Jun 2022 13:00:52 -0600
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-To: Kent Overstreet <kent.overstreet@gmail.com>
+ g19-20020ac87d13000000b00307aed25fc7sm11799668qtb.31.2022.06.29.12.05.41
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 29 Jun 2022 12:05:41 -0700 (PDT)
+Date: Wed, 29 Jun 2022 15:05:40 -0400
+From: Kent Overstreet <kent.overstreet@gmail.com>
+To: Bart Van Assche <bvanassche@acm.org>
+Message-ID: <20220629190540.fwspv66a4byzqxmg@moria.home.lan>
 References: <20220624141255.2461148-1-ming.lei@redhat.com>
  <20220624141255.2461148-2-ming.lei@redhat.com>
- <20220626201458.ytn4mrix2pobm2mb@moria.home.lan> <Yrld9rLPY6L3MhlZ@T590>
+ <20220626201458.ytn4mrix2pobm2mb@moria.home.lan>
+ <Yrld9rLPY6L3MhlZ@T590>
  <20220628042016.wd65amvhbjuduqou@moria.home.lan>
  <3ad782c3-4425-9ae6-e61b-9f62f76ce9f4@kernel.dk>
  <20220628183247.bcaqvmnav34kp5zd@moria.home.lan>
  <6f8db146-d4b3-d17b-4e58-08adc0010cba@kernel.dk>
  <20220629184001.b66bt4jnppjquzia@moria.home.lan>
-From: Jens Axboe <axboe@kernel.dk>
-In-Reply-To: <20220629184001.b66bt4jnppjquzia@moria.home.lan>
+ <486ec9e2-d34d-abd5-8667-f58a07f5efad@acm.org>
+MIME-Version: 1.0
+In-Reply-To: <486ec9e2-d34d-abd5-8667-f58a07f5efad@acm.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -104,7 +103,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Mailman-Approved-At: Thu, 30 Jun 2022 07:31:23 +0000
 Subject: Re: [dm-devel] [PATCH 5.20 1/4] block: add bio_rewind() API
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -117,56 +117,35 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "Martin K . Petersen" <martin.petersen@oracle.com>,
+Cc: Jens Axboe <axboe@kernel.dk>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
  Mike Snitzer <snitzer@redhat.com>, Eric Biggers <ebiggers@google.com>,
  Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
  dm-devel@redhat.com, Dmitry Monakhov <dmonakhov@openvz.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 6/29/22 12:40 PM, Kent Overstreet wrote:
-> On Wed, Jun 29, 2022 at 11:16:10AM -0600, Jens Axboe wrote:
->> Not sure what Christoph change you are referring to, but all the ones
->> that I did to improve the init side were all backed by numbers I ran at
->> that time (and most/all of the commit messages will have that data). So
->> yes, it is indeed still very noticeable. Maybe not at 100K IOPS, but at
->> 10M on a core it most certainly is.
+On Wed, Jun 29, 2022 at 11:51:27AM -0700, Bart Van Assche wrote:
+> On 6/29/22 11:40, Kent Overstreet wrote:
+> > But Jens, to be blunt - I know we have different priorities in the way we write code.
 > 
-> I was referring to 609be1066731fea86436f5f91022f82e592ab456. You
-> signed off on it, you must remember it...?
-
-I'm sure we all remember each and every commit that gets applied,
-particularly with such a precise description of the change.
-
->> I'm all for having solid and maintainable code, obviously, but frivolous
->> bloating of structures and more expensive setup cannot be hand waved
->> away with "it doesn't matter if we touch 3 or 6 cachelines" because we
->> obviously have a disagreement on that.
+> Please stay professional in your communication and focus on the technical
+> issues instead of on the people involved.
 > 
-> I wouldn't propose inflating struct _bio_ like that. But Jens, to be
-> blunt - I know we have different priorities in the way we write code.
-> Your writeback throttling code was buggy for _ages_ and I had users
-> hitting deadlocks there that I pinged you about, and I could not make
-> heads or tails of how that code was supposed to work and not for lack
-> of time spent trying!
+> BTW, I remember that some time ago I bisected a kernel bug to one of your
+> commits and that you refused to fix the bug introduced by that commit. I had
+> to spend my time on root-causing it and sending a fix upstream.
 
-OK Kent, you just wasted your 2nd chance here. Plonk. There are many
-rebuttals that could be made here, but I won't waste my time on it, nor
-would it be appropriate.
-
-Come back when you know how to act professionally. Or don't come back
-at all.
-
--- 
-Jens Axboe
+I'd be genuinely appreciative if you'd refresh my memory on what it was. Because
+yeah, if I did that that was my fuckup and I want to learn from my mistakes.
 
 --
 dm-devel mailing list
