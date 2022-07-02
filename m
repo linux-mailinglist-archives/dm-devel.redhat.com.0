@@ -2,80 +2,83 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2CE0568BD2
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:53:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4EBDA568BB5
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:52:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657119183;
+	s=mimecast20190719; t=1657119134;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cZzJ3hWg6AtmXeNWA+3Z+jhbJnB+rhkZIqRyBJCdPzE=;
-	b=CgHsrm8z9qPKV9RvRovaVIz4P7ULJKlJEvXm51t9G/PrLyDfe9cHMHsJl9WScWk8vg1+bs
-	LTdxeRDXmPnRDKocltNUxZhFOR14St0KgWKVGBr71ar4Ozs7d+ZR92lFDYAG0tmtf5NrA9
-	GnjRUkfUE3kp5fvoWThAXOldsBdPhcM=
+	bh=XhaReISiReK5MyYX3lVSzivYxUkOWlJ+DN2lK3k0JPA=;
+	b=d8QOdP1LdX7qXZ2zx/KV15N/N5wclgbjw32D0k8xqODSQnlNMTegoaPQ2Tz0D4dQxNBihZ
+	Wza3GtmrdF5QGb0jo7vkd2B5Pf8hBzAgl9kop801LhhVPXdlfPYwaQ2AyVQSobtKNNvBNt
+	v8M9Fs2sSBfnOuT3fjUGBmq70XABGD4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-624-SfWmFb8ONuq_vfx3DhpQBg-1; Wed, 06 Jul 2022 10:52:31 -0400
-X-MC-Unique: SfWmFb8ONuq_vfx3DhpQBg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-454-VgLOcgFZMaSHkpUAig5v7g-1; Wed, 06 Jul 2022 10:52:07 -0400
+X-MC-Unique: VgLOcgFZMaSHkpUAig5v7g-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3E3D1035345;
-	Wed,  6 Jul 2022 14:52:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91C61811766;
+	Wed,  6 Jul 2022 14:52:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DBE12112131E;
-	Wed,  6 Jul 2022 14:52:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 718462024CB7;
+	Wed,  6 Jul 2022 14:52:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9DECD194706B;
-	Wed,  6 Jul 2022 14:52:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 00961194706F;
+	Wed,  6 Jul 2022 14:52:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5DBED194705A
- for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 19:24:30 +0000 (UTC)
+ ESMTP id 40EBC1947042
+ for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 19:32:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5115BC28102; Sat,  2 Jul 2022 19:24:30 +0000 (UTC)
+ id 221B418EB5; Sat,  2 Jul 2022 19:32:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4D4BEC28100
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:24:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35FCB185A7A4
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:24:30 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp09.smtpout.orange.fr
- [80.12.242.131]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- us-mta-163-_BMfB-QaMk2x1IgvfHZSoQ-1; Sat, 02 Jul 2022 15:24:28 -0400
-X-MC-Unique: _BMfB-QaMk2x1IgvfHZSoQ-1
-Received: from [192.168.1.18] ([90.11.190.129]) by smtp.orange.fr with ESMTPA
- id 7ijBoXUXwOXCy7ijBodMg5; Sat, 02 Jul 2022 21:24:27 +0200
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sat, 02 Jul 2022 21:24:27 +0200
-X-ME-IP: 90.11.190.129
-Message-ID: <6063ee97-1bbe-2391-78cb-57572851a52c@wanadoo.fr>
-Date: Sat, 2 Jul 2022 21:24:24 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Newsgroups: gmane.linux.kernel.janitors, gmane.linux.kernel.device-mapper.devel,
- gmane.linux.kernel
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E69A18EA8
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:32:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 032D3811E75
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:32:38 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-249-oqL1wG2rOhunj5zM9XOzWw-1; Sat, 02 Jul 2022 15:32:35 -0400
+X-MC-Unique: oqL1wG2rOhunj5zM9XOzWw-1
+X-IronPort-AV: E=McAfee;i="6400,9594,10396"; a="369188843"
+X-IronPort-AV: E=Sophos;i="5.92,240,1650956400"; d="scan'208";a="369188843"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2022 12:32:34 -0700
+X-IronPort-AV: E=Sophos;i="5.92,240,1650956400"; d="scan'208";a="624624692"
+Received: from smile.fi.intel.com ([10.237.72.54])
+ by orsmga001-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2022 12:32:30 -0700
+Received: from andy by smile.fi.intel.com with local (Exim 4.96)
+ (envelope-from <andriy.shevchenko@linux.intel.com>)
+ id 1o7iqw-0013qw-2i; Sat, 02 Jul 2022 22:32:26 +0300
+Date: Sat, 2 Jul 2022 22:32:26 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Message-ID: <YsCdSkzSbVz9gnci@smile.fi.intel.com>
 References: <cover.1656785856.git.christophe.jaillet@wanadoo.fr>
  <3f2ad7fb91948525f6c52e0d36ec223cd3049c88.1656785856.git.christophe.jaillet@wanadoo.fr>
  <YsCUW6vT7LlAv2UE@smile.fi.intel.com>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <YsCUW6vT7LlAv2UE@smile.fi.intel.com>
+ <6063ee97-1bbe-2391-78cb-57572851a52c@wanadoo.fr>
+MIME-Version: 1.0
+In-Reply-To: <6063ee97-1bbe-2391-78cb-57572851a52c@wanadoo.fr>
+Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,7 +86,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-Mailman-Approved-At: Wed, 06 Jul 2022 14:51:05 +0000
 Subject: Re: [dm-devel] [PATCH 1/4] s390/cio: Rename bitmap_size() as
  idset_bitmap_size()
@@ -107,37 +110,63 @@ Cc: linux-s390@vger.kernel.org, kernel-janitors@vger.kernel.org,
  borntraeger@linux.ibm.com, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Disposition: inline
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
 
-TGUgMDIvMDcvMjAyMiDDoCAyMDo1NCwgQW5keSBTaGV2Y2hlbmtvIGEgw6ljcml0wqA6Cj4gT24g
-U2F0LCBKdWwgMDIsIDIwMjIgYXQgMDg6Mjk6MDlQTSArMDIwMCwgQ2hyaXN0b3BoZSBKQUlMTEVU
-IHdyb3RlOgo+PiBJbiBvcmRlciB0byBpbnRyb2R1Y2UgYSBiaXRtYXBfc2l6ZSgpIGZ1bmN0aW9u
-IGluIHRoZSBiaXRtYXAgQVBJLCB3ZSBoYXZlCj4+IHRvIHJlbmFtZSBmdW5jdGlvbnMgd2l0aCBh
-IHNpbWlsYXIgbmFtZS4KPj4KPj4gQWRkIGEgImlkc2V0XyIgcHJlZml4IGFuZCBjaGFuZ2UgYml0
-bWFwX3NpemUoKSBpbnRvIGlkc2V0X2JpdG1hcF9zaXplKCkuCj4+Cj4+IE5vIGZ1bmN0aW9uYWwg
-Y2hhbmdlLgo+IAo+IC4uLgo+IAo+PiAtCQltZW1zZXQoc2V0LT5iaXRtYXAsIDAsIGJpdG1hcF9z
-aXplKG51bV9zc2lkLCBudW1faWQpKTsKPj4gKwkJbWVtc2V0KHNldC0+Yml0bWFwLCAwLCBpZHNl
-dF9iaXRtYXBfc2l6ZShudW1fc3NpZCwgbnVtX2lkKSk7Cj4gCj4gV2h5IG5vdCB0byB1c2UgYml0
-bWFwX3plcm8oKT8KPiAKPiAuLi4KPiAKPj4gLQltZW1zZXQoc2V0LT5iaXRtYXAsIDB4ZmYsIGJp
-dG1hcF9zaXplKHNldC0+bnVtX3NzaWQsIHNldC0+bnVtX2lkKSk7Cj4+ICsJbWVtc2V0KHNldC0+
-Yml0bWFwLCAweGZmLCBpZHNldF9iaXRtYXBfc2l6ZShzZXQtPm51bV9zc2lkLCBzZXQtPm51bV9p
-ZCkpOwo+IAo+IFdoeSBub3QgdG8gdXNlIGJpdG1hcF9maWxsKCkgPwo+IAo+IAoKSGksCgpGb3Ig
-dGhpcyBpbml0aWFsIHN0ZXAsIEkgd2FudGVkIHRvIGtlZXAgY2hhbmdlcyBhcyBtaW5pbWFsIGFz
-IHBvc3NpYmxlIAooaS5lIGp1c3QgZnVuY3Rpb24gcmVuYW1pbmcpCgpJbiBmYWN0LCBJIHBsYW4g
-dG8gc2VuZCBhIGZvbGxvdy11cCBwYXRjaCBvbiB0aGlzIGZpbGUuClRoaXMgd291bGQgcmVtb3Zl
-IHRoZSBuZXdseSByZW5hbWVkIGlkc2V0X2JpdG1hcF9zaXplKCkgZnVuY3Rpb24sIHVzZSAKdGhl
-IGJpdG1hcCBBUEkgZGlyZWN0bHkgKGFzIHlvdSBwb2ludGVkLW91dCkgd2l0aAoic2V0LT5udW1f
-c3NpZCAqIHNldC0+bnVtX2lkIiBhcyBzaXplLgoKSXQgaXMgYWxyZWFkeSBkb25lIHRoaXMgd2F5
-IGluIGlkc2V0X2lzX2VtcHR5KCksIHNvIGl0IHdvdWxkIGJlIG1vcmUgCmNvbnNpc3RlbnQuCgpJ
-ZiB0aGUgc2VyaWUgbmVlZHMgYSB2MiAob3IgaWYgcmVxdWlyZWQpLCBJIGNhbiBhZGQgYW4gYWRk
-aXRpb25hbCA1dGggCnBhdGNoIGZvciBpdC4gT3RoZXJ3aXNlIGl0IHdpbGwgc2VuZCBzZXBhcmF0
-bHkgbGF0ZXIuCgpDSgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5j
-b20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+On Sat, Jul 02, 2022 at 09:24:24PM +0200, Christophe JAILLET wrote:
+> Le 02/07/2022 =E0 20:54, Andy Shevchenko a =E9crit=A0:
+> > On Sat, Jul 02, 2022 at 08:29:09PM +0200, Christophe JAILLET wrote:
+
+...
+
+> > > -=09=09memset(set->bitmap, 0, bitmap_size(num_ssid, num_id));
+> > > +=09=09memset(set->bitmap, 0, idset_bitmap_size(num_ssid, num_id));
+> >=20
+> > Why not to use bitmap_zero()?
+
+...
+
+> > > -=09memset(set->bitmap, 0xff, bitmap_size(set->num_ssid, set->num_id)=
+);
+> > > +=09memset(set->bitmap, 0xff, idset_bitmap_size(set->num_ssid, set->n=
+um_id));
+> >=20
+> > Why not to use bitmap_fill() ?
+
+> For this initial step, I wanted to keep changes as minimal as possible (i=
+.e
+> just function renaming)
+>=20
+> In fact, I plan to send a follow-up patch on this file.
+> This would remove the newly renamed idset_bitmap_size() function, use the
+> bitmap API directly (as you pointed-out) with
+> "set->num_ssid * set->num_id" as size.
+>=20
+> It is already done this way in idset_is_empty(), so it would be more
+> consistent.
+>=20
+> If the serie needs a v2 (or if required), I can add an additional 5th pat=
+ch
+> for it. Otherwise it will send separatly later.
+
+If you use bitmap APIs as I suggested above as the first patch, the rest wi=
+ll
+have less unneeded churn, no?
+
+
+--=20
+With Best Regards,
+Andy Shevchenko
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
