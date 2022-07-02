@@ -1,83 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DB72568C07
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:59:29 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68511569B7E
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 09:28:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657119569;
+	s=mimecast20190719; t=1657178891;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ImVdtid9gmWQ+n98iq3P5WKWGFomIWaqYR4hWei1nnM=;
-	b=SOI1DbDX1mlFnZMzG1U98+YiPLFDDWUc4sVLXFlOJlVloi7RjEuveeVlNewPC0RaSclsdF
-	Z3dphvoNbIxAIXhdp3l/Re+P1LdC1tNBkigGb3t+fnj19mqE+kmcV878pgCCbmJqPVw77g
-	BVBsjbLpTztqqTh5IB016mBeiOqYLYo=
+	bh=CQc5Gu3jyFyjsZsL1wJinjlf4O+oNxwlz5BHXkkX+5Y=;
+	b=Vxe2Wb/EhF9UTd0lGHoZ9/QPo8zuT+LW2tjknMEm9yFN/qAdyEp1w9ZU+7r9PfpHXP/69+
+	LeY2siUDChD9u+LPURPkfq1SWzgN4PZGqg6jxeQfOBUUHJbrf4cJDn/lHrdvoVxgUW7Udr
+	NPXiMRfVxJNOAScPnGiniotey+pgvXY=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-607-gdZTkOqhM5ajkHMoJID2qg-1; Wed, 06 Jul 2022 10:59:27 -0400
-X-MC-Unique: gdZTkOqhM5ajkHMoJID2qg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-326-NT0tGzZUOF2q1QZTyI1wgg-1; Thu, 07 Jul 2022 03:28:08 -0400
+X-MC-Unique: NT0tGzZUOF2q1QZTyI1wgg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADA24294EDE1;
-	Wed,  6 Jul 2022 14:59:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A90538041CC;
+	Thu,  7 Jul 2022 07:28:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7EB08492C3B;
-	Wed,  6 Jul 2022 14:59:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E8EDF404754D;
+	Thu,  7 Jul 2022 07:28:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 24A5E194706F;
-	Wed,  6 Jul 2022 14:59:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0F4781947076;
+	Thu,  7 Jul 2022 07:28:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5177D1947042
- for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 19:42:11 +0000 (UTC)
+ ESMTP id 3F8921947042
+ for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 20:44:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 41C901121315; Sat,  2 Jul 2022 19:42:11 +0000 (UTC)
+ id 2C69B18EB7; Sat,  2 Jul 2022 20:44:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D5A81121314
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:42:11 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2856618EA8
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 20:44:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 21B3E3C025BC
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:42:11 +0000 (UTC)
-Received: from smtp.smtpout.orange.fr (smtp03.smtpout.orange.fr
- [80.12.242.125]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- us-mta-403-b45dJdmVOrSGh46M4MyYkg-1; Sat, 02 Jul 2022 15:42:07 -0400
-X-MC-Unique: b45dJdmVOrSGh46M4MyYkg-1
-Received: from [192.168.1.18] ([90.11.190.129]) by smtp.orange.fr with ESMTPA
- id 7j0Fovq0J26JC7j0Fox7ym; Sat, 02 Jul 2022 21:42:06 +0200
-X-ME-Helo: [192.168.1.18]
-X-ME-Auth: YWZlNiIxYWMyZDliZWIzOTcwYTEyYzlhMmU3ZiQ1M2U2MzfzZDfyZTMxZTBkMTYyNDBjNDJlZmQ3ZQ==
-X-ME-Date: Sat, 02 Jul 2022 21:42:06 +0200
-X-ME-IP: 90.11.190.129
-Message-ID: <62d3cfcd-a32e-59d1-c376-c95e8da1049f@wanadoo.fr>
-Date: Sat, 2 Jul 2022 21:42:02 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.9.1
-To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-Newsgroups: gmane.linux.kernel.janitors, gmane.linux.kernel.device-mapper.devel,
- gmane.linux.kernel
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C0373C025C3
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 20:44:16 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-487-Fb354nQEMFmDP5UsE824TQ-1; Sat, 02 Jul 2022 16:44:14 -0400
+X-MC-Unique: Fb354nQEMFmDP5UsE824TQ-1
+Received: by mail-qt1-f178.google.com with SMTP id x1so4550620qtv.8;
+ Sat, 02 Jul 2022 13:44:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=DlqK/gCHCDGy5OSRXAYFxnfYX+I9GxfO75TGVC+FALo=;
+ b=gAXvpnlS7qG/ay0lLJVFBbpY/JUYApvOI28MVTVrDzUACxobffsFqCPrXeRX7e5bdi
+ J6vexvsH33nzoQTVrRZd8w5CSy13kfiJadvXoqqQKT9hDRggE9j91nqLUh2wAzw3m4Xo
+ e3ZE17zR6sS57nWC9MnQBiSluX+zNME9aLYO8xp6sAQDU/jXcVnse+irSIeu8KUDtWnP
+ URGqXHSswnVo+X76qxTW/+bOE/1mSZWOBka408BqODHoqvpx8YIerNu82CUllN3UViqe
+ B5BctKHIeXhWG7zgdoIpryevFW6iXCwhwqErxHPlF3by8KM+eVRt82AEDkkc33nnQQqz
+ rAxw==
+X-Gm-Message-State: AJIora8w+FfhAxS0YcAi/KoZUJmA4eK+xeC28ibh5WdK9GYCpyONhxRx
+ FTwDr8aCSthmymePBE4u/Z8=
+X-Google-Smtp-Source: AGRyM1v9Om7l6fke9TMJ9NBQOtPQriWNRvL7GNoiNXCdxK+C+aPoOgahYt70QVZO5kMXfNiYT220JQ==
+X-Received: by 2002:a05:6214:e83:b0:470:54c3:e18e with SMTP id
+ hf3-20020a0562140e8300b0047054c3e18emr22253839qvb.3.1656794653736; 
+ Sat, 02 Jul 2022 13:44:13 -0700 (PDT)
+Received: from localhost ([2601:4c1:c100:1230:e838:b1c2:b125:986a])
+ by smtp.gmail.com with ESMTPSA id
+ c19-20020a05622a059300b00304edcfa109sm18513614qtb.33.2022.07.02.13.44.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 02 Jul 2022 13:44:13 -0700 (PDT)
+Date: Sat, 2 Jul 2022 13:44:12 -0700
+From: Yury Norov <yury.norov@gmail.com>
+To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Message-ID: <YsCuHLTsKGCO/jsL@yury-laptop>
 References: <cover.1656785856.git.christophe.jaillet@wanadoo.fr>
- <3f2ad7fb91948525f6c52e0d36ec223cd3049c88.1656785856.git.christophe.jaillet@wanadoo.fr>
- <YsCUW6vT7LlAv2UE@smile.fi.intel.com>
- <6063ee97-1bbe-2391-78cb-57572851a52c@wanadoo.fr>
- <YsCdSkzSbVz9gnci@smile.fi.intel.com>
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-In-Reply-To: <YsCdSkzSbVz9gnci@smile.fi.intel.com>
+MIME-Version: 1.0
+In-Reply-To: <cover.1656785856.git.christophe.jaillet@wanadoo.fr>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -85,10 +95,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-Mailman-Approved-At: Wed, 06 Jul 2022 14:51:05 +0000
-Subject: Re: [dm-devel] [PATCH 1/4] s390/cio: Rename bitmap_size() as
- idset_bitmap_size()
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+X-Mailman-Approved-At: Thu, 07 Jul 2022 07:28:03 +0000
+Subject: Re: [dm-devel] [PATCH 0/4] Introduce bitmap_size()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,49 +110,91 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: linux-s390@vger.kernel.org, kernel-janitors@vger.kernel.org,
- ntfs3@lists.linux.dev, yury.norov@gmail.com, gor@linux.ibm.com,
- linux@rasmusvillemoes.dk, hca@linux.ibm.com, snitzer@kernel.org,
+ andriy.shevchenko@linux.intel.com, gor@linux.ibm.com, linux@rasmusvillemoes.dk,
+ hca@linux.ibm.com, ntfs3@lists.linux.dev, snitzer@kernel.org,
  oberpar@linux.ibm.com, linux-kernel@vger.kernel.org,
  almaz.alexandrovich@paragon-software.com, dm-devel@redhat.com,
  svens@linux.ibm.com, vneethv@linux.ibm.com, agordeev@linux.ibm.com,
  borntraeger@linux.ibm.com, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-TGUgMDIvMDcvMjAyMiDDoCAyMTozMiwgQW5keSBTaGV2Y2hlbmtvIGEgw6ljcml0wqA6Cj4gT24g
-U2F0LCBKdWwgMDIsIDIwMjIgYXQgMDk6MjQ6MjRQTSArMDIwMCwgQ2hyaXN0b3BoZSBKQUlMTEVU
-IHdyb3RlOgo+PiBMZSAwMi8wNy8yMDIyIMOgIDIwOjU0LCBBbmR5IFNoZXZjaGVua28gYSDDqWNy
-aXTCoDoKPj4+IE9uIFNhdCwgSnVsIDAyLCAyMDIyIGF0IDA4OjI5OjA5UE0gKzAyMDAsIENocmlz
-dG9waGUgSkFJTExFVCB3cm90ZToKPiAKPiAuLi4KPiAKPj4+PiAtCQltZW1zZXQoc2V0LT5iaXRt
-YXAsIDAsIGJpdG1hcF9zaXplKG51bV9zc2lkLCBudW1faWQpKTsKPj4+PiArCQltZW1zZXQoc2V0
-LT5iaXRtYXAsIDAsIGlkc2V0X2JpdG1hcF9zaXplKG51bV9zc2lkLCBudW1faWQpKTsKPj4+Cj4+
-PiBXaHkgbm90IHRvIHVzZSBiaXRtYXBfemVybygpPwo+IAo+IC4uLgo+IAo+Pj4+IC0JbWVtc2V0
-KHNldC0+Yml0bWFwLCAweGZmLCBiaXRtYXBfc2l6ZShzZXQtPm51bV9zc2lkLCBzZXQtPm51bV9p
-ZCkpOwo+Pj4+ICsJbWVtc2V0KHNldC0+Yml0bWFwLCAweGZmLCBpZHNldF9iaXRtYXBfc2l6ZShz
-ZXQtPm51bV9zc2lkLCBzZXQtPm51bV9pZCkpOwo+Pj4KPj4+IFdoeSBub3QgdG8gdXNlIGJpdG1h
-cF9maWxsKCkgPwo+IAo+PiBGb3IgdGhpcyBpbml0aWFsIHN0ZXAsIEkgd2FudGVkIHRvIGtlZXAg
-Y2hhbmdlcyBhcyBtaW5pbWFsIGFzIHBvc3NpYmxlIChpLmUKPj4ganVzdCBmdW5jdGlvbiByZW5h
-bWluZykKPj4KPj4gSW4gZmFjdCwgSSBwbGFuIHRvIHNlbmQgYSBmb2xsb3ctdXAgcGF0Y2ggb24g
-dGhpcyBmaWxlLgo+PiBUaGlzIHdvdWxkIHJlbW92ZSB0aGUgbmV3bHkgcmVuYW1lZCBpZHNldF9i
-aXRtYXBfc2l6ZSgpIGZ1bmN0aW9uLCB1c2UgdGhlCj4+IGJpdG1hcCBBUEkgZGlyZWN0bHkgKGFz
-IHlvdSBwb2ludGVkLW91dCkgd2l0aAo+PiAic2V0LT5udW1fc3NpZCAqIHNldC0+bnVtX2lkIiBh
-cyBzaXplLgo+Pgo+PiBJdCBpcyBhbHJlYWR5IGRvbmUgdGhpcyB3YXkgaW4gaWRzZXRfaXNfZW1w
-dHkoKSwgc28gaXQgd291bGQgYmUgbW9yZQo+PiBjb25zaXN0ZW50Lgo+Pgo+PiBJZiB0aGUgc2Vy
-aWUgbmVlZHMgYSB2MiAob3IgaWYgcmVxdWlyZWQpLCBJIGNhbiBhZGQgYW4gYWRkaXRpb25hbCA1
-dGggcGF0Y2gKPj4gZm9yIGl0LiBPdGhlcndpc2UgaXQgd2lsbCBzZW5kIHNlcGFyYXRseSBsYXRl
-ci4KPiAKPiBJZiB5b3UgdXNlIGJpdG1hcCBBUElzIGFzIEkgc3VnZ2VzdGVkIGFib3ZlIGFzIHRo
-ZSBmaXJzdCBwYXRjaCwgdGhlIHJlc3Qgd2lsbAo+IGhhdmUgbGVzcyB1bm5lZWRlZCBjaHVybiwg
-bm8/Cj4gCj4gCgpNYWtlcyBzZW5zZS4KCkknbGwgd2FpdCBmb3Igc29tZSBvdGhlciBwb3RlbnRp
-YWwgY29tbWVudHMgMSBkYXkgb3IgMiBhbmQgc2VuZCBhIHYyIAp3aXRoIHRoZSBzaW1wbGlmaWNh
-dGlvbiB5b3UgcHJvcG9zZSBhcyBhbiBpbml0aWFsIHN0ZXAuCgpUaGFua3MgZm9yIHlvdXIgZmVl
-ZC1iYWNrLgoKQ0oKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29t
-Cmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
+On Sat, Jul 02, 2022 at 08:28:53PM +0200, Christophe JAILLET wrote:
+> This serie introduces bitmap_size() which returns the size, in bytes, of a
+> bitmap. Such a function is useful to simplify some drivers that use vmalloc() or
+> other functions to allocate some butmaps.
+
+This generally looks like a step in a wrong direction. Bitmap is by
+definition an array of bits. If someone has a reason to handle bitmap
+on a per-byte basis, the guy is probably doing something wrong.
+
+We already have quite comprehensive list of functions that help to
+allocate, fill, clear, copy etc bitmap without considering it as an
+array of bytes or words.
+
+> ... some drivers that use vmalloc() ...
+
+If a driver needs vmalloc() for a bitmap, we should introduce
+bitmap_vmalloc(), not bitmap_size().
+
+> It also hides some implementation details about how bitmaps are stored (array of
+> longs)
+
+Sorry, I don't understand that. How bitmap_size() helps to hide a fact that
+bitmap is an array of unsigned longs? (Except that it makes an impression
+that it's an array of bytes.)
+
+> Before introducing this function in patch 3, patch 1 and 2 rename some functions
+> with the same name but with different meaning.
+> 
+> Finaly, patch 4 makes use of the new function in bitmap.h.
+
+You mentioned, you need bitmap_size() to use with vmalloc(), but in
+patch 4, there's no such code. 
+ 
+> Other follow-up patches to simplify some drivers will be proposed later if/when
+> this serie is merged.
+
+This series doesn't show an example of how you're going to use new
+API, and therefore it's hard to judge, do we really need bitmap_size(),
+or we just need more helpers around.
+
+As I already said, bitmaps are evolving in 2nd direction, which is the
+right approach, I think.
+
+Thanks,
+Yury
+
+> Christophe JAILLET (4):
+>   s390/cio: Rename bitmap_size() as idset_bitmap_size()
+>   fs/ntfs3: Rename bitmap_size() as ntfs3_bitmap_size()
+>   bitmap: Introduce bitmap_size()
+>   bitmap: Use bitmap_size()
+> 
+>  drivers/md/dm-clone-metadata.c |  5 -----
+>  drivers/s390/cio/idset.c       |  8 ++++----
+>  fs/ntfs3/bitmap.c              |  4 ++--
+>  fs/ntfs3/fsntfs.c              |  2 +-
+>  fs/ntfs3/index.c               |  6 +++---
+>  fs/ntfs3/ntfs_fs.h             |  2 +-
+>  fs/ntfs3/super.c               |  2 +-
+>  include/linux/bitmap.h         | 15 +++++++++------
+>  lib/math/prime_numbers.c       |  2 --
+>  9 files changed, 21 insertions(+), 25 deletions(-)
+> 
+> -- 
+> 2.34.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
