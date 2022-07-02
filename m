@@ -1,81 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42209568BFA
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:57:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BEABE568BB3
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:52:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657119423;
+	s=mimecast20190719; t=1657119131;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3NKdk2Qa8o5n26Hqu8gGZAmV3jtjkWDrnHbzm2QdGig=;
-	b=PiPZtBoe5H+a/DoCqDED2AuAayr5+TlTB8PmkAt2wUSCsQq2hLQlf7qEztef72Ee8gmGKZ
-	+PUC/84zEqrwUO2ppQxpP8Q7mSlUn44cJI5PvU5zEhY4tYziQWF0kmIYRlzv//ngXkBjB7
-	ekIrzkRdPOLSNM9eQwmknex2zWm6T/Y=
+	bh=/3Mur+ZZZgiptpnhRSxIb1kq13CKSPGmM2wEowq5nBs=;
+	b=EKTkGar7clhkUrA3WSggo6h0J2IdRn/Fy994zIQp4z2bVgmX+B4tSzJNygtJff5aR99S7r
+	Oz8XD3FiKQ+b+ZPFU6RDMljSG0wnGCqfDXEHCA3iaVKRjTHDmMoSm5W/bQx/7eKdtUrmLd
+	iC7wrQKMw3RLHa65lXzxO1xoPlLpnx0=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-644-WXKx1yRmNRSIurgjeorXZg-1; Wed, 06 Jul 2022 10:56:38 -0400
-X-MC-Unique: WXKx1yRmNRSIurgjeorXZg-1
+ us-mta-591-BWD7YKHVMHWYiwaUTXI04g-1; Wed, 06 Jul 2022 10:52:08 -0400
+X-MC-Unique: BWD7YKHVMHWYiwaUTXI04g-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFA332932486;
-	Wed,  6 Jul 2022 14:56:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB31A1C18261;
+	Wed,  6 Jul 2022 14:52:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 13F0A140EBE3;
-	Wed,  6 Jul 2022 14:56:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 91280140EBE3;
+	Wed,  6 Jul 2022 14:52:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C5751947075;
-	Wed,  6 Jul 2022 14:56:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2D87F1947075;
+	Wed,  6 Jul 2022 14:52:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1C3551947042
- for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 19:00:57 +0000 (UTC)
+ ESMTP id 5FCA41947042
+ for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 19:00:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0481C409B3E6; Sat,  2 Jul 2022 19:00:57 +0000 (UTC)
+ id 42055C15D5C; Sat,  2 Jul 2022 19:00:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 00FC3409B3E3
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:00:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD8C029AA2F0
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:00:56 +0000 (UTC)
-Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E440C15D42
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:00:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25F45802D1C
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 19:00:04 +0000 (UTC)
+Received: from mga05.intel.com (mga05.intel.com [192.55.52.43]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-435-KprnRDRSN2mHSWXyu4bFtQ-1; Sat, 02 Jul 2022 15:00:54 -0400
-X-MC-Unique: KprnRDRSN2mHSWXyu4bFtQ-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10396"; a="282893248"
-X-IronPort-AV: E=Sophos;i="5.92,240,1650956400"; d="scan'208";a="282893248"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2022 12:00:53 -0700
-X-IronPort-AV: E=Sophos;i="5.92,240,1650956400"; d="scan'208";a="542052848"
+ us-mta-83-0lZNtueEMdOuA0b3VrTSFA-1; Sat, 02 Jul 2022 15:00:00 -0400
+X-MC-Unique: 0lZNtueEMdOuA0b3VrTSFA-1
+X-IronPort-AV: E=McAfee;i="6400,9594,10396"; a="369186273"
+X-IronPort-AV: E=Sophos;i="5.92,240,1650956400"; d="scan'208";a="369186273"
+Received: from orsmga004.jf.intel.com ([10.7.209.38])
+ by fmsmga105.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2022 11:59:58 -0700
+X-IronPort-AV: E=Sophos;i="5.92,240,1650956400"; d="scan'208";a="718968459"
 Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 02 Jul 2022 12:00:49 -0700
+ by orsmga004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 02 Jul 2022 11:59:54 -0700
 Received: from andy by smile.fi.intel.com with local (Exim 4.96)
  (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1o7iKB-0013px-1y; Sat, 02 Jul 2022 21:58:35 +0300
-Date: Sat, 2 Jul 2022 21:58:35 +0300
+ id 1o7iLP-0013q3-0M; Sat, 02 Jul 2022 21:59:51 +0300
+Date: Sat, 2 Jul 2022 21:59:50 +0300
 From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Message-ID: <YsCVW5Dt3YcE3TLL@smile.fi.intel.com>
+Message-ID: <YsCVpifccOebP3Ot@smile.fi.intel.com>
 References: <cover.1656785856.git.christophe.jaillet@wanadoo.fr>
- <56a3cb896ec446ca24e4756042d9f0829afc671a.1656785856.git.christophe.jaillet@wanadoo.fr>
+ <98f5d3d855a9c687ccc035edf62016b02a6876b7.1656785856.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
-In-Reply-To: <56a3cb896ec446ca24e4756042d9f0829afc671a.1656785856.git.christophe.jaillet@wanadoo.fr>
+In-Reply-To: <98f5d3d855a9c687ccc035edf62016b02a6876b7.1656785856.git.christophe.jaillet@wanadoo.fr>
 Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -84,10 +85,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mailman-Approved-At: Wed, 06 Jul 2022 14:51:05 +0000
-Subject: Re: [dm-devel] [PATCH 2/4] fs/ntfs3: Rename bitmap_size() as
- ntfs3_bitmap_size()
+Subject: Re: [dm-devel] [PATCH 3/4] bitmap: Introduce bitmap_size()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,23 +117,79 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Jul 02, 2022 at 08:29:27PM +0200, Christophe JAILLET wrote:
-> In order to introduce a bitmap_size() function in the bitmap API, we have
-> to rename functions with a similar name.
+On Sat, Jul 02, 2022 at 08:29:36PM +0200, Christophe JAILLET wrote:
+> The new bitmap_size() function returns the size, in bytes, of a bitmap.
+> 
+> Remove the already existing bitmap_size() functions and macro in some
+> files.
+> These files already use the bitmap API and will use the new function
+> in bitmap.h automatically.
 
-...
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
->  /* NTFS uses quad aligned bitmaps. */
-> -static inline size_t bitmap_size(size_t bits)
-> +static inline size_t ntfs3_bitmap_size(size_t bits)
+> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+> ---
+>  drivers/md/dm-clone-metadata.c | 5 -----
+>  include/linux/bitmap.h         | 6 ++++++
+>  lib/math/prime_numbers.c       | 2 --
+>  3 files changed, 6 insertions(+), 7 deletions(-)
+> 
+> diff --git a/drivers/md/dm-clone-metadata.c b/drivers/md/dm-clone-metadata.c
+> index c43d55672bce..47c1fa7aad8b 100644
+> --- a/drivers/md/dm-clone-metadata.c
+> +++ b/drivers/md/dm-clone-metadata.c
+> @@ -465,11 +465,6 @@ static void __destroy_persistent_data_structures(struct dm_clone_metadata *cmd)
+>  
+>  /*---------------------------------------------------------------------------*/
+>  
+> -static size_t bitmap_size(unsigned long nr_bits)
+> -{
+> -	return BITS_TO_LONGS(nr_bits) * sizeof(long);
+> -}
+> -
+>  static int __dirty_map_init(struct dirty_map *dmap, unsigned long nr_words,
+>  			    unsigned long nr_regions)
 >  {
->  	return ALIGN((bits + 7) >> 3, 8);
-
-It would be easier to understand in a way
-
-	return BITS_TO_BYTES(ALIGN(bits, 64));
-
->  }
+> diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
+> index f091a1664bf1..f66fb98a4126 100644
+> --- a/include/linux/bitmap.h
+> +++ b/include/linux/bitmap.h
+> @@ -48,6 +48,7 @@ struct device;
+>   *  bitmap_equal(src1, src2, nbits)             Are *src1 and *src2 equal?
+>   *  bitmap_intersects(src1, src2, nbits)        Do *src1 and *src2 overlap?
+>   *  bitmap_subset(src1, src2, nbits)            Is *src1 a subset of *src2?
+> + *  bitmap_size(nbits)                          Size, in bytes, of a bitmap
+>   *  bitmap_empty(src, nbits)                    Are all bits zero in *src?
+>   *  bitmap_full(src, nbits)                     Are all bits set in *src?
+>   *  bitmap_weight(src, nbits)                   Hamming Weight: number set bits
+> @@ -124,6 +125,11 @@ unsigned long *bitmap_alloc_node(unsigned int nbits, gfp_t flags, int node);
+>  unsigned long *bitmap_zalloc_node(unsigned int nbits, gfp_t flags, int node);
+>  void bitmap_free(const unsigned long *bitmap);
+>  
+> +static __always_inline size_t bitmap_size(unsigned long nbits)
+> +{
+> +	return BITS_TO_LONGS(nbits) * sizeof(unsigned long);
+> +}
+> +
+>  /* Managed variants of the above. */
+>  unsigned long *devm_bitmap_alloc(struct device *dev,
+>  				 unsigned int nbits, gfp_t flags);
+> diff --git a/lib/math/prime_numbers.c b/lib/math/prime_numbers.c
+> index d42cebf7407f..d3b64b10da1c 100644
+> --- a/lib/math/prime_numbers.c
+> +++ b/lib/math/prime_numbers.c
+> @@ -6,8 +6,6 @@
+>  #include <linux/prime_numbers.h>
+>  #include <linux/slab.h>
+>  
+> -#define bitmap_size(nbits) (BITS_TO_LONGS(nbits) * sizeof(unsigned long))
+> -
+>  struct primes {
+>  	struct rcu_head rcu;
+>  	unsigned long last, sz;
+> -- 
+> 2.34.1
+> 
 
 -- 
 With Best Regards,
