@@ -2,94 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 135B5569B91
-	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 09:29:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E10A8568C29
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 17:03:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657178946;
+	s=mimecast20190719; t=1657119823;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=TeRFNLXvx/2nxkFoYs3HlFmXlPsEInobf3kVNZcE6tU=;
-	b=fPVGTSvm5yeDA5S+nmXL+fG2SXc7n5gV6Kc4fzUFwL+kvJM+n4Q8EUZmQDi5Z1GYoGznvn
-	2osuffsDhqB7yc3S3I82c0he0qzv98SiK7ohMF2zb1eJHCSzk2m8tZ1gThr2RzIIKrA5ZF
-	GcUzYrktm1G/k/8eeZzdM5j/BR+qoPM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=MnhruY8bO1JA37C7pAR8zGsHnlhItITTnnJm8xfwm8E=;
+	b=Y37CawzSpHFAdjFwGJexrBOf23Ir4nx8u4hEk96YKXUViFrYVy5Ca6zXXdm5Jvvs3sDH3h
+	7LpXqRChsOrv85Hlv9EtvSy7nDyMufEkclp6Ph2cpzRg3bceI7QCAHXObJZmjQDLF72nId
+	oUpuMGvKdFn29fTLmrWAzPkyT5kWd04=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-404-UgyYzP66PP-90-w04bOOAw-1; Thu, 07 Jul 2022 03:28:09 -0400
-X-MC-Unique: UgyYzP66PP-90-w04bOOAw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-25-ACWFxy-aMO6Gb8pKxS_5lw-1; Wed, 06 Jul 2022 11:03:40 -0400
+X-MC-Unique: ACWFxy-aMO6Gb8pKxS_5lw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFD141C05EAF;
-	Thu,  7 Jul 2022 07:28:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D9E480D196;
+	Wed,  6 Jul 2022 15:03:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7E4E02166B26;
-	Thu,  7 Jul 2022 07:28:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 64A111121315;
+	Wed,  6 Jul 2022 15:03:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9FC021947B89;
-	Thu,  7 Jul 2022 07:28:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D61661947069;
+	Wed,  6 Jul 2022 15:03:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B9C86194707A
- for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 04:26:22 +0000 (UTC)
+ ESMTP id C3FC41947042
+ for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 11:14:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B2BE12166B29; Sat,  2 Jul 2022 04:26:22 +0000 (UTC)
+ id B445D1415307; Sat,  2 Jul 2022 11:14:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AECC52166B26
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 04:26:22 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AFEC714152F9
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 11:14:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9382385A580
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 04:26:22 +0000 (UTC)
-Received: from mail-pj1-f43.google.com (mail-pj1-f43.google.com
- [209.85.216.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 966381C05B15
+ for <dm-devel@redhat.com>; Sat,  2 Jul 2022 11:14:20 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-439-8qBxGiIBOpe2H8SsR4jwUQ-1; Sat, 02 Jul 2022 00:26:20 -0400
-X-MC-Unique: 8qBxGiIBOpe2H8SsR4jwUQ-1
-Received: by mail-pj1-f43.google.com with SMTP id
- h15-20020a17090a648f00b001ef3c529d77so7042990pjj.2; 
- Fri, 01 Jul 2022 21:26:19 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=8dpcDlwR6UgAXLxdxQBFPJ8Kqg1ETqhfqVNIp7mcNZk=;
- b=0s+iqyHQrUHMmiRvwuG6WD9qp/B7kHmgec19rZ0+imSoGLrv3ufG84hnAzjMF23QPc
- 63f64qTTITK9cU07WNY/WGcP2qnOOnlPrlmcazUSofct5v4xMjaZupf+jgH82P1+mNQA
- +APqwge5B/C2BKc/c4blTfIFWlvQVnT1eqBHnbNIYq3Xr272xOPkRytzsBs3FTyi9z4O
- 1+BAdovhZGskHUn7HmBvEc3mxKuPTHkFXE8wStollPXN87VDBW21AsmEveAFBf/+7cwC
- jg6I5yAMn6UszPdhXMfrM+bLOfnnYE/71pdqpyiUBSHORFMT/6gjqX09Kc4alYsDS8Fg
- fe7g==
-X-Gm-Message-State: AJIora+0VIkIpqtB13wU25gTbQeeZrtoPn8dptk7Y+ky/Y1QT2rQ5S46
- Ax3MRipHnDpKwdJ6ktMMywg=
-X-Google-Smtp-Source: AGRyM1vsbc5MSeVulXe3sQnjanmzmFEPLLYT6pcFzsHsCiy0YajshHAxqtqNJ9FHkhsvi2+1XZXLww==
-X-Received: by 2002:a17:90a:6fc5:b0:1ec:87db:b9f6 with SMTP id
- e63-20020a17090a6fc500b001ec87dbb9f6mr20617032pjk.104.1656735979173; 
- Fri, 01 Jul 2022 21:26:19 -0700 (PDT)
-Received: from debian.me (subs03-180-214-233-9.three.co.id. [180.214.233.9])
- by smtp.gmail.com with ESMTPSA id
- u9-20020a1709026e0900b0015e8d4eb2cdsm12305552plk.279.2022.07.01.21.26.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 01 Jul 2022 21:26:17 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id 7A5F01038DE; Sat,  2 Jul 2022 11:23:53 +0700 (WIB)
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: linux-doc@vger.kernel.org
-Date: Sat,  2 Jul 2022 11:23:50 +0700
-Message-Id: <20220702042350.23187-3-bagasdotme@gmail.com>
-In-Reply-To: <20220702042350.23187-1-bagasdotme@gmail.com>
-References: <20220702042350.23187-1-bagasdotme@gmail.com>
+ us-mta-459-onYBO7EqOMqS5Cdzof8sNA-1; Sat, 02 Jul 2022 07:14:19 -0400
+X-MC-Unique: onYBO7EqOMqS5Cdzof8sNA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id DC0E560DCC;
+ Sat,  2 Jul 2022 11:07:49 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E09AC341D9;
+ Sat,  2 Jul 2022 11:07:48 +0000 (UTC)
+Received: from mchehab by mail.kernel.org with local (Exim 4.95)
+ (envelope-from <mchehab@kernel.org>) id 1o7ayX-007gro-J8;
+ Sat, 02 Jul 2022 12:07:45 +0100
+From: Mauro Carvalho Chehab <mchehab@kernel.org>
+To: Linux Doc Mailing List <linux-doc@vger.kernel.org>
+Date: Sat,  2 Jul 2022 12:07:32 +0100
+Message-Id: <cover.1656759988.git.mchehab@kernel.org>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -98,10 +78,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-X-Mailman-Approved-At: Thu, 07 Jul 2022 07:28:03 +0000
-Subject: [dm-devel] [PATCH 2/2] Documentation: dm writecache: Render status
- list as list
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Mailman-Approved-At: Wed, 06 Jul 2022 14:51:05 +0000
+Subject: [dm-devel] [PATCH 00/12] Fix several documentation build warnings
+ with Sphinx 2.4.4
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,15 +93,25 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
- Jonathan Corbet <corbet@lwn.net>, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, dm-devel@redhat.com,
- Mikulas Patocka <mpatocka@redhat.com>, Bagas Sanjaya <bagasdotme@gmail.com>,
- Ross Zwisler <zwisler@kernel.org>, Dan Williams <dan.j.williams@intel.com>,
- Colin Ian King <colin.king@intel.com>, Alasdair Kergon <agk@redhat.com>
+Cc: =?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kw@linux.com>,
+ alsa-devel@alsa-project.org, kvm@vger.kernel.org, linux-pci@vger.kernel.org,
+ Brendan Higgins <brendanhiggins@google.com>, Jaroslav Kysela <perex@perex.cz>,
+ dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
+ linux-kselftest@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
+ Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-tegra@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ kunit-dev@googlegroups.com, linux-ext4@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Eric Dumazet <edumazet@google.com>,
+ Dipen Patel <dipenp@nvidia.com>, netdev@vger.kernel.org,
+ linux-wireless@vger.kernel.org, linux-kernel@vger.kernel.org,
+ Johannes Berg <johannes@sipsolutions.net>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -129,42 +119,43 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The status list isn't rendered as list, but rather as normal paragraph,
-because there is missing blank line between "Status:" line and the list.
+This series is against next-20220701. It fixes several warnings
+that are currently produced while building html docs.
 
-Fix the issue by adding the blank line separator.
+Each patch in this series is independent from the others, as
+each one touches a different file.
 
-Fixes: 48debafe4f2fea ("dm: add writecache target")
-Cc: Alasdair Kergon <agk@redhat.com>
-Cc: Mike Snitzer <snitzer@kernel.org>
-Cc: Jonathan Corbet <corbet@lwn.net>
-Cc: Mikulas Patocka <mpatocka@redhat.com>
-Cc: Ross Zwisler <zwisler@kernel.org>
-Cc: Colin Ian King <colin.king@intel.com>
-Cc: Dan Williams <dan.j.williams@intel.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>
-Cc: dm-devel@redhat.com
-Cc: stable@vger.kernel.org # v4.19+
-Cc: linux-kernel@vger.kernel.org
-Signed-off-by: Bagas Sanjaya <bagasdotme@gmail.com>
----
+Mauro Carvalho Chehab (12):
+  docs: ext4: blockmap.rst: fix a broken table
+  docs: tegra194-hte.rst: don't include gpiolib.c twice
+  docs: device-mapper: add a blank line at writecache.rst
+  docs: PCI: pci-vntb-function.rst: Properly include ascii artwork
+  docs: PCI: pci-vntb-howto.rst: fix a title markup
+  docs: virt: kvm: fix a title markup at api.rst
+  docs: ABI: sysfs-bus-nvdimm
+  kunit: test.h: fix a kernel-doc markup
+  net: mac80211: fix a kernel-doc markup
+  docs: alsa: alsa-driver-api.rst: remove a kernel-doc file
+  docs: arm: index.rst: add google/chromebook-boot-flow
+  docs: leds: index.rst: add leds-qcom-lpg to it
+
+ Documentation/ABI/testing/sysfs-bus-nvdimm             | 2 ++
+ Documentation/PCI/endpoint/pci-vntb-function.rst       | 2 +-
+ Documentation/PCI/endpoint/pci-vntb-howto.rst          | 2 +-
  Documentation/admin-guide/device-mapper/writecache.rst | 1 +
- 1 file changed, 1 insertion(+)
+ Documentation/arm/index.rst                            | 2 ++
+ Documentation/driver-api/hte/tegra194-hte.rst          | 3 +--
+ Documentation/filesystems/ext4/blockmap.rst            | 2 +-
+ Documentation/leds/index.rst                           | 1 +
+ Documentation/sound/kernel-api/alsa-driver-api.rst     | 1 -
+ Documentation/virt/kvm/api.rst                         | 6 +++---
+ include/kunit/test.h                                   | 2 +-
+ include/net/mac80211.h                                 | 2 +-
+ 12 files changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/Documentation/admin-guide/device-mapper/writecache.rst b/Documentation/admin-guide/device-mapper/writecache.rst
-index 6bf78b0446acba..2104812f028129 100644
---- a/Documentation/admin-guide/device-mapper/writecache.rst
-+++ b/Documentation/admin-guide/device-mapper/writecache.rst
-@@ -75,6 +75,7 @@ Constructor parameters:
- 		the origin volume in the last n milliseconds
- 
- Status:
-+
- 1. error indicator - 0 if there was no error, otherwise error number
- 2. the number of blocks
- 3. the number of free blocks
 -- 
-An old man doll... just what I always wanted! - Clara
+2.36.1
+
 
 --
 dm-devel mailing list
