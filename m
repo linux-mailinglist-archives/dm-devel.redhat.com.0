@@ -1,84 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96C4E568C26
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 17:03:33 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 81869569B83
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 09:28:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657119812;
+	s=mimecast20190719; t=1657178897;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=01Cn72xFT7eukF5KSFJ0hD7Gd32/qLxylIRXOeLAKI0=;
-	b=ebfL0/pLSbwspvhkrQbsiYkfGUZEPMcFwuM8TAXIL4m5LX7U0XQVjjZoeS3DlfXH6gLW5p
-	ZcWqEAq81InzpeCNeGYqEB3gCvtpMpg46aDITdnmp+Z7lc1ISS5HJH21FVzMW7G2FM5cUN
-	egiS8zaGeDmkd9TmAXmpAf4YTkEqHag=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=i9vHukNc2v1aokC70p7P2FyE3JbjS+M62y3x+pWj5Nc=;
+	b=S8uGcap1dxotZql1H19ZQ0bEtRBaehw6tU7zIZ/E29QyR3rQtJXrs7MN7HZrlpjzbNRqRA
+	0ZuMckaNwmb+GufTuEEkPt0UiZWiFwajDpjAZ8hJX8XiH7g/iQayFuctv2IAoUI4brrnqy
+	UaHQW4cFu3qiBQFXQgmKl8k89V3r6T0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-523-TzQ-2pOmPVGl2HJyT6aqdg-1; Wed, 06 Jul 2022 11:03:29 -0400
-X-MC-Unique: TzQ-2pOmPVGl2HJyT6aqdg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-298-Vr5yjZahPMyCOt_m-L_eLA-1; Thu, 07 Jul 2022 03:28:16 -0400
+X-MC-Unique: Vr5yjZahPMyCOt_m-L_eLA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EBA72932491;
-	Wed,  6 Jul 2022 15:03:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E4C6823F0C;
+	Thu,  7 Jul 2022 07:28:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E033840CFD0B;
-	Wed,  6 Jul 2022 15:03:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 51A1640EC003;
+	Thu,  7 Jul 2022 07:28:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7E9EA194706B;
-	Wed,  6 Jul 2022 15:03:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 54168194707E;
+	Thu,  7 Jul 2022 07:28:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7A0C31947040
- for <dm-devel@listman.corp.redhat.com>; Sun,  3 Jul 2022 15:22:07 +0000 (UTC)
+ ESMTP id 0A3221947040
+ for <dm-devel@listman.corp.redhat.com>; Sun,  3 Jul 2022 19:13:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 69C511121319; Sun,  3 Jul 2022 15:22:07 +0000 (UTC)
+ id C6517416362; Sun,  3 Jul 2022 19:13:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 659221121315
- for <dm-devel@redhat.com>; Sun,  3 Jul 2022 15:22:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C255D40336E
+ for <dm-devel@redhat.com>; Sun,  3 Jul 2022 19:13:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AA623C01D87
- for <dm-devel@redhat.com>; Sun,  3 Jul 2022 15:22:07 +0000 (UTC)
-Received: from mga07.intel.com (mga07.intel.com [134.134.136.100]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-534-bHYExFjcOyWcuYVUZlyGPA-1; Sun, 03 Jul 2022 11:22:05 -0400
-X-MC-Unique: bHYExFjcOyWcuYVUZlyGPA-1
-X-IronPort-AV: E=McAfee;i="6400,9594,10397"; a="346938825"
-X-IronPort-AV: E=Sophos;i="5.92,241,1650956400"; d="scan'208";a="346938825"
-Received: from orsmga003.jf.intel.com ([10.7.209.27])
- by orsmga105.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2022 08:21:01 -0700
-X-IronPort-AV: E=Sophos;i="5.92,241,1650956400"; d="scan'208";a="542233739"
-Received: from smile.fi.intel.com ([10.237.72.54])
- by orsmga003-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jul 2022 08:20:57 -0700
-Received: from andy by smile.fi.intel.com with local (Exim 4.96)
- (envelope-from <andriy.shevchenko@linux.intel.com>)
- id 1o81P4-0014Px-0j; Sun, 03 Jul 2022 18:20:54 +0300
-Date: Sun, 3 Jul 2022 18:20:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Message-ID: <YsGz1Xp0RDM5ZhVY@smile.fi.intel.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA80C811E75
+ for <dm-devel@redhat.com>; Sun,  3 Jul 2022 19:13:13 +0000 (UTC)
+Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
+ [209.85.222.169]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-231-Fn_kkqn5Pk6HwhgpvO7zzA-1; Sun, 03 Jul 2022 15:13:10 -0400
+X-MC-Unique: Fn_kkqn5Pk6HwhgpvO7zzA-1
+Received: by mail-qk1-f169.google.com with SMTP id p11so5477238qkg.12;
+ Sun, 03 Jul 2022 12:13:10 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:content-transfer-encoding
+ :in-reply-to;
+ bh=GxZU3SzyJ8upRz6LCjkJN5ZVBWMWHWnQxWf8ULlGcLQ=;
+ b=fHRok1G4hLbA7SFmCDBOFLAT0Qm5J4tTAbjNSMR4iLQx47zpC09TXHFsq7HVLBx3sT
+ h8s2ACYwcF6BB+4bvP0U5lKcBzO9xZL2+P5XN7W8kqqouJVkhINXJoQm4CsOmgTUPn5j
+ l7s9PLUaqIPh6o7iKPpVPrlbG8c/hy6K9GfiY8SuIFdEvXZCrq4uX93pc80/Sh76URxw
+ oSes35EXHn5jh0vAaQnBq4xUZxmkJI2xp1OqtOockqBRcSE2TxoryTZxmrynY71sDyFH
+ 0lmLEzJDqVUVbGzAvIUApaE0M7NzsAAY8seToQQEltAPyh4eQXwYUEgRe/Vj4owbZYgB
+ /xvQ==
+X-Gm-Message-State: AJIora/7euMav7+Gbs+hQF0l/UE+SUWBIZBXkDC+VJh2QHLh0czg2Us2
+ 92hFc8wRuHoLfoBK/7vDUJo=
+X-Google-Smtp-Source: AGRyM1suCUiGNj2AtGv9qXHAknI0rdQV6COTvbJxhRt90ZLtR45vYIX+UMWLgN5XKi7Wvu+pjWrLOg==
+X-Received: by 2002:a37:9447:0:b0:6af:944:8050 with SMTP id
+ w68-20020a379447000000b006af09448050mr18208081qkd.732.1656875589665; 
+ Sun, 03 Jul 2022 12:13:09 -0700 (PDT)
+Received: from localhost (c-69-254-185-160.hsd1.fl.comcast.net.
+ [69.254.185.160]) by smtp.gmail.com with ESMTPSA id
+ v26-20020ac873da000000b00304dec6452csm18782228qtp.78.2022.07.03.12.13.08
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sun, 03 Jul 2022 12:13:08 -0700 (PDT)
+Date: Sun, 3 Jul 2022 12:13:08 -0700
+From: Yury Norov <yury.norov@gmail.com>
+To: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Message-ID: <YsHqRDfCQVwyA2m1@yury-laptop>
 References: <cover.1656785856.git.christophe.jaillet@wanadoo.fr>
  <98f5d3d855a9c687ccc035edf62016b02a6876b7.1656785856.git.christophe.jaillet@wanadoo.fr>
  <YsC0GpltMVaCPhkJ@yury-laptop>
  <4dc5d50a-2291-1d3a-efac-3f6378a15d69@wanadoo.fr>
+ <YsGz1Xp0RDM5ZhVY@smile.fi.intel.com>
 MIME-Version: 1.0
-In-Reply-To: <4dc5d50a-2291-1d3a-efac-3f6378a15d69@wanadoo.fr>
-Organization: Intel Finland Oy - BIC 0357606-4 - Westendinkatu 7, 02160 Espoo
+In-Reply-To: <YsGz1Xp0RDM5ZhVY@smile.fi.intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,8 +100,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-Mailman-Approved-At: Wed, 06 Jul 2022 14:51:05 +0000
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Mailman-Approved-At: Thu, 07 Jul 2022 07:28:03 +0000
 Subject: Re: [dm-devel] [PATCH 3/4] bitmap: Introduce bitmap_size()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -101,15 +115,15 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: linux-s390@vger.kernel.org, kernel-janitors@vger.kernel.org,
- ntfs3@lists.linux.dev, gor@linux.ibm.com, Yury Norov <yury.norov@gmail.com>,
- linux@rasmusvillemoes.dk, hca@linux.ibm.com, snitzer@kernel.org,
- oberpar@linux.ibm.com, linux-kernel@vger.kernel.org,
- almaz.alexandrovich@paragon-software.com, dm-devel@redhat.com,
+ ntfs3@lists.linux.dev, gor@linux.ibm.com, linux@rasmusvillemoes.dk,
+ hca@linux.ibm.com, snitzer@kernel.org, oberpar@linux.ibm.com,
+ linux-kernel@vger.kernel.org, almaz.alexandrovich@paragon-software.com,
+ dm-devel@redhat.com, Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
  svens@linux.ibm.com, vneethv@linux.ibm.com, agordeev@linux.ibm.com,
  borntraeger@linux.ibm.com, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,37 +132,60 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="iso-8859-1"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Jul 03, 2022 at 08:50:19AM +0200, Christophe JAILLET wrote:
-> Le 02/07/2022 =E0 23:09, Yury Norov a =E9crit=A0:
-> > On Sat, Jul 02, 2022 at 08:29:36PM +0200, Christophe JAILLET wrote:
-
-...
-
-> > This should be dropped, for sure, and kmalloc() at line 128 should be
-> > replaced with bitmap_alloc().
+On Sun, Jul 03, 2022 at 06:20:53PM +0300, Andy Shevchenko wrote:
+> On Sun, Jul 03, 2022 at 08:50:19AM +0200, Christophe JAILLET wrote:
+> > Le 02/07/2022 =E0 23:09, Yury Norov a =E9crit=A0:
+> > > On Sat, Jul 02, 2022 at 08:29:36PM +0200, Christophe JAILLET wrote:
 >=20
-> This kmalloc() is for a structure and a flexible array.
+> ...
 >=20
-> You mean re-arranging the code to allocate the structure alone at first,
-> then the bitmap?
+> > > This should be dropped, for sure, and kmalloc() at line 128 should be
+> > > replaced with bitmap_alloc().
+> >=20
+> > This kmalloc() is for a structure and a flexible array.
+> >=20
+> > You mean re-arranging the code to allocate the structure alone at first=
+,
+> > then the bitmap?
 
-It's one way, but it will increase fragmentation of memory. The other one
-as it seems to me is to name a new API properly, i.e. bitmap_size_to_bytes(=
-).
+We can change struct primes to:
+        struct primes {
+                struct rcu_head rcu;
+                unsigned long last, sz;
+                unsigned long *primes;
+        };
 
-In such case you won't need renames to begin with. And then would be able
-to convert driver-by-driver in cases of duplicated code.
+And then either allocate twice:
+        new =3D kmalloc(sizeof(struct primes);
+        new->primes =3D bitmap_alloc(sz);
 
-I think that's what confused Yuri and I kinda agree that bitmap_size() shou=
-ld
-return bits, and not bytes. Also argument for pure bitmap_size() would be
-bitmap itself, but we have no way to detect the length of bitmap because we
-are using POD and not a specific data structure for it.
+Or keep the same struct primes for all expansions, and just allocate
+new bitmap for ->primes when needed. This is what I meant.
 
---=20
-With Best Regards,
-Andy Shevchenko
+This a bit deeper rework, but it addresses Andy's concern about excessive
+fragmentation. (Did anyone before complain? Is it measurable?)
 
+> It's one way, but it will increase fragmentation of memory. The other one
+> as it seems to me is to name a new API properly, i.e. bitmap_size_to_byte=
+s().
+>
+> In such case you won't need renames to begin with. And then would be able
+> to convert driver-by-driver in cases of duplicated code.
+>=20
+> I think that's what confused Yuri and I kinda agree that bitmap_size() sh=
+ould
+> return bits, and not bytes. Also argument for pure bitmap_size() would be
+> bitmap itself, but we have no way to detect the length of bitmap because =
+we
+> are using POD and not a specific data structure for it.
+
+bitmap_size_to_bytes() sounds better. How many places in the kernel
+do we have where we can't simply use bitmap_alloc(), and need this
+machinery? If this is the only one, I'd prefer to switch it to
+bitmap_alloc() instead.
+
+Thanks,
+Yury
 
 --
 dm-devel mailing list
