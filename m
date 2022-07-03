@@ -1,93 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 92539569B8F
-	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 09:29:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 32745569B86
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 09:28:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657178942;
+	s=mimecast20190719; t=1657178902;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QqymCkN+NNGic7cVz5+9uiJO4fPxkicvKyia3gMiXwM=;
-	b=IE1qmSA2nkBpj/HHK29ecwieNecehcQL/F8MaJV32n1Bc2TS/PmEPgCM94yRrr22j+RwDU
-	JzikX2uZaY/4wnxP9dOMEmp2R5Sa2kaNl2icvmSn0g7W+JUdVrczWeN0K/AZRKdqdMP9wo
-	SsmH7yqRLWhYrk9FSw2vM2mUL99cG5s=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=AboTauQiPA/JYxSD7fIUQ1qrcSnZa1yU/NnavPmbgg4=;
+	b=OaiR+dYOaocFiddTgvSUV9XTRCcjTmdOfmaUXriR48t6sAU5v01LUXxjlhSkGTprBRlfvx
+	jA4bGcRYU1K3pEFdzEfSE+sZnUIqdjHXmzi/dyKCDLawB6nxZHoPVAAVaaVeWME+IyQg2u
+	LaH6SQ8rk2qFIThLE760tHeEH49QGK4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-673-T4txqIylNzq50vfOn1hEHg-1; Thu, 07 Jul 2022 03:28:11 -0400
-X-MC-Unique: T4txqIylNzq50vfOn1hEHg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-490-4E49tnyLPomTRZTrNjJlYw-1; Thu, 07 Jul 2022 03:28:20 -0400
+X-MC-Unique: 4E49tnyLPomTRZTrNjJlYw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70F7E3C0E239;
-	Thu,  7 Jul 2022 07:28:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DC2D824079;
+	Thu,  7 Jul 2022 07:28:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 51731492C3B;
-	Thu,  7 Jul 2022 07:28:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0595B492C3B;
+	Thu,  7 Jul 2022 07:28:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 64D671947B96;
-	Thu,  7 Jul 2022 07:28:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA97A194706B;
+	Thu,  7 Jul 2022 07:28:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 61E0E1947042
- for <dm-devel@listman.corp.redhat.com>; Sat,  2 Jul 2022 21:09:50 +0000 (UTC)
+ ESMTP id 8B9771947040
+ for <dm-devel@listman.corp.redhat.com>; Sun,  3 Jul 2022 03:26:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3B53040E7F29; Sat,  2 Jul 2022 21:09:50 +0000 (UTC)
+ id 5DE6840334D; Sun,  3 Jul 2022 03:26:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 371C240E7F28
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 21:09:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 59DCD416362
+ for <dm-devel@redhat.com>; Sun,  3 Jul 2022 03:26:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1F1D43C025D3
- for <dm-devel@redhat.com>; Sat,  2 Jul 2022 21:09:50 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 424AC185A7A4
+ for <dm-devel@redhat.com>; Sun,  3 Jul 2022 03:26:27 +0000 (UTC)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-591-NDHd8T5ANQqbWVXqGPBPYQ-1; Sat, 02 Jul 2022 17:09:48 -0400
-X-MC-Unique: NDHd8T5ANQqbWVXqGPBPYQ-1
-Received: by mail-qt1-f177.google.com with SMTP id he28so4605473qtb.13;
- Sat, 02 Jul 2022 14:09:48 -0700 (PDT)
+ us-mta-645-8bRWMlGgNaaN_TFJ8xfEvw-1; Sat, 02 Jul 2022 23:26:23 -0400
+X-MC-Unique: 8bRWMlGgNaaN_TFJ8xfEvw-1
+Received: by mail-pj1-f47.google.com with SMTP id o15so1751576pjh.1;
+ Sat, 02 Jul 2022 20:26:23 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:date:from:to:cc:subject:message-id:references
  :mime-version:content-disposition:in-reply-to;
- bh=sMAa2iLeQqiv/ZzIKaEzdmiyv2BKPN4LO2LUx74OXts=;
- b=f+OcmiZHw3TwB+JgkTWKYaS5TNr0tvSZ7Cxkx2EIUj+6i3mnZCZlHD5dYTHtBzOKfb
- yMvI/JMSX65NyOVafyrRXYIlUDSdIHwUXafyqRpSIyvQ4GIf2RJDOfbpJCa4FpFw6EmI
- +i2yje77FdMFl8Bjbry0Y3nyPkgGKx+GNNb6Io1o2Z9/Z/soC+mdkYEAk80rtfJ3/zak
- 2KBD7fUWKoZuYCadnJUgBjcP1ozjB+b+tT1K0qv8EFk3m4MJ78xheZJjGJUGzJU9UHTU
- +yi3TwRTbjOv3PI63Z+kG2O0E1sQ1SyvIBIpk63A7U47ihAZIKyBhmiHbXnHug3Ku1vg
- G03Q==
-X-Gm-Message-State: AJIora+Y7uhc70VDPSwpt3NQyPTxWGvpD0DweXf0C48UyM4eGnRYPRvq
- SDW6St5L5XyaHSREBNC4Esc=
-X-Google-Smtp-Source: AGRyM1vI0vuCSLmgu6ot91FWxWNvpuMeLByWm6OnSRKXaOezOBQwCg2H7Y1rdlq+T8yiEhPqf1YmXg==
-X-Received: by 2002:a05:622a:1104:b0:31d:2a1c:a4fb with SMTP id
- e4-20020a05622a110400b0031d2a1ca4fbmr14927580qty.327.1656796187972; 
- Sat, 02 Jul 2022 14:09:47 -0700 (PDT)
-Received: from localhost ([2601:4c1:c100:1230:e838:b1c2:b125:986a])
+ bh=/LE3/OvnxwC10hHaqp2JoOJSN7rfZOpUu2WCyCiyCz4=;
+ b=MEFGQXGnnk6W6ABy966ZS2Bdq7xbyyF+Fgz2L4ZmNsv8keeVdZsj6y8mllSXXvKaXe
+ GCZRJJO2g5fZTd1JunEBzy2AuMANWqHqXWrw4oBhn1OfhoqSSwX3gib2DlzT2qhoyPyu
+ UC21QkMYCZTTdgIs1132JQAzxeuuRAkmIcdr8Q5ZYqKN9OkJyqNTzkr9w9aarHztG0X5
+ +20wnmo42NVpAaLruE6vOaPHCbyev+yWlmE9nt/TpCM9CBOvs3XPYS/jEer0nrP/3Cu2
+ coHumVsWs5J6vYJ3rR86RLmGwg15N6pgO2nJ6ikEnxCzfOenx4ayofH4M91ae+gB3EOG
+ x0NA==
+X-Gm-Message-State: AJIora9drBvSWjArLfIvcRXcJNOyvxECtne0A2pTfjsJyZ5KaJHLQAh9
+ dQNQG7q/d548NpGz9UJxD8A=
+X-Google-Smtp-Source: AGRyM1v/qGK0NX2/G7uiSvuhmywhBxQ+rRzGPCB7tQOWN8p4Gfx3qW4Qvkfllc0ImMReMYjkXPk5jA==
+X-Received: by 2002:a17:903:2c6:b0:16a:276a:ad81 with SMTP id
+ s6-20020a17090302c600b0016a276aad81mr29074812plk.65.1656818782428; 
+ Sat, 02 Jul 2022 20:26:22 -0700 (PDT)
+Received: from debian.me (subs32-116-206-28-33.three.co.id. [116.206.28.33])
  by smtp.gmail.com with ESMTPSA id
- c3-20020ac84e03000000b00304f55e56e4sm17032646qtw.40.2022.07.02.14.09.47
+ u17-20020a170902e81100b0016a0db8c5b4sm1866809plg.156.2022.07.02.20.26.20
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sat, 02 Jul 2022 14:09:47 -0700 (PDT)
-Date: Sat, 2 Jul 2022 14:09:46 -0700
-From: Yury Norov <yury.norov@gmail.com>
-To: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Message-ID: <YsC0GpltMVaCPhkJ@yury-laptop>
-References: <cover.1656785856.git.christophe.jaillet@wanadoo.fr>
- <98f5d3d855a9c687ccc035edf62016b02a6876b7.1656785856.git.christophe.jaillet@wanadoo.fr>
+ Sat, 02 Jul 2022 20:26:21 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id EA78810390C; Sun,  3 Jul 2022 10:26:16 +0700 (WIB)
+Date: Sun, 3 Jul 2022 10:26:16 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Message-ID: <YsEMWDYCdjxiUZ1P@debian.me>
+References: <cover.1656759988.git.mchehab@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <98f5d3d855a9c687ccc035edf62016b02a6876b7.1656785856.git.christophe.jaillet@wanadoo.fr>
+In-Reply-To: <cover.1656759988.git.mchehab@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,9 +96,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Mailman-Approved-At: Thu, 07 Jul 2022 07:28:03 +0000
-Subject: Re: [dm-devel] [PATCH 3/4] bitmap: Introduce bitmap_size()
+Subject: Re: [dm-devel] [PATCH 00/12] Fix several documentation build
+ warnings with Sphinx 2.4.4
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,16 +111,25 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, kernel-janitors@vger.kernel.org,
- andriy.shevchenko@linux.intel.com, gor@linux.ibm.com, linux@rasmusvillemoes.dk,
- hca@linux.ibm.com, ntfs3@lists.linux.dev, snitzer@kernel.org,
- oberpar@linux.ibm.com, linux-kernel@vger.kernel.org,
- almaz.alexandrovich@paragon-software.com, dm-devel@redhat.com,
- svens@linux.ibm.com, vneethv@linux.ibm.com, agordeev@linux.ibm.com,
- borntraeger@linux.ibm.com, agk@redhat.com
+Cc: Krzysztof =?utf-8?Q?Wilczy=C5=84ski?= <kw@linux.com>,
+ Gwendal Grignou <gwendal@chromium.org>, kvm@vger.kernel.org,
+ Linux Doc Mailing List <linux-doc@vger.kernel.org>, linux-pci@vger.kernel.org,
+ Brendan Higgins <brendanhiggins@google.com>, alsa-devel@alsa-project.org,
+ Jaroslav Kysela <perex@perex.cz>, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>, linux-kselftest@vger.kernel.org,
+ Alasdair Kergon <agk@redhat.com>, Jonathan Corbet <corbet@lwn.net>,
+ Mauro Carvalho Chehab <mchehab+huawei@kernel.org>,
+ Takashi Iwai <tiwai@suse.com>, Jakub Kicinski <kuba@kernel.org>,
+ Paolo Abeni <pabeni@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-tegra@vger.kernel.org, kunit-dev@googlegroups.com,
+ linux-ext4@vger.kernel.org, Theodore Ts'o <tytso@mit.edu>,
+ Eric Dumazet <edumazet@google.com>, Dipen Patel <dipenp@nvidia.com>,
+ netdev@vger.kernel.org, linux-wireless@vger.kernel.org,
+ linux-kernel@vger.kernel.org, Johannes Berg <johannes@sipsolutions.net>,
+ "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -127,82 +138,50 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Jul 02, 2022 at 08:29:36PM +0200, Christophe JAILLET wrote:
-> The new bitmap_size() function returns the size, in bytes, of a bitmap.
+On Sat, Jul 02, 2022 at 12:07:32PM +0100, Mauro Carvalho Chehab wrote:
+> This series is against next-20220701. It fixes several warnings
+> that are currently produced while building html docs.
 > 
-> Remove the already existing bitmap_size() functions and macro in some
-> files.
-> These files already use the bitmap API and will use the new function
-> in bitmap.h automatically.
+> Each patch in this series is independent from the others, as
+> each one touches a different file.
 > 
-> Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-> ---
->  drivers/md/dm-clone-metadata.c | 5 -----
->  include/linux/bitmap.h         | 6 ++++++
->  lib/math/prime_numbers.c       | 2 --
->  3 files changed, 6 insertions(+), 7 deletions(-)
+> Mauro Carvalho Chehab (12):
+>   docs: ext4: blockmap.rst: fix a broken table
+>   docs: tegra194-hte.rst: don't include gpiolib.c twice
+>   docs: device-mapper: add a blank line at writecache.rst
+>   docs: PCI: pci-vntb-function.rst: Properly include ascii artwork
+>   docs: PCI: pci-vntb-howto.rst: fix a title markup
+>   docs: virt: kvm: fix a title markup at api.rst
+>   docs: ABI: sysfs-bus-nvdimm
+>   kunit: test.h: fix a kernel-doc markup
+>   net: mac80211: fix a kernel-doc markup
+>   docs: alsa: alsa-driver-api.rst: remove a kernel-doc file
+>   docs: arm: index.rst: add google/chromebook-boot-flow
+>   docs: leds: index.rst: add leds-qcom-lpg to it
 > 
-> diff --git a/drivers/md/dm-clone-metadata.c b/drivers/md/dm-clone-metadata.c
-> index c43d55672bce..47c1fa7aad8b 100644
-> --- a/drivers/md/dm-clone-metadata.c
-> +++ b/drivers/md/dm-clone-metadata.c
-> @@ -465,11 +465,6 @@ static void __destroy_persistent_data_structures(struct dm_clone_metadata *cmd)
->  
->  /*---------------------------------------------------------------------------*/
->  
-> -static size_t bitmap_size(unsigned long nr_bits)
-> -{
-> -	return BITS_TO_LONGS(nr_bits) * sizeof(long);
-> -}
-> -
->  static int __dirty_map_init(struct dirty_map *dmap, unsigned long nr_words,
->  			    unsigned long nr_regions)
->  {
-> diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
-> index f091a1664bf1..f66fb98a4126 100644
-> --- a/include/linux/bitmap.h
-> +++ b/include/linux/bitmap.h
-> @@ -48,6 +48,7 @@ struct device;
->   *  bitmap_equal(src1, src2, nbits)             Are *src1 and *src2 equal?
->   *  bitmap_intersects(src1, src2, nbits)        Do *src1 and *src2 overlap?
->   *  bitmap_subset(src1, src2, nbits)            Is *src1 a subset of *src2?
-> + *  bitmap_size(nbits)                          Size, in bytes, of a bitmap
->   *  bitmap_empty(src, nbits)                    Are all bits zero in *src?
->   *  bitmap_full(src, nbits)                     Are all bits set in *src?
->   *  bitmap_weight(src, nbits)                   Hamming Weight: number set bits
-> @@ -124,6 +125,11 @@ unsigned long *bitmap_alloc_node(unsigned int nbits, gfp_t flags, int node);
->  unsigned long *bitmap_zalloc_node(unsigned int nbits, gfp_t flags, int node);
->  void bitmap_free(const unsigned long *bitmap);
->  
-> +static __always_inline size_t bitmap_size(unsigned long nbits)
-> +{
-> +	return BITS_TO_LONGS(nbits) * sizeof(unsigned long);
-> +}
-> +
->  /* Managed variants of the above. */
->  unsigned long *devm_bitmap_alloc(struct device *dev,
->  				 unsigned int nbits, gfp_t flags);
-> diff --git a/lib/math/prime_numbers.c b/lib/math/prime_numbers.c
-> index d42cebf7407f..d3b64b10da1c 100644
-> --- a/lib/math/prime_numbers.c
-> +++ b/lib/math/prime_numbers.c
-> @@ -6,8 +6,6 @@
->  #include <linux/prime_numbers.h>
->  #include <linux/slab.h>
->  
-> -#define bitmap_size(nbits) (BITS_TO_LONGS(nbits) * sizeof(unsigned long))
-> -
 
-This should be dropped, for sure, and kmalloc() at line 128 should be
-replaced with bitmap_alloc().
+Hi Mauro,
 
-For the driver, we need to introduce bitmap_kvmalloc/bitmap_kvfree etc. 
+Thanks for cleaning up these warning above. However, I have already
+submitted some of these cleanups (pending reviews or integration):
 
->  struct primes {
->  	struct rcu_head rcu;
->  	unsigned long last, sz;
-> -- 
-> 2.34.1
+[1]: https://lore.kernel.org/linux-doc/20220702042350.23187-1-bagasdotme@gmail.com/
+[2]: https://lore.kernel.org/linux-doc/20220612000125.9777-1-bagasdotme@gmail.com/
+[3]: https://lore.kernel.org/linux-doc/20220627095151.19339-1-bagasdotme@gmail.com/
+[4]: https://lore.kernel.org/linux-doc/20220627082928.11239-1-bagasdotme@gmail.com/
+
+There's still a warning left:
+
+Documentation/ABI/testing/sysfs-bus-iio-sx9324:2: WARNING: Unexpected indentation.
+
+But I think the Date: field that triggered the warning above looks OK.
+
+Regardless of that, the build successed.
+
+Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+
+-- 
+An old man doll... just what I always wanted! - Clara
 
 --
 dm-devel mailing list
