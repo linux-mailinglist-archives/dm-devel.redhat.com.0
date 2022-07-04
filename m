@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB88565C93
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jul 2022 19:04:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 72A3C565DB9
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jul 2022 21:04:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656954254;
+	s=mimecast20190719; t=1656961441;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Wt8d98lCxfOrPOpsfolOooP54YtzMWflse/oOSnyVaM=;
-	b=USU/WMmOz16N6m6/A+w2L66eoR3RRjEvmNMPrTsspZPWUZCloZeHtPj0PXBXRRCo5lwfDm
-	DXvkqBjFoizqfXNfI30E5i5WVvOyMTmSl1hmoPEzxhP5mwtdWgo5n1eD/gJqw3gHk4YS9C
-	ERbuyshBfu30ylE+HYDrRzpp1b/6Re0=
+	bh=g1+JUnKakgpcQHMiNE22syKcy5o6EtB5tL6U8jTQ9iE=;
+	b=Avd+xzKHfC5/D5WgYlIu/+Vydq2o5jAgVSZXy23JwhEkWaOILR7TGQMCoFyZDM07O4Vxxv
+	M3s0aJ0tcVtfajAg4OTjC1ZYwHPP+jMLYNGLpChRSKa3MGzYX9lVndcS5GmnTNlR8rDPoz
+	42Frav+DqwCXS8rsL0yfWOqKBWWFfT0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-587-07U1ecIxNseKQIVi3VKUDg-1; Mon, 04 Jul 2022 13:04:11 -0400
-X-MC-Unique: 07U1ecIxNseKQIVi3VKUDg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-29-Um8JPUazN2SC-nfRnSLxzg-1; Mon, 04 Jul 2022 15:03:59 -0400
+X-MC-Unique: Um8JPUazN2SC-nfRnSLxzg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC377801755;
-	Mon,  4 Jul 2022 17:04:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1F12D185A7A4;
+	Mon,  4 Jul 2022 19:03:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A8903112131E;
-	Mon,  4 Jul 2022 17:04:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AFF1540CF8EB;
+	Mon,  4 Jul 2022 19:03:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F0EBE1947056;
-	Mon,  4 Jul 2022 17:04:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 614B01947059;
+	Mon,  4 Jul 2022 19:03:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 827A519466DF
- for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 17:04:04 +0000 (UTC)
+ ESMTP id 3BA1B1947B99
+ for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 19:03:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6FB6A2166B2A; Mon,  4 Jul 2022 17:04:04 +0000 (UTC)
+ id A8CF6112131B; Mon,  4 Jul 2022 19:03:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BA5A2166B26
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 17:04:04 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A4C171121315
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 19:03:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 011721C01B28
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 17:04:04 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8982D801E95
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 19:03:43 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-fcIgF6zwN5SQVdjzVCcDog-1; Mon, 04 Jul 2022 13:04:00 -0400
-X-MC-Unique: fcIgF6zwN5SQVdjzVCcDog-1
+ us-mta-349-qxiSEKi5OK23gF7tLgjW3A-1; Mon, 04 Jul 2022 15:03:36 -0400
+X-MC-Unique: qxiSEKi5OK23gF7tLgjW3A-1
 Received: from [2001:4bb8:189:3c4a:8758:74d9:4df6:6417] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o8LSA-008sM9-JA; Mon, 04 Jul 2022 12:45:27 +0000
+ id 1o8LSD-008sNn-6Z; Mon, 04 Jul 2022 12:45:29 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>,
  Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Date: Mon,  4 Jul 2022 14:44:52 +0200
-Message-Id: <20220704124500.155247-10-hch@lst.de>
+Date: Mon,  4 Jul 2022 14:44:53 +0200
+Message-Id: <20220704124500.155247-11-hch@lst.de>
 In-Reply-To: <20220704124500.155247-1-hch@lst.de>
 References: <20220704124500.155247-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [dm-devel] [PATCH 09/17] block: pass a gendisk to
- blk_queue_clear_zone_settings
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Subject: [dm-devel] [PATCH 10/17] block: pass a gendisk to
+ blk_queue_free_zone_bitmaps
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,7 +94,7 @@ Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
  linux-scsi@vger.kernel.org, linux-nvme@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -107,57 +107,75 @@ fields from the request_queue to the gendisk.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-settings.c | 2 +-
- block/blk-zoned.c    | 4 +++-
- block/blk.h          | 4 ++--
- 3 files changed, 6 insertions(+), 4 deletions(-)
+ block/blk-zoned.c | 8 +++++---
+ block/blk.h       | 4 ++--
+ block/genhd.c     | 2 +-
+ 3 files changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/block/blk-settings.c b/block/blk-settings.c
-index 35b7bba306a83..8bb9eef5310eb 100644
---- a/block/blk-settings.c
-+++ b/block/blk-settings.c
-@@ -946,7 +946,7 @@ void disk_set_zoned(struct gendisk *disk, enum blk_zoned_model model)
- 		blk_queue_zone_write_granularity(q,
- 						queue_logical_block_size(q));
- 	} else {
--		blk_queue_clear_zone_settings(q);
-+		disk_clear_zone_settings(disk);
- 	}
- }
- EXPORT_SYMBOL_GPL(disk_set_zoned);
 diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 7fbe395fa51fc..5a97b48102221 100644
+index 5a97b48102221..9085f9fb3ab42 100644
 --- a/block/blk-zoned.c
 +++ b/block/blk-zoned.c
-@@ -622,8 +622,10 @@ int blk_revalidate_disk_zones(struct gendisk *disk,
+@@ -449,8 +449,10 @@ int blkdev_zone_mgmt_ioctl(struct block_device *bdev, fmode_t mode,
+ 	return ret;
  }
- EXPORT_SYMBOL_GPL(blk_revalidate_disk_zones);
  
--void blk_queue_clear_zone_settings(struct request_queue *q)
-+void disk_clear_zone_settings(struct gendisk *disk)
+-void blk_queue_free_zone_bitmaps(struct request_queue *q)
++void disk_free_zone_bitmaps(struct gendisk *disk)
  {
 +	struct request_queue *q = disk->queue;
 +
+ 	kfree(q->conv_zones_bitmap);
+ 	q->conv_zones_bitmap = NULL;
+ 	kfree(q->seq_zones_wlock);
+@@ -612,7 +614,7 @@ int blk_revalidate_disk_zones(struct gendisk *disk,
+ 		ret = 0;
+ 	} else {
+ 		pr_warn("%s: failed to revalidate zones\n", disk->disk_name);
+-		blk_queue_free_zone_bitmaps(q);
++		disk_free_zone_bitmaps(disk);
+ 	}
+ 	blk_mq_unfreeze_queue(q);
+ 
+@@ -628,7 +630,7 @@ void disk_clear_zone_settings(struct gendisk *disk)
+ 
  	blk_mq_freeze_queue(q);
  
- 	blk_queue_free_zone_bitmaps(q);
+-	blk_queue_free_zone_bitmaps(q);
++	disk_free_zone_bitmaps(disk);
+ 	blk_queue_flag_clear(QUEUE_FLAG_ZONE_RESETALL, q);
+ 	q->required_elevator_features &= ~ELEVATOR_F_ZBD_SEQ_WRITE;
+ 	q->nr_zones = 0;
 diff --git a/block/blk.h b/block/blk.h
-index 58ad50cacd2d5..7482a3a441dd9 100644
+index 7482a3a441dd9..b71e22c97d773 100644
 --- a/block/blk.h
 +++ b/block/blk.h
-@@ -406,10 +406,10 @@ static inline int blk_iolatency_init(struct request_queue *q) { return 0; }
- 
- #ifdef CONFIG_BLK_DEV_ZONED
- void blk_queue_free_zone_bitmaps(struct request_queue *q);
--void blk_queue_clear_zone_settings(struct request_queue *q);
-+void disk_clear_zone_settings(struct gendisk *disk);
- #else
- static inline void blk_queue_free_zone_bitmaps(struct request_queue *q) {}
--static inline void blk_queue_clear_zone_settings(struct request_queue *q) {}
-+static inline void disk_clear_zone_settings(struct gendisk *disk) {}
+@@ -405,10 +405,10 @@ static inline int blk_iolatency_init(struct request_queue *q) { return 0; }
  #endif
  
- int blk_alloc_ext_minor(void);
+ #ifdef CONFIG_BLK_DEV_ZONED
+-void blk_queue_free_zone_bitmaps(struct request_queue *q);
++void disk_free_zone_bitmaps(struct gendisk *disk);
+ void disk_clear_zone_settings(struct gendisk *disk);
+ #else
+-static inline void blk_queue_free_zone_bitmaps(struct request_queue *q) {}
++static inline void disk_free_zone_bitmaps(struct gendisk *disk) {}
+ static inline void disk_clear_zone_settings(struct gendisk *disk) {}
+ #endif
+ 
+diff --git a/block/genhd.c b/block/genhd.c
+index d0bdeb93e922c..9d30f159c59ac 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -1165,7 +1165,7 @@ static void disk_release(struct device *dev)
+ 
+ 	disk_release_events(disk);
+ 	kfree(disk->random);
+-	blk_queue_free_zone_bitmaps(disk->queue);
++	disk_free_zone_bitmaps(disk);
+ 	xa_destroy(&disk->part_tbl);
+ 
+ 	disk->queue->disk = NULL;
 -- 
 2.30.2
 
