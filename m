@@ -2,68 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1EFA556588D
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jul 2022 16:24:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7F86C565C7A
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jul 2022 18:56:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656944641;
+	s=mimecast20190719; t=1656953787;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=n6TD77FIF2hjmyor1mUZJeEZXh9YQ55POzv/LW+PP9Q=;
-	b=ZBCm4JajK8mTObkBCyIVNFYagiR5P+26GPl9EIsoF6EIpth3Qx+X/vp4Q7UQX+fT5LsxTa
-	Q7QZwX1W7uuaMNhtREnJV6utQkx2IycwdUMPm7x3OIcn5iP6KrBUBELCZdZvYZzZSvCkJM
-	EkTolFtASHZxSlyLvQopzxRTafYSKJs=
+	bh=FSBOkTTw1kCHvCWPJkzWJgh2NXPlubecopSSpZIf42s=;
+	b=LCfQY1zlV6j0h1UMfSAYN2lqPByD2b9aHxy61mt7qSxtlBrdNKK7X/iaJ0u9RBbf6+iibJ
+	k6coGlxQ31EVpCIbhGpqRK+oAHp0cNt1uraJiN8TNhITGpHJXTgZuNzu502hcOZg3sPKfC
+	v1hOx+QKja0VEU9woOv/T6HL6JCyToU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-CQTHf12HM5mxO4QW-HX90A-1; Mon, 04 Jul 2022 10:23:59 -0400
-X-MC-Unique: CQTHf12HM5mxO4QW-HX90A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-381-j9OVH4zoNFii7q8fMXjqBw-1; Mon, 04 Jul 2022 12:56:25 -0400
+X-MC-Unique: j9OVH4zoNFii7q8fMXjqBw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE9A485A582;
-	Mon,  4 Jul 2022 14:23:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03CDB85A582;
+	Mon,  4 Jul 2022 16:56:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E9E95C52D63;
-	Mon,  4 Jul 2022 14:23:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A3FA740D282E;
+	Mon,  4 Jul 2022 16:56:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9EC8F1947057;
-	Mon,  4 Jul 2022 14:23:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3A8491947054;
+	Mon,  4 Jul 2022 16:56:16 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3C2BA19466DF
- for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 14:23:52 +0000 (UTC)
+ ESMTP id 6D69419466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 16:56:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1A37340E7F29; Mon,  4 Jul 2022 14:23:52 +0000 (UTC)
+ id 5C99E40334D; Mon,  4 Jul 2022 16:56:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1639D40E7F28
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 14:23:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 56DFF401E54
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 16:56:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1DC585A582
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 14:23:51 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4058B3C0D841
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 16:56:15 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-574-gi99AlBKN8i_Yf6SsO1E-w-1; Mon, 04 Jul 2022 10:23:50 -0400
-X-MC-Unique: gi99AlBKN8i_Yf6SsO1E-w-1
+ us-mta-586-gutI0SNjNVmbVz6J5LYKzg-1; Mon, 04 Jul 2022 12:56:13 -0400
+X-MC-Unique: gutI0SNjNVmbVz6J5LYKzg-1
 Received: from [2001:4bb8:189:3c4a:8758:74d9:4df6:6417] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o8LRz-008sFG-MP; Mon, 04 Jul 2022 12:45:16 +0000
+ id 1o8LS2-008sGf-C7; Mon, 04 Jul 2022 12:45:18 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>,
  Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Date: Mon,  4 Jul 2022 14:44:48 +0200
-Message-Id: <20220704124500.155247-6-hch@lst.de>
+Date: Mon,  4 Jul 2022 14:44:49 +0200
+Message-Id: <20220704124500.155247-7-hch@lst.de>
 In-Reply-To: <20220704124500.155247-1-hch@lst.de>
 References: <20220704124500.155247-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,8 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [dm-devel] [PATCH 05/17] block: export blkdev_zone_mgmt_all
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [dm-devel] [PATCH 06/17] nvmet: use blkdev_zone_mgmt_all
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +94,7 @@ Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
  linux-scsi@vger.kernel.org, linux-nvme@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -101,70 +102,139 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Export blkdev_zone_mgmt_all so that the nvme target can use it instead
-of duplicating the functionality.
+Use blkdev_zone_mgmt_all instead of a copy and pasted version.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-zoned.c      | 10 +++++-----
- include/linux/blkdev.h |  2 ++
- 2 files changed, 7 insertions(+), 5 deletions(-)
+ drivers/nvme/target/zns.c | 104 ++------------------------------------
+ 1 file changed, 3 insertions(+), 101 deletions(-)
 
-diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 90a5c9cc80ab3..7fbe395fa51fc 100644
---- a/block/blk-zoned.c
-+++ b/block/blk-zoned.c
-@@ -185,8 +185,8 @@ static int blk_zone_need_reset_cb(struct blk_zone *zone, unsigned int idx,
+diff --git a/drivers/nvme/target/zns.c b/drivers/nvme/target/zns.c
+index 82b61acf7a72b..c6f0a775efdee 100644
+--- a/drivers/nvme/target/zns.c
++++ b/drivers/nvme/target/zns.c
+@@ -337,110 +337,12 @@ static u16 blkdev_zone_mgmt_errno_to_nvme_status(int ret)
  	}
  }
  
--static int blkdev_zone_reset_all_emulated(struct block_device *bdev,
--					  gfp_t gfp_mask)
-+int blkdev_zone_mgmt_all(struct block_device *bdev, unsigned int op,
-+			 gfp_t gfp_mask)
+-struct nvmet_zone_mgmt_send_all_data {
+-	unsigned long *zbitmap;
+-	struct nvmet_req *req;
+-};
+-
+-static int zmgmt_send_scan_cb(struct blk_zone *z, unsigned i, void *d)
+-{
+-	struct nvmet_zone_mgmt_send_all_data *data = d;
+-
+-	switch (zsa_req_op(data->req->cmd->zms.zsa)) {
+-	case REQ_OP_ZONE_OPEN:
+-		switch (z->cond) {
+-		case BLK_ZONE_COND_CLOSED:
+-			break;
+-		default:
+-			return 0;
+-		}
+-		break;
+-	case REQ_OP_ZONE_CLOSE:
+-		switch (z->cond) {
+-		case BLK_ZONE_COND_IMP_OPEN:
+-		case BLK_ZONE_COND_EXP_OPEN:
+-			break;
+-		default:
+-			return 0;
+-		}
+-		break;
+-	case REQ_OP_ZONE_FINISH:
+-		switch (z->cond) {
+-		case BLK_ZONE_COND_IMP_OPEN:
+-		case BLK_ZONE_COND_EXP_OPEN:
+-		case BLK_ZONE_COND_CLOSED:
+-			break;
+-		default:
+-			return 0;
+-		}
+-		break;
+-	default:
+-		return -EINVAL;
+-	}
+-
+-	set_bit(i, data->zbitmap);
+-
+-	return 0;
+-}
+-
+-static u16 nvmet_bdev_zone_mgmt_emulate_all(struct nvmet_req *req)
+-{
+-	struct block_device *bdev = req->ns->bdev;
+-	unsigned int nr_zones = blkdev_nr_zones(bdev->bd_disk);
+-	struct request_queue *q = bdev_get_queue(bdev);
+-	struct bio *bio = NULL;
+-	sector_t sector = 0;
+-	int ret;
+-	struct nvmet_zone_mgmt_send_all_data d = {
+-		.req = req,
+-	};
+-
+-	d.zbitmap = kcalloc_node(BITS_TO_LONGS(nr_zones), sizeof(*(d.zbitmap)),
+-				 GFP_NOIO, q->node);
+-	if (!d.zbitmap) {
+-		ret = -ENOMEM;
+-		goto out;
+-	}
+-
+-	/* Scan and build bitmap of the eligible zones */
+-	ret = blkdev_report_zones(bdev, 0, nr_zones, zmgmt_send_scan_cb, &d);
+-	if (ret != nr_zones) {
+-		if (ret > 0)
+-			ret = -EIO;
+-		goto out;
+-	} else {
+-		/* We scanned all the zones */
+-		ret = 0;
+-	}
+-
+-	while (sector < get_capacity(bdev->bd_disk)) {
+-		if (test_bit(blk_queue_zone_no(q, sector), d.zbitmap)) {
+-			bio = blk_next_bio(bio, bdev, 0,
+-				zsa_req_op(req->cmd->zms.zsa) | REQ_SYNC,
+-				GFP_KERNEL);
+-			bio->bi_iter.bi_sector = sector;
+-			/* This may take a while, so be nice to others */
+-			cond_resched();
+-		}
+-		sector += blk_queue_zone_sectors(q);
+-	}
+-
+-	if (bio) {
+-		ret = submit_bio_wait(bio);
+-		bio_put(bio);
+-	}
+-
+-out:
+-	kfree(d.zbitmap);
+-
+-	return blkdev_zone_mgmt_errno_to_nvme_status(ret);
+-}
+-
+ static u16 nvmet_bdev_execute_zmgmt_send_all(struct nvmet_req *req)
  {
- 	struct request_queue *q = bdev_get_queue(bdev);
- 	sector_t capacity = get_capacity(bdev->bd_disk);
-@@ -213,8 +213,7 @@ static int blkdev_zone_reset_all_emulated(struct block_device *bdev,
- 			continue;
- 		}
++	unsigned int op = zsa_req_op(req->cmd->zms.zsa);
+ 	int ret;
  
--		bio = blk_next_bio(bio, bdev, 0, REQ_OP_ZONE_RESET | REQ_SYNC,
--				   gfp_mask);
-+		bio = blk_next_bio(bio, bdev, 0, op | REQ_SYNC, gfp_mask);
- 		bio->bi_iter.bi_sector = sector;
- 		sector += zone_sectors;
- 
-@@ -231,6 +230,7 @@ static int blkdev_zone_reset_all_emulated(struct block_device *bdev,
- 	kfree(need_reset);
- 	return ret;
- }
-+EXPORT_SYMBOL_GPL(blkdev_zone_mgmt_all);
- 
- static int blkdev_zone_reset_all(struct block_device *bdev, gfp_t gfp_mask)
- {
-@@ -295,7 +295,7 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
- 	 */
- 	if (op == REQ_OP_ZONE_RESET && sector == 0 && nr_sectors == capacity) {
- 		if (!blk_queue_zone_resetall(q))
--			return blkdev_zone_reset_all_emulated(bdev, gfp_mask);
-+			return blkdev_zone_mgmt_all(bdev, op, gfp_mask);
- 		return blkdev_zone_reset_all(bdev, gfp_mask);
- 	}
- 
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 270cd0c552924..b9baee910b825 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -302,6 +302,8 @@ unsigned int blkdev_nr_zones(struct gendisk *disk);
- extern int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
- 			    sector_t sectors, sector_t nr_sectors,
- 			    gfp_t gfp_mask);
-+int blkdev_zone_mgmt_all(struct block_device *bdev, unsigned int op,
-+			 gfp_t gfp_mask);
- int blk_revalidate_disk_zones(struct gendisk *disk,
- 			      void (*update_driver_data)(struct gendisk *disk));
- 
+-	switch (zsa_req_op(req->cmd->zms.zsa)) {
++	switch (op) {
+ 	case REQ_OP_ZONE_RESET:
+ 		ret = blkdev_zone_mgmt(req->ns->bdev, REQ_OP_ZONE_RESET, 0,
+ 				       get_capacity(req->ns->bdev->bd_disk),
+@@ -451,7 +353,7 @@ static u16 nvmet_bdev_execute_zmgmt_send_all(struct nvmet_req *req)
+ 	case REQ_OP_ZONE_OPEN:
+ 	case REQ_OP_ZONE_CLOSE:
+ 	case REQ_OP_ZONE_FINISH:
+-		return nvmet_bdev_zone_mgmt_emulate_all(req);
++		return blkdev_zone_mgmt_all(req->ns->bdev, op, GFP_KERNEL);
+ 	default:
+ 		/* this is needed to quiet compiler warning */
+ 		req->error_loc = offsetof(struct nvme_zone_mgmt_send_cmd, zsa);
 -- 
 2.30.2
 
