@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3B2CB565D8A
-	for <lists+dm-devel@lfdr.de>; Mon,  4 Jul 2022 20:42:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDF76565860
+	for <lists+dm-devel@lfdr.de>; Mon,  4 Jul 2022 16:12:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1656960133;
+	s=mimecast20190719; t=1656943945;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yIucN56c6Hszezo1I9e+1lR2RdONBaF7QpkNpxKbjXs=;
-	b=G8F7Yw6aNX8tAC7a4dX/zDAYbB1hb5APBMz+QoTOXxekZbqG1Y8KY8uwWx5OX2saHXp5+D
-	WurGN1TRpB8x59qGLVNOymU0sE9qoSgpJqH5YEwCjGYrW9dGR6M/BskP4dmUH2hplmnqxC
-	Na28rpa8CeriQJ1iKnxw2y+dpObsXLE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rfD4V/ukQausH5v+dH2amwIrkTP3VeqnQVMb4GjAxK0=;
+	b=YnHU5FR04osgwmAF/DID8FxPj++O+cS1/q+kd6VErouWy5Rb2pOVS9L/n15yhXf1TVrSKd
+	tDw8748gsH9mBbeToBmjz56PdLXRlcEkK8s/Bl0f43+8bGoqEcqTfw/VktI6sbOK7pDfh7
+	Qb7oAk7VT8KREu1SN9v933bJ+ne4BZM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-101-BYzxNBl4PT6yUq-boIf5Hw-1; Mon, 04 Jul 2022 14:42:11 -0400
-X-MC-Unique: BYzxNBl4PT6yUq-boIf5Hw-1
+ us-mta-515-k4AN9msiPqiVVR4Xv7QSLQ-1; Mon, 04 Jul 2022 10:12:22 -0400
+X-MC-Unique: k4AN9msiPqiVVR4Xv7QSLQ-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78BAB8032ED;
-	Mon,  4 Jul 2022 18:42:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E53A33C021B4;
+	Mon,  4 Jul 2022 14:12:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7D6A9492C3B;
-	Mon,  4 Jul 2022 18:42:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F1D08492CA4;
+	Mon,  4 Jul 2022 14:12:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0FDE01947059;
-	Mon,  4 Jul 2022 18:42:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E24F61947056;
+	Mon,  4 Jul 2022 14:12:14 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8A15819466DF
- for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 18:42:05 +0000 (UTC)
+ ESMTP id 3ADE919466DF
+ for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 14:12:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4B3D318EA3; Mon,  4 Jul 2022 18:42:05 +0000 (UTC)
+ id 1794C1400C30; Mon,  4 Jul 2022 14:12:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 474CF9D7F
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 18:42:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 137381415309
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 14:12:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C4AC380451E
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 18:42:05 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F028A3802BA0
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 14:12:12 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-645-MMjmwkYFNYmyLaFoXI7asA-1; Mon, 04 Jul 2022 14:42:03 -0400
-X-MC-Unique: MMjmwkYFNYmyLaFoXI7asA-1
+ us-mta-561-IU9umx2cOKS9NinrgP7sMA-1; Mon, 04 Jul 2022 10:12:11 -0400
+X-MC-Unique: IU9umx2cOKS9NinrgP7sMA-1
 Received: from [2001:4bb8:189:3c4a:8758:74d9:4df6:6417] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o8LSO-008sVA-3A; Mon, 04 Jul 2022 12:45:40 +0000
+ id 1o8LSQ-008sWx-O3; Mon, 04 Jul 2022 12:45:43 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>,
  Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Date: Mon,  4 Jul 2022 14:44:57 +0200
-Message-Id: <20220704124500.155247-15-hch@lst.de>
+Date: Mon,  4 Jul 2022 14:44:58 +0200
+Message-Id: <20220704124500.155247-16-hch@lst.de>
 In-Reply-To: <20220704124500.155247-1-hch@lst.de>
 References: <20220704124500.155247-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: [dm-devel] [PATCH 14/17] block: use bdev based helpers in
- blkdev_zone_mgmt / blkdev_zone_mgmt_all
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [dm-devel] [PATCH 15/17] dm-zoned: cleanup dmz_fixup_devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,41 +101,71 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use the bdev based helpers instead of the queue based ones to clean up
-the code a bit and prepare for storing all zone related fields in
-struct gendisk.
+Use the bdev based helpers where applicable and move the zoned_dev
+into the scope where it is actually used.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/blk-zoned.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/md/dm-zoned-target.c | 24 ++++++++++++------------
+ 1 file changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/block/blk-zoned.c b/block/blk-zoned.c
-index 836b96ebfdc04..ee8752f083a94 100644
---- a/block/blk-zoned.c
-+++ b/block/blk-zoned.c
-@@ -190,8 +190,8 @@ int blkdev_zone_mgmt_all(struct block_device *bdev, unsigned int op,
- 			 gfp_t gfp_mask)
+diff --git a/drivers/md/dm-zoned-target.c b/drivers/md/dm-zoned-target.c
+index 6ba6ef44b00e2..95b132b52f332 100644
+--- a/drivers/md/dm-zoned-target.c
++++ b/drivers/md/dm-zoned-target.c
+@@ -764,8 +764,7 @@ static void dmz_put_zoned_device(struct dm_target *ti)
+ static int dmz_fixup_devices(struct dm_target *ti)
  {
- 	struct request_queue *q = bdev_get_queue(bdev);
--	sector_t capacity = get_capacity(bdev->bd_disk);
--	sector_t zone_sectors = blk_queue_zone_sectors(q);
-+	sector_t capacity = bdev_nr_sectors(bdev);
-+	sector_t zone_sectors = bdev_zone_sectors(bdev);
- 	unsigned long *need_reset;
- 	struct bio *bio = NULL;
- 	sector_t sector = 0;
-@@ -262,8 +262,8 @@ int blkdev_zone_mgmt(struct block_device *bdev, enum req_opf op,
- 		     gfp_t gfp_mask)
- {
- 	struct request_queue *q = bdev_get_queue(bdev);
--	sector_t zone_sectors = blk_queue_zone_sectors(q);
--	sector_t capacity = get_capacity(bdev->bd_disk);
-+	sector_t zone_sectors = bdev_zone_sectors(bdev);
-+	sector_t capacity = bdev_nr_sectors(bdev);
- 	sector_t end_sector = sector + nr_sectors;
- 	struct bio *bio = NULL;
- 	int ret = 0;
+ 	struct dmz_target *dmz = ti->private;
+-	struct dmz_dev *reg_dev, *zoned_dev;
+-	struct request_queue *q;
++	struct dmz_dev *reg_dev = NULL;
+ 	sector_t zone_nr_sectors = 0;
+ 	int i;
+ 
+@@ -780,31 +779,32 @@ static int dmz_fixup_devices(struct dm_target *ti)
+ 			return -EINVAL;
+ 		}
+ 		for (i = 1; i < dmz->nr_ddevs; i++) {
+-			zoned_dev = &dmz->dev[i];
++			struct dmz_dev *zoned_dev = &dmz->dev[i];
++			struct block_device *bdev = zoned_dev->bdev;
++
+ 			if (zoned_dev->flags & DMZ_BDEV_REGULAR) {
+ 				ti->error = "Secondary disk is not a zoned device";
+ 				return -EINVAL;
+ 			}
+-			q = bdev_get_queue(zoned_dev->bdev);
+ 			if (zone_nr_sectors &&
+-			    zone_nr_sectors != blk_queue_zone_sectors(q)) {
++			    zone_nr_sectors != bdev_zone_sectors(bdev)) {
+ 				ti->error = "Zone nr sectors mismatch";
+ 				return -EINVAL;
+ 			}
+-			zone_nr_sectors = blk_queue_zone_sectors(q);
++			zone_nr_sectors = bdev_zone_sectors(bdev);
+ 			zoned_dev->zone_nr_sectors = zone_nr_sectors;
+-			zoned_dev->nr_zones = bdev_nr_zones(zoned_dev->bdev);
++			zoned_dev->nr_zones = bdev_nr_zones(bdev);
+ 		}
+ 	} else {
+-		reg_dev = NULL;
+-		zoned_dev = &dmz->dev[0];
++		struct dmz_dev *zoned_dev = &dmz->dev[0];
++		struct block_device *bdev = zoned_dev->bdev;
++
+ 		if (zoned_dev->flags & DMZ_BDEV_REGULAR) {
+ 			ti->error = "Disk is not a zoned device";
+ 			return -EINVAL;
+ 		}
+-		q = bdev_get_queue(zoned_dev->bdev);
+-		zoned_dev->zone_nr_sectors = blk_queue_zone_sectors(q);
+-		zoned_dev->nr_zones = bdev_nr_zones(zoned_dev->bdev);
++		zoned_dev->zone_nr_sectors = bdev_zone_sectors(bdev);
++		zoned_dev->nr_zones = bdev_nr_zones(bdev);
+ 	}
+ 
+ 	if (reg_dev) {
 -- 
 2.30.2
 
