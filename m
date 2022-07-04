@@ -1,90 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2523D568BDA
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:54:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC525568BF1
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:56:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657119245;
+	s=mimecast20190719; t=1657119381;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=HfQA5qVzHHXuTtKT53ZJTwNZp5KBCHetQDnCZ1hafQo=;
-	b=b9lObW4KUwR7WTq9nlKd2UcUH8lloprKWwha8jwvizTrVvWb7CglQb8j/dL1iFqL9ss+zb
-	ZPXoT5sMf+JLivbksQE2fagXwfgICeFyzqngjsMCnz3ue2REUtOlj959z+5nolV96SqGBp
-	zD3PFBSj2ZrlA4OXQkgdHDg4TSyD9XY=
+	bh=jWLeC2Qu3CMft/+JAuelZhncMllg5ui+7LR1M7sXRxw=;
+	b=HqSeQOCcgY3t2sQKUp2rfpdKa6lQFpTfakdgnrrXw7Je5cCJeeUNLcYEgtgGuqAS2CUsFA
+	8TBukJv12ALITF1IUABhJvaC/EDbi4wqeMMOqIZCAq9L9C8b7pMuUGA83sm0OH/XokN9Tp
+	RAGceCIlIQjcqWy4PBnprI+I73LRVa8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-380-DDAtECc-MSOIIBgqsVvDeg-1; Wed, 06 Jul 2022 10:53:57 -0400
-X-MC-Unique: DDAtECc-MSOIIBgqsVvDeg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-221-gZq1gE1bPjGl1YIcTpA06w-1; Wed, 06 Jul 2022 10:56:20 -0400
+X-MC-Unique: gZq1gE1bPjGl1YIcTpA06w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C136833A11;
-	Wed,  6 Jul 2022 14:53:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68E28833A09;
+	Wed,  6 Jul 2022 14:56:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6AF6B404C6C0;
-	Wed,  6 Jul 2022 14:53:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4DF44202A423;
+	Wed,  6 Jul 2022 14:56:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 21AB61947064;
-	Wed,  6 Jul 2022 14:53:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B0E2B194706B;
+	Wed,  6 Jul 2022 14:56:16 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 664691947041
- for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 00:02:36 +0000 (UTC)
+ ESMTP id 7FBBA1947041
+ for <dm-devel@listman.corp.redhat.com>; Mon,  4 Jul 2022 00:02:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 314B7492CA5; Mon,  4 Jul 2022 00:02:36 +0000 (UTC)
+ id 4E07A1415130; Mon,  4 Jul 2022 00:02:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D0AC492CA3
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 00:02:35 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 49829141510F
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 00:02:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5537B85A580
- for <dm-devel@redhat.com>; Mon,  4 Jul 2022 00:02:35 +0000 (UTC)
-Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
- [209.85.216.46]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F61185A581
+ for <dm-devel@redhat.com>; Mon,  4 Jul 2022 00:02:41 +0000 (UTC)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-241-SPSMWZHTObWvPIGnEet2Sw-1; Sun, 03 Jul 2022 20:02:33 -0400
-X-MC-Unique: SPSMWZHTObWvPIGnEet2Sw-1
-Received: by mail-pj1-f46.google.com with SMTP id w24so7746032pjg.5
- for <dm-devel@redhat.com>; Sun, 03 Jul 2022 17:02:33 -0700 (PDT)
+ us-mta-132--ZrvMPlMOGeCLWlAHRgZvQ-1; Sun, 03 Jul 2022 20:02:37 -0400
+X-MC-Unique: -ZrvMPlMOGeCLWlAHRgZvQ-1
+Received: by mail-pf1-f181.google.com with SMTP id n12so7576178pfq.0
+ for <dm-devel@redhat.com>; Sun, 03 Jul 2022 17:02:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:mime-version
- :content-transfer-encoding;
- bh=bdZMx96lFpA7S1ssPrnhd1zMXzAzvtb+hhHFnjZtUgk=;
- b=N1kJthi23ijOluVoq69Gd9C3JCoHl5NJj/aDOB77bvFJJqKTCjyest7lM0sxoGcwXi
- lmY74DXC68o1tp1xgwMLZzvHSc/74OmAZjm7jzg/9Gdin5Sy6DTCGGrujc3612+tWTJR
- fQ7w9yLhKwB0ADLbsL3dHAm/enS4eqxYO+efQJlzRRvq8q0gKE1OXmHOrb+clYmz0M9Q
- NMm9TOxox+iMKrD2fKx0OEz2NAvnkW6rydteMHjZ/dn9xcadcS9kA17mQaQh2aQkW4dC
- tTfNHgkxl0J7MGozj4ACCkQ8AW3/BNRf3oXsw5zxvgt+2S2dC02Fkl/DGJ+HRyWsf+49
- kyXQ==
-X-Gm-Message-State: AJIora8/fcRgmNU2/Cu2mKzbyZ2ziRPG5ETIqYYsBR2/neO/mJnbAzff
- YGiG0e3HjmmU59J0p55yCceiQNvYimy/aA==
-X-Google-Smtp-Source: AGRyM1uPU3xRrYI6KERUteamcE7kNew25JL2on5eGPfHlgelNP+XwwsSeOyFdA9OnPTTkOMJ0SZtBA==
-X-Received: by 2002:a17:902:cf06:b0:16b:cc33:5bce with SMTP id
- i6-20020a170902cf0600b0016bcc335bcemr10733042plg.152.1656892952487; 
- Sun, 03 Jul 2022 17:02:32 -0700 (PDT)
+ h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
+ :references:mime-version:content-transfer-encoding;
+ bh=pAgE+V0rSALvg9inKDX9+//WkKD5ATI4AmKS7cWLY8k=;
+ b=OAGwXbwyD8XPHBMmj4OUpAOKSeHPF9YxfWpBTQrP7sixRfYAz2aNWSlUq1MumzrrTp
+ Y1ocAc5bjddnQWlzYoh3HV4KxrKVoP/E6tldcs8bx61JSWwnCwR3qExbbMqDV6jWmR+L
+ MWKlUPmkcVr5GHdQIVRTczPShs/u4dUo0HuqCdVwPuPUYmInZ/RPa91Tj1H0TfzXMsY/
+ d/SDtZ6E1JEFwrM+QQKZR/MC6b8dSGG+ZTfmaREWUGOJtvhBGjoOzAiPwNcA2gTJh8yr
+ hvfb6mzpH1/cdQovsxe7H4phY3uYit04GdpiZ3dn0xs8DDACjK+QRcrZeXPOVQruF9bk
+ 9chA==
+X-Gm-Message-State: AJIora9h7uZiV93GcGzDAxpSnhUycHoHsNhSyv+bG46poPSTFzAbuRyU
+ sQ/dz/lRAK207f0rIVJifVnvVw==
+X-Google-Smtp-Source: AGRyM1vj/Wf+i2Kyez01+sGyo2tEE30kwi1fEOFVr33/MMC24hHpmX+psc0s+r9nx5gkX/GOay9gaA==
+X-Received: by 2002:a05:6a00:2356:b0:525:4e88:f792 with SMTP id
+ j22-20020a056a00235600b005254e88f792mr33544382pfj.34.1656892956289; 
+ Sun, 03 Jul 2022 17:02:36 -0700 (PDT)
 Received: from dlunevwfh.roam.corp.google.com
  (n122-107-196-14.sbr2.nsw.optusnet.com.au. [122.107.196.14])
  by smtp.gmail.com with ESMTPSA id
- 63-20020a621542000000b00525204224afsm20014171pfv.94.2022.07.03.17.02.29
+ 63-20020a621542000000b00525204224afsm20014171pfv.94.2022.07.03.17.02.33
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 03 Jul 2022 17:02:32 -0700 (PDT)
+ Sun, 03 Jul 2022 17:02:36 -0700 (PDT)
 From: Daniil Lunev <dlunev@chromium.org>
 To: Alasdair Kergon <agk@redhat.com>
-Date: Mon,  4 Jul 2022 10:02:24 +1000
-Message-Id: <20220704000225.345536-1-dlunev@chromium.org>
+Date: Mon,  4 Jul 2022 10:02:25 +1000
+Message-Id: <20220704100221.1.I15b3f7a84ba5a97fde9276648e391b54957103ff@changeid>
+In-Reply-To: <20220704000225.345536-1-dlunev@chromium.org>
+References: <20220704000225.345536-1-dlunev@chromium.org>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -93,9 +96,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
 X-Mailman-Approved-At: Wed, 06 Jul 2022 14:51:05 +0000
-Subject: [dm-devel] [PATCH 0/1] Signal to disallow open of a dm device
+Subject: [dm-devel] [PATCH 1/1] dm: add message command to disallow device
+ open
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,7 +116,7 @@ Cc: dm-devel@redhat.com, Daniil Lunev <dlunev@chromium.org>,
  linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -120,19 +124,12 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-There was a previuous discussion upstream about this kind of
-functionality (see https://lkml.org/lkml/2022/1/24/633). The previous
-patchset was rejected with concerns about how the feature was
-integrated. This patch takes a different approach, and instead of
-tying itself to unrelated mechanisms (e.g. deffer remove), this one
-allows an explicit signal via message interface to signalize device
-mapper shall block any further access to the device. The primary use
-case is to restrict userspace access to decrypted data after a device
-was setup with a kernel facility (e.g. swap).
+A message can be passed to device mapper to prohibit open on a certain
+mapped device. This makes possible to disallow userspace access to
+raw swapped data if the system uses device mapper to encrypt it at rest.
 
-
-Daniil Lunev (1):
-  dm: add message command to disallow device open
+Signed-off-by: Daniil Lunev <dlunev@chromium.org>
+---
 
  drivers/md/dm-core.h          |  1 +
  drivers/md/dm-ioctl.c         | 10 ++++++++++
@@ -141,6 +138,118 @@ Daniil Lunev (1):
  include/uapi/linux/dm-ioctl.h |  5 +++++
  5 files changed, 38 insertions(+)
 
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index 4277853c75351..37529b605b7c4 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -140,6 +140,7 @@ struct mapped_device {
+ #define DMF_SUSPENDED_INTERNALLY 7
+ #define DMF_POST_SUSPENDING 8
+ #define DMF_EMULATE_ZONE_APPEND 9
++#define DMF_DISALLOW_OPEN 10
+ 
+ void disable_discard(struct mapped_device *md);
+ void disable_write_zeroes(struct mapped_device *md);
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 87310fceb0d86..e35d560aa2ff3 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -815,6 +815,9 @@ static void __dev_status(struct mapped_device *md, struct dm_ioctl *param)
+ 	if (dm_test_deferred_remove_flag(md))
+ 		param->flags |= DM_DEFERRED_REMOVE;
+ 
++	if (dm_test_disallow_open_flag(md))
++		param->flags |= DM_DISALLOWED_OPEN;
++
+ 	param->dev = huge_encode_dev(disk_devt(disk));
+ 
+ 	/*
+@@ -1656,6 +1659,13 @@ static int message_for_md(struct mapped_device *md, unsigned argc, char **argv,
+ 		}
+ 		return dm_cancel_deferred_remove(md);
+ 	}
++	if (!strcasecmp(argv[0], "@disallow_open")) {
++		if (argc != 1) {
++			DMERR("Invalid arguments for @disallow_open");
++			return -EINVAL;
++		}
++		return dm_disallow_open(md);
++	}
+ 
+ 	r = dm_stats_message(md, argc, argv, result, maxlen);
+ 	if (r < 2)
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 82957bd460e89..3e53d1bd40f0c 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -327,6 +327,7 @@ static int dm_blk_open(struct block_device *bdev, fmode_t mode)
+ 		goto out;
+ 
+ 	if (test_bit(DMF_FREEING, &md->flags) ||
++	    test_bit(DMF_DISALLOW_OPEN, &md->flags) ||
+ 	    dm_deleting_md(md)) {
+ 		md = NULL;
+ 		goto out;
+@@ -403,6 +404,12 @@ int dm_cancel_deferred_remove(struct mapped_device *md)
+ 	return r;
+ }
+ 
++int dm_disallow_open(struct mapped_device *md)
++{
++	set_bit(DMF_DISALLOW_OPEN, &md->flags);
++	return 0;
++}
++
+ static void do_deferred_remove(struct work_struct *w)
+ {
+ 	dm_deferred_remove();
+@@ -2883,6 +2890,11 @@ int dm_test_deferred_remove_flag(struct mapped_device *md)
+ 	return test_bit(DMF_DEFERRED_REMOVE, &md->flags);
+ }
+ 
++int dm_test_disallow_open_flag(struct mapped_device *md)
++{
++	return test_bit(DMF_DISALLOW_OPEN, &md->flags);
++}
++
+ int dm_suspended(struct dm_target *ti)
+ {
+ 	return dm_suspended_md(ti->table->md);
+diff --git a/drivers/md/dm.h b/drivers/md/dm.h
+index 9013dc1a7b002..da27f9dfe1413 100644
+--- a/drivers/md/dm.h
++++ b/drivers/md/dm.h
+@@ -163,6 +163,16 @@ int dm_test_deferred_remove_flag(struct mapped_device *md);
+  */
+ void dm_deferred_remove(void);
+ 
++/*
++ * Test if the device is openable.
++ */
++int dm_test_disallow_open_flag(struct mapped_device *md);
++
++/*
++ * Prevent new open request on the device.
++ */
++int dm_disallow_open(struct mapped_device *md);
++
+ /*
+  * The device-mapper can be driven through one of two interfaces;
+  * ioctl or filesystem, depending which patch you have applied.
+diff --git a/include/uapi/linux/dm-ioctl.h b/include/uapi/linux/dm-ioctl.h
+index 2e9550fef90fa..3b4d12d09c005 100644
+--- a/include/uapi/linux/dm-ioctl.h
++++ b/include/uapi/linux/dm-ioctl.h
+@@ -382,4 +382,9 @@ enum {
+  */
+ #define DM_IMA_MEASUREMENT_FLAG	(1 << 19) /* In */
+ 
++/*
++ * If set, the device can not be opened.
++ */
++#define DM_DISALLOWED_OPEN	(1 << 20) /* Out */
++
+ #endif				/* _LINUX_DM_IOCTL_H */
 -- 
 2.31.0
 
