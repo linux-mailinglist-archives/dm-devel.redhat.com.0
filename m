@@ -1,94 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 239A2568B67
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:38:55 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E040568C3D
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 17:07:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657118333;
+	s=mimecast20190719; t=1657120061;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Hg6tmcOpVK1EC0KV5HMHLchcIBIJCqO6Bx1iYEVvshI=;
-	b=LQFHis572M4JqCpjwQ5xqI9/qw5XStNNF3IVrAZFq12Rhdcys31frUaELwWWON86oQEC1b
-	EdnFOBon9wF22TparfJz6nUGyTXplr67ZGw44vXiDWy2yCHMl65AdQIEFvdzH9dUUIg6ni
-	nP6zNtnDDSyzB/e1pqeeE8isW2X2zvU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=yFKi5q+ayHUJdMekOulc/IbqGAwVQJRMYvJSJAVRTSk=;
+	b=Vin9bjXrtxutX+hd91Vzo1oPgoQfhLqUIH+Bh5IHpRYnqNlepPG0LhP5l8AdG1mZQT4awx
+	zoswxK5SiCH70NZH8aA4JGiww6KHS7kAp/9U/IjdjgQApSgispyPdKxZIwliRyXWuq4yXM
+	YwRQnHhavWEIW6H3Kg2C6B+TOg4Lt7g=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-169-yo0-QIPDNV-r0nJIOofRuQ-1; Wed, 06 Jul 2022 10:38:52 -0400
-X-MC-Unique: yo0-QIPDNV-r0nJIOofRuQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-510-098w7dfsMEiPMqJgoTxxLQ-1; Wed, 06 Jul 2022 11:07:39 -0400
+X-MC-Unique: 098w7dfsMEiPMqJgoTxxLQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B83E1C006A9;
-	Wed,  6 Jul 2022 14:38:49 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1299740EC003;
-	Wed,  6 Jul 2022 14:38:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 21B42101A58E;
+	Wed,  6 Jul 2022 15:07:37 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 655352026D64;
+	Wed,  6 Jul 2022 15:07:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DFAB81947063;
-	Wed,  6 Jul 2022 14:38:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 41A54194704E;
+	Wed,  6 Jul 2022 15:07:36 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6EDD2194706A
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 14:38:46 +0000 (UTC)
+ ESMTP id 41FB9194704E
+ for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 15:07:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 62092492CA2; Wed,  6 Jul 2022 14:38:46 +0000 (UTC)
+ id 1BDA818ECC; Wed,  6 Jul 2022 15:07:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5DF2F492C3B
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:46 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 17A1B18ECB
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 15:07:03 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 467D53800C3A
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:46 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-425-Dj7-LZLsPiCTJIi7MEUqkg-1; Wed, 06 Jul 2022 10:38:44 -0400
-X-MC-Unique: Dj7-LZLsPiCTJIi7MEUqkg-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id B76021FF61;
- Wed,  6 Jul 2022 14:38:40 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8DECF134CF;
- Wed,  6 Jul 2022 14:38:40 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yLwdIXCexWKbSgAAMHmgww
- (envelope-from <mwilck@suse.com>); Wed, 06 Jul 2022 14:38:40 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed,  6 Jul 2022 16:38:22 +0200
-Message-Id: <20220706143822.30182-15-mwilck@suse.com>
-In-Reply-To: <20220706143822.30182-1-mwilck@suse.com>
-References: <20220706143822.30182-1-mwilck@suse.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F14B6811E84
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 15:07:02 +0000 (UTC)
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-479-VwjuFPP1PHayl9z93Ym8VA-1; Wed, 06 Jul 2022 11:07:01 -0400
+X-MC-Unique: VwjuFPP1PHayl9z93Ym8VA-1
+Received: by mail-qt1-f171.google.com with SMTP id i11so18598065qtr.4
+ for <dm-devel@redhat.com>; Wed, 06 Jul 2022 08:07:01 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:date:from:to:cc:subject:message-id:references
+ :mime-version:content-disposition:in-reply-to;
+ bh=I0RXuzZs3s0id/kcom5gH7O0HmNMUUNPAv91LFO4+a4=;
+ b=1n5e+u8y4QDPvuMiJ9+Y4rCZvKnnilBMHDqNgBcrrT2lOnZIq6A+lD17V746JbsIZN
+ xnYgSVhu+XsCwvPseuHHc+AjQAYsFmchGN+SU7CliSw1sBuu8tvOzfzZ30UeiWLEzfxa
+ Zrog3XebR74ulHrGwYChRRo/z7sUkXNMJB9twXqhUlcak004yjn9PTQDiFOOAb11/Yxr
+ SnPVhNyf1Yc8BYB4A67p2ip2FaFfSqj0RZUeR2a/o088sZJ/netrv4IRYkHw5nM/CGvg
+ AOqTX8bpA2tgC7UYeA2e5wYoABucFsrfVTUUuMX+qLcrLSoRTzZVF7/VRY5vd+g5fndf
+ C1gg==
+X-Gm-Message-State: AJIora83dLymRdC763KQ75fMPcyKwS3XgTmrALN3PosCMyIvBA9nCJCM
+ lQwdhBEHkz149xkYK3ScX4EdAWg=
+X-Google-Smtp-Source: AGRyM1syM2piJxHzgzwmYO+2F/M3+bHsRSC/l80bNxbiOkjZ/DCWE9FGy+Tge1oNYwtQpJp5Yz7jXQ==
+X-Received: by 2002:a05:6214:29e6:b0:470:44d9:1ec5 with SMTP id
+ jv6-20020a05621429e600b0047044d91ec5mr36520228qvb.95.1657120020754; 
+ Wed, 06 Jul 2022 08:07:00 -0700 (PDT)
+Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
+ [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
+ d3-20020ac81183000000b0031a2cdab5cesm19492709qtj.37.2022.07.06.08.06.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 06 Jul 2022 08:07:00 -0700 (PDT)
+Date: Wed, 6 Jul 2022 11:06:58 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Matthias Kaehlcke <mka@chromium.org>
+Message-ID: <YsWlEmaQsIVUiKC0@redhat.com>
+References: <20220627153526.3750341-1-mka@chromium.org>
+ <20220627083512.v7.1.I3e928575a23481121e73286874c4c2bdb403355d@changeid>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: [dm-devel] [PATCH 14/14] libmultipath.version: bump version for
- sysfs accessors
+In-Reply-To: <20220627083512.v7.1.I3e928575a23481121e73286874c4c2bdb403355d@changeid>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH v7 1/3] dm: Add verity helpers for LoadPin
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,56 +101,44 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Cc: linux-security-module@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>, Kees Cook <keescook@chromium.org>,
+ linux-kernel@vger.kernel.org, James Morris <jmorris@namei.org>,
+ linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
+ Milan Broz <gmazyland@gmail.com>, Alasdair Kergon <agk@redhat.com>,
+ "Serge E . Hallyn" <serge@hallyn.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+On Mon, Jun 27 2022 at 11:35P -0400,
+Matthias Kaehlcke <mka@chromium.org> wrote:
 
-Formally, the ABI is still the same, but the semantics of the
-return value have changed.
+> LoadPin limits loading of kernel modules, firmware and certain
+> other files to a 'pinned' file system (typically a read-only
+> rootfs). To provide more flexibility LoadPin is being extended
+> to also allow loading these files from trusted dm-verity
+> devices. For that purpose LoadPin can be provided with a list
+> of verity root digests that it should consider as trusted.
+> 
+> Add a bunch of helpers to allow LoadPin to check whether a DM
+> device is a trusted verity device. The new functions broadly
+> fall in two categories: those that need access to verity
+> internals (like the root digest), and the 'glue' between
+> LoadPin and verity. The new file dm-verity-loadpin.c contains
+> the glue functions.
+> 
+> Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
+> Acked-by: Kees Cook <keescook@chromium.org>
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- libmultipath/libmultipath.version | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
-
-diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index b3690ac..c1d9b15 100644
---- a/libmultipath/libmultipath.version
-+++ b/libmultipath/libmultipath.version
-@@ -207,7 +207,6 @@ global:
- 	strchop;
- 	strlcpy;
- 	sync_map_state;
--	sysfs_attr_set_value;
- 	sysfs_get_size;
- 	sysfs_is_multipathed;
- 	timespeccmp;
-@@ -264,8 +263,13 @@ global:
- 
- 	/* foreign */
- 	free_scandir_result;
--	sysfs_attr_get_value;
- 
- local:
- 	*;
- };
-+
-+LIBMULTIPATH_16.0.0 {
-+global:
-+	sysfs_attr_set_value;
-+	sysfs_attr_get_value;
-+};
--- 
-2.36.1
+Acked-by: Mike Snitzer <snitzer@kernel.org>
 
 --
 dm-devel mailing list
