@@ -2,68 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 19B635685E5
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 12:43:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 749A2568199
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 10:35:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657104191;
+	s=mimecast20190719; t=1657096547;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1xut2gTgKHcJp/f+8KbwLZNXQ+9tElY+7dRKWpxnIH8=;
-	b=BC8CDnUANlz0HcriI+DDparTn1MzUsr19oZ9yaPf5+OdR41ZNeKYpymrFStt+h2F0a/ndw
-	nOgLKwxPf0xXsETF5OAXTQy//J8kyfp83IOK6caAa51uAV2PqTSfYAIKM+OdMb+7VBxPDr
-	8vlzVtFrV21UOxqvzzkgrAP9FiXN1DM=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=KO9P3WYthYZ6U68OGT3bgoNhdh0wEf8Wi/+Ne+OWGyA=;
+	b=iDgZo9SeGB+bz7nxLFZffBA5exVGBHqRJKZ7R0F97DB7ZkfTlvm0c6Muzy1v/BfrmyyEio
+	CFpafHf/mifza16IDF9e7kj2OoryWJ/1dbZr0/JE15zs9NlnhfG68JCs+psdA1pO7Ykl8Y
+	b3mR9Dkv46QopjVARUEBNLPkso0OPh8=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-497-arIjybYFOcSsZCtjie3-hg-1; Wed, 06 Jul 2022 06:43:07 -0400
-X-MC-Unique: arIjybYFOcSsZCtjie3-hg-1
+ us-mta-45-hci9UcX7O--CScEyHVXO4g-1; Wed, 06 Jul 2022 04:35:43 -0400
+X-MC-Unique: hci9UcX7O--CScEyHVXO4g-1
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1048101A588;
-	Wed,  6 Jul 2022 10:43:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D519B29AB3E1;
+	Wed,  6 Jul 2022 08:35:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8DCB12166B26;
-	Wed,  6 Jul 2022 10:43:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4AB782166B26;
+	Wed,  6 Jul 2022 08:35:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E3F17194706C;
-	Wed,  6 Jul 2022 10:42:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 96CDF194706A;
+	Wed,  6 Jul 2022 08:35:35 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DB9E7194704E
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 10:42:58 +0000 (UTC)
+ ESMTP id 5E0DD194704E
+ for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 08:35:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CB0202166B2A; Wed,  6 Jul 2022 10:42:58 +0000 (UTC)
+ id 4156F18ECC; Wed,  6 Jul 2022 08:35:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C67D02166B26
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 10:42:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CB6B18EC9
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 08:35:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB95D1019C89
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 10:42:58 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB0B218E526D
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 08:35:33 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-586-_p7TzvZkM-OU3KqflqoCyQ-1; Wed, 06 Jul 2022 06:42:41 -0400
-X-MC-Unique: _p7TzvZkM-OU3KqflqoCyQ-1
+ us-mta-593-1H-xy9wcMv-Fotygt57j_A-1; Wed, 06 Jul 2022 04:35:31 -0400
+X-MC-Unique: 1H-xy9wcMv-Fotygt57j_A-1
 Received: from [2001:4bb8:189:3c4a:f22c:c36a:4e84:c723] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1o8z4l-006upM-J0; Wed, 06 Jul 2022 07:03:56 +0000
+ id 1o8z4o-006ur8-86; Wed, 06 Jul 2022 07:03:58 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>,
  Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Date: Wed,  6 Jul 2022 09:03:35 +0200
-Message-Id: <20220706070350.1703384-2-hch@lst.de>
+Date: Wed,  6 Jul 2022 09:03:36 +0200
+Message-Id: <20220706070350.1703384-3-hch@lst.de>
 In-Reply-To: <20220706070350.1703384-1-hch@lst.de>
 References: <20220706070350.1703384-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: [dm-devel] [PATCH 01/16] block: remove a superflous ifdef in
- blkdev.h
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: [dm-devel] [PATCH 02/16] block: call blk_queue_free_zone_bitmaps
+ from disk_release
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,38 +105,43 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-It doesn't hurt to always have the blk_zone_cond_str prototype, and the
-two inlines can also be defined unconditionally.
+The zone bitmaps are only used for non-passthrough I/O, so free them as
+soon as the disk is released.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 ---
- include/linux/blkdev.h | 3 ---
- 1 file changed, 3 deletions(-)
+ block/blk-sysfs.c | 2 --
+ block/genhd.c     | 1 +
+ 2 files changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index b9a94c53c6cd3..270cd0c552924 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -899,8 +899,6 @@ static inline struct request_queue *bdev_get_queue(struct block_device *bdev)
- 	return bdev->bd_queue;	/* this is never NULL */
- }
+diff --git a/block/blk-sysfs.c b/block/blk-sysfs.c
+index 58cb9cb9f48cd..7590810cf13fc 100644
+--- a/block/blk-sysfs.c
++++ b/block/blk-sysfs.c
+@@ -776,8 +776,6 @@ static void blk_release_queue(struct kobject *kobj)
+ 	blk_free_queue_stats(q->stats);
+ 	kfree(q->poll_stat);
  
--#ifdef CONFIG_BLK_DEV_ZONED
+-	blk_queue_free_zone_bitmaps(q);
 -
- /* Helper to convert BLK_ZONE_ZONE_XXX to its string format XXX */
- const char *blk_zone_cond_str(enum blk_zone_cond zone_cond);
+ 	if (queue_is_mq(q))
+ 		blk_mq_release(q);
  
-@@ -915,7 +913,6 @@ static inline unsigned int bio_zone_is_seq(struct bio *bio)
- 	return blk_queue_zone_is_seq(bdev_get_queue(bio->bi_bdev),
- 				     bio->bi_iter.bi_sector);
- }
--#endif /* CONFIG_BLK_DEV_ZONED */
+diff --git a/block/genhd.c b/block/genhd.c
+index b1fb7e058b9cc..d0bdeb93e922c 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -1165,6 +1165,7 @@ static void disk_release(struct device *dev)
  
- /*
-  * Return how much of the chunk is left to be used for I/O at a given offset.
+ 	disk_release_events(disk);
+ 	kfree(disk->random);
++	blk_queue_free_zone_bitmaps(disk->queue);
+ 	xa_destroy(&disk->part_tbl);
+ 
+ 	disk->queue->disk = NULL;
 -- 
 2.30.2
 
