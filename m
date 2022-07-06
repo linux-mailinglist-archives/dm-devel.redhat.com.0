@@ -1,81 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61138568B68
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:38:55 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 07E32568B6D
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:39:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657118334;
+	s=mimecast20190719; t=1657118342;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zS5QysySWVcWnBks3IE/RI71d6BjHqIo/qMfz95FzkY=;
-	b=EcnXXW+vGIbniYyHs/WyMV+iGC3c7kfKfLEtdp6s1GNIy8S1tzCviH4qyJsgAXuWQ5Nf5P
-	nPsbNy1Ze0UVHNU09hmFFcVmDRwJns3xu4U0kG3CgTbwX5oYD0XGRZDdoWQKUqEgh3ZNfl
-	96HyCiXvbUPDQWm6heg5qo3TtH1Q7gE=
+	bh=Yl8mhblj2zeKDhm7RAieK09fa7eF6ySRZI6Q0Er0Hi0=;
+	b=Hnt6t89x5E6o10QHffkPUTmthIGtMggniEjnJCxgug5L9YyYxLw21JU7odq7UCfeCaFQNi
+	4mZVDNfTKVkFV9dLSh3DLh/Z5kyq4p1FVJ3r2v7jxfCVzfCFuJZxO9+821bhNGDLqX0BJQ
+	YukJI1jegKj3zWgc6us6+aIReHeCHAo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-297-FI2rzwQHP-yVWCVq8b57VQ-1; Wed, 06 Jul 2022 10:38:52 -0400
-X-MC-Unique: FI2rzwQHP-yVWCVq8b57VQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-137-7X7h7ecEMQO1mvfJkKyTqQ-1; Wed, 06 Jul 2022 10:38:56 -0400
+X-MC-Unique: 7X7h7ecEMQO1mvfJkKyTqQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D13D1019C8B;
-	Wed,  6 Jul 2022 14:38:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2C4F80D3C5;
+	Wed,  6 Jul 2022 14:38:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A188C08087;
-	Wed,  6 Jul 2022 14:38:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A59C72024CB6;
+	Wed,  6 Jul 2022 14:38:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1CF46194706C;
-	Wed,  6 Jul 2022 14:38:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 521E4194706D;
+	Wed,  6 Jul 2022 14:38:53 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 01095194704E
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 14:38:42 +0000 (UTC)
+ ESMTP id CA20F194704E
+ for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 14:38:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D633F112131E; Wed,  6 Jul 2022 14:38:42 +0000 (UTC)
+ id 9A4DE40CFD0D; Wed,  6 Jul 2022 14:38:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D20FB1121315
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6709872911
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:42 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9698A40CFD0A
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7EEAA1019C9A
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:50 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-439-emA_MEUeONKvDFYTuVzJcA-1; Wed, 06 Jul 2022 10:38:41 -0400
-X-MC-Unique: emA_MEUeONKvDFYTuVzJcA-1
+ us-mta-138-0Ph2WaOzOoq9kuslwHD-mQ-1; Wed, 06 Jul 2022 10:38:48 -0400
+X-MC-Unique: 0Ph2WaOzOoq9kuslwHD-mQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id E6B9B1FF38;
- Wed,  6 Jul 2022 14:38:38 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 279351FF3B;
+ Wed,  6 Jul 2022 14:38:39 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BB71F134CF;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id F03BE134CF;
  Wed,  6 Jul 2022 14:38:38 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gDUyLG6exWKbSgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id QDYyOW6exWKbSgAAMHmgww
  (envelope-from <mwilck@suse.com>); Wed, 06 Jul 2022 14:38:38 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Wed,  6 Jul 2022 16:38:14 +0200
-Message-Id: <20220706143822.30182-7-mwilck@suse.com>
+Date: Wed,  6 Jul 2022 16:38:15 +0200
+Message-Id: <20220706143822.30182-8-mwilck@suse.com>
 In-Reply-To: <20220706143822.30182-1-mwilck@suse.com>
 References: <20220706143822.30182-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -86,8 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [dm-devel] [PATCH 06/14] libmultipath: get rid of PATH_SIZE
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [dm-devel] [PATCH 07/14] libmultipath: sysfs_attr_get_value():
+ don't return 0 if buffer too small
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,113 +114,169 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-replace PATH_SIZE with the system limit PATH_MAX. In some places,
-PATH_SIZE was used for file names. Use FILE_NAME_SIZE in these cases.
-Also, use a constant for "multipathd.service" in systemd_service_enabled_in().
+If the passed read buffer is too small to hold the value read plus
+terminating 0 byte, return the given size value rather than 0.
+
+This way we get similar semantics as for sysfs_bin_attr_get_get_value(),
+except that sysfs_attr_get_value() must always 0-terminate the value;
+thus a return value equal to the length parameter is an error for
+the non-binary case.
+
+Provide a helper macro to test this "overflow" condition.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/structs.h    | 3 ---
- libmultipath/sysfs.c      | 8 ++++----
- libmultipath/util.c       | 8 +++++---
- multipathd/cli_handlers.c | 2 +-
- 4 files changed, 10 insertions(+), 11 deletions(-)
+ libmultipath/configure.c |  2 +-
+ libmultipath/discovery.c | 14 +++++++-------
+ libmultipath/propsel.c   |  6 +++++-
+ libmultipath/sysfs.c     |  3 +--
+ libmultipath/sysfs.h     | 13 +++++++++++++
+ multipathd/main.c        |  2 +-
+ 6 files changed, 28 insertions(+), 12 deletions(-)
 
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index a6a0944..dfa12ff 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -17,7 +17,6 @@
- #define FILE_NAME_SIZE		256
- #define CALLOUT_MAX_SIZE	256
- #define BLK_DEV_SIZE		33
--#define PATH_SIZE		512
- #define NAME_SIZE		512
- #define HOST_NAME_LEN		16
- #define SLOT_NAME_SIZE		40
-@@ -519,6 +518,4 @@ int pathcmp (const struct pathgroup *, const struct pathgroup *);
- int add_feature (char **, const char *);
- int remove_feature (char **, const char *);
+diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+index 09ae708..467bbaa 100644
+--- a/libmultipath/configure.c
++++ b/libmultipath/configure.c
+@@ -589,7 +589,7 @@ sysfs_set_max_sectors_kb(struct multipath *mpp, int is_reload)
+ 		ret = sysfs_attr_get_value(udd, "queue/max_sectors_kb", buff,
+ 					   sizeof(buff));
+ 		udev_device_unref(udd);
+-		if (ret <= 0) {
++		if (!sysfs_attr_value_ok(ret, sizeof(buff))) {
+ 			condlog(1, "failed to get current max_sectors_kb from %s", mpp->alias);
+ 			return 1;
+ 		}
+diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
+index f5b8401..54b1caf 100644
+--- a/libmultipath/discovery.c
++++ b/libmultipath/discovery.c
+@@ -560,10 +560,10 @@ sysfs_get_asymmetric_access_state(struct path *pp, char *buff, int buflen)
+ 	if (!parent)
+ 		return -1;
  
--extern char sysfs_path[PATH_SIZE];
--
- #endif /* _STRUCTS_H */
+-	if (sysfs_attr_get_value(parent, "access_state", buff, buflen) <= 0)
++	if (!sysfs_attr_get_value_ok(parent, "access_state", buff, buflen))
+ 		return -1;
+ 
+-	if (sysfs_attr_get_value(parent, "preferred_path", value, 16) <= 0)
++	if (!sysfs_attr_get_value_ok(parent, "preferred_path", value, sizeof(value)))
+ 		return 0;
+ 
+ 	preferred = strtoul(value, &eptr, 0);
+@@ -638,8 +638,8 @@ sysfs_set_rport_tmo(struct multipath *mpp, struct path *pp)
+ 	/*
+ 	 * read the current dev_loss_tmo value from sysfs
+ 	 */
+-	ret = sysfs_attr_get_value(rport_dev, "dev_loss_tmo", value, 16);
+-	if (ret <= 0) {
++	ret = sysfs_attr_get_value(rport_dev, "dev_loss_tmo", value, sizeof(value));
++	if (!sysfs_attr_value_ok(ret, sizeof(value))) {
+ 		condlog(0, "%s: failed to read dev_loss_tmo value, "
+ 			"error %d", rport_id, -ret);
+ 		goto out;
+@@ -1737,8 +1737,8 @@ path_offline (struct path * pp)
+ 	}
+ 
+ 	memset(buff, 0x0, SCSI_STATE_SIZE);
+-	err = sysfs_attr_get_value(parent, "state", buff, SCSI_STATE_SIZE);
+-	if (err <= 0) {
++	err = sysfs_attr_get_value(parent, "state", buff, sizeof(buff));
++	if (!sysfs_attr_value_ok(err, sizeof(buff))) {
+ 		if (err == -ENXIO)
+ 			return PATH_REMOVED;
+ 		else
+@@ -2142,7 +2142,7 @@ static ssize_t uid_fallback(struct path *pp, int path_state,
+ 			return -1;
+ 		len = sysfs_attr_get_value(pp->udev, "wwid", value,
+ 					   sizeof(value));
+-		if (len <= 0)
++		if (!sysfs_attr_value_ok(len, sizeof(value)))
+ 			return -1;
+ 		len = strlcpy(pp->wwid, value, WWID_SIZE);
+ 		if (len >= WWID_SIZE) {
+diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
+index 50d0b5c..18f2277 100644
+--- a/libmultipath/propsel.c
++++ b/libmultipath/propsel.c
+@@ -435,6 +435,7 @@ out:
+ static int get_dh_state(struct path *pp, char *value, size_t value_len)
+ {
+ 	struct udev_device *ud;
++	ssize_t rc;
+ 
+ 	if (pp->udev == NULL)
+ 		return -1;
+@@ -444,7 +445,10 @@ static int get_dh_state(struct path *pp, char *value, size_t value_len)
+ 	if (ud == NULL)
+ 		return -1;
+ 
+-	return sysfs_attr_get_value(ud, "dh_state", value, value_len);
++	rc = sysfs_attr_get_value(ud, "dh_state", value, value_len);
++	if (!sysfs_attr_value_ok(rc, value_len))
++		return -1;
++	return rc;
+ }
+ 
+ int select_hwhandler(struct config *conf, struct multipath *mp)
 diff --git a/libmultipath/sysfs.c b/libmultipath/sysfs.c
-index 1f0f207..e48b05e 100644
+index e48b05e..125f1c2 100644
 --- a/libmultipath/sysfs.c
 +++ b/libmultipath/sysfs.c
-@@ -48,7 +48,7 @@ static ssize_t __sysfs_attr_get_value(struct udev_device *dev, const char *attr_
- 				      char *value, size_t value_len, bool binary)
- {
- 	const char *syspath;
--	char devpath[PATH_SIZE];
-+	char devpath[PATH_MAX];
- 	int fd;
- 	ssize_t size = -1;
+@@ -85,7 +85,6 @@ static ssize_t __sysfs_attr_get_value(struct udev_device *dev, const char *attr_
+ 		condlog(3, "%s: overflow reading from %s (required len: %zu)",
+ 			__func__, devpath, size);
+ 		value[size - 1] = '\0';
+-		size = 0;
+ 	} else if (!binary) {
+ 		value[size] = '\0';
+ 		size = strchop(value);
+@@ -165,7 +164,7 @@ sysfs_get_size (struct path *pp, unsigned long long * size)
+ 		return 1;
  
-@@ -112,7 +112,7 @@ ssize_t sysfs_attr_set_value(struct udev_device *dev, const char *attr_name,
- 			     const char * value, size_t value_len)
- {
- 	const char *syspath;
--	char devpath[PATH_SIZE];
-+	char devpath[PATH_MAX];
- 	int fd;
- 	ssize_t size = -1;
- 
-@@ -184,7 +184,7 @@ sysfs_get_size (struct path *pp, unsigned long long * size)
- int sysfs_check_holders(char * check_devt, char * new_devt)
- {
- 	unsigned int major, new_minor, table_minor;
--	char path[PATH_MAX], check_dev[PATH_SIZE];
-+	char path[PATH_MAX], check_dev[FILE_NAME_SIZE];
- 	char * table_name;
- 	DIR *dirfd;
- 	struct dirent *holder;
-@@ -194,7 +194,7 @@ int sysfs_check_holders(char * check_devt, char * new_devt)
- 		return 0;
+ 	attr[0] = '\0';
+-	if (sysfs_attr_get_value(pp->udev, "size", attr, 255) <= 0) {
++	if (!sysfs_attr_get_value_ok(pp->udev, "size", attr, sizeof(attr))) {
+ 		condlog(3, "%s: No size attribute in sysfs", pp->dev);
+ 		return 1;
  	}
- 
--	if (devt2devname(check_dev, PATH_SIZE, check_devt)) {
-+	if (devt2devname(check_dev, sizeof(check_dev), check_devt)) {
- 		condlog(1, "can't get devname for %s", check_devt);
- 		return 0;
- 	}
-diff --git a/libmultipath/util.c b/libmultipath/util.c
-index ce5ea73..e7e7d4c 100644
---- a/libmultipath/util.c
-+++ b/libmultipath/util.c
-@@ -242,13 +242,15 @@ setup_thread_attr(pthread_attr_t *attr, size_t stacksize, int detached)
- 
- int systemd_service_enabled_in(const char *dev, const char *prefix)
- {
--	char path[PATH_SIZE], file[PATH_MAX], service[PATH_SIZE];
-+	static const char service[] = "multipathd.service";
-+	char path[PATH_MAX], file[PATH_MAX];
- 	DIR *dirfd;
- 	struct dirent *d;
- 	int found = 0;
- 
--	snprintf(service, PATH_SIZE, "multipathd.service");
--	snprintf(path, PATH_SIZE, "%s/systemd/system", prefix);
-+	if (safe_sprintf(path, "%s/systemd/system", prefix))
-+		return 0;
+diff --git a/libmultipath/sysfs.h b/libmultipath/sysfs.h
+index 72b39ab..cdc84e4 100644
+--- a/libmultipath/sysfs.h
++++ b/libmultipath/sysfs.h
+@@ -12,6 +12,19 @@ ssize_t sysfs_attr_get_value(struct udev_device *dev, const char *attr_name,
+ 			     char * value, size_t value_len);
+ ssize_t sysfs_bin_attr_get_value(struct udev_device *dev, const char *attr_name,
+ 				 unsigned char * value, size_t value_len);
++#define sysfs_attr_value_ok(rc, value_len)			\
++	({							\
++		ssize_t __r = rc;				\
++		__r >= 0 && (size_t)__r < (size_t)value_len;	\
++	})
 +
- 	condlog(3, "%s: checking for %s in %s", dev, service, path);
++#define sysfs_attr_get_value_ok(dev, attr, val, len) \
++	({ \
++		size_t __l = (len);					\
++		ssize_t __rc = sysfs_attr_get_value(dev, attr, val, __l); \
++		sysfs_attr_value_ok(__rc, __l); \
++	})
++
+ int sysfs_get_size (struct path *pp, unsigned long long * size);
+ int sysfs_check_holders(char * check_devt, char * new_devt);
+ bool sysfs_is_multipathed(struct path *pp, bool set_wwid);
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 2f2b9d4..68eca92 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -1126,7 +1126,7 @@ sysfs_get_ro (struct path *pp)
+ 	if (!pp->udev)
+ 		return -1;
  
- 	dirfd = opendir(path);
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index d79cdd7..db4d441 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -688,7 +688,7 @@ cli_add_map (void * v, struct strbuf *reply, void * data)
- 	struct vectors * vecs = (struct vectors *)data;
- 	char * param = get_keyparam(v, MAP);
- 	int major = -1, minor = -1;
--	char dev_path[PATH_SIZE];
-+	char dev_path[FILE_NAME_SIZE];
- 	char *refwwid, *alias = NULL;
- 	int rc, count = 0;
- 	struct config *conf;
+-	if (sysfs_attr_get_value(pp->udev, "ro", buff, sizeof(buff)) <= 0) {
++	if (!sysfs_attr_get_value_ok(pp->udev, "ro", buff, sizeof(buff))) {
+ 		condlog(3, "%s: Cannot read ro attribute in sysfs", pp->dev);
+ 		return -1;
+ 	}
 -- 
 2.36.1
 
