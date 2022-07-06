@@ -2,89 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C4D7056889E
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 14:47:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E47E9568B73
+	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 16:39:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657111640;
+	s=mimecast20190719; t=1657118345;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bw/H/mYgje+ionWxPSz/hp4xmhh7nAwfc6FSDQ8fGMY=;
-	b=XEcjgdW6a2Agqg5fHi2gNpFq3hz1CJEbPN1dsqzEMVSecgZHoIjg+6Ch26ZiAK1/LH3C5K
-	17HPwOHtsqS6EPHRxUf+pgp1fuTpmOj8Pcvgrlmd03xrZIFSzsH7rMVeJibamvaVvr5gCz
-	0Wak+3tCFqfGX/h75dp7PEpYYwwm2eA=
+	bh=oWAl4y4c7LWHVU6KxWjdeqUaYzTMVmmpMp5zlCu9/S4=;
+	b=XfySOZbp2chmgfCEqW4r8YIQMyJv3W04Lvzr32tVh/Z2wuKqaFqtIl3lHwf3SmDfco5QDP
+	+gtsDqFAc/zgYFwc8aydNv7bBNmjyl1YOIzijSm4GESlZ9YMD8e0FzLTtOL1KhiP3tzhHS
+	OfdqGItzTtUxuK5ecZO/UAUslIZqoxU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-76-x-AlztmFOminmJaGjWnvhQ-1; Wed, 06 Jul 2022 08:47:18 -0400
-X-MC-Unique: x-AlztmFOminmJaGjWnvhQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-246-cyD1dSxgN7uj24oDcBDY6g-1; Wed, 06 Jul 2022 10:38:58 -0400
+X-MC-Unique: cyD1dSxgN7uj24oDcBDY6g-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A055A185A7BA;
-	Wed,  6 Jul 2022 12:47:16 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2851E2026D64;
-	Wed,  6 Jul 2022 12:47:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 036739693AA;
+	Wed,  6 Jul 2022 14:38:56 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DA2CEC2C7EC;
+	Wed,  6 Jul 2022 14:38:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1198B194704E;
-	Wed,  6 Jul 2022 12:47:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9CF54194706C;
+	Wed,  6 Jul 2022 14:38:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 444CA194704E
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 12:47:09 +0000 (UTC)
+ ESMTP id 3EE7B194706A
+ for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 14:38:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 25D51492CA2; Wed,  6 Jul 2022 12:47:09 +0000 (UTC)
+ id 121CF2166B2B; Wed,  6 Jul 2022 14:38:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 22110492C3B
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 12:47:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DDDC2166B29
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0AB511C16B4E
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 12:47:09 +0000 (UTC)
-Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
- [209.85.210.173]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-202-uFQcmq5kO_-f1FsaZQi_rw-1; Wed, 06 Jul 2022 08:47:07 -0400
-X-MC-Unique: uFQcmq5kO_-f1FsaZQi_rw-1
-Received: by mail-pf1-f173.google.com with SMTP id t3so1106358pfq.10
- for <dm-devel@redhat.com>; Wed, 06 Jul 2022 05:47:00 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:in-reply-to:references:subject
- :message-id:date:mime-version:content-transfer-encoding;
- bh=dWSt263Qaw0m9Glsw02JwFApleRJFRb/cK5wUXMCZwk=;
- b=498aKxJIk0ScCG+4GeY13J17SjFxep/fcW7HCmnN161I53fr6RUp85GzSc07CbO68p
- 0K5Lcsk46aWoL2JS1d4Oee9/ZVFavtgHLIrHJfpzYoW+5w5UxvjW1LgjUEc/m0N8Dt5v
- ow+ZWvxJvrKUt+MDZN+2F3iipgtze0zuqKQhYe3O1rf0F2CnBmlFkQTTCF4PEkDz8dwU
- TGe7MDP3f5njKZpBgrZKuJ5X8wV0hXcnXCRvHP0E2ZmVuzFtkw18+g8iIZA5xsi+VkC3
- b3z+Py4o1cQqalc4a0Ia7GfBTDLzcnpaupaa8tMzhV+DrdwMQIuulEKH0di8q4b+NB/L
- s/XQ==
-X-Gm-Message-State: AJIora8wmKegww9jiaQE+asxn6ohwvyIBpaKf+XaFZ33xKOkC91Gsf33
- mkdZ9RE2Cv8Y8nSK2cFV56ftxw==
-X-Google-Smtp-Source: AGRyM1vbTy3ndf+pSCLNGkm7VeLniHNquKUECZA2Rht1+4+EvHZMthqZzry/qox4vZy8sRhwMJ6GMg==
-X-Received: by 2002:aa7:94ad:0:b0:525:265b:991f with SMTP id
- a13-20020aa794ad000000b00525265b991fmr47728895pfl.30.1657111619892; 
- Wed, 06 Jul 2022 05:46:59 -0700 (PDT)
-Received: from [127.0.1.1] ([198.8.77.157]) by smtp.gmail.com with ESMTPSA id
- by5-20020a056a00400500b0052521fd6caesm17610237pfb.111.2022.07.06.05.46.58
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 05:46:59 -0700 (PDT)
-From: Jens Axboe <axboe@kernel.dk>
-To: damien.lemoal@opensource.wdc.com, Christoph Hellwig <hch@lst.de>
-In-Reply-To: <20220706070350.1703384-1-hch@lst.de>
-References: <20220706070350.1703384-1-hch@lst.de>
-Message-Id: <165711161869.295759.6786523664338969947.b4-ty@kernel.dk>
-Date: Wed, 06 Jul 2022 06:46:58 -0600
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E718A3C0F375
+ for <dm-devel@redhat.com>; Wed,  6 Jul 2022 14:38:52 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-48-G3sKpKh8NQqcn7Xy48CMGQ-1; Wed, 06 Jul 2022 10:38:45 -0400
+X-MC-Unique: G3sKpKh8NQqcn7Xy48CMGQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id A04811F747;
+ Wed,  6 Jul 2022 14:38:37 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 67D70134CF;
+ Wed,  6 Jul 2022 14:38:37 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id k7zOF22exWKbSgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Wed, 06 Jul 2022 14:38:37 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>
+Date: Wed,  6 Jul 2022 16:38:08 +0200
+Message-Id: <20220706143822.30182-1-mwilck@suse.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -93,8 +84,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: Re: [dm-devel] clean up zoned device information v2
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+Subject: [dm-devel] [PATCH 00/14] multipath: fixes for sysfs accessors
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,11 +97,10 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
- linux-scsi@vger.kernel.org, linux-nvme@lists.infradead.org
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -118,57 +108,69 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 6 Jul 2022 09:03:34 +0200, Christoph Hellwig wrote:
-> this cleans up the block layer zoned device information APIs and
-> moves all fields currently in the request_queue to the gendisk as
-> they aren't relevant for passthrough I/O.
-> 
-> Changes since v1:
->  - drop the blk-zoned/nvmet code sharing for now
->  - use a helper a little earlier
->  - various spelling fixes
-> 
-> [...]
+From: Martin Wilck <mwilck@suse.com>
 
-Applied, thanks!
+This set fixes some strangeness in our sysfs accessors which I
+found while looking at
+https://github.com/opensvc/multipath-tools/issues/35#issuecomment-1175901745.
+(The patches don't fix this issue, which seems to be related to
+Debian's initramfs setup).
 
-[01/16] block: remove a superflous ifdef in blkdev.h
-        commit: f1a8bbd1100d9cd117bc8b7fc0903982bbaf474f
-[02/16] block: call blk_queue_free_zone_bitmaps from disk_release
-        commit: 6cc37a672a1e21245b931722a016b3bd4ae10e2d
-[03/16] block: use bdev_is_zoned instead of open coding it
-        commit: edd1dbc83b1de3b98590b76e09b86ddf6887fce7
-[04/16] block: simplify blk_mq_plug
-        commit: 6deacb3bfac2b720e707c566549a7041f17db9c8
-[05/16] block: simplify blk_check_zone_append
-        commit: 052e545c9276f97e86368579fda32aa1ac017d51
-[06/16] block: pass a gendisk to blk_queue_set_zoned
-        commit: 6b2bd274744e6454ba7bbbe6a09b44866f2f414a
-[07/16] block: pass a gendisk to blk_queue_clear_zone_settings
-        commit: b3c72f8138b5f967a9fa527af84b35018897aba3
-[08/16] block: pass a gendisk to blk_queue_free_zone_bitmaps
-        commit: 5d40066567a73a67ddb656ad118c6cfa1c4a6d71
-[09/16] block: remove queue_max_open_zones and queue_max_active_zones
-        commit: 1dc0172027b0aa09823b430e395b1116d2745f36
-[10/16] block: pass a gendisk to blk_queue_max_open_zones and blk_queue_max_active_zones
-        commit: 982977df48179c8c690868f398051074e68eef0f
-[11/16] block: replace blkdev_nr_zones with bdev_nr_zones
-        commit: b623e347323f6464b20fb0d899a0a73522ed8f6c
-[12/16] block: use bdev based helpers in blkdev_zone_mgmt{,all}
-        commit: 375c140c199ebd2866f9c50a0b8853ffca3f1b68
-[13/16] nvmet:: use bdev based helpers in nvmet_bdev_zone_mgmt_emulate_all
-        commit: a239145ad18b59338a2b6c419c1a15a0e52d1315
-[14/16] dm-zoned: cleanup dmz_fixup_devices
-        commit: fabed68c272389db85655a2933737d602f4008fb
-[15/16] block: remove blk_queue_zone_sectors
-        commit: de71973c2951cb2ce4b46560f021f03b15906408
-[16/16] block: move zone related fields to struct gendisk
-        commit: d86e716aa40643e3eb8c69fab3a198146bf76dd6
+Most importantly, sysfs_attr_get_value() and sysfs_attr_set_value()
+would return 0 if the number of bytes read/written was different from
+the expected value, which is non-standard and unexpected. This
+series changes the return value semantics of these functions:
 
-Best regards,
+ - in sysfs_attr_get_value(), if a read buffer is too small to hold
+   the string read plus a terminating 0 byte, the return value
+   equals the buffer size.
+ - in sysfs_bin_attr_get_value(), no 0 bytes are appended. It's not
+   an error if the read buffer is completely filled, and no warning
+   is printed in this case.
+ - sysfs_attr_set_value() always returns the number of bytes written
+   unless an error occured in open() or write().
+
+Tests for the new semantics are added. Moreover, the sysfs.c code
+is slightly refactored to avoid code duplication.
+
+Martin Wilck (14):
+  libmultipath: alua: remove get_sysfs_pg83()
+  libmultipath: remove sysfs_get_binary()
+  libmultipath: sysfs_bin_attr_get_value(): no error if buffer is filled
+  libmultipath: common code path for sysfs_attr_get_value()
+  libmultipath: sanitize error checking in sysfs accessors
+  libmultipath: get rid of PATH_SIZE
+  libmultipath: sysfs_attr_get_value(): don't return 0 if buffer too
+    small
+  libmultipath: sysfs_attr_set_value(): don't return 0 on partial write
+  libmultipath: sysfs: cleanup file descriptors on pthread_cancel()
+  libmultipath, multipathd: log failure setting sysfs attributes
+  multipath tests: expect_condlog: skip depending on verbosity
+  multipath tests: __wrap_dlog: print log message
+  multipath tests: add sysfs test
+  libmultipath.version: bump version for sysfs accessors
+
+ libmultipath/configure.c              |  30 +-
+ libmultipath/discovery.c              | 120 +++----
+ libmultipath/libmultipath.version     |   8 +-
+ libmultipath/prioritizers/alua_rtpg.c |  57 +--
+ libmultipath/propsel.c                |   6 +-
+ libmultipath/structs.h                |   3 -
+ libmultipath/sysfs.c                  | 191 ++++------
+ libmultipath/sysfs.h                  |  23 ++
+ libmultipath/util.c                   |   8 +-
+ multipathd/cli_handlers.c             |   2 +-
+ multipathd/fpin_handlers.c            |  11 +-
+ multipathd/main.c                     |  40 ++-
+ tests/Makefile                        |   5 +-
+ tests/sysfs.c                         | 494 ++++++++++++++++++++++++++
+ tests/test-lib.c                      |   1 -
+ tests/test-log.c                      |   5 +
+ 16 files changed, 751 insertions(+), 253 deletions(-)
+ create mode 100644 tests/sysfs.c
+
 -- 
-Jens Axboe
-
+2.36.1
 
 --
 dm-devel mailing list
