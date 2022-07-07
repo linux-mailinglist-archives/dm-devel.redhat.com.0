@@ -1,78 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C412F56ACBF
-	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 22:31:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EAD9556ACBA
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 22:30:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657225862;
+	s=mimecast20190719; t=1657225819;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=RacktUl3+gRxoCunrbK0Xvl4+9cBEOJ26AYEOKhtkKE=;
-	b=QX4TppcvHGo/RwRG7FdwNQdQrIXfNkhq2sPtJSmkDq1nESSc6A4+z7T3FKcHLmK1RCqZ5M
-	Agm0nAm4ZCymVz4OhKQ3jxvU1tTS5p7Wpg9Plgufs6wyEo3bH6fhSAEaLa0rKOgK3JLA40
-	G8bwL2fLiHjkknleqZfXulfzFuJ7eYQ=
+	bh=6dASHQIo5WZQmiPr/UGmmdVTnQDvbcirWcO50gk2LIo=;
+	b=Ymq0SKQfd6ui5XwJze3gazZbQuazUJcec27QTmnNrMBefE5kGD/g6yPdker1t/Yv3smWCZ
+	97yc2WagSMkyxdtfDd+3UjBEJZUScaSpAcNcwBMv55NkYCfcL929WqHAA4P2V1FNcK3dFN
+	5pVl9s4l2ztPWqUZzWv12losKJWXqtY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-417-QgrZK0KKNwuj--w8f14Unw-1; Thu, 07 Jul 2022 16:30:17 -0400
-X-MC-Unique: QgrZK0KKNwuj--w8f14Unw-1
+ us-mta-361-4sIvMjflNZ2IvyXnEV1dWg-1; Thu, 07 Jul 2022 16:30:17 -0400
+X-MC-Unique: 4sIvMjflNZ2IvyXnEV1dWg-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 079F48339A0;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 081A9811E9B;
 	Thu,  7 Jul 2022 20:30:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6CDDB154E083;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CE13E154E082;
 	Thu,  7 Jul 2022 20:29:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F356B1947071;
-	Thu,  7 Jul 2022 20:29:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D85321947B81;
+	Thu,  7 Jul 2022 20:29:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 81BE9194704C
+ ESMTP id D6C27194704C
  for <dm-devel@listman.corp.redhat.com>; Thu,  7 Jul 2022 20:27:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 65010C28118; Thu,  7 Jul 2022 20:27:35 +0000 (UTC)
+ id B970B40357BA; Thu,  7 Jul 2022 20:27:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6032EC27DB3
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B44E2407EE6A
  for <dm-devel@redhat.com>; Thu,  7 Jul 2022 20:27:35 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 446821C1BD22
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 963AA963482
  for <dm-devel@redhat.com>; Thu,  7 Jul 2022 20:27:35 +0000 (UTC)
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
  [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-212-q4Gw3dceP-65hrsmKEuD3g-1; Thu, 07 Jul 2022 16:27:33 -0400
-X-MC-Unique: q4Gw3dceP-65hrsmKEuD3g-1
+ us-mta-641-y8tIttd6NRyWket8DuTciw-1; Thu, 07 Jul 2022 16:27:33 -0400
+X-MC-Unique: y8tIttd6NRyWket8DuTciw-1
 Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 267KCvGF020796;
- Thu, 7 Jul 2022 20:27:26 GMT
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 267KCLk0020294;
+ Thu, 7 Jul 2022 20:27:27 GMT
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
  (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h4uby6bgs-1
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3h4uby6bgt-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Thu, 07 Jul 2022 20:27:26 +0000
 Received: from pps.filterd
  (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.16.1.2/8.16.1.2)
- with SMTP id 267K9vNk017175; Thu, 7 Jul 2022 20:27:25 GMT
+ with SMTP id 267K9vNl017175; Thu, 7 Jul 2022 20:27:25 GMT
 Received: from nam12-dm6-obe.outbound.protection.outlook.com
  (mail-dm6nam12lp2168.outbound.protection.outlook.com [104.47.59.168])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com with ESMTP id
- 3h4udfs6ue-3
+ 3h4udfs6ue-4
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Thu, 07 Jul 2022 20:27:25 +0000
 Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
@@ -86,8 +86,8 @@ Received: from DM5PR10MB1466.namprd10.prod.outlook.com
  20:27:19 +0000
 From: Mike Christie <michael.christie@oracle.com>
 To: dm-devel@redhat.com, snitzer@redhat.com, hch@infradead.org
-Date: Thu,  7 Jul 2022 15:27:10 -0500
-Message-Id: <20220707202711.10836-3-michael.christie@oracle.com>
+Date: Thu,  7 Jul 2022 15:27:11 -0500
+Message-Id: <20220707202711.10836-4-michael.christie@oracle.com>
 In-Reply-To: <20220707202711.10836-1-michael.christie@oracle.com>
 References: <20220707202711.10836-1-michael.christie@oracle.com>
 X-ClientProxiedBy: DM6PR02CA0167.namprd02.prod.outlook.com
@@ -95,54 +95,54 @@ X-ClientProxiedBy: DM6PR02CA0167.namprd02.prod.outlook.com
  (2603:10b6:3:b::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 864e4e53-1479-4893-f810-08da605716de
+X-MS-Office365-Filtering-Correlation-Id: dc5f18b5-f759-42a2-41c7-08da6057172b
 X-MS-TrafficTypeDiagnostic: CY4PR1001MB2261:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: Y9grQpl5o5gDAWt9CeMhwJcFk8QaMn/GlKlLM/r8zFrMHAjO1X7qLrMguwj9tS9sC9AIqjz/Ut9LlQlXAACtdg8UnUqT/8vTyZNtQvefyuCSkqN/Oq4rta6f5eNPP0ldk6u4XsIjTBnYw/bPduAL9iMcvlQipczhuDJW04JCoqQxTXhSvyzY5oWaJ1KOQVp2Swa7UQnytLNx2IY5EA4OKfOqFnikKRrJnSKPUjQllpDdKGf3SpOOyOXFzpZ8wfOV3WxBiQY3fZcLTHESMHMWOvdYSWBdNZSX4EFppHMupqYCX5GbJsek2HbHDdQf5ls8dfY2jOb/bEi83p4YKKXzSWt95H/uFmNaXBm3agz3HZREXablbTgm4dAqvXVK0NJ2tfWLmzYlFosp2N7Hu2Vvav5oNexoyEbL1e9M3h63dZbLccQwImGot2y25gOdPC4RFmsFh9pKsJPPcGVyi52ZigRyBsQzkT9RKzwpeWDePX8xNtsjcSipcfiLigAswPFAPzx5hqiOHoGUR3pq4x9iZarbjfJTFbMnjrb3+pSlnAshD/yrfIqHNs7+h3sYewKCIX/DGpT/DnWYzGczNqu8cZvJS9G6ea4jE/FcOSxFZi69g2cjeXF2DZalk91CjjlzuxczA2yeYHcIygq8yxHBEN2ZZcelkXTUTwPvAEoE+03+NLuODvikoSTWvm2XxFpw5lsT8ZV8YEFHCpaV8fqStobLuecvTgGZ21GFjET94AmfVTH/7L8RGAILbvmhK32HyI847PoJ9YfU4+dyQUWvyRz/urn40wqyjEVUJLu2J3Dr+L4cDIsfbjleLwMoq0p7
+X-Microsoft-Antispam-Message-Info: FFz6G2l2AndU4pu0vBDuzt4uaKIcWIJhjlc13RZeMsYUPgMv+EnI4lZp6OsRYn63oYphkVgkl5r4FD9/6VYsRlrNhRRgI2221/Lz/Ry66+hYLKAEB1PvGnngSMoWAtSiSLfJiJYqdOijI7uofFB47GxHE/j8AFAtwMsITgXilCbThBtJW9FDFZvA+MvX24NNchfFcScOaABIR/mrEHYbdKOYiM/YR7LjM6wTEZBiZVWAS5vCqeCKy96Wg7b5HkPbeGc/UMGeRov9qwCmOi4w87lt65SUb8lN6qyxjE1lSjUEnk1JP4IOFCuSNBITOkCxAESwlIlrEtaRlP0ZdeLv8k8e66bK4wT5YJ/aSPjeV+5W5PgfOnJDNwQjQXhjBoXw/i8i8vKgrH+QfBuhSzbJW1Q/XQ/OICFs6ambHEqKkCgpf3lkCfuHY1Zf8m7e7F3qlQYOuQ4bDPV/CcXq4iZwsrPP4lHns9gGKeEsItrS3ZFdLYJ3iTmTlKIJl6viKrpiNn6+d9I49oKDh5DfXcVzbRS+W6tNCHnTL1eYF7xi/CLeS7kW4rJbwc3rJAxdMxHV59GneYAlC4jAeLNoHuyQpEfriUmhy7lZUm9mHIaS/Gyyrw98U7k/a0BmIOFvk57kjnBFBC0zmpHYuRnzarBUdw9afVT/XXWy1qo3/XPFNdiIWMQsvwEtmi3ubDRTlJYXxxtFj85fLMa80LEReO/erGqGIwaGlXbM2Z53GBbnk2rR6hWDc/z3FPw/KdvCnI+4aocFbizkEvkd3dnwJwxeCT4JWCOwbFTTDmdV0v/M4mBnHEANbZv7ObZwPkWdheCQ
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230016)(136003)(376002)(396003)(346002)(366004)(39860400002)(83380400001)(8936002)(1076003)(2616005)(2906002)(36756003)(86362001)(5660300002)(6512007)(8676002)(66476007)(66556008)(66946007)(38350700002)(6666004)(4326008)(6506007)(52116002)(478600001)(26005)(316002)(41300700001)(186003)(107886003)(6486002)(38100700002);
  DIR:OUT; SFP:1101
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ZkdfNj0En0bYZOVTi2VrF4GfJ5SW9z/TyIQlvSxWUW7JQZOfMfFKAxd8Jib6?=
- =?us-ascii?Q?ajpxXEX+iGzFaE3V6YMQwnqXAnGLX6+atnZYMKVoUustcLJo9dqX+pdnScOx?=
- =?us-ascii?Q?IXJmSiSsuJ/XGfGU5J0iLG2LyLiIwwVXl94oocXgMBdF1Nl81ADWc2OEMgQ5?=
- =?us-ascii?Q?49hR2L47YtCZyN84I7wqEL6l/YXzE6ykGDKCCs68gbztcDBJVKjYrpeAu0o4?=
- =?us-ascii?Q?4GquPIn4cwHKQ4zGswSii4tUEV9NWaMwigr17dYrhri6XLPP6lGrGhHs7KoS?=
- =?us-ascii?Q?LtDmkBhfsIdw90O1Vf9x9RRSnneRjcF2GwhfwpK/JR1Rw7ZYM9dXVjpHh+W9?=
- =?us-ascii?Q?lBZ9E2n2l+FpTN76/HGiRBgluFZlBepSAKFbHPdCAHGwo81AMMtpsxHw/dn3?=
- =?us-ascii?Q?X3G8U0LoJmOtn592pt4wJRacY93DHodMICwt6n65HItBKa9RoOaE19Cu4nkS?=
- =?us-ascii?Q?AM2Yciq/f+jhepwCgf5ENSEmi+Bv3q5xTy0LQ9MC8bI/NAp+jt01Ux7rR6vq?=
- =?us-ascii?Q?7oU+8+wbDo1CS86zdd5T2rwdkvoIgF/yXAXPsPgsiFNl/PNeOIpkmifoov8R?=
- =?us-ascii?Q?tWNBO6oUdpAZ/7ntddZW1wZQEloRvjcaIOFsjIDYlPoIApWzM5QjgfM59SAr?=
- =?us-ascii?Q?rBaigFvpD4BkZj+8J+4FcV3EWK6rPoVQd5pji8axNoAWOv7LUXDiecxE8Q5b?=
- =?us-ascii?Q?z6JFW9rvZKfubcnzB73CA9yDe6o4GY8o0cIaZST0tnLOvRdnitzt0JryInX3?=
- =?us-ascii?Q?2oDabr9VftRAjJ90Y6m3b+awdGWs5X9el+NzvSeuzi6qH6jZtq/TD9zokoWd?=
- =?us-ascii?Q?A9BFCWEUqFYIANSOifxP06W3TvSEftHKVhFUHUg4zfPZ+s16VucKpdIPdKC7?=
- =?us-ascii?Q?d5BnaoDJrSTrKEjkFmlCCSINRoRZIU9C/IdpMBKRw0Hw0NL+AugmOUQwf6e9?=
- =?us-ascii?Q?gCmkvjq2kjCZhWYimsh9xXwhqJvc/gK/hO4yZDPs3KjbTaPiyNuGZSw4oCfK?=
- =?us-ascii?Q?CBb8oGJFX7RCNwvrDnBFDHLOzQdR1ydco1WqvYV4L801Dj6eiSERnA8hfv1k?=
- =?us-ascii?Q?YUPpNjPtXlchC8mGSiT1P2SmbGxlm4IlucpiH8d6rnbnHbtcFEIUyMvN9VT7?=
- =?us-ascii?Q?be//OD1tBrHrGkdDsXkwl4LHM79MFt5aLGm60KzMIQhYxbTOGPk+eCrjOEbh?=
- =?us-ascii?Q?10Zw8CVeRld/mtgR07jQryfczNkR64N0Sp3fE0uoWJdbcxG/UxFxiGxrq8qC?=
- =?us-ascii?Q?gr0doDoNa5bZaJmJrNTH8MPMa3YrqRZmm3SRAEFY1mA1NFPc+CtozgIt+ZoK?=
- =?us-ascii?Q?ckHmlJjT9vzhceGEvc9whfRJ/Ze/Qju6EdFU/4ZVxSR4UEGstgeWItuzrQ4V?=
- =?us-ascii?Q?sD8mRjU5GqcTALDEevNFkov+/za9uzexZOcvzUllJNwtmujeBlgGZZUEerwP?=
- =?us-ascii?Q?/7qP4Xv1u57Mwui5n8AqxUYq+Eh+N+zZ3v8TiLqtkqMJc7IdTvjecJGTRKnC?=
- =?us-ascii?Q?seSWk2mCuVALL3z4QcZSZllMc8iNqfPVnin++9rkk6bt8OyhzqufZTl2ka+p?=
- =?us-ascii?Q?vAUdhgqG/LYZDt9Lr83/9QChPm6ZUAQ1aQAQpdvxWAwqf1VCaccyWN3sVVt9?=
- =?us-ascii?Q?Og=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?WoUPMT29s+0Mxm/iof6+tE8B4VHkz+wSj5X6VchucraWHn/j6l4JyBSOhTd8?=
+ =?us-ascii?Q?tsoM3EEZzka3NIrG9umclIO3zRx/e9jer0q5/VOdbdanrKSDb9H0CPYp8GRL?=
+ =?us-ascii?Q?qGpFA6sRZrLsSuguRjSYYbO8k7G53ouL71ojsF+q9ZTaFGg6aAG4/EEMo83l?=
+ =?us-ascii?Q?ImSnhnn+18sBPCAq7pMRfaFVGveRepS+RM6M7em1I1ZDSjis9URZSf1SR8F/?=
+ =?us-ascii?Q?OFSHHhfSGmuMGIzMahBTaJP2inwDjysKzyLNv7rAXHrmT5QkYAMq8hPUlysc?=
+ =?us-ascii?Q?Vjym0UsxYsa4s3/LaQS0T3ZCGdaTQsSfkvQ8+yPJfUNYChijpQI6oMC9vZRH?=
+ =?us-ascii?Q?n/Arkq36hLVz9KtDKcPUw6Wq4jFz36/7X+/g5PRTXem4GfG2NUDCihS4rOxL?=
+ =?us-ascii?Q?tB+4oWJ4oNh76/4io19ydXh4H3H+RrmZGKxW6pqDxPalRdfbxvZhNQWigWqV?=
+ =?us-ascii?Q?1FX9Ayr7U7+f8iewCtCEdWkclLM5gLeALzAEHGEN2fNQb2l9i91dviO/VYsN?=
+ =?us-ascii?Q?9372YbvM5QY3QR4QWehUpMdB6H8PWZdlgyMHnMEyFCYdyhe1WGfVWnQScr5w?=
+ =?us-ascii?Q?9MHPuXrE0sudKWmRS0JH84JXTOfomg51Ho8sqrw/nPvgI/xQ9J568si87Mld?=
+ =?us-ascii?Q?JXFwGACNP/ehBMlkpfeSoyrYd/HgHmmjlntIe8XDGcnyvrS5VyvzCVBLSqV9?=
+ =?us-ascii?Q?sA9lLFj0LzBuKAJxYvpfCW3hu6jeM1Mx3F5ojWkd9oEW1aOAV75PqQLm/lQk?=
+ =?us-ascii?Q?nYFU+uug8QprnyaKAmvqpxRX/EKrhsdBGkdSiWha5YvBsRHvAlBH2Oy/XIgv?=
+ =?us-ascii?Q?QD1Z8+QU7y3oVvyyA/Y7S4thdEmcTgxJ29eCqFQwt+oKrmWeEhn2O5Yx7yyX?=
+ =?us-ascii?Q?nV2mq9Pj+TPgarQtoE3sfxO7VVCqzZHLZ7MaMQq6acQZR/E3Ln4filpfMDPT?=
+ =?us-ascii?Q?Th83kWbL56TQZyCKTaA8SezvJf9mNV0eGShCZB92DV2Yv3hAfsOEGiAxFvoM?=
+ =?us-ascii?Q?LFMbPHyCqqk26DawUiFuI0QkjUoeRLzFNUSfWOOqdIAdAJwyn4bzYVaRWIvP?=
+ =?us-ascii?Q?HAM/JQMYgeH2t9VPHw+m266L1rlYOdRINcNQu8aiRr3fR6LEOHNlStB6JvQ4?=
+ =?us-ascii?Q?5iXdcMosoCb9SGRZtG+FL9Vk3TEvwuaaTjsmFNmQxAs7voNBizr8A1Z722iv?=
+ =?us-ascii?Q?/r0qCrx9E0BFOIJift8p7bIDyCy6cp+Y4RmLMmKHrAOFSpuvvDL8iG3kMuzO?=
+ =?us-ascii?Q?gaO3JQ8FuYJPSaI5Sa5TpwMNivaLSkUP+c95LYQrXaAw76tK6XD6L7ueH2pb?=
+ =?us-ascii?Q?cY9Eqn+df+JjioTosya8J+b/62sfwrFJZ9U7k6SXVbDZIDO6WVehIsAGQA0d?=
+ =?us-ascii?Q?yuIbhWfnp0qxWo4LNfSqCzWJlwxiszR7S3RRJJs0+xDnG+OD/NFYW+UfRfB1?=
+ =?us-ascii?Q?hGdAG+XcDig0hJyt1q5RNjLgZgdnG2wZh6n8Kg4id/i4+OCd49y9N/Axt7f7?=
+ =?us-ascii?Q?Nb4L1CTpmsux1SkqgRZ/oy/HAxRbau70oHeQuxc/7bfyyPjDSkugq/0aKWvG?=
+ =?us-ascii?Q?Z1zsU2ciqSl3kRo/9b5BKhZ5KVF1WjwtHYvR+Ui6rcsiWEmG5ZT8XcMbap7J?=
+ =?us-ascii?Q?Wg=3D=3D?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 864e4e53-1479-4893-f810-08da605716de
+X-MS-Exchange-CrossTenant-Network-Message-Id: dc5f18b5-f759-42a2-41c7-08da6057172b
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 20:27:19.0041 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 07 Jul 2022 20:27:19.4884 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: hrkbkySpCsYZnBiW6HBAgqP6VGrsYZ78ZFub/c+PHlq6xz+mGfcMHyQxrIXi7DkCfT7LgKBn30fZ+UITtZgaeGiR9NfUDHybD8dw4boZfyw=
+X-MS-Exchange-CrossTenant-UserPrincipalName: idw84gwX+mJCzWvmLxtwwN40cJeZd1UUj6l4QlmGt2BbNwx6T1XKDxFt3hSZMFTldvHYbUoXDrHqx18jwTAPna8X7yEgQQIDjou4cA0pkSE=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR1001MB2261
 X-Proofpoint-Virus-Version: vendor=fsecure engine=2.50.10434:6.0.517, 18.0.883
  definitions=2022-07-07_17:2022-06-28,
@@ -152,8 +152,8 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
  malwarescore=0 mlxlogscore=999 phishscore=0 adultscore=0 bulkscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
  definitions=main-2207070081
-X-Proofpoint-ORIG-GUID: YXJTg61yaFBUIkBxVd7szGd-cuOQdGqV
-X-Proofpoint-GUID: YXJTg61yaFBUIkBxVd7szGd-cuOQdGqV
+X-Proofpoint-ORIG-GUID: ZMV9PK7m3qlBkDKXIGYUwXJfNP6QHjGk
+X-Proofpoint-GUID: ZMV9PK7m3qlBkDKXIGYUwXJfNP6QHjGk
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -161,10 +161,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-Mailman-Approved-At: Thu, 07 Jul 2022 20:29:55 +0000
-Subject: [dm-devel] [PATCH 2/3] dm: Start pr_reserve from the same starting
- path
+Subject: [dm-devel] [PATCH 3/3] dm: Fix PR release handling for non All
+ Registrants
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -187,77 +187,81 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When an app does a pr_reserve it will go to whatever path we happen to
-be using at the time. This can result in errors where the app does a
-second pr_reserve call and expects success but gets a failure becuase
-the reserve is not done on the holder's path. This patch has us always
-start trying to do reserves from the first path in the first group.
+This patch fixes a bug where we are leaving the reservation in place
+even though pr_release has run and returned success.
+
+If we have a Write Exclusive, Exclusive Access, or Write/Exclusive
+Registrants only reservation, the release must be sent down the path
+that is the reservation holder. The problem is multipath_prepare_ioctl
+most likely selected path N for the reservation, then later when we do
+the release multipath_prepare_ioctl will select a completely different
+path. The device will then return success becuase the nvme and scsi
+specs say to return success if there is no reservation or if the release
+is sent down from a path that is not the holder. We then think we have
+released the reservation.
+
+This patch has us loop over each path and send a release so we can make
+sure the release is executed on the correct path.
 
 Signed-off-by: Mike Christie <michael.christie@oracle.com>
 ---
- drivers/md/dm.c | 46 ++++++++++++++++++++++++++++++++--------------
- 1 file changed, 32 insertions(+), 14 deletions(-)
+ drivers/md/dm.c | 48 ++++++++++++++++++++++++++++++++++--------------
+ 1 file changed, 34 insertions(+), 14 deletions(-)
 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 67b46ae896b1..cdd1656b99d6 100644
+index cdd1656b99d6..c31f99c9d2b2 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -3048,6 +3048,7 @@ struct dm_pr {
- 	u32	flags;
- 	bool	fail_early;
- 	int	ret;
-+	enum pr_type type;
- };
- 
- static int dm_call_pr(struct block_device *bdev, iterate_devices_callout_fn fn,
-@@ -3139,25 +3140,42 @@ static int dm_pr_register(struct block_device *bdev, u64 old_key, u64 new_key,
- 	return ret;
+@@ -3178,24 +3178,44 @@ static int dm_pr_reserve(struct block_device *bdev, u64 key, enum pr_type type,
+ 	return pr.ret;
  }
  
-+
-+static int __dm_pr_reserve(struct dm_target *ti, struct dm_dev *dev,
++/*
++ * If there is a non-All Registrants type of reservation, the release must be
++ * sent down the holding path. For the cases where there is no reservation or
++ * the path is not the holder the device will also return success, so we must
++ * try each path to make sure we got the correct path.
++ */
++static int __dm_pr_release(struct dm_target *ti, struct dm_dev *dev,
 +			   sector_t start, sector_t len, void *data)
 +{
 +	struct dm_pr *pr = data;
 +	const struct pr_ops *ops = dev->bdev->bd_disk->fops->pr_ops;
 +
-+	if (!ops || !ops->pr_reserve) {
++	if (!ops || !ops->pr_release) {
 +		pr->ret = -EOPNOTSUPP;
 +		return -1;
 +	}
 +
-+	pr->ret = ops->pr_reserve(dev->bdev, pr->old_key, pr->type, pr->flags);
-+	if (!pr->ret)
++	pr->ret = ops->pr_release(dev->bdev, pr->old_key, pr->type);
++	if (pr->ret)
 +		return -1;
 +
 +	return 0;
 +}
 +
- static int dm_pr_reserve(struct block_device *bdev, u64 key, enum pr_type type,
- 			 u32 flags)
+ static int dm_pr_release(struct block_device *bdev, u64 key, enum pr_type type)
  {
 -	struct mapped_device *md = bdev->bd_disk->private_data;
 -	const struct pr_ops *ops;
 -	int r, srcu_idx;
 +	struct dm_pr pr = {
 +		.old_key	= key,
-+		.flags		= flags,
 +		.type		= type,
 +		.fail_early	= false,
-+		.ret		= 0,
 +	};
 +	int ret;
  
 -	r = dm_prepare_ioctl(md, &srcu_idx, &bdev);
 -	if (r < 0)
 -		goto out;
-+	ret = dm_call_pr(bdev, __dm_pr_reserve, &pr);
++	ret = dm_call_pr(bdev, __dm_pr_release, &pr);
 +	if (ret)
 +		return ret;
  
 -	ops = bdev->bd_disk->fops->pr_ops;
--	if (ops && ops->pr_reserve)
--		r = ops->pr_reserve(bdev, key, type, flags);
+-	if (ops && ops->pr_release)
+-		r = ops->pr_release(bdev, key, type);
 -	else
 -		r = -EOPNOTSUPP;
 -out:
@@ -266,7 +270,7 @@ index 67b46ae896b1..cdd1656b99d6 100644
 +	return pr.ret;
  }
  
- static int dm_pr_release(struct block_device *bdev, u64 key, enum pr_type type)
+ static int dm_pr_preempt(struct block_device *bdev, u64 old_key, u64 new_key,
 -- 
 2.25.1
 
