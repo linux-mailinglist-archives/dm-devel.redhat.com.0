@@ -1,94 +1,106 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 744FE5690FA
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Jul 2022 19:44:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C96705698D0
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Jul 2022 05:30:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657129465;
+	s=mimecast20190719; t=1657164599;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=TFSNIU8G9ey/rtutsuDDZPUe+x+hHKANdY8QJYXnMAU=;
-	b=Wcqtxl78pj41Sgs6aL+3EiEtbtleb+4Cbf9iN8FZ7K9e8YP3vLoOeWBXTRJVnzRnsWfmLK
-	WzpMNt/CF1j6qK1w49nr0jpIZJEi+VANU8MergUx3R59MEN6xkcAA3xylwGl5jTDFHnLZ6
-	h5m6zTfWV2L9IxRDNpdJasPeaZkzM2Y=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Tbl7BczCIzPHyFIAmpxRi/CjzSVeiL7NmV6PMGwJXAc=;
+	b=dfrkCp4b7Xy6g2J/Ka/AarVhfnyeCiZXIDCHMz6L12f4zrHEZm++eG6LO/C8BjYNZ4Nuhi
+	iIzULuztF4D6/4aZxwzpY07OnCwF+uwBzk+fSM48xUa3DaLnMDEBj9ricOcaM+w1XRvMGK
+	xz+Nvy48A/pMF4X1vkGpemhNqxJ2M2E=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-498-D5Dsf2A-MSK7xeKyTgdn6g-1; Wed, 06 Jul 2022 13:44:18 -0400
-X-MC-Unique: D5Dsf2A-MSK7xeKyTgdn6g-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-527-L264cijpNg-cOcQW9VutEA-1; Wed, 06 Jul 2022 23:29:55 -0400
+X-MC-Unique: L264cijpNg-cOcQW9VutEA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 048121C004F6;
-	Wed,  6 Jul 2022 17:44:16 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1101A403162;
-	Wed,  6 Jul 2022 17:44:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68DC0802D1F;
+	Thu,  7 Jul 2022 03:29:53 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 68DCE2166B26;
+	Thu,  7 Jul 2022 03:29:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CD6AD1947071;
-	Wed,  6 Jul 2022 17:44:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A22B194706E;
+	Thu,  7 Jul 2022 03:29:42 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B425A194704E
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Jul 2022 17:44:10 +0000 (UTC)
+ ESMTP id 58B28194704E
+ for <dm-devel@listman.corp.redhat.com>; Thu,  7 Jul 2022 03:29:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 962E91415116; Wed,  6 Jul 2022 17:44:10 +0000 (UTC)
+ id 3904118EC9; Thu,  7 Jul 2022 03:29:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 91B0B141511A
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 17:44:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6E3B8032EA
- for <dm-devel@redhat.com>; Wed,  6 Jul 2022 17:44:09 +0000 (UTC)
-Received: from mail-qt1-f175.google.com (mail-qt1-f175.google.com
- [209.85.160.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 34AA12EF99
+ for <dm-devel@redhat.com>; Thu,  7 Jul 2022 03:29:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 156C180192F
+ for <dm-devel@redhat.com>; Thu,  7 Jul 2022 03:29:41 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
+ [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-643-Usj53j_0O1Kwbb_KUdwvLA-1; Wed, 06 Jul 2022 13:44:08 -0400
-X-MC-Unique: Usj53j_0O1Kwbb_KUdwvLA-1
-Received: by mail-qt1-f175.google.com with SMTP id k14so19275580qtm.3
- for <dm-devel@redhat.com>; Wed, 06 Jul 2022 10:44:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references;
- bh=SQIHCrXZxRbxb4t/6IOmpTMMhkU2VlZ9Pj8HK758FhE=;
- b=pQCQP4CXqmxL2pAphmxFkuI6sZfpuaSWtv9xNopi5PEKdBeJ9LtTND3KOqqVV48+RE
- lAA1sE5syb42dJwyjVDtCbQKTWtxlZ5Z4hmgTyUryktBx0odmemC2pXY5p5qz0rF/mAi
- ejSa9v0+InuyTA+wA6T3lhbWR5o7rAJyQOsCOTcbwKO5G7h+WOyrFTwhS9EtLh0+A8CV
- yC9h18UrIRRWlh1ggvxmSvrWeFAvQrSIR2utAeHaSvs2S86V47hkqUEDpRSh8zpD5vY7
- AihVDmwXEO5GoB4nQjl1sGsBLQ37BPbNbRtrORbHMeHGsWwEKr4gPebrx20necIVoyow
- TAVA==
-X-Gm-Message-State: AJIora+PZwADtFhCs2HA2QeHvJE1tdB8Y7yHK/aDzhquRXaIo8dmT9sy
- v1Z9sbCts0LEyQZyBdHcOzEOe/zYEiJDVGmV6o7QltNyHvgnVYSafHwXr05zEK/h69PfZGqqT5V
- k/Gpl4jihiFgmrnoVxGUUTHQHrSP6x2/569Ns4h9eUTRFRQhBuEZsOI39HH8esGxwljY=
-X-Google-Smtp-Source: AGRyM1um6OSyP/0PZszNyQooJt67NokL9RyZ+4I39ddectX6Ebb4MCnZGfrqGqlr+PRW9cvJVnJg/Q==
-X-Received: by 2002:a05:6214:1c87:b0:46b:c547:543d with SMTP id
- ib7-20020a0562141c8700b0046bc547543dmr37080842qvb.52.1657129447341; 
- Wed, 06 Jul 2022 10:44:07 -0700 (PDT)
-Received: from localhost (pool-68-160-176-52.bstnma.fios.verizon.net.
- [68.160.176.52]) by smtp.gmail.com with ESMTPSA id
- j17-20020a05620a289100b006a793bde241sm33577598qkp.63.2022.07.06.10.44.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 06 Jul 2022 10:44:06 -0700 (PDT)
-From: Mike Snitzer <snitzer@kernel.org>
-To: dm-devel@redhat.com
-Date: Wed,  6 Jul 2022 13:44:03 -0400
-Message-Id: <20220706174403.79317-3-snitzer@kernel.org>
-In-Reply-To: <20220706174403.79317-1-snitzer@kernel.org>
-References: <20220706174403.79317-1-snitzer@kernel.org>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [dm-devel] [5.20 PATCH v3 2/2] dm: add two stage requeue mechanism
+ us-mta-572-w8mTnj5EOKmsellNez_DLQ-1; Wed, 06 Jul 2022 23:29:38 -0400
+X-MC-Unique: w8mTnj5EOKmsellNez_DLQ-1
+Received: from mail02.huawei.com (unknown [172.30.67.143])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4LdhhT635Rzkr7D;
+ Thu,  7 Jul 2022 11:28:41 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP3 (Coremail) with SMTP id _Ch0CgAXemkWU8ZiH__bAQ--.22982S3;
+ Thu, 07 Jul 2022 11:29:28 +0800 (CST)
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>,
+ Mike Snitzer <snitzer@redhat.com>
+References: <20210804094147.459763-1-hch@lst.de>
+ <20210804094147.459763-8-hch@lst.de>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <ad2c7878-dabb-cb41-1bba-60ef48fa1a9f@huaweicloud.com>
+Date: Thu, 7 Jul 2022 11:29:26 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
+MIME-Version: 1.0
+In-Reply-To: <20210804094147.459763-8-hch@lst.de>
+X-CM-TRANSID: _Ch0CgAXemkWU8ZiH__bAQ--.22982S3
+X-Coremail-Antispam: 1UD129KBjvJXoW3Gw1xuw43ZrWDZrW5Zw1UKFg_yoW3tr15pF
+ 4UXrW5CrW8tr1Uta17tF1UAr1rtrsrAa4UXr4xAr10v3Wjkw1YqFy7CFWUAry7Jr4kXry7
+ tFyDJw1ktr1UKaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6r1F6r1fM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+ vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
+ xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
+ 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+ 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
+ Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij
+ 64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+ 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE
+ 2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42
+ xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
+ c7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1CPfJUUUUU==
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH 7/8] dm: delay registering the gendisk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,361 +112,164 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org
-MIME-Version: 1.0
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 
-From: Ming Lei <ming.lei@redhat.com>
-
-Commit 61b6e2e5321d ("dm: fix BLK_STS_DM_REQUEUE handling when dm_io
-represents split bio") reverted DM core's bio splitting back to using
-bio_split()+bio_chain() because it was found that otherwise DM's
-BLK_STS_DM_REQUEUE would trigger a live-lock waiting for bio
-completion that would never occur.
-
-Restore using bio_trim()+bio_inc_remaining(), like was done in commit
-7dd76d1feec7 ("dm: improve bio splitting and associated IO
-accounting"), but this time with proper handling for the above
-scenario that is covered in more detail in the commit header for
-61b6e2e5321d.
-
-Solve this issue by adding a two staged dm_io requeue mechanism that
-uses the new bio_rewind() via dm_io_rewind():
-
-1) requeue the dm_io into the requeue_list added to struct
-   mapped_device, and schedule it via new added requeue work. This
-   workqueue just clones the dm_io->orig_bio (which DM saves and
-   ensures its end sector isn't modified). dm_io_rewind() uses the
-   sectors and sectors_offset members of the dm_io that are recorded
-   relative to the end of orig_bio: bio_rewind()+bio_trim() are then
-   used to make that cloned bio reflect the subset of the original bio
-   that is represented by the dm_io that is being requeued.
-
-2) the 2nd stage requeue is same with original requeue, but
-   io->orig_bio points to new cloned bio (which matches the requeued
-   dm_io as described above).
-
-This allows DM core to shift the need for bio cloning from bio-split
-time (during IO submission) to the less likely BLK_STS_DM_REQUEUE
-handling (after IO completes with that error).
-
-Signed-off-by: Ming Lei <ming.lei@redhat.com>
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
----
- drivers/md/dm-core.h      |  13 ++++-
- drivers/md/dm-io-rewind.c |  25 +++++++++-
- drivers/md/dm.c           | 121 +++++++++++++++++++++++++++++++++++-----------
- 3 files changed, 129 insertions(+), 30 deletions(-)
-
-diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index 5793a27b2118..5a3fe5897b1e 100644
---- a/drivers/md/dm-core.h
-+++ b/drivers/md/dm-core.h
-@@ -22,6 +22,8 @@
- 
- #define DM_RESERVED_MAX_IOS		1024
- 
-+struct dm_io;
-+
- struct dm_kobject_holder {
- 	struct kobject kobj;
- 	struct completion completion;
-@@ -91,6 +93,14 @@ struct mapped_device {
- 	spinlock_t deferred_lock;
- 	struct bio_list deferred;
- 
-+	/*
-+	 * requeue work context is needed for cloning one new bio
-+	 * to represent the dm_io to be requeued, since each
-+	 * dm_io may point to the original bio from FS.
-+	 */
-+	struct work_struct requeue_work;
-+	struct dm_io *requeue_list;
-+
- 	void *interface_ptr;
- 
- 	/*
-@@ -275,7 +285,6 @@ struct dm_io {
- 	atomic_t io_count;
- 	struct mapped_device *md;
- 
--	struct bio *split_bio;
- 	/* The three fields represent mapped part of original bio */
- 	struct bio *orig_bio;
- 	unsigned int sector_offset; /* offset to end of orig_bio */
-@@ -319,6 +328,6 @@ extern atomic_t dm_global_event_nr;
- extern wait_queue_head_t dm_global_eventq;
- void dm_issue_global_event(void);
- 
--void bio_rewind(struct bio *bio, unsigned bytes);
-+void dm_io_rewind(struct dm_io *io, struct bio_set *bs);
- 
- #endif
-diff --git a/drivers/md/dm-io-rewind.c b/drivers/md/dm-io-rewind.c
-index fbeaa8a342ed..3ba7162f85fa 100644
---- a/drivers/md/dm-io-rewind.c
-+++ b/drivers/md/dm-io-rewind.c
-@@ -131,7 +131,7 @@ static inline void bio_rewind_iter(const struct bio *bio,
-  * rewinding from end of bio and restoring its original position.
-  * Caller is also responsibile for restoring bio's size.
-  */
--void bio_rewind(struct bio *bio, unsigned bytes)
-+static void bio_rewind(struct bio *bio, unsigned bytes)
- {
- 	if (bio_integrity(bio))
- 		bio_integrity_rewind(bio, bytes);
-@@ -141,3 +141,26 @@ void bio_rewind(struct bio *bio, unsigned bytes)
- 
- 	bio_rewind_iter(bio, &bio->bi_iter, bytes);
- }
-+
-+void dm_io_rewind(struct dm_io *io, struct bio_set *bs)
-+{
-+	struct bio *orig = io->orig_bio;
-+	struct bio *new_orig = bio_alloc_clone(orig->bi_bdev, orig,
-+					       GFP_NOIO, bs);
-+	/*
-+	 * bio_rewind can restore to previous position since the end
-+	 * sector is fixed for original bio, but we still need to
-+	 * restore bio's size manually (using io->sectors).
-+	 */
-+	bio_rewind(new_orig, ((io->sector_offset << 9) -
-+			      orig->bi_iter.bi_size));
-+	bio_trim(new_orig, 0, io->sectors);
-+
-+	bio_chain(new_orig, orig);
-+	/*
-+	 * __bi_remaining was increased (by dm_split_and_process_bio),
-+	 * so must drop the one added in bio_chain.
-+	 */
-+	atomic_dec(&orig->__bi_remaining);
-+	io->orig_bio = new_orig;
-+}
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index c987f9ad24a4..fa6839141118 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -590,7 +590,6 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	atomic_set(&io->io_count, 2);
- 	this_cpu_inc(*md->pending_io);
- 	io->orig_bio = bio;
--	io->split_bio = NULL;
- 	io->md = md;
- 	spin_lock_init(&io->lock);
- 	io->start_time = jiffies;
-@@ -880,13 +879,35 @@ static int __noflush_suspending(struct mapped_device *md)
- 	return test_bit(DMF_NOFLUSH_SUSPENDING, &md->flags);
- }
- 
-+static void dm_requeue_add_io(struct dm_io *io, bool first_stage)
-+{
-+	struct mapped_device *md = io->md;
-+
-+	if (first_stage) {
-+		struct dm_io *next = md->requeue_list;
-+
-+		md->requeue_list = io;
-+		io->next = next;
-+	} else {
-+		bio_list_add_head(&md->deferred, io->orig_bio);
-+	}
-+}
-+
-+static void dm_kick_requeue(struct mapped_device *md, bool first_stage)
-+{
-+	if (first_stage)
-+		queue_work(md->wq, &md->requeue_work);
-+	else
-+		queue_work(md->wq, &md->work);
-+}
-+
- /*
-  * Return true if the dm_io's original bio is requeued.
-  * io->status is updated with error if requeue disallowed.
-  */
--static bool dm_handle_requeue(struct dm_io *io)
-+static bool dm_handle_requeue(struct dm_io *io, bool first_stage)
- {
--	struct bio *bio = io->split_bio ? io->split_bio : io->orig_bio;
-+	struct bio *bio = io->orig_bio;
- 	bool handle_requeue = (io->status == BLK_STS_DM_REQUEUE);
- 	bool handle_polled_eagain = ((io->status == BLK_STS_AGAIN) &&
- 				     (bio->bi_opf & REQ_POLLED));
-@@ -912,8 +933,8 @@ static bool dm_handle_requeue(struct dm_io *io)
- 		spin_lock_irqsave(&md->deferred_lock, flags);
- 		if ((__noflush_suspending(md) &&
- 		     !WARN_ON_ONCE(dm_is_zone_write(md, bio))) ||
--		    handle_polled_eagain) {
--			bio_list_add_head(&md->deferred, bio);
-+		    handle_polled_eagain || first_stage) {
-+			dm_requeue_add_io(io, first_stage);
- 			requeued = true;
- 		} else {
- 			/*
-@@ -926,19 +947,21 @@ static bool dm_handle_requeue(struct dm_io *io)
- 	}
- 
- 	if (requeued)
--		queue_work(md->wq, &md->work);
-+		dm_kick_requeue(md, first_stage);
- 
- 	return requeued;
- }
- 
--static void dm_io_complete(struct dm_io *io)
-+static void __dm_io_complete(struct dm_io *io, bool first_stage)
- {
--	struct bio *bio = io->split_bio ? io->split_bio : io->orig_bio;
-+	struct bio *bio = io->orig_bio;
- 	struct mapped_device *md = io->md;
- 	blk_status_t io_error;
- 	bool requeued;
- 
--	requeued = dm_handle_requeue(io);
-+	requeued = dm_handle_requeue(io, first_stage);
-+	if (requeued && first_stage)
-+		return;
- 
- 	io_error = io->status;
- 	if (dm_io_flagged(io, DM_IO_ACCOUNTED))
-@@ -978,6 +1001,58 @@ static void dm_io_complete(struct dm_io *io)
- 	}
- }
- 
-+static void dm_wq_requeue_work(struct work_struct *work)
-+{
-+	struct mapped_device *md = container_of(work, struct mapped_device,
-+						requeue_work);
-+	unsigned long flags;
-+	struct dm_io *io;
-+
-+	/* reuse deferred lock to simplify dm_handle_requeue */
-+	spin_lock_irqsave(&md->deferred_lock, flags);
-+	io = md->requeue_list;
-+	md->requeue_list = NULL;
-+	spin_unlock_irqrestore(&md->deferred_lock, flags);
-+
-+	while (io) {
-+		struct dm_io *next = io->next;
-+
-+		dm_io_rewind(io, &md->queue->bio_split);
-+
-+		io->next = NULL;
-+		__dm_io_complete(io, false);
-+		io = next;
-+	}
-+}
-+
-+/*
-+ * Two staged requeue:
-+ *
-+ * 1) io->orig_bio points to the real original bio, and the part mapped to
-+ *    this io must be requeued, instead of other parts of the original bio.
-+ *
-+ * 2) io->orig_bio points to new cloned bio which matches the requeued dm_io.
-+ */
-+static void dm_io_complete(struct dm_io *io)
-+{
-+	bool first_requeue;
-+
-+	/*
-+	 * Only dm_io that has been split needs two stage requeue, otherwise
-+	 * we may run into long bio clone chain during suspend and OOM could
-+	 * be triggered.
-+	 *
-+	 * Also flush data dm_io won't be marked as DM_IO_WAS_SPLIT, so they
-+	 * also aren't handled via the first stage requeue.
-+	 */
-+	if (dm_io_flagged(io, DM_IO_WAS_SPLIT))
-+		first_requeue = true;
-+	else
-+		first_requeue = false;
-+
-+	__dm_io_complete(io, first_requeue);
-+}
-+
- /*
-  * Decrements the number of outstanding ios that a bio has been
-  * cloned into, completing the original io if necc.
-@@ -1256,6 +1331,7 @@ static size_t dm_dax_recovery_write(struct dax_device *dax_dev, pgoff_t pgoff,
- void dm_accept_partial_bio(struct bio *bio, unsigned n_sectors)
- {
- 	struct dm_target_io *tio = clone_to_tio(bio);
-+	struct dm_io *io = tio->io;
- 	unsigned bio_sectors = bio_sectors(bio);
- 
- 	BUG_ON(dm_tio_flagged(tio, DM_TIO_IS_DUPLICATE_BIO));
-@@ -1271,8 +1347,9 @@ void dm_accept_partial_bio(struct bio *bio, unsigned n_sectors)
- 	 * __split_and_process_bio() may have already saved mapped part
- 	 * for accounting but it is being reduced so update accordingly.
- 	 */
--	dm_io_set_flag(tio->io, DM_IO_WAS_SPLIT);
--	tio->io->sectors = n_sectors;
-+	dm_io_set_flag(io, DM_IO_WAS_SPLIT);
-+	io->sectors = n_sectors;
-+	io->sector_offset = bio_sectors(io->orig_bio);
- }
- EXPORT_SYMBOL_GPL(dm_accept_partial_bio);
- 
-@@ -1395,17 +1472,7 @@ static void setup_split_accounting(struct clone_info *ci, unsigned len)
- 		 */
- 		dm_io_set_flag(io, DM_IO_WAS_SPLIT);
- 		io->sectors = len;
--	}
--
--	if (static_branch_unlikely(&stats_enabled) &&
--	    unlikely(dm_stats_used(&io->md->stats))) {
--		/*
--		 * Save bi_sector in terms of its offset from end of
--		 * original bio, only needed for DM-stats' benefit.
--		 * - saved regardless of whether split needed so that
--		 *   dm_accept_partial_bio() doesn't need to.
--		 */
--		io->sector_offset = bio_end_sector(ci->bio) - ci->sector;
-+		io->sector_offset = bio_sectors(ci->bio);
- 	}
- }
- 
-@@ -1705,11 +1772,9 @@ static void dm_split_and_process_bio(struct mapped_device *md,
- 	 * Remainder must be passed to submit_bio_noacct() so it gets handled
- 	 * *after* bios already submitted have been completely processed.
- 	 */
--	WARN_ON_ONCE(!dm_io_flagged(io, DM_IO_WAS_SPLIT));
--	io->split_bio = bio_split(bio, io->sectors, GFP_NOIO,
--				  &md->queue->bio_split);
--	bio_chain(io->split_bio, bio);
--	trace_block_split(io->split_bio, bio->bi_iter.bi_sector);
-+	bio_trim(bio, io->sectors, ci.sector_count);
-+	trace_block_split(bio, bio->bi_iter.bi_sector);
-+	bio_inc_remaining(bio);
- 	submit_bio_noacct(bio);
- out:
- 	/*
-@@ -1985,9 +2050,11 @@ static struct mapped_device *alloc_dev(int minor)
- 
- 	init_waitqueue_head(&md->wait);
- 	INIT_WORK(&md->work, dm_wq_work);
-+	INIT_WORK(&md->requeue_work, dm_wq_requeue_work);
- 	init_waitqueue_head(&md->eventq);
- 	init_completion(&md->kobj_holder.completion);
- 
-+	md->requeue_list = NULL;
- 	md->swap_bios = get_swap_bios();
- 	sema_init(&md->swap_bios_semaphore, md->swap_bios);
- 	mutex_init(&md->swap_bios_lock);
--- 
-2.15.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+SGksIENocmlzdG9waAoK1NogMjAyMS8wOC8wNCAxNzo0MSwgQ2hyaXN0b3BoIEhlbGx3aWcg0LS1
+wDoKPiBkZXZpY2UgbWFwcGVyIGlzIGN1cnJlbnRseSB0aGUgb25seSBvdXRsaWVyIHRoYXQgdHJp
+ZXMgdG8gY2FsbAo+IHJlZ2lzdGVyX2Rpc2sgYWZ0ZXIgYWRkX2Rpc2ssIGxlYWRpbmcgdG8gZmFp
+cmx5IGluY29uc2lzdGVudCBzdGF0ZQo+IG9mIHRoZXNlIGJsb2NrIGxheWVyIGRhdGEgc3RydWN0
+dXJlcy4gIEluc3RlYWQgY2hhbmdlIGRldmljZS1tYXBwZXIKPiB0byBqdXN0IHJlZ2lzdGVyIHRo
+ZSBnZW5kaXNrIGxhdGVyIG5vdyB0aGF0IHRoZSBob2xkZXIgbWVjaGFuaXNtCj4gY2FuIGNvcGUg
+d2l0aCB0aGF0Lgo+IAo+IE5vdGUgdGhhdCB0aGlzIGludHJvZHVjZXMgYSB1c2VyIHZpc2libGUg
+Y2hhbmdlOiB0aGUgZG0ga29iamVjdCBpcwo+IG5vdyBvbmx5IHZpc2libGUgYWZ0ZXIgdGhlIGlu
+aXRpYWwgdGFibGUgaGFzIGJlZW4gbG9hZGVkLgo+IAo+IFNpZ25lZC1vZmYtYnk6IENocmlzdG9w
+aCBIZWxsd2lnIDxoY2hAbHN0LmRlPgo+IFJldmlld2VkLWJ5OiBNaWtlIFNuaXR6ZXIgPHNuaXR6
+ZXJAcmVkaGF0LmNvbT4KCldlIGZvdW5kIHRoYXQgdGhpcyBwYXRjaCBmaXggYSBudWxscHRyIGNy
+YXNoIGluIG91ciB0ZXN0OgpbICAgODguNzI3OTE4XSBCVUc6IGtlcm5lbCBOVUxMIHBvaW50ZXIg
+ZGVyZWZlcmVuY2UsIGFkZHJlc3M6IAowMDAwMDAwMDAwMDAwMWEwClsgICA4OC43MzA2OThdICNQ
+Rjogc3VwZXJ2aXNvciByZWFkIGFjY2VzcyBpbiBrZXJuZWwgbW9kZQpbICAgODguNzMxMzgxXSAj
+UEY6IGVycm9yX2NvZGUoMHgwMDAwKSAtIG5vdC1wcmVzZW50IHBhZ2UKWyAgIDg4LjczMjA4Nl0g
+UEdEIDAgUDREIDAKWyAgIDg4LjczMjQ0MV0gT29wczogMDAwMCBbIzFdIFBSRUVNUFQgU01QClsg
+ICA4OC43MzI5NjRdIENQVTogMSBQSUQ6IDEzMTcgQ29tbTogbW91bnQgTm90IHRhaW50ZWQgCjUu
+MTAuMC0xNjY5MS1nZjYwNzY0MzI4MjdkLWRpcnR5ICMxNjkKWyAgIDg4LjczNDA1NV0gSGFyZHdh
+cmUgbmFtZTogUUVNVSBTdGFuZGFyZCBQQyAoaTQ0MEZYICsgUElJWCwgMTk5NiksIApCSU9TID8t
+MjAxOTA3MjdfMDczODM2LTQKWyAgIDg4LjczNTgxOV0gUklQOiAwMDEwOl9fYmxrX21xX3NjaGVk
+X2Jpb19tZXJnZSsweDlkLzB4MWEwClsgICA4OC43MzY1NDRdIENvZGU6IDg3IDFlIDlkIDg5IGQw
+IDI1IDAwIDAwIDAwIDAxIDBmIDg1IGFkIDAwIDAwIDAwIDQ4IAo4MyAwNSAyNSBhMSAzNyAwYyAw
+MSAzClsgICA4OC43MzkwNDBdIFJTUDogMDAxODpmZmZmYzkwMDAwNDczYjUwIEVGTEFHUzogMDAw
+MTAyMDIKWyAgIDg4LjczOTc0NF0gUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogMDAwMDAwMDAw
+MDAwMDAwMCBSQ1g6IApmZmZmYzkwMDAwNDczYjk4ClsgICA4OC43NDA2OTddIFJEWDogMDAwMDAw
+MDAwMDAwMTAwMCBSU0k6IGZmZmY4ODgxMDgwYzc1MDAgUkRJOiAKZmZmZjg4ODEwM2E5Y2MxOApb
+ICAgODguNzQxNjU5XSBSQlA6IGZmZmY4ODgxM2JjODAwMDAgUjA4OiAwMDAwMDAwMDAwMDAwMDAx
+IFIwOTogCjAwMDAwMDAwMDAwMDAwMDAKWyAgIDg4Ljc0MjYxMV0gUjEwOiBmZmZmODg4MTA3MTBi
+ZTMwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IApmZmZmODg4MTAzYTljYzE4ClsgICA4OC43
+NDM1NTFdIFIxMzogZmZmZjg4ODEwODBjNzUwMCBSMTQ6IDAwMDAwMDAwMDAwMDAwMDEgUjE1OiAK
+MDAwMDAwMDAwMDAwMDAwMApbICAgODguNzQ0NTAxXSBGUzogIDAwMDA3ZjUxYmNkYmIwNDAoMDAw
+MCkgR1M6ZmZmZjg4ODEzYmM4MDAwMCgwMDAwKSAKa25sR1M6MDAwMDAwMDAwMDAwMDAwMApbICAg
+ODguNzQ1NTgxXSBDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUw
+MDMzClsgICA4OC43NDYzNDVdIENSMjogMDAwMDAwMDAwMDAwMDFhMCBDUjM6IDAwMDAwMDAxMGQ3
+MTUwMDAgQ1I0OiAKMDAwMDAwMDAwMDAwMDZlMApbICAgODguNzQ3Mjk4XSBEUjA6IDAwMDAwMDAw
+MDAwMDAwMDAgRFIxOiAwMDAwMDAwMDAwMDAwMDAwIERSMjogCjAwMDAwMDAwMDAwMDAwMDAKWyAg
+IDg4Ljc0ODI1M10gRFIzOiAwMDAwMDAwMDAwMDAwMDAwIERSNjogMDAwMDAwMDBmZmZlMGZmMCBE
+Ujc6IAowMDAwMDAwMDAwMDAwNDAwCgpbICAgODguNzQ5MjA0XSBDYWxsIFRyYWNlOgpbICAgODgu
+NzQ5NTQ5XSAgYmxrX21xX3N1Ym1pdF9iaW8rMHgxMTUvMHhkODAKWyAgIDg4Ljc1MDEyNF0gIHN1
+Ym1pdF9iaW9fbm9hY2N0KzB4NGZmLzB4NjEwClsgICA4OC43NTA2OTJdICBzdWJtaXRfYmlvKzB4
+YWEvMHgxYTAKWyAgIDg4Ljc1MTE0OV0gIHN1Ym1pdF9iaF93YmMrMHgxY2IvMHgyZjAKWyAgIDg4
+Ljc1MTY2Ml0gIHN1Ym1pdF9iaCsweDE3LzB4MjAKWyAgIDg4Ljc1MjEwMl0gIGV4dDRfcmVhZF9i
+aCsweDYzLzB4MTcwClsgICA4OC43NTI1ODhdICBleHQ0X3JlYWRfYmhfbG9jaysweDJjLzB4ZDAK
+WyAgIDg4Ljc1MzEyNV0gIF9fZXh0NF9zYl9icmVhZF9nZnAuaXNyYS4wKzB4YTAvMHhmMApbICAg
+ODguNzUzNzY2XSAgZXh0NF9maWxsX3N1cGVyKzB4MjFmLzB4NTYxMApbICAgODguNzU0MzE3XSAg
+PyBwb2ludGVyKzB4MzFiLzB4NWEwClsgICA4OC43NTQ3OTZdICA/IHZzbnByaW50ZisweDEzMS8w
+eDdkMApbICAgODguNzU1MzA0XSAgbW91bnRfYmRldisweDIzMy8weDI4MApbICAgODguNzU1Nzkx
+XSAgPyBleHQ0X2NhbGN1bGF0ZV9vdmVyaGVhZCsweDY2MC8weDY2MApbICAgODguNzU2NDYxXSAg
+ZXh0NF9tb3VudCsweDE5LzB4MzAKWyAgIDg4Ljc1NjkyNl0gIGxlZ2FjeV9nZXRfdHJlZSsweDM1
+LzB4OTAKWyAgIDg4Ljc1NzQ1MF0gIHZmc19nZXRfdHJlZSsweDI5LzB4MTAwClsgICA4OC43NTc5
+NTVdICA/IGNhcGFibGUrMHgxZC8weDMwClsgICA4OC43NTg0MDZdICBwYXRoX21vdW50KzB4OGE3
+LzB4MTE1MApbICAgODguNzU4OTE4XSAgZG9fbW91bnQrMHg4ZC8weGMwClsgICA4OC43NTkzNjBd
+ICBfX3NlX3N5c19tb3VudCsweDE0YS8weDIyMApbICAgODguNzU5OTA2XSAgX194NjRfc3lzX21v
+dW50KzB4MjkvMHg0MApbICAgODguNzYwNDMxXSAgZG9fc3lzY2FsbF82NCsweDQ1LzB4NzAKWyAg
+IDg4Ljc2MDkzMV0gIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDQ0LzB4YTkKWyAg
+IDg4Ljc2MTYzNF0gUklQOiAwMDMzOjB4N2Y1MWJiZTE2MjNhClsgICA4OC43NjIxMzVdIENvZGU6
+IDQ4IDhiIDBkIDUxIGRjIDJiIDAwIGY3IGQ4IDY0IDg5IDAxIDQ4IDgzIGM4IGZmIGMzIAo2NiAy
+ZSAwZiAxZiA4NCAwMCAwMCA4ClsgICA4OC43NjQ2NTddIFJTUDogMDAyYjowMDAwN2ZmZjE3M2Fl
+ODk4IEVGTEFHUzogMDAwMDAyNDYgT1JJR19SQVg6IAowMDAwMDAwMDAwMDAwMGE1ClsgICA4OC43
+NjU3MDBdIFJBWDogZmZmZmZmZmZmZmZmZmZkYSBSQlg6IDAwMDA1NjE2OWExMjAwMzAgUkNYOiAK
+MDAwMDdmNTFiYmUxNjIzYQpbICAgODguNzY2Njc1XSBSRFg6IDAwMDA1NjE2OWExMjAyMTAgUlNJ
+OiAwMDAwNTYxNjlhMTIwMjUwIFJESTogCjAwMDA1NjE2OWExMjAyMzAKWyAgIDg4Ljc2NzY0Ml0g
+UkJQOiAwMDAwMDAwMDAwMDAwMDAwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6IAowMDAwN2Zm
+ZjE3M2FkNzk4ClsgICA4OC43Njg2MTldIFIxMDogMDAwMDAwMDBjMGVkMDAwMCBSMTE6IDAwMDAw
+MDAwMDAwMDAyNDYgUjEyOiAKMDAwMDU2MTY5YTEyMDIzMApbICAgODguNzY5NjA1XSBSMTM6IDAw
+MDA1NjE2OWExMjAyMTAgUjE0OiAwMDAwMDAwMDAwMDAwMDAwIFIxNTogCjAwMDA3ZjUxYmNiYWMx
+ODQKWyAgIDg4Ljc3MDYxMV0gTW9kdWxlcyBsaW5rZWQgaW46IGRtX3NlcnZpY2VfdGltZSBkbV9t
+dWx0aXBhdGgKWyAgIDg4Ljc3MTM4OF0gQ1IyOiAwMDAwMDAwMDAwMDAwMWEwClsgICA4OC43NzYz
+MjNdIC0tLVsgZW5kIHRyYWNlIGFjNWQ4NmUwOWZkYzdjOTggXS0tLQpbICAgODguNzc3MDA5XSBS
+SVA6IDAwMTA6X19ibGtfbXFfc2NoZWRfYmlvX21lcmdlKzB4OWQvMHgxYTAKWyAgIDg4Ljc3ODAz
+OF0gQ29kZTogODcgMWUgOWQgODkgZDAgMjUgMDAgMDAgMDAgMDEgMGYgODUgYWQgMDAgMDAgMDAg
+NDggCjgzIDA1IDI1IGExIDM3IDBjIDAxIDMKWyAgIDg4Ljc4MDcwOF0gUlNQOiAwMDE4OmZmZmZj
+OTAwMDA0NzNiNTAgRUZMQUdTOiAwMDAxMDIwMgpbICAgODguNzgxNDQzXSBSQVg6IDAwMDAwMDAw
+MDAwMDAwMDAgUkJYOiAwMDAwMDAwMDAwMDAwMDAwIFJDWDogCmZmZmZjOTAwMDA0NzNiOTgKWyAg
+IDg4Ljc4MjY5Ml0gUkRYOiAwMDAwMDAwMDAwMDAxMDAwIFJTSTogZmZmZjg4ODEwODBjNzUwMCBS
+REk6IApmZmZmODg4MTAzYTljYzE4ClsgICA4OC43ODM4MzldIFJCUDogZmZmZjg4ODEzYmM4MDAw
+MCBSMDg6IDAwMDAwMDAwMDAwMDAwMDEgUjA5OiAKMDAwMDAwMDAwMDAwMDAwMApbICAgODguNzg0
+OTQyXSBSMTA6IGZmZmY4ODgxMDcxMGJlMzAgUjExOiAwMDAwMDAwMDAwMDAwMDAwIFIxMjogCmZm
+ZmY4ODgxMDNhOWNjMTgKWyAgIDg4Ljc4NjA1MV0gUjEzOiBmZmZmODg4MTA4MGM3NTAwIFIxNDog
+MDAwMDAwMDAwMDAwMDAwMSBSMTU6IAowMDAwMDAwMDAwMDAwMDAwClsgICA4OC43ODcxNDJdIEZT
+OiAgMDAwMDdmNTFiY2RiYjA0MCgwMDAwKSBHUzpmZmZmODg4MTNiYzgwMDAwKDAwMDApIAprbmxH
+UzowMDAwMDAwMDAwMDAwMDAwClsgICA4OC43ODgzOTldIENTOiAgMDAxMCBEUzogMDAwMCBFUzog
+MDAwMCBDUjA6IDAwMDAwMDAwODAwNTAwMzMKWyAgIDg4Ljc4OTQ0NF0gQ1IyOiAwMDAwN2YxMGU5
+N2E1MDAwIENSMzogMDAwMDAwMDEwZDcxNTAwMCBDUjQ6IAowMDAwMDAwMDAwMDAwNmUwClsgICA4
+OC43OTA1ODZdIERSMDogMDAwMDAwMDAwMDAwMDAwMCBEUjE6IDAwMDAwMDAwMDAwMDAwMDAgRFIy
+OiAKMDAwMDAwMDAwMDAwMDAwMApbICAgODguNzkxNjg2XSBEUjM6IDAwMDAwMDAwMDAwMDAwMDAg
+RFI2OiAwMDAwMDAwMGZmZmUwZmYwIERSNzogCjAwMDAwMDAwMDAwMDA0MDAKWyAgIDg4Ljc5Mjc3
+M10gS2VybmVsIHBhbmljIC0gbm90IHN5bmNpbmc6IEZhdGFsIGV4Y2VwdGlvbgpbICAgODguNzkz
+NTczXSBLZXJuZWwgT2Zmc2V0OiBkaXNhYmxlZApbICAgODguNzk0MDUyXSAtLS1bIGVuZCBLZXJu
+ZWwgcGFuaWMgLSBub3Qgc3luY2luZzogRmF0YWwgZXhjZXB0aW9uIF0tLS0KCnJvb3QgY2F1c2U6
+CnQxIGRtLW1wYXRoICAgICAgIHQyIG1vdW50CgphbGxvY19kZXYKICBtZC0+cXVldWUgPSBibGtf
+YWxsb2NfcXVldWUKICBhZGRfZGlza19ub19xdWV1ZV9yZWcKCmRtX3NldHVwX21kX3F1ZXVlCiAg
+Y2FzZSBETV9UWVBFX1JFUVVFU1RfQkFTRUQgLT4gbXVsdGlwYXRoCiAgIG1kLT5kaXNrLT5mb3Bz
+ID0gJmRtX3JxX2Jsa19kb3BzOwogICAgICAgICAgICAgICAgICAgICAgICAgZXh0NF9maWxsX3N1
+cGVyCiAgICAgICAgICAgICAgICAgICAgICAgICCprl9fZXh0NF9zYl9icmVhZF9nZnAKICAgICAg
+ICAgICAgICAgICAgICAgICAgIKmuIGV4dDRfcmVhZF9iaAogICAgICAgICAgICAgICAgICAgICAg
+ICAgqa4gIHN1Ym1pdF9iaW8gLT4gcXVldWUgaXMgbm90IGluaXRpYWxpemVkIHlldAogICAgICAg
+ICAgICAgICAgICAgICAgICAgqa4gICBfX2Jsa19tcV9zY2hlZF9iaW9fbWVyZ2UKICAgICAgICAg
+ICAgICAgICAgICAgICAgIKmuICAgIGN0eCA9IGJsa19tcV9nZXRfY3R4KHEpOyAtPiBjdHggaXMg
+TlVMTAogICBkbV9tcV9pbml0X3JlcXVlc3RfcXVldWUKCkRvIHlvdSB0aGluayBpdCdzIG9rIHRv
+IGJhY2twb3J0IHRoaXMgcGF0Y2goYW5kIGFsbCByZWFsdGVkIHBhdGNoZXMpIHRvCmx0cywgb3Ig
+aXQncyBiZXR0ZXIgdG8gZml4IHRoYXQgYmlvIGNhbiBiZSBzdWJtaXR0ZWQgd2l0aCBxdWV1ZQp1
+bmluaXRpYWxpemVkIGZyb20gYmxvY2sgbGF5ZXI/CgpUaGFua3MsCkt1YWkKPiAtLS0KPiAgIGRy
+aXZlcnMvbWQvZG0tcnEuYyB8ICAxIC0KPiAgIGRyaXZlcnMvbWQvZG0uYyAgICB8IDIzICsrKysr
+KysrKysrLS0tLS0tLS0tLS0tCj4gICAyIGZpbGVzIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyks
+IDEzIGRlbGV0aW9ucygtKQo+IAo+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXJxLmMgYi9k
+cml2ZXJzL21kL2RtLXJxLmMKPiBpbmRleCAwZGJkNDhjYmRmZjkuLjViOTVlZWE1MTdkMSAxMDA2
+NDQKPiAtLS0gYS9kcml2ZXJzL21kL2RtLXJxLmMKPiArKysgYi9kcml2ZXJzL21kL2RtLXJxLmMK
+PiBAQCAtNTU5LDcgKzU1OSw2IEBAIGludCBkbV9tcV9pbml0X3JlcXVlc3RfcXVldWUoc3RydWN0
+IG1hcHBlZF9kZXZpY2UgKm1kLCBzdHJ1Y3QgZG1fdGFibGUgKnQpCj4gICAJZXJyID0gYmxrX21x
+X2luaXRfYWxsb2NhdGVkX3F1ZXVlKG1kLT50YWdfc2V0LCBtZC0+cXVldWUpOwo+ICAgCWlmIChl
+cnIpCj4gICAJCWdvdG8gb3V0X3RhZ19zZXQ7Cj4gLQllbGV2YXRvcl9pbml0X21xKG1kLT5xdWV1
+ZSk7Cj4gICAJcmV0dXJuIDA7Cj4gICAKPiAgIG91dF90YWdfc2V0Ogo+IGRpZmYgLS1naXQgYS9k
+cml2ZXJzL21kL2RtLmMgYi9kcml2ZXJzL21kL2RtLmMKPiBpbmRleCBmMDAzYmQ1YjkzY2UuLjc5
+ODFiNzI4NzYyOCAxMDA2NDQKPiAtLS0gYS9kcml2ZXJzL21kL2RtLmMKPiArKysgYi9kcml2ZXJz
+L21kL2RtLmMKPiBAQCAtMTY5Myw3ICsxNjkzLDEwIEBAIHN0YXRpYyB2b2lkIGNsZWFudXBfbWFw
+cGVkX2RldmljZShzdHJ1Y3QgbWFwcGVkX2RldmljZSAqbWQpCj4gICAJCXNwaW5fbG9jaygmX21p
+bm9yX2xvY2spOwo+ICAgCQltZC0+ZGlzay0+cHJpdmF0ZV9kYXRhID0gTlVMTDsKPiAgIAkJc3Bp
+bl91bmxvY2soJl9taW5vcl9sb2NrKTsKPiAtCQlkZWxfZ2VuZGlzayhtZC0+ZGlzayk7Cj4gKwkJ
+aWYgKGRtX2dldF9tZF90eXBlKG1kKSAhPSBETV9UWVBFX05PTkUpIHsKPiArCQkJZG1fc3lzZnNf
+ZXhpdChtZCk7Cj4gKwkJCWRlbF9nZW5kaXNrKG1kLT5kaXNrKTsKPiArCQl9Cj4gICAJCWRtX3F1
+ZXVlX2Rlc3Ryb3lfa2V5c2xvdF9tYW5hZ2VyKG1kLT5xdWV1ZSk7Cj4gICAJCWJsa19jbGVhbnVw
+X2Rpc2sobWQtPmRpc2spOwo+ICAgCX0KPiBAQCAtMTc4OCw3ICsxNzkxLDYgQEAgc3RhdGljIHN0
+cnVjdCBtYXBwZWRfZGV2aWNlICphbGxvY19kZXYoaW50IG1pbm9yKQo+ICAgCQkJZ290byBiYWQ7
+Cj4gICAJfQo+ICAgCj4gLQlhZGRfZGlza19ub19xdWV1ZV9yZWcobWQtPmRpc2spOwo+ICAgCWZv
+cm1hdF9kZXZfdChtZC0+bmFtZSwgTUtERVYoX21ham9yLCBtaW5vcikpOwo+ICAgCj4gICAJbWQt
+PndxID0gYWxsb2Nfd29ya3F1ZXVlKCJrZG1mbHVzaCIsIFdRX01FTV9SRUNMQUlNLCAwKTsKPiBA
+QCAtMTk4OSwxOSArMTk5MSwxMiBAQCBzdGF0aWMgc3RydWN0IGRtX3RhYmxlICpfX3VuYmluZChz
+dHJ1Y3QgbWFwcGVkX2RldmljZSAqbWQpCj4gICAgKi8KPiAgIGludCBkbV9jcmVhdGUoaW50IG1p
+bm9yLCBzdHJ1Y3QgbWFwcGVkX2RldmljZSAqKnJlc3VsdCkKPiAgIHsKPiAtCWludCByOwo+ICAg
+CXN0cnVjdCBtYXBwZWRfZGV2aWNlICptZDsKPiAgIAo+ICAgCW1kID0gYWxsb2NfZGV2KG1pbm9y
+KTsKPiAgIAlpZiAoIW1kKQo+ICAgCQlyZXR1cm4gLUVOWElPOwo+ICAgCj4gLQlyID0gZG1fc3lz
+ZnNfaW5pdChtZCk7Cj4gLQlpZiAocikgewo+IC0JCWZyZWVfZGV2KG1kKTsKPiAtCQlyZXR1cm4g
+cjsKPiAtCX0KPiAtCj4gICAJKnJlc3VsdCA9IG1kOwo+ICAgCXJldHVybiAwOwo+ICAgfQo+IEBA
+IC0yMDgxLDEwICsyMDc2LDE1IEBAIGludCBkbV9zZXR1cF9tZF9xdWV1ZShzdHJ1Y3QgbWFwcGVk
+X2RldmljZSAqbWQsIHN0cnVjdCBkbV90YWJsZSAqdCkKPiAgIAlyID0gZG1fdGFibGVfc2V0X3Jl
+c3RyaWN0aW9ucyh0LCBtZC0+cXVldWUsICZsaW1pdHMpOwo+ICAgCWlmIChyKQo+ICAgCQlyZXR1
+cm4gcjsKPiAtCW1kLT50eXBlID0gdHlwZTsKPiAgIAo+IC0JYmxrX3JlZ2lzdGVyX3F1ZXVlKG1k
+LT5kaXNrKTsKPiArCWFkZF9kaXNrKG1kLT5kaXNrKTsKPiAgIAo+ICsJciA9IGRtX3N5c2ZzX2lu
+aXQobWQpOwo+ICsJaWYgKHIpIHsKPiArCQlkZWxfZ2VuZGlzayhtZC0+ZGlzayk7Cj4gKwkJcmV0
+dXJuIHI7Cj4gKwl9Cj4gKwltZC0+dHlwZSA9IHR5cGU7Cj4gICAJcmV0dXJuIDA7Cj4gICB9Cj4g
+ICAKPiBAQCAtMjE5MCw3ICsyMTkwLDYgQEAgc3RhdGljIHZvaWQgX19kbV9kZXN0cm95KHN0cnVj
+dCBtYXBwZWRfZGV2aWNlICptZCwgYm9vbCB3YWl0KQo+ICAgCQlETVdBUk4oIiVzOiBGb3JjaWJs
+eSByZW1vdmluZyBtYXBwZWRfZGV2aWNlIHN0aWxsIGluIHVzZSEgKCVkIHVzZXJzKSIsCj4gICAJ
+CSAgICAgICBkbV9kZXZpY2VfbmFtZShtZCksIGF0b21pY19yZWFkKCZtZC0+aG9sZGVycykpOwo+
+ICAgCj4gLQlkbV9zeXNmc19leGl0KG1kKTsKPiAgIAlkbV90YWJsZV9kZXN0cm95KF9fdW5iaW5k
+KG1kKSk7Cj4gICAJZnJlZV9kZXYobWQpOwo+ICAgfQo+IAoKLS0KZG0tZGV2ZWwgbWFpbGluZyBs
+aXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1h
+bi9saXN0aW5mby9kbS1kZXZlbAo=
 
