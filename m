@@ -1,99 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3538A5759F4
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Jul 2022 05:24:49 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADA1D575C4B
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Jul 2022 09:27:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657855488;
+	s=mimecast20190719; t=1657870053;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qHztTOwXPjy6PP5ABs8ATkG/Thtc9ME70y7W2x4LJWA=;
-	b=fXnunMozF5Zb6iCQtJBSI0cimX3VVdujEW1AmUj3LsJ+J7sXswCoOmGu6CbeY7/ICOitOm
-	9z6pegYj/RVFc2PGNubpRPLv5jQEVqFszcwicV+YC6dZmgb7XdNS8CSF/NFM65ROJX+fuS
-	nbxYqF1MlEpRiUdaZ+puli4BcjXXKOQ=
+	bh=DlYfUoggUOIHCc/khnNUfPqbDwuuTsRqvwPMjYUxuPc=;
+	b=cJtvfwPhDn4IRe5eICh/r1qcK8pq82L+DQb5gvigw74J51bN8fQKgi1LftsL0EYDLv1dYw
+	iXTNPakUeU0w43UGV6OSWSwnfJWaYQwJhtX5IAx8zGHkpzrXSDqFGv7zf/XGZGApaOZiRa
+	QELCHTBw3ofG0WXIoM8cSo11yFY3qKs=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-380-I-323OJKNzqRdRaHg99gvw-1; Thu, 14 Jul 2022 23:24:40 -0400
-X-MC-Unique: I-323OJKNzqRdRaHg99gvw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-169-bMtT4s-0Oduw6OOA_PzpQg-1; Fri, 15 Jul 2022 03:27:29 -0400
+X-MC-Unique: bMtT4s-0Oduw6OOA_PzpQg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 965AD185A7B2;
-	Fri, 15 Jul 2022 03:24:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 19060801755;
+	Fri, 15 Jul 2022 07:27:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5CEBB140EBE3;
-	Fri, 15 Jul 2022 03:24:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3699D2166B26;
+	Fri, 15 Jul 2022 07:27:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CB46619451F0;
-	Fri, 15 Jul 2022 03:24:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1A66F19451F1;
+	Fri, 15 Jul 2022 07:27:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 61CAF194706D
- for <dm-devel@listman.corp.redhat.com>; Fri, 15 Jul 2022 03:24:31 +0000 (UTC)
+ ESMTP id 6EB9B19466DF
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Jul 2022 07:27:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 53BA7492C3B; Fri, 15 Jul 2022 03:24:31 +0000 (UTC)
+ id 4DD2A18EB5; Fri, 15 Jul 2022 07:27:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FC4A492CA2
- for <dm-devel@redhat.com>; Fri, 15 Jul 2022 03:24:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4A21818EAA
+ for <dm-devel@redhat.com>; Fri, 15 Jul 2022 07:27:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35B21101A54E
- for <dm-devel@redhat.com>; Fri, 15 Jul 2022 03:24:31 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-388-mgT_iKJ0PPu-HQNMCOIBNA-1; Thu, 14 Jul 2022 23:24:22 -0400
-X-MC-Unique: mgT_iKJ0PPu-HQNMCOIBNA-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4LkcBY1ZJpzKHZn;
- Fri, 15 Jul 2022 11:23:17 +0800 (CST)
-Received: from [10.174.176.73] (unknown [10.174.176.73])
- by APP3 (Coremail) with SMTP id _Ch0CgCnCWng3dBiDTIaAw--.57220S3;
- Fri, 15 Jul 2022 11:24:18 +0800 (CST)
-From: Yu Kuai <yukuai1@huaweicloud.com>
-To: Yu Kuai <yukuai1@huaweicloud.com>, Christoph Hellwig <hch@lst.de>
-References: <20210804094147.459763-1-hch@lst.de>
- <20210804094147.459763-8-hch@lst.de>
- <ad2c7878-dabb-cb41-1bba-60ef48fa1a9f@huaweicloud.com>
- <20220707052425.GA13016@lst.de>
- <fd5c2e0a-5f68-9f1f-dfc2-49a2cd51de0b@huaweicloud.com>
-Message-ID: <6ff5c130-b5b1-b611-bb99-6a2275404fcd@huaweicloud.com>
-Date: Fri, 15 Jul 2022 11:24:16 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2EA1F29AA2EF
+ for <dm-devel@redhat.com>; Fri, 15 Jul 2022 07:27:23 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-170-cRVOFS2oOLuN1WaAy31UkA-1; Fri, 15 Jul 2022 03:27:13 -0400
+X-MC-Unique: cRVOFS2oOLuN1WaAy31UkA-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id C8BDF1FBB6;
+ Fri, 15 Jul 2022 07:27:05 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 7618C13754;
+ Fri, 15 Jul 2022 07:27:05 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4EMjG8kW0WLRCgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Fri, 15 Jul 2022 07:27:05 +0000
+Message-ID: <6acc06c9ea278af92003d7c8695f8770e2c8acef.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Xose Vazquez Perez <xose.vazquez@gmail.com>
+In-Reply-To: <20220709230709.35516-1-xose.vazquez@gmail.com>
+References: <20220709230709.35516-1-xose.vazquez@gmail.com>
+Date: Tue, 12 Jul 2022 21:24:12 +0200
 MIME-Version: 1.0
-In-Reply-To: <fd5c2e0a-5f68-9f1f-dfc2-49a2cd51de0b@huaweicloud.com>
-X-CM-TRANSID: _Ch0CgCnCWng3dBiDTIaAw--.57220S3
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw18tFW3Gry3Xw4kAFW8WFg_yoW8Jw48pF
- WfuFsYkrsrXFsrW392y3yjg3sY9w43Ka1rGryrGryIqryDWrZay3y2yFnFvFy3Arn7WrZI
- qFWjq345Za1vyaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWUuVWrJwAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7I2V7IY0VAS07AlzVAY
- IcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
- v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkG
- c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
- 0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E3s1lIxAIcVC2z280aVAFwI0_Jr0_
- Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIYCTnIWIevJa73UjIFyTuYvjfUoOJ5UU
- UUU
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+User-Agent: Evolution 3.44.2
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,8 +87,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
-Subject: Re: [dm-devel] [PATCH 7/8] dm: delay registering the gendisk
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH 0/2] update hwtable
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,42 +100,46 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Mike Snitzer <snitzer@redhat.com>
+Cc: Zou Ming <zouming.zouming@huawei.com>, chengjike.cheng@huawei.com,
+ DM-DEVEL ML <dm-devel@redhat.com>, sunao.sun@huawei.com,
+ Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Zhouweigang <zhouweigang09@huawei.com>, jiangtao62@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-SGksIENocmlzdG9waCEKCuWcqCAyMDIyLzA3LzA3IDE1OjIwLCBZdSBLdWFpIOWGmemBkzoKPiDl
-nKggMjAyMi8wNy8wNyAxMzoyNCwgQ2hyaXN0b3BoIEhlbGx3aWcg5YaZ6YGTOgo+PiBPbiBUaHUs
-IEp1bCAwNywgMjAyMiBhdCAxMToyOToyNkFNICswODAwLCBZdSBLdWFpIHdyb3RlOgo+Pj4gV2Ug
-Zm91bmQgdGhhdCB0aGlzIHBhdGNoIGZpeCBhIG51bGxwdHIgY3Jhc2ggaW4gb3VyIHRlc3Q6Cj4+
-Cj4+PiBEbyB5b3UgdGhpbmsgaXQncyBvayB0byBiYWNrcG9ydCB0aGlzIHBhdGNoKGFuZCBhbGwg
-cmVhbHRlZCBwYXRjaGVzKSB0bwo+Pj4gbHRzLCBvciBpdCdzIGJldHRlciB0byBmaXggdGhhdCBi
-aW8gY2FuIGJlIHN1Ym1pdHRlZCB3aXRoIHF1ZXVlCj4+PiB1bmluaXRpYWxpemVkIGZyb20gYmxv
-Y2sgbGF5ZXI/Cj4+Cj4+IEdpdmVuIGhvdyBsb25nIGFnbyB0aGlzIHdhcyBJIGRvIG5vdCByZW1l
-bWJlciBvZmZoYW5kIGhvdyBtdWNoIHByZXAKPj4gd29yayB0aGlzIHdvdWxkIHJlcXVpcmUuwqAg
-VGhlIHBhdGNoIGl0c2VsZiBpcyBvZiBjb3Vyc2UgdGlueSBhbmQKPj4gYmFja3BvcnRhYmxlLCBi
-dXQgc29tZW9uZSB3aWxsIG5lZWQgdG8gZG8gdGhlIHdvcmsgYW5kIGZpZ3VyZSBvdXQgaG93Cj4+
-IG11Y2ggZWxzZSB3b3VsZCBoYXZlIHRvIGJlIGJhY2twb3J0ZWQuCj4gCj4gT2ssIEknbGwgdHJ5
-IHRvIGZpZ3VyZSBvdXQgdGhhdCwgYW5kIGJhY2twb3J0IHRoZW0uKEF0IGxlYXN0IHRvIDUuMTAu
-eSkKCldoaWxlIHJldmlld2luZyB0aGUgY29kZSwgSSBkaWRuJ3QgZm91bmQgYW55IHByb3RlY3Rp
-b24gdGhhdApiZF9saW5rX2Rpc2tfaG9sZGVyKCkgd29uJ3QgY29uY3VycmVudCB3aXRoCmJkX3Jl
-Z2lzdGVyX3BlbmRpbmdfaG9sZGVycygpLiBJZiB0aGV5IGRvIGNhbiBjb25jdXJyZW50LApmb2xs
-b3dpbmcgc2NlbmFyaW8gaXMgcHJvYmxlbWF0aWM6Cgp0MQkJCQl0MgpkZXZpY2VfYWRkX2Rpc2sK
-ICBkaXNrLT5zbGF2ZV9kaXIgPSBrb2JqZWN0X2NyZWF0ZV9hbmRfYWRkCgkJCQliZF9saW5rX2Rp
-c2tfaG9sZGVyCgkJCQkgX19saW5rX2Rpc2tfaG9sZGVyCgkJCQkgbGlzdF9hZGQKICBiZF9yZWdp
-c3Rlcl9wZW5kaW5nX2hvbGRlcnMKICAgbGlzdF9mb3JfZWFjaF9lbnRyeQogICAgX19saW5rX2Rp
-c2tfaG9sZGVyIC0+IC1FRVhJU1QKCkluIHRoaXMgY2FzZSwgSSB0aGluayBtYXliZSBpZ25vcmUg
-Jy1FRVhJU1QnIGlzIGZpbmUuCgpJJ20gbm90IGZhbWlsaWFyIHdpdGggZG0sIGFuZCBJJ20gbm90
-IHN1cmUgaWYgSSBtaXNzZWQgc29tZXRoaW5nLApwbGVhc2Uga2luZGx5IGNvcnJlY3QgbWUgaWYg
-SSdtIHdyb25nLgoKVGhhbmtzLApLdWFpCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2
-ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZv
-L2RtLWRldmVsCg==
+On Sun, 2022-07-10 at 01:07 +0200, Xose Vazquez Perez wrote:
+> Xose Vazquez Perez (2):
+> =A0 multipath-tools: update Huawei OceanStor NVMe vendor id
+> =A0 multipath-tools: update "Generic NVMe" vendor regex in hwtable
+>=20
+> =A0libmultipath/hwtable.c | 4 ++--
+> =A01 file changed, 2 insertions(+), 2 deletions(-)
+
+For the set:
+Reviewed-by: Martin Wilck <mwilck@suse.com>
+
+
+>=20
+> Cc: <chengjike.cheng@huawei.com>
+> Cc: <sunao.sun@huawei.com>
+> Cc: <jiangtao62@huawei.com>
+> Cc: Zhouweigang (Jack) <zhouweigang09@huawei.com>
+> Cc: Zou Ming <zouming.zouming@huawei.com>
+> Cc: Martin Wilck <mwilck@suse.com>
+> Cc: Benjamin Marzinski <bmarzins@redhat.com>
+> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
+> Cc: DM-DEVEL ML <dm-devel@redhat.com>
+> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
