@@ -2,84 +2,97 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E830E57688E
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Jul 2022 22:53:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 122565768A9
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Jul 2022 23:09:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1657918388;
+	s=mimecast20190719; t=1657919356;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pCP+p2wvOJbNtpaYcwT2NkvH5dq0D4Ykz6E1j5fP0X8=;
-	b=i2ZZJrjoNoaIgynzAGNec2uz+Yt7PfYjKg5XmY0oUL+o19+TPfLQkr5XfhSzcEWM015xn9
-	CZxxammvr+tSckbWUrelY0nofONAt5xiyB865InIRCORmGbL0WOSIQ003g2K5KDXYBGe6r
-	D8d62v27vK1MC3YWkCRaC9wmGaRrTlc=
+	bh=wXNCpsDLh5WwaNbQ8ilkAeNlGcOhTwl7Pd3CpJltn3c=;
+	b=UtpvvWdSA3X4s0GCuwHigeSPKg7MFECt2V/4fcIFM/dlivxCs80MA2Gga4le+9kOPKX0Ql
+	8+kkNXv5tkt4kfFmgAjZflKrfhpo2J2OMdmZp+tmXuQzIVD8n9IVoCb6aRY1/6bma05Rcq
+	A6bSxBg85zHkCsAk0pDk1lAtL0jukeY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-587-bADJZ0eoOWi04U7BumstHQ-1; Fri, 15 Jul 2022 16:53:02 -0400
-X-MC-Unique: bADJZ0eoOWi04U7BumstHQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-537-sMc3RNwjNBqLp7Nh_RyzDQ-1; Fri, 15 Jul 2022 17:09:14 -0400
+X-MC-Unique: sMc3RNwjNBqLp7Nh_RyzDQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E78A88039B0;
-	Fri, 15 Jul 2022 20:52:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A7C98032F6;
+	Fri, 15 Jul 2022 21:09:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CE47D1121314;
-	Fri, 15 Jul 2022 20:52:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CF287492C3B;
+	Fri, 15 Jul 2022 21:09:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 49E9019466DF;
-	Fri, 15 Jul 2022 20:52:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 502B81947076;
+	Fri, 15 Jul 2022 21:09:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AB3BE19466DF
- for <dm-devel@listman.corp.redhat.com>; Fri, 15 Jul 2022 20:52:56 +0000 (UTC)
+ ESMTP id 9D1EF19466DF
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Jul 2022 21:09:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 811ED2026D07; Fri, 15 Jul 2022 20:52:56 +0000 (UTC)
+ id 7717E2026D07; Fri, 15 Jul 2022 21:09:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CEDD2026D64
- for <dm-devel@redhat.com>; Fri, 15 Jul 2022 20:52:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 72E552026D64
+ for <dm-devel@redhat.com>; Fri, 15 Jul 2022 21:09:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63FDB1C05155
- for <dm-devel@redhat.com>; Fri, 15 Jul 2022 20:52:56 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-217-GvhOnBv_POydLZ__xcZpLA-1; Fri, 15 Jul 2022 16:52:52 -0400
-X-MC-Unique: GvhOnBv_POydLZ__xcZpLA-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 6325D33FA5;
- Fri, 15 Jul 2022 20:52:51 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 2C60013754;
- Fri, 15 Jul 2022 20:52:51 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kgk7CaPT0WJqRgAAMHmgww
- (envelope-from <mwilck@suse.com>); Fri, 15 Jul 2022 20:52:51 +0000
-Message-ID: <ad1b9ba0304eaa4affac77daf3627eecaa99b3ed.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Xose Vazquez Perez <xose.vazquez@gmail.com>
-Date: Fri, 15 Jul 2022 22:52:50 +0200
-In-Reply-To: <20220714211431.123911-1-xose.vazquez@gmail.com>
-References: <20220714211431.123911-1-xose.vazquez@gmail.com>
-User-Agent: Evolution 3.44.2
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57D2E101A54E
+ for <dm-devel@redhat.com>; Fri, 15 Jul 2022 21:09:05 +0000 (UTC)
+Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
+ [209.85.221.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-556-03YRNApPO5uEJH_9nTv61w-1; Fri, 15 Jul 2022 17:09:02 -0400
+X-MC-Unique: 03YRNApPO5uEJH_9nTv61w-1
+Received: by mail-wr1-f45.google.com with SMTP id f2so8333061wrr.6;
+ Fri, 15 Jul 2022 14:09:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=WRKY8N/4KSEkSZsSRYgIRwoH9ieLQeFZjq3NOIAkwXw=;
+ b=HrHDxvvGQ15lP/QOgsohXbUnhh7Jy5pn7gMfjTC4cWdQ5US/kmqy6F2Wf2pThm/YAy
+ LR1LIXGTNLJ56kxZopSmeXFPitl5LnKdfeNkqKzl7d4Xe5z11eMPHNvquGDnZTOYOj28
+ IkKC+SQtKIz4kThULspGOuL+hwy1a7BayqGim/fSkPHp4ZEoOuEQnfe49AjPlz7aiono
+ h6Tn4LtjSbh5cEN7i8M9cfb1WohPXU35xzVooE3KwUTGpU2Ff8mRk6N/r/uVKF9wUIJv
+ 7M8S/ClQ9ajyZ/v89rzFv3hLdtiPUSOLKun01EYPEXxcF2dIRtvz/Qwizeg6re1SfGaa
+ 8xoA==
+X-Gm-Message-State: AJIora87Ge1X/rOsszU3OlSghvnKuOgKcb0z6DN1RY/CFT+jWy83UOhm
+ QFE26jE2A40Mg7iOAhBU79oR/bOZjkk3
+X-Google-Smtp-Source: AGRyM1uBAV4dQXMCv8SSGV/Flrt0oW23Dp0+AR/lDNMf6s9AiUTb/9/gFvvKeBfNPTdP4f4d0OhiPQ==
+X-Received: by 2002:a5d:5985:0:b0:21d:b6aa:23f5 with SMTP id
+ n5-20020a5d5985000000b0021db6aa23f5mr14431070wri.18.1657919341377; 
+ Fri, 15 Jul 2022 14:09:01 -0700 (PDT)
+Received: from localhost (127.red-81-44-149.dynamicip.rima-tde.net.
+ [81.44.149.127]) by smtp.gmail.com with ESMTPSA id
+ i16-20020a05600c355000b003a2f88b2559sm10242043wmq.44.2022.07.15.14.09.00
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 15 Jul 2022 14:09:00 -0700 (PDT)
+Message-ID: <8dbb3068-0b27-44b5-ba95-0b6494e1db0c@gmail.com>
+Date: Fri, 15 Jul 2022 23:08:59 +0200
 MIME-Version: 1.0
+To: Benjamin Marzinski <bmarzins@redhat.com>,
+ Martin Wilck <martin.wilck@suse.com>
+References: <1654641901-12324-1-git-send-email-bmarzins@redhat.com>
+ <1675cd007bfee3f944c986e7e8a9eec8969487cd.camel@suse.com>
+ <20220608144006.GW5254@octiron.msp.redhat.com>
+ <b5ad7b428d5998e39863a3144d57e40d32f72c1d.camel@suse.com>
+ <20220609163652.GC5254@octiron.msp.redhat.com>
+From: Xose Vazquez Perez <xose.vazquez@gmail.com>
+In-Reply-To: <20220609163652.GC5254@octiron.msp.redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -88,7 +101,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH] multipath-tools: add ALUA info to README.md
+Subject: Re: [dm-devel] [PATCH] libmultipath: unset detect_checker for
+ clariion / Unity arrays
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,27 +114,21 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- DM-DEVEL ML <dm-devel@redhat.com>
+Cc: "vincent.chen1@dell.com" <vincent.chen1@dell.com>,
+ "christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>,
+ "dm-devel@redhat.com" <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Thu, 2022-07-14 at 23:14 +0200, Xose Vazquez Perez wrote:
-> Cc: Martin Wilck <mwilck@suse.com>
-> Cc: Benjamin Marzinski <bmarzins@redhat.com>
-> Cc: Christophe Varoqui <christophe.varoqui@opensvc.com>
-> Cc: DM-DEVEL ML <dm-devel@redhat.com>
-> Signed-off-by: Xose Vazquez Perez <xose.vazquez@gmail.com>
-
-Reviewed-by: Martin Wilck <mwilck@suse.com>
-
+This patch is still pending.
 
 --
 dm-devel mailing list
