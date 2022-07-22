@@ -2,96 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A776B57DC2E
-	for <lists+dm-devel@lfdr.de>; Fri, 22 Jul 2022 10:21:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id DDE9F57E624
+	for <lists+dm-devel@lfdr.de>; Fri, 22 Jul 2022 19:59:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658478079;
+	s=mimecast20190719; t=1658512776;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ahLPuRtGhRq/m/j/vAtC+jobmeo9c4PRhRd9qWuotTw=;
-	b=jFWZBYeop3otSI7NYZAaVx3QBwJ5BqA5YAe8UlSMIkRsInymJS4y1GkDLkr1tmh8MQ8YTc
-	1vPdhWznVntnLsuoYtjNMUyCp4P7g9c/BM7mksJaVCtTim1jDdhgVFUJfcvtijEbuv4Vat
-	tebAtiU7ZY/NRoJhqHSOtODEiUpB63s=
+	bh=iJEE0zBohBTe0Uhr4VMNo24JEK8pPUNbC0yrOEEIoK4=;
+	b=a/YnqohbHa8WVFSRFnsPqqZ1sZD/EWcJU0o3RAJ195pCrg3/rw+Np6+SDHZTqitFhcKD+5
+	6nKmnfvcyvMx3qclUwWBImbLCuPsgzKIdh18LoHCHMCDrzRBFyRPo143WAvgmPyXb8EqKE
+	g54kXTAP3+naW3B60yFDK6KTKIWVKTQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-320-CaiRtGqKOGKIvQhdrAZ4_A-1; Fri, 22 Jul 2022 04:21:10 -0400
-X-MC-Unique: CaiRtGqKOGKIvQhdrAZ4_A-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-452-kuZlEfoLPIK_S0K6dxiO8g-1; Fri, 22 Jul 2022 13:59:26 -0400
+X-MC-Unique: kuZlEfoLPIK_S0K6dxiO8g-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7254C8117B0;
-	Fri, 22 Jul 2022 08:21:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 997668037AE;
+	Fri, 22 Jul 2022 17:59:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F3FC240CFD0A;
-	Fri, 22 Jul 2022 08:21:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6B10C200E291;
+	Fri, 22 Jul 2022 17:59:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9840A194707D;
-	Fri, 22 Jul 2022 08:20:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 136D6194707D;
+	Fri, 22 Jul 2022 17:59:20 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D99D31947049
- for <dm-devel@listman.corp.redhat.com>; Fri, 22 Jul 2022 08:20:57 +0000 (UTC)
+ ESMTP id CBF151947049
+ for <dm-devel@listman.corp.redhat.com>; Fri, 22 Jul 2022 17:59:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B5F332166B2A; Fri, 22 Jul 2022 08:20:57 +0000 (UTC)
+ id B81FC1121315; Fri, 22 Jul 2022 17:59:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B1C932166B26
- for <dm-devel@redhat.com>; Fri, 22 Jul 2022 08:20:57 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B4ED11121314
+ for <dm-devel@redhat.com>; Fri, 22 Jul 2022 17:59:18 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9705F85A581
- for <dm-devel@redhat.com>; Fri, 22 Jul 2022 08:20:57 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5699A1C05AEB
+ for <dm-devel@redhat.com>; Fri, 22 Jul 2022 17:59:18 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-126-uFY_rQyfPr-9cb2lcK7IYg-1; Fri, 22 Jul 2022 04:20:55 -0400
-X-MC-Unique: uFY_rQyfPr-9cb2lcK7IYg-1
-Received: by mail-ej1-f42.google.com with SMTP id os14so7351493ejb.4
- for <dm-devel@redhat.com>; Fri, 22 Jul 2022 01:20:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
- :content-language:to:cc:references:from:in-reply-to
- :content-transfer-encoding;
- bh=CGzPRcx2BHVSrFEMXPI3kWcYnIUX7tUCN7uqV/cjft0=;
- b=UNKLzRlXgqn/KMYm0EDLPuvbh/JuXHwo//qZdBLfDq/+x9eMQPaGBMixVbSijJXCAh
- /QHYBGjIg1XoIKXNOdiNzA38UR7uOnMeA5oCPMpfDLsVA5IrBuyCbJCxGYio3WkL9w6u
- 57AGpf8h8KbjZowNAWH54o4W2JJsbgNJbRIbq7qmsinBhdujdPiuiw7l4TiYadtvvyX2
- 3jAiDQbRqn6tFo5Tfa9pAPeZKpXrUflgLt5m0RU/rQesWVX7/6Ag2qBtfzr3FR5DHJS9
- exzRIp8c11VhY+1/RK4Byex4J9YT4ST1Id5YhopQwa/yxdBb1/aTZ/G6fQN2IQN3NNOp
- beiw==
-X-Gm-Message-State: AJIora8vgFyEdiff8bTa4VNySp4Ny7mUyWiDCHISWTkbPPz+kcJUWb5q
- TIegcYdcsBaBkVS3itZPMIY=
-X-Google-Smtp-Source: AGRyM1v7wdyeXoa61yzyvQ2gbQ4dc1ENgHDkcFpbRhqkxJ0WE62ubw/EiOn8lbUjjhD0Y8eerLXzCQ==
-X-Received: by 2002:a17:907:9810:b0:72f:36e5:266c with SMTP id
- ji16-20020a170907981000b0072f36e5266cmr2178933ejc.105.1658478053899; 
- Fri, 22 Jul 2022 01:20:53 -0700 (PDT)
-Received: from [192.168.8.101] (78-80-26-209.customers.tmcz.cz. [78.80.26.209])
- by smtp.gmail.com with ESMTPSA id
- dk20-20020a0564021d9400b0043a71775903sm2153198edb.39.2022.07.22.01.20.52
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 22 Jul 2022 01:20:53 -0700 (PDT)
-Message-ID: <a8c3cff3-15f8-abaa-61b1-9347841e984a@gmail.com>
-Date: Fri, 22 Jul 2022 10:20:51 +0200
+ us-mta-590-bYVvQXMDNSCKD7t3xbD6Aw-1; Fri, 22 Jul 2022 13:59:11 -0400
+X-MC-Unique: bYVvQXMDNSCKD7t3xbD6Aw-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1oEvi7-007zu1-3e; Fri, 22 Jul 2022 16:41:07 +0000
+Date: Fri, 22 Jul 2022 09:41:07 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Nathan Huckleberry <nhuck@google.com>
+Message-ID: <YtrTI/CJMoLihA/1@infradead.org>
+References: <20220722093823.4158756-1-nhuck@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.10.0
-To: Christoph Hellwig <hch@lst.de>, Eric Biggers <ebiggers@kernel.org>
-References: <1658316391-13472-1-git-send-email-israelr@nvidia.com>
- <1658316391-13472-2-git-send-email-israelr@nvidia.com>
- <Ytj249InQTKdFshA@sol.localdomain> <20220721125459.GC20555@lst.de>
-From: Milan Broz <gmazyland@gmail.com>
-In-Reply-To: <20220721125459.GC20555@lst.de>
+In-Reply-To: <20220722093823.4158756-1-nhuck@google.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -99,9 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 1/1] block: Add support for setting inline
- encryption key per block device
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH 0/3] dm-verity: optionally use tasklets in
+ dm-verity
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,64 +88,73 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Max Gurtovoy <mgurtovoy@nvidia.com>,
- Israel Rukshin <israelr@nvidia.com>, dm-devel@redhat.com,
- Linux-block <linux-block@vger.kernel.org>, linux-fscrypt@vger.kernel.org,
- Nitzan Carmi <nitzanc@nvidia.com>
+Cc: Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
+ Sami Tolvanen <samitolvanen@google.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 21/07/2022 14:54, Christoph Hellwig wrote:
-> On Wed, Jul 20, 2022 at 11:49:07PM -0700, Eric Biggers wrote:
->> On the other hand, I'd personally be fine with saying that this isn't actually
->> needed, i.e. that allowing arbitrary overriding of the default key is fine,
->> since userspace should just set up the keys properly.  For example, Android
->> doesn't need this at all, as it sets up all its keys properly.  But I want to
->> make sure that everyone is generally okay with this now, as I personally don't
->> see a fundamental difference between this and what the dm-crypt developers had
->> rejected *very* forcefully before.  Perhaps it's acceptable now simply because
->> it wouldn't be part of dm-crypt; it's a new thing, so it can have new semantics.
+We've been tying to kill off task lets for about 15 years.  I don't
+think adding new users will make you a whole lot of friends..
+
+On Fri, Jul 22, 2022 at 09:38:20AM +0000, Nathan Huckleberry wrote:
+> Using tasklets for disk verification can reduce IO latency.  When there are
+> accelerated hash instructions it is often better to compute the hash immediately
+> using a tasklet rather than deferring verification to a work-queue.  This
+> reduces time spent waiting to schedule work-queue jobs, but requires spending
+> slightly more time in interrupt context.
 > 
-> I agree with both the dm-crypt maintainer and you on this.  dm-crypt is
-> a full disk encryption solution and has to provide guarantees, so it
-> can't let upper layers degrade the cypher.  The block layer support on
-> the other hand is just a building block an can as long as it is carefully
-> documented.
-
-Yes, that is what I meant when complaining about the last dm-crypt patch.
-
-I think inline encryption for block devices is a good idea; my complaint was
-integration with dm-crypt - as it can dilute expectations and create a new
-threat model here.
-
-But I also think that implementing this directly in the block layer makes sense.
-Perhaps it should be generic enough.
-(I can imagine dynamic inline encryption integrated into LVM ... :-)
-
->> I'm wondering if anyone any thoughts about how to allow data_unit_size >
->> logical_block_size with this patch's approach.  I suppose that the ioctl could
->> just allow setting it, and the block layer could fail any I/O that isn't
->> properly aligned to the data_unit_size.
+> A tasklet can only be used for verification if all the required hashes are
+> already in the dm-bufio cache.  If verification cannot be done in a tasklet, we
+> fallback the existing work-queue implementation.
 > 
-> We could do that, but we'd need to comunicate the limit to the upper
-> layers both in the kernel an user space.  Effectively this changes the
-> logical block size for all practical purposes.
-
-I think you should support setting logical encryption size from the beginning,
-at least prepare API for that. It has a big impact on performance.
-The dm-crypt also requires aligned IO here. We propagate new logical size
-to upper layers (and also to loop device below, if used).
-(Also this revealed hacks in USB enclosures mapping unaligned devices...)
-
-Milan
+> To allow tasklets to query the dm-bufio cache, the dm-bufio code must not sleep.
+> This patchset adds a flag to dm-bufio that disallows sleeping.
+> 
+> The following shows a speed comparison of random reads on a dm-verity device.
+> The dm-verity device uses a 1G ramdisk for data and a 1G ramdisk for hashes.
+> One test was run using tasklets and one test was run using the existing
+> work-queue solution.  Both tests were run when the dm-bufio cache was hot.  The
+> tasklet implementation performs significantly better since there is no time
+> waiting for work-queue jobs to be scheduled.
+> 
+> # /data/fio /data/tasklet.fio | grep READ
+>    READ: bw=181MiB/s (190MB/s), 181MiB/s-181MiB/s (190MB/s-190MB/s), io=512MiB
+>    (537MB), run=2827-2827msec
+> # /data/fio /data/workqueue.fio | grep READ
+>    READ: bw=23.6MiB/s (24.8MB/s), 23.6MiB/s-23.6MiB/s (24.8MB/s-24.8MB/s),
+>    io=512MiB (537MB), run=21688-21688msec
+> 
+> Nathan Huckleberry (3):
+>   dm-bufio: Add flags for dm_bufio_client_create
+>   dm-bufio: Add DM_BUFIO_GET_CANT_SLEEP
+>   dm-verity: Add try_verify_in_tasklet
+> 
+>  drivers/md/dm-bufio.c                         | 29 +++++--
+>  drivers/md/dm-ebs-target.c                    |  3 +-
+>  drivers/md/dm-integrity.c                     |  2 +-
+>  drivers/md/dm-snap-persistent.c               |  2 +-
+>  drivers/md/dm-verity-fec.c                    |  4 +-
+>  drivers/md/dm-verity-target.c                 | 87 ++++++++++++++++---
+>  drivers/md/dm-verity.h                        |  5 ++
+>  drivers/md/persistent-data/dm-block-manager.c |  3 +-
+>  include/linux/dm-bufio.h                      |  8 +-
+>  9 files changed, 119 insertions(+), 24 deletions(-)
+> 
+> -- 
+> 2.37.1.359.gd136c6c3e2-goog
+> 
+---end quoted text---
 
 --
 dm-devel mailing list
