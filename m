@@ -2,95 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B6C0C581704
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jul 2022 18:10:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FAFA581705
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jul 2022 18:10:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658851819;
+	s=mimecast20190719; t=1658851820;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Z8rB3R1LyyZDJrv6AmwL9wos/O5/4TQt17T+KKuE9cY=;
-	b=BC+DoP6CVlh5B34byP2a8OKt4A1vVLKu7/93YHS5niiMLEJu4XQOznYCHfiEU80o88RPiP
-	1fyE9vtWWucc8yhopX3Q+tJV3NWtyVGNaeQ+SN2zLypnlpjGxp/4x1BmyOjcHzGNqfSLGN
-	7O5W94FI7+YftgEKPT/TidjzMzAmRu0=
+	bh=raoYQrRDK4ZsA7JQHrxWDJD/M4xWiy7xnL0KDVpnpX0=;
+	b=fSjjApusxwHMz0A3Mjtapdujg8EgnfmcaznDtJca1dMkZPijDyNzFOx+mrnB6nYEiaz8D6
+	SnRaRVVleRyUnDS8sVfzMvFx10NnKj+LPmgdMClFH6tokeqIXjoAtJLWsphct+HgvmkWh2
+	f5Extp7C50HOuQY24AO27QqaHAUu7Cg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-433-Z43JkHZ7NJ2o8biibb9ixw-1; Tue, 26 Jul 2022 12:10:17 -0400
-X-MC-Unique: Z43JkHZ7NJ2o8biibb9ixw-1
+ us-mta-7-FBs57lodOnmvKxZ-xiRo7Q-1; Tue, 26 Jul 2022 12:10:18 -0400
+X-MC-Unique: FBs57lodOnmvKxZ-xiRo7Q-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 186581019C97;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EA6A1019CA1;
 	Tue, 26 Jul 2022 16:10:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F17EA4010E4D;
-	Tue, 26 Jul 2022 16:10:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 258CA40D282F;
+	Tue, 26 Jul 2022 16:10:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B52311945DAA;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ECD7A194704E;
 	Tue, 26 Jul 2022 16:10:13 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7B4B11945DAA
+ ESMTP id 83CFF1945DAD
  for <dm-devel@listman.corp.redhat.com>; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6EF4A400DFD7; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
+ id 68160401E92; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A9D3404C324
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 640AD492C3B
  for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 528AE3C1172D
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15A871019C96
  for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
-Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com
- [209.85.219.53]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-668-ICNLDpmtMFiu1BUhLEQmOg-1; Tue, 26 Jul 2022 12:10:09 -0400
-X-MC-Unique: ICNLDpmtMFiu1BUhLEQmOg-1
-Received: by mail-qv1-f53.google.com with SMTP id f9so10982696qvr.2
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 09:10:08 -0700 (PDT)
+ us-mta-177-o_qUX4x7PlWf6xo6oS3akQ-1; Tue, 26 Jul 2022 12:10:10 -0400
+X-MC-Unique: o_qUX4x7PlWf6xo6oS3akQ-1
+Received: by mail-qk1-f175.google.com with SMTP id c24so11297855qkm.4
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 09:10:10 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=CQTWjw72MLSIa+xj5Nzz1Vjuf3qitpUqN8ehDnlPolE=;
- b=Ge8N/RNc2DudMwU9Ulji8QYrJW2PpVtxUxX0/7VQ8d2WmgsEIbwfeCSmGTN/oIRQJd
- SCiAQcFwrh7CBaTGeQI2aRwwmMA96gsbYZNeILdYSD3CfwdgJ7YxEgxKwH4OnJREIZv1
- HiyDT4vHlMKP6CpdRnrIpk1Vo2GMFm8wv7XKSz+Qx5cUcu1XQzfQCkET4zRkJGbpJE87
- 9jGAK/rot1P9yM5pc7qHsy4syCL2yGrdrE686sNMU6VSG2iwXHhVMpLzI9XW2rAXWRCd
- HTbf0slqueQPsbWyTvu5m7ZjtnWXWGULIrdYSmqt3spkStsSY2+MRRO9iBu5PK8G8lak
- TenQ==
-X-Gm-Message-State: AJIora8FWP+GjpD3C97VYguEHE50UeB/xrFUsGaXu5zv+t5/K872aCFz
- +sGT3lQez/KKFGfzvUBqAhX1u1G2kaFRC+4=
-X-Google-Smtp-Source: AGRyM1semOd97YtQI469j+6D/3a3hfOfZ+3aXnKCYLO1PxsR5cn/zdzeBFcvOEMrpAy6GRZmuteo1Q==
-X-Received: by 2002:a05:6214:528e:b0:474:3c0f:65b2 with SMTP id
- kj14-20020a056214528e00b004743c0f65b2mr12560173qvb.97.1658851808325; 
- Tue, 26 Jul 2022 09:10:08 -0700 (PDT)
+ bh=OrKw6hqzfp+S52iy7N8NkTjJdvfO+1gPRJBn8FbTRiw=;
+ b=m8ZC2mU774DbD4iEWNRq52uPo/Kk68uLUcTTiWkdTaspoB5PeU7u3I/QV1tIHsl9eL
+ XSx7+t8znH74DKPsSnBUQlgATR1zW+5Clv6FzxQvH5MNRFcdTKP4Jb7bkg+JQiHoOegb
+ KPGyLqdFmmPUZAHxuQkqieq12hiz1KARpC516xKFvuh1+JkUtvA3mr+vorvi3ci6FFgu
+ G1JO4jJwfJTmPdr9Z4TLYbHr8khdgA3Pdr9LtZX906hWXE45paWIYMiAMla3bt+c73F1
+ yZAKU4uNghIEkzga12E74X/G102Jj6mUtrmb6EZakFsiCBBxXFL6ez7kRLOppfVG2//D
+ C7/w==
+X-Gm-Message-State: AJIora9Hf19KtruYGmZRWuBshdt2/1/Q46qFZuBlB4EGHKmGqx4lnBCj
+ jWKqpWn/8wbz+M/HryDzGBYi+RIiUYcl9A4=
+X-Google-Smtp-Source: AGRyM1sUTKOWdUS4GSGVnkjsR0LQz+EA1j3HL5/+X4+wUt0/qiVuUGBCAEOD7G6nbWOwrHRx4lwH+g==
+X-Received: by 2002:a05:620a:4629:b0:6b5:ede1:f9cd with SMTP id
+ br41-20020a05620a462900b006b5ede1f9cdmr13638053qkb.487.1658851809786; 
+ Tue, 26 Jul 2022 09:10:09 -0700 (PDT)
 Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
  [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
- h4-20020a05620a400400b006b5652edb93sm12303899qko.48.2022.07.26.09.10.07
+ cn9-20020a05622a248900b0031f229d4427sm7229451qtb.96.2022.07.26.09.10.09
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 09:10:07 -0700 (PDT)
+ Tue, 26 Jul 2022 09:10:09 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: Nathan Huckleberry <nhuck@google.com>, Eric Biggers <ebiggers@kernel.org>
-Date: Tue, 26 Jul 2022 12:09:58 -0400
-Message-Id: <20220726160959.89247-6-snitzer@kernel.org>
+Date: Tue, 26 Jul 2022 12:09:59 -0400
+Message-Id: <20220726160959.89247-7-snitzer@kernel.org>
 In-Reply-To: <20220726160959.89247-1-snitzer@kernel.org>
 References: <20220726160959.89247-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [dm-devel] [PATCH v2 5/6] dm bufio: conditionally enable branching
- for DM_BUFIO_CLIENT_NO_SLEEP
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [dm-devel] [PATCH v2 6/6] dm verity: conditionally enable branching
+ for "try_verify_in_tasklet"
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,81 +113,99 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 Use jump_label to limit the need for branching unless the optional
-DM_BUFIO_CLIENT_NO_SLEEP is used.
+"try_verify_in_tasklet" feature is used.
 
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bufio.c | 15 +++++++++++----
- 1 file changed, 11 insertions(+), 4 deletions(-)
+ drivers/md/dm-verity-target.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index 486179d1831c..0a38a7aef49c 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -18,6 +18,7 @@
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 054095c2052b..f747eb874cfb 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -19,6 +19,7 @@
  #include <linux/module.h>
- #include <linux/rbtree.h>
- #include <linux/stacktrace.h>
+ #include <linux/reboot.h>
+ #include <linux/scatterlist.h>
 +#include <linux/jump_label.h>
  
- #define DM_MSG_PREFIX "bufio"
+ #define DM_MSG_PREFIX			"verity"
  
-@@ -164,13 +165,15 @@ struct dm_buffer {
- #endif
- };
+@@ -43,6 +44,8 @@ static unsigned dm_verity_prefetch_cluster = DM_VERITY_DEFAULT_PREFETCH_SIZE;
  
-+static DEFINE_STATIC_KEY_FALSE(no_sleep_enabled);
+ module_param_named(prefetch_cluster, dm_verity_prefetch_cluster, uint, S_IRUGO | S_IWUSR);
+ 
++static DEFINE_STATIC_KEY_FALSE(use_tasklet_enabled);
 +
- /*----------------------------------------------------------------*/
+ struct dm_verity_prefetch_work {
+ 	struct work_struct work;
+ 	struct dm_verity *v;
+@@ -287,7 +290,7 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
  
- #define dm_bufio_in_request()	(!!current->bio_list)
+ 	verity_hash_at_level(v, block, level, &hash_block, &offset);
  
- static void dm_bufio_lock(struct dm_bufio_client *c)
- {
--	if (c->no_sleep)
-+	if (static_branch_unlikely(&no_sleep_enabled) && c->no_sleep)
- 		spin_lock_irqsave_nested(&c->spinlock, c->spinlock_flags, dm_bufio_in_request());
- 	else
- 		mutex_lock_nested(&c->lock, dm_bufio_in_request());
-@@ -178,7 +181,7 @@ static void dm_bufio_lock(struct dm_bufio_client *c)
+-	if (io->in_tasklet) {
++	if (static_branch_unlikely(&use_tasklet_enabled) && io->in_tasklet) {
+ 		data = dm_bufio_get(v->bufio, hash_block, &buf);
+ 		if (data == NULL) {
+ 			/*
+@@ -320,7 +323,8 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
+ 		if (likely(memcmp(verity_io_real_digest(v, io), want_digest,
+ 				  v->digest_size) == 0))
+ 			aux->hash_verified = 1;
+-		else if (io->in_tasklet) {
++		else if (static_branch_unlikely(&use_tasklet_enabled) &&
++			 io->in_tasklet) {
+ 			/*
+ 			 * FEC code cannot be run in a tasklet since it may
+ 			 * sleep, so fallback to using a work-queue.
+@@ -547,7 +551,8 @@ static int verity_verify_io(struct dm_verity_io *io)
+ 			if (v->validated_blocks)
+ 				set_bit(cur_block, v->validated_blocks);
+ 			continue;
+-		} else if (io->in_tasklet) {
++		} else if (static_branch_unlikely(&use_tasklet_enabled) &&
++			   io->in_tasklet) {
+ 			/*
+ 			 * FEC code cannot be run in a tasklet since it may
+ 			 * sleep, so fallback to using a work-queue.
+@@ -592,7 +597,7 @@ static void verity_finish_io(struct dm_verity_io *io, blk_status_t status)
+ 	bio->bi_end_io = io->orig_bi_end_io;
+ 	bio->bi_status = status;
  
- static int dm_bufio_trylock(struct dm_bufio_client *c)
- {
--	if (c->no_sleep)
-+	if (static_branch_unlikely(&no_sleep_enabled) && c->no_sleep)
- 		return spin_trylock_irqsave(&c->spinlock, c->spinlock_flags);
- 	else
- 		return mutex_trylock(&c->lock);
-@@ -186,7 +189,7 @@ static int dm_bufio_trylock(struct dm_bufio_client *c)
+-	if (!io->in_tasklet)
++	if (!static_branch_unlikely(&use_tasklet_enabled) || !io->in_tasklet)
+ 		verity_fec_finish_io(io);
  
- static void dm_bufio_unlock(struct dm_bufio_client *c)
- {
--	if (c->no_sleep)
-+	if (static_branch_unlikely(&no_sleep_enabled) && c->no_sleep)
- 		spin_unlock_irqrestore(&c->spinlock, c->spinlock_flags);
- 	else
- 		mutex_unlock(&c->lock);
-@@ -1760,8 +1763,10 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	c->alloc_callback = alloc_callback;
- 	c->write_callback = write_callback;
+ 	bio_endio(bio);
+@@ -634,7 +639,7 @@ static void verity_end_io(struct bio *bio)
+ 	}
  
--	if (flags & DM_BUFIO_CLIENT_NO_SLEEP)
-+	if (flags & DM_BUFIO_CLIENT_NO_SLEEP) {
- 		c->no_sleep = true;
-+		static_branch_inc(&no_sleep_enabled);
-+	}
+ 	io->block_idx = 0;
+-	if (io->v->use_tasklet) {
++	if (static_branch_unlikely(&use_tasklet_enabled) && io->v->use_tasklet) {
+ 		tasklet_init(&io->tasklet, verity_tasklet, (unsigned long)io);
+ 		tasklet_schedule(&io->tasklet);
+ 	} else {
+@@ -944,6 +949,9 @@ static void verity_dtr(struct dm_target *ti)
  
- 	for (i = 0; i < LIST_SIZE; i++) {
- 		INIT_LIST_HEAD(&c->lru[i]);
-@@ -1895,6 +1900,8 @@ void dm_bufio_client_destroy(struct dm_bufio_client *c)
- 	kmem_cache_destroy(c->slab_buffer);
- 	dm_io_client_destroy(c->dm_io);
- 	mutex_destroy(&c->lock);
-+	if (c->no_sleep)
-+		static_branch_dec(&no_sleep_enabled);
- 	kfree(c);
+ 	kfree(v->signature_key_desc);
+ 
++	if (v->use_tasklet)
++		static_branch_dec(&use_tasklet_enabled);
++
+ 	kfree(v);
  }
- EXPORT_SYMBOL_GPL(dm_bufio_client_destroy);
+ 
+@@ -1075,6 +1083,7 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
+ 
+ 		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_TASKLET_VERIFY)) {
+ 			v->use_tasklet = true;
++			static_branch_inc(&use_tasklet_enabled);
+ 			continue;
+ 
+ 		} else if (verity_is_fec_opt_arg(arg_name)) {
 -- 
 2.32.1 (Apple Git-133)
 
