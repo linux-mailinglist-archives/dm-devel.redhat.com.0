@@ -1,95 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4FAFA581705
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jul 2022 18:10:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D62CA581AE8
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jul 2022 22:18:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658851820;
+	s=mimecast20190719; t=1658866719;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=raoYQrRDK4ZsA7JQHrxWDJD/M4xWiy7xnL0KDVpnpX0=;
-	b=fSjjApusxwHMz0A3Mjtapdujg8EgnfmcaznDtJca1dMkZPijDyNzFOx+mrnB6nYEiaz8D6
-	SnRaRVVleRyUnDS8sVfzMvFx10NnKj+LPmgdMClFH6tokeqIXjoAtJLWsphct+HgvmkWh2
-	f5Extp7C50HOuQY24AO27QqaHAUu7Cg=
+	bh=ESiBDEF78tsoZ3i+xkrEqx7T/6TMZWmOZY8GGd3Mrjo=;
+	b=AV42FssDyvOWvxzCpv+11Xq4HF0vZodQoL5opp2D4tgs4xaawvtHTHLZb4BKwIlkPCyrt0
+	KiIquCq4U0CKfCydeGryz75/YyZMJyNKsOmn4TwjosoBFsdnqXfPH2WezSrNyZJCwCVCgB
+	a1dDc3Ol3o8uR9dymwdfvi6rbrRI6W8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-7-FBs57lodOnmvKxZ-xiRo7Q-1; Tue, 26 Jul 2022 12:10:18 -0400
-X-MC-Unique: FBs57lodOnmvKxZ-xiRo7Q-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-570-LD7J5JX7M8-3I1E4gSP28w-1; Tue, 26 Jul 2022 16:18:38 -0400
+X-MC-Unique: LD7J5JX7M8-3I1E4gSP28w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EA6A1019CA1;
-	Tue, 26 Jul 2022 16:10:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 236B29573A3;
+	Tue, 26 Jul 2022 20:18:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 258CA40D282F;
-	Tue, 26 Jul 2022 16:10:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A76D618EA8;
+	Tue, 26 Jul 2022 20:18:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ECD7A194704E;
-	Tue, 26 Jul 2022 16:10:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9D3A11945D97;
+	Tue, 26 Jul 2022 20:18:28 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 83CFF1945DAD
- for <dm-devel@listman.corp.redhat.com>; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
+ ESMTP id 409161945D86
+ for <dm-devel@listman.corp.redhat.com>; Tue, 26 Jul 2022 20:18:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 68160401E92; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
+ id 3038940CFD0A; Tue, 26 Jul 2022 20:18:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 640AD492C3B
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C3DA40CF8EE
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 20:18:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 15A871019C96
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:12 +0000 (UTC)
-Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
- [209.85.222.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12AEA811E81
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 20:18:27 +0000 (UTC)
+Received: from mail-lj1-f171.google.com (mail-lj1-f171.google.com
+ [209.85.208.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-177-o_qUX4x7PlWf6xo6oS3akQ-1; Tue, 26 Jul 2022 12:10:10 -0400
-X-MC-Unique: o_qUX4x7PlWf6xo6oS3akQ-1
-Received: by mail-qk1-f175.google.com with SMTP id c24so11297855qkm.4
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 09:10:10 -0700 (PDT)
+ us-mta-515-IldCnm0XN1WZzgIHHKcVqg-1; Tue, 26 Jul 2022 16:18:25 -0400
+X-MC-Unique: IldCnm0XN1WZzgIHHKcVqg-1
+Received: by mail-lj1-f171.google.com with SMTP id w18so6629739lje.1
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 13:18:25 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
- :references:mime-version:content-transfer-encoding;
- bh=OrKw6hqzfp+S52iy7N8NkTjJdvfO+1gPRJBn8FbTRiw=;
- b=m8ZC2mU774DbD4iEWNRq52uPo/Kk68uLUcTTiWkdTaspoB5PeU7u3I/QV1tIHsl9eL
- XSx7+t8znH74DKPsSnBUQlgATR1zW+5Clv6FzxQvH5MNRFcdTKP4Jb7bkg+JQiHoOegb
- KPGyLqdFmmPUZAHxuQkqieq12hiz1KARpC516xKFvuh1+JkUtvA3mr+vorvi3ci6FFgu
- G1JO4jJwfJTmPdr9Z4TLYbHr8khdgA3Pdr9LtZX906hWXE45paWIYMiAMla3bt+c73F1
- yZAKU4uNghIEkzga12E74X/G102Jj6mUtrmb6EZakFsiCBBxXFL6ez7kRLOppfVG2//D
- C7/w==
-X-Gm-Message-State: AJIora9Hf19KtruYGmZRWuBshdt2/1/Q46qFZuBlB4EGHKmGqx4lnBCj
- jWKqpWn/8wbz+M/HryDzGBYi+RIiUYcl9A4=
-X-Google-Smtp-Source: AGRyM1sUTKOWdUS4GSGVnkjsR0LQz+EA1j3HL5/+X4+wUt0/qiVuUGBCAEOD7G6nbWOwrHRx4lwH+g==
-X-Received: by 2002:a05:620a:4629:b0:6b5:ede1:f9cd with SMTP id
- br41-20020a05620a462900b006b5ede1f9cdmr13638053qkb.487.1658851809786; 
- Tue, 26 Jul 2022 09:10:09 -0700 (PDT)
-Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
- [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
- cn9-20020a05622a248900b0031f229d4427sm7229451qtb.96.2022.07.26.09.10.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 09:10:09 -0700 (PDT)
-From: Mike Snitzer <snitzer@kernel.org>
-To: Nathan Huckleberry <nhuck@google.com>, Eric Biggers <ebiggers@kernel.org>
-Date: Tue, 26 Jul 2022 12:09:59 -0400
-Message-Id: <20220726160959.89247-7-snitzer@kernel.org>
-In-Reply-To: <20220726160959.89247-1-snitzer@kernel.org>
-References: <20220726160959.89247-1-snitzer@kernel.org>
+ h=x-gm-message-state:mime-version:references:in-reply-to:from:date
+ :message-id:subject:to:cc;
+ bh=PtbnOtHKF34Czdwa9qoW+EQoP3N+APT3kbr7xICR+X0=;
+ b=p5ITBlaDuLfGpjCZFtpJCpKSGJpSxJmzFnnGx1KdFJwfSXL48r9LqxrhlB6nAws/go
+ qx8n35DrzfObgcdEVBhdix2+Pzs9CU6J7epYNoGbF3qsqEBQCNkIWmUDTQCIoKDzW3os
+ ZJRilniW84qO2N+P9s0BN+nWUIui7wKsKigKYy1GN7t945aTeiAC0dhP2SznYWWUKJQT
+ he04n1+RDvmnQ7iL22kt+07ixBM0+eZnZwooFO+HeKCuAxm3C463gPKMr7X9QD9n9+Uh
+ IkJgwqFR82V3uOeNWsweYDTuwSwv6JN02iX3G6PsVlaYZCtoKHly+xKN5UYMNNbQxK8+
+ tOLA==
+X-Gm-Message-State: AJIora9mCSECW0gG6r+05sEz69qkQmUknne7Bafgseq5ZBvaxzIDP4zq
+ WpS6pw3f++D/trGkrG4SFKkWbnRO2Pve2Gvw31FU6w==
+X-Google-Smtp-Source: AGRyM1sfpsovTlWHz8HLA+NykILl5UbmqH2OCLATBvy5YiaUMqiNMLvt2Wk3YWNxMUjFpbh9UyV5eR/2UsMaULk97q0=
+X-Received: by 2002:a2e:a305:0:b0:25d:ffe6:9cbc with SMTP id
+ l5-20020a2ea305000000b0025dffe69cbcmr4904831lje.298.1658866703498; Tue, 26
+ Jul 2022 13:18:23 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH v2 6/6] dm verity: conditionally enable branching
- for "try_verify_in_tasklet"
+References: <20220726160959.89247-1-snitzer@kernel.org>
+In-Reply-To: <20220726160959.89247-1-snitzer@kernel.org>
+From: Nathan Huckleberry <nhuck@google.com>
+Date: Tue, 26 Jul 2022 13:18:00 -0700
+Message-ID: <CAJkfWY78s68M6xgTWoWKXVW=Sb+qAop5VSCi6ZXbQXnfmYMAkQ@mail.gmail.com>
+To: Mike Snitzer <snitzer@kernel.org>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH v2 0/6] dm verity: optionally use tasklets
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,10 +102,11 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Sami Tolvanen <samitolvanen@google.com>
+Cc: Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
+ Sami Tolvanen <samitolvanen@google.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,102 +114,72 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use jump_label to limit the need for branching unless the optional
-"try_verify_in_tasklet" feature is used.
+Hey Mike,
 
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
----
- drivers/md/dm-verity-target.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
+On Tue, Jul 26, 2022 at 9:10 AM Mike Snitzer <snitzer@kernel.org> wrote:
+>
+> Hi,
+>
+> Please see this updated patchset that reflects what I've staged for
+> the 5.20 merge window, see:
+> https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/log/?h=dm-5.20
+>
+> My only outstanding question, from previous v1 patchset, is: should
+> the verify_wq be created using WQ_HIGHPRI instead of WQ_CPU_INTENSIVE?
+> (I doubt it has a significant impact on performance but if you have
+> insight on why you made that change, and if it meaningful, I'd happily
+> apply the change).
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 054095c2052b..f747eb874cfb 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -19,6 +19,7 @@
- #include <linux/module.h>
- #include <linux/reboot.h>
- #include <linux/scatterlist.h>
-+#include <linux/jump_label.h>
- 
- #define DM_MSG_PREFIX			"verity"
- 
-@@ -43,6 +44,8 @@ static unsigned dm_verity_prefetch_cluster = DM_VERITY_DEFAULT_PREFETCH_SIZE;
- 
- module_param_named(prefetch_cluster, dm_verity_prefetch_cluster, uint, S_IRUGO | S_IWUSR);
- 
-+static DEFINE_STATIC_KEY_FALSE(use_tasklet_enabled);
-+
- struct dm_verity_prefetch_work {
- 	struct work_struct work;
- 	struct dm_verity *v;
-@@ -287,7 +290,7 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
- 
- 	verity_hash_at_level(v, block, level, &hash_block, &offset);
- 
--	if (io->in_tasklet) {
-+	if (static_branch_unlikely(&use_tasklet_enabled) && io->in_tasklet) {
- 		data = dm_bufio_get(v->bufio, hash_block, &buf);
- 		if (data == NULL) {
- 			/*
-@@ -320,7 +323,8 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
- 		if (likely(memcmp(verity_io_real_digest(v, io), want_digest,
- 				  v->digest_size) == 0))
- 			aux->hash_verified = 1;
--		else if (io->in_tasklet) {
-+		else if (static_branch_unlikely(&use_tasklet_enabled) &&
-+			 io->in_tasklet) {
- 			/*
- 			 * FEC code cannot be run in a tasklet since it may
- 			 * sleep, so fallback to using a work-queue.
-@@ -547,7 +551,8 @@ static int verity_verify_io(struct dm_verity_io *io)
- 			if (v->validated_blocks)
- 				set_bit(cur_block, v->validated_blocks);
- 			continue;
--		} else if (io->in_tasklet) {
-+		} else if (static_branch_unlikely(&use_tasklet_enabled) &&
-+			   io->in_tasklet) {
- 			/*
- 			 * FEC code cannot be run in a tasklet since it may
- 			 * sleep, so fallback to using a work-queue.
-@@ -592,7 +597,7 @@ static void verity_finish_io(struct dm_verity_io *io, blk_status_t status)
- 	bio->bi_end_io = io->orig_bi_end_io;
- 	bio->bi_status = status;
- 
--	if (!io->in_tasklet)
-+	if (!static_branch_unlikely(&use_tasklet_enabled) || !io->in_tasklet)
- 		verity_fec_finish_io(io);
- 
- 	bio_endio(bio);
-@@ -634,7 +639,7 @@ static void verity_end_io(struct bio *bio)
- 	}
- 
- 	io->block_idx = 0;
--	if (io->v->use_tasklet) {
-+	if (static_branch_unlikely(&use_tasklet_enabled) && io->v->use_tasklet) {
- 		tasklet_init(&io->tasklet, verity_tasklet, (unsigned long)io);
- 		tasklet_schedule(&io->tasklet);
- 	} else {
-@@ -944,6 +949,9 @@ static void verity_dtr(struct dm_target *ti)
- 
- 	kfree(v->signature_key_desc);
- 
-+	if (v->use_tasklet)
-+		static_branch_dec(&use_tasklet_enabled);
-+
- 	kfree(v);
- }
- 
-@@ -1075,6 +1083,7 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
- 
- 		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_TASKLET_VERIFY)) {
- 			v->use_tasklet = true;
-+			static_branch_inc(&use_tasklet_enabled);
- 			continue;
- 
- 		} else if (verity_is_fec_opt_arg(arg_name)) {
--- 
-2.32.1 (Apple Git-133)
+In my testing, WQ_HIGHPRI reduced latency in both cases. I tested how
+long each configuration spent waiting for work-queue jobs to be
+scheduled. The numbers look consistent across the three runs I did.
+See below.
+
+Total verity work-queue wait times (ms):
+Normal WQ: 880.960, 789.517, 898.852
+High Priority WQ: 528.824, 439.191, 433.300
+Tasklets + Normal WQ: 242.594, 145.106, 272.642
+Tasklets + High Priority WQ: 85.343, 60.787, 70.620
+
+WQ_HIGHPRI is useful even if try_verify_in_tasklet is not used.
+
+Thanks,
+Huck
+
+
+>
+> I've tested using cryptsetup's testsuite (which has dm-verity tests)
+> but I haven't tested the "try_verify_in_tasklet" feature.
+>
+> I'd welcome review and focused "try_verify_in_tasklet" testing.
+>
+> Thanks,
+> Mike
+>
+> Mike Snitzer (3):
+>   dm verity: allow optional args to alter primary args handling
+>   dm bufio: conditionally enable branching for DM_BUFIO_CLIENT_NO_SLEEP
+>   dm verity: conditionally enable branching for "try_verify_in_tasklet"
+>
+> Nathan Huckleberry (3):
+>   dm bufio: Add flags argument to dm_bufio_client_create
+>   dm bufio: Add DM_BUFIO_CLIENT_NO_SLEEP flag
+>   dm verity: Add optional "try_verify_in_tasklet" feature
+>
+>  drivers/md/dm-bufio.c                         |  32 ++++-
+>  drivers/md/dm-ebs-target.c                    |   3 +-
+>  drivers/md/dm-integrity.c                     |   2 +-
+>  drivers/md/dm-snap-persistent.c               |   2 +-
+>  drivers/md/dm-verity-fec.c                    |   4 +-
+>  drivers/md/dm-verity-target.c                 | 121 +++++++++++++++---
+>  drivers/md/dm-verity.h                        |   7 +-
+>  drivers/md/persistent-data/dm-block-manager.c |   3 +-
+>  include/linux/dm-bufio.h                      |   8 +-
+>  9 files changed, 154 insertions(+), 28 deletions(-)
+>
+> --
+> 2.32.1 (Apple Git-133)
+>
 
 --
 dm-devel mailing list
