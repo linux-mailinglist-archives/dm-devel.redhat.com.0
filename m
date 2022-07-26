@@ -1,9 +1,9 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3A6BF581702
-	for <lists+dm-devel@lfdr.de>; Tue, 26 Jul 2022 18:10:18 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F1F10581701
+	for <lists+dm-devel@lfdr.de>; Tue, 26 Jul 2022 18:10:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1658851817;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,84 +12,85 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=s2K2hXJ6khtU6+vrBRAOEryhpopSEN8X/io5Wd9L9hE=;
-	b=hPyLGHrvkwbzkAz824G9Hq7yU2cxAtoES90qchiMSuGBYzl0UzE6FqRUQu96urCo2GWCL9
-	4YC9P6vXa4143aLOX5TuEkimjzfwqTbygWdEqpHei+XnsedQ3pxSPbCmp1unj/Fx0VPbP0
-	h+RXboEJGI0HA3MHi1vvUukxRSXFee0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=I6VLEdCNWZo+iwD5MexpfKdtulM0XT90ONnAmD/FWAg=;
+	b=CSfmb/9mnmNIDUshp4h5zdBY2I8hpET0RcxHpHn8aBiJaYeSUrsetAO1WhZnWU59SLvMD9
+	WdOPwhQSIltlaJaGj9FTsjqVE26lfiquaG1rksOyF3lJqXJUUKe8+og6Sgm/L791HDHEEc
+	/O739snoTBtJW0Fmq9QL+f3r6cQkp+4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-271-1mxzTXXYPIapKf4vlqBAcQ-1; Tue, 26 Jul 2022 12:10:14 -0400
-X-MC-Unique: 1mxzTXXYPIapKf4vlqBAcQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-402-PA6iS4QzOAGjbnR1f71T4g-1; Tue, 26 Jul 2022 12:10:15 -0400
+X-MC-Unique: PA6iS4QzOAGjbnR1f71T4g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 497EB1857F17;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A35262803038;
 	Tue, 26 Jul 2022 16:10:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E1A62166B26;
-	Tue, 26 Jul 2022 16:10:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8EF67404C324;
+	Tue, 26 Jul 2022 16:10:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 14F781945DAA;
-	Tue, 26 Jul 2022 16:10:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E2781945DAD;
+	Tue, 26 Jul 2022 16:10:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3B79A1945DA0
- for <dm-devel@listman.corp.redhat.com>; Tue, 26 Jul 2022 16:10:08 +0000 (UTC)
+ ESMTP id DD7281947053
+ for <dm-devel@listman.corp.redhat.com>; Tue, 26 Jul 2022 16:10:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 30E812026D07; Tue, 26 Jul 2022 16:10:08 +0000 (UTC)
+ id CE21E40357BA; Tue, 26 Jul 2022 16:10:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C8992026D64
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1090E802D1C
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:08 +0000 (UTC)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169]) by relay.mimecast.com with ESMTP with STARTTLS
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C9FFF40C128A
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0EB9804197
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 16:10:09 +0000 (UTC)
+Received: from mail-qk1-f172.google.com (mail-qk1-f172.google.com
+ [209.85.222.172]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-561-KZItj4lvMqS5NHyAlagaIQ-1; Tue, 26 Jul 2022 12:10:06 -0400
-X-MC-Unique: KZItj4lvMqS5NHyAlagaIQ-1
-Received: by mail-qt1-f169.google.com with SMTP id c20so10766522qtw.8
- for <dm-devel@redhat.com>; Tue, 26 Jul 2022 09:10:06 -0700 (PDT)
+ us-mta-27-G7c4n42MNfWVMawn4rUunw-1; Tue, 26 Jul 2022 12:10:07 -0400
+X-MC-Unique: G7c4n42MNfWVMawn4rUunw-1
+Received: by mail-qk1-f172.google.com with SMTP id f14so11346853qkm.0
+ for <dm-devel@redhat.com>; Tue, 26 Jul 2022 09:10:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=x-gm-message-state:from:to:cc:subject:date:message-id:in-reply-to
  :references:mime-version:content-transfer-encoding;
- bh=cGzlbS1u19Da2+jcGvOt+bCQwf1Psf+FIah3Q2zZYYs=;
- b=i6A5bcGUabnFeI0OA1SohA5qMPQAkZq7a3Im+S/3m8SzFhtbF57tq1zx3Z3yZxWe5y
- 6kFXL8rxo1rweCSXBHOpRORZdc6VATwozsN8/KzOXuaU9QJS3UKBohauM+6OkPmqIxk0
- 6dNX3FX1dlERiZ87f0jrE9E/WFAihLm3IqURnSrszywHd20i49JJ4K91+v6y12DmJw9n
- uERFWLgy92GkL7ymwtX+hQ763MyX4e/U6bu7XxmBZG8zkMDQUFEc8Ji9REvUM/hFumaI
- tXNQH/dPbmiKTZasSUBw+J6hqnSipb8CfsHSUQ6qHyWEVgDAM/P/Akw5uIV9aR3my3Kd
- d75w==
-X-Gm-Message-State: AJIora/Oxk+7BdlMCwMBVtnr+YC4VyKPwQD5SZdt/MAsR0+ZnLEMMbLS
- Gv9tGjcoM5iZnllSstJLYYVoJXc=
-X-Google-Smtp-Source: AGRyM1t3fR0wyk7AXT5hYyNsIbSXjBz7nG9O+LYk6RGGpESwf5Z0hCV5A5dpfKPwzZ+GFLIN6bZTqQ==
-X-Received: by 2002:ac8:5c06:0:b0:31e:de4b:abb8 with SMTP id
- i6-20020ac85c06000000b0031ede4babb8mr15371388qti.83.1658851805511; 
- Tue, 26 Jul 2022 09:10:05 -0700 (PDT)
+ bh=YkgkA2+j0E5LsjaFVlZALOdG0CjEFLTXs98W8Zo/tZU=;
+ b=1vvwoBfsUYxbKCDIk0M6YCqAZWzjobr0kgqRq76u2JFuSHG1AlODMTC6BaMfgRenJw
+ BIVDGXBnM53t2DIDq5wh0rCAsF7qZ3iSq+8nCgiGF9SCbJEbpatdSSCmNYVu/BRoo1Dx
+ Y6W19vbwTl7Uclhx9NNdSlt/fmdwFoISgLLJo4kZZf/ckm2oFzf5jwlAzlweBPSaFaT8
+ OJJ4oSZy6LQFgxChGO3S3nSalPp6QLETXB37xnbpiLGqV5YheHi1OJVKl9APv54rr7rk
+ +48pVaGdDMZcKffMHYi77k+kjbh+XqsV3J7oqLhnN4/cNZNAsV9Z9FhSUWd2yIv0xdPe
+ o7ng==
+X-Gm-Message-State: AJIora8FeBDfRDvviFvb3lapd1XS4V4og4MmvdiXzWZB1Cp5D/fJC4eT
+ zlLTr2iIDWqfraPT730wTAW74NQ=
+X-Google-Smtp-Source: AGRyM1sjQeG7eIkusXe8fGvaf3TqtNgbevqNNLNMLqb4iRoybl89PNKGeJFmNjnlRa0950UNx4TI4g==
+X-Received: by 2002:a05:620a:4116:b0:6b6:31e:b7ed with SMTP id
+ j22-20020a05620a411600b006b6031eb7edmr13705750qko.529.1658851806856; 
+ Tue, 26 Jul 2022 09:10:06 -0700 (PDT)
 Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
  [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
- bj26-20020a05620a191a00b006af50b6f10csm11474443qkb.61.2022.07.26.09.10.04
+ h22-20020ac87156000000b0031ef622a6a2sm9086723qtp.17.2022.07.26.09.10.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 26 Jul 2022 09:10:04 -0700 (PDT)
+ Tue, 26 Jul 2022 09:10:06 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: Nathan Huckleberry <nhuck@google.com>, Eric Biggers <ebiggers@kernel.org>
-Date: Tue, 26 Jul 2022 12:09:56 -0400
-Message-Id: <20220726160959.89247-4-snitzer@kernel.org>
+Date: Tue, 26 Jul 2022 12:09:57 -0400
+Message-Id: <20220726160959.89247-5-snitzer@kernel.org>
 In-Reply-To: <20220726160959.89247-1-snitzer@kernel.org>
 References: <20220726160959.89247-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
-Subject: [dm-devel] [PATCH v2 3/6] dm verity: Add optional
- "try_verify_in_tasklet" feature
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [PATCH v2 4/6] dm verity: allow optional args to alter
+ primary args handling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,7 +105,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Sami Tolvanen <samitolvanen@google.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -112,292 +113,127 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Nathan Huckleberry <nhuck@google.com>
+Commit 6d891d0978a2 ("dm verity: Add optional "try_verify_in_tasklet"
+feature") imposed that CRYPTO_ALG_ASYNC mask be used even if the
+optional "try_verify_in_tasklet" feature was not specified. This was
+because verity_parse_opt_args() was called after handling the primary
+args (due to it having data dependencies on having first parsed all
+primary args).
 
-Using tasklets for disk verification can reduce IO latency. When there
-are accelerated hash instructions it is often better to compute the
-hash immediately using a tasklet rather than deferring verification to
-a work-queue. This reduces time spent waiting to schedule work-queue
-jobs, but requires spending slightly more time in interrupt context.
+Enhance verity_ctr() so that simple optional args, that don't have a
+data dependency on primary args parsing, can alter how the primary
+args are handled. In practice this means verity_parse_opt_args() gets
+called twice. First with the new 'only_modifier_opts' arg set to true,
+then again with it set to false _after_ parsing all primary args.
 
-If the dm-bufio cache does not have the required hashes we fallback to
-the work-queue implementation. FEC is only possible using work-queue
-because code to support the FEC feature may sleep.
+This allows the v->use_tasklet flag to be properly set and then used
+when verity_ctr() parses the primary args and then calls
+crypto_alloc_ahash().
 
-The following shows a speed comparison of random reads on a dm-verity
-device. The dm-verity device uses a 1G ramdisk for data and a 1G
-ramdisk for hashes. One test was run using tasklets and one test was
-run using the existing work-queue solution. Both tests were run when
-the dm-bufio cache was hot. The tasklet implementation performs
-significantly better since there is no time spent waiting for
-work-queue jobs to be scheduled.
-
-   READ: bw=181MiB/s (190MB/s), 181MiB/s-181MiB/s (190MB/s-190MB/s), io=512MiB
-   (537MB), run=2827-2827msec
-   READ: bw=23.6MiB/s (24.8MB/s), 23.6MiB/s-23.6MiB/s (24.8MB/s-24.8MB/s),
-   io=512MiB (537MB), run=21688-21688msec
-
-Signed-off-by: Nathan Huckleberry <nhuck@google.com>
+Fixes: 6d891d0978a2 ("dm verity: Add optional "try_verify_in_tasklet" feature")
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-verity-target.c | 90 ++++++++++++++++++++++++++++++-----
- drivers/md/dm-verity.h        |  7 ++-
- 2 files changed, 83 insertions(+), 14 deletions(-)
+ drivers/md/dm-verity-target.c | 32 ++++++++++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 8 deletions(-)
 
 diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 95db3a7ee3c7..3b566077a74e 100644
+index 3b566077a74e..054095c2052b 100644
 --- a/drivers/md/dm-verity-target.c
 +++ b/drivers/md/dm-verity-target.c
-@@ -34,6 +34,7 @@
- #define DM_VERITY_OPT_PANIC		"panic_on_corruption"
- #define DM_VERITY_OPT_IGN_ZEROES	"ignore_zero_blocks"
- #define DM_VERITY_OPT_AT_MOST_ONCE	"check_at_most_once"
-+#define DM_VERITY_OPT_TASKLET_VERIFY	"try_verify_in_tasklet"
- 
- #define DM_VERITY_OPTS_MAX		(3 + DM_VERITY_OPTS_FEC + \
- 					 DM_VERITY_ROOT_HASH_VERIFICATION_OPTS)
-@@ -220,7 +221,7 @@ static int verity_handle_err(struct dm_verity *v, enum verity_block_type type,
- 	struct mapped_device *md = dm_table_get_md(v->ti->table);
- 
- 	/* Corruption should be visible in device status in all modes */
--	v->hash_failed = 1;
-+	v->hash_failed = true;
- 
- 	if (v->corrupted_errs >= DM_VERITY_MAX_CORRUPTED_ERRS)
- 		goto out;
-@@ -286,7 +287,19 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
- 
- 	verity_hash_at_level(v, block, level, &hash_block, &offset);
- 
--	data = dm_bufio_read(v->bufio, hash_block, &buf);
-+	if (io->in_tasklet) {
-+		data = dm_bufio_get(v->bufio, hash_block, &buf);
-+		if (data == NULL) {
-+			/*
-+			 * In tasklet and the hash was not in the bufio cache.
-+			 * Return early and resume execution from a work-queue
-+			 * to read the hash from disk.
-+			 */
-+			return -EAGAIN;
-+		}
-+	} else
-+		data = dm_bufio_read(v->bufio, hash_block, &buf);
-+
- 	if (IS_ERR(data))
- 		return PTR_ERR(data);
- 
-@@ -307,6 +320,14 @@ static int verity_verify_level(struct dm_verity *v, struct dm_verity_io *io,
- 		if (likely(memcmp(verity_io_real_digest(v, io), want_digest,
- 				  v->digest_size) == 0))
- 			aux->hash_verified = 1;
-+		else if (io->in_tasklet) {
-+			/*
-+			 * FEC code cannot be run in a tasklet since it may
-+			 * sleep, so fallback to using a work-queue.
-+			 */
-+			r = -EAGAIN;
-+			goto release_ret_r;
-+		}
- 		else if (verity_fec_decode(v, io,
- 					   DM_VERITY_BLOCK_TYPE_METADATA,
- 					   hash_block, data, NULL) == 0)
-@@ -474,13 +495,12 @@ static int verity_verify_io(struct dm_verity_io *io)
- 	bool is_zero;
- 	struct dm_verity *v = io->v;
- 	struct bvec_iter start;
--	unsigned b;
- 	struct crypto_wait wait;
- 	struct bio *bio = dm_bio_from_per_bio_data(io, v->ti->per_io_data_size);
- 
--	for (b = 0; b < io->n_blocks; b++) {
-+	for (; io->block_idx < io->n_blocks; io->block_idx++) {
- 		int r;
--		sector_t cur_block = io->block + b;
-+		sector_t cur_block = io->block + io->block_idx;
- 		struct ahash_request *req = verity_io_hash_req(v, io);
- 
- 		if (v->validated_blocks &&
-@@ -527,8 +547,14 @@ static int verity_verify_io(struct dm_verity_io *io)
- 			if (v->validated_blocks)
- 				set_bit(cur_block, v->validated_blocks);
- 			continue;
-+		} else if (io->in_tasklet) {
-+			/*
-+			 * FEC code cannot be run in a tasklet since it may
-+			 * sleep, so fallback to using a work-queue.
-+			 */
-+			return -EAGAIN;
- 		} else if (verity_fec_decode(v, io, DM_VERITY_BLOCK_TYPE_DATA,
--					   cur_block, NULL, &start) == 0) {
-+					     cur_block, NULL, &start) == 0) {
- 			continue;
- 		} else {
- 			if (bio->bi_status) {
-@@ -566,7 +592,8 @@ static void verity_finish_io(struct dm_verity_io *io, blk_status_t status)
- 	bio->bi_end_io = io->orig_bi_end_io;
- 	bio->bi_status = status;
- 
--	verity_fec_finish_io(io);
-+	if (!io->in_tasklet)
-+		verity_fec_finish_io(io);
- 
- 	bio_endio(bio);
- }
-@@ -578,6 +605,24 @@ static void verity_work(struct work_struct *w)
- 	verity_finish_io(io, errno_to_blk_status(verity_verify_io(io)));
+@@ -1022,7 +1022,8 @@ static int verity_parse_verity_mode(struct dm_verity *v, const char *arg_name)
  }
  
-+static void verity_tasklet(unsigned long data)
-+{
-+	struct dm_verity_io *io = (struct dm_verity_io *)data;
-+	int err;
-+
-+	io->in_tasklet = true;
-+	err = verity_verify_io(io);
-+	if (err == -EAGAIN) {
-+		/* fallback to retrying with work-queue */
-+		io->in_tasklet = false;
-+		INIT_WORK(&io->work, verity_work);
-+		queue_work(io->v->verify_wq, &io->work);
-+		return;
-+	}
-+
-+	verity_finish_io(io, errno_to_blk_status(err));
-+}
-+
- static void verity_end_io(struct bio *bio)
+ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
+-				 struct dm_verity_sig_opts *verify_args)
++				 struct dm_verity_sig_opts *verify_args,
++				 bool only_modifier_opts)
  {
- 	struct dm_verity_io *io = bio->bi_private;
-@@ -588,8 +633,14 @@ static void verity_end_io(struct bio *bio)
- 		return;
- 	}
+ 	int r;
+ 	unsigned argc;
+@@ -1045,6 +1046,8 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
+ 		argc--;
  
--	INIT_WORK(&io->work, verity_work);
--	queue_work(io->v->verify_wq, &io->work);
-+	io->block_idx = 0;
-+	if (io->v->use_tasklet) {
-+		tasklet_init(&io->tasklet, verity_tasklet, (unsigned long)io);
-+		tasklet_schedule(&io->tasklet);
-+	} else {
-+		INIT_WORK(&io->work, verity_work);
-+		queue_work(io->v->verify_wq, &io->work);
-+	}
- }
- 
- /*
-@@ -751,6 +802,8 @@ static void verity_status(struct dm_target *ti, status_type_t type,
- 			args++;
- 		if (v->validated_blocks)
- 			args++;
-+		if (v->use_tasklet)
-+			args++;
- 		if (v->signature_key_desc)
- 			args += DM_VERITY_ROOT_HASH_VERIFICATION_OPTS;
- 		if (!args)
-@@ -776,6 +829,8 @@ static void verity_status(struct dm_target *ti, status_type_t type,
- 			DMEMIT(" " DM_VERITY_OPT_IGN_ZEROES);
- 		if (v->validated_blocks)
- 			DMEMIT(" " DM_VERITY_OPT_AT_MOST_ONCE);
-+		if (v->use_tasklet)
-+			DMEMIT(" " DM_VERITY_OPT_TASKLET_VERIFY);
- 		sz = verity_fec_status_table(v, sz, result, maxlen);
- 		if (v->signature_key_desc)
- 			DMEMIT(" " DM_VERITY_ROOT_HASH_VERIFICATION_OPT_SIG_KEY
-@@ -1011,11 +1066,16 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
- 				return r;
+ 		if (verity_is_verity_mode(arg_name)) {
++			if (only_modifier_opts)
++				continue;
+ 			r = verity_parse_verity_mode(v, arg_name);
+ 			if (r) {
+ 				ti->error = "Conflicting error handling parameters";
+@@ -1053,6 +1056,8 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
  			continue;
  
-+		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_TASKLET_VERIFY)) {
-+			v->use_tasklet = true;
-+			continue;
-+
+ 		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_IGN_ZEROES)) {
++			if (only_modifier_opts)
++				continue;
+ 			r = verity_alloc_zero_digest(v);
+ 			if (r) {
+ 				ti->error = "Cannot allocate zero digest";
+@@ -1061,6 +1066,8 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
+ 			continue;
+ 
+ 		} else if (!strcasecmp(arg_name, DM_VERITY_OPT_AT_MOST_ONCE)) {
++			if (only_modifier_opts)
++				continue;
+ 			r = verity_alloc_most_once(v);
+ 			if (r)
+ 				return r;
+@@ -1071,12 +1078,16 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
+ 			continue;
+ 
  		} else if (verity_is_fec_opt_arg(arg_name)) {
++			if (only_modifier_opts)
++				continue;
  			r = verity_fec_parse_opt_args(as, v, &argc, arg_name);
  			if (r)
  				return r;
  			continue;
-+
+ 
  		} else if (verity_verify_is_sig_opt_arg(arg_name)) {
++			if (only_modifier_opts)
++				continue;
  			r = verity_verify_sig_parse_opt_args(as, v,
  							     verify_args,
-@@ -1023,7 +1083,6 @@ static int verity_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
- 			if (r)
- 				return r;
- 			continue;
--
- 		}
- 
- 		ti->error = "Unrecognized verity feature request";
-@@ -1155,7 +1214,11 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
+ 							     &argc, arg_name);
+@@ -1143,6 +1154,15 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
  		goto bad;
  	}
  
--	v->tfm = crypto_alloc_ahash(v->alg_name, 0, 0);
-+	/*
-+	 * FIXME: CRYPTO_ALG_ASYNC should be conditional on v->use_tasklet
-+	 * but verity_parse_opt_args() happens below and has data dep on tfm.
-+	 */
-+	v->tfm = crypto_alloc_ahash(v->alg_name, 0, CRYPTO_ALG_ASYNC);
++	/* Parse optional parameters that modify primary args */
++	if (argc > 10) {
++		as.argc = argc - 10;
++		as.argv = argv + 10;
++		r = verity_parse_opt_args(&as, v, &verify_args, true);
++		if (r < 0)
++			goto bad;
++	}
++
+ 	if (sscanf(argv[0], "%u%c", &num, &dummy) != 1 ||
+ 	    num > 1) {
+ 		ti->error = "Invalid version";
+@@ -1214,11 +1234,8 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
+ 		goto bad;
+ 	}
+ 
+-	/*
+-	 * FIXME: CRYPTO_ALG_ASYNC should be conditional on v->use_tasklet
+-	 * but verity_parse_opt_args() happens below and has data dep on tfm.
+-	 */
+-	v->tfm = crypto_alloc_ahash(v->alg_name, 0, CRYPTO_ALG_ASYNC);
++	v->tfm = crypto_alloc_ahash(v->alg_name, 0,
++				    v->use_tasklet ? CRYPTO_ALG_ASYNC : 0);
  	if (IS_ERR(v->tfm)) {
  		ti->error = "Cannot initialize hash function";
  		r = PTR_ERR(v->tfm);
-@@ -1265,7 +1328,8 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 
- 	v->bufio = dm_bufio_client_create(v->hash_dev->bdev,
- 		1 << v->hash_dev_block_bits, 1, sizeof(struct buffer_aux),
--		dm_bufio_alloc_callback, NULL, 0);
-+		dm_bufio_alloc_callback, NULL,
-+		v->use_tasklet ? DM_BUFIO_CLIENT_NO_SLEEP : 0);
- 	if (IS_ERR(v->bufio)) {
- 		ti->error = "Cannot initialize dm-bufio";
- 		r = PTR_ERR(v->bufio);
-@@ -1312,7 +1376,7 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- static struct target_type verity_target = {
- 	.name		= "verity",
- 	.features	= DM_TARGET_IMMUTABLE,
--	.version	= {1, 8, 0},
-+	.version	= {1, 9, 0},
- 	.module		= THIS_MODULE,
- 	.ctr		= verity_ctr,
- 	.dtr		= verity_dtr,
-diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
-index 4e769d13473a..e73a7972c3e9 100644
---- a/drivers/md/dm-verity.h
-+++ b/drivers/md/dm-verity.h
-@@ -13,6 +13,7 @@
- 
- #include <linux/dm-bufio.h>
- #include <linux/device-mapper.h>
-+#include <linux/interrupt.h>
- #include <crypto/hash.h>
- 
- #define DM_VERITY_MAX_LEVELS		63
-@@ -51,9 +52,10 @@ struct dm_verity {
- 	unsigned char hash_per_block_bits;	/* log2(hashes in hash block) */
- 	unsigned char levels;	/* the number of tree levels */
- 	unsigned char version;
-+	bool hash_failed:1;	/* set if hash of any block failed */
-+	bool use_tasklet:1;	/* try to verify in tasklet before work-queue */
- 	unsigned digest_size;	/* digest size for the current hash algorithm */
- 	unsigned int ahash_reqsize;/* the size of temporary space for crypto */
--	int hash_failed;	/* set to 1 if hash of any block failed */
- 	enum verity_mode mode;	/* mode for handling verification errors */
- 	unsigned corrupted_errs;/* Number of errors for corrupted blocks */
- 
-@@ -76,10 +78,13 @@ struct dm_verity_io {
- 
- 	sector_t block;
- 	unsigned n_blocks;
-+	unsigned int block_idx;
-+	bool in_tasklet;
- 
- 	struct bvec_iter iter;
- 
- 	struct work_struct work;
-+	struct tasklet_struct tasklet;
- 
- 	/*
- 	 * Three variably-size fields follow this struct:
+@@ -1280,8 +1297,7 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
+ 	if (argc) {
+ 		as.argc = argc;
+ 		as.argv = argv;
+-
+-		r = verity_parse_opt_args(&as, v, &verify_args);
++		r = verity_parse_opt_args(&as, v, &verify_args, false);
+ 		if (r < 0)
+ 			goto bad;
+ 	}
 -- 
 2.32.1 (Apple Git-133)
 
