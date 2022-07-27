@@ -1,145 +1,100 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7510258350A
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Jul 2022 00:04:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 68BF25835A4
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Jul 2022 01:31:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1658959460;
+	s=mimecast20190719; t=1658964714;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7e0PSkRgXFrHoKOQrW4sFpccFpD82tI4KgD68A8R1XI=;
-	b=RxiCO+/Egqufub/+/DRB6IJ3CH38qxL7V2SPMpdCJqLhX5bR31h7/IiufIi8BsXqLm9WfC
-	6A8up1OOZ5UOmYH135FzKETh8gUnQUwYoI18ZdW2NmbMGBDz/r+tNaSkGIcfaSacx+ZS9p
-	+w+WSGpTL/8gk1qPyQvtBskho4VA6YM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ppFSxdnU4noIlwM1F+f5Z6SmlArLHhxp3B8Nr5BE5LI=;
+	b=D8Gp2ffiemT6MDquEqq83auTWYUss4t5CJWYDf3PJhedPzJcUHg5s46AQ8jub4YBRpKTiq
+	pm5PiV8sddRawVmT4CatpM1JUPQcbvV7Z/bwSAd+Y5NYZhbHQ7lZViS54WfgxUVqvDssqs
+	OHJ4o+E2lmC3PUxqYGH1dMyv+Gk6mnE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-447-HuvQFHv9NDKspcdkdKGVHw-1; Wed, 27 Jul 2022 18:04:16 -0400
-X-MC-Unique: HuvQFHv9NDKspcdkdKGVHw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-658-rdfO7A_bO4qMa-qRuo5Dew-1; Wed, 27 Jul 2022 19:31:53 -0400
+X-MC-Unique: rdfO7A_bO4qMa-qRuo5Dew-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 292832812C28;
-	Wed, 27 Jul 2022 22:04:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C09C085A58A;
+	Wed, 27 Jul 2022 23:31:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A169240CFD0A;
-	Wed, 27 Jul 2022 22:04:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AB5371121319;
+	Wed, 27 Jul 2022 23:31:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 06AEE1945DB4;
-	Wed, 27 Jul 2022 22:04:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 42F831945DB2;
+	Wed, 27 Jul 2022 23:31:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BF0041945DAB
- for <dm-devel@listman.corp.redhat.com>; Wed, 27 Jul 2022 21:59:55 +0000 (UTC)
+ ESMTP id 6DCF51945DA7
+ for <dm-devel@listman.corp.redhat.com>; Wed, 27 Jul 2022 23:16:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B13381415121; Wed, 27 Jul 2022 21:59:55 +0000 (UTC)
+ id 421A7141511F; Wed, 27 Jul 2022 23:16:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ACB2A141511F
- for <dm-devel@redhat.com>; Wed, 27 Jul 2022 21:59:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D67F1415118
+ for <dm-devel@redhat.com>; Wed, 27 Jul 2022 23:16:38 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91E34185A7A4
- for <dm-devel@redhat.com>; Wed, 27 Jul 2022 21:59:55 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2064.outbound.protection.outlook.com [40.107.223.64]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-568-XaxuEvvoPXmxvPLIIRU1qQ-1; Wed, 27 Jul 2022 17:59:53 -0400
-X-MC-Unique: XaxuEvvoPXmxvPLIIRU1qQ-1
-Received: from BL0PR12MB4659.namprd12.prod.outlook.com (2603:10b6:207:1d::33)
- by MN0PR12MB6080.namprd12.prod.outlook.com (2603:10b6:208:3c8::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5458.19; Wed, 27 Jul
- 2022 21:59:51 +0000
-Received: from BL0PR12MB4659.namprd12.prod.outlook.com
- ([fe80::21eb:6424:fbf6:a189]) by BL0PR12MB4659.namprd12.prod.outlook.com
- ([fe80::21eb:6424:fbf6:a189%6]) with mapi id 15.20.5458.024; Wed, 27 Jul 2022
- 21:59:50 +0000
-From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-To: Pankaj Raghav <p.raghav@samsung.com>
-Thread-Topic: [PATCH v8 05/11] null_blk: allow non power of 2 zoned devices
-Thread-Index: AQHYodViv/Y7J0eqK0KIahJ7h6pcpK2SxLgA
-Date: Wed, 27 Jul 2022 21:59:50 +0000
-Message-ID: <bbcfe218-5bae-266c-5712-3489b2eeaaba@nvidia.com>
-References: <20220727162245.209794-1-p.raghav@samsung.com>
- <CGME20220727162251eucas1p12939ac3864fd8705ae139eb2d1087d8f@eucas1p1.samsung.com>
- <20220727162245.209794-6-p.raghav@samsung.com>
-In-Reply-To: <20220727162245.209794-6-p.raghav@samsung.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.8.0
-x-ms-publictraffictype: Email
-x-ms-office365-filtering-correlation-id: bfd20fb2-4f0f-4a90-be1d-08da701b5470
-x-ms-traffictypediagnostic: MN0PR12MB6080:EE_
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: 5Vi0donuo2Yr+6seP/Sg2eAUDPnyKlxoMdf31OT9WtUezLKoq3xI6reu6OgVvhEp3h0QQNK8BdOTRp+HLB5QoWrJXSZjXmS4tP96C3MJ3MhrJr20J9l/ETSTk4yjYNEEEZzZY8/SGTtESPT/tXT7bNc7EFdzE/z5Os9fnpVwDdtWfVJQOhviyeJIIiK0NtcSXNx714A4G9bC6roHwX/zhQ/Fvhr8bwfwVJOnBoPEM/cqyvC1RD2k6nRsFS1il+2NMQKHT0jGmwiCeKv/YVq+M72XztAxL/iEQ/raaMskND76f+NUyueXjTN/tRFdT6MFAuP9BsfC3ym3588VIjZ7U5Hq1qjXaS0Clshj11zJslwcpr3JdqlP1p3r1gYd1FAyOfF7SMVIr6lGe+tAO9OZefyikouafiZYK8Ptmst7btbTa5bkELxmF2qLsPvSxilXZlnyQjyHZmbMjLgz/giQIk4ULq3GtA8emOGwuOtsVcZQ5bh/eU4wMkpZizfNHPAxRjRVHSm1ZdQglwhm2tKkGpo+Lnia/pp1npZwPfGpLv/B26b279Fo/p8ZKnwG29SLi0pQBk97YBFAvOGYlG2CrpLDJ+vQJwj32mf0bHCVwq653yEc4w6qE1seYKaEHQSvu97Tc0wX0Q+c2u4su4okyO/m5Flj/AjQMSXBaynQWwFhtdM5AYI/zxfWhlrDH48kWeNL+mu44xYDttuEWEbRUU7sBCy0Ip+h2coloV4wSTt18AqJB3rA6polQCMDqKG/kOVJAhTlupFTug/b6iD79oh9lIFxkm63MqZkRfCYUZtWbr5LtMFzh7NWQEaAp0Kv1jEy5Aszi1f7sX8+Ig+wJMoqy+OPlIVTLb45qS6uMyKK0ETRNgU+65Rp27T1tBAn
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BL0PR12MB4659.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230016)(4636009)(366004)(346002)(396003)(136003)(376002)(39860400002)(5660300002)(2906002)(7416002)(2616005)(6486002)(86362001)(54906003)(41300700001)(71200400001)(31696002)(26005)(36756003)(38070700005)(91956017)(6506007)(6512007)(186003)(66446008)(8936002)(478600001)(122000001)(8676002)(76116006)(83380400001)(38100700002)(316002)(31686004)(6916009)(66946007)(64756008)(66476007)(4326008)(66556008)(45980500001)(43740500002);
- DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eldWK29pZlFqQnFpLzhKRk85TUUzaTVabTN2RlYvRzRvVEVXOUxOM2xMZWM0?=
- =?utf-8?B?Y0dzT1lGcGx6dlFJbk9iWTArWlEzRzY2dUxMZHQwN2FCTlJZN011QTU1QTNE?=
- =?utf-8?B?N2RBNk95NDYrVWozOEN1RWt4WUgzQ3pvdXZYbkNQeTJrZ3pFaXcrL1RPclIw?=
- =?utf-8?B?dlh5bTM1Ykg3YUtETi9lU0lBYmJxTmdQRUN1ZlJoQjM1SUdTd2xtbVo3c01O?=
- =?utf-8?B?aXk2V2kyYXR3Y2FQM0RaMnBUOW5QSUZtQmZqVWFGNm5XSDNWeFJXN1lIbHdB?=
- =?utf-8?B?UHpydXRxa1ZBdmFqMVQ4Uk95YUIzK2RsWkQ3RjQ3VllSYThlNld2cjVXaU91?=
- =?utf-8?B?Z3Y1UGU4THlRTVNDRUNkV3Q0L0hTcVFuNWF3YjNZMnlUOElack1yUjN4eTZp?=
- =?utf-8?B?SkJoMUtEcllicHBScHA2UmZCby82SVV0Z3luV1FnOExzRGxvRGRqeVhydS91?=
- =?utf-8?B?V092dUFEVnVnQ0UxL0JBTDNuYkdySC9CbzhjNmdBamRCZE4xVm4zRFJ3TEdw?=
- =?utf-8?B?bnJTUGtDZS9jTTE2Wmd3Mm95NkRVdHpSY1NlR1dYRjJPd0V1T1JUUUNCWFI4?=
- =?utf-8?B?TWRJK0JOc2syOExyZjZaWGVFWU9YekNtczkzWkZZNFJYNHZpQzZlVVdZMC9J?=
- =?utf-8?B?SVViSkE5MTFuMFRzSURSZW8vVmpEay9YOTJuVDZPaXNrUVg3K21RdjRQdFRY?=
- =?utf-8?B?Y0srNlRyaHcwWnBqYzFDTG0xaXZRWjRrUm13V09CZnhMN3dBS3ZpOEtPdXlt?=
- =?utf-8?B?S0dOUjNmNmdyVm5OSzAyNG8zQXVWS1BMdDBHUkpJNnd4WXJZcHNCRW12OWJu?=
- =?utf-8?B?aVQwNzYydjl4bFFacHhEdklEVEV0ZDNxUW1QaldWaHdTRGo2WU43TVN4eDRk?=
- =?utf-8?B?Uk41eWwrdE9BMDZLK09qcUt0ZE8rMkRKbitlOG03MWdCUnltZEpVYXdxRXlE?=
- =?utf-8?B?MHJiZVovNit5b1dHRmRsdnRaWnQ2d2JORVBwT2Rzd1YrQ1JGY3ZVOFJiUnpy?=
- =?utf-8?B?TzdtODJTRXJqUGRGNU9Nb0JCTVpSU2NFU2NTZWJYQ2FiMytjdjFHZDgxK3RY?=
- =?utf-8?B?RDMxRmVoRVh0U1BEZVdDN2dEL0tSZmlHRWJIMytFRmw5eGRlWkZ6RkFLcmxq?=
- =?utf-8?B?UVhXNDN0UFk0WHZyZFZHSlkwU1U1RnIvaVpuZ0hIT1A2c0I5eUdCY0lKUkdL?=
- =?utf-8?B?QlVjUWhnMEJsdEx1UUVrYWtJdFdxRWF3dW9LMUsvSDhjVUtmWGZIeHplOThk?=
- =?utf-8?B?aVRMbGlGOWJoaWh1SWpvOFNrUGFUTFJrcERwOVRnOFQzdmxTVyttdFhoQ1lv?=
- =?utf-8?B?UTdhQzFNRlRsS2JTdnpUaENxMjRkak1UemZwQ1VHZk4zU0tsM2ZHdWV1S0ps?=
- =?utf-8?B?c3ZTdExoTWRVOTNBditIOXdUQzBxWTJWYWl3SjR4SlVvRUxKYnpGb0ZYRmk5?=
- =?utf-8?B?RThLKzNvaXJrNEQ0ZFV2bFpaRUNydzMrNHd1KzcyNUtHMGYxcWJTNlpLVmxu?=
- =?utf-8?B?dHZDZ285Vy9YdHhqMUM1STdXcS9FajlyblZKUjdFeG5iZmhpeXpPVHVoTXNB?=
- =?utf-8?B?SGR0dzd0ejlUdG9VVkd5cVluNHBpVjBtTGlKeXRKeGhIKzVuOGt4TEZOYWxS?=
- =?utf-8?B?MFRFaDhtZXRqemliSGwrQlJZNUg5czhKNlArdENBUFVQYlM3bHBicUlwMjgz?=
- =?utf-8?B?ZHhFUjJQTVZrYWMrQjFhTFhsTmp6Z3ZDdFZCbm56eG96b0QvWjJSZmZjcE01?=
- =?utf-8?B?eENlRDF6c1ExZmNhSlptZnVDalBqM095Vlp2dzNKK2R2b2FlV3hJWW5Rd2pi?=
- =?utf-8?B?M0h6dG5manNvL1dKdnJDNVlqbTRobGZuU2JrQlZ3T2o0bWh1ZXRRZ2F6ekhy?=
- =?utf-8?B?bmJ1MVlHSUZtemVkN1FMQUpWZEdqWTNhNkVxU05URjdZQTd0VXUxQWV2ZnBn?=
- =?utf-8?B?bTRJeWw0VVh1bmNLWjY2WGlQUkFicU1XdnFZRmFxRmZwK1NGcnQvVy92cUVo?=
- =?utf-8?B?SGx3a3ZkMm1HS2hWZ282dmdXRTlhN2ZnNUR3S2hwaWZwSUI1R3d2UWFFMkRr?=
- =?utf-8?B?NjF4bCs0bnNQREJnL05qZnR3V0VBQzhTVDdNam1Yc2lGYUFjSW8zTlU3T25G?=
- =?utf-8?Q?lc0Zrcy3e4A02OEL2xb1jnTsX?=
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 262FB101A54E
+ for <dm-devel@redhat.com>; Wed, 27 Jul 2022 23:16:38 +0000 (UTC)
+Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
+ [209.85.215.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-640-5FksqFPDPkqNb_LM6_sgqw-1; Wed, 27 Jul 2022 19:16:36 -0400
+X-MC-Unique: 5FksqFPDPkqNb_LM6_sgqw-1
+Received: by mail-pg1-f176.google.com with SMTP id f65so109121pgc.12
+ for <dm-devel@redhat.com>; Wed, 27 Jul 2022 16:16:36 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=x-gm-message-state:message-id:date:mime-version:user-agent:subject
+ :content-language:to:cc:references:from:in-reply-to
+ :content-transfer-encoding;
+ bh=9RCSjgTld4jFxyRMFpo8i47HSyAGNN8HsW/U7jGMYJo=;
+ b=tKv0MKWuTs0Px5MGFse5/Ib27di/OY0ZzqhTsy1Fl6NNezZS4zq3jS+p7b41SRHj38
+ u+l4a6GCn7chGKe3yzzxOKYLmwTXMk2sRZZzySUDk458g2GPotKYuEqKszxQqEC8i9OC
+ +nxS7/MYopLUgSeKaK8OGFsh9ai93CYV/Cdis0VZlIq2eoqKmJw+Dwm09Px7YrzfNpOu
+ 45gGt0fJ0m6bM4ZcaCz3SGBoymHDLOD7BxFTSsc+jDr6iphP6i9V8vEs4+9MzHRkEQ2S
+ tP2wY13ERmlgVca3HkvRh5NLCrbkMSeSVB6HkNMgO2rLu4eIAv6O7nVUw+dwmIT0qi1n
+ tOeg==
+X-Gm-Message-State: AJIora9GT4h7AklMkqD5kWAsujd3eA2Qw+Hcb4tooZ6qGKaORK2HVm73
+ e9gw1hYyXdD4oIWwI2rwj+s=
+X-Google-Smtp-Source: AGRyM1vSsVlL/urmNVN47qPHjbOavQDlMzKZVyvZFSg6UpuKUdlr1Wsfk2LxjLM4G7rsl977tP28Ug==
+X-Received: by 2002:a05:6a00:114f:b0:528:2c7a:634c with SMTP id
+ b15-20020a056a00114f00b005282c7a634cmr23853833pfm.41.1658963794531; 
+ Wed, 27 Jul 2022 16:16:34 -0700 (PDT)
+Received: from ?IPV6:2620:15c:211:201:a84e:2ec1:1b57:b033?
+ ([2620:15c:211:201:a84e:2ec1:1b57:b033])
+ by smtp.gmail.com with ESMTPSA id
+ f25-20020a635559000000b0041983a8d8c2sm12585044pgm.39.2022.07.27.16.16.32
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 27 Jul 2022 16:16:33 -0700 (PDT)
+Message-ID: <7984b969-9025-6b31-2645-da08daeefafb@acm.org>
+Date: Wed, 27 Jul 2022 16:16:30 -0700
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: BL0PR12MB4659.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: bfd20fb2-4f0f-4a90-be1d-08da701b5470
-X-MS-Exchange-CrossTenant-originalarrivaltime: 27 Jul 2022 21:59:50.9293 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 81MggmUGkafdNaiHSSql/3OGl12QEFNwvZipHrdssrIDSW4JzYhoCIFhW9auT5YJgdKckzgibBo6O0xC0UevVA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN0PR12MB6080
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.11.0
+To: Pankaj Raghav <p.raghav@samsung.com>, damien.lemoal@opensource.wdc.com,
+ hch@lst.de, axboe@kernel.dk, snitzer@kernel.org, Johannes.Thumshirn@wdc.com
+References: <20220727162245.209794-1-p.raghav@samsung.com>
+ <CGME20220727162248eucas1p2ff8c3c2b021bedcae3960024b4e269e9@eucas1p2.samsung.com>
+ <20220727162245.209794-3-p.raghav@samsung.com>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20220727162245.209794-3-p.raghav@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -148,8 +103,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v8 05/11] null_blk: allow non power of 2
- zoned devices
+Subject: Re: [dm-devel] [PATCH v8 02/11] block: allow blk-zoned devices to
+ have non-power-of-2 zone size
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,93 +116,68 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
- "bvanassche@acm.org" <bvanassche@acm.org>,
- "pankydev8@gmail.com" <pankydev8@gmail.com>,
- "Johannes.Thumshirn@wdc.com" <Johannes.Thumshirn@wdc.com>,
- "damien.lemoal@opensource.wdc.com" <damien.lemoal@opensource.wdc.com>,
- "snitzer@kernel.org" <snitzer@kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "gost.dev@samsung.com" <gost.dev@samsung.com>,
- "jaegeuk@kernel.org" <jaegeuk@kernel.org>, "hch@lst.de" <hch@lst.de>,
- "matias.bjorling@wdc.com" <matias.bjorling@wdc.com>,
+Cc: pankydev8@gmail.com, gost.dev@samsung.com, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-block@vger.kernel.org,
+ dm-devel@redhat.com, jaegeuk@kernel.org, matias.bjorling@wdc.com,
  Luis Chamberlain <mcgrof@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-ID: <5AA1B5F7B2C29A40A04790AB8C373DFF@namprd12.prod.outlook.com>
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
+On 7/27/22 09:22, Pankaj Raghav wrote:
+> Checking if a given sector is aligned to a zone is a common
+> operation that is performed for zoned devices. Add
+> bdev_is_zone_start helper to check for this instead of opencoding it
+> everywhere.
 
-> Performance Measurement:
-> 
-> Device:
-> zone size = 128M, blocksize=4k
-> 
-> FIO cmd:
-> 
-> fio --name=zbc --filename=/dev/nullb0 --direct=1 --zonemode=zbd  --size=23G
-> --io_size=<iosize> --ioengine=io_uring --iodepth=<iod> --rw=<mode> --bs=4k
-> --loops=4
-> 
-> The following results are an average of 4 runs on AMD Ryzen 5 5600X with
-> 32GB of RAM:
-> 
-> Sequential Write:
-> 
-> x-----------------x---------------------------------x---------------------------------x
-> |     IOdepth     |            8                    |            16                   |
-> x-----------------x---------------------------------x---------------------------------x
-> |                 |  KIOPS   |BW(MiB/s) | Lat(usec) |  KIOPS   |BW(MiB/s) | Lat(usec) |
-> x-----------------x---------------------------------x---------------------------------x
-> | Without patch   |  578     |  2257    |   12.80   |  576     |  2248    |   25.78   |
-> x-----------------x---------------------------------x---------------------------------x
-> |  With patch     |  581     |  2268    |   12.74   |  576     |  2248    |   25.85   |
-> x-----------------x---------------------------------x---------------------------------x
-> 
-> Sequential read:
-> 
-> x-----------------x---------------------------------x---------------------------------x
-> | IOdepth         |            8                    |            16                   |
-> x-----------------x---------------------------------x---------------------------------x
-> |                 |  KIOPS   |BW(MiB/s) | Lat(usec) |  KIOPS   |BW(MiB/s) | Lat(usec) |
-> x-----------------x---------------------------------x---------------------------------x
-> | Without patch   |  667     |  2605    |   11.79   |  675     |  2637    |   23.49   |
-> x-----------------x---------------------------------x---------------------------------x
-> |  With patch     |  667     |  2605    |   11.79   |  675     |  2638    |   23.48   |
-> x-----------------x---------------------------------x---------------------------------x
-> 
-> Random read:
-> 
-> x-----------------x---------------------------------x---------------------------------x
-> | IOdepth         |            8                    |            16                   |
-> x-----------------x---------------------------------x---------------------------------x
-> |                 |  KIOPS   |BW(MiB/s) | Lat(usec) |  KIOPS   |BW(MiB/s) | Lat(usec) |
-> x-----------------x---------------------------------x---------------------------------x
-> | Without patch   |  522     |  2038    |   15.05   |  514     |  2006    |   30.87   |
-> x-----------------x---------------------------------x---------------------------------x
-> |  With patch     |  522     |  2039    |   15.04   |  523     |  2042    |   30.33   |
-> x-----------------x---------------------------------x---------------------------------x
-> 
-> Minor variations are noticed in Sequential write with io depth 8 and
-> in random read with io depth 16. But overall no noticeable differences
-> were noticed
+I can't find the bdev_is_zone_start() function in this patch?
 
-minor variations in with aspect of the performance ?
-are these documented somewhere ?
+> To make this work bdev_get_queue(), bdev_zone_sectors() and
+> bdev_is_zoned() are moved earlier without modifications.
 
-move the large table of performance numbers to the cover letter it looks 
-ugly in the git log...
+Can that change perhaps be isolated into a separate patch?
 
+> diff --git a/block/blk-core.c b/block/blk-core.c
+> index 3d286a256d3d..1f7e9a90e198 100644
+> --- a/block/blk-core.c
+> +++ b/block/blk-core.c
+> @@ -570,7 +570,7 @@ static inline blk_status_t blk_check_zone_append(struct request_queue *q,
+>   		return BLK_STS_NOTSUPP;
+>   
+>   	/* The bio sector must point to the start of a sequential zone */
+> -	if (bio->bi_iter.bi_sector & (bdev_zone_sectors(bio->bi_bdev) - 1) ||
+> +	if (!bdev_is_zone_aligned(bio->bi_bdev, bio->bi_iter.bi_sector) ||
+>   	    !bio_zone_is_seq(bio))
+>   		return BLK_STS_IOERR;
+
+The bdev_is_zone_start() name seems more clear to me than 
+bdev_is_zone_aligned(). Has there already been a discussion about which 
+name to use for this function?
+
+> +		/*
+> +		 * Non power-of-2 zone size support was added to remove the
+> +		 * gap between zone capacity and zone size. Though it is technically
+> +		 * possible to have gaps in a non power-of-2 device, Linux requires
+> +		 * the zone size to be equal to zone capacity for non power-of-2
+> +		 * zoned devices.
+> +		 */
+> +		if (!is_power_of_2(zone->len) && zone->capacity < zone->len) {
+> +			pr_warn("%s: Invalid zone capacity for non power of 2 zone size",
+> +				disk->disk_name);
+
+Given the severity of this error, shouldn't the zone capacity and length 
+be reported in the error message?
+
+Thanks,
+
+Bart.
 
 --
 dm-devel mailing list
