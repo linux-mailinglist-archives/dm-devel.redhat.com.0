@@ -1,87 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2AE61584B74
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Jul 2022 08:12:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 39D6F584B73
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Jul 2022 08:12:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659075135;
+	s=mimecast20190719; t=1659075134;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sm2rUFOczNDUuYKqZgnink1M4Io2aymHkUXjvKgMhtk=;
-	b=Qg5PhUzWDgn/yPBVQInCn5IZEKd9gb7IatprXAv70EHPyflw88TbZuh+7f12y5v1Faldzp
-	LJX7v6Mufy1EmFxnu1WJ6t8s5hf9U64Tpt6EAiOulcIMrclXAQLmNq/uvPPQqdii6DJ3dP
-	Xns/O/e6oesWj3Qso5vlOsUOT4sTibE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=KlSJdQ6QyEuol8HDwqZqjl6KgwWxjtl3KTumhNJUkmQ=;
+	b=WKZLYQ2lJeUsb8mnUb2C5JsLUYEG1XJnP00ONlY2znrmGYObWE7TGukyEGoIfj+Qbg91WG
+	giZEw0GBLNOI1KP7pJy0Ocy9xbC29GJAP5J4P+0ZJESHIB/2DsIZC5TQ7+Et1K4NkalLWB
+	MuZge8jz79FSESjGmnizTL8ZkXqt8bs=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-111-c33ytTuLMOuKUYLTqz7_Wg-1; Fri, 29 Jul 2022 02:12:11 -0400
-X-MC-Unique: c33ytTuLMOuKUYLTqz7_Wg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-168-EmfBXamINCOcLi2ykLRwfg-1; Fri, 29 Jul 2022 02:12:13 -0400
+X-MC-Unique: EmfBXamINCOcLi2ykLRwfg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16B86804191;
-	Fri, 29 Jul 2022 06:12:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09EEB3802AC1;
+	Fri, 29 Jul 2022 06:12:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9A6D3C28100;
-	Fri, 29 Jul 2022 06:12:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E8D251121314;
+	Fri, 29 Jul 2022 06:12:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 38D9E1932127;
-	Fri, 29 Jul 2022 06:12:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 794261932125;
+	Fri, 29 Jul 2022 06:12:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 287F41932121
- for <dm-devel@listman.corp.redhat.com>; Fri, 29 Jul 2022 06:12:05 +0000 (UTC)
+ ESMTP id 9BF441932118
+ for <dm-devel@listman.corp.redhat.com>; Fri, 29 Jul 2022 06:12:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1D335C28125; Fri, 29 Jul 2022 06:12:05 +0000 (UTC)
+ id 9105B40F9D43; Fri, 29 Jul 2022 06:12:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1944FC28100
- for <dm-devel@redhat.com>; Fri, 29 Jul 2022 06:12:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CE1340F9D42
+ for <dm-devel@redhat.com>; Fri, 29 Jul 2022 06:12:08 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87F6029AA3AD
- for <dm-devel@redhat.com>; Fri, 29 Jul 2022 06:12:04 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75571188498B
+ for <dm-devel@redhat.com>; Fri, 29 Jul 2022 06:12:08 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
+ [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-460-NLjSEKrHPnW5qs3VZLLAUQ-1; Fri, 29 Jul 2022 02:12:00 -0400
-X-MC-Unique: NLjSEKrHPnW5qs3VZLLAUQ-1
+ us-mta-391-ho_2_JXsNTW0OUQCXiSpNw-1; Fri, 29 Jul 2022 02:12:03 -0400
+X-MC-Unique: ho_2_JXsNTW0OUQCXiSpNw-1
 Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4LvHFR1F8fzl6y1;
- Fri, 29 Jul 2022 14:10:51 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4LvHFD6MmPz6S1c1;
+ Fri, 29 Jul 2022 14:10:40 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.127.227])
- by APP3 (Coremail) with SMTP id _Ch0CgCnCWkneuNiP6ZGBQ--.22656S4;
+ by APP3 (Coremail) with SMTP id _Ch0CgCnCWkneuNiP6ZGBQ--.22656S5;
  Fri, 29 Jul 2022 14:11:53 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: stable@vger.kernel.org, hch@lst.de, axboe@kernel.dk, snitzer@redhat.com
-Date: Fri, 29 Jul 2022 14:23:53 +0800
-Message-Id: <20220729062356.1663513-1-yukuai1@huaweicloud.com>
+Date: Fri, 29 Jul 2022 14:23:54 +0800
+Message-Id: <20220729062356.1663513-2-yukuai1@huaweicloud.com>
+In-Reply-To: <20220729062356.1663513-1-yukuai1@huaweicloud.com>
+References: <20220729062356.1663513-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: _Ch0CgCnCWkneuNiP6ZGBQ--.22656S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF4rCFyxJr45GrWrWF45KFg_yoW7Jr43pr
- 43Kr45Cr48Kr17JF43AF1UJr1UJr47AF1UXryxGr18J3Wj93WUXryUJr4UAryUJr4UZry7
- tr1DJw48tr1UtaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUyG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWUuVWrJwAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
- xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
- cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
- AvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7Cj
- xVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VUbXdbUUUUUU==
+X-CM-TRANSID: _Ch0CgCnCWkneuNiP6ZGBQ--.22656S5
+X-Coremail-Antispam: 1UD129KBjvJXoWxWF1fXFW3WFyxGw1rWFW5trb_yoW7GryxpF
+ 98GFZ5JrW8W3yxWrsrtw47ZrW3Ww48C3WxJa4akr1SgrW7Jrs2vF1ktryDZFyfKrZ7KFZF
+ qF17WrWa9F10k3DanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9m14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWUuVWrJwAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+ x26xkF7I0E14v26r1I6r4UM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+ Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+ A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+ 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+ IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+ Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCF04k20xvY0x0EwIxGrwCFx2
+ IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v2
+ 6r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67
+ AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IY
+ s7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr
+ 0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUqAp5UUUUU=
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -91,8 +96,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [dm-devel] [PATCH stable 5.10 0/3] dm: fix nullptr crash
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
+Subject: [dm-devel] [PATCH stable 5.10 1/3] block: look up holders by bdev
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,98 +113,179 @@ Cc: linux-block@vger.kernel.org, yukuai3@huawei.com, dm-devel@redhat.com,
  yi.zhang@huawei.com, yukuai1@huaweicloud.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-RnJvbTogWXUgS3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgoKVGhpcyBwYXRjaHNldCBiYWNrcG9y
-dCB0aHJlZSBwYXRjaGVzIHRvIGZpeCBhIGNyYXNoIGZvdW5kIGJ5IG91ciB0ZXN0OgoKQlVHOiBr
-ZXJuZWwgTlVMTCBwb2ludGVyIGRlcmVmZXJlbmNlLCBhZGRyZXNzOiAwMDAwMDAwMDAwMDAwMWEw
-CiNQRjogc3VwZXJ2aXNvciByZWFkIGFjY2VzcyBpbiBrZXJuZWwgbW9kZQojUEY6IGVycm9yX2Nv
-ZGUoMHgwMDAwKSAtIG5vdC1wcmVzZW50IHBhZ2UKUEdEIDAgUDREIDAKT29wczogMDAwMCBbIzFd
-IFBSRUVNUFQgU01QCkNQVTogMSBQSUQ6IDEzMTcgQ29tbTogbW91bnQgTm90IHRhaW50ZWQgNS4x
-MC4wLTE2NjkxLWdmNjA3NjQzMjgyN2QtZGlydHkgIzE2OQpIYXJkd2FyZSBuYW1lOiBRRU1VIFN0
-YW5kYXJkIFBDIChpNDQwRlggKyBQSUlYLCAxOTk2KSwgQklPUyA/LTIwMTkwNzI3XzA3MzgzNi00
-ClJJUDogMDAxMDpfX2Jsa19tcV9zY2hlZF9iaW9fbWVyZ2UrMHg5ZC8weDFhMApDb2RlOiA4NyAx
-ZSA5ZCA4OSBkMCAyNSAwMCAwMCAwMCAwMSAwZiA4NSBhZCAwMCAwMCAwMCA0OCA4MyAwNSAyNSBh
-MSAzNyAwYyAwMSAzClJTUDogMDAxODpmZmZmYzkwMDAwNDczYjUwIEVGTEFHUzogMDAwMTAyMDIK
-UkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogMDAwMDAwMDAwMDAwMDAwMCBSQ1g6IGZmZmZjOTAw
-MDA0NzNiOTgKUkRYOiAwMDAwMDAwMDAwMDAxMDAwIFJTSTogZmZmZjg4ODEwODBjNzUwMCBSREk6
-IGZmZmY4ODgxMDNhOWNjMTgKUkJQOiBmZmZmODg4MTNiYzgwMDAwIFIwODogMDAwMDAwMDAwMDAw
-MDAwMSBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKUjEwOiBmZmZmODg4MTA3MTBiZTMwIFIxMTogMDAw
-MDAwMDAwMDAwMDAwMCBSMTI6IGZmZmY4ODgxMDNhOWNjMTgKUjEzOiBmZmZmODg4MTA4MGM3NTAw
-IFIxNDogMDAwMDAwMDAwMDAwMDAwMSBSMTU6IDAwMDAwMDAwMDAwMDAwMDAKRlM6ICAwMDAwN2Y1
-MWJjZGJiMDQwKDAwMDApIEdTOmZmZmY4ODgxM2JjODAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAw
-MDAwMDAwMApDUzogIDAwMTAgRFM6IDAwMDAgRVM6IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMz
-CkNSMjogMDAwMDAwMDAwMDAwMDFhMCBDUjM6IDAwMDAwMDAxMGQ3MTUwMDAgQ1I0OiAwMDAwMDAw
-MDAwMDAwNmUwCkRSMDogMDAwMDAwMDAwMDAwMDAwMCBEUjE6IDAwMDAwMDAwMDAwMDAwMDAgRFIy
-OiAwMDAwMDAwMDAwMDAwMDAwCkRSMzogMDAwMDAwMDAwMDAwMDAwMCBEUjY6IDAwMDAwMDAwZmZm
-ZTBmZjAgRFI3OiAwMDAwMDAwMDAwMDAwNDAwCgpDYWxsIFRyYWNlOgogYmxrX21xX3N1Ym1pdF9i
-aW8rMHgxMTUvMHhkODAKIHN1Ym1pdF9iaW9fbm9hY2N0KzB4NGZmLzB4NjEwCiBzdWJtaXRfYmlv
-KzB4YWEvMHgxYTAKIHN1Ym1pdF9iaF93YmMrMHgxY2IvMHgyZjAKIHN1Ym1pdF9iaCsweDE3LzB4
-MjAKIGV4dDRfcmVhZF9iaCsweDYzLzB4MTcwCiBleHQ0X3JlYWRfYmhfbG9jaysweDJjLzB4ZDAK
-IF9fZXh0NF9zYl9icmVhZF9nZnAuaXNyYS4wKzB4YTAvMHhmMAogZXh0NF9maWxsX3N1cGVyKzB4
-MjFmLzB4NTYxMAogPyBwb2ludGVyKzB4MzFiLzB4NWEwCiA/IHZzbnByaW50ZisweDEzMS8weDdk
-MAogbW91bnRfYmRldisweDIzMy8weDI4MAogPyBleHQ0X2NhbGN1bGF0ZV9vdmVyaGVhZCsweDY2
-MC8weDY2MAogZXh0NF9tb3VudCsweDE5LzB4MzAKIGxlZ2FjeV9nZXRfdHJlZSsweDM1LzB4OTAK
-IHZmc19nZXRfdHJlZSsweDI5LzB4MTAwCiA/IGNhcGFibGUrMHgxZC8weDMwCiBwYXRoX21vdW50
-KzB4OGE3LzB4MTE1MAogZG9fbW91bnQrMHg4ZC8weGMwCiBfX3NlX3N5c19tb3VudCsweDE0YS8w
-eDIyMAogX194NjRfc3lzX21vdW50KzB4MjkvMHg0MAogZG9fc3lzY2FsbF82NCsweDQ1LzB4NzAK
-IGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsweDQ0LzB4YTkKUklQOiAwMDMzOjB4N2Y1
-MWJiZTE2MjNhCkNvZGU6IDQ4IDhiIDBkIDUxIGRjIDJiIDAwIGY3IGQ4IDY0IDg5IDAxIDQ4IDgz
-IGM4IGZmIGMzIDY2IDJlIDBmIDFmIDg0IDAwIDAwIDgKUlNQOiAwMDJiOjAwMDA3ZmZmMTczYWU4
-OTggRUZMQUdTOiAwMDAwMDI0NiBPUklHX1JBWDogMDAwMDAwMDAwMDAwMDBhNQpSQVg6IGZmZmZm
-ZmZmZmZmZmZmZGEgUkJYOiAwMDAwNTYxNjlhMTIwMDMwIFJDWDogMDAwMDdmNTFiYmUxNjIzYQpS
-RFg6IDAwMDA1NjE2OWExMjAyMTAgUlNJOiAwMDAwNTYxNjlhMTIwMjUwIFJESTogMDAwMDU2MTY5
-YTEyMDIzMApSQlA6IDAwMDAwMDAwMDAwMDAwMDAgUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTog
-MDAwMDdmZmYxNzNhZDc5OApSMTA6IDAwMDAwMDAwYzBlZDAwMDAgUjExOiAwMDAwMDAwMDAwMDAw
-MjQ2IFIxMjogMDAwMDU2MTY5YTEyMDIzMApSMTM6IDAwMDA1NjE2OWExMjAyMTAgUjE0OiAwMDAw
-MDAwMDAwMDAwMDAwIFIxNTogMDAwMDdmNTFiY2JhYzE4NApNb2R1bGVzIGxpbmtlZCBpbjogZG1f
-c2VydmljZV90aW1lIGRtX211bHRpcGF0aApDUjI6IDAwMDAwMDAwMDAwMDAxYTAKLS0tWyBlbmQg
-dHJhY2UgYWM1ZDg2ZTA5ZmRjN2M5OCBdLS0tClJJUDogMDAxMDpfX2Jsa19tcV9zY2hlZF9iaW9f
-bWVyZ2UrMHg5ZC8weDFhMApDb2RlOiA4NyAxZSA5ZCA4OSBkMCAyNSAwMCAwMCAwMCAwMSAwZiA4
-NSBhZCAwMCAwMCAwMCA0OCA4MyAwNSAyNSBhMSAzNyAwYyAwMSAzClJTUDogMDAxODpmZmZmYzkw
-MDAwNDczYjUwIEVGTEFHUzogMDAwMTAyMDIKUkFYOiAwMDAwMDAwMDAwMDAwMDAwIFJCWDogMDAw
-MDAwMDAwMDAwMDAwMCBSQ1g6IGZmZmZjOTAwMDA0NzNiOTgKUkRYOiAwMDAwMDAwMDAwMDAxMDAw
-IFJTSTogZmZmZjg4ODEwODBjNzUwMCBSREk6IGZmZmY4ODgxMDNhOWNjMTgKUkJQOiBmZmZmODg4
-MTNiYzgwMDAwIFIwODogMDAwMDAwMDAwMDAwMDAwMSBSMDk6IDAwMDAwMDAwMDAwMDAwMDAKUjEw
-OiBmZmZmODg4MTA3MTBiZTMwIFIxMTogMDAwMDAwMDAwMDAwMDAwMCBSMTI6IGZmZmY4ODgxMDNh
-OWNjMTgKUjEzOiBmZmZmODg4MTA4MGM3NTAwIFIxNDogMDAwMDAwMDAwMDAwMDAwMSBSMTU6IDAw
-MDAwMDAwMDAwMDAwMDAKRlM6ICAwMDAwN2Y1MWJjZGJiMDQwKDAwMDApIEdTOmZmZmY4ODgxM2Jj
-ODAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMApDUzogIDAwMTAgRFM6IDAwMDAgRVM6
-IDAwMDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzCkNSMjogMDAwMDdmMTBlOTdhNTAwMCBDUjM6IDAw
-MDAwMDAxMGQ3MTUwMDAgQ1I0OiAwMDAwMDAwMDAwMDAwNmUwCkRSMDogMDAwMDAwMDAwMDAwMDAw
-MCBEUjE6IDAwMDAwMDAwMDAwMDAwMDAgRFIyOiAwMDAwMDAwMDAwMDAwMDAwCkRSMzogMDAwMDAw
-MDAwMDAwMDAwMCBEUjY6IDAwMDAwMDAwZmZmZTBmZjAgRFI3OiAwMDAwMDAwMDAwMDAwNDAwCktl
-cm5lbCBwYW5pYyAtIG5vdCBzeW5jaW5nOiBGYXRhbCBleGNlcHRpb24KS2VybmVsIE9mZnNldDog
-ZGlzYWJsZWQKLS0tWyBlbmQgS2VybmVsIHBhbmljIC0gbm90IHN5bmNpbmc6IEZhdGFsIGV4Y2Vw
-dGlvbiBdLS0tCgpyb290IGNhdXNlOgp0MSBkbS1tcGF0aAkJdDIgbW91bnQKCmFsbG9jX2Rldgog
-bWQtPnF1ZXVlID0gYmxrX2FsbG9jX3F1ZXVlCiBhZGRfZGlza19ub19xdWV1ZV9yZWcKCmRtX3Nl
-dHVwX21kX3F1ZXVlCiBjYXNlIERNX1RZUEVfUkVRVUVTVF9CQVNFRCAtPiBtdWx0aXBhdGgKICBt
-ZC0+ZGlzay0+Zm9wcyA9ICZkbV9ycV9ibGtfZG9wczsKCQkJZXh0NF9maWxsX3N1cGVyCiAgICAg
-ICAgICAgICAgICAgICAgICAgIOKUil9fZXh0NF9zYl9icmVhZF9nZnAKICAgICAgICAgICAgICAg
-ICAgICAgICAg4pSKIGV4dDRfcmVhZF9iaAogICAgICAgICAgICAgICAgICAgICAgICDilIogIHN1
-Ym1pdF9iaW8gLT4gcXVldWUgaXMgbm90IGluaXRpYWxpemVkIHlldAogICAgICAgICAgICAgICAg
-ICAgICAgICDilIogICBfX2Jsa19tcV9zY2hlZF9iaW9fbWVyZ2UKICAgICAgICAgICAgICAgICAg
-ICAgICAg4pSKICAgIGN0eCA9IGJsa19tcV9nZXRfY3R4KHEpOyAtPiBjdHggaXMgTlVMTAogIGRt
-X21xX2luaXRfcmVxdWVzdF9xdWV1ZQoKUGF0Y2ggMyBpcyB0aGUgZml4IHBhdGNoLCBhbmQgcGF0
-Y2ggMSwyIGlzIG5lZWRlZCB0byBiYWNrcG9ydCBwYXRjaCAzLgoKUGxlYXNlIG5vdGVkIHRoYXQg
-dGhlcmUgYXJlIGxvdHMgb2YgY29uZmljdHMgYmV0d2VlbiA1LjEwIGFuZCBtYWlubGluZSwKYW5k
-IEkgbWFkZSBwbGVudHkgYWRhcHRhdGlvbnMgaW4gdGhlc2UgcGF0Y2hlcy4KCkkgYWxyZWFkeSB0
-ZXN0ZWQgdGhpcyBwYXRjaHNldCB3aXRoIGRtdGVzdCBjcmVhdGUvcmVtb3ZlIHRlc3RzOgoKZG10
-ZXN0IHJ1biAtLXN1aXRlIHRoaW4tcHJvdmlzaW9uaW5nIC10IC9DcmVhdGlvblxEZWxldGlvbi8K
-CkNocmlzdG9waCBIZWxsd2lnICgzKToKICBibG9jazogbG9vayB1cCBob2xkZXJzIGJ5IGJkZXYK
-ICBibG9jazogc3VwcG9ydCBkZWxheWVkIGhvbGRlciByZWdpc3RyYXRpb24KICBkbTogZGVsYXkg
-cmVnaXN0ZXJpbmcgdGhlIGdlbmRpc2sKCiBibG9jay9nZW5oZC5jICAgICAgICAgICAgIHwgIDEz
-ICsrKysrCiBkcml2ZXJzL21kL2RtLmMgICAgICAgICAgIHwgIDI0ICsrKysrLS0tLQogZnMvYmxv
-Y2tfZGV2LmMgICAgICAgICAgICB8IDEwNSArKysrKysrKysrKysrKysrKysrKysrKysrKystLS0t
-LS0tLS0tLQogaW5jbHVkZS9saW51eC9ibGtfdHlwZXMuaCB8ICAgMyAtLQogaW5jbHVkZS9saW51
-eC9nZW5oZC5oICAgICB8ICAgOSArKystCiA1IGZpbGVzIGNoYW5nZWQsIDExMCBpbnNlcnRpb25z
-KCspLCA0NCBkZWxldGlvbnMoLSkKCi0tIAoyLjMxLjEKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlz
-dApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4v
-bGlzdGluZm8vZG0tZGV2ZWwK
+From: Christoph Hellwig <hch@lst.de>
+
+commit 0dbcfe247f22a6d73302dfa691c48b3c14d31c4c upstream.
+
+Invert they way the holder relations are tracked.  This very
+slightly reduces the memory overhead for partitioned devices.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+---
+ block/genhd.c             |  3 +++
+ fs/block_dev.c            | 31 +++++++++++++++++++------------
+ include/linux/blk_types.h |  3 ---
+ include/linux/genhd.h     |  4 +++-
+ 4 files changed, 25 insertions(+), 16 deletions(-)
+
+diff --git a/block/genhd.c b/block/genhd.c
+index 796baf761202..2b11a2735285 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -1760,6 +1760,9 @@ struct gendisk *__alloc_disk_node(int minors, int node_id)
+ 	disk_to_dev(disk)->class = &block_class;
+ 	disk_to_dev(disk)->type = &disk_type;
+ 	device_initialize(disk_to_dev(disk));
++#ifdef CONFIG_SYSFS
++	INIT_LIST_HEAD(&disk->slave_bdevs);
++#endif
+ 	return disk;
+ 
+ out_free_part0:
+diff --git a/fs/block_dev.c b/fs/block_dev.c
+index 29f020c4b2d0..a202c76fcf7f 100644
+--- a/fs/block_dev.c
++++ b/fs/block_dev.c
+@@ -823,9 +823,6 @@ static void init_once(void *foo)
+ 
+ 	memset(bdev, 0, sizeof(*bdev));
+ 	mutex_init(&bdev->bd_mutex);
+-#ifdef CONFIG_SYSFS
+-	INIT_LIST_HEAD(&bdev->bd_holder_disks);
+-#endif
+ 	bdev->bd_bdi = &noop_backing_dev_info;
+ 	inode_init_once(&ei->vfs_inode);
+ 	/* Initialize mutex for freeze. */
+@@ -1188,7 +1185,7 @@ EXPORT_SYMBOL(bd_abort_claiming);
+ #ifdef CONFIG_SYSFS
+ struct bd_holder_disk {
+ 	struct list_head	list;
+-	struct gendisk		*disk;
++	struct block_device	*bdev;
+ 	int			refcnt;
+ };
+ 
+@@ -1197,8 +1194,8 @@ static struct bd_holder_disk *bd_find_holder_disk(struct block_device *bdev,
+ {
+ 	struct bd_holder_disk *holder;
+ 
+-	list_for_each_entry(holder, &bdev->bd_holder_disks, list)
+-		if (holder->disk == disk)
++	list_for_each_entry(holder, &disk->slave_bdevs, list)
++		if (holder->bdev == bdev)
+ 			return holder;
+ 	return NULL;
+ }
+@@ -1244,9 +1241,13 @@ static void del_symlink(struct kobject *from, struct kobject *to)
+ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ {
+ 	struct bd_holder_disk *holder;
++	struct block_device *bdev_holder = bdget_disk(disk, 0);
+ 	int ret = 0;
+ 
+-	mutex_lock(&bdev->bd_mutex);
++	if (WARN_ON_ONCE(!bdev_holder))
++		return -ENOENT;
++
++	mutex_lock(&bdev_holder->bd_mutex);
+ 
+ 	WARN_ON_ONCE(!bdev->bd_holder);
+ 
+@@ -1267,7 +1268,7 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 	}
+ 
+ 	INIT_LIST_HEAD(&holder->list);
+-	holder->disk = disk;
++	holder->bdev = bdev;
+ 	holder->refcnt = 1;
+ 
+ 	ret = add_symlink(disk->slave_dir, &part_to_dev(bdev->bd_part)->kobj);
+@@ -1283,7 +1284,7 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 	 */
+ 	kobject_get(bdev->bd_part->holder_dir);
+ 
+-	list_add(&holder->list, &bdev->bd_holder_disks);
++	list_add(&holder->list, &disk->slave_bdevs);
+ 	goto out_unlock;
+ 
+ out_del:
+@@ -1291,7 +1292,8 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ out_free:
+ 	kfree(holder);
+ out_unlock:
+-	mutex_unlock(&bdev->bd_mutex);
++	mutex_unlock(&bdev_holder->bd_mutex);
++	bdput(bdev_holder);
+ 	return ret;
+ }
+ EXPORT_SYMBOL_GPL(bd_link_disk_holder);
+@@ -1309,8 +1311,12 @@ EXPORT_SYMBOL_GPL(bd_link_disk_holder);
+ void bd_unlink_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ {
+ 	struct bd_holder_disk *holder;
++	struct block_device *bdev_holder = bdget_disk(disk, 0);
+ 
+-	mutex_lock(&bdev->bd_mutex);
++	if (WARN_ON_ONCE(!bdev_holder))
++		return;
++
++	mutex_lock(&bdev_holder->bd_mutex);
+ 
+ 	holder = bd_find_holder_disk(bdev, disk);
+ 
+@@ -1323,7 +1329,8 @@ void bd_unlink_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 		kfree(holder);
+ 	}
+ 
+-	mutex_unlock(&bdev->bd_mutex);
++	mutex_unlock(&bdev_holder->bd_mutex);
++	bdput(bdev_holder);
+ }
+ EXPORT_SYMBOL_GPL(bd_unlink_disk_holder);
+ #endif
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index d9b69bbde5cc..1b84ecb34c18 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -29,9 +29,6 @@ struct block_device {
+ 	void *			bd_holder;
+ 	int			bd_holders;
+ 	bool			bd_write_holder;
+-#ifdef CONFIG_SYSFS
+-	struct list_head	bd_holder_disks;
+-#endif
+ 	struct block_device *	bd_contains;
+ 	u8			bd_partno;
+ 	struct hd_struct *	bd_part;
+diff --git a/include/linux/genhd.h b/include/linux/genhd.h
+index 03da3f603d30..3e5049a527e6 100644
+--- a/include/linux/genhd.h
++++ b/include/linux/genhd.h
+@@ -195,7 +195,9 @@ struct gendisk {
+ #define GD_NEED_PART_SCAN		0
+ 	struct rw_semaphore lookup_sem;
+ 	struct kobject *slave_dir;
+-
++#ifdef CONFIG_SYSFS
++	struct list_head	slave_bdevs;
++#endif
+ 	struct timer_rand_state *random;
+ 	atomic_t sync_io;		/* RAID */
+ 	struct disk_events *ev;
+-- 
+2.31.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
