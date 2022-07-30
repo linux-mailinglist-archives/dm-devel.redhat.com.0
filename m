@@ -2,64 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0657E5858BF
-	for <lists+dm-devel@lfdr.de>; Sat, 30 Jul 2022 07:14:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43B655858C0
+	for <lists+dm-devel@lfdr.de>; Sat, 30 Jul 2022 07:14:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659158044;
+	s=mimecast20190719; t=1659158045;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Mxe13tn1Lxer/WMKq81cEdOMgAjehFGmQFUEa3mLsCs=;
-	b=WjeygKr60RxI0qbOQmjLNQ/LOcwH0LrhqWfA2KxUsSOEntIigNQyru/z5LmqB6xyRtTIuX
-	C9nJaH8BvCtUHeODeSCAl+CkF48pgnn6fQbYH3q9fTPHaEQCaC6FevfiumiGpRyPxUFfqS
-	zf5OUsM7d54rXyPnXrc4M9FrPZKWqaU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=frpoqDa3ztTK3fcKCsJgPmOp6aMxQa9NXQdIDOgboao=;
+	b=Wf/lTGPRl77EgJ/THOYaS2MME5UXxpyvX/xs4yuQzED4G06b142Jy21xrlciBYqUnnCNOT
+	c9sW0usTPoCyQvKvRE7SAb/LLziTtKvYG05oaZantvrZu8yAvjI4JsyxrFXqQfUnEQz5ho
+	akekCtPg9T5T576OjoFbQBA74pcWvBA=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-644-ebZV4AUPO86i_u24oFFNxA-1; Sat, 30 Jul 2022 01:13:40 -0400
-X-MC-Unique: ebZV4AUPO86i_u24oFFNxA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-261-8yVdX96LPf-D1m0Dk8doIA-1; Sat, 30 Jul 2022 01:13:36 -0400
+X-MC-Unique: 8yVdX96LPf-D1m0Dk8doIA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF70B8032F0;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF5B51C05AD4;
 	Sat, 30 Jul 2022 05:13:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 391DCC3598B;
-	Sat, 30 Jul 2022 05:13:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 828411121319;
+	Sat, 30 Jul 2022 05:13:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6BEB91964187;
-	Sat, 30 Jul 2022 05:13:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A97E31964190;
+	Sat, 30 Jul 2022 05:13:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 873FB194D6FF
- for <dm-devel@listman.corp.redhat.com>; Sat, 30 Jul 2022 05:13:04 +0000 (UTC)
+ ESMTP id A87B3194FFF9
+ for <dm-devel@listman.corp.redhat.com>; Sat, 30 Jul 2022 05:13:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 477F4403160; Sat, 30 Jul 2022 05:13:04 +0000 (UTC)
+ id 98E58403D0E0; Sat, 30 Jul 2022 05:13:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 377A5492C3B;
- Sat, 30 Jul 2022 05:13:04 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 990964047D22;
+ Sat, 30 Jul 2022 05:13:05 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 26U5D25R024123;
- Sat, 30 Jul 2022 00:13:03 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 26U5D4LS024127;
+ Sat, 30 Jul 2022 00:13:04 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 26U5D255024122;
- Sat, 30 Jul 2022 00:13:02 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 26U5D32R024126;
+ Sat, 30 Jul 2022 00:13:03 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Sat, 30 Jul 2022 00:12:55 -0500
-Message-Id: <1659157980-24079-2-git-send-email-bmarzins@redhat.com>
+Date: Sat, 30 Jul 2022 00:12:56 -0500
+Message-Id: <1659157980-24079-3-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1659157980-24079-1-git-send-email-bmarzins@redhat.com>
 References: <1659157980-24079-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH 1/6] multipathd: Use regular pthread_mutex_t for
- waiter_lock
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [PATCH 2/6] multipathd: track waiters for mutex_lock
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,7 +76,7 @@ Cc: Wu Guanghao <wuguanghao3@huawei.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Authentication-Results: relay.mimecast.com;
 	auth=pass smtp.auth=CUSA124A263 smtp.mailfrom=dm-devel-bounces@redhat.com
 X-Mimecast-Spam-Score: 0
@@ -85,55 +84,73 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-waiter_lock doesn't need any special lock handing. Also make it static.
+use the uatomic operations to track how many threads are waiting in
+lock() for mutex_locks. This will be used by a later patch.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- multipathd/waiter.c | 14 +++++++-------
- 1 file changed, 7 insertions(+), 7 deletions(-)
+ libmultipath/lock.h | 16 ++++++++++++++++
+ multipathd/main.c   |  2 +-
+ 2 files changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/multipathd/waiter.c b/multipathd/waiter.c
-index 2a221465..52793698 100644
---- a/multipathd/waiter.c
-+++ b/multipathd/waiter.c
-@@ -24,7 +24,7 @@
- #include "main.h"
+diff --git a/libmultipath/lock.h b/libmultipath/lock.h
+index d7b779e7..20ca77e6 100644
+--- a/libmultipath/lock.h
++++ b/libmultipath/lock.h
+@@ -2,17 +2,28 @@
+ #define _LOCK_H
  
- pthread_attr_t waiter_attr;
--struct mutex_lock waiter_lock = { .mutex = PTHREAD_MUTEX_INITIALIZER };
-+static pthread_mutex_t waiter_lock = PTHREAD_MUTEX_INITIALIZER;
+ #include <pthread.h>
++#include <urcu/uatomic.h>
++#include <stdbool.h>
  
- static struct event_thread *alloc_waiter (void)
+ typedef void (wakeup_fn)(void);
+ 
+ struct mutex_lock {
+ 	pthread_mutex_t mutex;
+ 	wakeup_fn *wakeup;
++	int waiters; /* uatomic access only */
+ };
+ 
++static inline void init_lock(struct mutex_lock *a)
++{
++	pthread_mutex_init(&a->mutex, NULL);
++	uatomic_set(&a->waiters, 0);
++}
++
+ static inline void lock(struct mutex_lock *a)
  {
-@@ -65,11 +65,11 @@ void stop_waiter_thread (struct multipath *mpp)
- 		(unsigned long)mpp->waiter);
- 	thread = mpp->waiter;
- 	mpp->waiter = (pthread_t)0;
--	pthread_cleanup_push(cleanup_lock, &waiter_lock);
--	lock(&waiter_lock);
-+	pthread_cleanup_push(cleanup_mutex, &waiter_lock);
-+	pthread_mutex_lock(&waiter_lock);
- 	pthread_kill(thread, SIGUSR2);
- 	pthread_cancel(thread);
--	lock_cleanup_pop(&waiter_lock);
-+	pthread_cleanup_pop(1);
++	uatomic_inc(&a->waiters);
+ 	pthread_mutex_lock(&a->mutex);
++	uatomic_dec(&a->waiters);
  }
  
- /*
-@@ -126,10 +126,10 @@ static int waiteventloop (struct event_thread *waiter)
- 	waiter->dmt = NULL;
+ static inline int trylock(struct mutex_lock *a)
+@@ -30,6 +41,11 @@ static inline void __unlock(struct mutex_lock *a)
+ 	pthread_mutex_unlock(&a->mutex);
+ }
  
- 	if (!r)	{ /* wait interrupted by signal. check for cancellation */
--		pthread_cleanup_push(cleanup_lock, &waiter_lock);
--		lock(&waiter_lock);
-+		pthread_cleanup_push(cleanup_mutex, &waiter_lock);
-+		pthread_mutex_lock(&waiter_lock);
- 		pthread_testcancel();
--		lock_cleanup_pop(&waiter_lock);
-+		pthread_cleanup_pop(1);
- 		return 1; /* If we weren't cancelled, just reschedule */
- 	}
++static inline bool lock_has_waiters(struct mutex_lock *a)
++{
++	return (uatomic_read(&a->waiters) > 0);
++}
++
+ #define lock_cleanup_pop(a) pthread_cleanup_pop(1)
  
+ void cleanup_lock (void * data);
+diff --git a/multipathd/main.c b/multipathd/main.c
+index 2f2b9d4c..71079113 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -2940,7 +2940,7 @@ init_vecs (void)
+ 	if (!vecs)
+ 		return NULL;
+ 
+-	pthread_mutex_init(&vecs->lock.mutex, NULL);
++	init_lock(&vecs->lock);
+ 
+ 	return vecs;
+ }
 -- 
 2.17.2
 
