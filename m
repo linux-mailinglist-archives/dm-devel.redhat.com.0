@@ -2,89 +2,89 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ED82F589139
-	for <lists+dm-devel@lfdr.de>; Wed,  3 Aug 2022 19:22:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 565CD589148
+	for <lists+dm-devel@lfdr.de>; Wed,  3 Aug 2022 19:24:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659547370;
+	s=mimecast20190719; t=1659547445;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=e0LNc+UKfJCJg6RiDOrp8YybMceS1WXr5FYNXckNYnE=;
-	b=ZQlsSqlzLo0jpM+4bMUUjy9hlazU08dOPl/pmZ8MwIEuH52fPw3SWicxJn1ZGagoOrbIvD
-	yjnlwE7KQihEJpS5q1sDm/lGJGRsaPtcl6io/GpsrJWDQ4XHhpPpZz6ySnafU2Zooylx6g
-	CcFpD8XIXouNl8A7RsDoE6Ci9NsCFCA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=0D4gWhX76c6RsoImOfiV3RjhmgWxBlc+2ckbwsLeCKI=;
+	b=EkhzMz7SPm7yXl7VcQ9GJbKbSdLDQ1fw3N5eygULhZd8H2op8hGlmiP8PeOVj5tIlp4BbA
+	2IOUvdeFqtAttDanBA7sKGrm5oD7qUBx0TcPsS0JeYdGA/EpErYYQ1IvUl1G4Q8nSpqV/x
+	18e0GyDpGrlE+26WFjRx9Xqee3rLP54=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-633-tbNc05vSNbyz6YrF0SECGQ-1; Wed, 03 Aug 2022 13:22:49 -0400
-X-MC-Unique: tbNc05vSNbyz6YrF0SECGQ-1
+ us-mta-157-oGPpbuwxNA6ocrWgKL2njw-1; Wed, 03 Aug 2022 13:24:03 -0400
+X-MC-Unique: oGPpbuwxNA6ocrWgKL2njw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31446185A794;
-	Wed,  3 Aug 2022 17:22:46 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3E7D29DD99B;
+	Wed,  3 Aug 2022 17:24:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A5E44141512E;
-	Wed,  3 Aug 2022 17:22:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 67E5B1415116;
+	Wed,  3 Aug 2022 17:24:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6EADA1947BA8;
-	Wed,  3 Aug 2022 17:22:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1C90C1946A5D;
+	Wed,  3 Aug 2022 17:24:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1D31E1947B97
- for <dm-devel@listman.corp.redhat.com>; Wed,  3 Aug 2022 17:22:43 +0000 (UTC)
+ ESMTP id D56771946A5C
+ for <dm-devel@listman.corp.redhat.com>; Wed,  3 Aug 2022 17:23:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F3DA840CFD0B; Wed,  3 Aug 2022 17:22:42 +0000 (UTC)
+ id C3C80400DEF8; Wed,  3 Aug 2022 17:23:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EF6BC40CFD0A
- for <dm-devel@redhat.com>; Wed,  3 Aug 2022 17:22:42 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C01FC400EA85
+ for <dm-devel@redhat.com>; Wed,  3 Aug 2022 17:23:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6B6338041E4
- for <dm-devel@redhat.com>; Wed,  3 Aug 2022 17:22:42 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A73A83C22886
+ for <dm-devel@redhat.com>; Wed,  3 Aug 2022 17:23:57 +0000 (UTC)
+Received: from mail-pg1-f170.google.com (mail-pg1-f170.google.com
+ [209.85.215.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-382-gOam6AQUMgivJgdJAPV4oQ-1; Wed, 03 Aug 2022 13:22:37 -0400
-X-MC-Unique: gOam6AQUMgivJgdJAPV4oQ-1
-Received: by mail-pj1-f42.google.com with SMTP id b4so6974713pji.4;
- Wed, 03 Aug 2022 10:22:37 -0700 (PDT)
+ us-mta-591-ThcBiMboPiurJkaru1tA0Q-1; Wed, 03 Aug 2022 13:23:48 -0400
+X-MC-Unique: ThcBiMboPiurJkaru1tA0Q-1
+Received: by mail-pg1-f170.google.com with SMTP id 12so15727768pga.1;
+ Wed, 03 Aug 2022 10:23:48 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc;
- bh=81PY4yBEEjUXxYOBG5CambynNE+HXFQDS99frEnDmrs=;
- b=kztufo3/PdgzjB9kmP5pKKMVA0cOL8AlxhoIWsj7tDsLPpTE0QlhQgzK01PeZBIeEB
- XTShC5TVmxZxZTJ8OKkWx+zHTZyvyB1WyO19JZ1Y8uIGjuwdpnWmUy0pZVTVH5V6YqQk
- 0ftEwzDO8905Png/KfaQJeN9u6kAkDjD64exEfbiZQH2s/FAqiP04xzXl7Caz/ijLqtE
- vTswyaGaEn7HvGZaeZHNfRVWuSLrzsUUZtUVmZsbCll7Y/v3SwO6DtXE3cWN8QSiNhCj
- U8f67jImzL46AkjmAuQZGjqVQrE1xxBoxGSMwhr8hFfpFh8H2U7zaI5c+O32Xi9juChg
- WgMA==
-X-Gm-Message-State: ACgBeo3fz/r2lUyqAC0Cp2W14E23rM8aWJ9vXUTXlOhCukexUbRLKIYl
- qqU5Xym3bUFjWXXSYlzY01Y=
-X-Google-Smtp-Source: AA6agR4qAuR4iHmzSPdpkQ3mxXc1SGakIYA1aA7y7JsrpsmrjJ0SDtdisB5YYBMJ0qKrjfikQnBjiQ==
-X-Received: by 2002:a17:902:f54e:b0:16f:206b:74cc with SMTP id
- h14-20020a170902f54e00b0016f206b74ccmr1132384plf.170.1659547355934; 
- Wed, 03 Aug 2022 10:22:35 -0700 (PDT)
+ bh=0/8nr848GRaOG+Fxstqzc9TigPNxYkNf2h7q9hGBHq8=;
+ b=d8jBds7vSpD6Kt2LIUPathAkvPN8fe0aeQqEdZIr4u7q4ZGFy+E0+EoI7eTRh9I+Ht
+ 55IIAzp6K8TxiQikZp0BMPkQgeNKaVqpFLDZMuPUCYGMG5fKni+xz8W7wCFdE678ttZI
+ YxBhoQN6BCn4lf3vJFPwPZv85ArjJ7yiZAHAzpf8mk9jC2EYI+YazOTUX3KJkKEglmAn
+ +tuu5Cqyy/fO1fVKH5yPwPUz6Nnv2f/GqQj0Zj/yvCEHtIkdYsy1TVXr60jIIidVZU7t
+ DeUDAPaysPoP6oC8w0eDylpDV7cH9yxpqsqDZO4nZ8GOp5o7prGDn1TyywelTAe3L0pJ
+ zccQ==
+X-Gm-Message-State: AJIora/eSYu4xl4UwxTScHaJ9T+Cor8aY0d3b42pss6NiGB0ZB5/6kA/
+ LhE2Ot71Frmzcpnq1x2gGdo=
+X-Google-Smtp-Source: AGRyM1vgZohnjas8fupQWk0TGJ1ujqQbQ0c9VjCzhrzKOA3JUzR8cBuYkbzDzRvd/ngCVEXerrSzcQ==
+X-Received: by 2002:a63:4f52:0:b0:41a:3744:d952 with SMTP id
+ p18-20020a634f52000000b0041a3744d952mr21509471pgl.186.1659547427197; 
+ Wed, 03 Aug 2022 10:23:47 -0700 (PDT)
 Received: from ?IPV6:2620:15c:211:201:db71:edb7:462a:44af?
  ([2620:15c:211:201:db71:edb7:462a:44af])
  by smtp.gmail.com with ESMTPSA id
- l7-20020a170903244700b0016cd74dae66sm2275344pls.28.2022.08.03.10.22.33
+ c25-20020aa79539000000b0052dfe83e19csm3180967pfp.16.2022.08.03.10.23.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 03 Aug 2022 10:22:35 -0700 (PDT)
-Message-ID: <2616b59b-8c6b-a482-a396-d9408fa461a3@acm.org>
-Date: Wed, 3 Aug 2022 10:22:32 -0700
+ Wed, 03 Aug 2022 10:23:46 -0700 (PDT)
+Message-ID: <4b6f14a1-2a96-da20-d56c-032a87dee7d2@acm.org>
+Date: Wed, 3 Aug 2022 10:23:43 -0700
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
  Thunderbird/91.11.0
@@ -92,10 +92,10 @@ To: Pankaj Raghav <p.raghav@samsung.com>, Johannes.Thumshirn@wdc.com,
  snitzer@kernel.org, axboe@kernel.dk, damien.lemoal@opensource.wdc.com,
  agk@redhat.com, hch@lst.de
 References: <20220803094801.177490-1-p.raghav@samsung.com>
- <CGME20220803094808eucas1p1a6a800161d32fe4242d39e669e5f3527@eucas1p1.samsung.com>
- <20220803094801.177490-6-p.raghav@samsung.com>
+ <CGME20220803094812eucas1p271cea804453d9dd379b919067fe5b154@eucas1p2.samsung.com>
+ <20220803094801.177490-10-p.raghav@samsung.com>
 From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20220803094801.177490-6-p.raghav@samsung.com>
+In-Reply-To: <20220803094801.177490-10-p.raghav@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -104,8 +104,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH v9 05/13] nvme: zns: Allow ZNS drives that
- have non-power_of_2 zone size
+Subject: Re: [dm-devel] [PATCH v9 09/13] dm-zone: use generic helpers to
+ calculate offset from zone start
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,8 +119,8 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: pankydev8@gmail.com, gost.dev@samsung.com, linux-kernel@vger.kernel.org,
  linux-nvme@lists.infradead.org, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Luis Chamberlain <mcgrof@kernel.org>, jaegeuk@kernel.org,
- matias.bjorling@wdc.com
+ dm-devel@redhat.com, jaegeuk@kernel.org, matias.bjorling@wdc.com,
+ Luis Chamberlain <mcgrof@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
@@ -131,14 +131,12 @@ Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
 On 8/3/22 02:47, Pankaj Raghav wrote:
-> -	sector &= ~(ns->zsze - 1);
-> +	/*
-> +	 * Round down the sector value to the nearest zone start
-> +	 */
-> +	div64_u64_rem(sector, ns->zsze, &remainder);
-> +	sector -= remainder;
+> -		if ((clone->bi_iter.bi_sector & (zsectors - 1)) != zwp_offset)
+> +		if ((bdev_offset_from_zone_start(md->disk->part0,
+> +						 clone->bi_iter.bi_sector)) != zwp_offset)
 
-Could bdev_offset_from_zone_start() be used here?
+If this patch series needs to be reposted, please leave out the 
+superfluous parentheses from the above statement.
 
 Thanks,
 
