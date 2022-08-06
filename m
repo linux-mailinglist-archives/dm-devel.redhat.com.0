@@ -2,94 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5B45D58B7B5
-	for <lists+dm-devel@lfdr.de>; Sat,  6 Aug 2022 20:29:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0D08658B7B7
+	for <lists+dm-devel@lfdr.de>; Sat,  6 Aug 2022 20:31:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1659810570;
+	s=mimecast20190719; t=1659810666;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Rb5b1/EHfIc9enBRqX/CZwTctyssbc8w7J8olbSefYU=;
-	b=Hlo+ZYxnNsKndEQW6RsVK75Bh4tAkTLc7O2PLO8DrepN/WQdbqZQbYflQyQwPOPKiZvOEq
-	eh76ZwZh+nUBkCQ4jhI2CTMcwbL/C4zJeAtbuI92tVhhsAZeEVCFGDrIeAdMGhc8FxaG3E
-	MSLps5Mv31iX6DbAeiyHccMWsMrnOdY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=zI1UfdRBhaFDDO1SmNkKQ2rrwjLV6FpXQXbZyOt7TWA=;
+	b=f9aW2o2hEbD6ZzpsVIxO87mjkcgvcMms4rUPtFyqctNBq+TxyDxdplVFXf+Aeop83ec8ll
+	6c6UHkneIDblwVO+m3rFJrRk9Jr8M1rFKmqqXNbOV7wrdsg+NozL/QwJ71B5Fw0xsakAuZ
+	UeY5orPAzHOZzYQTgOI0f+aW5NF3QLg=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-34-8XMD1om6M1ugWGCIoDpYLg-1; Sat, 06 Aug 2022 14:29:28 -0400
-X-MC-Unique: 8XMD1om6M1ugWGCIoDpYLg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-176-FTA_ZEH7PsyRQrH46bKW8A-1; Sat, 06 Aug 2022 14:31:02 -0400
+X-MC-Unique: FTA_ZEH7PsyRQrH46bKW8A-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 151358037AA;
-	Sat,  6 Aug 2022 18:29:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4A5438164C8;
+	Sat,  6 Aug 2022 18:31:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B406D492C3B;
-	Sat,  6 Aug 2022 18:29:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E3DB0906B9;
+	Sat,  6 Aug 2022 18:30:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A3806193221E;
-	Sat,  6 Aug 2022 18:29:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 89E9B1946A45;
+	Sat,  6 Aug 2022 18:30:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2A5601946A45
- for <dm-devel@listman.corp.redhat.com>; Sat,  6 Aug 2022 18:29:22 +0000 (UTC)
+ ESMTP id 679251946A4F
+ for <dm-devel@listman.corp.redhat.com>; Sat,  6 Aug 2022 18:30:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EC003C27D95; Sat,  6 Aug 2022 18:29:21 +0000 (UTC)
+ id 48B9D2166B2A; Sat,  6 Aug 2022 18:30:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E85CAC23DBF
- for <dm-devel@redhat.com>; Sat,  6 Aug 2022 18:29:21 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 44CC82166B26
+ for <dm-devel@redhat.com>; Sat,  6 Aug 2022 18:30:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D09B7185A79C
- for <dm-devel@redhat.com>; Sat,  6 Aug 2022 18:29:21 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-494-gGvh4uD8M96cwvVjoAxU9w-1; Sat, 06 Aug 2022 14:29:20 -0400
-X-MC-Unique: gGvh4uD8M96cwvVjoAxU9w-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E8AD5B80837;
- Sat,  6 Aug 2022 18:19:41 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id AB6FAC43470;
- Sat,  6 Aug 2022 18:19:40 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 97028C43142; Sat,  6 Aug 2022 18:19:40 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <Yu1rOopN++GWylUi@redhat.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29BB7811E75
+ for <dm-devel@redhat.com>; Sat,  6 Aug 2022 18:30:57 +0000 (UTC)
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-434-4ZOiAYenMcyCrAvRG2pqpA-1; Sat, 06 Aug 2022 14:30:55 -0400
+X-MC-Unique: 4ZOiAYenMcyCrAvRG2pqpA-1
+Received: by mail-qt1-f170.google.com with SMTP id l5so4098614qtv.4
+ for <dm-devel@redhat.com>; Sat, 06 Aug 2022 11:30:55 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc;
+ bh=pxCEjkAH/HtacRN5ao0Jtr5KjS1Q4esBp2dJmtS6eP8=;
+ b=wWooaC5ZEDfdD99UcR3cDn1KhzllAaqBLlDgLtRo4HZvm7tRSsCBOrDNlVeVUp48WR
+ WTLD4UtStQ9/Q6U/IzMQY+wkgi0+6r31zDm0dWzx2mb7USlVWRR4pNx8VC7NSa0UghaN
+ E/uvFElNIJCTvfbVAVr7MS9GK2vjZ1A7XWAHkcEgAjgWZ8sYYJiGCeZIXqCG/HcEUBLE
+ 5sEbxthuVt06PMIjYw+QdFdVLzqyFBSSFu5ZPRHMUlAgUHSkacZJwceZdXbutNCr2yr0
+ IQ+yTb7M2FNfMvYQNkPZx1ddztcggb0rlT0Tm7LW4zHaOQbn3Y3AdV4Sz85UKficAYoh
+ 8soQ==
+X-Gm-Message-State: ACgBeo3ZXKtnwaeKGGF4FhCWIDQ9fLobFLM/wVFA/S7kquHSDv+3JJk1
+ PbQeVXSpd6hm5tEUPUUNe2iTtPc=
+X-Google-Smtp-Source: AA6agR66ihkCqXOqjW9lbXOY78rAT6SFbRYf/9ykxcxvIFPf9ZA8xJwQD2o96NeUzK/ApPFqy2zDuw==
+X-Received: by 2002:a05:622a:81:b0:33f:f102:2845 with SMTP id
+ o1-20020a05622a008100b0033ff1022845mr10327415qtw.30.1659810655165; 
+ Sat, 06 Aug 2022 11:30:55 -0700 (PDT)
+Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
+ [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
+ dm16-20020a05620a1d5000b006b8cb64110bsm6053398qkb.45.2022.08.06.11.30.54
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 06 Aug 2022 11:30:54 -0700 (PDT)
+Date: Sat, 6 Aug 2022 14:30:53 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <Yu6zXVPLmwjqGg4V@redhat.com>
 References: <YugiaQ1TO+vT1FQ5@redhat.com> <Yu1rOopN++GWylUi@redhat.com>
-X-PR-Tracked-List-Id: device-mapper development <dm-devel.redhat.com>
-X-PR-Tracked-Message-Id: <Yu1rOopN++GWylUi@redhat.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
- tags/for-6.0/dm-changes-2
-X-PR-Tracked-Commit-Id: 12907efde6ad984f2d76cc1a7dbaae132384d8a5
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: 20cf903a0c407cef19300e5c85a03c82593bde36
-Message-Id: <165980998061.27284.17220964359709259877.pr-tracker-bot@kernel.org>
-Date: Sat, 06 Aug 2022 18:19:40 +0000
-To: Mike Snitzer <snitzer@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+ <CAHk-=wj5w+Nga81wGmO6aYtcLrn6c_R_-gQrtnKwjzOZczko=A@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAHk-=wj5w+Nga81wGmO6aYtcLrn6c_R_-gQrtnKwjzOZczko=A@mail.gmail.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
 Subject: Re: [dm-devel] [git pull] Additional device mapper changes for 6.0
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -102,32 +102,60 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, Nathan Huckleberry <nhuck@google.com>,
- Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
- Sami Tolvanen <samitolvanen@google.com>,
- Linus Torvalds <torvalds@linux-foundation.org>,
- Milan Broz <gmazyland@gmail.com>, Alasdair G Kergon <agk@redhat.com>
-MIME-Version: 1.0
+Cc: Eric Biggers <ebiggers@kernel.org>, Nathan Huckleberry <nhuck@google.com>,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Sami Tolvanen <samitolvanen@google.com>, Milan Broz <gmazyland@gmail.com>,
+ Alasdair G Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Fri, 5 Aug 2022 15:10:50 -0400:
+On Sat, Aug 06 2022 at  2:09P -0400,
+Linus Torvalds <torvalds@linux-foundation.org> wrote:
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-6.0/dm-changes-2
+> On Fri, Aug 5, 2022 at 12:10 PM Mike Snitzer <snitzer@kernel.org> wrote:
+> >
+> > All said: I think it worthwhile to merge these changes for 6.0, rather
+> > than hold until 6.1, now that we have confidence this _optional_ DM
+> > verity feature is working as expected. Please be aware there was a
+> > small linux-next merge fixup needed:
+> > https://lore.kernel.org/all/20220805125744.475531-1-broonie@kernel.org/T/
+> 
+> Well, more importantly, the verity_target version numbers clash.
+> 
+> I used the newer "{1, 9, 0}" version number, but if you want it to be
+> "{1, 9, 1}" to show that it's a superset of the previous one, you
+> should do that yourself.
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/20cf903a0c407cef19300e5c85a03c82593bde36
+You did the right thing.
+ 
+> That said, the best option would be to remove version numbers
+> entirely. They are a completely broken concept as an ABI, and *never*
+> work.
+> 
+> Feature bitmasks work. Version numbers don't. Version numbers
+> fundamentally break when something is backported or any other
+> non-linearity happens.
+> 
+> Please don't use version numbers for ABI issues. Version numbers are
+> for human consumption, nothing more, and shouldn't be used for
+> anything that has semantics.
 
-Thank you!
+Yes, I know you mentioned this before and I said I'd look to switch to
+feature bitmasks. Yet here we are. Sorry about that, but I will take
+a serious look at fixing this over the next development cycle(s).
 
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+There is just quite a bit of innertia in these version numbers across
+all the disparate userspace tools that use DM. So the transition needs
+some design, planning and coordination but I'll get it done. Really ;)
+
+Thanks,
+Mike
 
 --
 dm-devel mailing list
