@@ -1,150 +1,149 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 96B9058D120
-	for <lists+dm-devel@lfdr.de>; Tue,  9 Aug 2022 02:06:24 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 63EB458D13A
+	for <lists+dm-devel@lfdr.de>; Tue,  9 Aug 2022 02:08:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1660003583;
+	s=mimecast20190719; t=1660003682;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=slN9z2zyF4vuvrdmNFSHp5PGgKXT9Xo5XJKnl4T8kCw=;
-	b=R8vEubzJjIzehDzJmSXFVo9itfwd3E7s4mJV7pRwMysenHVAl5JdaumvNNxkeCA3CW4iuI
-	y2NiOkTj+7cHonQFotfBptgQR6oN+fWwE69CNc8bUiz0FGlxI2H29fU6kOiU4OINS38CcG
-	okz0GAivOrYrSvoFKNI6p+uEaSDMJtc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=TMLWT/71B1+2SHTnhe+lTgjU7oC15mQny2m3dLN0+Bg=;
+	b=WOq6yUEX8s3qXfMwdId89Txq40gcL/+7Q/93vuEsHrF4cUBqgQuGr3dJzRpDFXWT74/EDc
+	WeHq51E9hxPsWlj7StvTpqWgpDvQoHP+ydW3vV/eDntotrXwAGr9xuu7Y8mjWCEfXbyepl
+	NyrFncr8utN1M2C6IqmwkF9xuK6/RTU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-580-_ZmJkYX0Onu2dJbWm4TOdQ-1; Mon, 08 Aug 2022 20:06:22 -0400
-X-MC-Unique: _ZmJkYX0Onu2dJbWm4TOdQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-354-gDmaDrxKMEKKcu83sKc1Ng-1; Mon, 08 Aug 2022 20:07:04 -0400
+X-MC-Unique: gDmaDrxKMEKKcu83sKc1Ng-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 691EA1C05AE2;
-	Tue,  9 Aug 2022 00:06:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59EE3805F34;
+	Tue,  9 Aug 2022 00:07:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 53E37403178;
-	Tue,  9 Aug 2022 00:06:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 43832404E4C8;
+	Tue,  9 Aug 2022 00:07:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1D1971931A5B;
-	Tue,  9 Aug 2022 00:06:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ADF331946A64;
+	Tue,  9 Aug 2022 00:07:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1DBF31946A5A
- for <dm-devel@listman.corp.redhat.com>; Tue,  9 Aug 2022 00:06:06 +0000 (UTC)
+ ESMTP id 3C09A1946A4F
+ for <dm-devel@listman.corp.redhat.com>; Tue,  9 Aug 2022 00:07:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1388E40D2853; Tue,  9 Aug 2022 00:06:06 +0000 (UTC)
+ id 2166F492CA2; Tue,  9 Aug 2022 00:07:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E9D440D282F
- for <dm-devel@redhat.com>; Tue,  9 Aug 2022 00:06:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8AC24280EE2E
- for <dm-devel@redhat.com>; Tue,  9 Aug 2022 00:06:04 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CB76492C3B
+ for <dm-devel@redhat.com>; Tue,  9 Aug 2022 00:07:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F39428001EA
+ for <dm-devel@redhat.com>; Tue,  9 Aug 2022 00:06:59 +0000 (UTC)
 Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
  [205.220.165.32]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-213-C6TPZmh3NPaEczx0d9cBgQ-1; Mon, 08 Aug 2022 20:06:02 -0400
-X-MC-Unique: C6TPZmh3NPaEczx0d9cBgQ-1
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 278NwIiD007165;
- Tue, 9 Aug 2022 00:04:46 GMT
+ us-mta-653-93ahaJ6KNNmZwHXZnRpcHw-1; Mon, 08 Aug 2022 20:06:58 -0400
+X-MC-Unique: 93ahaJ6KNNmZwHXZnRpcHw-1
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 278Nwhfj031116;
+ Tue, 9 Aug 2022 00:04:47 GMT
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
  (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3hsg69n1e1-1
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3hsew155hk-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 09 Aug 2022 00:04:46 +0000
+ Tue, 09 Aug 2022 00:04:47 +0000
 Received: from pps.filterd
  (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 278M0wO9034454; Tue, 9 Aug 2022 00:04:45 GMT
+ with ESMTP id 278M0wOA034454; Tue, 9 Aug 2022 00:04:45 GMT
 Received: from nam10-dm6-obe.outbound.protection.outlook.com
  (mail-dm6nam10lp2102.outbound.protection.outlook.com [104.47.58.102])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3hser2da0q-1
+ 3hser2da0q-2
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Tue, 09 Aug 2022 00:04:45 +0000
 Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
  CH0PR10MB4907.namprd10.prod.outlook.com (2603:10b6:610:db::8) with Microsoft
  SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5504.14; Tue, 9 Aug 2022 00:04:43 +0000
+ 15.20.5504.14; Tue, 9 Aug 2022 00:04:44 +0000
 Received: from DM5PR10MB1466.namprd10.prod.outlook.com
  ([fe80::8dee:d667:f326:1d50]) by DM5PR10MB1466.namprd10.prod.outlook.com
  ([fe80::8dee:d667:f326:1d50%6]) with mapi id 15.20.5504.020; Tue, 9 Aug 2022
- 00:04:43 +0000
+ 00:04:44 +0000
 From: Mike Christie <michael.christie@oracle.com>
 To: bvanassche@acm.org, linux-block@vger.kernel.org, dm-devel@redhat.com,
  snitzer@kernel.org, axboe@kernel.dk, hch@lst.de,
  linux-nvme@lists.infradead.org, martin.petersen@oracle.com,
  linux-scsi@vger.kernel.org, james.bottomley@hansenpartnership.com
-Date: Mon,  8 Aug 2022 19:04:13 -0500
-Message-Id: <20220809000419.10674-15-michael.christie@oracle.com>
+Date: Mon,  8 Aug 2022 19:04:14 -0500
+Message-Id: <20220809000419.10674-16-michael.christie@oracle.com>
 In-Reply-To: <20220809000419.10674-1-michael.christie@oracle.com>
 References: <20220809000419.10674-1-michael.christie@oracle.com>
-X-ClientProxiedBy: CH2PR03CA0006.namprd03.prod.outlook.com
- (2603:10b6:610:59::16) To DM5PR10MB1466.namprd10.prod.outlook.com
+X-ClientProxiedBy: CH2PR03CA0013.namprd03.prod.outlook.com
+ (2603:10b6:610:59::23) To DM5PR10MB1466.namprd10.prod.outlook.com
  (2603:10b6:3:b::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-Office365-Filtering-Correlation-Id: 8874b115-c290-46f3-d0d6-08da799ac2f6
+X-MS-Office365-Filtering-Correlation-Id: 4e026638-f8f5-4c3d-d4c7-08da799ac3e2
 X-MS-TrafficTypeDiagnostic: CH0PR10MB4907:EE_
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: b/JJ6lpmlZEhiBohok6kFkbGBwAoEdjdTxzXSer1fqLkiXvSrrw8IrMAN1lNxz5qFr2oWJFbT/XUpmOAf3YpHSNHAcubXEbRL+9W7uPJEpXqVHJqIe9P7GhUWpKb82qT4vNQn2SIr/W/svH7J4eEBPEtm0H2uaZedo7IG9j96V8QVJEG4yyB3tAP0tv4heaTu3Lo4/hH6yJ9Mc8oQY6yJfXb+16wFZajzwzhqkO5GS+cu/HHVueIUI+vRl1KiBTowN9MlvOZCoLhOt+t3jk4+UEkH5BH6BIPXzWzFR7Ga8pzcF6kACJvMzE7isjQvpZnO3NpyG9CRiw1d7PNF+DdEy+wKT+66pIOlNRUMdrzU/5jE8gHRIbUvC3mFPdcDNQb+wNEeX+tn+E9DQHrGNOWDhFfkGY4/626eVDkGjeYP7SUjHmPoezaI0WTbTZtAUCmkEzUxQUJCJ7AaQEng/kAn4lOGt45Ko5pki8W+Sz5DPYLaGWbWmE1jvQHA+A8SxhANaKmbAukH82+kuYHg8nWE0owKeISaeLAbLRMmNe9ZTm+BA9Q62aisrm8P19tCR7fQEkIEfxxMQ+AkOXTw2RBGJ64woiBkpS9v2LTBsNDsw1dX4MPDuraH9d7maMZxEZmB2IQEM9GwC8YRc4Ths8d50AQXygrcc7Hxo/VII7HCoW4BOBfLQm9lchddFUNdkTMV82CWWEfpe24NcWYO18jtltnu3bCNF2d3d5rKzHkKycGRd0q1aI9p21ghVQ4AWRIdt01b7PhlhQLHy4/DI9PRFw4SaKjSBz/WTj4MMaGXxw=
+X-Microsoft-Antispam-Message-Info: l6dQiQk4CJoci2YIlEjENFhiBDEKX3oQjnb2kgzxP2k35S/lQnH5PL+33AdcGYiEB+g7UnxM94Gj4T+nigZbYI4L5tPvp3MCQ2bK/16eWKttWpzyCi5kL3W/zlJs8QtH/PxlsUv1s45LQcHzbcYKo7rtH5VofIi9I55m7HLUhbcEDX+Pe0snxi3IqGghu7LO88Ylvb+5wRsyC3gc/aIRHxj5dD+BFOnwqxPBjnOU2n8UwPA3Wu4psOAxzzWbBSn6gDkcLDs3qs2FauxLk3m/3uSpfYDNaUYyZpphKnXelLTPGY/910PAZuC6XAck5uXRuKGULyzEMofX3M5dpFo2A/ua15OITHW/UsMWOUzkszNxusqSAESJMPoXApFlkdBgB1olo4wXlavrWAfzew02fMFTllOuGzw0cPWM9pzdvhRia4Lx620JLctYZ9yDXoBdHOAX3/t5ECx8STM4JcY2bSwpRfQJetj5M/lDKpqxP/Zou4zDuDBY4z9oDuEfMqtZ6N/UepVn+fEBg9B3fZn5v1Gu+MvhqBkPqWhf+Skh9i2W6KSC+ho6DnfUpfzSOdUJp96+AVzBu4Ho7vNZ6Ksjbjbanen5SZqfYPcQlSzuWPR/ssT9/3gqb6K8Wuyf+OoLU7voqzY1tBrkxaravLIb2hsBo65i7tI9wi0JVMDEnSjzwLIDGvp5c6/GLuwyXJjtu47SzOigq8EoD8cpta78xky0qfQEKaMUVxhiG67tJuUd8jm9lC6uupKk49TxpMYMGFDUZfrEQJhMj1VZThxH5e1Ya/h2Ib3vWE4I/WXCovE=
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230016)(396003)(366004)(136003)(346002)(376002)(39860400002)(921005)(6666004)(41300700001)(6512007)(26005)(2906002)(6506007)(83380400001)(2616005)(107886003)(38100700002)(86362001)(186003)(6486002)(1076003)(316002)(66476007)(66556008)(36756003)(8676002)(66946007)(4326008)(8936002)(478600001)(5660300002);
  DIR:OUT; SFP:1101
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?/eOoq/2LRGtDIPc89ZXWSsy9muV82DbcC6hpbHiuorLtUIpnjQeSf10upXxw?=
- =?us-ascii?Q?YFQTI1Rhq2ld5X4j5rFsaD5X1E0sqVBBw3nIMDlS08pBFcHI7258yoLOqQqx?=
- =?us-ascii?Q?s1PsoxfYchu0wtYNZnPWQcK6+NxcEKzTIogGuCsPrg8Tbx/TZzFwq84s8QzB?=
- =?us-ascii?Q?gZLdBORZXxGpVj5g202ZvRq7ypAUt0DsAntDjos8EE3tVsZdl5QDED6X903p?=
- =?us-ascii?Q?3VZfmvMbZhvIQJH+5a8j+8vncr9Oz00kID6AieiQYBfFhZKYd66fFF0AZ0dP?=
- =?us-ascii?Q?GSvmUrsWC8KlRW4mKv5E+qJPOZEMhCiMR/3Xr5MEtpw9ki0RZZOPOxMKHf6A?=
- =?us-ascii?Q?2qHeVPA7XEUJxfzgUxqKqwTuLGMBFImumxN/j66ZgQX4UaKTTHzNHq3OXwe9?=
- =?us-ascii?Q?mkG6p+u7+CK6YZ7a1ukpDeEprIVs8Pbtht8Gk3nlBIFnR51cFxmFBlTQgsqv?=
- =?us-ascii?Q?k2EP94Z7VNdXX8iv9Nuk9iMkMtmZePyTgMG4zCbzk1mo7CkQGeSut7r4wmK9?=
- =?us-ascii?Q?yWLs/BzIn3zDW4NkKFAHzbxpvCgYdk9rGybH9xpbGcXnHYbG61MzSWCm66Zs?=
- =?us-ascii?Q?gwsniV0H/mqWRzCwI6hbTDeOpM0cLMmRzuDtapOf8F+wefcJbcg5/u1EzJJE?=
- =?us-ascii?Q?FVV+DXJhfiBRQqG7d9nWbH95JNrkAQYGu4yiT5FDDtb1x2BxpIBuea2CnJ3j?=
- =?us-ascii?Q?dTxnqoKqqu0wbbysJ7jh0nfRgSZ9UG4Tl2wxJvpNxFbjvaIcHcKP1KA9yYHa?=
- =?us-ascii?Q?so2ni1fOi++ksai5/xghIdmTomvWOGZI+bvQjMwQmAU9i2dmuA6d72MUqUiK?=
- =?us-ascii?Q?zpPzXFmeLpB0PfRoHDAZjgicnnfEWHSDG9Uv8GXwo/dL9JnGFSEN9jdS6RvY?=
- =?us-ascii?Q?IpkMaWtL/StnPoY3jbtb8Hr2Z6M5+NrRAoJ/mmc5NnxsWXiTHQ2/9q0VCR88?=
- =?us-ascii?Q?8hu1/eLdD7yuVYoS+WM2e+PvL5FDkNwN1V/+OahQltpFK0ctJPDcKWXFbbPQ?=
- =?us-ascii?Q?E1kcf2uxO/i88pzSJvO8xhEWj5ity1XfFiz4JacojBAtO3y5G1ZE9PQ0DwGL?=
- =?us-ascii?Q?3TiL+7i8rmRB0VDJZ1k9OMq4szTmH/3551zm5iOIO4Aysa/8n2+hCDg6vIj5?=
- =?us-ascii?Q?s7jkpwh1PHL8TialePdMTbCRfPmoYtwApOZEK+pU/6uYujLsFxXCWIdImc6X?=
- =?us-ascii?Q?tJ27pkTQSBy1l+b2pLlSE8pX9GblsITy78LjpVtMrI2O6pGvSIUFnSsE84dm?=
- =?us-ascii?Q?SD673tHrAWYsFFvRlVUJUkQkFMeooyBQXMyVQhOecDSmwkf444xtZK/xNrgp?=
- =?us-ascii?Q?40XNICr3gIJM7Tj/ML5gIpUUvQG6gGPE0xLTnJSkCaGhyDCuMkQriHRuAxig?=
- =?us-ascii?Q?qAX4hhtniAc8TzHlCqDPnNqecwSvw8/npz6PauA25eE2MPdZaohuOgBHgaYf?=
- =?us-ascii?Q?Ol9ev7er+Prnmq+2j1rD+j8pVf3ytGirfMIxIxKdVBz0VfJeWByG5p+eibiI?=
- =?us-ascii?Q?L7An2PiIKK+6LRBl+SGcXpeINOjTSVgAkQxkBYupsixULQedARCsKKCM9bY/?=
- =?us-ascii?Q?cDMVjfVSAqI6MzMUIN5LiXWj+JPgJcnnM4n73ZaFa3YFiPIDi7/xIo/k3CiC?=
- =?us-ascii?Q?cg=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?VGPAvg+HVdIYIMtlW4dZZ5GVmcftTne/n8BcwXIreyXVNPzLRyZmgGzN4NhX?=
+ =?us-ascii?Q?I4WtFS/2p/Evim1j92/BFYNz6U4EGtzhtxMetWvgpBP12Thqqvu3s+CXcOwe?=
+ =?us-ascii?Q?pQM14PdgEKcaLiVIaREQ21/kg6EU7ezyX8+F4Wwyvy5zezgTz0l5taMINHM2?=
+ =?us-ascii?Q?xHXmd/riYw+aP8fronCI4hQUOdXrnT2JbjyqEuGTcyTF9+JR2QFxfrlr0rp3?=
+ =?us-ascii?Q?+BtZin4srhw029dy3d5mKMrNmNzshBcs6SByuulgJvbHNyVjjPHPuJ6B1PKR?=
+ =?us-ascii?Q?ZctXpBwiaDDWEECrhP36/kCrTSpugPS03Xx3kKgzxQwaGIirbxV2tu0fn5pp?=
+ =?us-ascii?Q?m9yVcgFmguYgkdQmiJpcbOAKZiTjhkCeUAsEo+adIFzKOSBRfpqNbL6uv2YD?=
+ =?us-ascii?Q?X/A4BWSPW5F1pnPdaFVSy8X097gLySeaULFDM6HnRaoEXFDhSIcEA6bRaRn8?=
+ =?us-ascii?Q?Ek9dF6ezM/LbLmUBSSQHtKT6h576zu59o7G3XmzUNOUHxV4VpXHeLiwefT+W?=
+ =?us-ascii?Q?cITTbRUrjMxyaDYknjjiTpg+Izl4Z0ifwXuudBOGb27gHE4Ibc/vLlBkpZcV?=
+ =?us-ascii?Q?+Rg+50/lQYjnqAIK5oWoMRNfsQsIGP9PmgRKoJkOxl6p0nhU+sMm5Zj9EEUq?=
+ =?us-ascii?Q?QUt/B1TCqJbcyp7kD6y8INhV2pggisMq+hb26ihv/BemefrzU3iySVi8Tb4R?=
+ =?us-ascii?Q?7q2u5f7irC82uW9yWvbtjLg29EDEoPN21pahddtUGnXR7WYMsk0qQB+p9GWJ?=
+ =?us-ascii?Q?0ZAk/LcVzUgw5thHIIfyDYdFeNEWSVGsOVXGX2aHPYn+7tNY/fbPxE5TfsHM?=
+ =?us-ascii?Q?KFaWLwXjK+1d+FFckxoLPgDlm1bshunZeKB+pM+T+E2Bj3HwoMANBQgD/Dlx?=
+ =?us-ascii?Q?/P1nSbFJxTnFatxoovlJmpyZRzoMKnhZQ7ivRFedDI5Uj2KRY+5ZeBPEl1b/?=
+ =?us-ascii?Q?Aq25ODg6ipmHtPCbm8kgg17ApeaINKYSsBBVtVoMat7QjOaXwU0M1moOjDuf?=
+ =?us-ascii?Q?e7EPN8S0RnTNPUuFgEGk+VGHfe8bV4EXyRhRgPVZnnNIwqTELjpKWUpYEh4/?=
+ =?us-ascii?Q?jIoMHniT/+fv/UFvzLHnbPbf/UnIN/38sJVjUaGeLPNz1L7FFJvKAix4GZCR?=
+ =?us-ascii?Q?xWexbCOBJ1M8OLZQKXkyTI9vOXMRWrib+Vo+JeJqFTMT7i3qSWcUbi2aflnF?=
+ =?us-ascii?Q?hrlymMOK/I4AFxI/VAIE2SF+d9BnNsAJ3Q0b7qyG9Fx289MP86ZvGK92pTNq?=
+ =?us-ascii?Q?nNIAHgSajOicpLfYDbxyetGDz5F/2Qm8jSrzI5QjLJoUwtNSqadvWI3FGQ0q?=
+ =?us-ascii?Q?fuTJpDlrrnthZCdm+BfVb5TMX4ytPKyArFfWru5NloTK+GFp18lkLQfFQYmm?=
+ =?us-ascii?Q?4W/nSOlJ/twowW4w4IqGUJ4EpUMat7uehOVqexRzGXMCLhi9eIRawN5DfBM3?=
+ =?us-ascii?Q?9qkmh26MajBqHw8M4PE/PXEquU0nEnA3ano5bG36C1puhAFiinQNy2lAIjJ2?=
+ =?us-ascii?Q?DgGMglJ1j+x9THJQTmItsKMZmzo+NrCcS23Wi0f65odTNKIMM4Nujawoh1Qw?=
+ =?us-ascii?Q?lwtQxLh1QgwHBS85ERy9UxhIj5IJss/p90TgfNk6F2y9gJiejif6wyIWda6L?=
+ =?us-ascii?Q?pA=3D=3D?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8874b115-c290-46f3-d0d6-08da799ac2f6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 4e026638-f8f5-4c3d-d4c7-08da799ac3e2
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 00:04:43.0788 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 09 Aug 2022 00:04:44.5787 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: au53tZraDiAjdOSK1D9NnCqVOCpxmhdS+6pEfIzoMLsolqeJ67XVOX/53OrRUMr4ZhS1UHpQNqigIIcStEKX3Mv0f8zvF0lSLqVuxTBhVOo=
+X-MS-Exchange-CrossTenant-UserPrincipalName: UAsYdiRwxLGLg14hxrHoLUiG3ly5vj2SlFqjKBsEMG6ubq6wVOD1Qy2IslUsrsBEZky7hAOP3m6jYOJsriWIP7HN4eKHL0aLMuDB2A6NUiw=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB4907
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.883,Hydra:6.0.517,FMLib:17.11.122.1
@@ -154,8 +153,8 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
  bulkscore=0 phishscore=0 suspectscore=0 spamscore=0 malwarescore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2206140000
  definitions=main-2208080105
-X-Proofpoint-ORIG-GUID: Y0VAjduY87uUNDlhDcuZtj02BaigFyBp
-X-Proofpoint-GUID: Y0VAjduY87uUNDlhDcuZtj02BaigFyBp
+X-Proofpoint-ORIG-GUID: eGr85Xv6ZWE4f5jBH31vF5JyTyVnOliB
+X-Proofpoint-GUID: eGr85Xv6ZWE4f5jBH31vF5JyTyVnOliB
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -163,9 +162,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
-Subject: [dm-devel] [PATCH v2 14/20] scsi: Retry pr_ops commands if a UA is
- returned.
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [PATCH v2 15/20] scsi: Export scsi_result_to_blk_status.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -180,79 +178,54 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: Mike Christie <michael.christie@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-It's common to get a UA when doing PR commands. It could be due to a
-target restarting, transport level relogin or other PR commands like a
-release causing it. The upper layers don't get the sense and in some cases
-have no idea if it's a SCSI device, so this has the sd layer retry.
+Export scsi_result_to_blk_status so the sd pr_ops can get a BLK_STS error
+that can be returned to other kernel pr ops users.
 
 Signed-off-by: Mike Christie <michael.christie@oracle.com>
 ---
- drivers/scsi/sd.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
+ drivers/scsi/scsi_lib.c  | 3 ++-
+ include/scsi/scsi_cmnd.h | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/scsi/sd.c b/drivers/scsi/sd.c
-index bf080de9866d..61e88c7ffa44 100644
---- a/drivers/scsi/sd.c
-+++ b/drivers/scsi/sd.c
-@@ -1683,6 +1683,8 @@ static int sd_get_unique_id(struct gendisk *disk, u8 id[16],
- 	return ret;
- }
- 
-+#define SCSI_PR_UA_RETRIES 5
-+
- static int sd_pr_in_command(struct block_device *bdev, u8 sa,
- 			    unsigned char *data, int data_len)
+diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
+index a2a3a9bd5ba1..d7825ff8915d 100644
+--- a/drivers/scsi/scsi_lib.c
++++ b/drivers/scsi/scsi_lib.c
+@@ -587,7 +587,7 @@ static inline u8 get_scsi_ml_byte(int result)
+  *
+  * Translate a SCSI result code into a blk_status_t value.
+  */
+-static blk_status_t scsi_result_to_blk_status(int result)
++blk_status_t scsi_result_to_blk_status(int result)
  {
-@@ -1690,8 +1692,9 @@ static int sd_pr_in_command(struct block_device *bdev, u8 sa,
- 	struct scsi_device *sdev = sdkp->device;
- 	struct scsi_sense_hdr sshdr;
- 	u8 cmd[10] = { 0, };
--	int result;
-+	int result, ua_retries = SCSI_PR_UA_RETRIES;
- 
-+retry:
- 	cmd[0] = PERSISTENT_RESERVE_IN;
- 	cmd[1] = sa;
- 	put_unaligned_be16(data_len, &cmd[7]);
-@@ -1700,6 +1703,9 @@ static int sd_pr_in_command(struct block_device *bdev, u8 sa,
- 				  &sshdr, SD_TIMEOUT, sdkp->max_retries, NULL);
- 	if (scsi_status_is_check_condition(result) &&
- 	    scsi_sense_valid(&sshdr)) {
-+		if (sshdr.sense_key == UNIT_ATTENTION && ua_retries-- > 0)
-+			goto retry;
-+
- 		sdev_printk(KERN_INFO, sdev, "PR command failed: %d\n", result);
- 		scsi_print_sense_hdr(sdev, NULL, &sshdr);
+ 	/*
+ 	 * Check the scsi-ml byte first in case we converted a host or status
+@@ -618,6 +618,7 @@ static blk_status_t scsi_result_to_blk_status(int result)
+ 		return BLK_STS_IOERR;
  	}
-@@ -1776,10 +1782,11 @@ static int sd_pr_out_command(struct block_device *bdev, u8 sa, u64 key,
- 	struct scsi_disk *sdkp = scsi_disk(bdev->bd_disk);
- 	struct scsi_device *sdev = sdkp->device;
- 	struct scsi_sense_hdr sshdr;
--	int result;
-+	int result, ua_retries = SCSI_PR_UA_RETRIES;
- 	u8 cmd[16] = { 0, };
- 	u8 data[24] = { 0, };
+ }
++EXPORT_SYMBOL_GPL(scsi_result_to_blk_status);
  
-+retry:
- 	cmd[0] = PERSISTENT_RESERVE_OUT;
- 	cmd[1] = sa;
- 	cmd[2] = type;
-@@ -1794,6 +1801,9 @@ static int sd_pr_out_command(struct block_device *bdev, u8 sa, u64 key,
+ /**
+  * scsi_rq_err_bytes - determine number of bytes till the next failure boundary
+diff --git a/include/scsi/scsi_cmnd.h b/include/scsi/scsi_cmnd.h
+index bac55decf900..c4de69ba859f 100644
+--- a/include/scsi/scsi_cmnd.h
++++ b/include/scsi/scsi_cmnd.h
+@@ -155,6 +155,7 @@ static inline void *scsi_cmd_priv(struct scsi_cmnd *cmd)
+ void scsi_done(struct scsi_cmnd *cmd);
+ void scsi_done_direct(struct scsi_cmnd *cmd);
  
- 	if (scsi_status_is_check_condition(result) &&
- 	    scsi_sense_valid(&sshdr)) {
-+		if (sshdr.sense_key == UNIT_ATTENTION && ua_retries-- > 0)
-+			goto retry;
-+
- 		sdev_printk(KERN_INFO, sdev, "PR command failed: %d\n", result);
- 		scsi_print_sense_hdr(sdev, NULL, &sshdr);
- 	}
++blk_status_t scsi_result_to_blk_status(int result);
+ extern void scsi_finish_command(struct scsi_cmnd *cmd);
+ 
+ extern void *scsi_kmap_atomic_sg(struct scatterlist *sg, int sg_count,
 -- 
 2.18.2
 
