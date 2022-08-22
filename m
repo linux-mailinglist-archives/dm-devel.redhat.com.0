@@ -2,80 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D68E959CA36
-	for <lists+dm-devel@lfdr.de>; Mon, 22 Aug 2022 22:42:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E94B359CA3C
+	for <lists+dm-devel@lfdr.de>; Mon, 22 Aug 2022 22:42:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661200923;
+	s=mimecast20190719; t=1661200926;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7rwsRzj34ZnYOViN5o7n9RYDFDVorM2voc4CNnZ6VM0=;
-	b=F+cIg+SwHQSdxhJ+PZ53apHJ/5EM4DLRsPOLJR3sZxaTfpxDx4Qrz8euAaUMBj3QpbprxU
-	0dzqJGO9G/YFQimey975ec3b7UmS84vNey78AwSauFGseL42zLVVk2FyvlF8kQOGYlPn4E
-	GlsVNsR+yPIiWWjRLFZ6ZFHZ2/agR/w=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Ii9nU/n6D4JGf7BizG68vH+e8d6eMPMkxAwaCrDcApA=;
+	b=Fyjx2GI8lBDqzGp1Lw40Syf+/rHnew1ZzHhKHJHJ0SIGX+ZP6QDE6LI9ZaDbKcZbWaxJgy
+	Lk89P8cy35b8AERDgyfbpHIvnrcaWw3RZRud8gC6HHU3pZ/uQr+w2wkjrSg0TotLevHgHt
+	U7jgMqT5eWVqR0veYKYxM/W+Cgl9ktI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-50-Ass6NbAVOh6hsFKMpp6yDQ-1; Mon, 22 Aug 2022 16:42:02 -0400
-X-MC-Unique: Ass6NbAVOh6hsFKMpp6yDQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-466-lei4oFOyOoS5aGqXv9j07w-1; Mon, 22 Aug 2022 16:42:02 -0400
+X-MC-Unique: lei4oFOyOoS5aGqXv9j07w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B86B1032963;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A42D3C16193;
 	Mon, 22 Aug 2022 20:41:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 67D622026D4C;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 470FE1121315;
 	Mon, 22 Aug 2022 20:41:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 531B91946A5B;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 379201946A52;
 	Mon, 22 Aug 2022 20:41:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CDD1D1946A40
- for <dm-devel@listman.corp.redhat.com>; Mon, 22 Aug 2022 20:41:56 +0000 (UTC)
+ ESMTP id 1A33E1946A5A
+ for <dm-devel@listman.corp.redhat.com>; Mon, 22 Aug 2022 20:41:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C0695945D7; Mon, 22 Aug 2022 20:41:56 +0000 (UTC)
+ id 0098E40334B; Mon, 22 Aug 2022 20:41:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BCAA69458A
- for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F13AC492C3B
+ for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0A9B8039A2
- for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:56 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D938E18E5356
+ for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:57 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-111-0PqSESxSOV2D7rXtfTAgYQ-1; Mon,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-17-OVS4546yOPKidWhY7xy9rg-1; Mon,
  22 Aug 2022 16:41:53 -0400
-X-MC-Unique: 0PqSESxSOV2D7rXtfTAgYQ-1
+X-MC-Unique: OVS4546yOPKidWhY7xy9rg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 841485CAFB;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C760D37339;
  Mon, 22 Aug 2022 20:41:51 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 46B0B13523;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8C79913523;
  Mon, 22 Aug 2022 20:41:51 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MIedDw/qA2MOAwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id kEG9IA/qA2MOAwAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 22 Aug 2022 20:41:51 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 22 Aug 2022 22:41:18 +0200
-Message-Id: <20220822204119.20719-11-mwilck@suse.com>
+Date: Mon, 22 Aug 2022 22:41:19 +0200
+Message-Id: <20220822204119.20719-12-mwilck@suse.com>
 In-Reply-To: <20220822204119.20719-1-mwilck@suse.com>
 References: <20220822204119.20719-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -86,9 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: [dm-devel] [PATCH v2 10/11] multipathd: exec multipathc in
- interactive mode
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+Subject: [dm-devel] [PATCH v2 11/11] multipathd: fix incompatible pointer
+ type error with libedit
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,7 +104,7 @@ Cc: dm-devel@redhat.com, Xose Vazquez Perez <xose.vazquez@gmail.com>,
  Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -112,106 +112,33 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-A previous patch disabled interactive mode in multipathd, because
-uxclnt() would return immediately without an input command
+Versions of libedit prior to 2016 were using a wrong prototype for
+rl_completion_entry_function in readline.h. Internally, libedit casts this to
+the correct type (char *)(*)(const char *, int) (aka CPFunction in libedit).
+So we simply cast to the wrong prototype here.
 
-With this patch, we reinstate interactive mode for "multipath -k",
-by just exec()ing the multipathc client.
+See http://cvsweb.netbsd.org/bsdweb.cgi/src/lib/libedit/readline/readline.h.diff?r1=1.34&r2=1.35
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- multipathd/Makefile     |  3 ++-
- multipathd/main.c       | 15 +++++++++++++--
- multipathd/multipathc.c | 25 +++++++++++++++++++++----
- 3 files changed, 36 insertions(+), 7 deletions(-)
+ multipathd/Makefile | 4 ++++
+ 1 file changed, 4 insertions(+)
 
 diff --git a/multipathd/Makefile b/multipathd/Makefile
-index 19ab2e9..8a56304 100644
+index 8a56304..28ebdc0 100644
 --- a/multipathd/Makefile
 +++ b/multipathd/Makefile
-@@ -17,7 +17,8 @@ endif
+@@ -34,6 +34,10 @@ endif
+ ifeq ($(READLINE),libreadline)
+ RL_CPPFLAGS += -DUSE_LIBREADLINE
+ RL_LIBDEPS += -lreadline
++# See comment in uxclnt.c
++ifeq ($(shell sed -En 's/.*\<Function\s*\*rl_completion_entry_function;.*/yes/p' /usr/include/editline/readline.h),yes)
++RL_CPPFLAGS += -DBROKEN_RL_COMPLETION_FUNC
++endif
+ endif
  
- CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathpersistdir) -I$(mpathcmddir) -I$(thirdpartydir) \
- 	$(shell $(PKGCONFIG) --modversion liburcu 2>/dev/null | \
--		awk -F. '{ printf("-DURCU_VERSION=0x%06x", 256 * ( 256 * $$1 + $$2) + $$3); }')
-+		awk -F. '{ printf("-DURCU_VERSION=0x%06x", 256 * ( 256 * $$1 + $$2) + $$3); }') \
-+	-DBINDIR='"$(bindir)"'
- CFLAGS += $(BIN_CFLAGS)
- LDFLAGS += $(BIN_LDFLAGS)
- 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 5a40894..63df643 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -3616,7 +3616,7 @@ main (int argc, char *argv[])
- 	extern char *optarg;
- 	extern int optind;
- 	int arg;
--	int err;
-+	int err = 0;
- 	int foreground = 0;
- 	struct config *conf;
- 	char *opt_k_arg = NULL;
-@@ -3710,7 +3710,18 @@ main (int argc, char *argv[])
- 			}
- 			c += snprintf(c, s + CMDSIZE - c, "\n");
- 		}
--		err = uxclnt(s, uxsock_timeout + 100);
-+		if (!s) {
-+			char tmo_buf[16];
-+
-+			snprintf(tmo_buf, sizeof(tmo_buf), "%d",
-+				 uxsock_timeout + 100);
-+			if (execl(BINDIR "/multipathc", "multipathc",
-+				  tmo_buf, NULL) == -1) {
-+				condlog(0, "ERROR: failed to execute multipathc");
-+				err = 1;
-+			}
-+		} else
-+			err = uxclnt(s, uxsock_timeout + 100);
- 		free_config(conf);
- 		return err;
- 	}
-diff --git a/multipathd/multipathc.c b/multipathd/multipathc.c
-index 571a182..323bd78 100644
---- a/multipathd/multipathc.c
-+++ b/multipathd/multipathc.c
-@@ -241,14 +241,31 @@ static void process(int fd, unsigned int timeout)
- 	}
- }
- 
--int main (void)
-+int main (int argc, const char * const argv[])
- {
--	int fd = mpath_connect();
-+	int fd;
-+	int tmo = DEFAULT_REPLY_TIMEOUT + 100;
-+	char *ep;
- 
--	if (fd == -1)
-+	if (argc > 2) {
-+		fprintf(stderr, "Usage: %s [timeout]\n", argv[0]);
- 		return 1;
-+	}
-+	if (argc == 2) {
-+		tmo = strtol(argv[1], &ep, 10);
-+		if (*argv[1] == '\0' || *ep != '\0') {
-+			fprintf(stderr, "ERROR: invalid timeout value\n");
-+			return 1;
-+		}
-+	}
- 
--	process(fd, DEFAULT_REPLY_TIMEOUT + 100);
-+	fd = mpath_connect();
-+	if (fd == -1) {
-+		fprintf(stderr, "ERROR: failed to connect to multipathd\n");
-+		return 1;
-+	}
-+
-+	process(fd, tmo);
- 	mpath_disconnect(fd);
- 	return 0;
- }
+ ifdef SYSTEMD
 -- 
 2.37.1
 
