@@ -2,80 +2,81 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6D5C859CA3E
-	for <lists+dm-devel@lfdr.de>; Mon, 22 Aug 2022 22:42:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 28B6C59CA3F
+	for <lists+dm-devel@lfdr.de>; Mon, 22 Aug 2022 22:42:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661200928;
+	s=mimecast20190719; t=1661200930;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o2Zh6nKjyeHfDk2fg51GjklERe7KG2MWp/GD/OBfF60=;
-	b=Ab2wLLqIISLipa/zFfNoFVSvJWsT8EG0YCgC1ubXAMGHOT/dS9WbzxSSlb8Bn4HWMIaQAw
-	Cv5EgQdtxIoST0ES+pU6Lp4Ixnv8aiq7skoCAxj8w+Om2wu5dDxV9NSzX9us4xxKLBEgDB
-	tht75KftV+nLj3a0iEXs1APS1dhcRQQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=WsxmgyX+H6VI0gd5Fm6gm8sHP13J62r+xb5SyYnOTUQ=;
+	b=hkNRVscJa8ojOLHBmumqe+LoSdgZ+gKmSSrhfp9PO8Lkg/hke3IpwWW7lih7Hd6NHOKNLj
+	K4ESaqRFx0cG4mUhrk3pGLdo8wvdhJuPeOPqIYkCb8TqK4b9gXBl/VaJoTK67Rs9CLjx1J
+	ZpTPSAqnR+MS+5iWWxxCqqjB3gmszh8=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-462-TLTfemb6MzKQ1B0JezJMVQ-1; Mon, 22 Aug 2022 16:42:01 -0400
-X-MC-Unique: TLTfemb6MzKQ1B0JezJMVQ-1
+ us-mta-462-6W0kSXx4NXerl2InqrYnFQ-1; Mon, 22 Aug 2022 16:42:02 -0400
+X-MC-Unique: 6W0kSXx4NXerl2InqrYnFQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6B728039AE;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D6D9B3C16187;
 	Mon, 22 Aug 2022 20:41:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2343E4010FA0;
-	Mon, 22 Aug 2022 20:41:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E93814010D42;
+	Mon, 22 Aug 2022 20:41:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 156291946A58;
-	Mon, 22 Aug 2022 20:41:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B51431946A52;
+	Mon, 22 Aug 2022 20:41:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DFCA61946A52
+ ESMTP id 169F21946A40
  for <dm-devel@listman.corp.redhat.com>; Mon, 22 Aug 2022 20:41:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C244B1121315; Mon, 22 Aug 2022 20:41:53 +0000 (UTC)
+ id F10464010D42; Mon, 22 Aug 2022 20:41:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BEE291121319
- for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A50F08117B0
- for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:53 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EDB6B40C141D
+ for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D55213C16187
+ for <dm-devel@redhat.com>; Mon, 22 Aug 2022 20:41:52 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-211-hRZEwb36NMK2vfOsq31byw-1; Mon,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-373-5uFIHnYFO0uipUgvKDSQZQ-1; Mon,
  22 Aug 2022 16:41:51 -0400
-X-MC-Unique: hRZEwb36NMK2vfOsq31byw-1
+X-MC-Unique: 5uFIHnYFO0uipUgvKDSQZQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id A2689202ED;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E9B2520337;
  Mon, 22 Aug 2022 20:41:49 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 66B9013523;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD58113523;
  Mon, 22 Aug 2022 20:41:49 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oJeDFw3qA2MOAwAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id GAXEKA3qA2MOAwAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 22 Aug 2022 20:41:49 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 22 Aug 2022 22:41:12 +0200
-Message-Id: <20220822204119.20719-5-mwilck@suse.com>
+Date: Mon, 22 Aug 2022 22:41:13 +0200
+Message-Id: <20220822204119.20719-6-mwilck@suse.com>
 In-Reply-To: <20220822204119.20719-1-mwilck@suse.com>
 References: <20220822204119.20719-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -86,8 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-Subject: [dm-devel] [PATCH v2 04/11] libmultipath: always set _GNU_SOURCE
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+Subject: [dm-devel] [PATCH v2 05/11] multipath-tools: Makefile: fix
+ dependencies for "install" target
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,36 +113,36 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-... not only if dm_task_no_flush is available. Also, look for
-includes under libmultipath but not under libmpathpersist.
+subdir.install targets should depend on subdir targets.
+This is cleaner than just having "install" depend on "all".
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/Makefile | 4 ++--
+ Makefile | 4 ++--
  1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/libmultipath/Makefile b/libmultipath/Makefile
-index 033fc83..348af3f 100644
---- a/libmultipath/Makefile
-+++ b/libmultipath/Makefile
-@@ -8,7 +8,7 @@ DEVLIB = libmultipath.so
- LIBS = $(DEVLIB).$(SONAME)
- VERSION_SCRIPT := libmultipath.version
+diff --git a/Makefile b/Makefile
+index 82e0ea3..ffca586 100644
+--- a/Makefile
++++ b/Makefile
+@@ -84,7 +84,7 @@ libmultipath/checkers.install \
+ $(BUILDDIRS.clean):
+ 	$(MAKE) -C ${@:.clean=} clean
  
--CPPFLAGS += -I$(mpathcmddir) -I$(nvmedir)
-+CPPFLAGS += -I$(mpathcmddir) -I$(nvmedir) -D_GNU_SOURCE
- CFLAGS += $(LIB_CFLAGS)
+-$(BUILDDIRS:=.install):
++$(BUILDDIRS:=.install): $(BUILDDIRS)
+ 	$(MAKE) -C ${@:.install=} install
  
- LIBDEPS += -lpthread -ldl -ldevmapper -ludev -L$(mpathcmddir) -lmpathcmd -lurcu -laio
-@@ -23,7 +23,7 @@ ifdef SYSTEMD
- endif
+ $(BUILDDIRS:=.uninstall):
+@@ -93,7 +93,7 @@ $(BUILDDIRS:=.uninstall):
+ clean: $(BUILDDIRS.clean)
+ 	rm -rf abi abi.tar.gz abi-test compile_commands.json
  
- ifneq ($(call check_func,dm_task_no_flush,$(DEVMAPPER_INCDIR)/libdevmapper.h),0)
--	CPPFLAGS += -DLIBDM_API_FLUSH -D_GNU_SOURCE
-+	CPPFLAGS += -DLIBDM_API_FLUSH
- endif
+-install: all $(BUILDDIRS:=.install)
++install: $(BUILDDIRS:=.install)
+ uninstall: $(BUILDDIRS:=.uninstall)
  
- ifneq ($(call check_func,dm_task_get_errno,$(DEVMAPPER_INCDIR)/libdevmapper.h),0)
+ test-progs:	all
 -- 
 2.37.1
 
