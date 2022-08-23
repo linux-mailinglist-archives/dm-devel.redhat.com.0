@@ -1,91 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2DA1059F17C
-	for <lists+dm-devel@lfdr.de>; Wed, 24 Aug 2022 04:47:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7690659F474
+	for <lists+dm-devel@lfdr.de>; Wed, 24 Aug 2022 09:37:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661309263;
+	s=mimecast20190719; t=1661326629;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xbiO0YyWtXeeJ5+BZSZ5vNZb4wuV9T913P3o5Lr1mEU=;
-	b=hlLLZdf4KwEwI+MqN/vQCDiBVjXgZONv/Q2MISMnMg+i5NdsiEnIiGbo++NDI+UUmrM7JA
-	rTT9jbG0zL7fzlYQ/Ra/vT5kOLCywHy5NFpCxqeOgygAfQ3kOtAS+vYw4A+fjFg4P74FBk
-	RMOUD8MJsCrKGCkrVcrgdB6pbeM6nCE=
+	bh=NY1Ku7+DSG7tTNQh8XgRgnlSUrwqFQ2mglaXdH+MiFs=;
+	b=c7MF82tkqknzD9dYVSGsTVKtPhIOs9rQgX1/Yb4IRAVqvaSFLVQy5/W05628iRk5Jb+Dah
+	k1mJnjgtCvIQkRBKPbr27b2Rbm0jjuQaerH4cIDMMYm7F468Mvs9wVS7mwQfjYX3iLlAm4
+	8uDHL1Uhmy2Y6cCifbxi49/Y/RTvbfg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-608-jqo9AuULME-g5Jh0N6oNtA-1; Tue, 23 Aug 2022 22:47:39 -0400
-X-MC-Unique: jqo9AuULME-g5Jh0N6oNtA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-97-23gZ0AkCO0mUti_4SdEWGQ-1; Wed, 24 Aug 2022 03:37:05 -0400
+X-MC-Unique: 23gZ0AkCO0mUti_4SdEWGQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90ED3803301;
-	Wed, 24 Aug 2022 02:47:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B1B4680C8EE;
+	Wed, 24 Aug 2022 07:37:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 290FB2166B26;
-	Wed, 24 Aug 2022 02:47:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DBB92026614;
+	Wed, 24 Aug 2022 07:37:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 146ED1946A40;
-	Wed, 24 Aug 2022 02:47:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4FCC01946A5B;
+	Wed, 24 Aug 2022 07:37:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 58AB61946A40
- for <dm-devel@listman.corp.redhat.com>; Wed, 24 Aug 2022 02:47:31 +0000 (UTC)
+ ESMTP id 88F8A1946A40
+ for <dm-devel@listman.corp.redhat.com>; Tue, 23 Aug 2022 15:49:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4A2DC18EA8; Wed, 24 Aug 2022 02:47:31 +0000 (UTC)
+ id 6D17D1121319; Tue, 23 Aug 2022 15:49:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 469F9945D2
- for <dm-devel@redhat.com>; Wed, 24 Aug 2022 02:47:31 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 695041121315
+ for <dm-devel@redhat.com>; Tue, 23 Aug 2022 15:49:59 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BA3585A58A
- for <dm-devel@redhat.com>; Wed, 24 Aug 2022 02:47:31 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
- [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-196-_wGX9GHCOPCFiQ-RiH4Beg-1; Tue, 23 Aug 2022 22:47:27 -0400
-X-MC-Unique: _wGX9GHCOPCFiQ-RiH4Beg-1
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.57])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4MC9Qd5ZGrzkWPV;
- Wed, 24 Aug 2022 10:43:53 +0800 (CST)
-Received: from dggpemm500014.china.huawei.com (7.185.36.153) by
- dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 24 Aug 2022 10:47:23 +0800
-Received: from [10.174.177.211] (10.174.177.211) by
- dggpemm500014.china.huawei.com (7.185.36.153) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.24; Wed, 24 Aug 2022 10:47:23 +0800
-Message-ID: <69ed6e09-e5d5-5e6a-0326-35adc57ec220@huawei.com>
-Date: Wed, 24 Aug 2022 10:47:23 +0800
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F43D101A54E
+ for <dm-devel@redhat.com>; Tue, 23 Aug 2022 15:49:59 +0000 (UTC)
+Received: from mail-oa1-f43.google.com (mail-oa1-f43.google.com
+ [209.85.160.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-672-3I7-IFvzPzO20OKTbdYHsA-1; Tue, 23 Aug 2022 11:49:57 -0400
+X-MC-Unique: 3I7-IFvzPzO20OKTbdYHsA-1
+Received: by mail-oa1-f43.google.com with SMTP id
+ 586e51a60fabf-11d08d7ece2so10572540fac.0
+ for <dm-devel@redhat.com>; Tue, 23 Aug 2022 08:49:57 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc;
+ bh=I+MhWIFw4wylC1ozMc1I6NteP9cQs0GMyFhEeS/9x94=;
+ b=GOtutqXylDVVQaLXMSRXefidCrsqlAFBacFvuem6VFfaV36IYbTQ4bBtg4mDOjpJWs
+ S3YNnrtTzYXft38OZH2FLft0PZNtdutuRxNG9EnWL4KLelEHTH0PVUraVdWQjh8y3ZMj
+ ojEskShzShoGQlUssBFoPW0CsZS47h0fYWhIN2bkoStGk+v84bDz9n2QuobfQxKwQj+r
+ nTGYcTDWRectSCuU3ZRmyv+0/Z8kAPQ+TeLN0BrvelKzaSRwHlgbzYl8yM6WYryLquNA
+ VO0KXbnMWvG1BsF4bcdmOyPbHjFlghHrfa4jkM07uL69HZOpDe788fixQ4B5v+vMR5in
+ wVpg==
+X-Gm-Message-State: ACgBeo1T2pXXEOFSj4aYYHf58CwKumToebW+WLG2z1TFU5pGJPy8tPCD
+ 2T5QogvKBSMMinhRL1Rtdw/tnGFD9Jz2zA==
+X-Google-Smtp-Source: AA6agR7aQgvk5FSldvHIDKe04hWRZD146rhOcbLDvukdYwjTBRRmg8kYMVMGqPLwpJu4h8tcz0qtVw==
+X-Received: by 2002:a05:6870:3914:b0:11c:7f09:96fa with SMTP id
+ b20-20020a056870391400b0011c7f0996famr1691143oap.50.1661269796827; 
+ Tue, 23 Aug 2022 08:49:56 -0700 (PDT)
+Received: from mail-ot1-f46.google.com (mail-ot1-f46.google.com.
+ [209.85.210.46]) by smtp.gmail.com with ESMTPSA id
+ f21-20020a4abb15000000b00448a3ecdc9dsm2835281oop.22.2022.08.23.08.49.55
+ for <dm-devel@redhat.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Tue, 23 Aug 2022 08:49:56 -0700 (PDT)
+Received: by mail-ot1-f46.google.com with SMTP id
+ m21-20020a9d6ad5000000b00638df677850so10057731otq.5
+ for <dm-devel@redhat.com>; Tue, 23 Aug 2022 08:49:55 -0700 (PDT)
+X-Received: by 2002:a05:6830:58:b0:637:1974:140a with SMTP id
+ d24-20020a056830005800b006371974140amr9735586otp.362.1661269795464; Tue, 23
+ Aug 2022 08:49:55 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.0.3
-To: Martin Wilck <martin.wilck@suse.com>, "bmarzins@redhat.com"
- <bmarzins@redhat.com>
-References: <1660769316-5302-1-git-send-email-bmarzins@redhat.com>
- <1660769316-5302-4-git-send-email-bmarzins@redhat.com>
- <e0f0516a08bf8fe5dddf058e5b9c9fad494340ba.camel@suse.com>
- <20220822174632.GT10602@octiron.msp.redhat.com>
- <7eb895de329e17fcf0a788844c8418ea309d62da.camel@suse.com>
-From: Wu Guanghao <wuguanghao3@huawei.com>
-In-Reply-To: <7eb895de329e17fcf0a788844c8418ea309d62da.camel@suse.com>
-X-Originating-IP: [10.174.177.211]
-X-ClientProxiedBy: dggems704-chm.china.huawei.com (10.3.19.181) To
- dggpemm500014.china.huawei.com (7.185.36.153)
-X-CFilter-Loop: Reflected
+References: <20220112211258.21115-1-chang.seok.bae@intel.com>
+ <20220112211258.21115-8-chang.seok.bae@intel.com>
+In-Reply-To: <20220112211258.21115-8-chang.seok.bae@intel.com>
+From: Evan Green <evgreen@chromium.org>
+Date: Tue, 23 Aug 2022 08:49:18 -0700
+X-Gmail-Original-Message-ID: <CAE=gft4P2iGJDiYJccZFR1VnNomQB7Uo522r2gvrfNY9oKz5jg@mail.gmail.com>
+Message-ID: <CAE=gft4P2iGJDiYJccZFR1VnNomQB7Uo522r2gvrfNY9oKz5jg@mail.gmail.com>
+To: "Chang S. Bae" <chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -93,9 +105,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH V2 3/6] multipathd: Occasionally allow
- waiters to interrupt checking paths
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
+X-Mailman-Approved-At: Wed, 24 Aug 2022 07:36:57 +0000
+Subject: Re: [dm-devel] [PATCH v5 07/12] x86/cpu/keylocker: Load an internal
+ wrapping key at boot-time
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,43 +120,179 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: ravi.v.shankar@intel.com, dave.hansen@linux.intel.com,
+ herbert@gondor.apana.org.au, x86@kernel.org,
+ Dan Williams <dan.j.williams@intel.com>, LKML <linux-kernel@vger.kernel.org>,
+ mingo@kernel.org, Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
+ linux-crypto@vger.kernel.org, luto@kernel.org,
+ Thomas Gleixner <tglx@linutronix.de>, bp@suse.de,
+ Ard Biesheuvel <ardb@kernel.org>, charishma1.gairuboyina@intel.com,
+ kumar.n.dwarakanath@intel.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgrlnKggMjAyMi84LzIzIDI6MTEsIE1hcnRpbiBXaWxjayDlhpnpgZM6Cj4gT24gTW9uLCAyMDIy
-LTA4LTIyIGF0IDEyOjQ2IC0wNTAwLCBCZW5qYW1pbiBNYXJ6aW5za2kgd3JvdGU6Cj4+IE9uIE1v
-biwgQXVnIDIyLCAyMDIyIGF0IDA0OjE1OjAxUE0gKzAwMDAsIE1hcnRpbiBXaWxjayB3cm90ZToK
-Pj4+Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgaWYgKGkgPj0gVkVDVE9SX1NJWkUodmVjcy0KPj4+Pj4gcGF0aHZlYykp
-Cj4+Pj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoGkgPSBWRUNUT1JfU0laRSh2ZWNzLQo+Pj4+PiBw
-YXRodmVjKSAtIDE7Cj4+Pgo+Pj4gV2hhdCBpZiBWRUNUT1JfU0laRSh2ZWNzLT5wYXRodmVjKSA9
-PSAwPyBNYXliZSB5b3Ugc2hvdWxkIGNhdGNoCj4+PiB0aGF0IGluCj4+PiB0aGUgd2hpbGUgKCkg
-Y29uZGl0aW9uIGFib3ZlPwo+Pgo+PiBJIGNvdWxkIGZvciBjbGFyaXR5IGlmIHlvdSB3YW50LCBi
-dXQgdGhlIGNvZGUgaXMgY29ycmVjdCBhcyBpcy4gSWYKPj4gVkVDVE9SX1NJWkUoKSBpcyAwLCB0
-aGVuIGkgd2lsbCBzdGFydCBhdCAtMS4gVGhpcyB3aWxsIGNhdXNlIHRoZQo+PiB3aGlsZSgpCj4+
-IGxvb3AgdG8gaW1tZWRpYXRlbHkgZXhpdCwgc2luY2UgVkVDVE9SX1NMT1QoKSBjaGVja3MgZm9y
-IGkgPCAwLiBSaWdodAo+PiBhZnRlciB0aGUgd2hpbGUgbG9vcCwgaSBnZXRzIGJ1bXBlZCB1cCB0
-byBzdGFydCBjaGVja2luZyBhdCB0aGUgZmlyc3QKPj4gZGV2aWNlICh3aGljaCBvZiBjb3Vyc2Ug
-aXNuJ3QgdGhlcmUpLsKgIEl0J3MgdGhlIHNhbWUgbG9naWMgYXMgd2hhdAo+PiBoYXBwZW5zIGlm
-IHRoZSB3aGlsZSgpIGxvb3Agc2VhcmNoZXMgdGhyb3VnaCB0aGUgZW50aXJlIHBhdGh2ZWMsIGFu
-ZAo+PiBkb2Vzbid0IGZpbmQgYW55IGNoZWNrZWQgcGF0aHMuwqAgT2J2aW91c2x5LCB0aGUgZW1w
-dHkgdmVjdG9yIGNhc2UKPj4gZG9lcyBhCj4+IGJpdCBvZiB1bm5lY2Vzc2FyeSB3b3JrIGFmdGVy
-IGZpbmRpbmcgb3V0IHRoYXQgdGhlIHZlY3RvciBpcyBlbXB0eSwKPj4gYW5kCj4+IEkgY291bGQg
-YWRkIHNvbWV0aGluZyBsaWtlCj4+Cj4+IGlmIChWRUNUT1JfU0laRSh2ZWNzLT5wYXRodmVjKSA9
-PSAwKSB7Cj4+IMKgwqDCoMKgwqDCoMKgwqBjaGVja2VyX3N0YXRlID0gQ0hFQ0tFUl9GSU5JU0hF
-RDsKPj4gwqDCoMKgwqDCoMKgwqDCoGdvdG8gdW5sb2NrOwo+PiB9Cj4+Cj4+IElmIHlvdSdkIHBy
-ZWZlci4KPiAKPiBObywgaXQncyBmaW5lLiBJIHJlYWxpemVkIHRoYXQgeW91ciBjb2RlIHdhcyBj
-b3JyZWN0IGFmdGVyIEknZCBoaXQKPiAiU2VuZCIgOi0vCj4gCj4gV3UgR3VhbmdoYWhvLCBoYXZl
-IHlvdSBhbHJlYWR5IHNvbWUgcmVzdWx0cyB0byByZXBvcnQ/Cj4gClRoZSB0ZXN0IGVudmlyb25t
-ZW50IGlzIG5vdCByZWFkeSwgaXQgbWF5IHRha2UgbmV4dCB3ZWVrIHRvIGhhdmUgcmVzdWx0cy4K
-PiBNYXJ0aW4KPiAKPiAKPiAuCj4gCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxA
-cmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2Rt
-LWRldmVsCg==
+On Wed, Jan 12, 2022 at 1:21 PM Chang S. Bae <chang.seok.bae@intel.com> wrote:
+>
+> The Internal Wrapping Key (IWKey) is an entity of Key Locker to encode a
+> clear text key into a key handle. This key is a pivot in protecting user
+> keys. So the value has to be randomized before being loaded in the
+> software-invisible CPU state.
+>
+> IWKey needs to be established before the first user. Given that the only
+> proposed Linux use case for Key Locker is dm-crypt, the feature could be
+> lazily enabled when the first dm-crypt user arrives, but there is no
+> precedent for late enabling of CPU features and it adds maintenance burden
+> without demonstrative benefit outside of minimizing the visibility of
+> Key Locker to userspace.
+>
+> The kernel generates random bytes and load them at boot time. These bytes
+> are flushed out immediately.
+>
+> Setting the CR4.KL bit does not always enable the feature so ensure the
+> dynamic CPU bit (CPUID.AESKLE) is set before loading the key.
+>
+> Given that the Linux Key Locker support is only intended for bare metal
+> dm-crypt consumption, and that switching IWKey per VM is untenable,
+> explicitly skip Key Locker setup in the X86_FEATURE_HYPERVISOR case.
+>
+> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+> Reviewed-by: Dan Williams <dan.j.williams@intel.com>
+> Cc: x86@kernel.org
+> Cc: linux-kernel@vger.kernel.org
+> ---
+> Changes from RFC v2:
+> * Make bare metal only.
+> * Clean up the code (e.g. dynamically allocate the key cache).
+>   (Dan Williams)
+> * Massage the changelog.
+> * Move out the LOADIWKEY wrapper and the Key Locker CPUID defines.
+>
+> Note, Dan wonders that given that the only proposed Linux use case for
+> Key Locker is dm-crypt, the feature could be lazily enabled when the
+> first dm-crypt user arrives, but as Dave notes there is no precedent
+> for late enabling of CPU features and it adds maintenance burden
+> without demonstrative benefit outside of minimizing the visibility of
+> Key Locker to userspace.
+> ---
+>  arch/x86/include/asm/keylocker.h |  9 ++++
+>  arch/x86/kernel/Makefile         |  1 +
+>  arch/x86/kernel/cpu/common.c     |  5 +-
+>  arch/x86/kernel/keylocker.c      | 79 ++++++++++++++++++++++++++++++++
+>  arch/x86/kernel/smpboot.c        |  2 +
+>  5 files changed, 95 insertions(+), 1 deletion(-)
+>  create mode 100644 arch/x86/kernel/keylocker.c
+>
+> diff --git a/arch/x86/include/asm/keylocker.h b/arch/x86/include/asm/keylocker.h
+> index e85dfb6c1524..820ac29c06d9 100644
+> --- a/arch/x86/include/asm/keylocker.h
+> +++ b/arch/x86/include/asm/keylocker.h
+> @@ -5,6 +5,7 @@
+>
+>  #ifndef __ASSEMBLY__
+>
+> +#include <asm/processor.h>
+>  #include <linux/bits.h>
+>  #include <asm/fpu/types.h>
+>
+> @@ -28,5 +29,13 @@ struct iwkey {
+>  #define KEYLOCKER_CPUID_EBX_WIDE       BIT(2)
+>  #define KEYLOCKER_CPUID_EBX_BACKUP     BIT(4)
+>
+> +#ifdef CONFIG_X86_KEYLOCKER
+> +void setup_keylocker(struct cpuinfo_x86 *c);
+> +void destroy_keylocker_data(void);
+> +#else
+> +#define setup_keylocker(c) do { } while (0)
+> +#define destroy_keylocker_data() do { } while (0)
+> +#endif
+> +
+>  #endif /*__ASSEMBLY__ */
+>  #endif /* _ASM_KEYLOCKER_H */
+> diff --git a/arch/x86/kernel/Makefile b/arch/x86/kernel/Makefile
+> index 2ff3e600f426..e15efa238497 100644
+> --- a/arch/x86/kernel/Makefile
+> +++ b/arch/x86/kernel/Makefile
+> @@ -144,6 +144,7 @@ obj-$(CONFIG_PERF_EVENTS)           += perf_regs.o
+>  obj-$(CONFIG_TRACING)                  += tracepoint.o
+>  obj-$(CONFIG_SCHED_MC_PRIO)            += itmt.o
+>  obj-$(CONFIG_X86_UMIP)                 += umip.o
+> +obj-$(CONFIG_X86_KEYLOCKER)            += keylocker.o
+>
+>  obj-$(CONFIG_UNWINDER_ORC)             += unwind_orc.o
+>  obj-$(CONFIG_UNWINDER_FRAME_POINTER)   += unwind_frame.o
+> diff --git a/arch/x86/kernel/cpu/common.c b/arch/x86/kernel/cpu/common.c
+> index 0083464de5e3..23b4aa437c1e 100644
+> --- a/arch/x86/kernel/cpu/common.c
+> +++ b/arch/x86/kernel/cpu/common.c
+> @@ -57,6 +57,8 @@
+>  #include <asm/microcode_intel.h>
+>  #include <asm/intel-family.h>
+>  #include <asm/cpu_device_id.h>
+> +#include <asm/keylocker.h>
+> +
+>  #include <asm/uv/uv.h>
+>  #include <asm/sigframe.h>
+>
+> @@ -1595,10 +1597,11 @@ static void identify_cpu(struct cpuinfo_x86 *c)
+>         /* Disable the PN if appropriate */
+>         squash_the_stupid_serial_number(c);
+>
+> -       /* Set up SMEP/SMAP/UMIP */
+> +       /* Setup various Intel-specific CPU security features */
+>         setup_smep(c);
+>         setup_smap(c);
+>         setup_umip(c);
+> +       setup_keylocker(c);
+>
+>         /* Enable FSGSBASE instructions if available. */
+>         if (cpu_has(c, X86_FEATURE_FSGSBASE)) {
+> diff --git a/arch/x86/kernel/keylocker.c b/arch/x86/kernel/keylocker.c
+> new file mode 100644
+> index 000000000000..87d775a65716
+> --- /dev/null
+> +++ b/arch/x86/kernel/keylocker.c
+> @@ -0,0 +1,79 @@
+> +// SPDX-License-Identifier: GPL-2.0-only
+> +
+> +/*
+> + * Setup Key Locker feature and support internal wrapping key
+> + * management.
+> + */
+> +
+> +#include <linux/random.h>
+> +#include <linux/poison.h>
+> +
+> +#include <asm/fpu/api.h>
+> +#include <asm/keylocker.h>
+> +#include <asm/tlbflush.h>
+> +
+> +static __initdata struct keylocker_setup_data {
+> +       struct iwkey key;
+> +} kl_setup;
+> +
+> +static void __init generate_keylocker_data(void)
+> +{
+> +       get_random_bytes(&kl_setup.key.integrity_key,  sizeof(kl_setup.key.integrity_key));
+> +       get_random_bytes(&kl_setup.key.encryption_key, sizeof(kl_setup.key.encryption_key));
+> +}
+> +
+> +void __init destroy_keylocker_data(void)
+> +{
+> +       memset(&kl_setup.key, KEY_DESTROY, sizeof(kl_setup.key));
+> +}
+> +
+> +static void __init load_keylocker(void)
+
+I am late to this party by 6 months, but:
+load_keylocker() cannot be __init, as it gets called during SMP core onlining.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
