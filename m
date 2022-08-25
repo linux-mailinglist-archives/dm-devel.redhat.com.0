@@ -1,71 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 66D565A1257
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Aug 2022 15:32:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7757B5A12B8
+	for <lists+dm-devel@lfdr.de>; Thu, 25 Aug 2022 15:50:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661434345;
+	s=mimecast20190719; t=1661435409;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xMtUhws6hI+amWBoS2vMy5bUSC/4/F24dfcXf8QrKJI=;
-	b=fwn/l9+Y5a5qa7tdjG0P3Ta1qNmZWRSEy0np7t3lmYo2zeu+u9l/IIL+Sd0Szxz2SPgYsv
-	ktCc2+vca2N8Sj8R1QnYcqVP4fYQjbvxHu0S4N6u3fhvQsXUQ0+8I97adg3dBU42JkTCNw
-	EaIxCuqBjWZuVe9udzIohNOnkdMN+/0=
+	bh=G9PTh6ThxjjE354sft6IYXvdTf9XSIL+GvkAwGp4pVI=;
+	b=KT0cwAAlBO72juKG3Fa5V8OTuMIYvsRe/rquHyPKgsQbveN9Ks2o2InbEEkQaNfhbsIz8g
+	5oiS4DTO7+tavX1nfA4bJF2n6PbosdzAX7mXc74ZNawRqO1Cw/zZtovs/zNdpJH8qmWZiD
+	/xmXkyQEzLsnLaK+q1N5KHa8MG/lDB8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-583-R0nZJDggMKmyW3YsUL8n9w-1; Thu, 25 Aug 2022 09:32:21 -0400
-X-MC-Unique: R0nZJDggMKmyW3YsUL8n9w-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-612-wulKGEF2Ne-RjDd0_rgXSA-1; Thu, 25 Aug 2022 09:50:08 -0400
+X-MC-Unique: wulKGEF2Ne-RjDd0_rgXSA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C05B185A7BA;
-	Thu, 25 Aug 2022 13:32:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C4F818F0270;
+	Thu, 25 Aug 2022 13:50:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6246F492CA5;
-	Thu, 25 Aug 2022 13:32:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3045B1121319;
+	Thu, 25 Aug 2022 13:49:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 62DC51946A6C;
-	Thu, 25 Aug 2022 13:32:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5ADBA1946A67;
+	Thu, 25 Aug 2022 13:49:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 564E51946A43
- for <dm-devel@listman.corp.redhat.com>; Thu, 25 Aug 2022 13:32:09 +0000 (UTC)
+ ESMTP id 341FE1946A43
+ for <dm-devel@listman.corp.redhat.com>; Thu, 25 Aug 2022 13:49:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 39E87C15BBD; Thu, 25 Aug 2022 13:32:09 +0000 (UTC)
+ id 0665F1121315; Thu, 25 Aug 2022 13:49:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
- (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 315A8C15BBA;
- Thu, 25 Aug 2022 13:32:09 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
- 27PDW92g025447; Thu, 25 Aug 2022 09:32:09 -0400
-Received: from localhost (mpatocka@localhost)
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
- id 27PDW9gU025443; Thu, 25 Aug 2022 09:32:09 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
- owned process doing -bs
-Date: Thu, 25 Aug 2022 09:32:09 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Zdenek Kabelac <zdenek.kabelac@gmail.com>
-In-Reply-To: <790dbd9d-bc22-9814-2823-8882a95ec57c@gmail.com>
-Message-ID: <alpine.LRH.2.02.2208250909450.22325@file01.intranet.prod.int.rdu2.redhat.com>
+Received: from [10.43.17.48] (unknown [10.43.17.48])
+ by smtp.corp.redhat.com (Postfix) with ESMTP id 484031121319;
+ Thu, 25 Aug 2022 13:49:56 +0000 (UTC)
+Message-ID: <7e9083d9-36c8-5bc5-8787-77bec7cf5314@redhat.com>
+Date: Thu, 25 Aug 2022 15:49:55 +0200
+MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.12.0
+To: Mikulas Patocka <mpatocka@redhat.com>,
+ Zdenek Kabelac <zdenek.kabelac@gmail.com>
 References: <120284F5-514F-4EA0-A0AE-8B759FF78931@suse.de>
  <alpine.LRH.2.02.2208241530300.1585@file01.intranet.prod.int.rdu2.redhat.com>
  <790dbd9d-bc22-9814-2823-8882a95ec57c@gmail.com>
-User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
-MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+ <alpine.LRH.2.02.2208250909450.22325@file01.intranet.prod.int.rdu2.redhat.com>
+From: Zdenek Kabelac <zkabelac@redhat.com>
+In-Reply-To: <alpine.LRH.2.02.2208250909450.22325@file01.intranet.prod.int.rdu2.redhat.com>
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 Subject: Re: [dm-devel] A kernel panic (or soft lockup) due to stack
  overflow by recursive dm-table reload
 X-BeenThere: dm-devel@redhat.com
@@ -83,47 +76,41 @@ Cc: dm-devel@redhat.com, Alasdair G Kergon <agk@redhat.com>,
  Coly Li <colyli@suse.de>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-
-
-On Thu, 25 Aug 2022, Zdenek Kabelac wrote:
-
-> Since reproducing this issue is rather 'trival' - since creation of simple 
-> linear DM device and reloading it with 'self-reference' table line is easy I'd 
-> advocate for some simplistic check on kernel side - as such 'crash' can't be 
-> even rebooted with SysRQ+B (on my laptop).
-> 
-> I guess some 'bitmap/tree' of already visited device during some check might 
-> avoid endless loop although it's quite 'ugly' this check needs to happen on 
-> 'resume' phase - so the failure here is hard to deal with - still better than 
-> this kernel busy loop.
-> 
-> Zdenek
-
-Detecting dm table self-reference is easy, but detecting a loop in the 
-dependency graph is complicated and I would't do it.
-
-There is another (more serious) problem - the user can crash the kernel by 
-creating deep-enough non-recursive mapping. We do not specify any maximum 
-tree depth that is guaranteed to work. Perhaps we should specify such 
-depth and audit the code so that this maximum device depth doesn't 
-overflow the stack.
-
-Perhaps we could add a function remaining_stack_space() and just bail out 
-of recursion when it returns too low value. But the problem with this 
-approach is that different architectures have different stack consumption 
-(for example, on sparc64, every non-leaf function consumes at least 176 
-bytes of stack). Perhaps we could bail out if less than X percent of the 
-stack is remaining.
-
-Mikulas
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+RG5lIDI1LiAwOC4gMjIgdiAxNTozMiBNaWt1bGFzIFBhdG9ja2EgbmFwc2FsKGEpOgo+Cj4gT24g
+VGh1LCAyNSBBdWcgMjAyMiwgWmRlbmVrIEthYmVsYWMgd3JvdGU6Cj4KPj4gU2luY2UgcmVwcm9k
+dWNpbmcgdGhpcyBpc3N1ZSBpcyByYXRoZXIgJ3RyaXZhbCcgLSBzaW5jZSBjcmVhdGlvbiBvZiBz
+aW1wbGUKPj4gbGluZWFyIERNIGRldmljZSBhbmQgcmVsb2FkaW5nIGl0IHdpdGggJ3NlbGYtcmVm
+ZXJlbmNlJyB0YWJsZSBsaW5lIGlzIGVhc3kgSSdkCj4+IGFkdm9jYXRlIGZvciBzb21lIHNpbXBs
+aXN0aWMgY2hlY2sgb24ga2VybmVsIHNpZGUgLSBhcyBzdWNoICdjcmFzaCcgY2FuJ3QgYmUKPj4g
+ZXZlbiByZWJvb3RlZCB3aXRoIFN5c1JRK0IgKG9uIG15IGxhcHRvcCkuCj4+Cj4+IEkgZ3Vlc3Mg
+c29tZSAnYml0bWFwL3RyZWUnIG9mIGFscmVhZHkgdmlzaXRlZCBkZXZpY2UgZHVyaW5nIHNvbWUg
+Y2hlY2sgbWlnaHQKPj4gYXZvaWQgZW5kbGVzcyBsb29wIGFsdGhvdWdoIGl0J3MgcXVpdGUgJ3Vn
+bHknIHRoaXMgY2hlY2sgbmVlZHMgdG8gaGFwcGVuIG9uCj4+ICdyZXN1bWUnIHBoYXNlIC0gc28g
+dGhlIGZhaWx1cmUgaGVyZSBpcyBoYXJkIHRvIGRlYWwgd2l0aCAtIHN0aWxsIGJldHRlciB0aGFu
+Cj4+IHRoaXMga2VybmVsIGJ1c3kgbG9vcC4KPj4KPj4gWmRlbmVrCj4gRGV0ZWN0aW5nIGRtIHRh
+YmxlIHNlbGYtcmVmZXJlbmNlIGlzIGVhc3ksIGJ1dCBkZXRlY3RpbmcgYSBsb29wIGluIHRoZQo+
+IGRlcGVuZGVuY3kgZ3JhcGggaXMgY29tcGxpY2F0ZWQgYW5kIEkgd291bGQndCBkbyBpdC4KPgo+
+IFRoZXJlIGlzIGFub3RoZXIgKG1vcmUgc2VyaW91cykgcHJvYmxlbSAtIHRoZSB1c2VyIGNhbiBj
+cmFzaCB0aGUga2VybmVsIGJ5Cj4gY3JlYXRpbmcgZGVlcC1lbm91Z2ggbm9uLXJlY3Vyc2l2ZSBt
+YXBwaW5nLiBXZSBkbyBub3Qgc3BlY2lmeSBhbnkgbWF4aW11bQo+IHRyZWUgZGVwdGggdGhhdCBp
+cyBndWFyYW50ZWVkIHRvIHdvcmsuIFBlcmhhcHMgd2Ugc2hvdWxkIHNwZWNpZnkgc3VjaAo+IGRl
+cHRoIGFuZCBhdWRpdCB0aGUgY29kZSBzbyB0aGF0IHRoaXMgbWF4aW11bSBkZXZpY2UgZGVwdGgg
+ZG9lc24ndAo+IG92ZXJmbG93IHRoZSBzdGFjay4KCgp5ZXAgLSBJJ2Qgbm90IG1pbmQgaWYgdGhl
+cmUgaXMgYSB0b3RhbCBjaGFpbmluZyBsaW1pdCBlbmZvcmNlZCBvbiBjcmVhdGlvbiAKc2lkZSBh
+cyB3ZWxsLgoKU2luY2UgdGhlICdrZXJuZWwgc3RhY2sgc2l6ZScgaXMgbGltaXQgLSB0aGUgYW1v
+dW50IG9mIHJlY3Vyc2l2ZSBjYWxscyBpcyBhbHNvIApsaW1pdGVkIC0gc28gaGF2aW5nIHN1Y2gg
+bGltaXRhdGlvbiBleHBvc2VkIG9uICdjcmVhdGlvbicgdGltZSBzZWVtcyBsaWtlIGZhaXIgCnBh
+dGggLSBjb21wYXJlZCB3aXRoIGNyYXNoaW5nIGtlcm5lbCBkdXJpbmfCoCBjaGFpbmcgcHJvY2Vz
+c2luZy4uLi4KClNvIHllYWggLSBwb3NzaWJseSBjaGVja2luZyByZW1haW5pbmcgZnJlZSBzcGFj
+ZSBvbiBzdGFjayBtaWdodCBiZSBhbiBlYXN5IHdheSAKaG93IHRvIGRldGVjdCB1bnN1cHBvcnRh
+YmxlICdkZXZpY2Ugc3RhY2tpbmcnIGNvbmZpZ3VyYXRpb24uCgoKWmRlbmVrCgoKLS0KZG0tZGV2
+ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhh
+dC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
 
