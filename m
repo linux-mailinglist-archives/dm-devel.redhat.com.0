@@ -1,142 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 81BD95A0B4E
-	for <lists+dm-devel@lfdr.de>; Thu, 25 Aug 2022 10:24:49 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3795A0F74
+	for <lists+dm-devel@lfdr.de>; Thu, 25 Aug 2022 13:41:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661415883;
+	s=mimecast20190719; t=1661427688;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=9hmUpXsigT54uPtf+8WOpOgtzPqEZgQZsJlCbxOoJc4=;
-	b=Z6OAIFib5CH38ERmNCOfrB5Pxln+ZyClC30uWXT4Bah0317kyDXuqxrkXGOLsrKEfOeHdN
-	gbLs1W5k8QqAunKYPIWJgFaQ8rXIIyvMmW69+aTHgKgzNOdMSHT3L5/cC/pSVcnbdW9M4M
-	lfai7mLrM8AdbXHZ42yyWsIcM3PlmY4=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=3a8BH+4IPNqqv8W3uMYdqU7qiIGTJ/rEjgxeBf0G/bM=;
+	b=Hdzn7HoqX8NuscaELpH0f9lxCz1TlhaRedivefOLS4GVaEpnai8b1nrclzh9VyRZUXfewE
+	1qGR4T1ldDX2e2BIr2eZACBQq6Gl14dQJZFEyAnWcRob2lHeTdsfW8BH6r09p5kC0BnwwK
+	NI5iw5M81Huj1BeU5+ZWlGWccnTALPg=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-176-jIwt6b7INAGTwCi3fU_XlA-1; Thu, 25 Aug 2022 04:24:40 -0400
-X-MC-Unique: jIwt6b7INAGTwCi3fU_XlA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-389-Mm6m8xQhNsChspsx699npw-1; Thu, 25 Aug 2022 07:41:27 -0400
+X-MC-Unique: Mm6m8xQhNsChspsx699npw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33B7F1C13945;
-	Thu, 25 Aug 2022 08:24:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13C37382C96D;
+	Thu, 25 Aug 2022 11:41:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6E44403349;
-	Thu, 25 Aug 2022 08:24:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7E83E2026D4C;
+	Thu, 25 Aug 2022 11:41:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 161261946A6C;
-	Thu, 25 Aug 2022 08:24:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 26E7B1946A6C;
+	Thu, 25 Aug 2022 11:41:17 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 822E61946A43
- for <dm-devel@listman.corp.redhat.com>; Thu, 25 Aug 2022 04:35:11 +0000 (UTC)
+ ESMTP id BCDDE1946A43
+ for <dm-devel@listman.corp.redhat.com>; Thu, 25 Aug 2022 11:41:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2BD491121319; Thu, 25 Aug 2022 04:35:11 +0000 (UTC)
+ id 8BC069458A; Thu, 25 Aug 2022 11:41:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2753B1121315
- for <dm-devel@redhat.com>; Thu, 25 Aug 2022 04:35:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0958C38041CF
- for <dm-devel@redhat.com>; Thu, 25 Aug 2022 04:35:11 +0000 (UTC)
-Received: from mailout2.samsung.com (mailout2.samsung.com [203.254.224.25])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-379-MAyue72TPOmvxS_bGL8D8w-1; Thu, 25 Aug 2022 00:35:09 -0400
-X-MC-Unique: MAyue72TPOmvxS_bGL8D8w-1
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
- by mailout2.samsung.com (KnoxPortal) with ESMTP id
- 20220825042758epoutp025b89c261272bdcc948f0b9e93922b2e1~OfAYzXLFT1091610916epoutp02L
- for <dm-devel@redhat.com>; Thu, 25 Aug 2022 04:27:58 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.samsung.com
- 20220825042758epoutp025b89c261272bdcc948f0b9e93922b2e1~OfAYzXLFT1091610916epoutp02L
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTP id
- 20220825042757epcas5p37271c9b4890ba1ae41c96fc192d5a2a5~OfAYFXIPb2043620436epcas5p31;
- Thu, 25 Aug 2022 04:27:57 +0000 (GMT)
-Received: from epsmges5p1new.samsung.com (unknown [182.195.38.178]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 4MCqhD1C4Cz4x9Q4; Thu, 25 Aug
- 2022 04:27:56 +0000 (GMT)
-Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
- epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- F7.C0.25709.C4AF6036; Thu, 25 Aug 2022 13:27:56 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
- 20220825042755epcas5p1b74cb6accae9ec3f25cc8d15d313fcbc~OfAWHl5GF0167101671epcas5p1C;
- Thu, 25 Aug 2022 04:27:55 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220825042755epsmtrp222750ad10fa10264323e48d4d19a62bd~OfAWGkW9b1831518315epsmtrp2L;
- Thu, 25 Aug 2022 04:27:55 +0000 (GMT)
-X-AuditID: b6c32a49-a71ff7000000646d-d3-6306fa4caa0c
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 44.EA.14392.B4AF6036; Thu, 25 Aug 2022 13:27:55 +0900 (KST)
-Received: from test-zns (unknown [107.110.206.5]) by epsmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20220825042753epsmtip22acbe0211b824db0a2630278fd0ae467~OfAUcmvsI0868208682epsmtip29;
- Thu, 25 Aug 2022 04:27:53 +0000 (GMT)
-Date: Thu, 25 Aug 2022 09:48:13 +0530
-From: Kanchan Joshi <joshi.k@samsung.com>
-To: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Message-ID: <20220825041813.GA32607@test-zns>
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 87AB14C816
+ for <dm-devel@redhat.com>; Thu, 25 Aug 2022 11:41:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C637185A794
+ for <dm-devel@redhat.com>; Thu, 25 Aug 2022 11:41:15 +0000 (UTC)
+Received: from mail-wr1-f52.google.com (mail-wr1-f52.google.com
+ [209.85.221.52]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-203-BHcEQqmlMGi_yyDQT9d6_w-1; Thu, 25 Aug 2022 07:41:13 -0400
+X-MC-Unique: BHcEQqmlMGi_yyDQT9d6_w-1
+Received: by mail-wr1-f52.google.com with SMTP id bq11so17671350wrb.12;
+ Thu, 25 Aug 2022 04:41:13 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc;
+ bh=1Donf+mHcSCf2M87dtl8AjDvGfXVcRmbdY8bbdzOjfg=;
+ b=CIrdoumODGJyZp67mcdZkuSnA3R6UxkkR79fM08ufU0GrIdJ0VKKLNoW3ckWmzRvm9
+ Bi9Ogv3s5VP9noaZ0mf5KzGqEn60PkdY/cmRbN66GdetuXtnFTcgcfhouG214Vosfy9k
+ 9mlYTpJynagLu7T8ERDc7A8bJ1qfWh7U0NwWXOveYRvku7wahlVtO+2q6GbSpUIEzBIv
+ loGNrx2mPb+2nFBuq9HCGjEMwSURw2g0S3Feh6GzM9ItWaZandoXSpQERtsKVRYukD0s
+ SB6Ol8vMgaelejpoafMhqTyDsEf4GmduxDwxF6Wmyhu1dyab4L2zrpBF1vQX98cx400j
+ 44JQ==
+X-Gm-Message-State: ACgBeo3qVFe6oX8CUhp7d+TjrWdrd6cauIXPZCl8MeK7VVgkErqFm0fm
+ /5Tc7aM9FSVjiZYdsfjbBLdcowxvpwaS0Q==
+X-Google-Smtp-Source: AA6agR4ajXgpfhDGHBe96biiYt90v4FW2OVpd0T+rQE/kyZlDxQI0sR8gytj2Fy2j2uukMr+nOJqrQ==
+X-Received: by 2002:a5d:4571:0:b0:225:6191:779d with SMTP id
+ a17-20020a5d4571000000b002256191779dmr2014769wrc.325.1661427672152; 
+ Thu, 25 Aug 2022 04:41:12 -0700 (PDT)
+Received: from [10.43.17.48] (nat-pool-brq-t.redhat.com. [213.175.37.10])
+ by smtp.gmail.com with ESMTPSA id
+ s7-20020a5d6a87000000b0021ef34124ebsm19621714wru.11.2022.08.25.04.41.11
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 25 Aug 2022 04:41:11 -0700 (PDT)
+Message-ID: <790dbd9d-bc22-9814-2823-8882a95ec57c@gmail.com>
+Date: Thu, 25 Aug 2022 13:41:10 +0200
 MIME-Version: 1.0
-In-Reply-To: <589cb29e-d2aa-085f-db83-fa718f4fbef2@opensource.wdc.com>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFlrHJsWRmVeSWpSXmKPExsWy7bCmhq7PL7Zkg4mX2CymH1a0mPbhJ7PF
- 77PnmS32vpvNarFn0SQmi723tC0uPV7BbrFn70kWi8u75rBZTGj7ymxxY8JTRgduj8tXvD02
- repk89jZep/V4/2+q2wefVtWMXpsPl3t8XmTnEf7gW6mAI6obJuM1MSU1CKF1Lzk/JTMvHRb
- Je/geOd4UzMDQ11DSwtzJYW8xNxUWyUXnwBdt8wcoCuVFMoSc0qBQgGJxcVK+nY2RfmlJakK
- GfnFJbZKqQUpOQUmBXrFibnFpXnpenmpJVaGBgZGpkCFCdkZv9rvsBccF6iY/OY0UwPjbL4u
- Rk4OCQETiVun37F0MXJxCAnsZpTYtH0eK0hCSOATo0T3Fy2IxDdGiQ2r57LAdLQ+28AGkdjL
- KLG27TwThPOMUeLMr0WMIFUsAqoSB641AdkcHGwCmhIXJpeChEUETCXe9rSCrWMW+MMssfT2
- MWaQhLBArMT6jjVMIDavgK7E1F9f2CBsQYmTM5+AbeYUcJOY9XU3WFxUQFniwLbjYIslBNZy
- SBxuvckEcZ6LxOpFX5khbGGJV8e3sEPYUhKf3+1lg7CTJS7NPAdVXyLxeM9BKNteovVUP1gv
- s0CGxKUV3VA2n0Tv7ydMIM9ICPBKdLQJQZQrStyb9JQVwhaXeDhjCZTtIfGyqZcdHnR3Vs1h
- ncAoNwvJP7OQrICwrSQ6PzSxzgJawSwgLbH8HweEqSmxfpf+AkbWVYySqQXFuempxaYFhnmp
- 5fBITs7P3cQITrhanjsY7z74oHeIkYmD8RCjBAezkgiv1TGWZCHelMTKqtSi/Pii0pzU4kOM
- psD4mcgsJZqcD0z5eSXxhiaWBiZmZmYmlsZmhkrivFO0GZOFBNITS1KzU1MLUotg+pg4OKUa
- mCJqHvjydb5d96hSzHhFxmW9vWdjnTYsyY9YKOMSEbJ2wu0FvN6b3m+v+rROqcJJobQvKWb7
- 73Ux3h+ZQrcc31x2fPWrxdzGrOfunE7z3bX7kkHG1/MaET72YueWPbD8s/bm/spG6bVzNYum
- zjjoIx/FW6Hy4rHLWuHLTnodXi+17076dFehI1027sVRv5SyH2/LXPX4PgeVvjJcvU2NSSNY
- 2UjvQ+2SS01a8ecqXF+EvVzoY2865z77ryP8my7MabKKs2USkLO+N39T+oMpB9Tbth003XrI
- 5NCiSUtcUha95d1zQM/ZJaXqfZ7YQp4t+0UXqb6b7L3I79PH84mM871u32s66vqM/XVG7vwP
- +0OVWIozEg21mIuKEwFJCHwWQQQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFvrNLMWRmVeSWpSXmKPExsWy7bCSvK73L7Zkg1vrVS2mH1a0mPbhJ7PF
- 77PnmS32vpvNarFn0SQmi723tC0uPV7BbrFn70kWi8u75rBZTGj7ymxxY8JTRgduj8tXvD02
- repk89jZep/V4/2+q2wefVtWMXpsPl3t8XmTnEf7gW6mAI4oLpuU1JzMstQifbsEroybf76z
- F/zkrbjwML+B8Tl3FyMnh4SAiUTrsw1sXYxcHEICuxkl1jfcZINIiEs0X/vBDmELS6z89xzM
- FhJ4wijRs84UxGYRUJU4cK2JsYuRg4NNQFPiwuRSkLCIgKnE255WFpCZzAINLBJvTl9nBUkI
- C8RKrO9YwwRi8wroSkz99QVq8TdGibb9GxghEoISJ2c+YQGxmQXMJOZtfsgMsoBZQFpi+T8O
- kDCngJvErK+7we4UFVCWOLDtONMERsFZSLpnIemehdC9gJF5FaNkakFxbnpusWGBYV5quV5x
- Ym5xaV66XnJ+7iZGcPxoae5g3L7qg94hRiYOxkOMEhzMSiK8VsdYkoV4UxIrq1KL8uOLSnNS
- iw8xSnOwKInzXug6GS8kkJ5YkpqdmlqQWgSTZeLglGpgmiAaerlQqOTmN07t33MV3aJO1P+z
- sWuZdsv4cpr2um3ZV/pY1t5s5fkgpBGxgYn1eLNqTOwX9ua/AZciLWe9eWzizfF++qacsm+f
- Z1dnWzXFnO/z/q7Hy3Orsc8iJZJns8D0NhmGhm4jle1+2zs5ujLcuO5d/TNJIHXG+2ntAU6H
- PIurt18M2t0tPmPiqRMHwl3aZsRn671vO5d6YjK/2ZtTTN+rHeo4zpYEfZXZr/966aYyM/FZ
- WY7WZ9Vczh2UdTfc/ftQxuJVwf1G6vcWeslzKGcc2px3dn+WWc/317tKnOt1k/c+Cf+sy838
- ePuFv+5Z6xf4la91M66ZHr30KEc4x91HJxsXVK69sqRNiaU4I9FQi7moOBEAaSYJoQ4DAAA=
-X-CMS-MailID: 20220825042755epcas5p1b74cb6accae9ec3f25cc8d15d313fcbc
-X-Msg-Generator: CA
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20220522220139uscas1p1e3426b4457e0753c701e9917fe3ec6d2
-References: <CGME20220522220139uscas1p1e3426b4457e0753c701e9917fe3ec6d2@uscas1p1.samsung.com>
- <20220522220128.GA347919@bgt-140510-bm01>
- <89b2bb4b-1848-22cc-9814-6cb6726afc18@acm.org>
- <589cb29e-d2aa-085f-db83-fa718f4fbef2@opensource.wdc.com>
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Firefox/91.0 Thunderbird/91.12.0
+To: Mikulas Patocka <mpatocka@redhat.com>, Coly Li <colyli@suse.de>,
+ Alasdair G Kergon <agk@redhat.com>
+References: <120284F5-514F-4EA0-A0AE-8B759FF78931@suse.de>
+ <alpine.LRH.2.02.2208241530300.1585@file01.intranet.prod.int.rdu2.redhat.com>
+From: Zdenek Kabelac <zdenek.kabelac@gmail.com>
+In-Reply-To: <alpine.LRH.2.02.2208241530300.1585@file01.intranet.prod.int.rdu2.redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -144,10 +99,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.3
-X-Mailman-Approved-At: Thu, 25 Aug 2022 08:24:35 +0000
-Subject: Re: [dm-devel] [ANNOUNCE] CFP: Zoned Storage Microconference -
- Linux Plumbers Conference 2022
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [dm-devel] A kernel panic (or soft lockup) due to stack
+ overflow by recursive dm-table reload
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -159,70 +113,58 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Bart Van Assche <bvanassche@acm.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- Matias Bjorling <Matias.Bjorling@wdc.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "mcgrof@kernel.org" <mcgrof@kernel.org>,
- Adam Manzanares <a.manzanares@samsung.com>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Cc: dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
+X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed;
- boundary="----_GKj2UxOoZMooFpgW.UaNJF5RnPKrhbpXXK.PgNceyCDa.V5=_a7674_"
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-------_GKj2UxOoZMooFpgW.UaNJF5RnPKrhbpXXK.PgNceyCDa.V5=_a7674_
-Content-Type: text/plain; charset="utf-8"; format="flowed"
-Content-Disposition: inline
-
-On Wed, Aug 24, 2022 at 05:15:28PM -0700, Damien Le Moal wrote:
->On 2022/08/24 16:43, Bart Van Assche wrote:
->> On 5/22/22 15:01, Adam Manzanares wrote:
->>> Zoned Storage Devices (SMR HDDs and ZNS SSDs) have demonstrated that they can
->>> improve storage capacity, throughput, and latency over conventional storage
->>> devices for many workloads. Zoned storage technology is deployed at scale in
->>> some of the largest data centers in the world. There's already a
->>> well-established set of storage vendors with increasing device availability and
->>> a mature software foundation for interacting with zoned storage devices is
->>> available. Zoned storage software support is evolving and their is room for
->>> increased file-system support and additional userspace applications.
->>>
->>> The Zoned Storage microconference focuses on evolving the Linux zoned
->>> storage ecosystem by improving kernel support, file systems, and applications.
->>> In addition, the forum allows us to open the discussion to incorporate and grow
->>> the zoned storage community making sure to meet everyone's needs and
->>> expectations. Finally, it is an excellent opportunity for anyone interested in
->>> zoned storage devices to meet and discuss how we can move the ecosystem forward
->>> together.
->>
->> Hi Adam,
->>
->> On https://protect2.fireeye.com/v1/url?k=755e6c2c-14d5791a-755fe763-000babff9b5d-6defb9d76a932655&q=1&e=e97b90a0-a315-4359-9fee-2976775b532e&u=https%3A%2F%2Flpc.events%2Fevent%2F16%2Fcontributions%2F1147%2F I see four speakers
->> but no agenda? Will an agenda be added before the microconference starts?
->
->And the speaker list is not up-to-date either. I am a speaker too :)
-
-This page shows the agenda: https://lpc.events/event/16/sessions/149/#20220914
-
-------_GKj2UxOoZMooFpgW.UaNJF5RnPKrhbpXXK.PgNceyCDa.V5=_a7674_
-Content-Type: text/plain; charset="utf-8"
-
-
-------_GKj2UxOoZMooFpgW.UaNJF5RnPKrhbpXXK.PgNceyCDa.V5=_a7674_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
-
-------_GKj2UxOoZMooFpgW.UaNJF5RnPKrhbpXXK.PgNceyCDa.V5=_a7674_--
+RG5lIDI0LiAwOC4gMjIgdiAyMTo0MiBNaWt1bGFzIFBhdG9ja2EgbmFwc2FsKGEpOgo+IAo+IAo+
+IE9uIFRodSwgMjUgQXVnIDIwMjIsIENvbHkgTGkgd3JvdGU6Cj4gCj4+IEhpIGZvbGtzLAo+Pgo+
+PiBSZWNlbnRseSBJIHJlY2VpdmVkIGEgYnVnIHJlcG9ydCBmcm9tIEludGVsIGRldmVsb3BlcnMg
+KGJpZyB0aGFua3MpLCB0aGUKPj4ga2VybmVsIHBhbmljIGlzIGNhdXNlZCBieSBhIGtlcm5lbCBz
+dGFjayBvdmVyZmxvdyBhbmQgaXQgc2VlbXMgZnJvbSBhCj4+IHJlY3Vyc2l2ZSBkbS10YWJsZSBy
+ZWxvYWQuCj4+Cj4+IEhlcmUgaXMgdGhlIHNpbXBsaWZpZWQgcHJvY2VzcyB0byByZXByb2R1Y2Ug
+dGhlIHBhbmljLCBJIHVzZSB0aHJlZSA5NjBHQiBuYW1lIFNTRHMuCj4+Cj4+IDEsIGNyZWF0ZSAy
+IGRtIGRldmljZXMsCj4+ICMgZWNobyAnMCAxODEwNjU1NjcgbGluZWFyIC9kZXYvbnZtZTJuMSAw
+JyB8IGRtc2V0dXAgY3JlYXRlIG52bWUybjFiYm0KPj4gIyBlY2hvICcwIDE5NjYxNjcwOSBsaW5l
+YXIgL2Rldi9udm1lM24xIDAnIHwgZG1zZXR1cCBjcmVhdGUgbnZtM24xYmJtCj4+Cj4+IDIsIGNy
+ZWF0ZSBhIHJhaWQgd2l0aCB0aGVzZSBkbSBkZXZpY2VzIGFuZCBhbm90aGVyIG52bWUgU1NELAo+
+PiAjIG1kYWRtIC1DIC9kZXYvbWQwIC1sIDUgLW4gMyAvZGV2L252bWU0bjEgL2Rldi9kbS0wIC9k
+ZXYvZG0tMQo+Pgo+PiAzLCB3YWl0IGZvciByZXN5bmMgdG8gZmluaXNoCj4+Cj4+IDQsIHN0b3Ag
+dGhlIG1kIGFycmF5Cj4+ICMgbWRhZG0g4oCUbWFuYWdlIOKAlHN0b3AgL2Rldi9tZDAKPj4KPj4g
+NSwgcmVsb2FkIGRtIHRhYmxlIGZvciBkbS0wCj4+ICMgY2F0IGRtLXRhYmxlLXJlbG9hZCB8IGRt
+c2V0dXAgcmVsb2FkIC9kZXYvZG0tMAo+PiBBbmQgdGhlIGNvbnRlbnQgb2YgZG0tdGFibGUtcmVs
+b2FkIGlzLAo+PiAJMCAxIGxpbmVhciAvZGV2L2RtLTAgMAo+PiAJMSAxODEwNjU1NjYgbGluZWFy
+IC9kZXYvZG0tMCAxCj4+Cj4+IDYsIHN1c3BlbmQgYW5kIHJlc3VtZSBkbS0wCj4+ICMgZG1zZXR1
+cCBzdXNwZW5kIC9kZXYvZG0tMAo+PiAjIGRtc2V0dXAgcmVzdW1lIC9kZXYvZG0tMAo+Pgo+PiBU
+aGUgcGFuaWMgY2FuIGJlIHJlcHJvZHVjZWQgaW4gTGludXgtdjUuMyBrZXJuZWxbMV0sIGFuZCBp
+dCBjaGFuZ2VzIHRvCj4+IHNpbGVudCBkZWFkbG9jayBhZnRlciBtaW51dGVzIGluIExpbnV4IHY2
+LjAtcmMyLiBTbyB0aGUgcHJvYmxlbSBzaG91bGQKPj4gc3RpbGwgZXhpc3QgaW4gdXBzdHJlYW0g
+a2VybmVsLgo+Pgo+PiBNeSBxdWVzdGlvbiBhcmUsCj4+IDEpIERvZXMgYW55b25lIG9ic2VydmUg
+b3IgZW5jb3VudGVyIHN1Y2ggcGFuaWMgb3IgZGVhZGxvY2sgYmVmb3JlPwo+PiAyKSBUbyBwZXJt
+aXQgcmVjdXJzaXZlIGRtLXRhYmxlIHJlbG9hZCwgaXMgaXQgYSBidWcgb3IganVzdCBhcy1kZXNp
+Z25lZCA/Cj4+Cj4+IFRoYW5rcyBpbiBhZHZhbmNlLgo+Pgo+PiBDb2x5IExpCj4gCj4gSGkKPiAK
+PiBJIHdvdWxkIGp1c3Qgc2F5ICJkb24ndCBkbyB0aGlzIi4KPiAKPiBOb3RlIHRoYXQgb25seSBy
+b290IGNhbiByZWxvYWQgZG0gdGFibGUsIHNvIHRoZXJlIGFyZSBubyBzZWN1cml0eQo+IGltcGxp
+Y2F0aW9ucyBpbiB0aGlzLiBBbmQgaWYgc29tZW9uZSBoYXMgcm9vdCwgaGUgY2FuIGRvIG11Y2gg
+bW9yZSBoYXJtCj4gdGhhbiBjcmFzaGluZyB0aGUgc3lzdGVtIHdpdGgga2VybmVsIHN0YWNrIG92
+ZXJmbG93Lgo+IAo+IFJlY3Vyc2l2ZSB0YWJsZSBtYXBwaW5ncyBvciB2ZXJ5IGRlZXAgbm9uLXJl
+Y3Vyc2l2ZSBtYXBwaW5ncyBhcmVuJ3QKPiBzdXBwb3NlZCB0byB3b3JrLgo+IAoKU2luY2UgcmVw
+cm9kdWNpbmcgdGhpcyBpc3N1ZSBpcyByYXRoZXIgJ3RyaXZhbCcgLSBzaW5jZSBjcmVhdGlvbiBv
+ZiBzaW1wbGUgCmxpbmVhciBETSBkZXZpY2UgYW5kIHJlbG9hZGluZyBpdCB3aXRoICdzZWxmLXJl
+ZmVyZW5jZScgdGFibGUgbGluZSBpcyBlYXN5IEknZCAKYWR2b2NhdGUgZm9yIHNvbWUgc2ltcGxp
+c3RpYyBjaGVjayBvbiBrZXJuZWwgc2lkZSAtIGFzIHN1Y2ggJ2NyYXNoJyBjYW4ndCBiZSAKZXZl
+biByZWJvb3RlZCB3aXRoIFN5c1JRK0IgKG9uIG15IGxhcHRvcCkuCgpJIGd1ZXNzIHNvbWUgJ2Jp
+dG1hcC90cmVlJyBvZiBhbHJlYWR5IHZpc2l0ZWQgZGV2aWNlIGR1cmluZyBzb21lIGNoZWNrIG1p
+Z2h0IAphdm9pZCBlbmRsZXNzIGxvb3AgYWx0aG91Z2ggaXQncyBxdWl0ZSAndWdseScgdGhpcyBj
+aGVjayBuZWVkcyB0byBoYXBwZW4gb24gCidyZXN1bWUnIHBoYXNlIC0gc28gdGhlIGZhaWx1cmUg
+aGVyZSBpcyBoYXJkIHRvIGRlYWwgd2l0aCAtIHN0aWxsIGJldHRlciB0aGFuIAp0aGlzIGtlcm5l
+bCBidXN5IGxvb3AuCgoKWmRlbmVrCgoKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
+bEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8v
+ZG0tZGV2ZWwK
 
