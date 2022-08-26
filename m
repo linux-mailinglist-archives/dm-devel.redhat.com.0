@@ -1,82 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31DBD5A2C3B
-	for <lists+dm-devel@lfdr.de>; Fri, 26 Aug 2022 18:23:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 599215A2C38
+	for <lists+dm-devel@lfdr.de>; Fri, 26 Aug 2022 18:22:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661530982;
+	s=mimecast20190719; t=1661530960;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qhbs2rShylzDT18KWz9u3IkNygyhs2yIE8sjrUSU8mI=;
-	b=MAgQm3GQsMzF/fiV7lwXdYzXVowLRvaGUJfz0hqPZg5FsZM3Y+nY11CBHMoobt6ezucgx0
-	rYj+ZqS89RiU/kXVrKVfLieqMGpB9+Ci1ZUaeO1uD1RDTBmfOR2sPKzjNJySIYCJwIsWbf
-	sVkrRqavznYTxSu03xl1oAYEm9PHpvg=
+	bh=x9Dkw3VxmfkTyRk5W1GseLkQTw1EzBQuyVYYYcjVNuc=;
+	b=iyoqeLFLbE5E596vfc4nhVJ6qGe2OEnPRyl61RlKY9Coc1mWr7jIcY6UFut2qDE5i30wJL
+	pbibEBB2b4Ns6/75aF5lJabFbp47t2VGHg2DrJDCzM9pPq2FlkjcSTGhwMJn1QEQ/yuA2V
+	UNty+SMdVNycSG5ahY5RTyhztk7y7A0=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-612-9LJgeOBmOXS3LxXbAJ6bSA-1; Fri, 26 Aug 2022 12:22:37 -0400
-X-MC-Unique: 9LJgeOBmOXS3LxXbAJ6bSA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-381-_tSbuaQaNCS0jAwtjVN0eg-1; Fri, 26 Aug 2022 12:22:38 -0400
+X-MC-Unique: _tSbuaQaNCS0jAwtjVN0eg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 908343C1023D;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E2F83801F5E;
 	Fri, 26 Aug 2022 16:22:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 75CD82024CBC;
-	Fri, 26 Aug 2022 16:22:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 06E5F403351;
+	Fri, 26 Aug 2022 16:22:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 68D921946A5A;
-	Fri, 26 Aug 2022 16:22:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AADA81946A6A;
+	Fri, 26 Aug 2022 16:22:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B948F1946A70
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 Aug 2022 16:22:29 +0000 (UTC)
+ ESMTP id 8B9691946A4C
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 Aug 2022 16:22:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A88E6C15BBD; Fri, 26 Aug 2022 16:22:29 +0000 (UTC)
+ id 60D02492CA2; Fri, 26 Aug 2022 16:22:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A4C85C15BBA
- for <dm-devel@redhat.com>; Fri, 26 Aug 2022 16:22:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D24E492C3B
+ for <dm-devel@redhat.com>; Fri, 26 Aug 2022 16:22:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B51D3801F4D
- for <dm-devel@redhat.com>; Fri, 26 Aug 2022 16:22:29 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCCB4280EA37
+ for <dm-devel@redhat.com>; Fri, 26 Aug 2022 16:22:27 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-54-GhvTXYiiOIipXCds6SV41w-1; Fri,
- 26 Aug 2022 12:22:25 -0400
-X-MC-Unique: GhvTXYiiOIipXCds6SV41w-1
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-378-OO0wSfvJNaKW1Xu1e_VoJw-1; Fri,
+ 26 Aug 2022 12:22:26 -0400
+X-MC-Unique: OO0wSfvJNaKW1Xu1e_VoJw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id C065B1F889;
- Fri, 26 Aug 2022 16:22:24 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 08C201F917;
+ Fri, 26 Aug 2022 16:22:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8AD3213421;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id C7F6213421;
  Fri, 26 Aug 2022 16:22:24 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oDBzIEDzCGPocAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id MB4tL0DzCGPocAAAMHmgww
  (envelope-from <mwilck@suse.com>); Fri, 26 Aug 2022 16:22:24 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri, 26 Aug 2022 18:21:59 +0200
-Message-Id: <20220826162203.20317-2-mwilck@suse.com>
+Date: Fri, 26 Aug 2022 18:22:00 +0200
+Message-Id: <20220826162203.20317-3-mwilck@suse.com>
 In-Reply-To: <20220826162203.20317-1-mwilck@suse.com>
 References: <20220826162203.20317-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,8 +86,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
-Subject: [dm-devel] [PATCH v3 1/5] libmultipath: add msort.c from glibc
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+Subject: [dm-devel] [PATCH v3 2/5] libmultipath: modifications for msort.c
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +102,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -111,332 +110,157 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-glibc's msort.c contains a stable sort algorithm based on mergesort.
-This will be useful for us, as qsort(3) is not necessarily stable.
-
-The added code is under LGPL-2.1.
+We don't want to fallback to qsort if memory is tight, as libc's
+routine does. Other than that, compile error fixes.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/msort.c | 309 +++++++++++++++++++++++++++++++++++++++++++
- 1 file changed, 309 insertions(+)
- create mode 100644 libmultipath/msort.c
+ libmultipath/Makefile |  2 +-
+ libmultipath/msort.c  | 75 ++++++++++---------------------------------
+ libmultipath/msort.h  |  6 ++++
+ 3 files changed, 24 insertions(+), 59 deletions(-)
+ create mode 100644 libmultipath/msort.h
 
+diff --git a/libmultipath/Makefile b/libmultipath/Makefile
+index fb03200..a70acab 100644
+--- a/libmultipath/Makefile
++++ b/libmultipath/Makefile
+@@ -64,7 +64,7 @@ OBJS-O := parser.o vector.o devmapper.o \
+ 	log.o configure.o structs_vec.o sysfs.o \
+ 	lock.o file.o wwids.o prioritizers/alua_rtpg.o prkey.o \
+ 	io_err_stat.o dm-generic.o generic.o nvme-lib.o \
+-	libsg.o valid.o strbuf.o
++	libsg.o valid.o strbuf.o msort.o
+ 
+ OBJS := $(OBJS-O) $(OBJS-U)
+ 
 diff --git a/libmultipath/msort.c b/libmultipath/msort.c
-new file mode 100644
-index 0000000..cbe9a4a
---- /dev/null
+index cbe9a4a..5ea05a7 100644
+--- a/libmultipath/msort.c
 +++ b/libmultipath/msort.c
-@@ -0,0 +1,309 @@
-+/* An alternative to qsort, with an identical interface.
-+   This file is part of the GNU C Library.
-+   Copyright (C) 1992-2022 Free Software Foundation, Inc.
-+
-+   The GNU C Library is free software; you can redistribute it and/or
-+   modify it under the terms of the GNU Lesser General Public
-+   License as published by the Free Software Foundation; either
-+   version 2.1 of the License, or (at your option) any later version.
-+
-+   The GNU C Library is distributed in the hope that it will be useful,
-+   but WITHOUT ANY WARRANTY; without even the implied warranty of
-+   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-+   Lesser General Public License for more details.
-+
-+   You should have received a copy of the GNU Lesser General Public
-+   License along with the GNU C Library; if not, see
-+   <https://www.gnu.org/licenses/>.  */
-+
-+#include <alloca.h>
-+#include <stdint.h>
-+#include <stdlib.h>
+@@ -21,9 +21,10 @@
+ #include <stdlib.h>
+ #include <string.h>
+ #include <unistd.h>
+-#include <memcopy.h>
 +#include <string.h>
-+#include <unistd.h>
-+#include <memcopy.h>
-+#include <errno.h>
-+#include <atomic.h>
+ #include <errno.h>
+-#include <atomic.h>
 +
-+struct msort_param
-+{
-+  size_t s;
-+  size_t var;
-+  __compar_d_fn_t cmp;
-+  void *arg;
-+  char *t;
-+};
-+static void msort_with_tmp (const struct msort_param *p, void *b, size_t n);
-+
++typedef int(*__compar_d_fn_t)(const void *, const void *, void *);
+ 
+ struct msort_param
+ {
+@@ -160,8 +161,8 @@ msort_with_tmp (const struct msort_param *p, void *b, size_t n)
+ }
+ 
+ 
+-void
+-__qsort_r (void *b, size_t n, size_t s, __compar_d_fn_t cmp, void *arg)
 +static void
-+msort_with_tmp (const struct msort_param *p, void *b, size_t n)
-+{
-+  char *b1, *b2;
-+  size_t n1, n2;
++msort_r (void *b, size_t n, size_t s, __compar_d_fn_t cmp, void *arg)
+ {
+   size_t size = n * s;
+   char *tmp = NULL;
+@@ -173,60 +174,15 @@ __qsort_r (void *b, size_t n, size_t s, __compar_d_fn_t cmp, void *arg)
+ 
+   if (size < 1024)
+     /* The temporary array is small, so put it on the stack.  */
+-    p.t = __alloca (size);
++    p.t = alloca (size);
+   else
+     {
+-      /* We should avoid allocating too much memory since this might
+-	 have to be backed up by swap space.  */
+-      static long int phys_pages;
+-      static int pagesize;
+-
+-      if (pagesize == 0)
+-	{
+-	  phys_pages = __sysconf (_SC_PHYS_PAGES);
+-
+-	  if (phys_pages == -1)
+-	    /* Error while determining the memory size.  So let's
+-	       assume there is enough memory.  Otherwise the
+-	       implementer should provide a complete implementation of
+-	       the `sysconf' function.  */
+-	    phys_pages = (long int) (~0ul >> 1);
+-
+-	  /* The following determines that we will never use more than
+-	     a quarter of the physical memory.  */
+-	  phys_pages /= 4;
+-
+-	  /* Make sure phys_pages is written to memory.  */
+-	  atomic_write_barrier ();
+-
+-	  pagesize = __sysconf (_SC_PAGESIZE);
+-	}
+-
+-      /* Just a comment here.  We cannot compute
+-	   phys_pages * pagesize
+-	   and compare the needed amount of memory against this value.
+-	   The problem is that some systems might have more physical
+-	   memory then can be represented with a `size_t' value (when
+-	   measured in bytes.  */
+-
+-      /* If the memory requirements are too high don't allocate memory.  */
+-      if (size / pagesize > (size_t) phys_pages)
+-	{
+-	  _quicksort (b, n, s, cmp, arg);
+-	  return;
+-	}
+-
+       /* It's somewhat large, so malloc it.  */
+       int save = errno;
+       tmp = malloc (size);
+-      __set_errno (save);
++      errno = save;
+       if (tmp == NULL)
+-	{
+-	  /* Couldn't get space, so use the slower algorithm
+-	     that doesn't need a temporary array.  */
+-	  _quicksort (b, n, s, cmp, arg);
+-	  return;
+-	}
++	      return;
+       p.t = tmp;
+     }
+ 
+@@ -297,13 +253,16 @@ __qsort_r (void *b, size_t n, size_t s, __compar_d_fn_t cmp, void *arg)
+     }
+   free (tmp);
+ }
+-libc_hidden_def (__qsort_r)
+-weak_alias (__qsort_r, qsort_r)
+-
+ 
++/*
++ * glibc apparently doesn't use -Wcast-function-type.
++ * If this is safe for them, it should be for us, too.
++ */
++#pragma GCC diagnostic push
++#pragma GCC diagnostic ignored "-Wcast-function-type"
+ void
+-qsort (void *b, size_t n, size_t s, __compar_fn_t cmp)
++msort (void *b, size_t n, size_t s, __compar_fn_t cmp)
+ {
+-  return __qsort_r (b, n, s, (__compar_d_fn_t) cmp, NULL);
++	return msort_r (b, n, s, (__compar_d_fn_t)cmp, NULL);
+ }
+-libc_hidden_def (qsort)
++#pragma GCC diagnostic pop
+diff --git a/libmultipath/msort.h b/libmultipath/msort.h
+new file mode 100644
+index 0000000..caef9b6
+--- /dev/null
++++ b/libmultipath/msort.h
+@@ -0,0 +1,6 @@
++#ifndef __MSORT_H
++#define __MSORT_H
++typedef int(*__compar_fn_t)(const void *, const void *);
++void msort (void *b, size_t n, size_t s, __compar_fn_t cmp);
 +
-+  if (n <= 1)
-+    return;
-+
-+  n1 = n / 2;
-+  n2 = n - n1;
-+  b1 = b;
-+  b2 = (char *) b + (n1 * p->s);
-+
-+  msort_with_tmp (p, b1, n1);
-+  msort_with_tmp (p, b2, n2);
-+
-+  char *tmp = p->t;
-+  const size_t s = p->s;
-+  __compar_d_fn_t cmp = p->cmp;
-+  void *arg = p->arg;
-+  switch (p->var)
-+    {
-+    case 0:
-+      while (n1 > 0 && n2 > 0)
-+	{
-+	  if ((*cmp) (b1, b2, arg) <= 0)
-+	    {
-+	      *(uint32_t *) tmp = *(uint32_t *) b1;
-+	      b1 += sizeof (uint32_t);
-+	      --n1;
-+	    }
-+	  else
-+	    {
-+	      *(uint32_t *) tmp = *(uint32_t *) b2;
-+	      b2 += sizeof (uint32_t);
-+	      --n2;
-+	    }
-+	  tmp += sizeof (uint32_t);
-+	}
-+      break;
-+    case 1:
-+      while (n1 > 0 && n2 > 0)
-+	{
-+	  if ((*cmp) (b1, b2, arg) <= 0)
-+	    {
-+	      *(uint64_t *) tmp = *(uint64_t *) b1;
-+	      b1 += sizeof (uint64_t);
-+	      --n1;
-+	    }
-+	  else
-+	    {
-+	      *(uint64_t *) tmp = *(uint64_t *) b2;
-+	      b2 += sizeof (uint64_t);
-+	      --n2;
-+	    }
-+	  tmp += sizeof (uint64_t);
-+	}
-+      break;
-+    case 2:
-+      while (n1 > 0 && n2 > 0)
-+	{
-+	  unsigned long *tmpl = (unsigned long *) tmp;
-+	  unsigned long *bl;
-+
-+	  tmp += s;
-+	  if ((*cmp) (b1, b2, arg) <= 0)
-+	    {
-+	      bl = (unsigned long *) b1;
-+	      b1 += s;
-+	      --n1;
-+	    }
-+	  else
-+	    {
-+	      bl = (unsigned long *) b2;
-+	      b2 += s;
-+	      --n2;
-+	    }
-+	  while (tmpl < (unsigned long *) tmp)
-+	    *tmpl++ = *bl++;
-+	}
-+      break;
-+    case 3:
-+      while (n1 > 0 && n2 > 0)
-+	{
-+	  if ((*cmp) (*(const void **) b1, *(const void **) b2, arg) <= 0)
-+	    {
-+	      *(void **) tmp = *(void **) b1;
-+	      b1 += sizeof (void *);
-+	      --n1;
-+	    }
-+	  else
-+	    {
-+	      *(void **) tmp = *(void **) b2;
-+	      b2 += sizeof (void *);
-+	      --n2;
-+	    }
-+	  tmp += sizeof (void *);
-+	}
-+      break;
-+    default:
-+      while (n1 > 0 && n2 > 0)
-+	{
-+	  if ((*cmp) (b1, b2, arg) <= 0)
-+	    {
-+	      tmp = (char *) __mempcpy (tmp, b1, s);
-+	      b1 += s;
-+	      --n1;
-+	    }
-+	  else
-+	    {
-+	      tmp = (char *) __mempcpy (tmp, b2, s);
-+	      b2 += s;
-+	      --n2;
-+	    }
-+	}
-+      break;
-+    }
-+
-+  if (n1 > 0)
-+    memcpy (tmp, b1, n1 * s);
-+  memcpy (b, p->t, (n - n2) * s);
-+}
-+
-+
-+void
-+__qsort_r (void *b, size_t n, size_t s, __compar_d_fn_t cmp, void *arg)
-+{
-+  size_t size = n * s;
-+  char *tmp = NULL;
-+  struct msort_param p;
-+
-+  /* For large object sizes use indirect sorting.  */
-+  if (s > 32)
-+    size = 2 * n * sizeof (void *) + s;
-+
-+  if (size < 1024)
-+    /* The temporary array is small, so put it on the stack.  */
-+    p.t = __alloca (size);
-+  else
-+    {
-+      /* We should avoid allocating too much memory since this might
-+	 have to be backed up by swap space.  */
-+      static long int phys_pages;
-+      static int pagesize;
-+
-+      if (pagesize == 0)
-+	{
-+	  phys_pages = __sysconf (_SC_PHYS_PAGES);
-+
-+	  if (phys_pages == -1)
-+	    /* Error while determining the memory size.  So let's
-+	       assume there is enough memory.  Otherwise the
-+	       implementer should provide a complete implementation of
-+	       the `sysconf' function.  */
-+	    phys_pages = (long int) (~0ul >> 1);
-+
-+	  /* The following determines that we will never use more than
-+	     a quarter of the physical memory.  */
-+	  phys_pages /= 4;
-+
-+	  /* Make sure phys_pages is written to memory.  */
-+	  atomic_write_barrier ();
-+
-+	  pagesize = __sysconf (_SC_PAGESIZE);
-+	}
-+
-+      /* Just a comment here.  We cannot compute
-+	   phys_pages * pagesize
-+	   and compare the needed amount of memory against this value.
-+	   The problem is that some systems might have more physical
-+	   memory then can be represented with a `size_t' value (when
-+	   measured in bytes.  */
-+
-+      /* If the memory requirements are too high don't allocate memory.  */
-+      if (size / pagesize > (size_t) phys_pages)
-+	{
-+	  _quicksort (b, n, s, cmp, arg);
-+	  return;
-+	}
-+
-+      /* It's somewhat large, so malloc it.  */
-+      int save = errno;
-+      tmp = malloc (size);
-+      __set_errno (save);
-+      if (tmp == NULL)
-+	{
-+	  /* Couldn't get space, so use the slower algorithm
-+	     that doesn't need a temporary array.  */
-+	  _quicksort (b, n, s, cmp, arg);
-+	  return;
-+	}
-+      p.t = tmp;
-+    }
-+
-+  p.s = s;
-+  p.var = 4;
-+  p.cmp = cmp;
-+  p.arg = arg;
-+
-+  if (s > 32)
-+    {
-+      /* Indirect sorting.  */
-+      char *ip = (char *) b;
-+      void **tp = (void **) (p.t + n * sizeof (void *));
-+      void **t = tp;
-+      void *tmp_storage = (void *) (tp + n);
-+
-+      while ((void *) t < tmp_storage)
-+	{
-+	  *t++ = ip;
-+	  ip += s;
-+	}
-+      p.s = sizeof (void *);
-+      p.var = 3;
-+      msort_with_tmp (&p, p.t + n * sizeof (void *), n);
-+
-+      /* tp[0] .. tp[n - 1] is now sorted, copy around entries of
-+	 the original array.  Knuth vol. 3 (2nd ed.) exercise 5.2-10.  */
-+      char *kp;
-+      size_t i;
-+      for (i = 0, ip = (char *) b; i < n; i++, ip += s)
-+	if ((kp = tp[i]) != ip)
-+	  {
-+	    size_t j = i;
-+	    char *jp = ip;
-+	    memcpy (tmp_storage, ip, s);
-+
-+	    do
-+	      {
-+		size_t k = (kp - (char *) b) / s;
-+		tp[j] = jp;
-+		memcpy (jp, kp, s);
-+		j = k;
-+		jp = kp;
-+		kp = tp[k];
-+	      }
-+	    while (kp != ip);
-+
-+	    tp[j] = jp;
-+	    memcpy (jp, tmp_storage, s);
-+	  }
-+    }
-+  else
-+    {
-+      if ((s & (sizeof (uint32_t) - 1)) == 0
-+	  && ((char *) b - (char *) 0) % __alignof__ (uint32_t) == 0)
-+	{
-+	  if (s == sizeof (uint32_t))
-+	    p.var = 0;
-+	  else if (s == sizeof (uint64_t)
-+		   && ((char *) b - (char *) 0) % __alignof__ (uint64_t) == 0)
-+	    p.var = 1;
-+	  else if ((s & (sizeof (unsigned long) - 1)) == 0
-+		   && ((char *) b - (char *) 0)
-+		      % __alignof__ (unsigned long) == 0)
-+	    p.var = 2;
-+	}
-+      msort_with_tmp (&p, b, n);
-+    }
-+  free (tmp);
-+}
-+libc_hidden_def (__qsort_r)
-+weak_alias (__qsort_r, qsort_r)
-+
-+
-+void
-+qsort (void *b, size_t n, size_t s, __compar_fn_t cmp)
-+{
-+  return __qsort_r (b, n, s, (__compar_d_fn_t) cmp, NULL);
-+}
-+libc_hidden_def (qsort)
++#endif
 -- 
 2.37.1
 
