@@ -2,80 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DDF85A6D59
-	for <lists+dm-devel@lfdr.de>; Tue, 30 Aug 2022 21:29:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 069CF5A6D57
+	for <lists+dm-devel@lfdr.de>; Tue, 30 Aug 2022 21:28:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1661887743;
+	s=mimecast20190719; t=1661887716;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=WUDd3VuInDqCP0FmibsZxjYSsZ7LSTf4A/GzxSQ3SBc=;
-	b=I5xQN5m0IxtjuCB1WxxWuOmGLl7nTzKXiTF9eEkRP7v5WdhzmrLn88XYlUSTQHFuxv/iRw
-	jCdj2mkOXr3NcGDUEgbEuZ8rwfL9ceBVxGyTTVq22w9MKgetxh4R+OTOdUTHW9Khua7nfl
-	TPqM0exvtY80FErQpjMKK8udWY+OIRQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=BqBiEv3SlNdEi1O8GgpzMfBpqiMrevEScfbME+lvw2Q=;
+	b=N3eAD3UUvZeVL0LuwUMd9xibkKpnz1mDwuz8CHE3RDZ3QOPUzBl105c1tiir45nzGUTEYW
+	lSmH4ydMvF4nFzqEgF56ITBNmQ3vbXuqxmNSqfQxrUGr33F51gbr6a8pUzu1qxzJbvPqGJ
+	Bykq19TeWrfBBTxb0hfgpl6ZZCP0uk4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-266-k5A5nxq0OgiBEYvIUW7sug-1; Tue, 30 Aug 2022 15:28:27 -0400
-X-MC-Unique: k5A5nxq0OgiBEYvIUW7sug-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-307-WYeyaKBkPP2_5HVWImMNcQ-1; Tue, 30 Aug 2022 15:28:31 -0400
+X-MC-Unique: WYeyaKBkPP2_5HVWImMNcQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7F9485A58F;
-	Tue, 30 Aug 2022 19:28:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 859A73802ACC;
+	Tue, 30 Aug 2022 19:28:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 60E0F2026D4C;
-	Tue, 30 Aug 2022 19:28:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6EF7740CFD05;
+	Tue, 30 Aug 2022 19:28:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1D9311946A6A;
-	Tue, 30 Aug 2022 19:28:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 545EF1946A51;
+	Tue, 30 Aug 2022 19:28:25 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B6AE81946A40
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 Aug 2022 19:28:16 +0000 (UTC)
+ ESMTP id DF4E51946A40
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 Aug 2022 19:28:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AAA3D4010E6E; Tue, 30 Aug 2022 19:28:16 +0000 (UTC)
+ id C3CAC1415133; Tue, 30 Aug 2022 19:28:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A6C52400E88E
- for <dm-devel@redhat.com>; Tue, 30 Aug 2022 19:28:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BF852141512E
+ for <dm-devel@redhat.com>; Tue, 30 Aug 2022 19:28:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8FDAE29AB3F7
- for <dm-devel@redhat.com>; Tue, 30 Aug 2022 19:28:16 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A01921C06EE5
+ for <dm-devel@redhat.com>; Tue, 30 Aug 2022 19:28:18 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-44-25CfphdTMP6lFw5aqpczag-1; Tue,
- 30 Aug 2022 15:28:14 -0400
-X-MC-Unique: 25CfphdTMP6lFw5aqpczag-1
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-380-CQq2zAIFN4OG6-nVqHzkcQ-1; Tue,
+ 30 Aug 2022 15:28:15 -0400
+X-MC-Unique: CQq2zAIFN4OG6-nVqHzkcQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id CDA5B1FB24;
- Tue, 30 Aug 2022 19:28:11 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 29F251FB25;
+ Tue, 30 Aug 2022 19:28:12 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9C4FC13B0C;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E04CE13B0C;
  Tue, 30 Aug 2022 19:28:11 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id KMBwJMtkDmO5GgAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id KFobNctkDmO5GgAAMHmgww
  (envelope-from <mwilck@suse.com>); Tue, 30 Aug 2022 19:28:11 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Tue, 30 Aug 2022 21:27:08 +0200
-Message-Id: <20220830192713.19778-8-mwilck@suse.com>
+Date: Tue, 30 Aug 2022 21:27:09 +0200
+Message-Id: <20220830192713.19778-9-mwilck@suse.com>
 In-Reply-To: <20220830192713.19778-1-mwilck@suse.com>
 References: <20220830192713.19778-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -86,9 +86,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
-Subject: [dm-devel] [PATCH v4 07/12] libmultipath: remove weak attribute for
- {get, put}_multipath_config
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+Subject: [dm-devel] [PATCH v4 08/12] libmultipath: split off libmpathutil
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +102,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.4
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -111,68 +110,912 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The "weak" attribute was set to make sure that these symbols are overridden by
-symbols of the same name in the main executable. This is unnecessary, as the
-standard ELF symbol resolution algorithm ensures this even without the "weak"
-attribute.
+Split libmultipath into two libraries: libmpathutil contains
+generic utilities that don't relate to device-mapper or multipath
+specifically. libmultipath retains multipath-specific code.
 
-See ELF Specification, III.2 Dynamic Linking / Shared Object Dependencies:
-"The dynamic linker examines the symbol tables with a breadth-first
-search. That is, it first looks at the symbol table of the executable program
-itself, then at the symbol tables of the DT_NEEDED entries (in order), then at
-the second level DT_NEEDED entries, and so on".
+The reason for this change is that we'll create a small client program
+that takes over the role of "multipath -k", the interactive client.
+This way multipathd doesn't need to link against libreadline any more.
+The client only needs functionality from libmpathutil, which doesn't
+contain code that isn't compliant with GPL-3.0, and can thus be linked
+to libreadline without conflicts.
+
+The new library contains weak implementations of {get,put}_multipath_config,
+which are meant to be superseded by libmultipath's implementation.
+In the interactive client, these functions aren't needed.
+
+As we now have an ABI between libmpathutil and libmultipath, the ABI
+must be extended by adding functions from libmpathutil that are used
+internally by libmultipath.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/config.c |  4 ++--
- libmultipath/config.h | 11 -----------
- 2 files changed, 2 insertions(+), 13 deletions(-)
+ Makefile                                     |   4 +-
+ Makefile.inc                                 |   1 +
+ libmpathpersist/Makefile                     |   6 +-
+ libmpathutil/Makefile                        |  70 +++++++++++
+ {libmultipath => libmpathutil}/debug.c       |   0
+ {libmultipath => libmpathutil}/debug.h       |   0
+ libmpathutil/globals.c                       |  12 ++
+ libmpathutil/globals.h                       |  39 ++++++
+ libmpathutil/libmpathutil.version            | 123 +++++++++++++++++++
+ {libmultipath => libmpathutil}/log.c         |   0
+ {libmultipath => libmpathutil}/log.h         |   0
+ {libmultipath => libmpathutil}/log_pthread.c |   0
+ {libmultipath => libmpathutil}/log_pthread.h |   0
+ {libmultipath => libmpathutil}/msort.c       |   0
+ {libmultipath => libmpathutil}/msort.h       |   0
+ {libmultipath => libmpathutil}/parser.c      |   0
+ {libmultipath => libmpathutil}/parser.h      |   2 +-
+ {libmultipath => libmpathutil}/strbuf.c      |   0
+ {libmultipath => libmpathutil}/strbuf.h      |   0
+ {libmultipath => libmpathutil}/time-util.c   |   0
+ {libmultipath => libmpathutil}/time-util.h   |   0
+ {libmultipath => libmpathutil}/util.c        |   0
+ {libmultipath => libmpathutil}/util.h        |   0
+ {libmultipath => libmpathutil}/uxsock.c      |   0
+ {libmultipath => libmpathutil}/uxsock.h      |   0
+ {libmultipath => libmpathutil}/vector.c      |   0
+ {libmultipath => libmpathutil}/vector.h      |   0
+ libmpathvalid/Makefile                       |   6 +-
+ libmultipath/Makefile                        |  15 ++-
+ libmultipath/checkers/Makefile               |   6 +-
+ libmultipath/config.h                        |   3 +-
+ libmultipath/foreign/Makefile                |   6 +-
+ libmultipath/libmultipath.version            |  41 -------
+ libmultipath/prioritizers/Makefile           |   6 +-
+ mpathpersist/Makefile                        |   4 +-
+ multipath/Makefile                           |   6 +-
+ multipathd/Makefile                          |  12 +-
+ tests/Makefile                               |  12 +-
+ 38 files changed, 290 insertions(+), 84 deletions(-)
+ create mode 100644 libmpathutil/Makefile
+ rename {libmultipath => libmpathutil}/debug.c (100%)
+ rename {libmultipath => libmpathutil}/debug.h (100%)
+ create mode 100644 libmpathutil/globals.c
+ create mode 100644 libmpathutil/globals.h
+ create mode 100644 libmpathutil/libmpathutil.version
+ rename {libmultipath => libmpathutil}/log.c (100%)
+ rename {libmultipath => libmpathutil}/log.h (100%)
+ rename {libmultipath => libmpathutil}/log_pthread.c (100%)
+ rename {libmultipath => libmpathutil}/log_pthread.h (100%)
+ rename {libmultipath => libmpathutil}/msort.c (100%)
+ rename {libmultipath => libmpathutil}/msort.h (100%)
+ rename {libmultipath => libmpathutil}/parser.c (100%)
+ rename {libmultipath => libmpathutil}/parser.h (99%)
+ rename {libmultipath => libmpathutil}/strbuf.c (100%)
+ rename {libmultipath => libmpathutil}/strbuf.h (100%)
+ rename {libmultipath => libmpathutil}/time-util.c (100%)
+ rename {libmultipath => libmpathutil}/time-util.h (100%)
+ rename {libmultipath => libmpathutil}/util.c (100%)
+ rename {libmultipath => libmpathutil}/util.h (100%)
+ rename {libmultipath => libmpathutil}/uxsock.c (100%)
+ rename {libmultipath => libmpathutil}/uxsock.h (100%)
+ rename {libmultipath => libmpathutil}/vector.c (100%)
+ rename {libmultipath => libmpathutil}/vector.h (100%)
 
-diff --git a/libmultipath/config.c b/libmultipath/config.c
-index a2c79a4..5c5c072 100644
---- a/libmultipath/config.c
-+++ b/libmultipath/config.c
-@@ -82,7 +82,7 @@ struct config *libmp_get_multipath_config(void)
- }
+diff --git a/Makefile b/Makefile
+index ffca586..5851149 100644
+--- a/Makefile
++++ b/Makefile
+@@ -4,6 +4,7 @@
  
- struct config *get_multipath_config(void)
--	__attribute__((weak, alias("libmp_get_multipath_config")));
-+	__attribute__((alias("libmp_get_multipath_config")));
+ LIB_BUILDDIRS := \
+ 	libmpathcmd \
++	libmpathutil \
+ 	libmultipath \
+ 	libmpathpersist \
+ 	libmpathvalid
+@@ -72,7 +73,8 @@ compile_commands.json: Makefile Makefile.inc $(BUILDDIRS:=/Makefile)
+ 	$(MAKE) clean
+ 	bear -- $(MAKE)
  
- void libmp_put_multipath_config(void *conf __attribute__((unused)))
- {
-@@ -90,7 +90,7 @@ void libmp_put_multipath_config(void *conf __attribute__((unused)))
- }
+-libmultipath libdmmp: libmpathcmd
++libmpathutil libdmmp: libmpathcmd
++libmultipath: libmpathutil
+ libmpathpersist libmpathvalid multipath multipathd: libmultipath
+ libmultipath/prioritizers libmultipath/checkers libmultipath/foreign: libmultipath
+ mpathpersist multipathd:  libmpathpersist
+diff --git a/Makefile.inc b/Makefile.inc
+index 4b32fa7..6399beb 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -86,6 +86,7 @@ libudevdir	= $(prefix)/$(SYSTEMDPATH)/udev
+ udevrulesdir	= $(libudevdir)/rules.d
+ modulesloaddir  = $(prefix)/$(SYSTEMDPATH)/modules-load.d
+ multipathdir	= $(TOPDIR)/libmultipath
++mpathutildir	= $(TOPDIR)/libmpathutil
+ man8dir		= $(prefix)/usr/share/man/man8
+ man5dir		= $(prefix)/usr/share/man/man5
+ man3dir		= $(prefix)/usr/share/man/man3
+diff --git a/libmpathpersist/Makefile b/libmpathpersist/Makefile
+index 9843d96..4e1717e 100644
+--- a/libmpathpersist/Makefile
++++ b/libmpathpersist/Makefile
+@@ -5,10 +5,10 @@ DEVLIB = libmpathpersist.so
+ LIBS = $(DEVLIB).$(SONAME)
+ VERSION_SCRIPT:= libmpathpersist.version
  
- void put_multipath_config(void *conf)
--	__attribute__((weak, alias("libmp_put_multipath_config")));
-+	__attribute__((alias("libmp_put_multipath_config")));
+-CFLAGS += $(LIB_CFLAGS) -I$(multipathdir) -I$(mpathpersistdir) -I$(mpathcmddir)
+-LDFLAGS += -L$(multipathdir) -L$(mpathcmddir)
++CFLAGS += $(LIB_CFLAGS) -I$(multipathdir) -I$(mpathutildir) -I$(mpathpersistdir) -I$(mpathcmddir)
++LDFLAGS += -L$(multipathdir) -L$(mpathutildir) -L$(mpathcmddir)
  
- static int
- hwe_strmatch (const struct hwentry *hwe1, const struct hwentry *hwe2)
+-LIBDEPS += -lmultipath -lmpathcmd -ldevmapper -lpthread -ldl
++LIBDEPS += -lmultipath -lmpathutil -lmpathcmd -ldevmapper -lpthread -ldl
+ 
+ OBJS = mpath_persist.o mpath_updatepr.o mpath_pr_ioctl.o mpath_persist_int.o
+ 
+diff --git a/libmpathutil/Makefile b/libmpathutil/Makefile
+new file mode 100644
+index 0000000..68b1c7d
+--- /dev/null
++++ b/libmpathutil/Makefile
+@@ -0,0 +1,70 @@
++#
++# Copyright (C) 2003 Christophe Varoqui, <christophe.varoqui@opensvc.com>
++#
++include ../Makefile.inc
++
++SONAME = 0
++DEVLIB = libmpathutil.so
++LIBS = $(DEVLIB).$(SONAME)
++VERSION_SCRIPT := libmpathutil.version
++
++CPPFLAGS += -I. -I$(multipathdir) -I$(mpathcmddir)
++CFLAGS += $(LIB_CFLAGS) -D_GNU_SOURCE
++
++LIBDEPS += -lpthread -ldl -ludev -L$(mpathcmddir) -lmpathcmd
++
++ifdef SYSTEMD
++	CPPFLAGS += -DUSE_SYSTEMD=$(SYSTEMD)
++	ifeq ($(shell test $(SYSTEMD) -gt 209 && echo 1), 1)
++		LIBDEPS += -lsystemd
++	else
++		LIBDEPS += -lsystemd-daemon
++	endif
++endif
++
++# object files referencing MULTIPATH_DIR or CONFIG_DIR
++# they need to be recompiled for unit tests
++
++# other object files
++OBJS := parser.o vector.o util.o debug.o time-util.o \
++	uxsock.o log_pthread.o log.o strbuf.o globals.o msort.o
++
++all:	$(DEVLIB)
++
++make_static = $(shell sed '/^static/!s/^\([a-z]\{1,\} \)/static \1/' <$1 >$2)
++
++$(LIBS): $(OBJS) $(VERSION_SCRIPT)
++	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ \
++		-Wl,--version-script=$(VERSION_SCRIPT) -o $@ $(OBJS) $(LIBDEPS)
++
++$(DEVLIB): $(LIBS)
++	$(LN) $(LIBS) $@
++
++$(NV_VERSION_SCRIPT):	$(VERSION_SCRIPT)
++	@printf 'NOVERSION {\nglobal:\n' >$@
++	@grep -P '^[ \t]+[a-zA-Z_][a-zA-Z0-9_]*;' $< >>$@
++	@printf 'local:\n\t*;\n};\n' >>$@
++
++$(LIBS:%.so.$(SONAME)=%-nv.so):	$(OBJS) $(NV_VERSION_SCRIPT)
++	$(CC) $(LDFLAGS) $(SHARED_FLAGS) -Wl,-soname=$@ \
++		-Wl,--version-script=$(NV_VERSION_SCRIPT) -o $@ $(OBJS) $(LIBDEPS)
++
++abi:    $(LIBS:%.so.$(SONAME)=%-nv.abi)
++
++install: all
++	$(INSTALL_PROGRAM) -d $(DESTDIR)$(syslibdir)
++	$(INSTALL_PROGRAM) -m 755 $(LIBS) $(DESTDIR)$(syslibdir)/$(LIBS)
++	$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(libdir)
++	$(LN) $(LIBS) $(DESTDIR)$(syslibdir)/$(DEVLIB)
++
++uninstall:
++	$(RM) $(DESTDIR)$(syslibdir)/$(LIBS)
++	$(RM) $(DESTDIR)$(syslibdir)/$(DEVLIB)
++
++clean: dep_clean
++	$(RM) core *.a *.o *.so *.so.* *.abi nvme-ioctl.c nvme-ioctl.h $(NV_VERSION_SCRIPT)
++
++include $(wildcard $(OBJS:.o=.d))
++
++dep_clean:
++	$(RM) $(OBJS:.o=.d)
+diff --git a/libmultipath/debug.c b/libmpathutil/debug.c
+similarity index 100%
+rename from libmultipath/debug.c
+rename to libmpathutil/debug.c
+diff --git a/libmultipath/debug.h b/libmpathutil/debug.h
+similarity index 100%
+rename from libmultipath/debug.h
+rename to libmpathutil/debug.h
+diff --git a/libmpathutil/globals.c b/libmpathutil/globals.c
+new file mode 100644
+index 0000000..0c9a5ba
+--- /dev/null
++++ b/libmpathutil/globals.c
+@@ -0,0 +1,12 @@
++#include <stddef.h>
++#include <libudev.h>
++#include "globals.h"
++
++struct udev __attribute__((weak)) *udev;
++struct config __attribute__((weak)) *get_multipath_config(void)
++{
++	return NULL;
++}
++
++void __attribute__((weak)) put_multipath_config(void *p __attribute__((unused)))
++{}
+diff --git a/libmpathutil/globals.h b/libmpathutil/globals.h
+new file mode 100644
+index 0000000..fab507e
+--- /dev/null
++++ b/libmpathutil/globals.h
+@@ -0,0 +1,39 @@
++#ifndef _GLOBALS_H
++#define _GLOBALS_H
++
++struct config;
++
++/**
++ * extern variable: udev
++ *
++ * A &struct udev instance used by libmultipath. libmultipath expects
++ * a valid, initialized &struct udev in this variable.
++ * An application can define this variable itself, in which case
++ * the applications's instance will take precedence.
++ * The application can initialize and destroy this variable by
++ * calling libmultipath_init() and libmultipath_exit(), respectively,
++ * whether or not it defines the variable itself.
++ * An application can initialize udev with udev_new() before calling
++ * libmultipath_init(), e.g. if it has to make libudev calls before
++ * libmultipath calls. If an application wants to keep using the
++ * udev variable after calling libmultipath_exit(), it should have taken
++ * an additional reference on it beforehand. This is the case e.g.
++ * after initializing udev with udev_new().
++ */
++extern struct udev *udev;
++
++/*
++ * libmultipath provides default implementations of
++ * get_multipath_config() and put_multipath_config().
++ * Applications using these should use init_config(file, NULL)
++ * to load the configuration, rather than load_config(file).
++ * Likewise, uninit_config() should be used for teardown, but
++ * using free_config() for that is supported, too.
++ * Applications can define their own {get,put}_multipath_config()
++ * functions, which override the library-internal ones, but
++ * could still call libmp_{get,put}_multipath_config().
++ */
++void put_multipath_config(void *);
++struct config *get_multipath_config(void);
++
++#endif
+diff --git a/libmpathutil/libmpathutil.version b/libmpathutil/libmpathutil.version
+new file mode 100644
+index 0000000..3be5558
+--- /dev/null
++++ b/libmpathutil/libmpathutil.version
+@@ -0,0 +1,123 @@
++/*
++ * Copyright (c) 2020 SUSE LLC
++ * SPDX-License-Identifier: GPL-2.0-or-later
++ *
++ * libmultipath ABI (libmpathutil part)
++ *
++ * libmultipath doesn't have a stable ABI in the usual sense. In particular,
++ * the library does not attempt to ship different versions of the same symbol
++ * for backward compatibility.
++ *
++ * The ABI versioning only serves to avoid linking with a non-matching ABI, to
++ * cut down the set of exported symbols, and to describe it.
++ * The version string is LIBMULTIPATH_$MAJOR.$MINOR.$REL.
++ *
++ * Policy:
++ *
++ * * Bump $MAJOR for incompatible changes, like:
++ *   - symbols removed
++ *   - parameter list or return values changed for existing functions
++ *   - externally visible data structures changed in incompatible ways
++ *     (like offsets of previously existing struct members)
++ *   In this case, the new version doesn't inherit the previous versions,
++ *   because the new library doesn't provide the full previous ABI any more.
++ *   All predecessors are merged into the new version.
++ *
++ * * Bump $MINOR for compatible changes, like adding symbols.
++ *   The new version inherits the previous ones.
++ *
++ * * Bump $REL to describe deviations from upstream, e.g. in
++ *   multipath-tools packages shipped by distributions.
++ *   The new version inherits the previous ones.
++ */
++
++/* symbols referenced by multipath and multipathd */
++LIBMULTIPATH_15.0.0 {
++global:
++	alloc_strvec;
++	append_strbuf_str;
++	cleanup_charp;
++	cleanup_mutex;
++	cleanup_ucharp;
++	close_fd;
++	convert_dev;
++	dlog;
++	fill_strbuf;
++	find_slot;
++	free_scandir_result;
++	free_strvec;
++	get_monotonic_time;
++	get_multipath_config;
++	get_next_string;
++	get_strbuf_len;
++	get_strbuf_str;
++	is_quote;
++	log_thread_reset;
++	log_thread_start;
++	log_thread_stop;
++	logsink;
++	normalize_timespec;
++	print_strbuf;
++	pthread_cond_init_mono;
++	put_multipath_config;
++	recv_packet;
++	reset_strbuf;
++	send_packet;
++	set_max_fds;
++	setup_thread_attr;
++	strchop;
++	strlcpy;
++	timespeccmp;
++	timespecsub;
++	truncate_strbuf;
++	udev;
++	ux_socket_listen;
++	vector_alloc;
++	vector_alloc_slot;
++	vector_del_slot;
++	vector_free;
++	vector_reset;
++	vector_set_slot;
++
++local:
++	*;
++};
++
++/* symbols referenced internally by libmultipath */
++LIBMPATHUTIL_1.0 {
++	alloc_bitfield;
++	__append_strbuf_str;
++	append_strbuf_quoted;
++	basenamecpy;
++	cleanup_free_ptr;
++	devt2devname;
++	filepresent;
++	find_keyword;
++	free_keywords;
++	get_linux_version_code;
++	__get_strbuf_buf;
++	get_word;
++	_install_keyword;
++	install_sublevel;
++	install_sublevel_end;
++	keyword_alloc;
++	libmp_verbosity;
++	_log_bitfield_overflow;
++	log_safe;
++	msort;
++	parse_devt;
++	parse_prkey;
++	process_file;
++	safe_write;
++	set_value;
++	should_exit;
++	snprint_keyword;
++	steal_strbuf_str;
++	strlcat;
++	systemd_service_enabled;
++	validate_config_strvec;
++	vector_find_or_add_slot;
++	vector_insert_slot;
++	vector_move_up;
++	vector_sort;
++};
+diff --git a/libmultipath/log.c b/libmpathutil/log.c
+similarity index 100%
+rename from libmultipath/log.c
+rename to libmpathutil/log.c
+diff --git a/libmultipath/log.h b/libmpathutil/log.h
+similarity index 100%
+rename from libmultipath/log.h
+rename to libmpathutil/log.h
+diff --git a/libmultipath/log_pthread.c b/libmpathutil/log_pthread.c
+similarity index 100%
+rename from libmultipath/log_pthread.c
+rename to libmpathutil/log_pthread.c
+diff --git a/libmultipath/log_pthread.h b/libmpathutil/log_pthread.h
+similarity index 100%
+rename from libmultipath/log_pthread.h
+rename to libmpathutil/log_pthread.h
+diff --git a/libmultipath/msort.c b/libmpathutil/msort.c
+similarity index 100%
+rename from libmultipath/msort.c
+rename to libmpathutil/msort.c
+diff --git a/libmultipath/msort.h b/libmpathutil/msort.h
+similarity index 100%
+rename from libmultipath/msort.h
+rename to libmpathutil/msort.h
+diff --git a/libmultipath/parser.c b/libmpathutil/parser.c
+similarity index 100%
+rename from libmultipath/parser.c
+rename to libmpathutil/parser.c
+diff --git a/libmultipath/parser.h b/libmpathutil/parser.h
+similarity index 99%
+rename from libmultipath/parser.h
+rename to libmpathutil/parser.h
+index 11ea227..9d9d948 100644
+--- a/libmultipath/parser.h
++++ b/libmpathutil/parser.h
+@@ -33,8 +33,8 @@
+ 
+ /* local includes */
+ #include "vector.h"
+-#include "config.h"
+ struct strbuf;
++struct config;
+ 
+ /* Global definitions */
+ #define EOB  "}"
+diff --git a/libmultipath/strbuf.c b/libmpathutil/strbuf.c
+similarity index 100%
+rename from libmultipath/strbuf.c
+rename to libmpathutil/strbuf.c
+diff --git a/libmultipath/strbuf.h b/libmpathutil/strbuf.h
+similarity index 100%
+rename from libmultipath/strbuf.h
+rename to libmpathutil/strbuf.h
+diff --git a/libmultipath/time-util.c b/libmpathutil/time-util.c
+similarity index 100%
+rename from libmultipath/time-util.c
+rename to libmpathutil/time-util.c
+diff --git a/libmultipath/time-util.h b/libmpathutil/time-util.h
+similarity index 100%
+rename from libmultipath/time-util.h
+rename to libmpathutil/time-util.h
+diff --git a/libmultipath/util.c b/libmpathutil/util.c
+similarity index 100%
+rename from libmultipath/util.c
+rename to libmpathutil/util.c
+diff --git a/libmultipath/util.h b/libmpathutil/util.h
+similarity index 100%
+rename from libmultipath/util.h
+rename to libmpathutil/util.h
+diff --git a/libmultipath/uxsock.c b/libmpathutil/uxsock.c
+similarity index 100%
+rename from libmultipath/uxsock.c
+rename to libmpathutil/uxsock.c
+diff --git a/libmultipath/uxsock.h b/libmpathutil/uxsock.h
+similarity index 100%
+rename from libmultipath/uxsock.h
+rename to libmpathutil/uxsock.h
+diff --git a/libmultipath/vector.c b/libmpathutil/vector.c
+similarity index 100%
+rename from libmultipath/vector.c
+rename to libmpathutil/vector.c
+diff --git a/libmultipath/vector.h b/libmpathutil/vector.h
+similarity index 100%
+rename from libmultipath/vector.h
+rename to libmpathutil/vector.h
+diff --git a/libmpathvalid/Makefile b/libmpathvalid/Makefile
+index 0a51925..5dbfb92 100644
+--- a/libmpathvalid/Makefile
++++ b/libmpathvalid/Makefile
+@@ -5,11 +5,11 @@ DEVLIB = libmpathvalid.so
+ LIBS = $(DEVLIB).$(SONAME)
+ VERSION_SCRIPT := libmpathvalid.version
+ 
+-CPPFLAGS += -I$(multipathdir) -I$(mpathcmddir)
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathcmddir)
+ CFLAGS += $(LIB_CFLAGS)
+ 
+-LIBDEPS += -lpthread -ldevmapper -ldl -L$(multipathdir) \
+-	   -lmultipath -L$(mpathcmddir) -lmpathcmd -ludev
++LIBDEPS += -lpthread -ldevmapper -ldl -L$(multipathdir) -lmultipath \
++	   -L$(mpathutildir) -lmpathutil -L$(mpathcmddir) -lmpathcmd -ludev
+ 
+ OBJS = mpath_valid.o
+ 
+diff --git a/libmultipath/Makefile b/libmultipath/Makefile
+index 6e87a16..3b60a52 100644
+--- a/libmultipath/Makefile
++++ b/libmultipath/Makefile
+@@ -8,10 +8,10 @@ DEVLIB = libmultipath.so
+ LIBS = $(DEVLIB).$(SONAME)
+ VERSION_SCRIPT := libmultipath.version
+ 
+-CPPFLAGS += -I$(mpathcmddir) -I$(nvmedir) -D_GNU_SOURCE
++CPPFLAGS += -I$(mpathutildir) -I$(mpathcmddir) -I$(nvmedir) -D_GNU_SOURCE
+ CFLAGS += $(LIB_CFLAGS)
+ 
+-LIBDEPS += -lpthread -ldl -ldevmapper -ludev -L$(mpathcmddir) -lmpathcmd -lurcu -laio
++LIBDEPS += -lpthread -ldl -ldevmapper -ludev -L$(mpathutildir) -lmpathutil -L$(mpathcmddir) -lmpathcmd -lurcu -laio
+ 
+ ifdef SYSTEMD
+ 	CPPFLAGS += -DUSE_SYSTEMD=$(SYSTEMD)
+@@ -56,15 +56,14 @@ OBJS-U := prio.o checkers.o foreign.o config.o
+ OBJS-T := $(patsubst %.o,%-test.o,$(OBJS-U))
+ 
+ # other object files
+-OBJS-O := parser.o vector.o devmapper.o \
+-	hwtable.o blacklist.o util.o dmparser.o \
++OBJS-O := devmapper.o hwtable.o blacklist.o dmparser.o \
+ 	structs.o discovery.o propsel.o dict.o \
+-	pgpolicies.o debug.o defaults.o uevent.o time-util.o \
+-	switchgroup.o uxsock.o print.o alias.o log_pthread.o \
+-	log.o configure.o structs_vec.o sysfs.o \
++	pgpolicies.o defaults.o uevent.o \
++	switchgroup.o print.o alias.o \
++	configure.o structs_vec.o sysfs.o \
+ 	lock.o file.o wwids.o prioritizers/alua_rtpg.o prkey.o \
+ 	io_err_stat.o dm-generic.o generic.o nvme-lib.o \
+-	libsg.o valid.o strbuf.o msort.o
++	libsg.o valid.o
+ 
+ OBJS := $(OBJS-O) $(OBJS-U)
+ 
+diff --git a/libmultipath/checkers/Makefile b/libmultipath/checkers/Makefile
+index 69de1ed..c9a2c4c 100644
+--- a/libmultipath/checkers/Makefile
++++ b/libmultipath/checkers/Makefile
+@@ -4,10 +4,10 @@
+ TOPDIR = ../..
+ include ../../Makefile.inc
+ 
+-CPPFLAGS += -I$(multipathdir)
++CPPFLAGS +=  -I$(multipathdir) -I$(mpathutildir)
+ CFLAGS += $(LIB_CFLAGS)
+-LDFLAGS += -L$(multipathdir)
+-LIBDEPS = -lmultipath -laio -lpthread -lrt
++LDFLAGS += -L$(multipathdir) -L$(mpathutildir)
++LIBDEPS = -lmultipath -lmpathutil -laio -lpthread -lrt
+ 
+ # If you add or remove a checker also update multipath/multipath.conf.5
+ LIBS= \
 diff --git a/libmultipath/config.h b/libmultipath/config.h
-index fdcdff0..2d00ad2 100644
+index 2d00ad2..8794746 100644
 --- a/libmultipath/config.h
 +++ b/libmultipath/config.h
-@@ -303,17 +303,6 @@ void free_config (struct config * conf);
- int init_config(const char *file);
+@@ -6,6 +6,7 @@
+ #include <urcu.h>
+ #include <inttypes.h>
+ #include "byteorder.h"
++#include "globals.h"
+ 
+ #define ORIGIN_DEFAULT 0
+ #define ORIGIN_CONFIG  1
+@@ -304,9 +305,7 @@ int init_config(const char *file);
  void uninit_config(void);
  
--/*
-- * libmultipath provides default implementations of
-- * get_multipath_config() and put_multipath_config().
-- * Applications using these should use init_config(file, NULL)
-- * to load the configuration, rather than load_config(file).
-- * Likewise, uninit_config() should be used for teardown, but
-- * using free_config() for that is supported, too.
-- * Applications can define their own {get,put}_multipath_config()
-- * functions, which override the library-internal ones, but
-- * could still call libmp_{get,put}_multipath_config().
-- */
  struct config *libmp_get_multipath_config(void);
- struct config *get_multipath_config(void);
+-struct config *get_multipath_config(void);
  void libmp_put_multipath_config(void *);
+-void put_multipath_config(void *);
+ 
+ int parse_uid_attrs(char *uid_attrs, struct config *conf);
+ const char *get_uid_attribute_by_attrs(const struct config *conf,
+diff --git a/libmultipath/foreign/Makefile b/libmultipath/foreign/Makefile
+index 3d4491a..d0232f2 100644
+--- a/libmultipath/foreign/Makefile
++++ b/libmultipath/foreign/Makefile
+@@ -4,10 +4,10 @@
+ TOPDIR=../..
+ include ../../Makefile.inc
+ 
+-CPPFLAGS += -I$(multipathdir) -I$(nvmedir)
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(nvmedir)
+ CFLAGS += $(LIB_CFLAGS)
+-LDFLAGS += -L$(multipathdir)
+-LIBDEPS = -lmultipath -ludev -lpthread -lrt
++LDFLAGS += -L$(multipathdir) -L$(mpathutildir)
++LIBDEPS = -lmultipath -lmpathutil -ludev -lpthread -lrt
+ 
+ LIBS = libforeign-nvme.so
+ 
+diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
+index c1d9b15..1cda40b 100644
+--- a/libmultipath/libmultipath.version
++++ b/libmultipath/libmultipath.version
+@@ -42,8 +42,6 @@ global:
+ 	alloc_path;
+ 	alloc_path_layout;
+ 	alloc_path_with_pathinfo;
+-	alloc_strvec;
+-	append_strbuf_str;
+ 	change_foreign;
+ 	check_alias_settings;
+ 	check_daemon;
+@@ -54,17 +52,11 @@ global:
+ 	checker_name;
+ 	checker_state_name;
+ 	check_foreign;
+-	cleanup_charp;
+ 	cleanup_lock;
+-	cleanup_mutex;
+-	cleanup_ucharp;
+-	close_fd;
+ 	coalesce_paths;
+-	convert_dev;
+ 	count_active_paths;
+ 	delete_all_foreign;
+ 	delete_foreign;
+-	dlog;
+ 	dm_cancel_deferred_remove;
+ 	dm_enablegroup;
+ 	dm_fail_path;
+@@ -99,7 +91,6 @@ global:
+ 	find_mpe;
+ 	find_path_by_dev;
+ 	find_path_by_devt;
+-	find_slot;
+ 	foreign_multipath_layout;
+ 	foreign_path_layout;
+ 	free_config;
+@@ -107,16 +98,12 @@ global:
+ 	free_multipathvec;
+ 	free_path;
+ 	free_pathvec;
+-	free_strvec;
+-	get_monotonic_time;
+ 	get_multipath_config;
+ 	get_multipath_layout;
+ 	get_path_layout;
+ 	get_pgpolicy_id;
+ 	get_refwwid;
+ 	get_state;
+-	get_strbuf_len;
+-	get_strbuf_str;
+ 	get_udev_device;
+ 	get_uid;
+ 	get_used_hwes;
+@@ -129,7 +116,6 @@ global:
+ 	init_prio;
+ 	io_err_stat_handle_pathfail;
+ 	is_path_valid;
+-	is_quote;
+ 	libmp_dm_task_create;
+ 	libmp_get_version;
+ 	libmp_get_multipath_config;
+@@ -140,12 +126,7 @@ global:
+ 	libmultipath_exit;
+ 	libmultipath_init;
+ 	load_config;
+-	log_thread_reset;
+-	log_thread_start;
+-	log_thread_stop;
+-	logsink;
+ 	need_io_err_check;
+-	normalize_timespec;
+ 	orphan_path;
+ 	parse_prkey_flags;
+ 	pathcount;
+@@ -156,10 +137,7 @@ global:
+ 	print_all_paths;
+ 	print_foreign_topology;
+ 	_print_multipath_topology;
+-	print_strbuf;
+-	pthread_cond_init_mono;
+ 	put_multipath_config;
+-	recv_packet;
+ 	reinstate_paths;
+ 	remember_wwid;
+ 	remove_map;
+@@ -169,20 +147,16 @@ global:
+ 	remove_wwid;
+ 	replace_wwids;
+ 	reset_checker_classes;
+-	reset_strbuf;
+ 	select_all_tg_pt;
+ 	select_action;
+ 	select_find_multipaths_timeout;
+ 	select_no_path_retry;
+ 	select_path_group;
+ 	select_reservation_key;
+-	send_packet;
+-	set_max_fds;
+ 	set_no_path_retry;
+ 	set_path_removed;
+ 	set_prkey;
+ 	setup_map;
+-	setup_thread_attr;
+ 	should_multipath;
+ 	skip_libmp_dm_init;
+ 	snprint_blacklist_report;
+@@ -204,16 +178,11 @@ global:
+ 	stop_io_err_stat_thread;
+ 	store_path;
+ 	store_pathinfo;
+-	strchop;
+-	strlcpy;
+ 	sync_map_state;
+ 	sysfs_get_size;
+ 	sysfs_is_multipathed;
+-	timespeccmp;
+-	timespecsub;
+ 	trigger_path_udev_change;
+ 	trigger_paths_udev_change;
+-	truncate_strbuf;
+ 	udev;
+ 	uevent_dispatch;
+ 	uevent_get_dm_str;
+@@ -226,14 +195,7 @@ global:
+ 	update_multipath_table;
+ 	update_queue_mode_add_path;
+ 	update_queue_mode_del_path;
+-	ux_socket_listen;
+ 	valid_alias;
+-	vector_alloc;
+-	vector_alloc_slot;
+-	vector_del_slot;
+-	vector_free;
+-	vector_reset;
+-	vector_set_slot;
+ 	verify_paths;
+ 
+ 	/* checkers */
+@@ -242,9 +204,7 @@ global:
+ 	start_checker_thread;
+ 
+ 	/* prioritizers */
+-	fill_strbuf;
+ 	get_asymmetric_access_state;
+-	get_next_string;
+ 	get_prio_timeout;
+ 	get_target_port_group;
+ 	get_target_port_group_support;
+@@ -262,7 +222,6 @@ global:
+ 	sysfs_get_asymmetric_access_state;
+ 
+ 	/* foreign */
+-	free_scandir_result;
+ 
+ local:
+ 	*;
+diff --git a/libmultipath/prioritizers/Makefile b/libmultipath/prioritizers/Makefile
+index eb6f03b..400f773 100644
+--- a/libmultipath/prioritizers/Makefile
++++ b/libmultipath/prioritizers/Makefile
+@@ -5,10 +5,10 @@ TOPDIR=../..
+ 
+ include ../../Makefile.inc
+ 
+-CPPFLAGS += -I$(multipathdir)
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir)
+ CFLAGS += $(LIB_CFLAGS)
+-LDFLAGS += -L$(multipathdir)
+-LIBDEPS = -lmultipath -lm -lpthread -lrt
++LDFLAGS += -L$(multipathdir) -L$(mpathutildir)
++LIBDEPS = -lmultipath -lmpathutil -lm -lpthread -lrt
+ 
+ # If you add or remove a prioritizer also update multipath/multipath.conf.5
+ LIBS = \
+diff --git a/mpathpersist/Makefile b/mpathpersist/Makefile
+index 2e4d483..2219c86 100644
+--- a/mpathpersist/Makefile
++++ b/mpathpersist/Makefile
+@@ -1,11 +1,11 @@
+ include ../Makefile.inc
+ 
+-CPPFLAGS += -I$(multipathdir) -I$(mpathpersistdir)
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathpersistdir)
+ CFLAGS += $(BIN_CFLAGS)
+ LDFLAGS += $(BIN_LDFLAGS)
+ 
+ LIBDEPS += -L$(mpathpersistdir) -lmpathpersist -L$(multipathdir) -lmultipath \
+-	-L$(mpathcmddir) -lmpathcmd -lpthread -ldevmapper -ludev
++	-L$(mpathutildir) -lmpathutil -L$(mpathcmddir) -lmpathcmd -lpthread -ldevmapper -ludev
+ 
+ EXEC = mpathpersist
+ 
+diff --git a/multipath/Makefile b/multipath/Makefile
+index bcb0453..46b7553 100644
+--- a/multipath/Makefile
++++ b/multipath/Makefile
+@@ -3,11 +3,11 @@
+ #
+ include ../Makefile.inc
+ 
+-CPPFLAGS += -I$(multipathdir) -I$(mpathcmddir)
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathcmddir)
+ CFLAGS += $(BIN_CFLAGS)
+ LDFLAGS += $(BIN_LDFLAGS)
+-LIBDEPS += -L$(multipathdir) -lmultipath -L$(mpathcmddir) -lmpathcmd \
+-	-lpthread -ldevmapper -ldl -ludev
++LIBDEPS += -L$(multipathdir) -lmultipath -L$(mpathutildir) -lmpathutil \
++	-L$(mpathcmddir) -lmpathcmd -lpthread -ldevmapper -ldl -ludev
+ 
+ EXEC = multipath
+ 
+diff --git a/multipathd/Makefile b/multipathd/Makefile
+index 95acd88..7128510 100644
+--- a/multipathd/Makefile
++++ b/multipathd/Makefile
+@@ -15,14 +15,16 @@ endif
+ #CPPFLAGS += -D_DEBUG_
+ #CPPFLAGS += -DLOGDBG
+ 
+-CPPFLAGS += -I$(multipathdir) -I$(mpathpersistdir) -I$(mpathcmddir) -I$(thirdpartydir) \
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathpersistdir) -I$(mpathcmddir) -I$(thirdpartydir) \
+ 	$(shell $(PKGCONFIG) --modversion liburcu 2>/dev/null | \
+ 		awk -F. '{ printf("-DURCU_VERSION=0x%06x", 256 * ( 256 * $$1 + $$2) + $$3); }')
+ CFLAGS += $(BIN_CFLAGS)
+ LDFLAGS += $(BIN_LDFLAGS)
++
++CLI_LIBDEPS :=  -L$(mpathutildir) -lmpathutil -L$(mpathcmddir) -lmpathcmd -ludev -ldl -lurcu -lpthread
+ LIBDEPS += -L$(multipathdir) -lmultipath -L$(mpathpersistdir) -lmpathpersist \
+-	   -L$(mpathcmddir) -lmpathcmd -ludev -ldl -lurcu -lpthread \
+-	   -ldevmapper
++	   -ldevmapper $(CLI_LIBDEPS)
++
+ 
+ ifeq ($(READLINE),libedit)
+ CPPFLAGS += -DUSE_LIBEDIT
+@@ -36,9 +38,9 @@ endif
+ ifdef SYSTEMD
+ 	CPPFLAGS += -DUSE_SYSTEMD=$(SYSTEMD)
+ 	ifeq ($(shell test $(SYSTEMD) -gt 209 && echo 1), 1)
+-		LIBDEPS += -lsystemd
++		CLI_LIBDEPS += -lsystemd
+ 	else
+-		LIBDEPS += -lsystemd-daemon
++		CLI_LIBDEPS += -lsystemd-daemon
+ 	endif
+ endif
+ ifeq ($(ENABLE_DMEVENTS_POLL),0)
+diff --git a/tests/Makefile b/tests/Makefile
+index 95a9990..9866962 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -11,9 +11,9 @@ TEST_MISSING_INITIALIZERS = $(shell \
+ 	|| echo -Wno-missing-field-initializers)
+ W_MISSING_INITIALIZERS := $(call TEST_MISSING_INITIALIZERS)
+ 
+-CPPFLAGS += -I$(multipathdir) -I$(mpathcmddir) -DTESTCONFDIR=\"$(TESTDIR)/conf.d\"
++CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathcmddir) -DTESTCONFDIR=\"$(TESTDIR)/conf.d\"
+ CFLAGS += $(BIN_CFLAGS) -Wno-unused-parameter $(W_MISSING_INITIALIZERS)
+-LIBDEPS += -L. -L$(mpathcmddir) -lmultipath -lmpathcmd -lcmocka
++LIBDEPS += -L. -L $(mpathutildir) -L$(mpathcmddir) -lmultipath -lmpathutil -lmpathcmd -lcmocka
+ 
+ TESTS := uevent parser util dmevents hwtable blacklist unaligned vpd pgpolicy \
+ 	 alias directio valid devt mpathvalid strbuf sysfs
+@@ -69,9 +69,9 @@ mpathvalid-test_OBJDEPS := ../libmpathvalid/mpath_valid.o
+ ifneq ($(DIO_TEST_DEV),)
+ directio-test_LIBDEPS := -laio
+ endif
+-strbuf-test_OBJDEPS := ../libmultipath/strbuf.o
++strbuf-test_OBJDEPS := ../libmpathutil/strbuf.o
+ sysfs-test_TESTDEPS := test-log.o
+-sysfs-test_OBJDEPS := ../libmultipath/sysfs.o ../libmultipath/util.o
++sysfs-test_OBJDEPS := ../libmultipath/sysfs.o ../libmpathutil/util.o
+ sysfs-test_LIBDEPS := -ludev -lpthread -ldl
+ 
+ %.o: %.c
+@@ -83,11 +83,11 @@ lib/libchecktur.so:
+ 
+ %.out:	%-test lib/libchecktur.so
+ 	@echo == running $< ==
+-	@LD_LIBRARY_PATH=.:$(mpathcmddir) ./$< >$@
++	@LD_LIBRARY_PATH=.:$(mpathutildir):$(mpathcmddir) ./$< >$@
+ 
+ %.vgr:  %-test lib/libchecktur.so
+ 	@echo == running valgrind for $< ==
+-	@LD_LIBRARY_PATH=.:$(mpathcmddir) \
++	@LD_LIBRARY_PATH=.:$(mpathutildir):$(mpathcmddir) \
+ 		valgrind --leak-check=full --error-exitcode=128 ./$< >$@ 2>&1
+ 
+ OBJS = $(TESTS:%=%.o) $(HELPERS)
 -- 
 2.37.1
 
