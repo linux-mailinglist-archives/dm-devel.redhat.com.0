@@ -1,81 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0393B5A9CAE
-	for <lists+dm-devel@lfdr.de>; Thu,  1 Sep 2022 18:11:10 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AC7FD5A9CAB
+	for <lists+dm-devel@lfdr.de>; Thu,  1 Sep 2022 18:11:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662048670;
+	s=mimecast20190719; t=1662048664;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Jl8kEOWPuu7JZRgGulwVMsOgy9KNkevBMt4J4PyPobw=;
-	b=ZbuguzUwJLrky3mthRykWTFKRpE1SZQ9oOtHyahIuqJrgpupcIm7qahHYcLoBLEWAeULGM
-	fnNXvg44VNhuwEgRpI44TNDlQynw36tDCIOQc5ZpBYIel3pVzkov0r2ulJBgyf5gmBPlAa
-	vXMox0SW0mB0FEYiwn1IVxDt4bWbMHo=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=eFon/CK3BRwOcxGUkiW8WtiB72Ly9i2W5sv9jR6KKd8=;
+	b=Ts4lN25GqcoAABwfN1h6m/jRmbY9co3pM8+NhYT4FNjeAcx1NfOGJi02SmXoC9s4Qs03g4
+	bEsZ3SGNyxLTM3LSz/0dVhHpycZQtBvRqPj+ZE7eD64K1a/ic8PiR2shruLXvdlY4AZYQK
+	HbvETfdPMBMaYUANDQbtGt4T80Ou1Uw=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-462-2WbEKI5JN7mq-cYVRenrhA-1; Thu, 01 Sep 2022 12:11:08 -0400
-X-MC-Unique: 2WbEKI5JN7mq-cYVRenrhA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-546-IdgQLeffPLSPl77rAjyc4A-1; Thu, 01 Sep 2022 12:10:23 -0400
+X-MC-Unique: IdgQLeffPLSPl77rAjyc4A-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F805296A612;
-	Thu,  1 Sep 2022 16:11:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D7161802E87;
+	Thu,  1 Sep 2022 16:10:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E6341415125;
-	Thu,  1 Sep 2022 16:11:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 30381492C3B;
+	Thu,  1 Sep 2022 16:10:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 313381946A5E;
-	Thu,  1 Sep 2022 16:11:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0E4B2194B966;
+	Thu,  1 Sep 2022 16:10:15 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1D621194B945
- for <dm-devel@listman.corp.redhat.com>; Thu,  1 Sep 2022 16:10:14 +0000 (UTC)
+ ESMTP id 50D67194322D
+ for <dm-devel@listman.corp.redhat.com>; Thu,  1 Sep 2022 16:10:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0FF37403162; Thu,  1 Sep 2022 16:10:14 +0000 (UTC)
+ id 2ED9D4C819; Thu,  1 Sep 2022 16:10:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0C705492C3B
- for <dm-devel@redhat.com>; Thu,  1 Sep 2022 16:10:14 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D11DB85A58F
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B462945D0
  for <dm-devel@redhat.com>; Thu,  1 Sep 2022 16:10:13 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1260D80A0AE
+ for <dm-devel@redhat.com>; Thu,  1 Sep 2022 16:10:13 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-452-gabTdKEYOtCMdglu6TS01g-1; Thu,
- 01 Sep 2022 12:10:12 -0400
-X-MC-Unique: gabTdKEYOtCMdglu6TS01g-1
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-227-83nMUIsdMNKrUCrg9utZmw-1; Thu,
+ 01 Sep 2022 12:10:11 -0400
+X-MC-Unique: 83nMUIsdMNKrUCrg9utZmw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 4398B22B2B;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 7A6FA2021F;
  Thu,  1 Sep 2022 16:10:09 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0FADA13A79;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4C99F13A79;
  Thu,  1 Sep 2022 16:10:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4HFRAmHZEGMPDQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id uB0UEWHZEGMPDQAAMHmgww
  (envelope-from <mwilck@suse.com>); Thu, 01 Sep 2022 16:10:09 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu,  1 Sep 2022 18:09:48 +0200
-Message-Id: <20220901160952.2167-13-mwilck@suse.com>
+Date: Thu,  1 Sep 2022 18:09:49 +0200
+Message-Id: <20220901160952.2167-14-mwilck@suse.com>
 In-Reply-To: <20220901160952.2167-1-mwilck@suse.com>
 References: <20220901160952.2167-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -86,9 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH 12/16] libmultipath: cleanup_free_ptr(): avoid
- double free
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: [dm-devel] [PATCH 13/16] multipath:
+ find_multipaths_check_timeout(): no need for pthread cleanup
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +103,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -111,29 +111,55 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-... by nullifying the passed pointer after freeing it.
+multipath is not a multithreaded program, no pthread-cancel complexity
+is necesssary here.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmpathutil/util.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ multipath/main.c | 8 +++-----
+ 1 file changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/libmpathutil/util.c b/libmpathutil/util.c
-index 1539738..6692ac2 100644
---- a/libmpathutil/util.c
-+++ b/libmpathutil/util.c
-@@ -391,8 +391,10 @@ void cleanup_free_ptr(void *arg)
- {
- 	void **p = arg;
+diff --git a/multipath/main.c b/multipath/main.c
+index fbff6b7..7b69a3c 100644
+--- a/multipath/main.c
++++ b/multipath/main.c
+@@ -321,7 +321,7 @@ static int find_multipaths_check_timeout(const struct path *pp, long tmo,
+ 	char path[PATH_MAX];
+ 	struct timespec now, ftimes[2], tdiff;
+ 	struct stat st;
+-	int fd = -1;
++	int fd;
+ 	int r, retries = 0;
  
--	if (p && *p)
-+	if (p && *p) {
- 		free(*p);
-+		*p = NULL;
-+	}
- }
+ 	clock_gettime(CLOCK_REALTIME, &now);
+@@ -339,9 +339,8 @@ static int find_multipaths_check_timeout(const struct path *pp, long tmo,
+ retry:
+ 	fd = open(path, O_RDONLY);
+ 	if (fd != -1) {
+-		pthread_cleanup_push(cleanup_fd_ptr, &fd);
+ 		r = fstat(fd, &st);
+-		pthread_cleanup_pop(1);
++		close(fd);
  
- void cleanup_fd_ptr(void *arg)
+ 	} else if (tmo > 0) {
+ 		if (errno == ENOENT)
+@@ -355,7 +354,6 @@ retry:
+ 			return FIND_MULTIPATHS_ERROR;
+ 		};
+ 
+-		pthread_cleanup_push(cleanup_fd_ptr, &fd);
+ 		/*
+ 		 * We just created the file. Set st_mtim to our desired
+ 		 * expiry time.
+@@ -369,7 +367,7 @@ retry:
+ 				path, strerror(errno));
+ 		}
+ 		r = fstat(fd, &st);
+-		pthread_cleanup_pop(1);
++		close(fd);
+ 	} else
+ 		return FIND_MULTIPATHS_NEVER;
+ 
 -- 
 2.37.1
 
