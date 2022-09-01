@@ -1,82 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CCBD35A9CA3
-	for <lists+dm-devel@lfdr.de>; Thu,  1 Sep 2022 18:10:30 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E01E5A9CAA
+	for <lists+dm-devel@lfdr.de>; Thu,  1 Sep 2022 18:11:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662048630;
+	s=mimecast20190719; t=1662048663;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=i/j8mU7fv1RWAHegEssYd57yXC7ZDRyXfP56vDN2wyQ=;
-	b=UPWJ8s2P2DLnemkMWe7SpxrnuSEXXml6gws5N4ZEQ8KwuTZfsgU1ZVJsNtZgUt7OOFnmui
-	SqtbJAmbzB4bVbT/sXzbxbqDUdRzFvleBk1lUvBS0FS6QR3HrwE9/+E5ui7OFoHM5QbLHG
-	MQKMFBFvIWNJKmPmnipFGztfbOcPxRM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=hN8ylsvld8sWds11Rw+amdJUJUdmE7LHcPWBCqhIWAA=;
+	b=Cto0SU04vHr8W3cPO2N111iPV+xPx1FD0kyiPiGOTEvdk1JLt5ooUIjREfomGZiwjnw/Nd
+	4P3VJ5a5+aV0tOv/QvSWId1bgbqJkpIV9mpBqfzI2jZYliauP8/ICGXON1sSPv3ld8o0PE
+	n56FiNOsYaZ7L5llJ3tqJS1RhELl288=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-351-daBzDdXuNe-uC00jdxFfaQ-1; Thu, 01 Sep 2022 12:10:28 -0400
-X-MC-Unique: daBzDdXuNe-uC00jdxFfaQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-546-1Pxs30VOMsmChuQZCOzSYw-1; Thu, 01 Sep 2022 12:10:23 -0400
+X-MC-Unique: 1Pxs30VOMsmChuQZCOzSYw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FF562A2AD4C;
-	Thu,  1 Sep 2022 16:10:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C588185A794;
+	Thu,  1 Sep 2022 16:10:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A525C15BC3;
-	Thu,  1 Sep 2022 16:10:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 07A414C819;
+	Thu,  1 Sep 2022 16:10:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EAE20194B941;
-	Thu,  1 Sep 2022 16:10:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BE84F194B977;
+	Thu,  1 Sep 2022 16:10:14 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C72441946A5E
- for <dm-devel@listman.corp.redhat.com>; Thu,  1 Sep 2022 16:10:12 +0000 (UTC)
+ ESMTP id 152C2194B940
+ for <dm-devel@listman.corp.redhat.com>; Thu,  1 Sep 2022 16:10:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AB6F7403162; Thu,  1 Sep 2022 16:10:12 +0000 (UTC)
+ id E992FC15BBA; Thu,  1 Sep 2022 16:10:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A7AC6492C3B
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E5D10C15BB3
  for <dm-devel@redhat.com>; Thu,  1 Sep 2022 16:10:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E66429324A9
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D03C22932499
  for <dm-devel@redhat.com>; Thu,  1 Sep 2022 16:10:12 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-241-0Q9M8fPyNkmjEjtCJaCwEg-1; Thu,
- 01 Sep 2022 12:10:10 -0400
-X-MC-Unique: 0Q9M8fPyNkmjEjtCJaCwEg-1
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-372-f-BW4ut9PWy38K9CC2oBqA-1; Thu,
+ 01 Sep 2022 12:10:11 -0400
+X-MC-Unique: f-BW4ut9PWy38K9CC2oBqA-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8236820220;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id B8AB222B36;
  Thu,  1 Sep 2022 16:10:08 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4EAE513A79;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 8D3A213A79;
  Thu,  1 Sep 2022 16:10:08 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id iJS9EWDZEGMPDQAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id OITXIGDZEGMPDQAAMHmgww
  (envelope-from <mwilck@suse.com>); Thu, 01 Sep 2022 16:10:08 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Thu,  1 Sep 2022 18:09:45 +0200
-Message-Id: <20220901160952.2167-10-mwilck@suse.com>
+Date: Thu,  1 Sep 2022 18:09:46 +0200
+Message-Id: <20220901160952.2167-11-mwilck@suse.com>
 In-Reply-To: <20220901160952.2167-1-mwilck@suse.com>
 References: <20220901160952.2167-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,9 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.10
-Subject: [dm-devel] [PATCH 09/16] tests/Makefile: redirect program output
- into output file
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+Subject: [dm-devel] [PATCH 10/16] GitHub workflows: package shared objects
+ in artifact
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,7 +103,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -112,26 +111,27 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The test program output is too verbose to read every time.
+As we are now using symlinks under tests/lib, the .so files under
+checkers, prioritizers, and foreign need to be packaged, too.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- tests/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ .github/workflows/foreign.yaml | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/tests/Makefile b/tests/Makefile
-index 7c42d06..109ea75 100644
---- a/tests/Makefile
-+++ b/tests/Makefile
-@@ -83,7 +83,7 @@ lib/libchecktur.so:
- 
- %.out:	%-test lib/libchecktur.so
- 	@echo == running $< ==
--	@LD_LIBRARY_PATH=.:$(mpathutildir):$(mpathcmddir) ./$< >$@
-+	@LD_LIBRARY_PATH=.:$(mpathutildir):$(mpathcmddir) ./$< >$@ 2>&1
- 
- %.vgr:  %-test lib/libchecktur.so
- 	@echo == running valgrind for $< ==
+diff --git a/.github/workflows/foreign.yaml b/.github/workflows/foreign.yaml
+index 8fc6d49..bd4e9c1 100644
+--- a/.github/workflows/foreign.yaml
++++ b/.github/workflows/foreign.yaml
+@@ -32,6 +32,8 @@ jobs:
+           tar cfv binaries.tar
+           Makefile*
+           libmpathcmd/*.so* libmultipath/*.so* libmpathutil/*.so*
++          libmultipath/checkers/*.so libmultipath/prioritizers/*.so
++          libmultipath/foreign/*.so
+           tests/lib tests/*-test tests/Makefile tests/*.so*
+       - uses: actions/upload-artifact@v1
+         if: ${{ matrix.arch != '' && matrix.arch != '-i386' }}
 -- 
 2.37.1
 
