@@ -1,103 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 50DC35AA430
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Sep 2022 02:18:31 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 366365AA45C
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Sep 2022 02:29:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662077910;
+	s=mimecast20190719; t=1662078551;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2R307usxmnSwhJ7EoJdFmpg3S2GYPD3KTI79Ulz/lQ0=;
-	b=IBj1YusgDqc69s8hG93mGUxtXDGhXFUKoeiOzoOZ6iQjcebECuJrGo2NMCvxvsVYX18wbG
-	FGP+rgaUN0RZqcLl2jB6Trz+Gk7zynGIw156uqwi6JuVv1B3plW9fBeRgDRux0z6ePA2Nd
-	pKXGDLp34zxt5ic/Ah9e2brEIY+z+B0=
+	bh=KvzX9/mNwxmuW+AaIDEdAdOWhEczKaEiKtl0WwRRZ64=;
+	b=anVMgt44MChxhYhbSoVqYpF1TAnwgsSBTOVnCZ4WILfS2+nOfH6hBby6wBvTEjduquMpiJ
+	0dTcuTXCujvEqfj19LJQFUpfyb4e7AFqfspPrJVn3NwXl+sARJ2kls9kHZw3dqu6tSoFw+
+	tZT+MerTYpzZMe2GdUoiw2JpCeltW1Q=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-131-0bMFIZ_-PG2nIJQ8w5byAQ-1; Thu, 01 Sep 2022 20:18:28 -0400
-X-MC-Unique: 0bMFIZ_-PG2nIJQ8w5byAQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-538--MvP5tpSMESh-RtDJ0fPbQ-1; Thu, 01 Sep 2022 20:29:09 -0400
+X-MC-Unique: -MvP5tpSMESh-RtDJ0fPbQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1CFE6380406A;
-	Fri,  2 Sep 2022 00:18:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0BCF029ABA09;
+	Fri,  2 Sep 2022 00:29:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 05D22492C3B;
-	Fri,  2 Sep 2022 00:18:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B528C40CF8F2;
+	Fri,  2 Sep 2022 00:29:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE1A119426AB;
-	Fri,  2 Sep 2022 00:18:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C755A1940343;
+	Fri,  2 Sep 2022 00:29:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 20DAE1946A5E
- for <dm-devel@listman.corp.redhat.com>; Fri,  2 Sep 2022 00:18:24 +0000 (UTC)
+ ESMTP id 7E8EA1946A5E
+ for <dm-devel@listman.corp.redhat.com>; Fri,  2 Sep 2022 00:29:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EC0492166B2A; Fri,  2 Sep 2022 00:18:23 +0000 (UTC)
+ id 457EE945D0; Fri,  2 Sep 2022 00:29:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E7F812166B26
- for <dm-devel@redhat.com>; Fri,  2 Sep 2022 00:18:23 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 41DB918ECC
+ for <dm-devel@redhat.com>; Fri,  2 Sep 2022 00:29:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC3C3811E81
- for <dm-devel@redhat.com>; Fri,  2 Sep 2022 00:18:23 +0000 (UTC)
-Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
- [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 26C4B101A58F
+ for <dm-devel@redhat.com>; Fri,  2 Sep 2022 00:29:03 +0000 (UTC)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-445--Dqd1YWbNOalgid1IhaNzw-1; Thu, 01 Sep 2022 20:18:22 -0400
-X-MC-Unique: -Dqd1YWbNOalgid1IhaNzw-1
-Received: by mail-qt1-f199.google.com with SMTP id
- k9-20020ac80749000000b0034302b53c6cso381249qth.22
- for <dm-devel@redhat.com>; Thu, 01 Sep 2022 17:18:22 -0700 (PDT)
+ us-mta-150-TKiLB6IfM-iRJO5n_0IqjQ-1; Thu, 01 Sep 2022 20:29:02 -0400
+X-MC-Unique: TKiLB6IfM-iRJO5n_0IqjQ-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ s9-20020a05620a254900b006b54dd4d6deso715082qko.3
+ for <dm-devel@redhat.com>; Thu, 01 Sep 2022 17:29:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=/3zSW4akroZH3AEa4Ob/zy2W13gQovdXsrNdOSGyuxY=;
- b=jjvjD81hwsQ6zPo5XCEz7ghYMgf5/2WQ/VFB3kkaVzEw6oicYC29GTO5CHPGt3/GXf
- /Zpkwpay4fITfbYJZxv0bZqfTt3DN9Rw1HUYtmTzyt05ZfYMvXKWJwQ2rP9CYPMm1dZ0
- kKOgqKv6vjcmSR1MBPp5+Z1UHVBorkX6bqDFCfPx9Zyg16VmrfkQ3uJK9QTRARqvHyfu
- 0hCxD3vRbji1V8yj5/iZy8Le5HHNBHgWuK/OhJcUMyPwlam/CuTBUyVlnOU7nx4AmjoS
- 8rapnFeviI8EFmrv5EOjJw/fijhipTTP6iAfeaHml9KOs586QbvjPODBCmQWRFNv4PkP
- Kdkg==
-X-Gm-Message-State: ACgBeo1DAA2HWT+JELIlV+LjrjjHCdkvGrJ78Ln62agWHFzyIeKsxXQ+
- hPNNMTepySmQ9tiuGEYDuPxr/R4TVY65BtFKKvjPlfrolvuJVNrVA/S9iQ7sv1GEduo4Jb74HyQ
- 4K58nhD8+ZtS/mw==
-X-Received: by 2002:ac8:58c6:0:b0:343:6ea4:c5d with SMTP id
- u6-20020ac858c6000000b003436ea40c5dmr25887005qta.371.1662077902207; 
- Thu, 01 Sep 2022 17:18:22 -0700 (PDT)
-X-Google-Smtp-Source: AA6agR6oRhhYYJ6PrG/1HFlpvhf8UmICNazDZnq0j+/fuj1YsRN/1lRkHtGn1KfEAsjk0buEiHYDsQ==
-X-Received: by 2002:ac8:58c6:0:b0:343:6ea4:c5d with SMTP id
- u6-20020ac858c6000000b003436ea40c5dmr25886979qta.371.1662077902000; 
- Thu, 01 Sep 2022 17:18:22 -0700 (PDT)
+ bh=JoL26AsmguCoQC8iT7uL94/0V02t17IP8zjffwCfRFk=;
+ b=ecOecuHHwkcNeEnzGRDC2I3OvA9mPdk43f4AzPvph1Bu1omu+wC7SsJzY7Q233YIKi
+ OY6+iNYrxP1x2tGjHvJjV9LB/VcWWnNPdusu3RWIhlNkmsrcsOAto9XYvUCDjcU+/L7s
+ ksQi8wGrMORfLohRzDnotHY3Mc4HMxOPpOnme2SOmOT00AmpOc+PQUlAbfdPDGnZWTBT
+ v3N/xDls8tihMaTgFvpwSxLlD7OwWEE01L5mTdbkkft7xmtZnX2s/1pHeMN1XW8812hH
+ YEjNsp7e+9YQ0lo4oaYHOT7fvDyeh37yzKnNDRnBKvYFj3G+H6kcOiG3FdhX44YldnOJ
+ Q3XA==
+X-Gm-Message-State: ACgBeo0MXTn8EDFA0v56VG1U9iDMoB+Fn5egG/gMARJOd9vIJHwvZOlg
+ OB3K8qNanN5TziZ+reNpX56MKPlR9zg0SZkZ7EELeh3AhEFxBRATY4YD4WIW+jagbyEGfZzKq6q
+ q2lk7fAZUAvTs4g==
+X-Received: by 2002:a05:622a:56:b0:344:50e3:3363 with SMTP id
+ y22-20020a05622a005600b0034450e33363mr26078608qtw.217.1662078541490; 
+ Thu, 01 Sep 2022 17:29:01 -0700 (PDT)
+X-Google-Smtp-Source: AA6agR4ummQqIzdjpLP2wlMT3mmzaahpZ4roXiEIZrDjJAlvbH341hXfcfEvnw7FaTjjSfTvav+c8Q==
+X-Received: by 2002:a05:622a:56:b0:344:50e3:3363 with SMTP id
+ y22-20020a05622a005600b0034450e33363mr26078588qtw.217.1662078541288; 
+ Thu, 01 Sep 2022 17:29:01 -0700 (PDT)
 Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
  [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
- bn5-20020a05620a2ac500b006bb41ac3b6bsm267782qkb.113.2022.09.01.17.18.21
+ 15-20020ac84e8f000000b0031f0b43629dsm180519qtp.23.2022.09.01.17.29.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Sep 2022 17:18:21 -0700 (PDT)
-Date: Thu, 1 Sep 2022 20:18:20 -0400
+ Thu, 01 Sep 2022 17:29:00 -0700 (PDT)
+Date: Thu, 1 Sep 2022 20:28:59 -0400
 From: Mike Snitzer <snitzer@redhat.com>
 To: Pankaj Raghav <p.raghav@samsung.com>
-Message-ID: <YxFLzHoYF7damFip@redhat.com>
+Message-ID: <YxFOS8fq8AeE5mkf@redhat.com>
 References: <20220823121859.163903-1-p.raghav@samsung.com>
- <CGME20220823121913eucas1p11c222f4c57a0132117bb9712e6018668@eucas1p1.samsung.com>
- <20220823121859.163903-12-p.raghav@samsung.com>
+ <CGME20220823121914eucas1p2f4445066c23cdae4fca80f7b0268815b@eucas1p2.samsung.com>
+ <20220823121859.163903-13-p.raghav@samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <20220823121859.163903-12-p.raghav@samsung.com>
-X-Scanned-By: MIMEDefang 2.78 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v12 11/13] dm: call dm_zone_endio after the
- target endio callback for zoned devices
+In-Reply-To: <20220823121859.163903-13-p.raghav@samsung.com>
+X-Scanned-By: MIMEDefang 2.79 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH v12 12/13] dm: introduce DM_EMULATED_ZONES
+ target type
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,14 +109,14 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: axboe@kernel.dk, bvanassche@acm.org, pankydev8@gmail.com,
- Johannes.Thumshirn@wdc.com, damien.lemoal@opensource.wdc.com,
- snitzer@kernel.org, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, linux-block@vger.kernel.org,
- dm-devel@redhat.com, matias.bjorling@wdc.com, gost.dev@samsung.com,
+ matias.bjorling@wdc.com, Johannes.Thumshirn@wdc.com,
+ damien.lemoal@opensource.wdc.com, snitzer@kernel.org,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com, gost.dev@samsung.com,
  jaegeuk@kernel.org, hch@lst.de, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.9
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
@@ -127,29 +126,29 @@ Content-Transfer-Encoding: 7bit
 On Tue, Aug 23 2022 at  8:18P -0400,
 Pankaj Raghav <p.raghav@samsung.com> wrote:
 
-> dm_zone_endio() updates the bi_sector of orig bio for zoned devices that
-> uses either native append or append emulation, and it is called before the
-> endio of the target. But target endio can still update the clone bio
-> after dm_zone_endio is called, thereby, the orig bio does not contain
-> the updated information anymore.
+> Introduce a new target type DM_EMULATED_ZONES for targets with
+> a different number of sectors per zone (aka zone size) than the underlying
+> device zone size.
 > 
-> Currently, this is not a problem as the targets that support zoned devices
-> such as dm-zoned, dm-linear, and dm-crypt do not have an endio function,
-> and even if they do (such as dm-flakey), they don't modify the
-> bio->bi_iter.bi_sector of the cloned bio that is used to update the
-> orig_bio's bi_sector in dm_zone_endio function.
-> 
-> This is a prep patch for the new dm-po2zone target as it modifies
-> bi_sector in the endio callback.
-> 
-> Call dm_zone_endio for zoned devices after calling the target's endio
-> function.
+> This target type is introduced as the existing zoned targets assume
+> that the target and the underlying device have the same zone size.
+> The new target: dm-po2zone will use this new target
+> type as it emulates the zone boundary that is different from the
+> underlying zoned device.
 > 
 > Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
+> Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 
-Great patch header, explains the situation nicely.
+This patch's use of "target type" jargon isn't valid. 
 
-Reviewed-by: Mike Snitzer <snitzer@kernel.org>
+Please say "target feature flag" and rename DM_EMULATED_ZONES to
+DM_TARGET_EMULATED_ZONES in the subject and header.
+
+But, with those fixed:
+
+Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+
+(fyi, I'll review patch 13, the dm-po2zone target, tomorrow)
 
 --
 dm-devel mailing list
