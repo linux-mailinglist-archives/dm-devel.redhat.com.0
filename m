@@ -1,62 +1,101 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B952C5B1147
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Sep 2022 02:32:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 89EA45B15B4
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Sep 2022 09:33:01 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662597125;
+	s=mimecast20190719; t=1662622380;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7TC4YTJHh7GIEp01/6+aA9ExGj7A81UDC8Xf01q8u+E=;
-	b=PJsvJ03QTtOcGemeMHuw3oTNCY6sgG15D8AgAgaG40Qs/8Z1JC/sS66LjBUZA6oJLXUNZJ
-	a6d4FU03skV5KulHFnwfthMxVjAUrz11LVN6M3HbfOVtxEzjrse7mhbdrzrj8x58C0C988
-	FbK2k+NLqVEduxbY+KwE64rgL6El+lI=
+	bh=sE+DA+M4vDbUhrkyspMkg0Buag1WBfCvwv3uAg07BDM=;
+	b=hPedMl8ZgmrsePVBwjYsx3muHnRcCCM4A8cH+pbMqwL7Dz9qr0XB1gV7Ga3bEgk3473jTK
+	rF6MQ80UZwzhUztPaysgtrwlS+H4VUnG8pR0zCQ4goPcTqU8wHTUFdlimSjEbLo/+BMh1P
+	UbogZjs6wOgAWcfQ+BkEqaYyRcj1bx8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-377-5I3DAyBKNhqZs_8wbBRlkw-1; Wed, 07 Sep 2022 20:32:03 -0400
-X-MC-Unique: 5I3DAyBKNhqZs_8wbBRlkw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-466-nfyTKBiNPN-C8mwa8e0QlQ-1; Thu, 08 Sep 2022 03:32:58 -0400
+X-MC-Unique: nfyTKBiNPN-C8mwa8e0QlQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39F24185A7BA;
-	Thu,  8 Sep 2022 00:32:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03725803301;
+	Thu,  8 Sep 2022 07:32:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 950044010D2A;
-	Thu,  8 Sep 2022 00:31:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AC0B6C15BB3;
+	Thu,  8 Sep 2022 07:32:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3F9A31946A59;
-	Thu,  8 Sep 2022 00:31:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77F8E1946A44;
+	Thu,  8 Sep 2022 07:32:51 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6A3DC1946A44
- for <dm-devel@listman.corp.redhat.com>; Thu,  8 Sep 2022 00:31:53 +0000 (UTC)
+ ESMTP id 2AD311946A40
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Sep 2022 20:31:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 12D761415117; Thu,  8 Sep 2022 00:31:53 +0000 (UTC)
+ id 8B89040D2830; Wed,  7 Sep 2022 20:31:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F39C31415102;
- Thu,  8 Sep 2022 00:31:52 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 2880VpKO022359;
- Wed, 7 Sep 2022 19:31:51 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 2880Vpno022358;
- Wed, 7 Sep 2022 19:31:51 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed,  7 Sep 2022 19:31:50 -0500
-Message-Id: <1662597110-22321-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 2.85 on 10.11.54.7
-Subject: [dm-devel] [PATCH] multipathd: fix read past end of of buffer in
- sending reply
+Received: from mimecast-mx02.redhat.com
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 87B3E40D282E
+ for <dm-devel@redhat.com>; Wed,  7 Sep 2022 20:31:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E2C180231E
+ for <dm-devel@redhat.com>; Wed,  7 Sep 2022 20:31:06 +0000 (UTC)
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
+ [209.85.216.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-21-dkWx0RxxOg2yYZI-3dkb_Q-1; Wed, 07 Sep 2022 16:31:04 -0400
+X-MC-Unique: dkWx0RxxOg2yYZI-3dkb_Q-1
+Received: by mail-pj1-f47.google.com with SMTP id o4so15649199pjp.4
+ for <dm-devel@redhat.com>; Wed, 07 Sep 2022 13:31:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date;
+ bh=6pTFRiLK72lDLdL/CFtwCq6GJd3SSyre7C8utHPxd+4=;
+ b=A9qAbfl1kDymmU6kjNQobx3jIGFo7iut3uXf7/MhfeMJJA77f7aY6sL8c2mc6WR855
+ OADnEpGD6bUqb1lSnTSnUidyIz3PEhbT7ay28h6jOHps6u7Yd3JxT8AqRKO8aN7Icqdz
+ 1rN0WFKwJVSjACebiC/w0Mr246UoPANv2zg0MuhSsVkrwVxfutza7tIFYCGochW5zA/T
+ l/7pkGz92NPMB3iVamL7NGiFw7A/2fKFxqRoqHFW6qheeX6BH6vWUxXb8qvzrqbKIeMA
+ eaIbFbyKlGcaUTqXgszizLEZStpdhyfp+yokkzxpT6bseTXkeRlF1Z5RLLazr3uzcGvg
+ jnQw==
+X-Gm-Message-State: ACgBeo3wuRE7CK3yXpfziJ0zOzRvU40h0dkBaqqjuIBeOcgY8Z7nzEKe
+ LCfXgLctPBGmGtdjfdPQnKrNew==
+X-Google-Smtp-Source: AA6agR4Jj+aDoQUpu0UnfmMWUM+18y8TybSFaxZUO1YTlB7aUNe4vRMzcskBpJQXeKKRvJ290Hr/3w==
+X-Received: by 2002:a17:90a:aa87:b0:200:68d8:17b8 with SMTP id
+ l7-20020a17090aaa8700b0020068d817b8mr313448pjq.110.1662582663653; 
+ Wed, 07 Sep 2022 13:31:03 -0700 (PDT)
+Received: from localhost ([2620:15c:11a:202:7731:4d19:a7d1:20d])
+ by smtp.gmail.com with UTF8SMTPSA id
+ ik20-20020a170902ab1400b001769e7062c0sm8955667plb.249.2022.09.07.13.31.02
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Wed, 07 Sep 2022 13:31:03 -0700 (PDT)
+From: Matthias Kaehlcke <mka@chromium.org>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ Kees Cook <keescook@chromium.org>
+Date: Wed,  7 Sep 2022 13:30:58 -0700
+Message-Id: <20220907133055.1.Ic8a1dafe960dc0f8302e189642bc88ebb785d274@changeid>
+MIME-Version: 1.0
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Mailman-Approved-At: Thu, 08 Sep 2022 07:32:48 +0000
+Subject: [dm-devel] [PATCH] dm: verity-loadpin: Only trust verity targets
+ with enforcement
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -68,40 +107,101 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
-MIME-Version: 1.0
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org,
+ Douglas Anderson <dianders@chromium.org>,
+ linux-security-module@vger.kernel.org, Matthias Kaehlcke <mka@chromium.org>,
+ Sarthak Kukreti <sarthakkukreti@chromium.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 2.84 on 10.11.54.2
+X-Scanned-By: MIMEDefang 2.85 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Reduce the send() length for the uxlsnr reply, by the number of bytes
-already sent
+Verity targets can be configured to ignore corrupted data blocks.
+LoadPin must only trust verity targets that are configured to
+perform some kind of enforcement when data corruption is detected,
+like returning an error, restarting the system or triggering a
+panic.
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+Fixes: b6c1c5745ccc ("dm: Add verity helpers for LoadPin")
+Reported-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+Signed-off-by: Matthias Kaehlcke <mka@chromium.org>
 ---
- multipathd/uxlsnr.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index 23cb123d..238744b7 100644
---- a/multipathd/uxlsnr.c
-+++ b/multipathd/uxlsnr.c
-@@ -541,7 +541,7 @@ static int client_state_machine(struct client *c, struct vectors *vecs,
- 		if (c->len < c->cmd_len) {
- 			const char *buf = get_strbuf_str(&c->reply);
+ drivers/md/dm-verity-loadpin.c |  8 ++++++++
+ drivers/md/dm-verity-target.c  | 16 ++++++++++++++++
+ drivers/md/dm-verity.h         |  1 +
+ 3 files changed, 25 insertions(+)
+
+diff --git a/drivers/md/dm-verity-loadpin.c b/drivers/md/dm-verity-loadpin.c
+index 387ec43aef72..4f78cc55c251 100644
+--- a/drivers/md/dm-verity-loadpin.c
++++ b/drivers/md/dm-verity-loadpin.c
+@@ -14,6 +14,7 @@ LIST_HEAD(dm_verity_loadpin_trusted_root_digests);
  
--			n = send(c->fd, buf + c->len, c->cmd_len, MSG_NOSIGNAL);
-+			n = send(c->fd, buf + c->len, c->cmd_len - c->len, MSG_NOSIGNAL);
- 			if (n == -1) {
- 				if (!(errno == EAGAIN || errno == EINTR))
- 					c->error = -ECONNRESET;
+ static bool is_trusted_verity_target(struct dm_target *ti)
+ {
++	int verity_mode;
+ 	u8 *root_digest;
+ 	unsigned int digest_size;
+ 	struct dm_verity_loadpin_trusted_root_digest *trd;
+@@ -22,6 +23,13 @@ static bool is_trusted_verity_target(struct dm_target *ti)
+ 	if (!dm_is_verity_target(ti))
+ 		return false;
+ 
++	verity_mode = dm_verity_get_mode(ti);
++
++	if ((verity_mode != DM_VERITY_MODE_EIO) &&
++	    (verity_mode != DM_VERITY_MODE_RESTART) &&
++	    (verity_mode != DM_VERITY_MODE_PANIC))
++		return false;
++
+ 	if (dm_verity_get_root_digest(ti, &root_digest, &digest_size))
+ 		return false;
+ 
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index 94b6cb599db4..8a00cc42e498 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -1446,6 +1446,22 @@ bool dm_is_verity_target(struct dm_target *ti)
+ 	return ti->type->module == THIS_MODULE;
+ }
+ 
++/*
++ * Get the verity mode (error behavior) of a verity target.
++ *
++ * Returns the verity mode of the target, or -EINVAL if 'ti' is not a verity
++ * target.
++ */
++int dm_verity_get_mode(struct dm_target *ti)
++{
++	struct dm_verity *v = ti->private;
++
++	if (!dm_is_verity_target(ti))
++		return -EINVAL;
++
++	return v->mode;
++}
++
+ /*
+  * Get the root digest of a verity target.
+  *
+diff --git a/drivers/md/dm-verity.h b/drivers/md/dm-verity.h
+index 45455de1b4bc..98f306ec6a33 100644
+--- a/drivers/md/dm-verity.h
++++ b/drivers/md/dm-verity.h
+@@ -134,6 +134,7 @@ extern int verity_hash_for_block(struct dm_verity *v, struct dm_verity_io *io,
+ 				 sector_t block, u8 *digest, bool *is_zero);
+ 
+ extern bool dm_is_verity_target(struct dm_target *ti);
++extern int dm_verity_get_mode(struct dm_target *ti);
+ extern int dm_verity_get_root_digest(struct dm_target *ti, u8 **root_digest,
+ 				     unsigned int *digest_size);
+ 
 -- 
-2.17.2
+2.37.2.789.g6183377224-goog
 
 --
 dm-devel mailing list
