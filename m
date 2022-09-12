@@ -2,139 +2,139 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0EF9B5B55ED
-	for <lists+dm-devel@lfdr.de>; Mon, 12 Sep 2022 10:22:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 55D1B5B55F2
+	for <lists+dm-devel@lfdr.de>; Mon, 12 Sep 2022 10:23:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1662970979;
+	s=mimecast20190719; t=1662970982;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VMtgKCU1lhaHRBjTDdigTaDARFq1VkXSvvYMNBnv5n4=;
-	b=gxNk84SV1wn7OIlV6ILCu4jOBN19ne/7e/qdC7rTmNKLfsW5HIjMihWubJ3f3OEsAhbAxs
-	TFhghkaoEpBEfDcmTgMHs1Jof0mMyXkP7GFRK1280DkjYkJOmnav11/Z3Y7D2cdws7lyHO
-	ahMyZyGq6Y5G3lAJRTihlsaUljVe/9U=
+	bh=KwKVS8lQq2jJ+5NFUcqJ/V28y2Cin5NHjnVrTuk5Q4g=;
+	b=ICS9M8Vlv5E9ipb1m6O6bZOfjeqhfgtjatw4+bHIop6TeAYsvsaLaUl42RUgmltTZXSxId
+	0PfOJW7c6cErf2LAL2zv+p7l6qJ2TSdVrYM+oxl3ibHzCcVkeAdIKDC59s16i4L0z22KdB
+	hacWFqN/8dlpNUkf/Q67wXzM2h0VGgM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-145--zxaUpK0Oqi1fhvaCZ2OFw-1; Mon, 12 Sep 2022 04:22:55 -0400
-X-MC-Unique: -zxaUpK0Oqi1fhvaCZ2OFw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-30-op6kJ3wxO-CK58vFQomqNQ-1; Mon, 12 Sep 2022 04:22:52 -0400
+X-MC-Unique: op6kJ3wxO-CK58vFQomqNQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 21C9085A597;
-	Mon, 12 Sep 2022 08:22:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD4AD1818807;
+	Mon, 12 Sep 2022 08:22:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 07E3B1121315;
-	Mon, 12 Sep 2022 08:22:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A86E52166B29;
+	Mon, 12 Sep 2022 08:22:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E780B1946A53;
-	Mon, 12 Sep 2022 08:22:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 91DB81946A48;
+	Mon, 12 Sep 2022 08:22:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AED3B1946A42
- for <dm-devel@listman.corp.redhat.com>; Mon, 12 Sep 2022 08:22:51 +0000 (UTC)
+ ESMTP id 7109A1946A42
+ for <dm-devel@listman.corp.redhat.com>; Mon, 12 Sep 2022 08:22:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9392A2166B2B; Mon, 12 Sep 2022 08:22:51 +0000 (UTC)
+ id 5C195112131B; Mon, 12 Sep 2022 08:22:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E0082166B2A
- for <dm-devel@redhat.com>; Mon, 12 Sep 2022 08:22:51 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 584471121315
+ for <dm-devel@redhat.com>; Mon, 12 Sep 2022 08:22:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 713C13810786
- for <dm-devel@redhat.com>; Mon, 12 Sep 2022 08:22:51 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EE3A811E80
+ for <dm-devel@redhat.com>; Mon, 12 Sep 2022 08:22:49 +0000 (UTC)
+Received: from mailout1.w1.samsung.com (mailout1.w1.samsung.com
+ [210.118.77.11]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-607-lvHxr1mOPsiEZFSyddA5xA-1; Mon, 12 Sep 2022 04:22:50 -0400
-X-MC-Unique: lvHxr1mOPsiEZFSyddA5xA-1
+ us-mta-114-VrmiryBOMVufTICTpjOVQg-1; Mon, 12 Sep 2022 04:22:47 -0400
+X-MC-Unique: VrmiryBOMVufTICTpjOVQg-1
 Received: from eucas1p1.samsung.com (unknown [182.198.249.206])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220912082228euoutp025f08749d7dd18ec9e92ffcb0fb7ecf44~UD0RlOQgf2459224592euoutp021
- for <dm-devel@redhat.com>; Mon, 12 Sep 2022 08:22:28 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20220912082228euoutp025f08749d7dd18ec9e92ffcb0fb7ecf44~UD0RlOQgf2459224592euoutp021
-Received: from eusmges3new.samsung.com (unknown [203.254.199.245]) by
+ by mailout1.w1.samsung.com (KnoxPortal) with ESMTP id
+ 20220912082229euoutp0107f86d830fa28e9786b7f8c24d1eb528~UD0R6gZaf1404314043euoutp01g
+ for <dm-devel@redhat.com>; Mon, 12 Sep 2022 08:22:29 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.w1.samsung.com
+ 20220912082229euoutp0107f86d830fa28e9786b7f8c24d1eb528~UD0R6gZaf1404314043euoutp01g
+Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
  eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20220912082217eucas1p2f7bf2d8409887d0b45bb91d5e0838a8b~UD0HPCGjb2080820808eucas1p2G;
- Mon, 12 Sep 2022 08:22:17 +0000 (GMT)
-Received: from eucas1p2.samsung.com ( [182.198.249.207]) by
- eusmges3new.samsung.com (EUCPMTA) with SMTP id D7.A3.19378.93CEE136; Mon, 12
- Sep 2022 09:22:17 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p1.samsung.com (KnoxPortal) with ESMTPA id
- 20220912082217eucas1p15e4ba29d1438990db4acf5c3f6ca5d4f~UD0Gx0szG1088110881eucas1p1_;
- Mon, 12 Sep 2022 08:22:17 +0000 (GMT)
-Received: from eusmgms2.samsung.com (unknown [182.198.249.180]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220912082217eusmtrp2054a1249e949edbdccfec0c6c6024005~UD0Gw9xSo3116631166eusmtrp2M;
- Mon, 12 Sep 2022 08:22:17 +0000 (GMT)
-X-AuditID: cbfec7f5-a35ff70000014bb2-6b-631eec39b733
-Received: from eusmtip1.samsung.com ( [203.254.199.221]) by
- eusmgms2.samsung.com (EUCPMTA) with SMTP id 01.43.10862.93CEE136; Mon, 12
- Sep 2022 09:22:17 +0100 (BST)
-Received: from localhost (unknown [106.210.248.191]) by eusmtip1.samsung.com
+ 20220912082218eucas1p25aec09241db9eba6d129d00870d39881~UD0IVRA_d2083820838eucas1p2b;
+ Mon, 12 Sep 2022 08:22:18 +0000 (GMT)
+Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
+ eusmges1new.samsung.com (EUCPMTA) with SMTP id 31.A8.29727.A3CEE136; Mon, 12
+ Sep 2022 09:22:18 +0100 (BST)
+Received: from eusmtrp1.samsung.com (unknown [182.198.249.138]) by
+ eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
+ 20220912082218eucas1p23b4bcf6d76947724b9a7468a4b82a7f6~UD0H3RlcH2085220852eucas1p2X;
+ Mon, 12 Sep 2022 08:22:18 +0000 (GMT)
+Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
+ eusmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20220912082218eusmtrp1990f88d4f6be66802adc81c7f14a6e5a~UD0H2XOxU1362613626eusmtrp1J;
+ Mon, 12 Sep 2022 08:22:18 +0000 (GMT)
+X-AuditID: cbfec7f2-21dff7000001741f-1b-631eec3a28a6
+Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
+ eusmgms1.samsung.com (EUCPMTA) with SMTP id 16.3F.07473.A3CEE136; Mon, 12
+ Sep 2022 09:22:18 +0100 (BST)
+Received: from localhost (unknown [106.210.248.191]) by eusmtip2.samsung.com
  (KnoxPortal) with ESMTPA id
- 20220912082216eusmtip12dbcb83e6c6a0b4a645929a361eb1f31~UD0GZZdty0898808988eusmtip1i;
- Mon, 12 Sep 2022 08:22:16 +0000 (GMT)
+ 20220912082218eusmtip2ca44631e327ca0164a0583a8af1664a1~UD0HkB02t2962029620eusmtip2r;
+ Mon, 12 Sep 2022 08:22:18 +0000 (GMT)
 From: Pankaj Raghav <p.raghav@samsung.com>
 To: hch@lst.de, agk@redhat.com, damien.lemoal@opensource.wdc.com,
  axboe@kernel.dk, snitzer@kernel.org
-Date: Mon, 12 Sep 2022 10:22:01 +0200
-Message-Id: <20220912082204.51189-11-p.raghav@samsung.com>
+Date: Mon, 12 Sep 2022 10:22:02 +0200
+Message-Id: <20220912082204.51189-12-p.raghav@samsung.com>
 In-Reply-To: <20220912082204.51189-1-p.raghav@samsung.com>
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrHKsWRmVeSWpSXmKPExsWy7djP87qWb+SSDXbfULVYf+oYs8Xqu/1s
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrPKsWRmVeSWpSXmKPExsWy7djPc7pWb+SSDWacNbZYf+oYs8Xqu/1s
  FtM+/GS2+H32PLPF3nezWS1uHtjJZLFn0SQmi5WrjzJZPFk/i9nib9c9Jou9t7QtLu+aw2Yx
  f9lTdosJbV+ZLT4vbWG3WHPzKYvFiVvSDoIel694e+ycdZfd4/LZUo9NqzrZPDYvqffYfbOB
- zWNn631Wj/f7rrJ59G1Zxeix+XS1x+dNch7tB7qZAniiuGxSUnMyy1KL9O0SuDIevLnKUvCO
- t2LP7CamBsaZ3F2MnBwSAiYSq5YuZe5i5OIQEljBKPHv9ldGCOcLo8T9eYdYQKqEBD4zSkxf
- 5QjTcWv7RiaIouWMEl93NrNDOC8ZJT682QTUwcHBJqAl0djJDtIgIpAu8X36O7AGZoFtTBL3
- H75gBkkIC0RKTPvbwARiswioSsyb3swIYvMKWEk8OryVGWKbvMTMS9/BBnECxV+vaoWqEZQ4
- OfMJ2HXMQDXNW2dD1W/mlHg7RQjCdpHo7jvHBGELS7w6voUdwpaR+L9zPlS8WuLpjd9g/0sI
- tDBK9O9czwbygISAtUTfmRwQk1lAU2L9Ln2IckeJ13enM0FU8EnceCsIcQGfxKRt05khwrwS
- HW1QByhJ7Pz5BGqphMTlpjksELaHxO21b9knMCrOQvLLLCS/zELYu4CReRWjeGppcW56arFx
- Xmq5XnFibnFpXrpecn7uJkZgEjz97/jXHYwrXn3UO8TIxMF4iFGCg1lJhJfFUDpZiDclsbIq
- tSg/vqg0J7X4EKM0B4uSOG9y5oZEIYH0xJLU7NTUgtQimCwTB6dUA5PeA77TFkoSQvp2pZH6
- b49wfVVeGLD+9rRTLWvDj3C8YFcrK678JbXmXcPNCkO2Wb43eZbqvxD/GT9HPmHd5QOfv4dH
- XC294sVq8u+391n398Zic/RuvSgPlV1zJOzzCTtVju6lsx823Mts1nGQn7Pmz6y6KX6/Dy+a
- vpPNM7BG98SuhxcOpHxiY97gfcn/4c8mGVlHweDXLxeV/Eh+XGBtXXw42Pif+s4TC1042TND
- 7ZSVv26dKiLHl7HuwQvN6Uz5G8o1zSZ3pit/W/T0EPv28tcnZbqLDivFzDSTmFVrI9v/jIcx
- 0F39odbpN0fPzumy/nlop5jU/flBj57v/7TEZIUtd/nO67eyGlIvTbBUYinOSDTUYi4qTgQA
- DhdU2/EDAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrHIsWRmVeSWpSXmKPExsVy+t/xu7qWb+SSDea8YrNYf+oYs8Xqu/1s
- FtM+/GS2+H32PLPF3nezWS1uHtjJZLFn0SQmi5WrjzJZPFk/i9nib9c9Jou9t7QtLu+aw2Yx
- f9lTdosJbV+ZLT4vbWG3WHPzKYvFiVvSDoIel694e+ycdZfd4/LZUo9NqzrZPDYvqffYfbOB
- zWNn631Wj/f7rrJ59G1Zxeix+XS1x+dNch7tB7qZAnii9GyK8ktLUhUy8otLbJWiDS2M9Awt
- LfSMTCz1DI3NY62MTJX07WxSUnMyy1KL9O0S9DIevLnKUvCOt2LP7CamBsaZ3F2MnBwSAiYS
- t7ZvZOpi5OIQEljKKDH/yz8WiISExO2FTYwQtrDEn2tdbCC2kMBzRonjt6u7GDk42AS0JBo7
- 2UHCIgK5Ep9X/mADmcMscIRJ4u+rFcwgCWGBcInb6w+D2SwCqhLzpjeDzeQVsJJ4dHgrM8R8
- eYmZl76DDeIEir9e1coIsctS4uy3G+wQ9YISJ2c+AbuNGai+eets5gmMArOQpGYhSS1gZFrF
- KJJaWpybnltspFecmFtcmpeul5yfu4kRGLHbjv3csoNx5auPeocYmTgYDzFKcDArifCyGEon
- C/GmJFZWpRblxxeV5qQWH2I0Bbp7IrOUaHI+MGXklcQbmhmYGpqYWRqYWpoZK4nzehZ0JAoJ
- pCeWpGanphakFsH0MXFwSjUw7cmqNvL9e3jp6Sfnexp9apbMenLnXMI+mbK3XsvmsuU/DfsX
- MUXB/Sf3EnatbOUzgryLme8v5n2/1GWOF+vuJ6Gpf34svCrVs9LQIYy3UPbcnZMzMrfP13oc
- 4qfapeomteDY586pC5q7ZV/ufrbbJSKwWfBtgdGcBTdOWkifmaWjfeL/5aj8Y1cN82Y63ec7
- eLFl5tw90w/sv6v/b93U75rH/3atE/5jE/9Tqundg43fkh4/V5wqVqxTt9T+80INja9eS+z3
- Hmm/GvLw/TXRzOO8JtdTORqXbX0seX1lZk+1fsWfQ4KlZYI1mfyJAWtPc516f9HM4vnNHZn1
- PCmu+2ed2fbx2p8I1oIr93dru79UYinOSDTUYi4qTgQAPQVwpmEDAAA=
-X-CMS-MailID: 20220912082217eucas1p15e4ba29d1438990db4acf5c3f6ca5d4f
+ zWNn631Wj/f7rrJ59G1Zxeix+XS1x+dNch7tB7qZAniiuGxSUnMyy1KL9O0SuDLW79nAVDCP
+ r2LKou1sDYwXubsYOTkkBEwkPvd8ZOpi5OIQEljBKLH/zDVGCOcLo8TUTy3sEM5nRomrZ36z
+ w7S82rWbDSKxnFFiwf2tLBDOS0aJr5cWMncxcnCwCWhJNHaCNYgIpEt8n/4ObAezwDYmifsP
+ XzCDJIQFUiU2HT3HCGKzCKhKnHz7kRGkl1fASuLAb0GIZfISMy99B5vDCRR+vaoVrJxXQFDi
+ 5MwnLCA2M1BN89bZzCDzJQRWc0rsvd/ACNHsIvH5SC/U1cISr45vgbJlJE5P7mGBsKslnt74
+ DdXcwijRv3M9G8gREgLWEn1nckBMZgFNifW79CHKHSUmrb7ADFHBJ3HjrSDECXwSk7ZNhwrz
+ SnS0CUFUK0ns/PkEaqmExOWmOVBLPSSmt25nncCoOAvJM7OQPDMLYe8CRuZVjOKppcW56anF
+ hnmp5XrFibnFpXnpesn5uZsYgWnw9L/jn3Ywzn31Ue8QIxMH4yFGCQ5mJRFeFkPpZCHelMTK
+ qtSi/Pii0pzU4kOM0hwsSuK8yZkbEoUE0hNLUrNTUwtSi2CyTBycUg1MDDteKC2vCmb3/66V
+ uar8juO1vyGc5xjPTpEzVb6y0ye+pfDWpjOV/19f1Sqe+TZk/ht9t4vJd87wLn4pULl4/psk
+ y9618ZFd06Tfzvjnq8P+wrzYRoCXbYdcdpn8KUO5WbNtbgf8tJ3606PPk/v8trvGZ7s1WMSf
+ X52z3H3r+5Kld86y/z45+dnPPwv+P1fbP33t16edelWrsr4cZAiu5Zc7dbU+5IPcqvgz/8wl
+ di2fZP/1+R2eP6anJrUlRxa0LG70+bmuedJhBU/RpZXNVSbBzd1m92bal1Y3yLcJ6XrkV7gd
+ VVzSb3nhfd+sbRlTjXMUf16q1inaUrXK83+zIceRuWe35HgEcN4zW3OuR4mlOCPRUIu5qDgR
+ AN8VzOPyAwAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrHIsWRmVeSWpSXmKPExsVy+t/xe7pWb+SSDQ52ClusP3WM2WL13X42
+ i2kffjJb/D57ntli77vZrBY3D+xkstizaBKTxcrVR5ksnqyfxWzxt+sek8XeW9oWl3fNYbOY
+ v+wpu8WEtq/MFp+XtrBbrLn5lMXixC1pB0GPy1e8PXbOusvucflsqcemVZ1sHpuX1HvsvtnA
+ 5rGz9T6rx/t9V9k8+rasYvTYfLra4/MmOY/2A91MATxRejZF+aUlqQoZ+cUltkrRhhZGeoaW
+ FnpGJpZ6hsbmsVZGpkr6djYpqTmZZalF+nYJehnr92xgKpjHVzFl0Xa2BsaL3F2MnBwSAiYS
+ r3btZuti5OIQEljKKHHh22pmiISExO2FTYwQtrDEn2tdUEXPGSWmPLjM1MXIwcEmoCXR2MkO
+ UiMikCvxeeUPsBpmgSNMEn9frQAbJCyQLPGt6wUTiM0ioCpx8u1HRpBeXgEriQO/BSHmy0vM
+ vPQdbA4nUPj1qlawvUIClhJnv90Ai/MKCEqcnPmEBcRmBqpv3jqbeQKjwCwkqVlIUgsYmVYx
+ iqSWFuem5xYb6hUn5haX5qXrJefnbmIERuy2Yz8372Cc9+qj3iFGJg7GQ4wSHMxKIrwshtLJ
+ QrwpiZVVqUX58UWlOanFhxhNgc6eyCwlmpwPTBl5JfGGZgamhiZmlgamlmbGSuK8ngUdiUIC
+ 6YklqdmpqQWpRTB9TBycUg1M83O4GKysTaWNJiuoSk5K+5R7UcOoTvDvOQeJ5IRb0azr8ioe
+ xJy9Uz/n77dVHB2hMYnplkcO1SitWr7gpvTXOa91zgnf4N8txdBw3ud+Sv60baL83S/C3Exn
+ v1oZPSlgiyiLuK5AflpZ2LMcbQbHMzmiSgE9nJ9cJT02BkSw6MqvlQ6/myiy7rPC7oxJjGxp
+ /VsUtt7ZbZdRopRR+HHV8yvOK6ddvrj1cXDzKbWL65abpJnL2S98wOtpclTfgqFjr99y0Tvu
+ XVJtfNzuU19mMXh0t/rYPODfVWKZp7e+b9mceXPZPp+Y9sq6nEf9012WFx51OQ323Nbdlx0i
+ /CM4tn4SfWhQ6M395OQONiWW4oxEQy3mouJEAJx94GNhAwAA
+X-CMS-MailID: 20220912082218eucas1p23b4bcf6d76947724b9a7468a4b82a7f6
 X-Msg-Generator: CA
-X-RootMTR: 20220912082217eucas1p15e4ba29d1438990db4acf5c3f6ca5d4f
+X-RootMTR: 20220912082218eucas1p23b4bcf6d76947724b9a7468a4b82a7f6
 X-EPHeader: CA
 CMS-TYPE: 201P
-X-CMS-RootMailID: 20220912082217eucas1p15e4ba29d1438990db4acf5c3f6ca5d4f
+X-CMS-RootMailID: 20220912082218eucas1p23b4bcf6d76947724b9a7468a4b82a7f6
 References: <20220912082204.51189-1-p.raghav@samsung.com>
- <CGME20220912082217eucas1p15e4ba29d1438990db4acf5c3f6ca5d4f@eucas1p1.samsung.com>
+ <CGME20220912082218eucas1p23b4bcf6d76947724b9a7468a4b82a7f6@eucas1p2.samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -142,9 +142,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH v13 10/13] dm-table: allow zoned devices with non
- power-of-2 zone sizes
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [PATCH v13 11/13] dm: call dm_zone_endio after the
+ target endio callback for zoned devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,55 +163,62 @@ Cc: Pankaj Raghav <p.raghav@samsung.com>, bvanassche@acm.org,
  matias.bjorling@wdc.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Allow dm to support zoned devices with non power-of-2(po2) zone sizes as
-the block layer now supports it.
+dm_zone_endio() updates the bi_sector of orig bio for zoned devices that
+uses either native append or append emulation, and it is called before the
+endio of the target. But target endio can still update the clone bio
+after dm_zone_endio is called, thereby, the orig bio does not contain
+the updated information anymore.
 
-Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
-Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Currently, this is not a problem as the targets that support zoned devices
+such as dm-zoned, dm-linear, and dm-crypt do not have an endio function,
+and even if they do (such as dm-flakey), they don't modify the
+bio->bi_iter.bi_sector of the cloned bio that is used to update the
+orig_bio's bi_sector in dm_zone_endio function.
+
+This is a prep patch for the new dm-po2zoned target as it modifies
+bi_sector in the endio callback.
+
+Call dm_zone_endio for zoned devices after calling the target's endio
+function.
+
 Reviewed-by: Mike Snitzer <snitzer@kernel.org>
+Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
 ---
- drivers/md/dm-table.c | 7 +++----
- 1 file changed, 3 insertions(+), 4 deletions(-)
+ drivers/md/dm.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index e42016359a77..38b83c383e8f 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -250,7 +250,7 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
- 	if (bdev_is_zoned(bdev)) {
- 		unsigned int zone_sectors = bdev_zone_sectors(bdev);
- 
--		if (start & (zone_sectors - 1)) {
-+		if (!bdev_is_zone_start(bdev, start)) {
- 			DMERR("%s: start=%llu not aligned to h/w zone size %u of %pg",
- 			      dm_device_name(ti->table->md),
- 			      (unsigned long long)start,
-@@ -267,7 +267,7 @@ static int device_area_is_invalid(struct dm_target *ti, struct dm_dev *dev,
- 		 * devices do not end up with a smaller zone in the middle of
- 		 * the sector range.
- 		 */
--		if (len & (zone_sectors - 1)) {
-+		if (!bdev_is_zone_start(bdev, len)) {
- 			DMERR("%s: len=%llu not aligned to h/w zone size %u of %pg",
- 			      dm_device_name(ti->table->md),
- 			      (unsigned long long)len,
-@@ -1647,8 +1647,7 @@ static int validate_hardware_zoned_model(struct dm_table *t,
- 		return -EINVAL;
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 7c35dea88ed1..874e1dc9fc26 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -1122,10 +1122,6 @@ static void clone_endio(struct bio *bio)
+ 			disable_write_zeroes(md);
  	}
  
--	/* Check zone size validity and compatibility */
--	if (!zone_sectors || !is_power_of_2(zone_sectors))
-+	if (!zone_sectors)
- 		return -EINVAL;
+-	if (static_branch_unlikely(&zoned_enabled) &&
+-	    unlikely(bdev_is_zoned(bio->bi_bdev)))
+-		dm_zone_endio(io, bio);
+-
+ 	if (endio) {
+ 		int r = endio(ti, bio, &error);
+ 		switch (r) {
+@@ -1154,6 +1150,10 @@ static void clone_endio(struct bio *bio)
+ 		}
+ 	}
  
- 	if (dm_table_any_dev_attr(t, device_not_matches_zone_sectors, &zone_sectors)) {
++	if (static_branch_unlikely(&zoned_enabled) &&
++	    unlikely(bdev_is_zoned(bio->bi_bdev)))
++		dm_zone_endio(io, bio);
++
+ 	if (static_branch_unlikely(&swap_bios_enabled) &&
+ 	    unlikely(swap_bios_limit(ti, bio)))
+ 		up(&md->swap_bios_semaphore);
 -- 
 2.25.1
 
