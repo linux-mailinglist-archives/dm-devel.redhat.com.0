@@ -1,95 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 667705BA860
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Sep 2022 10:45:09 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7707A5BA864
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Sep 2022 10:45:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663317908;
+	s=mimecast20190719; t=1663317909;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=hcT9EujoslrRLfYLTQapsrJAfx0ydx9bKtpkoXOr8IU=;
-	b=RrwGfx5uNT4VUtzzLJEmuwPKiV0oqHEfJifGMHXHSePKHzJswP+vxS4xoUWKgrH5fqKhE0
-	r1kaRoTlyH0MgicBPLl3+uP83xxtfwcpMeZhdaYdWTcvTQKZdsWW+xwSVx5+2CViY1SFDi
-	DJ/pl+FtfY3yc0244gAnzyeTG1Upa4A=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=EkHR5Cgnsj1a1aS3pqBBlpAUUeDsTOSWXvCcIxDlbIc=;
+	b=N0BIXCzsKMY6CcdXeznWYu5s0J0HuBD73LPRIM4EuMRMcgWzaBm1lLY+GLaJngmV7nK1mJ
+	uxTiToGRj+L6moD8b5ywa1+BnDfA8BQI4k8RHfc9CdylkCcMdNrYm/xWzkNOJPf1Dk/VsK
+	FdXjwa395Xb2cgQ2AIHCLDTkeL6Sn9I=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-245-MbonziGHP9CdP96YprwVUw-1; Fri, 16 Sep 2022 04:45:07 -0400
-X-MC-Unique: MbonziGHP9CdP96YprwVUw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-124-JuL_kP6bO12r6uw6BR_QdA-1; Fri, 16 Sep 2022 04:45:06 -0400
+X-MC-Unique: JuL_kP6bO12r6uw6BR_QdA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 380F1185A792;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 383083C1104B;
 	Fri, 16 Sep 2022 08:45:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C9DF12087443;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9E0822166B2A;
 	Fri, 16 Sep 2022 08:45:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3D6B51946595;
-	Fri, 16 Sep 2022 08:45:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E51741946A7B;
+	Fri, 16 Sep 2022 08:44:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 480701946586
- for <dm-devel@listman.corp.redhat.com>; Thu, 15 Sep 2022 16:48:59 +0000 (UTC)
+ ESMTP id B43BD1946586
+ for <dm-devel@listman.corp.redhat.com>; Thu, 15 Sep 2022 16:48:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 36E742166B29; Thu, 15 Sep 2022 16:48:59 +0000 (UTC)
+ id 9348A40149B6; Thu, 15 Sep 2022 16:48:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3303A2166B26
- for <dm-devel@redhat.com>; Thu, 15 Sep 2022 16:48:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F55140C83EB
+ for <dm-devel@redhat.com>; Thu, 15 Sep 2022 16:48:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14DD18027EA
- for <dm-devel@redhat.com>; Thu, 15 Sep 2022 16:48:59 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7875085A59D
+ for <dm-devel@redhat.com>; Thu, 15 Sep 2022 16:48:58 +0000 (UTC)
+Received: from mail-pg1-f177.google.com (mail-pg1-f177.google.com
+ [209.85.215.177]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-477-JWCsbcqnMCy1YMl3wZrfVg-1; Thu, 15 Sep 2022 12:48:54 -0400
-X-MC-Unique: JWCsbcqnMCy1YMl3wZrfVg-1
-Received: by mail-pj1-f49.google.com with SMTP id fs14so18342629pjb.5
- for <dm-devel@redhat.com>; Thu, 15 Sep 2022 09:48:54 -0700 (PDT)
+ us-mta-488-dE2qOhGSOSSFKZdOgrDrHw-1; Thu, 15 Sep 2022 12:48:57 -0400
+X-MC-Unique: dE2qOhGSOSSFKZdOgrDrHw-1
+Received: by mail-pg1-f177.google.com with SMTP id bh13so17843542pgb.4
+ for <dm-devel@redhat.com>; Thu, 15 Sep 2022 09:48:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date;
- bh=GHq7dVGm2OOxGrPIxR4jW0JwHX2wEssn4Ks1aVeah78=;
- b=gRtmborTIfCxDd+fpjwzC3d25bnYcoAefnJV3GYGPubYzkKlfoH2VodpMWgPj7gbyV
- QRqpZ16g4l49yI4MwVQflkqf62A4QEdSB3u008EDodUvFwLa5R9ftQDwecBhrDKmQQVe
- FOvsq6hxwbDcuiDzQK7gwAv1clorEmVWNh2f9BudLmd+Z2DxGnPEEdFmWSazaLzpgvR/
- sROpwMZmpW+nddP+fSyOJL3ZSesFwZtvINguCl6wA+b3oY1NYg7crP7SNbqQzqFk+sjS
- 0oonJt/EclV02LMYI56ua/9wGiEBT2SqYLWRcdvvKID1Z+jaU51NrKxrqNcKdwZpue0e
- dZwg==
-X-Gm-Message-State: ACrzQf3/T3CguSzfhFq74KgN2VwAPIzvUgXhTKqHljTLdPRtDfd11tKD
- SSrSS+p/K0i3FlYp5LaKFlbhfy+jY4SbO3MK
-X-Google-Smtp-Source: AMsMyM5ttUX80mK/xaqN8PnmPtACWbnNz3msqy9Npe8lr7jxLQP3tkGYZybEvxiT7s/KaSaMZVvSZQ==
-X-Received: by 2002:a17:902:dac4:b0:178:3037:680a with SMTP id
- q4-20020a170902dac400b001783037680amr327417plx.37.1663260532933; 
- Thu, 15 Sep 2022 09:48:52 -0700 (PDT)
+ bh=lepBsWytyJc7odlmE2pOVLJDHfEg/6nqSBO25R2FRqw=;
+ b=va8B3uX6SlGrVXY9iEpv9H+1u/bLU8Vt9TAoSF7zx2m0D3WILWHvEXI4TJo8rEmrRK
+ 2ASharAaiX5ZKIHVfFVlhaKpsxhgdxLqAGxHvz83KO1d3oarUnKlU+BbHfJEXxZNSJKL
+ XVRh7cY92FGGzmAQhk/UiKtIhI3NbmfUAVmYHaH/rza0Dpyj1dHZszMYVBJqayWy5mzM
+ Ek+Hr222Tybp6t25sSYmLUoy0cDhVRVOQZvUhyH4zmILWR+RbJvlGVPg5/4XUMccZ+bx
+ Ss/KNWvgoTfuBXpK/ooniecwX9oamxDL/Vsof+xi5nJXS80AwRM97FDBPuNmONMXeaJ/
+ tCAQ==
+X-Gm-Message-State: ACrzQf3fdk0QoB/FxziNHpxcBT93zBBPGAOt2qe/QaNXGzMHTDYevkyo
+ dQ0xhUJFSEnET5Rp27pdFF3AYM3C+183qg==
+X-Google-Smtp-Source: AMsMyM4mYzeO6kY8V14FHKZ6sRCrfG/b2+9U/J91HawWbKAVnfznpfZpifb9zuLeuSrNWkeoxFzUpA==
+X-Received: by 2002:aa7:9f0c:0:b0:546:c556:ac86 with SMTP id
+ g12-20020aa79f0c000000b00546c556ac86mr327926pfr.55.1663260535338; 
+ Thu, 15 Sep 2022 09:48:55 -0700 (PDT)
 Received: from sarthakkukreti-glaptop.hsd1.ca.comcast.net
  ([2601:647:4200:b5b0:3af2:34b2:a98a:a652])
  by smtp.gmail.com with ESMTPSA id
- o4-20020a170902bcc400b00177ee563b6dsm13174970pls.33.2022.09.15.09.48.50
+ o4-20020a170902bcc400b00177ee563b6dsm13174970pls.33.2022.09.15.09.48.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 15 Sep 2022 09:48:52 -0700 (PDT)
+ Thu, 15 Sep 2022 09:48:54 -0700 (PDT)
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
 X-Google-Original-From: Sarthak Kukreti <sarthakkukreti@google.com>
 To: dm-devel@redhat.com, linux-block@vger.kernel.org,
  linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
  virtualization@lists.linux-foundation.org
-Date: Thu, 15 Sep 2022 09:48:24 -0700
-Message-Id: <20220915164826.1396245-7-sarthakkukreti@google.com>
+Date: Thu, 15 Sep 2022 09:48:25 -0700
+Message-Id: <20220915164826.1396245-8-sarthakkukreti@google.com>
 In-Reply-To: <20220915164826.1396245-1-sarthakkukreti@google.com>
 References: <20220915164826.1396245-1-sarthakkukreti@google.com>
 MIME-Version: 1.0
@@ -100,9 +99,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Fri, 16 Sep 2022 08:44:55 +0000
-Subject: [dm-devel] [PATCH RFC 6/8] ext4: Add support for FALLOC_FL_PROVISION
+Subject: [dm-devel] [PATCH RFC 7/8] ext4: Add mount option for provisioning
+ blocks during allocations
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,7 +123,7 @@ Cc: Jens Axboe <axboe@kernel.dk>, Gwendal Grignou <gwendal@google.com>,
  Paolo Bonzini <pbonzini@redhat.com>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -131,114 +131,85 @@ Content-Transfer-Encoding: 7bit
 
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
 
-Once ext4 is done mapping blocks for an fallocate() request, send
-out an FALLOC_FL_PROVISION request to the underlying layer to
-ensure that the space is provisioned for the newly allocated extent
-or indirect blocks.
+Add a mount option that sets the default provisioning mode for
+all files within the filesystem.
 
 Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
 ---
- fs/ext4/ext4.h         |  2 ++
- fs/ext4/extents.c      | 15 ++++++++++++++-
- fs/ext4/indirect.c     |  9 +++++++++
- include/linux/blkdev.h | 11 +++++++++++
- 4 files changed, 36 insertions(+), 1 deletion(-)
+ fs/ext4/ext4.h    | 1 +
+ fs/ext4/extents.c | 7 +++++++
+ fs/ext4/super.c   | 7 +++++++
+ 3 files changed, 15 insertions(+)
 
 diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 9bca5565547b..ec0871e687c1 100644
+index ec0871e687c1..75f6e7f2f90b 100644
 --- a/fs/ext4/ext4.h
 +++ b/fs/ext4/ext4.h
-@@ -675,6 +675,8 @@ enum {
- #define EXT4_GET_BLOCKS_IO_SUBMIT		0x0400
- 	/* Caller is in the atomic contex, find extent if it has been cached */
- #define EXT4_GET_BLOCKS_CACHED_NOWAIT		0x0800
-+	/* Provision blocks on underlying storage */
-+#define EXT4_GET_BLOCKS_PROVISION		0x1000
+@@ -1271,6 +1271,7 @@ struct ext4_inode_info {
+ #define EXT4_MOUNT2_MB_OPTIMIZE_SCAN	0x00000080 /* Optimize group
+ 						    * scanning in mballoc
+ 						    */
++#define EXT4_MOUNT2_PROVISION		0x00000100 /* Provision while allocating file blocks */
  
- /*
-  * The bit position of these flags must not overlap with any of the
+ #define clear_opt(sb, opt)		EXT4_SB(sb)->s_mount_opt &= \
+ 						~EXT4_MOUNT_##opt
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index c148bb97b527..7a096144b7f8 100644
+index 7a096144b7f8..746213b5ec3d 100644
 --- a/fs/ext4/extents.c
 +++ b/fs/ext4/extents.c
-@@ -4356,6 +4356,13 @@ int ext4_ext_map_blocks(handle_t *handle, struct inode *inode,
- 		}
- 	}
+@@ -4437,6 +4437,13 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+ 	unsigned int credits;
+ 	loff_t epos;
  
-+	/* Attempt to provision blocks on underlying storage */
-+	if (flags & EXT4_GET_BLOCKS_PROVISION) {
-+		err = sb_issue_provision(inode->i_sb, pblk, ar.len, GFP_NOFS);
-+		if (err)
-+			goto out;
-+	}
-+
- 	/*
- 	 * Cache the extent and update transaction to commit on fdatasync only
- 	 * when it is _not_ an unwritten extent.
-@@ -4690,7 +4697,7 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
- 	/* Return error if mode is not supported */
- 	if (mode & ~(FALLOC_FL_KEEP_SIZE | FALLOC_FL_PUNCH_HOLE |
- 		     FALLOC_FL_COLLAPSE_RANGE | FALLOC_FL_ZERO_RANGE |
--		     FALLOC_FL_INSERT_RANGE))
-+		     FALLOC_FL_INSERT_RANGE | FALLOC_FL_PROVISION))
- 		return -EOPNOTSUPP;
- 
- 	inode_lock(inode);
-@@ -4750,6 +4757,12 @@ long ext4_fallocate(struct file *file, int mode, loff_t offset, loff_t len)
- 	if (ret)
- 		goto out;
- 
-+	/* Ensure that preallocation provisions the blocks on the underlying
-+	 * storage device.
++	/*
++	 * Attempt to provision file blocks if the mount is mounted with
++	 * provision.
 +	 */
-+	if (mode & FALLOC_FL_PROVISION)
++	if (test_opt2(inode->i_sb, PROVISION))
 +		flags |= EXT4_GET_BLOCKS_PROVISION;
 +
- 	ret = ext4_alloc_file_blocks(file, lblk, max_blocks, new_size, flags);
- 	if (ret)
- 		goto out;
-diff --git a/fs/ext4/indirect.c b/fs/ext4/indirect.c
-index 860fc5119009..860a2560872b 100644
---- a/fs/ext4/indirect.c
-+++ b/fs/ext4/indirect.c
-@@ -640,6 +640,15 @@ int ext4_ind_map_blocks(handle_t *handle, struct inode *inode,
- 	if (err)
- 		goto cleanup;
+ 	BUG_ON(!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS));
+ 	map.m_lblk = offset;
+ 	map.m_len = len;
+diff --git a/fs/ext4/super.c b/fs/ext4/super.c
+index 9a66abcca1a8..5ece1868f332 100644
+--- a/fs/ext4/super.c
++++ b/fs/ext4/super.c
+@@ -1596,6 +1596,7 @@ enum {
+ 	Opt_max_dir_size_kb, Opt_nojournal_checksum, Opt_nombcache,
+ 	Opt_no_prefetch_block_bitmaps, Opt_mb_optimize_scan,
+ 	Opt_errors, Opt_data, Opt_data_err, Opt_jqfmt, Opt_dax_type,
++	Opt_provision, Opt_noprovision,
+ #ifdef CONFIG_EXT4_DEBUG
+ 	Opt_fc_debug_max_replay, Opt_fc_debug_force
+ #endif
+@@ -1744,6 +1745,8 @@ static const struct fs_parameter_spec ext4_param_specs[] = {
+ 	fsparam_flag	("reservation",		Opt_removed),	/* mount option from ext2/3 */
+ 	fsparam_flag	("noreservation",	Opt_removed),	/* mount option from ext2/3 */
+ 	fsparam_u32	("journal",		Opt_removed),	/* mount option from ext2/3 */
++	fsparam_flag	("discard",		Opt_provision),
++	fsparam_flag	("noprovision",		Opt_noprovision),
+ 	{}
+ };
  
-+	/* Attempt to provision blocks on underlying storage */
-+	if (flags & EXT4_GET_BLOCKS_PROVISION) {
-+		err = sb_issue_provision(inode->i_sb,
-+					 le32_to_cpu(chain[depth-1].key),
-+					 ar.len, GFP_NOFS);
-+		if (err)
-+			goto out;
-+	}
-+
- 	map->m_flags |= EXT4_MAP_NEW;
+@@ -1840,6 +1843,8 @@ static const struct mount_opts {
+ 	{Opt_nombcache, EXT4_MOUNT_NO_MBCACHE, MOPT_SET},
+ 	{Opt_no_prefetch_block_bitmaps, EXT4_MOUNT_NO_PREFETCH_BLOCK_BITMAPS,
+ 	 MOPT_SET},
++	{Opt_provision, EXT4_MOUNT2_PROVISION, MOPT_SET | MOPT_2},
++	{Opt_noprovision, EXT4_MOUNT2_PROVISION, MOPT_CLEAR | MOPT_2},
+ #ifdef CONFIG_EXT4_DEBUG
+ 	{Opt_fc_debug_force, EXT4_MOUNT2_JOURNAL_FAST_COMMIT,
+ 	 MOPT_SET | MOPT_2 | MOPT_EXT4_ONLY},
+@@ -3010,6 +3015,8 @@ static int _ext4_show_options(struct seq_file *seq, struct super_block *sb,
+ 		SEQ_OPTS_PUTS("dax=never");
+ 	} else if (test_opt2(sb, DAX_INODE)) {
+ 		SEQ_OPTS_PUTS("dax=inode");
++	} else if (test_opt2(sb, PROVISION)) {
++		SEQ_OPTS_PUTS("provision");
+ 	}
  
- 	ext4_update_inode_fsync_trans(handle, inode, 1);
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index a58496d3f922..26b41a6c12f4 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1107,6 +1107,17 @@ static inline int sb_issue_zeroout(struct super_block *sb, sector_t block,
- 				    gfp_mask, 0);
- }
- 
-+static inline int sb_issue_provision(struct super_block *sb, sector_t block,
-+		sector_t nr_blocks, gfp_t gfp_mask)
-+{
-+	return blkdev_issue_provision(sb->s_bdev,
-+				      block << (sb->s_blocksize_bits -
-+					      SECTOR_SHIFT),
-+				      nr_blocks << (sb->s_blocksize_bits -
-+						    SECTOR_SHIFT),
-+				      gfp_mask);
-+}
-+
- static inline bool bdev_is_partition(struct block_device *bdev)
- {
- 	return bdev->bd_partno;
+ 	if (sbi->s_groups_count >= MB_DEFAULT_LINEAR_SCAN_THRESHOLD &&
 -- 
 2.31.0
 
