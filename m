@@ -1,155 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7EB4A5BB1C4
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Sep 2022 19:57:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3C2E85BB1D4
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Sep 2022 20:04:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663351063;
+	s=mimecast20190719; t=1663351460;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0ndeTBiKQzWEhMr4+SIUSbL0SZkFCRYwPwMu70jskws=;
-	b=BrSFBn9ou98Ww0oh/ZiUFrjbAumM4J04LvBDF1TxG4GW2PVoDAC9gZOC2vS5fNHpu7NjJ6
-	4fiWN06Nw+Qm8XhSQ8a+TRlv3Jpkn/x8fmWn1684oHd6SFQu7XDqUh9e6cvi71LxvZLkPH
-	9tzrsrlRKJPKjswok3GPw7Os5zMwp/M=
+	bh=wVd5t4vWSKAv6SP0BD9HoLtVGJThfLhZavKwt5E7MTk=;
+	b=ADKsEiIbzHJY20nVY5TtG2ym0qe7BMjkjerQH4KkakDaEl3GB60LBKraFrervw3gnE01Ry
+	ktlzTtPdsj4pqr6q3ozDKsCutc14pWqFSZakzSRHwkwvyIH0U2v3vcqpVTQef/LjxiLCHH
+	W21QKv3m/jsaZp/KutA1OsDp9kvHRgc=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-402-SxBWqku1P1aMm0zZs_9FoQ-1; Fri, 16 Sep 2022 13:57:41 -0400
-X-MC-Unique: SxBWqku1P1aMm0zZs_9FoQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-171-3Sr09MNsNF6Vjt9PliCpnw-1; Fri, 16 Sep 2022 14:04:19 -0400
+X-MC-Unique: 3Sr09MNsNF6Vjt9PliCpnw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D45441C20AEE;
-	Fri, 16 Sep 2022 17:57:39 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59FD22A59571;
+	Fri, 16 Sep 2022 18:04:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0323CC15BA4;
-	Fri, 16 Sep 2022 17:57:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6D91E40C6EC2;
+	Fri, 16 Sep 2022 18:04:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4150219465A4;
-	Fri, 16 Sep 2022 17:57:33 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0140819465A4;
+	Fri, 16 Sep 2022 18:04:14 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 55EDB1946586
- for <dm-devel@listman.corp.redhat.com>; Fri, 16 Sep 2022 17:57:31 +0000 (UTC)
+ ESMTP id CBF461946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E92A7C15BA5; Fri, 16 Sep 2022 17:57:30 +0000 (UTC)
+ id C01D7C15BA5; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E0805C15BA4
- for <dm-devel@redhat.com>; Fri, 16 Sep 2022 17:57:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6A83862FDC
- for <dm-devel@redhat.com>; Fri, 16 Sep 2022 17:57:30 +0000 (UTC)
-Received: from mailout2.w1.samsung.com (mailout2.w1.samsung.com
- [210.118.77.12]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-118-9qZQaQrEPN2oZW3Obp5i7g-1; Fri, 16 Sep 2022 13:57:28 -0400
-X-MC-Unique: 9qZQaQrEPN2oZW3Obp5i7g-1
-Received: from eucas1p2.samsung.com (unknown [182.198.249.207])
- by mailout2.w1.samsung.com (KnoxPortal) with ESMTP id
- 20220916175727euoutp0208db90c192212f377dc1c4eed75f491f~VaPcOc9eJ2770927709euoutp02N
- for <dm-devel@redhat.com>; Fri, 16 Sep 2022 17:57:27 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout2.w1.samsung.com
- 20220916175727euoutp0208db90c192212f377dc1c4eed75f491f~VaPcOc9eJ2770927709euoutp02N
-Received: from eusmges1new.samsung.com (unknown [203.254.199.242]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTP id
- 20220916175727eucas1p29f8779dd295b1870898730a928a1732e~VaPbzdcPJ0630006300eucas1p2i;
- Fri, 16 Sep 2022 17:57:27 +0000 (GMT)
-Received: from eucas1p1.samsung.com ( [182.198.249.206]) by
- eusmges1new.samsung.com (EUCPMTA) with SMTP id B3.EC.29727.709B4236; Fri, 16
- Sep 2022 18:57:27 +0100 (BST)
-Received: from eusmtrp2.samsung.com (unknown [182.198.249.139]) by
- eucas1p2.samsung.com (KnoxPortal) with ESMTPA id
- 20220916175726eucas1p2b96d3dda893b1e3b47e0ae4f22da13d5~VaPa0z9ck0629506295eucas1p2x;
- Fri, 16 Sep 2022 17:57:26 +0000 (GMT)
-Received: from eusmgms1.samsung.com (unknown [182.198.249.179]) by
- eusmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20220916175726eusmtrp20aec6fd837cb9c97323960623fd98cb1~VaPaz9JkG2811228112eusmtrp2i;
- Fri, 16 Sep 2022 17:57:26 +0000 (GMT)
-X-AuditID: cbfec7f2-205ff7000001741f-45-6324b9075764
-Received: from eusmtip2.samsung.com ( [203.254.199.222]) by
- eusmgms1.samsung.com (EUCPMTA) with SMTP id 85.B7.07473.609B4236; Fri, 16
- Sep 2022 18:57:26 +0100 (BST)
-Received: from CAMSVWEXC01.scsc.local (unknown [106.1.227.71]) by
- eusmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20220916175725eusmtip282c3befede6e547a184672cacca605db~VaPanlpJO0439104391eusmtip2m;
- Fri, 16 Sep 2022 17:57:25 +0000 (GMT)
-Received: from [192.168.8.130] (106.210.248.192) by CAMSVWEXC01.scsc.local
- (2002:6a01:e347::6a01:e347) with Microsoft SMTP Server (TLS) id 15.0.1497.2;
- Fri, 16 Sep 2022 18:57:21 +0100
-Message-ID: <622ae86d-39ad-c45e-ec48-42abf4b257d2@samsung.com>
-Date: Fri, 16 Sep 2022 19:57:19 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.11.0
-From: Pankaj Raghav <p.raghav@samsung.com>
-To: Mike Snitzer <snitzer@redhat.com>
-In-Reply-To: <e42a0579-61b2-7b77-08cb-6723278490cc@samsung.com>
-X-Originating-IP: [106.210.248.192]
-X-ClientProxiedBy: CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347) To
- CAMSVWEXC01.scsc.local (2002:6a01:e347::6a01:e347)
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFnrKKsWRmVeSWpSXmKPExsWy7djPc7rsO1WSDQ6f4rBYf+oYs8Xqu/1s
- FtM+/GS2+H32PLNFa/s3Jou972azWuxZNInJYuXqo0wWT9bPYrb423UPKHFL2+LyrjlsFvOX
- PWW3mND2ldlizc2nLBYnbklbtG38yugg6HH5irfHzll32T0uny312LSqk81j85J6j903G9g8
- drbeZ/V4v+8qUOh0tcfnTXIe7Qe6mQK4o7hsUlJzMstSi/TtErgyGrfFF2xgqbg+LaGBcTVz
- FyMnh4SAicSF31tZuhi5OIQEVjBKXFnyCcr5wiixu20LG4TzmVGi51ATI0xLz4w5jBCJ5YwS
- +6/8Zoer2tWznBXC2c0o8enwC3aQFl4BO4mbZ98zgdgsAqoSM7/dZoKIC0qcnPmEBcQWFYiU
- WLP7LFi9sEC2xMFrm8AuZBYQl7j1ZD5QPQcHm4CWRGMnO4gpAjTm1jQXiIr9zBL98yxAbE4B
- e4l9Gy4wQcQ1JVq3/2aHsOUltr+dA/WzssTMm1Oh7FqJtcfOsEPYjzglNrVZgIyXEHCR2Nkc
- BxEWlnh1fAtUiYzE/53zmSDsaomnN34zg3wrIdDCKNG/cz0bRK+1RN+ZHIgaR4mGaT+ZIcJ8
- EjfeCkJcwycxadt05gmMqrOQgmEWkndnIXlgFpIHFjCyrGIUTy0tzk1PLTbMSy3XK07MLS7N
- S9dLzs/dxAhMiaf/Hf+0g3Huq496hxiZOBgPMUpwMCuJ8Kp6qiQL8aYkVlalFuXHF5XmpBYf
- YpTmYFES503O3JAoJJCeWJKanZpakFoEk2Xi4JRqYJK1vHtb8uOdE7m/Ledwej2dFbBxUQHT
- nNOB2/9Pz4pSkSitr5vjIfjox66JDtHSp1WKTL5Vxfoz7eeO6fvxaGJabP/7ILc7Ch+S3D8v
- /v2Mw1Iy+qOT4GKGq2snfn958eS6MqHm+XnGFWkhU/yYZkU3zVVwXlQu+JnVs/TG3jW6lq/1
- 7TmmOWTbn5h17EtE/uwKxyz5x1rxOpPWH2tViJaovvVD+di6loC4++v+LPl/ZOFJE4uZvtE7
- LgX0GNpvdLG62r/j9fzEq028vas1u1dwRrwKElfx3MBTxJIk3LOQ75I0c27P/M+W/iuao5Oi
- 2zTvcTM9PjX7VFjj/rdf77ZYn9r/2j6kPem58rJWUSWW4oxEQy3mouJEAEG+Xgj4AwAA
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFprDKsWRmVeSWpSXmKPExsVy+t/xe7psO1WSDd69ZLVYf+oYs8Xqu/1s
- FtM+/GS2+H32PLNFa/s3Jou972azWuxZNInJYuXqo0wWT9bPYrb423UPKHFL2+LyrjlsFvOX
- PWW3mND2ldlizc2nLBYnbklbtG38yugg6HH5irfHzll32T0uny312LSqk81j85J6j903G9g8
- drbeZ/V4v+8qUOh0tcfnTXIe7Qe6mQK4o/RsivJLS1IVMvKLS2yVog0tjPQMLS30jEws9QyN
- zWOtjEyV9O1sUlJzMstSi/TtEvQyGrfFF2xgqbg+LaGBcTVzFyMnh4SAiUTPjDmMXYxcHEIC
- Sxkl1i1dywqRkJH4dOUjO4QtLPHnWhcbRNFHRomFuxayQzi7GSVOLL3EBlLFK2AncfPseyYQ
- m0VAVWLmt9tMEHFBiZMzn7CA2KICkRIPlzWBxYUFsiUOXtsEdgazgLjErSfzgeIcHGwCWhKN
- newgpgjQmFvTXCAq9jNL9M+zgFg7kUni34E7YGs5Bewl9m24wARRpCnRuv03O4QtL7H97Ryo
- L5UlZt6cCmXXSry6v5txAqPoLCTXzUJyxSwko2YhGbWAkWUVo0hqaXFuem6xoV5xYm5xaV66
- XnJ+7iZGYDLZduzn5h2M81591DvEyMTBeIhRgoNZSYRX1VMlWYg3JbGyKrUoP76oNCe1+BCj
- KTCIJjJLiSbnA9NZXkm8oZmBqaGJmaWBqaWZsZI4r2dBR6KQQHpiSWp2ampBahFMHxMHp1QD
- 0542hevvdr8ydz6+61fYTyfWvYalBXcjfgXLprX/WZmizajYcbPOID2kdeeyp5u9/IJCJZo3
- iWQWPzpvN8vFX+V8VOKqmFPdLDv5DRJ2pi+e/cQh/sDK96r9v8W0FxwwdZ6ffdwsJln056vV
- C8JibDeu5pDamlGTlZImHu0gtr3rh9vjumXrozwqj8vE7/C0aGdvOu9YpdkmuefI/Yynju/m
- mZxI2PVy0d1cnjl1yf3VUv2OK969DokssnuQdizg2N1DE2IPe1meaVR/+DQqfrXz7dPtDkY5
- uab/f35pbftTfEd3ZpHLmVtuQREnn4jf/b1apaZI+aRw8F3FalcjzetPU64ZTEnzPZytWfxU
- iaU4I9FQi7moOBEAgMk2La8DAAA=
-X-CMS-MailID: 20220916175726eucas1p2b96d3dda893b1e3b47e0ae4f22da13d5
-X-Msg-Generator: CA
-X-RootMTR: 20220912082220eucas1p24605fdcf22aedc4c40d5303da8f17ad5
-X-EPHeader: CA
-CMS-TYPE: 201P
-X-CMS-RootMailID: 20220912082220eucas1p24605fdcf22aedc4c40d5303da8f17ad5
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B838AC15BA4
+ for <dm-devel@redhat.com>; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9AD6A101AA5D
+ for <dm-devel@redhat.com>; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
+Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
+ [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-383-T5kfWMBDMu2sG5Req7V74g-1; Fri, 16 Sep 2022 14:04:11 -0400
+X-MC-Unique: T5kfWMBDMu2sG5Req7V74g-1
+Received: by mail-qk1-f198.google.com with SMTP id
+ n15-20020a05620a294f00b006b5768a0ed0so18855821qkp.7
+ for <dm-devel@redhat.com>; Fri, 16 Sep 2022 11:04:11 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=+1Y0WCFyP/xwaopES4fLdWeNPtgD6wFT9927YdVHjxA=;
+ b=zMwCmy7Cq/EPIA6qaJ+YCTJ8zQggdfDRFe5ayofwHZ5XVf4c+X+UDPCopGTToqT4/n
+ ZYWOW6Xr7IJ8E4mfSgLm3VUhA79e5x0O+5JUMj4GVmWnPc8s4G4omOEZIhxcy6Wt7L4s
+ lSQVD52Nm9QFY9cWcMEtGof/EYuD5cg+2x45Nv68+ChvXUzmrMEyo6YfEqjVmjY+wvn7
+ nFFNlSRtDoMf8bt5rBrtiQB9krm/4xkvu9yuUcLVMlmUzWBcZhh8xYo0O2SQJyrC3esb
+ G+5xGVUat3lZRURsjzXKu+E/uCh3ml1o6bxPqJQvhirOfvHRy4mO1LZsWBIF2LGxmy7i
+ A/QA==
+X-Gm-Message-State: ACrzQf1nnn2xbGucriZbEWDiXkEqR2UDhIihl5+ezBdau97mcLJoM8Up
+ dyqA+WktSD03n0rY/9OOfZMe12B9Sk8tsAUvedC0BGwY+gEaFNhsMjuSy1d4pALsFaudLSlesvA
+ YY+N+6KDpORmJaQ==
+X-Received: by 2002:a05:622a:310:b0:344:89e4:cf8a with SMTP id
+ q16-20020a05622a031000b0034489e4cf8amr5512044qtw.206.1663351450853; 
+ Fri, 16 Sep 2022 11:04:10 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4avfW/4YAwR1npdBqO0O8h7AEDzFTbb8jsyKyqwPyhkUAoMtuvNzFwbiGDh+VRZqHyNgc5tQ==
+X-Received: by 2002:a05:622a:310:b0:344:89e4:cf8a with SMTP id
+ q16-20020a05622a031000b0034489e4cf8amr5512014qtw.206.1663351450637; 
+ Fri, 16 Sep 2022 11:04:10 -0700 (PDT)
+Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
+ [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
+ j15-20020a05620a410f00b006b5df4d2c81sm7417854qko.94.2022.09.16.11.04.10
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 16 Sep 2022 11:04:10 -0700 (PDT)
+Date: Fri, 16 Sep 2022 14:04:09 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Pankaj Raghav <p.raghav@samsung.com>
+Message-ID: <YyS6mUzqjq9P0+OG@redhat.com>
 References: <20220912082204.51189-1-p.raghav@samsung.com>
  <CGME20220912082220eucas1p24605fdcf22aedc4c40d5303da8f17ad5@eucas1p2.samsung.com>
- <20220912082204.51189-14-p.raghav@samsung.com> <YyIG3i++QriS9Gyy@redhat.com>
+ <20220912082204.51189-14-p.raghav@samsung.com>
+ <YyIG3i++QriS9Gyy@redhat.com>
  <e42a0579-61b2-7b77-08cb-6723278490cc@samsung.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+ <622ae86d-39ad-c45e-ec48-42abf4b257d2@samsung.com>
+MIME-Version: 1.0
+In-Reply-To: <622ae86d-39ad-c45e-ec48-42abf4b257d2@samsung.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 Subject: Re: [dm-devel] [PATCH v13 13/13] dm: add power-of-2 target for
  zoned devices with non power-of-2 zone sizes
@@ -172,31 +119,38 @@ Cc: axboe@kernel.dk, Damien Le Moal <damien.lemoal@wdc.com>, bvanassche@acm.org,
  gost.dev@samsung.com, jaegeuk@kernel.org, hch@lst.de, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
->>
->> Are you certain you shouldn't at least be exposing a different
->> logical_block_size to upper layers?
->>
-> To be honest, I tested my patches in QEMU with 4k Logical block size and on
-> a device with 4k LBA size.
-> 
-> I did a quick test with 512B LBA size in QEMU, and I didn't see any
-> failures when I ran my normal test suite.
-> 
-> Do you see any problem with exposing the same LBA as the underlying device?
-> 
+On Fri, Sep 16 2022 at  1:57P -0400,
+Pankaj Raghav <p.raghav@samsung.com> wrote:
 
-Do you see any issues here? If not, I can send the next version with the
-other two changes you suggested.
+> >>
+> >> Are you certain you shouldn't at least be exposing a different
+> >> logical_block_size to upper layers?
+> >>
+> > To be honest, I tested my patches in QEMU with 4k Logical block size and on
+> > a device with 4k LBA size.
+> > 
+> > I did a quick test with 512B LBA size in QEMU, and I didn't see any
+> > failures when I ran my normal test suite.
+> > 
+> > Do you see any problem with exposing the same LBA as the underlying device?
+> > 
+> 
+> Do you see any issues here? If not, I can send the next version with the
+> other two changes you suggested.
+
+That's fine, I just thought there might be special considerations
+needed.  But if yo've tested it and upper layers work as expected then
+obviously my concern wasn't applicable.
 
 Thanks,
-Pankaj
+Mike
 
 --
 dm-devel mailing list
