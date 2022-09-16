@@ -2,104 +2,108 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3C2E85BB1D4
-	for <lists+dm-devel@lfdr.de>; Fri, 16 Sep 2022 20:04:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 127C65BB327
+	for <lists+dm-devel@lfdr.de>; Fri, 16 Sep 2022 22:01:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663351460;
+	s=mimecast20190719; t=1663358495;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wVd5t4vWSKAv6SP0BD9HoLtVGJThfLhZavKwt5E7MTk=;
-	b=ADKsEiIbzHJY20nVY5TtG2ym0qe7BMjkjerQH4KkakDaEl3GB60LBKraFrervw3gnE01Ry
-	ktlzTtPdsj4pqr6q3ozDKsCutc14pWqFSZakzSRHwkwvyIH0U2v3vcqpVTQef/LjxiLCHH
-	W21QKv3m/jsaZp/KutA1OsDp9kvHRgc=
+	bh=Zye7TmTLMgea98FHmD9iVhDYhYt+oEeobTqDfTzZAfk=;
+	b=dtxWsm71+21e9oEHKVSrtRTdYiJzWd13t45VyO2B/6JZU6Pfug4J2ovQZCjLNB6OSnNWDa
+	VyCyxuZdFnPWv/4aj3DNfjBqs2XMaxUKVPXcyYTplBzyuJunq9xPZuvaGvsICeJiXiMRGA
+	hmPDdeRzNs8uMGlfBPR4zy3n9T0wIDQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-171-3Sr09MNsNF6Vjt9PliCpnw-1; Fri, 16 Sep 2022 14:04:19 -0400
-X-MC-Unique: 3Sr09MNsNF6Vjt9PliCpnw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-617-ujs_9A3fP7ej6n6T-ypQpg-1; Fri, 16 Sep 2022 16:01:33 -0400
+X-MC-Unique: ujs_9A3fP7ej6n6T-ypQpg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 59FD22A59571;
-	Fri, 16 Sep 2022 18:04:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52FCA29AB3EF;
+	Fri, 16 Sep 2022 20:01:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6D91E40C6EC2;
-	Fri, 16 Sep 2022 18:04:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7210B18ECC;
+	Fri, 16 Sep 2022 20:01:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0140819465A4;
-	Fri, 16 Sep 2022 18:04:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5FD6419465A4;
+	Fri, 16 Sep 2022 20:01:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CBF461946586
- for <dm-devel@listman.corp.redhat.com>; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
+ ESMTP id 7EA9A1946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 16 Sep 2022 20:01:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C01D7C15BA5; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
+ id 6ED64492B05; Fri, 16 Sep 2022 20:01:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B838AC15BA4
- for <dm-devel@redhat.com>; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 672D2492B04
+ for <dm-devel@redhat.com>; Fri, 16 Sep 2022 20:01:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9AD6A101AA5D
- for <dm-devel@redhat.com>; Fri, 16 Sep 2022 18:04:12 +0000 (UTC)
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4A55F3C0D875
+ for <dm-devel@redhat.com>; Fri, 16 Sep 2022 20:01:20 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-383-T5kfWMBDMu2sG5Req7V74g-1; Fri, 16 Sep 2022 14:04:11 -0400
-X-MC-Unique: T5kfWMBDMu2sG5Req7V74g-1
-Received: by mail-qk1-f198.google.com with SMTP id
- n15-20020a05620a294f00b006b5768a0ed0so18855821qkp.7
- for <dm-devel@redhat.com>; Fri, 16 Sep 2022 11:04:11 -0700 (PDT)
+ us-mta-199--6WotmbTMOyZxZsmMkcx7g-1; Fri, 16 Sep 2022 16:01:14 -0400
+X-MC-Unique: -6WotmbTMOyZxZsmMkcx7g-1
+Received: by mail-pf1-f173.google.com with SMTP id u132so22220294pfc.6;
+ Fri, 16 Sep 2022 13:01:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
- bh=+1Y0WCFyP/xwaopES4fLdWeNPtgD6wFT9927YdVHjxA=;
- b=zMwCmy7Cq/EPIA6qaJ+YCTJ8zQggdfDRFe5ayofwHZ5XVf4c+X+UDPCopGTToqT4/n
- ZYWOW6Xr7IJ8E4mfSgLm3VUhA79e5x0O+5JUMj4GVmWnPc8s4G4omOEZIhxcy6Wt7L4s
- lSQVD52Nm9QFY9cWcMEtGof/EYuD5cg+2x45Nv68+ChvXUzmrMEyo6YfEqjVmjY+wvn7
- nFFNlSRtDoMf8bt5rBrtiQB9krm/4xkvu9yuUcLVMlmUzWBcZhh8xYo0O2SQJyrC3esb
- G+5xGVUat3lZRURsjzXKu+E/uCh3ml1o6bxPqJQvhirOfvHRy4mO1LZsWBIF2LGxmy7i
- A/QA==
-X-Gm-Message-State: ACrzQf1nnn2xbGucriZbEWDiXkEqR2UDhIihl5+ezBdau97mcLJoM8Up
- dyqA+WktSD03n0rY/9OOfZMe12B9Sk8tsAUvedC0BGwY+gEaFNhsMjuSy1d4pALsFaudLSlesvA
- YY+N+6KDpORmJaQ==
-X-Received: by 2002:a05:622a:310:b0:344:89e4:cf8a with SMTP id
- q16-20020a05622a031000b0034489e4cf8amr5512044qtw.206.1663351450853; 
- Fri, 16 Sep 2022 11:04:10 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM4avfW/4YAwR1npdBqO0O8h7AEDzFTbb8jsyKyqwPyhkUAoMtuvNzFwbiGDh+VRZqHyNgc5tQ==
-X-Received: by 2002:a05:622a:310:b0:344:89e4:cf8a with SMTP id
- q16-20020a05622a031000b0034489e4cf8amr5512014qtw.206.1663351450637; 
- Fri, 16 Sep 2022 11:04:10 -0700 (PDT)
-Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
- [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
- j15-20020a05620a410f00b006b5df4d2c81sm7417854qko.94.2022.09.16.11.04.10
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 16 Sep 2022 11:04:10 -0700 (PDT)
-Date: Fri, 16 Sep 2022 14:04:09 -0400
-From: Mike Snitzer <snitzer@redhat.com>
-To: Pankaj Raghav <p.raghav@samsung.com>
-Message-ID: <YyS6mUzqjq9P0+OG@redhat.com>
-References: <20220912082204.51189-1-p.raghav@samsung.com>
- <CGME20220912082220eucas1p24605fdcf22aedc4c40d5303da8f17ad5@eucas1p2.samsung.com>
- <20220912082204.51189-14-p.raghav@samsung.com>
- <YyIG3i++QriS9Gyy@redhat.com>
- <e42a0579-61b2-7b77-08cb-6723278490cc@samsung.com>
- <622ae86d-39ad-c45e-ec48-42abf4b257d2@samsung.com>
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date;
+ bh=aI55elBM47AbpRIfEoRwcS12RWAxkruf3PuVmLaNsIw=;
+ b=X3zGBYvlbvTKYlauAC3gwQMZ0BSaMdtLiR+/qeSFDexxcdZrC7kCf4k83McA4UvKD1
+ 3Ylm1wQkW5x0e/6iV1AqsMBLpUF30F+EPDTTY9c0ex309/DMDvdKibBAmsKQRucmM0bF
+ 7AA09uqpAq4ARFbRY6PGDdHKzETiKSWvfgRpXv48d1jAiJVf+oDaPTkZwCWsFF3LvTmj
+ SLrYbUHiBvZo2Ygssg1vXi7g2KawER+GmhKS5EPvXmMTrxLJnzIReDpYPRzK295xyPY8
+ RQsjOhKVbVtXg43iZRhtbGtLDscMqVGZaUB3VQxAghCuQSU86gFSSER5p0PZnY08wzqB
+ cQXQ==
+X-Gm-Message-State: ACrzQf2iv5OSz+WspT5WQKIIgfLHUNXegWRnDsh8YwX8c2aEx4bC17rS
+ Ygqd0PlZxkkKjPBByC5BOklRHO+x5Rs=
+X-Google-Smtp-Source: AMsMyM7BtRpoBGm+25ZIcjQ1eDg7usENuczHgm9wgE8Sus1sUlVcptKPjg/7yVuSQ/Mc/WEtnHJpcQ==
+X-Received: by 2002:a63:e452:0:b0:42c:60ce:8b78 with SMTP id
+ i18-20020a63e452000000b0042c60ce8b78mr5917990pgk.453.1663358472565; 
+ Fri, 16 Sep 2022 13:01:12 -0700 (PDT)
+Received: from ?IPV6:2620:15c:211:201:e470:c0f8:8896:5368?
+ ([2620:15c:211:201:e470:c0f8:8896:5368])
+ by smtp.gmail.com with ESMTPSA id
+ n10-20020a170902d2ca00b00174c235e1fdsm15550309plc.199.2022.09.16.13.01.09
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 16 Sep 2022 13:01:11 -0700 (PDT)
+Message-ID: <0be0e378-1601-678c-247a-ba24d111b934@acm.org>
+Date: Fri, 16 Sep 2022 13:01:08 -0700
 MIME-Version: 1.0
-In-Reply-To: <622ae86d-39ad-c45e-ec48-42abf4b257d2@samsung.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH v13 13/13] dm: add power-of-2 target for
- zoned devices with non power-of-2 zone sizes
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.12.0
+To: Sarthak Kukreti <sarthakkukreti@chromium.org>,
+ Stefan Hajnoczi <stefanha@redhat.com>
+References: <20220915164826.1396245-1-sarthakkukreti@google.com>
+ <YyQTM5PRT2o/GDwy@fedora>
+ <CAG9=OMPHZqdDhX=M+ovdg5fa3x4-Q_1r5SWPa8pMTQw0mr5fPg@mail.gmail.com>
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <CAG9=OMPHZqdDhX=M+ovdg5fa3x4-Q_1r5SWPa8pMTQw0mr5fPg@mail.gmail.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH RFC 0/8] Introduce provisioning primitives
+ for thinly provisioned storage
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,46 +115,46 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, Damien Le Moal <damien.lemoal@wdc.com>, bvanassche@acm.org,
- pankydev8@gmail.com, Johannes.Thumshirn@wdc.com,
- damien.lemoal@opensource.wdc.com, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com, matias.bjorling@wdc.com,
- gost.dev@samsung.com, jaegeuk@kernel.org, hch@lst.de, agk@redhat.com
+Cc: Jens Axboe <axboe@kernel.dk>, Gwendal Grignou <gwendal@google.com>,
+ Theodore Ts'o <tytso@mit.edu>, "Michael S . Tsirkin" <mst@redhat.com>,
+ Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ virtualization@lists.linux-foundation.org, linux-block@vger.kernel.org,
+ dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Daniil Lunev <dlunev@google.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ linux-ext4@vger.kernel.org, Evan Green <evgreen@google.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Fri, Sep 16 2022 at  1:57P -0400,
-Pankaj Raghav <p.raghav@samsung.com> wrote:
+On 9/16/22 11:48, Sarthak Kukreti wrote:
+> Yes. On ChromiumOS, we regularly deal with storage devices that don't
+> support WRITE_ZEROES or that need to have it disabled, via a quirk,
+> due to a bug in the vendor's implementation. Using WRITE_ZEROES for
+> allocation makes the allocation path quite slow for such devices (not
+> to mention the effect on storage lifetime), so having a separate
+> provisioning construct is very appealing. Even for devices that do
+> support an efficient WRITE_ZEROES implementation but don't support
+> logical provisioning per-se, I suppose that the allocation path might
+> be a bit faster (the device driver's request queue would report
+> 'max_provision_sectors'=0 and the request would be short circuited
+> there) although I haven't benchmarked the difference.
 
-> >>
-> >> Are you certain you shouldn't at least be exposing a different
-> >> logical_block_size to upper layers?
-> >>
-> > To be honest, I tested my patches in QEMU with 4k Logical block size and on
-> > a device with 4k LBA size.
-> > 
-> > I did a quick test with 512B LBA size in QEMU, and I didn't see any
-> > failures when I ran my normal test suite.
-> > 
-> > Do you see any problem with exposing the same LBA as the underlying device?
-> > 
-> 
-> Do you see any issues here? If not, I can send the next version with the
-> other two changes you suggested.
-
-That's fine, I just thought there might be special considerations
-needed.  But if yo've tested it and upper layers work as expected then
-obviously my concern wasn't applicable.
+Some background information about why ChromiumOS uses thin provisioning 
+instead of a single filesystem across the entire storage device would be 
+welcome. Although UFS devices support thin provisioning I am not aware 
+of any use cases in Android that would benefit from UFS thin 
+provisioning support.
 
 Thanks,
-Mike
+
+Bart.
 
 --
 dm-devel mailing list
