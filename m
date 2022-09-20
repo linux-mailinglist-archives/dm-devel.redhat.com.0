@@ -2,86 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3ED815BE481
-	for <lists+dm-devel@lfdr.de>; Tue, 20 Sep 2022 13:30:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 390E55BEC3C
+	for <lists+dm-devel@lfdr.de>; Tue, 20 Sep 2022 19:47:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663673437;
+	s=mimecast20190719; t=1663696027;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=P8qMAi+sOFSZyQFQsfF3Tikg61EZ9mu3cIIyqHEwIKs=;
-	b=gaaLqbZKmc1ZczLVf9EOLNql1maf5N9kAfLfWznuflZk9gfuHu4ctCj5aDhOumbY4Umagq
-	Ff+y0rS78aOm73GIcLjkhIFpUNr80hLPH7/ENEfTUhevbTSNUeGMpOs4ujqrd9NmbwbWYC
-	jqbNM3DF/o3er6PqxrbygcICna5QNCI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ILb3Vct+agt72nMxORd7IMIayAYLC8mLafA2/ul0L+E=;
+	b=iDOsBO0Pb6gOBrJb0eqMjweaYfkDqLBOdC4zSD8lRu0v5SPIhqQeSRl3WD7BWW/zcXfcwJ
+	Ed/iZbuTZ8NAO47UZx3tN3QAsaVjs+Nl/WRuV3OV20ogrLR7BdAgwFxGDBkLJK4a1mo4+1
+	0280B9EYKD1ciWyspO42wg35NIG9S78=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-35-DtVZNpPUOvijVU4Pucy14A-1; Tue, 20 Sep 2022 07:30:35 -0400
-X-MC-Unique: DtVZNpPUOvijVU4Pucy14A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-287-lHKqucO9OjyFH2DrqWb6aQ-1; Tue, 20 Sep 2022 13:47:05 -0400
+X-MC-Unique: lHKqucO9OjyFH2DrqWb6aQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22177855306;
-	Tue, 20 Sep 2022 11:30:33 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B49871415113;
-	Tue, 20 Sep 2022 11:30:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6A05E2999B2A;
+	Tue, 20 Sep 2022 17:47:02 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 77A6C2166B26;
+	Tue, 20 Sep 2022 17:46:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A6ABD1946A40;
-	Tue, 20 Sep 2022 11:30:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3F7F219465B6;
+	Tue, 20 Sep 2022 17:46:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1F52B19465A0
- for <dm-devel@listman.corp.redhat.com>; Tue, 20 Sep 2022 11:30:27 +0000 (UTC)
+ ESMTP id CBA541946588
+ for <dm-devel@listman.corp.redhat.com>; Tue, 20 Sep 2022 17:46:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 02E8D112132E; Tue, 20 Sep 2022 11:30:27 +0000 (UTC)
+ id 9EC152027063; Tue, 20 Sep 2022 17:46:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EFCF6112132D
- for <dm-devel@redhat.com>; Tue, 20 Sep 2022 11:30:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 267BA858F17
- for <dm-devel@redhat.com>; Tue, 20 Sep 2022 11:30:26 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-274-2YUlPvU6PZaFwzFvyuBYwQ-1; Tue, 20 Sep 2022 07:30:22 -0400
-X-MC-Unique: 2YUlPvU6PZaFwzFvyuBYwQ-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1oabSC-003JT4-DQ; Tue, 20 Sep 2022 11:30:16 +0000
-Date: Tue, 20 Sep 2022 04:30:16 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Daniil Lunev <dlunev@google.com>
-Message-ID: <YymkSDsFVVg1nbDP@infradead.org>
-References: <20220915164826.1396245-1-sarthakkukreti@google.com>
- <YyQTM5PRT2o/GDwy@fedora>
- <CAG9=OMPHZqdDhX=M+ovdg5fa3x4-Q_1r5SWPa8pMTQw0mr5fPg@mail.gmail.com>
- <Yylvvm3zVgqpqDrm@infradead.org>
- <CAAKderPF5Z5QLxyEb80Y+90+eR0sfRmL-WfgXLp=eL=HxWSZ9g@mail.gmail.com>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+ (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 718662027061;
+ Tue, 20 Sep 2022 17:46:56 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
+ 28KHkuXT025484; Tue, 20 Sep 2022 13:46:56 -0400
+Received: from localhost (mpatocka@localhost)
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
+ id 28KHktCx025480; Tue, 20 Sep 2022 13:46:56 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+ owned process doing -bs
+Date: Tue, 20 Sep 2022 13:46:55 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Christoph Hellwig <hch@infradead.org>
+In-Reply-To: <Yylr9g6B7Px6xBXb@infradead.org>
+Message-ID: <alpine.LRH.2.02.2209201255500.21483@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.02.2209151604410.13231@file01.intranet.prod.int.rdu2.redhat.com>
+ <alpine.LRH.2.02.2209160500190.543@file01.intranet.prod.int.rdu2.redhat.com>
+ <Yylr9g6B7Px6xBXb@infradead.org>
+User-Agent: Alpine 2.02 (LRH 1266 2009-07-14)
 MIME-Version: 1.0
-In-Reply-To: <CAAKderPF5Z5QLxyEb80Y+90+eR0sfRmL-WfgXLp=eL=HxWSZ9g@mail.gmail.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH RFC 0/8] Introduce provisioning primitives
- for thinly provisioned storage
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [dm-devel] [PATCH 4/4] brd: implement secure erase and write
+ zeroes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,40 +80,42 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Theodore Ts'o <tytso@mit.edu>, Sarthak Kukreti <sarthakkukreti@chromium.org>,
- "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, Gwendal Grignou <gwendal@google.com>,
- virtualization@lists.linux-foundation.org,
- Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
- linux-ext4@vger.kernel.org, Evan Green <evgreen@google.com>,
- Alasdair Kergon <agk@redhat.com>
+ dm-devel@redhat.com, Zdenek Kabelac <zkabelac@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 20, 2022 at 08:17:10PM +1000, Daniil Lunev wrote:
-> to WRITE ZERO command in NVMe, but to WRITE UNAVAILABLE in
 
-There is no such thing as WRITE UNAVAILABLE in NVMe.
 
-> NVME 2.0 spec, and to UNMAP ANCHORED in SCSI spec.
+On Tue, 20 Sep 2022, Christoph Hellwig wrote:
 
-The SCSI anchored LBA state is quite complicated, and in addition
-to UNMAP you can also create it using WRITE SAME, which is at least
-partially useful, as it allows for sensible initialization pattern.
-For the purpose of Linux that woud be 0.
+> On Fri, Sep 16, 2022 at 05:00:46AM -0400, Mikulas Patocka wrote:
+> > This patch implements REQ_OP_SECURE_ERASE and REQ_OP_WRITE_ZEROES on brd.
+> > Write zeroes will free the pages just like discard, but the difference is
+> > that it writes zeroes to the preceding and following page if the range is
+> > not aligned on page boundary. Secure erase is just like write zeroes,
+> > except that it clears the page content before freeing the page.
+> 
+> What is the use case of this?  And just a single overwrite is not what
+> storage standards would consider a secure erase, but then again we
+> don't really have any documentation or standards for the Linux OP,
+> which strongly suggests not actually implementing it for now.
 
-That being siad you still haven't actually explained what problem
-you're even trying to solve.
+Without support for REQ_OP_WRITE_ZEROES, "blkdiscard -z" actually 
+overwrites the ramdisk with zeroes and allocates all the blocks. 
+Allocating all the blocks is pointless if we want to clear them.
 
+I implemented REQ_OP_SECURE_ERASE just because it is similar to 
+REQ_OP_WRITE_ZEROES. Unlike disks, DRAM has no memory of previous content, 
+so a single overwrite should be OK. We could also flush cache in 
+REQ_OP_SECURE_ERASE, but I don't know if Linux has any portable function 
+that does it.
+
+Mikulas
 --
 dm-devel mailing list
 dm-devel@redhat.com
