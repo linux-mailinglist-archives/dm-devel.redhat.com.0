@@ -2,86 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11A4F5BE1C4
-	for <lists+dm-devel@lfdr.de>; Tue, 20 Sep 2022 11:21:11 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3ED815BE481
+	for <lists+dm-devel@lfdr.de>; Tue, 20 Sep 2022 13:30:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663665671;
+	s=mimecast20190719; t=1663673437;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8vtiAhDK+kvxqng4JLDw4z0a4N6Ktm7BKEVe1OWEMso=;
-	b=L/4t/0V/I3U4nyz6DsbtqFhcwqsis5hf+MqlOHzwJ/KVDNMkVOBr6L8O98y19KYvpYy9T7
-	qsZIYJX2fJRxh9LTzijqHY3WspKMFZvWdQ/TdOayLQh9fZ7eMnJ2l9jUMcPGssNJrkgDdu
-	VFlv9pss/olyWlCoHLqJRJWfoK6mG4E=
+	bh=P8qMAi+sOFSZyQFQsfF3Tikg61EZ9mu3cIIyqHEwIKs=;
+	b=gaaLqbZKmc1ZczLVf9EOLNql1maf5N9kAfLfWznuflZk9gfuHu4ctCj5aDhOumbY4Umagq
+	Ff+y0rS78aOm73GIcLjkhIFpUNr80hLPH7/ENEfTUhevbTSNUeGMpOs4ujqrd9NmbwbWYC
+	jqbNM3DF/o3er6PqxrbygcICna5QNCI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-eWr57S7SNC2DGQ5EZRK2YQ-1; Tue, 20 Sep 2022 05:21:09 -0400
-X-MC-Unique: eWr57S7SNC2DGQ5EZRK2YQ-1
+ us-mta-35-DtVZNpPUOvijVU4Pucy14A-1; Tue, 20 Sep 2022 07:30:35 -0400
+X-MC-Unique: DtVZNpPUOvijVU4Pucy14A-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 658DD811E87;
-	Tue, 20 Sep 2022 09:21:07 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AFD21140EBF5;
-	Tue, 20 Sep 2022 09:21:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22177855306;
+	Tue, 20 Sep 2022 11:30:33 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B49871415113;
+	Tue, 20 Sep 2022 11:30:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 361651946A40;
-	Tue, 20 Sep 2022 09:21:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A6ABD1946A40;
+	Tue, 20 Sep 2022 11:30:28 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4DC2319465A0
- for <dm-devel@listman.corp.redhat.com>; Tue, 20 Sep 2022 09:21:02 +0000 (UTC)
+ ESMTP id 1F52B19465A0
+ for <dm-devel@listman.corp.redhat.com>; Tue, 20 Sep 2022 11:30:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3046140C2064; Tue, 20 Sep 2022 09:21:02 +0000 (UTC)
+ id 02E8D112132E; Tue, 20 Sep 2022 11:30:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2993F40C2066
- for <dm-devel@redhat.com>; Tue, 20 Sep 2022 09:21:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D3878027F5
- for <dm-devel@redhat.com>; Tue, 20 Sep 2022 09:21:02 +0000 (UTC)
-Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
- [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-421-_F8JpLgqMs-lnrD8t-bFwA-1; Tue, 20 Sep 2022 05:20:59 -0400
-X-MC-Unique: _F8JpLgqMs-lnrD8t-bFwA-1
-Received: from dggpemm500024.china.huawei.com (unknown [172.30.72.55])
- by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4MWwsn4bGkzcnf9;
- Tue, 20 Sep 2022 17:17:01 +0800 (CST)
-Received: from dggpemm500014.china.huawei.com (7.185.36.153) by
- dggpemm500024.china.huawei.com (7.185.36.203) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 20 Sep 2022 17:20:55 +0800
-Received: from [10.174.177.211] (10.174.177.211) by
- dggpemm500014.china.huawei.com (7.185.36.153) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Tue, 20 Sep 2022 17:20:55 +0800
-Message-ID: <2686cb11-3955-e3f0-5f42-647dc9cfed36@huawei.com>
-Date: Tue, 20 Sep 2022 17:20:55 +0800
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EFCF6112132D
+ for <dm-devel@redhat.com>; Tue, 20 Sep 2022 11:30:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 267BA858F17
+ for <dm-devel@redhat.com>; Tue, 20 Sep 2022 11:30:26 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-274-2YUlPvU6PZaFwzFvyuBYwQ-1; Tue, 20 Sep 2022 07:30:22 -0400
+X-MC-Unique: 2YUlPvU6PZaFwzFvyuBYwQ-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1oabSC-003JT4-DQ; Tue, 20 Sep 2022 11:30:16 +0000
+Date: Tue, 20 Sep 2022 04:30:16 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Daniil Lunev <dlunev@google.com>
+Message-ID: <YymkSDsFVVg1nbDP@infradead.org>
+References: <20220915164826.1396245-1-sarthakkukreti@google.com>
+ <YyQTM5PRT2o/GDwy@fedora>
+ <CAG9=OMPHZqdDhX=M+ovdg5fa3x4-Q_1r5SWPa8pMTQw0mr5fPg@mail.gmail.com>
+ <Yylvvm3zVgqpqDrm@infradead.org>
+ <CAAKderPF5Z5QLxyEb80Y+90+eR0sfRmL-WfgXLp=eL=HxWSZ9g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:91.0) Gecko/20100101
- Thunderbird/91.0.3
-To: Benjamin Marzinski <bmarzins@redhat.com>
-References: <1660769316-5302-1-git-send-email-bmarzins@redhat.com>
- <44f7c759-943d-23c9-bcd0-b20b0457e329@huawei.com>
- <20220915181754.GA23693@octiron.msp.redhat.com>
-From: Wu Guanghao <wuguanghao3@huawei.com>
-In-Reply-To: <20220915181754.GA23693@octiron.msp.redhat.com>
-X-Originating-IP: [10.174.177.211]
-X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
- dggpemm500014.china.huawei.com (7.185.36.153)
-X-CFilter-Loop: Reflected
+In-Reply-To: <CAAKderPF5Z5QLxyEb80Y+90+eR0sfRmL-WfgXLp=eL=HxWSZ9g@mail.gmail.com>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH V2 0/6] allowing path checking to be
- interrupted.
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH RFC 0/8] Introduce provisioning primitives
+ for thinly provisioned storage
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,73 +93,43 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linfeilong <linfeilong@huawei.com>, lixiaokeng <lixiaokeng@huawei.com>,
- device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Sarthak Kukreti <sarthakkukreti@chromium.org>,
+ "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, Gwendal Grignou <gwendal@google.com>,
+ virtualization@lists.linux-foundation.org,
+ Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ linux-ext4@vger.kernel.org, Evan Green <evgreen@google.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgrlnKggMjAyMi85LzE2IDI6MTcsIEJlbmphbWluIE1hcnppbnNraSDlhpnpgZM6Cj4gT24gVGh1
-LCBTZXAgMTUsIDIwMjIgYXQgMDI6NTY6MzZQTSArMDgwMCwgV3UgR3VhbmdoYW8gd3JvdGU6Cj4+
-IFNvcnJ5IGZvciB0aGUgbGF0ZSBmZWVkYmFjay4KPj4KPj4gVGhlIHZlcnNpb24gd2UgYXJlIGN1
-cnJlbnRseSB0ZXN0aW5nIGlzIDAuOC40LCBzbyB3ZSBvbmx5IG1lcmdlIHRoZQo+PiBmaXJzdCAz
-IHBhdGNoZXMgaW4gdGhpcyBzZXJpZXMgb2YgcGF0Y2hlcy4gVGhlbiBhZnRlciB0aGUgYWN0dWFs
-IHRlc3QsCj4+IGl0IHdhcyBmb3VuZCB0aGF0IHRoZSBlZmZlY3QgaW1wcm92ZW1lbnQgaXMgbm90
-IHZlcnkgb2J2aW91cy4KPj4KPj4gVGVzdCBlbnZpcm9ubWVudDogMTAwMCBtdWx0aXBhdGggZGV2
-aWNlcywgMTYgcGF0aHMgcGVyIGRldmljZQo+PiBUZXN0IGNvbW1hbmQ6ICBBZ2dyZWdhdGUgbXVs
-dGlwYXRoIGRldmljZXMgdXNpbmcgbXVsdGlwYXRoZCBhZGQgcGF0aAo+PiBUaW1lIGNvbnN1bWlu
-ZyDvvIh0aW1lIGZvciAxNiBwYXRocyB0byBhZ2dyZWdhdGUgMSBtdWx0aXBhdGggZGV2aWNlKToK
-Pj4gMS4gT3JpZ2luYWw6Cj4+IAk8IDRzOiAgIDc2LjklOwo+PiAJNHN+MTBzOiAxOC40JTsKPj4g
-CT4xMHM6CSA0LjclOwo+PiAyLiBBZnRlciB1c2luZyB0aGUgcGF0Y2hlczoKPj4gCTwgNHM6CTc5
-LjElOwo+PiAJNHN+MTBzOiAxOC4yJTsKPj4gCT4xMHM6CSAyLjclOwo+Pgo+PiA+RnJvbSB0aGUg
-cmVzdWx0cywgdGhlIHRpbWUtY29uc3VtaW5nIGltcHJvdmVtZW50IG9mIHRoZSBwYXRjaCBpcyBu
-b3Qgb2J2aW91cywKPj4gc28gd2UgbWFkZSBhIGZldyBjaGFuZ2VzIHRvIHRoZSBwYXRjaCBhbmQg
-aXQgd29ya2VkIGFzIGV4cGVjdGVkLiBUaGUgbW9kaWZpY2F0aW9uCj4+IG9mIHRoZSBwYXRjaCBp
-cyBhcyBmb2xsb3dzOgo+Pgo+PiBQYXRoc19jaGVja2VkIGlzIGNoYW5nZWQgdG8gY29uZmlndXJh
-YmxlLCBjdXJyZW50IHNldHRpbmcgbiA9IDIuCj4+IFJlbW92ZWQganVkZ21lbnQgb24gZGlmZl90
-aW1lLgo+PiBTbGVlcCBjaGFuZ2UgZnJvbSAxMHVzIHRvIDVtcwo+IAo+IEkgd29ycnkgdGhhdCB0
-aGlzIGlzIGdpdmluZyB0b28gbXVjaCBkZWZlcmVuY2UgdG8gdGhlIHVldmVudHMuIElmIHRoZXJl
-Cj4gaXMgYSB1ZXZlbnQgc3Rvcm0sIGNoZWNraW5nIHdpbGwgc3RvcCBmb3IgNW1zIGV2ZXJ5IDIg
-cGF0aHMgY2hlY2tlZC4gSSdtCj4gd29ycmllZCB0aGF0IHRoaXMgd2lsbCBtYWtlIGl0IHRha2Ug
-c2lnbmlmaWNhbnRseSBsb25nZXIgZm9yIHRoZSB0aGUKPiBwYXRoIGNoZWNrZXIgdG8gY29tcGxl
-dGUgYSBjeWNsZS4gIE1ha2luZyBwYXRoc19jaGVja2VkIGNvbmZpZ3VyYWJsZSwgc28KPiB0aGF0
-IHRoaXMgZG9lc24ndCB0cmlnZ2VyIHRvbyBvZnRlbiBkb2VzIGhlbHAgdG8gYXZvaWQgdGhlIGlz
-c3VlIHRoYXQKPiBjaGVja2luZyB0aGUgdGltZSBmcm9tIGNoa19zdGFydF90aW1lIHdhcyBkZWFs
-aW5nIHdpdGgsIGFuZCBtYWtlcyB0aGUKPiBtZWNoYW5pY3Mgb2YgdGhpcyBzaW1wbGVyLiAgQnV0
-IDVtcyBzZWVtcyBsaWtlIGEgbG9uZyB0aW1lIHRvIGhhdmUgdG8KPiB3YWl0LCBqdXN0IHRvIG1h
-a2Ugc3VyZSB0aGF0IGFub3RoZXIgcHJvY2VzcyBoYWQgdGhlIHRpbWUgdG8gZ3JhYiB0aGUKPiB2
-ZWNzIGxvY2suICBQZXJoYXBzIGl0IHdvdWxkIGJlIGJldHRlciB0byBzbGVlcCBmb3IgYSBzaG9y
-dGVyIGxlbmd0aCBvZgo+IHRpbWUsIGJ1dCBpbiBhIGxvb3AsIHdoZXJlIHdlIGNhbiBjaGVjayB0
-byBzZWUgaWYgcHJvZ3Jlc3MgaGFzIGJlZW4KPiBtYWRlLCBwZXJoYXBzIGJ5IGNoZWNraW5nIHNv
-bWUgY291bnRlciBvZiBldmVudHMgYW5kIHVzZXIgY29tbWFuZHMKPiBzZXJ2aWNlZC4gVGhpcyB3
-YXksIHdlIGFyZW4ndCBzbGVlcGluZyB0b28gbG9uZyBmb3Igbm8gZ29vZCByZWFzb24uCj4gSSBh
-Z3JlZSB3aXRoIHRoaXMsIHdlIGFyZSBhbHNvIGdvaW5nIHRvIGFkanVzdCB0aGUgc2xlZXAgdGlt
-ZSwgYW5kIHRoZW4KY29udGludWUgdGhlIHRlc3QuCgo+PiBpZiAoKytwYXRoc19jaGVja2VkICUg
-biA9PSAwICYmCj4+IAlsb2NrX2hhc193YWl0ZXJzKCZ2ZWNzLT5sb2NrKSkgewo+PiAJCWdldF9t
-b25vdG9uaWNfdGltZSgmZW5kX3RpbWUpOwo+PiAJCXRpbWVzcGVjc3ViKCZlbmRfdGltZSwgJmNo
-a19zdGFydF90aW1lLAo+PiAJCQkgICAgJmRpZmZfdGltZSk7Cj4+IAkJaWYgKGRpZmZfdGltZS50
-dl9zZWMgPiAwKSAvLyBEZWxldGUgdGhlIGNvZGUsIGdvdG8gZGlyZWN0bHkKPj4gCQkJZ290byB1
-bmxvY2s7Cj4+IH0KPj4KPj4gaWYgKGNoZWNrZXJfc3RhdGUgIT0gQ0hFQ0tFUl9GSU5JU0hFRCkg
-ewo+PiAJLyogWWllbGQgdG8gd2FpdGVycyAqLwo+PiAJLy9zdHJ1Y3QgdGltZXNwZWMgd2FpdCA9
-IHsgLnR2X25zZWMgPSAxMDAwMCwgfTsKPj4gCS8vbmFub3NsZWVwKCZ3YWl0LCBOVUxMKTsKPj4g
-CXVzbGVlcCg1MDAwKTsgIC8vIHNsZWVwIGNoYW5nZSBmcm9tIDEwdXMgdG8gNW1zCj4+IH0KPj4K
-Pj4gVGltZSBjb25zdW1pbmfvvIhBZnRlciBtYWtpbmcgdGhlIGFib3ZlIGNoYW5nZXMgdG8gdGhl
-IHBhdGNo77yJOgo+PiA8IDRzOiA5OS41JTsKPj4gPSA0czogMC41JTsKPj4+IDRzOiAwJTsKPiAK
-PiBTaW5jZSBJIGJlbGlldmUgdGhhdCB0aGlzIGlzIGxpa2VseSBjYXVzaW5nIGEgcmVhbCBpbXBh
-Y3Qgb24gdGhlIGNoZWNrZXIKPiBzcGVlZCwgSSdtIG5vdCBzdXJlIHRoYXQgd2UncmUgbG9va2lu
-ZyBmb3IgcmVzdWx0cyBsaWtlIHRoaXMuIEFyZSB5b3UKPiBzZWVpbmcgVGhhdCAicGF0aCBjaGVj
-a2VycyB0b29rIGxvbmdlciB0aGFuIC4uLiIgbWVzc2FnZT8gSG93IGxvbmcgZG9lcwo+IGl0IHNh
-eSB0aGUgY2hlY2tlciBpcyB0YWtpbmcgKGFuZCB3aGF0IGRvIHlvdSBoYXZlIG1heF9wb2xsaW5n
-X2ludGVydmFsCj4gc2V0IHRvKT8KPiBZZXMsIEkgc2F3IHRoaXMgbWVzc2FnZS4gSW4gdGhlIGN1
-cnJlbnQgdGVzdCBlbnZpcm9ubWVudCwgdXNpbmcgdGhlIG9yaWdpbmFsCmNvZGUsIGFsbCBwYXRo
-IGNoZWNrcyB0YWtlIGF0IGxlYXN0IDUwcyB0byBjb21wbGV0ZS4gV2UgY3VycmVudGx5IHNldApt
-YXhfcG9sbGluZ19pbnRlcnZhbD0yMHMsIHNvIGl0IG11c3QgcHJpbnQgdGhpcyBtZXNzYWdlLiBB
-ZGRpbmcgc2xlZXAganVzdAptYWtlcyB0aGlzIG1lc3NhZ2UgcHJpbnQgbW9yZSBvZnRlbi4KCj4g
-LUJlbgo+IAoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0
-cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+On Tue, Sep 20, 2022 at 08:17:10PM +1000, Daniil Lunev wrote:
+> to WRITE ZERO command in NVMe, but to WRITE UNAVAILABLE in
+
+There is no such thing as WRITE UNAVAILABLE in NVMe.
+
+> NVME 2.0 spec, and to UNMAP ANCHORED in SCSI spec.
+
+The SCSI anchored LBA state is quite complicated, and in addition
+to UNMAP you can also create it using WRITE SAME, which is at least
+partially useful, as it allows for sensible initialization pattern.
+For the purpose of Linux that woud be 0.
+
+That being siad you still haven't actually explained what problem
+you're even trying to solve.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
