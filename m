@@ -2,98 +2,104 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CD145BF95A
-	for <lists+dm-devel@lfdr.de>; Wed, 21 Sep 2022 10:35:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 199F15C00D6
+	for <lists+dm-devel@lfdr.de>; Wed, 21 Sep 2022 17:13:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1663749302;
+	s=mimecast20190719; t=1663773195;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1MFXgwudqJM3FlIHSXM6xb/vhMARz6qFFjz/5fJ0lgo=;
-	b=dg0BBHP+Yu2+0fry8YpSP7MZVVZWZDq+93nLFooEiW2rpgDeslinbElWr6WlrKo50NGJuX
-	hI4jH3CjlaBby1K4ZiMsjL8wlyT2jDkVgBW9Mbx7PIvyQU3IN4HLRbbkTLnKrg1GIuQLS+
-	54q57fnH3JZABj5iB/45/HD+Hyu/6wI=
+	bh=wW7b2uYWFg3YoltK40JL5nJMnP/nHoqO0o2vv2jddNY=;
+	b=K3Cu0gsGSQrMgZTpFT0MWyzn4ghMw5EbqB+mJYolHOTnMYLmOE3HbSFCrOHFxdaUKOBxFG
+	uomp9SFN/4jCbbZAwhORAudOIFUUpC3CD5+EVWmH9Uq1g7iMuTuLx7xjgp+I3jeunwe786
+	YWNgPJPkhHPKGjf4tPkQ5So0ZWOmo2o=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-248-gMlXTfVrPyikaCUKDj1eVg-1; Wed, 21 Sep 2022 04:34:08 -0400
-X-MC-Unique: gMlXTfVrPyikaCUKDj1eVg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-248-7u8aH8wjOTqEyg0qxaYl_g-1; Wed, 21 Sep 2022 11:13:14 -0400
+X-MC-Unique: 7u8aH8wjOTqEyg0qxaYl_g-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91A57833941;
-	Wed, 21 Sep 2022 08:34:06 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BCF1E111E3EB;
-	Wed, 21 Sep 2022 08:33:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D881A1012462;
+	Wed, 21 Sep 2022 15:13:11 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 95CFEC15BA5;
+	Wed, 21 Sep 2022 15:13:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D4CF01946A6C;
-	Wed, 21 Sep 2022 08:33:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 809471946A42;
+	Wed, 21 Sep 2022 15:13:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 940E11946588
- for <dm-devel@listman.corp.redhat.com>; Wed, 21 Sep 2022 05:54:56 +0000 (UTC)
+ ESMTP id 1ECCE19465A4
+ for <dm-devel@listman.corp.redhat.com>; Wed, 21 Sep 2022 15:08:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 77A8440C206B; Wed, 21 Sep 2022 05:54:56 +0000 (UTC)
+ id 0DC8A2166B2D; Wed, 21 Sep 2022 15:08:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7086F40C2064
- for <dm-devel@redhat.com>; Wed, 21 Sep 2022 05:54:56 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 071702166B29
+ for <dm-devel@redhat.com>; Wed, 21 Sep 2022 15:08:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 54417101245E
- for <dm-devel@redhat.com>; Wed, 21 Sep 2022 05:54:56 +0000 (UTC)
-Received: from mail-ej1-f50.google.com (mail-ej1-f50.google.com
- [209.85.218.50]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 881DD384C6C5
+ for <dm-devel@redhat.com>; Wed, 21 Sep 2022 15:08:46 +0000 (UTC)
+Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
+ [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-107-2CNxhhkbOvattLDyCEPgFA-1; Wed, 21 Sep 2022 01:54:44 -0400
-X-MC-Unique: 2CNxhhkbOvattLDyCEPgFA-1
-Received: by mail-ej1-f50.google.com with SMTP id r18so11106998eja.11
- for <dm-devel@redhat.com>; Tue, 20 Sep 2022 22:54:44 -0700 (PDT)
+ us-mta-649-hNvWOK3zMnmNLmUZzYwv_Q-1; Wed, 21 Sep 2022 11:08:45 -0400
+X-MC-Unique: hNvWOK3zMnmNLmUZzYwv_Q-1
+Received: by mail-qv1-f70.google.com with SMTP id
+ ok32-20020a0562143ca000b004a10b5f97e6so4454693qvb.12
+ for <dm-devel@redhat.com>; Wed, 21 Sep 2022 08:08:45 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date;
- bh=O+/FFDzqjGUa/uvDMSfAuiQjEkg5o9+lgPvGbc+n8wE=;
- b=fGlEzyA7rCAYu4GiDzH1UKvTJuqhxOFXnTFMKN527gLYPAlSV7Bt4fxbCsIF8/qqQu
- Hk6AnSOpa0v8vH+dlHeU0waeEUazAhnX6emeAZBmtt+9rRVwVMGymxU0StgH53FUhrJw
- bk+LAMXM11nU7XUfTZOZFDEoT3AHZRpyN8Y6uJQJAWOTZrh/7VLN4peK9SvOpozrnu5W
- cU0k5o0nFucXKoQbQxGbpZmuBko+i+8jPeB1TO8C08B9KWvkCzcgshHf77qNn5TFCc1X
- s32br2SXfn0wT9NL7U/xGChwhrJF1zMRannRgNRUgLz0BZm6NacGKCliFLhPS/E3QJKX
- ub2Q==
-X-Gm-Message-State: ACrzQf1Pzi8YBzvzxhjZN8IKJzQLF7e9mZDCYuGf3s7qLm35EYZJLl18
- +SwIbpdX4JgThRXkIyOjwzVgV+Ngqwv3Xfh37L1j6Q==
-X-Google-Smtp-Source: AMsMyM7DwZfJgUBj+Jcm+ahguQtT7+RYi7n81t2AfUSbJlFqnH/D7ZLc78O5AtvKtve14UtIE21JWlJbn+K5xTQxSGs=
-X-Received: by 2002:a17:907:7289:b0:780:2017:3898 with SMTP id
- dt9-20020a170907728900b0078020173898mr19775359ejc.276.1663739683574; Tue, 20
- Sep 2022 22:54:43 -0700 (PDT)
-MIME-Version: 1.0
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=Ptp1oLSt177eSTGNW8YxvUlUM4rs67KrLKfl9pj1Lys=;
+ b=7DbEbkDVHs6idZ7GwQTqLXV9COVtS0jqs6sCDXo9eb0bwP8BVGUbz3HnoNsK71rUqg
+ aUCDJOYHdycQCPyIPwIcPY2QSoyOeCdu/eE9mM9RAw/pBHpgKOIL8JW0W6P7lS7C79AD
+ I3eB1OEnQlV0DAopOoQsZcTZ2LWJSnOXNE2VPMLXsSQJTsvJj6tOCPiis32I5yFDYTSA
+ ficBnv4IW3sKCcJ46U9v/wlPZvPNxTGKjHOU5qy6GB2RKi7mQ0ezSkmu/Fi13R2FSCG0
+ PwaobO3GSGg/9HQo/7pzZlUbKPEAuj8SZDPXIaPPXSmr4QTo45Py5AAE5BSeTT7sCMeR
+ UOoQ==
+X-Gm-Message-State: ACrzQf0vgRuTWJvvDjYoPc2tia4RwEhwX1oPIdTg5PgiMAtsXp3SdkDh
+ Xh7vyIVo9wD5L6nems1fH8T7Ukut+GlypUUoPGECmFIyc5rr1DZo6oONRjc1IbRN4pIRzzAe9ze
+ TS5lXQj1pzgQ7bg==
+X-Received: by 2002:ac8:7d85:0:b0:35b:f5b1:63df with SMTP id
+ c5-20020ac87d85000000b0035bf5b163dfmr23884640qtd.113.1663772924832; 
+ Wed, 21 Sep 2022 08:08:44 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM4EexL7l8DWx+8oreUyHWUiCWf8NA2huyVubxlwg6z5TXJwF+130R2NsOA173MiJm0z6yEZRA==
+X-Received: by 2002:ac8:7d85:0:b0:35b:f5b1:63df with SMTP id
+ c5-20020ac87d85000000b0035bf5b163dfmr23884597qtd.113.1663772924537; 
+ Wed, 21 Sep 2022 08:08:44 -0700 (PDT)
+Received: from localhost ([217.138.198.196]) by smtp.gmail.com with ESMTPSA id
+ w7-20020ac857c7000000b0035bbb6268e2sm2041812qta.67.2022.09.21.08.08.43
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 21 Sep 2022 08:08:44 -0700 (PDT)
+Date: Wed, 21 Sep 2022 11:08:43 -0400
+From: Mike Snitzer <snitzer@redhat.com>
+To: Daniil Lunev <dlunev@google.com>
+Message-ID: <Yyso+9ChDJQUf9B1@redhat.com>
 References: <20220915164826.1396245-1-sarthakkukreti@google.com>
- <20220915164826.1396245-5-sarthakkukreti@google.com>
- <YylweQAZkIdb5ixo@infradead.org>
-In-Reply-To: <YylweQAZkIdb5ixo@infradead.org>
-From: Sarthak Kukreti <sarthakkukreti@chromium.org>
-Date: Tue, 20 Sep 2022 22:54:32 -0700
-Message-ID: <CAG9=OMNoG01UUStNs_Zhsv6mXZw0M0q2v54ZriJvHZ4aspvjEQ@mail.gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Wed, 21 Sep 2022 08:33:55 +0000
-Subject: Re: [dm-devel] [PATCH RFC 4/8] fs: Introduce FALLOC_FL_PROVISION
+ <YyQTM5PRT2o/GDwy@fedora>
+ <CAG9=OMPHZqdDhX=M+ovdg5fa3x4-Q_1r5SWPa8pMTQw0mr5fPg@mail.gmail.com>
+ <Yylvvm3zVgqpqDrm@infradead.org>
+ <CAAKderPF5Z5QLxyEb80Y+90+eR0sfRmL-WfgXLp=eL=HxWSZ9g@mail.gmail.com>
+ <YymkSDsFVVg1nbDP@infradead.org>
+ <CAAKderNcHpbBqWqqd5-WuKLRCQQUt7a_4D4ti4gy15+fKGK0vQ@mail.gmail.com>
+MIME-Version: 1.0
+In-Reply-To: <CAAKderNcHpbBqWqqd5-WuKLRCQQUt7a_4D4ti4gy15+fKGK0vQ@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH RFC 0/8] Introduce provisioning primitives
+ for thinly provisioned storage
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,74 +111,80 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Gwendal Grignou <gwendal@google.com>,
- Theodore Ts'o <tytso@mit.edu>, "Michael S . Tsirkin" <mst@redhat.com>,
- Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
- Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
- Daniil Lunev <dlunev@google.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-ext4@vger.kernel.org,
- Evan Green <evgreen@google.com>, Alasdair Kergon <agk@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Sarthak Kukreti <sarthakkukreti@chromium.org>,
+ "Michael S . Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
+ Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, Gwendal Grignou <gwendal@google.com>,
+ virtualization@lists.linux-foundation.org,
+ Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ linux-ext4@vger.kernel.org, Evan Green <evgreen@google.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Sep 20, 2022 at 12:49 AM Christoph Hellwig <hch@infradead.org> wrote:
->
-> On Thu, Sep 15, 2022 at 09:48:22AM -0700, Sarthak Kukreti wrote:
-> > From: Sarthak Kukreti <sarthakkukreti@chromium.org>
-> >
-> > FALLOC_FL_PROVISION is a new fallocate() allocation mode that
-> > sends a hint to (supported) thinly provisioned block devices to
-> > allocate space for the given range of sectors via REQ_OP_PROVISION.
->
-> So, how does that "provisioning" actually work in todays world where
-> storage is usually doing out of place writes in one or more layers,
-> including the flash storage everyone is using.  Does it give you one
-> write?  And unlimited number?  Some undecided number inbetween?
+On Tue, Sep 20 2022 at  5:48P -0400,
+Daniil Lunev <dlunev@google.com> wrote:
 
-Apologies, the patchset was a bit short on describing the semantics so
-I'll expand more in the next revision; I'd say that it's the minimum
-of regular mode fallocate() guarantees at each allocation layer. For
-example, the guarantees from a contrived storage stack like (left to
-right is bottom to top):
+> > There is no such thing as WRITE UNAVAILABLE in NVMe.
+> Apologize, that is WRITE UNCORRECTABLE. Chapter 3.2.7 of
+> NVM Express NVM Command Set Specification 1.0b
+> 
+> > That being siad you still haven't actually explained what problem
+> > you're even trying to solve.
+> 
+> The specific problem is the following:
+> * There is an thinpool over a physical device
+> * There are multiple logical volumes over the thin pool
+> * Each logical volume has an independent file system and an
+>   independent application running over it
+> * Each application is potentially allowed to consume the entirety
+>   of the disk space - there is no strict size limit for application
+> * Applications need to pre-allocate space sometime, for which
+>   they use fallocate. Once the operation succeeded, the application
+>   assumed the space is guaranteed to be there for it.
+> * Since filesystems on the volumes are independent, filesystem
+>   level enforcement of size constraints is impossible and the only
+>   common level is the thin pool, thus, each fallocate has to find its
+>   representation in thin pool one way or another - otherwise you
+>   may end up in the situation, where FS thinks it has allocated space
+>   but when it tries to actually write it, the thin pool is already
+>   exhausted.
+> * Hole-Punching fallocate will not reach the thin pool, so the only
+>   solution presently is zero-writing pre-allocate.
+> * Not all storage devices support zero-writing efficiently - apart
+>   from NVMe being or not being capable of doing efficient write
+>   zero - changing which is easier said than done, and would take
+>   years - there are also other types of storage devices that do not
+>   have WRITE ZERO capability in the first place or have it in a
+>   peculiar way. And adding custom WRITE ZERO to LVM would be
+>   arguably a much bigger hack.
+> * Thus, a provisioning block operation allows an interface specific
+>   operation that guarantees the presence of the block in the
+>   mapped space. LVM Thin-pool itself is the primary target for our
+>   use case but the argument is that this operation maps well to
+>   other interfaces which allow thinly provisioned units.
 
-[ mmc0blkp1 | ext4(1) | sparse file | loop | dm-thinp | dm-thin | ext4(2) ]
+Thanks for this overview. Should help level-set others.
 
-would be predicated on the guarantees of fallocate() per allocation
-layer; if ext4(1) was replaced by a filesystem that did not support
-fallocate(), then there would be no guarantee that a write to a file
-on ext4(2) succeeds.
+Adding fallocate support has been a long-standing dm-thin TODO item
+for me. I just never got around to it. So thanks to Sarthak, you and
+anyone else who had a hand in developing this.
 
-For dm-thinp, in the current implementation, the provision request
-allocates blocks for the range specified and adds the mapping to the
-thinpool metadata. All subsequent writes are to the same block, so
-you'll be able to write to the same block inifinitely. Brian mentioned
-this above, one case it doesn't cover is if provision is called on a
-shared block, but the natural extension would be to allocate and
-assign a new block and copy the contents of the shared block (kind of
-like copy-on-provision).
+I had a look at the DM thin implementation and it looks pretty simple
+(doesn't require a thin-metadata change, etc).  I'll look closer at
+the broader implementation (block, etc) but I'm encouraged by what I'm
+seeing.
 
-[reflowed]
-> How is it affected by write zeroes to that range or a discard?
-
-The current semantics of discards for dm-thinp/ext4/sparse files will
-apply as they do today; discards will unmap the dm-thin block/free the
-file extent. Write zeroes is more interesting; dm-thinp will treat the
-command as usual. ext4_zero_range will mark the extents as unwritten,
-so essentially if a user did provision + write to a block, write zeros
-to the block would essentially leave it in the original provisioned
-state, but ext4 would now show the contents of the block as zero on
-the next read. I think, similar to above, the semantics of a request
-will depend on each layer that it passes through.
-
-Best
-Sarthak
+Mike
 
 --
 dm-devel mailing list
