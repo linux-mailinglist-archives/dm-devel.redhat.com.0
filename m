@@ -2,110 +2,101 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CAA8A5EE4B8
-	for <lists+dm-devel@lfdr.de>; Wed, 28 Sep 2022 21:02:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D8C325EEE76
+	for <lists+dm-devel@lfdr.de>; Thu, 29 Sep 2022 09:08:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1664391755;
+	s=mimecast20190719; t=1664435284;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=mn9BfbNxqHRraYI4y2bMHYIaKLuO1L7nE/hDlzt6vb4=;
-	b=TV26RnhfrLtj5ai5AixA81cwYyShePBLZlzj+5Xl+P3nhAKqFVHlv/tyPW5Rs89Uw5sk8v
-	/qAYxklDqxKcpMJ7d2SxrcW2Sv1JDtNRQbHuj/zvhJtQv+VcRcpkdFCneBTFWv8g0NqKuk
-	g6tI9NCfDe66FXUm2rnoReYDsuk1VUw=
+	bh=x17rGzlRqXoMu/ZO9R2/KSWE7GekLdX8cXaS7kHkXNc=;
+	b=XWnsjfg42HapuEHQsIf9yweZBDSH/jWNzgV/mafhhLqpy7FlBnWOI5v1QO3/6vLx1ewhpd
+	3gwKkqQ+3B2uzZWGWudJ3YlxU7Wb2SlmLAbv89wORsThIj3vzfOXVVQIRj2pxficxlJoee
+	79l+0N8vIMpNx5rNRl958iOagtZfz/o=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-408-ZCZmDQewMOKbNBlrfkrelA-1; Wed, 28 Sep 2022 15:02:31 -0400
-X-MC-Unique: ZCZmDQewMOKbNBlrfkrelA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-578-ISWR3HMQNvOqW5uFf-uypw-1; Thu, 29 Sep 2022 03:07:03 -0400
+X-MC-Unique: ISWR3HMQNvOqW5uFf-uypw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7802229DD9A2;
-	Wed, 28 Sep 2022 19:01:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5946A38005E5;
+	Thu, 29 Sep 2022 07:07:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3735D492B04;
-	Wed, 28 Sep 2022 19:01:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8F7A04A927A;
+	Thu, 29 Sep 2022 07:06:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77889194658F;
-	Wed, 28 Sep 2022 19:01:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B82241946A54;
+	Thu, 29 Sep 2022 07:06:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 433C2194658F
- for <dm-devel@listman.corp.redhat.com>; Wed, 28 Sep 2022 18:13:36 +0000 (UTC)
+ ESMTP id 687E91946586
+ for <dm-devel@listman.corp.redhat.com>; Tue, 27 Sep 2022 21:38:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2FB672027062; Wed, 28 Sep 2022 18:13:36 +0000 (UTC)
+ id 23359492B05; Tue, 27 Sep 2022 21:38:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 28C8F2027061
- for <dm-devel@redhat.com>; Wed, 28 Sep 2022 18:13:35 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B3F7492B04
+ for <dm-devel@redhat.com>; Tue, 27 Sep 2022 21:38:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D375F882827
- for <dm-devel@redhat.com>; Wed, 28 Sep 2022 18:13:35 +0000 (UTC)
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com
- [209.85.216.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3AB4811E67
+ for <dm-devel@redhat.com>; Tue, 27 Sep 2022 21:38:00 +0000 (UTC)
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-649-BepI7bMbODKnLXRkZQWiIg-1; Wed, 28 Sep 2022 14:13:33 -0400
-X-MC-Unique: BepI7bMbODKnLXRkZQWiIg-1
-Received: by mail-pj1-f47.google.com with SMTP id
- r8-20020a17090a560800b00205eaaba073so2382396pjf.1; 
- Wed, 28 Sep 2022 11:13:32 -0700 (PDT)
+ us-mta-218-nALOMiyJOHycYQBWVexCYg-1; Tue, 27 Sep 2022 17:37:59 -0400
+X-MC-Unique: nALOMiyJOHycYQBWVexCYg-1
+Received: by mail-wr1-f72.google.com with SMTP id
+ q2-20020adfab02000000b0022cc38d5a8fso526377wrc.6
+ for <dm-devel@redhat.com>; Tue, 27 Sep 2022 14:37:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date;
- bh=SrqLT0kXpAlJD8TZzx8ujBa5nxZPe+zl7PnVUm+RbhE=;
- b=6enkas/OxJzM9VflNXvkib3ofBI1A/T+LPiFIUXecr//t5MKy3lyN11NhOHCxAdgR6
- ts0NHikvqsS5oCFiGTQx1/Qtjt72zRaIKx5HnjgOLLhomlZMRzgM6meZ5ee6NAxv/Yva
- QbFvFaBalVWm73bKNpyVkpNSTT8WRh8yoKeTcGKfY/BsMBIrJTvavGL2atK9CVc51KZB
- KMkQnZHR+3mQUFVrz2AnEwBU7DtRDVSajt+U2ju8Xz2EsPhwJlkqPvgGK/Ugbr6zNuY4
- P60l5XVVjcmgRLT2o8R8lqy63mvuTpM0L4nM4NAp97ehoY9FYRn5ruio197hn14cILqT
- jnQQ==
-X-Gm-Message-State: ACrzQf3fWSJ4tkmdYk1RRSyEQtV6fJswbDJwQizUqzt2RQpuZe9L58Xu
- 713m21KgIUqca+5JQx8AqVU=
-X-Google-Smtp-Source: AMsMyM5phyXRHDoV48KwWkEssjx6POVAM7KislIcpIimObHNjJBChVYQkrXS8krHgOsN/67JiWvhEA==
-X-Received: by 2002:a17:90a:4607:b0:202:e22d:4892 with SMTP id
- w7-20020a17090a460700b00202e22d4892mr11629503pjg.220.1664388811703; 
- Wed, 28 Sep 2022 11:13:31 -0700 (PDT)
-Received: from ?IPV6:2620:15c:211:201:4cba:f1a9:6ef8:3759?
- ([2620:15c:211:201:4cba:f1a9:6ef8:3759])
- by smtp.gmail.com with ESMTPSA id
- p15-20020a1709027ecf00b0016f8e8032c4sm4014341plb.129.2022.09.28.11.13.29
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 28 Sep 2022 11:13:31 -0700 (PDT)
-Message-ID: <d7004ae9-ad68-cb61-9ca8-0bf61efa0c21@acm.org>
-Date: Wed, 28 Sep 2022 11:13:28 -0700
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date;
+ bh=D5ZIksmGurvYC/iOAqtPVWbeUblsOdJ5xwGtu/IzOWI=;
+ b=acRoWKKHdEb6SpJghovU9vCTdJnFyNZBvG1bFGfZqglVlJRqUUxM5V5QgA3rVJbOgB
+ vn5q9B58gWE4xhPTNdJdq6hDS/+Fz4mRB+nppF/6VQVRVZzCzn0eTrAMZY3DM2Ai8sgY
+ Y3WAOtOInLWpAsQhwzBCmjyj4SQDmfUUDAoF+XMRJXXfEbPgnY6xoyVvx0HluKDJ9rDK
+ 5DH+x/CnwGcCSzV7BlLaHgvWWvVwhmnkumrWFbUiz4Fvb2SKFDpSxJwbkjPuc+/x90dA
+ l3WhT8Q4ERsTpcmyZeDi1yKZhdxGOWmtkXh0msJvpyiML8B6r4kbY4JssncAgFfi5Rbk
+ glxg==
+X-Gm-Message-State: ACrzQf0Ohz9AO5CDGOne4UjLhWlCDplbUtp8e1k2yd9JJSpfsCz0T24C
+ +/h/lpDxpgjm+gzzeDDxcRfCejmv4GtwhUGxsEfi4ZN/q7snBXh4RTdl/4IqOAC7EMjUuDcNgWO
+ aTf18fM1CKBEXl9A=
+X-Received: by 2002:a05:6000:2ce:b0:22a:f2dc:1531 with SMTP id
+ o14-20020a05600002ce00b0022af2dc1531mr18614987wry.370.1664314677225; 
+ Tue, 27 Sep 2022 14:37:57 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM75GZrpOIjx3Y8daQH5gD30RRG235Fd/YqvwBOi/XGXrLC5i+WLs9D44hdtjOnyVVgkm68Sog==
+X-Received: by 2002:a05:6000:2ce:b0:22a:f2dc:1531 with SMTP id
+ o14-20020a05600002ce00b0022af2dc1531mr18614976wry.370.1664314677008; 
+ Tue, 27 Sep 2022 14:37:57 -0700 (PDT)
+Received: from redhat.com ([2.55.47.213]) by smtp.gmail.com with ESMTPSA id
+ n3-20020a5d4203000000b0022acb7195aesm2708029wrq.33.2022.09.27.14.37.52
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 27 Sep 2022 14:37:56 -0700 (PDT)
+Date: Tue, 27 Sep 2022 17:37:50 -0400
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Sarthak Kukreti <sarthakkukreti@chromium.org>
+Message-ID: <20220927173658-mutt-send-email-mst@kernel.org>
+References: <20220915164826.1396245-1-sarthakkukreti@google.com>
+ <20220915164826.1396245-4-sarthakkukreti@google.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
- Thunderbird/91.13.0
-To: Pankaj Raghav <p.raghav@samsung.com>, snitzer@kernel.org,
- axboe@kernel.dk, agk@redhat.com, hch@lst.de, damien.lemoal@opensource.wdc.com
-References: <20220923173618.6899-1-p.raghav@samsung.com>
- <CGME20220923173631eucas1p23cceb8438d6b8b9c3460192c0ad2472d@eucas1p2.samsung.com>
- <20220923173618.6899-12-p.raghav@samsung.com>
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20220923173618.6899-12-p.raghav@samsung.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH v15 11/13] dm: call dm_zone_endio after the
- target endio callback for zoned devices
+In-Reply-To: <20220915164826.1396245-4-sarthakkukreti@google.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Mailman-Approved-At: Thu, 29 Sep 2022 07:06:56 +0000
+Subject: Re: [dm-devel] [PATCH RFC 3/8] virtio_blk: Add support for
+ provision requests
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,39 +108,164 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: pankydev8@gmail.com, Johannes.Thumshirn@wdc.com,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com, gost.dev@samsung.com,
- jaegeuk@kernel.org, matias.bjorling@wdc.com
+Cc: Jens Axboe <axboe@kernel.dk>, Gwendal Grignou <gwendal@google.com>,
+ Theodore Ts'o <tytso@mit.edu>, Jason Wang <jasowang@redhat.com>,
+ Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, virtualization@lists.linux-foundation.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Daniil Lunev <dlunev@google.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ linux-ext4@vger.kernel.org, Evan Green <evgreen@google.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 9/23/22 10:36, Pankaj Raghav wrote:
-> dm_zone_endio() updates the bi_sector of orig bio for zoned devices that
-> uses either native append or append emulation, and it is called before the
-> endio of the target. But target endio can still update the clone bio
-> after dm_zone_endio is called, thereby, the orig bio does not contain
-> the updated information anymore.
+On Thu, Sep 15, 2022 at 09:48:21AM -0700, Sarthak Kukreti wrote:
+> From: Sarthak Kukreti <sarthakkukreti@chromium.org>
 > 
-> Currently, this is not a problem as the targets that support zoned devices
-> such as dm-zoned, dm-linear, and dm-crypt do not have an endio function,
-> and even if they do (such as dm-flakey), they don't modify the
-> bio->bi_iter.bi_sector of the cloned bio that is used to update the
-> orig_bio's bi_sector in dm_zone_endio function.
+> Adds support for provision requests. Provision requests act like
+> the inverse of discards.
 > 
-> This is a prep patch for the new dm-po2zoned target as it modifies
-> bi_sector in the endio callback.
+> Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+> ---
+>  drivers/block/virtio_blk.c      | 48 +++++++++++++++++++++++++++++++++
+>  include/uapi/linux/virtio_blk.h |  9 +++++++
+>  2 files changed, 57 insertions(+)
 > 
-> Call dm_zone_endio for zoned devices after calling the target's endio
-> function.
+> diff --git a/drivers/block/virtio_blk.c b/drivers/block/virtio_blk.c
+> index 30255fcaf181..eacc2bffe1d1 100644
+> --- a/drivers/block/virtio_blk.c
+> +++ b/drivers/block/virtio_blk.c
+> @@ -178,6 +178,39 @@ static int virtblk_setup_discard_write_zeroes(struct request *req, bool unmap)
+>  	return 0;
+>  }
+>  
+> +static int virtblk_setup_provision(struct request *req)
+> +{
+> +	unsigned short segments = blk_rq_nr_discard_segments(req);
+> +	unsigned short n = 0;
+> +
+> +	struct virtio_blk_discard_write_zeroes *range;
+> +	struct bio *bio;
+> +	u32 flags = 0;
+> +
+> +	range = kmalloc_array(segments, sizeof(*range), GFP_ATOMIC);
+> +	if (!range)
+> +		return -ENOMEM;
+> +
+> +	__rq_for_each_bio(bio, req) {
+> +		u64 sector = bio->bi_iter.bi_sector;
+> +		u32 num_sectors = bio->bi_iter.bi_size >> SECTOR_SHIFT;
+> +
+> +		range[n].flags = cpu_to_le32(flags);
+> +		range[n].num_sectors = cpu_to_le32(num_sectors);
+> +		range[n].sector = cpu_to_le64(sector);
+> +		n++;
+> +	}
+> +
+> +	WARN_ON_ONCE(n != segments);
+> +
+> +	req->special_vec.bv_page = virt_to_page(range);
+> +	req->special_vec.bv_offset = offset_in_page(range);
+> +	req->special_vec.bv_len = sizeof(*range) * segments;
+> +	req->rq_flags |= RQF_SPECIAL_PAYLOAD;
+> +
+> +	return 0;
+> +}
+> +
+>  static void virtblk_unmap_data(struct request *req, struct virtblk_req *vbr)
+>  {
+>  	if (blk_rq_nr_phys_segments(req))
+> @@ -243,6 +276,9 @@ static blk_status_t virtblk_setup_cmd(struct virtio_device *vdev,
+>  	case REQ_OP_DRV_IN:
+>  		type = VIRTIO_BLK_T_GET_ID;
+>  		break;
+> +	case REQ_OP_PROVISION:
+> +		type = VIRTIO_BLK_T_PROVISION;
+> +		break;
+>  	default:
+>  		WARN_ON_ONCE(1);
+>  		return BLK_STS_IOERR;
+> @@ -256,6 +292,11 @@ static blk_status_t virtblk_setup_cmd(struct virtio_device *vdev,
+>  			return BLK_STS_RESOURCE;
+>  	}
+>  
+> +	if (type == VIRTIO_BLK_T_PROVISION) {
+> +		if (virtblk_setup_provision(req))
+> +			return BLK_STS_RESOURCE;
+> +	}
+> +
+>  	return 0;
+>  }
+>  
+> @@ -1075,6 +1116,12 @@ static int virtblk_probe(struct virtio_device *vdev)
+>  		blk_queue_max_write_zeroes_sectors(q, v ? v : UINT_MAX);
+>  	}
+>  
+> +	if (virtio_has_feature(vdev, VIRTIO_BLK_F_PROVISION)) {
+> +		virtio_cread(vdev, struct virtio_blk_config,
+> +			     max_provision_sectors, &v);
+> +		q->limits.max_provision_sectors = v ? v : UINT_MAX;
+> +	}
+> +
+>  	virtblk_update_capacity(vblk, false);
+>  	virtio_device_ready(vdev);
+>  
+> @@ -1177,6 +1224,7 @@ static unsigned int features[] = {
+>  	VIRTIO_BLK_F_RO, VIRTIO_BLK_F_BLK_SIZE,
+>  	VIRTIO_BLK_F_FLUSH, VIRTIO_BLK_F_TOPOLOGY, VIRTIO_BLK_F_CONFIG_WCE,
+>  	VIRTIO_BLK_F_MQ, VIRTIO_BLK_F_DISCARD, VIRTIO_BLK_F_WRITE_ZEROES,
+> +	VIRTIO_BLK_F_PROVISION,
+>  };
+>  
+>  static struct virtio_driver virtio_blk = {
+> diff --git a/include/uapi/linux/virtio_blk.h b/include/uapi/linux/virtio_blk.h
+> index d888f013d9ff..184f8cf6d185 100644
+> --- a/include/uapi/linux/virtio_blk.h
+> +++ b/include/uapi/linux/virtio_blk.h
+> @@ -40,6 +40,7 @@
+>  #define VIRTIO_BLK_F_MQ		12	/* support more than one vq */
+>  #define VIRTIO_BLK_F_DISCARD	13	/* DISCARD is supported */
+>  #define VIRTIO_BLK_F_WRITE_ZEROES	14	/* WRITE ZEROES is supported */
+> +#define VIRTIO_BLK_F_PROVISION	15	/* provision is supported */
+>  
+>  /* Legacy feature bits */
+>  #ifndef VIRTIO_BLK_NO_LEGACY
+> @@ -120,6 +121,11 @@ struct virtio_blk_config {
+>  	 */
+>  	__u8 write_zeroes_may_unmap;
+>  
+> +	/*
+> +	 * The maximum number of sectors in a provision request.
+> +	 */
+> +	__virtio32 max_provision_sectors;
+> +
+>  	__u8 unused1[3];
+>  } __attribute__((packed));
+>  
+> @@ -155,6 +161,9 @@ struct virtio_blk_config {
+>  /* Write zeroes command */
+>  #define VIRTIO_BLK_T_WRITE_ZEROES	13
+>  
+> +/* Provision command */
+> +#define VIRTIO_BLK_T_PROVISION	14
+> +
+>  #ifndef VIRTIO_BLK_NO_LEGACY
+>  /* Barrier before this op. */
+>  #define VIRTIO_BLK_T_BARRIER	0x80000000
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+
+Feature bit has to be reserved in the virtio spec.
+Pls do this through the virtio TC mailing list.
+
+> -- 
+> 2.31.0
 
 --
 dm-devel mailing list
