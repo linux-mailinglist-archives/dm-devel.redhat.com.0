@@ -1,91 +1,84 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646665F0589
-	for <lists+dm-devel@lfdr.de>; Fri, 30 Sep 2022 09:11:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EF6385F0587
+	for <lists+dm-devel@lfdr.de>; Fri, 30 Sep 2022 09:11:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1664521914;
+	s=mimecast20190719; t=1664521912;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kpMMXeRm9timTQudeuzeNj2nQgbjLyA5xZZvjjP1POo=;
-	b=FsGsCOBz9hp6gRukamvyErocdrtQsLhf3umiQjWF0VRnMjIB50Rd3TpvhSb78whwLvv43z
-	nTkujvRdXeioW8aq9Lk9zlIdVDEX4v/QfDnIiKXjxbWycvkmxaMtMW1QxGYNjcnA5RbYMs
-	LILLMynuzs8uID2CEvM2Rkh/rRKsGog=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=kmzE+y/b1zEybjNv7ne7bD2a+Vo/dX4uATUgLoiP/Ao=;
+	b=dQ6N5J6iDwN9U62/jSi4CpQbKkkMil0nvS8uu31ClK0TcvuiEzjvX5usi/mWcwwYXFLFaw
+	F3CAcD4nqYPM5vTLxAgDLlwgUIeuUpeVkiGM+faJ4necPZzUPicQUE/oG51i/tKSwe7v3a
+	4mnN/x4QwNrthgSdo0funw8+hhR+22g=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-620-WuYbuC_jMf-WLOwBDQqkfw-1; Fri, 30 Sep 2022 03:11:50 -0400
-X-MC-Unique: WuYbuC_jMf-WLOwBDQqkfw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-493-ZqennOplN5e0sPI71bbj5A-1; Fri, 30 Sep 2022 03:11:51 -0400
+X-MC-Unique: ZqennOplN5e0sPI71bbj5A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3279A185A794;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31C6D2A2AD44;
 	Fri, 30 Sep 2022 07:11:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 59B1C1121330;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 83CE340EFB0C;
 	Fri, 30 Sep 2022 07:11:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 41B851946A6C;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 74E361946A76;
 	Fri, 30 Sep 2022 07:11:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3C90D19465B8
- for <dm-devel@listman.corp.redhat.com>; Thu, 29 Sep 2022 08:20:59 +0000 (UTC)
+ ESMTP id 7006F1946A4E
+ for <dm-devel@listman.corp.redhat.com>; Thu, 29 Sep 2022 20:48:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1ABE240EFB0A; Thu, 29 Sep 2022 08:20:59 +0000 (UTC)
+ id 5A7E9492CA4; Thu, 29 Sep 2022 20:48:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1385140EFB00
- for <dm-devel@redhat.com>; Thu, 29 Sep 2022 08:20:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 52C38492CA2
+ for <dm-devel@redhat.com>; Thu, 29 Sep 2022 20:48:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED15185A583
- for <dm-devel@redhat.com>; Thu, 29 Sep 2022 08:20:58 +0000 (UTC)
-Received: from mail-pf1-f193.google.com (mail-pf1-f193.google.com
- [209.85.210.193]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-60-yXeCdOQFOjeQTtfaG04f4w-1; Thu, 29 Sep 2022 04:20:57 -0400
-X-MC-Unique: yXeCdOQFOjeQTtfaG04f4w-1
-Received: by mail-pf1-f193.google.com with SMTP id b75so802636pfb.7;
- Thu, 29 Sep 2022 01:20:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date;
- bh=oLacvrmMc7XWx51TtRRIZ78owPQV0/EOHAQ7fO1xE+c=;
- b=2JKRp/AAo04rBeHfY0opS2HvrKAbt0v7T+Bd4kha8RvYcjkmfvgIcRGE1UIOAdB8JV
- LbeyOsIVDAtgGU8TJDet3ujPrs/beiEdzqsr7so53A/CRcHf/kPjf5NauaJVrdnwfhOG
- Q7rPtQLdsfVnoalyggL4KxapTbR/THdh5fOc2FfySQxEz2UKCbts/PRovNtFQBVwtt5m
- QQ9LBKss62O8PLs47Y6A/ZR3b+UX5lUcVmFuJbhdDPllcYTZvAOU5BSvvqCrw/AAMMkM
- KwWPwcsec8j8X6xbopyKaSnH3bc89EENFYMyeWZ6FUOqx/9zAdxuYQzY2EQk+h7OPY9v
- t9Rg==
-X-Gm-Message-State: ACrzQf2rZZEZcxEM9tHthq1c+hhXXznrTHXGi9nWokO4uMmFxz8OCmUf
- NFbpoLIzdZYGivoLuboM/RNf9SzpFNk=
-X-Google-Smtp-Source: AMsMyM4hcvfnBMBNQsdXSLcD7fvAvMFeCJMwcZ0M5GpVa1k7lB1uTWWiLs/w0/wFRBJAkiUfMOytkA==
-X-Received: by 2002:a62:2985:0:b0:544:77d4:f43b with SMTP id
- p127-20020a622985000000b0054477d4f43bmr2128909pfp.9.1664439655416; 
- Thu, 29 Sep 2022 01:20:55 -0700 (PDT)
-Received: from localhost.localdomain ([218.188.148.16])
- by smtp.gmail.com with ESMTPSA id
- x9-20020a170902a38900b0017b65174c9esm581186pla.59.2022.09.29.01.20.53
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Sep 2022 01:20:54 -0700 (PDT)
-From: Genjian <zhanggenjian123@gmail.com>
-X-Google-Original-From: Genjian <zhanggenjian@kylinos.cn>
-To: agk@redhat.com,
-	snitzer@kernel.org
-Date: Thu, 29 Sep 2022 16:20:36 +0800
-Message-Id: <20220929082036.913110-1-zhanggenjian@kylinos.cn>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F2C003C0D863
+ for <dm-devel@redhat.com>; Thu, 29 Sep 2022 20:48:35 +0000 (UTC)
+Received: from out30-42.freemail.mail.aliyun.com
+ (out30-42.freemail.mail.aliyun.com [115.124.30.42]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256)
+ id us-mta-615-oFJcn7wmMd6qN4xeMD5keA-1; Thu, 29 Sep 2022 16:48:33 -0400
+X-MC-Unique: oFJcn7wmMd6qN4xeMD5keA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R151e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046050;
+ MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=6; SR=0;
+ TI=SMTPD_---0VR.8PdO_1664484505
+Received: from B-P7TQMD6M-0146.local(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0VR.8PdO_1664484505) by smtp.aliyun-inc.com;
+ Fri, 30 Sep 2022 04:48:27 +0800
+Date: Fri, 30 Sep 2022 04:48:25 +0800
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <YzYEmZH7GKlw3QoP@B-P7TQMD6M-0146.local>
+Mail-Followup-To: Mikulas Patocka <mpatocka@redhat.com>,
+ Jens Axboe <axboe@kernel.dk>, Zdenek Kabelac <zkabelac@redhat.com>,
+ Christoph Hellwig <hch@infradead.org>, linux-block@vger.kernel.org,
+ dm-devel@redhat.com
+References: <alpine.LRH.2.02.2209201350470.26058@file01.intranet.prod.int.rdu2.redhat.com>
+ <YyqfHfadJvxbB/JC@B-P7TQMD6M-0146.local>
+ <alpine.LRH.2.02.2209271006590.28431@file01.intranet.prod.int.rdu2.redhat.com>
+ <YzOdau9e5HYcjQKf@B-P7TQMD6M-0146.local>
+ <alpine.LRH.2.02.2209291600540.7875@file01.intranet.prod.int.rdu2.redhat.com>
 MIME-Version: 1.0
+In-Reply-To: <alpine.LRH.2.02.2209291600540.7875@file01.intranet.prod.int.rdu2.redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -93,10 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Fri, 30 Sep 2022 07:11:37 +0000
-Subject: [dm-devel] [PATCH] dm: Remove unnecessary assignment statements in
- alloc_dev().
+Subject: Re: [dm-devel] [PATCH v2 0/4] brd: implement discard
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,40 +100,60 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: zhanggenjian123@gmail.com, Genjian Zhang <zhanggenjian@kylinos.cn>,
- dm-devel@redhat.com, linux-kernel@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
+ dm-devel@redhat.com, linux-block@vger.kernel.org,
+ Zdenek Kabelac <zkabelac@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Genjian Zhang <zhanggenjian@kylinos.cn>
+On Thu, Sep 29, 2022 at 04:05:43PM -0400, Mikulas Patocka wrote:
+> 
+> 
+> On Wed, 28 Sep 2022, Gao Xiang wrote:
+> 
+> > > Hi
+> > > 
+> > > Ramdisk DAX was there in the past, but it was removed in the kernel 4.15.
+> > 
+> > Hi Mikulas!
+> > 
+> > Thanks for pointing out! I didn't realize that, although I think if we really
+> > use brd driver in production, enabling DAX support for brd is much better to
+> > remove double caching so that ramdisk can become a real ramdisk for most
+> > regular files.
+> > 
+> > I have no idea how other people think about ramdisk DAX, or brd is just a
+> > stuff for testing only now.  If it behaves like this, sorry about the
+> > noise.
+> > 
+> > Thanks,
+> > Gao Xiang
+> 
+> Hi
+> 
+> See the message for the commit 7a862fbbdec665190c5ef298c0c6ec9f3915cf45 
+> for the reason why it was removed.
 
-Since there are related allocation and  assignment operations before this,
-the two are already equal, so this assignment statement is not needed.
+I've already seen that commit after you told me, yet I think the reasons
+listed inside are not fundamental reasons why ramdisk cannot support DAX
+in principle (although I know there are issues as listed to handle.)
 
-Signed-off-by: Genjian Zhang <zhanggenjian@kylinos.cn>
----
- drivers/md/dm.c | 1 -
- 1 file changed, 1 deletion(-)
+IMHO, reserving ZONE_DEVICE memory to emulate pmem for ramdisk DAX-like
+use is inflexible on my side since currently such reserved memory cannot
+be used for other uses later even the ramdisk actually use little space
+in practice regardless of its capacity.
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 60549b65c799..b4a2cb5333fc 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2065,7 +2065,6 @@ static struct mapped_device *alloc_dev(int minor)
- 	md->disk->minors = 1;
- 	md->disk->flags |= GENHD_FL_NO_PART;
- 	md->disk->fops = &dm_blk_dops;
--	md->disk->queue = md->queue;
- 	md->disk->private_data = md;
- 	sprintf(md->disk->disk_name, "dm-%d", minor);
- 
--- 
-2.25.1
+Thanks,
+Gao Xiang
+
+> 
+> Mikulas
 
 --
 dm-devel mailing list
