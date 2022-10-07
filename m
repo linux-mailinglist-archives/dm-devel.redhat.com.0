@@ -1,61 +1,64 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1703B5F7C54
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Oct 2022 19:36:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 325F85F7C4F
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Oct 2022 19:36:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665164165;
+	s=mimecast20190719; t=1665164159;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=topUfwbnyanbx8WnhB89WsGyAf4nNRUAee3tm3YnTeU=;
-	b=FSbBtbdMhUqlHSjvtdoWVFgni/Po5PNa3DhOGCJR0CDIYt5tjmG7MW15kwcqpEiITp0dCs
-	+kPvvcdFsnqjwJFV5x0zc1jrK3PM0Nz09FqExcerNOE6O36oB5IW3J5uU+y23sF4rVxzQZ
-	KIupKhZcpIQIh8c8XEeeb/zesUTG3wk=
+	bh=BIgMnY49y+TR0PRm+E9Qfr9Tryex06phIzK7ud5E85k=;
+	b=iEJ3I0q4RWqJ8StoZHXuo4r22Qs+oxfiFMwdohM1CrAJt+wo1s4T4QhDC6PUkGJ+wSorLV
+	q50NRwFJPaO7EFpOaPJZvr7c6rNMU47ug7PBer7zY58BygLd+K3cMk90idmmpC2YpcpYOq
+	3K7Ou7N3oLdegL7qxnf7ngV2rK1qeVQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-9SmXc2q2O_WonTLUe25jxA-1; Fri, 07 Oct 2022 13:35:57 -0400
-X-MC-Unique: 9SmXc2q2O_WonTLUe25jxA-1
+ us-mta-652-quP8c1q8MaGRIjU8ycnqiw-1; Fri, 07 Oct 2022 13:35:57 -0400
+X-MC-Unique: quP8c1q8MaGRIjU8ycnqiw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A70C0185A7A4;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8E07185A7AA;
 	Fri,  7 Oct 2022 17:35:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6A013145BEE3;
-	Fri,  7 Oct 2022 17:35:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 022FA145BEE5;
+	Fri,  7 Oct 2022 17:35:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75D9E1946A70;
-	Fri,  7 Oct 2022 17:35:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A971E1946A75;
+	Fri,  7 Oct 2022 17:35:49 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 088A51946595
- for <dm-devel@listman.corp.redhat.com>; Fri,  7 Oct 2022 17:35:47 +0000 (UTC)
+ ESMTP id 185421946595
+ for <dm-devel@listman.corp.redhat.com>; Fri,  7 Oct 2022 17:35:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EECADC2C8D1; Fri,  7 Oct 2022 17:35:46 +0000 (UTC)
+ id 0D85220290AE; Fri,  7 Oct 2022 17:35:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D6EBAC2C8CC;
- Fri,  7 Oct 2022 17:35:46 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E0CFE20290A2;
+ Fri,  7 Oct 2022 17:35:47 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 297HZjaT006754;
- Fri, 7 Oct 2022 12:35:45 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 297HZkk2006758;
+ Fri, 7 Oct 2022 12:35:46 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 297HZjum006753;
- Fri, 7 Oct 2022 12:35:45 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 297HZkTK006757;
+ Fri, 7 Oct 2022 12:35:46 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri,  7 Oct 2022 12:35:36 -0500
-Message-Id: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [dm-devel] [PATCH 0/8] mutipath: handle nvme:tcp paths better
+Date: Fri,  7 Oct 2022 12:35:37 -0500
+Message-Id: <1665164144-6716-2-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
+References: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: [dm-devel] [PATCH 1/8] libmultipath: cleanup remove_feature
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,50 +81,153 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-nvme:tcp devices set BLK_MQ_F_BLOCKING (they are the only block devices
-which multipath supports that do so), meaning that block_mq expects that
-they can block at certain points while servicing a request.  However,
-due to the way device-mapper sets up its queue, it is not able to set
-BLK_MQ_F_BLOCKING when it includes paths that set this flag.  Patches
-were written to address this issue but they were rejected upstream
+remove_feature() didn't correctly handle feature strings that used
+whitespace other than spaces, which the kernel allows. It also didn't
+check if the feature string to be removed was part of a larger feature
+token. Finally, it did a lot of unnecessary work. By failing if the
+feature string to be removed contains leading or trailing whitespace,
+the function can be significanly simplified.
 
-https://lore.kernel.org/linux-block/YcH%2FE4JNag0QYYAa@infradead.org/T/#t
+Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+---
+ libmultipath/structs.c | 82 +++++++++++++++---------------------------
+ 1 file changed, 29 insertions(+), 53 deletions(-)
 
-The proposed solution was to have multipath use the bio queue_mode for
-multipath devices that include nvme:tcp paths.
-
-Multipathd currently doesn't handle queue_mode as well as it could. Once
-a multipath device is created, queue_mode cannot be changed, but
-multipath doesn't enforce this. This patchset improves multipath's
-handling of the queue_mode feature, and then makes sure that if a
-multipath device includes a nvme:tcp path, it will have queue_mode
-set to bio.
-
-Benjamin Marzinski (8):
-  libmultipath: cleanup remove_feature
-  libmultipath: cleanup add_feature
-  multipath tests: tests for adding and removing features
-  libmultipath: fix queue_mode feature handling
-  multipath tests: tests for reconcile_features_with_queue_mode
-  libmultipath: prepare proto_id for use by non-scsi devivces
-  libmultipath: get nvme path transport protocol
-  libmultipath: enforce queue_mode bio for nmve:tcp paths
-
- libmultipath/configure.c   |  28 +-
- libmultipath/discovery.c   |  31 ++-
- libmultipath/dmparser.c    |   2 +
- libmultipath/print.c       |   6 +-
- libmultipath/propsel.c     |  55 ++++
- libmultipath/structs.c     | 155 +++++------
- libmultipath/structs.h     |  44 ++-
- libmultipath/structs_vec.c |   7 +
- multipath/multipath.conf.5 |  17 +-
- multipathd/fpin_handlers.c |   2 +-
- tests/Makefile             |   4 +-
- tests/features.c           | 549 +++++++++++++++++++++++++++++++++++++
- 12 files changed, 784 insertions(+), 116 deletions(-)
- create mode 100644 tests/features.c
-
+diff --git a/libmultipath/structs.c b/libmultipath/structs.c
+index 49621cb3..1f9945e0 100644
+--- a/libmultipath/structs.c
++++ b/libmultipath/structs.c
+@@ -6,6 +6,7 @@
+ #include <unistd.h>
+ #include <libdevmapper.h>
+ #include <libudev.h>
++#include <ctype.h>
+ 
+ #include "checkers.h"
+ #include "vector.h"
+@@ -663,7 +664,7 @@ int add_feature(char **f, const char *n)
+ 
+ int remove_feature(char **f, const char *o)
+ {
+-	int c = 0, d, l;
++	int c = 0, d;
+ 	char *e, *p, *n;
+ 	const char *q;
+ 
+@@ -674,33 +675,35 @@ int remove_feature(char **f, const char *o)
+ 	if (!o || *o == '\0')
+ 		return 0;
+ 
+-	/* Check if not present */
+-	if (!strstr(*f, o))
++	d = strlen(o);
++	if (isspace(*o) || isspace(*(o + d - 1))) {
++		condlog(0, "internal error: feature \"%s\" has leading or trailing spaces", o);
++		return 1;
++	}
++
++	/* Check if present and not part of a larger feature token*/
++	p = *f + 1; /* the size must be at the start of the features string */
++	while ((p = strstr(p, o)) != NULL) {
++		if (isspace(*(p - 1)) &&
++		    (isspace(*(p + d)) || *(p + d) == '\0'))
++			break;
++		p += d;
++	}
++	if (!p)
+ 		return 0;
+ 
+ 	/* Get feature count */
+ 	c = strtoul(*f, &e, 10);
+-	if (*f == e)
+-		/* parse error */
++	if (*f == e || !isspace(*e)) {
++		condlog(0, "parse error in feature string \"%s\"", *f);
+ 		return 1;
+-
+-	/* Normalize features */
+-	while (*o == ' ') {
+-		o++;
+ 	}
+-	/* Just spaces, return */
+-	if (*o == '\0')
+-		return 0;
+-	q = o + strlen(o);
+-	while (*q == ' ')
+-		q--;
+-	d = (int)(q - o);
+ 
+ 	/* Update feature count */
+ 	c--;
+ 	q = o;
+-	while (q[0] != '\0') {
+-		if (q[0] == ' ' && q[1] != ' ' && q[1] != '\0')
++	while (*q != '\0') {
++		if (isspace(*q) && !isspace(*(q + 1)) && *(q + 1) != '\0')
+ 			c--;
+ 		q++;
+ 	}
+@@ -714,15 +717,8 @@ int remove_feature(char **f, const char *o)
+ 		goto out;
+ 	}
+ 
+-	/* Search feature to be removed */
+-	e = strstr(*f, o);
+-	if (!e)
+-		/* Not found, return */
+-		return 0;
+-
+ 	/* Update feature count space */
+-	l = strlen(*f) - d;
+-	n =  malloc(l + 1);
++	n =  malloc(strlen(*f) - d + 1);
+ 	if (!n)
+ 		return 1;
+ 
+@@ -732,36 +728,16 @@ int remove_feature(char **f, const char *o)
+ 	 * Copy existing features up to the feature
+ 	 * about to be removed
+ 	 */
+-	p = strchr(*f, ' ');
+-	if (!p) {
+-		/* Internal error, feature string inconsistent */
+-		free(n);
+-		return 1;
+-	}
+-	while (*p == ' ')
+-		p++;
+-	p--;
+-	if (e != p) {
+-		do {
+-			e--;
+-			d++;
+-		} while (*e == ' ');
+-		e++; d--;
+-		strncat(n, p, (size_t)(e - p));
+-		p += (size_t)(e - p);
+-	}
++	strncat(n, e, (size_t)(p - e));
+ 	/* Skip feature to be removed */
+ 	p += d;
+-
+ 	/* Copy remaining features */
+-	if (strlen(p)) {
+-		while (*p == ' ')
+-			p++;
+-		if (strlen(p)) {
+-			p--;
+-			strcat(n, p);
+-		}
+-	}
++	while (isspace(*p))
++		p++;
++	if (*p != '\0')
++		strcat(n, p);
++	else
++		strchop(n);
+ 
+ out:
+ 	free(*f);
 -- 
 2.17.2
 
