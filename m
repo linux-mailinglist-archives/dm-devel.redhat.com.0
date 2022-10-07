@@ -2,63 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0217D5F7C55
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Oct 2022 19:36:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BAA9D5F7C4D
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Oct 2022 19:35:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665164176;
+	s=mimecast20190719; t=1665164158;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=W+pNuiMhcOUivhVDFmYBfQ8eK6tY5cP/cEMYcOcJJOY=;
-	b=hWyy6vwkFaU8lL5WU+PHQHGTzeSYJQhDn9FJkHp7cufuc9wy5kx+a0kZDAVrMhok4bveEF
-	3LX2CgAYJEHFJaVp0mPEqOALCcAZZLlSTNLCIfnXqR6LDNSQ4e1g1kQnMx5vGZbWf9thJh
-	uM/GBr85LxbHDoGW4dvP0WD/XkjfuMY=
+	bh=/3LZB8nEX308KJ9mVztKt+32oKUcigI0n25tu07Xwfg=;
+	b=cjuhCcLsk5rpqY1erUY7SGYgYSW+n+Bbnh9hyEBUcD/VaSlBDSlrbS+C+yUEMMhXg2+Suu
+	yvpQxycMAnDyNeCg7Mna2pNuXAl0dlxIwXiIC88q6P15v9cUnb6nflBNo6BkXmo9XPyNx5
+	HeU0WFIb6NBjTBhpTIuD80nYqP+6srQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-qLZUrEsJOlOhcFqWSFcHhg-1; Fri, 07 Oct 2022 13:36:12 -0400
-X-MC-Unique: qLZUrEsJOlOhcFqWSFcHhg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-662-nDKhnJ0HObGpbLssHGnCPw-1; Fri, 07 Oct 2022 13:35:57 -0400
+X-MC-Unique: nDKhnJ0HObGpbLssHGnCPw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8D682A59577;
-	Fri,  7 Oct 2022 17:35:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A685F1C08993;
+	Fri,  7 Oct 2022 17:35:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B4827202343B;
-	Fri,  7 Oct 2022 17:35:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D8871112C06F;
+	Fri,  7 Oct 2022 17:35:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8737A1946A49;
-	Fri,  7 Oct 2022 17:35:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C55C31946A6D;
+	Fri,  7 Oct 2022 17:35:53 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 095C91946595
- for <dm-devel@listman.corp.redhat.com>; Fri,  7 Oct 2022 17:35:57 +0000 (UTC)
+ ESMTP id 411451946595
+ for <dm-devel@listman.corp.redhat.com>; Fri,  7 Oct 2022 17:35:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F2BC2AB584; Fri,  7 Oct 2022 17:35:56 +0000 (UTC)
+ id 2868440F9D40; Fri,  7 Oct 2022 17:35:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 171BDAB5A9;
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 07B3640EFB3F;
  Fri,  7 Oct 2022 17:35:51 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 297HZnDo006772;
- Fri, 7 Oct 2022 12:35:50 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 297HZolT006776;
+ Fri, 7 Oct 2022 12:35:51 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 297HZnJN006771;
- Fri, 7 Oct 2022 12:35:49 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 297HZoGq006775;
+ Fri, 7 Oct 2022 12:35:50 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri,  7 Oct 2022 12:35:40 -0500
-Message-Id: <1665164144-6716-5-git-send-email-bmarzins@redhat.com>
+Date: Fri,  7 Oct 2022 12:35:41 -0500
+Message-Id: <1665164144-6716-6-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
 References: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [PATCH 4/8] libmultipath: fix queue_mode feature handling
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH 5/8] multipath tests: tests for
+ reconcile_features_with_queue_mode
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,183 +76,297 @@ Cc: device-mapper development <dm-devel@redhat.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-device-mapper is not able to change the queue_mode on a table reload.
-Make sure that when multipath sets up the map, both on regular reloads
-and reconfigures, it keeps the queue_mode the same.
-
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/configure.c   |  4 +++
- libmultipath/dmparser.c    |  2 ++
- libmultipath/propsel.c     | 55 ++++++++++++++++++++++++++++++++++++++
- libmultipath/structs.h     |  7 +++++
- multipath/multipath.conf.5 |  7 +++--
- 5 files changed, 73 insertions(+), 2 deletions(-)
+ tests/Makefile   |   2 +
+ tests/features.c | 232 ++++++++++++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 233 insertions(+), 1 deletion(-)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 8af7cd79..41641e30 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -1075,6 +1075,7 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 	struct config *conf = NULL;
- 	int allow_queueing;
- 	struct bitfield *size_mismatch_seen;
-+	struct multipath * cmpp;
+diff --git a/tests/Makefile b/tests/Makefile
+index ccdfbd15..bc9380f8 100644
+--- a/tests/Makefile
++++ b/tests/Makefile
+@@ -36,6 +36,7 @@ ifneq ($(DIO_TEST_DEV),)
+ directio-test_FLAGS := -DDIO_TEST_DEV=\"$(DIO_TEST_DEV)\"
+ endif
+ mpathvalid-test_FLAGS := -I$(mpathvaliddir)
++features-test_FLAGS := -I$(multipathdir)/nvme
  
- 	/* ignore refwwid if it's empty */
- 	if (refwwid && !strlen(refwwid))
-@@ -1184,6 +1185,9 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 		}
- 		verify_paths(mpp);
+ # test-specific linker flags
+ # XYZ-test_TESTDEPS: test libraries containing __wrap_xyz functions
+@@ -73,6 +74,7 @@ strbuf-test_OBJDEPS := $(mpathutildir)/strbuf.o
+ sysfs-test_TESTDEPS := test-log.o
+ sysfs-test_OBJDEPS := $(multipathdir)/sysfs.o $(mpathutildir)/util.o
+ sysfs-test_LIBDEPS := -ludev -lpthread -ldl
++features-test_LIBDEPS := -ludev -lpthread
  
-+		cmpp = find_mp_by_wwid(curmp, mpp->wwid);
-+		if (cmpp)
-+			mpp->queue_mode = cmpp->queue_mode;
- 		if (setup_map(mpp, &params, vecs)) {
- 			remove_map(mpp, vecs->pathvec, NULL);
- 			continue;
-diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
-index 50d13c08..3b37a926 100644
---- a/libmultipath/dmparser.c
-+++ b/libmultipath/dmparser.c
-@@ -151,6 +151,8 @@ int disassemble_map(const struct _vector *pathvec,
+ %.o: %.c
+ 	$(CC) $(CPPFLAGS) $(CFLAGS) $($*-test_FLAGS) -c -o $@ $<
+diff --git a/tests/features.c b/tests/features.c
+index 4d8f0860..31f978fd 100644
+--- a/tests/features.c
++++ b/tests/features.c
+@@ -1,9 +1,10 @@
++#define _GNU_SOURCE
+ #include <stddef.h>
+ #include <stdarg.h>
+ #include <setjmp.h>
+ #include <cmocka.h>
  
- 		free(word);
- 	}
-+	mpp->queue_mode = strstr(mpp->features, "queue_mode bio") ?
-+			  QUEUE_MODE_BIO : QUEUE_MODE_RQ;
+-#include "structs.h"
++#include "../libmultipath/propsel.c"
+ #include "globals.c"
  
- 	/*
- 	 * hwhandler
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index 98e3aad1..d4f19897 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -26,6 +26,7 @@
- #include "strbuf.h"
- #include <inttypes.h>
- #include <libudev.h>
-+#include <ctype.h>
- 
- pgpolicyfn *pgpolicies[] = {
- 	NULL,
-@@ -413,6 +414,59 @@ void reconcile_features_with_options(const char *id, char **features, int* no_pa
- 	}
+ static void test_af_null_features_ptr(void **state)
+@@ -307,6 +308,234 @@ static int test_remove_features(void)
+ 	return cmocka_run_group_tests(tests, NULL, NULL);
  }
  
-+static void reconcile_features_with_queue_mode(struct multipath *mp)
++static void test_cf_null_features(void **state)
 +{
-+	char *space = NULL, *val = NULL, *mode_str = NULL, *feat;
-+	int features_mode = QUEUE_MODE_UNDEF;
-+
-+	if (!mp->features)
-+		return;
-+
-+	pthread_cleanup_push(cleanup_free_ptr, &space);
-+	pthread_cleanup_push(cleanup_free_ptr, &val);
-+	pthread_cleanup_push(cleanup_free_ptr, &mode_str);
-+
-+	if (!(feat = strstr(mp->features, "queue_mode")) ||
-+	    feat == mp->features || !isspace(*(feat - 1)) ||
-+	    sscanf(feat, "queue_mode%m[ \f\n\r\t\v]%ms", &space, &val) != 2)
-+		goto sync_mode;
-+	if (asprintf(&mode_str, "queue_mode%s%s", space, val) < 0) {
-+		condlog(1, "failed to allocate space for queue_mode feature string");
-+		mode_str = NULL; /* value undefined on failure */
-+		goto exit;
-+	}
-+
-+	if (!strcmp(val, "rq") || !strcmp(val, "mq"))
-+		features_mode = QUEUE_MODE_RQ;
-+	else if (!strcmp(val, "bio"))
-+		features_mode = QUEUE_MODE_BIO;
-+	if (features_mode == QUEUE_MODE_UNDEF) {
-+		condlog(2, "%s: ignoring invalid feature '%s'",
-+			mp->alias, mode_str);
-+		goto sync_mode;
-+	}
-+
-+	if (mp->queue_mode == QUEUE_MODE_UNDEF)
-+		mp->queue_mode = features_mode;
-+	if (mp->queue_mode == features_mode)
-+		goto exit;
-+
-+	condlog(2,
-+		"%s: ignoring feature '%s' because queue_mode is set to '%s'",
-+		mp->alias, mode_str,
-+		(mp->queue_mode == QUEUE_MODE_RQ)? "rq" : "bio");
-+
-+sync_mode:
-+	if (mode_str)
-+		remove_feature(&mp->features, mode_str);
-+	if (mp->queue_mode == QUEUE_MODE_BIO)
-+		add_feature(&mp->features, "queue_mode bio");
-+exit:
-+	pthread_cleanup_pop(1);
-+	pthread_cleanup_pop(1);
-+	pthread_cleanup_pop(1);
++	struct multipath mp = {
++			.alias = "test",
++	};
++	reconcile_features_with_queue_mode(&mp);
++	assert_null(mp.features);
 +}
 +
- int select_features(struct config *conf, struct multipath *mp)
- {
- 	const char *origin;
-@@ -428,6 +482,7 @@ out:
- 	reconcile_features_with_options(mp->alias, &mp->features,
- 					&mp->no_path_retry,
- 					&mp->retain_hwhandler);
-+	reconcile_features_with_queue_mode(mp);
- 	condlog(3, "%s: features = \"%s\" %s", mp->alias, mp->features, origin);
- 	return 0;
- }
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index 5a713d46..129bdf0e 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -170,6 +170,12 @@ enum max_sectors_kb_states {
- 	MAX_SECTORS_KB_MIN = 4,  /* can't be smaller than page size */
- };
- 
-+enum queue_mode_states {
-+	QUEUE_MODE_UNDEF = 0,
-+	QUEUE_MODE_BIO,
-+	QUEUE_MODE_RQ,
-+};
++static void cf_helper(const char *features_start, const char *features_end,
++		      int queue_mode_start, int queue_mode_end)
++{
++	struct multipath mp = {
++			.alias = "test",
++			.features = strdup(features_start),
++			.queue_mode = queue_mode_start,
++	};
++	char *orig = mp.features;
 +
- enum scsi_protocol {
- 	SCSI_PROTOCOL_FCP = 0,	/* Fibre Channel */
- 	SCSI_PROTOCOL_SPI = 1,	/* parallel SCSI */
-@@ -396,6 +402,7 @@ struct multipath {
- 	int needs_paths_uevent;
- 	int ghost_delay;
- 	int ghost_delay_tick;
-+	int queue_mode;
- 	uid_t uid;
- 	gid_t gid;
- 	mode_t mode;
-diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index e098d555..46a4126c 100644
---- a/multipath/multipath.conf.5
-+++ b/multipath/multipath.conf.5
-@@ -459,8 +459,11 @@ precedence. See KNOWN ISSUES.
- <mode> can be \fIbio\fR, \fIrq\fR or \fImq\fR, which corresponds to
- bio-based, request-based, and block-multiqueue (blk-mq) request-based,
- respectively.
--The default depends on the kernel parameter \fBdm_mod.use_blk_mq\fR. It is
--\fImq\fR if the latter is set, and \fIrq\fR otherwise.
-+Before kernel 4.20 The default depends on the kernel parameter
-+\fBdm_mod.use_blk_mq\fR. It is \fImq\fR if the latter is set, and \fIrq\fR
-+otherwise. Since kernel 4.20, \fIrq\fR and \fImq\fR both correspond to
-+block-multiqueue. Once a multipath device has been created, its queue_mode
-+cannot be changed.
- .TP
- The default is: \fB<unset>\fR
- .RE
++	assert_non_null(orig);
++	reconcile_features_with_queue_mode(&mp);
++	if (!features_end)
++		assert_ptr_equal(orig, mp.features);
++	else
++		assert_string_equal(mp.features, features_end);
++	free(mp.features);
++	assert_int_equal(mp.queue_mode, queue_mode_end);
++}
++
++static void test_cf_unset_unset1(void **state)
++{
++	cf_helper("0", NULL, QUEUE_MODE_UNDEF, QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_unset_unset2(void **state)
++{
++	cf_helper("1 queue_mode", NULL, QUEUE_MODE_UNDEF, QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_unset_unset3(void **state)
++{
++	cf_helper("queue_mode", NULL, QUEUE_MODE_UNDEF, QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_unset_unset4(void **state)
++{
++	cf_helper("2 queue_model bio", NULL, QUEUE_MODE_UNDEF,
++		  QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_unset_unset5(void **state)
++{
++	cf_helper("1 queue_if_no_path", NULL, QUEUE_MODE_UNDEF,
++		  QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_invalid_unset1(void **state)
++{
++	cf_helper("2 queue_mode biop", "0", QUEUE_MODE_UNDEF, QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_invalid_unset2(void **state)
++{
++	cf_helper("3 queue_mode rqs queue_if_no_path", "1 queue_if_no_path",
++		  QUEUE_MODE_UNDEF, QUEUE_MODE_UNDEF);
++}
++
++static void test_cf_rq_unset1(void **state)
++{
++	cf_helper("2 queue_mode rq", NULL, QUEUE_MODE_UNDEF, QUEUE_MODE_RQ);
++}
++
++static void test_cf_rq_unset2(void **state)
++{
++	cf_helper("2 queue_mode mq", NULL, QUEUE_MODE_UNDEF, QUEUE_MODE_RQ);
++}
++
++static void test_cf_bio_unset(void **state)
++{
++	cf_helper("2 queue_mode bio", NULL, QUEUE_MODE_UNDEF, QUEUE_MODE_BIO);
++}
++
++static void test_cf_unset_bio1(void **state)
++{
++	cf_helper("1 queue_if_no_path", "3 queue_if_no_path queue_mode bio",
++		  QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_unset_bio2(void **state)
++{
++	cf_helper("0", "2 queue_mode bio", QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_unset_bio3(void **state)
++{
++	cf_helper("2 pg_init_retries 50", "4 pg_init_retries 50 queue_mode bio",
++		  QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_invalid_bio1(void **state)
++{
++	cf_helper("2 queue_mode bad", "2 queue_mode bio",
++		  QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_invalid_bio2(void **state)
++{
++	cf_helper("3 queue_if_no_path queue_mode\tbad", "3 queue_if_no_path queue_mode bio",
++		  QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_bio_bio1(void **state)
++{
++	cf_helper("2 queue_mode bio", NULL, QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_bio_bio2(void **state)
++{
++	cf_helper("3 queue_if_no_path queue_mode bio", NULL, QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_bio_bio3(void **state)
++{
++	cf_helper("3 queue_mode\nbio queue_if_no_path", NULL, QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_bio_rq1(void **state)
++{
++	cf_helper("2\nqueue_mode\tbio", "0", QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_bio_rq2(void **state)
++{
++	cf_helper("3 queue_if_no_path\nqueue_mode bio", "1 queue_if_no_path",
++		  QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_bio_rq3(void **state)
++{
++	cf_helper("4 queue_mode bio pg_init_retries 20", "2 pg_init_retries 20",
++		  QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_unset_rq1(void **state)
++{
++	cf_helper("0", NULL, QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_unset_rq2(void **state)
++{
++	cf_helper("2 pg_init_retries 15", NULL, QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_invalid_rq1(void **state)
++{
++	cf_helper("2 queue_mode bionic", "0", QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_invalid_rq2(void **state)
++{
++	cf_helper("3 queue_mode b\nqueue_if_no_path", "1 queue_if_no_path",
++		  QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_rq_rq1(void **state)
++{
++	cf_helper("2 queue_mode rq", NULL, QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_rq_rq2(void **state)
++{
++	cf_helper("3 queue_mode\t \trq\nqueue_if_no_path", NULL, QUEUE_MODE_RQ, QUEUE_MODE_RQ);
++}
++
++static void test_cf_rq_bio1(void **state)
++{
++	cf_helper("2 queue_mode rq", "2 queue_mode bio", QUEUE_MODE_BIO,
++		  QUEUE_MODE_BIO);
++}
++
++static void test_cf_rq_bio2(void **state)
++{
++	cf_helper("3 queue_if_no_path\nqueue_mode rq", "3 queue_if_no_path queue_mode bio", QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static void test_cf_rq_bio3(void **state)
++{
++	cf_helper("3 queue_mode rq\nqueue_if_no_path", "3 queue_if_no_path queue_mode bio", QUEUE_MODE_BIO, QUEUE_MODE_BIO);
++}
++
++static int test_reconcile_features(void)
++{
++	const struct CMUnitTest tests[] = {
++		cmocka_unit_test(test_cf_null_features),
++		cmocka_unit_test(test_cf_unset_unset1),
++		cmocka_unit_test(test_cf_unset_unset2),
++		cmocka_unit_test(test_cf_unset_unset3),
++		cmocka_unit_test(test_cf_unset_unset4),
++		cmocka_unit_test(test_cf_unset_unset5),
++		cmocka_unit_test(test_cf_invalid_unset1),
++		cmocka_unit_test(test_cf_invalid_unset2),
++		cmocka_unit_test(test_cf_rq_unset1),
++		cmocka_unit_test(test_cf_rq_unset2),
++		cmocka_unit_test(test_cf_bio_unset),
++		cmocka_unit_test(test_cf_unset_bio1),
++		cmocka_unit_test(test_cf_unset_bio2),
++		cmocka_unit_test(test_cf_unset_bio3),
++		cmocka_unit_test(test_cf_invalid_bio1),
++		cmocka_unit_test(test_cf_invalid_bio2),
++		cmocka_unit_test(test_cf_bio_bio1),
++		cmocka_unit_test(test_cf_bio_bio2),
++		cmocka_unit_test(test_cf_bio_bio3),
++		cmocka_unit_test(test_cf_bio_rq1),
++		cmocka_unit_test(test_cf_bio_rq2),
++		cmocka_unit_test(test_cf_bio_rq3),
++		cmocka_unit_test(test_cf_unset_rq1),
++		cmocka_unit_test(test_cf_unset_rq2),
++		cmocka_unit_test(test_cf_invalid_rq1),
++		cmocka_unit_test(test_cf_invalid_rq2),
++		cmocka_unit_test(test_cf_rq_rq1),
++		cmocka_unit_test(test_cf_rq_rq2),
++		cmocka_unit_test(test_cf_rq_bio1),
++		cmocka_unit_test(test_cf_rq_bio2),
++		cmocka_unit_test(test_cf_rq_bio3),
++	};
++	return cmocka_run_group_tests(tests, NULL, NULL);
++}
++
+ int main(void)
+ {
+ 	int ret = 0;
+@@ -314,6 +543,7 @@ int main(void)
+ 	init_test_verbosity(-1);
+ 	ret += test_add_features();
+ 	ret += test_remove_features();
++	ret += test_reconcile_features();
+ 
+ 	return ret;
+ }
 -- 
 2.17.2
 
