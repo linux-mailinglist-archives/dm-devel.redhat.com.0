@@ -1,65 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CEC35F7C53
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Oct 2022 19:36:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 185CE5F9807
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Oct 2022 08:02:08 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665164163;
+	s=mimecast20190719; t=1665381726;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=TEJs8um+hfIPvcA71R3n5eUVzIv2P2SZEJ06H8AcNHc=;
-	b=dJWGoSvCptRx1UIyBwsirVByLeFAGGsXk1KSIip2IJodXRUSinJ8qxW6DTx0B0pV48Mi00
-	tHF+kMBEpNMWf6VZOoORKGcKHAdUeaGbx0vl8rg8BmzFlO7VBZUPaCOheHblEggchJbxS/
-	sD3yEjuZ8QmjOnK5+3Dqiyi6A6EOmCg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=iH3ojn7hqp5A0vWCLkYEI0wr9KL2KGtT+2/TXkmqTDo=;
+	b=H6rhvf/ngmtTvqdqN+eth4px0oc/8vNOmXKgoSktm4Guqu2aTbyNB0inhMXzEIC1miztSB
+	PTc9S4BfRk+ImEk8DOgRswCKO9pJMcb7Cj5auS1ebgx92Cacyhch1lZ3SAZuyIngBp+Pfe
+	PiFj7wdDrNyMmz0toL7EBCnQRx/6xdQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-98-lvcPEKzEO0i01aiNuqswVA-1; Fri, 07 Oct 2022 13:36:00 -0400
-X-MC-Unique: lvcPEKzEO0i01aiNuqswVA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-473-LkGoMqfxPxaJ_-xIDYZvhw-1; Mon, 10 Oct 2022 02:02:05 -0400
+X-MC-Unique: LkGoMqfxPxaJ_-xIDYZvhw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95F431012465;
-	Fri,  7 Oct 2022 17:35:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3E6D38041C0;
+	Mon, 10 Oct 2022 06:01:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 80752145BEE5;
-	Fri,  7 Oct 2022 17:35:56 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 80A14215CDC6;
+	Mon, 10 Oct 2022 06:01:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5A7A81946A49;
-	Fri,  7 Oct 2022 17:35:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 385861946A49;
+	Mon, 10 Oct 2022 06:01:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 432321946595
- for <dm-devel@listman.corp.redhat.com>; Fri,  7 Oct 2022 17:35:55 +0000 (UTC)
+ ESMTP id 807951946595
+ for <dm-devel@listman.corp.redhat.com>; Fri,  7 Oct 2022 16:40:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 37A6140F9D76; Fri,  7 Oct 2022 17:35:55 +0000 (UTC)
+ id 63752145BA51; Fri,  7 Oct 2022 16:40:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B15D40EFB3F;
- Fri,  7 Oct 2022 17:35:55 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 297HZrtC006790;
- Fri, 7 Oct 2022 12:35:53 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 297HZrQe006789;
- Fri, 7 Oct 2022 12:35:53 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Fri,  7 Oct 2022 12:35:44 -0500
-Message-Id: <1665164144-6716-9-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
-References: <1665164144-6716-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH 8/8] libmultipath: enforce queue_mode bio for
- nmve:tcp paths
+Received: from mimecast-mx02.redhat.com
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5BE4E14583FB
+ for <dm-devel@redhat.com>; Fri,  7 Oct 2022 16:40:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3F5E3899B41
+ for <dm-devel@redhat.com>; Fri,  7 Oct 2022 16:40:11 +0000 (UTC)
+Received: from mail-yb1-f172.google.com (mail-yb1-f172.google.com
+ [209.85.219.172]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-513-3TRB9VnfOFeJJ9keA0I9Fg-1; Fri, 07 Oct 2022 12:40:09 -0400
+X-MC-Unique: 3TRB9VnfOFeJJ9keA0I9Fg-1
+Received: by mail-yb1-f172.google.com with SMTP id 207so6400926ybn.1
+ for <dm-devel@redhat.com>; Fri, 07 Oct 2022 09:40:08 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=kMyR9c2mhWdMMy69DUVwOqB6Wq/reIbDJToueR7nPc4=;
+ b=Lkm/63eU8KTZQBmEqj6XVxnkfAIELzLG0UonYg2CcgDpkI3RknHuH+3TmP+L9y6QGf
+ z4jc9+ohgrLVNTlcHo/QM5IqVhO+T6JZb19n56nu4W8tZnRNryy2CVP7Fqm5GZZnOtyf
+ JDq4L3aoMK1u6VsGQXzqXs0LGS4ZxXXVqJP82AnEC5GivFfvG2qC4g/UMQdWcB3Pc0KJ
+ Jf/HmO/JEQBEx0dMZzdKui4dZACnEHt1lhR4GnuSrs2JcVZHLvdulthDe+QOYgRefWfS
+ LlRLe5XZJtoEwqKhlv8eGIfxA/C4W+jwglLjFUzjjpZrI+rbpgILsOs+ASgcac8M43eL
+ TaAw==
+X-Gm-Message-State: ACrzQf1leOdImz2L5ijYXsusLMI0hdVyw80ZfD9Gjlfcw8gUJfgQfGPO
+ qUbV7tWSeQ0IebkoGIv4DFW/rrXKJOOrEUZ2Q50h49zI
+X-Google-Smtp-Source: AMsMyM7Qz9vI9QYKMv7mOYbgocy3vC6cv9EDrgmKqHAVrKy0KQuwOEQ8vw/5AvUXWF4aGqiQWG67+3uOzGjlp+cBk+0=
+X-Received: by 2002:a25:3f06:0:b0:6bf:8d1:191d with SMTP id
+ m6-20020a253f06000000b006bf08d1191dmr4840860yba.16.1665160808322; Fri, 07 Oct
+ 2022 09:40:08 -0700 (PDT)
+MIME-Version: 1.0
+From: ofthecentury <ofthecentury@gmail.com>
+Date: Fri, 7 Oct 2022 22:39:42 +0600
+Message-ID: <CAOociT7XPXddpvf7n0sc8QhH8bL7V0pm-R0rnnyT5tB1UUgrzA@mail.gmail.com>
+To: dm-devel@redhat.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mailman-Approved-At: Mon, 10 Oct 2022 06:01:46 +0000
+Subject: [dm-devel] Writing code to work at the byte level
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,127 +98,52 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
-MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed; boundary="===============8285032193043951879=="
+
+--===============8285032193043951879==
+Content-Type: multipart/alternative; boundary="000000000000795cea05ea747615"
+
+--000000000000795cea05ea747615
+Content-Type: text/plain; charset="UTF-8"
+
+Hi. I would like to modify source code to allow byte-level access vs
+sector-level access. Since you are all very familiar with the code could
+you point me roughly to where I'd need to start at? Is it even a simple
+leap? Or does it require crazy hardware driver modifications or building an
+abstract layer to work with bytes within the sectors?
+Thanks!
+
+--000000000000795cea05ea747615
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div class=3D"gmail_default" style=3D"font-family:georgia,=
+serif;font-size:small;color:rgb(102,102,102)">Hi. I would like to modify so=
+urce code to allow byte-level access vs sector-level access. Since you are =
+all very familiar with the code could you point me roughly=C2=A0to where I&=
+#39;d need to start at? Is it even a simple leap? Or does it require crazy =
+hardware driver modifications or building an abstract layer to work with by=
+tes within the sectors?</div><div class=3D"gmail_default" style=3D"font-fam=
+ily:georgia,serif;font-size:small;color:rgb(102,102,102)">Thanks!</div></di=
+v>
+
+--000000000000795cea05ea747615--
+
+--===============8285032193043951879==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-nvme:tcp devices set BLK_MQ_F_BLOCKING (they are the only block devices
-which multipath supports that do so), meaning that block_mq expects that
-they can block at certain points while servicing a request.  However,
-due to the way device-mapper sets up its queue, it is not able to set
-BLK_MQ_F_BLOCKING when it includes paths that set this flag.  Patches
-were written to address this issue but they were rejected upstream
-
-https://lore.kernel.org/linux-block/YcH%2FE4JNag0QYYAa@infradead.org/T/#t
-
-The proposed solution was to have multipath use the bio queue_mode for
-multipath devices that include nvme:tcp paths.
-
-Multipath devices now automatically add the "queue_mode bio" feature if
-they include nvme:tcp paths.  If a multipath devices was created with
-"queue_mode rq", it will disallow the addition of nvme:tcp paths.
-
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/configure.c   | 17 ++++++++++++++++-
- libmultipath/structs_vec.c |  7 +++++++
- multipath/multipath.conf.5 |  4 +++-
- 3 files changed, 26 insertions(+), 2 deletions(-)
-
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 7c7babd9..e5249fc1 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -260,6 +260,7 @@ int rr_optimize_path_order(struct pathgroup *pgp)
- int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
- {
- 	struct pathgroup * pgp;
-+	struct path *pp;
- 	struct config *conf;
- 	int i, marginal_pathgroups;
- 	char *save_attr;
-@@ -275,6 +276,14 @@ int setup_map(struct multipath *mpp, char **params, struct vectors *vecs)
- 	if (mpp->disable_queueing && VECTOR_SIZE(mpp->paths) != 0)
- 		mpp->disable_queueing = 0;
- 
-+	/* Force QUEUE_MODE_BIO for maps with nvme:tcp paths */
-+	vector_foreach_slot(mpp->paths, pp, i) {
-+		if (pp->bus == SYSFS_BUS_NVME &&
-+		    pp->sg_id.proto_id == NVME_PROTOCOL_TCP) {
-+			mpp->queue_mode = QUEUE_MODE_BIO;
-+			break;
-+		}
-+	}
- 	/*
- 	 * If this map was created with add_map_without_path(),
- 	 * mpp->hwe might not be set yet.
-@@ -1148,6 +1157,13 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 			continue;
- 		}
- 
-+		cmpp = find_mp_by_wwid(curmp, pp1->wwid);
-+		if (cmpp && cmpp->queue_mode == QUEUE_MODE_RQ &&
-+		    pp1->bus == SYSFS_BUS_NVME && pp1->sg_id.proto_id ==
-+		    NVME_PROTOCOL_TCP) {
-+			orphan_path(pp1, "nvme:tcp path not allowed with request queue_mode multipath device");
-+			continue;
-+		}
- 		/*
- 		 * at this point, we know we really got a new mp
- 		 */
-@@ -1186,7 +1202,6 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 		}
- 		verify_paths(mpp);
- 
--		cmpp = find_mp_by_wwid(curmp, mpp->wwid);
- 		if (cmpp)
- 			mpp->queue_mode = cmpp->queue_mode;
- 		if (setup_map(mpp, &params, vecs)) {
-diff --git a/libmultipath/structs_vec.c b/libmultipath/structs_vec.c
-index 645896c6..5a618767 100644
---- a/libmultipath/structs_vec.c
-+++ b/libmultipath/structs_vec.c
-@@ -264,6 +264,13 @@ int adopt_paths(vector pathvec, struct multipath *mpp)
- 			}
- 			if (pp->initialized == INIT_REMOVED)
- 				continue;
-+			if (mpp->queue_mode == QUEUE_MODE_RQ &&
-+			    pp->bus == SYSFS_BUS_NVME &&
-+			    pp->sg_id.proto_id == NVME_PROTOCOL_TCP) {
-+				condlog(2, "%s: mulitpath device %s created with request queue_mode. Unable to add nvme:tcp paths",
-+					pp->dev, mpp->alias);
-+				continue;
-+			}
- 			if (!mpp->paths && !(mpp->paths = vector_alloc()))
- 				goto err;
- 
-diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index 07476497..1fea9d5a 100644
---- a/multipath/multipath.conf.5
-+++ b/multipath/multipath.conf.5
-@@ -463,7 +463,9 @@ Before kernel 4.20 The default depends on the kernel parameter
- \fBdm_mod.use_blk_mq\fR. It is \fImq\fR if the latter is set, and \fIrq\fR
- otherwise. Since kernel 4.20, \fIrq\fR and \fImq\fR both correspond to
- block-multiqueue. Once a multipath device has been created, its queue_mode
--cannot be changed.
-+cannot be changed. \fInvme:tcp\fR paths are only supported in multipath
-+devices with queue_mode set to \fIbio\fR. multipath will automatically
-+set this when creating a device with \fInvme:tcp\fR paths.
- .TP
- The default is: \fB<unset>\fR
- .RE
--- 
-2.17.2
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============8285032193043951879==--
 
