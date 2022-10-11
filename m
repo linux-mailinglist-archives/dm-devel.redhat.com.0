@@ -1,68 +1,88 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 601325FBD30
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Oct 2022 23:53:20 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 540BE5FC148
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Oct 2022 09:33:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665525199;
+	s=mimecast20190719; t=1665560018;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=xK9ot/oi7XCsId45BJVFnz2vxYUDapnNYopL6sMX5rM=;
-	b=gr0Eoc9E6w20JEQq7lGEAiivTv5CAoYmPgJ4Jlfd7FSdD17UxXpRhpXMy4GjlPrJPoqwWA
-	I+iKYAq8jdQrXM5fTHNvXnnc19nT1ncYSb0IsrSfITyZyp5UfHwofOy6QlebZLonwC1++f
-	QsW8zde56fo6g5QpIGHYcYttmipyEL8=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:list-id:list-help:list-unsubscribe:
+	 list-unsubscribe-post:list-subscribe:list-post;
+	bh=bJQ8nqnqQni/yJOdloaUDdNCRm2lSbG3ePBBtXcSJ44=;
+	b=W9cWXO+qhKBah6eyx9WKoUxNLajt1EoOxWmyA/6jcMl5VMJ0uUv5y2XchaCPiFwM1wujy5
+	eL4JzkuTBbDUFeSGW2OYxEYhHgJrpD0qnK04LP1jE00QkC4WwnNEEWq8DsbFZ4NXhOuy97
+	x0+TC2uLLIFpBN1CjSoxT6Wkm1zzHoY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-647-9543MCkDOTy1GtWPpJNbnw-1; Tue, 11 Oct 2022 17:53:17 -0400
-X-MC-Unique: 9543MCkDOTy1GtWPpJNbnw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-604-pd8Yb4FyMa-b1ezb0w99Sw-1; Wed, 12 Oct 2022 03:33:34 -0400
+X-MC-Unique: pd8Yb4FyMa-b1ezb0w99Sw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6D96805B72;
-	Tue, 11 Oct 2022 21:53:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C31B0381078D;
+	Wed, 12 Oct 2022 07:33:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6A04C2083A17;
-	Tue, 11 Oct 2022 21:53:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 767E74EA4B;
+	Wed, 12 Oct 2022 07:33:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5346F19465A2;
-	Tue, 11 Oct 2022 21:53:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 009B019465B1;
+	Wed, 12 Oct 2022 07:33:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E9B2A194658F
- for <dm-devel@listman.corp.redhat.com>; Tue, 11 Oct 2022 21:53:09 +0000 (UTC)
+ ESMTP id B6418194658F
+ for <dm-devel@listman.corp.redhat.com>; Tue, 11 Oct 2022 19:20:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CBC6BC23F71; Tue, 11 Oct 2022 21:53:09 +0000 (UTC)
+ id 9FC022083A16; Tue, 11 Oct 2022 19:20:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AE62BC23F6F;
- Tue, 11 Oct 2022 21:53:09 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 29BLr8PE027433;
- Tue, 11 Oct 2022 16:53:08 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 29BLr8JJ027432;
- Tue, 11 Oct 2022 16:53:08 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Tue, 11 Oct 2022 16:53:03 -0500
-Message-Id: <1665525183-27377-5-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1665525183-27377-1-git-send-email-bmarzins@redhat.com>
-References: <1665525183-27377-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [dm-devel] [PATCH 4/4] libmultipath: avoid cleanup __attribute__
- with cancellation points
+Received: from mimecast-mx02.redhat.com
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 98391207B36F
+ for <dm-devel@redhat.com>; Tue, 11 Oct 2022 19:20:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 761CF85A583
+ for <dm-devel@redhat.com>; Tue, 11 Oct 2022 19:20:35 +0000 (UTC)
+Received: from o29.p25.mailjet.com (o29.p25.mailjet.com [185.189.236.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-250-qm_Qkt6pNsCsqRvxG2iqUQ-1; Tue,
+ 11 Oct 2022 15:20:33 -0400
+X-MC-Unique: qm_Qkt6pNsCsqRvxG2iqUQ-1
+Message-Id: <2bfe964b.AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIAnGIiABIoIQBjRcH_@mailjet.com>
+MIME-Version: 1.0
+From: Jesse Dougherty <jesse@cypress-tech.com>
+To: dm-devel@redhat.com
+Date: Tue, 11 Oct 2022 19:20:30 +0000 (UTC)
+List-Unsubscribe-Post: List-Unsubscribe=One-Click
+Feedback-Id: 42.1189921.1191387:MJ
+Precedence: bulk
+X-CampaignID: 7663542710
+X-CSA-Complaints: csa-complaints@eco.de
+X-MJ-Mid: AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIAnGIiABIoIQBjRcH_zcswE0OHRPOAehNasFSpJwASLds
+X-MJ-SMTPGUID: cdcb3013-4387-44f3-807a-135ab054a927
+X-REPORT-ABUSE-TO: Message sent by Mailjet please report to
+ abuse@mailjet.com with a copy of the message
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Mailman-Approved-At: Wed, 12 Oct 2022 07:33:20 +0000
+Subject: [dm-devel] HP PA-RISC / IA64 hardware platform for Linux Debian,
+ Gentoo, NetBSD, OpenBSD and HP-UX Unix
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
-Precedence: list
 List-Id: device-mapper development <dm-devel.redhat.com>
 List-Unsubscribe: <https://listman.redhat.com/mailman/options/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=unsubscribe>
@@ -71,329 +91,204 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
-MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed; boundary="===============0841529662948085536=="
+
+--===============0841529662948085536==
+Content-Type: multipart/alternative; boundary="=-xsdjpNxWuY6X1oK9ZO3h"
+
+--=-xsdjpNxWuY6X1oK9ZO3h
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+Hi, I'm Jesse at Cypress Technology Inc. We at Cypress sell HP hardware. Be=
+low are some links to HP PA-RISC and IA64 boxes that support the Linux Debi=
+an, Gentoo, NetBSD, OpenBSD Linux and HP-UX Unix platforms. If you are in n=
+eed of systems, feel free to email back with any question or requests. We a=
+lso sell / buy all boxes and parts that HP made for the HP-UX / Unix (PA-RI=
+SC & ia64) line.
+
+PA-RISC
+www.ebay.com/itm/385130495455
+www.ebay.com/itm/384211227917
+
+IA64
+www.ebay.com/itm/384272059488
+www.ebay.com/itm/384211228177
+
+IA64 - For Telco / Data Center users / 48v DC
+www.ebay.com/itm/384966825704
+
+Thanks
+Jesse Dougherty
+Resellers of HP hardware
+Jesse@cypress-tech.com
+www.cypress-tech.com
+--=-xsdjpNxWuY6X1oK9ZO3h
+Content-Type: text/html; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+
+<!doctype html><html xmlns=3D"http://www.w3.org/1999/xhtml" xmlns:v=3D"urn:=
+schemas-microsoft-com:vml" xmlns:o=3D"urn:schemas-microsoft-com:office:offi=
+ce"><head><title>HP PA-RISC / IA64 hardware platform for Linux Debian, Gent=
+oo, NetBSD, OpenBSD and HP-UX Unix</title><!--[if !mso]><!--><meta http-equ=
+iv=3D"X-UA-Compatible" content=3D"IE=3Dedge"><!--<![endif]--><meta http-equ=
+iv=3D"Content-Type" content=3D"text/html; charset=3DUTF-8"><meta name=3D"vi=
+ewport" content=3D"width=3Ddevice-width,initial-scale=3D1"><style type=3D"t=
+ext/css">#outlook a { padding:0; }
+          body { margin:0;padding:0;-webkit-text-size-adjust:100%;-ms-text-=
+size-adjust:100%; }
+          table, td { border-collapse:collapse;mso-table-lspace:0pt;mso-tab=
+le-rspace:0pt; }
+          img { border:0;height:auto;line-height:100%; outline:none;text-de=
+coration:none;-ms-interpolation-mode:bicubic; }
+          p { display:block;margin:13px 0; }</style><!--[if mso]>
+        <noscript>
+        <xml>
+        <o:OfficeDocumentSettings>
+          <o:AllowPNG/>
+          <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+        </xml>
+        </noscript>
+        <![endif]--><!--[if lte mso 11]>
+        <style type=3D"text/css">
+          .mj-outlook-group-fix { width:100% !important; }
+        </style>
+        <![endif]--><style type=3D"text/css">@media only screen and (min-wi=
+dth:480px) {
+        .mj-column-per-100 { width:100% !important; max-width: 100%; }
+      }</style><style media=3D"screen and (min-width:480px)">.moz-text-html=
+ .mj-column-per-100 { width:100% !important; max-width: 100%; }</style><sty=
+le type=3D"text/css">[owa] .mj-column-per-100 { width:100% !important; max-=
+width: 100%; }</style><style type=3D"text/css"></style></head><body style=
+=3D"word-spacing:normal;background-color:#F4F4F4;"><div style=3D"background=
+-color:#F4F4F4;"><!--[if mso | IE]><table align=3D"center" border=3D"0" cel=
+lpadding=3D"0" cellspacing=3D"0" class=3D"" role=3D"presentation" style=3D"=
+width:600px;" width=3D"600" bgcolor=3D"#ffffff" ><tr><td style=3D"line-heig=
+ht:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]--><div style=
+=3D"background:#ffffff;background-color:#ffffff;margin:0px auto;max-width:6=
+00px;"><table align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=
+=3D"0" role=3D"presentation" style=3D"background:#ffffff;background-color:#=
+ffffff;width:100%;"><tbody><tr><td style=3D"direction:ltr;font-size:0px;pad=
+ding:20px 0px 20px 0px;text-align:center;"><!--[if mso | IE]><table role=3D=
+"presentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td cla=
+ss=3D"" style=3D"vertical-align:top;width:600px;" ><![endif]--><div class=
+=3D"mj-column-per-100 mj-outlook-group-fix" style=3D"font-size:0px;text-ali=
+gn:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;">=
+<table border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentatio=
+n" style=3D"vertical-align:top;" width=3D"100%"><tbody><tr><td align=3D"lef=
+t" style=3D"font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding=
+-bottom:0px;word-break:break-word;"><div style=3D"font-family:Arial, sans-s=
+erif;font-size:13px;letter-spacing:normal;line-height:1;text-align:left;col=
+or:#000000;"><h1 class=3D"text-build-content" data-testid=3D"Jz34KW14Tt" st=
+yle=3D"margin-top: 10px; margin-bottom: 10px; font-weight: normal;"><span s=
+tyle=3D"color:#55575d;font-family:Arial;font-size:20px;line-height:22px;"><=
+b>HP PA-RISC / IA64 hardware platform for Linux Debian, Gentoo, NetBSD, Ope=
+nBSD and HP-UX Unix</b></span></h1></div></td></tr><tr><td align=3D"left" s=
+tyle=3D"font-size:0px;padding:0px 25px 0px 25px;padding-top:0px;padding-bot=
+tom:0px;word-break:break-word;"><div style=3D"font-family:Arial, sans-serif=
+;font-size:14px;letter-spacing:normal;line-height:1;text-align:left;color:#=
+000000;"><p class=3D"text-build-content" data-testid=3D"xnDQWx__cn" style=
+=3D"margin: 10px 0; margin-top: 10px;"><span style=3D"color:#55575d;font-fa=
+mily:Arial;font-size:14px;line-height:22px;">Hi, I'm Jesse at Cypress Techn=
+ology Inc. We at Cypress sell and purchase HP hardware. Below are some link=
+s to HP PA-RISC and IA64 boxes that support the Linux Debian, Gentoo, NetBS=
+D, OpenBSD Linux and HP-UX Unix platforms. If you are in need of systems, f=
+eel free to email back with any question or requests. We also sell / buy al=
+l boxes and parts that HP made for the HP-UX / Unix (PA-RISC &amp; ia64) li=
+ne.</span></p><p class=3D"text-build-content" data-testid=3D"xnDQWx__cn" st=
+yle=3D"margin: 10px 0;"><span style=3D"color:#55575d;font-family:Arial;font=
+-size:14px;line-height:22px;"><b>PA-RISC</b></span></p><ul><li><a class=3D"=
+link-build-content" style=3D"color:inherit;; text-decoration: none;" target=
+=3D"_blank" href=3D"http://xz01x.mjt.lu/lnk/AXQAAACMQ5YAAcjIYbYAAM5EefsAAYC=
+rYzIAnGIiABIoIQBjRcH_zcswE0OHRPOAehNasFSpJwASLds/1/pqCDZ1DoWzh26PEXPbWR0A/a=
+HR0cDovL3d3dy5lYmF5LmNvbS9pdG0vMzg1MTMwNDk1NDU1"><span style=3D"color:#5557=
+5d;font-family:Arial;font-size:14px;line-height:22px;"><u>www.ebay.com/itm/=
+385130495455</u></span></a></li><li><a class=3D"link-build-content" style=
+=3D"color:inherit;; text-decoration: none;" target=3D"_blank" href=3D"http:=
+//xz01x.mjt.lu/lnk/AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIAnGIiABIoIQBjRcH_zcsw=
+E0OHRPOAehNasFSpJwASLds/2/UrLba3SK8wrALrHmB8iVjw/aHR0cDovL3d3dy5lYmF5LmNvbS=
+9pdG0vMzg0MjExMjI3OTE3"><span style=3D"color:#55575d;font-family:Arial;font=
+-size:14px;line-height:22px;"><u>www.ebay.com/itm/384211227917</u></span></=
+a></li></ul><p class=3D"text-build-content" data-testid=3D"xnDQWx__cn" styl=
+e=3D"margin: 10px 0;"><span style=3D"color:#55575d;font-family:Arial;font-s=
+ize:14px;line-height:22px;"><b>IA64</b></span></p><ul><li><a class=3D"link-=
+build-content" style=3D"color:inherit;; text-decoration: none;" target=3D"_=
+blank" href=3D"http://xz01x.mjt.lu/lnk/AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIA=
+nGIiABIoIQBjRcH_zcswE0OHRPOAehNasFSpJwASLds/3/lsE-6K3RTLT_DaQIsjAJxw/aHR0cD=
+ovL3d3dy5lYmF5LmNvbS9pdG0vMzg0MjcyMDU5NDg4"><span style=3D"color:#55575d;fo=
+nt-family:Arial;font-size:14px;line-height:22px;"><u>www.ebay.com/itm/38427=
+2059488</u></span></a></li><li><a class=3D"link-build-content" style=3D"col=
+or:inherit;; text-decoration: none;" target=3D"_blank" href=3D"http://xz01x=
+.mjt.lu/lnk/AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIAnGIiABIoIQBjRcH_zcswE0OHRPO=
+AehNasFSpJwASLds/4/zFWKrL_pqf8M3OPY4Y8tZw/aHR0cDovL3d3dy5lYmF5LmNvbS9pdG0vM=
+zg0MjExMjI4MTc3"><span style=3D"color:#55575d;font-family:Arial;font-size:1=
+4px;line-height:22px;"><u>www.ebay.com/itm/384211228177</u></span></a></li>=
+</ul><p class=3D"text-build-content" data-testid=3D"xnDQWx__cn" style=3D"ma=
+rgin: 10px 0;"><span style=3D"color:#55575d;font-family:Arial;font-size:14p=
+x;line-height:22px;"><b>IA64 - For Telco </b>/ Data Center users / 48v DC</=
+span></p><ul><li><a class=3D"link-build-content" style=3D"color:inherit;; t=
+ext-decoration: none;" target=3D"_blank" href=3D"http://xz01x.mjt.lu/lnk/AX=
+QAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIAnGIiABIoIQBjRcH_zcswE0OHRPOAehNasFSpJwASL=
+ds/5/UMv3r8-fiH9Dbmn2J88gAA/aHR0cDovL3d3dy5lYmF5LmNvbS9pdG0vMzg0OTY2ODI1NzA=
+0"><span style=3D"color:#55575d;font-family:Arial;font-size:14px;line-heigh=
+t:22px;"><u>www.ebay.com/itm/384966825704</u></span></a></li></ul><p class=
+=3D"text-build-content" data-testid=3D"xnDQWx__cn" style=3D"margin: 10px 0;=
+">&nbsp;</p><p class=3D"text-build-content" data-testid=3D"xnDQWx__cn" styl=
+e=3D"margin: 10px 0;"><span style=3D"color:#55575d;font-family:Arial;font-s=
+ize:14px;line-height:22px;">Thanks&nbsp;</span></p><p class=3D"text-build-c=
+ontent" data-testid=3D"xnDQWx__cn" style=3D"margin: 10px 0; margin-bottom: =
+10px;"><span style=3D"color:#55575d;font-family:Arial;font-size:14px;line-h=
+eight:22px;">Jesse Dougherty / Jesse@Cypress-Tech.com</span></p></div></td>=
+</tr></tbody></table></div><!--[if mso | IE]></td></tr></table><![endif]-->=
+</td></tr></tbody></table></div><!--[if mso | IE]></td></tr></table><table =
+align=3D"center" border=3D"0" cellpadding=3D"0" cellspacing=3D"0" class=3D"=
+" role=3D"presentation" style=3D"width:600px;" width=3D"600" ><tr><td style=
+=3D"line-height:0px;font-size:0px;mso-line-height-rule:exactly;"><![endif]-=
+-><div style=3D"margin:0px auto;max-width:600px;"><table align=3D"center" b=
+order=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" style=
+=3D"width:100%;"><tbody><tr><td style=3D"direction:ltr;font-size:0px;paddin=
+g:20px 0px 20px 0px;text-align:center;"><!--[if mso | IE]><table role=3D"pr=
+esentation" border=3D"0" cellpadding=3D"0" cellspacing=3D"0"><tr><td class=
+=3D"" style=3D"vertical-align:top;width:600px;" ><![endif]--><div class=3D"=
+mj-column-per-100 mj-outlook-group-fix" style=3D"font-size:0px;text-align:l=
+eft;direction:ltr;display:inline-block;vertical-align:top;width:100%;"><tab=
+le border=3D"0" cellpadding=3D"0" cellspacing=3D"0" role=3D"presentation" s=
+tyle=3D"vertical-align:top;" width=3D"100%"><tbody><tr><td align=3D"left" s=
+tyle=3D"font-size:0px;padding:0px 20px 0px 20px;padding-top:0px;padding-bot=
+tom:0px;word-break:break-word;"><div style=3D"font-family:Arial, sans-serif=
+;font-size:13px;letter-spacing:normal;line-height:1;text-align:left;color:#=
+000000;"><p style=3D"text-align: center; margin: 10px 0; margin-top: 10px; =
+margin-bottom: 10px;"><span style=3D"line-height:22px;font-family:Arial;col=
+or:#55575d;text-align:center;font-size:13px;">This e-mail has been sent to =
+dm-devel@redhat.com, <a href=3D"http://xz01x.mjt.lu/unsub2?hl=3Den&amp;m=3D=
+AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzIAnGIiABIoIQBjRcH_zcswE0OHRPOAehNasFSpJwA=
+SLds&amp;b=3D2bfe964b&amp;e=3Df8c44aea&amp;x=3DiqAIjtzUiXdt7GQAvMyV5P13GlBf=
+RC-flSlZda0hciM" style=3D"color:inherit;text-decoration:none;" target=3D"_b=
+lank">click here to unsubscribe</a>.</span></p></div></td></tr></tbody></ta=
+ble></div><!--[if mso | IE]></td></tr></table><![endif]--></td></tr></tbody=
+></table></div><!--[if mso | IE]></td></tr></table><![endif]--></div>
+<br/><img src=3D"http://xz01x.mjt.lu/oo/AXQAAACMQ5YAAcjIYbYAAM5EefsAAYCrYzI=
+AnGIiABIoIQBjRcH_zcswE0OHRPOAehNasFSpJwASLds/97979ff7/e.gif" height=3D"1" w=
+idth=3D"1" alt=3D"" border=3D"0" style=3D"height:1px;width:1px;border:0;"/>
+</body></html>
+--=-xsdjpNxWuY6X1oK9ZO3h--
+
+--===============0841529662948085536==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-the cleanup __attribute__ doesn't get run when a thread is cancelled, so
-it is only safe in cases where there aren't pthreads or no cancellation
-points happen in the code block after the variable needs cleaning up.
-
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/configure.c                 |  6 +--
- libmultipath/dmparser.c                  |  2 +-
- libmultipath/generic.c                   |  4 +-
- libmultipath/prioritizers/weightedpath.c |  6 ++-
- multipathd/cli_handlers.c                | 11 ++++--
- multipathd/main.c                        | 49 ++++++++++++++----------
- 6 files changed, 48 insertions(+), 30 deletions(-)
-
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index e5249fc1..25708257 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -1075,7 +1075,7 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 	int ret = CP_FAIL;
- 	int k, i, r;
- 	int is_daemon = (cmd == CMD_NONE) ? 1 : 0;
--	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
-+	char *params = NULL;
- 	struct multipath * mpp;
- 	struct path * pp1 = NULL;
- 	struct path * pp2;
-@@ -1208,6 +1208,7 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 			remove_map(mpp, vecs->pathvec, NULL);
- 			continue;
- 		}
-+		pthread_cleanup_push(cleanup_free_ptr, &params);
- 
- 		if (cmd == CMD_DRY_RUN)
- 			mpp->action = ACT_DRY_RUN;
-@@ -1216,8 +1217,7 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
- 				      force_reload == FORCE_RELOAD_YES ? 1 : 0);
- 
- 		r = domap(mpp, params, is_daemon);
--		free(params);
--		params = NULL;
-+		pthread_cleanup_pop(1);
- 
- 		if (r == DOMAP_FAIL || r == DOMAP_RETRY) {
- 			condlog(3, "%s: domap (%u) failure "
-diff --git a/libmultipath/dmparser.c b/libmultipath/dmparser.c
-index 44650aaa..066a33af 100644
---- a/libmultipath/dmparser.c
-+++ b/libmultipath/dmparser.c
-@@ -94,8 +94,8 @@ int assemble_map(struct multipath *mp, char **params)
- 		}
- 	}
- 
-+	condlog(4, "%s: assembled map [%s]", mp->alias, get_strbuf_str(&buff));
- 	*params = steal_strbuf_str(&buff);
--	condlog(4, "%s: assembled map [%s]", mp->alias, *params);
- 	r = 0;
- out:
- 	pthread_cleanup_pop(1);
-diff --git a/libmultipath/generic.c b/libmultipath/generic.c
-index 3e2268e6..cdee21d9 100644
---- a/libmultipath/generic.c
-+++ b/libmultipath/generic.c
-@@ -24,11 +24,12 @@ int generic_style(const struct gen_multipath* gm, struct strbuf *buf,
- 		  __attribute__((unused)) int verbosity)
- {
- 	struct strbuf tmp = STRBUF_INIT;
--	char *alias_buf __attribute__((cleanup(cleanup_charp)));
-+	char *alias_buf = NULL;
- 	const char *wwid_buf;
- 	int ret;
- 
- 	pthread_cleanup_push_cast(reset_strbuf, &tmp);
-+	pthread_cleanup_push(cleanup_free_ptr, &alias_buf);
- 	gm->ops->snprint(gm, &tmp, 'n');
- 	alias_buf = steal_strbuf_str(&tmp);
- 	gm->ops->snprint(gm, &tmp, 'w');
-@@ -37,5 +38,6 @@ int generic_style(const struct gen_multipath* gm, struct strbuf *buf,
- 	ret = print_strbuf(buf, "%%n %s[%%G]:%%d %%s",
- 			   strcmp(alias_buf, wwid_buf) ? "(%w) " : "");
- 	pthread_cleanup_pop(1);
-+	pthread_cleanup_pop(1);
- 	return ret;
- }
-diff --git a/libmultipath/prioritizers/weightedpath.c b/libmultipath/prioritizers/weightedpath.c
-index df700bf3..02d40a3d 100644
---- a/libmultipath/prioritizers/weightedpath.c
-+++ b/libmultipath/prioritizers/weightedpath.c
-@@ -64,7 +64,7 @@ build_wwn_path(struct path *pp, struct strbuf *buf)
- int prio_path_weight(struct path *pp, char *prio_args)
- {
- 	struct strbuf path = STRBUF_INIT;
--	char *arg __attribute__((cleanup(cleanup_charp))) = NULL;
-+	char *arg = NULL;
- 	char *temp, *regex, *prio;
- 	char split_char[] = " \t";
- 	int priority = DEFAULT_PRIORITY, path_found = 0;
-@@ -77,11 +77,12 @@ int prio_path_weight(struct path *pp, char *prio_args)
- 	arg = strdup(prio_args);
- 	temp = arg;
- 
-+	pthread_cleanup_push(cleanup_free_ptr, &arg);
- 	regex = get_next_string(&temp, split_char);
- 
- 	/* Return default priority if the argument is not parseable */
- 	if (!regex) {
--		return priority;
-+		goto out;
- 	}
- 
- 	pthread_cleanup_push_cast(reset_strbuf, &path);
-@@ -123,6 +124,7 @@ int prio_path_weight(struct path *pp, char *prio_args)
- 		}
- 	}
- out:
-+	pthread_cleanup_pop(1);
- 	pthread_cleanup_pop(1);
- 	return priority;
- }
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index ddc807a1..2d1c5cfe 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -812,8 +812,9 @@ cli_reload(void *v, struct strbuf *reply, void *data)
- static int resize_map(struct multipath *mpp, unsigned long long size,
- 	       struct vectors * vecs)
- {
--	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
-+	char *params = NULL;
- 	unsigned long long orig_size = mpp->size;
-+	int r = 1;
- 
- 	mpp->size = size;
- 	update_mpp_paths(mpp, vecs->pathvec);
-@@ -823,15 +824,19 @@ static int resize_map(struct multipath *mpp, unsigned long long size,
- 		mpp->size = orig_size;
- 		return 1;
- 	}
-+	pthread_cleanup_push(cleanup_free_ptr, &params);
- 	mpp->action = ACT_RESIZE;
- 	mpp->force_udev_reload = 1;
- 	if (domap(mpp, params, 1) == DOMAP_FAIL) {
- 		condlog(0, "%s: failed to resize map : %s", mpp->alias,
- 			strerror(errno));
- 		mpp->size = orig_size;
--		return 1;
-+		goto out;
- 	}
--	return 0;
-+	r = 0;
-+out:
-+	pthread_cleanup_pop(1);
-+	return r;
- }
- 
- static int
-diff --git a/multipathd/main.c b/multipathd/main.c
-index ba52d393..2517b541 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -589,9 +589,9 @@ static int
- update_map (struct multipath *mpp, struct vectors *vecs, int new_map)
- {
- 	int retries = 3;
--	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
-+	char *params = NULL;
- 	struct path *pp;
--	int i;
-+	int i, r;
- 
- retry:
- 	condlog(4, "%s: updating new map", mpp->alias);
-@@ -622,10 +622,11 @@ retry:
- 		retries = -1;
- 		goto fail;
- 	}
--	if (domap(mpp, params, 1) == DOMAP_FAIL && retries-- > 0) {
-+	pthread_cleanup_push(cleanup_free_ptr, &params);
-+	r = domap(mpp, params, 1);
-+	pthread_cleanup_pop(1);
-+	if (r == DOMAP_FAIL && retries-- > 0) {
- 		condlog(0, "%s: map_udate sleep", mpp->alias);
--		free(params);
--		params = NULL;
- 		sleep(1);
- 		goto retry;
- 	}
-@@ -1185,7 +1186,7 @@ int
- ev_add_path (struct path * pp, struct vectors * vecs, int need_do_map)
- {
- 	struct multipath * mpp;
--	char *params __attribute((cleanup(cleanup_charp))) = NULL;
-+	char *params = NULL;
- 	int retries = 3;
- 	int start_waiter = 0;
- 	int ret;
-@@ -1277,6 +1278,7 @@ rescan:
- 	/*
- 	 * reload the map for the multipath mapped device
- 	 */
-+	pthread_cleanup_push(cleanup_free_ptr, &params);
- 	ret = domap(mpp, params, 1);
- 	while (ret == DOMAP_RETRY && retries-- > 0) {
- 		condlog(0, "%s: retry domap for addition of new "
-@@ -1284,6 +1286,7 @@ rescan:
- 		sleep(1);
- 		ret = domap(mpp, params, 1);
- 	}
-+	pthread_cleanup_pop(1);
- 	if (ret == DOMAP_FAIL || ret == DOMAP_RETRY) {
- 		condlog(0, "%s: failed in domap for addition of new "
- 			"path %s", mpp->alias, pp->dev);
-@@ -1294,8 +1297,6 @@ rescan:
- 			condlog(0, "%s: ev_add_path sleep", mpp->alias);
- 			sleep(1);
- 			update_mpp_paths(mpp, vecs->pathvec);
--			free(params);
--			params = NULL;
- 			goto rescan;
- 		}
- 		else if (mpp->action == ACT_RELOAD)
-@@ -1356,8 +1357,9 @@ ev_remove_path (struct path *pp, struct vectors * vecs, int need_do_map)
- {
- 	struct multipath * mpp;
- 	int i, retval = REMOVE_PATH_SUCCESS;
--	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
-+	char *params = NULL;
- 
-+	pthread_cleanup_push(cleanup_free_ptr, &params);
- 	/*
- 	 * avoid referring to the map of an orphaned path
- 	 */
-@@ -1376,7 +1378,8 @@ ev_remove_path (struct path *pp, struct vectors * vecs, int need_do_map)
- 		if (update_mpp_paths(mpp, vecs->pathvec)) {
- 			condlog(0, "%s: failed to update paths",
- 				mpp->alias);
--			goto fail;
-+			retval = REMOVE_PATH_MAP_ERROR;
-+			goto out;
- 		}
- 
- 		/*
-@@ -1398,7 +1401,8 @@ ev_remove_path (struct path *pp, struct vectors * vecs, int need_do_map)
- 		if (setup_map(mpp, &params, vecs)) {
- 			condlog(0, "%s: failed to setup map for"
- 				" removal of path %s", mpp->alias, pp->dev);
--			goto fail;
-+			retval = REMOVE_PATH_MAP_ERROR;
-+			goto out;
- 		}
- 
- 		if (mpp->wait_for_udev) {
-@@ -1431,8 +1435,10 @@ ev_remove_path (struct path *pp, struct vectors * vecs, int need_do_map)
- 			/* setup_multipath will free the path
- 			 * regardless of whether it succeeds or
- 			 * fails */
--			if (setup_multipath(vecs, mpp))
--				return REMOVE_PATH_MAP_ERROR;
-+			if (setup_multipath(vecs, mpp)) {
-+				retval = REMOVE_PATH_MAP_ERROR;
-+				goto fail;
-+			}
- 			sync_map_state(mpp);
- 
- 			condlog(2, "%s: path removed from map %s",
-@@ -1445,13 +1451,14 @@ ev_remove_path (struct path *pp, struct vectors * vecs, int need_do_map)
- 		free_path(pp);
- 	}
- out:
--	return retval;
--
-+	if (retval == REMOVE_PATH_MAP_ERROR) {
-+		condlog(0, "%s: error removing path. removing map %s", pp->dev,
-+			mpp->alias);
-+		remove_map_and_stop_waiter(mpp, vecs);
-+	}
- fail:
--	condlog(0, "%s: error removing path. removing map %s", pp->dev,
--		mpp->alias);
--	remove_map_and_stop_waiter(mpp, vecs);
--	return REMOVE_PATH_MAP_ERROR;
-+	pthread_cleanup_pop(1);
-+	return retval;
- }
- 
- int
-@@ -2067,7 +2074,7 @@ int update_prio(struct path *pp, int refresh_all)
- static int reload_map(struct vectors *vecs, struct multipath *mpp, int refresh,
- 		      int is_daemon)
- {
--	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
-+	char *params = NULL;
- 	struct path *pp;
- 	int i, r;
- 
-@@ -2089,9 +2096,11 @@ static int reload_map(struct vectors *vecs, struct multipath *mpp, int refresh,
- 		condlog(0, "%s: failed to setup map", mpp->alias);
- 		return 1;
- 	}
-+	pthread_cleanup_push(cleanup_free_ptr, &params);
- 	select_action(mpp, vecs->mpvec, 1);
- 
- 	r = domap(mpp, params, is_daemon);
-+	pthread_cleanup_pop(1);
- 	if (r == DOMAP_FAIL || r == DOMAP_RETRY) {
- 		condlog(3, "%s: domap (%u) failure "
- 			"for reload map", mpp->alias, r);
--- 
-2.17.2
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============0841529662948085536==--
 
