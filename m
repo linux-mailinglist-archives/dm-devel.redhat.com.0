@@ -2,95 +2,137 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 558B95FC149
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Oct 2022 09:34:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74F1F5FC147
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Oct 2022 09:33:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1665560044;
+	s=mimecast20190719; t=1665560017;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=G0qjy1yiSUlPsANJ3M+TFy86ccW7Fc5GlRrEwcmqem0=;
-	b=iXaZQNhQS45Dla+rJWVWi/XU0t0hh1l/6jZhk8rG5laFYNDJ+o4NYA0Or7SsVXNJvRGNKf
-	KgiqYjJat3VBLmshL/7uhef9kd4I44BN8rrB5/PV8Sfjtgnj3obBZ5MfMLr6iB9ZfSWgHP
-	1cPiTOQKDEbnLPGpoOTOR2U4l+jnjEc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=fzS64sHhH24FtE/eMbJdbzf0QyHRKuhknETQ7+wdx0s=;
+	b=D44j/MDHi94axVFYitT606ULixztpNp+DYYRTfIiwK8aXc8QcNPmf8UCj33sDXLzlduxoy
+	9AhnbvYO1WuoGaL/xLvwHtafDS2K3lJPiwqTQZQKS/IXFGT0sqPAtFnmGIupdBDILZs1i9
+	FcNr2GMafmW5eyix1fr2hm/7OOzKigM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-LaDBNNt7O2ma11Bogn4ygw-1; Wed, 12 Oct 2022 03:33:35 -0400
-X-MC-Unique: LaDBNNt7O2ma11Bogn4ygw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-441-w-ajcXPrMtuG3Bdj9WkJBg-1; Wed, 12 Oct 2022 03:33:35 -0400
+X-MC-Unique: w-ajcXPrMtuG3Bdj9WkJBg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C3867805AC8;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0DC21C05ACE;
 	Wed, 12 Oct 2022 07:33:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A3049492B05;
-	Wed, 12 Oct 2022 07:33:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9A8D5414A81A;
+	Wed, 12 Oct 2022 07:33:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 30EF519465B6;
-	Wed, 12 Oct 2022 07:33:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 53C4419465B9;
+	Wed, 12 Oct 2022 07:33:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 35FE91946589
- for <dm-devel@listman.corp.redhat.com>; Wed, 12 Oct 2022 06:31:24 +0000 (UTC)
+ ESMTP id 4C79F1946589
+ for <dm-devel@listman.corp.redhat.com>; Wed, 12 Oct 2022 07:23:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 15B3240E2934; Wed, 12 Oct 2022 06:31:24 +0000 (UTC)
+ id 21ED342221; Wed, 12 Oct 2022 07:23:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D24440C206B
- for <dm-devel@redhat.com>; Wed, 12 Oct 2022 06:31:24 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 199A563A57
+ for <dm-devel@redhat.com>; Wed, 12 Oct 2022 07:23:30 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD671811E7A
- for <dm-devel@redhat.com>; Wed, 12 Oct 2022 06:31:23 +0000 (UTC)
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
- [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-399-Yq-QkqPTNouoonx4Y-hNaA-1; Wed, 12 Oct 2022 02:31:22 -0400
-X-MC-Unique: Yq-QkqPTNouoonx4Y-hNaA-1
-Received: by mail-pf1-f198.google.com with SMTP id
- q18-20020aa79832000000b00562d921e30aso5724952pfl.4
- for <dm-devel@redhat.com>; Tue, 11 Oct 2022 23:31:22 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=PRaNY7aRj+gsjZ58M2t5dmH7JLoO+bxwHZWTc/ptJl4=;
- b=EV6ro12KGwP0A/FBZU3yXLnyWp0Obbh92UpbCnqEmqn4TF5BZc+HPAtbQ/ozyoFPzd
- gBmaA+lx12lxH0awH65gU8b1nxpKAwZHbPC7ki9Hjj+2CPFPo9xIgptewF3F6AQHe3ki
- 9e4LYO66oIHa/GpS4XmNeLOeDtfQEFiZrBdUNQYg8a/HlwUXuS+aWOgprnezZQMCkx4k
- ZO8/U5AuNlcmMSgvcMisYPKIGXpqnKrCcYOCzvJVrAW4EMxepeZR3O7i7TX5EASWEQD2
- f8FAuyCYoa1HoaNP/WH93nrE/7f1/6YHmQkKP+oX3Ry21sI6o1d4nrNEqjxqLGmVoGoq
- QAlw==
-X-Gm-Message-State: ACrzQf3OR6NbuunsaBWu3Q2MZfxsnGqFw+WsH23pisWFL0CoUP26aqlB
- iO45qEXfS29mvLlQWjPIfmPs9gB8u6sCEnpEDpcKXMz0qSGUkYzY3v7xW31ENuMThPo8Ki+V8q9
- Ay1880bWaNIYKzF5m/KVaHXogdBjnzWo=
-X-Received: by 2002:a17:902:7c05:b0:178:1f92:288e with SMTP id
- x5-20020a1709027c0500b001781f92288emr27923600pll.92.1665556281165; 
- Tue, 11 Oct 2022 23:31:21 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7+OLsTjImt0+xv3zCKUhLiSoz+SEs9ObfTN6yJBA/k71Feg9f1vcV48fupKKQs9AQvl6nOLjv4k6bpk62X1z0=
-X-Received: by 2002:a17:902:7c05:b0:178:1f92:288e with SMTP id
- x5-20020a1709027c0500b001781f92288emr27923572pll.92.1665556280861; Tue, 11
- Oct 2022 23:31:20 -0700 (PDT)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEE27804187
+ for <dm-devel@redhat.com>; Wed, 12 Oct 2022 07:23:29 +0000 (UTC)
+Received: from EUR03-DBA-obe.outbound.protection.outlook.com
+ (mail-dbaeur03on2081.outbound.protection.outlook.com [40.107.104.81]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-344-BAWW7pXfM1WhaisE42i4iw-1; Wed, 12 Oct 2022 03:23:26 -0400
+X-MC-Unique: BAWW7pXfM1WhaisE42i4iw-1
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com (2603:10a6:20b:4e7::9)
+ by PAXPR04MB8768.eurprd04.prod.outlook.com (2603:10a6:102:20f::18)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5709.15; Wed, 12 Oct
+ 2022 07:23:24 +0000
+Received: from AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::8148:e8d5:18a8:8b1c]) by AS4PR04MB9362.eurprd04.prod.outlook.com
+ ([fe80::8148:e8d5:18a8:8b1c%3]) with mapi id 15.20.5709.021; Wed, 12 Oct 2022
+ 07:23:24 +0000
+From: Lidong Zhong <lidong.zhong@suse.com>
+To: dm-devel@redhat.com
+Date: Wed, 12 Oct 2022 15:23:16 +0800
+Message-ID: <20221012072316.19124-1-lidong.zhong@suse.com>
+X-ClientProxiedBy: TYCP286CA0067.JPNP286.PROD.OUTLOOK.COM
+ (2603:1096:400:31a::9) To AS4PR04MB9362.eurprd04.prod.outlook.com
+ (2603:10a6:20b:4e7::9)
 MIME-Version: 1.0
-References: <alpine.LRH.2.02.2210111505160.18298@file01.intranet.prod.int.rdu2.redhat.com>
-In-Reply-To: <alpine.LRH.2.02.2210111505160.18298@file01.intranet.prod.int.rdu2.redhat.com>
-From: Joe Thornber <thornber@redhat.com>
-Date: Wed, 12 Oct 2022 07:31:09 +0100
-Message-ID: <CAJ0trDa8+TasExXYKASBd0ctJ2_ZmB7NbqRV9oadEhYNfGeGiA@mail.gmail.com>
-To: Mikulas Patocka <mpatocka@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS4PR04MB9362:EE_|PAXPR04MB8768:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0f7d91f1-d9d5-4bcb-765b-08daac22a60e
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: RySa117AIM7fKv5DSQTAFrLL3erLmpEp0pqLyNEYWQlOCGDRcXPHFyEIHSgEUVnq7kyHYUTZHcMxqfw+GFvjhirK4IvrjvuIrSdx7HPrtkJFzswXw+7hpGEf7VpraT+l7N4kKZmvdugEPOSE44lcKLDtqUeP0J/+5lmuHWWF8BOHaeQhG+Tg0tegZhg3sZwEWoF6aiLh2spQPJt+LUmBKQEjIomFn465c2pIV/jkkvUxWkJBYFbtsK63yFmm2x6avPFBypr+SiCDz0IdKMAQTdUG4NxwrD/9RCCFBjZBgtwPS1zhCt4vHJBICfPt/KjENb6o9/hq5KpdOd/YoMtsTZrUrq5gl3tJ5cO3i89q9VYO5rquXM+e9bIi3VK4UUo1lsGA9aQIj3Tud48Re7mAt4UaAZUhlD9qNJMcgOYcfgxyN7hpf5yPRBCQOLd0+NTqJnDQ69yeKHGr0xBLWvQ0n107DzYhjgbr/Kl5MnohPRoOPrIIjRk9QCcbN9ON5wdxBp+B770C65+64v570k2CfISBxUnWKOEq1O6FlBGbvP0EL0XN+nQSjXe7wqa/FB+lxIIA8X1BoR3sMCuk/yI16Qptu+xqAR1T7T25sybANPeWPh6JY9CDdkvg/x20j05EU0PP8xkYFAQpFUVgkWZaHLFrvM2D6CQTO7qufutcfMBZBsBOpwxvFb2sg4RelGIOfBSaoiKj2/cNx7c0TypX9g==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS4PR04MB9362.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(376002)(136003)(366004)(346002)(396003)(39860400002)(451199015)(8936002)(2906002)(66476007)(66556008)(66946007)(41300700001)(44832011)(5660300002)(8676002)(4326008)(4744005)(36756003)(38100700002)(6512007)(6916009)(6666004)(26005)(186003)(6506007)(478600001)(6486002)(450100002)(316002)(1076003)(2616005)(83380400001)(86362001);
+ DIR:OUT; SFP:1101
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?ds09cHeZx5Vc3lJZs9sPgwYDZcNmCWeOPwyOjaiNt8S4x8IFaWOoQm5HS+jg?=
+ =?us-ascii?Q?c+5Av433L5KuZbiulZwRavDuTqiqXH0uNlhZwnnU+i2HxXGWmpgi4Exe1pYF?=
+ =?us-ascii?Q?4zb6AjReHjoTDqjkeJlZfL5D4BWB8u0JONCmYk5u2KS+ipcdeLM8lGXh+hxx?=
+ =?us-ascii?Q?yQrfQTBrkPYLrZpsgO5qTimjuOENpRi6othmP8FLG8c8o3zfG7Bf3sjjC43B?=
+ =?us-ascii?Q?gyBezUn9xc0OK2W8ll/cPyrsUn7lPSzDVE2/mnjopqxt54SPcIxcGrQQS7Mk?=
+ =?us-ascii?Q?FUWFzYqFwQztJucVC+jaMXWS3CXcT0ZQMIvge0HYVv2q7xJn5bP0ZSHIW/Py?=
+ =?us-ascii?Q?k23WigKlfXVDnY3T2AsGGk4DGjwJLfX/w5cUZUaiuPdp3Bm71ko/oQaIZGPk?=
+ =?us-ascii?Q?zP//JrcCLG5PgnKeSKA30LKa7T28LN35wjxxSwuI5lyY2zmFzHjAzxW/f64O?=
+ =?us-ascii?Q?QzqbTb7Rt0kRQbxOBJwym59+x4zIo/AVimaGB2kamoC6BtdhqWp8yerX7+fI?=
+ =?us-ascii?Q?GIkl/91VxgEfRANXsNpx5kszoHy7kn2ZYRLnd4zm3P2LkVari+JkEKTPd1uf?=
+ =?us-ascii?Q?B0XAGG8PX/GpsV8Foc6e6AIb+aV1/JZcw+mDPNyPtG8APgWu/vaOciYqk5Bm?=
+ =?us-ascii?Q?iK5cHRJjR0so6Zqyw3vCeEaXPVEK1gSAjPNn3KPoXcOgcdDHUx7BHDsIJyIt?=
+ =?us-ascii?Q?MrZoq4pwXGGDdsV9QXmHdpvR1K2F2yUJ05wvff+suSPNjyEPbSEdGf8rlNrU?=
+ =?us-ascii?Q?wzQYlwssg3XuqpmgvDp3N2W2VPXhXjCxL3gKbZVdBhcRjOIMewC3/iMfrc+p?=
+ =?us-ascii?Q?egPnzfZTL8F8e7q/W43RA+YnsqHoKRWNBEPwWR6pwg/PU4F7QV8S+VDUjVoD?=
+ =?us-ascii?Q?fluJ3Pej4+0k6bIWv+j1ZhNeK9JzvUtoKXE5sx30rvZLYCU3m16AjdhafdA0?=
+ =?us-ascii?Q?LJet0ydWX35RcoQ18RLdrTJWi8xj8uuu7iHYWy4DkDgmLSwAYO2QwKZolcCM?=
+ =?us-ascii?Q?UXgJnsnV3hK2qnI8eAcavrVnwFT4U41yZnVJgwaaP5ehLkcBOjHyhohzrVXH?=
+ =?us-ascii?Q?3KcJULkm1vqdeUDWiQf3pVO24hXM7y/iIH0UfybOE6vaQCqEbX+Tb4QTiBTc?=
+ =?us-ascii?Q?NSH9QCYJFQqLh8r2IjVpw6+jBcHc7OuiPwderdHRVCaQw0c1GKmG0B/ump8I?=
+ =?us-ascii?Q?NyEW21dD64ExiWAOqFuyRZInDk4twjXKGFccladV9L6YMDS7vf8CGqTCivi2?=
+ =?us-ascii?Q?+11EkY0c2gzh3RssmKwDuy/PXZ8k7dTnDn3y7zVK14pwemLOpfXRZYjI7Mvs?=
+ =?us-ascii?Q?hLmLPh6NoH0+wUsubFH8VtIjbyOVcHodXmBc+gtg6//Pc5QM5szZIPsHnNU+?=
+ =?us-ascii?Q?5aAi4dwTDyNq3TfGK0hL3zTFTbLE0uj8jT9VVqYrcgchXkSIGEKGRUvVEppw?=
+ =?us-ascii?Q?UuCBCNh3EzyMDB/OLrgCPSnooYAmkx9nvAAgMIvUCe1EcFx//jWNnyO2Q7Lx?=
+ =?us-ascii?Q?572EXXeBHdIGdxuBlUIvgwLP+vibiZYa6yqzmMPW/c89oeyh7yIAiO/MD6Xz?=
+ =?us-ascii?Q?VxZqnckbLo52Vt/+Ucam75dorYcbXXs8Rop2ACfm?=
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0f7d91f1-d9d5-4bcb-765b-08daac22a60e
+X-MS-Exchange-CrossTenant-AuthSource: AS4PR04MB9362.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Oct 2022 07:23:24.1958 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: T3OwpLQBgrRjK9R7Y3DQE//Q6RV1CMNIAPwgUuGuy0rTOomzrtp793D8folanvfxtb86iaE3lkLQmlOFOB7yyw==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8768
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Wed, 12 Oct 2022 07:33:20 +0000
-Subject: Re: [dm-devel] [PATCH 4/4 v2] persistent-data: reduce lock
- contention while walking the btree
+Subject: [dm-devel] [PATCH] multipath: add option -D to manpage
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,663 +144,42 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Heinz Mauelshagen <heinzm@redhat.com>, Mike Snitzer <msnitzer@redhat.com>,
- dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed; boundary="===============4626603863922456236=="
-
---===============4626603863922456236==
-Content-Type: multipart/alternative; boundary="000000000000797b8405ead08a9a"
-
---000000000000797b8405ead08a9a
-Content-Type: text/plain; charset="UTF-8"
-
-Thanks Mikulas,
-
-I'll test this morning.
-
-- Joe
-
-
-On Tue, Oct 11, 2022 at 8:10 PM Mikulas Patocka <mpatocka@redhat.com> wrote:
-
-> Hi
->
-> Here I'm sending updated patch 4 that fixes hang on discard. We must not
-> do the optimization in dm_btree_lookup_next.
->
-> Mikulas
->
->
-> From: Mikulas Patocka <mpatocka@redhat.com>
->
-> This patch reduces lock contention in btree walks. We modify the
-> functions init_ro_wpin, exit_ro_spine and ro_step so that they use
-> dm_bufio_lock_read/dm_bufio_get_unlocked/dm_bufio_unlock_read. If
-> dm_bm_fast_get_block fails, we fallback to normal locking.
->
-> When doing tests on pmem and fully provisioned thin volume, it improves
-> thoughput from 286MiB/s to 442MiB/s.
->
-> fio --ioengine=psync --iodepth=1 --rw=randrw --bs=4k --direct=1
-> --numjobs=12 --time_based --runtime=10 --group_reporting --name=/dev/vg/thin
-> before:
-> READ: bw=286MiB/s
-> WRITE: bw=286MiB/s
-> after:
-> READ: bw=442MiB/s
-> WRITE: bw=442MiB/s
->
-> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
->
-> ---
->  drivers/md/persistent-data/dm-block-manager.c       |   32 +++++++++++++++
->  drivers/md/persistent-data/dm-block-manager.h       |    6 ++
->  drivers/md/persistent-data/dm-btree-internal.h      |    4 +
->  drivers/md/persistent-data/dm-btree-spine.c         |   41
-> ++++++++++++++++++--
->  drivers/md/persistent-data/dm-btree.c               |    6 +-
->  drivers/md/persistent-data/dm-transaction-manager.c |   17 ++++++++
->  drivers/md/persistent-data/dm-transaction-manager.h |    6 ++
->  7 files changed, 104 insertions(+), 8 deletions(-)
->
-> Index: linux-2.6/drivers/md/persistent-data/dm-block-manager.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-block-manager.c
-> +++ linux-2.6/drivers/md/persistent-data/dm-block-manager.c
-> @@ -601,6 +601,38 @@ void dm_bm_unlock(struct dm_block *b)
->  }
->  EXPORT_SYMBOL_GPL(dm_bm_unlock);
->
-> +void dm_bm_fast_lock(struct dm_block_manager *bm)
-> +{
-> +       dm_bufio_lock_read(bm->bufio);
-> +}
-> +
-> +void dm_bm_fast_unlock(struct dm_block_manager *bm)
-> +{
-> +       dm_bufio_unlock_read(bm->bufio);
-> +}
-> +
-> +int dm_bm_fast_get_block(struct dm_block_manager *bm,
-> +                        dm_block_t b, struct dm_block_validator *v,
-> +                        struct dm_block **result)
-> +{
-> +       int r;
-> +       struct buffer_aux *aux;
-> +       void *p;
-> +
-> +       p = dm_bufio_get_unlocked(bm->bufio, b, (struct dm_buffer **)
-> result);
-> +       if (IS_ERR(p))
-> +               return PTR_ERR(p);
-> +       if (unlikely(!p))
-> +               return -EWOULDBLOCK;
-> +
-> +       aux = dm_bufio_get_aux_data(to_buffer(*result));
-> +       r = dm_bm_validate_buffer(bm, to_buffer(*result), aux, v);
-> +       if (unlikely(r))
-> +               return r;
-> +
-> +       return 0;
-> +}
-> +
->  int dm_bm_flush(struct dm_block_manager *bm)
->  {
->         if (dm_bm_is_read_only(bm))
-> Index: linux-2.6/drivers/md/persistent-data/dm-block-manager.h
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-block-manager.h
-> +++ linux-2.6/drivers/md/persistent-data/dm-block-manager.h
-> @@ -96,6 +96,12 @@ int dm_bm_write_lock_zero(struct dm_bloc
->
->  void dm_bm_unlock(struct dm_block *b);
->
-> +void dm_bm_fast_lock(struct dm_block_manager *bm);
-> +void dm_bm_fast_unlock(struct dm_block_manager *bm);
-> +int dm_bm_fast_get_block(struct dm_block_manager *bm,
-> +                        dm_block_t b, struct dm_block_validator *v,
-> +                        struct dm_block **result);
-> +
->  /*
->   * It's a common idiom to have a superblock that should be committed last.
->   *
-> Index: linux-2.6/drivers/md/persistent-data/dm-btree-internal.h
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-btree-internal.h
-> +++ linux-2.6/drivers/md/persistent-data/dm-btree-internal.h
-> @@ -64,9 +64,11 @@ struct ro_spine {
->         struct dm_btree_info *info;
->
->         struct dm_block *node;
-> +       bool fast_locked;
-> +       bool fast_lock_failed;
->  };
->
-> -void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info);
-> +void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info, bool
-> disable_fast_access);
->  void exit_ro_spine(struct ro_spine *s);
->  int ro_step(struct ro_spine *s, dm_block_t new_child);
->  struct btree_node *ro_node(struct ro_spine *s);
-> Index: linux-2.6/drivers/md/persistent-data/dm-btree-spine.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-btree-spine.c
-> +++ linux-2.6/drivers/md/persistent-data/dm-btree-spine.c
-> @@ -118,27 +118,60 @@ void unlock_block(struct dm_btree_info *
->         dm_tm_unlock(info->tm, b);
->  }
->
-> +static void bn_fast_lock(struct dm_btree_info *info)
-> +{
-> +       dm_tm_fast_lock(info->tm);
-> +}
-> +
-> +static void bn_fast_unlock(struct dm_btree_info *info)
-> +{
-> +       dm_tm_fast_unlock(info->tm);
-> +}
-> +
-> +static int bn_fast_get_block(struct dm_btree_info *info, dm_block_t b,
-> +                     struct dm_block **result)
-> +{
-> +       return dm_tm_fast_get_block(info->tm, b, &btree_node_validator,
-> result);
-> +}
-> +
->  /*----------------------------------------------------------------*/
->
-> -void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info)
-> +void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info, bool
-> disable_fast_access)
->  {
->         s->info = info;
->         s->node = NULL;
-> +       s->fast_locked = false;
-> +       s->fast_lock_failed = disable_fast_access;
->  }
->
->  void exit_ro_spine(struct ro_spine *s)
->  {
-> -       if (s->node)
-> +       if (s->fast_locked)
-> +               bn_fast_unlock(s->info);
-> +       else if (s->node)
->                 unlock_block(s->info, s->node);
->  }
->
->  int ro_step(struct ro_spine *s, dm_block_t new_child)
->  {
->         if (s->node) {
-> -               unlock_block(s->info, s->node);
-> +               if (unlikely(!s->fast_locked))
-> +                       unlock_block(s->info, s->node);
->                 s->node = NULL;
->         }
-> -
-> +       if (likely(!s->fast_lock_failed)) {
-> +               int r;
-> +               if (!s->fast_locked) {
-> +                       bn_fast_lock(s->info);
-> +                       s->fast_locked = true;
-> +               }
-> +               r = bn_fast_get_block(s->info, new_child, &s->node);
-> +               if (likely(!r))
-> +                       return 0;
-> +               s->fast_lock_failed = true;
-> +               s->fast_locked = false;
-> +               bn_fast_unlock(s->info);
-> +       }
->         return bn_read_lock(s->info, new_child, &s->node);
->  }
->
-> Index: linux-2.6/drivers/md/persistent-data/dm-transaction-manager.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-transaction-manager.c
-> +++ linux-2.6/drivers/md/persistent-data/dm-transaction-manager.c
-> @@ -348,6 +348,23 @@ void dm_tm_unlock(struct dm_transaction_
->  }
->  EXPORT_SYMBOL_GPL(dm_tm_unlock);
->
-> +void dm_tm_fast_lock(struct dm_transaction_manager *tm)
-> +{
-> +       dm_bm_fast_lock(tm->is_clone ? tm->real->bm : tm->bm);
-> +}
-> +
-> +void dm_tm_fast_unlock(struct dm_transaction_manager *tm)
-> +{
-> +       dm_bm_fast_unlock(tm->is_clone ? tm->real->bm : tm->bm);
-> +}
-> +
-> +int dm_tm_fast_get_block(struct dm_transaction_manager *tm, dm_block_t b,
-> +                        struct dm_block_validator *v,
-> +                        struct dm_block **blk)
-> +{
-> +       return dm_bm_fast_get_block(tm->is_clone ? tm->real->bm : tm->bm,
-> b, v, blk);
-> +}
-> +
->  void dm_tm_inc(struct dm_transaction_manager *tm, dm_block_t b)
->  {
->         /*
-> Index: linux-2.6/drivers/md/persistent-data/dm-transaction-manager.h
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-transaction-manager.h
-> +++ linux-2.6/drivers/md/persistent-data/dm-transaction-manager.h
-> @@ -96,6 +96,12 @@ int dm_tm_read_lock(struct dm_transactio
->
->  void dm_tm_unlock(struct dm_transaction_manager *tm, struct dm_block *b);
->
-> +void dm_tm_fast_lock(struct dm_transaction_manager *tm);
-> +void dm_tm_fast_unlock(struct dm_transaction_manager *tm);
-> +int dm_tm_fast_get_block(struct dm_transaction_manager *tm, dm_block_t b,
-> +                        struct dm_block_validator *v,
-> +                        struct dm_block **blk);
-> +
->  /*
->   * Functions for altering the reference count of a block directly.
->   */
-> Index: linux-2.6/drivers/md/persistent-data/dm-btree.c
-> ===================================================================
-> --- linux-2.6.orig/drivers/md/persistent-data/dm-btree.c
-> +++ linux-2.6/drivers/md/persistent-data/dm-btree.c
-> @@ -377,7 +377,7 @@ int dm_btree_lookup(struct dm_btree_info
->         __le64 internal_value_le;
->         struct ro_spine spine;
->
-> -       init_ro_spine(&spine, info);
-> +       init_ro_spine(&spine, info, false);
->         for (level = 0; level < info->levels; level++) {
->                 size_t size;
->                 void *value_p;
-> @@ -472,7 +472,7 @@ int dm_btree_lookup_next(struct dm_btree
->         __le64 internal_value_le;
->         struct ro_spine spine;
->
-> -       init_ro_spine(&spine, info);
-> +       init_ro_spine(&spine, info, true);
->         for (level = 0; level < info->levels - 1u; level++) {
->                 r = btree_lookup_raw(&spine, root, keys[level],
->                                      lower_bound, rkey,
-> @@ -1369,7 +1369,7 @@ static int dm_btree_find_key(struct dm_b
->         int r = 0, count = 0, level;
->         struct ro_spine spine;
->
-> -       init_ro_spine(&spine, info);
-> +       init_ro_spine(&spine, info, false);
->         for (level = 0; level < info->levels; level++) {
->                 r = find_key(&spine, root, find_highest, result_keys +
-> level,
->                              level == info->levels - 1 ? NULL : &root);
->
->
-
---000000000000797b8405ead08a9a
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr">Thanks Mikulas,<div><br></div><div>I&#39;ll test this morn=
-ing.</div><div><br></div><div>- Joe</div><div><br></div></div><br><div clas=
-s=3D"gmail_quote"><div dir=3D"ltr" class=3D"gmail_attr">On Tue, Oct 11, 202=
-2 at 8:10 PM Mikulas Patocka &lt;<a href=3D"mailto:mpatocka@redhat.com">mpa=
-tocka@redhat.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" =
-style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);pa=
-dding-left:1ex">Hi<br>
-<br>
-Here I&#39;m sending updated patch 4 that fixes hang on discard. We must no=
-t <br>
-do the optimization in dm_btree_lookup_next.<br>
-<br>
-Mikulas<br>
-<br>
-<br>
-From: Mikulas Patocka &lt;<a href=3D"mailto:mpatocka@redhat.com" target=3D"=
-_blank">mpatocka@redhat.com</a>&gt;<br>
-<br>
-This patch reduces lock contention in btree walks. We modify the<br>
-functions init_ro_wpin, exit_ro_spine and ro_step so that they use<br>
-dm_bufio_lock_read/dm_bufio_get_unlocked/dm_bufio_unlock_read. If<br>
-dm_bm_fast_get_block fails, we fallback to normal locking.<br>
-<br>
-When doing tests on pmem and fully provisioned thin volume, it improves<br>
-thoughput from 286MiB/s to 442MiB/s.<br>
-<br>
-fio --ioengine=3Dpsync --iodepth=3D1 --rw=3Drandrw --bs=3D4k --direct=3D1 -=
--numjobs=3D12 --time_based --runtime=3D10 --group_reporting --name=3D/dev/v=
-g/thin<br>
-before:<br>
-READ: bw=3D286MiB/s<br>
-WRITE: bw=3D286MiB/s<br>
-after:<br>
-READ: bw=3D442MiB/s<br>
-WRITE: bw=3D442MiB/s<br>
-<br>
-Signed-off-by: Mikulas Patocka &lt;<a href=3D"mailto:mpatocka@redhat.com" t=
-arget=3D"_blank">mpatocka@redhat.com</a>&gt;<br>
-<br>
----<br>
-=C2=A0drivers/md/persistent-data/dm-block-manager.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0|=C2=A0 =C2=A032 +++++++++++++++<br>
-=C2=A0drivers/md/persistent-data/dm-block-manager.h=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0|=C2=A0 =C2=A0 6 ++<br>
-=C2=A0drivers/md/persistent-data/dm-btree-internal.h=C2=A0 =C2=A0 =C2=A0 |=
-=C2=A0 =C2=A0 4 +<br>
-=C2=A0drivers/md/persistent-data/dm-btree-spine.c=C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0|=C2=A0 =C2=A041 ++++++++++++++++++--<br>
-=C2=A0drivers/md/persistent-data/dm-btree.c=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0|=C2=A0 =C2=A0 6 +-<br>
-=C2=A0drivers/md/persistent-data/dm-transaction-manager.c |=C2=A0 =C2=A017 =
-++++++++<br>
-=C2=A0drivers/md/persistent-data/dm-transaction-manager.h |=C2=A0 =C2=A0 6 =
-++<br>
-=C2=A07 files changed, 104 insertions(+), 8 deletions(-)<br>
-<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-block-manager.c<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-block-manager.c<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-block-manager.c<br>
-@@ -601,6 +601,38 @@ void dm_bm_unlock(struct dm_block *b)<br>
-=C2=A0}<br>
-=C2=A0EXPORT_SYMBOL_GPL(dm_bm_unlock);<br>
-<br>
-+void dm_bm_fast_lock(struct dm_block_manager *bm)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dm_bufio_lock_read(bm-&gt;bufio);<br>
-+}<br>
-+<br>
-+void dm_bm_fast_unlock(struct dm_block_manager *bm)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dm_bufio_unlock_read(bm-&gt;bufio);<br>
-+}<br>
-+<br>
-+int dm_bm_fast_get_block(struct dm_block_manager *bm,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 dm_block_t b, struct dm_block_validator *v,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct dm_block **result)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0struct buffer_aux *aux;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0void *p;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0p =3D dm_bufio_get_unlocked(bm-&gt;bufio, b, (s=
-truct dm_buffer **) result);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (IS_ERR(p))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return PTR_ERR(p);<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(!p))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return -EWOULDBLOCK=
-;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0aux =3D dm_bufio_get_aux_data(to_buffer(*result=
-));<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D dm_bm_validate_buffer(bm, to_buffer(*resu=
-lt), aux, v);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(r))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0return r;<br>
-+<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return 0;<br>
-+}<br>
-+<br>
-=C2=A0int dm_bm_flush(struct dm_block_manager *bm)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (dm_bm_is_read_only(bm))<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-block-manager.h<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-block-manager.h<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-block-manager.h<br>
-@@ -96,6 +96,12 @@ int dm_bm_write_lock_zero(struct dm_bloc<br>
-<br>
-=C2=A0void dm_bm_unlock(struct dm_block *b);<br>
-<br>
-+void dm_bm_fast_lock(struct dm_block_manager *bm);<br>
-+void dm_bm_fast_unlock(struct dm_block_manager *bm);<br>
-+int dm_bm_fast_get_block(struct dm_block_manager *bm,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 dm_block_t b, struct dm_block_validator *v,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct dm_block **result);<br>
-+<br>
-=C2=A0/*<br>
-=C2=A0 * It&#39;s a common idiom to have a superblock that should be commit=
-ted last.<br>
-=C2=A0 *<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-btree-internal.h<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-btree-internal.h<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-btree-internal.h<br>
-@@ -64,9 +64,11 @@ struct ro_spine {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dm_btree_info *info;<br>
-<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct dm_block *node;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0bool fast_locked;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0bool fast_lock_failed;<br>
-=C2=A0};<br>
-<br>
--void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info);<br>
-+void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info, bool di=
-sable_fast_access);<br>
-=C2=A0void exit_ro_spine(struct ro_spine *s);<br>
-=C2=A0int ro_step(struct ro_spine *s, dm_block_t new_child);<br>
-=C2=A0struct btree_node *ro_node(struct ro_spine *s);<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-btree-spine.c<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-btree-spine.c<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-btree-spine.c<br>
-@@ -118,27 +118,60 @@ void unlock_block(struct dm_btree_info *<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 dm_tm_unlock(info-&gt;tm, b);<br>
-=C2=A0}<br>
-<br>
-+static void bn_fast_lock(struct dm_btree_info *info)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dm_tm_fast_lock(info-&gt;tm);<br>
-+}<br>
-+<br>
-+static void bn_fast_unlock(struct dm_btree_info *info)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dm_tm_fast_unlock(info-&gt;tm);<br>
-+}<br>
-+<br>
-+static int bn_fast_get_block(struct dm_btree_info *info, dm_block_t b,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0struct dm_block **result)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return dm_tm_fast_get_block(info-&gt;tm, b, &am=
-p;btree_node_validator, result);<br>
-+}<br>
-+<br>
-=C2=A0/*----------------------------------------------------------------*/<=
-br>
-<br>
--void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info)<br>
-+void init_ro_spine(struct ro_spine *s, struct dm_btree_info *info, bool di=
-sable_fast_access)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;info =3D info;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;node =3D NULL;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0s-&gt;fast_locked =3D false;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0s-&gt;fast_lock_failed =3D disable_fast_access;=
-<br>
-=C2=A0}<br>
-<br>
-=C2=A0void exit_ro_spine(struct ro_spine *s)<br>
-=C2=A0{<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0if (s-&gt;node)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (s-&gt;fast_locked)<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bn_fast_unlock(s-&g=
-t;info);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0else if (s-&gt;node)<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 unlock_block(s-&gt;=
-info, s-&gt;node);<br>
-=C2=A0}<br>
-<br>
-=C2=A0int ro_step(struct ro_spine *s, dm_block_t new_child)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 if (s-&gt;node) {<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0unlock_block(s-&gt;=
-info, s-&gt;node);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (unlikely(!s-&gt=
-;fast_locked))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0unlock_block(s-&gt;info, s-&gt;node);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 s-&gt;node =3D NULL=
-;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 }<br>
--<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0if (likely(!s-&gt;fast_lock_failed)) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0int r;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (!s-&gt;fast_loc=
-ked) {<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0bn_fast_lock(s-&gt;info);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0s-&gt;fast_locked =3D true;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0r =3D bn_fast_get_b=
-lock(s-&gt;info, new_child, &amp;s-&gt;node);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0if (likely(!r))<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0return 0;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0s-&gt;fast_lock_fai=
-led =3D true;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0s-&gt;fast_locked =
-=3D false;<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0bn_fast_unlock(s-&g=
-t;info);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0}<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 return bn_read_lock(s-&gt;info, new_child, &amp=
-;s-&gt;node);<br>
-=C2=A0}<br>
-<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-transaction-manager.c<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-transaction-manager.c<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-transaction-manager.c<br>
-@@ -348,6 +348,23 @@ void dm_tm_unlock(struct dm_transaction_<br>
-=C2=A0}<br>
-=C2=A0EXPORT_SYMBOL_GPL(dm_tm_unlock);<br>
-<br>
-+void dm_tm_fast_lock(struct dm_transaction_manager *tm)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dm_bm_fast_lock(tm-&gt;is_clone ? tm-&gt;real-&=
-gt;bm : tm-&gt;bm);<br>
-+}<br>
-+<br>
-+void dm_tm_fast_unlock(struct dm_transaction_manager *tm)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0dm_bm_fast_unlock(tm-&gt;is_clone ? tm-&gt;real=
--&gt;bm : tm-&gt;bm);<br>
-+}<br>
-+<br>
-+int dm_tm_fast_get_block(struct dm_transaction_manager *tm, dm_block_t b,<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct dm_block_validator *v,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct dm_block **blk)<br>
-+{<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0return dm_bm_fast_get_block(tm-&gt;is_clone ? t=
-m-&gt;real-&gt;bm : tm-&gt;bm, b, v, blk);<br>
-+}<br>
-+<br>
-=C2=A0void dm_tm_inc(struct dm_transaction_manager *tm, dm_block_t b)<br>
-=C2=A0{<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 /*<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-transaction-manager.h<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-transaction-manager.h<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-transaction-manager.h<br>
-@@ -96,6 +96,12 @@ int dm_tm_read_lock(struct dm_transactio<br>
-<br>
-=C2=A0void dm_tm_unlock(struct dm_transaction_manager *tm, struct dm_block =
-*b);<br>
-<br>
-+void dm_tm_fast_lock(struct dm_transaction_manager *tm);<br>
-+void dm_tm_fast_unlock(struct dm_transaction_manager *tm);<br>
-+int dm_tm_fast_get_block(struct dm_transaction_manager *tm, dm_block_t b,<=
-br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct dm_block_validator *v,<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 struct dm_block **blk);<br>
-+<br>
-=C2=A0/*<br>
-=C2=A0 * Functions for altering the reference count of a block directly.<br=
->
-=C2=A0 */<br>
-Index: linux-2.6/drivers/md/persistent-data/dm-btree.c<br>
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=
-=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D=3D<br>
---- linux-2.6.orig/drivers/md/persistent-data/dm-btree.c<br>
-+++ linux-2.6/drivers/md/persistent-data/dm-btree.c<br>
-@@ -377,7 +377,7 @@ int dm_btree_lookup(struct dm_btree_info<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __le64 internal_value_le;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct ro_spine spine;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0init_ro_spine(&amp;spine, info);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0init_ro_spine(&amp;spine, info, false);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (level =3D 0; level &lt; info-&gt;levels; l=
-evel++) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 size_t size;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 void *value_p;<br>
-@@ -472,7 +472,7 @@ int dm_btree_lookup_next(struct dm_btree<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 __le64 internal_value_le;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct ro_spine spine;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0init_ro_spine(&amp;spine, info);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0init_ro_spine(&amp;spine, info, true);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (level =3D 0; level &lt; info-&gt;levels - =
-1u; level++) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D btree_lookup_=
-raw(&amp;spine, root, keys[level],<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0lower_bound, rke=
-y,<br>
-@@ -1369,7 +1369,7 @@ static int dm_btree_find_key(struct dm_b<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 int r =3D 0, count =3D 0, level;<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 struct ro_spine spine;<br>
-<br>
--=C2=A0 =C2=A0 =C2=A0 =C2=A0init_ro_spine(&amp;spine, info);<br>
-+=C2=A0 =C2=A0 =C2=A0 =C2=A0init_ro_spine(&amp;spine, info, false);<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 for (level =3D 0; level &lt; info-&gt;levels; l=
-evel++) {<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 r =3D find_key(&amp=
-;spine, root, find_highest, result_keys + level,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=
-=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0level =3D=3D info-&gt;levels - 1 ? NULL : &a=
-mp;root);<br>
-<br>
-</blockquote></div>
-
---000000000000797b8405ead08a9a--
-
---===============4626603863922456236==
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+commit(5adb0a15 multipath: add option to skip multipathd delegation)
+added a new option -D to multipath without updating the manpage.
+
+Signed-off-by: Lidong Zhong <lidong.zhong@suse.com>
+---
+ multipath/multipath.8 | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/multipath/multipath.8 b/multipath/multipath.8
+index 4c7e9885..93b6d763 100644
+--- a/multipath/multipath.8
++++ b/multipath/multipath.8
+@@ -223,6 +223,10 @@ The verbosity level also controls the level of log and debug messages printed to
+ Dry run, do not create or update devmaps.
+ .
+ .TP
++.B \-D
++Allow users to skip delegating commands to multipathd.
++.
++.TP
+ .B \-e
+ Enable all foreign libraries. This overrides the
+ .I enable_foreign
+-- 
+2.35.3
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============4626603863922456236==--
 
