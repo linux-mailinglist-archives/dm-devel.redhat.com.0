@@ -2,98 +2,100 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 07BA96032DF
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Oct 2022 20:55:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0200D603347
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Oct 2022 21:20:12 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1666119320;
+	s=mimecast20190719; t=1666120811;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=45crTseKDWzeRZGCYsLzZYeY0hk6jceMpnEKE6tsK2Q=;
-	b=f/zC9qcJrelUu1p7caneJuBgnRtpoAr4mqMsscCykQXQP5LGkng0beboJrsPFVgVlxS258
-	1HlK4qH20WEmb30E7ywpA1oPc2gTZrmjBpPswO6rolBVHdGaiLHAn5XNJ2OVxgtxgEMrJS
-	HDzk5cAWOFTV9Z/dV7VT6/Lf/zG4hZc=
+	bh=xTWNhOgciR96BeuYarWGtcsgPIfbzYdhTRF5a10vU9k=;
+	b=Lc7sP/7n+Isb0ssYBMoWJRGWnpuGvXp0xR6B8ZIuYCYHIqQcjpHOvXRJn33T611RMG6oNo
+	iWbpqzTBCPmlCJMOoxGdqWPV3TA565L3yDlh7AUQM0CyR8HtW2FwixthuycxJPoTPqrMxX
+	bI79R2DB7T2yQE6erduSc2ftKV6O0Pg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-140-PZxrB3z-NMu_u2mOcFGMBQ-1; Tue, 18 Oct 2022 14:55:18 -0400
-X-MC-Unique: PZxrB3z-NMu_u2mOcFGMBQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-550-gPDSYDOLOOiY4r0DHG1iOg-1; Tue, 18 Oct 2022 15:20:10 -0400
+X-MC-Unique: gPDSYDOLOOiY4r0DHG1iOg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D04BB185A7B1;
-	Tue, 18 Oct 2022 18:55:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DC3B4811E7A;
+	Tue, 18 Oct 2022 19:20:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBFE7401D41;
-	Tue, 18 Oct 2022 18:55:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BDD03111DCE0;
+	Tue, 18 Oct 2022 19:20:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D54E819465A8;
-	Tue, 18 Oct 2022 18:55:12 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1C31719465A8;
+	Tue, 18 Oct 2022 19:20:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F1024194658F
- for <dm-devel@listman.corp.redhat.com>; Tue, 18 Oct 2022 18:55:11 +0000 (UTC)
+ ESMTP id AB18B194658F
+ for <dm-devel@listman.corp.redhat.com>; Tue, 18 Oct 2022 19:20:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C606C1121320; Tue, 18 Oct 2022 18:55:11 +0000 (UTC)
+ id 8688314657C1; Tue, 18 Oct 2022 19:20:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BF78C1121315
- for <dm-devel@redhat.com>; Tue, 18 Oct 2022 18:55:11 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F7A314657C0
+ for <dm-devel@redhat.com>; Tue, 18 Oct 2022 19:20:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A25F885A5B6
- for <dm-devel@redhat.com>; Tue, 18 Oct 2022 18:55:11 +0000 (UTC)
-Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
- [209.85.219.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6382B833A0D
+ for <dm-devel@redhat.com>; Tue, 18 Oct 2022 19:20:01 +0000 (UTC)
+Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
+ [209.85.160.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-577-dFpxIkyvOi-bP0pWkLuOYQ-2; Tue, 18 Oct 2022 14:55:10 -0400
-X-MC-Unique: dFpxIkyvOi-bP0pWkLuOYQ-2
-Received: by mail-qv1-f43.google.com with SMTP id i12so9925568qvs.2
- for <dm-devel@redhat.com>; Tue, 18 Oct 2022 11:55:10 -0700 (PDT)
+ us-mta-539-k96Nyz4HNSay7w4QQyBnyg-1; Tue, 18 Oct 2022 15:19:59 -0400
+X-MC-Unique: k96Nyz4HNSay7w4QQyBnyg-1
+Received: by mail-qt1-f170.google.com with SMTP id l28so10327978qtv.4
+ for <dm-devel@redhat.com>; Tue, 18 Oct 2022 12:19:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=SJv2e3NDb4hb7fpvgryRdyTK/aBL4JeyRFOO7JpAa3g=;
- b=6PuOrXQdFDUUAyvyQubJXloG/tkJAUyJqumba6ql0a/hdYoPoiNr8pwsNuJ1jp95Ng
- AJqdXvg/hOcbuSgriXkUsSJrebSedEJNrUjAb6xhKcYbP78sY0XAJ8D08SNgiTDWVLGx
- yN5DCLWwnW7Xsam8imfvioAgMtvlljgwODszQu9f70c6AzmQGtbaU5GYtSORI6InwlKc
- 9nvpQBey+ElMIJ61kKAUJ6teUf7j2TYtKUA8onHg5tyqaVXZZv2QUK6I/7ahmJntOETu
- j/J2AvFz3NNl5ZaGo2fiHuo6NgxAJxC+zDP0CgUtHOKCZNASXYhDsoelyCAkK8vjb0FG
- rt2A==
-X-Gm-Message-State: ACrzQf1qUaVMYVS+U6CNxoToW3GLiK4cRn7S5QagIc46a96YGV2ApChC
- T2COQnNACKPieQp7nBciHux8s1DJL2DkPA==
-X-Google-Smtp-Source: AMsMyM5a0n0J6K+2cUn7xWRQcBe1LAsyAgZbe5jnBRlQMLLd9ybjLJrIZ7gdWjhgptPDws/a82ozyg==
-X-Received: by 2002:ad4:5be6:0:b0:4b3:ff39:7ad4 with SMTP id
- k6-20020ad45be6000000b004b3ff397ad4mr3372644qvc.126.1666119309390; 
- Tue, 18 Oct 2022 11:55:09 -0700 (PDT)
-Received: from mail-yb1-f175.google.com (mail-yb1-f175.google.com.
- [209.85.219.175]) by smtp.gmail.com with ESMTPSA id
- x27-20020a05620a0b5b00b006ecdfcf9d81sm2841030qkg.84.2022.10.18.11.55.06
+ bh=mFa9H1YcgEQ0QJQ6P/vrEWGWEagwD/S4HsG+zs6wkwI=;
+ b=nTFsrDzbOWXwlcBaimDxb4mK6fna9a8pHQWVcEzcVtl/+bPBGyK7EsAboVtvgTAL1B
+ UaFfBH4iXHIe8n3jQgZcccu+ryaVry3KD/10TYUsgYSD6fRgoBnMYdV4iE9oaJlW9mp1
+ Uj5tpIrCn/ULEniC+SbtqXk1oMLoiFSE6Oe1reDQRrXd57UJavqwPoZlH6yt/OakauDy
+ IcYdpOeNtCGrHGKG0AhSuIYi7vVmBpj+cYjHH5qQzLvDhSo1nNjcIg9M9W/UaL9mIpGE
+ GywjFxRD1NuPjpkZW8KQFdQlbl1EAkQ5tVZiRwetLY9QDOlr642UGYGWzsf8LPv6DHra
+ KHFw==
+X-Gm-Message-State: ACrzQf2YXSq91IZLYS4M3ye9W8dQyK4zUU5ZM+GC7rsFRBAJdaWBiBSd
+ 24nXbxszjoWNn2epiy3ZNWOIwRW7MokHZA==
+X-Google-Smtp-Source: AMsMyM65WQ4lYUPa+uJQyEwHXV1f/xd7Hvu5dTBBV8NAWsJzT4iOMFa25xb1KMEF1hoGDW7vfnAjtg==
+X-Received: by 2002:ac8:5a0c:0:b0:391:7be4:1c4f with SMTP id
+ n12-20020ac85a0c000000b003917be41c4fmr3469815qta.472.1666120798072; 
+ Tue, 18 Oct 2022 12:19:58 -0700 (PDT)
+Received: from mail-yw1-f179.google.com (mail-yw1-f179.google.com.
+ [209.85.128.179]) by smtp.gmail.com with ESMTPSA id
+ l12-20020a37f90c000000b006cbc6e1478csm2989430qkj.57.2022.10.18.12.19.56
  for <dm-devel@redhat.com>
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 18 Oct 2022 11:55:06 -0700 (PDT)
-Received: by mail-yb1-f175.google.com with SMTP id r3so18076504yba.5
- for <dm-devel@redhat.com>; Tue, 18 Oct 2022 11:55:06 -0700 (PDT)
-X-Received: by 2002:a05:6902:124f:b0:66e:e3da:487e with SMTP id
- t15-20020a056902124f00b0066ee3da487emr3964959ybu.310.1666119305668; Tue, 18
- Oct 2022 11:55:05 -0700 (PDT)
+ Tue, 18 Oct 2022 12:19:56 -0700 (PDT)
+Received: by mail-yw1-f179.google.com with SMTP id
+ 00721157ae682-358bf076f1fso146740687b3.9
+ for <dm-devel@redhat.com>; Tue, 18 Oct 2022 12:19:56 -0700 (PDT)
+X-Received: by 2002:a0d:fe07:0:b0:360:c3e9:fc8a with SMTP id
+ o7-20020a0dfe07000000b00360c3e9fc8amr3888903ywf.441.1666120796403; Tue, 18
+ Oct 2022 12:19:56 -0700 (PDT)
 MIME-Version: 1.0
 References: <Y07SYs98z5VNxdZq@redhat.com> <Y07twbDIVgEnPsFn@infradead.org>
-In-Reply-To: <Y07twbDIVgEnPsFn@infradead.org>
+ <CAHk-=wg3cpPyoO8u+8Fu1uk86bgTUYanfKhmxMsZzvY_mV=Cxw@mail.gmail.com>
+In-Reply-To: <CAHk-=wg3cpPyoO8u+8Fu1uk86bgTUYanfKhmxMsZzvY_mV=Cxw@mail.gmail.com>
 From: Linus Torvalds <torvalds@linux-foundation.org>
-Date: Tue, 18 Oct 2022 11:54:49 -0700
-X-Gmail-Original-Message-ID: <CAHk-=wg3cpPyoO8u+8Fu1uk86bgTUYanfKhmxMsZzvY_mV=Cxw@mail.gmail.com>
-Message-ID: <CAHk-=wg3cpPyoO8u+8Fu1uk86bgTUYanfKhmxMsZzvY_mV=Cxw@mail.gmail.com>
+Date: Tue, 18 Oct 2022 12:19:39 -0700
+X-Gmail-Original-Message-ID: <CAHk-=wiE_p66JtpfsM2GMk0ctuLcP+HBuNOEnpZRY0Ees8oFXw@mail.gmail.com>
+Message-ID: <CAHk-=wiE_p66JtpfsM2GMk0ctuLcP+HBuNOEnpZRY0Ees8oFXw@mail.gmail.com>
 To: Christoph Hellwig <hch@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -102,7 +104,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 Subject: Re: [dm-devel] [git pull] device mapper changes for 6.1
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -123,65 +125,52 @@ Cc: Jilin Yuan <yuanjilin@cdjrlc.com>, Nikos Tsironis <ntsironis@arrikto.com>,
  Alasdair G Kergon <agk@redhat.com>, Jiangshan Yi <yijiangshan@kylinos.cn>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Oct 18, 2022 at 11:17 AM Christoph Hellwig <hch@infradead.org> wrote:
+On Tue, Oct 18, 2022 at 11:54 AM Linus Torvalds
+<torvalds@linux-foundation.org> wrote:
 >
-> On Tue, Oct 18, 2022 at 12:20:50PM -0400, Mike Snitzer wrote:
-> >
-> > - Enhance DM ioctl interface to allow returning an error string to
-> >   userspace. Depends on exporting is_vmalloc_or_module_addr() to allow
-> >   DM core to conditionally free memory allocated with kasprintf().
->
-> That really does not sound like a good idea at all.  And it does not
-> seem to have any MM or core maintainer signoffs.
+> But no, we absolutely do *not* want to emulate that particular horror
+> anywhere else.
 
-I wouldn't worry about maintainer sign-offs just for exporting a
-helper function, but I agree with the whole concept being a complete
-disaster and not a good idea at all.
+Side note: if DM people go "Hmm, a lot of our management really does
+have the exact same issues as 'mount()' and friends, and doing the
+same things as mount does with the whole string interface and logging
+sounds like a good idea", I want to nip that in the bud.
 
-Use errno.
+It's most definitely *not* a good idea. The mount thing is nasty, it's
+just that we've always had the odd string interface, and it's just
+grown from "const void *data" to be a whole complicated set of context
+handling.
 
-It really is that simple. Strings have been discussed before, and they
-are simply not a good idea. If your interface is so complicated that
-you think errors need some textual explanation, your interface is
-probably garbage.
+So don't even think about duplicating that thing.
 
-Strings also have allocation issues (as you found out), and have
-serious localization issues.
+Now, if some "inspired" person then thinks that instead of duplicating
+it, you really would want to do device mapper *as* a filesystem and
+actually using the fsconfig() model directly and natively, that is at
+least conceptually not necessarily wrong. At what point does a
+"translate disk blocks and munge contents" turn from "map devices into
+other devices" to a "map devices into a filesystem"? We've had loop
+devices forever, and they already show how filesystems and block
+devices can be a mixed concept.
 
-Yes, we do a lot of strings in the kernel in the form of dmesg, and we
-have the rule that we simply don't localize. But that's dmesg. It's
-for special stuff, not some interface.
+And no, I'm not seriously suggesting that as a "do this instead".
 
-And equally importantly, some really small detail in the kernel really
-has *NO* business making up new error models of its own. You may think
-that the DM ioctl's are a big and important deal, but realistically,
-it's just an odd corner of the world that very very few people care
-about, and they can use the same error numbers that EVERYBODY ELSE HAS
-BEEN USING FOR SIX DECADES!
+I'm just saying that from an interface standpoint, we _do_ have an
+interface that is kind of doing this, and that is already an area
+where a lot of people think there is a lot of commonalities (ie a
+number of filesystems end up doing their own device mapping
+internally, and people used to say "layering violation - please use dm
+for that" before they got used/resigned to it because the filesystem
+people really wanted to control the mapping).
 
-Don't reinvent something that works - badly.
+In the absence of that kind of unification, just use 'errno'.
 
-I think we have one major interface that is string-based (apart from
-the obvious pathname ones and the strings passed to 'execve()').
-
-It's 'mount()' (and now fsconfig() etc), and it's string-based mainly
-because it has that nasty "arbitrary things that different filesystem
-may need for configuration"). And it has some nasty logging model
-associated with it too for output.
-
-But no, we absolutely do *not* want to emulate that particular horror
-anywhere else.
-
-If you think some errors are really important and hard to understand,
-maybe you can just log them with a ratelimited pr_info() or something.
-
-           Linus
+               Linus
 
 --
 dm-devel mailing list
