@@ -2,68 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E030460664F
-	for <lists+dm-devel@lfdr.de>; Thu, 20 Oct 2022 18:54:29 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 93F8660662A
+	for <lists+dm-devel@lfdr.de>; Thu, 20 Oct 2022 18:47:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1666284868;
+	s=mimecast20190719; t=1666284450;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Qyx08Vy21+4ijaAqyb2w55Xje8Ooip3ABJoNAsYK2RU=;
-	b=E3Paak1PkTuW2Gp48bBa57EqZQp3nr4P2OyufiUcgyfobTS+JoLK7vD2BkOKn8jd+rV8EA
-	DOPZdDDJFT9So2bR9c0FM+yZiBE+NeTUbpyvZ+AFVrlGtNgsPxOo65gZ2XjaV7TFKLFyHI
-	bKZOPfD6tsXZJWE/KnRHG6DfWN3J76U=
+	bh=PbwbO65+Skv5FGHaZf3MdYkI4N2hlrA3ZW3qC2KWVzg=;
+	b=YudheV/Wx8zuPrlvqIBQkt11hgeSmcy2SxOaJPHtNjwbhpp1QZSzBb5umpxrEBH8DD7ftf
+	bmTzux8P+K8s5K/bXCwRxQPhHW2ZPktWQdf1L4+QkNPpFsBrgme32Q6LsovdKeAEBuzj2O
+	xltgvxhsEmOQhR6xGZ39G0xw18AWELI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-633-04WLhUz0MwmU-zssZhlmtw-1; Thu, 20 Oct 2022 12:54:25 -0400
-X-MC-Unique: 04WLhUz0MwmU-zssZhlmtw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-505-MatauVSSMVu3v3KiTolbKg-1; Thu, 20 Oct 2022 12:47:28 -0400
+X-MC-Unique: MatauVSSMVu3v3KiTolbKg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98AF085A583;
-	Thu, 20 Oct 2022 16:54:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 86ADB101E9B2;
+	Thu, 20 Oct 2022 16:47:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 91A272024CB7;
-	Thu, 20 Oct 2022 16:54:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2169140CA41E;
+	Thu, 20 Oct 2022 16:47:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7804819465A8;
-	Thu, 20 Oct 2022 16:54:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D287A19465B5;
+	Thu, 20 Oct 2022 16:47:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4841E1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 20 Oct 2022 16:54:13 +0000 (UTC)
+ ESMTP id 5D84F19465A2
+ for <dm-devel@listman.corp.redhat.com>; Thu, 20 Oct 2022 16:46:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 39DB4111D7AE; Thu, 20 Oct 2022 16:54:13 +0000 (UTC)
+ id 3058B40A367F; Thu, 20 Oct 2022 16:46:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3222A111D7AD
- for <dm-devel@redhat.com>; Thu, 20 Oct 2022 16:54:13 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C20D129324B8
- for <dm-devel@redhat.com>; Thu, 20 Oct 2022 16:46:45 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 286BE40A367B
+ for <dm-devel@redhat.com>; Thu, 20 Oct 2022 16:46:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B69B3101CC6E
+ for <dm-devel@redhat.com>; Thu, 20 Oct 2022 16:46:53 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-137-1ywEL4AeNJWC7E0EgSMdvg-1; Thu, 20 Oct 2022 12:46:43 -0400
-X-MC-Unique: 1ywEL4AeNJWC7E0EgSMdvg-1
+ us-mta-65-_rnzvTGEMzySj8r9Y_H-OA-1; Thu, 20 Oct 2022 12:46:51 -0400
+X-MC-Unique: _rnzvTGEMzySj8r9Y_H-OA-1
 Received: from [205.220.129.26] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1olYgm-000WLG-2r; Thu, 20 Oct 2022 16:46:37 +0000
+ id 1olYgu-000WUB-Dr; Thu, 20 Oct 2022 16:46:45 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
-Date: Thu, 20 Oct 2022 09:46:01 -0700
-Message-Id: <20221020164605.1764830-3-hch@lst.de>
+Date: Thu, 20 Oct 2022 09:46:02 -0700
+Message-Id: <20221020164605.1764830-4-hch@lst.de>
 In-Reply-To: <20221020164605.1764830-1-hch@lst.de>
 References: <20221020164605.1764830-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,8 +77,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [dm-devel] [PATCH 2/6] dm: remove free_table_devices
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH 3/6] dm: cleanup open_table_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,56 +94,113 @@ Cc: linux-block@vger.kernel.org, Yu Kuai <yukuai1@huaweicloud.com>,
  dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-free_table_devices just warns and frees all table_device structures when
-the target removal did not remove them.  This should never happen, but
-if it did, just freeing the structure without deleting them from the
-list or cleaning up the resources would not help at all.  So just WARN on
-a non-empty list instead.
+Move all the logic for allocation the table_device and linking it into
+the list into the open_table_device.  This keeps the code tidy and
+ensures that the table_devices only exist in fully initialized state.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm.c | 15 +--------------
- 1 file changed, 1 insertion(+), 14 deletions(-)
+ drivers/md/dm.c | 56 ++++++++++++++++++++++++-------------------------
+ 1 file changed, 27 insertions(+), 29 deletions(-)
 
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 60549b65c799c..36189a32329aa 100644
+index 36189a32329aa..f60d9e8fc3abf 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -833,19 +833,6 @@ void dm_put_table_device(struct mapped_device *md, struct dm_dev *d)
- 	mutex_unlock(&md->table_devices_lock);
+@@ -732,28 +732,41 @@ static char *_dm_claim_ptr = "I belong to device-mapper";
+ /*
+  * Open a table device so we can use it as a map destination.
+  */
+-static int open_table_device(struct table_device *td, dev_t dev,
+-			     struct mapped_device *md)
++static struct table_device *open_table_device(struct mapped_device *md,
++		dev_t dev, fmode_t mode)
+ {
++	struct table_device *td;
+ 	struct block_device *bdev;
+ 	u64 part_off;
+ 	int r;
+ 
+-	BUG_ON(td->dm_dev.bdev);
++	td = kmalloc_node(sizeof(*td), GFP_KERNEL, md->numa_node_id);
++	if (!td)
++		return ERR_PTR(-ENOMEM);
++	refcount_set(&td->count, 1);
+ 
+-	bdev = blkdev_get_by_dev(dev, td->dm_dev.mode | FMODE_EXCL, _dm_claim_ptr);
+-	if (IS_ERR(bdev))
+-		return PTR_ERR(bdev);
++	bdev = blkdev_get_by_dev(dev, mode | FMODE_EXCL, _dm_claim_ptr);
++	if (IS_ERR(bdev)) {
++		r = PTR_ERR(bdev);
++		goto out_free_td;
++	}
+ 
+ 	r = bd_link_disk_holder(bdev, dm_disk(md));
+-	if (r) {
+-		blkdev_put(bdev, td->dm_dev.mode | FMODE_EXCL);
+-		return r;
+-	}
++	if (r)
++		goto out_blkdev_put;
+ 
++	td->dm_dev.mode = mode;
+ 	td->dm_dev.bdev = bdev;
+ 	td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev, &part_off, NULL, NULL);
+-	return 0;
++	format_dev_t(td->dm_dev.name, dev);
++	list_add(&td->list, &md->table_devices);
++	return td;
++
++out_blkdev_put:
++	blkdev_put(bdev, mode | FMODE_EXCL);
++out_free_td:
++	kfree(td);
++	return ERR_PTR(r);
  }
  
--static void free_table_devices(struct list_head *devices)
--{
--	struct list_head *tmp, *next;
--
--	list_for_each_safe(tmp, next, devices) {
--		struct table_device *td = list_entry(tmp, struct table_device, list);
--
--		DMWARN("dm_destroy: %s still exists with %d references",
--		       td->dm_dev.name, refcount_read(&td->count));
--		kfree(td);
--	}
--}
--
  /*
-  * Get the geometry associated with a dm device
-  */
-@@ -2123,7 +2110,7 @@ static void free_dev(struct mapped_device *md)
+@@ -786,31 +799,16 @@ static struct table_device *find_table_device(struct list_head *l, dev_t dev,
+ int dm_get_table_device(struct mapped_device *md, dev_t dev, fmode_t mode,
+ 			struct dm_dev **result)
+ {
+-	int r;
+ 	struct table_device *td;
  
- 	cleanup_mapped_device(md);
- 
--	free_table_devices(&md->table_devices);
-+	WARN_ON_ONCE(!list_empty(&md->table_devices));
- 	dm_stats_cleanup(&md->stats);
- 	free_minor(minor);
- 
+ 	mutex_lock(&md->table_devices_lock);
+ 	td = find_table_device(&md->table_devices, dev, mode);
+ 	if (!td) {
+-		td = kmalloc_node(sizeof(*td), GFP_KERNEL, md->numa_node_id);
+-		if (!td) {
+-			mutex_unlock(&md->table_devices_lock);
+-			return -ENOMEM;
+-		}
+-
+-		td->dm_dev.mode = mode;
+-		td->dm_dev.bdev = NULL;
+-
+-		if ((r = open_table_device(td, dev, md))) {
++		td = open_table_device(md, dev, mode);
++		if (IS_ERR(td)) {
+ 			mutex_unlock(&md->table_devices_lock);
+-			kfree(td);
+-			return r;
++			return PTR_ERR(td);
+ 		}
+-
+-		format_dev_t(td->dm_dev.name, dev);
+-
+-		refcount_set(&td->count, 1);
+-		list_add(&td->list, &md->table_devices);
+ 	} else {
+ 		refcount_inc(&td->count);
+ 	}
 -- 
 2.30.2
 
