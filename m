@@ -1,98 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1488A60DBC8
-	for <lists+dm-devel@lfdr.de>; Wed, 26 Oct 2022 09:04:26 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6795460ED98
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Oct 2022 03:49:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1666767866;
+	s=mimecast20190719; t=1666835369;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UORver32/ZffRF0k+QtaoiHgu5UMdKOZAZlY/JetoS0=;
-	b=KYRtWY8RWN5BbhTrzCfLgpF0KS2umcUNRPaU/AOrALX7g/VwiS6dCvKr4sjs8ejoqxaEtS
-	uEoFnjX8cHPhn+Gg9+o+aDA1qO8oSDyCR/p1+2Lj6n85L0oKYUJrEer4SmDuSzxx1ZxABJ
-	ahlOIH06HMhmyfSfqpWg6t5k7V4mHuw=
+	bh=vsCaoOljHMvksfr8yaEsvbMMANbc2McnigtQ+p9YmYk=;
+	b=Q+9J6QdYPO2NlD1gUBM3Yp6+NMLLIYrRrp25DskcVJfeinV9PjhSSIRSN5n35BqkRlr9rE
+	znp58yIaWGX4V5AIdyBm/e9HuV81SpMFOtRCf03sNGCqyiyKmkCqX2N+NoU21VO69KZzz9
+	5Ov3NNq0kSy2o7Vh9JfuWc4B42MrICs=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-639-sEBqTyoePN65CohCOWLfaw-1; Wed, 26 Oct 2022 03:04:24 -0400
-X-MC-Unique: sEBqTyoePN65CohCOWLfaw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-564-a7VYQwWAN_mrh4X8uE96uQ-1; Wed, 26 Oct 2022 21:49:26 -0400
+X-MC-Unique: a7VYQwWAN_mrh4X8uE96uQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EC33C2823800;
-	Wed, 26 Oct 2022 07:03:17 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CCB9239DB3;
-	Wed, 26 Oct 2022 07:02:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95FDA29ABA10;
+	Thu, 27 Oct 2022 01:49:23 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 80330C15BAB;
+	Thu, 27 Oct 2022 01:49:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 303B61947051;
-	Wed, 26 Oct 2022 07:02:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DDA331947060;
+	Thu, 27 Oct 2022 01:48:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C6B7B1946597
- for <dm-devel@listman.corp.redhat.com>; Tue, 25 Oct 2022 14:00:54 +0000 (UTC)
+ ESMTP id C4C0B1946597
+ for <dm-devel@listman.corp.redhat.com>; Thu, 27 Oct 2022 01:48:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B427A20290A2; Tue, 25 Oct 2022 14:00:54 +0000 (UTC)
+ id A8E37111E3E6; Thu, 27 Oct 2022 01:48:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ACD672028E98
- for <dm-devel@redhat.com>; Tue, 25 Oct 2022 14:00:54 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A1E46111F3D9
+ for <dm-devel@redhat.com>; Thu, 27 Oct 2022 01:48:53 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B8BE1C0A10F
- for <dm-devel@redhat.com>; Tue, 25 Oct 2022 14:00:54 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
- [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-596-nkjQDMnKP6OkJbs2pb5xQA-1; Tue, 25 Oct 2022 10:00:49 -0400
-X-MC-Unique: nkjQDMnKP6OkJbs2pb5xQA-1
-Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4MxYS75FVkz6SBTS;
- Tue, 25 Oct 2022 21:58:15 +0800 (CST)
-Received: from [10.174.176.127] (unknown [10.174.176.127])
- by APP2 (Coremail) with SMTP id Syh0CgDnzdII7FdjpuBNAw--.20681S2;
- Tue, 25 Oct 2022 22:00:42 +0800 (CST)
-To: Mike Snitzer <snitzer@redhat.com>
-References: <20221010143905.240306-1-luomeng@huaweicloud.com>
- <Y02vOFnwZOHPrVY8@redhat.com>
- <bab8c5aa-9b12-b330-9c3b-fdd5ce4cd1b8@huaweicloud.com>
- <Y1BSo+9D7QP0y/Pi@redhat.com>
-From: Luo Meng <luomeng@huaweicloud.com>
-Message-ID: <b8b38a03-17da-0809-5050-6edb39b53a53@huaweicloud.com>
-Date: Tue, 25 Oct 2022 22:00:40 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
- Thunderbird/68.8.1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C61885A583
+ for <dm-devel@redhat.com>; Thu, 27 Oct 2022 01:48:53 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-607-_nRtGuQINJmMHGq-j3m6fg-1; Wed, 26 Oct 2022 21:48:44 -0400
+X-MC-Unique: _nRtGuQINJmMHGq-j3m6fg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 8CB01B82485;
+ Thu, 27 Oct 2022 01:48:43 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A5FC433C1;
+ Thu, 27 Oct 2022 01:48:41 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable-commits@vger.kernel.org,
+	zhanggenjian@kylinos.cn
+Date: Wed, 26 Oct 2022 21:48:39 -0400
+Message-Id: <20221027014840.381423-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <Y1BSo+9D7QP0y/Pi@redhat.com>
-X-CM-TRANSID: Syh0CgDnzdII7FdjpuBNAw--.20681S2
-X-Coremail-Antispam: 1UD129KBjvJXoW3Jw1fAr4kuFW3Cr1kGFyDZFb_yoW7GF1xp3
- yrGayjkw4rXr1jkw1vqw4jvF10yayftayUWr15JFyfu3s2vry3JFyUJFy5WF95ZFy8Jr4S
- qF15tay3uFyYyF7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUyEb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
- 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
- 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
- Cjc4AY6r1j6r4UM4x0Y48IcVAKI48JMxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij
- 64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
- 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE
- 2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42
- xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
- c7CjxVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7IU1zuWJUUUUU==
-X-CM-SenderInfo: 5oxrzvtqj6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+X-Patchwork-Hint: ignore
+X-stable: review
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -100,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mailman-Approved-At: Wed, 26 Oct 2022 07:02:40 +0000
-Subject: Re: [dm-devel] dm: Fix UAF in run_timer_softirq()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] Patch "dm: remove unnecessary assignment statement in
+ alloc_dev()" has been added to the 6.0-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,113 +92,60 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: snitzer@kernel.org, ejt@redhat.com, dm-devel@redhat.com,
- luomeng12@huawei.com, yukuai3@huawei.com, agk@redhat.com
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgrlnKggMjAyMi8xMC8yMCAzOjQwLCBNaWtlIFNuaXR6ZXIg5YaZ6YGTOgo+IE9uIFR1ZSwgT2N0
-IDE4IDIwMjIgYXQgIDQ6MTdQIC0wNDAwLAo+IEx1byBNZW5nIDxsdW9tZW5nQGh1YXdlaWNsb3Vk
-LmNvbT4gd3JvdGU6Cj4gCj4+Cj4+Cj4+IOWcqCAyMDIyLzEwLzE4IDM6MzgsIE1pa2UgU25pdHpl
-ciDlhpnpgZM6Cj4+PiBPbiBNb24sIE9jdCAxMCAyMDIyIGF0IDEwOjM5UCAtMDQwMCwKPj4+IEx1
-byBNZW5nIDxsdW9tZW5nQGh1YXdlaWNsb3VkLmNvbT4gd3JvdGU6Cj4+Pgo+Pj4+IEZyb206IEx1
-byBNZW5nIDxsdW9tZW5nMTJAaHVhd2VpLmNvbT4KPj4+Pgo+Pj4+IFdoZW4gZG1fcmVzdW1lKCkg
-YW5kIGRtX2Rlc3Ryb3koKSBhcmUgY29uY3VycmVudCwgaXQgd2lsbAo+Pj4+IGxlYWQgdG8gVUFG
-Lgo+Pj4+Cj4+Pj4gT25lIG9mIHRoZSBjb25jdXJyZW5jeSBVQUYgY2FuIGJlIHNob3duIGFzIGJl
-bG93Ogo+Pj4+Cj4+Pj4gICAgICAgICAgIHVzZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICBmcmVlCj4+Pj4gZG9fcmVzdW1lICAgICAgICAgICAgICAgICAgICAgICAgICAgfAo+Pj4+
-ICAgICBfX2ZpbmRfZGV2aWNlX2hhc2hfY2VsbCAgICAgICAgICAgfAo+Pj4+ICAgICAgIGRtX2dl
-dCAgICAgICAgICAgICAgICAgICAgICAgICAgfAo+Pj4+ICAgICAgICAgYXRvbWljX2luYygmbWQt
-PmhvbGRlcnMpICAgICAgfAo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgfCBkbV9kZXN0cm95Cj4+Pj4gCQkJCSAgICB8ICAgX19kbV9kZXN0cm95Cj4+Pj4gCQkJCSAg
-ICB8ICAgICBpZiAoIWRtX3N1c3BlbmRlZF9tZChtZCkpCj4+Pj4gICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICB8ICAgICBhdG9taWNfcmVhZCgmbWQtPmhvbGRlcnMpCj4+Pj4g
-CQkJCSAgICB8ICAgICBtc2xlZXAoMSkKPj4+PiAgICAgZG1fcmVzdW1lICAgICAgICAgICAgICAg
-ICAgICAgICAgIHwKPj4+PiAgICAgICBfX2RtX3Jlc3VtZSAgICAgICAgICAgICAgICAgICAgIHwK
-Pj4+PiAgICAgICAgIGRtX3RhYmxlX3Jlc3VtZV90YXJnZXRzICAgICAgIHwKPj4+PiAJcG9vbF9y
-ZXN1bWUgICAgICAgICAgICAgICAgIHwKPj4+PiAJICBkb193YWtlciAgI2FkZCBkZWxheSB3b3Jr
-IHwKPj4+PiAJCQkJICAgIHwgICAgIGRtX3RhYmxlX2Rlc3Ryb3kKPj4+PiAJCQkJICAgIHwgICAg
-ICAgcG9vbF9kdHIKPj4+PiAJCQkJICAgIHwgICAgICAgICBfX3Bvb2xfZGVjCj4+Pj4gICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgICAgICAgICBfX3Bvb2xfZGVzdHJv
-eQo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgICAgICAgICAg
-ICBkZXN0cm95X3dvcmtxdWV1ZQo+Pj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgfCAgICAgICAgICAgICBrZnJlZShwb29sKSAjIGZyZWUgcG9vbAo+Pj4+IAl0aW1lIG91
-dAo+Pj4+IF9fZG9fc29mdGlycQo+Pj4+ICAgICBydW5fdGltZXJfc29mdGlycSAjIHBvb2wgaGFz
-IGFscmVhZHkgYmVlbiBmcmVlZAo+Pj4+Cj4+Pj4gVGhpcyBjYW4gYmUgZWFzaWx5IHJlcHJvZHVj
-ZWQgdXNpbmc6Cj4+Pj4gICAgIDEuIGNyZWF0ZSB0aGluLXBvb2wKPj4+PiAgICAgMi4gZG1zZXR1
-cCBzdXNwZW5kIHBvb2wKPj4+PiAgICAgMy4gZG1zZXR1cCByZXN1bWUgcG9vbAo+Pj4+ICAgICA0
-LiBkbXNldHVwIHJlbW92ZV9hbGwgIyBDb25jdXJyZW50IHdpdGggMwo+Pj4+Cj4+Pj4gVGhlIHJv
-b3QgY2F1c2Ugb2YgVUFGIGJ1Z3MgaXMgdGhhdCBkbV9yZXN1bWUoKSBhZGRzIHRpbWVyIGFmdGVy
-Cj4+Pj4gZG1fZGVzdHJveSgpIHNraXBzIGNhbmNlbCB0aW1lciBiZWF1c2Ugb2Ygc3VzcGVuZCBz
-dGF0dXMuIEFmdGVyCj4+Pj4gdGltZW91dCwgaXQgd2lsbCBjYWxsIHJ1bl90aW1lcl9zb2Z0aXJx
-KCksIGhvd2V2ZXIgcG9vbCBoYXMgYWxyZWFkeQo+Pj4+IGJlZW4gZnJlZWQuIFRoZSBjb25jdXJy
-ZW5jeSBVQUYgYnVnIHdpbGwgaGFwcGVuLgo+Pj4+Cj4+Pj4gVGhlcmVmb3JlLCBjYW5jZWxpbmcg
-dGltZXIgaXMgbW92ZWQgYWZ0ZXIgbWQtPmhvbGRlcnMgaXMgemVyby4KPj4+Pgo+Pj4+IFNpZ25l
-ZC1vZmYtYnk6IEx1byBNZW5nIDxsdW9tZW5nMTJAaHVhd2VpLmNvbT4KPj4+PiAtLS0KPj4+PiAg
-ICBkcml2ZXJzL21kL2RtLmMgfCAyNiArKysrKysrKysrKysrLS0tLS0tLS0tLS0tLQo+Pj4+ICAg
-IDEgZmlsZSBjaGFuZ2VkLCAxMyBpbnNlcnRpb25zKCspLCAxMyBkZWxldGlvbnMoLSkKPj4+Pgo+
-Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLmMgYi9kcml2ZXJzL21kL2RtLmMKPj4+PiBp
-bmRleCA2MDU0OWI2NWM3OTkuLjM3OTUyNTMxMzYyOCAxMDA2NDQKPj4+PiAtLS0gYS9kcml2ZXJz
-L21kL2RtLmMKPj4+PiArKysgYi9kcml2ZXJzL21kL2RtLmMKPj4+PiBAQCAtMjQyMCw2ICsyNDIw
-LDE5IEBAIHN0YXRpYyB2b2lkIF9fZG1fZGVzdHJveShzdHJ1Y3QgbWFwcGVkX2RldmljZSAqbWQs
-IGJvb2wgd2FpdCkKPj4+PiAgICAJYmxrX21hcmtfZGlza19kZWFkKG1kLT5kaXNrKTsKPj4+PiAr
-CS8qCj4+Pj4gKwkgKiBSYXJlLCBidXQgdGhlcmUgbWF5IGJlIEkvTyByZXF1ZXN0cyBzdGlsbCBn
-b2luZyB0byBjb21wbGV0ZSwKPj4+PiArCSAqIGZvciBleGFtcGxlLiAgV2FpdCBmb3IgYWxsIHJl
-ZmVyZW5jZXMgdG8gZGlzYXBwZWFyLgo+Pj4+ICsJICogTm8gb25lIHNob3VsZCBpbmNyZW1lbnQg
-dGhlIHJlZmVyZW5jZSBjb3VudCBvZiB0aGUgbWFwcGVkX2RldmljZSwKPj4+PiArCSAqIGFmdGVy
-IHRoZSBtYXBwZWRfZGV2aWNlIHN0YXRlIGJlY29tZXMgRE1GX0ZSRUVJTkcuCj4+Pj4gKwkgKi8K
-Pj4+PiArCWlmICh3YWl0KQo+Pj4+ICsJCXdoaWxlIChhdG9taWNfcmVhZCgmbWQtPmhvbGRlcnMp
-KQo+Pj4+ICsJCQltc2xlZXAoMSk7Cj4+Pj4gKwllbHNlIGlmIChhdG9taWNfcmVhZCgmbWQtPmhv
-bGRlcnMpKQo+Pj4+ICsJCURNV0FSTigiJXM6IEZvcmNpYmx5IHJlbW92aW5nIG1hcHBlZF9kZXZp
-Y2Ugc3RpbGwgaW4gdXNlISAoJWQgdXNlcnMpIiwKPj4+PiArCQkgICAgICAgZG1fZGV2aWNlX25h
-bWUobWQpLCBhdG9taWNfcmVhZCgmbWQtPmhvbGRlcnMpKTsKPj4+PiArCj4+Pj4gICAgCS8qCj4+
-Pj4gICAgCSAqIFRha2Ugc3VzcGVuZF9sb2NrIHNvIHRoYXQgcHJlc3VzcGVuZCBhbmQgcG9zdHN1
-c3BlbmQgbWV0aG9kcwo+Pj4+ICAgIAkgKiBkbyBub3QgcmFjZSB3aXRoIGludGVybmFsIHN1c3Bl
-bmQuCj4+Pj4gQEAgLTI0MzYsMTkgKzI0NDksNiBAQCBzdGF0aWMgdm9pZCBfX2RtX2Rlc3Ryb3ko
-c3RydWN0IG1hcHBlZF9kZXZpY2UgKm1kLCBib29sIHdhaXQpCj4+Pj4gICAgCWRtX3B1dF9saXZl
-X3RhYmxlKG1kLCBzcmN1X2lkeCk7Cj4+Pj4gICAgCW11dGV4X3VubG9jaygmbWQtPnN1c3BlbmRf
-bG9jayk7Cj4+Pj4gLQkvKgo+Pj4+IC0JICogUmFyZSwgYnV0IHRoZXJlIG1heSBiZSBJL08gcmVx
-dWVzdHMgc3RpbGwgZ29pbmcgdG8gY29tcGxldGUsCj4+Pj4gLQkgKiBmb3IgZXhhbXBsZS4gIFdh
-aXQgZm9yIGFsbCByZWZlcmVuY2VzIHRvIGRpc2FwcGVhci4KPj4+PiAtCSAqIE5vIG9uZSBzaG91
-bGQgaW5jcmVtZW50IHRoZSByZWZlcmVuY2UgY291bnQgb2YgdGhlIG1hcHBlZF9kZXZpY2UsCj4+
-Pj4gLQkgKiBhZnRlciB0aGUgbWFwcGVkX2RldmljZSBzdGF0ZSBiZWNvbWVzIERNRl9GUkVFSU5H
-Lgo+Pj4+IC0JICovCj4+Pj4gLQlpZiAod2FpdCkKPj4+PiAtCQl3aGlsZSAoYXRvbWljX3JlYWQo
-Jm1kLT5ob2xkZXJzKSkKPj4+PiAtCQkJbXNsZWVwKDEpOwo+Pj4+IC0JZWxzZSBpZiAoYXRvbWlj
-X3JlYWQoJm1kLT5ob2xkZXJzKSkKPj4+PiAtCQlETVdBUk4oIiVzOiBGb3JjaWJseSByZW1vdmlu
-ZyBtYXBwZWRfZGV2aWNlIHN0aWxsIGluIHVzZSEgKCVkIHVzZXJzKSIsCj4+Pj4gLQkJICAgICAg
-IGRtX2RldmljZV9uYW1lKG1kKSwgYXRvbWljX3JlYWQoJm1kLT5ob2xkZXJzKSk7Cj4+Pj4gLQo+
-Pj4+ICAgIAlkbV90YWJsZV9kZXN0cm95KF9fdW5iaW5kKG1kKSk7Cj4+Pj4gICAgCWZyZWVfZGV2
-KG1kKTsKPj4+PiAgICB9Cj4+Pj4gLS0gCj4+Pj4gMi4zMS4xCj4+Pj4KPj4+Cj4+PiBUaGFua3Mg
-Zm9yIHRoZSByZXBvcnQgYnV0IHlvdXIgZml4IHNlZW1zIHdyb25nLiAgQSB0aGluLXBvb2wgc3Bl
-Y2lmaWMKPj4+IGZpeCBzZWVtcyBtdWNoIG1vcmUgYXBwcm9wcmlhdGUuICBEb2VzIHRoaXMgZml4
-IHRoZSBpc3N1ZT8KPj4+Cj4+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9kbS10aGluLmMgYi9k
-cml2ZXJzL21kL2RtLXRoaW4uYwo+Pj4gaW5kZXggZTc2Yzk2Yzc2MGE5Li5kYzI3MWMxMDdmYjUg
-MTAwNjQ0Cj4+PiAtLS0gYS9kcml2ZXJzL21kL2RtLXRoaW4uYwo+Pj4gKysrIGIvZHJpdmVycy9t
-ZC9kbS10aGluLmMKPj4+IEBAIC0yODg5LDYgKzI4ODksOCBAQCBzdGF0aWMgdm9pZCBfX3Bvb2xf
-ZGVzdHJveShzdHJ1Y3QgcG9vbCAqcG9vbCkKPj4+ICAgIAlkbV9iaW9fcHJpc29uX2Rlc3Ryb3ko
-cG9vbC0+cHJpc29uKTsKPj4+ICAgIAlkbV9rY29weWRfY2xpZW50X2Rlc3Ryb3kocG9vbC0+Y29w
-aWVyKTsKPj4+ICsJY2FuY2VsX2RlbGF5ZWRfd29ya19zeW5jKCZwb29sLT53YWtlcik7Cj4+PiAr
-CWNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmcG9vbC0+bm9fc3BhY2VfdGltZW91dCk7Cj4+PiAg
-ICAJaWYgKHBvb2wtPndxKQo+Pj4gICAgCQlkZXN0cm95X3dvcmtxdWV1ZShwb29sLT53cSk7Cj4+
-Pgo+PiBUaGFua3MgZm9yIHlvdXIgcmVwbHkuCj4+Cj4+IEhvd2V2ZXIgdGhpcyBpc3N1ZSBleGl0
-cyBub3Qgb25seSBpbiB0aGluLXBvb2wsIGNhY2hlX3RhcmdldCBhbHNvIGhhcwo+PiB0aGlzaXNz
-dXMuICBHZW5lcmljIGZpeCBtYXliZSBtb3JlIGFwcHJvcHJpYXRlLgo+IAo+IE5vLCB5b3UndmUg
-cG9pbnRlZCBvdXQgYSBwcm9ibGVtIHdpdGggZG0tdGhpbnAgbm90IHByb3Blcmx5IHRlYXJpbmcK
-PiBkb3duIGl0cyByZXNvdXJjZXMuIFNhbWUgZm9yIGRtLWNhY2hlLiBTbyBhIGdlbmVyaWMgZml4
-IGRvZXNuJ3QgbWFrZQo+IHNlbnNlLiAgQW5kIHlvdXIgcGFydGljdWxhciBnZW5lcmljIGZpeCBt
-ZXJlbHkgcGFwZXJzIG92ZXIgdGhlCj4gcmVzb3VyY2UgbGVhaywgd2hpbGUgYWxzbyBjYXVzaW5n
-IERNIGNvcmUgdG8gbm8gbG9uZ2VyIHByb3Blcmx5IHdhaXQKPiBmb3Igb3V0c3RhbmRpbmcgSU8g
-dG8gY29tcGxldGUuCj4gCj4+IEFmdGVyIGFkZGluZyBjYW5jZWxfZGVsYXllZF93b3JrX3N5bmMo
-KSBpbiBfX3Bvb2xfZGVzdHJveSgpLCB0aGlzIHdpbGwgbWFrZQo+PiBpdCBwb3NzaWJsZSB0byBj
-YWxsIGNhbmNlbF9kZWxheWVkX3dvcmtfc3luYygmcG9vbC0+d2FrZXIpIHR3aWNlIHdoZW4gZG0g
-aXMKPj4gbm90IHN1c3BlbmQuCj4gCj4gVGhhdCdzIG5vdCBhIHByb2JsZW0sIHRoYXQncyB0aGUg
-Y29zdCBvZiBwcm9wZXJseSBhY2NvdW50aW5nIGZvcgo+IHJlc291cmNlcyB3aGVyZSB3ZSBtdXN0
-Lgo+IApUaGFua3MuCkkgd2lsbCBzZW5kIHYyIHNvb24uCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxp
-c3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFu
-L2xpc3RpbmZvL2RtLWRldmVsCg==
+This is a note to let you know that I've just added the patch titled
+
+    dm: remove unnecessary assignment statement in alloc_dev()
+
+to the 6.0-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     dm-remove-unnecessary-assignment-statement-in-alloc_.patch
+and it can be found in the queue-6.0 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+
+commit 2394d36dd4d89dff7510443876e611eb9b97a2bb
+Author: Genjian Zhang <zhanggenjian@kylinos.cn>
+Date:   Thu Sep 29 16:20:36 2022 +0800
+
+    dm: remove unnecessary assignment statement in alloc_dev()
+    
+    [ Upstream commit 99f4f5bcb975527508eb7a5e3e34bdb91d576746 ]
+    
+    Fixes: 74fe6ba923949 ("dm: convert to blk_alloc_disk/blk_cleanup_disk")
+    Signed-off-by: Genjian Zhang <zhanggenjian@kylinos.cn>
+    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 60549b65c799..b4a2cb5333fc 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -2065,7 +2065,6 @@ static struct mapped_device *alloc_dev(int minor)
+ 	md->disk->minors = 1;
+ 	md->disk->flags |= GENHD_FL_NO_PART;
+ 	md->disk->fops = &dm_blk_dops;
+-	md->disk->queue = md->queue;
+ 	md->disk->private_data = md;
+ 	sprintf(md->disk->disk_name, "dm-%d", minor);
+ 
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
