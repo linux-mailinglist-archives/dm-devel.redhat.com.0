@@ -1,74 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 84F5D6128F6
-	for <lists+dm-devel@lfdr.de>; Sun, 30 Oct 2022 09:12:11 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5975A612903
+	for <lists+dm-devel@lfdr.de>; Sun, 30 Oct 2022 09:17:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667117530;
+	s=mimecast20190719; t=1667117847;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/5GTNFKY9V4ZKG2X4V/EN9IV1YbDmECNEcucUVF1kX4=;
-	b=ammv9PViYO8yl0R9Mj3asHUsBa9ixDoYW0QpW2dVPrSAz8C+tExCF29UCqnRkJIdDif118
-	zPvFF3S3f2rxyJA9A6erEZLBrY0PDW46GnZ2JMdEohjbQAv00oHrz4jAwCzdnbJ/pJZQMa
-	HAKNctQP32bbOjtSaOnte2NifoTxXjI=
+	bh=YC/WLj4rIMKM1QzUabdqH3hesFLJw8X+3Be2d7uobfU=;
+	b=PCFyerZIMf0Fs0PmI82oI9qIC99hTaAL/oed4yaaSqvKFZYbafsnWvZHzCdmYyjPO5L+By
+	dQLNohWr1VG7wwla6n8bGElufDFbBH3QbWViIyv+NGSNMvDsN5B7isIWh4xbK86B6SFPiK
+	pFVrVv2o6d0kLSo4AunGnCMZpOWthzQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-48-1-2gmvqENlqwSjr_WZtoog-1; Sun, 30 Oct 2022 04:12:07 -0400
-X-MC-Unique: 1-2gmvqENlqwSjr_WZtoog-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-139-v4G2WbYLOKK2F1AmyGTStg-1; Sun, 30 Oct 2022 04:17:23 -0400
+X-MC-Unique: v4G2WbYLOKK2F1AmyGTStg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D3632999B36;
-	Sun, 30 Oct 2022 08:12:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A264A29AB3FD;
+	Sun, 30 Oct 2022 08:17:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C4F0A111DCE1;
-	Sun, 30 Oct 2022 08:11:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0BA8C4A927F;
+	Sun, 30 Oct 2022 08:17:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2EA111946595;
-	Sun, 30 Oct 2022 08:11:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C5A521946595;
+	Sun, 30 Oct 2022 08:17:18 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 09DBD1946586
- for <dm-devel@listman.corp.redhat.com>; Sun, 30 Oct 2022 08:11:49 +0000 (UTC)
+ ESMTP id 6845F1946586
+ for <dm-devel@listman.corp.redhat.com>; Sun, 30 Oct 2022 08:17:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C1BCD1410F38; Sun, 30 Oct 2022 08:11:49 +0000 (UTC)
+ id 09B882027063; Sun, 30 Oct 2022 08:17:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BAC7B140EBF3
- for <dm-devel@redhat.com>; Sun, 30 Oct 2022 08:11:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A3E44185A792
- for <dm-devel@redhat.com>; Sun, 30 Oct 2022 08:11:49 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 01D712027062
+ for <dm-devel@redhat.com>; Sun, 30 Oct 2022 08:17:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7815811E67
+ for <dm-devel@redhat.com>; Sun, 30 Oct 2022 08:17:16 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-37-qzNjbWlJMFyew3y8rwyqCg-1; Sun, 30 Oct 2022 04:11:46 -0400
-X-MC-Unique: qzNjbWlJMFyew3y8rwyqCg-1
+ us-mta-272-dciDle3ZO8-q7aquhWRVMQ-1; Sun, 30 Oct 2022 04:17:13 -0400
+X-MC-Unique: dciDle3ZO8-q7aquhWRVMQ-1
 Received: by verein.lst.de (Postfix, from userid 2407)
- id F009F68AFE; Sun, 30 Oct 2022 09:06:32 +0100 (CET)
-Date: Sun, 30 Oct 2022 09:06:32 +0100
+ id 91DFB68BEB; Sun, 30 Oct 2022 09:17:08 +0100 (CET)
+Date: Sun, 30 Oct 2022 09:17:08 +0100
 From: Christoph Hellwig <hch@lst.de>
-To: Keith Busch <kbusch@kernel.org>
-Message-ID: <20221030080632.GI4214@lst.de>
+To: Mike Christie <michael.christie@oracle.com>
+Message-ID: <20221030081708.GA4774@lst.de>
 References: <20221026231945.6609-1-michael.christie@oracle.com>
- <20221026231945.6609-9-michael.christie@oracle.com>
- <Y1q6so/3Hx9GZmTz@kbusch-mbp.dhcp.thefacebook.com>
- <370e66bd-81d0-5451-850e-50a4172ed64f@oracle.com>
- <Y1wFjHzza1QYTzdG@kbusch-mbp.dhcp.thefacebook.com>
+ <20221026231945.6609-10-michael.christie@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <Y1wFjHzza1QYTzdG@kbusch-mbp.dhcp.thefacebook.com>
+In-Reply-To: <20221026231945.6609-10-michael.christie@oracle.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -77,8 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v3 08/19] nvme: Move pr code to it's own file
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [dm-devel] [PATCH v3 09/19] nvme: Add pr_ops read_keys support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,25 +89,67 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: axboe@kernel.dk, linux-block@vger.kernel.org, chaitanyak@nvidia.com,
- martin.petersen@oracle.com, linux-scsi@vger.kernel.org, snitzer@kernel.org,
+ bvanassche@acm.org, linux-scsi@vger.kernel.org, snitzer@kernel.org,
  linux-nvme@lists.infradead.org, james.bottomley@hansenpartnership.com,
- dm-devel@redhat.com, target-devel@vger.kernel.org, hch@lst.de,
- Mike Christie <michael.christie@oracle.com>, bvanassche@acm.org
+ dm-devel@redhat.com, target-devel@vger.kernel.org, martin.petersen@oracle.com,
+ kbusch@kernel.org, hch@lst.de
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Oct 28, 2022 at 10:38:36AM -0600, Keith Busch wrote:
-> I think I was just the last person to touch the code, but it was mostly
-> developed elsewhere. So "no", don't bother propagating the (c).
+On Wed, Oct 26, 2022 at 06:19:35PM -0500, Mike Christie wrote:
+> This patch adds support for the pr_ops read_keys callout by calling the
+> NVMe Reservation Report helper, then parsing that info to get the
+> controller's registered keys. Because the callout is only used in the
+> kernel where the callers do not know about controller/host IDs, the
+> callout just returns the registered keys which is required by the SCSI PR
+> in READ KEYS command.
+> 
+> Signed-off-by: Mike Christie <michael.christie@oracle.com>
+> ---
+>  drivers/nvme/host/pr.c | 73 ++++++++++++++++++++++++++++++++++++++++++
+>  include/linux/nvme.h   |  4 +++
+>  2 files changed, 77 insertions(+)
+> 
+> diff --git a/drivers/nvme/host/pr.c b/drivers/nvme/host/pr.c
+> index aa88c55879b2..df7eb2440c67 100644
+> --- a/drivers/nvme/host/pr.c
+> +++ b/drivers/nvme/host/pr.c
+> @@ -118,10 +118,83 @@ static int nvme_pr_release(struct block_device *bdev, u64 key, enum pr_type type
+>  	return nvme_pr_command(bdev, cdw10, key, 0, nvme_cmd_resv_release);
+>  }
+>  
+> +static int nvme_pr_resv_report(struct block_device *bdev, u8 *data,
+> +		u32 data_len, bool *eds)
 
-You actually did write the PR ops code.  I wrote the core and SCSI
-side, and you added NVMe.
+Is there any good reason this method seems to take a u8 instead of a void
+pointer?  As that seems to make a few things a bit messy.
+
+> +	if (IS_ENABLED(CONFIG_NVME_MULTIPATH) &&
+> +	    bdev->bd_disk->fops == &nvme_ns_head_ops)
+> +		ret = nvme_send_ns_head_pr_command(bdev, &c, data, data_len);
+> +	else
+> +		ret = nvme_send_ns_pr_command(bdev->bd_disk->private_data, &c,
+> +					      data, data_len);
+
+Can you please add a hlper for this logic?
+
+> +	for (i = 0; i < num_ret_keys; i++) {
+> +		if (eds) {
+> +			keys_info->keys[i] =
+> +					le64_to_cpu(status->regctl_eds[i].rkey);
+> +		} else {
+> +			keys_info->keys[i] =
+> +					le64_to_cpu(status->regctl_ds[i].rkey);
+> +		}
+
+If you shorten the status variable name to something like rs this becomes
+much easier to follow :)
 
 --
 dm-devel mailing list
