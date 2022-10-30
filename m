@@ -1,70 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AF8CE612B48
-	for <lists+dm-devel@lfdr.de>; Sun, 30 Oct 2022 16:44:17 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B9188612BE8
+	for <lists+dm-devel@lfdr.de>; Sun, 30 Oct 2022 18:28:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667144656;
+	s=mimecast20190719; t=1667150894;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fA3aTL6hRognCbnL7kW0kNfL2RSXJAY081lmkFE2O6Y=;
-	b=bKgecKJbDDtjJy7ttokldT99qycs7WAF7E3X5bfZpJ74LDRorlakddtkGdgSb5Jwud7vMo
-	ZfZwKgf6ZCI49yqaqOj/HOlvwsXYS5awkHGW75XOKbfebEFd9By4i0JwioQc66WTeqIfdX
-	BE3siz9cxIRuPqlXDGc0pUfejRQ9tVw=
+	bh=+F67CEyj9C1rnmwHFVlBrbp0ZNMVBCAWHZmYldxgPUI=;
+	b=a+e9Iz3Eq8Wo4Kg5gWHB6U6rtUgRyzmMe7AdvRNTq1RppxTwouXJIhgxZHFktZeEWYtuaQ
+	9rRRASevOj+ZU10aOPMVhLExnvIDJwFC2x7EL5ampykkeOc67OLSzdIlwxtpBMI6whqdfN
+	ekeeuRFl71oqRvUEwIz7/seaR2MveU4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-320-2aJn-H3BPVOp5SkILGsmXQ-1; Sun, 30 Oct 2022 11:44:14 -0400
-X-MC-Unique: 2aJn-H3BPVOp5SkILGsmXQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-451-Y50ndZDwP4a2MM-5NyDAAA-1; Sun, 30 Oct 2022 13:28:12 -0400
+X-MC-Unique: Y50ndZDwP4a2MM-5NyDAAA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81609101A56C;
-	Sun, 30 Oct 2022 15:44:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7DD8A862FDC;
+	Sun, 30 Oct 2022 17:28:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 68E40C15BA8;
-	Sun, 30 Oct 2022 15:44:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8F88818EB4;
+	Sun, 30 Oct 2022 17:28:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 47E5319465A3;
-	Sun, 30 Oct 2022 15:44:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 89C3719465A3;
+	Sun, 30 Oct 2022 17:28:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0F31D1946589
- for <dm-devel@listman.corp.redhat.com>; Sun, 30 Oct 2022 15:44:08 +0000 (UTC)
+ ESMTP id 318391946589
+ for <dm-devel@listman.corp.redhat.com>; Sun, 30 Oct 2022 17:28:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9C3B12028E90; Sun, 30 Oct 2022 15:44:08 +0000 (UTC)
+ id 8036AC15BB3; Sun, 30 Oct 2022 17:28:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 949B62028E8F
- for <dm-devel@redhat.com>; Sun, 30 Oct 2022 15:44:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7889CC15BA8
+ for <dm-devel@redhat.com>; Sun, 30 Oct 2022 17:28:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75FB2185A79C
- for <dm-devel@redhat.com>; Sun, 30 Oct 2022 15:44:08 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E7EA8027EA
+ for <dm-devel@redhat.com>; Sun, 30 Oct 2022 17:28:02 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-578-giA-MxjiNs222gKDedj0jg-1; Sun, 30 Oct 2022 11:44:06 -0400
-X-MC-Unique: giA-MxjiNs222gKDedj0jg-1
+ us-mta-204-BAm31yeyPduD0MoaoMhUuQ-1; Sun, 30 Oct 2022 13:28:00 -0400
+X-MC-Unique: BAm31yeyPduD0MoaoMhUuQ-1
 Received: from 213-225-37-80.nat.highway.a1.net ([213.225.37.80]
  helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1opAHz-00HW4C-54; Sun, 30 Oct 2022 15:31:55 +0000
+ id 1opAHn-00HVrM-58; Sun, 30 Oct 2022 15:31:43 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
-Date: Sun, 30 Oct 2022 16:31:19 +0100
-Message-Id: <20221030153120.1045101-8-hch@lst.de>
+Date: Sun, 30 Oct 2022 16:31:15 +0100
+Message-Id: <20221030153120.1045101-4-hch@lst.de>
 In-Reply-To: <20221030153120.1045101-1-hch@lst.de>
 References: <20221030153120.1045101-1-hch@lst.de>
 MIME-Version: 1.0
@@ -77,9 +78,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH 7/7] block: store the holder kobject in
- bd_holder_disk
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH 3/7] dm: cleanup open_table_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,89 +95,112 @@ Cc: linux-block@vger.kernel.org, Yu Kuai <yukuai1@huaweicloud.com>,
  dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-We hold a reference to the holder kobject for each bd_holder_disk,
-so to make the code a bit more robust, use a reference to it instead
-of the block_device.  As long as no one clears ->bd_holder_dir in
-before freeing the disk, this isn't strictly required, but it does
-make the code more clear and more robust.
+Move all the logic for allocation the table_device and linking it into
+the list into the open_table_device.  This keeps the code tidy and
+ensures that the table_devices only exist in fully initialized state.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/holder.c | 23 ++++++++++-------------
- 1 file changed, 10 insertions(+), 13 deletions(-)
+ drivers/md/dm.c | 56 ++++++++++++++++++++++++-------------------------
+ 1 file changed, 27 insertions(+), 29 deletions(-)
 
-diff --git a/block/holder.c b/block/holder.c
-index dd9327b43ce05..a8c355b9d0806 100644
---- a/block/holder.c
-+++ b/block/holder.c
-@@ -4,7 +4,7 @@
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 19d25bf997be4..28d7581b6a826 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -732,28 +732,41 @@ static char *_dm_claim_ptr = "I belong to device-mapper";
+ /*
+  * Open a table device so we can use it as a map destination.
+  */
+-static int open_table_device(struct table_device *td, dev_t dev,
+-			     struct mapped_device *md)
++static struct table_device *open_table_device(struct mapped_device *md,
++		dev_t dev, fmode_t mode)
+ {
++	struct table_device *td;
+ 	struct block_device *bdev;
+ 	u64 part_off;
+ 	int r;
  
- struct bd_holder_disk {
- 	struct list_head	list;
--	struct block_device	*bdev;
-+	struct kobject		*holder_dir;
- 	int			refcnt;
- };
+-	BUG_ON(td->dm_dev.bdev);
++	td = kmalloc_node(sizeof(*td), GFP_KERNEL, md->numa_node_id);
++	if (!td)
++		return ERR_PTR(-ENOMEM);
++	refcount_set(&td->count, 1);
  
-@@ -14,7 +14,7 @@ static struct bd_holder_disk *bd_find_holder_disk(struct block_device *bdev,
- 	struct bd_holder_disk *holder;
+-	bdev = blkdev_get_by_dev(dev, td->dm_dev.mode | FMODE_EXCL, _dm_claim_ptr);
+-	if (IS_ERR(bdev))
+-		return PTR_ERR(bdev);
++	bdev = blkdev_get_by_dev(dev, mode | FMODE_EXCL, _dm_claim_ptr);
++	if (IS_ERR(bdev)) {
++		r = PTR_ERR(bdev);
++		goto out_free_td;
++	}
  
- 	list_for_each_entry(holder, &disk->slave_bdevs, list)
--		if (holder->bdev == bdev)
-+		if (holder->holder_dir == bdev->bd_holder_dir)
- 			return holder;
- 	return NULL;
- }
-@@ -82,27 +82,24 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
- 	}
+ 	r = bd_link_disk_holder(bdev, dm_disk(md));
+-	if (r) {
+-		blkdev_put(bdev, td->dm_dev.mode | FMODE_EXCL);
+-		return r;
+-	}
++	if (r)
++		goto out_blkdev_put;
  
- 	INIT_LIST_HEAD(&holder->list);
--	holder->bdev = bdev;
- 	holder->refcnt = 1;
-+	holder->holder_dir = kobject_get(bdev->bd_holder_dir);
++	td->dm_dev.mode = mode;
+ 	td->dm_dev.bdev = bdev;
+ 	td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev, &part_off, NULL, NULL);
+-	return 0;
++	format_dev_t(td->dm_dev.name, dev);
++	list_add(&td->list, &md->table_devices);
++	return td;
 +
- 	ret = add_symlink(disk->slave_dir, bdev_kobj(bdev));
- 	if (ret)
--		goto out_free_holder;
--	ret = add_symlink(bdev->bd_holder_dir, &disk_to_dev(disk)->kobj);
-+		goto out_put_holder_dir;
-+	ret = add_symlink(holder->holder_dir, &disk_to_dev(disk)->kobj);
- 	if (ret)
- 		goto out_del_symlink;
- 	list_add(&holder->list, &disk->slave_bdevs);
++out_blkdev_put:
++	blkdev_put(bdev, mode | FMODE_EXCL);
++out_free_td:
++	kfree(td);
++	return ERR_PTR(r);
+ }
  
--	/*
--	 * del_gendisk drops the initial reference to bd_holder_dir, so we need
--	 * to keep our own here to allow for cleanup past that point.
--	 */
--	kobject_get(bdev->bd_holder_dir);
- 	mutex_unlock(&disk->open_mutex);
- 	return 0;
+ /*
+@@ -786,31 +799,16 @@ static struct table_device *find_table_device(struct list_head *l, dev_t dev,
+ int dm_get_table_device(struct mapped_device *md, dev_t dev, fmode_t mode,
+ 			struct dm_dev **result)
+ {
+-	int r;
+ 	struct table_device *td;
  
- out_del_symlink:
- 	del_symlink(disk->slave_dir, bdev_kobj(bdev));
--out_free_holder:
-+out_put_holder_dir:
-+	kobject_put(holder->holder_dir);
- 	kfree(holder);
- out_unlock:
- 	mutex_unlock(&disk->open_mutex);
-@@ -131,8 +128,8 @@ void bd_unlink_disk_holder(struct block_device *bdev, struct gendisk *disk)
- 	holder = bd_find_holder_disk(bdev, disk);
- 	if (!WARN_ON_ONCE(holder == NULL) && !--holder->refcnt) {
- 		del_symlink(disk->slave_dir, bdev_kobj(bdev));
--		del_symlink(bdev->bd_holder_dir, &disk_to_dev(disk)->kobj);
--		kobject_put(bdev->bd_holder_dir);
-+		del_symlink(holder->holder_dir, &disk_to_dev(disk)->kobj);
-+		kobject_put(holder->holder_dir);
- 		list_del_init(&holder->list);
- 		kfree(holder);
+ 	mutex_lock(&md->table_devices_lock);
+ 	td = find_table_device(&md->table_devices, dev, mode);
+ 	if (!td) {
+-		td = kmalloc_node(sizeof(*td), GFP_KERNEL, md->numa_node_id);
+-		if (!td) {
+-			mutex_unlock(&md->table_devices_lock);
+-			return -ENOMEM;
+-		}
+-
+-		td->dm_dev.mode = mode;
+-		td->dm_dev.bdev = NULL;
+-
+-		if ((r = open_table_device(td, dev, md))) {
++		td = open_table_device(md, dev, mode);
++		if (IS_ERR(td)) {
+ 			mutex_unlock(&md->table_devices_lock);
+-			kfree(td);
+-			return r;
++			return PTR_ERR(td);
+ 		}
+-
+-		format_dev_t(td->dm_dev.name, dev);
+-
+-		refcount_set(&td->count, 1);
+-		list_add(&td->list, &md->table_devices);
+ 	} else {
+ 		refcount_inc(&td->count);
  	}
 -- 
 2.30.2
