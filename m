@@ -1,98 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 406C561782C
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Nov 2022 08:57:28 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 73BAA617829
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Nov 2022 08:57:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667462247;
+	s=mimecast20190719; t=1667462245;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=etsmenuY868MDnW79OkSIWa5vxHk1CJ6C+f1atV5two=;
-	b=dO00P0MfdFwqWD4qp4N1ti7M50s3p+NxAIoslCFpZZ9JaRn5TqbriMWqwqGsXpE2GMU2zx
-	ldeQa4/yucFuaoDpGYkCyPxSz+a1S/T/dbGcQsMcewN0nZcGEhPDm775WCL9CnijztrPlG
-	lUFwMpF9NOB5lTg5krM8eojuU0OCfIw=
+	bh=Yt+fdpe1q1NMCLLHk859fu+4bAMBb/oz0D/moHR3UW0=;
+	b=B5V0ckerMbE7bkz096G1494t7f8L3wlg//rikDqBNoVvFp4rLEFaVn22cyXQ7+OHqAzcdG
+	ptVuNLQncOnYbK/VI3Wz3Rx8p1+rxjGRyOwKDE8i4LMyE7nf6Au8zhPvAoT3/VTfdYRafA
+	wzSxd+e8gvYS/1tWOSiBfZNm0VLjQp4=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-331-fD2s4hH4MESLu1s6CUXNqw-1; Thu, 03 Nov 2022 03:57:23 -0400
-X-MC-Unique: fD2s4hH4MESLu1s6CUXNqw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-528-ugsSyZ30PP-6uwsadZhSnw-1; Thu, 03 Nov 2022 03:57:22 -0400
+X-MC-Unique: ugsSyZ30PP-6uwsadZhSnw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2ED4C2823819;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F7173C0F688;
 	Thu,  3 Nov 2022 07:57:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E3B4840C94D1;
-	Thu,  3 Nov 2022 07:57:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E89B4200E1FD;
+	Thu,  3 Nov 2022 07:57:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AB4461946A62;
-	Thu,  3 Nov 2022 07:57:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CDC481946A67;
+	Thu,  3 Nov 2022 07:57:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D275F1946594
- for <dm-devel@listman.corp.redhat.com>; Wed,  2 Nov 2022 12:25:07 +0000 (UTC)
+ ESMTP id 7F61E1946594
+ for <dm-devel@listman.corp.redhat.com>; Wed,  2 Nov 2022 14:52:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C231C49BB66; Wed,  2 Nov 2022 12:25:07 +0000 (UTC)
+ id 3B80A1111C60; Wed,  2 Nov 2022 14:52:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BA5AE49BB60
- for <dm-devel@redhat.com>; Wed,  2 Nov 2022 12:25:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 33CE21121339
+ for <dm-devel@redhat.com>; Wed,  2 Nov 2022 14:52:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F50D86F12E
- for <dm-devel@redhat.com>; Wed,  2 Nov 2022 12:25:07 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-408-5BJ5ZbH8OdC5sTiiBWRg_A-1; Wed, 02 Nov 2022 08:22:39 -0400
-X-MC-Unique: 5BJ5ZbH8OdC5sTiiBWRg_A-1
-Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4N2Qtv6pFyzKHbg;
- Wed,  2 Nov 2022 20:19:51 +0800 (CST)
-Received: from [10.174.176.73] (unknown [10.174.176.73])
- by APP2 (Coremail) with SMTP id Syh0CgD33NECYWJjG8T2BA--.21321S3;
- Wed, 02 Nov 2022 20:22:26 +0800 (CST)
-To: Yu Kuai <yukuai1@huaweicloud.com>, Christoph Hellwig <hch@lst.de>,
- Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>
-References: <20221102064854.GA8950@lst.de>
- <1dc5c1d0-72b6-5455-0b05-5c755ad69045@huaweicloud.com>
-From: Yu Kuai <yukuai1@huaweicloud.com>
-Message-ID: <2a618e55-33d7-1090-c906-0b44ad4832b8@huaweicloud.com>
-Date: Wed, 2 Nov 2022 20:22:25 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1577A8564E0
+ for <dm-devel@redhat.com>; Wed,  2 Nov 2022 14:52:25 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-500-K2FqJUT_P1qj3PQWq93kSQ-1; Wed, 02 Nov 2022 10:52:23 -0400
+X-MC-Unique: K2FqJUT_P1qj3PQWq93kSQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 9C2C6B822DD;
+ Wed,  2 Nov 2022 14:52:19 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC94DC433D6;
+ Wed,  2 Nov 2022 14:52:17 +0000 (UTC)
+Date: Wed, 2 Nov 2022 08:52:15 -0600
+From: Keith Busch <kbusch@kernel.org>
+To: Eric Biggers <ebiggers@kernel.org>
+Message-ID: <Y2KEH6OZ0MDf5cSh@kbusch-mbp.dhcp.thefacebook.com>
+References: <Y2Hf08vIKBkl5tu0@sol.localdomain>
 MIME-Version: 1.0
-In-Reply-To: <1dc5c1d0-72b6-5455-0b05-5c755ad69045@huaweicloud.com>
-X-CM-TRANSID: Syh0CgD33NECYWJjG8T2BA--.21321S3
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw1fWF4fWFWUZr4ftFyDtrb_yoW5WFW3pr
- 95KrW8GryUJr1kXF4Utw1UXFy5Zw1UJ3W8Jrn7XF12qr43Jr4qvr1UXryjgr17Jr4Ivr4U
- Jr1UXr43ZF1UCrJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7I2V7IY0VAS07AlzVAY
- IcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
- v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
- c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
- 0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6Fyj6rWUJwCI42IY6I8E87Iv67AKxVWUJVW8
- JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUF9a9DU
- UUU
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+In-Reply-To: <Y2Hf08vIKBkl5tu0@sol.localdomain>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -100,10 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Thu, 03 Nov 2022 07:57:17 +0000
-Subject: Re: [dm-devel] [PATCH 8/7] block: don't claim devices that are not
- live in bd_link_disk_holder
+Subject: Re: [dm-devel] Regression: wrong DIO alignment check with dm-crypt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,65 +92,67 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, "yukuai \(C\)" <yukuai3@huawei.com>,
- dm-devel@redhat.com
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Dmitrii Tcvetkov <me@demsh.org>, Stefan Hajnoczi <stefanha@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-5ZyoIDIwMjIvMTEvMDIgMjA6MTcsIFl1IEt1YWkg5YaZ6YGTOgo+IEhpLAo+IAo+IOWcqCAyMDIy
-LzExLzAyIDE0OjQ4LCBDaHJpc3RvcGggSGVsbHdpZyDlhpnpgZM6Cj4+IEZvciBnZW5kaXNrIHRo
-YXQgYXJlIG5vdCBsaXZlIG9yIHRoZWlyIHBhcnRpdGlvbnMsIHRoZSBiZF9ob2xkZXJfZGlyCj4+
-IHBvaW50ZXIgaXMgbm90IHZhbGlkIGFuZCB0aGUga29iamVjdCBtaWdodCBub3QgaGF2ZSBiZWVu
-IGFsbG9jYXRlZAo+PiB5ZXQgb3IgZnJlZWQgYWxyZWFkeS7CoCBDaGVjayB0aGF0IHRoZSBkaXNr
-IGlzIGxpdmUgYmVmb3JlIGNyZWF0aW5nIHRoZQo+PiBsaW5rYWdlIGFuZCBlcnJvciBvdXQgb3Ro
-ZXJ3aXNlLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
-ZT4KPj4gLS0tCj4+IMKgIGJsb2NrL2hvbGRlci5jIHwgNSArKysrKwo+PiDCoCAxIGZpbGUgY2hh
-bmdlZCwgNSBpbnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9ibG9jay9ob2xkZXIuYyBi
-L2Jsb2NrL2hvbGRlci5jCj4+IGluZGV4IGE4YzM1NWI5ZDA4MDYuLmE4ODA2YmJlZDIxMTIgMTAw
-NjQ0Cj4+IC0tLSBhL2Jsb2NrL2hvbGRlci5jCj4+ICsrKyBiL2Jsb2NrL2hvbGRlci5jCj4+IEBA
-IC02Niw2ICs2NiwxMSBAQCBpbnQgYmRfbGlua19kaXNrX2hvbGRlcihzdHJ1Y3QgYmxvY2tfZGV2
-aWNlICpiZGV2LCAKPj4gc3RydWN0IGdlbmRpc2sgKmRpc2spCj4+IMKgwqDCoMKgwqDCoMKgwqDC
-oCByZXR1cm4gLUVJTlZBTDsKPj4gwqDCoMKgwqDCoCBtdXRleF9sb2NrKCZkaXNrLT5vcGVuX211
-dGV4KTsKPj4gK8KgwqDCoCAvKiBiZF9ob2xkZXJfZGlyIGlzIG9ubHkgdmFsaWQgZm9yIGxpdmUg
-ZGlza3MgKi8KPj4gK8KgwqDCoCBpZiAoIWRpc2tfbGl2ZShiZGV2LT5iZF9kaXNrKSkgewo+PiAr
-wqDCoMKgwqDCoMKgwqAgcmV0ID0gLUVJTlZBTDsKPj4gK8KgwqDCoMKgwqDCoMKgIGdvdG8gb3V0
-X3VubG9jazsKPj4gK8KgwqDCoCB9Cj4gCj4gSSB0aGluayB0aGlzIGlzIHN0aWxsIG5vdCBzYWZl
-IPCfpJQKPiAKPiBIb3cgYWJvdXQgdGhpczoKPiAKPiBkaWZmIC0tZ2l0IGEvYmxvY2svaG9sZGVy
-LmMgYi9ibG9jay9ob2xkZXIuYwo+IGluZGV4IDUyODNiYzgwNGNjMS4uMzVmZGZiYTU1OGI4IDEw
-MDY0NAo+IC0tLSBhL2Jsb2NrL2hvbGRlci5jCj4gKysrIGIvYmxvY2svaG9sZGVyLmMKPiBAQCAt
-ODUsNiArODUsMjAgQEAgaW50IGJkX2xpbmtfZGlza19ob2xkZXIoc3RydWN0IGJsb2NrX2Rldmlj
-ZSAqYmRldiwgCj4gc3RydWN0IGdlbmRpc2sgKmRpc2spCj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgwqDCoCBnb3RvIG91dF91bmxvY2s7Cj4gIMKgwqDCoMKgwqDCoMKgIH0KPiAKPiArwqDC
-oMKgwqDCoMKgIC8qCj4gK8KgwqDCoMKgwqDCoMKgICogZGVsX2dlbmRpc2sgZHJvcHMgdGhlIGlu
-aXRpYWwgcmVmZXJlbmNlIHRvIGJkX2hvbGRlcl9kaXIsIHNvIAo+IHdlIG5lZWQKPiArwqDCoMKg
-wqDCoMKgwqAgKiB0byBrZWVwIG91ciBvd24gaGVyZSB0byBhbGxvdyBmb3IgY2xlYW51cCBwYXN0
-IHRoYXQgcG9pbnQuCj4gK8KgwqDCoMKgwqDCoMKgICovCj4gK8KgwqDCoMKgwqDCoCBtdXRleF9s
-b2NrKCZiZGV2LT5iZF9kaXNrLT5vcGVuX211dGV4KTsKPiArwqDCoMKgwqDCoMKgIGlmICghZGlz
-a19saXZlKGJkZXYtPmJkX2Rpc2spKSB7Cj4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAg
-cmV0ID0gLUVOT0RFVjsKPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBtdXRleF91bmxv
-Y2soJmJkZXYtPmJkX2Rpc2stPm9wZW5fbXV0ZXgpOwo+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoMKgIGdvdG8gb3V0X3VubG9jazsKPiArwqDCoMKgwqDCoMKgIH0KPiArCj4gK8KgwqDCoMKg
-wqDCoCBrb2JqZWN0X2dldChiZGV2LT5iZF9ob2xkZXJfZGlyKTsKPiArwqDCoMKgwqDCoMKgIG11
-dGV4X3VubG9jaygmYmRldi0+YmRfZGlzay0+b3Blbl9tdXRleCk7Cj4gKwo+ICDCoMKgwqDCoMKg
-wqDCoCBob2xkZXIgPSBremFsbG9jKHNpemVvZigqaG9sZGVyKSwgR0ZQX0tFUk5FTCk7Cj4gIMKg
-wqDCoMKgwqDCoMKgIGlmICghaG9sZGVyKSB7Cj4gIMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-wqDCoCByZXQgPSAtRU5PTUVNOwo+IEBAIC0xMDMsMTEgKzExNyw2IEBAIGludCBiZF9saW5rX2Rp
-c2tfaG9sZGVyKHN0cnVjdCBibG9ja19kZXZpY2UgKmJkZXYsIAo+IHN0cnVjdCBnZW5kaXNrICpk
-aXNrKQo+ICDCoMKgwqDCoMKgwqDCoCB9Cj4gCj4gIMKgwqDCoMKgwqDCoMKgIGxpc3RfYWRkKCZo
-b2xkZXItPmxpc3QsICZkaXNrLT5zbGF2ZV9iZGV2cyk7Cj4gLcKgwqDCoMKgwqDCoCAvKgo+IC3C
-oMKgwqDCoMKgwqDCoCAqIGRlbF9nZW5kaXNrIGRyb3BzIHRoZSBpbml0aWFsIHJlZmVyZW5jZSB0
-byBiZF9ob2xkZXJfZGlyLCBzbyAKPiB3ZSBuZWVkCj4gLcKgwqDCoMKgwqDCoMKgICogdG8ga2Vl
-cCBvdXIgb3duIGhlcmUgdG8gYWxsb3cgZm9yIGNsZWFudXAgcGFzdCB0aGF0IHBvaW50Lgo+IC3C
-oMKgwqDCoMKgwqDCoCAqLwo+IC3CoMKgwqDCoMKgwqAga29iamVjdF9nZXQoYmRldi0+YmRfaG9s
-ZGVyX2Rpcik7Cj4gCj4gYmRldi0+YmRfZGlzay0+b3Blbl9tdXRleCBzaG91bGQgYmUgaG9sZCwg
-Ym90aCBkaXNfbGl2ZSgpIGFuZAo+IGtvYmplY3RfZ2V0KCkgc2hvdWxkIGJlIHByb3RlY3RlZC4K
-PiAKCkFuZCBrb2JqZWN0IHJlZmVyZW5jZSBzaG91bGQgYmUgZGVjcmVhc2VkIGluIHRoZSBmb2xs
-b3dpbmcgZXJyb3IgcGF0aAoKVGhhbmtzLApLdWFpCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QK
-ZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xp
-c3RpbmZvL2RtLWRldmVsCg==
+[Cc'ing Dmitrii, who also reported the same issue]
+
+On Tue, Nov 01, 2022 at 08:11:15PM -0700, Eric Biggers wrote:
+> Hi,
+> 
+> I happened to notice the following QEMU bug report:
+> 
+> https://gitlab.com/qemu-project/qemu/-/issues/1290
+> 
+> I believe it's a regression from the following kernel commit:
+> 
+>     commit b1a000d3b8ec582da64bb644be633e5a0beffcbf
+>     Author: Keith Busch <kbusch@kernel.org>
+>     Date:   Fri Jun 10 12:58:29 2022 -0700
+> 
+>         block: relax direct io memory alignment
+> 
+> The bug is that if a dm-crypt device is set up with a crypto sector size (and
+> thus also a logical_block_size) of 4096, then the block layer now lets through
+> direct I/O requests to dm-crypt when the user buffer has only 512-byte
+> alignment, instead of the 4096-bytes expected by dm-crypt in that case.  This is
+> because the dma_alignment of the device-mapper device is only 511 bytes.
+> 
+> This has two effects in this case:
+> 
+>     - The error code for DIO with a misaligned buffer is now EIO, instead of
+>       EINVAL as expected and documented.  This is because the I/O reaches
+>       dm-crypt instead of being rejected by the block layer.
+> 
+>     - STATX_DIOALIGN reports 512 bytes for stx_dio_mem_align, instead of the
+>       correct value of 4096.  (Technically not a regression since STATX_DIOALIGN
+>       is new in v6.1, but still a bug.)
+> 
+> Any thoughts on what the correct fix is here?  Maybe the device-mapper layer
+> needs to set dma_alignment correctly?  Or maybe the block layer needs to set it
+> to 'logical_block_size - 1' by default?
+
+I think the quick fix is to have the device mapper override the default
+queue stacking limits to align the dma mask to logical block size.
+
+Does dm-crypt strictly require memory alignment to match the block size,
+or is this just the way the current software works that we can change?
+It may take me a moment to get to the bottem of that, but after a quick
+glance, it looks like dm-crypt will work fine with the 512 offsets if we
+happen to have a physically contiguous multi-page bvec, and will fail
+otherwise due to a predetermined set of sg segments (looking at
+crypt_convert_block_aead()).
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
