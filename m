@@ -1,88 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4905761916A
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Nov 2022 07:50:18 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 368F661916E
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Nov 2022 07:51:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667544617;
+	s=mimecast20190719; t=1667544663;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ImSLetlk2I36g9HWPx2jwO4rB1qW3zroY/zGdagflwQ=;
-	b=EHqyy24K23+pXxTof6vm0Qqdq71CX8m120xEHaYQ+n3XkGZ5HyxSemyOfMz+dQEFf6DfZC
-	Za1tQJEDm8hOwqOn2j8E6M7NrSLb8iSaXyUks/ROu0FfhZqaFD28zXwr07lg4Smg9dXmAK
-	WQRhIHtWqsjaP7bwW3zAJx21xDcKAyg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=HTM8PkkyOvok6LoG76ybEhCCHruINVWGehdunDpZuio=;
+	b=DzUIh6KlBUpw8G2B9TxKBrggxyVyp+1rk2nBAHohyE6hWypHI4IpUFIi88pmyt4jX13j62
+	lrw4vXYW3HDSnAvIWg5Z3EaOXSj/gm+r1XJT+3YR0d6C35v2kSvSfD91p25XGXDWueFdI9
+	5f/5LkiHg29+yDnm1ruzNkW+qnXZLVg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-568-96jmQC_ZOg-UxikjOy2GPg-1; Fri, 04 Nov 2022 02:50:14 -0400
-X-MC-Unique: 96jmQC_ZOg-UxikjOy2GPg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-544-wyJVQ_6ePl2HG_uwRIaWnw-1; Fri, 04 Nov 2022 02:50:14 -0400
+X-MC-Unique: wyJVQ_6ePl2HG_uwRIaWnw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E05D1C087AB;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0BA0E858F13;
 	Fri,  4 Nov 2022 06:50:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 17DD84EA5A;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 89C24C158CF;
 	Fri,  4 Nov 2022 06:50:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2E77F1946A74;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A5831947054;
 	Fri,  4 Nov 2022 06:50:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AA0A01946594
- for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
+ ESMTP id 6402A1946594
+ for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 16:38:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A0803C16932; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
+ id 51BC540C83AD; Thu,  3 Nov 2022 16:38:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 98D1DC15BAB
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4AA1740C2140
+ for <dm-devel@redhat.com>; Thu,  3 Nov 2022 16:38:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 802971C08982
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-378-My2fYUgpPdukK5wxnkbkPA-1; Thu, 03 Nov 2022 11:26:14 -0400
-X-MC-Unique: My2fYUgpPdukK5wxnkbkPA-1
-Received: from pps.filterd (m0044010.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2A3984Dc017248
- for <dm-devel@redhat.com>; Thu, 3 Nov 2022 08:26:11 -0700
-Received: from maileast.thefacebook.com ([163.114.130.16])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 3kmar7atnk-2
- (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
- for <dm-devel@redhat.com>; Thu, 03 Nov 2022 08:26:11 -0700
-Received: from twshared14438.02.ash8.facebook.com (2620:10d:c0a8:1b::d) by
- mail.thefacebook.com (2620:10d:c0a8:83::5) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 3 Nov 2022 08:26:09 -0700
-Received: by devbig007.nao1.facebook.com (Postfix, from userid 544533)
- id BA164AA9A07E; Thu,  3 Nov 2022 08:26:00 -0700 (PDT)
-From: Keith Busch <kbusch@meta.com>
-To: <linux-block@vger.kernel.org>, <dm-devel@redhat.com>, <axboe@kernel.dk>
-Date: Thu, 3 Nov 2022 08:25:59 -0700
-Message-ID: <20221103152559.1909328-4-kbusch@meta.com>
-In-Reply-To: <20221103152559.1909328-1-kbusch@meta.com>
-References: <20221103152559.1909328-1-kbusch@meta.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C5ED3C10239
+ for <dm-devel@redhat.com>; Thu,  3 Nov 2022 16:38:46 +0000 (UTC)
+Received: from hermod.demsh.org (hermod.demsh.org [45.140.147.175]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-641-OwuZz7-rO_WiTbLw5ry5WQ-1; Thu,
+ 03 Nov 2022 12:38:41 -0400
+X-MC-Unique: OwuZz7-rO_WiTbLw5ry5WQ-1
+Received: from xps.demsh.org (algiz.demsh.org [94.103.82.47])
+ by hermod.demsh.org (OpenSMTPD) with ESMTPSA id d6a231c8
+ (TLSv1.3:TLS_AES_256_GCM_SHA384:256:NO) auth=yes user=me; 
+ Thu, 3 Nov 2022 16:38:39 +0000 (UTC)
+Date: Thu, 3 Nov 2022 19:38:37 +0300
+From: Dmitrii Tcvetkov <me@demsh.org>
+To: Keith Busch <kbusch@kernel.org>
+Message-ID: <20221103193837.3b5b4bac@xps.demsh.org>
+In-Reply-To: <Y2LOkmU0IJUTyYza@kbusch-mbp.dhcp.thefacebook.com>
+References: <Y2Hf08vIKBkl5tu0@sol.localdomain>
+ <Y2KEH6OZ0MDf5cSh@kbusch-mbp.dhcp.thefacebook.com>
+ <Y2KXfNZzwPZBJRTW@kbusch-mbp.dhcp.thefacebook.com>
+ <20221102200345.0800a8bf@xps.demsh.org>
+ <Y2LOkmU0IJUTyYza@kbusch-mbp.dhcp.thefacebook.com>
 MIME-Version: 1.0
-X-FB-Internal: Safe
-X-Proofpoint-ORIG-GUID: HiJDTfdiRA7WshjJLqCzvPfDw0iPq9Vg
-X-Proofpoint-GUID: HiJDTfdiRA7WshjJLqCzvPfDw0iPq9Vg
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
- definitions=2022-11-03_04,2022-11-03_01,2022-06-22_01
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -90,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Fri, 04 Nov 2022 06:50:05 +0000
-Subject: [dm-devel] [PATCH 3/3] block: make blk_set_default_limits() private
+Subject: Re: [dm-devel] Regression: wrong DIO alignment check with dm-crypt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,65 +93,133 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: ebiggers@kernel.org, Keith Busch <kbusch@kernel.org>, mpatocka@redhat.com,
- me@demsh.org, stefanha@redhat.com
+Cc: Eric Biggers <ebiggers@kernel.org>, linux-block@vger.kernel.org,
+ dm-devel@redhat.com, Stefan Hajnoczi <stefanha@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Keith Busch <kbusch@kernel.org>
+On Wed, 2 Nov 2022 14:09:54 -0600
+Keith Busch <kbusch@kernel.org> wrote:
 
-There are no external users of this function.
+> On Wed, Nov 02, 2022 at 08:03:45PM +0300, Dmitrii Tcvetkov wrote:
+> > 
+> > Applied on top 6.1-rc3, the issue still reproduces.
+> 
+> Yeah, I see that now. I needed to run a dm-crypt setup to figure out
+> how they're actually doing this, so now I have that up and running.
+> 
+> I think this type of usage will require the dma_alignment to move from
+> the request_queue to the queue_limits. Here's that, and I've
+> successfully tested this with cryptsetup. I still need more work to
+> get mdraid atop that working on my dev machine, but I'll post this
+> now since it's looking better:
+> 
+> ---
+> diff --git a/block/blk-settings.c b/block/blk-settings.c
+> index 8bb9eef5310e..e84304959318 100644
+> --- a/block/blk-settings.c
+> +++ b/block/blk-settings.c
+> @@ -81,6 +81,7 @@ void blk_set_stacking_limits(struct queue_limits
+> *lim) lim->max_dev_sectors = UINT_MAX;
+>  	lim->max_write_zeroes_sectors = UINT_MAX;
+>  	lim->max_zone_append_sectors = UINT_MAX;
+> +	lim->dma_alignment = 511;
+>  }
+>  EXPORT_SYMBOL(blk_set_stacking_limits);
+>  
+> @@ -600,6 +601,7 @@ int blk_stack_limits(struct queue_limits *t,
+> struct queue_limits *b, 
+>  	t->io_min = max(t->io_min, b->io_min);
+>  	t->io_opt = lcm_not_zero(t->io_opt, b->io_opt);
+> +	t->dma_alignment = max(t->dma_alignment, b->dma_alignment);
+>  
+>  	/* Set non-power-of-2 compatible chunk_sectors boundary */
+>  	if (b->chunk_sectors)
+> @@ -773,7 +775,7 @@ EXPORT_SYMBOL(blk_queue_virt_boundary);
+>   **/
+>  void blk_queue_dma_alignment(struct request_queue *q, int mask)
+>  {
+> -	q->dma_alignment = mask;
+> +	q->limits.dma_alignment = mask;
+>  }
+>  EXPORT_SYMBOL(blk_queue_dma_alignment);
+>  
+> @@ -795,8 +797,8 @@ void blk_queue_update_dma_alignment(struct
+> request_queue *q, int mask) {
+>  	BUG_ON(mask > PAGE_SIZE);
+>  
+> -	if (mask > q->dma_alignment)
+> -		q->dma_alignment = mask;
+> +	if (mask > q->limits.dma_alignment)
+> +		q->limits.dma_alignment = mask;
+>  }
+>  EXPORT_SYMBOL(blk_queue_update_dma_alignment);
+>  
+> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+> index 159c6806c19b..2653516bcdef 100644
+> --- a/drivers/md/dm-crypt.c
+> +++ b/drivers/md/dm-crypt.c
+> @@ -3630,6 +3630,7 @@ static void crypt_io_hints(struct dm_target
+> *ti, struct queue_limits *limits) limits->physical_block_size =
+>  		max_t(unsigned, limits->physical_block_size,
+> cc->sector_size); limits->io_min = max_t(unsigned, limits->io_min,
+> cc->sector_size);
+> +	limits->dma_alignment = limits->logical_block_size - 1;
+>  }
+>  
+>  static struct target_type crypt_target = {
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index 854b4745cdd1..69ee5ea29e2f 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -310,6 +310,13 @@ struct queue_limits {
+>  	unsigned char		discard_misaligned;
+>  	unsigned char		raid_partial_stripes_expensive;
+>  	enum blk_zoned_model	zoned;
+> +
+> +	/*
+> +	 * Drivers that set dma_alignment to less than 511 must be
+> prepared to
+> +	 * handle individual bvec's that are not a multiple of a
+> SECTOR_SIZE
+> +	 * due to possible offsets.
+> +	 */
+> +	unsigned int		dma_alignment;
+>  };
+>  
+>  typedef int (*report_zones_cb)(struct blk_zone *zone, unsigned int
+> idx, @@ -455,12 +462,6 @@ struct request_queue {
+>  	unsigned long		nr_requests;	/* Max # of
+> requests */ 
+>  	unsigned int		dma_pad_mask;
+> -	/*
+> -	 * Drivers that set dma_alignment to less than 511 must be
+> prepared to
+> -	 * handle individual bvec's that are not a multiple of a
+> SECTOR_SIZE
+> -	 * due to possible offsets.
+> -	 */
+> -	unsigned int		dma_alignment;
+>  
+>  #ifdef CONFIG_BLK_INLINE_ENCRYPTION
+>  	struct blk_crypto_profile *crypto_profile;
+> @@ -1318,7 +1319,7 @@ static inline sector_t bdev_zone_sectors(struct
+> block_device *bdev) 
+>  static inline int queue_dma_alignment(const struct request_queue *q)
+>  {
+> -	return q ? q->dma_alignment : 511;
+> +	return q ? q->limits.dma_alignment : 511;
+>  }
+>  
+>  static inline unsigned int bdev_dma_alignment(struct block_device
+> *bdev) --
 
-Signed-off-by: Keith Busch <kbusch@kernel.org>
----
- block/blk-settings.c   | 1 -
- block/blk.h            | 1 +
- include/linux/blkdev.h | 1 -
- 3 files changed, 1 insertion(+), 2 deletions(-)
-
-diff --git a/block/blk-settings.c b/block/blk-settings.c
-index 4949ed3ce7c9..8ac1038d0c79 100644
---- a/block/blk-settings.c
-+++ b/block/blk-settings.c
-@@ -59,7 +59,6 @@ void blk_set_default_limits(struct queue_limits *lim)
- 	lim->zone_write_granularity = 0;
- 	lim->dma_alignment = 511;
- }
--EXPORT_SYMBOL(blk_set_default_limits);
- 
- /**
-  * blk_set_stacking_limits - set default limits for stacking devices
-diff --git a/block/blk.h b/block/blk.h
-index d259d1da4cb4..4849a2efa4c5 100644
---- a/block/blk.h
-+++ b/block/blk.h
-@@ -330,6 +330,7 @@ void blk_rq_set_mixed_merge(struct request *rq);
- bool blk_rq_merge_ok(struct request *rq, struct bio *bio);
- enum elv_merge blk_try_merge(struct request *rq, struct bio *bio);
- 
-+void blk_set_default_limits(struct queue_limits *lim);
- int blk_dev_init(void);
- 
- /*
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 69ee5ea29e2f..704bc175a732 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -939,7 +939,6 @@ extern void blk_queue_io_min(struct request_queue *q, unsigned int min);
- extern void blk_limits_io_opt(struct queue_limits *limits, unsigned int opt);
- extern void blk_queue_io_opt(struct request_queue *q, unsigned int opt);
- extern void blk_set_queue_depth(struct request_queue *q, unsigned int depth);
--extern void blk_set_default_limits(struct queue_limits *lim);
- extern void blk_set_stacking_limits(struct queue_limits *lim);
- extern int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
- 			    sector_t offset);
--- 
-2.30.2
+With this patch the issue doesn't reproduce.
 
 --
 dm-devel mailing list
