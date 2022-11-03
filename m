@@ -2,72 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6C30A6177B3
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Nov 2022 08:34:40 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8E957617834
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Nov 2022 08:58:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667460879;
+	s=mimecast20190719; t=1667462291;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=iMXSJ3aHb0FLF1vck5qb+PYlEoFIsRMomfjyUA9T0vA=;
-	b=dbeygyJznaX8w8NACVThFS5JDe/Q1MPrM1k/LbGFZo4yqEQRO3olu7au+fbszoGoScJlFD
-	ESnC9WJhVc9anzIj5isZPQa2D0SupOWmzd14chs4AbAbqd3K/7mhcv3l/oi3spv0mVInBo
-	ysUQDUK+dugiLfvdZnu+Sehbnf4jEyg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=iMLWhTIXAyE/n8j3QIsrK7zfBPfRR0S2OtyNWo/Xkhc=;
+	b=ZzypaEqgLDMwzEyOePer/dh/QtHwdU+J/A02p6EvAHP/PijAjkvuqUsgsDkN9Q2mCpSuBe
+	HQjCe0zh8AfxcdUAqyivwhAWoiCj/D5ExVGVBG5yq7I5bXqsDxEiaf8eggyAUAttpSujhx
+	vTtlHnfzlKsK5sKUYEq79fOdxG/fqTM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-235-ChuhC5jgNbmnotnJENLTgw-1; Thu, 03 Nov 2022 03:34:37 -0400
-X-MC-Unique: ChuhC5jgNbmnotnJENLTgw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-408-WZBDcQFvOoKzUfFHUn_V8Q-1; Thu, 03 Nov 2022 03:57:25 -0400
+X-MC-Unique: WZBDcQFvOoKzUfFHUn_V8Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3E797101A528;
-	Thu,  3 Nov 2022 07:34:35 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C1654A9254;
-	Thu,  3 Nov 2022 07:34:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87DF13C0F696;
+	Thu,  3 Nov 2022 07:57:22 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 699EBC034A3;
+	Thu,  3 Nov 2022 07:57:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3E60A1946A6A;
-	Thu,  3 Nov 2022 07:34:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 592601946594;
+	Thu,  3 Nov 2022 07:57:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 95C8D1946594
- for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 07:34:20 +0000 (UTC)
+ ESMTP id D69C51946594
+ for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 358BB40C2140; Thu,  3 Nov 2022 07:34:20 +0000 (UTC)
+ id B5946492B09; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E6C640C83AD
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 07:34:20 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AE80C492B06
+ for <dm-devel@redhat.com>; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 13013857FAB
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 07:34:20 +0000 (UTC)
-Received: from out2.migadu.com (out2.migadu.com [188.165.223.204]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-621-RCtgCM7vMzmmZYEr4RzeWA-1; Thu,
- 03 Nov 2022 03:34:18 -0400
-X-MC-Unique: RCtgCM7vMzmmZYEr4RzeWA-1
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Guoqing Jiang <guoqing.jiang@linux.dev>
-To: Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>
-References: <alpine.LRH.2.21.2211021214390.25745@file01.intranet.prod.int.rdu2.redhat.com>
- <78646e88-2457-81e1-e3e7-cf66b67ba923@linux.dev>
-Message-ID: <ba8e67d8-b18b-13ba-2883-6ca6c6520ef2@linux.dev>
-Date: Thu, 3 Nov 2022 15:28:55 +0800
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93C8E801231
+ for <dm-devel@redhat.com>; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-214-Kg2PiyQVP1usi2NQPm6g6g-1; Thu, 03 Nov 2022 03:35:35 -0400
+X-MC-Unique: Kg2PiyQVP1usi2NQPm6g6g-1
+Received: by mail-pl1-f172.google.com with SMTP id y4so1156372plb.2
+ for <dm-devel@redhat.com>; Thu, 03 Nov 2022 00:35:35 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:subject:from:to:user-agent:mime-version
+ :date:message-id:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=oTGWQumIwIYgq/ddyb5Xf/lRMZTena1TqxoLY+5s09s=;
+ b=ezzT4C/ODBEYecgAIHwjYAxdVfm3hIebRG5OogPWFpVouLt88MGLW3uFgsjht+rauE
+ I7E10N5tbqStXwokREDH1bbKCheBLDODSmbB7t9GlxGoEPBI3lgfERNP3zdS1dWovT1F
+ 0RkS63C1ytd/w8xZ7A18p11ivVy+fFUQvFxODsKwxf5X31RUlTmUtLaS/9RRGMXJYOer
+ qQ2QZN4PGjEQpMRss1RDs0QJvruAe6Q9y3sQGxM1lFsXtjvbVCCGfOiNsAhUpaivvuV7
+ g8DE3suDVRXFZr8J2mLJWPhR7PftniZrgGvNnPA6uyqK4yrV73h2VB7OcqFWvvmRi6uK
+ lCZA==
+X-Gm-Message-State: ACrzQf2DpYezYtxhWsnHND0zbS0IBbgCk743lymoqzofsUqoAeqZdp0m
+ m+9wpoMdna+pOsc2Yr6iIKExd7TcjzOgZg==
+X-Google-Smtp-Source: AMsMyM40KEkv1zx0bnGR5/9puq17gGzpl3fCaoLFg69b2PsxAzIrL2dDQuTU2iJ1NUUmydwJM4Dh+w==
+X-Received: by 2002:a17:903:2305:b0:186:ed93:fc3f with SMTP id
+ d5-20020a170903230500b00186ed93fc3fmr28996139plh.15.1667460934006; 
+ Thu, 03 Nov 2022 00:35:34 -0700 (PDT)
+Received: from [10.87.56.20] ([139.177.225.253])
+ by smtp.gmail.com with ESMTPSA id
+ x13-20020aa78f0d000000b00565c8634e55sm48305pfr.135.2022.11.03.00.35.31
+ for <dm-devel@redhat.com>
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 03 Nov 2022 00:35:33 -0700 (PDT)
+Message-ID: <62cc8b6c-edc6-5ee6-d9fd-d1e0819db36c@bytedance.com>
+Date: Thu, 3 Nov 2022 15:35:29 +0800
 MIME-Version: 1.0
-In-Reply-To: <78646e88-2457-81e1-e3e7-cf66b67ba923@linux.dev>
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
+ Gecko/20100101 Thunderbird/91.13.0
+To: dm-devel@redhat.com
+From: Zhiyong Ye <yezhiyong@bytedance.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,9 +96,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] A crash caused by the commit
- 0dd84b319352bb8ba64752d4e45396d8b13e6018
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Mailman-Approved-At: Thu, 03 Nov 2022 07:57:17 +0000
+Subject: [dm-devel] Question about how to share dm-thin on multiple hosts
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,63 +110,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, dm-devel@redhat.com,
- Zdenek Kabelac <zkabelac@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-CgpPbiAxMS8zLzIyIDExOjQ3IEFNLCBHdW9xaW5nIEppYW5nIHdyb3RlOgo+PiBbwqDCoCA3OC40
-OTE0MjldIDxUQVNLPgo+PiBbwqDCoCA3OC40OTE2NDBdwqAgY2xvbmVfZW5kaW8rMHhmNC8weDFj
-MCBbZG1fbW9kXQo+PiBbwqDCoCA3OC40OTIwNzJdwqAgY2xvbmVfZW5kaW8rMHhmNC8weDFjMCBb
-ZG1fbW9kXQo+Cj4gVGhlIGNsb25lX2VuZGlvIGJlbG9uZ3MgdG8gImNsb25lIiB0YXJnZXRfdHlw
-ZS4KCkhtbSwgY291bGQgYmUgdGhlICJjbG9uZV9lbmRpbyIgZnJvbSBkbS5jIGluc3RlYWQgb2Yg
-ZG0tY2xvbmUtdGFyZ2V0LmMuCgo+Cj4+IFvCoMKgIDc4LjQ5MjUwNV0gX19zdWJtaXRfYmlvKzB4
-NzYvMHgxMjAKPj4gW8KgwqAgNzguNDkyODU5XcKgIHN1Ym1pdF9iaW9fbm9hY2N0X25vY2hlY2sr
-MHhiNi8weDJhMAo+PiBbwqDCoCA3OC40OTMzMjVdwqAgZmx1c2hfZXhwaXJlZF9iaW9zKzB4Mjgv
-MHgyZiBbZG1fZGVsYXldCj4KPiBUaGlzIGlzICJkZWxheSIgdGFyZ2V0X3R5cGUuIENvdWxkIHlv
-dSBzaGVkIGxpZ2h0IG9uIGhvdyB0aGUgdHdvIHRhcmdldHMKPiBjb25uZWN0IHdpdGggZG0tcmFp
-ZD8gQW5kIEkgaGF2ZSBzaGFsbG93IGtub3dsZWRnZSBhYm91dCBkbSAuLi4KPgo+PiBbwqDCoCA3
-OC40OTM4MDhdIHByb2Nlc3Nfb25lX3dvcmsrMHgxYjQvMHgzMDAKPj4gW8KgwqAgNzguNDk0MjEx
-XcKgIHdvcmtlcl90aHJlYWQrMHg0NS8weDNlMAo+PiBbwqDCoCA3OC40OTQ1NzBdwqAgPyByZXNj
-dWVyX3RocmVhZCsweDM4MC8weDM4MAo+PiBbwqDCoCA3OC40OTQ5NTddwqAga3RocmVhZCsweGMy
-LzB4MTAwCj4+IFvCoMKgIDc4LjQ5NTI3OV3CoCA/IGt0aHJlYWRfY29tcGxldGVfYW5kX2V4aXQr
-MHgyMC8weDIwCj4+IFvCoMKgIDc4LjQ5NTc0M13CoCByZXRfZnJvbV9mb3JrKzB4MWYvMHgzMAo+
-PiBbwqDCoCA3OC40OTYwOTZdwqAgPC9UQVNLPgo+PiBbwqDCoCA3OC40OTYzMjZdIE1vZHVsZXMg
-bGlua2VkIGluOiBicmQgZG1fZGVsYXkgZG1fcmFpZCBkbV9tb2QgCj4+IGFmX3BhY2tldCB1dmVz
-YWZiIGNmYmZpbGxyZWN0IGNmYmltZ2JsdCBjbiBjZmJjb3B5YXJlYSBmYiBmb250IGZiZGV2IAo+
-PiB0dW4gYXV0b2ZzNCBiaW5mbXRfbWlzYyBjb25maWdmcyBpcHY2IHZpcnRpb19ybmcgdmlydGlv
-X2JhbGxvb24gCj4+IHJuZ19jb3JlIHZpcnRpb19uZXQgcGNzcGtyIG5ldF9mYWlsb3ZlciBmYWls
-b3ZlciBxZW11X2Z3X2NmZyBidXR0b24gCj4+IG1vdXNlZGV2IHJhaWQxMCByYWlkNDU2IGxpYmNy
-YzMyYyBhc3luY19yYWlkNl9yZWNvdiBhc3luY19tZW1jcHkgCj4+IGFzeW5jX3BxIHJhaWQ2X3Bx
-IGFzeW5jX3hvciB4b3IgYXN5bmNfdHggcmFpZDEgcmFpZDAgbWRfbW9kIHNkX21vZCAKPj4gdDEw
-X3BpIGNyYzY0X3JvY2tzb2Z0IGNyYzY0IHZpcnRpb19zY3NpIHNjc2lfbW9kIGV2ZGV2IHBzbW91
-c2UgYnNnIAo+PiBzY3NpX2NvbW1vbiBbbGFzdCB1bmxvYWRlZDogYnJkXQo+PiBbwqDCoCA3OC41
-MDA0MjVdIENSMjogMDAwMDAwMDAwMDAwMDAwMAo+PiBbwqDCoCA3OC41MDA3NTJdIC0tLVsgZW5k
-IHRyYWNlIDAwMDAwMDAwMDAwMDAwMDAgXS0tLQo+PiBbwqDCoCA3OC41MDEyMTRdIFJJUDogMDAx
-MDptZW1wb29sX2ZyZWUrMHg0Ny8weDgwCj4KPiBCVFcsIGlzIHRoZSBtZW1wb29sX2ZyZWUgZnJv
-bSBlbmRpbyAtPiBkZWNfY291bnQgLT4gY29tcGxldGVfaW8/CgpJIGd1ZXNzIGl0IGlzICJtZW1w
-b29sX2ZyZWUoaW8sICZpby0+Y2xpZW50LT5wb29sKSIsIGFuZCB0aGUgcG9vbCBpcyAKZnJlZWQg
-YnkKZG1faW9fY2xpZW50X2Rlc3Ryb3ksIGFuZCBzZWVtcyBkbS1yYWlkIGlzIG5vdCByZXNwb25z
-aWJsZSBmb3IgZWl0aGVyIGNyZWF0ZQpwb29sIG9yIGRlc3Ryb3kgcG9vbC4KCj4gQW5kIGlvIHdo
-aWNoIGNhdXNlZCB0aGUgY3Jhc2ggaXMgZnJvbSBkbV9pbyAtPiBhc3luY19pbyAvIHN5bmNfaW8K
-PiDCoC0+IGRpc3BhdGNoX2lvLCBzZWVtcyBkbS1yYWlkMSBjYW4gY2FsbCBpdCBpbnN0ZWFkIG9m
-IGRtLXJhaWQsIHNvIEkKPiBzdXBwb3NlIHRoZSBpbyBpcyBmb3IgbWlycm9yIGltYWdlLiAKClRo
-ZSBpbyBzaG91bGQgYmUgZnJvbSBhbm90aGVyIHBhdGggKGRtX3N1Ym1pdF9iaW8gLT4gCmRtX3Nw
-bGl0X2FuZF9wcm9jZXNzX2JpbwotPiBfX3NwbGl0X2FuZF9wcm9jZXNzX2JpbyAtPiBfX21hcF9i
-aW8gd2hpY2ggc2V0cyAiYmlfZW5kX2lvID0gCmNsb25lX2VuZGlvIikuCgpNeSBndWVzcyBpcywg
-dGhlcmUgaXMgcmFjeSBjb25kaXRpb24gYmV0d2VlbiAibHZjaGFuZ2UgLS1yZWJ1aWxkIiBhbmQg
-CnJhaWRfZHRyIHNpbmNlCml0IHdhcyByZXByb2R1Y2VkIGJ5IHJ1bm5pbmcgY21kIGluIGxvb3Au
-CgpBbnl3YXksIHdlIGNhbiByZXZlcnQgdGhlIG1lbnRpb25lZCBjb21taXQgYW5kIGdvIGJhY2sg
-dG8gTmVpbCdzIApzb2x1dGlvbiBbMV0sCmJ1dCBJJ2QgbGlrZSB0byByZXByb2R1Y2UgaXQgYW5k
-IGxlYXJuIERNIGEgYml0LgoKWzFdLiAKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvbGludXgtcmFp
-ZC9hNjY1N2UwOC1iNmE3LTM1OGItMmQyYS0wYWMzN2Q0OWQyM2FAbGludXguZGV2L1QvI205NWFj
-MjI1Y2FiNzQwOWY2NmMyOTU3NzI0ODNkMDkxMDg0YTZkNDcwCgpUaGFua3MsCkd1b3FpbmcKCi0t
-CmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1h
-bi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
+Hi all,
+
+I am new to dm-devel. When using dm-thin via lvm, I found it difficult 
+to share dm-thin on multiple hosts.
+
+The background is that I want to implement live migration of VMs in the 
+lvm + iSCSI environment, in which lvmlockd is used to coordinate access 
+to shared storage. There are multiple hosts in the cluster using the 
+same iSCSI connection, and the VMs running in this environment use 
+thinlv volumes. But if want to live migrate the vm, it will be difficult 
+since thinlv which from the same thin pool can only be exclusive active 
+on one host.
+
+I'm curious why the dm-thin doesn't support multi-host shared access, 
+just like the dm-linear does. If I try to write a new dm-thin target or 
+make some modifications based on the existing dm-thin target to support 
+this feature, is it technically feasible?
+
+Regards!
+
+Zhiyong Ye
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
