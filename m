@@ -2,88 +2,88 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AB69061916F
-	for <lists+dm-devel@lfdr.de>; Fri,  4 Nov 2022 07:51:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 268C7619168
+	for <lists+dm-devel@lfdr.de>; Fri,  4 Nov 2022 07:50:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667544664;
+	s=mimecast20190719; t=1667544616;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=M0NW4slFVq6lpEz33EFxP/PM0m6C/QBopkS5l6MRE1U=;
-	b=F0Al4I4ILOawQgK24r43rYMljM4ac1HVYqynTG3ZHGIXVG4gzEHvm/rvdg2FWi04WqdGTV
-	rD797nq5EM9ufiIRjo91hcGDZeED3CIUSlthCuBsgd8YHZXos7iav1o73ibd5O3PqAuZZ/
-	I9v0jpOQKa/HTOuNCQv2PFRcCfPv8RY=
+	bh=APofu6KFRLMbTJPuR60Qa4wl11bbgJubgk0EYpSJZx4=;
+	b=W6RABDQnZXwiNvLfCFmJe84XwVFGiWMLSEoegPbIBPVnUF/GCuT+PggQhodJ4iZllHAie9
+	2NElgcuaw2QmUJWKQyCyozONuWB7OlkEh94NCvFemDl3f5AP612k9t0iyosBMerLuwG0c+
+	ql3XRaoy9bsh9U0sEqeU0kocfYR7IUY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-618-9GW6PCaaO8iO6ZUlVPqWig-1; Fri, 04 Nov 2022 02:50:14 -0400
-X-MC-Unique: 9GW6PCaaO8iO6ZUlVPqWig-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-349-JtraVEPbNU2rargwq19yJA-1; Fri, 04 Nov 2022 02:50:14 -0400
+X-MC-Unique: JtraVEPbNU2rargwq19yJA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C617811E67;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0BF5D101A52A;
 	Fri,  4 Nov 2022 06:50:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 10B4240C8459;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 89E1C40C6F73;
 	Fri,  4 Nov 2022 06:50:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2BD741946A73;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7F1A01947057;
 	Fri,  4 Nov 2022 06:50:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BB82719465A4
+ ESMTP id 02F8D19465A4
  for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 15:26:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A278DC1908A; Thu,  3 Nov 2022 15:26:16 +0000 (UTC)
+ id EABC12166B2E; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 99D10C15BAB
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 15:26:16 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E40732166B26
+ for <dm-devel@redhat.com>; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B7D4886462
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 15:26:16 +0000 (UTC)
-Received: from mx0a-00082601.pphosted.com (mx0a-00082601.pphosted.com
- [67.231.145.42]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFF75101E152
+ for <dm-devel@redhat.com>; Thu,  3 Nov 2022 15:26:15 +0000 (UTC)
+Received: from mx0b-00082601.pphosted.com (mx0b-00082601.pphosted.com
+ [67.231.153.30]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-584-lRLP7pKpPNWy9yIMnI1Lkw-1; Thu, 03 Nov 2022 11:26:14 -0400
-X-MC-Unique: lRLP7pKpPNWy9yIMnI1Lkw-1
-Received: from pps.filterd (m0109333.ppops.net [127.0.0.1])
- by mx0a-00082601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2A3EROVU008248
+ us-mta-26-XAv1ufVZMbqHY9q-P6ySfA-1; Thu, 03 Nov 2022 11:26:14 -0400
+X-MC-Unique: XAv1ufVZMbqHY9q-P6ySfA-1
+Received: from pps.filterd (m0148460.ppops.net [127.0.0.1])
+ by mx0a-00082601.pphosted.com (8.17.1.5/8.17.1.5) with ESMTP id 2A3CAIaO010064
  for <dm-devel@redhat.com>; Thu, 3 Nov 2022 08:26:13 -0700
 Received: from mail.thefacebook.com ([163.114.132.120])
- by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 3kkrv5484c-1
+ by mx0a-00082601.pphosted.com (PPS) with ESMTPS id 3kmddh1kr0-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES128-GCM-SHA256 bits=128 verify=NOT)
  for <dm-devel@redhat.com>; Thu, 03 Nov 2022 08:26:13 -0700
 Received: from snc-exhub201.TheFacebook.com (2620:10d:c085:21d::7) by
- snc-exhub204.TheFacebook.com (2620:10d:c085:21d::4) with Microsoft SMTP
+ snc-exhub101.TheFacebook.com (2620:10d:c085:11d::5) with Microsoft SMTP
  Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 3 Nov 2022 08:26:12 -0700
-Received: from twshared6758.06.ash9.facebook.com (2620:10d:c085:208::11) by
+ 15.1.2375.31; Thu, 3 Nov 2022 08:26:11 -0700
+Received: from twshared25017.14.frc2.facebook.com (2620:10d:c085:108::4) by
  mail.thefacebook.com (2620:10d:c085:21d::7) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2375.31; Thu, 3 Nov 2022 08:26:12 -0700
+ 15.1.2375.31; Thu, 3 Nov 2022 08:26:11 -0700
 Received: by devbig007.nao1.facebook.com (Postfix, from userid 544533)
- id 216FFAA9A075; Thu,  3 Nov 2022 08:26:00 -0700 (PDT)
+ id 6AAF0AA9A07C; Thu,  3 Nov 2022 08:26:00 -0700 (PDT)
 From: Keith Busch <kbusch@meta.com>
 To: <linux-block@vger.kernel.org>, <dm-devel@redhat.com>, <axboe@kernel.dk>
-Date: Thu, 3 Nov 2022 08:25:57 -0700
-Message-ID: <20221103152559.1909328-2-kbusch@meta.com>
+Date: Thu, 3 Nov 2022 08:25:58 -0700
+Message-ID: <20221103152559.1909328-3-kbusch@meta.com>
 In-Reply-To: <20221103152559.1909328-1-kbusch@meta.com>
 References: <20221103152559.1909328-1-kbusch@meta.com>
 MIME-Version: 1.0
 X-FB-Internal: Safe
-X-Proofpoint-ORIG-GUID: RtMK0PtMUver6jOoHpUcjqSV-0OLpEaG
-X-Proofpoint-GUID: RtMK0PtMUver6jOoHpUcjqSV-0OLpEaG
+X-Proofpoint-ORIG-GUID: JnUOgPTqxzf75w6-L3as-OdFPN25gmSp
+X-Proofpoint-GUID: JnUOgPTqxzf75w6-L3as-OdFPN25gmSp
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.205,Aquarius:18.0.895,Hydra:6.0.545,FMLib:17.11.122.1
  definitions=2022-11-03_04,2022-11-03_01,2022-06-22_01
@@ -94,10 +94,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Fri, 04 Nov 2022 06:50:05 +0000
-Subject: [dm-devel] [PATCH 1/3] block: make dma_alignment a stacking
- queue_limit
+Subject: [dm-devel] [PATCH 2/3] dm-crypt: provide dma_alignment limit in
+ io_hints
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,7 +113,7 @@ Cc: ebiggers@kernel.org, Keith Busch <kbusch@kernel.org>, mpatocka@redhat.com,
  me@demsh.org, stefanha@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -121,110 +121,30 @@ Content-Transfer-Encoding: 7bit
 
 From: Keith Busch <kbusch@kernel.org>
 
-Device mappers had always been getting the default 511 dma mask, but
-the underlying device might have a larger alignment requirement. Since
-this value is used to determine alloweable direct-io alignment, this
-needs to be a stackable limit.
+This device mapper needs bio vectors to be sized and memory aligned to
+the logical block size. Set the minimum required queue limit
+accordingly.
 
+Fixes: b1a000d3b8ec5 ("block: relax direct io memory alignment")
+Reportred-by: Eric Biggers <ebiggers@kernel.org>
+Reported-by: Dmitrii Tcvetkov <me@demsh.org>
 Signed-off-by: Keith Busch <kbusch@kernel.org>
 ---
- block/blk-core.c       |  1 -
- block/blk-settings.c   |  8 +++++---
- include/linux/blkdev.h | 15 ++++++++-------
- 3 files changed, 13 insertions(+), 11 deletions(-)
+ drivers/md/dm-crypt.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/block/blk-core.c b/block/blk-core.c
-index 3a2ed8dadf73..9d6a947024ea 100644
---- a/block/blk-core.c
-+++ b/block/blk-core.c
-@@ -418,7 +418,6 @@ struct request_queue *blk_alloc_queue(int node_id)
- 				PERCPU_REF_INIT_ATOMIC, GFP_KERNEL))
- 		goto fail_stats;
- 
--	blk_queue_dma_alignment(q, 511);
- 	blk_set_default_limits(&q->limits);
- 	q->nr_requests = BLKDEV_DEFAULT_RQ;
- 
-diff --git a/block/blk-settings.c b/block/blk-settings.c
-index 8bb9eef5310e..4949ed3ce7c9 100644
---- a/block/blk-settings.c
-+++ b/block/blk-settings.c
-@@ -57,6 +57,7 @@ void blk_set_default_limits(struct queue_limits *lim)
- 	lim->misaligned = 0;
- 	lim->zoned = BLK_ZONED_NONE;
- 	lim->zone_write_granularity = 0;
-+	lim->dma_alignment = 511;
- }
- EXPORT_SYMBOL(blk_set_default_limits);
- 
-@@ -600,6 +601,7 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
- 
- 	t->io_min = max(t->io_min, b->io_min);
- 	t->io_opt = lcm_not_zero(t->io_opt, b->io_opt);
-+	t->dma_alignment = max(t->dma_alignment, b->dma_alignment);
- 
- 	/* Set non-power-of-2 compatible chunk_sectors boundary */
- 	if (b->chunk_sectors)
-@@ -773,7 +775,7 @@ EXPORT_SYMBOL(blk_queue_virt_boundary);
-  **/
- void blk_queue_dma_alignment(struct request_queue *q, int mask)
- {
--	q->dma_alignment = mask;
-+	q->limits.dma_alignment = mask;
- }
- EXPORT_SYMBOL(blk_queue_dma_alignment);
- 
-@@ -795,8 +797,8 @@ void blk_queue_update_dma_alignment(struct request_queue *q, int mask)
- {
- 	BUG_ON(mask > PAGE_SIZE);
- 
--	if (mask > q->dma_alignment)
--		q->dma_alignment = mask;
-+	if (mask > q->limits.dma_alignment)
-+		q->limits.dma_alignment = mask;
- }
- EXPORT_SYMBOL(blk_queue_update_dma_alignment);
- 
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index 854b4745cdd1..69ee5ea29e2f 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -310,6 +310,13 @@ struct queue_limits {
- 	unsigned char		discard_misaligned;
- 	unsigned char		raid_partial_stripes_expensive;
- 	enum blk_zoned_model	zoned;
-+
-+	/*
-+	 * Drivers that set dma_alignment to less than 511 must be prepared to
-+	 * handle individual bvec's that are not a multiple of a SECTOR_SIZE
-+	 * due to possible offsets.
-+	 */
-+	unsigned int		dma_alignment;
- };
- 
- typedef int (*report_zones_cb)(struct blk_zone *zone, unsigned int idx,
-@@ -455,12 +462,6 @@ struct request_queue {
- 	unsigned long		nr_requests;	/* Max # of requests */
- 
- 	unsigned int		dma_pad_mask;
--	/*
--	 * Drivers that set dma_alignment to less than 511 must be prepared to
--	 * handle individual bvec's that are not a multiple of a SECTOR_SIZE
--	 * due to possible offsets.
--	 */
--	unsigned int		dma_alignment;
- 
- #ifdef CONFIG_BLK_INLINE_ENCRYPTION
- 	struct blk_crypto_profile *crypto_profile;
-@@ -1318,7 +1319,7 @@ static inline sector_t bdev_zone_sectors(struct block_device *bdev)
- 
- static inline int queue_dma_alignment(const struct request_queue *q)
- {
--	return q ? q->dma_alignment : 511;
-+	return q ? q->limits.dma_alignment : 511;
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 159c6806c19b..2653516bcdef 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -3630,6 +3630,7 @@ static void crypt_io_hints(struct dm_target *ti, struct queue_limits *limits)
+ 	limits->physical_block_size =
+ 		max_t(unsigned, limits->physical_block_size, cc->sector_size);
+ 	limits->io_min = max_t(unsigned, limits->io_min, cc->sector_size);
++	limits->dma_alignment = limits->logical_block_size - 1;
  }
  
- static inline unsigned int bdev_dma_alignment(struct block_device *bdev)
+ static struct target_type crypt_target = {
 -- 
 2.30.2
 
