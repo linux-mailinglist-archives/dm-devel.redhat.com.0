@@ -2,103 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8E957617834
-	for <lists+dm-devel@lfdr.de>; Thu,  3 Nov 2022 08:58:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 98F71617D32
+	for <lists+dm-devel@lfdr.de>; Thu,  3 Nov 2022 14:01:01 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667462291;
+	s=mimecast20190719; t=1667480460;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=iMLWhTIXAyE/n8j3QIsrK7zfBPfRR0S2OtyNWo/Xkhc=;
-	b=ZzypaEqgLDMwzEyOePer/dh/QtHwdU+J/A02p6EvAHP/PijAjkvuqUsgsDkN9Q2mCpSuBe
-	HQjCe0zh8AfxcdUAqyivwhAWoiCj/D5ExVGVBG5yq7I5bXqsDxEiaf8eggyAUAttpSujhx
-	vTtlHnfzlKsK5sKUYEq79fOdxG/fqTM=
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=64jLd916dqrVMadFFBY1JnpjFoJncH8ynm+3O2Hbc+M=;
+	b=Ya7Fi3NvGUOodhLS/8dbNESuhuwa9yoB+f0ZMS5WuGYoTsp+mH+bhSHtIkrWYyf/W+l8tQ
+	/8armzLNoAVhKtGtKQ7CkTZ/KSnhaPJAjwnXED4v2Iw9CkbfG3hKtKsH4cNdPc/D4M3JwM
+	O6uYvzquXU/GQmNdaz7xxLmZuDm3Ea0=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-408-WZBDcQFvOoKzUfFHUn_V8Q-1; Thu, 03 Nov 2022 03:57:25 -0400
-X-MC-Unique: WZBDcQFvOoKzUfFHUn_V8Q-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-591-SFH4uG5wPpSYivbyb2XjXA-1; Thu, 03 Nov 2022 09:00:57 -0400
+X-MC-Unique: SFH4uG5wPpSYivbyb2XjXA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87DF13C0F696;
-	Thu,  3 Nov 2022 07:57:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA9721C075A0;
+	Thu,  3 Nov 2022 13:00:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 699EBC034A3;
-	Thu,  3 Nov 2022 07:57:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 931302166B2E;
+	Thu,  3 Nov 2022 13:00:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 592601946594;
-	Thu,  3 Nov 2022 07:57:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0BE4F1946A6C;
+	Thu,  3 Nov 2022 13:00:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D69C51946594
- for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
+ ESMTP id 5F71219465A4
+ for <dm-devel@listman.corp.redhat.com>; Thu,  3 Nov 2022 13:00:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B5946492B09; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
+ id 4E8C9111CD3A; Thu,  3 Nov 2022 13:00:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AE80C492B06
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93C8E801231
- for <dm-devel@redhat.com>; Thu,  3 Nov 2022 07:35:37 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-214-Kg2PiyQVP1usi2NQPm6g6g-1; Thu, 03 Nov 2022 03:35:35 -0400
-X-MC-Unique: Kg2PiyQVP1usi2NQPm6g6g-1
-Received: by mail-pl1-f172.google.com with SMTP id y4so1156372plb.2
- for <dm-devel@redhat.com>; Thu, 03 Nov 2022 00:35:35 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:subject:from:to:user-agent:mime-version
- :date:message-id:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=oTGWQumIwIYgq/ddyb5Xf/lRMZTena1TqxoLY+5s09s=;
- b=ezzT4C/ODBEYecgAIHwjYAxdVfm3hIebRG5OogPWFpVouLt88MGLW3uFgsjht+rauE
- I7E10N5tbqStXwokREDH1bbKCheBLDODSmbB7t9GlxGoEPBI3lgfERNP3zdS1dWovT1F
- 0RkS63C1ytd/w8xZ7A18p11ivVy+fFUQvFxODsKwxf5X31RUlTmUtLaS/9RRGMXJYOer
- qQ2QZN4PGjEQpMRss1RDs0QJvruAe6Q9y3sQGxM1lFsXtjvbVCCGfOiNsAhUpaivvuV7
- g8DE3suDVRXFZr8J2mLJWPhR7PftniZrgGvNnPA6uyqK4yrV73h2VB7OcqFWvvmRi6uK
- lCZA==
-X-Gm-Message-State: ACrzQf2DpYezYtxhWsnHND0zbS0IBbgCk743lymoqzofsUqoAeqZdp0m
- m+9wpoMdna+pOsc2Yr6iIKExd7TcjzOgZg==
-X-Google-Smtp-Source: AMsMyM40KEkv1zx0bnGR5/9puq17gGzpl3fCaoLFg69b2PsxAzIrL2dDQuTU2iJ1NUUmydwJM4Dh+w==
-X-Received: by 2002:a17:903:2305:b0:186:ed93:fc3f with SMTP id
- d5-20020a170903230500b00186ed93fc3fmr28996139plh.15.1667460934006; 
- Thu, 03 Nov 2022 00:35:34 -0700 (PDT)
-Received: from [10.87.56.20] ([139.177.225.253])
- by smtp.gmail.com with ESMTPSA id
- x13-20020aa78f0d000000b00565c8634e55sm48305pfr.135.2022.11.03.00.35.31
- for <dm-devel@redhat.com>
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 03 Nov 2022 00:35:33 -0700 (PDT)
-Message-ID: <62cc8b6c-edc6-5ee6-d9fd-d1e0819db36c@bytedance.com>
-Date: Thu, 3 Nov 2022 15:35:29 +0800
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+ (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3A9641121325;
+ Thu,  3 Nov 2022 13:00:49 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
+ 2A3D0ntR011491; Thu, 3 Nov 2022 09:00:49 -0400
+Received: from localhost (mpatocka@localhost)
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
+ id 2A3D0nBl011487; Thu, 3 Nov 2022 09:00:49 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+ owned process doing -bs
+Date: Thu, 3 Nov 2022 09:00:49 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Guoqing Jiang <guoqing.jiang@linux.dev>,
+ Zdenek Kabelac <zkabelac@redhat.com>
+In-Reply-To: <78646e88-2457-81e1-e3e7-cf66b67ba923@linux.dev>
+Message-ID: <alpine.LRH.2.21.2211030851090.10884@file01.intranet.prod.int.rdu2.redhat.com>
+References: <alpine.LRH.2.21.2211021214390.25745@file01.intranet.prod.int.rdu2.redhat.com>
+ <78646e88-2457-81e1-e3e7-cf66b67ba923@linux.dev>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:91.0)
- Gecko/20100101 Thunderbird/91.13.0
-To: dm-devel@redhat.com
-From: Zhiyong Ye <yezhiyong@bytedance.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-X-Mailman-Approved-At: Thu, 03 Nov 2022 07:57:17 +0000
-Subject: [dm-devel] Question about how to share dm-thin on multiple hosts
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] A crash caused by the commit
+ 0dd84b319352bb8ba64752d4e45396d8b13e6018
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,38 +77,68 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Cc: linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed; BOUNDARY="185206533-311995707-1667479929=:10884"
+Content-ID: <alpine.LRH.2.21.2211030854150.10884@file01.intranet.prod.int.rdu2.redhat.com>
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+--185206533-311995707-1667479929=:10884
+Content-Type: text/plain; CHARSET=ISO-8859-15
+Content-Transfer-Encoding: 8BIT
+Content-ID: <alpine.LRH.2.21.2211030854151.10884@file01.intranet.prod.int.rdu2.redhat.com>
+
+
+
+On Thu, 3 Nov 2022, Guoqing Jiang wrote:
+
+> Hi,
+> 
+> On 11/3/22 12:27 AM, Mikulas Patocka wrote:
+> > Hi
+> > 
+> > There's a crash in the test shell/lvchange-rebuild-raid.sh when running
+> > the lvm testsuite. It can be reproduced by running "make check_local
+> > T=shell/lvchange-rebuild-raid.sh" in a loop.
+> 
+> I have problem to run the cmd (not sure what I missed), it would be better if
+> the relevant cmds are extracted from the script then I can reproduce it with
+> those cmds directly.
+
+Ask Zdenek Kabelac to help you with running the testsuite. He has better 
+understanding of the testsuite than me.
+
+> BTW, is the mempool_free from endio -> dec_count -> complete_io?
+> And io which caused the crash is from dm_io -> async_io / sync_io
+>  -> dispatch_io, seems dm-raid1 can call it instead of dm-raid, so I
+> suppose the io is for mirror image.
+> 
+> Thanks,
+> Guoqing
+
+I presume that the bug is caused by destruction of a bio set while bio 
+from that set was in progress. When the bio finishes and an attempt is 
+made to free the bio, a crash happens when the code tries to free the bio 
+into a destroyed mempool.
+
+I can do more testing to validate this theory.
+
+Mikulas
+--185206533-311995707-1667479929=:10884
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-
-Hi all,
-
-I am new to dm-devel. When using dm-thin via lvm, I found it difficult 
-to share dm-thin on multiple hosts.
-
-The background is that I want to implement live migration of VMs in the 
-lvm + iSCSI environment, in which lvmlockd is used to coordinate access 
-to shared storage. There are multiple hosts in the cluster using the 
-same iSCSI connection, and the VMs running in this environment use 
-thinlv volumes. But if want to live migrate the vm, it will be difficult 
-since thinlv which from the same thin pool can only be exclusive active 
-on one host.
-
-I'm curious why the dm-thin doesn't support multi-host shared access, 
-just like the dm-linear does. If I try to write a new dm-thin target or 
-make some modifications based on the existing dm-thin target to support 
-this feature, is it technically feasible?
-
-Regards!
-
-Zhiyong Ye
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--185206533-311995707-1667479929=:10884--
 
