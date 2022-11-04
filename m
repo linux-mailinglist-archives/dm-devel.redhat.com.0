@@ -1,102 +1,101 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 39EA461ED15
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 09:41:04 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F215961ED0E
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 09:40:18 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667810463;
+	s=mimecast20190719; t=1667810417;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ww18CL8GrMqzmShIOBJjHX1ePdJgAIx+BSrwLhV/wKA=;
-	b=AYv80JGUQG+vPjFFGYiaf0B4UJkXXrYdblqz46Kf2HGzecA8qUdTW2u3/C6rcA8gaJiNrE
-	USBYkhVjeWQ+H1PbTmA+y8YRJIuT/8rx5p1wX2RJP5oUNN1HovRh16rVnh0O8RDmnQTLd5
-	rRjOSXz+0uE8YMdP0Y/P2wpDfasbifw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=+ziVCiOeRctKEvGFfAvbtrFskAyxTsmn0FWOeYsOV18=;
+	b=f1enH1PxoAT0bUnrwscQjwguWFhX1CTtjj5O8vV4cB3zsNlX0cPK8jGpoQmJYyG5wrmLSJ
+	8BQrNhiRspHV3A+k7y6mIwhp6LxPtSKzAnDBy0BhC/BO7dO0SNd7BW5D1vPex20zz3no71
+	CqCcm6HBrymrWxFuG+RuKRkonTqENRc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-552-UQQxVNRNNeiE_k4zs8sgkA-1; Mon, 07 Nov 2022 03:40:14 -0500
-X-MC-Unique: UQQxVNRNNeiE_k4zs8sgkA-1
+ us-mta-101-xdzaP4jVP2Cab5SeEEl3_w-1; Mon, 07 Nov 2022 03:40:14 -0500
+X-MC-Unique: xdzaP4jVP2Cab5SeEEl3_w-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98CA81C168E3;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98AA618ABFA0;
 	Mon,  7 Nov 2022 08:40:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8EB6B42236;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 56AC235429;
 	Mon,  7 Nov 2022 08:40:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F9E31946A63;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 80AE41946A4D;
 	Mon,  7 Nov 2022 08:40:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 478821946586
- for <dm-devel@listman.corp.redhat.com>; Fri,  4 Nov 2022 11:30:40 +0000 (UTC)
+ ESMTP id 206C61946586
+ for <dm-devel@listman.corp.redhat.com>; Fri,  4 Nov 2022 11:30:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 35876112132C; Fri,  4 Nov 2022 11:30:40 +0000 (UTC)
+ id 02A52206400B; Fri,  4 Nov 2022 11:30:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E14E1121325
- for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EFADB2064009
+ for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E19A101A528
- for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:40 +0000 (UTC)
-Received: from mail-pg1-f198.google.com (mail-pg1-f198.google.com
- [209.85.215.198]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0CE685A59D
+ for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:47 +0000 (UTC)
+Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com
+ [209.85.216.70]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-167-uITczoENN_SVx5PoLE46oA-1; Fri, 04 Nov 2022 07:30:38 -0400
-X-MC-Unique: uITczoENN_SVx5PoLE46oA-1
-Received: by mail-pg1-f198.google.com with SMTP id
- g66-20020a636b45000000b0043a256d3639so2421172pgc.12
- for <dm-devel@redhat.com>; Fri, 04 Nov 2022 04:30:38 -0700 (PDT)
+ us-mta-284-3bFGrqJAMc-V3AMx5r_j3w-1; Fri, 04 Nov 2022 07:30:46 -0400
+X-MC-Unique: 3bFGrqJAMc-V3AMx5r_j3w-1
+Received: by mail-pj1-f70.google.com with SMTP id
+ pa16-20020a17090b265000b0020a71040b4cso2233893pjb.6
+ for <dm-devel@redhat.com>; Fri, 04 Nov 2022 04:30:46 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=E9ieE4VIDGcBaiULL1C+z5L6S0lWIm/B8H9v1NRSxPo=;
- b=JI9Ac85tPVuQg68HaPcZWvrIgxi4HDHePmguj4sVx/AyVQFbnbJn2gfxlUlfk2hq/2
- 6FQOZd2LVLLKUE50x6G/ahtZ8Ctrglyiv4e7uvci3dZ8agAcuGpzKbb+MZlRJYWhmzn+
- xUZXq0grAS0M6+6UeSZgUT8FeTyLGA/3W0qA3e/+2rlNPIAPUnVI193dI8JUcKq5aZQD
- F85FWAiKIAVFuDVx8k5psod74cwtChS7tVy6jQdGAlFx4RD+CicQl7htv+LOdM3ddxyL
- puc683Gl98QvDjcFhkTHDisKu3P/csF8fypPS5GAIzwYPYrza3HOa2rOkEudF8/wEnFo
- EZZA==
-X-Gm-Message-State: ACrzQf3+PDqNb0RCbqm6Kpk6LkDX2j3Ui4HwM0NHKHU+C5fMmDyaLUOg
- /q22butr7amxYWPvXRp9VfotdNyaTDOLMdA8Qw1IO8ofzxihfzBu1l3g11/33m/BCTPfbeme6WV
- 8Y/1c4AYxXzHKvrY=
-X-Received: by 2002:a17:902:f28b:b0:186:b069:63fc with SMTP id
- k11-20020a170902f28b00b00186b06963fcmr35566374plc.38.1667561437564; 
- Fri, 04 Nov 2022 04:30:37 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM7qypMeRgTqbqOB76+RxKWKqrfx12CwgsfSjDZBxgJGySGlq0PpZpwe2FJNfIghklVFI91+FQ==
-X-Received: by 2002:a17:902:f28b:b0:186:b069:63fc with SMTP id
- k11-20020a170902f28b00b00186b06963fcmr35566345plc.38.1667561437294; 
- Fri, 04 Nov 2022 04:30:37 -0700 (PDT)
+ bh=RevsFdiPw/fb8SaWA4i0OScuHjqawmx3PhXyedjj5ck=;
+ b=q47yhu8mkuKEU722O4KSemm5KT2QehCVU+ap409/YNE4lkgTgiFzAjb2the0xeekET
+ ZJ4d4nVJSbndlqHrKRQQ8tpLhJ3777ohyS5gvcEGor5dcoIZdvbPXvCgwZygeuTSYk34
+ IzGwNcNeXomNpYOeZzcvP2RcaB5q7ZCMMtpiK8/Zpv0gOowF0h+SkynfKoKX99bmVTok
+ Fy2a+f3LuWyLvHJmz1QsHhkudEKhty+m4pNk/MadZyWe/ZchgVTxCkMjLwc5UVEmEg1N
+ zsuIDSIJSr7bf7SauHIQWsHj4bFfyFjwT9pO1BgxJrWY4oV2qeSdVdAnE/3klsspV62T
+ 9VNg==
+X-Gm-Message-State: ACrzQf3Hjunodsvq+D0VJeI3idDBmQdHP6NEssSHtBygSgff8oQW2BR5
+ zo+IbF8wGoafVy4kemTxZf57ZE5aT0XTqRih5jpbFoy1DGDkH/4lAeP+A4hjsldzfoUFbqEpocY
+ lzqIhQAKaSrG7rCU=
+X-Received: by 2002:a17:90a:6d22:b0:213:7e1e:9be0 with SMTP id
+ z31-20020a17090a6d2200b002137e1e9be0mr35804892pjj.17.1667561445707; 
+ Fri, 04 Nov 2022 04:30:45 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM51CDYLEqWginckV/rN0elEiAXD4s8pR8U6DdMP+NZPO37JWjN6xDUyvoO9upVjiEVTkeoywQ==
+X-Received: by 2002:a17:90a:6d22:b0:213:7e1e:9be0 with SMTP id
+ z31-20020a17090a6d2200b002137e1e9be0mr35804871pjj.17.1667561445499; 
+ Fri, 04 Nov 2022 04:30:45 -0700 (PDT)
 Received: from localhost ([209.132.188.80]) by smtp.gmail.com with ESMTPSA id
- k30-20020aa7999e000000b0056bcfe015c9sm2458149pfh.204.2022.11.04.04.30.35
+ c5-20020a056a00008500b005629b6a8b53sm2609597pfj.15.2022.11.04.04.30.43
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Nov 2022 04:30:36 -0700 (PDT)
+ Fri, 04 Nov 2022 04:30:45 -0700 (PDT)
 From: Coiby Xu <coxu@redhat.com>
 To: kexec@lists.infradead.org
-Date: Fri,  4 Nov 2022 19:29:58 +0800
-Message-Id: <20221104113000.487098-4-coxu@redhat.com>
+Date: Fri,  4 Nov 2022 19:29:59 +0800
+Message-Id: <20221104113000.487098-5-coxu@redhat.com>
 In-Reply-To: <20221104113000.487098-1-coxu@redhat.com>
 References: <20221104113000.487098-1-coxu@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Mon, 07 Nov 2022 08:40:06 +0000
-Subject: [dm-devel] [RFC v2 3/5] x86/crash: pass the LUKS volume key to
- kdump kernel
+Subject: [dm-devel] [RFC v2 4/5] x86/crash: make the page that stores the
+ LUKS volume key inaccessible
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,10 +112,9 @@ Cc: "maintainer:X86 ARCHITECTURE 32-BIT AND 64-BIT" <x86@kernel.org>,
  Dave Hansen <dave.hansen@linux.intel.com>, dm-devel@redhat.com,
  Pingfan Liu <kernelfans@gmail.com>, linux-kernel@vger.kernel.org,
  Kairui Song <ryncsn@gmail.com>, Ingo Molnar <mingo@redhat.com>,
- Borislav Petkov <bp@alien8.de>, Eric Biederman <ebiederm@xmission.com>,
- Jan Pazdziora <jpazdziora@redhat.com>, Thomas Staudt <tstaudt@de.ibm.com>,
- Thomas Gleixner <tglx@linutronix.de>, Dave Young <dyoung@redhat.com>,
- Milan Broz <gmazyland@gmail.com>
+ Borislav Petkov <bp@alien8.de>, Jan Pazdziora <jpazdziora@redhat.com>,
+ Thomas Staudt <tstaudt@de.ibm.com>, Thomas Gleixner <tglx@linutronix.de>,
+ Dave Young <dyoung@redhat.com>, Milan Broz <gmazyland@gmail.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
@@ -125,142 +123,45 @@ X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-1st kernel will build up the kernel command parameter luksvolumekey as
-similar to elfcorehdr to pass the memory address of the stored info of
-LUKS volume key to kdump kernel.
+This adds an addition layer of protection for the saved copy of LUKS
+volume key. Trying to access the saved copy will cause page fault.
 
+Suggested-by: Pingfan Liu <kernelfans@gmail.com>
 Signed-off-by: Coiby Xu <coxu@redhat.com>
 ---
- arch/x86/include/asm/crash.h      |  1 +
- arch/x86/kernel/crash.c           | 47 ++++++++++++++++++++++++++++++-
- arch/x86/kernel/kexec-bzimage64.c |  7 +++++
- include/linux/kexec.h             |  4 +++
- 4 files changed, 58 insertions(+), 1 deletion(-)
+ arch/x86/kernel/machine_kexec_64.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/arch/x86/include/asm/crash.h b/arch/x86/include/asm/crash.h
-index 8b6bd63530dc..485f75dce2ca 100644
---- a/arch/x86/include/asm/crash.h
-+++ b/arch/x86/include/asm/crash.h
-@@ -4,6 +4,7 @@
- 
- struct kimage;
- 
-+int crash_load_luks_volume_key(struct kimage *image);
- int crash_load_segments(struct kimage *image);
- int crash_setup_memmap_entries(struct kimage *image,
- 		struct boot_params *params);
-diff --git a/arch/x86/kernel/crash.c b/arch/x86/kernel/crash.c
-index 9730c88530fc..5ceda2802482 100644
---- a/arch/x86/kernel/crash.c
-+++ b/arch/x86/kernel/crash.c
-@@ -304,6 +304,7 @@ static int memmap_exclude_ranges(struct kimage *image, struct crash_mem *cmem,
- 				 unsigned long long mend)
- {
- 	unsigned long start, end;
-+	int r;
- 
- 	cmem->ranges[0].start = mstart;
- 	cmem->ranges[0].end = mend;
-@@ -312,7 +313,19 @@ static int memmap_exclude_ranges(struct kimage *image, struct crash_mem *cmem,
- 	/* Exclude elf header region */
- 	start = image->elf_load_addr;
- 	end = start + image->elf_headers_sz - 1;
--	return crash_exclude_mem_range(cmem, start, end);
-+	r = crash_exclude_mem_range(cmem, start, end);
-+
-+	if (r)
-+		return r;
-+
-+	/* Exclude LUKS volume key region */
-+	if (image->luks_volume_key_addr) {
-+		start = image->luks_volume_key_addr;
-+		end = start + image->luks_volume_key_sz - 1;
-+		return crash_exclude_mem_range(cmem, start, end);
-+	}
-+
-+	return r;
+diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
+index 0611fd83858e..f3d51c38a1c9 100644
+--- a/arch/x86/kernel/machine_kexec_64.c
++++ b/arch/x86/kernel/machine_kexec_64.c
+@@ -557,9 +557,25 @@ static void kexec_mark_crashkres(bool protect)
+ 	kexec_mark_range(control, crashk_res.end, protect);
  }
  
- /* Prepare memory map for crash dump kernel */
-@@ -383,6 +396,38 @@ int crash_setup_memmap_entries(struct kimage *image, struct boot_params *params)
- 	return ret;
- }
- 
-+int crash_load_luks_volume_key(struct kimage *image)
++static void kexec_mark_luks_volume_key_inaccessible(void)
 +{
-+	int ret;
-+	struct kexec_buf kbuf = {
-+		.image = image,
-+		.buf_min = 0,
-+		.buf_max = ULONG_MAX,
-+		.top_down = false,
-+		.random = true,
-+	};
++	unsigned long start, end;
++	struct page *page;
++	unsigned int nr_pages;
 +
-+	image->luks_volume_key_addr = 0;
-+	ret = crash_pass_temp_luks_volume_key(&kbuf.buffer, &kbuf.bufsz);
-+	if (ret)
-+		return ret;
-+
-+	kbuf.memsz = kbuf.bufsz;
-+	kbuf.buf_align = ELF_CORE_HEADER_ALIGN;
-+	kbuf.mem = KEXEC_BUF_MEM_UNKNOWN;
-+	ret = kexec_add_buffer(&kbuf);
-+	if (ret) {
-+		vfree((void *)kbuf.buffer);
-+		return ret;
++	if (kexec_crash_image->luks_volume_key_addr) {
++		start = kexec_crash_image->luks_volume_key_addr;
++		end = start + kexec_crash_image->luks_volume_key_sz - 1;
++		page = pfn_to_page(start >> PAGE_SHIFT);
++		nr_pages = (end >> PAGE_SHIFT) - (start >> PAGE_SHIFT) + 1;
++		set_memory_np((unsigned long)page_address(page), nr_pages);
 +	}
-+	image->luks_volume_key_addr = kbuf.mem;
-+	image->luks_volume_key_sz = kbuf.bufsz;
-+	pr_debug("Loaded LUKS volume key at 0x%lx bufsz=0x%lx memsz=0x%lx\n",
-+		 image->luks_volume_key_addr, kbuf.bufsz, kbuf.bufsz);
-+
-+	return ret;
 +}
 +
- int crash_load_segments(struct kimage *image)
+ void arch_kexec_protect_crashkres(void)
  {
- 	int ret;
-diff --git a/arch/x86/kernel/kexec-bzimage64.c b/arch/x86/kernel/kexec-bzimage64.c
-index f299b48f9c9f..e556dbf96695 100644
---- a/arch/x86/kernel/kexec-bzimage64.c
-+++ b/arch/x86/kernel/kexec-bzimage64.c
-@@ -75,6 +75,10 @@ static int setup_cmdline(struct kimage *image, struct boot_params *params,
- 	if (image->type == KEXEC_TYPE_CRASH) {
- 		len = sprintf(cmdline_ptr,
- 			"elfcorehdr=0x%lx ", image->elf_load_addr);
-+
-+		if (image->luks_volume_key_addr != 0)
-+			len += sprintf(cmdline_ptr + len,
-+					"luksvolumekey=0x%lx ", image->luks_volume_key_addr);
- 	}
- 	memcpy(cmdline_ptr + len, cmdline, cmdline_len);
- 	cmdline_len += len;
-@@ -371,6 +375,9 @@ static void *bzImage64_load(struct kimage *image, char *kernel,
- 		ret = crash_load_segments(image);
- 		if (ret)
- 			return ERR_PTR(ret);
-+		ret = crash_load_luks_volume_key(image);
-+		if (ret)
-+			pr_debug("Either no LUKS volume key or error to retrieve the LUKS volume key\n");
- 	}
+ 	kexec_mark_crashkres(true);
++	kexec_mark_luks_volume_key_inaccessible();
+ }
  
- 	/*
-diff --git a/include/linux/kexec.h b/include/linux/kexec.h
-index c0edb64bf6c4..ed7a0ec70129 100644
---- a/include/linux/kexec.h
-+++ b/include/linux/kexec.h
-@@ -385,6 +385,10 @@ struct kimage {
- 	void *elf_headers;
- 	unsigned long elf_headers_sz;
- 	unsigned long elf_load_addr;
-+
-+	/* LUKS volume key buffer */
-+	unsigned long luks_volume_key_addr;
-+	unsigned long luks_volume_key_sz;
- };
- 
- /* kexec interface functions */
+ void arch_kexec_unprotect_crashkres(void)
 -- 
 2.37.3
 
