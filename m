@@ -1,99 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FC5461ED17
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 09:41:06 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED1E461ED0C
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 09:40:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667810465;
+	s=mimecast20190719; t=1667810415;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=79rLiB0Cues7XZruW8eNQMZGK/U1uxwjABfssy4+VY8=;
-	b=jDnc0DwtWfaDZ1T6UqLtZweVgMLWGGpenuPWFLyH7idmq/tjNKoVtmiRkR27LymgsonqkF
-	58KWQgPp5m7sRh0gwZoPmZzwrAK6SGj0inabrN4AwVk1yJIaRkcclqlDPQy5tFdloX4KCA
-	EugLvLwopfCuyv954BirzokpuCEucjw=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ltklqOYjD/Z/Ig/BxaI2E4BJWg3wy84U+rIipbyt4C8=;
+	b=RNuJRBrpAAWZuQL26U7itC8uCofuc1fLVLCLLdZNiQXc2ijIt6+1YPhpQhx1YxHzpBHZ70
+	fkygskzJfCNBHMfnrtB7b1Qmgr3+HiuBUEWv2BVAW9isvfn+ws0/unJ60EHjMUoeYvAuSL
+	KAD1O43jjOY6/9Q6OAGy7Lfb2X2i05w=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-554-SulnkOyGMwuHcxWw81Vc8Q-1; Mon, 07 Nov 2022 03:40:13 -0500
-X-MC-Unique: SulnkOyGMwuHcxWw81Vc8Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-20-GAnfu8b5P3-FdwiZSCC_4w-1; Mon, 07 Nov 2022 03:40:13 -0500
+X-MC-Unique: GAnfu8b5P3-FdwiZSCC_4w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9841318ABF90;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 998412A5954B;
 	Mon,  7 Nov 2022 08:40:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EA75C1121315;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7CD9E2028E8F;
 	Mon,  7 Nov 2022 08:40:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3B4C51946594;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 06C8519465A8;
 	Mon,  7 Nov 2022 08:40:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7DCD11946587
- for <dm-devel@listman.corp.redhat.com>; Fri,  4 Nov 2022 11:30:12 +0000 (UTC)
+ ESMTP id 7DCB31946586
+ for <dm-devel@listman.corp.redhat.com>; Fri,  4 Nov 2022 11:30:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 775EF112132C; Fri,  4 Nov 2022 11:30:12 +0000 (UTC)
+ id D6ED040C6F73; Fri,  4 Nov 2022 11:30:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FD4D1121325
- for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:12 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CFA0340C6EE9
+ for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:21 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50BFB101A52A
- for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:12 +0000 (UTC)
-Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com
- [209.85.214.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B46AD811E7A
+ for <dm-devel@redhat.com>; Fri,  4 Nov 2022 11:30:21 +0000 (UTC)
+Received: from mail-pl1-f200.google.com (mail-pl1-f200.google.com
+ [209.85.214.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-368-jLlnPZ74N16mnSJsR9M0cg-1; Fri, 04 Nov 2022 07:30:11 -0400
-X-MC-Unique: jLlnPZ74N16mnSJsR9M0cg-1
-Received: by mail-pl1-f197.google.com with SMTP id
- i8-20020a170902c94800b0018712ccd6bbso3391800pla.1
- for <dm-devel@redhat.com>; Fri, 04 Nov 2022 04:30:11 -0700 (PDT)
+ us-mta-627-sW-QlLbxN7S2MWuKb8se_A-1; Fri, 04 Nov 2022 07:30:20 -0400
+X-MC-Unique: sW-QlLbxN7S2MWuKb8se_A-1
+Received: by mail-pl1-f200.google.com with SMTP id
+ n1-20020a170902f60100b00179c0a5c51fso3388433plg.7
+ for <dm-devel@redhat.com>; Fri, 04 Nov 2022 04:30:20 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=X2vF9wu9D9A9HBRSXFDC1P9Ez4nhQcXyZNLm0dcpRMo=;
- b=pml4A9x1JvoFTd9LU2D6HcLRHZ1pzrppPFc41eZLX0BF33PNcLfgHBGCNecpJR9ndD
- 5tjYM6+4M0PtIvLsKs+RC4TkszAIbVoZIzvP4jBGryfGZ/OojAkeLD9NsXrWGvwv69wb
- w9fWWtsTwrRF9p3NEyqpay9mzprX/dKyRIXNVplimC2fVms3maK353VGPy9y6j23sP7I
- NQqy6EAzk4sMjBejLzO2sjud7oo4UKD6d6VYbYM24se67LLi9e8Z14wQstPUMMu+PSu/
- vYyHiVJ9c3JHdnP2+lauH5r5mnKyKK0FVExQxDWJ9uMBBJ1MthpYTWfhS9iSmubFcU6d
- 08Mw==
-X-Gm-Message-State: ACrzQf0ySH4YoFx0KTsu6cKv7dFW+BX41Tfxj6SYtWh/PJlYnzrajOIW
- ENyq3PM47xVG6qYtZrpB9D03JeKY8qqKDtPB7nJuEH4jDfjf1TKF7uOuKS3mknm7G0lPty2qEaz
- v3NmK5Nfk9ze41Mo=
-X-Received: by 2002:a05:6a00:84b:b0:56d:3cf5:1031 with SMTP id
- q11-20020a056a00084b00b0056d3cf51031mr30151532pfk.75.1667561410122; 
- Fri, 04 Nov 2022 04:30:10 -0700 (PDT)
-X-Google-Smtp-Source: AMsMyM6ZmqK77wd2hCvap39otYWhRGk7HSG6DR3nAEU2Jv3tyaB6tseG9Ymp8fTHcgu2gG1DjEWLsQ==
-X-Received: by 2002:a05:6a00:84b:b0:56d:3cf5:1031 with SMTP id
- q11-20020a056a00084b00b0056d3cf51031mr30151497pfk.75.1667561409825; 
- Fri, 04 Nov 2022 04:30:09 -0700 (PDT)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=uJy9Oiy5cpKmClijTkDe6KXjFE6VRuxm2Fp2gVJ4PwQ=;
+ b=KQOf1bCx09qWTT8nVKSqGUm1eQqEwLiqGKjvqhUEXobELz1fRnEuTa8PGOoluq1k6S
+ 0FK/u3uLQNpfY1C1H3Pu/UKTocgdcGukBu7v1Kwmn0FUQ9Yr2XxweXKUtX0ld63vVP8h
+ AET2T57Cr7HdUvC/ZeEE2nHn3LjK2adjJx0/gEB92t0H4PWgdHejdK+OjPyFsZz3gPXZ
+ PzctT5z9U9hw2v5PGDI10r4Hv4PUg78uEzB3FJ1GemaqObWaV1J8YAAMkXZNmf9KfWpn
+ S/TylET+UmBZ2xwcFy64TeU7YsMiDmt1AsaIqSIcCb/U4G/Uxr60ZnyIq+GShElndLix
+ SJSQ==
+X-Gm-Message-State: ACrzQf3tVseVbowLLeXbtgSgY+XthNEv+tq5f1K47OmWjK0qkyKyiURI
+ EJzGLJLUGYfC0JQYw12+t/NMqGDU65AH2YwOyJzTYVO0dkfuJ4aYT9B3QUBrktrJ5/4bAj/jcwh
+ cllt4BaQyQhFaMNw=
+X-Received: by 2002:a17:902:aa46:b0:186:e220:11d4 with SMTP id
+ c6-20020a170902aa4600b00186e22011d4mr35254827plr.163.1667561419297; 
+ Fri, 04 Nov 2022 04:30:19 -0700 (PDT)
+X-Google-Smtp-Source: AMsMyM5pcZ6tNaPqq0YoJX850E6WOJZ5lbYOLfvzVTVy1cDIH4ecstbrpazqOrRO+fSBQKpe6bAfZw==
+X-Received: by 2002:a17:902:aa46:b0:186:e220:11d4 with SMTP id
+ c6-20020a170902aa4600b00186e22011d4mr35254808plr.163.1667561419017; 
+ Fri, 04 Nov 2022 04:30:19 -0700 (PDT)
 Received: from localhost ([209.132.188.80]) by smtp.gmail.com with ESMTPSA id
- p189-20020a625bc6000000b0056abff42a8bsm2503420pfb.69.2022.11.04.04.30.06
+ f11-20020a170902684b00b0018855a22ccfsm2430982pln.91.2022.11.04.04.30.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 04 Nov 2022 04:30:08 -0700 (PDT)
+ Fri, 04 Nov 2022 04:30:18 -0700 (PDT)
 From: Coiby Xu <coxu@redhat.com>
 To: kexec@lists.infradead.org
-Date: Fri,  4 Nov 2022 19:29:55 +0800
-Message-Id: <20221104113000.487098-1-coxu@redhat.com>
+Date: Fri,  4 Nov 2022 19:29:56 +0800
+Message-Id: <20221104113000.487098-2-coxu@redhat.com>
+In-Reply-To: <20221104113000.487098-1-coxu@redhat.com>
+References: <20221104113000.487098-1-coxu@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Mon, 07 Nov 2022 08:40:06 +0000
-Subject: [dm-devel] [RFC v2 0/5] Support kdump with LUKS encryption by
- reusing LUKS volume key
+Subject: [dm-devel] [RFC v2 1/5] kexec_file: allow to place kexec_buf
+ randomly
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,129 +110,98 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: Baoquan He <bhe@redhat.com>, dm-devel@redhat.com,
  Pingfan Liu <kernelfans@gmail.com>, linux-kernel@vger.kernel.org,
- Kairui Song <ryncsn@gmail.com>, Jan Pazdziora <jpazdziora@redhat.com>,
- Thomas Staudt <tstaudt@de.ibm.com>, Dave Young <dyoung@redhat.com>,
- Milan Broz <gmazyland@gmail.com>
+ Kairui Song <ryncsn@gmail.com>, Eric Biederman <ebiederm@xmission.com>,
+ Jan Pazdziora <jpazdziora@redhat.com>, Thomas Staudt <tstaudt@de.ibm.com>,
+ Dave Young <dyoung@redhat.com>, Milan Broz <gmazyland@gmail.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-RFC v2
- - libcryptsetup interacts with the kernel via sysfs instead of "hacking"
-   dm-crypt 
-   - to save a kdump copy of the LUKS volume key in 1st kernel
-   - to add a logon key using the copy for libcryptsetup in kdump kernel [Milan]
-   - to avoid the incorrect usage of LUKS master key in dm-crypt [Milan]
- - save the kdump copy of LUKS volume key randomly [Jan]
- - mark the kdump copy inaccessible [Pingfan]
- - Miscellaneous
-   - explain when operations related to the LUKS volume key happen [Jan]
-   - s/master key/volume key/g
-   - use crash_ instead of kexec_ as function prefix
-   - fix commit subject prefixes e.g. "x86, kdump" to x86/crash
+Currently, kexec_buf is placed in order which means for the same
+machine, the info in the kexec_buf is always located at the same
+position each time the machine is booted. This may cause a risk for
+sensitive information like LUKS volume key. Now struct kexec_buf has a
+new field random which indicates it's supposed to be placed in a random
+position.
 
-With kdump enabled, when the 1st kernel crashes, the system could boot
-into the kdump/crash kernel and dump the memory image i.e. /proc/vmcore
-to a specified target. Currently, when dumping vmcore to a LUKS
-encrypted device, there are two problems,
+Suggested-by: Jan Pazdziora <jpazdziora@redhat.com>
+Signed-off-by: Coiby Xu <coxu@redhat.com>
+---
+ include/linux/kexec.h |  2 ++
+ kernel/kexec_file.c   | 15 +++++++++++++++
+ 2 files changed, 17 insertions(+)
 
- - for some machines, a system administrator may not have a chance to
-   enter the password to decrypt the device in kdump initramfs after the
-   1st kernel crashes 
-
- - LUKS2 by default use the memory-hard Argon2 key derivation function
-   which is quite memory-consuming compared to the limited memory reserved
-   for kdump. Take Fedora example, by default, only 256M is reserved for
-   systems having memory between 4G-64G. With LUKS enabled, ~1300M needs
-   to be reserved for kdump. Note if the memory reserved for kdump can't
-   be used by 1st kernel i.e. an user sees ~1300M memory missing in the
-   1st kernel. 
+diff --git a/include/linux/kexec.h b/include/linux/kexec.h
+index 13e6c4b58f07..c0edb64bf6c4 100644
+--- a/include/linux/kexec.h
++++ b/include/linux/kexec.h
+@@ -171,6 +171,7 @@ int kexec_image_post_load_cleanup_default(struct kimage *image);
+  * @buf_min:	The buffer can't be placed below this address.
+  * @buf_max:	The buffer can't be placed above this address.
+  * @top_down:	Allocate from top of memory.
++ * @random:	Place the buffer at a random position.
+  */
+ struct kexec_buf {
+ 	struct kimage *image;
+@@ -182,6 +183,7 @@ struct kexec_buf {
+ 	unsigned long buf_min;
+ 	unsigned long buf_max;
+ 	bool top_down;
++	bool random;
+ };
  
-Besides users (at least for Fedora) usually expect kdump to work out of
-the box i.e. no manual password input is needed. And it doesn't make
-sense to derivate the key again in kdump kernel which seems to be
-redundant work.
-
-Based on Milan's feedback [1] on Kairui's ideas to support kdump with
-LUKS encryption, this patch set addresses the above issues by reusing
-the LUKS volume key in kdump kernel and here is the life cycle of this
-kdump copy of LUKS volume key,
-
- 1. After the 1st kernel loads the initramfs during boot, systemd
-    asks for a passphrase from the user and uses it to de-crypt the LUKS
-    volume key
-
- 2. After the 1st kernel saving the volume key as a logon key,
-    libcrytpsetup notifies the kernel to read this logon key and store a
-    temporary copy by writing the key description to
-    /sys/kernel/crash_luks_volume_key
-
- 3. After switching to the real root fs, kdump.serivce is started and it 
-    loads the kdump kernel using the kexec_file_load syscall
-
- 4. The kexec_file_load syscall saves the temporary copy of the volume
-    key to kdump reserved memory and wipe the copy.
-
- 5. When the 1st kernel crashes and kdump kernel is booted,
-    libcryptsetup asks the kdump kernel to add a logon key using
-    the volume key stored in kdump reserved memory by writing the key
-    description to /sys/kernel/crash_luks_volume_key
-
- 6. The system gets rebooted to the 1st kernel after dumping vmcore to
-    the LUKS encrypted device is finished
-
-Note the kdump copy of LUKS volume key never leaves the kernel space and
-is saved in the memory area exclusively reserved for kdump where even
-the 1st kernel has no direct access. 
-
-Milan's major concern [2] on previous version is "storing the encryption
-key to yet another place are creating another attack vector". To further
-secure this copy, two additional protections are added,
- - save the copy randomly in kdump reserved memory as suggested by Jan
- - clear the _PAGE_PRESENT flag of the page that stores the copy as
-   suggested by Pingfan
-
-If there is no further security concern with this approach or any other
-concern, I will drop the following assumptions,
-  - only x86 is supported
-  - there is only one LUKS device for the system
-
-to extend the support to other architectures including POWER, ARM and
-s390x and address the case of multiple LUKS devices. Any feedback will be 
-appreciated, thanks!
-
-For a proof of concept, I've patched cryptsetup [3] in a quick-and-dirty
-way to support a new option "--kdump-kernel-master-key"
-and hacked systemd [4]. It works for Fedora 35.
-
-[1] https://yhbt.net/lore/all/e5abd089-3398-fdb4-7991-0019be434b79@gmail.com/
-[2] https://lwn.net/ml/linux-kernel/c857dcf8-024e-ab8a-fd26-295ce2e0ae41@gmail.com/
-[3] https://gitlab.com/coxu/cryptsetup/-/commit/750a46d933fac82e0c994b5c41de40a0b8cac647
-[4] https://github.com/coiby/systemd/tree/reuse_kdump_master_key
-
-Coiby Xu (5):
-  kexec_file: allow to place kexec_buf randomly
-  crash_dump: save the LUKS volume key temporarily
-  x86/crash: pass the LUKS volume key to kdump kernel
-  x86/crash: make the page that stores the LUKS volume key inaccessible
-  crash_dump: retrieve LUKS volume key in kdump kernel
-
- arch/x86/include/asm/crash.h       |   1 +
- arch/x86/kernel/crash.c            |  47 ++++++-
- arch/x86/kernel/kexec-bzimage64.c  |   7 +
- arch/x86/kernel/machine_kexec_64.c |  16 +++
- include/linux/crash_core.h         |   2 +
- include/linux/crash_dump.h         |   2 +
- include/linux/kexec.h              |   6 +
- kernel/crash_dump.c                | 200 +++++++++++++++++++++++++++++
- kernel/kexec_file.c                |  15 +++
- kernel/ksysfs.c                    |  19 +++
- 10 files changed, 314 insertions(+), 1 deletion(-)
-
+ int kexec_load_purgatory(struct kimage *image, struct kexec_buf *kbuf);
+diff --git a/kernel/kexec_file.c b/kernel/kexec_file.c
+index a7b411c22f19..ed9fcc369312 100644
+--- a/kernel/kexec_file.c
++++ b/kernel/kexec_file.c
+@@ -25,6 +25,7 @@
+ #include <linux/elfcore.h>
+ #include <linux/kernel.h>
+ #include <linux/kernel_read_file.h>
++#include <linux/prandom.h>
+ #include <linux/syscalls.h>
+ #include <linux/vmalloc.h>
+ #include "kexec_internal.h"
+@@ -412,6 +413,16 @@ SYSCALL_DEFINE5(kexec_file_load, int, kernel_fd, int, initrd_fd,
+ 	return ret;
+ }
+ 
++static unsigned long kexec_random_start(unsigned long start, unsigned long end)
++{
++	unsigned long temp_start;
++	unsigned short i;
++
++	get_random_bytes(&i, sizeof(unsigned short));
++	temp_start = start + (end - start) / USHRT_MAX * i;
++	return temp_start;
++}
++
+ static int locate_mem_hole_top_down(unsigned long start, unsigned long end,
+ 				    struct kexec_buf *kbuf)
+ {
+@@ -420,6 +431,8 @@ static int locate_mem_hole_top_down(unsigned long start, unsigned long end,
+ 
+ 	temp_end = min(end, kbuf->buf_max);
+ 	temp_start = temp_end - kbuf->memsz;
++	if (kbuf->random)
++		temp_start = kexec_random_start(temp_start, temp_end);
+ 
+ 	do {
+ 		/* align down start */
+@@ -457,6 +470,8 @@ static int locate_mem_hole_bottom_up(unsigned long start, unsigned long end,
+ 	unsigned long temp_start, temp_end;
+ 
+ 	temp_start = max(start, kbuf->buf_min);
++	if (kbuf->random)
++		temp_start = kexec_random_start(temp_start, end);
+ 
+ 	do {
+ 		temp_start = ALIGN(temp_start, kbuf->buf_align);
 -- 
 2.37.3
 
