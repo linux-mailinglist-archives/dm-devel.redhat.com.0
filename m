@@ -2,72 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CDF2C61F75D
-	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 16:16:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49D6461FF80
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 21:26:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667834163;
+	s=mimecast20190719; t=1667852774;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Q03k8XtdbW6DdS6IA66BhlKSfx2QCPMMB8O53bJ7HEw=;
-	b=OiErF1GTD0xdojgvzDpgMek7otivpbQlxVsB2ga3xdGBOzri1ZN3eUpi4L+/Mfnxu2dHmm
-	oqxpJDYQ2AvLMJlpzlHNg0cPlsMUMLL5skPFgjNbmdwXbg5m+BaUAx56nkOD4T/y5zzKDg
-	eQYC1AudDS/CN4Q+VZCT4nx2DhFJqTg=
+	bh=yBGXobG3zjPHJ6T+9b7UswCaG/+Rl+WHeOSjN/Ydgx0=;
+	b=fi9ZrFjS786xvDEZGnFlG5L41mRj0t5G2352OnSQkgWb2OHZ7R/5s1jUHiRnER3JVg/H9G
+	RSMoIMVYmQILrtdI3YzuwhpU+fLhad9hk5xQ3Pi7GD0nn0R/CQyCtbQiBlZmHvmFDnxTNa
+	VX+YCtHqBzTJJZ4+hBl4aDj8txfNwq0=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-616-yT1tS2uNNz-YquvZ9QRHyw-1; Mon, 07 Nov 2022 10:15:36 -0500
-X-MC-Unique: yT1tS2uNNz-YquvZ9QRHyw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-653--gdqZ72lOt-p3DvkGCPL7w-1; Mon, 07 Nov 2022 15:26:12 -0500
+X-MC-Unique: -gdqZ72lOt-p3DvkGCPL7w-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 531D23814580;
-	Mon,  7 Nov 2022 15:15:34 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3E2B140C2064;
-	Mon,  7 Nov 2022 15:15:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D94A38164CE;
+	Mon,  7 Nov 2022 20:26:09 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B9CE8477F5E;
+	Mon,  7 Nov 2022 20:26:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 119FE19465A2;
-	Mon,  7 Nov 2022 15:15:24 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3BCF21946597;
+	Mon,  7 Nov 2022 20:26:08 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A812A1946587
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Nov 2022 15:15:23 +0000 (UTC)
+ ESMTP id B64E31946587
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Nov 2022 20:26:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8E7404B3FC8; Mon,  7 Nov 2022 15:15:23 +0000 (UTC)
+ id 780382166B31; Mon,  7 Nov 2022 20:26:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 86F8A4B3FC6
- for <dm-devel@redhat.com>; Mon,  7 Nov 2022 15:15:23 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 707032166B29
+ for <dm-devel@redhat.com>; Mon,  7 Nov 2022 20:26:06 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6B34F2932485
- for <dm-devel@redhat.com>; Mon,  7 Nov 2022 15:15:23 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-39-xV9iqSfXPfqtPUo2VeyxZQ-1; Mon, 07 Nov 2022 10:15:21 -0500
-X-MC-Unique: xV9iqSfXPfqtPUo2VeyxZQ-1
-Received: from [2001:4bb8:191:2450:bd6a:c86c:b287:8b99] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1os3Ki-00FJc7-5v; Mon, 07 Nov 2022 14:42:40 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Mon,  7 Nov 2022 15:42:29 +0100
-Message-Id: <20221107144229.1547370-4-hch@lst.de>
-In-Reply-To: <20221107144229.1547370-1-hch@lst.de>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C59085A59D
+ for <dm-devel@redhat.com>; Mon,  7 Nov 2022 20:26:06 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-205-rgYj-h0FM6mQyf1iOlbIJg-1; Mon, 07 Nov 2022 15:26:04 -0500
+X-MC-Unique: rgYj-h0FM6mQyf1iOlbIJg-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by sin.source.kernel.org (Postfix) with ESMTPS id 05B40CE178C;
+ Mon,  7 Nov 2022 20:16:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F37EBC433C1;
+ Mon,  7 Nov 2022 20:16:23 +0000 (UTC)
+Date: Mon, 7 Nov 2022 12:16:22 -0800
+From: Eric Biggers <ebiggers@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <Y2lnloNN5wovDBMF@sol.localdomain>
 References: <20221107144229.1547370-1-hch@lst.de>
+ <20221107144229.1547370-2-hch@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20221107144229.1547370-2-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH 3/3] blk-crypto: move __blk_crypto_cfg_supported
- to blk-crypto-internal.h
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH 1/3] blk-crypto: don't use struct
+ request_queue for public interfaces
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,57 +92,81 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, "Theodore Y. Ts'o" <tytso@mit.edu>,
+Cc: Jens Axboe <axboe@kernel.dk>, "Theodore Y. Ts'o" <tytso@mit.edu>,
  Mike Snitzer <snitzer@kernel.org>, linux-fscrypt@vger.kernel.org,
- Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
  Jaegeuk Kim <jaegeuk@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-__blk_crypto_cfg_supported is only used internally by the blk-crypto
-code now, so move it out of the public header.
+On Mon, Nov 07, 2022 at 03:42:27PM +0100, Christoph Hellwig wrote:
+> diff --git a/block/blk-crypto.c b/block/blk-crypto.c
+> index a496aaef85ba4..0e0c2fc56c428 100644
+> --- a/block/blk-crypto.c
+> +++ b/block/blk-crypto.c
+> @@ -357,17 +357,18 @@ int blk_crypto_init_key(struct blk_crypto_key *blk_key, const u8 *raw_key,
+>   * request queue it's submitted to supports inline crypto, or the
+>   * blk-crypto-fallback is enabled and supports the cfg).
+>   */
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/blk-crypto-internal.h        | 3 +++
- include/linux/blk-crypto-profile.h | 3 ---
- 2 files changed, 3 insertions(+), 3 deletions(-)
+Replace "request queue" with block_device in the above comment?
 
-diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
-index e6818ffaddbf8..c587b3e1886c9 100644
---- a/block/blk-crypto-internal.h
-+++ b/block/blk-crypto-internal.h
-@@ -19,6 +19,9 @@ struct blk_crypto_mode {
- 
- extern const struct blk_crypto_mode blk_crypto_modes[];
- 
-+bool __blk_crypto_cfg_supported(struct blk_crypto_profile *profile,
-+				const struct blk_crypto_config *cfg);
-+
- #ifdef CONFIG_BLK_INLINE_ENCRYPTION
- 
- int blk_crypto_sysfs_register(struct request_queue *q);
-diff --git a/include/linux/blk-crypto-profile.h b/include/linux/blk-crypto-profile.h
-index bbab65bd54288..e990ec9b32aa4 100644
---- a/include/linux/blk-crypto-profile.h
-+++ b/include/linux/blk-crypto-profile.h
-@@ -144,9 +144,6 @@ blk_status_t blk_crypto_get_keyslot(struct blk_crypto_profile *profile,
- 
- void blk_crypto_put_keyslot(struct blk_crypto_keyslot *slot);
- 
--bool __blk_crypto_cfg_supported(struct blk_crypto_profile *profile,
--				const struct blk_crypto_config *cfg);
--
- int __blk_crypto_evict_key(struct blk_crypto_profile *profile,
- 			   const struct blk_crypto_key *key);
- 
--- 
-2.30.2
+> -bool blk_crypto_config_supported(struct request_queue *q,
+> +bool blk_crypto_config_supported(struct block_device *bdev,
+>  				 const struct blk_crypto_config *cfg)
+>  {
+>  	return IS_ENABLED(CONFIG_BLK_INLINE_ENCRYPTION_FALLBACK) ||
+> -	       __blk_crypto_cfg_supported(q->crypto_profile, cfg);
+> +	       __blk_crypto_cfg_supported(bdev_get_queue(bdev)->crypto_profile,
+> +	       				  cfg);
+>  }
+
+There's a whitespace error here:
+
+$ checkpatch 0001-blk-crypto-don-t-use-struct-request_queue-for-public.patch
+ERROR: code indent should use tabs where possible
+#87: FILE: block/blk-crypto.c:365:
++^I       ^I^I^I^I  cfg);$
+
+WARNING: please, no space before tabs
+#87: FILE: block/blk-crypto.c:365:
++^I       ^I^I^I^I  cfg);$
+
+> -int blk_crypto_evict_key(struct request_queue *q,
+> +int blk_crypto_evict_key(struct block_device *bdev,
+>                          const struct blk_crypto_key *key)
+>  {
+> +	struct request_queue *q = bdev_get_queue(bdev);
+> +
+>	if (__blk_crypto_cfg_supported(q->crypto_profile, &key->crypto_cfg))
+>		return __blk_crypto_evict_key(q->crypto_profile, key);
+>
+>	/*
+>        * If the request_queue didn't support the key, then blk-crypto-fallback
+>        * may have been used, so try to evict the key from blk-crypto-fallback.
+>        */
+>	return blk_crypto_fallback_evict_key(key);
+
+Likewise, s/request_queue/block_device/ in the above comment.
+
+> diff --git a/include/linux/blk-crypto.h b/include/linux/blk-crypto.h
+> index 69b24fe92cbf1..b314e2febcaf5 100644
+> --- a/include/linux/blk-crypto.h
+> +++ b/include/linux/blk-crypto.h
+[...]
+>
+> struct request;
+> struct request_queue;
+
+These forward declarations are no longer needed and can be removed.
+
+- Eric
 
 --
 dm-devel mailing list
