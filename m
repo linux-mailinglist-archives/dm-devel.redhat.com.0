@@ -2,88 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 71B7E61DF10
-	for <lists+dm-devel@lfdr.de>; Sat,  5 Nov 2022 23:34:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4D60761E873
+	for <lists+dm-devel@lfdr.de>; Mon,  7 Nov 2022 02:53:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1667687669;
+	s=mimecast20190719; t=1667785992;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qH2gxoP3aRiDMGaZ7hEj7rHrGj3vTZkSBaaanswFHHY=;
-	b=Z6QPvv3iLFIATZVjLobzJIE6KSONU2iNtrv5qMcc1s2B/0aXqqvElSVrO6P/jyP3e2z5gA
-	xVY8i2qgqua//hZRaxLT5h+SKK9IGOpO6w/lKnmDQV9zszERA/7w7vA9o0rWV2wj3rLTVG
-	MmhhVXfwCxGyKU6XpGgW0JpVwblW4NQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=X9rKuEmfUmevHEddNmvrYVUp6TtggNViWDpQB7EYg2Y=;
+	b=TJS98q42FQPQ2d1NKMfGt5vs5YoGInZuYAwk5ZBYaf6n+Ipz9HnyKaHiVbAjn6gvny+OZF
+	VavHJPlR/PMxn5PCa9SLLALW93tPpg6CETRpapvMtEq+Oq1spsOHTRaqCQ9HdWEH9HICZv
+	r13wLhTL+ZJS+f4Ps5S+9Wv79ZykPCY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-7-P0R8CQGCO9OKJAC80IgUuw-1; Sat, 05 Nov 2022 18:34:27 -0400
-X-MC-Unique: P0R8CQGCO9OKJAC80IgUuw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-263-1dK3VSi2NTqShXg4Xj32yQ-1; Sun, 06 Nov 2022 20:53:10 -0500
+X-MC-Unique: 1dK3VSi2NTqShXg4Xj32yQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9ADF63804530;
-	Sat,  5 Nov 2022 22:34:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDF60101A528;
+	Mon,  7 Nov 2022 01:53:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D00DA477F5E;
-	Sat,  5 Nov 2022 22:34:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 956AB7AE5;
+	Mon,  7 Nov 2022 01:52:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 69FAF19465A8;
-	Sat,  5 Nov 2022 22:34:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BBE531946597;
+	Mon,  7 Nov 2022 01:52:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C2B081946586
- for <dm-devel@listman.corp.redhat.com>; Sat,  5 Nov 2022 22:34:16 +0000 (UTC)
+ ESMTP id A4E641946587
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Nov 2022 01:52:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B6E0F40C94D2; Sat,  5 Nov 2022 22:34:16 +0000 (UTC)
+ id C2661C15BB3; Mon,  7 Nov 2022 01:52:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AFA9540C94D1
- for <dm-devel@redhat.com>; Sat,  5 Nov 2022 22:34:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BB2D7C15BA4
+ for <dm-devel@redhat.com>; Mon,  7 Nov 2022 01:52:52 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 944D1101A528
- for <dm-devel@redhat.com>; Sat,  5 Nov 2022 22:34:16 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1040101A56C
+ for <dm-devel@redhat.com>; Mon,  7 Nov 2022 01:52:52 +0000 (UTC)
+Received: from out2.migadu.com (out2.migadu.com [188.165.223.204]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-401-zXj4S3GQO4OkO3Z8R_g-Fw-1; Sat,
- 05 Nov 2022 18:34:14 -0400
-X-MC-Unique: zXj4S3GQO4OkO3Z8R_g-Fw-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 7B8FF1F37C;
- Sat,  5 Nov 2022 22:34:12 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 71D6413AD7;
- Sat,  5 Nov 2022 22:34:10 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id PTeoCuLkZmNUdAAAMHmgww
- (envelope-from <neilb@suse.de>); Sat, 05 Nov 2022 22:34:10 +0000
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-210-oU3QDI2-M0-dt0slpn5PTw-1; Sun,
+ 06 Nov 2022 20:52:50 -0500
+X-MC-Unique: oU3QDI2-M0-dt0slpn5PTw-1
+To: Zdenek Kabelac <zkabelac@redhat.com>, Heming Zhao <heming.zhao@suse.com>, 
+ Mikulas Patocka <mpatocka@redhat.com>, Song Liu <song@kernel.org>
+References: <alpine.LRH.2.21.2211021214390.25745@file01.intranet.prod.int.rdu2.redhat.com>
+ <78646e88-2457-81e1-e3e7-cf66b67ba923@linux.dev>
+ <11a466f0-ecfe-c1e2-d967-2d648ce65bcb@suse.com>
+ <c31fdd20-c736-5d65-e82e-338e7ed1571c@linux.dev>
+ <2f0551c6-44f9-0969-cb8f-c12c4fb44eff@redhat.com>
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Guoqing Jiang <guoqing.jiang@linux.dev>
+Message-ID: <57672478-63f3-d214-a2fc-ef06c4200e90@linux.dev>
+Date: Mon, 7 Nov 2022 09:52:45 +0800
 MIME-Version: 1.0
-From: "NeilBrown" <neilb@suse.de>
-To: "Mikulas Patocka" <mpatocka@redhat.com>
-In-reply-to: =?utf-8?q?=3Calpine=2ELRH=2E2=2E21=2E2211040941112=2E19553=40fi?=
- =?utf-8?q?le01=2Eintranet=2Eprod=2Eint=2Erdu2=2Eredhat=2Ecom=3E?=
-References: =?utf-8?q?=3Calpine=2ELRH=2E2=2E21=2E2211031121070=2E18305=40fil?=
- =?utf-8?q?e01=2Eintranet=2Eprod=2Eint=2Erdu2=2Eredhat=2Ecom=3E=2C?=
- <166753684502.19313.12105294223332649758@noble.neil.brown.name>, 
- =?utf-8?q?=3Calpine=2ELRH=2E2=2E21=2E2211040941112=2E19553=40file01=2Eintra?=
- =?utf-8?q?net=2Eprod=2Eint=2Erdu2=2Eredhat=2Ecom=3E?=
-Date: Sun, 06 Nov 2022 09:34:04 +1100
-Message-id: <166768764482.19313.4863003667431957512@noble.neil.brown.name>
+In-Reply-To: <2f0551c6-44f9-0969-cb8f-c12c4fb44eff@redhat.com>
+X-Migadu-Flow: FLOW_OUT
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -91,8 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH] md: fix a crash in mempool_free
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] A crash caused by the commit
+ 0dd84b319352bb8ba64752d4e45396d8b13e6018
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,97 +92,73 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, Song Liu <song@kernel.org>, dm-devel@redhat.com,
- Guoqing Jiang <guoqing.jiang@linux.dev>, Zdenek Kabelac <zkabelac@redhat.com>
+Cc: linux-raid@vger.kernel.org, dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-On Sat, 05 Nov 2022, Mikulas Patocka wrote:
-> 
-> On Fri, 4 Nov 2022, NeilBrown wrote:
-> 
-> > > ---
-> > >  drivers/md/md.c |    6 ++++--
-> > >  1 file changed, 4 insertions(+), 2 deletions(-)
-> > > 
-> > > Index: linux-2.6/drivers/md/md.c
-> > > ===================================================================
-> > > --- linux-2.6.orig/drivers/md/md.c	2022-11-03 15:29:02.000000000 +0100
-> > > +++ linux-2.6/drivers/md/md.c	2022-11-03 15:33:17.000000000 +0100
-> > > @@ -509,13 +509,14 @@ static void md_end_flush(struct bio *bio
-> > >  	struct md_rdev *rdev = bio->bi_private;
-> > >  	struct mddev *mddev = rdev->mddev;
-> > >  
-> > > +	bio_put(bio);
-> > > +
-> > >  	rdev_dec_pending(rdev, mddev);
-> > >  
-> > >  	if (atomic_dec_and_test(&mddev->flush_pending)) {
-> > >  		/* The pre-request flush has finished */
-> > >  		queue_work(md_wq, &mddev->flush_work);
-> > >  	}
-> > > -	bio_put(bio);
-> > >  }
-> > >  
-> > >  static void md_submit_flush_data(struct work_struct *ws);
-> > > @@ -913,10 +914,11 @@ static void super_written(struct bio *bi
-> > >  	} else
-> > >  		clear_bit(LastDev, &rdev->flags);
-> > >  
-> > > +	bio_put(bio);
-> > > +
-> > >  	if (atomic_dec_and_test(&mddev->pending_writes))
-> > >  		wake_up(&mddev->sb_wait);
-> > >  	rdev_dec_pending(rdev, mddev);
-> > > -	bio_put(bio);
-> > >  }
-> > 
-> > Thanks. I think this is a clear improvement.
-> > I think it would be a little better if the rdev_dec_pending were also
-> > move up.
-> > Then both code fragments would be:
-> >   bio_put ; rdev_dec_pending ; atomic_dec_and_test
-> > 
-> > Thanks,
-> > NeilBrown
-> 
-> Yes, I'll send a second patch that moves rdev_dec_pending up too.
-> 
-> BTW. even this is theoretically incorrect:
-> 
-> > >     if (atomic_dec_and_test(&mddev->pending_writes))
-> > >             wake_up(&mddev->sb_wait);
-> 
-> Suppose that you execute atomic_dec_and_test and then there's a context 
-> switch to a process that destroys the md device and then there's a context 
-> switch back and you call "wake_up(&mddev->sb_wait)" on freed memory.
-> 
-> I think that we should use wait_var_event/wake_up_var instead of sb_wait. 
-> That will use preallocated hashed wait queues.
-> 
-
-I agree there is a potential problem.  Using wait_var_event is an
-approach that could work.
-An alternate would be to change that code to
-
-  if (atomic_dec_and_lock(&mddev->pending_writes, &mddev->lock)) {
-           wake_up(&mddev->sb_wait);
-           spin_unlock(&mddev->lock);
-  }
-
-As __md_stop() takes mddev->lock, it would not be able to get to the
-'free' until after the lock was dropped.
-
-Thanks,
-NeilBrown
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+CgpPbiAxMS80LzIyIDc6MTAgUE0sIFpkZW5layBLYWJlbGFjIHdyb3RlOgo+IERuZSAwNC4gMTEu
+IDIyIHYgMjoyMyBHdW9xaW5nIEppYW5nIG5hcHNhbChhKToKPj4KPj4KPj4gT24gMTEvMy8yMiAx
+MDo0NiBQTSwgSGVtaW5nIFpoYW8gd3JvdGU6Cj4+PiBPbiAxMS8zLzIyIDExOjQ3IEFNLCBHdW9x
+aW5nIEppYW5nIHdyb3RlOgo+Pj4+IEhpLAo+Pj4+Cj4+Pj4gT24gMTEvMy8yMiAxMjoyNyBBTSwg
+TWlrdWxhcyBQYXRvY2thIHdyb3RlOgo+Pj4+PiBIaQo+Pj4+Pgo+Pj4+PiBUaGVyZSdzIGEgY3Jh
+c2ggaW4gdGhlIHRlc3Qgc2hlbGwvbHZjaGFuZ2UtcmVidWlsZC1yYWlkLnNoIHdoZW4gCj4+Pj4+
+IHJ1bm5pbmcKPj4+Pj4gdGhlIGx2bSB0ZXN0c3VpdGUuIEl0IGNhbiBiZSByZXByb2R1Y2VkIGJ5
+IHJ1bm5pbmcgIm1ha2UgY2hlY2tfbG9jYWwKPj4+Pj4gVD1zaGVsbC9sdmNoYW5nZS1yZWJ1aWxk
+LXJhaWQuc2giIGluIGEgbG9vcC4KPj4+Pgo+Pj4+IEkgaGF2ZSBwcm9ibGVtIHRvIHJ1biB0aGUg
+Y21kIChub3Qgc3VyZSB3aGF0IEkgbWlzc2VkKSwgaXQgd291bGQgYmUgCj4+Pj4gYmV0dGVyIGlm
+Cj4+Pj4gdGhlIHJlbGV2YW50IGNtZHMgYXJlIGV4dHJhY3RlZCBmcm9tIHRoZSBzY3JpcHQgdGhl
+biBJIGNhbiAKPj4+PiByZXByb2R1Y2UgaXQgd2l0aAo+Pj4+IHRob3NlIGNtZHMgZGlyZWN0bHku
+Cj4+Pj4KPj4+PiBbcm9vdEBsb2NhbGhvc3QgbHZtMl0jIGdpdCBsb2cgfCBoZWFkIC0xCj4+Pj4g
+Y29tbWl0IDM2YTkyMzkyNmMyYzI3YzFhOGE1YWMyNjIzODdkMmE0ZDNlNjIwZjgKPj4+PiBbcm9v
+dEBsb2NhbGhvc3QgbHZtMl0jIG1ha2UgY2hlY2tfbG9jYWwgCj4+Pj4gVD1zaGVsbC9sdmNoYW5n
+ZS1yZWJ1aWxkLXJhaWQuc2gKPj4+PiBtYWtlIC1DIGxpYmRtIGRldmljZS1tYXBwZXIKPj4+PiBb
+Li4uXQo+Pj4+IG1ha2UgLUMgZGFlbW9ucwo+Pj4+IG1ha2VbMV06IE5vdGhpbmcgdG8gYmUgZG9u
+ZSBmb3IgJ2FsbCcuCj4+Pj4gbWFrZSAtQyB0ZXN0IGNoZWNrX2xvY2FsCj4+Pj4gVkVSQk9TRT0w
+IC4vbGliL3J1bm5lciBcCj4+Pj4gwqDCoMKgwqDCoMKgwqDCoCAtLXRlc3RkaXIgLiAtLW91dGRp
+ciByZXN1bHRzIFwKPj4+PiDCoMKgwqDCoMKgwqDCoMKgIC0tZmxhdm91cnMgbmRldi12YW5pbGxh
+IC0tb25seSAKPj4+PiBzaGVsbC9sdmNoYW5nZS1yZWJ1aWxkLXJhaWQuc2ggLS1za2lwIEAKPj4+
+PiBydW5uaW5nIDEgdGVzdHMKPj4+PiAjIyPCoMKgwqDCoMKgIHJ1bm5pbmc6IFtuZGV2LXZhbmls
+bGFdIHNoZWxsL2x2Y2hhbmdlLXJlYnVpbGQtcmFpZC5zaCAwCj4+Pj4gfCBbIDA6MDBdIGxpYi9p
+bml0dGVzdDogbGluZSAxMzM6IAo+Pj4+IC90bXAvTFZNVEVTVDMxNzk0OC5pQ29Md21EaFpXL2Rl
+di90ZXN0bnVsbDogUGVybWlzc2lvbiBkZW5pZWQKPj4+PiB8IFsgMDowMF0gRmlsZXN5c3RlbSBk
+b2VzIHN1cHBvcnQgZGV2aWNlcyBpbiAKPj4+PiAvdG1wL0xWTVRFU1QzMTc5NDguaUNvTHdtRGha
+Vy9kZXYgKG1vdW50ZWQgd2l0aCBub2Rldj8pCj4+Pgo+Pj4gSSBkaWRuJ3QgcmVhZCBvdGhlciBt
+YWlscyBpbiB0aGlzIHRocmVhZCwgb25seSBmb3IgYWJvdmUgaXNzdWUuCj4+PiBJZiB5b3UgdXNl
+IG9wZW5zdXNlLCBzeXN0ZW1kIHNlcnZpY2UgdG1wLm1vdW50IHVzZXMgbm9kZXYgb3B0aW9uIHRv
+IAo+Pj4gbW91bnQgdG1wZnMgb24gL3RtcC4KPj4+IEZyb20gbXkgZXhwZXJpZW5jZSwgdGhlcmUg
+YXJlIHR3byBtZXRob2RzIHRvIGZpeCh3b3JrIGFyb3VuZCk6Cj4+PiAxLiBzeXN0ZW1jdGwgZGlz
+YWJsZSB0bXAubW91bnQgJiYgc3lzdGVtY3RsIG1hc2sgdG1wLm1vdW50ICYmIHJlYm9vdAo+Pj4g
+Mi4gbXYgL3Vzci9saWIvc3lzdGVtZC9zeXN0ZW0vdG1wLm1vdW50IC9yb290LyAmJiByZWJvb3QK
+Pj4KPj4gSSBhbSB1c2luZyBjZW50b3Mgc2ltaWxhciBzeXN0ZW0sIEkgY2FuIHRyeSBsZWFwIGxh
+dGVyLiBBcHByZWNpYXRlIAo+PiBmb3IgdGhlIHRpcHMsIEhlbWluZy4KPgo+Cj4gWW91IGNhbiBh
+bHdheXMgcmVkaXJlY3QgZGVmYXVsdCAvdG1wIGRpciB0byBzb21lIG90aGVyIAo+IHBsYWNlL2Zp
+bGVzeXN0ZW0gdGhhdCBhbGxvd3MgeW91IHRvIGNyZWF0ZSAvZGV2IG5vZGVzLiBFdmVudHVhbGx5
+IGZvciAKPiAnYnJhdmUgbWVuJ8KgIHlvdSBjYW4gbGV0IGx2bTIgdGVzdCBzdWl0ZSB0byBwbGF5
+IGRpcmVjdGx5IHdpdGggeW91ciAKPiAvZGV2IGRpci7CoCBOb3JtYWxseSBub3RoaW5nIGJhZCBz
+aG91bGQgaGFwcGVuLCBidXQgd2UgdGVuZCB0byBwcmVmZXIgCj4gbW9yZSBjb250cm9sZWQgJy9k
+ZXYnIG1hbmFnZWQgZm9yIGEgdGVzdC4KPgo+IEhlcmUgYXJlIHR3byBlbnZ2YXJzIHRvIHBsYXkg
+d2l0aDoKPgo+Cj4gbWFrZSBjaGVja19sb2NhbCBUPXNoZWxsL2x2Y2hhbmdlLXJlYnVpbGQtcmFp
+ZC5zaCAKPiBMVk1fVEVTVF9ESVI9L215aG9tZWZzZGlywqAgTFZNX1RFU1RfREVWRElSPS9kZXYK
+Pgo+IExWTV9URVNUX0RJUiBmb3Igc2V0dGluZyBvZiBkaXIgd2hlcmUgdGVzdCBjcmVhdGVzIGFs
+bCBpdHMgZmlsZXMKPgo+IExWTV9URVNUX0RFVkRJUsKgIHlvdSBjYW4gZXhwbGljaXRseSB0ZWxs
+IHRvIGtlZXAgdXNpbmcgc3lzdGVtJ3MgL2RldsKgwqAgCj4gKGluc3RlYWQgb2YgZGlyIGNyZWF0
+ZWQgd2l0aGluIHRtcGRpcikKClRoYW5rIHlvdSEgVGhpcyB3b3JrcyBmb3IgbWUuCgpbcm9vdEBs
+b2NhbGhvc3QgbHZtMl0jIG1ha2UgY2hlY2tfbG9jYWwgVD1zaGVsbC9sdmNoYW5nZS1yZWJ1aWxk
+LXJhaWQuc2ggCkxWTV9URVNUX0RJUj0vcm9vdC90ZXN0IExWTV9URVNUX0RFVkRJUj0vZGV2Cm1h
+a2UgLUMgbGliZG0gZGV2aWNlLW1hcHBlcgptYWtlWzFdOiBOb3RoaW5nIHRvIGJlIGRvbmUgZm9y
+ICdkZXZpY2UtbWFwcGVyJy4KClsuLi4gXQoKbWFrZSAtQyB0ZXN0IGNoZWNrX2xvY2FsClZFUkJP
+U0U9MCAuL2xpYi9ydW5uZXIgXAogwqDCoMKgwqDCoMKgwqAgLS10ZXN0ZGlyIC4gLS1vdXRkaXIg
+cmVzdWx0cyBcCiDCoMKgwqDCoMKgwqDCoCAtLWZsYXZvdXJzIG5kZXYtdmFuaWxsYSAtLW9ubHkg
+c2hlbGwvbHZjaGFuZ2UtcmVidWlsZC1yYWlkLnNoIAotLXNraXAgQApydW5uaW5nIDEgdGVzdHMK
+IyMjwqDCoMKgwqDCoMKgIHBhc3NlZDogW25kZXYtdmFuaWxsYV0gc2hlbGwvbHZjaGFuZ2UtcmVi
+dWlsZC1yYWlkLnNoIDIwCgojIyMgMSB0ZXN0czogMSBwYXNzZWQsIDAgc2tpcHBlZCwgMCB0aW1l
+ZCBvdXQsIDAgd2FybmVkLCAwIGZhaWxlZAoKVGhhbmtzLApHdW9xaW5nCgotLQpkbS1kZXZlbCBt
+YWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
