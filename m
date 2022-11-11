@@ -2,72 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F057D627587
-	for <lists+dm-devel@lfdr.de>; Mon, 14 Nov 2022 06:23:22 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 74304627645
+	for <lists+dm-devel@lfdr.de>; Mon, 14 Nov 2022 08:13:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668403401;
+	s=mimecast20190719; t=1668410025;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1OtQGIq+yXEXjKlv234zFZ7QXlAaaqHALHiy2D8avCk=;
-	b=YrKOmDDILBhGzO7nyEwZfAsJToygxeBRzRn7zLDXgqU+zln9yrGo+oBCc9xKLw+f9kaBSa
-	UcI9K7Nb+VdQ0zqLNNC/hVcgzTcNU/8KH0L7vmll0kmiQqQrkMoMKBKe4dlpTOjH/rtwqd
-	/PIZ/r/2OiTUzdc1M5izurvPX0mmQ1w=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=PE9/bvKsLjIxI5+Vr0G841iKfa/kkQPS8hV5Qs0aTeM=;
+	b=PzEIHJRxqL40eNv5cWrG4bUSkeYD+ZjAQYk0kW8/3Hf6ctIhlsFJ/zfq1eonjO+mpIra50
+	NWzZWJ0E9c7Xf2lM9mRNnkDCrRy+s7nxzyMOR3iOSLj2l8dy4YAUDbpCWgciRqblwyXNph
+	1fdUdJgfDJ7jHYMumpmf3AvJFAcdk1g=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-204-6Fr8JODxOFiisjRH456_aw-1; Mon, 14 Nov 2022 00:23:17 -0500
-X-MC-Unique: 6Fr8JODxOFiisjRH456_aw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-454-fyDON7ntPUaCdmvtwp4GpA-1; Mon, 14 Nov 2022 02:13:44 -0500
+X-MC-Unique: fyDON7ntPUaCdmvtwp4GpA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E13623C0E454;
-	Mon, 14 Nov 2022 05:23:15 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 222B3101A52A;
+	Mon, 14 Nov 2022 07:13:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ADB4B39D6A;
-	Mon, 14 Nov 2022 05:23:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 91BB5492B06;
+	Mon, 14 Nov 2022 07:13:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B384C19465B6;
-	Mon, 14 Nov 2022 05:23:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC66B19465B9;
+	Mon, 14 Nov 2022 07:13:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 847511946586
- for <dm-devel@listman.corp.redhat.com>; Mon, 14 Nov 2022 05:22:59 +0000 (UTC)
+ ESMTP id 442CD1946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 11 Nov 2022 18:31:29 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 662A12166B2C; Mon, 14 Nov 2022 05:22:59 +0000 (UTC)
+ id E457E200A384; Fri, 11 Nov 2022 18:31:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 59D482166B2B
- for <dm-devel@redhat.com>; Mon, 14 Nov 2022 05:22:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DCFFB20290AE
+ for <dm-devel@redhat.com>; Fri, 11 Nov 2022 18:31:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB5263810D3D
+ for <dm-devel@redhat.com>; Fri, 11 Nov 2022 18:31:28 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-113-VTRHVgwlM6C4xTB86ReC7g-1; Fri, 11 Nov 2022 13:31:25 -0500
+X-MC-Unique: VTRHVgwlM6C4xTB86ReC7g-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29001857AA0
- for <dm-devel@redhat.com>; Mon, 14 Nov 2022 05:22:59 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-532-QAyhxv41Mc26PJhekEP-cQ-1; Mon, 14 Nov 2022 00:22:56 -0500
-X-MC-Unique: QAyhxv41Mc26PJhekEP-cQ-1
-Received: from [2001:4bb8:191:2606:c70:4a89:bc61:2] (helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
- id 1ouR6Y-00FvUd-2s; Mon, 14 Nov 2022 04:29:54 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Mon, 14 Nov 2022 05:29:44 +0100
-Message-Id: <20221114042944.1009870-4-hch@lst.de>
-In-Reply-To: <20221114042944.1009870-1-hch@lst.de>
-References: <20221114042944.1009870-1-hch@lst.de>
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9D55D61F8B;
+ Fri, 11 Nov 2022 18:31:23 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 528BFC433D6;
+ Fri, 11 Nov 2022 18:31:22 +0000 (UTC)
+Date: Fri, 11 Nov 2022 11:31:19 -0700
+From: Keith Busch <kbusch@kernel.org>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <Y26U91eH7NcXTlbj@kbusch-mbp.dhcp.thefacebook.com>
+References: <20221110184501.2451620-1-kbusch@meta.com>
+ <Y26PSYu2nY/AE5Xh@redhat.com>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <Y26PSYu2nY/AE5Xh@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH 3/3] blk-crypto: move internal only declarations
- to blk-crypto-internal.h
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Mailman-Approved-At: Mon, 14 Nov 2022 07:13:32 +0000
+Subject: Re: [dm-devel] [PATCHv2 0/5] fix direct io device mapper errors
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,77 +92,78 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, "Theodore Y. Ts'o" <tytso@mit.edu>,
- Mike Snitzer <snitzer@kernel.org>, linux-fscrypt@vger.kernel.org,
- Eric Biggers <ebiggers@kernel.org>, dm-devel@redhat.com,
- Jaegeuk Kim <jaegeuk@kernel.org>
+Cc: axboe@kernel.dk, ebiggers@kernel.org, Keith Busch <kbusch@meta.com>,
+ linux-block@vger.kernel.org, dm-devel@redhat.com, mpatocka@redhat.com,
+ stefanha@redhat.com, me@demsh.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
- blk_crypto_get_keyslot, blk_crypto_put_keyslot, __blk_crypto_evict_key
-and __blk_crypto_cfg_supported are only used internally by the
-blk-crypto code, so move the out of blk-crypto-profile.h, which is
-included by drivers that supply blk-crypto functionality.
+On Fri, Nov 11, 2022 at 01:07:05PM -0500, Mike Snitzer wrote:
+> On Thu, Nov 10 2022 at  1:44P -0500,
+> Keith Busch <kbusch@meta.com> wrote:
+> 
+> > From: Keith Busch <kbusch@kernel.org>
+> > 
+> > The 6.0 kernel made some changes to the direct io interface to allow
+> > offsets in user addresses. This based on the hardware's capabilities
+> > reported in the request_queue's dma_alignment attribute.
+> > 
+> > dm-crypt, -log-writes and -integrity require direct io be aligned to the
+> > block size. Since it was only ever using the default 511 dma mask, this
+> > requirement may fail if formatted to something larger, like 4k, which
+> > will result in unexpected behavior with direct-io.
+> > 
+> > Changes since v1: Added the same fix for -integrity and -log-writes
+> > 
+> > The first three were reported successfully tested by Dmitrii Tcvetkov,
+> > but I don't have an official Tested-by: tag.
+> > 
+> >   https://lore.kernel.org/linux-block/20221103194140.06ce3d36@xps.demsh.org/T/#mba1d0b13374541cdad3b669ec4257a11301d1860
+> > 
+> > Keitio errors on Busch (5):
+> >   block: make dma_alignment a stacking queue_limit
+> >   dm-crypt: provide dma_alignment limit in io_hints
+> >   block: make blk_set_default_limits() private
+> >   dm-integrity: set dma_alignment limit in io_hints
+> >   dm-log-writes: set dma_alignment limit in io_hints
+> > 
+> >  block/blk-core.c           |  1 -
+> >  block/blk-settings.c       |  9 +++++----
+> >  block/blk.h                |  1 +
+> >  drivers/md/dm-crypt.c      |  1 +
+> >  drivers/md/dm-integrity.c  |  1 +
+> >  drivers/md/dm-log-writes.c |  1 +
+> >  include/linux/blkdev.h     | 16 ++++++++--------
+> >  7 files changed, 17 insertions(+), 13 deletions(-)
+> > 
+> > -- 
+> > 2.30.2
+> > 
+> 
+> There are other DM targets that override logical_block_size in their
+> .io_hints hook (writecache, ebs, zoned). Have you reasoned through why
+> those do _not_ need updating too?
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- block/blk-crypto-internal.h        | 12 ++++++++++++
- include/linux/blk-crypto-profile.h | 12 ------------
- 2 files changed, 12 insertions(+), 12 deletions(-)
+Yeah, that's a good question. The ones that have a problem all make
+assumptions about a bio's bv_offset being logical block size aligned,
+and each of those is accounted for here. Everything else looks fine with
+respect to handling offsets.
 
-diff --git a/block/blk-crypto-internal.h b/block/blk-crypto-internal.h
-index e6818ffaddbf8..d31fa80454e49 100644
---- a/block/blk-crypto-internal.h
-+++ b/block/blk-crypto-internal.h
-@@ -65,6 +65,18 @@ static inline bool blk_crypto_rq_is_encrypted(struct request *rq)
- 	return rq->crypt_ctx;
- }
- 
-+blk_status_t blk_crypto_get_keyslot(struct blk_crypto_profile *profile,
-+				    const struct blk_crypto_key *key,
-+				    struct blk_crypto_keyslot **slot_ptr);
-+
-+void blk_crypto_put_keyslot(struct blk_crypto_keyslot *slot);
-+
-+int __blk_crypto_evict_key(struct blk_crypto_profile *profile,
-+			   const struct blk_crypto_key *key);
-+
-+bool __blk_crypto_cfg_supported(struct blk_crypto_profile *profile,
-+				const struct blk_crypto_config *cfg);
-+
- #else /* CONFIG_BLK_INLINE_ENCRYPTION */
- 
- static inline int blk_crypto_sysfs_register(struct request_queue *q)
-diff --git a/include/linux/blk-crypto-profile.h b/include/linux/blk-crypto-profile.h
-index bbab65bd54288..e6802b69cdd64 100644
---- a/include/linux/blk-crypto-profile.h
-+++ b/include/linux/blk-crypto-profile.h
-@@ -138,18 +138,6 @@ int devm_blk_crypto_profile_init(struct device *dev,
- 
- unsigned int blk_crypto_keyslot_index(struct blk_crypto_keyslot *slot);
- 
--blk_status_t blk_crypto_get_keyslot(struct blk_crypto_profile *profile,
--				    const struct blk_crypto_key *key,
--				    struct blk_crypto_keyslot **slot_ptr);
--
--void blk_crypto_put_keyslot(struct blk_crypto_keyslot *slot);
--
--bool __blk_crypto_cfg_supported(struct blk_crypto_profile *profile,
--				const struct blk_crypto_config *cfg);
--
--int __blk_crypto_evict_key(struct blk_crypto_profile *profile,
--			   const struct blk_crypto_key *key);
--
- void blk_crypto_reprogram_all_keys(struct blk_crypto_profile *profile);
- 
- void blk_crypto_profile_destroy(struct blk_crypto_profile *profile);
--- 
-2.30.2
+> Is there any risk of just introducing a finalization method in block
+> core (that DM's .io_hints would call) that would ensure limits that
+> are a funtion of another are always in sync?  Would avoid whack-a-mole
+> issues in the future.
+
+I don't think we can this particular limit issue. A lot of drivers and
+devices can use a smaller dma_alignment than the logical block size, so
+the generic block layer wouldn't really know the driver's intentions for
+the relationship of these limits.
 
 --
 dm-devel mailing list
