@@ -1,95 +1,137 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7495629D24
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Nov 2022 16:17:30 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DEC84629E95
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Nov 2022 17:14:28 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668525449;
+	s=mimecast20190719; t=1668528867;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tffdFEdF0MWeZuqe17Qk/caAF45psxu3SJE9mFCrU3E=;
-	b=OZih2OS/zd7TLHAOgcf5kO8ilW1mn1SDbxKscKgt/EyLSyzXsln5dXU72ucfADSlpPJC5k
-	zJiFp/IhJ47SzGoG73nW/1cCEWuFrjrHpUi8xv4w1omH8Yte42PBAWYUuoYV/iFtMdYOUO
-	f8D9e+dv3UStlrCGGd1i6zplBuFdUQg=
+	bh=S2ONCZ2sZ2WpLNitbH3emXABDOOffkdTWwEfIsqFrJQ=;
+	b=MsFAFLM171tmm7ARYeyIKWQCeIUkX3FSqY/W1n70r6+zFq0JH8N7ICrNBcZjN9RXZeBONk
+	9HWyTEzvpGvymsDxGqZ/pcgxa26ZQpC43ECsSmByQzvuX8mTOwlofXhHmZcMWnExrFovPk
+	Q6ncVwlVpPamyAb9UUYPJJ9yLWTCypQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-226-ImWZUIudMwC7VjFOqWLyNQ-1; Tue, 15 Nov 2022 10:17:02 -0500
-X-MC-Unique: ImWZUIudMwC7VjFOqWLyNQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-449-4mQCXJ4YOhucK9pVPDgGkw-1; Tue, 15 Nov 2022 11:14:24 -0500
+X-MC-Unique: 4mQCXJ4YOhucK9pVPDgGkw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CE0F38012D4;
-	Tue, 15 Nov 2022 15:15:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 554B71C09B6C;
+	Tue, 15 Nov 2022 16:14:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5A8E640C98DA;
-	Tue, 15 Nov 2022 15:15:47 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 53A74C158CF;
+	Tue, 15 Nov 2022 16:14:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C2D311946A46;
-	Tue, 15 Nov 2022 15:15:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8F29419465BA;
+	Tue, 15 Nov 2022 16:14:16 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7BEA919465B9
- for <dm-devel@listman.corp.redhat.com>; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
+ ESMTP id CAB4C1946597
+ for <dm-devel@listman.corp.redhat.com>; Tue, 15 Nov 2022 16:14:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5F83540E9789; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
+ id A8E4E492B17; Tue, 15 Nov 2022 16:14:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 573C040C6EC3
- for <dm-devel@redhat.com>; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CE3D101A528
- for <dm-devel@redhat.com>; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
- [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-643-d3CKBp9aPouENm4qQdBpOQ-1; Tue, 15 Nov 2022 08:49:39 -0500
-X-MC-Unique: d3CKBp9aPouENm4qQdBpOQ-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4NBSGL1zmsz4f41hX;
- Tue, 15 Nov 2022 21:49:30 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.127.227])
- by APP4 (Coremail) with SMTP id gCh0CgBni9jnmHNjrPFIAg--.61645S14;
- Tue, 15 Nov 2022 21:49:33 +0800 (CST)
-From: Yu Kuai <yukuai1@huaweicloud.com>
-To: hch@lst.de, axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
- dm-devel@redhat.com
-Date: Tue, 15 Nov 2022 22:10:54 +0800
-Message-Id: <20221115141054.1051801-11-yukuai1@huaweicloud.com>
-In-Reply-To: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
-References: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A1AB1492B05
+ for <dm-devel@redhat.com>; Tue, 15 Nov 2022 16:14:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C049800B30
+ for <dm-devel@redhat.com>; Tue, 15 Nov 2022 16:14:14 +0000 (UTC)
+Received: from EUR05-AM6-obe.outbound.protection.outlook.com
+ (mail-am6eur05on2077.outbound.protection.outlook.com [40.107.22.77]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-122-SwdUAtinMFWKYy3zR14kLg-1; Tue, 15 Nov 2022 11:14:08 -0500
+X-MC-Unique: SwdUAtinMFWKYy3zR14kLg-1
+Received: from AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22)
+ by AM9PR04MB7665.eurprd04.prod.outlook.com (2603:10a6:20b:283::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5813.13; Tue, 15 Nov
+ 2022 16:14:05 +0000
+Received: from AS8PR04MB8040.eurprd04.prod.outlook.com
+ ([fe80::e1b6:3ede:547d:eb2f]) by AS8PR04MB8040.eurprd04.prod.outlook.com
+ ([fe80::e1b6:3ede:547d:eb2f%5]) with mapi id 15.20.5813.016; Tue, 15 Nov 2022
+ 16:14:05 +0000
+From: Martin Wilck <martin.wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
+ "christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
+Thread-Topic: [PATCH 0/3] misc cleanups
+Thread-Index: AQHY9IUyAeSeKwMRmU2perE4iGtYIK5AMYQA
+Date: Tue, 15 Nov 2022 16:14:05 +0000
+Message-ID: <4a0cc303d4a3529711819117995ec7602e68fb7e.camel@suse.com>
+References: <1668030583-9428-1-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1668030583-9428-1-git-send-email-bmarzins@redhat.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.46.0
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: AS8PR04MB8040:EE_|AM9PR04MB7665:EE_
+x-ms-office365-filtering-correlation-id: f56a3f21-13a5-46fc-5d3f-08dac7246b2b
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: ALy6sjng5jgtXPoqH/n0vvhx/PXjX0Jzh7hzCdjRbbu44Vc+9DRykZf5xRFZPlxmaM24H0D3u/93q7zWDM82O+TsuQFDLgLyVqZKvJWdyM1B1htBvbrsiXCLojrzxLIHm2uqWsmtx8KENi5weXavSgK3566FdiU8AEUoDuOn7y5hq0kEpQXbK7j+bODXk9c3oIgPQcYagSLhi/k2VuLjI3rUC26iLNgalkfVdqVCufyUBMgEHkH5JdWJgHvSPvA+/jMjtMhguAwzzi10ruCXuN7AzUjcR+PSAaXN1MXb528XLXXeUY6s2t3CzPuXsRZFgfZyrGeRhWBeGGMMEkzMasT1QPKqP9tHNH3Q0A7m/GEXDFmOlFdL2Q0gCf1fKQH/mutPF4zu1UwVqkq6eoOHEoZ/QJi1xw7922wrA7NsSQrxr99neNt9R5sYvgzMbPTf3sZ5IANXpmWhC8IIU1GXTUDdFNAouwfihVHej2BMG7G64Yw2SGju9iWxLJpGkUuzFD0yiXmQ6NUrIdhA4VoNS4m5x3SrgLKPxjy9Yc1q14vAaQmBhg7MYAyUuKznqyr47XGySsU73a3wkUwQ8j+AVqt8gYbnebyVFS4oMkFRw5QQRs4seKUSdzyWpz6o7t0N6sUSJLldBa3Wt0G2y7Ie54hsEFhv71y39LfX5j9RLIlBX2xByG16HMKshEtn9csp6mRMb8CwKpjpvZ6Y/BJIcMcC7Z2OKWn3Rl9OkhgIqrMN9EHHdiE+vJsQpRvi49fgSNjl5lreff7/as1J4LuEWw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:AS8PR04MB8040.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(136003)(366004)(396003)(376002)(346002)(39860400002)(451199015)(478600001)(6486002)(71200400001)(38070700005)(83380400001)(6506007)(110136005)(64756008)(66556008)(66446008)(5660300002)(66476007)(8676002)(66946007)(4744005)(76116006)(4326008)(2906002)(186003)(122000001)(316002)(44832011)(6512007)(38100700002)(86362001)(26005)(36756003)(2616005)(41300700001)(8936002);
+ DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?X5to1V+9B9gClZUIitd7Ws8yWALFSViDIucpkajO7NPkkVcBCLMh54SWy?=
+ =?iso-8859-15?Q?VK9Xa2OxHuz1tMxOuL4254mYDWmeeLHKAN/QQm9WXeDdJs7GE0fLKT/6E?=
+ =?iso-8859-15?Q?YvHgMkEwUKtQsTK9YlLmrmlSl1xeyhScd2WxNAfwodEM7vn9Wys/FSxbH?=
+ =?iso-8859-15?Q?L1euXfvGgoK4ZwCn3fBaX466fQM171YNsq1fBUbfi3Qi07jxgnetJ4OjV?=
+ =?iso-8859-15?Q?JBtTFaADWP9wJsGAN2tla+zFrTKM5/8Cv50GnOSYHtZTj0D1qGjbsINft?=
+ =?iso-8859-15?Q?+7Im7Zvisw+xuT069b7o1X03CN0qUmhS8hukQ5FEXt3e/7NeKQSzarpi3?=
+ =?iso-8859-15?Q?uWNdWcUpsIRJCwXFCN4yZ+eK81r1Pdb0dcepHPzWZLm9pqvovgv5eToYv?=
+ =?iso-8859-15?Q?kCQnxzEB9SIwIZ1Wy5mtclEhzymLCbz96ng5e9ONcK4FBLwDSC5/W5a1U?=
+ =?iso-8859-15?Q?5jfxcs0thBlgklAPUaSJKsMrCP8cjIc772syeRbzbCQR4Pa4px5lg9Skx?=
+ =?iso-8859-15?Q?NXqBrX08YxdLsQwQQWR4N2IwfE39NtjvIC/jIbkEbprtQwgRa1a8FJEII?=
+ =?iso-8859-15?Q?wFbDE5a4+Aj3pJtQkRooksZ59AvOxAGk6tnKqNpTDMs7Z51lSq8GOGywd?=
+ =?iso-8859-15?Q?5QeVv1bO2jhqTrSyIiIDfIIwdYKUk6ENsShs8pK7NlTTeNiLLhOAVo9Qw?=
+ =?iso-8859-15?Q?S9MMscc2fqP27ZaNgkajtdcHh0kBcGPX1RUNVcPR3NpsoprmDoZ8GVRsb?=
+ =?iso-8859-15?Q?ABfKL3GyYNPUY1P1ii45BaCgVEVGpSDOkZ4yAK1W+TSQ73Q3lqGqxDE29?=
+ =?iso-8859-15?Q?CqKm4yXa8BsO/MHMLULX9K76dkHRAGBhtqXbebb0Lw1bjxNY2u/b1Wep4?=
+ =?iso-8859-15?Q?ByJV2XIywZZT0fYuf/EEm2hXXjOjX+CkRjgrgu71LIfk5BMzgcUJQ4ytm?=
+ =?iso-8859-15?Q?yHHRAUlZLRKIM6vTT7tFLMvMdhJvGLJ/mTXfWdgJAi/Ybd4VseRAExrbe?=
+ =?iso-8859-15?Q?z2oA3nmzxyIJcEJErdcqYgTzslANjS+eQRCX/31SrxR12uEvVNVa868eu?=
+ =?iso-8859-15?Q?dWkJyYQ6LvIFd4JaFba1dN+XgTHblVYOfudoDt4XelfUHw66XmBh8Ziga?=
+ =?iso-8859-15?Q?/WMreK3YchQ2pqABiY1s8C7vooaA9LEeczUKp9Af1exZCepinvr3X6xuZ?=
+ =?iso-8859-15?Q?0a5OxegwpU3JXuOUMD/Yfes81y5I+dkCnwBj8YXEx6KlijEcMRY+MR7l7?=
+ =?iso-8859-15?Q?52VDo9HMFyD5stHddO9jOxWU4NM12nGozb0cdMt10deszMVVpiN+L8m0i?=
+ =?iso-8859-15?Q?a2LaUsHlXsIBqh2Jvqew1wbuwpUYLu1SbArEoeTOyNpb5RHRb5N9CxtOo?=
+ =?iso-8859-15?Q?eVdw14Z1C0xHezkuTIuub5FPL45DxHZpZ0gL4BfacJUmjUfF3LAg0Nodv?=
+ =?iso-8859-15?Q?TQrlqlkzMQwPkJ/kFgTjDGgxyPUtU6fJTcHq5FAeJ9LysKm9RJyIOjU4o?=
+ =?iso-8859-15?Q?yPfDKO3O57li5EJqs1hF7dakVmzPEEQLCRf41O6WVj3yIFo1xPwkWwAW2?=
+ =?iso-8859-15?Q?j8A5wIdswgS6Dnt6i35LmYoJ3QSo04Yo4HdtmeH1UEhmtfYBnwAlhGDzh?=
+ =?iso-8859-15?Q?CrcpVROPjSfPh0GWGsTftiuNVtYIB8NETQ6nk7rCZNZXf2GpFYNBN9Idh?=
+ =?iso-8859-15?Q?Hz/svRH/15AWkZn2w9Ufnqk1pQ=3D=3D?=
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgBni9jnmHNjrPFIAg--.61645S14
-X-Coremail-Antispam: 1UD129KBjvJXoWxXw4kCFy5Xw1kuF1fWrWDXFb_yoWrurWkpr
- 1jqr4UGr48Jr1UXF4UAr1UJr1UJrW8AF48Jr17Xr1DJF15W3WUZr1UJrWUAr15Jr4Yqr17
- tw4DXw18tryUKaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
- 3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
- IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
- M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
- kIc2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
- 14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
- kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAF
- wI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
- 0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUQ
- SdkUUUUU=
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8040.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: f56a3f21-13a5-46fc-5d3f-08dac7246b2b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Nov 2022 16:14:05.6631 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 9Zy/XhGRayftk1lbQKrFBWg5uSR7HOnfj5WpqlGtjmxuqN1OVNyI+V+OFFOYcp1uo0CBS1lmzUE0DTZJfv/OSA==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM9PR04MB7665
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -97,10 +139,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mailman-Approved-At: Tue, 15 Nov 2022 15:15:46 +0000
-Subject: [dm-devel] [PATCH v3 10/10] block: don't allow a disk link holder
- to itself
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH 0/3] misc cleanups
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,111 +152,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, yukuai3@huawei.com, yi.zhang@huawei.com,
- linux-kernel@vger.kernel.org, yukuai1@huaweicloud.com
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-ID: <446DFB1B1433204884A42EF2DF37328A@eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-From: Yu Kuai <yukuai3@huawei.com>
+On Wed, 2022-11-09 at 15:49 -0600, Benjamin Marzinski wrote:
+> Here are some cleanups (in response to comments from Martin Wilck)
+> for
+> patches I previously posted.
+>=20
+> Benjamin Marzinski (3):
+> =A0 libmultipath: impove add_feature() variable names
+> =A0 multipathd: don't initialize the field width in show_path()
+> =A0 libmultipath: improve remove_feature() variable names
+>=20
+> =A0libmultipath/structs.c=A0=A0=A0 | 143 +++++++++++++++++++-------------=
+----
+> --
+> =A0multipathd/cli_handlers.c |=A0=A0 7 +-
+> =A02 files changed, 73 insertions(+), 77 deletions(-)
+>=20
 
-After creating a dm device, then user can reload such dm with itself,
-and dead loop will be triggered because dm keep looking up to itself.
+For the set:
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 
-Test procedures:
-
-1) dmsetup create test --table "xxx sda", assume dm-0 is created
-2) dmsetup suspend test
-3) dmsetup reload test --table "xxx dm-0"
-4) dmsetup resume test
-
-Test result:
-
-BUG: TASK stack guard page was hit at 00000000736a261f (stack is 000000008d12c88d..00000000c8dd82d5)
-stack guard page: 0000 [#1] PREEMPT SMP
-CPU: 29 PID: 946 Comm: systemd-udevd Not tainted 6.1.0-rc3-next-20221101-00006-g17640ca3b0ee #1295
-Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS ?-20190727_073836-buildvm-ppc64le-16.ppc.fedoraproject.org-3.fc31 04/01/2014
-RIP: 0010:dm_prepare_ioctl+0xf/0x1e0
-Code: da 48 83 05 4a 7c 99 0b 01 41 89 c4 eb cd e8 b8 1f 40 00 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 57 48 83 05 a1 5a 99 0b 01 <41> 56 49 89 d6 41 55 4c 8d af 90 02 00 00 9
-RSP: 0018:ffffc90002090000 EFLAGS: 00010206
-RAX: ffff8881049d6800 RBX: ffff88817e589000 RCX: 0000000000000000
-RDX: ffffc90002090010 RSI: ffffc9000209001c RDI: ffff88817e589000
-RBP: 00000000484a101d R08: 0000000000000000 R09: 0000000000000007
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000005331
-R13: 0000000000005331 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007fddf9609200(0000) GS:ffff889fbfd40000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffc9000208fff8 CR3: 0000000179043000 CR4: 00000000000006e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Call Trace:
- <TASK>
- dm_blk_ioctl+0x50/0x1c0
- ? dm_prepare_ioctl+0xe0/0x1e0
- dm_blk_ioctl+0x88/0x1c0
- dm_blk_ioctl+0x88/0x1c0
- ......(a lot of same lines)
- dm_blk_ioctl+0x88/0x1c0
- dm_blk_ioctl+0x88/0x1c0
- blkdev_ioctl+0x184/0x3e0
- __x64_sys_ioctl+0xa3/0x110
- do_syscall_64+0x35/0x80
- entry_SYSCALL_64_after_hwframe+0x63/0xcd
-RIP: 0033:0x7fddf7306577
-Code: b3 66 90 48 8b 05 11 89 2c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e1 88 8
-RSP: 002b:00007ffd0b2ec318 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 00005634ef478320 RCX: 00007fddf7306577
-RDX: 0000000000000000 RSI: 0000000000005331 RDI: 0000000000000007
-RBP: 0000000000000007 R08: 00005634ef4843e0 R09: 0000000000000080
-R10: 00007fddf75cfb38 R11: 0000000000000246 R12: 00000000030d4000
-R13: 0000000000000000 R14: 0000000000000000 R15: 00005634ef48b800
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:dm_prepare_ioctl+0xf/0x1e0
-Code: da 48 83 05 4a 7c 99 0b 01 41 89 c4 eb cd e8 b8 1f 40 00 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 57 48 83 05 a1 5a 99 0b 01 <41> 56 49 89 d6 41 55 4c 8d af 90 02 00 00 9
-RSP: 0018:ffffc90002090000 EFLAGS: 00010206
-RAX: ffff8881049d6800 RBX: ffff88817e589000 RCX: 0000000000000000
-RDX: ffffc90002090010 RSI: ffffc9000209001c RDI: ffff88817e589000
-RBP: 00000000484a101d R08: 0000000000000000 R09: 0000000000000007
-R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000005331
-R13: 0000000000005331 R14: 0000000000000000 R15: 0000000000000000
-FS:  00007fddf9609200(0000) GS:ffff889fbfd40000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: ffffc9000208fff8 CR3: 0000000179043000 CR4: 00000000000006e0
-DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
-DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
-Kernel panic - not syncing: Fatal exception in interrupt
-Kernel Offset: disabled
----[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
-
-Fix the problem by forbidding a disk to create link to itself.
-
-Signed-off-by: Yu Kuai <yukuai3@huawei.com>
----
- block/holder.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/block/holder.c b/block/holder.c
-index 3332142bb867..37d18c13d958 100644
---- a/block/holder.c
-+++ b/block/holder.c
-@@ -65,6 +65,9 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
- 	if (WARN_ON_ONCE(!disk->slave_dir))
- 		return -EINVAL;
- 
-+	if (bdev->bd_disk == disk)
-+		return -EINVAL;
-+
- 	/*
- 	 * del_gendisk drops the initial reference to bd_holder_dir, so we
- 	 * need to keep our own here to allow for cleanup past that point.
--- 
-2.31.1
+Thanks a lot!!
 
 --
 dm-devel mailing list
