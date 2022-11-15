@@ -1,81 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D1D92629D19
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Nov 2022 16:17:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B7495629D24
+	for <lists+dm-devel@lfdr.de>; Tue, 15 Nov 2022 16:17:30 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668525424;
+	s=mimecast20190719; t=1668525449;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=YlRp9VP/T3TStA1W+ZP06VKFMp+0DqAsEdn4txk8/io=;
-	b=FWed8PNmsjpYBBsBDprkmzuYOS4A1ZmBm+V6dy6rmdWBkX4bqWB8jOEQnLJyBKe3iMhw+V
-	NQYMdhd2G4GKXTU7iqdj7YONcNDFhYcmbuIif8zIK4O2+QoZ8Tyrnt58E49Rpso8y9hYfj
-	3wgrX6lc4rhPaRm0LQ6qp6HQPoKlj/8=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=tffdFEdF0MWeZuqe17Qk/caAF45psxu3SJE9mFCrU3E=;
+	b=OZih2OS/zd7TLHAOgcf5kO8ilW1mn1SDbxKscKgt/EyLSyzXsln5dXU72ucfADSlpPJC5k
+	zJiFp/IhJ47SzGoG73nW/1cCEWuFrjrHpUi8xv4w1omH8Yte42PBAWYUuoYV/iFtMdYOUO
+	f8D9e+dv3UStlrCGGd1i6zplBuFdUQg=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-587-QqECeGnxNS23K9H_lP9W5g-1; Tue, 15 Nov 2022 10:16:46 -0500
-X-MC-Unique: QqECeGnxNS23K9H_lP9W5g-1
+ us-mta-226-ImWZUIudMwC7VjFOqWLyNQ-1; Tue, 15 Nov 2022 10:17:02 -0500
+X-MC-Unique: ImWZUIudMwC7VjFOqWLyNQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BE92185A794;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CE0F38012D4;
 	Tue, 15 Nov 2022 15:15:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 41EA740C98DB;
-	Tue, 15 Nov 2022 15:15:49 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BBABE1946A42;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5A8E640C98DA;
 	Tue, 15 Nov 2022 15:15:47 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C2D311946A46;
+	Tue, 15 Nov 2022 15:15:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EF6B419465B8
- for <dm-devel@listman.corp.redhat.com>; Tue, 15 Nov 2022 13:49:39 +0000 (UTC)
+ ESMTP id 7BEA919465B9
+ for <dm-devel@listman.corp.redhat.com>; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E0D68492B1A; Tue, 15 Nov 2022 13:49:39 +0000 (UTC)
+ id 5F83540E9789; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D915C492B05
- for <dm-devel@redhat.com>; Tue, 15 Nov 2022 13:49:39 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BFFB1833A0F
- for <dm-devel@redhat.com>; Tue, 15 Nov 2022 13:49:39 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 573C040C6EC3
+ for <dm-devel@redhat.com>; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CE3D101A528
+ for <dm-devel@redhat.com>; Tue, 15 Nov 2022 13:49:42 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
+ [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-508-WwRC0CfnOJ6ASHCr1aonyw-1; Tue, 15 Nov 2022 08:49:37 -0500
-X-MC-Unique: WwRC0CfnOJ6ASHCr1aonyw-1
+ us-mta-643-d3CKBp9aPouENm4qQdBpOQ-1; Tue, 15 Nov 2022 08:49:39 -0500
+X-MC-Unique: d3CKBp9aPouENm4qQdBpOQ-1
 Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4NBSGK5bVgz4f3k6g;
- Tue, 15 Nov 2022 21:49:29 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4NBSGL1zmsz4f41hX;
+ Tue, 15 Nov 2022 21:49:30 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.127.227])
- by APP4 (Coremail) with SMTP id gCh0CgBni9jnmHNjrPFIAg--.61645S13;
- Tue, 15 Nov 2022 21:49:32 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgBni9jnmHNjrPFIAg--.61645S14;
+ Tue, 15 Nov 2022 21:49:33 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: hch@lst.de, axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
  dm-devel@redhat.com
-Date: Tue, 15 Nov 2022 22:10:53 +0800
-Message-Id: <20221115141054.1051801-10-yukuai1@huaweicloud.com>
+Date: Tue, 15 Nov 2022 22:10:54 +0800
+Message-Id: <20221115141054.1051801-11-yukuai1@huaweicloud.com>
 In-Reply-To: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
 References: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgBni9jnmHNjrPFIAg--.61645S13
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFW3JryrJF17AF43CFW3Jrb_yoW8ZF1fpF
- Z8Xa48JrW8Ga1UWw4qqw4UGFy29rWUJ3WxGFyIkrWS9rW3Jr4kCF13Jr1UXFWrKrWxKrsI
- qF17X3yFyF4vkaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUP214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID: gCh0CgBni9jnmHNjrPFIAg--.61645S14
+X-Coremail-Antispam: 1UD129KBjvJXoWxXw4kCFy5Xw1kuF1fWrWDXFb_yoWrurWkpr
+ 1jqr4UGr48Jr1UXF4UAr1UJr1UJrW8AF48Jr17Xr1DJF15W3WUZr1UJrWUAr15Jr4Yqr17
+ tw4DXw18tryUKaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUPI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
  kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
  z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
@@ -85,10 +84,10 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7CFW3JryrJF17AF43CFW3Jrb_yoW8ZF1fpF
  M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
  kIc2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
  14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
- kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAF
- wI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JV
- WxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbmZ
- X7UUUUU==
+ kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAF
+ wI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+ 0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUQ
+ SdkUUUUU=
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -98,10 +97,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Tue, 15 Nov 2022 15:15:46 +0000
-Subject: [dm-devel] [PATCH v3 09/10] block: store the holder kobject in
- bd_holder_disk
+Subject: [dm-devel] [PATCH v3 10/10] block: don't allow a disk link holder
+ to itself
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -125,62 +124,97 @@ Content-Transfer-Encoding: 7bit
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-We hold a reference to the holder kobject for each bd_holder_disk,
-so to make the code a bit more robust, use a reference to it instead
-of the block_device.  As long as no one clears ->bd_holder_dir in
-before freeing the disk, this isn't strictly required, but it does
-make the code more clear and more robust.
+After creating a dm device, then user can reload such dm with itself,
+and dead loop will be triggered because dm keep looking up to itself.
 
-Orignally-From: Christoph Hellwig <hch@lst.de>
+Test procedures:
+
+1) dmsetup create test --table "xxx sda", assume dm-0 is created
+2) dmsetup suspend test
+3) dmsetup reload test --table "xxx dm-0"
+4) dmsetup resume test
+
+Test result:
+
+BUG: TASK stack guard page was hit at 00000000736a261f (stack is 000000008d12c88d..00000000c8dd82d5)
+stack guard page: 0000 [#1] PREEMPT SMP
+CPU: 29 PID: 946 Comm: systemd-udevd Not tainted 6.1.0-rc3-next-20221101-00006-g17640ca3b0ee #1295
+Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS ?-20190727_073836-buildvm-ppc64le-16.ppc.fedoraproject.org-3.fc31 04/01/2014
+RIP: 0010:dm_prepare_ioctl+0xf/0x1e0
+Code: da 48 83 05 4a 7c 99 0b 01 41 89 c4 eb cd e8 b8 1f 40 00 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 57 48 83 05 a1 5a 99 0b 01 <41> 56 49 89 d6 41 55 4c 8d af 90 02 00 00 9
+RSP: 0018:ffffc90002090000 EFLAGS: 00010206
+RAX: ffff8881049d6800 RBX: ffff88817e589000 RCX: 0000000000000000
+RDX: ffffc90002090010 RSI: ffffc9000209001c RDI: ffff88817e589000
+RBP: 00000000484a101d R08: 0000000000000000 R09: 0000000000000007
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000005331
+R13: 0000000000005331 R14: 0000000000000000 R15: 0000000000000000
+FS:  00007fddf9609200(0000) GS:ffff889fbfd40000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffc9000208fff8 CR3: 0000000179043000 CR4: 00000000000006e0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Call Trace:
+ <TASK>
+ dm_blk_ioctl+0x50/0x1c0
+ ? dm_prepare_ioctl+0xe0/0x1e0
+ dm_blk_ioctl+0x88/0x1c0
+ dm_blk_ioctl+0x88/0x1c0
+ ......(a lot of same lines)
+ dm_blk_ioctl+0x88/0x1c0
+ dm_blk_ioctl+0x88/0x1c0
+ blkdev_ioctl+0x184/0x3e0
+ __x64_sys_ioctl+0xa3/0x110
+ do_syscall_64+0x35/0x80
+ entry_SYSCALL_64_after_hwframe+0x63/0xcd
+RIP: 0033:0x7fddf7306577
+Code: b3 66 90 48 8b 05 11 89 2c 00 64 c7 00 26 00 00 00 48 c7 c0 ff ff ff ff c3 66 2e 0f 1f 84 00 00 00 00 00 b8 10 00 00 00 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 8b 0d e1 88 8
+RSP: 002b:00007ffd0b2ec318 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
+RAX: ffffffffffffffda RBX: 00005634ef478320 RCX: 00007fddf7306577
+RDX: 0000000000000000 RSI: 0000000000005331 RDI: 0000000000000007
+RBP: 0000000000000007 R08: 00005634ef4843e0 R09: 0000000000000080
+R10: 00007fddf75cfb38 R11: 0000000000000246 R12: 00000000030d4000
+R13: 0000000000000000 R14: 0000000000000000 R15: 00005634ef48b800
+ </TASK>
+Modules linked in:
+---[ end trace 0000000000000000 ]---
+RIP: 0010:dm_prepare_ioctl+0xf/0x1e0
+Code: da 48 83 05 4a 7c 99 0b 01 41 89 c4 eb cd e8 b8 1f 40 00 0f 1f 84 00 00 00 00 00 0f 1f 44 00 00 41 57 48 83 05 a1 5a 99 0b 01 <41> 56 49 89 d6 41 55 4c 8d af 90 02 00 00 9
+RSP: 0018:ffffc90002090000 EFLAGS: 00010206
+RAX: ffff8881049d6800 RBX: ffff88817e589000 RCX: 0000000000000000
+RDX: ffffc90002090010 RSI: ffffc9000209001c RDI: ffff88817e589000
+RBP: 00000000484a101d R08: 0000000000000000 R09: 0000000000000007
+R10: 0000000000000000 R11: 0000000000000000 R12: 0000000000005331
+R13: 0000000000005331 R14: 0000000000000000 R15: 0000000000000000
+FS:  00007fddf9609200(0000) GS:ffff889fbfd40000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: ffffc9000208fff8 CR3: 0000000179043000 CR4: 00000000000006e0
+DR0: 0000000000000000 DR1: 0000000000000000 DR2: 0000000000000000
+DR3: 0000000000000000 DR6: 00000000fffe0ff0 DR7: 0000000000000400
+Kernel panic - not syncing: Fatal exception in interrupt
+Kernel Offset: disabled
+---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
+
+Fix the problem by forbidding a disk to create link to itself.
+
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- block/holder.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+ block/holder.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
 diff --git a/block/holder.c b/block/holder.c
-index c8e462053f49..3332142bb867 100644
+index 3332142bb867..37d18c13d958 100644
 --- a/block/holder.c
 +++ b/block/holder.c
-@@ -4,7 +4,7 @@
+@@ -65,6 +65,9 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
+ 	if (WARN_ON_ONCE(!disk->slave_dir))
+ 		return -EINVAL;
  
- struct bd_holder_disk {
- 	struct list_head	list;
--	struct block_device	*bdev;
-+	struct kobject		*holder_dir;
- 	int			refcnt;
- };
- 
-@@ -14,7 +14,7 @@ static struct bd_holder_disk *bd_find_holder_disk(struct block_device *bdev,
- 	struct bd_holder_disk *holder;
- 
- 	list_for_each_entry(holder, &disk->slave_bdevs, list)
--		if (holder->bdev == bdev)
-+		if (holder->holder_dir == bdev->bd_holder_dir)
- 			return holder;
- 	return NULL;
- }
-@@ -94,8 +94,9 @@ int bd_link_disk_holder(struct block_device *bdev, struct gendisk *disk)
- 	}
- 
- 	INIT_LIST_HEAD(&holder->list);
--	holder->bdev = bdev;
- 	holder->refcnt = 1;
-+	holder->holder_dir = bdev->bd_holder_dir;
++	if (bdev->bd_disk == disk)
++		return -EINVAL;
 +
- 	ret = add_symlink(disk->slave_dir, bdev_kobj(bdev));
- 	if (ret)
- 		goto out_free_holder;
-@@ -140,8 +141,8 @@ void bd_unlink_disk_holder(struct block_device *bdev, struct gendisk *disk)
- 	holder = bd_find_holder_disk(bdev, disk);
- 	if (!WARN_ON_ONCE(holder == NULL) && !--holder->refcnt) {
- 		del_symlink(disk->slave_dir, bdev_kobj(bdev));
--		del_symlink(bdev->bd_holder_dir, &disk_to_dev(disk)->kobj);
--		kobject_put(bdev->bd_holder_dir);
-+		del_symlink(holder->holder_dir, &disk_to_dev(disk)->kobj);
-+		kobject_put(holder->holder_dir);
- 		list_del_init(&holder->list);
- 		kfree(holder);
- 	}
+ 	/*
+ 	 * del_gendisk drops the initial reference to bd_holder_dir, so we
+ 	 * need to keep our own here to allow for cleanup past that point.
 -- 
 2.31.1
 
