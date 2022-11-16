@@ -2,92 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 04D6862CDBA
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 23:32:41 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5B7B562CEA0
+	for <lists+dm-devel@lfdr.de>; Thu, 17 Nov 2022 00:20:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668637960;
+	s=mimecast20190719; t=1668640806;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yeYMMnLSc1jUlW9sVYdo53MXgl+HYGa+R5lsv1TSbcs=;
-	b=XZ2r83EgQm+ZzWneeXWc8YMyvlyUDj59XBI0aHGH1YVjSILx8EZZJ4LKpWg9SZs6Pux1pm
-	Eu5LL30A+NeQ3I6/Dtqzd+A3PepG+93A1/kf7LJfhz9RDQu83mvt0qh1Ff/gQMeZiFkPpJ
-	XHtrON+YPtuqYtxXU3keH8Ma4JtsncM=
+	bh=oOimOmHe8e76nL6VhCZ8veCXc1RWbqOhAExyKcop+xk=;
+	b=RBz+reTfJVTzUhVprKFw8/zx72jfauhHDZKOLZfAgd9twblqWRXlDc8xED2/R8xQZZZSnX
+	ruJia07cegnFMIMDf2L8KRHfsW+rzUNIoCFahBbL3XAZxa9Icli7Sicg21G8DhAjw18cjI
+	HbOHxMPMo7mGFmZ4vpcziRELXBKYg0Q=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-495-Vv-HQKG1MM-J9FdXMjVSmg-1; Wed, 16 Nov 2022 17:32:38 -0500
-X-MC-Unique: Vv-HQKG1MM-J9FdXMjVSmg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-19-jKwWi6wgNYGABTUlwMmoog-1; Wed, 16 Nov 2022 18:20:01 -0500
+X-MC-Unique: jKwWi6wgNYGABTUlwMmoog-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0484B811E7A;
-	Wed, 16 Nov 2022 22:32:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB58685A5A6;
+	Wed, 16 Nov 2022 23:19:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CA465492B04;
-	Wed, 16 Nov 2022 22:32:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B791D4A9254;
+	Wed, 16 Nov 2022 23:19:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CF1E91946A41;
-	Wed, 16 Nov 2022 22:32:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA4FB19466DF;
+	Wed, 16 Nov 2022 23:19:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5395919465A2
- for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 22:20:29 +0000 (UTC)
+ ESMTP id 3272719465A2
+ for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 22:58:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 45C4A2166B30; Wed, 16 Nov 2022 22:20:29 +0000 (UTC)
+ id 0DC3F1415114; Wed, 16 Nov 2022 22:58:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3E3962166B29
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 22:20:29 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 05AFB140EBF3
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 22:58:28 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D9EC811E75
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 22:20:29 +0000 (UTC)
-Received: from mail-pj1-f48.google.com (mail-pj1-f48.google.com
- [209.85.216.48]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFABB185A792
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 22:58:27 +0000 (UTC)
+Received: from mail-pg1-f171.google.com (mail-pg1-f171.google.com
+ [209.85.215.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-262-ttIlV8KoPgKeC6NpzWYZ_w-1; Wed, 16 Nov 2022 17:20:27 -0500
-X-MC-Unique: ttIlV8KoPgKeC6NpzWYZ_w-1
-Received: by mail-pj1-f48.google.com with SMTP id k5so17773153pjo.5
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 14:20:26 -0800 (PST)
+ us-mta-351-qX4pOYfDN9CT8Yu5BHPGvQ-1; Wed, 16 Nov 2022 17:58:26 -0500
+X-MC-Unique: qX4pOYfDN9CT8Yu5BHPGvQ-1
+Received: by mail-pg1-f171.google.com with SMTP id h193so303858pgc.10
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 14:58:25 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:date:message-id:subject
  :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rEjKgjdJfrVf8HtFsOf1hWq1pz83a0clNltcH86fMuM=;
- b=Tu7OOpUba3R8rbYuUMK6kXEtEZuPYKZjErxWKI8TMXUkL6WbTp0njhxCGuDFWfflKT
- a/dWkIl2ZWRjwqrtmInBa5eBiq6kZMZ4oz582NPrp6RruD6t/knMWnbpSncu1x7ew0eJ
- tJzpFCf1DtcrHVsplH54VesPsmMBNy8a1YJwXtJlogxoF4nk1PFbz4lvnF+0y14zdi6p
- yNcAAYk/M67aw3QuC7D70JchcfYGJP+BhxNLqMk7GVa5Fn/7h7He0N2G9eCDtjjTF1xZ
- hlWU87AozozviCZ1VPnRJxiZdLHU3H4nU+9wMGjRSrt6SstRezALRRaCeyqqER3oC2TF
- T67Q==
-X-Gm-Message-State: ANoB5pkZjiQ+X+q2HN9CIxnfv87qqDECcQYv7PjAgZvSczAg8GLLQBzP
- t6cNf/vPOn4AwsakwMK0PaxzmA==
-X-Google-Smtp-Source: AA0mqf7WZxQxdqgnIyWTf+4IzjNaKNBlVf2HQMB+vbxL9rzQ67Grpka8LdSFqFoq7/nQ08zWSufZRA==
-X-Received: by 2002:a17:90b:4b42:b0:20a:e38c:8c5f with SMTP id
- mi2-20020a17090b4b4200b0020ae38c8c5fmr5704988pjb.217.1668637225806; 
- Wed, 16 Nov 2022 14:20:25 -0800 (PST)
+ bh=JenFovSTQN9+wzGd6rk1pX/UQFf/Esi4jnYBpJTyW6k=;
+ b=do5QJJMJzSwsqbVni6eft+FZNB281VaKBOh44906ZiYmodqKOBiDWf2DLM0LmK6+7F
+ n2T2pReJeizbYMZXTE0gYrGoTlT3W+6rj2r+VvcfH6VgAvG4HH2rWatTZajZbEpGViDa
+ gU4CxjKVTodx2nAropm+Gxpd3rUyBZmjRjQBHiyNhr7yD29KYOLdYj6DoRPrjRbLjII8
+ IovB+S3w0BEHRwHchyxToLj7NPwVBonztap6h2lRw5i14YUxFHmRfjogE5qoEaH0taIC
+ PNVmW+TLQkKefoF9j1apn9ZFsVW/5lnPmg/UNY2i1qjgZXsv++hIJZRpBGmx6Fh4moif
+ QDEA==
+X-Gm-Message-State: ANoB5plV6nU92RMRD8ZSVpVuaJSkXIQpnYDKvLOkutdJFJHmCSVyCckh
+ IcXo3TNwZGnfRVLyo5HkTb4UCQ==
+X-Google-Smtp-Source: AA0mqf4tuHJxwwqe1b7MIqPh5fOVIaMq+WItB05J/gZuYEoZcL8yGsMlVDLBnsm67KcdNeRNlET/sg==
+X-Received: by 2002:a05:6a00:440b:b0:56b:b53f:e887 with SMTP id
+ br11-20020a056a00440b00b0056bb53fe887mr290248pfb.3.1668639504962; 
+ Wed, 16 Nov 2022 14:58:24 -0800 (PST)
 Received: from [127.0.0.1] ([198.8.77.157]) by smtp.gmail.com with ESMTPSA id
- e24-20020a63f558000000b00470275c8d6dsm10011228pgk.10.2022.11.16.14.20.24
+ q8-20020a170902dac800b0018725c2fc46sm12891214plx.303.2022.11.16.14.58.23
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Nov 2022 14:20:25 -0800 (PST)
+ Wed, 16 Nov 2022 14:58:24 -0800 (PST)
 From: Jens Axboe <axboe@kernel.dk>
-To: Yu Kuai <yukuai1@huaweicloud.com>, dm-devel@redhat.com, agk@redhat.com,
- snitzer@kernel.org, hch@lst.de
-In-Reply-To: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
-References: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
-Message-Id: <166863722483.6643.3538275832445983293.b4-ty@kernel.dk>
-Date: Wed, 16 Nov 2022 15:20:24 -0700
+To: linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Keith Busch <kbusch@meta.com>
+In-Reply-To: <20221110184501.2451620-1-kbusch@meta.com>
+References: <20221110184501.2451620-1-kbusch@meta.com>
+Message-Id: <166863950373.9526.11859127241881103074.b4-ty@kernel.dk>
+Date: Wed, 16 Nov 2022 15:58:23 -0700
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -96,8 +96,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v3 00/10] fix delayed holder tracking
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [dm-devel] [PATCHv2 0/5] fix direct io device mapper errors
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,49 +109,42 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, yukuai3@huawei.com,
- linux-kernel@vger.kernel.org, yi.zhang@huawei.com
+Cc: Keith Busch <kbusch@kernel.org>, ebiggers@kernel.org, mpatocka@redhat.com,
+ me@demsh.org, stefanha@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 15 Nov 2022 22:10:44 +0800, Yu Kuai wrote:
-> From: Yu Kuai <yukuai3@huawei.com>
+On Thu, 10 Nov 2022 10:44:56 -0800, Keith Busch wrote:
+> From: Keith Busch <kbusch@kernel.org>
 > 
-> Hi all,
+> The 6.0 kernel made some changes to the direct io interface to allow
+> offsets in user addresses. This based on the hardware's capabilities
+> reported in the request_queue's dma_alignment attribute.
 > 
-> this series tries to fix the delayed holder tracking that is only used by
-> dm by moving it into dm, where we can track the lifetimes much better.
-> v2 is from Christoph, here I send v3 with some additional fixes.
+> dm-crypt, -log-writes and -integrity require direct io be aligned to the
+> block size. Since it was only ever using the default 511 dma mask, this
+> requirement may fail if formatted to something larger, like 4k, which
+> will result in unexpected behavior with direct-io.
 > 
 > [...]
 
 Applied, thanks!
 
-[01/10] block: clear ->slave_dir when dropping the main slave_dir reference
-        commit: d90db3b1c8676bc88b4309c5a571333de2263b8e
-[02/10] dm: remove free_table_devices
-        commit: 992ec6a92ac315d3301353ff3beb818fcc34e4e4
-[03/10] dm: cleanup open_table_device
-        commit: b9a785d2dc6567b2fd9fc60057a6a945a276927a
-[04/10] dm: cleanup close_table_device
-        commit: 7b5865831c1003122f737df5e16adaa583f1a595
-[05/10] dm: make sure create and remove dm device won't race with open and close table
-        commit: d563792c8933a810d28ce0f2831f0726c2b15a31
-[06/10] dm: track per-add_disk holder relations in DM
-        commit: 1a581b72169968f4154b5793828f3bc28b258b35
-[07/10] block: remove delayed holder registration
-        commit: 7abc077788363ac7194aefd355306f8e974feff7
-[08/10] block: fix use after free for bd_holder_dir
-        commit: 62f535e1f061b4c2cc76061b6b59af9f9335ee34
-[09/10] block: store the holder kobject in bd_holder_disk
-        commit: 3b3449c1e6c3fe19f62607ff4f353f8bb82d5c4e
-[10/10] block: don't allow a disk link holder to itself
-        commit: 077a4033541fc96fb0a955985aab7d1f353da831
+[1/5] block: make dma_alignment a stacking queue_limit
+      commit: c964d62f5cab7b43dd0534f22a96eab386c6ec5d
+[2/5] dm-crypt: provide dma_alignment limit in io_hints
+      commit: 86e4d3e8d1838ca88fb9267e669c36f6c8f7c6cd
+[3/5] block: make blk_set_default_limits() private
+      commit: b3228254bb6e91e57f920227f72a1a7d81925d81
+[4/5] dm-integrity: set dma_alignment limit in io_hints
+      commit: 29aa778bb66795e6a78b1c99beadc83887827868
+[5/5] dm-log-writes: set dma_alignment limit in io_hints
+      commit: 50a893359cd2643ee1afc96eedc9e7084cab49fa
 
 Best regards,
 -- 
