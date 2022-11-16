@@ -2,10 +2,10 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AAFB62B359
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 07:36:05 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9363062B35E
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 07:36:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668580563;
+	s=mimecast20190719; t=1668580579;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
@@ -13,59 +13,59 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
 	bh=Pm1z+kVqWbjaxGlwDeQFznjeaTJVp/p72ZnOnwk1vd4=;
-	b=OWMAyWlRYEMWBehACQsPgbAt4DZh+mytgt2tiJjveJkzAxWdAS52IhaR2EtklTN9qpcyzO
-	Y4fTBn3ekMn5ASffa7t2d4vP8qaQT3LdFHMtyjGehhnNFMEnK0JlF2AKEm0gZypxua2ys9
-	49O//AbaZ77v2YZMFYAH3N5sAWUW3AI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	b=dws2QCYQBoPk/Nbuv7HPvujBI+6ZXKSeTfTN3j8VXo4DpdRvUZpsMDrTHXTBEwi92Jae/q
+	vjFslUsJFMlfUMwA2NuI2RI8rsEfjzv0f+HvrGI5UNfbmqWWLY00HXbZ7E1KOE0CnaIpd8
+	tnu/nuwU4V/18vR/2qaUQaUbChbqG7Q=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-63-1aZ0Pp1wM4GMIa4DObrEjA-1; Wed, 16 Nov 2022 01:35:53 -0500
-X-MC-Unique: 1aZ0Pp1wM4GMIa4DObrEjA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-640-4FY1zwYRONWsUKCypl7HYQ-1; Wed, 16 Nov 2022 01:36:15 -0500
+X-MC-Unique: 4FY1zwYRONWsUKCypl7HYQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB9B8858282;
-	Wed, 16 Nov 2022 06:35:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 741DB29AB44A;
+	Wed, 16 Nov 2022 06:36:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C74722024CC0;
-	Wed, 16 Nov 2022 06:35:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E7FC492B0E;
+	Wed, 16 Nov 2022 06:36:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 547E019465B9;
-	Wed, 16 Nov 2022 06:35:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0227219465B9;
+	Wed, 16 Nov 2022 06:36:13 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9AB4019465A2
- for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 06:35:49 +0000 (UTC)
+ ESMTP id 473EE19465A2
+ for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 06:36:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7591940C835A; Wed, 16 Nov 2022 06:35:49 +0000 (UTC)
+ id 3462840C83D9; Wed, 16 Nov 2022 06:36:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E83F40C2086
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 06:35:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52532101A52A
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 06:35:49 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D52540C83BA
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 06:36:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 165DB185A794
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 06:36:11 +0000 (UTC)
 Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-189-zEL8oWVjOe2hYl5dO_wt8g-1; Wed, 16 Nov 2022 01:35:46 -0500
-X-MC-Unique: zEL8oWVjOe2hYl5dO_wt8g-1
+ us-mta-220-dAegmhAlONKnC1zBWaL0cw-1; Wed, 16 Nov 2022 01:36:08 -0500
+X-MC-Unique: dAegmhAlONKnC1zBWaL0cw-1
 Received: by verein.lst.de (Postfix, from userid 2407)
- id 5FE3568AA6; Wed, 16 Nov 2022 07:35:43 +0100 (CET)
-Date: Wed, 16 Nov 2022 07:35:43 +0100
+ id EDDFA68AA6; Wed, 16 Nov 2022 07:36:04 +0100 (CET)
+Date: Wed, 16 Nov 2022 07:36:04 +0100
 From: Christoph Hellwig <hch@lst.de>
 To: Yu Kuai <yukuai1@huaweicloud.com>
-Message-ID: <20221116063543.GB19492@lst.de>
+Message-ID: <20221116063604.GC19492@lst.de>
 References: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
- <20221115141054.1051801-9-yukuai1@huaweicloud.com>
+ <20221115141054.1051801-10-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-In-Reply-To: <20221115141054.1051801-9-yukuai1@huaweicloud.com>
+In-Reply-To: <20221115141054.1051801-10-yukuai1@huaweicloud.com>
 User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -75,8 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH v3 08/10] block: fix use after free for
- bd_holder_dir
+Subject: Re: [dm-devel] [PATCH v3 09/10] block: store the holder kobject in
+ bd_holder_disk
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,7 +93,7 @@ Cc: axboe@kernel.dk, yi.zhang@huawei.com, snitzer@kernel.org,
  yukuai3@huawei.com, hch@lst.de, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
