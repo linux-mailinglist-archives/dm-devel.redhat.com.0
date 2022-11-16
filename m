@@ -2,89 +2,102 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F04062B476
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 09:03:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32F4C62C982
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 21:06:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668585796;
+	s=mimecast20190719; t=1668629160;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oRLEJx55Ezjs+aFiPxyZ1sLI/YomAWjAiTvq2TcjtK4=;
-	b=aQOGOA6sJ3B6hlwxu/xEb4XO+UHb8PKUcIT33nYmk6r9M/hAUDaFZC1xlXpEsUJ+HLgWb6
-	4koDHxD24kOnvLaG3mMAcwMF+aMzT3fZEQTnMLY/Ol01OSULFtxNaAsVGo9I1gA1Uy970F
-	wu54xwwx0+qIZckhgm0SBCGHsTq+6W0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=5yyfBsgyx2oBgiTTc7wH4t1iaBtw7yy/8/uoM9Q/Yxs=;
+	b=fcMdr9mxZi3n2NCfMJwR2FohOy5TiJ+VWUvIMLxzbLch3HX3GjNuG1gjXlAP3B7UG5A0Iq
+	VUPhLg0rAFfkecUmYYpKEUl+H5t7nJaQMZLySRSxB63kUdeeqxXkVNH8Yz770BdzXBOMC3
+	FkfCd0pM56GB1tB6dT5Z9cG4GxtwLgw=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-659-B3ieCUjfNueU78kpIvpw9g-1; Wed, 16 Nov 2022 03:03:14 -0500
-X-MC-Unique: B3ieCUjfNueU78kpIvpw9g-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-307-IF1b51VXOvyi1TxE-Ijsxw-1; Wed, 16 Nov 2022 15:05:57 -0500
+X-MC-Unique: IF1b51VXOvyi1TxE-Ijsxw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 709308027F5;
-	Wed, 16 Nov 2022 08:03:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 447B51C0896A;
+	Wed, 16 Nov 2022 20:05:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F0C3A492B05;
-	Wed, 16 Nov 2022 08:03:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E16A02024CC8;
+	Wed, 16 Nov 2022 20:05:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2B5B519465BA;
-	Wed, 16 Nov 2022 08:03:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9BCDE19465BA;
+	Wed, 16 Nov 2022 20:05:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5119419465A2
- for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 08:03:05 +0000 (UTC)
+ ESMTP id 13C8E19465A2
+ for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 20:05:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2D7BB35429; Wed, 16 Nov 2022 08:03:05 +0000 (UTC)
+ id EA046C1908A; Wed, 16 Nov 2022 20:05:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 263F818EB4
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 08:03:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E2F4EC1E88E
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 20:05:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07B34101A528
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 08:03:05 +0000 (UTC)
-Received: from mslow1.mail.gandi.net (mslow1.mail.gandi.net
- [217.70.178.240]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-470-meJqvOXIOLyT8er_MuhZyQ-1; Wed, 16 Nov 2022 03:02:55 -0500
-X-MC-Unique: meJqvOXIOLyT8er_MuhZyQ-1
-Received: from relay2-d.mail.gandi.net (unknown [IPv6:2001:4b98:dc4:8::222])
- by mslow1.mail.gandi.net (Postfix) with ESMTP id 0B03BD2BB1
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 06:11:52 +0000 (UTC)
-Received: (Authenticated sender: peter@korsgaard.com)
- by mail.gandi.net (Postfix) with ESMTPSA id ECEBE40002;
- Wed, 16 Nov 2022 06:11:48 +0000 (UTC)
-Received: from peko by dell.be.48ers.dk with local (Exim 4.94.2)
- (envelope-from <peter@korsgaard.com>)
- id 1ovBeF-009pna-Vp; Wed, 16 Nov 2022 07:11:47 +0100
-From: Peter Korsgaard <peter@korsgaard.com>
-To: Mike Snitzer <snitzer@kernel.org>
-References: <20221115215146.2232584-1-peter@korsgaard.com>
-Date: Wed, 16 Nov 2022 07:11:47 +0100
-In-Reply-To: <20221115215146.2232584-1-peter@korsgaard.com> (Peter Korsgaard's
- message of "Tue, 15 Nov 2022 22:51:46 +0100")
-Message-ID: <87iljfe8d8.fsf@dell.be.48ers.dk>
-User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/27.1 (gnu/linux)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7601101A58E
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 20:05:39 +0000 (UTC)
+Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
+ [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-471-uCy6CuF5MyqTqHEU7ZFSBQ-1; Wed, 16 Nov 2022 15:05:37 -0500
+X-MC-Unique: uCy6CuF5MyqTqHEU7ZFSBQ-1
+Received: by mail-qk1-f197.google.com with SMTP id
+ bi42-20020a05620a31aa00b006faaa1664b9so18272807qkb.8
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 12:05:37 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=JLUc8wFQUngPcn9VE0lYivlFFmu9hagcuFWZhYxzxAg=;
+ b=iM+sRLmxeLCRIbPd3vdRO8irEPSo2c9FuaBaGIYiyNZJUTeZV3hgO1LnIpoB/Xqo5Q
+ AKi6zvr7vyJJ6jydvDNRIon3aGhVqxrRnXfZsDO18Xb1i/f+RjkEp4Vir6q4keeGIFFp
+ a7J8FY6rIauUkOswpf6YUSA9/C0yXgklLUiX9skakkfqJnIZPa3a7uexOaA5iUaJkdJV
+ eOMB93y3dD7Kb/60mn/fx8XbS1VYjErFvtPbTCC8K5nins7TbiUGZsvYil8FqZedjg/3
+ VGN+WfWlXVSnIPziZa/IGT7vKG5qOd8fA2a/tzDriYxbHTuwZmzpwQmQP0DcZbvF+1d+
+ 74Iw==
+X-Gm-Message-State: ANoB5pmAuXy0Q+l8QH+YSCXozTrf7qYVMC3F1UU2tQhmyzPb4sH3NDRO
+ VO7hXqDMYBrtPyK8uLk4heZU0DTvZ7kdSH/s7d2desZWAwOItKM8+/kagRaLvOhDkdkiwINK4NF
+ SEEuPSrLCv7gcCw==
+X-Received: by 2002:a05:620a:c43:b0:6fa:6423:65b6 with SMTP id
+ u3-20020a05620a0c4300b006fa642365b6mr13695671qki.324.1668629136794; 
+ Wed, 16 Nov 2022 12:05:36 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf7QFuYuDYf+7fZ1eA/V2zF+3DqiMnkhOXs+SdKPfUYyDPJiEMnLz8vlNganM/gmYt11Dh8S9Q==
+X-Received: by 2002:a05:620a:c43:b0:6fa:6423:65b6 with SMTP id
+ u3-20020a05620a0c4300b006fa642365b6mr13695661qki.324.1668629136592; 
+ Wed, 16 Nov 2022 12:05:36 -0800 (PST)
+Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
+ [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
+ p70-20020a374249000000b006eef13ef4c8sm10488872qka.94.2022.11.16.12.05.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 16 Nov 2022 12:05:36 -0800 (PST)
+Date: Wed, 16 Nov 2022 15:05:34 -0500
+From: Mike Snitzer <snitzer@redhat.com>
+To: Keith Busch <kbusch@meta.com>
+Message-ID: <Y3VCjoT2PtHWRvrO@redhat.com>
+References: <20221110184501.2451620-1-kbusch@meta.com>
+ <20221110184501.2451620-3-kbusch@meta.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Spam-Signature: yes
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH] dm init: add dm-mod.waitfor to wait for
- asynchronously probed block devices
+In-Reply-To: <20221110184501.2451620-3-kbusch@meta.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCHv2 2/5] dm-crypt: provide dma_alignment limit
+ in io_hints
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,70 +109,34 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Helen Koike <helen.koike@collabora.com>, dm-devel@redhat.com,
- Jonathan Corbet <corbet@lwn.net>
+Cc: axboe@kernel.dk, ebiggers@kernel.org, linux-block@vger.kernel.org,
+ dm-devel@redhat.com, mpatocka@redhat.com, stefanha@redhat.com,
+ Keith Busch <kbusch@kernel.org>, me@demsh.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
->>>>> "Peter" == Peter Korsgaard <peter@korsgaard.com> writes:
+On Thu, Nov 10 2022 at  1:44P -0500,
+Keith Busch <kbusch@meta.com> wrote:
 
- > Just calling wait_for_device_probe() is not enough to ensure that
- > asynchronously probed block devices are available (E.G.  mmc, usb, ..), so
- > add a "dm-mod.waitfor=<device1>[,..,<deviceN>]" parameter to get dm-init to
- > explicitly wait for specific block devices before initializing the tables
- > with logic similar to the rootwait logic in init/do_mounts.c.
+> From: Keith Busch <kbusch@kernel.org>
+> 
+> This device mapper needs bio vectors to be sized and memory aligned to
+> the logical block size. Set the minimum required queue limit
+> accordingly.
+> 
+> Link: https://lore.kernel.org/linux-block/20221101001558.648ee024@xps.demsh.org/
+> Fixes: b1a000d3b8ec5 ("block: relax direct io memory alignment")
+> Reportred-by: Eric Biggers <ebiggers@kernel.org>
+> Reported-by: Dmitrii Tcvetkov <me@demsh.org>
+> Signed-off-by: Keith Busch <kbusch@kernel.org>
 
- > E.G. with dm-verity on mmc with
- > dm-mod.waitfor="PARTLABEL=hash-a,PARTLABEL=root-a"
-
- > [    0.671671] device-mapper: init: waiting for all devices to be available before creating mapped devices
- > [    0.671679] device-mapper: init: waiting for PARTLABEL=hash-a
- > [    0.710695] mmc0: new HS200 MMC card at address 0001
- > [    0.711158] mmcblk0: mmc0:0001 004GA0 3.69 GiB
- > [    0.715954] mmcblk0boot0: mmc0:0001 004GA0 partition 1 2.00 MiB
- > [    0.722085] mmcblk0boot1: mmc0:0001 004GA0 partition 2 2.00 MiB
- > [    0.728093] mmcblk0rpmb: mmc0:0001 004GA0 partition 3 512 KiB, chardev (249:0)
- > [    0.738274]  mmcblk0: p1 p2 p3 p4 p5 p6 p7
- > [    0.751282] device-mapper: init: waiting for PARTLABEL=root-a
- > [    0.751306] device-mapper: init: all devices available
- > [    0.751683] device-mapper: verity: sha256 using implementation "sha256-generic"
- > [    0.759344] device-mapper: ioctl: dm-0 (vroot) is ready
- > [    0.766540] VFS: Mounted root (squashfs filesystem) readonly on device 254:0.
-
- > Signed-off-by: Peter Korsgaard <peter@korsgaard.com>
- > ---
- >  .../admin-guide/device-mapper/dm-init.rst     |  9 ++++++++
- >  drivers/md/dm-init.c                          | 23 ++++++++++++++++++-
- >  2 files changed, 31 insertions(+), 1 deletion(-)
-
- > diff --git a/Documentation/admin-guide/device-mapper/dm-init.rst b/Documentation/admin-guide/device-mapper/dm-init.rst
- > index e5242ff17e9b..83efd8fe19d5 100644
- > --- a/Documentation/admin-guide/device-mapper/dm-init.rst
- > +++ b/Documentation/admin-guide/device-mapper/dm-init.rst
- > @@ -123,3 +123,12 @@ Other examples (per target):
- >      0 1638400 verity 1 8:1 8:2 4096 4096 204800 1 sha256
- >      fb1a5a0f00deb908d8b53cb270858975e76cf64105d412ce764225d53b8f3cfd
- >      51934789604d1b92399c52e7cb149d1b3a1b74bbbcb103b2a0aaacbed5c08584
- > +
- > +For setups using device-mapper on top of asynchronously probed block
- > +devices (MMC, USB, ..), it may be necessary to tell dm-init to
- > +explicitly wait for them to become available before setting up the
- > +device-mapper tables. This can be done with the "dm-init.waitfor="
- > +module parameter, which takes a list of devices to wait for::
- > +
- > +  dm-init.waitfor=<device1>[,..,<deviceN>]
- > +
-
-Ups, the trailing newline should be dropped. Can you do this when
-applying or do you want me to resend?
-
--- 
-Bye, Peter Korsgaard
+Reviewed-by: Mike Snitzer <snitzer@kernel.org>
 
 --
 dm-devel mailing list
