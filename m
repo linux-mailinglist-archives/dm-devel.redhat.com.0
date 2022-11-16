@@ -1,103 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE3562CD20
-	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 22:50:26 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C5FA362CD25
+	for <lists+dm-devel@lfdr.de>; Wed, 16 Nov 2022 22:51:10 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1668635425;
+	s=mimecast20190719; t=1668635469;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bMGPMwmyv4wQkaBAHZah1DjuxANDn2JFmyIS+Pjfm6s=;
-	b=VaaCzB1gyeRk2d9m+ELfMLuDVQNOtkQQNrdZyGY+0w5h9VlmhFLegocEH4PjqMGXv6UPEG
-	mAQx5OHm9GgoQLAeHG6MnP2P7ZJww/9KVhoDzWYgwDxg+kSOgzrgdGZ9dnfu7Crtp0aElE
-	UK8tUIeaa//Vl6oQTgs3tqYq4cKVScQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=OjCBhW6a4JYNDNNN4Ukc1HLB3iroXupCjqjsdGXdSYs=;
+	b=gRxh9MGIjsghvs+HONTStwZo1d5yCWq64E16AHgJSD24jCG1c3xH5lzNeEBVmPaVIRNYK2
+	ybVoPKXuxI/kKfilpZdNoNQ62+8eiA+q6qKdWeXsE+JEQMth+XxT/A7OAD5Vm+bvr+OXfH
+	+81yuxPrSNB5BFYk3Rj196A8C+C5eAU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-619-oXngC7uoMZm4ZRaKDu7dMA-1; Wed, 16 Nov 2022 16:50:23 -0500
-X-MC-Unique: oXngC7uoMZm4ZRaKDu7dMA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-360-v7DbfbZoOj-cN4Hxt2fCEw-1; Wed, 16 Nov 2022 16:51:08 -0500
+X-MC-Unique: v7DbfbZoOj-cN4Hxt2fCEw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17C031066145;
-	Wed, 16 Nov 2022 21:50:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C1562833B1C;
+	Wed, 16 Nov 2022 21:51:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 621FA4750B3;
-	Wed, 16 Nov 2022 21:50:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EDF0517595;
+	Wed, 16 Nov 2022 21:51:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 104B319465BA;
-	Wed, 16 Nov 2022 21:50:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6E53619465BA;
+	Wed, 16 Nov 2022 21:51:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1C4F319465A2
- for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 21:50:08 +0000 (UTC)
+ ESMTP id 326E219465A2
+ for <dm-devel@listman.corp.redhat.com>; Wed, 16 Nov 2022 21:51:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D0BEF2166BDD; Wed, 16 Nov 2022 21:50:07 +0000 (UTC)
+ id BC718492B05; Wed, 16 Nov 2022 21:51:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 876412166B4C
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 21:50:07 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B53E2492B04
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 21:51:01 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3ED8D2A2AD7C
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 21:50:07 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 832421C0A580
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 21:51:01 +0000 (UTC)
 Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
  [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-592-49Bzw2eANZOOu0xVSMbHkw-1; Wed, 16 Nov 2022 16:50:05 -0500
-X-MC-Unique: 49Bzw2eANZOOu0xVSMbHkw-1
+ us-mta-205-czhHhAmXOCadpxTvONCzGw-1; Wed, 16 Nov 2022 16:51:00 -0500
+X-MC-Unique: czhHhAmXOCadpxTvONCzGw-1
 Received: by mail-qk1-f200.google.com with SMTP id
- q14-20020a05620a0d8e00b006ef0350dae1so18719142qkl.12
- for <dm-devel@redhat.com>; Wed, 16 Nov 2022 13:49:59 -0800 (PST)
+ u5-20020a05620a0c4500b006fb30780443so16685892qki.22
+ for <dm-devel@redhat.com>; Wed, 16 Nov 2022 13:51:00 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=3w8sc6ccmIuZ5y2kueBPTj95unxJJNUHkbfTdAl9rzY=;
- b=YmnvXg61ypUV5lfaNc2q2gTEC8+oHqsZw1Ll82IjFEtjJuEk/6nl8sGbrEMDLW2ZFA
- LL6fJ4qby2bFwjgJq4hXfJxwyzucCzT/u5eszqvzP27qHicMnqnbqKfOzcKQLrQTHtY7
- k6X4DA9mlcVSHky/+QbZF+ivqeQVr9iosWNT5QwOLBVg+V1o5LwI9lnPCSrSNs/CZwsx
- WFaT1d28FUiIhlj3y/CATJ7sU0FIAj1OxqE6f+bVrQ8H+vItFNtDIsut8OW59044q1MH
- jBSRnYMAeVDvKwUYwHejIIhdI634xlsZOCmscurOEcyPmpa0SAQILjh+4YPAyAJMtavb
- aaLA==
-X-Gm-Message-State: ANoB5pnIxi/oX4oOqc7KAZ4OQt+mHGXz3Gwd18MqdWuGy+x3RehHaqx6
- pT+ES6Nozae/oCwe1IIYm5wFL9bUyhE8mrpIboRRr0LqsootIujZUybLGhaxuF9NCbmnH7SBYGz
- O/KYvU/RNDjiTOg==
-X-Received: by 2002:ad4:40c1:0:b0:4bb:84ba:a413 with SMTP id
- x1-20020ad440c1000000b004bb84baa413mr4742qvp.100.1668635398947; 
- Wed, 16 Nov 2022 13:49:58 -0800 (PST)
-X-Google-Smtp-Source: AA0mqf4BnT2ggUvkeRYRo5Emt1G4E8xePLqRg/4lNDVcvpLW30ftub/O923iYrtX29gcyNWbOz9JeA==
-X-Received: by 2002:ad4:40c1:0:b0:4bb:84ba:a413 with SMTP id
- x1-20020ad440c1000000b004bb84baa413mr4725qvp.100.1668635398766; 
- Wed, 16 Nov 2022 13:49:58 -0800 (PST)
+ bh=q6nojB89E1Mh3yFLSu2KzkNkZ/bHQfVswcYDYKdeZ2Q=;
+ b=CWTFzFLRwEmpj0J+Bwo1pQ3FIt2xJkJIMU22vaO4F7HBpQ2E0x41JbGX2UMDcQVzJ/
+ 8zpXNVPA0yvO7PGnxdM+tRroPUH8I/ZBKTgYwVBMAJ7aGlsgUxhFUdgLUBWIoukfE1Za
+ U/3lE/81t9f7+/p80wC3BRIjSe7iTcAupFdVJvUuo3YR0o0w6sUSCqrXyp4rRcufTiah
+ jecqlBbwSmmy4fSd0NYNRWJRCr+qN+v5RnfsqOBVHDWEvuS4NY703gCf4ZBitAKb2zyd
+ Gt7yEwJH3wblBPRm35ABv4S02S2QuB3FujcB66bhU4941KDwRYxPEiVj87PooQ2ZyAoS
+ wvzQ==
+X-Gm-Message-State: ANoB5pn/ktR+FtVRAqnnqm5hf3K5FSHtwmZNpHe/ilSrVmXPJJFGg9mE
+ +5a9d7pp9UCZJWNtymnVnJJ0rp/6BED/QpJhbKTtU0fVd6ZMf9k/PfMGx++v7d2bZXb+X0rNKQM
+ SevKp/NpvssryyA==
+X-Received: by 2002:a05:620a:c43:b0:6fa:6423:65b6 with SMTP id
+ u3-20020a05620a0c4300b006fa642365b6mr14077832qki.324.1668635459740; 
+ Wed, 16 Nov 2022 13:50:59 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf5o3UcPKD9RkRXo2oJUoXe+j1L0zcdnOEKW/X0guNcC/Xo8sAb4uEao0tfvbnLS9Ws1eXPm+Q==
+X-Received: by 2002:a05:620a:c43:b0:6fa:6423:65b6 with SMTP id
+ u3-20020a05620a0c4300b006fa642365b6mr14077821qki.324.1668635459547; 
+ Wed, 16 Nov 2022 13:50:59 -0800 (PST)
 Received: from localhost (pool-68-160-173-162.bstnma.fios.verizon.net.
  [68.160.173.162]) by smtp.gmail.com with ESMTPSA id
- o26-20020ac8699a000000b003a50b9f099esm9307666qtq.12.2022.11.16.13.49.58
+ d7-20020a05620a240700b006fba44843a5sm3063589qkn.52.2022.11.16.13.50.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 16 Nov 2022 13:49:58 -0800 (PST)
-Date: Wed, 16 Nov 2022 16:49:57 -0500
+ Wed, 16 Nov 2022 13:50:59 -0800 (PST)
+Date: Wed, 16 Nov 2022 16:50:58 -0500
 From: Mike Snitzer <snitzer@redhat.com>
 To: Yu Kuai <yukuai1@huaweicloud.com>
-Message-ID: <Y3VbBeuQvOLKH81a@redhat.com>
+Message-ID: <Y3VbQsjmNW4GQHLs@redhat.com>
 References: <20221115141054.1051801-1-yukuai1@huaweicloud.com>
- <20221115141054.1051801-7-yukuai1@huaweicloud.com>
+ <20221115141054.1051801-3-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-In-Reply-To: <20221115141054.1051801-7-yukuai1@huaweicloud.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v3 06/10] dm: track per-add_disk holder
- relations in DM
+In-Reply-To: <20221115141054.1051801-3-yukuai1@huaweicloud.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH v3 02/10] dm: remove free_table_devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,7 +113,7 @@ Cc: axboe@kernel.dk, yi.zhang@huawei.com, snitzer@kernel.org,
  yukuai3@huawei.com, hch@lst.de, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
@@ -126,17 +125,12 @@ Yu Kuai <yukuai1@huaweicloud.com> wrote:
 
 > From: Christoph Hellwig <hch@lst.de>
 > 
-> dm is a bit special in that it opens the underlying devices.  Commit
-> 89f871af1b26 ("dm: delay registering the gendisk") tried to accommodate
-> that by allowing to add the holder to the list before add_gendisk and
-> then just add them to sysfs once add_disk is called.  But that leads to
-> really odd lifetime problems and error handling problems as we can't
-> know the state of the kobjects and don't unwind properly.  To fix this
-> switch to just registering all existing table_devices with the holder
-> code right after add_disk, and remove them before calling del_gendisk.
+> free_table_devices just warns and frees all table_device structures when
+> the target removal did not remove them.  This should never happen, but
+> if it did, just freeing the structure without deleting them from the
+> list or cleaning up the resources would not help at all.  So just WARN on
+> a non-empty list instead.
 > 
-> Fixes: 89f871af1b26 ("dm: delay registering the gendisk")
-> Reported-by: Yu Kuai <yukuai3@huawei.com>
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 
