@@ -1,92 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2879963B7D1
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Nov 2022 03:28:28 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9F8F163B7D4
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Nov 2022 03:29:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669688906;
+	s=mimecast20190719; t=1669688943;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2ppSf0m1W63JDMTcbwZuhVwskMGX/VStbBc1OWwRDjo=;
-	b=IA7IsZkfnuHS165yr4hmjQo01P2Gd3p+0ONghcna9evSZ2PA6Gm8+B8pBXtLdXzeiDYQkt
-	JDcgqntfgVCRFnGPtdQfluM9O3W3OC9fiKJfuJcDb3kDi6LBT/9stYmaaO5B9IjFdSi5wn
-	ZMdwJEafBztLVANbCmjVBxhKxJgjozQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Mrvo6lNFnK06jX5D15kwwS+2nZVi/QsIv3zPuF2vetw=;
+	b=GpGQvSgx8hQUd5/Ir4mdUdrZXnEAOGXnUSUrDu5YBNOCbQZvo5venKPlFP8yvHENQc/yb5
+	X7UTvHv2kefVsBPQ4hzQAKz5D+kUc+34eHgTAIYR56u9vY5YtDpLTrqLkz0BaGbyOAGAfN
+	E7d1ZMRZtqi3HWETeq+BR/PmDSZTDLg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-27-XfxQLPdfPoW0bSnP5sjNSA-1; Mon, 28 Nov 2022 21:28:22 -0500
-X-MC-Unique: XfxQLPdfPoW0bSnP5sjNSA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-252-Fh2WGig3NJKS-V6iCJuErw-1; Mon, 28 Nov 2022 21:28:22 -0500
+X-MC-Unique: Fh2WGig3NJKS-V6iCJuErw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B0AF1C068C0;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B4A2101A54E;
 	Tue, 29 Nov 2022 02:28:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E5532166B34;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7E13140D298F;
 	Tue, 29 Nov 2022 02:28:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 12FE219465B8;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4C16E1946A40;
 	Tue, 29 Nov 2022 02:28:14 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2765A1946A44
- for <dm-devel@listman.corp.redhat.com>; Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
+ ESMTP id 0CDD61946594
+ for <dm-devel@listman.corp.redhat.com>; Tue, 29 Nov 2022 02:28:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0E397C15BB3; Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
+ id D9FFB4B4011; Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 06238C15BA4
- for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D26274B400F
+ for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF4BA3C0257D
- for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:11 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
- [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B81D93C02583
+ for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
+ [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-522-Srji3vXZOIGdUh6A9Vou5Q-1; Mon, 28 Nov 2022 21:28:07 -0500
-X-MC-Unique: Srji3vXZOIGdUh6A9Vou5Q-1
+ us-mta-348-MDmULDJKOGGdbaiVAYOrsA-1; Mon, 28 Nov 2022 21:28:08 -0500
+X-MC-Unique: MDmULDJKOGGdbaiVAYOrsA-1
 Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4NLmTW0Tqyz4f3nqG;
- Tue, 29 Nov 2022 10:27:59 +0800 (CST)
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4NLmTV6cMwz4f3jLk;
+ Tue, 29 Nov 2022 10:27:58 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.127.227])
- by APP1 (Coremail) with SMTP id cCh0CgBHPaweboVjlJ0JBQ--.11870S5;
- Tue, 29 Nov 2022 10:28:01 +0800 (CST)
+ by APP1 (Coremail) with SMTP id cCh0CgBHPaweboVjlJ0JBQ--.11870S6;
+ Tue, 29 Nov 2022 10:28:02 +0800 (CST)
 From: Luo Meng <luomeng12@huawei.com>
 To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, ejt@redhat.com
-Date: Tue, 29 Nov 2022 10:48:47 +0800
-Message-Id: <20221129024850.1842973-2-luomeng12@huawei.com>
+Date: Tue, 29 Nov 2022 10:48:48 +0800
+Message-Id: <20221129024850.1842973-3-luomeng12@huawei.com>
 In-Reply-To: <20221129024850.1842973-1-luomeng12@huawei.com>
 References: <20221129024850.1842973-1-luomeng12@huawei.com>
 MIME-Version: 1.0
-X-CM-TRANSID: cCh0CgBHPaweboVjlJ0JBQ--.11870S5
-X-Coremail-Antispam: 1UD129KBjvJXoWxWry5Ar48Kry7Cr4DKFyrXrb_yoW5Wr43pw
- 4rA3yayw1DXr4UX3yvyw4kWFyxJa1SvFW2kr1fursrAa4fWw1YvFy2grZ8Way7GrZrAF9x
- X3Wxt39xXrn0yFUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUGw
- A2048vs2IY020Ec7CjxVAFwI0_JFI_Gr1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxS
- w2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxV
- W0oVCq3wA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0
- oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFc
- xC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_
- Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7VAKI48JMx
- AIw28IcVAKzI0EY4vE52x082I5MxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
- wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc4
- 0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AK
- xVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr
- 1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU1NJ55UU
- UUU==
+X-CM-TRANSID: cCh0CgBHPaweboVjlJ0JBQ--.11870S6
+X-Coremail-Antispam: 1UD129KBjvdXoW7JrWxtr4rWFyxCw1kCr1kGrg_yoWfGrb_Ca
+ 45Xay7KFWUWw1S93Wayr4fZr4jya40qr1IyF1FqayakrWqqFn3ur1rtFyDAw1UAr1fC3Wq
+ yFnrXa47ZryrGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbDxYFVCjjxCrM7AC8VAFwI0_Xr0_Wr1l1xkIjI8I6I8E6xAIw20E
+ Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r15M2
+ 8IrcIa0xkI8VCY1x0267AKxVW8JVW5JwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK
+ 021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r
+ xl6s0DM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl
+ 6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4
+ xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8
+ JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64vIr41l42
+ xK82IY64kExVAvwVAq07x20xyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AK
+ xVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrx
+ kI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v2
+ 6r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8Jw
+ CI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUcrgADUUU
+ U
 X-CM-SenderInfo: 5oxrzvtqj6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -96,8 +96,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [dm-devel] [dm-devel v2 1/4] dm thin: Fix UAF in run_timer_softirq()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [dm-devel v2 2/4] dm clone: Fix UAF in clone_dtr()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,104 +112,35 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: luomeng12@huawei.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When dm_resume() and dm_destroy() are concurrent, it will
-lead to UAF, as follows:
+Dm_clone also has the same UAF problem when dm_resume()
+and dm_destroy() are concurrent.
 
- BUG: KASAN: use-after-free in __run_timers+0x173/0x710
- Write of size 8 at addr ffff88816d9490f0 by task swapper/0/0
+Therefore, canceling timer again in clone_dtr().
 
- CPU: 0 PID: 0 Comm: swapper/0 Not tainted 6.0.0-rc6-00001-gaed496328fcd-dirty #26
- Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS ?-20190727_073836-buildvm-ppc64le-16.ppc.fedoraproject.org-3.fc31 04/01/2014
- Call Trace:
-  <IRQ>
-  dump_stack_lvl+0x73/0x9f
-  print_report.cold+0x132/0xaa2
-  _raw_spin_lock_irqsave+0xcd/0x160
-  __run_timers+0x173/0x710
-  kasan_report+0xad/0x110
-  __run_timers+0x173/0x710
-  __asan_store8+0x9c/0x140
-  __run_timers+0x173/0x710
-  call_timer_fn+0x310/0x310
-  pvclock_clocksource_read+0xfa/0x250
-  kvm_clock_read+0x2c/0x70
-  kvm_clock_get_cycles+0xd/0x20
-  ktime_get+0x5c/0x110
-  lapic_next_event+0x38/0x50
-  clockevents_program_event+0xf1/0x1e0
-  run_timer_softirq+0x49/0x90
-  __do_softirq+0x16e/0x62c
-  __irq_exit_rcu+0x1fa/0x270
-  irq_exit_rcu+0x12/0x20
-  sysvec_apic_timer_interrupt+0x8e/0xc0
-
-One of the concurrency UAF can be shown as below:
-
-        use                                  free
-do_resume                           |
-  __find_device_hash_cell           |
-    dm_get                          |
-      atomic_inc(&md->holders)      |
-                                    | dm_destroy
-                                    |   __dm_destroy
-                                    |     if (!dm_suspended_md(md))
-                                    |     atomic_read(&md->holders)
-                                    |     msleep(1)
-  dm_resume                         |
-    __dm_resume                     |
-      dm_table_resume_targets       |
-        pool_resume                 |
-          do_waker  #add delay work |
-  dm_put                            |
-    atomic_dec(&md->holders)        |
-                                    |     dm_table_destroy
-                                    |       pool_dtr
-                                    |         __pool_dec
-                                    |           __pool_destroy
-                                    |             destroy_workqueue
-                                    |             kfree(pool) # free pool
-        time out
-__do_softirq
-  run_timer_softirq # pool has already been freed
-
-This can be easily reproduced using:
-  1. create thin-pool
-  2. dmsetup suspend pool
-  3. dmsetup resume pool
-  4. dmsetup remove_all # Concurrent with 3
-
-The root cause of UAF bugs is that dm_resume() adds timer after
-dm_destroy() skips cancel timer beause of suspend status. After
-timeout, it will call run_timer_softirq(), however pool has already
-been freed. The concurrency UAF bug will happen.
-
-Therefore, canceling timer again in __pool_destroy().
-
-Fixes: 991d9fa02da0d (dm: add thin provisioning target)
+Fixes: 7431b7835f554 (dm: add clone target)
 Signed-off-by: Luo Meng <luomeng12@huawei.com>
 ---
- drivers/md/dm-thin.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/md/dm-clone-target.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index e76c96c760a9..dc271c107fb5 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -2889,6 +2889,8 @@ static void __pool_destroy(struct pool *pool)
- 	dm_bio_prison_destroy(pool->prison);
- 	dm_kcopyd_client_destroy(pool->copier);
+diff --git a/drivers/md/dm-clone-target.c b/drivers/md/dm-clone-target.c
+index 2f1cc66d2641..29e0b85eeaf0 100644
+--- a/drivers/md/dm-clone-target.c
++++ b/drivers/md/dm-clone-target.c
+@@ -1958,6 +1958,7 @@ static void clone_dtr(struct dm_target *ti)
  
-+	cancel_delayed_work_sync(&pool->waker);
-+	cancel_delayed_work_sync(&pool->no_space_timeout);
- 	if (pool->wq)
- 		destroy_workqueue(pool->wq);
- 
+ 	mempool_exit(&clone->hydration_pool);
+ 	dm_kcopyd_client_destroy(clone->kcopyd_client);
++	cancel_delayed_work_sync(&clone->waker);
+ 	destroy_workqueue(clone->wq);
+ 	hash_table_exit(clone);
+ 	dm_clone_metadata_close(clone->cmd);
 -- 
 2.31.1
 
