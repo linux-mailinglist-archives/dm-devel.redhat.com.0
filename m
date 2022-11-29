@@ -1,75 +1,88 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3549C638330
-	for <lists+dm-devel@lfdr.de>; Fri, 25 Nov 2022 05:37:12 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6868363B7CF
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Nov 2022 03:28:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669351030;
+	s=mimecast20190719; t=1669688905;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Zw93+0ItaZTWpNU9AujblOR2Zid5DBh4/ynOdjiloaI=;
-	b=INNT29rbdN0ygseoH9o/y650hg3PF95PUNuWMHSMcSMoLVL+byqdK0q1q9NYYB+PlssrSB
-	RXCMD0Bd7CrioNoywZOMmBX6fpIBCivfAyC6mxE9jK9Oxnd3hgyQMfFxWgR8Fr9IDip1V0
-	W5cT10HR+TWtTsyjn+rGKwE5HhnsWV0=
+	bh=96Mv/CGopARcxcgBKMqkUsPtVod+rFqVz0fsA9OaGvI=;
+	b=Pn6UiVn4J3+ofU3Z0xFODAaFdPBeyf15b2NPgwr+YII+J8rH6Q/B113+kzeZMUcurVe2z7
+	VNbK+QcDVz91DZTSX1x7n934r1bwdqXje6DdsuejxPAVEyNQv3ulwNji1iMGwYy8a/YbTi
+	wx6rMfNILyTXqO9m/XTKfbkeI7SoJ2E=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-292-OhXWqLLHPTaMzkcg4jHOjg-1; Thu, 24 Nov 2022 23:37:07 -0500
-X-MC-Unique: OhXWqLLHPTaMzkcg4jHOjg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-631-4YuZRR4oOq2yhxiynPm01A-1; Mon, 28 Nov 2022 21:28:22 -0500
+X-MC-Unique: 4YuZRR4oOq2yhxiynPm01A-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 603362932491;
-	Fri, 25 Nov 2022 04:37:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AD082999B36;
+	Tue, 29 Nov 2022 02:28:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DF94F4B3FC6;
-	Fri, 25 Nov 2022 04:36:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1533339D7C;
+	Tue, 29 Nov 2022 02:28:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 26D8919465BA;
-	Fri, 25 Nov 2022 04:36:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 11E521946A43;
+	Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D97721946587
- for <dm-devel@listman.corp.redhat.com>; Fri, 25 Nov 2022 04:36:55 +0000 (UTC)
+ ESMTP id 172081946594
+ for <dm-devel@listman.corp.redhat.com>; Tue, 29 Nov 2022 02:28:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B82FE40C2088; Fri, 25 Nov 2022 04:36:55 +0000 (UTC)
+ id EED9D18EB4; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AFC4440C2064
- for <dm-devel@redhat.com>; Fri, 25 Nov 2022 04:36:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CD3F833A0D
- for <dm-devel@redhat.com>; Fri, 25 Nov 2022 04:36:55 +0000 (UTC)
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-94-758XbvgTOauMYVEWYY7luw-1; Thu,
- 24 Nov 2022 23:36:53 -0500
-X-MC-Unique: 758XbvgTOauMYVEWYY7luw-1
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1oyQAK-006aa1-1q; Fri, 25 Nov 2022 04:18:16 +0000
-Date: Fri, 25 Nov 2022 04:18:16 +0000
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Message-ID: <Y4BCCB9U10mkiehu@ZenIV>
-References: <20221123055827.26996-1-nj.shetty@samsung.com>
- <CGME20221123061044epcas5p2ac082a91fc8197821f29e84278b6203c@epcas5p2.samsung.com>
- <20221123055827.26996-11-nj.shetty@samsung.com>
- <729254f8-2468-e694-715e-72bcbef80ff3@opensource.wdc.com>
- <349a4d66-3a9f-a095-005c-1f180c5f3aac@opensource.wdc.com>
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E794617595
+ for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C62811C068C3
+ for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
+ [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-159-KwnlUIKHPWyULTd6wZCvyQ-1; Mon, 28 Nov 2022 21:28:08 -0500
+X-MC-Unique: KwnlUIKHPWyULTd6wZCvyQ-1
+Received: from mail02.huawei.com (unknown [172.30.67.153])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4NLmTV260Hz4f3pFW;
+ Tue, 29 Nov 2022 10:27:58 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.127.227])
+ by APP1 (Coremail) with SMTP id cCh0CgBHPaweboVjlJ0JBQ--.11870S4;
+ Tue, 29 Nov 2022 10:28:01 +0800 (CST)
+From: Luo Meng <luomeng12@huawei.com>
+To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, ejt@redhat.com
+Date: Tue, 29 Nov 2022 10:48:46 +0800
+Message-Id: <20221129024850.1842973-1-luomeng12@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <349a4d66-3a9f-a095-005c-1f180c5f3aac@opensource.wdc.com>
+X-CM-TRANSID: cCh0CgBHPaweboVjlJ0JBQ--.11870S4
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY47kC6x804xWl14x267AKxVW8JVW5JwAF
+ c2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII
+ 0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xv
+ wVC0I7IYx2IY6xkF7I0E14v26rxl6s0DM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjc
+ xK6I8E87Iv6xkF7I0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq
+ 07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r
+ 18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vI
+ r41l42xK82IYc2Ij64vIr41l42xK82IY64kExVAvwVAq07x20xyl4I8I3I0E4IkC6x0Yz7
+ v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+ 1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+ AIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0D
+ MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Jr0_GrUvcSsGvf
+ C2KfnxnUUI43ZEXa7IU1VHq3UUUUU==
+X-CM-SenderInfo: 5oxrzvtqj6x35dzhxuhorxvhhfrp/
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -77,9 +90,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH v5 10/10] fs: add support for copy file range
- in zonefs
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [dm-devel v2 0/4] dm: Fix UAF in run_timer_softirq()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -91,36 +103,31 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, naohiro.aota@wdc.com, gost.dev@samsung.com, kch@nvidia.com,
- sagi@grimberg.me, joshi.k@samsung.com, linux-kernel@vger.kernel.org,
- anuj20.g@samsung.com, snitzer@kernel.org, james.smart@broadcom.com,
- linux-nvme@lists.infradead.org, hch@lst.de, linux-block@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, dm-devel@redhat.com, nitheshshetty@gmail.com,
- kbusch@kernel.org, jth@kernel.org, Nitesh Shetty <nj.shetty@samsung.com>,
- agk@redhat.com, p.raghav@samsung.com
+Cc: luomeng12@huawei.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Nov 24, 2022 at 10:47:55AM +0900, Damien Le Moal wrote:
-> >> +	inode_lock(src_inode);
-> >> +	inode_lock(dst_inode);
-> > 
-> > So you did zonefs_copy_file_checks() outside of these locks, which mean
-> > that everything about the source and destination files may have changed.
-> > This does not work.
-> 
-> I forgot to mention that locking 2 inodes blindly like this can leads to
-> deadlocks if another process tries a copy range from dst to src at the
-> same time (lock order is reversed and so can deadlock).
+*** BLURB HERE ***
 
-Not to mention the deadlocks with existing places where fs/namei.c locks
-two inodes...
+Luo Meng (4):
+  dm thin: Fix UAF in run_timer_softirq()
+  dm clone: Fix UAF in clone_dtr()
+  dm cache: Fix UAF in destroy()
+  dm integrity: Fix UAF in dm_integrity_dtr()
+
+ drivers/md/dm-cache-target.c | 1 +
+ drivers/md/dm-clone-target.c | 1 +
+ drivers/md/dm-integrity.c    | 2 ++
+ drivers/md/dm-thin.c         | 2 ++
+ 4 files changed, 6 insertions(+)
+
+-- 
+2.31.1
 
 --
 dm-devel mailing list
