@@ -2,93 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F1BC163B7CE
-	for <lists+dm-devel@lfdr.de>; Tue, 29 Nov 2022 03:28:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1406B63BA2A
+	for <lists+dm-devel@lfdr.de>; Tue, 29 Nov 2022 08:05:13 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669688903;
+	s=mimecast20190719; t=1669705512;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=v7MWoRYG/L3PXrBuQkrUFupO54cfJEbMrROLlKNeb0s=;
-	b=ciwwc0xXFnMUlUFngkjSAAp1TZYF8xrDJbh8Fvv8zxBz/eTeOOcgQQrOth8scgS68Ojnig
-	vytsLI5ziCh/PT0RUeYUYvyO8g6SDpdse86J1Hg0dibAJGCubd+Q5ZpIiCiXT+w8DQk79n
-	Rl8nzZrImSZMt1PvOA6gXEisuDngUBI=
+	bh=095FBMiDh1hfk6x2gT/C9GUIitwLU5Y0Dl76Jq2I4ds=;
+	b=TJpTIF/A9qpqXdrH4dATOOheDD40izp+qGsjuNzmKxIiYKbcQ4Cf80DUMs7rQ7qNH602II
+	D3rTh1Z42yAMctQ9kaUfxkIeHI9Bg7l0Kgin/owHQBv5vrjBgHi0cmhCkGS2hrYwXi7cXA
+	maiDLWLYO7/gWIEdtuUFpajJ43P2VOw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-252-zaYw0sLYMKmXZUlfrw0VXg-1; Mon, 28 Nov 2022 21:28:22 -0500
-X-MC-Unique: zaYw0sLYMKmXZUlfrw0VXg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-314-MiaZa6CaOWGRwIYzkO1iHQ-1; Tue, 29 Nov 2022 02:05:10 -0500
+X-MC-Unique: MiaZa6CaOWGRwIYzkO1iHQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5BF8085A5A6;
-	Tue, 29 Nov 2022 02:28:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8EFA85A5B6;
+	Tue, 29 Nov 2022 07:05:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E5DAB40C2086;
-	Tue, 29 Nov 2022 02:28:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 130B31401C27;
+	Tue, 29 Nov 2022 07:05:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D076919465B5;
-	Tue, 29 Nov 2022 02:28:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1939919465B5;
+	Tue, 29 Nov 2022 07:05:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 916D31946594
- for <dm-devel@listman.corp.redhat.com>; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
+ ESMTP id C75451946594
+ for <dm-devel@listman.corp.redhat.com>; Tue, 29 Nov 2022 07:04:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 81B8240D298E; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
+ id B1431492B05; Tue, 29 Nov 2022 07:04:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7A7B040C6EC2
- for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A9C6C492B07
+ for <dm-devel@redhat.com>; Tue, 29 Nov 2022 07:04:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60538185A78F
- for <dm-devel@redhat.com>; Tue, 29 Nov 2022 02:28:10 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-3-P-OSFI19PqOWW_N-K9a_9Q-1; Mon, 28 Nov 2022 21:28:07 -0500
-X-MC-Unique: P-OSFI19PqOWW_N-K9a_9Q-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4NLmTW3zHqz4f3w17;
- Tue, 29 Nov 2022 10:27:59 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.127.227])
- by APP1 (Coremail) with SMTP id cCh0CgBHPaweboVjlJ0JBQ--.11870S8;
- Tue, 29 Nov 2022 10:28:02 +0800 (CST)
-From: Luo Meng <luomeng12@huawei.com>
-To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, ejt@redhat.com
-Date: Tue, 29 Nov 2022 10:48:50 +0800
-Message-Id: <20221129024850.1842973-5-luomeng12@huawei.com>
-In-Reply-To: <20221129024850.1842973-1-luomeng12@huawei.com>
-References: <20221129024850.1842973-1-luomeng12@huawei.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 850BF85A5B6
+ for <dm-devel@redhat.com>; Tue, 29 Nov 2022 07:04:57 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
+ [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-647-1MEBuJngN_i0HbzG83hw9A-1; Tue, 29 Nov 2022 02:04:55 -0500
+X-MC-Unique: 1MEBuJngN_i0HbzG83hw9A-1
+Received: from dggemv703-chm.china.huawei.com (unknown [172.30.72.54])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NLtc9059YzHwH2;
+ Tue, 29 Nov 2022 15:04:09 +0800 (CST)
+Received: from kwepemm600013.china.huawei.com (7.193.23.68) by
+ dggemv703-chm.china.huawei.com (10.3.19.46) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 29 Nov 2022 15:04:28 +0800
+Received: from [10.174.178.46] (10.174.178.46) by
+ kwepemm600013.china.huawei.com (7.193.23.68) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.31; Tue, 29 Nov 2022 15:04:27 +0800
+To: <snitzer@kernel.org>, <Martin.Wilck@suse.com>, <ejt@redhat.com>,
+ <jack@suse.cz>, <tytso@mit.edu>, <yi.zhang@huawei.com>
+References: <20221111121029.3985561-1-chengzhihao1@huawei.com>
+ <20221111121029.3985561-3-chengzhihao1@huawei.com>
+From: Zhihao Cheng <chengzhihao1@huawei.com>
+Message-ID: <0cc9063d-22da-4602-6839-7207d92cfaa8@huawei.com>
+Date: Tue, 29 Nov 2022 15:04:26 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:68.0) Gecko/20100101
+ Thunderbird/68.5.0
 MIME-Version: 1.0
-X-CM-TRANSID: cCh0CgBHPaweboVjlJ0JBQ--.11870S8
-X-Coremail-Antispam: 1UD129KBjvdXoWrKryUKw1kKw15Ar4xtr1DJrb_yoWfXrb_Ca
- sYvFy3Kr47Cr92kw13AFWxZrWkZwnYqF1xXFyftay5urySvr13X348ZrZ8Zr1UZryUJFy3
- AF1Dtr43Zw1kGjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
- 9fnUUIcSsGvfJTRUUUbq8YFVCjjxCrM7AC8VAFwI0_Wr0E3s1l1xkIjI8I6I8E6xAIw20E
- Y4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l82xGYIkIc2x26280x7IE14v26r126s
- 0DM28IrcIa0xkI8VCY1x0267AKxVW5JVCq3wA2ocxC64kIII0Yj41l84x0c7CEw4AK67xG
- Y2AK021l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14
- v26rxl6s0DM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v2
- 6rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrV
- ACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWU
- JVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41l42xK82IYc2Ij64vIr4
- 1l42xK82IY64kExVAvwVAq07x20xyl4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG
- 67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
- IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E
- 14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJV
- W8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjxUwb18
- DUUUU
-X-CM-SenderInfo: 5oxrzvtqj6x35dzhxuhorxvhhfrp/
+In-Reply-To: <20221111121029.3985561-3-chengzhihao1@huawei.com>
+X-Originating-IP: [10.174.178.46]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ kwepemm600013.china.huawei.com (7.193.23.68)
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -97,9 +90,11 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [dm-devel v2 4/4] dm integrity: Fix UAF in
- dm_integrity_dtr()
+X-Mimecast-Bulk-Signature: yes
+X-Mimecast-Spam-Signature: bulk
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH 2/3] dm bufio: Split main logic out of
+ dm_bufio_client creation/destroy
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,44 +106,26 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: luomeng12@huawei.com, yukuai3@huawei.com
+Cc: dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 
-Dm_integrity also has the same UAF problem when dm_resume()
-and dm_destroy() are concurrent.
-
-Therefore, canceling timer again in dm_integrity_dtr().
-
-Fixes: 7eada909bfd7a (dm: add integrity target)
-Signed-off-by: Luo Meng <luomeng12@huawei.com>
----
- drivers/md/dm-integrity.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index e97e9f97456d..1388ee35571e 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -4558,6 +4558,8 @@ static void dm_integrity_dtr(struct dm_target *ti)
- 	BUG_ON(!RB_EMPTY_ROOT(&ic->in_progress));
- 	BUG_ON(!list_empty(&ic->wait_list));
- 
-+	if (ic->mode == 'B')
-+		cancel_delayed_work_sync(&ic->bitmap_flush_work);
- 	if (ic->metadata_wq)
- 		destroy_workqueue(ic->metadata_wq);
- 	if (ic->wait_wq)
--- 
-2.31.1
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+1NogMjAyMi8xMS8xMSAyMDoxMCwgWmhpaGFvIENoZW5nINC0tcA6CkhpIE1pa2UsCkkgZm91bmQg
+cGF0Y2ggMS8zIGhhcyBiZWVuIGFwcGxpZWQgdG8gbWFpbmxpbmUsIGFueSB0aG91Z2h0cyBmb3Ig
+cGF0Y2ggCjIvMyBhbmQgMy8zPyBUaGFua3MuCgo+IFNwbGl0IG1haW4gbG9naWMgZXhjZXB0cyBz
+aHJpbmtlciByZWdpc3Rlci91bnJlZ2lzdGVyIG91dCBvZgo+IGRtX2J1ZmlvX2NsaWVudCBjcmVh
+dGlvbi9kZXN0cm95LCB0aGUgZXh0cmFjdGVkIGNvZGUgaXMgd3JhcHBlZAo+IGludG8gbmV3IGhl
+bHBlcnMgX19kb19pbml0IGFuZCBfX2RvX2Rlc3Ryb3kuCj4gVGhpcyBjb21taXQgaXMgcHJlcGFy
+ZSB0byBzdXBwb3J0IGRtX2J1ZmlvX2NsaWVudCByZXNldHRpbmcuCj4gCj4gU2lnbmVkLW9mZi1i
+eTogWmhpaGFvIENoZW5nIDxjaGVuZ3poaWhhbzFAaHVhd2VpLmNvbT4KPiAtLS0KPiAgIGRyaXZl
+cnMvbWQvZG0tYnVmaW8uYyAgICB8IDE0NCArKysrKysrKysrKysrKysrKysrKysrKysrKystLS0t
+LS0tLS0tLS0KPiAgIGluY2x1ZGUvbGludXgvZG0tYnVmaW8uaCB8ICAgNCArLQo+ICAgMiBmaWxl
+cyBjaGFuZ2VkLCAxMDEgaW5zZXJ0aW9ucygrKSwgNDcgZGVsZXRpb25zKC0pCj4gCgotLQpkbS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVk
+aGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
