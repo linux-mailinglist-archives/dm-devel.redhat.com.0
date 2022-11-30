@@ -2,72 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 36FFF63D718
-	for <lists+dm-devel@lfdr.de>; Wed, 30 Nov 2022 14:48:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1811563D784
+	for <lists+dm-devel@lfdr.de>; Wed, 30 Nov 2022 15:04:54 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1669816082;
+	s=mimecast20190719; t=1669817093;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wCmH5oKSGIdY+wi1f2eoV3+z63cj57rD1VK8RWpKCeQ=;
-	b=QOawrg1jtW7D65+HlD100pCqOiggDAzoIflM9TxphOzoN2JR58BrJuKbVFC//3TEJG8KbM
-	tLnxJPs1oWLDcsLPt45Sju9omXCR/mitwrroI0rc79FYC3ddH2tcxesIE8N42X2famqQLh
-	ezFbUZ2uscrTZjYfD1SFDzo6l5ZdWlM=
+	bh=NdJ/dVcXcjjMkoZUxoSeviHVhzuEHO/bIjgiNM41fZg=;
+	b=hHPaTRD/w8vFSnbWUnmdZnE0430h4uZeNRWmRDQiWEV71QyCWXOtUFqwmH/ceRz/8t7HAd
+	V08JVltUM8ZyvQAoMC7rGePEs4Di3VKmPKmi/On7QP6xVq3ow5haNlrDZSGV+hIDqT1YfC
+	jMJSND5uCYHccUEJJ/fvuDk/rWdqWHA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-554-6I6ueAqMPjW2MDcjRVMf4w-1; Wed, 30 Nov 2022 08:47:33 -0500
-X-MC-Unique: 6I6ueAqMPjW2MDcjRVMf4w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-90-XfenveESMiaHxIOUxxdzDA-1; Wed, 30 Nov 2022 09:04:52 -0500
+X-MC-Unique: XfenveESMiaHxIOUxxdzDA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F29D938164C2;
-	Wed, 30 Nov 2022 13:47:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C2FB1C0754E;
+	Wed, 30 Nov 2022 14:04:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DB09E40C83ED;
-	Wed, 30 Nov 2022 13:47:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E7DC111E3E9;
+	Wed, 30 Nov 2022 14:04:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B98AA19465B2;
-	Wed, 30 Nov 2022 13:47:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4162619465A4;
+	Wed, 30 Nov 2022 14:04:48 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 00CB519465A0
- for <dm-devel@listman.corp.redhat.com>; Wed, 30 Nov 2022 13:00:29 +0000 (UTC)
+ ESMTP id 754D519465A0
+ for <dm-devel@listman.corp.redhat.com>; Wed, 30 Nov 2022 13:00:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E66E04B4012; Wed, 30 Nov 2022 13:00:29 +0000 (UTC)
+ id 6945AC15BA4; Wed, 30 Nov 2022 13:00:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DF3B54B400F
- for <dm-devel@redhat.com>; Wed, 30 Nov 2022 13:00:29 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 627E5C15BA8
+ for <dm-devel@redhat.com>; Wed, 30 Nov 2022 13:00:57 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4AF138012C0
- for <dm-devel@redhat.com>; Wed, 30 Nov 2022 13:00:29 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4793B185A78B
+ for <dm-devel@redhat.com>; Wed, 30 Nov 2022 13:00:57 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-358-8W-LkY4UPgS8scWKIK5gLA-1; Wed, 30 Nov 2022 08:00:28 -0500
-X-MC-Unique: 8W-LkY4UPgS8scWKIK5gLA-1
+ us-mta-44-ADXVebInMgKomyJU_-d1Lg-1; Wed, 30 Nov 2022 08:00:53 -0500
+X-MC-Unique: ADXVebInMgKomyJU_-d1Lg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 0245F61BB5;
- Wed, 30 Nov 2022 13:00:27 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD29FC433D6;
- Wed, 30 Nov 2022 13:00:25 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 1B5ED61BAA;
+ Wed, 30 Nov 2022 13:00:52 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC54DC433D6;
+ Wed, 30 Nov 2022 13:00:50 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable-commits@vger.kernel.org,
 	mpatocka@redhat.com
-Date: Wed, 30 Nov 2022 08:00:23 -0500
-Message-Id: <20221130130024.30578-1-sashal@kernel.org>
+Date: Wed, 30 Nov 2022 08:00:49 -0500
+Message-Id: <20221130130049.30928-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
@@ -78,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 Subject: [dm-devel] Patch "dm integrity: flush the journal on suspend" has
- been added to the 5.4-stable tree
+ been added to the 4.19-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,7 +96,7 @@ Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -106,19 +106,19 @@ This is a note to let you know that I've just added the patch titled
 
     dm integrity: flush the journal on suspend
 
-to the 5.4-stable tree which can be found at:
+to the 4.19-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      dm-integrity-flush-the-journal-on-suspend.patch
-and it can be found in the queue-5.4 subdirectory.
+and it can be found in the queue-4.19 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
 
-commit 95d0371f57bec04adec06061e33e1f9001b5af88
+commit 0b5f9c1813de8378d6134dc3ca19670907a473fc
 Author: Mikulas Patocka <mpatocka@redhat.com>
 Date:   Tue Nov 15 12:48:26 2022 -0500
 
@@ -139,10 +139,10 @@ Date:   Tue Nov 15 12:48:26 2022 -0500
     Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index acbda91e7643..32f36810c3c9 100644
+index 8456e82409e2..b054271066ac 100644
 --- a/drivers/md/dm-integrity.c
 +++ b/drivers/md/dm-integrity.c
-@@ -2346,10 +2346,6 @@ static void integrity_writer(struct work_struct *w)
+@@ -2116,10 +2116,6 @@ static void integrity_writer(struct work_struct *w)
  
  	unsigned prev_free_sectors;
  
@@ -153,7 +153,7 @@ index acbda91e7643..32f36810c3c9 100644
  	spin_lock_irq(&ic->endio_wait.lock);
  	write_start = ic->committed_section;
  	write_sections = ic->n_committed_sections;
-@@ -2858,8 +2854,7 @@ static void dm_integrity_postsuspend(struct dm_target *ti)
+@@ -2455,8 +2451,7 @@ static void dm_integrity_postsuspend(struct dm_target *ti)
  	drain_workqueue(ic->commit_wq);
  
  	if (ic->mode == 'J') {
