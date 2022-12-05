@@ -2,97 +2,101 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4CA86645B09
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Dec 2022 14:37:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id E1B89645B11
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Dec 2022 14:38:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670420248;
+	s=mimecast20190719; t=1670420284;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=g/akusooTMw/JBp7MaM/NLc31vFYjENWioqNL4tgM58=;
-	b=fRbaTo58u5M9bMCCFtcZIM9lTu+Xbjwf5sNpje0Z75PAraz1pwJ8FDtBaHF+ycTZ5Wwu9R
-	BNjSnqsOcZ63cUAUcE9eCRhI8YrPtALb2i9aex9hml8rolerK/tDxopquELS94k7zPF0bp
-	PbB5Jr9YuHVcE3dwxcY/cxAuThYMsPU=
+	bh=01qUKFGL4FMFurzoJNY0qojmnf01vdgGQnpm4fIakP8=;
+	b=c7gLIhFd5vUrWOclCkntags8fSg4LJ0jSsZRUDdv96RiO4ntatJ/GRcMt1XOq6nccmVy/s
+	3j9I/ATfEG/pAjZO10PEOFiTGciv0QfSfaGVsCTZcIhvs/qct0uVY1G9pZcLWE1AuThj3r
+	0hLQBzbB70YiuEbX0xj65uKz//DIPaY=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-387-7mNFk5cOMGKak6coJCsBAg-1; Wed, 07 Dec 2022 08:37:26 -0500
-X-MC-Unique: 7mNFk5cOMGKak6coJCsBAg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-301-aUIN7NbVMyKYUM47UhwlyQ-1; Wed, 07 Dec 2022 08:37:26 -0500
+X-MC-Unique: aUIN7NbVMyKYUM47UhwlyQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53D041C07554;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52C4E1C07552;
 	Wed,  7 Dec 2022 13:37:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A615B2166B26;
-	Wed,  7 Dec 2022 13:37:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A5CE11121314;
+	Wed,  7 Dec 2022 13:37:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75E9A19465B3;
-	Wed,  7 Dec 2022 13:37:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 07E771946A63;
+	Wed,  7 Dec 2022 13:37:17 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 085861946588
- for <dm-devel@listman.corp.redhat.com>; Mon,  5 Dec 2022 18:37:12 +0000 (UTC)
+ ESMTP id 394E71946588
+ for <dm-devel@listman.corp.redhat.com>; Mon,  5 Dec 2022 20:29:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E993740C6EC6; Mon,  5 Dec 2022 18:37:11 +0000 (UTC)
+ id EB267112132D; Mon,  5 Dec 2022 20:29:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E1DFC40C6EC3
- for <dm-devel@redhat.com>; Mon,  5 Dec 2022 18:37:11 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E439B1121315
+ for <dm-devel@redhat.com>; Mon,  5 Dec 2022 20:29:10 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6F72800186
- for <dm-devel@redhat.com>; Mon,  5 Dec 2022 18:37:11 +0000 (UTC)
-Received: from mail-io1-f49.google.com (mail-io1-f49.google.com
- [209.85.166.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C331038173C1
+ for <dm-devel@redhat.com>; Mon,  5 Dec 2022 20:29:10 +0000 (UTC)
+Received: from mail-wm1-f71.google.com (mail-wm1-f71.google.com
+ [209.85.128.71]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-557-_N63MbWaOBeJEuDA6ynmSw-1; Mon, 05 Dec 2022 13:37:10 -0500
-X-MC-Unique: _N63MbWaOBeJEuDA6ynmSw-1
-Received: by mail-io1-f49.google.com with SMTP id z144so3863084iof.3
- for <dm-devel@redhat.com>; Mon, 05 Dec 2022 10:37:10 -0800 (PST)
+ us-mta-284-ynGUJ0IWM4OaXn1mu1ssdg-1; Mon, 05 Dec 2022 15:29:09 -0500
+X-MC-Unique: ynGUJ0IWM4OaXn1mu1ssdg-1
+Received: by mail-wm1-f71.google.com with SMTP id
+ o5-20020a05600c510500b003cfca1a327fso7363601wms.8
+ for <dm-devel@redhat.com>; Mon, 05 Dec 2022 12:29:08 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=bKqfMwQzWVOYOX0yr/2heukDSWlHU0sCLL6O1tBRc7A=;
- b=tV7GXwy2GBCvDqmP9VcjlwLiinhC2r1MbYBur9idkeOaBW/n+fa/MiStinpRZb/WZ5
- yLkW/acmfGVc8NwAwyYFzQZV+CNYJy/lIHt5iJ640VdvBfKm8G3qIttojEDe+AvlXlMr
- 0g/eS8r6qSrU43zFWZhVViSDf3Ry0R4rR+ZELRg8TSJROk2Ebz7XxA+QVSX3GQRbC7Ld
- kZ9855061pRLasVaYFVhyv4Lroz7EcgHmrkSwL57mIKtzXeGRaRFlhzIEf0XPUIE77GH
- T2fzjROwJ8ENX0hKB8Jr1ZjRB4OkceUGzLnUxeGW5XSHJDEawDu1KNfPXU2C6F1GaXks
- Ax0w==
-X-Gm-Message-State: ANoB5pkbWeHS17/NiaIxyzhz+uOFcAFQ0fk6SofjP/GUct94AIg7qdid
- g1kQqhtdPUeiZsRI5crtnaq84Xv8NDyuKGl+Rksohw==
-X-Google-Smtp-Source: AA0mqf7iS69oYWO13rn/6u9i2SOCARyk4OODHe8uFql4/VPC3ttbr8u6HDq0kZnXhGPO5q+l052KxdhC7ngmMQnNADM=
-X-Received: by 2002:a02:6603:0:b0:375:9e02:b459 with SMTP id
- k3-20020a026603000000b003759e02b459mr38421363jac.30.1670265429512; Mon, 05
- Dec 2022 10:37:09 -0800 (PST)
-MIME-Version: 1.0
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=i4H5uezEbMG5ZldNo/c3W56d4899NhGUYDjXb8nhkk4=;
+ b=x7YQ/hFjg90oVhjiVH+OlFPm/ZCAJ+8Er6e5jyUp7LoNdYxu3hFhIX+MARfi37tZwl
+ xXs0tuM3AucQby2nxtQ1S+w6EMpzMQAuvY8boCoJhAkAkDT50Z3SaQoQiSuVrPtkhyaH
+ sEoGr4EqMaYbqTor0HcoJie3VCUU0z+zORC6CWk9HxldG4WYXpVv60bNbyYUrMfm6RLC
+ 0zy0ynMc9TW32WgKsGQkabz7yzuo0zgDFhBNnkRt9H5oA/671Rmy0OZhb6TNDx53bxPC
+ DYoy6vIPCW2B4FsF5HhbwDAMJD+KeTSIgd6ywDoJ2g8WonFh+5Gc9RblMEbx/+SoTwj+
+ /GpQ==
+X-Gm-Message-State: ANoB5pkv1OfpaDgmpINm4gnPtaTdMXt3Dgu+bG5x++tsjOcSeX5IxJ2o
+ ixD8vSdsPMPFyg8nJMy6LJFNeGzRAYGIs0aJkntQ4eFAJDlR1mB23dRw2vcSB+pTgVc04+NsSXI
+ mJYixpHhx/HR5z9w=
+X-Received: by 2002:a5d:610d:0:b0:242:4fd1:1f5c with SMTP id
+ v13-20020a5d610d000000b002424fd11f5cmr7301053wrt.376.1670272146268; 
+ Mon, 05 Dec 2022 12:29:06 -0800 (PST)
+X-Google-Smtp-Source: AA0mqf78f2gBMfTc6pHwRJ9zUly9GcCuFO5gZSklgpcj2WDCa2T0RWsRGceUYvYzIHBgrSw3qKds3g==
+X-Received: by 2002:a5d:610d:0:b0:242:4fd1:1f5c with SMTP id
+ v13-20020a5d610d000000b002424fd11f5cmr7301041wrt.376.1670272146115; 
+ Mon, 05 Dec 2022 12:29:06 -0800 (PST)
+Received: from redhat.com ([2.55.160.224]) by smtp.gmail.com with ESMTPSA id
+ b18-20020a05600010d200b002423a5d7cb1sm12096271wrx.113.2022.12.05.12.29.04
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Dec 2022 12:29:05 -0800 (PST)
+Date: Mon, 5 Dec 2022 15:29:02 -0500
+From: "Michael S. Tsirkin" <mst@redhat.com>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <20221205152708-mutt-send-email-mst@kernel.org>
 References: <20221205162035.2261037-1-alvaro.karsz@solid-run.com>
  <fe2800f1-aaae-33e8-aaf0-83fd034162d5@kernel.dk>
-In-Reply-To: <fe2800f1-aaae-33e8-aaf0-83fd034162d5@kernel.dk>
-From: Alvaro Karsz <alvaro.karsz@solid-run.com>
-Date: Mon, 5 Dec 2022 20:36:33 +0200
-Message-ID: <CAJs=3_AKOMWBpvKqvX6_c=zN1cwEM7x9dzGr7na=i-5_16rdEg@mail.gmail.com>
-To: Jens Axboe <axboe@kernel.dk>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+ <CAJs=3_AKOMWBpvKqvX6_c=zN1cwEM7x9dzGr7na=i-5_16rdEg@mail.gmail.com>
+ <23c98c7c-3ed0-0d26-24c0-ed8a63266dcc@kernel.dk>
+MIME-Version: 1.0
+In-Reply-To: <23c98c7c-3ed0-0d26-24c0-ed8a63266dcc@kernel.dk>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Wed, 07 Dec 2022 13:37:16 +0000
 Subject: Re: [dm-devel] [PATCH v3] virtio_blk: add VIRTIO_BLK_F_LIFETIME
  feature support
@@ -107,32 +111,45 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-scsi@vger.kernel.org, "Michael S. Tsirkin" <mst@redhat.com>,
+Cc: linux-scsi@vger.kernel.org, Alvaro Karsz <alvaro.karsz@solid-run.com>,
  Jason Wang <jasowang@redhat.com>, linux-nvme@lists.infradead.org,
  virtualization@lists.linux-foundation.org, linux-block@vger.kernel.org,
  dm-devel@redhat.com, Stefan Hajnoczi <stefanha@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>
+ Paolo Bonzini <pbonzini@redhat.com>, Enrico Granata <egranata@google.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Hi,
-
-> Is this based on some spec? Because it looks pretty odd to me. There
-> can be a pretty wide range of two/three/etc level cells with wildly
-> different ranges of durability. And there's really not a lot of slc
-> for generic devices these days, if any.
-
-Yes, this is based on the virtio spec
-https://docs.oasis-open.org/virtio/virtio/v1.2/csd01/virtio-v1.2-csd01.html
-section  5.2.6
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gTW9uLCBEZWMgMDUsIDIwMjIgYXQgMTE6NTM6NTFBTSAtMDcwMCwgSmVucyBBeGJvZSB3cm90
+ZToKPiBPbiAxMi81LzIyIDExOjM24oCvQU0sIEFsdmFybyBLYXJzeiB3cm90ZToKPiA+IEhpLAo+
+ID4gCj4gPj4gSXMgdGhpcyBiYXNlZCBvbiBzb21lIHNwZWM/IEJlY2F1c2UgaXQgbG9va3MgcHJl
+dHR5IG9kZCB0byBtZS4gVGhlcmUKPiA+PiBjYW4gYmUgYSBwcmV0dHkgd2lkZSByYW5nZSBvZiB0
+d28vdGhyZWUvZXRjIGxldmVsIGNlbGxzIHdpdGggd2lsZGx5Cj4gPj4gZGlmZmVyZW50IHJhbmdl
+cyBvZiBkdXJhYmlsaXR5LiBBbmQgdGhlcmUncyByZWFsbHkgbm90IGEgbG90IG9mIHNsYwo+ID4+
+IGZvciBnZW5lcmljIGRldmljZXMgdGhlc2UgZGF5cywgaWYgYW55Lgo+ID4gCj4gPiBZZXMsIHRo
+aXMgaXMgYmFzZWQgb24gdGhlIHZpcnRpbyBzcGVjCj4gPiBodHRwczovL2RvY3Mub2FzaXMtb3Bl
+bi5vcmcvdmlydGlvL3ZpcnRpby92MS4yL2NzZDAxL3ZpcnRpby12MS4yLWNzZDAxLmh0bWwKPiA+
+IHNlY3Rpb24gIDUuMi42Cj4gCj4gQW5kIHdoZXJlIGRpZCB0aGlzIGNvbWUgZnJvbT8KCgpIZXJl
+J3MgdGhlIGNvbW1pdCBsb2cgZnJvbSB0aGUgc3BlYzoKCUluIG1hbnkgZW1iZWRkZWQgc3lzdGVt
+cywgdmlydGlvLWJsayBpbXBsZW1lbnRhdGlvbnMgYXJlCgliYWNrZWQgYnkgZU1NQyBvciBVRlMg
+c3RvcmFnZSBkZXZpY2VzLCB3aGljaCBhcmUgc3ViamVjdCB0bwoJcHJlZGljdGFibGUgYW5kIG1l
+YXN1cmFibGUgd2VhciBvdmVyIHRpbWUgZHVlIHRvIHJlcGVhdGVkIHdyaXRlCgljeWNsZXMuCgoJ
+Rm9yIHN1Y2ggc3lzdGVtcywgaXQgY2FuIGJlIGltcG9ydGFudCB0byBiZSBhYmxlIHRvIHRyYWNr
+CglhY2N1cmF0ZWx5IHRoZSBhbW91bnQgb2Ygd2VhciBpbXBvc2VkIG9uIHRoZSBzdG9yYWdlIG92
+ZXIKCXRpbWUgYW5kIHN1cmZhY2UgaXQgdG8gYXBwbGljYXRpb25zLiBJbiBhIG5hdGl2ZSBkZXBs
+b3ltZW50cwoJdGhpcyBpcyBnZW5lcmFsbHkgaGFuZGxlZCBieSB0aGUgcGh5c2ljYWwgYmxvY2sg
+ZGV2aWNlIGRyaXZlcgoJYnV0IG5vIHN1Y2ggcHJvdmlzaW9uIGlzIG1hZGUgaW4gdmlydGlvLWJs
+ayB0byBleHBvc2UgdGhlc2UKCW1ldHJpY3MgZm9yIGRldmljZXMgd2hlcmUgaXQgbWFrZXMgc2Vu
+c2UgdG8gZG8gc28uCgoJVGhpcyBwYXRjaCBhZGRzIHN1cHBvcnQgdG8gdmlydGlvLWJsayBmb3Ig
+bGlmZXRpbWUgYW5kIHdlYXIKCW1ldHJpY3MgdG8gYmUgZXhwb3NlZCB0byB0aGUgZ3Vlc3Qgd2hl
+biBhIGRlcGxveW1lbnQgb2YKCXZpcnRpby1ibGsgaXMgZG9uZSBvdmVyIGNvbXBhdGlibGUgZU1N
+QyBvciBVRlMgc3RvcmFnZS4KCglTaWduZWQtb2ZmLWJ5OiBFbnJpY28gR3JhbmF0YSA8ZWdyYW5h
+dGFAZ29vZ2xlLmNvbT4KCkNjIEVucmljbyBHcmFuYXRhIGFzIHdlbGwuCgoKPiAtLSAKPiBKZW5z
+IEF4Ym9lCj4gCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpo
+dHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
