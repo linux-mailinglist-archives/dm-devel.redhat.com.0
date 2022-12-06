@@ -2,72 +2,84 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C37F2644617
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Dec 2022 15:49:27 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 759DB64468E
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Dec 2022 15:52:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670338166;
+	s=mimecast20190719; t=1670338375;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GSspDvZu4ip8lezHJZAq8BxrZQ4qIuP7R0QjwCGd91U=;
-	b=aZhNKnc/4lOeQuJNXThxOZ4wKTXDF2t0cCCGJKyMmcAP7azrzOc4pEMaz/7TshO+pF9yRV
-	mTDk1kIl6nRk6Eo1kvold7gZARVcASoB9WCNGYtSsuNH7Meg5qSTOQ2mkrMIzhdgleO7/Y
-	J/R3YbPFewM2I/wRlgqr6QZ+GTBc6xk=
+	bh=/RS3OPAhMv9GrcQ7+Wkv8P0h1AuNMV/Ic6m8HgHFgAE=;
+	b=LSUpYPFcuM3OGiaUuHPZGDOjpPpNSrkmUeTBkkzcakI47YDUPOZ/KmkQzeP94V6KuGardC
+	npD31hE4c4C+EmJDhTEHSKijWXcAt2xNmAI0WVICZ8+JyDbDRBzbpKc6QffC0fKvU0OkuT
+	7DzkUouR7uhtSXur43nWMnSUSbv7eQs=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-267-HUqFiGEfPkilhZ5If85HSA-1; Tue, 06 Dec 2022 09:49:25 -0500
-X-MC-Unique: HUqFiGEfPkilhZ5If85HSA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-65-UKgHenqNOc2lKVY18u4IEQ-1; Tue, 06 Dec 2022 09:52:51 -0500
+X-MC-Unique: UKgHenqNOc2lKVY18u4IEQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6904C85A588;
-	Tue,  6 Dec 2022 14:49:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B4D410666BA;
+	Tue,  6 Dec 2022 14:51:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8E112492B04;
-	Tue,  6 Dec 2022 14:49:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 090BE42220;
+	Tue,  6 Dec 2022 14:51:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DEA2919465A3;
-	Tue,  6 Dec 2022 14:49:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9D28619465A4;
+	Tue,  6 Dec 2022 14:51:40 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ED2421946586
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Dec 2022 14:49:08 +0000 (UTC)
+ ESMTP id 222FB1946589
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Dec 2022 14:51:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DB410492B04; Tue,  6 Dec 2022 14:49:08 +0000 (UTC)
+ id F32D340C6F9F; Tue,  6 Dec 2022 14:51:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D4C10492B07
- for <dm-devel@redhat.com>; Tue,  6 Dec 2022 14:49:08 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E969440C6EC4
+ for <dm-devel@redhat.com>; Tue,  6 Dec 2022 14:51:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BAD84381A72C
+ for <dm-devel@redhat.com>; Tue,  6 Dec 2022 14:51:36 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-649-jBL2eac8NiCkzEnTkKtFJg-1; Tue,
+ 06 Dec 2022 09:51:34 -0500
+X-MC-Unique: jBL2eac8NiCkzEnTkKtFJg-1
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDD19800186
- for <dm-devel@redhat.com>; Tue,  6 Dec 2022 14:49:08 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-237-yhgTdLWAOKWK3vjvvXMGAQ-1; Tue, 06 Dec 2022 09:49:06 -0500
-X-MC-Unique: yhgTdLWAOKWK3vjvvXMGAQ-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 7B3F668B05; Tue,  6 Dec 2022 15:49:02 +0100 (CET)
-Date: Tue, 6 Dec 2022 15:49:02 +0100
-From: Christoph Hellwig <hch@lst.de>
-To: Coly Li <colyli@suse.de>
-Message-ID: <20221206144902.GA31845@lst.de>
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 9267F1FE36;
+ Tue,  6 Dec 2022 14:51:33 +0000 (UTC)
+Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 6B12F132F3;
+ Tue,  6 Dec 2022 14:51:31 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap1.suse-dmz.suse.de with ESMTPSA id 4f0yDfNWj2PiMQAAGKfGzw
+ (envelope-from <colyli@suse.de>); Tue, 06 Dec 2022 14:51:31 +0000
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.200.110.1.12\))
+From: Coly Li <colyli@suse.de>
+In-Reply-To: <20221206144902.GA31845@lst.de>
+Date: Tue, 6 Dec 2022 22:51:17 +0800
+Message-Id: <51D61E7A-055D-4F6F-AC4C-748D7E0C5E12@suse.de>
 References: <20221206144057.720846-1-hch@lst.de>
  <434E4CE3-EA46-4CD9-9EAF-5C1B99B8A603@suse.de>
-MIME-Version: 1.0
-In-Reply-To: <434E4CE3-EA46-4CD9-9EAF-5C1B99B8A603@suse.de>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+ <20221206144902.GA31845@lst.de>
+To: Christoph Hellwig <hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,7 +87,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 Subject: Re: [dm-devel] [PATCH] block: remove bio_set_op_attrs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -88,28 +100,27 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- snitzer@kernel.org, dm-devel@redhat.com,
- linux-raid <linux-raid@vger.kernel.org>, Song Liu <song@kernel.org>,
- linux-bcache@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-raid <linux-raid@vger.kernel.org>,
+ snitzer@kernel.org, linux-bcache@vger.kernel.org, linux-block@vger.kernel.org,
+ Song Liu <song@kernel.org>, dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, Dec 06, 2022 at 10:46:31PM +0800, Coly Li wrote:
-> BTW, may I ask why bio_set_op_attrs() is removed. Quite long time ago it was added to avoid open code, and now we remove it to use open coded assignments. What is the motivation for now?
-
-It was added when the flags encoding was a mess.  Now that the RQF_
-flags are split out things have become much simpler and we don't need
-to hide a simple assignment of a value to a field.
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+Cgo+IDIwMjLlubQxMuaciDbml6UgMjI6NDnvvIxDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
+ZT4g5YaZ6YGT77yaCj4gCj4gT24gVHVlLCBEZWMgMDYsIDIwMjIgYXQgMTA6NDY6MzFQTSArMDgw
+MCwgQ29seSBMaSB3cm90ZToKPj4gQlRXLCBtYXkgSSBhc2sgd2h5IGJpb19zZXRfb3BfYXR0cnMo
+KSBpcyByZW1vdmVkLiBRdWl0ZSBsb25nIHRpbWUgYWdvIGl0IHdhcyBhZGRlZCB0byBhdm9pZCBv
+cGVuIGNvZGUsIGFuZCBub3cgd2UgcmVtb3ZlIGl0IHRvIHVzZSBvcGVuIGNvZGVkIGFzc2lnbm1l
+bnRzLiBXaGF0IGlzIHRoZSBtb3RpdmF0aW9uIGZvciBub3c/Cj4gCj4gSXQgd2FzIGFkZGVkIHdo
+ZW4gdGhlIGZsYWdzIGVuY29kaW5nIHdhcyBhIG1lc3MuICBOb3cgdGhhdCB0aGUgUlFGXwo+IGZs
+YWdzIGFyZSBzcGxpdCBvdXQgdGhpbmdzIGhhdmUgYmVjb21lIG11Y2ggc2ltcGxlciBhbmQgd2Ug
+ZG9uJ3QgbmVlZAo+IHRvIGhpZGUgYSBzaW1wbGUgYXNzaWdubWVudCBvZiBhIHZhbHVlIHRvIGEg
+ZmllbGQuCgpJIHNlZS4gVGhhbmtzIGZvciBkb2luZyB0aGlzLgoKQ29seSBMaQoKLS0KZG0tZGV2
+ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhh
+dC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
 
