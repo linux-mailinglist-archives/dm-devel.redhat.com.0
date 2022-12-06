@@ -1,85 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 759DB64468E
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Dec 2022 15:52:56 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DD9CC6447A6
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Dec 2022 16:10:47 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670338375;
+	s=mimecast20190719; t=1670339446;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/RS3OPAhMv9GrcQ7+Wkv8P0h1AuNMV/Ic6m8HgHFgAE=;
-	b=LSUpYPFcuM3OGiaUuHPZGDOjpPpNSrkmUeTBkkzcakI47YDUPOZ/KmkQzeP94V6KuGardC
-	npD31hE4c4C+EmJDhTEHSKijWXcAt2xNmAI0WVICZ8+JyDbDRBzbpKc6QffC0fKvU0OkuT
-	7DzkUouR7uhtSXur43nWMnSUSbv7eQs=
+	bh=NPaBvOF132UrrXy7vVoDtIxYLt09fDa2nkqa606doQ8=;
+	b=iMjEdUO4gtW4NvzrfxO4PDlfNPBCLHHZaIxEC051xCUdqL05jrBCHb0tiXi4a3cbtUrAQk
+	+WS68WLNNPWCrIrUeKtyZWHKgXy1lKKhBNV5rAJyeZXQ+3QYv8FgnfCNSYEMTNBctRqUV9
+	z12x6wJfg9J9QOgtzJHkflR3bfx9C5g=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-65-UKgHenqNOc2lKVY18u4IEQ-1; Tue, 06 Dec 2022 09:52:51 -0500
-X-MC-Unique: UKgHenqNOc2lKVY18u4IEQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-298-317VnWldME-gQy6ba9zVYQ-1; Tue, 06 Dec 2022 10:10:45 -0500
+X-MC-Unique: 317VnWldME-gQy6ba9zVYQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B4D410666BA;
-	Tue,  6 Dec 2022 14:51:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD36A800B23;
+	Tue,  6 Dec 2022 15:10:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 090BE42220;
-	Tue,  6 Dec 2022 14:51:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 039E1477F55;
+	Tue,  6 Dec 2022 15:10:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9D28619465A4;
-	Tue,  6 Dec 2022 14:51:40 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA6AD19465A2;
+	Tue,  6 Dec 2022 15:10:37 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 222FB1946589
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Dec 2022 14:51:37 +0000 (UTC)
+ ESMTP id E5F6E1946586
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Dec 2022 15:10:36 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F32D340C6F9F; Tue,  6 Dec 2022 14:51:36 +0000 (UTC)
+ id B6869492B07; Tue,  6 Dec 2022 15:10:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E969440C6EC4
- for <dm-devel@redhat.com>; Tue,  6 Dec 2022 14:51:36 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BAD84381A72C
- for <dm-devel@redhat.com>; Tue,  6 Dec 2022 14:51:36 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_128_GCM_SHA256) id us-mta-649-jBL2eac8NiCkzEnTkKtFJg-1; Tue,
- 06 Dec 2022 09:51:34 -0500
-X-MC-Unique: jBL2eac8NiCkzEnTkKtFJg-1
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AF1B4492B04
+ for <dm-devel@redhat.com>; Tue,  6 Dec 2022 15:10:36 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 9267F1FE36;
- Tue,  6 Dec 2022 14:51:33 +0000 (UTC)
-Received: from imap1.suse-dmz.suse.de (imap1.suse-dmz.suse.de [192.168.254.73])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap1.suse-dmz.suse.de (Postfix) with ESMTPS id 6B12F132F3;
- Tue,  6 Dec 2022 14:51:31 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap1.suse-dmz.suse.de with ESMTPSA id 4f0yDfNWj2PiMQAAGKfGzw
- (envelope-from <colyli@suse.de>); Tue, 06 Dec 2022 14:51:31 +0000
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.200.110.1.12\))
-From: Coly Li <colyli@suse.de>
-In-Reply-To: <20221206144902.GA31845@lst.de>
-Date: Tue, 6 Dec 2022 22:51:17 +0800
-Message-Id: <51D61E7A-055D-4F6F-AC4C-748D7E0C5E12@suse.de>
-References: <20221206144057.720846-1-hch@lst.de>
- <434E4CE3-EA46-4CD9-9EAF-5C1B99B8A603@suse.de>
- <20221206144902.GA31845@lst.de>
-To: Christoph Hellwig <hch@lst.de>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90532185A78F
+ for <dm-devel@redhat.com>; Tue,  6 Dec 2022 15:10:36 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-546--NwTjfwCM-6ctUDvvBls0A-1; Tue, 06 Dec 2022 10:10:34 -0500
+X-MC-Unique: -NwTjfwCM-6ctUDvvBls0A-1
+Received: from [2001:4bb8:19a:6deb:96e2:518:dd92:8fb1] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.94.2 #2 (Red Hat Linux))
+ id 1p2Z7z-00BJhE-SS; Tue, 06 Dec 2022 14:41:00 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: axboe@kernel.dk,
+	snitzer@kernel.org
+Date: Tue,  6 Dec 2022 15:40:57 +0100
+Message-Id: <20221206144057.720846-1-hch@lst.de>
+MIME-Version: 1.0
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -87,8 +73,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH] block: remove bio_set_op_attrs
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [dm-devel] [PATCH] block: remove bio_set_op_attrs
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,27 +86,257 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid <linux-raid@vger.kernel.org>,
- snitzer@kernel.org, linux-bcache@vger.kernel.org, linux-block@vger.kernel.org,
- Song Liu <song@kernel.org>, dm-devel@redhat.com
+Cc: linux-raid@vger.kernel.org, dm-devel@redhat.com, colyli@suse.de,
+ linux-block@vger.kernel.org, song@kernel.org, linux-bcache@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Cgo+IDIwMjLlubQxMuaciDbml6UgMjI6NDnvvIxDaHJpc3RvcGggSGVsbHdpZyA8aGNoQGxzdC5k
-ZT4g5YaZ6YGT77yaCj4gCj4gT24gVHVlLCBEZWMgMDYsIDIwMjIgYXQgMTA6NDY6MzFQTSArMDgw
-MCwgQ29seSBMaSB3cm90ZToKPj4gQlRXLCBtYXkgSSBhc2sgd2h5IGJpb19zZXRfb3BfYXR0cnMo
-KSBpcyByZW1vdmVkLiBRdWl0ZSBsb25nIHRpbWUgYWdvIGl0IHdhcyBhZGRlZCB0byBhdm9pZCBv
-cGVuIGNvZGUsIGFuZCBub3cgd2UgcmVtb3ZlIGl0IHRvIHVzZSBvcGVuIGNvZGVkIGFzc2lnbm1l
-bnRzLiBXaGF0IGlzIHRoZSBtb3RpdmF0aW9uIGZvciBub3c/Cj4gCj4gSXQgd2FzIGFkZGVkIHdo
-ZW4gdGhlIGZsYWdzIGVuY29kaW5nIHdhcyBhIG1lc3MuICBOb3cgdGhhdCB0aGUgUlFGXwo+IGZs
-YWdzIGFyZSBzcGxpdCBvdXQgdGhpbmdzIGhhdmUgYmVjb21lIG11Y2ggc2ltcGxlciBhbmQgd2Ug
-ZG9uJ3QgbmVlZAo+IHRvIGhpZGUgYSBzaW1wbGUgYXNzaWdubWVudCBvZiBhIHZhbHVlIHRvIGEg
-ZmllbGQuCgpJIHNlZS4gVGhhbmtzIGZvciBkb2luZyB0aGlzLgoKQ29seSBMaQoKLS0KZG0tZGV2
-ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhh
-dC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+This macro is obsolete, so replace the last few uses with open coded
+bi_opf assignments.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+---
+ drivers/md/bcache/movinggc.c  |  2 +-
+ drivers/md/bcache/request.c   |  2 +-
+ drivers/md/bcache/writeback.c |  4 ++--
+ drivers/md/dm-thin.c          |  2 +-
+ drivers/md/raid1.c            | 12 ++++++------
+ drivers/md/raid10.c           | 18 +++++++++---------
+ include/linux/blk_types.h     |  7 -------
+ 7 files changed, 20 insertions(+), 27 deletions(-)
+
+diff --git a/drivers/md/bcache/movinggc.c b/drivers/md/bcache/movinggc.c
+index 99499d1f6e6666..9f32901fdad102 100644
+--- a/drivers/md/bcache/movinggc.c
++++ b/drivers/md/bcache/movinggc.c
+@@ -160,7 +160,7 @@ static void read_moving(struct cache_set *c)
+ 		moving_init(io);
+ 		bio = &io->bio.bio;
+ 
+-		bio_set_op_attrs(bio, REQ_OP_READ, 0);
++		bio->bi_opf = REQ_OP_READ;
+ 		bio->bi_end_io	= read_moving_endio;
+ 
+ 		if (bch_bio_alloc_pages(bio, GFP_KERNEL))
+diff --git a/drivers/md/bcache/request.c b/drivers/md/bcache/request.c
+index 3427555b0ccae4..39c7b607f8aad8 100644
+--- a/drivers/md/bcache/request.c
++++ b/drivers/md/bcache/request.c
+@@ -244,7 +244,7 @@ static void bch_data_insert_start(struct closure *cl)
+ 		trace_bcache_cache_insert(k);
+ 		bch_keylist_push(&op->insert_keys);
+ 
+-		bio_set_op_attrs(n, REQ_OP_WRITE, 0);
++		n->bi_opf = REQ_OP_WRITE;
+ 		bch_submit_bbio(n, op->c, k, 0);
+ 	} while (n != bio);
+ 
+diff --git a/drivers/md/bcache/writeback.c b/drivers/md/bcache/writeback.c
+index 0285b676e9834a..d4a5fc0650bb29 100644
+--- a/drivers/md/bcache/writeback.c
++++ b/drivers/md/bcache/writeback.c
+@@ -434,7 +434,7 @@ static void write_dirty(struct closure *cl)
+ 	 */
+ 	if (KEY_DIRTY(&w->key)) {
+ 		dirty_init(w);
+-		bio_set_op_attrs(&io->bio, REQ_OP_WRITE, 0);
++		io->bio.bi_opf = REQ_OP_WRITE;
+ 		io->bio.bi_iter.bi_sector = KEY_START(&w->key);
+ 		bio_set_dev(&io->bio, io->dc->bdev);
+ 		io->bio.bi_end_io	= dirty_endio;
+@@ -547,7 +547,7 @@ static void read_dirty(struct cached_dev *dc)
+ 			io->sequence    = sequence++;
+ 
+ 			dirty_init(w);
+-			bio_set_op_attrs(&io->bio, REQ_OP_READ, 0);
++			io->bio.bi_opf = REQ_OP_READ;
+ 			io->bio.bi_iter.bi_sector = PTR_OFFSET(&w->key, 0);
+ 			bio_set_dev(&io->bio, dc->disk.c->cache->bdev);
+ 			io->bio.bi_end_io	= read_dirty_endio;
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index e76c96c760a9b5..c2b5a537f5b8ad 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -410,7 +410,7 @@ static void end_discard(struct discard_op *op, int r)
+ 		 * need to wait for the chain to complete.
+ 		 */
+ 		bio_chain(op->bio, op->parent_bio);
+-		bio_set_op_attrs(op->bio, REQ_OP_DISCARD, 0);
++		op->bio->bi_opf = REQ_OP_DISCARD;
+ 		submit_bio(op->bio);
+ 	}
+ 
+diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
+index 58f705f4294801..68a9e2d9985b2f 100644
+--- a/drivers/md/raid1.c
++++ b/drivers/md/raid1.c
+@@ -1321,7 +1321,7 @@ static void raid1_read_request(struct mddev *mddev, struct bio *bio,
+ 	read_bio->bi_iter.bi_sector = r1_bio->sector +
+ 		mirror->rdev->data_offset;
+ 	read_bio->bi_end_io = raid1_end_read_request;
+-	bio_set_op_attrs(read_bio, op, do_sync);
++	read_bio->bi_opf = op | do_sync;
+ 	if (test_bit(FailFast, &mirror->rdev->flags) &&
+ 	    test_bit(R1BIO_FailFast, &r1_bio->state))
+ 	        read_bio->bi_opf |= MD_FAILFAST;
+@@ -2254,7 +2254,7 @@ static void sync_request_write(struct mddev *mddev, struct r1bio *r1_bio)
+ 			continue;
+ 		}
+ 
+-		bio_set_op_attrs(wbio, REQ_OP_WRITE, 0);
++		wbio->bi_opf = REQ_OP_WRITE;
+ 		if (test_bit(FailFast, &conf->mirrors[i].rdev->flags))
+ 			wbio->bi_opf |= MD_FAILFAST;
+ 
+@@ -2419,7 +2419,7 @@ static int narrow_write_error(struct r1bio *r1_bio, int i)
+ 					       GFP_NOIO, &mddev->bio_set);
+ 		}
+ 
+-		bio_set_op_attrs(wbio, REQ_OP_WRITE, 0);
++		wbio->bi_opf = REQ_OP_WRITE;
+ 		wbio->bi_iter.bi_sector = r1_bio->sector;
+ 		wbio->bi_iter.bi_size = r1_bio->sectors << 9;
+ 
+@@ -2770,7 +2770,7 @@ static sector_t raid1_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 			if (i < conf->raid_disks)
+ 				still_degraded = 1;
+ 		} else if (!test_bit(In_sync, &rdev->flags)) {
+-			bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
++			bio->bi_opf = REQ_OP_WRITE;
+ 			bio->bi_end_io = end_sync_write;
+ 			write_targets ++;
+ 		} else {
+@@ -2797,7 +2797,7 @@ static sector_t raid1_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 					if (disk < 0)
+ 						disk = i;
+ 				}
+-				bio_set_op_attrs(bio, REQ_OP_READ, 0);
++				bio->bi_opf = REQ_OP_READ;
+ 				bio->bi_end_io = end_sync_read;
+ 				read_targets++;
+ 			} else if (!test_bit(WriteErrorSeen, &rdev->flags) &&
+@@ -2809,7 +2809,7 @@ static sector_t raid1_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 				 * if we are doing resync or repair. Otherwise, leave
+ 				 * this device alone for this sync request.
+ 				 */
+-				bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
++				bio->bi_opf = REQ_OP_WRITE;
+ 				bio->bi_end_io = end_sync_write;
+ 				write_targets++;
+ 			}
+diff --git a/drivers/md/raid10.c b/drivers/md/raid10.c
+index 9a6503f5cb982e..6c66357f92f559 100644
+--- a/drivers/md/raid10.c
++++ b/drivers/md/raid10.c
+@@ -1254,7 +1254,7 @@ static void raid10_read_request(struct mddev *mddev, struct bio *bio,
+ 	read_bio->bi_iter.bi_sector = r10_bio->devs[slot].addr +
+ 		choose_data_offset(r10_bio, rdev);
+ 	read_bio->bi_end_io = raid10_end_read_request;
+-	bio_set_op_attrs(read_bio, op, do_sync);
++	read_bio->bi_opf = op | do_sync;
+ 	if (test_bit(FailFast, &rdev->flags) &&
+ 	    test_bit(R10BIO_FailFast, &r10_bio->state))
+ 	        read_bio->bi_opf |= MD_FAILFAST;
+@@ -1301,7 +1301,7 @@ static void raid10_write_one_disk(struct mddev *mddev, struct r10bio *r10_bio,
+ 	mbio->bi_iter.bi_sector	= (r10_bio->devs[n_copy].addr +
+ 				   choose_data_offset(r10_bio, rdev));
+ 	mbio->bi_end_io	= raid10_end_write_request;
+-	bio_set_op_attrs(mbio, op, do_sync | do_fua);
++	mbio->bi_opf = op | do_sync | do_fua;
+ 	if (!replacement && test_bit(FailFast,
+ 				     &conf->mirrors[devnum].rdev->flags)
+ 			 && enough(conf, devnum))
+@@ -2933,7 +2933,7 @@ static int narrow_write_error(struct r10bio *r10_bio, int i)
+ 		wsector = r10_bio->devs[i].addr + (sector - r10_bio->sector);
+ 		wbio->bi_iter.bi_sector = wsector +
+ 				   choose_data_offset(r10_bio, rdev);
+-		bio_set_op_attrs(wbio, REQ_OP_WRITE, 0);
++		wbio->bi_opf = REQ_OP_WRITE;
+ 
+ 		if (submit_bio_wait(wbio) < 0)
+ 			/* Failure! */
+@@ -3542,7 +3542,7 @@ static sector_t raid10_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 				bio->bi_next = biolist;
+ 				biolist = bio;
+ 				bio->bi_end_io = end_sync_read;
+-				bio_set_op_attrs(bio, REQ_OP_READ, 0);
++				bio->bi_opf = REQ_OP_READ;
+ 				if (test_bit(FailFast, &rdev->flags))
+ 					bio->bi_opf |= MD_FAILFAST;
+ 				from_addr = r10_bio->devs[j].addr;
+@@ -3567,7 +3567,7 @@ static sector_t raid10_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 					bio->bi_next = biolist;
+ 					biolist = bio;
+ 					bio->bi_end_io = end_sync_write;
+-					bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
++					bio->bi_opf = REQ_OP_WRITE;
+ 					bio->bi_iter.bi_sector = to_addr
+ 						+ mrdev->data_offset;
+ 					bio_set_dev(bio, mrdev->bdev);
+@@ -3588,7 +3588,7 @@ static sector_t raid10_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 				bio->bi_next = biolist;
+ 				biolist = bio;
+ 				bio->bi_end_io = end_sync_write;
+-				bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
++				bio->bi_opf = REQ_OP_WRITE;
+ 				bio->bi_iter.bi_sector = to_addr +
+ 					mreplace->data_offset;
+ 				bio_set_dev(bio, mreplace->bdev);
+@@ -3742,7 +3742,7 @@ static sector_t raid10_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 			bio->bi_next = biolist;
+ 			biolist = bio;
+ 			bio->bi_end_io = end_sync_read;
+-			bio_set_op_attrs(bio, REQ_OP_READ, 0);
++			bio->bi_opf = REQ_OP_READ;
+ 			if (test_bit(FailFast, &rdev->flags))
+ 				bio->bi_opf |= MD_FAILFAST;
+ 			bio->bi_iter.bi_sector = sector + rdev->data_offset;
+@@ -3764,7 +3764,7 @@ static sector_t raid10_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 			bio->bi_next = biolist;
+ 			biolist = bio;
+ 			bio->bi_end_io = end_sync_write;
+-			bio_set_op_attrs(bio, REQ_OP_WRITE, 0);
++			bio->bi_opf = REQ_OP_WRITE;
+ 			if (test_bit(FailFast, &rdev->flags))
+ 				bio->bi_opf |= MD_FAILFAST;
+ 			bio->bi_iter.bi_sector = sector + rdev->data_offset;
+@@ -4970,7 +4970,7 @@ static sector_t reshape_request(struct mddev *mddev, sector_t sector_nr,
+ 		b->bi_iter.bi_sector = r10_bio->devs[s/2].addr +
+ 			rdev2->new_data_offset;
+ 		b->bi_end_io = end_reshape_write;
+-		bio_set_op_attrs(b, REQ_OP_WRITE, 0);
++		b->bi_opf = REQ_OP_WRITE;
+ 		b->bi_next = blist;
+ 		blist = b;
+ 	}
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index e0b098089ef2b7..99be590f952f6e 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -472,13 +472,6 @@ static inline enum req_op bio_op(const struct bio *bio)
+ 	return bio->bi_opf & REQ_OP_MASK;
+ }
+ 
+-/* obsolete, don't use in new code */
+-static inline void bio_set_op_attrs(struct bio *bio, enum req_op op,
+-				    blk_opf_t op_flags)
+-{
+-	bio->bi_opf = op | op_flags;
+-}
+-
+ static inline bool op_is_write(blk_opf_t op)
+ {
+ 	return !!(op & (__force blk_opf_t)1);
+-- 
+2.35.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
