@@ -1,65 +1,146 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7622064C0BA
-	for <lists+dm-devel@lfdr.de>; Wed, 14 Dec 2022 00:36:33 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6432C64C5B6
+	for <lists+dm-devel@lfdr.de>; Wed, 14 Dec 2022 10:20:16 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1670974592;
+	s=mimecast20190719; t=1671009615;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=YBBsydTQsElHmqOulJBLLiFEubpnJsvhm/Tib+stcpg=;
-	b=WcYeNejGxLSZDy7jIWStVsYKm7nm+N5T0FNnG2wQDpBIQtue3Xy8z1u6c0zZmDDcRnEhYY
-	nVCiZM/SZ3NEAT/NdQQW0/7mIed+VZy16XrNWdcMV6xyIiN+op+8ho5tmqBOyJfFDdyoh4
-	vuZeDDH/frjTUlIg8o2QZoXM3EXGdsU=
+	bh=7estU0nLqOaKnHJzsooFuMgXMEYK6cEcVPxzu/eCHV8=;
+	b=Tn/nvBO/1MDje//ajT1eMT1jLgAJ/nzROQLR9vHon2IjJkGwAsKc25qE8ssVuS4gSXKIr3
+	sAOvAyAQu/CpgQpST+7uQD1dPdtUArH82kl2be5CS1jVbgIL0V/xNOupe92KeydZ0mB116
+	q8wCod8vxLW4a4hzLQ1xtW0HGeKsWPU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-147-ML0JJv0kMVS6uzTXry6i7g-1; Tue, 13 Dec 2022 18:36:29 -0500
-X-MC-Unique: ML0JJv0kMVS6uzTXry6i7g-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-592-oYH-NAiyOqqvqxjr0I_zzA-1; Wed, 14 Dec 2022 04:20:11 -0500
+X-MC-Unique: oYH-NAiyOqqvqxjr0I_zzA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A470B800882;
-	Tue, 13 Dec 2022 23:36:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9682718E5280;
+	Wed, 14 Dec 2022 09:20:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 13CD21C4C3;
-	Tue, 13 Dec 2022 23:36:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2502E1121314;
+	Wed, 14 Dec 2022 09:20:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3FEEF1946A76;
-	Tue, 13 Dec 2022 23:36:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 07EAC1946A46;
+	Wed, 14 Dec 2022 09:20:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8F4131946A46
- for <dm-devel@listman.corp.redhat.com>; Tue, 13 Dec 2022 23:36:14 +0000 (UTC)
+ ESMTP id 0AD2E19465B8
+ for <dm-devel@listman.corp.redhat.com>; Wed, 14 Dec 2022 09:19:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6622F4085720; Tue, 13 Dec 2022 23:36:14 +0000 (UTC)
+ id 668162166B2D; Wed, 14 Dec 2022 09:19:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4817B4085722;
- Tue, 13 Dec 2022 23:36:14 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 2BDNaCVx008056;
- Tue, 13 Dec 2022 17:36:13 -0600
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 2BDNaC2O008055;
- Tue, 13 Dec 2022 17:36:12 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Tue, 13 Dec 2022 17:36:07 -0600
-Message-Id: <1670974567-8005-4-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1670974567-8005-1-git-send-email-bmarzins@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CE7A2166B26
+ for <dm-devel@redhat.com>; Wed, 14 Dec 2022 09:19:51 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B0C63C0252E
+ for <dm-devel@redhat.com>; Wed, 14 Dec 2022 09:19:51 +0000 (UTC)
+Received: from EUR05-DB8-obe.outbound.protection.outlook.com
+ (mail-db8eur05on2057.outbound.protection.outlook.com [40.107.20.57]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-17-cWQn78JqNwep0TJl1DPCcQ-1; Wed, 14 Dec 2022 04:19:49 -0500
+X-MC-Unique: cWQn78JqNwep0TJl1DPCcQ-1
+Received: from PA4PR04MB8047.eurprd04.prod.outlook.com (2603:10a6:102:cf::21)
+ by PA4PR04MB9592.eurprd04.prod.outlook.com (2603:10a6:102:271::20)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5880.13; Wed, 14 Dec
+ 2022 09:19:45 +0000
+Received: from PA4PR04MB8047.eurprd04.prod.outlook.com
+ ([fe80::9cd7:a417:20a2:4462]) by PA4PR04MB8047.eurprd04.prod.outlook.com
+ ([fe80::9cd7:a417:20a2:4462%4]) with mapi id 15.20.5880.019; Wed, 14 Dec 2022
+ 09:19:45 +0000
+From: Martin Wilck <martin.wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
+ "christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
+Thread-Topic: [PATCH 1/3] libmpathutil: simplify set_value
+Thread-Index: AQHZD0uyvuXB8tiq9Eyg2gP7ZIJLgq5tG9AA
+Date: Wed, 14 Dec 2022 09:19:45 +0000
+Message-ID: <2329a2afe95f32ba6520932cdf32c510980b6a88.camel@suse.com>
 References: <1670974567-8005-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [PATCH 3/3] libmutipath: validate the argument count of
- config strings
+ <1670974567-8005-2-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1670974567-8005-2-git-send-email-bmarzins@redhat.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.46.2
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: PA4PR04MB8047:EE_|PA4PR04MB9592:EE_
+x-ms-office365-filtering-correlation-id: 39f5e6a2-ec13-4838-ee81-08daddb45754
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: bwIMmda7IcMBi3XZ5frArwdtHvbNchfUn7ANL4Ap8Oy3p85sj04SV18jNGt1CNL1QSwZwKiNAfNK7wtErQ9zoFAqGCOCcwqZjp/SjExvuPe5VSYFoJA7Rc8n2pT3NKckjCmhMeqOQT/9VdnRYOQCbMuWw3+Ek55GA2p/z+LawBm9kaiBVgbW1FOKUCOkgeksICVDdSQFAWxjuwj5lzThESxuvzaO4qSSGClrtsfWJoWyk5Puo0YDRjBXK9hysnSwc6JI/h4JpJQu7YKxHS+j7hAMK/NXti31dxN7wIDIufWAV4+Y/WOgzAsw4NkuI+3g3ZrfBSv+9dlCmXjfgW67K3rHfd1nXvGj12Ua9mbvWtu/VGuMs7FhhxVsWYRe7ULF4eZIv2cEghntB0neu4EgYZZi+Ok6+QWIwjSR5oeZcU4eMSAs08DuJCJUQw2bBvSzcz3ID3USqBCnWEio3wkHHkApd3Y5X02Taz+jdzO7t+bJoEnEdkRy/MqGKE78XuZltBuegbE2Gmq2jiV7UDOBQb5oyeiWF5w1eP8PFiY/fBz93C8O29CHACVcRvznF6Dtnsu7UYFs/DYGdfym37ZOZPXF/8xVoRkcZLNMe6MebBBcObFmVqKLqPPT+ICPWqCDbU4zdruRt4Ejnsa1oM8u8F9X0Y5kigHduF/9aASD6lqv6icN5aGvLU9kz9eCFEQ2RDIp/lu8N+Oky4mGXMaVCw==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PA4PR04MB8047.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(396003)(366004)(136003)(39860400002)(376002)(346002)(451199015)(4326008)(44832011)(76116006)(8676002)(8936002)(66446008)(5660300002)(66946007)(64756008)(91956017)(66476007)(66556008)(4001150100001)(110136005)(316002)(41300700001)(2906002)(478600001)(6486002)(71200400001)(6506007)(26005)(36756003)(6512007)(186003)(86362001)(2616005)(38070700005)(83380400001)(38100700002)(122000001);
+ DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?nra0l9WSC77DEqfZmbW6fOcT+tvcwC2Ed8bLNz7tG5YoxkSbP26mA4t1w?=
+ =?iso-8859-15?Q?TtmaeMMVOE/pZWzHZfsmAZZH/FrkU5hq+/ANsmfau4yOr9dbZv11Wfw7I?=
+ =?iso-8859-15?Q?oRd+fLqJnFslSYD+gi1pxCvGPA91Ioe/NGErd85/T8YOgqRPfD4KU0spl?=
+ =?iso-8859-15?Q?GFG75bZ1DV8MX+AwQaiGN9aV4eD5uVvn9ReFfX1Y/20Y+3VJoRyTpz6yf?=
+ =?iso-8859-15?Q?qHjkUjV+ha860MTXm0foEED8YmVncTEd4rUJQwBRFqTBFIRAXNMLnPjWN?=
+ =?iso-8859-15?Q?jAsZQxHtFstXnoHxMOmI8PNpM+LOpRPDj2fmdoRHlEyS0GoK9EbOYjzal?=
+ =?iso-8859-15?Q?PYNFjR74iKqN8y8p58JyrBvbDDcgmeuIc/v+saZdoqtoGIOPvzt7nYY5O?=
+ =?iso-8859-15?Q?X8tdXvNvd/8DSE3xSEy/6jbKIlJswKbVk54hlvlHM0GAbCpYwVKqMcqRF?=
+ =?iso-8859-15?Q?j/Z+VtXjOiJqMzjuRjrwaJgx4AzSoi/54qNOkFbiNoIiyQIWqDtuYoW/2?=
+ =?iso-8859-15?Q?UM2RjIe+Gg1uvIACAfZW9+RIvwsgT5HuPNbvhaqdNtinyoky25PJZiwPa?=
+ =?iso-8859-15?Q?eiSxxdoYM4ehKA6m8pOwRx0/H/FXQXYWPqQBX+slKz/Iual8GNsSzpCGv?=
+ =?iso-8859-15?Q?Yf0ijPpZOX9Hl1VoakqIBjMB8txD8igj6Aj4PCc7IUJpONRRMoIRUfrBE?=
+ =?iso-8859-15?Q?HTpZ+rpDiAi/jvAGidg8OjZXMXqLzTraom+zqZCe0zcZaXX/i0/c622Ny?=
+ =?iso-8859-15?Q?lTboqeA8Ok5Jrttpk6JGh4etIRqwxe/QaO4198qfAbfEM+I84G4gc7zK1?=
+ =?iso-8859-15?Q?fQaR+7R532P7h0hb+B8UC3I7IoDW+u66xusN2vbM0mGV4QkomhdPehYei?=
+ =?iso-8859-15?Q?5DA+gHRvZek/3fAV/jCp/2C0oUU8YldQpcHF1FVydg8aDaNH/8/RYxpqK?=
+ =?iso-8859-15?Q?c7K9lQKGhITy6V8uITMayOKHhKcKPSHwvbB67wgd3x4Mj4x8FQ9Il6kG9?=
+ =?iso-8859-15?Q?AcLMPUHkdCL8en8HBNa39lMQzAatra/VvGQCvaI9RxMnrlQrUDGCpMqU/?=
+ =?iso-8859-15?Q?UB5b/GpLM8tAHT/UkRUaVLw44ShIx0bN+Ok/2KLCNhivkB2Ty7qultvlm?=
+ =?iso-8859-15?Q?6Bm1Q6ZETOqo9UY1xMmssdlv7AKVSg2L7O6Ypj4PHPG+gpseMoaowDNBQ?=
+ =?iso-8859-15?Q?zKNRMvg7THufxcCTvYIbIGLPjhCMel8h89HrBTGAkuGLw5hvwf8IEAnl5?=
+ =?iso-8859-15?Q?dvh/4dJhYFvx1Q5Zr+bZpC/h76nQVrmTAeAzqRNrMbfSNN5baJKlDtG5w?=
+ =?iso-8859-15?Q?C7eO4TjYvnP+loXkpv+ZAjGup8yxhxNSHw+KYm+zEx0xzJkdmRGWZpTTG?=
+ =?iso-8859-15?Q?dW91MuaO1YvWNadmjflMr7LMoBuLdzUgTmuCjPjZOwYWAPiTnRrOc8yRR?=
+ =?iso-8859-15?Q?mO4A1uWo0BXiaOx/Gkg7RQjW87WzLLXOjWRWyIhPMjbvz7kgG7IS3N8Ng?=
+ =?iso-8859-15?Q?UfMCFIRi2HnrlkHpR9IOPDP6JZEiej6SwQcNzRq4Gh4CgpUFAFH5EkZ/y?=
+ =?iso-8859-15?Q?5TAgl1G4VRckZrkIDPSs7ZZggWY8/6l/o6vqVGWbjs0bjoCWaz4JGTD3e?=
+ =?iso-8859-15?Q?sJM9nlPXI+jtbBUrkAgO5To19sUP3hpCN8Ed8yqAK99oCU/6WXsH+zg5R?=
+ =?iso-8859-15?Q?5X7M92WspZhwZOj35n0ODmvk3w=3D=3D?=
+MIME-Version: 1.0
+X-OriginatorOrg: suse.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: PA4PR04MB8047.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 39f5e6a2-ec13-4838-ee81-08daddb45754
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Dec 2022 09:19:45.5225 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: Kudbw3a+bzqDiU275lQ/A2s99jmbo5/WQoMB3XoV9McwWfQ2Q/iN+EpmMSpClCXToWy5LFroSWGt3LhlX2hCDg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA4PR04MB9592
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH 1/3] libmpathutil: simplify set_value
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,208 +152,67 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
-MIME-Version: 1.0
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Language: en-US
+Content-ID: <1B27FB2C2C399A419FB9B2673C1B20AC@eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-The features, path_selector, and hardware_handler config options pass
-their strings directly into the kernel.  If users omit the argument
-counts from these strings, or use the wrong value, the kernel's table
-parsing gets completely messed up, and the error messages it prints
-don't reflect what actully went wrong. To avoid messing up the
-kernel table parsing, verify that these strings correctly set the
-argument count to the number of arguments they have.
+On Tue, 2022-12-13 at 17:36 -0600, Benjamin Marzinski wrote:
+> alloc_strvec() will never create a strvec with multiple tokens
+> between
+> the quote tokens.=A0 Verify this in validate_config_strvec(), and
+> simplify
+> set_value() by only reading one value after a quote token.
+>=20
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/dict.c | 110 ++++++++++++++++++++++++++++++++++++++++----
- 1 file changed, 101 insertions(+), 9 deletions(-)
+One suggestion below
 
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index f4233882..6645de49 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -116,6 +116,58 @@ set_str(vector strvec, void *ptr, const char *file, int line_nr)
- 	return 0;
- }
- 
-+static int
-+set_arg_str(vector strvec, void *ptr, int count_idx, const char *file,
-+	    int line_nr)
-+{
-+	char **str_ptr = (char **)ptr;
-+	char *old_str = *str_ptr;
-+	const char *spaces = " \f\n\r\t\v";
-+	char *p, *end;
-+	int idx = -1;
-+	long int count = -1;
-+
-+	*str_ptr = set_value(strvec);
-+	if (!*str_ptr) {
-+		free(old_str);
-+		return 1;
-+	}
-+	p = *str_ptr;
-+	while (*p != '\0') {
-+		p += strspn(p, spaces);
-+		if (*p == '\0')
-+			break;
-+		idx += 1;
-+		if (idx == count_idx) {
-+			errno = 0;
-+			count = strtol(p, &end, 10);
-+			if (errno == ERANGE || end == p ||
-+			    !(isspace(*end) || *end == '\0')) {
-+				count = -1;
-+				break;
-+			}
-+		}
-+		p += strcspn(p, spaces);
-+	}
-+	if (count < 0) {
-+		condlog(1, "%s line %d, missing argument count for %s",
-+			file, line_nr, (char*)VECTOR_SLOT(strvec, 0));
-+		goto fail;
-+	}
-+	if (count != idx - count_idx) {
-+		condlog(1, "%s line %d, invalid argument count for %s:, got '%ld' expected '%d'",
-+			file, line_nr, (char*)VECTOR_SLOT(strvec, 0), count,
-+			idx - count_idx);
-+		goto fail;
-+	}
-+	free(old_str);
-+	return 0;
-+fail:
-+	free(*str_ptr);
-+	*str_ptr = old_str;
-+	return 0;
-+}
-+
- static int
- set_path(vector strvec, void *ptr, const char *file, int line_nr)
- {
-@@ -288,6 +340,14 @@ def_ ## option ## _handler (struct config *conf, vector strvec,         \
- 	return set_int(strvec, &conf->option, minval, maxval, file, line_nr); \
- }
- 
-+#define declare_def_arg_str_handler(option, count_idx)			\
-+static int								\
-+def_ ## option ## _handler (struct config *conf, vector strvec,		\
-+			    const char *file, int line_nr)		\
-+{									\
-+	return set_arg_str(strvec, &conf->option, count_idx, file, line_nr); \
-+}
-+
- #define declare_def_snprint(option, function)				\
- static int								\
- snprint_def_ ## option (struct config *conf, struct strbuf *buff,	\
-@@ -340,6 +400,17 @@ hw_ ## option ## _handler (struct config *conf, vector strvec,		\
- 	return set_int(strvec, &hwe->option, minval, maxval, file, line_nr); \
- }
- 
-+#define declare_hw_arg_str_handler(option, count_idx)			\
-+static int								\
-+hw_ ## option ## _handler (struct config *conf, vector strvec,		\
-+			    const char *file, int line_nr)		\
-+{									\
-+	struct hwentry * hwe = VECTOR_LAST_SLOT(conf->hwtable);		\
-+	if (!hwe)							\
-+		return 1;						\
-+	return set_arg_str(strvec, &hwe->option, count_idx, file, line_nr); \
-+}
-+
- 
- #define declare_hw_snprint(option, function)				\
- static int								\
-@@ -371,6 +442,16 @@ ovr_ ## option ## _handler (struct config *conf, vector strvec,		\
- 		       file, line_nr); \
- }
- 
-+#define declare_ovr_arg_str_handler(option, count_idx)			\
-+static int								\
-+ovr_ ## option ## _handler (struct config *conf, vector strvec,		\
-+			    const char *file, int line_nr)		\
-+{									\
-+	if (!conf->overrides)						\
-+		return 1;						\
-+	return set_arg_str(strvec, &conf->overrides->option, count_idx, file, line_nr); \
-+}
-+
- #define declare_ovr_snprint(option, function)				\
- static int								\
- snprint_ovr_ ## option (struct config *conf, struct strbuf *buff,	\
-@@ -401,6 +482,17 @@ mp_ ## option ## _handler (struct config *conf, vector strvec,		\
- 	return set_int(strvec, &mpe->option, minval, maxval, file, line_nr); \
- }
- 
-+#define declare_mp_arg_str_handler(option, count_idx)			\
-+static int								\
-+mp_ ## option ## _handler (struct config *conf, vector strvec,		\
-+			    const char *file, int line_nr)		\
-+{									\
-+	struct mpentry * mpe = VECTOR_LAST_SLOT(conf->mptable);		\
-+	if (!mpe)							\
-+		return 1;						\
-+	return set_arg_str(strvec, &mpe->option, count_idx, file, line_nr); \
-+}
-+
- #define declare_mp_snprint(option, function)				\
- static int								\
- snprint_mp_ ## option (struct config *conf, struct strbuf *buff,	\
-@@ -584,13 +676,13 @@ snprint_def_marginal_pathgroups(struct config *conf, struct strbuf *buff,
- }
- 
- 
--declare_def_handler(selector, set_str)
-+declare_def_arg_str_handler(selector, 1)
- declare_def_snprint_defstr(selector, print_str, DEFAULT_SELECTOR)
--declare_hw_handler(selector, set_str)
-+declare_hw_arg_str_handler(selector, 1)
- declare_hw_snprint(selector, print_str)
--declare_ovr_handler(selector, set_str)
-+declare_ovr_arg_str_handler(selector, 1)
- declare_ovr_snprint(selector, print_str)
--declare_mp_handler(selector, set_str)
-+declare_mp_arg_str_handler(selector, 1)
- declare_mp_snprint(selector, print_str)
- 
- static int snprint_uid_attrs(struct config *conf, struct strbuf *buff,
-@@ -663,13 +755,13 @@ declare_hw_snprint(prio_args, print_str)
- declare_mp_handler(prio_args, set_str)
- declare_mp_snprint(prio_args, print_str)
- 
--declare_def_handler(features, set_str)
-+declare_def_arg_str_handler(features, 0)
- declare_def_snprint_defstr(features, print_str, DEFAULT_FEATURES)
--declare_ovr_handler(features, set_str)
-+declare_ovr_arg_str_handler(features, 0)
- declare_ovr_snprint(features, print_str)
--declare_hw_handler(features, set_str)
-+declare_hw_arg_str_handler(features, 0)
- declare_hw_snprint(features, print_str)
--declare_mp_handler(features, set_str)
-+declare_mp_arg_str_handler(features, 0)
- declare_mp_snprint(features, print_str)
- 
- declare_def_handler(checker_name, set_str)
-@@ -1821,7 +1913,7 @@ declare_hw_snprint(revision, print_str)
- declare_hw_handler(bl_product, set_str)
- declare_hw_snprint(bl_product, print_str)
- 
--declare_hw_handler(hwhandler, set_str)
-+declare_hw_arg_str_handler(hwhandler, 0)
- declare_hw_snprint(hwhandler, print_str)
- 
- /*
--- 
-2.17.2
+
+> @@ -496,6 +470,10 @@ validate_config_strvec(vector strvec, const char
+> *file)
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0i=
+f (VECTOR_SIZE(strvec) > i + 1)
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0condlog(0, "ignoring extra data
+> starting with '%s' on line %d of %s", (char *)VECTOR_SLOT(strvec, (i
+> + 1)), line_nr, file);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
+eturn 0;
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else if (i > 3) {
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* =
+There should only ever be one token
+> between quotes */
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0con=
+dlog(0, "parsing error starting with '%s'
+> on line %d of %s", str, line_nr, file);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret=
+urn -1;
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0=A0=A0=A0=A0=A0=A0=A0condlog(0, "missing closing quotes on line %d of =
+%s",
+
+This could be further simplified. We know that strvec[1] is a quote. So
+the only valid possibilities are
+
+ - strvec[2] is a quote (-> empty string)
+ - strvec[2] is not a quote and strvec[3] is a quote
+
+The code would be better understandable if we just spell out these
+possibilities rather than using a loop that start at 2 and is left at 3
+already.
+
+Martin
+
+
+
 
 --
 dm-devel mailing list
