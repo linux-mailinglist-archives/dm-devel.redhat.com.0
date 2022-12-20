@@ -2,63 +2,63 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2518E6529FB
-	for <lists+dm-devel@lfdr.de>; Wed, 21 Dec 2022 00:43:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7EC856529F7
+	for <lists+dm-devel@lfdr.de>; Wed, 21 Dec 2022 00:41:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1671579783;
+	s=mimecast20190719; t=1671579703;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2GpfyEn4SKaouFUqi0XTZSbgGoXpskct++5Fbi0IcAw=;
-	b=BPBkI8RQws1KvdC5TLLygukXHr/FyK4NlAtezJQbA2nu9BB3GndSmCXFWZgry0ZQlH6ZZM
-	NyeimCzYQp5q5z3yyNK0QQE+0wodVi7GD6M7ztTpsVhlEtq10e96mm/CX8SOSsEK7Cb7KQ
-	XTbAiw5NxYz+6wVlfea/xK4WVXhUZYg=
+	bh=gfD2H/DaV0OloEA/0Ux3OwyYWOMVl4c8iTpgvciyYm4=;
+	b=hnaQWPGeCL3jY4WL0hOSNgPXpy4ZN37WQqjIqQ+/zZcEjQvA80lUnYTNLa/MGcJsOPzpUo
+	jFNNy+0jR5SpI6v7BReH4iyJYDKSPsGwSNoxcSM+OhGunGcLjOlpy5mDOLgBPWPz64eXNw
+	p7UoeibnWXMnNE81MQbNd3+2DAPyexw=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-104-K_tzfvbiPouU4eXt_6BVOw-1; Tue, 20 Dec 2022 18:41:41 -0500
-X-MC-Unique: K_tzfvbiPouU4eXt_6BVOw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-349-i-ZNML7EPF6pWZRowYWOxw-1; Tue, 20 Dec 2022 18:41:41 -0500
+X-MC-Unique: i-ZNML7EPF6pWZRowYWOxw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FFEA3C025B2;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1FFB838012DB;
 	Tue, 20 Dec 2022 23:41:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 03D0D2026D2A;
-	Tue, 20 Dec 2022 23:41:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 732321121330;
+	Tue, 20 Dec 2022 23:41:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1B6AB19465B6;
-	Tue, 20 Dec 2022 23:41:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6F9AF1946A76;
+	Tue, 20 Dec 2022 23:41:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E4B9F19465A3
- for <dm-devel@listman.corp.redhat.com>; Tue, 20 Dec 2022 23:41:19 +0000 (UTC)
+ ESMTP id E20B919465A0
+ for <dm-devel@listman.corp.redhat.com>; Tue, 20 Dec 2022 23:41:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6F022492B02; Tue, 20 Dec 2022 23:41:19 +0000 (UTC)
+ id 48B292166B26; Tue, 20 Dec 2022 23:41:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C75FB492B00;
- Tue, 20 Dec 2022 23:41:18 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 223462166B2B;
+ Tue, 20 Dec 2022 23:41:20 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 2BKNfHMI023700;
- Tue, 20 Dec 2022 17:41:17 -0600
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 2BKNfIF5023704;
+ Tue, 20 Dec 2022 17:41:18 -0600
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 2BKNfHN9023699;
- Tue, 20 Dec 2022 17:41:17 -0600
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 2BKNfIEC023703;
+ Tue, 20 Dec 2022 17:41:18 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Tue, 20 Dec 2022 17:41:10 -0600
-Message-Id: <1671579675-23658-2-git-send-email-bmarzins@redhat.com>
+Date: Tue, 20 Dec 2022 17:41:11 -0600
+Message-Id: <1671579675-23658-3-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1671579675-23658-1-git-send-email-bmarzins@redhat.com>
 References: <1671579675-23658-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH 1/6] multipathd: make pr registration consistent
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH 2/6] libmultipath: make prflag an enum
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,165 +75,172 @@ Cc: device-mapper development <dm-devel@redhat.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-multipathd was inconsistent on what it did with persistent reservations
-when a multipath device was created. If a multipath device with a
-configured reservation key was created during configure(), multipathd
-would try to read the registered keys using an active path. If it saw a
-matching key, it would set the prflag, but not attempt to register the
-key on any of the other paths.  This means that if a new path had
-appeared while multipathd was not running, it wouldn't register the key
-on this path.
-
-If the multipath device was created during ev_add_path(), multipathd
-would used the added path to check if there was a matching key and if
-there was, register the key only on the added path and then set the
-prflag. This could be problematic if the device was created with
-multiple paths, for instance because find_mutipaths was set to "yes" and
-a second path just appeared. In this case, if the device happened to be
-only registered on the second path, it would not get registered on the
-first path.
-
-If the multipath device was added to multipathd during a call to
-ev_add_map(), multipathd wouldn't set the prflag or register the key on
-any paths.
-
-After a device was created with the prflag set, if a new path appeared
-before the creation uevent, and multipathd was forced to delay adding
-it, when it finally updated the multipath device, the key would be
-registered on all paths, fixing any paths missed during creation.
-However, if a new path appeared after the creation uevent, the key would
-only be registered on that new path. Any paths that were missed on
-creation would stay missed.
-
-persistent key registration needs to be handled consistently.  This
-patch does so by making sure that however a multipath device is added to
-multipathd, it will check to see if the configured key is registered. If
-it is, multipathd will set the prflag and register the key on all the
-currently active paths.
-
-When a new path is added, multipathd will use it to check for active
-keys, as before. But if it finds a matching key and prflag isn't
-currently set, it will register the key on all paths.
+In preparation for a future patch, make prflag an enum, and change the
+reply of cli_getprstatus() to a string.
 
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- multipathd/main.c | 43 +++++++++++++++++++++++++++++--------------
- 1 file changed, 29 insertions(+), 14 deletions(-)
+ libmpathpersist/mpath_persist_int.c |  2 +-
+ libmultipath/structs.h              |  8 +++++++-
+ multipathd/cli_handlers.c           | 17 +++++++++--------
+ multipathd/main.c                   | 14 +++++++-------
+ 4 files changed, 24 insertions(+), 17 deletions(-)
 
-diff --git a/multipathd/main.c b/multipathd/main.c
-index 1e1b254f..f7212d7b 100644
---- a/multipathd/main.c
-+++ b/multipathd/main.c
-@@ -586,13 +586,26 @@ flush_map_nopaths(struct multipath *mpp, struct vectors *vecs) {
- 	return false;
- }
+diff --git a/libmpathpersist/mpath_persist_int.c b/libmpathpersist/mpath_persist_int.c
+index 6924b379..a84d9474 100644
+--- a/libmpathpersist/mpath_persist_int.c
++++ b/libmpathpersist/mpath_persist_int.c
+@@ -783,7 +783,7 @@ int update_map_pr(struct multipath *mpp)
  
-+static void
-+pr_register_active_paths(struct multipath *mpp)
-+{
-+	unsigned int i, j;
-+	struct path *pp;
-+	struct pathgroup *pgp;
+ 	if (isFound)
+ 	{
+-		mpp->prflag = 1;
++		mpp->prflag = PRFLAG_SET;
+ 		condlog(2, "%s: prflag flag set.", mpp->alias );
+ 	}
+ 
+diff --git a/libmultipath/structs.h b/libmultipath/structs.h
+index 9e2c1ab0..f2265300 100644
+--- a/libmultipath/structs.h
++++ b/libmultipath/structs.h
+@@ -375,6 +375,12 @@ struct path {
+ 
+ typedef int (pgpolicyfn) (struct multipath *, vector);
+ 
 +
-+	vector_foreach_slot (mpp->pg, pgp, i) {
-+		vector_foreach_slot (pgp->paths, pp, j) {
-+			if ((pp->state == PATH_UP) || (pp->state == PATH_GHOST))
-+				mpath_pr_event_handle(pp);
-+		}
-+	}
-+}
++enum prflag_value {
++	PRFLAG_UNSET,
++	PRFLAG_SET,
++};
 +
+ struct multipath {
+ 	char wwid[WWID_SIZE];
+ 	char alias_old[WWID_SIZE];
+@@ -449,7 +455,7 @@ struct multipath {
+ 	int prkey_source;
+ 	struct be64 reservation_key;
+ 	uint8_t sa_flags;
+-	unsigned char prflag;
++	int prflag;
+ 	int all_tg_pt;
+ 	struct gen_multipath generic_mp;
+ 	bool fpin_must_reload;
+diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
+index e65fb75c..7ee2729f 100644
+--- a/multipathd/cli_handlers.c
++++ b/multipathd/cli_handlers.c
+@@ -1277,6 +1277,10 @@ cli_shutdown (void * v, struct strbuf *reply, void * data)
  static int
- update_map (struct multipath *mpp, struct vectors *vecs, int new_map)
+ cli_getprstatus (void * v, struct strbuf *reply, void * data)
  {
- 	int retries = 3;
- 	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
--	struct path *pp;
--	int i;
++	static const char * const prflag_str[] = {
++		[PRFLAG_UNSET] = "unset\n",
++		[PRFLAG_SET] = "set\n",
++	};
+ 	struct multipath * mpp;
+ 	struct vectors * vecs = (struct vectors *)data;
+ 	char * param = get_keyparam(v, KEY_MAP);
+@@ -1287,10 +1291,7 @@ cli_getprstatus (void * v, struct strbuf *reply, void * data)
+ 	if (!mpp)
+ 		return 1;
  
- retry:
- 	condlog(4, "%s: updating new map", mpp->alias);
-@@ -609,15 +622,6 @@ retry:
+-	condlog(3, "%s: prflag = %u", param, (unsigned int)mpp->prflag);
+-
+-	if (print_strbuf(reply, "%d", mpp->prflag) < 0)
+-		return 1;
++	append_strbuf_str(reply, prflag_str[mpp->prflag]);
  
- 	mpp->action = ACT_RELOAD;
+ 	condlog(3, "%s: reply = %s", param, get_strbuf_str(reply));
+ 
+@@ -1310,8 +1311,8 @@ cli_setprstatus(void * v, struct strbuf *reply, void * data)
+ 	if (!mpp)
+ 		return 1;
+ 
+-	if (!mpp->prflag) {
+-		mpp->prflag = 1;
++	if (mpp->prflag != PRFLAG_SET) {
++		mpp->prflag = PRFLAG_SET;
+ 		condlog(2, "%s: prflag set", param);
+ 	}
+ 
+@@ -1332,8 +1333,8 @@ cli_unsetprstatus(void * v, struct strbuf *reply, void * data)
+ 	if (!mpp)
+ 		return 1;
  
 -	if (mpp->prflag) {
--		vector_foreach_slot(mpp->paths, pp, i) {
--			if ((pp->state == PATH_UP)  || (pp->state == PATH_GHOST)) {
--				/* persistent reservation check*/
--				mpath_pr_event_handle(pp);
--			}
--		}
--	}
--
- 	if (setup_map(mpp, &params, vecs)) {
- 		condlog(0, "%s: failed to setup new map in update", mpp->alias);
- 		retries = -1;
-@@ -643,6 +647,11 @@ fail:
+-		mpp->prflag = 0;
++	if (mpp->prflag != PRFLAG_UNSET) {
++		mpp->prflag = PRFLAG_UNSET;
+ 		condlog(2, "%s: prflag unset", param);
+ 	}
+ 
+diff --git a/multipathd/main.c b/multipathd/main.c
+index f7212d7b..722235c7 100644
+--- a/multipathd/main.c
++++ b/multipathd/main.c
+@@ -647,9 +647,9 @@ fail:
  
  	sync_map_state(mpp);
  
-+	if (!mpp->prflag)
-+		update_map_pr(mpp);
-+	if (mpp->prflag)
-+		pr_register_active_paths(mpp);
-+
+-	if (!mpp->prflag)
++	if (mpp->prflag == PRFLAG_UNSET)
+ 		update_map_pr(mpp);
+-	if (mpp->prflag)
++	if (mpp->prflag == PRFLAG_SET)
+ 		pr_register_active_paths(mpp);
+ 
  	if (retries < 0)
- 		condlog(0, "%s: failed reload in new map update", mpp->alias);
- 	return 0;
-@@ -1191,6 +1200,7 @@ ev_add_path (struct path * pp, struct vectors * vecs, int need_do_map)
+@@ -1200,7 +1200,7 @@ ev_add_path (struct path * pp, struct vectors * vecs, int need_do_map)
  	int start_waiter = 0;
  	int ret;
  	int ro;
-+	unsigned char prflag = 0;
+-	unsigned char prflag = 0;
++	unsigned char prflag = PRFLAG_UNSET;
  
  	/*
  	 * need path UID to go any further
-@@ -1234,6 +1244,8 @@ rescan:
- 
- 		verify_paths(mpp);
- 		mpp->action = ACT_RELOAD;
-+		prflag = mpp->prflag;
-+		mpath_pr_event_handle(pp);
- 	} else {
- 		if (!should_multipath(pp, vecs->pathvec, vecs->mpvec)) {
- 			orphan_path(pp, "only one path");
-@@ -1252,9 +1264,6 @@ rescan:
- 			goto fail; /* leave path added to pathvec */
- 	}
- 
--	/* persistent reservation check*/
--	mpath_pr_event_handle(pp);
--
- 	/* ro check - if new path is ro, force map to be ro as well */
- 	ro = sysfs_get_ro(pp);
- 	if (ro == 1)
-@@ -1319,6 +1328,10 @@ rescan:
- 	sync_map_state(mpp);
- 
+@@ -1330,7 +1330,7 @@ rescan:
  	if (retries >= 0) {
-+		if (start_waiter)
-+			update_map_pr(mpp);
-+		if (mpp->prflag && !prflag)
-+				pr_register_active_paths(mpp);
+ 		if (start_waiter)
+ 			update_map_pr(mpp);
+-		if (mpp->prflag && !prflag)
++		if (mpp->prflag == PRFLAG_SET && prflag == PRFLAG_UNSET)
+ 				pr_register_active_paths(mpp);
  		condlog(2, "%s [%s]: path added to devmap %s",
  			pp->dev, pp->dev_t, mpp->alias);
- 		return 0;
-@@ -2852,6 +2865,8 @@ configure (struct vectors * vecs, enum force_reload_types reload_type)
+@@ -2492,7 +2492,7 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
+ 		}
+ 
+ 		if (newstate == PATH_UP || newstate == PATH_GHOST) {
+-			if (pp->mpp->prflag) {
++			if (pp->mpp->prflag == PRFLAG_SET) {
+ 				/*
+ 				 * Check Persistent Reservation.
+ 				 */
+@@ -2865,7 +2865,7 @@ configure (struct vectors * vecs, enum force_reload_types reload_type)
  		if (remember_wwid(mpp->wwid) == 1)
  			trigger_paths_udev_change(mpp, true);
  		update_map_pr(mpp);
-+		if (mpp->prflag)
-+			pr_register_active_paths(mpp);
+-		if (mpp->prflag)
++		if (mpp->prflag == PRFLAG_SET)
+ 			pr_register_active_paths(mpp);
  	}
  
- 	/*
+@@ -3840,7 +3840,7 @@ void *  mpath_pr_event_handler_fn (void * pathp )
+ 	{
+ 		condlog(0,"%s: Reservation registration failed. Error: %d", pp->dev, ret);
+ 	}
+-	mpp->prflag = 1;
++	mpp->prflag = PRFLAG_SET;
+ 
+ 	free(param);
+ out:
 -- 
 2.17.2
 
