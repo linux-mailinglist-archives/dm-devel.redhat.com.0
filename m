@@ -2,94 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64B9A655CF0
-	for <lists+dm-devel@lfdr.de>; Sun, 25 Dec 2022 12:41:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2CBCB655D4E
+	for <lists+dm-devel@lfdr.de>; Sun, 25 Dec 2022 14:20:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1671968462;
+	s=mimecast20190719; t=1671974404;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BE/Y1wu53ivbeL7MirWuVnhuBlliBJBt4+gtru5+el0=;
-	b=QboX6sN8m6WqL/MUVs+s6vIsoMtf7XJw3ooJJ4YRgQYKpBSwAx/NhWOe2sg8HiYpJ9pCwp
-	0tTe0Z0IAofbmse5zBsBFxkc5z+hyFWcHIrrNv7JE9gByGZwnG3BFLpmBoZyKkWtMDh5Io
-	5wOrXg3GZ0N4QoBa8RjcAaDEpdu+llg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=tOHzRYUAeiTJofDwzQ/AIdm1FfiQZwKuR8U6KpId4as=;
+	b=MM2RNay2G+/Q9W25t1zxRVOKmKnVrvKZsJEhFxEP3JUMppIUBKYcpLnghcnyY0HuxpZHqI
+	eLwX9cXuPBQzR4h2O71EgXODajfcEtB96BEKxBpLK0/JvwJD61jZlqebIMHJJo2tC9aqwG
+	mIfv5UGLbb+kuLEtVTdDWOeZBa47XfY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-288-JFdnaZoaOB-NFOeJM4SlLQ-1; Sun, 25 Dec 2022 06:41:00 -0500
-X-MC-Unique: JFdnaZoaOB-NFOeJM4SlLQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-652-M-ykgE4nN-qdIS4FSc_zPg-1; Sun, 25 Dec 2022 08:19:53 -0500
+X-MC-Unique: M-ykgE4nN-qdIS4FSc_zPg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6915129AA2DA;
-	Sun, 25 Dec 2022 11:40:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E221A8533E1;
+	Sun, 25 Dec 2022 13:19:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EB46A2026D4B;
-	Sun, 25 Dec 2022 11:40:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A66C2166B33;
+	Sun, 25 Dec 2022 13:19:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7F87A19465B3;
-	Sun, 25 Dec 2022 11:40:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CB4D819465B3;
+	Sun, 25 Dec 2022 13:19:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E71D51946586
- for <dm-devel@listman.corp.redhat.com>; Sun, 25 Dec 2022 11:40:43 +0000 (UTC)
+ ESMTP id C1FC41946586
+ for <dm-devel@listman.corp.redhat.com>; Sun, 25 Dec 2022 13:19:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D0C7C40C2064; Sun, 25 Dec 2022 11:40:43 +0000 (UTC)
+ id 544C4C15BAD; Sun, 25 Dec 2022 13:19:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C8E2440C2005
- for <dm-devel@redhat.com>; Sun, 25 Dec 2022 11:40:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 155473C0252D
- for <dm-devel@redhat.com>; Sun, 25 Dec 2022 11:40:35 +0000 (UTC)
-Received: from mail-wr1-f45.google.com (mail-wr1-f45.google.com
- [209.85.221.45]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-665-z3KvPj5oOr-8xR3rOA83Sw-1; Sun, 25 Dec 2022 06:40:28 -0500
-X-MC-Unique: z3KvPj5oOr-8xR3rOA83Sw-1
-Received: by mail-wr1-f45.google.com with SMTP id bs20so6112660wrb.3;
- Sun, 25 Dec 2022 03:40:27 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ZHIIoLI6GIci6V+pJYW1QHErBVX3zcPxWh+ZJQxLA0o=;
- b=k/JEdyEv0RbQ0L+vFcnv9mQdnkyWsBzv94jEY9fQ50d0O8Tx42Uh8avI4nhWs1mAu1
- /o48AReMAPsDl7jNMgfL7HVndNVxva2bhCzaiAQrNn68vgRu2THGysE3KSFt0dEEruPd
- XIykbwdIbeeKuyofoUDXCDiMT0D4OAs14AwjqyXi9AFt1zmh5leDNDVgViaB+LRIH7vA
- +h4SJMHEyRx4jluVlUBueKVeJHl1VrhZYJ1po2JIkPMUTE/2vGjYOX3CrIVs/KY6M1SG
- AYKNCZah+La/zKx7lUIBngj6Bjf6ttwcY+wYUPDtW5e88U1QUGIJAx8mZJhXdRa6oWmj
- SZNg==
-X-Gm-Message-State: AFqh2kpqrtDnvQwo4fFEJa3fNJthZoQCJ4l755ERx5z0zK4SbhM/q9DI
- 6+XVrz3yi7P9Xu5raI4gRnQ=
-X-Google-Smtp-Source: AMrXdXtOU+j5gb521X9u9SLkgvSyxLbk+fAjhclAlSe9w631NeEuF0qIeOMvF5fteB8K21s8/zxQPQ==
-X-Received: by 2002:adf:f30f:0:b0:242:864e:c71c with SMTP id
- i15-20020adff30f000000b00242864ec71cmr8954222wro.24.1671968426666; 
- Sun, 25 Dec 2022 03:40:26 -0800 (PST)
-Received: from [192.168.64.177] (bzq-219-42-90.isdn.bezeqint.net.
- [62.219.42.90]) by smtp.gmail.com with ESMTPSA id
- e16-20020adfdbd0000000b002362f6fcaf5sm7652128wrj.48.2022.12.25.03.40.23
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sun, 25 Dec 2022 03:40:26 -0800 (PST)
-Message-ID: <1d0eb8e4-a91f-4635-bac7-9bc6cefbeff0@grimberg.me>
-Date: Sun, 25 Dec 2022 13:40:23 +0200
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CB2FC15BA0
+ for <dm-devel@redhat.com>; Sun, 25 Dec 2022 13:19:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 32C4C29AA2C0
+ for <dm-devel@redhat.com>; Sun, 25 Dec 2022 13:19:45 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-574-71aynrrWOtuI2X5_1cFYbw-1; Sun, 25 Dec 2022 08:19:43 -0500
+X-MC-Unique: 71aynrrWOtuI2X5_1cFYbw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by ams.source.kernel.org (Postfix) with ESMTPS id 03511B80735;
+ Sun, 25 Dec 2022 13:19:42 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39AAAC433D2;
+ Sun, 25 Dec 2022 13:19:40 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable-commits@vger.kernel.org,
+	hch@lst.de
+Date: Sun, 25 Dec 2022 08:19:38 -0500
+Message-Id: <20221225131938.601770-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.4.2
-To: Gulam Mohamed <gulam.mohamed@oracle.com>, linux-block@vger.kernel.org
-References: <20221221040506.1174644-1-gulam.mohamed@oracle.com>
-From: Sagi Grimberg <sagi@grimberg.me>
-In-Reply-To: <20221221040506.1174644-1-gulam.mohamed@oracle.com>
+X-Patchwork-Hint: ignore
+X-stable: review
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -97,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH for-6.2/block V3 1/2] block: Data type
- conversion for IO accounting
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] Patch "dm: cleanup open_table_device" has been added to
+ the 6.1-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,62 +91,144 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: nvdimm@lists.linux.dev, shminderjit.singh@oracle.com,
- linux-kernel@vger.kernel.org, song@kernel.org, dm-devel@redhat.com,
- ira.weiny@intel.com, agk@redhat.com, drbd-dev@lists.linbit.com,
- dave.jiang@intel.com, christoph.boehmwalder@linbit.com,
- vishal.l.verma@intel.com, konrad.wilk@oracle.com, joe.jin@oracle.com,
- kent.overstreet@gmail.com, ngupta@vflare.org, kch@nvidia.com,
- senozhatsky@chromium.org, snitzer@kernel.org, colyli@suse.de,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
- dan.j.williams@intel.com, axboe@kernel.dk, martin.petersen@oracle.com,
- rajesh.sivaramasubramaniom@oracle.com, philipp.reisner@linbit.com,
- junxiao.bi@oracle.com, minchan@kernel.org, lars.ellenberg@linbit.com
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+
+This is a note to let you know that I've just added the patch titled
+
+    dm: cleanup open_table_device
+
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     dm-cleanup-open_table_device.patch
+and it can be found in the queue-6.1 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
 
 
-On 12/21/22 06:05, Gulam Mohamed wrote:
-> Change the data type of start and end time IO accounting variables in,
-> block layer, from "unsigned long" to "u64". This is to enable nano-seconds
-> granularity, in next commit, for the devices whose latency is less than
-> milliseconds.
-> 
-> Changes from V2 to V3
-> =====================
-> 1. Changed all the required variables data-type to u64 as part of this
->     first patch
-> 2. Create a new setting '2' for iostats in sysfs in next patch
-> 3. Change the code to get the ktime values when iostat=2 in next patch
-> 
-> Signed-off-by: Gulam Mohamed <gulam.mohamed@oracle.com>
-> ---
->   block/blk-core.c              | 24 ++++++++++++------------
->   block/blk.h                   |  2 +-
->   drivers/block/drbd/drbd_int.h |  2 +-
->   drivers/block/zram/zram_drv.c |  4 ++--
->   drivers/md/bcache/request.c   | 10 +++++-----
->   drivers/md/dm-core.h          |  2 +-
->   drivers/md/dm.c               |  2 +-
->   drivers/md/md.h               |  2 +-
->   drivers/md/raid1.h            |  2 +-
->   drivers/md/raid10.h           |  2 +-
->   drivers/md/raid5.c            |  2 +-
->   drivers/nvdimm/btt.c          |  2 +-
->   drivers/nvdimm/pmem.c         |  2 +-
->   include/linux/blk_types.h     |  2 +-
->   include/linux/blkdev.h        | 12 ++++++------
->   include/linux/part_stat.h     |  2 +-
+commit 37398ed8ff6e602292156443ae5d536f95c79d3a
+Author: Christoph Hellwig <hch@lst.de>
+Date:   Tue Nov 15 22:10:47 2022 +0800
 
-nvme-mpath now also has stats, so struct nvme_request should also be
-updated.
+    dm: cleanup open_table_device
+    
+    [ Upstream commit b9a785d2dc6567b2fd9fc60057a6a945a276927a ]
+    
+    Move all the logic for allocation the table_device and linking it into
+    the list into the open_table_device.  This keeps the code tidy and
+    ensures that the table_devices only exist in fully initialized state.
+    
+    Signed-off-by: Christoph Hellwig <hch@lst.de>
+    Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+    Reviewed-by: Mike Snitzer <snitzer@kernel.org>
+    Link: https://lore.kernel.org/r/20221115141054.1051801-4-yukuai1@huaweicloud.com
+    Signed-off-by: Jens Axboe <axboe@kernel.dk>
+    Stable-dep-of: 1a581b721699 ("dm: track per-add_disk holder relations in DM")
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index 95a1ee3d314e..739996499f4d 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -732,28 +732,41 @@ static char *_dm_claim_ptr = "I belong to device-mapper";
+ /*
+  * Open a table device so we can use it as a map destination.
+  */
+-static int open_table_device(struct table_device *td, dev_t dev,
+-			     struct mapped_device *md)
++static struct table_device *open_table_device(struct mapped_device *md,
++		dev_t dev, fmode_t mode)
+ {
++	struct table_device *td;
+ 	struct block_device *bdev;
+ 	u64 part_off;
+ 	int r;
+ 
+-	BUG_ON(td->dm_dev.bdev);
++	td = kmalloc_node(sizeof(*td), GFP_KERNEL, md->numa_node_id);
++	if (!td)
++		return ERR_PTR(-ENOMEM);
++	refcount_set(&td->count, 1);
+ 
+-	bdev = blkdev_get_by_dev(dev, td->dm_dev.mode | FMODE_EXCL, _dm_claim_ptr);
+-	if (IS_ERR(bdev))
+-		return PTR_ERR(bdev);
++	bdev = blkdev_get_by_dev(dev, mode | FMODE_EXCL, _dm_claim_ptr);
++	if (IS_ERR(bdev)) {
++		r = PTR_ERR(bdev);
++		goto out_free_td;
++	}
+ 
+ 	r = bd_link_disk_holder(bdev, dm_disk(md));
+-	if (r) {
+-		blkdev_put(bdev, td->dm_dev.mode | FMODE_EXCL);
+-		return r;
+-	}
++	if (r)
++		goto out_blkdev_put;
+ 
++	td->dm_dev.mode = mode;
+ 	td->dm_dev.bdev = bdev;
+ 	td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev, &part_off, NULL, NULL);
+-	return 0;
++	format_dev_t(td->dm_dev.name, dev);
++	list_add(&td->list, &md->table_devices);
++	return td;
++
++out_blkdev_put:
++	blkdev_put(bdev, mode | FMODE_EXCL);
++out_free_td:
++	kfree(td);
++	return ERR_PTR(r);
+ }
+ 
+ /*
+@@ -786,31 +799,16 @@ static struct table_device *find_table_device(struct list_head *l, dev_t dev,
+ int dm_get_table_device(struct mapped_device *md, dev_t dev, fmode_t mode,
+ 			struct dm_dev **result)
+ {
+-	int r;
+ 	struct table_device *td;
+ 
+ 	mutex_lock(&md->table_devices_lock);
+ 	td = find_table_device(&md->table_devices, dev, mode);
+ 	if (!td) {
+-		td = kmalloc_node(sizeof(*td), GFP_KERNEL, md->numa_node_id);
+-		if (!td) {
+-			mutex_unlock(&md->table_devices_lock);
+-			return -ENOMEM;
+-		}
+-
+-		td->dm_dev.mode = mode;
+-		td->dm_dev.bdev = NULL;
+-
+-		if ((r = open_table_device(td, dev, md))) {
++		td = open_table_device(md, dev, mode);
++		if (IS_ERR(td)) {
+ 			mutex_unlock(&md->table_devices_lock);
+-			kfree(td);
+-			return r;
++			return PTR_ERR(td);
+ 		}
+-
+-		format_dev_t(td->dm_dev.name, dev);
+-
+-		refcount_set(&td->count, 1);
+-		list_add(&td->list, &md->table_devices);
+ 	} else {
+ 		refcount_inc(&td->count);
+ 	}
 
 --
 dm-devel mailing list
