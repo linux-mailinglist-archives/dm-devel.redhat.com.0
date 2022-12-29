@@ -2,91 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1670865ADCB
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Jan 2023 08:44:12 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01A9165ADC9
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Jan 2023 08:44:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1672645450;
+	s=mimecast20190719; t=1672645443;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ZU4iohztJmssPnzIUbOSwRaj0mX2VYaqfGzy8kLxXas=;
-	b=Kx3ngWEQKo5UcPR2ia+sSXII8K5iiZr9X6Uj2hXhvz8Dq5bNLH4HoQdyXdBNWkRW+BFgYD
-	gKouuS5JFrcGf4NxcW11/z626Ie/gNNLu/3ZFG+kVS4UjkF3Kw0nvQdXqL0pJGD949GiX/
-	KrdIfvP6VRBb/x5UeoshSNykyE5Fdvw=
+	bh=Y3fjYkpVt5DaNpe5EYk0dZCPS3G3GDYJpOECNjg4KKk=;
+	b=KYHwsNS2vLL1aaflRgFwejuFcOIyWux99IzSrcg0jNVMd74MOG5HTI+0zmT8Vwpq7PRCSn
+	FHX/Ok6sK8BmoaNxIHkxKwI64ELjAe3a2AlTZ5jkI2zSvc5MLENjcvjo5J4acGITZFmvXU
+	m9YSdNwLckcuQZlcIGgZRkQ+y0EC9uw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-mC-zIkOIN1GhOX2kG3fHGg-1; Mon, 02 Jan 2023 02:43:14 -0500
-X-MC-Unique: mC-zIkOIN1GhOX2kG3fHGg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-93-FU9Xp5Y4Myq8RAho-FFxqg-1; Mon, 02 Jan 2023 02:43:14 -0500
+X-MC-Unique: FU9Xp5Y4Myq8RAho-FFxqg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADACD183B3C6;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0BCA8027FE;
 	Mon,  2 Jan 2023 07:43:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id ABA771121319;
-	Mon,  2 Jan 2023 07:43:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AF2592166B2A;
+	Mon,  2 Jan 2023 07:43:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E57AD19465BA;
-	Mon,  2 Jan 2023 07:43:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 88B2419465B5;
+	Mon,  2 Jan 2023 07:43:02 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4F5521946586
- for <dm-devel@listman.corp.redhat.com>; Thu, 29 Dec 2022 08:13:02 +0000 (UTC)
+ ESMTP id 134E21946586
+ for <dm-devel@listman.corp.redhat.com>; Thu, 29 Dec 2022 08:13:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 224EC492B07; Thu, 29 Dec 2022 08:13:02 +0000 (UTC)
+ id DD2F340C1141; Thu, 29 Dec 2022 08:13:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1A49E492B06
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D56AE40C124A
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB45787B2A1
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:01 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5B5E18E0A60
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:03 +0000 (UTC)
 Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
  [209.85.214.176]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-300---C1IhqbNGqt1VrDFfGTrw-1; Thu, 29 Dec 2022 03:13:00 -0500
-X-MC-Unique: --C1IhqbNGqt1VrDFfGTrw-1
-Received: by mail-pl1-f176.google.com with SMTP id jl4so12014298plb.8
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 00:12:59 -0800 (PST)
+ us-mta-300-UfDpyxWPPJGhrv6rggdFYw-2; Thu, 29 Dec 2022 03:13:01 -0500
+X-MC-Unique: UfDpyxWPPJGhrv6rggdFYw-2
+Received: by mail-pl1-f176.google.com with SMTP id jl4so12014379plb.8
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 00:13:01 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:message-id:date:subject:cc
- :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=THv6prYzDq2eXsCiqs3MdATdHNqWI4kkKeIbH/Zad64=;
- b=cpHajtDPq5pZSbUXZC50hWA/qvyn849Tlwm6Vv1jRNbs/eGBFfbjgxuR96R6CGy2b+
- qTVEIw5olsFYdsXRE6SoOcxtu8RLtzksH5xCF99OMeQgwX4oFoRlLtCJvkeGq4dfjeTH
- qIEVZOG+DAgtznEPN+oVDcqcegSeMde+/ckUu0zq4XlhmdqeouD3ppP7PWilNGwESRQL
- nx+BeXxHfP2nrwit/IXYQdpcVgsGRAH8z5s3FaJNHBwpRdDHBuWwUjCfgnaziI6HPOgA
- QFuEWRbFk1gjt258Y8Vma+0OO84hN4JKLpt0rb/vceI52K5CxzpzpoTCyvHXVFuB78Wi
- P/Ng==
-X-Gm-Message-State: AFqh2koM9lpVjEqlXZZ9tBvKkhf1GmQgABI9g/zddm/cPSd61auhHQMm
- fjxGi8h0u6K9evvsIvG8w4BFQ+owmO4a9G32
-X-Google-Smtp-Source: AMrXdXu9lcGIP5E+xv/lfVaOI7oGNaTa8ZYVW9/FVtdg5eoc6mZA7pS4ycv7ew5XN0iSQz9w8aYiWA==
-X-Received: by 2002:a05:6a21:3a46:b0:9f:3197:bfa1 with SMTP id
- zu6-20020a056a213a4600b0009f3197bfa1mr40455755pzb.7.1672301579046; 
- Thu, 29 Dec 2022 00:12:59 -0800 (PST)
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=LPgg4/E3xwiWPCkuKUsuYriDQInX30Nw0OCXNJZ+bXk=;
+ b=AML4CCd8J6JzrTJzeUj955cyhscZ+UYlOJSli+esVoREuY4+Ls4Cz3FWF0oNIgYDNn
+ AkR69g/f99Js123uplCRJw6drJPo+EnN4aWOrT2WedRR/Y4wFVR4OQFEQbQCgTxRX7AW
+ imsqTCRFO92Uosm1r47XH6b4/GSb/uW4bDotxPMaWst/YwXDhKT9PyRV6dieWP/wrnWc
+ 3d7PsM8iDiT5348VP6Q7GDaTrqg+u8d/KOPCg/0vm8QUTJdQdOdHQ0QZEpqrXobFQA1X
+ XxBUH4aqTZG/tGh99DHvw9I60PMda8vPVGkl3zqNYFp5Z913KEzzKkhMAem9gRZkOLtp
+ CFSw==
+X-Gm-Message-State: AFqh2kr63t1W0AfXI+xkRN2r6ShyyyolQKVVoRSiSK6N8I1UHKJQHiTj
+ OjslKWVhNRFIYbUCJWb9eFlViw==
+X-Google-Smtp-Source: AMrXdXsfqqYCIpyBiZr/cTv9/CTKLr3m3pQrIjpFfBa2/Eo9DJ18jgamvtyxXSOS/6bH1HpMdN9jKg==
+X-Received: by 2002:a17:902:b60e:b0:189:89a4:3954 with SMTP id
+ b14-20020a170902b60e00b0018989a43954mr30107986pls.41.1672301581332; 
+ Thu, 29 Dec 2022 00:13:01 -0800 (PST)
 Received: from sarthakkukreti-glaptop.hsd1.ca.comcast.net
  ([2601:647:4200:b5b0:75ff:1277:3d7b:d67a])
  by smtp.gmail.com with ESMTPSA id
- 12-20020a170902e9cc00b00192820d00d0sm6496325plk.120.2022.12.29.00.12.56
+ 12-20020a170902e9cc00b00192820d00d0sm6496325plk.120.2022.12.29.00.12.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Dec 2022 00:12:58 -0800 (PST)
+ Thu, 29 Dec 2022 00:13:00 -0800 (PST)
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
 To: sarthakkukreti@google.com, dm-devel@redhat.com,
  linux-block@vger.kernel.org, linux-ext4@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Date: Thu, 29 Dec 2022 00:12:45 -0800
-Message-Id: <20221229081252.452240-1-sarthakkukreti@chromium.org>
+Date: Thu, 29 Dec 2022 00:12:46 -0800
+Message-Id: <20221229081252.452240-2-sarthakkukreti@chromium.org>
+In-Reply-To: <20221229081252.452240-1-sarthakkukreti@chromium.org>
+References: <20221229081252.452240-1-sarthakkukreti@chromium.org>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -95,10 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Mon, 02 Jan 2023 07:42:59 +0000
-Subject: [dm-devel] [PATCH v2 0/8] Introduce provisioning primitives for
- thinly provisioned storage
+Subject: [dm-devel] [PATCH v2 1/7] block: Introduce provisioning primitives
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,133 +121,346 @@ Cc: Jens Axboe <axboe@kernel.dk>, Theodore Ts'o <tytso@mit.edu>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SGksCgpUaGlzIHBhdGNoIHNlcmllcyBhZGRzIGEgbWVjaGFuaXNtIHRvIHBhc3MgdGhyb3VnaCBw
-cm92aXNpb24gcmVxdWVzdHMgb24Kc3RhY2tlZCB0aGlubHkgcHJvdmlzaW9uZWQgc3RvcmFnZSBk
-ZXZpY2VzL2ZpbGVzeXN0ZW1zLgoKVGhlIGxpbnV4IGtlcm5lbCBwcm92aWRlcyBzZXZlcmFsIG1l
-Y2hhbmlzbXMgdG8gc2V0IHVwIHRoaW5seSBwcm92aXNpb25lZApibG9jayBzdG9yYWdlIGFic3Ry
-YWN0aW9ucyAoZWcuIGRtLXRoaW4sIGxvb3AgZGV2aWNlcyBvdmVyIHNwYXJzZSBmaWxlcyksCmVp
-dGhlciBkaXJlY3RseSBhcyBibG9jayBkZXZpY2VzIG9yIGJhY2tpbmcgc3RvcmFnZSBmb3IgZmls
-ZXN5c3RlbXMuIEN1cnJlbnRseSwKc2hvcnQgb2Ygd3JpdGluZyBkYXRhIHRvIGVpdGhlciB0aGUg
-ZGV2aWNlIG9yIGZpbGVzeXN0ZW0sIHRoZXJlIGlzIG5vIHdheSBmb3IKdXNlcnMgdG8gcHJlLWFs
-bG9jYXRlIHNwYWNlIGZvciB1c2UgaW4gc3VjaCBzdG9yYWdlIHNldHVwcy4gQ29uc2lkZXIgdGhl
-CmZvbGxvd2luZyB1c2UtY2FzZXM6CgoxKSBTdXNwZW5kLXRvLWRpc2sgYW5kIHJlc3VtZSBmcm9t
-IGEgZG0tdGhpbiBkZXZpY2U6IEluIG9yZGVyIHRvIGVuc3VyZSB0aGF0CiAgIHRoZSB1bmRlcmx5
-aW5nIHRoaW5wb29sIG1ldGFkYXRhIGlzIG5vdCBtb2RpZmllZCBkdXJpbmcgdGhlIHN1c3BlbmQK
-ICAgbWVjaGFuaXNtLCB0aGUgZG0tdGhpbiBkZXZpY2UgbmVlZHMgdG8gYmUgZnVsbHkgcHJvdmlz
-aW9uZWQuCjIpIElmIGEgZmlsZXN5c3RlbSB1c2VzIGEgbG9vcCBkZXZpY2Ugb3ZlciBhIHNwYXJz
-ZSBmaWxlLCBmYWxsb2NhdGUoKSBvbiB0aGUKICAgZmlsZXN5c3RlbSB3aWxsIGFsbG9jYXRlIGJs
-b2NrcyBmb3IgZmlsZXMgYnV0IHRoZSB1bmRlcmx5aW5nIHNwYXJzZSBmaWxlCiAgIHdpbGwgcmVt
-YWluIGludGFjdC4KMykgQW5vdGhlciBleGFtcGxlIGlzIHZpcnR1YWwgbWFjaGluZSB1c2luZyBh
-IHNwYXJzZSBmaWxlL2RtLXRoaW4gYXMgYSBzdG9yYWdlCiAgIGRldmljZTsgYnkgZGVmYXVsdCwg
-YWxsb2NhdGlvbnMgd2l0aGluIHRoZSBWTSBib3VuZGFyaWVzIHdpbGwgbm90IGFmZmVjdAogICB0
-aGUgaG9zdC4KNCkgU2V2ZXJhbCBzdG9yYWdlIHN0YW5kYXJkcyBzdXBwb3J0IG1lY2hhbmlzbXMg
-Zm9yIHRoaW4gcHJvdmlzaW9uaW5nIG9uCiAgIHJlYWwgaGFyZHdhcmUgZGV2aWNlcy4gRm9yIGV4
-YW1wbGU6CiAgIGEuIFRoZSBOVk1lIHNwZWMgMS4wYiBzZWN0aW9uIDIuMS4xIGxvb3NlbHkgdGFs
-a3MgYWJvdXQgdGhpbiBwcm92aXNpb25pbmc6CiAgICAgICJXaGVuIHRoZSBUSElOUCBiaXQgaW4g
-dGhlIE5TRkVBVCBmaWVsZCBvZiB0aGUgSWRlbnRpZnkgTmFtZXNwYWNlIGRhdGEKICAgICAgIHN0
-cnVjdHVyZSBpcyBzZXQgdG8g4oCYMeKAmSwgdGhlIGNvbnRyb2xsZXIgLi4uIHNoYWxsIHRyYWNr
-IHRoZSBudW1iZXIgb2YKICAgICAgIGFsbG9jYXRlZCBibG9ja3MgaW4gdGhlIE5hbWVzcGFjZSBV
-dGlsaXphdGlvbiBmaWVsZCIKICAgYi4gVGhlIFNDU2kgQmxvY2sgQ29tbWFuZHMgcmVmZXJlbmNl
-IC0gNCBzZWN0aW9uIHJlZmVyZW5jZXMgIlRoaW4KICAgICAgcHJvdmlzaW9uZWQgbG9naWNhbCB1
-bml0cyIsCiAgIGMuIFVGUyAzLjAgc3BlYyBzZWN0aW9uIDEzLjMuMyByZWZlcmVuY2VzICJUaGlu
-IHByb3Zpc2lvbmluZyIuCgpJbiBhbGwgdGhlIGFib3ZlIHNpdHVhdGlvbnMsIGN1cnJlbnRseSwg
-dGhlIG9ubHkgd2F5IGZvciBwcmUtYWxsb2NhdGluZyBzcGFjZQppcyB0byBpc3N1ZSB3cml0ZXMg
-KG9yIHVzZSBXUklURV9aRVJPRVMvV1JJVEVfU0FNRSkuIEhvd2V2ZXIsIHRoYXQgZG9lcyBub3QK
-c2NhbGUgd2VsbCB3aXRoIGxhcmdlciBwcmUtYWxsb2NhdGlvbiBzaXplcy4KClRoaXMgcGF0Y2hz
-ZXQgaW50cm9kdWNlcyBwcmltaXRpdmVzIHRvIHN1cHBvcnQgYmxvY2stbGV2ZWwgcHJvdmlzaW9u
-aW5nIChub3RlOgp0aGUgdGVybSAncHJvdmlzaW9uaW5nJyBpcyB1c2VkIHRvIHByZXZlbnQgb3Zl
-cmxvYWRpbmcgdGhlIHRlcm0KJ2FsbG9jYXRpb25zL3ByZS1hbGxvY2F0aW9ucycpIHJlcXVlc3Rz
-IGFjcm9zcyBmaWxlc3lzdGVtcyBhbmQgYmxvY2sgZGV2aWNlcy4KVGhpcyBhbGxvd3MgZmFsbG9j
-YXRlKCkgYW5kIGZpbGUgY3JlYXRpb24gcmVxdWVzdHMgdG8gcmVzZXJ2ZSBzcGFjZSBhY3Jvc3MK
-c3RhY2tlZCBsYXllcnMgb2YgYmxvY2sgZGV2aWNlcyBhbmQgZmlsZXN5c3RlbXMuIEN1cnJlbnRs
-eSwgdGhlIHBhdGNoc2V0IGNvdmVycwphIHByb3RvdHlwZSBvbiB0aGUgZGV2aWNlLW1hcHBlciB0
-YXJnZXRzLCBsb29wIGRldmljZSBhbmQgZXh0NCwgYnV0IHRoZSBzYW1lCm1lY2hhbmlzbSBjYW4g
-YmUgZXh0ZW5kZWQgdG8gb3RoZXIgZmlsZXN5c3RlbXMvYmxvY2sgZGV2aWNlcyBhcyB3ZWxsIGFz
-IGV4dGVuZGVkCmZvciB1c2Ugd2l0aCBkZXZpY2VzIGluIDQgYS1jLgoKUGF0Y2ggMSBpbnRyb2R1
-Y2VzIFJFUV9PUF9QUk9WSVNJT04gYXMgYSBuZXcgcmVxdWVzdCB0eXBlLgpUaGUgcHJvdmlzaW9u
-IHJlcXVlc3QgYWN0cyBsaWtlIHRoZSBpbnZlcnNlIG9mIGEgZGlzY2FyZCByZXF1ZXN0OyBpbnN0
-ZWFkCm9mIG5vdGlmeWluZyBsb3dlciBsYXllcnMgdGhhdCB0aGUgYmxvY2sgcmFuZ2Ugd2lsbCBu
-byBsb25nZXIgYmUgdXNlZCwgcHJvdmlzaW9uCmFjdHMgYXMgYSByZXF1ZXN0IHRvIGxvd2VyIGxh
-eWVycyB0byBwcm92aXNpb24gZGlzayBzcGFjZSBmb3IgdGhlIGdpdmVuIGJsb2NrCnJhbmdlLiBS
-ZWFsIGhhcmR3YXJlIHN0b3JhZ2UgZGV2aWNlcyB3aWxsIGN1cnJlbnRseSBkaXNhYmxlIHRoZSBw
-cm92aXNpb2luZwpjYXBhYmlsaXR5IGJ1dCBmb3IgdGhlIHN0YW5kYXJkcyBsaXN0ZWQgaW4gNGEu
-LWMuLCBSRVFfT1BfUFJPVklTSU9OIGNhbiBiZQpvdmVybG9hZGVkIGZvciB1c2UgYXMgdGhlIHBy
-b3Zpc2lvaW5nIHByaW1pdGl2ZSBmb3IgZnV0dXJlIGRldmljZXMuCgpQYXRjaCAyIGltcGxlbWVu
-dHMgUkVRX09QX1BST1ZJU0lPTiBoYW5kbGluZyBmb3Igc29tZSBvZiB0aGUgZGV2aWNlLW1hcHBl
-cgp0YXJnZXRzLiBUaGlzIGFkZGl0aW9uYWxseSBhZGRzIHN1cHBvcnQgZm9yIHByZS1hbGxvY2F0
-aW5nIHNwYWNlIGZvciB0aGlubHkKcHJvdmlzaW9uZWQgbG9naWNhbCB2b2x1bWVzIHZpYSBmYWxs
-b2NhdGUoKQoKUGF0Y2ggMyBpbnRyb2R1Y2VzIGFuIGZhbGxvY2F0ZSgpIG1vZGUgKEZBTExPQ19G
-TF9QUk9WSVNJT04pIHRoYXQgc2VuZHMgYQpwcm92aXNpb24gcmVxdWVzdCB0byB0aGUgdW5kZXJs
-eWluZyBibG9jayBkZXZpY2UgKGFuZCBiZXlvbmQpLiBUaGlzIGFjdHMgYXMgdGhlCnByaW1hcnkg
-bWVjaGFuaXNtIGZvciBmaWxlIHByb3Zpc2lvbmluZyBhcyB3ZWxsIGFzIGRpc2FtYmlndWF0ZXMg
-dGhlIG5vdGlvbiBvZgp2aXJ0dWFsIGFuZCB0cnVlIGRpc2sgc3BhY2UgYWxsb2NhdGlvbnMgZm9y
-IHRoaW5seSBwcm92aXNpb25lZCBzdG9yYWdlIGRldmljZXMvCmZpbGVzeXN0ZW1zLiBXaXRoIHBh
-dGNoIDMsIHRoZSAnZGVmYXVsdCcgZmFsbG9jYXRlKCkgbW9kZSBpcyBwcmVzZXJ2ZWQgdG8KcGVy
-Zm9ybSBwcmVhbGxvY2F0aW9uIGF0IHRoZSBjdXJyZW50IGFsbG9jYXRpb24gbGF5ZXIgYW5kICdw
-cm92aXNpb24nIG1vZGUKYWRkcyB0aGUgY2FwYWJpbGl0eSB0byBwdW5jaCB0aHJvdWdoIHRoZSBh
-bGxvY2F0aW9ucyB0byB0aGUgdW5kZXJseWluZyB0aGlubHkKcHJvdmlzaW9uZWQgc3RvcmFnZSBs
-YXllcnMuIEZvciByZWd1bGFyIGZpbGVzeXN0ZW1zLCBib3RoIGFsbG9jYXRpb24gbW9kZXMKYXJl
-IGVxdWl2YWxlbnQuCgpQYXRjaCA0IHdpcmVzIHVwIHRoZSBsb29wIGRldmljZSBoYW5kbGluZyBv
-ZiBSRVFfT1BfUFJPVklTSU9OLgoKUGF0Y2hlcyA1LTcgY292ZXIgYSBwcm90b3R5cGUgaW1wbGVt
-ZW50YXRpb24gZm9yIGV4dDQsIHdoaWNoIGluY2x1ZGVzIHdpcmluZyB1cAp0aGUgZmFsbG9jYXRl
-KCkgaW1wbGVtZW50YXRpb24sIGludHJvZHVjaW5nIGEgZmlsZXN5c3RlbSBsZXZlbCBvcHRpb24g
-KGNhbGxlZAoncHJvdmlzaW9uJykgdG8gY29udHJvbCB0aGUgZGVmYXVsdCBhbGxvY2F0aW9uIGJl
-aGF2aW91ciBhbmQsIGZpbmFsbHksIGEKZmlsZS1sZXZlbCBvdmVycmlkZSB0byByZXRhaW4gY3Vy
-cmVudCBoYW5kbGluZywgZXZlbiBvbiBmaWxlc3lzdGVtcyBtb3VudGVkIHdpdGgKJ3Byb3Zpc2lv
-bicuIFRoZXNlIG9wdGlvbnMgYWxsb3cgdXNlcnMgb2Ygc3RhY2tlZCBmaWxlc3lzdGVtcyB0byBm
-bGV4aWJseSB0YWtlCmFkdmFudGFnZSBvZiBwcm92aXNpb25pbmcuCgpUZXN0aW5nOgotLS0tLS0t
-LQotIFRlc3RlZCBvbiBhIFZNIHJ1bm5pbmcgYSA2LjIga2VybmVsLgotIFRoZSBmb2xsb3dpbmcg
-cGVyZm9tcm1hbmNlIG1lYXN1cmVtZW50cyB3ZXJlIGNvbGxlY3RlZCB3aXRoIGZhbGxvY2F0ZSgy
-KQpwYXRjaGVkIHRvIGFkZCBzdXBwb3J0IGZvciBGQUxMT0NfRkxfUFJPVklTSU9OIHZpYSBhIGNv
-bW1hbmQgbGluZSBvcHRpb24gCmAtcC8tLXByb3Zpc2lvbmAuCgotIFByZWFsbG9jYXRpb24gb2Yg
-ZG0tdGhpbiBkZXZpY2VzOgpBcyBleHBlY3RlZCwgYXZvaWRpbmcgdGhlIG5lZWQgdG8gemVybyBv
-dXQgdGhpbmx5LXByb3Zpc2lvbmVkIGJsb2NrIGRldmljZXMgdG8KcHJlYWxsb2NhdGUgc3BhY2Ug
-c3BlZWRzIHVwIHRoZSBwcm92aXNpb25pbmcgb3BlcmF0aW9uIHNpZ25pZmljYW50bHk6CgpUaGUg
-Zm9sbG93aW5nIHdhcyB0ZXN0ZWQgb24gYSBkbS10aGluIGRldmljZSBzZXQgdXAgb24gdG9wIG9m
-IGEgZG0tdGhpbnAgd2l0aApza2lwX2Jsb2NrX3plcm9pbmc9dHJ1ZS4KQSkgWmVyb291dCB3YXMg
-bWVhc3VyZWQgdXNpbmcgYGZhbGxvY2F0ZSAteiAuLi5gCkIpIFByb3Zpc2lvbiB3YXMgbWVhc3Vy
-ZWQgdXNpbmcgYGZhbGxvY2F0ZSAtcCAuLi5gLgoKU2l6ZSAgICBUaW1lICAgICBBCUIKNTEyTSAg
-ICByZWFsICAgICAxLjA5MyAgMC4wMzQKICAgICAgICB1c2VyICAgICAwICAgICAgMAogICAgICAg
-IHN5cyAgICAgIDAuMDIyICAwLjAxCjFHICAgICAgcmVhbCAgICAgMi4xODIgIDAuMDQ4CiAgICAg
-ICAgdXNlciAgICAgMCAgICAgIDAuMDEKICAgICAgICBzeXMgICAgICAwLjAyMiAgMAoyRyAgICAg
-IHJlYWwgICAgIDQuMzQ0ICAwLjA4MgogICAgICAgIHVzZXIgICAgIDAgICAgICAwLjAxCiAgICAg
-ICAgc3lzICAgICAgMC4wMzYgIDAKNEcgICAgICByZWFsICAgICA4LjY3OSAgMC4xNTMKICAgICAg
-ICB1c2VyICAgICAwICAgICAgMC4wMQogICAgICAgIHN5cyAgICAgIDAuMDczICAwCjhHICAgICAg
-cmVhbCAgICAxNy43NzcgIDAuMzE4CiAgICAgICAgdXNlciAgICAgMCAgICAgIDAuMDEKICAgICAg
-ICBzeXMgICAgICAwLjE0NCAgMAoKLSBQcmVhbGxvY2F0aW9uIG9mIGZpbGVzIG9uIGZpbGVzeXN0
-ZW1zClNpbmNlIGZhbGxvY2F0ZSgpIHdpdGggRkFMTE9DX0ZMX1BST1ZJU0lPTiBjYW4gbm93IHBh
-c3MgZG93biB0aHJvdWdoCmZpbGVzeXN0ZW1zL2Jsb2NrIGRldmljZXMsIHRoaXMgcmVzdWx0cyBp
-biBhbiBleHBlY3RlZCBzbG93ZG93biBpbiBmYWxsb2NhdGUoKQpjYWxscyBpZiB0aGUgcHJvdmlz
-aW9uIHJlcXVlc3QgaXMgc2VudCB0byB0aGUgdW5kZXJseWluZyBsYXllcnMuCgpUaGUgbWVhc3Vy
-ZW1lbnRzIHdlcmUgdGFrZW4gdXNpbmcgZmFsbG9jYXRlKCkgb24gZXh0NCBmaWxlc3lzdGVtcyBz
-ZXQgdXAgd2l0aAp0aGUgZm9sbG93aW5nIG9wdHMvYmxvY2sgZGV2aWNlczoKQSkgZXh0NCBmaWxl
-c3lzdGVtIG1vdW50ZWQgd2l0aCAnbm9wcm92aXNpb24nCkIpIGV4dDQgZmlsZXN5c3RlbSBtb3Vu
-dGVkIHdpdGggJ3Byb3Zpc2lvbicgb24gYSBkbS10aGluIGRldmljZS4KQykgZXh0NCBmaWxlc3lz
-dGVtIG1vdW50ZWQgd2l0aCAncHJvdmlzaW9uJyBvbiBhIGxvb3AgZGV2aWNlIHdpdGggYSBzcGFy
-c2UKICAgYmFja2luZyBmaWxlIG9uIHRoZSBmaWxlc3lzdGVtIGluIChCKS4KClNpemUJVGltZQlB
-CUIJQwo1MTJNCXJlYWwJMC4wMTEJMC4wMzYJMC4wNDEKCXVzZXIJMC4wMgkwLjAzCTAuMDAyCglz
-eXMJMAkwCTAKMUcJcmVhbAkwLjAxMQkwLjA1NQkwLjA2NAoJdXNlcgkwCTAJMC4wMwoJc3lzCTAu
-MDAzCTAuMDA0CTAKMkcJcmVhbAkwLjAxMQkwLjEwOQkwLjExNwoJdXNlcgkwCTAJMC4wMDQKCXN5
-cwkwLjAwMwkwLjAwNgkwCjRHCXJlYWwJMC4wMTEJMC4yMjQJMC4yMzEKCXVzZXIJMAkwCTAuMDA2
-CglzeXMJMC4wMDQJMC4wMTIJMAo4RwlyZWFsCTAuMDE3CTAuNDI2CTAuNTI3Cgl1c2VyCTAJMAkw
-LjAxMwoJc3lzCTAuMDA5CTAuMDI0CTAKCkFzIGV4cGVjdGVkLCB0aGUgYWRkaXRpb25hbCBwcm92
-aXNpb24gcmVxdWVzdHMgd2lsbCBzbG93IGRvd24gZmFsbG9jYXRlKCkgY2FsbHMKYW5kIHRoZSBk
-ZWdyZWUgb2Ygc2xvd2Rvd24gZGVwZW5kcyBvbiB0aGUgbnVtYmVyIG9mIGxheWVycyB0aGF0IHRo
-ZSBwcm92aXNpb24KcmVxdWVzdCBpcyBwYXNzZWQgdGhyb3VnaCB0byBhcyB3ZWxsIGFzIHRoZSBj
-b21wbGV4aXR5IG9mIGFsbG9jYXRpb24gb24gdGhvc2UKbGF5ZXJzLgoKVE9ET3M6Ci0tLS0tLQot
-IFhmc3Rlc3RzIGZvciB2YWxpZGF0aW5nIHByb3Zpc2lvbmluZyByZXN1bHRzIGluIGFsbG9jYXRp
-b24uCgpDaGFuZ2Vsb2c6CgpWMjoKLSBGaXggc3RhY2tlZCBsaW1pdCBoYW5kbGluZy4KLSBFbmFi
-bGUgcHJvdmlzaW9uIHJlcXVlc3QgaGFuZGxpbmcgaW4gZG0tc25hcHNob3QKLSBEb24ndCBjYWxs
-IHRydW5jYXRlX2JkZXZfcmFuZ2UgaWYgYmxrZGV2X2ZhbGxvY2F0ZSgpIGlzIGNhbGxlZCB3aXRo
-CiAgRkFMTE9DX0ZMX1BST1ZJU0lPTi4KLSBDbGFyaWZ5IHNlbWFudGljcyBvZiBGQUxMT0NfRkxf
-UFJPVklTSU9OIGFuZCB3aHkgaXQgbmVlZHMgdG8gYmUgYSBzZXBhcmF0ZSBmbGFnCiAgKGFzIG9w
-cG9zZWQgdG8gb3ZlcmxvYWRpbmcgbW9kZSA9PSAwKS4KCi0tCmRtLWRldmVsIG1haWxpbmcgbGlz
-dApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4v
-bGlzdGluZm8vZG0tZGV2ZWwK
+Introduce block request REQ_OP_PROVISION. The intent of this request
+is to request underlying storage to preallocate disk space for the given
+block range. Block device that support this capability will export
+a provision limit within their request queues.
+
+Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+---
+ block/blk-core.c          |  5 ++++
+ block/blk-lib.c           | 53 +++++++++++++++++++++++++++++++++++++++
+ block/blk-merge.c         | 18 +++++++++++++
+ block/blk-settings.c      | 19 ++++++++++++++
+ block/blk-sysfs.c         |  8 ++++++
+ block/bounce.c            |  1 +
+ include/linux/bio.h       |  6 +++--
+ include/linux/blk_types.h |  5 +++-
+ include/linux/blkdev.h    | 16 ++++++++++++
+ 9 files changed, 128 insertions(+), 3 deletions(-)
+
+diff --git a/block/blk-core.c b/block/blk-core.c
+index 9321767470dc..30bcabc7dc01 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -123,6 +123,7 @@ static const char *const blk_op_name[] = {
+ 	REQ_OP_NAME(WRITE_ZEROES),
+ 	REQ_OP_NAME(DRV_IN),
+ 	REQ_OP_NAME(DRV_OUT),
++	REQ_OP_NAME(PROVISION)
+ };
+ #undef REQ_OP_NAME
+ 
+@@ -785,6 +786,10 @@ void submit_bio_noacct(struct bio *bio)
+ 		if (!q->limits.max_write_zeroes_sectors)
+ 			goto not_supported;
+ 		break;
++	case REQ_OP_PROVISION:
++		if (!q->limits.max_provision_sectors)
++			goto not_supported;
++		break;
+ 	default:
+ 		break;
+ 	}
+diff --git a/block/blk-lib.c b/block/blk-lib.c
+index e59c3069e835..647b6451660b 100644
+--- a/block/blk-lib.c
++++ b/block/blk-lib.c
+@@ -343,3 +343,56 @@ int blkdev_issue_secure_erase(struct block_device *bdev, sector_t sector,
+ 	return ret;
+ }
+ EXPORT_SYMBOL(blkdev_issue_secure_erase);
++
++/**
++ * blkdev_issue_provision - provision a block range
++ * @bdev:	blockdev to write
++ * @sector:	start sector
++ * @nr_sects:	number of sectors to provision
++ * @gfp_mask:	memory allocation flags (for bio_alloc)
++ *
++ * Description:
++ *  Issues a provision request to the block device for the range of sectors.
++ *  For thinly provisioned block devices, this acts as a signal for the
++ *  underlying storage pool to allocate space for this block range.
++ */
++int blkdev_issue_provision(struct block_device *bdev, sector_t sector,
++		sector_t nr_sects, gfp_t gfp)
++{
++	sector_t bs_mask = (bdev_logical_block_size(bdev) >> 9) - 1;
++	unsigned int max_sectors = bdev_max_provision_sectors(bdev);
++	struct bio *bio = NULL;
++	struct blk_plug plug;
++	int ret = 0;
++
++	if (max_sectors == 0)
++		return -EOPNOTSUPP;
++	if ((sector | nr_sects) & bs_mask)
++		return -EINVAL;
++	if (bdev_read_only(bdev))
++		return -EPERM;
++
++	blk_start_plug(&plug);
++	for (;;) {
++		unsigned int req_sects = min_t(sector_t, nr_sects, max_sectors);
++
++		bio = blk_next_bio(bio, bdev, 0, REQ_OP_PROVISION, gfp);
++		bio->bi_iter.bi_sector = sector;
++		bio->bi_iter.bi_size = req_sects << SECTOR_SHIFT;
++
++		sector += req_sects;
++		nr_sects -= req_sects;
++		if (!nr_sects) {
++			ret = submit_bio_wait(bio);
++			if (ret == -EOPNOTSUPP)
++				ret = 0;
++			bio_put(bio);
++			break;
++		}
++		cond_resched();
++	}
++	blk_finish_plug(&plug);
++
++	return ret;
++}
++EXPORT_SYMBOL(blkdev_issue_provision);
+diff --git a/block/blk-merge.c b/block/blk-merge.c
+index 35a8f75cc45d..3ab35bb2a333 100644
+--- a/block/blk-merge.c
++++ b/block/blk-merge.c
+@@ -158,6 +158,21 @@ static struct bio *bio_split_write_zeroes(struct bio *bio,
+ 	return bio_split(bio, lim->max_write_zeroes_sectors, GFP_NOIO, bs);
+ }
+ 
++static struct bio *bio_split_provision(struct bio *bio,
++					const struct queue_limits *lim,
++					unsigned *nsegs, struct bio_set *bs)
++{
++	*nsegs = 0;
++
++	if (!lim->max_provision_sectors)
++		return NULL;
++
++	if (bio_sectors(bio) <= lim->max_provision_sectors)
++		return NULL;
++
++	return bio_split(bio, lim->max_provision_sectors, GFP_NOIO, bs);
++}
++
+ /*
+  * Return the maximum number of sectors from the start of a bio that may be
+  * submitted as a single request to a block device. If enough sectors remain,
+@@ -355,6 +370,9 @@ struct bio *__bio_split_to_limits(struct bio *bio,
+ 	case REQ_OP_WRITE_ZEROES:
+ 		split = bio_split_write_zeroes(bio, lim, nr_segs, bs);
+ 		break;
++	case REQ_OP_PROVISION:
++		split = bio_split_provision(bio, lim, nr_segs, bs);
++		break;
+ 	default:
+ 		split = bio_split_rw(bio, lim, nr_segs, bs,
+ 				get_max_io_size(bio, lim) << SECTOR_SHIFT);
+diff --git a/block/blk-settings.c b/block/blk-settings.c
+index 0477c4d527fe..57d88204fbbe 100644
+--- a/block/blk-settings.c
++++ b/block/blk-settings.c
+@@ -58,6 +58,7 @@ void blk_set_default_limits(struct queue_limits *lim)
+ 	lim->zoned = BLK_ZONED_NONE;
+ 	lim->zone_write_granularity = 0;
+ 	lim->dma_alignment = 511;
++	lim->max_provision_sectors = 0;
+ }
+ 
+ /**
+@@ -81,6 +82,7 @@ void blk_set_stacking_limits(struct queue_limits *lim)
+ 	lim->max_dev_sectors = UINT_MAX;
+ 	lim->max_write_zeroes_sectors = UINT_MAX;
+ 	lim->max_zone_append_sectors = UINT_MAX;
++	lim->max_provision_sectors = UINT_MAX;
+ }
+ EXPORT_SYMBOL(blk_set_stacking_limits);
+ 
+@@ -202,6 +204,20 @@ void blk_queue_max_write_zeroes_sectors(struct request_queue *q,
+ }
+ EXPORT_SYMBOL(blk_queue_max_write_zeroes_sectors);
+ 
++/**
++ * blk_queue_max_provision_sectors - set max sectors for a single provision
++ *
++ * @q:  the request queue for the device
++ * @max_provision_sectors: maximum number of sectors to provision per command
++ **/
++
++void blk_queue_max_provision_sectors(struct request_queue *q,
++		unsigned int max_provision_sectors)
++{
++	q->limits.max_provision_sectors = max_provision_sectors;
++}
++EXPORT_SYMBOL(blk_queue_max_provision_sectors);
++
+ /**
+  * blk_queue_max_zone_append_sectors - set max sectors for a single zone append
+  * @q:  the request queue for the device
+@@ -572,6 +588,9 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
+ 	t->max_segment_size = min_not_zero(t->max_segment_size,
+ 					   b->max_segment_size);
+ 
++	t->max_provision_sectors = min_not_zero(t->max_provision_sectors,
++						b->max_provision_sectors);
++
+ 	t->misaligned |= b->misaligned;
+ 
+ 	alignment = queue_limit_alignment_offset(b, start);
+diff --git a/block/blk-sysfs.c b/block/blk-sysfs.c
+index 93d9e9c9a6ea..2e678417b302 100644
+--- a/block/blk-sysfs.c
++++ b/block/blk-sysfs.c
+@@ -131,6 +131,12 @@ static ssize_t queue_max_discard_segments_show(struct request_queue *q,
+ 	return queue_var_show(queue_max_discard_segments(q), page);
+ }
+ 
++static ssize_t queue_max_provision_sectors_show(struct request_queue *q,
++		char *page)
++{
++	return queue_var_show(queue_max_provision_sectors(q), (page));
++}
++
+ static ssize_t queue_max_integrity_segments_show(struct request_queue *q, char *page)
+ {
+ 	return queue_var_show(q->limits.max_integrity_segments, page);
+@@ -589,6 +595,7 @@ QUEUE_RO_ENTRY(queue_io_min, "minimum_io_size");
+ QUEUE_RO_ENTRY(queue_io_opt, "optimal_io_size");
+ 
+ QUEUE_RO_ENTRY(queue_max_discard_segments, "max_discard_segments");
++QUEUE_RO_ENTRY(queue_max_provision_sectors, "max_provision_sectors");
+ QUEUE_RO_ENTRY(queue_discard_granularity, "discard_granularity");
+ QUEUE_RO_ENTRY(queue_discard_max_hw, "discard_max_hw_bytes");
+ QUEUE_RW_ENTRY(queue_discard_max, "discard_max_bytes");
+@@ -638,6 +645,7 @@ static struct attribute *queue_attrs[] = {
+ 	&queue_max_sectors_entry.attr,
+ 	&queue_max_segments_entry.attr,
+ 	&queue_max_discard_segments_entry.attr,
++	&queue_max_provision_sectors_entry.attr,
+ 	&queue_max_integrity_segments_entry.attr,
+ 	&queue_max_segment_size_entry.attr,
+ 	&elv_iosched_entry.attr,
+diff --git a/block/bounce.c b/block/bounce.c
+index 7cfcb242f9a1..ab9d8723ae64 100644
+--- a/block/bounce.c
++++ b/block/bounce.c
+@@ -176,6 +176,7 @@ static struct bio *bounce_clone_bio(struct bio *bio_src)
+ 	case REQ_OP_DISCARD:
+ 	case REQ_OP_SECURE_ERASE:
+ 	case REQ_OP_WRITE_ZEROES:
++	case REQ_OP_PROVISION:
+ 		break;
+ 	default:
+ 		bio_for_each_segment(bv, bio_src, iter)
+diff --git a/include/linux/bio.h b/include/linux/bio.h
+index 22078a28d7cb..5025af105b7c 100644
+--- a/include/linux/bio.h
++++ b/include/linux/bio.h
+@@ -55,7 +55,8 @@ static inline bool bio_has_data(struct bio *bio)
+ 	    bio->bi_iter.bi_size &&
+ 	    bio_op(bio) != REQ_OP_DISCARD &&
+ 	    bio_op(bio) != REQ_OP_SECURE_ERASE &&
+-	    bio_op(bio) != REQ_OP_WRITE_ZEROES)
++	    bio_op(bio) != REQ_OP_WRITE_ZEROES &&
++	    bio_op(bio) != REQ_OP_PROVISION)
+ 		return true;
+ 
+ 	return false;
+@@ -65,7 +66,8 @@ static inline bool bio_no_advance_iter(const struct bio *bio)
+ {
+ 	return bio_op(bio) == REQ_OP_DISCARD ||
+ 	       bio_op(bio) == REQ_OP_SECURE_ERASE ||
+-	       bio_op(bio) == REQ_OP_WRITE_ZEROES;
++	       bio_op(bio) == REQ_OP_WRITE_ZEROES ||
++	       bio_op(bio) == REQ_OP_PROVISION;
+ }
+ 
+ static inline void *bio_data(struct bio *bio)
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 99be590f952f..27bdf88f541c 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -385,7 +385,10 @@ enum req_op {
+ 	REQ_OP_DRV_IN		= (__force blk_opf_t)34,
+ 	REQ_OP_DRV_OUT		= (__force blk_opf_t)35,
+ 
+-	REQ_OP_LAST		= (__force blk_opf_t)36,
++	/* request device to provision block */
++	REQ_OP_PROVISION        = (__force blk_opf_t)37,
++
++	REQ_OP_LAST		= (__force blk_opf_t)38,
+ };
+ 
+ enum req_flag_bits {
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index 301cf1cf4f2f..f1abc7b43e25 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -302,6 +302,7 @@ struct queue_limits {
+ 	unsigned int		discard_granularity;
+ 	unsigned int		discard_alignment;
+ 	unsigned int		zone_write_granularity;
++	unsigned int		max_provision_sectors;
+ 
+ 	unsigned short		max_segments;
+ 	unsigned short		max_integrity_segments;
+@@ -918,6 +919,8 @@ extern void blk_queue_max_discard_sectors(struct request_queue *q,
+ 		unsigned int max_discard_sectors);
+ extern void blk_queue_max_write_zeroes_sectors(struct request_queue *q,
+ 		unsigned int max_write_same_sectors);
++extern void blk_queue_max_provision_sectors(struct request_queue *q,
++		unsigned int max_provision_sectors);
+ extern void blk_queue_logical_block_size(struct request_queue *, unsigned int);
+ extern void blk_queue_max_zone_append_sectors(struct request_queue *q,
+ 		unsigned int max_zone_append_sectors);
+@@ -1057,6 +1060,9 @@ int __blkdev_issue_discard(struct block_device *bdev, sector_t sector,
+ int blkdev_issue_secure_erase(struct block_device *bdev, sector_t sector,
+ 		sector_t nr_sects, gfp_t gfp);
+ 
++extern int blkdev_issue_provision(struct block_device *bdev, sector_t sector,
++		sector_t nr_sects, gfp_t gfp_mask);
++
+ #define BLKDEV_ZERO_NOUNMAP	(1 << 0)  /* do not free blocks */
+ #define BLKDEV_ZERO_NOFALLBACK	(1 << 1)  /* don't write explicit zeroes */
+ 
+@@ -1135,6 +1141,11 @@ static inline unsigned short queue_max_discard_segments(const struct request_que
+ 	return q->limits.max_discard_segments;
+ }
+ 
++static inline unsigned short queue_max_provision_sectors(const struct request_queue *q)
++{
++	return q->limits.max_provision_sectors;
++}
++
+ static inline unsigned int queue_max_segment_size(const struct request_queue *q)
+ {
+ 	return q->limits.max_segment_size;
+@@ -1271,6 +1282,11 @@ static inline bool bdev_nowait(struct block_device *bdev)
+ 	return test_bit(QUEUE_FLAG_NOWAIT, &bdev_get_queue(bdev)->queue_flags);
+ }
+ 
++static inline unsigned int bdev_max_provision_sectors(struct block_device *bdev)
++{
++	return bdev_get_queue(bdev)->limits.max_provision_sectors;
++}
++
+ static inline enum blk_zoned_model bdev_zoned_model(struct block_device *bdev)
+ {
+ 	struct request_queue *q = bdev_get_queue(bdev);
+-- 
+2.37.3
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
