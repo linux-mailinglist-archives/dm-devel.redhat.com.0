@@ -1,93 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A9B6D65ADCC
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Jan 2023 08:44:12 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D26DF65ADC7
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Jan 2023 08:44:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1672645451;
+	s=mimecast20190719; t=1672645442;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DYQzCGNsJXeI4SFZRlV6kn9ta/QWmLoKtbzBoC/2Xrk=;
-	b=Q9iLS1f3VlCc+lQZxj33WqtHz59Q+aiKq2XfSoN8keBCIu1kgL3qgOt+Edo8i7YUsIfi50
-	afELX/y2QAvn1bvpzHpfA2+gT3dvNhOBTDMUxvNjGYnUr2+CsD7eOd9+LdD3KhrM5RCEM8
-	izSuGaywCYPoK6cq0nxJ/4z7mH8X6IY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=diWf6bbqGoe5Z7KHr7VKhMwS1FLMmTACOuO4PF0XAqQ=;
+	b=KgAkPfE2Ts5tNeGoDctE3oyS8lKDZQNSMWu7zMHjigS99c/ZFe0hKms7KoncgIsssxg+/1
+	in5VQCKmnNXqS3VfkIdSehT1JaeWanleDFBM3G6qez0cMxDR50oxX7u9IvxnrAAs8p1nDg
+	FQULfCJ4UJO6HOZn4wgfIbLe/PXO7Ho=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-446-Jj-cjuX7PZy_Iag5jvRDZg-1; Mon, 02 Jan 2023 02:43:13 -0500
-X-MC-Unique: Jj-cjuX7PZy_Iag5jvRDZg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-93--F5bO79SNEOVQQEYvn25uA-1; Mon, 02 Jan 2023 02:43:14 -0500
+X-MC-Unique: -F5bO79SNEOVQQEYvn25uA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACD0E3811F28;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE2BD857D0D;
 	Mon,  2 Jan 2023 07:43:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1C30C492B0B;
-	Mon,  2 Jan 2023 07:43:05 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 358A61947057;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CBCA040C2004;
 	Mon,  2 Jan 2023 07:43:03 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F23A01946A6C;
+	Mon,  2 Jan 2023 07:43:02 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 241CD1946586
- for <dm-devel@listman.corp.redhat.com>; Thu, 29 Dec 2022 08:14:39 +0000 (UTC)
+ ESMTP id 5D6A61946586
+ for <dm-devel@listman.corp.redhat.com>; Thu, 29 Dec 2022 08:17:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1568DC16026; Thu, 29 Dec 2022 08:14:39 +0000 (UTC)
+ id 4CDDD140EBF6; Thu, 29 Dec 2022 08:17:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0DC6FC16025
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:14:39 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 44A4C140EBF5
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:17:15 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6AC485A588
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:14:38 +0000 (UTC)
-Received: from mail-ej1-f41.google.com (mail-ej1-f41.google.com
- [209.85.218.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27C0D811E6E
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:17:15 +0000 (UTC)
+Received: from mail-ed1-f48.google.com (mail-ed1-f48.google.com
+ [209.85.208.48]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-501-Fpn6ymnmNa2Yj0-LFWEX-Q-1; Thu, 29 Dec 2022 03:14:37 -0500
-X-MC-Unique: Fpn6ymnmNa2Yj0-LFWEX-Q-1
-Received: by mail-ej1-f41.google.com with SMTP id m18so43378906eji.5
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 00:14:36 -0800 (PST)
+ us-mta-657-wq1CpeslOIqxX26wtave5A-1; Thu, 29 Dec 2022 03:17:13 -0500
+X-MC-Unique: wq1CpeslOIqxX26wtave5A-1
+Received: by mail-ed1-f48.google.com with SMTP id s5so25762941edc.12
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 00:17:12 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=Wf4Oclx/s2DatfZfaRbzTJQI1IZBAeRXW5JK4LTSla4=;
- b=6lopwJlY7m4r1TyzYyP031t2FGlUvrrIHJzckeLUPvw4Kaq+YCVNxJlXOUNhPcbz7Y
- 3nQJFH8sbHp12vJtTKn7p4OmK5Z1yyRCPI1iqEjJNKgKmmokkqHs1sZUJKKRdSYtE7FF
- UPp71F7vm3dbxB1WcPOYrF+UYEbqqVBYaiFJzxTQr1tdVJYhy953WtuZoCS6vvA1OtDU
- nH/KBP9RGWwKvBjit3QKmrvO4EXcOw4k800zK6TWvV+avuNhuFIdZPqA8JEVZc9bakxa
- uAg79YoF8wkdH9bwP6k0+o8mV9N8QNQn6/Qp6NmkpcDmMXSuczC/qUpYfIGQP2C92spe
- eNyQ==
-X-Gm-Message-State: AFqh2kqBSuEnKuUB5JJtMmoW4pSNJGqNY4f2PghA4r/pMJnFDTSX/JZD
- /h8fCw7fyVtKBOxYEeXEDyXBB0YPKxjp72f+POX6+g==
-X-Google-Smtp-Source: AMrXdXs300Z+BXOJPxEJlPkjyVUzSJVOjoySN3yowIHivu+kDMNajS+vq938RArP6B2ta87auqxQOwl3KblSmt1bED8=
-X-Received: by 2002:a17:907:c013:b0:7c0:eb3c:1037 with SMTP id
- ss19-20020a170907c01300b007c0eb3c1037mr2068068ejc.663.1672301676050; Thu, 29
- Dec 2022 00:14:36 -0800 (PST)
+ bh=w0NMCIz7aH+VtGKA1bV7VY9PC5bA85xBilVtidrBy8A=;
+ b=YI7sIimLSNKufCpkewUQVV+mQ3FbRtiEtNR28Nxw3zxFUdch2wTAWR8oHnOiD6cQZg
+ zjJUXsw1pbd9sNSLcso7o/rSdHC88JK3VicaB6fktcijgUcJDeNcqC4RJ9c/BcUKq3F/
+ UFOgO6nFhcKSj0ri/EwwrB2J3Z0F1bsjgxfOjHRKKEjTX/d7FL/TOE0QNBmz6RwL7LkM
+ Ogzvf3dOqMYBuMdeGIFRhW9WJKw6J2bU/3bFmn17pr442w8Bn/orTrp41OzJRLdisKyt
+ ZV2jkRbLIzoXaNUQ7wkcDUNhRgxGJC/Y9zdwWjt4m4JdV5pkyY/Ys/yo5fQtLyfQBpnR
+ jSUw==
+X-Gm-Message-State: AFqh2kp+bHoKJAH25ab3NbayAjBICarZD5OoSeiCHo6T1b24X3KDlFwW
+ vtJ05mRNcBaxcpLh2tzHjHLLlbjsk4jRL8oaoO4sbw==
+X-Google-Smtp-Source: AMrXdXu3EKpSmLPFvCpiaXPU3Qs1Jd81kJn1isDVUcu3PP3d3QTMj7mvfgCejXWSIQqTSxpfbstvHC/uh543CNwAPrU=
+X-Received: by 2002:a05:6402:f27:b0:485:8114:9779 with SMTP id
+ i39-20020a0564020f2700b0048581149779mr1316677eda.41.1672301831977; Thu, 29
+ Dec 2022 00:17:11 -0800 (PST)
 MIME-Version: 1.0
 References: <20220915164826.1396245-1-sarthakkukreti@google.com>
- <20220915164826.1396245-5-sarthakkukreti@google.com>
- <YylweQAZkIdb5ixo@infradead.org>
- <CAG9=OMNoG01UUStNs_Zhsv6mXZw0M0q2v54ZriJvHZ4aspvjEQ@mail.gmail.com>
- <Yy1yOGy7yF4AShDB@infradead.org>
-In-Reply-To: <Yy1yOGy7yF4AShDB@infradead.org>
+ <YyQTM5PRT2o/GDwy@fedora>
+ <CAG9=OMPHZqdDhX=M+ovdg5fa3x4-Q_1r5SWPa8pMTQw0mr5fPg@mail.gmail.com>
+ <Yylvvm3zVgqpqDrm@infradead.org>
+ <CAAKderPF5Z5QLxyEb80Y+90+eR0sfRmL-WfgXLp=eL=HxWSZ9g@mail.gmail.com>
+ <YymkSDsFVVg1nbDP@infradead.org>
+ <CAAKderNcHpbBqWqqd5-WuKLRCQQUt7a_4D4ti4gy15+fKGK0vQ@mail.gmail.com>
+ <Yy1zkMH0f9ski4Sg@infradead.org> <Yy29y/jUvWM6GRZ5@redhat.com>
+In-Reply-To: <Yy29y/jUvWM6GRZ5@redhat.com>
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
-Date: Thu, 29 Dec 2022 00:14:25 -0800
-Message-ID: <CAG9=OMOLLjVJHTPmDSPM3t+Ko90CcN5C01UhEadZReECUE5umw@mail.gmail.com>
-To: Christoph Hellwig <hch@infradead.org>
+Date: Thu, 29 Dec 2022 00:17:00 -0800
+Message-ID: <CAG9=OMPQEoMVpXD8PeHwkymwk-zfB3mSvDO_W6h0S3Zom62JBQ@mail.gmail.com>
+To: Mike Snitzer <snitzer@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,9 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 02 Jan 2023 07:42:59 +0000
-Subject: Re: [dm-devel] [PATCH RFC 4/8] fs: Introduce FALLOC_FL_PROVISION
+Subject: Re: [dm-devel] [PATCH RFC 0/8] Introduce provisioning primitives
+ for thinly provisioned storage
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,56 +113,109 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Gwendal Grignou <gwendal@google.com>,
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
  Theodore Ts'o <tytso@mit.edu>, "Michael S . Tsirkin" <mst@redhat.com>,
  Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
  Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
- virtualization@lists.linux-foundation.org, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
- Daniil Lunev <dlunev@google.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- Paolo Bonzini <pbonzini@redhat.com>, linux-ext4@vger.kernel.org,
- Evan Green <evgreen@google.com>, Alasdair Kergon <agk@redhat.com>
+ Gwendal Grignou <gwendal@google.com>,
+ virtualization@lists.linux-foundation.org,
+ Christoph Hellwig <hch@infradead.org>, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Daniil Lunev <dlunev@google.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Paolo Bonzini <pbonzini@redhat.com>,
+ linux-ext4@vger.kernel.org, Evan Green <evgreen@google.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 23, 2022 at 1:45 AM Christoph Hellwig <hch@infradead.org> wrote:
+On Fri, Sep 23, 2022 at 7:08 AM Mike Snitzer <snitzer@redhat.com> wrote:
 >
-> On Tue, Sep 20, 2022 at 10:54:32PM -0700, Sarthak Kukreti wrote:
-> > [ mmc0blkp1 | ext4(1) | sparse file | loop | dm-thinp | dm-thin | ext4(2) ]
+> On Fri, Sep 23 2022 at  4:51P -0400,
+> Christoph Hellwig <hch@infradead.org> wrote:
+>
+> > On Wed, Sep 21, 2022 at 07:48:50AM +1000, Daniil Lunev wrote:
+> > > > There is no such thing as WRITE UNAVAILABLE in NVMe.
+> > > Apologize, that is WRITE UNCORRECTABLE. Chapter 3.2.7 of
+> > > NVM Express NVM Command Set Specification 1.0b
 > >
-> > would be predicated on the guarantees of fallocate() per allocation
-> > layer; if ext4(1) was replaced by a filesystem that did not support
-> > fallocate(), then there would be no guarantee that a write to a file
-> > on ext4(2) succeeds.
+> > Write uncorrectable is a very different thing, and the equivalent of the
+> > horribly misnamed SCSI WRITE LONG COMMAND.  It injects an unrecoverable
+> > error, and does not provision anything.
+> >
+> > > * Each application is potentially allowed to consume the entirety
+> > >   of the disk space - there is no strict size limit for application
+> > > * Applications need to pre-allocate space sometime, for which
+> > >   they use fallocate. Once the operation succeeded, the application
+> > >   assumed the space is guaranteed to be there for it.
+> > > * Since filesystems on the volumes are independent, filesystem
+> > >   level enforcement of size constraints is impossible and the only
+> > >   common level is the thin pool, thus, each fallocate has to find its
+> > >   representation in thin pool one way or another - otherwise you
+> > >   may end up in the situation, where FS thinks it has allocated space
+> > >   but when it tries to actually write it, the thin pool is already
+> > >   exhausted.
+> > > * Hole-Punching fallocate will not reach the thin pool, so the only
+> > >   solution presently is zero-writing pre-allocate.
+> >
+> > To me it sounds like you want a non-thin pool in dm-thin and/or
+> > guaranted space reservations for it.
 >
-> a write or any unlimited number of writes?
-
-(Apologies for the super late reply!) In this case, even a write won't
-be guaranteed if we run out of space on the lower filesystem. Looking
-at the fallocate() man page, I think the key part lies in the
-following phrase (emphasis mine):
-
-```
-After a successful call, subsequent writes into the range
-specified by offset and len are guaranteed not to fail _because of
-lack of disk space_
-```
-
-So, it's not a blanket guarantee that all writes will always succeed,
-but that any writes into that range will not fail due to lack of disk
-space. As you mentioned, writes may happen out-of-place in one or more
-layer. But the fallocate(FALLOC_FL_PROVISION) ensures that each layer
-will preserve space for writes into that range to not fail with ENOSPC
-(so eg. ext4 and dm-thinp will set aside enough extents to fulfil that
-promise later on for all writes).
+> What is implemented in this patchset: enablement for dm-thinp to
+> actually provide guarantees which fallocate requires.
+>
+> Seems you're getting hung up on the finishing details in HW (details
+> which are _not_ the point of this patchset).
+>
+> The proposed changes are in service to _Linux_ code. The patchset
+> implements the primitive from top (ext4) to bottom (dm-thinp, loop).
+> It stops short of implementing handling everywhere that'd need it
+> (e.g. in XFS, etc). But those changes can come as follow-on work once
+> the primitive is established top to bottom.
+>
+> But you know all this ;)
+>
+> > > * Thus, a provisioning block operation allows an interface specific
+> > >   operation that guarantees the presence of the block in the
+> > >   mapped space. LVM Thin-pool itself is the primary target for our
+> > >   use case but the argument is that this operation maps well to
+> > >   other interfaces which allow thinly provisioned units.
+> >
+> > I think where you are trying to go here is badly mistaken.  With flash
+> > (or hard drive SMR) there is no such thing as provisioning LBAs.  Every
+> > write is out of place, and a one time space allocation does not help
+> > you at all.  So fundamentally what you try to here just goes against
+> > the actual physics of modern storage media.  While there are some
+> > layers that keep up a pretence, trying to that an an exposed API
+> > level is a really bad idea.
+>
+> This doesn't need to be so feudal.  Reserving an LBA in physical HW
+> really isn't the point.
+>
+> Fact remains: an operation that ensures space is actually reserved via
+> fallocate is long overdue (just because an FS did its job doesn't mean
+> underlying layers reflect that). And certainly useful, even if "only"
+> benefiting dm-thinp and the loop driver. Like other block primitives,
+> REQ_OP_PROVISION is filtered out by block core if the device doesn't
+> support it.
+>
+> That said, I agree with Brian Foster that we need really solid
+> documentation and justification for why fallocate mode=0 cannot be
+> used (but the case has been made in this thread).
+>
+> Also, I do see an issue with the implementation (relative to stacked
+> devices): dm_table_supports_provision() is too myopic about DM. It
+> needs to go a step further and verify that some layer in the stack
+> actually services REQ_OP_PROVISION. Will respond to DM patch too.
+>
+Thanks all for the suggestions and feedback! I just posted v2 (more
+than a bit belatedly) on the various mailing lists with the relevant
+fixes, documentation and some benchmarks on performance.
 
 Best
-
 Sarthak
 
 --
