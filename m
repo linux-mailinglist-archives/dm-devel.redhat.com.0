@@ -1,94 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 148D065ADC6
-	for <lists+dm-devel@lfdr.de>; Mon,  2 Jan 2023 08:44:02 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7718965ADC1
+	for <lists+dm-devel@lfdr.de>; Mon,  2 Jan 2023 08:43:17 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1672645441;
+	s=mimecast20190719; t=1672645396;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sNc0c/PPcNrHYYD+7FLguvXZXwZCodbMpjMrvmURhQk=;
-	b=M3Y/8Qhrc6OLLmrL7IFBeHAdz0xvfLTmFvb/uBS/7MOugDjH84dP/N5UTax+2lvj4L9uz0
-	j1qfbOFz2PWAWYIkv2f9223QGu/LRPofYYcmFx7kXuBM6028DdlBZi2zTPemSbZ7o8bAgX
-	V7q6g0A8H5t8vuVA44e2/5y73/QNB9Q=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=cKIK3K90uob+rCDUIpQUNg3JSrTT+j8ZXFk6iKm5Xyk=;
+	b=L80pmLilSHIszi1k2KCtC5S7RpjI1kW7nyTOXiTwY+JAbnHV/KcaCvGel9AL9g8Dr90uXo
+	fh++/a8tbr+ipGnHMfKwyVpwHdW34z8hEYI8P5FEiS1S853FA0AdRcRiT5+nfOSG2FDfnE
+	f+NkJI8Mv0mDfE++ztp2463AF5smhxY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-379-OSsp2tm4MC-fhEZE2DKYqA-1; Mon, 02 Jan 2023 02:43:14 -0500
-X-MC-Unique: OSsp2tm4MC-fhEZE2DKYqA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-93-2AMTjtE9O1unfmz-YF0JOA-1; Mon, 02 Jan 2023 02:43:14 -0500
+X-MC-Unique: 2AMTjtE9O1unfmz-YF0JOA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACBA88F6E84;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC29B3811F25;
 	Mon,  2 Jan 2023 07:43:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 168C2C1602E;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 16A962026D68;
 	Mon,  2 Jan 2023 07:43:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AF4411946A7C;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A7B6C194707A;
 	Mon,  2 Jan 2023 07:43:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DEF651946586
- for <dm-devel@listman.corp.redhat.com>; Thu, 29 Dec 2022 08:13:15 +0000 (UTC)
+ ESMTP id 1389C1946586
+ for <dm-devel@listman.corp.redhat.com>; Thu, 29 Dec 2022 08:13:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 93967492B01; Thu, 29 Dec 2022 08:13:15 +0000 (UTC)
+ id E6B472026D68; Thu, 29 Dec 2022 08:13:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CB39492B00
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DEFAD2026D4B
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7335787B2A0
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:15 +0000 (UTC)
-Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
- [209.85.214.171]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0128811E6E
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 08:13:20 +0000 (UTC)
+Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
+ [209.85.214.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-656-RUS2aqdVOlOBHD6Vk6DSyg-2; Thu, 29 Dec 2022 03:13:13 -0500
-X-MC-Unique: RUS2aqdVOlOBHD6Vk6DSyg-2
-Received: by mail-pl1-f171.google.com with SMTP id 17so18342140pll.0
- for <dm-devel@redhat.com>; Thu, 29 Dec 2022 00:13:13 -0800 (PST)
+ us-mta-10-Mam3GFN-O4GW_1HHXLnnnw-1; Thu, 29 Dec 2022 03:13:16 -0500
+X-MC-Unique: Mam3GFN-O4GW_1HHXLnnnw-1
+Received: by mail-pl1-f169.google.com with SMTP id 20so4853336plo.3
+ for <dm-devel@redhat.com>; Thu, 29 Dec 2022 00:13:16 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Vv5x1KdmMeVtIhlp3zKOKF7sZVF7KRZLRJQbPD3QKT4=;
- b=L3S/nCsicgxO4HIEdWZiQIGXXq1K6TXvEIiG/mrcuzrn3i+kzmCnluDOwgnAsAero1
- fFSWK9zKobjJ1xY9s66GrDuIQ4kNMJOm7YLk7yZunvIRgGtrpJIoI/QufZx9W89mGNQK
- AdwDjVjQYKOo+E77tr++Mg3LC22hAFIslogAVBbyWTo/vjRCf2URegBfKmFsQkR8PabN
- bxxXZdgH/R8FN3vB/7GHd3rUyVS/847QHI7yMvhhzfPMi5J4CY+sP2IOHlhfTVrmEPi0
- zBvYfahjK2dnBzGLwaqayLftSPD4yliWqWnMYyy9IEt8r1kPixFjMeNCHdYAZB6eHkju
- oZng==
-X-Gm-Message-State: AFqh2kp2MaB11pRt5ECJXGG6LqATTKmBPrGdWDtQmGblwIptRBo+s/JV
- na6hp3sx3UfQdeRvKPo51bjGmA==
-X-Google-Smtp-Source: AMrXdXvrTl4SO8Hr42En8z77cNqZKNC6eJ1qGCmNwbui5VQ51uN9dxzll3B3KUp7znSacUHIozLKhA==
-X-Received: by 2002:a17:902:a70c:b0:189:dcc3:e4a1 with SMTP id
- w12-20020a170902a70c00b00189dcc3e4a1mr28589601plq.9.1672301592863; 
- Thu, 29 Dec 2022 00:13:12 -0800 (PST)
+ bh=/8DbNiGbTyMPWSOnHF8Kc/zLYgsGw2pv5SS5s5v0R+s=;
+ b=6SkpRs+1DNJ7YwzlLW7qjwgA+RDRknfd0mI0dhyQZ1qsryJleAtLa7+JL3u39OPLYe
+ 4w0ilxXNw28niJnfU+k7DmkCYityNjygYaNuZ7QJiOmu1mctQqoXXUycIiMnN8cu2gN5
+ vIl9+NGNxtwFynVspCWyFlF8NSbIVr90J82NeOW6uJL7EfWfkUc78ljnG2RNXPhgjQrJ
+ 1OZ1H4s1Sr9fTKudWhZgAld3qxOv4ma0QKW0Tub5xs9RtybkyM1paFcNvJfrw7WDf13i
+ R/ZkBR5Aa+sRnPcK0Lm0ESdX2WlwtO1a0SP1CX8qvCm92mwnNQcWBqQM+zGYQV9kA4Iy
+ SSTQ==
+X-Gm-Message-State: AFqh2krB5RwQvR16UE9F7lLhy+bgUV4iycWIj018RQDt+bH8CP3iVGyf
+ cgKb+fGwGHgjqFpAiq47mkqgtg==
+X-Google-Smtp-Source: AMrXdXtgQYYpwQ6pz9x9/465K8tsLdsmt3F7AV27atGdHHls0t4amkRI67RTybj/weosU20glWNaiw==
+X-Received: by 2002:a17:903:228a:b0:191:217f:b2ea with SMTP id
+ b10-20020a170903228a00b00191217fb2eamr42495271plh.40.1672301595208; 
+ Thu, 29 Dec 2022 00:13:15 -0800 (PST)
 Received: from sarthakkukreti-glaptop.hsd1.ca.comcast.net
  ([2601:647:4200:b5b0:75ff:1277:3d7b:d67a])
  by smtp.gmail.com with ESMTPSA id
- 12-20020a170902e9cc00b00192820d00d0sm6496325plk.120.2022.12.29.00.13.10
+ 12-20020a170902e9cc00b00192820d00d0sm6496325plk.120.2022.12.29.00.13.13
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 29 Dec 2022 00:13:12 -0800 (PST)
+ Thu, 29 Dec 2022 00:13:14 -0800 (PST)
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
 To: sarthakkukreti@google.com, dm-devel@redhat.com,
  linux-block@vger.kernel.org, linux-ext4@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org
-Date: Thu, 29 Dec 2022 00:12:51 -0800
-Message-Id: <20221229081252.452240-7-sarthakkukreti@chromium.org>
+Date: Thu, 29 Dec 2022 00:12:52 -0800
+Message-Id: <20221229081252.452240-8-sarthakkukreti@chromium.org>
 In-Reply-To: <20221229081252.452240-1-sarthakkukreti@chromium.org>
 References: <20221229081252.452240-1-sarthakkukreti@chromium.org>
 MIME-Version: 1.0
@@ -99,10 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Mon, 02 Jan 2023 07:42:59 +0000
-Subject: [dm-devel] [PATCH v2 6/7] ext4: Add mount option for provisioning
- blocks during allocations
+Subject: [dm-devel] [PATCH v2 7/7] ext4: Add a per-file provision override
+ xattr
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,91 +122,93 @@ Cc: Jens Axboe <axboe@kernel.dk>, Theodore Ts'o <tytso@mit.edu>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add a mount option that sets the default provisioning mode for
-all files within the filesystem.
+Adds a per-file provision override that allows select files to
+override the per-mount setting for provisioning blocks on allocation.
+
+This acts as a mechanism to allow mounts using provision to
+replicate the current behavior for fallocate() and only preserve
+space at the filesystem level.
 
 Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
 ---
- fs/ext4/ext4.h    | 1 +
- fs/ext4/extents.c | 7 +++++++
- fs/ext4/super.c   | 7 +++++++
- 3 files changed, 15 insertions(+)
+ fs/ext4/extents.c | 32 ++++++++++++++++++++++++++++++++
+ fs/ext4/xattr.h   |  1 +
+ 2 files changed, 33 insertions(+)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 49832e90b62f..29cab2e2ea20 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1269,6 +1269,7 @@ struct ext4_inode_info {
- #define EXT4_MOUNT2_MB_OPTIMIZE_SCAN	0x00000080 /* Optimize group
- 						    * scanning in mballoc
- 						    */
-+#define EXT4_MOUNT2_PROVISION		0x00000100 /* Provision while allocating file blocks */
- 
- #define clear_opt(sb, opt)		EXT4_SB(sb)->s_mount_opt &= \
- 						~EXT4_MOUNT_##opt
 diff --git a/fs/ext4/extents.c b/fs/ext4/extents.c
-index 2e64a9211792..a73f44264fe2 100644
+index a73f44264fe2..9861115681b3 100644
 --- a/fs/ext4/extents.c
 +++ b/fs/ext4/extents.c
-@@ -4441,6 +4441,13 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+@@ -4428,6 +4428,26 @@ int ext4_ext_truncate(handle_t *handle, struct inode *inode)
+ 	return err;
+ }
+ 
++static int ext4_file_provision_support(struct inode *inode)
++{
++	char provision;
++	int ret =
++		ext4_xattr_get(inode, EXT4_XATTR_INDEX_TRUSTED,
++			       EXT4_XATTR_NAME_PROVISION_POLICY, &provision, 1);
++
++	if (ret < 0)
++		return ret;
++
++	switch (provision) {
++	case 'y':
++		return 1;
++	case 'n':
++		return 0;
++	default:
++		return -EINVAL;
++	}
++}
++
+ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+ 				  ext4_lblk_t len, loff_t new_size,
+ 				  int flags)
+@@ -4440,12 +4460,24 @@ static int ext4_alloc_file_blocks(struct file *file, ext4_lblk_t offset,
+ 	struct ext4_map_blocks map;
  	unsigned int credits;
  	loff_t epos;
++	bool provision = false;
++	int file_provision_override = -1;
  
-+	/*
-+	 * Attempt to provision file blocks if the mount is mounted with
-+	 * provision.
-+	 */
-+	if (test_opt2(inode->i_sb, PROVISION))
-+		flags |= EXT4_GET_BLOCKS_PROVISION;
+ 	/*
+ 	 * Attempt to provision file blocks if the mount is mounted with
+ 	 * provision.
+ 	 */
+ 	if (test_opt2(inode->i_sb, PROVISION))
++		provision = true;
 +
++	/*
++	 * Use file-specific override, if available.
++	 */
++	file_provision_override = ext4_file_provision_support(inode);
++	if (file_provision_override >= 0)
++		provision &= file_provision_override;
++
++	if (provision)
+ 		flags |= EXT4_GET_BLOCKS_PROVISION;
+ 
  	BUG_ON(!ext4_test_inode_flag(inode, EXT4_INODE_EXTENTS));
- 	map.m_lblk = offset;
- 	map.m_len = len;
-diff --git a/fs/ext4/super.c b/fs/ext4/super.c
-index 260c1b3e3ef2..5bc376f6a6f0 100644
---- a/fs/ext4/super.c
-+++ b/fs/ext4/super.c
-@@ -1591,6 +1591,7 @@ enum {
- 	Opt_max_dir_size_kb, Opt_nojournal_checksum, Opt_nombcache,
- 	Opt_no_prefetch_block_bitmaps, Opt_mb_optimize_scan,
- 	Opt_errors, Opt_data, Opt_data_err, Opt_jqfmt, Opt_dax_type,
-+	Opt_provision, Opt_noprovision,
- #ifdef CONFIG_EXT4_DEBUG
- 	Opt_fc_debug_max_replay, Opt_fc_debug_force
- #endif
-@@ -1737,6 +1738,8 @@ static const struct fs_parameter_spec ext4_param_specs[] = {
- 	fsparam_flag	("reservation",		Opt_removed),	/* mount option from ext2/3 */
- 	fsparam_flag	("noreservation",	Opt_removed),	/* mount option from ext2/3 */
- 	fsparam_u32	("journal",		Opt_removed),	/* mount option from ext2/3 */
-+	fsparam_flag	("provision",		Opt_provision),
-+	fsparam_flag	("noprovision",		Opt_noprovision),
- 	{}
- };
+diff --git a/fs/ext4/xattr.h b/fs/ext4/xattr.h
+index 824faf0b15a8..69e97f853b0c 100644
+--- a/fs/ext4/xattr.h
++++ b/fs/ext4/xattr.h
+@@ -140,6 +140,7 @@ extern const struct xattr_handler ext4_xattr_security_handler;
+ extern const struct xattr_handler ext4_xattr_hurd_handler;
  
-@@ -1826,6 +1829,8 @@ static const struct mount_opts {
- 	{Opt_nombcache, EXT4_MOUNT_NO_MBCACHE, MOPT_SET},
- 	{Opt_no_prefetch_block_bitmaps, EXT4_MOUNT_NO_PREFETCH_BLOCK_BITMAPS,
- 	 MOPT_SET},
-+	{Opt_provision, EXT4_MOUNT2_PROVISION, MOPT_SET | MOPT_2},
-+	{Opt_noprovision, EXT4_MOUNT2_PROVISION, MOPT_CLEAR | MOPT_2},
- #ifdef CONFIG_EXT4_DEBUG
- 	{Opt_fc_debug_force, EXT4_MOUNT2_JOURNAL_FAST_COMMIT,
- 	 MOPT_SET | MOPT_2 | MOPT_EXT4_ONLY},
-@@ -2977,6 +2982,8 @@ static int _ext4_show_options(struct seq_file *seq, struct super_block *sb,
- 		SEQ_OPTS_PUTS("dax=never");
- 	} else if (test_opt2(sb, DAX_INODE)) {
- 		SEQ_OPTS_PUTS("dax=inode");
-+	} else if (test_opt2(sb, PROVISION)) {
-+		SEQ_OPTS_PUTS("provision");
- 	}
+ #define EXT4_XATTR_NAME_ENCRYPTION_CONTEXT "c"
++#define EXT4_XATTR_NAME_PROVISION_POLICY "provision"
  
- 	if (sbi->s_groups_count >= MB_DEFAULT_LINEAR_SCAN_THRESHOLD &&
+ /*
+  * The EXT4_STATE_NO_EXPAND is overloaded and used for two purposes.
 -- 
 2.37.3
 
