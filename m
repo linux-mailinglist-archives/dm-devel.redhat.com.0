@@ -1,8 +1,8 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D326765E632
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A976965E631
 	for <lists+dm-devel@lfdr.de>; Thu,  5 Jan 2023 08:46:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1672904798;
@@ -12,78 +12,78 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Fyw4q8sVcI40/DVd6stFX70ZghCMyyWZn6AJmfCSIp8=;
-	b=Gg2v5zlIGNszzWwo5F8CqeHrwlsKuPNjRW9GXVKBlxKcz4X1ZYVKC5ef+2HsOpcoVGBswa
-	lYArAgZVtIbFIkx1nGP22IEXzAowywxOIa5cxbEn+ymmIa/OgUb8FNBMt65KKK2ET6uDAi
-	VFjpMqGXtiD0yQz9eeV7cJbp+sxDLOc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=wVMkaPv3t2u13vWsHSBYc69xdr2l2v3bRxb77SwaFN4=;
+	b=NzTI8UK0oeJrtc2GGanUVMUX7j/6BFEN3/cprUPgyCaefkiDldzsp8A8TQr9jVnU2gyJDA
+	znbUHPa88w3qThsiOY8BAmv/Kf3LUwTRnheTl7g4/zQEcWqldGBDGI+78BjT2RcX5gPn81
+	h8nFbsUdBrCRAAdoXKWgUUlFfCB8wSI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-45-QdPyOmH7OzSeIdL9-6xXNg-1; Thu, 05 Jan 2023 02:46:37 -0500
-X-MC-Unique: QdPyOmH7OzSeIdL9-6xXNg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-670-7AUgwTAlOyGrTCj7h0FcvA-1; Thu, 05 Jan 2023 02:46:37 -0500
+X-MC-Unique: 7AUgwTAlOyGrTCj7h0FcvA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E3C61101A55E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E63BF299E75D;
 	Thu,  5 Jan 2023 07:46:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8F9ECC15BA0;
-	Thu,  5 Jan 2023 07:46:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 865EB1121314;
+	Thu,  5 Jan 2023 07:46:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CCD8C19465A2;
-	Thu,  5 Jan 2023 07:46:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CDC661946A77;
+	Thu,  5 Jan 2023 07:46:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9FFFF1946589
- for <dm-devel@listman.corp.redhat.com>; Wed,  4 Jan 2023 18:58:46 +0000 (UTC)
+ ESMTP id 5E7BF1946589
+ for <dm-devel@listman.corp.redhat.com>; Wed,  4 Jan 2023 21:22:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8399840104E; Wed,  4 Jan 2023 18:58:46 +0000 (UTC)
+ id 2F5F0C15BA0; Wed,  4 Jan 2023 21:22:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C6D1492D8B
- for <dm-devel@redhat.com>; Wed,  4 Jan 2023 18:58:46 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 27D9AC15BAD
+ for <dm-devel@redhat.com>; Wed,  4 Jan 2023 21:22:20 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6131D101A52E
- for <dm-devel@redhat.com>; Wed,  4 Jan 2023 18:58:46 +0000 (UTC)
-Received: from mail-ej1-f42.google.com (mail-ej1-f42.google.com
- [209.85.218.42]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0CACB80D0E4
+ for <dm-devel@redhat.com>; Wed,  4 Jan 2023 21:22:20 +0000 (UTC)
+Received: from mail-ed1-f46.google.com (mail-ed1-f46.google.com
+ [209.85.208.46]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-56-AV-qfSRAPzOWcikc1fzj8A-1; Wed, 04 Jan 2023 13:58:45 -0500
-X-MC-Unique: AV-qfSRAPzOWcikc1fzj8A-1
-Received: by mail-ej1-f42.google.com with SMTP id ud5so84984563ejc.4
- for <dm-devel@redhat.com>; Wed, 04 Jan 2023 10:58:44 -0800 (PST)
+ us-mta-414-mrStkpRtOIO9CivlbQcnuQ-1; Wed, 04 Jan 2023 16:22:18 -0500
+X-MC-Unique: mrStkpRtOIO9CivlbQcnuQ-1
+Received: by mail-ed1-f46.google.com with SMTP id j16so17854283edw.11
+ for <dm-devel@redhat.com>; Wed, 04 Jan 2023 13:22:17 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=4FVYvcF1KmvMk+MCRWQgSZcVi7MsFmqDZl7EgX8Ml8k=;
- b=mgSJHq4txTRjxIwfL82aoAE3UnC4rympB7M28or37Q1ClMT4JVthEPNeTkO30toUyU
- 5r0czhZakmjgAruX98iu8MuvTr5xYXk94IZIzLpcvrXd4VAH24UWknlKMj6bGn0GiZvP
- bRyvCohM6387+m7hvuW1xpNPNiFhCiJnGKvYcykzN3cKRZsrvQ1vbEWemf+Z33GwsZ7K
- XxaVOIAKEnaoQVg9Lzu1mofRZU2veu6zSf16FRgN9fuLcU2pgWQMC74zyEzb+wUN5mTA
- qu+ndIMOgqp0SDnIntjOfp86l5XaPHPwFPqh9qPbAXD5DZUk5ap5w/xMqV1CbiseRjam
- Y0jg==
-X-Gm-Message-State: AFqh2kpt4BmCN6ACbDoTdx2xJclmeWck0jXSuJyrERZUh2kxm1VCezfd
- c4whyFTSpvxuv5gO+pCPReUgJRyHMgPL8tAuZrn56Q==
-X-Google-Smtp-Source: AMrXdXtmk8YuQbBW9ULRV7yQ0fWwtL5S9J0nHaYQ3h0G5KBFd1VFG36kq4HzYRZz3ZQJDbl5R7afTpTZuk/Y9Ppo41U=
-X-Received: by 2002:a17:906:2816:b0:7c0:a997:2298 with SMTP id
- r22-20020a170906281600b007c0a9972298mr3739703ejc.430.1672858723579; Wed, 04
- Jan 2023 10:58:43 -0800 (PST)
+ bh=5r/V3HPXwjpuD7IphcjrrB8OiZUQp0rchrkxxQGzaWI=;
+ b=unpz+D88v7kw2/t1ET414Z/LcrCK6Nc+k+7TndcBePMZEvglSzhVKwbTsm2PklmwbS
+ FqWv7xz4jH32dpY7OcOzealCDKjsPjmb8Cc5HIGCz4RptgTbH0bQrMI3AmDcjlW4sTC8
+ sDLP4YHGYh8vArO3qxhUwrLaaUZb3kApYsa1V8raZbiSNUc9uyUDnLPOTd6O98UUuyTU
+ kEdg/Rq/aK4N/ajtpa5tALcikKifM5t1g0JznqtqGEUPimP4PtwkaBapOoBzxIaK5TqA
+ 9XTVZqWk2BEKRVKIFZp9EafKWvhxHkLsS4mRnB2cjoHDrv2b8xd1Mcn7G49EXAixZsib
+ CCFA==
+X-Gm-Message-State: AFqh2kpqN++hS56OXmytOqo6y6rnBzp0V4v56XLNsIr+UcAIoEYIcseM
+ GrPVYRYTu77Nc8L8Z0dJfoMgAr/0LLNg/j7eagQLaw==
+X-Google-Smtp-Source: AMrXdXvyL02g5V8vC60eMixSySeuV+cmNwoRkD+KYiZL+r9p1DmuiHRjgR21Y+li8eMYghzwdId8ULZTKPgGOnDzC2M=
+X-Received: by 2002:a05:6402:f27:b0:485:8114:9779 with SMTP id
+ i39-20020a0564020f2700b0048581149779mr3674496eda.41.1672867336970; Wed, 04
+ Jan 2023 13:22:16 -0800 (PST)
 MIME-Version: 1.0
 References: <20221229081252.452240-1-sarthakkukreti@chromium.org>
  <20221229081252.452240-4-sarthakkukreti@chromium.org>
  <Y7Wr2uadI+82BB6a@magnolia>
 In-Reply-To: <Y7Wr2uadI+82BB6a@magnolia>
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
-Date: Wed, 4 Jan 2023 10:58:32 -0800
-Message-ID: <CAG9=OMO3FKZUnsXym8fo2D-wYT9Sg7yB7tiYw=xqX3KEQ89bsQ@mail.gmail.com>
+Date: Wed, 4 Jan 2023 13:22:06 -0800
+Message-ID: <CAG9=OMNbeU=Xg5bWvHUSfzRf8vsk6csvcw5BGZeMD5Lo7dfKFQ@mail.gmail.com>
 To: "Darrick J. Wong" <djwong@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -92,7 +92,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Thu, 05 Jan 2023 07:46:22 +0000
 Subject: Re: [dm-devel] [PATCH v2 3/7] fs: Introduce FALLOC_FL_PROVISION
 X-BeenThere: dm-devel@redhat.com
@@ -117,11 +117,13 @@ Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+
+(Resend; the text flow made the last reply unreadable)
 
 On Wed, Jan 4, 2023 at 8:39 AM Darrick J. Wong <djwong@kernel.org> wrote:
 >
@@ -156,15 +158,12 @@ On Wed, Jan 4, 2023 at 8:39 AM Darrick J. Wong <djwong@kernel.org> wrote:
 > after allocating file blocks.
 >
 Some use cases still benefit from keeping the default mode - eg.
-virtual machines
-running on massive storage pools that don't expect to hit the storage
-limit anytime
-soon (like most cloud storage providers). Essentially, if the 'no
-ENOSPC' guarantee is
-maintained via other means, then REQ_OP_PROVISION adds latency that isn't
-needed (and cloud storage providers don't need to set aside that extra
-space that
-may or may not be used).
+virtual machines running on massive storage pools that don't expect to
+hit the storage limit anytime soon (like most cloud storage
+providers). Essentially, if the 'no ENOSPC' guarantee is maintained
+via other means, then REQ_OP_PROVISION adds latency that isn't needed
+(and cloud storage providers don't need to set aside that extra space
+that may or may not be used).
 
 > If you *don't* add this API flag and simply bake the REQ_OP_PROVISION
 > call into mode 0 fallocate, then the new functionality can be added (or
@@ -182,24 +181,23 @@ may or may not be used).
 > How expensive is this expected to be?  Is this why you wanted a separate
 > mode flag?
 >
-Yes, the exact latency will depend on the stacked block devices and the
-fragmentation at the allocation layers.
+Yes, the exact latency will depend on the stacked block devices and
+the fragmentation at the allocation layers.
 
 I did a quick test for benchmarking fallocate() with an:
 A) ext4 filesystem mounted with 'noprovision'
 B) ext4 filesystem mounted with 'provision' on a dm-thin device.
-C) ext4 filesystem mounted with 'provision' on a loop device with a sparse
-   backing file on the filesystem in (B).
+C) ext4 filesystem mounted with 'provision' on a loop device with a
+sparse backing file on the filesystem in (B).
 
 I tested file sizes from 512M to 8G, time taken for fallocate() in (A)
-remains expectedly
-flat at ~0.01-0.02s, but for (B), it scales from 0.03-0.4s and for (C) it scales
-from 0.04s-0.52s (I captured the exact time distribution in the cover letter
+remains expectedly flat at ~0.01-0.02s, but for (B), it scales from
+0.03-0.4s and for (C) it scales from 0.04s-0.52s (I captured the exact
+time distribution in the cover letter
 https://marc.info/?l=linux-ext4&m=167230113520636&w=2)
 
 +0.5s for a 8G fallocate doesn't sound a lot but I think fragmentation
-and how the
-block device is layered can make this worse...
+and how the block device is layered can make this worse...
 
 > --D
 >
