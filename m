@@ -1,77 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 818F665E634
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Jan 2023 08:47:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E52F65E633
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Jan 2023 08:46:40 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1672904822;
+	s=mimecast20190719; t=1672904799;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=JUUYcu+NSdawMBrA1039Zo1slVWYJXG6yq0Xs2eJYDM=;
-	b=X8zOeu8ScQrwJHHQDKMJtPbyOjXOP9kdTBbBeb6eHMefk2z6Fquv+WDQnGap3Q8t+Qrt57
-	+mMLBisICj80n5EN8U3d7XvLjOdNhU2MJ3I+37lpN7bs5v6IhGP+/LTMtNSxt43PAiJeIv
-	3HuLwu3UMVTXh2IgIJLkU9lOpM+dGlY=
+	bh=uexpQbcD0DiawlfCRcyUeA5h7DNzCtTs72Mrlmzv1oc=;
+	b=KW8Mj+wnY9pYs2u4cLwFBprxwyTzvWjE1f8rLN7x4dUrnUw0EtAoz5RU2plZAF5+8bhx3C
+	haSIuwXpajIpftwyOOgMFuYy0QUnF5H1142/pOUjzqvXd9mCU284WCjtsERBTd2pEDgMd0
+	dpCIcls8qd2qOoU7mGTe9j2GpTnQNfI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-45-nTtgcMEVPRSCVxD5_66sIQ-1; Thu, 05 Jan 2023 02:46:37 -0500
-X-MC-Unique: nTtgcMEVPRSCVxD5_66sIQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-347-9IFiSmJsMayfW8Poi0JhxA-1; Thu, 05 Jan 2023 02:46:38 -0500
+X-MC-Unique: 9IFiSmJsMayfW8Poi0JhxA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E23BC80D0E8;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1995811E9C;
 	Thu,  5 Jan 2023 07:46:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4968740C2006;
-	Thu,  5 Jan 2023 07:46:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 137F92026D68;
+	Thu,  5 Jan 2023 07:46:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0263F1946A45;
-	Thu,  5 Jan 2023 07:46:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 294AA1947044;
+	Thu,  5 Jan 2023 07:46:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 22BE91946589
- for <dm-devel@listman.corp.redhat.com>; Thu,  5 Jan 2023 00:45:05 +0000 (UTC)
+ ESMTP id 3DC061946589
+ for <dm-devel@listman.corp.redhat.com>; Thu,  5 Jan 2023 00:53:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1130114152F6; Thu,  5 Jan 2023 00:45:05 +0000 (UTC)
+ id 114837AE5; Thu,  5 Jan 2023 00:53:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 093B8140EBF5
- for <dm-devel@redhat.com>; Thu,  5 Jan 2023 00:45:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E19213C0252F
- for <dm-devel@redhat.com>; Thu,  5 Jan 2023 00:45:04 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-361-HM9Z2SF_MsSEszNHoBcILw-1; Wed, 04 Jan 2023 19:45:03 -0500
-X-MC-Unique: HM9Z2SF_MsSEszNHoBcILw-1
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0970A51E5
+ for <dm-devel@redhat.com>; Thu,  5 Jan 2023 00:53:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DDE692806042
+ for <dm-devel@redhat.com>; Thu,  5 Jan 2023 00:53:01 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-445-q3iT633cMIK9e8Z9zOjugw-1; Wed, 04 Jan 2023 19:52:59 -0500
+X-MC-Unique: q3iT633cMIK9e8Z9zOjugw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 405086189A;
- Thu,  5 Jan 2023 00:38:17 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8816FC43444;
- Thu,  5 Jan 2023 00:38:15 +0000 (UTC)
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
- id CF0515C1C98; Wed,  4 Jan 2023 16:38:14 -0800 (PST)
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: rcu@vger.kernel.org
-Date: Wed,  4 Jan 2023 16:38:00 -0800
-Message-Id: <20230105003813.1770367-14-paulmck@kernel.org>
-In-Reply-To: <20230105003759.GA1769545@paulmck-ThinkPad-P17-Gen-1>
-References: <20230105003759.GA1769545@paulmck-ThinkPad-P17-Gen-1>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 6681FB81980;
+ Thu,  5 Jan 2023 00:44:35 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C55C433D2;
+ Thu,  5 Jan 2023 00:44:34 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id bf43so52915661lfb.6;
+ Wed, 04 Jan 2023 16:44:34 -0800 (PST)
+X-Gm-Message-State: AFqh2kq1F4d/5LN5n08K579X1wJpn2fymsImkOR4cU6J/6C45YJY5nbB
+ yKXMLp0Bcjr5VR3VLuRV0usjiX0naySgGHagRfc=
+X-Google-Smtp-Source: AMrXdXtprpsBrqI3b3IFTlFhxNSRfwqsK8W3eL1jzaanesPzAA6Cg+EmGpeS+vdg9VSSspb9DeFkw6mWAHBLV8d6UoM=
+X-Received: by 2002:a19:640f:0:b0:4b6:e71d:94a6 with SMTP id
+ y15-20020a19640f000000b004b6e71d94a6mr3543316lfb.476.1672879472160; Wed, 04
+ Jan 2023 16:44:32 -0800 (PST)
 MIME-Version: 1.0
+References: <20230105003759.GA1769545@paulmck-ThinkPad-P17-Gen-1>
+ <20230105003813.1770367-14-paulmck@kernel.org>
+In-Reply-To: <20230105003813.1770367-14-paulmck@kernel.org>
+From: Song Liu <song@kernel.org>
+Date: Wed, 4 Jan 2023 16:44:19 -0800
+X-Gmail-Original-Message-ID: <CAPhsuW6g4g_02iK3YwpkRQMwr8DBQSdVWnrOx0oYdaNWAWcX5g@mail.gmail.com>
+Message-ID: <CAPhsuW6g4g_02iK3YwpkRQMwr8DBQSdVWnrOx0oYdaNWAWcX5g@mail.gmail.com>
+To: "Paul E. McKenney" <paulmck@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +88,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Thu, 05 Jan 2023 07:46:22 +0000
-Subject: [dm-devel] [PATCH rcu 14/27] drivers/md: Remove "select SRCU"
+Subject: Re: [dm-devel] [PATCH rcu 14/27] drivers/md: Remove "select SRCU"
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,46 +102,52 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "Paul E. McKenney" <paulmck@kernel.org>, kernel-team@meta.com,
+Cc: linux-raid@vger.kernel.org, kernel-team@meta.com,
  Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
- rostedt@goodmis.org, linux-raid@vger.kernel.org, Song Liu <song@kernel.org>,
- dm-devel@redhat.com, Alasdair Kergon <agk@redhat.com>
+ rostedt@goodmis.org, rcu@vger.kernel.org, dm-devel@redhat.com,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Now that the SRCU Kconfig option is unconditionally selected, there is
-no longer any point in selecting it.  Therefore, remove the "select SRCU"
-Kconfig statements.
+On Wed, Jan 4, 2023 at 4:38 PM Paul E. McKenney <paulmck@kernel.org> wrote:
+>
+> Now that the SRCU Kconfig option is unconditionally selected, there is
+> no longer any point in selecting it.  Therefore, remove the "select SRCU"
+> Kconfig statements.
+>
+> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> Cc: Song Liu <song@kernel.org>
+> Cc: Alasdair Kergon <agk@redhat.com>
+> Cc: Mike Snitzer <snitzer@kernel.org>
+> Cc: <dm-devel@redhat.com>
+> Cc: <linux-raid@vger.kernel.org>
 
-Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-Cc: Song Liu <song@kernel.org>
-Cc: Alasdair Kergon <agk@redhat.com>
-Cc: Mike Snitzer <snitzer@kernel.org>
-Cc: <dm-devel@redhat.com>
-Cc: <linux-raid@vger.kernel.org>
----
- drivers/md/Kconfig | 1 -
- 1 file changed, 1 deletion(-)
+Acked-by: Song Liu <song@kernel.org>
 
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index 998a5cfdbc4e9..5f1e2593fad7e 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -6,7 +6,6 @@
- menuconfig MD
- 	bool "Multiple devices driver support (RAID and LVM)"
- 	depends on BLOCK
--	select SRCU
- 	help
- 	  Support multiple physical spindles through a single logical device.
- 	  Required for RAID and logical volume management.
--- 
-2.31.1.189.g2e36527f23
+> ---
+>  drivers/md/Kconfig | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
+> index 998a5cfdbc4e9..5f1e2593fad7e 100644
+> --- a/drivers/md/Kconfig
+> +++ b/drivers/md/Kconfig
+> @@ -6,7 +6,6 @@
+>  menuconfig MD
+>         bool "Multiple devices driver support (RAID and LVM)"
+>         depends on BLOCK
+> -       select SRCU
+>         help
+>           Support multiple physical spindles through a single logical device.
+>           Required for RAID and logical volume management.
+> --
+> 2.31.1.189.g2e36527f23
+>
 
 --
 dm-devel mailing list
