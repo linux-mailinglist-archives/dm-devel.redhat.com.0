@@ -1,98 +1,147 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 42D1F66099E
-	for <lists+dm-devel@lfdr.de>; Fri,  6 Jan 2023 23:39:49 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7806A661F62
+	for <lists+dm-devel@lfdr.de>; Mon,  9 Jan 2023 08:43:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673044788;
+	s=mimecast20190719; t=1673250188;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=owvjI3FsE5Nxn2qzFTqALZM61WueYjXUr31WN5jas2Q=;
-	b=YR/IX/T1K52YPF3/KH/Arbpd0E43iKhsbzdGkjE1frAshhntaaLLppUGWrl9daYOZz7KCD
-	jL4nkb/PKXuxrdTIVWfZuksUJgMh56XH6/nWC5mG+xIcrED8FjMqppJ8FqlnV3xDie69Fn
-	MfgbkTjG0uIIfOrjmU8N7Pj8gC7FWwk=
+	bh=uqybJ/ETZ5OminnG3NDQP5FVi9vGI2oL4yVjDAYmVT4=;
+	b=AvNoPR7Oe6zJyhKh8BlFIJC7EE3aNU8TA6dmvQ9Yv/5+H+p1ZITEOxO1U9s0Ra9LyKgSZ2
+	M9x23BxvzUBTF9aWAoAwIdd6d7h9QhRnmnjdCEJ09aeVfRB3Tomo41j1qRse/gglNOVtb9
+	64Dx3rRUF2JDdWChMHRp6u8F/c14HGI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-356-QIF-9qFAMGexUkM2TOlAEw-1; Fri, 06 Jan 2023 17:39:46 -0500
-X-MC-Unique: QIF-9qFAMGexUkM2TOlAEw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-378-btujlAL4P8a1MTcPZ_HKJw-1; Mon, 09 Jan 2023 02:42:31 -0500
+X-MC-Unique: btujlAL4P8a1MTcPZ_HKJw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E6C1857A86;
-	Fri,  6 Jan 2023 22:39:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6AEA58027FE;
+	Mon,  9 Jan 2023 07:42:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0287340ED785;
-	Fri,  6 Jan 2023 22:39:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5FC2240C2004;
+	Mon,  9 Jan 2023 07:42:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A005B19459D5;
-	Fri,  6 Jan 2023 22:39:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4D6D91947B8B;
+	Mon,  9 Jan 2023 07:42:20 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6F0C51946586
- for <dm-devel@listman.corp.redhat.com>; Fri,  6 Jan 2023 22:39:42 +0000 (UTC)
+ ESMTP id 79F761947B84
+ for <dm-devel@listman.corp.redhat.com>; Mon,  9 Jan 2023 07:42:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5CAA240C2004; Fri,  6 Jan 2023 22:39:42 +0000 (UTC)
+ id 1BC5D2026D68; Mon,  9 Jan 2023 07:42:01 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 54E5540C2064
- for <dm-devel@redhat.com>; Fri,  6 Jan 2023 22:39:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A47E2805582
- for <dm-devel@redhat.com>; Fri,  6 Jan 2023 22:39:42 +0000 (UTC)
-Received: from mail-pj1-f54.google.com (mail-pj1-f54.google.com
- [209.85.216.54]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-636-J52gsO_0OO-rQGjl6HxSZQ-1; Fri, 06 Jan 2023 17:39:40 -0500
-X-MC-Unique: J52gsO_0OO-rQGjl6HxSZQ-1
-Received: by mail-pj1-f54.google.com with SMTP id n12so2914025pjp.1
- for <dm-devel@redhat.com>; Fri, 06 Jan 2023 14:39:40 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=9wllrSnnUtP2lGzMZ5NnJc5XBcURZs1X9kJ2O+mtnmI=;
- b=gIoS++PTpoRmISAj0/BpL+dzGQ0avM9PhhXJhY/Za30MgfI2+JkaJs3JTSTzJbmuBF
- q3FxTNVisgl49eisLC1G6HPeNAz5jgX+M1LgEz2bjTPPlAjit/7FGkTIZptzNXEPHUOp
- Do7uJEjmWD3fMfIeQGxnDOhifiLuoXLxgVtsw/I91AqPx97Yrkl4KA3XQXLCPe3qPZHZ
- udOBnVDu9C/Ql/EbfmFS/20gaWSPqc3RkOEmddwyzyZ83vGzEPHTPf5oB+RD01Vg15Pq
- +n2UVv/7vS9AzgRWxVZY7OWYn3Dtv4n3J5CJoIyrgzqatUYqiZJKuffkOMxWF42toIRX
- n9Rg==
-X-Gm-Message-State: AFqh2koJ+aE+s7Wqq7C1UBSvjxaOlKuFfpX8htKFbd9SQU9TYXOQHHgV
- CrKmi9+nLa6yUVAaDq0vAAo=
-X-Google-Smtp-Source: AMrXdXuMcgHd17Og+hOTPa7FzU9kTPhBKiF/SMXTbwL3fZXTnntDEJhZH/XSa/hH2zGddJvohv5qng==
-X-Received: by 2002:a17:902:f7c2:b0:192:6cc9:922 with SMTP id
- h2-20020a170902f7c200b001926cc90922mr43243418plw.59.1673044779250; 
- Fri, 06 Jan 2023 14:39:39 -0800 (PST)
-Received: from ?IPV6:2620:15c:211:201:23c3:f25b:a19d:c75a?
- ([2620:15c:211:201:23c3:f25b:a19d:c75a])
- by smtp.gmail.com with ESMTPSA id
- u11-20020a170902e80b00b00174c0dd29f0sm1410874plg.144.2023.01.06.14.39.37
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 06 Jan 2023 14:39:38 -0800 (PST)
-Message-ID: <1484d284-e55e-4e3d-b4fc-5a685002c656@acm.org>
-Date: Fri, 6 Jan 2023 14:39:36 -0800
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-To: Pankaj Raghav <p.raghav@samsung.com>, axboe@kernel.dk
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 13D982026D4B
+ for <dm-devel@redhat.com>; Mon,  9 Jan 2023 07:42:01 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E28CF802D2A
+ for <dm-devel@redhat.com>; Mon,  9 Jan 2023 07:42:00 +0000 (UTC)
+Received: from NAM11-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam11on2070.outbound.protection.outlook.com [40.107.223.70]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-145-5nDZBGUTP-OXo8rxJ6O1bA-1; Mon, 09 Jan 2023 02:41:59 -0500
+X-MC-Unique: 5nDZBGUTP-OXo8rxJ6O1bA-1
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
+ by SN7PR12MB7250.namprd12.prod.outlook.com (2603:10b6:806:2aa::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.5986.18; Mon, 9 Jan
+ 2023 07:41:56 +0000
+Received: from MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::b84c:b6e:dc0:8d7]) by MW2PR12MB4667.namprd12.prod.outlook.com
+ ([fe80::b84c:b6e:dc0:8d7%2]) with mapi id 15.20.5986.018; Mon, 9 Jan 2023
+ 07:41:56 +0000
+From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
+To: Pankaj Raghav <p.raghav@samsung.com>, "axboe@kernel.dk" <axboe@kernel.dk>
+Thread-Topic: [PATCH 1/7] block: remove superfluous check for request queue in
+ bdev_is_zoned
+Thread-Index: AQHZIammwKDv9lFNrUaYH7I9XXAa1q6VuF2A
+Date: Mon, 9 Jan 2023 07:41:56 +0000
+Message-ID: <71b2163b-8d25-ad50-4852-3a0669df11bb@nvidia.com>
 References: <20230106083317.93938-1-p.raghav@samsung.com>
- <CGME20230106083320eucas1p1d23de4ad21d0a7aecb74c549ebc7757c@eucas1p1.samsung.com>
- <20230106083317.93938-4-p.raghav@samsung.com>
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20230106083317.93938-4-p.raghav@samsung.com>
+ <CGME20230106083319eucas1p1e58f4ab0d3ff59a328a2da2922d76038@eucas1p1.samsung.com>
+ <20230106083317.93938-2-p.raghav@samsung.com>
+In-Reply-To: <20230106083317.93938-2-p.raghav@samsung.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101
+ Thunderbird/91.9.0
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: MW2PR12MB4667:EE_|SN7PR12MB7250:EE_
+x-ms-office365-filtering-correlation-id: aebb343f-28ee-4e5a-a253-08daf214fbc0
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: UOzwKS1g39qMxb+qVS9lNjwKwufRRZiSXZ4uw/0RzIbM9PFW+2uDLzoftDe5ns8rmr+flbZ5E+0P1lMBkr6d3FqGMUnozI0tPedbxVYL8tkZlaIaccAjLbVwE1Tndkqg7LKchYq0lNqtcULmlskh4loWBga58cfsXYR5rGWQYUTlxtFO5gBYOrk78vRKh3b0XKHys/02CnIHaT4TGU/0mp0H5AM0e1Ey3gW4GI20sFu8DTNPnL8PHUQrPIDjAGY/W53gf6iegLBCBLOiD5meyUDppQCvudrdDMhie0jNtS5EoRCJBQ5TikL2xAanR7xHc72g91WqRITq3N+DNRH23asy+udqNYwUTd6mX6Qwq9f8QM4JZOURnV5z3Jn1GdnTT18ytpobNZMQwrKAkZ0RDGz3eSAUiNaelI1b3DyGt9R6GpRsVhnuj2HD6/WjzUeT8Dum76Xk0juHR9rDn/sVWFzYOGOXCfXcP6yhdZOJnQyMa7R01VemhnMBM4UyDwm5f7sa10LZDyzYDkvKUp7t51uzbNZNiHDmR1pxUL1H1zWJyxxFK2/S9Ag1a1slYBkQwF8L4Pn5CxJjdX0HJFs789c37qp0YjRWsClBVR0S0khQN7hB1JznA/M1VHXvwR6gFHI3+IUnTsiX0la62rRnWtDOOQqOX8qJg5AUqZOb9o95teu9cK4mnXMNxe9lsWp81fJfDoT96sICOsH9Qco897bKfgtMlaJvkxJeU3nqlkF9cOykwnYmP+sT2J0e6GIk1hKYekCk4jTBR4CJyENCIQ==
+x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:MW2PR12MB4667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230022)(4636009)(346002)(396003)(366004)(376002)(136003)(39860400002)(451199015)(6506007)(38100700002)(122000001)(53546011)(31686004)(2906002)(6486002)(478600001)(2616005)(558084003)(186003)(6512007)(5660300002)(316002)(71200400001)(7416002)(83380400001)(8936002)(36756003)(38070700005)(86362001)(31696002)(41300700001)(110136005)(76116006)(66476007)(8676002)(91956017)(66946007)(64756008)(4326008)(66556008)(54906003)(66446008)(45980500001)(43740500002);
+ DIR:OUT; SFP:1101
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?ZTIxQURFd2hza2dyRzR0emwvYVVsK1FCckdXWjB6M2Zlb0t4ZlFHcmtibWxT?=
+ =?utf-8?B?TlRNM3JnY2FDT1FuMkJ6WTVpOXdVQytnVFZQSXRQamM3d3FIdm00MklpbDZr?=
+ =?utf-8?B?RVo5Q1ptM1pydFVsRXZac2RwelZoNEV5SUQrZzJhRHRzNExoU1hzSUs2RGY1?=
+ =?utf-8?B?bXZvWW5EOUIrWFQrOXhaaXBPQTNsUG5mY3YzN2xSbE9rcm9ycEF6dWFISW1o?=
+ =?utf-8?B?UHFtVE5xMEhHT3AwSnIvZFRHYTRRV283RUhuVDVqcmZyVWFJNUNOKzJvZUxr?=
+ =?utf-8?B?S244a1RpUmhxemkwYjMvaGRWc1Q5RE1DNWxxellzb1VhcUp1UjcrSzAxNjda?=
+ =?utf-8?B?cjY0WnFWc2svaDFqOFFCZk4vRFhDeWhIYzFjajFpYXkvc0FCWDJTcXFCaDVE?=
+ =?utf-8?B?UVo2OUN3am5RUjlNOGUrNEhkQnZCQlBIWHF5OTNwR1BTUGpRV0pjZzc4R3lM?=
+ =?utf-8?B?N2pybHNNdE51b1JhcTcrWjhHQ2ZpeWtleURwOVo0RExwY0N2ZjZCNkFpM3Iy?=
+ =?utf-8?B?RXhEeGpJdWZ5ZHRZQ1VwSWlGdVdsQ3JxQms3KzMwWlkyQS8rZHAxT3orOUo5?=
+ =?utf-8?B?WWZzd0tVTGdHQlpaSFV3N1VSTjJFTTQ5Y3BJNmVBSUtLT2xVSCtwRG5jMzE2?=
+ =?utf-8?B?NVhyZVRwZC9ZM0I0VjNKNGxjUmsxOGhyWHdrRjhiWmdkcUVqRTFmZUVhVkF2?=
+ =?utf-8?B?UlhnUzNleENIS3lFcVZFOTIzc0F5cXlhYkY4MTdxVFdwRHYyLzlDTXlZQXlU?=
+ =?utf-8?B?NmU0Y3MwbFhRQVBXUzMySHlMTWFNVTFkUHRqeXJDT1dxNHMyVnJ0MTBQV1Yz?=
+ =?utf-8?B?YXcwRjFNeW15WjhsSmZaajFacTNFd1NTS1E4SWJ6QWVac2pNa2FYR1JiSFhZ?=
+ =?utf-8?B?TzZOUUxGVlcyWjRuWmZYbHdaUEJzVlJ0Q29MZEpTT3lyK2tFaVBKcjQ0dkxR?=
+ =?utf-8?B?b3dnQThWSWdMaHVNQk9ZMkZhVTRNMzBONWM5S29rTG1MOWhQaGMzOHlIOU1s?=
+ =?utf-8?B?ZS9qMHE4NEdvRzlCUDhKYWhReExzeEdYT1l3WnNFSEJLOEl6MUJZSlV3Tnp2?=
+ =?utf-8?B?QUV3MFpjYmt5d3VMUElaWVJ2b256TTFRZEtDL1cydXlNcVlXWnhJc2VZRWlB?=
+ =?utf-8?B?L2RWUVBsQ2hVYU9WMEl3RkZCeC84UlNaTXNkb0FpUkhMdVBJc0xpUDJBRkdq?=
+ =?utf-8?B?N3ZUWWVpZ1ZXQWU5bDgxUHQrNkoyZmlRdkluQy9MbnlMQVUxN1BKTm5uelhk?=
+ =?utf-8?B?K1V3blcxdldBOU5aRXErSVIrYnFlZ3RUUXpSWVVuNjZrZGFxLzdVM29zMzM1?=
+ =?utf-8?B?Tmt0dmU4ZVE2MTdCMTRqQU92QlVBLzFHRy8zV2pUYVRzYVFBV20xS0pYZTNI?=
+ =?utf-8?B?TC82L05BUHNSNUVCYzJiWHIyWE0xVi92SmZjTm0wcWl6bE5uUW01SVRtdkpz?=
+ =?utf-8?B?RmdQUjdDZmFoVzJsakZUcFlhdnRiRUdVYTlxb0JXM3J4YU9PV1RaVER5OFJj?=
+ =?utf-8?B?YlBydEdYdHh0MTZwVWQ3SkJvbWNsbldlZmJUbzZNWUx6WGZ4YmRPb0hsNWZk?=
+ =?utf-8?B?WlVVSWdBNk5OZUZ6cjVQTXB2ZmZZSmQzYUJoZ3VDY3JWWVVJNDVPVi9pZDZu?=
+ =?utf-8?B?NkpLSnVuN2RseEhhRlFINUxnTWFXaGVUUys5QWthRzBkbVY3TVJIUVZQK1NZ?=
+ =?utf-8?B?VFo4YjZ6dnlOVDNHcjdLK3NmcGhxV1RMY3ZqQm5KelVtR2lUeHdrcmNVYTZD?=
+ =?utf-8?B?STAzT1daeTMzZk1tbkcrYzluVEJFZDBMc3BkRk05OVhZTnRKdFR0ZnVjNXQ5?=
+ =?utf-8?B?TVRaQzRJYmFXdktEWFcvYmJwWWR3NjNtU1RraFplUWRweE1PRHNSZEFkRzlY?=
+ =?utf-8?B?NkRxcHV6dXNLM3ZuSUFKaFBYSnpPa1lNdzhUbmhtVW5ua3AyR0w4SjJZcVZM?=
+ =?utf-8?B?ZVNBVmpUdGdmaXVyamZKRmVxOWNYOXI5UHRCQWxvQjFnZU1GS2F2UFpiUThx?=
+ =?utf-8?B?Rm5rUzZvTklkYTFxcWgrVWZuSXFPUGIvRzQwODNsRy9lSllhYThqM09TM3BB?=
+ =?utf-8?B?UG5FTXUzZi9oSThEeUxZVTZ3MlhIa2xlaXdHZE5mVVVkQ2kxRUE1KzhjazI0?=
+ =?utf-8?B?OE5SS0JscEkxRFJWdWF6UGJ4TFNYSVpWWGlnSlZsa0hVNmFyUW9DVXZObXAr?=
+ =?utf-8?B?bWc9PQ==?=
+MIME-Version: 1.0
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: aebb343f-28ee-4e5a-a253-08daf214fbc0
+X-MS-Exchange-CrossTenant-originalarrivaltime: 09 Jan 2023 07:41:56.2851 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 68+b8vmEB/VEL22BZ+WXCC6hDJWcpk0fCpNbpkGjBiy+PcWF5jEw01JUTHlbfq3WRnz7Y2S6xD8ggh1zY7bd2A==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SN7PR12MB7250
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -100,8 +149,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH 3/7] nvmet: introduce bdev_zone_no helper
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [dm-devel] [PATCH 1/7] block: remove superfluous check for
+ request queue in bdev_is_zoned
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,35 +163,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: gost.dev@samsung.com, damien.lemoal@opensource.wdc.com, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- linux-block@vger.kernel.org, kernel@pankajraghav.com, dm-devel@redhat.com,
- hch@lst.de
+Cc: "bvanassche@acm.org" <bvanassche@acm.org>,
+ "gost.dev@samsung.com" <gost.dev@samsung.com>,
+ "damien.lemoal@opensource.wdc.com" <damien.lemoal@opensource.wdc.com>,
+ "snitzer@kernel.org" <snitzer@kernel.org>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "kernel@pankajraghav.com" <kernel@pankajraghav.com>,
+ "dm-devel@redhat.com" <dm-devel@redhat.com>, "hch@lst.de" <hch@lst.de>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
+Content-ID: <79B9F0E9CDA52C47903779A79E81EF3B@namprd12.prod.outlook.com>
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
 On 1/6/23 00:33, Pankaj Raghav wrote:
-> A generic bdev_zone_no() helper is added to calculate zone number for a
-> given sector in a block device. This helper internally uses disk_zone_no()
-> to find the zone number.
+> Remove the superfluous request queue check in bdev_is_zoned() as the
+> bdev_get_queue can never return NULL.
 > 
-> Use the helper bdev_zone_no() to calculate nr of zones. This let's us
-> make modifications to the math if needed in one place.
+> Signed-off-by: Pankaj Raghav <p.raghav@samsung.com>
+> ---
 
-Please use the imperative mood in patch descriptions (... is added -> 
-add ...).
+Looks good.
 
-let's -> lets
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 
-If these two issues are addressed, please add:
+-ck
 
-Reviewed-by: Bart Van Assche <bvanassche@acm.org>
 
 --
 dm-devel mailing list
