@@ -1,154 +1,144 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 787CA666BB5
-	for <lists+dm-devel@lfdr.de>; Thu, 12 Jan 2023 08:42:44 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D079C667859
+	for <lists+dm-devel@lfdr.de>; Thu, 12 Jan 2023 15:58:33 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673509363;
+	s=mimecast20190719; t=1673535512;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=8wfH9iA5xLev42dnDTW8Zby5RUd9I70OlOlnNsQE5B4=;
-	b=TEvy96D+X1OU6oznt2H1k0haPLdKBSeCxkZs4aVHAdICJHqBMFxCH8z0m2n2VaXGI5aSWw
-	BJJ2Kr6K0F34ZqDrnl9ROdSS4KUfkCpzkPeQ0uS67gQulmNw1u4kIURy6dxkFKTlNSzbDE
-	csqLrdOPo8FiLzBCpUg0M0ezqdDs9eY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=/zvO4Mn27NRd05zRM+VlfjImIe/z+1+KVNtt0Y3cl6g=;
+	b=L/IwoVwAnYora7ybjDuFeLOpcrKqaDcGIdOq32CqAvqJI542HkVMdb9v3EV/r7ZE/kFd0A
+	zMBNpbiKddzIM54fPDi0Vz4Uli/GMyqn6GmCONCOJqzQ+zcBoTLZPvcFD9Uph9Otdj+BZ5
+	oV4tzBonGkMMqG/OEcrEJ0u1i5cU/Y8=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-489-V9glas4XNUOhqwtNXqZOSA-1; Thu, 12 Jan 2023 02:42:39 -0500
-X-MC-Unique: V9glas4XNUOhqwtNXqZOSA-1
+ us-mta-48-8XxlDCykNOSbW5exaVtPCA-1; Thu, 12 Jan 2023 09:58:28 -0500
+X-MC-Unique: 8XxlDCykNOSbW5exaVtPCA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D3EE8533DD;
-	Thu, 12 Jan 2023 07:42:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8DE2F1C0041C;
+	Thu, 12 Jan 2023 14:58:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EA4A251E5;
-	Thu, 12 Jan 2023 07:42:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 16C401759E;
+	Thu, 12 Jan 2023 14:58:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8E5BD1947047;
-	Thu, 12 Jan 2023 07:42:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6E0381947060;
+	Thu, 12 Jan 2023 14:58:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 54BC31946A76
- for <dm-devel@listman.corp.redhat.com>; Thu, 12 Jan 2023 01:07:07 +0000 (UTC)
+ ESMTP id 773231946A78
+ for <dm-devel@listman.corp.redhat.com>; Thu, 12 Jan 2023 13:37:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EFFBB40C2004; Thu, 12 Jan 2023 01:07:06 +0000 (UTC)
+ id 10D224078904; Thu, 12 Jan 2023 13:37:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E76F440C2064
- for <dm-devel@redhat.com>; Thu, 12 Jan 2023 01:07:06 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0923A4078903
+ for <dm-devel@redhat.com>; Thu, 12 Jan 2023 13:37:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C5CE685C069
- for <dm-devel@redhat.com>; Thu, 12 Jan 2023 01:07:06 +0000 (UTC)
-Received: from esa1.hgst.iphmx.com (esa1.hgst.iphmx.com [68.232.141.245]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD1BC85C6EA
+ for <dm-devel@redhat.com>; Thu, 12 Jan 2023 13:37:07 +0000 (UTC)
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-451-loV9aWZBMOe0282nPOT9sA-1; Wed, 11 Jan 2023 20:07:04 -0500
-X-MC-Unique: loV9aWZBMOe0282nPOT9sA-1
-X-IronPort-AV: E=Sophos;i="5.96,318,1665417600"; d="scan'208";a="332581652"
-Received: from mail-mw2nam10lp2103.outbound.protection.outlook.com (HELO
- NAM10-MW2-obe.outbound.protection.outlook.com) ([104.47.55.103])
- by ob1.hgst.iphmx.com with ESMTP; 12 Jan 2023 09:05:58 +0800
-Received: from DM8PR04MB8037.namprd04.prod.outlook.com (2603:10b6:8:f::6) by
- CY4PR04MB0825.namprd04.prod.outlook.com (2603:10b6:903:e4::14) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.5986.18; Thu, 12 Jan 2023 01:05:55 +0000
-Received: from DM8PR04MB8037.namprd04.prod.outlook.com
- ([fe80::e5db:3a3e:7571:6871]) by DM8PR04MB8037.namprd04.prod.outlook.com
- ([fe80::e5db:3a3e:7571:6871%9]) with mapi id 15.20.5986.018; Thu, 12 Jan 2023
- 01:05:55 +0000
-From: Shinichiro Kawasaki <shinichiro.kawasaki@wdc.com>
-To: Yu Kuai <yukuai1@huaweicloud.com>
-Thread-Topic: [PATCH blktests] dm: add a regression test
-Thread-Index: AQHZHBi8DS86lMnHgkmGVPNvsNuEj66aC9gA
-Date: Thu, 12 Jan 2023 01:05:55 +0000
-Message-ID: <20230112010554.qmjuqtjoai3qqaj7@shindev>
-References: <20221230065424.19998-1-yukuai1@huaweicloud.com>
-In-Reply-To: <20221230065424.19998-1-yukuai1@huaweicloud.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: DM8PR04MB8037:EE_|CY4PR04MB0825:EE_
-x-ms-office365-filtering-correlation-id: 76cf9a20-acfa-42cb-7266-08daf439285f
-x-ld-processed: b61c8803-16f3-4c35-9b17-6f65f441df86,ExtAddr
-wdcipoutbound: EOP-TRUE
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: WNKhF1IiDf/lyg8zgYF12dMJuJHLauYMzghhe+j+efOpdBAUMO3XYExKM7V7NbQ69ncX9n93hCoHTpIaKGdAn0bF8aLJU96ViR1ZHGMTf2jg8F/N0IOeR61NpOAHIRkX2pzT+3w3FUNrF2azBiloirYZ7zc28U1ypPNR1gSgP9Qo8EZNPFq2zyOdxtTUR+ZPWKNfwHOhN1EJlgC8kvwq0Izkg+MmXpDelmoB1lndGPukkh07d19/vR+g4eYxYQ0NLUXZAZq3/mE7NPvolK3u3om2WkqmQYkveP3rT6tf/sPLr+OqaY9VzBhnELFrIz5JNr7Cw9uMwPV/tan05/sfujvvewh5SwZBTlAz8cIvDx+3qlA6ER9v/+KjxV26N/AdRLZBNocewVJFE+cizUyv2KeBXcSsOkECm12LxXwIeZzud8JhhneirLgjYJQq9ziYQdOR1rNJu6NfEgVBTj6FcY3NZ5uYp+0Z/TkospxzelVdDv2tnp/n5dvWqPUoh8e4JZQIGGHfmsZ0acBdsZHd4VGOD5eA4hIHiGBnSF1GdyJqTVxcEZE81WFPtHz9Bg2G7tq87evwLNKWpcrAxfKH00w3ThI1pRYT2dYUzn/3NXZlcUCn3Wu3aFIXsse2WxwLpPprnFdZTMc04c5a/yKn9JjQPQufKQmQjWCVA3nqZ49kJ4WCmmT7ubkQdRVlYuBdTm+tGETsGJ9lpHWw3oj0sg==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM8PR04MB8037.namprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230022)(4636009)(7916004)(39860400002)(346002)(396003)(376002)(136003)(366004)(451199015)(6506007)(38100700002)(122000001)(82960400001)(2906002)(478600001)(6486002)(1076003)(33716001)(316002)(26005)(6512007)(44832011)(186003)(5660300002)(71200400001)(9686003)(86362001)(8936002)(83380400001)(38070700005)(64756008)(91956017)(41300700001)(6916009)(76116006)(8676002)(66946007)(66556008)(66476007)(66446008)(54906003)(4326008);
- DIR:OUT; SFP:1102
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?pWirSEeL3fcAQJCiXENdn75PFXmynIQLuh2cK28fFapBfJp7OvXtTVsBGfiP?=
- =?us-ascii?Q?cLy0UBc5kXyPotU1XVDiheqTd9DwMGNc23rQO48kUZ+smiC/WAbblhsykhxm?=
- =?us-ascii?Q?L6Qb8D6jPDoN9vRuW6a7RGhvFJNwh7Z/7SuqROsejlIJKRPwjiPYVLL80RDQ?=
- =?us-ascii?Q?ydxkEOyVnutybXRoU8EOB0P4c35H4Sm1dm9w30s9zngfs1sA6YzkZH3ZFIt7?=
- =?us-ascii?Q?QEk2NABbR0xHBg5HoBYgfiLM/FeOZmrvj2WQyb/MAdbZAQJl/beH1CZ1/L5W?=
- =?us-ascii?Q?BndkAHnHYTjRGyEQVR8Ph9FPgSjAANyGQEl99PDo+y0lKUgtW49oLQGmm6Rx?=
- =?us-ascii?Q?sI+PyMYfpvvXiPT7L1nb7QZzdIFG91rBy25MNFCi9cAu1b3kSiluywhxz830?=
- =?us-ascii?Q?6dIY+/OKKjpp90WDYzG6F+97yAch0HGdeVo0UyFm9F7JsUAf17SCqIDNT6GD?=
- =?us-ascii?Q?NYVCMc44GU/fwHlaMWSi6pqdVXhbDmTRWvsehPGnAJX5EuhGbKJl8bgUGlTm?=
- =?us-ascii?Q?RXspY8xVNKVcQx0OEcbb73yIwP+3YgrZ3lbzvk/jwU+HBJNcnQEQQSExG2pL?=
- =?us-ascii?Q?V8uZiVOs/tF70EFx7vqh9edqfV+tnECs+zBg1yHuAS+lEPfVqKTPtnqEUwAs?=
- =?us-ascii?Q?6YlpWZNL51XItmE2rxLdpsZZzXD6K1CSnnhrbq3KLOVYb1X/fR3zs3yh4sJN?=
- =?us-ascii?Q?WZ2td83jQ2oY7kssS1gtFG9Ccls9JDHIA8ogjSk+MfDL/2r/3N7oaWOTY/8e?=
- =?us-ascii?Q?9ZJo93nXCDGPEkbPTnDo9sG1cUbEFiS3Jl5bmRG4zwZmSpuvjUQMepi7PFaH?=
- =?us-ascii?Q?zO+fwj+9ZYT3J6Y0Jl5PBk0mOXeEb5DK8ZHgEf2XxoFqUrTNNRwuRPqtwyQT?=
- =?us-ascii?Q?qAcuw6mCIVc7ctIPUyZLfFod0AekJpl8mFmYHxXb3Jh2hhDOYXHBm7emnrS6?=
- =?us-ascii?Q?ELsXtLM+fNsjnj+KrELDucThja4L/Y3km8I10yDXEOosgC2nOAB6/XII47Y2?=
- =?us-ascii?Q?PHN+yggKGtJ29Exbpzk9CLdXsvClYP3nSRtLlo7iPGRz04EjeKv6kFoCVs2M?=
- =?us-ascii?Q?X925/+2hQiJ12XkecGTVgxTZ/ao2pOGbkbYHPf/kNf83UngC+L9drbT4ugRJ?=
- =?us-ascii?Q?RZBLbsm35vHJaSeSnS3/yxuY5xDbZS8+HE5nuOGryrnMAD5DwlDKJVqVxR7S?=
- =?us-ascii?Q?4ygZUPUibUU7jNVohPgOseKjbIZDDPA0zojrqA2F4+ljyoK61UDbqXFBO3ql?=
- =?us-ascii?Q?HkNYe8igSTH5NAtt4m7qrXrtJx0IOJ05zfuMXvH1EK4f05wEcA5XOXRPC/D7?=
- =?us-ascii?Q?FBHaLF1TOczPY6YVOcSH3zyDLfToio4F5tjIYj8agLFWdmaevPcZlljPZYoA?=
- =?us-ascii?Q?qh9OKicyinpUqnbRWFYx4YY8OuwDheTyFjkIhI4l0DXRhS2byknTOdUWBJSW?=
- =?us-ascii?Q?XTFF8uVuDAD72Vrs7Qhxmnfw8uWNlCrGw7BGUXr8RZporfDPFtztFoZNQb8p?=
- =?us-ascii?Q?+riZRUTpFr+r9ItPHiFc9j1bPUWT9R/9XWwFmm7TymSi9c/jDKa1NC5JY43k?=
- =?us-ascii?Q?SCdcyPxysU6GjAC4HMmK5OxXQN1jYHNwv/mPXyuhioGowtCIgNJCOhvlYpYs?=
- =?us-ascii?Q?C2UMmbfYp2A4APR0n8rwHkQ=3D?=
+ us-mta-505-sKGQE5vAOd-WIypUPwfA4w-1; Thu, 12 Jan 2023 08:37:06 -0500
+X-MC-Unique: sKGQE5vAOd-WIypUPwfA4w-1
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20230112133703epoutp010cd41e914bd495ddf80a8591bd6f5113~5kzw8iL7Z1983419834epoutp017
+ for <dm-devel@redhat.com>; Thu, 12 Jan 2023 13:37:03 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20230112133703epoutp010cd41e914bd495ddf80a8591bd6f5113~5kzw8iL7Z1983419834epoutp017
+Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTP id
+ 20230112133702epcas5p477b3e6fb8d168ff430c4caef47563981~5kzwJKFZW1179511795epcas5p41;
+ Thu, 12 Jan 2023 13:37:02 +0000 (GMT)
+Received: from epsmges5p1new.samsung.com (unknown [182.195.38.179]) by
+ epsnrtp2.localdomain (Postfix) with ESMTP id 4Nt5F86Y3Gz4x9Pt; Thu, 12 Jan
+ 2023 13:37:00 +0000 (GMT)
+Received: from epcas5p4.samsung.com ( [182.195.41.42]) by
+ epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 80.D4.02301.CFC00C36; Thu, 12 Jan 2023 22:37:00 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p4.samsung.com (KnoxPortal) with ESMTPA id
+ 20230112115954epcas5p4a959bef952926b8976719f1179bb4436~5je8PVHxa1997319973epcas5p4J;
+ Thu, 12 Jan 2023 11:59:54 +0000 (GMT)
+Received: from epsmgms1p2.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20230112115954epsmtrp152f30b7df859064e2bec0ca3a6c8a57e~5je8OV1ZL2220922209epsmtrp1w;
+ Thu, 12 Jan 2023 11:59:54 +0000 (GMT)
+X-AuditID: b6c32a49-473fd700000108fd-07-63c00cfc1b69
+Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
+ epsmgms1p2.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 2D.13.10542.A36FFB36; Thu, 12 Jan 2023 20:59:54 +0900 (KST)
+Received: from green5.sa.corp.samsungelectronics.net (unknown
+ [107.110.206.5]) by epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
+ 20230112115951epsmtip238e47c6957ed82e8528fd357d0332494~5je5ksTYN0887908879epsmtip2C;
+ Thu, 12 Jan 2023 11:59:51 +0000 (GMT)
+From: Nitesh Shetty <nj.shetty@samsung.com>
+To: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>, Mike
+ Snitzer <snitzer@kernel.org>, dm-devel@redhat.com, Keith Busch
+ <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg
+ <sagi@grimberg.me>, James Smart <james.smart@broadcom.com>, Chaitanya
+ Kulkarni <kch@nvidia.com>, Alexander Viro <viro@zeniv.linux.org.uk>
+Date: Thu, 12 Jan 2023 17:28:54 +0530
+Message-Id: <20230112115908.23662-1-nj.shetty@samsung.com>
 MIME-Version: 1.0
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?G8IpbquZf83QCK4ztANg3yAma6xpSZildQpcR3zP707SmAMvqaGM+iP7ETOy?=
- =?us-ascii?Q?9IUAxOAxvf5bD4BLDLtNAcCf/BkyYLYlHy0kSRE2iwxqFJKiNGPQLP0t4Ny8?=
- =?us-ascii?Q?p0Uc7SVyXm9oSj29qiue8+UrcBioaGI4Wg/y1pH5AqtwEjhWS6dfVzfxC0xj?=
- =?us-ascii?Q?nNC3SgPuob6G5TAGm5u3JNJ5jKQ7xv7qIX+2ZknfZeY8kCZH/o2jqmpq17O5?=
- =?us-ascii?Q?zDArGdfmLIPqNuU4V4ERG9ALJK9pyJ8tipDcY9SzjFaYS3ooLmu6K5IFTA1Q?=
- =?us-ascii?Q?q8xkXJrAKWUVxjeriyYrKo9ao257oN/jknX20DO1K2zO5BU/L/J7O1TBioiR?=
- =?us-ascii?Q?FnNWYlDgsDD/wunU2agyvliynnMQiwcU3A5kix7Qg+6ydspVvfAuQX3nG8BR?=
- =?us-ascii?Q?oswPLAgAvZObzoon7VFyQ3B0AdQ5AfZW++naUk0WMhrYPRUq1royEGkx/Aaz?=
- =?us-ascii?Q?QnpJ/qSoLwDspz+i5rfvO7d5/wAnB/HgYU5a6SPHC8/jWgn0vy0KPKJvMEik?=
- =?us-ascii?Q?6f7S5CLBfkkQsecLGMSt/XG03sH5c6Z+khmt66+f2Q0Lwg4sRKOlARVEoCE8?=
- =?us-ascii?Q?6gCHMZPwv+9yAXvIh0ZEmwmrBf0uOZ5o4B3qsvoPHDrPhzlwGbUaYqhKtmWM?=
- =?us-ascii?Q?SPLI/TM7dne2Im0ZukHimmK7i6sj4Y0KjYjoJtzZY6f74jo7IGd9J4mydOna?=
- =?us-ascii?Q?ZZMOHD9fngfSrtAfscrtds5O1nCT9VXZBg+uCv6Pwj/JRlELLErJYZzaWhmR?=
- =?us-ascii?Q?Cz1YdC6BiSQuO9B5aXmIHNg5x/AdB5WIQPnd7cBKfX13aFTSVIn+H0DdijnX?=
- =?us-ascii?Q?YtI9C4pCczfFzbCuYTb/V7xQvPLGQsaVWzZbTr+5gV+dnAO3pm80u8qLjftE?=
- =?us-ascii?Q?UpTidyx8myMiDP7er7MERD2JALpIvmAvDGDBtxXn1psYYUN+1usojHS8g4eQ?=
-X-OriginatorOrg: wdc.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: DM8PR04MB8037.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 76cf9a20-acfa-42cb-7266-08daf439285f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 12 Jan 2023 01:05:55.3690 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: b61c8803-16f3-4c35-9b17-6f65f441df86
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: UcdTRjWFMDP8S9f47U5frOocKE7n0tfPN7ah821uhc2XYjw0Vz3a3Wya0eKQ3BpNKTcCWNAJ5bdYgfiKxdVSsZrZ3VfpYfck6nzL/FQOvYg=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY4PR04MB0825
+X-Brightmail-Tracker: H4sIAAAAAAAAA01Te0xTVxzevbe9XBhll4fjwLLZFKdSnkUoB0I3Fh27bCYjgThjdHBX7iih
+ tLW3yB4kwADHyLDyzCjDogHlNVAEVwqFBmEiyNjC6HwAzgSXwUREWNwQZa0XNv/7zvf7vvP9
+ fudBYB53cF8iXaVjtCpaKcJdeJcu+4uD1l2t8tAJQyjsGP0Bg1+cfILB1hk9Di33a/nwhrUH
+ hc2twyjsPb2MwuGNRRyWD9oQeHfKgELLzQDYZ7nKg5Pmb3FoPHvXCZrm8hF46bERgyuNhU6w
+ /c8lHhy5+QqceHKFH+tFGW6P41SPYcaJmpi9wKMmx7OozpavcOpiQy7VeyMPp0oL7uPUUv8U
+ Tp3oakGolc7XqM65RTTB9VBGjIKhUxmtkFHJ1anpqjSZ6L3E5L3JEdJQSZAkCkaKhCo6k5GJ
+ 9u1PCIpLV9rHFAmP0cosO5VAs6wo5I0YrTpLxwgValYnEzGaVKUmXBPM0plsliotWMXooiWh
+ oWERdmFKhmKtpB/TNMFPni5b8DzEJi5BnAlAhgPbuplfgrgQHmQvAm7Z1nBu8RABZ6aHeA6V
+ B7mCgKbxD7YcrUMPUY43IyC/MpczFKDg6+rTdjdB4GQAGNsgHBovchoFPWN+Dg1G1qJgZPEO
+ 31HwJKXgensd4tDzyNfB0/53HbSAjAaVjZdRBw3IEKC/7c7R7uBqzdyzdjByOyjorsUcWwJy
+ lQANxwtRrrd9IG9wncdhT7BwpcuJw75gXn98E2eD5somnDMXIsDwqwHhCm+ColE95gjGSH/Q
+ YQ7h6FdB1Wg7ygW7gdLHc5tZAmA6tYX9QFtHPc5hH2B7lL+JKdD1t2XzDI8AY/kEehLZbnhu
+ HsNz8xj+T65HsBbEh9GwmWkMG6GRqJjs/65Vrs7sRJ69dXG8CZn57UHwIIISyCACCEzkJegb
+ HpB7CFLpTz9jtOpkbZaSYQeRCPsRl2G+2+Rq+2dR6ZIl4VGh4VKpNDxqj1Qi8hYw3Ua5B5lG
+ 65gMhtEw2i0fSjj75qHFhwfOj5xZswZFzfY5L/ktR1eEESsHjFikbPKFwO+6I9/fHXMgLPej
+ Hjqpyv3LyZ0yYz1/9i9X8PKETVX+zlkZNVxXuhCRKxFnTiW9mCi/vvOn5tWaY4lvfT7/oYtz
+ 9VB/vBiZr/2xuE3mfa1CIQz8/TCvPcbNWrWj4WcrlAw0xzb6FX38aJdCr2qbC0gI+SNHkp+z
+ 3xLrcvAQWRw8nMKfbuGV7dmbgOmvte52M/uc+6f6FkrO58SdulC2JryXRMftqgl8O837XHzG
+ aky7yXpwh9f3Y2T2dF1U0VFPf4vpF5maufigYXrmiDZlSn9ec3SDdd8WWV7Bwm8EweaXTMqF
+ eyIeq6AlYkzL0v8CTBj6s3QEAAA=
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Ra0hTYRzGe885nh0t7WwKvWZljsSaaGVRL9r1g3YShKAgs8JOdpjXZTvZ
+ RdKmVtDoZhejqZmiopspecvlrTZdXlADc5jl7DK7EOp0aqipsSzq2/P/Pb/n05/CRXnEcipK
+ dpqTy9hYMelAVOvF7j7+k40RGy5rhKiszYCj1FuzONL03yRR/XCmHXrzXIuhYk0zhmpzRzHU
+ PD9Eots6I0CDPSoM1fd5o7r6VgJ1P8siUU7hoADVmFMAqp7JwZG14JIAlX4fIVBLnxvqmn1p
+ t8uFUQ10kIxW1S9gukxPCKa7I4EpV18lmYr8i0ztGwXJXE8bJpmRhh6SuVGpBoy1fBVTbh7C
+ 9i0Jc9h2gouNOsPJ1+845hA5rWzA44vQubnRelIBjBIlsKcgvRlqmsYwWxbRNQB+z/rDXWHh
+ bBO+kJ1h8dwXwYKTgkFFmrsSUBRJe8P2eUoJHCgX+jMGO0wfcduB0wUYfNSQYmcbONNbYG9p
+ NrANCNoTzjUE27Aj7Q/vFugxG4b0enhzQLiAhbD1gZmwYZz2gmUPRTaM0+4wrSoTvwWWqv6z
+ VP8s1X/WI4CrgSsXz8dJ4/iN8X4y7qwvz8bxCTKpb8TJuHLw+40SSQ2oU1t8dQCjgA5AChe7
+ ONY1N0aIHE+w5xM5+clweUIsx+uAG0WIlzm+UraGi2gpe5qL4bh4Tv63xSj75QrMqTvp+Bcm
+ dzxwW4ulrJ85MNX0NHrl+XtVXH90bWVCXxhrd+cbV9pS7dOmlQW9DP5h6NK3n4quNN7PTYd+
+ ewfqGhMXG6fmAvKW5E/oh/UjJV690VHBJrBmxcTY4Hzy47zUtp4Qf4V1tW9I+Lqtk++kq5Or
+ DAF72Ws6z6IjmPJVznhSZJFA6pSVLr6U4ZlksHYepl+YPNjXQaIKHdgum8n+9ulTqN/uoAwP
+ 89eSC5ZFA28tK/dT2UeleFvQjVrxUu3BwMRN4KdlWnZF9/6Ot/OH3q1kqLopm/e0eryPMaWe
+ 6SPxtQWxO6u6ditahj6j+3lervnSPcJDk2YrH9ZZLSb4SHajBJfz7C82n+OzNQMAAA==
+X-CMS-MailID: 20230112115954epcas5p4a959bef952926b8976719f1179bb4436
+X-Msg-Generator: CA
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20230112115954epcas5p4a959bef952926b8976719f1179bb4436
+References: <CGME20230112115954epcas5p4a959bef952926b8976719f1179bb4436@epcas5p4.samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -156,9 +146,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Thu, 12 Jan 2023 07:42:27 +0000
-Subject: Re: [dm-devel] [PATCH blktests] dm: add a regression test
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Mailman-Approved-At: Thu, 12 Jan 2023 14:58:20 +0000
+Subject: [dm-devel] [PATCH v6 0/9] Implement copy offload support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -170,156 +160,207 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "hch@infradead.org" <hch@infradead.org>,
- "yi.zhang@huawei.com" <yi.zhang@huawei.com>,
- "yangerkun@huawei.com" <yangerkun@huawei.com>,
- "snitzer@kernel.org" <snitzer@kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "yukuai3@huawei.com" <yukuai3@huawei.com>
+Cc: p.raghav@samsung.com, joshi.k@samsung.com, gost.dev@samsung.com,
+ anuj20.g@samsung.com, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, Nitesh Shetty <nj.shetty@samsung.com>,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ nitheshshetty@gmail.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <6E519046A3C24743A6EB442F08934A02@namprd04.prod.outlook.com>
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hello Yu, thanks for the patch. I think it is good to have this test case to
-avoid repeating the same regression. Please find my comments in line.
+The patch series covers the points discussed in November 2021 virtual
+call [LSF/MM/BFP TOPIC] Storage: Copy Offload [0].
+We have covered the initial agreed requirements in this patchset and
+further additional features suggested by community.
+Patchset borrows Mikulas's token based approach for 2 bdev
+implementation.
 
-CC+: Mike, dm-devel,
+This is on top of our previous patchset v5[1].
 
-Mike, could you take a look in this new test case? It adds "dm" test group to
-blktests. If you have thoughts on how to add device-mapper related test cases
-to blktests, please share (Or we may be able to discuss later at LSF 2023).
+Overall series supports:
+========================
+	1. Driver
+		- NVMe Copy command (single NS, TP 4065), including support
+		in nvme-target (for block and file backend).
 
-On Dec 30, 2022 / 14:54, Yu Kuai wrote:
-> From: Yu Kuai <yukuai3@huawei.com>
-> 
-> Verify that reload a dm with itself won't crash the kernel.
+	2. Block layer
+		- Block-generic copy (REQ_COPY flag), with interface
+		accommodating two block-devs, and multi-source/destination
+		interface
+		- Emulation, when offload is natively absent
+		- dm-linear support (for cases not requiring split)
 
-With this test case, I observed the system crash on Fedora default kernel
-6.0.18-300.fc37. Will the kernel fix be delivered to stable kernels? If not,
-it would be the better to require kernel version 6.2 for this test case not
-to surprise the blktests users.
+	3. User-interface
+		- new ioctl
 
-Regarding the wording, "reload a dm with itself" is a bit confusing for me.
-How about "reload a dm with maps to itself"?
+	4. In-kernel user
+		- dm-kcopyd
 
-> 
-> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
-> ---
->  tests/dm/001     | 27 +++++++++++++++++++++++++++
->  tests/dm/001.out |  4 ++++
->  tests/dm/rc      | 11 +++++++++++
->  3 files changed, 42 insertions(+)
->  create mode 100755 tests/dm/001
->  create mode 100644 tests/dm/001.out
->  create mode 100644 tests/dm/rc
-> 
-> diff --git a/tests/dm/001 b/tests/dm/001
-> new file mode 100755
-> index 0000000..55e07f3
-> --- /dev/null
-> +++ b/tests/dm/001
-> @@ -0,0 +1,27 @@
-> +#!/bin/bash
-> +# SPDX-License-Identifier: GPL-3.0+
-> +# Copyright (C) 2022 Yu Kuai
-> +#
-> +# Regression test for commit 077a4033541f ("block: don't allow a disk link
-> +# holder to itself")
-> +
-> +. tests/dm/rc
-> +
-> +DESCRIPTION="reload a dm with itself"
+Testing
+=======
+	Copy offload can be tested on:
+	a. QEMU: NVME simple copy (TP 4065). By setting nvme-ns
+		parameters mssrl,mcl, msrc. For more info [2].
+	b. Fabrics loopback.
+	c. blktests[3] (tests block/032,033, nvme/046,047,048,049)
 
-Same comment on wording as the commit message.
+	Emuation can be tested on any device.
 
-> +QUICK=1
-> +
-> +requires() {
-> +	_have_program dmsetup && _have_driver dm-mod
+	Sample application to use IOCTL is present in patch desciption.
+	fio[4].
 
-I suggest to move these checks to group_requires in dm/rc, since future new test
-cases in dm group will require them also.
+Performance
+===========
+	With the async design of copy-emulation/offload using fio[4],
+	we were  able to see the following improvements as
+	compared to userspace read and write on a NVMeOF TCP setup:
+	Setup1: Network Speed: 1000Mb/s
+		Host PC: Intel(R) Core(TM) i7-8700 CPU @ 3.20GHz
+		Target PC: AMD Ryzen 9 5900X 12-Core Processor
+		block size 8k, range 1:
+			635% improvement in IO BW (107 MiB/s to 787 MiB/s).
+			Network utilisation drops from  97% to 14%.
+		block-size 2M, range 16:
+			2555% improvement in IO BW (100 MiB/s to 2655 MiB/s).
+			Network utilisation drops from 89% to 0.62%.
+	Setup2: Network Speed: 100Gb/s
+		Server: Intel(R) Xeon(R) Gold 6240 CPU @ 2.60GHz, 72 cores
+			(host and target have the same configuration)
+		block-size 8k, range 1:
+			6.5% improvement in IO BW (791 MiB/s to 843 MiB/s).
+			Network utilisation drops from  6.75% to 0.14%.
+		block-size 2M, range 16:
+			15% improvement in IO BW (1027 MiB/s to 1183 MiB/s).
+			Network utilisation drops from 8.42% to ~0%.
+		block-size 8k, 8 ranges:
+			18% drop in IO BW (from 798 MiB/s to 647 MiB/s)
+			Network utilisation drops from 6.66% to 0.13%.
 
-Nit: '&&' is no longer required to check multiple requirements. Just,
+		At present we see drop in performance for bs 8k,16k and
+		higher ranges (8, 16), so something more to check there.
+	Overall, in these tests, kernel copy emulation performs better than
+	userspace read+write. 
 
-	_have_program dmsetup
-	_have_driver dm-mod
+Blktests[3]
+======================
+	tests/block/032,033: Runs copy offload and emulation on block device.
+        tests/nvme/046,047,048,049 Create a loop backed fabrics device and
+        run copy offload and emulation.
 
-is fine and a bit better.
+Future Work
+===========
+        - nullblk: copy-offload emulation.
+	- generic copy file range (CFR):
+		We explored the possibility of using block device
+		def_blk_ops, but we saw a major disadvantage for in-kernel
+		users. fd is not available for in-kernel user [5].
+	- loopback device copy offload support
+	- upstream fio to use copy offload
 
-> +}
-> +
-> +test_device() {
-> +	echo "Running ${TEST_NAME}"
-> +
-> +	dmsetup create test --table "0 8192 linear ${TEST_DEV} 0"
-> +	dmsetup suspend test
-> +	dmsetup reload test --table "0 8192 linear /dev/mapper/test 0"
-> +	dmsetup resume test
-> +	dmsetup remove test
-> +
-> +	echo "Test complete"
-> +}
-> diff --git a/tests/dm/001.out b/tests/dm/001.out
-> new file mode 100644
-> index 0000000..23cf1f0
-> --- /dev/null
-> +++ b/tests/dm/001.out
-> @@ -0,0 +1,4 @@
-> +Running dm/001
-> +device-mapper: reload ioctl on test failed: Invalid argument
-> +Command failed
-> +Test complete
-
-With my test system and kernel v6.2-rc3, the messages above were slightly
-diffrent. To make the test case pass, I needed changes below:
-
-diff --git a/tests/dm/001.out b/tests/dm/001.out
-index 23cf1f0..543b1db 100644
---- a/tests/dm/001.out
-+++ b/tests/dm/001.out
-@@ -1,4 +1,4 @@
- Running dm/001
--device-mapper: reload ioctl on test failed: Invalid argument
--Command failed
-+device-mapper: reload ioctl on test  failed: Invalid argument
-+Command failed.
- Test complete
+	These are to be taken up after we reach consensus on the
+	plumbing of current elements that are part of this series.
 
 
-> diff --git a/tests/dm/rc b/tests/dm/rc
-> new file mode 100644
-> index 0000000..e1ad6c6
-> --- /dev/null
-> +++ b/tests/dm/rc
-> @@ -0,0 +1,11 @@
-> +#!/bin/bash
-> +# SPDX-License-Identifier: GPL-3.0+
-> +# Copyright (C) 2022 Yu Kuai
-> +#
-> +# TODO: provide a brief description of the group here.
+Additional links:
+=================
+	[0] https://lore.kernel.org/linux-nvme/CA+1E3rJ7BZ7LjQXXTdX+-0Edz=zT14mmPGMiVCzUgB33C60tbQ@mail.gmail.com/
+	[1] https://lore.kernel.org/lkml/20221130041450.GA17533@test-zns/T/
+	[2] https://qemu-project.gitlab.io/qemu/system/devices/nvme.html#simple-copy
+	[3] https://github.com/nitesh-shetty/blktests/tree/feat/copy_offload/v6
+	[4] https://github.com/vincentkfu/fio/tree/copyoffload
+	[5] https://lore.kernel.org/lkml/20221130041450.GA17533@test-zns/T/#m0e2754202fc2223e937c8e7ba3cf7336a93f97a3
 
-Let's not leave this TODO. How about "# Tests for device-mapper."?
+Changes since v5:
+=================
+	- Addition of blktests (Chaitanya Kulkarni)
+        - Minor fix for fabrics file backed path
+        - Remove buggy zonefs copy file range implementation.
 
-> +
-> +. common/rc
-> +
-> +group_requires() {
-> +	_have_root
-> +}
-> -- 
-> 2.31.1
-> 
+Changes since v4:
+=================
+	- make the offload and emulation design asynchronous (Hannes
+	  Reinecke)
+	- fabrics loopback support
+	- sysfs naming improvements (Damien Le Moal)
+	- use kfree() instead of kvfree() in cio_await_completion
+	  (Damien Le Moal)
+	- use ranges instead of rlist to represent range_entry (Damien
+	  Le Moal)
+	- change argument ordering in blk_copy_offload suggested (Damien
+	  Le Moal)
+	- removed multiple copy limit and merged into only one limit
+	  (Damien Le Moal)
+	- wrap overly long lines (Damien Le Moal)
+	- other naming improvements and cleanups (Damien Le Moal)
+	- correctly format the code example in description (Damien Le
+	  Moal)
+	- mark blk_copy_offload as static (kernel test robot)
+	
+Changes since v3:
+=================
+	- added copy_file_range support for zonefs
+	- added documentation about new sysfs entries
+	- incorporated review comments on v3
+	- minor fixes
 
+Changes since v2:
+=================
+	- fixed possible race condition reported by Damien Le Moal
+	- new sysfs controls as suggested by Damien Le Moal
+	- fixed possible memory leak reported by Dan Carpenter, lkp
+	- minor fixes
+
+Nitesh Shetty (9):
+  block: Introduce queue limits for copy-offload support
+  block: Add copy offload support infrastructure
+  block: add emulation for copy
+  block: Introduce a new ioctl for copy
+  nvme: add copy offload support
+  nvmet: add copy command support for bdev and file ns
+  dm: Add support for copy offload.
+  dm: Enable copy offload for dm-linear target
+  dm kcopyd: use copy offload support
+
+ Documentation/ABI/stable/sysfs-block |  36 ++
+ block/blk-lib.c                      | 597 +++++++++++++++++++++++++++
+ block/blk-map.c                      |   4 +-
+ block/blk-settings.c                 |  24 ++
+ block/blk-sysfs.c                    |  64 +++
+ block/blk.h                          |   2 +
+ block/ioctl.c                        |  36 ++
+ drivers/md/dm-kcopyd.c               |  56 ++-
+ drivers/md/dm-linear.c               |   1 +
+ drivers/md/dm-table.c                |  42 ++
+ drivers/md/dm.c                      |   7 +
+ drivers/nvme/host/constants.c        |   1 +
+ drivers/nvme/host/core.c             | 106 ++++-
+ drivers/nvme/host/fc.c               |   5 +
+ drivers/nvme/host/nvme.h             |   7 +
+ drivers/nvme/host/pci.c              |  27 +-
+ drivers/nvme/host/rdma.c             |   7 +
+ drivers/nvme/host/tcp.c              |  16 +
+ drivers/nvme/host/trace.c            |  19 +
+ drivers/nvme/target/admin-cmd.c      |   9 +-
+ drivers/nvme/target/io-cmd-bdev.c    |  79 ++++
+ drivers/nvme/target/io-cmd-file.c    |  52 +++
+ drivers/nvme/target/loop.c           |   6 +
+ drivers/nvme/target/nvmet.h          |   2 +
+ include/linux/blk_types.h            |  44 ++
+ include/linux/blkdev.h               |  18 +
+ include/linux/device-mapper.h        |   5 +
+ include/linux/nvme.h                 |  43 +-
+ include/uapi/linux/fs.h              |  27 ++
+ 29 files changed, 1324 insertions(+), 18 deletions(-)
+
+
+base-commit: 469a89fd3bb73bb2eea628da2b3e0f695f80b7ce
 -- 
-Shin'ichiro Kawasaki
+2.35.1.500.gb896f729e2
 
 --
 dm-devel mailing list
