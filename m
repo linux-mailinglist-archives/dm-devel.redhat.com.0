@@ -1,70 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 87E6666CDCA
-	for <lists+dm-devel@lfdr.de>; Mon, 16 Jan 2023 18:40:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6986F66CF37
+	for <lists+dm-devel@lfdr.de>; Mon, 16 Jan 2023 19:56:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673890803;
+	s=mimecast20190719; t=1673895371;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=LZi8U+uJ5PE1p8EQ2L8aCmRaM7kpLGBfvb6EaMQVO/Y=;
-	b=IuTtHUFUx7hewo/Iu1wBZ2qslYx50p4baKkHkp2q7yDjioVJEEdjG2qelpLa1qUsBv3wnI
-	OmPycqI519bLfQ1MFj5oFgHKaZ9IyKu22jap8tesInsVX/Z8Z9dRWtSOGYYp1aL9CJ2sZM
-	vIw0RY06l9VeXIZ0DbAvCZxwSs+sWvg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=OZa1kfTZpSUZrkgFQ/tutngjL/BPMuNNCu4EoK9dLe4=;
+	b=C7r3MJhCUyRGaoJs1sZruwqoWRSIUB1tlvcl7KS7VBaiqVxmq+sB3yj0Yt6HVo7iexjyhx
+	h/KqnEQiQymxfQBLM5Vc6AKjGI/nklwEjJhnSC3ieioe/X5czD4wG4ZedjK93R6gYNBwXb
+	nhTsX0qwsCmZO0BLVNI/+nUq5X9cVh0=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-452-cUxshmlmOIek-htAGxtQaA-1; Mon, 16 Jan 2023 12:40:01 -0500
-X-MC-Unique: cUxshmlmOIek-htAGxtQaA-1
+ us-mta-99-BvEzcPJNMc2UUb0KBXuEXA-1; Mon, 16 Jan 2023 13:56:09 -0500
+X-MC-Unique: BvEzcPJNMc2UUb0KBXuEXA-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A8EDF1871CD6;
-	Mon, 16 Jan 2023 17:39:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DCCA1C0040C;
+	Mon, 16 Jan 2023 18:56:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 815331121314;
-	Mon, 16 Jan 2023 17:39:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 34B5E1121318;
+	Mon, 16 Jan 2023 18:56:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 938A2194705B;
-	Mon, 16 Jan 2023 17:39:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 554B319465B7;
+	Mon, 16 Jan 2023 18:56:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1D2461946589
- for <dm-devel@listman.corp.redhat.com>; Mon, 16 Jan 2023 17:39:44 +0000 (UTC)
+ ESMTP id 808841946589
+ for <dm-devel@listman.corp.redhat.com>; Mon, 16 Jan 2023 18:55:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7651F2166B2A; Mon, 16 Jan 2023 17:39:44 +0000 (UTC)
+ id 4A861492B01; Mon, 16 Jan 2023 18:55:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5423C2166B26;
- Mon, 16 Jan 2023 17:39:44 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 33A55492B00;
+ Mon, 16 Jan 2023 18:55:58 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 30GHdhCp002511;
- Mon, 16 Jan 2023 11:39:43 -0600
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 30GItuc4014309;
+ Mon, 16 Jan 2023 12:55:56 -0600
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 30GHdgsZ002510;
- Mon, 16 Jan 2023 11:39:42 -0600
-Date: Mon, 16 Jan 2023 11:39:42 -0600
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 30GItu59014308;
+ Mon, 16 Jan 2023 12:55:56 -0600
+Date: Mon, 16 Jan 2023 12:55:55 -0600
 From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Nitin Yewale <nyewale@redhat.com>
-Message-ID: <20230116173942.GC17327@octiron.msp.redhat.com>
-References: <1673555329-9850-1-git-send-email-bmarzins@redhat.com>
- <1673555329-9850-2-git-send-email-bmarzins@redhat.com>
- <0ce9d087cc48ed97f2cee1a5c48c0149d5728332.camel@suse.com>
- <CACgRdraG3XRpmJB7L=kRce3eYOMWeWfUQ63pD0g1Bt0O5sA4LA@mail.gmail.com>
+To: mwilck@suse.com
+Message-ID: <20230116185555.GF17327@octiron.msp.redhat.com>
+References: <20230113094310.20367-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <CACgRdraG3XRpmJB7L=kRce3eYOMWeWfUQ63pD0g1Bt0O5sA4LA@mail.gmail.com>
+In-Reply-To: <20230113094310.20367-1-mwilck@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 1/2] multipathd: Add format options to
- multipathd man page
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH 0/2] multipath-tools fixes for GitHub
+ reported issues
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,7 +73,7 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
@@ -86,116 +83,28 @@ Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jan 13, 2023 at 06:16:37PM +0530, Nitin Yewale wrote:
-> Hello Ben,
+On Fri, Jan 13, 2023 at 10:43:08AM +0100, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
 > 
-> I can try to explain the $format options. Will update bz with the new patch.
+> Two patches that originate from issues reported on GitHub.
+> I couldn't figure out the email addresses of the reporters.
 
-Sure. You're welcome to post patches directly to dm-devel as well.  But
-if it's more convinient for you to post them to the bugzilla, I can
-forward them for you.
-
--Ben
+For the set,
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 
 > 
-> Thank you,
-> Nitin Yewale
+> Martin Wilck (2):
+>   libmpathpersist: use conf->timeout for updating persistent
+>     reservations
+>   libmultipath: pathinfo: don't fail for devices lacking INQUIRY
+>     properties
 > 
-> On Fri, Jan 13, 2023 at 2:22 PM Martin Wilck <martin.wilck@suse.com> wrote:
-> 
-> > On Thu, 2023-01-12 at 14:28 -0600, Benjamin Marzinski wrote:
-> > > From: Nitin Yewale <nyewale@redhat.com>
-> > >
-> > > Move "multipathd show wildcards" command above the $format commands
-> > > and
-> > > also add $format options for "map" and "path" commands to the
-> > > multipathd
-> > > man page.
-> > >
-> > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > > ---
-> > >  multipathd/multipathd.8 | 16 ++++++++++++----
-> > >  1 file changed, 12 insertions(+), 4 deletions(-)
-> > >
-> > > diff --git a/multipathd/multipathd.8 b/multipathd/multipathd.8
-> > > index bdf102eb..95d475da 100644
-> > > --- a/multipathd/multipathd.8
-> > > +++ b/multipathd/multipathd.8
-> > > @@ -113,9 +113,17 @@ The following commands can be used in
-> > > interactive mode:
-> > >  Show the paths that multipathd is monitoring, and their state.
-> > >  .
-> > >  .TP
-> > > +.B list|show wildcards
-> > > +Show the format wildcards used in interactive commands taking
-> > > $format.
-> > > +.
-> > > +.TP
-> > >  .B list|show paths format $format
-> > >  Show the paths that multipathd is monitoring, using a format string
-> > > with path
-> > >  format wildcards.
-> > > +
-> > > +path format wildcards:
-> > > +
-> > > +%w (uuid), %i (hcil), %d (dev), %D (dev_t), %t (dm_st), %o (dev_st),
-> > > %T (chk_st), %s (vend/prod/rev), %c (checker), %C (next_check), %p
-> > > (pri), %S (size), %z (serial), %M (marginal_st), %m (multipath), %N
-> > > (host WWNN), %n (target WWNN), %R (host WWPN), %r (target WWPN), %a
-> > > (host adapter), %G (foreign), %g (vpd page data), %0 (failures), %P
-> > > (protocol)
-> > >  .
-> >
-> > If we do this in the first place, we should explain it better. Terms
-> > like "dm_st" need explanation. The explanation would grow into a longer
-> > paragraph, which should be moved to the bottom of the man page with a
-> > cross reference here.
-> >
-> > >  .TP
-> > >  .B list|show maps|multipaths
-> > > @@ -125,6 +133,10 @@ Show the multipath devices that the multipathd
-> > > is monitoring.
-> > >  .B list|show maps|multipaths format $format
-> > >  Show the status of all multipath devices that the multipathd is
-> > > monitoring,
-> > >  using a format string with multipath format wildcards.
-> > > +
-> > > +multipath format wildcards:
-> > > +
-> > > +%n (name), %w (uuid), %d (sysfs), %F (failback), %Q (queueing), %N
-> > > (no. of paths), %r (write_prot), %t (dm-st), %S (size), %f
-> > > (features), %x (failures), %h (hwhandler), %A (action), %0
-> > > (path_faults), %1 (switch_grp), %2 (map_loads), %3 (total_q_time), %4
-> > > (q_timeouts), %s (vend/prod/rev), %v (vend), %p (prod), %e (rev), %G
-> > > (foreign), %g (vpd page data)
-> >
-> > Same comment as above.
-> >
-> > Martin
-> >
-> > >  .
-> > >  .TP
-> > >  .B list|show maps|multipaths status
-> > > @@ -148,10 +160,6 @@ Show topology of a single multipath device
-> > > specified by $map, for example
-> > >  36005076303ffc56200000000000010aa. This map could be obtained from
-> > > '\fIlist maps\fR'.
-> > >  .
-> > >  .TP
-> > > -.B list|show wildcards
-> > > -Show the format wildcards used in interactive commands taking
-> > > $format.
-> > > -.
-> > > -.TP
-> > >  .B list|show config
-> > >  Show the currently used configuration, derived from default values
-> > > and values
-> > >  specified within the configuration file \fI/etc/multipath.conf\fR.
-> >
-> >
+>  libmpathpersist/mpath_updatepr.c | 11 ++++++++++-
+>  libmultipath/discovery.c         | 22 +++++++++++++---------
+>  2 files changed, 23 insertions(+), 10 deletions(-)
 > 
 > -- 
-> Regards,
+> 2.39.0
 --
 dm-devel mailing list
 dm-devel@redhat.com
