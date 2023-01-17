@@ -1,102 +1,121 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0DBAD670CC8
-	for <lists+dm-devel@lfdr.de>; Wed, 18 Jan 2023 00:09:09 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C59246715D3
+	for <lists+dm-devel@lfdr.de>; Wed, 18 Jan 2023 09:05:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1673996948;
+	s=mimecast20190719; t=1674029103;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5CYIV5PwiU+23cmhJpLZVP9rGoooRFSM3xwAF6dLkBA=;
-	b=c/ZRhIV3i4dudOReptt+9f9Q3xLfWJ5BUQFm320ox2qI9dn+0pRBbbT50jhjCtUpFUeD6R
-	AF3H0LJ2CJpAnmhp/AeN0MWhX/e5XrhuLorIubnbnUlb3gZvX5+onW1StQWkl7AeEw5oA5
-	p/sXOoGSZb9j6SeGa7XSHqpiq6XUe6s=
+	bh=oVBd4sKlCL3EbNn9/r2Z0/x38KqN5Fv9mK4HKnG7dPY=;
+	b=QDrOxYGFcC26VLoCGs7YlzcD3nhF33c1+eSXtd9Prmcr+JEiVe1KprML2QQzTjUceXrsGt
+	HLS7b49EZ6CvlLxRboPjyNJ9IlL9jqyjlmYY0Uym7jPin5F1R8ByUTMfOzAgceG1m4nRj2
+	XVwnVl+I0Nm6vw4umwNFz2QidUYL5Xs=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-287-ZaEmoyorNbKdkbnsRCXmNQ-1; Tue, 17 Jan 2023 18:09:07 -0500
-X-MC-Unique: ZaEmoyorNbKdkbnsRCXmNQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-81-KetcghJYMPayBO13-VtBog-1; Wed, 18 Jan 2023 03:04:29 -0500
+X-MC-Unique: KetcghJYMPayBO13-VtBog-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7207085C06E;
-	Tue, 17 Jan 2023 23:09:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F25B285C069;
+	Wed, 18 Jan 2023 08:04:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D42140C6EC4;
-	Tue, 17 Jan 2023 23:08:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9720651E5;
+	Wed, 18 Jan 2023 08:04:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 96F841946A70;
-	Tue, 17 Jan 2023 23:08:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8DECD1946A72;
+	Wed, 18 Jan 2023 08:04:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 37C5819465B3
- for <dm-devel@listman.corp.redhat.com>; Tue, 17 Jan 2023 23:08:52 +0000 (UTC)
+ ESMTP id ED34919465B3
+ for <dm-devel@listman.corp.redhat.com>; Tue, 17 Jan 2023 21:15:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 26FBE4078903; Tue, 17 Jan 2023 23:08:52 +0000 (UTC)
+ id D9916175A2; Tue, 17 Jan 2023 21:15:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FEA840C6EC4
- for <dm-devel@redhat.com>; Tue, 17 Jan 2023 23:08:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 033F61C04349
- for <dm-devel@redhat.com>; Tue, 17 Jan 2023 23:08:52 +0000 (UTC)
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-260-_3rxGum5Pgy0Swh4XiaR-g-1; Tue, 17 Jan 2023 18:08:49 -0500
-X-MC-Unique: _3rxGum5Pgy0Swh4XiaR-g-1
-Received: by mail-qk1-f198.google.com with SMTP id
- a3-20020a05620a438300b007069b068069so2301343qkp.2
- for <dm-devel@redhat.com>; Tue, 17 Jan 2023 15:08:48 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hLUhE+N6wNGcOFfTldSYxDCBe/hAkHMsdAmNF17Xymc=;
- b=yorenI6jTsQ7Ncl8Wc27dHm5TZ6QtqU7rBHFEvWSjjA/fz9B6oWKGyBbm71w3HpZvm
- oHZ1ZJfrwS1FJaaXa2GQWXWCDApkaMm8ZefOsZwyU6gWI0meFvZxM01l09TflF5c8Xqt
- 5jRjG+YIp6JdCFaVcSsGf7iJiFDdxEEIqqUgnvXpC7L7obvCvLea6uVewtVgpyuxpc+O
- bKf+NRHCuceBbXA2YeJrz/4ygS22HLwDARD96Lx6IXdEmgJ+nZYldUTc9tQHmgq1JQ24
- f93WXjJctJjJY0sjeLlzhfvq4gWyZBDuGGasqvwqvnwlcMgDkBrqlstCyAyDJx19um22
- +j4w==
-X-Gm-Message-State: AFqh2krgDOXnRT+9Fj/+lpTBeFgq1Q8c2Y0hg8QNwQRruakXSHMMfCPB
- rKrNVIb0kyj0GF6s8mw7JhvqpxQdx1lIivzWUEyLICotJ+XWpIf72rertfuDAkmKFeXX/E9CMCv
- QO4C2qkBxkQwfTQ==
-X-Received: by 2002:a05:622a:1dc4:b0:3b0:12fc:ff96 with SMTP id
- bn4-20020a05622a1dc400b003b012fcff96mr5892363qtb.23.1673996928004; 
- Tue, 17 Jan 2023 15:08:48 -0800 (PST)
-X-Google-Smtp-Source: AMrXdXs0vPxyl1XT+dxMILItLl3+pLEGdNv9Sv+NcGT7bP7sh98JIs9rjlnuL0rLpT8TgvsCATdexQ==
-X-Received: by 2002:a05:622a:1dc4:b0:3b0:12fc:ff96 with SMTP id
- bn4-20020a05622a1dc400b003b012fcff96mr5892349qtb.23.1673996927779; 
- Tue, 17 Jan 2023 15:08:47 -0800 (PST)
-Received: from localhost (pool-68-160-145-102.bstnma.fios.verizon.net.
- [68.160.145.102]) by smtp.gmail.com with ESMTPSA id
- p15-20020ac8460f000000b003ae33f9260dsm4659239qtn.49.2023.01.17.15.08.47
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 17 Jan 2023 15:08:47 -0800 (PST)
-Date: Tue, 17 Jan 2023 18:08:46 -0500
-From: Mike Snitzer <snitzer@redhat.com>
-To: "Paul E. McKenney" <paulmck@kernel.org>
-Message-ID: <Y8cqfvrfd3pL9ToJ@redhat.com>
-References: <20230113001103.GA3374173@paulmck-ThinkPad-P17-Gen-1>
- <20230113001132.3375334-6-paulmck@kernel.org>
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D00CC7AE5
+ for <dm-devel@redhat.com>; Tue, 17 Jan 2023 21:15:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF04E18A6463
+ for <dm-devel@redhat.com>; Tue, 17 Jan 2023 21:15:12 +0000 (UTC)
+Received: from mx01.omp.ru (mx01.omp.ru [90.154.21.10]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id
+ us-mta-43-GUq65ElbNCmFAdAxsQJYew-1; Tue, 17 Jan 2023 16:15:08 -0500
+X-MC-Unique: GUq65ElbNCmFAdAxsQJYew-1
+Received: from [192.168.1.103] (178.176.73.255) by msexch01.omp.ru
+ (10.188.4.12) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA384) id 15.2.986.14; Tue, 17 Jan
+ 2023 23:59:55 +0300
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ <dm-devel@redhat.com>
+From: Sergey Shtylyov <s.shtylyov@omp.ru>
+Organization: Open Mobile Platform
+Message-ID: <c8c9df45-1d59-3195-7631-51b3a58148ee@omp.ru>
+Date: Tue, 17 Jan 2023 23:59:55 +0300
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:78.0) Gecko/20100101
+ Thunderbird/78.10.1
 MIME-Version: 1.0
-In-Reply-To: <20230113001132.3375334-6-paulmck@kernel.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH rcu v2 06/20] drivers/md: Remove "select SRCU"
+X-Originating-IP: [178.176.73.255]
+X-ClientProxiedBy: msexch01.omp.ru (10.188.4.12) To msexch01.omp.ru
+ (10.188.4.12)
+X-KSE-ServerInfo: msexch01.omp.ru, 9
+X-KSE-AntiSpam-Interceptor-Info: scan successful
+X-KSE-AntiSpam-Version: 5.9.59, Database issued on: 01/17/2023 20:40:25
+X-KSE-AntiSpam-Status: KAS_STATUS_NOT_DETECTED
+X-KSE-AntiSpam-Method: none
+X-KSE-AntiSpam-Rate: 59
+X-KSE-AntiSpam-Info: Lua profiles 174785 [Jan 17 2023]
+X-KSE-AntiSpam-Info: Version: 5.9.59.0
+X-KSE-AntiSpam-Info: Envelope from: s.shtylyov@omp.ru
+X-KSE-AntiSpam-Info: LuaCore: 502 502 69dee8ef46717dd3cb3eeb129cb7cc8dab9e30f6
+X-KSE-AntiSpam-Info: {rep_avail}
+X-KSE-AntiSpam-Info: {Tracking_from_domain_doesnt_match_to}
+X-KSE-AntiSpam-Info: {relay has no DNS name}
+X-KSE-AntiSpam-Info: {SMTP from is not routable}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 178.176.73.255 in (user)
+ b.barracudacentral.org}
+X-KSE-AntiSpam-Info: {Found in DNSBL: 178.176.73.255 in (user)
+ dbl.spamhaus.org}
+X-KSE-AntiSpam-Info: omp.ru:7.1.1; 127.0.0.199:7.1.2;
+ d41d8cd98f00b204e9800998ecf8427e.com:7.1.1
+X-KSE-AntiSpam-Info: ApMailHostAddress: 178.176.73.255
+X-KSE-AntiSpam-Info: {DNS response errors}
+X-KSE-AntiSpam-Info: Rate: 59
+X-KSE-AntiSpam-Info: Status: not_detected
+X-KSE-AntiSpam-Info: Method: none
+X-KSE-AntiSpam-Info: Auth:dmarc=temperror header.from=omp.ru;spf=temperror
+ smtp.mailfrom=omp.ru;dkim=none
+X-KSE-Antiphishing-Info: Clean
+X-KSE-Antiphishing-ScanningType: Heuristic
+X-KSE-Antiphishing-Method: None
+X-KSE-Antiphishing-Bases: 01/17/2023 20:43:00
+X-KSE-AttachmentFiltering-Interceptor-Info: protection disabled
+X-KSE-Antivirus-Interceptor-Info: scan successful
+X-KSE-Antivirus-Info: Clean, bases: 1/17/2023 6:56:00 PM
+X-KSE-BulkMessagesFiltering-Scan-Result: InTheLimit
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mailman-Approved-At: Wed, 18 Jan 2023 08:04:20 +0000
+Subject: [dm-devel] [PATCH] md: dm-ioctl: drop always-false condition
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,36 +127,48 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, John Ogness <john.ogness@linutronix.de>,
- kernel-team@meta.com, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, rostedt@goodmis.org, rcu@vger.kernel.org,
- Song Liu <song@kernel.org>, dm-devel@redhat.com,
- Alasdair Kergon <agk@redhat.com>
+Cc: lvc-patches@linuxtesting.org, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 12 2023 at  7:11P -0500,
-Paul E. McKenney <paulmck@kernel.org> wrote:
+The expression 'indata[3] > ULONG_MAX' always evaluates to false since
+indata[] is declared as an array of *unsigned long* elements and #define
+ULONG_MAX represents the max value of that exact type...
 
-> Now that the SRCU Kconfig option is unconditionally selected, there is
-> no longer any point in selecting it.  Therefore, remove the "select SRCU"
-> Kconfig statements.
-> 
-> Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
-> Cc: Song Liu <song@kernel.org>
-> Cc: Alasdair Kergon <agk@redhat.com>
-> Cc: Mike Snitzer <snitzer@kernel.org>
-> Cc: <dm-devel@redhat.com>
-> Cc: <linux-raid@vger.kernel.org>
-> Reviewed-by: John Ogness <john.ogness@linutronix.de>
+Note that gcc seems to be able to detect the dead code here and eliminate
+this check anyway...
 
-Acked-by: Mike Snitzer <snitzer@kernel.org>
+Found by Linux Verification Center (linuxtesting.org) with the SVACE static
+analysis tool.
+
+Signed-off-by: Sergey Shtylyov <s.shtylyov@omp.ru>
+
+---
+This patch is atop of the 'for-next' branch of the device-mapper repo...
+
+ drivers/md/dm-ioctl.c |    3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+Index: linux-dm/drivers/md/dm-ioctl.c
+===================================================================
+--- linux-dm.orig/drivers/md/dm-ioctl.c
++++ linux-dm/drivers/md/dm-ioctl.c
+@@ -1073,8 +1073,7 @@ static int dev_set_geometry(struct file
+ 		goto out;
+ 	}
+ 
+-	if (indata[0] > 65535 || indata[1] > 255 ||
+-	    indata[2] > 255 || indata[3] > ULONG_MAX) {
++	if (indata[0] > 65535 || indata[1] > 255 || indata[2] > 255) {
+ 		DMERR("Geometry exceeds range limits.");
+ 		goto out;
+ 	}
 
 --
 dm-devel mailing list
