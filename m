@@ -2,89 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D4436715CF
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F6A96715CE
 	for <lists+dm-devel@lfdr.de>; Wed, 18 Jan 2023 09:04:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674029071;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1674029070;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DS8Yq8RstT4j7AS/eHCRulgd4X33ilHt0wmOpbXgToE=;
-	b=ZNtmw5Yl1a8jNxisPlmMTi7sXrUoHrPIH6z2QTz+EFgEV0/2vJ4BZASlPga2IuiTZ5m4O2
-	G/hwaTwGiGKhgIMqUbYLr6kuTyPlDZ7XM5Htn8EYQOD0+oU+GZrP6sovO9PRBQgZ9b9R05
-	92QsrjUMM/cjvMSEbi4/k/NOaVaAGP0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=whqdNSRrct1vay0k0OAxTdsNWIRFsh3ugH9OSZ/EfSY=;
+	b=djtrfyaw4jT2yDB+Jiaf/xu1GUIwgjMIfka8+Y2z+IJ5QX8dmHrxPoSWGSbuBjJlCrHJlc
+	3Ez1xU3WrC4ErQH2n1Crfn510149/QYs1eGqvasSj5xgvw8EqvQfnUwmQP4Py2huzOzCHB
+	5P7aGlwMqSkmPB2qOBsZ7XdUWEtZCQY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-81-kzae5BmjOMe-fMcLGpXe-w-1; Wed, 18 Jan 2023 03:04:29 -0500
-X-MC-Unique: kzae5BmjOMe-fMcLGpXe-w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-665-PBt4PGjLOuasxvWoXsTkNg-1; Wed, 18 Jan 2023 03:04:29 -0500
+X-MC-Unique: PBt4PGjLOuasxvWoXsTkNg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1567857F40;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F12681C0878C;
 	Wed, 18 Jan 2023 08:04:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BEB0840C2004;
-	Wed, 18 Jan 2023 08:04:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ED7F540C6EC4;
+	Wed, 18 Jan 2023 08:04:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B62891946A7D;
-	Wed, 18 Jan 2023 08:04:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9488B1946A76;
+	Wed, 18 Jan 2023 08:04:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CF15F19465B3
- for <dm-devel@listman.corp.redhat.com>; Tue, 17 Jan 2023 22:30:34 +0000 (UTC)
+ ESMTP id 7BC9619465B3
+ for <dm-devel@listman.corp.redhat.com>; Wed, 18 Jan 2023 04:03:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0BE2C2166B26; Tue, 17 Jan 2023 22:30:34 +0000 (UTC)
+ id 23E2F1415108; Wed, 18 Jan 2023 04:03:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0572B2166B29
- for <dm-devel@redhat.com>; Tue, 17 Jan 2023 22:30:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1C471140EBF5
+ for <dm-devel@redhat.com>; Wed, 18 Jan 2023 04:03:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01928811E6E
+ for <dm-devel@redhat.com>; Wed, 18 Jan 2023 04:03:30 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-323-6sX23Sg2MBSaaAOsAQ9hnQ-1; Tue, 17 Jan 2023 23:03:17 -0500
+X-MC-Unique: 6sX23Sg2MBSaaAOsAQ9hnQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBF6F8A0100
- for <dm-devel@redhat.com>; Tue, 17 Jan 2023 22:30:33 +0000 (UTC)
-Received: from mail-vs1-f43.google.com (mail-vs1-f43.google.com
- [209.85.217.43]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-640-GakKOlFYNjGIQokpu1j86g-1; Tue, 17 Jan 2023 17:30:32 -0500
-X-MC-Unique: GakKOlFYNjGIQokpu1j86g-1
-Received: by mail-vs1-f43.google.com with SMTP id l125so14525761vsc.2
- for <dm-devel@redhat.com>; Tue, 17 Jan 2023 14:30:32 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=ScEkSv/4ujt+FscJGahMwM/oQgqzcSsBVgCxU70QRJI=;
- b=vGYotdupNgmpBTOspfH+d96vKsB7tgRgGJ5boiM6oMTb6VrtW4d/tz2NXx3M1kMMkQ
- 34TpXlyoSXBTHYw58v5Tglq1iR/MSb/E0cNUWBjCsECV3/2J+FVu5aI261MB5qrpXScH
- iCa6QSaVc24M1R72WUg33oNZrcAcww1SfvJfzYWV3k6BzJzYvHIPKbz0g6qpID9fsMQG
- ArwObhVM/1AhiL06v5A+jF8PO9NSRSh+QmurlU8xGbfs2TYTCHEtxcYcgK3mLvPQTl4Y
- BrFmh9GYXzcKaOZnIh8iJByo0V5EWHr4AP0exMounPp8rgO3BOeQyDR5l6yYw5eAJVDY
- sinw==
-X-Gm-Message-State: AFqh2koBk87iFMezu9HDkH6Rb6EI2nrxRbqGZX2G4ia6Do1ICzl3dDpO
- ++GZ+y67KTXsjrI1CFvOIs4H/grrKnNEhqe7v2iy+w==
-X-Google-Smtp-Source: AMrXdXsasxzFes28B36W71fU5Iue+c6SDhtfvo6j1Ld/ub9DRIvDly3xpJu8wO0cQ3K8NP967lAk53nFxEnNJD9i4tI=
-X-Received: by 2002:a67:fb42:0:b0:3d0:d3fe:3d48 with SMTP id
- e2-20020a67fb42000000b003d0d3fe3d48mr557188vsr.32.1673994631663; Tue, 17 Jan
- 2023 14:30:31 -0800 (PST)
+ by ams.source.kernel.org (Postfix) with ESMTPS id A1367B81B08;
+ Wed, 18 Jan 2023 03:55:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4584CC433EF;
+ Wed, 18 Jan 2023 03:55:10 +0000 (UTC)
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+ id D3AE15C1052; Tue, 17 Jan 2023 19:55:09 -0800 (PST)
+Date: Tue, 17 Jan 2023 19:55:09 -0800
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Mike Snitzer <snitzer@redhat.com>
+Message-ID: <20230118035509.GS2948950@paulmck-ThinkPad-P17-Gen-1>
+References: <20230113001103.GA3374173@paulmck-ThinkPad-P17-Gen-1>
+ <20230113001132.3375334-6-paulmck@kernel.org>
+ <Y8cqfvrfd3pL9ToJ@redhat.com>
 MIME-Version: 1.0
-References: <CAJs=3_C+K0iumqYyKhphYLp=Qd7i6-Y6aDUgmYyY_rdnN1NAag@mail.gmail.com>
-In-Reply-To: <CAJs=3_C+K0iumqYyKhphYLp=Qd7i6-Y6aDUgmYyY_rdnN1NAag@mail.gmail.com>
-From: Enrico Granata <egranata@google.com>
-Date: Tue, 17 Jan 2023 15:30:20 -0700
-Message-ID: <CAPR809uYp6vGvCk4ugWOjbmd13WTm8fRg0f2Mdq3pxj6=d1McQ@mail.gmail.com>
-To: Alvaro Karsz <alvaro.karsz@solid-run.com>,
- Jahdiel Alvarez <jahdiel@google.com>
+In-Reply-To: <Y8cqfvrfd3pL9ToJ@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -92,9 +81,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Wed, 18 Jan 2023 08:04:20 +0000
-Subject: Re: [dm-devel] Virtio-blk extended lifetime feature
+Subject: Re: [dm-devel] [PATCH rcu v2 06/20] drivers/md: Remove "select SRCU"
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,66 +95,42 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
- Chaitanya Kulkarni <chaitanyak@nvidia.com>,
- Bart Van Assche <bvanassche@acm.org>, linux-scsi@vger.kernel.org,
- "Michael S. Tsirkin" <mst@redhat.com>, linux-nvme@lists.infradead.org,
- virtualization <virtualization@lists.linux-foundation.org>,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Stefan Hajnoczi <stefanha@redhat.com>
+Reply-To: paulmck@kernel.org
+Cc: linux-raid@vger.kernel.org, John Ogness <john.ogness@linutronix.de>,
+ kernel-team@meta.com, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, rostedt@goodmis.org, rcu@vger.kernel.org,
+ Song Liu <song@kernel.org>, dm-devel@redhat.com,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi,
-I am going to add +Jahdiel Alvarez who is also looking into a similar
-issue, and also I would like to hear thoughts of people who may have
-worked with (embedded or otherwise) storage more recently than I have
+On Tue, Jan 17, 2023 at 06:08:46PM -0500, Mike Snitzer wrote:
+> On Thu, Jan 12 2023 at  7:11P -0500,
+> Paul E. McKenney <paulmck@kernel.org> wrote:
+> 
+> > Now that the SRCU Kconfig option is unconditionally selected, there is
+> > no longer any point in selecting it.  Therefore, remove the "select SRCU"
+> > Kconfig statements.
+> > 
+> > Signed-off-by: Paul E. McKenney <paulmck@kernel.org>
+> > Cc: Song Liu <song@kernel.org>
+> > Cc: Alasdair Kergon <agk@redhat.com>
+> > Cc: Mike Snitzer <snitzer@kernel.org>
+> > Cc: <dm-devel@redhat.com>
+> > Cc: <linux-raid@vger.kernel.org>
+> > Reviewed-by: John Ogness <john.ogness@linutronix.de>
+> 
+> Acked-by: Mike Snitzer <snitzer@kernel.org>
 
-One thought that Jahdiel and myself were pondering is whether we need
-"type_a" and "type_b" fields at all, or if there should simply be a
-"wear estimate" field, which for eMMC, it could be max(typ_a, typ_b)
-but it could generalize to any number of cell or other algorithm, as
-long as it produces one unique estimate of wear
+Will apply on my next rebase, thank you!
 
-Thanks,
-- Enrico
-
-Thanks,
-- Enrico
-
-
-On Sun, Jan 15, 2023 at 12:56 AM Alvaro Karsz
-<alvaro.karsz@solid-run.com> wrote:
->
-> Hi guys,
->
-> While trying to upstream the implementation of VIRTIO_BLK_F_LIFETIME
-> feature, many developers suggested that this feature should be
-> extended to include more cell types, since its current implementation
-> in virtio spec is relevant for MMC and UFS devices only.
->
-> The VIRTIO_BLK_F_LIFETIME defines the following fields:
->
-> - pre_eol_info:  the percentage of reserved blocks that are consumed.
-> - device_lifetime_est_typ_a: wear of SLC cells.
-> - device_lifetime_est_typ_b: wear of MLC cells.
->
-> (https://docs.oasis-open.org/virtio/virtio/v1.2/virtio-v1.2.html)
->
-> Following Michael's suggestion, I'd like to add to the virtio spec
-> with a new, extended lifetime command.
-> Since I'm more familiar with embedded type storage devices, I'd like
-> to ask you guys what fields you think should be included in the
-> extended command.
->
-> Thanks,
->
-> Alvaro
+							Thanx, Paul
 
 --
 dm-devel mailing list
