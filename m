@@ -2,96 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 20DA5671C83
-	for <lists+dm-devel@lfdr.de>; Wed, 18 Jan 2023 13:48:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 17A4D671E51
+	for <lists+dm-devel@lfdr.de>; Wed, 18 Jan 2023 14:46:23 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674046096;
+	s=mimecast20190719; t=1674049582;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eTyYcffuwG+KRg+gZYszfLUOw+0PjAW01oFi3FPVT+A=;
-	b=cF0m5NlLCL8qfposgTE0qjHR0ujIf+5YSldR0v31bQyMydCPHKiOU3Qp7rI8uW1lcrdZM4
-	fmiohBxQI9xPJODdV5OciAicIQ1MimtbgX+lwvJ1M49eV6vic6l99wpACx8+neXf0AChXG
-	8g+AhNa6piBhk/dvpZOihKYakHjbJPA=
+	bh=fe/5nlK55XRcGWycvHfi/b6O7xZYxMwEZ7E6QzcaHPE=;
+	b=TTipIMVmNE3acuEYTI0i5fAxngdGN0GcpkNPyuSa9J3gvJ/Q+QJdyXBdvBYP2zowNDpzWi
+	fbHjFbyUNxD7/uJvEmcmQ7raDa4IGhY3HE4Mlwroc85HkX/e6GNgAKXK52ojAjTHh/o6ZJ
+	ASEibX+zfY/TBqeEaxXLePXP5cuxzUQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-495--0rHLUyjP1WJE7v2eL525Q-1; Wed, 18 Jan 2023 07:48:14 -0500
-X-MC-Unique: -0rHLUyjP1WJE7v2eL525Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-327-SRycwiDINjCc_Kz-Li1yIg-1; Wed, 18 Jan 2023 08:46:20 -0500
+X-MC-Unique: SRycwiDINjCc_Kz-Li1yIg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C33A31C068DC;
-	Wed, 18 Jan 2023 12:48:11 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F183A1121315;
-	Wed, 18 Jan 2023 12:48:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 346523806713;
+	Wed, 18 Jan 2023 13:46:17 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 05D152026D4B;
+	Wed, 18 Jan 2023 13:46:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 759801946A74;
-	Wed, 18 Jan 2023 12:48:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 54C1319465B7;
+	Wed, 18 Jan 2023 13:46:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 77BA419465B7
- for <dm-devel@listman.corp.redhat.com>; Wed, 18 Jan 2023 12:29:59 +0000 (UTC)
+ ESMTP id 13B4919465B7
+ for <dm-devel@listman.corp.redhat.com>; Wed, 18 Jan 2023 13:33:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6D0112026FFB; Wed, 18 Jan 2023 12:29:59 +0000 (UTC)
+ id ED9961121318; Wed, 18 Jan 2023 13:33:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6304E2026D76
- for <dm-devel@redhat.com>; Wed, 18 Jan 2023 12:29:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 44DEC85C6E1
- for <dm-devel@redhat.com>; Wed, 18 Jan 2023 12:29:59 +0000 (UTC)
-Received: from mail-wm1-f44.google.com (mail-wm1-f44.google.com
- [209.85.128.44]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-346-UVeWbd4xM-qskLZ3UpG-Xg-1; Wed, 18 Jan 2023 07:29:57 -0500
-X-MC-Unique: UVeWbd4xM-qskLZ3UpG-Xg-1
-Received: by mail-wm1-f44.google.com with SMTP id
- f12-20020a7bc8cc000000b003daf6b2f9b9so1286260wml.3
- for <dm-devel@redhat.com>; Wed, 18 Jan 2023 04:29:57 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=BvVmoN6/yrQXLLAxB1qU+VaJPP6puzpFYPAhDzjAYDo=;
- b=c+dPa5f53sbJSxcIB/4UOchgHMJG6fXIe7YF2y9seLKkwpQ2MV+EmS/qIx2reHhapa
- 9KxK2lxeYkOdQVURSUcvmXvJeeXnKp8Bh5/nBKbesGpt3/mIBepoZ3kkIgnFO6/3ng2U
- kg1g2FbH63z1V4DN3MsuXOefFOkAmWV1EEHatc21MRHaghh3vCbIqtOvqkkx9fe73iCD
- s0N+kSe7oU2TPyS+IBjMt7spmgd5P929t0yI/04XX1SOZt8daeBHoU+Xpcr7UOuQfxsh
- ngyXo2yKPJkgcx3J5n4ur3XbFA1nO3giFKpWM+o7VwJgJxw/YUcmARSb6TIVrNhHw1rd
- Sc+w==
-X-Gm-Message-State: AFqh2kpv+5xE7O0baJblx1iPN4btgogvWWWK7a/SvqTwhJS0jPxt4NBz
- PcaUb32SH6W3VP0fjzhPV9ucaKlbH4aiYEOg
-X-Google-Smtp-Source: AMrXdXuEJkC/jBjOa9DzjiUDNIDEl9pJF2a9EYMTg39Adp19O4osTnWlFyKafsHZg+8UtKSh7pJv5Q==
-X-Received: by 2002:a05:600c:34ce:b0:3db:25f:be9e with SMTP id
- d14-20020a05600c34ce00b003db025fbe9emr6496648wmq.33.1674044996390; 
- Wed, 18 Jan 2023 04:29:56 -0800 (PST)
-Received: from marvin.hq.arr ([185.109.18.135])
- by smtp.gmail.com with ESMTPSA id
- n42-20020a05600c3baa00b003d9f14e9085sm2099344wms.17.2023.01.18.04.29.55
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 18 Jan 2023 04:29:55 -0800 (PST)
-From: Nikos Tsironis <ntsironis@arrikto.com>
-To: snitzer@kernel.org,
-	agk@redhat.com,
-	dm-devel@redhat.com
-Date: Wed, 18 Jan 2023 14:29:46 +0200
-Message-Id: <20230118122946.20435-3-ntsironis@arrikto.com>
-In-Reply-To: <20230118122946.20435-1-ntsironis@arrikto.com>
-References: <20230118122946.20435-1-ntsironis@arrikto.com>
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E58DB1121315
+ for <dm-devel@redhat.com>; Wed, 18 Jan 2023 13:33:05 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C7C561010455
+ for <dm-devel@redhat.com>; Wed, 18 Jan 2023 13:33:05 +0000 (UTC)
+Received: from szxga02-in.huawei.com (szxga02-in.huawei.com
+ [45.249.212.188]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-643-wXNr5pYwOAm_XXeee0cKYg-1; Wed, 18 Jan 2023 08:33:03 -0500
+X-MC-Unique: wXNr5pYwOAm_XXeee0cKYg-1
+Received: from dggpeml500025.china.huawei.com (unknown [172.30.72.57])
+ by szxga02-in.huawei.com (SkyGuard) with ESMTP id 4NxmSn0FNRzRrff;
+ Wed, 18 Jan 2023 21:14:49 +0800 (CST)
+Received: from [10.174.176.117] (10.174.176.117) by
+ dggpeml500025.china.huawei.com (7.185.36.35) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2375.34; Wed, 18 Jan 2023 21:16:41 +0800
+To: Hou Tao <houtao@huaweicloud.com>, <dm-devel@redhat.com>
+References: <20221216042353.3132139-1-houtao@huaweicloud.com>
+From: Hou Tao <houtao1@huawei.com>
+Message-ID: <e7fcd9fd-a882-2a97-a072-faf09441efbe@huawei.com>
+Date: Wed, 18 Jan 2023 21:16:41 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:78.0) Gecko/20100101
+ Thunderbird/78.6.0
 MIME-Version: 1.0
+In-Reply-To: <20221216042353.3132139-1-houtao@huaweicloud.com>
+X-Originating-IP: [10.174.176.117]
+X-ClientProxiedBy: dggems703-chm.china.huawei.com (10.3.19.180) To
+ dggpeml500025.china.huawei.com (7.185.36.35)
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -99,8 +83,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH 2/2] dm era: avoid deadlock when swapping table
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH] dm: remove unnecessary check when using
+ dm_get_mdptr()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,227 +97,70 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: ejt@redhat.com, ntsironis@arrikto.com
+Cc: Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Under certain conditions, swapping a table, that includes a dm-era
-target, with a new table, causes a deadlock.
+ping ?
 
-This happens when a status (STATUSTYPE_INFO) or message IOCTL is blocked
-in the suspended dm-era target.
-
-dm-era executes all metadata operations in a worker thread, which stops
-processing requests when the target is suspended, and resumes again when
-the target is resumed.
-
-So, running 'dmsetup status' or 'dmsetup message' for a suspended dm-era
-device blocks, until the device is resumed.
-
-If we then load a new table to the device, while the aforementioned
-dmsetup command is blocked in dm-era, and resume the device, we
-deadlock.
-
-The problem is that the 'dmsetup status' and 'dmsetup message' commands
-hold a reference to the live table, i.e., they hold an SRCU read lock on
-md->io_barrier, while they are blocked.
-
-When the device is resumed, the old table is replaced with the new one
-by dm_swap_table(), which ends up calling synchronize_srcu() on
-md->io_barrier.
-
-Since the blocked dmsetup command is holding the SRCU read lock, and the
-old table is never resumed, 'dmsetup resume' blocks too, and we have a
-deadlock.
-
-The only way to recover is by rebooting.
-
-Fix this by allowing metadata operations triggered by user space to run
-in the corresponding user space thread, instead of queueing them for
-execution by the dm-era worker thread.
-
-This way, even if the device is suspended, the metadata operations will
-run and release the SRCU read lock, preventing a subsequent table reload
-(dm_swap_table()) from deadlocking.
-
-To make this possible use a mutex to serialize access to the metadata
-between the worker thread and the user space threads.
-
-Fixes: eec40579d8487 ("dm: add era target")
-Cc: stable@vger.kernel.org # v3.15+
-Signed-off-by: Nikos Tsironis <ntsironis@arrikto.com>
----
- drivers/md/dm-era-target.c | 58 ++++++++++++++++++++++++++++----------
- 1 file changed, 43 insertions(+), 15 deletions(-)
-
-diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
-index 3332bed2f412..c57a19320dbf 100644
---- a/drivers/md/dm-era-target.c
-+++ b/drivers/md/dm-era-target.c
-@@ -11,6 +11,7 @@
- #include <linux/module.h>
- #include <linux/slab.h>
- #include <linux/vmalloc.h>
-+#include <linux/mutex.h>
- 
- #define DM_MSG_PREFIX "era"
- 
-@@ -1182,6 +1183,12 @@ struct era {
- 	dm_block_t nr_blocks;
- 	uint32_t sectors_per_block;
- 	int sectors_per_block_shift;
-+
-+	/*
-+	 * Serialize access to metadata between worker thread and user space
-+	 * threads.
-+	 */
-+	struct mutex metadata_lock;
- 	struct era_metadata *md;
- 
- 	struct workqueue_struct *wq;
-@@ -1358,10 +1365,12 @@ static void do_work(struct work_struct *ws)
- {
- 	struct era *era = container_of(ws, struct era, worker);
- 
-+	mutex_lock(&era->metadata_lock);
- 	kick_off_digest(era);
- 	process_old_eras(era);
- 	process_deferred_bios(era);
- 	process_rpc_calls(era);
-+	mutex_unlock(&era->metadata_lock);
- }
- 
- static void defer_bio(struct era *era, struct bio *bio)
-@@ -1400,17 +1409,6 @@ static int in_worker0(struct era *era, int (*fn)(struct era_metadata *))
- 	return perform_rpc(era, &rpc);
- }
- 
--static int in_worker1(struct era *era,
--		      int (*fn)(struct era_metadata *, void *), void *arg)
--{
--	struct rpc rpc;
--	rpc.fn0 = NULL;
--	rpc.fn1 = fn;
--	rpc.arg = arg;
--
--	return perform_rpc(era, &rpc);
--}
--
- static void start_worker(struct era *era)
- {
- 	atomic_set(&era->suspended, 0);
-@@ -1439,6 +1437,7 @@ static void era_destroy(struct era *era)
- 	if (era->metadata_dev)
- 		dm_put_device(era->ti, era->metadata_dev);
- 
-+	mutex_destroy(&era->metadata_lock);
- 	kfree(era);
- }
- 
-@@ -1539,6 +1538,8 @@ static int era_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	spin_lock_init(&era->rpc_lock);
- 	INIT_LIST_HEAD(&era->rpc_calls);
- 
-+	mutex_init(&era->metadata_lock);
-+
- 	ti->private = era;
- 	ti->num_flush_bios = 1;
- 	ti->flush_supported = true;
-@@ -1591,7 +1592,9 @@ static void era_postsuspend(struct dm_target *ti)
- 
- 	stop_worker(era);
- 
-+	mutex_lock(&era->metadata_lock);
- 	r = metadata_commit(era->md);
-+	mutex_unlock(&era->metadata_lock);
- 	if (r) {
- 		DMERR("%s: metadata_commit failed", __func__);
- 		/* FIXME: fail mode */
-@@ -1605,19 +1608,23 @@ static int era_preresume(struct dm_target *ti)
- 	dm_block_t new_size = calc_nr_blocks(era);
- 
- 	if (era->nr_blocks != new_size) {
-+		mutex_lock(&era->metadata_lock);
- 		r = metadata_resize(era->md, &new_size);
- 		if (r) {
- 			DMERR("%s: metadata_resize failed", __func__);
-+			mutex_unlock(&era->metadata_lock);
- 			return r;
- 		}
- 
- 		r = metadata_commit(era->md);
- 		if (r) {
- 			DMERR("%s: metadata_commit failed", __func__);
-+			mutex_unlock(&era->metadata_lock);
- 			return r;
- 		}
- 
- 		era->nr_blocks = new_size;
-+		mutex_unlock(&era->metadata_lock);
- 	}
- 
- 	start_worker(era);
-@@ -1648,7 +1655,9 @@ static void era_status(struct dm_target *ti, status_type_t type,
- 
- 	switch (type) {
- 	case STATUSTYPE_INFO:
--		r = in_worker1(era, metadata_get_stats, &stats);
-+		mutex_lock(&era->metadata_lock);
-+		r = metadata_get_stats(era->md, &stats);
-+		mutex_unlock(&era->metadata_lock);
- 		if (r)
- 			goto err;
- 
-@@ -1682,6 +1691,25 @@ static void era_status(struct dm_target *ti, status_type_t type,
- 	DMEMIT("Error");
- }
- 
-+static int _process_message(struct era *era, int (*fn)(struct era_metadata *))
-+{
-+	int ret, r;
-+
-+	mutex_lock(&era->metadata_lock);
-+	ret = fn(era->md);
-+	r = metadata_commit(era->md);
-+	mutex_unlock(&era->metadata_lock);
-+
-+	/* Handle return value the same way as process_rpc_calls() does */
-+	if (r)
-+		ret = r;
-+
-+	/* Wake worker to handle archived writesets */
-+	wake_worker(era);
-+
-+	return ret;
-+}
-+
- static int era_message(struct dm_target *ti, unsigned argc, char **argv,
- 		       char *result, unsigned maxlen)
- {
-@@ -1693,13 +1721,13 @@ static int era_message(struct dm_target *ti, unsigned argc, char **argv,
- 	}
- 
- 	if (!strcasecmp(argv[0], "checkpoint"))
--		return in_worker0(era, metadata_checkpoint);
-+		return _process_message(era, metadata_checkpoint);
- 
- 	if (!strcasecmp(argv[0], "take_metadata_snap"))
--		return in_worker0(era, metadata_take_snap);
-+		return _process_message(era, metadata_take_snap);
- 
- 	if (!strcasecmp(argv[0], "drop_metadata_snap"))
--		return in_worker0(era, metadata_drop_snap);
-+		return _process_message(era, metadata_drop_snap);
- 
- 	DMERR("unsupported message '%s'", argv[0]);
- 	return -EINVAL;
--- 
-2.30.2
+On 12/16/2022 12:23 PM, Hou Tao wrote:
+> From: Hou Tao <houtao1@huawei.com>
+>
+> __hash_remove() removes hash_cell with _hash_lock locked, so acquiring
+> _hash_lock can guarantee no-NULL hc returned from dm_get_mdptr() must
+> have not been removed and hc->md must still be md.
+>
+> __hash_remove() also acquires dm_hash_cells_mutex before setting mdptr
+> as NULL, so in dm_copy_name_and_uuid() after acquiring
+> dm_hash_cells_mutex and ensuring returned hc is not NULL, the returned
+> hc must still be alive and hc->md must still be md.
+>
+> So removing these unnecessary hc->md != md checks when using
+> dm_get_mdptr() with _hash_lock or dm_hash_cells_mutex acquired.
+>
+> Signed-off-by: Hou Tao <houtao1@huawei.com>
+> ---
+>  drivers/md/dm-ioctl.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+>
+> diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+> index 3bfc1583c20a..2a86524661d1 100644
+> --- a/drivers/md/dm-ioctl.c
+> +++ b/drivers/md/dm-ioctl.c
+> @@ -772,7 +772,7 @@ static struct dm_table *dm_get_inactive_table(struct mapped_device *md, int *src
+>  
+>  	down_read(&_hash_lock);
+>  	hc = dm_get_mdptr(md);
+> -	if (!hc || hc->md != md) {
+> +	if (!hc) {
+>  		DMERR("device has been removed from the dev hash table.");
+>  		goto out;
+>  	}
+> @@ -1476,7 +1476,7 @@ static int table_load(struct file *filp, struct dm_ioctl *param, size_t param_si
+>  	/* stage inactive table */
+>  	down_write(&_hash_lock);
+>  	hc = dm_get_mdptr(md);
+> -	if (!hc || hc->md != md) {
+> +	if (!hc) {
+>  		DMERR("device has been removed from the dev hash table.");
+>  		up_write(&_hash_lock);
+>  		r = -ENXIO;
+> @@ -2128,7 +2128,7 @@ int dm_copy_name_and_uuid(struct mapped_device *md, char *name, char *uuid)
+>  
+>  	mutex_lock(&dm_hash_cells_mutex);
+>  	hc = dm_get_mdptr(md);
+> -	if (!hc || hc->md != md) {
+> +	if (!hc) {
+>  		r = -ENXIO;
+>  		goto out;
+>  	}
 
 --
 dm-devel mailing list
