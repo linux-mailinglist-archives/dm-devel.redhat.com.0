@@ -2,93 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7906D67C597
-	for <lists+dm-devel@lfdr.de>; Thu, 26 Jan 2023 09:15:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D4E59680653
+	for <lists+dm-devel@lfdr.de>; Mon, 30 Jan 2023 08:03:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1674720954;
+	s=mimecast20190719; t=1675062185;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=FqEbwpSSpGhQJISWXLON1ahQHgvG+0cS6yxnZfA6nbs=;
-	b=cHshsb0e9wW+WSr7HjTAHZuSHxoXXSvgzUE4f9wd+cusxncCdV8Pmxry00Ws/JeKxRE/Ra
-	UxPzTjFRFE9+h1ElJJ1dznjIkgoJWRlU/rJk8onKTaPEaVlOuAkx/KTVoQvlaW7O0OV5vN
-	DEzehZaA5WyVYDS9PfUmc6sRAmT22rM=
+	bh=6y2f7qVnmjfGPp9hLkMqNOwcmyFNzs5nK6JltpIvMlU=;
+	b=gdqLi5KPZUSplfm4v1JmOmnkmAPlGojHb/7WiFwppB7udaGdmtt394r1eDTOjLevU8i+vy
+	pzu5n29HK5ZAV1WKyCi9FWh47maZ8L/yFHPnPpUvnUZAmU1e2DXDPsYj6TOd3Xzluk8HUE
+	mDTEzcGT2qIJnayXAhTd6yLfMACnMsM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-440-D278TGr9OcSG9kE45efCxA-1; Thu, 26 Jan 2023 03:15:53 -0500
-X-MC-Unique: D278TGr9OcSG9kE45efCxA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-100-55zjbcX5PjmudHnkVinXVQ-1; Mon, 30 Jan 2023 02:03:04 -0500
+X-MC-Unique: 55zjbcX5PjmudHnkVinXVQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F7E186C14C;
-	Thu, 26 Jan 2023 08:15:46 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 870CF87B2A1;
+	Mon, 30 Jan 2023 07:03:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 15CD71121330;
-	Thu, 26 Jan 2023 08:15:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BCAF22026D4B;
+	Mon, 30 Jan 2023 07:02:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4F45619465BC;
-	Thu, 26 Jan 2023 08:15:39 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5C04B19465A3;
+	Mon, 30 Jan 2023 07:02:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 13140194658C
- for <dm-devel@listman.corp.redhat.com>; Thu, 26 Jan 2023 03:41:03 +0000 (UTC)
+ ESMTP id 742D51946587
+ for <dm-devel@listman.corp.redhat.com>; Sat, 28 Jan 2023 15:50:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E840B492C18; Thu, 26 Jan 2023 03:41:02 +0000 (UTC)
+ id 64BB91121315; Sat, 28 Jan 2023 15:50:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E04EA492C14
- for <dm-devel@redhat.com>; Thu, 26 Jan 2023 03:41:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C570B101A52E
- for <dm-devel@redhat.com>; Thu, 26 Jan 2023 03:41:02 +0000 (UTC)
-Received: from out3-smtp.messagingengine.com (out3-smtp.messagingengine.com
- [66.111.4.27]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-350-Fqnk6yJeOBKiwTmmMR6bWw-1; Wed, 25 Jan 2023 22:40:57 -0500
-X-MC-Unique: Fqnk6yJeOBKiwTmmMR6bWw-1
-Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
- by mailout.nyi.internal (Postfix) with ESMTP id 443E25C05B6;
- Wed, 25 Jan 2023 22:34:12 -0500 (EST)
-Received: from mailfrontend2 ([10.202.2.163])
- by compute5.internal (MEProxy); Wed, 25 Jan 2023 22:34:12 -0500
-X-ME-Sender: <xms:tPTRYzwH5BuEHmVC0eMdTGBBHZMvxt9uWC_rqOGS_ycgsaVj53vQiQ>
- <xme:tPTRY7QY3bnvHhI3rshGztUECyV2lnxUGYKP3bTTB1P8CT0b0uLuAcpcxQKuARE_B
- AJKSl9rZB4DZCM>
-X-ME-Received: <xmr:tPTRY9WUpZzy3Z8Ck8htOkPkbtAbgBnETUbKfLGw8gZ6vwGJ1SKYiq7n2texQZKLlDNbwtPj-NZx>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedruddvfedgheelucetufdoteggodetrfdotf
- fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
- uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
- cujfgurhephffvvefufffkofgjfhgggfestdekredtredttdenucfhrhhomhepffgvmhhi
- ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
- hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepjeffjefggfeugeduvedvjeekgfeh
- gffhhfffjeetkeelueefffetfffhtdduheetnecuvehluhhsthgvrhfuihiivgeptdenuc
- frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
- lhgrsgdrtghomh
-X-ME-Proxy: <xmx:tPTRY9god6WZldkNb6zQxaW-zL3SwrJWz_pk8nteivz3n9Mg372ewQ>
- <xmx:tPTRY1A40rWLm24WxN8wSZLeSpKTRKkmbS2avRGDKXaJ1MessXz1jw>
- <xmx:tPTRY2J2wBOPbzFSk35mgosVTMij5PfJyCoi7AEB9vGO0sW2kh1BBQ>
- <xmx:tPTRY0OGKPUER8o2RS25jDcq9Ina-GirRmaBNRGjT7lspzBd9a80CA>
-Feedback-ID: iac594737:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 25 Jan 2023 22:34:11 -0500 (EST)
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5D5871121314
+ for <dm-devel@redhat.com>; Sat, 28 Jan 2023 15:50:40 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 422F7800B30
+ for <dm-devel@redhat.com>; Sat, 28 Jan 2023 15:50:40 +0000 (UTC)
+Received: from smtp.smtpout.orange.fr (smtp-14.smtpout.orange.fr
+ [80.12.242.14]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ us-mta-207-XKMGJiSeMZq4EGUnhKnSbQ-1; Sat, 28 Jan 2023 10:50:38 -0500
+X-MC-Unique: XKMGJiSeMZq4EGUnhKnSbQ-1
+Received: from pop-os.home ([86.243.2.178]) by smtp.orange.fr with ESMTPA
+ id LnM9phWDqeUnHLnM9p9nzv; Sat, 28 Jan 2023 16:43:06 +0100
+X-ME-Helo: pop-os.home
+X-ME-Auth: Y2hyaXN0b3BoZS5qYWlsbGV0QHdhbmFkb28uZnI=
+X-ME-Date: Sat, 28 Jan 2023 16:43:06 +0100
+X-ME-IP: 86.243.2.178
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
  dm-devel@redhat.com
-Date: Wed, 25 Jan 2023 22:33:54 -0500
-Message-Id: <20230126033358.1880-3-demi@invisiblethingslab.com>
-In-Reply-To: <20230126033358.1880-1-demi@invisiblethingslab.com>
-References: <20230126033358.1880-1-demi@invisiblethingslab.com>
+Date: Sat, 28 Jan 2023 16:43:00 +0100
+Message-Id: <c3d25e24503d9e625cf46e9fb4ee55f10bfdd398.1674920529.git.christophe.jaillet@wanadoo.fr>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -97,10 +74,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Thu, 26 Jan 2023 08:15:37 +0000
-Subject: [dm-devel] [RFC PATCH 2/7] Allow userspace to get an FD to a
- newly-created DM device
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mailman-Approved-At: Mon, 30 Jan 2023 07:02:37 +0000
+Subject: [dm-devel] [PATCH] dm-crypt: Slightly simplify
+ crypt_set_keyring_key()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,154 +89,59 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
- =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This allows creating a device-mapper device, opening it, and setting it
-to be deleted when unused in a single atomic operation.
+Use strchr() instead of strpbrk() when there is only 1 element in the set
+of characters to look for.
+This potentially saves a few cycles.
 
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 ---
- drivers/md/dm-ioctl.c         | 67 +++++++++++++++++++++++++++++------
- include/uapi/linux/dm-ioctl.h | 16 ++++++++-
- 2 files changed, 72 insertions(+), 11 deletions(-)
+On my machine, the diff of the .s file shows that the generated code is
+the same:
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 36fc6ae4737a05ab53ab67a8ccee525cb5fda082..05438dedcd17b7cac470fcc5a9721d67daad4bfb 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -853,9 +853,21 @@ static void __dev_status(struct mapped_device *md, struct dm_ioctl *param)
+-- drivers/md/dm-crypt.old.s	2023-01-28 16:28:08.968026902 +0100
+++ drivers/md/dm-crypt.s	2023-01-28 16:28:32.056027335 +0100
+@@ -17950,7 +17950,7 @@
+ 	call	__sanitizer_cov_trace_const_cmp1	#
+ 	testb	%bl, %bl	# _56
+ 	jne	.L928	#,
+-# drivers/md/dm-crypt.c:2490: 	key_desc = strpbrk(key_string, ":");
++# drivers/md/dm-crypt.c:2490: 	key_desc = strchr(key_string, ':');
+ 	call	__sanitizer_cov_trace_pc	#
+ 	movl	$58, %esi	#,
+ 	movq	%r12, %rdi	# key_string,
+
+This is done thanks to fold_builtin_strpbrk() in gcc which already
+transforms such patterns.
+(https://github.com/gcc-mirror/gcc/blob/master/gcc/builtins.cc#L10238)
+---
+ drivers/md/dm-crypt.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 2653516bcdef..b9c41fd42e8a 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -2487,7 +2487,7 @@ static int crypt_set_keyring_key(struct crypt_config *cc, const char *key_string
+ 	}
  
- static int dev_create(struct file *filp, struct dm_ioctl *param, size_t param_size)
- {
--	int r, m = DM_ANY_MINOR;
-+	int r, m = DM_ANY_MINOR, fd;
- 	struct mapped_device *md;
+ 	/* look for next ':' separating key_type from key_description */
+-	key_desc = strpbrk(key_string, ":");
++	key_desc = strchr(key_string, ':');
+ 	if (!key_desc || key_desc == key_string || !strlen(key_desc + 1))
+ 		return -EINVAL;
  
-+	/* Do not allow unknown flags */
-+	if (param->flags > (2 * DM_FILE_DESCRIPTOR_FLAG - 1))
-+		return -EINVAL;
-+
-+	/*
-+	 * Do not allow creating a device that would just be destroyed
-+	 * before the ioctl returns.
-+	 */
-+	if ((param->flags & DM_DEFERRED_REMOVE) &&
-+	    !(param->flags & DM_FILE_DESCRIPTOR_FLAG))
-+		return -EINVAL;
-+
- 	r = check_name(param->name);
- 	if (r)
- 		return r;
-@@ -867,20 +879,55 @@ static int dev_create(struct file *filp, struct dm_ioctl *param, size_t param_si
- 	if (r)
- 		return r;
- 
--	r = dm_hash_insert(param->name, *param->uuid ? param->uuid : NULL, md);
--	if (r) {
--		dm_put(md);
--		dm_destroy(md);
--		return r;
--	}
--
- 	param->flags &= ~DM_INACTIVE_PRESENT_FLAG;
- 
-+	r = dm_hash_insert(param->name, *param->uuid ? param->uuid : NULL, md);
-+	if (r)
-+		goto out_put;
-+
-+	if (param->flags & DM_FILE_DESCRIPTOR_FLAG) {
-+		struct block_device *bdev = dm_disk(md)->part0;
-+		struct file *file;
-+
-+		fd = get_unused_fd_flags(O_RDWR | O_CLOEXEC);
-+		if (fd < 0) {
-+			r = fd;
-+			goto out_put;
-+		}
-+
-+		file = blkdev_get_file(bdev, O_RDWR|O_CLOEXEC, NULL);
-+		if (IS_ERR(file)) {
-+			r = PTR_ERR(file);
-+			goto out_put_fd;
-+		}
-+
-+		/*
-+		 * Simulate opening the device.  The other checks in
-+		 * dm_blk_open() are not necessary becuase we have a reference
-+		 * to the `struct md`.
-+		 */
-+		atomic_inc(&md->open_count);
-+		fd_install(fd, file);
-+		param->file_descriptor = fd;
-+	}
-+
-+	/*
-+	 * If userspace requests it, automatically delete the device
-+	 * when it is no longer used
-+	 */
-+	if (param->flags & DM_DEFERRED_REMOVE)
-+		set_bit(DMF_DEFERRED_REMOVE, &md->flags);
-+
- 	__dev_status(md, param);
--
- 	dm_put(md);
--
- 	return 0;
-+
-+out_put_fd:
-+	put_unused_fd(fd);
-+out_put:
-+	dm_put(md);
-+	dm_destroy(md);
-+	return r;
- }
- 
- /*
-diff --git a/include/uapi/linux/dm-ioctl.h b/include/uapi/linux/dm-ioctl.h
-index 7edf335778bae1cb206f6dd4d44e9cf7fb9da35c..30a6260ed7e06ff71fad1675dd4e7f9325d752a6 100644
---- a/include/uapi/linux/dm-ioctl.h
-+++ b/include/uapi/linux/dm-ioctl.h
-@@ -136,7 +136,13 @@ struct dm_ioctl {
- 	 * For output, the ioctls return the event number, not the cookie.
- 	 */
- 	__u32 event_nr;      	/* in/out */
--	__u32 padding;
-+
-+	union {
-+		/* Padding for named devices */
-+		__u32 padding;
-+		/* For anonymous devices, this is a file descriptor. */
-+		__u32 file_descriptor;
-+	};
- 
- 	__u64 dev;		/* in/out */
- 
-@@ -382,4 +388,12 @@ enum {
-  */
- #define DM_IMA_MEASUREMENT_FLAG	(1 << 19) /* In */
- 
-+/*
-+ * If set in a DM_DEV_CREATE ioctl(), sets the file_descriptor field
-+ * to a valid file descriptor.  This can be combined with DM_DEFERRED_REMOVE
-+ * to cause the device to be destroyed when the file descriptor is closed
-+ * and is otherwise unused.
-+ */
-+#define DM_FILE_DESCRIPTOR_FLAG		(1 << 20) /* In */
-+
- #endif				/* _LINUX_DM_IOCTL_H */
 -- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
+2.34.1
 
 --
 dm-devel mailing list
