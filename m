@@ -2,69 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80E0B6825C9
-	for <lists+dm-devel@lfdr.de>; Tue, 31 Jan 2023 08:47:30 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A674A6825DB
+	for <lists+dm-devel@lfdr.de>; Tue, 31 Jan 2023 08:50:04 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675151249;
+	s=mimecast20190719; t=1675151403;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=A6pwUm9fiQo3q4VSeWo6QuB9oscSUTGT2QsNSqvgpd4=;
-	b=BQfJ7kHRKFBlE4xEB3TfcvcisLJVXnCFwuIuL9jl9Dolv7N0PXlds4FsKubZvPzKY+9Gex
-	ZJ4duUSOCupFxDfw/Zypx9OsaAm5QJ3fhPDmVNxdl8n9mZ9xwf9AnHbj9ajGcdsmEgYNPY
-	3N1U4P0KHcNRS4a3Yc+erDAew+3EwQw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=FYCriEkHzd/nRYIVMxFvgF8wmXZqiNaOKAwIf8eWVGk=;
+	b=Ya2b0Drlx85wDzRyYB59XbiHVXknb7/KvXgJ40ko804G2SwIO/dL+JxVWCRKTCpGNKagpT
+	R+eOLP282ty9XlT4lXoY8zRPgyD42F8G2QMzdTqnN60B4YStLzGyO/sVkbYwKefdMr89V9
+	vuezJaLbjf1ioDzJO+inPPEfpdSaJaE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-369-uLfLU-KrMOOkbwCJXDVlgw-1; Tue, 31 Jan 2023 02:47:27 -0500
-X-MC-Unique: uLfLU-KrMOOkbwCJXDVlgw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-171-dvUia7rzOMGwYHSewrnbHA-1; Tue, 31 Jan 2023 02:49:56 -0500
+X-MC-Unique: dvUia7rzOMGwYHSewrnbHA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31D4D3815EE1;
-	Tue, 31 Jan 2023 07:47:25 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 488C0802BF5;
+	Tue, 31 Jan 2023 07:49:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F2D8E112132C;
-	Tue, 31 Jan 2023 07:47:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EE737492B00;
+	Tue, 31 Jan 2023 07:49:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 63EF21946A43;
-	Tue, 31 Jan 2023 07:47:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AE6CA19465A3;
+	Tue, 31 Jan 2023 07:49:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 301AD1946587
- for <dm-devel@listman.corp.redhat.com>; Mon, 30 Jan 2023 23:06:52 +0000 (UTC)
+ ESMTP id 085AC1946589
+ for <dm-devel@listman.corp.redhat.com>; Mon, 30 Jan 2023 23:06:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 148F92026D68; Mon, 30 Jan 2023 23:06:52 +0000 (UTC)
+ id DFE82175AD; Mon, 30 Jan 2023 23:06:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CD842026D4B
- for <dm-devel@redhat.com>; Mon, 30 Jan 2023 23:06:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D7853422AE
+ for <dm-devel@redhat.com>; Mon, 30 Jan 2023 23:06:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E68971C02D39
- for <dm-devel@redhat.com>; Mon, 30 Jan 2023 23:06:51 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3EF81871D9D
+ for <dm-devel@redhat.com>; Mon, 30 Jan 2023 23:06:39 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-474-xsCVecENMwmnNYWOMwRs1Q-1; Mon,
- 30 Jan 2023 18:06:36 -0500
-X-MC-Unique: xsCVecENMwmnNYWOMwRs1Q-1
+ relay.mimecast.com with ESMTP id us-mta-532-G1Y6yvT8MHq2nWLP6LKZpQ-1; Mon,
+ 30 Jan 2023 18:06:38 -0500
+X-MC-Unique: G1Y6yvT8MHq2nWLP6LKZpQ-1
 Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 75EAF20EA201; Mon, 30 Jan 2023 14:58:42 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 75EAF20EA201
+ id 83E8520EA205; Mon, 30 Jan 2023 14:58:42 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 83E8520EA205
 From: Fan Wu <wufan@linux.microsoft.com>
 To: corbet@lwn.net, zohar@linux.ibm.com, jmorris@namei.org, serge@hallyn.com,
  tytso@mit.edu, ebiggers@kernel.org, axboe@kernel.dk, agk@redhat.com,
  snitzer@kernel.org, eparis@redhat.com, paul@paul-moore.com
-Date: Mon, 30 Jan 2023 14:57:25 -0800
-Message-Id: <1675119451-23180-11-git-send-email-wufan@linux.microsoft.com>
+Date: Mon, 30 Jan 2023 14:57:26 -0800
+Message-Id: <1675119451-23180-12-git-send-email-wufan@linux.microsoft.com>
 In-Reply-To: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
 References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -74,10 +73,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mailman-Approved-At: Tue, 31 Jan 2023 07:47:17 +0000
-Subject: [dm-devel] [RFC PATCH v9 10/16] dm-verity: consume root hash digest
- and signature data via LSM hook
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mailman-Approved-At: Tue, 31 Jan 2023 07:47:16 +0000
+Subject: [dm-devel] [RFC PATCH v9 11/16] ipe: add support for dm-verity as a
+ trust provider
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,7 +97,7 @@ Cc: Fan Wu <wufan@linux.microsoft.com>, dm-devel@redhat.com,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -106,21 +105,9 @@ Content-Transfer-Encoding: 7bit
 
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-dm-verity provides a strong guarantee of a block device's integrity. As
-a generic way to check the integrity of a block device, it provides
-those integrity guarantees to its higher layers, including the filesystem
-level.
-
-An LSM that control access to a resource on the system based on the
-available integrity claims can use this transitive property of
-dm-verity, by querying the underlying block_device of a particular
-file.
-
-The digest and signature information need to be stored in the block
-device to fulfill the next requirement of authorization via LSM policy.
-This will enable the LSM  to perform revocation of devices that are still
-mounted, prohibiting execution of files that are no longer authorized
-by the LSM in question.
+Allows author of IPE policy to indicate trust for a singular dm-verity
+volume, identified by roothash, through "dmverity_roothash" and all
+signed dm-verity volumes, through "dmverity_signature".
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
@@ -143,211 +130,682 @@ v6:
 
 v7:
   + Squash patch 08/12, 10/12 to [11/16]
-  + Use part0 for block_device, to retrieve the block_device, when
-    calling security_bdev_setsecurity
 
 v8:
-  + Undo squash of 08/12, 10/12 - separating drivers/md/ from
-    security/ & block/
+  + Undo squash of 08/12, 10/12 - separating drivers/md/ from security/
+    & block/
   + Use common-audit function for dmverity_signature.
   + Change implementation for storing the dm-verity digest to use the
     newly introduced dm_verity_digest structure introduced in patch
     14/20.
-  + Create new structure, dm_verity_digest, containing digest algorithm,
-    size, and digest itself to pass to the LSM layer. V7 was missing the
-    algorithm.
-  + Create an associated public header containing this new structure and
-    the key values for the LSM hook, specific to dm-verity.
-  + Additional information added to commit, discussing the layering of
-    the changes and how the information passed will be used.
 
 v9:
-  + No changes
+  + Adapt to the new parser
 ---
- drivers/md/dm-verity-target.c     | 25 +++++++++++++++++++++++--
- drivers/md/dm-verity-verify-sig.c | 16 +++++++++++++---
- drivers/md/dm-verity-verify-sig.h | 10 ++++++----
- include/linux/dm-verity.h         | 19 +++++++++++++++++++
- 4 files changed, 61 insertions(+), 9 deletions(-)
- create mode 100644 include/linux/dm-verity.h
+ security/ipe/Kconfig         |  20 +++++
+ security/ipe/Makefile        |   2 +
+ security/ipe/audit.c         |  24 ++++++
+ security/ipe/digest.c        | 144 +++++++++++++++++++++++++++++++++++
+ security/ipe/digest.h        |  26 +++++++
+ security/ipe/eval.c          | 103 +++++++++++++++++++++++++
+ security/ipe/eval.h          |  13 ++++
+ security/ipe/hooks.c         |  51 +++++++++++++
+ security/ipe/hooks.h         |   8 ++
+ security/ipe/ipe.c           |  15 ++++
+ security/ipe/ipe.h           |   4 +
+ security/ipe/policy.h        |   3 +
+ security/ipe/policy_parser.c |  16 ++++
+ 13 files changed, 429 insertions(+)
+ create mode 100644 security/ipe/digest.c
+ create mode 100644 security/ipe/digest.h
 
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index ccf5b852fbf7..afea61eed4ec 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -13,6 +13,7 @@
-  * access behavior.
-  */
+diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
+index ac4d558e69d5..16e835ce61b0 100644
+--- a/security/ipe/Kconfig
++++ b/security/ipe/Kconfig
+@@ -15,3 +15,23 @@ menuconfig SECURITY_IPE
+ 	  admins to reconfigure trust requirements on the fly.
  
-+#include "dm-core.h"
- #include "dm-verity.h"
- #include "dm-verity-fec.h"
- #include "dm-verity-verify-sig.h"
-@@ -21,6 +22,9 @@
- #include <linux/scatterlist.h>
- #include <linux/string.h>
- #include <linux/jump_label.h>
-+#include <linux/security.h>
-+#include <linux/dm-verity.h>
-+#include <crypto/hash_info.h>
+ 	  If unsure, answer N.
++
++if SECURITY_IPE
++menu "IPE Trust Providers"
++
++config IPE_PROP_DM_VERITY
++	bool "Enable support for dm-verity volumes"
++	depends on DM_VERITY && DM_VERITY_VERIFY_ROOTHASH_SIG
++	default Y
++	help
++	  This option enables the properties 'dmverity_signature' and
++	  'dmverity_roothash' in IPE policy. These properties evaluates
++	  to TRUE when a file is evaluated against a dm-verity volume
++	  that was mounted with a signed root-hash or the volume's
++	  root hash matches the supplied value in the policy.
++
++	  If unsure, answer Y.
++
++endmenu
++
++endif
+diff --git a/security/ipe/Makefile b/security/ipe/Makefile
+index 89a76ad72301..90203daf0dbb 100644
+--- a/security/ipe/Makefile
++++ b/security/ipe/Makefile
+@@ -6,6 +6,7 @@
+ #
  
- #define DM_MSG_PREFIX			"verity"
+ obj-$(CONFIG_SECURITY_IPE) += \
++	digest.o \
+ 	eval.o \
+ 	fs.o \
+ 	hooks.o \
+@@ -13,4 +14,5 @@ obj-$(CONFIG_SECURITY_IPE) += \
+ 	policy.o \
+ 	policy_fs.o \
+ 	policy_parser.o \
++	digest.o \
+ 	audit.o \
+diff --git a/security/ipe/audit.c b/security/ipe/audit.c
+index ff74026a595f..769ba95d9b0d 100644
+--- a/security/ipe/audit.c
++++ b/security/ipe/audit.c
+@@ -41,8 +41,29 @@ static const char *const audit_op_names[ipe_op_max] = {
+ static const char *const audit_prop_names[ipe_prop_max] = {
+ 	"boot_verified=FALSE",
+ 	"boot_verified=TRUE",
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++	"dmverity_roothash=",
++	"dmverity_signature=FALSE",
++	"dmverity_signature=TRUE",
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
+ };
  
-@@ -1169,6 +1173,8 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	sector_t hash_position;
- 	char dummy;
- 	char *root_hash_digest_to_validate;
-+	struct block_device *bdev;
-+	struct dm_verity_digest root_digest;
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++/**
++ * audit_dmv_roothash - audit a roothash of a dmverity volume.
++ * @ab: Supplies a poniter to the audit_buffer to append to.
++ * @r: Supplies a pointer to the digest structure.
++ */
++static void audit_dmv_roothash(struct audit_buffer *ab, const void *rh)
++{
++	ipe_digest_audit(ab, rh);
++}
++#else
++static void audit_dmv_roothash(struct audit_buffer *ab, const void *rh)
++{
++}
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ /**
+  * audit_rule - audit an IPE policy rule approximation.
+  * @ab: Supplies a poniter to the audit_buffer to append to.
+@@ -56,6 +77,9 @@ static void audit_rule(struct audit_buffer *ab, const struct ipe_rule *r)
  
- 	v = kzalloc(sizeof(struct dm_verity), GFP_KERNEL);
- 	if (!v) {
-@@ -1211,6 +1217,13 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
+ 	list_for_each_entry(ptr, &r->props, next) {
+ 		audit_log_format(ab, "%s", audit_prop_names[ptr->type]);
++		if (ptr->type == ipe_prop_dmv_roothash)
++			audit_dmv_roothash(ab, ptr->value);
++
+ 		audit_log_format(ab, " ");
  	}
- 	v->version = num;
  
-+	bdev = dm_table_get_md(ti->table)->disk->part0;
-+	if (!bdev) {
-+		ti->error = "Mapped device lookup failed";
-+		r = -ENOMEM;
-+		goto bad;
+diff --git a/security/ipe/digest.c b/security/ipe/digest.c
+new file mode 100644
+index 000000000000..9fdb091f329b
+--- /dev/null
++++ b/security/ipe/digest.c
+@@ -0,0 +1,144 @@
++// SPDX-License-Identifier: GPL-2.0
++/*
++ * Copyright (C) Microsoft Corporation. All rights reserved.
++ */
++
++#include "digest.h"
++
++/**
++ * ipe_digest_parse - parse a digest in IPE's policy.
++ * @valstr: Supplies the string parsed from the policy.
++ * @value: Supplies a pointer to be populated with the result.
++ *
++ * Digests in IPE are defined in a standard way:
++ *	<alg_name>:<hex>
++ *
++ * Use this function to create a property to parse the digest
++ * consistently. The parsed digest will be saved in @value in IPE's
++ * policy.
++ *
++ * Return:
++ * * 0	- OK
++ * * !0	- Error
++ */
++int ipe_digest_parse(const char *valstr, void **value)
++{
++	char *sep, *raw_digest;
++	size_t raw_digest_len;
++	int rc = 0;
++	u8 *digest = NULL;
++	struct digest_info *info = NULL;
++
++	info = kzalloc(sizeof(*info), GFP_KERNEL);
++	if (!info) {
++		rc = -ENOMEM;
++		goto err;
 +	}
 +
- 	r = dm_get_device(ti, argv[1], FMODE_READ, &v->data_dev);
- 	if (r) {
- 		ti->error = "Data device lookup failed";
-@@ -1343,7 +1356,7 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	}
- 
- 	/* Root hash signature is  a optional parameter*/
--	r = verity_verify_root_hash(root_hash_digest_to_validate,
-+	r = verity_verify_root_hash(bdev, root_hash_digest_to_validate,
- 				    strlen(root_hash_digest_to_validate),
- 				    verify_args.sig,
- 				    verify_args.sig_size);
-@@ -1428,12 +1441,20 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
- 	ti->per_io_data_size = roundup(ti->per_io_data_size,
- 				       __alignof__(struct dm_verity_io));
- 
-+	root_digest.digest = v->root_digest;
-+	root_digest.digest_len = v->digest_size;
-+	root_digest.algo = v->alg_name;
++	sep = strchr(valstr, ':');
++	if (!sep) {
++		rc = -EBADMSG;
++		goto err;
++	}
 +
-+	r = security_bdev_setsecurity(bdev, DM_VERITY_ROOTHASH_SEC_NAME, &root_digest,
-+				      sizeof(root_digest));
-+	if (r)
-+		goto bad;
++	info->alg = kstrndup(valstr, sep - valstr, GFP_KERNEL);
++	if (!info->alg) {
++		rc = -ENOMEM;
++		goto err;
++	}
 +
- 	verity_verify_sig_opts_cleanup(&verify_args);
- 
- 	return 0;
- 
- bad:
--
- 	verity_verify_sig_opts_cleanup(&verify_args);
- 	verity_dtr(ti);
- 
-diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
-index db61a1f43ae9..5a73b91157d5 100644
---- a/drivers/md/dm-verity-verify-sig.c
-+++ b/drivers/md/dm-verity-verify-sig.c
-@@ -9,6 +9,9 @@
- #include <linux/verification.h>
- #include <keys/user-type.h>
- #include <linux/module.h>
-+#include <linux/security.h>
-+#include <linux/dm-verity.h>
-+#include "dm-core.h"
- #include "dm-verity.h"
- #include "dm-verity-verify-sig.h"
- 
-@@ -97,14 +100,17 @@ int verity_verify_sig_parse_opt_args(struct dm_arg_set *as,
-  * verify_verify_roothash - Verify the root hash of the verity hash device
-  *			     using builtin trusted keys.
-  *
-+ * @bdev: block_device representing the device-mapper created block device.
-+ *	  Used by the security hook, to set information about the block_device.
-  * @root_hash: For verity, the roothash/data to be verified.
-  * @root_hash_len: Size of the roothash/data to be verified.
-  * @sig_data: The trusted signature that verifies the roothash/data.
-  * @sig_len: Size of the signature.
-  *
-  */
--int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
--			    const void *sig_data, size_t sig_len)
-+int verity_verify_root_hash(struct block_device *bdev, const void *root_hash,
-+			    size_t root_hash_len, const void *sig_data,
-+			    size_t sig_len)
- {
- 	int ret;
- 
-@@ -126,8 +132,12 @@ int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
- 				NULL,
- #endif
- 				VERIFYING_UNSPECIFIED_SIGNATURE, NULL, NULL);
-+	if (ret)
-+		return ret;
- 
--	return ret;
-+	return security_bdev_setsecurity(bdev,
-+					 DM_VERITY_SIGNATURE_SEC_NAME,
-+					 sig_data, sig_len);
- }
- 
- void verity_verify_sig_opts_cleanup(struct dm_verity_sig_opts *sig_opts)
-diff --git a/drivers/md/dm-verity-verify-sig.h b/drivers/md/dm-verity-verify-sig.h
-index 3987c7141f79..31692fff92e4 100644
---- a/drivers/md/dm-verity-verify-sig.h
-+++ b/drivers/md/dm-verity-verify-sig.h
-@@ -20,8 +20,9 @@ struct dm_verity_sig_opts {
- 
- #define DM_VERITY_ROOT_HASH_VERIFICATION_OPTS 2
- 
--int verity_verify_root_hash(const void *data, size_t data_len,
--			    const void *sig_data, size_t sig_len);
-+int verity_verify_root_hash(struct block_device *bdev, const void *data,
-+			    size_t data_len, const void *sig_data,
-+			    size_t sig_len);
- bool verity_verify_is_sig_opt_arg(const char *arg_name);
- 
- int verity_verify_sig_parse_opt_args(struct dm_arg_set *as, struct dm_verity *v,
-@@ -34,8 +35,9 @@ void verity_verify_sig_opts_cleanup(struct dm_verity_sig_opts *sig_opts);
- 
- #define DM_VERITY_ROOT_HASH_VERIFICATION_OPTS 0
- 
--static inline int verity_verify_root_hash(const void *data, size_t data_len,
--					  const void *sig_data, size_t sig_len)
-+int verity_verify_root_hash(struct block_device *bdev, const void *data,
-+			    size_t data_len, const void *sig_data,
-+			    size_t sig_len)
- {
- 	return 0;
- }
-diff --git a/include/linux/dm-verity.h b/include/linux/dm-verity.h
++	raw_digest = sep + 1;
++	raw_digest_len = strlen(raw_digest);
++	info->raw_digest = kstrndup(raw_digest, raw_digest_len, GFP_KERNEL);
++	if (!info->raw_digest) {
++		rc = -ENOMEM;
++		goto err_free_alg;
++	}
++
++	info->digest_len = (raw_digest_len + 1) / 2;
++	digest = kzalloc(info->digest_len, GFP_KERNEL);
++	if (!digest) {
++		rc = -ENOMEM;
++		goto err_free_raw;
++	}
++
++	rc = hex2bin(digest, raw_digest, info->digest_len);
++	if (rc < 0) {
++		rc = -EINVAL;
++		goto err_free_raw;
++	}
++
++	info->digest = digest;
++	*value = info;
++	return 0;
++
++err_free_raw:
++	kfree(info->raw_digest);
++err_free_alg:
++	kfree(info->alg);
++err:
++	kfree(digest);
++	kfree(info);
++	return rc;
++}
++
++/**
++ * ipe_digest_eval - evaluate an IPE digest against another digest.
++ * @expect: Supplies the policy-provided digest value.
++ * @digest: Supplies the digest to compare against the policy digest value.
++ * @digest_len: The length of @digest.
++ * @alg: Supplies the name of the algorithm used to calculated @digest.
++ *
++ * Return:
++ * * true	- digests match
++ * * false	- digests do not match
++ */
++bool ipe_digest_eval(const void *expect, const u8 *digest, size_t digest_len,
++		     const char *alg)
++{
++	const struct digest_info *info = (struct digest_info *)expect;
++
++	return (digest_len == info->digest_len) && !strcmp(alg, info->alg) &&
++	       (!memcmp(info->digest, digest, info->digest_len));
++}
++
++/**
++ * ipe_digest_free - free an IPE digest.
++ * @value: Supplies a pointer the policy-provided digest value to free.
++ */
++void ipe_digest_free(void **value)
++{
++	struct digest_info *info = (struct digest_info *)(*value);
++
++	if (IS_ERR_OR_NULL(info))
++		return;
++
++	kfree(info->alg);
++	kfree(info->raw_digest);
++	kfree(info->digest);
++	kfree(info);
++}
++
++/**
++ * ipe_digest_audit - audit a digest that was sourced from IPE's policy.
++ * @ab: Supplies the audit_buffer to append the formatted result.
++ * @val: Supplies a pointer to source the audit record from.
++ *
++ * Digests in IPE are defined in a standard way:
++ *	<alg_name>:<hex>
++ *
++ * Use this function to create a property to audit the digest
++ * consistently.
++ *
++ * Return:
++ * 0 - OK
++ * !0 - Error
++ */
++void ipe_digest_audit(struct audit_buffer *ab, const void *val)
++{
++	const struct digest_info *info = (struct digest_info *)val;
++
++	audit_log_untrustedstring(ab, info->alg);
++	audit_log_format(ab, ":");
++	audit_log_untrustedstring(ab, info->raw_digest);
++}
+diff --git a/security/ipe/digest.h b/security/ipe/digest.h
 new file mode 100644
-index 000000000000..bb0413d55d72
+index 000000000000..42f7a0f28e45
 --- /dev/null
-+++ b/include/linux/dm-verity.h
-@@ -0,0 +1,19 @@
++++ b/security/ipe/digest.h
+@@ -0,0 +1,26 @@
 +/* SPDX-License-Identifier: GPL-2.0 */
++/*
++ * Copyright (C) Microsoft Corporation. All rights reserved.
++ */
 +
-+#ifndef _LINUX_DM_VERITY_H
-+#define _LINUX_DM_VERITY_H
++#ifndef DIGEST_H
++#define DIGEST_H
 +
++#include "policy.h"
 +#include <linux/types.h>
-+#include <crypto/hash_info.h>
-+#include <linux/device-mapper.h>
++#include <linux/audit.h>
 +
-+struct dm_verity_digest {
-+	const char *algo;
-+	const u8 *digest;
-+	size_t digest_len;
++struct digest_info {
++	const char	*alg;
++	const char	*raw_digest;
++	const u8	*digest;
++	size_t		digest_len;
 +};
 +
-+#define DM_VERITY_SIGNATURE_SEC_NAME DM_NAME	".verity-signature"
-+#define DM_VERITY_ROOTHASH_SEC_NAME  DM_NAME	".verity-roothash"
++int ipe_digest_parse(const char *valstr, void **value);
++void ipe_digest_free(void **value);
++void ipe_digest_audit(struct audit_buffer *ab, const void *val);
++bool ipe_digest_eval(const void *expect, const u8 *digest, size_t digest_len,
++		     const char *alg);
 +
-+#endif /* _LINUX_DM_VERITY_H */
++#endif /* DIGEST_H */
+diff --git a/security/ipe/eval.c b/security/ipe/eval.c
+index 499314554b1d..538af4195ba7 100644
+--- a/security/ipe/eval.c
++++ b/security/ipe/eval.c
+@@ -8,6 +8,7 @@
+ #include "hooks.h"
+ #include "policy.h"
+ #include "audit.h"
++#include "digest.h"
+ 
+ #include <linux/fs.h>
+ #include <linux/types.h>
+@@ -21,6 +22,7 @@
+ struct ipe_policy __rcu *ipe_active_policy;
+ bool success_audit;
+ bool enforce = true;
++#define INO_BLOCK_DEV(ino) ((ino)->i_sb->s_bdev)
+ 
+ static struct super_block *pinned_sb;
+ static DEFINE_SPINLOCK(pin_lock);
+@@ -62,6 +64,23 @@ static bool from_pinned(const struct file *f)
+ 	return rv;
+ }
+ 
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++/**
++ * build_ipe_bdev_ctx - Build ipe_bdev field of an evaluation context.
++ * @ctx: Supplies a pointer to the context to be populdated.
++ * @ino: Supplies the inode struct of the file triggered IPE event.
++ */
++static void build_ipe_bdev_ctx(struct ipe_eval_ctx *ctx, const struct inode *const ino)
++{
++	if (INO_BLOCK_DEV(ino))
++		ctx->ipe_bdev = ipe_bdev(INO_BLOCK_DEV(ino));
++}
++#else
++static void build_ipe_bdev_ctx(struct ipe_eval_ctx *ctx, const struct inode *const ino)
++{
++}
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ /**
+  * build_eval_ctx - Build an evaluation context.
+  * @ctx: Supplies a pointer to the context to be populdated.
+@@ -72,11 +91,86 @@ void build_eval_ctx(struct ipe_eval_ctx *ctx,
+ 		    const struct file *file,
+ 		    enum ipe_op_type op)
+ {
++	struct inode *ino = NULL;
++
+ 	ctx->file = file;
+ 	ctx->op = op;
+ 	ctx->from_init_sb = from_pinned(file);
++	if (file) {
++		ino = d_real_inode(file->f_path.dentry);
++		build_ipe_bdev_ctx(ctx, ino);
++	}
++}
++
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++/**
++ * evaluate_dmv_roothash - Evaluate @ctx against a dmv roothash property.
++ * @ctx: Supplies a pointer to the context being evaluated.
++ * @p: Supplies a pointer to the property being evaluated.
++ *
++ * Return:
++ * * true	- The current @ctx match the @p
++ * * false	- The current @ctx doesn't match the @p
++ */
++static bool evaluate_dmv_roothash(const struct ipe_eval_ctx *const ctx,
++				  struct ipe_prop *p)
++{
++	return !!ctx->ipe_bdev &&
++	       ipe_digest_eval(p->value,
++			       ctx->ipe_bdev->digest,
++			       ctx->ipe_bdev->digest_len,
++			       ctx->ipe_bdev->digest_algo);
++}
++
++/**
++ * evaluate_dmv_sig_false: Analyze @ctx against a dmv sig false property.
++ * @ctx: Supplies a pointer to the context being evaluated.
++ * @p: Supplies a pointer to the property being evaluated.
++ *
++ * Return:
++ * * true	- The current @ctx match the @p
++ * * false	- The current @ctx doesn't match the @p
++ */
++static bool evaluate_dmv_sig_false(const struct ipe_eval_ctx *const ctx,
++				   struct ipe_prop *p)
++{
++	return !ctx->ipe_bdev || (!ctx->ipe_bdev->dm_verity_signed);
++}
++
++/**
++ * evaluate_dmv_sig_true: Analyze @ctx against a dmv sig true property.
++ * @ctx: Supplies a pointer to the context being evaluated.
++ * @p: Supplies a pointer to the property being evaluated.
++ *
++ * Return:
++ * * true	- The current @ctx match the @p
++ * * false	- The current @ctx doesn't match the @p
++ */
++static bool evaluate_dmv_sig_true(const struct ipe_eval_ctx *const ctx,
++				  struct ipe_prop *p)
++{
++	return ctx->ipe_bdev && (!!ctx->ipe_bdev->dm_verity_signed);
++}
++#else
++static bool evaluate_dmv_roothash(const struct ipe_eval_ctx *const ctx,
++				  struct ipe_prop *p)
++{
++	return false;
++}
++
++static bool evaluate_dmv_sig_false(const struct ipe_eval_ctx *const ctx,
++				   struct ipe_prop *p)
++{
++	return false;
+ }
+ 
++static bool evaluate_dmv_sig_true(const struct ipe_eval_ctx *const ctx,
++				  struct ipe_prop *p)
++{
++	return false;
++}
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ /**
+  * evaluate_property - Analyze @ctx against a property.
+  * @ctx: Supplies a pointer to the context to be evaluated.
+@@ -98,6 +192,15 @@ static bool evaluate_property(const struct ipe_eval_ctx *const ctx,
+ 	case ipe_prop_boot_verified_true:
+ 		eval = ctx->from_init_sb;
+ 		break;
++	case ipe_prop_dmv_roothash:
++		eval = evaluate_dmv_roothash(ctx, p);
++		break;
++	case ipe_prop_dmv_sig_false:
++		eval = evaluate_dmv_sig_false(ctx, p);
++		break;
++	case ipe_prop_dmv_sig_true:
++		eval = evaluate_dmv_sig_true(ctx, p);
++		break;
+ 	default:
+ 		eval = false;
+ 	}
+diff --git a/security/ipe/eval.h b/security/ipe/eval.h
+index 64369c3b8cf9..4fd832c6893e 100644
+--- a/security/ipe/eval.h
++++ b/security/ipe/eval.h
+@@ -16,11 +16,24 @@ extern struct ipe_policy __rcu *ipe_active_policy;
+ extern bool success_audit;
+ extern bool enforce;
+ 
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++struct ipe_bdev {
++	bool dm_verity_signed;
++
++	const u8       *digest;
++	size_t		digest_len;
++	const char     *digest_algo;
++};
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ struct ipe_eval_ctx {
+ 	enum ipe_op_type op;
+ 
+ 	const struct file *file;
+ 	bool from_init_sb;
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++	const struct ipe_bdev *ipe_bdev;
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
+ };
+ 
+ enum ipe_match {
+diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
+index fd5109e29c76..735375d2f858 100644
+--- a/security/ipe/hooks.c
++++ b/security/ipe/hooks.c
+@@ -11,6 +11,9 @@
+ #include <linux/types.h>
+ #include <linux/binfmts.h>
+ #include <linux/mman.h>
++#include <linux/blk_types.h>
++#include <linux/dm-verity.h>
++#include <crypto/hash_info.h>
+ 
+ /**
+  * ipe_sb_free_security - ipe security hook function for super_block.
+@@ -192,3 +195,51 @@ int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents)
+ 	build_eval_ctx(&ctx, NULL, op);
+ 	return ipe_evaluate_event(&ctx);
+ }
++
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++/**
++ * ipe_bdev_free_security - free IPE's LSM blob of block_devices.
++ * @bdev: Supplies a pointer to a block_device that contains the structure
++ *	  to free.
++ */
++void ipe_bdev_free_security(struct block_device *bdev)
++{
++	struct ipe_bdev *blob = ipe_bdev(bdev);
++
++	kfree(blob->digest);
++	kfree(blob->digest_algo);
++}
++
++/**
++ * ipe_bdev_setsecurity - save data from a bdev to IPE's LSM blob.
++ * @bdev: Supplies a pointer to a block_device that contains the LSM blob.
++ * @key: Supplies the string key that uniquely identifies the value.
++ * @value: Supplies the value to store.
++ * @len: The length of @value.
++ */
++int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
++			 const void *value, size_t len)
++{
++	struct ipe_bdev *blob = ipe_bdev(bdev);
++
++	if (!strcmp(key, DM_VERITY_ROOTHASH_SEC_NAME)) {
++		const struct dm_verity_digest *digest = value;
++
++		blob->digest = kmemdup(digest->digest, digest->digest_len, GFP_KERNEL);
++		if (!blob->digest)
++			return -ENOMEM;
++
++		blob->digest_algo = kstrdup_const(digest->algo, GFP_KERNEL);
++		if (!blob->digest_algo)
++			return -ENOMEM;
++
++		blob->digest_len = digest->digest_len;
++		return 0;
++	} else if (!strcmp(key, DM_VERITY_SIGNATURE_SEC_NAME)) {
++		blob->dm_verity_signed = true;
++		return 0;
++	}
++
++	return -EOPNOTSUPP;
++}
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
+diff --git a/security/ipe/hooks.h b/security/ipe/hooks.h
+index 857cae69678c..16611a149158 100644
+--- a/security/ipe/hooks.h
++++ b/security/ipe/hooks.h
+@@ -8,6 +8,7 @@
+ #include <linux/fs.h>
+ #include <linux/binfmts.h>
+ #include <linux/security.h>
++#include <linux/device-mapper.h>
+ 
+ void ipe_sb_free_security(struct super_block *mnt_sb);
+ 
+@@ -24,4 +25,11 @@ int ipe_kernel_read_file(struct file *file, enum kernel_read_file_id id,
+ 
+ int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents);
+ 
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++void ipe_bdev_free_security(struct block_device *bdev);
++
++int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
++			 const void *value, size_t len);
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ #endif /* IPE_HOOKS_H */
+diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
+index 7af2f942decd..5612cb3cf1e5 100644
+--- a/security/ipe/ipe.c
++++ b/security/ipe/ipe.c
+@@ -5,12 +5,23 @@
+ 
+ #include "ipe.h"
+ #include "hooks.h"
++#include "eval.h"
+ 
+ bool ipe_enabled;
+ 
+ static struct lsm_blob_sizes ipe_blobs __lsm_ro_after_init = {
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++		.lbs_bdev = sizeof(struct ipe_bdev),
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
+ };
+ 
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++struct ipe_bdev *ipe_bdev(struct block_device *b)
++{
++	return b->security + ipe_blobs.lbs_bdev;
++}
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ static struct security_hook_list ipe_hooks[] __lsm_ro_after_init = {
+ 	LSM_HOOK_INIT(sb_free_security, ipe_sb_free_security),
+ 	LSM_HOOK_INIT(bprm_check_security, ipe_bprm_check_security),
+@@ -18,6 +29,10 @@ static struct security_hook_list ipe_hooks[] __lsm_ro_after_init = {
+ 	LSM_HOOK_INIT(file_mprotect, ipe_file_mprotect),
+ 	LSM_HOOK_INIT(kernel_read_file, ipe_kernel_read_file),
+ 	LSM_HOOK_INIT(kernel_load_data, ipe_kernel_load_data),
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++	LSM_HOOK_INIT(bdev_free_security, ipe_bdev_free_security),
++	LSM_HOOK_INIT(bdev_setsecurity, ipe_bdev_setsecurity),
++#endif
+ };
+ 
+ /**
+diff --git a/security/ipe/ipe.h b/security/ipe/ipe.h
+index 43cc132ed048..c2594a45b8f2 100644
+--- a/security/ipe/ipe.h
++++ b/security/ipe/ipe.h
+@@ -12,4 +12,8 @@
+ 
+ extern bool ipe_enabled;
+ 
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++struct ipe_bdev *ipe_bdev(struct block_device *b);
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
++
+ #endif /* IPE_H */
+diff --git a/security/ipe/policy.h b/security/ipe/policy.h
+index 0cb42b6f246e..324eb76c6067 100644
+--- a/security/ipe/policy.h
++++ b/security/ipe/policy.h
+@@ -28,6 +28,9 @@ enum ipe_action_type {
+ enum ipe_prop_type {
+ 	ipe_prop_boot_verified_false,
+ 	ipe_prop_boot_verified_true,
++	ipe_prop_dmv_roothash,
++	ipe_prop_dmv_sig_false,
++	ipe_prop_dmv_sig_true,
+ 	ipe_prop_max
+ };
+ 
+diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
+index 7efafc482e46..50a6a763e842 100644
+--- a/security/ipe/policy_parser.c
++++ b/security/ipe/policy_parser.c
+@@ -215,6 +215,7 @@ static void free_rule(struct ipe_rule *r)
+ 		return;
+ 
+ 	list_for_each_entry_safe(p, t, &r->props, next) {
++		ipe_digest_free(&p->value);
+ 		kfree(p);
+ 	}
+ 
+@@ -267,6 +268,11 @@ static enum ipe_action_type parse_action(char *t)
+ static const match_table_t property_tokens = {
+ 	{ipe_prop_boot_verified_false,	"boot_verified=FALSE"},
+ 	{ipe_prop_boot_verified_true,	"boot_verified=TRUE"},
++#ifdef CONFIG_IPE_PROP_DM_VERITY
++	{ipe_prop_dmv_roothash,		"dmverity_roothash=%s"},
++	{ipe_prop_dmv_sig_false,	"dmverity_signature=FALSE"},
++	{ipe_prop_dmv_sig_true,		"dmverity_signature=TRUE"},
++#endif /* CONFIG_IPE_PROP_DM_VERITY */
+ 	{ipe_prop_max,			NULL}
+ };
+ 
+@@ -297,8 +303,18 @@ int parse_property(char *t, struct ipe_rule *r)
+ 	token = match_token(t, property_tokens, args);
+ 
+ 	switch (token) {
++	case ipe_prop_dmv_roothash:
++		dup = match_strdup(&args[0]);
++		if (!dup) {
++			rc = -ENOMEM;
++			goto err;
++		}
++		rc = ipe_digest_parse(dup, &p->value);
++		fallthrough;
+ 	case ipe_prop_boot_verified_false:
+ 	case ipe_prop_boot_verified_true:
++	case ipe_prop_dmv_sig_false:
++	case ipe_prop_dmv_sig_true:
+ 		p->type = token;
+ 		break;
+ 	case ipe_prop_max:
 -- 
 2.39.0
 
