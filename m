@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6FE046825E7
-	for <lists+dm-devel@lfdr.de>; Tue, 31 Jan 2023 08:53:11 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id D6A0B6825D6
+	for <lists+dm-devel@lfdr.de>; Tue, 31 Jan 2023 08:48:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675151586;
+	s=mimecast20190719; t=1675151293;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=gXtEbLwuCSbzD2Yy5mWQJB4Wwm1Lbytk/PTN8hsqXdI=;
-	b=aK8wyyShGcGcO11T8JNLf2NJsZxNbP6GjY3nb8ri1pe6GqKB3NUoSpgj3J5uIwzioIrqjz
-	sCB7b2IeUm6Ey3V9qLcUZYBXwtpAqnWqJ6/AFQPadxCMePV7wV833OVlZzdwcCRj90cgXW
-	6tUFrO/pCcMVuOiN1sMcxGjLNPZybeo=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=UirabayTFvIdhtbCvMDL2WkPjbLmdXXL+FRH0DUYGcs=;
+	b=JoBxJ/IMC0jyh2dMkdKdXorIhClE1OaiMNppvkR6KeiPuK2t6ph422ZNTLIrj0WHCBy1+4
+	7BdcKDcEtcN9Fz8e/kQa2529fjKauNI2V2Ddd7ejjRn0R8MmBK6+fwM2m0uFh7T0LImHdA
+	1UE/I2t+bFb77dTsUYtwhM5j+LnhPLo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-326-ja_iSOmlMfauF0KqTlaEvA-1; Tue, 31 Jan 2023 02:53:05 -0500
-X-MC-Unique: ja_iSOmlMfauF0KqTlaEvA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-617-Pr0kJpq_NZuXKxqCnzXa5g-1; Tue, 31 Jan 2023 02:47:27 -0500
+X-MC-Unique: Pr0kJpq_NZuXKxqCnzXa5g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34E731C05ABC;
-	Tue, 31 Jan 2023 07:53:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 243AA85A588;
+	Tue, 31 Jan 2023 07:47:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3D15E492B00;
-	Tue, 31 Jan 2023 07:52:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F265E492B06;
+	Tue, 31 Jan 2023 07:47:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9298E19465A3;
-	Tue, 31 Jan 2023 07:52:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3357B19465BA;
+	Tue, 31 Jan 2023 07:47:18 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E388D19465B2
+ ESMTP id B07531946587
  for <dm-devel@listman.corp.redhat.com>; Mon, 30 Jan 2023 23:06:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CA9F4422AE; Mon, 30 Jan 2023 23:06:41 +0000 (UTC)
+ id A390E400EAD6; Mon, 30 Jan 2023 23:06:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C30F0175AD
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BE7F4015319
  for <dm-devel@redhat.com>; Mon, 30 Jan 2023 23:06:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A30F6101A521
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7BD66855304
  for <dm-devel@redhat.com>; Mon, 30 Jan 2023 23:06:41 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-361-1ipI1XseMbqehrmPbpOW2A-1; Mon,
+ relay.mimecast.com with ESMTP id us-mta-225-dD4DUshTPSiP_b09z3wN-w-1; Mon,
  30 Jan 2023 18:06:38 -0500
-X-MC-Unique: 1ipI1XseMbqehrmPbpOW2A-1
+X-MC-Unique: dD4DUshTPSiP_b09z3wN-w-1
 Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 5ADFD20EA1F6; Mon, 30 Jan 2023 14:58:42 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5ADFD20EA1F6
+ id 6898F20EA1FB; Mon, 30 Jan 2023 14:58:42 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6898F20EA1FB
 From: Fan Wu <wufan@linux.microsoft.com>
 To: corbet@lwn.net, zohar@linux.ibm.com, jmorris@namei.org, serge@hallyn.com,
  tytso@mit.edu, ebiggers@kernel.org, axboe@kernel.dk, agk@redhat.com,
  snitzer@kernel.org, eparis@redhat.com, paul@paul-moore.com
-Date: Mon, 30 Jan 2023 14:57:23 -0800
-Message-Id: <1675119451-23180-9-git-send-email-wufan@linux.microsoft.com>
+Date: Mon, 30 Jan 2023 14:57:24 -0800
+Message-Id: <1675119451-23180-10-git-send-email-wufan@linux.microsoft.com>
 In-Reply-To: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
 References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -73,9 +73,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Tue, 31 Jan 2023 07:47:16 +0000
-Subject: [dm-devel] [RFC PATCH v9 08/16] ipe: add permissive toggle
+Subject: [dm-devel] [RFC PATCH v9 09/16] block|security: add LSM blob to
+ block_device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,7 +97,7 @@ Cc: Fan Wu <wufan@linux.microsoft.com>, dm-devel@redhat.com,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -104,335 +105,300 @@ Content-Transfer-Encoding: 7bit
 
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-IPE, like SELinux, supports a permissive mode. This mode allows policy
-authors to test and evaluate IPE policy without it effecting their
-programs. When the mode is changed, a 1404 AUDIT_MAC_STATUS
-be reported.
+block_device structures can have valuable security properties,
+based on how they are created, and what subsystem manages them.
 
-This patch adds the following audit records:
-
-  audit: MAC_STATUS permissive=1 auid=4294967295 ses=4294967295 lsm=ipe
-    res=1
-  audit: MAC_STATUS permissive=0 auid=4294967295 ses=4294967295 lsm=ipe
-    res=1
-
-These records are emitted within the following events:
-
-  audit: MAC_STATUS permissive=1 auid=4294967295 ses=4294967295 lsm=ipe
-    res=1
-  audit[185]: SYSCALL arch=c000003e syscall=1 success=yes exit=2 a0=1
-    a1=56308bb3ecc0 a2=2 a3=7f290fdc53e0 items=0 ppid=183 pid=185
-    auid=4294967295 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
-    tty=pts0 ses=4294967295 comm="bash" exe="/usr/bin/bash" key=(null)
-  audit: PROCTITLE proctitle="-bash"
-  audit: MAC_STATUS permissive=0 auid=4294967295 ses=4294967295 lsm=ipe
-    res=1
-  audit[185]: SYSCALL arch=c000003e syscall=1 success=yes exit=2 a0=1
-    a1=56308bb3ecc0 a2=2 a3=7f290fdc53e0 items=0 ppid=183 pid=185
-    auid=4294967295 uid=0 gid=0 euid=0 suid=0 fsuid=0 egid=0 sgid=0 fsgid=0
-    tty=pts0 ses=4294967295 comm="bash" exe="/usr/bin/bash" key=(null)
-  audit: PROCTITLE proctitle="-bash"
-
-  Implying user used bash to toggle the switch.
+By adding LSM storage to this structure, this data can be accessed
+at the LSM layer.
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
-
+Reviewed-by: Casey Schaufler <casey@schaufler-ca.com>
 ---
 v2:
-  + Split evaluation loop, access control hooks,
-    and evaluation loop from policy parser and userspace
-    interface to pass mailing list character limit
+  + No Changes
 
 v3:
-  + Move ipe_load_properties to patch 04.
-  + Remove useless 0-initializations
-  + Prefix extern variables with ipe_
-  + Remove kernel module parameters, as these are
-    exposed through sysctls.
-  + Add more prose to the IPE base config option
-    help text.
-  + Use GFP_KERNEL for audit_log_start.
-  + Remove unnecessary caching system.
-  + Remove comments from headers
-  + Use rcu_access_pointer for rcu-pointer null check
-  + Remove usage of reqprot; use prot only.
-  + Move policy load and activation audit event to 03/12
+  + Minor style changes from checkpatch --strict
 
 v4:
-  + Remove sysctls in favor of securityfs nodes
-  + Re-add kernel module parameters, as these are now
-    exposed through securityfs.
-  + Refactor property audit loop to a separate function.
+  + No Changes
 
 v5:
-  + fix minor grammatical errors
-  + do not group rule by curly-brace in audit record,
-    reconstruct the exact rule.
+  + Allow multiple callers to call security_bdev_setsecurity
 
 v6:
-  + No changes
+  + Simplify security_bdev_setsecurity break condition
 
 v7:
-  + Further split lsm creation into a separate commit from the
-    evaluation loop and audit system, for easier review.
-  + Propogating changes to support the new ipe_context structure in the
-    evaluation loop.
-  + Split out permissive functionality into a separate patch for easier
-    review.
-  + Remove permissive switch compile-time configuration option - this
-    is trivial to add later.
+  + Squash all dm-verity related patches to two patches,
+    the additions to dm-verity/fs, and the consumption of
+    the additions.
 
 v8:
-  + Remove "IPE" prefix from permissive audit record
-  + align fields to the linux-audit field dictionary. This causes the
-    following fields to change:
-      enforce -> permissive
+  + Split dm-verity related patches squashed in v7 to 3 commits based on
+    topic:
+      + New LSM hook
+      + Consumption of hook outside LSM
+      + Consumption of hook inside LSM.
 
-  + Remove duplicated information correlated with syscall record, that
-    will always be present in the audit event.
-  + Change audit types:
-    + AUDIT_TRUST_STATUS -> AUDIT_MAC_STATUS
-      + There is no significant difference in meaning between
-        these types.
+  + change return of security_bdev_alloc / security_bdev_setsecurity
+    to LSM_RET_DEFAULT instead of 0.
+
+  + Change return code to -EOPNOTSUPP, bring inline with other
+    setsecurity hooks.
 
 v9:
-  + Clean up ipe_context related code
+  + Add Reviewed-by: Casey Schaufler <casey@schaufler-ca.com>
+  + Remove unlikely when calling LSM hook
+  + Make the security field dependent on CONFIG_SECURITY
 ---
- security/ipe/audit.c | 36 +++++++++++++++++++++++
- security/ipe/audit.h |  1 +
- security/ipe/eval.c  |  9 ++++++
- security/ipe/eval.h  |  1 +
- security/ipe/fs.c    | 69 ++++++++++++++++++++++++++++++++++++++++++--
- 5 files changed, 114 insertions(+), 2 deletions(-)
+ block/bdev.c                  |  7 ++++
+ include/linux/blk_types.h     |  3 ++
+ include/linux/lsm_hook_defs.h |  5 +++
+ include/linux/lsm_hooks.h     | 12 ++++++
+ include/linux/security.h      | 22 +++++++++++
+ security/security.c           | 70 +++++++++++++++++++++++++++++++++++
+ 6 files changed, 119 insertions(+)
 
-diff --git a/security/ipe/audit.c b/security/ipe/audit.c
-index 295e9f9f5146..ff74026a595f 100644
---- a/security/ipe/audit.c
-+++ b/security/ipe/audit.c
-@@ -194,3 +194,39 @@ void ipe_audit_policy_load(const struct ipe_policy *const p)
+diff --git a/block/bdev.c b/block/bdev.c
+index edc110d90df4..f8db53b47c00 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -24,6 +24,7 @@
+ #include <linux/pseudo_fs.h>
+ #include <linux/uio.h>
+ #include <linux/namei.h>
++#include <linux/security.h>
+ #include <linux/part_stat.h>
+ #include <linux/uaccess.h>
+ #include <linux/stat.h>
+@@ -396,6 +397,11 @@ static struct inode *bdev_alloc_inode(struct super_block *sb)
+ 	if (!ei)
+ 		return NULL;
+ 	memset(&ei->bdev, 0, sizeof(ei->bdev));
++
++	if (security_bdev_alloc(&ei->bdev)) {
++		kmem_cache_free(bdev_cachep, ei);
++		return NULL;
++	}
+ 	return &ei->vfs_inode;
+ }
  
- 	audit_log_end(ab);
+@@ -405,6 +411,7 @@ static void bdev_free_inode(struct inode *inode)
+ 
+ 	free_percpu(bdev->bd_stats);
+ 	kfree(bdev->bd_meta_info);
++	security_bdev_free(bdev);
+ 
+ 	if (!bdev_is_partition(bdev)) {
+ 		if (bdev->bd_disk && bdev->bd_disk->bdi)
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 99be590f952f..137a04f45c17 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -68,6 +68,9 @@ struct block_device {
+ #ifdef CONFIG_FAIL_MAKE_REQUEST
+ 	bool			bd_make_it_fail;
+ #endif
++#ifdef CONFIG_SECURITY
++	void			*security;
++#endif
+ } __randomize_layout;
+ 
+ #define bdev_whole(_bdev) \
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index ed6cb2ac55fa..1f79029c9e28 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -417,3 +417,8 @@ LSM_HOOK(int, 0, uring_override_creds, const struct cred *new)
+ LSM_HOOK(int, 0, uring_sqpoll, void)
+ LSM_HOOK(int, 0, uring_cmd, struct io_uring_cmd *ioucmd)
+ #endif /* CONFIG_IO_URING */
++
++LSM_HOOK(int, 0, bdev_alloc_security, struct block_device *bdev)
++LSM_HOOK(void, LSM_RET_VOID, bdev_free_security, struct block_device *bdev)
++LSM_HOOK(int, 0, bdev_setsecurity, struct block_device *bdev, const char *name,
++	 const void *value, size_t size)
+diff --git a/include/linux/lsm_hooks.h b/include/linux/lsm_hooks.h
+index 0a5ba81f7367..b622ceb57d83 100644
+--- a/include/linux/lsm_hooks.h
++++ b/include/linux/lsm_hooks.h
+@@ -1618,6 +1618,17 @@
+  *	@what: kernel feature being accessed.
+  *	Return 0 if permission is granted.
+  *
++ * @bdev_alloc_security:
++ *	Initialize the security field inside a block_device structure.
++ *
++ * @bdev_free_security:
++ *	Cleanup the security information stored inside a block_device structure.
++ *
++ * @bdev_setsecurity:
++ *	Set a security property associated with @name for @bdev with
++ *	value @value. @size indicates the size of @value in bytes.
++ *	If a @name is not implemented, return -EOPNOTSUPP.
++ *
+  * Security hooks for perf events
+  *
+  * @perf_event_open:
+@@ -1687,6 +1698,7 @@ struct lsm_blob_sizes {
+ 	int	lbs_ipc;
+ 	int	lbs_msg_msg;
+ 	int	lbs_task;
++	int	lbs_bdev;
+ };
+ 
+ /*
+diff --git a/include/linux/security.h b/include/linux/security.h
+index 479e154a12b8..7dea630bff5f 100644
+--- a/include/linux/security.h
++++ b/include/linux/security.h
+@@ -487,6 +487,11 @@ int security_inode_notifysecctx(struct inode *inode, void *ctx, u32 ctxlen);
+ int security_inode_setsecctx(struct dentry *dentry, void *ctx, u32 ctxlen);
+ int security_inode_getsecctx(struct inode *inode, void **ctx, u32 *ctxlen);
+ int security_locked_down(enum lockdown_reason what);
++int security_bdev_alloc(struct block_device *bdev);
++void security_bdev_free(struct block_device *bdev);
++int security_bdev_setsecurity(struct block_device *bdev,
++			      const char *name, const void *value,
++			      size_t size);
+ #else /* CONFIG_SECURITY */
+ 
+ static inline int call_blocking_lsm_notifier(enum lsm_event event, void *data)
+@@ -1402,6 +1407,23 @@ static inline int security_locked_down(enum lockdown_reason what)
+ {
+ 	return 0;
  }
 +
-+/**
-+ * ipe_audit_enforce - Audit a change in IPE's enforcement state.
-+ */
-+void ipe_audit_enforce(void)
++static inline int security_bdev_alloc(struct block_device *bdev)
 +{
-+	struct audit_buffer *ab;
-+
-+	ab = audit_log_start(audit_context(), GFP_KERNEL, AUDIT_MAC_STATUS);
-+	if (!ab)
-+		return;
-+
-+	audit_log_format(ab, "permissive=%d", !READ_ONCE(enforce));
-+	audit_log_format(ab, " auid=%u ses=%u lsm=ipe res=1",
-+			 from_kuid(&init_user_ns, audit_get_loginuid(current)),
-+			 audit_get_sessionid(current));
-+
-+	audit_log_end(ab);
-+}
-+
-+/**
-+ * emit_enforcement - Emit the enforcement state of IPE started with.
-+ *
-+ * Return:
-+ * 0 - Always
-+ */
-+static int emit_enforcement(void)
-+{
-+	if (!ipe_enabled)
-+		return -EOPNOTSUPP;
-+
-+	ipe_audit_enforce();
 +	return 0;
 +}
 +
-+late_initcall(emit_enforcement);
-diff --git a/security/ipe/audit.h b/security/ipe/audit.h
-index 2e9b99737f97..4c676ed32846 100644
---- a/security/ipe/audit.h
-+++ b/security/ipe/audit.h
-@@ -14,5 +14,6 @@ void ipe_audit_match(const struct ipe_eval_ctx *const ctx,
- void ipe_audit_policy_load(const struct ipe_policy *const p);
- void ipe_audit_policy_activation(const struct ipe_policy *const op,
- 				 const struct ipe_policy *const np);
-+void ipe_audit_enforce(void);
- 
- #endif /* IPE_AUDIT_H */
-diff --git a/security/ipe/eval.c b/security/ipe/eval.c
-index d713808cad9c..499314554b1d 100644
---- a/security/ipe/eval.c
-+++ b/security/ipe/eval.c
-@@ -20,6 +20,7 @@
- 
- struct ipe_policy __rcu *ipe_active_policy;
- bool success_audit;
-+bool enforce = true;
- 
- static struct super_block *pinned_sb;
- static DEFINE_SPINLOCK(pin_lock);
-@@ -119,6 +120,7 @@ int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx)
- {
- 	int rc = 0;
- 	bool match = false;
-+	bool enforcing = true;
- 	enum ipe_action_type action;
- 	enum ipe_match match_type;
- 	struct ipe_policy *pol = NULL;
-@@ -133,6 +135,8 @@ int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx)
- 	if (!pol)
- 		goto out;
- 
-+	enforcing = READ_ONCE(enforce);
++static inline void security_bdev_free(struct block_device *bdev)
++{
++}
 +
- 	if (ctx->op == ipe_op_max) {
- 		action = pol->parsed->global_default_action;
- 		match_type = ipe_match_global;
-@@ -168,6 +172,9 @@ int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx)
- 	if (action == ipe_action_deny)
- 		rc = -EACCES;
- 
-+	if (!enforcing)
-+		rc = 0;
++static inline int security_bdev_setsecurity(struct block_device *bdev,
++					    const char *name,
++					    const void *value, size_t size)
++{
++	return 0;
++}
 +
- out:
- 	return rc;
+ #endif	/* CONFIG_SECURITY */
+ 
+ #if defined(CONFIG_SECURITY) && defined(CONFIG_WATCH_QUEUE)
+diff --git a/security/security.c b/security/security.c
+index d1571900a8c7..5c81dd3b1350 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -29,6 +29,7 @@
+ #include <linux/string.h>
+ #include <linux/msg.h>
+ #include <net/flow.h>
++#include <linux/fs.h>
+ 
+ #define MAX_LSM_EVM_XATTR	2
+ 
+@@ -211,6 +212,7 @@ static void __init lsm_set_blob_sizes(struct lsm_blob_sizes *needed)
+ 	lsm_set_blob_size(&needed->lbs_msg_msg, &blob_sizes.lbs_msg_msg);
+ 	lsm_set_blob_size(&needed->lbs_superblock, &blob_sizes.lbs_superblock);
+ 	lsm_set_blob_size(&needed->lbs_task, &blob_sizes.lbs_task);
++	lsm_set_blob_size(&needed->lbs_bdev, &blob_sizes.lbs_bdev);
  }
-@@ -198,3 +205,5 @@ void ipe_invalidate_pinned_sb(const struct super_block *mnt_sb)
  
- module_param(success_audit, bool, 0400);
- MODULE_PARM_DESC(success_audit, "Start IPE with success auditing enabled");
-+module_param(enforce, bool, 0400);
-+MODULE_PARM_DESC(enforce, "Start IPE in enforce or permissive mode");
-diff --git a/security/ipe/eval.h b/security/ipe/eval.h
-index b83730d0b5ae..64369c3b8cf9 100644
---- a/security/ipe/eval.h
-+++ b/security/ipe/eval.h
-@@ -14,6 +14,7 @@
+ /* Prepare LSM for initialization. */
+@@ -370,6 +372,7 @@ static void __init ordered_lsm_init(void)
+ 	init_debug("msg_msg blob size    = %d\n", blob_sizes.lbs_msg_msg);
+ 	init_debug("superblock blob size = %d\n", blob_sizes.lbs_superblock);
+ 	init_debug("task blob size       = %d\n", blob_sizes.lbs_task);
++	init_debug("bdev blob size       = %d\n", blob_sizes.lbs_bdev);
  
- extern struct ipe_policy __rcu *ipe_active_policy;
- extern bool success_audit;
-+extern bool enforce;
- 
- struct ipe_eval_ctx {
- 	enum ipe_op_type op;
-diff --git a/security/ipe/fs.c b/security/ipe/fs.c
-index c99616f36f32..bbee17b59b1b 100644
---- a/security/ipe/fs.c
-+++ b/security/ipe/fs.c
-@@ -15,6 +15,7 @@ static struct dentry *np __ro_after_init;
- static struct dentry *root __ro_after_init;
- struct dentry *policy_root __ro_after_init;
- static struct dentry *audit_node __ro_after_init;
-+static struct dentry *enforce_node __ro_after_init;
- 
- /**
-  * setaudit - Write handler for the securityfs node, "ipe/success_audit"
-@@ -48,8 +49,8 @@ static ssize_t setaudit(struct file *f, const char __user *data,
- /**
-  * getaudit - Read handler for the securityfs node, "ipe/success_audit"
-  * @f: Supplies a file structure representing the securityfs node.
-- * @data: Supplies a buffer passed to the read syscall
-- * @len: Supplies the length of @data
-+ * @data: Supplies a buffer passed to the read syscall.
-+ * @len: Supplies the length of @data.
-  * @offset: unused.
-  *
-  * Return:
-@@ -66,6 +67,57 @@ static ssize_t getaudit(struct file *f, char __user *data,
- 	return simple_read_from_buffer(data, len, offset, result, 1);
+ 	/*
+ 	 * Create any kmem_caches needed for blobs
+@@ -690,6 +693,28 @@ static int lsm_msg_msg_alloc(struct msg_msg *mp)
+ 	return 0;
  }
  
 +/**
-+ * setenforce - Write handler for the securityfs node, "ipe/enforce"
-+ * @f: Supplies a file structure representing the securityfs node.
-+ * @data: Supplies a buffer passed to the write syscall.
-+ * @len: Supplies the length of @data.
-+ * @offset: unused.
++ * lsm_bdev_alloc - allocate a composite block_device blob
++ * @bdev: the block_device that needs a blob
 + *
-+ * Return:
-+ * * >0	- Success, Length of buffer written
-+ * * <0	- Error
-+ */
-+static ssize_t setenforce(struct file *f, const char __user *data,
-+			  size_t len, loff_t *offset)
-+{
-+	int rc = 0;
-+	bool value;
-+
-+	if (!file_ns_capable(f, &init_user_ns, CAP_MAC_ADMIN))
-+		return -EPERM;
-+
-+	rc = kstrtobool_from_user(data, len, &value);
-+	if (rc)
-+		return rc;
-+
-+	WRITE_ONCE(enforce, value);
-+	ipe_audit_enforce();
-+
-+	return len;
-+}
-+
-+/**
-+ * getenforce - Read handler for the securityfs node, "ipe/enforce"
-+ * @f: Supplies a file structure representing the securityfs node.
-+ * @data: Supplies a buffer passed to the read syscall.
-+ * @len: Supplies the length of @data.
-+ * @offset: unused.
++ * Allocate the block_device blob for all the modules
 + *
-+ * Return:
-+ * * >0	- Success, Length of buffer written
-+ * * <0	- Error
++ * Returns 0, or -ENOMEM if memory can't be allocated.
 + */
-+static ssize_t getenforce(struct file *f, char __user *data,
-+			  size_t len, loff_t *offset)
++static int lsm_bdev_alloc(struct block_device *bdev)
 +{
-+	const char *result;
-+
-+	result = ((READ_ONCE(enforce)) ? "1" : "0");
-+
-+	return simple_read_from_buffer(data, len, offset, result, 1);
-+}
-+
- /**
-  * new_policy - Write handler for the securityfs node, "ipe/new_policy".
-  * @f: Supplies a file structure representing the securityfs node.
-@@ -118,6 +170,11 @@ static const struct file_operations audit_fops = {
- 	.read = getaudit,
- };
- 
-+static const struct file_operations enforce_fops = {
-+	.write = setenforce,
-+	.read = getenforce,
-+};
-+
- /**
-  * ipe_init_securityfs - Initialize IPE's securityfs tree at fsinit.
-  *
-@@ -151,6 +208,13 @@ static int __init ipe_init_securityfs(void)
- 		goto err;
- 	}
- 
-+	enforce_node = securityfs_create_file("enforce", 0600, root, NULL,
-+					      &enforce_fops);
-+	if (IS_ERR(enforce_node)) {
-+		rc = PTR_ERR(enforce_node);
-+		goto err;
++	if (blob_sizes.lbs_bdev == 0) {
++		bdev->security = NULL;
++		return 0;
 +	}
 +
- 	policy_root = securityfs_create_dir("policies", root);
- 	if (IS_ERR(policy_root)) {
- 		rc = PTR_ERR(policy_root);
-@@ -162,6 +226,7 @@ static int __init ipe_init_securityfs(void)
- 	securityfs_remove(np);
- 	securityfs_remove(root);
- 	securityfs_remove(audit_node);
-+	securityfs_remove(enforce_node);
- 	securityfs_remove(policy_root);
- 	return rc;
++	bdev->security = kzalloc(blob_sizes.lbs_bdev, GFP_KERNEL);
++	if (!bdev->security)
++		return -ENOMEM;
++
++	return 0;
++}
++
+ /**
+  * lsm_early_task - during initialization allocate a composite task blob
+  * @task: the task that needs a blob
+@@ -2705,6 +2730,51 @@ int security_locked_down(enum lockdown_reason what)
  }
+ EXPORT_SYMBOL(security_locked_down);
+ 
++int security_bdev_alloc(struct block_device *bdev)
++{
++	int rc = 0;
++
++	rc = lsm_bdev_alloc(bdev);
++	if (unlikely(rc))
++		return rc;
++
++	rc = call_int_hook(bdev_alloc_security, 0, bdev);
++	if (unlikely(rc))
++		security_bdev_free(bdev);
++
++	return LSM_RET_DEFAULT(bdev_alloc_security);
++}
++EXPORT_SYMBOL(security_bdev_alloc);
++
++void security_bdev_free(struct block_device *bdev)
++{
++	if (!bdev->security)
++		return;
++
++	call_void_hook(bdev_free_security, bdev);
++
++	kfree(bdev->security);
++	bdev->security = NULL;
++}
++EXPORT_SYMBOL(security_bdev_free);
++
++int security_bdev_setsecurity(struct block_device *bdev,
++			      const char *name, const void *value,
++			      size_t size)
++{
++	int rc = 0;
++	struct security_hook_list *p;
++
++	hlist_for_each_entry(p, &security_hook_heads.bdev_setsecurity, list) {
++		rc = p->hook.bdev_setsecurity(bdev, name, value, size);
++		if (rc && rc != -EOPNOTSUPP)
++			return rc;
++	}
++
++	return LSM_RET_DEFAULT(bdev_setsecurity);
++}
++EXPORT_SYMBOL(security_bdev_setsecurity);
++
+ #ifdef CONFIG_PERF_EVENTS
+ int security_perf_event_open(struct perf_event_attr *attr, int type)
+ {
 -- 
 2.39.0
 
