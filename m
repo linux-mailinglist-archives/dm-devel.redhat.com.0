@@ -1,88 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B0B268612D
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:04:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 1570F686139
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:05:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675238644;
+	s=mimecast20190719; t=1675238702;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pDLc4Z/3SBQjjRtHC/7vYMn/HPfa3EX0K+hhqwX8XPk=;
-	b=YeXrAc/lSxMw+7lhNh5rdEu1NYquwBe3HT7R4DJfk24tJAsd+3poyZqsNS/WriN+ilr2WC
-	gCmFfidB+I4coR9IBRIlMwzXbypjx6IUwet4xhUmZH/5Qn5y3X+eUsGk2xV02OTjV0OiXx
-	iUbrwVL8ggxLLEuJYk1/C/K0BvjJgzs=
+	bh=7XvDL7CAPfXheW/yvbvE4CrUTcYrZkK9TbXqs5hel54=;
+	b=Qh4cY8D9DL7o5VNaVCwla62papI/O/GVizVC5Oq5GaGINFPaJCgk4XfO2neK+6t/g3mIqZ
+	2uQ3NzAAoXjtOIAi2gxBHIC1Ehks60z1qaAzgmMzMBzYVlRVBgGyKvpYq15CfJ7sHu+Jyf
+	x/GXqKLGp43AV+PCPrE8oX0diRTXOO4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-573-ozYdgDOzOTm2p0G8Jo1-QQ-1; Wed, 01 Feb 2023 03:04:00 -0500
-X-MC-Unique: ozYdgDOzOTm2p0G8Jo1-QQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-245-MDlBzdyuPCG2BnA-NMvfqg-1; Wed, 01 Feb 2023 03:04:08 -0500
+X-MC-Unique: MDlBzdyuPCG2BnA-NMvfqg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C23E2855710;
-	Wed,  1 Feb 2023 08:03:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE0FA183B3E0;
+	Wed,  1 Feb 2023 08:03:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7712940C2004;
-	Wed,  1 Feb 2023 08:03:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9785B492B05;
+	Wed,  1 Feb 2023 08:03:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DAE901946A66;
-	Wed,  1 Feb 2023 08:03:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8B4D219465B2;
+	Wed,  1 Feb 2023 08:03:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 884281946587
- for <dm-devel@listman.corp.redhat.com>; Tue, 31 Jan 2023 12:17:14 +0000 (UTC)
+ ESMTP id 069C01946587
+ for <dm-devel@listman.corp.redhat.com>; Tue, 31 Jan 2023 12:17:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 442ACC15BAD; Tue, 31 Jan 2023 12:17:14 +0000 (UTC)
+ id CBA60112132C; Tue, 31 Jan 2023 12:17:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3D101C15BAE
- for <dm-devel@redhat.com>; Tue, 31 Jan 2023 12:17:14 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C46D1112132D
+ for <dm-devel@redhat.com>; Tue, 31 Jan 2023 12:17:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2321A8588E0
- for <dm-devel@redhat.com>; Tue, 31 Jan 2023 12:17:14 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-382-wqBwOj4aOhmFXWaTfQGOZQ-1; Tue, 31 Jan 2023 07:17:11 -0500
-X-MC-Unique: wqBwOj4aOhmFXWaTfQGOZQ-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 4EAD9614DC;
- Tue, 31 Jan 2023 12:10:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id A32A6C4339B;
- Tue, 31 Jan 2023 12:10:17 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- 7574CC4314C; Tue, 31 Jan 2023 12:10:17 +0000 (UTC)
-MIME-Version: 1.0
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: <167516701747.19012.10728935395396675001.git-patchwork-notify@kernel.org>
-Date: Tue, 31 Jan 2023 12:10:17 +0000
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1FB11C051A6
+ for <dm-devel@redhat.com>; Tue, 31 Jan 2023 12:17:44 +0000 (UTC)
+Received: from mail-vs1-f70.google.com (mail-vs1-f70.google.com
+ [209.85.217.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-21-vIw_4QWxN2uTTp4Y7a18fw-1; Tue, 31 Jan 2023 07:17:43 -0500
+X-MC-Unique: vIw_4QWxN2uTTp4Y7a18fw-1
+Received: by mail-vs1-f70.google.com with SMTP id
+ m2-20020a67bb02000000b003f6900b055eso1363492vsn.17
+ for <dm-devel@redhat.com>; Tue, 31 Jan 2023 04:17:43 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=mime-version:user-agent:content-transfer-encoding:references
+ :in-reply-to:date:cc:to:from:subject:message-id:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=0xKlxpkUZRo2mPicdjcp1VlQPa8+dcAbG4ZeEJrymiQ=;
+ b=receiYdrlc0nI060n12rD17b7aMoXig1m2EJH/ksne+zFKbb+hLQXNz+mld0uT0aNl
+ abwP61c6OwkNBB1jAzXND5p4tq9/qOC7uJJoBwhK//2/7pM0xkv503hRDmw1cLBFuyNy
+ TJGHtZ81OSulcsHHQyQXBbZI2HJnl0kjf6aEWKbaJaeTKhC/mBBE/WXDK+PJpfFYRY6+
+ 5lVnIL7ZtVv1EVmNMxsdV3q9w4v1/NYEcLXpyJFxd4A0s78jktgbNNUF0/y921HXb4GS
+ HX3VNmfi0Eqoh1MHn/QmhX3mE7xHmgePEdK01N5XPL3pQUX/1wq2fqyNgrRlTX2jjLyg
+ uibA==
+X-Gm-Message-State: AO0yUKVevnIvZHHoQ64LAXghlnlWbEGu8Yz/JeL2Z7FtKs3hDhEHIWXe
+ FRL8jVt6FwNfLZeavLLhWn+uyHLjwFGygpXab8x9A4Q7fgiuJs8te0IeifzOyuk/i5aYNykbR1D
+ fUHQsXgNk1ZDAMyc=
+X-Received: by 2002:a67:c119:0:b0:3ea:99cb:c3e with SMTP id
+ d25-20020a67c119000000b003ea99cb0c3emr2996479vsj.2.1675167462885; 
+ Tue, 31 Jan 2023 04:17:42 -0800 (PST)
+X-Google-Smtp-Source: AK7set/3cWf1zFQSzSaXyTvYZFmhtrofj2WcZS5Lru0KQCl9i0U0TOY96Lm9fQ3ijteXPFUn2WOINw==
+X-Received: by 2002:a67:c119:0:b0:3ea:99cb:c3e with SMTP id
+ d25-20020a67c119000000b003ea99cb0c3emr2996457vsj.2.1675167462612; 
+ Tue, 31 Jan 2023 04:17:42 -0800 (PST)
+Received: from gerbillo.redhat.com (146-241-113-28.dyn.eolo.it.
+ [146.241.113.28]) by smtp.gmail.com with ESMTPSA id
+ 10-20020a370b0a000000b007203bbbbb31sm3325683qkl.47.2023.01.31.04.17.36
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 31 Jan 2023 04:17:42 -0800 (PST)
+Message-ID: <865b04949b69c3470ecb3fa5f93005e4c5a9e86e.camel@redhat.com>
+From: Paolo Abeni <pabeni@redhat.com>
+To: patchwork-bot+netdevbpf@kernel.org, Randy Dunlap <rdunlap@infradead.org>
+Date: Tue, 31 Jan 2023 13:17:35 +0100
+In-Reply-To: <167516701747.19012.10728935395396675001.git-patchwork-notify@kernel.org>
 References: <20230129231053.20863-1-rdunlap@infradead.org>
-In-Reply-To: <20230129231053.20863-1-rdunlap@infradead.org>
-To: Randy Dunlap <rdunlap@infradead.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+ <167516701747.19012.10728935395396675001.git-patchwork-notify@kernel.org>
+User-Agent: Evolution 3.46.3 (3.46.3-1.fc37)
+MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Wed, 01 Feb 2023 08:03:52 +0000
 Subject: Re: [dm-devel] [PATCH 0/9] Documentation: correct lots of spelling
  errors (series 2)
@@ -101,9 +115,9 @@ Cc: nvdimm@lists.linux.dev, linux-doc@vger.kernel.org, song@kernel.org,
  dm-devel@redhat.com, netdev@vger.kernel.org, lizefan.x@bytedance.com,
  sparclinux@vger.kernel.org, quic_neeraju@quicinc.com, agk@redhat.com,
  dave.jiang@intel.com, linux-scsi@vger.kernel.org, corbet@lwn.net,
- vishal.l.verma@intel.com, kuba@kernel.org, pabeni@redhat.com,
- jejb@linux.ibm.com, linux@roeck-us.net, linux-media@vger.kernel.org,
- jdelvare@suse.com, paulmck@kernel.org, frederic@kernel.org, snitzer@kernel.org,
+ vishal.l.verma@intel.com, kuba@kernel.org, jejb@linux.ibm.com,
+ linux@roeck-us.net, linux-media@vger.kernel.org, jdelvare@suse.com,
+ paulmck@kernel.org, frederic@kernel.org, snitzer@kernel.org,
  josh@joshtriplett.org, linux-raid@vger.kernel.org, tj@kernel.org,
  jiri@nvidia.com, cgroups@vger.kernel.org, dan.j.williams@intel.com,
  mchehab@kernel.org, linux-hwmon@vger.kernel.org, rcu@vger.kernel.org,
@@ -113,45 +127,50 @@ Cc: nvdimm@lists.linux.dev, linux-doc@vger.kernel.org, song@kernel.org,
  dmaengine@vger.kernel.org, davem@davemloft.net
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hello:
-
-This patch was applied to netdev/net-next.git (master)
-by Paolo Abeni <pabeni@redhat.com>:
-
-On Sun, 29 Jan 2023 15:10:44 -0800 you wrote:
-> Maintainers of specific kernel subsystems are only Cc-ed on their
-> respective patches, not the entire series. [if all goes well]
+On Tue, 2023-01-31 at 12:10 +0000, patchwork-bot+netdevbpf@kernel.org
+wrote:
+> Hello:
 > 
-> These patches are based on linux-next-20230127.
+> This patch was applied to netdev/net-next.git (master)
+> by Paolo Abeni <pabeni@redhat.com>:
 > 
+> On Sun, 29 Jan 2023 15:10:44 -0800 you wrote:
+> > Maintainers of specific kernel subsystems are only Cc-ed on their
+> > respective patches, not the entire series. [if all goes well]
+> > 
+> > These patches are based on linux-next-20230127.
+> > 
+> > 
+> >  [PATCH 1/9] Documentation: admin-guide: correct spelling
+> >  [PATCH 2/9] Documentation: driver-api: correct spelling
+> >  [PATCH 3/9] Documentation: hwmon: correct spelling
+> >  [PATCH 4/9] Documentation: networking: correct spelling
+> >  [PATCH 5/9] Documentation: RCU: correct spelling
+> >  [PATCH 6/9] Documentation: scsi/ChangeLog*: correct spelling
+> >  [PATCH 7/9] Documentation: scsi: correct spelling
+> >  [PATCH 8/9] Documentation: sparc: correct spelling
+> >  [PATCH 9/9] Documentation: userspace-api: correct spelling
+> > 
+> > [...]
 > 
->  [PATCH 1/9] Documentation: admin-guide: correct spelling
->  [PATCH 2/9] Documentation: driver-api: correct spelling
->  [PATCH 3/9] Documentation: hwmon: correct spelling
->  [PATCH 4/9] Documentation: networking: correct spelling
->  [PATCH 5/9] Documentation: RCU: correct spelling
->  [PATCH 6/9] Documentation: scsi/ChangeLog*: correct spelling
->  [PATCH 7/9] Documentation: scsi: correct spelling
->  [PATCH 8/9] Documentation: sparc: correct spelling
->  [PATCH 9/9] Documentation: userspace-api: correct spelling
+> Here is the summary with links:
+>   - [4/9] Documentation: networking: correct spelling
+>     https://git.kernel.org/netdev/net-next/c/a266ef69b890
 > 
-> [...]
+> You are awesome, thank you!
 
-Here is the summary with links:
-  - [4/9] Documentation: networking: correct spelling
-    https://git.kernel.org/netdev/net-next/c/a266ef69b890
+That is just a bot glitch. I actually applied only patch 4/9 to the
+net-next tree. I hope this is not too much scarying/confusing.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Thanks,
 
+Paolo
 
 --
 dm-devel mailing list
