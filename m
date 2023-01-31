@@ -2,96 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 82424686135
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:04:18 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 4AA5368612F
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:04:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675238657;
+	s=mimecast20190719; t=1675238645;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aShPzdDRXUpepDvccgmF5Sm+s63rBTo6rBqObapT3gU=;
-	b=bOgstTCAv8CJjWifl0Lm0YaQLF7eQI2rmAXd0KyoCkXVWmcAyC+AHTbTVKTrXiL/iyhg7m
-	w88rC/DnIrdnw/EhXJ1l61+ERA23XMqfA8b3uvq9Zv6SE2gtt+0F70IQtgDxT5xX9baN05
-	PuEnMfzVOqUeTEnW7uV3HV1n09UPRi4=
+	bh=aABpGVh5dbScXckYWSOlj+Rc0eYEhVK3P9uMRH+TdcM=;
+	b=iT3uAdtD0cfo7ux+VVVZz1UXaJ2g4zj9oYIc98SJSrMsz8E4GOXk9C0U3QiwKAQxz4jVBP
+	lEREZyJaDJHduoPJZpGdT2jTCW4jgJ0AjXwZzgpcr0LCwZFYuZLxaDkL8JkERxO3AzAuwk
+	ARCFQDMI/p6m2fdF09ilwGTzEXL/PBU=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-576-iUtmvCGCNPe53-8oNiNPbA-1; Wed, 01 Feb 2023 03:04:00 -0500
-X-MC-Unique: iUtmvCGCNPe53-8oNiNPbA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-92-ZaI--R84OUCyMLNIoKGvLA-1; Wed, 01 Feb 2023 03:04:00 -0500
+X-MC-Unique: ZaI--R84OUCyMLNIoKGvLA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C19D5823D5F;
-	Wed,  1 Feb 2023 08:03:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A733100DE72;
+	Wed,  1 Feb 2023 08:03:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8EC6D2166B33;
-	Wed,  1 Feb 2023 08:03:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1B7B414171B6;
+	Wed,  1 Feb 2023 08:03:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E35691946A68;
-	Wed,  1 Feb 2023 08:03:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 611F61946A51;
+	Wed,  1 Feb 2023 08:03:53 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3D2E71946587
- for <dm-devel@listman.corp.redhat.com>; Tue, 31 Jan 2023 14:01:00 +0000 (UTC)
+ ESMTP id 0E13B1946587
+ for <dm-devel@listman.corp.redhat.com>; Tue, 31 Jan 2023 14:23:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DBB26492B00; Tue, 31 Jan 2023 14:01:00 +0000 (UTC)
+ id DE0892166B34; Tue, 31 Jan 2023 14:23:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D0190492C3E
- for <dm-devel@redhat.com>; Tue, 31 Jan 2023 14:01:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D62A12166B33
+ for <dm-devel@redhat.com>; Tue, 31 Jan 2023 14:23:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AEDF43802B80
- for <dm-devel@redhat.com>; Tue, 31 Jan 2023 14:01:00 +0000 (UTC)
-Received: from frasgout12.his.huawei.com (frasgout12.his.huawei.com
- [14.137.139.154]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78DE41C270A0
+ for <dm-devel@redhat.com>; Tue, 31 Jan 2023 14:23:02 +0000 (UTC)
+Received: from frasgout11.his.huawei.com (frasgout11.his.huawei.com
+ [14.137.139.23]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-528-S4__RdkZNnKk87X8bSL7tQ-1; Tue, 31 Jan 2023 09:00:55 -0500
-X-MC-Unique: S4__RdkZNnKk87X8bSL7tQ-1
-Received: from mail02.huawei.com (unknown [172.18.147.228])
- by frasgout12.his.huawei.com (SkyGuard) with ESMTP id 4P5mhP1R82z9xFmx;
- Tue, 31 Jan 2023 21:52:37 +0800 (CST)
+ us-mta-492-Hf_QcqLgMoyM3xRgejWwRw-1; Tue, 31 Jan 2023 09:23:00 -0500
+X-MC-Unique: Hf_QcqLgMoyM3xRgejWwRw-1
+Received: from mail02.huawei.com (unknown [172.18.147.229])
+ by frasgout11.his.huawei.com (SkyGuard) with ESMTP id 4P5n9w564Dz9xFQH;
+ Tue, 31 Jan 2023 22:14:44 +0800 (CST)
 Received: from roberto-ThinkStation-P620 (unknown [10.204.63.22])
- by APP1 (Coremail) with SMTP id LxC2BwAHjQjyHtlj0zLhAA--.10979S2;
- Tue, 31 Jan 2023 15:00:31 +0100 (CET)
-Message-ID: <d62907da62b5e0b25c9d7bd4b3119a3d1827bd29.camel@huaweicloud.com>
+ by APP1 (Coremail) with SMTP id LxC2BwDnawcWJNlj10HhAA--.11161S2;
+ Tue, 31 Jan 2023 15:22:28 +0100 (CET)
+Message-ID: <033335b26f6becdc3dc0325ef926efd94fcc4dda.camel@huaweicloud.com>
 From: Roberto Sassu <roberto.sassu@huaweicloud.com>
 To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
  jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org, 
  axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com, 
  paul@paul-moore.com
-Date: Tue, 31 Jan 2023 15:00:08 +0100
-In-Reply-To: <1675119451-23180-14-git-send-email-wufan@linux.microsoft.com>
+Date: Tue, 31 Jan 2023 15:22:05 +0100
+In-Reply-To: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
 References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
- <1675119451-23180-14-git-send-email-wufan@linux.microsoft.com>
 User-Agent: Evolution 3.36.5-0ubuntu1
 MIME-Version: 1.0
-X-CM-TRANSID: LxC2BwAHjQjyHtlj0zLhAA--.10979S2
-X-Coremail-Antispam: 1UD129KBjvAXoW3ZFWkWw1UuFy7Gw1ftw13Jwb_yoW8Wr1xKo
- WSqa1xuF4jgr13Aw4F93W7AFW29wsYgw4xJF4qqrZrWF1Sq345Gw4UA3WfAF48Xr98Gr98
- C3s2vayrZF45twn8n29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
+X-CM-TRANSID: LxC2BwDnawcWJNlj10HhAA--.11161S2
+X-Coremail-Antispam: 1UD129KBjvAXoWfAr13Zw43ZrW8Kw15try5Arb_yoW8tr4Uuo
+ Wxu3ya9F4qqry3AFs5uFsrCrZxuasYgr4kXr4Yq34UGFnIqa4DK3y8Aa18WF1SgFW5Gr13
+ G34IvayrZr47tFn3n29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73VFW2AGmfu7bjvjm3
  AaLaJ3UjIYCTnIWjp_UUUY17kC6x804xWl14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK
  8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4
  AK67xGY2AK021l84ACjcxK6xIIjxv20xvE14v26r1j6r1xM28EF7xvwVC0I7IYx2IY6xkF
  7I0E14v26r4j6F4UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I
  0E14v26r4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8C
- rVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4
+ rVC2j2WlYx0E2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4
  IE7xkEbVWUJVW8JwACjcxG0xvEwIxGrwACI402YVCY1x02628vn2kIc2xKxwCF04k20xvY
  0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I
  0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAI
  cVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcV
- CF04k26cxKx2IYs7xG6rWUJVWrZr1UMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2
- jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxU7OJ5UUUUU
-X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQAOBF1jj4hViAAFsq
+ CF04k26cxKx2IYs7xG6rWUJVWrZr1UMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2
+ jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjxUFKZXUUUUU
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAgAOBF1jj4RZzQACsr
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -100,10 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Wed, 01 Feb 2023 08:03:52 +0000
-Subject: Re: [dm-devel] [RFC PATCH v9 13/16] ipe: enable support for
- fs-verity as a trust provider
+Subject: Re: [dm-devel] [RFC PATCH v9 00/16] Integrity Policy Enforcement
+ LSM (IPE)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,493 +113,426 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
- Deven Bowers <deven.desai@linux.microsoft.com>, roberto.sassu@huawei.com,
+Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org, roberto.sassu@huawei.com,
  linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
  linux-block@vger.kernel.org, linux-fscrypt@vger.kernel.org,
  linux-audit@redhat.com, linux-integrity@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Mon, 2023-01-30 at 14:57 -0800, Fan Wu wrote:
-> Enable IPE policy authors to indicate trust for a singular fsverity
-> file, identified by the digest information, through "fsverity_digest"
-> and all files using fsverity's builtin signatures via
-> "fsverity_signature".
-> 
-> This enables file-level integrity claims to be expressed in IPE,
-> allowing individual files to be authorized, giving some flexibility
-> for policy authors. Such file-level claims are important to be expressed
-> for enforcing the integrity of packages, as well as address some of the
-> scalability issues in a sole dm-verity based solution (# of loop back
-> devices, etc).
-> 
-> This solution cannot be done in userspace as the minimum threat that
-> IPE should mitigate is an attacker downloads malicious payload with
-> all required dependencies. These dependencies can lack the userspace
-> check, bypassing the protection entirely. A similar attack succeeds if
-> the userspace component is replaced with a version that does not
-> perform the check. As a result, this can only be done in the common
-> entry point - the kernel.
-> 
-> Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
-> Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
-> ---
-> v1-v6:
->   + Not present
-> 
-> v7:
->   Introduced
-> 
-> v8:
->   * Undo squash of 08/12, 10/12 - separating drivers/md/ from security/
->   * Use common-audit function for fsverity_signature.
->   + Change fsverity implementation to use fsverity_get_digest
->   + prevent unnecessary copy of fs-verity signature data, instead
->     just check for presence of signature data.
->   + Remove free_inode_security hook, as the digest is now acquired
->     at runtime instead of via LSM blob.
-> 
-> v9:
->   + Adapt to the new parser
-> ---
->  security/ipe/Kconfig         |  11 ++++
->  security/ipe/audit.c         |  23 +++++++
->  security/ipe/eval.c          | 112 +++++++++++++++++++++++++++++++++++
->  security/ipe/eval.h          |  10 ++++
->  security/ipe/hooks.c         |  30 ++++++++++
->  security/ipe/hooks.h         |   7 +++
->  security/ipe/ipe.c           |  13 ++++
->  security/ipe/ipe.h           |   3 +
->  security/ipe/policy.h        |   3 +
->  security/ipe/policy_parser.c |   8 +++
->  10 files changed, 220 insertions(+)
-> 
-> diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
-> index 16e835ce61b0..dd9a066dd35a 100644
-> --- a/security/ipe/Kconfig
-> +++ b/security/ipe/Kconfig
-> @@ -32,6 +32,17 @@ config IPE_PROP_DM_VERITY
->  
->  	  If unsure, answer Y.
->  
-> +config IPE_PROP_FS_VERITY
-> +	bool "Enable property for fs-verity files"
-> +	depends on FS_VERITY && FS_VERITY_BUILTIN_SIGNATURES
-> +	help
-> +	  This option enables the usage of properties "fsverity_signature"
-> +	  and "fsverity_digest". These properties evaluates to TRUE when
-> +	  a file is fsverity enabled and with a signed digest or its
-> +	  diegst matches the supplied value in the policy.
-> +
-> +	  if unsure, answer Y.
-> +
->  endmenu
->  
->  endif
-> diff --git a/security/ipe/audit.c b/security/ipe/audit.c
-> index 769ba95d9b0d..16d81645e53c 100644
-> --- a/security/ipe/audit.c
-> +++ b/security/ipe/audit.c
-> @@ -46,6 +46,11 @@ static const char *const audit_prop_names[ipe_prop_max] = {
->  	"dmverity_signature=FALSE",
->  	"dmverity_signature=TRUE",
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +	"fsverity_digest=",
-> +	"fsverity_signature=FALSE",
-> +	"fsverity_signature=TRUE"
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
->  };
->  
->  #ifdef CONFIG_IPE_PROP_DM_VERITY
-> @@ -64,6 +69,22 @@ static void audit_dmv_roothash(struct audit_buffer *ab, const void *rh)
->  }
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
->  
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +/**
-> + * audit_fsv_digest - audit a digest of a fsverity file.
-> + * @ab: Supplies a poniter to the audit_buffer to append to.
-> + * @d: Supplies a pointer to the digest structure.
-> + */
-> +static void audit_fsv_digest(struct audit_buffer *ab, const void *d)
-> +{
-> +	ipe_digest_audit(ab, d);
-> +}
-> +#else
-> +static void audit_fsv_digest(struct audit_buffer *ab, const void *d)
-> +{
-> +}
-> +#endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +
->  /**
->   * audit_rule - audit an IPE policy rule approximation.
->   * @ab: Supplies a poniter to the audit_buffer to append to.
-> @@ -79,6 +100,8 @@ static void audit_rule(struct audit_buffer *ab, const struct ipe_rule *r)
->  		audit_log_format(ab, "%s", audit_prop_names[ptr->type]);
->  		if (ptr->type == ipe_prop_dmv_roothash)
->  			audit_dmv_roothash(ab, ptr->value);
-> +		if (ptr->type == ipe_prop_fsv_digest)
-> +			audit_fsv_digest(ab, ptr->value);
->  
->  		audit_log_format(ab, " ");
->  	}
-> diff --git a/security/ipe/eval.c b/security/ipe/eval.c
-> index 538af4195ba7..210d3926c0a8 100644
-> --- a/security/ipe/eval.c
-> +++ b/security/ipe/eval.c
-> @@ -81,6 +81,23 @@ static void build_ipe_bdev_ctx(struct ipe_eval_ctx *ctx, const struct inode *con
->  }
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
->  
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +/**
-> + * build_ipe_inode_ctx - Build inode fields of an evaluation context.
-> + * @ctx: Supplies a pointer to the context to be populdated.
-> + * @ino: Supplies the inode struct of the file triggered IPE event.
-> + */
-> +static void build_ipe_inode_ctx(struct ipe_eval_ctx *ctx, const struct inode *const ino)
-> +{
-> +	ctx->ino = ino;
-> +	ctx->ipe_inode = ipe_inode(ctx->ino);
-> +}
-> +#else
-> +static void build_ipe_inode_ctx(struct ipe_eval_ctx *ctx, const struct inode *const ino)
-> +{
-> +}
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
-> +
->  /**
->   * build_eval_ctx - Build an evaluation context.
->   * @ctx: Supplies a pointer to the context to be populdated.
-> @@ -99,6 +116,7 @@ void build_eval_ctx(struct ipe_eval_ctx *ctx,
->  	if (file) {
->  		ino = d_real_inode(file->f_path.dentry);
->  		build_ipe_bdev_ctx(ctx, ino);
-> +		build_ipe_inode_ctx(ctx, ino);
->  	}
->  }
->  
-> @@ -171,6 +189,91 @@ static bool evaluate_dmv_sig_true(const struct ipe_eval_ctx *const ctx,
->  }
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
->  
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +/**
-> + * evaluate_fsv_digest - Analyze @ctx against a fsv digest property.
-> + * @ctx: Supplies a pointer to the context being evaluated.
-> + * @p: Supplies a pointer to the property being evaluated.
-> + *
-> + * Return:
-> + * * true	- The current @ctx match the @p
-> + * * false	- The current @ctx doesn't match the @p
-> + */
-> +static bool evaluate_fsv_digest(const struct ipe_eval_ctx *const ctx,
-> +				struct ipe_prop *p)
-> +{
-> +	enum hash_algo alg;
-> +	u8 digest[FS_VERITY_MAX_DIGEST_SIZE];
-> +
-> +	if (!ctx->ino)
-> +		return false;
-> +	if (fsverity_get_digest((struct inode *)ctx->ino,
-> +				digest,
-> +				&alg)) {
-> +		return false;
-> +	}
-> +
-> +	return ipe_digest_eval(p->value,
-> +			       digest,
-> +			       hash_digest_size[alg],
-> +			       hash_algo_name[alg]);
-> +}
-> +
-> +/**
-> + * evaluate_fsv_sig_false - Analyze @ctx against a fsv sig false property.
-> + * @ctx: Supplies a pointer to the context being evaluated.
-> + * @p: Supplies a pointer to the property being evaluated.
-> + *
-> + * Return:
-> + * * true	- The current @ctx match the @p
-> + * * false	- The current @ctx doesn't match the @p
-> + */
-> +static bool evaluate_fsv_sig_false(const struct ipe_eval_ctx *const ctx,
-> +				   struct ipe_prop *p)
-> +{
-> +	return !ctx->ino ||
-> +	       !IS_VERITY(ctx->ino) ||
-> +	       !ctx->ipe_inode ||
-> +	       !ctx->ipe_inode->fs_verity_signed;
-> +}
-> +
-> +/**
-> + * evaluate_fsv_sig_true - Analyze @ctx against a fsv sig true property.
-> + * @ctx: Supplies a pointer to the context being evaluated.
-> + * @p: Supplies a pointer to the property being evaluated.
-> + *
-> + * Return:
-> + * * true - The current @ctx match the @p
-> + * * false - The current @ctx doesn't match the @p
-> + */
-> +static bool evaluate_fsv_sig_true(const struct ipe_eval_ctx *const ctx,
-> +				  struct ipe_prop *p)
-> +{
-> +	return ctx->ino &&
-> +	       IS_VERITY(ctx->ino) &&
-> +	       ctx->ipe_inode &&
-> +	       ctx->ipe_inode->fs_verity_signed;
-> +}
-
-Isn't better to just define one function and prepend a ! in
-evaluate_property()?
-
-Not sure about the usefulness of the fsverity_signature= property as it
-is. I would at minimum allow to specify which keyring signatures are
-verified against, and ensure that the keyring has a restriction.
-
-And maybe I would call fsverity_verify_signature() directly, after
-extending it to pass the desired keyring.
-
-I would also split this patch in two, one for fsverity_digest= and one
-for fsverity_signature=.
-
-Roberto
-
-> +#else
-> +static bool evaluate_fsv_digest(const struct ipe_eval_ctx *const ctx,
-> +				struct ipe_prop *p)
-> +{
-> +	return false;
-> +}
-> +
-> +static bool evaluate_fsv_sig_false(const struct ipe_eval_ctx *const ctx,
-> +				   struct ipe_prop *p)
-> +{
-> +	return false;
-> +}
-> +
-> +static bool evaluate_fsv_sig_true(const struct ipe_eval_ctx *const ctx,
-> +				  struct ipe_prop *p)
-> +{
-> +	return false;
-> +}
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
-> +
->  /**
->   * evaluate_property - Analyze @ctx against a property.
->   * @ctx: Supplies a pointer to the context to be evaluated.
-> @@ -201,6 +304,15 @@ static bool evaluate_property(const struct ipe_eval_ctx *const ctx,
->  	case ipe_prop_dmv_sig_true:
->  		eval = evaluate_dmv_sig_true(ctx, p);
->  		break;
-> +	case ipe_prop_fsv_digest:
-> +		eval = evaluate_fsv_digest(ctx, p);
-> +		break;
-> +	case ipe_prop_fsv_sig_false:
-> +		eval = evaluate_fsv_sig_false(ctx, p);
-> +		break;
-> +	case ipe_prop_fsv_sig_true:
-> +		eval = evaluate_fsv_sig_true(ctx, p);
-> +		break;
->  	default:
->  		eval = false;
->  	}
-> diff --git a/security/ipe/eval.h b/security/ipe/eval.h
-> index 4fd832c6893e..d3dce4f04cb4 100644
-> --- a/security/ipe/eval.h
-> +++ b/security/ipe/eval.h
-> @@ -26,6 +26,12 @@ struct ipe_bdev {
->  };
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
->  
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +struct ipe_inode {
-> +	bool fs_verity_signed;
-> +};
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
-> +
->  struct ipe_eval_ctx {
->  	enum ipe_op_type op;
->  
-> @@ -34,6 +40,10 @@ struct ipe_eval_ctx {
->  #ifdef CONFIG_IPE_PROP_DM_VERITY
->  	const struct ipe_bdev *ipe_bdev;
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +	const struct inode *ino;
-> +	const struct ipe_inode *ipe_inode;
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
->  };
->  
->  enum ipe_match {
-> diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
-> index 735375d2f858..836f08240372 100644
-> --- a/security/ipe/hooks.c
-> +++ b/security/ipe/hooks.c
-> @@ -243,3 +243,33 @@ int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
->  	return -EOPNOTSUPP;
->  }
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +/**
-> + * ipe_inode_setsecurity - Sets fields of a inode security blob from @key.
-> + * @inode: The inode to source the security blob from.
-> + * @name: The name representing the information to be stored.
-> + * @value: The value to be stored.
-> + * @size: The size of @value.
-> + * @flags: unused
-> + *
-> + * Saves fsverity signature & digest into inode security blob
-> + *
-> + * Return:
-> + * * 0	- OK
-> + * * !0	- Error
-> + */
-> +int ipe_inode_setsecurity(struct inode *inode, const char *name,
-> +			  const void *value, size_t size,
-> +			  int flags)
-> +{
-> +	struct ipe_inode *inode_sec = ipe_inode(inode);
-> +
-> +	if (!strcmp(name, FS_VERITY_INODE_SEC_NAME)) {
-> +		inode_sec->fs_verity_signed = size > 0 && value;
-> +		return 0;
-> +	}
-> +
-> +	return -EOPNOTSUPP;
-> +}
-> +#endif /* CONFIG_CONFIG_IPE_PROP_FS_VERITY */
-> diff --git a/security/ipe/hooks.h b/security/ipe/hooks.h
-> index 16611a149158..654aba584a44 100644
-> --- a/security/ipe/hooks.h
-> +++ b/security/ipe/hooks.h
-> @@ -8,6 +8,7 @@
->  #include <linux/fs.h>
->  #include <linux/binfmts.h>
->  #include <linux/security.h>
-> +#include <linux/fsverity.h>
->  #include <linux/device-mapper.h>
->  
->  void ipe_sb_free_security(struct super_block *mnt_sb);
-> @@ -32,4 +33,10 @@ int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
->  			 const void *value, size_t len);
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
->  
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +int ipe_inode_setsecurity(struct inode *inode, const char *name,
-> +			  const void *value, size_t size,
-> +			  int flags);
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
-> +
->  #endif /* IPE_HOOKS_H */
-> diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-> index 5612cb3cf1e5..705ce9a003de 100644
-> --- a/security/ipe/ipe.c
-> +++ b/security/ipe/ipe.c
-> @@ -13,6 +13,9 @@ static struct lsm_blob_sizes ipe_blobs __lsm_ro_after_init = {
->  #ifdef CONFIG_IPE_PROP_DM_VERITY
->  		.lbs_bdev = sizeof(struct ipe_bdev),
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +		.lbs_inode = sizeof(struct ipe_inode),
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
->  };
->  
->  #ifdef CONFIG_IPE_PROP_DM_VERITY
-> @@ -22,6 +25,13 @@ struct ipe_bdev *ipe_bdev(struct block_device *b)
->  }
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
->  
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +struct ipe_inode *ipe_inode(const struct inode *inode)
-> +{
-> +	return inode->i_security + ipe_blobs.lbs_inode;
-> +}
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
-> +
->  static struct security_hook_list ipe_hooks[] __lsm_ro_after_init = {
->  	LSM_HOOK_INIT(sb_free_security, ipe_sb_free_security),
->  	LSM_HOOK_INIT(bprm_check_security, ipe_bprm_check_security),
-> @@ -33,6 +43,9 @@ static struct security_hook_list ipe_hooks[] __lsm_ro_after_init = {
->  	LSM_HOOK_INIT(bdev_free_security, ipe_bdev_free_security),
->  	LSM_HOOK_INIT(bdev_setsecurity, ipe_bdev_setsecurity),
->  #endif
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +	LSM_HOOK_INIT(inode_setsecurity, ipe_inode_setsecurity),
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
->  };
->  
->  /**
-> diff --git a/security/ipe/ipe.h b/security/ipe/ipe.h
-> index c2594a45b8f2..138fda645ecf 100644
-> --- a/security/ipe/ipe.h
-> +++ b/security/ipe/ipe.h
-> @@ -15,5 +15,8 @@ extern bool ipe_enabled;
->  #ifdef CONFIG_IPE_PROP_DM_VERITY
->  struct ipe_bdev *ipe_bdev(struct block_device *b);
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +struct ipe_inode *ipe_inode(const struct inode *inode);
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
->  
->  #endif /* IPE_H */
-> diff --git a/security/ipe/policy.h b/security/ipe/policy.h
-> index 324eb76c6067..50b8f4c49bc7 100644
-> --- a/security/ipe/policy.h
-> +++ b/security/ipe/policy.h
-> @@ -31,6 +31,9 @@ enum ipe_prop_type {
->  	ipe_prop_dmv_roothash,
->  	ipe_prop_dmv_sig_false,
->  	ipe_prop_dmv_sig_true,
-> +	ipe_prop_fsv_digest,
-> +	ipe_prop_fsv_sig_false,
-> +	ipe_prop_fsv_sig_true,
->  	ipe_prop_max
->  };
->  
-> diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
-> index 50a6a763e842..799ee7fda974 100644
-> --- a/security/ipe/policy_parser.c
-> +++ b/security/ipe/policy_parser.c
-> @@ -273,6 +273,11 @@ static const match_table_t property_tokens = {
->  	{ipe_prop_dmv_sig_false,	"dmverity_signature=FALSE"},
->  	{ipe_prop_dmv_sig_true,		"dmverity_signature=TRUE"},
->  #endif /* CONFIG_IPE_PROP_DM_VERITY */
-> +#ifdef CONFIG_IPE_PROP_FS_VERITY
-> +	{ipe_prop_fsv_digest,		"fsverity_digest=%s"},
-> +	{ipe_prop_fsv_sig_false,	"fsverity_signature=FALSE"},
-> +	{ipe_prop_fsv_sig_true,		"fsverity_signature=TRUE"},
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY */
->  	{ipe_prop_max,			NULL}
->  };
->  
-> @@ -304,6 +309,7 @@ int parse_property(char *t, struct ipe_rule *r)
->  
->  	switch (token) {
->  	case ipe_prop_dmv_roothash:
-> +	case ipe_prop_fsv_digest:
->  		dup = match_strdup(&args[0]);
->  		if (!dup) {
->  			rc = -ENOMEM;
-> @@ -315,6 +321,8 @@ int parse_property(char *t, struct ipe_rule *r)
->  	case ipe_prop_boot_verified_true:
->  	case ipe_prop_dmv_sig_false:
->  	case ipe_prop_dmv_sig_true:
-> +	case ipe_prop_fsv_sig_false:
-> +	case ipe_prop_fsv_sig_true:
->  		p->type = token;
->  		break;
->  	case ipe_prop_max:
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gTW9uLCAyMDIzLTAxLTMwIGF0IDE0OjU3IC0wODAwLCBGYW4gV3Ugd3JvdGU6Cj4gT3ZlcnZp
+ZXc6Cj4gLS0tLS0tLS0tCj4gCj4gSVBFIGlzIGEgTGludXggU2VjdXJpdHkgTW9kdWxlIHdoaWNo
+IHRha2VzIGEgY29tcGxpbWVudGFyeSBhcHByb2FjaCB0bwo+IGFjY2VzcyBjb250cm9sLiBXaGVy
+ZWFzIGV4aXN0aW5nIG1hbmRhdG9yeSBhY2Nlc3MgY29udHJvbCBtZWNoYW5pc21zCj4gYmFzZSB0
+aGVpciBkZWNpc2lvbnMgb24gbGFiZWxzIGFuZCBwYXRocywgSVBFIGluc3RlYWQgZGV0ZXJtaW5l
+cwo+IHdoZXRoZXIgb3Igbm90IGFuIG9wZXJhdGlvbiBzaG91bGQgYmUgYWxsb3dlZCBiYXNlZCBv
+biBpbW11dGFibGUKPiBzZWN1cml0eSBwcm9wZXJ0aWVzIG9mIHRoZSBzeXN0ZW0gY29tcG9uZW50
+IHRoZSBvcGVyYXRpb24gaXMgYmVpbmcKPiBwZXJmb3JtZWQgb24uCj4gCj4gSVBFIGl0c2VsZiBk
+b2VzIG5vdCBtYW5kYXRlIGhvdyB0aGUgc2VjdXJpdHkgcHJvcGVydHkgc2hvdWxkIGJlCj4gZXZh
+bHVhdGVkLCBidXQgcmVsaWVzIG9uIGFuIGV4dGVuc2libGUgc2V0IG9mIGV4dGVybmFsIHByb3Bl
+cnR5IHByb3ZpZGVycwo+IHRvIGV2YWx1YXRlIHRoZSBjb21wb25lbnQuIElQRSBtYWtlcyBpdHMg
+ZGVjaXNpb24gYmFzZWQgb24gcmVmZXJlbmNlCj4gdmFsdWVzIGZvciB0aGUgc2VsZWN0ZWQgcHJv
+cGVydGllcywgc3BlY2lmaWVkIGluIHRoZSBJUEUgcG9saWN5Lgo+IAo+IFRoZSByZWZlcmVuY2Ug
+dmFsdWVzIHJlcHJlc2VudCB0aGUgdmFsdWUgdGhhdCB0aGUgcG9saWN5IHdyaXRlciBhbmQgdGhl
+Cj4gbG9jYWwgc3lzdGVtIGFkbWluaXN0cmF0b3IgKGJhc2VkIG9uIHRoZSBwb2xpY3kgc2lnbmF0
+dXJlKSB0cnVzdCBmb3IgdGhlCj4gc3lzdGVtIHRvIGFjY29tcGxpc2ggdGhlIGRlc2lyZWQgdGFz
+a3MuCj4gCj4gT25lIHN1Y2ggcHJvdmlkZXIgaXMgZm9yIGV4YW1wbGUgZG0tdmVyaXR5LCB3aGlj
+aCBpcyBhYmxlIHRvIHJlcHJlc2VudAo+IHRoZSBpbnRlZ3JpdHkgcHJvcGVydHkgb2YgYSBwYXJ0
+aXRpb24gKGl0cyBpbW11dGFibGUgc3RhdGUpIHdpdGggYSBkaWdlc3QuCj4gCj4gSVBFIGlzIGNv
+bXBpbGVkIHVuZGVyIENPTkZJR19TRUNVUklUWV9JUEUuCj4gCj4gVXNlIENhc2VzCj4gLS0tLS0t
+LS0tCj4gCj4gSVBFIHdvcmtzIGJlc3QgaW4gZml4ZWQtZnVuY3Rpb24gZGV2aWNlczogRGV2aWNl
+cyBpbiB3aGljaCB0aGVpciBwdXJwb3NlCj4gaXMgY2xlYXJseSBkZWZpbmVkIGFuZCBub3Qgc3Vw
+cG9zZWQgdG8gYmUgY2hhbmdlZCAoZS5nLiBuZXR3b3JrIGZpcmV3YWxsCj4gZGV2aWNlIGluIGEg
+ZGF0YSBjZW50ZXIsIGFuIElvVCBkZXZpY2UsIGV0Y2V0ZXJhKSwgd2hlcmUgYWxsIHNvZnR3YXJl
+IGFuZAo+IGNvbmZpZ3VyYXRpb24gaXMgYnVpbHQgYW5kIHByb3Zpc2lvbmVkIGJ5IHRoZSBzeXN0
+ZW0gb3duZXIuCj4gCj4gSVBFIGlzIGEgbG9uZy13YXkgb2ZmIGZvciB1c2UgaW4gZ2VuZXJhbC1w
+dXJwb3NlIGNvbXB1dGluZzogdGhlIExpbnV4Cj4gY29tbXVuaXR5IGFzIGEgd2hvbGUgdGVuZHMg
+dG8gZm9sbG93IGEgZGVjZW50cmFsaXplZCB0cnVzdCBtb2RlbCwKPiBrbm93biBhcyB0aGUgd2Vi
+IG9mIHRydXN0LCB3aGljaCBJUEUgaGFzIG5vIHN1cHBvcnQgZm9yIGFzIG9mICB5ZXQuCj4gVGhl
+cmUgYXJlIGV4Y2VwdGlvbnMsIHN1Y2ggYXMgdGhlIGNhc2Ugd2hlcmUgYSBMaW51eCBkaXN0cmli
+dXRpb24KPiB2ZW5kb3IgdHJ1c3RzIG9ubHkgdGhlaXIgb3duIGtleXMsIHdoZXJlIElQRSBjYW4g
+c3VjY2Vzc2Z1bGx5IGJlIHVzZWQKPiB0byBlbmZvcmNlIHRoZSB0cnVzdCByZXF1aXJlbWVudC4K
+PiAKPiBBZGRpdGlvbmFsbHksIHdoaWxlIG1vc3QgcGFja2FnZXMgYXJlIHNpZ25lZCB0b2RheSwg
+dGhlIGZpbGVzIGluc2lkZQo+IHRoZSBwYWNrYWdlcyAoZm9yIGluc3RhbmNlLCB0aGUgZXhlY3V0
+YWJsZXMpLCB0ZW5kIHRvIGJlIHVuc2lnbmVkLiBUaGlzCj4gbWFrZXMgaXQgZGlmZmljdWx0IHRv
+IHV0aWxpemUgSVBFIGluIHN5c3RlbXMgd2hlcmUgYSBwYWNrYWdlIG1hbmFnZXIgaXMKPiBleHBl
+Y3RlZCB0byBiZSBmdW5jdGlvbmFsLCB3aXRob3V0IG1ham9yIGNoYW5nZXMgdG8gdGhlIHBhY2th
+Z2UgbWFuYWdlcgo+IGFuZCBlY29zeXN0ZW0gYmVoaW5kIGl0Lgo+IAo+IERJR0xJTVsxXSBpcyBh
+IHN5c3RlbSB0aGF0IHdoZW4gY29tYmluZWQgd2l0aCBJUEUsIGNvdWxkIGJlIHVzZWQgdG8KPiBl
+bmFibGUgZ2VuZXJhbCBwdXJwb3NlIGNvbXB1dGluZyBzY2VuYXJpb3MuCj4gCj4gUG9saWN5Ogo+
+IC0tLS0tLS0KPiAKPiBJUEUgcG9saWN5IGlzIGEgcGxhaW4tdGV4dCBwb2xpY3kgY29tcG9zZWQg
+b2YgbXVsdGlwbGUgc3RhdGVtZW50cwo+IG92ZXIgc2V2ZXJhbCBsaW5lcy4gVGhlcmUgaXMgb25l
+IHJlcXVpcmVkIGxpbmUsIGF0IHRoZSB0b3Agb2YgdGhlCj4gcG9saWN5LCBpbmRpY2F0aW5nIHRo
+ZSBwb2xpY3kgbmFtZSwgYW5kIHRoZSBwb2xpY3kgdmVyc2lvbiwgZm9yCj4gaW5zdGFuY2U6Cj4g
+Cj4gICBwb2xpY3lfbmFtZT1FeF9Qb2xpY3kgcG9saWN5X3ZlcnNpb249MC4wLjAKPiAKPiBUaGUg
+cG9saWN5IHZlcnNpb24gaW5kaWNhdGVzIHRoZSBjdXJyZW50IHZlcnNpb24gb2YgdGhlIHBvbGlj
+eS4gVGhpcyBpcwo+IHVzZWQgdG8gcHJldmVudCByb2xsLWJhY2sgb2YgcG9saWN5IHRvIHBvdGVu
+dGlhbGx5IGluc2VjdXJlIHByZXZpb3VzCj4gdmVyc2lvbnMgb2YgdGhlIHBvbGljeS4KPiAKPiBU
+aGUgbmV4dCBwb3J0aW9uIG9mIElQRSBwb2xpY3ksIGFyZSBydWxlcy4gUnVsZXMgYXJlIGZvcm1l
+ZCBieSBrZXk9dmFsdWUKPiBwYWlycywga25vd24gYXMgcHJvcGVydGllcy4gSVBFIHJ1bGVzIHJl
+cXVpcmUgdHdvIGtleXM6ICJhY3Rpb24iLCB3aGljaAo+IGRldGVybWluZXMgd2hhdCBJUEUgZG9l
+cyB3aGVuIGl0IGVuY291bnRlcnMgYSBtYXRjaCBhZ2FpbnN0IHRoZSBwb2xpY3kKPiBhbmQgIm9w
+Iiwgd2hpY2ggZGV0ZXJtaW5lcyB3aGVuIHRoYXQgcnVsZSBzaG91bGQgYmUgZXZhbHVhdGVkLgo+
+IAo+IFRodXMsIGEgbWluaW1hbCBydWxlIGlzOgo+IAo+ICAgb3A9RVhFQ1VURSBhY3Rpb249QUxM
+T1cKPiAKPiBUaGlzIGV4YW1wbGUgcnVsZSB3aWxsIGFsbG93IGFueSBleGVjdXRpb24uIEEgcnVs
+ZSBpcyByZXF1aXJlZCB0byBoYXZlIHRoZQo+ICJvcCIgcHJvcGVydHkgYXMgdGhlIGZpcnN0IHRv
+a2VuIG9mIGEgcnVsZSwgYW5kIHRoZSAiYWN0aW9uIiBhcyB0aGUgbGFzdAo+IHRva2VuIG9mIHRo
+ZSBydWxlLiAKPiAKPiBBZGRpdGlvbmFsIHByb3BlcnRpZXMgYXJlIHVzZWQgdG8gcmVzdHJpY3Qg
+YXR0cmlidXRlcyBhYm91dCB0aGUgZmlsZXMgYmVpbmcKPiBldmFsdWF0ZWQuIFRoZXNlIHByb3Bl
+cnRpZXMgYXJlIGludGVuZGVkIHRvIGJlIGRldGVybWluaXN0aWMgYXR0cmlidXRlcwo+IHRoYXQg
+YXJlIHJlc2lkZW50IGluIHRoZSBrZXJuZWwuIAo+IAo+IEZvciBleGFtcGxlOgo+IAo+ICAgb3A9
+RVhFQ1VURSBkbXZlcml0eV9zaWduYXR1cmU9RkFMU0UgYWN0aW9uPURFTlkKPiAKPiBUaGlzIHJ1
+bGUgd2l0aCBwcm9wZXJ0eSBkbXZlcml0eV9zaWduYXR1cmUgd2lsbCBkZW55IGFueSBmaWxlIG5v
+dCBmcm9tCj4gYSBzaWduZWQgZG12ZXJpdHkgdm9sdW1lIHRvIGJlIGV4ZWN1dGVkLiAKPiAKPiBB
+bGwgYXZhaWxhYmxlIHByb3BlcnRpZXMgZm9yIElQRSBkZXNjcmliZWQgaW4gdGhlIGRvY3VtZW50
+YXRpb24gcGF0Y2ggb2YKPiB0aGlzIHNlcmllcy4KPiAKPiBSdWxlcyBhcmUgZXZhbHVhdGVkIHRv
+cC10by1ib3R0b20uIEFzIGEgcmVzdWx0LCBhbnkgcmV2b2NhdGlvbiBydWxlcywKPiBvciBkZW5p
+ZXMgc2hvdWxkIGJlIHBsYWNlZCBlYXJseSBpbiB0aGUgZmlsZSB0byBlbnN1cmUgdGhhdCB0aGVz
+ZSBydWxlcwo+IGFyZSBldmFsdWF0ZWQgYmVmb3JlIGEgcnVsZSB3aXRoICJhY3Rpb249QUxMT1ci
+IGlzIGhpdC4KPiAKPiBBbnkgdW5rbm93biBzeW50YXggaW4gSVBFIHBvbGljeSB3aWxsIHJlc3Vs
+dCBpbiBhIGZhdGFsIGVycm9yIHRvIHBhcnNlCj4gdGhlIHBvbGljeS4gCj4gCj4gQWRkaXRpb25h
+bGx5LCBhIERFRkFVTFQgb3BlcmF0aW9uIG11c3QgYmUgc2V0IGZvciBhbGwgdW5kZXJzdG9vZAo+
+IG9wZXJhdGlvbnMgd2l0aGluIElQRS4gRm9yIHBvbGljaWVzIHRvIHJlbWFpbiBjb21wbGV0ZWx5
+IGZvcndhcmRzCj4gY29tcGF0aWJsZSwgaXQgaXMgcmVjb21tZW5kZWQgdGhhdCB1c2VycyBhZGQg
+YSAiREVGQVVMVCBhY3Rpb249QUxMT1ciCj4gYW5kIG92ZXJyaWRlIHRoZSBkZWZhdWx0cyBvbiBh
+IHBlci1vcGVyYXRpb24gYmFzaXMuCj4gCj4gRm9yIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhl
+IHBvbGljeSBzeW50YXgsIHNlZSB0aGUga2VybmVsCj4gZG9jdW1lbnRhdGlvbiBwYWdlLgo+IAo+
+IEVhcmx5IFVzZXJtb2RlIFByb3RlY3Rpb246Cj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0K
+PiAKPiBJUEUgY2FuIGJlIHByb3ZpZGVkIHdpdGggYSBwb2xpY3kgYXQgc3RhcnR1cCB0byBsb2Fk
+IGFuZCBlbmZvcmNlLgo+IFRoaXMgaXMgaW50ZW5kZWQgdG8gYmUgYSBtaW5pbWFsIHBvbGljeSB0
+byBnZXQgdGhlIHN5c3RlbSB0byBhIHN0YXRlCj4gd2hlcmUgdXNlcnNwYWNlIGlzIHNldHVwIGFu
+ZCByZWFkeSB0byByZWNlaXZlIGNvbW1hbmRzLCBhdCB3aGljaAo+IHBvaW50IGEgcG9saWN5IGNh
+biBiZSBkZXBsb3llZCB2aWEgc2VjdXJpdHlmcy4gVGhpcyAiYm9vdCBwb2xpY3kiIGNhbiBiZQo+
+IHNwZWNpZmllZCB2aWEgdGhlIGNvbmZpZywgU0VDVVJJVFlfSVBFX0JPT1RfUE9MSUNZLCB3aGlj
+aCBhY2NlcHRzIGEgcGF0aAo+IHRvIGEgcGxhaW4tdGV4dCB2ZXJzaW9uIG9mIHRoZSBJUEUgcG9s
+aWN5IHRvIGFwcGx5LiBUaGlzIHBvbGljeSB3aWxsIGJlCj4gY29tcGlsZWQgaW50byB0aGUga2Vy
+bmVsLiBJZiBub3Qgc3BlY2lmaWVkLCBJUEUgd2lsbCBiZSBkaXNhYmxlZCB1bnRpbCBhCj4gcG9s
+aWN5IGlzIGRlcGxveWVkIGFuZCBhY3RpdmF0ZWQgdGhyb3VnaCB0aGUgbWV0aG9kIGFib3ZlLgo+
+IAo+IFBvbGljeSBFeGFtcGxlczoKPiAtLS0tLS0tLS0tLS0tLS0tCj4gCj4gQWxsb3cgYWxsOgo+
+IAo+ICAgcG9saWN5X25hbWU9QWxsb3dfQWxsIHBvbGljeV92ZXJzaW9uPTAuMC4wCj4gICBERUZB
+VUxUIGFjdGlvbj1BTExPVwo+IAo+IEFsbG93IG9ubHkgaW5pdGlhbCBzdXBlcmJsb2NrOgo+IAo+
+ICAgcG9saWN5X25hbWU9QWxsb3dfQWxsX0luaXRpYWxfU0IgcG9saWN5X3ZlcnNpb249MC4wLjAK
+PiAgIERFRkFVTFQgYWN0aW9uPURFTlkKPiAKPiAgIG9wPUVYRUNVVEUgYm9vdF92ZXJpZmllZD1U
+UlVFIGFjdGlvbj1BTExPVwo+IAo+IEFsbG93IGFueSBzaWduZWQgZG0tdmVyaXR5IHZvbHVtZSBh
+bmQgdGhlIGluaXRpYWwgc3VwZXJibG9jazoKPiAKPiAgIHBvbGljeV9uYW1lPUFsbG93U2lnbmVk
+QW5kSW5pdGlhbCBwb2xpY3lfdmVyc2lvbj0wLjAuMAo+ICAgREVGQVVMVCBhY3Rpb249REVOWQo+
+IAo+ICAgb3A9RVhFQ1VURSBib290X3ZlcmlmaWVkPVRSVUUgYWN0aW9uPUFMTE9XCj4gICBvcD1F
+WEVDVVRFIGRtdmVyaXR5X3NpZ25hdHVyZT1UUlVFIGFjdGlvbj1BTExPVwo+IAo+IFByb2hpYml0
+IGV4ZWN1dGlvbiBmcm9tIGEgc3BlY2lmaWMgZG0tdmVyaXR5IHZvbHVtZSwgd2hpbGUgYWxsb3dp
+bmcKPiBhbGwgc2lnbmVkIHZvbHVtZXMgYW5kIHRoZSBpbml0aWFsIHN1cGVyYmxvY2s6Cj4gCj4g
+ICBwb2xpY3lfbmFtZT1Qcm9oaWJpdFNpbmdsZVZvbHVtZSBwb2xpY3lfdmVyc2lvbj0wLjAuMAo+
+ICAgREVGQVVMVCBhY3Rpb249REVOWQo+IAo+ICAgb3A9RVhFQ1VURSBkbXZlcml0eV9yb290aGFz
+aD1zaGEyNTY6NDAxZmNlYzU5NDQ4MjNhZTEyZjYyNzI2ZTgxODQ0MDdhNWZhOTU5OTc4M2YwMzBk
+ZWMxNDY5MzggYWN0aW9uPURFTlkKPiAgIG9wPUVYRUNVVEUgYm9vdF92ZXJpZmllZD1UUlVFIGFj
+dGlvbj1BTExPVwo+ICAgb3A9RVhFQ1VURSBkbXZlcml0eV9zaWduYXR1cmU9VFJVRSBhY3Rpb249
+QUxMT1cKPiAKPiBBbGxvdyBvbmx5IGEgc3BlY2lmaWMgZG0tdmVyaXR5IHZvbHVtZToKPiAKPiAg
+IHBvbGljeV9uYW1lPUFsbG93U3BlY2lmaWMgcG9saWN5X3ZlcnNpb249MC4wLjAKPiAgIERFRkFV
+TFQgYWN0aW9uPURFTlkKPiAKPiAgIG9wPUVYRUNVVEUgZG12ZXJpdHlfcm9vdGhhc2g9c2hhMjU2
+OjQwMWZjZWM1OTQ0ODIzYWUxMmY2MjcyNmU4MTg0NDA3YTVmYTk1OTk3ODNmMDMwZGVjMTQ2OTM4
+IGFjdGlvbj1BTExPVwo+IAo+IEFsbG93IGFueSBzaWduZWQgZnMtdmVyaXR5IGZpbGUKPiAKPiAg
+IHBvbGljeV9uYW1lPSJBbGxvd1NpZ25lZEZTVmVyaXR5IiBwb2xpY3lfdmVyc2lvbj0wLjAuMAo+
+ICAgREVGQVVMVCBhY3Rpb249REVOWQo+IAo+ICAgb3A9RVhFQ1VURSBmc3Zlcml0eV9zaWduYXR1
+cmU9VFJVRSBhY3Rpb249QUxMT1cKPiAKPiBEZW55IGEgc3BlY2lmaWMgZnMtdmVyaXR5IGZpbGU6
+Cj4gCj4gICBwb2xpY3lfbmFtZT0iUHJvaGliaXRTcGVjaWZpY0ZTVkYiIHBvbGljeV92ZXJzaW9u
+PTAuMC4wCj4gICBERUZBVUxUIGFjdGlvbj1ERU5ZCj4gCj4gICBvcD1FWEVDVVRFIGZzdmVyaXR5
+X2RpZ2VzdD1zaGEyNTY6ZmQ4OGYyYjg4MjRlMTk3Zjg1MGJmNGM1MTA5YmVhNWNmMGVlMzgxMDRm
+NzEwODQzYmI3MmRhNzk2YmE1YWY5ZSBhY3Rpb249REVOWQo+ICAgb3A9RVhFQ1VURSBib290X3Zl
+cmlmaWVkPVRSVUUgYWN0aW9uPUFMTE9XCj4gICBvcD1FWEVDVVRFIGRtdmVyaXR5X3NpZ25hdHVy
+ZT1UUlVFIGFjdGlvbj1BTExPVwo+IAo+IERlcGxveWluZyBQb2xpY2llczoKPiAtLS0tLS0tLS0t
+LS0tLS0tLS0tCj4gCj4gRmlyc3Qgc2lnbiBhIHBsYWluIHRleHQgcG9saWN5LCB3aXRoIGEgY2Vy
+dGlmaWNhdGUgdGhhdCBpcyBwcmVzZW50IGluCj4gdGhlIFNZU1RFTV9UUlVTVEVEX0tFWVJJTkcg
+b2YgeW91ciB0ZXN0IG1hY2hpbmUuIFRocm91Z2ggb3BlbnNzbCwgdGhlCj4gc2lnbmluZyBjYW4g
+YmUgZG9uZSB2aWE6Cj4gCj4gICBvcGVuc3NsIHNtaW1lIC1zaWduIC1pbiAiJE1ZX1BPTElDWSIg
+LXNpZ25lciAiJE1ZX0NFUlRJRklDQVRFIiBcCj4gICAgIC1pbmtleSAiJE1ZX1BSSVZBVEVfS0VZ
+IiAtb3V0Zm9ybSBkZXIgLW5vYXR0ciAtbm9kZXRhY2ggXAo+ICAgICAtb3V0ICIkTVlfUE9MSUNZ
+LnA3cyIKPiAKPiBUaGVuLCBzaW1wbHkgY2F0IHRoZSBmaWxlIGludG8gdGhlIElQRSdzICJuZXdf
+cG9saWN5IiBzZWN1cml0eWZzIG5vZGU6Cj4gCj4gICBjYXQgIiRNWV9QT0xJQ1kucDdzIiA+IC9z
+eXMva2VybmVsL3NlY3VyaXR5L2lwZS9uZXdfcG9saWN5Cj4gCj4gVGhlIHBvbGljeSBzaG91bGQg
+bm93IGJlIHByZXNlbnQgdW5kZXIgdGhlIHBvbGljaWVzLyBzdWJkaXJlY3RvcnksIHVuZGVyCj4g
+aXRzICJwb2xpY3lfbmFtZSIgYXR0cmlidXRlLgo+IAo+IFRoZSBwb2xpY3kgaXMgbm93IHByZXNl
+bnQgaW4gdGhlIGtlcm5lbCBhbmQgY2FuIGJlIG1hcmtlZCBhcyBhY3RpdmUsCj4gdmlhIHRoZSBz
+ZWN1cml0eWZzIG5vZGU6Cj4gCj4gICBlY2hvIDEgPiAiL3N5cy9rZXJuZWwvc2VjdXJpdHkvaXBl
+LyRNWV9QT0xJQ1lfTkFNRS9hY3RpdmUiCj4gCj4gVGhpcyB3aWxsIG5vdyBtYXJrIHRoZSBwb2xp
+Y3kgYXMgYWN0aXZlIGFuZCB0aGUgc3lzdGVtIHdpbGwgYmUgZW5mb3JjaW5nCj4gJE1ZX1BPTElD
+WV9OQU1FLgo+IAo+IFRoZXJlIGlzIG9uZSByZXF1aXJlbWVudCB3aGVuIG1hcmtpbmcgYSBwb2xp
+Y3kgYXMgYWN0aXZlLCB0aGUgcG9saWN5X3ZlcnNpb24KPiBhdHRyaWJ1dGUgbXVzdCBlaXRoZXIg
+aW5jcmVhc2UsIG9yIHJlbWFpbiB0aGUgc2FtZSBhcyB0aGUgY3VycmVudGx5IHJ1bm5pbmcKPiBw
+b2xpY3kuCj4gCj4gUG9saWNpZXMgY2FuIGJlIHVwZGF0ZWQgdmlhOgo+IAo+ICAgY2F0ICIkTVlf
+VVBEQVRFRF9QT0xJQ1kucDdzIiA+IFwKPiAgICAgIi9zeXMva2VybmVsL3NlY3VyaXR5L2lwZS9w
+b2xpY2llcy8kTVlfUE9MSUNZX05BTUUvdXBkYXRlIgo+IAo+IEFkZGl0aW9uYWxseSwgcG9saWNp
+ZXMgY2FuIGJlIGRlbGV0ZWQgdmlhIHRoZSAiZGVsZXRlIiBzZWN1cml0eWZzCj4gbm9kZS4gU2lt
+cGx5IHdyaXRlICIxIiB0byB0aGUgY29ycmVzcG9uZGluZyBub2RlIGluIHRoZSBwb2xpY3kgZm9s
+ZGVyOgo+IAo+ICAgZWNobyAxID4gIi9zeXMva2VybmVsL3NlY3VyaXR5L2lwZS9wb2xpY2llcy8k
+TVlfUE9MSUNZX05BTUUvZGVsZXRlIgo+IAo+IFRoZXJlIGlzIG9ubHkgb25lIHJlcXVpcmVtZW50
+IHRvIGRlbGV0ZSBwb2xpY2llcywgdGhlIHBvbGljeSBiZWluZwo+IGRlbGV0ZWQgbXVzdCBub3Qg
+YmUgdGhlIGFjdGl2ZSBwb2xpY3kuCj4gCj4gTk9URTogQW55IHNlY3VyaXR5ZnMgd3JpdGUgdG8g
+SVBFJ3Mgbm9kZXMgd2lsbCByZXF1aXJlIENBUF9NQUNfQURNSU4uCj4gCj4gSW50ZWdyYXRpb25z
+Ogo+IC0tLS0tLS0tLS0tLS0KPiAKPiBUaGlzIHBhdGNoIHNlcmllcyBhZGRzIHN1cHBvcnQgZm9y
+IGZzdmVyaXR5IHZpYSBkaWdlc3QgYW5kIHNpZ25hdHVyZQo+IChmc3Zlcml0eV9zaWduYXR1cmUg
+YW5kIGZzdmVyaXR5X2RpZ2VzdCksIGRtLXZlcml0eSBieSBkaWdlc3QgYW5kCj4gc2lnbmF0dXJl
+IChkbXZlcml0eV9zaWduYXR1cmUgYW5kIGRtdmVyaXR5X3Jvb3RoYXNoKSwgYW5kIHRydXN0IGZv
+cgo+IHRoZSBpbml0cmFtZnMgKGJvb3RfdmVyaWZpZWQpLgo+IAo+IFBsZWFzZSBzZWUgdGhlIGRv
+Y3VtZW50YXRpb24gcGF0Y2ggZm9yIG1vcmUgaW5mb3JtYXRpb24gYWJvdXQgdGhlCj4gaW50ZWdy
+YXRpb25zIGF2YWlsYWJsZS4KPiAKPiBUZXN0aW5nOgo+IC0tLS0tLS0tCj4gCj4gS1VuaXQgVGVz
+dHMgYXJlIGF2YWlsYWJsZS4gUmVjb21tZW5kZWQga3VuaXRjb25maWc6Cj4gCj4gICAgIENPTkZJ
+R19LVU5JVD15Cj4gICAgIENPTkZJR19TRUNVUklUWT15Cj4gICAgIENPTkZJR19TRUNVUklUWUZT
+PXkKPiAgICAgQ09ORklHX1BLQ1M3X01FU1NBR0VfUEFSU0VSPXkKPiAgICAgQ09ORklHX1NZU1RF
+TV9EQVRBX1ZFUklGSUNBVElPTj15Cj4gICAgIENPTkZJR19GU19WRVJJVFk9eQo+ICAgICBDT05G
+SUdfRlNfVkVSSVRZX0JVSUxUSU5fU0lHTkFUVVJFUz15Cj4gICAgIENPTkZJR19CTE9DSz15Cj4g
+ICAgIENPTkZJR19NRD15Cj4gICAgIENPTkZJR19CTEtfREVWX0RNPXkKPiAgICAgQ09ORklHX0RN
+X1ZFUklUWT15Cj4gICAgIENPTkZJR19ETV9WRVJJVFlfVkVSSUZZX1JPT1RIQVNIX1NJRz15Cj4g
+ICAgIENPTkZJR19ORVQ9eQo+ICAgICBDT05GSUdfQVVESVQ9eQo+ICAgICBDT05GSUdfQVVESVRT
+WVNDQUxMPXkKPiAKPiAgICAgQ09ORklHX1NFQ1VSSVRZX0lQRT15Cj4gICAgIENPTkZJR19JUEVf
+UFJPUF9ETV9WRVJJVFk9eQo+ICAgICBDT05GSUdfSVBFX1BST1BfRlNfVkVSSVRZPXkKPiAgICAg
+Q09ORklHX1NFQ1VSSVRZX0lQRV9LVU5JVF9URVNUPXkKPiAKPiBTaW1wbHkgcnVuOgo+IAo+ICAg
+ICBtYWtlIEFSQ0g9dW0gbXJwcm9wZXIKPiAgICAgLi90b29scy90ZXN0aW5nL2t1bml0L2t1bml0
+LnB5IHJ1biAtLWt1bml0Y29uZmlnIDxwYXRoL3RvL2NvbmZpZz4KPiAKPiBBbmQgdGhlIHRlc3Rz
+IHdpbGwgZXhlY3V0ZSBhbmQgcmVwb3J0IHRoZSByZXN1bHQuIEZvciBtb3JlIGluZGVwdGggdGVz
+dGluZywKPiBpdCB3aWxsIHJlcXVpcmUgeW91IHRvIGNyZWF0ZSBhbmQgbW91bnQgYSBkbS12ZXJp
+dHkgdm9sdW1lIG9yIGZzLXZlcml0eQo+IGVuYWJsZWQgZmlsZS4KPiAKPiBEb2N1bWVudGF0aW9u
+Ogo+IC0tLS0tLS0tLS0tLS0tCj4gCj4gVGhlcmUgaXMgYm90aCBkb2N1bWVudGF0aW9uIGF2YWls
+YWJsZSBvbiBnaXRodWIgYXQKPiBodHRwczovL21pY3Jvc29mdC5naXRodWIuaW8vaXBlLCBhbmQg
+RG9jdW1lbnRhdGlvbiBpbiB0aGlzIHBhdGNoIHNlcmllcywKPiB0byBiZSBhZGRlZCBpbi10cmVl
+Lgo+IAo+IEtub3duIEdhcHM6Cj4gLS0tLS0tLS0tLS0KPiAKPiBJUEUgaGFzIHR3byBrbm93biBn
+YXBzOgo+IAo+IDEuIElQRSBjYW5ub3QgdmVyaWZ5IHRoZSBpbnRlZ3JpdHkgb2YgYW5vbnltb3Vz
+IGV4ZWN1dGFibGUgbWVtb3J5LCBzdWNoIGFzCj4gICB0aGUgdHJhbXBvbGluZXMgY3JlYXRlZCBi
+eSBnY2MgY2xvc3VyZXMgYW5kIGxpYmZmaSAoPDMuNC4yKSwgb3IgSklUJ2QgY29kZS4KPiAgIFVu
+Zm9ydHVuYXRlbHksIGFzIHRoaXMgaXMgZHluYW1pY2FsbHkgZ2VuZXJhdGVkIGNvZGUsIHRoZXJl
+IGlzIG5vIHdheQo+ICAgZm9yIElQRSB0byBlbnN1cmUgdGhlIGludGVncml0eSBvZiB0aGlzIGNv
+ZGUgdG8gZm9ybSBhIHRydXN0IGJhc2lzLiBJbiBhbGwKPiAgIGNhc2VzLCB0aGUgcmV0dXJuIHJl
+c3VsdCBmb3IgdGhlc2Ugb3BlcmF0aW9ucyB3aWxsIGJlIHdoYXRldmVyIHRoZSBhZG1pbgo+ICAg
+Y29uZmlndXJlcyB0aGUgREVGQVVMVCBhY3Rpb24gZm9yICJFWEVDVVRFIi4KCkkgdGhpbmsgaXQg
+d291bGQgYmUgdXNlZnVsIHRvIGhhbmRsZSBzcGVjaWFsIGNhc2VzLCBmb3IgZXhhbXBsZSB5b3UK
+Y291bGQgYWxsb3cgYSBwcm9jZXNzIHRoYXQgY3JlYXRlZCBhIGZpbGUgd2l0aCBtZW1mZCB0byB1
+c2UgaXQsIGF0IHRoZQpjb25kaXRpb24gdGhhdCBub2JvZHkgZWxzZSB3cml0ZXMgaXQuCgpUaGlz
+IHdvdWxkIGJlIHJlcXVpcmVkIGR1cmluZyB0aGUgYm9vdCwgb3RoZXJ3aXNlIHNlcnZpY2VzIGNv
+dWxkIGZhaWwKdG8gc3RhcnQgKGRlcGVuZGluZyBvbiB0aGUgcG9saWN5KS4KCj4gMi4gSVBFIGNh
+bm5vdCB2ZXJpZnkgdGhlIGludGVncml0eSBvZiBpbnRlcnByZXRlZCBsYW5ndWFnZXMnIHByb2dy
+YW1zIHdoZW4KPiAgIHRoZXNlIHNjcmlwdHMgaW52b2tlZCB2aWEgYGA8aW50ZXJwcmV0ZXI+IDxm
+aWxlPmBgLiBUaGlzIGlzIGJlY2F1c2UgdGhlCj4gICB3YXkgaW50ZXJwcmV0ZXJzIGV4ZWN1dGUg
+dGhlc2UgZmlsZXMsIHRoZSBzY3JpcHRzIHRoZW1zZWx2ZXMgYXJlIG5vdAo+ICAgZXZhbHVhdGVk
+IGFzIGV4ZWN1dGFibGUgY29kZSB0aHJvdWdoIG9uZSBvZiBJUEUncyBob29rcy4gSW50ZXJwcmV0
+ZXJzCj4gICBjYW4gYmUgZW5saWdodGVuZWQgdG8gdGhlIHVzYWdlIG9mIElQRSBieSB0cnlpbmcg
+dG8gbW1hcCBhIGZpbGUgaW50bwo+ICAgZXhlY3V0YWJsZSBtZW1vcnkgKCtYKSwgYWZ0ZXIgb3Bl
+bmluZyB0aGUgZmlsZSBhbmQgcmVzcG9uZGluZyB0byB0aGUKPiAgIGVycm9yIGNvZGUgYXBwcm9w
+cmlhdGVseS4gVGhpcyBhbHNvIGFwcGxpZXMgdG8gaW5jbHVkZWQgZmlsZXMsIG9yIGhpZ2gKPiAg
+IHZhbHVlIGZpbGVzLCBzdWNoIGFzIGNvbmZpZ3VyYXRpb24gZmlsZXMgb2YgY3JpdGljYWwgc3lz
+dGVtIGNvbXBvbmVudHMuCgpPaywgaXQgaXMgYSB3ZWxsIGtub3duIGlzc3VlLiBIb3BlZnVsbHks
+IGl0IHdpbGwgYmUgZml4ZWQgc29vbi4KClJvYmVydG8KCj4gQXBwZW5kaXg6Cj4gLS0tLS0tLS0t
+Cj4gCj4gQS4gSVBFIEdpdGh1YiBSZXBvc2l0b3J5OiBodHRwczovL2dpdGh1Yi5jb20vbWljcm9z
+b2Z0L2lwZQo+IEIuIElQRSBVc2VycycgR3VpZGU6IERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUv
+TFNNL2lwZS5yc3QKPiAKPiBSZWZlcmVuY2VzOgo+IC0tLS0tLS0tLS0tCj4gCj4gMTogaHR0cHM6
+Ly9sb3JlLmtlcm5lbC5vcmcvYnBmLzRkNjkzMmU5NmQ3NzQyMjdiNDI3MjFkOWY2NDViYTUxQGh1
+YXdlaS5jb20vVC8KPiAKPiBGQVE6Cj4gLS0tLQo+IAo+IFE6IFdoYXQgaXMgdGhlIGRpZmZlcmVu
+Y2UgYmV0d2VlbiBJTUEgYW5kIElQRT8KPiAKPiBBOiBTZWUgdGhlIGRvY3VtZW50YXRpb24gcGF0
+Y2ggZm9yIG1vcmUgb24gdGhpcyB0b3BpYy4KPiAKPiBQcmV2aW91cyBQb3N0aW5ncwo+IC0tLS0t
+LS0tLS0tLS0tLS0tCj4gCj4gdjE6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIwMDQw
+NjE4MTA0NS4xMDI0MTY0LTEtZGV2ZW4uZGVzYWlAbGludXgubWljcm9zb2Z0LmNvbS8KPiB2Mjog
+aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzIwMjAwNDA2MjIxNDM5LjE0Njk4NjItMS1kZXZl
+bi5kZXNhaUBsaW51eC5taWNyb3NvZnQuY29tLwo+IHYzOiBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9hbGwvMjAyMDA0MTUxNjI1NTAuMjMyNC0xLWRldmVuLmRlc2FpQGxpbnV4Lm1pY3Jvc29mdC5j
+b20vCj4gdjQ6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIwMDcxNzIzMDk0MS4xMTkw
+NzQ0LTEtZGV2ZW4uZGVzYWlAbGludXgubWljcm9zb2Z0LmNvbS8KPiB2NTogaHR0cHM6Ly9sb3Jl
+Lmtlcm5lbC5vcmcvYWxsLzIwMjAwNzI4MjEzNjE0LjU4NjMxMi0xLWRldmVuLmRlc2FpQGxpbnV4
+Lm1pY3Jvc29mdC5jb20vCj4gdjY6IGh0dHBzOi8vbG9yZS5rZXJuZWwub3JnL2FsbC8yMDIwMDcz
+MDAwMzExMy4yNTYxNjQ0LTEtZGV2ZW4uZGVzYWlAbGludXgubWljcm9zb2Z0LmNvbS8KPiB2Nzog
+aHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzE2MzQxNTE5OTUtMTYyNjYtMS1naXQtc2VuZC1l
+bWFpbC1kZXZlbi5kZXNhaUBsaW51eC5taWNyb3NvZnQuY29tLwo+IHY4OiBodHRwczovL2xvcmUu
+a2VybmVsLm9yZy9hbGwvMTY1NDcxNDg4OS0yNjcyOC0xLWdpdC1zZW5kLWVtYWlsLWRldmVuLmRl
+c2FpQGxpbnV4Lm1pY3Jvc29mdC5jb20vCj4gCj4gQ2hhbmdlbG9nOgo+IC0tLS0tLS0tLS0KPiAK
+PiB2MjoKPiAgIFNwbGl0IHRoZSBzZWNvbmQgcGF0Y2ggb2YgdGhlIHByZXZpb3VzIHNlcmllcyBp
+bnRvIHR3by4KPiAgIE1pbm9yIGNvcnJlY3Rpb25zIGluIHRoZSBjb3Zlci1sZXR0ZXIgYW5kIGRv
+Y3VtZW50YXRpb24KPiAgIGNvbW1lbnRzIHJlZ2FyZGluZyBDQVBfTUFDX0FETUlOIGNoZWNrcyBp
+biBJUEUuCj4gCj4gdjM6Cj4gICBBZGRyZXNzIHZhcmlvdXMgY29tbWVudHMgYnkgSmFubiBIb3Ju
+LiBIaWdobGlnaHRzOgo+ICAgICBTd2l0Y2ggdmFyaW91cyBhdWRpdCBhbGxvY2F0b3JzIHRvIEdG
+UF9LRVJORUwuCj4gICAgIFV0aWxpemUgcmN1X2FjY2Vzc19wb2ludGVyKCkgaW4gdmFyaW91cyBs
+b2NhdGlvbnMuCj4gICAgIFN0cmlwIG91dCB0aGUgY2FjaGluZyBzeXN0ZW0gZm9yIHByb3BlcnRp
+ZXMKPiAgICAgU3RyaXAgY29tbWVudHMgZnJvbSBoZWFkZXJzCj4gICAgIE1vdmUgZnVuY3Rpb25z
+IGFyb3VuZCBpbiBwYXRjaGVzCj4gICAgIFJlbW92ZSBrZXJuZWwgY29tbWFuZCBsaW5lIHBhcmFt
+ZXRlcnMKPiAgICAgUmVjb25jaWxlIHRoZSByYWNlIGNvbmRpdGlvbiBvbiB0aGUgZGVsZXRlIG5v
+ZGUgZm9yIHBvbGljeSBieQo+ICAgICAgIGV4cGFuZGluZyB0aGUgcG9saWN5IGNyaXRpY2FsIHNl
+Y3Rpb24uCj4gCj4gICBBZGRyZXNzIGEgZmV3IGNvbW1lbnRzIGJ5IEpvbmF0aGFuIENvcmJldCBh
+cm91bmQgdGhlIGRvY3VtZW50YXRpb24KPiAgICAgcGFnZXMgZm9yIElQRS4KPiAKPiAgIEZpeCBh
+biBpc3N1ZSB3aXRoIHRoZSBpbml0aWFsaXphdGlvbiBvZiBJUEUgcG9saWN5IHdpdGggYSAiLTAi
+Cj4gICAgIHZlcnNpb24sIGNhdXNlZCBieSBub3QgaW5pdGlhbGl6aW5nIHRoZSBobGlzdCBlbnRy
+aWVzIGJlZm9yZQo+ICAgICBmcmVlaW5nLgo+IAo+IHY0Ogo+ICAgQWRkcmVzcyBhIGNvbmNlcm4g
+YXJvdW5kIElQRSdzIGJlaGF2aW9yIHdpdGggdW5rbm93biBzeW50YXguCj4gICAgIFNwZWNpZmlj
+YWxseSwgbWFrZSBhbnkgdW5rbm93biBzeW50YXggYSBmYXRhbCBlcnJvciBpbnN0ZWFkIG9mIGEK
+PiAgICAgd2FybmluZywgYXMgc3VnZ2VzdGVkIGJ5IE1pY2thw6tsIFNhbGHDvG4uCj4gICBJbnRy
+b2R1Y2UgYSBuZXcgc2VjdXJpdHlmcyBub2RlLCAkc2VjdXJpdHlmcy9pcGUvcHJvcGVydHlfY29u
+ZmlnLAo+ICAgICB3aGljaCBwcm92aWRlcyBhIGxpc3Rpbmcgb2Ygd2hhdCBwcm9wZXJ0aWVzIGFy
+ZSBlbmFibGVkIGJ5IHRoZQo+ICAgICBrZXJuZWwgYW5kIHRoZWlyIHZlcnNpb25zLiBUaGlzIGFs
+bG93cyB1c2VybW9kZSB0byBwcmVkaWN0IHdoYXQKPiAgICAgcG9saWNpZXMgc2hvdWxkIGJlIGFs
+bG93ZWQuCj4gICBTdHJpcCBzb21lIGNvbW1lbnRzIGZyb20gYyBmaWxlcyB0aGF0IEkgbWlzc2Vk
+Lgo+ICAgQ2xhcmlmeSBzb21lIGRvY3VtZW50YXRpb24gY29tbWVudHMgYXJvdW5kICdib290X3Zl
+cmlmaWVkJy4KPiAgICAgV2hpbGUgdGhpcyBjdXJyZW50bHkgZG9lcyBub3QgZnVuY3Rpb25hbGx5
+IGNoYW5nZSB0aGUgcHJvcGVydHkKPiAgICAgaXRzZWxmLCB0aGUgZGlzdGluY3Rpb24gaXMgaW1w
+b3J0YW50IHdoZW4gSVBFIGNhbiBlbmZvcmNlIHZlcmlmaWVkCj4gICAgIHJlYWRzLiBBZGRpdGlv
+bmFsbHksICdLRVJORUxfUkVBRCcgd2FzIG9taXR0ZWQgZnJvbSB0aGUgZG9jdW1lbnRhdGlvbi4K
+PiAgICAgVGhpcyBoYXMgYmVlbiBjb3JyZWN0ZWQuCj4gICBDaGFuZ2UgU2VjdXJpdHlGUyBhbmQg
+U0hBMSB0byBhIHJldmVyc2UgZGVwZW5kZW5jeS4KPiAgIFVwZGF0ZSB0aGUgY292ZXItbGV0dGVy
+IHdpdGggdGhlIHVwZGF0ZWQgYmVoYXZpb3Igb2YgdW5rbm93biBzeW50YXguCj4gICBSZW1vdmUg
+YWxsIHN5c2N0bHMsIG1ha2luZyBhbiBlcXVpdmFsZW50IGZ1bmN0aW9uIGluIHNlY3VyaXR5ZnMu
+Cj4gICBSZXdvcmsgdGhlIGFjdGl2ZS9kZWxldGUgbWVjaGFuaXNtIHRvIGJlIGEgbm9kZSB1bmRl
+ciB0aGUgcG9saWN5IGluCj4gICAgICRzZWN1cml0eWZzL2lwZS9wb2xpY2llcy4KPiAgIFRoZSBr
+ZXJuZWwgY29tbWFuZCBsaW5lIHBhcmFtZXRlcnMgaXBlLmVuZm9yY2UgYW5kIGlwZS5zdWNjZXNz
+X2F1ZGl0Cj4gICAgIGhhdmUgcmV0dXJuZWQgYXMgdGhpcyBmdW5jdGlvbmFsaXR5IGlzIG5vIGxv
+bmdlciBleHBvc2VkIHRocm91Z2gKPiAgICAgc3lzZnMuCj4gCj4gdjU6Cj4gICBDb3JyZWN0IHNv
+bWUgZ3JhbW1hdGljYWwgZXJyb3JzIHJlcG9ydGVkIGJ5IFJhbmR5IER1bmxhcC4KPiAgIEZpeCBz
+b21lIHdhcm5pbmdzIHJlcG9ydGVkIGJ5IGtlcm5lbCB0ZXN0IGJvdC4KPiAgIENoYW5nZSBjb252
+ZW50aW9uIGFyb3VuZCBzZWN1cml0eV9iZGV2X3NldHNlY3VyaXR5LiAtRU5PU1lTCj4gICAgIGlz
+IG5vdyBleHBlY3RlZCBpZiBhbiBMU00gZG9lcyBub3QgaW1wbGVtZW50IGEgcGFydGljdWxhciBA
+bmFtZSwKPiAgICAgYXMgc3VnZ2VzdGVkIGJ5IENhc2V5IFNjaGF1Zmxlci4KPiAgIE1pbm9yIHN0
+cmluZyBjb3JyZWN0aW9ucyByZWxhdGVkIHRvIHRoZSBtb3ZlIGZyb20gc3lzZnMgdG8gc2VjdXJp
+dHlmcwo+ICAgQ29ycmVjdCBhIHNwZWxsaW5nIG9mIGFuICNpZmRlZiBmb3IgdGhlIHBlcm1pc3Np
+dmUgYXJndW1lbnQuCj4gICBBZGQgdGhlIGtlcm5lbCBwYXJhbWV0ZXJzIHJlLWFkZGVkIHRvIHRo
+ZSBkb2N1bWVudGF0aW9uLgo+ICAgRml4IGEgbWlub3IgYnVnIHdoZXJlIHRoZSBtb2RlIGJlaW5n
+IGF1ZGl0ZWQgb24gcGVybWlzc2l2ZSBzd2l0Y2gKPiAgICAgd2FzIHRoZSBvcmlnaW5hbCBtb2Rl
+LCBub3QgdGhlIG1vZGUgYmVpbmcgc3dhcHBlZCB0by4KPiAgIENsZWFudXAgZG9jIGNvbW1lbnRz
+LCBmaXggc29tZSB3aGl0ZXNwYWNlIGFsaWdubWVudCBpc3N1ZXMuCj4gCj4gdjY6Cj4gICBDaGFu
+Z2UgaWYgc3RhdGVtZW50IGNvbmRpdGlvbiBpbiBzZWN1cml0eV9iZGV2X3NldHNlY3VyaXR5IHRv
+IGJlCj4gICAgIG1vcmUgY29uY2lzZSwgYXMgc3VnZ2VzdGVkIGJ5IENhc2V5IFNjaGF1ZmxlciBh
+bmQgQWwgVmlybwo+ICAgRHJvcCB0aGUgNnRoIHBhdGNoIGluIHRoZSBzZXJpZXMsICJkbS12ZXJp
+dHkgbW92ZSBzaWduYXR1cmUgY2hlY2suLi4iCj4gICAgIGR1ZSB0byBudW1lcm91cyBpc3N1ZXMs
+IGFuZCBpdCB1bHRpbWF0ZWx5IHByb3ZpZGluZyBubyByZWFsIHZhbHVlLgo+ICAgRml4IHRoZSBw
+YXRjaCB0cmVlIC0gdGhlIHByZXZpb3VzIGl0ZXJhdGlvbiBhcHBlYXJzIHRvIGhhdmUgYmVlbiBp
+biBhCj4gICAgIHRvcm4gc3RhdGUgKHBhdGNoZXMgOCs5IHdlcmUgbWVyZ2VkKS4gVGhpcyBoYXMg
+c2luY2UgYmVlbiBjb3JyZWN0ZWQuCj4gCj4gdjc6Cj4gICAqIFJld29yZCBjb3ZlciBsZXR0ZXIg
+dG8gbW9yZSBhY2N1cmF0ZSBjb252ZXkgSVBFJ3MgcHVycG9zZQo+ICAgICBhbmQgbGF0ZXN0IHVw
+ZGF0ZXMuCj4gICAqIFJlZmFjdG9yIHNlcmllcyB0bzoKPiAgICAgICAxLiBTdXBwb3J0IGEgY29u
+dGV4dCBzdHJ1Y3R1cmUsIGVuYWJsaW5nOgo+ICAgICAgICAgICAxLiBFYXNpZXIgVGVzdGluZyB2
+aWEgS1VOSVQKPiAgICAgICAgICAgMi4gQSBiZXR0ZXIgYXJjaGl0ZWN0dXJlIGZvciBmdXR1cmUg
+ZGVzaWducwo+ICAgICAgIDIuIE1ha2UgcGFyc2VyIGNvZGUgY2xlYW5lcgo+ICAgKiBNb3ZlIHBh
+dGNoIDAxLzEyIHRvIFsxNC8xNl0gb2YgdGhlIHNlcmllcwo+ICAgKiBTcGxpdCB1cCBwYXRjaCAw
+Mi8xMiBpbnRvIGZvdXIgcGFydHM6Cj4gICAgICAgMS4gY29udGV4dCBjcmVhdGlvbiBbMDEvMTZd
+Cj4gICAgICAgMi4gYXVkaXQgWzA3LzE2XQo+ICAgICAgIDMuIGV2YWx1YXRpb24gbG9vcCBbMDMv
+MTZdCj4gICAgICAgNC4gYWNjZXNzIGNvbnRyb2wgaG9va3MgWzA1LzE2XQo+ICAgICAgIDUuIHBl
+cm1pc3NpdmUgbW9kZSBbMDgvMTZdCj4gICAqIFNwbGl0IHVwIHBhdGNoIDAzLzEyIGludG8gdHdv
+IHBhcnRzOgo+ICAgICAgIDEuIHBhcnNlciBbMDIvMTZdCj4gICAgICAgMi4gdXNlcnNwYWNlIGlu
+dGVyZmFjZSBbMDQvMTZdCj4gICAqIFJld29yZCBhbmQgcmVmYWN0b3IgcGF0Y2ggMDQvMTIgdG8g
+WzA5LzE2XQo+ICAgKiBTcXVhc2ggcGF0Y2ggMDUvMTIsIDA3LzEyLCAwOS8xMiB0byBbMTAvMTZd
+Cj4gICAqIFNxdWFzaCBwYXRjaCAwOC8xMiwgMTAvMTIgdG8gWzExLzE2XQo+ICAgKiBDaGFuZ2Ug
+YXVkaXQgcmVjb3JkcyB0byBNQUMgcmVnaW9uICgxNFhYKSBmcm9tIEludGVncml0eSByZWdpb24g
+KDE4WFgpCj4gICAqIEFkZCBGU1Zlcml0eSBTdXBwb3J0Cj4gICAqIEludGVyZmFjZSBjaGFuZ2Vz
+Ogo+ICAgICAgIDEuICJyYXciIHdhcyByZW5hbWVkIHRvICJwa2NzNyIgYW5kIG1hZGUgcmVhZCBv
+bmx5Cj4gICAgICAgMi4gInJhdyIncyB3cml0ZSBmdW5jdGlvbmFsaXR5ICh1cGRhdGUgYSBwb2xp
+Y3kpIG1vdmVkIHRvICJ1cGRhdGUiCj4gICAgICAgMy4gaW50cm9kdWNlZCAidmVyc2lvbiIsICJw
+b2xpY3lfbmFtZSIgbm9kZXMuCj4gICAgICAgNC4gImNvbnRlbnQiIHJlbmFtZWQgdG8gInBvbGlj
+eSIKPiAgICAgICA1LiBUaGUgYm9vdCBwb2xpY3kgY2FuIG5vdyBiZSB1cGRhdGVkIGxpa2UgYW55
+IG90aGVyIHBvbGljeS4KPiAgICogQWRkIGFkZGl0aW9uYWwgZGV2ZWxvcGVyLWxldmVsIGRvY3Vt
+ZW50YXRpb24KPiAgICogVXBkYXRlIGFkbWluLWd1aWRlIGRvY3MgdG8gcmVmbGVjdCBjaGFuZ2Vz
+Lgo+ICAgKiBLdW5pdCB0ZXN0cwo+ICAgKiBEcm9wcGVkIENPTkZJR19TRUNVUklUWV9JUEVfUEVS
+TUlTU0lWRV9TV0lUQ0ggLSBmdW5jdGlvbmFsaXR5IGNhbgo+ICAgICBlYXNpbHkgY29tZSBsYXRl
+ciB3aXRoIGEgc21hbGwgcGF0Y2guCj4gICAqIFVzZSBwYXJ0aXRpb24wIGZvciBibG9ja19kZXZp
+Y2UgZm9yIGRtLXZlcml0eSBwYXRjaAo+IAo+IHY4Ogo+ICAgKiBBZGQgY2hhbmdlbG9nIGluZm9y
+bWF0aW9uIHRvIGluZGl2aWR1YWwgY29tbWl0cwo+ICAgKiBBIGxhcmdlIG51bWJlciBvZiBjaGFu
+Z2VzIHRvIHRoZSBhdWRpdCBwYXRjaC4KPiAgICogc3BsaXQgZnMvICYgc2VjdXJpdHkvIGNoYW5n
+ZXMgdG8gdHdvIHNlcGFyYXRlIHBhdGNoZXMuCj4gICAqIHNwbGl0IGJsb2NrLywgc2VjdXJpdHkv
+ICYgZHJpdmVycy9tZC8gY2hhbmdlcyB0byBzZXBhcmF0ZSBwYXRjaGVzLgo+ICAgKiBBZGQgc29t
+ZSBoaXN0b3JpY2FsIGNvbnRleHQgdG8gd2hhdCBsZWFkIHRvIHRoZSBjcmVhdGlvbiBvZiBJUEUK
+PiAgICAgaW4gdGhlIGRvY3VtZW50YXRpb24gcGF0Y2guCj4gICAqIENvdmVyLWxldHRlciBjaGFu
+Z2VzIHN1Z2dlc3RlZCBieSBSb2JlcnRvIFNhc3N1Lgo+IAo+IHY5Ogo+ICAgKiBSZXdyaXRlIElQ
+RSBwYXJzZXIgdG8gdXNlIGtlcm5lbCBtYXRjaF90YWJsZSBwYXJzZXIuCj4gICAqIEFkYXB0IGV4
+aXN0aW5nIElQRSBwcm9wZXJ0aWVzIHRvIHRoZSBuZXcgcGFyc2VyLgo+ICAgKiBSZW1vdmUgaXBl
+X2NvbnRleHQsIHF1b3RlIHBvbGljeSBzeW50YXgsIGtlcm5lbF9yZWFkIGZvciBzaW1wbGljaXR5
+Lgo+ICAgKiBBZGQgbmV3IGZ1bmN0aW9uIGluIHRoZSBzZWN1cml0eSBmaWxlIHN5c3RlbSB0byBk
+ZWxldGUgSVBFIHBvbGljeS4KPiAgICogTWFrZSBJUEUgYXVkaXQgYnVpbHRpbiBhbmQgY2hhbmdl
+IHNldmVyYWwgYXVkaXQgZm9ybWF0cy4KPiAgICogTWFrZSBib290X3ZlcmlmaWVkIHByb3BlcnR5
+IGJ1aWx0aW4KPiAKPiBEZXZlbiBCb3dlcnMgKDEzKToKPiAgIHNlY3VyaXR5OiBhZGQgaXBlIGxz
+bQo+ICAgaXBlOiBhZGQgcG9saWN5IHBhcnNlcgo+ICAgaXBlOiBhZGQgZXZhbHVhdGlvbiBsb29w
+IGFuZCBpbnRyb2R1Y2UgJ2Jvb3RfdmVyaWZpZWQnIGFzIGEgdHJ1c3QKPiAgICAgcHJvdmlkZXIK
+PiAgIGlwZTogYWRkIHVzZXJzcGFjZSBpbnRlcmZhY2UKPiAgIGlwZTogYWRkIExTTSBob29rcyBv
+biBleGVjdXRpb24gYW5kIGtlcm5lbCByZWFkCj4gICB1YXBpfGF1ZGl0fGlwZTogYWRkIGlwZSBh
+dWRpdGluZyBzdXBwb3J0Cj4gICBpcGU6IGFkZCBwZXJtaXNzaXZlIHRvZ2dsZQo+ICAgYmxvY2t8
+c2VjdXJpdHk6IGFkZCBMU00gYmxvYiB0byBibG9ja19kZXZpY2UKPiAgIGRtLXZlcml0eTogY29u
+c3VtZSByb290IGhhc2ggZGlnZXN0IGFuZCBzaWduYXR1cmUgZGF0YSB2aWEgTFNNIGhvb2sKPiAg
+IGlwZTogYWRkIHN1cHBvcnQgZm9yIGRtLXZlcml0eSBhcyBhIHRydXN0IHByb3ZpZGVyCj4gICBz
+Y3JpcHRzOiBhZGQgYm9vdCBwb2xpY3kgZ2VuZXJhdGlvbiBwcm9ncmFtCj4gICBpcGU6IGt1bml0
+IHRlc3QgZm9yIHBhcnNlcgo+ICAgZG9jdW1lbnRhdGlvbjogYWRkIGlwZSBkb2N1bWVudGF0aW9u
+Cj4gCj4gRmFuIFd1ICgzKToKPiAgIHNlY3VyaXR5OiBhZGQgbmV3IHNlY3VyaXR5ZnMgZGVsZXRl
+IGZ1bmN0aW9uCj4gICBmc3Zlcml0eTogY29uc3VtZSBidWlsdGluIHNpZ25hdHVyZSB2aWEgTFNN
+IGhvb2sKPiAgIGlwZTogZW5hYmxlIHN1cHBvcnQgZm9yIGZzLXZlcml0eSBhcyBhIHRydXN0IHBy
+b3ZpZGVyCj4gCj4gIERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvTFNNL2luZGV4LnJzdCAgICAg
+ICB8ICAgMSArCj4gIERvY3VtZW50YXRpb24vYWRtaW4tZ3VpZGUvTFNNL2lwZS5yc3QgICAgICAg
+ICB8IDcyOSArKysrKysrKysrKysrKysrKysKPiAgLi4uL2FkbWluLWd1aWRlL2tlcm5lbC1wYXJh
+bWV0ZXJzLnR4dCAgICAgICAgIHwgIDEyICsKPiAgRG9jdW1lbnRhdGlvbi9zZWN1cml0eS9pbmRl
+eC5yc3QgICAgICAgICAgICAgIHwgICAxICsKPiAgRG9jdW1lbnRhdGlvbi9zZWN1cml0eS9pcGUu
+cnN0ICAgICAgICAgICAgICAgIHwgNDM2ICsrKysrKysrKysrCj4gIE1BSU5UQUlORVJTICAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgOCArCj4gIGJsb2NrL2JkZXYuYyAgICAg
+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgNyArCj4gIGRyaXZlcnMvbWQvZG0tdmVy
+aXR5LXRhcmdldC5jICAgICAgICAgICAgICAgICB8ICAyNSArLQo+ICBkcml2ZXJzL21kL2RtLXZl
+cml0eS12ZXJpZnktc2lnLmMgICAgICAgICAgICAgfCAgMTYgKy0KPiAgZHJpdmVycy9tZC9kbS12
+ZXJpdHktdmVyaWZ5LXNpZy5oICAgICAgICAgICAgIHwgIDEwICstCj4gIGZzL3Zlcml0eS9mc3Zl
+cml0eV9wcml2YXRlLmggICAgICAgICAgICAgICAgICB8ICAgMiArLQo+ICBmcy92ZXJpdHkvb3Bl
+bi5jICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMTMgKy0KPiAgZnMvdmVyaXR5L3Np
+Z25hdHVyZS5jICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsKPiAgaW5jbHVkZS9saW51
+eC9ibGtfdHlwZXMuaCAgICAgICAgICAgICAgICAgICAgIHwgICAzICsKPiAgaW5jbHVkZS9saW51
+eC9kbS12ZXJpdHkuaCAgICAgICAgICAgICAgICAgICAgIHwgIDE5ICsKPiAgaW5jbHVkZS9saW51
+eC9mc3Zlcml0eS5oICAgICAgICAgICAgICAgICAgICAgIHwgICAyICsKPiAgaW5jbHVkZS9saW51
+eC9sc21faG9va19kZWZzLmggICAgICAgICAgICAgICAgIHwgICA1ICsKPiAgaW5jbHVkZS9saW51
+eC9sc21faG9va3MuaCAgICAgICAgICAgICAgICAgICAgIHwgIDEyICsKPiAgaW5jbHVkZS9saW51
+eC9zZWN1cml0eS5oICAgICAgICAgICAgICAgICAgICAgIHwgIDIzICsKPiAgaW5jbHVkZS91YXBp
+L2xpbnV4L2F1ZGl0LmggICAgICAgICAgICAgICAgICAgIHwgICAxICsKPiAgc2NyaXB0cy9NYWtl
+ZmlsZSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAxICsKPiAgc2NyaXB0cy9pcGUv
+TWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgIHwgICAyICsKPiAgc2NyaXB0cy9pcGUv
+cG9sZ2VuLy5naXRpZ25vcmUgICAgICAgICAgICAgICAgIHwgICAxICsKPiAgc2NyaXB0cy9pcGUv
+cG9sZ2VuL01ha2VmaWxlICAgICAgICAgICAgICAgICAgIHwgICA2ICsKPiAgc2NyaXB0cy9pcGUv
+cG9sZ2VuL3BvbGdlbi5jICAgICAgICAgICAgICAgICAgIHwgMTQ1ICsrKysKPiAgc2VjdXJpdHkv
+S2NvbmZpZyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHwgIDExICstCj4gIHNlY3VyaXR5
+L01ha2VmaWxlICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAgMSArCj4gIHNlY3VyaXR5
+L2lub2RlLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICAyNSArCj4gIHNlY3VyaXR5
+L2lwZS8uZ2l0aWdub3JlICAgICAgICAgICAgICAgICAgICAgICB8ICAgMSArCj4gIHNlY3VyaXR5
+L2lwZS9LY29uZmlnICAgICAgICAgICAgICAgICAgICAgICAgICB8ICA3NSArKwo+ICBzZWN1cml0
+eS9pcGUvTWFrZWZpbGUgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMzIgKwo+ICBzZWN1cml0
+eS9pcGUvYXVkaXQuYyAgICAgICAgICAgICAgICAgICAgICAgICAgfCAyNzkgKysrKysrKwo+ICBz
+ZWN1cml0eS9pcGUvYXVkaXQuaCAgICAgICAgICAgICAgICAgICAgICAgICAgfCAgMTkgKwo+ICBz
+ZWN1cml0eS9pcGUvZGlnZXN0LmMgICAgICAgICAgICAgICAgICAgICAgICAgfCAxNDQgKysrKwo+
+ICBzZWN1cml0eS9pcGUvZGlnZXN0LmggICAgICAgICAgICAgICAgICAgICAgICAgfCAgMjYgKwo+
+ICBzZWN1cml0eS9pcGUvZXZhbC5jICAgICAgICAgICAgICAgICAgICAgICAgICAgfCA0MjQgKysr
+KysrKysrKwo+ICBzZWN1cml0eS9pcGUvZXZhbC5oICAgICAgICAgICAgICAgICAgICAgICAgICAg
+fCAgNjAgKysKPiAgc2VjdXJpdHkvaXBlL2ZzLmMgICAgICAgICAgICAgICAgICAgICAgICAgICAg
+IHwgMjQyICsrKysrKwo+ICBzZWN1cml0eS9pcGUvZnMuaCAgICAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfCAgMTcgKwo+ICBzZWN1cml0eS9pcGUvaG9va3MuYyAgICAgICAgICAgICAgICAgICAg
+ICAgICAgfCAyNzUgKysrKysrKwo+ICBzZWN1cml0eS9pcGUvaG9va3MuaCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgfCAgNDIgKwo+ICBzZWN1cml0eS9pcGUvaXBlLmMgICAgICAgICAgICAgICAg
+ICAgICAgICAgICAgfCAgOTcgKysrCj4gIHNlY3VyaXR5L2lwZS9pcGUuaCAgICAgICAgICAgICAg
+ICAgICAgICAgICAgICB8ICAyMiArCj4gIHNlY3VyaXR5L2lwZS9wb2xpY3kuYyAgICAgICAgICAg
+ICAgICAgICAgICAgICB8IDI1OSArKysrKysrCj4gIHNlY3VyaXR5L2lwZS9wb2xpY3kuaCAgICAg
+ICAgICAgICAgICAgICAgICAgICB8ICA5MyArKysKPiAgc2VjdXJpdHkvaXBlL3BvbGljeV9mcy5j
+ICAgICAgICAgICAgICAgICAgICAgIHwgNDU5ICsrKysrKysrKysrCj4gIHNlY3VyaXR5L2lwZS9w
+b2xpY3lfcGFyc2VyLmMgICAgICAgICAgICAgICAgICB8IDU0NSArKysrKysrKysrKysrCj4gIHNl
+Y3VyaXR5L2lwZS9wb2xpY3lfcGFyc2VyLmggICAgICAgICAgICAgICAgICB8ICAxMSArCj4gIHNl
+Y3VyaXR5L2lwZS9wb2xpY3lfdGVzdHMuYyAgICAgICAgICAgICAgICAgICB8IDI5NCArKysrKysr
+Cj4gIHNlY3VyaXR5L3NlY3VyaXR5LmMgICAgICAgICAgICAgICAgICAgICAgICAgICB8ICA3MCAr
+Kwo+ICA1MCBmaWxlcyBjaGFuZ2VkLCA0OTg4IGluc2VydGlvbnMoKyksIDE2IGRlbGV0aW9ucygt
+KQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9hZG1pbi1ndWlkZS9MU00vaXBl
+LnJzdAo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgRG9jdW1lbnRhdGlvbi9zZWN1cml0eS9pcGUucnN0
+Cj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBpbmNsdWRlL2xpbnV4L2RtLXZlcml0eS5oCj4gIGNyZWF0
+ZSBtb2RlIDEwMDY0NCBzY3JpcHRzL2lwZS9NYWtlZmlsZQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQg
+c2NyaXB0cy9pcGUvcG9sZ2VuLy5naXRpZ25vcmUKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNjcmlw
+dHMvaXBlL3BvbGdlbi9NYWtlZmlsZQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgc2NyaXB0cy9pcGUv
+cG9sZ2VuL3BvbGdlbi5jCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBzZWN1cml0eS9pcGUvLmdpdGln
+bm9yZQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgc2VjdXJpdHkvaXBlL0tjb25maWcKPiAgY3JlYXRl
+IG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9NYWtlZmlsZQo+ICBjcmVhdGUgbW9kZSAxMDA2NDQg
+c2VjdXJpdHkvaXBlL2F1ZGl0LmMKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9h
+dWRpdC5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBzZWN1cml0eS9pcGUvZGlnZXN0LmMKPiAgY3Jl
+YXRlIG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9kaWdlc3QuaAo+ICBjcmVhdGUgbW9kZSAxMDA2
+NDQgc2VjdXJpdHkvaXBlL2V2YWwuYwo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgc2VjdXJpdHkvaXBl
+L2V2YWwuaAo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgc2VjdXJpdHkvaXBlL2ZzLmMKPiAgY3JlYXRl
+IG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9mcy5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBzZWN1
+cml0eS9pcGUvaG9va3MuYwo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgc2VjdXJpdHkvaXBlL2hvb2tz
+LmgKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9pcGUuYwo+ICBjcmVhdGUgbW9k
+ZSAxMDA2NDQgc2VjdXJpdHkvaXBlL2lwZS5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0NCBzZWN1cml0
+eS9pcGUvcG9saWN5LmMKPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9wb2xpY3ku
+aAo+ICBjcmVhdGUgbW9kZSAxMDA2NDQgc2VjdXJpdHkvaXBlL3BvbGljeV9mcy5jCj4gIGNyZWF0
+ZSBtb2RlIDEwMDY0NCBzZWN1cml0eS9pcGUvcG9saWN5X3BhcnNlci5jCj4gIGNyZWF0ZSBtb2Rl
+IDEwMDY0NCBzZWN1cml0eS9pcGUvcG9saWN5X3BhcnNlci5oCj4gIGNyZWF0ZSBtb2RlIDEwMDY0
+NCBzZWN1cml0eS9pcGUvcG9saWN5X3Rlc3RzLmMKPiAKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlz
+dApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4v
+bGlzdGluZm8vZG0tZGV2ZWwK
 
