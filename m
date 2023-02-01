@@ -2,139 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9580F686F94
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 21:13:32 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 187B1687113
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 23:39:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675282411;
+	s=mimecast20190719; t=1675291193;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VsIen/cP4n6Em5VYRamhjyS2sjWqaY2SO0kTkjoljRw=;
-	b=MSohQadHAssTZGefayzdJ+t7zV3WEyE74e+8d3KOW54uz9HVcY7r98EAFnNWXVZ4ZEN5nX
-	vAR5PVE6XCXBK1CUok35oxGoR7WjPnyMwyAWUN/ARfa+5gHY/ovQBl1jjKFp3U6DjFXjMZ
-	2c3xeNf6jh2d5JQnzeXSY8x8nsjGc9M=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=oyvYmXZoc9ppoHsCwZR/IUuEC4vvg9AhTJzsaxQ9L7w=;
+	b=b/HFCh1ljB8Pj2s/eP4d543CHSZpTfP4/d3X8EorrWrNVQXY+Y9qRsJZZqIKxnnCRRNDV1
+	X8kIk3REyi7v1Kbm3L5dRHg8+txePAxx8bcictjIRNcv7pMThnNzTDZ7KOA6o4u0aKYnB/
+	chtZDofT3upbcXZDhmDEQ7x2Wxf0Z8w=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-433-U5JYJn-bO4iHmaRoH5F-eA-1; Wed, 01 Feb 2023 15:13:29 -0500
-X-MC-Unique: U5JYJn-bO4iHmaRoH5F-eA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-501-r96RtQ9nO_qkj0LBAOAvsg-1; Wed, 01 Feb 2023 17:39:52 -0500
+X-MC-Unique: r96RtQ9nO_qkj0LBAOAvsg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF7511875041;
-	Wed,  1 Feb 2023 20:13:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A97C91C0896C;
+	Wed,  1 Feb 2023 22:39:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A6D79112132D;
-	Wed,  1 Feb 2023 20:13:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CE4B8422AE;
+	Wed,  1 Feb 2023 22:39:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D1E1919465BA;
-	Wed,  1 Feb 2023 20:13:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA62219465BA;
+	Wed,  1 Feb 2023 22:39:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0FB9419465A3
- for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 20:13:16 +0000 (UTC)
+ ESMTP id E0EDA194658F
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 22:39:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 007C62166B35; Wed,  1 Feb 2023 20:13:16 +0000 (UTC)
+ id F1671492B06; Wed,  1 Feb 2023 22:38:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ED92C2166B34
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 20:13:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD3E385CBE0
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 20:13:15 +0000 (UTC)
-Received: from EUR01-DB5-obe.outbound.protection.outlook.com
- (mail-db5eur01on2074.outbound.protection.outlook.com [40.107.15.74]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-141-7PQxttJQM9GhGZpXDzU8Ag-1; Wed, 01 Feb 2023 15:13:14 -0500
-X-MC-Unique: 7PQxttJQM9GhGZpXDzU8Ag-1
-Received: from AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22)
- by DB9PR04MB8188.eurprd04.prod.outlook.com (2603:10a6:10:25e::21)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.24; Wed, 1 Feb
- 2023 20:13:09 +0000
-Received: from AS8PR04MB8040.eurprd04.prod.outlook.com
- ([fe80::e1b6:3ede:547d:eb2f]) by AS8PR04MB8040.eurprd04.prod.outlook.com
- ([fe80::e1b6:3ede:547d:eb2f%9]) with mapi id 15.20.6043.028; Wed, 1 Feb 2023
- 20:13:09 +0000
-From: Martin Wilck <martin.wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>
-Thread-Topic: [PATCH 4/4] libmultipath: keep renames from stopping other
- multipath actions
-Thread-Index: AQHZNasNdibzGBrjF0a5rX6LpFB6fK66KsAbgABdHQA=
-Date: Wed, 1 Feb 2023 20:13:09 +0000
-Message-ID: <2681f5627802a3a940646c55d13ec40890fe3a93.camel@suse.com>
-References: <1675193661-1147-1-git-send-email-bmarzins@redhat.com>
- <1675193661-1147-5-git-send-email-bmarzins@redhat.com>
- <75e8e7c39785a85b068f65c49f9c334f95fcaf24.camel@suse.com>
- <20230201143944.GV17327@octiron.msp.redhat.com>
-In-Reply-To: <20230201143944.GV17327@octiron.msp.redhat.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.46.3
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR04MB8040:EE_|DB9PR04MB8188:EE_
-x-ms-office365-filtering-correlation-id: f52ae91e-1153-4fcf-de71-08db0490bce2
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: 9p5at3tlaWJO9ev/4HhbMMmYFy5V01SQNcLauYETjGeMFdjMicK3PmwX/xnvFjw4xP6viM/A2YuwGnqdRB47Ix5caTLBWM9y1kf+SGiV7a2h6ug9p2BUhq/bkNMnjTXU6lP2bX0j1BS3oNH9wpF9kKseU1L6fR1DsNE7fe2iP6B3vJd3xpfsu1d60Clkl+hM3eaEqAo+AZrzOFZuL4qzRoSJUys/t4akG2qN9bJ41Ezf90/aAAl0r64g2mRHnmMWabfPK/zxse9B1TERgwhBuh7Bf+4+AWVMksSPIcILgbSHvDS//WhtwQs+Tz3zq7e2sdP8cF8ZtQHvVUWsCfbuY6j+4ZOjH7jTvHAoV9y9LLZ19Y7+EBmlHHchrgNu23N1PvosL6lHr7p+LYxWPK8oM4aDWUG0OauoWMkkZA2cPkFjkLH3OtiutlvvMbRmMQK4tdv4S9sOJCvDuN7ULRzTdzALl0iBruNmGCYJHy5MadfeF/DpyPEcII2WsJZeSpCaBFR76MTAT2ruLPOLvZml6WwZK9tOxLpWLMVIveJiiKY311osQwPSeEkprn6Slpz06OOMlaEoagwrf2nHguD6cwSPY2Ei4By9gbMOqEdYOt5SuTO2Ls906nReXjrIXEuSUbdK5S1rSQ+48wp3KX6iFNCtBOLECW84axHbVV/9IV5Pxu4VbdXksuPeRDr8bfhpUYNhF/1+ZrmI9ScYFQFAww==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS8PR04MB8040.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(346002)(376002)(136003)(39860400002)(396003)(366004)(451199018)(26005)(6512007)(186003)(6506007)(478600001)(6486002)(2906002)(71200400001)(44832011)(4744005)(86362001)(36756003)(316002)(5660300002)(8676002)(54906003)(41300700001)(8936002)(38070700005)(2616005)(4326008)(6916009)(66446008)(122000001)(38100700002)(64756008)(66556008)(66946007)(91956017)(76116006)(66476007);
- DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?wouZ6QA1IL2vF13DNsaGzLBhbHijecZdDww+M1O8Jtii647Yh+vlLutBu?=
- =?iso-8859-15?Q?nPD3e43UgEytYNqF+a521wrK5lmfkx2ruiQt4klEycQvR2m8zPXT47H1p?=
- =?iso-8859-15?Q?Brb6vRXF8zuFhHsEXHZM97OQNf/533p/sZFeLb6N37QokA+lx4QirFuOM?=
- =?iso-8859-15?Q?/fXW6HhOWjd0kgaVpWGgnw03aNU13ztouwUPfsM7hjpAfToRC6zugYeCD?=
- =?iso-8859-15?Q?32o9zzKnXQ/eLbspgzAYYdrCsEKJOel//jSBcTn+CUGGVVcdMKy0zSmxe?=
- =?iso-8859-15?Q?OaDf6BCUX6eLdhT7PrfdEp1cy6VjLGdXP8E8vVEEZzvdiYKce5WvRaaRE?=
- =?iso-8859-15?Q?fNygXj50MBmYGRG1HRan/cTc9RImiYPX6XPRxhtumfwU3IZk//dic2MYf?=
- =?iso-8859-15?Q?yv4v1HPg+cqZCQm+o3Ta7a+RrWhVPHmsfIojFxKE8zQJmBXCbNPesmnFa?=
- =?iso-8859-15?Q?6La0bBP3DPZ3NRjzerRaURutu9eNrMNHaCU20TgVc10ks2sTtlEZHpmHb?=
- =?iso-8859-15?Q?43EgL6onKtG0JcPeyxkNF25G8jXiXOKLlgRkOWUjytqExPXBT6OTkqdGV?=
- =?iso-8859-15?Q?8jp18Z0ep/w/8gD56F01B1n5doub96f2MbwHBTgbohr1ZoMOfG/kbszgT?=
- =?iso-8859-15?Q?Y2uFDMRk036Zt+IQU7HSTpU6QTWrEghWLQuuOY9OIMtJzTYGq63sKb1Ul?=
- =?iso-8859-15?Q?HQLND7sji7ktTEBW7nnHmjXS4cl76twRWgoAMeBmQOHCu97HMrXE5Pfug?=
- =?iso-8859-15?Q?QP2BE80RJel89qGPK+1vGEXb0Qz5FcwmFOyUrOhEXFKZGeDYGfioTaD+G?=
- =?iso-8859-15?Q?0INZ3eES8rO4lR6diUKeK7jMFxARBE6OQt3JPPK4Az7+g6Goq/+a3/CT7?=
- =?iso-8859-15?Q?StWXKckJuLURglmSj4fgqkjEfX16hEfgdMlHuYWqKKXcpLsMYrtvwX+SD?=
- =?iso-8859-15?Q?TNcMSHvbMP86oYb4byBFf5vF9C04cIDhZtx1fDqMtdF4xTglPvthlITeP?=
- =?iso-8859-15?Q?iMPm3Swq7JGaJFDl/eNBQF8ehFK3+DOUPvgVwCRWKInuMmHFeMtkRlRiO?=
- =?iso-8859-15?Q?xgw2xlCty0XLfVaHxheG4jB+87q/NaIJAfYI8HGalrEvntcuamlrUpcnx?=
- =?iso-8859-15?Q?i6zUv6+WHKVDwPSZjOo4h0fw+LqqrV1TR9kAud1TiZfMUj7ofueIqklHX?=
- =?iso-8859-15?Q?GN4BwvEja4I2iHEUpdi+4xkSFfQwrt5JlwXZUAXX0cDAhftdfzkC9drxz?=
- =?iso-8859-15?Q?OUEbqHbT6iGI/jnczYr3AVnm3bAuTe60roUPHVayLezpuepbpznzmRptB?=
- =?iso-8859-15?Q?3qDY7voRTyIqJ34IQnCdIrcWKEGAfq2UN7OP2qlkoW9BBPiiOt7BecG9c?=
- =?iso-8859-15?Q?HeUjhmzSPUY8B7zGlC/xW9ayzP6vbaQ5g1xUDIvVWgV+9Es8obnaIbp3L?=
- =?iso-8859-15?Q?VfipN6ifsBor0b47r5lnwvw6dIV4Ha7R9TdfLYSZEYx/7HzoYClCKucoD?=
- =?iso-8859-15?Q?T+g2YWyJN5n/fbzjEFppjpa1aOj2ovLdvuDYsO6Rx2oDruJwF4HtjkaaL?=
- =?iso-8859-15?Q?7eHg72Zp1coG2GFWkkcc+IXbbJzjuYvex/TFRshwSfsZWuTKP767r+iSC?=
- =?iso-8859-15?Q?0QY+HaDeDXPuPOd4T5ToUtjPENybrdbl040tRDKVp+l1t4wz7+vbY/kwL?=
- =?iso-8859-15?Q?voHmKfo1w5zIwTterRdoQiFGKQ=3D=3D?=
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E9AFC492B05
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 22:38:59 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D02823C025CD
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 22:38:59 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+ relay.mimecast.com with ESMTP id us-mta-365-C8SVPhuvPmG3VTBKj2YTNA-1; Wed,
+ 01 Feb 2023 17:38:55 -0500
+X-MC-Unique: C8SVPhuvPmG3VTBKj2YTNA-1
+Received: by linux.microsoft.com (Postfix, from userid 1052)
+ id CF5C720B7102; Wed,  1 Feb 2023 14:38:53 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CF5C720B7102
+Date: Wed, 1 Feb 2023 14:38:53 -0800
+From: Fan Wu <wufan@linux.microsoft.com>
+To: Roberto Sassu <roberto.sassu@huaweicloud.com>
+Message-ID: <20230201223853.GA9075@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
+ <1675119451-23180-3-git-send-email-wufan@linux.microsoft.com>
+ <dd7df8bc5b69a6745bdcf030a4e0690e3e067ff2.camel@huaweicloud.com>
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8040.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f52ae91e-1153-4fcf-de71-08db0490bce2
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2023 20:13:09.3530 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: 2OVPBd56paeaYLcavtEIkxOFmvVGTKC2obkhKRZrgujCuvgNuETSn+t3bQeUmjnDyCFFou50sqyFCyJ0XAWhEA==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DB9PR04MB8188
+In-Reply-To: <dd7df8bc5b69a6745bdcf030a4e0690e3e067ff2.camel@huaweicloud.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -142,9 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 4/4] libmultipath: keep renames from stopping
- other multipath actions
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [dm-devel] [RFC PATCH v9 02/16] ipe: add policy parser
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -156,41 +88,35 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
+ paul@paul-moore.com, dm-devel@redhat.com, corbet@lwn.net,
+ roberto.sassu@huawei.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+ linux-doc@vger.kernel.org, snitzer@kernel.org, jmorris@namei.org,
+ zohar@linux.ibm.com, linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+ eparis@redhat.com, linux-fscrypt@vger.kernel.org,
+ linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-ID: <18286E1A88F45E40B9B49B37BF4F43EE@eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Wed, 2023-02-01 at 08:39 -0600, Benjamin Marzinski wrote:
-> On Wed, Feb 01, 2023 at 08:00:25AM +0000, Martin Wilck wrote:
->=20
-> >=20
-> > This code makes we wonder if we should transform the ACT_... enum
-> > into
-> > a bitmap of required actions that would be ORed together.
-> > At least ACT_RENAME is now orthogonal to the rest of the actions.
->=20
-> I thought about that too, as well as breaking rename out from the
-> other
-> actions, so it could be checked separately.=A0 But since, AFAICS, there
-> are only these three special cases, it didn't seem like there'd be
-> much
-> benefit, and it could give the false impression that something like
-> ACT_RELOAD | ACT_SWITCHPG makes sense. If you feel strongly about
-> this,
-> I can do it, but I did consider it and I didn't see a reason to
-> change
-> it.
-
-Ok, leave it as you had it. Fine with me.
-
-Martin
+On Tue, Jan 31, 2023 at 11:53:27AM +0100, Roberto Sassu wrote:
+> On Mon, 2023-01-30 at 14:57 -0800, Fan Wu wrote:
+> > From: Deven Bowers <deven.desai@linux.microsoft.com>
+> 
+> Uhm, memory leak? Also below. I suggest to use kmemleak.
+> 
+> Roberto
+> 
+Nice catch and thanks for the suggestion, I used kmemleak
+and detected several incomplete cleanup. Will be fixed in
+the next version.
+-Fan
 
 --
 dm-devel mailing list
