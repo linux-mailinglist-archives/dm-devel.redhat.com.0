@@ -1,72 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 187B1687113
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 23:39:55 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85C9A6871E3
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Feb 2023 00:26:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675291193;
+	s=mimecast20190719; t=1675294015;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oyvYmXZoc9ppoHsCwZR/IUuEC4vvg9AhTJzsaxQ9L7w=;
-	b=b/HFCh1ljB8Pj2s/eP4d543CHSZpTfP4/d3X8EorrWrNVQXY+Y9qRsJZZqIKxnnCRRNDV1
-	X8kIk3REyi7v1Kbm3L5dRHg8+txePAxx8bcictjIRNcv7pMThnNzTDZ7KOA6o4u0aKYnB/
-	chtZDofT3upbcXZDhmDEQ7x2Wxf0Z8w=
+	bh=NIcQIza+tlKQHcUDaSwQcW5u2Zbstr7/mMyRL6UR5N8=;
+	b=HVriNqyFcQ6s6O5MgtBCsUCsDf81+1hAP1aL81j4YIlXL6t1bGjL1cJu/ryhSz4/ApRFsY
+	b28f5Fkw8UGecH2IhSE+l6/af023g5z3nrWeQ+JGqSswbMEXQd2g3rxDX4x3S+AHHJ6WFo
+	8qtUf6RQ/papbVdoNSwwC+iI3JNGFr8=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-501-r96RtQ9nO_qkj0LBAOAvsg-1; Wed, 01 Feb 2023 17:39:52 -0500
-X-MC-Unique: r96RtQ9nO_qkj0LBAOAvsg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-648-8vihH6qcNL2mGP1gyQBXqQ-1; Wed, 01 Feb 2023 18:26:54 -0500
+X-MC-Unique: 8vihH6qcNL2mGP1gyQBXqQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A97C91C0896C;
-	Wed,  1 Feb 2023 22:39:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D4033813F32;
+	Wed,  1 Feb 2023 23:26:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CE4B8422AE;
-	Wed,  1 Feb 2023 22:39:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A30B72166B33;
+	Wed,  1 Feb 2023 23:26:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DA62219465BA;
-	Wed,  1 Feb 2023 22:39:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EDDB719465BA;
+	Wed,  1 Feb 2023 23:26:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E0EDA194658F
- for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 22:39:00 +0000 (UTC)
+ ESMTP id 11588194658F
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 23:26:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F1671492B06; Wed,  1 Feb 2023 22:38:59 +0000 (UTC)
+ id 8E4682166B34; Wed,  1 Feb 2023 23:26:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E9AFC492B05
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 22:38:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D02823C025CD
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 22:38:59 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 879C12166B33
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 23:26:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6952180280B
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 23:26:44 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-365-C8SVPhuvPmG3VTBKj2YTNA-1; Wed,
- 01 Feb 2023 17:38:55 -0500
-X-MC-Unique: C8SVPhuvPmG3VTBKj2YTNA-1
+ relay.mimecast.com with ESMTP id us-mta-77-0JZzDLk6MveMv6iibGkdkA-1; Wed,
+ 01 Feb 2023 18:26:40 -0500
+X-MC-Unique: 0JZzDLk6MveMv6iibGkdkA-1
 Received: by linux.microsoft.com (Postfix, from userid 1052)
- id CF5C720B7102; Wed,  1 Feb 2023 14:38:53 -0800 (PST)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com CF5C720B7102
-Date: Wed, 1 Feb 2023 14:38:53 -0800
+ id 6288E20B7102; Wed,  1 Feb 2023 15:26:39 -0800 (PST)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6288E20B7102
+Date: Wed, 1 Feb 2023 15:26:39 -0800
 From: Fan Wu <wufan@linux.microsoft.com>
 To: Roberto Sassu <roberto.sassu@huaweicloud.com>
-Message-ID: <20230201223853.GA9075@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+Message-ID: <20230201232639.GB9075@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
 References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
- <1675119451-23180-3-git-send-email-wufan@linux.microsoft.com>
- <dd7df8bc5b69a6745bdcf030a4e0690e3e067ff2.camel@huaweicloud.com>
+ <1675119451-23180-11-git-send-email-wufan@linux.microsoft.com>
+ <4f029a41d80d883d9b4729cbc85211955c9efe8e.camel@huaweicloud.com>
 MIME-Version: 1.0
-In-Reply-To: <dd7df8bc5b69a6745bdcf030a4e0690e3e067ff2.camel@huaweicloud.com>
+In-Reply-To: <4f029a41d80d883d9b4729cbc85211955c9efe8e.camel@huaweicloud.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -75,8 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: Re: [dm-devel] [RFC PATCH v9 02/16] ipe: add policy parser
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [RFC PATCH v9 10/16] dm-verity: consume root hash
+ digest and signature data via LSM hook
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,24 +100,33 @@ Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
  linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jan 31, 2023 at 11:53:27AM +0100, Roberto Sassu wrote:
+On Tue, Jan 31, 2023 at 02:22:01PM +0100, Roberto Sassu wrote:
 > On Mon, 2023-01-30 at 14:57 -0800, Fan Wu wrote:
 > > From: Deven Bowers <deven.desai@linux.microsoft.com>
+> > 
+> > dm-verity provides a strong guarantee of a block device's integrity. As
+> > a generic way to check the integrity of a block device, it provides
+> > those integrity guarantees to its higher layers, including the filesystem
+> > level.
 > 
-> Uhm, memory leak? Also below. I suggest to use kmemleak.
+> I think you could reuse most of is_trusted_verity_target(), in
+> particular dm_verity_get_root_digest().
+> 
+> And probably, the previous patch is not necessary.
 > 
 > Roberto
 > 
-Nice catch and thanks for the suggestion, I used kmemleak
-and detected several incomplete cleanup. Will be fixed in
-the next version.
+Thanks for the info. This function seems could be used to get the roothash
+but for saving the signature we still need the hook function in the previous
+patch.
+
 -Fan
 
 --
