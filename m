@@ -1,144 +1,138 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AD4D8686131
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:04:06 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0312686110
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:00:07 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675238645;
+	s=mimecast20190719; t=1675238406;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2HSXSFAfn4Cuqq4fse8L7wSmIz1mKLYionhJ0Ir3Ocs=;
-	b=O/77VDVzSAVmVBGCZ/Gcn/xk6NrFn6a6TkaRWlewamWqVzYmG114h/nUGGpou/Va60zOpt
-	gN1dqYllvtLKET7S7SbMKQDEJUq+5xNXESHe+Cnjf6HvPt7ymAF4GXn/4iYHEgRmSvpBI9
-	MatRfMSLaCaYgfvldUa9itOqb9VMs04=
+	bh=fee3izSOvQqumM/wNuaSa92UO09uwHBGrMLzZKWNFgQ=;
+	b=KCkEcYwbKZ0grWUTamaZ0lOipsm5d3RcGVgK9fSj3ikvJ+0G91F3NCpVoUBO9pFJUZyGM8
+	77ChpC2mrOhDw5UoreNZRipEnShoiv8C8QDFxEc3xQAnfY85uQbQrhLeVLjhiQkIfDJmV1
+	H5Zr5LnFpxtdsUZ0ShbYHDAFuhQDlek=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-596-ML5sn0-KNreQ40SNXxhzGA-1; Wed, 01 Feb 2023 03:03:59 -0500
-X-MC-Unique: ML5sn0-KNreQ40SNXxhzGA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-549-Js5huwRROBmil34wZDabWg-1; Wed, 01 Feb 2023 03:00:04 -0500
+X-MC-Unique: Js5huwRROBmil34wZDabWg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B9953C1069D;
-	Wed,  1 Feb 2023 08:03:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 547F5281722B;
+	Wed,  1 Feb 2023 08:00:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7196E492B0A;
-	Wed,  1 Feb 2023 08:03:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 288DF40ED784;
+	Wed,  1 Feb 2023 07:59:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA1A61946A70;
-	Wed,  1 Feb 2023 08:03:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9920919465B9;
+	Wed,  1 Feb 2023 07:59:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5CDE71946587
- for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 02:32:40 +0000 (UTC)
+ ESMTP id C26D1194658F
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 07:59:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 41DBBC16020; Wed,  1 Feb 2023 02:32:40 +0000 (UTC)
+ id 808B540C2005; Wed,  1 Feb 2023 07:59:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 38F07C15BAE
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 02:32:40 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7846040C2064
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 07:59:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0D0981C05191
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 02:32:40 +0000 (UTC)
-Received: from APC01-TYZ-obe.outbound.protection.outlook.com
- (mail-tyzapc01on2091.outbound.protection.outlook.com [40.107.117.91]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5938B3810787
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 07:59:39 +0000 (UTC)
+Received: from EUR01-HE1-obe.outbound.protection.outlook.com
+ (mail-he1eur01on2050.outbound.protection.outlook.com [40.107.13.50]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-171-_ZI4IjEMNg2Uz1FgdEuaqQ-1; Tue, 31 Jan 2023 21:32:34 -0500
-X-MC-Unique: _ZI4IjEMNg2Uz1FgdEuaqQ-1
-Received: from SYYP282MB1901.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:d9::10) by
- SYYP282MB0845.AUSP282.PROD.OUTLOOK.COM (2603:10c6:10:74::10) with
- Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.20.6043.36; Wed, 1 Feb 2023 02:32:29 +0000
-Received: from SYYP282MB1901.AUSP282.PROD.OUTLOOK.COM
- ([fe80::4935:6a21:2ed0:716a]) by SYYP282MB1901.AUSP282.PROD.OUTLOOK.COM
- ([fe80::4935:6a21:2ed0:716a%4]) with mapi id 15.20.6043.036; Wed, 1 Feb 2023
- 02:32:29 +0000
-From: Mason Giles <mason@cometbackup.com>
-To: Mike Snitzer <snitzer@kernel.org>, Sergei Shtepa <sergei.shtepa@veeam.com>
-Thread-Topic: [PATCH v2 00/21] blksnap - block devices snapshots module
-Thread-Index: AQG4JUIXsWG37qEUjV9h3UlvtAsaCgHoG6k8Ads7F64B27Knd67OgVsA
-Date: Wed, 1 Feb 2023 02:32:29 +0000
-Message-ID: <SYYP282MB1901AE0C3A06480BF8FA8A38B5D19@SYYP282MB1901.AUSP282.PROD.OUTLOOK.COM>
-References: <20221209142331.26395-1-sergei.shtepa@veeam.com>
- <Y8cNVv4O+vjL+aAy@redhat.com>
- <15ffd4bb-cb87-4bc9-53fc-4e0b941db0b7@veeam.com>
- <Y9l+WIDSrVhRhPME@redhat.com>
-In-Reply-To: <Y9l+WIDSrVhRhPME@redhat.com>
+ us-mta-551-6SDWyviIPXGqzUfHLxzh7Q-1; Wed, 01 Feb 2023 02:59:37 -0500
+X-MC-Unique: 6SDWyviIPXGqzUfHLxzh7Q-1
+Received: from AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22)
+ by AM8PR04MB7202.eurprd04.prod.outlook.com (2603:10a6:20b:1da::12)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.22; Wed, 1 Feb
+ 2023 07:59:35 +0000
+Received: from AS8PR04MB8040.eurprd04.prod.outlook.com
+ ([fe80::e1b6:3ede:547d:eb2f]) by AS8PR04MB8040.eurprd04.prod.outlook.com
+ ([fe80::e1b6:3ede:547d:eb2f%9]) with mapi id 15.20.6043.028; Wed, 1 Feb 2023
+ 07:59:35 +0000
+From: Martin Wilck <martin.wilck@suse.com>
+To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
+ "christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
+Thread-Topic: [PATCH 1/4] libmultipath: use select_reload_action in
+ select_action
+Thread-Index: AQHZNasJZbiIQiqzQE+ch2py3fixPa65uuUA
+Date: Wed, 1 Feb 2023 07:59:34 +0000
+Message-ID: <4265cdd94754fe5ee698c4f3b731951179eec8f2.camel@suse.com>
+References: <1675193661-1147-1-git-send-email-bmarzins@redhat.com>
+ <1675193661-1147-2-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1675193661-1147-2-git-send-email-bmarzins@redhat.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
+user-agent: Evolution 3.46.3
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: SYYP282MB1901:EE_|SYYP282MB0845:EE_
-x-ms-office365-filtering-correlation-id: 35af37f5-ca8d-48d9-a67f-08db03fc905f
+x-ms-traffictypediagnostic: AS8PR04MB8040:EE_|AM8PR04MB7202:EE_
+x-ms-office365-filtering-correlation-id: cf09799d-46e2-4f7a-32c1-08db042a4244
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: K8Ekbv/F839LGT7Lbns7/QQGB/6yTUP0yatoh/TYJ0MNrovOnnobNFTSUZtrVAEE1k5A8J2HlxTOyu5kUhpLn5pFIyAgn1Pd0TMAfrufS35AzJ6dK+iSK7izUMPOW5SVeJ7BU2jHCuiKzJND+LB+qsxhi18Q0FmCDAYtqCvEOTHpdOgeRHyS8IsnoGjrHiJ3U02EHpPq8zZjwyHmqEMqz2+Md7SiUwsZidi38WtBU9Y8tHSHT516bNOonndLhLysW/BOMcKEmjkK050J7JhNWB5U1HynG6eoZOhNnwkUpO7mKv6zNc6l4LWK8LJXs1WLNS+d1Im/j93RAFZgGjJSEJ8shvdaubWSakMCWUH6aSc07btXKTuOMkkO/clCrDkw+VPNN5Okz18QOmQVqvpE2ywLTf9HUpde0OVMeuW9QJhFx6Pu3yCth02E0dOi19SwF6+AcY4m+/sP4fyydtgLmWxsBbZzVUBwyW9ODXNUEA1PSn9zmtS4j+anzAPaA3aHsnKQATdtxRyUQgco+ysZk/WO8iUHyaDVzrmuusyHdVJ/M44+7wulWdlcW772iGVmyuv1dM6PioPM50I19f6jS9k4MRyNk6P0e3koefeNCYKWodLYyHw0d3fRr1qZqxqoHjwC+ufjz/G0LnLj+5J0qGZTmDYjrzuEF+1DQkiaY68hldEOWVjjsEKiPNcEmMeAwWi2wMAYjWYHYaxkvdayHuQmwyUhyZM+JYMKj32iYHM=
+x-microsoft-antispam-message-info: LHrwECQiDOQfSBGcgm06BgTesR9+7D2zjnqt3FPlY9uymcqqEyMPSEIPYhmAPrZFrMDc5GjHjm1/hbPf8XjamNLliWbmcDMaw7bg4KouePAVKA30oVQK2mzvyFmB0inDVUyo+bgyT3MErM7EKPqfFYzRK10PwjTjDC6zXKACe0I6O9BEfKk1S9DkXvBr8xZ1Cw0Z1JBTkxD5uA/lY/jsqchbzTt+TI+3Q4s1H+OWGYlvyy8k3JgXKU3tDs5vxRf4C6Nz12AncMqZEOiB2hONZ5mtqxtICmqV2ZS5ZFB1ciJCor95FygMZi+6u6pOajMdKI7YUsTnJCrypXGJRtlbaSt2FgvP1IMXB6V6pl62b47dWRMhSeXyUSKbSUKE1ftEAQnrQpbaaO03DO7eJvrr9h+VFHD+3Ep8oG+cibx1lnyfB1PepYXEQhcxgv8Ees4McpVZWsQI0kaPzYUo0vST4SoEfPB3MOMHF9v/9JZWgqaSOPeMSKslA5Orgxudp/JxBVbpchKQZx2woMxeXawD94Pv6R3XJkuXs/VfXbEGfE9iyT0to9K/FUz3gCXZEw6ZE9BW+TFwhPTbGA4bNdRdn4hS/Q5cg6KM0K3qI1dVllFM/InIX3V2Z+j8zuN+JI5tRjNjFuKY573Oy6ZWFNvaMyL0FP6Y5F6fTefJQYgHSFqmWn4kWyx945iOWfO7pbq382AawKcy8sWNcc88yUaQig==
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SYYP282MB1901.AUSP282.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230025)(396003)(39830400003)(136003)(346002)(42606007)(366004)(376002)(451199018)(52536014)(5660300002)(8936002)(38100700002)(122000001)(38070700005)(55016003)(33656002)(86362001)(2906002)(41300700001)(110136005)(54906003)(966005)(7696005)(186003)(478600001)(26005)(9686003)(71200400001)(316002)(66446008)(64756008)(8676002)(66556008)(66946007)(66476007)(4326008)(76116006)(83380400001)(6506007);
- DIR:OUT; SFP:1102
+ IPV:NLI; SFV:NSPM; H:AS8PR04MB8040.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(346002)(136003)(376002)(396003)(366004)(39860400002)(451199018)(38070700005)(36756003)(86362001)(122000001)(110136005)(66946007)(66476007)(38100700002)(66446008)(66556008)(64756008)(8936002)(76116006)(41300700001)(316002)(8676002)(91956017)(4326008)(44832011)(2906002)(5660300002)(2616005)(83380400001)(478600001)(186003)(6486002)(6512007)(26005)(6506007)(71200400001);
+ DIR:OUT; SFP:1101
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eHp4OFp0VThHajQrRUUrMGVuamtybG45VkQ5V0VmNGkvWUVzUk9pdTJLeUN1?=
- =?utf-8?B?dTc0NzZZdFV0R04wc1ZGVEdCaEtpYXZDVHpCbmhVanpRYmNwSzFwMy9aam81?=
- =?utf-8?B?dk9EWnRyeFpvZXRjQzhrR3FhQzhqZjFNR3BnZVk1a3Zrd2tpMmo5S1hmZkxS?=
- =?utf-8?B?MjRzYnRPZ1VVbXFnYUhtcHhQM1ZzbDZXQWxPM2M2cWRpMStCY08zRWdNbCtz?=
- =?utf-8?B?bHJ3Y0tnYjFWU0N2eFk5Q2Ivb2NpL2hBRVFySEY1eS9iRXVzczhIUEtKMlZY?=
- =?utf-8?B?NHl3SzMwcC9YakFlemRLY2JVeEVrV1dCWWdETlpjMEJmTkdORFVjblR1S3o3?=
- =?utf-8?B?RnF5TExrcm1WV2h1U05jalU4YnB2dGtpckNUTDdoU2RQcWNIbXRpSXJrYzFP?=
- =?utf-8?B?STZDcTJudFF2c3orWTliREI3S3VUQm9ueGFIQktEUkU4YUt5UmIvT1gvaER2?=
- =?utf-8?B?REI0NnV1NXNraEFQUHVvOHBkU2tJR1RBZVFKVEEyOUJIdDNBM1lIdVl4NElR?=
- =?utf-8?B?U0duQWhDODhvV3EyTDB2bm13WDBTYjRwaDJ0UjQrZDBXRFE0SHkwenBhMUYx?=
- =?utf-8?B?V3FCdkoraERFS05vRE9BczNabU9xVVY0Zi9peG9YSmZuY0FYcFROSS9wRVdO?=
- =?utf-8?B?TmtHT1RhcjlXN3g3eDRDOENnRk9ETWRiZTA1SWYvRU54WmhQVDFwZmphVEcz?=
- =?utf-8?B?MnMzZzVTTkw5ZzN3blJTRExxa0U5L3FuU0h4UENsUmhkMlFPU0FxSVBsd1Za?=
- =?utf-8?B?c0pCTHlFTWRPWkVHRXpyalFyYzVoUjVGY01tdllHeGtmVU9QMEpYczUvWkZU?=
- =?utf-8?B?UitYUmtHOEdHdG9qL2NwT3UzMWNXenhKT0lCMXdJU0JTR0JVOHN2a0xWazVZ?=
- =?utf-8?B?cjdOdzVkdnlOYWJoT2NySEtBMXhEM3YxR1YxVVFpcm9FaUFvU3RHb2o2SFYr?=
- =?utf-8?B?UnFnajR2K0hza3M5SUJtYmlYbjFmcVRQL1FrU2QxTFYvREVyWXJoUjcvamlq?=
- =?utf-8?B?cXh5YUhRcE9nWHQ1Mmlnd1poaHJNUEpHOW9PTHBPMkVJU2pxNXF1WXhUVjkw?=
- =?utf-8?B?SFlXL0krMVZCeVkvbWV6OUMwWU9wRW1LT0s2UEdrd0wwYXRvOFlTWXBHcDdu?=
- =?utf-8?B?bG9sTUx6Um5yNEtwZGVrQ1l5dEMvbFF1YldPVE5udHVYV2hDRXc1Q3NrSlYy?=
- =?utf-8?B?Zzc1V0J4djlOL2xTSzZVSG9Nc2RmR2tWc3pXcmh1dzEwYVVWWnM5TmJFWVpX?=
- =?utf-8?B?ZXhYVzkzSFpQemREdUhLM1ZJZUxTZzhXSlFKT00vend6dnN4YmFEYmM0Z1pt?=
- =?utf-8?B?aGNJUzVWMmdoMjJjSUZHNzdBdTlrS3cycnorTFVmUlVFcGx1RFFYQzdncTV5?=
- =?utf-8?B?Rm9HUDdNRm5KbUFJMTRnZXo4eG94azJ1MGdrRlNYYlZqVzhIZGgyeEVRWkZ4?=
- =?utf-8?B?bXVUNlNBZ0h6K1VSSmxnY1FSb3RzaEtNUzBmeHQyUElsUHlWWjlrSStGL01Q?=
- =?utf-8?B?Q1NIN000MFY0V1VWck9KN1h1ekt1aFNKTXJpTlY1dGlhV0UxcmtHV2NsR0Fs?=
- =?utf-8?B?L3AvQ3oyVG42WUdSck9aM0VpZDkrWmVBN0xBdWtieldESmtQTkhiTGJQRHp5?=
- =?utf-8?B?a2dBekVtUlpWNjlhdkFiTjVlOFVjTVliYnRmcVpqR1hkc0hsOWdTVVM4ZEVp?=
- =?utf-8?B?Z0pGRHhEM0YzVE0vYmx0Q3NmZnNhY2ViUjdNUTRzeXF0K0pORVBUbTlxRzR1?=
- =?utf-8?B?aXl1ZzA5ZUttZFRvSnV3TU1vK3NORmtsK0xSZkZQVkRoVnpCcFNKUmgxZnFZ?=
- =?utf-8?B?bko2MHpFRDRidEZMdjJZY2k1Y1dUaWNUdUZrdllPYmY5aG1iLzYzbTRzOUQv?=
- =?utf-8?B?eXlLK25iV1R5YUFQOFBKelhJR0d4ZzdQZHY3Y3pBRnlBZUo4emtOUEYrb1JO?=
- =?utf-8?B?TU55eno5bjJYNzdhL1M3cW9lSTFENVBacFFxYWZNTEZIbVBreGZ2T1NsUlhi?=
- =?utf-8?B?UHRSOGxLenFXWFFqaXhycDlhRkVNazFqa2JvbkFWd1VPQUpxUnNIM3ZTTDdy?=
- =?utf-8?B?KzlNWXZYd3lqN1RKb0ZsdDNjM3d4SHFrQ3dzeDNXcnZ2QkIyV1ZYeGFzTFRW?=
- =?utf-8?Q?NuaTxvVBAuy06qse3BuWWD+hV?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?gTW8c48xAs+V87vDRL4MLMS7Ensxllyve4c3R6CE9R82aDpoV7jc6VjpH?=
+ =?iso-8859-15?Q?5XEldkdth+nhuYNOrDfl1Adb0AtnFD70/n37zFmmpvaCKKR/Mgf1VYOGy?=
+ =?iso-8859-15?Q?ig2o2h0et9ssq+MonHIRPEj1pyWOXwep9IZExumQ+LhEWMIALAae3Hvaf?=
+ =?iso-8859-15?Q?p5PgSa7j/0mDYjjaBW/3xzDmnN8DIVMHgibpiMVlLLaagVDMKeYNV2uzo?=
+ =?iso-8859-15?Q?GgzqBpAp+KGS3WguaVAUtQuDGDs77sekJ1qqv7xZrIf5TIYSCyS0zvjrr?=
+ =?iso-8859-15?Q?7a+MBC5uNNh+1qN+jB5iMJr7JyT08BNdaH+MjD2fubc3yLxBUrQMYjy9p?=
+ =?iso-8859-15?Q?NCItvYwH0NKVlBx/WbqdUyhkBIh7Vw3GjoKhbHbTcrH7Bpsr6o8xfUJat?=
+ =?iso-8859-15?Q?HO0B9c20Q57YJbPoBG2a6qfx2m4y03m/wK7kLfOxoo9uGsGE3mZJ/IPy9?=
+ =?iso-8859-15?Q?xlQgEeGUkjMPvk5kwD8K80dFNXZ5MtyglJXFLgy+nxnuvjAORwe0XiBdb?=
+ =?iso-8859-15?Q?6/E8VqayEvaGSbte95+ed5ZjjuceBuBeL1U2aDjeXZXAdxpy6vkru1OMh?=
+ =?iso-8859-15?Q?E8D+S41if/tANVlqXs23cbVbP9KRXLbxzA1I2sxUsF7UNZcBhja/XeYwe?=
+ =?iso-8859-15?Q?FFqna6+5P9Rxqo3znVoJYOgSJ0fh90hTfLk/RaMhS6dWrSGKjBLrq6G8W?=
+ =?iso-8859-15?Q?iiZJZUe1iiC78MnKFS2qlDlYMxyELuvTR2qglCeTZHSljKA6iYcb0wpU+?=
+ =?iso-8859-15?Q?bBx83Oad9uzRXqPhbm/cre1h9RofjSA2huCOvZ9ZforN93vQ0AdKft3oJ?=
+ =?iso-8859-15?Q?Hd+5GMjhUs23L+kMQ41MQlIob0DnMeZQLyDuAEl/w/dIhS0ADUvFt8cGD?=
+ =?iso-8859-15?Q?TU+Osp34BDE/aBPlNbPGlhqTpfuIQe+SroqhbjBtrUZzr8o2BnFGoa0u2?=
+ =?iso-8859-15?Q?G5NOl7UBkTloTaG7hem5TyqDg7vsooVo/vS0IOs6XaXxDVZMf/QV+jeiY?=
+ =?iso-8859-15?Q?vBBq8sGkYidzBQrtMKEJMxYbW2eb5nF1dvjSR1iT8OASXit+6ig7MvAXj?=
+ =?iso-8859-15?Q?xs8i+kGvyPJyPsLz1HKYgJJdq4Rigv5JRptiURP7ghSiSet0rnEIMWMZE?=
+ =?iso-8859-15?Q?uDN0ZA6BqMgWOf+H6XzO3wesdtKXiuNm0a5jqHev9Obb/rJHRczrIeMWC?=
+ =?iso-8859-15?Q?8L+MpVHvgmkQ4R2cKvBjonrEqqyVEKJsKjkWsyp3Z2FHfr8jPKy1vHXUk?=
+ =?iso-8859-15?Q?g+EhTQI+gFSAQQENqBxb3GpOp/ZHQ4V5x07QOYzuKTA1IpMdlFkKNwSB5?=
+ =?iso-8859-15?Q?eVc9dHKI3pTkxyFEVnbhQQxedAsjKZDFLAC2BGQ1WOYEJvGXx8MXXC4KR?=
+ =?iso-8859-15?Q?At563ayi6B94Q219JJ/F9ZPRMv7lOZv42NDEt23xLbVgpUNNwYxZkrcNg?=
+ =?iso-8859-15?Q?+HJzGi365gvjWKLbcNnCjtV/Ft4uP9QOinF2GVvN08/wrXjDws3oBbdfY?=
+ =?iso-8859-15?Q?BQzs1cZZfdlA9wyQ3EOXY9dssZMo6eVUbQGhwH2m6/i4yY56hbjHUp59c?=
+ =?iso-8859-15?Q?1YdCaarunupW6foir/xPr268C6vi1/P89QpOfdXsA1htOW2rsOs8EOKaQ?=
+ =?iso-8859-15?Q?P3NfqgdoGoPH+4xBjYcdPzqWs6ylAxIxcxboPjFAHTz70c540+LJys4Uo?=
+ =?iso-8859-15?Q?VrYboOW0eHEefYbHKPd69vEmAQ=3D=3D?=
 MIME-Version: 1.0
-X-OriginatorOrg: cometbackup.com
+X-OriginatorOrg: suse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: SYYP282MB1901.AUSP282.PROD.OUTLOOK.COM
-X-MS-Exchange-CrossTenant-Network-Message-Id: 35af37f5-ca8d-48d9-a67f-08db03fc905f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2023 02:32:29.1418 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8040.eurprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: cf09799d-46e2-4f7a-32c1-08db042a4244
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2023 07:59:34.9335 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 9096f9ac-9e1d-4258-b91f-cf57c563c0b1
+X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: LU2TFdmSPNkO4jJtXn2pBQ410Cw0lSblgSkfCnHRPXkESOC290lQTSBqUqfcl80LSazyjr99e8r6mx/Uy0HYUQ==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SYYP282MB0845
+X-MS-Exchange-CrossTenant-userprincipalname: c9wQHgOJB+9qP58z7RZvpMqk/nNijBPS8WJUIiT6VfJLwco/YNjJATd45M+xcl/KbYpdMprjSxctOyBNCxNBjQ==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR04MB7202
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -146,10 +140,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mailman-Approved-At: Wed, 01 Feb 2023 08:03:52 +0000
-Subject: Re: [dm-devel] [PATCH v2 00/21] blksnap - block devices snapshots
- module
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH 1/4] libmultipath: use select_reload_action
+ in select_action
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -161,55 +154,68 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "corbet@lwn.net" <corbet@lwn.net>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>,
- "drwilliams@datto.com" <drwilliams@datto.com>
+Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-ID: <55D80BDC6A9CE841ACBEF695B86E3071@eurprd04.prod.outlook.com>
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-SGkgTWlrZSBhbmQgU2VyZ2VpLA0KDQo+ID4gSXTigJlzIG5vdCBhYm91dCBWZWVhbSBhdCBhbGwu
-IEkgYW0gc3VyZSB0aGF0IG15IHdvcmsgd2lsbCBoZWxwIG1hbnkgDQo+ID4gYmFja3VwIHZlbmRv
-cnMgYW5kIGF2ZXJhZ2UgdXNlcnMgdG8gYnVpbGQgbW9yZSByb2J1c3QgYW5kIGVmZmljaWVudCBi
-YWNrdXAgdG9vbHMuDQo+ID4gU28sIHRoZSBhcmd1bWVudCB0aGF0IEkgZG8gaXQganVzdCBiZWNh
-dXNlIFZlZWFtIG5lZWRzIGl0IGRvZXMgbm90IA0KPiA+IGhvbGQgYW55IHdhdGVyIOKAkyBJIGtu
-b3cgdGhhdCBtYW55IHBlb3BsZSBuZWVkIHRoZSBmZWF0dXJlLCBub3QganVzdCBWZWVhbS4NCj4g
-DQo+IE5vIG90aGVyIHNuYXBzaG90IGNvbnN1bWVycyBoYXZlIHNob3duIHRoZW1zZWx2ZXMuIFVz
-aW5nIHRoZW0gYXMgc29tZSBzb3J0IG9mIGltcGxpZWQgY29uc2Vuc3VzIG9uIHdoYXQgaXMgbmVl
-ZGVkIGZvciBnZW5lcmljIExpbnV4IHNuYXBzaG90IGlzIGEgYml0IG9mIGEgbGVhcC4gQWxsIHlv
-dSByZWFsbHkgaGF2ZSBhcmUgeW91ciByZXF1aXJlbWVudHMuIERvZXNuJ3QgcmVhbGx5IGhlbHAg
-dG8gc2F5IHlvdSByZXByZXNlbnQgdGhlIGludGVyZXN0cyBvZiBhbGwgaW50ZXJlc3RlZCBwYXJ0
-aWVzIGlmIHRoZXkgcmVtYWluIG5hbWVsZXNzIGFuZCBpbiB0aGUgYmFja2dyb3VuZC4NCg0KSSdt
-IHNwZWFraW5nIG9uIGJlaGFsZiBvZiBDb21ldCBCYWNrdXAsIGFub3RoZXIgY29tbWVyY2lhbCB2
-ZW5kb3IgaW4gdGhpcyBzcGFjZS4gSSBqdXN0IHdhbnQgdG8gY2hpbWUgaW4gYW5kIHNheSB3ZSdy
-ZSB2ZXJ5IGNsb3NlbHkgZm9sbG93aW5nIHRoZSBkZXZlbG9wbWVudCBvZiB0aGlzIHBhdGNoIHNl
-dC4gDQoNCk91ciBlbmQtdXNlciBjdXN0b21lcnMgaGF2ZSBhbiAiYXJiaXRyYXJ5IiBMaW51eCBz
-eXN0ZW0gd2hlcmUgd2UgZG9uJ3QgY29udHJvbCB0aGUgZmlsZXN5c3RlbSBvciBibG9jayBkZXZp
-Y2UgbGF5ZXIuIEhhdmluZyBhIHBvaW50LWluLXRpbWUgY29uc2lzdGVudCBzbmFwc2hvdCBpcyBl
-c3NlbnRpYWwgZm9yIGEgaGlnaCBxdWFsaXR5IGJhY2t1cCwgYW5kIGl0J3MgdGFibGUtc3Rha2Vz
-IG9uIFdpbmRvd3Mgd2l0aCB0aGUgVlNTIHN1YnN5c3RlbS4gQnV0IGEgdmVyeSBsYXJnZSBudW1i
-ZXIgb2YgaW5zdGFsbHMgaW4tdGhlLXdpbGQgYXJlIHVzaW5nIHBsYWluIGV4dDQgd2l0aG91dCBs
-dm0sIGFuZCB3ZSBoYXZlIG5vIHJlbWFpbmluZyB2aWFibGUgbWVjaGFuaXNtcyBmb3IgZWl0aGVy
-IGZpbGVzeXN0ZW0tbGV2ZWwgb3IgYmxvY2sgZGV2aWNlLWxldmVsIGJhY2t1cC4NCg0KRm9yIHRo
-aXMgdXNlIGNhc2UsIHRoZSBzbmFwc2hvdHMgYXJlIGdlbmVyYWxseSBzaG9ydC1saXZlZC4gVGhl
-IHVuZGVybHlpbmcgbWVjaGFuaXNtIGRvZXNuJ3QgYWZmZWN0IHVzIG11Y2ggLSB3aGV0aGVyIGl0
-J3MgbGl2ZS1zd2FwcGluZyBETSBkZXZpY2VzLCBvciBleHBsaWNpdGx5IHRyYWNraW5nIGJpbydz
-IChvciBpZiBzb21laG93IGV4dDQgYW5kIHhmcyBtYWdpY2FsbHkgZ290IGZzLWxldmVsIHNuYXBz
-aG90dGluZyBzdXBwb3J0KS4gQnV0IG1vc3Qgb2YgYWxsLCB3ZSdkIGxvdmUgdG8gc2VlIHNvbWV0
-aGluZyB1cHN0cmVhbS4NCg0KSSdkIGFsc28gcG9pbnQgeW91IHRvd2FyZHMgRGF0dG8ncyBvdXQt
-b2YtdHJlZSAnZGF0dG9iZCcgYmxvY2sgZGV2aWNlIGRyaXZlciB3aXRoIHRoZSBzYW1lIG9iamVj
-dGl2ZTogaHR0cHM6Ly9naXRodWIuY29tL2RhdHRvL2RhdHRvYmQgKExHUEx2MispLiBJdCB3YXMg
-d29ya2luZyBpbiBhIHNsaWdodGx5IGRpZmZlcmVudCB3YXkgYnkgdXNpbmcgZnRyYWNlIHRvIGhv
-b2sgc3VibWl0X2Jpb19ub2FjY3QuIA0KDQpSZWdhcmRzLA0KTWFzb24gR2lsZXMNCg0KLS0KZG0t
-ZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJl
-ZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+On Tue, 2023-01-31 at 13:34 -0600, Benjamin Marzinski wrote:
+> Since we have a function to set the action to reload, use it.
+>=20
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+
+Reviewed-by: Martin Wilck <mwilck@suse.com>
+
+> ---
+> =A0libmultipath/configure.c | 8 ++------
+> =A01 file changed, 2 insertions(+), 6 deletions(-)
+>=20
+> diff --git a/libmultipath/configure.c b/libmultipath/configure.c
+> index e689f8a7..050b984a 100644
+> --- a/libmultipath/configure.c
+> +++ b/libmultipath/configure.c
+> @@ -729,9 +729,7 @@ void select_action (struct multipath *mpp, const
+> struct _vector *curmp,
+> =A0
+> =A0=A0=A0=A0=A0=A0=A0=A0if (force_reload) {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->force_udev_reload =
+=3D 1;
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_RELOAD;
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_REL=
+OAD (forced by user)",
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp=
+->alias);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0select_reload_action(mpp, "=
+forced by user");
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
+> =A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0=A0=A0=A0=A0=A0=A0=A0if (cmpp->size !=3D mpp->size) {
+> @@ -744,9 +742,7 @@ void select_action (struct multipath *mpp, const
+> struct _vector *curmp,
+> =A0
+> =A0=A0=A0=A0=A0=A0=A0=A0if (!is_udev_ready(cmpp) && count_active_paths(mp=
+p) > 0) {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->force_udev_reload =
+=3D 1;
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_RELOAD;
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_REL=
+OAD (udev incomplete)",
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp=
+->alias);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0select_reload_action(mpp, "=
+udev incomplete");
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
+> =A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
