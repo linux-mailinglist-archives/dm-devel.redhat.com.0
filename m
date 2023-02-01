@@ -1,65 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E436686AF2
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 16:57:12 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BAE4B686B6F
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 17:21:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675267031;
+	s=mimecast20190719; t=1675268470;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qzz4WkAzRcnZDxHVbqnzFoW+Jcx9o/zbTL7J77JK3nM=;
-	b=Ieu9D/w8ANratv6k/4UdbnQds8TmJLL/WVdHkauh7U9dhyNEmDDv04y28cCApld08esohc
-	kJxl0hpj0zID6mxJg63gm25JTP8QRNMwLbXBQ6P32gcuOL6Xt0aClhlZQx/AEhH4PCzpct
-	6tBPQ9oLTHm+MA92fBW5e9tokTIIvMY=
+	bh=K2HHBzxArZS/KxHzip8JbuPC16HoV8NO2SJw1vhAMfk=;
+	b=LbrVrMF3M7XskwqPpMACiL1xJ1rQOh7y10qv3ANTDjk2WR8YFd3PRK3b1D5ezETUFw9lcv
+	oqctNsVSuWffXL2mp/80k+J6K/YLBg5wR3c+uBNwGjoC6tXqAynWsv3WRe0FGYD9b9YH42
+	DyTRE2vRKM2+BI1b8n8cvumKIETOq5E=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-217-ypoqa993OoeZAvfcBBx0BA-1; Wed, 01 Feb 2023 10:57:09 -0500
-X-MC-Unique: ypoqa993OoeZAvfcBBx0BA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-30-aKonZmEfPb-M0zvv1yp5JA-1; Wed, 01 Feb 2023 11:21:09 -0500
+X-MC-Unique: aKonZmEfPb-M0zvv1yp5JA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35E222800499;
-	Wed,  1 Feb 2023 15:56:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A9EB3848C23;
+	Wed,  1 Feb 2023 16:21:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4B4E9492B01;
-	Wed,  1 Feb 2023 15:56:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 64BCD404BEC1;
+	Wed,  1 Feb 2023 16:20:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7616819465BA;
-	Wed,  1 Feb 2023 15:56:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 88F1619465BA;
+	Wed,  1 Feb 2023 16:20:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2F8FB19465A4
- for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 15:56:37 +0000 (UTC)
+ ESMTP id 02D85194658F
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 16:20:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 19D8B492B00; Wed,  1 Feb 2023 15:56:37 +0000 (UTC)
+ id 72FCBC16021; Wed,  1 Feb 2023 16:20:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EF0A3492C3E;
- Wed,  1 Feb 2023 15:56:36 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 311FuZVW008335;
- Wed, 1 Feb 2023 09:56:35 -0600
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 311FuZO3008334;
- Wed, 1 Feb 2023 09:56:35 -0600
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed,  1 Feb 2023 09:56:29 -0600
-Message-Id: <1675266989-8281-5-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1675266989-8281-1-git-send-email-bmarzins@redhat.com>
-References: <1675266989-8281-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH v2 4/4] libmultipath: keep renames from stopping
- other multipath actions
+Received: from mimecast-mx02.redhat.com
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BD8FC15BAE
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 16:20:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D08C85CCE8
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 16:20:47 +0000 (UTC)
+Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
+ [209.85.160.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-467-6METVoL9NQe1SzjtyEX2IQ-1; Wed, 01 Feb 2023 11:20:45 -0500
+X-MC-Unique: 6METVoL9NQe1SzjtyEX2IQ-1
+Received: by mail-qt1-f173.google.com with SMTP id m12so6036299qth.4
+ for <dm-devel@redhat.com>; Wed, 01 Feb 2023 08:20:45 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=noq+YbeE236EHFR6uS+msxJQ+c1izg5uQQ3Qx3fszIw=;
+ b=f3EUpQcOKCgY1E+15/zBLSkoz1suhBPpjF7KbczRb23Krvd/quWIpE5mYg3bGbSMtR
+ +3b6RRG4EndKvWtMWs9eCXxfiRaCxyGAdTHKGU8pFsCwmgPdxwK8QvkvUAHMNcon9u20
+ I9S+VehdDxJRK47u8H/DtLA03rpItqR5Tplsf+u/RWHAam564+3LeeYspIWTlPkZwM3U
+ ewTLlp1E/rOkWcXhMlFjmh6ycQ3bHBaDpkIRRVN4gO5cL8AGLIvtLa/gCJ4nvbTFsWLa
+ wDhdVQUqg85ipvSbxlOphmRkfHn4WSLN44mR2Bx/XV46WNqyWdsfeZSwlV51YAK7J3YH
+ WmrQ==
+X-Gm-Message-State: AO0yUKV80NG4S06IVd/3o4lbZnRKsGcM1uzwG65iumboje3c65X0CDQf
+ T3lTfvXioSyZofSbHk5QQecVn1c=
+X-Google-Smtp-Source: AK7set8N3mTDGMBP/PwPPPAWv/Z9SzXUrzgDxsKRoKrK9xXlffAgw2mOCczQv7shZ9LLEmCYz4Ml8w==
+X-Received: by 2002:a05:622a:1a1a:b0:3b9:a4cc:1df with SMTP id
+ f26-20020a05622a1a1a00b003b9a4cc01dfmr5467047qtb.57.1675268445094; 
+ Wed, 01 Feb 2023 08:20:45 -0800 (PST)
+Received: from localhost ([66.187.232.66]) by smtp.gmail.com with ESMTPSA id
+ o8-20020ac80248000000b003b64f1b1f40sm12037346qtg.40.2023.02.01.08.20.44
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 01 Feb 2023 08:20:44 -0800 (PST)
+Date: Wed, 1 Feb 2023 11:20:43 -0500
+From: Mike Snitzer <snitzer@kernel.org>
+To: Tomas Melin <tomas.melin@vaisala.com>
+Message-ID: <Y9qRW5AEXZL0jLnF@redhat.com>
+References: <20230131111552.24349-1-tomas.melin@vaisala.com>
+MIME-Version: 1.0
+In-Reply-To: <20230131111552.24349-1-tomas.melin@vaisala.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] md: dm-table: ensure dev_t is initialized
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -71,198 +101,56 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: device-mapper development <dm-devel@redhat.com>,
- Martin Wilck <Martin.Wilck@suse.com>
-MIME-Version: 1.0
+Cc: dm-devel@redhat.com, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-If select_action() is called and a multipath device needs to be renamed,
-the code currently checks if force_reload is set, and if so, does the
-reload after the rename.  But if force_reload isn't set, only the rename
-happens, regardless of what other actions are needed. This can happen if
-multipathd starts up and a device needs both a reload and a rename.
+On Tue, Jan 31 2023 at  6:15P -0500,
+Tomas Melin <tomas.melin@vaisala.com> wrote:
 
-Make multipath check for resize, reload, and switch pathgroup along with
-rename, and do both if necessary.
+> Avoid returning uninitialized value in case
+> lookup fails.
+> 
+> Signed-off-by: Tomas Melin <tomas.melin@vaisala.com>
+> ---
+>  drivers/md/dm-table.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+> index 8fc44c9f746a..71c59455bf3b 100644
+> --- a/drivers/md/dm-table.c
+> +++ b/drivers/md/dm-table.c
+> @@ -331,7 +331,7 @@ static int upgrade_mode(struct dm_dev_internal *dd, fmode_t new_mode,
+>   */
+>  dev_t dm_get_dev_t(const char *path)
+>  {
+> -	dev_t dev;
+> +	dev_t dev = 0;
+>  
+>  	if (lookup_bdev(path, &dev))
+>  		dev = name_to_dev_t(path);
 
-Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
----
- libmultipath/configure.c | 62 +++++++++++++++++-----------------------
- libmultipath/configure.h |  4 ++-
- 2 files changed, 30 insertions(+), 36 deletions(-)
+dev_t dm_get_dev_t(const char *path)
+{
+        dev_t dev;
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index e870e0f6..4a1c28bb 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -670,7 +670,8 @@ static bool is_udev_ready(struct multipath *cmpp)
- static void
- select_reload_action(struct multipath *mpp, const char *reason)
- {
--	mpp->action = ACT_RELOAD;
-+	mpp->action = mpp->action == ACT_RENAME ? ACT_RELOAD_RENAME :
-+		      ACT_RELOAD;
- 	condlog(3, "%s: set ACT_RELOAD (%s)", mpp->alias, reason);
- }
- 
-@@ -681,6 +682,7 @@ void select_action (struct multipath *mpp, const struct _vector *curmp,
- 	struct multipath * cmpp_by_name;
- 	char * mpp_feat, * cmpp_feat;
- 
-+	mpp->action = ACT_NOTHING;
- 	cmpp = find_mp_by_wwid(curmp, mpp->wwid);
- 	cmpp_by_name = find_mp_by_alias(curmp, mpp->alias);
- 	if (mpp->need_reload || (cmpp && cmpp->need_reload))
-@@ -705,14 +707,8 @@ void select_action (struct multipath *mpp, const struct _vector *curmp,
- 			mpp->alias);
- 		strlcpy(mpp->alias_old, cmpp->alias, WWID_SIZE);
- 		mpp->action = ACT_RENAME;
--		if (force_reload) {
--			mpp->force_udev_reload = 1;
--			mpp->action = ACT_FORCERENAME;
--		}
--		return;
--	}
--
--	if (cmpp != cmpp_by_name) {
-+		/* don't return here. Check for other needed actions */
-+	} else if (cmpp != cmpp_by_name) {
- 		condlog(2, "%s: unable to rename %s to %s (%s is used by %s)",
- 			mpp->wwid, cmpp->alias, mpp->alias,
- 			mpp->alias, cmpp_by_name->wwid);
-@@ -720,12 +716,13 @@ void select_action (struct multipath *mpp, const struct _vector *curmp,
- 		free(mpp->alias);
- 		mpp->alias = strdup(cmpp->alias);
- 		mpp->action = ACT_IMPOSSIBLE;
--		return;
-+		/* don't return here. Check for other needed actions */
- 	}
- 
- 	if (cmpp->size != mpp->size) {
- 		mpp->force_udev_reload = 1;
--		mpp->action = ACT_RESIZE;
-+		mpp->action = mpp->action == ACT_RENAME ? ACT_RESIZE_RENAME :
-+			      ACT_RESIZE;
- 		condlog(3, "%s: set ACT_RESIZE (size change)",
- 			mpp->alias);
- 		return;
-@@ -801,14 +798,14 @@ void select_action (struct multipath *mpp, const struct _vector *curmp,
- 		return;
- 	}
- 	if (cmpp->nextpg != mpp->bestpg) {
--		mpp->action = ACT_SWITCHPG;
-+		mpp->action = mpp->action == ACT_RENAME ? ACT_SWITCHPG_RENAME :
-+			      ACT_SWITCHPG;
- 		condlog(3, "%s: set ACT_SWITCHPG (next path group change)",
- 			mpp->alias);
- 		return;
- 	}
--	mpp->action = ACT_NOTHING;
--	condlog(3, "%s: set ACT_NOTHING (map unchanged)",
--		mpp->alias);
-+	if (mpp->action == ACT_NOTHING)
-+		condlog(3, "%s: set ACT_NOTHING (map unchanged)", mpp->alias);
- 	return;
- }
- 
-@@ -909,6 +906,17 @@ int domap(struct multipath *mpp, char *params, int is_daemon)
- 		}
- 	}
- 
-+	if (mpp->action == ACT_RENAME || mpp->action == ACT_SWITCHPG_RENAME ||
-+	    mpp->action == ACT_RELOAD_RENAME ||
-+	    mpp->action == ACT_RESIZE_RENAME) {
-+		conf = get_multipath_config();
-+		pthread_cleanup_push(put_multipath_config, conf);
-+		r = dm_rename(mpp->alias_old, mpp->alias,
-+			      conf->partition_delim, mpp->skip_kpartx);
-+		pthread_cleanup_pop(1);
-+		if (r == DOMAP_FAIL)
-+			return r;
-+	}
- 	switch (mpp->action) {
- 	case ACT_REJECT:
- 	case ACT_NOTHING:
-@@ -916,6 +924,7 @@ int domap(struct multipath *mpp, char *params, int is_daemon)
- 		return DOMAP_EXIST;
- 
- 	case ACT_SWITCHPG:
-+	case ACT_SWITCHPG_RENAME:
- 		dm_switchgroup(mpp->alias, mpp->bestpg);
- 		/*
- 		 * we may have avoided reinstating paths because there where in
-@@ -942,6 +951,7 @@ int domap(struct multipath *mpp, char *params, int is_daemon)
- 		break;
- 
- 	case ACT_RELOAD:
-+	case ACT_RELOAD_RENAME:
- 		sysfs_set_max_sectors_kb(mpp, 1);
- 		if (mpp->ghost_delay_tick > 0 && pathcount(mpp, PATH_UP))
- 			mpp->ghost_delay_tick = 0;
-@@ -949,6 +959,7 @@ int domap(struct multipath *mpp, char *params, int is_daemon)
- 		break;
- 
- 	case ACT_RESIZE:
-+	case ACT_RESIZE_RENAME:
- 		sysfs_set_max_sectors_kb(mpp, 1);
- 		if (mpp->ghost_delay_tick > 0 && pathcount(mpp, PATH_UP))
- 			mpp->ghost_delay_tick = 0;
-@@ -956,29 +967,10 @@ int domap(struct multipath *mpp, char *params, int is_daemon)
- 		break;
- 
- 	case ACT_RENAME:
--		conf = get_multipath_config();
--		pthread_cleanup_push(put_multipath_config, conf);
--		r = dm_rename(mpp->alias_old, mpp->alias,
--			      conf->partition_delim, mpp->skip_kpartx);
--		pthread_cleanup_pop(1);
--		break;
--
--	case ACT_FORCERENAME:
--		conf = get_multipath_config();
--		pthread_cleanup_push(put_multipath_config, conf);
--		r = dm_rename(mpp->alias_old, mpp->alias,
--			      conf->partition_delim, mpp->skip_kpartx);
--		pthread_cleanup_pop(1);
--		if (r) {
--			sysfs_set_max_sectors_kb(mpp, 1);
--			if (mpp->ghost_delay_tick > 0 &&
--			    pathcount(mpp, PATH_UP))
--				mpp->ghost_delay_tick = 0;
--			r = dm_addmap_reload(mpp, params, 0);
--		}
- 		break;
- 
- 	default:
-+		r = DOMAP_FAIL;
- 		break;
- 	}
- 
-diff --git a/libmultipath/configure.h b/libmultipath/configure.h
-index 2bf73e65..9d935db3 100644
---- a/libmultipath/configure.h
-+++ b/libmultipath/configure.h
-@@ -18,9 +18,11 @@ enum actions {
- 	ACT_RENAME,
- 	ACT_CREATE,
- 	ACT_RESIZE,
--	ACT_FORCERENAME,
-+	ACT_RELOAD_RENAME,
- 	ACT_DRY_RUN,
- 	ACT_IMPOSSIBLE,
-+	ACT_RESIZE_RENAME,
-+	ACT_SWITCHPG_RENAME,
- };
- 
- /*
--- 
-2.17.2
+        if (lookup_bdev(path, &dev))
+                dev = name_to_dev_t(path);
+        return dev;
+}
+
+If lookup fails then:
+                dev = name_to_dev_t(path);
+
+name_to_dev_t() will initialize dev no matter what.
+
+Nacked-by: Mike Snitzer <snitzer@kernel.org>
 
 --
 dm-devel mailing list
