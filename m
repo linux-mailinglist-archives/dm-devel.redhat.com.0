@@ -1,139 +1,156 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97834686113
-	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 09:00:38 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE2D16866BC
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Feb 2023 14:22:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675238437;
+	s=mimecast20190719; t=1675257775;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eKnpzjsauUAM5tcdUvGIStCWIozFCRvDGRVg5TweD38=;
-	b=i8Ory8sIff/vvYRfotKn1b9poUKuIfIP7ZW03wGF4VhKhTaV/d5Cl850IqjJLtSW2aRDTf
-	0zXwtDszbKcUrk3fovki+7QdsISsS2JhUHSoSKSJxOtO4XBQ8D4Qj3FQUtAaezTC44n7VV
-	K8cj6EqOb8NpCUsaAFZOduvacXePEVg=
+	bh=N23ZqxLonDyfgsZBZJTRH7jSpj/Ay+sKE7yUJYo4Y28=;
+	b=M3iMts1uI5kvufPcb50+/jDvKEFOxhBIBifa9vbzgLCh9pK+QSDVCUgLE6zZe8nX4TA/Ez
+	v1us4AYpwDDHF+klLCU/goWF/ya/UMEGQ/bCdGNAcq1ZfG1Je+J8zbMhA8rvUNDhZODsKW
+	kC9uXNjNiEWGpERl9tbhSJUWs7JYj9o=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-223-uYDgRxJYMaK46I5MzKGjHg-1; Wed, 01 Feb 2023 03:00:36 -0500
-X-MC-Unique: uYDgRxJYMaK46I5MzKGjHg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-12-iqwPU-5ANIy1Bx7MOonosg-1; Wed, 01 Feb 2023 08:22:52 -0500
+X-MC-Unique: iqwPU-5ANIy1Bx7MOonosg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 65F0D801779;
-	Wed,  1 Feb 2023 08:00:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2718B811E9C;
+	Wed,  1 Feb 2023 13:22:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A76640C141B;
-	Wed,  1 Feb 2023 08:00:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 13DF8492C3E;
+	Wed,  1 Feb 2023 13:22:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1E2C91946595;
-	Wed,  1 Feb 2023 08:00:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3308D19465B9;
+	Wed,  1 Feb 2023 13:22:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
  [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 50C611946595
- for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 08:00:31 +0000 (UTC)
+ ESMTP id 122B9194658F
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Feb 2023 13:22:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3BF9853A0; Wed,  1 Feb 2023 08:00:31 +0000 (UTC)
+ id E7D53422F2; Wed,  1 Feb 2023 13:22:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 32D6A422AE
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 08:00:31 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DEAC9422AE
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 13:22:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E514857A89
- for <dm-devel@redhat.com>; Wed,  1 Feb 2023 08:00:31 +0000 (UTC)
-Received: from EUR04-DB3-obe.outbound.protection.outlook.com
- (mail-db3eur04on2065.outbound.protection.outlook.com [40.107.6.65]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B8B1B101A521
+ for <dm-devel@redhat.com>; Wed,  1 Feb 2023 13:22:39 +0000 (UTC)
+Received: from mx1.veeam.com (mx1.veeam.com [216.253.77.21]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-144-gTFVG_ilOr2DQYdEJiL0OA-1; Wed, 01 Feb 2023 03:00:27 -0500
-X-MC-Unique: gTFVG_ilOr2DQYdEJiL0OA-1
-Received: from AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22)
- by PAXPR04MB8475.eurprd04.prod.outlook.com (2603:10a6:102:1de::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6064.22; Wed, 1 Feb
- 2023 08:00:25 +0000
-Received: from AS8PR04MB8040.eurprd04.prod.outlook.com
- ([fe80::e1b6:3ede:547d:eb2f]) by AS8PR04MB8040.eurprd04.prod.outlook.com
- ([fe80::e1b6:3ede:547d:eb2f%9]) with mapi id 15.20.6043.028; Wed, 1 Feb 2023
- 08:00:25 +0000
-From: Martin Wilck <martin.wilck@suse.com>
-To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
- "christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 4/4] libmultipath: keep renames from stopping other
- multipath actions
-Thread-Index: AQHZNasNdibzGBrjF0a5rX6LpFB6fK65uyMA
-Date: Wed, 1 Feb 2023 08:00:25 +0000
-Message-ID: <75e8e7c39785a85b068f65c49f9c334f95fcaf24.camel@suse.com>
-References: <1675193661-1147-1-git-send-email-bmarzins@redhat.com>
- <1675193661-1147-5-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1675193661-1147-5-git-send-email-bmarzins@redhat.com>
-Accept-Language: en-US
+ us-mta-479-uyCUM4b5OYyQkJEcW504Zg-1; Wed, 01 Feb 2023 08:22:38 -0500
+X-MC-Unique: uyCUM4b5OYyQkJEcW504Zg-1
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com
+ (mail-dm6nam12lp2168.outbound.protection.outlook.com [104.47.59.168])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mx1.veeam.com (Postfix) with ESMTPS id C033941C37;
+ Wed,  1 Feb 2023 08:16:30 -0500 (EST)
+Received: from DM8PR14MB5221.namprd14.prod.outlook.com (2603:10b6:8:28::14) by
+ DM6PR14MB3388.namprd14.prod.outlook.com (2603:10b6:5:1ee::9) with
+ Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.20.6043.38; Wed, 1 Feb 2023 13:16:29 +0000
+Received: from DM8PR14MB5221.namprd14.prod.outlook.com
+ ([fe80::4af6:fd64:925:e3b4]) by DM8PR14MB5221.namprd14.prod.outlook.com
+ ([fe80::4af6:fd64:925:e3b4%8]) with mapi id 15.20.6002.026; Wed, 1 Feb 2023
+ 13:16:29 +0000
+From: Sergei Shtepa <sergei.shtepa@veeam.com>
+To: Mike Snitzer <snitzer@kernel.org>
+Thread-Topic: [PATCH v2 02/21] block, blkfilter: Block Device Filtering
+ Mechanism
+Thread-Index: AQHZC9njQhPExPGzik6+OOTOrKe/8665iB8AgAENSwA=
+Date: Wed, 1 Feb 2023 13:16:29 +0000
+Message-ID: <DM8PR14MB52210D6056B32061C629E5CEF5D19@DM8PR14MB5221.namprd14.prod.outlook.com>
+References: <20221209142331.26395-1-sergei.shtepa@veeam.com>
+ <20221209142331.26395-3-sergei.shtepa@veeam.com>
+ <Y9mrJJDFnMNWR7Vn@redhat.com>
+In-Reply-To: <Y9mrJJDFnMNWR7Vn@redhat.com>
+Accept-Language: ru-RU, en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
-user-agent: Evolution 3.46.3
+x-ms-exchange-imapappendstamp: DS7PR14MB6905.namprd14.prod.outlook.com
+ (15.20.6064.010)
+user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.6.1
+x-ms-exchange-messagesentrepresentingtype: 1
 x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: AS8PR04MB8040:EE_|PAXPR04MB8475:EE_
-x-ms-office365-filtering-correlation-id: a6a53441-718f-4506-bfc1-08db042a603c
+x-ms-traffictypediagnostic: DM8PR14MB5221:EE_|DM6PR14MB3388:EE_
+x-ms-office365-filtering-correlation-id: 65c7ef75-65ce-4aa5-f8ab-08db0456878b
+x-veeam-mmex: True
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: jBo+RRvaK/tV+JIOVUN0M5Tx7H7bD0Ywft5b4Qdvb2Mk9YXWo0H8aSDmDPNDLra65ZmbeW2Ue3JQE58y7THUo9UTEPxkKXJ3JU0JO1ufjbQA8TWR1wW1kkY/5YWOd3e3yh6RA9zuJ6yx8smruZtRxPt+ynHs/xcpYTTND1IlJcISWZUNaEO2HlTpJq7X0HndwQKhyzwoaEnKxFT4nsVTNDXy8X+5YlXSoxmm/Wl6vdrXYO32nFv2WyuObPeNfscGbMswjkQGY3iyDL9GkWhpFersvxgZ+3xv8VXfFH4XXTG8gQOnPL3ZZyRjg0RvYEO5dbFsOlY6jmTSTQlqOZkGhTgiPA4OOg81cNPofGd+yrvgzUnhZWCuQ09i752OA27+gkde8c5uyM0yUvFTEutN7hOBu7nuJ8Lurp7yIT3vpcTYWzjjIyXSpUL60OyskPDewWZdnQX1ZWy3iIcXMc0Om3LLXwSYKeczUgbeT5ccjSwCimC8aofmIYjPRNJQVdcxg3ebc7gr7fclWGpdC7/Qnf/BsGzwAp4n7bpUySGqitKpMveOfSrgZtzcdinN36YHhwov/K24TV+HerU8mrgC9V5+svdTD1bmHQEsduJQH/Pcbyv42IxXI2CxAhKhdEKJwNlIJdH/jyVrLdmNE5wZDy6kg8vCSCySboswcfkPVyR76Txg5bVnZPDJ6EuKZBO5WuuESJ0LNLQn4QSPsS5xKw==
+x-microsoft-antispam-message-info: GhXP8N/EGVLplhpNq8mlkjfrnqpi2BasG/+ikoC6EO/jWr2OlPYW+luypFUTvc3qPTWC8AWywCMPKdTrISp1LskQsExWlZWOrMmaSbd5uD7HGYJxjbEbytQ/S0fM8S3FEvQfN2HjsKpna0isgYQzyM9R2cT1/mRjLLRz1bCXXMtY0YksVWJvzAX1XmFsRiWxKwNt65N1T2VF30hJl9Pj+EmhgptkuEpdCRnYbh5PffngfpzSe+7wL15xLSH9LM0yZHaUrARdYUjgj7xv90dmMWeXL1jA+pF7awESfCaF3KkFT5dUq9EXM1xmuscAxX0hhAYVal2pP5DpAXvloI3hI5tfbpXkpt1qlcLMh2Lj5B5dEMYT6QwCXFmQRFp6g/icPvUNI6P1X5A6HsLOS63YZGmUVqHNWOlTS+Q0gZn5KnKzF6OjSqxoeoL8/5pi+lXRRZsNGM1GqmWyBVfp/WhYdygRrFB7V+U3OcX6SLKk31PPmVjFn+m5/xHCBFzw38d+c9S6sPpVGz3Cr+i3DIK5owaPCXys8y5Fs3fZCaNj69ju1ybziqDFYEVaas1TZ9N+Hrrb2Y3fpJw69Gtkc4iQT+Dwsome+ikZ8o4Z5nkFn1ttL096Le5axaAJB6wmgMOv8BnGApaofskSTXGXu6rAlmUI2U9n912M8T3ll/4XCktwxR3IjubTHhsvnkoBGrKHvH334gcaw46iWTLPYpaCLY7QpdvH40yJ/aJ2kvQaVWxm8GLK6RhdVXQESHBB82UwJujLuR05jz/sG+qy9BozdTeVVM4Rg6IBosTx9nYnm/s=
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:AS8PR04MB8040.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(136003)(346002)(366004)(396003)(39860400002)(376002)(451199018)(86362001)(36756003)(38070700005)(38100700002)(122000001)(110136005)(66946007)(64756008)(66556008)(66476007)(66446008)(76116006)(8936002)(4326008)(91956017)(316002)(8676002)(41300700001)(44832011)(2906002)(83380400001)(2616005)(478600001)(6486002)(186003)(26005)(6512007)(6506007)(71200400001)(5660300002);
+ IPV:NLI; SFV:NSPM; H:DM8PR14MB5221.namprd14.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(376002)(396003)(39860400002)(346002)(136003)(366004)(451199018)(41300700001)(122000001)(64756008)(6916009)(66946007)(54906003)(316002)(8676002)(4326008)(66476007)(8936002)(66446008)(66556008)(76116006)(5660300002)(52536014)(38100700002)(86362001)(33656002)(38070700005)(6506007)(66899018)(186003)(9686003)(966005)(26005)(53546011)(71200400001)(2906002)(55016003)(44832011)(7696005)(83380400001)(478600001)(65966003)(43740500002);
  DIR:OUT; SFP:1101
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?a7dUS5O313Qqyj0n7fXUpSr5Pze/uZsS57JFH7HI1OGi8yOVSr+v5eFSm?=
- =?iso-8859-15?Q?FEumuwVjt5Xqv6DmEf2d61nOj2kdyCKEn8KMYgR/JVan80glI7nPauivM?=
- =?iso-8859-15?Q?GwG85QgC1sFvNTKnzzdTKEdN+UmNDl2ExZmMkR1OHCC16T5LP4vlKVc+/?=
- =?iso-8859-15?Q?wCfS7En2ox89Mn5IEul+AhpfZD1eW/aTLNEhrO9z+IEa/3tf2nATAX/kD?=
- =?iso-8859-15?Q?qFl0jy1a5wYpMfOiFE5AzpbVcvrmdlJRutBxTi0btlQYpU8w93f7uyS7H?=
- =?iso-8859-15?Q?3Nw5Dw6zyqgOuNtBRcKrLwp9Axy5RUDClujy2yfVAoIAS0r3Mo54vnvrS?=
- =?iso-8859-15?Q?DGytWcHhIHyeEmG911GCSjdrb6whgt/5bDr1NE2FVxqLH+KId35PgmoFB?=
- =?iso-8859-15?Q?ork/xvinHeOW3BgoW8m4wkLcWqX3UzCBzNGAJUWiqZLnTmE5NfJ8NADGe?=
- =?iso-8859-15?Q?aUJU0qCfi0O9gon31wNvRTCZiutmkd50VNDAPHesIfAyAX96qLvsA6BgF?=
- =?iso-8859-15?Q?Uf/shwE9Ibup3vbhr7UpfdgKCgtYkta9lOtuzApE6h2+fuUICwM2mrfXC?=
- =?iso-8859-15?Q?UnajI69VUOuERB/gALAt8mdBoaqJhar3dVc8EfjXR0CGaHpmTMeaiFOHe?=
- =?iso-8859-15?Q?0r4+C6o+DvVIvhqVf+Y7xAkmiRHY1f9p0xhpgy6stLOGi4XSaocdgFgGQ?=
- =?iso-8859-15?Q?JL+4WfQUedGcaY3ruHgTf0qOGcqidIRKlbN4UmiMkjHX0xcRBVNNTQom/?=
- =?iso-8859-15?Q?DS/2EyaJKNSfizo3eq/pmvB/Bwm4t4Wx3PpI9Y7WWfsVTjFv08Q93O8MR?=
- =?iso-8859-15?Q?3ZRYkLCkfMV4ThG+v37fhJB2arqJoEYJAuZa/15fodHU6mYCZGsL/5iMM?=
- =?iso-8859-15?Q?rro4+VSyG8mGKLDqRgiYC4iI3W8Z3e6zyfCTmjFHFZozTXYfd1SIAkwot?=
- =?iso-8859-15?Q?wLS8BDTqT0UBrDPI1uEpZ2rmJriPS3LcljTrYeSNgG9ZvJzDdPgdZfEnw?=
- =?iso-8859-15?Q?mtm8uB7rbQBkeXN4/U5PuHr4PchuiBSk0WsTGEimRmkXj4xsDlGCIpUPa?=
- =?iso-8859-15?Q?vFuWp4K0foz0qDsstOZDpGY0881SLH0sHqQzdnCQa8uR+d++a5kAJMEAA?=
- =?iso-8859-15?Q?MR7Em07QKfngjz8DzauoVEl8lm2/lDHTvCC0ObtmpuSW34t+LHcCHBLiW?=
- =?iso-8859-15?Q?W4WKXTJlJapjO1d1DqgYHTzwGEHJ3LHv8f3ntXqgUVu7CyagmIhZpcjZh?=
- =?iso-8859-15?Q?mavV6+smEKj7briVNWoLvFFgI8ggkn9q0bDc1anvz2cg0LC9E29DMn5bZ?=
- =?iso-8859-15?Q?smfHxifIbcC0hPUvqoaCn6PJ/xxmUbg8rU44JPkRBfmO8ncmemqgvya21?=
- =?iso-8859-15?Q?RAHdj1qSby0wiye7jKMY97gdXoXSdjlmqfJbbABwVcl3Jl9Hb88cDwAFo?=
- =?iso-8859-15?Q?4htI5Mvx287YTofAWeO1RRGGesp+R3pHrWruLwbJ2yNBRSQ0asP5P0/Kg?=
- =?iso-8859-15?Q?IwaFoqzk9rU8Rlrut66VcXXO5NeM1jc8+EXTO2NOQpElR8IM5bFP1snNj?=
- =?iso-8859-15?Q?HruqrUuDMUEJg1d5E2QD3krkKNOGWDBQb3OUsZ+JBcbnWf7YFL3xD5Pkx?=
- =?iso-8859-15?Q?1mqHEUtSqb5cBmGd91Jy+7+0xIPpPPEkQaLVDmK9TSTZ9Qt9G1jvNX9hl?=
- =?iso-8859-15?Q?usS1zS5dYU+WVLzpjoCKuTk9cg=3D=3D?=
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?U2xWVjVnMmtUdElWOVFDV1ZTM1pjUWRCOC8yNCtIREMvZFBLR2t0VG5abFBD?=
+ =?utf-8?B?MVdyUzVvQVJoZlpHNzNZdjN1bWFXK0xCcm5tTzNmVTByNVc1aUI3TXp4SGhr?=
+ =?utf-8?B?YTZZSDFUaStwZkdMOVlGZVZrdlRZeDVXdDNva1NVa3N0V2xsWTdvMlRTSFQz?=
+ =?utf-8?B?Q2FPTk5PcWJENytDL1N3ZVRvYk1ITmp3QktoY1d5TERobXJqNHFyQnJCdjlM?=
+ =?utf-8?B?RW1VVms1VW9sQTUwMlcwYTRacWtzRFBNSlhXaDJzUW9hOWVxdXVNdjZjdGN0?=
+ =?utf-8?B?S0J5Zkk4T3pVdEIzUzFqRDVjK0ZUUitjMWtVbU8vVm1ITWxsc3JxdW56ZjhI?=
+ =?utf-8?B?Y0did1RCZCtWVzJwTUtDNm1FWDZVRGxvN3I5UFVhTkVDL3laUXlZOW1zcGJm?=
+ =?utf-8?B?Snp5dUZCZm1Ncm91aTlrR1gzL2xldHJxYkxxaG9jQmIyeHZYakVGeUQ3Yy9R?=
+ =?utf-8?B?QlNNZ1I5LzFNK0lrOTFHSk1vYzcvSnFzZ2NzWGg3cHYweFRVNy9vOWhKQnNx?=
+ =?utf-8?B?NDJVTzMrM1MrTVByVlNKb081K2k5cHdNSkVkYVlxUWhHdjBCRDM3SmlTYkNv?=
+ =?utf-8?B?NGVUUnJQanZkSS8zbjBMekt1RkptQUFUMHQzc1g1d1U0NkdFZDYxRmxjZ3lK?=
+ =?utf-8?B?WGhPWkJKZDNScUxYY0ZEbzUrdXZoWnVCNmdDNzVqeHZFN1NSMTBERDhoNDRt?=
+ =?utf-8?B?L0Z2d1c3QWh1a0RzREFCL1l3ZW5UbWN4Q1lyWnVpU0dtK1Q2ZCtyZllvN2pM?=
+ =?utf-8?B?M1N4eXhlNjFoc1FXQkl1YXh1UnlmbEM5WW9MYU1NL1huQnUzYlVIYkNCakVV?=
+ =?utf-8?B?a1BKK3huUWFrWVV2cDRRa2ZyRS9sVlBPV1V4MmhycVk2amxVaC94dHYrWUJD?=
+ =?utf-8?B?b3p6ZHpQSVAxUnJ4eWhKYmUwT3VLOSttT0krN3RCMUFPbEdqWUFmL2FrU2Ja?=
+ =?utf-8?B?djhBWkR5L01QYWNsSUlMbkp4R1gxNGxFM29Gc0Q3WGdseDVPblBoSWhMODNI?=
+ =?utf-8?B?M0RLcEgyNFE2TjlYNTFuWUNZL1FnTHllYXlocE40Y2JGTno3MzdhOFEzVDFY?=
+ =?utf-8?B?d2xpMXdHVDZ6K2k2cmtDSXlQT0dXM2VuQWlpM2dJMFV6blYzbEM3RkR1RGVF?=
+ =?utf-8?B?QlZjKzZUcWtKUzk1L015NWZ1Q0xkRkVZV2granhkY3I0TlZPbDlCUGVGMi9y?=
+ =?utf-8?B?NDlwWitwZ2s3M1RWVU9NWHp3bkhLMzBacWlHZ2Ryd2pJNDBkOW14UFdnZUNK?=
+ =?utf-8?B?WW5scTZEUElYUGsvUDQ5c1dUeXRvQkd2VDdFdHFwSTgvcCtLb0cweXpiMUUy?=
+ =?utf-8?B?UFFEbDFidmRzcjE0M1BUaDRHOUc1NERXWHU5Z0hwa0t2cWp6dmFMZk8zVjZU?=
+ =?utf-8?B?TEZsQnZWQm5jOHBHaUJiUnBGUWk4WWxYSXJXTkxmWU9iM0lPTDRNd1ROZjY1?=
+ =?utf-8?B?UU9WcVVJWFdvV3FsNHNxYmlCSUhTb0NsTDhvYWpQdjNHY3d5M0xYMCtGakNW?=
+ =?utf-8?B?a21hRWxCU0RVMTZrVTZTT0RxcUtUNnB3ZlkyZkZwNE1iOElmQzNGWjhPR2ky?=
+ =?utf-8?B?K0ZPY0QzZ0NIRlJLa2tVQWVQY3FRMGFSMWRJelV6WDRseHg1ZENFbHVGcHRD?=
+ =?utf-8?B?Y083YkJvUjViNWFhS2s5Z3ZWdGg1Wm9BRjhRQllhQkRsYVVOUkJKdDZIMWhv?=
+ =?utf-8?B?Mlk0N2xKOERIbys4QnhGWitRQjJWNVdVNFhRY0p3ZDVwYVRhS0V6R21ITkZu?=
+ =?utf-8?B?blNORHQ2VlZwMW9TRTY5R3E3UVpweUplNWVsMEM5S3ArZ2t4ditwSHBDQnNq?=
+ =?utf-8?B?dzBQc2Vpem4wR1B6N0xYZkhselZLKzMwU2ZLNHQ5VGlJRWFxVjFVUW5kVk5W?=
+ =?utf-8?B?eWFhSFEzb1gwNzhxVXJhZjFyTDM1TSswNnk3RjF0cVhDSUx1YjllbC83V2E4?=
+ =?utf-8?B?N25UdEtaUmZyV3hraUNkSWVYTWhpay9kRm9kNlFzeWl2S1ZvOEVibnNNaEdB?=
+ =?utf-8?B?Uk5mb1V2QktkVlN3NmoySUwvSUFjRm5XbGkrNFFOMkR3bGV2WXd6TFZQWFlL?=
+ =?utf-8?B?Ri9vd0ZWdjgxYktHS0xMU0FrUmNxRU5PalBpdk1FZ242aGVPK3R2QTFmK1hy?=
+ =?utf-8?Q?1IlQ=3D?=
 MIME-Version: 1.0
-X-OriginatorOrg: suse.com
+X-OriginatorOrg: veeam.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8040.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a6a53441-718f-4506-bfc1-08db042a603c
-X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2023 08:00:25.2163 (UTC)
+X-MS-Exchange-CrossTenant-AuthSource: DM8PR14MB5221.namprd14.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 65c7ef75-65ce-4aa5-f8ab-08db0456878b
+X-MS-Exchange-CrossTenant-originalarrivaltime: 01 Feb 2023 13:16:29.0540 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
+X-MS-Exchange-CrossTenant-id: ba07baab-431b-49ed-add7-cbc3542f5140
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: BxaesUgLfMVBY1JiI2pmClf74UI7yMsOQTUzKlisDWLLhL4A8pOrsoBkXOZP81pvTL4ycnrHTP57ih9pofMmJw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PAXPR04MB8475
+X-MS-Exchange-CrossTenant-userprincipalname: AL1q6t6IKWhR4V3t955s4D7VDrrzUJ9+76ixpnXDZjcaTflVbzmBePGbxdzViFHh9jQkW5/Ctzj0Rx9TJXT4+w==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM6PR14MB3388
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -142,8 +159,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH 4/4] libmultipath: keep renames from stopping
- other multipath actions
+Subject: Re: [dm-devel] [PATCH v2 02/21] block,
+ blkfilter: Block Device Filtering Mechanism
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -155,290 +172,229 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: "axboe@kernel.dk" <axboe@kernel.dk>,
+ "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+ "corbet@lwn.net" <corbet@lwn.net>,
+ "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+ "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
+ "dm-devel@redhat.com" <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Language: en-US
-Content-ID: <554A732028950B4EAC56BAA29FC19FB0@eurprd04.prod.outlook.com>
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
-
-On Tue, 2023-01-31 at 13:34 -0600, Benjamin Marzinski wrote:
-> If select_action() is called and a multipath device needs to be
-> renamed,
-> the code currently checks if force_reload is set, and if so, does the
-> reload after the rename.=A0 But if force_reload isn't set, only the
-> rename
-> happens, regardless of what other actions are needed. This can happen
-> if
-> multipathd starts up and a device needs both a reload and a rename.
->=20
-> Make multipath check for resize, reload, and switch pathgroup along
-> with
-> rename, and do both if necessary.
->=20
-> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-
-Looks good, but I have some questions below.
-
-> ---
-> =A0libmultipath/configure.c | 60 +++++++++++++++++---------------------
-> --
-> =A0libmultipath/configure.h |=A0 4 ++-
-> =A02 files changed, 29 insertions(+), 35 deletions(-)
->=20
-> diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-> index e870e0f6..2228176d 100644
-> --- a/libmultipath/configure.c
-> +++ b/libmultipath/configure.c
-> @@ -670,7 +670,8 @@ static bool is_udev_ready(struct multipath *cmpp)
-> =A0static void
-> =A0select_reload_action(struct multipath *mpp, const char *reason)
-> =A0{
-> -=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_RELOAD;
-> +=A0=A0=A0=A0=A0=A0=A0mpp->action =3D mpp->action =3D=3D ACT_RENAME ? ACT=
-_RELOAD_RENAME :
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ACT_RELOAD;
-> =A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_RELOAD (%s)", mpp->alias,=
- reason);
-> =A0}
-> =A0
-> @@ -681,6 +682,7 @@ void select_action (struct multipath *mpp, const
-> struct _vector *curmp,
-> =A0=A0=A0=A0=A0=A0=A0=A0struct multipath * cmpp_by_name;
-> =A0=A0=A0=A0=A0=A0=A0=A0char * mpp_feat, * cmpp_feat;
-> =A0
-> +=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_NOTHING;
-> =A0=A0=A0=A0=A0=A0=A0=A0cmpp =3D find_mp_by_wwid(curmp, mpp->wwid);
-> =A0=A0=A0=A0=A0=A0=A0=A0cmpp_by_name =3D find_mp_by_alias(curmp, mpp->ali=
-as);
-> =A0=A0=A0=A0=A0=A0=A0=A0if (mpp->need_reload || (cmpp && cmpp->need_reloa=
-d))
-> @@ -705,14 +707,8 @@ void select_action (struct multipath *mpp, const
-> struct _vector *curmp,
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->alias);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0strlcpy(mpp->alias_old, c=
-mpp->alias, WWID_SIZE);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_RENAM=
-E;
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (force_reload) {
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp=
-->force_udev_reload =3D 1;
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp=
-->action =3D ACT_FORCERENAME;
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> -=A0=A0=A0=A0=A0=A0=A0}
-> -
-> -=A0=A0=A0=A0=A0=A0=A0if (cmpp !=3D cmpp_by_name) {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* don't return here. Check=
- for other needed actions
-> */
-> +=A0=A0=A0=A0=A0=A0=A0} else if (cmpp !=3D cmpp_by_name) {
-
-Why does your "check for other needed actions" logic not apply for this
-case? AFAICS, even if we can't rename the map, we might need to resize
-or reload.=20
+Content-ID: <90B6F7CCB8C1614F8B050CC51FA58D3B@VeeamSoftwareCorp.onmicrosoft.com>
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
 
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "%s: unable to=
- rename %s to %s (%s is used
-> by %s)",
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->wwid, cmpp->alias, mpp->alias,
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->alias, cmpp_by_name->wwid);
-> @@ -725,7 +721,8 @@ void select_action (struct multipath *mpp, const
-> struct _vector *curmp,
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0if (cmpp->size !=3D mpp->size) {
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->force_udev_reload =
-=3D 1;
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_RESIZE;
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D mpp->action=
- =3D=3D ACT_RENAME ?
-> ACT_RESIZE_RENAME :
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 ACT_RESIZE;
+On 2/1/23 00:58, Mike Snitzer wrote:
+> Subject:
+> Re: [PATCH v2 02/21] block, blkfilter: Block Device Filtering Mechanism
+> From:
+> Mike Snitzer <snitzer@kernel.org>
+> Date:
+> 2/1/23, 00:58
+> 
+> To:
+> Sergei Shtepa <sergei.shtepa@veeam.com>
+> CC:
+> axboe@kernel.dk, corbet@lwn.net, linux-block@vger.kernel.org, linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, dm-devel@redhat.com
+> 
+> 
+> On Fri, Dec 09 2022 at  9:23P -0500,
+> Sergei Shtepa <sergei.shtepa@veeam.com> wrote:
+> 
+>> Allows to attach block device filters to the block devices. Kernel
+>> modules can use this functionality to extend the capabilities of the
+>> block layer.
+>>
+>> Signed-off-by: Sergei Shtepa <sergei.shtepa@veeam.com>
+>> ---
+>>  block/bdev.c              | 70 ++++++++++++++++++++++++++++++++++++++
+>>  block/blk-core.c          | 19 +++++++++--
+>>  include/linux/blk_types.h |  2 ++
+>>  include/linux/blkdev.h    | 71 +++++++++++++++++++++++++++++++++++++++
+>>  4 files changed, 160 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/block/bdev.c b/block/bdev.c
+>> index d699ecdb3260..b820178824b2 100644
+>> --- a/block/bdev.c
+>> +++ b/block/bdev.c
+>> @@ -427,6 +427,7 @@ static void init_once(void *data)
+>>  
+>>  static void bdev_evict_inode(struct inode *inode)
+>>  {
+>> +	bdev_filter_detach(I_BDEV(inode));
+>>  	truncate_inode_pages_final(&inode->i_data);
+>>  	invalidate_inode_buffers(inode); /* is it needed here? */
+>>  	clear_inode(inode);
+>> @@ -502,6 +503,7 @@ struct block_device *bdev_alloc(struct gendisk *disk, u8 partno)
+>>  		return NULL;
+>>  	}
+>>  	bdev->bd_disk = disk;
+>> +	bdev->bd_filter = NULL;
+>>  	return bdev;
+>>  }
+>>  
+>> @@ -1092,3 +1094,71 @@ void bdev_statx_dioalign(struct inode *inode, struct kstat *stat)
+>>  
+>>  	blkdev_put_no_open(bdev);
+>>  }
+>> +
+>> +/**
+>> + * bdev_filter_attach - Attach the filter to the original block device.
+>> + * @bdev:
+>> + *	Block device.
+>> + * @flt:
+>> + *	Filter that needs to be attached to the block device.
+>> + *
+>> + * Before adding a filter, it is necessary to initialize &struct bdev_filter
+>> + * using a bdev_filter_init() function.
+>> + *
+>> + * The bdev_filter_detach() function allows to detach the filter from the block
+>> + * device.
+>> + *
+>> + * Return: 0 if succeeded, or -EALREADY if the filter already exists.
+>> + */
+>> +int bdev_filter_attach(struct block_device *bdev,
+>> +				     struct bdev_filter *flt)
+>> +{
+>> +	int ret = 0;
+>> +
+>> +	blk_mq_freeze_queue(bdev->bd_queue);
+>> +	blk_mq_quiesce_queue(bdev->bd_queue);
+>> +
+>> +	if (bdev->bd_filter)
+>> +		ret = -EALREADY;
+>> +	else
+>> +		bdev->bd_filter = flt;
+>> +
+>> +	blk_mq_unquiesce_queue(bdev->bd_queue);
+>> +	blk_mq_unfreeze_queue(bdev->bd_queue);
+>> +
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL(bdev_filter_attach);
+>> +
+>> +/**
+>> + * bdev_filter_detach - Detach the filter from the block device.
+>> + * @bdev:
+>> + *	Block device.
+>> + *
+>> + * The filter should be added using the bdev_filter_attach() function.
+>> + *
+>> + * Return: 0 if succeeded, or -ENOENT if the filter was not found.
+>> + */
+>> +int bdev_filter_detach(struct block_device *bdev)
+>> +{
+>> +	int ret = 0;
+>> +	struct bdev_filter *flt = NULL;
+>> +
+>> +	blk_mq_freeze_queue(bdev->bd_queue);
+>> +	blk_mq_quiesce_queue(bdev->bd_queue);
+>> +
+>> +	flt = bdev->bd_filter;
+>> +	if (flt)
+>> +		bdev->bd_filter = NULL;
+>> +	else
+>> +		ret = -ENOENT;
+>> +
+>> +	blk_mq_unquiesce_queue(bdev->bd_queue);
+>> +	blk_mq_unfreeze_queue(bdev->bd_queue);
+>> +
+>> +	if (flt)
+>> +		bdev_filter_put(flt);
+>> +
+>> +	return ret;
+>> +}
+>> +EXPORT_SYMBOL(bdev_filter_detach);
+> What about bio-based devices? (DM, MD, etc)
+> 
+> DM uses freeze_bdev() and thaw_bdev(), seems like you're missing some
+> work here.
 
+Thanks, Mike.
 
-This code makes we wonder if we should transform the ACT_... enum into
-a bitmap of required actions that would be ORed together.
-At least ACT_RENAME is now orthogonal to the rest of the actions.
+We are planning to add a freeze_bdev() function call in bdev_filter_attach().
+But for the bdev_filter_detach() function, it doesn't seem to make sense.
+I think enough to call blk_mq_freeze_queue().
 
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_R=
-ESIZE (size change)",
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->alias);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> @@ -801,14 +798,14 @@ void select_action (struct multipath *mpp,
-> const struct _vector *curmp,
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> =A0=A0=A0=A0=A0=A0=A0=A0}
-> =A0=A0=A0=A0=A0=A0=A0=A0if (cmpp->nextpg !=3D mpp->bestpg) {
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_SWITCHP=
-G;
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->action =3D mpp->action=
- =3D=3D ACT_RENAME ?
-> ACT_SWITCHPG_RENAME :
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 ACT_SWITCHPG;
+As Fabio already wrote, I use a public repository on github to work with
+the patch: https://github.com/SergeiShtepa/linux/commits/blksnap-master
+The current state can be viewed there. Feedback is welcome as usual.
 
-See above.
+> 
+>> diff --git a/block/blk-core.c b/block/blk-core.c
+>> index 5487912befe8..284b295a7b23 100644
+>> --- a/block/blk-core.c
+>> +++ b/block/blk-core.c
+>> @@ -678,9 +678,24 @@ void submit_bio_noacct_nocheck(struct bio *bio)
+>>  	 * to collect a list of requests submited by a ->submit_bio method while
+>>  	 * it is active, and then process them after it returned.
+>>  	 */
+>> -	if (current->bio_list)
+>> +	if (current->bio_list) {
+>>  		bio_list_add(&current->bio_list[0], bio);
+>> -	else if (!bio->bi_bdev->bd_disk->fops->submit_bio)
+>> +		return;
+>> +	}
+>> +
+>> +	if (bio->bi_bdev->bd_filter && !bio_flagged(bio, BIO_FILTERED)) {
+> Shouldn't this be: if (unlikely(...))?
+> 
+> But that obviously assumes a fair amount about the only consumer
+> (temporary filter that lasts as long as it takes to do a backup).
 
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_S=
-WITCHPG (next path group
-> change)",
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->alias);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> =A0=A0=A0=A0=A0=A0=A0=A0}
-> -=A0=A0=A0=A0=A0=A0=A0mpp->action =3D ACT_NOTHING;
-> -=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_NOTHING (map unchanged)",
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0mpp->alias);
-> +=A0=A0=A0=A0=A0=A0=A0if (mpp->action =3D=3D ACT_NOTHING)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: set ACT_NOT=
-HING (map unchanged)",
-> mpp->alias);
-> =A0=A0=A0=A0=A0=A0=A0=A0return;
-> =A0}
-> =A0
-> @@ -909,6 +906,17 @@ int domap(struct multipath *mpp, char *params,
-> int is_daemon)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> =A0=A0=A0=A0=A0=A0=A0=A0}
-> =A0
-> +=A0=A0=A0=A0=A0=A0=A0if (mpp->action =3D=3D ACT_RENAME || mpp->action =
-=3D=3D
-> ACT_SWITCHPG_RENAME ||
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 mpp->action =3D=3D ACT_RELOAD_RENAME ||
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 mpp->action =3D=3D ACT_RESIZE_RENAME) {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0conf =3D get_multipath_conf=
-ig();
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_push(put_mu=
-ltipath_config, conf);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r =3D dm_rename(mpp->alias_=
-old, mpp->alias,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 conf->partition_delim, mpp-
-> >skip_kpartx);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_pop(1);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (r =3D=3D DOMAP_FAIL)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret=
-urn r;
-> +=A0=A0=A0=A0=A0=A0=A0}
-> =A0=A0=A0=A0=A0=A0=A0=A0switch (mpp->action) {
-> =A0=A0=A0=A0=A0=A0=A0=A0case ACT_REJECT:
-> =A0=A0=A0=A0=A0=A0=A0=A0case ACT_NOTHING:
-> @@ -916,6 +924,7 @@ int domap(struct multipath *mpp, char *params,
-> int is_daemon)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return DOMAP_EXIST;
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0case ACT_SWITCHPG:
-> +=A0=A0=A0=A0=A0=A0=A0case ACT_SWITCHPG_RENAME:
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0dm_switchgroup(mpp->alias=
-, mpp->bestpg);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/*
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * we may have avoided re=
-instating paths because
-> there where in
-> @@ -942,6 +951,7 @@ int domap(struct multipath *mpp, char *params,
-> int is_daemon)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0case ACT_RELOAD:
-> +=A0=A0=A0=A0=A0=A0=A0case ACT_RELOAD_RENAME:
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0sysfs_set_max_sectors_kb(=
-mpp, 1);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (mpp->ghost_delay_tick=
- > 0 && pathcount(mpp,
-> PATH_UP))
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->ghost_delay_tick =3D 0;
-> @@ -949,6 +959,7 @@ int domap(struct multipath *mpp, char *params,
-> int is_daemon)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0case ACT_RESIZE:
-> +=A0=A0=A0=A0=A0=A0=A0case ACT_RESIZE_RENAME:
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0sysfs_set_max_sectors_kb(=
-mpp, 1);
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (mpp->ghost_delay_tick=
- > 0 && pathcount(mpp,
-> PATH_UP))
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
-pp->ghost_delay_tick =3D 0;
-> @@ -956,29 +967,10 @@ int domap(struct multipath *mpp, char *params,
-> int is_daemon)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0case ACT_RENAME:
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0conf =3D get_multipath_conf=
-ig();
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_push(put_mu=
-ltipath_config, conf);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r =3D dm_rename(mpp->alias_=
-old, mpp->alias,
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 conf->partition_delim, mpp-
-> >skip_kpartx);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_pop(1);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> -
-> -=A0=A0=A0=A0=A0=A0=A0case ACT_FORCERENAME:
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0conf =3D get_multipath_conf=
-ig();
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_push(put_mu=
-ltipath_config, conf);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r =3D dm_rename(mpp->alias_=
-old, mpp->alias,
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 conf->partition_delim, mpp-
-> >skip_kpartx);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_pop(1);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (r) {
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0sys=
-fs_set_max_sectors_kb(mpp, 1);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if =
-(mpp->ghost_delay_tick > 0 &&
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 pathcount(mpp, PATH_UP))
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0mpp->ghost_delay_tick =3D 0;
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r =
-=3D dm_addmap_reload(mpp, params, 0);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0default:
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r =3D DOMAP_FAIL;
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0break;
-> =A0=A0=A0=A0=A0=A0=A0=A0}
-> =A0
-> diff --git a/libmultipath/configure.h b/libmultipath/configure.h
-> index 2bf73e65..9d935db3 100644
-> --- a/libmultipath/configure.h
-> +++ b/libmultipath/configure.h
-> @@ -18,9 +18,11 @@ enum actions {
-> =A0=A0=A0=A0=A0=A0=A0=A0ACT_RENAME,
-> =A0=A0=A0=A0=A0=A0=A0=A0ACT_CREATE,
-> =A0=A0=A0=A0=A0=A0=A0=A0ACT_RESIZE,
-> -=A0=A0=A0=A0=A0=A0=A0ACT_FORCERENAME,
-> +=A0=A0=A0=A0=A0=A0=A0ACT_RELOAD_RENAME,
-> =A0=A0=A0=A0=A0=A0=A0=A0ACT_DRY_RUN,
-> =A0=A0=A0=A0=A0=A0=A0=A0ACT_IMPOSSIBLE,
-> +=A0=A0=A0=A0=A0=A0=A0ACT_RESIZE_RENAME,
-> +=A0=A0=A0=A0=A0=A0=A0ACT_SWITCHPG_RENAME,
-> =A0};
-> =A0
-> =A0/*
+Yes, at the moment the code is being created so that only one filter
+is possible. In the summer, I offered a more complex solution, in which
+there were altitudes. See:
+https://lore.kernel.org/linux-block/1655135593-1900-2-git-send-email-sergei.shtepa@veeam.com/
+But this is redundant code for this task at the moment, since only
+one filter is offered now. I think it will be possible to implement
+something similar later.
 
-
-
+> 
+>> +		bool pass;
+>> +
+>> +		pass = bio->bi_bdev->bd_filter->fops->submit_bio_cb(bio);
+>> +		bio_set_flag(bio, BIO_FILTERED);
+>> +		if (!pass) {
+>> +			bio->bi_status = BLK_STS_OK;
+>> +			bio_endio(bio);
+>> +			return;
+>> +		}
+>> +	}
+>> +
+>> +	if (!bio->bi_bdev->bd_disk->fops->submit_bio)
+>>  		__submit_bio_noacct_mq(bio);
+>>  	else
+>>  		__submit_bio_noacct(bio);
+> And you currently don't allow for blkfilter to be involved if a bio
+> recurses (which is how bio splitting works now).  Not sure it
+> matters, just mentioning it...
+> 
+> But taking a step back, in the hopes of stepping out of your way:
+> 
+> Myself and others on the DM team (past and present) have always hoped
+> all block devices could have the flexibility of DM. It was that hope
+> that caused my frustration when I first saw your blkfilter approach.
+> 
+> But I was too idealistic that a byproduct of your efforts
+> (blk-interposer before and blkfilter now) would usher in _all_ block
+> devices being able to comprehensively change their identity (and IO
+> processing) like DM enjoys.
+> 
+> DM showcases all the extra code needed to achieve its extreme IO
+> remapping and stacking flexibilty -- I don't yet see a way to distill
+> the essence of what DM achieves without imposing too much on all block
+> core.
+> 
+> So I do think blkfilter is a pragmatic way to achieve your goals.
+> 
+> Mike
+> 
 --
 dm-devel mailing list
 dm-devel@redhat.com
