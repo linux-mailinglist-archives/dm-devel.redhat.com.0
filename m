@@ -2,93 +2,118 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DC00468B67F
-	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 08:38:47 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2FDC568B689
+	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 08:39:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675669126;
+	s=mimecast20190719; t=1675669173;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=qMEjuSXESbeD/bGpQH6U6jjapwxjRqujD6YV2GhkocY=;
-	b=X6+BRNZfgHtpPvXo+hMPDhtID+cxAsTz7SUC2tYJsk61/1pT3OVd6ydVgiKd+qM1n8jDRf
-	HMbG4LSw1/gc4E+LcVX8Ft81PJHGmm0c5sCobryGSuSuA3XuSjVJin6OTtKRYEWqhclAtT
-	d/OTRDG483ttbzNHi5QZJtV3y9N4q1o=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=BaLTGqX7MrV+hh9PmxoqH6J5bMi8y+jB3Yk3gZJBn8c=;
+	b=RKSoeZgpeXr8zJsDFRXl2LFyRFXaV5rQogqYNDV2DXykoWUrkJX4oAGWeVBrFUkbOQxA5S
+	1QFbQRkxLY4oNQ9SKNQDuLmFsD1vyZ31moNe9bNiG/HYf20/Etcz03emqaRpa7qh7RDrzf
+	VuOMt0ZgABEZsXo7wUpUeChCPno5TwU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-480-IiyE14N9PQ-DeJoMhOWcJQ-1; Mon, 06 Feb 2023 02:38:45 -0500
-X-MC-Unique: IiyE14N9PQ-DeJoMhOWcJQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-655-azXBMH3nPXueykx_In-nEQ-1; Mon, 06 Feb 2023 02:38:45 -0500
+X-MC-Unique: azXBMH3nPXueykx_In-nEQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 036A81C05158;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08661800B24;
 	Mon,  6 Feb 2023 07:38:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FE4E400F756;
-	Mon,  6 Feb 2023 07:38:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4000B492B23;
+	Mon,  6 Feb 2023 07:38:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8903019466DF;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BAF3B1946A4E;
 	Mon,  6 Feb 2023 07:38:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3AF901946586
- for <dm-devel@listman.corp.redhat.com>; Thu,  2 Feb 2023 17:08:40 +0000 (UTC)
+ ESMTP id A3BBF194658C
+ for <dm-devel@listman.corp.redhat.com>; Thu,  2 Feb 2023 18:50:53 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1D3DD112132D; Thu,  2 Feb 2023 17:08:40 +0000 (UTC)
+ id 99757492C18; Thu,  2 Feb 2023 18:50:53 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 16108112132C
- for <dm-devel@redhat.com>; Thu,  2 Feb 2023 17:08:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E4A2C29AA2E5
- for <dm-devel@redhat.com>; Thu,  2 Feb 2023 17:08:39 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-505-QGkzjedSNHWev6rwFd7y1g-1; Thu, 02 Feb 2023 12:08:38 -0500
-X-MC-Unique: QGkzjedSNHWev6rwFd7y1g-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 91B0A492C14
+ for <dm-devel@redhat.com>; Thu,  2 Feb 2023 18:50:53 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3271BB82753;
- Thu,  2 Feb 2023 17:00:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E265C433EF;
- Thu,  2 Feb 2023 17:00:12 +0000 (UTC)
-From: Nathan Chancellor <nathan@kernel.org>
-Date: Thu, 02 Feb 2023 09:58:18 -0700
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 72107100F906
+ for <dm-devel@redhat.com>; Thu,  2 Feb 2023 18:50:53 +0000 (UTC)
+Received: from wout2-smtp.messagingengine.com
+ (wout2-smtp.messagingengine.com [64.147.123.25]) by relay.mimecast.com with
+ ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-283-bsZVyXnhOwyOIz2LD1hWCw-1; Thu, 02 Feb 2023 13:50:52 -0500
+X-MC-Unique: bsZVyXnhOwyOIz2LD1hWCw-1
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id 8123A3200645;
+ Thu,  2 Feb 2023 13:42:35 -0500 (EST)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute4.internal (MEProxy); Thu, 02 Feb 2023 13:42:36 -0500
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
+ :in-reply-to:in-reply-to:message-id:mime-version:references
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1675363355; x=
+ 1675449755; bh=lg2mMVgKWzumdcP+F9hZgcsYrteBCJhK/JelW6EYdVY=; b=C
+ uTXDseVzBiQj9h2D+NuYP2jUT0tW3Lmilaa0/HVSPpcoiD3KfygKzgQY6EimkjGJ
+ r5FPB9IdV+dObh+fV0OrZLfZju61Sb6vtG1NmYLcIF3/TDhRTlZSI3Pu/JQhgjs5
+ zeRqriMqf8Jbp0rN18pCjM+1Lt5t/VTltANRbn4K9r5dCYs5JqXLdqLwY0TsTT3j
+ 31hBdBZCBzFrcgq7waSac0sKHGrR/49IS6TWidI6ddBpWjEPzPR7SFcCRg6b4FUR
+ GRYPIRccsAsOCVdMLmydp4wk+cRTUS5Xxon9Fq4sn8BQsZP+FfM/yxM/3FqncdQ2
+ BPo8XZ+FTMxYV+HznS63Q==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+ messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
+ :feedback-id:from:from:in-reply-to:in-reply-to:message-id
+ :mime-version:references:reply-to:sender:subject:subject:to:to
+ :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
+ fm3; t=1675363355; x=1675449755; bh=lg2mMVgKWzumdcP+F9hZgcsYrteB
+ CJhK/JelW6EYdVY=; b=cxgzpT9otQWxsLIA+yjsDC7ZP5F0KwVUpP3jph2vdxZ5
+ +mitzO+3QYTvVvmnpmL8EKvzBAOOpiKA0KefZzv7ciC8KpwXn3TYPeIYKEQpHe7O
+ H0pbjMXOqtg5yoRYP3hsvSdXQz7CwXFX/HIQ7fJ5wURTZGtn01qKIf1v7RCIoaw9
+ KzXvF2sdBjzYNlhKlrJ+2dde8e9oV5rizIAthd4k6Q22qZzoKVRj6R2UMwQOFMnW
+ BVM5W5A2aZAJVzpHPoIqj9GNAFpK/H+Rbs09rSxRASrPjVDyjJtMFuZop9KbSzaj
+ 2PUaxc67TE8Tua6UJ1edW8stqxg4x7nrkZ/k9QJsUQ==
+X-ME-Sender: <xms:GgTcY74wnNYRNp3neyFioCfGY8gsdr3kkbZ9pBLxQDI8nBScyPiT-A>
+ <xme:GgTcYw6Raa_0cT5CF0vH53DC7qhHu1c4ldmSTDbYu_ApbkSwpwgEOQ6B8dI-8kN9-
+ meCH_9gcInE36s>
+X-ME-Received: <xmr:GgTcYyevjVy9ZEXxI7N76kG2I57m3hoyPOkTgeDH3NCz60GkNk1wkK_tBk4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudefkedgudduvdcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpeffhffvvefukfhfgggtuggjsehgtderredttdejnecuhfhrohhmpeffvghm
+ ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
+ hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvjeetgeekhfetudfhgfetffeg
+ fffguddvgffhffeifeeikeektdehgeetheffleenucevlhhushhtvghrufhiiigvpedtne
+ curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
+ shhlrggsrdgtohhm
+X-ME-Proxy: <xmx:GgTcY8IJiELPiUPl16hearWJ8KrYflnS8vJ3WcyZZjvqvQzEHt65DA>
+ <xmx:GgTcY_I3zAOvarV3gwgLMxeoGw3-GDJ7cFbqKY6IHEJ773hLxHQ2wg>
+ <xmx:GgTcY1zaNQiMs9pq8JTL8Jk0u2h4Pdy67KTvedibqCA-tnGC7CQuEA>
+ <xmx:GwTcY8p6sUmqTz0YfWHoddsK_tGu_jBhadfD6KT9DQiI0nHglxbFRw>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 2 Feb 2023 13:42:33 -0500 (EST)
+Date: Thu, 2 Feb 2023 13:41:29 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Mike Snitzer <snitzer@kernel.org>
+Message-ID: <Y9wEF3rWfpiCKc2i@itl-email>
+References: <20230126033358.1880-1-demi@invisiblethingslab.com>
+ <Y9vp3XDEQAl7TLND@redhat.com>
 MIME-Version: 1.0
-Message-Id: <20230202-dm-parenthesis-warning-v1-1-ebdee213eeb9@kernel.org>
-X-B4-Tracking: v=1; b=H4sIAKnr22MC/x2NywqDUAxEf0WybsBXC/ZXShe5Gr1ZGCWRtiD+e
- 6ObgcPMYXZwNmGHZ7GD8UdcFg2obgX0mXRilCEY6rJuyggcZlzJWLfMLo5fMhWd8FE13dime2w
- ShJzIGZOR9vnUZ/KN7SxW41F+1+PrfRx/R+eoXoEAAAA=
-To: agk@redhat.com, snitzer@kernel.org
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2222; i=nathan@kernel.org;
- h=from:subject:message-id; bh=KhsHJGMkk85ln+sCx+d+Nxt6KslFX/d/TmJqhuW9H0g=;
- b=owGbwMvMwCEmm602sfCA1DTG02pJDMm338jMyt3ak5ZoWjp1c+GeSq9vPRens7H8jzrROD1P9
- uQ77t3cHaUsDGIcDLJiiizVj1WPGxrOOct449QkmDmsTCBDGLg4BWAiBQkM/8y6D75Usbo+qfwp
- 271TURstM0onidn9TX6x/ef1UG3GkzGMDKc7vxoLrJXUeSF7yEvw4PyG5Ct+Ex7svLB+5YOr1zn
- KvDkA
-X-Developer-Key: i=nathan@kernel.org; a=openpgp;
- fpr=2437CB76E544CB6AB3D9DFD399739260CB6CB716
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+In-Reply-To: <Y9vp3XDEQAl7TLND@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Mon, 06 Feb 2023 07:38:31 +0000
-Subject: [dm-devel] [PATCH] dm flakey: Fix clang -Wparentheses-equality in
- flakey_map()
+Subject: Re: [dm-devel] [RFC PATCH 0/7] Allow race-free block device handling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,73 +125,118 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: trix@redhat.com, llvm@lists.linux.dev, ndesaulniers@google.com,
- linux-kernel@vger.kernel.org, patches@lists.linux.dev,
- Nathan Chancellor <nathan@kernel.org>, dm-devel@redhat.com,
- mpatocka@redhat.com, sweettea-kernel@dorminy.me
+Cc: Jens Axboe <axboe@kernel.dk>, Juergen Gross <jgross@suse.com>,
+ Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ xen-devel@lists.xenproject.org, Alasdair Kergon <agk@redhat.com>,
+ Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
+Content-Type: multipart/mixed; boundary="===============9086372165930605135=="
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+
+
+--===============9086372165930605135==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="0LK2ZHUlLOwPgDgy"
+Content-Disposition: inline
+
+
+--0LK2ZHUlLOwPgDgy
+Content-Type: text/plain; protected-headers=v1; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Date: Thu, 2 Feb 2023 13:41:29 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Mike Snitzer <snitzer@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>,
+	Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>,
+	Alasdair Kergon <agk@redhat.com>,
+	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
+	Juergen Gross <jgross@suse.com>, linux-block@vger.kernel.org,
+	linux-kernel@vger.kernel.org, xen-devel@lists.xenproject.org,
+	dm-devel@redhat.com
+Subject: Re: [RFC PATCH 0/7] Allow race-free block device handling
+
+On Thu, Feb 02, 2023 at 11:50:37AM -0500, Mike Snitzer wrote:
+> On Wed, Jan 25 2023 at 10:33P -0500,
+> Demi Marie Obenour <demi@invisiblethingslab.com> wrote:
+>=20
+> > This work aims to allow userspace to create and destroy block devices
+> > in a race-free and leak-free way,
+>=20
+> "race-free and leak-free way" implies there both races and leaks in
+> existing code. You're making claims that are likely very specific to
+> your Xen use-case.  Please explain more carefully.
+
+Will do in v2.
+
+> > and to allow them to be exposed to
+> > other Xen VMs via blkback without leaks or races.  It=E2=80=99s marked =
+as RFC
+> > for a few reasons:
+> >=20
+> > - The code has been only lightly tested.  It might be unstable or
+> >   insecure.
+> >=20
+> > - The DM_DEV_CREATE ioctl gains a new flag.  Unknown flags were
+> >   previously ignored, so this could theoretically break buggy userspace
+> >   tools.
+>=20
+> Not seeing a reason that type of DM change is needed. If you feel
+> strongly about it send a separate patch and we can discuss it.
+
+Patch 2/7 is the diskseq change.  v2 will contain a revised and tested
+version with a greatly expanded commit message.
+
+> > - I have no idea if I got the block device reference counting and
+> >   locking correct.
+>=20
+> Your headers and justifcation for this line of work are really way too
+> terse. Please take the time to clearly make the case for your changes
+> in both the patch headers and code.
+
+I will expand the commit message in v2, but I am not sure what you want
+me to add to the code comments.  Would you mind explaining?
+--=20
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
+--0LK2ZHUlLOwPgDgy
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPcBBUACgkQsoi1X/+c
+IsEkFA/9GXzWAuv/0q2ZJqJ64sluumHTrJNuenjIiibpb2PmaUs036H9r2jQYDI4
+Lsxw3M3/9AYwGFpj/mhV5uBJutDasM3xTROoY5VqdO6vTeueaXUCefc+CGNzXNzZ
+3o018mxFSPwKDaOBrCsiOuNsHtVzaOnO/TGuBW3HcYafDKFTWhDoprhfzL9mkwBY
+21Ly74WUVB+S3fhURF+XgGoPKlQlaI8u6uJvW+wPQYei/LZqm5Gcpj5sqIhomFgM
+yTA6l097aOj6ULLkScDW91sj30OJLc7qN5V+FtU27tRZWEzIcY5cl4/IL9KcAfGi
+bcQcQ2Z7WPcjqLLuUxB2C5dfR6id/CmDnplOBRD0TAVzbUCJCEciClYHxPxljE6q
+/mSqAfuBhO3ryA7z8xMYsYVz0SpdgnQqXXhxaZslSA4r0ACdEsytMu0YPPpIby7M
+BjV5Sx2xuLaw/McuiptVktbvKknJAqw79ZecjU03d3Ga3/sA8dZC4JBGRj90cOMT
+WPHUORPPmepxyX6n28rH/mdcsFDAzllbi37fReeJCKEEmrT5aCa8pyry1Rl2V6fi
+ub+T46oghFHgl63y0Timr6eamgqV3CHGczHiKMcA0Mclv4shWUyaId0bzAGn/RLR
+vpbwX0CGu7m1vnqsskbtLq1ThblONmQWtVFcFrqykfZMeqs2KtM=
+=aeu1
+-----END PGP SIGNATURE-----
+
+--0LK2ZHUlLOwPgDgy--
+
+
+--===============9086372165930605135==
 Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-
-Clang warns:
-
-  ../drivers/md/dm-flakey.c:369:28: error: equality comparison with extraneous parentheses [-Werror,-Wparentheses-equality]
-                          if ((fc->corrupt_bio_rw == WRITE)) {
-                               ~~~~~~~~~~~~~~~~~~~^~~~~~~~
-  ../drivers/md/dm-flakey.c:369:28: note: remove extraneous parentheses around the comparison to silence this warning
-                          if ((fc->corrupt_bio_rw == WRITE)) {
-                              ~                   ^       ~
-  ../drivers/md/dm-flakey.c:369:28: note: use '=' to turn this equality comparison into an assignment
-                          if ((fc->corrupt_bio_rw == WRITE)) {
-                                                  ^~
-                                                  =
-  1 error generated.
-
-GCC only warns when one set of parentheses are used for assignment
-expressions, whereas clang additionally warns when two sets of
-parentheses are used for equality comparisons. Remove the extra set of
-parentheses to silence the warning as it suggests, as this is obviously
-supposed to be an equality comparison.
-
-Fixes: 0e766389cedc ("dm flakey: fix logic when corrupting a bio")
-Link: https://github.com/ClangBuiltLinux/linux/issues/1798
-Signed-off-by: Nathan Chancellor <nathan@kernel.org>
----
-I do not mind this change being squashed with the offending commit, as I
-noticed it was Cc'd for stable, which would minimize the chance for
-breakage.
----
- drivers/md/dm-flakey.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
-index 08f9aa476d97..335684a1aeaa 100644
---- a/drivers/md/dm-flakey.c
-+++ b/drivers/md/dm-flakey.c
-@@ -366,7 +366,7 @@ static int flakey_map(struct dm_target *ti, struct bio *bio)
- 		 * Corrupt matching writes.
- 		 */
- 		if (fc->corrupt_bio_byte) {
--			if ((fc->corrupt_bio_rw == WRITE)) {
-+			if (fc->corrupt_bio_rw == WRITE) {
- 				if (all_corrupt_bio_flags_match(bio, fc))
- 					corrupt_bio_data(bio, fc);
- 			}
-
----
-base-commit: 6f30cc248507ee96c22ff4c3cbc86099ff12b7a9
-change-id: 20230202-dm-parenthesis-warning-6139f4b5020b
-
-Best regards,
--- 
-Nathan Chancellor <nathan@kernel.org>
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============9086372165930605135==--
 
