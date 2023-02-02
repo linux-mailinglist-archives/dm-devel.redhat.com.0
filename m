@@ -2,98 +2,106 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99BEC68A734
-	for <lists+dm-devel@lfdr.de>; Sat,  4 Feb 2023 01:20:24 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5197E68B686
+	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 08:39:09 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675470023;
+	s=mimecast20190719; t=1675669148;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rqeyr/D/YGGGK9GjleJAp9kBsMDaNint8yJJNFvSsGU=;
-	b=aYbqIiin3r9Vd13k0dvuPNE2slrl1Ak0zJuXnrtLktoja1AxpWid02T1oKtvXJSZ5bONre
-	MN4p1iOWjeGoA9jr+hK00TDElt5ym/MJc3OhfVd7eC9xC6y2l7cybeS1rzB5mXkYbrzR/3
-	tf/Vc1RerXXpviPdzWPhgKa0RFqepnc=
+	bh=dGvs9hITIyPb1cND/ut+MQNSOgNH9v9cqNT0IGsLqqE=;
+	b=eu9fZ+2SM6th5ysxdme5jjrOi2Xvv6K/0QS02ieiXl/sSX4+mkIm1NQrVcEfltM2eb+DVL
+	3FF57wn+flPlP+kJHNlATOzravihF9IQpoPasOoJekBvF43OpUrEtycSLJ6KBWQ+zNT3ZO
+	IN37Q0AHqNznm4olYkoC210AnszH6EE=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-189-3pvYK-UpNxiHoctW9nA6Jg-1; Fri, 03 Feb 2023 19:20:21 -0500
-X-MC-Unique: 3pvYK-UpNxiHoctW9nA6Jg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-655-OdbRpy-0N-CM5kfjRekMcw-1; Mon, 06 Feb 2023 02:38:45 -0500
+X-MC-Unique: OdbRpy-0N-CM5kfjRekMcw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB4AC1C05153;
-	Sat,  4 Feb 2023 00:20:18 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0CF30410B1AD;
-	Sat,  4 Feb 2023 00:20:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02CDD3C025C8;
+	Mon,  6 Feb 2023 07:38:43 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4D897440D9;
+	Mon,  6 Feb 2023 07:38:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A0C3D19465B8;
-	Sat,  4 Feb 2023 00:20:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B0C01946A75;
+	Mon,  6 Feb 2023 07:38:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E5DC1946586
- for <dm-devel@listman.corp.redhat.com>; Sat,  4 Feb 2023 00:20:12 +0000 (UTC)
+ ESMTP id 65E121946586
+ for <dm-devel@listman.corp.redhat.com>; Thu,  2 Feb 2023 08:22:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5DC77410B1B8; Sat,  4 Feb 2023 00:20:12 +0000 (UTC)
+ id 2E9CF51FF; Thu,  2 Feb 2023 08:22:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 569C8410B1AD
- for <dm-devel@redhat.com>; Sat,  4 Feb 2023 00:20:12 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B30818483B3
- for <dm-devel@redhat.com>; Sat,  4 Feb 2023 00:20:12 +0000 (UTC)
-Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
- [209.85.160.174]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2686B51E5
+ for <dm-devel@redhat.com>; Thu,  2 Feb 2023 08:22:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03A781C06902
+ for <dm-devel@redhat.com>; Thu,  2 Feb 2023 08:22:19 +0000 (UTC)
+Received: from frasgout12.his.huawei.com (frasgout12.his.huawei.com
+ [14.137.139.154]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-42-2P_W1DOjP52QSQgJ4zF2lQ-1; Fri, 03 Feb 2023 19:20:10 -0500
-X-MC-Unique: 2P_W1DOjP52QSQgJ4zF2lQ-1
-Received: by mail-qt1-f174.google.com with SMTP id h24so7440555qta.12
- for <dm-devel@redhat.com>; Fri, 03 Feb 2023 16:20:10 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KkoMTSq4l3G1c49HimqfC19O87IH6JspHAce298n11w=;
- b=f4QeMFRQiD/qbqmw3ghQeKhMeom9+J8Hlr5jRhmoT4rA7ce5HzuY5j3y2ozsm9XvQy
- xPWQRQwnBkBre9thXJcOV1J0Lmcuw/SxQW654hi03e5KPRxPgm5L85v/CmzW6lel6IFD
- iXEzk/qMCa+viMRuCrTxeZNBIK61H71eGkF58uY88P4/+508jE1b/GNmoFpGUK1PicNS
- UIjFVvp+LcHfWMk7jo5OLhtVV9ZcqMEqs/DcJBnNtvlWsfw4cF7BKZy4jQmVcJTVcBbO
- gaFzOrS3VhqHHs1OA7E6lPtDwaHiQB7VUfoxwiXqemOSNXVfOI72D1VLnf8VXBXevPtU
- 4ugg==
-X-Gm-Message-State: AO0yUKWJC11SlO1dm3b1D2UJ2xE3TKq44g/lN96ZIrXKkRZ+u4xfv6fx
- gmoFzagZAi0C7vJtcVuQ9jYHiFI=
-X-Google-Smtp-Source: AK7set8kb03l51pPPK2sD000T3nG6rEGMEgSpN3Th8LXVdJ9cJkEm26hx9e4hZWuukXmwkgbfjBXSQ==
-X-Received: by 2002:ac8:7f50:0:b0:3a5:1ea1:bae2 with SMTP id
- g16-20020ac87f50000000b003a51ea1bae2mr19566958qtk.34.1675470010067; 
- Fri, 03 Feb 2023 16:20:10 -0800 (PST)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- g17-20020ae9e111000000b006ce580c2663sm2801394qkm.35.2023.02.03.16.20.09
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 03 Feb 2023 16:20:09 -0800 (PST)
-Date: Fri, 3 Feb 2023 19:20:08 -0500
-From: Mike Snitzer <snitzer@kernel.org>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Message-ID: <Y92kuOeVIaVimXbf@redhat.com>
-References: <20230202181423.2910619-1-hch@lst.de> <Y9xqvF6nTptzHwpv@redhat.com>
- <Y9x8pagVnO7Xtnbn@redhat.com> <20230203150053.GA28516@lst.de>
- <Y904yA+mS9go9XKP@redhat.com>
- <20230203235028.GC17327@octiron.msp.redhat.com>
+ us-mta-157-WERm47u1OY-nngBjWqXpiw-1; Thu, 02 Feb 2023 03:22:14 -0500
+X-MC-Unique: WERm47u1OY-nngBjWqXpiw-1
+Received: from mail02.huawei.com (unknown [172.18.147.228])
+ by frasgout12.his.huawei.com (SkyGuard) with ESMTP id 4P6s4b6FNWz9v7PK;
+ Thu,  2 Feb 2023 16:13:51 +0800 (CST)
+Received: from roberto-ThinkStation-P620 (unknown [10.204.63.22])
+ by APP2 (Coremail) with SMTP id GxC2BwBHE1qQcttjhtrmAA--.14473S2;
+ Thu, 02 Feb 2023 09:21:48 +0100 (CET)
+Message-ID: <903062f7b2e2709ae0e4416545ffadd91c132676.camel@huaweicloud.com>
+From: Roberto Sassu <roberto.sassu@huaweicloud.com>
+To: Fan Wu <wufan@linux.microsoft.com>
+Date: Thu, 02 Feb 2023 09:21:24 +0100
+In-Reply-To: <20230201232639.GB9075@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
+ <1675119451-23180-11-git-send-email-wufan@linux.microsoft.com>
+ <4f029a41d80d883d9b4729cbc85211955c9efe8e.camel@huaweicloud.com>
+ <20230201232639.GB9075@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+User-Agent: Evolution 3.36.5-0ubuntu1
 MIME-Version: 1.0
-In-Reply-To: <20230203235028.GC17327@octiron.msp.redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] block: remove submit_bio_noacct
+X-CM-TRANSID: GxC2BwBHE1qQcttjhtrmAA--.14473S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw4ftFW5tw1fXF4DKr4xtFb_yoW8JF4xpF
+ 1UWayYgrn5KasrGrnaya1fArWIkrWYv343Xr15Xw18CF98ur1IvF1FkFW5Za9F9r95C3WF
+ vFW0qa47Zwn8A3DanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUkjb4IE77IF4wAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+ vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Jr0_JF4l84ACjcxK6xIIjxv20xvEc7Cj
+ xVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxV
+ AFwI0_Gr0_Gr1UM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40E
+ x7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x
+ 0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lFIxGxcIEc7CjxVA2Y2ka0xkIwI1l42xK82IYc2Ij
+ 64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x
+ 8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE
+ 2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42
+ xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIE
+ c7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x07UZ18PUUUUU=
+X-CM-SenderInfo: purev21wro2thvvxqx5xdzvxpfor3voofrz/1tbiAQAQBF1jj4huJgABsl
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mailman-Approved-At: Mon, 06 Feb 2023 07:38:31 +0000
+Subject: Re: [dm-devel] [RFC PATCH v9 10/16] dm-verity: consume root hash
+ digest and signature data via LSM hook
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,79 +113,53 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, dm-devel@redhat.com,
- linux-raid@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
+ paul@paul-moore.com, dm-devel@redhat.com, corbet@lwn.net,
+ roberto.sassu@huawei.com, Deven Bowers <deven.desai@linux.microsoft.com>,
+ linux-doc@vger.kernel.org, snitzer@kernel.org, jmorris@namei.org,
+ zohar@linux.ibm.com, linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+ eparis@redhat.com, linux-fscrypt@vger.kernel.org,
+ linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Feb 03 2023 at  6:50P -0500,
-Benjamin Marzinski <bmarzins@redhat.com> wrote:
-
-> On Fri, Feb 03, 2023 at 11:39:36AM -0500, Mike Snitzer wrote:
-> > On Fri, Feb 03 2023 at 10:00P -0500,
-> > Christoph Hellwig <hch@lst.de> wrote:
+On Wed, 2023-02-01 at 15:26 -0800, Fan Wu wrote:
+> On Tue, Jan 31, 2023 at 02:22:01PM +0100, Roberto Sassu wrote:
+> > On Mon, 2023-01-30 at 14:57 -0800, Fan Wu wrote:
+> > > From: Deven Bowers <deven.desai@linux.microsoft.com>
+> > > 
+> > > dm-verity provides a strong guarantee of a block device's integrity. As
+> > > a generic way to check the integrity of a block device, it provides
+> > > those integrity guarantees to its higher layers, including the filesystem
+> > > level.
 > > 
-> > > On Thu, Feb 02, 2023 at 10:16:53PM -0500, Mike Snitzer wrote:
-> > > > > > The current usage of submit_bio vs submit_bio_noacct which skips the
-> > > > > > VM events and task account is a bit unclear.  It seems to be mostly
-> > > > > > intended for sending on bios received by stacking drivers, but also
-> > > > > > seems to be used for stacking drivers newly generated metadata
-> > > > > > sometimes.
-> > > > > 
-> > > > > Your lack of confidence conveyed in the above shook me a little bit
-> > > > > considering so much of this code is attributed to you -- I mostly got
-> > > > > past that, but I am a bit concerned about one aspect of the
-> > > > > submit_bio() change (2nd to last comment inlined below).
-> > > 
-> > > The confidence is about how it is used.  And that's up to the driver
-> > > authors, not helped by them not having any guidelines.  And while
-> > > I've touched this code a lot, the split between the two levels of API
-> > > long predates me.
-> > > 
-> > > > > > Remove the separate API and just skip the accounting if submit_bio
-> > > > > > is called recursively.  This gets us an accounting behavior that
-> > > > > > is very similar (but not quite identical) to the current one, while
-> > > > > > simplifying the API and code base.
-> > > > > 
-> > > > > Can you elaborate on the "but not quite identical"? This patch is
-> > > > > pretty mechanical, just folding code and renaming.. but you obviously
-> > > > > saw subtle differences.  Likely worth callign those out precisely.
-> > > 
-> > > The explanation was supposed to be in the Lines above.  Now accounting
-> > > is skipped if in a ->submit_bio recursion.  Before that it dependent
-> > > on drivers calling either submit_bio or submit_bio_noacct, for which
-> > > there was no clear guideline and drivers have been a bit sloppy about.
+> > I think you could reuse most of is_trusted_verity_target(), in
+> > particular dm_verity_get_root_digest().
 > > 
-> > OK, but afaict the code is identical after your refactoring.
-> > Side-effect is drivers that were double accounting will now be fixed.
-> 
-> Doesn't this open dm up to double accounting? Take dm-delay for
-> instance. If the delay is 0, then submit_bio() for the underlying device
-> will be called recursively and will skip the accounting.  If the delay
-> isn't 0, then submit_bio() for the underlying device will be called
-> later from a workqueue and the accounting will happen again, even though
-> the same amount of IO happens in either case. Or am I missing something
-> here?
-> 
-> -Ben 
+> > And probably, the previous patch is not necessary.
+> > 
+> > Roberto
+> > 
+> Thanks for the info. This function seems could be used to get the roothash
+> but for saving the signature we still need the hook function in the previous
+> patch.
 
-Nope, you aren't missing anything, good catch!
+Uhm, look at the LoadPin case. It does not need to temporarily store
+the root digest in a security blob. It evaluates it directly.
 
-Callers of dm_submit_bio_remap() are the poster-child for submitting
-bios from a different task.
+Well, ok, dm_verity_loadpin_is_bdev_trusted() looks for trusted digests
+in the dm_verity_loadpin_trusted_root_digests list. So, something
+equivalent needs to be made for IPE (or you just get the digest).
+However, I find not introducing new hooks and evaluating the
+information directly more efficient.
 
-So yeah...
-
-Nacked-by: Mike Snitzer <snitzer@kernel.org>
-
-(Could be that many submit_bio_noacct callers can be converted but we
-really do need to keep the submit_bio_noacct interface)
+Roberto
 
 --
 dm-devel mailing list
