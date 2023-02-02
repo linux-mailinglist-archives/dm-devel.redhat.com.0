@@ -1,100 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6526168875D
-	for <lists+dm-devel@lfdr.de>; Thu,  2 Feb 2023 20:11:42 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04EFE6887DC
+	for <lists+dm-devel@lfdr.de>; Thu,  2 Feb 2023 20:56:53 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675365100;
+	s=mimecast20190719; t=1675367813;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VSbEGgm9K6gD6GG3cWIGLXiFcxufD0mggP/dVuZdUrE=;
-	b=UyaKC0T+ki7Nx/KzbplLZ0yrQL61W6TbxlZot+mgn5Rlx9pzJBI1yoEtkEZStJ3b4yaX0+
-	saKq3DSi3XcqyTG4b6iilsxgDzKbZQOMYxi+WTktFoy9dM7lr2PhUSZyU54uq+xGVtbWZx
-	4Z4BF00KJonbpNTNPGRKZI00ahjLhtU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=M/dxrv5FPlFjYzEpHoCwC6q+JSA+T63i3OxM76bF2Uc=;
+	b=Jlc/j0lMqI1eNmdv1qL0ymhQFERa4QXAQQnSBji9WQB1mwERn+hCeORD0YjsmRIcAy4ib9
+	Omv1eXz5vte7oCaft9cLYcT3ETCfZrBH3FcQpNKhSCm/tejwWmL8ueEgtdAqeDl6pAh3ex
+	IpYDUHA3XM7hV0rVuTI4hGbeOBoLjP4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-503-OSfLZQRfP6uAX_V-EBQlNw-1; Thu, 02 Feb 2023 14:11:38 -0500
-X-MC-Unique: OSfLZQRfP6uAX_V-EBQlNw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-302-_GShUJNfOIuKdzZSqH6QSA-1; Thu, 02 Feb 2023 14:56:49 -0500
+X-MC-Unique: _GShUJNfOIuKdzZSqH6QSA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE47B101A52E;
-	Thu,  2 Feb 2023 19:11:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 649F63806710;
+	Thu,  2 Feb 2023 19:56:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4DC324047022;
-	Thu,  2 Feb 2023 19:11:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E65F8C15BAE;
+	Thu,  2 Feb 2023 19:56:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EA35F19465B8;
-	Thu,  2 Feb 2023 19:11:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 34E0919465B8;
+	Thu,  2 Feb 2023 19:56:40 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F0D801946586
- for <dm-devel@listman.corp.redhat.com>; Thu,  2 Feb 2023 19:11:30 +0000 (UTC)
+ ESMTP id BA9F31946586
+ for <dm-devel@listman.corp.redhat.com>; Thu,  2 Feb 2023 19:56:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D71D52166B35; Thu,  2 Feb 2023 19:11:30 +0000 (UTC)
+ id 9ED27492B00; Thu,  2 Feb 2023 19:56:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D04BF2166B33
- for <dm-devel@redhat.com>; Thu,  2 Feb 2023 19:11:30 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 97802492C3E
+ for <dm-devel@redhat.com>; Thu,  2 Feb 2023 19:56:38 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B12A088B77D
- for <dm-devel@redhat.com>; Thu,  2 Feb 2023 19:11:30 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 791E4185A7A4
+ for <dm-devel@redhat.com>; Thu,  2 Feb 2023 19:56:38 +0000 (UTC)
+Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
+ [209.85.160.177]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-652-iquNVdVfOICwJecIEeXl_g-1; Thu, 02 Feb 2023 14:11:29 -0500
-X-MC-Unique: iquNVdVfOICwJecIEeXl_g-1
-Received: by mail-wm1-f51.google.com with SMTP id
- j29-20020a05600c1c1d00b003dc52fed235so2227485wms.1
- for <dm-devel@redhat.com>; Thu, 02 Feb 2023 11:11:28 -0800 (PST)
+ us-mta-447-kJujh96ROQK8m8iSuW0E4g-1; Thu, 02 Feb 2023 14:56:36 -0500
+X-MC-Unique: kJujh96ROQK8m8iSuW0E4g-1
+Received: by mail-qt1-f177.google.com with SMTP id h24so3182422qta.12
+ for <dm-devel@redhat.com>; Thu, 02 Feb 2023 11:56:36 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=cmqPx/Zy279diCwL80ZzQVZT2Mcv1030GfDHO64ZwaM=;
- b=3cr/igKlJX5hyDOH9JOvr3bGvJIYP9bmrkDxUF2BQ5mm1w3RNAOVGensxMH4mabMaW
- zrfR4JPHYkihb4O2hdwA9NQW8TDS+bkoxOYjqnpwt54WTzyhxZxOnu58NtoIA1InRbCd
- fFnj4LMq63ZtQs7/foKO8jTAIt5BnrYGSmUyz2nWSFUsLcmLduOYG+le1gNnuTjr1u74
- 6e0dv7fz+WOcg2RUeiZgtG0o0MVwSO009IZzBWbS/iey+GLQetgFKepSrwomOPyeCwku
- ucwlrVktauTwkf8JoebU/xFoYnENkcrBkmSEkecBSXsAqju2ilVBoEdvQKtnHBctKUT/
- 9KFg==
-X-Gm-Message-State: AO0yUKWNNx9NYu9n1O8NGcam3KESjf4OqsAfcb8arUrBv2eTbWDBfXVG
- Aw/9j2E4inF9snx+DjcxnJJp1U+zYEhVJpF3mMX5qw==
-X-Google-Smtp-Source: AK7set96hCXSN8RisUiNR5YsJkh6ScE8+8SR4F6BqhH6feHgPVQmnMOF+Dd5nQ7x6loD3WWBhySd5AaVOyA9RgQ/D6o=
-X-Received: by 2002:a05:600c:1da3:b0:3da:b40f:c734 with SMTP id
- p35-20020a05600c1da300b003dab40fc734mr372362wms.115.1675365087907; Thu, 02
- Feb 2023 11:11:27 -0800 (PST)
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=puPH7Nn4Vxt3kUnQKHCGR9XbgEDlt42vfosxQIpu+cs=;
+ b=vYsNdf+SwdmxZx279LAP7tfCzvk7NXvWdSBZ4+gE6Vprr1AoSDIywg/FLr7o9Tq1Rl
+ Gf0RX+VtJ5ToovsHq6bIg8UOu6NUfGF6iqSgyjBb9kMFYaoQ+8OFrGmI7C6KQOozCZc3
+ 8iqKjkblcQVneIVO6SF7GNj+R4ZjNuu41pL/Z2RzR8fjC5AWS6mff/jZkdqAwTQbCp0W
+ f5GXxegThjxYFuDewNApMP9lEcEqPZ7BUK23gnuspuwat3+uK6B+vMFINBOsFbCi8Wi7
+ CWA276szgQBHbLi2MeD7y8cUVJhWNb2AqfvlPW8Bjvqb00IZiZ7amrtoVE9UFC8TjWpU
+ QS/g==
+X-Gm-Message-State: AO0yUKWFydx7Reo6Xi7XLxdjj+vCR5bISfWI5RuS4yowZbopWykGOHBR
+ JoEgvZVumD7BefpbGdc6QfevEmw=
+X-Google-Smtp-Source: AK7set92dyhIkHCdWF7e92O2MXu6mUmZ6lpekQmSoPBHbD1dR3CVvDYQ1CtAQ9IvY8M0gdRPR2pO1A==
+X-Received: by 2002:a05:622a:511:b0:3b8:6c68:6109 with SMTP id
+ l17-20020a05622a051100b003b86c686109mr13439452qtx.21.1675367796153; 
+ Thu, 02 Feb 2023 11:56:36 -0800 (PST)
+Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
+ [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
+ h6-20020a05620a10a600b007246f005d8bsm293223qkk.116.2023.02.02.11.56.35
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 02 Feb 2023 11:56:35 -0800 (PST)
+Date: Thu, 2 Feb 2023 14:56:34 -0500
+From: Mike Snitzer <snitzer@kernel.org>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Message-ID: <Y9wVcskXyOk3bbzC@redhat.com>
+References: <20230126033358.1880-1-demi@invisiblethingslab.com>
+ <Y9vp3XDEQAl7TLND@redhat.com> <Y9wEF3rWfpiCKc2i@itl-email>
 MIME-Version: 1.0
-References: <20230202012348.885402-1-nhuck@google.com>
- <Y9vnte1xP5T+nZ6j@redhat.com>
-In-Reply-To: <Y9vnte1xP5T+nZ6j@redhat.com>
-From: Nathan Huckleberry <nhuck@google.com>
-Date: Thu, 2 Feb 2023 11:11:16 -0800
-Message-ID: <CAJkfWY5sYxPe1ArxSe3fkwqkOFSxxz9HDdF6XoL_Wc9g070hRg@mail.gmail.com>
-To: Mike Snitzer <snitzer@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] dm-verity: Remove WQ_UNBOUND.
+In-Reply-To: <Y9wEF3rWfpiCKc2i@itl-email>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [RFC PATCH 0/7] Allow race-free block device handling
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,82 +103,59 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, Eric Biggers <ebiggers@kernel.org>,
- dm-devel@redhat.com, mpatocka@redhat.com,
- Sami Tolvanen <samitolvanen@google.com>, Alasdair Kergon <agk@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Juergen Gross <jgross@suse.com>,
+ Marek =?iso-8859-1?Q?Marczykowski-G=F3recki?=
+ <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ xen-devel@lists.xenproject.org, Alasdair Kergon <agk@redhat.com>,
+ Roger Pau =?iso-8859-1?Q?Monn=E9?= <roger.pau@citrix.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Looks good. Thanks.
-
-On Thu, Feb 2, 2023 at 8:41 AM Mike Snitzer <snitzer@kernel.org> wrote:
->
-> On Wed, Feb 01 2023 at  8:23P -0500,
-> Nathan Huckleberry <nhuck@google.com> wrote:
->
-> > Setting WQ_UNBOUND increases scheduler latency on ARM64.  This is likely
-> > due to the asymmetric architecture of ARM64 processors.
-> >
-> > I've been unable to reproduce the results that claim WQ_UNBOUND gives a
-> > performance boost on x86-64.
-> >
-> > This flag is causing performance issues for multiple subsystems within
-> > Android.  Notably, the same slowdown exists for decompression with
-> > EROFS.
-> >
-> > | open-prebuilt-camera  | WQ_UNBOUND | ~WQ_UNBOUND   |
-> > |-----------------------|------------|---------------|
-> > | verity wait time (us) | 11746      | 119 (-98%)    |
-> > | erofs wait time (us)  | 357805     | 174205 (-51%) |
-> >
-> > | sha256 ramdisk random read | WQ_UNBOUND    | ~WQ_UNBOUND |
-> > |----------------------------|-----------=---|-------------|
-> > | arm64 (accelerated)        | bw=42.4MiB/s  | bw=212MiB/s |
-> > | arm64 (generic)            | bw=16.5MiB/s  | bw=48MiB/s  |
-> > | x86_64 (generic)           | bw=233MiB/s   | bw=230MiB/s |
-> >
-> > Cc: Sami Tolvanen <samitolvanen@google.com>
-> > Cc: Eric Biggers <ebiggers@kernel.org>
-> > Signed-off-by: Nathan Huckleberry <nhuck@google.com>
-> > ---
-> >  drivers/md/dm-verity-target.c | 4 ++--
-> >  1 file changed, 2 insertions(+), 2 deletions(-)
-> >
-> > diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-> > index ccf5b852fbf7..020fd2341025 100644
-> > --- a/drivers/md/dm-verity-target.c
-> > +++ b/drivers/md/dm-verity-target.c
-> > @@ -1399,8 +1399,8 @@ static int verity_ctr(struct dm_target *ti, unsigned argc, char **argv)
-> >               goto bad;
-> >       }
-> >
-> > -     /* WQ_UNBOUND greatly improves performance when running on ramdisk */
-> > -     wq_flags = WQ_MEM_RECLAIM | WQ_UNBOUND;
-> > +     wq_flags = WQ_MEM_RECLAIM;
-> > +
-> >       /*
-> >        * Using WQ_HIGHPRI improves throughput and completion latency by
-> >        * reducing wait times when reading from a dm-verity device.
-> > --
-> > 2.39.1.456.gfc5497dd1b-goog
->
-> Hi,
->
-> I've discussed with Mikulas, tweaked your patch slightly but accepted
-> your change, please see:
->
-> https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git/commit/?h=dm-6.3&id=6f30cc248507ee96c22ff4c3cbc86099ff12b7a9
->
-> Thanks,
-> Mike
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gVGh1LCBGZWIgMDIgMjAyMyBhdCAgMTo0MVAgLTA1MDAsCkRlbWkgTWFyaWUgT2Jlbm91ciA8
+ZGVtaUBpbnZpc2libGV0aGluZ3NsYWIuY29tPiB3cm90ZToKCj4gT24gVGh1LCBGZWIgMDIsIDIw
+MjMgYXQgMTE6NTA6MzdBTSAtMDUwMCwgTWlrZSBTbml0emVyIHdyb3RlOgo+ID4gT24gV2VkLCBK
+YW4gMjUgMjAyMyBhdCAxMDozM1AgLTA1MDAsCj4gPiBEZW1pIE1hcmllIE9iZW5vdXIgPGRlbWlA
+aW52aXNpYmxldGhpbmdzbGFiLmNvbT4gd3JvdGU6Cj4gPiAKPiA+ID4gVGhpcyB3b3JrIGFpbXMg
+dG8gYWxsb3cgdXNlcnNwYWNlIHRvIGNyZWF0ZSBhbmQgZGVzdHJveSBibG9jayBkZXZpY2VzCj4g
+PiA+IGluIGEgcmFjZS1mcmVlIGFuZCBsZWFrLWZyZWUgd2F5LAo+ID4gCj4gPiAicmFjZS1mcmVl
+IGFuZCBsZWFrLWZyZWUgd2F5IiBpbXBsaWVzIHRoZXJlIGJvdGggcmFjZXMgYW5kIGxlYWtzIGlu
+Cj4gPiBleGlzdGluZyBjb2RlLiBZb3UncmUgbWFraW5nIGNsYWltcyB0aGF0IGFyZSBsaWtlbHkg
+dmVyeSBzcGVjaWZpYyB0bwo+ID4geW91ciBYZW4gdXNlLWNhc2UuICBQbGVhc2UgZXhwbGFpbiBt
+b3JlIGNhcmVmdWxseS4KPiAKPiBXaWxsIGRvIGluIHYyLgo+IAo+ID4gPiBhbmQgdG8gYWxsb3cg
+dGhlbSB0byBiZSBleHBvc2VkIHRvCj4gPiA+IG90aGVyIFhlbiBWTXMgdmlhIGJsa2JhY2sgd2l0
+aG91dCBsZWFrcyBvciByYWNlcy4gIEl04oCZcyBtYXJrZWQgYXMgUkZDCj4gPiA+IGZvciBhIGZl
+dyByZWFzb25zOgo+ID4gPiAKPiA+ID4gLSBUaGUgY29kZSBoYXMgYmVlbiBvbmx5IGxpZ2h0bHkg
+dGVzdGVkLiAgSXQgbWlnaHQgYmUgdW5zdGFibGUgb3IKPiA+ID4gICBpbnNlY3VyZS4KPiA+ID4g
+Cj4gPiA+IC0gVGhlIERNX0RFVl9DUkVBVEUgaW9jdGwgZ2FpbnMgYSBuZXcgZmxhZy4gIFVua25v
+d24gZmxhZ3Mgd2VyZQo+ID4gPiAgIHByZXZpb3VzbHkgaWdub3JlZCwgc28gdGhpcyBjb3VsZCB0
+aGVvcmV0aWNhbGx5IGJyZWFrIGJ1Z2d5IHVzZXJzcGFjZQo+ID4gPiAgIHRvb2xzLgo+ID4gCj4g
+PiBOb3Qgc2VlaW5nIGEgcmVhc29uIHRoYXQgdHlwZSBvZiBETSBjaGFuZ2UgaXMgbmVlZGVkLiBJ
+ZiB5b3UgZmVlbAo+ID4gc3Ryb25nbHkgYWJvdXQgaXQgc2VuZCBhIHNlcGFyYXRlIHBhdGNoIGFu
+ZCB3ZSBjYW4gZGlzY3VzcyBpdC4KPiAKPiBQYXRjaCAyLzcgaXMgdGhlIGRpc2tzZXEgY2hhbmdl
+LiAgdjIgd2lsbCBjb250YWluIGEgcmV2aXNlZCBhbmQgdGVzdGVkCj4gdmVyc2lvbiB3aXRoIGEg
+Z3JlYXRseSBleHBhbmRlZCBjb21taXQgbWVzc2FnZS4KCkknbSBhd2FyZSB0aGF0IDIvNyBpcyB3
+aGVyZSB5b3UgbWFrZSB0aGUgRE0gY2hhbmdlIHRvIGRpc2FsbG93IHVua25vd24KZmxhZ3MsIHdo
+YXQgSSdtIHNheWluZyBpcyBJIGRvbid0IHNlZSBhIHJlYXNvbiBmb3IgdGhhdCBjaGFuZ2UuCgpD
+ZXJ0YWlubHkgZG9lc24ndCBsb29rIHRvIGJlIGEgcmVxdWlyZW1lbnQgZm9yIGV2ZXJ5dGhpbmcg
+ZWxzZSBpbiB0aGF0CnBhdGNoLgoKU28gc2VuZCBhIHNlcGFyYXRlIHBhdGNoLCBidXQgSSdtIGlu
+Y2xpbmVkIHRvIF9ub3RfIGFjY2VwdCBpdCBiZWNhdXNlCml0IGRvZXMgcG90ZW50aWFsbHkgYnJl
+YWsgc29tZSB1c2Vyc3BhY2UuCiAKPiA+ID4gLSBJIGhhdmUgbm8gaWRlYSBpZiBJIGdvdCB0aGUg
+YmxvY2sgZGV2aWNlIHJlZmVyZW5jZSBjb3VudGluZyBhbmQKPiA+ID4gICBsb2NraW5nIGNvcnJl
+Y3QuCj4gPiAKPiA+IFlvdXIgaGVhZGVycyBhbmQganVzdGlmY2F0aW9uIGZvciB0aGlzIGxpbmUg
+b2Ygd29yayBhcmUgcmVhbGx5IHdheSB0b28KPiA+IHRlcnNlLiBQbGVhc2UgdGFrZSB0aGUgdGlt
+ZSB0byBjbGVhcmx5IG1ha2UgdGhlIGNhc2UgZm9yIHlvdXIgY2hhbmdlcwo+ID4gaW4gYm90aCB0
+aGUgcGF0Y2ggaGVhZGVycyBhbmQgY29kZS4KPiAKPiBJIHdpbGwgZXhwYW5kIHRoZSBjb21taXQg
+bWVzc2FnZSBpbiB2MiwgYnV0IEkgYW0gbm90IHN1cmUgd2hhdCB5b3Ugd2FudAo+IG1lIHRvIGFk
+ZCB0byB0aGUgY29kZSBjb21tZW50cy4gIFdvdWxkIHlvdSBtaW5kIGV4cGxhaW5pbmc/CgpOb3Ro
+aW5nIHNwZWNpZmljIGFib3V0IGNvZGUsIHdhcyBqdXN0IGEgZ2VuZXJhbCByZW1pbmRlciAoYmFz
+ZWQgb24gaG93CnRlcnNlIHRoZSAyLzcgaGVhZGVyIHdhcykuCgpNaWtlCgotLQpkbS1kZXZlbCBt
+YWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNv
+bS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
