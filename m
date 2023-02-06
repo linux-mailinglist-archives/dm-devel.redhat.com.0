@@ -1,56 +1,56 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A29CF68B9FB
-	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 11:23:20 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADDC468B9FC
+	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 11:23:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675678999;
+	s=mimecast20190719; t=1675679005;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=cEbjoFwJgjwXsZkAWkj5ipuykUQUIKx1xTV1paJ6R9M=;
-	b=VdmRt7u0R6dSEnwqCzwP8R374qCY3NcQtg8Qdk7eKB5eFh+r/HAWj3Su9c9dZgaaG0hw2l
-	kqWkWH1SGXHyoY4LONtufqBHVYEAfT4XYD7yjeWaWMsRqVwb90/UVzWTnPi4ro4cNXw+Rg
-	m8C/SnaKQAWBB7BDJaqVYtEkYLJ41bE=
+	 list-subscribe:list-post; bh=3lHkR5/1cF51jPD/+iut1VrU9CipO8/zroN4cdSXlsc=;
+	b=DYKz/Ei6AlukZj2o8IgLyalKTq7cU+7Lv3b5Pchd8y9EwAGs9EgxHaZGEF6FjU1a2BdhOS
+	IWX+KI/kXMGF4zz1RcXiw34iQLOPO2E2Rx70UZX8equ2AngWxVP609WE3fSjopJmcTWE81
+	eIhq7qlwZNod0w8GPdaj/JCA6avNczY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-580-mVkeBtc6MFCEek_W54gLNQ-1; Mon, 06 Feb 2023 05:23:18 -0500
-X-MC-Unique: mVkeBtc6MFCEek_W54gLNQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-471-SDZ8LlXsOzanR97Bj7N2kw-1; Mon, 06 Feb 2023 05:23:24 -0500
+X-MC-Unique: SDZ8LlXsOzanR97Bj7N2kw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 03AFB8030CB;
-	Mon,  6 Feb 2023 10:23:16 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12E6A800D83;
+	Mon,  6 Feb 2023 10:23:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E0B04C15BAE;
-	Mon,  6 Feb 2023 10:23:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EFBDA2026D38;
+	Mon,  6 Feb 2023 10:23:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A366A19465A3;
-	Mon,  6 Feb 2023 10:23:15 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E49441946589;
+	Mon,  6 Feb 2023 10:23:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7DD411946594
- for <dm-devel@listman.corp.redhat.com>; Mon,  6 Feb 2023 10:23:14 +0000 (UTC)
+ ESMTP id A02C01946589
+ for <dm-devel@listman.corp.redhat.com>; Mon,  6 Feb 2023 10:23:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6EE332166B2B; Mon,  6 Feb 2023 10:23:14 +0000 (UTC)
+ id 82D0A14171BE; Mon,  6 Feb 2023 10:23:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from formenos.hmeau.com (unknown [10.67.24.12])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F17F32166B29;
- Mon,  6 Feb 2023 10:23:13 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2437914171B6;
+ Mon,  6 Feb 2023 10:23:18 +0000 (UTC)
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
  by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1pOye0-007zk1-9e; Mon, 06 Feb 2023 18:22:41 +0800
+ id 1pOye2-007zkJ-CU; Mon, 06 Feb 2023 18:22:43 +0800
 Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Mon, 06 Feb 2023 18:22:40 +0800
+ Mon, 06 Feb 2023 18:22:42 +0800
 From: "Herbert Xu" <herbert@gondor.apana.org.au>
-Date: Mon, 06 Feb 2023 18:22:40 +0800
+Date: Mon, 06 Feb 2023 18:22:42 +0800
 References: <Y+DUkqe1sagWaErA@gondor.apana.org.au>
 To: Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
@@ -64,9 +64,9 @@ To: Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Ying Xue <ying.xue@windriver.com>, Boris Pismenny <borisp@nvidia.com>,
  John Fastabend <john.fastabend@gmail.com>, David Howells <dhowells@redhat.com>,
  Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org
-Message-Id: <E1pOye0-007zk1-9e@formenos.hmeau.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH 14/17] net: ipv6: Remove completion function
+Message-Id: <E1pOye2-007zkJ-CU@formenos.hmeau.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] [PATCH 15/17] tipc: Remove completion function
  scaffolding
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -82,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -94,96 +94,50 @@ function signature has been converted.
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 ---
 
- net/ipv6/ah6.c  |    8 ++++----
- net/ipv6/esp6.c |   16 ++++++++--------
- 2 files changed, 12 insertions(+), 12 deletions(-)
+ net/tipc/crypto.c |   12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/net/ipv6/ah6.c b/net/ipv6/ah6.c
-index e43735578a76..01005035ad10 100644
---- a/net/ipv6/ah6.c
-+++ b/net/ipv6/ah6.c
-@@ -281,12 +281,12 @@ static int ipv6_clear_mutable_options(struct ipv6hdr *iph, int len, int dir)
- 	return 0;
+diff --git a/net/tipc/crypto.c b/net/tipc/crypto.c
+index ab356e7a3870..577fa5af33ec 100644
+--- a/net/tipc/crypto.c
++++ b/net/tipc/crypto.c
+@@ -267,10 +267,10 @@ static int tipc_aead_encrypt(struct tipc_aead *aead, struct sk_buff *skb,
+ 			     struct tipc_bearer *b,
+ 			     struct tipc_media_addr *dst,
+ 			     struct tipc_node *__dnode);
+-static void tipc_aead_encrypt_done(crypto_completion_data_t *data, int err);
++static void tipc_aead_encrypt_done(void *data, int err);
+ static int tipc_aead_decrypt(struct net *net, struct tipc_aead *aead,
+ 			     struct sk_buff *skb, struct tipc_bearer *b);
+-static void tipc_aead_decrypt_done(crypto_completion_data_t *data, int err);
++static void tipc_aead_decrypt_done(void *data, int err);
+ static inline int tipc_ehdr_size(struct tipc_ehdr *ehdr);
+ static int tipc_ehdr_build(struct net *net, struct tipc_aead *aead,
+ 			   u8 tx_key, struct sk_buff *skb,
+@@ -830,9 +830,9 @@ static int tipc_aead_encrypt(struct tipc_aead *aead, struct sk_buff *skb,
+ 	return rc;
  }
  
--static void ah6_output_done(crypto_completion_data_t *data, int err)
-+static void ah6_output_done(void *data, int err)
- {
- 	int extlen;
- 	u8 *iph_base;
- 	u8 *icv;
--	struct sk_buff *skb = crypto_get_completion_data(data);
-+	struct sk_buff *skb = data;
- 	struct xfrm_state *x = skb_dst(skb)->xfrm;
- 	struct ah_data *ahp = x->data;
- 	struct ipv6hdr *top_iph = ipv6_hdr(skb);
-@@ -451,12 +451,12 @@ static int ah6_output(struct xfrm_state *x, struct sk_buff *skb)
- 	return err;
- }
- 
--static void ah6_input_done(crypto_completion_data_t *data, int err)
-+static void ah6_input_done(void *data, int err)
- {
- 	u8 *auth_data;
- 	u8 *icv;
- 	u8 *work_iph;
--	struct sk_buff *skb = crypto_get_completion_data(data);
-+	struct sk_buff *skb = data;
- 	struct xfrm_state *x = xfrm_input_state(skb);
- 	struct ah_data *ahp = x->data;
- 	struct ip_auth_hdr *ah = ip_auth_hdr(skb);
-diff --git a/net/ipv6/esp6.c b/net/ipv6/esp6.c
-index b9ee81c7dfcf..fddd0cbdede1 100644
---- a/net/ipv6/esp6.c
-+++ b/net/ipv6/esp6.c
-@@ -278,9 +278,9 @@ static void esp_output_encap_csum(struct sk_buff *skb)
- 	}
- }
- 
--static void esp_output_done(crypto_completion_data_t *data, int err)
-+static void esp_output_done(void *data, int err)
+-static void tipc_aead_encrypt_done(crypto_completion_data_t *data, int err)
++static void tipc_aead_encrypt_done(void *data, int err)
  {
 -	struct sk_buff *skb = crypto_get_completion_data(data);
 +	struct sk_buff *skb = data;
- 	struct xfrm_offload *xo = xfrm_offload(skb);
- 	void *tmp;
- 	struct xfrm_state *x;
-@@ -368,9 +368,9 @@ static struct ip_esp_hdr *esp_output_set_esn(struct sk_buff *skb,
- 	return esph;
+ 	struct tipc_crypto_tx_ctx *tx_ctx = TIPC_SKB_CB(skb)->crypto_ctx;
+ 	struct tipc_bearer *b = tx_ctx->bearer;
+ 	struct tipc_aead *aead = tx_ctx->aead;
+@@ -954,9 +954,9 @@ static int tipc_aead_decrypt(struct net *net, struct tipc_aead *aead,
+ 	return rc;
  }
  
--static void esp_output_done_esn(crypto_completion_data_t *data, int err)
-+static void esp_output_done_esn(void *data, int err)
+-static void tipc_aead_decrypt_done(crypto_completion_data_t *data, int err)
++static void tipc_aead_decrypt_done(void *data, int err)
  {
 -	struct sk_buff *skb = crypto_get_completion_data(data);
 +	struct sk_buff *skb = data;
- 
- 	esp_output_restore_header(skb);
- 	esp_output_done(data, err);
-@@ -879,9 +879,9 @@ int esp6_input_done2(struct sk_buff *skb, int err)
- }
- EXPORT_SYMBOL_GPL(esp6_input_done2);
- 
--static void esp_input_done(crypto_completion_data_t *data, int err)
-+static void esp_input_done(void *data, int err)
- {
--	struct sk_buff *skb = crypto_get_completion_data(data);
-+	struct sk_buff *skb = data;
- 
- 	xfrm_input_resume(skb, esp6_input_done2(skb, err));
- }
-@@ -909,9 +909,9 @@ static void esp_input_set_header(struct sk_buff *skb, __be32 *seqhi)
- 	}
- }
- 
--static void esp_input_done_esn(crypto_completion_data_t *data, int err)
-+static void esp_input_done_esn(void *data, int err)
- {
--	struct sk_buff *skb = crypto_get_completion_data(data);
-+	struct sk_buff *skb = data;
- 
- 	esp_input_restore_header(skb);
- 	esp_input_done(data, err);
+ 	struct tipc_crypto_rx_ctx *rx_ctx = TIPC_SKB_CB(skb)->crypto_ctx;
+ 	struct tipc_bearer *b = rx_ctx->bearer;
+ 	struct tipc_aead *aead = rx_ctx->aead;
 --
 dm-devel mailing list
 dm-devel@redhat.com
