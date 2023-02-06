@@ -2,55 +2,55 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D5DC668B9FD
-	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 11:23:29 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3D17C68B9FE
+	for <lists+dm-devel@lfdr.de>; Mon,  6 Feb 2023 11:23:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675679008;
+	s=mimecast20190719; t=1675679013;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=nKGkG3HVjpiTDA5fOx7+nYRxb0r1AV/cpGQ1cUQ5SDE=;
-	b=Q9IDxv0p10RN1sPFQSZSkq5xEEP/Fi2HRzSxukE3lVyx4yckYA5vzNst/M4iW0wWKya9Ue
-	1J+fK/1qOcSr3QahonaWYGQFnhq1cQ2ljsXRCCe+9w5WqwVCOea6h9nu7/i1Hy2GlRrEnV
-	vrQOspg6OhesiZ7FhsVcvTTm9ZmnpQA=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=1rKZS2P6r+XzXGjqhzesU27EQCdF2e9ZVTyS+XaVxQc=;
+	b=B4iq7pN/As0Ol9xx5IROngvoaPM+7l6pXCRGJ6C0J8zW8nwnPfcOpIG19gEWeXU5UaGifE
+	VeXYSoGPDK61B6roqExsfdd/uBMBasI9DbWGf1CkkBvNMQcvTfq8wEtbVWtwC4VaTi/ak3
+	RYguxZJNWmNWC1r9hdJIy7H0nDF8sjo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-509-G3kc4rxKP0Si0VpW7SqCcA-1; Mon, 06 Feb 2023 05:23:24 -0500
-X-MC-Unique: G3kc4rxKP0Si0VpW7SqCcA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-669-zs8bQzNYPMyZmKUL_1EmMg-1; Mon, 06 Feb 2023 05:23:28 -0500
+X-MC-Unique: zs8bQzNYPMyZmKUL_1EmMg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AE643C0D841;
-	Mon,  6 Feb 2023 10:23:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF5E985CBEB;
+	Mon,  6 Feb 2023 10:23:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 33515492B23;
-	Mon,  6 Feb 2023 10:23:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CB78C44037;
+	Mon,  6 Feb 2023 10:23:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1BAA9194658C;
-	Mon,  6 Feb 2023 10:23:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 76F9819465A3;
+	Mon,  6 Feb 2023 10:23:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9277719465A8
- for <dm-devel@listman.corp.redhat.com>; Mon,  6 Feb 2023 10:23:19 +0000 (UTC)
+ ESMTP id 289971946589
+ for <dm-devel@listman.corp.redhat.com>; Mon,  6 Feb 2023 10:23:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 884272166B30; Mon,  6 Feb 2023 10:23:19 +0000 (UTC)
+ id 1DD51492B00; Mon,  6 Feb 2023 10:23:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from formenos.hmeau.com (unknown [10.67.24.12])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C7592166B2A;
- Mon,  6 Feb 2023 10:23:19 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B10BF492C3C;
+ Mon,  6 Feb 2023 10:23:22 +0000 (UTC)
 Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
  by formenos.hmeau.com with smtp (Exim 4.94.2 #2 (Debian))
- id 1pOye4-007zka-Fr; Mon, 06 Feb 2023 18:22:45 +0800
+ id 1pOye6-007zks-J4; Mon, 06 Feb 2023 18:22:47 +0800
 Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation);
- Mon, 06 Feb 2023 18:22:44 +0800
+ Mon, 06 Feb 2023 18:22:46 +0800
 From: "Herbert Xu" <herbert@gondor.apana.org.au>
-Date: Mon, 06 Feb 2023 18:22:44 +0800
+Date: Mon, 06 Feb 2023 18:22:46 +0800
 References: <Y+DUkqe1sagWaErA@gondor.apana.org.au>
 To: Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
@@ -64,9 +64,10 @@ To: Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
  Ying Xue <ying.xue@windriver.com>, Boris Pismenny <borisp@nvidia.com>,
  John Fastabend <john.fastabend@gmail.com>, David Howells <dhowells@redhat.com>,
  Jarkko Sakkinen <jarkko@kernel.org>, keyrings@vger.kernel.org
-Message-Id: <E1pOye4-007zka-Fr@formenos.hmeau.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH 16/17] tls: Remove completion function scaffolding
+Message-Id: <E1pOye6-007zks-J4@formenos.hmeau.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH 17/17] crypto: api - Remove completion function
+ scaffolding
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -81,7 +82,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -93,37 +94,33 @@ function signature has been converted.
 Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
 ---
 
- net/tls/tls_sw.c |    8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ include/linux/crypto.h |    6 ------
+ 1 file changed, 6 deletions(-)
 
-diff --git a/net/tls/tls_sw.c b/net/tls/tls_sw.c
-index 5b7f67a7d394..0515cda32fe2 100644
---- a/net/tls/tls_sw.c
-+++ b/net/tls/tls_sw.c
-@@ -179,9 +179,9 @@ static int tls_padding_length(struct tls_prot_info *prot, struct sk_buff *skb,
- 	return sub;
- }
+diff --git a/include/linux/crypto.h b/include/linux/crypto.h
+index 80f6350fb588..bb1d9b0e1647 100644
+--- a/include/linux/crypto.h
++++ b/include/linux/crypto.h
+@@ -176,7 +176,6 @@ struct crypto_async_request;
+ struct crypto_tfm;
+ struct crypto_type;
  
--static void tls_decrypt_done(crypto_completion_data_t *data, int err)
-+static void tls_decrypt_done(void *data, int err)
- {
--	struct aead_request *aead_req = crypto_get_completion_data(data);
-+	struct aead_request *aead_req = data;
- 	struct crypto_aead *aead = crypto_aead_reqtfm(aead_req);
- 	struct scatterlist *sgout = aead_req->dst;
- 	struct scatterlist *sgin = aead_req->src;
-@@ -428,9 +428,9 @@ int tls_tx_records(struct sock *sk, int flags)
- 	return rc;
- }
+-typedef void crypto_completion_data_t;
+ typedef void (*crypto_completion_t)(void *req, int err);
  
--static void tls_encrypt_done(crypto_completion_data_t *data, int err)
-+static void tls_encrypt_done(void *data, int err)
- {
--	struct aead_request *aead_req = crypto_get_completion_data(data);
-+	struct aead_request *aead_req = data;
- 	struct tls_sw_context_tx *ctx;
- 	struct tls_context *tls_ctx;
- 	struct tls_prot_info *prot;
+ /**
+@@ -596,11 +595,6 @@ struct crypto_wait {
+ /*
+  * Async ops completion helper functioons
+  */
+-static inline void *crypto_get_completion_data(void *data)
+-{
+-	return data;
+-}
+-
+ void crypto_req_done(void *req, int err);
+ 
+ static inline int crypto_wait_req(int err, struct crypto_wait *wait)
 --
 dm-devel mailing list
 dm-devel@redhat.com
