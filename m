@@ -2,73 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0D4E268D10F
-	for <lists+dm-devel@lfdr.de>; Tue,  7 Feb 2023 08:56:15 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 20D5868D119
+	for <lists+dm-devel@lfdr.de>; Tue,  7 Feb 2023 08:57:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675756575;
+	s=mimecast20190719; t=1675756624;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Y6sLfns2nLPwiY5EAaXMDmX0rwP6xiJlLdy2I5M05RA=;
-	b=CwDzLjiu8D0qJKyOWM9nfG8xAloDQk8kZvmTs9htASzmTjOs8de2BRkiXFxpYvqmZp+eTv
-	EmpfqR4YrKulB/LoGLZ7U/Sk4D2dkNd+pESxGjWH193x163nb2vLNnkI1Gs9UpIkIG+sz/
-	eAodcAVAcH/nyinFIDDvggcW46oUqgk=
+	bh=yK2eGF2SdQx1pErMTdYLahUaaTlilAFb9d0nZ5BBWIE=;
+	b=YQPL2WIl17p7YPJzw1Y7pcxWyx7pMEa4iajnOvuG9OZ7WDkBH4/6nB8iflRAdc+5GD1Ghh
+	Xk/rlUrY2Jhcrb3S2RA5WNClD+BgQrZxJ8siAE91HvLKvXmTIgOCirpRjTYMKsyRG9QKEH
+	60ku+nOkWL5TgzAa3kwX/WMAwsuDPCg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-68-_oAITHCOM1qIukX07cTOaA-1; Tue, 07 Feb 2023 02:56:13 -0500
-X-MC-Unique: _oAITHCOM1qIukX07cTOaA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-317-4LDWmornNKunGupDk6fqXA-1; Tue, 07 Feb 2023 02:56:14 -0500
+X-MC-Unique: 4LDWmornNKunGupDk6fqXA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51434811E6E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 522C91816EC0;
 	Tue,  7 Feb 2023 07:56:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F0B9A1121315;
-	Tue,  7 Feb 2023 07:56:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0437DC15BAD;
+	Tue,  7 Feb 2023 07:56:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 027B519465B6;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 558DF1946A49;
 	Tue,  7 Feb 2023 07:56:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B1EA51946589
- for <dm-devel@listman.corp.redhat.com>; Tue,  7 Feb 2023 07:18:40 +0000 (UTC)
+ ESMTP id 21D0E1946589
+ for <dm-devel@listman.corp.redhat.com>; Tue,  7 Feb 2023 07:15:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BDC6F400DFDB; Tue,  7 Feb 2023 07:18:40 +0000 (UTC)
+ id 3B5CC2166B2A; Tue,  7 Feb 2023 07:15:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B67F6401014C
- for <dm-devel@redhat.com>; Tue,  7 Feb 2023 07:18:40 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 22B7D2166B29
+ for <dm-devel@redhat.com>; Tue,  7 Feb 2023 07:15:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99852857D07
- for <dm-devel@redhat.com>; Tue,  7 Feb 2023 07:18:40 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0445B3C02529
+ for <dm-devel@redhat.com>; Tue,  7 Feb 2023 07:15:30 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-573-v6KqtHSlPiyd03RZ8fceEQ-1; Tue, 07 Feb 2023 02:18:38 -0500
-X-MC-Unique: v6KqtHSlPiyd03RZ8fceEQ-1
+ us-mta-473-Fddkx7wxP4-LO8IkbAtNfg-1; Tue, 07 Feb 2023 02:15:26 -0500
+X-MC-Unique: Fddkx7wxP4-LO8IkbAtNfg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id E7E6EB81600;
- Tue,  7 Feb 2023 07:10:11 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B308DC433D2;
- Tue,  7 Feb 2023 07:10:09 +0000 (UTC)
-Date: Mon, 6 Feb 2023 23:10:08 -0800
+ by ams.source.kernel.org (Postfix) with ESMTPS id 88325B815FB;
+ Tue,  7 Feb 2023 07:15:24 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A01EC4339B;
+ Tue,  7 Feb 2023 07:15:22 +0000 (UTC)
+Date: Mon, 6 Feb 2023 23:15:21 -0800
 From: Jakub Kicinski <kuba@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <20230206231008.64c822c1@kernel.org>
-In-Reply-To: <Y+DUkqe1sagWaErA@gondor.apana.org.au>
+To: "Herbert Xu" <herbert@gondor.apana.org.au>
+Message-ID: <20230206231521.712f53e5@kernel.org>
+In-Reply-To: <E1pOydn-007zi3-LG@formenos.hmeau.com>
 References: <Y+DUkqe1sagWaErA@gondor.apana.org.au>
+ <E1pOydn-007zi3-LG@formenos.hmeau.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -77,10 +78,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 07 Feb 2023 07:56:04 +0000
-Subject: Re: [dm-devel] [PATCH 0/17] crypto: api - Change completion
- callback argument to void star
+Subject: Re: [dm-devel] [PATCH 8/17] tls: Only use data field in crypto
+ completion function
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,38 +107,57 @@ Cc: David Howells <dhowells@redhat.com>, dm-devel@redhat.com,
  Ying Xue <ying.xue@windriver.com>, "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, 6 Feb 2023 18:21:06 +0800 Herbert Xu wrote:
-> The crypto completion function currently takes a pointer to a
-> struct crypto_async_request object.  However, in reality the API
-> does not allow the use of any part of the object apart from the
-> data field.  For example, ahash/shash will create a fake object
-> on the stack to pass along a different data field.
+On Mon, 06 Feb 2023 18:22:27 +0800 Herbert Xu wrote:
+> -static void tls_encrypt_done(struct crypto_async_request *req, int err)
+> +static void tls_encrypt_done(crypto_completion_data_t *data, int err)
+>  {
+> -	struct aead_request *aead_req = (struct aead_request *)req;
+> -	struct sock *sk = req->data;
+> -	struct tls_context *tls_ctx = tls_get_ctx(sk);
+> -	struct tls_prot_info *prot = &tls_ctx->prot_info;
+> -	struct tls_sw_context_tx *ctx = tls_sw_ctx_tx(tls_ctx);
+> +	struct aead_request *aead_req = crypto_get_completion_data(data);
 
-"different data field" == copy the value to a different structure?
-A bit hard to parse TBH.
+All we use aead_req for in this function now is to find rec...
 
-> This leads to potential bugs where the user may try to dereference
-> or otherwise use the crypto_async_request object.
-> 
-> This series changes the completion function to take a void *
-> argument instead of crypto_async_request.
-> 
-> This series touches code in a number of different subsystems.
-> Most of them are trivial except for tls which was actually buggy
-> as it did exactly what was described above.
+> +	struct tls_sw_context_tx *ctx;
+> +	struct tls_context *tls_ctx;
+> +	struct tls_prot_info *prot;
+>  	struct scatterlist *sge;
+>  	struct sk_msg *msg_en;
+>  	struct tls_rec *rec;
+>  	bool ready = false;
+> +	struct sock *sk;
+>  	int pending;
+>  
+>  	rec = container_of(aead_req, struct tls_rec, aead_req);
+>  	msg_en = &rec->msg_encrypted;
+>  
+> +	sk = rec->sk;
+> +	tls_ctx = tls_get_ctx(sk);
+> +	prot = &tls_ctx->prot_info;
+> +	ctx = tls_sw_ctx_tx(tls_ctx);
+> +
+>  	sge = sk_msg_elem(msg_en, msg_en->sg.curr);
+>  	sge->offset -= prot->prepend_size;
+>  	sge->length += prot->prepend_size;
+> @@ -520,7 +536,7 @@ static int tls_do_encryption(struct sock *sk,
+>  			       data_len, rec->iv_data);
+>  
+>  	aead_request_set_callback(aead_req, CRYPTO_TFM_REQ_MAY_BACKLOG,
+> -				  tls_encrypt_done, sk);
+> +				  tls_encrypt_done, aead_req);
 
-Buggy means bug could be hit in real light or buggy == did not use 
-the API right?
+... let's just pass rec instead of aead_req here, then?
 
-> I'd like to pull all the changes through the crypto tree.  But
-> feel free to object if you'd like the relevant patches to go
-> through your trees instead and I'll split this up.
+>  	/* Add the record in tx_list */
+>  	list_add_tail((struct list_head *)&rec->list, &ctx->tx_list);
 
 --
 dm-devel mailing list
