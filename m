@@ -2,92 +2,91 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9009168E93C
-	for <lists+dm-devel@lfdr.de>; Wed,  8 Feb 2023 08:45:31 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id A53D168E93E
+	for <lists+dm-devel@lfdr.de>; Wed,  8 Feb 2023 08:45:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675842330;
+	s=mimecast20190719; t=1675842331;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=+Of4Ulsk9cuiRke6nKAP75oBe9bpO36DrNPu/dwcD6U=;
-	b=jAZSEXUMNj5PF08Vo0onMgbZdxgkEEfxNDhkruFe+fPxGZ3Rk9FLYxjlkzDrCD3G9PKcjU
-	kszSu/4rLMJJDC0ROVXVSMCEdoqNgVab3Mpc7YjCRX6/LpT424UyusP6mvyw1TEXiHW9Vz
-	Ja0QGGEl7gRZHYmyJzri5mmqfPJwE94=
+	 list-subscribe:list-post; bh=fKiKgeWMk2/o/+XJxOiYA47FPDVMphJ0p0K5LH8y5O4=;
+	b=gIunTEGgWZQt3QXE5mcZ8/7dhtIIFs+qLaB49ImgutQseJENl2ynD7vj5MvL8yKMv5uDyK
+	IVj2JXss4kBsbo8CZclxt0V1ud/UNv2yyBmHKNNBWGi5D4vGTWdMcTe75i0zuQdcfCcIds
+	L3w3vk/Iq+6gmL594UGBiUEj14W47iY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-540-HCs8sEmKOhiPcJSPHjhRTg-1; Wed, 08 Feb 2023 02:45:26 -0500
-X-MC-Unique: HCs8sEmKOhiPcJSPHjhRTg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-136-WYeSwT44Ov2DuKVtIGCheg-1; Wed, 08 Feb 2023 02:45:27 -0500
+X-MC-Unique: WYeSwT44Ov2DuKVtIGCheg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CB5385A588;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B877801779;
 	Wed,  8 Feb 2023 07:45:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2A943492B02;
-	Wed,  8 Feb 2023 07:45:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E86FA492C3C;
+	Wed,  8 Feb 2023 07:45:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 794501946A40;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4BCC219465A2;
 	Wed,  8 Feb 2023 07:45:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 472821946589
- for <dm-devel@listman.corp.redhat.com>; Tue,  7 Feb 2023 16:19:30 +0000 (UTC)
+ ESMTP id C52B31946589
+ for <dm-devel@listman.corp.redhat.com>; Tue,  7 Feb 2023 16:24:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1EE98401014C; Tue,  7 Feb 2023 16:19:30 +0000 (UTC)
+ id B4BC240369A6; Tue,  7 Feb 2023 16:24:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 16F1F4024CA2
- for <dm-devel@redhat.com>; Tue,  7 Feb 2023 16:19:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AA1C940369A0
+ for <dm-devel@redhat.com>; Tue,  7 Feb 2023 16:24:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECC6429DD989
- for <dm-devel@redhat.com>; Tue,  7 Feb 2023 16:19:29 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8EAD985A5A3
+ for <dm-devel@redhat.com>; Tue,  7 Feb 2023 16:24:45 +0000 (UTC)
 Received: from wout1-smtp.messagingengine.com
  (wout1-smtp.messagingengine.com [64.147.123.24]) by relay.mimecast.com with
  ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-107-36Tw4rVwO-Wk5ieAJOYcVQ-1; Tue, 07 Feb 2023 11:19:27 -0500
-X-MC-Unique: 36Tw4rVwO-Wk5ieAJOYcVQ-1
-Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id A9E78320016F;
- Tue,  7 Feb 2023 11:19:25 -0500 (EST)
+ us-mta-84-_JFRbrZ4OrmXde7KJ-A_Sw-1; Tue, 07 Feb 2023 11:24:39 -0500
+X-MC-Unique: _JFRbrZ4OrmXde7KJ-A_Sw-1
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id AC2C63200995;
+ Tue,  7 Feb 2023 11:24:37 -0500 (EST)
 Received: from mailfrontend2 ([10.202.2.163])
- by compute1.internal (MEProxy); Tue, 07 Feb 2023 11:19:26 -0500
+ by compute6.internal (MEProxy); Tue, 07 Feb 2023 11:24:38 -0500
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  invisiblethingslab.com; h=cc:cc:content-type:date:date:from:from
  :in-reply-to:in-reply-to:message-id:mime-version:references
- :reply-to:sender:subject:subject:to:to; s=fm3; t=1675786765; x=
- 1675873165; bh=KrfmSrDkm//BSwsEycuDONuPAOVzLiga9Uqg5PG0Wpo=; b=d
- OtoLEwCndNUNNfu+mAZmuiJh5dhk7wK2Ax1nY9hBBMnjzFjZxrrEUmWD7j//RexS
- dhl0LnKhuMd9m8z5d+DkpveJ45g4IImZaz6rkocvVigCBuwmoAVPPDl78lw+7q3b
- VHYWS6HF6KhgIgBGSCi7xQ8R8Qfgl4XZWtL8AyXXFKjfxo6pkLAUXOedR/sJ3w5P
- oBz1WVyEl6vsyb79UOd94kMnrAZJMHvBVoD1/2Q03dM1CIzmz53J7PDIdgxtb36m
- kyaiDLR3LUWG3vSkKVMZXTOJCcybnqhErD76guRN1GhXi6+MBO2kQMOVWJFfN87j
- 6yW4UWMq1nYWegBR6gVuQ==
+ :reply-to:sender:subject:subject:to:to; s=fm3; t=1675787077; x=
+ 1675873477; bh=7R/XpmUSA4PMsRDNnIxTLaD71IjwOgO4tuP4PJAPXfE=; b=e
+ hS1EsTjdIbS10P2nGog4LDrzwrs60Gy+ynxxfRH9QLMw4Gv8zh76sPfiv0WO1Ym2
+ itOUmvmFxZ/UHtWqYVNIwbf4y1WJxH8O1OIVJcOq5D8BUEDxC9b1HxCOi7Fakj5a
+ kO4w67pYUEFp4wqnrWDudEgXs0pBUX0ePPK+vYhxBEUxZKvGgPuaI2CUBk01Q48k
+ PANmFZiTs4a250SjxrdJnoEFEo4qpaTvIl5xU5OGveYsqoUDfupW4MWNF69nX9zI
+ A5f9sIlPY7zABTYqdNlwyayTKcR1SIFsfimZjIAsvxAmFbWQdhAYEsE/ipWywBXU
+ E3kxIxHEkFmBy4DlCGH0Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
  messagingengine.com; h=cc:cc:content-type:date:date:feedback-id
  :feedback-id:from:from:in-reply-to:in-reply-to:message-id
  :mime-version:references:reply-to:sender:subject:subject:to:to
  :x-me-proxy:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=
- fm3; t=1675786765; x=1675873165; bh=KrfmSrDkm//BSwsEycuDONuPAOVz
- Liga9Uqg5PG0Wpo=; b=DQlyYVXQamLdndjZR1/V7bBTpBiXNyW2+w+zIJHrYCv1
- rsRrgRvznCNE/vI4B7+4U0QMbVwv/3oPoLWB2pqfvahKfjQO5Q67NjvA6n+2nRVH
- TyX4nDgcuOCZjzVnnB/e6sJKF3Rnjbd998UM3NP+egulN+Oxil+Yd5W38zw6U/LQ
- pKRjiVp1gR0KeabFmDFQcv/xjN5uRPHv5PdFZrdITMn70CfDbOlotsoUpg5dtjkK
- fs4/Tv3KaUohoVjmzB8MgKp3eln8I5C/x6IYpRmR7QuEk6TakVS+lZl2YiL4aQLs
- iHKiivvJuxFPzj71obM11B/ESj9o7pXk6U/e5szU0A==
-X-ME-Sender: <xms:DXriYyBDbgqpat3Jk2biqZ9Nb_SKRZWbw7EoereqxAuREpA9dd0Zng>
- <xme:DXriY8hwt2ojVITKISaVzYIWgQVBdXOMeIgWeJMaYH_wzTeYG7gxmHe5CR4Blzp9X
- wioFQBoIVNuChY>
-X-ME-Received: <xmr:DXriY1kNL581gjeick9_HKeKE3vQU66urjZODwvZE8N--pG57Px8MtdeJY8>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudegkedgkeegucetufdoteggodetrfdotf
+ fm3; t=1675787077; x=1675873477; bh=7R/XpmUSA4PMsRDNnIxTLaD71Ijw
+ OgO4tuP4PJAPXfE=; b=TiNHFOBRHipDJhJ2gujiI790VTtFpy7/qED7pvyB5uqK
+ o/QT8KEBd6ppeyo4tJAdhAuvtBJiMGlzCh//N+2dIwt/GJqb8H+U7m0haeNbl0gh
+ b4bsUwRRUImxpT/V43O6w2dPvgoGpfWHe3N1uyTwFDkf0hb1Rcm7qbZEgegDAdNH
+ G1TP0TiIKsvWsilqy5a7BTntG/4rhfGBR1l/lT9pkofZsbCr/ObqfarbnXgC2Fkv
+ dECPPJ16UnMYIf6o1p1RQqD359NzXwQyoCRghsah+C+LPa6yhrBMsY3Y9PnyNdQh
+ /KGH/sGV999qO0/66fsOrq76ZW2h6XprPw/pzkIVLQ==
+X-ME-Sender: <xms:RXviYwff7vGgpVpg44S6Y6cLBDyQIGjHoAFpJCteY6OniUFHbEF7YQ>
+ <xme:RXviYyNcf5OAWFWG0eFK9qjMe3cnITx6IKlKnV5IRs9vsm87IT_9Qm00ya2023-r2
+ 44ZH1L262YIqyo>
+X-ME-Received: <xmr:RXviYxgFpnu1FGtgZRB3kk1Ov8mTCY-iMPay46o8bqpQkA4ek0z78Z_Uqxg>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudegkedgkeeiucetufdoteggodetrfdotf
  fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
  uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
  cujfgurhepfffhvfevuffkfhggtggujgesghdtreertddtvdenucfhrhhomhepffgvmhhi
@@ -96,24 +95,25 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudegkedgkeegucetufdoteggod
  jeegffekleevueelueekjeejudffteejkeetnecuvehluhhsthgvrhfuihiivgeptdenuc
  frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
  lhgrsgdrtghomh
-X-ME-Proxy: <xmx:DXriYwwR9s30cJkCtOSnUSn3VcHm2PJYlh2y2FrZPvZp76RpyAgc0Q>
- <xmx:DXriY3TOaSBztWGuKHSrZXhC4Yp5zkoxaUvVGp-I_ow1XIK0QFrwPQ>
- <xmx:DXriY7a7X0hRXZCx8JLKlFkHz28Sgx10X_Qgwk9SIb0Kc9bsOsfugw>
- <xmx:DXriYxei49rKiCKNiIwI0RqNqwCtMnm-pK7LsMYBgVnYfOhiFdfRCg>
+X-ME-Proxy: <xmx:RXviY18nR5WwQZNZ2B4R-OvY3WMqqumsP3pXw212_wUM6MxeCCAaig>
+ <xmx:RXviY8vhgmZ27T05dA911uh4Fk5w8q1z2xScM6kkMUxfST1Dooisbw>
+ <xmx:RXviY8Ehoe4Nbs5992bQHDriYNJJ87P-SxY9Y0_XiXo0ATRw3ayBsQ>
+ <xmx:RXviY4KeSXyT0o6IhYWhy-qGC8W-HHUimyF2zUj9mf35sxfRL9qOUw>
 Feedback-ID: iac594737:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 7 Feb 2023 11:19:24 -0500 (EST)
-Date: Tue, 7 Feb 2023 11:19:19 -0500
+ 7 Feb 2023 11:24:36 -0500 (EST)
+Date: Tue, 7 Feb 2023 11:24:26 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Joe Thornber <thornber@redhat.com>
-Message-ID: <Y+J6CgDVnBlW3pO+@itl-email>
+Message-ID: <Y+J7QrS7JqeNqbot@itl-email>
 References: <20230207011849.1343-1-demi@invisiblethingslab.com>
- <CAJ0trDZsTcD43s3GQ7aKR_3eABWv0rREMrajw8xBQiu96X+B8w@mail.gmail.com>
+ <20230207011849.1343-2-demi@invisiblethingslab.com>
+ <CAJ0trDZ88Tcaf9Y75S-vB1vWXPN9UEsqPV1bTrkAtSYFfUngAQ@mail.gmail.com>
 MIME-Version: 1.0
-In-Reply-To: <CAJ0trDZsTcD43s3GQ7aKR_3eABWv0rREMrajw8xBQiu96X+B8w@mail.gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+In-Reply-To: <CAJ0trDZ88Tcaf9Y75S-vB1vWXPN9UEsqPV1bTrkAtSYFfUngAQ@mail.gmail.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Wed, 08 Feb 2023 07:45:20 +0000
-Subject: Re: [dm-devel] [PATCH 1/2] Fail I/O to thin pool devices
+Subject: Re: [dm-devel] [PATCH 2/2] dm-thin: Allow specifying an offset
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,90 +129,67 @@ Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
  Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
  <marmarek@invisiblethingslab.com>, Alasdair Kergon <agk@redhat.com>,
  linux-kernel@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============5880247397720233845=="
+Content-Type: multipart/mixed; boundary="===============2630813408164181179=="
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 
 
---===============5880247397720233845==
+--===============2630813408164181179==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="m1OVs7FAMuWaSnHQ"
+	protocol="application/pgp-signature"; boundary="ScLOiD2qe/Xm+M6i"
 Content-Disposition: inline
 
 
---m1OVs7FAMuWaSnHQ
+--ScLOiD2qe/Xm+M6i
 Content-Type: text/plain; protected-headers=v1; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
-Date: Tue, 7 Feb 2023 11:19:19 -0500
+Date: Tue, 7 Feb 2023 11:24:26 -0500
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Joe Thornber <thornber@redhat.com>
 Cc: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
 	dm-devel@redhat.com,
 	Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?= <marmarek@invisiblethingslab.com>,
 	linux-kernel@vger.kernel.org
-Subject: Re: [dm-devel] [PATCH 1/2] Fail I/O to thin pool devices
+Subject: Re: [dm-devel] [PATCH 2/2] dm-thin: Allow specifying an offset
 
-On Tue, Feb 07, 2023 at 03:02:51PM +0000, Joe Thornber wrote:
-> Nack.
->=20
-> I don't see the security issue; how is this any different from running the
-> thin tools on any incorrect device?  Or even the data device that the pool
-> is mirroring.
+On Tue, Feb 07, 2023 at 03:03:57PM +0000, Joe Thornber wrote:
+> Nack.  I'm not building a linear target into every other target.  Layering
+> targets is simple.
 
-I special-cased the pool device for two reasons:
-
-1. I have run the thin tools on the pool device myself before realising
-   that they needed to be run on the metadata device.  It took me a
-   while to realize that I was using the wrong device.  I have not made
-   that mistake with other devices, which is why I special-cased the
-   pool device in this patch.
-
-2. Doing I/O to the pool device is pointless.  The pool device is
-   strictly slower than the data device and exposes the exact same
-   contents, so accessing the pool device directly is never what one
-   wants.
-
-If there are backwards compatibility concerns, I could make this be
-controlled by a Kconfig option, module parameter, or both.
-
-> In general the thin tools don't modify the metadata they're
-> running on.  If you know of a security issue with the thin tools please l=
-et
-> me know.
-
-I am not aware of a concrete security problem, but in general I prefer
-not to expose unnecessary attack surface.
+It also introduces a performance penalty, which is measurable on some
+workloads.  Even dm-linear is not free.  The crypt target also has this
+feature, so there is precedent.
 --=20
 Sincerely,
 Demi Marie Obenour (she/her/hers)
 Invisible Things Lab
 
---m1OVs7FAMuWaSnHQ
+--ScLOiD2qe/Xm+M6i
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPiegoACgkQsoi1X/+c
-IsHkYw/+LTzTC8ug1ruR4e+mUmoP2RCdrC8KFvx7cij6HJHKKUYi4KpCz/OKbYVH
-QADgI2McT/0jHWIamXJ+J6gH7HjRS9MJv5HBSjmnG2AHJaFJh+gnv16OYwLhCVTE
-wuGUrvLwSzwJj+Nlkn3q699tDob12x3p54tLDcM08EuKB+jqOzxYXQieOwvEADWM
-qdLksdx5dG7eSJjo5GMqotJUBFxoBnkIIRmDqhTAyXOHsdMqceGGvkhfubrifz8v
-oWn9Gat90HVS6i7qwkwOu02mNwCPGqD3oCz8lk/eUrSFjeAkOvyeXV6FjYXjY9f3
-t55cByzDHmaRn6CzkIRdkkg7GeMBcxpPSzyodc8Fkr9eR28beEkGJ0dpFMFt2TTL
-XqulnLVae4ZZ0OobiUGnwK0dgmQY03sKgGwp0/BoAGjIjgueLC/5BlcHUDTZmsTv
-3aSihwfvvyY8POBrv46nsf8ONTBETu6u39YGk8Q7zagTxP2SBlns0IBbVIll+CZY
-3egP7e/CTZVlCbeI/5zmakwB5R0hNqUMyW5SLX/rvoz+w9W2AbR1jxUmCOye8wNE
-kJ3Cuv9u2UcN78pR4DZDnh9Np0nlWHxAq+jQSeovYzbTiUVe0+K0c40Zo0J2tCrl
-E+UT4FGfeBAbY/AB2S19OgxRTNLMN0TO5HHUdlMV7+C9h+aubd4=
-=OCkT
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPie0IACgkQsoi1X/+c
+IsFczhAA1UG7afUNotup5av9jXAA3Zc9u75TsHUT5BOxVMTIuej/hxQMqEWB5WY+
+MZBbAjjsaZlnxlUWq3Kmi2ch1RNSWLndSGWszL6itoSZu4IV7aFRoQ/+SDHB0dGj
+r4P5K27NDv069VDvjy8wktfV80zbmoDJEnpv7F/1O5A/4X3eH5szB2quko/3YpTS
+jraiEvrzOO1qowXzgJILGbbwQDE+NGZKDquKCHrKg6w7JXArzC+FW/F3o0r9+CHL
++7ZyLc6Gpe/LDNmKlPyhjMEE4tSOL7gyMzQ6we+A9mw26lhjfuav4BwJSaue62JA
+1qDOB6NtYRLNehKIfO2qzlrdcthUicy+/6CJrC5I+lNKFt8me83TqyNUCaxwuX5w
+BeeSWi76NuNLfDVAOTPWe7AhkNAa8BpE69oWQFAS1NC+jYWTzIO053IXPUMgK/ol
+v96ZU22tSTi149D+sY3kUo/Nx44dx0lNgiqBIJSwhSkNONuSAl/ajTslJGUOAm5Z
+H0/LRZEKAE7y8kDV/U5nEaH6Vn5ijhwUO0ebaPW3Lq8nbN6Ddo3DykkN5uHw5w4f
+R6r6P1MGiwp92BqXfBGBsEUR5Ulsh/hVFPOGknHK7HwfuaQXCdwuqljcrCiCL/p8
+XTUO5qu0bJ9i2x5NqZSOjlqJfMI3CNu2StJ8PVJSxCBhn2I89QE=
+=hLCQ
 -----END PGP SIGNATURE-----
 
---m1OVs7FAMuWaSnHQ--
+--ScLOiD2qe/Xm+M6i--
 
 
---===============5880247397720233845==
+--===============2630813408164181179==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -223,5 +200,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============5880247397720233845==--
+--===============2630813408164181179==--
 
