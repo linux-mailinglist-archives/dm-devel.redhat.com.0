@@ -1,88 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4AC0468E93B
-	for <lists+dm-devel@lfdr.de>; Wed,  8 Feb 2023 08:45:29 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 100BB68E93D
+	for <lists+dm-devel@lfdr.de>; Wed,  8 Feb 2023 08:45:31 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1675842328;
+	s=mimecast20190719; t=1675842330;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rLsJe8VRTCIQzoD9XvkxzMKqdsAr8GIUhWdZy/vFDf8=;
-	b=LB/60+x9IcswO3ILQw2j/H+XCdQE+60Sh2jkzWvo1wGMfuTWZx/VGoVUdBl46ssxAMwz2i
-	qZo6buLTFj2cBFSu8WqUiNNAh1RYsf6ISOI10zDD58zYvT329ft3H8M8lMw8q3+wqxzQR6
-	UXiqN8Sqm0XfIWtbxmvX+9/w2LIBIjY=
+	bh=p7IvCtW/zgC+1+PSObhQxmpxkRJPVAlUzUl53iAkR9k=;
+	b=Zubw6QPkyg84VG7XxhQwOk1afLl802Bam4Ci2do8xbuDVVnneAqDUS8zQEBzRBTu8rUFII
+	96OURYJlW1PrQ80uvM3bPQFf814Ee07IMl3y5jYTHpcAPPP68rfLcWPEQ4h4j/ZryPLKor
+	0VdRGoUAygrGnRdMaDAA2VGnZXYtBbE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-96-ao7v8rLMM2C9l1Ec2R6OsA-1; Wed, 08 Feb 2023 02:45:26 -0500
-X-MC-Unique: ao7v8rLMM2C9l1Ec2R6OsA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-227-1AKP5tZ3MOaHCpA5xfHU0g-1; Wed, 08 Feb 2023 02:45:27 -0500
+X-MC-Unique: 1AKP5tZ3MOaHCpA5xfHU0g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A43E88B7AB;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A4BB85CCE1;
 	Wed,  8 Feb 2023 07:45:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2A5361121315;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2A15B4051E44;
 	Wed,  8 Feb 2023 07:45:22 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7CBB91946A41;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A151C1946A49;
 	Wed,  8 Feb 2023 07:45:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D4CC81946589
- for <dm-devel@listman.corp.redhat.com>; Tue,  7 Feb 2023 18:51:52 +0000 (UTC)
+ ESMTP id D423B1946588
+ for <dm-devel@listman.corp.redhat.com>; Wed,  8 Feb 2023 04:33:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B349F400D9D0; Tue,  7 Feb 2023 18:51:52 +0000 (UTC)
+ id 9F1E32166B2A; Wed,  8 Feb 2023 04:33:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AC1234024B7C
- for <dm-devel@redhat.com>; Tue,  7 Feb 2023 18:51:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 914603C10681
- for <dm-devel@redhat.com>; Tue,  7 Feb 2023 18:51:52 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-322-b6p0KKQSPemDAXWuHXHOVw-1; Tue, 07 Feb 2023 13:51:51 -0500
-X-MC-Unique: b6p0KKQSPemDAXWuHXHOVw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 7EB15B81AB3;
- Tue,  7 Feb 2023 18:51:49 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34265C433EF;
- Tue,  7 Feb 2023 18:51:47 +0000 (UTC)
-Date: Tue, 7 Feb 2023 10:51:46 -0800
-From: Jakub Kicinski <kuba@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <20230207105146.267fc5e8@kernel.org>
-In-Reply-To: <Y+IF6L4cb2Ijy0fN@gondor.apana.org.au>
-References: <Y+DUkqe1sagWaErA@gondor.apana.org.au>
- <20230206231008.64c822c1@kernel.org>
- <Y+IF6L4cb2Ijy0fN@gondor.apana.org.au>
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9817D2166B29
+ for <dm-devel@redhat.com>; Wed,  8 Feb 2023 04:33:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 76FCD29DD981
+ for <dm-devel@redhat.com>; Wed,  8 Feb 2023 04:33:30 +0000 (UTC)
+Received: from out1-smtp.messagingengine.com (out1-smtp.messagingengine.com
+ [66.111.4.25]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-633-B4vdbys2Ml6nyHKkbZTHNA-1; Tue, 07 Feb 2023 23:33:29 -0500
+X-MC-Unique: B4vdbys2Ml6nyHKkbZTHNA-1
+Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
+ by mailout.nyi.internal (Postfix) with ESMTP id D14395C00A4;
+ Tue,  7 Feb 2023 23:33:28 -0500 (EST)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute2.internal (MEProxy); Tue, 07 Feb 2023 23:33:28 -0500
+X-ME-Sender: <xms:GCbjY2PxoeHrqxRCyAV3lNH2FtcrQnfOU7EP76S3xiq9wTu9zFxLBw>
+ <xme:GCbjY0_VDDpCN7L-aoU-hwJB-Hk8hy3LKK1DOSZvoi183UCPXx6wa5v0qJQX4-dkK
+ bubmoWELeD2cGQ>
+X-ME-Received: <xmr:GCbjY9QkUF2W0NDl8JvpcHKis53a4K5rBj_n_a6P0p6TyTxPYNox5o8_wN4>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrudegledgjedtucetufdoteggodetrfdotf
+ fvucfrrhhofhhilhgvmecuhfgrshhtofgrihhlpdfqfgfvpdfurfetoffkrfgpnffqhgen
+ uceurghilhhouhhtmecufedttdenucesvcftvggtihhpihgvnhhtshculddquddttddmne
+ cujfgurhepfffhvffukfhfgggtjgesthdtredttddtvdenucfhrhhomhepffgvmhhiucfo
+ rghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+ grsgdrtghomheqnecuggftrfgrthhtvghrnhepieefgedujeelvdfhgeefueeggeeggeej
+ hefhveevleffueetgfevtddvheefvdffnecuvehluhhsthgvrhfuihiivgeptdenucfrrg
+ hrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslhgr
+ sgdrtghomh
+X-ME-Proxy: <xmx:GCbjY2uSicwxTpnNog9a4PYqmd0J9sBWGbuxemiSXmWc8soRA33XWA>
+ <xmx:GCbjY-c9B7FfBBgRnprfw8F693bcSScgR3AKYTDoL409AYHEUQsHJg>
+ <xmx:GCbjY62BjcVmyy2W-Uw8aruGXupH2R9uH2wcoGfu9PXjNo3pF7ax6w>
+ <xmx:GCbjY2mIJfUCRetrfNwDl-xJURZXNvu7UyRi9gmFBmjRZ7eERplraw>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 7 Feb 2023 23:33:28 -0500 (EST)
+Date: Tue, 7 Feb 2023 23:33:26 -0500
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com
+Message-ID: <Y+MmFmzOqG7BEJZO@itl-email>
+References: <1675830100-25726-1-git-send-email-bmarzins@redhat.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+In-Reply-To: <1675830100-25726-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Wed, 08 Feb 2023 07:45:20 +0000
-Subject: Re: [dm-devel] [PATCH 0/17] crypto: api - Change completion
- callback argument to void star
+Subject: Re: [dm-devel] [PATCH] dm-table: Check that a dm device doesn't
+ reference itself
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,42 +104,66 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: David Howells <dhowells@redhat.com>, dm-devel@redhat.com,
- keyrings@vger.kernel.org, Alasdair Kergon <agk@redhat.com>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Boris Pismenny <borisp@nvidia.com>, John Fastabend <john.fastabend@gmail.com>,
- Tyler Hicks <code@tyhicks.com>, Paolo Abeni <pabeni@redhat.com>,
- Johan Hedberg <johan.hedberg@gmail.com>, Marcel Holtmann <marcel@holtmann.org>,
- ecryptfs@vger.kernel.org, Mike Snitzer <snitzer@kernel.org>,
- Luiz Augusto von Dentz <luiz.dentz@gmail.com>, netdev@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, Jon Maloy <jmaloy@redhat.com>,
- linux-bluetooth@vger.kernel.org, Jarkko Sakkinen <jarkko@kernel.org>,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Ying Xue <ying.xue@windriver.com>, "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, 7 Feb 2023 16:03:52 +0800 Herbert Xu wrote:
-> > Buggy means bug could be hit in real light or buggy == did not use 
-> > the API right?  
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+On Tue, Feb 07, 2023 at 10:21:40PM -0600, Benjamin Marzinski wrote:
+> If a dm device table references itself, it will crash the kernel with an
+> infinite recursion.  Check for a self-reference in dm_get_device(). This
+> is a quick check, but it won't catch more complicated circular
+> references.
 > 
-> Yes this bug is real.  If you hit a driver/algorithm that returns
-> a different request object (of which there are many in the API) then
-> you will be dereferencing random pointers.
+> Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
+> ---
+>  drivers/md/dm-table.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+> index 8541d5688f3a..24ad42b385c1 100644
+> --- a/drivers/md/dm-table.c
+> +++ b/drivers/md/dm-table.c
+> @@ -364,6 +364,8 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+>  		if (!dev)
+>  			return -ENODEV;
+>  	}
+> +	if (dev == disk_devt(t->md->disk))
+> +		return -EINVAL;
+>  
+>  	dd = find_device(&t->devices, dev);
+>  	if (!dd) {
+> -- 
+> 2.30.2
 
-Any aes-gcm or chacha-poly implementations which would do that come 
-to mind? I'm asking 'cause we probably want to do stable if we know
-of a combination which would be broken, or the chances of one existing
-are high.
+I like this!  More generally, should the kernel fail with -ELOOP if
+devices are stacked too deeply?
+- -- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+-----BEGIN PGP SIGNATURE-----
 
-Otherwise no objections for the patches to go via the crypto tree,
-there should be no conflicts AFAIK. Feel free to add my ack on the
-networking changes if needed.
+iQIzBAEBCgAdFiEEdodNnxM2uiJZBxxxsoi1X/+cIsEFAmPjJhYACgkQsoi1X/+c
+IsHwnRAAsJgax1pLhHw0jvXgbwb+XGM+j2bHwg/9DsmTakxAlJgDYAUGhC4wIu3n
+bWzs0TY0ON0h6BAVm4+xUFBCpQpSZTf2Z95YCHHvhj2ImEdSYrbk+ccnZaXhaP5f
+mUFEG7PmBA6Zl/xJvAwZgG4V/Szp73UdlSe+Ph3qcjNf/+n2EznZBFjXpO45PGaL
+xvd7D7QcqEbhiH5kDVvZibX4Np2xWecbIYNoGuiCf+tnUVM+QyFIMiLZhWS+nZ4y
+QOzcn7gG5543dSlwnKJJXKmW/LBXqNAzyLvhqxWX/5ExwENQxEQ5fQ/w1EcuIgLq
+EaNCm7yCabgG11d6En4er2etUB9Q2mowugSvdzryblF01x0GMz2aqFQ12Ogbag9t
+8t1sHx+ohk03H4vjbT3NJZnqDsTmAYVV7v/nxCKYot3EcylB0R9b3BIeRoKYiFK0
+f/1ap8MfvHE/Nc4hyVapD6DOQ3Gn9ZK5Y6eNrpzlG6C5JVjWJjB8tCoON8upgj3t
+5P77sFVVczj2/Uu8T+1uhYQ9XSnFREsQGSEULZoA60MAwRktyhQVGTMwTLnX/BVg
+kHpCeaFnEN1IZ1R5PFZXoPPztPcnZG1ZjMjrpqjKqd1Udokqti+i9vf3sAI7mfo3
+mvB4XyxH6PdLz2UD1GvTvF2DKKyJeE2W4ezCxSBSNHhrMIwaPvE=
+=Kzsf
+-----END PGP SIGNATURE-----
 
 --
 dm-devel mailing list
