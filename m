@@ -1,77 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CB1F06918FC
-	for <lists+dm-devel@lfdr.de>; Fri, 10 Feb 2023 08:09:13 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E37C96918FB
+	for <lists+dm-devel@lfdr.de>; Fri, 10 Feb 2023 08:09:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676012952;
+	s=mimecast20190719; t=1676012951;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=W3A2ueBeLa0rf1xC/3YAQvwtqSpM8l32K3znMF7rl58=;
-	b=EWTZV8rKXW7Cp8/NeEtSH4lu+YN+I3yGw+CGs/agfkCXn9zlw23UgAlPQkruqgU2fDopcR
-	Lbqusc3n1ZQmOmwZOMJFBtGk4UAXsm9Vxm/6j7NB2KTyLbsGJTuyqfxINzuw+6Tj0uM43A
-	n4qY4urja+Ww2ipWBuUnSKkVqQdTxpA=
+	bh=GhmUeZc/psT9hrGUHR6VYfWURVD4ozqtYm9BElVLPoA=;
+	b=TDlDijE4cOqTrQHTwPrsoY9uuEATN8IOmPRxUgHAJJ7PAj7TablT8+aQAQCuUIE3UDOMnk
+	C8sCHMhFhpC9ot9V0IXHFD4/i03XVNhuaBsvlvty7qWeQy2dpsXMUVH7Ayd8dOD4DLa701
+	79wFqqOC97d47nbJm3HJshfbxgFjk2k=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-13-cFxwLxaBPF226Qv3j3locg-1; Fri, 10 Feb 2023 02:09:11 -0500
-X-MC-Unique: cFxwLxaBPF226Qv3j3locg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-102-DKWMgUMqNrKlXYj4nth6yA-1; Fri, 10 Feb 2023 02:09:09 -0500
+X-MC-Unique: DKWMgUMqNrKlXYj4nth6yA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EEB4D858F0E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE6DF80D0E0;
 	Fri, 10 Feb 2023 07:09:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5396A2026D4B;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 535AE492B00;
 	Fri, 10 Feb 2023 07:09:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A89141946595;
-	Fri, 10 Feb 2023 07:09:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7753619465BA;
+	Fri, 10 Feb 2023 07:09:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6B7651946589
- for <dm-devel@listman.corp.redhat.com>; Fri, 10 Feb 2023 00:53:43 +0000 (UTC)
+ ESMTP id CE6181946589
+ for <dm-devel@listman.corp.redhat.com>; Fri, 10 Feb 2023 00:56:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0720918EC5; Fri, 10 Feb 2023 00:53:43 +0000 (UTC)
+ id BE576492B00; Fri, 10 Feb 2023 00:56:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F2EAF18EC1
- for <dm-devel@redhat.com>; Fri, 10 Feb 2023 00:53:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B6FD2492C3E
+ for <dm-devel@redhat.com>; Fri, 10 Feb 2023 00:56:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D156A38060FE
- for <dm-devel@redhat.com>; Fri, 10 Feb 2023 00:53:42 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95454802314
+ for <dm-devel@redhat.com>; Fri, 10 Feb 2023 00:56:44 +0000 (UTC)
 Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-82-4AjlbMMmMHCbKKrkUTcrjw-1; Thu, 09 Feb 2023 19:53:38 -0500
-X-MC-Unique: 4AjlbMMmMHCbKKrkUTcrjw-1
+ us-mta-168-gC2gYVLgM9aiFAqDrfqXNw-1; Thu, 09 Feb 2023 19:56:40 -0500
+X-MC-Unique: gC2gYVLgM9aiFAqDrfqXNw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 4DEB1B82396;
- Fri, 10 Feb 2023 00:44:00 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1B0C433EF;
- Fri, 10 Feb 2023 00:43:58 +0000 (UTC)
-Date: Fri, 10 Feb 2023 02:43:55 +0200
+ by ams.source.kernel.org (Postfix) with ESMTPS id D0499B822D1;
+ Fri, 10 Feb 2023 00:56:37 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C5DC433D2;
+ Fri, 10 Feb 2023 00:56:36 +0000 (UTC)
+Date: Fri, 10 Feb 2023 02:56:34 +0200
 From: Jarkko Sakkinen <jarkko@kernel.org>
 To: Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <Y+WTS5w9nbsoyZyr@kernel.org>
+Message-ID: <Y+WWQgP/qTmLN42m@kernel.org>
 References: <Y+DUkqe1sagWaErA@gondor.apana.org.au>
- <E1pOydb-007zgc-0p@formenos.hmeau.com>
+ <E1pOye6-007zks-J4@formenos.hmeau.com>
 MIME-Version: 1.0
-In-Reply-To: <E1pOydb-007zgc-0p@formenos.hmeau.com>
+In-Reply-To: <E1pOye6-007zks-J4@formenos.hmeau.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,10 +78,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Fri, 10 Feb 2023 07:09:00 +0000
-Subject: Re: [dm-devel] [PATCH 2/17] net: macsec: Add scaffolding to change
- completion function signature
+Subject: Re: [dm-devel] [PATCH 17/17] crypto: api - Remove completion
+ function scaffolding
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,57 +108,54 @@ Cc: David Howells <dhowells@redhat.com>, dm-devel@redhat.com,
  Ying Xue <ying.xue@windriver.com>, "David S. Miller" <davem@davemloft.net>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Feb 06, 2023 at 06:22:15PM +0800, Herbert Xu wrote:
-> This patch adds temporary scaffolding so that the Crypto API
-
-nit: "Add ..."
-
-> completion function can take a void * instead of crypto_async_request.
-> Once affected users have been converted this can be removed.
+On Mon, Feb 06, 2023 at 06:22:46PM +0800, Herbert Xu wrote:
+> This patch removes the temporary scaffolding now that the comletion
+> function signature has been converted.
 > 
 > Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-> ---
-> 
->  drivers/net/macsec.c |    8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/net/macsec.c b/drivers/net/macsec.c
-> index bf8ac7a3ded7..b7d9d487ccd2 100644
-> --- a/drivers/net/macsec.c
-> +++ b/drivers/net/macsec.c
-> @@ -528,9 +528,9 @@ static void count_tx(struct net_device *dev, int ret, int len)
->  	}
->  }
->  
-> -static void macsec_encrypt_done(struct crypto_async_request *base, int err)
-> +static void macsec_encrypt_done(crypto_completion_data_t *data, int err)
->  {
-> -	struct sk_buff *skb = base->data;
-> +	struct sk_buff *skb = crypto_get_completion_data(data);
->  	struct net_device *dev = skb->dev;
->  	struct macsec_dev *macsec = macsec_priv(dev);
->  	struct macsec_tx_sa *sa = macsec_skb_cb(skb)->tx_sa;
-> @@ -835,9 +835,9 @@ static void count_rx(struct net_device *dev, int len)
->  	u64_stats_update_end(&stats->syncp);
->  }
->  
-> -static void macsec_decrypt_done(struct crypto_async_request *base, int err)
-> +static void macsec_decrypt_done(crypto_completion_data_t *data, int err)
->  {
-> -	struct sk_buff *skb = base->data;
-> +	struct sk_buff *skb = crypto_get_completion_data(data);
->  	struct net_device *dev = skb->dev;
->  	struct macsec_dev *macsec = macsec_priv(dev);
->  	struct macsec_rx_sa *rx_sa = macsec_skb_cb(skb)->rx_sa;
+
+For the 1-17:
 
 Acked-by: Jarkko Sakkinen <jarkko@kernel.org>
+
+(nit applies tho to all of them but use your own judgement i guess)
+
+> ---
+> 
+>  include/linux/crypto.h |    6 ------
+>  1 file changed, 6 deletions(-)
+> 
+> diff --git a/include/linux/crypto.h b/include/linux/crypto.h
+> index 80f6350fb588..bb1d9b0e1647 100644
+> --- a/include/linux/crypto.h
+> +++ b/include/linux/crypto.h
+> @@ -176,7 +176,6 @@ struct crypto_async_request;
+>  struct crypto_tfm;
+>  struct crypto_type;
+>  
+> -typedef void crypto_completion_data_t;
+>  typedef void (*crypto_completion_t)(void *req, int err);
+>  
+>  /**
+> @@ -596,11 +595,6 @@ struct crypto_wait {
+>  /*
+>   * Async ops completion helper functioons
+>   */
+> -static inline void *crypto_get_completion_data(void *data)
+> -{
+> -	return data;
+> -}
+> -
+>  void crypto_req_done(void *req, int err);
+>  
+>  static inline int crypto_wait_req(int err, struct crypto_wait *wait)
 
 BR, Jarkko
 
