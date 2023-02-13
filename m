@@ -1,97 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF2DE6951A1
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:15:40 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D30A76951A0
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:15:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676319339;
+	s=mimecast20190719; t=1676319338;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vbBSYHdtpaQ6FD8PHARBiS+A41xs1ahfZhMjfgCMZlE=;
-	b=TX/YCzbSIHgq9g0PAHJmChge+p1W2tyFm4S++ela3VCmtSmhP+Zes9k0m7Pu8pKfBssBFI
-	VDljq7TH0D/Xkb9hQuE5sVYAz4LTRkwK58nMZ4aGYD5liyM7/fB39DkgcnB+JS0xRn9HEJ
-	FErUh15ze44WTiomUSNa7CdpedUQAYQ=
+	bh=e4y+xFxGof3twV+M0QAqjKy+8cRzGiNjO8TwKk1Pqfg=;
+	b=gAalTQnnMqkfKB+XEKwTRPKohPdNge7B/bXkcW0GOV/WFadCKVZlXp5KqyXn1O6ZQ1JgvP
+	udj8L1CkxHK2ZPvVLBroXK0Yi7y5+JBIykS/Fj5+jGTt4987N3cikHS/Spg2lcyZQk7zdM
+	8nC7jtjPKRdO5cybJ9YM7eN8Gjog8qA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-533-oYVn7y0FMh2CQ2FeAuIxdw-1; Mon, 13 Feb 2023 15:15:36 -0500
-X-MC-Unique: oYVn7y0FMh2CQ2FeAuIxdw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-596-QhjXqPszPHWcNzMOS7Z9Iw-1; Mon, 13 Feb 2023 15:15:35 -0500
+X-MC-Unique: QhjXqPszPHWcNzMOS7Z9Iw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA02280D0E8;
-	Mon, 13 Feb 2023 20:15:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27A05823E1B;
+	Mon, 13 Feb 2023 20:15:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBF6314171B6;
-	Mon, 13 Feb 2023 20:15:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 104C11121318;
+	Mon, 13 Feb 2023 20:15:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9275119465A2;
-	Mon, 13 Feb 2023 20:15:24 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F159A19465B1;
+	Mon, 13 Feb 2023 20:15:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D6DAE1946586
- for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:15:22 +0000 (UTC)
+ ESMTP id 9EAC61946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:15:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B704F2166B29; Mon, 13 Feb 2023 20:15:22 +0000 (UTC)
+ id 850DB1121319; Mon, 13 Feb 2023 20:15:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B085D2166B26
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CFAE1121318
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 976A897108C
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:22 +0000 (UTC)
-Received: from mail-qv1-f50.google.com (mail-qv1-f50.google.com
- [209.85.219.50]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D3360296A60C
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:14 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-418-L4rVBNwJMu25POpOlLiVhw-1; Mon, 13 Feb 2023 15:15:10 -0500
-X-MC-Unique: L4rVBNwJMu25POpOlLiVhw-1
-Received: by mail-qv1-f50.google.com with SMTP id d13so9095571qvj.8
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:15:10 -0800 (PST)
+ us-mta-102-W8QScY-lPi-GqTRf8pcp4w-1; Mon, 13 Feb 2023 15:15:13 -0500
+X-MC-Unique: W8QScY-lPi-GqTRf8pcp4w-1
+Received: by mail-qt1-f178.google.com with SMTP id h24so15157810qta.12
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:15:11 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=+Gxt6MpJNCl1zDM44TvZBYdDttT360AD34tvVqTglPg=;
- b=zZKIiLAo2p2t12YVdqtjVDSLRAkb60A7GlwKFqh1D76rzXD5XgV2aIwyY1I98VxhI5
- SfTgYwEB8SJcKHnWwCNVuxO5eI5ZecNXqMvpWKSto/IYp80jan6uvCyBog0HzswKsTCl
- uLeSgg9xWm8KUdrx/aKc7OJeVv1oWELjO/+J6AdJsG3RvU13TZfOuZnwL7tFIWcMuX7A
- 6VL4KUSJj1XpmYtHqTJNtVB3KnCDv+s1Z3mpvhIY946EA7604+F+rE18tYtnI8FgQAVZ
- xaq+NU444y5177OUmOTk/CHkAfSOVJpuVhqP16fcpARvAsY3NRjpJK3X89ukMzDUIvaO
- 7RUA==
-X-Gm-Message-State: AO0yUKX3FEKDZctZ9FwBxnn957Z2dEkNVdYwNvAytCX8ksJLcZXoU4T+
- BFVpoKvN+icKCNUlvc4rIOIZfjK040DKSJJyC5B3s96j+q6chJyK8f6NeM7i8FmEYDP/QtGA+BF
- 0Yin+OCjp8wEzKZJJ0n3s7Wt18FNWVcuZdC6zT7s5ZEK2XEMjR6DDg71RAmqVQM3fySTkdw==
-X-Google-Smtp-Source: AK7set/SgsG4UGTv5Z8r6ShypY86AimKozFpjRcKAhjy8IJ/F86hv0bF9ssk5q7I+LO8yyQPiN5/cw==
-X-Received: by 2002:a05:6214:2b06:b0:53a:7253:4093 with SMTP id
- jx6-20020a0562142b0600b0053a72534093mr393618qvb.14.1676319309346; 
- Mon, 13 Feb 2023 12:15:09 -0800 (PST)
+ bh=st3ShYWOXzNOYzeEWZEVU8Y4Fu0YoenKt6jaHHZIRqY=;
+ b=FSGpjL3XRx3Bd+BsN/3MQ3ukyjn3TfagWLW+aBH9tS/9nhiLZT1C0SgFGzLjCQQjA3
+ WfgsFenuNXJStds6AAKsutftOPAC7Nw7PGGWBfZo+ZGA93l5zhne88vGdM5AO1Oclk69
+ 5qrfqg3qpoPXDV/3Nzkp8q/YxvOisZvjqUQ0BAXynMxE9yIhKlt7Qcp92zUsy3QZ2gvu
+ 84P83CxUduYs0G5VJNNPCCIbXaOMpKESNjKbrxFR1YyzuUIaU9sK2Wy2Zt3OpJ9Hzzte
+ Xmnr9svIayaNPR7ZgJFu0Zntr9QOKcW4Cuh4L7uCv8F/f8ucrNWlVyUOKgVuEBH+mEi5
+ +PHw==
+X-Gm-Message-State: AO0yUKUAQiLbvMyIs4GzYEkQVDd2l/hywi187kaF1Ifs29gXDx12IaMB
+ 1RlVdXp/rxx6QYuFgKdArEJxJagPnMiu49OoUze7ER3N2ODtibH/k5KH8ockeHgNXP7kWh8v3O/
+ QBY4rkxsXxYRnKl2j5L07Y8amDqLwD+NGYw+JSsRI/EMTLt0gPrNPT73Ih+YJ3v8KDxz9wQ==
+X-Google-Smtp-Source: AK7set/P3Y79ByQSpeY1+LB8fX/25omSRkgXBlXzb4bEyJF19sz34dEgvvQ7HuOSDZrROWuPesT5Hg==
+X-Received: by 2002:a05:622a:512:b0:3ba:38:2f5f with SMTP id
+ l18-20020a05622a051200b003ba00382f5fmr43880993qtx.32.1676319310739; 
+ Mon, 13 Feb 2023 12:15:10 -0800 (PST)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- c131-20020a379a89000000b0073a7b317834sm6065120qke.83.2023.02.13.12.15.08
+ f4-20020ac840c4000000b003b9bb59543fsm9779828qtm.61.2023.02.13.12.15.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 12:15:08 -0800 (PST)
+ Mon, 13 Feb 2023 12:15:10 -0800 (PST)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 13 Feb 2023 15:13:47 -0500
-Message-Id: <20230213201401.45973-26-snitzer@kernel.org>
+Date: Mon, 13 Feb 2023 15:13:48 -0500
+Message-Id: <20230213201401.45973-27-snitzer@kernel.org>
 In-Reply-To: <20230213201401.45973-1-snitzer@kernel.org>
 References: <20230213201401.45973-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH 25/39] dm: avoid useless 'else' after 'break' or
- return'
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [PATCH 26/39] dm: add missing blank line after
+ declarations/fix those
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +108,7 @@ Cc: ebiggers@kernel.org, Heinz Mauelshagen <heinzm@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -118,160 +119,127 @@ From: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-stripe.c                        |  8 ++---
- drivers/md/dm-thin-metadata.c                 |  4 +--
- drivers/md/dm-verity-target.c                 | 33 ++++++++++---------
- drivers/md/dm-writecache.c                    | 16 ++++-----
- drivers/md/persistent-data/dm-btree.c         |  4 +--
- .../md/persistent-data/dm-space-map-common.c  | 11 +++----
- 6 files changed, 38 insertions(+), 38 deletions(-)
+ drivers/md/dm-raid.c                  | 2 +-
+ drivers/md/dm.c                       | 5 +++++
+ drivers/md/persistent-data/dm-array.c | 4 ++--
+ drivers/md/persistent-data/dm-btree.c | 4 ++--
+ drivers/md/persistent-data/dm-btree.h | 2 +-
+ 5 files changed, 11 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
-index 9f203a1790d5..9a2906dd9317 100644
---- a/drivers/md/dm-stripe.c
-+++ b/drivers/md/dm-stripe.c
-@@ -259,11 +259,11 @@ static int stripe_map_range(struct stripe_c *sc, struct bio *bio,
- 			sc->stripe[target_stripe].physical_start;
- 		bio->bi_iter.bi_size = to_bytes(end - begin);
- 		return DM_MAPIO_REMAPPED;
--	} else {
--		/* The range doesn't map to the target stripe */
--		bio_endio(bio);
--		return DM_MAPIO_SUBMITTED;
- 	}
-+
-+	/* The range doesn't map to the target stripe */
-+	bio_endio(bio);
-+	return DM_MAPIO_SUBMITTED;
- }
- 
- static int stripe_map(struct dm_target *ti, struct bio *bio)
-diff --git a/drivers/md/dm-thin-metadata.c b/drivers/md/dm-thin-metadata.c
-index ddd0718fcf81..54bd32351d93 100644
---- a/drivers/md/dm-thin-metadata.c
-+++ b/drivers/md/dm-thin-metadata.c
-@@ -1612,8 +1612,8 @@ static int __find_mapped_range(struct dm_thin_device *td,
- 		if (r) {
- 			if (r == -ENODATA)
- 				break;
--			else
--				return r;
-+
-+			return r;
- 		}
- 
- 		if ((lookup.block != pool_end) ||
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 0f9814099d1b..ade83ef3b439 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -110,23 +110,24 @@ static int verity_hash_update(struct dm_verity *v, struct ahash_request *req,
- 		sg_init_one(&sg, data, len);
- 		ahash_request_set_crypt(req, &sg, NULL, len);
- 		return crypto_wait_req(crypto_ahash_update(req), wait);
--	} else {
--		do {
--			int r;
--			size_t this_step = min_t(size_t, len, PAGE_SIZE - offset_in_page(data));
--
--			flush_kernel_vmap_range((void *)data, this_step);
--			sg_init_table(&sg, 1);
--			sg_set_page(&sg, vmalloc_to_page(data), this_step, offset_in_page(data));
--			ahash_request_set_crypt(req, &sg, NULL, this_step);
--			r = crypto_wait_req(crypto_ahash_update(req), wait);
--			if (unlikely(r))
--				return r;
--			data += this_step;
--			len -= this_step;
--		} while (len);
--		return 0;
- 	}
-+
-+	do {
-+		int r;
-+		size_t this_step = min_t(size_t, len, PAGE_SIZE - offset_in_page(data));
-+
-+		flush_kernel_vmap_range((void *)data, this_step);
-+		sg_init_table(&sg, 1);
-+		sg_set_page(&sg, vmalloc_to_page(data), this_step, offset_in_page(data));
-+		ahash_request_set_crypt(req, &sg, NULL, this_step);
-+		r = crypto_wait_req(crypto_ahash_update(req), wait);
-+		if (unlikely(r))
-+			return r;
-+		data += this_step;
-+		len -= this_step;
-+	} while (len);
-+
-+	return 0;
- }
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index 08fcc9908d0c..390f23150ff4 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -33,7 +33,7 @@
+ static bool devices_handle_discard_safely;
  
  /*
-diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-index 0c89b884fe54..99bcfbb6e646 100644
---- a/drivers/md/dm-writecache.c
-+++ b/drivers/md/dm-writecache.c
-@@ -623,15 +623,15 @@ static struct wc_entry *writecache_find_entry(struct dm_writecache *wc,
- 		if (unlikely(!node)) {
- 			if (!(flags & WFE_RETURN_FOLLOWING))
- 				return NULL;
--			if (read_original_sector(wc, e) >= block) {
-+			if (read_original_sector(wc, e) >= block)
- 				return e;
--			} else {
--				node = rb_next(&e->rb_node);
--				if (unlikely(!node))
--					return NULL;
--				e = container_of(node, struct wc_entry, rb_node);
--				return e;
--			}
+- * The following flags are used by dm-raid.c to set up the array state.
++ * The following flags are used by dm-raid to set up the array state.
+  * They must be cleared before md_run is called.
+  */
+ #define FirstUse 10		/* rdev flag */
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index a54700b6c9eb..7e6e81fe5298 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -105,6 +105,7 @@ EXPORT_SYMBOL_GPL(dm_per_bio_data);
+ struct bio *dm_bio_from_per_bio_data(void *data, size_t data_size)
+ {
+ 	struct dm_io *io = (struct dm_io *)((char *)data + data_size);
 +
-+			node = rb_next(&e->rb_node);
-+			if (unlikely(!node))
-+				return NULL;
+ 	if (io->magic == DM_IO_MAGIC)
+ 		return (struct bio *)((char *)io + DM_IO_BIO_OFFSET);
+ 	BUG_ON(io->magic != DM_TIO_MAGIC);
+@@ -128,6 +129,7 @@ static int swap_bios = DEFAULT_SWAP_BIOS;
+ static int get_swap_bios(void)
+ {
+ 	int latch = READ_ONCE(swap_bios);
 +
-+			e = container_of(node, struct wc_entry, rb_node);
-+			return e;
- 		}
+ 	if (unlikely(latch <= 0))
+ 		latch = DEFAULT_SWAP_BIOS;
+ 	return latch;
+@@ -1115,6 +1117,7 @@ static void clone_endio(struct bio *bio)
+ 
+ 	if (endio) {
+ 		int r = endio(ti, bio, &error);
++
+ 		switch (r) {
+ 		case DM_ENDIO_REQUEUE:
+ 			if (static_branch_unlikely(&zoned_enabled)) {
+@@ -1403,6 +1406,7 @@ static void __map_bio(struct bio *clone)
+ 	if (static_branch_unlikely(&swap_bios_enabled) &&
+ 	    unlikely(swap_bios_limit(ti, clone))) {
+ 		int latch = get_swap_bios();
++
+ 		if (unlikely(latch != md->swap_bios))
+ 			__set_swap_bios_limit(md, latch);
+ 		down(&md->swap_bios_semaphore);
+@@ -2790,6 +2794,7 @@ static int __dm_resume(struct mapped_device *md, struct dm_table *map)
+ {
+ 	if (map) {
+ 		int r = dm_table_resume_targets(map);
++
+ 		if (r)
+ 			return r;
  	}
+diff --git a/drivers/md/persistent-data/dm-array.c b/drivers/md/persistent-data/dm-array.c
+index 7821bf106fa7..a8c4d21aa8ce 100644
+--- a/drivers/md/persistent-data/dm-array.c
++++ b/drivers/md/persistent-data/dm-array.c
+@@ -695,7 +695,7 @@ static int array_resize(struct dm_array_info *info, dm_block_t root,
+ int dm_array_resize(struct dm_array_info *info, dm_block_t root,
+ 		    uint32_t old_size, uint32_t new_size,
+ 		    const void *value, dm_block_t *new_root)
+-		    __dm_written_to_disk(value)
++	__dm_written_to_disk(value)
+ {
+ 	int r = array_resize(info, root, old_size, new_size, value, new_root);
+ 
+@@ -846,7 +846,7 @@ static int array_set_value(struct dm_array_info *info, dm_block_t root,
+ 
+ int dm_array_set_value(struct dm_array_info *info, dm_block_t root,
+ 		 uint32_t index, const void *value, dm_block_t *new_root)
+-		 __dm_written_to_disk(value)
++	__dm_written_to_disk(value)
+ {
+ 	int r;
  
 diff --git a/drivers/md/persistent-data/dm-btree.c b/drivers/md/persistent-data/dm-btree.c
-index d646d792ce51..67b868ac2128 100644
+index 67b868ac2128..92560eb9301e 100644
 --- a/drivers/md/persistent-data/dm-btree.c
 +++ b/drivers/md/persistent-data/dm-btree.c
-@@ -1352,8 +1352,8 @@ static int find_key(struct ro_spine *s, dm_block_t block, bool find_highest,
- 		i = le32_to_cpu(ro_node(s)->header.nr_entries);
- 		if (!i)
- 			return -ENODATA;
--		else
--			i--;
-+
-+		i--;
+@@ -1320,7 +1320,7 @@ static int insert(struct dm_btree_info *info, dm_block_t root,
  
- 		if (find_highest)
- 			*result_key = le64_to_cpu(ro_node(s)->keys[i]);
-diff --git a/drivers/md/persistent-data/dm-space-map-common.c b/drivers/md/persistent-data/dm-space-map-common.c
-index cc7e06a026ae..f0643af04060 100644
---- a/drivers/md/persistent-data/dm-space-map-common.c
-+++ b/drivers/md/persistent-data/dm-space-map-common.c
-@@ -793,13 +793,12 @@ static int __sm_ll_dec_overflow(struct ll_disk *ll, dm_block_t b,
- 	rc = le32_to_cpu(*v_ptr);
- 	*old_rc = rc;
- 
--	if (rc == 3) {
-+	if (rc == 3)
- 		return __sm_ll_del_overflow(ll, b, ic);
--	} else {
--		rc--;
--		*v_ptr = cpu_to_le32(rc);
--		return 0;
--	}
-+
-+	rc--;
-+	*v_ptr = cpu_to_le32(rc);
-+	return 0;
+ int dm_btree_insert(struct dm_btree_info *info, dm_block_t root,
+ 		    uint64_t *keys, void *value, dm_block_t *new_root)
+-		    __dm_written_to_disk(value)
++	__dm_written_to_disk(value)
+ {
+ 	return insert(info, root, keys, value, new_root, NULL);
  }
+@@ -1329,7 +1329,7 @@ EXPORT_SYMBOL_GPL(dm_btree_insert);
+ int dm_btree_insert_notify(struct dm_btree_info *info, dm_block_t root,
+ 			   uint64_t *keys, void *value, dm_block_t *new_root,
+ 			   int *inserted)
+-			   __dm_written_to_disk(value)
++	__dm_written_to_disk(value)
+ {
+ 	return insert(info, root, keys, value, new_root, inserted);
+ }
+diff --git a/drivers/md/persistent-data/dm-btree.h b/drivers/md/persistent-data/dm-btree.h
+index 0381ed689e51..9302cca04c31 100644
+--- a/drivers/md/persistent-data/dm-btree.h
++++ b/drivers/md/persistent-data/dm-btree.h
+@@ -122,7 +122,7 @@ int dm_btree_lookup_next(struct dm_btree_info *info, dm_block_t root,
+  */
+ int dm_btree_insert(struct dm_btree_info *info, dm_block_t root,
+ 		    uint64_t *keys, void *value, dm_block_t *new_root)
+-		    __dm_written_to_disk(value);
++	__dm_written_to_disk(value);
  
- static int sm_ll_dec_overflow(struct ll_disk *ll, dm_block_t b,
+ /*
+  * A variant of insert that indicates whether it actually inserted or just
 -- 
 2.37.0 (Apple Git-136)
 
