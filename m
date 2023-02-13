@@ -1,98 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8B4B16951AE
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:16:03 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4347F695197
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:15:32 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676319362;
+	s=mimecast20190719; t=1676319331;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qlgO/P9iKeaLAnpekdqFz+T61sCyFkLN4L5rG9MGnOc=;
-	b=eZ+PmSbZLiInbI1gdVYlhG6GPDeCSN2GpYnA1Ajh+5nTCQFnFjsn5WIbmfv+CnEczXJlNo
-	CJ1/JsbQuk998ZmhVdep24TZk+j1cN5l9y1Yxlk68OpJ9WJkY6g+5SYpJ33buU4xW3dCii
-	lUxP/5kVD3Xs5OYkx/ryx3f6TBlGE3U=
+	bh=xE8/d34+cRRayTVt1LPRrzwHwVaQMdaX6dO9yiuSM+E=;
+	b=Q2941X0PzkEUyfOrdFu7S/Vnqa4NtNMlT1KmvZMmuNRpuLuR/r9rhPouOoezQQ+2EdI5XI
+	X2vSCsmE0mrbdGlveM/aUSa0lz7nNjvSOXioS24OcKPVhwOIGfRVR00BwBkTQ7bNhqQaJ1
+	jliu/uSdWueTPCnzf+dbBywXDe+5BnY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-629-w76hSgV7N2iiDWtRW0D6KA-1; Mon, 13 Feb 2023 15:15:27 -0500
-X-MC-Unique: w76hSgV7N2iiDWtRW0D6KA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-96-9d_BRv_mNluFgMeQmFl48Q-1; Mon, 13 Feb 2023 15:15:28 -0500
+X-MC-Unique: 9d_BRv_mNluFgMeQmFl48Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28D0C800B24;
-	Mon, 13 Feb 2023 20:14:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28C1B80192F;
+	Mon, 13 Feb 2023 20:14:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 120E8112131B;
-	Mon, 13 Feb 2023 20:14:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 119032026D76;
+	Mon, 13 Feb 2023 20:14:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D447B19465A3;
-	Mon, 13 Feb 2023 20:14:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B401819465A2;
+	Mon, 13 Feb 2023 20:14:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 056461946588
- for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:14:55 +0000 (UTC)
+ ESMTP id D097419465A2
+ for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:14:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DF48E2026D68; Mon, 13 Feb 2023 20:14:54 +0000 (UTC)
+ id C45D42026D68; Mon, 13 Feb 2023 20:14:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D65E32026D4B
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:54 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BCA322026D4B
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B299C101B42B
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:54 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A31DD10119EB
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:56 +0000 (UTC)
+Received: from mail-qt1-f180.google.com (mail-qt1-f180.google.com
+ [209.85.160.180]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-450-oapyW8sLNX-idLzaq_8LLg-1; Mon, 13 Feb 2023 15:14:53 -0500
-X-MC-Unique: oapyW8sLNX-idLzaq_8LLg-1
-Received: by mail-qt1-f170.google.com with SMTP id cr22so15168711qtb.10
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:14:53 -0800 (PST)
+ us-mta-332-6or0u2szMySwYiSvE2hw0Q-3; Mon, 13 Feb 2023 15:14:55 -0500
+X-MC-Unique: 6or0u2szMySwYiSvE2hw0Q-3
+Received: by mail-qt1-f180.google.com with SMTP id g8so15148703qtq.13
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:14:55 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=GWded1WwUhjuBej/7K62yQ0Rh5VzDzRiQ0yl+GTO7W4=;
- b=LZzObTFBJjB0EC1nep8wHPl2WfcWhFrjqiewFiJSs2eOXwXtmdlDjplSGfv3vvXpaP
- WbKbZf1Xzu1v20zgoiLGNxHIaWfjV+3an4LX3KZojTtaysut2DO4RLIR5L/YdWkoN/g7
- RJWrzpVSLL3mOvoBHrwGBTD22x2XKe7vUaZ5Mwb40ra2tBKKJdqji7RUDKAGZxEyxSig
- iEWoVuE/sYckwtL+tjpM8QeE1pBDI/jxYEXCzmuEtW+RAFMVCyZkLkBUNiTHchm6p1c8
- QoYEpwa7DxSd2t06rrV3MA3PpbKtZC6J1DeFzqUMelyGKnOVtjIRbcpK7qwHzlEZoWSO
- MwUg==
-X-Gm-Message-State: AO0yUKXdiFagY3NAK+8FfoMYBY0fgokHx51Z4eip4XSihOCD+dqOUnh6
- y02RlqS57HrAkLFOE940yNXASs93p2+y2Nc0x5BXyOjm0QLnvk1yQerpgfEYV5hgcvJ8gHxo3pw
- Etbj13c5XMGnp1ixiZmbBPo3Sh3Ihu0P2IzeX12exbfEvylZBo4QXPzUSEIRoCQhb9Rx61Q==
-X-Google-Smtp-Source: AK7set8M+EIYJUqIWE3rInkyrKsGmhFFgBOBpLo3Xx2WFwiON7Nv3ocxUakmP56gMJexltuAmck9oA==
-X-Received: by 2002:a05:622a:1653:b0:3b9:c153:f169 with SMTP id
- y19-20020a05622a165300b003b9c153f169mr47904829qtj.0.1676319292282; 
- Mon, 13 Feb 2023 12:14:52 -0800 (PST)
+ bh=AVfGMvxJ6w49Ird7R24wSk8q7EXvGnkhVXI8d3Cg1HI=;
+ b=cqsl2FNB0WEnWnhtHzPIz3XXEMWLwE4948OOL+v0Xvvd3VHiauryw/eXMmxT7QEFgo
+ feDElHUcHr0B+bGMV91lznmQL2SobuiZJpSKdLgJHa6D78MPqRrCA7RaUp/jwlo05FiA
+ 71CnGQtod0EyYMskBd957Ry+1WzNjFrAPK+XxVURXmkD7nnUq+QSqoMLuZf0mBj7ybEW
+ E6RyYDJ7/IFrCRDa8L0hLMxjsCsfLsOsHizcksrujlBs9aX06K6Q0EHqz4+TmTlnOrv9
+ Z0zrtASol8/jIurWBPrdfkqidpOS4nmPldXcwNlqfTngYWWuH9k8d1dqK++QqaEWs1sY
+ rzWQ==
+X-Gm-Message-State: AO0yUKV+9zkr6W9UxCiq5Mf70MXMWONklshncUCoNuWvTv5Kl0NL6ZWr
+ 2yXlByg71v+Bpu0UPMr8zVFmcjWRqtpEaq2mbpeUranE/vnxRVIAbO7kzDoAKSsLjXCraeVNzcZ
+ GjYLlwAwhIDbAFbP+DaIxS38Qs5zeVgMdkEioxjMhkD+OpZ/3Z/ehUeTt2RF/iMluti+l7w==
+X-Google-Smtp-Source: AK7set+bBAIpg+mD9dvJJNxKqrYPD506Bd3Jebkfw8z151zOjrmctIWwdl1s6CaFahd+iIo8WhL0wQ==
+X-Received: by 2002:ac8:5bd5:0:b0:3ba:1d8d:f6d0 with SMTP id
+ b21-20020ac85bd5000000b003ba1d8df6d0mr48148297qtb.23.1676319294294; 
+ Mon, 13 Feb 2023 12:14:54 -0800 (PST)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- m28-20020aed27dc000000b003b635a5d56csm9992617qtg.30.2023.02.13.12.14.51
+ e7-20020a378207000000b0071a49ac0e05sm10315124qkd.111.2023.02.13.12.14.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 12:14:51 -0800 (PST)
+ Mon, 13 Feb 2023 12:14:53 -0800 (PST)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 13 Feb 2023 15:13:37 -0500
-Message-Id: <20230213201401.45973-16-snitzer@kernel.org>
+Date: Mon, 13 Feb 2023 15:13:38 -0500
+Message-Id: <20230213201401.45973-17-snitzer@kernel.org>
 In-Reply-To: <20230213201401.45973-1-snitzer@kernel.org>
 References: <20230213201401.45973-1-snitzer@kernel.org>
 MIME-Version: 1.0
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH 15/39] dm: avoid spaces before function arguments
- or in favour of tabs
+Subject: [dm-devel] [PATCH 16/39] dm: add argument identifier names
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,7 +106,7 @@ Cc: ebiggers@kernel.org, Heinz Mauelshagen <heinzm@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -119,439 +117,120 @@ From: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bio-prison-v1.c   |  6 ++--
- drivers/md/dm-cache-target.c    | 12 ++++----
- drivers/md/dm-ebs-target.c      |  2 +-
- drivers/md/dm-exception-store.h | 44 ++++++++++++++--------------
- drivers/md/dm-ioctl.c           | 52 ++++++++++++++++-----------------
- drivers/md/dm-kcopyd.c          |  2 +-
- drivers/md/dm-path-selector.h   | 27 +++++++++--------
- drivers/md/dm-ps-queue-length.c |  4 +--
- drivers/md/dm-ps-service-time.c |  8 ++---
- drivers/md/dm-raid1.c           |  2 +-
+ drivers/md/dm-bufio.c           |  6 +++---
+ drivers/md/dm-core.h            |  2 +-
+ drivers/md/dm-era-target.c      | 10 +++++-----
  drivers/md/dm-snap-persistent.c |  2 +-
- drivers/md/dm-snap-transient.c  |  2 +-
- drivers/md/dm-snap.c            |  6 ++--
- drivers/md/dm-uevent.c          |  2 +-
- 14 files changed, 84 insertions(+), 87 deletions(-)
+ drivers/md/dm-sysfs.c           |  4 ++--
+ 5 files changed, 12 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/md/dm-bio-prison-v1.c b/drivers/md/dm-bio-prison-v1.c
-index aa58b0671a79..6ff559f436a2 100644
---- a/drivers/md/dm-bio-prison-v1.c
-+++ b/drivers/md/dm-bio-prison-v1.c
-@@ -78,9 +78,9 @@ static void __setup_new_cell(struct dm_cell_key *key,
- 			     struct bio *holder,
- 			     struct dm_bio_prison_cell *cell)
- {
--       memcpy(&cell->key, key, sizeof(cell->key));
--       cell->holder = holder;
--       bio_list_init(&cell->bios);
-+	memcpy(&cell->key, key, sizeof(cell->key));
-+	cell->holder = holder;
-+	bio_list_init(&cell->bios);
- }
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index 8d06ca801a10..0b25dce09d39 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -92,8 +92,8 @@ struct dm_bufio_client {
+ 	struct block_device *bdev;
+ 	unsigned int block_size;
+ 	s8 sectors_per_block_bits;
+-	void (*alloc_callback)(struct dm_buffer *);
+-	void (*write_callback)(struct dm_buffer *);
++	void (*alloc_callback)(struct dm_buffer *buf);
++	void (*write_callback)(struct dm_buffer *buf);
+ 	struct kmem_cache *slab_buffer;
+ 	struct kmem_cache *slab_cache;
+ 	struct dm_io_client *dm_io;
+@@ -156,7 +156,7 @@ struct dm_buffer {
+ 	unsigned int write_end;
+ 	struct dm_bufio_client *c;
+ 	struct list_head write_list;
+-	void (*end_io)(struct dm_buffer *, blk_status_t);
++	void (*end_io)(struct dm_buffer *buf, blk_status_t stat);
+ #ifdef CONFIG_DM_DEBUG_BLOCK_STACK_TRACING
+ #define MAX_STACK 10
+ 	unsigned int stack_len;
+diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
+index 28c3ba5dd402..f58227a1cce3 100644
+--- a/drivers/md/dm-core.h
++++ b/drivers/md/dm-core.h
+@@ -217,7 +217,7 @@ struct dm_table {
+ 	struct list_head devices;
  
- static int cmp_keys(struct dm_cell_key *lhs,
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 816f0c5f139f..94170947e7fb 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -181,14 +181,14 @@ static void continue_after_commit(struct batcher *b, struct continuation *k)
-  */
- static void issue_after_commit(struct batcher *b, struct bio *bio)
- {
--       bool commit_scheduled;
-+	bool commit_scheduled;
+ 	/* events get handed up using this callback */
+-	void (*event_fn)(void *);
++	void (*event_fn)(void *data);
+ 	void *event_context;
  
--       spin_lock_irq(&b->lock);
--       commit_scheduled = b->commit_scheduled;
--       bio_list_add(&b->bios, bio);
--       spin_unlock_irq(&b->lock);
-+	spin_lock_irq(&b->lock);
-+	commit_scheduled = b->commit_scheduled;
-+	bio_list_add(&b->bios, bio);
-+	spin_unlock_irq(&b->lock);
+ 	struct dm_md_mempools *mempools;
+diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
+index c4fd79135794..a42cfd950e04 100644
+--- a/drivers/md/dm-era-target.c
++++ b/drivers/md/dm-era-target.c
+@@ -682,7 +682,7 @@ struct digest {
+ 	__le32 value;
+ 	struct dm_disk_bitset info;
  
--       if (commit_scheduled)
-+	if (commit_scheduled)
- 	       async_commit(b);
- }
+-	int (*step)(struct era_metadata *, struct digest *);
++	int (*step)(struct era_metadata *md, struct digest *d);
+ };
  
-diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
-index 8477e82a95c6..a371a2c177a9 100644
---- a/drivers/md/dm-ebs-target.c
-+++ b/drivers/md/dm-ebs-target.c
-@@ -242,7 +242,7 @@ static void __ebs_process_bios(struct work_struct *ws)
-  * <offset>: offset in 512 bytes sectors into <dev_path>
-  * <ebs>: emulated block size in units of 512 bytes exposed to the upper layer
-  * [<ubs>]: underlying block size in units of 512 bytes imposed on the lower layer;
-- * 	    optional, if not supplied, retrieve logical block size from underlying device
-+ *	    optional, if not supplied, retrieve logical block size from underlying device
-  */
- static int ebs_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- {
-diff --git a/drivers/md/dm-exception-store.h b/drivers/md/dm-exception-store.h
-index 5a143dc8d181..4bc57b63d347 100644
---- a/drivers/md/dm-exception-store.h
-+++ b/drivers/md/dm-exception-store.h
-@@ -44,36 +44,36 @@ struct dm_exception_store_type {
- 	const char *name;
- 	struct module *module;
- 
--	int (*ctr) (struct dm_exception_store *store, char *options);
-+	int (*ctr)(struct dm_exception_store *store, char *options);
- 
- 	/*
- 	 * Destroys this object when you've finished with it.
- 	 */
--	void (*dtr) (struct dm_exception_store *store);
-+	void (*dtr)(struct dm_exception_store *store);
- 
- 	/*
- 	 * The target shouldn't read the COW device until this is
- 	 * called.  As exceptions are read from the COW, they are
- 	 * reported back via the callback.
- 	 */
--	int (*read_metadata) (struct dm_exception_store *store,
--			      int (*callback)(void *callback_context,
--					      chunk_t old, chunk_t new),
--			      void *callback_context);
-+	int (*read_metadata)(struct dm_exception_store *store,
-+			     int (*callback)(void *callback_context,
-+					     chunk_t old, chunk_t new),
-+			     void *callback_context);
- 
- 	/*
- 	 * Find somewhere to store the next exception.
- 	 */
--	int (*prepare_exception) (struct dm_exception_store *store,
--				  struct dm_exception *e);
-+	int (*prepare_exception)(struct dm_exception_store *store,
-+				 struct dm_exception *e);
- 
- 	/*
- 	 * Update the metadata with this exception.
- 	 */
--	void (*commit_exception) (struct dm_exception_store *store,
--				  struct dm_exception *e, int valid,
--				  void (*callback) (void *, int success),
--				  void *callback_context);
-+	void (*commit_exception)(struct dm_exception_store *store,
-+				 struct dm_exception *e, int valid,
-+				 void (*callback)(void *, int success),
-+				 void *callback_context);
- 
- 	/*
- 	 * Returns 0 if the exception store is empty.
-@@ -83,30 +83,30 @@ struct dm_exception_store_type {
- 	 * still-to-be-merged chunk and returns the number of
- 	 * consecutive previous ones.
- 	 */
--	int (*prepare_merge) (struct dm_exception_store *store,
--			      chunk_t *last_old_chunk, chunk_t *last_new_chunk);
-+	int (*prepare_merge)(struct dm_exception_store *store,
-+			     chunk_t *last_old_chunk, chunk_t *last_new_chunk);
- 
- 	/*
- 	 * Clear the last n exceptions.
- 	 * nr_merged must be <= the value returned by prepare_merge.
- 	 */
--	int (*commit_merge) (struct dm_exception_store *store, int nr_merged);
-+	int (*commit_merge)(struct dm_exception_store *store, int nr_merged);
- 
- 	/*
- 	 * The snapshot is invalid, note this in the metadata.
- 	 */
--	void (*drop_snapshot) (struct dm_exception_store *store);
-+	void (*drop_snapshot)(struct dm_exception_store *store);
- 
--	unsigned int (*status) (struct dm_exception_store *store,
--				status_type_t status, char *result,
--				unsigned int maxlen);
-+	unsigned int (*status)(struct dm_exception_store *store,
-+			       status_type_t status, char *result,
-+			       unsigned int maxlen);
- 
- 	/*
- 	 * Return how full the snapshot is.
- 	 */
--	void (*usage) (struct dm_exception_store *store,
--		       sector_t *total_sectors, sector_t *sectors_allocated,
--		       sector_t *metadata_sectors);
-+	void (*usage)(struct dm_exception_store *store,
-+		      sector_t *total_sectors, sector_t *sectors_allocated,
-+		      sector_t *metadata_sectors);
- 
- 	/* For internal device-mapper use only. */
+ static int metadata_digest_lookup_writeset(struct era_metadata *md,
+@@ -1193,8 +1193,8 @@ struct era {
+ struct rpc {
  	struct list_head list;
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index c00a1fe69846..e73615c57561 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -54,10 +54,10 @@ struct hash_cell {
- };
  
- struct vers_iter {
--    size_t param_size;
--    struct dm_target_versions *vers, *old_vers;
--    char *end;
--    uint32_t flags;
-+	size_t param_size;
-+	struct dm_target_versions *vers, *old_vers;
-+	char *end;
-+	uint32_t flags;
- };
+-	int (*fn0)(struct era_metadata *);
+-	int (*fn1)(struct era_metadata *, void *);
++	int (*fn0)(struct era_metadata *md);
++	int (*fn1)(struct era_metadata *md, void *ref);
+ 	void *arg;
+ 	int result;
  
- 
-@@ -661,36 +661,34 @@ static int list_devices(struct file *filp, struct dm_ioctl *param, size_t param_
- 
- static void list_version_get_needed(struct target_type *tt, void *needed_param)
- {
--    size_t *needed = needed_param;
-+	size_t *needed = needed_param;
- 
--    *needed += sizeof(struct dm_target_versions);
--    *needed += strlen(tt->name) + 1;
--    *needed += ALIGN_MASK;
-+	*needed += sizeof(struct dm_target_versions);
-+	*needed += strlen(tt->name) + 1;
-+	*needed += ALIGN_MASK;
+@@ -1388,7 +1388,7 @@ static int perform_rpc(struct era *era, struct rpc *rpc)
+ 	return rpc->result;
  }
  
- static void list_version_get_info(struct target_type *tt, void *param)
+-static int in_worker0(struct era *era, int (*fn)(struct era_metadata *))
++static int in_worker0(struct era *era, int (*fn)(struct era_metadata *md))
  {
--    struct vers_iter *info = param;
-+	struct vers_iter *info = param;
- 
--    /* Check space - it might have changed since the first iteration */
--    if ((char *)info->vers + sizeof(tt->version) + strlen(tt->name) + 1 >
--	info->end) {
-+	/* Check space - it might have changed since the first iteration */
-+	if ((char *)info->vers + sizeof(tt->version) + strlen(tt->name) + 1 > info->end) {
-+		info->flags = DM_BUFFER_FULL_FLAG;
-+		return;
-+	}
- 
--	info->flags = DM_BUFFER_FULL_FLAG;
--	return;
--    }
-+	if (info->old_vers)
-+		info->old_vers->next = (uint32_t) ((void *)info->vers - (void *)info->old_vers);
- 
--    if (info->old_vers)
--	info->old_vers->next = (uint32_t) ((void *)info->vers -
--					   (void *)info->old_vers);
--    info->vers->version[0] = tt->version[0];
--    info->vers->version[1] = tt->version[1];
--    info->vers->version[2] = tt->version[2];
--    info->vers->next = 0;
--    strcpy(info->vers->name, tt->name);
-+	info->vers->version[0] = tt->version[0];
-+	info->vers->version[1] = tt->version[1];
-+	info->vers->version[2] = tt->version[2];
-+	info->vers->next = 0;
-+	strcpy(info->vers->name, tt->name);
- 
--    info->old_vers = info->vers;
--    info->vers = align_ptr((void *)(info->vers + 1) + strlen(tt->name) + 1);
-+	info->old_vers = info->vers;
-+	info->vers = align_ptr((void *)(info->vers + 1) + strlen(tt->name) + 1);
+ 	struct rpc rpc;
+ 	rpc.fn0 = fn;
+@@ -1398,7 +1398,7 @@ static int in_worker0(struct era *era, int (*fn)(struct era_metadata *))
  }
  
- static int __list_versions(struct dm_ioctl *param, size_t param_size, const char *name)
-@@ -2088,9 +2086,9 @@ static const struct file_operations _ctl_fops = {
- 
- static struct miscdevice _dm_misc = {
- 	.minor		= MAPPER_CTRL_MINOR,
--	.name  		= DM_NAME,
-+	.name		= DM_NAME,
- 	.nodename	= DM_DIR "/" DM_CONTROL_NODE,
--	.fops  		= &_ctl_fops
-+	.fops		= &_ctl_fops
- };
- 
- MODULE_ALIAS_MISCDEV(MAPPER_CTRL_MINOR);
-diff --git a/drivers/md/dm-kcopyd.c b/drivers/md/dm-kcopyd.c
-index 1b97a32faa4e..088746578e7b 100644
---- a/drivers/md/dm-kcopyd.c
-+++ b/drivers/md/dm-kcopyd.c
-@@ -608,7 +608,7 @@ static int run_pages_job(struct kcopyd_job *job)
-  * of successful jobs.
-  */
- static int process_jobs(struct list_head *jobs, struct dm_kcopyd_client *kc,
--			int (*fn) (struct kcopyd_job *))
-+			int (*fn)(struct kcopyd_job *))
+ static int in_worker1(struct era *era,
+-		      int (*fn)(struct era_metadata *, void *), void *arg)
++		      int (*fn)(struct era_metadata *md, void *ref), void *arg)
  {
- 	struct kcopyd_job *job;
- 	int r, count = 0;
-diff --git a/drivers/md/dm-path-selector.h b/drivers/md/dm-path-selector.h
-index f7390cb79a3c..18ca2769c793 100644
---- a/drivers/md/dm-path-selector.h
-+++ b/drivers/md/dm-path-selector.h
-@@ -53,44 +53,43 @@ struct path_selector_type {
- 	/*
- 	 * Constructs a path selector object, takes custom arguments
- 	 */
--	int (*create) (struct path_selector *ps, unsigned int argc, char **argv);
--	void (*destroy) (struct path_selector *ps);
-+	int (*create)(struct path_selector *ps, unsigned int argc, char **argv);
-+	void (*destroy)(struct path_selector *ps);
- 
- 	/*
- 	 * Add an opaque path object, along with some selector specific
- 	 * path args (eg, path priority).
- 	 */
--	int (*add_path) (struct path_selector *ps, struct dm_path *path,
--			 int argc, char **argv, char **error);
-+	int (*add_path)(struct path_selector *ps, struct dm_path *path,
-+			int argc, char **argv, char **error);
- 
- 	/*
- 	 * Chooses a path for this io, if no paths are available then
- 	 * NULL will be returned.
- 	 */
--	struct dm_path *(*select_path) (struct path_selector *ps,
--					size_t nr_bytes);
-+	struct dm_path *(*select_path)(struct path_selector *ps, size_t nr_bytes);
- 
- 	/*
- 	 * Notify the selector that a path has failed.
- 	 */
--	void (*fail_path) (struct path_selector *ps, struct dm_path *p);
-+	void (*fail_path)(struct path_selector *ps, struct dm_path *p);
- 
- 	/*
- 	 * Ask selector to reinstate a path.
- 	 */
--	int (*reinstate_path) (struct path_selector *ps, struct dm_path *p);
-+	int (*reinstate_path)(struct path_selector *ps, struct dm_path *p);
- 
- 	/*
- 	 * Table content based on parameters added in ps_add_path_fn
- 	 * or path selector status
- 	 */
--	int (*status) (struct path_selector *ps, struct dm_path *path,
--		       status_type_t type, char *result, unsigned int maxlen);
-+	int (*status)(struct path_selector *ps, struct dm_path *path,
-+		      status_type_t type, char *result, unsigned int maxlen);
- 
--	int (*start_io) (struct path_selector *ps, struct dm_path *path,
--			 size_t nr_bytes);
--	int (*end_io) (struct path_selector *ps, struct dm_path *path,
--		       size_t nr_bytes, u64 start_time);
-+	int (*start_io)(struct path_selector *ps, struct dm_path *path,
-+			size_t nr_bytes);
-+	int (*end_io)(struct path_selector *ps, struct dm_path *path,
-+		      size_t nr_bytes, u64 start_time);
- };
- 
- /* Register a path selector */
-diff --git a/drivers/md/dm-ps-queue-length.c b/drivers/md/dm-ps-queue-length.c
-index 4110142df66e..5e3db25acc79 100644
---- a/drivers/md/dm-ps-queue-length.c
-+++ b/drivers/md/dm-ps-queue-length.c
-@@ -123,8 +123,8 @@ static int ql_add_path(struct path_selector *ps, struct dm_path *path,
- 
- 	/*
- 	 * Arguments: [<repeat_count>]
--	 * 	<repeat_count>: The number of I/Os before switching path.
--	 * 			If not given, default (QL_MIN_IO) is used.
-+	 *	<repeat_count>: The number of I/Os before switching path.
-+	 *			If not given, default (QL_MIN_IO) is used.
- 	 */
- 	if (argc > 1) {
- 		*error = "queue-length ps: incorrect number of arguments";
-diff --git a/drivers/md/dm-ps-service-time.c b/drivers/md/dm-ps-service-time.c
-index 3c8f2e884a12..0138325484cd 100644
---- a/drivers/md/dm-ps-service-time.c
-+++ b/drivers/md/dm-ps-service-time.c
-@@ -121,11 +121,11 @@ static int st_add_path(struct path_selector *ps, struct dm_path *path,
- 
- 	/*
- 	 * Arguments: [<repeat_count> [<relative_throughput>]]
--	 * 	<repeat_count>: The number of I/Os before switching path.
--	 * 			If not given, default (ST_MIN_IO) is used.
--	 * 	<relative_throughput>: The relative throughput value of
-+	 *	<repeat_count>: The number of I/Os before switching path.
-+	 *			If not given, default (ST_MIN_IO) is used.
-+	 *	<relative_throughput>: The relative throughput value of
- 	 *			the path among all paths in the path-group.
--	 * 			The valid range: 0-<ST_MAX_RELATIVE_THROUGHPUT>
-+	 *			The valid range: 0-<ST_MAX_RELATIVE_THROUGHPUT>
- 	 *			If not given, minimum value '1' is used.
- 	 *			If '0' is given, the path isn't selected while
- 	 *			other paths having a positive value are	available.
-diff --git a/drivers/md/dm-raid1.c b/drivers/md/dm-raid1.c
-index 2b003fe536bc..a71c03591014 100644
---- a/drivers/md/dm-raid1.c
-+++ b/drivers/md/dm-raid1.c
-@@ -595,7 +595,7 @@ static void do_reads(struct mirror_set *ms, struct bio_list *reads)
-  * We do different things with the write io depending on the
-  * state of the region that it's in:
-  *
-- * SYNC: 	increment pending, use kcopyd to write to *all* mirrors
-+ * SYNC:	increment pending, use kcopyd to write to *all* mirrors
-  * RECOVERING:	delay the io until recovery completes
-  * NOSYNC:	increment pending, just write to the default mirror
-  *---------------------------------------------------------------------
+ 	struct rpc rpc;
+ 	rpc.fn0 = NULL;
 diff --git a/drivers/md/dm-snap-persistent.c b/drivers/md/dm-snap-persistent.c
-index 0877285a0514..c511af93b5dc 100644
+index c511af93b5dc..7d8232b6935f 100644
 --- a/drivers/md/dm-snap-persistent.c
 +++ b/drivers/md/dm-snap-persistent.c
-@@ -695,7 +695,7 @@ static int persistent_prepare_exception(struct dm_exception_store *store,
+@@ -95,7 +95,7 @@ struct core_exception {
+ };
  
- static void persistent_commit_exception(struct dm_exception_store *store,
- 					struct dm_exception *e, int valid,
--					void (*callback) (void *, int success),
-+					void (*callback)(void *, int success),
- 					void *callback_context)
- {
- 	unsigned int i;
-diff --git a/drivers/md/dm-snap-transient.c b/drivers/md/dm-snap-transient.c
-index 44dad7a56492..8e1e4b4e14b5 100644
---- a/drivers/md/dm-snap-transient.c
-+++ b/drivers/md/dm-snap-transient.c
-@@ -56,7 +56,7 @@ static int transient_prepare_exception(struct dm_exception_store *store,
+ struct commit_callback {
+-	void (*callback)(void *, int success);
++	void (*callback)(void *ref, int success);
+ 	void *context;
+ };
  
- static void transient_commit_exception(struct dm_exception_store *store,
- 				       struct dm_exception *e, int valid,
--				       void (*callback) (void *, int success),
-+				       void (*callback)(void *, int success),
- 				       void *callback_context)
- {
- 	/* Just succeed */
-diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
-index 3357731c9db8..3ae7b6d7b210 100644
---- a/drivers/md/dm-snap.c
-+++ b/drivers/md/dm-snap.c
-@@ -123,11 +123,11 @@ struct dm_snapshot {
- 	 * The merge operation failed if this flag is set.
- 	 * Failure modes are handled as follows:
- 	 * - I/O error reading the header
--	 *   	=> don't load the target; abort.
-+	 *	=> don't load the target; abort.
- 	 * - Header does not have "valid" flag set
--	 *   	=> use the origin; forget about the snapshot.
-+	 *	=> use the origin; forget about the snapshot.
- 	 * - I/O error when reading exceptions
--	 *   	=> don't load the target; abort.
-+	 *	=> don't load the target; abort.
- 	 *         (We can't use the intermediate origin state.)
- 	 * - I/O error while merging
- 	 *	=> stop merging; set merge_failed; process I/O normally.
-diff --git a/drivers/md/dm-uevent.c b/drivers/md/dm-uevent.c
-index a02b3f6ea47a..491738263292 100644
---- a/drivers/md/dm-uevent.c
-+++ b/drivers/md/dm-uevent.c
-@@ -3,7 +3,7 @@
-  * Device Mapper Uevent Support (dm-uevent)
-  *
-  * Copyright IBM Corporation, 2007
-- * 	Author: Mike Anderson <andmike@linux.vnet.ibm.com>
-+ *	Author: Mike Anderson <andmike@linux.vnet.ibm.com>
-  */
- #include <linux/list.h>
- #include <linux/slab.h>
+diff --git a/drivers/md/dm-sysfs.c b/drivers/md/dm-sysfs.c
+index 9e97a5d9e1ec..a884401f0ca6 100644
+--- a/drivers/md/dm-sysfs.c
++++ b/drivers/md/dm-sysfs.c
+@@ -12,8 +12,8 @@
+ 
+ struct dm_sysfs_attr {
+ 	struct attribute attr;
+-	ssize_t (*show)(struct mapped_device *, char *);
+-	ssize_t (*store)(struct mapped_device *, const char *, size_t count);
++	ssize_t (*show)(struct mapped_device *md, char *p);
++	ssize_t (*store)(struct mapped_device *md, const char *p, size_t count);
+ };
+ 
+ #define DM_ATTR_RO(_name) \
 -- 
 2.37.0 (Apple Git-136)
 
