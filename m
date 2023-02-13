@@ -2,96 +2,96 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 44E726951A3
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:15:42 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 837D36951AF
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:16:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676319341;
+	s=mimecast20190719; t=1676319365;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AbccE0wm0ivnZw/p3TK9jiSAcvgJ7qUAeSpQpBktDjg=;
-	b=PtiKfmq3PlEh5Va137C2s14bFyROtk+RqnG77oYw+WKlgGt5aWpp+ON8ZhlXRcCZ2GYMyr
-	Kuj7TqPR9vscx0PrM+pjHYnG3ClJIAlzMN98C0AK/S4/vSNFUrbph1I3RGgNxRHzudel5L
-	hp+SZSJETQ2dgycvquzY8/y/L1w13oY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=/Q/77Y5/An8Lvbe0rMaW4A2pCWka6gS8/aFCZdVkrCE=;
+	b=NOL/A00gI7tEQcm6Ba/EJAl4PHxvKarAn1yedS71EBjYYQe8KG6DUjVJGgXvLPaEeg1Abm
+	EFIrG0aFhrwygJUn0HlS5xikgN0/tBD7FSyl8swbAFShrBqtRqBaHJh3iyq17tOxSzuq9e
+	JvP7avq5rmWmMkOwp9imC0EkcWQ8BPc=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-664-EK0lV8s9N4mquqyXZTseKA-1; Mon, 13 Feb 2023 15:15:39 -0500
-X-MC-Unique: EK0lV8s9N4mquqyXZTseKA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-522-mexQChghPSOUYLFjKWOocQ-1; Mon, 13 Feb 2023 15:15:40 -0500
+X-MC-Unique: mexQChghPSOUYLFjKWOocQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5784988283B;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95CB338149BE;
 	Mon, 13 Feb 2023 20:15:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 411D0492B16;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 81A54492B03;
 	Mon, 13 Feb 2023 20:15:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3025C19465A2;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5A11E194658C;
 	Mon, 13 Feb 2023 20:15:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2ACCE1946588
- for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:15:19 +0000 (UTC)
+ ESMTP id A94981946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:15:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1E9182026D76; Mon, 13 Feb 2023 20:15:19 +0000 (UTC)
+ id A063640B40C9; Mon, 13 Feb 2023 20:15:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 161092026D2A
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 98FC640CF8ED
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:20 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66B58857A89
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A444D802C18
  for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:17 +0000 (UTC)
-Received: from mail-qt1-f173.google.com (mail-qt1-f173.google.com
- [209.85.160.173]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-175-jzL1eQw9PsW57iAfi-zd3A-2; Mon, 13 Feb 2023 15:15:14 -0500
-X-MC-Unique: jzL1eQw9PsW57iAfi-zd3A-2
-Received: by mail-qt1-f173.google.com with SMTP id cr22so15169951qtb.10
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:15:14 -0800 (PST)
+ us-mta-102-dSinGTIpMSW2vkfDcSnsIg-2; Mon, 13 Feb 2023 15:15:16 -0500
+X-MC-Unique: dSinGTIpMSW2vkfDcSnsIg-2
+Received: by mail-qt1-f178.google.com with SMTP id h24so15158063qta.12
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:15:15 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=0jRRiRVrOaOlEHGvBBy+iQ+4T1x7PBXcREkttqTpI5M=;
- b=MdhrBkHOGzqYX1fGm0xVpSINtwTaE++mu0ywybyNhO+xIwv9tZJsdtjFiqmzplGBv0
- D26UV7vFDnIc1iZ2dUmZ9tfLmfIIIP/ejFa4dbi1BnAdGxyiYbFoAgNf5BvYFl7+cOfo
- Ez0q0NWVVgXIShtMUByc5/oNrmLz4MUggQXSivKGrFG1wA41IGGGxHZdkFuRmhiHiOZh
- neWSGvplAjqMoKBQsMdER/Ey/XwOCW2PQl4dz3qWeFmElkAGKplZ+gUVVp/pYXiXLDQi
- isyJ5xMXPhiiwX3a7teepNY1rxtY8YJOAwWGwz/bpAgBHeN9vRb/Uu52h4aJNd8fu699
- V/4Q==
-X-Gm-Message-State: AO0yUKXn7q6JrR9cCm/acCt0uuc/9jkq2sjVaaVnpPQLjFyviqiNMGzR
- q4ezneBUeJO+vmJUC8Wd+UN2psgFtv59fNA4Ke/+DankRrzpZIwnobVbXjp72ZNWyYjCMwWcV9j
- NpS2yHISk6REX77PTxCF3H/sGN+pRnDjt6ICj0R7UGWQFobwfNLPuFRyA16x5B7OAj4ICvQ==
-X-Google-Smtp-Source: AK7set+7Njpf0PKYbmG/2IuRL3bOqMQG7dtxDMbgb5Bc27pyWiV1k8RLdr1FFj1lw1j4Sk2VqwZKyg==
-X-Received: by 2002:ac8:5850:0:b0:3b8:4951:57b8 with SMTP id
- h16-20020ac85850000000b003b8495157b8mr48663823qth.15.1676319313719; 
- Mon, 13 Feb 2023 12:15:13 -0800 (PST)
+ bh=nOj4HUNAHlthKqTDP+xgaBXM0hmowK8iLMe4XmygrcE=;
+ b=7P7PnmNgFsZ6A74LyX0jLoPnxLPyGdsQTthDf0upE4kHDQy9tHLcBQtwyXY7M/LVgY
+ JYj3hdx5SuVK1n3zuq8ZgZaiVq+CHIw222Vm2NER7Jg+q8cnl+Tkz3HsdsHOaRJieGW7
+ KOwtmIXFe7cdRh57N5ofL6MGIUVgo42CjdKLRcxDjfFxtrD3XjhenK/HfOPLxOwG058M
+ 5fwVpL0RJnq2NL09vIWW5fuQS/9zGq+t2PYaL+6Y9sV8gzj9erLVNm0qXcanlvF+ovaN
+ Y5pO52r8Gk0+LKxIy6NEm9FGXK7cTf3MMW8B5wxE8QOXtN5LvCmnuxQ1t13kNKf4Hci6
+ dfKQ==
+X-Gm-Message-State: AO0yUKX7qO/nt4ohHfX3yYxUNTkW7HL4/5ggqe5e9LoXKPGu85OEq93V
+ ogR3YeBSJKNhpLRyg7z+YWBXRqc4EnxWwf1bB0xV+OvT3nJy93sxFhAtBZIVbUoucvFoNpoTlsO
+ kMm9gwPGa8hADKyZteliwd5Mkl6QVcQ5Oy6yLOW8S9Lx2u64Ux0ttTQLJ8p7mrNZLHQlXkA==
+X-Google-Smtp-Source: AK7set+0X4dW2WrmCK8/N4DLhl/3vMImmwDeh6r11fBRuxPIqf0YCpEp/o7oi8UYy6aEQw/HMO6QzQ==
+X-Received: by 2002:ac8:58c5:0:b0:3b8:6bc1:1570 with SMTP id
+ u5-20020ac858c5000000b003b86bc11570mr33709007qta.23.1676319315255; 
+ Mon, 13 Feb 2023 12:15:15 -0800 (PST)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- y16-20020ac87050000000b003b63dfad2b4sm10037016qtm.0.2023.02.13.12.15.13
+ l12-20020ac8724c000000b003b8238114d9sm9756191qtp.12.2023.02.13.12.15.14
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 12:15:13 -0800 (PST)
+ Mon, 13 Feb 2023 12:15:14 -0800 (PST)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 13 Feb 2023 15:13:50 -0500
-Message-Id: <20230213201401.45973-29-snitzer@kernel.org>
+Date: Mon, 13 Feb 2023 15:13:51 -0500
+Message-Id: <20230213201401.45973-30-snitzer@kernel.org>
 In-Reply-To: <20230213201401.45973-1-snitzer@kernel.org>
 References: <20230213201401.45973-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH 28/39] dm: don't indent labels
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH 29/39] dm ioctl: have constant on the right side
+ of the test
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +107,7 @@ Cc: ebiggers@kernel.org, Heinz Mauelshagen <heinzm@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -118,64 +118,24 @@ From: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bio-prison-v1.c  | 2 +-
- drivers/md/dm-io.c             | 2 +-
- drivers/md/dm-linear.c         | 2 +-
- drivers/md/dm-zoned-metadata.c | 2 +-
- 4 files changed, 4 insertions(+), 4 deletions(-)
+ drivers/md/dm-ioctl.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/md/dm-bio-prison-v1.c b/drivers/md/dm-bio-prison-v1.c
-index 6ff559f436a2..71106e61fd15 100644
---- a/drivers/md/dm-bio-prison-v1.c
-+++ b/drivers/md/dm-bio-prison-v1.c
-@@ -433,7 +433,7 @@ static int __init dm_bio_prison_init(void)
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index ec278675a8ca..e1eddb91cc2b 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1828,8 +1828,8 @@ static int check_version(unsigned int cmd, struct dm_ioctl __user *user)
+ 	if (copy_from_user(version, user->version, sizeof(version)))
+ 		return -EFAULT;
  
- 	return 0;
- 
--      bad:
-+bad:
- 	while (i--)
- 		_exits[i]();
- 
-diff --git a/drivers/md/dm-io.c b/drivers/md/dm-io.c
-index 9844edc1ae7c..f42d6dd43ae6 100644
---- a/drivers/md/dm-io.c
-+++ b/drivers/md/dm-io.c
-@@ -66,7 +66,7 @@ struct dm_io_client *dm_io_client_create(void)
- 
- 	return client;
- 
--   bad:
-+bad:
- 	mempool_exit(&client->pool);
- 	kfree(client);
- 	return ERR_PTR(ret);
-diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
-index 874da33f090f..fd164f3b77cd 100644
---- a/drivers/md/dm-linear.c
-+++ b/drivers/md/dm-linear.c
-@@ -65,7 +65,7 @@ static int linear_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	ti->private = lc;
- 	return 0;
- 
--      bad:
-+bad:
- 	kfree(lc);
- 	return ret;
- }
-diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index c90a8a7fb022..cf9402064aba 100644
---- a/drivers/md/dm-zoned-metadata.c
-+++ b/drivers/md/dm-zoned-metadata.c
-@@ -1342,7 +1342,7 @@ static int dmz_load_sb(struct dmz_metadata *zmd)
- 			if (ret == -EINVAL)
- 				goto out_kfree;
- 		}
--	out_kfree:
-+out_kfree:
- 		kfree(sb);
- 	}
- 	return ret;
+-	if ((DM_VERSION_MAJOR != version[0]) ||
+-	    (DM_VERSION_MINOR < version[1])) {
++	if ((version[0] != DM_VERSION_MAJOR) ||
++	    (version[1] > DM_VERSION_MINOR)) {
+ 		DMERR("ioctl interface mismatch: kernel(%u.%u.%u), user(%u.%u.%u), cmd(%d)",
+ 		      DM_VERSION_MAJOR, DM_VERSION_MINOR,
+ 		      DM_VERSION_PATCHLEVEL,
 -- 
 2.37.0 (Apple Git-136)
 
