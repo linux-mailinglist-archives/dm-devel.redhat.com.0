@@ -2,96 +2,96 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8122E695187
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:14:44 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id AEC9C695188
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:14:45 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676319283;
+	s=mimecast20190719; t=1676319284;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cnyS9+3nQ/i03Lz7heVxmXDHcLmK1I55zo2MTZ6h4DI=;
-	b=TwQBX4o3N1ugsXCM/Zzj0MYA7XhDVYky4vC3BxxQJSu3bbFGeyfbVRtHNGM6y2Ly4RSnHq
-	R1M1m8lFQj7MW0qKR3i5ZjSk9LSonitJIAnKDRvgVPWvf575bDK37Dfy84SXjiFHxgNE50
-	EY3j8mTJzVixdwu75+USEIBi2fm+3e4=
+	bh=JF/oevHl5yNEzncKsAdZtucr75S7nAwp+Hkh5ez6US8=;
+	b=BX2JvyPsYGIwd3UQwQjdg4aE+hiNn6nxuSl3LHgjutm8ElFBZKI5KcrgYTUSkBMrbWbsRZ
+	eXhlrgifhrnNKJXce1Pc1UPZvF7goK7nc5Vb39PCbQoN857QAqoj9UiiOYckb7GT1jyA0K
+	3x/Qf+0Xl/3c2G+QXGq1WusrByKgsKo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-256-25e8ngaQO0iU73vp03VBmw-1; Mon, 13 Feb 2023 15:14:42 -0500
-X-MC-Unique: 25e8ngaQO0iU73vp03VBmw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-226-X8kcGAQTPku1OHz19S3Byw-1; Mon, 13 Feb 2023 15:14:43 -0500
+X-MC-Unique: X8kcGAQTPku1OHz19S3Byw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0ABD7857A9F;
-	Mon, 13 Feb 2023 20:14:40 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 12398858F0E;
+	Mon, 13 Feb 2023 20:14:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AB2F4403D0D2;
-	Mon, 13 Feb 2023 20:14:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EF8CC140EBF4;
+	Mon, 13 Feb 2023 20:14:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5F97519465A3;
-	Mon, 13 Feb 2023 20:14:39 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C8B7919465A2;
+	Mon, 13 Feb 2023 20:14:40 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1AF321946586
- for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:14:38 +0000 (UTC)
+ ESMTP id 991BA1946586
+ for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:14:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0D6D31C55A; Mon, 13 Feb 2023 20:14:38 +0000 (UTC)
+ id 7D6B12166B29; Mon, 13 Feb 2023 20:14:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 05F4B18EC7
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D3C23800B23
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:37 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 76D652166B26
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 580AA101A52E
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:14:39 +0000 (UTC)
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
+ [209.85.219.43]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-120-5s6r634JNUyYLtlZlXqlTw-2; Mon, 13 Feb 2023 15:14:36 -0500
-X-MC-Unique: 5s6r634JNUyYLtlZlXqlTw-2
-Received: by mail-qt1-f178.google.com with SMTP id z5so15165988qtn.8
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:14:36 -0800 (PST)
+ us-mta-665-rsLry4HcP4Gp-7WKKU5ZUQ-1; Mon, 13 Feb 2023 15:14:37 -0500
+X-MC-Unique: rsLry4HcP4Gp-7WKKU5ZUQ-1
+Received: by mail-qv1-f43.google.com with SMTP id y2so3527880qvo.4
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:14:37 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=VvusQRMCF2B/fWm+RFBja6TfBJn2zCehFq2PLq0m2Hg=;
- b=msmWunDMJin9onACP8rjerrRHsAE4PFr9MGqSgmcNVM1FoWsZdQrDE8h9hqhhQV3JX
- S+KVegl0ypdii3u5XbOVnqJ3He5lgLgjAJovK5Ixc/CK5HggJVo5UEWhfE2k6TfGHs/V
- w/g557k81tz4JDCEQUc5Ax72+KTkJTD4oAY1aQwGg420cM/r8TcKEd7NWAisHe37WL+s
- G8alqJ3ch0W49X10CEGZ3NdTr8Fwr4Tvoq3lGtusA5A1iYlMDymjdVrETKI9vAy80eTI
- A8Lcb734G9slt1u6Glimy5Z7W32RpO2IR5A6GgJJmiTRh0bUR397237JktYsAbpX653R
- t5mg==
-X-Gm-Message-State: AO0yUKW0i4YsCcCdXuxHsclISwKLBLbTKeC/9vCkVqLG8bSNuQyO2P7D
- Z1zrWffy1D+tK5CqY/Y1SJABhnmolIejQnTHpZZb2FgoJO3uUjSUnNUb9l9hdVyuUxsEidZjNoh
- oomeKr9wUqYlfXUo7ufOAwVGMYvHA3wl2Xns6NRmMj4OUaxuEAJehn3spcdxB4Z9azyRqiw==
-X-Google-Smtp-Source: AK7set+yTGAzEGTv5AvSR5KeEgNpSqo+2lW3p5StpyCy2tU7TsC1NQuxQtog3KdVhlVYo/Bbh5StHQ==
-X-Received: by 2002:ac8:7f01:0:b0:3b8:5057:377b with SMTP id
- f1-20020ac87f01000000b003b85057377bmr46958882qtk.65.1676319275500; 
- Mon, 13 Feb 2023 12:14:35 -0800 (PST)
+ bh=jKakQIrUjTz+9bul3wsVtqiRTzfNhbILLQuDj9ooD8U=;
+ b=EXegUcWlb87jyZcItQPIVTM5UbJ3rrrkPgdl99YP3xHH9k9OD/EVOKhllRcpWtHVk0
+ 1JFKaHuV0O9Lw4J7x2hye98n8BuHAFT/u3E1pq46EzT3y5wqYL85d1B1oNV2+qdmDfPl
+ +kZoibifgbt7IUukkWCCfZ90UnvbtO2CfuKthWRZ29HIAqc2itjdNbCJSg5ZQ+E8o1tq
+ k8/p2iXVQlLSV0NgTic2wPm3VYOsq5Qrgzg24VEyClDa+1Z0km0Vq6t7v6YLcUBzLCwP
+ 7/Aji1/TSWsor9Q8yhJYlcfL4S1RvmM5jJIRN10Gm29K322ahDaZEAq2UAtXwIVhSBUh
+ crtg==
+X-Gm-Message-State: AO0yUKWW9hcv5AEBNZcYyzesycN3u1KZquKatdK2DA7UTHkQ6XvqgTpe
+ xG6UJP1Azth9cnMBV2BwuCdGNDrC/cYYleNbj121ObZblTpFRgVzVbsXgr2LNkwKw2DkCvKRp0F
+ Kg44bCP2DwWdQHgDyGUsdxGYpISmUK7lpJxns8+PXLWsnxrXTn0hNsZgRqn8KLfcN5YXwKQ==
+X-Google-Smtp-Source: AK7set8SQzCQBJXxXhrEo83Oc3xGMQw9N+0sdJgQy+t+NTmsHgY1sD5tSLcd2nBdPNboaDXA6cAcHg==
+X-Received: by 2002:a05:6214:2244:b0:56e:a290:aa92 with SMTP id
+ c4-20020a056214224400b0056ea290aa92mr489442qvc.9.1676319277034; 
+ Mon, 13 Feb 2023 12:14:37 -0800 (PST)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- d19-20020ae9ef13000000b0071ddbe8fe23sm10362693qkg.24.2023.02.13.12.14.34
+ s184-20020ae9dec1000000b0073b38652b9csm3417854qkf.122.2023.02.13.12.14.36
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 12:14:35 -0800 (PST)
+ Mon, 13 Feb 2023 12:14:36 -0800 (PST)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 13 Feb 2023 15:13:27 -0500
-Message-Id: <20230213201401.45973-6-snitzer@kernel.org>
+Date: Mon, 13 Feb 2023 15:13:28 -0500
+Message-Id: <20230213201401.45973-7-snitzer@kernel.org>
 In-Reply-To: <20230213201401.45973-1-snitzer@kernel.org>
 References: <20230213201401.45973-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [PATCH 05/39] dm: avoid assignment in if conditions
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH 06/39] dm: enclose complex macros into
+ parentheses where possible
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +107,7 @@ Cc: ebiggers@kernel.org, Heinz Mauelshagen <heinzm@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -118,82 +118,41 @@ From: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-crypt.c      |  9 ++++++---
- drivers/md/dm-stats.c      |  3 ++-
- drivers/md/dm-table.c      |  3 ++-
- drivers/md/dm-writecache.c | 11 +++++++----
- 4 files changed, 17 insertions(+), 9 deletions(-)
+ drivers/md/dm-log.c           | 6 ++++--
+ include/linux/device-mapper.h | 3 +--
+ 2 files changed, 5 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 6a58000f58d7..98c788d1b305 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -3416,9 +3416,12 @@ static int crypt_map(struct dm_target *ti, struct bio *bio)
- 	if (cc->on_disk_tag_size) {
- 		unsigned int tag_len = cc->on_disk_tag_size * (bio_sectors(bio) >> cc->sector_shift);
+diff --git a/drivers/md/dm-log.c b/drivers/md/dm-log.c
+index 955767de369b..3cd166d3a7a8 100644
+--- a/drivers/md/dm-log.c
++++ b/drivers/md/dm-log.c
+@@ -773,8 +773,10 @@ static region_t core_get_sync_count(struct dm_dirty_log *log)
+ }
  
--		if (unlikely(tag_len > KMALLOC_MAX_SIZE) ||
--		    unlikely(!(io->integrity_metadata = kmalloc(tag_len,
--				GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN)))) {
-+		if (unlikely(tag_len > KMALLOC_MAX_SIZE))
-+			io->integrity_metadata = NULL;
-+		else
-+			io->integrity_metadata = kmalloc(tag_len, GFP_NOIO | __GFP_NORETRY | __GFP_NOMEMALLOC | __GFP_NOWARN);
-+
-+		if (unlikely(!io->integrity_metadata)) {
- 			if (bio_sectors(bio) > cc->tag_pool_max_sectors)
- 				dm_accept_partial_bio(bio, cc->tag_pool_max_sectors);
- 			io->integrity_metadata = mempool_alloc(&cc->tag_pool, GFP_NOIO);
-diff --git a/drivers/md/dm-stats.c b/drivers/md/dm-stats.c
-index 861e6f97438b..3287c0a9dd04 100644
---- a/drivers/md/dm-stats.c
-+++ b/drivers/md/dm-stats.c
-@@ -1046,7 +1046,8 @@ static int message_stats_create(struct mapped_device *md,
- 			else if (!strncasecmp(a, "histogram:", 10)) {
- 				if (n_histogram_entries)
- 					goto ret_einval;
--				if ((r = parse_histogram(a + 10, &n_histogram_entries, &histogram_boundaries)))
-+				r = parse_histogram(a + 10, &n_histogram_entries, &histogram_boundaries);
-+				if (r)
- 					goto ret;
- 			} else
- 				goto ret_einval;
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index af0a214825d6..d5a3f73de4bf 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -374,7 +374,8 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
- 		if (!dd)
- 			return -ENOMEM;
+ #define	DMEMIT_SYNC \
+-	if (lc->sync != DEFAULTSYNC) \
+-		DMEMIT("%ssync ", lc->sync == NOSYNC ? "no" : "")
++	do { \
++		if (lc->sync != DEFAULTSYNC) \
++			DMEMIT("%ssync ", lc->sync == NOSYNC ? "no" : ""); \
++	} while (0);
  
--		if ((r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev))) {
-+		r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev);
-+		if (r) {
- 			kfree(dd);
- 			return r;
- 		}
-diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
-index 431c84595ddb..369b2a99e459 100644
---- a/drivers/md/dm-writecache.c
-+++ b/drivers/md/dm-writecache.c
-@@ -1832,10 +1832,13 @@ static void __writecache_writeback_pmem(struct dm_writecache *wc, struct writeba
- 		wb->wc = wc;
- 		bio->bi_end_io = writecache_writeback_endio;
- 		bio->bi_iter.bi_sector = read_original_sector(wc, e);
--		if (max_pages <= WB_LIST_INLINE ||
--		    unlikely(!(wb->wc_list = kmalloc_array(max_pages, sizeof(struct wc_entry *),
--							   GFP_NOIO | __GFP_NORETRY |
--							   __GFP_NOMEMALLOC | __GFP_NOWARN)))) {
-+
-+		if (unlikely(max_pages > WB_LIST_INLINE))
-+			wb->wc_list = kmalloc_array(max_pages, sizeof(struct wc_entry *),
-+						    GFP_NOIO | __GFP_NORETRY |
-+						    __GFP_NOMEMALLOC | __GFP_NOWARN);
-+
-+		if (likely(max_pages <= WB_LIST_INLINE) || unlikely(!wb->wc_list)) {
- 			wb->wc_list = wb->wc_list_inline;
- 			max_pages = WB_LIST_INLINE;
- 		}
+ static int core_status(struct dm_dirty_log *log, status_type_t status,
+ 		       char *result, unsigned int maxlen)
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index 4dab671922e5..f43b372e27a0 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -613,8 +613,7 @@ void dm_destroy_crypto_profile(struct blk_crypto_profile *profile);
+ #define DMDEBUG(fmt, ...) pr_debug(DM_FMT(fmt), ##__VA_ARGS__)
+ #define DMDEBUG_LIMIT(fmt, ...) pr_debug_ratelimited(DM_FMT(fmt), ##__VA_ARGS__)
+ 
+-#define DMEMIT(x...) sz += ((sz >= maxlen) ? \
+-			  0 : scnprintf(result + sz, maxlen - sz, x))
++#define DMEMIT(x...) (sz += ((sz >= maxlen) ? 0 : scnprintf(result + sz, maxlen - sz, x)))
+ 
+ #define DMEMIT_TARGET_NAME_VERSION(y) \
+ 		DMEMIT("target_name=%s,target_version=%u.%u.%u", \
 -- 
 2.37.0 (Apple Git-136)
 
