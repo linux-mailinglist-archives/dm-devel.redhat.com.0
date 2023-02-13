@@ -1,97 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 061C669519C
-	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:15:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B2EBE6951B0
+	for <lists+dm-devel@lfdr.de>; Mon, 13 Feb 2023 21:16:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676319337;
+	s=mimecast20190719; t=1676319370;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=C6e6exifQ/TYIfddDtzgQ9/jVYKfTFFXaEGjYQg7VLc=;
-	b=NuJ/+hFKtzV4kIbO8tiBMkhojxW89sDY8U4B3Xw0GFgWEPPnxdXjaaQc7gN1nXcCOh8VjA
-	ejVKGwsQrSAWZ8R0ZkfZERfECK6C8hNcD3quaWHXoodqXJz7uPJZaWlzCcJderCL4PMC+9
-	xhsXK3/F6WQSwIItkx+eP96aEKYROB4=
+	bh=HlJMN/12IDwqtZPocZoRmOvBbDP3E5rfmtjHbM+cckA=;
+	b=bdhFrJ9l18zF9F9K7L77UoGAVzKqgY2Zsk2nlisObgUy8uQ10o4p4ohCygB3A/VU2QNO1L
+	PzEvM+s3ErC8ecUXawJaV0CMQS5qS/8oybz6Z9hQ7lgzdbv9jiJUoDuMSDAKT29HDMwe7z
+	+x7B+pDmdMbsrwfZXXT9D3w2S6ktdak=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-94-tnFu6dnKMAaPzXtEJSFVhg-1; Mon, 13 Feb 2023 15:15:32 -0500
-X-MC-Unique: tnFu6dnKMAaPzXtEJSFVhg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-463-67Ukdf77NeaRrxf-oKdcjw-1; Mon, 13 Feb 2023 15:15:29 -0500
+X-MC-Unique: 67Ukdf77NeaRrxf-oKdcjw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4E632A5957F;
-	Mon, 13 Feb 2023 20:15:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8485B3813F5C;
+	Mon, 13 Feb 2023 20:15:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BBEDB492B15;
-	Mon, 13 Feb 2023 20:15:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6152F1121318;
+	Mon, 13 Feb 2023 20:15:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 996E919465A2;
-	Mon, 13 Feb 2023 20:15:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 370B519465A2;
+	Mon, 13 Feb 2023 20:15:14 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 973C81946586
- for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:15:15 +0000 (UTC)
+ ESMTP id 0AB981946586
+ for <dm-devel@listman.corp.redhat.com>; Mon, 13 Feb 2023 20:15:13 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8964C400D927; Mon, 13 Feb 2023 20:15:15 +0000 (UTC)
+ id E2752492B06; Mon, 13 Feb 2023 20:15:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 824B140C83B6
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DB5D8492B07
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D980629AB45E
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:11 +0000 (UTC)
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E4161C29D60
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 20:15:10 +0000 (UTC)
+Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
+ [209.85.219.52]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-370-N2XI3eDoNMypEDUhZD_qQQ-1; Mon, 13 Feb 2023 15:15:05 -0500
-X-MC-Unique: N2XI3eDoNMypEDUhZD_qQQ-1
-Received: by mail-qt1-f172.google.com with SMTP id g18so15181013qtb.6
- for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:15:05 -0800 (PST)
+ us-mta-408-B_5J4fYPPmOBTmBsU5ZQrg-2; Mon, 13 Feb 2023 15:15:08 -0500
+X-MC-Unique: B_5J4fYPPmOBTmBsU5ZQrg-2
+Received: by mail-qv1-f52.google.com with SMTP id l7so4176881qvw.7
+ for <dm-devel@redhat.com>; Mon, 13 Feb 2023 12:15:06 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=P1MQ3uMUmAtxBpc8seThRyZ7Rqd2CNx0PV9T2FA5cYs=;
- b=ePiXx8CI65reFkvAXKX+bTyW6fgUNeSg8xZR6hvLFCiZdG4AD9vbRkOnQfjwt03UsQ
- sMo2D/xhkdENtRWF+TpRxxrRsOUGV9chfedDSbSQBsrbb4TmdF4P5h4RZ6vJinwpjm7s
- tEGy2fp9KxoLCtalG8F8li7NbxjTYIAwvhP3JVsUVK2AO+UCur115aARQCzwhWp8tCeI
- QTVrTJe3qgPUbNXoQAgAkGEPXPQwKVMctPrmGvNbw1cvI//rjCjN9ZUkz4W6Zki13fM5
- Kj7eJh0/DgT1E5/ufPomQAfH6jxEdyQFI/T5cgFpLfXCmEkYQtDxLcp3QUGpO2Kdh0TQ
- NozQ==
-X-Gm-Message-State: AO0yUKWII3varn8L48zRwa+jqW+NVnzPaNPuEr+VnkCaBCdpiN8wvn9L
- wTyoJ/35h8YQJl+npGnyhXlXET3bHBQFx/3AxSbBw1hno3i2NPq0bNkGbWyjxpnV7j90Ph3aroO
- WVpPxYXEIKYdGWb9dKOpQ5iyYik50sCDC54JDcZVoRe+qZbNG4DnKIIeagOSyF8D361KdqA==
-X-Google-Smtp-Source: AK7set/PmPrHkVjKk1CsW2BlXL2Q3WbTjYPa0ZNTYhaBOmUbjbHz2NFnYRA3ECcB+IBlQz1iHI0Mhg==
-X-Received: by 2002:ac8:5dcf:0:b0:3b9:b1eb:ad38 with SMTP id
- e15-20020ac85dcf000000b003b9b1ebad38mr41598541qtx.50.1676319304703; 
- Mon, 13 Feb 2023 12:15:04 -0800 (PST)
+ bh=EDVXlhuG0g0Fb+VaMSnineXTFf0cCbB2rds5NqrAsJE=;
+ b=P1UWcTKlXJLztBldH+q3IyU4c5+lt6Ea7pRZ4a/c+Co/HlcY/o77ONymYlEkmv24wJ
+ H82e7/Y3J48cQNlIErdENbF9opf2QcK852vzfeHQC4utSu9HQFzlwqHkOPvJ8gWP574+
+ LaWmrBhtIT6JAwuIEisw9VQyOLYeY4mx20+9X3cILYURIJq8mB4lcITw2LRgLTDLWZPW
+ QvKZrJmhVocWXyWddqtXEMchVYBhrJFBKzcjb7GNC3n7fFusybHyYPmtV5SUp1B4X81Z
+ kPP6mZJFVkq0YhbhHTo9qBFcL3G46Dhnoe4iAATci8/xjN3fXD3hiPfbP2kXhQZJoh76
+ LnDA==
+X-Gm-Message-State: AO0yUKWjmbhp6+O5oHcd6TEHO382G6Nwi5QgzBSW9cqYR99ei989IS6r
+ v3yFOxyO/vPKW2viqk6ifj6JLfw0Y1SGYnDyxrQ5ZUeIM9faXHukauOf97iVliSvxlzT37Zy+54
+ YcVe06HWJQTOqgT2501Urixp7Yj2jeMDhkCI4xYTSzTxYFjT9or3C77APj3EyBSqcpdNGCg==
+X-Google-Smtp-Source: AK7set824Z/IM7j+vhBu/nwM1YGZeMLvdxHiXhy61HLUSujWetMR3WDmAzyrywTpfkVOHBpERN3Oyg==
+X-Received: by 2002:ad4:5dc6:0:b0:56c:27b0:ed05 with SMTP id
+ m6-20020ad45dc6000000b0056c27b0ed05mr213094qvh.45.1676319306137; 
+ Mon, 13 Feb 2023 12:15:06 -0800 (PST)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- b20-20020ac86794000000b003b2957fb45bsm9937019qtp.8.2023.02.13.12.15.03
+ k189-20020a3788c6000000b0071dc769d5e7sm10322698qkd.56.2023.02.13.12.15.05
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 13 Feb 2023 12:15:04 -0800 (PST)
+ Mon, 13 Feb 2023 12:15:05 -0800 (PST)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 13 Feb 2023 15:13:44 -0500
-Message-Id: <20230213201401.45973-23-snitzer@kernel.org>
+Date: Mon, 13 Feb 2023 15:13:45 -0500
+Message-Id: <20230213201401.45973-24-snitzer@kernel.org>
 In-Reply-To: <20230213201401.45973-1-snitzer@kernel.org>
 References: <20230213201401.45973-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH 22/39] dm: avoid using symbolic permissions
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH 23/39] dm: favour __aligned(N) versus
+ "__attribute__ (aligned(N))"
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,7 +107,7 @@ Cc: ebiggers@kernel.org, Heinz Mauelshagen <heinzm@redhat.com>,
  Mike Snitzer <snitzer@kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -118,190 +118,83 @@ From: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bufio.c         | 16 ++++++++--------
- drivers/md/dm-kcopyd.c        |  2 +-
- drivers/md/dm-mpath.c         |  3 +--
- drivers/md/dm-rq.c            |  8 ++++----
- drivers/md/dm-stats.c         |  2 +-
- drivers/md/dm-sysfs.c         |  4 ++--
- drivers/md/dm-thin.c          |  2 +-
- drivers/md/dm-verity-target.c |  2 +-
- drivers/md/dm.c               |  6 +++---
- 9 files changed, 22 insertions(+), 23 deletions(-)
+ drivers/md/dm-io.c                               | 2 +-
+ drivers/md/persistent-data/dm-btree-internal.h   | 4 ++--
+ drivers/md/persistent-data/dm-space-map-common.h | 8 ++++----
+ 3 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index af310bed6ba9..a5d7f8555aa0 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -2165,28 +2165,28 @@ static void __exit dm_bufio_exit(void)
- module_init(dm_bufio_init)
- module_exit(dm_bufio_exit)
+diff --git a/drivers/md/dm-io.c b/drivers/md/dm-io.c
+index faa8d0e1b460..9844edc1ae7c 100644
+--- a/drivers/md/dm-io.c
++++ b/drivers/md/dm-io.c
+@@ -39,7 +39,7 @@ struct io {
+ 	void *context;
+ 	void *vma_invalidate_address;
+ 	unsigned long vma_invalidate_size;
+-} __attribute__((aligned(DM_IO_MAX_REGIONS)));
++} __aligned(DM_IO_MAX_REGIONS);
  
--module_param_named(max_cache_size_bytes, dm_bufio_cache_size, ulong, S_IRUGO | S_IWUSR);
-+module_param_named(max_cache_size_bytes, dm_bufio_cache_size, ulong, 0644);
- MODULE_PARM_DESC(max_cache_size_bytes, "Size of metadata cache");
+ static struct kmem_cache *_dm_io_cache;
  
--module_param_named(max_age_seconds, dm_bufio_max_age, uint, S_IRUGO | S_IWUSR);
-+module_param_named(max_age_seconds, dm_bufio_max_age, uint, 0644);
- MODULE_PARM_DESC(max_age_seconds, "Max age of a buffer in seconds");
+diff --git a/drivers/md/persistent-data/dm-btree-internal.h b/drivers/md/persistent-data/dm-btree-internal.h
+index bd353a00372d..62f8adf0b3eb 100644
+--- a/drivers/md/persistent-data/dm-btree-internal.h
++++ b/drivers/md/persistent-data/dm-btree-internal.h
+@@ -35,12 +35,12 @@ struct node_header {
+ 	__le32 max_entries;
+ 	__le32 value_size;
+ 	__le32 padding;
+-} __attribute__((packed, aligned(8)));
++} __attribute__ ((packed)) __aligned(8);
  
--module_param_named(retain_bytes, dm_bufio_retain_bytes, ulong, S_IRUGO | S_IWUSR);
-+module_param_named(retain_bytes, dm_bufio_retain_bytes, ulong, 0644);
- MODULE_PARM_DESC(retain_bytes, "Try to keep at least this many bytes cached in memory");
+ struct btree_node {
+ 	struct node_header header;
+ 	__le64 keys[];
+-} __attribute__((packed, aligned(8)));
++} __attribute__ ((packed)) __aligned(8);
  
--module_param_named(peak_allocated_bytes, dm_bufio_peak_allocated, ulong, S_IRUGO | S_IWUSR);
-+module_param_named(peak_allocated_bytes, dm_bufio_peak_allocated, ulong, 0644);
- MODULE_PARM_DESC(peak_allocated_bytes, "Tracks the maximum allocated memory");
  
--module_param_named(allocated_kmem_cache_bytes, dm_bufio_allocated_kmem_cache, ulong, S_IRUGO);
-+module_param_named(allocated_kmem_cache_bytes, dm_bufio_allocated_kmem_cache, ulong, 0444);
- MODULE_PARM_DESC(allocated_kmem_cache_bytes, "Memory allocated with kmem_cache_alloc");
+ /*
+diff --git a/drivers/md/persistent-data/dm-space-map-common.h b/drivers/md/persistent-data/dm-space-map-common.h
+index 292a91871d92..21755296fda7 100644
+--- a/drivers/md/persistent-data/dm-space-map-common.h
++++ b/drivers/md/persistent-data/dm-space-map-common.h
+@@ -34,7 +34,7 @@ struct disk_index_entry {
+ 	__le64 blocknr;
+ 	__le32 nr_free;
+ 	__le32 none_free_before;
+-} __attribute__ ((packed, aligned(8)));
++} __attribute__ ((packed)) __aligned(8);
  
--module_param_named(allocated_get_free_pages_bytes, dm_bufio_allocated_get_free_pages, ulong, S_IRUGO);
-+module_param_named(allocated_get_free_pages_bytes, dm_bufio_allocated_get_free_pages, ulong, 0444);
- MODULE_PARM_DESC(allocated_get_free_pages_bytes, "Memory allocated with get_free_pages");
  
--module_param_named(allocated_vmalloc_bytes, dm_bufio_allocated_vmalloc, ulong, S_IRUGO);
-+module_param_named(allocated_vmalloc_bytes, dm_bufio_allocated_vmalloc, ulong, 0444);
- MODULE_PARM_DESC(allocated_vmalloc_bytes, "Memory allocated with vmalloc");
+ #define MAX_METADATA_BITMAPS 255
+@@ -44,7 +44,7 @@ struct disk_metadata_index {
+ 	__le64 blocknr;
  
--module_param_named(current_allocated_bytes, dm_bufio_current_allocated, ulong, S_IRUGO);
-+module_param_named(current_allocated_bytes, dm_bufio_current_allocated, ulong, 0444);
- MODULE_PARM_DESC(current_allocated_bytes, "Memory currently used by the cache");
+ 	struct disk_index_entry index[MAX_METADATA_BITMAPS];
+-} __attribute__ ((packed, aligned(8)));
++} __attribute__ ((packed)) __aligned(8);
  
- MODULE_AUTHOR("Mikulas Patocka <dm-devel@redhat.com>");
-diff --git a/drivers/md/dm-kcopyd.c b/drivers/md/dm-kcopyd.c
-index 0027349aa6be..81bc33a3581d 100644
---- a/drivers/md/dm-kcopyd.c
-+++ b/drivers/md/dm-kcopyd.c
-@@ -37,7 +37,7 @@
+ struct ll_disk;
  
- static unsigned int kcopyd_subjob_size_kb = DEFAULT_SUB_JOB_SIZE_KB;
+@@ -103,7 +103,7 @@ struct disk_sm_root {
+ 	__le64 nr_allocated;
+ 	__le64 bitmap_root;
+ 	__le64 ref_count_root;
+-} __attribute__ ((packed, aligned(8)));
++} __attribute__ ((packed)) __aligned(8);
  
--module_param(kcopyd_subjob_size_kb, uint, S_IRUGO | S_IWUSR);
-+module_param(kcopyd_subjob_size_kb, uint, 0644);
- MODULE_PARM_DESC(kcopyd_subjob_size_kb, "Sub-job size for dm-kcopyd clients");
+ #define ENTRIES_PER_BYTE 4
  
- static unsigned int dm_get_kcopyd_subjob_size(void)
-diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
-index c15cc7f54bd2..2524ac702145 100644
---- a/drivers/md/dm-mpath.c
-+++ b/drivers/md/dm-mpath.c
-@@ -2258,8 +2258,7 @@ static void __exit dm_multipath_exit(void)
- module_init(dm_multipath_init);
- module_exit(dm_multipath_exit);
+@@ -111,7 +111,7 @@ struct disk_bitmap_header {
+ 	__le32 csum;
+ 	__le32 not_used;
+ 	__le64 blocknr;
+-} __attribute__ ((packed, aligned(8)));
++} __attribute__ ((packed)) __aligned(8);
  
--module_param_named(queue_if_no_path_timeout_secs,
--		   queue_if_no_path_timeout_secs, ulong, S_IRUGO | S_IWUSR);
-+module_param_named(queue_if_no_path_timeout_secs, queue_if_no_path_timeout_secs, ulong, 0644);
- MODULE_PARM_DESC(queue_if_no_path_timeout_secs, "No available paths queue IO timeout in seconds");
+ /*----------------------------------------------------------------*/
  
- MODULE_DESCRIPTION(DM_NAME " multipath target");
-diff --git a/drivers/md/dm-rq.c b/drivers/md/dm-rq.c
-index d5f368965d3b..fec63b2a907d 100644
---- a/drivers/md/dm-rq.c
-+++ b/drivers/md/dm-rq.c
-@@ -584,16 +584,16 @@ void dm_mq_cleanup_mapped_device(struct mapped_device *md)
- 	}
- }
- 
--module_param(reserved_rq_based_ios, uint, S_IRUGO | S_IWUSR);
-+module_param(reserved_rq_based_ios, uint, 0644);
- MODULE_PARM_DESC(reserved_rq_based_ios, "Reserved IOs in request-based mempools");
- 
- /* Unused, but preserved for userspace compatibility */
- static bool use_blk_mq = true;
--module_param(use_blk_mq, bool, S_IRUGO | S_IWUSR);
-+module_param(use_blk_mq, bool, 0644);
- MODULE_PARM_DESC(use_blk_mq, "Use block multiqueue for request-based DM devices");
- 
--module_param(dm_mq_nr_hw_queues, uint, S_IRUGO | S_IWUSR);
-+module_param(dm_mq_nr_hw_queues, uint, 0644);
- MODULE_PARM_DESC(dm_mq_nr_hw_queues, "Number of hardware queues for request-based dm-mq devices");
- 
--module_param(dm_mq_queue_depth, uint, S_IRUGO | S_IWUSR);
-+module_param(dm_mq_queue_depth, uint, 0644);
- MODULE_PARM_DESC(dm_mq_queue_depth, "Queue depth for request-based dm-mq devices");
-diff --git a/drivers/md/dm-stats.c b/drivers/md/dm-stats.c
-index 12d17b1a83a9..5e49e02ee174 100644
---- a/drivers/md/dm-stats.c
-+++ b/drivers/md/dm-stats.c
-@@ -1247,5 +1247,5 @@ void dm_statistics_exit(void)
- 		DMCRIT("shared_memory_amount leaked: %lu", shared_memory_amount);
- }
- 
--module_param_named(stats_current_allocated_bytes, shared_memory_amount, ulong, S_IRUGO);
-+module_param_named(stats_current_allocated_bytes, shared_memory_amount, ulong, 0444);
- MODULE_PARM_DESC(stats_current_allocated_bytes, "Memory currently used by statistics");
-diff --git a/drivers/md/dm-sysfs.c b/drivers/md/dm-sysfs.c
-index c090cb184093..914c0e767a3c 100644
---- a/drivers/md/dm-sysfs.c
-+++ b/drivers/md/dm-sysfs.c
-@@ -18,7 +18,7 @@ struct dm_sysfs_attr {
- 
- #define DM_ATTR_RO(_name) \
- struct dm_sysfs_attr dm_attr_##_name = \
--	__ATTR(_name, S_IRUGO, dm_attr_##_name##_show, NULL)
-+	__ATTR(_name, 0444, dm_attr_##_name##_show, NULL)
- 
- static ssize_t dm_attr_show(struct kobject *kobj, struct attribute *attr,
- 			    char *page)
-@@ -43,7 +43,7 @@ static ssize_t dm_attr_show(struct kobject *kobj, struct attribute *attr,
- 
- #define DM_ATTR_RW(_name) \
- struct dm_sysfs_attr dm_attr_##_name = \
--	__ATTR(_name, S_IRUGO | S_IWUSR, dm_attr_##_name##_show, dm_attr_##_name##_store)
-+	__ATTR(_name, 0644, dm_attr_##_name##_show, dm_attr_##_name##_store)
- 
- static ssize_t dm_attr_store(struct kobject *kobj, struct attribute *attr,
- 			     const char *page, size_t count)
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index e2ff22e79367..c8d3b20401f4 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -4532,7 +4532,7 @@ static void dm_thin_exit(void)
- module_init(dm_thin_init);
- module_exit(dm_thin_exit);
- 
--module_param_named(no_space_timeout, no_space_timeout_secs, uint, S_IRUGO | S_IWUSR);
-+module_param_named(no_space_timeout, no_space_timeout_secs, uint, 0644);
- MODULE_PARM_DESC(no_space_timeout, "Out of data space queue IO timeout in seconds");
- 
- MODULE_DESCRIPTION(DM_NAME " thin provisioning target");
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 1db64a24623d..0f9814099d1b 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -43,7 +43,7 @@
- 
- static unsigned int dm_verity_prefetch_cluster = DM_VERITY_DEFAULT_PREFETCH_SIZE;
- 
--module_param_named(prefetch_cluster, dm_verity_prefetch_cluster, uint, S_IRUGO | S_IWUSR);
-+module_param_named(prefetch_cluster, dm_verity_prefetch_cluster, uint, 0644);
- 
- static DEFINE_STATIC_KEY_FALSE(use_tasklet_enabled);
- 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 16f29a60a64f..a54700b6c9eb 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -3394,13 +3394,13 @@ module_exit(dm_exit);
- module_param(major, uint, 0);
- MODULE_PARM_DESC(major, "The major number of the device mapper");
- 
--module_param(reserved_bio_based_ios, uint, S_IRUGO | S_IWUSR);
-+module_param(reserved_bio_based_ios, uint, 0644);
- MODULE_PARM_DESC(reserved_bio_based_ios, "Reserved IOs in bio-based mempools");
- 
--module_param(dm_numa_node, int, S_IRUGO | S_IWUSR);
-+module_param(dm_numa_node, int, 0644);
- MODULE_PARM_DESC(dm_numa_node, "NUMA node for DM device memory allocations");
- 
--module_param(swap_bios, int, S_IRUGO | S_IWUSR);
-+module_param(swap_bios, int, 0644);
- MODULE_PARM_DESC(swap_bios, "Maximum allowed inflight swap IOs");
- 
- MODULE_DESCRIPTION(DM_NAME " driver");
 -- 
 2.37.0 (Apple Git-136)
 
