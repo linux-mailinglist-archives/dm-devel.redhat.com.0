@@ -1,123 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A77D697914
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 10:34:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BE9C0697913
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 10:34:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676453644;
+	s=mimecast20190719; t=1676453642;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=eirPZqSPjFM/h1/eLkYYswoQE9IFs3YDC22gG6Z6YHs=;
-	b=JOt8rlh8r7Y59R86buIkB0U/dGajsrgizxdgMgoid7nqikdqU2p4Wa+OqCpkXgBzKEnOGE
-	AqJJ7ejLP6kpvNKjZiz//8lmM9/cRJoGn7Z2fgbKn4LEj2Rzx2w3GE1xzHWyVPHyvix5fY
-	Jzrj9O0fdIZyC4LQOHXHwPECPfC6Kss=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Jtzow3UhD3NMMOlAot8hJBhnKjX1d96xc4xW2Js/+2M=;
+	b=WGTEju5YJWTTloUqY++85qC4kXGN97AJrRm2VOdJXSyVqeZ4sLs81xVOaArLMQLiThBwv3
+	CTB0B57/v2yPN7DgsjYvSEmQ7xeuV3fdU30+W2YpNW5q0UTYl674zRxbIjspY0zHSxyRp2
+	XuTix0a8HP0ZUsjrU9DMCc3HJOgJcR8=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-619-6S2h0p_vPXauJ4GQgQALSw-1; Wed, 15 Feb 2023 04:33:54 -0500
-X-MC-Unique: 6S2h0p_vPXauJ4GQgQALSw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-673-w_AjGjRoNYOWN0uaDSUlIg-1; Wed, 15 Feb 2023 04:33:55 -0500
+X-MC-Unique: w_AjGjRoNYOWN0uaDSUlIg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39C67183B3C3;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39B363848C36;
 	Wed, 15 Feb 2023 09:33:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E98691121319;
-	Wed, 15 Feb 2023 09:33:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D6BFE492B15;
+	Wed, 15 Feb 2023 09:33:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9A71F19465A3;
-	Wed, 15 Feb 2023 09:33:38 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 226C319459FC;
+	Wed, 15 Feb 2023 09:33:40 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E8D51946588
- for <dm-devel@listman.corp.redhat.com>; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
+ ESMTP id 0A2321946586
+ for <dm-devel@listman.corp.redhat.com>; Tue, 14 Feb 2023 18:43:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6E9E01121319; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
+ id E0DCE40B40E4; Tue, 14 Feb 2023 18:43:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 66CA91121318
- for <dm-devel@redhat.com>; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DA18940B40C9
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 18:43:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB4441024D28
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 18:43:39 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-335-Xq3Nr03TPEaAQm3YIG_Wng-1; Tue, 14 Feb 2023 13:43:38 -0500
+X-MC-Unique: Xq3Nr03TPEaAQm3YIG_Wng-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 44ABC800050
- for <dm-devel@redhat.com>; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
-Received: from NAM12-MW2-obe.outbound.protection.outlook.com
- (mail-mw2nam12olkn2012.outbound.protection.outlook.com [40.92.23.12]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611-9XnHCl_fNIC1AWhvb7GjQw-1; Tue, 14 Feb 2023 11:08:48 -0500
-X-MC-Unique: 9XnHCl_fNIC1AWhvb7GjQw-1
-Received: from IA1PR20MB5743.namprd20.prod.outlook.com (2603:10b6:208:421::7)
- by CY8PR20MB5548.namprd20.prod.outlook.com (2603:10b6:930:53::10)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
- 2023 16:08:46 +0000
-Received: from IA1PR20MB5743.namprd20.prod.outlook.com
- ([fe80::e93b:346c:d538:6083]) by IA1PR20MB5743.namprd20.prod.outlook.com
- ([fe80::e93b:346c:d538:6083%8]) with mapi id 15.20.6086.023; Tue, 14 Feb 2023
- 16:08:46 +0000
-From: Ganapathi Kamath <hgkamath@hotmail.com>
-To: "dm-devel@redhat.com" <dm-devel@redhat.com>
-Thread-Topic: On allowing remounting the partition containing dm-mapped boot
- disk as read-write
-Thread-Index: AQHZQFqncS6Q3itxfEmMM91VE97WIQ==
-Date: Tue, 14 Feb 2023 16:08:46 +0000
-Message-ID: <IA1PR20MB5743F5A364EB9E02890364F7DAA29@IA1PR20MB5743.namprd20.prod.outlook.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-msip_labels: 
-x-tmn: [zU3G8oHlxHXlVzHc0G49E+nigSEHEm8N]
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA1PR20MB5743:EE_|CY8PR20MB5548:EE_
-x-ms-office365-filtering-correlation-id: e9100c9c-9114-4d90-e658-08db0ea5c0a6
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: GEKRMkskEXfzHEVz26BgV5Dk3GgNcNfJj/jwZOVsB2/pFYfrEWgCdUASSCdM7j1chaSHspDT0TNYgLScbq0ApG4NT/dtO6LVvHKclWBTfRajzRmyoR/2z4Zngozb4E8lKVx5Gue0LvtLDr0LYrxwvDJr9b1VYM41LdUtjVBpqrifEYLbaHxYsFzrms3HnKgo2M1tN1xWomz16qnaA5zfXrwRwVjY6FxcqirgCuix0NmfeyhQeiRIwl3y5tehS6c602jXl1XKsH9xmV2n9OaifHIdKpOBHHzr6dXJMjfZ6uAgyM7kAaj0WJTZCcq6wALHn6NJ2Wh9DbX2+PK2SzzCz9NG4HN3vDIVFPJuA5P01r/kw4NF0TMbETJbKg4cfAN5gq5XoaBs/35UfdnC5tREzWIezKI5/bPAH+naSL1+ICHHunNkKdnO7mgWOIwVICKN8ix2CPcXhGoD+29rLLiO9nh9PTLjuJ66i++nf4t855YqhAkCeX417ppdSEmkHRHzbkGgnBWiOvYMSlJ5tbZR/xo86fz9Y1iZF7/b7J1HwYbhV6yUgHR+AyvIF615K3DZr120QZ5omefRitEOm4X3jA==
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?EDNbA/fsurPre+XNhb09pMIk35BHPKGWop/Egd+E5vfblcq9QLvbqMTOgv?=
- =?iso-8859-1?Q?IOLAPij9ElxSe/W5Q8f+uhXD0XvvGIYfkdWZ6/fBgirClLTJW7ipKaeG2s?=
- =?iso-8859-1?Q?Jolbv4ZARP8OJ/MZPTx7vZIUgi5GHAe3r0Q+6Un2CAb2UqXah14lGK+XAV?=
- =?iso-8859-1?Q?nS8jfxeqF3QGqyuJDdnko8z65pVbs+SWHNjf0fXouJy0b+2qKioPjkDdRx?=
- =?iso-8859-1?Q?gxdqp4OLfS670VuiEdEO9d0dlhTrWRFLwlm3aFDuR3M4JZDH9ENHzl1xjj?=
- =?iso-8859-1?Q?LrTUtT/hdvDk6YcDqV2fJqggJAitVKBFMd+Qbr70lUyUCtcvWM3M+7T/ON?=
- =?iso-8859-1?Q?rK5Lf8XiAD1T1ERK2iCCgPwkZQAlTk1OjzUXIVqFBS4XetJUWqco38F3C5?=
- =?iso-8859-1?Q?j2k0gDXi2bV5q8xntXhoM8AGHdbKsP7ZmtPYEW3T8z5FgVQPPUY/AZ2Siq?=
- =?iso-8859-1?Q?q2Zxcw/nBLoLK7uVETOZPI4DUI1yUNs+0JPAf6nra9P1YkEGZ3u/Tet3MM?=
- =?iso-8859-1?Q?K9Tnhj/GFjexJr1/iQVU9Oe54GVrRZAjd7vZl2qIpBcIYRdib78KWV9mak?=
- =?iso-8859-1?Q?Bt/1KYT0y4mlQtlxfYx5J6teeKOxLa/NnJqTfIy/O/BOtKUKFHkflTf9Hi?=
- =?iso-8859-1?Q?hzwJcYXIox8V/e/X+nQ9HEFM16V4FaFBgq8DEIBv5WszINazhA16cqitbs?=
- =?iso-8859-1?Q?mgvXkVA+3Q51YKZqI2VYQjyX/v7N2M79QPOTdzL3zl0EBN/YrNqPcXfDN2?=
- =?iso-8859-1?Q?WgUGCQzKfYunfNyXuvqrCTyGcCboDNZ2N/fHF0H/T4dEiYUtMt+H9Tn/PC?=
- =?iso-8859-1?Q?xCNkEDTjoMDVujlQWe6Xg2rxPIbfcIjYJpB+ha4eI591UIgBMtvJHB2BnU?=
- =?iso-8859-1?Q?+W4YAJsl8Dcxu1/l10DS1C3j8X+pLOKGAJVB+sbYwQQ9H9asHWH7FwT91a?=
- =?iso-8859-1?Q?6J1129kZooi5H0X+bzgFVNXLghRktWT0Ou9xXJPfF79q0kar/Ws+jGCFE5?=
- =?iso-8859-1?Q?YVFblFT9epTknx4bZp72L3LWv/qI+KuDCAIHLH6+TfgFFn2am9xGcM1J58?=
- =?iso-8859-1?Q?F/g2aeTSUPogZWsaaLBkfhOROJpiStSwBuD1tb46wVEhEyoJ5TP/U5T1jM?=
- =?iso-8859-1?Q?sTIykQcFXNpVhG/kKDjqIYgwg5V/+abBhM+22ctax86GE1p/Pp/f0B11OT?=
- =?iso-8859-1?Q?9oRK/rkrSlSDm+Lqdmt7JNWaSebADqCBbogHlUMYmIlAfKmt3xrd3xgYjR?=
- =?iso-8859-1?Q?X5W5xRBbOZWzVcwwt/WFnHCJngA5592PRVd3WKZc3CN1XbP8QJCcs7ebiu?=
- =?iso-8859-1?Q?GIZO?=
+ by ams.source.kernel.org (Postfix) with ESMTPS id 927CEB81A46
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 18:38:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E753C4339C
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 18:38:12 +0000 (UTC)
+Received: by mail-lj1-f181.google.com with SMTP id x29so19537862ljq.0
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 10:38:12 -0800 (PST)
+X-Gm-Message-State: AO0yUKUoykVTy5RMlsbNj/wsPtc2cQSEoL9v0hWsxipb2oNUx/ehu58H
+ trU3vkOvbUhoFKGREv7WsFljYDrQqlXGILiugvw=
+X-Google-Smtp-Source: AK7set+CEG1WyNimA3QHERrbdHXEAIa/PyvekCI7ilROesupJOlW3Q4HK3XV52LdR4NIHD6WF+TSUEv1MtZSJfbRjm4=
+X-Received: by 2002:a2e:a36a:0:b0:292:8597:6142 with SMTP id
+ i10-20020a2ea36a000000b0029285976142mr495470ljn.5.1676399890282; Tue, 14 Feb
+ 2023 10:38:10 -0800 (PST)
 MIME-Version: 1.0
-X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-9803a.templateTenant
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA1PR20MB5743.namprd20.prod.outlook.com
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-CrossTenant-Network-Message-Id: e9100c9c-9114-4d90-e658-08db0ea5c0a6
-X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2023 16:08:46.7300 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR20MB5548
+References: <CACsaVZJvXpCt37nQOoe8qd1EPUpfdMM1HwHk9tVO8HdU_Azhhw@mail.gmail.com>
+ <25578.37401.314298.238192@quad.stoffel.home>
+ <CACsaVZJ-5y7U5xqwL9bof69EKbTk+wrHWFcBFYyP_BwVSt+CNA@mail.gmail.com>
+In-Reply-To: <CACsaVZJ-5y7U5xqwL9bof69EKbTk+wrHWFcBFYyP_BwVSt+CNA@mail.gmail.com>
+From: Song Liu <song@kernel.org>
+Date: Tue, 14 Feb 2023 10:37:58 -0800
+X-Gmail-Original-Message-ID: <CAPhsuW4XPqY18k4DB2YXqaNgABp3HYYQtS7u0bGfjBcTgkpXkQ@mail.gmail.com>
+Message-ID: <CAPhsuW4XPqY18k4DB2YXqaNgABp3HYYQtS7u0bGfjBcTgkpXkQ@mail.gmail.com>
+To: Kyle Sanderson <kyle.leet@gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -125,10 +88,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Wed, 15 Feb 2023 09:33:38 +0000
-Subject: [dm-devel] On allowing remounting the partition containing
- dm-mapped boot disk as read-write
+Subject: Re: [dm-devel] RAID4 with no striping mode request
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -140,28 +102,46 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Cc: linux-raid@vger.kernel.org, device-mapper development <dm-devel@redhat.com>,
+ John Stoffel <john@stoffel.org>, Linux-Kernel <linux-kernel@vger.kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-I am just an ordinary user of Linux and ventoy .
-Q)
-https://github.com/ventoy/Ventoy/issues/2234 
-Is what I have suggested here, meaningful?
-Is there contra-indications to not do it or an alternative suggestions?
-thoughts?
+Hi Kyle,
 
-Ventoy, a GPL software, uses a small kernel patch to achieve a small remountability feature.
-It seemed to me, that patching the kernel per distribution is sub-optimal.
-I couldn't find a previous relevant discussion on this on dm-devel, but it seems like a requirement would've been well known and this would have already been discussed. What does the actually patch do?
+On Mon, Feb 13, 2023 at 1:12 PM Kyle Sanderson <kyle.leet@gmail.com> wrote:
+>
+[...]
 
-Thx
--Gana
+> >
+> > > The benefit of this can be the data disks are all zoned, and you can
+> > > have a fast parity disk and still maintain excellent performance in
+> > > the array (limited only by the speed of the disk in question +
+> > > parity). Additionally, should 2 disks fail, you've either lost the
+> > > parity and data disk, or 2 data disks with the parity and other disks
+> > > not lost.
+
+I think I understand the high level idea here. But I think we need a lot more
+details on how to implement this, and what the system would look like.
+Also, I don't quite follow why the data disks can be zoned devices and
+still maintain excellent performance.
+
+> > > I was reading through the DM and MD code and it looks like everything
+> > > may already be there to do this, just needs (significant) stubs to be
+> > > added to support this mode (or new code). Snapraid is a friendly (and
+> > > respectable) implementation of this. Unraid and Synology SHR compete
+> > > in this space, as well as other NAS and enterprise SAN providers.
+
+Assume we figure out all the details. I will be happy to review patches in
+MD code. But I won't be able to develop this feature myself.
+
+Thanks,
+Song
 
 --
 dm-devel mailing list
