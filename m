@@ -2,83 +2,122 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E6EA66974BB
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 04:17:54 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2A77D697914
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 10:34:05 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676431073;
+	s=mimecast20190719; t=1676453644;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=AzKCj5ZaFqL6a6nO5WZElPAXaK2JnE+zlLVe2y3hFzs=;
-	b=ZQCbSIPIvo3+8m7ZdVuSHkGZGDlROII+Pi4kJI12i3aaSUyOnAIPNrJMG9tDnnynl10HDE
-	TkWaa4ZJUFHQrxhERDwnkQj20PzNOjhOznLqlM4IASb6W1mzytiE2iisevCzbnrpm0INgQ
-	hscJDWxzD4bEh6Tc7j58AFomS8C+NtA=
+	bh=eirPZqSPjFM/h1/eLkYYswoQE9IFs3YDC22gG6Z6YHs=;
+	b=JOt8rlh8r7Y59R86buIkB0U/dGajsrgizxdgMgoid7nqikdqU2p4Wa+OqCpkXgBzKEnOGE
+	AqJJ7ejLP6kpvNKjZiz//8lmM9/cRJoGn7Z2fgbKn4LEj2Rzx2w3GE1xzHWyVPHyvix5fY
+	Jzrj9O0fdIZyC4LQOHXHwPECPfC6Kss=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-494-JPKXtZ2-Ocepb-N3EGwdQw-1; Tue, 14 Feb 2023 22:17:52 -0500
-X-MC-Unique: JPKXtZ2-Ocepb-N3EGwdQw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-619-6S2h0p_vPXauJ4GQgQALSw-1; Wed, 15 Feb 2023 04:33:54 -0500
+X-MC-Unique: 6S2h0p_vPXauJ4GQgQALSw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 01F2E8027F8;
-	Wed, 15 Feb 2023 03:17:50 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 05B13140EBF6;
-	Wed, 15 Feb 2023 03:17:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39C67183B3C3;
+	Wed, 15 Feb 2023 09:33:51 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E98691121319;
+	Wed, 15 Feb 2023 09:33:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F3DAD19465A8;
-	Wed, 15 Feb 2023 03:17:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9A71F19465A3;
+	Wed, 15 Feb 2023 09:33:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B01131946586
- for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 03:17:40 +0000 (UTC)
+ ESMTP id 7E8D51946588
+ for <dm-devel@listman.corp.redhat.com>; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A4E1C18EC7; Wed, 15 Feb 2023 03:17:40 +0000 (UTC)
+ id 6E9E01121319; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9CA4618EC2
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 03:17:40 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 66CA91121318
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C7BD1869B60
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 03:17:40 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 44ABC800050
+ for <dm-devel@redhat.com>; Tue, 14 Feb 2023 16:08:51 +0000 (UTC)
+Received: from NAM12-MW2-obe.outbound.protection.outlook.com
+ (mail-mw2nam12olkn2012.outbound.protection.outlook.com [40.92.23.12]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-593-BBN55FAnOYOmcGDv-H90Lg-1; Tue, 14 Feb 2023 22:17:39 -0500
-X-MC-Unique: BBN55FAnOYOmcGDv-H90Lg-1
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="358750931"
-X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="358750931"
-Received: from orsmga007.jf.intel.com ([10.7.209.58])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Feb 2023 19:16:34 -0800
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6500,9779,10621"; a="662776464"
-X-IronPort-AV: E=Sophos;i="5.97,298,1669104000"; d="scan'208";a="662776464"
-Received: from lkp-server01.sh.intel.com (HELO 4455601a8d94) ([10.239.97.150])
- by orsmga007.jf.intel.com with ESMTP; 14 Feb 2023 19:16:30 -0800
-Received: from kbuild by 4455601a8d94 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1pS8HV-0008yf-2C;
- Wed, 15 Feb 2023 03:16:29 +0000
-Date: Wed, 15 Feb 2023 11:16:03 +0800
-From: kernel test robot <lkp@intel.com>
-To: Yang Shi <shy828301@gmail.com>, mgorman@techsingularity.net,
- agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com,
- akpm@linux-foundation.org
-Message-ID: <202302151051.i9q3I0ia-lkp@intel.com>
-References: <20230214190221.1156876-4-shy828301@gmail.com>
+ us-mta-611-9XnHCl_fNIC1AWhvb7GjQw-1; Tue, 14 Feb 2023 11:08:48 -0500
+X-MC-Unique: 9XnHCl_fNIC1AWhvb7GjQw-1
+Received: from IA1PR20MB5743.namprd20.prod.outlook.com (2603:10b6:208:421::7)
+ by CY8PR20MB5548.namprd20.prod.outlook.com (2603:10b6:930:53::10)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Tue, 14 Feb
+ 2023 16:08:46 +0000
+Received: from IA1PR20MB5743.namprd20.prod.outlook.com
+ ([fe80::e93b:346c:d538:6083]) by IA1PR20MB5743.namprd20.prod.outlook.com
+ ([fe80::e93b:346c:d538:6083%8]) with mapi id 15.20.6086.023; Tue, 14 Feb 2023
+ 16:08:46 +0000
+From: Ganapathi Kamath <hgkamath@hotmail.com>
+To: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Thread-Topic: On allowing remounting the partition containing dm-mapped boot
+ disk as read-write
+Thread-Index: AQHZQFqncS6Q3itxfEmMM91VE97WIQ==
+Date: Tue, 14 Feb 2023 16:08:46 +0000
+Message-ID: <IA1PR20MB5743F5A364EB9E02890364F7DAA29@IA1PR20MB5743.namprd20.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-tmn: [zU3G8oHlxHXlVzHc0G49E+nigSEHEm8N]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR20MB5743:EE_|CY8PR20MB5548:EE_
+x-ms-office365-filtering-correlation-id: e9100c9c-9114-4d90-e658-08db0ea5c0a6
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: GEKRMkskEXfzHEVz26BgV5Dk3GgNcNfJj/jwZOVsB2/pFYfrEWgCdUASSCdM7j1chaSHspDT0TNYgLScbq0ApG4NT/dtO6LVvHKclWBTfRajzRmyoR/2z4Zngozb4E8lKVx5Gue0LvtLDr0LYrxwvDJr9b1VYM41LdUtjVBpqrifEYLbaHxYsFzrms3HnKgo2M1tN1xWomz16qnaA5zfXrwRwVjY6FxcqirgCuix0NmfeyhQeiRIwl3y5tehS6c602jXl1XKsH9xmV2n9OaifHIdKpOBHHzr6dXJMjfZ6uAgyM7kAaj0WJTZCcq6wALHn6NJ2Wh9DbX2+PK2SzzCz9NG4HN3vDIVFPJuA5P01r/kw4NF0TMbETJbKg4cfAN5gq5XoaBs/35UfdnC5tREzWIezKI5/bPAH+naSL1+ICHHunNkKdnO7mgWOIwVICKN8ix2CPcXhGoD+29rLLiO9nh9PTLjuJ66i++nf4t855YqhAkCeX417ppdSEmkHRHzbkGgnBWiOvYMSlJ5tbZR/xo86fz9Y1iZF7/b7J1HwYbhV6yUgHR+AyvIF615K3DZr120QZ5omefRitEOm4X3jA==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?EDNbA/fsurPre+XNhb09pMIk35BHPKGWop/Egd+E5vfblcq9QLvbqMTOgv?=
+ =?iso-8859-1?Q?IOLAPij9ElxSe/W5Q8f+uhXD0XvvGIYfkdWZ6/fBgirClLTJW7ipKaeG2s?=
+ =?iso-8859-1?Q?Jolbv4ZARP8OJ/MZPTx7vZIUgi5GHAe3r0Q+6Un2CAb2UqXah14lGK+XAV?=
+ =?iso-8859-1?Q?nS8jfxeqF3QGqyuJDdnko8z65pVbs+SWHNjf0fXouJy0b+2qKioPjkDdRx?=
+ =?iso-8859-1?Q?gxdqp4OLfS670VuiEdEO9d0dlhTrWRFLwlm3aFDuR3M4JZDH9ENHzl1xjj?=
+ =?iso-8859-1?Q?LrTUtT/hdvDk6YcDqV2fJqggJAitVKBFMd+Qbr70lUyUCtcvWM3M+7T/ON?=
+ =?iso-8859-1?Q?rK5Lf8XiAD1T1ERK2iCCgPwkZQAlTk1OjzUXIVqFBS4XetJUWqco38F3C5?=
+ =?iso-8859-1?Q?j2k0gDXi2bV5q8xntXhoM8AGHdbKsP7ZmtPYEW3T8z5FgVQPPUY/AZ2Siq?=
+ =?iso-8859-1?Q?q2Zxcw/nBLoLK7uVETOZPI4DUI1yUNs+0JPAf6nra9P1YkEGZ3u/Tet3MM?=
+ =?iso-8859-1?Q?K9Tnhj/GFjexJr1/iQVU9Oe54GVrRZAjd7vZl2qIpBcIYRdib78KWV9mak?=
+ =?iso-8859-1?Q?Bt/1KYT0y4mlQtlxfYx5J6teeKOxLa/NnJqTfIy/O/BOtKUKFHkflTf9Hi?=
+ =?iso-8859-1?Q?hzwJcYXIox8V/e/X+nQ9HEFM16V4FaFBgq8DEIBv5WszINazhA16cqitbs?=
+ =?iso-8859-1?Q?mgvXkVA+3Q51YKZqI2VYQjyX/v7N2M79QPOTdzL3zl0EBN/YrNqPcXfDN2?=
+ =?iso-8859-1?Q?WgUGCQzKfYunfNyXuvqrCTyGcCboDNZ2N/fHF0H/T4dEiYUtMt+H9Tn/PC?=
+ =?iso-8859-1?Q?xCNkEDTjoMDVujlQWe6Xg2rxPIbfcIjYJpB+ha4eI591UIgBMtvJHB2BnU?=
+ =?iso-8859-1?Q?+W4YAJsl8Dcxu1/l10DS1C3j8X+pLOKGAJVB+sbYwQQ9H9asHWH7FwT91a?=
+ =?iso-8859-1?Q?6J1129kZooi5H0X+bzgFVNXLghRktWT0Ou9xXJPfF79q0kar/Ws+jGCFE5?=
+ =?iso-8859-1?Q?YVFblFT9epTknx4bZp72L3LWv/qI+KuDCAIHLH6+TfgFFn2am9xGcM1J58?=
+ =?iso-8859-1?Q?F/g2aeTSUPogZWsaaLBkfhOROJpiStSwBuD1tb46wVEhEyoJ5TP/U5T1jM?=
+ =?iso-8859-1?Q?sTIykQcFXNpVhG/kKDjqIYgwg5V/+abBhM+22ctax86GE1p/Pp/f0B11OT?=
+ =?iso-8859-1?Q?9oRK/rkrSlSDm+Lqdmt7JNWaSebADqCBbogHlUMYmIlAfKmt3xrd3xgYjR?=
+ =?iso-8859-1?Q?X5W5xRBbOZWzVcwwt/WFnHCJngA5592PRVd3WKZc3CN1XbP8QJCcs7ebiu?=
+ =?iso-8859-1?Q?GIZO?=
 MIME-Version: 1.0
-In-Reply-To: <20230214190221.1156876-4-shy828301@gmail.com>
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-9803a.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR20MB5743.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: e9100c9c-9114-4d90-e658-08db0ea5c0a6
+X-MS-Exchange-CrossTenant-originalarrivaltime: 14 Feb 2023 16:08:46.7300 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR20MB5548
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -86,9 +125,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [v2 PATCH 3/5] mm: mempool: introduce page bulk
- allocator
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mailman-Approved-At: Wed, 15 Feb 2023 09:33:38 +0000
+Subject: [dm-devel] On allowing remounting the partition containing
+ dm-mapped boot disk as read-write
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,76 +140,28 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, oe-kbuild-all@lists.linux.dev
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Yang,
+I am just an ordinary user of Linux and ventoy .
+Q)
+https://github.com/ventoy/Ventoy/issues/2234 
+Is what I have suggested here, meaningful?
+Is there contra-indications to not do it or an alternative suggestions?
+thoughts?
 
-Thank you for the patch! Perhaps something to improve:
+Ventoy, a GPL software, uses a small kernel patch to achieve a small remountability feature.
+It seemed to me, that patching the kernel per distribution is sub-optimal.
+I couldn't find a previous relevant discussion on this on dm-devel, but it seems like a requirement would've been well known and this would have already been discussed. What does the actually patch do?
 
-[auto build test WARNING on linus/master]
-[also build test WARNING on v6.2-rc8 next-20230214]
-[cannot apply to device-mapper-dm/for-next]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Yang-Shi/mm-page_alloc-add-API-for-bulk-allocator-with-callback/20230215-030305
-patch link:    https://lore.kernel.org/r/20230214190221.1156876-4-shy828301%40gmail.com
-patch subject: [v2 PATCH 3/5] mm: mempool: introduce page bulk allocator
-config: loongarch-randconfig-r006-20230212 (https://download.01.org/0day-ci/archive/20230215/202302151051.i9q3I0ia-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 12.1.0
-reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
-        # https://github.com/intel-lab-lkp/linux/commit/ecf5ea78b27092c35d884fad653f53d599d9ddba
-        git remote add linux-review https://github.com/intel-lab-lkp/linux
-        git fetch --no-tags linux-review Yang-Shi/mm-page_alloc-add-API-for-bulk-allocator-with-callback/20230215-030305
-        git checkout ecf5ea78b27092c35d884fad653f53d599d9ddba
-        # save the config file
-        mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch SHELL=/bin/bash drivers/scsi/snic/
-
-If you fix the issue, kindly add following tag where applicable
-| Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202302151051.i9q3I0ia-lkp@intel.com/
-
-All warnings (new ones prefixed by >>):
-
-   In file included from drivers/scsi/snic/snic_scsi.c:4:
->> include/linux/mempool.h:18:48: warning: 'struct page' declared inside parameter list will not be visible outside of this definition or declaration
-      18 |                                         struct page **page_array,
-         |                                                ^~~~
-   include/linux/mempool.h:71:51: warning: 'struct page' declared inside parameter list will not be visible outside of this definition or declaration
-      71 |                                            struct page **page_array);
-         |                                                   ^~~~
-   include/linux/mempool.h:74:59: warning: 'struct page' declared inside parameter list will not be visible outside of this definition or declaration
-      74 |                                         void (*cb)(struct page *, void *),
-         |                                                           ^~~~
-
-
-vim +18 include/linux/mempool.h
-
-    15	
-    16	typedef unsigned int (mempool_alloc_pages_bulk_t)(gfp_t gfp_mask,
-    17						unsigned int nr, void *pool_data,
-  > 18						struct page **page_array,
-    19						void (*cb)(struct page *, void *),
-    20						void *data);
-    21	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests
+Thx
+-Gana
 
 --
 dm-devel mailing list
