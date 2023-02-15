@@ -1,80 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA637697BF2
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 13:38:14 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5AB1D697B05
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 12:46:15 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676464693;
+	s=mimecast20190719; t=1676461574;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=JYGtZnt9Qp5TOa5wWqdroEJD7WeskxUFml327fzlN5U=;
-	b=VkttywhUVaLfCGRA4nOdU0UfsMrBNFUr8MG21mmmRYdAM1N/48fWCbFvtaWqL4qstssn+U
-	G0O34Pop5bhfg4Q1/EJNchZrfiHWw+vsnNZCaQS2hS8xKCthuzQpFmK5FkktJOA2V3hjjO
-	WpXoksoyOGRNgTPv4XSMnzdph4yMBHc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=KxXMeVpi0HAPQqregI5sh2BFhzGt9O9Bkx8Ayb2C38U=;
+	b=M7xMKpgpnl1ZoNhqFd88H1EoCdAQ41FSKzg97SW0nIc1sxHfVWueJw3YeOFnDwIZe80IZc
+	TDib84nfYxAbf5YHhaM263UmE1XF+/JmshJCNekFzdDVG55Dq2JWxBDTT+m8Q66iQ+WaiM
+	LrRLbFkDtMGZmWIkhUKcw7+1flBjrtI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-608-ZN49kjxjNNGgpiLNuxWRag-1; Wed, 15 Feb 2023 07:38:12 -0500
-X-MC-Unique: ZN49kjxjNNGgpiLNuxWRag-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-633-FD20CakZO_SiUsbcyDateA-1; Wed, 15 Feb 2023 06:46:10 -0500
+X-MC-Unique: FD20CakZO_SiUsbcyDateA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3DF90101A521;
-	Wed, 15 Feb 2023 12:38:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C2D32999B33;
+	Wed, 15 Feb 2023 11:46:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BD0B72026D3F;
-	Wed, 15 Feb 2023 12:38:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EAD6A409746E;
+	Wed, 15 Feb 2023 11:46:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3829D19465B2;
-	Wed, 15 Feb 2023 12:37:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C06421946586;
+	Wed, 15 Feb 2023 11:46:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9F4CE1946586
- for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 12:30:53 +0000 (UTC)
+ ESMTP id 4420C1946588
+ for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 11:44:16 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 82C83492B17; Wed, 15 Feb 2023 12:30:53 +0000 (UTC)
+ id 3750C1415108; Wed, 15 Feb 2023 11:44:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B426492B15
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 12:30:53 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F588140EBF4
+ for <dm-devel@redhat.com>; Wed, 15 Feb 2023 11:44:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F3E385A5B1
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 12:30:53 +0000 (UTC)
-Received: from smtp.hosts.co.uk (smtp.hosts.co.uk [85.233.160.19]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-220-2fq0yxSRM6eTe-JRRXlOVA-1; Wed, 15 Feb 2023 07:30:51 -0500
-X-MC-Unique: 2fq0yxSRM6eTe-JRRXlOVA-1
-Received: from host86-157-192-115.range86-157.btcentralplus.com
- ([86.157.192.115] helo=[192.168.1.218])
- by smtp.hosts.co.uk with esmtpa (Exim)
- (envelope-from <antlists@youngman.org.uk>) id 1pSEH4-0009mu-Bn;
- Wed, 15 Feb 2023 09:40:26 +0000
-Message-ID: <cbce8455-ed12-4bfa-427e-4dd54f19dca9@youngman.org.uk>
-Date: Wed, 15 Feb 2023 09:40:26 +0000
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04EFD3828893
+ for <dm-devel@redhat.com>; Wed, 15 Feb 2023 11:44:16 +0000 (UTC)
+Received: from mail-ua1-f51.google.com (mail-ua1-f51.google.com
+ [209.85.222.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-52-ue7jxqdGPz-W_JdF7xyGfw-1; Wed, 15 Feb 2023 06:44:14 -0500
+X-MC-Unique: ue7jxqdGPz-W_JdF7xyGfw-1
+Received: by mail-ua1-f51.google.com with SMTP id z18so759025uav.1;
+ Wed, 15 Feb 2023 03:44:14 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=awt3h/BgoD85tVDVGLaiObMzjnTgyZo2ngbTA8DaEYU=;
+ b=0kkiBzATSXAekW0mzBifyt+h5LsgPumTKFKsyRECegl5xboeMuoiHp+AxJT5tcvtuk
+ ned35J4V+lquATUbeB1Fzk4VD578qAtdk97MNU9Qs/lJ1+KI1Ug95X2aZPaUNeSgNpDj
+ a2tVzjOAg6uZN7hA3iUOrWwDhMqVhYzF8Yl7dhj6JrRWRXAxqlIALj5yD54ubvNqH3nu
+ Rw8rmvXXQaro6xjFwvmCnf8rm8wrYZ5HzuSYd9x9xGRLfh/ydLtdo/7XhxoK/Ilt+qeb
+ a2lFwxMt41O2FgMCPDAXGdilXJ+yRLm2aA6L+WmjSmMh1J1ea80qC1UAMPGN4aFU92Fl
+ X8NQ==
+X-Gm-Message-State: AO0yUKWGU2dmpJ2JdTgFkxp9gUSGzWXuyynsuk9qVJqK91ySrTvNwZT9
+ JqSu6c46qBcGQQY0osFhs9U7MbnmD3y+veI9oT15xuxajzY=
+X-Google-Smtp-Source: AK7set/cc8b3+yjQliSQxdGVVOWi0u4hi6UpB28JhdhTs5H7m2uu+c6gg9rdkck8h74qXS86Mag3LLrKkqbBVvuMbac=
+X-Received: by 2002:a05:6130:2104:b0:68a:570a:8ddb with SMTP id
+ cl4-20020a056130210400b0068a570a8ddbmr217187uab.4.1676461453461; Wed, 15 Feb
+ 2023 03:44:13 -0800 (PST)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.1
-To: Roger Heflin <rogerheflin@gmail.com>, Heinz Mauelshagen <heinzm@redhat.com>
 References: <CACsaVZJvXpCt37nQOoe8qd1EPUpfdMM1HwHk9tVO8HdU_Azhhw@mail.gmail.com>
  <25578.37401.314298.238192@quad.stoffel.home>
  <CACsaVZJ-5y7U5xqwL9bof69EKbTk+wrHWFcBFYyP_BwVSt+CNA@mail.gmail.com>
  <CAM23Vxr8LkkcVDFfW1=qEYGgo7JG1qx62eWSV4WOw4_MnD+TZA@mail.gmail.com>
  <CAAMCDeeHxMBoVkNYAyssjgjo4=FYd2NonS-mqC7OUEL89B9Cig@mail.gmail.com>
-From: Wols Lists <antlists@youngman.org.uk>
-In-Reply-To: <CAAMCDeeHxMBoVkNYAyssjgjo4=FYd2NonS-mqC7OUEL89B9Cig@mail.gmail.com>
+ <CAM23VxpzY6qYsdTYxe01FT7AJvEbODf8X_vq8ALL35TfyrB8xQ@mail.gmail.com>
+In-Reply-To: <CAM23VxpzY6qYsdTYxe01FT7AJvEbODf8X_vq8ALL35TfyrB8xQ@mail.gmail.com>
+From: Roger Heflin <rogerheflin@gmail.com>
+Date: Wed, 15 Feb 2023 05:44:01 -0600
+Message-ID: <CAAMCDee2hV1YP=119Rorz1uGTnyBD5q9hb20PvMq89FHow2wPw@mail.gmail.com>
+To: Heinz Mauelshagen <heinzm@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -82,7 +96,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 Subject: Re: [dm-devel] RAID4 with no striping mode request
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -95,86 +109,102 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, device-mapper development <dm-devel@redhat.com>,
- Kyle Sanderson <kyle.leet@gmail.com>,
- Linux-Kernel <linux-kernel@vger.kernel.org>
+Cc: John Stoffel <john@stoffel.org>,
+ Linux-Kernel <linux-kernel@vger.kernel.org>, linux-raid@vger.kernel.org,
+ Song Liu <song@kernel.org>, device-mapper development <dm-devel@redhat.com>,
+ Kyle Sanderson <kyle.leet@gmail.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-GB
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 14/02/2023 22:28, Roger Heflin wrote:
-> On Tue, Feb 14, 2023 at 3:27 PM Heinz Mauelshagen <heinzm@redhat.com> wrote:
+I think he is wanting the parity across the data blocks on the
+separate filesystems (some sort of parity across fs[1-8]/block0 to
+parity/block0).
+
+it is not clear to me what this setup would be enough better than what
+the current setups.    Given that one could have 8 spin + 1ssd or 12
+spin for the same price.    And 2 6 disk raid6's would have the same
+usable space, and be pretty safe (can lose any 2 of the 6 and lose no
+data).  And given the separate filesystems requirement that would
+require some software above the filesystems to manage spreading the
+disks across multiple filesystems.   The risk of another disk going
+bad (while one was failed) and losing a disk's worth of data would
+push me to use the 6-disk raid6.
+
+WOL: current SSD's are rated for around 1000-2000 writes.  So a 1Tb
+disk can sustain 1000-2000TB of total writes.  And writes to
+filesystem blocks would get re-written more often than data blocks.
+ How well it would work would depend on how often the data is deleted
+and re-written.   If the disks are some sort of long term storage then
+the SSD is not going to get used up.   And I am not sure if the rated
+used up really means anything unless you are using a STUPID enterprise
+controller that proactively disables/kills the SSD when it says the
+rated writes have happened.   I have a 500GB ssd in a mirror that
+"FAILED" according to smart 2 years ago and so far is still fully
+functional, and it is "GOOD" again because the counters used to
+determine total writes seems to have rolled over.
+
+On Tue, Feb 14, 2023 at 8:23 PM Heinz Mauelshagen <heinzm@redhat.com> wrote:
+>
+> Roger,
+>
+> as any of the currently implemented 'parity' algorithms (block xor/P-/Q-Syndrome) provided by DM/MD RAID
+> have to have at least two data blocks to calculate:  are you, apart from the filesystem thoughts you bring up, thinking
+> about running those on e.g. pairs of disks of mentioned even numbered set of 8?
+>
+> Heinz
+>
+> On Tue, Feb 14, 2023 at 11:28 PM Roger Heflin <rogerheflin@gmail.com> wrote:
 >>
-> 
+>> On Tue, Feb 14, 2023 at 3:27 PM Heinz Mauelshagen <heinzm@redhat.com> wrote:
+>> >
 >>
+>> >
+>> >
+>> > ...which is RAID1 plus a parity disk which seems superfluous as you achieve (N-1)
+>> > resilience against single device failures already without the later.
+>> >
+>> > What would you need such parity disk for?
+>> >
+>> > Heinz
+>> >
 >>
->> ...which is RAID1 plus a parity disk which seems superfluous as you achieve (N-1)
->> resilience against single device failures already without the later.
+>> I thought that at first too, but threw that idea out as it did not
+>> make much sense.
 >>
->> What would you need such parity disk for?
+>> What he appears to want is 8 linear non-striped data disks + a parity disk.
 >>
->> Heinz
+>> Such that you can lose any one data disk and parity can rebuild that
+>> disk.  And if you lose several data diskis, then you have intact
+>> non-striped data for the remaining disks.
 >>
-> 
-> I thought that at first too, but threw that idea out as it did not
-> make much sense.
-> 
-> What he appears to want is 8 linear non-striped data disks + a parity disk.
-> 
-> Such that you can lose any one data disk and parity can rebuild that
-> disk.  And if you lose several data diskis, then you have intact
-> non-striped data for the remaining disks.
-
-But all your lost disks are lost (until you rebuild parity. The lost 
-disks are still lost, but you won't lose any more, unless lightning 
-strikes twice).
-> 
-> It would almost seem that you would need to put a separate filesystem
-> on each data disk/section (or have a filesystem that is redundant
-> enough to survive) otherwise losing an entire data disk would leave
-> the filesystem in a mess..
-> 
-> So N filesystems + a parity disk for the data on the N separate
-> filesystems.   And each write needs you to read the data from the disk
-> you are writing to, and the parity and recalculate the new parity and
-> write out the data and new parity.
-> 
-> If the parity disk was an SSD it would be fast enough, but if parity
-> was an SSD I would expect it to get used up/burned out from all of
-> parity being re-written for each write on each disk unless you bought
-> an expensive high-write ssd.
-
-I think even cheap SSDs are okay now ...
-> 
-> The only advantage of the setup is that if you lose too many disks you
-> still have some data.
-> 
-> It is not clear to me that it would be any cheaper if parity needs to
-> be a normal ssd's (since ssds are about 4x the price/gb and high-write
-> ones are even more) than a classic bunch of mirrors, or even say a 4
-> disks raid6 where you can lose any 2 and still have data.
-
-The only (claimed) advantage of the setup is that you can mix and match 
-disk sizes. Personally, I'd just raid-0 the smaller disks to get a whole 
-bunch of volumes roughly equal to the largest disk, raid-5 or -6 those 
-together, and put LVM on the top.
-
-Probably split two disks out to mirror as my / partition away from the 
-main /home raid/lvm.
-
-This scheme is just too hare-brained imho.
-
-(Oh, and if one drive fails and the others carry on writing, you run the 
-serious risk of screwing up parity and losing your lost disk, anyway. 
-It's just not robust in the face of glitches ...)
-
-Cheers,
-Wol
+>> It would almost seem that you would need to put a separate filesystem
+>> on each data disk/section (or have a filesystem that is redundant
+>> enough to survive) otherwise losing an entire data disk would leave
+>> the filesystem in a mess..
+>>
+>> So N filesystems + a parity disk for the data on the N separate
+>> filesystems.   And each write needs you to read the data from the disk
+>> you are writing to, and the parity and recalculate the new parity and
+>> write out the data and new parity.
+>>
+>> If the parity disk was an SSD it would be fast enough, but if parity
+>> was an SSD I would expect it to get used up/burned out from all of
+>> parity being re-written for each write on each disk unless you bought
+>> an expensive high-write ssd.
+>>
+>> The only advantage of the setup is that if you lose too many disks you
+>> still have some data.
+>>
+>> It is not clear to me that it would be any cheaper if parity needs to
+>> be a normal ssd's (since ssds are about 4x the price/gb and high-write
+>> ones are even more) than a classic bunch of mirrors, or even say a 4
+>> disks raid6 where you can lose any 2 and still have data.
+>>
 
 --
 dm-devel mailing list
