@@ -2,92 +2,122 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34718697912
-	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 10:34:03 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83468697910
+	for <lists+dm-devel@lfdr.de>; Wed, 15 Feb 2023 10:33:58 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676453642;
+	s=mimecast20190719; t=1676453637;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NAQRoLqz0IFVwiMzLG7Vxy+imqZn2TRijjzZaHiuSpQ=;
-	b=M/Jk30kM8uFfQED6b1sGsOmagUK+TxdSrod577nM4QwP1GqWwbflnwZXkcnBb6SoIPdXFp
-	3T+bycXaqki2qkQMq7S4U6Uu8EOEhhuX+uzQksWfAvi6UZL66G5n2zb6VjiptAd+8gqNFG
-	WICLUicGKmjMxnBXsaOFmcccqrgablQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=MsJziyFsDCxVn8dNI2dKJ4U0PCB/V86B2PubdTKVbSc=;
+	b=KxER+jpEOMmn2lBkh0EpM0IJBiyQvbk7FiVCj6hlTb6DxdGWi+JJw595KNkmFqsES5kiwO
+	dGYS7xFOLioByfBQaSiU9d0zFv8R2C9mLjKiXaEF2dyLuGJJYxlA6jjdIdbpc8JJxHDOcf
+	7lQErsqE3XY/dhW0JnLvfKeYl9vJcCU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-619-sQW9McutPjauQCpv6tSMzw-1; Wed, 15 Feb 2023 04:33:54 -0500
-X-MC-Unique: sQW9McutPjauQCpv6tSMzw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-673-9Hk_71lFPNG0DpkdYu9egw-1; Wed, 15 Feb 2023 04:33:55 -0500
+X-MC-Unique: 9Hk_71lFPNG0DpkdYu9egw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3885E3C0F19E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39C26183B3C0;
 	Wed, 15 Feb 2023 09:33:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0FDA74014CF7;
-	Wed, 15 Feb 2023 09:33:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E912D492B17;
+	Wed, 15 Feb 2023 09:33:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 42EBA19451F7;
-	Wed, 15 Feb 2023 09:33:40 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E514F1946A71;
+	Wed, 15 Feb 2023 09:33:39 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8C6231946586
- for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 07:23:21 +0000 (UTC)
+ ESMTP id 711341946586
+ for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 08:00:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7F75540B40E4; Wed, 15 Feb 2023 07:23:21 +0000 (UTC)
+ id 850C52026D4B; Wed, 15 Feb 2023 08:00:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7820040B40C9
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 07:23:21 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7CB4E2026D68
+ for <dm-devel@redhat.com>; Wed, 15 Feb 2023 08:00:59 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E1242807D6B
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 07:23:21 +0000 (UTC)
-Received: from mail-vs1-f44.google.com (mail-vs1-f44.google.com
- [209.85.217.44]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-353-foUYxfZyNOCDEVJ-IkPONw-1; Wed, 15 Feb 2023 02:23:16 -0500
-X-MC-Unique: foUYxfZyNOCDEVJ-IkPONw-1
-Received: by mail-vs1-f44.google.com with SMTP id k4so18959774vsc.4;
- Tue, 14 Feb 2023 23:23:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1676445796;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=tAyp2EwBTKDmkRSvi384rqVQ6cxfxzWF6zUVOpX2DOQ=;
- b=rwlEogCxPT6GI85OtQlkMPNy+Z4g3tIbpX33oizi0hH0S8md4fgsPPT98ep4saxGOW
- AVzS8h9GIcN5h8hQ+P4H5/TINv8Cyz0R+EMIRHRL3/UBEr/yiEd2HSgAKIBejtL71Xoq
- 5iCVXjBiVVRUkNqq1DKi9ggDLerXxwkVuA2t8IbPfufVFnT6tNvlrwpaNyiJBWLFth6G
- l5djtLJM1nH0h2pFW3AW9N9NaDCTXp87S042vAi8qneH0NF86E0X/bxDoILNoblmJ8Ac
- 2iwgK3Rl2Rq3Ab+MhqQqSvnEEhRjc7LWR1GGQkvwo9aLEscX6D5IPH9LbOGcvgfIgFf9
- RFJA==
-X-Gm-Message-State: AO0yUKX//B6xLxS0TLc7tnBXgr5Ln3HEIA7TGb2TjIFVbGbGSJ8vGzod
- P77l+uBvRNldUgdALx3HMvls/XXvPmqRaZx8V3uwQFzMaWg=
-X-Google-Smtp-Source: AK7set9AudZ/Bhpl7dEpZejs4OV1t5b0SNb2UeQiGB7mYAUUz0OeGE3MPRX173q0QQTSMd9YxwPzTowXo2oIOryFI04=
-X-Received: by 2002:a67:cb92:0:b0:412:2da0:b284 with SMTP id
- h18-20020a67cb92000000b004122da0b284mr235319vsl.26.1676445796123; Tue, 14 Feb
- 2023 23:23:16 -0800 (PST)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AC413C0ED46
+ for <dm-devel@redhat.com>; Wed, 15 Feb 2023 08:00:59 +0000 (UTC)
+Received: from NAM10-BN7-obe.outbound.protection.outlook.com
+ (mail-bn7nam10olkn2024.outbound.protection.outlook.com [40.92.40.24]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-459-e9X35Kq-MCKzCnJwb74BRg-1; Wed, 15 Feb 2023 03:00:57 -0500
+X-MC-Unique: e9X35Kq-MCKzCnJwb74BRg-1
+Received: from IA1PR20MB5743.namprd20.prod.outlook.com (2603:10b6:208:421::7)
+ by PH8PR20MB5511.namprd20.prod.outlook.com (2603:10b6:510:221::5)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6086.26; Wed, 15 Feb
+ 2023 08:00:56 +0000
+Received: from IA1PR20MB5743.namprd20.prod.outlook.com
+ ([fe80::e93b:346c:d538:6083]) by IA1PR20MB5743.namprd20.prod.outlook.com
+ ([fe80::e93b:346c:d538:6083%9]) with mapi id 15.20.6086.026; Wed, 15 Feb 2023
+ 08:00:55 +0000
+From: Ganapathi Kamath <hgkamath@hotmail.com>
+To: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Thread-Topic: On allowing remounting the partition containing dm-mapped boot
+ disk as read-write
+Thread-Index: AQHZQRMcmvwWQavdGUObJEKHZgg+qA==
+Date: Wed, 15 Feb 2023 08:00:55 +0000
+Message-ID: <IA1PR20MB57438FB73EBF5B526DF7D159DAA39@IA1PR20MB5743.namprd20.prod.outlook.com>
+Accept-Language: en-US
+X-MS-Has-Attach: 
+X-MS-TNEF-Correlator: 
+msip_labels: 
+x-tmn: [fRAXQnK3SqVooS8KGfbFB9nx2+QHaWoB]
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA1PR20MB5743:EE_|PH8PR20MB5511:EE_
+x-ms-office365-filtering-correlation-id: f462afc5-2b31-4bc7-c3c7-08db0f2ac449
+x-microsoft-antispam: BCL:0
+x-microsoft-antispam-message-info: tgKLKetQ0MZ2Kn4M8lOljhRRl1Wc4Zyh1N/CJb5Co2XDY1/pFAajxQ/E2/C+zqc80s2O54BH6At2+5bHrSYmjktN9h1m+8k/q+FSlhFqWLo5CufxEUxVIRSb1U36l6edJIRMrk7uz91JbFdRcKJzWuvUa/tOD4V1sv8lVQYEQnEXPulkBHt0t+AEGJaG7/tpEwherf7+QGk8hwCiKdgwF0MKGVwpBaBGvK4rXqSbmMUmfoWKNXUSm3Odp3MdCWSIqAibGQkYu87ixr0aZ3dBsPHf1Q1zDslRjYyiwmmu3cEtUEwvxEWnyxAAik6qo6v0yqa+aAwM95/fCaK+ImM2AxmDpHiP2n6nZqAET0R/iDEO400c7RbCzf7qWoXh5ryKqf0uphAOZi94+q8uBQwDVkGU7J+TKcy7UpyfMdrwgbP730AqPmfdK0k3DQRPGZn6YWI3i3J+ma8OXWB9URyORvSs8DeZR4E0OCePjOITiRq7hyo3wtEp7vekBM73zhBatjisC4LKOKHS3ZLDoxq+5WhnH5qS4voARsY4hWa/oRvJf8yXHnqSgO6QrHswZ8RBVs6sEp+pEtm1SJ7f5crLYw==
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?UaMa43bNQJW8yo+T5pzNskjPA/OlJBvmwOCZ30CdKTIocHFJvjnqXeMuVL?=
+ =?iso-8859-1?Q?P48pMoQNtwRBQde9I98k/GlssQrMg/RRH5DbUIzGwYdP1GPhibKdXGnuxP?=
+ =?iso-8859-1?Q?3vBerBCIcH35dmALa5711ZZa0zfzGyPAago4OhZaESncStgf92clqNDzYa?=
+ =?iso-8859-1?Q?EN2d4/gGR3CiCYxP+gN2tMUBvI/3+GNngrZyl+FywXAPVFdUYRXSQdBOCm?=
+ =?iso-8859-1?Q?dDcRK1t3ODrMqEIAXHwIxi8RVm+sAU8CjVMOmtEgsgJfLl0xIJTIIDuWx5?=
+ =?iso-8859-1?Q?CwF/IE9zw6MywDjrKXZRenWFPb6zCFq7xWGIyhR0J+hdIoFGMKh3PZB4Gg?=
+ =?iso-8859-1?Q?bw5jh4cZYwVPJtAkYQ5c8ENPbj1WBo7wZjZskizN8CZjLfuN5QOqCR5MC6?=
+ =?iso-8859-1?Q?UUmjixq0GTZVyI8nZQUIJ9M2JuMZZU6nmuJuEc9YelUZ2NZhP9eFtrdRJH?=
+ =?iso-8859-1?Q?w6hzSGjkzd8Cu0+vYvGZjC0cHzbi/muSzjmo4tG3Sw2hJcEeyLMocnRW+0?=
+ =?iso-8859-1?Q?3YvnjEzV5BXmsvIB+oTVC73Y33mzNObdlLObSgvc2uo8DmhV7nDtCZNeZb?=
+ =?iso-8859-1?Q?Q7Lm2USUdiAuvEfqjQ9RcCJvq1ALMzW3dM1o9b1Jb8ZN9xa7FwzWH1odRw?=
+ =?iso-8859-1?Q?1K+8MkEA3klr92102BK7Y3tBNpAXhA3UXktPtnX9lbx1iTdilKrYvGFaDr?=
+ =?iso-8859-1?Q?jwlzR7xSdr5npPAKygp6iULn3yBnD0kQAhuThT/ulTTISiKjahWGUDsFXA?=
+ =?iso-8859-1?Q?jnp9YQ1yzP4ILI99P6t3g1PyaSKBUW4NfeJAopRId/Gceq9+sq8OjtWopV?=
+ =?iso-8859-1?Q?TYiuf/imJ2kYhO/nxJ1Qxyvf6SpNlhww4aY7kWaCPjZxzBVzGFJxlXXL27?=
+ =?iso-8859-1?Q?6tsdw770Q0D8xrxEH4+VFNNiNwKDAjfNRwNlsWbX+eaKNDJxu70HrMM3l0?=
+ =?iso-8859-1?Q?/U7gh0XqRzQeT/mz2RvmyIW/uwaVDBIJr+wrWaiDPmfW/DFiPP7+j34uWd?=
+ =?iso-8859-1?Q?1qZMviDHJOm09yPsHq7LcUlysMJGmldvu63/czPvJEHWLKZoegGOBoRfGp?=
+ =?iso-8859-1?Q?nN5yL2aZWjp166V2mfLCCoFd/7hTY22aT8nccwUA6frBKcGr6ZbmWOWins?=
+ =?iso-8859-1?Q?PQXbUu7RuTQDwMTQPQx8KGekOs9pHdHtDAXO07LDRmLdZ+n9DHuEzVb0CG?=
+ =?iso-8859-1?Q?QlP+6NfyZtxYl61YyCw1Rt7E4P7wEA8arILfudijOcZ2aUIKUo2K/VS2nV?=
+ =?iso-8859-1?Q?oX9+fwyYDwfN4RG1P6kGB7nSGvxZ+jytg8oDkn0O67ibFMHjHK/bokZnAj?=
+ =?iso-8859-1?Q?sXBw?=
 MIME-Version: 1.0
-References: <CACsaVZJvXpCt37nQOoe8qd1EPUpfdMM1HwHk9tVO8HdU_Azhhw@mail.gmail.com>
- <25578.37401.314298.238192@quad.stoffel.home>
- <CACsaVZJ-5y7U5xqwL9bof69EKbTk+wrHWFcBFYyP_BwVSt+CNA@mail.gmail.com>
- <CAM23Vxr8LkkcVDFfW1=qEYGgo7JG1qx62eWSV4WOw4_MnD+TZA@mail.gmail.com>
- <CAAMCDeeHxMBoVkNYAyssjgjo4=FYd2NonS-mqC7OUEL89B9Cig@mail.gmail.com>
-In-Reply-To: <CAAMCDeeHxMBoVkNYAyssjgjo4=FYd2NonS-mqC7OUEL89B9Cig@mail.gmail.com>
-From: Kyle Sanderson <kyle.leet@gmail.com>
-Date: Tue, 14 Feb 2023 23:23:04 -0800
-Message-ID: <CACsaVZLKEYWzr5zHwE+rCJpYKu0d8-fzQycvn8ow4b=kCSTtjg@mail.gmail.com>
-To: Roger Heflin <rogerheflin@gmail.com>
+X-OriginatorOrg: sct-15-20-4755-11-msonline-outlook-9803a.templateTenant
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA1PR20MB5743.namprd20.prod.outlook.com
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-CrossTenant-Network-Message-Id: f462afc5-2b31-4bc7-c3c7-08db0f2ac449
+X-MS-Exchange-CrossTenant-originalarrivaltime: 15 Feb 2023 08:00:55.8800 (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-rms-persistedconsumerorg: 00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH8PR20MB5511
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,9 +125,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Wed, 15 Feb 2023 09:33:38 +0000
-Subject: Re: [dm-devel] RAID4 with no striping mode request
+Subject: [dm-devel] On allowing remounting the partition containing
+ dm-mapped boot disk as read-write
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,93 +140,30 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Heinz Mauelshagen <heinzm@redhat.com>, John Stoffel <john@stoffel.org>,
- Linux-Kernel <linux-kernel@vger.kernel.org>, linux-raid@vger.kernel.org,
- Song Liu <song@kernel.org>, device-mapper development <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> On Tue, Feb 14, 2023 at 2:28 PM Roger Heflin <rogerheflin@gmail.com> wrote:
->
-> Such that you can lose any one data disk and parity can rebuild that
-> disk.  And if you lose several data diskis, then you have intact
-> non-striped data for the remaining disks.
->
-> It would almost seem that you would need to put a separate filesystem
-> on each data disk/section (or have a filesystem that is redundant
-> enough to survive) otherwise losing an entire data disk would leave
-> the filesystem in a mess..
 
-Exactly, each disk operates completely independently (so a XFS
-partition per disk on each md device). So I have 4 disks presently, 3
-are data, and one is dedicated parity. I can scale up or down these
-disks freely, changing the physical data disk sizes and still have
-them all protected by the single parity disk by removing and adding
-them to the array.
+I am just an ordinary user of Linux and Ventoy. 
+Q)
+https://github.com/ventoy/Ventoy/issues/2234
+Is what I have suggested here, meaningful?
+Is there contra-indications to not do it or an alternative suggestions?
+thoughts?
 
-> On Tue, Feb 14, 2023 at 6:23 PM Heinz Mauelshagen <heinzm@redhat.com> wrote:
->
-> as any of the currently implemented 'parity' algorithms (block xor/P-/Q-Syndrome) provided by DM/MD RAID
-> have to have at least two data blocks to calculate:  are you, apart from the filesystem thoughts you bring up, thinking
-> about running those on e.g. pairs of disks of mentioned even numbered set of 8?
+Ventoy a GPL2, grub2 environment to native boot iso-s and vdisks.
+Ventoy uses a small kernel patch to achieve a small remountability feature.
+It seemed to me, that patching the kernel per distribution is sub-optimal.
+I couldn't find a previous relevant discussion on this on dm-devel, but it seems like a requirement would've been well known and this would have already been discussed. What does the actually patch do?
 
-Users of these appliances today gain "parity" by adding the second
-disk (note it must be the equal to or the largest in the array), and
-can scale by adding disk by disk individually (so 3, 4, 5, 6...).
-
-Hopefully it's starting to make more sense now.
-
-On Tue, Feb 14, 2023 at 2:28 PM Roger Heflin <rogerheflin@gmail.com> wrote:
->
-> On Tue, Feb 14, 2023 at 3:27 PM Heinz Mauelshagen <heinzm@redhat.com> wrote:
-> >
->
-> >
-> >
-> > ...which is RAID1 plus a parity disk which seems superfluous as you achieve (N-1)
-> > resilience against single device failures already without the later.
-> >
-> > What would you need such parity disk for?
-> >
-> > Heinz
-> >
->
-> I thought that at first too, but threw that idea out as it did not
-> make much sense.
->
-> What he appears to want is 8 linear non-striped data disks + a parity disk.
->
-> Such that you can lose any one data disk and parity can rebuild that
-> disk.  And if you lose several data diskis, then you have intact
-> non-striped data for the remaining disks.
->
-> It would almost seem that you would need to put a separate filesystem
-> on each data disk/section (or have a filesystem that is redundant
-> enough to survive) otherwise losing an entire data disk would leave
-> the filesystem in a mess..
->
-> So N filesystems + a parity disk for the data on the N separate
-> filesystems.   And each write needs you to read the data from the disk
-> you are writing to, and the parity and recalculate the new parity and
-> write out the data and new parity.
->
-> If the parity disk was an SSD it would be fast enough, but if parity
-> was an SSD I would expect it to get used up/burned out from all of
-> parity being re-written for each write on each disk unless you bought
-> an expensive high-write ssd.
->
-> The only advantage of the setup is that if you lose too many disks you
-> still have some data.
->
-> It is not clear to me that it would be any cheaper if parity needs to
-> be a normal ssd's (since ssds are about 4x the price/gb and high-write
-> ones are even more) than a classic bunch of mirrors, or even say a 4
-> disks raid6 where you can lose any 2 and still have data.
+Thx
+-Gana
 
 --
 dm-devel mailing list
