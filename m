@@ -2,92 +2,99 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BEC6698EA9
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Feb 2023 09:27:17 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id CDBAB698EAA
+	for <lists+dm-devel@lfdr.de>; Thu, 16 Feb 2023 09:28:03 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676536036;
+	s=mimecast20190719; t=1676536082;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=CEbQaiGgfmZ+fSU3+cNdv5Lbypi5pIosFoxG4072EMc=;
-	b=iKfF+0TwCcRfTPikG3TmP3gpmLr7QHGRxAfKLp3F4gx40fC2JraiH8pF1i5XpMpl9j0PRg
-	lgSM4S6UkyoGMQ07Fy3TMmco25kv7APPf+PGgy4f7ehbqGTNYd44BcchTBRU5VgFeih/Sv
-	GLjZRetrOmvm59eFXmxhV1GtjpuPCKI=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=fGZCVK34/UHA8RK7wL5vIx6JBCNMOY194+JTptsFOL8=;
+	b=Z9zdSFANRHHyWotQSZyvqpdh2sKwUqmQMm+BBkaTB3t+S/PBiHZXC1vRCzJ1qCsxFUVM9m
+	+Czw4ImuqUfC9sXA0nBcELlcOajkscYSdAZ5fqYAQaefjRyQC/hLmgreIsIzWDq1iZVf8k
+	gLRhiu24RWAZiI/nX1eHHurcL9gprgA=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-626-pbz3goiOMh6ijALGtmkTUg-1; Thu, 16 Feb 2023 03:27:12 -0500
-X-MC-Unique: pbz3goiOMh6ijALGtmkTUg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-369-VgGFZdy7O9Sp6wbg6zKAOw-1; Thu, 16 Feb 2023 03:27:13 -0500
+X-MC-Unique: VgGFZdy7O9Sp6wbg6zKAOw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF9285CBE5;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C18C1C06ED7;
 	Thu, 16 Feb 2023 08:27:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C6F94010E85;
-	Thu, 16 Feb 2023 08:27:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E0D14C15BA0;
+	Thu, 16 Feb 2023 08:27:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5EB5E19465A3;
-	Thu, 16 Feb 2023 08:27:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D810C19465A8;
+	Thu, 16 Feb 2023 08:27:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 51F231946586
- for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 11:23:53 +0000 (UTC)
+ ESMTP id D46BD1946589
+ for <dm-devel@listman.corp.redhat.com>; Wed, 15 Feb 2023 20:00:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 401B9C15BAD; Wed, 15 Feb 2023 11:23:53 +0000 (UTC)
+ id B469B40CF8EA; Wed, 15 Feb 2023 20:00:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 39009C15BA0
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 11:23:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E085811E9C
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 11:23:53 +0000 (UTC)
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ACE6F4010E86
+ for <dm-devel@redhat.com>; Wed, 15 Feb 2023 20:00:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90C7580280C
+ for <dm-devel@redhat.com>; Wed, 15 Feb 2023 20:00:37 +0000 (UTC)
+Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
+ [209.85.214.172]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-492-dsbDsYzHOeaM-AQJGnr6lQ-1; Wed, 15 Feb 2023 06:23:51 -0500
-X-MC-Unique: dsbDsYzHOeaM-AQJGnr6lQ-1
-Received: by mail-qv1-f70.google.com with SMTP id
- i7-20020a056214020700b004ffce246a2bso10340865qvt.3
- for <dm-devel@redhat.com>; Wed, 15 Feb 2023 03:23:51 -0800 (PST)
+ us-mta-349-TQg2KuPIOvGG1F-Krd2sww-1; Wed, 15 Feb 2023 15:00:30 -0500
+X-MC-Unique: TQg2KuPIOvGG1F-Krd2sww-1
+Received: by mail-pl1-f172.google.com with SMTP id be8so21379366plb.7;
+ Wed, 15 Feb 2023 12:00:24 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=LN1QDI3q1xvJS6EN1eycIX6A9uuWoSbN95l3Hnu1WxQ=;
- b=m2aaQqPGWZeS/XLhzDPAvmWTDZSM+fMO0+Mo+HSb67o8M/2Q66P6EG0eYEDdx5NmjJ
- ecK94VAw6QLQbiD7euFvDpZbDCuGHT+CTof0YMToW0fdE6hvHikf9m8EN/uJi9xtifyW
- WylX0acElWxFrqB1ulU6J2giD+h7mkFjIZUj/xb/gELYvblZyKphruhutDR/EnC3ttPj
- id64b52rboY6qmZV9/L4R0Wjh2UnK3tARZixJFAr669hiBOTtXNc+6jJlnm7K8O7KQUZ
- pTJrE2rYvstLpOyc46swxgE3AaESYL5KODkkh5Dm/4I4fyeMyhiPdHQlm1VR8LZ3uHlV
- iefQ==
-X-Gm-Message-State: AO0yUKUgihNEEVz9hnge3I3LEr/SsfPQCYgjQFT9FwWlayBbvhblevmE
- iDowwKydkzM9SGylzABv4NaglECv7wsm8ISvNXl3yAsllz+IEn8y19NSjgSaMcuqsD/fClO3Bfv
- wVHboZZDVVWAFCKzeKnnUJjo8ALeGodDvE48Gfwj8jg==
-X-Received: by 2002:a0c:e148:0:b0:53c:301f:21e5 with SMTP id
- c8-20020a0ce148000000b0053c301f21e5mr125056qvl.71.1676460231079; 
- Wed, 15 Feb 2023 03:23:51 -0800 (PST)
-X-Google-Smtp-Source: AK7set/yE6pY9gorKN8Jm3UhsB5mOjfN6cvLR1gtiWgMNji7pciGKUKTvaPVUd5djogeLBLBeMyoLyseeKso6+NqjQo=
-X-Received: by 2002:a0c:e148:0:b0:53c:301f:21e5 with SMTP id
- c8-20020a0ce148000000b0053c301f21e5mr125051qvl.71.1676460230864; Wed, 15 Feb
- 2023 03:23:50 -0800 (PST)
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=dFrWO0f7yzYN0JfWwtvFw3Ysd86ppP1HxQirWGWfkGU=;
+ b=Hw48HJPBKvdBiYlIdGeTml6AO3wk2LVuN4/QokzSo4gqxqutx0MJpjlSNkaYQiKSTP
+ 9SnsmDvez4IaLQ15iMMhCDH3qafhTYvFXEAwW7nkPemsSh8oAkw0sdUvTYUBsLMvTIB3
+ 0NICp246lJROkrpgi55pgDoNSgQm9NGiJ6UuhxCYnYRLZ/HbhX/RLXwtAQKxT+lvnFxE
+ anviEH784zSqgBOYxHCpjpu6m4o3Jhvbm6hLZGo9a3a8hsK2E9SAhw+VgXeVUz8cRGkH
+ 5kIbzzUfidWKrRcpb8LN9IvfgFmWM/PZ9lTX6nUQ/sv6uPTHRjMRorfwYedzQIKzWqua
+ SJ0A==
+X-Gm-Message-State: AO0yUKU45DK6dEwF2tIboL8VmZfxdHUfcHnXaPlTM0HfgJFhVHqnq54H
+ NiCz2gJXgF5xQKXBto6Ds+OQMPPg52qApdyz7dSVYPTX
+X-Google-Smtp-Source: AK7set9bs5Zg8Yirc4qUbLHYhiamHtAx2jf0H+f1/8yBTmxsP26MbB8uiOOGpaGbls5Iz91VFs683r7GA3VbOXJNbLQ=
+X-Received: by 2002:a17:90b:1e4c:b0:230:b973:a726 with SMTP id
+ pi12-20020a17090b1e4c00b00230b973a726mr138046pjb.23.1676491221040; Wed, 15
+ Feb 2023 12:00:21 -0800 (PST)
 MIME-Version: 1.0
-From: Pingfan Liu <piliu@redhat.com>
-Date: Wed, 15 Feb 2023 19:23:40 +0800
-Message-ID: <CAF+s44TZw40c_hNDi78VkMq6Xhp23h5j_cadHWirOnYW-wR=NQ@mail.gmail.com>
-To: dm-devel@redhat.com
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+References: <20230214190221.1156876-1-shy828301@gmail.com>
+ <alpine.LRH.2.21.2302150716120.5940@file01.intranet.prod.int.rdu2.redhat.com>
+In-Reply-To: <alpine.LRH.2.21.2302150716120.5940@file01.intranet.prod.int.rdu2.redhat.com>
+From: Yang Shi <shy828301@gmail.com>
+Date: Wed, 15 Feb 2023 12:00:09 -0800
+Message-ID: <CAHbLzkr4RrKpR1pGZxs7JdB=R539SiNgO2+Fr7X-rVKcBh5tQQ@mail.gmail.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Thu, 16 Feb 2023 08:27:05 +0000
-Subject: [dm-devel] A hang bug of dm on s390x
+Subject: Re: [dm-devel] [v2 PATCH 0/5] Introduce mempool pages bulk
+ allocator and use it in dm-crypt
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,209 +106,63 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Ming Lei <minlei@redhat.com>, Tao Liu <ltao@redhat.com>
+Cc: snitzer@kernel.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ akpm@linux-foundation.org, mgorman@techsingularity.net, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi guys,
+On Wed, Feb 15, 2023 at 4:23 AM Mikulas Patocka <mpatocka@redhat.com> wrote:
+>
+>
+>
+> On Tue, 14 Feb 2023, Yang Shi wrote:
+>
+> >
+> > Changelog:
+> > RFC -> v2:
+> >   * Added callback variant for page bulk allocator and mempool bulk allocator
+> >     per Mel Gorman.
+> >   * Used the callback version in dm-crypt driver.
+> >   * Some code cleanup and refactor to reduce duplicate code.
+> >
+> > rfc: https://lore.kernel.org/linux-mm/20221005180341.1738796-1-shy828301@gmail.com/
+>
+> Hi
+>
+> This seems like unneeded complication to me. We have alloc_pages(), it can
+> allocate multiple pages efficiently, so why not use it?
 
-I encountered  a hang issue on a s390x system.  The tested kernel is
-not preemptible and booting with "nr_cpus=1"
+The alloc_pages() allocates *contiguous* pages, but dm-crypt doesn't
+need contiguous pages at all. This may incur unnecessary compaction
+overhead to the dm-crypt layer when memory is fragmented. The bulk
+allocator is a good fit to this usecase, which allocates multiple
+order-0 pages.
 
-The test steps:
-      umount /home
-      lvremove /dev/rhel_s390x-kvm-011/home
-      ## uncomment "snapshot_autoextend_threshold = 70" and
-      "snapshot_autoextend_percent = 20" in /etc/lvm/lvm.conf
+In addition, filesystem writeback doesn't guarantee power-of-2 pages
+every time IIUC. But alloc_pages() just can allocate power-of-2 pages.
 
-      systemctl enable lvm2-monitor.service
-      systemctl start lvm2-monitor.service
+>
+> I suggest to modify crypt_alloc_buffer() to use alloc_pages() and if
+> alloc_pages() fails (either because the system is low on memory or because
+> memory is too fragmented), fall back to the existing code that does
+> mempool_alloc().
 
-      lvremove -y rhel_s390x-kvm-011/thinp
-      lvcreate -L 10M -T rhel_s390x-kvm-011/thinp
-      lvcreate -V 400M -T rhel_s390x-kvm-011/thinp -n src
-      mkfs.ext4 /dev/rhel_s390x-kvm-011/src
-      mount /dev/rhel_s390x-kvm-011/src /mnt
-      for((i=0;i<4;i++)); do dd if=/dev/zero of=/mnt/test$i.img
-bs=100M count=1; done
+My PoC patches just did this way, but called bulk allocator. There may
+be other potential mepool users as I listed in this cover letter,
+which may get benefits from bulk allocator. So introducing a new bulk
+mempool API seems better for long run although we just have one user
+for now. And it makes other uses easier to gain the benefit by just
+calling the new API.
 
-And the system hangs with the console log [1]
-
-The related kernel config
-
-    CONFIG_PREEMPT_NONE_BUILD=y
-    CONFIG_PREEMPT_NONE=y
-    CONFIG_PREEMPT_COUNT=y
-    CONFIG_SCHED_CORE=y
-
-It turns out that when hanging, the kernel is stuck in the dead-loop
-in the function dm_wq_work()
-        while (!test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags)) {
-                spin_lock_irq(&md->deferred_lock);
-                bio = bio_list_pop(&md->deferred);
-                spin_unlock_irq(&md->deferred_lock);
-
-                if (!bio)
-                        break;
-                thread_cpu = smp_processor_id();
-                submit_bio_noacct(bio);
-        }
-where dm_wq_work()->__submit_bio_noacct()->...->dm_handle_requeue()
-keeps generating new bio, and the condition "if (!bio)" can not be
-meet.
-
-
-After applying the following patch, the issue is gone.
-
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index e1ea3a7bd9d9..95c9cb07a42f 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2567,6 +2567,7 @@ static void dm_wq_work(struct work_struct *work)
-                        break;
-
-                submit_bio_noacct(bio);
-+               cond_resched();
-        }
- }
-
-But I think it is not a proper solution. And without this patch, if
-removing nr_cpus=1 (the system has two cpus), the issue can not be
-triggered. That says when more than one cpu, the above loop can exit
-by the condition "if (!bio)"
-
-Any ideas?
-
-Thanks,
-
-Pingfan
-
-[1]: the console log when hanging
-
- [ 2062.321473] device-mapper: thin: 253:4: reached low water mark for
-data device: sending event.
- [ 2062.353217] dm-3: detected capacity change from 122880 to 147456
- [-- MARK -- Wed Dec 14 08:45:00 2022]
-[ 2062.376690] device-mapper: thin: 253:4: switching pool to
-out-of-data-space (queue IO) mode
- [ 2122.393998] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
- [ 2122.394011] (detected by 0, t=6002 jiffies, g=36205, q=624 ncpus=1)
- [ 2122.394014] rcu: All QSes seen, last rcu_sched kthread activity
-6002 (4295149593-4295143591), jiffies_till_next_fqs=1, root ->qsmask
-0x0
- [ 2122.394017] rcu: rcu_sched kthread starved for 6002 jiffies!
-g36205 f0x2 RCU_GP_WAIT_FQS(5) ->state=0x0 ->cpu=0
- [ 2122.394019] rcu: Unless rcu_sched kthread gets sufficient CPU
-time, OOM is now expected behavior.
- [ 2122.394020] rcu: RCU grace-period kthread stack dump:
- [ 2122.394022] task:rcu_sched       state:R  running task     stack:
-  0 pid:   15 ppid:     2 flags:0x00000000
- [ 2122.394027] Call Trace:
- [ 2122.394030]  [<00000001001fd5b0>] __schedule+0x300/0x6c0
- [ 2122.394040]  [<00000001001fd9d2>] schedule+0x62/0xf0
- [ 2122.394042]  [<000000010020360c>] schedule_timeout+0x8c/0x170
- [ 2122.394045]  [<00000000ff9e219e>] rcu_gp_fqs_loop+0x30e/0x3d0
- [ 2122.394053]  [<00000000ff9e3ee2>] rcu_gp_kthread+0x132/0x1b0
- [ 2122.394054]  [<00000000ff980578>] kthread+0x108/0x110
- [ 2122.394058]  [<00000000ff9035cc>] __ret_from_fork+0x3c/0x60
- [ 2122.394061]  [<000000010020455a>] ret_from_fork+0xa/0x30
- [ 2122.394064] rcu: Stack dump where RCU GP kthread last ran:
- [ 2122.394064] Task dump for CPU 0:
- [ 2122.394066] task:kworker/0:2     state:R  running task     stack:
-  0 pid:16943 ppid:     2 flags:0x00000004
- [ 2122.394070] Workqueue: kdmflush/253:6 dm_wq_work [dm_mod]
- [ 2122.394100] Call Trace:
- [ 2122.394100]  [<00000000ff98bb98>] sched_show_task.part.0+0xf8/0x130
- [ 2122.394106]  [<00000001001efc9a>]
-rcu_check_gp_kthread_starvation+0x172/0x190
- [ 2122.394111]  [<00000000ff9e5afe>] print_other_cpu_stall+0x2de/0x370
- [ 2122.394113]  [<00000000ff9e5d60>] check_cpu_stall+0x1d0/0x270
- [ 2122.394114]  [<00000000ff9e6152>] rcu_sched_clock_irq+0x82/0x230
- [ 2122.394117]  [<00000000ff9f808a>] update_process_times+0xba/0xf0
- [ 2122.394121]  [<00000000ffa0adfa>] tick_sched_handle+0x4a/0x70
- [ 2122.394124]  [<00000000ffa0b2fe>] tick_sched_timer+0x5e/0xc0
- [ 2122.394126]  [<00000000ff9f8cb6>] __hrtimer_run_queues+0x136/0x290
- [ 2122.394128]  [<00000000ff9f9f80>] hrtimer_interrupt+0x150/0x2d0
- [ 2122.394130]  [<00000000ff90ce36>] do_IRQ+0x56/0x70
- [ 2122.394133]  [<00000000ff90d216>] do_irq_async+0x56/0xb0
- [ 2122.394135]  [<00000001001f6786>] do_ext_irq+0x96/0x160
- [ 2122.394138]  [<00000001002047bc>] ext_int_handler+0xdc/0x110
- [ 2122.394140]  [<000003ff8005cf48>]
-dm_split_and_process_bio+0x28/0x4d0 [dm_mod]
- [ 2122.394152] ([<000003ff8005d2ec>]
-dm_split_and_process_bio+0x3cc/0x4d0 [dm_mod])
- [ 2122.394162]  [<000003ff8005dca8>] dm_submit_bio+0x68/0x110 [dm_mod]
- [ 2122.394173]  [<00000000ffda0698>] __submit_bio+0x78/0x190
- [ 2122.394178]  [<00000000ffda081c>] __submit_bio_noacct+0x6c/0x1e0
- [ 2122.394180]  [<000003ff8005c2ac>] dm_wq_work+0x5c/0xc0 [dm_mod]
- [ 2122.394190]  [<00000000ff9771e6>] process_one_work+0x216/0x4a0
- [ 2122.394196]  [<00000000ff9779a4>] worker_thread+0x64/0x4a0
- [ 2122.394198]  [<00000000ff980578>] kthread+0x108/0x110
- [ 2122.394199]  [<00000000ff9035cc>] __ret_from_fork+0x3c/0x60
- [ 2122.394201]  [<000000010020455a>] ret_from_fork+0xa/0x30
- [ 2302.444001] rcu: INFO: rcu_sched detected stalls on CPUs/tasks:
- [ 2302.444015] (detected by 0, t=24007 jiffies, g=36205, q=624 ncpus=1)
- [ 2302.444018] rcu: All QSes seen, last rcu_sched kthread activity
-24007 (4295167598-4295143591), jiffies_till_next_fqs=1, root ->qsmask
-0x0
- [ 2302.444021] rcu: rcu_sched kthread starved for 24007 jiffies!
-g36205 f0x2 RCU_GP_WAIT_FQS(5) ->state=0x0 ->cpu=0
- [ 2302.444024] rcu: Unless rcu_sched kthread gets sufficient CPU
-time, OOM is now expected behavior.
- [ 2302.444025] rcu: RCU grace-period kthread stack dump:
- [ 2302.444027] task:rcu_sched       state:R  running task     stack:
-  0 pid:   15 ppid:     2 flag[-- MARK -- Wed Dec 14 08:50:00 2022]
-s:0x00000000
- [ 2302.444204] Call Trace:
- [ 2302.444207]  [<00000001001fd5b0>] __schedule+0x300/0x6c0
- [ 2302.444216]  [<00000001001fd9d2>] schedule+0x62/0xf0
- [ 2302.444218]  [<000000010020360c>] schedule_timeout+0x8c/0x170
- [ 2302.444221]  [<00000000ff9e219e>] rcu_gp_fqs_loop+0x30e/0x3d0
- [ 2302.444227]  [<00000000ff9e3ee2>] rcu_gp_kthread+0x132/0x1b0
- [ 2302.444229]  [<00000000ff980578>] kthread+0x108/0x110
- [ 2302.444232]  [<00000000ff9035cc>] __ret_from_fork+0x3c/0x60
- [ 2302.444235]  [<000000010020455a>] ret_from_fork+0xa/0x30
- [ 2302.444237] rcu: Stack dump where RCU GP kthread last ran:
- [ 2302.444238] Task dump for CPU 0:
- [ 2302.444239] task:kworker/0:2     state:R  running task     stack:
-  0 pid:16943 ppid:     2 flags:0x00000004
- [ 2302.444244] Workqueue: kdmflush/253:6 dm_wq_work [dm_mod]
- [ 2302.444270] Call Trace:
- [ 2302.444270]  [<00000000ff98bb98>] sched_show_task.part.0+0xf8/0x130
- [ 2302.444275]  [<00000001001efc9a>]
-rcu_check_gp_kthread_starvation+0x172/0x190
- [ 2302.444280]  [<00000000ff9e5afe>] print_other_cpu_stall+0x2de/0x370
- [ 2302.444282]  [<00000000ff9e5d60>] check_cpu_stall+0x1d0/0x270
- [ 2302.444284]  [<00000000ff9e6152>] rcu_sched_clock_irq+0x82/0x230
- [ 2302.444286]  [<00000000ff9f808a>] update_process_times+0xba/0xf0
- [ 2302.444290]  [<00000000ffa0adfa>] tick_sched_handle+0x4a/0x70
- [ 2302.444292]  [<00000000ffa0b2fe>] tick_sched_timer+0x5e/0xc0
- [ 2302.444294]  [<00000000ff9f8cb6>] __hrtimer_run_queues+0x136/0x290
- [ 2302.444296]  [<00000000ff9f9f80>] hrtimer_interrupt+0x150/0x2d0
- [ 2302.444298]  [<00000000ff90ce36>] do_IRQ+0x56/0x70
- [ 2302.444301]  [<00000000ff90d216>] do_irq_async+0x56/0xb0
- [ 2302.444303]  [<00000001001f6786>] do_ext_irq+0x96/0x160
- [ 2302.444306]  [<00000001002047bc>] ext_int_handler+0xdc/0x110
- [ 2302.444308]  [<00000000ffbe2a1e>] kmem_cache_alloc+0x15e/0x530
- [ 2302.444316]  [<00000000ffb3e780>] mempool_alloc+0x60/0x210
- [ 2302.444319]  [<00000000ffd9ac4e>] bio_alloc_bioset+0x1ae/0x410
- [ 2302.444324]  [<00000000ffd9af8c>] bio_alloc_clone+0x3c/0x90
- [ 2302.444326]  [<000003ff8005cf9a>]
-dm_split_and_process_bio+0x7a/0x4d0 [dm_mod]
- [ 2302.444337]  [<000003ff8005dca8>] dm_submit_bio+0x68/0x110 [dm_mod]
- [ 2302.444347]  [<00000000ffda0698>] __submit_bio+0x78/0x190
- [ 2302.444350]  [<00000000ffda081c>] __submit_bio_noacct+0x6c/0x1e0
- [ 2302.444353]  [<000003ff8005c2ac>] dm_wq_work+0x5c/0xc0 [dm_mod]
- [ 2302.444363]  [<00000000ff9771e6>] process_one_work+0x216/0x4a0
- [ 2302.444367]  [<00000000ff9779a4>] worker_thread+0x64/0x4a0
- [ 2302.444369]  [<00000000ff980578>] kthread+0x108/0x110
- [ 2302.444371]  [<00000000ff9035cc>] __ret_from_fork+0x3c/0x60
- [ 2302.444373]  [<000000010020455a>] ret_from_fork+0xa/0x30
+>
+> Mikulas
+>
 
 --
 dm-devel mailing list
