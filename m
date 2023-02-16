@@ -2,66 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A86B699B87
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Feb 2023 18:47:33 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 12049699CF2
+	for <lists+dm-devel@lfdr.de>; Thu, 16 Feb 2023 20:22:44 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676569652;
+	s=mimecast20190719; t=1676575364;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NRig07+Xss5I5+efkR5/Md/XrlB3aM44LoK/QA4PhvE=;
-	b=bosst4eLXmNhxus9UIRHqRwqZiHupjWpZCVD2OZ7qGgEMf1p3VKNRKjQSyj/sFffu0pqtf
-	Nn8/r0bsZ0glq863vw4Cgriyj7+kmbBDfNBJI/D+reAHqmzcMyAn6MOmj9z0w4qUHzzS9e
-	BgIPNqw8gSmvhOovbnCixS6uWEHAf9I=
+	bh=rv8JVKL7xDpkNfH0Ui5QrtVCqs79uvlerSKDD/EdwwA=;
+	b=jFKJ53o3qihvZ4rWTzx5ksa+qNQvVjH+8rhIF83KF0CMIOPoi628rzgkLT57sOkADfgz3I
+	w3dQrT7GvwUIybQ0/LHFZty0lNWnCEknVmhR9oVRZ1iSpGmJajVqjb/M1wRRQJvcMYtoqc
+	mSEHPxrqw6s+iLL5XYLMHi2rp1DEzzo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-196-51eiy3IZM--N00zJ7b8qyw-1; Thu, 16 Feb 2023 12:47:30 -0500
-X-MC-Unique: 51eiy3IZM--N00zJ7b8qyw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-586-4aO07pz4N8GGYuIW16db9w-1; Thu, 16 Feb 2023 14:22:42 -0500
+X-MC-Unique: 4aO07pz4N8GGYuIW16db9w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD7CF857A8E;
-	Thu, 16 Feb 2023 17:47:27 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAF4A857A81;
+	Thu, 16 Feb 2023 19:22:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 919421121314;
-	Thu, 16 Feb 2023 17:47:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 56F7F51FF;
+	Thu, 16 Feb 2023 19:22:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4778519465A4;
-	Thu, 16 Feb 2023 17:47:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AFB6319465A4;
+	Thu, 16 Feb 2023 19:22:32 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6C2021946588
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Feb 2023 17:47:08 +0000 (UTC)
+ ESMTP id 5E4D81946588
+ for <dm-devel@listman.corp.redhat.com>; Thu, 16 Feb 2023 19:22:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4FF512166B32; Thu, 16 Feb 2023 17:47:08 +0000 (UTC)
+ id 4CA0940C10FA; Thu, 16 Feb 2023 19:22:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
- (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CE0A2166B30;
- Thu, 16 Feb 2023 17:47:08 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
- 31GHl8ID024130; Thu, 16 Feb 2023 12:47:08 -0500
-Received: from localhost (mpatocka@localhost)
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
- id 31GHl8mk024126; Thu, 16 Feb 2023 12:47:08 -0500
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
- owned process doing -bs
-Date: Thu, 16 Feb 2023 12:47:08 -0500 (EST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: snitzer@kernel.org, Yang Shi <shy828301@gmail.com>
-Message-ID: <alpine.LRH.2.21.2302161245210.18393@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+Received: from mimecast-mx02.redhat.com
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 441EA40C1423
+ for <dm-devel@redhat.com>; Thu, 16 Feb 2023 19:22:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29AFC2A5954E
+ for <dm-devel@redhat.com>; Thu, 16 Feb 2023 19:22:31 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_128_GCM_SHA256) id us-mta-122-3FQpm56sOmywvNbbuG-OjQ-1; Thu,
+ 16 Feb 2023 14:22:29 -0500
+X-MC-Unique: 3FQpm56sOmywvNbbuG-OjQ-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1pSjYO-008e70-Gb; Thu, 16 Feb 2023 19:04:24 +0000
+Date: Thu, 16 Feb 2023 19:04:24 +0000
+From: Matthew Wilcox <willy@infradead.org>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <Y+5+OKbeTO2d9TsH@casper.infradead.org>
+References: <alpine.LRH.2.21.2302161245210.18393@file01.intranet.prod.int.rdu2.redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH] dm-crypt: allocate compound pages if possible
+In-Reply-To: <alpine.LRH.2.21.2302161245210.18393@file01.intranet.prod.int.rdu2.redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH] dm-crypt: allocate compound pages if possible
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,125 +85,95 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-mm@kvack.org, dm-devel@redhat.com, akpm@linux-foundation.org,
- mgorman@techsingularity.net, agk@redhat.com
+Cc: Yang Shi <shy828301@gmail.com>, snitzer@kernel.org,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org,
+ dm-devel@redhat.com, akpm@linux-foundation.org, mgorman@techsingularity.net,
+ agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-It was reported that allocating pages for the write buffer in dm-crypt
-causes measurable overhead [1].
+On Thu, Feb 16, 2023 at 12:47:08PM -0500, Mikulas Patocka wrote:
+> +		while (order > 0) {
+> +			page = alloc_pages(gfp_mask
+> +				| __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN, order);
 
-This patch changes dm-crypt to allocate compound pages if they are
-available. If not, we fall back to the mempool.
+... | __GFP_COMP
 
-[1] https://listman.redhat.com/archives/dm-devel/2023-February/053284.html
+>  		page = mempool_alloc(&cc->page_pool, gfp_mask);
+>  		if (!page) {
+>  			crypt_free_buffer_pages(cc, clone);
+>  			bio_put(clone);
+>  			gfp_mask |= __GFP_DIRECT_RECLAIM;
+> +			order = 0;
+>  			goto retry;
+>  		}
+>  
+> -		len = (remaining_size > PAGE_SIZE) ? PAGE_SIZE : remaining_size;
+> -
+> -		bio_add_page(clone, page, len, 0);
+> +have_pages:
+> +		page->compound_order = order;
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+No.  You'll corrupt the next page if page is order-0, which it is if it
+came from the mempool.  Also we've deleted page->compound_order in -next
+so you can't make this mistake.  Using __GFP_COMP will set this field
+for you, so you can just drop this line.
 
----
- drivers/md/dm-crypt.c |   50 ++++++++++++++++++++++++++++++++++++++++++--------
- 1 file changed, 42 insertions(+), 8 deletions(-)
+> -		remaining_size -= len;
+> +		for (o = 0; o < 1U << order; o++) {
+> +			unsigned len = min((unsigned)PAGE_SIZE, remaining_size);
+> +			bio_add_page(clone, page, len, 0);
+> +			remaining_size -= len;
+> +			page++;
 
-Index: linux-2.6/drivers/md/dm-crypt.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-crypt.c	2023-01-20 13:22:38.000000000 +0100
-+++ linux-2.6/drivers/md/dm-crypt.c	2023-02-16 18:33:42.000000000 +0100
-@@ -1657,6 +1657,9 @@ static void crypt_free_buffer_pages(stru
-  * In order to not degrade performance with excessive locking, we try
-  * non-blocking allocations without a mutex first but on failure we fallback
-  * to blocking allocations with a mutex.
-+ *
-+ * In order to reduce allocation overhead, we try to allocate compound pages in
-+ * the first pass. If they are not available, we fall back to the mempool.
-  */
- static struct bio *crypt_alloc_buffer(struct dm_crypt_io *io, unsigned size)
- {
-@@ -1664,8 +1667,9 @@ static struct bio *crypt_alloc_buffer(st
- 	struct bio *clone;
- 	unsigned int nr_iovecs = (size + PAGE_SIZE - 1) >> PAGE_SHIFT;
- 	gfp_t gfp_mask = GFP_NOWAIT | __GFP_HIGHMEM;
--	unsigned i, len, remaining_size;
-+	unsigned remaining_size;
- 	struct page *page;
-+	unsigned order = MAX_ORDER - 1;
- 
- retry:
- 	if (unlikely(gfp_mask & __GFP_DIRECT_RECLAIM))
-@@ -1678,20 +1682,37 @@ retry:
- 
- 	remaining_size = size;
- 
--	for (i = 0; i < nr_iovecs; i++) {
-+	while (remaining_size) {
-+		unsigned o;
-+		unsigned remaining_order = __fls((remaining_size + PAGE_SIZE - 1) >> PAGE_SHIFT);
-+		order = min(order, remaining_order);
-+
-+		while (order > 0) {
-+			page = alloc_pages(gfp_mask
-+				| __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN, order);
-+			if (likely(page != NULL))
-+				goto have_pages;
-+			order--;
-+		}
-+
- 		page = mempool_alloc(&cc->page_pool, gfp_mask);
- 		if (!page) {
- 			crypt_free_buffer_pages(cc, clone);
- 			bio_put(clone);
- 			gfp_mask |= __GFP_DIRECT_RECLAIM;
-+			order = 0;
- 			goto retry;
- 		}
- 
--		len = (remaining_size > PAGE_SIZE) ? PAGE_SIZE : remaining_size;
--
--		bio_add_page(clone, page, len, 0);
-+have_pages:
-+		page->compound_order = order;
- 
--		remaining_size -= len;
-+		for (o = 0; o < 1U << order; o++) {
-+			unsigned len = min((unsigned)PAGE_SIZE, remaining_size);
-+			bio_add_page(clone, page, len, 0);
-+			remaining_size -= len;
-+			page++;
-+		}
- 	}
- 
- 	/* Allocate space for integrity tags */
-@@ -1711,10 +1732,23 @@ static void crypt_free_buffer_pages(stru
- {
- 	struct bio_vec *bv;
- 	struct bvec_iter_all iter_all;
-+	unsigned skip_entries = 0;
- 
- 	bio_for_each_segment_all(bv, clone, iter_all) {
--		BUG_ON(!bv->bv_page);
--		mempool_free(bv->bv_page, &cc->page_pool);
-+		unsigned order;
-+		struct page *page = bv->bv_page;
-+		BUG_ON(!page);
-+		if (skip_entries) {
-+			skip_entries--;
-+			continue;
-+		}
-+		order = page->compound_order;
-+		if (order) {
-+			__free_pages(page, order);
-+			skip_entries = (1U << order) - 1;
-+		} else {
-+			mempool_free(page, &cc->page_pool);
-+		}
- 	}
- }
- 
+You can add multiple pages at once, whether they're compound or not.  So
+replace this entire loop with:
+
+		bio_add_page(clone, page, remaining_size, 0);
+
+> @@ -1711,10 +1732,23 @@ static void crypt_free_buffer_pages(stru
+>  {
+>  	struct bio_vec *bv;
+>  	struct bvec_iter_all iter_all;
+> +	unsigned skip_entries = 0;
+>  
+>  	bio_for_each_segment_all(bv, clone, iter_all) {
+> -		BUG_ON(!bv->bv_page);
+> -		mempool_free(bv->bv_page, &cc->page_pool);
+> +		unsigned order;
+> +		struct page *page = bv->bv_page;
+> +		BUG_ON(!page);
+> +		if (skip_entries) {
+> +			skip_entries--;
+> +			continue;
+> +		}
+> +		order = page->compound_order;
+> +		if (order) {
+> +			__free_pages(page, order);
+> +			skip_entries = (1U << order) - 1;
+> +		} else {
+> +			mempool_free(page, &cc->page_pool);
+> +		}
+
+You can simplify this by using the folio code.
+
+	struct folio_iter fi;
+
+	bio_for_each_folio_all(fi, bio) {
+		if (folio_test_large(folio))
+			folio_put(folio);
+		else
+			mempool_free(&folio->page, &cc->page_pool);
+	}
+
+(further work would actually convert this driver to use folios instead
+of pages)
 
 --
 dm-devel mailing list
