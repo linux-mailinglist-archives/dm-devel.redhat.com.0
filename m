@@ -2,66 +2,96 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E0F04699EF3
-	for <lists+dm-devel@lfdr.de>; Thu, 16 Feb 2023 22:22:55 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C2FF169A2EB
+	for <lists+dm-devel@lfdr.de>; Fri, 17 Feb 2023 01:28:02 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676582574;
+	s=mimecast20190719; t=1676593681;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9SPp3TK1o14GlUKXrk5AVZcROVxvJrekzMdT37ZGPec=;
-	b=Qeaur46qWwnpeVFgv4KtnAvEhPkhqY0q8xFQQXkzT4IQBKuVM/3KMgrmXGn/+EUwKw7fYn
-	3XwZLX6cGN8IoB18oLzrSnWpHL5FnuGzXUEQn8/zNQxjfKBZYBkq5w2DdKiS4w0jhrotET
-	VfMdLRVarIZ7AtPdvwuXtbk30vsJDAw=
+	bh=b9pgTuWZVhjUf9nkFCKswPUHC70ltzpzIYrSEmcQoNw=;
+	b=hivG7zI3WdUSFnYTVopZ6peUriSGePnwacH8kjzXtFyqbmq6jkcCWPgFcpdopBWf3LIE80
+	hb+jtq4KNPZbR5lxTbA/Vvu8gb9Us+M+zj254XY2ne4760bwnOticGYtR6lIfbcnyYm+zo
+	O0/mtsHMHZC1TAfSu2E+x/1hrD+y2zw=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-21-_jqojafTPAmg1neDquRHiQ-1; Thu, 16 Feb 2023 16:22:53 -0500
-X-MC-Unique: _jqojafTPAmg1neDquRHiQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-477-xv_555lENi65Yqv7STccPg-1; Thu, 16 Feb 2023 19:28:00 -0500
+X-MC-Unique: xv_555lENi65Yqv7STccPg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8DD033C0DDDB;
-	Thu, 16 Feb 2023 21:22:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D1BB6280AA2D;
+	Fri, 17 Feb 2023 00:27:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1F677C15BA0;
-	Thu, 16 Feb 2023 21:22:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 21E8C2166B30;
+	Fri, 17 Feb 2023 00:27:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B433C19465A4;
-	Thu, 16 Feb 2023 21:22:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E6F1F19465A4;
+	Fri, 17 Feb 2023 00:27:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F16281946588
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Feb 2023 21:22:46 +0000 (UTC)
+ ESMTP id B1EC01946588
+ for <dm-devel@listman.corp.redhat.com>; Thu, 16 Feb 2023 08:30:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 988FC40B3FE1; Thu, 16 Feb 2023 21:22:46 +0000 (UTC)
+ id 4C97FC15BAD; Thu, 16 Feb 2023 08:30:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
- (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 86A0440CF8E4;
- Thu, 16 Feb 2023 21:22:46 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
- 31GLMkxg007334; Thu, 16 Feb 2023 16:22:46 -0500
-Received: from localhost (mpatocka@localhost)
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
- id 31GLMksq007330; Thu, 16 Feb 2023 16:22:46 -0500
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
- owned process doing -bs
-Date: Thu, 16 Feb 2023 16:22:46 -0500 (EST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <alpine.LRH.2.21.2302161619430.5436@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+Received: from mimecast-mx02.redhat.com
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 46050C15BA0
+ for <dm-devel@redhat.com>; Thu, 16 Feb 2023 08:30:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A3F11C189BA
+ for <dm-devel@redhat.com>; Thu, 16 Feb 2023 08:30:26 +0000 (UTC)
+Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com
+ [209.85.222.200]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-447-K2QFFpeBPNijnAEeOavDIg-1; Thu, 16 Feb 2023 03:30:22 -0500
+X-MC-Unique: K2QFFpeBPNijnAEeOavDIg-1
+Received: by mail-qk1-f200.google.com with SMTP id
+ s7-20020a05620a0bc700b006e08208eb31so782012qki.3
+ for <dm-devel@redhat.com>; Thu, 16 Feb 2023 00:30:22 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=K3XO1pEQK9YqeErIwQ7kooxbuE+UvrgNYKm/A1tA7Zc=;
+ b=zp7E1oSvg7wDD32ji0JqD4ekkLtcdFjeGOWU/fhvEfu65UslRTMVcXuJqoZ/pFY95o
+ 8mEZ4WulE3ozgYmi2NQSdvLEhXY0AWh4NvXaO4efMYtWiEkFrtvqs3l/CC+mfDXNmOIJ
+ krhwUZ+P0HDbBt51B0YxijWI6aeUVvJqDbs27YALcE01rHMTRjoLlCxD1CisjqlmT1GH
+ x893OnK/tUsWNDVNDwXZ5ww7UbUu4ZBrtGouM7D/5dc8n5Vqpi+dBtsoI5i/mZgFQiye
+ HsP3hIXf4NmTOCnq04kqW7268f3dV6KzB478lKqJ6PlEqralBIgY9Ig64/KGOQJDFfKq
+ ROQA==
+X-Gm-Message-State: AO0yUKU9cKnAILpnrUSK4xKBWR56jTibxkFijeBOtrp/tI8r3k0vSAni
+ ORR1rnpVjqglzNj9YSOBFJ3bYr4NOXv70EIoCLze/fGn+opHcbZ/rp5M3eRAIUBH9tlpFr91t1p
+ RG+jr6fghEVdl8mPAB18T7Tr4cyQB/E8=
+X-Received: by 2002:a37:5fc1:0:b0:73b:55b5:31da with SMTP id
+ t184-20020a375fc1000000b0073b55b531damr251423qkb.134.1676536221627; 
+ Thu, 16 Feb 2023 00:30:21 -0800 (PST)
+X-Google-Smtp-Source: AK7set9eqGEa1Q5bhLEv5ZklAage0ZjLWnakxe57YvbcMk2VNlveh26ScS6Kl4yvBZTf7VZY8eLPW27fxlsi9/KC74I=
+X-Received: by 2002:a37:5fc1:0:b0:73b:55b5:31da with SMTP id
+ t184-20020a375fc1000000b0073b55b531damr251421qkb.134.1676536221417; Thu, 16
+ Feb 2023 00:30:21 -0800 (PST)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH v2] dm-crypt: allocate compound pages if possible
+References: <CAF+s44TZw40c_hNDi78VkMq6Xhp23h5j_cadHWirOnYW-wR=NQ@mail.gmail.com>
+ <Y+10AxZ8tcd6SemJ@T590>
+In-Reply-To: <Y+10AxZ8tcd6SemJ@T590>
+From: Pingfan Liu <piliu@redhat.com>
+Date: Thu, 16 Feb 2023 16:30:10 +0800
+Message-ID: <CAF+s44Qqvvhywg4_8Sx3QZ0=_+jz3kPzvmr539uS8Y6LEGY2sg@mail.gmail.com>
+To: Ming Lei <ming.lei@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Mailman-Approved-At: Fri, 17 Feb 2023 00:27:53 +0000
+Subject: Re: [dm-devel] A hang bug of dm on s390x
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,119 +103,114 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Yang Shi <shy828301@gmail.com>, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, linux-mm@kvack.org,
- dm-devel@redhat.com, akpm@linux-foundation.org, mgorman@techsingularity.net,
- agk@redhat.com
+Cc: Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
+ Zdenek Kabelac <zkabelac@redhat.com>, Ming Lei <minlei@redhat.com>,
+ Tao Liu <ltao@redhat.com>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-It was reported that allocating pages for the write buffer in dm-crypt
-causes measurable overhead [1].
+Hi Ming,
 
-This patch changes dm-crypt to allocate compound pages if they are
-available. If not, we fall back to the mempool.
+Thank you for looking into this.
 
-[1] https://listman.redhat.com/archives/dm-devel/2023-February/053284.html
+let me loop in Alasdair, Mike and Zdenek for further comment on LVM stuff
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
----
- drivers/md/dm-crypt.c |   48 +++++++++++++++++++++++++++++++++---------------
- 1 file changed, 33 insertions(+), 15 deletions(-)
+Thanks,
 
-Index: linux-2.6/drivers/md/dm-crypt.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-crypt.c	2023-02-16 20:40:15.000000000 +0100
-+++ linux-2.6/drivers/md/dm-crypt.c	2023-02-16 21:56:34.000000000 +0100
-@@ -1657,6 +1657,9 @@ static void crypt_free_buffer_pages(stru
-  * In order to not degrade performance with excessive locking, we try
-  * non-blocking allocations without a mutex first but on failure we fallback
-  * to blocking allocations with a mutex.
-+ *
-+ * In order to reduce allocation overhead, we try to allocate compound pages in
-+ * the first pass. If they are not available, we fall back to the mempool.
-  */
- static struct bio *crypt_alloc_buffer(struct dm_crypt_io *io, unsigned size)
- {
-@@ -1664,8 +1667,8 @@ static struct bio *crypt_alloc_buffer(st
- 	struct bio *clone;
- 	unsigned int nr_iovecs = (size + PAGE_SIZE - 1) >> PAGE_SHIFT;
- 	gfp_t gfp_mask = GFP_NOWAIT | __GFP_HIGHMEM;
--	unsigned i, len, remaining_size;
--	struct page *page;
-+	unsigned remaining_size;
-+	unsigned order = MAX_ORDER - 1;
- 
- retry:
- 	if (unlikely(gfp_mask & __GFP_DIRECT_RECLAIM))
-@@ -1678,20 +1681,34 @@ retry:
- 
- 	remaining_size = size;
- 
--	for (i = 0; i < nr_iovecs; i++) {
--		page = mempool_alloc(&cc->page_pool, gfp_mask);
--		if (!page) {
-+	while (remaining_size) {
-+		struct page *pages;
-+		unsigned size_to_add;
-+		unsigned remaining_order = __fls((remaining_size + PAGE_SIZE - 1) >> PAGE_SHIFT);
-+		order = min(order, remaining_order);
-+
-+		while (order > 0) {
-+			pages = alloc_pages(gfp_mask
-+				| __GFP_NOMEMALLOC | __GFP_NORETRY | __GFP_NOWARN | __GFP_COMP,
-+				order);
-+			if (likely(pages != NULL))
-+				goto have_pages;
-+			order--;
-+		}
-+
-+		pages = mempool_alloc(&cc->page_pool, gfp_mask);
-+		if (!pages) {
- 			crypt_free_buffer_pages(cc, clone);
- 			bio_put(clone);
- 			gfp_mask |= __GFP_DIRECT_RECLAIM;
-+			order = 0;
- 			goto retry;
- 		}
- 
--		len = (remaining_size > PAGE_SIZE) ? PAGE_SIZE : remaining_size;
--
--		bio_add_page(clone, page, len, 0);
--
--		remaining_size -= len;
-+have_pages:
-+		size_to_add = min((unsigned)PAGE_SIZE << order, remaining_size);
-+		bio_add_page(clone, pages, size_to_add, 0);
-+		remaining_size -= size_to_add;
- 	}
- 
- 	/* Allocate space for integrity tags */
-@@ -1709,12 +1726,13 @@ retry:
- 
- static void crypt_free_buffer_pages(struct crypt_config *cc, struct bio *clone)
- {
--	struct bio_vec *bv;
--	struct bvec_iter_all iter_all;
-+	struct folio_iter fi;
- 
--	bio_for_each_segment_all(bv, clone, iter_all) {
--		BUG_ON(!bv->bv_page);
--		mempool_free(bv->bv_page, &cc->page_pool);
-+	bio_for_each_folio_all(fi, clone) {
-+		if (folio_test_large(fi.folio))
-+			folio_put(fi.folio);
-+		else
-+			mempool_free(&fi.folio->page, &cc->page_pool);
- 	}
- }
- 
+Pingfan
+
+On Thu, Feb 16, 2023 at 8:08 AM Ming Lei <ming.lei@redhat.com> wrote:
+>
+> On Wed, Feb 15, 2023 at 07:23:40PM +0800, Pingfan Liu wrote:
+> > Hi guys,
+> >
+> > I encountered  a hang issue on a s390x system.  The tested kernel is
+> > not preemptible and booting with "nr_cpus=1"
+> >
+> > The test steps:
+> >       umount /home
+> >       lvremove /dev/rhel_s390x-kvm-011/home
+> >       ## uncomment "snapshot_autoextend_threshold = 70" and
+> >       "snapshot_autoextend_percent = 20" in /etc/lvm/lvm.conf
+> >
+> >       systemctl enable lvm2-monitor.service
+> >       systemctl start lvm2-monitor.service
+> >
+> >       lvremove -y rhel_s390x-kvm-011/thinp
+> >       lvcreate -L 10M -T rhel_s390x-kvm-011/thinp
+> >       lvcreate -V 400M -T rhel_s390x-kvm-011/thinp -n src
+> >       mkfs.ext4 /dev/rhel_s390x-kvm-011/src
+> >       mount /dev/rhel_s390x-kvm-011/src /mnt
+> >       for((i=0;i<4;i++)); do dd if=/dev/zero of=/mnt/test$i.img
+> > bs=100M count=1; done
+> >
+> > And the system hangs with the console log [1]
+> >
+> > The related kernel config
+> >
+> >     CONFIG_PREEMPT_NONE_BUILD=y
+> >     CONFIG_PREEMPT_NONE=y
+> >     CONFIG_PREEMPT_COUNT=y
+> >     CONFIG_SCHED_CORE=y
+> >
+> > It turns out that when hanging, the kernel is stuck in the dead-loop
+> > in the function dm_wq_work()
+> >         while (!test_bit(DMF_BLOCK_IO_FOR_SUSPEND, &md->flags)) {
+> >                 spin_lock_irq(&md->deferred_lock);
+> >                 bio = bio_list_pop(&md->deferred);
+> >                 spin_unlock_irq(&md->deferred_lock);
+> >
+> >                 if (!bio)
+> >                         break;
+> >                 thread_cpu = smp_processor_id();
+> >                 submit_bio_noacct(bio);
+> >         }
+> > where dm_wq_work()->__submit_bio_noacct()->...->dm_handle_requeue()
+> > keeps generating new bio, and the condition "if (!bio)" can not be
+> > meet.
+> >
+> >
+> > After applying the following patch, the issue is gone.
+> >
+> > diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+> > index e1ea3a7bd9d9..95c9cb07a42f 100644
+> > --- a/drivers/md/dm.c
+> > +++ b/drivers/md/dm.c
+> > @@ -2567,6 +2567,7 @@ static void dm_wq_work(struct work_struct *work)
+> >                         break;
+> >
+> >                 submit_bio_noacct(bio);
+> > +               cond_resched();
+> >         }
+> >  }
+> >
+> > But I think it is not a proper solution. And without this patch, if
+> > removing nr_cpus=1 (the system has two cpus), the issue can not be
+> > triggered. That says when more than one cpu, the above loop can exit
+> > by the condition "if (!bio)"
+> >
+> > Any ideas?
+>
+> I think the patch is correct.
+>
+> For kernel built without CONFIG_PREEMPT, in case of single cpu core,
+> if the dm target(such as dm-thin) needs another wq or kthread for
+> handling IO, then dm target side is blocked because dm_wq_work()
+> holds the single cpu, sooner or later, dm target may have not
+> resource to handle new io from dm core and returns REQUEUE.
+>
+> Then dm_wq_work becomes one dead loop.
+>
+>
+> Thanks,
+> Ming
+>
 
 --
 dm-devel mailing list
