@@ -2,97 +2,97 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0768769B381
+	by mail.lfdr.de (Postfix) with ESMTPS id 3B12769B380
 	for <lists+dm-devel@lfdr.de>; Fri, 17 Feb 2023 21:08:12 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676664492;
+	s=mimecast20190719; t=1676664491;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=15z/ExdBrKoFwj6SvsDWgvdQg/HLl9GmwjarexBYf7U=;
-	b=QCcCi+suw53IxSgOyMVFhEmnqxgONcf+MM6PAGc2bh8LAGJVfC5bx35IO9tDarzYE3nVsD
-	jspjBrG0meK0bgIGPwAiY/58H0glsN/UDHEgeokBRspTm5T1XwrUblWvqxi3k+m6N/p5r0
-	CVl7KFhVhToH8fNOtKQhZlbGt1NibSk=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=+infrSr3LtQDDmI0JkjKAzzMby+riafNb1+VZ/05SU0=;
+	b=WCTAzsKohWiCOmIikOsG599oPP2fz6vCKmCp1iDs8zVeCjb1heyIZljZIgxyTWIaLqsOhg
+	RQgJtMJcABGpTTeCUKFmmOwMR5MbgWGrTnDliq/Sj/gy3J9A6hXCDxyzY3cOPye4T9AYMM
+	6btPgCln1N/xByRNOXCIvAchusJ7AGw=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-153-CazuFZQzNDCgkvnWr7I8sw-1; Fri, 17 Feb 2023 15:08:06 -0500
-X-MC-Unique: CazuFZQzNDCgkvnWr7I8sw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-131-0pfjS4gNP7y_b-otETiZRg-1; Fri, 17 Feb 2023 15:08:07 -0500
+X-MC-Unique: 0pfjS4gNP7y_b-otETiZRg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 596273806078;
-	Fri, 17 Feb 2023 20:08:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D47FF85A5A3;
+	Fri, 17 Feb 2023 20:08:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 968922026D68;
-	Fri, 17 Feb 2023 20:07:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BC2212166B30;
+	Fri, 17 Feb 2023 20:07:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8212919465B2;
-	Fri, 17 Feb 2023 20:07:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B00C1194658C;
+	Fri, 17 Feb 2023 20:07:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B332E1946588
- for <dm-devel@listman.corp.redhat.com>; Fri, 17 Feb 2023 20:07:49 +0000 (UTC)
+ ESMTP id 40FDC1946588
+ for <dm-devel@listman.corp.redhat.com>; Fri, 17 Feb 2023 20:07:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 95060C15BAD; Fri, 17 Feb 2023 20:07:49 +0000 (UTC)
+ id 323C040CF8EC; Fri, 17 Feb 2023 20:07:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E0DEC15BA0
- for <dm-devel@redhat.com>; Fri, 17 Feb 2023 20:07:49 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B0744010E83
+ for <dm-devel@redhat.com>; Fri, 17 Feb 2023 20:07:51 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E5A1101156F
- for <dm-devel@redhat.com>; Fri, 17 Feb 2023 20:07:49 +0000 (UTC)
-Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
- [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 112BD1024D28
+ for <dm-devel@redhat.com>; Fri, 17 Feb 2023 20:07:51 +0000 (UTC)
+Received: from mail-qv1-f51.google.com (mail-qv1-f51.google.com
+ [209.85.219.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-135-93In_jFUNO-rhO3nmdru3A-2; Fri, 17 Feb 2023 15:07:47 -0500
-X-MC-Unique: 93In_jFUNO-rhO3nmdru3A-2
-Received: by mail-qt1-f178.google.com with SMTP id v3so1880619qta.2
- for <dm-devel@redhat.com>; Fri, 17 Feb 2023 12:07:47 -0800 (PST)
+ us-mta-35-iWzp0pblMkWw9J7wEODxIQ-1; Fri, 17 Feb 2023 15:07:49 -0500
+X-MC-Unique: iWzp0pblMkWw9J7wEODxIQ-1
+Received: by mail-qv1-f51.google.com with SMTP id l4so2392031qvv.7
+ for <dm-devel@redhat.com>; Fri, 17 Feb 2023 12:07:49 -0800 (PST)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20210112;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2BlYLBOK4DUQVRhoEhjUSWik18bEgWdPa8QwAVD7ty8=;
- b=TZk030Yw9cAtf5M78sFfge2btBaudqzuYNHnV45fPhQb0nbw1GwgU2fZ6IUf9bP/Of
- I5ta92rNRSGEiGSW3O8AjOrdQcu4wNLRVkBxQgZP8gLQPYbhxWR7VtyIvLd7W5JbBseE
- Tun0ECrJvq7sPUawY/m90obJUMJ4YoGJ6JlbNctPgF9FOeM9JpO3gIGqYd7zen/DmYKR
- KUSli1O6FEG28f51seDVn89MOi60A8kZa6AbHaXOwuhy9u1OCgl25v5PbRz1JRdWPxAq
- bUaglm2pbXR1e4cJ41zAWMoWqcfbG1C5u2+m/5BERW5a7V6BB8E8i3JFiHtB/2ljzCBM
- kTSg==
-X-Gm-Message-State: AO0yUKV11DScbfWVFYoq9TTQI/y9xmZ3j+AJJhvVxfYLTWraAjriRl6C
- zQVuNwZkpKCgeZsQvZilffTVZ3V8bXCzkwMNI991cr6dGg19m15kPORBQ9tQgByxNZ1YN3Tf1SJ
- UJirJPy3qTJCgxX3ICQctdxZbW4WqMqAEN5y8BMjwbuYS7/V/TWjnX7y7V9uAt4APLBdv0g==
-X-Google-Smtp-Source: AK7set9X98bufMtiXPRysxuJ0eNDOtmCVPR3rdu2OA4rgcM8oRt5jkBGXYs5k/FYj6YbFbR2mDwdfA==
-X-Received: by 2002:a05:622a:15d0:b0:3b9:bd1f:1de6 with SMTP id
- d16-20020a05622a15d000b003b9bd1f1de6mr542301qty.40.1676664466782; 
- Fri, 17 Feb 2023 12:07:46 -0800 (PST)
+ bh=sZZVS1BQ772kU8mUFZkQcPajBCfh+eU0H6LbUQq+D8I=;
+ b=l57RnrJLgB0nUljxGCwUR93nWraMBxj/eVSLFtRy4bCQ1tEt3asw1d0E4vddscEeQ5
+ TgnBsz8pMIFV7m0gRsVDqvBBrFEjplXU/6EjJF/0A0INIsGRPG6PZ4aGvwZvzIRPWj9E
+ aGvBUDUetNKzu9g86PeztMNPT8dmhPHHjZGtGGYXrZlaAbAl9+5N0SsELElPpN5T43Qo
+ KKOrkFCd3CdaWbNttgonzUvxknVcR8nRUXlkh4fLZU3nriB3lMgzCdy/dQID0jD8WTOK
+ +h1McZ2b5AsaRS0aZD4wwl1WTvIa2otPUJvIJMsfBruFEJqnyDwG64u07DtF7VGi+plC
+ P0jw==
+X-Gm-Message-State: AO0yUKWwyY+cl0L4ihxQsqPke71hemsskT/lnavWYHPwK3jd88QZ4q44
+ 1t2KKgfNrVWK3FJp1M95meaSMO4I+YpZbOl29vzzTlwGtplPSWh+s76n4Lk7yPWmXHN0ZCfj3wE
+ xEafw+O7zQfnW/lzrq3Unoig51dNS4cwKA9DaL3RbpNLtM/kw3S4AjAzI5cN/wMgI2zS6Tw==
+X-Google-Smtp-Source: AK7set894zqHFGFaFRFDrxQLBorzsXEosTVVgdA7/G8zAwdSNTLR+wnit06Pmr/fD8GJts3iMf2WKg==
+X-Received: by 2002:a05:6214:f2e:b0:56f:9d:1e29 with SMTP id
+ iw14-20020a0562140f2e00b0056f009d1e29mr12053381qvb.21.1676664468304; 
+ Fri, 17 Feb 2023 12:07:48 -0800 (PST)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- w10-20020ac86b0a000000b003b8484fdfccsm3783450qts.42.2023.02.17.12.07.46
+ a186-20020a3798c3000000b0073b878e3f30sm3954144qke.59.2023.02.17.12.07.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 17 Feb 2023 12:07:46 -0800 (PST)
+ Fri, 17 Feb 2023 12:07:47 -0800 (PST)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Fri, 17 Feb 2023 15:07:36 -0500
-Message-Id: <20230217200737.12481-6-snitzer@kernel.org>
+Date: Fri, 17 Feb 2023 15:07:37 -0500
+Message-Id: <20230217200737.12481-7-snitzer@kernel.org>
 In-Reply-To: <20230217200737.12481-1-snitzer@kernel.org>
 References: <20230217200737.12481-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [dm-devel] [PATCH 5/6] dm ioctl: assert _hash_lock is held in
- __hash_remove
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH 6/6] dm ioctl: remove unnecessary check when
+ using dm_get_mdptr()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,48 +104,66 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Snitzer <snitzer@kernel.org>
+Cc: Mike Snitzer <snitzer@kernel.org>, Hou Tao <houtao1@huawei.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Also update dm_early_create() to take _hash_lock when calling both
-__get_name_cell and __hash_remove -- given dm_early_create()'s early
-boot usecase this locking isn't about correctness but it allows
-lockdep_assert_held() to be added to __hash_remove.
+From: Hou Tao <houtao1@huawei.com>
 
+__hash_remove() removes hash_cell with _hash_lock locked, so acquiring
+_hash_lock can guarantee no-NULL hc returned from dm_get_mdptr() must
+have not been removed and hc->md must still be md.
+
+__hash_remove() also acquires dm_hash_cells_mutex before setting mdptr
+as NULL. So in dm_copy_name_and_uuid(), after acquiring
+dm_hash_cells_mutex and ensuring returned hc is not NULL, the returned
+hc must still be alive and hc->md must still be md.
+
+Remove the unnecessary hc->md != md checks when using dm_get_mdptr()
+with _hash_lock or dm_hash_cells_mutex acquired.
+
+Signed-off-by: Hou Tao <houtao1@huawei.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-ioctl.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/md/dm-ioctl.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index f34d36a4b4a1..067dfc08d4c3 100644
+index 067dfc08d4c3..50a1259294d1 100644
 --- a/drivers/md/dm-ioctl.c
 +++ b/drivers/md/dm-ioctl.c
-@@ -310,6 +310,8 @@ static struct dm_table *__hash_remove(struct hash_cell *hc)
- 	struct dm_table *table;
- 	int srcu_idx;
+@@ -789,7 +789,7 @@ static struct dm_table *dm_get_inactive_table(struct mapped_device *md, int *src
  
-+	lockdep_assert_held(&_hash_lock);
-+
- 	/* remove from the dev trees */
- 	__unlink_name(hc);
- 	__unlink_uuid(hc);
-@@ -2263,7 +2265,9 @@ int __init dm_early_create(struct dm_ioctl *dmi,
- err_destroy_table:
- 	dm_table_destroy(t);
- err_hash_remove:
-+	down_write(&_hash_lock);
- 	(void) __hash_remove(__get_name_cell(dmi->name));
-+	up_write(&_hash_lock);
- 	/* release reference from __get_name_cell */
- 	dm_put(md);
- err_destroy_dm:
+ 	down_read(&_hash_lock);
+ 	hc = dm_get_mdptr(md);
+-	if (!hc || hc->md != md) {
++	if (!hc) {
+ 		DMERR("device has been removed from the dev hash table.");
+ 		goto out;
+ 	}
+@@ -1500,7 +1500,7 @@ static int table_load(struct file *filp, struct dm_ioctl *param, size_t param_si
+ 	/* stage inactive table */
+ 	down_write(&_hash_lock);
+ 	hc = dm_get_mdptr(md);
+-	if (!hc || hc->md != md) {
++	if (!hc) {
+ 		DMERR("device has been removed from the dev hash table.");
+ 		up_write(&_hash_lock);
+ 		r = -ENXIO;
+@@ -2152,7 +2152,7 @@ int dm_copy_name_and_uuid(struct mapped_device *md, char *name, char *uuid)
+ 
+ 	mutex_lock(&dm_hash_cells_mutex);
+ 	hc = dm_get_mdptr(md);
+-	if (!hc || hc->md != md) {
++	if (!hc) {
+ 		r = -ENXIO;
+ 		goto out;
+ 	}
 -- 
 2.37.0 (Apple Git-136)
 
