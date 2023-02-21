@@ -1,149 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA32969DB5A
-	for <lists+dm-devel@lfdr.de>; Tue, 21 Feb 2023 08:41:05 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 41B3E69E937
+	for <lists+dm-devel@lfdr.de>; Tue, 21 Feb 2023 21:58:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1676965265;
+	s=mimecast20190719; t=1677013134;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fngJaFPg4K8bEeIiukEZ6KmT3TnUffMWbF0Py0cc1Jw=;
-	b=SVJnJuAeSBlBBKXENH1BGUJiHFvdaeXbBA7otkPqwcGZzKqx73oKE7mxJjzX3/8UafOk4N
-	SxdMvGCSdKytAToVMxNnLM8oCgICRO5pIJQiOviSqeqXh7uTojLUAZyXE2mWnK+dBj2eBZ
-	fkYb92YNP3zDbpCve/pt5cPa6ROiK2w=
+	bh=3FKNHGvqEzk64/SACRMAyPjxsp4C+b9aY2g7LyVmJOY=;
+	b=Szm+ilhjKormw6R9UayZcYyZqcuc1/ojCzNG0REA41BQgzIfWZbVUrQjGJSzP4wLFwowyr
+	wt+87yP43DgcV6UecjYT/lwgVlqNZKxO6qmX4M3c6nUD6B8ItB3gZCbx98gAWLTacbaoFy
+	GCR24ThyIjKOpqY8kpLNdrUbXw8pVXc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-208--Nh7TIWpOoe2Fpy2h7CQ7Q-1; Tue, 21 Feb 2023 02:40:29 -0500
-X-MC-Unique: -Nh7TIWpOoe2Fpy2h7CQ7Q-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-448-wy4MJGe5O--PWFKchy_O4g-1; Tue, 21 Feb 2023 15:58:53 -0500
+X-MC-Unique: wy4MJGe5O--PWFKchy_O4g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4ADBA886461;
-	Tue, 21 Feb 2023 07:40:26 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E98E580352D;
+	Tue, 21 Feb 2023 20:58:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 95E46140EBF4;
-	Tue, 21 Feb 2023 07:40:19 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7A76A492B07;
+	Tue, 21 Feb 2023 20:58:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 52E381946A49;
-	Tue, 21 Feb 2023 07:40:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 273AE19465B1;
+	Tue, 21 Feb 2023 20:58:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 006291946587
- for <dm-devel@listman.corp.redhat.com>; Mon, 20 Feb 2023 12:56:16 +0000 (UTC)
+ ESMTP id 20F1E1946587
+ for <dm-devel@listman.corp.redhat.com>; Tue, 21 Feb 2023 20:58:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E7530492B04; Mon, 20 Feb 2023 12:56:16 +0000 (UTC)
+ id D5F15492B06; Tue, 21 Feb 2023 20:58:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DFCCB492C3C
- for <dm-devel@redhat.com>; Mon, 20 Feb 2023 12:56:16 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CE223492B04
+ for <dm-devel@redhat.com>; Tue, 21 Feb 2023 20:58:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C6032802C16
- for <dm-devel@redhat.com>; Mon, 20 Feb 2023 12:56:16 +0000 (UTC)
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-124-6DQpKt0xOdabEXEcVCTWIA-1; Mon, 20 Feb 2023 07:56:15 -0500
-X-MC-Unique: 6DQpKt0xOdabEXEcVCTWIA-1
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20230220124856epoutp03744fa3536c72a8026b811f236f4f4c4b~FiT4sJg7e2509725097epoutp03h
- for <dm-devel@redhat.com>; Mon, 20 Feb 2023 12:48:56 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20230220124856epoutp03744fa3536c72a8026b811f236f4f4c4b~FiT4sJg7e2509725097epoutp03h
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTP id
- 20230220124855epcas5p11f6e306337a2a81f22a3588e359c4fb6~FiT4DRVI62749127491epcas5p1C;
- Mon, 20 Feb 2023 12:48:55 +0000 (GMT)
-Received: from epsmges5p1new.samsung.com (unknown [182.195.38.178]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 4PL2Kf0Mrnz4x9Px; Mon, 20 Feb
- 2023 12:48:54 +0000 (GMT)
-Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
- epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- AB.26.10528.53C63F36; Mon, 20 Feb 2023 21:48:53 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
- 20230220105537epcas5p386dd5c28197f055a8c548cca109d913c~Fgw8_Lpoe2700227002epcas5p3E;
- Mon, 20 Feb 2023 10:55:37 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20230220105537epsmtrp1985e2196bc7179a54716b408366f4246~Fgw88qAW12386223862epsmtrp1M;
- Mon, 20 Feb 2023 10:55:37 +0000 (GMT)
-X-AuditID: b6c32a49-e75fa70000012920-b6-63f36c35ca5a
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- F2.9C.05839.9A153F36; Mon, 20 Feb 2023 19:55:37 +0900 (KST)
-Received: from green5.sa.corp.samsungelectronics.net (unknown
- [107.110.206.5]) by epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20230220105534epsmtip21c8292d59ac36a9accd9a5a1b5b20633~Fgw58o2620727007270epsmtip20;
- Mon, 20 Feb 2023 10:55:34 +0000 (GMT)
-From: Nitesh Shetty <nj.shetty@samsung.com>
-To: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>, Mike
- Snitzer <snitzer@kernel.org>, dm-devel@redhat.com, Keith Busch
- <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg
- <sagi@grimberg.me>, James Smart <james.smart@broadcom.com>, Chaitanya
- Kulkarni <kch@nvidia.com>, Alexander Viro <viro@zeniv.linux.org.uk>
-Date: Mon, 20 Feb 2023 16:23:31 +0530
-Message-Id: <20230220105336.3810-9-nj.shetty@samsung.com>
-In-Reply-To: <20230220105336.3810-1-nj.shetty@samsung.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B3D11100F907
+ for <dm-devel@redhat.com>; Tue, 21 Feb 2023 20:58:48 +0000 (UTC)
+Received: from bedivere.hansenpartnership.com
+ (bedivere.hansenpartnership.com [96.44.175.130]) by relay.mimecast.com with
+ ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-542-gLvQ4yRlMJS1dHWglrPeZQ-1; Tue, 21 Feb 2023 15:58:45 -0500
+X-MC-Unique: gLvQ4yRlMJS1dHWglrPeZQ-1
+Received: from localhost (localhost [127.0.0.1])
+ by bedivere.hansenpartnership.com (Postfix) with ESMTP id ADA661285D81;
+ Tue, 21 Feb 2023 15:51:14 -0500 (EST)
+Received: from bedivere.hansenpartnership.com ([127.0.0.1])
+ by localhost (bedivere.hansenpartnership.com [127.0.0.1]) (amavisd-new,
+ port 10024)
+ with ESMTP id FGjkMet321rv; Tue, 21 Feb 2023 15:51:14 -0500 (EST)
+Received: from lingrow.int.hansenpartnership.com (unknown
+ [IPv6:2601:5c4:4302:c21::c14])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange ECDHE (prime256v1) server-signature RSA-PSS (2048 bits)
+ server-digest SHA256) (Client did not present a certificate)
+ by bedivere.hansenpartnership.com (Postfix) with ESMTPSA id 6110E1281F11;
+ Tue, 21 Feb 2023 15:51:12 -0500 (EST)
+Message-ID: <96463a32a97dc40bc30c47ddcdf19a5803de32d8.camel@HansenPartnership.com>
+From: James Bottomley <James.Bottomley@HansenPartnership.com>
+To: David Howells <dhowells@redhat.com>, lsf-pc@lists.linux-foundation.org, 
+ linux-block@vger.kernel.org, dm-devel@redhat.com
+Date: Tue, 21 Feb 2023 15:51:11 -0500
+In-Reply-To: <2896937.1676998541@warthog.procyon.org.uk>
+References: <2896937.1676998541@warthog.procyon.org.uk>
+User-Agent: Evolution 3.42.4
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA01Te1BUZRTvu3df4GxeF4IPnGxbkuSxsGvs+q0jZkF6jYZhZKYBpYFtuQGx
- r9ldAjSV5SFi8dJkYIHwgQZYIIjEwy1nGSRgGTBUUEOowUZRHkYDEtG2y4Xyv9855/f7zjm/
- bw4H533J9uQkqQ2UTi1XCljOjJZOny1CiXJOIRqdlaGG3hs4yixaxtGl0UIWKpldxNFS/wCO
- zNPlTHT3ehuGrp07iaHaS10Y6jj7DENdtikWOmm5A9DD2yYMme/5oWvmHgYaaq9goaqLD9nI
- cioLQ60TRoBalqpwVP9khoF+urcRDSx3M3e5k0O3wkjTWD+LbDONssmBB40Mcqg/hWyqy2OR
- V6qPkh13M1hkfta0nZAzxiRnfrjNIgua6wB5pe8QOde0iWyamMIi1u9P3pFIyeMpHZ9SKzTx
- SeqEYEFYZGxIrEQqEgvFMrRNwFfLVVSwIPSDCOHuJKXdAgH/M7kyxZ6KkOv1gsCdO3SaFAPF
- T9ToDcECShuv1AZpA/RylT5FnRCgpgzbxSLRVomdGJecaCy9AbRGZtr31kpmBihlnABOHEgE
- QVtzM/MEcObwiA4Arb89wejgDwCbTRcAHcwDeDm7krUm+evyjwy6YAZwOO80TgdZGDxeMmXX
- czgswg/22TgOgSvxCwbb+rwcHJwYx2BVZjVwFFyIUPjzqRbMgRnEZmj8xriCuYQMZjwqWHkH
- EoGwcGyDAzoR2+FCdjrN2AB7yiZWVsCJ12DW1fKVESBx3gkutpSx6UFD4dh8G5PGLnCyu3k1
- 7wkfFx5bxamw9qsaFi3OBtA0bAJ04W2Y01uIOxrjhA9saA+k06/C0731GN34ZZi/NIHReS5s
- /XoNe8FvG86smuUB7ywYVzEJq5+2smiv8gHMnq5jFwG+6YWFTC8sZPq/9RmA1wEPSqtXJVB6
- iVasplL/+2WFRtUEVs7Cd28rGB2fDbAAjAMsAHJwgSvXxp1T8Ljx8vSDlE4Tq0tRUnoLkNj9
- LsY9X1Fo7HelNsSKg2SiIKlUGiR7SyoWuHPfDO5R8IgEuYFKpigtpVvTYRwnzwys3O33alFy
- PePg53M9f+4Z+YQXLLE9nQ/8h9FOGEMKRsaP3Bfe4ruQUFkZHu5bse1Q9J7a6nWTX8x7uj36
- O+m5ZNNWs/dCacXHNetyFh5EWT8UnGXGXVca3reWukVfzG4cfK9IHcjJS4/pn/Z9HDFcax7c
- 7y2s2v3RvsyZzJhBcUdxRV07OOzvfKDvJf/UxrK0q87+pG5frp/l+bm01+M+jdlydH4yzb3+
- u3iPqKiR+wMH0r3FLr/uZat5775zZLj42YWh8+sLpOxOxs3NzeqQkJHU7jB2ZFincHHjzvBd
- A/3RuXxr082uZZXwmKvVxwuNRIZ01xw/LKueLC2xUbo3llStuQKGPlEu9sV1evm//v2hr58E
- AAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFjrEIsWRmVeSWpSXmKPExsWy7bCSvO7KwM/JBg2P1C3WnzrGbNE04S+z
- xeq7/WwW0z78ZLb4ffY8s8Xed7NZLW4e2MlksWfRJCaLlauPMlnsXviRyeLo/7dsFpMOXWO0
- eHp1FpPF3lvaFnv2nmSxuLxrDpvF/GVP2S0OTW5mstjxpJHRYtvv+cwW616/Z7E4cUva4vzf
- 46wO4h6Xr3h7zLp/ls1j56y77B7n721k8bh8ttRj06pONo/NS+o9dt9sYPPobX4HVNB6n9Xj
- /b6rbB59W1Yxemw+Xe3xeZOcx6Ynb5kC+KO4bFJSczLLUov07RK4MhpnHGMsaGSt2H5mLmsD
- 4wyWLkZODgkBE4lfG/YD2VwcQgK7GSUeP33DDpGQlFj29wgzhC0ssfLfc3aIokYmiR93PrB1
- MXJwsAloS5z+zwESFxF4xiRx9t4jZhCHWeAdk8Sqh8tYQbqFBVwkLk3exgRiswioSjQubwSz
- eQUsJRpe9DGBDJIQ0Jfovy8IYnIKWEl8b6kEqRACqjgxaTMjRLWgxMmZT8COZhaQl2jeOpt5
- AqPALCSpWUhSCxiZVjFKphYU56bnFhsWGOallusVJ+YWl+al6yXn525iBEezluYOxu2rPugd
- YmTiYDzEKMHBrCTC+5/3c7IQb0piZVVqUX58UWlOavEhRmkOFiVx3gtdJ+OFBNITS1KzU1ML
- UotgskwcnFINTJ6BjLwR/TdntN5RW8RTruO+lTHrdaVca+yt5xvDrVZYHdtxgd/fg7OH6dRa
- l4vF5sJHt6roLYhVOPhTyjHljffq63LrE0WbhVZeefDDIaQs8WZ6zYY412teF1n5PyVbXP92
- fqmHssHada/Zkvb08hw88IfjVohM5iG2jX4rz/w6PaOqjL0wIkOzYrHnM3XH2GtynKaSGWtE
- 70dFvF4tNNONLXfK/+MO/amxEZzhejbNn6RzYndyHrzs8s7h+Vz3PwVa8vbHmr22Re1Uvh8s
- yXHnmfRb2WaJugNPa3VSlKefNJfqS07PXJW9Zqv5gXdBEtrfJgos9DnHvPEHY+jUy+df2wTu
- fLAkR2avmpaQEktxRqKhFnNRcSIADQTqTVUDAAA=
-X-CMS-MailID: 20230220105537epcas5p386dd5c28197f055a8c548cca109d913c
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230220105537epcas5p386dd5c28197f055a8c548cca109d913c
-References: <20230220105336.3810-1-nj.shetty@samsung.com>
- <CGME20230220105537epcas5p386dd5c28197f055a8c548cca109d913c@epcas5p3.samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -152,9 +88,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Tue, 21 Feb 2023 07:40:17 +0000
-Subject: [dm-devel] [PATCH v7 8/8] dm: Enable copy offload for dm-linear
- target
+Subject: Re: [dm-devel] [LSF/MM/BPF TOPIC] Linux Security Summit cross-over?
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,41 +100,63 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: bvanassche@acm.org, joshi.k@samsung.com, gost.dev@samsung.com,
- anuj20.g@samsung.com, linux-kernel@vger.kernel.org,
- linux-nvme@lists.infradead.org, ming.lei@redhat.com,
- linux-block@vger.kernel.org, nitheshshetty@gmail.com,
- linux-fsdevel@vger.kernel.org, damien.lemoal@opensource.wdc.com,
- Nitesh Shetty <nj.shetty@samsung.com>
+Cc: linux-fsdevel@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Setting copy_offload_supported flag to enable offload.
+On Tue, 2023-02-21 at 16:55 +0000, David Howells wrote:
+> 
+> Since the first day of the LSS is the same as the final day of LSF
+> and in the same venue, are there any filesystem + security subjects
+> that would merit a common session?
 
-Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
----
- drivers/md/dm-linear.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
-index 3212ef6aa81b..b4b57bead495 100644
---- a/drivers/md/dm-linear.c
-+++ b/drivers/md/dm-linear.c
-@@ -61,6 +61,7 @@ static int linear_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	ti->num_discard_bios = 1;
- 	ti->num_secure_erase_bios = 1;
- 	ti->num_write_zeroes_bios = 1;
-+	ti->copy_offload_supported = 1;
- 	ti->private = lc;
- 	return 0;
- 
--- 
-2.35.1.500.gb896f729e2
+I've got one:  Cryptographic material handling.
+
+Subtitle could be: making keyrings more usable.
+
+The broad problem is that the use of encryption within the kernel is
+growing (from the old dm-crypt to the newer fscrypt and beyond) yet
+pretty much all of our cryptographic key material handling violates the
+principle of least privilege.  The latest one (which I happened to
+notice being interested in TPMs) is the systemd tpm2 cryptenroll.  The
+specific violation is that key unwrapping should occur as close as
+possible to use: when the kernel uses a key, it should be the kernel
+unwrapping it not unwrapping in user space and handing the unwrapped
+key down to the kernel because that gives a way.  We got here because
+in most of the old uses, the key is derived from a passphrase and the
+kernel can't prompt the user, so pieces of user space have to gather
+the precursor cryptographic material anyway.  However, we're moving
+towards using cryptographic devices (like the TPM, key fobs and the
+like) to store keys we really should be passing the wrapped key into
+the kernel and letting it do the unwrap to preserve least privilege. 
+dm-crypt has some support for using kernel based TPM keys (the trusted
+key subsystem), but this isn't propagated into systemd-cryptenroll and
+pretty much none of the other encryption systems make any attempt to
+use keyrings for unwrap handling, even if they use keyrings to store
+cryptographic material.
+
+Part of the reason seems to be that the keyrings subsystem itself is
+hard to use as a generic "unwrapper" since the consumer of the keys has
+to know exactly the key type to consume the protected payload.  We
+could possibly fix this by adding a payload accessor function so the
+keyring consumer could access a payload from any key type and thus
+benefit from in-kernel unwrapping, but there are likely a host of other
+issues that need to be solved.  So what I'd really like to discuss is:
+
+Given the security need for a generic in-kernel unwrapper, should we
+make keyrings do this and if so, how?
+
+Regards,
+
+James
+
+
 
 --
 dm-devel mailing list
