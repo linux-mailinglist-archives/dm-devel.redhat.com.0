@@ -1,146 +1,91 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0A59F6A035A
-	for <lists+dm-devel@lfdr.de>; Thu, 23 Feb 2023 08:40:27 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E4A146A0359
+	for <lists+dm-devel@lfdr.de>; Thu, 23 Feb 2023 08:40:26 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677138026;
+	s=mimecast20190719; t=1677138025;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=EfiHadIzoO63fdGs9+SN5Pu1ELcmBdeE8JxMpYfgoLg=;
-	b=WX6PhyJrDoli4h/7tpIBFKSGpfyFKmy8hnm+hPkoUZmvswrldaF6VTECgaPDf0UsxOJ+yQ
-	gtfHQbAZz3xEMaVWj9Fvdx0m191ysIssMdNbw6gzYstI/DGSrXyafMWh4UIKlfen7EULZ2
-	pzLEsgoXsiNmhI7OoJKiINOmJD4ZL5k=
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=MS/vRrVmr66n1X8aWYnBVj1vLKxUL/1e1OAYugqLa9Q=;
+	b=Cf+DT9x4ugZ2E6QiPWlfS+Gamv5Qs2cmvNCGVtcMBljiFgrE56CT5uZH7YX2b3CZCXn5N9
+	Xifo9mJfxduxxxVPsmTo0G41CC7GW/OJhMl+kBuybu2D3QTGLC7vJO2EQMsu12xr2mqNFi
+	U8QQ6elSHvqzH8d5qrEJG6CP1byEs7I=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-641-yPkXp5VZMBu-LzH8nnAXtQ-1; Thu, 23 Feb 2023 02:40:22 -0500
-X-MC-Unique: yPkXp5VZMBu-LzH8nnAXtQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-294-OjOiqhcDPBCW5g30CKWCjA-1; Thu, 23 Feb 2023 02:40:22 -0500
+X-MC-Unique: OjOiqhcDPBCW5g30CKWCjA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 575E085D06A;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 56F18101B44E;
 	Thu, 23 Feb 2023 07:40:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 54725492C14;
-	Thu, 23 Feb 2023 07:40:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 21987C15BA0;
+	Thu, 23 Feb 2023 07:40:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 208AE1946A78;
-	Thu, 23 Feb 2023 07:40:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B471E1946A42;
+	Thu, 23 Feb 2023 07:39:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A36E11946587
- for <dm-devel@listman.corp.redhat.com>; Wed, 22 Feb 2023 09:02:37 +0000 (UTC)
+ ESMTP id 63FC3194658C
+ for <dm-devel@listman.corp.redhat.com>; Thu, 23 Feb 2023 03:11:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0F34F492B01; Wed, 22 Feb 2023 09:02:37 +0000 (UTC)
+ id 287481415117; Thu, 23 Feb 2023 03:11:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 07017492B00
- for <dm-devel@redhat.com>; Wed, 22 Feb 2023 09:02:37 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2033C1415114
+ for <dm-devel@redhat.com>; Thu, 23 Feb 2023 03:11:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF53C85A588
- for <dm-devel@redhat.com>; Wed, 22 Feb 2023 09:02:36 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-453-aRenKyCVNMyjtVJFG4pPKw-1; Wed, 22 Feb 2023 04:02:34 -0500
-X-MC-Unique: aRenKyCVNMyjtVJFG4pPKw-1
-Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20230222090231epoutp01782fe87f4ae6387fc72c84f469faba11~GGgxrL3vb0678706787epoutp01h
- for <dm-devel@redhat.com>; Wed, 22 Feb 2023 09:02:31 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20230222090231epoutp01782fe87f4ae6387fc72c84f469faba11~GGgxrL3vb0678706787epoutp01h
-Received: from epsnrtp3.localdomain (unknown [182.195.42.164]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTP id
- 20230222090231epcas5p13f234960738c0cf4e3206c3cfad2b69a~GGgxG-5S80161201612epcas5p1F;
- Wed, 22 Feb 2023 09:02:31 +0000 (GMT)
-Received: from epsmges5p3new.samsung.com (unknown [182.195.38.180]) by
- epsnrtp3.localdomain (Postfix) with ESMTP id 4PM9CT4G7gz4x9Pr; Wed, 22 Feb
- 2023 09:02:29 +0000 (GMT)
-Received: from epcas5p1.samsung.com ( [182.195.41.39]) by
- epsmges5p3new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 59.81.06765.52AD5F36; Wed, 22 Feb 2023 18:02:29 +0900 (KST)
-Received: from epsmtrp2.samsung.com (unknown [182.195.40.14]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
- 20230222061311epcas5p1668d0066e043e146e6bd7db32c010667~GEM7Fiiac1792017920epcas5p1E;
- Wed, 22 Feb 2023 06:13:11 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp2.samsung.com (KnoxPortal) with ESMTP id
- 20230222061311epsmtrp20840e9dccad1f7846d8bb9d162a25aa3~GEM7Efrmo3190331903epsmtrp2G;
- Wed, 22 Feb 2023 06:13:11 +0000 (GMT)
-X-AuditID: b6c32a4b-20fff70000011a6d-24-63f5da258277
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 08.9C.05839.772B5F36; Wed, 22 Feb 2023 15:13:11 +0900 (KST)
-Received: from green5 (unknown [107.110.206.5]) by epsmtip2.samsung.com
- (KnoxPortal) with ESMTPA id
- 20230222061308epsmtip21ab9090b9fa12359e861e5637b8374cd~GEM3-5pBx1221112211epsmtip2d;
- Wed, 22 Feb 2023 06:13:08 +0000 (GMT)
-Date: Wed, 22 Feb 2023 11:42:36 +0530
-From: Nitesh Shetty <nj.shetty@samsung.com>
-To: Minwoo Im <minwoo.im.dev@gmail.com>
-Message-ID: <20230222061236.GA13158@green5>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C22A91C04B6D
+ for <dm-devel@redhat.com>; Thu, 23 Feb 2023 03:11:30 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
+ [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-367-WT6NozAePp22eu5JkDvfzg-1; Wed, 22 Feb 2023 22:11:27 -0500
+X-MC-Unique: WT6NozAePp22eu5JkDvfzg-1
+Received: from mail02.huawei.com (unknown [172.30.67.143])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4PMd196bZ3z4f3tqc;
+ Thu, 23 Feb 2023 10:55:09 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.127.227])
+ by APP3 (Coremail) with SMTP id _Ch0CgBH9CF41fZjSOQlDw--.18870S4;
+ Thu, 23 Feb 2023 10:55:11 +0800 (CST)
+From: yangerkun <yangerkun@huaweicloud.com>
+To: agk@redhat.com,
+	snitzer@kernel.org,
+	dm-devel@redhat.com
+Date: Thu, 23 Feb 2023 11:18:18 +0800
+Message-Id: <20230223031818.3713509-1-yangerkun@huaweicloud.com>
 MIME-Version: 1.0
-In-Reply-To: <Y/VapDeE98+A6/G2@minwoo-desktop>
-User-Agent: Mutt/1.9.4 (2018-02-28)
-X-Brightmail-Tracker: H4sIAAAAAAAAA02TfVBUVRjGO/fuXhZ14YYfHHCSnUvGl7uwsrtdGqActK5RgWONYzXhtlw+
- l91lP8RkKkAwBRWEMNnSwBASkA1WCIQF21IEYmDkQ2UkoUEjCBCQ0GVk2+VC43+/8z7PO897
- 3jOHg7p84+DOiVdoabVCKiewNaz6X328+FsH52UBmZUepKHjBkpm5D1DycqhXIw88+gpSi52
- daOkaepbNnn3WiNCNl/IR8hLldcRsqlkBiGvWycxMt88AMgH/XqENA36kc2mdhbZe/U7jPy+
- 7IEDaS44gpCW42vJhtF0QFZPTLPIm4Obye5nbew3XKnevnBKf78Loxr1Qw5U9x81LKq3S0fV
- VhzHKGPpl1TT3TSMOnlkymbIus+mplv6MerUlQpAGTtTqbnaLVTt6CQS6fxhYnAcLY2m1Txa
- IVNGxytiQ4jwvVFhUWJJgJAvDCJfJXgKaRIdQux8J5L/ZrzctgGCd1Aq19lKkVKNhvAPDVYr
- dVqaF6fUaEMIWhUtV4lUAo00SaNTxAoUtPY1YUDAdrHNeCAx7pZ1BlPVrT3UnWEEaeC0YzZw
- 5EBcBIfrppBssIbjgjcB+JWlFbMLLvgsgItFgYzwL4DVlaXIasfizXmMEUwADjwdYjOHUQCz
- OxuA3cXCt8Khy/m2Dg4Hw/1gp5VjL2/AvWDpcBmw+1G8gA3T7pSz7cJ6/G2YNV69nMC1+S01
- FpThF2F70SjLzo64AI4UTC/zRtwTXqtvW5nI4AiHag8yvBOOnW1Zqa+H421XHBh2h3NTJozh
- FHjp6x+XbwDxTAD1t/WAEV6HWR25y8EoHgcv/pXBZuovwcIOZjgUd4InF0dXAriw4fwqe8Iq
- Q/FKgBscWEhfYQoajg2zmA2NAHivvR3kAQ/9c5fTP5fH8DZY3DSL6W3LQ/HNsHyJw6APNFz1
- LwbsCuBGqzRJsbRGrApU0Cn/v7hMmVQLln+Ib3gD+HP4kcAMEA4wA8hBiQ1cK3dO5sKNln52
- mFYro9Q6Oa0xA7HtsU6j7htlStsXU2ijhKKgAJFEIhEFBUqEhCvXK6Rd5oLHSrV0Ik2raPVq
- H8JxdE9DuGLvD3wq+cEvj7y10Jw5Xh4/MWv5NKTF+MVRtoenqWRs/zpJKi9xtshPkEcTtDUt
- d6Cm1e/n+cWapcfKerdz595r5i9h6Uhq8gtOxvfzd4tCn+xI+O1OxCGkx5U34eKqTg1LhE9i
- E8AvWm3YxS0f9+R8Lv9kYVfy4l6iKKJCm+DtcLjyh7r582eRM3T9rebdM5v2GTPfzel7mOM9
- fmpHzFFEYBaP/R2zzVB2rPEe3MMlSn6yVP0OI7I6nGP8BwoPVBeirww07oreI15HfdQz49zh
- 45xscEopO+G3aX9r6MPbk/vc+hp1/5Rf7k/Q+FpDq1SzWRf4N8rmM+Uemu3CHQmPCZYmTir0
- RdUa6X9EkgBuqgQAAA==
-X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFrrJIsWRmVeSWpSXmKPExsWy7bCSvG75pq/JBnPniVusP3WM2aJpwl9m
- i9V3+9kspn34yWzx++x5Zou972azWtw8sJPJYs+iSUwWK1cfZbLYvfAjk8XR/2/ZLCYdusZo
- 8fTqLCaLvbe0LfbsPclicXnXHDaL+cueslscmtzMZPGrk9tix5NGRot1r9+zWJy4JW1x/u9x
- Vgdxj8tXvD1m3T/L5rFz1l12j/P3NrJ4XD5b6rFpVSebx+Yl9R67bzawefQ2vwMqaL3P6vF+
- 31U2j74tqxg9Np+u9vi8Sc5j05O3TAH8UVw2Kak5mWWpRfp2CVwZ/2b+Yy74ylHR9O4ZcwPj
- K7YuRk4OCQETid8nvgLZXBxCArsZJZ5sPsAEkZCUWPb3CDOELSyx8t9zdoiiR4wSL2e3MoIk
- WARUJe6unQTUwMHBJqAtcfo/B0hYREBdYsmDZYwg9cwC01kl3k8/CrZNWMBLovXVOrAFvED1
- vzb+YoYY+pBR4vOxM6wQCUGJkzOfsIDYzAJaEjf+vQRbwCwgLbH8H9gCTgE9iYeT34OViAoo
- SxzYdpxpAqPgLCTds5B0z0LoXsDIvIpRMrWgODc9t9iwwDAvtVyvODG3uDQvXS85P3cTIzj2
- tTR3MG5f9UHvECMTB+MhRgkOZiUR3v+8n5OFeFMSK6tSi/Lji0pzUosPMUpzsCiJ817oOhkv
- JJCeWJKanZpakFoEk2Xi4JRqYFpw+l3OirXTymbemr7qykFuZlNOlZ/yQn6XTB0fubmaN1X+
- nbHfKCZGhlNhkoMrwy3xVps7SS73U+/82fBc28pq9QzlLM97Qolrt65pm2bdp/M8+Un8270p
- q7ck/WipSMjateiu/T3vJLt5FWecOFg4Tt2zX7eJVaio4hZncGJo+9WmF6UanW0WDny9i/ZG
- z6hxcBBKDTRqkWvrOaT323rK1bUvwmeq/Pzc6t92S6z2+72DLZ3RRTmPVhjEW/jpveeu5N9b
- ZPqwvMSOUXPvySnMNXLC0dPFHrIu3ejh/dwjz6TizaTo06fTHZ0fPF55dEehtMn6wHkZNQnh
- z6XkI8tDl938Zq/5TTDvUc4JJZbijERDLeai4kQA/vWOE2wDAAA=
-X-CMS-MailID: 20230222061311epcas5p1668d0066e043e146e6bd7db32c010667
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
+X-CM-TRANSID: _Ch0CgBH9CF41fZjSOQlDw--.18870S4
+X-Coremail-Antispam: 1UD129KBjvJXoW7ur43tFW5WF47WryDWFyrCrg_yoW8KF1xpF
+ Z5Xr13t3y8Kr47KrWYyr1kJwnxJF18GasxGrWxZ393C3W5Wr9YqF12yF48ZrWDAF95Gay5
+ ZFWkJa1qkFy0yrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUgEb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
+ 6cxKx2IYs7xG6r1j6r18M7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
+ vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
+ xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
+ 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
+ 6I80ewAv7VC0I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFV
+ Cjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCj
+ c4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
+ CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
+ MIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_Wr1j6r
+ W3Jr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVWUJVW8JbIY
+ CTnIWIevJa73UjIFyTuYvjxU7pnQUUUUU
+X-CM-SenderInfo: 51dqwvhunx0q5kxd4v5lfo033gof0z/
 X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230220105441epcas5p49ffde763aae06db301804175e85f9472
-References: <20230220105336.3810-1-nj.shetty@samsung.com>
- <CGME20230220105441epcas5p49ffde763aae06db301804175e85f9472@epcas5p4.samsung.com>
- <20230220105336.3810-3-nj.shetty@samsung.com>
- <Y/VapDeE98+A6/G2@minwoo-desktop>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -148,10 +93,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Thu, 23 Feb 2023 07:39:58 +0000
-Subject: Re: [dm-devel] [PATCH v7 2/8] block: Add copy offload support
- infrastructure
+Subject: [dm-devel] [PATCH] dm-crypt: reexport sysfs of kcryptd workqueue
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -163,72 +107,97 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-nvme@lists.infradead.org, dm-devel@redhat.com,
- Christoph Hellwig <hch@lst.de>, Alasdair Kergon <agk@redhat.com>,
- Sagi Grimberg <sagi@grimberg.me>, gost.dev@samsung.com,
- nitheshshetty@gmail.com, James Smart <james.smart@broadcom.com>,
- Chaitanya Kulkarni <kch@nvidia.com>, anuj20.g@samsung.com,
- Mike Snitzer <snitzer@kernel.org>, ming.lei@redhat.com,
- linux-block@vger.kernel.org, Keith Busch <kbusch@kernel.org>,
- bvanassche@acm.org, Jens Axboe <axboe@kernel.dk>, joshi.k@samsung.com,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- damien.lemoal@opensource.wdc.com, Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: yangerkun@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: multipart/mixed;
- boundary="----yVjN9gd9kB_eEBqPP9-k1BSyTM5mTd6q7sagKps1_qiE1IrQ=_83a81_"
-
-------yVjN9gd9kB_eEBqPP9-k1BSyTM5mTd6q7sagKps1_qiE1IrQ=_83a81_
 Content-Type: text/plain; charset="us-ascii"
-Content-Disposition: inline
-
-On Wed, Feb 22, 2023 at 08:58:28AM +0900, Minwoo Im wrote:
-> > +/*
-> > + * @bdev_in:	source block device
-> > + * @pos_in:	source offset
-> > + * @bdev_out:	destination block device
-> > + * @pos_out:	destination offset
-> 
-> @len is missing here.
-> 
-
-acked
-
-> > + * @end_io:	end_io function to be called on completion of copy operation,
-> > + *		for synchronous operation this should be NULL
-> > + * @private:	end_io function will be called with this private data, should be
-> > + *		NULL, if operation is synchronous in nature
-> > + * @gfp_mask:   memory allocation flags (for bio_alloc)
-> > + *
-> > + * Returns the length of bytes copied or a negative error value
-> > + *
-> > + * Description:
-> > + *	Copy source offset from source block device to destination block
-> > + *	device. length of a source range cannot be zero. Max total length of
-> > + *	copy is limited to MAX_COPY_TOTAL_LENGTH
-> > + */
-> > +int blkdev_issue_copy(struct block_device *bdev_in, loff_t pos_in,
-> > +		      struct block_device *bdev_out, loff_t pos_out, size_t len,
-> > +		      cio_iodone_t end_io, void *private, gfp_t gfp_mask)
-> 
-
-------yVjN9gd9kB_eEBqPP9-k1BSyTM5mTd6q7sagKps1_qiE1IrQ=_83a81_
-Content-Type: text/plain; charset="utf-8"
-
-
-------yVjN9gd9kB_eEBqPP9-k1BSyTM5mTd6q7sagKps1_qiE1IrQ=_83a81_
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+From: yangerkun <yangerkun@huawei.com>
+
+'a2b8b2d97567 ("dm crypt: export sysfs of kcryptd workqueue")' give us
+idea to set specific CPU or limit max_active crypt work. However sysfs
+will report a warnning and fail 'cryptsetup refresh test' since the
+reload will alloc workqueue with same sysfs name, and we temporarily
+revert this feature to fix the problem.
+
+What we actually should do is give a unique name once we try reload
+table, we can use ida now.
+
+Signed-off-by: yangerkun <yangerkun@huawei.com>
+---
+ drivers/md/dm-crypt.c | 28 +++++++++++++++++++++++-----
+ 1 file changed, 23 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 755a01d72cdb..f0b8cb4364a1 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -46,6 +46,8 @@
+ 
+ #define DM_MSG_PREFIX "crypt"
+ 
++static DEFINE_IDA(crypt_queue_ida);
++
+ /*
+  * context holding the current state of a multi-part conversion
+  */
+@@ -179,6 +181,7 @@ struct crypt_config {
+ 		struct crypto_aead **tfms_aead;
+ 	} cipher_tfm;
+ 	unsigned tfms_count;
++	int crypt_queue_id;
+ 	unsigned long cipher_flags;
+ 
+ 	/*
+@@ -2708,6 +2711,9 @@ static void crypt_dtr(struct dm_target *ti)
+ 	if (cc->crypt_queue)
+ 		destroy_workqueue(cc->crypt_queue);
+ 
++	if (cc->crypt_queue_id)
++		ida_free(&crypt_queue_ida, cc->crypt_queue_id);
++
+ 	crypt_free_tfms(cc);
+ 
+ 	bioset_exit(&cc->bs);
+@@ -3344,12 +3350,24 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	}
+ 
+ 	if (test_bit(DM_CRYPT_SAME_CPU, &cc->flags))
+-		cc->crypt_queue = alloc_workqueue("kcryptd/%s", WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
++		cc->crypt_queue = alloc_workqueue("kcryptd-%s", WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
+ 						  1, devname);
+-	else
+-		cc->crypt_queue = alloc_workqueue("kcryptd/%s",
+-						  WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM | WQ_UNBOUND,
+-						  num_online_cpus(), devname);
++	else {
++		int id = ida_alloc_min(&crypt_queue_ida, 1, GFP_KERNEL);
++
++		if (id < 0) {
++			ti->error = "Couldn't get kcryptd queue id";
++			ret = id;
++			goto bad;
++		}
++
++		cc->crypt_queue_id = id;
++		cc->crypt_queue = alloc_workqueue("kcryptd-%s-%d",
++						  WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM |
++						  WQ_UNBOUND | WQ_SYSFS,
++						  num_online_cpus(), devname, id);
++	}
++
+ 	if (!cc->crypt_queue) {
+ 		ti->error = "Couldn't create kcryptd queue";
+ 		goto bad;
+-- 
+2.31.1
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
-------yVjN9gd9kB_eEBqPP9-k1BSyTM5mTd6q7sagKps1_qiE1IrQ=_83a81_--
 
