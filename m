@@ -1,91 +1,91 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 724056A0358
-	for <lists+dm-devel@lfdr.de>; Thu, 23 Feb 2023 08:40:25 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 17F406A0474
+	for <lists+dm-devel@lfdr.de>; Thu, 23 Feb 2023 10:07:11 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677138024;
+	s=mimecast20190719; t=1677143229;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MDxgZID29YKKi/IavMSt+IAXuoAwC2ZibjUmNHgzd80=;
-	b=cj4IxbPPWqV0pukE0SUk4p7DZgWZkMWyQNs8AEg9xxuqWjtIrRW3cmvFfZeCDJNIk7cv23
-	85gC/kFB5gPmKSameB91fVISTqK4QnAQYTgwwjwl7o591u9UC3gvJ5oG6YTo1qmdUTssRF
-	H6oN8F4X38x9XTEoPwwt0CJoNDmFpxs=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=g7Wedk9W6pgXYinNYL4HMcR62zNg+tmH/7wD1F4EMSQ=;
+	b=Z+ACLfnJjRtMB+tCnbyTDWekSCBnEo1tCN+E4EbzURG+WuuVVwgr7jzGTZ/RmGEX1fUOrJ
+	r2F26VOSKhDmKwfiZev/WnhbPABx94NJXpMaUX1BH+UGGW2dtXnpg7nhFLeIQM++pwEHas
+	esMFMP7SF/7eYJoAlRB+O5lNTBen9uc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-282-6h-6SBOvMue2eeGj3wmBRQ-1; Thu, 23 Feb 2023 02:40:22 -0500
-X-MC-Unique: 6h-6SBOvMue2eeGj3wmBRQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-575-RxjYcK4qO2S-qFYTrOwzsA-1; Thu, 23 Feb 2023 04:07:08 -0500
+X-MC-Unique: RxjYcK4qO2S-qFYTrOwzsA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 632FC3810B1B;
-	Thu, 23 Feb 2023 07:40:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6618D183B3C1;
+	Thu, 23 Feb 2023 09:07:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 37C432166B29;
-	Thu, 23 Feb 2023 07:40:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 84D7AC15BAD;
+	Thu, 23 Feb 2023 09:06:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DC8D71946A63;
-	Thu, 23 Feb 2023 07:39:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0BF051946A42;
+	Thu, 23 Feb 2023 09:06:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0BE92194658C
- for <dm-devel@listman.corp.redhat.com>; Thu, 23 Feb 2023 03:16:32 +0000 (UTC)
+ ESMTP id C725819465A0
+ for <dm-devel@listman.corp.redhat.com>; Thu, 23 Feb 2023 09:06:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EEA41492B04; Thu, 23 Feb 2023 03:16:31 +0000 (UTC)
+ id 8A1AB492C18; Thu, 23 Feb 2023 09:06:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E6AD1492C3C
- for <dm-devel@redhat.com>; Thu, 23 Feb 2023 03:16:31 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 82A3E492C14
+ for <dm-devel@redhat.com>; Thu, 23 Feb 2023 09:06:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAAB718483B3
- for <dm-devel@redhat.com>; Thu, 23 Feb 2023 03:16:31 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 675BF85A588
+ for <dm-devel@redhat.com>; Thu, 23 Feb 2023 09:06:56 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
+ [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-155-6ko7R7A5ON--0LSqWhe_kQ-1; Wed, 22 Feb 2023 22:16:28 -0500
-X-MC-Unique: 6ko7R7A5ON--0LSqWhe_kQ-1
+ us-mta-619-Z6d2LS4bNl-lQ9dtvJ-jtA-1; Thu, 23 Feb 2023 04:06:54 -0500
+X-MC-Unique: Z6d2LS4bNl-lQ9dtvJ-jtA-1
 Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4PMd2b3Tq9z4f3vf7;
- Thu, 23 Feb 2023 10:56:23 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4PMmsP14lMz4f3l6l;
+ Thu, 23 Feb 2023 16:48:57 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.127.227])
- by APP3 (Coremail) with SMTP id _Ch0CgBnFCLS1fZjCfQlDw--.18947S4;
- Thu, 23 Feb 2023 10:56:25 +0800 (CST)
-From: yangerkun <yangerkun@huaweicloud.com>
-To: agk@redhat.com,
-	snitzer@kernel.org,
-	dm-devel@redhat.com
-Date: Thu, 23 Feb 2023 11:19:47 +0800
-Message-Id: <20230223031947.3717433-1-yangerkun@huaweicloud.com>
+ by APP3 (Coremail) with SMTP id _Ch0CgBH9CF5KPdjdmo0Dw--.40730S4;
+ Thu, 23 Feb 2023 16:48:59 +0800 (CST)
+From: Yu Kuai <yukuai1@huaweicloud.com>
+To: axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com,
+ kbusch@kernel.org, hch@lst.de, sagi@grimberg.me, guz.fnst@cn.fujitsu.com
+Date: Thu, 23 Feb 2023 17:12:26 +0800
+Message-Id: <20230223091226.1135678-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: _Ch0CgBnFCLS1fZjCfQlDw--.18947S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxWF1rGrW5CF1fZw48XryrJFb_yoW5tw13pF
- W5WFy5Kan7JryYqr4qkF1UtFy5Kr4UAFy7Jry7X3WDCa4UW34DJFWxWay5XrnxGFy7JFy2
- yrZrGa48tr18Jw7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUyG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWUJVWUGwAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+X-CM-TRANSID: _Ch0CgBH9CF5KPdjdmo0Dw--.40730S4
+X-Coremail-Antispam: 1UD129KBjvJXoW3Wr1fXr43Gr1DGr4UXr4rGrg_yoW7AF1fpF
+ 48W3WrCrZrXwnYg3yUAayDuF1rKa10q347AFW7J345Zw4ktryvvF10y3Wqyr15Ca97uFW7
+ Aa48AF9rur42k37anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jrv_JF1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
- xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2Ix0
- cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
- AvwI8IcIk0rVW3JVWrJr1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x02
- 67AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUb7GYJUUUUU==
-X-CM-SenderInfo: 51dqwvhunx0q5kxd4v5lfo033gof0z/
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+ xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+ MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+ 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v2
+ 6r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+ U6c_fUUUUU=
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -95,8 +95,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Thu, 23 Feb 2023 07:39:58 +0000
-Subject: [dm-devel] [PATCH] dm-crypt: fix softlockup in dmcrypt_write
+Subject: [dm-devel] [PATCH -next RFC] block: count 'ios' and 'sectors' when
+ io is done for bio-based device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,95 +108,156 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yangerkun@huawei.com, yangerkun@huaweicloud.com
+Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, linux-block@vger.kernel.org,
+ yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: yangerkun <yangerkun@huawei.com>
+From: Yu Kuai <yukuai3@huawei.com>
 
-We meet a softlockup:
+While using iostat for raid, I observed very strange 'await'
+occasionally, and turns out it's due to that 'ios' and 'sectors' is
+counted in bdev_start_io_acct(), while 'nsecs' is counted in
+bdev_end_io_acct(). I'm not sure why they are ccounted like that
+but I think this behaviour is obviously wrong because user will get
+wrong disk stats.
 
-localhost login: [ 3391.153255][   C12] watchdog: BUG: soft lockup - CPU#12 stuck for 23s! [dmcrypt_write/2:2897]
-...
-[ 3391.258372][   C12] CPU: 12 PID: 2897 Comm: dmcrypt_write/2 Tainted: G             L    5.10.0+ #8
-[ 3391.267288][   C12] Hardware name: Huawei TaiShan 2280 V2/BC82AMDDA, BIOS 1.75 04/26/2021
-[ 3391.275428][   C12] pstate: 80400009 (Nzcv daif +PAN -UAO -TCO BTYPE=--)
-[ 3391.282102][   C12] pc : blk_attempt_bio_merge.part.6+0x38/0x158
-[ 3391.288080][   C12] lr : blk_attempt_plug_merge+0xc0/0x1b0
-[ 3391.293540][   C12] sp : ffff8000718abc30
-[ 3391.297530][   C12] x29: ffff8000718abc30 x28: 0000000000000000
-[ 3391.303509][   C12] x27: ffff2020361d9ac0 x26: 0000000000000001
-[ 3391.309488][   C12] x25: 0000000000000001 x24: ffff8000718abd08
-[ 3391.315467][   C12] x23: ffff0020a10dbb00 x22: 0000000000000001
-[ 3391.321445][   C12] x21: ffff8000718abe20 x20: ffff0020a10dbb00
-[ 3391.327424][   C12] x19: ffff0020aed7b040 x18: 0000000000000000
-[ 3391.333402][   C12] x17: 0000000000000000 x16: fffffdffffe00000
-[ 3391.339381][   C12] x15: 0000000000001000 x14: 0000000000000000
-[ 3391.345359][   C12] x13: 0000000000002000 x12: ffff2060011f9070
-[ 3391.351338][   C12] x11: 0000000000000001 x10: 0000000000000002
-[ 3391.357316][   C12] x9 : ffff800010586c38 x8 : ffff202009a7f200
-[ 3391.363294][   C12] x7 : ffff8000718abd00 x6 : ffff20200df33750
-[ 3391.369274][   C12] x5 : 0000000000000001 x4 : 0000000000000000
-[ 3391.375252][   C12] x3 : 0000000000000001 x2 : ffff0020a10dbb00
-[ 3391.381230][   C12] x1 : ffff0020aed7b040 x0 : 0000000000001000
-[ 3391.387210][   C12] Call trace:
-[ 3391.390338][   C12]  blk_attempt_bio_merge.part.6+0x38/0x158
-[ 3391.395970][   C12]  blk_attempt_plug_merge+0xc0/0x1b0
-[ 3391.401085][   C12]  blk_mq_submit_bio+0x398/0x550
-[ 3391.405856][   C12]  submit_bio_noacct+0x308/0x380
-[ 3391.410630][   C12]  dmcrypt_write+0x1e4/0x208 [dm_crypt]
-[ 3391.416005][   C12]  kthread+0x130/0x138
-[ 3391.419911][   C12]  ret_from_fork+0x10/0x18
+Fix the problem by counting 'ios' and 'sectors' when io is done, like
+what rq-based device does.
 
-dmcrypt_write may see not empty write_tree for a long time if we have a
-heavy load of write, and submit_bio for high-performance disk like nvme
-can always get a valid tag, so the bio routine will not yield cpu too.
-So the softlockup seems reasonably.
-
-Fix it by schedule periodically.
-
-Fixes: dc2676210c42 ("dm crypt: offload writes to thread")
-Signed-off-by: yangerkun <yangerkun@huawei.com>
+Fixes: 394ffa503bc4 ("blk: introduce generic io stat accounting help function")
+Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/md/dm-crypt.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ block/blk-core.c              | 16 ++++++----------
+ drivers/md/dm.c               |  6 +++---
+ drivers/nvme/host/multipath.c |  8 ++++----
+ include/linux/blkdev.h        |  5 ++---
+ 4 files changed, 15 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 2653516bcdef..755a01d72cdb 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -1891,6 +1891,7 @@ static int dmcrypt_write(void *data)
+diff --git a/block/blk-core.c b/block/blk-core.c
+index 82b5b2c53f1e..fe1d320f5f07 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -953,16 +953,11 @@ void update_io_ticks(struct block_device *part, unsigned long now, bool end)
+ 	}
+ }
+ 
+-unsigned long bdev_start_io_acct(struct block_device *bdev,
+-				 unsigned int sectors, enum req_op op,
++unsigned long bdev_start_io_acct(struct block_device *bdev, enum req_op op,
+ 				 unsigned long start_time)
  {
- 	struct crypt_config *cc = data;
- 	struct dm_crypt_io *io;
-+	unsigned long start_time = jiffies;
+-	const int sgrp = op_stat_group(op);
+-
+ 	part_stat_lock();
+ 	update_io_ticks(bdev, start_time, false);
+-	part_stat_inc(bdev, ios[sgrp]);
+-	part_stat_add(bdev, sectors[sgrp], sectors);
+ 	part_stat_local_inc(bdev, in_flight[op_is_write(op)]);
+ 	part_stat_unlock();
  
- 	while (1) {
- 		struct rb_root write_tree;
-@@ -1913,6 +1914,7 @@ static int dmcrypt_write(void *data)
+@@ -978,13 +973,12 @@ EXPORT_SYMBOL(bdev_start_io_acct);
+  */
+ unsigned long bio_start_io_acct(struct bio *bio)
+ {
+-	return bdev_start_io_acct(bio->bi_bdev, bio_sectors(bio),
+-				  bio_op(bio), jiffies);
++	return bdev_start_io_acct(bio->bi_bdev, bio_op(bio), jiffies);
+ }
+ EXPORT_SYMBOL_GPL(bio_start_io_acct);
  
- 		schedule();
+ void bdev_end_io_acct(struct block_device *bdev, enum req_op op,
+-		      unsigned long start_time)
++		      unsigned int sectors, unsigned long start_time)
+ {
+ 	const int sgrp = op_stat_group(op);
+ 	unsigned long now = READ_ONCE(jiffies);
+@@ -992,6 +986,8 @@ void bdev_end_io_acct(struct block_device *bdev, enum req_op op,
  
-+		start_time = jiffies;
- 		set_current_state(TASK_RUNNING);
- 		spin_lock_irq(&cc->write_thread_lock);
- 		goto continue_locked;
-@@ -1924,6 +1926,10 @@ static int dmcrypt_write(void *data)
+ 	part_stat_lock();
+ 	update_io_ticks(bdev, now, true);
++	part_stat_inc(bdev, ios[sgrp]);
++	part_stat_add(bdev, sectors[sgrp], sectors);
+ 	part_stat_add(bdev, nsecs[sgrp], jiffies_to_nsecs(duration));
+ 	part_stat_local_dec(bdev, in_flight[op_is_write(op)]);
+ 	part_stat_unlock();
+@@ -1001,7 +997,7 @@ EXPORT_SYMBOL(bdev_end_io_acct);
+ void bio_end_io_acct_remapped(struct bio *bio, unsigned long start_time,
+ 			      struct block_device *orig_bdev)
+ {
+-	bdev_end_io_acct(orig_bdev, bio_op(bio), start_time);
++	bdev_end_io_acct(orig_bdev, bio_op(bio), bio_sectors(bio), start_time);
+ }
+ EXPORT_SYMBOL_GPL(bio_end_io_acct_remapped);
  
- 		BUG_ON(rb_parent(write_tree.rb_node));
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index eace45a18d45..f5cc330bb549 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -512,10 +512,10 @@ static void dm_io_acct(struct dm_io *io, bool end)
+ 		sectors = io->sectors;
  
-+		if (time_is_before_jiffies(start_time + HZ)) {
-+			schedule();
-+			start_time = jiffies;
-+		}
- 		/*
- 		 * Note: we cannot walk the tree here with rb_next because
- 		 * the structures may be freed when kcryptd_io_write is called.
+ 	if (!end)
+-		bdev_start_io_acct(bio->bi_bdev, sectors, bio_op(bio),
+-				   start_time);
++		bdev_start_io_acct(bio->bi_bdev, bio_op(bio), start_time);
+ 	else
+-		bdev_end_io_acct(bio->bi_bdev, bio_op(bio), start_time);
++		bdev_end_io_acct(bio->bi_bdev, bio_op(bio), sectors,
++				 start_time);
+ 
+ 	if (static_branch_unlikely(&stats_enabled) &&
+ 	    unlikely(dm_stats_used(&md->stats))) {
+diff --git a/drivers/nvme/host/multipath.c b/drivers/nvme/host/multipath.c
+index fc39d01e7b63..9171452e2f6d 100644
+--- a/drivers/nvme/host/multipath.c
++++ b/drivers/nvme/host/multipath.c
+@@ -123,9 +123,8 @@ void nvme_mpath_start_request(struct request *rq)
+ 		return;
+ 
+ 	nvme_req(rq)->flags |= NVME_MPATH_IO_STATS;
+-	nvme_req(rq)->start_time = bdev_start_io_acct(disk->part0,
+-					blk_rq_bytes(rq) >> SECTOR_SHIFT,
+-					req_op(rq), jiffies);
++	nvme_req(rq)->start_time = bdev_start_io_acct(disk->part0, req_op(rq),
++						      jiffies);
+ }
+ EXPORT_SYMBOL_GPL(nvme_mpath_start_request);
+ 
+@@ -136,7 +135,8 @@ void nvme_mpath_end_request(struct request *rq)
+ 	if (!(nvme_req(rq)->flags & NVME_MPATH_IO_STATS))
+ 		return;
+ 	bdev_end_io_acct(ns->head->disk->part0, req_op(rq),
+-		nvme_req(rq)->start_time);
++			 blk_rq_bytes(rq) >> SECTOR_SHIFT,
++			 nvme_req(rq)->start_time);
+ }
+ 
+ void nvme_kick_requeue_lists(struct nvme_ctrl *ctrl)
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index d1aee08f8c18..941304f17492 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1446,11 +1446,10 @@ static inline void blk_wake_io_task(struct task_struct *waiter)
+ 		wake_up_process(waiter);
+ }
+ 
+-unsigned long bdev_start_io_acct(struct block_device *bdev,
+-				 unsigned int sectors, enum req_op op,
++unsigned long bdev_start_io_acct(struct block_device *bdev, enum req_op op,
+ 				 unsigned long start_time);
+ void bdev_end_io_acct(struct block_device *bdev, enum req_op op,
+-		unsigned long start_time);
++		      unsigned int sectors, unsigned long start_time);
+ 
+ unsigned long bio_start_io_acct(struct bio *bio);
+ void bio_end_io_acct_remapped(struct bio *bio, unsigned long start_time,
 -- 
 2.31.1
 
