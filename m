@@ -2,170 +2,170 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A4DAA6A3B76
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Feb 2023 08:03:48 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C1C7F6A3B71
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Feb 2023 08:03:46 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677481427;
+	s=mimecast20190719; t=1677481425;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=PnUGbhxq6W1or0KMruo6Fg4JxQ+jJOx6Ph0wu258cRI=;
-	b=KtZXk9NI1cCoZreqPkRa9kzI8Se2SdG+Y1u5d7adFIasihnCcP9EqWNhhTsBsMIn4YTY84
-	qi/M9CcCpcQagRBe8irkIGQD73dsZBghI8BmCkFz/+NvDumo2RAl2Xjm98GmYTJeoW+2lM
-	42ikkLE61RBFK59W3vgw+4bNXOMpYVc=
+	bh=uzoD9CfztUAn+qLksIBX9/YlNKn6EghAkuCzwvmKgXw=;
+	b=Jqm4VM02bppFxEY7731e9YuN3syWRttQHn5Umz96pvgWxZoDETy0l0ExfofjlR4ankk6Ak
+	KO+SmPCA6aF19YAbdDXj+8/Yx4lI5e3lGhbRvDcvBbqk4oD9x1dMIF5IXjuauTcVb969eY
+	Ank9fD/KZnoxyj3lTnQscOSBqdTZNdw=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-553-FFuyj__aNC6Acok9jFdTRQ-1; Mon, 27 Feb 2023 02:03:44 -0500
-X-MC-Unique: FFuyj__aNC6Acok9jFdTRQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-79-RHf8OtXQNRey9-uby3OxcA-1; Mon, 27 Feb 2023 02:03:43 -0500
+X-MC-Unique: RHf8OtXQNRey9-uby3OxcA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 639AD38149A6;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 650102A59562;
 	Mon, 27 Feb 2023 07:03:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F131A2166B31;
-	Mon, 27 Feb 2023 07:03:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C57C218EC2;
+	Mon, 27 Feb 2023 07:03:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A7EA91946A6F;
-	Mon, 27 Feb 2023 07:03:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 011F319465BC;
+	Mon, 27 Feb 2023 07:03:35 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1498819465A0
- for <dm-devel@listman.corp.redhat.com>; Fri, 24 Feb 2023 19:23:18 +0000 (UTC)
+ ESMTP id 8554519465B1
+ for <dm-devel@listman.corp.redhat.com>; Fri, 24 Feb 2023 22:15:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EDC62492B13; Fri, 24 Feb 2023 19:23:17 +0000 (UTC)
+ id 7230C440D9; Fri, 24 Feb 2023 22:15:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E3FC8492B12
- for <dm-devel@redhat.com>; Fri, 24 Feb 2023 19:23:17 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE73829AA3AD
- for <dm-devel@redhat.com>; Fri, 24 Feb 2023 19:23:17 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6934C440D8
+ for <dm-devel@redhat.com>; Fri, 24 Feb 2023 22:15:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41E531C05AD6
+ for <dm-devel@redhat.com>; Fri, 24 Feb 2023 22:15:18 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-488--jI4m_W5PSyKEpq-Kv46Ig-1; Fri, 24 Feb 2023 14:23:15 -0500
-X-MC-Unique: -jI4m_W5PSyKEpq-Kv46Ig-1
-Received: from pps.filterd (m0246629.ppops.net [127.0.0.1])
+ us-mta-619-8Ofuq06AOnSbL83BSjSMtA-1; Fri, 24 Feb 2023 17:15:16 -0500
+X-MC-Unique: 8Ofuq06AOnSbL83BSjSMtA-1
+Received: from pps.filterd (m0246632.ppops.net [127.0.0.1])
  by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 31OHiJtR020501; Fri, 24 Feb 2023 17:45:10 GMT
+ 31OHhv3r019887; Fri, 24 Feb 2023 17:45:11 GMT
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
  (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ntpjadkp7-1
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ntp9twu3y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Feb 2023 17:45:09 +0000
+ Fri, 24 Feb 2023 17:45:10 +0000
 Received: from pps.filterd
  (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 31OG0il1030220; Fri, 24 Feb 2023 17:45:09 GMT
+ with ESMTP id 31OG0il2030220; Fri, 24 Feb 2023 17:45:09 GMT
 Received: from nam10-dm6-obe.outbound.protection.outlook.com
  (mail-dm6nam10lp2109.outbound.protection.outlook.com [104.47.58.109])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3ntn49ssch-2
+ 3ntn49ssch-3
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
  Fri, 24 Feb 2023 17:45:09 +0000
 Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
  CH0PR10MB7535.namprd10.prod.outlook.com (2603:10b6:610:187::21) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6156.7; Fri, 24 Feb
- 2023 17:45:06 +0000
+ 2023 17:45:07 +0000
 Received: from DM5PR10MB1466.namprd10.prod.outlook.com
  ([fe80::7dd7:8d22:104:8d64]) by DM5PR10MB1466.namprd10.prod.outlook.com
  ([fe80::7dd7:8d22:104:8d64%7]) with mapi id 15.20.6156.007; Fri, 24 Feb 2023
- 17:45:06 +0000
+ 17:45:07 +0000
 From: Mike Christie <michael.christie@oracle.com>
 To: bvanassche@acm.org, hch@lst.de, martin.petersen@oracle.com,
  linux-scsi@vger.kernel.org, james.bottomley@hansenpartnership.com,
  linux-block@vger.kernel.org, dm-devel@redhat.com, snitzer@kernel.org,
  axboe@kernel.dk, linux-nvme@lists.infradead.org, chaitanyak@nvidia.com,
  kbusch@kernel.org, target-devel@vger.kernel.org
-Date: Fri, 24 Feb 2023 11:44:45 -0600
-Message-Id: <20230224174502.321490-2-michael.christie@oracle.com>
+Date: Fri, 24 Feb 2023 11:44:46 -0600
+Message-Id: <20230224174502.321490-3-michael.christie@oracle.com>
 In-Reply-To: <20230224174502.321490-1-michael.christie@oracle.com>
 References: <20230224174502.321490-1-michael.christie@oracle.com>
-X-ClientProxiedBy: DM5PR07CA0076.namprd07.prod.outlook.com
- (2603:10b6:4:ad::41) To DM5PR10MB1466.namprd10.prod.outlook.com
+X-ClientProxiedBy: DM5PR07CA0073.namprd07.prod.outlook.com
+ (2603:10b6:4:ad::38) To DM5PR10MB1466.namprd10.prod.outlook.com
  (2603:10b6:3:b::7)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
 X-MS-TrafficTypeDiagnostic: DM5PR10MB1466:EE_|CH0PR10MB7535:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2294f043-102e-47ac-191d-08db168eddb6
+X-MS-Office365-Filtering-Correlation-Id: 68f8e0a2-2b32-4883-aa55-08db168ede6d
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: V41gLsgffiW3kT/I+UWnWbzAm/9jclG9GpS/M1nPqYi5QcuSwkphZvgdtXHj+ZMl6jowgced5i4WoFapEBBTR6mKSiLShSCVoa1/gyO9kl+oD37nyg6J8ikDWcFHMDRLsJoO75Xt6k3kv8qauhq7Rr7fp07fHQ9t+23qHdTcqX4bkzN84u7gCuzMUVuGkxtoItuXXuPveYZ0s4NCZfTC8HMfX2MmOhNL1iKOgxO0OdoZnhCjFDJoiBhNk7YjOZjP/1nKs7KNDJCi6r8JMh2NRSGOtCMAingrKrq/yKFndSyc6BrjlDoG9K3m3nWFS9PjjXFWwDI2JflQ0d63RXUhr5+yzu48+4S/k5Ak6snNo3cYJ126+qsJtyIejqSRYOK+XIOfx1WwKuLFE6zBsFtvxGJ/P6aGvQ7nUnsefDTBSFasA8EmIGsGiwkB4rfQwCy0hTXeP9upaBkHZgjQJb6Px+qm2ByxZhqtSu5TxDKz6kiwvKX4YCxBGx4KvQMGEr8ctMnhpyrr1TXy493T6XQSpADtihHNIw3NGfZDfRvJsof5/IHQRMkv2654DfdCaMSN2eARx4CRAaYnC2+bEe4gK4Uy4OHH7TvdG/fEPuQqYhvJMRdPajzoK6ojrQaCp47dpWWvTd4b/k+nPjp++uJE7e/vq+7eNpuVKLJz8WNWvB1WR7/Eql18FeapBiRcs9K4
+X-Microsoft-Antispam-Message-Info: X9XAqsgzG5j+pFiDpiU/C0eBY78BZ88JPUg1ZoXDC2brd4EW/f/DASSbFQBp5zeZ96wjMNfZrIRModLg1uszf7ZwnK7W32RAJ8kY76VoLaFHf7bagar2lDKkEULutDH3yAHkSt6bV1b/WLEEapzC/ZW0bMaxZwr3O1Tjpypa/4LS34qDrJ3jLpUwmfBSoGGddfJBUA38emQaL/SmnoSVa9xFiOJ62/X3z6YfaMf77J3NBTz670Db/su8tbrBOSTp8ndtlI06WgnAiW68qfVtIW3cF65kGemHuVOhdw/JGSQny+wUWqoPeszva0m7QZaM7V2jgfNNAPYvX9bakm7bRMFpE5uJxkQpVpT36AV1oNjtCBCv7uWOlAgBXnn0YRsqUJ9MDTjo77gkH+FC0yikr1kgLHTbjkFzGITcQNO38cQsDytCrt40f9p87ZL7KprBZqPWTgnWb49A5zlrYtU1usJ1Y3jKoJngg0AZakrKG1Qchjpt9BAmIjumnURBu/ZWjwD15DydO0nuU/PXqs0wEKYmzJxqPoQJcQSLldyaMAE7XFoxSfab2jvB5CHlV6XJ7Jl0qvxpBsyF0rwCg+2mP6tBcxlQxxuVV0Ki1PcKYsU2SSHHzf2Kvd/alEc6Ao6PpwxavgdXLwMbIEd0C0ORf9KIyrX7S/SEs/iiOQRoWlBngDdT60kWaMUYDtH3WSmK
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(346002)(366004)(376002)(39860400002)(136003)(396003)(451199018)(4326008)(66476007)(66556008)(66946007)(8676002)(83380400001)(41300700001)(316002)(36756003)(186003)(8936002)(26005)(5660300002)(2616005)(38100700002)(7416002)(6512007)(921005)(86362001)(478600001)(2906002)(6486002)(6506007)(107886003)(1076003)(6666004);
+ SFS:(13230025)(346002)(366004)(376002)(39860400002)(136003)(396003)(451199018)(4326008)(66476007)(66556008)(66946007)(8676002)(83380400001)(41300700001)(316002)(36756003)(186003)(8936002)(54906003)(26005)(5660300002)(2616005)(38100700002)(7416002)(6512007)(921005)(86362001)(478600001)(2906002)(6486002)(6506007)(1076003)(6666004);
  DIR:OUT; SFP:1101
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?TpOCdgjaPwrMIa6yRzX1b72+qb+zWj3ZXrdTRMI4U+vocUGRtszCOb2cp0Sh?=
- =?us-ascii?Q?fOgsfgIT361eVdN67Wm+fhsd58D0jyg3fDN4OMJeD5aIeaoSrrbi7mELwVsI?=
- =?us-ascii?Q?4YAYp9JFCGfGmjSOQZeAYCDQaWqNRt/Abpbewg0A/87TdgQzo4ROjiWAz3Sx?=
- =?us-ascii?Q?58EJAseRE5BgBDKq6/Dqz91763fdVpTlZBO+6VJL+6QTCZXQoMnmqSKETbfd?=
- =?us-ascii?Q?7FGVwcZgnuAhWk58Ryuvtfub/Of10SBXXZn/WWbp3ExwCrKLSYZpAgfaiGmr?=
- =?us-ascii?Q?vDKUOO9SBvi6X294A0JPcc9K+/PvFh1J+baQUkDuEypRJm08FeEU87wjk+ln?=
- =?us-ascii?Q?gZBKprMNBudOr61biNrtM2oK8z5iErkaMdYT7iKDHVgHixHJxUTgyL9Kr4hB?=
- =?us-ascii?Q?HitlrCrP0q8gHgRZsBi9nR3oUHEd7Xb9nl3T/CIYOAEApmeGPFTHhPMemJ18?=
- =?us-ascii?Q?pinzoipvcl3ms3MmeDw3ktFEOqyxp58+hio16SO6tHEAKVO4boLmkeIyzj5k?=
- =?us-ascii?Q?ySk6IDJWZ30zKlAsAT84BQ7digOkOzqW19OIgAOsSyVRPEPn5lX39vAUVxNy?=
- =?us-ascii?Q?CO1y3m4SNamISoMqX3muJsE4LIQzFRSWjQg1uWQg+B4eyKtkskqS9TK4Hmus?=
- =?us-ascii?Q?dXbYi6B2uFGx/ih+2Z6LlwV9KPAOVBLzBKYQtBR3rcT2W9PKN+1jLUPSLEA7?=
- =?us-ascii?Q?tQdBwVIYev25HRYk6HERkQsru+djFIoMbUfza2xmAc6hmDh5HO9nRUql/r+u?=
- =?us-ascii?Q?ZnzWK4MBuw8RJUIbxCMUmpvf8J9YGM+v/XxHLoczlsbONh5aGPe32b+bgD+2?=
- =?us-ascii?Q?SpRAEt3p206JpuRIjkR8V9uJbMVcQD1epeHp5rYOnCWxFYWswGGRqcz8naKU?=
- =?us-ascii?Q?rP9aJLGbHHYcqdx9aDVwlQmH/oOiq0RgFWvyZyH6mkKWKmEpG3nl/gJt1jUP?=
- =?us-ascii?Q?QqDcd/oVrfkH7y1NootDIrLlAM3h6HhmCJKdQ+6lSK04oY5FPBM67pJ2io+t?=
- =?us-ascii?Q?jo5H/oHVWkNmP8tW6qE62gJ4u/Qq86OlqQcRGEF+EucO1RLT2k5EIMXcJ1cu?=
- =?us-ascii?Q?fX7hj28tYvIm2AqAO0R8woNiYm5kyS6gkO1SMm+QPrDL8XKSljK8XIzXDFip?=
- =?us-ascii?Q?9ppBqFGWjmY/3S1gZcDz2P5Ap1InOM2lA3sG9R1rbb0bqB/ODOJp0DI0+5qK?=
- =?us-ascii?Q?RoZFPMlhhFlM8i62OtEVhYdg3lA6K0MA/+1S6V1qnHNpXvsgJkCYNl74/53C?=
- =?us-ascii?Q?I3PwUN1pAg7aJbsrakx6Ac+hVC9fbPNpyb3sspBrAuI8wwqSg3DQ638glfrF?=
- =?us-ascii?Q?OgOnz3WG6U2uJpJaqjcc1MC4I+CfTVljHjZoW8qyZKyBTh8ccadouA2B3J7o?=
- =?us-ascii?Q?xZvPlzQwXMlJ4hkGGV5wl9KK4D/JU5x3zHxZaXvEpAB91xWddh20YiBoxbzZ?=
- =?us-ascii?Q?JrVXaJLinQKqYWUqDbkNVG045TN1pCjEaww4JYGWc1U+jILgIxpO7hHVH6xm?=
- =?us-ascii?Q?sitURpROJOhQ1RRyhgLL2Bwk4VA+Y1dgxEGI70H+EsFTIelYo+yzaZHOi8Y9?=
- =?us-ascii?Q?v2zg5C3vZvUrdoRgBMa3Z/SpnAdBuk0/ncLkQpal4JX8ReuwyMn5OKXGma0d?=
- =?us-ascii?Q?DA=3D=3D?=
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?r65rg5VhulFr/T6HFtlP2/vWbJOtBuf5GYHtF0q1uputJ5UBZx1Q1hEs/3w/?=
+ =?us-ascii?Q?EtH/+70niLsgWJkb8YUqDXnlENT7uh4z0KdIXEKcA0yxxktuRNZTzWKxk6pq?=
+ =?us-ascii?Q?itDNbIA9/0jA3VcYSH3yAxKqPaUpuDvVfX46yiJEhI5/KPO01Hs9siWGG5oA?=
+ =?us-ascii?Q?kacFPZ5KvTvKXEKpT71asDeeHDhX3DyvhyfwBv9hkXGeKAlSHc+egUKEebvt?=
+ =?us-ascii?Q?4vKE9ro/Ry6m9JEeE0DI45Ba8IVsOzDR5M33+QxKmI9iSMqfuNZ7cOuRk7I2?=
+ =?us-ascii?Q?naT9+Lk7mg3u8W0MFFpFnqCh59+S2828lO9k9IeS4rpXZZmllPEiBCpfpfRK?=
+ =?us-ascii?Q?LpJtMLzzp5GYgAX6LfbYGs+kRteFknKNb2lCAjhl4ZVFkZmC/O1qG6BoPfTW?=
+ =?us-ascii?Q?W+Fjg51zd0mAVupwShcDIoa2RThsGGg0KikIGUYgMT/UpyjxvDG1mWLP1uwT?=
+ =?us-ascii?Q?WdejkYZ5dOv89sVYshDTX4Pm4a2Eg5fhCUQtgrIa0+sA4DqXQRwg04y/4lmq?=
+ =?us-ascii?Q?14TgP/j8/nR04pmsZzMgmvsZuo7ZEMGkGfDZGiI1iS1CErhGnyYR10gRLt5G?=
+ =?us-ascii?Q?x8sJcZFbKOQpkl1ElvCA0mEdvD9eoGeXyj0IaM1YHlZHRbzJmxnjReVwn0DG?=
+ =?us-ascii?Q?IiWDbiue9mCXlZiUCw7oIoaAIVa6U74Bjlog8OxIZObtXWSY+QBxO/zauc4R?=
+ =?us-ascii?Q?3cOHwhmPU5EjdY/UBm0b5l7N02crO018ztQPEWipgC8MCYZp4ajz4qHgAXBL?=
+ =?us-ascii?Q?UPN+GlJ5VR4tdcVTIHdvsLUX5Bddx7l3iQyausv9d4+ETRo8LK2GEwPzDW07?=
+ =?us-ascii?Q?cM/i4uAuQ4TelhAMIFEYRywLCfNp2FAz8WMQwwEcM3c4sqjuSNZa2HKSlYPi?=
+ =?us-ascii?Q?VGtO/KCZ/FrFy9Ot/AdySeCIb5fV2V7Wi1zJZd7WF2di2w10Wty+dnY/gNUS?=
+ =?us-ascii?Q?wjJPhF7u53iiGWiNB18qhH+CMfs+Jh81oDaBbXbLUeyZJsHGRa6M7/zSniUf?=
+ =?us-ascii?Q?0aBjy0qhjEDeLcNbkO2T/gprKMVw5+EvgYZsjDuj7PKxMlBDeW4LJmkUNru6?=
+ =?us-ascii?Q?Tx/OdnPjJK3B5ttziArFecovIhJ36gheyTVVpLMM67WhDHfSc4VfBnEFrXXh?=
+ =?us-ascii?Q?IX9SOQORoMCUXnJJdDYsZEc9iFL34THN0+VFhTmKLlWnT0m/CuZHs1i3GR+1?=
+ =?us-ascii?Q?YpF0oMKIGVbfpdWIzmrgpl/qqlewkI9dfaSBlmz4jT6E0uYbqFPsYK1y6Uvh?=
+ =?us-ascii?Q?CXRjwlWI5JlJU+tbkxrGEOEJLfkWm9V2ORm0i3eFOVVFUS8Rs/Db24F0e4iy?=
+ =?us-ascii?Q?CL7Jt31lBrlBjU9kb0hvjmpmYVy5CXqtnTZ5+IImjOzgPNklEhKmFyQ1tXuD?=
+ =?us-ascii?Q?/BSjNaCP+RMw4e2Ax8kBAn6oBVm80TWeekGUxr4ah+t5u92wGhz1Iy4dhb1K?=
+ =?us-ascii?Q?gX3Iy90fmUXfYiNkZH9RPHrYfj36m0VXtSa5fZt+xS3dbVuWBi4icCkm+QCm?=
+ =?us-ascii?Q?4J1XZm0OOor+PxDL7nDjp5SSAZX7gZmEhCeQH/azTcfHshNmbWLItU3dU4sZ?=
+ =?us-ascii?Q?VaV+26WK+k/VhdoCxBAHGSOpgCixCQoKESjAIaAP3/EEoyjNTQINmAvxT33x?=
+ =?us-ascii?Q?sg=3D=3D?=
 X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?MRJVFA1lVDwJwLetoXvhE8s7Qgt9JqoXo3wTT7Io/EIcQBtsCkLSIWoA9rKS?=
- =?us-ascii?Q?WKoFu4fYyLV3eGAB6cBK5wlWfImQ/RKzsEqCR14RdC2t71QUis4eQEyFn2qI?=
- =?us-ascii?Q?z9EYo6dFji49VP7/eEl2FCJic7BnRGjxWscY7JDGxhW3tTer4jU5ikTUWTwV?=
- =?us-ascii?Q?hQMP5X/60QurUAx7dyP7rL1HMhvHlK2/GLdcs52njut/EqA7KrwpCAEH9K1c?=
- =?us-ascii?Q?Vfm08mk3HH3Wx6M6qp/VUW0HJnZ2Qj4M7QW1rqkgV/P1Jzo9QPfXpUPfyGUu?=
- =?us-ascii?Q?6mPW3jp50TFjBgjjlVWoOs1SEVkdJK3cN0cyljaLNEh2bE9JJa9eVquuUT2y?=
- =?us-ascii?Q?2oABe9wE77hinRrpLi9xWbCFh9ep9O4t8d2MTpiZ6I1bpwAm2HaYtPFJqzky?=
- =?us-ascii?Q?sE9O4Q129FEX9fd2lulwayFpnX4vcIkuU9J+N5UhTak/i5h8mlSEYVeGmOZf?=
- =?us-ascii?Q?fi1BQ1KAVk/vVJ1UlCv4/PHZL9Qh+2OUTVhe4e1kLN8deXDyaGL8fTbXCIDL?=
- =?us-ascii?Q?6mNXTYzbpczmN+ZyK+RhvwzSP/11WT23qS6y6gVka5aPcQ+PZNvphPEtyTnn?=
- =?us-ascii?Q?LTAOLoOQA1dWZ1ml325I13Hb8sysFlSYQr2n24aTgznJSdJP+9/YZjwFfCdB?=
- =?us-ascii?Q?gcMmNAufgPc+YmN5dVuowUzSw4N3DKeBvjFTVdLaqph5OhcxOxf5mIGLS5Cx?=
- =?us-ascii?Q?lgYTGUm/4JVThAdpl7RWp3SWpV5rwPEsG3JRUowNm+NLp/pQsL1kOphO7Ti7?=
- =?us-ascii?Q?aEEreJ481mFis93FEFVHaMWlNvNAbWUZGSXmNW55zmlmzktfATI81UAJNDYB?=
- =?us-ascii?Q?WOM6F5CYB/kohIJQOTmCtJZL5UrP2E1DPk7F9rWYt6CKYkB4ZASWvFFKQ0jB?=
- =?us-ascii?Q?Oen7dPO6aoEzdvHboKg1UIVQQHwAXR6jAYdgtDFp5mhzXU8mEPquQV+C6nS7?=
- =?us-ascii?Q?qlxRJ/LATMz/cnbgAL64jpl8GGP0gIk7Yz9+3FdRpyeW6xs6KSVgC85AissT?=
- =?us-ascii?Q?fe7kNtVs5F5218I5Fx56vDcawQ=3D=3D?=
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?FSEj6sKsB0K2IdHRVA3o83Qduf9aFlWSnMGc8+4bm15dFFesABn7TEfL2MUk?=
+ =?us-ascii?Q?ORSZ8P+D+Y5izX9rAlh5wZnZH67gPZJLheP7tkrytyBCZOSjpyt88DtoUPP7?=
+ =?us-ascii?Q?MC24kO64lV5qg8ml6iTrKO14rZFXdVTtk6peD6CQURS246VSkDbXUwMcKY+k?=
+ =?us-ascii?Q?WNlGemUObMTEH66skEnHt8tqgpBdBqq3Yijm0cNZlqN9XHRAFqHLmKMpTcA3?=
+ =?us-ascii?Q?0Bsm0QKU4iNA88pg9OLL1sxGkgQTA9zmsCkBRKxI5UIO50blNYqMxGHhtNmV?=
+ =?us-ascii?Q?D5+XWj+tJp15K2iL3nbEBLJnuk9Hrg5tpDdYq2R7o4oYnnNBj4rOcSmVNVnY?=
+ =?us-ascii?Q?ulKHLUXFvXaWS/VOlcb6rAPQN4Rbh2sXc0w9ou37EIFR6RnRYGdDye9zY0Ub?=
+ =?us-ascii?Q?Fer1+GqELmPCGIlnONZ/DzhQdTe22KeIMaKdkksFUM9xYkV9kmJdDeB5Tqte?=
+ =?us-ascii?Q?Q8cRYIpWFTuSiwyrVxB5YKRD6cqmD4f3iZxoBb6Hx7NZRVjx76BGHw/S9uVS?=
+ =?us-ascii?Q?N/1vH3SafOdjXnv2jePcx+AvsznkfYjv9pUhzwX9Hsj1KsH1wEKJRt8l9Vtp?=
+ =?us-ascii?Q?X0opbZ904w4/imtT3+LQSg27210iZ9FN0ByWunbDdbLNARVxBvoySjn98/F5?=
+ =?us-ascii?Q?llTSyTukw0PFY3YiIT5Iq1AmFEHJmJOYErQ/Pb1IRxvhhZheMMZ47l34KlMB?=
+ =?us-ascii?Q?fvVg3kYXgMnq8JLxzgguvUIDWHH+7deBPakQEpptM7aiYEEauy5J9hXj6NIk?=
+ =?us-ascii?Q?OeFXxExRd8x/AgRZiQWeeM5VjL2FEdTC7jxhpKzsjISdLtQzkRIk+r9IZUQE?=
+ =?us-ascii?Q?nddqabQx8mkVBpNMbp4vx37GVxgKAu6kTWL9iPgrimxEDmaWNbOUUptm4kHo?=
+ =?us-ascii?Q?mbgw6MsFZRWMF2ZIvqaiqnOMwmmykBAyTbRe+b2oDEtjnLlqRRXUL9W8zUB9?=
+ =?us-ascii?Q?wue59EjJdlzcCcYe8AHoRzXKOzLUbV26vDVYkj+8cJPLqczEelapE0t7uC77?=
+ =?us-ascii?Q?cxMG8VzcRDH2KbJjJu/RxZ4lOa75xY4mVieCcsMPLkV8TKiom5HC15eNiX+y?=
+ =?us-ascii?Q?OhU66WLh?=
 X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2294f043-102e-47ac-191d-08db168eddb6
+X-MS-Exchange-CrossTenant-Network-Message-Id: 68f8e0a2-2b32-4883-aa55-08db168ede6d
 X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2023 17:45:06.5797 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 24 Feb 2023 17:45:07.7515 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
 X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: Bv2Nf2yz5lcDFmCSePjKuDA6Qkf3srojf7QWYt2sWLlwzNDsqSALjZC99wwhk7lzhpybLyIikjXS86bUi8IqexImmO+g0sgDhP6cke8wK98=
+X-MS-Exchange-CrossTenant-UserPrincipalName: mbSkSJUvrqAnyVeywt1Epo/BTP4nnSqba9Bz9EePXeP9mAeyxBLNJ6rRr0voXPFZ/I38PBEBjVgwOC7spkrY4abFyKCrNTCEfNG7GcaU2us=
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH0PR10MB7535
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.219,Aquarius:18.0.930,Hydra:6.0.562,FMLib:17.11.170.22
@@ -175,8 +175,8 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 spamscore=0
  suspectscore=0 malwarescore=0 mlxscore=0 mlxlogscore=999 adultscore=0
  classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2212070000
  definitions=main-2302240139
-X-Proofpoint-ORIG-GUID: BPEMvpnrqkgIzwGqAV7UtARAm42GsJRv
-X-Proofpoint-GUID: BPEMvpnrqkgIzwGqAV7UtARAm42GsJRv
+X-Proofpoint-GUID: 18G97uzfIZi1UU6BSBZ92MYP8zrOMy_i
+X-Proofpoint-ORIG-GUID: 18G97uzfIZi1UU6BSBZ92MYP8zrOMy_i
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -184,10 +184,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Mon, 27 Feb 2023 07:03:30 +0000
-Subject: [dm-devel] [PATCH v4 01/18] block: Add PR callouts for read keys
- and reservation
+Subject: [dm-devel] [PATCH v4 02/18] block: Rename BLK_STS_NEXUS to
+ BLK_STS_RESV_CONFLICT
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -199,76 +199,105 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Christie <michael.christie@oracle.com>
+Cc: Jan Hoeppner <hoeppner@linux.ibm.com>, Stefan Haberland <sth@linux.ibm.com>,
+ Mike Christie <michael.christie@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Add callouts for reading keys and reservations. This allows LIO to support
-the READ_KEYS and READ_RESERVATION commands and will allow dm-multipath
-to optimize it's error handling so it can check if it's getting an error
-because there's an existing reservation or if we need to retry different
-paths.
-
-Note: This only initially adds the struct definitions in the kernel as I'm
-not sure if we wanted to export the interface to userspace yet. read_keys
-and read_reservation are exactly what dm-multipath and LIO need, but for a
-userspace interface we may want something like SCSI's READ_FULL_STATUS and
-NVMe's report reservation commands. Those are overkill for dm/LIO and
-READ_FULL_STATUS is sometimes broken for SCSI devices.
+BLK_STS_NEXUS is used for NVMe/SCSI reservation conflicts or in dasd's
+case something similar. This renames BLK_STS_NEXUS so it better reflects
+this.
 
 Signed-off-by: Mike Christie <michael.christie@oracle.com>
+Cc: Stefan Haberland <sth@linux.ibm.com>
+Cc: Jan Hoeppner <hoeppner@linux.ibm.com>
 ---
- include/linux/pr.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ block/blk-core.c          | 2 +-
+ drivers/nvme/host/core.c  | 2 +-
+ drivers/s390/block/dasd.c | 2 +-
+ drivers/scsi/scsi_lib.c   | 2 +-
+ include/linux/blk_types.h | 4 ++--
+ 5 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/pr.h b/include/linux/pr.h
-index 94ceec713afe..3003daec28a5 100644
---- a/include/linux/pr.h
-+++ b/include/linux/pr.h
-@@ -4,6 +4,18 @@
- 
- #include <uapi/linux/pr.h>
- 
-+struct pr_keys {
-+	u32	generation;
-+	u32	num_keys;
-+	u64	keys[];
-+};
-+
-+struct pr_held_reservation {
-+	u64		key;
-+	u32		generation;
-+	enum pr_type	type;
-+};
-+
- struct pr_ops {
- 	int (*pr_register)(struct block_device *bdev, u64 old_key, u64 new_key,
- 			u32 flags);
-@@ -14,6 +26,19 @@ struct pr_ops {
- 	int (*pr_preempt)(struct block_device *bdev, u64 old_key, u64 new_key,
- 			enum pr_type type, bool abort);
- 	int (*pr_clear)(struct block_device *bdev, u64 key);
-+	/*
-+	 * pr_read_keys - Read the registered keys and return them in the
-+	 * pr_keys->keys array. The keys array will have been allocated at the
-+	 * end of the pr_keys struct, and pr_keys->num_keys must be set to the
-+	 * number of keys the array can hold. If there are more than can fit
-+	 * in the array, success will still be returned and pr_keys->num_keys
-+	 * will reflect the total number of keys the device contains, so the
-+	 * caller can retry with a larger array.
-+	 */
-+	int (*pr_read_keys)(struct block_device *bdev,
-+			struct pr_keys *keys_info);
-+	int (*pr_read_reservation)(struct block_device *bdev,
-+			struct pr_held_reservation *rsv);
- };
- 
- #endif /* LINUX_PR_H */
+diff --git a/block/blk-core.c b/block/blk-core.c
+index 82b5b2c53f1e..4439e68064a2 100644
+--- a/block/blk-core.c
++++ b/block/blk-core.c
+@@ -155,7 +155,7 @@ static const struct {
+ 	[BLK_STS_NOSPC]		= { -ENOSPC,	"critical space allocation" },
+ 	[BLK_STS_TRANSPORT]	= { -ENOLINK,	"recoverable transport" },
+ 	[BLK_STS_TARGET]	= { -EREMOTEIO,	"critical target" },
+-	[BLK_STS_NEXUS]		= { -EBADE,	"critical nexus" },
++	[BLK_STS_RESV_CONFLICT]	= { -EBADE,	"reservation conflict" },
+ 	[BLK_STS_MEDIUM]	= { -ENODATA,	"critical medium" },
+ 	[BLK_STS_PROTECTION]	= { -EILSEQ,	"protection" },
+ 	[BLK_STS_RESOURCE]	= { -ENOMEM,	"kernel resource" },
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index 8698410aeb84..ba6f1911f7ea 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -278,7 +278,7 @@ static blk_status_t nvme_error_status(u16 status)
+ 	case NVME_SC_INVALID_PI:
+ 		return BLK_STS_PROTECTION;
+ 	case NVME_SC_RESERVATION_CONFLICT:
+-		return BLK_STS_NEXUS;
++		return BLK_STS_RESV_CONFLICT;
+ 	case NVME_SC_HOST_PATH_ERROR:
+ 		return BLK_STS_TRANSPORT;
+ 	case NVME_SC_ZONE_TOO_MANY_ACTIVE:
+diff --git a/drivers/s390/block/dasd.c b/drivers/s390/block/dasd.c
+index a9c2a8d76c45..a2899d9690d4 100644
+--- a/drivers/s390/block/dasd.c
++++ b/drivers/s390/block/dasd.c
+@@ -2723,7 +2723,7 @@ static void __dasd_cleanup_cqr(struct dasd_ccw_req *cqr)
+ 	else if (status == 0) {
+ 		switch (cqr->intrc) {
+ 		case -EPERM:
+-			error = BLK_STS_NEXUS;
++			error = BLK_STS_RESV_CONFLICT;
+ 			break;
+ 		case -ENOLINK:
+ 			error = BLK_STS_TRANSPORT;
+diff --git a/drivers/scsi/scsi_lib.c b/drivers/scsi/scsi_lib.c
+index abe93ec8b7d0..7cc7fb2d3359 100644
+--- a/drivers/scsi/scsi_lib.c
++++ b/drivers/scsi/scsi_lib.c
+@@ -598,7 +598,7 @@ static blk_status_t scsi_result_to_blk_status(int result)
+ 	case SCSIML_STAT_OK:
+ 		break;
+ 	case SCSIML_STAT_RESV_CONFLICT:
+-		return BLK_STS_NEXUS;
++		return BLK_STS_RESV_CONFLICT;
+ 	case SCSIML_STAT_NOSPC:
+ 		return BLK_STS_NOSPC;
+ 	case SCSIML_STAT_MED_ERROR:
+diff --git a/include/linux/blk_types.h b/include/linux/blk_types.h
+index 99be590f952f..2b2452086a2f 100644
+--- a/include/linux/blk_types.h
++++ b/include/linux/blk_types.h
+@@ -96,7 +96,7 @@ typedef u16 blk_short_t;
+ #define BLK_STS_NOSPC		((__force blk_status_t)3)
+ #define BLK_STS_TRANSPORT	((__force blk_status_t)4)
+ #define BLK_STS_TARGET		((__force blk_status_t)5)
+-#define BLK_STS_NEXUS		((__force blk_status_t)6)
++#define BLK_STS_RESV_CONFLICT	((__force blk_status_t)6)
+ #define BLK_STS_MEDIUM		((__force blk_status_t)7)
+ #define BLK_STS_PROTECTION	((__force blk_status_t)8)
+ #define BLK_STS_RESOURCE	((__force blk_status_t)9)
+@@ -184,7 +184,7 @@ static inline bool blk_path_error(blk_status_t error)
+ 	case BLK_STS_NOTSUPP:
+ 	case BLK_STS_NOSPC:
+ 	case BLK_STS_TARGET:
+-	case BLK_STS_NEXUS:
++	case BLK_STS_RESV_CONFLICT:
+ 	case BLK_STS_MEDIUM:
+ 	case BLK_STS_PROTECTION:
+ 		return false;
 -- 
 2.25.1
 
