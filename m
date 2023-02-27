@@ -1,96 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A8AD16A2D06
-	for <lists+dm-devel@lfdr.de>; Sun, 26 Feb 2023 03:01:55 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CECA6A37E0
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Feb 2023 03:12:27 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677376914;
+	s=mimecast20190719; t=1677463946;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=OFA0rPPzDL/jwBbpjd542piJN3uKPGSv+VrfpqICxXg=;
-	b=U8x6jya+x+tDR4sPP4NagKu93C5PFjhbB26dXm/blUccXiBB2hdENBBWjnspeEzCUTKVCj
-	T8UKKZMCU1cJ6i9R3HBZzKiQg8XZComLq88g/1aexZlxNZhOT2FBThUFjTX/1qJj186KIM
-	8DF37sJROccofJagnWSFdAI4Q5EyYIk=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=MrE7HtkpSIkhpsu5w0rnLN08+yNhInl8Db2sW7+ep/0=;
+	b=aYNs9+OBBDJx7JprFfLjoY5Kq+Mkwv1371Bra4ZK/3LVvlYbTip5L6if/FUgGmUdMXk9UX
+	pZ5QlEaZi+iWHl4NxGyUJGguhfHCl5Ffiv2wLm9+5IMRD7pFYcVbwg6mfgYR9pk4u/QjB1
+	yeR2f8ySyyynHNB+epwwW5/7CqHnG2E=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-500-lcdMHwfWOBmVsznZKayqPA-1; Sat, 25 Feb 2023 21:01:52 -0500
-X-MC-Unique: lcdMHwfWOBmVsznZKayqPA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-93-nbgE7nP6NfSRobXDcfoLDg-1; Sun, 26 Feb 2023 21:12:24 -0500
+X-MC-Unique: nbgE7nP6NfSRobXDcfoLDg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7631F29A9D3F;
-	Sun, 26 Feb 2023 02:01:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E005795D609;
+	Mon, 27 Feb 2023 02:12:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 13139C15BAD;
-	Sun, 26 Feb 2023 02:01:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CA64F404BEC2;
+	Mon, 27 Feb 2023 02:12:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3622919465B9;
-	Sun, 26 Feb 2023 02:01:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75BB419465B5;
+	Mon, 27 Feb 2023 02:12:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 46C7619465A4
- for <dm-devel@listman.corp.redhat.com>; Sun, 26 Feb 2023 02:01:19 +0000 (UTC)
+ ESMTP id C1B771946586
+ for <dm-devel@listman.corp.redhat.com>; Mon, 27 Feb 2023 02:12:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 39C7C1415113; Sun, 26 Feb 2023 02:01:19 +0000 (UTC)
+ id A54AF492B03; Mon, 27 Feb 2023 02:12:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 31861140EBF4
- for <dm-devel@redhat.com>; Sun, 26 Feb 2023 02:01:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 159203C02B66
- for <dm-devel@redhat.com>; Sun, 26 Feb 2023 02:01:19 +0000 (UTC)
-Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
- [209.85.214.174]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-547-kog4EhMEOTKM3FJh3_HgEQ-1; Sat, 25 Feb 2023 21:01:16 -0500
-X-MC-Unique: kog4EhMEOTKM3FJh3_HgEQ-1
-Received: by mail-pl1-f174.google.com with SMTP id p20so2177658plw.13;
- Sat, 25 Feb 2023 18:01:16 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ypKOgjk9Tyqc0r8DgCf1p+SxUXCBGzKz2HATmqad/5s=;
- b=TvurGE0lgfiLRjjek5TZSxJORa/0jxJAHrKicPGmTx2sLOahNdhqqVAw99hVHI0ORh
- A6p5sOy7RaamzO9/Txju0o7jBpUkays8V1ObHoLVGNqpB3iSH6uV4LmUFsxSh3qg1Nsr
- ozmSTLRWkRn2abdjjZBTW0t4Q9Y2V3tt503TgM6ePnjLV1/35ym3x1j/ijVKKHS49dz0
- KSUMj5zwMsuVqXtJ28MNB0RctSJ7+hnEV9T+JmYCwPmC+sjiSKoHFRgqViEieExoxgL2
- W9v4TYcF+t60ryUkC8wdiCXkgZdpSy7gJS8f8nDe3/dqI4T1SYdjjHy0MlWMKsAiaOrs
- RJAA==
-X-Gm-Message-State: AO0yUKXic0n9dhF3+JtMnauVh4oiRD4kLiEINluHNlO7zZWmyXfCdG65
- VQg9nPolets3k82dQRTlgk4=
-X-Google-Smtp-Source: AK7set8lx6sOiJZbuqKtx6guCdn8BH7OGO3oHPlE+gpduOM1iwG/l4ju04qaJJtLL6lOrwQybpJ1Fw==
-X-Received: by 2002:a17:90b:1e11:b0:22c:d44:5669 with SMTP id
- pg17-20020a17090b1e1100b0022c0d445669mr4587448pjb.22.1677376875574; 
- Sat, 25 Feb 2023 18:01:15 -0800 (PST)
-Received: from [192.168.3.219] ([98.51.102.78])
- by smtp.gmail.com with ESMTPSA id
- hg3-20020a17090b300300b00233afe09177sm3633555pjb.8.2023.02.25.18.01.13
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 25 Feb 2023 18:01:14 -0800 (PST)
-Message-ID: <b7020147-2382-71f6-5237-8501562f8011@acm.org>
-Date: Sat, 25 Feb 2023 18:01:12 -0800
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D60A492B08
+ for <dm-devel@redhat.com>; Mon, 27 Feb 2023 02:12:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8194F1C04326
+ for <dm-devel@redhat.com>; Mon, 27 Feb 2023 02:12:19 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-66-JNv2b5XzMmKBsCIaRnhMmA-1; Sun, 26 Feb 2023 21:12:16 -0500
+X-MC-Unique: JNv2b5XzMmKBsCIaRnhMmA-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 3493D60D33;
+ Mon, 27 Feb 2023 02:04:50 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 715FDC433A0;
+ Mon, 27 Feb 2023 02:04:49 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Date: Sun, 26 Feb 2023 21:00:40 -0500
+Message-Id: <20230227020045.1045105-55-sashal@kernel.org>
+In-Reply-To: <20230227020045.1045105-1-sashal@kernel.org>
+References: <20230227020045.1045105-1-sashal@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-To: yangerkun <yangerkun@huaweicloud.com>, agk@redhat.com,
- snitzer@kernel.org, dm-devel@redhat.com
-References: <20230223031947.3717433-1-yangerkun@huaweicloud.com>
-From: Bart Van Assche <bvanassche@acm.org>
-In-Reply-To: <20230223031947.3717433-1-yangerkun@huaweicloud.com>
+X-stable: review
+X-Patchwork-Hint: Ignore
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,8 +80,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH] dm-crypt: fix softlockup in dmcrypt_write
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH AUTOSEL 6.2 55/60] dm thin: add cond_resched() to
+ various workqueue loops
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,31 +94,51 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yangerkun@huawei.com
+Cc: Sasha Levin <sashal@kernel.org>, dm-devel@redhat.com,
+ Mike Snitzer <snitzer@kernel.org>, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 2/22/23 19:19, yangerkun wrote:
-> @@ -1924,6 +1926,10 @@ static int dmcrypt_write(void *data)
->   
->   		BUG_ON(rb_parent(write_tree.rb_node));
->   
-> +		if (time_is_before_jiffies(start_time + HZ)) {
-> +			schedule();
-> +			start_time = jiffies;
-> +		}
+From: Mike Snitzer <snitzer@kernel.org>
 
-Why schedule() instead of cond_resched()?
+[ Upstream commit e4f80303c2353952e6e980b23914e4214487f2a6 ]
 
-Thanks,
+Otherwise on resource constrained systems these workqueues may be too
+greedy.
 
-Bart.
+Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/md/dm-thin.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 64cfcf46881dc..e4c1a8a21bbd0 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -2207,6 +2207,7 @@ static void process_thin_deferred_bios(struct thin_c *tc)
+ 			throttle_work_update(&pool->throttle);
+ 			dm_pool_issue_prefetches(pool->pmd);
+ 		}
++		cond_resched();
+ 	}
+ 	blk_finish_plug(&plug);
+ }
+@@ -2289,6 +2290,7 @@ static void process_thin_deferred_cells(struct thin_c *tc)
+ 			else
+ 				pool->process_cell(tc, cell);
+ 		}
++		cond_resched();
+ 	} while (!list_empty(&cells));
+ }
+ 
+-- 
+2.39.0
 
 --
 dm-devel mailing list
