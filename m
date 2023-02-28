@@ -2,93 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 991876A53FA
-	for <lists+dm-devel@lfdr.de>; Tue, 28 Feb 2023 08:59:10 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id C31F56A53A0
+	for <lists+dm-devel@lfdr.de>; Tue, 28 Feb 2023 08:22:51 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677571149;
+	s=mimecast20190719; t=1677568968;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cmqG/qJLe+qrs9e7lJcJB9mvL8Y/FBjWkJWS5ONbdGU=;
-	b=TTt8MlGjPBR4gYboPu+4QM51HU0D3+GE+BoW/IA7Xp/kvHw7/LqI62hzpf8id0AcITNDAa
-	f8B94P37rSqk15t+8Nqj+TpeeM+Ah45gdyXS+ihASXvx1HYK9DmxU86JO0lnU7ApyFBIn7
-	rg4PnBarIXKqEOEuoN4tpFeo7x9J2PE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=oaHQYal+f465spDIPkubRelaMTElfRXWjF2zFFF+S9o=;
+	b=OfGxX4BlyKV3hroI7hpFWmrRlsXExJY1CZPTF0cUyEuutwZwRknMGt95Fgwd5sRGKOsep6
+	y2/YOOalqpxt/KhsmyhznhFHFFH6wLLnc/JlsodfLP3XGoJmFr+MjhfKyj5C4Nn6TJKFyJ
+	KnDsqZPTBvAjuc0tkzeCcIVCjNWXuow=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-531-sD30nzuDNp2YVU9VEW4GaQ-1; Tue, 28 Feb 2023 02:59:07 -0500
-X-MC-Unique: sD30nzuDNp2YVU9VEW4GaQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-661-3p0WpqP5P2WYecVFYzRvqw-1; Tue, 28 Feb 2023 02:22:47 -0500
+X-MC-Unique: 3p0WpqP5P2WYecVFYzRvqw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CDC187A9E1;
-	Tue, 28 Feb 2023 07:59:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49FC03810B0C;
+	Tue, 28 Feb 2023 07:22:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 786EA2026D68;
-	Tue, 28 Feb 2023 07:59:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5C77E492B0E;
+	Tue, 28 Feb 2023 07:22:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E28C51946A5E;
-	Tue, 28 Feb 2023 07:59:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E31D19465A3;
+	Tue, 28 Feb 2023 07:22:32 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C479A1946587
- for <dm-devel@listman.corp.redhat.com>; Tue, 28 Feb 2023 01:51:11 +0000 (UTC)
+ ESMTP id D18441946588
+ for <dm-devel@listman.corp.redhat.com>; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B38FD1121315; Tue, 28 Feb 2023 01:51:11 +0000 (UTC)
+ id BF8E62166B2A; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AB92F1121314
- for <dm-devel@redhat.com>; Tue, 28 Feb 2023 01:51:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B88F72166B26
+ for <dm-devel@redhat.com>; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CB00802D2F
- for <dm-devel@redhat.com>; Tue, 28 Feb 2023 01:51:11 +0000 (UTC)
-Received: from mail-yw1-f199.google.com (mail-yw1-f199.google.com
- [209.85.128.199]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
- us-mta-664-ZyWbdsTXMCOpm5-Dx4h6xw-1; Mon, 27 Feb 2023 20:51:09 -0500
-X-MC-Unique: ZyWbdsTXMCOpm5-Dx4h6xw-1
-Received: by mail-yw1-f199.google.com with SMTP id
- 00721157ae682-536c6ce8d74so176723877b3.9
- for <dm-devel@redhat.com>; Mon, 27 Feb 2023 17:51:09 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112;
- h=to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=zChK5+ddiv6SWLeSKoDd0fakedFtjYz+Eiu3nbJmpGk=;
- b=bNdRmn6jk+qtFP9M0ELzJ6ghBm94EioMAB942aHD7je+2Q1AWGa7aeopF6frsrsSI+
- QBtm61rlvDhCmT6q4tPSHnGa7HKu+poQXyeAA1a76QvvMiRv36bw1D0JTET/ZwcjDmNV
- JteB81rYEZqLC3NM7s1gD6+e2m0K/xWm8JwsKyA33O3U1jIss7tMhDbJEarDQJtXeqKv
- wYfa3RE0fhElOhqQmQ1jeKkAX5rdE12VeMJHKaGyjHAFNv+nXbquV1f01YBOES+CKxTj
- WBPJUbKT1qGEOOgmen3rbWlbp3/W2zlJ+BVPBRfhZsOlgiGmifOPOcVdDv7JVSSPRdHJ
- 1/pQ==
-X-Gm-Message-State: AO0yUKUa+yMspWk1TRrp0PXIBSWPQ7RSKF8WZ0rD5vclKHzTarvFXF9v
- +TRSi7R8nxAop+LPF+SjGjAEjQJOPqDQzmtbRf3LYQNDVOovTzqsKwI12vVVMC/2DFjt7L1nDx5
- xuyJZ6XNJFpCdziEiBksvjrXKgBVHs6E+awxbq6ok3Q==
-X-Received: by 2002:a25:8e92:0:b0:a60:c167:c053 with SMTP id
- q18-20020a258e92000000b00a60c167c053mr389787ybl.11.1677549068975; 
- Mon, 27 Feb 2023 17:51:08 -0800 (PST)
-X-Google-Smtp-Source: AK7set+FXCMrkNQwXw7lKwNmPcNVv6S6xYVomdkuJBNTc8TZxw+wj7pFUQ8vb/DcrEEeFmXiAIIXpa+roDmODAFj/z4=
-X-Received: by 2002:a25:8e92:0:b0:a60:c167:c053 with SMTP id
- q18-20020a258e92000000b00a60c167c053mr389779ybl.11.1677549068625; Mon, 27 Feb
- 2023 17:51:08 -0800 (PST)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 993A485CCE0
+ for <dm-devel@redhat.com>; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
+ [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-650--HZ_oy-HP6SVzPwNZffVfA-1; Tue, 28 Feb 2023 02:22:28 -0500
+X-MC-Unique: -HZ_oy-HP6SVzPwNZffVfA-1
+Received: from kwepemi500022.china.huawei.com (unknown [172.30.72.54])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4PQphV2flPzrS14;
+ Tue, 28 Feb 2023 15:21:46 +0800 (CST)
+Received: from [10.174.177.210] (10.174.177.210) by
+ kwepemi500022.china.huawei.com (7.221.188.64) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.21; Tue, 28 Feb 2023 15:22:23 +0800
+Message-ID: <5f916b85-52cb-1896-c824-9059876a5975@huawei.com>
+Date: Tue, 28 Feb 2023 15:22:23 +0800
 MIME-Version: 1.0
-From: Guangwu Zhang <guazhang@redhat.com>
-Date: Tue, 28 Feb 2023 09:51:54 +0800
-Message-ID: <CAGS2=YoXmMmA6wqoUxWenG=SpSOod6aAd-dhNkwQgSJ=8yHWog@mail.gmail.com>
-To: dm-devel@redhat.com
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-X-Mailman-Approved-At: Tue, 28 Feb 2023 07:59:00 +0000
-Subject: [dm-devel] [bug report] BUG: KASAN: slab-use-after-free in
- blkg_destroy+0x34b/0x380
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.5.1
+To: yangerkun <yangerkun@huaweicloud.com>, Mike Snitzer <snitzer@kernel.org>
+References: <20230223031947.3717433-1-yangerkun@huaweicloud.com>
+ <b7020147-2382-71f6-5237-8501562f8011@acm.org>
+ <e69ec125-3636-ab20-ce63-f4b89ac55ffb@huaweicloud.com>
+ <Y/zueUWERryoIGA8@redhat.com>
+ <e264ce36-b6ce-b0ad-513c-068e819cf183@huaweicloud.com>
+From: yangerkun <yangerkun@huawei.com>
+In-Reply-To: <e264ce36-b6ce-b0ad-513c-068e819cf183@huaweicloud.com>
+X-Originating-IP: [10.174.177.210]
+X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
+ kwepemi500022.china.huawei.com (7.221.188.64)
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] dm-crypt: fix softlockup in dmcrypt_write
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,87 +100,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Cc: dm-devel@redhat.com, Bart Van Assche <bvanassche@acm.org>, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-Hello,
-
-Found kernel issue about dm-mod blkg_destroy, please have a look if
-need more info.
-kernel repo : https://github.com/torvalds/linux.git
-kernel : 6.2.0.kasan
-
-just found it once and not sure the reproducer
-
-  OK
-] Reached target
-System Reboot
-.
-[ 3810.010126] systemd-shutdown[1]: Waiting for process: 119574
-(bash), 119566 (rhts-reboot), 119584 (sleep), 119578 (sleep), 119575
-(tee)
-[-- MARK -- Mon Feb 27 10:25:00 2023]
-[ 3890.110979] ==================================================================
-[ 3890.118206] BUG: KASAN: slab-use-after-free in blkg_destroy+0x34b/0x380
-[ 3890.124825] Read of size 8 at addr ff11000131856820 by task systemd-shutdow/1
-[ 3890.131959]
-[ 3890.133456] CPU: 8 PID: 1 Comm: systemd-shutdow Kdump: loaded Not
-tainted 6.2.0.kasan+ #1
-[ 3890.141628] Hardware name: Intel Corporation WHITLEY/WHITLEY, BIOS
-WLYDCRB1.SYS.0020.P21.2012150710 12/15/2020
-[ 3890.151613] Call Trace:
-[ 3890.154065]  <TASK>
-[ 3890.156172]  dump_stack_lvl+0x33/0x50
-[ 3890.159846]  print_address_description.constprop.0+0x2c/0x3e0
-[ 3890.165600]  print_report+0xb5/0x270
-[ 3890.169176]  ? kasan_addr_to_slab+0x9/0xa0
-[ 3890.173276]  ? blkg_destroy+0x34b/0x380
-[ 3890.177117]  kasan_report+0xcf/0x100
-[ 3890.180693]  ? blkg_destroy+0x34b/0x380
-[ 3890.184525]  blkg_destroy+0x34b/0x380
-[ 3890.188190]  ? percpu_ref_kill_and_confirm+0xa7/0x250
-[ 3890.193244]  blkg_destroy_all.isra.0+0x101/0x1f0
-[ 3890.197863]  blkcg_exit_disk+0x2f/0x70
-[ 3890.201615]  disk_release+0x110/0x3f0
-[ 3890.205281]  device_release+0x98/0x210
-[ 3890.209042]  kobject_cleanup+0x101/0x360
-[ 3890.212975]  cleanup_mapped_device+0x255/0x490 [dm_mod]
-[ 3890.218219]  __dm_destroy+0x316/0x550 [dm_mod]
-[ 3890.222680]  dev_remove+0x230/0x300 [dm_mod]
-[ 3890.226970]  ctl_ioctl+0x4e8/0x790 [dm_mod]
-[ 3890.231166]  ? __pfx_ctl_ioctl+0x10/0x10 [dm_mod]
-[ 3890.235888]  ? kasan_save_stack+0x2e/0x40
-[ 3890.239901]  ? kasan_save_stack+0x1e/0x40
-[ 3890.243911]  ? task_work_add+0x73/0x210
-[ 3890.247751]  ? filp_close+0xf3/0x150
-[ 3890.251330]  ? __x64_sys_close+0x2c/0x70
-[ 3890.255254]  ? do_syscall_64+0x59/0x90
-[ 3890.259009]  ? __pfx___wait_for_common+0x10/0x10
-[ 3890.263630]  ? rseq_get_rseq_cs+0x6a/0x660
-[ 3890.267733]  ? __fget_light+0x57/0x510
-[ 3890.271489]  dm_ctl_ioctl+0xa/0x20 [dm_mod]
-[ 3890.275689]  __x64_sys_ioctl+0x128/0x1a0
-[ 3890.279617]  do_syscall_64+0x59/0x90
-[ 3890.283196]  ? _raw_spin_lock+0x81/0xe0
-[ 3890.287035]  ? __rseq_handle_notify_resume+0x64/0xd0
-[ 3890.291999]  ? exit_to_user_mode_loop+0xd0/0x130
-[ 3890.296617]  ? exit_to_user_mode_prepare+0xb6/0x100
-[ 3890.301498]  ? syscall_exit_to_user_mode+0x12/0x30
-[ 3890.306290]  ? do_syscall_64+0x69/0x90
-[ 3890.310042]  ? do_syscall_64+0x69/0x90
-[ 3890.313796]  entry_SYSCALL_64_after_hwframe+0x72/0xdc
-[ 3890.318848] RIP: 0033:0x7fb97303ec6b
-
-
---
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+CgrlnKggMjAyMy8yLzI4IDk6MjUsIHlhbmdlcmt1biDlhpnpgZM6Cj4gCj4gCj4g5ZyoIDIwMjMv
+Mi8yOCAxOjU1LCBNaWtlIFNuaXR6ZXIg5YaZ6YGTOgo+PiBPbiBTdW4sIEZlYiAyNiAyMDIzIGF0
+wqAgODozMVAgLTA1MDAsCj4+IHlhbmdlcmt1biA8eWFuZ2Vya3VuQGh1YXdlaWNsb3VkLmNvbT4g
+d3JvdGU6Cj4+Cj4+Pgo+Pj4KPj4+IOWcqCAyMDIzLzIvMjYgMTA6MDEsIEJhcnQgVmFuIEFzc2No
+ZSDlhpnpgZM6Cj4+Pj4gT24gMi8yMi8yMyAxOToxOSwgeWFuZ2Vya3VuIHdyb3RlOgo+Pj4+PiBA
+QCAtMTkyNCw2ICsxOTI2LDEwIEBAIHN0YXRpYyBpbnQgZG1jcnlwdF93cml0ZSh2b2lkICpkYXRh
+KQo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBCVUdfT04ocmJfcGFyZW50KHdyaXRlX3RyZWUu
+cmJfbm9kZSkpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHRpbWVfaXNfYmVmb3JlX2ppZmZp
+ZXMoc3RhcnRfdGltZSArIEhaKSkgewo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzY2hl
+ZHVsZSgpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdGFydF90aW1lID0gamlmZmll
+czsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIH0KPj4+Pgo+Pj4+IFdoeSBzY2hlZHVsZSgpIGluc3Rl
+YWQgb2YgY29uZF9yZXNjaGVkKCk/Cj4+Pgo+Pj4gY29uZF9yZXNjaGVkIG1heSBub3QgcmVhbGx5
+IHNjaGVkdWxlLCB3aGljaCBtYXkgdHJpZ2dlciB0aGUgcHJvYmxlbSAKPj4+IHRvbywgYnV0Cj4+
+PiBpdCBzZWVtcyBhZnRlciAxIHNlY29uZCwgaXQgbWF5IG5ldmVyIGhhcHBlbmQ/Cj4+Cj4+IEkg
+aGFkIHRoZSBzYW1lIHF1ZXN0aW9uIGFzIEJhcnQgd2hlbiByZXZpZXdpbmcgeW91ciBob21lZ3Jv
+d24KPj4gY29uZGl0aW9uYWwgc2NoZWR1bGUoKS7CoCBIb3BlZnVsbHkgeW91IGNhbiByZXByb2R1
+Y2UgdGhpcyBpc3N1ZT/CoCBJZgo+PiBzbywgcGxlYXNlIHNlZSBpZiBzaW1wbHkgdXNpbmcgY29u
+ZF9yZXNjaGVkKCkgZml4ZXMgdGhlIGlzc3VlLgo+IAo+IFllcywgb3VyIHRlc3RjYXNlIGNhbiB0
+cmlnZ2VyIHRoZSBpc3N1ZSwgd2lsbCBkbyBpdCB3aXRoIGNvbmRfcmVzY2hlZC4KCldpdGhvdXQg
+dGhpcyBwYXRjaCwgdGhlIHNvZnRsb2NrdXAgbWF5IHRyaWdnZXIgc29vbiwgYWZ0ZXIgdGhpcyBw
+YXRjaCBubyAKbWF0dGVyIGNvbmRfcmVzY2hlZCBvciBzY2hlZHVsZSwgc29mdGxvY2t1cCB3b24n
+dCB0cmlnZ2VyIGFmdGVyIHR3byBob3VyIAp0ZXN0LgoKVGhhbmtzLApLdW4uCj4gCj4gCj4gCj4+
+Cj4+IFRoYW5rcywKPj4gTWlrZQoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJl
+ZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
+ZXZlbAo=
 
