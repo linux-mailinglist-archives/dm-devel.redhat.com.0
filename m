@@ -1,85 +1,100 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C31F56A53A0
-	for <lists+dm-devel@lfdr.de>; Tue, 28 Feb 2023 08:22:51 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9768B6A6409
+	for <lists+dm-devel@lfdr.de>; Wed,  1 Mar 2023 01:07:34 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677568968;
+	s=mimecast20190719; t=1677629253;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oaHQYal+f465spDIPkubRelaMTElfRXWjF2zFFF+S9o=;
-	b=OfGxX4BlyKV3hroI7hpFWmrRlsXExJY1CZPTF0cUyEuutwZwRknMGt95Fgwd5sRGKOsep6
-	y2/YOOalqpxt/KhsmyhznhFHFFH6wLLnc/JlsodfLP3XGoJmFr+MjhfKyj5C4Nn6TJKFyJ
-	KnDsqZPTBvAjuc0tkzeCcIVCjNWXuow=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=y5M9Agr0RqdBzDOw2RHGYyX7Gikt/L9I6SGqPHjyifM=;
+	b=cZw9UEF9aj0gakuXCZwrxTtaS78DN92J3MDgZSrqecOOnJceldf9J2LAWV9c7JWxZMr7yT
+	96DPUve5MeXF05PgxKIBDGxfzJm2YUHkOZPYBFxsI9dEhDJKOhepHRGGVtPVI5b4Gd6tP1
+	ko7+thB8ZIuzezGOKXtzHb3b5KlQnYI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-661-3p0WpqP5P2WYecVFYzRvqw-1; Tue, 28 Feb 2023 02:22:47 -0500
-X-MC-Unique: 3p0WpqP5P2WYecVFYzRvqw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-340-JZmwdcCBN5qiGZ8he770wg-1; Tue, 28 Feb 2023 19:07:29 -0500
+X-MC-Unique: JZmwdcCBN5qiGZ8he770wg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49FC03810B0C;
-	Tue, 28 Feb 2023 07:22:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53014811E6E;
+	Wed,  1 Mar 2023 00:07:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5C77E492B0E;
-	Tue, 28 Feb 2023 07:22:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5C1EBC15BAD;
+	Wed,  1 Mar 2023 00:07:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5E31D19465A3;
-	Tue, 28 Feb 2023 07:22:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9158619465B3;
+	Wed,  1 Mar 2023 00:07:20 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D18441946588
- for <dm-devel@listman.corp.redhat.com>; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
+ ESMTP id E9CCA194658C
+ for <dm-devel@listman.corp.redhat.com>; Wed,  1 Mar 2023 00:07:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BF8E62166B2A; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
+ id CAC45492B0F; Wed,  1 Mar 2023 00:07:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B88F72166B26
- for <dm-devel@redhat.com>; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 993A485CCE0
- for <dm-devel@redhat.com>; Tue, 28 Feb 2023 07:22:30 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
- [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-650--HZ_oy-HP6SVzPwNZffVfA-1; Tue, 28 Feb 2023 02:22:28 -0500
-X-MC-Unique: -HZ_oy-HP6SVzPwNZffVfA-1
-Received: from kwepemi500022.china.huawei.com (unknown [172.30.72.54])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4PQphV2flPzrS14;
- Tue, 28 Feb 2023 15:21:46 +0800 (CST)
-Received: from [10.174.177.210] (10.174.177.210) by
- kwepemi500022.china.huawei.com (7.221.188.64) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.21; Tue, 28 Feb 2023 15:22:23 +0800
-Message-ID: <5f916b85-52cb-1896-c824-9059876a5975@huawei.com>
-Date: Tue, 28 Feb 2023 15:22:23 +0800
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C3E15492B0E
+ for <dm-devel@redhat.com>; Wed,  1 Mar 2023 00:07:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7F02101B429
+ for <dm-devel@redhat.com>; Wed,  1 Mar 2023 00:07:19 +0000 (UTC)
+Received: from mail-oa1-f100.google.com (mail-oa1-f100.google.com
+ [209.85.160.100]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_128_GCM_SHA256) id
+ us-mta-399-aaXS08PgOUG-PFvmprN9Kg-1; Tue, 28 Feb 2023 19:07:17 -0500
+X-MC-Unique: aaXS08PgOUG-PFvmprN9Kg-1
+Received: by mail-oa1-f100.google.com with SMTP id
+ 586e51a60fabf-17235c8dab9so12720284fac.7
+ for <dm-devel@redhat.com>; Tue, 28 Feb 2023 16:07:17 -0800 (PST)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=QOMQhF/sH9JXA0O/3+AXuQxVnIBs73dSZjVTlEU+U2Y=;
+ b=G/RtINb/xmrFKCcxVuHiqWpcHCtYgf4PlXKE76j4K4QAAE4qBC3g/5EVadAz3otjnR
+ 1502egLJtq1z/2lsIO3iaUR1II3pqKvD6v7ZZWWkdsTgZw3ILxM8SnFHIc5RQ7aLiSSP
+ yGdJ78fGnw1ZaDX2UZsY6flCZt2Kic0cp18rjwwarvnJn00I8+CpINwcO/a24XFFrF8z
+ /VJRc4QaOK9g82pww6ItJBVdGJ248PEsJ9m+hazffHtswC437VV75xoM+wInKESP7CYo
+ nGfe5EbontKSWuQkacbDa/2SGuGC+hkfdiMQ1Tqvkg1sTqjmUwuuea4dZGWs3l1+JINS
+ ulww==
+X-Gm-Message-State: AO0yUKWPf+XGO5pptEkeviH5sM+9T4+50gaxK5bLT1xNKQe8GaI1PZj3
+ VzQDOa5hxtImNTRxNQxUKhHdJO/gqqM419mlD/DDy78YdMpXv1XYYCudJEpN8uF74A==
+X-Google-Smtp-Source: AK7set83EGGEx4Gtvz8XTLvtgE3w2Y6/DJ78cVT0IPvfAU2EunoiFrSo2mkWCWfJ5m1B6SfYuwyFaebXUk7m
+X-Received: by 2002:a05:6870:17aa:b0:172:4d65:d176 with SMTP id
+ r42-20020a05687017aa00b001724d65d176mr2230426oae.11.1677629236781; 
+ Tue, 28 Feb 2023 16:07:16 -0800 (PST)
+Received: from c7-smtp.dev.purestorage.com ([2620:125:9007:320:7:32:106:0])
+ by smtp-relay.gmail.com with ESMTPS id
+ z22-20020a05687042d600b001727c3968d1sm45584oah.38.2023.02.28.16.07.16
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Tue, 28 Feb 2023 16:07:16 -0800 (PST)
+X-Relaying-Domain: purestorage.com
+Received: from dev-ushankar.dev.purestorage.com (dev5.dev.purestorage.com
+ [IPv6:2620:125:9007:640:7:70:36:0])
+ by c7-smtp.dev.purestorage.com (Postfix) with ESMTP id 98152220F7;
+ Tue, 28 Feb 2023 17:07:15 -0700 (MST)
+Received: by dev-ushankar.dev.purestorage.com (Postfix, from userid 1557716368)
+ id 930C4E4021C; Tue, 28 Feb 2023 17:07:15 -0700 (MST)
+From: Uday Shankar <ushankar@purestorage.com>
+To: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ Keith Busch <kbusch@kernel.org>
+Date: Tue, 28 Feb 2023 17:06:55 -0700
+Message-Id: <20230301000655.48112-1-ushankar@purestorage.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
- Thunderbird/102.5.1
-To: yangerkun <yangerkun@huaweicloud.com>, Mike Snitzer <snitzer@kernel.org>
-References: <20230223031947.3717433-1-yangerkun@huaweicloud.com>
- <b7020147-2382-71f6-5237-8501562f8011@acm.org>
- <e69ec125-3636-ab20-ce63-f4b89ac55ffb@huaweicloud.com>
- <Y/zueUWERryoIGA8@redhat.com>
- <e264ce36-b6ce-b0ad-513c-068e819cf183@huaweicloud.com>
-From: yangerkun <yangerkun@huawei.com>
-In-Reply-To: <e264ce36-b6ce-b0ad-513c-068e819cf183@huaweicloud.com>
-X-Originating-IP: [10.174.177.210]
-X-ClientProxiedBy: dggems705-chm.china.huawei.com (10.3.19.182) To
- kwepemi500022.china.huawei.com (7.221.188.64)
-X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -87,8 +102,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] dm-crypt: fix softlockup in dmcrypt_write
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH v3] blk-mq: enforce op-specific segment limits in
+ blk_insert_cloned_request
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,38 +116,112 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Bart Van Assche <bvanassche@acm.org>, agk@redhat.com
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Uday Shankar <ushankar@purestorage.com>, kernel test robot <lkp@intel.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-CgrlnKggMjAyMy8yLzI4IDk6MjUsIHlhbmdlcmt1biDlhpnpgZM6Cj4gCj4gCj4g5ZyoIDIwMjMv
-Mi8yOCAxOjU1LCBNaWtlIFNuaXR6ZXIg5YaZ6YGTOgo+PiBPbiBTdW4sIEZlYiAyNiAyMDIzIGF0
-wqAgODozMVAgLTA1MDAsCj4+IHlhbmdlcmt1biA8eWFuZ2Vya3VuQGh1YXdlaWNsb3VkLmNvbT4g
-d3JvdGU6Cj4+Cj4+Pgo+Pj4KPj4+IOWcqCAyMDIzLzIvMjYgMTA6MDEsIEJhcnQgVmFuIEFzc2No
-ZSDlhpnpgZM6Cj4+Pj4gT24gMi8yMi8yMyAxOToxOSwgeWFuZ2Vya3VuIHdyb3RlOgo+Pj4+PiBA
-QCAtMTkyNCw2ICsxOTI2LDEwIEBAIHN0YXRpYyBpbnQgZG1jcnlwdF93cml0ZSh2b2lkICpkYXRh
-KQo+Pj4+PiDCoMKgwqDCoMKgwqDCoMKgwqDCoCBCVUdfT04ocmJfcGFyZW50KHdyaXRlX3RyZWUu
-cmJfbm9kZSkpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqAgaWYgKHRpbWVfaXNfYmVmb3JlX2ppZmZp
-ZXMoc3RhcnRfdGltZSArIEhaKSkgewo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzY2hl
-ZHVsZSgpOwo+Pj4+PiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBzdGFydF90aW1lID0gamlmZmll
-czsKPj4+Pj4gK8KgwqDCoMKgwqDCoMKgIH0KPj4+Pgo+Pj4+IFdoeSBzY2hlZHVsZSgpIGluc3Rl
-YWQgb2YgY29uZF9yZXNjaGVkKCk/Cj4+Pgo+Pj4gY29uZF9yZXNjaGVkIG1heSBub3QgcmVhbGx5
-IHNjaGVkdWxlLCB3aGljaCBtYXkgdHJpZ2dlciB0aGUgcHJvYmxlbSAKPj4+IHRvbywgYnV0Cj4+
-PiBpdCBzZWVtcyBhZnRlciAxIHNlY29uZCwgaXQgbWF5IG5ldmVyIGhhcHBlbmQ/Cj4+Cj4+IEkg
-aGFkIHRoZSBzYW1lIHF1ZXN0aW9uIGFzIEJhcnQgd2hlbiByZXZpZXdpbmcgeW91ciBob21lZ3Jv
-d24KPj4gY29uZGl0aW9uYWwgc2NoZWR1bGUoKS7CoCBIb3BlZnVsbHkgeW91IGNhbiByZXByb2R1
-Y2UgdGhpcyBpc3N1ZT/CoCBJZgo+PiBzbywgcGxlYXNlIHNlZSBpZiBzaW1wbHkgdXNpbmcgY29u
-ZF9yZXNjaGVkKCkgZml4ZXMgdGhlIGlzc3VlLgo+IAo+IFllcywgb3VyIHRlc3RjYXNlIGNhbiB0
-cmlnZ2VyIHRoZSBpc3N1ZSwgd2lsbCBkbyBpdCB3aXRoIGNvbmRfcmVzY2hlZC4KCldpdGhvdXQg
-dGhpcyBwYXRjaCwgdGhlIHNvZnRsb2NrdXAgbWF5IHRyaWdnZXIgc29vbiwgYWZ0ZXIgdGhpcyBw
-YXRjaCBubyAKbWF0dGVyIGNvbmRfcmVzY2hlZCBvciBzY2hlZHVsZSwgc29mdGxvY2t1cCB3b24n
-dCB0cmlnZ2VyIGFmdGVyIHR3byBob3VyIAp0ZXN0LgoKVGhhbmtzLApLdW4uCj4gCj4gCj4gCj4+
-Cj4+IFRoYW5rcywKPj4gTWlrZQoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJl
-ZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1k
-ZXZlbAo=
+The block layer might merge together discard requests up until the
+max_discard_segments limit is hit, but blk_insert_cloned_request checks
+the segment count against max_segments regardless of the req op. This
+can result in errors like the following when discards are issued through
+a DM device and max_discard_segments exceeds max_segments for the queue
+of the chosen underlying device.
+
+blk_insert_cloned_request: over max segments limit. (256 > 129)
+
+Fix this by looking at the req_op and enforcing the appropriate segment
+limit - max_discard_segments for REQ_OP_DISCARDs and max_segments for
+everything else.
+
+Signed-off-by: Uday Shankar <ushankar@purestorage.com>
+---
+Changes v1-v2:
+- Fixed format specifier type mismatch
+Reported-by: kernel test robot <lkp@intel.com>
+Link: https://lore.kernel.org/oe-kbuild-all/202302162040.FaI25ul2-lkp@intel.com/
+Changes v2-v3:
+- Refactor: move pre-existing blk_rq_get_max_segments to blk.h and use
+  it instead of introducing a new function
+
+ block/blk-merge.c | 7 -------
+ block/blk-mq.c    | 7 ++++---
+ block/blk.h       | 7 +++++++
+ 3 files changed, 11 insertions(+), 10 deletions(-)
+
+diff --git a/block/blk-merge.c b/block/blk-merge.c
+index 1ac782fdc..6460abdb2 100644
+--- a/block/blk-merge.c
++++ b/block/blk-merge.c
+@@ -587,13 +587,6 @@ int __blk_rq_map_sg(struct request_queue *q, struct request *rq,
+ }
+ EXPORT_SYMBOL(__blk_rq_map_sg);
+ 
+-static inline unsigned int blk_rq_get_max_segments(struct request *rq)
+-{
+-	if (req_op(rq) == REQ_OP_DISCARD)
+-		return queue_max_discard_segments(rq->q);
+-	return queue_max_segments(rq->q);
+-}
+-
+ static inline unsigned int blk_rq_get_max_sectors(struct request *rq,
+ 						  sector_t offset)
+ {
+diff --git a/block/blk-mq.c b/block/blk-mq.c
+index d3494a796..d0cb2ef18 100644
+--- a/block/blk-mq.c
++++ b/block/blk-mq.c
+@@ -3000,6 +3000,7 @@ blk_status_t blk_insert_cloned_request(struct request *rq)
+ {
+ 	struct request_queue *q = rq->q;
+ 	unsigned int max_sectors = blk_queue_get_max_sectors(q, req_op(rq));
++	unsigned int max_segments = blk_rq_get_max_segments(rq);
+ 	blk_status_t ret;
+ 
+ 	if (blk_rq_sectors(rq) > max_sectors) {
+@@ -3026,9 +3027,9 @@ blk_status_t blk_insert_cloned_request(struct request *rq)
+ 	 * original queue.
+ 	 */
+ 	rq->nr_phys_segments = blk_recalc_rq_segments(rq);
+-	if (rq->nr_phys_segments > queue_max_segments(q)) {
+-		printk(KERN_ERR "%s: over max segments limit. (%hu > %hu)\n",
+-			__func__, rq->nr_phys_segments, queue_max_segments(q));
++	if (rq->nr_phys_segments > max_segments) {
++		printk(KERN_ERR "%s: over max segments limit. (%u > %u)\n",
++			__func__, rq->nr_phys_segments, max_segments);
+ 		return BLK_STS_IOERR;
+ 	}
+ 
+diff --git a/block/blk.h b/block/blk.h
+index e835f21d4..cc4e8873d 100644
+--- a/block/blk.h
++++ b/block/blk.h
+@@ -156,6 +156,13 @@ static inline bool blk_discard_mergable(struct request *req)
+ 	return false;
+ }
+ 
++static inline unsigned int blk_rq_get_max_segments(struct request *rq)
++{
++	if (req_op(rq) == REQ_OP_DISCARD)
++		return queue_max_discard_segments(rq->q);
++	return queue_max_segments(rq->q);
++}
++
+ static inline unsigned int blk_queue_get_max_sectors(struct request_queue *q,
+ 						     enum req_op op)
+ {
+
+base-commit: bdc9c96cfce220e972136493f4c031f28ecb9f36
+-- 
+2.25.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
