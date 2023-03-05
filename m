@@ -2,96 +2,74 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 646736AAC82
-	for <lists+dm-devel@lfdr.de>; Sat,  4 Mar 2023 21:50:07 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A9B36AADD8
+	for <lists+dm-devel@lfdr.de>; Sun,  5 Mar 2023 03:18:56 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677963006;
+	s=mimecast20190719; t=1677982735;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kZoCw6sSUX4hd2nLXzcrh+ppOt5DaIh+8a5pmoRr92c=;
-	b=NGry2h4p4ng95C5PZFf8LO+mC6YEVoBr8aVlra+daj2R+tH2dYDOcLZG27Bw8qEuGhGmVj
-	Pt4eRoYzrLFeOwn/oN2e/bMGkrCMN8e1mePvo5I809In255WXVVojjd+x2X0oZjYXl5Kkf
-	cfHdcJI4iDnf58ZWJbuhzikTRKNhPE0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=s61ZXP0b+TDAQL57Lkkd2diCa3kqw9Ish/G4t+1u2vI=;
+	b=E+PirTrzL5m6RMxd1/yIuJDDNNHy2r7rKHOoK0q90gK7awvFeYjK2Ssos+otYneNUrDm++
+	A7XL32wAB+CcgyqWu6OwR8vBUSodh7rvRW+Kc+oM2iqgW4JssOe3hzPYtSgU/ObhIEZxKC
+	LVpUJX7YU5KxEgorWNnROGW1gqYn0Dg=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-644-1hibF_-_MQKYagbMdqAAuQ-1; Sat, 04 Mar 2023 15:49:58 -0500
-X-MC-Unique: 1hibF_-_MQKYagbMdqAAuQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-618-Mz4gTnJgMuOQ2egvLa3_Aw-1; Sat, 04 Mar 2023 21:18:54 -0500
+X-MC-Unique: Mz4gTnJgMuOQ2egvLa3_Aw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3533A833948;
-	Sat,  4 Mar 2023 20:49:56 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 963412166B26;
-	Sat,  4 Mar 2023 20:49:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3084429AA3BF;
+	Sun,  5 Mar 2023 02:18:52 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 98391492C3E;
+	Sun,  5 Mar 2023 02:18:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D5A2C19452D8;
-	Sat,  4 Mar 2023 20:49:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AF9D519452D2;
+	Sun,  5 Mar 2023 02:18:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B84501946594
- for <dm-devel@listman.corp.redhat.com>; Sat,  4 Mar 2023 20:49:20 +0000 (UTC)
+ ESMTP id D88921946586
+ for <dm-devel@listman.corp.redhat.com>; Sun,  5 Mar 2023 02:18:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B4BA91410DDA; Sat,  4 Mar 2023 20:49:19 +0000 (UTC)
+ id AE446492B00; Sun,  5 Mar 2023 02:18:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ACC8C140EBF6
- for <dm-devel@redhat.com>; Sat,  4 Mar 2023 20:49:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A764C492C3E
+ for <dm-devel@redhat.com>; Sun,  5 Mar 2023 02:18:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C2B7101A52E
+ for <dm-devel@redhat.com>; Sun,  5 Mar 2023 02:18:44 +0000 (UTC)
+Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-619-OzVqbfwvOK6r9L8yuea8gQ-1; Sat, 04 Mar 2023 21:18:41 -0500
+X-MC-Unique: OzVqbfwvOK6r9L8yuea8gQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A2641C0512C
- for <dm-devel@redhat.com>; Sat,  4 Mar 2023 20:49:19 +0000 (UTC)
-Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
- [209.85.210.171]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-266-k8R_BOQzP8auKnvd1v1xzQ-1; Sat, 04 Mar 2023 15:49:17 -0500
-X-MC-Unique: k8R_BOQzP8auKnvd1v1xzQ-1
-Received: by mail-pf1-f171.google.com with SMTP id ce7so3527105pfb.9
- for <dm-devel@redhat.com>; Sat, 04 Mar 2023 12:49:17 -0800 (PST)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1677962956;
- h=to:references:message-id:content-transfer-encoding:cc:date
- :in-reply-to:from:subject:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=COslvQmZ+Oi0XkbuOJkEmAH9cvXR+u6uA2frelMF+/o=;
- b=EZRoHutKYT1GRwWd7DUHl0Sh0NjMZHj9b12VC3KUTcb9kC3IH1xceH0/OSVLfjOteZ
- rzIQcFh4Th4K211g9XP04zQRJBf82ojSdJyRYnzgBTjOrUWq1EIatZsfMTSBcK+xTglT
- gxzAcEiozX+N8hvkKZQXZMIwt7eARdIrgig5Twi17LfASFfdeWsszKEh/BVZ5bsRN9lI
- J2tbUvSMEEIcUdAYGkxkn/2THdAhZZg7eTro/HuNn5pCFFgSeICHgf1EGCzWurLYL9E3
- V7UO3QMUEymUao/grc1yoM3aWxW+j+9QlJmDzVP5UjmLb+KtvQ3cbIXI1HJjq02UTQMF
- OECg==
-X-Gm-Message-State: AO0yUKUjqgxgUV4qu0/Qkzrpz32KHrEn7WE6qEqwIigJm+fB4tKb/dyo
- weqwD+17WWxdc0INX9g98KxXYEMQ8+EjDRSHIuQ=
-X-Google-Smtp-Source: AK7set/X5ytKTX55FzfC2cdFaRMM4rceQqeTqALPaffMdah1mA4A4H6yU1LZuEiRiwAfKmmGcAVilw==
-X-Received: by 2002:aa7:8f24:0:b0:5db:4373:c3c0 with SMTP id
- y4-20020aa78f24000000b005db4373c3c0mr6279212pfr.26.1677962956063; 
- Sat, 04 Mar 2023 12:49:16 -0800 (PST)
-Received: from smtpclient.apple ([2600:1700:6970:bea0:7809:e180:8652:7f5d])
- by smtp.gmail.com with ESMTPSA id
- m19-20020aa79013000000b005d62cd8a3c9sm3622929pfo.71.2023.03.04.12.49.14
- (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
- Sat, 04 Mar 2023 12:49:14 -0800 (PST)
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.400.51.1.1\))
-From: Brian Bunker <brian@purestorage.com>
-In-Reply-To: <fb99dac64dd41a6a44b3c7ce065608b45ff467c4.camel@suse.com>
-Date: Sat, 4 Mar 2023 12:49:03 -0800
-Message-Id: <C9BF0F84-BA7F-432C-A9A7-DC77DFE856CA@purestorage.com>
-References: <CAHZQxyJH1etLR5gHuWk4c6-ieioqA4GrJ173B60bnTppke58dw@mail.gmail.com>
- <4bc4be79c2d00cc959932ec935179a46be4b2fbc.camel@suse.com>
- <5A7BD289-0205-42FF-84CD-7C218511A280@purestorage.com>
- <fb99dac64dd41a6a44b3c7ce065608b45ff467c4.camel@suse.com>
-To: Martin Wilck <mwilck@suse.com>
+ by ams.source.kernel.org (Postfix) with ESMTPS id 4D474B8094B;
+ Sun,  5 Mar 2023 02:18:40 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DF3AC433EF;
+ Sun,  5 Mar 2023 02:18:38 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable-commits@vger.kernel.org,
+	snitzer@kernel.org
+Date: Sat,  4 Mar 2023 21:18:36 -0500
+Message-Id: <20230305021836.1702854-1-sashal@kernel.org>
+MIME-Version: 1.0
+X-Patchwork-Hint: ignore
+X-stable: review
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -99,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH] [PATCH] libmultipath: return 'ghost' state
- when port is in transition
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [dm-devel] Patch "dm: improve shrinker debug names" has been added
+ to the 6.2-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,30 +91,75 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com
+Cc: dm-devel@redhat.com, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gTWFyIDMsIDIwMjMsIGF0IDEyOjQxIFBNLCBNYXJ0aW4gV2lsY2sgPG13aWxja0BzdXNlLmNv
-bT4gd3JvdGU6Cj4gCj4gT24gRnJpLCAyMDIzLTAzLTAzIGF0IDA5OjE4IC0wODAwLCBCcmlhbiBC
-dW5rZXIgd3JvdGU6Cj4+PiAKPj4gSGVsbG8gTWFydGluLCAKPj4gCj4+IERvZXNu4oCZdCAic29t
-ZXRoaW5nIGluIGJldHdlZW4gZmFpbGVkIGFuZCB1cOKAnSBzZW1hbnRpY3MgZGVzY3JpYmUgQUxV
-QQo+PiBzdGF0ZSB0cmFuc2l0aW9uaW5nIHByZXR0eSB3ZWxsPwo+IAo+IHRyYW5zaXRpb25pbmcg
-LSB5ZXMuIHN0YW5kYnkgLSA/Pwo+IAo+IE1hcnRpbgo+IApUaGUgY2hlY2tpbmcgZm9yIHN0YW5k
-YnkgaXMgMTQgeWVhcnMgb2xkLCBhbmQgc2F5cyB0aGF0IFRVUiByZXR1cm5zCmEgdW5pdCBhdHRl
-bnRpb24gd2hlbiB0aGUgcGF0aCBpcyBpbiBzdGFuZGJ5LiBJIGFtIG5vdCBzdXJlIHdoeSB0aGF0
-CndvdWxkbuKAmXQgYmUgaGFuZGxlZCBieSB0aGlzIGNvZGUgYWJvdmU6IEkgd291bGQgdGhpbmsg
-dGhlcmUgc2hvdWxkIGJlCmp1c3Qgb25lIHVuaXQgYXR0ZW50aW9uIGZvciBlYWNoIElfVF9MIHdo
-ZW4gYW4gQUxVQSBzdGF0ZSBjaGFuZ2UKaGFwcGVucy5Ob3Qgc3VyZSBob3cgaXQgZXhjZWVkcyB0
-aGUgcmV0cnkgY291bnQuCgppZiAoa2V5ID09IDB4NikgewogICAgLyogVW5pdCBBdHRlbnRpb24s
-IHJldHJ5ICovCiAgICBpZiAo4oCUcmV0cnlfdHVyKQogICAgICAgIGdvdG8gcmV0cnk7Cn0KCkZy
-b20gbXkgcGVyc3BlY3RpdmUgZmFpbGluZyBhIHBhdGggZm9yIEFMVUEgc3RhdGUgc3RhbmRieSBp
-cyByZWFzb25hYmxlCnNpbmNlIGl0IGlzIG5vdCBhbiBhY3RpdmUgc3RhdGUuCgotLQpkbS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+This is a note to let you know that I've just added the patch titled
+
+    dm: improve shrinker debug names
+
+to the 6.2-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     dm-improve-shrinker-debug-names.patch
+and it can be found in the queue-6.2 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+
+commit 532b9a20ec187359497de3abd95b061e18ce0b68
+Author: Mike Snitzer <snitzer@kernel.org>
+Date:   Wed Jan 25 13:01:46 2023 -0500
+
+    dm: improve shrinker debug names
+    
+    [ Upstream commit c87791bcc455a91e51ca9800faaacc21c8d67785 ]
+    
+    Commit e33c267ab70d ("mm: shrinkers: provide shrinkers with names")
+    chose some fairly bad names for DM's shrinkers.
+    
+    Fixes: e33c267ab70d ("mm: shrinkers: provide shrinkers with names")
+    Signed-off-by : Mike Snitzer <snitzer@kernel.org>
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index bb786c39545ec..19caaf684ee34 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -1833,7 +1833,7 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
+ 	c->shrinker.scan_objects = dm_bufio_shrink_scan;
+ 	c->shrinker.seeks = 1;
+ 	c->shrinker.batch = 0;
+-	r = register_shrinker(&c->shrinker, "md-%s:(%u:%u)", slab_name,
++	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
+ 			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
+ 	if (r)
+ 		goto bad;
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 0278482fac94a..c795ea7da7917 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -2945,7 +2945,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	zmd->mblk_shrinker.seeks = DEFAULT_SEEKS;
+ 
+ 	/* Metadata cache shrinker */
+-	ret = register_shrinker(&zmd->mblk_shrinker, "md-meta:(%u:%u)",
++	ret = register_shrinker(&zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
+ 				MAJOR(dev->bdev->bd_dev),
+ 				MINOR(dev->bdev->bd_dev));
+ 	if (ret) {
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
