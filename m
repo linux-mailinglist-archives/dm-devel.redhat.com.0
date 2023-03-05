@@ -2,71 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 996456AADE8
-	for <lists+dm-devel@lfdr.de>; Sun,  5 Mar 2023 03:35:04 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6655B6AADEA
+	for <lists+dm-devel@lfdr.de>; Sun,  5 Mar 2023 03:51:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1677983703;
+	s=mimecast20190719; t=1677984708;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3sThx69Lb6Nv0Ulie8rTMLxEv+sXeDftrsj7Pm41Nrc=;
-	b=OXvpLSUh4mPogvVZ4HqbaS7dCYP7ZnsF6P5AijaHpOZ5VVxn9Ir11LtWrh7jgdlcVF4mcQ
-	St71IoxvxQOQPohpNyVE14tAVL4QQ9FEg5Wt86nG5nf5PM0l8NpdDcvdC5EcUKPJIIAz9M
-	X38YpR56TKa30EIQFc1icK+Zc32iNVY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=N6EFOPfEZMB8GW3+22R6I9L6kShDHLMI87CB6aYDIgA=;
+	b=h1QQ3eu7GrXJBcBP9gDYw3rYfcPe+uzGKvCJhM4hcB5ef/VAahkQiJ1N6jDJoANpsZDX6a
+	OwZR/bcOllmJQAS8K0NYBuz2nBGwGd6dhijX4wUhhhL5Bu5WZjmTjj0yirwGChGb5/vSU5
+	zIerwsERUG05Oxk9M0jLcaMKuT+ecG0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-264-gezt1YUHNPOf7vHZfyT_dA-1; Sat, 04 Mar 2023 21:34:37 -0500
-X-MC-Unique: gezt1YUHNPOf7vHZfyT_dA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-660-DB0k3CFAPTK8XL4Hng3Cug-1; Sat, 04 Mar 2023 21:51:46 -0500
+X-MC-Unique: DB0k3CFAPTK8XL4Hng3Cug-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1395429AA3B8;
-	Sun,  5 Mar 2023 02:34:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DA61811E9C;
+	Sun,  5 Mar 2023 02:51:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 481762026D4B;
-	Sun,  5 Mar 2023 02:34:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 491362166B26;
+	Sun,  5 Mar 2023 02:51:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 20BFE19452D2;
-	Sun,  5 Mar 2023 02:34:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9CA0319452D2;
+	Sun,  5 Mar 2023 02:51:36 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 93BFE1946594
- for <dm-devel@listman.corp.redhat.com>; Sun,  5 Mar 2023 02:34:29 +0000 (UTC)
+ ESMTP id 693D51946586
+ for <dm-devel@listman.corp.redhat.com>; Sun,  5 Mar 2023 02:51:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 56AFF40C945A; Sun,  5 Mar 2023 02:34:29 +0000 (UTC)
+ id 4E2752026D76; Sun,  5 Mar 2023 02:51:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FDB640C6EC4
- for <dm-devel@redhat.com>; Sun,  5 Mar 2023 02:34:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33D1B101A52E
- for <dm-devel@redhat.com>; Sun,  5 Mar 2023 02:34:29 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-345-1-Vv47xaNn6oiYQ61GUIJA-1; Sat, 04 Mar 2023 21:34:27 -0500
-X-MC-Unique: 1-Vv47xaNn6oiYQ61GUIJA-1
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 46C7D2026D4B
+ for <dm-devel@redhat.com>; Sun,  5 Mar 2023 02:51:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28B15811E6E
+ for <dm-devel@redhat.com>; Sun,  5 Mar 2023 02:51:35 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-518-KlYX0d3ZOeC1yvlYMQ__Rw-1; Sat, 04 Mar 2023 21:51:32 -0500
+X-MC-Unique: KlYX0d3ZOeC1yvlYMQ__Rw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 3C178B8085C;
- Sun,  5 Mar 2023 02:34:26 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 90BFFC433D2;
- Sun,  5 Mar 2023 02:34:24 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 903A660A3C;
+ Sun,  5 Mar 2023 02:51:31 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 925A2C433D2;
+ Sun,  5 Mar 2023 02:51:30 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable-commits@vger.kernel.org,
 	snitzer@kernel.org
-Date: Sat,  4 Mar 2023 21:34:22 -0500
-Message-Id: <20230305023422.1716192-1-sashal@kernel.org>
+Date: Sat,  4 Mar 2023 21:51:28 -0500
+Message-Id: <20230305025128.1729404-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
@@ -77,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] Patch "dm cache: add cond_resched() to various workqueue
- loops" has been added to the 6.2-stable tree
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: [dm-devel] Patch "dm: improve shrinker debug names" has been added
+ to the 6.1-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,7 +94,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -102,63 +102,61 @@ Content-Transfer-Encoding: 7bit
 
 This is a note to let you know that I've just added the patch titled
 
-    dm cache: add cond_resched() to various workqueue loops
+    dm: improve shrinker debug names
 
-to the 6.2-stable tree which can be found at:
+to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     dm-cache-add-cond_resched-to-various-workqueue-loops.patch
-and it can be found in the queue-6.2 subdirectory.
+     dm-improve-shrinker-debug-names.patch
+and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
 
-commit b5cd6f897c186e3f124c6517a1983662dd225ffc
+commit 8643def7a09c75757ac4b0dfec324ed1775d5708
 Author: Mike Snitzer <snitzer@kernel.org>
-Date:   Thu Feb 16 15:31:08 2023 -0500
+Date:   Wed Jan 25 13:01:46 2023 -0500
 
-    dm cache: add cond_resched() to various workqueue loops
+    dm: improve shrinker debug names
     
-    [ Upstream commit 76227f6dc805e9e960128bcc6276647361e0827c ]
+    [ Upstream commit c87791bcc455a91e51ca9800faaacc21c8d67785 ]
     
-    Otherwise on resource constrained systems these workqueues may be too
-    greedy.
+    Commit e33c267ab70d ("mm: shrinkers: provide shrinkers with names")
+    chose some fairly bad names for DM's shrinkers.
     
-    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+    Fixes: e33c267ab70d ("mm: shrinkers: provide shrinkers with names")
+    Signed-off-by : Mike Snitzer <snitzer@kernel.org>
     Signed-off-by: Sasha Levin <sashal@kernel.org>
 
-diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
-index 5e92fac90b675..17fde3e5a1f7b 100644
---- a/drivers/md/dm-cache-target.c
-+++ b/drivers/md/dm-cache-target.c
-@@ -1805,6 +1805,7 @@ static void process_deferred_bios(struct work_struct *ws)
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index bb786c39545ec..19caaf684ee34 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -1833,7 +1833,7 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
+ 	c->shrinker.scan_objects = dm_bufio_shrink_scan;
+ 	c->shrinker.seeks = 1;
+ 	c->shrinker.batch = 0;
+-	r = register_shrinker(&c->shrinker, "md-%s:(%u:%u)", slab_name,
++	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
+ 			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
+ 	if (r)
+ 		goto bad;
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 0278482fac94a..c795ea7da7917 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -2945,7 +2945,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	zmd->mblk_shrinker.seeks = DEFAULT_SEEKS;
  
- 		else
- 			commit_needed = process_bio(cache, bio) || commit_needed;
-+		cond_resched();
- 	}
- 
- 	if (commit_needed)
-@@ -1827,6 +1828,7 @@ static void requeue_deferred_bios(struct cache *cache)
- 	while ((bio = bio_list_pop(&bios))) {
- 		bio->bi_status = BLK_STS_DM_REQUEUE;
- 		bio_endio(bio);
-+		cond_resched();
- 	}
- }
- 
-@@ -1867,6 +1869,8 @@ static void check_migrations(struct work_struct *ws)
- 		r = mg_start(cache, op, NULL);
- 		if (r)
- 			break;
-+
-+		cond_resched();
- 	}
- }
- 
+ 	/* Metadata cache shrinker */
+-	ret = register_shrinker(&zmd->mblk_shrinker, "md-meta:(%u:%u)",
++	ret = register_shrinker(&zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
+ 				MAJOR(dev->bdev->bd_dev),
+ 				MINOR(dev->bdev->bd_dev));
+ 	if (ret) {
 
 --
 dm-devel mailing list
