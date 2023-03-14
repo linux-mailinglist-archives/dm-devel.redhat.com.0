@@ -1,86 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 055D36B9D0E
-	for <lists+dm-devel@lfdr.de>; Tue, 14 Mar 2023 18:31:22 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE83C6BA0F6
+	for <lists+dm-devel@lfdr.de>; Tue, 14 Mar 2023 21:45:37 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1678815081;
+	s=mimecast20190719; t=1678826736;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=TGlcSEqEIL1EDxsXbs/ckRiB9z564Lx99dSDrA9J7kk=;
-	b=aCTDaAjZPtSNbeUDu80IwOU+fb5ZRPlhVgDa8S+lXktCDn4G7x/wC2lDWohSKTHXjJPGn5
-	8FRKL0u5unB/qNkt+KPVy9G+jiux8v9/hwCjqUjx0UTErLF5+nLL1O8R9eHnaco0lW7bfJ
-	yeFubaF4V2FGvTHMU7k88J1xDZU0JIE=
+	bh=5qgEtqYj+3pWn2900gqj5IcCbRIwv1x4t09pP4trHTc=;
+	b=DpDn6DzhavylOp9P/cYKtOZP/UfsJb77fnRPiukJIyNmY6JJTrV0KOmotG5jNQEvwyhsW5
+	PcINxmI0KH6xH0ctF/18xD8asqPexVc3Iciy/dKwthRIIp8iAKMAyYqDrqHupUuSxwW3wy
+	5vZ48szFfpbS1AL28F0tfdEUohkc+Gg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-111-umz9F1qcO3WzQx52hhTXTg-1; Tue, 14 Mar 2023 13:31:17 -0400
-X-MC-Unique: umz9F1qcO3WzQx52hhTXTg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-400-ABaCnY-aM8iFkUMLXCU-6g-1; Tue, 14 Mar 2023 16:45:35 -0400
+X-MC-Unique: ABaCnY-aM8iFkUMLXCU-6g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFA7A87B2A0;
-	Tue, 14 Mar 2023 17:31:13 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED8EF85CCE4;
+	Tue, 14 Mar 2023 20:45:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3427F492B00;
-	Tue, 14 Mar 2023 17:31:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2900040C6E67;
+	Tue, 14 Mar 2023 20:45:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 355DF19465B6;
-	Tue, 14 Mar 2023 17:31:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC12719465B5;
+	Tue, 14 Mar 2023 20:45:15 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EA9FC19465A0
- for <dm-devel@listman.corp.redhat.com>; Tue, 14 Mar 2023 17:31:09 +0000 (UTC)
+ ESMTP id EF63619465A0
+ for <dm-devel@listman.corp.redhat.com>; Tue, 14 Mar 2023 20:45:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B09A9C158C2; Tue, 14 Mar 2023 17:31:09 +0000 (UTC)
+ id DE66751FF; Tue, 14 Mar 2023 20:45:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A9433C15A0B
- for <dm-devel@redhat.com>; Tue, 14 Mar 2023 17:31:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8DB2F101A52E
- for <dm-devel@redhat.com>; Tue, 14 Mar 2023 17:31:09 +0000 (UTC)
-Received: from ams.source.kernel.org (ams.source.kernel.org [145.40.68.75])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-628-Ixlmpou2NLqc123WhH72uw-1; Tue, 14 Mar 2023 13:31:04 -0400
-X-MC-Unique: Ixlmpou2NLqc123WhH72uw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by ams.source.kernel.org (Postfix) with ESMTPS id 722B4B81AA0;
- Tue, 14 Mar 2023 17:31:03 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 27BF9C4339B;
- Tue, 14 Mar 2023 17:31:01 +0000 (UTC)
-Date: Tue, 14 Mar 2023 11:30:59 -0600
-From: Keith Busch <kbusch@kernel.org>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <ZBCvU0ldBvvTqz+y@kbusch-mbp.dhcp.thefacebook.com>
-References: <20230224174502.321490-1-michael.christie@oracle.com>
- <20230224174502.321490-10-michael.christie@oracle.com>
- <20230314171322.GE6780@lst.de>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C09A543FBD;
+ Tue, 14 Mar 2023 20:45:14 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 32EKjDn8002635;
+ Tue, 14 Mar 2023 15:45:13 -0500
+Received: (from bmarzins@localhost)
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 32EKjCCM002634;
+ Tue, 14 Mar 2023 15:45:12 -0500
+Date: Tue, 14 Mar 2023 15:45:12 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Brian Bunker <brian@purestorage.com>
+Message-ID: <20230314204512.GB19878@octiron.msp.redhat.com>
+References: <1678229374-18788-1-git-send-email-bmarzins@redhat.com>
+ <14a2e53c90802d36259e024f813a21d081321816.camel@googlemail.com>
+ <C749E399-67A9-4E89-A81E-D348737AB252@purestorage.com>
 MIME-Version: 1.0
-In-Reply-To: <20230314171322.GE6780@lst.de>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH v4 09/18] nvme: Move pr code to it's own file
+In-Reply-To: <C749E399-67A9-4E89-A81E-D348737AB252@purestorage.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH 0/3] handle transitioning devices in TUR
+ checker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,40 +75,47 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, chaitanyak@nvidia.com,
- Chaitanya Kulkarni <kch@nvidia.com>, bvanassche@acm.org,
- linux-scsi@vger.kernel.org, snitzer@kernel.org, linux-nvme@lists.infradead.org,
- james.bottomley@hansenpartnership.com, dm-devel@redhat.com,
- target-devel@vger.kernel.org, martin.petersen@oracle.com,
- Mike Christie <michael.christie@oracle.com>
+Cc: device-mapper development <dm-devel@redhat.com>, mwilck@googlemail.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, Mar 14, 2023 at 06:13:22PM +0100, Christoph Hellwig wrote:
-> > +++ b/drivers/nvme/host/pr.c
-> > @@ -0,0 +1,155 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> 
-> I'd feel much more comfortable if we had a copyright notice code
-> here.  This code was written by Keith, maybe he can help to fill
-> in what the proper notice should be?
-
-Okay, this was initially introduced with 1d277a637a711a while employed with
-Intel, so let's add for the history:
-
-/*
- * Copyright (c) 2015 Intel Corporation 
- *	Keith Busch <kbusch@kernel.org>
- */
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gRnJpLCBNYXIgMTAsIDIwMjMgYXQgMTE6NTU6MTlBTSAtMDgwMCwgQnJpYW4gQnVua2VyIHdy
+b3RlOgo+ID4gT24gTWFyIDksIDIwMjMsIGF0IDEyOjM4IEFNLCBtd2lsY2tAZ29vZ2xlbWFpbC5j
+b20gd3JvdGU6Cj4gPiAKPiA+IEJyaWFuLAo+ID4gCj4gPiBjb3VsZCB5b3UgZ2l2ZSB0aGlzIHBh
+dGNoIHNldCBhIHRlc3QgaW4geW91ciBlbnZpcm9ubWVudD8KPiA+IAo+ID4gT24gVHVlLCAyMDIz
+LTAzLTA3IGF0IDE2OjQ5IC0wNjAwLCBCZW5qYW1pbiBNYXJ6aW5za2kgd3JvdGU6Cj4gPj4gVGhp
+cyBwYXRjaHNldCBpcyBiYXNlZCBvbiBCcmlhbiBCdW5rZXIncyAibGlibXVsdGlwYXRoOiByZXR1
+cm4KPiA+PiAnZ2hvc3QnIHN0YXRlIHdoZW4gcG9ydCBpcyBpbiB0cmFuc2l0aW9uIiBwYXRjaDoK
+PiA+PiAKPiA+PiBodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9hcmNoaXZlcy9kbS1kZXZlbC8y
+MDIzLUZlYnJ1YXJ5LzA1MzM0NC5odG1sCj4gPj4gaHR0cHM6Ly9naXRodWIuY29tL29wZW5zdmMv
+bXVsdGlwYXRoLXRvb2xzL3B1bGwvNjAKPiA+PiAKPiA+PiBJbnN0ZWFkIG9mIHNldHRpbmcgdGhl
+IHN0YXRlIHRvIFBBVEhfR0hPU1QsIGl0IHVzZXMgUEFUSF9QRU5ESU5HLiBUaGUKPiA+PiBvdGhl
+ciB0d28gcGF0Y2hlcyBhcmUgc21hbGwgY2xlYW51cHMgdG8gdGhlIFRVUiBjaGVja2VyIHRoYXQg
+SQo+ID4+IG5vdGljZWQKPiA+PiB3aGlsZSB3cml0aW5nIHRoZSBmaXJzdCBwYXRjaC4KPiA+PiAK
+PiA+PiBCZW5qYW1pbiBNYXJ6aW5za2kgKDMpOgo+ID4+ICAgbGlibXVsdGlwYXRoOiByZXR1cm4g
+J3BlbmRpbmcnIHN0YXRlIHdoZW4gcG9ydCBpcyBpbiB0cmFuc2l0aW9uCj4gPj4gICBsaWJtdWx0
+aXBhdGg6IHNldCBpbml0IGZhaWx1cmUgbWVzc2FnZSB3aGVuIGluaXQgZmFpbHMKPiA+PiAgIGxp
+Ym11bHRpcGF0aDogcmVzZXQgbnJfdGltZW91dHMgaWYgd2UgZnJlZWQgdGhlIGNvbnRleHQKPiA+
+PiAKPiA+PiAgbGlibXVsdGlwYXRoL2NoZWNrZXJzL3R1ci5jIHwgMjQgKysrKysrKysrKysrKysr
+KysrKy0tLS0tCj4gPj4gIDEgZmlsZSBjaGFuZ2VkLCAxOSBpbnNlcnRpb25zKCspLCA1IGRlbGV0
+aW9ucygtKQo+ID4+IAo+ID4gCj4gPiBJJ2QgbGlrZSB0byB3YWl0IGZvciBCcmlhbidzIHJlc3Vs
+dHMuIEZyb20gY29kZSBpbnNwZWN0aW9uLCBhbmQgd2l0aAo+ID4gQmVuJ3MgZXhwbGFuYXRpb24g
+Zm9yIHRoZSAzLzMgbG9naWMsCj4gPiAKPiA+IEZvciB0aGUgc2V0Ogo+ID4gUmV2aWV3ZWQtYnk6
+IE1hcnRpbiBXaWxjayA8bXdpbGNrQHN1c2UuY29tPgo+IEJlbiBhbmQgTWFydGluLAo+IAo+IFRo
+aXMgd29ya3Mgd2VsbCBmb3IgbWUgYWdhaW5zdCBteSBhcnJheS4gQSBjb3VwbGUgb2YgdGhpbmdz
+IGluIHRoaXMgcGFydAo+IAo+IENhbiB5b3UgbWFrZSB0aGUgYWJvdmUgbWF0Y2ggeW91ciBmb3Jt
+YXR0aW5nIHNpbmNlIGl0IGlzIGJldHRlcjoKPiBpZiggYXNjID09IDB4MDQgJiYgYXNjcSA9PSAw
+eDBiKXsKPiAKPiBpZiAoYXNjID09IDB4MDQgJiYgYXNjcSA9PSAweDBhKSB7Cj4gCj4gQW5kIEkg
+ZG9u4oCZdCB0aGluayB5b3UgbmVlZCBlbHNlIGlmIHNpbmNlIHRoZSBsaW5lIGFib3ZlIGl0IHJl
+dHVybnMgaW4gaXRzCj4gY2FzZSwgc28gZWxzZSBpcyBub3QgaGl0IGlmIHRoZSBmaXJzdCBpZiBp
+cyB0cnVlOgo+IAo+ICAgICByZXR1cm4gUEFUSF9HSE9TVDsKPiB9IGVsc2UgaWYgKGFzYyA9PSAw
+eDA0ICYmIGFzY3EgPT0gMHgwYSkgewo+IAoKU3VyZS4KCi1CZW4KCj4gVGhhbmtzLAo+IEJyaWFu
+Cj4gCj4gCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBz
+Oi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
