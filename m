@@ -1,87 +1,124 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D6CBD6C09F4
-	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:17:20 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D5E3A6C09F6
+	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:18:06 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679289440;
+	s=mimecast20190719; t=1679289485;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jb30CQCpjWkSLQ/Um8kXnBSKrVFb2ROPZo45pF9FH6M=;
-	b=O75TfQF/ceDg2+5ysNR008cWZdy85SJxpWx3Ivi1larV4T6ilbjFIHNjqIwMhRei330fIQ
-	3C73ZfBmgMlWqrH8Ijj9I505/sSQaTgNtVl4usxY+GCvk8iynteI51k9uIX7yOh3jSSUyS
-	tP6qx2qvW/dg7AdAXbGoXY04GbCi/Rg=
+	bh=/rDDLlIPNL6BoEysuO22csyLBZJflVL8ecNbIwZYecA=;
+	b=N4YgyT4WrrgIU8rzKssgt7+dwXDt7WAlQKXP24p7Dkkz/6Wy5CADcP4oGloSXgRcE4wCKh
+	gcG1v5BVvDixGY6KmViBCyA50I06s6+m6yfBNHCUPWl4D4YpJC8IBFTP5BFCxuuUgIARo/
+	TkN+g17wmPf7VTWDA8IaMiCm0O3UC0E=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-379-za_TzFRIMd-3h1de7aqh-Q-1; Mon, 20 Mar 2023 01:17:17 -0400
-X-MC-Unique: za_TzFRIMd-3h1de7aqh-Q-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-610-YiOQqahoNp6nPXl6Pbf2jg-1; Mon, 20 Mar 2023 01:17:16 -0400
+X-MC-Unique: YiOQqahoNp6nPXl6Pbf2jg-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36BC6101A552;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 369B1185A7A3;
 	Mon, 20 Mar 2023 05:17:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C35F41121315;
-	Mon, 20 Mar 2023 05:17:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 178412166B29;
+	Mon, 20 Mar 2023 05:17:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1C5AD19472DB;
-	Mon, 20 Mar 2023 05:17:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3AA891946A6C;
+	Mon, 20 Mar 2023 05:16:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 065CF1946597
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
+ ESMTP id 56CF91946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 10:17:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A7E9435453; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
+ id 385A0202701F; Thu, 16 Mar 2023 10:17:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A0E2B2A68
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 821F62A5955A
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
-Received: from cstnet.cn (smtp80.cstnet.cn [159.226.251.80]) by
- relay.mimecast.com with ESMTP id us-mta-92-W6z9auZOM5GbjCHXVFT_Yw-1; Thu,
- 16 Mar 2023 02:55:21 -0400
-X-MC-Unique: W6z9auZOM5GbjCHXVFT_Yw-1
-Received: from localhost.localdomain (unknown [124.16.138.125])
- by APP-01 (Coremail) with SMTP id qwCowAAnLjZVvRJkJXG7EA--.57936S2;
- Thu, 16 Mar 2023 14:55:17 +0800 (CST)
-From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
-To: agk@redhat.com,
-	snitzer@kernel.org
-Date: Thu, 16 Mar 2023 14:55:06 +0800
-Message-Id: <20230316065506.17821-1-jiasheng@iscas.ac.cn>
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 30A6D202701E
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 10:17:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10892884342
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 10:17:15 +0000 (UTC)
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
+ [148.163.158.5]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-583-sBGj5DYKNa-GnqnXhBaUdg-1; Thu, 16 Mar 2023 06:17:13 -0400
+X-MC-Unique: sBGj5DYKNa-GnqnXhBaUdg-1
+Received: from pps.filterd (m0127361.ppops.net [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 32G95FET036330
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 10:17:12 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3pbpx4x9bp-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT)
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 10:17:12 +0000
+Received: from m0127361.ppops.net (m0127361.ppops.net [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 32G9uM4v036034
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 10:17:12 GMT
+Received: from ppma03fra.de.ibm.com (6b.4a.5195.ip4.static.sl-reverse.com
+ [149.81.74.107])
+ by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3pbpx4x9b6-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 16 Mar 2023 10:17:11 +0000
+Received: from pps.filterd (ppma03fra.de.ibm.com [127.0.0.1])
+ by ppma03fra.de.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 32G230aA028037;
+ Thu, 16 Mar 2023 10:17:10 GMT
+Received: from smtprelay05.fra02v.mail.ibm.com ([9.218.2.225])
+ by ppma03fra.de.ibm.com (PPS) with ESMTPS id 3pbsyxrd8s-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+ Thu, 16 Mar 2023 10:17:09 +0000
+Received: from smtpav03.fra02v.mail.ibm.com (smtpav03.fra02v.mail.ibm.com
+ [10.20.54.102])
+ by smtprelay05.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
+ 32GAH7cl21561864
+ (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Thu, 16 Mar 2023 10:17:07 GMT
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 8422F20040;
+ Thu, 16 Mar 2023 10:17:07 +0000 (GMT)
+Received: from smtpav03.fra02v.mail.ibm.com (unknown [127.0.0.1])
+ by IMSVA (Postfix) with ESMTP id 224D820065;
+ Thu, 16 Mar 2023 10:17:07 +0000 (GMT)
+Received: from [9.152.212.230] (unknown [9.152.212.230])
+ by smtpav03.fra02v.mail.ibm.com (Postfix) with ESMTP;
+ Thu, 16 Mar 2023 10:17:07 +0000 (GMT)
+Message-ID: <4484f553-84c1-5402-4f52-c2972ad3e496@linux.ibm.com>
+Date: Thu, 16 Mar 2023 11:17:06 +0100
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowAAnLjZVvRJkJXG7EA--.57936S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr43Zw43Kr13Xw4DtFW7twb_yoW8tr1xpF
- 4UX34ayrWUXw48Xw1DZryxCa4Yka1fKFyDCry2k3sxu3W5Cr45uF1UXayUXrWUGFWUZF13
- t3Wjyrn8CayYqr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkq14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc2xSY4AK67AK6r47
- MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
- 0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
- wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
- W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
- cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjdOz3UUUUU==
-X-Originating-IP: [124.16.138.125]
-X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.8.0
+To: Christoph Hellwig <hch@lst.de>
+References: <20230224174502.321490-1-michael.christie@oracle.com>
+ <20230224174502.321490-3-michael.christie@oracle.com>
+ <20230314171119.GB6780@lst.de>
+ <33ed9615-b570-03c7-9a7a-d07f020d3222@linux.ibm.com>
+ <20230315133039.GA24533@lst.de>
+From: Stefan Haberland <sth@linux.ibm.com>
+In-Reply-To: <20230315133039.GA24533@lst.de>
+X-TM-AS-GCONF: 00
+X-Proofpoint-GUID: X6tcHI4Y4hN2ulzv7a-zFDv3Old5pE6S
+X-Proofpoint-ORIG-GUID: e5UmNwL8IYAtm8F-8DT0dsS5_CITZfXA
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-03-16_06,2023-03-15_01,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ clxscore=1015 suspectscore=0
+ spamscore=0 adultscore=0 impostorscore=0 malwarescore=0 lowpriorityscore=0
+ phishscore=0 priorityscore=1501 mlxscore=0 mlxlogscore=999 bulkscore=0
+ classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303150002
+ definitions=main-2303160081
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,9 +126,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Mon, 20 Mar 2023 05:16:58 +0000
-Subject: [dm-devel] [PATCH] dm stats: Add missing check for alloc_percpu
+Subject: Re: [dm-devel] [PATCH v4 02/18] block: Rename BLK_STS_NEXUS to
+ BLK_STS_RESV_CONFLICT
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,88 +141,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
- linux-kernel@vger.kernel.org
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, chaitanyak@nvidia.com,
+ bvanassche@acm.org, linux-scsi@vger.kernel.org, snitzer@kernel.org,
+ Jan Hoeppner <hoeppner@linux.ibm.com>, linux-nvme@lists.infradead.org,
+ james.bottomley@hansenpartnership.com, dm-devel@redhat.com,
+ target-devel@vger.kernel.org, martin.petersen@oracle.com, kbusch@kernel.org,
+ Mike Christie <michael.christie@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Add the check for the return value of alloc_precpu and return the error
-if it fails.
-Moreover, Add the check for the return value of dm_stats_init cascade.
+Am 15.03.23 um 14:30 schrieb Christoph Hellwig:
+> On Wed, Mar 15, 2023 at 11:04:22AM +0100, Stefan Haberland wrote:
+>> This also fits for the DASD case. We use this error code for a
+>> reservation/locking conflict of the DASD device when the lock we
+>> previously held was stolen.
+> But that's not really a reservation conflict in the sense
+> of the reservation API.  Given that DASD doesn't support it it
+> might not matter.  Do you have applications that checks for
+> the translated errno value?  We'll probably at least want
+> a comment documenting this status code.
 
-Fixes: fd2ed4d25270 ("dm: add statistics support")
-Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
----
- drivers/md/dm-stats.c | 7 ++++++-
- drivers/md/dm-stats.h | 2 +-
- drivers/md/dm.c       | 4 +++-
- 3 files changed, 10 insertions(+), 3 deletions(-)
+Well, I might completely misunderstand the use case for this error code.
+Sorry if that is the case.
 
-diff --git a/drivers/md/dm-stats.c b/drivers/md/dm-stats.c
-index c21a19ab73f7..db2d997a6c18 100644
---- a/drivers/md/dm-stats.c
-+++ b/drivers/md/dm-stats.c
-@@ -188,7 +188,7 @@ static int dm_stat_in_flight(struct dm_stat_shared *shared)
- 	       atomic_read(&shared->in_flight[WRITE]);
- }
- 
--void dm_stats_init(struct dm_stats *stats)
-+int dm_stats_init(struct dm_stats *stats)
- {
- 	int cpu;
- 	struct dm_stats_last_position *last;
-@@ -197,11 +197,16 @@ void dm_stats_init(struct dm_stats *stats)
- 	INIT_LIST_HEAD(&stats->list);
- 	stats->precise_timestamps = false;
- 	stats->last = alloc_percpu(struct dm_stats_last_position);
-+	if (!stats->last)
-+		return -ENOMEM;
-+
- 	for_each_possible_cpu(cpu) {
- 		last = per_cpu_ptr(stats->last, cpu);
- 		last->last_sector = (sector_t)ULLONG_MAX;
- 		last->last_rw = UINT_MAX;
- 	}
-+
-+	return 0;
- }
- 
- void dm_stats_cleanup(struct dm_stats *stats)
-diff --git a/drivers/md/dm-stats.h b/drivers/md/dm-stats.h
-index 0bc152c8e4f3..c6728c8b4159 100644
---- a/drivers/md/dm-stats.h
-+++ b/drivers/md/dm-stats.h
-@@ -21,7 +21,7 @@ struct dm_stats_aux {
- 	unsigned long long duration_ns;
- };
- 
--void dm_stats_init(struct dm_stats *st);
-+int dm_stats_init(struct dm_stats *st);
- void dm_stats_cleanup(struct dm_stats *st);
- 
- struct mapped_device;
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index eace45a18d45..b6ace995b9ca 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -2097,7 +2097,9 @@ static struct mapped_device *alloc_dev(int minor)
- 	if (!md->pending_io)
- 		goto bad;
- 
--	dm_stats_init(&md->stats);
-+	r = dm_stats_init(&md->stats);
-+	if (r < 0)
-+		goto bad;
- 
- 	/* Populate the mapping, nobody knows we exist yet */
- 	spin_lock(&_minor_lock);
--- 
-2.25.1
+Beside that I thought that the return codes are generic blocklayer 
+return codes
+and not bound to a specific API. I am not familiar with the reservation 
+API you
+are talking about.
+
+What I understood from the reservation in NVMe context is that a namespace
+might be reserved to a host. If there is a conflict with this reservation
+this error code is provided for the IO request.
+
+For DASDs we have the possibility to reserve a disk for a host. If there 
+is a
+conflict with this platform specific reservation we would present this 
+error
+for an IO request.
+
+This sounded quite similar for me.
+
+I am completely open to using another return code and I am not aware of an
+application checking for this specific return code.
+
+Is there any that would fit better from your point of view?
 
 --
 dm-devel mailing list
