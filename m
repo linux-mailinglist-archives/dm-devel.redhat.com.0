@@ -1,84 +1,85 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CFD86C09F8
-	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:18:09 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D6CBD6C09F4
+	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:17:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679289488;
+	s=mimecast20190719; t=1679289440;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=X3zPet/K1ViLdtKLoYtPu7dZ72jp7Ow5GTIWMbO8Seo=;
-	b=ZxvQSgwflLrkMVYSZvP2yNkfeWxqSDy8h5wJOCxC3F/LF0pNSGTmmj81f8Mm3DpUtOQDAB
-	2KlfS2De7pEeMBSssIz1gqscW8lLMt8Ol/c2i/XYWYr9gPMb3Nk1FwINN0r7LRo9d+k2UY
-	u3gCzymHq2z4jwAu5Yro4BYGRJ1HGP0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=jb30CQCpjWkSLQ/Um8kXnBSKrVFb2ROPZo45pF9FH6M=;
+	b=O75TfQF/ceDg2+5ysNR008cWZdy85SJxpWx3Ivi1larV4T6ilbjFIHNjqIwMhRei330fIQ
+	3C73ZfBmgMlWqrH8Ijj9I505/sSQaTgNtVl4usxY+GCvk8iynteI51k9uIX7yOh3jSSUyS
+	tP6qx2qvW/dg7AdAXbGoXY04GbCi/Rg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-615-tVIV3OOKPiaHnuK7BuXMcw-1; Mon, 20 Mar 2023 01:17:17 -0400
-X-MC-Unique: tVIV3OOKPiaHnuK7BuXMcw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-379-za_TzFRIMd-3h1de7aqh-Q-1; Mon, 20 Mar 2023 01:17:17 -0400
+X-MC-Unique: za_TzFRIMd-3h1de7aqh-Q-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37A513C0F38E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36BC6101A552;
 	Mon, 20 Mar 2023 05:17:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 96BBF1410F1C;
-	Mon, 20 Mar 2023 05:17:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C35F41121315;
+	Mon, 20 Mar 2023 05:17:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1411E1946A61;
-	Mon, 20 Mar 2023 05:16:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1C5AD19472DB;
+	Mon, 20 Mar 2023 05:17:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6D71C1946597
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 06:49:52 +0000 (UTC)
+ ESMTP id 065CF1946597
+ for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5CE4840CFD41; Thu, 16 Mar 2023 06:49:52 +0000 (UTC)
+ id A7E9435453; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 55C4C40CFD40
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 06:49:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A0E2B2A68
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3BC4029AA39B
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 06:49:52 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 821F62A5955A
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 06:55:26 +0000 (UTC)
 Received: from cstnet.cn (smtp80.cstnet.cn [159.226.251.80]) by
- relay.mimecast.com with ESMTP id us-mta-456-Q26ojp3yM_KgJngP42iI3A-1; Thu,
- 16 Mar 2023 02:49:49 -0400
-X-MC-Unique: Q26ojp3yM_KgJngP42iI3A-1
+ relay.mimecast.com with ESMTP id us-mta-92-W6z9auZOM5GbjCHXVFT_Yw-1; Thu,
+ 16 Mar 2023 02:55:21 -0400
+X-MC-Unique: W6z9auZOM5GbjCHXVFT_Yw-1
 Received: from localhost.localdomain (unknown [124.16.138.125])
- by APP-01 (Coremail) with SMTP id qwCowACXny9zuhJkpM25EA--.39602S2;
- Thu, 16 Mar 2023 14:42:59 +0800 (CST)
+ by APP-01 (Coremail) with SMTP id qwCowAAnLjZVvRJkJXG7EA--.57936S2;
+ Thu, 16 Mar 2023 14:55:17 +0800 (CST)
 From: Jiasheng Jiang <jiasheng@iscas.ac.cn>
 To: agk@redhat.com,
 	snitzer@kernel.org
-Date: Thu, 16 Mar 2023 14:42:58 +0800
-Message-Id: <20230316064258.17751-1-jiasheng@iscas.ac.cn>
+Date: Thu, 16 Mar 2023 14:55:06 +0800
+Message-Id: <20230316065506.17821-1-jiasheng@iscas.ac.cn>
 MIME-Version: 1.0
-X-CM-TRANSID: qwCowACXny9zuhJkpM25EA--.39602S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tr43ur15uw4UAr17JFWUArb_yoW8tr13pF
- 4UX34ayrWUXw48Xw1DZryxCa4Yya1fKFyDCr9Fk3sxu3W5Cr45uF1UXayUXrWUGFWUZF13
- ta1jyrn8CayYqr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: qwCowAAnLjZVvRJkJXG7EA--.57936S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr43Zw43Kr13Xw4DtFW7twb_yoW8tr1xpF
+ 4UX34ayrWUXw48Xw1DZryxCa4Yka1fKFyDCry2k3sxu3W5Cr45uF1UXayUXrWUGFWUZF13
+ t3Wjyrn8CayYqr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUkq14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
  1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
  JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
  CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
  W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc2xSY4AK67AK6r47
  MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
  0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0E
  wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
  W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
- cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUj0zuJUUUUU==
+ cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUjdOz3UUUUU==
 X-Originating-IP: [124.16.138.125]
 X-CM-SenderInfo: pmld2xxhqjqxpvfd2hldfou0/
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -88,7 +89,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Mon, 20 Mar 2023 05:16:58 +0000
 Subject: [dm-devel] [PATCH] dm stats: Add missing check for alloc_percpu
 X-BeenThere: dm-devel@redhat.com
@@ -106,7 +107,7 @@ Cc: dm-devel@redhat.com, Jiasheng Jiang <jiasheng@iscas.ac.cn>,
  linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
@@ -114,7 +115,7 @@ Content-Transfer-Encoding: 7bit
 
 Add the check for the return value of alloc_precpu and return the error
 if it fails.
-Moreover, Add the check for the return value of dm_stats_init casadely.
+Moreover, Add the check for the return value of dm_stats_init cascade.
 
 Fixes: fd2ed4d25270 ("dm: add statistics support")
 Signed-off-by: Jiasheng Jiang <jiasheng@iscas.ac.cn>
