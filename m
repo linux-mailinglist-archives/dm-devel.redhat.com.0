@@ -1,77 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9C4386BEBED
-	for <lists+dm-devel@lfdr.de>; Fri, 17 Mar 2023 15:56:45 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A67FF6BEBD6
+	for <lists+dm-devel@lfdr.de>; Fri, 17 Mar 2023 15:54:55 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679065004;
+	s=mimecast20190719; t=1679064894;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=e+OxL/js1MyzwlVDnmri+m5+CJGfkEm7J5JCRn/Q31g=;
-	b=QO/HmHRo4xHklimAgl4uN2Fjx+jz57KaiMaLSvNW0JKfr1QhbPo4N5bQaPDRZ9Xxp5tBb4
-	YsUIdQFy4sZOXXLZBnceeOZkMGVFaOK/E09Ysgdt14GXxFbU+tGlxbuC98JJDOwDjSwcYm
-	9Q13MitjOVA+iVDxgw+Vg6fRfNXQTr0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=gB+m0AxJ4UITh/WbyLnQeLO83R/XGjJks5whNlICI8c=;
+	b=FR+TqSZIPQZV35BKbOlnxmzjUgmjw0OUt+5Knpot8XwNX9nlZs949iNzhLsqL5TVGl0zyx
+	ppAQWd1my8l5239l7vVY/DF42Vs6sdDHL5NOjWRYYPA8qD8ye2oqJpoONnDIQ/TzFOfyV7
+	pCJfyiLqDRiHwab2lmpGZxkNj+qiIWY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-465-vPAahlPROvCOAxrESLjoSQ-1; Fri, 17 Mar 2023 10:56:42 -0400
-X-MC-Unique: vPAahlPROvCOAxrESLjoSQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-674-BrqyTjj6Nu6cCYSPrF8m2g-1; Fri, 17 Mar 2023 10:54:51 -0400
+X-MC-Unique: BrqyTjj6Nu6cCYSPrF8m2g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A5140299E741;
-	Fri, 17 Mar 2023 14:56:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D052187A9E3;
+	Fri, 17 Mar 2023 14:54:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7A70E1410F1B;
-	Fri, 17 Mar 2023 14:56:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A06891121315;
+	Fri, 17 Mar 2023 14:54:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B7E41946A4C;
-	Fri, 17 Mar 2023 14:56:38 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CBE091946A4D;
+	Fri, 17 Mar 2023 14:54:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A18771946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 18:52:34 +0000 (UTC)
+ ESMTP id 3F7931946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 21:47:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9588E4042AC6; Thu, 16 Mar 2023 18:52:34 +0000 (UTC)
+ id 1C74EC15BAE; Thu, 16 Mar 2023 21:47:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E8C74042AC5
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 18:52:34 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 11870C15BAD
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 21:47:43 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7351585D536
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 18:52:34 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-286-Hpmul2EYPOOdZ0_oAhY1pQ-1; Thu, 16 Mar 2023 14:52:32 -0400
-X-MC-Unique: Hpmul2EYPOOdZ0_oAhY1pQ-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id A9720620E0;
- Thu, 16 Mar 2023 18:44:02 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E4858C433D2;
- Thu, 16 Mar 2023 18:44:01 +0000 (UTC)
-Date: Thu, 16 Mar 2023 18:44:00 +0000
-From: Eric Biggers <ebiggers@kernel.org>
-To: Yeongjin Gil <youngjin.gil@samsung.com>
-Message-ID: <ZBNjcA1feNWUxvaW@gmail.com>
-References: <CGME20230316031936epcas1p1ebd93477dcf3bf9ab1640306dd1da8ff@epcas1p1.samsung.com>
- <20230316031842.17295-1-youngjin.gil@samsung.com>
-MIME-Version: 1.0
-In-Reply-To: <20230316031842.17295-1-youngjin.gil@samsung.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E976281B139
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 21:47:42 +0000 (UTC)
+Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
+ [209.85.216.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-669-tE311B_rOw-08kgDUObZCg-1; Thu, 16 Mar 2023 17:47:41 -0400
+X-MC-Unique: tE311B_rOw-08kgDUObZCg-1
+Received: by mail-pj1-f41.google.com with SMTP id
+ om3-20020a17090b3a8300b0023efab0e3bfso6758625pjb.3
+ for <dm-devel@redhat.com>; Thu, 16 Mar 2023 14:47:41 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1679003260;
+ h=to:date:message-id:subject:mime-version:content-transfer-encoding
+ :from:x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=MjF319vrDOXTMMZCq6yJyrLxh04HE1U+nk0vH75Tljc=;
+ b=NPKLfxm4ZkiG4UrdbCIRqlRnDG0reEiaUfqkOivbuPWzVEJjRjnYaEmPelZNTlyNGw
+ x12D6OQZpWllW+6XfTRTOr8dXKPik1MrcWh/Rv5uYNC7Zyxkj0rwoGJVKk0VWnxExV1R
+ V9hJuqKp7HZSRHJKRd/BKInaPyNfhicW1/Vq96N+NWsQnv7xAGHEc7wBxjNVWvSh1Cq7
+ N5OYd+321ukkxkb9/gokxu1ooyt/jlpdQf8kpfPUNiIErbKoKUi/PyKmsECEyuFaVBeY
+ 3xqiHGBB7mwswH51z8KjqinF/nCzO6P09nrN3cInCwapwPkikAB8mT4w7NH/w/5KKmLZ
+ YEDQ==
+X-Gm-Message-State: AO0yUKVCEXuzeoyjGvP37/O+DGvw/T+RMnd++vMtRVU4KVazA6DBjeCn
+ PQ3rGNBCqt6RpHik2bctm4rcom/gl0KNI1JiuLhBLP4bfvdDXCZd8pULbvYb3YfNjYuF4bRMFYh
+ ZVc/82r0yS2a5CLlaTiPmjg7UKm2ZefKOU2zO6OdZdyBrTQbKm51XD5c3Zh/N2Ja4OIVBtzpy
+X-Google-Smtp-Source: AK7set/KTZkx5UVMbU3+JEKKGG+Mi9GNlNxyWCwopUcfK4jhISI35sz+p83rg3s41qVu4iKiBGlMhw==
+X-Received: by 2002:a05:6a20:6982:b0:d3:d236:f5ae with SMTP id
+ t2-20020a056a20698200b000d3d236f5aemr7929252pzk.49.1679003259406; 
+ Thu, 16 Mar 2023 14:47:39 -0700 (PDT)
+Received: from smtpclient.apple ([136.226.78.254])
+ by smtp.gmail.com with ESMTPSA id
+ d16-20020aa78150000000b005825b8e0540sm138268pfn.204.2023.03.16.14.47.38
+ (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
+ Thu, 16 Mar 2023 14:47:38 -0700 (PDT)
+From: Brian Bunker <brian@purestorage.com>
+Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3731.400.51.1.1\))
+Message-Id: <CD5EC3B3-9A64-416A-A04C-C68EDB82F4C6@purestorage.com>
+Date: Thu, 16 Mar 2023 14:47:27 -0700
+To: device-mapper development <dm-devel@redhat.com>,
+ Martin Wilck <mwilck@suse.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +95,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH] dm verity: fix error handling for
- check_at_most_once
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH] multipath-tools Consider making 'smart' the
+ default
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,90 +109,77 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: snitzer@kernel.org, totte@google.com, linux-kernel@vger.kernel.org,
- Nathan Huckleberry <nhuck@google.com>, dm-devel@redhat.com,
- Sami Tolvanen <samitolvanen@google.com>, Sungjong Seo <sj1557.seo@samsung.com>,
- agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi Yeongjin,
+As a target vendor, it is nice to be able control initiator
+behavior from the target without relying on user intervention
+on the initiator. There could be a very large number of initiators
+at a site.
 
-On Thu, Mar 16, 2023 at 12:18:42PM +0900, Yeongjin Gil wrote:
-> In verity_work(), the return value of verity_verify_io() is converted to
-> blk_status and passed to verity_finish_io(). BTW, when a bit is set in
-> v->validated_blocks, verity_verify_io() skips verification regardless of
-> I/O error for the corresponding bio. In this case, the I/O error could
-> not be returned properly, and as a result, there is a problem that
-> abnormal data could be read for the corresponding block.
-> 
-> To fix this problem, when an I/O error occurs, do not skip verification
-> even if the bit related is set in v->validated_blocks.
-> 
-> Fixes: 843f38d382b1 ("dm verity: add 'check_at_most_once' option to only validate hashes once")
-> 
-> Signed-off-by: Sungjong Seo <sj1557.seo@samsung.com>
-> Signed-off-by: Yeongjin Gil <youngjin.gil@samsung.com>
-> ---
->  drivers/md/dm-verity-target.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-> index ade83ef3b439..9316399b920e 100644
-> --- a/drivers/md/dm-verity-target.c
-> +++ b/drivers/md/dm-verity-target.c
-> @@ -523,7 +523,7 @@ static int verity_verify_io(struct dm_verity_io *io)
->  		sector_t cur_block = io->block + b;
->  		struct ahash_request *req = verity_io_hash_req(v, io);
->  
-> -		if (v->validated_blocks &&
-> +		if (v->validated_blocks && bio->bi_status == BLK_STS_OK &&
->  		    likely(test_bit(cur_block, v->validated_blocks))) {
->  			verity_bv_skip_block(v, io, iter);
->  			continue;
+When ACLs are first added for a volume on our array, we use the
+transport layer, so that the initiator will discover the volumes
+without any manual intervention.
 
-Thanks for sending this patch!  This looks like a correct fix, but I have some
-comments:
+kernel: scsi 8:0:0:1: Direct-Access PURE Flash Array
+8888 PQ: 0 ANSI: 6
+kernel: scsi 9:0:0:1: Direct-Access PURE Flash Array
+8888 PQ: 0 ANSI: 6
+kernel: scsi 6:0:0:1: Direct-Access PURE Flash Array
+8888 PQ: 0 ANSI: 6
+kernel: scsi 7:0:0:1: Direct-Access PURE Flash Array
+8888 PQ: 0 ANSI: 6
+...
+kernel: sd 6:0:0:1: [sdd] Attached SCSI disk
+kernel: sd 8:0:0:1: [sdb] Attached SCSI disk
+kernel: sd 9:0:0:1: [sdc] Attached SCSI disk
+kernel: sd 7:0:0:1: [sde] Attached SCSI disk
 
-* Using "check_at_most_once" is strongly discouraged, as it reduces security.
-  If you are using check_at_most_once to improve performance at the cost of
-  reduced security, please consider that very recently, dm-verity performance
-  has significantly improved due to the removal of the WQ_UNBOUND workqueue flag
-  which was causing significant I/O latency.  See commit c25da5b7baf1
-  ("dm verity: stop using WQ_UNBOUND for verify_wq").
+Subsequent volumes after the first one are discovered via unit
+attentions triggering the udev rule which calls scan-scsi-target.
+The SCSI devices being discovered without creating the corresponding
+multipath devices seems to be a bad default. We would like to
+control as much as possible from the target side to dictate initiator
+behavior. This comes as a regression to how it previously worked.
 
-* I think your commit message does not explain a key aspect of the problem which
-  is why is verity even attempted when the underlying I/O has failed?  This
-  appears to be because of the Forward Error Correction (FEC) feature.  So, this
-  issue is specific to the case where both FEC and check_at_most_once is used.
-  Can you make your commit message explain this?
+Signed-off-by: Brian Bunker <brian@purestorage.com>
+---
+ libmultipath/defaults.h    | 2 +-
+ multipath/multipath.conf.5 | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-* This patch does not appear to have been received by the dm-devel mailing list,
-  which is the list where dm-verity patches should be reviewed on.  It doesn't
-  show up in the archive at https://lore.kernel.org/dm-devel.  Also, I'm
-  subscribed to dm-devel and I didn't receive this patch in my inbox.  (I had to
-  download it from https://lore.kernel.org/lkml instead.)  Did you receive a
-  bounce message when you sent this patch?
-
-* Please add 'Cc: stable@vger.kernel.org' to the commit message, just below the
-  Fixes line, as per Documentation/process/stable-kernel-rules.rst.  This will
-  ensure that the fix will be backported to the stable kernels.
-
-* "Signed-off-by: Sungjong Seo <sj1557.seo@samsung.com>" does not have a
-  corresponding Author or Co-developed-line, which is not allowed.  Did you mean
-  to list Sungjong as the Author or as a co-author?
-
-* No blank line between Fixes and the Signed-off-by line(s), please.
-
-Thanks!
-
-- Eric
+diff --git a/libmultipath/defaults.h b/libmultipath/defaults.h
+index a5e9ea0c..6dfdb63b 100644
+--- a/libmultipath/defaults.h
++++ b/libmultipath/defaults.h
+@@ -23,7 +23,7 @@
+ #define DEFAULT_NO_PATH_RETRY  NO_PATH_RETRY_UNDEF
+ #define DEFAULT_VERBOSITY      2
+ #define DEFAULT_REASSIGN_MAPS  0
+-#define DEFAULT_FIND_MULTIPATHS        FIND_MULTIPATHS_STRICT
++#define DEFAULT_FIND_MULTIPATHS        FIND_MULTIPATHS_SMART
+ #define DEFAULT_FAST_IO_FAIL   5
+ #define DEFAULT_DEV_LOSS_TMO   600
+ #define DEFAULT_RETAIN_HWHANDLER RETAIN_HWHANDLER_ON
+diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
+index b4dccd1b..4447fe1b 100644
+--- a/multipath/multipath.conf.5
++++ b/multipath/multipath.conf.5
+@@ -1164,7 +1164,7 @@ as non-multipath and passed on to upper layers.
+ \fBNote:\fR this may cause delays during device detection if
+ there are single-path devices which aren\'t blacklisted.
+ .TP
+-The default is: \fBstrict\fR
++The default is: \fBsmart\fR
+ .RE
+ .
+ .
+-- 
 
 --
 dm-devel mailing list
