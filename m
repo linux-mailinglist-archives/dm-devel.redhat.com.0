@@ -1,203 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D936A6C09F5
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5DA506C09F2
 	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:17:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1679289439;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BmA0/TE79+eU14yGNwF7JprFCG9pim5F3dkWHvPrA9g=;
-	b=ahn0D0++DV/Oe2vENxII1wwE28aENXALUmrmBsXlfGqJhXuP1qn7WDZDGT2sWC2i/h7pf5
-	C+Z+7uTt3Cp0C6bPafXrFpOcysQ8UOXQ+UT/zqLJxenMbdZF2yXX+rUNkGX64oEUraoxgY
-	MCiD1Ygn5gFjVP7Ct/bTaxalPH4hxLE=
+	bh=++STI+apkLDItwY57vVAT8IiOeyXsKYMBjORTwpwzas=;
+	b=IWYVOCFRZW8Zmea6ynjbYADEmKtFkTe8+vXzi3xKvQDWLDvu446t2UGhYoaFoX25DRfBOr
+	AvAt3/l6CvFG/qvVHjnFn+x8evndknV0zlr3Q7lIrTsbYiu8CON7dQrB5SdIdk04dnRzA5
+	U0JXzqBDCpt5FSUvpgZMuksdoSnMLkg=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-610-aly23zpFPvul0pGQmLk4jA-1; Mon, 20 Mar 2023 01:17:16 -0400
-X-MC-Unique: aly23zpFPvul0pGQmLk4jA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-615-ODkNW7mIN5G2Ydv0zq63fQ-1; Mon, 20 Mar 2023 01:17:17 -0400
+X-MC-Unique: ODkNW7mIN5G2Ydv0zq63fQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39A7729AB3F2;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39DBD3811F28;
 	Mon, 20 Mar 2023 05:17:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 57B78492C18;
-	Mon, 20 Mar 2023 05:17:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 207C785768;
+	Mon, 20 Mar 2023 05:17:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 65F2A1946A75;
-	Mon, 20 Mar 2023 05:16:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 451FD19472E6;
+	Mon, 20 Mar 2023 05:17:00 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 32A711946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 16 Mar 2023 16:36:39 +0000 (UTC)
+ ESMTP id DDA721946587
+ for <dm-devel@listman.corp.redhat.com>; Fri, 17 Mar 2023 01:42:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 00F6740CFD41; Thu, 16 Mar 2023 16:36:39 +0000 (UTC)
+ id 72DDF40CF8E7; Fri, 17 Mar 2023 01:42:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EC8AD40CFD40
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 16:36:38 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6BE64400D796
+ for <dm-devel@redhat.com>; Fri, 17 Mar 2023 01:42:12 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C53A83814955
- for <dm-devel@redhat.com>; Thu, 16 Mar 2023 16:36:38 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-638-6bjAyagpN_KO75UPwB71Og-1; Thu, 16 Mar 2023 12:36:37 -0400
-X-MC-Unique: 6bjAyagpN_KO75UPwB71Og-1
-Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32GF9mHZ012743; Thu, 16 Mar 2023 16:36:17 GMT
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3pbs29snna-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Mar 2023 16:36:17 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 32GGDGV9004928; Thu, 16 Mar 2023 16:36:16 GMT
-Received: from nam10-dm6-obe.outbound.protection.outlook.com
- (mail-dm6nam10lp2105.outbound.protection.outlook.com [104.47.58.105])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3pbq452qsn-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 16 Mar 2023 16:36:16 +0000
-Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
- IA0PR10MB6722.namprd10.prod.outlook.com (2603:10b6:208:440::18) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.24; Thu, 16 Mar
- 2023 16:36:14 +0000
-Received: from DM5PR10MB1466.namprd10.prod.outlook.com
- ([fe80::7dd7:8d22:104:8d64]) by DM5PR10MB1466.namprd10.prod.outlook.com
- ([fe80::7dd7:8d22:104:8d64%7]) with mapi id 15.20.6178.031; Thu, 16 Mar 2023
- 16:36:14 +0000
-Message-ID: <6da0ec0a-d465-fec4-0ca5-96b2ffb7be7a@oracle.com>
-Date: Thu, 16 Mar 2023 11:36:12 -0500
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-To: Stefan Haberland <sth@linux.ibm.com>, Christoph Hellwig <hch@lst.de>
-References: <20230224174502.321490-1-michael.christie@oracle.com>
- <20230224174502.321490-3-michael.christie@oracle.com>
- <20230314171119.GB6780@lst.de>
- <33ed9615-b570-03c7-9a7a-d07f020d3222@linux.ibm.com>
- <20230315133039.GA24533@lst.de>
- <4484f553-84c1-5402-4f52-c2972ad3e496@linux.ibm.com>
-From: Mike Christie <michael.christie@oracle.com>
-In-Reply-To: <4484f553-84c1-5402-4f52-c2972ad3e496@linux.ibm.com>
-X-ClientProxiedBy: DM6PR02CA0114.namprd02.prod.outlook.com
- (2603:10b6:5:1b4::16) To DM5PR10MB1466.namprd10.prod.outlook.com
- (2603:10b6:3:b::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR10MB1466:EE_|IA0PR10MB6722:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2cae15fe-77ef-4875-2157-08db263c8eb9
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: KRgJ/E41j5PiKV+98Jz4W0anXd7e2rzN0HdGVF9zRxm7+6H4FaAjPnXaEYhxoHnEWoUs/ee8rOPitk22J+3JU3Wd54LkveWoAKHuDlW3wXs/r7GuXzUz1puHBGqLp/O/Nyr93i4tGI4owRbnSxZSM41YH5FyAWah+MISqjejqkBkXCVHMUPQWi/H3L2B9GAM61daMeO9iWDhqO6mBclbgsqTcL+WEatm0JCD3HvYwXRpglxgo3snpplhaIQf7lt0Q4UgWddueyoCFJn3Uqlt39eLph36WHrAKSiR7zvGPRIdUGe0mIV3CpQwCodIC1QFJXV8Bege4FeRmp/UFNn3mHilxvQCY7D54KkRJ9dkQXSlC0j7nnETKlpX+7Di2pjfNECiLCCBbjF4Fyv5VXz/iYlqpqPyLrvUV1SN3AnI0pMt0w4VnhNxwH+/oCYaSLfvaViCs+F2HS7iN554S1pz7er+IOCc/IBObdUcn8FiV745ae/3ZqzrtzZM/lvVUmq+DLj/19j0O83mpNd3FyRqkWzSzY69odhQAlZYpAKTAodg8FANyifVrtYZKoXs+sBUQH5lzIm+yiFjNQ3ZGi12U6vk53+Z7diKTx3+2bEbwr+TjFrKqye7xmasr7qZysBLajEgiW/PrEPRxC3ks/5u2DwFG3lagMAIZp46wFtAS9AsVcmGf9RK1kVw354HJ6mCm9/H1Uwfy7yFBPGqE/CRT8mkJUgJcSpMfXCzWEGMhEQ=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230025)(376002)(136003)(39860400002)(396003)(366004)(346002)(451199018)(2906002)(31686004)(41300700001)(5660300002)(7416002)(66946007)(36756003)(31696002)(86362001)(66556008)(110136005)(4326008)(316002)(8936002)(83380400001)(38100700002)(478600001)(186003)(66476007)(26005)(6506007)(2616005)(8676002)(53546011)(6486002)(6512007)(45980500001)(43740500002);
- DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bkZEeHR2UEo5VFZFaUE4WkdabHBpVXpxdlZzRkFWSldERWZOdGw2MFFxbFhS?=
- =?utf-8?B?eXlvL0Y4a0dYbFdkT29IdGFBRHFoU29YTU1GdVRtZVFxVzRpOGJTUk81RHZ6?=
- =?utf-8?B?eGI1SlJLL203RG42UUpLTW50a09WcVgrN0lpMGhBZ2UyU3RTQ3lZcGdWbG1W?=
- =?utf-8?B?cGtBekwzMDhlVzJKelRTSkluRzFGT0xHcUlBQjFQZWUzTkhrOHJWT0RRb0o5?=
- =?utf-8?B?T2NFYnNrbEdXcXpLMnpzcXZzU3d2UU5aNDdyN1NrRDI2NURxRkZMRFJxQUFq?=
- =?utf-8?B?NTRZRnZKK0NkODhObWs2b1N2c1czcUt0UHYxUnpMWFVCdlU0OCtTU3lHZDhy?=
- =?utf-8?B?cC9aTFhIUnVSSmFsYnQ1Yjg2akZ4TnM2cURtVUNQTVJMYmxyN2Y1VGZja1cy?=
- =?utf-8?B?dkhtWlNFZGYreURMZUZ6WEg0ZXgwOFRmbFpJTVE0T1dCL1Bud3RSSlJQT08v?=
- =?utf-8?B?L3BybG94czczRXpFbTBadjgyR1FJQlZOclU0ZnJSRVpOcVFCYnJiaWx4dEdC?=
- =?utf-8?B?V0lYNXB0ZmtkbTlLczJzc3hlNlRPNnN6cE5pOThmdTVwbitHekIwM0RLdUJh?=
- =?utf-8?B?cDRDNG9VY3V0dUl2ZGVxcmFDMDY5OWxxbkRQRmtnRE1yQlpYaGdPOEZ2VVNG?=
- =?utf-8?B?Z21yZVNxYnoxcTZuUGtNY2hwSnNLYUdUSzNkMFFVOVV4aDlwWU9vRFdOVksw?=
- =?utf-8?B?OWxqMDIwTTNvL0pZbnp3Yk05ZWJHWUhwVDRwYnd4MmFlRHd2NHZMcnFaTFlM?=
- =?utf-8?B?Z0dIR2NDazBtcTdYNTUyakxLY0xyalIxOE95Y2Fra24xZGhFcFRVTEhKWmxC?=
- =?utf-8?B?YjNkcUlnQUdJQndGbHZmQmtnOERydGV3SUp5WDFkWWxZbk1wc3RwY2R4VUFP?=
- =?utf-8?B?c3o1N0tackFyQkgyNi8vNEdrYzV6dlF0ZkpLaUljK3FWMWJ0dWsxVXdseHJP?=
- =?utf-8?B?d3BMeVQrblE4UjFwN0tudmthSyszazJYWDJGZ04yZ09rbXl2S21IaHZjenpT?=
- =?utf-8?B?ZWk2ZXI5ZlduNHV0RjhFcFB2SWRJaG5ndlVpS3F5a0E1ZUN4NTZOSFByWnNs?=
- =?utf-8?B?MEN2ZG1BNldLN3pvNEgxQ0t6LzhoY28wdDNNUWZpd0VxMGdUUkQ4NThEcUdW?=
- =?utf-8?B?aUZlVWl6MFh1VitobkVHVkFFdEI4QTFOSVhLL2FZbkZKaG9uRkY2ZmlRU2lQ?=
- =?utf-8?B?R3QzMWlocTNaOU93aUhHTm1HMGp0c0lyMjQrTXlqQnpHcHRTNHc0cWQ1OGdx?=
- =?utf-8?B?MTZzbkM0aTY1K3U0a0c2cHQ4RXF2QWl4b3JjTVBFZS9YeFVsTXprcDZya0Vp?=
- =?utf-8?B?dXJ1MFNyOXpBVWtCYlBRL1hPNFFtUU50MHVrc3RyZUVmUXEzK3RxNlE1RGdt?=
- =?utf-8?B?eE9Wc2JKdlJocEt6UWNiNmliSllHNVBjMFA5c0VsR1lWRWN6eWMycmNZTnlZ?=
- =?utf-8?B?azBEVzdZd0JMQTkrNEpyc0hvbGoyS1hFNm5QNHZmUHhqMCtHcnExU2R0b3Yw?=
- =?utf-8?B?WU9IRndKcXZjSUJVTEJlNEdVUS82dHBNdzM2MS82NHlHRTA1UmRYUVovWG5s?=
- =?utf-8?B?QkVmV29XbzU4ZU9yTFBZT3lvZlNWaTRzM3pVbGRMbXhzMklTc085R21UMWRR?=
- =?utf-8?B?MFA4REs5a2g5WGlwS1U1T1g5cm8waXpIZjlVYlNIMWNIcFlSbWs2dU1Rck54?=
- =?utf-8?B?M3UzQXZ2eSt0OEhNbWFUYnU4RUZtZTgvaURJdXpta3RRaXAxcklHL04reitC?=
- =?utf-8?B?TG5aa0hLUFBUNndNVmRXczVpTStnRG1QUlpIb0NhZ1ZkVGNaWUllczFRKzBl?=
- =?utf-8?B?WkI0ZDRWUDIraERXWCt3ZHQva2JTVHJPN2tNWlNmQ3pGOEs5Q0MxQWFtMG1s?=
- =?utf-8?B?YkJMaUVnMHRsa0tObndlS3g3Um5UYzl3Q2x6VUlMQVNGRVhqR245eE90WTdh?=
- =?utf-8?B?b3Y4clR6S3czSXkxNXpJQk5lSTdoWm8ybjg0YldwMHdpMk9oTmtNSVRRNGIw?=
- =?utf-8?B?RDBpMkNnbUJXNCtUSHg0YlFkYXNxVEpVWEowV3IzSUd5VDJFQ2NJZ0RxZEZ5?=
- =?utf-8?B?U3p3dzM4dWJlYmx2MGQzc0JOR0E1WkVVVGhjc09QSmwzUUxBN2Y4ZTlzbmQx?=
- =?utf-8?B?ZmcrNzVpa1RISnRDMHNXTGthdHNMMlo5VmV0Vm5aMVlzR2ZReUxFS0FVTkpK?=
- =?utf-8?B?NEE9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?utf-8?B?VzV2OC9QVGtaZ0N4Rm0wTlRyTGR1b0tPelVDdVlWaXFpWDhVQzJ0MkFWdk5P?=
- =?utf-8?B?MlRmQURUcXRXK1NjazRsUmpXaDlObWJHMVpZcXJCbTRFWmtodkhTYUJuZDVP?=
- =?utf-8?B?UkRncDJDK0YySTFCQ2hnMmIyVnh6NUhLQmFwV0lpcFRHQk9hSGtpSmJBWHlG?=
- =?utf-8?B?bll2b1ppNHVXc2NCQ2Y1dGlRMDNmWnRRY3E0c1MySjd4aUErNmZNKzJUZGNR?=
- =?utf-8?B?OG1adzVCMU9rK0NiemxNWUp4TlNWcm1sNWlPWE4rV21Ca3JFZEo1eHpFVHZ0?=
- =?utf-8?B?eFVIUWJlQk1qMTRqcDJiS1MweW04Y1lZRE9HZG80V2VuK1g4Q0JjeUsza3pl?=
- =?utf-8?B?UzJNK1JhU2tVQzE0RjdZc0RDcUtoN1NUN0VQVHFaM21IUnc5T1N0NU1jUk1Q?=
- =?utf-8?B?MUNQT0FhbHNwWVg3VlFPYjdyRmpNSm9KcHYrRHpnV3l2NWRvOXlVSzhQT1ZF?=
- =?utf-8?B?Sno5eFFnWlZ2QXV6czgrdllxTklweVFuRmlZRVBxQUlOaTEvSm1SalBlSm03?=
- =?utf-8?B?UmE0ZGhXMlRPODEvc3l1M0hwUGNTcWlzdnl6KzJQemR3V0V0YnQ2QjdlT1BZ?=
- =?utf-8?B?Ulcwc3lERWt4VDVCdjBsYVJDcm1OTFBGM3BjY21UaDRZRnpxMnVscXBVRHhN?=
- =?utf-8?B?V3NkSGUxN3BZUzk3MEtxMFZ4ZTcxK1FyeWpYNTN6OERJR2VSNVRXMVBwQWY4?=
- =?utf-8?B?eFhDQ2tmdXl3SkVKMUdUYmNMWDFpWUhQMHRBTWVIRzVuMVppN2tIVTVPa1c5?=
- =?utf-8?B?Rjl4cXZPcDRicWJRUEY5ck5pYVN1dG1vdjVlQWcvazdNRzkyb2NZVVVMSXIr?=
- =?utf-8?B?ZGk0bFhaOStiaE9Da0x6cUQySURDbVFFSExORlR0cHg0cHNpY1VYaWF1ejIx?=
- =?utf-8?B?Q21hVEJqZTVCVmNNUk9EZFBIS2RmVGtGRFVCbThRZDZwNFRrcm42Njh0WWxU?=
- =?utf-8?B?RE1kdk5laXd2Rkl3azhMN1Q5NGZOWE5lL2czak1rYlFYczZjdXp6bXpZaGgy?=
- =?utf-8?B?dGxLR2JZRDAxMm5FQ1FTVitySEJrY2dpc3ZmdEJWamthb3RqN2t3eG9DR0Zz?=
- =?utf-8?B?T0p5QXYvWmFuRi9Ga1d0UTZsWmZiNGxUYVFrT3dMcUt4ZGkvUjkvM3dUUFNW?=
- =?utf-8?B?ZVFpQVRtVWViRm5WUjB4NmtkbUs2M2ZUVXlVVEV2RWFiZDVURXZMTndHNS9K?=
- =?utf-8?B?bmhqTzdFRW1nalB3cEcwSWdpbHVtTU9QY3Urdmd2T2NuRXJ1cjY5NW9xbGZ2?=
- =?utf-8?B?TDZPZDVLL1BXcXZlWWRrTzZoNU96M3NFbmxvUjNIRzNHdng2MXAwRjcyd3Zu?=
- =?utf-8?B?N2VlNlc3MzF5alRWZjBZZVc1cTNacXV0N2lSUkp4b29pNWZ1ZlFNVHpKZ1Bm?=
- =?utf-8?B?RWg2ZnJrYkRNb0J0V3YxY2N2QzVFMXJZUm9lSFM5dUlqSjVVYlZtSHc0TFFr?=
- =?utf-8?Q?kVKGtH2r?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2cae15fe-77ef-4875-2157-08db263c8eb9
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Mar 2023 16:36:14.1510 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: M/LWbydvrcN9O67dDTEglVbW6fh3gnzNBkow2ofEYcnC3hEOMVD6RBuXTRa0oDYVMjvXlTnh76hWMWYdOMT9nWk/5AjYPnzBinlEDpnHtiA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR10MB6722
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-16_10,2023-03-16_01,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 phishscore=0
- suspectscore=0 mlxscore=0
- bulkscore=0 mlxlogscore=999 malwarescore=0 spamscore=0 adultscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303150002
- definitions=main-2303160131
-X-Proofpoint-GUID: J7xblq_27tnTtfufmdtAgu43xVFFK8L6
-X-Proofpoint-ORIG-GUID: J7xblq_27tnTtfufmdtAgu43xVFFK8L6
-X-MIME-Autoconverted: from 8bit to quoted-printable by
- mx0b-00069f02.pphosted.com id 32GF9mHZ012743
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 45BC829AA3B4
+ for <dm-devel@redhat.com>; Fri, 17 Mar 2023 01:42:12 +0000 (UTC)
+Received: from mail.nfschina.com (42.101.60.237 [42.101.60.237]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-448-1OidjL5yMWiuW3BscOD07A-1; Thu,
+ 16 Mar 2023 21:42:02 -0400
+X-MC-Unique: 1OidjL5yMWiuW3BscOD07A-1
+Received: from localhost (unknown [127.0.0.1])
+ by mail.nfschina.com (Postfix) with ESMTP id 65E681A0087F;
+ Fri, 17 Mar 2023 09:36:44 +0800 (CST)
+X-Virus-Scanned: amavisd-new at nfschina.com
+Received: from mail.nfschina.com ([127.0.0.1])
+ by localhost (localhost.localdomain [127.0.0.1]) (amavisd-new, port 10024)
+ with ESMTP id TMYbAjDf1u6j; Fri, 17 Mar 2023 09:36:43 +0800 (CST)
+Received: from localhost.localdomain (unknown [180.167.10.98])
+ (Authenticated sender: yuzhe@nfschina.com)
+ by mail.nfschina.com (Postfix) with ESMTPA id 51FE01A00ADF;
+ Fri, 17 Mar 2023 09:36:42 +0800 (CST)
+From: Yu Zhe <yuzhe@nfschina.com>
+To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com,
+ keescook@chromium.org, tony.luck@intel.com, gpiccoli@igalia.com
+Date: Fri, 17 Mar 2023 09:35:54 +0800
+Message-Id: <20230317013554.20479-1-yuzhe@nfschina.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -207,8 +80,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Mon, 20 Mar 2023 05:16:58 +0000
-Subject: Re: [dm-devel] [PATCH v4 02/18] block: Rename BLK_STS_NEXUS to
- BLK_STS_RESV_CONFLICT
+Subject: [dm-devel] [PATCH] dm: remove unnecessary (void*) conversions
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -220,54 +92,404 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, chaitanyak@nvidia.com,
- bvanassche@acm.org, martin.petersen@oracle.com, snitzer@kernel.org,
- Jan Hoeppner <hoeppner@linux.ibm.com>, linux-nvme@lists.infradead.org,
- james.bottomley@hansenpartnership.com, dm-devel@redhat.com,
- target-devel@vger.kernel.org, linux-scsi@vger.kernel.org, kbusch@kernel.org
+Cc: liqiong@nfschina.com, Yu Zhe <yuzhe@nfschina.com>,
+ kernel-janitors@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-hardening@vger.kernel.org
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gMy8xNi8yMyA1OjE3IEFNLCBTdGVmYW4gSGFiZXJsYW5kIHdyb3RlOgo+IEFtIDE1LjAzLjIz
-IHVtIDE0OjMwIHNjaHJpZWIgQ2hyaXN0b3BoIEhlbGx3aWc6Cj4+IE9uIFdlZCwgTWFyIDE1LCAy
-MDIzIGF0IDExOjA0OjIyQU0gKzAxMDAsIFN0ZWZhbiBIYWJlcmxhbmQgd3JvdGU6Cj4+PiBUaGlz
-IGFsc28gZml0cyBmb3IgdGhlIERBU0QgY2FzZS4gV2UgdXNlIHRoaXMgZXJyb3IgY29kZSBmb3Ig
-YQo+Pj4gcmVzZXJ2YXRpb24vbG9ja2luZyBjb25mbGljdCBvZiB0aGUgREFTRCBkZXZpY2Ugd2hl
-biB0aGUgbG9jayB3ZQo+Pj4gcHJldmlvdXNseSBoZWxkIHdhcyBzdG9sZW4uCj4+IEJ1dCB0aGF0
-J3Mgbm90IHJlYWxseSBhIHJlc2VydmF0aW9uIGNvbmZsaWN0IGluIHRoZSBzZW5zZQo+PiBvZiB0
-aGUgcmVzZXJ2YXRpb24gQVBJLsKgIEdpdmVuIHRoYXQgREFTRCBkb2Vzbid0IHN1cHBvcnQgaXQg
-aXQKPj4gbWlnaHQgbm90IG1hdHRlci7CoCBEbyB5b3UgaGF2ZSBhcHBsaWNhdGlvbnMgdGhhdCBj
-aGVja3MgZm9yCj4+IHRoZSB0cmFuc2xhdGVkIGVycm5vIHZhbHVlP8KgIFdlJ2xsIHByb2JhYmx5
-IGF0IGxlYXN0IHdhbnQKPj4gYSBjb21tZW50IGRvY3VtZW50aW5nIHRoaXMgc3RhdHVzIGNvZGUu
-Cj4gCj4gV2VsbCwgSSBtaWdodCBjb21wbGV0ZWx5IG1pc3VuZGVyc3RhbmQgdGhlIHVzZSBjYXNl
-IGZvciB0aGlzIGVycm9yIGNvZGUuCj4gU29ycnkgaWYgdGhhdCBpcyB0aGUgY2FzZS4KPiAKPiBC
-ZXNpZGUgdGhhdCBJIHRob3VnaHQgdGhhdCB0aGUgcmV0dXJuIGNvZGVzIGFyZSBnZW5lcmljIGJs
-b2NrbGF5ZXIgcmV0dXJuIGNvZGVzCj4gYW5kIG5vdCBib3VuZCB0byBhIHNwZWNpZmljIEFQSS4g
-SSBhbSBub3QgZmFtaWxpYXIgd2l0aCB0aGUgcmVzZXJ2YXRpb24gQVBJIHlvdQo+IGFyZSB0YWxr
-aW5nIGFib3V0Lgo+IAo+IFdoYXQgSSB1bmRlcnN0b29kIGZyb20gdGhlIHJlc2VydmF0aW9uIGlu
-IE5WTWUgY29udGV4dCBpcyB0aGF0IGEgbmFtZXNwYWNlCj4gbWlnaHQgYmUgcmVzZXJ2ZWQgdG8g
-YSBob3N0LiBJZiB0aGVyZSBpcyBhIGNvbmZsaWN0IHdpdGggdGhpcyByZXNlcnZhdGlvbgo+IHRo
-aXMgZXJyb3IgY29kZSBpcyBwcm92aWRlZCBmb3IgdGhlIElPIHJlcXVlc3QuCj4gCj4gRm9yIERB
-U0RzIHdlIGhhdmUgdGhlIHBvc3NpYmlsaXR5IHRvIHJlc2VydmUgYSBkaXNrIGZvciBhIGhvc3Qu
-IElmIHRoZXJlIGlzIGEKPiBjb25mbGljdCB3aXRoIHRoaXMgcGxhdGZvcm0gc3BlY2lmaWMgcmVz
-ZXJ2YXRpb24gd2Ugd291bGQgcHJlc2VudCB0aGlzIGVycm9yCj4gZm9yIGFuIElPIHJlcXVlc3Qu
-Cj4gCj4gVGhpcyBzb3VuZGVkIHF1aXRlIHNpbWlsYXIgZm9yIG1lLgo+IAo+IEkgYW0gY29tcGxl
-dGVseSBvcGVuIHRvIHVzaW5nIGFub3RoZXIgcmV0dXJuIGNvZGUgYW5kIEkgYW0gbm90IGF3YXJl
-IG9mIGFuCj4gYXBwbGljYXRpb24gY2hlY2tpbmcgZm9yIHRoaXMgc3BlY2lmaWMgcmV0dXJuIGNv
-ZGUuCj4gCj4gSXMgdGhlcmUgYW55IHRoYXQgd291bGQgZml0IGJldHRlciBmcm9tIHlvdXIgcG9p
-bnQgb2Ygdmlldz8KPiAKCkkgdGhpbmsgd2UgYXJlIG9rIGZvciBkYXNkIHVzaW5nIEJMS19TVFNf
-UkVTVl9DT05GTElDVC4KCkl0IHRob3VnaHQgaXQgc291bmRlZCBzaW1pbGFyIHRvIFNDU0kvTlZN
-ZSBhbmQgdXNlcnNwYWNlIHdpbGwgc3RpbGwKc2VlIC1FQkFERSBiZWNhdXNlIHRoZSBibGtfc3Rh
-dHVzX3RvX2Vycm5vL2Vycm5vX3RvX2Jsa19zdGF0dXMgd2lsbApoYW5kbGUgdGhpcy4KClRoZXJl
-IHdhcyBubyBpbnRlcm5hbCBkYXNkIGNvZGUgY2hlY2tpbmcgZm9yIEJMS19TVFNfTkVYVVMuCgpU
-aGVyZSBpcyBhIHByX29wcyBBUEksIGJ1dCBkYXNkIGlzIG5vdCBob29rZWQgaW50byBpdCBzbyB3
-ZSBkb24ndApoYXZlIHRvIHdvcnJ5IGFib3V0IGJlaGF2aW9yIGNoYW5nZXMuCgotLQpkbS1kZXZl
-bCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0
-LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+Pointer variables of void * type do not require type cast.
+
+Signed-off-by: Yu Zhe <yuzhe@nfschina.com>
+---
+ drivers/md/dm-integrity.c       |  6 +++---
+ drivers/md/dm-io.c              |  4 ++--
+ drivers/md/dm-kcopyd.c          |  4 ++--
+ drivers/md/dm-linear.c          |  6 +++---
+ drivers/md/dm-log-writes.c      |  2 +-
+ drivers/md/dm-log.c             | 24 ++++++++++++------------
+ drivers/md/dm-raid1.c           | 10 +++++-----
+ drivers/md/dm-snap-persistent.c |  2 +-
+ drivers/md/dm-stripe.c          |  4 ++--
+ drivers/md/dm-verity-fec.c      |  4 ++--
+ drivers/md/dm-zoned-metadata.c  |  6 +++---
+ 11 files changed, 36 insertions(+), 36 deletions(-)
+
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index b0d5057fbdd9..2a388b5f3a95 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -3118,7 +3118,7 @@ static int dm_integrity_reboot(struct notifier_block *n, unsigned long code, voi
+ 
+ static void dm_integrity_postsuspend(struct dm_target *ti)
+ {
+-	struct dm_integrity_c *ic = (struct dm_integrity_c *)ti->private;
++	struct dm_integrity_c *ic = ti->private;
+ 	int r;
+ 
+ 	WARN_ON(unregister_reboot_notifier(&ic->reboot_notifier));
+@@ -3167,7 +3167,7 @@ static void dm_integrity_postsuspend(struct dm_target *ti)
+ 
+ static void dm_integrity_resume(struct dm_target *ti)
+ {
+-	struct dm_integrity_c *ic = (struct dm_integrity_c *)ti->private;
++	struct dm_integrity_c *ic = ti->private;
+ 	__u64 old_provided_data_sectors = le64_to_cpu(ic->sb->provided_data_sectors);
+ 	int r;
+ 
+@@ -3290,7 +3290,7 @@ static void dm_integrity_resume(struct dm_target *ti)
+ static void dm_integrity_status(struct dm_target *ti, status_type_t type,
+ 				unsigned int status_flags, char *result, unsigned int maxlen)
+ {
+-	struct dm_integrity_c *ic = (struct dm_integrity_c *)ti->private;
++	struct dm_integrity_c *ic = ti->private;
+ 	unsigned int arg_count;
+ 	size_t sz = 0;
+ 
+diff --git a/drivers/md/dm-io.c b/drivers/md/dm-io.c
+index dc2df76999b0..f053ce245814 100644
+--- a/drivers/md/dm-io.c
++++ b/drivers/md/dm-io.c
+@@ -187,7 +187,7 @@ static void list_get_page(struct dpages *dp,
+ 		  struct page **p, unsigned long *len, unsigned int *offset)
+ {
+ 	unsigned int o = dp->context_u;
+-	struct page_list *pl = (struct page_list *) dp->context_ptr;
++	struct page_list *pl = dp->context_ptr;
+ 
+ 	*p = pl->page;
+ 	*len = PAGE_SIZE - o;
+@@ -196,7 +196,7 @@ static void list_get_page(struct dpages *dp,
+ 
+ static void list_next_page(struct dpages *dp)
+ {
+-	struct page_list *pl = (struct page_list *) dp->context_ptr;
++	struct page_list *pl = dp->context_ptr;
+ 
+ 	dp->context_ptr = pl->next;
+ 	dp->context_u = 0;
+diff --git a/drivers/md/dm-kcopyd.c b/drivers/md/dm-kcopyd.c
+index a158c6e5fbd7..d01807c50f20 100644
+--- a/drivers/md/dm-kcopyd.c
++++ b/drivers/md/dm-kcopyd.c
+@@ -519,7 +519,7 @@ static int run_complete_job(struct kcopyd_job *job)
+ 
+ static void complete_io(unsigned long error, void *context)
+ {
+-	struct kcopyd_job *job = (struct kcopyd_job *) context;
++	struct kcopyd_job *job = context;
+ 	struct dm_kcopyd_client *kc = job->kc;
+ 
+ 	io_job_finish(kc->throttle);
+@@ -696,7 +696,7 @@ static void segment_complete(int read_err, unsigned long write_err,
+ 	/* FIXME: tidy this function */
+ 	sector_t progress = 0;
+ 	sector_t count = 0;
+-	struct kcopyd_job *sub_job = (struct kcopyd_job *) context;
++	struct kcopyd_job *sub_job = context;
+ 	struct kcopyd_job *job = sub_job->master_job;
+ 	struct dm_kcopyd_client *kc = job->kc;
+ 
+diff --git a/drivers/md/dm-linear.c b/drivers/md/dm-linear.c
+index 3e622dcc9dbd..f4448d520ee9 100644
+--- a/drivers/md/dm-linear.c
++++ b/drivers/md/dm-linear.c
+@@ -72,7 +72,7 @@ static int linear_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ static void linear_dtr(struct dm_target *ti)
+ {
+-	struct linear_c *lc = (struct linear_c *) ti->private;
++	struct linear_c *lc = ti->private;
+ 
+ 	dm_put_device(ti, lc->dev);
+ 	kfree(lc);
+@@ -98,7 +98,7 @@ static int linear_map(struct dm_target *ti, struct bio *bio)
+ static void linear_status(struct dm_target *ti, status_type_t type,
+ 			  unsigned int status_flags, char *result, unsigned int maxlen)
+ {
+-	struct linear_c *lc = (struct linear_c *) ti->private;
++	struct linear_c *lc = ti->private;
+ 	size_t sz = 0;
+ 
+ 	switch (type) {
+@@ -120,7 +120,7 @@ static void linear_status(struct dm_target *ti, status_type_t type,
+ 
+ static int linear_prepare_ioctl(struct dm_target *ti, struct block_device **bdev)
+ {
+-	struct linear_c *lc = (struct linear_c *) ti->private;
++	struct linear_c *lc = ti->private;
+ 	struct dm_dev *dev = lc->dev;
+ 
+ 	*bdev = dev->bdev;
+diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
+index cbd0f81f4a35..eba9c5c869aa 100644
+--- a/drivers/md/dm-log-writes.c
++++ b/drivers/md/dm-log-writes.c
+@@ -429,7 +429,7 @@ static inline sector_t logdev_last_sector(struct log_writes_c *lc)
+ 
+ static int log_writes_kthread(void *arg)
+ {
+-	struct log_writes_c *lc = (struct log_writes_c *)arg;
++	struct log_writes_c *lc = arg;
+ 	sector_t sector = 0;
+ 
+ 	while (!kthread_should_stop()) {
+diff --git a/drivers/md/dm-log.c b/drivers/md/dm-log.c
+index afd94d2e7295..f9f84236dfcd 100644
+--- a/drivers/md/dm-log.c
++++ b/drivers/md/dm-log.c
+@@ -530,7 +530,7 @@ static void destroy_log_context(struct log_c *lc)
+ 
+ static void core_dtr(struct dm_dirty_log *log)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	vfree(lc->clean_bits);
+ 	destroy_log_context(lc);
+@@ -569,7 +569,7 @@ static int disk_ctr(struct dm_dirty_log *log, struct dm_target *ti,
+ 
+ static void disk_dtr(struct dm_dirty_log *log)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	dm_put_device(lc->ti, lc->log_dev);
+ 	vfree(lc->disk_header);
+@@ -590,7 +590,7 @@ static int disk_resume(struct dm_dirty_log *log)
+ {
+ 	int r;
+ 	unsigned int i;
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 	size_t size = lc->bitset_uint32_count * sizeof(uint32_t);
+ 
+ 	/* read the disk header */
+@@ -652,14 +652,14 @@ static int disk_resume(struct dm_dirty_log *log)
+ 
+ static uint32_t core_get_region_size(struct dm_dirty_log *log)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	return lc->region_size;
+ }
+ 
+ static int core_resume(struct dm_dirty_log *log)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	lc->sync_search = 0;
+ 	return 0;
+@@ -667,14 +667,14 @@ static int core_resume(struct dm_dirty_log *log)
+ 
+ static int core_is_clean(struct dm_dirty_log *log, region_t region)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	return log_test_bit(lc->clean_bits, region);
+ }
+ 
+ static int core_in_sync(struct dm_dirty_log *log, region_t region, int block)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	return log_test_bit(lc->sync_bits, region);
+ }
+@@ -727,14 +727,14 @@ static int disk_flush(struct dm_dirty_log *log)
+ 
+ static void core_mark_region(struct dm_dirty_log *log, region_t region)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	log_clear_bit(lc, lc->clean_bits, region);
+ }
+ 
+ static void core_clear_region(struct dm_dirty_log *log, region_t region)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	if (likely(!lc->flush_failed))
+ 		log_set_bit(lc, lc->clean_bits, region);
+@@ -742,7 +742,7 @@ static void core_clear_region(struct dm_dirty_log *log, region_t region)
+ 
+ static int core_get_resync_work(struct dm_dirty_log *log, region_t *region)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	if (lc->sync_search >= lc->region_count)
+ 		return 0;
+@@ -765,7 +765,7 @@ static int core_get_resync_work(struct dm_dirty_log *log, region_t *region)
+ static void core_set_region_sync(struct dm_dirty_log *log, region_t region,
+ 				 int in_sync)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	log_clear_bit(lc, lc->recovering_bits, region);
+ 	if (in_sync) {
+@@ -779,7 +779,7 @@ static void core_set_region_sync(struct dm_dirty_log *log, region_t region,
+ 
+ static region_t core_get_sync_count(struct dm_dirty_log *log)
+ {
+-	struct log_c *lc = (struct log_c *) log->context;
++	struct log_c *lc = log->context;
+ 
+ 	return lc->sync_count;
+ }
+diff --git a/drivers/md/dm-raid1.c b/drivers/md/dm-raid1.c
+index bc417a5e5b89..83c7cbb1107b 100644
+--- a/drivers/md/dm-raid1.c
++++ b/drivers/md/dm-raid1.c
+@@ -604,7 +604,7 @@ static void do_reads(struct mirror_set *ms, struct bio_list *reads)
+ static void write_callback(unsigned long error, void *context)
+ {
+ 	unsigned int i;
+-	struct bio *bio = (struct bio *) context;
++	struct bio *bio = context;
+ 	struct mirror_set *ms;
+ 	int should_wake = 0;
+ 	unsigned long flags;
+@@ -1180,7 +1180,7 @@ static int mirror_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 
+ static void mirror_dtr(struct dm_target *ti)
+ {
+-	struct mirror_set *ms = (struct mirror_set *) ti->private;
++	struct mirror_set *ms = ti->private;
+ 
+ 	del_timer_sync(&ms->timer);
+ 	flush_workqueue(ms->kmirrord_wq);
+@@ -1246,7 +1246,7 @@ static int mirror_end_io(struct dm_target *ti, struct bio *bio,
+ 		blk_status_t *error)
+ {
+ 	int rw = bio_data_dir(bio);
+-	struct mirror_set *ms = (struct mirror_set *) ti->private;
++	struct mirror_set *ms = ti->private;
+ 	struct mirror *m = NULL;
+ 	struct dm_bio_details *bd = NULL;
+ 	struct dm_raid1_bio_record *bio_record =
+@@ -1311,7 +1311,7 @@ static int mirror_end_io(struct dm_target *ti, struct bio *bio,
+ 
+ static void mirror_presuspend(struct dm_target *ti)
+ {
+-	struct mirror_set *ms = (struct mirror_set *) ti->private;
++	struct mirror_set *ms = ti->private;
+ 	struct dm_dirty_log *log = dm_rh_dirty_log(ms->rh);
+ 
+ 	struct bio_list holds;
+@@ -1407,7 +1407,7 @@ static void mirror_status(struct dm_target *ti, status_type_t type,
+ {
+ 	unsigned int m, sz = 0;
+ 	int num_feature_args = 0;
+-	struct mirror_set *ms = (struct mirror_set *) ti->private;
++	struct mirror_set *ms = ti->private;
+ 	struct dm_dirty_log *log = dm_rh_dirty_log(ms->rh);
+ 	char buffer[MAX_NR_MIRRORS + 1];
+ 
+diff --git a/drivers/md/dm-snap-persistent.c b/drivers/md/dm-snap-persistent.c
+index f14e5df27874..15649921f2a9 100644
+--- a/drivers/md/dm-snap-persistent.c
++++ b/drivers/md/dm-snap-persistent.c
+@@ -567,7 +567,7 @@ static int read_exceptions(struct pstore *ps,
+ 
+ static struct pstore *get_info(struct dm_exception_store *store)
+ {
+-	return (struct pstore *) store->context;
++	return store->context;
+ }
+ 
+ static void persistent_usage(struct dm_exception_store *store,
+diff --git a/drivers/md/dm-stripe.c b/drivers/md/dm-stripe.c
+index 8d6951157106..e2854a3cbd28 100644
+--- a/drivers/md/dm-stripe.c
++++ b/drivers/md/dm-stripe.c
+@@ -189,7 +189,7 @@ static int stripe_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ static void stripe_dtr(struct dm_target *ti)
+ {
+ 	unsigned int i;
+-	struct stripe_c *sc = (struct stripe_c *) ti->private;
++	struct stripe_c *sc = ti->private;
+ 
+ 	for (i = 0; i < sc->stripes; i++)
+ 		dm_put_device(ti, sc->stripe[i].dev);
+@@ -360,7 +360,7 @@ static size_t stripe_dax_recovery_write(struct dm_target *ti, pgoff_t pgoff,
+ static void stripe_status(struct dm_target *ti, status_type_t type,
+ 			  unsigned int status_flags, char *result, unsigned int maxlen)
+ {
+-	struct stripe_c *sc = (struct stripe_c *) ti->private;
++	struct stripe_c *sc = ti->private;
+ 	unsigned int sz = 0;
+ 	unsigned int i;
+ 
+diff --git a/drivers/md/dm-verity-fec.c b/drivers/md/dm-verity-fec.c
+index 962fc32c947c..a9ee2faa75a2 100644
+--- a/drivers/md/dm-verity-fec.c
++++ b/drivers/md/dm-verity-fec.c
+@@ -567,14 +567,14 @@ void verity_fec_dtr(struct dm_verity *v)
+ 
+ static void *fec_rs_alloc(gfp_t gfp_mask, void *pool_data)
+ {
+-	struct dm_verity *v = (struct dm_verity *)pool_data;
++	struct dm_verity *v = pool_data;
+ 
+ 	return init_rs_gfp(8, 0x11d, 0, 1, v->fec->roots, gfp_mask);
+ }
+ 
+ static void fec_rs_free(void *element, void *pool_data)
+ {
+-	struct rs_control *rs = (struct rs_control *)element;
++	struct rs_control *rs = element;
+ 
+ 	if (rs)
+ 		free_rs(rs);
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index cf9402064aba..8f0896a6990b 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -1701,7 +1701,7 @@ static int dmz_load_mapping(struct dmz_metadata *zmd)
+ 			if (IS_ERR(dmap_mblk))
+ 				return PTR_ERR(dmap_mblk);
+ 			zmd->map_mblk[i] = dmap_mblk;
+-			dmap = (struct dmz_map *) dmap_mblk->data;
++			dmap = dmap_mblk->data;
+ 			i++;
+ 			e = 0;
+ 		}
+@@ -1832,7 +1832,7 @@ static void dmz_set_chunk_mapping(struct dmz_metadata *zmd, unsigned int chunk,
+ 				  unsigned int dzone_id, unsigned int bzone_id)
+ {
+ 	struct dmz_mblock *dmap_mblk = zmd->map_mblk[chunk >> DMZ_MAP_ENTRIES_SHIFT];
+-	struct dmz_map *dmap = (struct dmz_map *) dmap_mblk->data;
++	struct dmz_map *dmap = dmap_mblk->data;
+ 	int map_idx = chunk & DMZ_MAP_ENTRIES_MASK;
+ 
+ 	dmap[map_idx].dzone_id = cpu_to_le32(dzone_id);
+@@ -2045,7 +2045,7 @@ struct dm_zone *dmz_get_chunk_mapping(struct dmz_metadata *zmd,
+ 				      unsigned int chunk, enum req_op op)
+ {
+ 	struct dmz_mblock *dmap_mblk = zmd->map_mblk[chunk >> DMZ_MAP_ENTRIES_SHIFT];
+-	struct dmz_map *dmap = (struct dmz_map *) dmap_mblk->data;
++	struct dmz_map *dmap = dmap_mblk->data;
+ 	int dmap_idx = chunk & DMZ_MAP_ENTRIES_MASK;
+ 	unsigned int dzone_id;
+ 	struct dm_zone *dzone = NULL;
+-- 
+2.11.0
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
