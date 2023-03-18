@@ -1,243 +1,129 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A1F86C09F1
-	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:17:19 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8CDD26C09F3
+	for <lists+dm-devel@lfdr.de>; Mon, 20 Mar 2023 06:17:20 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679289438;
+	s=mimecast20190719; t=1679289439;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VEJmepF6Tn4cCXHmqlhTPDPyVvIi0QgiQLXIqQvsXgQ=;
-	b=O3ixY5KJ9fnHG9BThbB2a8+LokS8EW52qc++Be95fS0TFJWwCHk9soqq5Fyh9TDBPPCaJa
-	BPgkAdYTHhk4+T9B8G/BcqLf6klBMqw6S9QSsBkVdJQyPKDSJon/W12rRd9PP+0lAH16Wy
-	M3Mr7GcWp6AtFi5Ug6RrkbpbFfeDcIs=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Zx4LcuK34n6TjIdvsLRN/lBn6hOQY69wtOIQWpRSVHw=;
+	b=gDa2/GIY2SnTNp6jc87r/oFDyBqCf5Z78O/znM28DoB/bEw9udglHsfIrur3d3CgUNV16Q
+	MnvuidQKNeeOBl59YbfVNaekcn1E49WJxtzKoLqMe4OACAOmkJ/P3itG1CMeI7oGPmFa9m
+	BWU2oEymvwU0lLcLxKa/N7+xIr/8IPE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-562-FpR3XQXiPLSAHpDcQKYIrA-1; Mon, 20 Mar 2023 01:17:16 -0400
-X-MC-Unique: FpR3XQXiPLSAHpDcQKYIrA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-379-81OCwOuHOB2zcsrQAKg9SQ-1; Mon, 20 Mar 2023 01:17:17 -0400
+X-MC-Unique: 81OCwOuHOB2zcsrQAKg9SQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39C5529AB3F3;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39FBA858297;
 	Mon, 20 Mar 2023 05:17:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 57B1F477F7E;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6734540C6E68;
 	Mon, 20 Mar 2023 05:17:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BE3F819472C8;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E877619472D2;
 	Mon, 20 Mar 2023 05:16:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3F3F01946587
- for <dm-devel@listman.corp.redhat.com>; Fri, 17 Mar 2023 08:01:47 +0000 (UTC)
+ ESMTP id DB6581946595
+ for <dm-devel@listman.corp.redhat.com>; Sat, 18 Mar 2023 13:17:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D86DE2027047; Fri, 17 Mar 2023 08:01:46 +0000 (UTC)
+ id 9F2E0140E960; Sat, 18 Mar 2023 13:17:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CFB362027046
- for <dm-devel@redhat.com>; Fri, 17 Mar 2023 08:01:46 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 96742140EBF4
+ for <dm-devel@redhat.com>; Sat, 18 Mar 2023 13:17:08 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC2DB811E7E
- for <dm-devel@redhat.com>; Fri, 17 Mar 2023 08:01:46 +0000 (UTC)
-Received: from mail-edgeKA27.fraunhofer.de (mail-edgeka27.fraunhofer.de
- [153.96.1.27]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609-6QCiaonPPdeOQbI28M8_UQ-1; Fri, 17 Mar 2023 04:01:42 -0400
-X-MC-Unique: 6QCiaonPPdeOQbI28M8_UQ-1
-X-IPAS-Result: =?us-ascii?q?A2FOCAA1HRRk/x0BYJlQCh4BAQsSDECDfYJPhFORAS4Dn?=
- =?us-ascii?q?CaCUQMYPg8BAQEBAQEBAQEHAQFEBAEBAwSEfgKFNiY4EwECAQMBAQEBAwIDA?=
- =?us-ascii?q?QEBAQEBAwEBBgEBAQEBAQYEAgKBGYUvOQ2DVk07AQEBAQEBAQEBAQEBAQEBA?=
- =?us-ascii?q?QEBAQEBAQEBAQEBAQEBAQEBAQEBBQKBCE4BAQEBAgEjBAsBDQEBNwEPCxgCA?=
- =?us-ascii?q?iYCAjIlBg0BBQIBAYJ6gikDDiOyAHp/M4EBgggBAQacVRiBHYEeCQkBgQosg?=
- =?us-ascii?q?0yNaIJPgTwPgQaBNzc+gQUBgxEtFYNDgmeZAgqBNHaBIA6BPYEEAgkCEWuBE?=
- =?us-ascii?q?ghrgX1BAg1lCw52gUwCgVolBA4DGSsdQAIBCzs6PzUJCyFeawItERMFAwsVK?=
- =?us-ascii?q?kcECDkGGzQRAggPEg8GJkMOQjc0EwZcASkLDhEDT4FHBC9cgQEGASYknGogg?=
- =?us-ascii?q?Q4xgVBzHpJFAYMai1KiDAeCKIFVoHEGDwQulxaSKZdqp3ECBAIEBQIOCIF5g?=
- =?us-ascii?q?X8zPoM2UhkPjiAMCwuDUI96dAI5AgcBCgEBAwmCOYQShHgBAQ?=
-IronPort-PHdr: A9a23:wKuoBR04ZvW943jlsmDO+QUyDhhOgF2JFhBAs8lvgudUaa3m5JTrZ
- hGBtr1m2UXEWYzL5v4DkefSurDtVT9lg96N5X4YeYFKVxgLhN9QmAolAcWfDlb8IuKsZCs/T
- 4xZAURo+3ywLU9PQoPwfVTPpH214zMIXxL5MAt+POPuHYDOys+w0rPXmdXTNitSgz/vTbpuI
- UeNsA/Tu8IK065vMb04xRaMg1caUONQ2W5uORevjg7xtOKR2bMmzSlKoPMm8ZxwFIDBOokoR
- rxRCjsrdls44sHmrzDvZguC7XhPNwdemBodWDrp9B7DTqrzuCahpMNchi25MffNZIsVa2zh6
- 5pmVTjk0RYqL2IG+1Hat5kj6cATqke4rRtczr/tXq2eO/wmfqX8Id8xSGtiUNRPXiFbGZ6tT
- LcSJusaMbhahoispH8NkCSuLDa2O8bXzDJDvXP1wPMa4dUYDz3Hhyh7PvkkoWb9ru/lM7kZb
- e6T1oLu6A7zZMlygQbj1bDhTQAz+8vRQOMudcjR1EkGTTvGj0yiiaPeMRWl/NUhjDjAtuhGC
- /2vim8LoBlwpQqI5cAzmobujJgH52HY8Qx1x74OH8btGwZrJN++F51IsDuGcpF7Wd4mXzRws
- T0hmdXu2La+dSkOjZkryBP8QqbYNYaS6w/lVOGfLC0+iH82ML68hhPn6UG70aW8Tci71l9Ws
- zBI2sfBrHED1hHfq4CHR/Jx813n2GOn2Rra9+dEJk45j+zcLZsgyaQ3jZ0drQLIGSqepQ==
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="5.98,268,1673910000"; d="scan'208";a="50838543"
-Received: from mail-mtaka29.fraunhofer.de ([153.96.1.29])
- by mail-edgeKA27.fraunhofer.de with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2023 09:00:34 +0100
-IronPort-SDR: 64141e1e_3Nl5rKR4SHTN1yg7J41ulNu7W6eEkP8Q59y3mZxM8zzeqac
- zS/lT4WXqFDQoxHxb8K5MJg7dpLfRYzkVJiHUvw==
-X-IPAS-Result: =?us-ascii?q?A0DoCAA1HRRk/3+zYZlQChwBAQEBAQEHAQESAQEEBAEBQ?=
- =?us-ascii?q?AkcgSqBXFIHgUYqWIRSg00BAYUvhg2CJAM5m22CUQNWDwEDAQEBAQEHAQFEB?=
- =?us-ascii?q?AEBhQUChTMCJjgTAQIBAQIBAQEBAwIDAQEBAQEBAwEBBQEBAQIBAQYEgQoTh?=
- =?us-ascii?q?WgNhlUBAQEBAgESEQQLAQ0BARQjAQ8LGAICJgICMgceBg0BBQIBAR6CXIIpA?=
- =?us-ascii?q?w4jAgEBphsBgT8Cih96fzOBAYIIAQEGBAScTRiBHYEeCQkBgQosg0yNaIJPg?=
- =?us-ascii?q?TwPgQaBNzc+gQUBgxEtg1iCZ5kCCoE0doEgDoE9gQQCCQIRa4ESCGuBfUECD?=
- =?us-ascii?q?WULDnaBTAKBWiUEDgMZKx1AAgELOzo/NQkLIV5rAi0REwUDCxUqRwQIOQYbN?=
- =?us-ascii?q?BECCA8SDwYmQw5CNzQTBlwBKQsOEQNPgUcEL1yBAQYBJiScaiCBDjGBUHMek?=
- =?us-ascii?q?kUBgxqLUqIMB4IogVWgcQYPBC6XFpIpl2qncQIEAgQFAg4BAQaBeSWBWTM+g?=
- =?us-ascii?q?zZPAxkPjiAMCwuDUI96QjICOQIHAQoBAQMJgjmEEoR4AQE?=
-IronPort-PHdr: A9a23:XmK96hRwx6fHEHjvvkwkf4fLu9psovKeAWYlg6HP9ppQJ/3wt523J
- lfWoO5thQWUA9aT4Kdehu7fo63sHnYN5Z+RvXxRFf4EW0oLk8wLmQwnDsOfT0r9Kf/hdSshG
- 8peElRi+iLzKh1OFcLzbEHVuCf34yQbBxP/MgR4PKHyHIvThN6wzOe859jYZAAb4Vj1YeZcN
- hKz/ynYqsREupZoKKs61knsr2BTcutbgEJEd3mUmQrx4Nv1wI97/nZ1mtcMsvBNS777eKJqf
- fl9N3ELI2s17cvkuFz4QA2D62E1fk4WnxFLUG2npBv6C8zDnjP1j/pA2iOXZt/fbO4wejiY1
- I5QaS2wyyM6OiMe/Djmp9Qss6lrrS/09Hkdi4SBeYuSF/dPR53xdtwcHWpHf5pdfCFAIY2uc
- YICFfEcLMVksqD8vFdQrzK/VAqIB97Q2hZ3nEDT5as32N8tEhyY/D4RJswysS/w9/TeHrYAe
- OKP3K7WxgnNSel9/xLG2IPyVkgQv8y0dI1gY5DrlFR+SQfHjkiQgNbdPDKM5MQiiGa938BRe
- d3/0DcljV9uojmu6sw0i477oaES1UDL0i9j0qsEOdmRRElDWuS/RcgYp2SbLYxwWsQ4XyRyt
- T0nzqFToZegZ3tiIPUPwhfeb7mCb4Gry0iyEuiLKCp+hHVrdaj5ixvhuUSjy+ipTsCvyx4Kt
- StKlNDQq2oAnwLe8MmJS/Zxvw+h1D+D2hqV67RsL1o9iKzbLJAs2Pg3kJ8Sul7EBSj4hAP9i
- 6r+Sw==
-IronPort-Data: A9a23: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
-IronPort-HdrOrdr: A9a23:33RYVa5vn9Zja603pAPXwNbXdLJyesId70hD6qkXc203TiX4ra
- CTdZsgpHrJYVoqNE3I+urgBEDjex7hHPdOiOF7V4tKNzOJhILHFu5fBcCL+UyDJxHD
-X-IronPort-Anti-Spam-Filtered: true
-X-IronPort-AV: E=Sophos;i="5.98,268,1673910000"; d="scan'208";a="44483565"
-Received: from 153-97-179-127.vm.c.fraunhofer.de (HELO
- smtp.exch.fraunhofer.de) ([153.97.179.127])
- by mail-mtaKA29.fraunhofer.de with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 17 Mar 2023 09:00:29 +0100
-Received: from XCH-HYBRID-04.ads.fraunhofer.de (10.225.9.46) by
- XCH-HYBRID-04.ads.fraunhofer.de (10.225.9.46) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25; Fri, 17 Mar 2023 09:00:29 +0100
-Received: from DEU01-BE0-obe.outbound.protection.outlook.com (104.47.7.170) by
- XCH-HYBRID-04.ads.fraunhofer.de (10.225.9.46) with Microsoft SMTP
- Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.25 via Frontend Transport; Fri, 17 Mar 2023 09:00:29 +0100
-Received: from BEZP281MB2791.DEUP281.PROD.OUTLOOK.COM (2603:10a6:b10:50::14)
- by FR3P281MB1804.DEUP281.PROD.OUTLOOK.COM (2603:10a6:d10:6d::8) with
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70BE885A588
+ for <dm-devel@redhat.com>; Sat, 18 Mar 2023 13:17:08 +0000 (UTC)
+Received: from APC01-TYZ-obe.outbound.protection.outlook.com
+ (mail-tyzapc01on2105.outbound.protection.outlook.com [40.107.117.105]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-55-QKF6JpzfN8GDefprSv2snA-1; Sat, 18 Mar 2023 09:16:52 -0400
+X-MC-Unique: QKF6JpzfN8GDefprSv2snA-1
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com (2603:1096:101:78::6)
+ by SI2PR06MB5386.apcprd06.prod.outlook.com (2603:1096:4:1ed::8) with
  Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.35; Fri, 17 Mar
- 2023 08:00:28 +0000
-Received: from BEZP281MB2791.DEUP281.PROD.OUTLOOK.COM
- ([fe80::695e:eca6:9177:29bc]) by BEZP281MB2791.DEUP281.PROD.OUTLOOK.COM
- ([fe80::695e:eca6:9177:29bc%7]) with mapi id 15.20.6178.035; Fri, 17 Mar 2023
- 08:00:28 +0000
-Message-ID: <1f58acef-1e93-ed7a-3ad8-dd0927dacddc@aisec.fraunhofer.de>
-Date: Fri, 17 Mar 2023 09:00:25 +0100
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.6.0
-To: Mike Snitzer <snitzer@kernel.org>
-References: <20230301113415.47664-1-michael.weiss@aisec.fraunhofer.de>
- <CAHC9VhQ_zvTqck4A7HvqH2rcwxuato_9nVWMk_Yf=ip3q9omgA@mail.gmail.com>
-From: =?UTF-8?Q?Michael_Wei=c3=9f?= <michael.weiss@aisec.fraunhofer.de>
-In-Reply-To: <CAHC9VhQ_zvTqck4A7HvqH2rcwxuato_9nVWMk_Yf=ip3q9omgA@mail.gmail.com>
-X-ClientProxiedBy: FR2P281CA0183.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:d10:9f::19) To BEZP281MB2791.DEUP281.PROD.OUTLOOK.COM
- (2603:10a6:b10:50::14)
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.30; Sat, 18 Mar
+ 2023 13:16:44 +0000
+Received: from SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::daf6:5ebb:a93f:1869]) by SEZPR06MB5269.apcprd06.prod.outlook.com
+ ([fe80::daf6:5ebb:a93f:1869%9]) with mapi id 15.20.6178.036; Sat, 18 Mar 2023
+ 13:16:44 +0000
+From: Yangtao Li <frank.li@vivo.com>
+To: agk@redhat.com,
+	snitzer@kernel.org
+Date: Sat, 18 Mar 2023 21:16:33 +0800
+Message-ID: <20230318131633.41573-1-frank.li@vivo.com>
+X-ClientProxiedBy: SGBP274CA0007.SGPP274.PROD.OUTLOOK.COM (2603:1096:4:b0::19)
+ To SEZPR06MB5269.apcprd06.prod.outlook.com
+ (2603:1096:101:78::6)
 MIME-Version: 1.0
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BEZP281MB2791:EE_|FR3P281MB1804:EE_
-X-MS-Office365-Filtering-Correlation-Id: 69afe9ff-beb2-414e-841c-08db26bdac09
-X-LD-Processed: f930300c-c97d-4019-be03-add650a171c4,ExtAddr
+X-MS-TrafficTypeDiagnostic: SEZPR06MB5269:EE_|SI2PR06MB5386:EE_
+X-MS-Office365-Filtering-Correlation-Id: 3f4d19cf-3fca-4516-8d19-08db27b304ec
 X-MS-Exchange-SenderADCheck: 1
 X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: V9aOcJSqrCHiiVkppXDoFEBjdwz17yZYoybWsQU4oUc0bLXRbMqVhmNoUlEbuo5sI3Xy58R4/eS+SOkl2tKMYdnYn83EnfhVRLKKi4KFA9ZREZP1jbKvm6a94OTh9AT2oT8OrH3cBXyMsH0z2Ssg+QbM1ACTJJeSQVJjQUvg0rZBZTlSkvSeZpPWTG2xUZEH2/h4AZb2OBRp0bj8K6ZmhoOZ/tu54RRpIchUzzmz/vvv+Kj5xy3TL4JrX37xisqG1qWdoYBE0A7KX3pR9n2XWkpFZ5bdv8F0+Le5MginHTQA0dSK4KpPNSFMDaq5/aZWZ3kM2XHep07jMcP/F3m/DAQQHZipF8hKLfNU3FduZWGSyxiIgGHphacvdBfS52j+IrQKQVBQZQpiavBz4aiyVu1tbFyZJH+bJ/SR1mk6FMv7m7AnBI+KeC4uRGBXkAVbXhb4GjJYg/LXiGyfRomQkfUqX1sZuSvn8KYrlF0XkQ7AKcmTJr2FcVsxZlBcNUqfhrS3AN8hQsZDkdXqG1QiD19+/vT9thkpqil0B82Dah+MZuZrUE3/6ONCVjZsUc8KJ+3EpUjrzBTD3bxckaoQWwTYpybeLq8uiG6BD35zNIi7Crb7r3EvhrYgrU4JhPfceoC3xa6TwSCx+A0pB+aV5IuHyyJ/FTjYrrcLrlgTXe/5s2MTGTSbSLdtSA7fBceFCRk+uXE8yfLA0Vs+U93LEpmJe8tx9G4iGXQsupOEeOM=
+X-Microsoft-Antispam-Message-Info: qAqsaE/pbXhUiWvKLRkT5ZHX67rSQyu+Z9YLm+EiAoZoo8Tk2TpnYif1/ZN2sJh7IhBkGD1kir8ZV2vP067BrGg/I8QdoYuRgx28tNY6AoHgrjoGEgwf/8gEN7NgYM24c2U1lsVsKsP/laupkaeRop8pgqMdGDkZG17BrEioj+2xlYZUwSum3sx7aqvUl2YpeMYSdpXQTBuXPUfNGDvpwsK/q0pcsmhJDZrgs9VT5jok+zpOui8b0PngcjvxbPXC/M/d55W+hNzHIXM7F6afMppgk/bYm6tWDv+PAsD1hl8YRBYY/DR5D+zftHWvkpOvzgyZcXwBGRYIBBpA3Fy1Z4aEXlsVPRAcQY4imPSsC+zWhmhIce4tMmFl/fxVhpOswPU9YAQ9Khykrj3yxE2CwpotvX/b9FRNyCrrLQcomp1eBgLEs2a+8XQHffx9YcXnGDw94sMDSchwb5o1jw3WWtZY5gH4VEa9nIu74HbNa1KbPNIgpeNCqGgbaFo0OjFRgzQXN9DQNrexOjS2wI3Qur8GJ/ZsOJlOz+XTiqkkPkw/j7Oe0dNiJsB7PNTjcpJ3X0UwFUCmZzQnHHIiizYIAW120Yy0LQ/5Rh8yW3SdZkMsBWSTNDsTudHi4GhbgLk7lTiHUbhglIpoKFkX6CZKB5GgrZaadhVErLyOJrZcobqapXapEaaEHSdhgG3sYmRy74NmSryKrk9ccIB1ti2iXQ==
 X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:BEZP281MB2791.DEUP281.PROD.OUTLOOK.COM; PTR:; CAT:NONE;
- SFS:(13230025)(376002)(136003)(346002)(39860400002)(366004)(396003)(451199018)(6512007)(6506007)(186003)(53546011)(83380400001)(31696002)(86362001)(82960400001)(38100700002)(2616005)(4326008)(66946007)(66476007)(8676002)(66556008)(316002)(54906003)(8936002)(5660300002)(31686004)(2906002)(41300700001)(6916009)(6486002)(6666004)(478600001)(43740500002)(45980500001);
+ IPV:NLI; SFV:NSPM; H:SEZPR06MB5269.apcprd06.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230025)(4636009)(366004)(136003)(346002)(376002)(39860400002)(396003)(451199018)(186003)(2616005)(6486002)(83380400001)(316002)(6666004)(52116002)(107886003)(26005)(6506007)(478600001)(6512007)(1076003)(66476007)(2906002)(38100700002)(36756003)(86362001)(4326008)(38350700002)(5660300002)(30864003)(8676002)(66556008)(8936002)(41300700001)(66946007);
  DIR:OUT; SFP:1102
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SWdVbFlzNnR1ZW1hZ0ZqQWsyS0p1Tm1pWElmZDZLckxURXdwaDgyN0g2UHd5?=
- =?utf-8?B?NjVoRWdONWhVWnY3N3ZmNEVNbWJWUmdKNW5HQWxOMDJmM3Vmc3UvTW5hUFVi?=
- =?utf-8?B?allkcWhkQ0Z0Y0lxSytHNkZucC92d1ZpUkJESkRHQmJoT2YyVlVmODlET1N3?=
- =?utf-8?B?dTdnbzlSWUxVbTAvOHFYMHlvcU4xNGgxR3F6RnJyM081K1RybkYzTy9xelZv?=
- =?utf-8?B?Y3RXM0tYUlUyNmNXOUxWVy9SbTNOaW5rZ3JFRzJWVVU2cW9JVmMvVno5czc5?=
- =?utf-8?B?ZTZuaHU4b2F6cGJwMFFpaEl5UHBzK0JRVllXV2wxbSt2RW5xT2hrOGVYUVlK?=
- =?utf-8?B?WlR2cExIQjlQa3MxQkRPSUNtVkQ3L1ZteDQ5OWNaa3hXZmRQbkZTVHE1WXA0?=
- =?utf-8?B?NDRFWHNweW96N2ZqWHJMaUZRVHV5OWZzZkxDNzZ6ZGNSKzJkemNCTUJwbW1X?=
- =?utf-8?B?dU5ob1BmWUdXL0xFMWlYQjJGeUN6YlVwdFp4Zm5vL0dlVVQxTXRUa1AwQk4y?=
- =?utf-8?B?UmhvdVMwN1FpY0F1ZWdic0dteHNpNVZwbWVjQzVGZkRTb1hHY2NUSkRXZ1Ra?=
- =?utf-8?B?anAzRXJpcEhGM3VsWncvREVtdXhxOEFwN01WcmpmWHdVZ3VGR2FhcGcwNXIv?=
- =?utf-8?B?ZjRjZkt5N0VvRzZzT2JIRWFXOWVMWVlkTjFwSU14S1FJVUhaK2E5NG1Qamp6?=
- =?utf-8?B?NWdTalhtVVdod3plMVlrMm9icyt1SEpraVhuck9oQ29JNEYrZFpvU1ZCMEw5?=
- =?utf-8?B?OCt1TXEvMFJpdmd2SGx0K3Z0OHEzSXlpSy9uL0h6eGhaWHdzOUtiL3pKRCtx?=
- =?utf-8?B?ejVidHBMOFRQUHlSaGZyelBuNDFrOTZQWFg2K2dvYzdtVVV2Rk1tSzJaTG9F?=
- =?utf-8?B?Qzg3bTN4cjdPcTVOdnkyNi9RL0hQSGZKOGJyV3lKV2ZDa3JUZi9NSndKQXJm?=
- =?utf-8?B?UElqS0VVbWhDcUdBdkVndlN0UWlVeHFyS3RZWXNYOWpjR2N4cG50a2g2ei9l?=
- =?utf-8?B?cEpXMHZBS1g4M3lHSFoyd0NVZlpRVTdGbk4zVmpIQUZrZlEwZjBUeERPOUlj?=
- =?utf-8?B?V1MrN2ViNnZwY2ZhSzJHNVoyM2ZvcGxKV0lPL0UvRXd0QkdKM01GbmdvY1dV?=
- =?utf-8?B?S3BvMGNHZGJZVmRSbW5tSnMvSTlPV0NpNllYeDlqSmlSNFNuN0FRNVVwMTRw?=
- =?utf-8?B?N2tFWTRKMHd1ZDQzc0J1NzczeU9RVWcyWnpZNTNEeHFWNjJhbVU5dmxpajZi?=
- =?utf-8?B?SWdFcTBtYjRtd2x3RXYvaFZ5QmkyNjk4QUFPaG0yYXJnV1FPUWY3QTg0UGZo?=
- =?utf-8?B?Rk1VS21JSitKS0loUWxiQndVVmVxS3lxa3lYZ3B3bFlUdWNRMTdqcGN3alpu?=
- =?utf-8?B?RllrMmxUOEgwZldHUkxTM2Yrd0lka3k5Z2R1K1hQcGFQUk5WN2pBS294TjBy?=
- =?utf-8?B?R2ttN1crR2ZGL1BhWGhhd2JuVkFXN2w3bkRCdVU3NlpTS0NuK2FzOVBrWkZw?=
- =?utf-8?B?L0wybkhzaC9NSUZDZG0rOGNJZ3ZrVklCc1MyUFo3Snk4ZDRlOHo1aTJSR1ZF?=
- =?utf-8?B?VllBUFRva2hKcnFSd2I0TnVsUDd4cW5xT0t5T08wZ2d0VkM2WDBQNmcrMVRt?=
- =?utf-8?B?NFZIWDFYMFRoVEM1Tklzd0gyQWROTEZYdEhubitNZjFLMitueVBQOXNLa0xR?=
- =?utf-8?B?MXpNcjJHcFlrMjFXUVlyTTRYUWhBUmhUeHFTblZLbWZQMlF2SDhncVFSZGd1?=
- =?utf-8?B?bXN5THFWZmJEZGVNRG5WaWhFKzlKNWZmREgvemVXbFhLT3N6dlRXSmtXamxZ?=
- =?utf-8?B?RkRRNDlKRXZxQnpIYkdXR0hvL2dCUEJqaWRDcGJOSXZ0N1NlKzRXanBiUE5l?=
- =?utf-8?B?RTJyN0d3QTZ6bjVoWGlWbmUwWU9NZGlaY25GbVR5eGpGVjdweWJBN1FoTG5W?=
- =?utf-8?B?VTRsS3Y2emZhU09sQmEzTGZHSmFsL24vVW5VTVArc0hqL3hldmR2Sk5FY1hp?=
- =?utf-8?B?ek4xSFkxanhUbzdJcENhcmszNmQ3UlZMUzhtUTFEMUdVNzlaLzlySWNManhD?=
- =?utf-8?B?NlJFeXZNYzZwaFdNVThEZ3NXcmNIaGQ1YllTSTN6NVFRSG9LRE9tQ2RZbjRi?=
- =?utf-8?B?UkFOSXluNFZ4dlZORTNDQmxNakZ1Nyt2WHRCWHRUTTVqYkVrQXRQblErYUpo?=
- =?utf-8?B?SDdsZWY0ODlmV3VQVTVJWGU2ZkdyQmRkb2lwL09DVDEvVTh2YkVxekJRQk0r?=
- =?utf-8?Q?J47gBYwCgrFEApkk98LOFVxs71hIT0U0fCPAuq4/bI=3D?=
-X-MS-Exchange-CrossTenant-Network-Message-Id: 69afe9ff-beb2-414e-841c-08db26bdac09
-X-MS-Exchange-CrossTenant-AuthSource: BEZP281MB2791.DEUP281.PROD.OUTLOOK.COM
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?tmXI8JfGVVQ6WD4Yc460RRB8hZmg8t8dlo5mF3wZ4sofywUUa0PkJdu+1hxd?=
+ =?us-ascii?Q?cQliwa1kzKB+PdHuXoz7BjG+p7/OZXcyy1/UnZz8ALGn/UQD7DANeWzduoT/?=
+ =?us-ascii?Q?QbCTWIqdX6ZxwfT6DS59NBiqdu+hcc5prIqNo0206mjOrHvp++heuAzfEYjb?=
+ =?us-ascii?Q?QNShA10kVvJ+TrwSrpc3nA+9UxdoGbEMykz8O5JRF8MPeNqEJJ/D009Hswwp?=
+ =?us-ascii?Q?Wy/uOIfoFFJBdHTIGBREYZjiNlCaIoryzdGuwn5ZJHWExInX27O5e6nYiTtw?=
+ =?us-ascii?Q?IXrYJGvDEGdvk9NNUKFTINtsVjEUlKpYDgufCj+sOg+AU0VlcPmJCcb5MUpj?=
+ =?us-ascii?Q?TT/9AP/TzsXExWMQJg4lEBybAO6VUk820CUbhqBpUAVfDVx6WCujQSGUH9xz?=
+ =?us-ascii?Q?oTIhH9BtUCy2gNTq39g8uyQjSrKczt5HfBvnldnl/zWcRNWrIlSvpstoNVQR?=
+ =?us-ascii?Q?KOElkz2PdYJwNZTbaQ67clIhZd+od08lj1I8C6wsQkkpR9TSnWIqfYIUhRYp?=
+ =?us-ascii?Q?+WachwOUyCwVgKxJkfhnG00/iWmbcNmI3dcTzxhu3nQThj3XgFjj/it/izZC?=
+ =?us-ascii?Q?WfWQgjS/KW2FshSo/ZsKkcWd1OM/TW8rUM3pkyNYoZHvEcjc16Yg6OAI9n2c?=
+ =?us-ascii?Q?TqxN1gwuyxFprZTGGh3cjdSVzMvHESmguvoZsCi1BCkNE8QkbTxAlARBpB0U?=
+ =?us-ascii?Q?Cgn+0m9WDvu7yE01AJfu/jtpcozvpCiTYWLy2JjjA6dVqe5AckG5Txr7L4be?=
+ =?us-ascii?Q?mbs4tly+y1pIix8IfeDmMIIMA5E2bIcDMU6qKpEi2uqas2lI2rQCY4T6XchD?=
+ =?us-ascii?Q?ANHUshrG8UYfF3V2nXPQZelUWhTZK4Z3aI8QpWFzvMqUPVwf+qbomXGYujMv?=
+ =?us-ascii?Q?LBl18t6fX0mfXOZpe9BpVWyWCI1V/6AS7VDd27oeNpRzpVbTAPUP66X5kCLc?=
+ =?us-ascii?Q?Fgsay8PL+QfXNECSC2u4GkqDljcJH0cFCOw7fkwJVyVV2WcPL22C3070MD6E?=
+ =?us-ascii?Q?8ckEtVv6lkfw5A2MJBExW6jZygmozqFfp0YoYhzlCwPQsYq5rZKrC3h/SKg+?=
+ =?us-ascii?Q?fVW3qBqRkDUcavfCfKgvR6ucP3DINoNA6HJfUHDygCWbxf+0nbrH69O9bGu7?=
+ =?us-ascii?Q?iQLxcQo17NO687WfzOj99aPND+E53XkvQoYp5EBYHR6vx4aqhqePkY/M1wtI?=
+ =?us-ascii?Q?xkG9QKCONv4sH05pnrMrdV00ijPJtSNB3ihiiPkbeffrT1nH/+TrqeWtKqFe?=
+ =?us-ascii?Q?deoULiAiZfAyIefgs/Zkw/NCo8DD5twacvRaZ8Dblbgxk5Wc2ha0ZhB6nxsA?=
+ =?us-ascii?Q?3b6ssLScN8c6qVavn7TEAgg2VJ8DvvIjrLVaCtxg81Li0iKgoLmCKYqOJxsA?=
+ =?us-ascii?Q?UDmqDpZKxSpqMI3+eqchdb99tGxYV9bWtjYcQ0VI3fRhBTXJb7C4jbMDuf7H?=
+ =?us-ascii?Q?3i4SLs/apnuY3mp08I3ccegpYGLI5UPTVxUUlknQVONHVgCs7Lcq5ygrN1/M?=
+ =?us-ascii?Q?begnarTNQIRitqn7xrQPLyIbSD8TncCGXPYVdGNQ80ONEP2TBcqdhUMzZOGG?=
+ =?us-ascii?Q?Aersx5K7w/x4p4gMjrIyxfUKhF/W3aGtfrqmmeuk?=
+X-OriginatorOrg: vivo.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 3f4d19cf-3fca-4516-8d19-08db27b304ec
+X-MS-Exchange-CrossTenant-AuthSource: SEZPR06MB5269.apcprd06.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Mar 2023 08:00:28.1286 (UTC)
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Mar 2023 13:16:44.1109 (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: f930300c-c97d-4019-be03-add650a171c4
+X-MS-Exchange-CrossTenant-Id: 923e42dc-48d5-4cbe-b582-1a797a6412ed
 X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: ug2blbcfFa855mSLEE80g7R5gwU3SJ+g0MOokuZFBCnfwUV0wIdQuP7AWb0yFUhlUMdizEP0KbL3LO0/0QPFs8fGHc8RIQja+TV2n4jd9fF8XIGXdVKtYGOfkZTGgI9u
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: FR3P281MB1804
-X-OriginatorOrg: aisec.fraunhofer.de
+X-MS-Exchange-CrossTenant-UserPrincipalName: 3l33nG1w4Jq/pDQ/zewB2WOnR/FGkR9FuBSVphL6NfPvaySsqg6JSg/7gisMZakMwFuJlbZuEC83kLpwf9ZNSg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SI2PR06MB5386
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -245,10 +131,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 20 Mar 2023 05:16:58 +0000
-Subject: Re: [dm-devel] [PATCH] dm verity: log audit events for dm-verity
- target
+Subject: [dm-devel] [PATCH] dm: Add error information printing for
+ dm_register_target()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -260,120 +146,434 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Paul Moore <paul@paul-moore.com>, gyroidos@aisec.fraunhofer.de,
- Richard Guy Briggs <rgb@redhat.com>, open list <linux-kernel@vger.kernel.org>,
- Eric Paris <eparis@redhat.com>,
- "open list:AUDIT SUBSYSTEM" <audit@vger.kernel.org>,
- "maintainer:DEVICE-MAPPER \(LVM\)" <dm-devel@redhat.com>,
- Mikulas Patocka <mpatocka@redhat.com>, Alasdair Kergon <agk@redhat.com>
+Cc: dm-devel@redhat.com, linux-kernel@vger.kernel.org,
+ Yangtao Li <frank.li@vivo.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
-Content-Language: en-US
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gMDIuMDMuMjMgMDM6MjUsIFBhdWwgTW9vcmUgd3JvdGU6Cj4gT24gV2VkLCBNYXIgMSwgMjAy
-MyBhdCA2OjM04oCvQU0gTWljaGFlbCBXZWnDnwo+IDxtaWNoYWVsLndlaXNzQGFpc2VjLmZyYXVu
-aG9mZXIuZGU+IHdyb3RlOgo+Pgo+PiBkbS12ZXJpdHkgc2lnbmFscyBpbnRlZ3JpdHkgdmlvbGF0
-aW9ucyBieSByZXR1cm5pbmcgSS9PIGVycm9ycwo+PiB0byB1c2VyIHNwYWNlLiBUbyBpZGVudGlm
-eSBpbnRlZ3JpdHkgdmlvbGF0aW9ucyBieSBhIGNvbnRyb2xsaW5nCj4+IGluc3RhbmNlLCB0aGUg
-a2VybmVsIGF1ZGl0IHN1YnN5c3RlbSBjYW4gYmUgdXNlZCB0byBlbWl0IGF1ZGl0Cj4+IGV2ZW50
-cyB0byB1c2VyIHNwYWNlLiBBbmFsb2dvdXMgdG8gZG0taW50ZWdyaXR5LCB3ZSBhbHNvIHVzZSB0
-aGUKPj4gZG0tYXVkaXQgc3VibW9kdWxlIGFsbG93aW5nIHRvIGVtaXQgYXVkaXQgZXZlbnRzIG9u
-IHZlcmlmaWNhdGlvbgo+PiBmYWlsdXJlcyBvZiBtZXRhZGF0YSBhbmQgZGF0YSBibG9ja3MgYXMg
-d2VsbCBhcyBpZiBtYXggY29ycnVwdGVkCj4+IGVycm9ycyBhcmUgcmVhY2hlZC4KPj4KPj4gVGhl
-IGNvbnN0cnVjdGlvbiBhbmQgZGVzdHJ1Y3Rpb24gb2YgdmVyaXR5IGRldmljZSBtYXBwaW5ncyBh
-cmUKPj4gYWxzbyByZWxldmFudCBmb3IgYXVkaXRpbmcgYSBzeXN0ZW0uIFRodXMsIHRob3NlIGV2
-ZW50cyBhcmUgYWxzbwo+PiBsb2dnZWQgYXMgYXVkaXQgZXZlbnRzLgo+Pgo+PiBXZSB0ZXN0ZWQg
-dGhpcyBieSBzdGFydGluZyBhIGNvbnRhaW5lciB3aXRoIHRoZSBjb250YWluZXIgbWFuYWdlcgo+
-PiAoY21sZCkgb2YgR3lyb2lkT1Mgd2hpY2ggdXNlcyBhIGRtLXZlcml0eSBwcm90ZWN0ZWQgcm9v
-dGZzIGltYWdlCj4+IHJvb3QuaW1nIG1hcHBlZCB0byAvZGV2L21hcHBlci88dXVpZD4tcm9vdC4g
-V2UgdGhhbiBtYW5pcHVsYXRlZAo+PiBvbmUgYmxvY2sgaW4gdGhlIHVuZGVybHlpbmcgaW1hZ2Ug
-ZmlsZSBhbmQgcmVhZGluZyBpdCBmcm9tIHRoZQo+PiBwcm90ZWN0ZWQgbWFwcGVyIGRldmljZSBh
-Z2FpbiBhbmQgYWdhaW4gdW50aWwgd2UgcmVhY2ggdGhlIG1heAo+PiBjb3JydXB0ZWQgZXJyb3Jz
-IGxpa2UgdGhpczoKPj4KPj4gICBkZCBpZj0vZGV2L3VyYW5kb20gb2Y9cm9vdC5pbWcgYnM9NTEy
-IGNvdW50PTEgc2Vlaz0xMDAwCj4+ICAgZm9yIGkgaW4gcmFuZ2UgezEuLjEwMX07IGRvIFwKPj4g
-ICAgIGRkIGlmPS9kZXYvbWFwcGVyLzx1dWlkPi1yb290IG9mPS9kZXYvbnVsbCBicz00MDk2IFwK
-Pj4gICAgICAgIGNvdW50PTEgc2tpcD0xMDAwIFwKPj4gICBkb25lCj4+Cj4+IFRoZSByZXN1bHRp
-bmcgYXVkaXQgbG9nIGxvb2tzIGFzIGZvbGxvd3M6Cj4+Cj4+ICAgdHlwZT1ETV9DVFJMIG1zZz1h
-dWRpdCgxNjc3NjE4NzkxLjg3Njo5NjIpOgo+PiAgICAgbW9kdWxlPXZlcml0eSBvcD1jdHIgcHBp
-ZD00ODc2IHBpZD0yOTEwMiBhdWlkPTAgdWlkPTAgZ2lkPTAKPj4gICAgIGV1aWQ9MCBzdWlkPTAg
-ZnN1aWQ9MCBlZ2lkPTAgc2dpZD0wIGZzZ2lkPTAgdHR5PShub25lKSBzZXM9NDQKPj4gICAgIGNv
-bW09ImNtbGQiIGV4ZT0iL3Vzci9zYmluL2NtbC9jbWxkIiBzdWJqPXVuY29uZmluZWQKPj4gICAg
-IGRldj0yNTQ6MyBlcnJvcl9tc2c9J3N1Y2Nlc3MnIHJlcz0xCj4+Cj4+ICAgdHlwZT1ETV9FVkVO
-VCBtc2c9YXVkaXQoMTY3NzYxOTQ2My43ODY6MTA3NCk6IG1vZHVsZT12ZXJpdHkKPj4gICAgIG9w
-PXZlcmlmeS1kYXRhIGRldj03OjAgc2VjdG9yPTEwMDAgcmVzPTAKPj4gICAuLi4KPj4gICB0eXBl
-PURNX0VWRU5UIG1zZz1hdWRpdCgxNjc3NjE5NTk2LjcyNzoxMTYyKTogbW9kdWxlPXZlcml0eQo+
-PiAgICAgb3A9dmVyaWZ5LWRhdGEgZGV2PTc6MCBzZWN0b3I9MTAwMCByZXM9MAo+Pgo+PiAgIHR5
-cGU9RE1fRVZFTlQgbXNnPWF1ZGl0KDE2Nzc2MTk1OTYuNzMxOjExNjMpOiBtb2R1bGU9dmVyaXR5
-Cj4+ICAgICBvcD1tYXgtY29ycnVwdGVkLWVycm9ycyBkZXY9MjU0OjMgc2VjdG9yPT8gcmVzPTAK
-Pj4KPj4gU2lnbmVkLW9mZi1ieTogTWljaGFlbCBXZWnDnyA8bWljaGFlbC53ZWlzc0BhaXNlYy5m
-cmF1bmhvZmVyLmRlPgo+PiAtLS0KPj4gIGRyaXZlcnMvbWQvZG0tdmVyaXR5LXRhcmdldC5jIHwg
-MjAgKysrKysrKysrKysrKysrKysrLS0KPj4gIDEgZmlsZSBjaGFuZ2VkLCAxOCBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQo+IAo+IFRoaXMgbG9va3MgcmVhc29uYWJsZSB0byBtZSBmcm9t
-IGFuIGF1ZGl0IHBlcnNwZWN0aXZlLgo+IAo+IEFja2VkLWJ5OiBQYXVsIE1vb3JlIDxwYXVsQHBh
-dWwtbW9vcmUuY29tPgoKSGkgTWlrZSwgc2luY2UgUGF1bCBhbHJlYWR5IGdhdmUgaGlzIGFjayBm
-cm9tIGF1ZGl0IHBlcnNwZWN0aXZlLApkbyB5b3UgcGljayB0aGlzIHVwPyBPciBpcyB0aGVyZSBh
-bnl0aGluZyB3aGljaCBJIGNhbiBpbXByb3ZlIGZyb20gZGV2aWNlCm1hcHBlciBzaWRlPwoKVGhh
-bngsCk1pY2hhZWwKCj4gCj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJn
-ZXQuYyBiL2RyaXZlcnMvbWQvZG0tdmVyaXR5LXRhcmdldC5jCj4+IGluZGV4IGFkZTgzZWYzYjQz
-OS4uOGJlZWI0ZWE2NmQxIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJn
-ZXQuYwo+PiArKysgYi9kcml2ZXJzL21kL2RtLXZlcml0eS10YXJnZXQuYwo+PiBAQCAtMTYsNiAr
-MTYsNyBAQAo+PiAgI2luY2x1ZGUgImRtLXZlcml0eS5oIgo+PiAgI2luY2x1ZGUgImRtLXZlcml0
-eS1mZWMuaCIKPj4gICNpbmNsdWRlICJkbS12ZXJpdHktdmVyaWZ5LXNpZy5oIgo+PiArI2luY2x1
-ZGUgImRtLWF1ZGl0LmgiCj4+ICAjaW5jbHVkZSA8bGludXgvbW9kdWxlLmg+Cj4+ICAjaW5jbHVk
-ZSA8bGludXgvcmVib290Lmg+Cj4+ICAjaW5jbHVkZSA8bGludXgvc2NhdHRlcmxpc3QuaD4KPj4g
-QEAgLTI0OCw4ICsyNDksMTAgQEAgc3RhdGljIGludCB2ZXJpdHlfaGFuZGxlX2VycihzdHJ1Y3Qg
-ZG1fdmVyaXR5ICp2LCBlbnVtIHZlcml0eV9ibG9ja190eXBlIHR5cGUsCj4+ICAgICAgICAgRE1F
-UlJfTElNSVQoIiVzOiAlcyBibG9jayAlbGx1IGlzIGNvcnJ1cHRlZCIsIHYtPmRhdGFfZGV2LT5u
-YW1lLAo+PiAgICAgICAgICAgICAgICAgICAgIHR5cGVfc3RyLCBibG9jayk7Cj4+Cj4+IC0gICAg
-ICAgaWYgKHYtPmNvcnJ1cHRlZF9lcnJzID09IERNX1ZFUklUWV9NQVhfQ09SUlVQVEVEX0VSUlMp
-Cj4+ICsgICAgICAgaWYgKHYtPmNvcnJ1cHRlZF9lcnJzID09IERNX1ZFUklUWV9NQVhfQ09SUlVQ
-VEVEX0VSUlMpIHsKPj4gICAgICAgICAgICAgICAgIERNRVJSKCIlczogcmVhY2hlZCBtYXhpbXVt
-IGVycm9ycyIsIHYtPmRhdGFfZGV2LT5uYW1lKTsKPj4gKyAgICAgICAgICAgICAgIGRtX2F1ZGl0
-X2xvZ190YXJnZXQoRE1fTVNHX1BSRUZJWCwgIm1heC1jb3JydXB0ZWQtZXJyb3JzIiwgdi0+dGks
-IDApOwo+PiArICAgICAgIH0KPj4KPj4gICAgICAgICBzbnByaW50Zih2ZXJpdHlfZW52LCBETV9W
-RVJJVFlfRU5WX0xFTkdUSCwgIiVzPSVkLCVsbHUiLAo+PiAgICAgICAgICAgICAgICAgRE1fVkVS
-SVRZX0VOVl9WQVJfTkFNRSwgdHlwZSwgYmxvY2spOwo+PiBAQCAtMzQwLDYgKzM0MywxMSBAQCBz
-dGF0aWMgaW50IHZlcml0eV92ZXJpZnlfbGV2ZWwoc3RydWN0IGRtX3Zlcml0eSAqdiwgc3RydWN0
-IGRtX3Zlcml0eV9pbyAqaW8sCj4+ICAgICAgICAgICAgICAgICBlbHNlIGlmICh2ZXJpdHlfaGFu
-ZGxlX2Vycih2LAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-RE1fVkVSSVRZX0JMT0NLX1RZUEVfTUVUQURBVEEsCj4+ICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICBoYXNoX2Jsb2NrKSkgewo+PiArICAgICAgICAgICAgICAgICAg
-ICAgICBzdHJ1Y3QgYmlvICpiaW8gPQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IGRtX2Jpb19mcm9tX3Blcl9iaW9fZGF0YShpbywKPj4gKyAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgdi0+dGktPnBlcl9pb19kYXRhX3NpemUp
-Owo+PiArICAgICAgICAgICAgICAgICAgICAgICBkbV9hdWRpdF9sb2dfYmlvKERNX01TR19QUkVG
-SVgsICJ2ZXJpZnktbWV0YWRhdGEiLCBiaW8sCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgYmxvY2ssIDApOwo+PiAgICAgICAgICAgICAgICAgICAgICAgICByID0g
-LUVJTzsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgZ290byByZWxlYXNlX3JldF9yOwo+PiAg
-ICAgICAgICAgICAgICAgfQo+PiBAQCAtNTkwLDggKzU5OCwxMSBAQCBzdGF0aWMgaW50IHZlcml0
-eV92ZXJpZnlfaW8oc3RydWN0IGRtX3Zlcml0eV9pbyAqaW8pCj4+ICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgcmV0dXJuIC1FSU87Cj4+ICAgICAgICAgICAgICAgICAgICAgICAgIH0K
-Pj4gICAgICAgICAgICAgICAgICAgICAgICAgaWYgKHZlcml0eV9oYW5kbGVfZXJyKHYsIERNX1ZF
-UklUWV9CTE9DS19UWVBFX0RBVEEsCj4+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBjdXJfYmxvY2spKQo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAgY3VyX2Jsb2NrKSkgewo+PiArICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgIGRtX2F1ZGl0X2xvZ19iaW8oRE1fTVNHX1BSRUZJWCwgInZlcmlmeS1kYXRhIiwK
-Pj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIGJpbywg
-Y3VyX2Jsb2NrLCAwKTsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4g
-LUVJTzsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgfQo+PiAgICAgICAgICAgICAgICAgfQo+
-PiAgICAgICAgIH0KPj4KPj4gQEAgLTk3NSw2ICs5ODYsOCBAQCBzdGF0aWMgdm9pZCB2ZXJpdHlf
-ZHRyKHN0cnVjdCBkbV90YXJnZXQgKnRpKQo+PiAgICAgICAgICAgICAgICAgc3RhdGljX2JyYW5j
-aF9kZWMoJnVzZV90YXNrbGV0X2VuYWJsZWQpOwo+Pgo+PiAgICAgICAgIGtmcmVlKHYpOwo+PiAr
-Cj4+ICsgICAgICAgZG1fYXVkaXRfbG9nX2R0cihETV9NU0dfUFJFRklYLCB0aSwgMSk7Cj4+ICB9
-Cj4+Cj4+ICBzdGF0aWMgaW50IHZlcml0eV9hbGxvY19tb3N0X29uY2Uoc3RydWN0IGRtX3Zlcml0
-eSAqdikKPj4gQEAgLTE0MjksMTEgKzE0NDIsMTQgQEAgc3RhdGljIGludCB2ZXJpdHlfY3RyKHN0
-cnVjdCBkbV90YXJnZXQgKnRpLCB1bnNpZ25lZCBpbnQgYXJnYywgY2hhciAqKmFyZ3YpCj4+Cj4+
-ICAgICAgICAgdmVyaXR5X3ZlcmlmeV9zaWdfb3B0c19jbGVhbnVwKCZ2ZXJpZnlfYXJncyk7Cj4+
-Cj4+ICsgICAgICAgZG1fYXVkaXRfbG9nX2N0cihETV9NU0dfUFJFRklYLCB0aSwgMSk7Cj4+ICsK
-Pj4gICAgICAgICByZXR1cm4gMDsKPj4KPj4gIGJhZDoKPj4KPj4gICAgICAgICB2ZXJpdHlfdmVy
-aWZ5X3NpZ19vcHRzX2NsZWFudXAoJnZlcmlmeV9hcmdzKTsKPj4gKyAgICAgICBkbV9hdWRpdF9s
-b2dfY3RyKERNX01TR19QUkVGSVgsIHRpLCAwKTsKPj4gICAgICAgICB2ZXJpdHlfZHRyKHRpKTsK
-Pj4KPj4gICAgICAgICByZXR1cm4gcjsKPj4gLS0KPj4gMi4zMC4yCj4gCgotLQpkbS1kZXZlbCBt
-YWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNv
-bS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+Ensure that all error handling branches print error information. In this
+way, when this function fails, the upper-layer functions can directly
+return an error code without missing debugging information. Otherwise,
+the error message will be printed redundantly or missing. BTW, remove
+redundant printing information.
+
+Signed-off-by: Yangtao Li <frank.li@vivo.com>
+---
+ drivers/md/dm-cache-target.c  |  7 ++-----
+ drivers/md/dm-clone-target.c  | 10 +---------
+ drivers/md/dm-crypt.c         |  8 +-------
+ drivers/md/dm-delay.c         | 13 +------------
+ drivers/md/dm-dust.c          |  7 +------
+ drivers/md/dm-ebs-target.c    |  7 +------
+ drivers/md/dm-era-target.c    | 10 +---------
+ drivers/md/dm-flakey.c        |  7 +------
+ drivers/md/dm-integrity.c     |  9 +--------
+ drivers/md/dm-log-writes.c    |  7 +------
+ drivers/md/dm-mpath.c         |  5 +----
+ drivers/md/dm-raid1.c         | 16 ++++++----------
+ drivers/md/dm-snap.c          | 12 +++---------
+ drivers/md/dm-switch.c        |  8 +-------
+ drivers/md/dm-target.c        |  7 ++++---
+ drivers/md/dm-verity-target.c |  8 +-------
+ drivers/md/dm-writecache.c    | 10 +---------
+ drivers/md/dm-zero.c          |  7 +------
+ 18 files changed, 29 insertions(+), 129 deletions(-)
+
+diff --git a/drivers/md/dm-cache-target.c b/drivers/md/dm-cache-target.c
+index dbbcfa580078..dba2d85105f5 100644
+--- a/drivers/md/dm-cache-target.c
++++ b/drivers/md/dm-cache-target.c
+@@ -3458,13 +3458,10 @@ static int __init dm_cache_init(void)
+ 		return -ENOMEM;
+ 
+ 	r = dm_register_target(&cache_target);
+-	if (r) {
+-		DMERR("cache target registration failed: %d", r);
++	if (r)
+ 		kmem_cache_destroy(migration_cache);
+-		return r;
+-	}
+ 
+-	return 0;
++	return r;
+ }
+ 
+ static void __exit dm_cache_exit(void)
+diff --git a/drivers/md/dm-clone-target.c b/drivers/md/dm-clone-target.c
+index f38a27604c7a..cb0078a7201c 100644
+--- a/drivers/md/dm-clone-target.c
++++ b/drivers/md/dm-clone-target.c
+@@ -2196,19 +2196,11 @@ static struct target_type clone_target = {
+ /* Module functions */
+ static int __init dm_clone_init(void)
+ {
+-	int r;
+-
+ 	_hydration_cache = KMEM_CACHE(dm_clone_region_hydration, 0);
+ 	if (!_hydration_cache)
+ 		return -ENOMEM;
+ 
+-	r = dm_register_target(&clone_target);
+-	if (r < 0) {
+-		DMERR("Failed to register clone target");
+-		return r;
+-	}
+-
+-	return 0;
++	return dm_register_target(&clone_target);
+ }
+ 
+ static void __exit dm_clone_exit(void)
+diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
+index 3ba53dc3cc3f..52615a258e13 100644
+--- a/drivers/md/dm-crypt.c
++++ b/drivers/md/dm-crypt.c
+@@ -3662,13 +3662,7 @@ static struct target_type crypt_target = {
+ 
+ static int __init dm_crypt_init(void)
+ {
+-	int r;
+-
+-	r = dm_register_target(&crypt_target);
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&crypt_target);
+ }
+ 
+ static void __exit dm_crypt_exit(void)
+diff --git a/drivers/md/dm-delay.c b/drivers/md/dm-delay.c
+index a425046f88c7..00d18b2070a5 100644
+--- a/drivers/md/dm-delay.c
++++ b/drivers/md/dm-delay.c
+@@ -370,18 +370,7 @@ static struct target_type delay_target = {
+ 
+ static int __init dm_delay_init(void)
+ {
+-	int r;
+-
+-	r = dm_register_target(&delay_target);
+-	if (r < 0) {
+-		DMERR("register failed %d", r);
+-		goto bad_register;
+-	}
+-
+-	return 0;
+-
+-bad_register:
+-	return r;
++	return dm_register_target(&delay_target);
+ }
+ 
+ static void __exit dm_delay_exit(void)
+diff --git a/drivers/md/dm-dust.c b/drivers/md/dm-dust.c
+index 7ae9936752de..9bf3cdf548de 100644
+--- a/drivers/md/dm-dust.c
++++ b/drivers/md/dm-dust.c
+@@ -573,12 +573,7 @@ static struct target_type dust_target = {
+ 
+ static int __init dm_dust_init(void)
+ {
+-	int r = dm_register_target(&dust_target);
+-
+-	if (r < 0)
+-		DMERR("dm_register_target failed %d", r);
+-
+-	return r;
++	return dm_register_target(&dust_target);
+ }
+ 
+ static void __exit dm_dust_exit(void)
+diff --git a/drivers/md/dm-ebs-target.c b/drivers/md/dm-ebs-target.c
+index b1068a68bc46..38da4de3ecbf 100644
+--- a/drivers/md/dm-ebs-target.c
++++ b/drivers/md/dm-ebs-target.c
+@@ -455,12 +455,7 @@ static struct target_type ebs_target = {
+ 
+ static int __init dm_ebs_init(void)
+ {
+-	int r = dm_register_target(&ebs_target);
+-
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&ebs_target);
+ }
+ 
+ static void dm_ebs_exit(void)
+diff --git a/drivers/md/dm-era-target.c b/drivers/md/dm-era-target.c
+index c2e7780cdd2d..554d234fca18 100644
+--- a/drivers/md/dm-era-target.c
++++ b/drivers/md/dm-era-target.c
+@@ -1756,15 +1756,7 @@ static struct target_type era_target = {
+ 
+ static int __init dm_era_init(void)
+ {
+-	int r;
+-
+-	r = dm_register_target(&era_target);
+-	if (r) {
+-		DMERR("era target registration failed: %d", r);
+-		return r;
+-	}
+-
+-	return 0;
++	return dm_register_target(&era_target);
+ }
+ 
+ static void __exit dm_era_exit(void)
+diff --git a/drivers/md/dm-flakey.c b/drivers/md/dm-flakey.c
+index 5b7556d2a9d9..14179355e6a1 100644
+--- a/drivers/md/dm-flakey.c
++++ b/drivers/md/dm-flakey.c
+@@ -509,12 +509,7 @@ static struct target_type flakey_target = {
+ 
+ static int __init dm_flakey_init(void)
+ {
+-	int r = dm_register_target(&flakey_target);
+-
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&flakey_target);
+ }
+ 
+ static void __exit dm_flakey_exit(void)
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index b0d5057fbdd9..b99c3f98412b 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -4693,8 +4693,6 @@ static struct target_type integrity_target = {
+ 
+ static int __init dm_integrity_init(void)
+ {
+-	int r;
+-
+ 	journal_io_cache = kmem_cache_create("integrity_journal_io",
+ 					     sizeof(struct journal_io), 0, 0, NULL);
+ 	if (!journal_io_cache) {
+@@ -4702,12 +4700,7 @@ static int __init dm_integrity_init(void)
+ 		return -ENOMEM;
+ 	}
+ 
+-	r = dm_register_target(&integrity_target);
+-
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&integrity_target);
+ }
+ 
+ static void __exit dm_integrity_exit(void)
+diff --git a/drivers/md/dm-log-writes.c b/drivers/md/dm-log-writes.c
+index cbd0f81f4a35..0ce9b01d1393 100644
+--- a/drivers/md/dm-log-writes.c
++++ b/drivers/md/dm-log-writes.c
+@@ -940,12 +940,7 @@ static struct target_type log_writes_target = {
+ 
+ static int __init dm_log_writes_init(void)
+ {
+-	int r = dm_register_target(&log_writes_target);
+-
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&log_writes_target);
+ }
+ 
+ static void __exit dm_log_writes_exit(void)
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index 61ab1a8d2c9c..bea3cda9938e 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -2235,11 +2235,8 @@ static int __init dm_multipath_init(void)
+ 	}
+ 
+ 	r = dm_register_target(&multipath_target);
+-	if (r < 0) {
+-		DMERR("request-based register failed %d", r);
+-		r = -EINVAL;
++	if (r < 0)
+ 		goto bad_register_target;
+-	}
+ 
+ 	return 0;
+ 
+diff --git a/drivers/md/dm-raid1.c b/drivers/md/dm-raid1.c
+index bc417a5e5b89..82430b8dedfa 100644
+--- a/drivers/md/dm-raid1.c
++++ b/drivers/md/dm-raid1.c
+@@ -1498,22 +1498,18 @@ static struct target_type mirror_target = {
+ 
+ static int __init dm_mirror_init(void)
+ {
+-	int r = -ENOMEM;
++	int r;
+ 
+ 	dm_raid1_wq = alloc_workqueue("dm_raid1_wq", 0, 0);
+-	if (!dm_raid1_wq)
+-		goto bad_target;
++	if (!dm_raid1_wq) {
++		DMERR("Failed to alloc workqueue");
++		return -ENOMEM;
++	}
+ 
+ 	r = dm_register_target(&mirror_target);
+-	if (r < 0) {
++	if (r < 0)
+ 		destroy_workqueue(dm_raid1_wq);
+-		goto bad_target;
+-	}
+-
+-	return 0;
+ 
+-bad_target:
+-	DMERR("Failed to register mirror target");
+ 	return r;
+ }
+ 
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index f766c21408f1..9c49f53760d0 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -2815,22 +2815,16 @@ static int __init dm_snapshot_init(void)
+ 	}
+ 
+ 	r = dm_register_target(&snapshot_target);
+-	if (r < 0) {
+-		DMERR("snapshot target register failed %d", r);
++	if (r < 0)
+ 		goto bad_register_snapshot_target;
+-	}
+ 
+ 	r = dm_register_target(&origin_target);
+-	if (r < 0) {
+-		DMERR("Origin target register failed %d", r);
++	if (r < 0)
+ 		goto bad_register_origin_target;
+-	}
+ 
+ 	r = dm_register_target(&merge_target);
+-	if (r < 0) {
+-		DMERR("Merge target register failed %d", r);
++	if (r < 0)
+ 		goto bad_register_merge_target;
+-	}
+ 
+ 	return 0;
+ 
+diff --git a/drivers/md/dm-switch.c b/drivers/md/dm-switch.c
+index ee2432927e90..5a5976b0cfb8 100644
+--- a/drivers/md/dm-switch.c
++++ b/drivers/md/dm-switch.c
+@@ -568,13 +568,7 @@ static struct target_type switch_target = {
+ 
+ static int __init dm_switch_init(void)
+ {
+-	int r;
+-
+-	r = dm_register_target(&switch_target);
+-	if (r < 0)
+-		DMERR("dm_register_target() failed %d", r);
+-
+-	return r;
++	return dm_register_target(&switch_target);
+ }
+ 
+ static void __exit dm_switch_exit(void)
+diff --git a/drivers/md/dm-target.c b/drivers/md/dm-target.c
+index 26ea22b1a0d7..2653a1c5e084 100644
+--- a/drivers/md/dm-target.c
++++ b/drivers/md/dm-target.c
+@@ -85,11 +85,12 @@ int dm_register_target(struct target_type *tt)
+ 	int rv = 0;
+ 
+ 	down_write(&_lock);
+-	if (__find_target_type(tt->name))
++	if (__find_target_type(tt->name)) {
+ 		rv = -EEXIST;
+-	else
++		DMERR("can't find dm-%s target type", tt->name);
++	} else {
+ 		list_add(&tt->list, &_targets);
+-
++	}
+ 	up_write(&_lock);
+ 	return rv;
+ }
+diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
+index ade83ef3b439..1eed2a9b4e8e 100644
+--- a/drivers/md/dm-verity-target.c
++++ b/drivers/md/dm-verity-target.c
+@@ -1501,13 +1501,7 @@ static struct target_type verity_target = {
+ 
+ static int __init dm_verity_init(void)
+ {
+-	int r;
+-
+-	r = dm_register_target(&verity_target);
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&verity_target);
+ }
+ 
+ static void __exit dm_verity_exit(void)
+diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+index 3aa5874f0aef..81b60b75a9fa 100644
+--- a/drivers/md/dm-writecache.c
++++ b/drivers/md/dm-writecache.c
+@@ -2776,15 +2776,7 @@ static struct target_type writecache_target = {
+ 
+ static int __init dm_writecache_init(void)
+ {
+-	int r;
+-
+-	r = dm_register_target(&writecache_target);
+-	if (r < 0) {
+-		DMERR("register failed %d", r);
+-		return r;
+-	}
+-
+-	return 0;
++	return dm_register_target(&writecache_target);
+ }
+ 
+ static void __exit dm_writecache_exit(void)
+diff --git a/drivers/md/dm-zero.c b/drivers/md/dm-zero.c
+index 2601cd520384..4d96a9d50894 100644
+--- a/drivers/md/dm-zero.c
++++ b/drivers/md/dm-zero.c
+@@ -68,12 +68,7 @@ static struct target_type zero_target = {
+ 
+ static int __init dm_zero_init(void)
+ {
+-	int r = dm_register_target(&zero_target);
+-
+-	if (r < 0)
+-		DMERR("register failed %d", r);
+-
+-	return r;
++	return dm_register_target(&zero_target);
+ }
+ 
+ static void __exit dm_zero_exit(void)
+-- 
+2.35.1
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
