@@ -2,93 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0869C6C445E
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Mar 2023 08:51:06 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7823F6C538B
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Mar 2023 19:19:49 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679471465;
+	s=mimecast20190719; t=1679509188;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=uR2Yxy6JTeO963Cf/lRrVsAp6h0xL7tM7ookYzIDn6Q=;
-	b=jE/F6lyvNGOHnbhXIyEijJz56Voym9DySyHo1rehkDoZ8ZBZ9cWlSqBxxMKb/c5H6tHyLU
-	Mvq3wVqDBL4mw2Lz0K6qfw5vp+4HPrZxWgZ7ZGBseusmdb13uBkXx1TXnw0cdmKQBZmzAJ
-	MJjs5RvtpFYdtzSNsv4oequNH4a67lc=
+	bh=hHN87MBX5fxv5tAOmSSNkehj5XlpSGXOYPC2nb8+DJc=;
+	b=YSM4z3OLdUlaEmkq2EqSoCWY7e2nkrnEY5MBbQUYZa5ACGhVjSOlMjMt9D8S6labuzq8lV
+	0gL6mLnVwSOc4Byo1D1Us9L/zHhvNZSoSC7ySuVLROsNpP9ITi1p/waFnIu9Npy+LjKfjB
+	7meqszRtS7cvFF9QJl1Gwe5NCij9I6g=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-35-WUkGucEiObK31zvUoXNmJA-1; Wed, 22 Mar 2023 03:51:03 -0400
-X-MC-Unique: WUkGucEiObK31zvUoXNmJA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-447-KnpYavhmP4mIm1sVBrU4rQ-1; Wed, 22 Mar 2023 14:19:46 -0400
+X-MC-Unique: KnpYavhmP4mIm1sVBrU4rQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D9B6C185A790;
-	Wed, 22 Mar 2023 07:51:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECD298028AD;
+	Wed, 22 Mar 2023 18:19:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9C0D81121315;
-	Wed, 22 Mar 2023 07:50:51 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D725E202701F;
+	Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B87881946A43;
-	Wed, 22 Mar 2023 07:50:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BC1711946A44;
+	Wed, 22 Mar 2023 18:19:30 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A7C0B1946594
- for <dm-devel@listman.corp.redhat.com>; Tue, 21 Mar 2023 13:53:19 +0000 (UTC)
+ ESMTP id A11DC1946586
+ for <dm-devel@listman.corp.redhat.com>; Wed, 22 Mar 2023 18:19:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 99BD62027062; Tue, 21 Mar 2023 13:53:19 +0000 (UTC)
+ id 723C2C15BAD; Wed, 22 Mar 2023 18:19:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 913802027061
- for <dm-devel@redhat.com>; Tue, 21 Mar 2023 13:53:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6ABDAC15BA0
+ for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 705392999B2D
- for <dm-devel@redhat.com>; Tue, 21 Mar 2023 13:53:19 +0000 (UTC)
-Received: from mail-ed1-f45.google.com (mail-ed1-f45.google.com
- [209.85.208.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E48F85A588
+ for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:24 +0000 (UTC)
+Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
+ [209.85.160.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-557-TT_RB8cgN6ymnKenGBVALQ-1; Tue, 21 Mar 2023 09:53:17 -0400
-X-MC-Unique: TT_RB8cgN6ymnKenGBVALQ-1
-Received: by mail-ed1-f45.google.com with SMTP id cn12so14325091edb.4
- for <dm-devel@redhat.com>; Tue, 21 Mar 2023 06:53:17 -0700 (PDT)
+ us-mta-131-aRkMZw8mPRqAdai55nKnxw-1; Wed, 22 Mar 2023 14:19:22 -0400
+X-MC-Unique: aRkMZw8mPRqAdai55nKnxw-1
+Received: by mail-qt1-f171.google.com with SMTP id c10so12598157qtj.10
+ for <dm-devel@redhat.com>; Wed, 22 Mar 2023 11:19:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679406796;
- h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
- :from:to:cc:subject:date:message-id:reply-to;
- bh=8W6ejF7gmj1PXpTdZI2xA9f/8wOpeSmMndaGTr9oNFw=;
- b=ud6BH4pasHIgmPLMdVtooha3VQt2/OS7zJJM4Mw0+gktC/CNHF/8eIRs6VcrVe5mzx
- hKbH4JLwZJ8xUJS6F70u1rp5imnALyagefbD5Jz4l1Os2bTg14lkzziEQpxrUTwSjwE9
- uKsA8F5T2OGduu3GFvgZwSuPJm+Y5tl1TLrXC7oz9VpII6prB+cBblklGF0UmmcMTu4/
- P7NNPd2qzmIZRCshzYsqaSrXf6bK1V3ArKkrY6DfpnRS3BR18t+Y1vsQt0BeGM81nSOm
- lCzrC9dbGnoJtFt0kEsevbAF+YLsTdEHSZvLN7grPrdYqFdjVmgvutzw1F74IBkzGJTk
- qZYg==
-X-Gm-Message-State: AO0yUKVGc3eeJTa3jmae73l0eGNkSbeLRDAEQzsgX+/CBhtu+xnuvdRB
- +zUmoJn+UC6Fja/apEcimDFp50Xf5q4njTbQM4o=
-X-Google-Smtp-Source: AK7set/s5RxMFyLJ3g71CZ2H3wSgUc+1I0vaYBez5Vxx/7wCI9wP3s5ElkFf/xSD0ekVeCy826N1b1k+nOXGwbH0HWE=
-X-Received: by 2002:a50:ce45:0:b0:4fb:80cf:898b with SMTP id
- k5-20020a50ce45000000b004fb80cf898bmr1595691edj.7.1679406796401; Tue, 21 Mar
- 2023 06:53:16 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1679509162;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=GxX1DbkSPMmy5XvUXbn11CfWANSB/DylDpLKxqpt8B0=;
+ b=rLhW/Tc0MUB9Gd3ofxKrF4UYW0kLJZ8VuZ0R2UBka+fMiKddd/CVstFKhPqK02nE97
+ MjUUWnW1esZnRc9QqLxXBzFUcWyvmG+g1Ja2PjEufsMfcvUKc+K/YO1yYBC7OKn/ld9k
+ Nv8ZN8+BN7GxvOHoBVG9icQJ7VUApMWUon8InOHInbZIetsHp3DWwTMoV1VoLQpUQv0/
+ 7BG0/U5HdN9tVPkzRl1IT1op9QQOzLaQRZu5cxX3U2/PNYtbUH0KkMViOfdrL3EIyrVi
+ n/ORiMG8PK10uv0bksFYtfovnwvjmG7+EwwdxrCOIbihQ++/6pPJHl9SwkPFueVoZqkB
+ IG/w==
+X-Gm-Message-State: AO0yUKUQiUlX9nKTohu48KXtAipS2c5UAMl6r0xZeu9QE8yd4xSPm8I6
+ AOxGHBQrBaRUR6ZyRdeVzYxRLBl1An3zvYsbRsSz8HrYKPBFGSe+GkbyB/o59NeULbCevXyWYsH
+ IVQMGroFgaeFXi/J88GFPYwgr8/1Vko7oLj8oBgmqE4S6Ci79tLGQ40GXZZbkpLz065Z6C/28AX
+ g=
+X-Google-Smtp-Source: AK7set+ykFo6eRPgJx3uuXumPI9Fnv6xNlMEqb+KzXjKxvEsZNZqgt1hGQfWHJpMf2s2GqoORIXlPQ==
+X-Received: by 2002:a05:622a:242:b0:3bf:da83:f8d6 with SMTP id
+ c2-20020a05622a024200b003bfda83f8d6mr7550384qtx.28.1679509161811; 
+ Wed, 22 Mar 2023 11:19:21 -0700 (PDT)
+Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
+ [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
+ j9-20020a05620a288900b0070648cf78bdsm11666072qkp.54.2023.03.22.11.19.21
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 22 Mar 2023 11:19:21 -0700 (PDT)
+From: Mike Snitzer <snitzer@kernel.org>
+To: dm-devel@redhat.com
+Date: Wed, 22 Mar 2023 14:18:37 -0400
+Message-Id: <20230322181845.29848-1-snitzer@kernel.org>
 MIME-Version: 1.0
-From: lacsaP Patatetom <patatetom@gmail.com>
-Date: Tue, 21 Mar 2023 14:52:54 +0100
-Message-ID: <CAGhAadc4tfjpB1UJ2WkUVLSkvbsShi+Ek6XUGL=0NbTU9tsGAQ@mail.gmail.com>
-To: linux-block@vger.kernel.org
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mailman-Approved-At: Wed, 22 Mar 2023 07:50:48 +0000
-Subject: [dm-devel] RO device/partition "tampered" by LVM
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [dm-6.4 PATCH 0/8] dm bufio,
+ thin: improve concurrent IO performance
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,36 +101,66 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, dm-devel@redhat.com
+Cc: keescook@chromium.org, heinzm@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ nhuck@google.com, ebiggers@kernel.org, ejt@redhat.com, mpatocka@redhat.com,
+ luomeng12@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-hello developers,
+Hi,
 
-until recently, I used to modify the `bio_check_ro` function of the
-`block/blk-core.c` file to prevent LVM from altering read-only
-partitions.
+This patchset has been staged in linux-next for the 6.4 merge
+window. As detailed in the "Testing" section of the header for patch
+5: these changes have been extensively tested in terms of dm-thin (and
+dm-cache as much as device-mapper-test-suite provides).
 
-is it possible to get this behavior back after the many changes
-applied to the `block/blk-core.c` file and especially to the
-`bio_check_ro` function ?
-if yes, can you tell me how to do it ?
-otherwise, would retrograde only the `block/blk-core.c` file in a
-previous version work ?
+But further testing from other more exotic DM bufio consumers is
+needed (e.g. dm-verity and dm-integrity developers/consumers who are
+Cc'd).
 
-here is a GitHub page that details what I said :
-https://github.com/patatetom/lvm-on-readonly-block-device .
+Please use whatever tests you have to put pressure on bufio.
+In particular: focused testing of bufio's shrinker, verify
+DM_BUFIO_CLIENT_NO_SLEEP (via dm-verity's tasklets), etc.
 
-on this subject, do you know of any other technologies such as LVM
-that would alter a disk or partition marked as read-only, which would
-ignore the administrator's wish ?
+There is still time to add fixes for 6.4 should any issues turn
+up.
 
-regards, lacsaP.
+All review is welcome (I'll rebase to include Reviewed-by or Acked-by
+tags). Also, positive reports in the form of Tested-by replies (to
+patch 5) are also welcome!
+
+Thanks,
+Mike
+
+Joe Thornber (4):
+  dm bio prison v1: improve concurrent IO performance
+  dm bufio: remove unused dm_bufio_release_move interface
+  dm bufio: improve concurrent IO performance
+  dm thin: speed up cell_defer_no_holder()
+
+Mike Snitzer (4):
+  dm: split discards further if target sets max_discard_granularity
+  dm bufio: move dm_buffer struct
+  dm bufio: move dm_bufio_client members to avoid spanning cachelines
+  dm bufio: rename buffer_cache struct to dm_buffer_cache
+
+ drivers/md/dm-bio-prison-v1.c |   87 +-
+ drivers/md/dm-bio-prison-v1.h |   10 +
+ drivers/md/dm-bufio.c         | 1939 +++++++++++++++++++++++----------
+ drivers/md/dm-thin.c          |   23 +-
+ drivers/md/dm.c               |   54 +-
+ include/linux/device-mapper.h |    6 +
+ include/linux/dm-bufio.h      |    6 -
+ include/uapi/linux/dm-ioctl.h |    4 +-
+ 8 files changed, 1458 insertions(+), 671 deletions(-)
+
+-- 
+2.40.0
 
 --
 dm-devel mailing list
