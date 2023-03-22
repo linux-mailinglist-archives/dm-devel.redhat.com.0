@@ -1,98 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F18D76C538F
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Mar 2023 19:19:59 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C0D256C5737
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Mar 2023 21:15:39 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679509198;
+	s=mimecast20190719; t=1679516138;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=HdUGUXjd5BrWgXdo1dsReiyw+SbAAvjdiV3Me7BBE0k=;
-	b=Xs2HMlpJHGEqe8Go6++aYpI7O25pUrP69pfgEGEpS/x+iwHabSTu+4p76lvKDzgvGRjlCt
-	TU+FRLHahC1NFodKLZiSuPck+SmDzATJYoqL9ELMvvlhQbLNF/FJWpACKbhegf+vKcoWeb
-	C98Rn4tvBhEBoovvPkVtLVDqvb1cwKw=
+	bh=ScuU68/lGpFG99vRbSCih4ioreODerkcYDeRvnc8REI=;
+	b=UvueAKYpy+vt6Hc8Jh0ez2Cx1uYCrWI5mGMWQozoIMT/RxaVHYxswH9uaEflfpjGfxWu1t
+	lParZak1CZy47R91bgGQlD9uiMKVXdK/9jDxEDALv81wK759qVO4WrFUEHlu78tHVaQe0d
+	6xy6zbw56MI9glWMHSvz6DIbjLxu2Lo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-582-07mTriWINySSALumfJnxBg-1; Wed, 22 Mar 2023 14:19:54 -0400
-X-MC-Unique: 07mTriWINySSALumfJnxBg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-65-VTgKndl5MRiu-lx6pCMkYw-1; Wed, 22 Mar 2023 16:15:34 -0400
+X-MC-Unique: VTgKndl5MRiu-lx6pCMkYw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F1EF8030CC;
-	Wed, 22 Mar 2023 18:19:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 628D3858F09;
+	Wed, 22 Mar 2023 20:15:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4ADD940C83AC;
-	Wed, 22 Mar 2023 18:19:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 390FB2166B29;
+	Wed, 22 Mar 2023 20:15:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7DBA31946A7E;
-	Wed, 22 Mar 2023 18:19:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7F1E919465BD;
+	Wed, 22 Mar 2023 20:15:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BE82819465BB
- for <dm-devel@listman.corp.redhat.com>; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
+ ESMTP id BF0771946586
+ for <dm-devel@listman.corp.redhat.com>; Wed, 22 Mar 2023 20:15:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A256F43FBD; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
+ id 817B240B934; Wed, 22 Mar 2023 20:15:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A39A175AD
- for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E5353C0F666
- for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
- [209.85.160.172]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-167-2pqBI4xyPXWrhPUy6QoBPw-3; Wed, 22 Mar 2023 14:19:34 -0400
-X-MC-Unique: 2pqBI4xyPXWrhPUy6QoBPw-3
-Received: by mail-qt1-f172.google.com with SMTP id c19so23792807qtn.13
- for <dm-devel@redhat.com>; Wed, 22 Mar 2023 11:19:34 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679509173;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=n5A5Y/Y8LHcxD0wMnNVqZPjKuUEzLnZMKi0wNkDICVE=;
- b=Btww2aYLExX4NuJX+GsYhQ6NbWqWuI7eMTvl4VKl/MmvTZ2tLP+OquowB8bnCRVcT4
- 1Wj8gPDBsO/XDkppBOtRNz4Y/TfTJNbLA5WFsbbRBRCCQTYi9peAOeHzyBGoLkBP1b4t
- wsqdsYCGvA4GeKHNlRR9LNcPyCZi5NdrTuu7TxAtsdIL9sdLBVwMemSNCcRuH49Mlsab
- Te4YkQyjhrRmcPnME8wXSfFfSYaeTcNJE4XjZdXylZo/r4McN/H+H+Zm3vqbpvi2xd9U
- nsjf5Rhsz/xVvG7GZW0TJKbeE6+5syuuA8hQe14aj2yA58EQNLHkBQmnYMDtagb6amzW
- tGvw==
-X-Gm-Message-State: AO0yUKVruo9hAD+1BXvSCSIZKPvbLK5endS/WbFfzdo/6nEvn7m5vGPC
- jnz6yWvDSKaRhZUaYZYuo+z8Ns3mt7gacHiOOQr9UvMZK6hOk+cxglUGPpZCmxd+m6JEkbNw2zw
- BHlbq6w76DPCqlcnYANpcwt6TfeXHIYpS21SdibRiXXYSo8Luj/wKxrZi2WovCBuGF59vU6k9U6
- A=
-X-Google-Smtp-Source: AK7set+BENVP4cjIGugoDAvYshyb2nqbfz61AugE1yIkpYFzNWYhAmJQ5MNipu9LxkLQm27WeqY2Zw==
-X-Received: by 2002:a05:622a:488:b0:3db:7f42:ab19 with SMTP id
- p8-20020a05622a048800b003db7f42ab19mr7374407qtx.15.1679509173552; 
- Wed, 22 Mar 2023 11:19:33 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- j185-20020a37b9c2000000b007465ad44891sm10722346qkf.102.2023.03.22.11.19.32
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Mar 2023 11:19:33 -0700 (PDT)
-From: Mike Snitzer <snitzer@kernel.org>
-To: dm-devel@redhat.com
-Date: Wed, 22 Mar 2023 14:18:45 -0400
-Message-Id: <20230322181845.29848-9-snitzer@kernel.org>
-In-Reply-To: <20230322181845.29848-1-snitzer@kernel.org>
-References: <20230322181845.29848-1-snitzer@kernel.org>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+ (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6F00E483EC4;
+ Wed, 22 Mar 2023 20:15:08 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
+ 32MKF8i3020000; Wed, 22 Mar 2023 16:15:08 -0400
+Received: from localhost (mpatocka@localhost)
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
+ id 32MKF829019996; Wed, 22 Mar 2023 16:15:08 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+ owned process doing -bs
+Date: Wed, 22 Mar 2023 16:15:08 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: "Jiazi.Li" <jqqlijiazi@gmail.com>
+In-Reply-To: <20230310100533.6290-1-jiazi.li@transsion.com>
+Message-ID: <alpine.LRH.2.21.2303221602270.19430@file01.intranet.prod.int.rdu2.redhat.com>
+References: <20230310100533.6290-1-jiazi.li@transsion.com>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [dm-6.4 PATCH 8/8] dm thin: speed up
- cell_defer_no_holder()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH] dm: call remove_single_exception_chunk
+ before commit_merge
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,58 +77,101 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: keescook@chromium.org, heinzm@redhat.com, Mike Snitzer <snitzer@kernel.org>,
- nhuck@google.com, ebiggers@kernel.org, ejt@redhat.com, mpatocka@redhat.com,
- luomeng12@huawei.com
+Cc: "Jiazi.Li" <jiazi.li@transsion.com>, dm-devel@redhat.com,
+ Mike Snitzer <snitzer@kernel.org>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Joe Thornber <ejt@redhat.com>
+Hi
 
-Reduce the time that a spinlock is held in cell_defer_no_holder().
+I don't feel strong need to fix it.
 
-Signed-off-by: Joe Thornber <ejt@redhat.com>
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
----
- drivers/md/dm-thin.c | 14 ++++++++------
- 1 file changed, 8 insertions(+), 6 deletions(-)
+You claim that if you corrupt the snapshot metadata, there is a small race 
+condition where the corruption may not be reported to the user.
 
-diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-index 286e4d9e45c8..583159dc8084 100644
---- a/drivers/md/dm-thin.c
-+++ b/drivers/md/dm-thin.c
-@@ -883,15 +883,17 @@ static void cell_defer_no_holder(struct thin_c *tc, struct dm_bio_prison_cell *c
- {
- 	struct pool *pool = tc->pool;
- 	unsigned long flags;
--	int has_work;
-+	struct bio_list bios;
- 
--	spin_lock_irqsave(&tc->lock, flags);
--	cell_release_no_holder(pool, cell, &tc->deferred_bio_list);
--	has_work = !bio_list_empty(&tc->deferred_bio_list);
--	spin_unlock_irqrestore(&tc->lock, flags);
-+	bio_list_init(&bios);
-+	cell_release_no_holder(pool, cell, &bios);
- 
--	if (has_work)
-+	if (!bio_list_empty(&bios)) {
-+		spin_lock_irqsave(&tc->lock, flags);
-+		bio_list_merge(&tc->deferred_bio_list, &bios);
-+		spin_unlock_irqrestore(&tc->lock, flags);
- 		wake_worker(pool);
-+	}
- }
- 
- static void thin_defer_bio(struct thin_c *tc, struct bio *bio);
--- 
-2.40.0
+If you corrupt the snapshot metadata, you obviously get corrupted result 
+of the merge. "garbage in - garbage out". I don't think that we need to 
+improve handling of corrupted metadata.
 
+I wrote this code 13 years ago, then I forgot the details about it, and I 
+don't feel confident touching it unless there is some strong reason.
+
+Mikulas
+
+
+
+On Fri, 10 Mar 2023, Jiazi.Li wrote:
+
+> Assume that the metadata of cow on the disk is corrupted after init
+> for some reason:
+> old chunk-id	new chunk-id
+> 0               2
+> ...
+> x ---> 0        y
+> After starting merge, old chunk 0 will be updated twice, and old
+> chunk x will not be updated.
+> And dm-snap will print err log after merge new chunk 2 to old chunk 0:
+> 
+> <3>[  731.921642]  (1)[4092:kworker/1:0]device-mapper: snapshots:
+> Corruption detected: exception for block 0 is on disk but not in memory
+> then set snap->merge_failed to true.
+> 
+> If userspace use "sectors_allocated == metadata_sectors" to determine
+> whether the merge is completed, there maybe the following race that
+> makes the userspace unable to know merge fail event:
+> 
+> kernel merge kworker                 userspace process
+> merge_callback
+>   ->commit_merge
+>                                      get snapshot_status by ioctl
+>   ->remove_single_exception_chunk
+>   set merge_failed to true
+>                                      think merge has been completed,
+> 				     switch device to another target
+> 
+> Could we call remove_single_exception_chunk first to solve this race?
+> 
+> Signed-off-by: Jiazi.Li <jiazi.li@transsion.com>
+> ---
+>  drivers/md/dm-snap.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+> index f766c21408f1..f658d05752f2 100644
+> --- a/drivers/md/dm-snap.c
+> +++ b/drivers/md/dm-snap.c
+> @@ -1141,15 +1141,15 @@ static void merge_callback(int read_err, unsigned long write_err, void *context)
+>  		goto shut;
+>  	}
+>  
+> +	if (remove_single_exception_chunk(s) < 0)
+> +		goto shut;
+> +
+>  	if (s->store->type->commit_merge(s->store,
+>  					 s->num_merging_chunks) < 0) {
+>  		DMERR("Write error in exception store: shutting down merge");
+>  		goto shut;
+>  	}
+>  
+> -	if (remove_single_exception_chunk(s) < 0)
+> -		goto shut;
+> -
+>  	snapshot_merge_next_chunks(s);
+>  
+>  	return;
+> -- 
+> 2.17.1
+> 
+> --
+> dm-devel mailing list
+> dm-devel@redhat.com
+> https://listman.redhat.com/mailman/listinfo/dm-devel
+> 
 --
 dm-devel mailing list
 dm-devel@redhat.com
