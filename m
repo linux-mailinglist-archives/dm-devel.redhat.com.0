@@ -2,98 +2,97 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D896D6C538E
-	for <lists+dm-devel@lfdr.de>; Wed, 22 Mar 2023 19:19:53 +0100 (CET)
+	by mail.lfdr.de (Postfix) with ESMTPS id F18D76C538F
+	for <lists+dm-devel@lfdr.de>; Wed, 22 Mar 2023 19:19:59 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679509192;
+	s=mimecast20190719; t=1679509198;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NJL8EajJDtcOLzxnG3mWS9BJwA2ThNRIK12ZV/Cx1Co=;
-	b=ETvbEAFJ27tpeD/4A/36p2ZFWG/1KkFbrO3G0+g4IbviAYkZM3Oz35xtFQdg9w86hrn7zN
-	alZ0oDbq3enMOl7Id0/ECzfDaAR11Ja/jaq1vWwmunlX1puA65+W9Xdgr6GbY0zrqL38Ne
-	b4ZO4ORCwlRlHQQTF3cWT/naCXxI0UU=
+	bh=HdUGUXjd5BrWgXdo1dsReiyw+SbAAvjdiV3Me7BBE0k=;
+	b=Xs2HMlpJHGEqe8Go6++aYpI7O25pUrP69pfgEGEpS/x+iwHabSTu+4p76lvKDzgvGRjlCt
+	TU+FRLHahC1NFodKLZiSuPck+SmDzATJYoqL9ELMvvlhQbLNF/FJWpACKbhegf+vKcoWeb
+	C98Rn4tvBhEBoovvPkVtLVDqvb1cwKw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-518-zJknu1fiNC-n-Q_CTJyvOw-1; Wed, 22 Mar 2023 14:19:48 -0400
-X-MC-Unique: zJknu1fiNC-n-Q_CTJyvOw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-582-07mTriWINySSALumfJnxBg-1; Wed, 22 Mar 2023 14:19:54 -0400
+X-MC-Unique: 07mTriWINySSALumfJnxBg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89643857FBB;
-	Wed, 22 Mar 2023 18:19:43 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F1EF8030CC;
+	Wed, 22 Mar 2023 18:19:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 73FBB202701E;
-	Wed, 22 Mar 2023 18:19:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4ADD940C83AC;
+	Wed, 22 Mar 2023 18:19:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 76DD91946A7C;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7DBA31946A7E;
 	Wed, 22 Mar 2023 18:19:36 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B79701946A6A
- for <dm-devel@listman.corp.redhat.com>; Wed, 22 Mar 2023 18:19:34 +0000 (UTC)
+ ESMTP id BE82819465BB
+ for <dm-devel@listman.corp.redhat.com>; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9D3C540C6E68; Wed, 22 Mar 2023 18:19:34 +0000 (UTC)
+ id A256F43FBD; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 958D240C6E67
- for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A63A38123D2
- for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:34 +0000 (UTC)
-Received: from mail-qt1-f171.google.com (mail-qt1-f171.google.com
- [209.85.160.171]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A39A175AD
+ for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E5353C0F666
+ for <dm-devel@redhat.com>; Wed, 22 Mar 2023 18:19:35 +0000 (UTC)
+Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com
+ [209.85.160.172]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-131-yA8hkPxLNhqq_n7eMpY17A-4; Wed, 22 Mar 2023 14:19:33 -0400
-X-MC-Unique: yA8hkPxLNhqq_n7eMpY17A-4
-Received: by mail-qt1-f171.google.com with SMTP id c10so12598896qtj.10
- for <dm-devel@redhat.com>; Wed, 22 Mar 2023 11:19:32 -0700 (PDT)
+ us-mta-167-2pqBI4xyPXWrhPUy6QoBPw-3; Wed, 22 Mar 2023 14:19:34 -0400
+X-MC-Unique: 2pqBI4xyPXWrhPUy6QoBPw-3
+Received: by mail-qt1-f172.google.com with SMTP id c19so23792807qtn.13
+ for <dm-devel@redhat.com>; Wed, 22 Mar 2023 11:19:34 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679509172;
+ d=1e100.net; s=20210112; t=1679509173;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=atD89yr5/OSdVgb0JbDcT1cuwNr6C42XiKnbfRVm5g8=;
- b=krR+Ool4jCbHKR5cAgm54RNwuEidoBlhk/dEKDNMVe0fgYZpbweMsfI9zxSsUy+09E
- EsZSITuEXVkw+MValuQYHxSmUaEVVbKYiKlDMYsmhD1AZ/tZxjuoAz8TKFFV4bP9guvz
- 2V0c7+iZc6n+2KRbAroz1ggdHkPJEGEHfPYjmFWAJpY5fsC2bzfVyPZ/s1CojpdWRuQP
- 6DCZ9Bk6QKyEtq+CoeUyA5+rEzUfmghp3u2s+ZKOITbe+FOrFN8W4IEYSO+YwefujsYs
- 3MhV88b8uAEXYfkmxPYwcKIqtlMJa4DLEsmf3ZL5F3FYhN3YHtEyB/CqYfLJ/iLgLAs+
- XKvQ==
-X-Gm-Message-State: AO0yUKVEO+L6OvJlkRwEo4DskXCpHA4xIDND8XOtCmzsB/osOXFNBZF2
- AFzDfJGnk8kHA6gGEM2J7+DH1+M2SJnH4KrcLU5LRK9+Hv8Dc1IKcqSbdj7xtJqcYOCX5yToyme
- cq1OAwQhH7bnsOdQ5wDLILACTbdTSl4FSOl5F6JZQTV3CvTlhYjxfJWuM6if+PaWjO4rDVG2Z57
- s=
-X-Google-Smtp-Source: AK7set9v7Lk6e/dy2TUa1U68x0X1ogOn82gP26n8T4ljrBbMOJ15B3AYMGgy04AubZSY2I/8eRfu0g==
-X-Received: by 2002:ac8:580d:0:b0:3b9:bc8c:c216 with SMTP id
- g13-20020ac8580d000000b003b9bc8cc216mr5356869qtg.33.1679509172133; 
- Wed, 22 Mar 2023 11:19:32 -0700 (PDT)
+ bh=n5A5Y/Y8LHcxD0wMnNVqZPjKuUEzLnZMKi0wNkDICVE=;
+ b=Btww2aYLExX4NuJX+GsYhQ6NbWqWuI7eMTvl4VKl/MmvTZ2tLP+OquowB8bnCRVcT4
+ 1Wj8gPDBsO/XDkppBOtRNz4Y/TfTJNbLA5WFsbbRBRCCQTYi9peAOeHzyBGoLkBP1b4t
+ wsqdsYCGvA4GeKHNlRR9LNcPyCZi5NdrTuu7TxAtsdIL9sdLBVwMemSNCcRuH49Mlsab
+ Te4YkQyjhrRmcPnME8wXSfFfSYaeTcNJE4XjZdXylZo/r4McN/H+H+Zm3vqbpvi2xd9U
+ nsjf5Rhsz/xVvG7GZW0TJKbeE6+5syuuA8hQe14aj2yA58EQNLHkBQmnYMDtagb6amzW
+ tGvw==
+X-Gm-Message-State: AO0yUKVruo9hAD+1BXvSCSIZKPvbLK5endS/WbFfzdo/6nEvn7m5vGPC
+ jnz6yWvDSKaRhZUaYZYuo+z8Ns3mt7gacHiOOQr9UvMZK6hOk+cxglUGPpZCmxd+m6JEkbNw2zw
+ BHlbq6w76DPCqlcnYANpcwt6TfeXHIYpS21SdibRiXXYSo8Luj/wKxrZi2WovCBuGF59vU6k9U6
+ A=
+X-Google-Smtp-Source: AK7set+BENVP4cjIGugoDAvYshyb2nqbfz61AugE1yIkpYFzNWYhAmJQ5MNipu9LxkLQm27WeqY2Zw==
+X-Received: by 2002:a05:622a:488:b0:3db:7f42:ab19 with SMTP id
+ p8-20020a05622a048800b003db7f42ab19mr7374407qtx.15.1679509173552; 
+ Wed, 22 Mar 2023 11:19:33 -0700 (PDT)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- v6-20020ac87486000000b003bffe7fdc38sm6661799qtq.9.2023.03.22.11.19.31
+ j185-20020a37b9c2000000b007465ad44891sm10722346qkf.102.2023.03.22.11.19.32
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 22 Mar 2023 11:19:31 -0700 (PDT)
+ Wed, 22 Mar 2023 11:19:33 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Wed, 22 Mar 2023 14:18:44 -0400
-Message-Id: <20230322181845.29848-8-snitzer@kernel.org>
+Date: Wed, 22 Mar 2023 14:18:45 -0400
+Message-Id: <20230322181845.29848-9-snitzer@kernel.org>
 In-Reply-To: <20230322181845.29848-1-snitzer@kernel.org>
 References: <20230322181845.29848-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [dm-6.4 PATCH 7/8] dm bufio: rename buffer_cache struct
- to dm_buffer_cache
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [dm-6.4 PATCH 8/8] dm thin: speed up
+ cell_defer_no_holder()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,243 +109,50 @@ Cc: keescook@chromium.org, heinzm@redhat.com, Mike Snitzer <snitzer@kernel.org>,
  luomeng12@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+From: Joe Thornber <ejt@redhat.com>
+
+Reduce the time that a spinlock is held in cell_defer_no_holder().
+
+Signed-off-by: Joe Thornber <ejt@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bufio.c | 52 +++++++++++++++++++++----------------------
- 1 file changed, 26 insertions(+), 26 deletions(-)
+ drivers/md/dm-thin.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index b418ee8e3853..e7b901baa878 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -327,7 +327,7 @@ enum data_mode {
- };
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 286e4d9e45c8..583159dc8084 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -883,15 +883,17 @@ static void cell_defer_no_holder(struct thin_c *tc, struct dm_bio_prison_cell *c
+ {
+ 	struct pool *pool = tc->pool;
+ 	unsigned long flags;
+-	int has_work;
++	struct bio_list bios;
  
- struct dm_buffer {
--	/* protected by the locks in buffer_cache */
-+	/* protected by the locks in dm_buffer_cache */
- 	struct rb_node node;
+-	spin_lock_irqsave(&tc->lock, flags);
+-	cell_release_no_holder(pool, cell, &tc->deferred_bio_list);
+-	has_work = !bio_list_empty(&tc->deferred_bio_list);
+-	spin_unlock_irqrestore(&tc->lock, flags);
++	bio_list_init(&bios);
++	cell_release_no_holder(pool, cell, &bios);
  
- 	/* immutable, so don't need protecting */
-@@ -393,7 +393,7 @@ struct tree_lock {
- 	struct rw_semaphore lock;
- } ____cacheline_aligned_in_smp;
- 
--struct buffer_cache {
-+struct dm_buffer_cache {
- 	/*
- 	 * We spread entries across multiple trees to reduce contention
- 	 * on the locks.
-@@ -414,22 +414,22 @@ static inline unsigned int cache_index(sector_t block)
- 	return block & LOCKS_MASK;
+-	if (has_work)
++	if (!bio_list_empty(&bios)) {
++		spin_lock_irqsave(&tc->lock, flags);
++		bio_list_merge(&tc->deferred_bio_list, &bios);
++		spin_unlock_irqrestore(&tc->lock, flags);
+ 		wake_worker(pool);
++	}
  }
  
--static inline void cache_read_lock(struct buffer_cache *bc, sector_t block)
-+static inline void cache_read_lock(struct dm_buffer_cache *bc, sector_t block)
- {
- 	down_read(&bc->locks[cache_index(block)].lock);
- }
- 
--static inline void cache_read_unlock(struct buffer_cache *bc, sector_t block)
-+static inline void cache_read_unlock(struct dm_buffer_cache *bc, sector_t block)
- {
- 	up_read(&bc->locks[cache_index(block)].lock);
- }
- 
--static inline void cache_write_lock(struct buffer_cache *bc, sector_t block)
-+static inline void cache_write_lock(struct dm_buffer_cache *bc, sector_t block)
- {
- 	down_write(&bc->locks[cache_index(block)].lock);
- }
- 
--static inline void cache_write_unlock(struct buffer_cache *bc, sector_t block)
-+static inline void cache_write_unlock(struct dm_buffer_cache *bc, sector_t block)
- {
- 	up_write(&bc->locks[cache_index(block)].lock);
- }
-@@ -439,12 +439,12 @@ static inline void cache_write_unlock(struct buffer_cache *bc, sector_t block)
-  * This struct helps avoid redundant drop and gets of the same lock.
-  */
- struct lock_history {
--	struct buffer_cache *cache;
-+	struct dm_buffer_cache *cache;
- 	bool write;
- 	unsigned int previous;
- };
- 
--static void lh_init(struct lock_history *lh, struct buffer_cache *cache, bool write)
-+static void lh_init(struct lock_history *lh, struct dm_buffer_cache *cache, bool write)
- {
- 	lh->cache = cache;
- 	lh->write = write;
-@@ -513,7 +513,7 @@ static struct dm_buffer *list_to_buffer(struct list_head *l)
- 	return le_to_buffer(le);
- }
- 
--static void cache_init(struct buffer_cache *bc)
-+static void cache_init(struct dm_buffer_cache *bc)
- {
- 	unsigned int i;
- 
-@@ -526,7 +526,7 @@ static void cache_init(struct buffer_cache *bc)
- 	lru_init(&bc->lru[LIST_DIRTY]);
- }
- 
--static void cache_destroy(struct buffer_cache *bc)
-+static void cache_destroy(struct dm_buffer_cache *bc)
- {
- 	unsigned int i;
- 
-@@ -540,7 +540,7 @@ static void cache_destroy(struct buffer_cache *bc)
- /*
-  * not threadsafe, or racey depending how you look at it
-  */
--static unsigned long cache_count(struct buffer_cache *bc, int list_mode)
-+static unsigned long cache_count(struct dm_buffer_cache *bc, int list_mode)
- {
- 	return lru_count(&bc->lru[list_mode]);
- }
-@@ -550,7 +550,7 @@ static unsigned long cache_count(struct buffer_cache *bc, int list_mode)
- /*
-  * not threadsafe
-  */
--static unsigned long cache_total(struct buffer_cache *bc)
-+static unsigned long cache_total(struct dm_buffer_cache *bc)
- {
- 	return lru_count(&bc->lru[LIST_CLEAN]) +
- 		lru_count(&bc->lru[LIST_DIRTY]);
-@@ -588,7 +588,7 @@ static void __cache_inc_buffer(struct dm_buffer *b)
- 	WRITE_ONCE(b->last_accessed, jiffies);
- }
- 
--static struct dm_buffer *cache_get(struct buffer_cache *bc, sector_t block)
-+static struct dm_buffer *cache_get(struct dm_buffer_cache *bc, sector_t block)
- {
- 	struct dm_buffer *b;
- 
-@@ -609,7 +609,7 @@ static struct dm_buffer *cache_get(struct buffer_cache *bc, sector_t block)
-  * Returns true if the hold count hits zero.
-  * threadsafe
-  */
--static bool cache_put(struct buffer_cache *bc, struct dm_buffer *b)
-+static bool cache_put(struct dm_buffer_cache *bc, struct dm_buffer *b)
- {
- 	bool r;
- 
-@@ -653,7 +653,7 @@ static enum evict_result __evict_pred(struct lru_entry *le, void *context)
- 	return w->pred(b, w->context);
- }
- 
--static struct dm_buffer *__cache_evict(struct buffer_cache *bc, int list_mode,
-+static struct dm_buffer *__cache_evict(struct dm_buffer_cache *bc, int list_mode,
- 				       b_predicate pred, void *context,
- 				       struct lock_history *lh)
- {
-@@ -672,7 +672,7 @@ static struct dm_buffer *__cache_evict(struct buffer_cache *bc, int list_mode,
- 	return b;
- }
- 
--static struct dm_buffer *cache_evict(struct buffer_cache *bc, int list_mode,
-+static struct dm_buffer *cache_evict(struct dm_buffer_cache *bc, int list_mode,
- 				     b_predicate pred, void *context)
- {
- 	struct dm_buffer *b;
-@@ -690,7 +690,7 @@ static struct dm_buffer *cache_evict(struct buffer_cache *bc, int list_mode,
- /*
-  * Mark a buffer as clean or dirty. Not threadsafe.
-  */
--static void cache_mark(struct buffer_cache *bc, struct dm_buffer *b, int list_mode)
-+static void cache_mark(struct dm_buffer_cache *bc, struct dm_buffer *b, int list_mode)
- {
- 	cache_write_lock(bc, b->block);
- 	if (list_mode != b->list_mode) {
-@@ -707,7 +707,7 @@ static void cache_mark(struct buffer_cache *bc, struct dm_buffer *b, int list_mo
-  * Runs through the lru associated with 'old_mode', if the predicate matches then
-  * it moves them to 'new_mode'.  Not threadsafe.
-  */
--static void __cache_mark_many(struct buffer_cache *bc, int old_mode, int new_mode,
-+static void __cache_mark_many(struct dm_buffer_cache *bc, int old_mode, int new_mode,
- 			      b_predicate pred, void *context, struct lock_history *lh)
- {
- 	struct lru_entry *le;
-@@ -725,7 +725,7 @@ static void __cache_mark_many(struct buffer_cache *bc, int old_mode, int new_mod
- 	}
- }
- 
--static void cache_mark_many(struct buffer_cache *bc, int old_mode, int new_mode,
-+static void cache_mark_many(struct dm_buffer_cache *bc, int old_mode, int new_mode,
- 			    b_predicate pred, void *context)
- {
- 	struct lock_history lh;
-@@ -753,7 +753,7 @@ enum it_action {
- 
- typedef enum it_action (*iter_fn)(struct dm_buffer *b, void *context);
- 
--static void __cache_iterate(struct buffer_cache *bc, int list_mode,
-+static void __cache_iterate(struct dm_buffer_cache *bc, int list_mode,
- 			    iter_fn fn, void *context, struct lock_history *lh)
- {
- 	struct lru *lru = &bc->lru[list_mode];
-@@ -781,7 +781,7 @@ static void __cache_iterate(struct buffer_cache *bc, int list_mode,
- 	} while (le != first);
- }
- 
--static void cache_iterate(struct buffer_cache *bc, int list_mode,
-+static void cache_iterate(struct dm_buffer_cache *bc, int list_mode,
- 			  iter_fn fn, void *context)
- {
- 	struct lock_history lh;
-@@ -824,7 +824,7 @@ static bool __cache_insert(struct rb_root *root, struct dm_buffer *b)
- 	return true;
- }
- 
--static bool cache_insert(struct buffer_cache *bc, struct dm_buffer *b)
-+static bool cache_insert(struct dm_buffer_cache *bc, struct dm_buffer *b)
- {
- 	bool r;
- 
-@@ -848,7 +848,7 @@ static bool cache_insert(struct buffer_cache *bc, struct dm_buffer *b)
-  *
-  * Not threadsafe.
-  */
--static bool cache_remove(struct buffer_cache *bc, struct dm_buffer *b)
-+static bool cache_remove(struct dm_buffer_cache *bc, struct dm_buffer *b)
- {
- 	bool r;
- 
-@@ -894,7 +894,7 @@ static struct dm_buffer *__find_next(struct rb_root *root, sector_t block)
- 	return best;
- }
- 
--static void __remove_range(struct buffer_cache *bc,
-+static void __remove_range(struct dm_buffer_cache *bc,
- 			   struct rb_root *root,
- 			   sector_t begin, sector_t end,
- 			   b_predicate pred, b_release release)
-@@ -921,7 +921,7 @@ static void __remove_range(struct buffer_cache *bc,
- 	}
- }
- 
--static void cache_remove_range(struct buffer_cache *bc,
-+static void cache_remove_range(struct dm_buffer_cache *bc,
- 			       sector_t begin, sector_t end,
- 			       b_predicate pred, b_release release)
- {
-@@ -988,7 +988,7 @@ struct dm_bufio_client {
- 	 */
- 	unsigned long oldest_buffer;
- 
--	struct buffer_cache cache;
-+	struct dm_buffer_cache cache;
- };
- 
- static DEFINE_STATIC_KEY_FALSE(no_sleep_enabled);
+ static void thin_defer_bio(struct thin_c *tc, struct bio *bio);
 -- 
 2.40.0
 
