@@ -1,94 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA7E56C9AEF
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 07:41:49 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 34CE76C9AF7
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 07:41:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679895708;
+	s=mimecast20190719; t=1679895711;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rUyDdzGRDBFZI2wFlGYtMuLOk0KfzzseKzRYZvKgICI=;
-	b=Y4l7c+WoTzwmqU1P7cRg9wlF2B4M2HFoAiuH81M2/tfZCooAUBNyy2lS0rzf5R+RJXlAPv
-	nCIXQ946q/iwezj2y2s5W7OhdiuZpQneYlsaOhhRZxDMmyDEzziapfPjlWuEnH9vV1wdZY
-	YwTgIUuqWsQmwqDgZE/6B3VCN9mzR44=
+	bh=vIHEeK5Bgb+a077YlZMx+cG5THXMIwvCoUVhENrShVE=;
+	b=UbRPFoENoWjZZCKmgdYCgNbvPmgSc9A1tyzizfBRxu+XL2F5xskFrGosmRcu+i5nify8uB
+	LYG2OAY4UDnI6PBZyBFKddjV7jGqoDxb+Rz8S54wu1teMBK/45tAk+n9rgeXOoxiOUMXyq
+	ABL4zmSTramkHPfwemhBfTI3mkwxCWg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-212-Xmk0CHXBOwimpvkvocDcsA-1; Mon, 27 Mar 2023 01:41:47 -0400
-X-MC-Unique: Xmk0CHXBOwimpvkvocDcsA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-231-tFTjyYEGNQGoSoNaVH73QQ-1; Mon, 27 Mar 2023 01:41:48 -0400
+X-MC-Unique: tFTjyYEGNQGoSoNaVH73QQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89BA8100813D;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C5FE88646A;
 	Mon, 27 Mar 2023 05:41:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 107AB2166B26;
-	Mon, 27 Mar 2023 05:41:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1D3B02027040;
+	Mon, 27 Mar 2023 05:41:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 82D5019465B1;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4FC721946A78;
 	Mon, 27 Mar 2023 05:41:36 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C5B3D1946A5A
+ ESMTP id 911431946A5A
  for <dm-devel@listman.corp.redhat.com>; Fri, 24 Mar 2023 18:20:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B80182166B29; Fri, 24 Mar 2023 18:20:18 +0000 (UTC)
+ id 84E061121315; Fri, 24 Mar 2023 18:20:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B07732166B2A
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7DAA71121314
  for <dm-devel@redhat.com>; Fri, 24 Mar 2023 18:20:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8CAEB85A588
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AC83185A78F
  for <dm-devel@redhat.com>; Fri, 24 Mar 2023 18:20:18 +0000 (UTC)
-Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com
- [205.220.165.32]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-599-WZXO98ntM8-gfBu4pWH6rg-1; Fri, 24 Mar 2023 14:20:16 -0400
-X-MC-Unique: WZXO98ntM8-gfBu4pWH6rg-1
-Received: from pps.filterd (m0246617.ppops.net [127.0.0.1])
+ us-mta-421-kpkRMks9N-agMod6sUBNdQ-1; Fri, 24 Mar 2023 14:20:16 -0400
+X-MC-Unique: kpkRMks9N-agMod6sUBNdQ-1
+Received: from pps.filterd (m0246631.ppops.net [127.0.0.1])
  by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32OHoT9n020891; Fri, 24 Mar 2023 18:18:03 GMT
+ 32OIF5B7014340; Fri, 24 Mar 2023 18:18:05 GMT
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
  (phxpaimrmta03.appoci.oracle.com [138.1.37.129])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3phgku038k-1
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3phgy9g09y-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Mar 2023 18:18:02 +0000
+ Fri, 24 Mar 2023 18:18:05 +0000
 Received: from pps.filterd
  (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 32OHsM8E001459; Fri, 24 Mar 2023 18:18:02 GMT
+ with ESMTP id 32OGnJZ8001315; Fri, 24 Mar 2023 18:18:04 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3pgxk4bxb3-1
+ 3pgxk4bxd5-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 24 Mar 2023 18:18:02 +0000
+ Fri, 24 Mar 2023 18:18:04 +0000
 Received: from phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com
  (phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 32OIHiEX021017;
- Fri, 24 Mar 2023 18:18:01 GMT
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 32OIHiEZ021017;
+ Fri, 24 Mar 2023 18:18:04 GMT
 Received: from mnchrist-mac.us.oracle.com (dhcp-10-154-153-54.vpn.oracle.com
  [10.154.153.54])
  by phxpaimrmta03.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTP id
- 3pgxk4bx19-8; Fri, 24 Mar 2023 18:18:01 +0000
+ 3pgxk4bx19-9; Fri, 24 Mar 2023 18:18:03 +0000
 From: Mike Christie <michael.christie@oracle.com>
 To: bvanassche@acm.org, hch@lst.de, martin.petersen@oracle.com,
  linux-scsi@vger.kernel.org, james.bottomley@hansenpartnership.com,
  linux-block@vger.kernel.org, dm-devel@redhat.com, snitzer@kernel.org,
  axboe@kernel.dk, linux-nvme@lists.infradead.org, chaitanyak@nvidia.com,
  kbusch@kernel.org, target-devel@vger.kernel.org
-Date: Fri, 24 Mar 2023 13:17:30 -0500
-Message-Id: <20230324181741.13908-8-michael.christie@oracle.com>
+Date: Fri, 24 Mar 2023 13:17:31 -0500
+Message-Id: <20230324181741.13908-9-michael.christie@oracle.com>
 In-Reply-To: <20230324181741.13908-1-michael.christie@oracle.com>
 References: <20230324181741.13908-1-michael.christie@oracle.com>
 MIME-Version: 1.0
@@ -100,8 +101,8 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 suspectscore=0
  mlxlogscore=999 spamscore=0 adultscore=0 bulkscore=0 mlxscore=0
  phishscore=0 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2303200000 definitions=main-2303240143
-X-Proofpoint-ORIG-GUID: jEhGsh5fLNxy5irI3Zo28Sr2zdYqiIQo
-X-Proofpoint-GUID: jEhGsh5fLNxy5irI3Zo28Sr2zdYqiIQo
+X-Proofpoint-GUID: LhylEJwnySThMqsw5Lag_V3gKs7RoxSn
+X-Proofpoint-ORIG-GUID: LhylEJwnySThMqsw5Lag_V3gKs7RoxSn
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -109,10 +110,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Mon, 27 Mar 2023 05:41:34 +0000
-Subject: [dm-devel] [PATCH v5 07/18] nvme: Fix reservation status related
- structs
+Subject: [dm-devel] [PATCH v5 08/18] nvme: Don't hardcode the data len for
+ pr commands
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,83 +125,75 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Christie <michael.christie@oracle.com>
+Cc: Chaitanya Kulkarni <kch@nvidia.com>,
+ Mike Christie <michael.christie@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This fixes the following issues with the reservation status structs:
-
-1. resv10 is bytes 23:10 so it should be 14 bytes.
-2. regctl_ds only supports 64 bit host IDs.
-
-These are not currently used, but will be in this patchset which adds
-support for the reservation report command.
+Reservation Report support needs to pass in a variable sized buffer, so
+this patch has the pr command helpers take a data length argument.
 
 Signed-off-by: Mike Christie <michael.christie@oracle.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Keith Busch <kbusch@kernel.org>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
 ---
- include/linux/nvme.h | 38 ++++++++++++++++++++++++++++++--------
- 1 file changed, 30 insertions(+), 8 deletions(-)
+ drivers/nvme/host/core.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/include/linux/nvme.h b/include/linux/nvme.h
-index 779507ac750b..83704fc04a94 100644
---- a/include/linux/nvme.h
-+++ b/include/linux/nvme.h
-@@ -759,20 +759,42 @@ enum {
- 	NVME_LBART_ATTRIB_HIDE	= 1 << 1,
- };
+diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
+index d400175c312d..48a22c3aff15 100644
+--- a/drivers/nvme/host/core.c
++++ b/drivers/nvme/host/core.c
+@@ -2082,7 +2082,7 @@ static char nvme_pr_type(enum pr_type type)
+ }
  
-+struct nvme_registered_ctrl {
-+	__le16	cntlid;
-+	__u8	rcsts;
-+	__u8	rsvd3[5];
-+	__le64	hostid;
-+	__le64	rkey;
-+};
-+
- struct nvme_reservation_status {
- 	__le32	gen;
- 	__u8	rtype;
- 	__u8	regctl[2];
- 	__u8	resv5[2];
- 	__u8	ptpls;
--	__u8	resv10[13];
--	struct {
--		__le16	cntlid;
--		__u8	rcsts;
--		__u8	resv3[5];
--		__le64	hostid;
--		__le64	rkey;
--	} regctl_ds[];
-+	__u8	resv10[14];
-+	struct nvme_registered_ctrl regctl_ds[];
-+};
-+
-+struct nvme_registered_ctrl_ext {
-+	__le16	cntlid;
-+	__u8	rcsts;
-+	__u8	rsvd3[5];
-+	__le64	rkey;
-+	__u8	hostid[16];
-+	__u8	rsvd32[32];
-+};
-+
-+struct nvme_reservation_status_ext {
-+	__le32	gen;
-+	__u8	rtype;
-+	__u8	regctl[2];
-+	__u8	resv5[2];
-+	__u8	ptpls;
-+	__u8	resv10[14];
-+	__u8	rsvd24[40];
-+	struct nvme_registered_ctrl_ext regctl_eds[];
- };
+ static int nvme_send_ns_head_pr_command(struct block_device *bdev,
+-		struct nvme_command *c, u8 data[16])
++		struct nvme_command *c, u8 *data, unsigned int data_len)
+ {
+ 	struct nvme_ns_head *head = bdev->bd_disk->private_data;
+ 	int srcu_idx = srcu_read_lock(&head->srcu);
+@@ -2091,17 +2091,17 @@ static int nvme_send_ns_head_pr_command(struct block_device *bdev,
  
- enum nvme_async_event_type {
+ 	if (ns) {
+ 		c->common.nsid = cpu_to_le32(ns->head->ns_id);
+-		ret = nvme_submit_sync_cmd(ns->queue, c, data, 16);
++		ret = nvme_submit_sync_cmd(ns->queue, c, data, data_len);
+ 	}
+ 	srcu_read_unlock(&head->srcu, srcu_idx);
+ 	return ret;
+ }
+ 	
+ static int nvme_send_ns_pr_command(struct nvme_ns *ns, struct nvme_command *c,
+-		u8 data[16])
++		u8 *data, unsigned int data_len)
+ {
+ 	c->common.nsid = cpu_to_le32(ns->head->ns_id);
+-	return nvme_submit_sync_cmd(ns->queue, c, data, 16);
++	return nvme_submit_sync_cmd(ns->queue, c, data, data_len);
+ }
+ 
+ static int nvme_sc_to_pr_err(int nvme_sc)
+@@ -2141,10 +2141,11 @@ static int nvme_pr_command(struct block_device *bdev, u32 cdw10,
+ 
+ 	if (IS_ENABLED(CONFIG_NVME_MULTIPATH) &&
+ 	    bdev->bd_disk->fops == &nvme_ns_head_ops)
+-		ret = nvme_send_ns_head_pr_command(bdev, &c, data);
++		ret = nvme_send_ns_head_pr_command(bdev, &c, data,
++						   sizeof(data));
+ 	else
+ 		ret = nvme_send_ns_pr_command(bdev->bd_disk->private_data, &c,
+-					      data);
++					      data, sizeof(data));
+ 	if (ret < 0)
+ 		return ret;
+ 
 -- 
 2.25.1
 
