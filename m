@@ -1,97 +1,99 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 302596C8401
-	for <lists+dm-devel@lfdr.de>; Fri, 24 Mar 2023 18:57:37 +0100 (CET)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 85CFE6C840E
+	for <lists+dm-devel@lfdr.de>; Fri, 24 Mar 2023 18:57:52 +0100 (CET)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679680655;
+	s=mimecast20190719; t=1679680671;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DAJc3fmLFwDnes03C0cyYHHJ/I7nqeLJsE61lIKEm4c=;
-	b=cy2i98CpXa5+VhT8T2ygzr4xbxDs8tOksXKCt8hBDgDZNvr2h83eGw5ccz5AzGZmsExw2T
-	6fHVgZ9y4Me4W2WDhM3CpQTWD5SG2nDSStdllw5uw9xdWrC36v98pjOrfRFM6skIfXn4oC
-	q4dPRquJouvGZ6q51Gye+IejCAikmfI=
+	bh=6XusNNgPye6YWNO8uR7HXXGvCeN2EUngVHyjX/W7QXA=;
+	b=M2OUo7k4PBaO7l2JysZ4vvgdGMIatnotr/thI52C1daVJmxCuXKKv8mAr+HyOtaRLygnYr
+	3YBerV5H1N85f4qFdROdWb9or6zSdWTrqB88gMTrpkqhNvf/OrxNWP9vNUSgxZJG76/GyP
+	Y4wcwzDrCzVFRQq/TqLF4Q37ilCBoGQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-523-BjepjooOOGmlRPN9MWEbiQ-1; Fri, 24 Mar 2023 13:57:34 -0400
-X-MC-Unique: BjepjooOOGmlRPN9MWEbiQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-450-fJvGHGELPRKGYiXNGmQWKw-1; Fri, 24 Mar 2023 13:57:50 -0400
+X-MC-Unique: fJvGHGELPRKGYiXNGmQWKw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 47555857F81;
-	Fri, 24 Mar 2023 17:57:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B59E1101A550;
+	Fri, 24 Mar 2023 17:57:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3278A2A68;
-	Fri, 24 Mar 2023 17:57:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A0D2940C6E67;
+	Fri, 24 Mar 2023 17:57:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 022C719472C0;
-	Fri, 24 Mar 2023 17:57:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CA65819472EA;
+	Fri, 24 Mar 2023 17:57:20 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D38AA1946A78
- for <dm-devel@listman.corp.redhat.com>; Fri, 24 Mar 2023 17:57:11 +0000 (UTC)
+ ESMTP id 0747519472C2
+ for <dm-devel@listman.corp.redhat.com>; Fri, 24 Mar 2023 17:57:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BACF1492B01; Fri, 24 Mar 2023 17:57:11 +0000 (UTC)
+ id EE0D040C6E68; Fri, 24 Mar 2023 17:57:13 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B3B5F492C3E
- for <dm-devel@redhat.com>; Fri, 24 Mar 2023 17:57:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 97953185A78F
- for <dm-devel@redhat.com>; Fri, 24 Mar 2023 17:57:11 +0000 (UTC)
-Received: from mail-qt1-f177.google.com (mail-qt1-f177.google.com
- [209.85.160.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E59A840C6E67
+ for <dm-devel@redhat.com>; Fri, 24 Mar 2023 17:57:13 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC573886463
+ for <dm-devel@redhat.com>; Fri, 24 Mar 2023 17:57:13 +0000 (UTC)
+Received: from mail-qv1-f47.google.com (mail-qv1-f47.google.com
+ [209.85.219.47]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-411-mfW23TkeO0isrVOxogQxzg-2; Fri, 24 Mar 2023 13:57:10 -0400
-X-MC-Unique: mfW23TkeO0isrVOxogQxzg-2
-Received: by mail-qt1-f177.google.com with SMTP id ga7so2219394qtb.2
- for <dm-devel@redhat.com>; Fri, 24 Mar 2023 10:57:09 -0700 (PDT)
+ us-mta-610-3e1bOS_pORmrxmbfocu_1g-2; Fri, 24 Mar 2023 13:57:11 -0400
+X-MC-Unique: 3e1bOS_pORmrxmbfocu_1g-2
+Received: by mail-qv1-f47.google.com with SMTP id 31so2202565qvc.1
+ for <dm-devel@redhat.com>; Fri, 24 Mar 2023 10:57:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679680629;
+ d=1e100.net; s=20210112; t=1679680630;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=Uz4MQKqyyyXmrhMudVOv+R32y8m1MjTz5D9yPmV0boc=;
- b=bNZxFiVzgFMtXziBIGqozhP9CkmwIJyg/1xK+XyDGuidhZwvK9Tb1lhBjf6IMriDh6
- 7SaSgsW97i9rPvBnHHRaSj6dcUDQMdL/uh9+ExYnWuNMT1GUHcDEqyLIO3MDeOBryBlH
- 1GVQJqvPxerLry5+wDC3NuKwA/xBi0ww4C+0bBw/GthxFz58eoKrffVXkwKw/yVnLi+t
- YnptHMKKXQVP0d3vkrs1Gp1enSkIoc2U4CIiOcIrBGsol8nXjOQH7FKr+eWbAxRPY2NT
- KZpGXCm2JiRWH2dSDHiKBpw6sPU4aKgt1WcAUrfGEW3eClCi9jQNDqZiwEuxNR3reVz0
- GfFA==
-X-Gm-Message-State: AO0yUKV9F2B1Dibu33GmfIL/BsqqYdBiFH3k63oRinhpXvgHZlmT49e5
- JRq/GsPQ+NhfOSj9w2vrkpRPxoBLFahVYl1muH2+jKGUeGpl7MmbRp23kTNCxncWOdV/HnpFrdL
- ejPGrQu7REel9wdFCc8dWYKAGYSctZRcrAM0WfHiu7Os155yld3WxwGpVzRxEgq6gyesHcvIkFZ
- 0=
-X-Google-Smtp-Source: AK7set9fHWCfv+WpbP227HebgcPFG2XPeSL9RTRyiG2kVwcMqW1edMInAthmNNTgnRLcW2xLweTTjA==
-X-Received: by 2002:a05:622a:387:b0:3d4:17dc:3fcf with SMTP id
- j7-20020a05622a038700b003d417dc3fcfmr6176455qtx.5.1679680629263; 
- Fri, 24 Mar 2023 10:57:09 -0700 (PDT)
+ bh=7GATmDpp2LqxaO3YBsTr83VB1ZcPRtnkKD4xtYp0nm8=;
+ b=RH7Smex85kYIo+6ejdYeJleCckkdXUnXF4t+avFOQtK5tr4hYM1tebxh0kPOYUj0cw
+ D5TA91jQ/hlIZNvBwgcnN2hrtK6EYRzNvtEyPx4FWwbUSxgbZABI4bc9xYUtIC3ajgsP
+ bKySMvp4vgTi/0dWAjPN1nwWUlHFaA391a7IIraD3MZhjc5kCKvNHoA30vM8PAEF0hMI
+ QbicCfMNVnEDW9+DR4CmkqlsowAUHWwMbfi+VrW5+TH1UjAk5ggYDQeDoUX7dVvLwEz1
+ eHdLHp9XLdEsbEI0N18HVNY4RUsum/tXFsZXe8oNd6caviG2SPXQ1bveYjmIKmxeO8aH
+ fIFA==
+X-Gm-Message-State: AAQBX9duTRd2YYmHt/1j5saD7H2Uzenco7HaksGWrueEQaR47E95c6Nv
+ mSjT0jaF8mDAs5j7p5wnV319PlUudFcB8j69e/TmnBTabIiIgD+wGHi49MkerigGJ5HTXl+VoQN
+ W7ttEfYGN1sYMMbZyjb5G/3XAawlYcffCQ/i5/R4QvhgYXIpA3zZIkSBVR0JGvelLwg5tMRNxW/
+ Q=
+X-Google-Smtp-Source: AKy350ZtoK3QhI7V4jQoKyRj8RRPy+HsVSg5fhN94i68TW8ZYwcPzF6HgFN8Nykpq82YzgyFXcllwg==
+X-Received: by 2002:a05:6214:2303:b0:5c6:cd00:aaa1 with SMTP id
+ gc3-20020a056214230300b005c6cd00aaa1mr6249028qvb.39.1679680630706; 
+ Fri, 24 Mar 2023 10:57:10 -0700 (PDT)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- i22-20020ac860d6000000b003dd8ad765dcsm8040082qtm.76.2023.03.24.10.57.08
+ 6-20020a05620a040600b006f9f3c0c63csm3541115qkp.32.2023.03.24.10.57.10
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 24 Mar 2023 10:57:08 -0700 (PDT)
+ Fri, 24 Mar 2023 10:57:10 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Fri, 24 Mar 2023 13:56:53 -0400
-Message-Id: <20230324175656.85082-7-snitzer@kernel.org>
+Date: Fri, 24 Mar 2023 13:56:54 -0400
+Message-Id: <20230324175656.85082-8-snitzer@kernel.org>
 In-Reply-To: <20230324175656.85082-1-snitzer@kernel.org>
 References: <20230324175656.85082-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [dm-6.4 PATCH v2 6/9] dm bufio: use multi-page bio vector
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [dm-6.4 PATCH v2 7/9] dm thin: speed up
+ cell_defer_no_holder()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,70 +111,50 @@ Cc: ebiggers@kernel.org, keescook@chromium.org, heinzm@redhat.com,
  luomeng12@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Mikulas Patocka <mpatocka@redhat.com>
+From: Joe Thornber <ejt@redhat.com>
 
-The kernel supports multi page bio vector entries, so we can use them
-in dm-bufio as an optimization.
+Reduce the time that a spinlock is held in cell_defer_no_holder().
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Signed-off-by: Joe Thornber <ejt@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bufio.c | 24 ++++--------------------
- 1 file changed, 4 insertions(+), 20 deletions(-)
+ drivers/md/dm-thin.c | 14 ++++++++------
+ 1 file changed, 8 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index b638ddd161b4..927969b31e2f 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -1326,19 +1326,14 @@ static void use_bio(struct dm_buffer *b, enum req_op op, sector_t sector,
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 13d4677baafd..00323428919e 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -883,15 +883,17 @@ static void cell_defer_no_holder(struct thin_c *tc, struct dm_bio_prison_cell *c
  {
- 	struct bio *bio;
- 	char *ptr;
--	unsigned int vec_size, len;
-+	unsigned int len;
+ 	struct pool *pool = tc->pool;
+ 	unsigned long flags;
+-	int has_work;
++	struct bio_list bios;
  
--	vec_size = b->c->block_size >> PAGE_SHIFT;
--	if (unlikely(b->c->sectors_per_block_bits < PAGE_SHIFT - SECTOR_SHIFT))
--		vec_size += 2;
--
--	bio = bio_kmalloc(vec_size, GFP_NOWAIT | __GFP_NORETRY | __GFP_NOWARN);
-+	bio = bio_kmalloc(1, GFP_NOWAIT | __GFP_NORETRY | __GFP_NOWARN);
- 	if (!bio) {
--dmio:
- 		use_dmio(b, op, sector, n_sectors, offset);
- 		return;
- 	}
--	bio_init(bio, b->c->bdev, bio->bi_inline_vecs, vec_size, op);
-+	bio_init(bio, b->c->bdev, bio->bi_inline_vecs, 1, op);
- 	bio->bi_iter.bi_sector = sector;
- 	bio->bi_end_io = bio_complete;
- 	bio->bi_private = b;
-@@ -1346,18 +1341,7 @@ static void use_bio(struct dm_buffer *b, enum req_op op, sector_t sector,
- 	ptr = (char *)b->data + offset;
- 	len = n_sectors << SECTOR_SHIFT;
+-	spin_lock_irqsave(&tc->lock, flags);
+-	cell_release_no_holder(pool, cell, &tc->deferred_bio_list);
+-	has_work = !bio_list_empty(&tc->deferred_bio_list);
+-	spin_unlock_irqrestore(&tc->lock, flags);
++	bio_list_init(&bios);
++	cell_release_no_holder(pool, cell, &bios);
  
--	do {
--		unsigned int this_step = min((unsigned int)(PAGE_SIZE - offset_in_page(ptr)), len);
--
--		if (!bio_add_page(bio, virt_to_page(ptr), this_step,
--				  offset_in_page(ptr))) {
--			bio_put(bio);
--			goto dmio;
--		}
--
--		len -= this_step;
--		ptr += this_step;
--	} while (len > 0);
-+	__bio_add_page(bio, virt_to_page(ptr), len, offset_in_page(ptr));
- 
- 	submit_bio(bio);
+-	if (has_work)
++	if (!bio_list_empty(&bios)) {
++		spin_lock_irqsave(&tc->lock, flags);
++		bio_list_merge(&tc->deferred_bio_list, &bios);
++		spin_unlock_irqrestore(&tc->lock, flags);
+ 		wake_worker(pool);
++	}
  }
+ 
+ static void thin_defer_bio(struct thin_c *tc, struct bio *bio);
 -- 
 2.40.0
 
