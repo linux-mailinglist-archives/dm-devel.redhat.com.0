@@ -1,98 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9FD846CAF89
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 22:13:46 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 704086CAF80
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 22:13:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679948025;
+	s=mimecast20190719; t=1679948007;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sPcaQg8F3elM/1El78HJT+eq7P4p99wIV/kYQ9Aef/0=;
-	b=fYcg9D1SYMZulTJOLDLangbrP22siIx9RK5KgxfpRXS5bQJ7LtT1cAa5LGzzAp3zCSrLC2
-	pXC7xB9LgYlWcyU8JgqjQhc3PT9Pv8X/5tTkGIKLSx2nQc9nZJ5SuDaJU//Celf+5AfxN7
-	lyQZg8Xof79BJidVOEpotRLLUmtJ5Dw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=tRatwY+TYZxRkLdO/ss4BQCgdJBqNUssHPPPaZrIFR0=;
+	b=QCUTITiZjRCNCeabGqzDqScq7BE4PWQ9X6P44ygj2hj+Yy5kb/5yJ03uHwcYryNYNEhsxd
+	SDd3JQB87cwaKosTuZ1CE/EMmSG2vDzuX9/TtmZMJDEdrNHHuhQ6tgn2ZYgu+BQvkMSlSh
+	0B0FRza4ud1a1srmHYlHNrNLCwKaDWM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-66-9MkKhQMPPFOOBikO2pHNqg-1; Mon, 27 Mar 2023 16:13:44 -0400
-X-MC-Unique: 9MkKhQMPPFOOBikO2pHNqg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-417-Lw0HxkkYM3mJPYX1QZxWLQ-1; Mon, 27 Mar 2023 16:13:25 -0400
+X-MC-Unique: Lw0HxkkYM3mJPYX1QZxWLQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 992F33810B14;
-	Mon, 27 Mar 2023 20:13:41 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0947B857FB3;
+	Mon, 27 Mar 2023 20:13:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 84BA740B3ED9;
-	Mon, 27 Mar 2023 20:13:41 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E5BFF2166B26;
+	Mon, 27 Mar 2023 20:13:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ABF6E19472C8;
-	Mon, 27 Mar 2023 20:13:22 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2B41D1946A6A;
+	Mon, 27 Mar 2023 20:13:16 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C0EEA194658F
+ ESMTP id 7C0C319465B9
  for <dm-devel@listman.corp.redhat.com>; Mon, 27 Mar 2023 20:13:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A535C492B01; Mon, 27 Mar 2023 20:13:15 +0000 (UTC)
+ id 60E3D4020C85; Mon, 27 Mar 2023 20:13:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DEAE492B03
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 594AC4020C82
  for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:13:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83CD81C05EBF
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D8393C0E44A
  for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:13:15 +0000 (UTC)
-Received: from mail-qv1-f42.google.com (mail-qv1-f42.google.com
- [209.85.219.42]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mail-qt1-f174.google.com (mail-qt1-f174.google.com
+ [209.85.160.174]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-434-a4NpGVsUNfOr0iZTT4Rzbg-1; Mon, 27 Mar 2023 16:13:12 -0400
-X-MC-Unique: a4NpGVsUNfOr0iZTT4Rzbg-1
-Received: by mail-qv1-f42.google.com with SMTP id x8so7617869qvr.9
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:13:12 -0700 (PDT)
+ us-mta-517-0mQhJb7zOP-LA3iJKqHCBQ-1; Mon, 27 Mar 2023 16:13:13 -0400
+X-MC-Unique: 0mQhJb7zOP-LA3iJKqHCBQ-1
+Received: by mail-qt1-f174.google.com with SMTP id cj15so2315900qtb.5
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:13:13 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679947991;
+ d=1e100.net; s=20210112; t=1679947993;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=38Sgxe5/q+hJ0JKVFdOX1S2/H0qUacEb3wrSiTwviHY=;
- b=A00nOqtpRbgmE2GWQgS6FX0rUpbjjcDT/sxtksuJRs1ALJrq/ZCLbslBVYVOmU/Q62
- IV9HlCZjEMkFNVef6ZlT6mNq7lJgAWsKevL6Di5FSTi9v1O5IAKNv1N2eIXA1jiafUlq
- 2hdr1Lcw7MPVheMxZC7fUQhg8QGrdzJvgOI+xlISwOQvZiylbpq6y7azsxFCg3xu3hu1
- uixtBbNh6KodUjAo7rUXoNf5Nz6m23h0AlcIX1VpyajHXrCu3YbaXmutPXJQVl5rhV9c
- sWGTr3WKOy5OboGRnsQMd/O/0SL2F2gWxLhCF86UHvh8/q2CjozSGNIheK6fYa6562LL
- +1FQ==
-X-Gm-Message-State: AAQBX9c6zimYCmc7X+kTskiGloR8lPz1gjq6Gg6BYYRKx4MLYGgFKD1G
- jZDQm7Vr255HAA9o8LHPWGEjRlISsSaVw1sgCEU33JnO0zUhSWcr9wmJivoJlMGUD1ccLxPL+do
- uyrRoTlGLy7C8uTu0GZbTOfzyopAaLbEWK/cqqr19lpGsDgVGbEuXOYBcwqplP5sxujdRNP9nid
- 4=
-X-Google-Smtp-Source: AKy350Z/SX3NEFg9tn3FY6AM6zZMl6uXUeBw6GhmbRlqi/g3goSm+tkfNNjvAC/CMiQFi0MxHMsbFw==
-X-Received: by 2002:ad4:5d69:0:b0:5db:e06f:e0f9 with SMTP id
- fn9-20020ad45d69000000b005dbe06fe0f9mr19745867qvb.13.1679947991288; 
- Mon, 27 Mar 2023 13:13:11 -0700 (PDT)
+ bh=hmqlLAmAcoDYlM73GWg+waCa1PP8Bn6cws6QITx68xo=;
+ b=Bbxo4b4mPuDMGnyHqrfz4rrjuykQP8uJqh4WmYd1VVZ8UM0AU2ctz8X6D5QzKq2gZO
+ ZPBroTmBBoCDrHZA15ZMB8l4y5gg1bP8KC/YYlVHqFQt1dO8osbDC4Uyu/ZnNXEgC/zE
+ eNaBjfSfozpIQjuafZgnJUHXJ7i1iJ18G6CbDjmZpe8kJsJZ7apzWw4qgFxS69u5bww0
+ PkNfDihGugJXW//09iANTxWM3ZKV0xPdNVr2ify4lw2euqGg+DtDa50xEo+ezhIPcXA6
+ OfR4W/WFrYRzyXsFyfwr1t1EHBq0TTsUWRyUPcNj3SsGgUJ4cPLAL3Ai3j/X0YD5/GUj
+ JowQ==
+X-Gm-Message-State: AAQBX9coA3kcvQ5YoT8jlhHBxCyQ/JrKdhcqFCczoeNlNVtS61agB3jl
+ 92mHfeffJXjmiGIjkrYwUQUWcxS7JaCgHNkOn54V3+siTnc2B/Xyk3UvUhaO0va7Oh8zB3WWpjL
+ 4TSjsujHxLYC8VaXzijYOTJERasBCxZWnPV9R8vBi+mgbGjY1qs+oy8c8b3zh16xh0BDVkuKso7
+ k=
+X-Google-Smtp-Source: AKy350b9yynzcGT7R923zG1Nqhk3Mn4VUNQG7FVDF/2AYEYBKvcrKmzGtyrZXsaF2wG0qO6dp7ngxQ==
+X-Received: by 2002:a05:622a:1002:b0:3e4:dbfa:ee2b with SMTP id
+ d2-20020a05622a100200b003e4dbfaee2bmr15465044qte.17.1679947992941; 
+ Mon, 27 Mar 2023 13:13:12 -0700 (PDT)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- a200-20020ae9e8d1000000b00747d211536dsm3327118qkg.107.2023.03.27.13.13.10
+ 141-20020a370793000000b0074672975d5csm12784571qkh.91.2023.03.27.13.13.12
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 13:13:10 -0700 (PDT)
+ Mon, 27 Mar 2023 13:13:12 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 27 Mar 2023 16:11:26 -0400
-Message-Id: <20230327201143.51026-4-snitzer@kernel.org>
+Date: Mon, 27 Mar 2023 16:11:27 -0400
+Message-Id: <20230327201143.51026-5-snitzer@kernel.org>
 In-Reply-To: <20230327201143.51026-1-snitzer@kernel.org>
 References: <20230327201143.51026-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [dm-6.4 PATCH v3 03/20] dm bufio: never crash if
- dm_bufio_in_request()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [dm-6.4 PATCH v3 04/20] dm bufio: don't bug for clear
+ developer oversight
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,85 +110,65 @@ Cc: axboe@kernel.dk, ebiggers@kernel.org, keescook@chromium.org,
  luomeng12@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-All these instances are entirely avoidable given that they speak to
-coding mistakes that result in inappropriate use. Proper testing during
-development will catch any such coding bug so its best to relax all of
-these from BUG_ON to WARN_ON_ONCE.
+Reasonable to relax to WARN_ON because these are easily avoided but do
+offer some assurance future coding mistakes won't occur (if changes
+tested properly).
 
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm-bufio.c | 18 ++++++++++++------
- 1 file changed, 12 insertions(+), 6 deletions(-)
+ drivers/md/dm-bufio.c | 13 ++++++++-----
+ 1 file changed, 8 insertions(+), 5 deletions(-)
 
 diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index dac9f1f84c34..d63f94ab1d9f 100644
+index d63f94ab1d9f..64fb5fd39bd9 100644
 --- a/drivers/md/dm-bufio.c
 +++ b/drivers/md/dm-bufio.c
-@@ -1152,7 +1152,8 @@ EXPORT_SYMBOL_GPL(dm_bufio_get);
- void *dm_bufio_read(struct dm_bufio_client *c, sector_t block,
- 		    struct dm_buffer **bp)
+@@ -378,8 +378,10 @@ static void adjust_total_allocated(struct dm_buffer *b, bool unlink)
+  */
+ static void __cache_size_refresh(void)
  {
--	BUG_ON(dm_bufio_in_request());
-+	if (WARN_ON_ONCE(dm_bufio_in_request()))
-+		return ERR_PTR(-EINVAL);
+-	BUG_ON(!mutex_is_locked(&dm_bufio_clients_lock));
+-	BUG_ON(dm_bufio_client_count < 0);
++	if (WARN_ON(!mutex_is_locked(&dm_bufio_clients_lock)))
++		return;
++	if (WARN_ON(dm_bufio_client_count < 0))
++		return;
  
- 	return new_read(c, block, NF_READ, bp);
- }
-@@ -1161,7 +1162,8 @@ EXPORT_SYMBOL_GPL(dm_bufio_read);
- void *dm_bufio_new(struct dm_bufio_client *c, sector_t block,
- 		   struct dm_buffer **bp)
- {
--	BUG_ON(dm_bufio_in_request());
-+	if (WARN_ON_ONCE(dm_bufio_in_request()))
-+		return ERR_PTR(-EINVAL);
+ 	dm_bufio_cache_size_latch = READ_ONCE(dm_bufio_cache_size);
  
- 	return new_read(c, block, NF_FRESH, bp);
- }
-@@ -1174,7 +1176,8 @@ void dm_bufio_prefetch(struct dm_bufio_client *c,
- 
- 	LIST_HEAD(write_list);
+@@ -1536,7 +1538,8 @@ static void drop_buffers(struct dm_bufio_client *c)
+ 	int i;
+ 	bool warned = false;
  
 -	BUG_ON(dm_bufio_in_request());
-+	if (WARN_ON_ONCE(dm_bufio_in_request()))
++	if (WARN_ON(dm_bufio_in_request()))
 +		return; /* should never happen */
  
- 	blk_start_plug(&plug);
- 	dm_bufio_lock(c);
-@@ -1281,7 +1284,8 @@ void dm_bufio_write_dirty_buffers_async(struct dm_bufio_client *c)
- {
- 	LIST_HEAD(write_list);
+ 	/*
+ 	 * An optimization so that the buffers are not written one-by-one.
+@@ -1556,7 +1559,7 @@ static void drop_buffers(struct dm_bufio_client *c)
+ 			      (unsigned long long)b->block, b->hold_count, i);
+ #ifdef CONFIG_DM_DEBUG_BLOCK_STACK_TRACING
+ 			stack_trace_print(b->stack_entries, b->stack_len, 1);
+-			/* mark unclaimed to avoid BUG_ON below */
++			/* mark unclaimed to avoid WARN_ON below */
+ 			b->hold_count = 0;
+ #endif
+ 		}
+@@ -1567,7 +1570,7 @@ static void drop_buffers(struct dm_bufio_client *c)
+ #endif
  
--	BUG_ON(dm_bufio_in_request());
-+	if (WARN_ON_ONCE(dm_bufio_in_request()))
-+		return; /* should never happen */
+ 	for (i = 0; i < LIST_SIZE; i++)
+-		BUG_ON(!list_empty(&c->lru[i]));
++		WARN_ON(!list_empty(&c->lru[i]));
  
- 	dm_bufio_lock(c);
- 	__write_dirty_buffers_async(c, 0, &write_list);
-@@ -1386,7 +1390,8 @@ int dm_bufio_issue_flush(struct dm_bufio_client *c)
- 		.count = 0,
- 	};
- 
--	BUG_ON(dm_bufio_in_request());
-+	if (WARN_ON_ONCE(dm_bufio_in_request()))
-+		return -EINVAL;
- 
- 	return dm_io(&io_req, 1, &io_reg, NULL);
- }
-@@ -1409,7 +1414,8 @@ int dm_bufio_issue_discard(struct dm_bufio_client *c, sector_t block, sector_t c
- 		.count = block_to_sector(c, count),
- 	};
- 
--	BUG_ON(dm_bufio_in_request());
-+	if (WARN_ON_ONCE(dm_bufio_in_request()))
-+		return -EINVAL; /* discards are optional */
- 
- 	return dm_io(&io_req, 1, &io_reg, NULL);
+ 	dm_bufio_unlock(c);
  }
 -- 
 2.40.0
