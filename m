@@ -1,82 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 428306CA5BB
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 15:25:34 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CACE6CA5BA
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 15:25:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679923533;
+	s=mimecast20190719; t=1679923532;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yg/vMSuaw5sv67eUgRpCAakITTLheqO3HQuXsqLREHE=;
-	b=Hv3z7sXYxrRJhDPJzPoHly0YlJiEMdIncMpjrILwvBWmQzgEKLj4ORi5vCvoEgQQnkOhdv
-	AAlwsoUj02T5ZGLcFGPEi/VxfYCWtsCaxHspg+vcd4oIFfZ8c99m26TLZGCTmxW1Nm79J3
-	CRD95qQvFl9CLmck8XyqRaHeTkQTtSw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=LBYsJsFgNdiTMVw//U7ITIlOh2nEm+P8rYLhnaBK+lY=;
+	b=drU8M03K2if8h2pQIn3mLC41tSRt+W0I73pfOZU4If18oh2m4Jkbw1j9B63PbCamWGOSVS
+	yxjFfetM3bOJWz/EZhmtv2dhR4zrGJi3KxLC/haDyFUQF0SnismcqbAtq0ggBMiiM48M0o
+	Y16D1zu6drLnTmZNN/XL/XGFrXrrV7k=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-84-rehA-0DDOEOx5axaz1GHqQ-1; Mon, 27 Mar 2023 09:25:29 -0400
-X-MC-Unique: rehA-0DDOEOx5axaz1GHqQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-619-flrJTlQCNVKwmqzqn8UHCg-1; Mon, 27 Mar 2023 09:25:30 -0400
+X-MC-Unique: flrJTlQCNVKwmqzqn8UHCg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFF2938173DA;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AFE7280D643;
 	Mon, 27 Mar 2023 13:25:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6F4632027042;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C20B914171BE;
 	Mon, 27 Mar 2023 13:25:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 444C31946A50;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6D1161946A6F;
 	Mon, 27 Mar 2023 13:25:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 09886194658F
+ ESMTP id 63D0119465B9
  for <dm-devel@listman.corp.redhat.com>; Mon, 27 Mar 2023 13:25:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F200B492C3E; Mon, 27 Mar 2023 13:25:18 +0000 (UTC)
+ id 497C343FBE; Mon, 27 Mar 2023 13:25:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EAEEF492B01
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:25:18 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 421193542A
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:25:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0E3310119EB
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:25:18 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 234FF38173CB
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:25:19 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-670-jNuicCUkNJy7AYBceHBSsg-1; Mon,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-376-EyA-7DKyOPyvzSA12kkXaw-1; Mon,
  27 Mar 2023 09:25:15 -0400
-X-MC-Unique: jNuicCUkNJy7AYBceHBSsg-1
+X-MC-Unique: EyA-7DKyOPyvzSA12kkXaw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 073F421F48;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5C9D821ECF;
  Mon, 27 Mar 2023 13:25:14 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 9FD6613329;
- Mon, 27 Mar 2023 13:25:13 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0AF76138ED;
+ Mon, 27 Mar 2023 13:25:14 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oD8UJTmZIWTobgAAMHmgww
- (envelope-from <mwilck@suse.com>); Mon, 27 Mar 2023 13:25:13 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id mEz3ADqZIWTobgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Mon, 27 Mar 2023 13:25:14 +0000
 From: mwilck@suse.com
 To: Douglas Gilbert <dgilbert@interlog.com>,
 	Hannes Reinecke <hare@suse.de>
-Date: Mon, 27 Mar 2023 15:24:57 +0200
-Message-Id: <20230327132459.29531-2-mwilck@suse.com>
+Date: Mon, 27 Mar 2023 15:24:58 +0200
+Message-Id: <20230327132459.29531-3-mwilck@suse.com>
 In-Reply-To: <20230327132459.29531-1-mwilck@suse.com>
 References: <20230327132459.29531-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,9 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH 1/3] 55-scsi-sg3_id.rules: don't set unreliable
- device ID by default
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [PATCH 2/3] 58-scsi-sg3_symlink.rules: don't create
+ extra by-id symlinks by default
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,7 +105,7 @@ Cc: James Bottomley <jejb@linux.vnet.ibm.com>, linux-scsi@vger.kernel.org,
  dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -114,97 +113,112 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Some of the methods to determine the SCSI device ID are known to be
-unreliable and, and possibly cause dm-multipath to falsely detect
-a multipath setup and cause data corruption. These methods will
-only be used if the known reliable device IDs (like NAA registered)
-are unavailable.
+The current code will set device symlinks for every identifier obtained
+from VPD pages 0x83 and 0x80. This is seldom useful. Device IDs shouldn't
+be used for identifying file systems or high-level objects such as LVs;
+it is much more useful to identify these by their respective UUIDs.
+Those subsystems that need device IDs, such as LVM, multipath, dm-crypt
+etc, just need one identifier. For these use cases, a single symlink
+is sufficient, and it should be the most reliable one as selected by
+the ID_SERIAL logic in 55-scsi-sg3_id.rules.
 
-Don't apply these methods by default. Make the methods to use configurable
-instead. Configuration is done by setting the udev property
-".SCSI_ID_SERIAL_SRC" to any combination of the letters T, L, V, S:
+On the other hand, especially on large configurations, unreliable and
+ambiguous device identifiers can cause trouble when many devices claim
+the same symlink. udev's attempts to determine the highest-priority
+contender for a given symlink may be very resource-intensive and slow,
+especially during boot, when lots of uevents for similar devices have
+to be processed in parallel. This can cause udev workers to be killed,
+and in the worst case, boot failure.
 
-  T: T10 vendor ID ("1...")
-  L: NAA local ("33...")
-  V: vendor-specific ("0...")
-  S: vendor/model/serial number ("S...")
+Avoid these issues by not creating possibly ambiguous /dev/disk/by-id
+symlinks any more by default. Users can modify the configuration by
+setting the types of symlinks to create in the environment variable
+.SCSI_SYMLINK_SRC, which can be a combination of the letters T, L, V, S:
 
-The ordering of the letters in .SCSI_ID_SERIAL_SRC doesn't matter,
-the precedence is always T, L, V, S.
+ T: T10 vendor ID ("1...") from VPD 0x83
+ L: NAA local ("33...") from VPD 0x83
+ V: vendor-specific ("0...") from VPD 0x83
+ S: vendor/model/serial number ("S...") from VPD 0x80
 
-Regardless of using these properties for ID_SERIAL, we can infer that
-if any of these properties is set, it's correct to set ID_BUS="scsi".
+In practice, modifying this should only be necessary if legacy devices
+that don't provide any reliable identifiers are used as targets for
+dm-crypt or LVM.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- scripts/55-scsi-sg3_id.rules | 53 +++++++++++++++++++++++++++++++++---
- 1 file changed, 49 insertions(+), 4 deletions(-)
+ scripts/58-scsi-sg3_symlink.rules | 50 +++++++++++++++++++++++++------
+ 1 file changed, 41 insertions(+), 9 deletions(-)
 
-diff --git a/scripts/55-scsi-sg3_id.rules b/scripts/55-scsi-sg3_id.rules
-index 453210b..33b2ad3 100644
---- a/scripts/55-scsi-sg3_id.rules
-+++ b/scripts/55-scsi-sg3_id.rules
-@@ -99,11 +99,56 @@ ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_NAA_REG}=="?*", ENV{ID_BUS}="scsi", ENV
- ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_NAA_EXT}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="3$env{SCSI_IDENT_LUN_NAA_EXT}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_NAA_EXT}"
- ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_EUI64}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="2$env{SCSI_IDENT_LUN_EUI64}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_EUI64}"
- ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_NAME}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="8$env{SCSI_IDENT_LUN_NAME}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_NAME}"
--ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="1$env{SCSI_IDENT_LUN_T10}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_T10}"
--ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="3$env{SCSI_IDENT_LUN_NAA_LOCAL}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_NAA_LOCAL}"
--ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="0$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_LUN_VENDOR}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_VENDOR}"
--ENV{ID_SERIAL}!="?*", ENV{SCSI_IDENT_SERIAL}=="?*", ENV{ID_BUS}="scsi", ENV{ID_SERIAL}="S$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_SERIAL}", ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_SERIAL}"
+diff --git a/scripts/58-scsi-sg3_symlink.rules b/scripts/58-scsi-sg3_symlink.rules
+index fe6b000..99fdc23 100644
+--- a/scripts/58-scsi-sg3_symlink.rules
++++ b/scripts/58-scsi-sg3_symlink.rules
+@@ -5,10 +5,36 @@ ACTION=="remove", GOTO="sg3_utils_symlink_end"
+ SUBSYSTEM!="block", GOTO="sg3_utils_symlink_end"
+ ENV{UDEV_DISABLE_PERSISTENT_STORAGE_RULES_FLAG}=="1", GOTO="sg3_utils_symlink_end"
  
- # Compat ID_SCSI_SERIAL setting
- ENV{ID_SCSI_SERIAL}!="?*", ENV{SCSI_IDENT_SERIAL}=="?*", ENV{ID_SCSI_SERIAL}="$env{SCSI_IDENT_SERIAL}"
-+
-+# Enable or disable possibly ambiguous SCSI device ID sources for setting ID_SERIAL
+-# Select which identifier to use per default
++# Enable or disable possibly ambiguous SCSI device symlinks under /dev/disk/by-id
 +#
-+# .SCSI_ID_SERIAL_SRC can be any combination of the characters "TLVS":
++# .SCSI_SYMLINK_SRC can be any combination of the letter "TLVS":
 +#   T: T10 vendor ID ("1...") from VPD 0x83
 +#   L: NAA local ("33...") from VPD 0x83
 +#   V: vendor-specific ("0...") from VPD 0x83
 +#   S: vendor/model/serial number ("S...") from VPD 0x80
-+# The ordering of the letters doesn't matter, the precedence is always T, L, V, S
-+# NAA (except "local") and EUI-64 IDs (see below), as well as ATA IDs, always take precedence over
-+# the sources configured here.
++# Symlinks will be created for every letter included in .SCSI_SYMLINK_SRC.
++# Symlinks for NAA (except "local") and EUI-64 IDs (see below) are always created.
 +#
-+# This only needs to be changed if there are legacy SCSI devices that don't provide any reliable
-+# device identifiers, and some subsystem like multipath requires that ID_SERIAL is set.
-+# Be aware that multipath actually needs unique identifiers, though.
-+# Using ambiguous identifiers for ID_SERIAL can cause data corruption with multipath.
++# NOTE: The default rules in 60-persistent-storage.rules create a symlink
++# "ENV{ID_BUS}-ENV{ID_SERIAL}" symlink anyway, where ID_BUS is "scsi", "ata", "usb", or "cciss".
++# ID_SERIAL is set in 55-scsi-sg3_id.rules from the least ambiguous device identifier.
++# The symlinks created by this file are created *in addition* to the default symlink.
 +#
-+# To configure this, add an early rule (e.g. /etc/udev/rules.d/00-scsi-serial.rules) e.g. like this:
-+# ACTION!="remove", KERNEL=="sd*|sr*|st*|nst*|cciss*", ENV{.SCSI_ID_SERIAL_SRC}="TLVS"
++# This only needs to be changed if some subsystem, like dm-crypt or LVM, depends on the
++# additional symlinks being present for device identification.
 +#
-+# By default, only T10 vendor ID is allowed.
-+ENV{.SCSI_ID_SERIAL_SRC}!="?*", ENV{.SCSI_ID_SERIAL_SRC}="T"
++# To configure the behavior, add an early rule (e.g. /etc/udev/rules.d/00-scsi-serial.rules)
++# like this:
++# ACTION!="remove", KERNEL=="sd*|sr*|st*|nst*|cciss*", ENV{.SCSI_SYMLINK_SRC}="TS"
++#
++# By default, no possibly ambiguous additional symlinks will be created.
++ENV{.SCSI_SYMLINK_SRC}!="?*", ENV{.SCSI_SYMLINK_SRC}=""
 +
-+ENV{ID_SERIAL}=="?*", GOTO="sg3_utils_id_end"
-+ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{ID_BUS}="scsi"
-+ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{.SCSI_ID_SERIAL_SRC}=="*T*", \
-+    ENV{ID_SERIAL}="1$env{SCSI_IDENT_LUN_T10}", \
-+    ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_T10}"
-+
-+ENV{ID_SERIAL}=="?*", GOTO="sg3_utils_id_end"
-+ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{ID_BUS}="scsi"
-+ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{.SCSI_ID_SERIAL_SRC}=="*L*", \
-+    ENV{ID_SERIAL}="3$env{SCSI_IDENT_LUN_NAA_LOCAL}", \
-+    ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_NAA_LOCAL}"
-+
-+ENV{ID_SERIAL}=="?*", GOTO="sg3_utils_id_end"
-+ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{ID_BUS}="scsi"
-+ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{.SCSI_ID_SERIAL_SRC}=="*V*", \
-+    ENV{ID_SERIAL}="0$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_LUN_VENDOR}", \
-+    ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_LUN_VENDOR}"
-+
-+ENV{ID_SERIAL}=="?*", GOTO="sg3_utils_id_end"
-+ENV{SCSI_IDENT_SERIAL}=="?*", ENV{ID_BUS}="scsi"
-+ENV{SCSI_IDENT_SERIAL}=="?*", ENV{.SCSI_ID_SERIAL_SRC}=="*S*", \
-+    ENV{ID_SERIAL}="S$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_SERIAL}", \
-+    ENV{ID_SERIAL_SHORT}="$env{SCSI_IDENT_SERIAL}"
-+
- LABEL="sg3_utils_id_end"
-+ENV{ID_SERIAL}!="?*", ENV{DEVTYPE}=="disk", \
-+    PROGRAM="/bin/logger -t 55-scsi-sg3_id.rules -p daemon.warning \"WARNING: SCSI device %k has no device ID, consider changing .SCSI_ID_SERIAL_SRC in 00-scsi-sg3_config.rules\""
+ # 0: vpd page 0x80 identifier
+-ENV{SCSI_IDENT_SERIAL}=="?*", ENV{DEVTYPE}=="disk", SYMLINK+="disk/by-id/scsi-S$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_SERIAL}"
+-ENV{SCSI_IDENT_SERIAL}=="?*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/scsi-S$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_SERIAL}-part%n"
++ENV{.SCSI_SYMLINK_SRC}=="*S*", ENV{SCSI_IDENT_SERIAL}=="?*", ENV{DEVTYPE}=="disk", \
++    SYMLINK+="disk/by-id/scsi-S$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_SERIAL}"
++ENV{.SCSI_SYMLINK_SRC}=="*S*", ENV{SCSI_IDENT_SERIAL}=="?*", ENV{DEVTYPE}=="partition", \
++    SYMLINK+="disk/by-id/scsi-S$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_SERIAL}-part%n"
+ # NAA identifier (prefix 3)
+ # 1: IEEE Registered Extended first
+ ENV{SCSI_IDENT_LUN_NAA_REGEXT}=="?*", ENV{DEVTYPE}=="disk", SYMLINK+="disk/by-id/scsi-3$env{SCSI_IDENT_LUN_NAA_REGEXT}"
+@@ -26,13 +52,19 @@ ENV{SCSI_IDENT_LUN_EUI64}=="?*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id
+ ENV{SCSI_IDENT_LUN_NAME}=="?*", ENV{DEVTYPE}=="disk", SYMLINK+="disk/by-id/scsi-8$env{SCSI_IDENT_LUN_NAME}"
+ ENV{SCSI_IDENT_LUN_NAME}=="?*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/scsi-8$env{SCSI_IDENT_LUN_NAME}-part%n"
+ # 6: T10 Vendor identifier (prefix 1)
+-ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{DEVTYPE}=="disk", SYMLINK+="disk/by-id/scsi-1$env{SCSI_IDENT_LUN_T10}"
+-ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/scsi-1$env{SCSI_IDENT_LUN_T10}-part%n"
++ENV{.SCSI_SYMLINK_SRC}=="*T*", ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{DEVTYPE}=="disk", \
++    SYMLINK+="disk/by-id/scsi-1$env{SCSI_IDENT_LUN_T10}"
++ENV{.SCSI_SYMLINK_SRC}=="*T*", ENV{SCSI_IDENT_LUN_T10}=="?*", ENV{DEVTYPE}=="partition", \
++    SYMLINK+="disk/by-id/scsi-1$env{SCSI_IDENT_LUN_T10}-part%n"
+ # 7: IEEE Locally assigned
+-ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{DEVTYPE}=="disk", SYMLINK+="disk/by-id/scsi-3$env{SCSI_IDENT_LUN_NAA_LOCAL}"
+-ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/scsi-3$env{SCSI_IDENT_LUN_NAA_LOCAL}-part%n"
++ENV{.SCSI_SYMLINK_SRC}=="*L*", ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{DEVTYPE}=="disk", \
++    SYMLINK+="disk/by-id/scsi-3$env{SCSI_IDENT_LUN_NAA_LOCAL}"
++ENV{.SCSI_SYMLINK_SRC}=="*L*", ENV{SCSI_IDENT_LUN_NAA_LOCAL}=="?*", ENV{DEVTYPE}=="partition", \
++    SYMLINK+="disk/by-id/scsi-3$env{SCSI_IDENT_LUN_NAA_LOCAL}-part%n"
+ # 8: Vendor-specific identifier (prefix 0)
+-ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{DEVTYPE}=="disk", SYMLINK+="disk/by-id/scsi-0$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_LUN_VENDOR}"
+-ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{DEVTYPE}=="partition", SYMLINK+="disk/by-id/scsi-0$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_LUN_VENDOR}-part%n"
++ENV{.SCSI_SYMLINK_SRC}=="*V*", ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{DEVTYPE}=="disk", \
++    SYMLINK+="disk/by-id/scsi-0$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_LUN_VENDOR}"
++ENV{.SCSI_SYMLINK_SRC}=="*V*", ENV{SCSI_IDENT_LUN_VENDOR}=="?*", ENV{DEVTYPE}=="partition", \
++    SYMLINK+="disk/by-id/scsi-0$env{SCSI_VENDOR}_$env{SCSI_MODEL}_$env{SCSI_IDENT_LUN_VENDOR}-part%n"
+ 
+ LABEL="sg3_utils_symlink_end"
 -- 
 2.39.2
 
