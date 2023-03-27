@@ -1,99 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9DC056CAF9D
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 22:14:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0380F6CB726
+	for <lists+dm-devel@lfdr.de>; Tue, 28 Mar 2023 08:28:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679948055;
+	s=mimecast20190719; t=1679984884;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oXvtm1dG6O+nFjZGE46hHa880ZJ1dRJ/rbBvqQDk0Jw=;
-	b=FLp1tkTm1V5O/kuhZtNTHFNcPXZIzImBp949rtXcXIbpaYaxnb4mO01+dc/p7bBl4Qzvz5
-	K+3csXsrMRcEHJzEDGb969n5F/9rYGH1YPy8WgROw3xJfBmu7OcfNYWrQmYu3E+aNzxXdN
-	l73r7kjEhpT3nSdT8ETCrTV3DoL0blg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=wfhh8dfqxtCwEHEOjEnuEQ2oJ6jnuIitb1Vc3nv9amw=;
+	b=XaeuWqeWqCgalJgD2wbZvo3430A23GeQRIpcok9EOjDLI/0ZrtVJA7xoHIgrl6biduX/ey
+	ZR45o4jb/s3JlpEduLbWuxlMzq+R26rR3i7lfBYJfHinqh5efcRzEjyxEB1q7LfECGR5wo
+	D9EqqeXMn/vE8oNr+TX6IbBSacWxNqk=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-649-sLIzbGlUMJesqQL5LnaLfA-1; Mon, 27 Mar 2023 16:14:14 -0400
-X-MC-Unique: sLIzbGlUMJesqQL5LnaLfA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-352-VOIWnz5TNS-GVSsIHn8zOQ-1; Tue, 28 Mar 2023 02:28:02 -0400
+X-MC-Unique: VOIWnz5TNS-GVSsIHn8zOQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA67C802C1E;
-	Mon, 27 Mar 2023 20:14:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4BB9A1C0514A;
+	Tue, 28 Mar 2023 06:28:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CFC7A440D8;
-	Mon, 27 Mar 2023 20:14:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 98350492C13;
+	Tue, 28 Mar 2023 06:27:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4177E19472C6;
-	Mon, 27 Mar 2023 20:13:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0857319465B3;
+	Tue, 28 Mar 2023 06:27:51 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6CAF619465B5
- for <dm-devel@listman.corp.redhat.com>; Mon, 27 Mar 2023 20:13:42 +0000 (UTC)
+ ESMTP id 78276194658F
+ for <dm-devel@listman.corp.redhat.com>; Mon, 27 Mar 2023 20:24:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 510994020C82; Mon, 27 Mar 2023 20:13:42 +0000 (UTC)
+ id 57F564020C83; Mon, 27 Mar 2023 20:24:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 49F804020C84
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:13:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C723185A7B3
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:13:42 +0000 (UTC)
-Received: from mail-qv1-f54.google.com (mail-qv1-f54.google.com
- [209.85.219.54]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 50AA54020C82
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:24:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BC0A101A54F
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:24:32 +0000 (UTC)
+Received: from mail-yb1-f171.google.com (mail-yb1-f171.google.com
+ [209.85.219.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-259-p56DykNbP_aNb8eScZGr6w-3; Mon, 27 Mar 2023 16:13:40 -0400
-X-MC-Unique: p56DykNbP_aNb8eScZGr6w-3
-Received: by mail-qv1-f54.google.com with SMTP id jl13so7609672qvb.10
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:13:40 -0700 (PDT)
+ us-mta-163-B0FTa_d1NI-iVMlN35aYfw-1; Mon, 27 Mar 2023 16:24:30 -0400
+X-MC-Unique: B0FTa_d1NI-iVMlN35aYfw-1
+Received: by mail-yb1-f171.google.com with SMTP id b18so12358846ybp.1
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:24:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679948020;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=mQyYjWMmcas91qVtcY8jvp2wBSEYoGBjkcnNGzLUcAg=;
- b=j44ccb8/XYEZrMqO0nZGUbN/Ta2sAveMC45WS5keOFwdWLagh4Ht/hZp8+RJUKwt+o
- eudAgTexbU5HuDxivIDL4JPJ07zYUWPjAAUhFMV439AwV2GFaHL3P8rGsPv5JG1TgIPn
- i89J+4M+/6Qvo+JyUdZey0WZkJFhCYe7oPG8FF2H9t6+oH0+UrV4EnvWq9V+BzwqGK7k
- AM+ihoAfFSTVPZvfsp85KyY6wWkCuGlw2NwIuLkijV25F3Ly04ctJxKsfZE/LuJ8yD/m
- cKL+gvmsYzSmquyAnLUzygLTuyr2rDFHyvg6/dl1Z/diOTBI2cZDmyXAQgXkzjVEXDfk
- rfRw==
-X-Gm-Message-State: AAQBX9dOuVguOnPowkMEmRrgXDbXqRSutlXk+nFTN4hG28SifnrLzz/w
- zpTZGfNMf8pcxqgFkV4N8yRcdohjP13TW7aRs3/LXyKlxiw2GZRvseCtObKxP0njdb+mSsQbw4w
- 8sjGYrEXdxJu2jeH/DRNa5PKfim3wFbBRd0uiYbqhZC3JTZJ97OOwYFUCjlBxyBfqgSWanxvHBW
- U=
-X-Google-Smtp-Source: AKy350aUOhS5a7pfiFoOC/vCDrOmXamVaEKNC4KXqyNQGje3o8Ci+KX+zebywjT0o5kNzZBKf3poOw==
-X-Received: by 2002:a05:6214:2aa6:b0:56c:376:3191 with SMTP id
- js6-20020a0562142aa600b0056c03763191mr21114410qvb.44.1679948019857; 
- Mon, 27 Mar 2023 13:13:39 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- a8-20020a0ce908000000b005dd8b9345a3sm3224293qvo.59.2023.03.27.13.13.39
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 13:13:39 -0700 (PDT)
-From: Mike Snitzer <snitzer@kernel.org>
-To: dm-devel@redhat.com
-Date: Mon, 27 Mar 2023 16:11:43 -0400
-Message-Id: <20230327201143.51026-21-snitzer@kernel.org>
-In-Reply-To: <20230327201143.51026-1-snitzer@kernel.org>
-References: <20230327201143.51026-1-snitzer@kernel.org>
+ d=1e100.net; s=20210112; t=1679948669;
+ h=cc:to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=W2jfREF9qNzWz3+L5iyhz9HBp4RRyZ/NjEtDw2yRJBw=;
+ b=w6t1XfXau6l/QsTt8wkT+5PIWev7EhuDfPpCZEQIK3E8qODYPhiYhHCWX/G0ib//0a
+ 6osxlOYIytZXzabj7vmGYNGSuyA/ka1WC5yqDCGcLLQGxNLmCjScOSCwqmlFm7MBevxU
+ M6Yu8ONrZzFW42TtHcAibRb1tlKA0eDKYshrrdMskzXZkLapV+iHJja98wrad24K977Z
+ oDxtcDskt31qphDspF6lVRr++Kc79kj35U1fec5bcmW/jPDV0KtRTBgiDf8TxsRvpay/
+ k8Ibghj55/fXRvSZy3+0XC/E547P/3E4IXQJDhTrByrpCr6Y5DFRbOvgA0O2ySDu7daf
+ 8N6g==
+X-Gm-Message-State: AAQBX9f6W+GSAEvDTBzK8QlOkkD4VyNsdpA8wIMPa2sisY8IEy/mKSLp
+ pXQdQdrOgj1XWbtSusQzXul9OdWVE7w3qJwv417a5sOaHF0/uwBrkZlUqA==
+X-Google-Smtp-Source: AKy350Z0clJbg8lM3qxdQgk0gxc3zUu/Wno2kScUMfWHalwZcybS7TKSmhLWkRSPjNuc7gbx+untru4cxllpeaZHG3g=
+X-Received: by 2002:a25:b00b:0:b0:b68:27f8:e674 with SMTP id
+ q11-20020a25b00b000000b00b6827f8e674mr11954180ybf.39.1679948669296; Mon, 27
+ Mar 2023 13:24:29 -0700 (PDT)
 MIME-Version: 1.0
+From: Gwendal Grignou <gwendal@chromium.org>
+Date: Mon, 27 Mar 2023 13:24:18 -0700
+Message-ID: <CAMHSBOXxdtGxQ8MTv4Tz+fcngaOJS5r62Br6VEDJESg2g5jP4w@mail.gmail.com>
+To: dm-devel@redhat.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [dm-6.4 PATCH v3 20/20] dm bio prison v1: intelligently
- size dm_bio_prison's prison_regions
+X-Mailman-Approved-At: Tue, 28 Mar 2023 06:27:49 +0000
+Subject: [dm-devel] dm-clone: Request option to send discard to source
+ device during hydration
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,67 +101,40 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, ebiggers@kernel.org, keescook@chromium.org,
- heinzm@redhat.com, Mike Snitzer <snitzer@kernel.org>, nhuck@google.com,
- linux-block@vger.kernel.org, ejt@redhat.com, mpatocka@redhat.com,
- luomeng12@huawei.com
+Cc: Sarthak Kukreti <sarthakkukreti@google.com>,
+ Daniil Lunev <dlunev@google.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Size the dm_bio_prison's number of prison_region structs using
-dm_num_sharded_locks().
+On ChromeOS, we are working on migrating file backed loopback devices
+to thinpool logical volumes using dm-clone on the Chromebook local
+SSD.
+Dm-clone hydration workflow is a great fit but the design of dm-clone
+assumes a read-only source device. Data present in the backing file
+will be copied to the new logical volume but can be safely deleted
+only when the hydration process is complete. During migration, some
+data will be duplicated and usage on the Chromebook SSD will
+unnecessarily increase.
+Would it be reasonable to add a discard option when enabling the
+hydration process to discard data as we go on the source device?
+2 implementations are possible:
+a- add a state to the hydration state machine to ensure a region is
+discarded before considering another region.
+b- a simpler implementation where the discard is sent asynchronously
+at the end of a region copy. It may not complete successfully (in case
+the device crashes during the hydration for instance), but will vastly
+reduce the amount of data left  in the source device at the end of the
+hydration.
 
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
----
- drivers/md/dm-bio-prison-v1.c | 11 ++++++-----
- 1 file changed, 6 insertions(+), 5 deletions(-)
+I prefer b) as it is easier to implement, but a) is cleaner from a
+usage point of view.
 
-diff --git a/drivers/md/dm-bio-prison-v1.c b/drivers/md/dm-bio-prison-v1.c
-index a7930ad1878b..1d560a83b144 100644
---- a/drivers/md/dm-bio-prison-v1.c
-+++ b/drivers/md/dm-bio-prison-v1.c
-@@ -16,7 +16,6 @@
- 
- /*----------------------------------------------------------------*/
- 
--#define NR_LOCKS 64
- #define MIN_CELLS 1024
- 
- struct prison_region {
-@@ -27,7 +26,7 @@ struct prison_region {
- struct dm_bio_prison {
- 	mempool_t cell_pool;
- 	unsigned int num_locks;
--	struct prison_region regions[NR_LOCKS];
-+	struct prison_region regions[];
- };
- 
- static struct kmem_cache *_cell_cache;
-@@ -41,12 +40,14 @@ static struct kmem_cache *_cell_cache;
- struct dm_bio_prison *dm_bio_prison_create(void)
- {
- 	int ret;
--	unsigned i;
--	struct dm_bio_prison *prison = kzalloc(sizeof(*prison), GFP_KERNEL);
-+	unsigned int i, num_locks;
-+	struct dm_bio_prison *prison;
- 
-+	num_locks = dm_num_sharded_locks();
-+	prison = kzalloc(struct_size(prison, regions, num_locks), GFP_KERNEL);
- 	if (!prison)
- 		return NULL;
--	prison->num_locks = NR_LOCKS;
-+	prison->num_locks = num_locks;
- 
- 	for (i = 0; i < prison->num_locks; i++) {
- 		spin_lock_init(&prison->regions[i].lock);
--- 
-2.40.0
+Gwendal.
 
 --
 dm-devel mailing list
