@@ -1,98 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 58C996CAF8C
-	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 22:13:58 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4CE716CAF8D
+	for <lists+dm-devel@lfdr.de>; Mon, 27 Mar 2023 22:13:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1679948037;
+	s=mimecast20190719; t=1679948038;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=LvzAMU/K1xUgAE8aF/ZwaChC12KsnRw4Xns3a301pG4=;
-	b=NFB/Z9H6o891wzOIzjfvpqv/cBLFP/rmX9AeFWXsALcMupScGk1iqU4DRsaUTWhJkCgEsU
-	s6QMrD6JlCA8QMWJ5Mat3/b7RDdsM3P8Mmi2f97RM8zN1+YRMBsEm/NI41MJxhpYZEMrwC
-	MBJQOu7OqSzb9OkKD1e+yXKoAC0dmu0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=vdWE55nQbwbRw/CMHvMl6f05SIsVDe3XReENiPyA8pY=;
+	b=IP1oEIrss8ZgXwbpiV7e9QHiKwN5+q/fqLEb2mZMNkAm0UtOzaAkwa2AwyQBkme02Sb7P3
+	yDjP/kR9dwHUKTcN1fxX2HFcCyuLHH1V1HdhG7qBPttmNlL/KhLqF83TfUdOYoqMwfhEkL
+	1R6ULJvWG3qJhmscBhPvjNtSEC5+cDE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-608-7QEaBzkhOp2SjywyC9BGQw-1; Mon, 27 Mar 2023 16:13:55 -0400
-X-MC-Unique: 7QEaBzkhOp2SjywyC9BGQw-1
+ us-mta-359-IH9_UF-6MhKR8I0d7sPjdw-1; Mon, 27 Mar 2023 16:13:56 -0400
+X-MC-Unique: IH9_UF-6MhKR8I0d7sPjdw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B78F3C0F18F;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF4948828C8;
 	Mon, 27 Mar 2023 20:13:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E805340B3EDB;
-	Mon, 27 Mar 2023 20:13:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DA58140B3EDA;
+	Mon, 27 Mar 2023 20:13:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C0E0C19472FB;
-	Mon, 27 Mar 2023 20:13:34 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1333E19472C9;
+	Mon, 27 Mar 2023 20:13:37 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2EECC1946A41
+ ESMTP id 3FB711946A50
  for <dm-devel@listman.corp.redhat.com>; Mon, 27 Mar 2023 20:13:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2233F492C3E; Mon, 27 Mar 2023 20:13:33 +0000 (UTC)
+ id 2630840B3EDA; Mon, 27 Mar 2023 20:13:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1AD77492B03
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E0E240B3ED9
  for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:13:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F18C4101A552
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1E82185A790
  for <dm-devel@redhat.com>; Mon, 27 Mar 2023 20:13:32 +0000 (UTC)
-Received: from mail-qt1-f169.google.com (mail-qt1-f169.google.com
- [209.85.160.169]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-221-Y0rZRn7nPemSq_upB9a6JA-3; Mon, 27 Mar 2023 16:13:30 -0400
-X-MC-Unique: Y0rZRn7nPemSq_upB9a6JA-3
-Received: by mail-qt1-f169.google.com with SMTP id n14so9790281qta.10
- for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:13:29 -0700 (PDT)
+ us-mta-292-ly6G0KNxMSmVFWCKczhcHw-4; Mon, 27 Mar 2023 16:13:31 -0400
+X-MC-Unique: ly6G0KNxMSmVFWCKczhcHw-4
+Received: by mail-qt1-f178.google.com with SMTP id s12so6189326qtx.11
+ for <dm-devel@redhat.com>; Mon, 27 Mar 2023 13:13:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1679948009;
+ d=1e100.net; s=20210112; t=1679948011;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=6PKqdJFHlMUFZNUEvpL9gBzLYs3G0zKQPB+NnAYo5GY=;
- b=ctg8xcjeZmSBVzhuhbigKRl+L0T51YoN8t3effCSI/NgVqtes0OtMQ0QAS2Q4w0c17
- 8WZ/YcB70j0aPv6ION3TovMOD/REyfn+A6s4qBBdHYSy0y7xTZbybVNxIE7lQn9XjI+z
- rXpUhuMwj6HOdDJH+PJVN5X9ONCp2RGypPGrvATfGXh9LmXevM2FJH1KDP1eI211qp3N
- Epu/fg50r8n0/o1/wIpVWvnrBxTJTt5FoiAdoH+JYfRX09LIrm8UOyYGI1xjPwCbg2RD
- yoZjcNNGoH2t3LGREpC2kWbRsp7/gCu4vstMx4bN9NBi2zGeVICpqXVW7H1arG6api5D
- S2hA==
-X-Gm-Message-State: AO0yUKU8RPXDSn9L183O1sZG1O8sFOkcum6WMrpLg2LhP2G7kOFVMOxO
- Sn2IhUrPZKh3R8aa1qxidXr8GQbo3y5kNZTsKaru7F52PBxkDkdvDxClSp6+eu1H3ijLwsUUKvD
- Wv56+36QsAExz9evtZVl081UeCUzulT1mofA/MbBul2ro3sDLvEx5Z642eicW20OxvLFywcTGWu
- 0=
-X-Google-Smtp-Source: AK7set8CW+cpPq4Pp9FJfsBjh5ZA7tWZLyqOfAoMlX+sA6HGXom7lYbcNpi3u7woOx27vLDKG9NLYA==
-X-Received: by 2002:a05:622a:1a98:b0:3d8:9b45:d362 with SMTP id
- s24-20020a05622a1a9800b003d89b45d362mr21296148qtc.28.1679948008860; 
- Mon, 27 Mar 2023 13:13:28 -0700 (PDT)
+ bh=VKZdoNXFigBuaARZaAptCA6/0fq1wlNkMtf1bLoETbM=;
+ b=0u0e4JHNyggokcsoSB2pTytke49xjFmuVI9lZDq9KdXJL0jtCjcxbOoBAgnHPCnKH1
+ c6eClkSBeQWFiXzQ+a7xhkAdvzMZXdamDH/x6wKoSgZ1MHENrFkXdNnR9mKHnlQoyIRk
+ Zfm8AALcHMVTLRmWRQ9kimEW8V6yYm82duo20wTiqNPjOHIpySkgfclSfcwLz/yI844g
+ JIo0hdyvozkRuBM+FA42yasoWDQj53CcuLW2BnjsQqp95/jkGIJyLkAI3hQ65lUauryi
+ 8svITwBK/Yw+x3I+DsARP0tBxallaor6SLSR837McQi1iylKwkSBMZyEIBhdT4jliG75
+ rNMA==
+X-Gm-Message-State: AO0yUKUymRk+8VLWKYhoXuT6avNQUkptCAEH6TyU/9Rf+wGFAu6uQ9IF
+ CEUaOyvVO7buCbWNkc3KTjT4xl1J1+tCAsS3BKjuYoqXjLOQ9+G0ADLHS8QXnDrsjUf2ylhHZQ+
+ Z7eNtwBnswikLY1PILd7B8pGo0I5uvMgsg7mfk9FSKBjRs64YO/BnDGI5m38s08pNpFtr7UkCtG
+ g=
+X-Google-Smtp-Source: AK7set9KXUMs1rqs7kAqxN9Yk6OnkJzXX9Ry0bTCMOPwZUEbPgMi3QtSYmMLZ60y5R3fllURrlRHWA==
+X-Received: by 2002:a05:622a:647:b0:3bf:d9ee:882d with SMTP id
+ a7-20020a05622a064700b003bfd9ee882dmr22445529qtb.40.1679948010612; 
+ Mon, 27 Mar 2023 13:13:30 -0700 (PDT)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- m64-20020a375843000000b0073b8512d2dbsm16899758qkb.72.2023.03.27.13.13.28
+ j9-20020a05620a288900b0070648cf78bdsm16879656qkp.54.2023.03.27.13.13.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 27 Mar 2023 13:13:28 -0700 (PDT)
+ Mon, 27 Mar 2023 13:13:30 -0700 (PDT)
 From: Mike Snitzer <snitzer@kernel.org>
 To: dm-devel@redhat.com
-Date: Mon, 27 Mar 2023 16:11:36 -0400
-Message-Id: <20230327201143.51026-14-snitzer@kernel.org>
+Date: Mon, 27 Mar 2023 16:11:37 -0400
+Message-Id: <20230327201143.51026-15-snitzer@kernel.org>
 In-Reply-To: <20230327201143.51026-1-snitzer@kernel.org>
 References: <20230327201143.51026-1-snitzer@kernel.org>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [dm-6.4 PATCH v3 13/20] dm: split discards further if
- target sets max_discard_granularity
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [dm-6.4 PATCH v3 14/20] dm bio prison v1: improve
+ concurrent IO performance
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,132 +116,412 @@ X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The block core (bio_split_discard) will already split discards based
-on the 'discard_granularity' and 'max_discard_sectors' queue_limits.
-But the DM thin target also needs to ensure that it doesn't receive a
-discard that spans a 'max_discard_sectors' boundary.
+From: Joe Thornber <ejt@redhat.com>
 
-Introduce a dm_target 'max_discard_granularity' flag that if set will
-cause DM core to split discard bios relative to 'max_discard_sectors'.
-This treats 'discard_granularity' as a "min_discard_granularity" and
-'max_discard_sectors' as a "max_discard_granularity".
+Split the bio prison into multiple regions, with a separate rbtree and
+associated lock for each region.
 
-Requested-by: Joe Thornber <ejt@redhat.com>
+To get fast bio prison locking and not damage the performance of
+discards too much the bio-prison now stipulates that discards should
+not cross a BIO_PRISON_MAX_RANGE boundary.
+
+Because the range of a key (block_end - block_begin) must not exceed
+BIO_PRISON_MAX_RANGE: break_up_discard_bio() now ensures the data
+range reflected in PHYSICAL key doesn't exceed BIO_PRISON_MAX_RANGE.
+And splitting the thin target's discards (handled with VIRTUAL key) is
+achieved by updating dm-thin.c to set limits->max_discard_sectors in
+terms of BIO_PRISON_MAX_RANGE _and_ setting the thin and thin-pool
+targets' max_discard_granularity to true.
+
+Signed-off-by: Joe Thornber <ejt@redhat.com>
 Signed-off-by: Mike Snitzer <snitzer@kernel.org>
 ---
- drivers/md/dm.c               | 25 +++++++++++++++++++------
- include/linux/device-mapper.h |  6 ++++++
- include/uapi/linux/dm-ioctl.h |  4 ++--
- 3 files changed, 27 insertions(+), 8 deletions(-)
+ drivers/md/dm-bio-prison-v1.c | 87 +++++++++++++++++++++------------
+ drivers/md/dm-bio-prison-v1.h | 10 ++++
+ drivers/md/dm-thin.c          | 92 ++++++++++++++++++++---------------
+ 3 files changed, 121 insertions(+), 68 deletions(-)
 
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index b6ace995b9ca..6eb0748a3bb2 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -1162,7 +1162,8 @@ static inline sector_t max_io_len_target_boundary(struct dm_target *ti,
- 	return ti->len - target_offset;
+diff --git a/drivers/md/dm-bio-prison-v1.c b/drivers/md/dm-bio-prison-v1.c
+index c4c05d5d8909..2b8af861e5f6 100644
+--- a/drivers/md/dm-bio-prison-v1.c
++++ b/drivers/md/dm-bio-prison-v1.c
+@@ -16,11 +16,17 @@
+ 
+ /*----------------------------------------------------------------*/
+ 
++#define NR_LOCKS 64
++#define LOCK_MASK (NR_LOCKS - 1)
+ #define MIN_CELLS 1024
+ 
++struct prison_region {
++	spinlock_t lock;
++	struct rb_root cell;
++} ____cacheline_aligned_in_smp;
++
+ struct dm_bio_prison {
+-	spinlock_t lock;
+-	struct rb_root cells;
++	struct prison_region regions[NR_LOCKS];
+ 	mempool_t cell_pool;
+ };
+ 
+@@ -34,13 +40,17 @@ static struct kmem_cache *_cell_cache;
+  */
+ struct dm_bio_prison *dm_bio_prison_create(void)
+ {
+-	struct dm_bio_prison *prison = kzalloc(sizeof(*prison), GFP_KERNEL);
+ 	int ret;
++	unsigned i;
++	struct dm_bio_prison *prison = kzalloc(sizeof(*prison), GFP_KERNEL);
+ 
+ 	if (!prison)
+ 		return NULL;
+ 
+-	spin_lock_init(&prison->lock);
++	for (i = 0; i < NR_LOCKS; i++) {
++		spin_lock_init(&prison->regions[i].lock);
++		prison->regions[i].cell = RB_ROOT;
++	}
+ 
+ 	ret = mempool_init_slab_pool(&prison->cell_pool, MIN_CELLS, _cell_cache);
+ 	if (ret) {
+@@ -48,8 +58,6 @@ struct dm_bio_prison *dm_bio_prison_create(void)
+ 		return NULL;
+ 	}
+ 
+-	prison->cells = RB_ROOT;
+-
+ 	return prison;
+ }
+ EXPORT_SYMBOL_GPL(dm_bio_prison_create);
+@@ -107,14 +115,26 @@ static int cmp_keys(struct dm_cell_key *lhs,
+ 	return 0;
  }
  
--static sector_t max_io_len(struct dm_target *ti, sector_t sector)
-+static sector_t __max_io_len(struct dm_target *ti, sector_t sector,
-+			     unsigned int max_granularity)
- {
- 	sector_t target_offset = dm_target_offset(ti, sector);
- 	sector_t len = max_io_len_target_boundary(ti, target_offset);
-@@ -1173,11 +1174,16 @@ static sector_t max_io_len(struct dm_target *ti, sector_t sector)
- 	 *   explains why stacked chunk_sectors based splitting via
- 	 *   bio_split_to_limits() isn't possible here.
- 	 */
--	if (!ti->max_io_len)
-+	if (!max_granularity)
- 		return len;
- 	return min_t(sector_t, len,
- 		min(queue_max_sectors(ti->table->md->queue),
--		    blk_chunk_sectors_left(target_offset, ti->max_io_len)));
-+		    blk_chunk_sectors_left(target_offset, max_granularity)));
+-static int __bio_detain(struct dm_bio_prison *prison,
++static unsigned lock_nr(struct dm_cell_key *key)
++{
++	return (key->block_begin >> BIO_PRISON_MAX_RANGE_SHIFT) & LOCK_MASK;
 +}
 +
-+static inline sector_t max_io_len(struct dm_target *ti, sector_t sector)
++static void check_range(struct dm_cell_key *key)
 +{
-+	return __max_io_len(ti, sector, ti->max_io_len);
- }
- 
- int dm_set_target_max_io_len(struct dm_target *ti, sector_t len)
-@@ -1562,12 +1568,13 @@ static void __send_empty_flush(struct clone_info *ci)
- }
- 
- static void __send_changing_extent_only(struct clone_info *ci, struct dm_target *ti,
--					unsigned int num_bios)
-+					unsigned int num_bios,
-+					unsigned int max_granularity)
- {
- 	unsigned int len, bios;
- 
- 	len = min_t(sector_t, ci->sector_count,
--		    max_io_len_target_boundary(ti, dm_target_offset(ti, ci->sector)));
-+		    __max_io_len(ti, ci->sector, max_granularity));
- 
- 	atomic_add(num_bios, &ci->io->io_count);
- 	bios = __send_duplicate_bios(ci, ti, num_bios, &len);
-@@ -1603,10 +1610,16 @@ static blk_status_t __process_abnormal_io(struct clone_info *ci,
- 					  struct dm_target *ti)
- {
- 	unsigned int num_bios = 0;
-+	unsigned int max_granularity = 0;
- 
- 	switch (bio_op(ci->bio)) {
- 	case REQ_OP_DISCARD:
- 		num_bios = ti->num_discard_bios;
-+		if (ti->max_discard_granularity) {
-+			struct queue_limits *limits =
-+				dm_get_queue_limits(ti->table->md);
-+			max_granularity = limits->max_discard_sectors;
-+		}
- 		break;
- 	case REQ_OP_SECURE_ERASE:
- 		num_bios = ti->num_secure_erase_bios;
-@@ -1627,7 +1640,7 @@ static blk_status_t __process_abnormal_io(struct clone_info *ci,
- 	if (unlikely(!num_bios))
- 		return BLK_STS_NOTSUPP;
- 
--	__send_changing_extent_only(ci, ti, num_bios);
-+	__send_changing_extent_only(ci, ti, num_bios, max_granularity);
- 	return BLK_STS_OK;
- }
- 
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 7975483816e4..8aa6b3ea91fa 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -358,6 +358,12 @@ struct dm_target {
- 	 */
- 	bool discards_supported:1;
- 
-+	/*
-+	 * Set if this target requires that discards be split on both
-+	 * 'discard_granularity' and 'max_discard_sectors' boundaries.
-+	 */
-+	bool max_discard_granularity:1;
++	BUG_ON(key->block_end - key->block_begin > BIO_PRISON_MAX_RANGE);
++	BUG_ON((key->block_begin >> BIO_PRISON_MAX_RANGE_SHIFT) !=
++	       ((key->block_end - 1) >> BIO_PRISON_MAX_RANGE_SHIFT));
++}
 +
- 	/*
- 	 * Set if we need to limit the number of in-flight bios when swapping.
++static int __bio_detain(struct rb_root *root,
+ 			struct dm_cell_key *key,
+ 			struct bio *inmate,
+ 			struct dm_bio_prison_cell *cell_prealloc,
+ 			struct dm_bio_prison_cell **cell_result)
+ {
+ 	int r;
+-	struct rb_node **new = &prison->cells.rb_node, *parent = NULL;
++	struct rb_node **new = &root->rb_node, *parent = NULL;
+ 
+ 	while (*new) {
+ 		struct dm_bio_prison_cell *cell =
+@@ -139,7 +159,7 @@ static int __bio_detain(struct dm_bio_prison *prison,
+ 	*cell_result = cell_prealloc;
+ 
+ 	rb_link_node(&cell_prealloc->node, parent, new);
+-	rb_insert_color(&cell_prealloc->node, &prison->cells);
++	rb_insert_color(&cell_prealloc->node, root);
+ 
+ 	return 0;
+ }
+@@ -151,10 +171,12 @@ static int bio_detain(struct dm_bio_prison *prison,
+ 		      struct dm_bio_prison_cell **cell_result)
+ {
+ 	int r;
++	unsigned l = lock_nr(key);
++	check_range(key);
+ 
+-	spin_lock_irq(&prison->lock);
+-	r = __bio_detain(prison, key, inmate, cell_prealloc, cell_result);
+-	spin_unlock_irq(&prison->lock);
++	spin_lock_irq(&prison->regions[l].lock);
++	r = __bio_detain(&prison->regions[l].cell, key, inmate, cell_prealloc, cell_result);
++	spin_unlock_irq(&prison->regions[l].lock);
+ 
+ 	return r;
+ }
+@@ -181,11 +203,11 @@ EXPORT_SYMBOL_GPL(dm_get_cell);
+ /*
+  * @inmates must have been initialised prior to this call
+  */
+-static void __cell_release(struct dm_bio_prison *prison,
++static void __cell_release(struct rb_root *root,
+ 			   struct dm_bio_prison_cell *cell,
+ 			   struct bio_list *inmates)
+ {
+-	rb_erase(&cell->node, &prison->cells);
++	rb_erase(&cell->node, root);
+ 
+ 	if (inmates) {
+ 		if (cell->holder)
+@@ -198,20 +220,22 @@ void dm_cell_release(struct dm_bio_prison *prison,
+ 		     struct dm_bio_prison_cell *cell,
+ 		     struct bio_list *bios)
+ {
+-	spin_lock_irq(&prison->lock);
+-	__cell_release(prison, cell, bios);
+-	spin_unlock_irq(&prison->lock);
++	unsigned l = lock_nr(&cell->key);
++
++	spin_lock_irq(&prison->regions[l].lock);
++	__cell_release(&prison->regions[l].cell, cell, bios);
++	spin_unlock_irq(&prison->regions[l].lock);
+ }
+ EXPORT_SYMBOL_GPL(dm_cell_release);
+ 
+ /*
+  * Sometimes we don't want the holder, just the additional bios.
+  */
+-static void __cell_release_no_holder(struct dm_bio_prison *prison,
++static void __cell_release_no_holder(struct rb_root *root,
+ 				     struct dm_bio_prison_cell *cell,
+ 				     struct bio_list *inmates)
+ {
+-	rb_erase(&cell->node, &prison->cells);
++	rb_erase(&cell->node, root);
+ 	bio_list_merge(inmates, &cell->bios);
+ }
+ 
+@@ -219,11 +243,12 @@ void dm_cell_release_no_holder(struct dm_bio_prison *prison,
+ 			       struct dm_bio_prison_cell *cell,
+ 			       struct bio_list *inmates)
+ {
++	unsigned l = lock_nr(&cell->key);
+ 	unsigned long flags;
+ 
+-	spin_lock_irqsave(&prison->lock, flags);
+-	__cell_release_no_holder(prison, cell, inmates);
+-	spin_unlock_irqrestore(&prison->lock, flags);
++	spin_lock_irqsave(&prison->regions[l].lock, flags);
++	__cell_release_no_holder(&prison->regions[l].cell, cell, inmates);
++	spin_unlock_irqrestore(&prison->regions[l].lock, flags);
+ }
+ EXPORT_SYMBOL_GPL(dm_cell_release_no_holder);
+ 
+@@ -248,18 +273,19 @@ void dm_cell_visit_release(struct dm_bio_prison *prison,
+ 			   void *context,
+ 			   struct dm_bio_prison_cell *cell)
+ {
+-	spin_lock_irq(&prison->lock);
++	unsigned l = lock_nr(&cell->key);
++	spin_lock_irq(&prison->regions[l].lock);
+ 	visit_fn(context, cell);
+-	rb_erase(&cell->node, &prison->cells);
+-	spin_unlock_irq(&prison->lock);
++	rb_erase(&cell->node, &prison->regions[l].cell);
++	spin_unlock_irq(&prison->regions[l].lock);
+ }
+ EXPORT_SYMBOL_GPL(dm_cell_visit_release);
+ 
+-static int __promote_or_release(struct dm_bio_prison *prison,
++static int __promote_or_release(struct rb_root *root,
+ 				struct dm_bio_prison_cell *cell)
+ {
+ 	if (bio_list_empty(&cell->bios)) {
+-		rb_erase(&cell->node, &prison->cells);
++		rb_erase(&cell->node, root);
+ 		return 1;
+ 	}
+ 
+@@ -271,10 +297,11 @@ int dm_cell_promote_or_release(struct dm_bio_prison *prison,
+ 			       struct dm_bio_prison_cell *cell)
+ {
+ 	int r;
++	unsigned l = lock_nr(&cell->key);
+ 
+-	spin_lock_irq(&prison->lock);
+-	r = __promote_or_release(prison, cell);
+-	spin_unlock_irq(&prison->lock);
++	spin_lock_irq(&prison->regions[l].lock);
++	r = __promote_or_release(&prison->regions[l].cell, cell);
++	spin_unlock_irq(&prison->regions[l].lock);
+ 
+ 	return r;
+ }
+diff --git a/drivers/md/dm-bio-prison-v1.h b/drivers/md/dm-bio-prison-v1.h
+index dfbf1e94cb75..0b8acd6708fb 100644
+--- a/drivers/md/dm-bio-prison-v1.h
++++ b/drivers/md/dm-bio-prison-v1.h
+@@ -34,6 +34,16 @@ struct dm_cell_key {
+ 	dm_block_t block_begin, block_end;
+ };
+ 
++/*
++ * The range of a key (block_end - block_begin) must not
++ * exceed BIO_PRISON_MAX_RANGE.  Also the range must not
++ * cross a similarly sized boundary.
++ *
++ * Must be a power of 2.
++ */
++#define BIO_PRISON_MAX_RANGE 1024
++#define BIO_PRISON_MAX_RANGE_SHIFT 10
++
+ /*
+  * Treat this as opaque, only in header so callers can manage allocation
+  * themselves.
+diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
+index 00323428919e..33ad5695f959 100644
+--- a/drivers/md/dm-thin.c
++++ b/drivers/md/dm-thin.c
+@@ -1674,54 +1674,69 @@ static void break_up_discard_bio(struct thin_c *tc, dm_block_t begin, dm_block_t
+ 	struct dm_cell_key data_key;
+ 	struct dm_bio_prison_cell *data_cell;
+ 	struct dm_thin_new_mapping *m;
+-	dm_block_t virt_begin, virt_end, data_begin;
++	dm_block_t virt_begin, virt_end, data_begin, data_end;
++	dm_block_t len, next_boundary;
+ 
+ 	while (begin != end) {
+-		r = ensure_next_mapping(pool);
+-		if (r)
+-			/* we did our best */
+-			return;
+-
+ 		r = dm_thin_find_mapped_range(tc->td, begin, end, &virt_begin, &virt_end,
+ 					      &data_begin, &maybe_shared);
+-		if (r)
++		if (r) {
+ 			/*
+ 			 * Silently fail, letting any mappings we've
+ 			 * created complete.
+ 			 */
+ 			break;
+-
+-		build_key(tc->td, PHYSICAL, data_begin, data_begin + (virt_end - virt_begin), &data_key);
+-		if (bio_detain(tc->pool, &data_key, NULL, &data_cell)) {
+-			/* contention, we'll give up with this range */
+-			begin = virt_end;
+-			continue;
+ 		}
+ 
+-		/*
+-		 * IO may still be going to the destination block.  We must
+-		 * quiesce before we can do the removal.
+-		 */
+-		m = get_next_mapping(pool);
+-		m->tc = tc;
+-		m->maybe_shared = maybe_shared;
+-		m->virt_begin = virt_begin;
+-		m->virt_end = virt_end;
+-		m->data_block = data_begin;
+-		m->cell = data_cell;
+-		m->bio = bio;
++		data_end = data_begin + (virt_end - virt_begin);
+ 
+ 		/*
+-		 * The parent bio must not complete before sub discard bios are
+-		 * chained to it (see end_discard's bio_chain)!
+-		 *
+-		 * This per-mapping bi_remaining increment is paired with
+-		 * the implicit decrement that occurs via bio_endio() in
+-		 * end_discard().
++		 * Make sure the data region obeys the bio prison restrictions.
+ 		 */
+-		bio_inc_remaining(bio);
+-		if (!dm_deferred_set_add_work(pool->all_io_ds, &m->list))
+-			pool->process_prepared_discard(m);
++		while (data_begin < data_end) {
++			r = ensure_next_mapping(pool);
++			if (r)
++				return; /* we did our best */
++
++			next_boundary = ((data_begin >> BIO_PRISON_MAX_RANGE_SHIFT) + 1)
++				<< BIO_PRISON_MAX_RANGE_SHIFT;
++			len = min_t(sector_t, data_end - data_begin, next_boundary - data_begin);
++
++			build_key(tc->td, PHYSICAL, data_begin, data_begin + len, &data_key);
++			if (bio_detain(tc->pool, &data_key, NULL, &data_cell)) {
++				/* contention, we'll give up with this range */
++				data_begin += len;
++				continue;
++			}
++
++			/*
++			 * IO may still be going to the destination block.  We must
++			 * quiesce before we can do the removal.
++			 */
++			m = get_next_mapping(pool);
++			m->tc = tc;
++			m->maybe_shared = maybe_shared;
++			m->virt_begin = virt_begin;
++			m->virt_end = virt_begin + len;
++			m->data_block = data_begin;
++			m->cell = data_cell;
++			m->bio = bio;
++
++			/*
++			 * The parent bio must not complete before sub discard bios are
++			 * chained to it (see end_discard's bio_chain)!
++			 *
++			 * This per-mapping bi_remaining increment is paired with
++			 * the implicit decrement that occurs via bio_endio() in
++			 * end_discard().
++			 */
++			bio_inc_remaining(bio);
++			if (!dm_deferred_set_add_work(pool->all_io_ds, &m->list))
++				pool->process_prepared_discard(m);
++
++			virt_begin += len;
++			data_begin += len;
++		}
+ 
+ 		begin = virt_end;
+ 	}
+@@ -3380,13 +3395,13 @@ static int pool_ctr(struct dm_target *ti, unsigned int argc, char **argv)
  	 */
-diff --git a/include/uapi/linux/dm-ioctl.h b/include/uapi/linux/dm-ioctl.h
-index 7edf335778ba..1990b5700f69 100644
---- a/include/uapi/linux/dm-ioctl.h
-+++ b/include/uapi/linux/dm-ioctl.h
-@@ -286,9 +286,9 @@ enum {
- #define DM_DEV_SET_GEOMETRY	_IOWR(DM_IOCTL, DM_DEV_SET_GEOMETRY_CMD, struct dm_ioctl)
+ 	if (pf.discard_enabled && pf.discard_passdown) {
+ 		ti->num_discard_bios = 1;
+-
+ 		/*
+ 		 * Setting 'discards_supported' circumvents the normal
+ 		 * stacking of discard limits (this keeps the pool and
+ 		 * thin devices' discard limits consistent).
+ 		 */
+ 		ti->discards_supported = true;
++		ti->max_discard_granularity = true;
+ 	}
+ 	ti->private = pt;
  
- #define DM_VERSION_MAJOR	4
--#define DM_VERSION_MINOR	47
-+#define DM_VERSION_MINOR	48
- #define DM_VERSION_PATCHLEVEL	0
--#define DM_VERSION_EXTRA	"-ioctl (2022-07-28)"
-+#define DM_VERSION_EXTRA	"-ioctl (2023-03-01)"
+@@ -4096,7 +4111,7 @@ static struct target_type pool_target = {
+ 	.name = "thin-pool",
+ 	.features = DM_TARGET_SINGLETON | DM_TARGET_ALWAYS_WRITEABLE |
+ 		    DM_TARGET_IMMUTABLE,
+-	.version = {1, 22, 0},
++	.version = {1, 23, 0},
+ 	.module = THIS_MODULE,
+ 	.ctr = pool_ctr,
+ 	.dtr = pool_dtr,
+@@ -4261,6 +4276,7 @@ static int thin_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	if (tc->pool->pf.discard_enabled) {
+ 		ti->discards_supported = true;
+ 		ti->num_discard_bios = 1;
++		ti->max_discard_granularity = true;
+ 	}
  
- /* Status bits */
- #define DM_READONLY_FLAG	(1 << 0) /* In/Out */
+ 	mutex_unlock(&dm_thin_pool_table.mutex);
+@@ -4476,12 +4492,12 @@ static void thin_io_hints(struct dm_target *ti, struct queue_limits *limits)
+ 		return;
+ 
+ 	limits->discard_granularity = pool->sectors_per_block << SECTOR_SHIFT;
+-	limits->max_discard_sectors = 2048 * 1024 * 16; /* 16G */
++	limits->max_discard_sectors = pool->sectors_per_block * BIO_PRISON_MAX_RANGE;
+ }
+ 
+ static struct target_type thin_target = {
+ 	.name = "thin",
+-	.version = {1, 22, 0},
++	.version = {1, 23, 0},
+ 	.module	= THIS_MODULE,
+ 	.ctr = thin_ctr,
+ 	.dtr = thin_dtr,
 -- 
 2.40.0
 
