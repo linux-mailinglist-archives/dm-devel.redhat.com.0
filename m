@@ -2,196 +2,110 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B339B6CD1EE
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Mar 2023 08:05:42 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1812D6CD4E7
+	for <lists+dm-devel@lfdr.de>; Wed, 29 Mar 2023 10:41:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680069941;
+	s=mimecast20190719; t=1680079297;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7xRgCI32jOtrPFbhaNrHusRSRNlqP9KvLhPcqnbjles=;
-	b=B+C/747Usszd+JJeoldDOU2FPTcLNCUK/s3dGDMzZ3skl9lmXqmQSLc/NWFXi8E62UskpI
-	AL2I0BajdKk1g8Z+R83LyX+UhEXa/gCpmH6MplUUvvFuPvGAxqUzGQ4qoHXkh0ugfjFjcp
-	QXRmyxnQd8IPoSuWJXBC44Sa6BA810o=
+	bh=7oO0BIVroumudanE65oeNdTzC5sATuy8tO1OJWDBh+I=;
+	b=Eir3PS8/4gVOzCOzSBUn+hw4Yz20aJIn7Nt1so1rbUzbQspk4RFhUgz+nk9P6yhFQYrype
+	PY678p4epmh93oREPUO+bjJDieafQTcM6QrtcS7jfBfRB9Q/cT3k4C0vy/G7FyRmKg1+sy
+	1hCjtYwSQQ5qrhiexv1floxLqfJ7fhQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-210-wg304tHdM7-KZzkJB06ubg-1; Wed, 29 Mar 2023 02:05:38 -0400
-X-MC-Unique: wg304tHdM7-KZzkJB06ubg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-92-omr3xiS1OPKz1J9r_dSmIg-1; Wed, 29 Mar 2023 04:41:36 -0400
+X-MC-Unique: omr3xiS1OPKz1J9r_dSmIg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8737585530C;
-	Wed, 29 Mar 2023 06:05:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7814A801206;
+	Wed, 29 Mar 2023 08:41:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9BB61440D9;
-	Wed, 29 Mar 2023 06:05:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1C3221121330;
+	Wed, 29 Mar 2023 08:41:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 282EA1946A42;
-	Wed, 29 Mar 2023 06:05:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 84DC819465B5;
+	Wed, 29 Mar 2023 08:41:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C2B7B194658C
- for <dm-devel@listman.corp.redhat.com>; Tue, 28 Mar 2023 17:19:27 +0000 (UTC)
+ ESMTP id B4887194658C
+ for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 08:41:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A1313202701F; Tue, 28 Mar 2023 17:19:27 +0000 (UTC)
+ id 7B3E7C15BB8; Wed, 29 Mar 2023 08:41:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 98A78202701E
- for <dm-devel@redhat.com>; Tue, 28 Mar 2023 17:19:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6592087B2A8
- for <dm-devel@redhat.com>; Tue, 28 Mar 2023 17:19:27 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-633-BZAhMe1JPQCXfcfcIU9v9g-1; Tue, 28 Mar 2023 13:19:22 -0400
-X-MC-Unique: BZAhMe1JPQCXfcfcIU9v9g-1
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 32SH4lgd021895; Tue, 28 Mar 2023 17:19:04 GMT
-Received: from iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com
- (iadpaimrmta03.appoci.oracle.com [130.35.103.27])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3pm4ad81je-30
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 28 Mar 2023 17:19:04 +0000
-Received: from pps.filterd
- (iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.5/8.17.1.5)
- with ESMTP id 32SGneED009437; Tue, 28 Mar 2023 17:11:29 GMT
-Received: from nam02-bn1-obe.outbound.protection.outlook.com
- (mail-bn1nam02lp2045.outbound.protection.outlook.com [104.47.51.45])
- by iadpaimrmta03.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3phqdd7fca-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Tue, 28 Mar 2023 17:11:29 +0000
-Received: from DM5PR10MB1466.namprd10.prod.outlook.com (2603:10b6:3:b::7) by
- SJ0PR10MB6374.namprd10.prod.outlook.com (2603:10b6:a03:47f::14) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6178.41; Tue, 28 Mar
- 2023 17:11:27 +0000
-Received: from DM5PR10MB1466.namprd10.prod.outlook.com
- ([fe80::dcf6:889b:21f3:7425]) by DM5PR10MB1466.namprd10.prod.outlook.com
- ([fe80::dcf6:889b:21f3:7425%6]) with mapi id 15.20.6222.033; Tue, 28 Mar 2023
- 17:11:27 +0000
-Message-ID: <204ac74e-3d49-5fe4-c819-cbbbecfdcb29@oracle.com>
-Date: Tue, 28 Mar 2023 12:11:25 -0500
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 73DB0C15BA0
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 08:41:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 57099101A552
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 08:41:22 +0000 (UTC)
+Received: from esa3.hgst.iphmx.com (esa3.hgst.iphmx.com [216.71.153.141]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-653-dSYmcVugO92ybQDg1kQFjg-2; Wed, 29 Mar 2023 04:41:20 -0400
+X-MC-Unique: dSYmcVugO92ybQDg1kQFjg-2
+X-IronPort-AV: E=Sophos;i="5.98,300,1673884800"; d="scan'208";a="231749342"
+Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 29 Mar 2023 16:40:16 +0800
+IronPort-SDR: 97aGgXYC0pfuRn9FnHcN0YIcAlqqqMj67dS4d/Izi9/FDJQw5vx6Ms24KDJVSBHtTcBfamhW47
+ qelIOa0CBMbVsQUlrjZTW9s+Sak11SL0vxxxoT2+w4DLr57/+F77tp1QGlOMOchDQE+5PEN+CX
+ 9forJPvGCMUkWC92qlo7oWySfI9awOywMEwUg7H/pK/3XvZQDnNcl0UuqqB5ckV776tJPyJqIN
+ kWsXxuLtQe2jEqy4iKrXLC9bOZ2glq3m51AmAK/X6d4dqPuGvUzbQo2/ZklUO2FJAAR9VsoyXX
+ h4o=
+Received: from uls-op-cesaip01.wdc.com ([10.248.3.36])
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 29 Mar 2023 00:56:25 -0700
+IronPort-SDR: h7LNVuMKCk2XdBfmAZaiXQNvn0TYiCAQjFNtxYiGXWlbPVNcnKU4G1y8yVU12rpetgIji6Oner
+ Y/fpgo8/FOoFxZHRRRNciaFVK6qI20W2lGfDAAlITl94eB+WPL3TXoi/H1CBjMyCj5XBTA6jre
+ SsK5JubvNne8ryt9hqZjypibTUyUeprV8z96gf+/NzokFTGPid1vj9yyHBhazzgtam/R6vERFN
+ FTE+IWJIEl7BZb9FQ3QQqaBVu7S5SEOy3VvUBOp2Df20xGH6+7BnNO6j7aAgKWpkWMZUGK8hlH
+ zPY=
+WDCIronportException: Internal
+Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
+ by uls-op-cesaip01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 29 Mar 2023 01:40:17 -0700
+Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Pmg3g5Lrbz1RtVx
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 01:40:15 -0700 (PDT)
+X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
+Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
+ by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
+ port 10026) with ESMTP id 0_mz5PFEDpKD for <dm-devel@redhat.com>;
+ Wed, 29 Mar 2023 01:40:14 -0700 (PDT)
+Received: from [10.225.163.116] (unknown [10.225.163.116])
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Pmg3Z3bThz1RtVm;
+ Wed, 29 Mar 2023 01:40:10 -0700 (PDT)
+Message-ID: <e725768d-19f5-a78a-2b05-c0b189624fea@opensource.wdc.com>
+Date: Wed, 29 Mar 2023 17:40:09 +0900
+MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
-To: Mike Snitzer <snitzer@kernel.org>
-References: <20230324181741.13908-1-michael.christie@oracle.com>
- <20230324181741.13908-2-michael.christie@oracle.com>
- <ZCMXecSrJ97oCD+s@redhat.com>
-From: Mike Christie <michael.christie@oracle.com>
-In-Reply-To: <ZCMXecSrJ97oCD+s@redhat.com>
-X-ClientProxiedBy: DS7PR03CA0257.namprd03.prod.outlook.com
- (2603:10b6:5:3b3::22) To DM5PR10MB1466.namprd10.prod.outlook.com
- (2603:10b6:3:b::7)
-MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: DM5PR10MB1466:EE_|SJ0PR10MB6374:EE_
-X-MS-Office365-Filtering-Correlation-Id: 103e9e42-02ba-4443-581e-08db2faf7745
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: aQMLRCkUR82c7cDlOYr0yJnjmjCLuo7ABEtttXHZQqsJDPQulnN28T/ORZ+UIGDKYexO55r6GG53Rh/GEEjghdqyulbAhm+09LwN1BrfwQuTX7+BibrznRJDj3MQ0Sxp00EbtbJ686ljximK42CWZ4iA2/6/9+a8r9EUNRKT+KZqJoR64OzO6zbkEc6O9VZrkgPq8O5AQ6wgL5/EPfziNr1R42KQieHpW6N4a6LgvPHew7ACDVr/94tI1pwwfUeZNLje3gX1mW4jqv7uZMv0vfn99Ymkwj8cnRfVjIlMYVG0seObi0t06llz/h4NMyG6XJ9CtX3HcBcUcJO9e6xT1ECNLB9DdsvsHdnY1zRolqKskKXUGfUjchjDJ52Qfx9K81EKy7K4w34BWpR1mMuk3AIpr7VCBLkd1YClaMbMsxuar8Dckc7+CbqdxvkK+zPcDMT4/7JzLTWWIDTzDKu2oh0ghxD2+bMJEfPS/M0QOWgSGwNLkaxxEJnFSRQiOg666aNelFj/FZVBsQN7RbnB2ZQtVanUrfdS4yDZtJKohvE4D1s8pXbkEbgn+EyXhsPvseLI1c9ZTufm3Co0gvwO4bQkkZ5+PYd73ATEO/Sm4Z1PycZWnFxFfpnW9ijpQ3O3/LlaL+5ctzn1n5bIi0Bfrw==
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:DM5PR10MB1466.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(366004)(39860400002)(346002)(396003)(376002)(136003)(451199021)(2906002)(83380400001)(8936002)(7416002)(5660300002)(36756003)(38100700002)(86362001)(31696002)(6512007)(53546011)(6506007)(316002)(6916009)(66556008)(8676002)(4326008)(66946007)(66476007)(186003)(26005)(6486002)(31686004)(2616005)(478600001)(41300700001)(43740500002)(45980500001);
- DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?R2lZZGMwZ2NReFllVDFYK3BkRm1mL1d5RnBxRlhtTkFRMTREaHFVSmZPUDJS?=
- =?utf-8?B?NWNScDFvNkpzRUwrUEU4QVVpazZBcWVSdGhNVW0rRkljYkxsaDZMblB1ZFdl?=
- =?utf-8?B?ZE5nWmFEMVcvWjNDT2NPcUtRblFYS09YYXBZVGRqVW9NTHF3SmdPbHlIMitt?=
- =?utf-8?B?UEVRamljdkhCcXgxRjhtT1IxNnJ0YWFkcU81Um55bGVqNDFLODNQN0dRaE16?=
- =?utf-8?B?MThPWHNtMGxCS0hvdDNxKzY1Tlg1NXI1dTlUUHFCNnVmY0EvRXZtbXJMYm5q?=
- =?utf-8?B?eWxodWIzWG93Smk0ZWVkOFpjTC9XWTMyMmVLdkRJWjJJNVhvYzd5SFgrMVBU?=
- =?utf-8?B?THAvWTZwWU9CSHZldm43WG45a2FLb20renc3OFE0eDFKYkRIcTc3eUE1N2Rt?=
- =?utf-8?B?UUQyeDcxK0VSaFExeWlTMzI1bFJFc04zcUIwcDJhbmpBemtCSmxrakZ1ckVv?=
- =?utf-8?B?ZDI3N0tTUEZndlVOOTlFN1didlNmb1NrM1U4RzRLZ1p3UlRtaFZvZmZMYlBk?=
- =?utf-8?B?TnAyUHFOSDdVSFVRL1ZBYVd5T05LbWNEUU9zNFNoL1JaOEI2TGh4cE52ODA3?=
- =?utf-8?B?am11QjRZSWlhNDIweVhPclZIRHpEbHV5V3dQbVVCclU5RW5sRWFndUthekJG?=
- =?utf-8?B?Z3lLTDJTdCtvNTBtS09uLytvZmpCWHdPc29tcVY2SlFkQ3lUUDQxelBsdkMw?=
- =?utf-8?B?ZXd5ZDROWlBscTJDRmhLL2loTXhkL0N5UWNHTFJ3S2dyVXlKbXUyNnJQaXdY?=
- =?utf-8?B?a0RSZFZmUkR6ZTUrUWc1NGhSRVNubnlEbmRKMDQycTg0eHRIWHQ5NlVOV1pM?=
- =?utf-8?B?a3ZYVSswR29FVktHSDRNcHhsYzJCb1M4RDhETkFEellUaU00VWhNUmFlQXk3?=
- =?utf-8?B?a1B4UjhmZE40NU5uMUNVem8rdGxmY2NmVllzcmNRUGlHS3A5NkRuc0tOZjVU?=
- =?utf-8?B?MTlqcGFJSko0U0txalFRTWZBbndnZzhaTzJyZ2dhaFdNRjFrajNQV0tIQmI3?=
- =?utf-8?B?VUwxRWRRNFdkZTBZYlNQUmJyTzh6OGx5ZGlHTjZSSEtqendZZGZ6dEFNdE45?=
- =?utf-8?B?aDlPVDVtRy84MVpLbzY3bWxnODNud2pUTnpRbDYrWEdKdXB3TlZBanFkWFdl?=
- =?utf-8?B?WmpqUDdibVhPNWJoelJoUWRRcUhKbXVWNDRPMmhiUUUvK1lsVHcvaVZnSG5V?=
- =?utf-8?B?VUgrWXlQUCsveWhaMEovRnM5ZnozT2UwbnRPK1VGWEdpVXJqZS93ZHpDc2ZZ?=
- =?utf-8?B?emszc0FpNWFSbEhvUStONVNyOUMySTZWN2RadFZOczAzejFGcjEzdUhSdzJN?=
- =?utf-8?B?OW8xMERobXVVS2NKS3JZZTR3S3EwcmJkaFFoclBRUUp0OFUxYTF1ei8ydzgx?=
- =?utf-8?B?dTQvOVdoZWF3M1o1NEM5Yk9VaEk4eTVteC90ZUN3MDh3T2lZRXZKZG9sRlNp?=
- =?utf-8?B?Sm1DcHJrWXl5L09QMXp2Y1h6RTROeHBvWnZJUnBSYlYrR2tWSEFmNHlSWFN2?=
- =?utf-8?B?YXFyTmpLRFBEUm96dWdyNDZpSmdCdzVlUm9ha1JrakxaVXNBVFh4Z0xWdnFY?=
- =?utf-8?B?ZE1xUXRtcUZ5QVZLQ3k0czlPU2UxZ3prUjVtWm41RlViRGkreUwyUjJzdUxC?=
- =?utf-8?B?VmdpWE5CYmc0T2htbjNkeTZ3SzgwR0VQOEQvaWw2K01lMTFYYVRwWUF4YTNG?=
- =?utf-8?B?eEpkU0lJcHR0anV4aVJCaVFoVU9vZ1hiY1J0YUZEdE1aWkdFRmJUWG9PMjBN?=
- =?utf-8?B?aURubmRCQjRIcVVMU3FJaHdUR092VDZ3Z2pESHk3WitlZjNHemZHRHNBMDlY?=
- =?utf-8?B?UVVMWXJzYTE3VWtMS2tnS2FNdGtueTgrNXBIcTRjODE3M1RFU1Z4cElldndS?=
- =?utf-8?B?cEhHZDlJUkNUMTdhYXQ4MHRhSzUxS1o0bEVYMUp6TXdyQnlXckxtbXdpV2dC?=
- =?utf-8?B?M2E3dHZtVHVscjI0YzNFVDRNeUJUN3VJaDJjSVhQR3lRZ25kaTIyV0FJT1Az?=
- =?utf-8?B?ZmtOV29MNjlxUWtoSW5aM1ZlR1ZvbzdlRFdLbFdxOEZvRGwrSG9xNzE0em9u?=
- =?utf-8?B?NE9MRGtQRjNzOUxOOVJCZTZPdmk0aDlUNkdoQTdFKzNKRnJRM1I5STRQbFZE?=
- =?utf-8?B?RFdOaTUveTNDTFB4d0tEZldGNktRdGJVRHZCY3FUaWxxeDZrWnJ0aXdGRnZl?=
- =?utf-8?B?QWc9PQ==?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?utf-8?B?ZlBLNWxqUkpUY2VzZ0NtL2pxV2tOOW9jekkzNmpxamhVVFozSFFmcTVoc0Fl?=
- =?utf-8?B?eFlFSVNHMnpnbFhtVVJvZlMrVDUyWHZpdklKcENnQ0pHb2ZtMWNWdWEreXVO?=
- =?utf-8?B?Y2Z6MEo1S2ZQKzBCNUFLZHlua3UzQVlpWG1iYVZQTFYxU3ZaTHNxaVZ0VHNO?=
- =?utf-8?B?SFN5VVpSYVBERHBxdDVJa3ViVGVsRGJ0RGtzMFlFVlBOa1VDd2VNQjduWHpm?=
- =?utf-8?B?VXF4TE0vVHVJQlA5anNZdlh6Zmx1enc1bmVtbjRSaDNrZzFrN2dRdHl4YzF0?=
- =?utf-8?B?RSswbjJQWFhrYURmZTc1ZDZZemZlMmNDOGUrbC9icHlvSmNKR0Z0Rkp2UnAv?=
- =?utf-8?B?TjFtakJIL3AzaGVwNFp0RzNFa1pkcmNjK1ZGWjVvbEdPZTQwMmpBMS92VFBw?=
- =?utf-8?B?SzVEK0pibnhEYnF1R245a1VMZUNzRG5jc3RmUHQ1K0tVNlM1MGdyb2MrTWRa?=
- =?utf-8?B?eTdJU0xVSkMwNTBmTVZqR1VHamFsZ21zMnJoMnhqaDgzbXVUbC8yWHVQY3Zw?=
- =?utf-8?B?TWdPcytrdmNXd0ZKaGFhNlNYanRmRTlDcVU4eG16M3RhdkIrUDJWaFoyV0hm?=
- =?utf-8?B?UWZVdzQ4eE5POVVFS3ZGT1lPMkNIRmNWeWN6c3lKS0VaeENoOEhPKzJ0aVpl?=
- =?utf-8?B?NHZOK2xjaEs2Q1JxejJqYkNvTjVWcXdQWXowL1RubTRsUlhtZmRna2E4ODhh?=
- =?utf-8?B?bmpHRGhFWDh4TG1QNzVoLzB5WUxCdkRKVG0zcGhVVnJQZ2JwdEtwZXFuMENr?=
- =?utf-8?B?cFUzKzJ1L0VYeUx2K2hOK0ZJYUNhTmo2cDBEVWozbFBIeGtJVGoyN1R3TEZL?=
- =?utf-8?B?SG5BUmV2UXU1czV0dEhCeEJucnRObU13bGV4WmZLYXFjbEZlOWcva1h4bVVN?=
- =?utf-8?B?ajk0NkhNZ2podUVtMkloYUt4d3VYUHNaU2srM0FLVkxiM0NKMGJVQkZXV1Yv?=
- =?utf-8?B?M0NnUzg4WFlTcU9VQm5qbTFtN1ZtZ3VhUzhUdXd3USthOFl1SzkvQnBrK1Fj?=
- =?utf-8?B?bW15RXZUSSsxbUowckJjSnJEb3Vna0szN0JaSndiTUR6WVJvb25hUnp6WWMz?=
- =?utf-8?B?bEdvRlRuTENhSjF4OWZGeHk5ZjJud2ZzQ2Q3a3Q0b0F2UUtTZDhFNGhKYjBO?=
- =?utf-8?B?OWxRdjU1REw3VjFtTDByRHI2UUs2RXRxRm5zRWtLMVhKeGl4R0cvMFllRkZj?=
- =?utf-8?B?bklHOHBhcnZ3WENFejRzMHJ2Vmo5L1BlT0V3dStHanFacTZZc1JqekR0UEpu?=
- =?utf-8?B?eEdjNEdsNjRjVkYzZlV1cm1TMUt4R0p5Z3I2ZnJyR01jemxoV2pEdGljOGFI?=
- =?utf-8?B?OElWOU1uS3EvYVBqaGdKMkcyZjE2aWNPeThFU2RZRm5oYUxDVFRaQjFkWGs0?=
- =?utf-8?B?a1NhNWJEU0Y3dWc9PQ==?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 103e9e42-02ba-4443-581e-08db2faf7745
-X-MS-Exchange-CrossTenant-AuthSource: DM5PR10MB1466.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 28 Mar 2023 17:11:27.1570 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: VXaqQjjw6/meGnr+7RGdFZLBV7rF+82QVf0usBhFGWdlYu8uFWEbSbJ4pgPJJglvxlhxZX2pjbCTiBlNhcD4b5ObUFLK87ncrOTQ5rtiYgY=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR10MB6374
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
- definitions=2023-03-24_11,2023-03-28_02,2023-02-09_01
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
- mlxscore=0 malwarescore=0
- mlxlogscore=999 phishscore=0 bulkscore=0 spamscore=0 suspectscore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2303200000
- definitions=main-2303280134
-X-Proofpoint-ORIG-GUID: uYTDee_dHYpaiV4g25dN4xqp2ZTTqBBp
-X-Proofpoint-GUID: uYTDee_dHYpaiV4g25dN4xqp2ZTTqBBp
+To: Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ dm-devel@redhat.com, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ James Smart <james.smart@broadcom.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>
+References: <20230327084103.21601-1-anuj20.g@samsung.com>
+ <CGME20230327084216epcas5p3945507ecd94688c40c29195127ddc54d@epcas5p3.samsung.com>
+ <20230327084103.21601-2-anuj20.g@samsung.com>
+From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Organization: Western Digital Research
+In-Reply-To: <20230327084103.21601-2-anuj20.g@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -199,10 +113,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mailman-Approved-At: Wed, 29 Mar 2023 06:05:27 +0000
-Subject: Re: [dm-devel] [PATCH v5 01/18] block: Add PR callouts for read
- keys and reservation
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH v8 1/9] block: Introduce queue limits for
+ copy-offload support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -214,73 +127,160 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, chaitanyak@nvidia.com,
- Chaitanya Kulkarni <kch@nvidia.com>, bvanassche@acm.org,
- linux-scsi@vger.kernel.org, linux-nvme@lists.infradead.org,
- james.bottomley@hansenpartnership.com, dm-devel@redhat.com,
- target-devel@vger.kernel.org, martin.petersen@oracle.com, kbusch@kernel.org,
- hch@lst.de
+Cc: bvanassche@acm.org, joshi.k@samsung.com, gost.dev@samsung.com,
+ nitheshshetty@gmail.com, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, ming.lei@redhat.com,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Nitesh Shetty <nj.shetty@samsung.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: oracle.com
+X-Mimecast-Originator: opensource.wdc.com
 Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 3/28/23 11:36 AM, Mike Snitzer wrote:
-> On Fri, Mar 24 2023 at  2:17P -0400,
-> Mike Christie <michael.christie@oracle.com> wrote:
+On 3/27/23 17:40, Anuj Gupta wrote:
+> From: Nitesh Shetty <nj.shetty@samsung.com>
 > 
->> Add callouts for reading keys and reservations. This allows LIO to support
->> the READ_KEYS and READ_RESERVATION commands and will allow dm-multipath
->> to optimize it's error handling so it can check if it's getting an error
->> because there's an existing reservation or if we need to retry different
->> paths.
+> Add device limits as sysfs entries,
+>         - copy_offload (RW)
+>         - copy_max_bytes (RW)
+>         - copy_max_bytes_hw (RO)
 > 
-> Not seeing anything in DM's path selectors that adds these
-> optimizations. Is there accompanying multipath-tools callouts to get
-> at this data to optimize path selection (via DM table reloads)?
+> Above limits help to split the copy payload in block layer.
+> copy_offload: used for setting copy offload(1) or emulation(0).
+> copy_max_bytes: maximum total length of copy in single payload.
+> copy_max_bytes_hw: Reflects the device supported maximum limit.
 > 
+> Reviewed-by: Hannes Reinecke <hare@suse.de>
+> Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
+> Signed-off-by: Kanchan Joshi <joshi.k@samsung.com>
+> Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
+> ---
+>  Documentation/ABI/stable/sysfs-block | 36 ++++++++++++++++
+>  block/blk-settings.c                 | 24 +++++++++++
+>  block/blk-sysfs.c                    | 64 ++++++++++++++++++++++++++++
+>  include/linux/blkdev.h               | 12 ++++++
+>  include/uapi/linux/fs.h              |  3 ++
+>  5 files changed, 139 insertions(+)
+> 
+> diff --git a/Documentation/ABI/stable/sysfs-block b/Documentation/ABI/stable/sysfs-block
+> index c57e5b7cb532..f5c56ad91ad6 100644
+> --- a/Documentation/ABI/stable/sysfs-block
+> +++ b/Documentation/ABI/stable/sysfs-block
+> @@ -155,6 +155,42 @@ Description:
+>  		last zone of the device which may be smaller.
+>  
+>  
+> +What:		/sys/block/<disk>/queue/copy_offload
+> +Date:		November 2022
+> +Contact:	linux-block@vger.kernel.org
+> +Description:
+> +		[RW] When read, this file shows whether offloading copy to
+> +		device is enabled (1) or disabled (0). Writing '0' to this
 
-You can ignore that comment. The comment was meant for the dm pr callouts
-and not for normal IO/path handling, and now I think I can fix in a different
-way.
+...to a device...
 
-I originally added the comment about better dm error handling for something
-like __dm_pr_register getting a failure when it did:
+> +		file will disable offloading copies for this device.
+> +		Writing any '1' value will enable this feature. If device
 
-        ret = ops->pr_register(dev->bdev, pr->old_key, pr->new_key, pr->flags);
+If the device does...
 
-Right now, we fail the entire operation if just one call on one path fails. With the
-pr_read_keys/reservation callouts we could check if we got a failure because there
-was an existing reservation vs a retryable/ignorable error.
+> +		does not support offloading, then writing 1, will result in
+> +		error.
+> +
+> +
+> +What:		/sys/block/<disk>/queue/copy_max_bytes
+> +Date:		November 2022
+> +Contact:	linux-block@vger.kernel.org
+> +Description:
+> +		[RW] While 'copy_max_bytes_hw' is the hardware limit for the
+> +		device, 'copy_max_bytes' setting is the software limit.
+> +		Setting this value lower will make Linux issue smaller size
+> +		copies from block layer.
 
-I forgot I wrote that comment about dm in the mail and we actually don't need the
-pr_read_* callouts for that type of thing now, because I ended up changing
-the existing callouts to return common error codes last kernel. So I have another
-patchset that I'm working on, but am still debating about some issues like:
+		This is the maximum number of bytes that the block
+                layer will allow for a copy request. Must be smaller than
+                or equal to the maximum size allowed by the hardware indicated
+		by copy_max_bytes_hw. Write 0 to use the default kernel
+		settings.
 
-ret = ops->pr_register(dev->bdev, pr->old_key, pr->new_key, pr->flags);
-switch (ret) {
-case PR_STS_RESERVATION_CONFLICT:
-	pr->ret = ret;
-	return -1;
-case PR_STS_RETRY_PATH_FAILURE:
-	/*
-	 * We probably want to retry like how we do for the pg_init.
-	 */
-	....
-case PR_STS_PATH_FAILED:
-case PR_STS_PATH_FAST_FAILED:
-	/*
-	 * I'm still not sure what to do here, because if this is the last
-	 * host then we might want to try and register the rest of the paths
-	 * and limp on. It probably needs a user config option.
-	 */
-	....
+> +
+> +
+> +What:		/sys/block/<disk>/queue/copy_max_bytes_hw
+> +Date:		November 2022
+> +Contact:	linux-block@vger.kernel.org
+> +Description:
+> +		[RO] Devices that support offloading copy functionality may have
+> +		internal limits on the number of bytes that can be offloaded
+> +		in a single operation. The `copy_max_bytes_hw`
+> +		parameter is set by the device driver to the maximum number of
+> +		bytes that can be copied in a single operation. Copy
+> +		requests issued to the device must not exceed this limit.
+> +		A value of 0 means that the device does not
+> +		support copy offload.
 
+		[RO] This is the maximum number of kilobytes supported in a
+                single data copy offload operation. A value of 0 means that the
+		device does not support copy offload.
+
+> +
+> +
+>  What:		/sys/block/<disk>/queue/crypto/
+>  Date:		February 2022
+>  Contact:	linux-block@vger.kernel.org
+> diff --git a/block/blk-settings.c b/block/blk-settings.c
+> index 896b4654ab00..350f3584f691 100644
+> --- a/block/blk-settings.c
+> +++ b/block/blk-settings.c
+> @@ -59,6 +59,8 @@ void blk_set_default_limits(struct queue_limits *lim)
+>  	lim->zoned = BLK_ZONED_NONE;
+>  	lim->zone_write_granularity = 0;
+>  	lim->dma_alignment = 511;
+> +	lim->max_copy_sectors_hw = 0;
+> +	lim->max_copy_sectors = 0;
+>  }
+>  
+>  /**
+> @@ -82,6 +84,8 @@ void blk_set_stacking_limits(struct queue_limits *lim)
+>  	lim->max_dev_sectors = UINT_MAX;
+>  	lim->max_write_zeroes_sectors = UINT_MAX;
+>  	lim->max_zone_append_sectors = UINT_MAX;
+> +	lim->max_copy_sectors_hw = ULONG_MAX;
+> +	lim->max_copy_sectors = ULONG_MAX;
+>  }
+>  EXPORT_SYMBOL(blk_set_stacking_limits);
+>  
+> @@ -183,6 +187,22 @@ void blk_queue_max_discard_sectors(struct request_queue *q,
+>  }
+>  EXPORT_SYMBOL(blk_queue_max_discard_sectors);
+>  
+> +/**
+> + * blk_queue_max_copy_sectors_hw - set max sectors for a single copy payload
+> + * @q:  the request queue for the device
+> + * @max_copy_sectors: maximum number of sectors to copy
+> + **/
+> +void blk_queue_max_copy_sectors_hw(struct request_queue *q,
+> +		unsigned int max_copy_sectors)
+> +{
+> +	if (max_copy_sectors >= MAX_COPY_TOTAL_LENGTH)
+
+Confusing name as LENGTH may be interpreted as bytes. MAX_COPY_SECTORS would be
+better.
+
+> +		max_copy_sectors = MAX_COPY_TOTAL_LENGTH;
+> +
+> +	q->limits.max_copy_sectors_hw = max_copy_sectors;
+> +	q->limits.max_copy_sectors = max_copy_sectors;
+> +}
+> +EXPORT_SYMBOL_GPL(blk_queue_max_copy_sectors_hw);
+
+
+-- 
+Damien Le Moal
+Western Digital Research
 
 --
 dm-devel mailing list
