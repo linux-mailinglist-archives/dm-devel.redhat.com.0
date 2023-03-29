@@ -1,76 +1,76 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A4446CDC7F
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Mar 2023 16:25:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 602126CED12
+	for <lists+dm-devel@lfdr.de>; Wed, 29 Mar 2023 17:36:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680099955;
+	s=mimecast20190719; t=1680104174;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kAcSoENm2NuQDs0oUzoYDUp1XVS0vD5Xiq4RUvJnSxM=;
-	b=hwV+mWpDQ0/Vsm2JvS04AtNM4BNZdF7wQkOOA853vlKH1j+duDniWxL0F+sfYDcOjaAmmn
-	o99gSegtVkEDd9fj/G6aZ1zaXFh3VfphwNWP1cvgr/mE+3V5FekLig+1Tn07KuoMAnc+bj
-	3h+E0SEMu6ZTTOYoB4+BIrf+zg3M3Ec=
+	bh=oT1ZvG9mNU4B2Zj8n/OFih7ZW+bVB8ykFFYxyIvq2XI=;
+	b=DjfJJ27Ve3IcwS1e2imz6CFwr+uNhd8uWphjuuq5eBay+/bM8FEq7Zqpog8dcXjhK7IgWi
+	G3R0pHG4ySHBSt6VBDnz4cd1tFvgBZAVh3LFer/0eYHmS5o9NePAtav9cvkdX5+Hn33aFR
+	wdXWrbiFUlifhdOLXuPko7tNYg8Nxiw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-340-VoM-LkI8MvSZFlkEUUmmyQ-1; Wed, 29 Mar 2023 10:25:51 -0400
-X-MC-Unique: VoM-LkI8MvSZFlkEUUmmyQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-343-15vhkOneO_yaGN9WffqYsg-1; Wed, 29 Mar 2023 11:36:11 -0400
+X-MC-Unique: 15vhkOneO_yaGN9WffqYsg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A447101A551;
-	Wed, 29 Mar 2023 14:25:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D58B485C6E2;
+	Wed, 29 Mar 2023 15:36:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CE449440D9;
-	Wed, 29 Mar 2023 14:25:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 578A74020C82;
+	Wed, 29 Mar 2023 15:36:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 357D61946A41;
-	Wed, 29 Mar 2023 14:25:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9580319465A4;
+	Wed, 29 Mar 2023 15:36:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 159881946587
- for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 14:08:42 +0000 (UTC)
+ ESMTP id 7ECB61946587
+ for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 15:35:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DC0C214171BB; Wed, 29 Mar 2023 14:08:41 +0000 (UTC)
+ id 6CEF42166B34; Wed, 29 Mar 2023 15:35:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D4656140EBF4
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 14:08:41 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 651572166B33
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 15:35:34 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B48EE85530E
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 14:08:41 +0000 (UTC)
-Received: from mga18.intel.com (mga18.intel.com [134.134.136.126]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4753C8030D0
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 15:35:34 +0000 (UTC)
+Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-271-ZjXNwThHNXWf68BXTk_4yg-1; Wed, 29 Mar 2023 10:08:37 -0400
-X-MC-Unique: ZjXNwThHNXWf68BXTk_4yg-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="324789530"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="324789530"
-Received: from fmsmga002.fm.intel.com ([10.253.24.26])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 29 Mar 2023 07:08:13 -0700
+ us-mta-52-KiEsJYZQO1aYc-121qRQ2A-1; Wed, 29 Mar 2023 11:35:32 -0400
+X-MC-Unique: KiEsJYZQO1aYc-121qRQ2A-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="340935266"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="340935266"
+Received: from orsmga007.jf.intel.com ([10.7.209.58])
+ by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 08:31:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="795245926"
-X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="795245926"
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="677812139"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="677812139"
 Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
- by fmsmga002.fm.intel.com with ESMTP; 29 Mar 2023 07:07:54 -0700
+ by orsmga007.jf.intel.com with ESMTP; 29 Mar 2023 08:30:58 -0700
 Received: from kbuild by b613635ddfff with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1phWSv-000Jba-1B;
- Wed, 29 Mar 2023 14:07:53 +0000
-Date: Wed, 29 Mar 2023 22:07:29 +0800
+ (envelope-from <lkp@intel.com>) id 1phXlK-000JfU-0G;
+ Wed, 29 Mar 2023 15:30:58 +0000
+Date: Wed, 29 Mar 2023 23:30:26 +0800
 From: kernel test robot <lkp@intel.com>
 To: Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe <axboe@kernel.dk>,
  Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
@@ -80,7 +80,7 @@ To: Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe <axboe@kernel.dk>,
  Chaitanya Kulkarni <kch@nvidia.com>,
  Alexander Viro <viro@zeniv.linux.org.uk>,
  Christian Brauner <brauner@kernel.org>
-Message-ID: <202303292151.7DDOUCIt-lkp@intel.com>
+Message-ID: <202303292349.ED70Fxdw-lkp@intel.com>
 References: <20230327084103.21601-5-anuj20.g@samsung.com>
 MIME-Version: 1.0
 In-Reply-To: <20230327084103.21601-5-anuj20.g@samsung.com>
@@ -91,7 +91,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 Subject: Re: [dm-devel] [PATCH v8 4/9] fs,
  block: copy_file_range for def_blk_ops for direct block device.
 X-BeenThere: dm-devel@redhat.com
@@ -114,7 +114,7 @@ Cc: bvanassche@acm.org, joshi.k@samsung.com,
  nitheshshetty@gmail.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: intel.com
 Content-Disposition: inline
@@ -135,28 +135,108 @@ url:    https://github.com/intel-lab-lkp/linux/commits/Anuj-Gupta/block-Add-copy
 base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux-block.git for-next
 patch link:    https://lore.kernel.org/r/20230327084103.21601-5-anuj20.g%40samsung.com
 patch subject: [PATCH v8 4/9] fs, block: copy_file_range for def_blk_ops for direct block device.
-config: loongarch-randconfig-r001-20230329 (https://download.01.org/0day-ci/archive/20230329/202303292151.7DDOUCIt-lkp@intel.com/config)
-compiler: loongarch64-linux-gcc (GCC) 12.1.0
+config: x86_64-randconfig-a013 (https://download.01.org/0day-ci/archive/20230329/202303292349.ED70Fxdw-lkp@intel.com/config)
+compiler: gcc-11 (Debian 11.3.0-8) 11.3.0
 reproduce (this is a W=1 build):
-        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
-        chmod +x ~/bin/make.cross
         # https://github.com/intel-lab-lkp/linux/commit/61819d260936954ddd6688548f074e7063dcf39e
         git remote add linux-review https://github.com/intel-lab-lkp/linux
         git fetch --no-tags linux-review Anuj-Gupta/block-Add-copy-offload-support-infrastructure/20230329-162018
         git checkout 61819d260936954ddd6688548f074e7063dcf39e
         # save the config file
         mkdir build_dir && cp config build_dir/.config
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch olddefconfig
-        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross W=1 O=build_dir ARCH=loongarch SHELL=/bin/bash
+        make W=1 O=build_dir ARCH=x86_64 olddefconfig
+        make W=1 O=build_dir ARCH=x86_64 SHELL=/bin/bash
 
 If you fix the issue, kindly add following tag where applicable
 | Reported-by: kernel test robot <lkp@intel.com>
-| Link: https://lore.kernel.org/oe-kbuild-all/202303292151.7DDOUCIt-lkp@intel.com/
+| Link: https://lore.kernel.org/oe-kbuild-all/202303292349.ED70Fxdw-lkp@intel.com/
 
 All errors (new ones prefixed by >>):
 
-   loongarch64-linux-ld: fs/read_write.o: in function `.L633':
->> read_write.c:(.text+0x42e0): undefined reference to `I_BDEV'
+   ld: vmlinux.o: in function `generic_copy_file_checks':
+>> fs/read_write.c:1453: undefined reference to `I_BDEV'
+
+
+vim +1453 fs/read_write.c
+
+  1398	
+  1399	/*
+  1400	 * Performs necessary checks before doing a file copy
+  1401	 *
+  1402	 * Can adjust amount of bytes to copy via @req_count argument.
+  1403	 * Returns appropriate error code that caller should return or
+  1404	 * zero in case the copy should be allowed.
+  1405	 */
+  1406	static int generic_copy_file_checks(struct file *file_in, loff_t pos_in,
+  1407					    struct file *file_out, loff_t pos_out,
+  1408					    size_t *req_count, unsigned int flags)
+  1409	{
+  1410		struct inode *inode_in = file_inode(file_in);
+  1411		struct inode *inode_out = file_inode(file_out);
+  1412		uint64_t count = *req_count;
+  1413		loff_t size_in;
+  1414		int ret;
+  1415	
+  1416		ret = generic_file_rw_checks(file_in, file_out);
+  1417		if (ret)
+  1418			return ret;
+  1419	
+  1420		/*
+  1421		 * We allow some filesystems to handle cross sb copy, but passing
+  1422		 * a file of the wrong filesystem type to filesystem driver can result
+  1423		 * in an attempt to dereference the wrong type of ->private_data, so
+  1424		 * avoid doing that until we really have a good reason.
+  1425		 *
+  1426		 * nfs and cifs define several different file_system_type structures
+  1427		 * and several different sets of file_operations, but they all end up
+  1428		 * using the same ->copy_file_range() function pointer.
+  1429		 */
+  1430		if (flags & COPY_FILE_SPLICE) {
+  1431			/* cross sb splice is allowed */
+  1432		} else if (file_out->f_op->copy_file_range) {
+  1433			if (file_in->f_op->copy_file_range !=
+  1434			    file_out->f_op->copy_file_range)
+  1435				return -EXDEV;
+  1436		} else if (file_inode(file_in)->i_sb != file_inode(file_out)->i_sb) {
+  1437			return -EXDEV;
+  1438		}
+  1439	
+  1440		/* Don't touch certain kinds of inodes */
+  1441		if (IS_IMMUTABLE(inode_out))
+  1442			return -EPERM;
+  1443	
+  1444		if (IS_SWAPFILE(inode_in) || IS_SWAPFILE(inode_out))
+  1445			return -ETXTBSY;
+  1446	
+  1447		/* Ensure offsets don't wrap. */
+  1448		if (pos_in + count < pos_in || pos_out + count < pos_out)
+  1449			return -EOVERFLOW;
+  1450	
+  1451		/* Shorten the copy to EOF */
+  1452		if (S_ISBLK(inode_in->i_mode))
+> 1453			size_in = bdev_nr_bytes(I_BDEV(file_in->f_mapping->host));
+  1454		else
+  1455			size_in = i_size_read(inode_in);
+  1456	
+  1457		if (pos_in >= size_in)
+  1458			count = 0;
+  1459		else
+  1460			count = min(count, size_in - (uint64_t)pos_in);
+  1461	
+  1462		ret = generic_write_check_limits(file_out, pos_out, &count);
+  1463		if (ret)
+  1464			return ret;
+  1465	
+  1466		/* Don't allow overlapped copying within the same file. */
+  1467		if (inode_in == inode_out &&
+  1468		    pos_out + count > pos_in &&
+  1469		    pos_out < pos_in + count)
+  1470			return -EINVAL;
+  1471	
+  1472		*req_count = count;
+  1473		return 0;
+  1474	}
+  1475	
 
 -- 
 0-DAY CI Kernel Test Service
