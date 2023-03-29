@@ -2,106 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9BFDC6CD9B0
-	for <lists+dm-devel@lfdr.de>; Wed, 29 Mar 2023 14:53:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 83CCE6CDC90
+	for <lists+dm-devel@lfdr.de>; Wed, 29 Mar 2023 16:30:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680094420;
+	s=mimecast20190719; t=1680100243;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oqyQc8DHAySLe2FGVwwcIrntB5r7oasVPCpYgPmFCVM=;
-	b=QxM6CBtTOnrOuxwXkwAEcduKRDuk2AEYnkPEteVWORgcay457RKUHBMscE69zur7G6b6nl
-	4eaUz/z4cNI0Yb+lPjfO+rGLilUFA5+DzRHv8U10cGTp3noVKXcxzBCCjZi3fW3qSb/u0+
-	ch0p+6kW2JAzIg1WlsF0atNkD7/ufXQ=
+	bh=v4mJKmprPgRGKLaFVGxvY++jRAnA2iLM2A4a7I4tXWE=;
+	b=SdNUlz427Ue+EEn3yErdHYSQwzhsc3ruAC71iwtSJdux+QYWp/HF+sAJIeP2QJd0dcaMUv
+	Qjj0fqWjJ+Cosa/vVudu8htghC4SxFpR2Pk0cYS71RhuaQFHHN4DFL+e2kJrUsmaBY/Ugr
+	F1XNiQXdpHhnElTwE44UCvrAyIwm6p8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-399-b7wPx6SFMEyS-HPDzOj9oA-1; Wed, 29 Mar 2023 08:53:37 -0400
-X-MC-Unique: b7wPx6SFMEyS-HPDzOj9oA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-669-L8KgC9roOuamnFrhMgvA4Q-1; Wed, 29 Mar 2023 10:30:41 -0400
+X-MC-Unique: L8KgC9roOuamnFrhMgvA4Q-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AEDEE185A790;
-	Wed, 29 Mar 2023 12:53:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3FAE2855310;
+	Wed, 29 Mar 2023 14:30:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AE7B04042AC0;
-	Wed, 29 Mar 2023 12:53:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 98979202701E;
+	Wed, 29 Mar 2023 14:30:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F28C619465B2;
-	Wed, 29 Mar 2023 12:53:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0269519465BC;
+	Wed, 29 Mar 2023 14:30:37 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 267131946587
- for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 12:24:22 +0000 (UTC)
+ ESMTP id 32E4F1946587
+ for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 13:59:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1373F2027040; Wed, 29 Mar 2023 12:24:22 +0000 (UTC)
+ id 0F2CF1121331; Wed, 29 Mar 2023 13:59:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B705202701F
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 12:24:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0770C1121330
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 13:59:23 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DEC48185A790
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 12:24:21 +0000 (UTC)
-Received: from esa2.hgst.iphmx.com (esa2.hgst.iphmx.com [68.232.143.124]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DBC5885A588
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 13:59:23 +0000 (UTC)
+Received: from mga02.intel.com (mga02.intel.com [134.134.136.20]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-443-P_ALowGVPImYi_4e8XfyYQ-1; Wed, 29 Mar 2023 08:24:19 -0400
-X-MC-Unique: P_ALowGVPImYi_4e8XfyYQ-1
-X-IronPort-AV: E=Sophos;i="5.98,300,1673884800"; d="scan'208";a="331227838"
-Received: from uls-op-cesaip01.wdc.com (HELO uls-op-cesaep01.wdc.com)
- ([199.255.45.14])
- by ob1.hgst.iphmx.com with ESMTP; 29 Mar 2023 20:24:18 +0800
-IronPort-SDR: 8QulcRe0eRATLaCpmyiI7y3l++yqVglyJhEh0AyecuA6stus0ruL97O+vZfkAr9+E59dkL+D09
- IgpSaVyMk2lxBziJKjLSvf0iuvxXXJhITtG6To0rhTCVJZ7T2zmuynMTzCwb2qITOpWSAt7fk1
- 4fT+OTq7r2/WLydN4qEZUQoCnqiKvBtiqb+KbAGK3zSYNsHaSshfobf6X/qASwNj7NL7ASqW1w
- YcEY0TF4nMB2lRyk06odhckF3QXbfqA4qDXCVqOIvblrTix5PqBrBaRNR3TngjZ5ARNmd0h0Lr
- vcc=
-Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
- by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 Mar 2023 04:40:27 -0700
-IronPort-SDR: A6RphZYepPVNOMZFtIYMysik9AqTbbZFoNRxIuLH9xe9HMdnStkOzjzaGscapObRJC7pSr12oh
- 4udw0Io/6mr8MwEqHrp2nco0DhKwiV7THbLykXVfVeRdb8reEREdcqk7TYPIaKPe+HHj9DmY2n
- O8/gaZGxwyZpwNju3fGjnocdLYAXiwKb9qmPksjixdErG1svoorPUggVrpzfgWBZghxJRmUeBY
- bX9bEvx+5byZLQwv5FVxyxu3J4zl5nfIINnGadmOG+nAA1ni2za4tY4lOije4jtWGGHakGp4sW
- FLM=
-WDCIronportException: Internal
-Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
- by uls-op-cesaip02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 Mar 2023 05:24:18 -0700
-Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Pmm294fTMz1RtVp
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 05:24:17 -0700 (PDT)
-X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
-Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
- by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
- port 10026) with ESMTP id VE4D2GsJi89S for <dm-devel@redhat.com>;
- Wed, 29 Mar 2023 05:24:16 -0700 (PDT)
-Received: from [10.225.163.116] (unknown [10.225.163.116])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Pmm253ydnz1RtVm;
- Wed, 29 Mar 2023 05:24:13 -0700 (PDT)
-Message-ID: <03c647ff-3c4f-a810-12c4-06a9dc62c90e@opensource.wdc.com>
-Date: Wed, 29 Mar 2023 21:24:11 +0900
+ us-mta-449-qMIY3IeZOQGZP09pvHAXug-1; Wed, 29 Mar 2023 09:59:22 -0400
+X-MC-Unique: qMIY3IeZOQGZP09pvHAXug-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="329348389"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="329348389"
+Received: from orsmga001.jf.intel.com ([10.7.209.18])
+ by orsmga101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Mar 2023 06:58:00 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10664"; a="716892985"
+X-IronPort-AV: E=Sophos;i="5.98,301,1673942400"; d="scan'208";a="716892985"
+Received: from lkp-server01.sh.intel.com (HELO b613635ddfff) ([10.239.97.150])
+ by orsmga001.jf.intel.com with ESMTP; 29 Mar 2023 06:57:54 -0700
+Received: from kbuild by b613635ddfff with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1phWJF-000Jb6-0H;
+ Wed, 29 Mar 2023 13:57:53 +0000
+Date: Wed, 29 Mar 2023 21:56:55 +0800
+From: kernel test robot <lkp@intel.com>
+To: Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ dm-devel@redhat.com, Keith Busch <kbusch@kernel.org>,
+ Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>,
+ James Smart <james.smart@broadcom.com>,
+ Chaitanya Kulkarni <kch@nvidia.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>
+Message-ID: <202303292148.Pbx4mDpS-lkp@intel.com>
+References: <20230327084103.21601-7-anuj20.g@samsung.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-To: Nitesh Shetty <nj.shetty@samsung.com>
-References: <20230327084103.21601-1-anuj20.g@samsung.com>
- <CGME20230327084216epcas5p3945507ecd94688c40c29195127ddc54d@epcas5p3.samsung.com>
- <20230327084103.21601-2-anuj20.g@samsung.com>
- <e725768d-19f5-a78a-2b05-c0b189624fea@opensource.wdc.com>
- <20230329104142.GA11932@green5>
-From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Organization: Western Digital Research
-In-Reply-To: <20230329104142.GA11932@green5>
+In-Reply-To: <20230327084103.21601-7-anuj20.g@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -109,9 +90,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH v8 1/9] block: Introduce queue limits for
- copy-offload support
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH v8 6/9] nvmet: add copy command support for
+ bdev and file ns
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,84 +104,132 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-nvme@lists.infradead.org, dm-devel@redhat.com,
- Christoph Hellwig <hch@lst.de>, Alasdair Kergon <agk@redhat.com>,
- Sagi Grimberg <sagi@grimberg.me>, gost.dev@samsung.com,
- nitheshshetty@gmail.com, James Smart <james.smart@broadcom.com>,
- Chaitanya Kulkarni <kch@nvidia.com>, Anuj Gupta <anuj20.g@samsung.com>,
- Mike Snitzer <snitzer@kernel.org>, ming.lei@redhat.com,
- linux-block@vger.kernel.org, Keith Busch <kbusch@kernel.org>,
- bvanassche@acm.org, Jens Axboe <axboe@kernel.dk>,
- Christian Brauner <brauner@kernel.org>, joshi.k@samsung.com,
- linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>
+Cc: bvanassche@acm.org, joshi.k@samsung.com,
+ Nitesh Shetty <nj.shetty@samsung.com>, gost.dev@samsung.com,
+ anuj20.g@samsung.com, linux-kernel@vger.kernel.org,
+ linux-nvme@lists.infradead.org, ming.lei@redhat.com,
+ linux-block@vger.kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, damien.lemoal@opensource.wdc.com,
+ nitheshshetty@gmail.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: opensource.wdc.com
-Content-Language: en-US
+X-Mimecast-Originator: intel.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 3/29/23 19:41, Nitesh Shetty wrote:
->>> +What:		/sys/block/<disk>/queue/copy_max_bytes
->>> +Date:		November 2022
->>> +Contact:	linux-block@vger.kernel.org
->>> +Description:
->>> +		[RW] While 'copy_max_bytes_hw' is the hardware limit for the
->>> +		device, 'copy_max_bytes' setting is the software limit.
->>> +		Setting this value lower will make Linux issue smaller size
->>> +		copies from block layer.
->>
->> 		This is the maximum number of bytes that the block
->>                 layer will allow for a copy request. Must be smaller than
->>                 or equal to the maximum size allowed by the hardware indicated
-> 
-> Looks good.  Will update in next version. We took reference from discard. 
-> 
->> 		by copy_max_bytes_hw. Write 0 to use the default kernel
->> 		settings.
->>
-> 
-> Nack, writing 0 will not set it to default value. (default value is
-> copy_max_bytes = copy_max_bytes_hw)
+Hi Anuj,
 
-It is trivial to make it work that way, which would match how max_sectors_kb
-works. Write 0 to return copy_max_bytes being equal to the default
-copy_max_bytes_hw.
+Thank you for the patch! Perhaps something to improve:
 
-The other possibility that is also interesting is "write 0 to disable copy
-offload and use emulation". This one may actually be more useful.
+[auto build test WARNING on axboe-block/for-next]
+[also build test WARNING on linus/master v6.3-rc4 next-20230329]
+[cannot apply to device-mapper-dm/for-next]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-> 
->>> +
->>> +
->>> +What:		/sys/block/<disk>/queue/copy_max_bytes_hw
->>> +Date:		November 2022
->>> +Contact:	linux-block@vger.kernel.org
->>> +Description:
->>> +		[RO] Devices that support offloading copy functionality may have
->>> +		internal limits on the number of bytes that can be offloaded
->>> +		in a single operation. The `copy_max_bytes_hw`
->>> +		parameter is set by the device driver to the maximum number of
->>> +		bytes that can be copied in a single operation. Copy
->>> +		requests issued to the device must not exceed this limit.
->>> +		A value of 0 means that the device does not
->>> +		support copy offload.
->>
->> 		[RO] This is the maximum number of kilobytes supported in a
->>                 single data copy offload operation. A value of 0 means that the
->> 		device does not support copy offload.
->>
-> 
-> Nack, value is in bytes. Same as discard.
+url:    https://github.com/intel-lab-lkp/linux/commits/Anuj-Gupta/block-Add-copy-offload-support-infrastructure/20230329-162018
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/axboe/linux-block.git for-next
+patch link:    https://lore.kernel.org/r/20230327084103.21601-7-anuj20.g%40samsung.com
+patch subject: [PATCH v8 6/9] nvmet: add copy command support for bdev and file ns
+config: arm64-randconfig-s041-20230329 (https://download.01.org/0day-ci/archive/20230329/202303292148.Pbx4mDpS-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 12.1.0
+reproduce:
+        wget https://raw.githubusercontent.com/intel/lkp-tests/master/sbin/make.cross -O ~/bin/make.cross
+        chmod +x ~/bin/make.cross
+        # apt-get install sparse
+        # sparse version: v0.6.4-39-gce1a6720-dirty
+        # https://github.com/intel-lab-lkp/linux/commit/f846a8ac40882d9d42532e9e2b43560650ef8510
+        git remote add linux-review https://github.com/intel-lab-lkp/linux
+        git fetch --no-tags linux-review Anuj-Gupta/block-Add-copy-offload-support-infrastructure/20230329-162018
+        git checkout f846a8ac40882d9d42532e9e2b43560650ef8510
+        # save the config file
+        mkdir build_dir && cp config build_dir/.config
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=arm64 olddefconfig
+        COMPILER_INSTALL_PATH=$HOME/0day COMPILER=gcc-12.1.0 make.cross C=1 CF='-fdiagnostic-prefix -D__CHECK_ENDIAN__' O=build_dir ARCH=arm64 SHELL=/bin/bash drivers/nvme/target/
 
-Typo. I meant Bytes. Your text is too long an too convoluted, so unclear.
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202303292148.Pbx4mDpS-lkp@intel.com/
+
+sparse warnings: (new ones prefixed by >>)
+>> drivers/nvme/target/io-cmd-bdev.c:55:27: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int [usertype] val @@     got restricted __le16 [usertype] mssrl @@
+   drivers/nvme/target/io-cmd-bdev.c:55:27: sparse:     expected unsigned int [usertype] val
+   drivers/nvme/target/io-cmd-bdev.c:55:27: sparse:     got restricted __le16 [usertype] mssrl
+>> drivers/nvme/target/io-cmd-bdev.c:55:27: sparse: sparse: cast from restricted __le16
+>> drivers/nvme/target/io-cmd-bdev.c:55:27: sparse: sparse: cast from restricted __le16
+>> drivers/nvme/target/io-cmd-bdev.c:55:27: sparse: sparse: cast from restricted __le16
+>> drivers/nvme/target/io-cmd-bdev.c:55:27: sparse: sparse: cast from restricted __le16
+   drivers/nvme/target/io-cmd-bdev.c:57:29: sparse: sparse: cast from restricted __le16
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse: sparse: incorrect type in argument 1 (different base types) @@     expected unsigned int [usertype] val @@     got restricted __le16 [usertype] mssrl @@
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse:     expected unsigned int [usertype] val
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse:     got restricted __le16 [usertype] mssrl
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse: sparse: cast from restricted __le16
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse: sparse: cast from restricted __le16
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse: sparse: cast from restricted __le16
+   drivers/nvme/target/io-cmd-bdev.c:60:27: sparse: sparse: cast from restricted __le16
+
+vim +55 drivers/nvme/target/io-cmd-bdev.c
+
+    12	
+    13	void nvmet_bdev_set_limits(struct block_device *bdev, struct nvme_id_ns *id)
+    14	{
+    15		/* Logical blocks per physical block, 0's based. */
+    16		const __le16 lpp0b = to0based(bdev_physical_block_size(bdev) /
+    17					      bdev_logical_block_size(bdev));
+    18	
+    19		/*
+    20		 * For NVMe 1.2 and later, bit 1 indicates that the fields NAWUN,
+    21		 * NAWUPF, and NACWU are defined for this namespace and should be
+    22		 * used by the host for this namespace instead of the AWUN, AWUPF,
+    23		 * and ACWU fields in the Identify Controller data structure. If
+    24		 * any of these fields are zero that means that the corresponding
+    25		 * field from the identify controller data structure should be used.
+    26		 */
+    27		id->nsfeat |= 1 << 1;
+    28		id->nawun = lpp0b;
+    29		id->nawupf = lpp0b;
+    30		id->nacwu = lpp0b;
+    31	
+    32		/*
+    33		 * Bit 4 indicates that the fields NPWG, NPWA, NPDG, NPDA, and
+    34		 * NOWS are defined for this namespace and should be used by
+    35		 * the host for I/O optimization.
+    36		 */
+    37		id->nsfeat |= 1 << 4;
+    38		/* NPWG = Namespace Preferred Write Granularity. 0's based */
+    39		id->npwg = lpp0b;
+    40		/* NPWA = Namespace Preferred Write Alignment. 0's based */
+    41		id->npwa = id->npwg;
+    42		/* NPDG = Namespace Preferred Deallocate Granularity. 0's based */
+    43		id->npdg = to0based(bdev_discard_granularity(bdev) /
+    44				    bdev_logical_block_size(bdev));
+    45		/* NPDG = Namespace Preferred Deallocate Alignment */
+    46		id->npda = id->npdg;
+    47		/* NOWS = Namespace Optimal Write Size */
+    48		id->nows = to0based(bdev_io_opt(bdev) / bdev_logical_block_size(bdev));
+    49	
+    50		/*Copy limits*/
+    51		if (bdev_max_copy_sectors(bdev)) {
+    52			id->msrc = id->msrc;
+    53			id->mssrl = cpu_to_le16((bdev_max_copy_sectors(bdev) <<
+    54					SECTOR_SHIFT) / bdev_logical_block_size(bdev));
+  > 55			id->mcl = cpu_to_le32(id->mssrl);
+    56		} else {
+    57			id->msrc = (u8)to0based(BIO_MAX_VECS - 1);
+    58			id->mssrl = cpu_to_le16((BIO_MAX_VECS << PAGE_SHIFT) /
+    59					bdev_logical_block_size(bdev));
+    60			id->mcl = cpu_to_le32(id->mssrl);
+    61		}
+    62	}
+    63	
 
 -- 
-Damien Le Moal
-Western Digital Research
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
 
 --
 dm-devel mailing list
