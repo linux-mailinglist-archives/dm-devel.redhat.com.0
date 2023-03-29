@@ -1,105 +1,106 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 85BBE6CF773
-	for <lists+dm-devel@lfdr.de>; Thu, 30 Mar 2023 01:35:53 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 9E1386CF778
+	for <lists+dm-devel@lfdr.de>; Thu, 30 Mar 2023 01:36:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680132952;
+	s=mimecast20190719; t=1680132997;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NpMR/9xvAQBPv8fxinmD775O8alX3TXj9cBF94Esjrc=;
-	b=QeTMBTJ4O6+bXYBRSpk4W73RFJ3MkjYih39ijIq1eK+pDp+1DRE96Oy4L2jFVCNL/ye1L0
-	77m4GIVmQfKictMhzCwpRN/b6m1KTsGPX36JbdQoGWrcnaYa2Y8ghx0QjIPPhcTv9vNlkR
-	TxtRYB9yWf0qCg74BKfo6rD4S9A7eSA=
+	bh=tkuGJcB54OuhF77M/yjCekbNAbRUuQXQTNaczxyS574=;
+	b=ewU5hUKfrRxlqLZhVxBLPGeJ34PZ5m3gQT9AbSPb6PHTWj7wscxh8bhkoZq/HKtj7vdXLN
+	gspV8iZOZq9rDVRbtrVEZf+YUYmGW6ecz1BBCri4CKTCSIsZPaX1yxMq1dqiSkJV2lDr4i
+	5F0DpgVMjIb4XQSsSM8f9+a6sLlquoA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-557-GYhZdTFsMcefLMtvf4-NEA-1; Wed, 29 Mar 2023 19:35:49 -0400
-X-MC-Unique: GYhZdTFsMcefLMtvf4-NEA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-596-0vOpOUVUO6il17oBv2P-QQ-1; Wed, 29 Mar 2023 19:36:36 -0400
+X-MC-Unique: 0vOpOUVUO6il17oBv2P-QQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10D1C889057;
-	Wed, 29 Mar 2023 23:35:47 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 00FB08030DD;
+	Wed, 29 Mar 2023 23:36:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B4B4B2166B34;
-	Wed, 29 Mar 2023 23:35:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A9E13492B01;
+	Wed, 29 Mar 2023 23:36:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 33F7419465B2;
-	Wed, 29 Mar 2023 23:35:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 09BFC19465B2;
+	Wed, 29 Mar 2023 23:36:32 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 53EE41946587
- for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 23:35:44 +0000 (UTC)
+ ESMTP id 6A9CD1946587
+ for <dm-devel@listman.corp.redhat.com>; Wed, 29 Mar 2023 23:36:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 41E5640BC79A; Wed, 29 Mar 2023 23:35:44 +0000 (UTC)
+ id 4912E440D7; Wed, 29 Mar 2023 23:36:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 38FFB40BC79D
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 23:35:44 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 120952814240
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 23:35:44 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4110D18EC2
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 23:36:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 20C2C1C05AF9
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 23:36:30 +0000 (UTC)
 Received: from esa4.hgst.iphmx.com (esa4.hgst.iphmx.com [216.71.154.42]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-597-zDW1KNAfNHG82EAdlmzVaw-1; Wed, 29 Mar 2023 19:35:39 -0400
-X-MC-Unique: zDW1KNAfNHG82EAdlmzVaw-1
-X-IronPort-AV: E=Sophos;i="5.98,301,1673884800"; d="scan'208";a="225113750"
-Received: from h199-255-45-15.hgst.com (HELO uls-op-cesaep02.wdc.com)
- ([199.255.45.15])
- by ob1.hgst.iphmx.com with ESMTP; 30 Mar 2023 07:35:38 +0800
-IronPort-SDR: Poro64r2/PAfUvUAwK+EqE6HodaTciN+Gey7lZh9mKWf3nXYpASdlQeNZ9BQBu32bemGpxMIE3
- uyA2Aafvv/RJg1LoFZkCmIG60JzltLBWRma834To8acds3Hb8SD63caNe1qt7WJYfp4oJbCH7q
- cbwaSFmZly56+Gz6Xb/0aPNVP9iPgbtLieWSXsLlAMqQfWQlD8n30XFMBHZGo1+HrzfY6V27lO
- 8irzjNyfWJo4lDRfpx2hO2OCbswYlrnvf/0IAwT7nN8bFdBLYZIS7HiJyM/aU2Il/6WfyR83ob
- Evs=
+ us-mta-433-SCg7iFzLOc6xDHO0Xcd-sw-1; Wed, 29 Mar 2023 19:36:26 -0400
+X-MC-Unique: SCg7iFzLOc6xDHO0Xcd-sw-1
+X-IronPort-AV: E=Sophos;i="5.98,301,1673884800"; d="scan'208";a="225113795"
+Received: from h199-255-45-14.hgst.com (HELO uls-op-cesaep01.wdc.com)
+ ([199.255.45.14])
+ by ob1.hgst.iphmx.com with ESMTP; 30 Mar 2023 07:36:25 +0800
+IronPort-SDR: oGces3doTMhCC7cIALVOVBptJpfxSWDrYPzlQUHZhMv/t/AZBZpweVLJu90HmzQ0tcIkkx/Rsx
+ TmX6XGF5CCMr3ZPgCzQh4JtbFMEaQUVt5CG85VjIq4ON6zO6mpSJwPTrhPpNi/t2zLFv/M7D7B
+ RGIjF9TrUbD5n1gM1Eqh6t717NQnUPKjEQNQ8Cnj/nDm6h5/NSZjNnAQIJxCGhX1067FcWkdfy
+ BOT0xX8XADhWaZt+AkJR1vHhW60yuT9PfbZmIpt4wgwc6hhN6YAabzY8Xg6WAUhvoLXlEu9HeF
+ 9Vs=
 Received: from uls-op-cesaip02.wdc.com ([10.248.3.37])
- by uls-op-cesaep02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 Mar 2023 15:46:06 -0700
-IronPort-SDR: 3zrIT7YL5G5P3qkNg2K4bexgD7gc15ZSbiPGNYQLzHOuyD2U8Hk4VfOMEvPrejaoMF4yGZ42w9
- iz+4CRdv+pyYwSele2s9kzPjpdYeZSTVf5g50fYmUIAGkf1/9pU9iYbUzYgS+mW47y7F063RmE
- iDdcPgeASH57rpgekIfrQIDyDw3avsVSme9WxVcO4eeUQ2SHi5+UWcWzkZH1CBZrosjUXLQB4V
- SF/4tYeDfsSjeauJJ7mA0sU3pHN7xicKfFkc0PNggVh843cXhtpGpikeXQgXK8RvAGsJJ28AsK
- ff8=
+ by uls-op-cesaep01.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
+ 29 Mar 2023 15:52:34 -0700
+IronPort-SDR: jAOTSzZD8W5YOoL32IVQfwVq7ZETH1j2SNIJZXRVubXJWBI2xaRg8WoaegkPRHp5bVhB+qkABp
+ f7QrreyYHZy275pKAihBm43Owca2QI7BWFd3UyRK0TwZgq9d/2SRRp6AdYohTSxazvFweIR+H0
+ 8/XoxRyTh3fexO6pRl6tfaSun+NBXToAs2z5zuGp1hEuePDdDbpR5uNTRZN+aZ36gUqrx66Pgw
+ ftFNbe427m1rbZG81ljdfNfnRXvoUB67gbZdpRWACUl9bKlXJC6eCnMVVKboUX9rrhFSY/XsyR
+ HQI=
 WDCIronportException: Internal
 Received: from usg-ed-osssrv.wdc.com ([10.3.10.180])
  by uls-op-cesaip02.wdc.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 29 Mar 2023 16:35:38 -0700
+ 29 Mar 2023 16:36:26 -0700
 Received: from usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Pn2wp1Lfjz1RtVp
- for <dm-devel@redhat.com>; Wed, 29 Mar 2023 16:35:38 -0700 (PDT)
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTP id 4Pn2xj3Qj2z1RtVt
+ for <dm-devel@redhat.com>; Wed, 29 Mar 2023 16:36:25 -0700 (PDT)
 X-Virus-Scanned: amavisd-new at usg-ed-osssrv.wdc.com
 Received: from usg-ed-osssrv.wdc.com ([127.0.0.1])
  by usg-ed-osssrv.wdc.com (usg-ed-osssrv.wdc.com [127.0.0.1]) (amavisd-new,
- port 10026) with ESMTP id 01Qs8j7lzMtT for <dm-devel@redhat.com>;
- Wed, 29 Mar 2023 16:35:37 -0700 (PDT)
+ port 10026) with ESMTP id BBtcSOBl153j for <dm-devel@redhat.com>;
+ Wed, 29 Mar 2023 16:36:24 -0700 (PDT)
 Received: from [10.225.163.116] (unknown [10.225.163.116])
- by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Pn2wk4Fdnz1RtVm;
- Wed, 29 Mar 2023 16:35:34 -0700 (PDT)
-Message-ID: <ce3889b4-8689-ac73-0761-fc35a78b8dbd@opensource.wdc.com>
-Date: Thu, 30 Mar 2023 08:35:33 +0900
+ by usg-ed-osssrv.wdc.com (Postfix) with ESMTPSA id 4Pn2xd5qYJz1RtVm;
+ Wed, 29 Mar 2023 16:36:21 -0700 (PDT)
+Message-ID: <329c915b-b49d-491f-80ef-f4c9cdf80600@opensource.wdc.com>
+Date: Thu, 30 Mar 2023 08:36:20 +0900
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.9.0
 To: Johannes Thumshirn <johannes.thumshirn@wdc.com>,
  Jens Axboe <axboe@kernel.dk>
 References: <cover.1680108414.git.johannes.thumshirn@wdc.com>
- <ef742ee32fd0623008114e929d9a3e688fd721f7.1680108414.git.johannes.thumshirn@wdc.com>
+ <339841b3b7ce6b2faf56bcaf9d92e298d878ef64.1680108414.git.johannes.thumshirn@wdc.com>
 From: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 Organization: Western Digital Research
-In-Reply-To: <ef742ee32fd0623008114e929d9a3e688fd721f7.1680108414.git.johannes.thumshirn@wdc.com>
+In-Reply-To: <339841b3b7ce6b2faf56bcaf9d92e298d878ef64.1680108414.git.johannes.thumshirn@wdc.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -107,8 +108,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH 12/19] zonefs: use __bio_add_page for adding
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH 13/19] zram: use __bio_add_page for adding
  single page to bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -121,18 +122,18 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, jfs-discussion@lists.sourceforge.net,
+Cc: linux-raid@vger.kernel.org, Damien Le Moal <damien.lemoal@wdc.com>,
  cluster-devel@redhat.com, Chaitanya Kulkarni <kch@nvidia.com>,
  Andreas Gruenbacher <agruenba@redhat.com>, Song Liu <song@kernel.org>,
  Dave Kleikamp <shaggy@kernel.org>, Mike Snitzer <snitzer@kernel.org>,
- Matthew Wilcox <willy@infradead.org>, Ming Lei <ming.lei@redhat.com>,
- linux-block@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- David Sterba <dsterba@suse.com>, linux-fsdevel@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>, linux-btrfs@vger.kernel.org,
- Bob Peterson <rpeterso@redhat.com>
+ jfs-discussion@lists.sourceforge.net, Matthew Wilcox <willy@infradead.org>,
+ Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
+ linux-mm@kvack.org, dm-devel@redhat.com, David Sterba <dsterba@suse.com>,
+ linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
+ linux-btrfs@vger.kernel.org, Bob Peterson <rpeterso@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: opensource.wdc.com
 Content-Language: en-US
@@ -140,9 +141,9 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 On 3/30/23 02:05, Johannes Thumshirn wrote:
-> The zonefs superblock reading code uses bio_add_page() to add a page to a
-> newly created bio. bio_add_page() can fail, but the return value is
-> never checked.
+> The zram writeback code uses bio_add_page() to add a page to a newly
+> created bio. bio_add_page() can fail, but the return value is never
+> checked.
 > 
 > Use __bio_add_page() as adding a single page to a newly created bio is
 > guaranteed to succeed.
@@ -151,7 +152,7 @@ On 3/30/23 02:05, Johannes Thumshirn wrote:
 > 
 > Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 
-Acked-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 
 -- 
 Damien Le Moal
