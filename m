@@ -2,97 +2,91 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8CFC06D16BC
-	for <lists+dm-devel@lfdr.de>; Fri, 31 Mar 2023 07:24:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6705F6D1007
+	for <lists+dm-devel@lfdr.de>; Thu, 30 Mar 2023 22:31:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680240242;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1680208303;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6YMnk09nOB31SG78J69JJxFytMXCsaQbAnqTQ7ZLN18=;
-	b=R87tV/t7H/+e7Sz8XPTY/Rhj6pheoyAjt2+4f01laVdfY/36o4wZ0PCmjJqw/DHpwE2uPk
-	ZLlgwg/uN0Y6ChKRpyiicVrm2Ip9t1Pj0wSygj2Z0RYXRuyHHaGb20sahWad3VV05boFtT
-	zfajwey7BVDlkvSh2+pPtho7hQOg9x4=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=lrVcWcH1Ngk47U2xO8zoWzic+b5re/PAZTNMx2+no3I=;
+	b=ZsBePdj7aNuxzbjnhl8Bki3KrKL6uM16iIo8Yfh4SbdM9fHqEmCqYM8nX9peqm6hbxKHct
+	TZ/ZULns7NwyPsbg4yS8PCmWjdURy3x0zykRgTpv1hUsOwo4rA/v3UK1nZDehQBCY7lxKq
+	mEpQOVUVkaVAwujQtUkWgptQ6IQN9JI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-340-l9xCrV0yO5anJNG-VtwTEg-1; Fri, 31 Mar 2023 01:23:05 -0400
-X-MC-Unique: l9xCrV0yO5anJNG-VtwTEg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-153-h8lCgnRnOuOVtWZX6H6FYw-1; Thu, 30 Mar 2023 16:31:41 -0400
+X-MC-Unique: h8lCgnRnOuOVtWZX6H6FYw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B421D1C02D4A;
-	Fri, 31 Mar 2023 05:23:02 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6B813492B00;
-	Fri, 31 Mar 2023 05:22:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6AAC885620;
+	Thu, 30 Mar 2023 20:31:38 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 495221121331;
+	Thu, 30 Mar 2023 20:31:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 55D871946A61;
-	Fri, 31 Mar 2023 05:22:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C549519465B7;
+	Thu, 30 Mar 2023 20:31:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 086231946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 30 Mar 2023 19:31:24 +0000 (UTC)
+ ESMTP id 3507C1946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 30 Mar 2023 20:31:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DACDA4042AC5; Thu, 30 Mar 2023 19:31:23 +0000 (UTC)
+ id 14871C15BB8; Thu, 30 Mar 2023 20:31:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D358A4042AC0
- for <dm-devel@redhat.com>; Thu, 30 Mar 2023 19:31:23 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0D23BC15BA0
+ for <dm-devel@redhat.com>; Thu, 30 Mar 2023 20:31:32 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5D268533DC
- for <dm-devel@redhat.com>; Thu, 30 Mar 2023 19:31:23 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-561-apkN88IPP1y1-shfCNMdNA-1; Thu,
- 30 Mar 2023 15:31:21 -0400
-X-MC-Unique: apkN88IPP1y1-shfCNMdNA-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 96F501FE07;
- Thu, 30 Mar 2023 19:31:18 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 200FE133E0;
- Thu, 30 Mar 2023 19:31:18 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 77P7BobjJWQBRQAAMHmgww
- (envelope-from <dsterba@suse.cz>); Thu, 30 Mar 2023 19:31:18 +0000
-Date: Thu, 30 Mar 2023 21:25:03 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Johannes Thumshirn <Johannes.Thumshirn@wdc.com>
-Message-ID: <20230330192503.GT10580@twin.jikos.cz>
-References: <cover.1680172791.git.johannes.thumshirn@wdc.com>
- <20230330154529.GS10580@twin.jikos.cz>
- <9835fc72-18b4-517d-0861-b5b413252eb9@wdc.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6A8B385054D
+ for <dm-devel@redhat.com>; Thu, 30 Mar 2023 20:31:31 +0000 (UTC)
+Received: from mail-qt1-f178.google.com (mail-qt1-f178.google.com
+ [209.85.160.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-500-eQLoq12dNSGVI5c0FhsDPg-1; Thu, 30 Mar 2023 16:31:30 -0400
+X-MC-Unique: eQLoq12dNSGVI5c0FhsDPg-1
+Received: by mail-qt1-f178.google.com with SMTP id cj15so12284011qtb.5
+ for <dm-devel@redhat.com>; Thu, 30 Mar 2023 13:31:30 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1680208289;
+ h=content-disposition:mime-version:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=OhCjWj6A07ChaEE/VAs2MqHk+Daf+HpCUVuoJdoHHkY=;
+ b=WVkjUCr8AwTjpg98eiHvAFVjnzewBrEsehMUgax4AsoG+AD1v6brzXLT9tmWJIjF2h
+ TVDPs0bMxWM8o4X8GFwxYARasMUA6pAPkY6LRA+BHb9ckZjus0HQUGrIGc8lYhwOHi7G
+ WMdl+ai1vysCAW0V7Xi0EkdJuXY+LNlsWwkWcnFj6vP0JGT4Df1ObYHE/N4qES19JSX0
+ l5WA94L2IA7Ym5VkzDibW7vkMFztELte6yJ48LgO7aLICmw5YYTuxA153ejcjGKMcTGq
+ +GWxJ2uT1lCGgTTV1Xu4EYDNKeN3XVH4/jOot+vx1pkWPEMxuOrguQSDxGncK2nlX0lp
+ XVtA==
+X-Gm-Message-State: AAQBX9cB+Vca6nQPQDjN0viY/nmM3fYbt4+y7N0MH8MbWkYTPpZ/xiaz
+ YzWhf6m8fsQSUJzgViCs4PlOb4M=
+X-Google-Smtp-Source: AKy350Ys1PW85D28/axnMtdHaVIykTLm2UcqEqmi84VV10hdDWNkCTOzLB3TCnPz6RapbsyWeLZuyQ==
+X-Received: by 2002:a05:622a:1208:b0:3e4:dcb4:169 with SMTP id
+ y8-20020a05622a120800b003e4dcb40169mr33830225qtx.16.1680208289629; 
+ Thu, 30 Mar 2023 13:31:29 -0700 (PDT)
+Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
+ [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
+ s9-20020ac87589000000b003e4f1b3ce43sm117842qtq.50.2023.03.30.13.31.28
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 30 Mar 2023 13:31:29 -0700 (PDT)
+Date: Thu, 30 Mar 2023 16:31:28 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Linus Torvalds <torvalds@linux-foundation.org>
+Message-ID: <ZCXxoMlJVnVH0TQ2@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <9835fc72-18b4-517d-0861-b5b413252eb9@wdc.com>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Fri, 31 Mar 2023 05:22:41 +0000
-Subject: Re: [dm-devel] [PATCH v2 00/19] bio: check return values of
- bio_add_page
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [git pull] device mapper fixes for 6.3-rc5
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,67 +98,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Reply-To: dsterba@suse.cz
-Cc: Dave Kleikamp <shaggy@kernel.org>, "jfs-discussion@lists.sourceforge.net"
- <jfs-discussion@lists.sourceforge.net>, Song Liu <song@kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>, Christoph Hellwig <hch@lst.de>,
- Andreas Gruenbacher <agruenba@redhat.com>,
- Matthew Wilcox <willy@infradead.org>,
- "cluster-devel@redhat.com" <cluster-devel@redhat.com>,
- Chaitanya Kulkarni <kch@nvidia.com>, Mike Snitzer <snitzer@kernel.org>,
- Ming Lei <ming.lei@redhat.com>,
- "linux-raid@vger.kernel.org" <linux-raid@vger.kernel.org>,
- Bob Peterson <rpeterso@redhat.com>, David Sterba <dsterba@suse.com>,
- Jens Axboe <axboe@kernel.dk>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- Damien Le Moal <Damien.LeMoal@wdc.com>,
- "linux-mm@kvack.org" <linux-mm@kvack.org>, "dsterba@suse.cz" <dsterba@suse.cz>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- "linux-btrfs@vger.kernel.org" <linux-btrfs@vger.kernel.org>
+Cc: linux-block@vger.kernel.org, Orange Kao <orange@aiven.io>,
+ dm-devel@redhat.com, Alasdair G Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.cz
+X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 30, 2023 at 04:41:58PM +0000, Johannes Thumshirn wrote:
-> On 30.03.23 17:52, David Sterba wrote:
-> > On Thu, Mar 30, 2023 at 03:43:42AM -0700, Johannes Thumshirn wrote:
-> >> We have two functions for adding a page to a bio, __bio_add_page() which is
-> >> used to add a single page to a freshly created bio and bio_add_page() which is
-> >> used to add a page to an existing bio.
-> >>
-> >> While __bio_add_page() is expected to succeed, bio_add_page() can fail.
-> >>
-> >> This series converts the callers of bio_add_page() which can easily use
-> >> __bio_add_page() to using it and checks the return of bio_add_page() for
-> >> callers that don't work on a freshly created bio.
-> >>
-> >> Lastly it marks bio_add_page() as __must_check so we don't have to go again
-> >> and audit all callers.
-> >>
-> >> Changes to v1:
-> >> - Removed pointless comment pointed out by Willy
-> >> - Changed commit messages pointed out by Damien
-> >> - Colledted Damien's Reviews and Acks
-> >>
-> >> Johannes Thumshirn (19):
-> > 
-> >>   btrfs: repair: use __bio_add_page for adding single page
-> >>   btrfs: raid56: use __bio_add_page to add single page
-> > 
-> > The btrfs patches added to misc-next, thanks.
-> > 
-> 
-> Thanks but wouldn't it make more sense for Jens to pick up all of them?
-> The last patch in the series flips bio_add_pages() over to
-> __must_check and so it'll create an interdependency between the
-> btrfs and the block tree.
+Hi Linus,
 
-I'd rather take it via btrfs tree, this avoids future merge conflicts.
+The following changes since commit 197b6b60ae7bc51dd0814953c562833143b292aa:
+
+  Linux 6.3-rc4 (2023-03-26 14:40:20 -0700)
+
+are available in the Git repository at:
+
+  git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-6.3/dm-fixes-2
+
+for you to fetch changes up to 666eed46769d929c3e13636134ecfc67d75ef548:
+
+  dm: fix __send_duplicate_bios() to always allow for splitting IO (2023-03-30 15:54:32 -0400)
+
+Please pull, thanks.
+Mike
+
+----------------------------------------------------------------
+- Fix 2 DM core bugs in the code that handles splitting "abnormal" IO
+  (discards, write same and secure erase) and issuing that IO to the
+  correct underlying devices (and offsets within those devices).
+-----BEGIN PGP SIGNATURE-----
+
+iQEzBAABCAAdFiEEJfWUX4UqZ4x1O2wixSPxCi2dA1oFAmQl7tQACgkQxSPxCi2d
+A1rZ8ggA0MT7yLR2Bu2ZwyCXInkDdWH5cgQ5V9KqbOq80/8pMHQdxkuILej/mv6P
+I3YNzRXZMkYLDoXEN6ISd6P4D+FWxP++AqPcEk8rp4eiSvmxi+R7PYe4wPDTPaKT
+OAzwu1GmrJ88lUGAvfY9fNDuCApFubskasfIApUFFAQinuDPpo8fexmiiyNxPLIE
+MKPoRUzsDe34C6QLjlv4BJ0hHd+zYwnwCckSlekRYdiOR8Gx4VD1mK7z3Dm8xBpA
+ERCHbjCCSuz4FTyiLYJziIjZW/gY9u4N3H5w1njsnUCUmUs6/N3ETsO6qEfzeLVc
+Snxdmfp+UNQnpFLA5OHfTduvU8ufKw==
+=RpDD
+-----END PGP SIGNATURE-----
+
+----------------------------------------------------------------
+Mike Snitzer (2):
+      dm: fix improper splitting for abnormal bios
+      dm: fix __send_duplicate_bios() to always allow for splitting IO
+
+ drivers/md/dm.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
 --
 dm-devel mailing list
