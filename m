@@ -2,83 +2,84 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5091A6D3D7E
-	for <lists+dm-devel@lfdr.de>; Mon,  3 Apr 2023 08:44:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CEC516D3D84
+	for <lists+dm-devel@lfdr.de>; Mon,  3 Apr 2023 08:45:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680504276;
+	s=mimecast20190719; t=1680504317;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=uBLiw3EULvLbbtiJ+kls04HEMPXFnjylRyX3eVdreEU=;
-	b=TmxOVLhlusHjdbWk1vlDYsKueS09IM9b7gDZOXIkRFqtyMfC1C3uAjQQBzxdm++OEmXXhc
-	+i4TWpHZVninju6VdQqI+0IFJsX+/zJqW5QrJ6IVV0Rn/z+mdrXWznYhQGVpE9MTsej8hi
-	VtC8mXn5VlT0kg9m3U9CQwjGCTKLKqk=
+	bh=x8FMdxodk0bojL6VGS+Pyh1sva+/pn9dZixNhlD3A5M=;
+	b=Ofv5Mpxl+3JXVs9lrnHtMPPwBi1buefvadrHFCjvlG/IAGWeil46Z3/CG+OBj+i6FO/KFv
+	G0z9oMccN0QoqdPXVtHuUdSuporVzedlnc4nBuKXbRIHTuXXk/pK4htL5Rwj3LFaC4gxve
+	UHVONubeAwihQxyTDtbTL1we0lRX6Ik=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-622-QtpGJVW6NTONRE1fKGzBow-1; Mon, 03 Apr 2023 02:44:34 -0400
-X-MC-Unique: QtpGJVW6NTONRE1fKGzBow-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-371-FPq-sI_EN3KX6jOoXseARg-1; Mon, 03 Apr 2023 02:44:34 -0400
+X-MC-Unique: FPq-sI_EN3KX6jOoXseARg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B52D80280D;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38B62185A78F;
 	Mon,  3 Apr 2023 06:44:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 31A0040C83A9;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1866814171B6;
 	Mon,  3 Apr 2023 06:44:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DB2B519472C5;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B39A21946A72;
 	Mon,  3 Apr 2023 06:44:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 17A1319465BC
- for <dm-devel@listman.corp.redhat.com>; Fri, 31 Mar 2023 17:54:22 +0000 (UTC)
+ ESMTP id 5CEA819465BC
+ for <dm-devel@listman.corp.redhat.com>; Fri, 31 Mar 2023 18:00:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C65CC2166B34; Fri, 31 Mar 2023 17:54:21 +0000 (UTC)
+ id 505EF492B02; Fri, 31 Mar 2023 18:00:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BF6E02166B33
- for <dm-devel@redhat.com>; Fri, 31 Mar 2023 17:54:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 492B5492B00
+ for <dm-devel@redhat.com>; Fri, 31 Mar 2023 18:00:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A12C43C0F424
- for <dm-devel@redhat.com>; Fri, 31 Mar 2023 17:54:21 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DDE480280D
+ for <dm-devel@redhat.com>; Fri, 31 Mar 2023 18:00:18 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-166-9WIrWJ4LNb6xVBWXxccjSg-1; Fri, 31 Mar 2023 13:54:19 -0400
-X-MC-Unique: 9WIrWJ4LNb6xVBWXxccjSg-1
+ us-mta-604-WG6TfqBdNXWkkTl2yMjUSw-1; Fri, 31 Mar 2023 14:00:13 -0400
+X-MC-Unique: WG6TfqBdNXWkkTl2yMjUSw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 5C2EE62AFF;
- Fri, 31 Mar 2023 17:54:18 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39958C433A4;
- Fri, 31 Mar 2023 17:54:17 +0000 (UTC)
-Received: by mail-lf1-f41.google.com with SMTP id q16so29915972lfe.10;
- Fri, 31 Mar 2023 10:54:17 -0700 (PDT)
-X-Gm-Message-State: AAQBX9feKGwqLMu5OwUCieZyfbTW2NC0CzoVCjagYbu1LLwClNULJ6zM
- tsbiQC/Rx0l9d08xmnpJRIaAenEMSeIGWad9yd4=
-X-Google-Smtp-Source: AKy350YvKqb0dBoMYfGdDtedXvU05FWt6KdyndNuIJije8MdSUJrkHi6AamvXBmeJg5t6pczjm2RarPTQzd6MOIJepA=
-X-Received: by 2002:ac2:5610:0:b0:4dd:a4e1:4861 with SMTP id
- v16-20020ac25610000000b004dda4e14861mr8234430lfd.3.1680285255256; Fri, 31 Mar
- 2023 10:54:15 -0700 (PDT)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5EC1162B1C;
+ Fri, 31 Mar 2023 18:00:11 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3283FC433A0;
+ Fri, 31 Mar 2023 18:00:11 +0000 (UTC)
+Received: by mail-lj1-f169.google.com with SMTP id by14so4745549ljb.12;
+ Fri, 31 Mar 2023 11:00:11 -0700 (PDT)
+X-Gm-Message-State: AAQBX9ed7IGL4n7rTElWrSv38z3vGB8Fhzl7/DjQYS4BJle3ZopAVDSi
+ 2zk+/8MBf9rf0SvbUhoKWWNluNadOvWn9HLodXg=
+X-Google-Smtp-Source: AKy350ZgbNojOjOEEz2nHphY2xJCW9wwsXYrrgwE3PRrjnKQvmDG5MKMnwlOL72DBVmaW0fPmBMmrb5gTNKFPGLQqzY=
+X-Received: by 2002:a2e:a556:0:b0:29b:d43f:f68f with SMTP id
+ e22-20020a2ea556000000b0029bd43ff68fmr5465915ljn.5.1680285609272; Fri, 31 Mar
+ 2023 11:00:09 -0700 (PDT)
 MIME-Version: 1.0
 References: <cover.1680172791.git.johannes.thumshirn@wdc.com>
- <07ae41b981f1b5f8de80a3f0a8ab2f34034077a6.1680172791.git.johannes.thumshirn@wdc.com>
-In-Reply-To: <07ae41b981f1b5f8de80a3f0a8ab2f34034077a6.1680172791.git.johannes.thumshirn@wdc.com>
+ <4c9eaedd34f80d3477a5049f49610a8da8859744.1680172791.git.johannes.thumshirn@wdc.com>
+In-Reply-To: <4c9eaedd34f80d3477a5049f49610a8da8859744.1680172791.git.johannes.thumshirn@wdc.com>
 From: Song Liu <song@kernel.org>
-Date: Fri, 31 Mar 2023 10:54:03 -0700
-X-Gmail-Original-Message-ID: <CAPhsuW4gxjRx-X6d46O7SsNb=nesrUKVv+s76C1DtkZdcGmyXw@mail.gmail.com>
-Message-ID: <CAPhsuW4gxjRx-X6d46O7SsNb=nesrUKVv+s76C1DtkZdcGmyXw@mail.gmail.com>
+Date: Fri, 31 Mar 2023 10:59:57 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW7AAKXuPtvfjR-UBq=QCbHOkqCQQk=GTAWZH0ysVxhECQ@mail.gmail.com>
+Message-ID: <CAPhsuW7AAKXuPtvfjR-UBq=QCbHOkqCQQk=GTAWZH0ysVxhECQ@mail.gmail.com>
 To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -87,10 +88,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Mon, 03 Apr 2023 06:44:20 +0000
-Subject: Re: [dm-devel] [PATCH v2 15/19] md: check for failure when adding
- pages in alloc_behind_master_bio
+Subject: Re: [dm-devel] [PATCH v2 16/19] md: raid1: use __bio_add_page for
+ adding single page to bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,31 +116,23 @@ Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
  Bob Peterson <rpeterso@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 
 T24gVGh1LCBNYXIgMzAsIDIwMjMgYXQgMzo0NOKAr0FNIEpvaGFubmVzIFRodW1zaGlybgo8am9o
-YW5uZXMudGh1bXNoaXJuQHdkYy5jb20+IHdyb3RlOgo+Cj4gYWxsb2NfYmVoaW5kX21hc3Rlcl9i
-aW8oKSBjYW4gcG9zc2libHkgYWRkIG11bHRpcGxlIHBhZ2VzIHRvIGEgYmlvLCBidXQgaXQKPiBp
-cyBub3QgY2hlY2tpbmcgZm9yIHRoZSByZXR1cm4gdmFsdWUgb2YgYmlvX2FkZF9wYWdlKCkgaWYg
-YWRkaW5nIHJlYWxseQo+IHN1Y2NlZWRlZC4KPgo+IENoZWNrIGlmIHRoZSBwYWdlIGFkZGluZyBz
-dWNjZWVkZWQgYW5kIGlmIG5vdCBiYWlsIG91dC4KPgo+IFNpZ25lZC1vZmYtYnk6IEpvaGFubmVz
-IFRodW1zaGlybiA8am9oYW5uZXMudGh1bXNoaXJuQHdkYy5jb20+Cj4gUmV2aWV3ZWQtYnk6IERh
-bWllbiBMZSBNb2FsIDxkYW1pZW4ubGVtb2FsQG9wZW5zb3VyY2Uud2RjLmNvbT4KPiAtLS0KPiAg
-ZHJpdmVycy9tZC9yYWlkMS5jIHwgMyArKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDIgaW5zZXJ0aW9u
-cygrKSwgMSBkZWxldGlvbigtKQo+Cj4gZGlmZiAtLWdpdCBhL2RyaXZlcnMvbWQvcmFpZDEuYyBi
-L2RyaXZlcnMvbWQvcmFpZDEuYwo+IGluZGV4IDY4YTllMmQ5OTg1Yi4uYmQ3YzMzOWE4NGExIDEw
-MDY0NAo+IC0tLSBhL2RyaXZlcnMvbWQvcmFpZDEuYwo+ICsrKyBiL2RyaXZlcnMvbWQvcmFpZDEu
-Ywo+IEBAIC0xMTQ3LDcgKzExNDcsOCBAQCBzdGF0aWMgdm9pZCBhbGxvY19iZWhpbmRfbWFzdGVy
-X2JpbyhzdHJ1Y3QgcjFiaW8gKnIxX2JpbywKPiAgICAgICAgICAgICAgICAgaWYgKHVubGlrZWx5
-KCFwYWdlKSkKPiAgICAgICAgICAgICAgICAgICAgICAgICBnb3RvIGZyZWVfcGFnZXM7Cj4KPiAt
-ICAgICAgICAgICAgICAgYmlvX2FkZF9wYWdlKGJlaGluZF9iaW8sIHBhZ2UsIGxlbiwgMCk7Cj4g
-KyAgICAgICAgICAgICAgIGlmICghYmlvX2FkZF9wYWdlKGJlaGluZF9iaW8sIHBhZ2UsIGxlbiwg
-MCkpCj4gKyAgICAgICAgICAgICAgICAgICAgICAgZ290byBmcmVlX3BhZ2VzOwoKV2Ugd2lsbCBs
-ZWFrIHBhZ2UgaGVyZSwgbm8/CgpUaGFua3MsClNvbmcKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlz
-dApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4v
-bGlzdGluZm8vZG0tZGV2ZWwK
+YW5uZXMudGh1bXNoaXJuQHdkYy5jb20+IHdyb3RlOgo+Cj4gVGhlIHN5bmMgcmVxdWVzdCBjb2Rl
+IHVzZXMgYmlvX2FkZF9wYWdlKCkgdG8gYWRkIGEgcGFnZSB0byBhIG5ld2x5IGNyZWF0ZWQgYmlv
+Lgo+IGJpb19hZGRfcGFnZSgpIGNhbiBmYWlsLCBidXQgdGhlIHJldHVybiB2YWx1ZSBpcyBuZXZl
+ciBjaGVja2VkLgo+Cj4gVXNlIF9fYmlvX2FkZF9wYWdlKCkgYXMgYWRkaW5nIGEgc2luZ2xlIHBh
+Z2UgdG8gYSBuZXdseSBjcmVhdGVkIGJpbyBpcwo+IGd1YXJhbnRlZWQgdG8gc3VjY2VlZC4KPgo+
+IFRoaXMgYnJpbmdzIHVzIGEgc3RlcCBjbG9zZXIgdG8gbWFya2luZyBiaW9fYWRkX3BhZ2UoKSBh
+cyBfX211c3RfY2hlY2suCj4KPiBTaWduZWQtb2ZmLWJ5OiBKb2hhbm5lcyBUaHVtc2hpcm4gPGpv
+aGFubmVzLnRodW1zaGlybkB3ZGMuY29tPgo+IFJldmlld2VkLWJ5OiBEYW1pZW4gTGUgTW9hbCA8
+ZGFtaWVuLmxlbW9hbEBvcGVuc291cmNlLndkYy5jb20+CgpBY2tlZC1ieTogU29uZyBMaXUgPHNv
+bmdAa2VybmVsLm9yZz4KClRoYW5rcyEKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
+bEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8v
+ZG0tZGV2ZWwK
 
