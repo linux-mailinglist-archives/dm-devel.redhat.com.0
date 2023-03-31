@@ -1,94 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF7E56D1227
-	for <lists+dm-devel@lfdr.de>; Fri, 31 Mar 2023 00:30:14 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25DBE6D16BF
+	for <lists+dm-devel@lfdr.de>; Fri, 31 Mar 2023 07:24:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680215413;
+	s=mimecast20190719; t=1680240243;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=o5axBU44uIIRfmoA2aQ9ycWSgz6l3OMJBoZoWtNR5Hc=;
-	b=ObOzOfLsIyRYb9g0AaLjgSeKLUiY/lqbFs2dttGsaBKraavgsozJXOip6FLsUB6kjnf11d
-	xCXw3G3YOK2wfq1v/EjlyeD5uDylZgBQrIB8IaaJ6bXk6h9s+G6RNm80Agfed/jrRq6Uhl
-	1ArrwizENrUeNGde9mTJIacDH2zdH5Q=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=osigUgUZ7smSnr3AkMBK7EUupeTtcOA86t8hFhiYsOk=;
+	b=i+K8dvKO1Qo3KVoMa9dnk/mjYaxRJrdYUsVjBKXWqYX4JWo12BHsLce9Z1fa7ou9buMQyT
+	x8EUvBiMJG2zAOMR+RKoM3SO/tGRyTP3Prwb0c+tYIBbTFvfCpCqO6twt9ToYb9XIjZgq1
+	gpioYLsaNLgn6fNSAUZ7DCazMy8krGQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-x9bIFSLaP4yNPDmI3dJUQA-1; Thu, 30 Mar 2023 18:30:12 -0400
-X-MC-Unique: x9bIFSLaP4yNPDmI3dJUQA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-340-18iHnlOKOme58lQTcqp3Eg-1; Fri, 31 Mar 2023 01:23:06 -0400
+X-MC-Unique: 18iHnlOKOme58lQTcqp3Eg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71D4E887401;
-	Thu, 30 Mar 2023 22:30:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E830829AA2D7;
+	Fri, 31 Mar 2023 05:23:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9E6DB14171BB;
-	Thu, 30 Mar 2023 22:30:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 609784021B9;
+	Fri, 31 Mar 2023 05:22:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 80ED719465B7;
-	Thu, 30 Mar 2023 22:30:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8701419465B2;
+	Fri, 31 Mar 2023 05:22:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1DAE11946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 30 Mar 2023 22:30:05 +0000 (UTC)
+ ESMTP id 672C41946587
+ for <dm-devel@listman.corp.redhat.com>; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F13412166B34; Thu, 30 Mar 2023 22:30:04 +0000 (UTC)
+ id 2DC0814171BC; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E9D2B2166B33
- for <dm-devel@redhat.com>; Thu, 30 Mar 2023 22:30:04 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 25CC11402C07
+ for <dm-devel@redhat.com>; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B39F8101A550
- for <dm-devel@redhat.com>; Thu, 30 Mar 2023 22:30:04 +0000 (UTC)
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com
- [209.85.216.50]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 063FD85A5B1
+ for <dm-devel@redhat.com>; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
+Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
+ [209.85.208.54]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-209-unDzl0WUMI29pSoUlyS_iQ-1; Thu, 30 Mar 2023 18:29:59 -0400
-X-MC-Unique: unDzl0WUMI29pSoUlyS_iQ-1
-Received: by mail-pj1-f50.google.com with SMTP id
- h12-20020a17090aea8c00b0023d1311fab3so21367999pjz.1; 
- Thu, 30 Mar 2023 15:29:58 -0700 (PDT)
+ us-mta-116-cQozVlLlNCyVmBTmreutFQ-1; Thu, 30 Mar 2023 20:28:37 -0400
+X-MC-Unique: cQozVlLlNCyVmBTmreutFQ-1
+Received: by mail-ed1-f54.google.com with SMTP id w9so83476172edc.3
+ for <dm-devel@redhat.com>; Thu, 30 Mar 2023 17:28:36 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680215398;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=x7V03//xrMoj2maIfgC2qsiNLnzTtZRlKFOvF+x+bJg=;
- b=Q5YsJXbHZKVhy46sO8FzjGmG+sDHDnfyLUCfNcPMvnqmNoOW0iwDLAb4y0q2tbiP5Z
- 14AZfA6SdrVGwBESsW9ZJixh8DNAIQWGeu3cvMVpPVT7nBtm5iw+H8oCWg/Axi5x8Oqi
- ePWsoKq7pjH0FqV2XiGu58sOMCOmQYZ+DozQ3/xThwhlq8WOZPgfXRROJ1j+nOvVevu0
- sIgESk2LLboWWth5E3EKUMFAuMg8TS8YqQ834A/n/LDywK1Dc8DupREkrZkWqbRuzYjt
- HeMJT5TUm9WGmbb6OSTYhF3ViUFnnD+b4Hglqi61Vidsy10GizPhpqr+juSRiOj3GDKC
- CK8g==
-X-Gm-Message-State: AAQBX9eLjevjwuODn8GpFz67V/j9B3DF9LJ6c5eC3A0fx0Q1AmNmZvTr
- zVDtwSG8ZfTNur8q6cI9cH10JDFQdQBVtGLEioA=
-X-Google-Smtp-Source: AKy350ZrPyR1hRVTBuZnQUpMEn54ihWHCa7XbNjYLmiSy4XxnRAJ80dimqjvvbOmN9ocOuC+cire+hzLe0DMBMrzkWw=
-X-Received: by 2002:a17:90a:fb57:b0:23d:30c2:c5b7 with SMTP id
- iq23-20020a17090afb5700b0023d30c2c5b7mr2603971pjb.3.1680215397861; Thu, 30
- Mar 2023 15:29:57 -0700 (PDT)
+ d=1e100.net; s=20210112; t=1680222516;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=w7dl68YTP8S4RiqY+x5/O4+CnLGy3Xe6lC7eIC5NDDg=;
+ b=nXuD+8m2+WTxtRoFBLgbC+Y4FfU6H/B3GIU9uASEH7nsmsrerykshJY//g99ujBxX7
+ cKksggo9ZQf5ss6TN9KaHSrA9xt45D/pHsrkm/kxkKfQvGNJJJ2Zo2bKgL5bq3uzpo0V
+ rPnyaDguFwnZpo55P2+uGwzRAislGt7THIO3gdOIhMoecUUt9Y62v1vEZzRO1CHsQE95
+ 2l1Ywro34POxpVppElIWIDrHj7ObVSTQezSy6PFxVr3LSDRh2GWI97KbEXb6v/fGJ4P5
+ 0mK+tkUrgX1POp94rjksbDwxgyM5R1N3y0Sk8wQqzqJuv+9JIQvgJLhTItfa1gm9yBxx
+ FcEg==
+X-Gm-Message-State: AAQBX9ex8FN/AxbDHdpTczVkBzBdgiGxfVYWy+Ly9ea5kdHiarYSbGOR
+ 7+oHIlae/QAVe1WULfl9ivpANVqh5KAGz36bt+PEpg==
+X-Google-Smtp-Source: AKy350ZIZZwE4fLa4HZv1js37+8o+PrWKNL6H2rNaVFNqrxiQJtozdJH9Zs/S2MKN7ANFXMBy3cE+ohRFiJy6VmDOrg=
+X-Received: by 2002:a17:907:a0cd:b0:947:4b15:51e5 with SMTP id
+ hw13-20020a170907a0cd00b009474b1551e5mr2382830ejc.2.1680222515827; Thu, 30
+ Mar 2023 17:28:35 -0700 (PDT)
 MIME-Version: 1.0
-References: <cover.1680108414.git.johannes.thumshirn@wdc.com>
- <beea645603eccbb045ad9bb777e05a085b91808a.1680108414.git.johannes.thumshirn@wdc.com>
- <3a0f0c92-63cb-3624-c2fe-049a76d1a64a@opensource.wdc.com>
- <CAHbLzkoRdTTbnfz3RyLQAeNJBOEVNGL2WLgRSE2eQ4nR8sRe2g@mail.gmail.com>
- <b19696d3-54bb-d997-5e56-aa5fd58b469f@opensource.wdc.com>
-In-Reply-To: <b19696d3-54bb-d997-5e56-aa5fd58b469f@opensource.wdc.com>
-From: Yang Shi <shy828301@gmail.com>
-Date: Thu, 30 Mar 2023 15:29:46 -0700
-Message-ID: <CAHbLzkrEXVDf4TYLw_MPrFNybWQHWXKX=zP5GhxHQFdpVPWhEg@mail.gmail.com>
-To: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+References: <20221229081252.452240-1-sarthakkukreti@chromium.org>
+ <20221229081252.452240-4-sarthakkukreti@chromium.org>
+ <Y7Wr2uadI+82BB6a@magnolia>
+ <CAG9=OMNbeU=Xg5bWvHUSfzRf8vsk6csvcw5BGZeMD5Lo7dfKFQ@mail.gmail.com>
+ <Y7biricgMfXxcQBU@bfoster>
+In-Reply-To: <Y7biricgMfXxcQBU@bfoster>
+From: Sarthak Kukreti <sarthakkukreti@chromium.org>
+Date: Thu, 30 Mar 2023 17:28:25 -0700
+Message-ID: <CAG9=OMNZYnd=LZSiThL9JDFHBvqSwFQLni2=+VgXdrbx7L1fJA@mail.gmail.com>
+To: Brian Foster <bfoster@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -96,9 +95,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 18/19] dm-crypt: check if adding pages to
- clone bio fails
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mailman-Approved-At: Fri, 31 Mar 2023 05:22:41 +0000
+Subject: Re: [dm-devel] [PATCH v2 3/7] fs: Introduce FALLOC_FL_PROVISION
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -110,52 +109,262 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
- jfs-discussion@lists.sourceforge.net, cluster-devel@redhat.com,
- Chaitanya Kulkarni <kch@nvidia.com>, Andreas Gruenbacher <agruenba@redhat.com>,
- Song Liu <song@kernel.org>, Dave Kleikamp <shaggy@kernel.org>,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Mike Snitzer <snitzer@kernel.org>, Matthew Wilcox <willy@infradead.org>,
- Ming Lei <ming.lei@redhat.com>, linux-block@vger.kernel.org,
- linux-mm@kvack.org, dm-devel@redhat.com, David Sterba <dsterba@suse.com>,
- linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>,
- linux-btrfs@vger.kernel.org, Bob Peterson <rpeterso@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
+ Theodore Ts'o <tytso@mit.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
+ sarthakkukreti@google.com, "Darrick J. Wong" <djwong@kernel.org>,
+ Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Daniil Lunev <dlunev@google.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Mimecast-Originator: chromium.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gV2VkLCBNYXIgMjksIDIwMjMgYXQgNToyNOKAr1BNIERhbWllbiBMZSBNb2FsCjxkYW1pZW4u
-bGVtb2FsQG9wZW5zb3VyY2Uud2RjLmNvbT4gd3JvdGU6Cj4KPiBPbiAzLzMwLzIzIDA5OjE3LCBZ
-YW5nIFNoaSB3cm90ZToKPiA+IE9uIFdlZCwgTWFyIDI5LCAyMDIzIGF0IDQ6NDnigK9QTSBEYW1p
-ZW4gTGUgTW9hbAo+ID4gPGRhbWllbi5sZW1vYWxAb3BlbnNvdXJjZS53ZGMuY29tPiB3cm90ZToK
-PiA+Pgo+ID4+IE9uIDMvMzAvMjMgMDI6MDYsIEpvaGFubmVzIFRodW1zaGlybiB3cm90ZToKPiA+
-Pj4gQ2hlY2sgaWYgYWRkaW5nIHBhZ2VzIHRvIGNsb25lIGJpbyBmYWlscyBhbmQgaWYgYmFpbCBv
-dXQuCj4gPj4KPiA+PiBOb3BlLiBUaGUgY29kZSByZXRyaWVzIHdpdGggZGlyZWN0IHJlY2xhaW0g
-dW50aWwgaXQgc3VjY2VlZHMuIFdoaWNoIGlzIHZlcnkKPiA+PiBzdXNwaWNpb3VzLi4uCj4gPgo+
-ID4gSXQgaXMgbm90IHJlbGF0ZWQgdG8gYmlvX2FkZF9wYWdlKCkgZmFpbHVyZS4gSXQgaXMgdXNl
-ZCB0byBhdm9pZCBhCj4gPiByYWNlIGNvbmRpdGlvbiB3aGVuIHR3byBwcm9jZXNzZXMgYXJlIGRl
-cGxldGluZyB0aGUgbWVtcG9vbAo+ID4gc2ltdWx0YW5lb3VzbHkuCj4gPgo+ID4gSUlVQyBJIGRv
-bid0IHRoaW5rIHBhZ2UgbWVyZ2UgbWF5IGhhcHBlbiBmb3IgZG0tY3J5cHQsIHNvIGlzCj4gPiBf
-X2Jpb19hZGRfcGFnZSgpIGdvb2QgZW5vdWdoPyBJJ20gd29ya2luZyBvbiB0aGlzIGNvZGUgdG9v
-LCB1c2luZwo+ID4gX19iaW9fYWRkX3BhZ2UoKSB3b3VsZCBtYWtlIG15IHBhdGNoIGVhc2llci4K
-Pgo+IElmIHRoZSBCSU8gd2FzIGFsbG9jYXRlZCB3aXRoIGVub3VnaCBidmVjcywgd2UgY291bGQg
-dXNlIHRoYXQgZnVuY3Rpb24uIEJ1dCBwYWdlCj4gbWVyZ2luZyByZWR1Y2VzIG92ZXJoZWFkLCBz
-byBpZiBpdCBjYW4gaGFwcGVuLCBsZXQncyB1c2UgaXQuCgpJdCBkb2VzIGFsbG9jYXRlIEJJTyB3
-aXRoIGVub3VnaCBidmVjcy4gSUlVQyBpdCB3aWxsIG1lcmdlIHRoZQphZGphY2VudCBwYWdlcz8g
-SWYgc28gcGFnZSBtZXJnaW5nIG1heSBoYXBwZW4uIFNpbmNlIGRtLWNyeXB0IGRvZXMKYWxsb2Nh
-dGUgQklPIHdpdGggZW5vdWdoIGJ2Y2VzLCBzbyBpdCBjYW4ndCBmYWlsIGlmIEkgcmVhZCB0aGUg
-Y29kZQpjb3JyZWN0bHkuIEknbSB3b25kZXJpbmcgd2hldGhlciB3ZSBjb3VsZCBoYXZlIGEgbmV2
-ZXIgZmFpbCB2YXJpYW50LgoKPgo+ID4KPiA+Pgo+ID4+Pgo+ID4+PiBUaGlzIHdheSB3ZSBjYW4g
-bWFyayBiaW9fYWRkX3BhZ2VzIGFzIF9fbXVzdF9jaGVjay4KPiA+Pj4KPiA+Pj4gU2lnbmVkLW9m
-Zi1ieTogSm9oYW5uZXMgVGh1bXNoaXJuIDxqb2hhbm5lcy50aHVtc2hpcm5Ad2RjLmNvbT4KPiA+
-Pgo+ID4+IFdpdGggdGhlIGNvbW1pdCBtZXNzYWdlIGZpeGVkLAo+ID4+Cj4gPj4gUmV2aWV3ZWQt
-Ynk6IERhbWllbiBMZSBNb2FsIDxkYW1pZW4ubGVtb2FsQG9wZW5zb3VyY2Uud2RjLmNvbT4KPiA+
-Pgo+ID4+Cj4gPj4gLS0KPiA+PiBEYW1pZW4gTGUgTW9hbAo+ID4+IFdlc3Rlcm4gRGlnaXRhbCBS
-ZXNlYXJjaAo+ID4+Cj4gPj4KPgo+IC0tCj4gRGFtaWVuIExlIE1vYWwKPiBXZXN0ZXJuIERpZ2l0
-YWwgUmVzZWFyY2gKPgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5j
-b20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+On Thu, Jan 5, 2023 at 6:45 AM Brian Foster <bfoster@redhat.com> wrote:
+>
+> On Wed, Jan 04, 2023 at 01:22:06PM -0800, Sarthak Kukreti wrote:
+> > (Resend; the text flow made the last reply unreadable)
+> >
+> > On Wed, Jan 4, 2023 at 8:39 AM Darrick J. Wong <djwong@kernel.org> wrote:
+> > >
+> > > On Thu, Dec 29, 2022 at 12:12:48AM -0800, Sarthak Kukreti wrote:
+> > > > FALLOC_FL_PROVISION is a new fallocate() allocation mode that
+> > > > sends a hint to (supported) thinly provisioned block devices to
+> > > > allocate space for the given range of sectors via REQ_OP_PROVISION.
+> > > >
+> > > > The man pages for both fallocate(2) and posix_fallocate(3) describe
+> > > > the default allocation mode as:
+> > > >
+> > > > ```
+> > > > The default operation (i.e., mode is zero) of fallocate()
+> > > > allocates the disk space within the range specified by offset and len.
+> > > > ...
+> > > > subsequent writes to bytes in the specified range are guaranteed
+> > > > not to fail because of lack of disk space.
+> > > > ```
+> > > >
+> > > > For thinly provisioned storage constructs (dm-thin, filesystems on sparse
+> > > > files), the term 'disk space' is overloaded and can either mean the apparent
+> > > > disk space in the filesystem/thin logical volume or the true disk
+> > > > space that will be utilized on the underlying non-sparse allocation layer.
+> > > >
+> > > > The use of a separate mode allows us to cleanly disambiguate whether fallocate()
+> > > > causes allocation only at the current layer (default mode) or whether it propagates
+> > > > allocations to underlying layers (provision mode)
+> > >
+> > > Why is it important to make this distinction?  The outcome of fallocate
+> > > is supposed to be that subsequent writes do not fail with ENOSPC.  In my
+> > > (fs developer) mind, REQ_OP_PROVISION simply an extra step to be taken
+> > > after allocating file blocks.
+> > >
+> > Some use cases still benefit from keeping the default mode - eg.
+> > virtual machines running on massive storage pools that don't expect to
+> > hit the storage limit anytime soon (like most cloud storage
+> > providers). Essentially, if the 'no ENOSPC' guarantee is maintained
+> > via other means, then REQ_OP_PROVISION adds latency that isn't needed
+> > (and cloud storage providers don't need to set aside that extra space
+> > that may or may not be used).
+> >
+>
+> What's the granularity that needs to be managed at? Do you really need
+> an fallocate command for this, or would one of the filesystem level
+> features you've already implemented for ext4 suffice?
+>
+I think I (belatedly) see the point now; the other mechanisms provide
+enough flexibility that make a separate FALLOC_FL_PROVISION redundant
+and confusing. I'll post the next series without the falloc() flag.
+
+> I mostly agree with Darrick in that FALLOC_FL_PROVISION stills feels a
+> bit wonky to me. I can see that there might be some legitimate use cases
+> for it, but I'm not convinced that it won't just end up being confusing
+> to many users. At the same time, I think the approach of unconditional
+> provision on falloc could eventually lead to complaints associated with
+> the performance impact or similar sorts of confusion. For example,
+> should an falloc of an already allocated range in the fs send a
+> provision or not?
+>
+It boils down to whether a) the underlying device supports
+provisioning and b) whether the device is a snapshot. If either is
+true, then we'd need to pass down provision requests down to the last
+layers of the stack. Filesystems might be able to amortize some of the
+performance drop if they maintain a bit that tracks whether the extent
+has been provisioned/written to; for such extents, we'd only send a
+provision request iff the underlying device is a snapshot device. Or
+we could make this a policy that's configurable by a mount option
+(added details below).
+
+In the current patch series, I went through the simpler route of just
+calling REQ_OP_PROVISION on the first fallocate() call. But as
+everyone pointed out on the thread, that doesn't work out as well for
+previously allocated ranges..
+
+> [Reflowed] Should filesystems that don't otherwise support
+> UNSHARE_RANGE need to support it in order to support an unshare request
+> to COW'd blocks on an underlying block device?
+>
+I think it would make sense to keep the UNSHARE_RANGE handling intact
+and delegate the actual provisioning to the filesystem layer. Even if
+the filesystem doesn't support unsharing, we could add a separate
+mount mode option that will result in the filesystem sending
+REQ_OP_PROVISION to the entire file range if fallocate mode==0 is
+called.
+
+> I wonder if the smart thing to do here is separate out the question of a
+> new fallocate interface from the mechanism entirely. For example,
+> implement REQ_OP_PROVISION as you've already done, enable block layer
+> mode = 0 fallocate support (i.e. without FL_PROVISION, so whether a
+> request propagates from a loop device will be up to the backing fs),
+> implement the various fs features to support REQ_OP_PROVISION (i.e.,
+> mount option, file attr, etc.), then tack on FL_FALLOC + ext4 support at
+> the end as an RFC/prototype.
+>
+> Even if we ultimately ended up with FL_PROVISION support, it might
+> actually make some sense to kick that can down the road a bit regardless
+> to give fs' a chance to implement basic REQ_OP_PROVISION support, get a
+> better understanding of how it works in practice, and then perhaps make
+> more informed decisions on things like sane defaults and/or how best to
+> expose it via fallocate. Thoughts?
+>
+That's fair (and thanks for the thorough feedback!), I'll split the
+series and send out the REQ_OP_PROVISION parts shortly. As you,
+Darrick and Ted have pointed out, the filesystem patches need a bit
+more work.
+
+Best
+Sarthak
+
+
+
+> Brian
+>
+> > > If you *don't* add this API flag and simply bake the REQ_OP_PROVISION
+> > > call into mode 0 fallocate, then the new functionality can be added (or
+> > > even backported) to existing kernels and customers can use it
+> > > immediately.  If you *do*, then you get to wait a few years for
+> > > developers to add it to their codebases only after enough enterprise
+> > > distros pick up a new kernel to make it worth their while.
+> > >
+> > > > for thinly provisioned filesystems/
+> > > > block devices. For devices that do not support REQ_OP_PROVISION, both these
+> > > > allocation modes will be equivalent. Given the performance cost of sending provision
+> > > > requests to the underlying layers, keeping the default mode as-is allows users to
+> > > > preserve existing behavior.
+> > >
+> > > How expensive is this expected to be?  Is this why you wanted a separate
+> > > mode flag?
+> > >
+> > Yes, the exact latency will depend on the stacked block devices and
+> > the fragmentation at the allocation layers.
+> >
+> > I did a quick test for benchmarking fallocate() with an:
+> > A) ext4 filesystem mounted with 'noprovision'
+> > B) ext4 filesystem mounted with 'provision' on a dm-thin device.
+> > C) ext4 filesystem mounted with 'provision' on a loop device with a
+> > sparse backing file on the filesystem in (B).
+> >
+> > I tested file sizes from 512M to 8G, time taken for fallocate() in (A)
+> > remains expectedly flat at ~0.01-0.02s, but for (B), it scales from
+> > 0.03-0.4s and for (C) it scales from 0.04s-0.52s (I captured the exact
+> > time distribution in the cover letter
+> > https://marc.info/?l=linux-ext4&m=167230113520636&w=2)
+> >
+> > +0.5s for a 8G fallocate doesn't sound a lot but I think fragmentation
+> > and how the block device is layered can make this worse...
+> >
+> > > --D
+> > >
+> > > > Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+> > > > ---
+> > > >  block/fops.c                | 15 +++++++++++----
+> > > >  include/linux/falloc.h      |  3 ++-
+> > > >  include/uapi/linux/falloc.h |  8 ++++++++
+> > > >  3 files changed, 21 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/block/fops.c b/block/fops.c
+> > > > index 50d245e8c913..01bde561e1e2 100644
+> > > > --- a/block/fops.c
+> > > > +++ b/block/fops.c
+> > > > @@ -598,7 +598,8 @@ static ssize_t blkdev_read_iter(struct kiocb *iocb, struct iov_iter *to)
+> > > >
+> > > >  #define      BLKDEV_FALLOC_FL_SUPPORTED                                      \
+> > > >               (FALLOC_FL_KEEP_SIZE | FALLOC_FL_PUNCH_HOLE |           \
+> > > > -              FALLOC_FL_ZERO_RANGE | FALLOC_FL_NO_HIDE_STALE)
+> > > > +              FALLOC_FL_ZERO_RANGE | FALLOC_FL_NO_HIDE_STALE |       \
+> > > > +              FALLOC_FL_PROVISION)
+> > > >
+> > > >  static long blkdev_fallocate(struct file *file, int mode, loff_t start,
+> > > >                            loff_t len)
+> > > > @@ -634,9 +635,11 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
+> > > >       filemap_invalidate_lock(inode->i_mapping);
+> > > >
+> > > >       /* Invalidate the page cache, including dirty pages. */
+> > > > -     error = truncate_bdev_range(bdev, file->f_mode, start, end);
+> > > > -     if (error)
+> > > > -             goto fail;
+> > > > +     if (mode != FALLOC_FL_PROVISION) {
+> > > > +             error = truncate_bdev_range(bdev, file->f_mode, start, end);
+> > > > +             if (error)
+> > > > +                     goto fail;
+> > > > +     }
+> > > >
+> > > >       switch (mode) {
+> > > >       case FALLOC_FL_ZERO_RANGE:
+> > > > @@ -654,6 +657,10 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
+> > > >               error = blkdev_issue_discard(bdev, start >> SECTOR_SHIFT,
+> > > >                                            len >> SECTOR_SHIFT, GFP_KERNEL);
+> > > >               break;
+> > > > +     case FALLOC_FL_PROVISION:
+> > > > +             error = blkdev_issue_provision(bdev, start >> SECTOR_SHIFT,
+> > > > +                                            len >> SECTOR_SHIFT, GFP_KERNEL);
+> > > > +             break;
+> > > >       default:
+> > > >               error = -EOPNOTSUPP;
+> > > >       }
+> > > > diff --git a/include/linux/falloc.h b/include/linux/falloc.h
+> > > > index f3f0b97b1675..b9a40a61a59b 100644
+> > > > --- a/include/linux/falloc.h
+> > > > +++ b/include/linux/falloc.h
+> > > > @@ -30,7 +30,8 @@ struct space_resv {
+> > > >                                        FALLOC_FL_COLLAPSE_RANGE |     \
+> > > >                                        FALLOC_FL_ZERO_RANGE |         \
+> > > >                                        FALLOC_FL_INSERT_RANGE |       \
+> > > > -                                      FALLOC_FL_UNSHARE_RANGE)
+> > > > +                                      FALLOC_FL_UNSHARE_RANGE |      \
+> > > > +                                      FALLOC_FL_PROVISION)
+> > > >
+> > > >  /* on ia32 l_start is on a 32-bit boundary */
+> > > >  #if defined(CONFIG_X86_64)
+> > > > diff --git a/include/uapi/linux/falloc.h b/include/uapi/linux/falloc.h
+> > > > index 51398fa57f6c..2d323d113eed 100644
+> > > > --- a/include/uapi/linux/falloc.h
+> > > > +++ b/include/uapi/linux/falloc.h
+> > > > @@ -77,4 +77,12 @@
+> > > >   */
+> > > >  #define FALLOC_FL_UNSHARE_RANGE              0x40
+> > > >
+> > > > +/*
+> > > > + * FALLOC_FL_PROVISION acts as a hint for thinly provisioned devices to allocate
+> > > > + * blocks for the range/EOF.
+> > > > + *
+> > > > + * FALLOC_FL_PROVISION can only be used with allocate-mode fallocate.
+> > > > + */
+> > > > +#define FALLOC_FL_PROVISION          0x80
+> > > > +
+> > > >  #endif /* _UAPI_FALLOC_H_ */
+> > > > --
+> > > > 2.37.3
+> > > >
+> >
+>
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
