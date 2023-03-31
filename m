@@ -1,93 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 25DBE6D16BF
-	for <lists+dm-devel@lfdr.de>; Fri, 31 Mar 2023 07:24:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 025E16D16B9
+	for <lists+dm-devel@lfdr.de>; Fri, 31 Mar 2023 07:23:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680240243;
+	s=mimecast20190719; t=1680240186;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=osigUgUZ7smSnr3AkMBK7EUupeTtcOA86t8hFhiYsOk=;
-	b=i+K8dvKO1Qo3KVoMa9dnk/mjYaxRJrdYUsVjBKXWqYX4JWo12BHsLce9Z1fa7ou9buMQyT
-	x8EUvBiMJG2zAOMR+RKoM3SO/tGRyTP3Prwb0c+tYIBbTFvfCpCqO6twt9ToYb9XIjZgq1
-	gpioYLsaNLgn6fNSAUZ7DCazMy8krGQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=1KzIduEKR0PhrbbtOAq0jdznOJoK3hOmRLm22OEXf+I=;
+	b=TRBVupnlja18u/RyCBX3oXBMSAUmj4q4r5Uchzc0Qb31NtcV5K0wQ3Qzj0ZBI+cnXyJIfs
+	Bx5MLt4iGvmOaOEJWV37bIP8D9VAjoDHb8dGhpVV4VkwEEs9C3beD55WdycSPVnrcWVZAE
+	/E1OY/aEdyBQqbBA7wXykMx4WnboSnc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-340-18iHnlOKOme58lQTcqp3Eg-1; Fri, 31 Mar 2023 01:23:06 -0400
-X-MC-Unique: 18iHnlOKOme58lQTcqp3Eg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-100-Hs6ixzhqNSqIJalvAkiC1w-1; Fri, 31 Mar 2023 01:23:05 -0400
+X-MC-Unique: Hs6ixzhqNSqIJalvAkiC1w-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E830829AA2D7;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B42B1811E7C;
 	Fri, 31 Mar 2023 05:23:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 609784021B9;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C14A1492B0A;
 	Fri, 31 Mar 2023 05:22:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8701419465B2;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9A0C31946A74;
 	Fri, 31 Mar 2023 05:22:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 672C41946587
- for <dm-devel@listman.corp.redhat.com>; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
+ ESMTP id AF7811946587
+ for <dm-devel@listman.corp.redhat.com>; Fri, 31 Mar 2023 00:28:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2DC0814171BC; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
+ id A18A1492B00; Fri, 31 Mar 2023 00:28:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 25CC11402C07
- for <dm-devel@redhat.com>; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9AA64492C3E
+ for <dm-devel@redhat.com>; Fri, 31 Mar 2023 00:28:49 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 063FD85A5B1
- for <dm-devel@redhat.com>; Fri, 31 Mar 2023 00:28:39 +0000 (UTC)
-Received: from mail-ed1-f54.google.com (mail-ed1-f54.google.com
- [209.85.208.54]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 80C161C05133
+ for <dm-devel@redhat.com>; Fri, 31 Mar 2023 00:28:49 +0000 (UTC)
+Received: from mail-ed1-f47.google.com (mail-ed1-f47.google.com
+ [209.85.208.47]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-116-cQozVlLlNCyVmBTmreutFQ-1; Thu, 30 Mar 2023 20:28:37 -0400
-X-MC-Unique: cQozVlLlNCyVmBTmreutFQ-1
-Received: by mail-ed1-f54.google.com with SMTP id w9so83476172edc.3
- for <dm-devel@redhat.com>; Thu, 30 Mar 2023 17:28:36 -0700 (PDT)
+ us-mta-582-1leAL2IyPSaQ90oAG2seew-2; Thu, 30 Mar 2023 20:28:47 -0400
+X-MC-Unique: 1leAL2IyPSaQ90oAG2seew-2
+Received: by mail-ed1-f47.google.com with SMTP id y4so83522033edo.2
+ for <dm-devel@redhat.com>; Thu, 30 Mar 2023 17:28:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1680222516;
+ d=1e100.net; s=20210112; t=1680222527;
  h=cc:to:subject:message-id:date:from:in-reply-to:references
  :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
  :reply-to;
- bh=w7dl68YTP8S4RiqY+x5/O4+CnLGy3Xe6lC7eIC5NDDg=;
- b=nXuD+8m2+WTxtRoFBLgbC+Y4FfU6H/B3GIU9uASEH7nsmsrerykshJY//g99ujBxX7
- cKksggo9ZQf5ss6TN9KaHSrA9xt45D/pHsrkm/kxkKfQvGNJJJ2Zo2bKgL5bq3uzpo0V
- rPnyaDguFwnZpo55P2+uGwzRAislGt7THIO3gdOIhMoecUUt9Y62v1vEZzRO1CHsQE95
- 2l1Ywro34POxpVppElIWIDrHj7ObVSTQezSy6PFxVr3LSDRh2GWI97KbEXb6v/fGJ4P5
- 0mK+tkUrgX1POp94rjksbDwxgyM5R1N3y0Sk8wQqzqJuv+9JIQvgJLhTItfa1gm9yBxx
- FcEg==
-X-Gm-Message-State: AAQBX9ex8FN/AxbDHdpTczVkBzBdgiGxfVYWy+Ly9ea5kdHiarYSbGOR
- 7+oHIlae/QAVe1WULfl9ivpANVqh5KAGz36bt+PEpg==
-X-Google-Smtp-Source: AKy350ZIZZwE4fLa4HZv1js37+8o+PrWKNL6H2rNaVFNqrxiQJtozdJH9Zs/S2MKN7ANFXMBy3cE+ohRFiJy6VmDOrg=
-X-Received: by 2002:a17:907:a0cd:b0:947:4b15:51e5 with SMTP id
- hw13-20020a170907a0cd00b009474b1551e5mr2382830ejc.2.1680222515827; Thu, 30
- Mar 2023 17:28:35 -0700 (PDT)
+ bh=L/321qEfsdd6Li2EcEMfqC9Li7rtjZommEiuh2gRTto=;
+ b=ousn4z/ijE26dzuAJ3XvABsztfmamgcFBkbafwCea/FQ29k/rAJ8mAhBMHaGcxWDSj
+ Ewp7lnN2qr+vt71VHPtuEkNXGCVx+40bAJMDjDzjblraCdXYXE4VoFBEIg8ZXKoHYePv
+ giKOkl6UBlvD5q4GqWt7Yv0koThRkN43GdjsftussZNye4k5Bkf7ZY57cWpvKzwhtKdp
+ 0unbuWkOhuHm2AMslgrNXJ0dPZd5dtzY61zhCKrmy8fy3h9ejwj85s5oPfr7y83QetB3
+ LmzZWJaCtoPVMIwkDCSiy0AzQuL6yc3lu71aEFtZA916C1yHV7Z6fRuQpOCtHR6Q179i
+ eMkA==
+X-Gm-Message-State: AAQBX9flwjadIrWohmT+p0HjZm4PrDDbRrKAfDexkjhr09G8xcePgi9q
+ 9Zq3rjo6nv5hr/V4lPWKqgjtSRiMkVSBU1AcxAluvg==
+X-Google-Smtp-Source: AKy350YiyWxtdKYS11gbPuOdxgKie3I79uhb6oCaV13YfwgHdVzTkX0BBGKglxLUIUEpEZMbv4YpUX4X2kCh3ahutsM=
+X-Received: by 2002:a17:907:3e8b:b0:931:ce20:db6e with SMTP id
+ hs11-20020a1709073e8b00b00931ce20db6emr14070290ejc.2.1680222526978; Thu, 30
+ Mar 2023 17:28:46 -0700 (PDT)
 MIME-Version: 1.0
 References: <20221229081252.452240-1-sarthakkukreti@chromium.org>
  <20221229081252.452240-4-sarthakkukreti@chromium.org>
  <Y7Wr2uadI+82BB6a@magnolia>
  <CAG9=OMNbeU=Xg5bWvHUSfzRf8vsk6csvcw5BGZeMD5Lo7dfKFQ@mail.gmail.com>
- <Y7biricgMfXxcQBU@bfoster>
-In-Reply-To: <Y7biricgMfXxcQBU@bfoster>
+ <Y7bxjKusa2L/TNRE@mit.edu>
+In-Reply-To: <Y7bxjKusa2L/TNRE@mit.edu>
 From: Sarthak Kukreti <sarthakkukreti@chromium.org>
-Date: Thu, 30 Mar 2023 17:28:25 -0700
-Message-ID: <CAG9=OMNZYnd=LZSiThL9JDFHBvqSwFQLni2=+VgXdrbx7L1fJA@mail.gmail.com>
-To: Brian Foster <bfoster@redhat.com>
+Date: Thu, 30 Mar 2023 17:28:35 -0700
+Message-ID: <CAG9=OMM_0D+ck6=0dfjBi0B_zqTbp3i28tFDr8c3e1TQip1sQA@mail.gmail.com>
+To: "Theodore Ts'o" <tytso@mit.edu>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,7 +95,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Fri, 31 Mar 2023 05:22:41 +0000
 Subject: Re: [dm-devel] [PATCH v2 3/7] fs: Introduce FALLOC_FL_PROVISION
 X-BeenThere: dm-devel@redhat.com
@@ -110,155 +110,28 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
- Theodore Ts'o <tytso@mit.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
- sarthakkukreti@google.com, "Darrick J. Wong" <djwong@kernel.org>,
- Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
- Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
+ "Michael S. Tsirkin" <mst@redhat.com>, sarthakkukreti@google.com,
+ "Darrick J. Wong" <djwong@kernel.org>, Jason Wang <jasowang@redhat.com>,
+ Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, dm-devel@redhat.com,
  Andreas Dilger <adilger.kernel@dilger.ca>, Daniil Lunev <dlunev@google.com>,
  Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, Alasdair Kergon <agk@redhat.com>
+ linux-ext4@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jan 5, 2023 at 6:45 AM Brian Foster <bfoster@redhat.com> wrote:
+On Thu, Jan 5, 2023 at 7:49 AM Theodore Ts'o <tytso@mit.edu> wrote:
 >
 > On Wed, Jan 04, 2023 at 01:22:06PM -0800, Sarthak Kukreti wrote:
-> > (Resend; the text flow made the last reply unreadable)
-> >
-> > On Wed, Jan 4, 2023 at 8:39 AM Darrick J. Wong <djwong@kernel.org> wrote:
-> > >
-> > > On Thu, Dec 29, 2022 at 12:12:48AM -0800, Sarthak Kukreti wrote:
-> > > > FALLOC_FL_PROVISION is a new fallocate() allocation mode that
-> > > > sends a hint to (supported) thinly provisioned block devices to
-> > > > allocate space for the given range of sectors via REQ_OP_PROVISION.
-> > > >
-> > > > The man pages for both fallocate(2) and posix_fallocate(3) describe
-> > > > the default allocation mode as:
-> > > >
-> > > > ```
-> > > > The default operation (i.e., mode is zero) of fallocate()
-> > > > allocates the disk space within the range specified by offset and len.
-> > > > ...
-> > > > subsequent writes to bytes in the specified range are guaranteed
-> > > > not to fail because of lack of disk space.
-> > > > ```
-> > > >
-> > > > For thinly provisioned storage constructs (dm-thin, filesystems on sparse
-> > > > files), the term 'disk space' is overloaded and can either mean the apparent
-> > > > disk space in the filesystem/thin logical volume or the true disk
-> > > > space that will be utilized on the underlying non-sparse allocation layer.
-> > > >
-> > > > The use of a separate mode allows us to cleanly disambiguate whether fallocate()
-> > > > causes allocation only at the current layer (default mode) or whether it propagates
-> > > > allocations to underlying layers (provision mode)
-> > >
-> > > Why is it important to make this distinction?  The outcome of fallocate
-> > > is supposed to be that subsequent writes do not fail with ENOSPC.  In my
-> > > (fs developer) mind, REQ_OP_PROVISION simply an extra step to be taken
-> > > after allocating file blocks.
-> > >
-> > Some use cases still benefit from keeping the default mode - eg.
-> > virtual machines running on massive storage pools that don't expect to
-> > hit the storage limit anytime soon (like most cloud storage
-> > providers). Essentially, if the 'no ENOSPC' guarantee is maintained
-> > via other means, then REQ_OP_PROVISION adds latency that isn't needed
-> > (and cloud storage providers don't need to set aside that extra space
-> > that may or may not be used).
-> >
->
-> What's the granularity that needs to be managed at? Do you really need
-> an fallocate command for this, or would one of the filesystem level
-> features you've already implemented for ext4 suffice?
->
-I think I (belatedly) see the point now; the other mechanisms provide
-enough flexibility that make a separate FALLOC_FL_PROVISION redundant
-and confusing. I'll post the next series without the falloc() flag.
-
-> I mostly agree with Darrick in that FALLOC_FL_PROVISION stills feels a
-> bit wonky to me. I can see that there might be some legitimate use cases
-> for it, but I'm not convinced that it won't just end up being confusing
-> to many users. At the same time, I think the approach of unconditional
-> provision on falloc could eventually lead to complaints associated with
-> the performance impact or similar sorts of confusion. For example,
-> should an falloc of an already allocated range in the fs send a
-> provision or not?
->
-It boils down to whether a) the underlying device supports
-provisioning and b) whether the device is a snapshot. If either is
-true, then we'd need to pass down provision requests down to the last
-layers of the stack. Filesystems might be able to amortize some of the
-performance drop if they maintain a bit that tracks whether the extent
-has been provisioned/written to; for such extents, we'd only send a
-provision request iff the underlying device is a snapshot device. Or
-we could make this a policy that's configurable by a mount option
-(added details below).
-
-In the current patch series, I went through the simpler route of just
-calling REQ_OP_PROVISION on the first fallocate() call. But as
-everyone pointed out on the thread, that doesn't work out as well for
-previously allocated ranges..
-
-> [Reflowed] Should filesystems that don't otherwise support
-> UNSHARE_RANGE need to support it in order to support an unshare request
-> to COW'd blocks on an underlying block device?
->
-I think it would make sense to keep the UNSHARE_RANGE handling intact
-and delegate the actual provisioning to the filesystem layer. Even if
-the filesystem doesn't support unsharing, we could add a separate
-mount mode option that will result in the filesystem sending
-REQ_OP_PROVISION to the entire file range if fallocate mode==0 is
-called.
-
-> I wonder if the smart thing to do here is separate out the question of a
-> new fallocate interface from the mechanism entirely. For example,
-> implement REQ_OP_PROVISION as you've already done, enable block layer
-> mode = 0 fallocate support (i.e. without FL_PROVISION, so whether a
-> request propagates from a loop device will be up to the backing fs),
-> implement the various fs features to support REQ_OP_PROVISION (i.e.,
-> mount option, file attr, etc.), then tack on FL_FALLOC + ext4 support at
-> the end as an RFC/prototype.
->
-> Even if we ultimately ended up with FL_PROVISION support, it might
-> actually make some sense to kick that can down the road a bit regardless
-> to give fs' a chance to implement basic REQ_OP_PROVISION support, get a
-> better understanding of how it works in practice, and then perhaps make
-> more informed decisions on things like sane defaults and/or how best to
-> expose it via fallocate. Thoughts?
->
-That's fair (and thanks for the thorough feedback!), I'll split the
-series and send out the REQ_OP_PROVISION parts shortly. As you,
-Darrick and Ted have pointed out, the filesystem patches need a bit
-more work.
-
-Best
-Sarthak
-
-
-
-> Brian
->
-> > > If you *don't* add this API flag and simply bake the REQ_OP_PROVISION
-> > > call into mode 0 fallocate, then the new functionality can be added (or
-> > > even backported) to existing kernels and customers can use it
-> > > immediately.  If you *do*, then you get to wait a few years for
-> > > developers to add it to their codebases only after enough enterprise
-> > > distros pick up a new kernel to make it worth their while.
-> > >
-> > > > for thinly provisioned filesystems/
-> > > > block devices. For devices that do not support REQ_OP_PROVISION, both these
-> > > > allocation modes will be equivalent. Given the performance cost of sending provision
-> > > > requests to the underlying layers, keeping the default mode as-is allows users to
-> > > > preserve existing behavior.
-> > >
 > > > How expensive is this expected to be?  Is this why you wanted a separate
 > > > mode flag?
-> > >
+> >
 > > Yes, the exact latency will depend on the stacked block devices and
 > > the fragmentation at the allocation layers.
 > >
@@ -276,92 +149,71 @@ Sarthak
 > >
 > > +0.5s for a 8G fallocate doesn't sound a lot but I think fragmentation
 > > and how the block device is layered can make this worse...
-> >
-> > > --D
-> > >
-> > > > Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
-> > > > ---
-> > > >  block/fops.c                | 15 +++++++++++----
-> > > >  include/linux/falloc.h      |  3 ++-
-> > > >  include/uapi/linux/falloc.h |  8 ++++++++
-> > > >  3 files changed, 21 insertions(+), 5 deletions(-)
-> > > >
-> > > > diff --git a/block/fops.c b/block/fops.c
-> > > > index 50d245e8c913..01bde561e1e2 100644
-> > > > --- a/block/fops.c
-> > > > +++ b/block/fops.c
-> > > > @@ -598,7 +598,8 @@ static ssize_t blkdev_read_iter(struct kiocb *iocb, struct iov_iter *to)
-> > > >
-> > > >  #define      BLKDEV_FALLOC_FL_SUPPORTED                                      \
-> > > >               (FALLOC_FL_KEEP_SIZE | FALLOC_FL_PUNCH_HOLE |           \
-> > > > -              FALLOC_FL_ZERO_RANGE | FALLOC_FL_NO_HIDE_STALE)
-> > > > +              FALLOC_FL_ZERO_RANGE | FALLOC_FL_NO_HIDE_STALE |       \
-> > > > +              FALLOC_FL_PROVISION)
-> > > >
-> > > >  static long blkdev_fallocate(struct file *file, int mode, loff_t start,
-> > > >                            loff_t len)
-> > > > @@ -634,9 +635,11 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
-> > > >       filemap_invalidate_lock(inode->i_mapping);
-> > > >
-> > > >       /* Invalidate the page cache, including dirty pages. */
-> > > > -     error = truncate_bdev_range(bdev, file->f_mode, start, end);
-> > > > -     if (error)
-> > > > -             goto fail;
-> > > > +     if (mode != FALLOC_FL_PROVISION) {
-> > > > +             error = truncate_bdev_range(bdev, file->f_mode, start, end);
-> > > > +             if (error)
-> > > > +                     goto fail;
-> > > > +     }
-> > > >
-> > > >       switch (mode) {
-> > > >       case FALLOC_FL_ZERO_RANGE:
-> > > > @@ -654,6 +657,10 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
-> > > >               error = blkdev_issue_discard(bdev, start >> SECTOR_SHIFT,
-> > > >                                            len >> SECTOR_SHIFT, GFP_KERNEL);
-> > > >               break;
-> > > > +     case FALLOC_FL_PROVISION:
-> > > > +             error = blkdev_issue_provision(bdev, start >> SECTOR_SHIFT,
-> > > > +                                            len >> SECTOR_SHIFT, GFP_KERNEL);
-> > > > +             break;
-> > > >       default:
-> > > >               error = -EOPNOTSUPP;
-> > > >       }
-> > > > diff --git a/include/linux/falloc.h b/include/linux/falloc.h
-> > > > index f3f0b97b1675..b9a40a61a59b 100644
-> > > > --- a/include/linux/falloc.h
-> > > > +++ b/include/linux/falloc.h
-> > > > @@ -30,7 +30,8 @@ struct space_resv {
-> > > >                                        FALLOC_FL_COLLAPSE_RANGE |     \
-> > > >                                        FALLOC_FL_ZERO_RANGE |         \
-> > > >                                        FALLOC_FL_INSERT_RANGE |       \
-> > > > -                                      FALLOC_FL_UNSHARE_RANGE)
-> > > > +                                      FALLOC_FL_UNSHARE_RANGE |      \
-> > > > +                                      FALLOC_FL_PROVISION)
-> > > >
-> > > >  /* on ia32 l_start is on a 32-bit boundary */
-> > > >  #if defined(CONFIG_X86_64)
-> > > > diff --git a/include/uapi/linux/falloc.h b/include/uapi/linux/falloc.h
-> > > > index 51398fa57f6c..2d323d113eed 100644
-> > > > --- a/include/uapi/linux/falloc.h
-> > > > +++ b/include/uapi/linux/falloc.h
-> > > > @@ -77,4 +77,12 @@
-> > > >   */
-> > > >  #define FALLOC_FL_UNSHARE_RANGE              0x40
-> > > >
-> > > > +/*
-> > > > + * FALLOC_FL_PROVISION acts as a hint for thinly provisioned devices to allocate
-> > > > + * blocks for the range/EOF.
-> > > > + *
-> > > > + * FALLOC_FL_PROVISION can only be used with allocate-mode fallocate.
-> > > > + */
-> > > > +#define FALLOC_FL_PROVISION          0x80
-> > > > +
-> > > >  #endif /* _UAPI_FALLOC_H_ */
-> > > > --
-> > > > 2.37.3
-> > > >
-> >
 >
+> If userspace uses fallocate(2) there are generally two reasons.
+> Either they **really** don't want to get the NOSPC, in which case
+> noprovision will not give them what they want unless we modify their
+> source code to add this new FALLOC_FL_PROVISION flag --- which may not
+> be possible if it is provided in a binary-only format (for example,
+> proprietary databases shipped by companies beginning with the letters
+> 'I' or 'O').
+>
+> Or, they really care about avoiding fragmentation by giving a hint to
+> the file system that layout is important, and so **please** allocate
+> the space right away so that it is more likely that the space will be
+> laid out in a contiguous fashion.  Of course, the moment you use
+> thin-provisioning this goes out the window, since even if the space is
+> contiguous on the dm-thin layer, on the underlying storage layer it is
+> likely that things will be fragmented to a fare-thee-well, and either
+> (a) you have a vast amount of flash to try to mitigate the performance
+> hit of using thin-provisioning (example, hardware thin-provisioning
+> such as EMC storage arrays), or (b) you really don't care about
+> performance since space savings is what you're going for.
+>
+> So.... because of the issue of changing the semantics of what
+> fallocate(2) will guarantee, unless programs are forced to change
+> their code to use this new FALLOC flag, I really am not very fond of
+> it.
+>
+> I suspect that using a mount option (which should default to
+> "provision"; if you want to break user API expectations, it should
+> require a mount option for the system administrator to explicitly OK
+> such a change), is OK.
+>
+Understood. I dropped the FALLOC flag from the series in v3, instead
+we now rely on the filesystem's mount/policy.
+
+> As far as the per-file mode --- I'm not convinced it's really
+> necessary.  In general if you are using thin-provisioning file systems
+> tend to be used explicitly for one purpose, so adding the complexity
+> of doing it on a per-file basis is probably not really needed.  That
+> being said, your existing prototype requires searching for the
+> extended attribute on every single file allocation, which is not a
+> great idea.  On a system with SELinux enabled, every file will have an
+> xattr block, and requiring that it be searched on every file
+> allocation would be unfortunate.  It would be better to check for the
+> xattr when the file is opened, and then setting a flag in the struct
+> file.  However, it might be better to see if it there is a real demand
+> for such a feature before adding it.
+>
+Thanks for the feedback! On ChromeOS, we still have filesystems shared
+between applications, partly due to inertia of adoption. So, we have a
+few cases of needing to share the filesystem but with differing
+provisioning policy.
+
+One more idea that I've been exploring in this space and uses the
+above file-based mechanism is to use a 'provisioning disabled'
+fallocated file to make the apparent free space in the thinly
+provisioned filesystem match the space available in the thinpool. In
+theory, this prevents userspace applications from writing much more
+than what's available on the thinpool. In practice, it depends on the
+responsiveness of the service that monitors and resizes this 'storage
+balloon'.
+
+Best
+Sarthak
+
+>                                                 - Ted
 
 --
 dm-devel mailing list
