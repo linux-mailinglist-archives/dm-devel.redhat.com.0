@@ -2,93 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 042D56DD31E
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21CF36DD339
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:45:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681195470;
+	s=mimecast20190719; t=1681195503;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4I8yc5Pk7dwdFcwIQM6wBPw/4LTW8byT/B0lk7vVW4c=;
-	b=FzI6MAvn+qZvuJFBiSyVcRThoIISXiENHFY4fCvlcSBZ0D3/pws94u0bi1sya22XjBEw3Y
-	oBDK7VGF5c+j42cRIav4rna7vOe/mng4tejZNnl/zLa6sBb5SKECORORG3NSxwqHanej1P
-	mO6614wMB7NfI+5D4vzVKjPKhQboTI0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=XykTwaK6vsNqJyGt0kGFqLF+k+7O+Qmp72kDBsQSN1c=;
+	b=XFnl1A8QFzcA5TnFQbJfrGftS9Wx57gGKk/y+yq8dA/4wXyau3bXKPvlyyQcyy4CsYVMkW
+	kUnRGVH7TFl3wiCA7b1709b+F4yRscm1/ULK8jPAiv3Vyjv+PaD2Bu0F0Oy6kxt808HoL3
+	jRseY9+VutJr1iCEKLYw3WFQh/hL7+0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-651-dHBVZt_TNna_ZtK-Lqp9XQ-1; Tue, 11 Apr 2023 02:44:26 -0400
-X-MC-Unique: dHBVZt_TNna_ZtK-Lqp9XQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-518-wp2kLj98MmqmHU_nDzUy3g-1; Tue, 11 Apr 2023 02:44:27 -0400
+X-MC-Unique: wp2kLj98MmqmHU_nDzUy3g-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 791A61C02D2C;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A63D78996E4;
 	Tue, 11 Apr 2023 06:44:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6BE2B440D9;
-	Tue, 11 Apr 2023 06:44:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 859232166B36;
+	Tue, 11 Apr 2023 06:44:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 963141946A43;
-	Tue, 11 Apr 2023 06:44:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 06F6319472F0;
+	Tue, 11 Apr 2023 06:44:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 57D4819465B5
- for <dm-devel@listman.corp.redhat.com>; Fri,  7 Apr 2023 20:09:11 +0000 (UTC)
+ ESMTP id 9D1CC19465B5
+ for <dm-devel@listman.corp.redhat.com>; Fri,  7 Apr 2023 20:09:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3A630492B01; Fri,  7 Apr 2023 20:09:11 +0000 (UTC)
+ id 8D5721121315; Fri,  7 Apr 2023 20:09:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 32C1A492B00
- for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:09:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8566E1121314
+ for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:09:31 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 17DD485C069
- for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:09:11 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6340F101A531
+ for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:09:31 +0000 (UTC)
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
  [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-451-gjMHPr-9OI2ZTtqXMSMWxg-1; Fri, 07 Apr 2023 16:09:09 -0400
-X-MC-Unique: gjMHPr-9OI2ZTtqXMSMWxg-1
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ us-mta-365-Hxx-BN3zMouhiHBpDYq8Mg-1; Fri, 07 Apr 2023 16:09:29 -0400
+X-MC-Unique: Hxx-BN3zMouhiHBpDYq8Mg-1
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
  by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 337FwoS4017340; Fri, 7 Apr 2023 20:06:42 GMT
+ 337Fx1H9018319; Fri, 7 Apr 2023 20:06:44 GMT
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
  (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ppcnd5wvq-1
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ppb1dws0v-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 07 Apr 2023 20:06:41 +0000
+ Fri, 07 Apr 2023 20:06:44 +0000
 Received: from pps.filterd
  (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 337IB9al034233; Fri, 7 Apr 2023 20:06:40 GMT
+ with ESMTP id 337IerJH034336; Fri, 7 Apr 2023 20:06:43 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3pptjxefcc-1
+ 3pptjxefe2-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 07 Apr 2023 20:06:40 +0000
+ Fri, 07 Apr 2023 20:06:43 +0000
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
  (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 337K5trQ010228;
- Fri, 7 Apr 2023 20:06:40 GMT
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 337K5trS010228;
+ Fri, 7 Apr 2023 20:06:42 GMT
 Received: from mnchrist-mac.us.oracle.com (dhcp-10-154-128-1.vpn.oracle.com
  [10.154.128.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3pptjxeeam-18; Fri, 07 Apr 2023 20:06:39 +0000
+ 3pptjxeeam-19; Fri, 07 Apr 2023 20:06:42 +0000
 From: Mike Christie <michael.christie@oracle.com>
 To: bvanassche@acm.org, hch@lst.de, martin.petersen@oracle.com,
  linux-scsi@vger.kernel.org, james.bottomley@hansenpartnership.com,
  linux-block@vger.kernel.org, dm-devel@redhat.com, snitzer@kernel.org,
  axboe@kernel.dk, linux-nvme@lists.infradead.org, chaitanyak@nvidia.com,
  kbusch@kernel.org, target-devel@vger.kernel.org
-Date: Fri,  7 Apr 2023 15:05:50 -0500
-Message-Id: <20230407200551.12660-18-michael.christie@oracle.com>
+Date: Fri,  7 Apr 2023 15:05:51 -0500
+Message-Id: <20230407200551.12660-19-michael.christie@oracle.com>
 In-Reply-To: <20230407200551.12660-1-michael.christie@oracle.com>
 References: <20230407200551.12660-1-michael.christie@oracle.com>
 MIME-Version: 1.0
@@ -100,8 +100,8 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
  phishscore=0 bulkscore=0 mlxscore=0 suspectscore=0 spamscore=0
  mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2303200000 definitions=main-2304070180
-X-Proofpoint-GUID: ksHyArDU4589RKAh5bIWhD07mahRXkYW
-X-Proofpoint-ORIG-GUID: ksHyArDU4589RKAh5bIWhD07mahRXkYW
+X-Proofpoint-GUID: wgNPWn59kb7q0qv-O_WHxnVyZb7PNacf
+X-Proofpoint-ORIG-GUID: wgNPWn59kb7q0qv-O_WHxnVyZb7PNacf
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -109,10 +109,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Tue, 11 Apr 2023 06:44:09 +0000
-Subject: [dm-devel] [PATCH v6 17/18] scsi: target: Report and detect
- unsupported PR commands
+Subject: [dm-devel] [PATCH v6 18/18] scsi: target: Add block PR support to
+ iblock
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -127,185 +127,374 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: Mike Christie <michael.christie@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The backend modules don't know about ports and I_T nexuses and the pr_ops
-callouts the modules will use don't support the old RESERVE/RELEASE
-commands. This patch has us report we don't support those types of
-commands and fail them.
+This adds support for the block PR callouts to target_core_iblock. This
+patch doesn't attempt to implement the entire spec because there's no way
+support it all like SPEC_I_PT and ALL_TG_PT. This only supports
+exporting the iblock device from one path on the local target.
 
 Signed-off-by: Mike Christie <michael.christie@oracle.com>
 ---
- drivers/target/target_core_pr.c  | 17 ++++++++
- drivers/target/target_core_spc.c | 75 +++++++++++++++++++++++---------
- 2 files changed, 72 insertions(+), 20 deletions(-)
+ drivers/target/target_core_iblock.c | 271 +++++++++++++++++++++++++++-
+ 1 file changed, 266 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/target/target_core_pr.c b/drivers/target/target_core_pr.c
-index e16ef7d676af..7a3f07979a02 100644
---- a/drivers/target/target_core_pr.c
-+++ b/drivers/target/target_core_pr.c
-@@ -3554,6 +3554,18 @@ target_try_pr_out_pt(struct se_cmd *cmd, u8 sa, u64 res_key, u64 sa_res_key,
- 		return TCM_UNSUPPORTED_SCSI_OPCODE;
- 	}
+diff --git a/drivers/target/target_core_iblock.c b/drivers/target/target_core_iblock.c
+index d93f24f9687d..e6029ea87e2f 100644
+--- a/drivers/target/target_core_iblock.c
++++ b/drivers/target/target_core_iblock.c
+@@ -23,13 +23,16 @@
+ #include <linux/file.h>
+ #include <linux/module.h>
+ #include <linux/scatterlist.h>
++#include <linux/pr.h>
+ #include <scsi/scsi_proto.h>
++#include <scsi/scsi_common.h>
+ #include <asm/unaligned.h>
  
-+	switch (sa) {
-+	case PRO_REGISTER_AND_MOVE:
-+	case PRO_REPLACE_LOST_RESERVATION:
-+		pr_err("SPC-3 PR: PRO_REGISTER_AND_MOVE and PRO_REPLACE_LOST_RESERVATION are not supported by PR passthrough.\n");
-+		return TCM_UNSUPPORTED_SCSI_OPCODE;
-+	}
-+
-+	if (spec_i_pt || all_tg_pt) {
-+		pr_err("SPC-3 PR: SPEC_I_PT and ALL_TG_PT are not supported by PR passthrough.\n");
-+		return TCM_UNSUPPORTED_SCSI_OPCODE;
-+	}
-+
- 	return ops->execute_pr_out(cmd, sa, res_key, sa_res_key, type, aptpl);
+ #include <target/target_core_base.h>
+ #include <target/target_core_backend.h>
+ 
+ #include "target_core_iblock.h"
++#include "target_core_pr.h"
+ 
+ #define IBLOCK_MAX_BIO_PER_TASK	 32	/* max # of bios to submit at a time */
+ #define IBLOCK_BIO_POOL_SIZE	128
+@@ -310,7 +313,7 @@ static sector_t iblock_get_blocks(struct se_device *dev)
+ 	return blocks_long;
  }
  
-@@ -4082,6 +4094,11 @@ static sense_reason_t target_try_pr_in_pt(struct se_cmd *cmd, u8 sa)
- 		return TCM_UNSUPPORTED_SCSI_OPCODE;
- 	}
- 
-+	if (sa == PRI_READ_FULL_STATUS) {
-+		pr_err("SPC-3 PR: PRI_READ_FULL_STATUS is not supported by PR passthrough.\n");
-+		return TCM_UNSUPPORTED_SCSI_OPCODE;
-+	}
-+
- 	buf = transport_kmap_data_sg(cmd);
- 	if (!buf)
- 		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
-diff --git a/drivers/target/target_core_spc.c b/drivers/target/target_core_spc.c
-index caf8d1325007..053bd2eea0e6 100644
---- a/drivers/target/target_core_spc.c
-+++ b/drivers/target/target_core_spc.c
-@@ -1672,7 +1672,41 @@ static bool tcm_is_pr_enabled(struct target_opcode_descriptor *descr,
+-static void iblock_complete_cmd(struct se_cmd *cmd)
++static void iblock_complete_cmd(struct se_cmd *cmd, blk_status_t blk_status)
  {
- 	struct se_device *dev = cmd->se_dev;
+ 	struct iblock_req *ibr = cmd->priv;
+ 	u8 status;
+@@ -318,7 +321,9 @@ static void iblock_complete_cmd(struct se_cmd *cmd)
+ 	if (!refcount_dec_and_test(&ibr->pending))
+ 		return;
  
--	return dev->dev_attrib.emulate_pr;
-+	if (!dev->dev_attrib.emulate_pr)
-+		return false;
-+
-+	if (!(dev->transport_flags & TRANSPORT_FLAG_PASSTHROUGH_PGR))
-+		return true;
-+
-+	switch (descr->opcode) {
-+	case RESERVE:
-+	case RESERVE_10:
-+	case RELEASE:
-+	case RELEASE_10:
-+		/*
-+		 * The pr_ops which are used by the backend modules don't
-+		 * support these commands.
-+		 */
-+		return false;
-+	case PERSISTENT_RESERVE_OUT:
-+		switch (descr->service_action) {
-+		case PRO_REGISTER_AND_MOVE:
-+		case PRO_REPLACE_LOST_RESERVATION:
-+			/*
-+			 * The backend modules don't have access to ports and
-+			 * I_T nexuses so they can't handle these type of
-+			 * requests.
-+			 */
-+			return false;
-+		}
-+		break;
-+	case PERSISTENT_RESERVE_IN:
-+		if (descr->service_action == PRI_READ_FULL_STATUS)
-+			return false;
-+		break;
-+	}
-+
-+	return true;
+-	if (atomic_read(&ibr->ib_bio_err_cnt))
++	if (blk_status == BLK_STS_RESV_CONFLICT)
++		status = SAM_STAT_RESERVATION_CONFLICT;
++	else if (atomic_read(&ibr->ib_bio_err_cnt))
+ 		status = SAM_STAT_CHECK_CONDITION;
+ 	else
+ 		status = SAM_STAT_GOOD;
+@@ -331,6 +336,7 @@ static void iblock_bio_done(struct bio *bio)
+ {
+ 	struct se_cmd *cmd = bio->bi_private;
+ 	struct iblock_req *ibr = cmd->priv;
++	blk_status_t blk_status = bio->bi_status;
+ 
+ 	if (bio->bi_status) {
+ 		pr_err("bio error: %p,  err: %d\n", bio, bio->bi_status);
+@@ -343,7 +349,7 @@ static void iblock_bio_done(struct bio *bio)
+ 
+ 	bio_put(bio);
+ 
+-	iblock_complete_cmd(cmd);
++	iblock_complete_cmd(cmd, blk_status);
  }
  
- static struct target_opcode_descriptor tcm_opcode_pri_read_caps = {
-@@ -1797,22 +1831,13 @@ static struct target_opcode_descriptor tcm_opcode_pro_register_move = {
- 	.enabled = tcm_is_pr_enabled,
- };
+ static struct bio *iblock_get_bio(struct se_cmd *cmd, sector_t lba, u32 sg_num,
+@@ -759,7 +765,7 @@ iblock_execute_rw(struct se_cmd *cmd, struct scatterlist *sgl, u32 sgl_nents,
  
--static bool
--tcm_is_scsi2_reservations_enabled(struct target_opcode_descriptor *descr,
--				  struct se_cmd *cmd)
--{
--	struct se_device *dev = cmd->se_dev;
--
--	return dev->dev_attrib.emulate_pr;
--}
--
- static struct target_opcode_descriptor tcm_opcode_release = {
- 	.support = SCSI_SUPPORT_FULL,
- 	.opcode = RELEASE,
- 	.cdb_size = 6,
- 	.usage_bits = {RELEASE, 0x00, 0x00, 0x00,
- 		       0x00, SCSI_CONTROL_MASK},
--	.enabled = tcm_is_scsi2_reservations_enabled,
-+	.enabled = tcm_is_pr_enabled,
- };
- 
- static struct target_opcode_descriptor tcm_opcode_release10 = {
-@@ -1822,7 +1847,7 @@ static struct target_opcode_descriptor tcm_opcode_release10 = {
- 	.usage_bits = {RELEASE_10, 0x00, 0x00, 0x00,
- 		       0x00, 0x00, 0x00, 0xff,
- 		       0xff, SCSI_CONTROL_MASK},
--	.enabled = tcm_is_scsi2_reservations_enabled,
-+	.enabled = tcm_is_pr_enabled,
- };
- 
- static struct target_opcode_descriptor tcm_opcode_reserve = {
-@@ -1831,7 +1856,7 @@ static struct target_opcode_descriptor tcm_opcode_reserve = {
- 	.cdb_size = 6,
- 	.usage_bits = {RESERVE, 0x00, 0x00, 0x00,
- 		       0x00, SCSI_CONTROL_MASK},
--	.enabled = tcm_is_scsi2_reservations_enabled,
-+	.enabled = tcm_is_pr_enabled,
- };
- 
- static struct target_opcode_descriptor tcm_opcode_reserve10 = {
-@@ -1841,7 +1866,7 @@ static struct target_opcode_descriptor tcm_opcode_reserve10 = {
- 	.usage_bits = {RESERVE_10, 0x00, 0x00, 0x00,
- 		       0x00, 0x00, 0x00, 0xff,
- 		       0xff, SCSI_CONTROL_MASK},
--	.enabled = tcm_is_scsi2_reservations_enabled,
-+	.enabled = tcm_is_pr_enabled,
- };
- 
- static struct target_opcode_descriptor tcm_opcode_request_sense = {
-@@ -2246,12 +2271,22 @@ spc_parse_cdb(struct se_cmd *cmd, unsigned int *size)
- 	struct se_device *dev = cmd->se_dev;
- 	unsigned char *cdb = cmd->t_task_cdb;
- 
--	if (!dev->dev_attrib.emulate_pr &&
--	    ((cdb[0] == PERSISTENT_RESERVE_IN) ||
--	     (cdb[0] == PERSISTENT_RESERVE_OUT) ||
--	     (cdb[0] == RELEASE || cdb[0] == RELEASE_10) ||
--	     (cdb[0] == RESERVE || cdb[0] == RESERVE_10))) {
--		return TCM_UNSUPPORTED_SCSI_OPCODE;
-+	switch (cdb[0]) {
-+	case RESERVE:
-+	case RESERVE_10:
-+	case RELEASE:
-+	case RELEASE_10:
-+		if (!dev->dev_attrib.emulate_pr)
-+			return TCM_UNSUPPORTED_SCSI_OPCODE;
-+
-+		if (dev->transport_flags & TRANSPORT_FLAG_PASSTHROUGH_PGR)
-+			return TCM_UNSUPPORTED_SCSI_OPCODE;
-+		break;
-+	case PERSISTENT_RESERVE_IN:
-+	case PERSISTENT_RESERVE_OUT:
-+		if (!dev->dev_attrib.emulate_pr)
-+			return TCM_UNSUPPORTED_SCSI_OPCODE;
-+		break;
+ 	if (!sgl_nents) {
+ 		refcount_set(&ibr->pending, 1);
+-		iblock_complete_cmd(cmd);
++		iblock_complete_cmd(cmd, BLK_STS_OK);
+ 		return 0;
  	}
  
- 	switch (cdb[0]) {
+@@ -817,7 +823,7 @@ iblock_execute_rw(struct se_cmd *cmd, struct scatterlist *sgl, u32 sgl_nents,
+ 	}
+ 
+ 	iblock_submit_bios(&list);
+-	iblock_complete_cmd(cmd);
++	iblock_complete_cmd(cmd, BLK_STS_OK);
+ 	return 0;
+ 
+ fail_put_bios:
+@@ -829,6 +835,258 @@ iblock_execute_rw(struct se_cmd *cmd, struct scatterlist *sgl, u32 sgl_nents,
+ 	return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
+ }
+ 
++static sense_reason_t iblock_execute_pr_out(struct se_cmd *cmd, u8 sa, u64 key,
++					    u64 sa_key, u8 type, bool aptpl)
++{
++	struct se_device *dev = cmd->se_dev;
++	struct iblock_dev *ib_dev = IBLOCK_DEV(dev);
++	struct block_device *bdev = ib_dev->ibd_bd;
++	const struct pr_ops *ops = bdev->bd_disk->fops->pr_ops;
++	int ret;
++
++	if (!ops) {
++		pr_err("Block device does not support pr_ops but iblock device has been configured for PR passthrough.\n");
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	switch (sa) {
++	case PRO_REGISTER:
++	case PRO_REGISTER_AND_IGNORE_EXISTING_KEY:
++		if (!ops->pr_register) {
++			pr_err("block device does not support pr_register.\n");
++			return TCM_UNSUPPORTED_SCSI_OPCODE;
++		}
++
++		/* The block layer pr ops always enables aptpl */
++		if (!aptpl)
++			pr_info("APTPL not set by initiator, but will be used.\n");
++
++		ret = ops->pr_register(bdev, key, sa_key,
++				sa == PRO_REGISTER ? 0 : PR_FL_IGNORE_KEY);
++		break;
++	case PRO_RESERVE:
++		if (!ops->pr_reserve) {
++			pr_err("block_device does not support pr_reserve.\n");
++			return TCM_UNSUPPORTED_SCSI_OPCODE;
++		}
++
++		ret = ops->pr_reserve(bdev, key, scsi_pr_type_to_block(type), 0);
++		break;
++	case PRO_CLEAR:
++		if (!ops->pr_clear) {
++			pr_err("block_device does not support pr_clear.\n");
++			return TCM_UNSUPPORTED_SCSI_OPCODE;
++		}
++
++		ret = ops->pr_clear(bdev, key);
++		break;
++	case PRO_PREEMPT:
++	case PRO_PREEMPT_AND_ABORT:
++		if (!ops->pr_clear) {
++			pr_err("block_device does not support pr_preempt.\n");
++			return TCM_UNSUPPORTED_SCSI_OPCODE;
++		}
++
++		ret = ops->pr_preempt(bdev, key, sa_key,
++				      scsi_pr_type_to_block(type),
++				      sa == PRO_PREEMPT ? false : true);
++		break;
++	case PRO_RELEASE:
++		if (!ops->pr_clear) {
++			pr_err("block_device does not support pr_pclear.\n");
++			return TCM_UNSUPPORTED_SCSI_OPCODE;
++		}
++
++		ret = ops->pr_release(bdev, key, scsi_pr_type_to_block(type));
++		break;
++	default:
++		pr_err("Unknown PERSISTENT_RESERVE_OUT SA: 0x%02x\n", sa);
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	if (!ret)
++		return TCM_NO_SENSE;
++	else if (ret == PR_STS_RESERVATION_CONFLICT)
++		return TCM_RESERVATION_CONFLICT;
++	else
++		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
++}
++
++static void iblock_pr_report_caps(unsigned char *param_data)
++{
++	u16 len = 8;
++
++	put_unaligned_be16(len, &param_data[0]);
++	/*
++	 * When using the pr_ops passthrough method we only support exporting
++	 * the device through one target port because from the backend module
++	 * level we can't see the target port config. As a result we only
++	 * support registration directly from the I_T nexus the cmd is sent
++	 * through and do not set ATP_C here.
++	 *
++	 * The block layer pr_ops do not support passing in initiators so
++	 * we don't set SIP_C here.
++	 */
++	/* PTPL_C: Persistence across Target Power Loss bit */
++	param_data[2] |= 0x01;
++	/*
++	 * We are filling in the PERSISTENT RESERVATION TYPE MASK below, so
++	 * set the TMV: Task Mask Valid bit.
++	 */
++	param_data[3] |= 0x80;
++	/*
++	 * Change ALLOW COMMANDs to 0x20 or 0x40 later from Table 166
++	 */
++	param_data[3] |= 0x10; /* ALLOW COMMANDs field 001b */
++	/*
++	 * PTPL_A: Persistence across Target Power Loss Active bit. The block
++	 * layer pr ops always enables this so report it active.
++	 */
++	param_data[3] |= 0x01;
++	/*
++	 * Setup the PERSISTENT RESERVATION TYPE MASK from Table 212 spc4r37.
++	 */
++	param_data[4] |= 0x80; /* PR_TYPE_EXCLUSIVE_ACCESS_ALLREG */
++	param_data[4] |= 0x40; /* PR_TYPE_EXCLUSIVE_ACCESS_REGONLY */
++	param_data[4] |= 0x20; /* PR_TYPE_WRITE_EXCLUSIVE_REGONLY */
++	param_data[4] |= 0x08; /* PR_TYPE_EXCLUSIVE_ACCESS */
++	param_data[4] |= 0x02; /* PR_TYPE_WRITE_EXCLUSIVE */
++	param_data[5] |= 0x01; /* PR_TYPE_EXCLUSIVE_ACCESS_ALLREG */
++}
++
++static sense_reason_t iblock_pr_read_keys(struct se_cmd *cmd,
++					  unsigned char *param_data)
++{
++	struct se_device *dev = cmd->se_dev;
++	struct iblock_dev *ib_dev = IBLOCK_DEV(dev);
++	struct block_device *bdev = ib_dev->ibd_bd;
++	const struct pr_ops *ops = bdev->bd_disk->fops->pr_ops;
++	int i, len, paths, data_offset;
++	struct pr_keys *keys;
++	sense_reason_t ret;
++
++	if (!ops) {
++		pr_err("Block device does not support pr_ops but iblock device has been configured for PR passthrough.\n");
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	if (!ops->pr_read_keys) {
++		pr_err("Block device does not support read_keys.\n");
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	/*
++	 * We don't know what's under us, but dm-multipath will register every
++	 * path with the same key, so start off with enough space for 16 paths.
++	 * which is not a lot of memory and should normally be enough.
++	 */
++	paths = 16;
++retry:
++	len = 8 * paths;
++	keys = kzalloc(sizeof(*keys) + len, GFP_KERNEL);
++	if (!keys)
++		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
++
++	keys->num_keys = paths;
++	if (!ops->pr_read_keys(bdev, keys)) {
++		if (keys->num_keys > paths) {
++			kfree(keys);
++			paths *= 2;
++			goto retry;
++		}
++	} else {
++		ret = TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
++		goto free_keys;
++	}
++
++	ret = TCM_NO_SENSE;
++
++	put_unaligned_be32(keys->generation, &param_data[0]);
++	if (!keys->num_keys) {
++		put_unaligned_be32(0, &param_data[4]);
++		goto free_keys;
++	}
++
++	put_unaligned_be32(8 * keys->num_keys, &param_data[4]);
++
++	data_offset = 8;
++	for (i = 0; i < keys->num_keys; i++) {
++		if (data_offset + 8 > cmd->data_length)
++			break;
++
++		put_unaligned_be64(keys->keys[i], &param_data[data_offset]);
++		data_offset += 8;
++	}
++
++free_keys:
++	kfree(keys);
++	return ret;
++}
++
++static sense_reason_t iblock_pr_read_reservation(struct se_cmd *cmd,
++						 unsigned char *param_data)
++{
++	struct se_device *dev = cmd->se_dev;
++	struct iblock_dev *ib_dev = IBLOCK_DEV(dev);
++	struct block_device *bdev = ib_dev->ibd_bd;
++	const struct pr_ops *ops = bdev->bd_disk->fops->pr_ops;
++	struct pr_held_reservation rsv = { };
++
++	if (!ops) {
++		pr_err("Block device does not support pr_ops but iblock device has been configured for PR passthrough.\n");
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	if (!ops->pr_read_reservation) {
++		pr_err("Block device does not support read_keys.\n");
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	if (ops->pr_read_reservation(bdev, &rsv))
++		return TCM_LOGICAL_UNIT_COMMUNICATION_FAILURE;
++
++	put_unaligned_be32(rsv.generation, &param_data[0]);
++	if (!block_pr_type_to_scsi(rsv.type)) {
++		put_unaligned_be32(0, &param_data[4]);
++		return TCM_NO_SENSE;
++	}
++
++	put_unaligned_be32(16, &param_data[4]);
++
++	if (cmd->data_length < 16)
++		return TCM_NO_SENSE;
++	put_unaligned_be64(rsv.key, &param_data[8]);
++
++	if (cmd->data_length < 22)
++		return TCM_NO_SENSE;
++	param_data[21] = block_pr_type_to_scsi(rsv.type);
++
++	return TCM_NO_SENSE;
++}
++
++static sense_reason_t iblock_execute_pr_in(struct se_cmd *cmd, u8 sa,
++					   unsigned char *param_data)
++{
++	sense_reason_t ret = TCM_NO_SENSE;
++
++	switch (sa) {
++	case PRI_REPORT_CAPABILITIES:
++		iblock_pr_report_caps(param_data);
++		break;
++	case PRI_READ_KEYS:
++		ret = iblock_pr_read_keys(cmd, param_data);
++		break;
++	case PRI_READ_RESERVATION:
++		ret = iblock_pr_read_reservation(cmd, param_data);
++		break;
++	default:
++		pr_err("Unknown PERSISTENT_RESERVE_IN SA: 0x%02x\n", sa);
++		return TCM_UNSUPPORTED_SCSI_OPCODE;
++	}
++
++	return ret;
++}
++
+ static sector_t iblock_get_alignment_offset_lbas(struct se_device *dev)
+ {
+ 	struct iblock_dev *ib_dev = IBLOCK_DEV(dev);
+@@ -874,6 +1132,8 @@ static struct exec_cmd_ops iblock_exec_cmd_ops = {
+ 	.execute_sync_cache	= iblock_execute_sync_cache,
+ 	.execute_write_same	= iblock_execute_write_same,
+ 	.execute_unmap		= iblock_execute_unmap,
++	.execute_pr_out		= iblock_execute_pr_out,
++	.execute_pr_in		= iblock_execute_pr_in,
+ };
+ 
+ static sense_reason_t
+@@ -890,6 +1150,7 @@ static bool iblock_get_write_cache(struct se_device *dev)
+ static const struct target_backend_ops iblock_ops = {
+ 	.name			= "iblock",
+ 	.inquiry_prod		= "IBLOCK",
++	.transport_flags_changeable = TRANSPORT_FLAG_PASSTHROUGH_PGR,
+ 	.inquiry_rev		= IBLOCK_VERSION,
+ 	.owner			= THIS_MODULE,
+ 	.attach_hba		= iblock_attach_hba,
 -- 
 2.25.1
 
