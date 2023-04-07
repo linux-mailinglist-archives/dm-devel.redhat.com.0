@@ -2,73 +2,103 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 437E96DA21F
-	for <lists+dm-devel@lfdr.de>; Thu,  6 Apr 2023 22:01:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 170DD6DD31B
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1680811286;
+	s=mimecast20190719; t=1681195468;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=e+fNMWTaiL3n1vzNjeryNJwQqe2IGPnJGyfdj9LmUBc=;
-	b=jS2Goh/WPrql9BtqeMKvMRXjvR8xM+U4i/zByfjyhHH84Km7Vxxk+FecvGv+RniW4s9pNa
-	Zno65jChiMz7QHGlb/A9gE210XVlkl79pG3apURLW1ZDVN/c+HT3JNtjfgKTOzYZesn75a
-	kD0ad2BqrpY0JMM4mS73GHk1FbrI7YM=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=IEZDw72vGvYHKP/R+sD5/qYG6BWWi5cA0JdvPF3AoGU=;
+	b=aD5T3WyX4Y1/qi3JGNfy8NQJlI0PjyvDgSaqWxDK3NHyMRGamuQX4ko+PkvtZmxTkNEtOn
+	vUvaxQIlHH0Z+ghk+iUBH/ZJ7wC9Ew/+pQYtBwr87PrJi9jMaWHB1jCitfjKZrMB8vYy+Q
+	CsyCCBS7JrTo0GqfDHwKUcHHoZ2EZqU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-668-EW5mIMTlMiSlWHGWaYeucw-1; Thu, 06 Apr 2023 16:01:23 -0400
-X-MC-Unique: EW5mIMTlMiSlWHGWaYeucw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-620-EfExFjbWNLGU6hpdDVOElQ-1; Tue, 11 Apr 2023 02:44:26 -0400
+X-MC-Unique: EfExFjbWNLGU6hpdDVOElQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 057B91C07593;
-	Thu,  6 Apr 2023 20:01:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ACC08996ED;
+	Tue, 11 Apr 2023 06:44:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1CE251121315;
-	Thu,  6 Apr 2023 20:01:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DD18A407D452;
+	Tue, 11 Apr 2023 06:44:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9877C19465B2;
-	Thu,  6 Apr 2023 20:01:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B4AD19472C8;
+	Tue, 11 Apr 2023 06:44:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 06B481946587
- for <dm-devel@listman.corp.redhat.com>; Thu,  6 Apr 2023 20:01:05 +0000 (UTC)
+ ESMTP id 461BA19465B5
+ for <dm-devel@listman.corp.redhat.com>; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EB391492C3E; Thu,  6 Apr 2023 20:01:04 +0000 (UTC)
+ id 33B081121315; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E3099492B00
- for <dm-devel@redhat.com>; Thu,  6 Apr 2023 20:01:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 93A6C28237D5
- for <dm-devel@redhat.com>; Thu,  6 Apr 2023 20:01:04 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-513-u9RnJIAmO6eDaPBzvZlmwg-1; Thu,
- 06 Apr 2023 16:00:59 -0400
-X-MC-Unique: u9RnJIAmO6eDaPBzvZlmwg-1
-Received: by linux.microsoft.com (Postfix, from userid 1052)
- id C625F210DF1A; Thu,  6 Apr 2023 13:00:55 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com C625F210DF1A
-Date: Thu, 6 Apr 2023 13:00:55 -0700
-From: Fan Wu <wufan@linux.microsoft.com>
-To: Paul Moore <paul@paul-moore.com>
-Message-ID: <20230406200055.GB19196@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
- <1675119451-23180-3-git-send-email-wufan@linux.microsoft.com>
- <CAHC9VhRguGeb8=oNVFebshL_2LLZ4hf0qO97YBVm8OObLsLNTw@mail.gmail.com>
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BE861121314
+ for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09D7A380610A
+ for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
+Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
+ [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-231-_AIxQPKQNUOfN5sW_LoiZQ-1; Fri, 07 Apr 2023 16:06:17 -0400
+X-MC-Unique: _AIxQPKQNUOfN5sW_LoiZQ-1
+Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
+ 337FwobR017328; Fri, 7 Apr 2023 20:05:56 GMT
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ppcnd5wu4-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 07 Apr 2023 20:05:56 +0000
+Received: from pps.filterd
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
+ with ESMTP id 337J0UK9034219; Fri, 7 Apr 2023 20:05:55 GMT
+Received: from pps.reinject (localhost [127.0.0.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
+ 3pptjxeec5-1
+ (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+ Fri, 07 Apr 2023 20:05:55 +0000
+Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
+ (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 337K5tqq010228;
+ Fri, 7 Apr 2023 20:05:55 GMT
+Received: from mnchrist-mac.us.oracle.com (dhcp-10-154-128-1.vpn.oracle.com
+ [10.154.128.1])
+ by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
+ 3pptjxeeam-1; Fri, 07 Apr 2023 20:05:54 +0000
+From: Mike Christie <michael.christie@oracle.com>
+To: bvanassche@acm.org, hch@lst.de, martin.petersen@oracle.com,
+ linux-scsi@vger.kernel.org, james.bottomley@hansenpartnership.com,
+ linux-block@vger.kernel.org, dm-devel@redhat.com, snitzer@kernel.org,
+ axboe@kernel.dk, linux-nvme@lists.infradead.org, chaitanyak@nvidia.com,
+ kbusch@kernel.org, target-devel@vger.kernel.org
+Date: Fri,  7 Apr 2023 15:05:33 -0500
+Message-Id: <20230407200551.12660-1-michael.christie@oracle.com>
 MIME-Version: 1.0
-In-Reply-To: <CAHC9VhRguGeb8=oNVFebshL_2LLZ4hf0qO97YBVm8OObLsLNTw@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
+ definitions=2023-04-07_12,2023-04-06_03,2023-02-09_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
+ adultscore=0
+ phishscore=0 bulkscore=0 mlxscore=0 suspectscore=0 spamscore=0
+ mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
+ engine=8.12.0-2303200000 definitions=main-2304070180
+X-Proofpoint-GUID: iHg0PBtxfmh4W4-XsTYDZ3rbexyC2Cq0
+X-Proofpoint-ORIG-GUID: iHg0PBtxfmh4W4-XsTYDZ3rbexyC2Cq0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,8 +106,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [dm-devel] [RFC PATCH v9 02/16] ipe: add policy parser
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mailman-Approved-At: Tue, 11 Apr 2023 06:44:09 +0000
+Subject: [dm-devel] [PATCH v6 00/18] Use block pr_ops in LIO
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,1000 +120,102 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
- dm-devel@redhat.com, corbet@lwn.net, roberto.sassu@huawei.com,
- Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
- snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
- linux-kernel@vger.kernel.org, ebiggers@kernel.org,
- linux-security-module@vger.kernel.org, linux-audit@redhat.com,
- eparis@redhat.com, linux-fscrypt@vger.kernel.org,
- linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.microsoft.com
-Content-Disposition: inline
+X-Mimecast-Originator: oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 02, 2023 at 02:02:32PM -0500, Paul Moore wrote:
-> On Mon, Jan 30, 2023 at 5:58???PM Fan Wu <wufan@linux.microsoft.com> wrote:
-> >
-> > From: Deven Bowers <deven.desai@linux.microsoft.com>
-> >
-> > IPE's interpretation of the what the user trusts is accomplished through
-> > its policy. IPE's design is to not provide support for a single trust
-> > provider, but to support multiple providers to enable the end-user to
-> > choose the best one to seek their needs.
-> >
-> > This requires the policy to be rather flexible and modular so that
-> > integrity providers, like fs-verity, dm-verity, dm-integrity, or
-> > some other system, can plug into the policy with minimal code changes.
-> >
-> > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
-> > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
-> 
-> ...
-> 
-> > ---
-> >  security/ipe/Makefile        |   2 +
-> >  security/ipe/policy.c        |  99 +++++++
-> >  security/ipe/policy.h        |  77 ++++++
-> >  security/ipe/policy_parser.c | 515 +++++++++++++++++++++++++++++++++++
-> >  security/ipe/policy_parser.h |  11 +
-> >  5 files changed, 704 insertions(+)
-> >  create mode 100644 security/ipe/policy.c
-> >  create mode 100644 security/ipe/policy.h
-> >  create mode 100644 security/ipe/policy_parser.c
-> >  create mode 100644 security/ipe/policy_parser.h
-> >
-> > diff --git a/security/ipe/Makefile b/security/ipe/Makefile
-> > index 571648579991..16bbe80991f1 100644
-> > --- a/security/ipe/Makefile
-> > +++ b/security/ipe/Makefile
-> > @@ -8,3 +8,5 @@
-> >  obj-$(CONFIG_SECURITY_IPE) += \
-> >         hooks.o \
-> >         ipe.o \
-> > +       policy.o \
-> > +       policy_parser.o \
-> > diff --git a/security/ipe/policy.c b/security/ipe/policy.c
-> > new file mode 100644
-> > index 000000000000..e446f4b84152
-> > --- /dev/null
-> > +++ b/security/ipe/policy.c
-> > @@ -0,0 +1,99 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) Microsoft Corporation. All rights reserved.
-> > + */
-> > +
-> > +#include "ipe.h"
-> > +#include "policy.h"
-> > +#include "policy_parser.h"
-> > +#include "digest.h"
-> > +
-> > +#include <linux/verification.h>
-> 
-> Generally speaking the system/kernel-wide header files, e.g. headers
-> using '<...>', tend to come before the local header files, e.g.
-> headers using '"..."'.  I wouldn't consider this a hard rule, but
-> unless you have a reason to put the local header files first I would
-> stick with convention here.
-> 
+The patches in this thread allow us to use the block pr_ops with LIO's
+target_core_iblock module to support cluster applications in VMs. They
+were built over Linus's tree. They also apply over linux-next and
+Martin's tree and Jens's trees.
 
-I agree we didn't follow the correct common pattern here, I will update
-all header lines in the next version.
+Currently, to use windows clustering or linux clustering (pacemaker +
+cluster labs scsi fence agents) in VMs with LIO and vhost-scsi, you have
+to use tcmu or pscsi or use a cluster aware FS/framework for the LIO pr
+file. Setting up a cluster FS/framework is pain and waste when your real
+backend device is already a distributed device, and pscsi and tcmu are
+nice for specific use cases, but iblock gives you the best performance and
+allows you to use stacked devices like dm-multipath. So these patches
+allow iblock to work like pscsi/tcmu where they can pass a PR command to
+the backend module. And then iblock will use the pr_ops to pass the PR
+command to the real devices similar to what we do for unmap today.
 
-> > +/**
-> > + * ipe_free_policy - Deallocate a given IPE policy.
-> > + * @p: Supplies the policy to free.
-> > + *
-> > + * Safe to call on IS_ERR/NULL.
-> > + */
-> > +void ipe_free_policy(struct ipe_policy *p)
-> > +{
-> > +       if (IS_ERR_OR_NULL(p))
-> > +               return;
-> > +
-> > +       free_parsed_policy(p->parsed);
-> > +       if (!p->pkcs7)
-> > +               kfree(p->text);
-> > +       kfree(p->pkcs7);
-> > +       kfree(p);
-> > +}
-> > +
-> > +static int set_pkcs7_data(void *ctx, const void *data, size_t len,
-> > +                         size_t asn1hdrlen)
-> > +{
-> > +       struct ipe_policy *p = ctx;
-> > +
-> > +       p->text = (const char *)data;
-> > +       p->textlen = len;
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +/**
-> > + * ipe_new_policy - Allocate and parse an ipe_policy structure.
-> > + *
-> > + * @text: Supplies a pointer to the plain-text policy to parse.
-> > + * @textlen: Supplies the length of @text.
-> > + * @pkcs7: Supplies a pointer to a pkcs7-signed IPE policy.
-> > + * @pkcs7len: Supplies the length of @pkcs7.
-> > + *
-> > + * @text/@textlen Should be NULL/0 if @pkcs7/@pkcs7len is set.
-> > + *
-> > + * The result will still need to be associated with a context via
-> > + * ipe_add_policy.
-> > + *
-> > + * Return:
-> > + * * !IS_ERR   - Success
-> > + * * -EBADMSG  - Policy is invalid
-> > + * * -ENOMEM   - Out of memory
-> > + */
-> > +struct ipe_policy *ipe_new_policy(const char *text, size_t textlen,
-> > +                                 const char *pkcs7, size_t pkcs7len)
-> > +{
-> > +       int rc = 0;
-> > +       struct ipe_policy *new = NULL;
-> > +
-> > +       new = kzalloc(sizeof(*new), GFP_KERNEL);
-> > +       if (!new)
-> > +               return ERR_PTR(-ENOMEM);
-> > +
-> > +       if (!text) {
-> > +               new->pkcs7len = pkcs7len;
-> > +               new->pkcs7 = kmemdup(pkcs7, pkcs7len, GFP_KERNEL);
-> > +               if (!new->pkcs7) {
-> > +                       rc = -ENOMEM;
-> > +                       goto err;
-> 
-> As Roberto already pointed out, and you acknowledged, this leaks @new.
-> However, as a FYI for future work, if you have a label with only one
-> return instruction after the jump, e.g. the 'err' label here, you
-> should replace the 'goto' with the single return instruction.  Jumping
-> just to immediately return is a bit silly, but if you also need to
-> cleanup, e.g. free some memory, that's okay to use the goto/jump.
-> 
-> > +               }
-> > +
-> > +               rc = verify_pkcs7_signature(NULL, 0, new->pkcs7, pkcs7len, NULL,
-> > +                                           VERIFYING_UNSPECIFIED_SIGNATURE,
-> > +                                           set_pkcs7_data, new);
-> > +               if (rc)
-> > +                       goto err;
-> > +       } else {
-> > +               new->textlen = textlen;
-> > +               new->text = kstrdup(text, GFP_KERNEL);
-> > +               if (!new->text) {
-> > +                       rc = -ENOMEM;
-> > +                       goto err;
-> > +               }
-> > +       }
-> > +
-> > +       rc = parse_policy(new);
-> > +       if (rc)
-> > +               goto err;
-> > +
-> > +       return new;
-> > +err:
-> > +       return ERR_PTR(rc);
-> > +}
-> 
-> ...
-> 
-> > diff --git a/security/ipe/policy.h b/security/ipe/policy.h
-> > new file mode 100644
-> > index 000000000000..6af2d9a811ec
-> > --- /dev/null
-> > +++ b/security/ipe/policy.h
-> > @@ -0,0 +1,77 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * Copyright (C) Microsoft Corporation. All rights reserved.
-> > + */
-> > +#ifndef IPE_POLICY_H
-> > +#define IPE_POLICY_H
-> > +
-> > +#include <linux/list.h>
-> > +#include <linux/types.h>
-> > +
-> > +enum ipe_op_type {
-> > +       ipe_op_exec = 0,
-> > +       ipe_op_firmware,
-> > +       ipe_op_kernel_module,
-> > +       ipe_op_kexec_image,
-> > +       ipe_op_kexec_initramfs,
-> > +       ipe_op_ima_policy,
-> > +       ipe_op_ima_x509,
-> > +       ipe_op_max
-> > +};
-> 
-> I'm used to seeing enum values defined in ALL_CAPS to help visually
-> distinguish them from variables and other assorted symbols, for
-> example:
-> 
->   enum ipe_op_type {
->     IPE_OP_EXEC = 0,
->     ...
->     IPE_OP_MAX,
->   };
-> 
-> You might also want to consider prefixing IPE_OP_MAX with a couple
-> underscores, e.g. __IPE_OP_MAX, to help distinguish it as a sentinel
-> value and provide some protection in case you think you might ever
-> want an op named "max".  However, this really is a judgement call that
-> is up to you.
-> 
-> (Similar comments apply to the other IPE enums)
-> 
+The patches are separated in the following groups:
+Patch 1 - 2:
+- Add block layer callouts for reading reservations and rename reservation
+  error code.
+Patch 3 - 5:
+- SCSI support for new callouts.
+Patch 6:
+- DM support for new callouts.
+Patch 7 - 13:
+- NVMe support for new callouts.
+Patch 14 - 18:
+- LIO support for new callouts.
 
-Yes this looks much better, I will also update all enums. Thanks for the advice.
+This patchset has been tested with the libiscsi PGR ops and with window's
+failover cluster verification test. Note that for scsi backend devices we
+need this patchset:
 
-> > +enum ipe_action_type {
-> > +       ipe_action_allow = 0,
-> > +       ipe_action_deny,
-> > +       ipe_action_max
-> > +};
-> > +
-> > +enum ipe_prop_type {
-> > +       ipe_prop_max
-> > +};
-> > +
-> > +struct ipe_prop {
-> > +       struct list_head next;
-> > +       enum ipe_prop_type type;
-> > +       void *value;
-> > +};
-> > +
-> > +struct ipe_rule {
-> > +       enum ipe_op_type op;
-> > +       enum ipe_action_type action;
-> > +       struct list_head props;
-> > +       struct list_head next;
-> > +};
-> > +
-> > +struct ipe_op_table {
-> > +       struct list_head rules;
-> > +       enum ipe_action_type default_action;
-> > +};
-> > +
-> > +struct ipe_parsed_policy {
-> > +       const char *name;
-> > +       struct {
-> > +               u16 major;
-> > +               u16 minor;
-> > +               u16 rev;
-> > +       } version;
-> > +
-> > +       enum ipe_action_type global_default_action;
-> > +
-> > +       struct ipe_op_table rules[ipe_op_max];
-> > +};
-> > +
-> > +struct ipe_policy {
-> > +       const char     *pkcs7;
-> > +       size_t          pkcs7len;
-> > +
-> > +       const char     *text;
-> > +       size_t          textlen;
-> > +
-> > +       struct ipe_parsed_policy *parsed;
-> > +};
-> 
-> None of the other structs in this header file have horizontally
-> aligned variable names, you should pick one style and stick with it
-> ... and that style should be the un-aligned style, e.g. what was used
-> in 'struct ipe_rule'
-> 
+https://lore.kernel.org/linux-scsi/20230123221046.125483-1-michael.christie@oracle.com/T/#m4834a643ffb5bac2529d65d40906d3cfbdd9b1b7
 
-Thanks for pointing that out, will also update this part.
+to handle UAs. To reduce the size of this patchset that's being done
+separately to make reviewing easier. And to make merging easier this
+patchset and the one above do not have any conflicts so can be merged
+in different trees.
 
-> > +struct ipe_policy *ipe_new_policy(const char *text, size_t textlen,
-> > +                                 const char *pkcs7, size_t pkcs7len);
-> > +void ipe_free_policy(struct ipe_policy *pol);
-> > +
-> > +#endif /* IPE_POLICY_H */
-> > diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
-> > new file mode 100644
-> > index 000000000000..c7ba0e865366
-> > --- /dev/null
-> > +++ b/security/ipe/policy_parser.c
-> > @@ -0,0 +1,515 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) Microsoft Corporation. All rights reserved.
-> > + */
-> > +
-> > +#include "policy.h"
-> > +#include "policy_parser.h"
-> > +#include "digest.h"
-> > +
-> > +#include <linux/parser.h>
-> > +
-> > +#define START_COMMENT  '#'
-> > +
-> > +/**
-> > + * new_parsed_policy - Allocate and initialize a parsed policy.
-> > + *
-> > + * Return:
-> > + * * !IS_ERR   - OK
-> > + * * -ENOMEM   - Out of memory
-> > + */
-> > +static struct ipe_parsed_policy *new_parsed_policy(void)
-> > +{
-> > +       size_t i = 0;
-> > +       struct ipe_parsed_policy *p = NULL;
-> > +       struct ipe_op_table *t = NULL;
-> > +
-> > +       p = kzalloc(sizeof(*p), GFP_KERNEL);
-> > +       if (!p)
-> > +               return ERR_PTR(-ENOMEM);
-> > +
-> > +       p->global_default_action = ipe_action_max;
-> 
-> I'm assuming you're using the "ipe_action_max" as an intentional bogus
-> placeholder value here, yes?  If that is the case, have you considered
-> creating an "invalid" enum with an explicit zero value to save you
-> this additional assignment (you are already using kzalloc())?  For
-> example:
-> 
->   enum ipe_op_type {
->     IPE_OP_INVALID = 0,
->     IPE_OP_EXEC,
->     ...
->     IPE_OP_MAX,
->   };
-> 
->   enum ipe_action_type {
->     IPE_ACTION_INVALID = 0,
->     IPE_ACTION_ALLOW,
->     ...
->     IPE_ACTION_MAX,
->   };
-> 
+v6:
+- Drop dm use comment.
+- Move scsi pr type conversion code to scsi_common.c/.h.
+- Fix le NVME_EXTENDED_DATA_STRUCT use.
+- Fix sparse warnings like sense_reason_t use.
 
-Yes, IPE_ACTION_MAX is kind of the INVALID value we are using here.
+v5:
+- Use []/struct_size with nvme reservation structs
+- Add Keith's copywrite to pr.c
+- Drop else in nvme_send_pr_command
+- Fix PR_EXCLUSIVE_ACCESS_ALL_REGS use in block_pr_type_from_nvme
 
-But I think we might be adding unnecessary complexity by using the
-IPE_OP_INVLIAD enum here. Currently, we are using IPE_OP_MAX to
-represent the number of operations we have, and we have allocated
-an IPE_OP_MAX-sized array to store linked lists that link all rules
-for each operation. If we were to add IPE_OP_INVLIAD to the enum
-definition, then IPE_OP_MAX-1 would become the number of operations,
-and we would need to change the index used to access the linked list
-array. For example, to get the linked-list head of rules for the
-EXEC operation, we would have to use index IPE_OP_EXEC-1. Is this
-acceptable?
+v4:
+- Pass read_keys number of keys instead of array len
+- Keep the switch use when converting between block and scsi/nvme PR
+types. Drop default case so compiler spits out warning if in the future
+a new value is added.
+- Add helper for handling
+nvme_send_ns_head_pr_command/nvme_send_ns_pr_command
+- Use void * instead of u8* for passing data buffer.
+- Rename status variable to rs.
+- Have caller init buffer/structs instead of nvme/scsi callouts.
+- Drop blk_status to err code.
 
+v3:
+- Fix patch subject formatting.
+- Fix coding style.
+- Rearrange patches so helpers are added with users to avoid compilation
+errors.
+- Move pr type conversion to array and add nvme_pr_type.
+- Add Extended Data Structure control flag enum and use in code for checks.
+- Move nvme pr code to new file.
+- Add more info to patch subjects about why we need to add blk_status
+to pr_ops.
+- Use generic SCSI passthrough error handling interface.
+- Fix checkpatch --strict errors. Note that I kept the existing coding
+style that it complained about because it looked like it was the preferred
+style for the code and I didn't want a mix and match.
 
-> > +       for (i = 0; i < ARRAY_SIZE(p->rules); ++i) {
-> > +               t = &p->rules[i];
-> > +
-> > +               t->default_action = ipe_action_max;
-> > +               INIT_LIST_HEAD(&t->rules);
-> > +       }
-> > +
-> > +       return p;
-> > +}
-> > +
-> > +/**
-> > + * remove_comment - Truncate all chars following START_COMMENT in a string.
-> > + *
-> > + * @line: Supplies a poilcy line string for preprocessing.
-> 
-> "policy" :)
-> 
-> I'm definitely guilty of adding a lot of silly spelling errors to
-> codebases over the years, so no worries here, but in case you haven't
-> seen the codespell tool already, it might be something worth taking a
-> look at sometime.
-> 
-> * https://github.com/codespell-project/codespell
-> 
+v2:
+- Drop BLK_STS_NEXUS rename changes. Will do separately.
+- Add NVMe support.
+- Fixed bug in target_core_iblock where a variable was not initialized
+mentioned by Christoph.
+- Fixed sd pr_ops UA handling issue found when running libiscsi PGR tests.
+- Added patches to allow pr_ops to pass up a BLK_STS so we could return
+a RESERVATION_CONFLICT status when a pr_ops callout fails.
 
-Thanks for the suggestion. I have found several other typos by using this.
-
-> > + */
-> > +static void remove_comment(char *line)
-> > +{
-> > +       size_t i, len = 0;
-> > +
-> > +       len = strlen(line);
-> > +       for (i = 0; i < len && line[i] != START_COMMENT; ++i)
-> > +               ;
-> 
-> The kernel has a strchr() implementation which could simplify this,
-> and possibly speed things up if there is an arch specific optimized
-> implementation.
-> 
-
-Yep this one is better, will switch to use it.
-
-> > +       line[i] = '\0';
-> > +}
-> > +
-> > +/**
-> > + * remove_trailing_spaces - Truncate all trailing spaces in a string.
-> > + *
-> > + * @line: Supplies a poilcy line string for preprocessing.
-> > + */
-> > +static void remove_trailing_spaces(char *line)
-> > +{
-> > +       size_t i, len = 0;
-> > +
-> > +       len = strlen(line);
-> > +       for (i = len; i > 0 && (line[i - 1] == ' ' || line[i - 1] == '\t'); --i)
-> > +               ;
-> 
-> You can probably drop the @len variable and just assign 'i =
-> strlen(line)' in the for-loop initializer.
-> 
-
-Yep, len is redundant here, will remove it.
-
-> > +       line[i] = '\0';
-> > +}
-> > +
-> > +/**
-> > + * parse_version - Parse policy version.
-> > + * @ver: Supplies a version string to be parsed.
-> > + * @p: Supplies the partial parsed policy.
-> > + *
-> > + * Return:
-> > + * * 0 - OK
-> > + * * !0        - Standard errno
-> > + */
-> > +static int parse_version(char *ver, struct ipe_parsed_policy *p)
-> > +{
-> > +       int rc = 0;
-> > +       size_t sep_count = 0;
-> > +       char *token;
-> > +       u16 *const cv[] = { &p->version.major, &p->version.minor, &p->version.rev };
-> > +
-> > +       while ((token = strsep(&ver, ".")) != NULL) {
-> > +               /* prevent overflow */
-> > +               if (sep_count >= ARRAY_SIZE(cv)) {
-> > +                       rc = -EBADMSG;
-> > +                       goto err;
-> 
-> Remember what I said above about not needing a 'goto' here? ;)
-> 
-
-Yes just return is enough, will update it.
-
-> > +               }
-> > +
-> > +               rc = kstrtou16(token, 10, cv[sep_count]);
-> > +               if (rc)
-> > +                       goto err;
-> > +
-> > +               ++sep_count;
-> > +       }
-> > +
-> > +       /* prevent underflow */
-> > +       if (sep_count != ARRAY_SIZE(cv))
-> > +               rc = -EBADMSG;
-> > +
-> > +err:
-> > +       return rc;
-> > +}
-> > +
-> > +enum header_opt {
-> > +       ipe_header_policy_name = 0,
-> > +       ipe_header_policy_version,
-> > +       ipe_header_max
-> > +};
-> > +
-> > +static const match_table_t header_tokens = {
-> > +       {ipe_header_policy_name,        "policy_name=%s"},
-> > +       {ipe_header_policy_version,     "policy_version=%s"},
-> > +       {ipe_header_max,                NULL}
-> > +};
-> > +
-> > +/**
-> > + * parse_header - Parse policy header information.
-> > + * @line: Supplies header line to be parsed.
-> > + * @p: Supplies the partial parsed policy.
-> > + *
-> > + * Return:
-> > + * * 0 - OK
-> > + * * !0        - Standard errno
-> > + */
-> > +static int parse_header(char *line, struct ipe_parsed_policy *p)
-> > +{
-> > +       int rc = 0;
-> > +       char *t, *ver = NULL;
-> > +       substring_t args[MAX_OPT_ARGS];
-> > +       size_t idx = 0;
-> > +
-> > +       while ((t = strsep(&line, " \t")) != NULL) {
-> > +               int token;
-> > +
-> > +               if (*t == '\0')
-> > +                       continue;
-> > +               if (idx >= ipe_header_max) {
-> > +                       rc = -EBADMSG;
-> > +                       goto err;
-> > +               }
-> > +
-> > +               token = match_token(t, header_tokens, args);
-> > +               if (token != idx) {
-> > +                       rc = -EBADMSG;
-> > +                       goto err;
-> > +               }
-> > +
-> > +               switch (token) {
-> > +               case ipe_header_policy_name:
-> > +                       p->name = match_strdup(&args[0]);
-> > +                       if (!p->name)
-> > +                               rc = -ENOMEM;
-> > +                       break;
-> > +               case ipe_header_policy_version:
-> > +                       ver = match_strdup(&args[0]);
-> > +                       if (!ver) {
-> > +                               rc = -ENOMEM;
-> > +                               break;
-> > +                       }
-> > +                       rc = parse_version(ver, p);
-> > +                       break;
-> > +               default:
-> > +                       rc = -EBADMSG;
-> > +               }
-> > +               if (rc)
-> > +                       goto err;
-> > +               ++idx;
-> > +       }
-> > +
-> > +       if (idx != ipe_header_max) {
-> > +               rc = -EBADMSG;
-> > +               goto err;
-> > +       }
-> > +       goto out;
-> 
-> Generally the normal, non-error case is structured so that the
-> function can continue to fall through to the correct code without
-> needed a 'goto'.  I would suggest moving the 'err' label/code *after*
-> the 'out' label/code so the normal case can just fall through without
-> the goto; you will have to add a 'goto out' at the end of 'err', but
-> that's the error case so we aren't going to worry too much about that.
-> 
-> Put another (shorter) way, structure your code to optimize for the
-> common, non-error case.
-> 
-> Needless to say, this applies to other functions in this patch(set).
-> 
-
-Thanks for pointing that out, I will update all the cases like this one.
-
-> > +err:
-> > +       kfree(p->name);
-> > +       p->name = NULL;
-> > +out:
-> > +       kfree(ver);
-> > +       return rc;
-> > +}
-> > +
-> > +/**
-> > + * is_default - Determine if the given token is "DEFAULT".
-> > + * @token: Supplies the token string to be compared.
-> > + *
-> > + * Return:
-> > + * * 0 - The token is not "DEFAULT"
-> > + * * !0        - The token is "DEFAULT"
-> > + */
-> > +static bool is_default(char *token)
-> > +{
-> > +       return !strcmp(token, "DEFAULT");
-> > +}
-> 
-> Let's be honest, "is_default()" isn't a great name, and it's a pretty
-> trivial function too; I'm wondering if hiding the simple strcmp()
-> behind an oddly named function is really all that helpful.  I'm okay
-> if you want to keep the function, but can we name it something else?
-> Maybe "token_default(...)" or something similar?
-> 
-
-I agree, I will take the name token_default.
-
-> > +/**
-> > + * free_rule - Free the supplied ipe_rule struct.
-> > + * @r: Supplies the ipe_rule struct to be freed.
-> > + */
-> 
-> It might be worth mentioning that @r should be removed from any lists,
-> e.g. list_empty() is true.
-> 
-> > +static void free_rule(struct ipe_rule *r)
-> > +{
-> > +       struct ipe_prop *p, *t;
-> > +
-> > +       if (IS_ERR_OR_NULL(r))
-> > +               return;
-> > +
-> > +       list_for_each_entry_safe(p, t, &r->props, next) {
-> > +               kfree(p);
-> > +       }
-> 
-> That's interesting, I'm used to seeing a 'list_del()' call (or
-> similar) before the list entry is freed.  Although looking at
-> list_for_each_entry_safe() I guess it is safe with the current
-> implementation ... did you see this pattern elsewhere in the kernel?
-> If so, where?
-> 
-> Unless this is performance critical (I don't think it is?), it might
-> be safer to do an explicit `list_del()` before free'ing the entries
-> ... unless this is now a common pattern in the kernel and I just
-> missed the memo.
-> 
-
-I have double checked other use cases and found we were indeed wrong
-here, I will add list_del calls in the next version.
-
-> > +       kfree(r);
-> > +}
-> > +
-> > +static const match_table_t operation_tokens = {
-> > +       {ipe_op_exec,                   "op=EXECUTE"},
-> > +       {ipe_op_firmware,               "op=FIRMWARE"},
-> > +       {ipe_op_kernel_module,          "op=KMODULE"},
-> > +       {ipe_op_kexec_image,            "op=KEXEC_IMAGE"},
-> > +       {ipe_op_kexec_initramfs,        "op=KEXEC_INITRAMFS"},
-> > +       {ipe_op_ima_policy,             "op=IMA_POLICY"},
-> > +       {ipe_op_ima_x509,               "op=IMA_X509_CERT"},
-> > +       {ipe_op_max,                    NULL}
-> > +};
-> > +
-> > +/**
-> > + * parse_operation - Parse the opeartion type given a token string.
-> > + * @t: Supplies the token string to be parsed.
-> > + *
-> > + * Return: The parsed opeartion type.
-> > + */
-> > +static enum ipe_op_type parse_operation(char *t)
-> > +{
-> > +       substring_t args[MAX_OPT_ARGS];
-> > +
-> > +       return match_token(t, operation_tokens, args);
-> > +}
-> > +
-> > +static const match_table_t action_tokens = {
-> > +       {ipe_action_allow,      "action=ALLOW"},
-> > +       {ipe_action_deny,       "action=DENY"},
-> > +       {ipe_action_max,        NULL}
-> > +};
-> > +
-> > +/**
-> > + * parse_action - Parse the action type given a token string.
-> > + * @t: Supplies the token string to be parsed.
-> > + *
-> > + * Return: The parsed action type.
-> > + */
-> > +static enum ipe_action_type parse_action(char *t)
-> > +{
-> > +       substring_t args[MAX_OPT_ARGS];
-> > +
-> > +       return match_token(t, action_tokens, args);
-> > +}
-> > +
-> > +static const match_table_t property_tokens = {
-> > +       {ipe_prop_max,                                  NULL}
-> > +};
-> > +
-> > +/**
-> > + * parse_property - Parse the property type given a token string.
-> > + * @t: Supplies the token string to be parsed.
-> > + * @r: Supplies the ipe_rule the parsed property will be associated with.
-> > + *
-> > + * Return:
-> > + * * !IS_ERR   - OK
-> > + * * -ENOMEM   - Out of memory
-> > + * * -EBADMSG  - The supplied token cannot be parsed
-> > + */
-> > +int parse_property(char *t, struct ipe_rule *r)
-> > +{
-> > +       substring_t args[MAX_OPT_ARGS];
-> > +       struct ipe_prop *p = NULL;
-> > +       int rc = 0;
-> > +       int token;
-> > +       char *dup = NULL;
-> > +
-> > +       p = kzalloc(sizeof(*p), GFP_KERNEL);
-> > +       if (!p) {
-> > +               rc = -ENOMEM;
-> > +               goto err;
-> > +       }
-> > +
-> > +       token = match_token(t, property_tokens, args);
-> > +
-> > +       switch (token) {
-> > +       case ipe_prop_max:
-> > +       default:
-> > +               rc = -EBADMSG;
-> > +               break;
-> > +       }
-> > +       list_add_tail(&p->next, &r->props);
-> > +
-> > +err:
-> > +       kfree(dup);
-> > +       return rc;
-> > +}
-> 
-> There is a lot of stuff in 'parse_property()' that doesn't make sense
-> at this point in the patchset, including lots of unused variables.
-> Considering that no valid properties are defined yet, why not just
-> make this function return -EBADMSG in this patch?  You can always
-> populate it later when it becomes useful.
-> 
-> int parse_property(...)
-> {
->   return -EBADMSG;
-> }
-> 
-
-Sure, I can restructure the patch to add them in the later patches.
-
-> > +/**
-> > + * parse_rule - parse a policy rule line.
-> > + * @line: Supplies rule line to be parsed.
-> > + * @p: Supplies the partial parsed policy.
-> > + *
-> > + * Return:
-> > + * * !IS_ERR   - OK
-> > + * * -ENOMEM   - Out of memory
-> > + * * -EBADMSG  - Policy syntax error
-> > + */
-> > +static int parse_rule(char *line, struct ipe_parsed_policy *p)
-> > +{
-> > +       int rc = 0;
-> > +       bool first_token = true, is_default_rule = false;
-> > +       bool op_parsed = false;
-> > +       enum ipe_op_type op = ipe_op_max;
-> > +       enum ipe_action_type action = ipe_action_max;
-> > +       struct ipe_rule *r = NULL;
-> > +       char *t;
-> > +
-> > +       r = kzalloc(sizeof(*r), GFP_KERNEL);
-> > +       if (!r) {
-> > +               rc = -ENOMEM;
-> > +               goto err;
-> > +       }
-> > +
-> > +       INIT_LIST_HEAD(&r->next);
-> > +       INIT_LIST_HEAD(&r->props);
-> > +
-> > +       while (t = strsep(&line, " \t"), line) {
-> > +               if (*t == '\0')
-> > +                       continue;
-> > +               if (first_token && is_default(t)) {
-> > +                       is_default_rule = true;
-> > +               } else {
-> > +                       if (!op_parsed) {
-> > +                               op = parse_operation(t);
-> > +                               if (op == ipe_op_max)
-> > +                                       rc = -EBADMSG;
-> > +                               else
-> > +                                       op_parsed = true;
-> > +                       } else {
-> > +                               rc = parse_property(t, r);
-> > +                       }
-> > +               }
-> > +
-> > +               if (rc)
-> > +                       goto err;
-> > +               first_token = false;
-> > +       }
-> > +
-> > +       action = parse_action(t);
-> > +       if (action == ipe_action_max) {
-> > +               rc = -EBADMSG;
-> > +               goto err;
-> > +       }
-> > +
-> > +       if (is_default_rule) {
-> > +               if (op == ipe_op_max) {
-> > +                       if (p->global_default_action != ipe_action_max)
-> > +                               rc = -EBADMSG;
-> > +                       else
-> > +                               p->global_default_action = action;
-> > +               } else {
-> > +                       if (p->rules[op].default_action != ipe_action_max)
-> > +                               rc = -EBADMSG;
-> > +                       else
-> > +                               p->rules[op].default_action = action;
-> > +               }
-> > +               free_rule(r);
-> > +       } else if (op != ipe_op_max && action != ipe_action_max) {
-> > +               r->op = op;
-> > +               r->action = action;
-> > +               list_add_tail(&r->next, &p->rules[op].rules);
-> 
-> There is no way @rc could be non-zero here, right?  If there is some
-> chance of it being non-zero we could have a problem with the @rc check
-> below jumping us to the 'err' label and free'ing a rule that has been
-> added to the list.
-> 
-> It might be better to move the list addition after the last error check.
-> 
-
-Yes, rc cannot be non-zero here because all the rc assignments will just
-go to the 'err' label. But I also agree that moving the list addition after
-the last error check can avoid potential bugs in the future. I will update this part.
-
-> > +       } else {
-> > +               rc = -EBADMSG;
-> > +       }
-> > +
-> > +       if (rc)
-> > +               goto err;
-> > +
-> > +       goto out;
-> > +
-> > +err:
-> > +       free_rule(r);
-> > +out:
-> > +       return rc;
-> > +}
-> > +
-> > +/**
-> > + * free_parsed_policy - free a parsed policy structure.
-> > + * @p: Supplies the parsed policy.
-> > + */
-> > +void free_parsed_policy(struct ipe_parsed_policy *p)
-> > +{
-> > +       size_t i = 0;
-> > +       struct ipe_rule *pp, *t;
-> > +
-> > +       if (IS_ERR_OR_NULL(p))
-> > +               return;
-> > +
-> > +       for (i = 0; i < ARRAY_SIZE(p->rules); ++i)
-> > +               list_for_each_entry_safe(pp, t, &p->rules[i].rules, next)
-> > +                       free_rule(pp);
-> > +
-> > +       kfree(p);
-> > +}
-> > +
-> > +/**
-> > + * validate_policy - validate a parsed policy.
-> > + * @p: Supplies the fully parsed policy.
-> > + *
-> > + * Given a policy structure that was just parsed, validate that all
-> > + * necessary fields are present, initialized correctly, and all lines
-> > + * parsed are have been consumed.
-> > + *
-> > + * A parsed policy can be an invalid state for use (a default was
-> > + * undefined, a header was undefined) by just parsing the policy.
-> > + *
-> > + * Return:
-> > + * * 0         - OK
-> > + * * -EBADMSG  - Policy is invalid
-> > + */
-> > +static int validate_policy(const struct ipe_parsed_policy *p)
-> > +{
-> > +       int i = 0;
-> > +
-> > +       if (p->global_default_action != ipe_action_max)
-> > +               return 0;
-> > +
-> > +       for (i = 0; i < ARRAY_SIZE(p->rules); ++i) {
-> > +               if (p->rules[i].default_action == ipe_action_max)
-> > +                       return -EBADMSG;
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +/**
-> > + * parse_policy - Given a string, parse the string into an IPE policy.
-> > + * @p: partially filled ipe_policy structure to populate with the result.
-> > + *     it must have text and textlen set.
-> > + *
-> > + * Return:
-> > + * * 0         - OK
-> > + * * -EBADMSG  - Policy is invalid
-> > + * * -ENOMEM   - Out of Memory
-> > + */
-> > +int parse_policy(struct ipe_policy *p)
-> > +{
-> > +       int rc = 0;
-> > +       size_t len;
-> > +       char *policy = NULL, *dup = NULL;
-> > +       char *line = NULL;
-> > +       bool header_parsed = false;
-> > +       struct ipe_parsed_policy *pp = NULL;
-> > +
-> > +       if (!p->textlen)
-> > +               return -EBADMSG;
-> > +
-> > +       policy = kmemdup_nul(p->text, p->textlen, GFP_KERNEL);
-> > +       if (!policy)
-> > +               return -ENOMEM;
-> > +       dup = policy;
-> > +
-> > +       pp = new_parsed_policy();
-> > +       if (IS_ERR(pp)) {
-> > +               rc = PTR_ERR(pp);
-> > +               goto out;
-> > +       }
-> > +
-> > +       while ((line = strsep(&policy, "\n\r")) != NULL) {
-> > +               remove_comment(line);
-> > +               remove_trailing_spaces(line);
-> 
-> I think it might be very easy for 'remove_trailing_spaces()' to return
-> the length of the string as it already knows where the string ends;
-> perhaps the function could return the string length and we could get
-> rid of the 'strlen()' call below?
-> 
-
-Yes that's very easy, I will add a return value to remove_trailing_spaces().
-
-> > +               len = strlen(line);
-> > +               if (!len)
-> > +                       continue;
-> > +
-> > +               if (!header_parsed) {
-> > +                       rc = parse_header(line, pp);
-> > +                       if (rc)
-> > +                               goto err;
-> > +                       header_parsed = true;
-> > +                       continue;
-> 
-> Instead of the 'continue' above, why not just put the 'parse_rule()'
-> call into the 'else' block of this if-then-else?
-> 
-
-I agree that's a better structure, I will switch to use 'else'.
-
--Fan
-
-> > +               }
-> > +
-> > +               rc = parse_rule(line, pp);
-> > +               if (rc)
-> > +                       goto err;
-> > +       }
-> > +
-> > +       if (!header_parsed || validate_policy(pp)) {
-> > +               rc = -EBADMSG;
-> > +               goto err;
-> > +       }
-> > +
-> > +       p->parsed = pp;
-> > +
-> > +       goto out;
-> > +err:
-> > +       free_parsed_policy(pp);
-> > +out:
-> > +       kfree(dup);
-> > +
-> > +       return rc;
-> > +}
-> > diff --git a/security/ipe/policy_parser.h b/security/ipe/policy_parser.h
-> > new file mode 100644
-> > index 000000000000..699ca58a5a32
-> > --- /dev/null
-> > +++ b/security/ipe/policy_parser.h
-> > @@ -0,0 +1,11 @@
-> > +/* SPDX-License-Identifier: GPL-2.0 */
-> > +/*
-> > + * Copyright (C) Microsoft Corporation. All rights reserved.
-> > + */
-> > +#ifndef IPE_POLICY_PARSER_H
-> > +#define IPE_POLICY_PARSER_H
-> > +
-> > +int parse_policy(struct ipe_policy *p);
-> > +void free_parsed_policy(struct ipe_parsed_policy *p);
-> > +
-> > +#endif /* IPE_POLICY_PARSER */
-> > --
-> > 2.39.0
-> 
-> --
-> paul-moore.com
 
 --
 dm-devel mailing list
