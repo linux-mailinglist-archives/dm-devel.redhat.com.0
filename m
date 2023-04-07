@@ -2,92 +2,96 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 170DD6DD31B
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8673A6DD336
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:37 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681195468;
+	s=mimecast20190719; t=1681195476;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=IEZDw72vGvYHKP/R+sD5/qYG6BWWi5cA0JdvPF3AoGU=;
-	b=aD5T3WyX4Y1/qi3JGNfy8NQJlI0PjyvDgSaqWxDK3NHyMRGamuQX4ko+PkvtZmxTkNEtOn
-	vUvaxQIlHH0Z+ghk+iUBH/ZJ7wC9Ew/+pQYtBwr87PrJi9jMaWHB1jCitfjKZrMB8vYy+Q
-	CsyCCBS7JrTo0GqfDHwKUcHHoZ2EZqU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ujRszSJD/JSVDrr6PuvZ9u7jpzSEPHthZWA3WLReZEw=;
+	b=Jy6iJHzyuits4LZ4KUSbf5e13oGGXA+Yb6m7MMMXNduKwHaECqxbFMmRH5gvaK5nszzTkT
+	vFm/inYV/w0YVCAbOfkhjcbMp29m4BJhJOvsg1Ha4QjaSBQgIEscqBpUAsA2AQHg503/3T
+	esqWtVdcylZWWG0tS+7uXF8Cpvau1zE=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-620-EfExFjbWNLGU6hpdDVOElQ-1; Tue, 11 Apr 2023 02:44:26 -0400
-X-MC-Unique: EfExFjbWNLGU6hpdDVOElQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-88-ZicgfZcOMciJzWjlvBfIuA-1; Tue, 11 Apr 2023 02:44:32 -0400
+X-MC-Unique: ZicgfZcOMciJzWjlvBfIuA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7ACC08996ED;
-	Tue, 11 Apr 2023 06:44:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5E4AB1C07820;
+	Tue, 11 Apr 2023 06:44:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DD18A407D452;
-	Tue, 11 Apr 2023 06:44:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 44AC6492B01;
+	Tue, 11 Apr 2023 06:44:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5B4AD19472C8;
-	Tue, 11 Apr 2023 06:44:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 97CE01946A62;
+	Tue, 11 Apr 2023 06:44:14 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 461BA19465B5
+ ESMTP id 925AD19465B5
  for <dm-devel@listman.corp.redhat.com>; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 33B081121315; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
+ id 83F2040C6E1E; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2BE861121314
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B8D340C6EC4
  for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09D7A380610A
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6079E101A531
  for <dm-devel@redhat.com>; Fri,  7 Apr 2023 20:06:19 +0000 (UTC)
 Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
  [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-231-_AIxQPKQNUOfN5sW_LoiZQ-1; Fri, 07 Apr 2023 16:06:17 -0400
-X-MC-Unique: _AIxQPKQNUOfN5sW_LoiZQ-1
-Received: from pps.filterd (m0333520.ppops.net [127.0.0.1])
+ us-mta-529-LxgotKueNDWIf_8K3tcTiA-1; Fri, 07 Apr 2023 16:06:17 -0400
+X-MC-Unique: LxgotKueNDWIf_8K3tcTiA-1
+Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
  by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 337FwobR017328; Fri, 7 Apr 2023 20:05:56 GMT
+ 337FxDxn018772; Fri, 7 Apr 2023 20:05:59 GMT
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
  (iadpaimrmta02.appoci.oracle.com [147.154.18.20])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ppcnd5wu4-1
+ by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3ppb1dwryg-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 07 Apr 2023 20:05:56 +0000
+ Fri, 07 Apr 2023 20:05:59 +0000
 Received: from pps.filterd
  (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 337J0UK9034219; Fri, 7 Apr 2023 20:05:55 GMT
+ with ESMTP id 337J0UKA034219; Fri, 7 Apr 2023 20:05:58 GMT
 Received: from pps.reinject (localhost [127.0.0.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id
- 3pptjxeec5-1
+ 3pptjxeedu-1
  (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Fri, 07 Apr 2023 20:05:55 +0000
+ Fri, 07 Apr 2023 20:05:58 +0000
 Received: from iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com
  (iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 337K5tqq010228;
- Fri, 7 Apr 2023 20:05:55 GMT
+ by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 337K5tqs010228;
+ Fri, 7 Apr 2023 20:05:57 GMT
 Received: from mnchrist-mac.us.oracle.com (dhcp-10-154-128-1.vpn.oracle.com
  [10.154.128.1])
  by iadpaimrmta02.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTP id
- 3pptjxeeam-1; Fri, 07 Apr 2023 20:05:54 +0000
+ 3pptjxeeam-2; Fri, 07 Apr 2023 20:05:57 +0000
 From: Mike Christie <michael.christie@oracle.com>
 To: bvanassche@acm.org, hch@lst.de, martin.petersen@oracle.com,
  linux-scsi@vger.kernel.org, james.bottomley@hansenpartnership.com,
  linux-block@vger.kernel.org, dm-devel@redhat.com, snitzer@kernel.org,
  axboe@kernel.dk, linux-nvme@lists.infradead.org, chaitanyak@nvidia.com,
  kbusch@kernel.org, target-devel@vger.kernel.org
-Date: Fri,  7 Apr 2023 15:05:33 -0500
-Message-Id: <20230407200551.12660-1-michael.christie@oracle.com>
+Date: Fri,  7 Apr 2023 15:05:34 -0500
+Message-Id: <20230407200551.12660-2-michael.christie@oracle.com>
+In-Reply-To: <20230407200551.12660-1-michael.christie@oracle.com>
+References: <20230407200551.12660-1-michael.christie@oracle.com>
 MIME-Version: 1.0
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.254,Aquarius:18.0.942,Hydra:6.0.573,FMLib:17.11.170.22
@@ -97,8 +101,8 @@ X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 malwarescore=0
  phishscore=0 bulkscore=0 mlxscore=0 suspectscore=0 spamscore=0
  mlxlogscore=999 classifier=spam adjust=0 reason=mlx scancount=1
  engine=8.12.0-2303200000 definitions=main-2304070180
-X-Proofpoint-GUID: iHg0PBtxfmh4W4-XsTYDZ3rbexyC2Cq0
-X-Proofpoint-ORIG-GUID: iHg0PBtxfmh4W4-XsTYDZ3rbexyC2Cq0
+X-Proofpoint-GUID: fz2bR8uJalfGpOtkd4fkrJ4HH4S8UKmz
+X-Proofpoint-ORIG-GUID: fz2bR8uJalfGpOtkd4fkrJ4HH4S8UKmz
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -106,9 +110,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Tue, 11 Apr 2023 06:44:09 +0000
-Subject: [dm-devel] [PATCH v6 00/18] Use block pr_ops in LIO
+Subject: [dm-devel] [PATCH v6 01/18] block: Add PR callouts for read keys
+ and reservation
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,102 +125,73 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Cc: Chaitanya Kulkarni <kch@nvidia.com>,
+ Mike Christie <michael.christie@oracle.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: oracle.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The patches in this thread allow us to use the block pr_ops with LIO's
-target_core_iblock module to support cluster applications in VMs. They
-were built over Linus's tree. They also apply over linux-next and
-Martin's tree and Jens's trees.
+Add callouts for reading keys and reservations. This allows LIO to support
+the READ_KEYS and READ_RESERVATION commands so it can export devices to
+VMs for software like windows clustering.
 
-Currently, to use windows clustering or linux clustering (pacemaker +
-cluster labs scsi fence agents) in VMs with LIO and vhost-scsi, you have
-to use tcmu or pscsi or use a cluster aware FS/framework for the LIO pr
-file. Setting up a cluster FS/framework is pain and waste when your real
-backend device is already a distributed device, and pscsi and tcmu are
-nice for specific use cases, but iblock gives you the best performance and
-allows you to use stacked devices like dm-multipath. So these patches
-allow iblock to work like pscsi/tcmu where they can pass a PR command to
-the backend module. And then iblock will use the pr_ops to pass the PR
-command to the real devices similar to what we do for unmap today.
+Signed-off-by: Mike Christie <michael.christie@oracle.com>
+Reviewed-by: Chaitanya Kulkarni <kch@nvidia.com>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Bart Van Assche <bvanassche@acm.org>
+---
+ include/linux/pr.h | 25 +++++++++++++++++++++++++
+ 1 file changed, 25 insertions(+)
 
-The patches are separated in the following groups:
-Patch 1 - 2:
-- Add block layer callouts for reading reservations and rename reservation
-  error code.
-Patch 3 - 5:
-- SCSI support for new callouts.
-Patch 6:
-- DM support for new callouts.
-Patch 7 - 13:
-- NVMe support for new callouts.
-Patch 14 - 18:
-- LIO support for new callouts.
-
-This patchset has been tested with the libiscsi PGR ops and with window's
-failover cluster verification test. Note that for scsi backend devices we
-need this patchset:
-
-https://lore.kernel.org/linux-scsi/20230123221046.125483-1-michael.christie@oracle.com/T/#m4834a643ffb5bac2529d65d40906d3cfbdd9b1b7
-
-to handle UAs. To reduce the size of this patchset that's being done
-separately to make reviewing easier. And to make merging easier this
-patchset and the one above do not have any conflicts so can be merged
-in different trees.
-
-v6:
-- Drop dm use comment.
-- Move scsi pr type conversion code to scsi_common.c/.h.
-- Fix le NVME_EXTENDED_DATA_STRUCT use.
-- Fix sparse warnings like sense_reason_t use.
-
-v5:
-- Use []/struct_size with nvme reservation structs
-- Add Keith's copywrite to pr.c
-- Drop else in nvme_send_pr_command
-- Fix PR_EXCLUSIVE_ACCESS_ALL_REGS use in block_pr_type_from_nvme
-
-v4:
-- Pass read_keys number of keys instead of array len
-- Keep the switch use when converting between block and scsi/nvme PR
-types. Drop default case so compiler spits out warning if in the future
-a new value is added.
-- Add helper for handling
-nvme_send_ns_head_pr_command/nvme_send_ns_pr_command
-- Use void * instead of u8* for passing data buffer.
-- Rename status variable to rs.
-- Have caller init buffer/structs instead of nvme/scsi callouts.
-- Drop blk_status to err code.
-
-v3:
-- Fix patch subject formatting.
-- Fix coding style.
-- Rearrange patches so helpers are added with users to avoid compilation
-errors.
-- Move pr type conversion to array and add nvme_pr_type.
-- Add Extended Data Structure control flag enum and use in code for checks.
-- Move nvme pr code to new file.
-- Add more info to patch subjects about why we need to add blk_status
-to pr_ops.
-- Use generic SCSI passthrough error handling interface.
-- Fix checkpatch --strict errors. Note that I kept the existing coding
-style that it complained about because it looked like it was the preferred
-style for the code and I didn't want a mix and match.
-
-v2:
-- Drop BLK_STS_NEXUS rename changes. Will do separately.
-- Add NVMe support.
-- Fixed bug in target_core_iblock where a variable was not initialized
-mentioned by Christoph.
-- Fixed sd pr_ops UA handling issue found when running libiscsi PGR tests.
-- Added patches to allow pr_ops to pass up a BLK_STS so we could return
-a RESERVATION_CONFLICT status when a pr_ops callout fails.
-
+diff --git a/include/linux/pr.h b/include/linux/pr.h
+index 94ceec713afe..3003daec28a5 100644
+--- a/include/linux/pr.h
++++ b/include/linux/pr.h
+@@ -4,6 +4,18 @@
+ 
+ #include <uapi/linux/pr.h>
+ 
++struct pr_keys {
++	u32	generation;
++	u32	num_keys;
++	u64	keys[];
++};
++
++struct pr_held_reservation {
++	u64		key;
++	u32		generation;
++	enum pr_type	type;
++};
++
+ struct pr_ops {
+ 	int (*pr_register)(struct block_device *bdev, u64 old_key, u64 new_key,
+ 			u32 flags);
+@@ -14,6 +26,19 @@ struct pr_ops {
+ 	int (*pr_preempt)(struct block_device *bdev, u64 old_key, u64 new_key,
+ 			enum pr_type type, bool abort);
+ 	int (*pr_clear)(struct block_device *bdev, u64 key);
++	/*
++	 * pr_read_keys - Read the registered keys and return them in the
++	 * pr_keys->keys array. The keys array will have been allocated at the
++	 * end of the pr_keys struct, and pr_keys->num_keys must be set to the
++	 * number of keys the array can hold. If there are more than can fit
++	 * in the array, success will still be returned and pr_keys->num_keys
++	 * will reflect the total number of keys the device contains, so the
++	 * caller can retry with a larger array.
++	 */
++	int (*pr_read_keys)(struct block_device *bdev,
++			struct pr_keys *keys_info);
++	int (*pr_read_reservation)(struct block_device *bdev,
++			struct pr_held_reservation *rsv);
+ };
+ 
+ #endif /* LINUX_PR_H */
+-- 
+2.25.1
 
 --
 dm-devel mailing list
