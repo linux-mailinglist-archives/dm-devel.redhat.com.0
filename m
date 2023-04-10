@@ -2,72 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5E48E6DCCC6
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Apr 2023 23:22:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 469A86DD32B
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:35 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681161765;
+	s=mimecast20190719; t=1681195473;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=FK/+KOiKUzJjb1tg5b0Nk3LMZ56gu4Ouyh0bpjWJNEE=;
-	b=ilDEryE3ZIS7TVZbpsnnNOATp4xNhpLWr/sBKrau+ieWPAVriz4KlOR1zo8JR013PXz/6o
-	uRbRgKr6qOKMSINEdtayXNftcF2m5evnr9uaRKixfsviZqsmHzQqE4LIztINjl23K/mCVg
-	JxMFfK3f6M/CycK6udOA7MGCQAy8iKI=
+	bh=5qLeDSRPMFo8LED/9fWtTwWmsCMpGOHnZyBJkTnyy8I=;
+	b=Fk81e6lo5z+DfHsYop+JRR+pjoAmsQP8yCsN5WR1iR1UZ/4IgtUVLNcLZHG6HRdE6Ov5yp
+	/SbRK81k1Zqv7sJ+yGTaXwfoCpzIXjjswwYANn2BkJF12YG6Vo2nCTdxwLMzV434E7RjXl
+	ezbmm1InKp9hkzn5F9HkarhZUtWwkXw=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-184-B6jyR-QUOEuS7BPAoA_Lww-1; Mon, 10 Apr 2023 17:22:42 -0400
-X-MC-Unique: B6jyR-QUOEuS7BPAoA_Lww-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-208-74lQPF78MBiefOD5eg7JIQ-1; Tue, 11 Apr 2023 02:44:29 -0400
+X-MC-Unique: 74lQPF78MBiefOD5eg7JIQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 49CAD3C0E440;
-	Mon, 10 Apr 2023 21:22:40 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 74DF01121320;
-	Mon, 10 Apr 2023 21:22:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EF22038221DC;
+	Tue, 11 Apr 2023 06:44:22 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D41E72027EAC;
+	Tue, 11 Apr 2023 06:44:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 19E5C1946A44;
-	Mon, 10 Apr 2023 21:22:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4297719472C5;
+	Tue, 11 Apr 2023 06:44:13 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 40F8D1946586
- for <dm-devel@listman.corp.redhat.com>; Mon, 10 Apr 2023 21:22:34 +0000 (UTC)
+ ESMTP id 6A1C91946586
+ for <dm-devel@listman.corp.redhat.com>; Mon, 10 Apr 2023 23:12:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3068A2166B31; Mon, 10 Apr 2023 21:22:34 +0000 (UTC)
+ id 58B73112132D; Mon, 10 Apr 2023 23:12:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 298982166B30
- for <dm-devel@redhat.com>; Mon, 10 Apr 2023 21:22:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 063BB1C041A1
- for <dm-devel@redhat.com>; Mon, 10 Apr 2023 21:22:34 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-573-_YhwIxpRNRWUBsIIdj7soA-1; Mon,
- 10 Apr 2023 17:22:29 -0400
-X-MC-Unique: _YhwIxpRNRWUBsIIdj7soA-1
-Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 029D62121ED9; Mon, 10 Apr 2023 14:22:28 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 029D62121ED9
-Date: Mon, 10 Apr 2023 14:22:27 -0700
-From: Fan Wu <wufan@linux.microsoft.com>
-To: Paul Moore <paul@paul-moore.com>
-Message-ID: <20230410212227.GC18827@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
- <1675119451-23180-7-git-send-email-wufan@linux.microsoft.com>
- <CAHC9VhRX4-=SSAkb0f2722dJ9JGudTyT-B=t8uoRqA8efwcoSg@mail.gmail.com>
-MIME-Version: 1.0
-In-Reply-To: <CAHC9VhRX4-=SSAkb0f2722dJ9JGudTyT-B=t8uoRqA8efwcoSg@mail.gmail.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 51C2C1121320
+ for <dm-devel@redhat.com>; Mon, 10 Apr 2023 23:12:44 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 330B3885620
+ for <dm-devel@redhat.com>; Mon, 10 Apr 2023 23:12:44 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-675-3t8kpD9MMDOO3h91duOtOg-1; Mon, 10 Apr 2023 19:12:42 -0400
+X-MC-Unique: 3t8kpD9MMDOO3h91duOtOg-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="340962485"
+X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="340962485"
+Received: from fmsmga004.fm.intel.com ([10.253.24.48])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 10 Apr 2023 16:11:38 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="757607987"
+X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="757607987"
+Received: from chang-linux-3.sc.intel.com ([172.25.66.173])
+ by fmsmga004.fm.intel.com with ESMTP; 10 Apr 2023 16:11:38 -0700
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+To: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
+ dm-devel@redhat.com
+Date: Mon, 10 Apr 2023 15:59:24 -0700
+Message-Id: <20230410225936.8940-1-chang.seok.bae@intel.com>
+In-Reply-To: <20220112211258.21115-1-chang.seok.bae@intel.com>
+References: <20220112211258.21115-1-chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,9 +81,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [RFC PATCH v9 06/16] ipe: add LSM hooks on execution
- and kernel read
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mailman-Approved-At: Tue, 11 Apr 2023 06:44:09 +0000
+Subject: [dm-devel] [PATCH v6 00/12] x86: Support Key Locker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,286 +95,179 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
- dm-devel@redhat.com, corbet@lwn.net, roberto.sassu@huawei.com,
- Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
- snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
- linux-kernel@vger.kernel.org, ebiggers@kernel.org,
- linux-security-module@vger.kernel.org, linux-audit@redhat.com,
- eparis@redhat.com, linux-fscrypt@vger.kernel.org,
- linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
+Cc: x86@kernel.org, herbert@gondor.apana.org.au, ardb@kernel.org,
+ chang.seok.bae@intel.com, dave.hansen@linux.intel.com,
+ dan.j.williams@intel.com, mingo@kernel.org, ebiggers@kernel.org,
+ lalithambika.krishnakumar@intel.com, luto@kernel.org, bernie.keany@intel.com,
+ tglx@linutronix.de, bp@suse.de, gmazyland@gmail.com,
+ charishma1.gairuboyina@intel.com
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.microsoft.com
-Content-Disposition: inline
+X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Mar 02, 2023 at 02:05:20PM -0500, Paul Moore wrote:
-> On Mon, Jan 30, 2023 at 5:59???PM Fan Wu <wufan@linux.microsoft.com> wrote:
-> >
-> > From: Deven Bowers <deven.desai@linux.microsoft.com>
-> >
-> > IPE's initial goal is to control both execution and the loading of
-> > kernel modules based on the system's definition of trust. It
-> > accomplishes this by plugging into the security hooks for
-> > bprm_check_security, file_mprotect, mmap_file, kernel_load_data,
-> > and kernel_read_data.
-> >
-> > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
-> > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
-> 
-> ...
-> 
-> > ---
-> >  security/ipe/hooks.c | 169 +++++++++++++++++++++++++++++++++++++++++++
-> >  security/ipe/hooks.h |  13 ++++
-> >  security/ipe/ipe.c   |   6 ++
-> >  3 files changed, 188 insertions(+)
-> >
-> > diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
-> > index 335b773c7ae1..fd5109e29c76 100644
-> > --- a/security/ipe/hooks.c
-> > +++ b/security/ipe/hooks.c
-> > @@ -23,3 +23,172 @@ void ipe_sb_free_security(struct super_block *mnt_sb)
-> >  {
-> >         ipe_invalidate_pinned_sb(mnt_sb);
-> >  }
-> > +
-> > +/**
-> > + * ipe_bprm_check_security - ipe security hook function for bprm check.
-> > + * @bprm: Supplies a pointer to a linux_binprm structure to source the file
-> > + *       being evaluated.
-> > + *
-> > + * This LSM hook is called when a binary is loaded through the exec
-> > + * family of system calls.
-> > + * Return:
-> > + * *0  - OK
-> > + * *!0 - Error
-> > + */
-> > +int ipe_bprm_check_security(struct linux_binprm *bprm)
-> > +{
-> > +       struct ipe_eval_ctx ctx = { 0 };
-> > +
-> > +       build_eval_ctx(&ctx, bprm->file, ipe_op_exec);
-> > +       return ipe_evaluate_event(&ctx);
-> > +}
-> > +
-> > +/**
-> > + * ipe_mmap_file - ipe security hook function for mmap check.
-> > + * @f: File being mmap'd. Can be NULL in the case of anonymous memory.
-> > + * @reqprot: The requested protection on the mmap, passed from usermode.
-> > + * @prot: The effective protection on the mmap, resolved from reqprot and
-> > + *       system configuration.
-> > + * @flags: Unused.
-> > + *
-> > + * This hook is called when a file is loaded through the mmap
-> > + * family of system calls.
-> > + *
-> > + * Return:
-> > + * * 0 - OK
-> > + * * !0        - Error
-> > + */
-> > +int ipe_mmap_file(struct file *f, unsigned long reqprot, unsigned long prot,
-> > +                 unsigned long flags)
-> > +{
-> > +       struct ipe_eval_ctx ctx = { 0 };
-> > +
-> > +       if (prot & PROT_EXEC || reqprot & PROT_EXEC) {
-> 
-> Is there a reason why you care about @reqprot?  It seems like IPE
-> would only be interested in the protection flags that the kernel is
-> actually using.
-> 
-> I notice that in the `ipe_file_mprotect()` hook you ignore @reqprot,
-> which I believe is the right thing to do.
-> 
+Hi all,
 
-Yes I double checked and found that's not necessary, I will remove that.
+This feature enabling has been stalled due to the decryption
+performance issue which took a while to result in a solution. There
+was also a question on the userspace utility -- cryptsetup [6].
 
--Fan
+As posting this version, I wanted to make sure the resolutions are
+acknowledgeable with these updates, at first:
 
-> > +               build_eval_ctx(&ctx, f, ipe_op_exec);
-> > +               return ipe_evaluate_event(&ctx);
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +/**
-> > + * ipe_file_mprotect - ipe security hook function for mprotect check.
-> > + * @vma: Existing virtual memory area created by mmap or similar.
-> > + * @reqprot: The requested protection on the mmap, passed from usermode.
-> > + * @prot: The effective protection on the mmap, resolved from reqprot and
-> > + *       system configuration.
-> > + *
-> > + * This LSM hook is called when a mmap'd region of memory is changing
-> > + * its protections via mprotect.
-> > + *
-> > + * Return:
-> > + * * 0 - OK
-> > + * * !0        - Error
-> > + */
-> > +int ipe_file_mprotect(struct vm_area_struct *vma, unsigned long reqprot,
-> > +                     unsigned long prot)
-> > +{
-> > +       struct ipe_eval_ctx ctx = { 0 };
-> > +
-> > +       /* Already Executable */
-> > +       if (vma->vm_flags & VM_EXEC)
-> > +               return 0;
-> > +
-> > +       if (prot & PROT_EXEC) {
-> > +               build_eval_ctx(&ctx, vma->vm_file, ipe_op_exec);
-> > +               return ipe_evaluate_event(&ctx);
-> > +       }
-> > +
-> > +       return 0;
-> > +}
-> > +
-> > +/**
-> > + * ipe_kernel_read_file - ipe security hook function for kernel read.
-> > + * @file: Supplies a pointer to the file structure being read in from disk.
-> > + * @id: Supplies the enumeration identifying the purpose of the read.
-> > + * @contents: Unused.
-> > + *
-> > + * This LSM hook is called when a file is being read in from disk from
-> > + * the kernel.
-> > + *
-> > + * Return:
-> > + * 0 - OK
-> > + * !0 - Error
-> > + */
-> > +int ipe_kernel_read_file(struct file *file, enum kernel_read_file_id id,
-> > +                        bool contents)
-> > +{
-> > +       enum ipe_op_type op;
-> > +       struct ipe_eval_ctx ctx;
-> > +
-> > +       switch (id) {
-> > +       case READING_FIRMWARE:
-> > +               op = ipe_op_firmware;
-> > +               break;
-> > +       case READING_MODULE:
-> > +               op = ipe_op_kernel_module;
-> > +               break;
-> > +       case READING_KEXEC_INITRAMFS:
-> > +               op = ipe_op_kexec_initramfs;
-> > +               break;
-> > +       case READING_KEXEC_IMAGE:
-> > +               op = ipe_op_kexec_image;
-> > +               break;
-> > +       case READING_POLICY:
-> > +               op = ipe_op_ima_policy;
-> > +               break;
-> > +       case READING_X509_CERTIFICATE:
-> > +               op = ipe_op_ima_x509;
-> > +               break;
-> > +       default:
-> > +               op = ipe_op_max;
-> > +               WARN(op == ipe_op_max, "no rule setup for enum %d", id);
-> > +       }
-> > +
-> > +       build_eval_ctx(&ctx, file, op);
-> > +       return ipe_evaluate_event(&ctx);
-> > +}
-> > +
-> > +/**
-> > + * ipe_kernel_load_data - ipe security hook function for kernel load data.
-> > + * @id: Supplies the enumeration identifying the purpose of the read.
-> > + * @contents: Unused.
-> > + *
-> > + * This LSM hook is called when a buffer is being read in from disk.
-> > + *
-> > + * Return:
-> > + * * 0 - OK
-> > + * * !0        - Error
-> > + */
-> > +int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents)
-> > +{
-> > +       enum ipe_op_type op;
-> > +       struct ipe_eval_ctx ctx = { 0 };
-> > +
-> > +       switch (id) {
-> > +       case LOADING_FIRMWARE:
-> > +               op = ipe_op_firmware;
-> > +               break;
-> > +       case LOADING_MODULE:
-> > +               op = ipe_op_kernel_module;
-> > +               break;
-> > +       case LOADING_KEXEC_INITRAMFS:
-> > +               op = ipe_op_kexec_initramfs;
-> > +               break;
-> > +       case LOADING_KEXEC_IMAGE:
-> > +               op = ipe_op_kexec_image;
-> > +               break;
-> > +       case LOADING_POLICY:
-> > +               op = ipe_op_ima_policy;
-> > +               break;
-> > +       case LOADING_X509_CERTIFICATE:
-> > +               op = ipe_op_ima_x509;
-> > +               break;
-> > +       default:
-> > +               op = ipe_op_max;
-> > +               WARN(op == ipe_op_max, "no rule setup for enum %d", id);
-> > +       }
-> > +
-> > +       build_eval_ctx(&ctx, NULL, op);
-> > +       return ipe_evaluate_event(&ctx);
-> > +}
-> > diff --git a/security/ipe/hooks.h b/security/ipe/hooks.h
-> > index 30fe455389bf..857cae69678c 100644
-> > --- a/security/ipe/hooks.h
-> > +++ b/security/ipe/hooks.h
-> > @@ -11,4 +11,17 @@
-> >
-> >  void ipe_sb_free_security(struct super_block *mnt_sb);
-> >
-> > +int ipe_bprm_check_security(struct linux_binprm *bprm);
-> > +
-> > +int ipe_mmap_file(struct file *f, unsigned long reqprot, unsigned long prot,
-> > +                 unsigned long flags);
-> > +
-> > +int ipe_file_mprotect(struct vm_area_struct *vma, unsigned long reqprot,
-> > +                     unsigned long prot);
-> > +
-> > +int ipe_kernel_read_file(struct file *file, enum kernel_read_file_id id,
-> > +                        bool contents);
-> > +
-> > +int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents);
-> > +
-> >  #endif /* IPE_HOOKS_H */
-> > diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-> > index bef923026b50..7af2f942decd 100644
-> > --- a/security/ipe/ipe.c
-> > +++ b/security/ipe/ipe.c
-> > @@ -4,6 +4,7 @@
-> >   */
-> >
-> >  #include "ipe.h"
-> > +#include "hooks.h"
-> >
-> >  bool ipe_enabled;
-> >
-> > @@ -12,6 +13,11 @@ static struct lsm_blob_sizes ipe_blobs __lsm_ro_after_init = {
-> >
-> >  static struct security_hook_list ipe_hooks[] __lsm_ro_after_init = {
-> >         LSM_HOOK_INIT(sb_free_security, ipe_sb_free_security),
-> > +       LSM_HOOK_INIT(bprm_check_security, ipe_bprm_check_security),
-> > +       LSM_HOOK_INIT(mmap_file, ipe_mmap_file),
-> > +       LSM_HOOK_INIT(file_mprotect, ipe_file_mprotect),
-> > +       LSM_HOOK_INIT(kernel_read_file, ipe_kernel_read_file),
-> > +       LSM_HOOK_INIT(kernel_load_data, ipe_kernel_load_data),
-> >  };
-> >
-> >  /**
-> > --
-> > 2.39.0
-> 
-> --
-> paul-moore.com
+* People identified a gap between encryption and decryption speeds
+  [1, 2]. Intel has identified the root cause and will make a fix
+  available. The fix will ensure that the encryption and decryption
+  speeds are comparable with each other.
+
+  This fix requires a microcode update and will go through a formal
+  process of release toward the end of the year. As of now, listed
+  below are the expected numbers [10] when the issue is fixed. Intel
+  will provide the latest information on the request.
+
+  +---------------------------+---------------+-----------------+
+  |       Cipher              |   Encryption  |   Decryption    |
+  |      (AES-XTS)            |    (MiB/s)    |   (MiB/s)       |
+  +===========================+===============+=================+
+  | Microcode version (0xa4)  |     1726.5    |      776.3      |
+  +---------------------------+---------------+-----------------+
+  | With the potential fix    |     2308.7    |     2305.9      |
+  +---------------------------+---------------+-----------------+
+
+  The benchmark results came from:
+    $ cryptsetup benchmark -c aes-xts -s 256
+  which are approximate using memory only (no storage IO).
+
+  The fix is specific to the CPU model [8] which was measured when
+  posting v3 [4]. Here is another results from the latest CPU [9]:
+
+  +--------------+---------------+-----------------+
+  | Cipher       |   Encryption  |   Decryption    |
+  | (AES-XTS)    |    (MiB/s)    |   (MiB/s)       |
+  +==============+===============+=================+
+  | AES-NI       |     6738.7    |     6851.7      |
+  +--------------+---------------+-----------------+
+  | AES-KL       |     3425.4    |     3431.7      |
+  +--------------+---------------+-----------------+
+
+* Andy questioned the cryptsetup readiness to edit the cipher mode,
+  e.g. AES-KL to AES-NI, for decrypting a keylocker-encrypted volume
+  on non-keylocker systems [3].
+
+  The cryptsetup changes were prototyped as a proof-of-concept. The
+  code and test details can be found in this repository:
+
+    git://github.com/intel-staging/keylocker.git cryptsetup
+
+  Once the enabling code is accepted in the mainline, I will follow-up
+  with the DM-crypt [7] folks to add this ability.
+
+The feature is already available on recent Intel client systems. Its
+usage along with the threat model and other details can be found in
+the v3 cover letter [4].
+
+The code has some updates from the last posting [5]:
+
+- Fix the 'valid_kl' flag not to be set when the feature is disabled.
+  This was reported by Marvin Hsu <marvin.hsu@intel.com>. Add the
+  function comment about this. (Patch8)
+- Improve the error handling in setup_keylocker(). All the error
+  cases fall through the end that disables the feature. Otherwise,
+  all the successful cases return immediately. (Patch8)
+- Call out when disabling the feature on virtual machines. (Patch7)
+- Ensure kernel_fpu_end() for the possible error (Patch10)
+- Rebased on the upstream -- use the RET macro (Patch11/12)
+- Clean up dead code -- cbc_crypt_common() (Patch10)
+- Fix a typo (Patch1)
+
+This series is based on the tip tree. The code is also available in
+this repository:
+
+  git://github.com/intel-staging/keylocker.git kl
+
+Thanks to Charishma Gairuboyina and Lalithambika Krishnakumar for the
+help to update the performance results.
+
+Thanks,
+Chang
+
+[1]  https://lore.kernel.org/lkml/YbqRseO+TtuGQk5x@sol.localdomain/
+[2]  https://lore.kernel.org/lkml/120368dc-e337-9176-936c-4db2a8bf710e@gmail.com/
+[3]  https://lore.kernel.org/lkml/75ec3ad1-6234-ae1f-1b83-482793e4fd23@kernel.org/
+[4]  v3: https://lore.kernel.org/lkml/20211124200700.15888-1-chang.seok.bae@intel.com/
+[5]  v5: https://lore.kernel.org/lkml/20220112211258.21115-1-chang.seok.bae@intel.com/
+[6]  cryptsetup: https://gitlab.com/cryptsetup/cryptsetup
+[7]  DM-crypt: https://www.kernel.org/doc/html/latest/admin-guide/device-mapper/dm-crypt.html
+[8]  Tiger Lake:
+     https://www.intel.com/content/www/us/en/products/docs/processors/embedded/11th-gen-product-brief.html
+[9]  Raptor Lake:
+     https://www.intel.com/content/www/us/en/newsroom/resources/13th-gen-core.html
+[10] Intel publishes information about product performance at
+     https://www.Intel.com/PerformanceIndex
+
+Chang S. Bae (12):
+  Documentation/x86: Document Key Locker
+  x86/cpufeature: Enumerate Key Locker feature
+  x86/insn: Add Key Locker instructions to the opcode map
+  x86/asm: Add a wrapper function for the LOADIWKEY instruction
+  x86/msr-index: Add MSRs for Key Locker internal wrapping key
+  x86/keylocker: Define Key Locker CPUID leaf
+  x86/cpu/keylocker: Load an internal wrapping key at boot-time
+  x86/PM/keylocker: Restore internal wrapping key on resume from ACPI
+    S3/4
+  x86/cpu: Add a configuration and command line option for Key Locker
+  crypto: x86/aes - Prepare for a new AES implementation
+  crypto: x86/aes-kl - Support AES algorithm using Key Locker
+    instructions
+  crypto: x86/aes-kl - Support XTS mode
+
+ .../admin-guide/kernel-parameters.txt         |   2 +
+ Documentation/x86/index.rst                   |   1 +
+ Documentation/x86/keylocker.rst               |  98 +++
+ arch/x86/Kconfig                              |   3 +
+ arch/x86/crypto/Makefile                      |   5 +-
+ arch/x86/crypto/aes-intel_asm.S               |  26 +
+ arch/x86/crypto/aes-intel_glue.c              | 127 ++++
+ arch/x86/crypto/aes-intel_glue.h              |  44 ++
+ arch/x86/crypto/aeskl-intel_asm.S             | 633 ++++++++++++++++++
+ arch/x86/crypto/aeskl-intel_glue.c            | 216 ++++++
+ arch/x86/crypto/aesni-intel_asm.S             |  58 +-
+ arch/x86/crypto/aesni-intel_glue.c            | 235 ++-----
+ arch/x86/crypto/aesni-intel_glue.h            |  17 +
+ arch/x86/include/asm/cpufeatures.h            |   1 +
+ arch/x86/include/asm/disabled-features.h      |   8 +-
+ arch/x86/include/asm/keylocker.h              |  45 ++
+ arch/x86/include/asm/msr-index.h              |   6 +
+ arch/x86/include/asm/special_insns.h          |  32 +
+ arch/x86/include/uapi/asm/processor-flags.h   |   2 +
+ arch/x86/kernel/Makefile                      |   1 +
+ arch/x86/kernel/cpu/common.c                  |  21 +-
+ arch/x86/kernel/cpu/cpuid-deps.c              |   1 +
+ arch/x86/kernel/keylocker.c                   | 212 ++++++
+ arch/x86/kernel/smpboot.c                     |   2 +
+ arch/x86/lib/x86-opcode-map.txt               |  11 +-
+ arch/x86/power/cpu.c                          |   2 +
+ crypto/Kconfig                                |  36 +
+ tools/arch/x86/lib/x86-opcode-map.txt         |  11 +-
+ 28 files changed, 1642 insertions(+), 214 deletions(-)
+ create mode 100644 Documentation/x86/keylocker.rst
+ create mode 100644 arch/x86/crypto/aes-intel_asm.S
+ create mode 100644 arch/x86/crypto/aes-intel_glue.c
+ create mode 100644 arch/x86/crypto/aes-intel_glue.h
+ create mode 100644 arch/x86/crypto/aeskl-intel_asm.S
+ create mode 100644 arch/x86/crypto/aeskl-intel_glue.c
+ create mode 100644 arch/x86/crypto/aesni-intel_glue.h
+ create mode 100644 arch/x86/include/asm/keylocker.h
+ create mode 100644 arch/x86/kernel/keylocker.c
+
+
+base-commit: b2e7ae549d84c654744bf70d30a881bfa140a6e3
+-- 
+2.17.1
 
 --
 dm-devel mailing list
