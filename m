@@ -1,9 +1,9 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FEA56DD32D
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5A5196DD326
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 08:44:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1681195473;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,65 +12,65 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vtRpfZroZAo7jMoKaeN2uBFSpn1MiGwf3VqVYDpfpSU=;
-	b=dGH3TJXzNr4LNFbcb4GqKMsQCd2w/Tp95SrYZf3lxZ+EC6zDZDSCRZ2GtV4V/2E+hpwrJT
-	4e/Nc7ydjIaY1d7G4dWZwE07PZ84+0mri+neWtYjUryfnq8taNo6iPsKob5NFKCZSuqfCy
-	HWxERcicXp33om3ecIZT63gIxZNV7nA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=6B/yFOZXrDIM9JwPgPlLvAzM7UC2t2+cmwujyxuFW7U=;
+	b=J+0m4WH2V27RQGSYZkU932wWDAK0lnk1HiUwaTDm6zspJOVlgcYUK1Ey7EUA6Fx0yEF6rD
+	L2N2kXJnLTrfjJp7sNYZTQ+TeVa2S+PgzloQs9NaXQaZ1ikk/cOeG1KyRTIYQYjCPOGRzp
+	VkPUjc67xqiErrEnwxMSGecDHA1Py8I=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-390-58yIdpSOM1SUGL21PWaYAg-1; Tue, 11 Apr 2023 02:44:31 -0400
-X-MC-Unique: 58yIdpSOM1SUGL21PWaYAg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-171-XSNSkTuxPOyEkzmh9apvEQ-1; Tue, 11 Apr 2023 02:44:29 -0400
+X-MC-Unique: XSNSkTuxPOyEkzmh9apvEQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6D18101A553;
-	Tue, 11 Apr 2023 06:44:25 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CE42314171C4;
-	Tue, 11 Apr 2023 06:44:21 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 54899194974F;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7B0F038173E0;
 	Tue, 11 Apr 2023 06:44:18 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 417D240CFD41;
+	Tue, 11 Apr 2023 06:44:12 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 023F31946586;
+	Tue, 11 Apr 2023 06:44:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 531011946586
- for <dm-devel@listman.corp.redhat.com>; Mon, 10 Apr 2023 23:12:47 +0000 (UTC)
+ ESMTP id 7ECBF1946586
+ for <dm-devel@listman.corp.redhat.com>; Mon, 10 Apr 2023 23:12:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 47F0C492B01; Mon, 10 Apr 2023 23:12:47 +0000 (UTC)
+ id 72172C15BB8; Mon, 10 Apr 2023 23:12:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 40B5B492B00
- for <dm-devel@redhat.com>; Mon, 10 Apr 2023 23:12:47 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A35AC15BA0
+ for <dm-devel@redhat.com>; Mon, 10 Apr 2023 23:12:48 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 266E9800B23
- for <dm-devel@redhat.com>; Mon, 10 Apr 2023 23:12:47 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F5AB811E7C
+ for <dm-devel@redhat.com>; Mon, 10 Apr 2023 23:12:48 +0000 (UTC)
 Received: from mga11.intel.com (mga11.intel.com [192.55.52.93]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-399-CeeXja0yOd2OkD3DvrR3Xw-2; Mon, 10 Apr 2023 19:12:45 -0400
-X-MC-Unique: CeeXja0yOd2OkD3DvrR3Xw-2
-X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="340962527"
-X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="340962527"
+ us-mta-675-gi-JSF0_PAOMUBgPGhTMHw-3; Mon, 10 Apr 2023 19:12:44 -0400
+X-MC-Unique: gi-JSF0_PAOMUBgPGhTMHw-3
+X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="340962543"
+X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="340962543"
 Received: from fmsmga004.fm.intel.com ([10.253.24.48])
  by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
  10 Apr 2023 16:11:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="757607999"
-X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="757607999"
+X-IronPort-AV: E=McAfee;i="6600,9927,10676"; a="757608002"
+X-IronPort-AV: E=Sophos;i="5.98,335,1673942400"; d="scan'208";a="757608002"
 Received: from chang-linux-3.sc.intel.com ([172.25.66.173])
- by fmsmga004.fm.intel.com with ESMTP; 10 Apr 2023 16:11:39 -0700
+ by fmsmga004.fm.intel.com with ESMTP; 10 Apr 2023 16:11:40 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
  dm-devel@redhat.com
-Date: Mon, 10 Apr 2023 15:59:28 -0700
-Message-Id: <20230410225936.8940-5-chang.seok.bae@intel.com>
+Date: Mon, 10 Apr 2023 15:59:29 -0700
+Message-Id: <20230410225936.8940-6-chang.seok.bae@intel.com>
 In-Reply-To: <20230410225936.8940-1-chang.seok.bae@intel.com>
 References: <20220112211258.21115-1-chang.seok.bae@intel.com>
  <20230410225936.8940-1-chang.seok.bae@intel.com>
@@ -81,10 +81,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 11 Apr 2023 06:44:09 +0000
-Subject: [dm-devel] [PATCH v6 04/12] x86/asm: Add a wrapper function for the
- LOADIWKEY instruction
+Subject: [dm-devel] [PATCH v6 05/12] x86/msr-index: Add MSRs for Key Locker
+ internal wrapping key
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,28 +102,36 @@ Cc: x86@kernel.org, herbert@gondor.apana.org.au, ardb@kernel.org,
  lalithambika.krishnakumar@intel.com, Peter Zijlstra <peterz@infradead.org>,
  Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
  luto@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com,
- tglx@linutronix.de, bp@suse.de,
- "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>, gmazyland@gmail.com,
+ tglx@linutronix.de, bp@suse.de, gmazyland@gmail.com,
  charishma1.gairuboyina@intel.com
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Key Locker introduces a CPU-internal wrapping key to encode a user key to a
-key handle. Then a key handle is referenced instead of the plain text key.
+The CPU state that contains the internal wrapping key is in the same power
+domain as the cache. So any sleep state that would invalidate the cache
+(like S3) also invalidates the state of the wrapping key.
 
-The new instruction loads an internal wrapping key in the
-software-inaccessible CPU state. It operates only in kernel mode.
+But, since the state is inaccessible to software, it needs a special
+mechanism to save and restore the key during deep sleep.
 
-Define struct iwkey to pass the key value.
+A set of new MSRs are provided as an abstract interface to save and restore
+the wrapping key, and to check the key status.
 
-The kernel will use this function to load a new key at boot time when the
-feature is enabled.
+The wrapping key is saved in a platform-scoped state of non-volatile media.
+The backup itself and its path from the CPU are encrypted and integrity
+protected.
+
+But this storage's non-volatility is not architecturally guaranteed across
+off states, such as S5 and G3.
+
+The MSRs will be used to back up the key for S3/4 sleep states. Then the
+kernel code writes one of them to restore the key in each CPU state.
 
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
@@ -132,106 +140,32 @@ Cc: Ingo Molnar <mingo@redhat.com>
 Cc: Borislav Petkov <bp@alien8.de>
 Cc: Dave Hansen <dave.hansen@linux.intel.com>
 Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: "Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
 Cc: Peter Zijlstra <peterz@infradead.org>
 Cc: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org
 ---
 Changes from RFC v2:
-* Separate out the code as a new patch.
-* Improve the usability with the new struct as an argument. (Dan
-  Williams)
-
-Note, Dan wondered if:
-  WARN_ON(!irq_fpu_usable());
-would be appropriate in the load_xmm_iwkey() function.
+* Update the changelog. (Dan Williams)
+* Rename the MSRs. (Dan Williams)
 ---
- arch/x86/include/asm/keylocker.h     | 25 ++++++++++++++++++++++
- arch/x86/include/asm/special_insns.h | 32 ++++++++++++++++++++++++++++
- 2 files changed, 57 insertions(+)
- create mode 100644 arch/x86/include/asm/keylocker.h
+ arch/x86/include/asm/msr-index.h | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/arch/x86/include/asm/keylocker.h b/arch/x86/include/asm/keylocker.h
-new file mode 100644
-index 000000000000..df84c83228a1
---- /dev/null
-+++ b/arch/x86/include/asm/keylocker.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: GPL-2.0-only */
-+
-+#ifndef _ASM_KEYLOCKER_H
-+#define _ASM_KEYLOCKER_H
-+
-+#ifndef __ASSEMBLY__
-+
-+#include <asm/fpu/types.h>
-+
-+/**
-+ * struct iwkey - A temporary internal wrapping key storage.
-+ * @integrity_key:	A 128-bit key to check that key handles have not
-+ *			been tampered with.
-+ * @encryption_key:	A 256-bit encryption key used in
-+ *			wrapping/unwrapping a clear text key.
-+ *
-+ * This storage should be flushed immediately after loaded.
-+ */
-+struct iwkey {
-+	struct reg_128_bit integrity_key;
-+	struct reg_128_bit encryption_key[2];
-+};
-+
-+#endif /*__ASSEMBLY__ */
-+#endif /* _ASM_KEYLOCKER_H */
-diff --git a/arch/x86/include/asm/special_insns.h b/arch/x86/include/asm/special_insns.h
-index d6cd9344f6c7..90b23f55970a 100644
---- a/arch/x86/include/asm/special_insns.h
-+++ b/arch/x86/include/asm/special_insns.h
-@@ -9,6 +9,7 @@
- #include <asm/processor-flags.h>
- #include <linux/irqflags.h>
- #include <linux/jump_label.h>
-+#include <asm/keylocker.h>
+diff --git a/arch/x86/include/asm/msr-index.h b/arch/x86/include/asm/msr-index.h
+index ad35355ee43e..4fa3b9e26162 100644
+--- a/arch/x86/include/asm/msr-index.h
++++ b/arch/x86/include/asm/msr-index.h
+@@ -1115,4 +1115,10 @@
+ 						* a #GP
+ 						*/
  
- /*
-  * The compiler should not reorder volatile asm statements with respect to each
-@@ -296,6 +297,37 @@ static __always_inline void tile_release(void)
- 	asm volatile(".byte 0xc4, 0xe2, 0x78, 0x49, 0xc0");
- }
- 
-+/**
-+ * load_xmm_iwkey - Load a CPU-internal wrapping key
-+ * @key:	A struct iwkey pointer.
-+ *
-+ * Load @key to XMMs then do LOADIWKEY. After this, flush XMM
-+ * registers. Caller is responsible for kernel_cpu_begin().
-+ */
-+static inline void load_xmm_iwkey(struct iwkey *key)
-+{
-+	struct reg_128_bit zeros = { 0 };
++/* MSRs for managing an internal wrapping key for Key Locker. */
++#define MSR_IA32_IWKEY_COPY_STATUS		0x00000990
++#define MSR_IA32_IWKEY_BACKUP_STATUS		0x00000991
++#define MSR_IA32_BACKUP_IWKEY_TO_PLATFORM	0x00000d91
++#define MSR_IA32_COPY_IWKEY_TO_LOCAL		0x00000d92
 +
-+	asm volatile ("movdqu %0, %%xmm0; movdqu %1, %%xmm1; movdqu %2, %%xmm2;"
-+		      :: "m"(key->integrity_key), "m"(key->encryption_key[0]),
-+			 "m"(key->encryption_key[1]));
-+
-+	/*
-+	 * LOADIWKEY %xmm1,%xmm2
-+	 *
-+	 * EAX and XMM0 are implicit operands. Load a key value
-+	 * from XMM0-2 to a software-invisible CPU state. With zero
-+	 * in EAX, CPU does not do hardware randomization and the key
-+	 * backup is allowed.
-+	 *
-+	 * This instruction is supported by binutils >= 2.36.
-+	 */
-+	asm volatile (".byte 0xf3,0x0f,0x38,0xdc,0xd1" :: "a"(0));
-+
-+	asm volatile ("movdqu %0, %%xmm0; movdqu %0, %%xmm1; movdqu %0, %%xmm2;"
-+		      :: "m"(zeros));
-+}
-+
- #endif /* __KERNEL__ */
- 
- #endif /* _ASM_X86_SPECIAL_INSNS_H */
+ #endif /* _ASM_X86_MSR_INDEX_H */
 -- 
 2.17.1
 
