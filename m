@@ -1,150 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5DDC76DEBEF
-	for <lists+dm-devel@lfdr.de>; Wed, 12 Apr 2023 08:39:32 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04BA76DE483
+	for <lists+dm-devel@lfdr.de>; Tue, 11 Apr 2023 21:13:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681281570;
+	s=mimecast20190719; t=1681240437;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Szks3f2vLOChXPLEzJYAsiAG4o6+3f/5aJ9j8ET+88w=;
-	b=In4UJyy0SsXmVixtsozg7idFGKyWB8+fgNj+i9OWYn9ZK3FfBQwp0m2+hJ65wqEl1a7Wre
-	JiPb1xW2u4BX+M0QIlH7RMohXEwJJ2A6iwG2zTFc2TK2uhOePoPtvAMJMlpCMdOhzusgCB
-	DRh0we4Td4laH4zLwdVw4dsfwJprmTQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=aYvkA2uD8eptslOO1iJfoTnnChtNSHZH31rpa3faxdU=;
+	b=dzf10xlbD7wGiewBfKk7Sjs1y9KwSVqYjadyIf57xrh814n7XWfXgPBuzQ97JGZDZjlILy
+	Gn9asgMG9uds5PKl8QsVAUpGu75/eC2uAhCTToMdM1g+htUPkTjJT3Kyeg+dZ+hL/URuT0
+	2UJSlm2pKmmUhzjfCBagV+6EeFC0cYc=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-507-EtpKrre3NtC7pvbZT9VDSg-1; Wed, 12 Apr 2023 02:39:27 -0400
-X-MC-Unique: EtpKrre3NtC7pvbZT9VDSg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-318-1XwTQouGPyi9Wlq_7RH4PA-1; Tue, 11 Apr 2023 15:13:55 -0400
+X-MC-Unique: 1XwTQouGPyi9Wlq_7RH4PA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 90ACB1C07552;
-	Wed, 12 Apr 2023 06:39:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEB77811E7C;
+	Tue, 11 Apr 2023 19:13:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7102C2166B34;
-	Wed, 12 Apr 2023 06:39:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 024EB492B00;
+	Tue, 11 Apr 2023 19:13:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 157861946A75;
-	Wed, 12 Apr 2023 06:39:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7FB161946A68;
+	Tue, 11 Apr 2023 19:13:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B4B461946586
- for <dm-devel@listman.corp.redhat.com>; Tue, 11 Apr 2023 08:19:58 +0000 (UTC)
+ ESMTP id 0A13E1946A46
+ for <dm-devel@listman.corp.redhat.com>; Tue, 11 Apr 2023 19:13:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 97AEB14171BF; Tue, 11 Apr 2023 08:19:58 +0000 (UTC)
+ id F1A19112132D; Tue, 11 Apr 2023 19:13:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F88314171B7
- for <dm-devel@redhat.com>; Tue, 11 Apr 2023 08:19:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70AE8855318
- for <dm-devel@redhat.com>; Tue, 11 Apr 2023 08:19:58 +0000 (UTC)
-Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-510-nK05ip3vN12CAWBj4p2lHQ-1; Tue, 11 Apr 2023 04:19:55 -0400
-X-MC-Unique: nK05ip3vN12CAWBj4p2lHQ-1
-Received: from epcas5p2.samsung.com (unknown [182.195.41.40])
- by mailout1.samsung.com (KnoxPortal) with ESMTP id
- 20230411081952epoutp01378c8299b39cfd6bdccff86f707bd8e1~U05PL3BdL0717807178epoutp01y
- for <dm-devel@redhat.com>; Tue, 11 Apr 2023 08:19:52 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
- 20230411081952epoutp01378c8299b39cfd6bdccff86f707bd8e1~U05PL3BdL0717807178epoutp01y
-Received: from epsnrtp1.localdomain (unknown [182.195.42.162]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTP id
- 20230411081952epcas5p13d0164cc4c6fc74079317057dbb8f959~U05OscMoq0228502285epcas5p1J;
- Tue, 11 Apr 2023 08:19:52 +0000 (GMT)
-Received: from epsmges5p1new.samsung.com (unknown [182.195.38.177]) by
- epsnrtp1.localdomain (Postfix) with ESMTP id 4Pwf0647fBz4x9Pr; Tue, 11 Apr
- 2023 08:19:50 +0000 (GMT)
-Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
- epsmges5p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 43.9B.09961.62815346; Tue, 11 Apr 2023 17:19:50 +0900 (KST)
-Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
- epcas5p1.samsung.com (KnoxPortal) with ESMTPA id
- 20230411081400epcas5p151186138b36daf361520b08618300502~U00HSKMnJ1534615346epcas5p1-;
- Tue, 11 Apr 2023 08:14:00 +0000 (GMT)
-Received: from epsmgms1p1new.samsung.com (unknown [182.195.42.41]) by
- epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
- 20230411081400epsmtrp146444ac54d2b6b40e011a9ecd7a73d6a~U00HP9d9s1886118861epsmtrp1Y;
- Tue, 11 Apr 2023 08:14:00 +0000 (GMT)
-X-AuditID: b6c32a49-2c1ff700000026e9-ab-643518266927
-Received: from epsmtip2.samsung.com ( [182.195.34.31]) by
- epsmgms1p1new.samsung.com (Symantec Messaging Gateway) with SMTP id
- 85.2F.08279.8C615346; Tue, 11 Apr 2023 17:14:00 +0900 (KST)
-Received: from green5.sa.corp.samsungelectronics.net (unknown
- [107.110.206.5]) by epsmtip2.samsung.com (KnoxPortal) with ESMTPA id
- 20230411081356epsmtip2a79113ab5665be1b002625fbcee5446c~U00D5G5402416524165epsmtip2Y;
- Tue, 11 Apr 2023 08:13:56 +0000 (GMT)
-From: Anuj Gupta <anuj20.g@samsung.com>
-To: Jens Axboe <axboe@kernel.dk>, Alasdair Kergon <agk@redhat.com>, Mike
- Snitzer <snitzer@kernel.org>, dm-devel@redhat.com, Keith Busch
- <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>, Sagi Grimberg
- <sagi@grimberg.me>, James Smart <james.smart@broadcom.com>, Chaitanya
- Kulkarni <kch@nvidia.com>, Alexander Viro <viro@zeniv.linux.org.uk>,
- Christian Brauner <brauner@kernel.org>
-Date: Tue, 11 Apr 2023 13:40:36 +0530
-Message-Id: <20230411081041.5328-10-anuj20.g@samsung.com>
-In-Reply-To: <20230411081041.5328-1-anuj20.g@samsung.com>
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EA4931121320
+ for <dm-devel@redhat.com>; Tue, 11 Apr 2023 19:13:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CBCDE85A588
+ for <dm-devel@redhat.com>; Tue, 11 Apr 2023 19:13:39 +0000 (UTC)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-675-B6K4ldlUNsS_fjuOfxFwqA-1; Tue, 11 Apr 2023 15:13:38 -0400
+X-MC-Unique: B6K4ldlUNsS_fjuOfxFwqA-1
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-54ee17a659bso177921537b3.4
+ for <dm-devel@redhat.com>; Tue, 11 Apr 2023 12:13:37 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20210112; t=1681240417; x=1683832417;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=ZyhAcQmoHbAJmyI6qNybDWX+d0nq9TvXS/75WN8UzuA=;
+ b=s7b0bJq3l/3GkwXcVEfMK9RaMKTv6FXgPgcH/ag2vRIFjQN5EAKtASHwxozFcl+NQu
+ 05UlDaBm2dB+7WXjx3FX5/HEYRRa9twFFQMGvwfa/+jCGLSx/nO2j1oowkUDif+JrfNM
+ nbL8Kap3jlcboCLGm2N3neYNZhHIGzpr7nZh3T54Xnolh3WisZ9DBXI5UMvrpDGIoH4V
+ 9562TmBeFunHBdI0o5P7PrZnbVyzVuzH2qwvwWlsFb/c0FQazg447oSASstgawmG5hPe
+ raZAqU0hoobqBJBdgHt9aQ9oJnyrZ5lvW3noefvvcBv7jPB8pl2hwXeqE67T/FLYa/IO
+ Q4dQ==
+X-Gm-Message-State: AAQBX9d+VnlyeNkfz3ufk0PXmijbhQ2jVbHzHrASBre2ATaVUUanuXp/
+ WGdLQZZ/imgaiCllYRY6BDE2qCiI0LdNp5G2il1Q
+X-Google-Smtp-Source: AKy350azG2i8uc9BAHp/wk8VSvxtJ0aqfSk9gTsrxDzJOGJbd8PZzFADbtv5hxGRkczUVNGtVCqIHdlrFObziFErZeI=
+X-Received: by 2002:a81:a904:0:b0:54f:2b65:a865 with SMTP id
+ g4-20020a81a904000000b0054f2b65a865mr4260299ywh.8.1681240417154; Tue, 11 Apr
+ 2023 12:13:37 -0700 (PDT)
 MIME-Version: 1.0
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Te0xTVxzHc+7tC5bOa9F4YJt2nQOLAdrR4oHwSmbmXViUTLYlbK7etTeF
- UNqmLehGFh4dojwFAxuVyUM35bHiChIEixsMBRwroaDIgpBYHpOnLKtuSFxLYfO/z/d3vt/z
- O+d3cjg4r4Ltx0lWG2idmlIJWN6Mth7hviB/KFWInJd2o+aBWzjKObuOo8aJEhaa71kFqGLl
- bxytDdpwNHUzBlmXzjPR/Z+uY+hGXRmG6ht7MdRZ+xhDvc8XWais+y5A06MmDFnH96Mb1n4G
- sndUsVD199Ns1H3OiKF2RzZAbWvVODLPLzNQ3/gr6GHBaYBs67eZsX6kfSSONE0Ossjrpgk2
- aXvwI4O0D6aRloYzLLLlUibZeT+LRRYZl1yG3Ekmudw1yiKLWxsA2XIng/zTspu0OBax+G2J
- KZFJNKWgdXxaLdcoktXKKEHcUdnbMmmYSBwkDkcHBHw1lUpHCQ6+Fx/0TrLKNRABP51SpblK
- 8ZReLwiJjtRp0gw0P0mjN0QJaK1CpZVog/VUqj5NrQxW04YIsUj0ltRlPJ6S9NTsq22OOGlb
- WmJmgTxxPuBwICGBU1XKfODN4RGdAPY09WEesQrg5a+fgXzg5RJOAIeW+VuB8WyZx2MFsMl5
- jekRRgyO2Wdxd4BFBMBfZnOBe2EHcQqHj6fPMNwCJ5pwOLWytrGtDxEN7zbksN3MIN6ED62V
- G2kuEQ7Nl2fZnnYhsGRyu7vs5So/+/Y0y2PZDvsrHQw348QeaLx2HnfvD4lmL2gdKHAJtksc
- hKZItwUSPvDR7Va2h/3gHyWnNlkJn9qnMQ9rofFWF/BwDMwdKMHdJ8AJIWzuCPGUX4PlA2bM
- 0/VlWLTm2IxyYfuFLRbAvPqqTYbQ+lvWJpNw7tf2zVkVAnix8wH7LOCbXriN6YXbmP5vXQPw
- BuBLa/WpSlov1YrV9In/XliuSbWAjQ8S+G47mJhaCe4GGAd0A8jBBTu4fz0PVfC4CurzL2id
- RqZLU9H6biB1TbsU99sp17h+mNogE0vCRZKwsDBJeGiYWLCLGxDVL+cRSspAp9C0ltZt5TCO
- l18WFkAJwTxciD0x71zv0AXRPHlN3ZGdKHNE6ftN3OG5J63lDREc8+sJ8uCamSHK8Zl4m2kw
- 9upYsdOxq/CCP1/0e3PtVczBmX/jJfzLOxE/rHqVNh5O/0Sc+F15QiSltTGiPpjrevWY//CH
- 9OLxEXq4LEHR32tpqT1Ut/yx5GRFYPhXe73juQf22Hmj769Lbl7M6Esqym4XF+d+FF0yZFmw
- 5lV1Fe4LbmsaHPlUnxEaU70qHSuFlZlC5yH+vSUwc8555cpk42j1wnrlUVmZ2rzWNjxXaOy3
- /zwpnKnfm2jrqDt7jDmrKkjZ/0/XE++YUYnPvUfm9OqiI53C9CBeTlwsS8DQJ1HiQFynp/4F
- EBl72KkEAAA=
-X-Brightmail-Tracker: H4sIAAAAAAAAA02Re0hTYRjG+845Ox5X1tmM+qZhMYtISxsWfN3sip0ospsRktjQk1lujR1N
- LcjZuuhWuSys1sIVq3CG0rznpjaztLKVZpRd7KKJ2exqWmbmSYL+e/j9Hh5eeClcfJ/woeKV
- iaxaKU+QkkKitFY6eVb9hLmxs3vNElR45xaODhgGcZT/IotE3bVfAMr59ANHA40uHL2qXowc
- PecE6GlNBYbsF7MxlJdfh6HKC58xVDfkJlG28zFAHS1GDDlaA5Hd0UCg5usmEuVe7vBAzpNa
- DJW3pwNUOpCLo4LujwSqb/VFb/UZALkGbwuW+DDNj1YzxrZGkqkwvvBgXC+vEUxzYxJjs2aS
- TJEljal8qiGZY9qe4cKhNgHzsaqFZI4XWwFTdHcf89Xmx9ja3di6cZHChbFsQvweVh0cuk24
- o79Aoiqcn+Lq6RFowBGZDlAUpOfA1vRoHRBSYroSwKGSPg8d8BzmEN7pugxGsjfM+93pMVJK
- x2BfRy/GC5KeDm92HgK8GE8bcNjUpiF5gdN2HOaZl/LZmw6Fj60H/q4S9DT41nEW57MXPQ8W
- XOFX+SuCYVabiMeew/jX+QySx2IaQYudGGmLYMPZdmJkfTLUlpzDDYA2/qeM/ykzwKxAwqo4
- RZyCk6lkSjY5iJMruCRlXFDMboUN/H15wIxyUGb9FOQEGAWcAFK4dLxX71BIrNgrVp66l1Xv
- jlYnJbCcE/hShHSi1wNdQ7SYjpMnsrtYVsWq/1mM8vTRYEXFdaHPw0HOfq06O9Mt6k9JqF8V
- 1QjDfbve9cHaUeVdFdy0kgWv1dPx1aqFz/z199yhhmxFxnrFWl1u2kHL7Qfbk7+79cr+ljGq
- gWLzoinajBXCDWlhY6MMd8MOc7VR1nhN2JVEOqc+5sw7SVbA0Z/Bz/JF/mW+ET9TR4tuCru/
- 9JqqTHLqjUX0QR939US65VtVvN9KSbXAvHHFVf/AglOZL8c1Zaru+W2qSQWXroV0w0d2WdOy
- pSURhcmFi0/uDOlkAiO8XyWelqSsnDol+knH2BuTMNMH2xpqv2BQeTiylXwYc0m/td/QEhkw
- Mxy9Vym3OEzLSddmvClmn6iyQkpwO+SyAFzNyf8ANvLyWGEDAAA=
-X-CMS-MailID: 20230411081400epcas5p151186138b36daf361520b08618300502
-X-Msg-Generator: CA
-X-Sendblock-Type: REQ_APPROVE
-CMS-TYPE: 105P
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230411081400epcas5p151186138b36daf361520b08618300502
-References: <20230411081041.5328-1-anuj20.g@samsung.com>
- <CGME20230411081400epcas5p151186138b36daf361520b08618300502@epcas5p1.samsung.com>
+References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
+ <1675119451-23180-3-git-send-email-wufan@linux.microsoft.com>
+ <CAHC9VhRguGeb8=oNVFebshL_2LLZ4hf0qO97YBVm8OObLsLNTw@mail.gmail.com>
+ <20230406200055.GB19196@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <20230406200055.GB19196@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+From: Paul Moore <paul@paul-moore.com>
+Date: Tue, 11 Apr 2023 15:13:26 -0400
+Message-ID: <CAHC9VhTkEHvoSFu8h=tuGJAjPhohj7ABPi+XXVg4j5MesCbtxw@mail.gmail.com>
+To: Fan Wu <wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -152,9 +94,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mailman-Approved-At: Wed, 12 Apr 2023 06:39:18 +0000
-Subject: [dm-devel] [PATCH v9 9/9] null_blk: add support for copy offload
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [RFC PATCH v9 02/16] ipe: add policy parser
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -166,234 +107,93 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Vincent Fu <vincent.fu@samsung.com>, bvanassche@acm.org,
- joshi.k@samsung.com, gost.dev@samsung.com, anuj20.g@samsung.com,
- linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
- ming.lei@redhat.com, linux-block@vger.kernel.org, dlemoal@kernel.org,
- Nitesh Shetty <nj.shetty@samsung.com>, linux-fsdevel@vger.kernel.org,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, nitheshshetty@gmail.com
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
+ dm-devel@redhat.com, corbet@lwn.net, roberto.sassu@huawei.com,
+ Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
+ snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
+ linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+ eparis@redhat.com, linux-fscrypt@vger.kernel.org,
+ linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: samsung.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: paul-moore.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-From: Nitesh Shetty <nj.shetty@samsung.com>
-
-Implementaion is based on existing read and write infrastructure.
-copy_max_bytes: A new configfs and module parameter is introduced, which
-can be used to set hardware/driver supported maximum copy limit.
-
-Suggested-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
-Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
-Signed-off-by: Vincent Fu <vincent.fu@samsung.com>
----
- drivers/block/null_blk/main.c     | 101 ++++++++++++++++++++++++++++++
- drivers/block/null_blk/null_blk.h |   8 +++
- 2 files changed, 109 insertions(+)
-
-diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
-index bc2c58724df3..e273e18ace74 100644
---- a/drivers/block/null_blk/main.c
-+++ b/drivers/block/null_blk/main.c
-@@ -157,6 +157,10 @@ static int g_max_sectors;
- module_param_named(max_sectors, g_max_sectors, int, 0444);
- MODULE_PARM_DESC(max_sectors, "Maximum size of a command (in 512B sectors)");
- 
-+static int g_copy_max_bytes = COPY_MAX_BYTES;
-+module_param_named(copy_max_bytes, g_copy_max_bytes, int, 0444);
-+MODULE_PARM_DESC(copy_max_bytes, "Maximum size of a copy command (in bytes)");
-+
- static unsigned int nr_devices = 1;
- module_param(nr_devices, uint, 0444);
- MODULE_PARM_DESC(nr_devices, "Number of devices to register");
-@@ -409,6 +413,7 @@ NULLB_DEVICE_ATTR(home_node, uint, NULL);
- NULLB_DEVICE_ATTR(queue_mode, uint, NULL);
- NULLB_DEVICE_ATTR(blocksize, uint, NULL);
- NULLB_DEVICE_ATTR(max_sectors, uint, NULL);
-+NULLB_DEVICE_ATTR(copy_max_bytes, uint, NULL);
- NULLB_DEVICE_ATTR(irqmode, uint, NULL);
- NULLB_DEVICE_ATTR(hw_queue_depth, uint, NULL);
- NULLB_DEVICE_ATTR(index, uint, NULL);
-@@ -550,6 +555,7 @@ static struct configfs_attribute *nullb_device_attrs[] = {
- 	&nullb_device_attr_queue_mode,
- 	&nullb_device_attr_blocksize,
- 	&nullb_device_attr_max_sectors,
-+	&nullb_device_attr_copy_max_bytes,
- 	&nullb_device_attr_irqmode,
- 	&nullb_device_attr_hw_queue_depth,
- 	&nullb_device_attr_index,
-@@ -631,6 +637,7 @@ static ssize_t memb_group_features_show(struct config_item *item, char *page)
- 			"badblocks,blocking,blocksize,cache_size,"
- 			"completion_nsec,discard,home_node,hw_queue_depth,"
- 			"irqmode,max_sectors,mbps,memory_backed,no_sched,"
-+			"copy_max_bytes,"
- 			"poll_queues,power,queue_mode,shared_tag_bitmap,size,"
- 			"submit_queues,use_per_node_hctx,virt_boundary,zoned,"
- 			"zone_capacity,zone_max_active,zone_max_open,"
-@@ -693,6 +700,7 @@ static struct nullb_device *null_alloc_dev(void)
- 	dev->queue_mode = g_queue_mode;
- 	dev->blocksize = g_bs;
- 	dev->max_sectors = g_max_sectors;
-+	dev->copy_max_bytes = g_copy_max_bytes;
- 	dev->irqmode = g_irqmode;
- 	dev->hw_queue_depth = g_hw_queue_depth;
- 	dev->blocking = g_blocking;
-@@ -1242,6 +1250,81 @@ static int null_transfer(struct nullb *nullb, struct page *page,
- 	return err;
- }
- 
-+static inline int nullb_setup_copy_read(struct nullb *nullb,
-+		struct bio *bio)
-+{
-+	struct nullb_copy_token *token = bvec_kmap_local(&bio->bi_io_vec[0]);
-+
-+	memcpy(token->subsys, "nullb", 5);
-+	token->sector_in = bio->bi_iter.bi_sector;
-+	token->nullb = nullb;
-+	token->sectors = bio->bi_iter.bi_size >> SECTOR_SHIFT;
-+
-+	return 0;
-+}
-+
-+static inline int nullb_setup_copy_write(struct nullb *nullb,
-+		struct bio *bio, bool is_fua)
-+{
-+	struct nullb_copy_token *token = bvec_kmap_local(&bio->bi_io_vec[0]);
-+	sector_t sector_in, sector_out;
-+	void *in, *out;
-+	size_t rem, temp;
-+	unsigned long offset_in, offset_out;
-+	struct nullb_page *t_page_in, *t_page_out;
-+	int ret = -EIO;
-+
-+	if (unlikely(memcmp(token->subsys, "nullb", 5)))
-+		return -EINVAL;
-+	if (unlikely(token->nullb != nullb))
-+		return -EINVAL;
-+	if (WARN_ON(token->sectors != bio->bi_iter.bi_size >> SECTOR_SHIFT))
-+		return -EINVAL;
-+
-+	sector_in = token->sector_in;
-+	sector_out = bio->bi_iter.bi_sector;
-+	rem = token->sectors << SECTOR_SHIFT;
-+
-+	spin_lock_irq(&nullb->lock);
-+	while (rem > 0) {
-+		temp = min_t(size_t, nullb->dev->blocksize, rem);
-+		offset_in = (sector_in & SECTOR_MASK) << SECTOR_SHIFT;
-+		offset_out = (sector_out & SECTOR_MASK) << SECTOR_SHIFT;
-+
-+		if (null_cache_active(nullb) && !is_fua)
-+			null_make_cache_space(nullb, PAGE_SIZE);
-+
-+		t_page_in = null_lookup_page(nullb, sector_in, false,
-+			!null_cache_active(nullb));
-+		if (!t_page_in)
-+			goto err;
-+		t_page_out = null_insert_page(nullb, sector_out,
-+			!null_cache_active(nullb) || is_fua);
-+		if (!t_page_out)
-+			goto err;
-+
-+		in = kmap_local_page(t_page_in->page);
-+		out = kmap_local_page(t_page_out->page);
-+
-+		memcpy(out + offset_out, in + offset_in, temp);
-+		kunmap_local(out);
-+		kunmap_local(in);
-+		__set_bit(sector_out & SECTOR_MASK, t_page_out->bitmap);
-+
-+		if (is_fua)
-+			null_free_sector(nullb, sector_out, true);
-+
-+		rem -= temp;
-+		sector_in += temp >> SECTOR_SHIFT;
-+		sector_out += temp >> SECTOR_SHIFT;
-+	}
-+
-+	ret = 0;
-+err:
-+	spin_unlock_irq(&nullb->lock);
-+	return ret;
-+}
-+
- static int null_handle_rq(struct nullb_cmd *cmd)
- {
- 	struct request *rq = cmd->rq;
-@@ -1252,6 +1335,13 @@ static int null_handle_rq(struct nullb_cmd *cmd)
- 	struct req_iterator iter;
- 	struct bio_vec bvec;
- 
-+	if (rq->cmd_flags & REQ_COPY) {
-+		if (op_is_write(req_op(rq)))
-+			return nullb_setup_copy_write(nullb, rq->bio,
-+						rq->cmd_flags & REQ_FUA);
-+		return nullb_setup_copy_read(nullb, rq->bio);
-+	}
-+
- 	spin_lock_irq(&nullb->lock);
- 	rq_for_each_segment(bvec, rq, iter) {
- 		len = bvec.bv_len;
-@@ -1279,6 +1369,13 @@ static int null_handle_bio(struct nullb_cmd *cmd)
- 	struct bio_vec bvec;
- 	struct bvec_iter iter;
- 
-+	if (bio->bi_opf & REQ_COPY) {
-+		if (op_is_write(bio_op(bio)))
-+			return nullb_setup_copy_write(nullb, bio,
-+							bio->bi_opf & REQ_FUA);
-+		return nullb_setup_copy_read(nullb, bio);
-+	}
-+
- 	spin_lock_irq(&nullb->lock);
- 	bio_for_each_segment(bvec, bio, iter) {
- 		len = bvec.bv_len;
-@@ -2109,6 +2206,10 @@ static int null_add_dev(struct nullb_device *dev)
- 		dev->max_sectors = queue_max_hw_sectors(nullb->q);
- 	dev->max_sectors = min(dev->max_sectors, BLK_DEF_MAX_SECTORS);
- 	blk_queue_max_hw_sectors(nullb->q, dev->max_sectors);
-+	blk_queue_max_copy_sectors_hw(nullb->q,
-+			       dev->copy_max_bytes >> SECTOR_SHIFT);
-+	if (dev->copy_max_bytes)
-+		blk_queue_flag_set(QUEUE_FLAG_COPY, nullb->disk->queue);
- 
- 	if (dev->virt_boundary)
- 		blk_queue_virt_boundary(nullb->q, PAGE_SIZE - 1);
-diff --git a/drivers/block/null_blk/null_blk.h b/drivers/block/null_blk/null_blk.h
-index eb5972c50be8..c67c098d92fa 100644
---- a/drivers/block/null_blk/null_blk.h
-+++ b/drivers/block/null_blk/null_blk.h
-@@ -67,6 +67,13 @@ enum {
- 	NULL_Q_MQ	= 2,
- };
- 
-+struct nullb_copy_token {
-+	char subsys[5];
-+	struct nullb *nullb;
-+	u64 sector_in;
-+	u64 sectors;
-+};
-+
- struct nullb_device {
- 	struct nullb *nullb;
- 	struct config_item item;
-@@ -102,6 +109,7 @@ struct nullb_device {
- 	unsigned int queue_mode; /* block interface */
- 	unsigned int blocksize; /* block size */
- 	unsigned int max_sectors; /* Max sectors per command */
-+	unsigned long copy_max_bytes; /* Max copy offload length in bytes */
- 	unsigned int irqmode; /* IRQ completion handler */
- 	unsigned int hw_queue_depth; /* queue depth */
- 	unsigned int index; /* index of the disk, only valid with a disk */
--- 
-2.35.1.500.gb896f729e2
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gVGh1LCBBcHIgNiwgMjAyMyBhdCA0OjAw4oCvUE0gRmFuIFd1IDx3dWZhbkBsaW51eC5taWNy
+b3NvZnQuY29tPiB3cm90ZToKPiBPbiBUaHUsIE1hciAwMiwgMjAyMyBhdCAwMjowMjozMlBNIC0w
+NTAwLCBQYXVsIE1vb3JlIHdyb3RlOgo+ID4gT24gTW9uLCBKYW4gMzAsIDIwMjMgYXQgNTo1OD8/
+P1BNIEZhbiBXdSA8d3VmYW5AbGludXgubWljcm9zb2Z0LmNvbT4gd3JvdGU6Cj4gPiA+Cj4gPiA+
+IEZyb206IERldmVuIEJvd2VycyA8ZGV2ZW4uZGVzYWlAbGludXgubWljcm9zb2Z0LmNvbT4KPiA+
+ID4KPiA+ID4gSVBFJ3MgaW50ZXJwcmV0YXRpb24gb2YgdGhlIHdoYXQgdGhlIHVzZXIgdHJ1c3Rz
+IGlzIGFjY29tcGxpc2hlZCB0aHJvdWdoCj4gPiA+IGl0cyBwb2xpY3kuIElQRSdzIGRlc2lnbiBp
+cyB0byBub3QgcHJvdmlkZSBzdXBwb3J0IGZvciBhIHNpbmdsZSB0cnVzdAo+ID4gPiBwcm92aWRl
+ciwgYnV0IHRvIHN1cHBvcnQgbXVsdGlwbGUgcHJvdmlkZXJzIHRvIGVuYWJsZSB0aGUgZW5kLXVz
+ZXIgdG8KPiA+ID4gY2hvb3NlIHRoZSBiZXN0IG9uZSB0byBzZWVrIHRoZWlyIG5lZWRzLgo+ID4g
+Pgo+ID4gPiBUaGlzIHJlcXVpcmVzIHRoZSBwb2xpY3kgdG8gYmUgcmF0aGVyIGZsZXhpYmxlIGFu
+ZCBtb2R1bGFyIHNvIHRoYXQKPiA+ID4gaW50ZWdyaXR5IHByb3ZpZGVycywgbGlrZSBmcy12ZXJp
+dHksIGRtLXZlcml0eSwgZG0taW50ZWdyaXR5LCBvcgo+ID4gPiBzb21lIG90aGVyIHN5c3RlbSwg
+Y2FuIHBsdWcgaW50byB0aGUgcG9saWN5IHdpdGggbWluaW1hbCBjb2RlIGNoYW5nZXMuCj4gPiA+
+Cj4gPiA+IFNpZ25lZC1vZmYtYnk6IERldmVuIEJvd2VycyA8ZGV2ZW4uZGVzYWlAbGludXgubWlj
+cm9zb2Z0LmNvbT4KPiA+ID4gU2lnbmVkLW9mZi1ieTogRmFuIFd1IDx3dWZhbkBsaW51eC5taWNy
+b3NvZnQuY29tPgo+ID4KPiA+IC4uLgo+ID4KPiA+ID4gLS0tCj4gPiA+ICBzZWN1cml0eS9pcGUv
+TWFrZWZpbGUgICAgICAgIHwgICAyICsKPiA+ID4gIHNlY3VyaXR5L2lwZS9wb2xpY3kuYyAgICAg
+ICAgfCAgOTkgKysrKysrKwo+ID4gPiAgc2VjdXJpdHkvaXBlL3BvbGljeS5oICAgICAgICB8ICA3
+NyArKysrKysKPiA+ID4gIHNlY3VyaXR5L2lwZS9wb2xpY3lfcGFyc2VyLmMgfCA1MTUgKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKysrKysrKysKPiA+ID4gIHNlY3VyaXR5L2lwZS9wb2xpY3lf
+cGFyc2VyLmggfCAgMTEgKwo+ID4gPiAgNSBmaWxlcyBjaGFuZ2VkLCA3MDQgaW5zZXJ0aW9ucygr
+KQo+ID4gPiAgY3JlYXRlIG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9wb2xpY3kuYwo+ID4gPiAg
+Y3JlYXRlIG1vZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9wb2xpY3kuaAo+ID4gPiAgY3JlYXRlIG1v
+ZGUgMTAwNjQ0IHNlY3VyaXR5L2lwZS9wb2xpY3lfcGFyc2VyLmMKPiA+ID4gIGNyZWF0ZSBtb2Rl
+IDEwMDY0NCBzZWN1cml0eS9pcGUvcG9saWN5X3BhcnNlci5oCgouLi4KCj4gPiA+IGRpZmYgLS1n
+aXQgYS9zZWN1cml0eS9pcGUvcG9saWN5X3BhcnNlci5jIGIvc2VjdXJpdHkvaXBlL3BvbGljeV9w
+YXJzZXIuYwo+ID4gPiBuZXcgZmlsZSBtb2RlIDEwMDY0NAo+ID4gPiBpbmRleCAwMDAwMDAwMDAw
+MDAuLmM3YmEwZTg2NTM2Ngo+ID4gPiAtLS0gL2Rldi9udWxsCj4gPiA+ICsrKyBiL3NlY3VyaXR5
+L2lwZS9wb2xpY3lfcGFyc2VyLmMKPiA+ID4gQEAgLTAsMCArMSw1MTUgQEAKPiA+ID4gKy8vIFNQ
+RFgtTGljZW5zZS1JZGVudGlmaWVyOiBHUEwtMi4wCj4gPiA+ICsvKgo+ID4gPiArICogQ29weXJp
+Z2h0IChDKSBNaWNyb3NvZnQgQ29ycG9yYXRpb24uIEFsbCByaWdodHMgcmVzZXJ2ZWQuCj4gPiA+
+ICsgKi8KPiA+ID4gKwo+ID4gPiArI2luY2x1ZGUgInBvbGljeS5oIgo+ID4gPiArI2luY2x1ZGUg
+InBvbGljeV9wYXJzZXIuaCIKPiA+ID4gKyNpbmNsdWRlICJkaWdlc3QuaCIKPiA+ID4gKwo+ID4g
+PiArI2luY2x1ZGUgPGxpbnV4L3BhcnNlci5oPgo+ID4gPiArCj4gPiA+ICsjZGVmaW5lIFNUQVJU
+X0NPTU1FTlQgICcjJwo+ID4gPiArCj4gPiA+ICsvKioKPiA+ID4gKyAqIG5ld19wYXJzZWRfcG9s
+aWN5IC0gQWxsb2NhdGUgYW5kIGluaXRpYWxpemUgYSBwYXJzZWQgcG9saWN5Lgo+ID4gPiArICoK
+PiA+ID4gKyAqIFJldHVybjoKPiA+ID4gKyAqICogIUlTX0VSUiAgIC0gT0sKPiA+ID4gKyAqICog
+LUVOT01FTSAgIC0gT3V0IG9mIG1lbW9yeQo+ID4gPiArICovCj4gPiA+ICtzdGF0aWMgc3RydWN0
+IGlwZV9wYXJzZWRfcG9saWN5ICpuZXdfcGFyc2VkX3BvbGljeSh2b2lkKQo+ID4gPiArewo+ID4g
+PiArICAgICAgIHNpemVfdCBpID0gMDsKPiA+ID4gKyAgICAgICBzdHJ1Y3QgaXBlX3BhcnNlZF9w
+b2xpY3kgKnAgPSBOVUxMOwo+ID4gPiArICAgICAgIHN0cnVjdCBpcGVfb3BfdGFibGUgKnQgPSBO
+VUxMOwo+ID4gPiArCj4gPiA+ICsgICAgICAgcCA9IGt6YWxsb2Moc2l6ZW9mKCpwKSwgR0ZQX0tF
+Uk5FTCk7Cj4gPiA+ICsgICAgICAgaWYgKCFwKQo+ID4gPiArICAgICAgICAgICAgICAgcmV0dXJu
+IEVSUl9QVFIoLUVOT01FTSk7Cj4gPiA+ICsKPiA+ID4gKyAgICAgICBwLT5nbG9iYWxfZGVmYXVs
+dF9hY3Rpb24gPSBpcGVfYWN0aW9uX21heDsKPiA+Cj4gPiBJJ20gYXNzdW1pbmcgeW91J3JlIHVz
+aW5nIHRoZSAiaXBlX2FjdGlvbl9tYXgiIGFzIGFuIGludGVudGlvbmFsIGJvZ3VzCj4gPiBwbGFj
+ZWhvbGRlciB2YWx1ZSBoZXJlLCB5ZXM/ICBJZiB0aGF0IGlzIHRoZSBjYXNlLCBoYXZlIHlvdSBj
+b25zaWRlcmVkCj4gPiBjcmVhdGluZyBhbiAiaW52YWxpZCIgZW51bSB3aXRoIGFuIGV4cGxpY2l0
+IHplcm8gdmFsdWUgdG8gc2F2ZSB5b3UKPiA+IHRoaXMgYWRkaXRpb25hbCBhc3NpZ25tZW50ICh5
+b3UgYXJlIGFscmVhZHkgdXNpbmcga3phbGxvYygpKT8gIEZvcgo+ID4gZXhhbXBsZToKPiA+Cj4g
+PiAgIGVudW0gaXBlX29wX3R5cGUgewo+ID4gICAgIElQRV9PUF9JTlZBTElEID0gMCwKPiA+ICAg
+ICBJUEVfT1BfRVhFQywKPiA+ICAgICAuLi4KPiA+ICAgICBJUEVfT1BfTUFYLAo+ID4gICB9Owo+
+ID4KPiA+ICAgZW51bSBpcGVfYWN0aW9uX3R5cGUgewo+ID4gICAgIElQRV9BQ1RJT05fSU5WQUxJ
+RCA9IDAsCj4gPiAgICAgSVBFX0FDVElPTl9BTExPVywKPiA+ICAgICAuLi4KPiA+ICAgICBJUEVf
+QUNUSU9OX01BWCwKPiA+ICAgfTsKPiA+Cj4KPiBZZXMsIElQRV9BQ1RJT05fTUFYIGlzIGtpbmQg
+b2YgdGhlIElOVkFMSUQgdmFsdWUgd2UgYXJlIHVzaW5nIGhlcmUuCj4KPiBCdXQgSSB0aGluayB3
+ZSBtaWdodCBiZSBhZGRpbmcgdW5uZWNlc3NhcnkgY29tcGxleGl0eSBieSB1c2luZyB0aGUKPiBJ
+UEVfT1BfSU5WTElBRCBlbnVtIGhlcmUuIEN1cnJlbnRseSwgd2UgYXJlIHVzaW5nIElQRV9PUF9N
+QVggdG8KPiByZXByZXNlbnQgdGhlIG51bWJlciBvZiBvcGVyYXRpb25zIHdlIGhhdmUsIGFuZCB3
+ZSBoYXZlIGFsbG9jYXRlZAo+IGFuIElQRV9PUF9NQVgtc2l6ZWQgYXJyYXkgdG8gc3RvcmUgbGlu
+a2VkIGxpc3RzIHRoYXQgbGluayBhbGwgcnVsZXMKPiBmb3IgZWFjaCBvcGVyYXRpb24uIElmIHdl
+IHdlcmUgdG8gYWRkIElQRV9PUF9JTlZMSUFEIHRvIHRoZSBlbnVtCj4gZGVmaW5pdGlvbiwgdGhl
+biBJUEVfT1BfTUFYLTEgd291bGQgYmVjb21lIHRoZSBudW1iZXIgb2Ygb3BlcmF0aW9ucywKPiBh
+bmQgd2Ugd291bGQgbmVlZCB0byBjaGFuZ2UgdGhlIGluZGV4IHVzZWQgdG8gYWNjZXNzIHRoZSBs
+aW5rZWQgbGlzdAo+IGFycmF5LgoKR290Y2hhLiAgVGhhbmtzIGZvciB0aGUgZXhwbGFuYXRpb24s
+IHRoYXQgaGFkbid0IG9jY3VycmVkIHRvIG1lIHdoaWxlCkkgd2FzIHJldmlld2luZyB0aGUgY29k
+ZS4KCkFub3RoZXIgb3B0aW9uIHdvdWxkIGJlIHRvIGNyZWF0ZSBhIG1hY3JvIHRvIGhlbHAgcmVp
+bmZvcmNlIHRoYXQgdGhlCiJtYXgiIHZhbHVlIGlzIGJlaW5nIHVzZWQgYXMgYW4gImludmFsaWQi
+IHZhbHVlLCBmb3IgZXhhbXBsZToKCiNkZWZpbmUgSVBFX09QX0lOVkFMSUQgSVBFX09QX01BWAoK
+LS0gCnBhdWwtbW9vcmUuY29tCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVk
+aGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRl
+dmVsCg==
 
