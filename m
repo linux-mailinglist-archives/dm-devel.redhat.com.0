@@ -1,89 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5EE766E073E
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Apr 2023 08:55:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DA4E96E0742
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Apr 2023 08:56:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681368921;
+	s=mimecast20190719; t=1681368964;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sOMzViP0zTwjO4nJuoowLpvVUxcr7VvGodN7hpvK1XA=;
-	b=VnDd0ocreYNcbJMe1puZGrrZFevPKZBspN4TVwBr0cJLrJghacOxG4Qk4J+dADLlDKIH9p
-	MrYpYmnvXBp01QTM/+XTOvAtcIyX2Ya6xjxIiznUbsCTpVKbeGPbz2p6yCqHM/Q+vLDqLr
-	Peo192aa7GCWFoXLUAXpJaL9+zHMjRY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=vf/INx7rk+lO62GHYQQLU6O/e9BTYOrKmReKLywP8ko=;
+	b=X29NXyB9z/v2YbkKlfCu4JI4szsBBx6AoOofpUkxptcXw8x8Ut8bgfCMuf7AQrQNs+mz4H
+	muRjvGzZ6mgxUSxWxV8kKUJRCijz1EbEYHSXfKUTN9iA6FsccXp1+8iTydSFDuTNFOwoII
+	l71V2keYxTDfV4B6lxQ9HAibxcJMY7M=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-256-t5QhnzT-OuargOY0d6lSMA-1; Thu, 13 Apr 2023 02:55:17 -0400
-X-MC-Unique: t5QhnzT-OuargOY0d6lSMA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-256-WWhi8_0cPbWN5Frz_ki7eA-1; Thu, 13 Apr 2023 02:55:18 -0400
+X-MC-Unique: WWhi8_0cPbWN5Frz_ki7eA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 328A510B02A3;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 330EE3C0F238;
 	Thu, 13 Apr 2023 06:55:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 20BF14042AD3;
-	Thu, 13 Apr 2023 06:55:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 20FC11415117;
+	Thu, 13 Apr 2023 06:55:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C030819472C6;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9307419465B7;
 	Thu, 13 Apr 2023 06:55:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0BEB31946587
- for <dm-devel@listman.corp.redhat.com>; Wed, 12 Apr 2023 10:26:07 +0000 (UTC)
+ ESMTP id BCB551946587
+ for <dm-devel@listman.corp.redhat.com>; Wed, 12 Apr 2023 10:57:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E11D7492C14; Wed, 12 Apr 2023 10:26:06 +0000 (UTC)
+ id 9CB0B492C3E; Wed, 12 Apr 2023 10:57:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D9400492C13
- for <dm-devel@redhat.com>; Wed, 12 Apr 2023 10:26:06 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 95E2D492B00
+ for <dm-devel@redhat.com>; Wed, 12 Apr 2023 10:57:46 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE76C2A59566
- for <dm-devel@redhat.com>; Wed, 12 Apr 2023 10:26:06 +0000 (UTC)
-Received: from mail-vs1-f53.google.com (mail-vs1-f53.google.com
- [209.85.217.53]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73A5985C6E3
+ for <dm-devel@redhat.com>; Wed, 12 Apr 2023 10:57:46 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-645-anriCTJrN1OxP5AUHzeUnA-1; Wed, 12 Apr 2023 06:26:05 -0400
-X-MC-Unique: anriCTJrN1OxP5AUHzeUnA-1
-Received: by mail-vs1-f53.google.com with SMTP id e20so9917339vsj.10
- for <dm-devel@redhat.com>; Wed, 12 Apr 2023 03:26:05 -0700 (PDT)
+ us-mta-653-I92lEQqPMWuOxtBAW5ODyg-1; Wed, 12 Apr 2023 06:57:45 -0400
+X-MC-Unique: I92lEQqPMWuOxtBAW5ODyg-1
+Received: by mail-pl1-f171.google.com with SMTP id h24so11109857plr.1
+ for <dm-devel@redhat.com>; Wed, 12 Apr 2023 03:57:44 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20210112; t=1681295164; x=1683887164;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=s5vg+YiNoxs31Tbnrbv2vsVS/DbOkcWGxusmaV9cfKk=;
- b=RfYLQYaFeirZoTnjXp4LlHiQQMu2Gv3ujK6LrA3tpf0gccitmIm/H0YKSLW8rJUkBP
- 5UGIZLod7LE7o/ivNB1SAL8nQrxkZKsw1eJ94MFcoGMDOCe7wyCB9Bpv3G9sWPMM4m2A
- AsYJfFFOf7PWDtYhWH5yFOq97XEVUlzsHSmM59uYiv+ETLlWcmPAEatgqKBajEy33XbN
- v6rAuSjafMkLosx4Ln+CUVlCvYhnAetjt9ZbgKlz8oqO8a7yMV88lKqzjcMpVnLpc5zC
- SOSWc89XU4RjrxHBRWaPqZ2J1WwAEjAWd3mUyyhQ0FgdCgHLpoFcY/TvNlnmuPN3uw9o
- aLBA==
-X-Gm-Message-State: AAQBX9frQVfcrFAAcleVxShS1L5/P7rWKWTB7Xfq9wWA1GSuUJuljy+7
- Y5X2Gvwzj1CGGPsYwi8fQsqog7WLgvuZDnA4n+BmrA==
-X-Google-Smtp-Source: AKy350Y0FPXWa3mLhpuSfB2wOlCNyI4G0X8q0GPeu0ZGyUt76BO9Zf7I0z0F2H0jq5JCqvcQzrzp/+A3FO8XMIP0FFg=
-X-Received: by 2002:a67:cc0f:0:b0:42c:74a1:424f with SMTP id
- q15-20020a67cc0f000000b0042c74a1424fmr3659466vsl.1.1681295164459; Wed, 12 Apr
- 2023 03:26:04 -0700 (PDT)
-MIME-Version: 1.0
-References: <20230407200551.12660-1-michael.christie@oracle.com>
- <20230412093617.285177-1-naresh.kamboju@linaro.org>
-In-Reply-To: <20230412093617.285177-1-naresh.kamboju@linaro.org>
+ d=1e100.net; s=20210112; t=1681297064; x=1683889064;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=CcYYNtaDxHlH75DVzktS520/qEGVSpcAU/4xvgOpO10=;
+ b=6CpIhkb49z0RfCUYbHSUWrOCVWshbY798smPoAPGHA11j+PCP1tJKa3B3j2P9VrjHK
+ SwX0npXMvJyqrMJG7VpALb/fn6V0BENcDUR3N8IvxO4qtyo8CHV0KtT9R5PByJSIgNHQ
+ N5Mh59YMu5Eg9DCcoUYXleJYkbyoDqkRUGBF1tK7bWw07QEQrdZUgGmjThcbEukR2w1W
+ KbYxIaUcV0/NEAXT/YBC3Kt5p56kSSjTBGLxx4EvFOTshCWDAikpQ89GflheeXbD0xi4
+ lOIaxjXP5zF8ym3aTDgdCpdnR6XWztkpbsuk9cl9lm2DZG7kZXBlh/bKzv8ieXjsfRfW
+ XwjA==
+X-Gm-Message-State: AAQBX9eEfS+7JimO1csY3Z5t61niT7572AH6xfc/uZHujLyfw5pANXJB
+ 3WBAArvHYd7Dcb/4ilwp4fPQww==
+X-Google-Smtp-Source: AKy350b6VhmArfjtfG5hPTUB1cljJ9QaEx7TyP53/04DDnKkbVZXFIF0jKcWKxQnKxuBsS2tM1Ls6A==
+X-Received: by 2002:a17:902:fa05:b0:1a6:3af1:9c3a with SMTP id
+ la5-20020a170902fa0500b001a63af19c3amr9987792plb.22.1681297063711; 
+ Wed, 12 Apr 2023 03:57:43 -0700 (PDT)
+Received: from localhost.localdomain ([124.123.191.81])
+ by smtp.gmail.com with ESMTPSA id
+ p10-20020a1709026b8a00b001a6467cfbeasm4942246plk.53.2023.04.12.03.57.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Wed, 12 Apr 2023 03:57:43 -0700 (PDT)
 From: Naresh Kamboju <naresh.kamboju@linaro.org>
-Date: Wed, 12 Apr 2023 15:55:53 +0530
-Message-ID: <CA+G9fYv2nEBe=kJK4veunkvXD9GvqyaPFQ7rUbMD1S4+0nUS3Q@mail.gmail.com>
 To: michael.christie@oracle.com
+Date: Wed, 12 Apr 2023 16:27:34 +0530
+Message-Id: <20230412105734.293024-1-naresh.kamboju@linaro.org>
+In-Reply-To: <20230407200551.12660-1-michael.christie@oracle.com>
+References: <20230407200551.12660-1-michael.christie@oracle.com>
+MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -91,9 +95,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Thu, 13 Apr 2023 06:55:08 +0000
-Subject: Re: [dm-devel] [PATCH v6 00/18] Use block pr_ops in LIO
+Subject: [dm-devel] [PATCH v6 00/18] Use block pr_ops in LIO
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,38 +111,117 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: shy828301@gmail.com, roman.gushchin@linux.dev,
  linux-nvme@lists.infradead.org, james.bottomley@hansenpartnership.com,
- dm-devel@redhat.com, target-devel@vger.kernel.org, hch@lst.de,
- bvanassche@acm.org, linux-scsi@vger.kernel.org, willy@infradead.org,
- chaitanyak@nvidia.com, ryan.roberts@arm.com, keescook@chromium.org,
- snitzer@kernel.org, linux-block@vger.kernel.org, kbusch@kernel.org,
- vbabka@suse.cz, yuzhao@google.com, axboe@kernel.dk, martin.petersen@oracle.com,
- halbuer@sra.uni-hannover.de, mkoutny@suse.com, akpm@linux-foundation.org,
- mgorman@techsingularity.net, zokeefe@google.com,
- kirill.shutemov@linux.intel.com
+ linux-mm@kvack.org, dm-devel@redhat.com, target-devel@vger.kernel.org,
+ hch@lst.de, bvanassche@acm.org, linux-scsi@vger.kernel.org,
+ willy@infradead.org, chaitanyak@nvidia.com, ryan.roberts@arm.com,
+ snitzer@kernel.org, linux-block@vger.kernel.org, lkft-triage@lists.linaro.org,
+ kbusch@kernel.org, yuzhao@google.com, axboe@kernel.dk,
+ martin.petersen@oracle.com, mkoutny@suse.com, akpm@linux-foundation.org,
+ zokeefe@google.com, kirill.shutemov@linux.intel.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, 12 Apr 2023 at 15:06, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
->
-> [sorry for the adding you in CC]
->
-> While running LTP controllers test suite on this patch set applied on top of
-> the next-20230406 and the following kernel panic noticed on qemu-i386.
+[sorry for the adding you in CC]
 
-Also noticed on qemu-x86_64.
+While running LTP controllers test suite on this patch set applied on top of
+the next-20230406 and the following kernel panic noticed on qemu-x86_64.
 
-Crash log link,
-------------------
-- https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230404140835_25166-1-sergei_shtepa_veeam_com/testrun/16171908/suite/log-parser-test/test/check-kernel-panic/log
-- https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230404140835_25166-1-sergei_shtepa_veeam_com/testrun/16171908/suite/log-parser-test/tests/
 
-lore link,
-https://lore.kernel.org/linux-block/20230407200551.12660-1-michael.christie@oracle.com/
+Lore link: https://lore.kernel.org/linux-block/20230407200551.12660-1-michael.christie@oracle.com/
+
+
+cpuset_inherit 31 TPASS: mem_exclusive: Inherited information is right!
+cpuset_inherit 33 TPASS: mem_hardwall: Inherited information is right!
+<4>[ 1234.875309] int3: 0000 [#1] PREEMPT SMP PTI
+<4>[ 1234.875748] CPU: 1 PID: 32990 Comm: umount Not tainted 6.3.0-rc5-next-20230406 #1
+<4>[ 1234.875946] Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.14.0-2 04/01/2014
+<4>[ 1234.876062] RIP: 0010:__alloc_pages+0xdf/0x310
+<4>[ 1234.876666] Code: 4c 89 45 b0 83 3d b8 1c cb 01 00 0f 85 a2 01 00 00 44 89 f0 c1 e8 03 83 e0 03 89 75 a0 89 45 c0 be 01 00 00 00 4c 89 45 98 0f <1f> 44 00 00 4d 89 c5 44 89 f0 44 89 75 a4 41 f7 c6 00 04 00 00 74
+<4>[ 1234.876885] RSP: 0000:ffff8b9305f47c10 EFLAGS: 00000202
+<4>[ 1234.877418] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+<4>[ 1234.877433] RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000140cca
+<4>[ 1234.877446] RBP: ffff8b9305f47c78 R08: 0000000000000000 R09: 0000000000000000
+<4>[ 1234.877460] R10: 0000000000100cca R11: 0000000000000000 R12: 0000000000000003
+<4>[ 1234.877472] R13: ffff88d28b753b00 R14: 0000000000140cca R15: ffff88d2ffffb300
+<4>[ 1234.877518] FS:  0000000000000000(0000) GS:ffff88d2fbd00000(0000) knlGS:0000000000000000
+<4>[ 1234.877547] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[ 1234.877568] CR2: 0000000000408ee0 CR3: 0000000111432000 CR4: 00000000000006e0
+<4>[ 1234.877662] Call Trace:
+<4>[ 1234.877828]  <TASK>
+<4>[ 1234.877954]  __folio_alloc+0x1e/0x50
+<4>[ 1234.878051]  vma_alloc_folio+0x4af/0x520
+<4>[ 1234.878066]  ? _raw_spin_unlock+0x1a/0x40
+<4>[ 1234.878079]  ? do_wp_page+0x164/0xdd0
+<4>[ 1234.878093]  ? trace_preempt_on+0x1e/0x80
+<4>[ 1234.878105]  ? preempt_count_sub+0x63/0x80
+<4>[ 1234.878118]  do_wp_page+0x3cb/0xdd0
+<4>[ 1234.878129]  ? handle_mm_fault+0x739/0x19e0
+<4>[ 1234.878142]  ? _raw_spin_lock+0x23/0x50
+<4>[ 1234.878159]  handle_mm_fault+0x770/0x19e0
+<4>[ 1234.878170]  ? up_write+0x52/0xe0
+<4>[ 1234.878196]  do_user_addr_fault+0x4d4/0x6c0
+<4>[ 1234.878210]  ? trace_hardirqs_off_finish+0x38/0x90
+<4>[ 1234.878222]  exc_page_fault+0x80/0x1d0
+<4>[ 1234.878234]  asm_exc_page_fault+0x2b/0x30
+<4>[ 1234.878291] RIP: 0033:0x7f3f910e65f6
+<4>[ 1234.878542] Code: 2f 0a 00 00 e8 5b 23 ff ff 48 89 85 60 fd ff ff 48 8b 85 88 fd ff ff 48 8b 80 e8 00 00 00 48 85 c0 74 0b 48 8b 9d 68 fd ff ff <48> 89 58 08 48 8b 85 68 fd ff ff c7 40 18 01 00 00 00 e8 43 2b fe
+<4>[ 1234.878552] RSP: 002b:00007fff6f8dce50 EFLAGS: 00000206
+<4>[ 1234.878563] RAX: 0000000000408ed8 RBX: 00007f3f910fe0d8 RCX: 00007f3f910c6270
+<4>[ 1234.878569] RDX: 0000000000000000 RSI: 00007f3f910fe2a0 RDI: 00007fff6f8dcf10
+<4>[ 1234.878575] RBP: 00007fff6f8dd110 R08: 0000000000000000 R09: 0000000000000007
+<4>[ 1234.878581] R10: 0000000000000000 R11: 0000000000000008 R12: 0000000000000000
+<4>[ 1234.878585] R13: 00007f3f910fe2a0 R14: 00007fff6f8dced0 R15: 0000000000000000
+<4>[ 1234.878636]  </TASK>
+<4>[ 1234.878693] Modules linked in:
+<4>[ 1234.894886] ---[ end trace 0000000000000000 ]---
+<4>[ 1234.895879] RIP: 0010:__alloc_pages+0xdf/0x310
+<4>[ 1234.895921] Code: 4c 89 45 b0 83 3d b8 1c cb 01 00 0f 85 a2 01 00 00 44 89 f0 c1 e8 03 83 e0 03 89 75 a0 89 45 c0 be 01 00 00 00 4c 89 45 98 0f <1f> 44 00 00 4d 89 c5 44 89 f0 44 89 75 a4 41 f7 c6 00 04 00 00 74
+<4>[ 1234.895936] RSP: 0000:ffff8b9305f47c10 EFLAGS: 00000202
+<4>[ 1234.895956] RAX: 0000000000000001 RBX: 0000000000000000 RCX: 0000000000000000
+<4>[ 1234.895966] RDX: 0000000000000000 RSI: 0000000000000001 RDI: 0000000000140cca
+<4>[ 1234.895977] RBP: ffff8b9305f47c78 R08: 0000000000000000 R09: 0000000000000000
+<4>[ 1234.895985] R10: 0000000000100cca R11: 0000000000000000 R12: 0000000000000003
+<4>[ 1234.895993] R13: ffff88d28b753b00 R14: 0000000000140cca R15: ffff88d2ffffb300
+<4>[ 1234.896003] FS:  0000000000000000(0000) GS:ffff88d2fbd00000(0000) knlGS:0000000000000000
+<4>[ 1234.896016] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+<4>[ 1234.896026] CR2: 0000000000408ee0 CR3: 0000000111432000 CR4: 00000000000006e0
+<0>[ 1234.896379] Kernel panic - not syncing: Fatal exception in interrupt
+<0>[ 1234.900046] Kernel Offset: 0x8800000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+
+Links:
+https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230407200551_12660-1-michael_christie_oracle_com/testrun/16172098/suite/log-parser-test/test/check-kernel-panic/log
+https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230407200551_12660-1-michael_christie_oracle_com/testrun/16172061/suite/log-parser-test/test/check-kernel-panic/log
+
+https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230407200551_12660-1-michael_christie_oracle_com/testrun/16172098/suite/log-parser-test/tests/
+https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230407200551_12660-1-michael_christie_oracle_com/testrun/16172061/suite/log-parser-test/tests/
+
+
+Steps to reproduce:
+-------------------
+
+# To install tuxrun on your system globally:
+# sudo pip3 install -U tuxrun==0.41.0
+#
+# See https://tuxrun.org/ for complete documentation.
+
+tuxrun   \
+ --runtime podman   \
+ --device qemu-x86_64   \
+ --kernel https://storage.tuxsuite.com/public/linaro/anders/builds/2OGpdVeBBG4Gj6aACnSdSGva2LN/bzImage   \
+ --modules https://storage.tuxsuite.com/public/linaro/anders/builds/2OGpdVeBBG4Gj6aACnSdSGva2LN/modules.tar.xz   \
+ --rootfs https://storage.tuxsuite.com/public/linaro/lkft/oebuilds/2OFRZUnV2Q9jOFdE3gH3Gq2v692/images/intel-corei7-64/lkft-tux-image-intel-corei7-64-20230410193144.rootfs.ext4.gz   \
+ --parameters SKIPFILE=skipfile-lkft.yaml   \
+ --parameters SHARD_NUMBER=10   \
+ --parameters SHARD_INDEX=10   \
+ --image docker.io/lavasoftware/lava-dispatcher:2023.01.0020.gc1598238f   \
+ --tests ltp-controllers   \
+ --timeouts boot=15 ltp-controllers=80
+
 
 
 --
