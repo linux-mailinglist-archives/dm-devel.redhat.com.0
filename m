@@ -2,88 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 271996E1CD9
-	for <lists+dm-devel@lfdr.de>; Fri, 14 Apr 2023 08:52:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1D7E06E1473
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Apr 2023 20:45:34 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681455133;
+	s=mimecast20190719; t=1681411533;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8HEWe6R95bxUE1KoRG5h/ZI+reE4sH+gdpF53BqUIF8=;
-	b=f45q3aBxk7+C6mZCPsr5k+co5VD5pPE8Osb4GMPkMJu04f6h3iOPfAn/q5LqB5uWzHXcgF
-	VZpPTBQd1VQcxe1kFHD/1wWjat4S4o4U4bIkkOSBZCOactaTdpRghJT0CsVRieQfVSrzPq
-	ZvJdVeNBXi/XTG+NCz6RtXgjcT+QiNY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=xsB6RR+D2MkBNA0Anboyue64rDdTlnuVhGfqt4RCzo0=;
+	b=IHTYcHG+uf9cxvHd6Nab7+VrZl6jr9Bis6pz+HyMH8gKCqQfA7etYH5RnLnM5Dbp8F0wna
+	95dHAGy5lxAk9BoTA+LexB8OYOH+JTRdwv0i5w+5/XvIeIs9RAovSXKPHo98dSY64tWBXI
+	PTgibdD9DND5tUevdGU9VCfRJ1KBO3Q=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-111-rbllXUeBMTKhPuiON3w4vw-1; Fri, 14 Apr 2023 02:52:09 -0400
-X-MC-Unique: rbllXUeBMTKhPuiON3w4vw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-489-8k92FcVLMZWtrdcpLnIbpg-1; Thu, 13 Apr 2023 14:45:31 -0400
+X-MC-Unique: 8k92FcVLMZWtrdcpLnIbpg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 678C92805584;
-	Fri, 14 Apr 2023 06:52:07 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 66952492C1B;
-	Fri, 14 Apr 2023 06:52:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6EF94101A553;
+	Thu, 13 Apr 2023 18:45:29 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D22A914171BB;
+	Thu, 13 Apr 2023 18:45:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B4D291946A75;
-	Fri, 14 Apr 2023 06:52:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7B7BF1946A77;
+	Thu, 13 Apr 2023 18:45:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CBA4D19465B6
- for <dm-devel@listman.corp.redhat.com>; Thu, 13 Apr 2023 15:45:25 +0000 (UTC)
+ ESMTP id 419DB19465B6
+ for <dm-devel@listman.corp.redhat.com>; Thu, 13 Apr 2023 18:45:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BC2BDC1602A; Thu, 13 Apr 2023 15:45:25 +0000 (UTC)
+ id 2F749C16028; Thu, 13 Apr 2023 18:45:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B48FBC16028
- for <dm-devel@redhat.com>; Thu, 13 Apr 2023 15:45:25 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 26EB4C158BB
+ for <dm-devel@redhat.com>; Thu, 13 Apr 2023 18:45:23 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 888F42A5954D
- for <dm-devel@redhat.com>; Thu, 13 Apr 2023 15:45:25 +0000 (UTC)
-Received: from ale.deltatee.com (ale.deltatee.com [204.191.154.188]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-314-uYor3o2iP22iyUEJQyqFMQ-1; Thu,
- 13 Apr 2023 11:45:23 -0400
-X-MC-Unique: uYor3o2iP22iyUEJQyqFMQ-1
-Received: from s0106a84e3fe8c3f3.cg.shawcable.net ([24.64.144.200]
- helo=[192.168.0.10]) by ale.deltatee.com with esmtpsa (TLS1.3) tls
- TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256 (Exim 4.94.2)
- (envelope-from <logang@deltatee.com>)
- id 1pmyb1-007m0l-TO; Thu, 13 Apr 2023 09:10:48 -0600
-Message-ID: <961691d0-7224-caad-6c19-d9c8ca07a801@deltatee.com>
-Date: Thu, 13 Apr 2023 09:10:45 -0600
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0265185A5A3
+ for <dm-devel@redhat.com>; Thu, 13 Apr 2023 18:45:23 +0000 (UTC)
+Received: from mail-yw1-f176.google.com (mail-yw1-f176.google.com
+ [209.85.128.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-632-3RntfMNCOf6XrIgYz8SRpw-1; Thu, 13 Apr 2023 14:45:18 -0400
+X-MC-Unique: 3RntfMNCOf6XrIgYz8SRpw-1
+Received: by mail-yw1-f176.google.com with SMTP id
+ 00721157ae682-54f21cdfadbso248971987b3.7
+ for <dm-devel@redhat.com>; Thu, 13 Apr 2023 11:45:18 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681411518; x=1684003518;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=MGVZNEf7lrdlhRrTeBd55Bww7LzB9MuzQSkzPr2CJBo=;
+ b=hkqfhDYodIW+IoN7ytIg/Tn+0BCIoPCI9zc1UgYk8k3z2l4FXluD9pEYnhBKyFwHz4
+ aIm52LisQSxQwoyXX28aVzW42JFXGJTuZxrEl/+EN/NX4gkI7Z4nRdpRc8Ok5emG0xwC
+ UJSPfLDAheJDU7XX6tytCAyr+NAQk5xxoqyQvDFX/Qvsxvqvhm7HvwkYDACSBWkcwFNV
+ udeDTJQJ+rNmtixJNXK7hwouQVHpPgr2CJCpKDJFTiybYfjjqKrNeo+pFAwVHdkL6cLb
+ cocOeUh/W9Lb6dC/hhipqtFkast3lmcXUSpslIczFKm7SFFeU1gQSa8xsbr1m/pCUfqC
+ NpwQ==
+X-Gm-Message-State: AAQBX9cl/gESI8QgE7xXCQmyzLdC/Dp9zeS0vZEikYe/yGh+kqraIi/O
+ /HJvB6PUfmUE0Muso0zDMovzCtpQCWi55U5njRmL
+X-Google-Smtp-Source: AKy350ZSG4ZQ++QqMTXNV8xFD2qqYaKbcU1NDBLoxRwPk1AbUSa/40FcxEeI1OBDZ0AsmT83U2FNdY17CZtIHnOARvk=
+X-Received: by 2002:a81:ad0e:0:b0:545:6106:5334 with SMTP id
+ l14-20020a81ad0e000000b0054561065334mr2002041ywh.8.1681411517875; Thu, 13 Apr
+ 2023 11:45:17 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-To: Yu Kuai <yukuai1@huaweicloud.com>, dm-devel@redhat.com, song@kernel.org
-References: <20230413113217.1934353-1-yukuai1@huaweicloud.com>
- <20230413113217.1934353-6-yukuai1@huaweicloud.com>
-From: Logan Gunthorpe <logang@deltatee.com>
-In-Reply-To: <20230413113217.1934353-6-yukuai1@huaweicloud.com>
-X-SA-Exim-Connect-IP: 24.64.144.200
-X-SA-Exim-Rcpt-To: yukuai1@huaweicloud.com, dm-devel@redhat.com,
- song@kernel.org, linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
- yukuai3@huawei.com, yi.zhang@huawei.com, yangerkun@huawei.com
-X-SA-Exim-Mail-From: logang@deltatee.com
-X-Spam-Checker-Version: SpamAssassin 3.4.6 (2021-04-09) on ale.deltatee.com
-X-Spam-Level: 
-X-Spam-Status: No, score=-7.8 required=5.0 tests=ALL_TRUSTED,BAYES_00,
- MYRULES_FREE,NICE_REPLY_A autolearn=ham autolearn_force=no
- version=3.4.6
-X-SA-Exim-Version: 4.2.1 (built Sat, 13 Feb 2021 17:57:42 +0000)
-X-SA-Exim-Scanned: Yes (on ale.deltatee.com)
+References: <1675119451-23180-1-git-send-email-wufan@linux.microsoft.com>
+ <1675119451-23180-6-git-send-email-wufan@linux.microsoft.com>
+ <CAHC9VhRa+NwKzLfQBmHfMgUp6_d5soQG7JBq-Vn=MUeUAt4tuQ@mail.gmail.com>
+ <20230410191035.GB18827@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+ <CAHC9VhQDvWDshaZvJrHmjcwyHFxv9oYTN9bn0xiTtFZQRp+GPg@mail.gmail.com>
+ <20230412233606.GA16658@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+In-Reply-To: <20230412233606.GA16658@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+From: Paul Moore <paul@paul-moore.com>
+Date: Thu, 13 Apr 2023 14:45:07 -0400
+Message-ID: <CAHC9VhTs3Njfg=1baQ6=58rPLBmyB3cW0R-MfAaEcRF-jAaYBw@mail.gmail.com>
+To: Fan Wu <wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -92,8 +98,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mailman-Approved-At: Fri, 14 Apr 2023 06:52:02 +0000
-Subject: Re: [dm-devel] [PATCH -next v6 5/5] md: protect md_thread with rcu
+Subject: Re: [dm-devel] [RFC PATCH v9 05/16] ipe: add userspace interface
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,120 +110,45 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-raid@vger.kernel.org, yukuai3@huawei.com, yangerkun@huawei.com,
- linux-kernel@vger.kernel.org, yi.zhang@huawei.com
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
+ dm-devel@redhat.com, corbet@lwn.net, roberto.sassu@huawei.com,
+ Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
+ snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
+ linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ linux-security-module@vger.kernel.org, linux-audit@redhat.com,
+ eparis@redhat.com, linux-fscrypt@vger.kernel.org,
+ linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: deltatee.com
-Content-Language: en-CA
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: paul-moore.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-
-On 2023-04-13 05:32, Yu Kuai wrote:
-> From: Yu Kuai <yukuai3@huawei.com>
-> 
-> Our test reports a uaf for 'mddev->sync_thread':
-> 
-> T1                      T2
-> md_start_sync
->  md_register_thread
->  // mddev->sync_thread is set
-> 			raid1d
-> 			 md_check_recovery
-> 			  md_reap_sync_thread
-> 			   md_unregister_thread
-> 			    kfree
-> 
->  md_wakeup_thread
->   wake_up
->   ->sync_thread was freed
-> 
-> Root cause is that there is a small windown between register thread and
-> wake up thread, where the thread can be freed concurrently.
-> 
-> Currently, a global spinlock 'pers_lock' is borrowed to protect
-> 'mddev->thread', this problem can be fixed likewise, however, there are
-> similar problems elsewhere, and use a global lock for all the cases is
-> not good.
-> 
-> This patch protect all md_thread with rcu.
-> 
-> Signed-off-by: Yu Kuai <yukuai3@huawei.com>
-> ---
->  drivers/md/md-bitmap.c    | 10 ++++--
->  drivers/md/md-cluster.c   |  7 ++--
->  drivers/md/md-multipath.c |  4 +--
->  drivers/md/md.c           | 69 ++++++++++++++++++---------------------
->  drivers/md/md.h           |  8 ++---
->  drivers/md/raid1.c        |  7 ++--
->  drivers/md/raid1.h        |  2 +-
->  drivers/md/raid10.c       | 21 +++++++-----
->  drivers/md/raid10.h       |  2 +-
->  drivers/md/raid5-cache.c  | 22 ++++++++-----
->  drivers/md/raid5.c        | 15 +++++----
->  drivers/md/raid5.h        |  2 +-
->  12 files changed, 91 insertions(+), 78 deletions(-)
-> 
-> diff --git a/drivers/md/md-bitmap.c b/drivers/md/md-bitmap.c
-> index 29fd41ef55a6..ab27f66dbb1f 100644
-> --- a/drivers/md/md-bitmap.c
-> +++ b/drivers/md/md-bitmap.c
-> @@ -1221,13 +1221,19 @@ static bitmap_counter_t *md_bitmap_get_counter(struct bitmap_counts *bitmap,
->  static void mddev_set_timeout(struct mddev *mddev, unsigned long timeout,
->  			      bool force)
->  {
-> -	struct md_thread *thread = mddev->thread;
-> +	struct md_thread *thread;
-> +
-> +	rcu_read_lock();
-> +	thread = rcu_dereference(mddev->thread);
->  
->  	if (!thread)
-> -		return;
-> +		goto out;
->  
->  	if (force || thread->timeout < MAX_SCHEDULE_TIMEOUT)
->  		thread->timeout = timeout;
-> +
-> +out:
-> +	rcu_read_unlock();
->  }
->  
->  /*
-> diff --git a/drivers/md/md-cluster.c b/drivers/md/md-cluster.c
-> index 10e0c5381d01..672dfa6a40ec 100644
-> --- a/drivers/md/md-cluster.c
-> +++ b/drivers/md/md-cluster.c
-> @@ -362,8 +362,8 @@ static void __recover_slot(struct mddev *mddev, int slot)
->  
->  	set_bit(slot, &cinfo->recovery_map);
->  	if (!cinfo->recovery_thread) {
-> -		cinfo->recovery_thread = md_register_thread(recover_bitmaps,
-> -				mddev, "recover");
-> +		rcu_assign_pointer(cinfo->recovery_thread,
-> +			md_register_thread(recover_bitmaps, mddev, "recover"));
->  		if (!cinfo->recovery_thread) {
->  			pr_warn("md-cluster: Could not create recovery thread\n");
->  			return;
-> @@ -889,7 +889,8 @@ static int join(struct mddev *mddev, int nodes)
->  	}
->  	/* Initiate the communication resources */
->  	ret = -ENOMEM;
-> -	cinfo->recv_thread = md_register_thread(recv_daemon, mddev, "cluster_recv");
-> +	rcu_assign_pointer(cinfo->recv_thread,
-> +			md_register_thread(recv_daemon, mddev, "cluster_recv"));
->  	if (!cinfo->recv_thread) {
-
-This looks like it'll hit sparse warnings. without an
-rcu_access_pointer(). Might be nicer to use a temporary variable, check
-that it's not null, then call rcu_assign_pointer().
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gV2VkLCBBcHIgMTIsIDIwMjMgYXQgNzozNuKAr1BNIEZhbiBXdSA8d3VmYW5AbGludXgubWlj
+cm9zb2Z0LmNvbT4gd3JvdGU6Cj4gT24gVHVlLCBBcHIgMTEsIDIwMjMgYXQgMDU6NDU6NDFQTSAt
+MDQwMCwgUGF1bCBNb29yZSB3cm90ZToKPiA+IE9uIE1vbiwgQXByIDEwLCAyMDIzIGF0IDM6MTA/
+Pz9QTSBGYW4gV3UgPHd1ZmFuQGxpbnV4Lm1pY3Jvc29mdC5jb20+IHdyb3RlOgo+ID4gPiBPbiBU
+aHUsIE1hciAwMiwgMjAyMyBhdCAwMjowNDo0MlBNIC0wNTAwLCBQYXVsIE1vb3JlIHdyb3RlOgo+
+ID4gPiA+IE9uIE1vbiwgSmFuIDMwLCAyMDIzIGF0IDU6NTg/Pz9QTSBGYW4gV3UgPHd1ZmFuQGxp
+bnV4Lm1pY3Jvc29mdC5jb20+IHdyb3RlOgoKLi4uCgo+ID4gSSBndWVzcyB0aGlzIGRvZXMgbWFr
+ZSBtZSB3b25kZXIgYWJvdXQga2VlcGluZyBhIG5vbi1hY3RpdmUgcG9saWN5Cj4gPiBsb2FkZWQg
+aW4gdGhlIGtlcm5lbCwgd2hhdCBwdXJwb3NlIGRvZXMgdGhhdCBzZXJ2ZT8KPiA+Cj4KPiBUaGUg
+bm9uLWFjdGl2ZSBwb2xpY3kgZG9lc24ndCBzZXJ2ZSBhbnl0aGluZyB1bmxlc3MgaXQgaXMgYWN0
+aXZhdGVkLiBVc2VyIGNhbgo+IGV2ZW4gZGVsZXRlIGEgcG9saWN5IGlmIHRoYXQgaXMgbm8gbG9u
+Z2VyIG5lZWRlZC4gTm9uLWFjdGl2ZSBpcyBqdXN0IHRoZSBkZWZhdWx0Cj4gc3RhdGUgd2hlbiBh
+IG5ldyBwb2xpY3kgaXMgbG9hZGVkLgo+Cj4gSWYgSVBFIHN1cHBvcnRzIG5hbWVzcGFjZSwgdGhl
+cmUgaXMgYW5vdGhlciB1c2UgY2FzZSB3aGVyZSBkaWZmZXJlbnQgY29udGFpbmVycwo+IGNhbiBz
+ZWxlY3QgZGlmZmVyZW50IHBvbGljaWVzIGFzIHRoZSBhY3RpdmUgcG9saWN5IGZyb20gYW1vbmcg
+bXVsdGlwbGUgbG9hZGVkCj4gcG9saWNpZXMuIERldmVuIGhhcyBwcmVzZW50ZWQgYSBkZW1vIG9m
+IHRoaXMgZHVyaW5nIExTUyAyMDIxLiBCdXQgdGhpcyBnb2VzCj4gYmV5b25kIHRoZSBzY29wZSBv
+ZiB0aGlzIHZlcnNpb24uCgpEbyB5b3UgcGxhbiB0byBhZGQgbmFtZXNwYWNlIHN1cHBvcnQgYXQg
+c29tZSBwb2ludCBpbiB0aGUKbm90LXRvby1kaXN0YW50IGZ1dHVyZT8gIElmIHNvLCBJJ20gb2th
+eSB3aXRoIGtlZXBpbmcgc3VwcG9ydCBmb3IKbXVsdGlwbGUgcG9saWNpZXMsIGJ1dCBpZiB5b3Ug
+dGhpbmsgeW91J3JlIG9ubHkgZ29pbmcgdG8gc3VwcG9ydCBvbmUKYWN0aXZlIHBvbGljeSBhdCBh
+IHRpbWUsIGl0IG1pZ2h0IGJlIGJldHRlciB0byByZW1vdmUgc3VwcG9ydCBmb3IKbXVsdGlwbGUg
+KGluYWN0aXZlKSBwb2xpY2llcy4KCi0tIApwYXVsLW1vb3JlLmNvbQoKLS0KZG0tZGV2ZWwgbWFp
+bGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20v
+bWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
 
