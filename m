@@ -2,152 +2,90 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9397A6E06F4
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Apr 2023 08:28:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 547DF6E1CD8
+	for <lists+dm-devel@lfdr.de>; Fri, 14 Apr 2023 08:52:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681367320;
+	s=mimecast20190719; t=1681455132;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ai10KUaK10Lx6sVVfLwgFcgR6AIn7+vw4AI6MPddXO4=;
-	b=IbS0B9PKcHwKhYVTcvbiXRiVuRYLVq/a5dQW9WJwuAfus+imphvTzzParo7qjtxG0thqt1
-	zg9GqZeXLvw/iRi3uxWe8VDmMIEm+tfBJowpaVoROrCQCahOmW/2JD2iU6d2pBzq7MKtSx
-	Zgwre5IFX3lA7BkVsTmK2bHJHz0oJxg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=eiyFyx2QDNqeOLrE8LMLaNNsMGg6f7QA3mtWXUgLgzM=;
+	b=HoN5sciXIXeBCFp/ZeiZgHQwGgV9OIzKdCEd+s06Sy3mcdii0H8PBznWZ4yzYBNiW8kv/i
+	jpGfTYM6ujPxViz6TC4IzssxpKOYULJQmXoPJrPynIcPIGj81GLFjJ/TOWg+9rMUSbSWEt
+	Cg50l1h2ZfG5NHVTtsN7NFa9Jk/pe6A=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-12-NFGhSUsrMTyWuMaS1hfwRQ-1; Thu, 13 Apr 2023 02:28:36 -0400
-X-MC-Unique: NFGhSUsrMTyWuMaS1hfwRQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-354-Vao3NXkoNeimyRYT_doE4g-1; Fri, 14 Apr 2023 02:52:10 -0400
+X-MC-Unique: Vao3NXkoNeimyRYT_doE4g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99976101A531;
-	Thu, 13 Apr 2023 06:28:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 644C13C0F23D;
+	Fri, 14 Apr 2023 06:52:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A0225492C3E;
-	Thu, 13 Apr 2023 06:28:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D8DCE492C13;
+	Fri, 14 Apr 2023 06:52:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 735631946A71;
-	Thu, 13 Apr 2023 06:28:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 07B6419472CD;
+	Fri, 14 Apr 2023 06:52:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 499151946597
- for <dm-devel@listman.corp.redhat.com>; Thu, 13 Apr 2023 06:28:27 +0000 (UTC)
+ ESMTP id 12FD01946597
+ for <dm-devel@listman.corp.redhat.com>; Thu, 13 Apr 2023 09:51:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 396522166B29; Thu, 13 Apr 2023 06:28:27 +0000 (UTC)
+ id E666040B3EDA; Thu, 13 Apr 2023 09:51:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 314812166B26
- for <dm-devel@redhat.com>; Thu, 13 Apr 2023 06:28:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DEF4E40B3ED9
+ for <dm-devel@redhat.com>; Thu, 13 Apr 2023 09:51:06 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E2A4185A78B
- for <dm-devel@redhat.com>; Thu, 13 Apr 2023 06:28:27 +0000 (UTC)
-Received: from NAM11-DM6-obe.outbound.protection.outlook.com
- (mail-dm6nam11on2043.outbound.protection.outlook.com [40.107.223.43]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-649-6UifMC01PnStvrSwkW5jbg-1; Thu, 13 Apr 2023 02:28:23 -0400
-X-MC-Unique: 6UifMC01PnStvrSwkW5jbg-1
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com (2603:10b6:302:12::28)
- by CH3PR12MB7761.namprd12.prod.outlook.com (2603:10b6:610:14e::17)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6298.30; Thu, 13 Apr
- 2023 06:28:20 +0000
-Received: from MW2PR12MB4667.namprd12.prod.outlook.com
- ([fe80::6b01:9498:e881:8fb3]) by MW2PR12MB4667.namprd12.prod.outlook.com
- ([fe80::6b01:9498:e881:8fb3%4]) with mapi id 15.20.6298.030; Thu, 13 Apr 2023
- 06:28:20 +0000
-From: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-To: Anuj Gupta <anuj20.g@samsung.com>, Jens Axboe <axboe@kernel.dk>, Alasdair
- Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- "dm-devel@redhat.com" <dm-devel@redhat.com>, Keith Busch <kbusch@kernel.org>, 
- Christoph Hellwig <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, James Smart
- <james.smart@broadcom.com>, Chaitanya Kulkarni <chaitanyak@nvidia.com>,
- Alexander Viro <viro@zeniv.linux.org.uk>, Christian Brauner
- <brauner@kernel.org>
-Thread-Topic: [PATCH v9 9/9] null_blk: add support for copy offload
-Thread-Index: AQHZbE5nst5YOYqA/020poicHbZ9H68oyaoA
-Date: Thu, 13 Apr 2023 06:28:20 +0000
-Message-ID: <b8eb491b-ecb6-c559-1340-9984897f2aa4@nvidia.com>
-References: <20230411081041.5328-1-anuj20.g@samsung.com>
- <CGME20230411081400epcas5p151186138b36daf361520b08618300502@epcas5p1.samsung.com>
- <20230411081041.5328-10-anuj20.g@samsung.com>
-In-Reply-To: <20230411081041.5328-10-anuj20.g@samsung.com>
-Accept-Language: en-US
-X-MS-Has-Attach: 
-X-MS-TNEF-Correlator: 
-user-agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.9.0
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: MW2PR12MB4667:EE_|CH3PR12MB7761:EE_
-x-ms-office365-filtering-correlation-id: da22d29b-b61f-40b7-acb1-08db3be84676
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: ixTpiDzlma0BGpv0nfJoO54r3/+qAiZtyRMPM2e31890DOafLV/BsVO6f4W0uGPAgMsp+YGxZrOYXFnQONu5HZUFpJJjD70O0PeX9T0fWdh6w90MVXkQSkYQdsiIDfhEbGInhWovQ9NPL3/fgIKau4LEpJTkDquJxOQqlFP/s3MTpr35yEQBbk+4aXxONDFr+sh/Ey6qpYEb13OK1atOjA0pw206utzLqoqlzEtUbrxcDEM12ZCU6Ai5JTQTPsq8t4XLMATYIzv6JBEk9d1K9hiRNPReUtAPsOXcPtv70zp4C0snZJMvlcnI0c4wlMJjRsp+EmhyMZn4rLDi2IKDpI/0x5lQLS1/gr1H/7tEfR9aStKyX/CuEp1CrgDtIlzrnxlJ9/xlTfldnE0aq3a3WwqCrCrud3g59KKdAJ6B/Vj40V7dz+blcbpu3BbSdQzfn1Yv7tTvVag2O7dDuh0fWCVtv2s1fbIjqPpLO2OkKQJa5B5CChCLhD65iUr1PsXcD6tW+qLVItRRf65Ejh+qnP3zN0rUp2jiOj4nSqk6gKaamF3BAY53rWBg69vVZe878YDv0YAPuccv6NXPLW/dxu5STnLKSv5oIH0h2yBWiif9pbCpSvCgSApcF6r6ORw5cafCbmfJBTZLY0Lmg97zOBuoPlbCNHaWpcz7ZDvkP6P73kNM8uG8e4XcIlz/8iC32OEXMO9AoMvN0ozg3+N7JQ==
-x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:MW2PR12MB4667.namprd12.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(396003)(366004)(346002)(39860400002)(376002)(136003)(451199021)(8676002)(186003)(8936002)(38100700002)(6506007)(6512007)(53546011)(478600001)(316002)(31696002)(54906003)(86362001)(921005)(76116006)(66946007)(91956017)(110136005)(6486002)(64756008)(4326008)(66556008)(66476007)(36756003)(66446008)(71200400001)(41300700001)(7416002)(122000001)(2616005)(83380400001)(31686004)(38070700005)(5660300002)(2906002)(43740500002)(45980500001);
- DIR:OUT; SFP:1101
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?utf-8?B?eExaYndSbXZLcU9SeVJTTVZjYmd1WmhlOEZleFFTU1h4VTJKc2FIZkdnVUsy?=
- =?utf-8?B?cHJRTnY3STIrQjFvemMxOTN3RUQ2SElJN2dqbUxuZW9sL0FCTWZvcTdwejRC?=
- =?utf-8?B?ZVhzM3p0ZjlSRmhpcHpvcDNZOW9wZ1JOY3M0dVU4NW1CL2ZNTU5hMVRYbUgy?=
- =?utf-8?B?K0o0MlFZcDhEQmVOZVVoQlIxbHRHM3ZvR3RDbDlWZkR6RG9EVkZDQUJ3eGtL?=
- =?utf-8?B?TlFOVUQxL3VsL2M1bTlreStsaUY0aGJISG9YZzZCTUhMRGxDbUgyZUk3ZHRp?=
- =?utf-8?B?R0VlMlpwVkVSdEhWdlpJTVd1YVJhZDRHcU5CU0dpVi9GVnJUMnRzd3RQcUtK?=
- =?utf-8?B?Rm42S3dmVjg5Z1oxdndXNUZqdjBXcDRLN2pqbzdvQnFnSnhrUE1keHZKdkVh?=
- =?utf-8?B?a1VOOER2WjhzaDZwMkZ3cFhmNUI3c2RWTnY3bXYyT0pyMmFOK05IYUlqZDdy?=
- =?utf-8?B?S1g1UE1SVEtDL3NiSncyaDVrVys5VjU5VkozdC9Kajh3UXg5Yy9NOXhuUWlw?=
- =?utf-8?B?cUlSMm01b3RhZDFvZ3B2RXBPYzVKekRjcFhNcEpLNUFoQ2xKWXlkdEpNTXdC?=
- =?utf-8?B?VmhZU1lDWkYzd0hDeHVSaE1CdTNJczI3REdFN1RLRnNkZ3pnWHZHR3lBWUJ6?=
- =?utf-8?B?OExrSHlhZEZpVzBVTklGUE9lNGVFUTU4azgwOThiM1NBME41TWRRMTBsajQ0?=
- =?utf-8?B?UzZxcW1ncDhuNjkxbmxtVFRMOExUdGp4ZVpKL200WDFaUXBOL1M1c240Ukxt?=
- =?utf-8?B?MHpJVXpCdmJhbC9pSGt2VVlDM3RPaklPdnMwaGhsLzZoMi9aVjFvWXNLNGVV?=
- =?utf-8?B?RTMraUNnQXJncHZUWU0vQ2p1MWoyVDR3OHFoRlFyZzhCTGF6TVNIMmhGeUVp?=
- =?utf-8?B?UFp3L3VHTnBWcThxTVpFRW8vMHZWZTJ5RVU4SU1lQWxnS1Q4TGhQVm94Ym5P?=
- =?utf-8?B?Y0pFd3Nja0srSWVjaWhUaXlVMUViZVd2Vm9hMVY1UW5IVzlhVmtHdEJEK2hk?=
- =?utf-8?B?VGlYcG5PajVEcytOWkZVRWM1dmt4TitHYm0rdUp3SEZsWjRmbDREeXRCUFpm?=
- =?utf-8?B?OCtCYjFiVFcrWlhFWDdTMDFOSktvanZTNW1ZUlViRXRBUytPUEJ6dW1FbHpp?=
- =?utf-8?B?L0xMSWdRNGQ1MVdmMFE2WEg5WGhEbk5UVHNGVXZFU1pwdG94bFJWa1BtaStv?=
- =?utf-8?B?UWUxM1RHSnpCeVpWSWNrbHJEVmhxSzd5WStDdXZvM0VXc1VwUGlBMk1iNlVD?=
- =?utf-8?B?UVk1UHBhT2ttcFhQKzh6RjNKTWJxRWppSkpDU2I2WEN2Zm5yTGYxUGlUd3hk?=
- =?utf-8?B?ZkhJV3VYdWJhV2NJRnVPbTVTWkU4ZmhLMDlJNFlSc3Fwa2tpUHlWR0NtVlpB?=
- =?utf-8?B?c3Z2ZGJTV1dyc3k2TkJicENncEhBaWxEMFpjVU10UHNjVjc5ZVIyTC9xQ1NJ?=
- =?utf-8?B?Nzdna1NHRkcvVWdxVW1kSVcyaDVCSFNFNm5Cd1MwRGFqVU1VZ1pYaUQ1NEFo?=
- =?utf-8?B?MkNlZjNuWXpjU0FsTytrNi91TE9wWHN2NFgvNVMrREIzdjcwVWN4YkwvbjNG?=
- =?utf-8?B?bUF1RlZqTWVQYXVzY2QxSVN4dnVURDhuSGl6L3pnaFNOc3k4YS9WSkNkOXZV?=
- =?utf-8?B?ZUdib2JkM0xON2hQTnF1VXN4bC9XV2Z1WVdnejhYY2FmYk1RSlhpL25WSkVY?=
- =?utf-8?B?WlB0RFRhR3VYa1Y1WlRtMzFXb2JOWHh2ckh3MzRHdG1hL2xYbnZlOElLTWw5?=
- =?utf-8?B?bmRoVnBOeHZWMEh1ekdoT09qb3dTRUdOWGJkUmUybXptUyszQzJtb3hoamdi?=
- =?utf-8?B?NldvcW5rK2ozaFlXN0xWSlQvNDBwbEtkWk1tS1JMNVJlL0paWFJxcWZDRGtp?=
- =?utf-8?B?ajNLbUlEOXF6SXptVmZhNHFCUHhnQTVtL3h0Yk9FeEM4Z28vZWM2VG54UmRm?=
- =?utf-8?B?Z2FJOHExdG80c3o3czdUd1hTdG1GNndEWk9sNU1xQ3FhSmo0Q0xaM1pVQ2Fr?=
- =?utf-8?B?UlJhN3I4WXIyTzJwc1RTalkxN0pMak12anc1a2pUbWpmOUVjZzdnQURHTHFD?=
- =?utf-8?B?cWg5ajBHeEdmSTJaYklHWWZ4aDF5YlNRQmRZbmdpYUR4NXorYmJIWVNZSlhi?=
- =?utf-8?B?bEVrM2lxZFFSUW8yMkN6cWZ5ajJLSSsyUVVFdnVqYXFXT1ZUd0FXaDVBYUlv?=
- =?utf-8?Q?g924MqpcBdB8tEgDseTgGVkmVIqCw/uhcLuFDmM+WvK1?=
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE4F7280A329
+ for <dm-devel@redhat.com>; Thu, 13 Apr 2023 09:51:06 +0000 (UTC)
+Received: from mail-vs1-f46.google.com (mail-vs1-f46.google.com
+ [209.85.217.46]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-634-S2I_6pWwNXuGkuRaW2A68w-1; Thu, 13 Apr 2023 05:51:05 -0400
+X-MC-Unique: S2I_6pWwNXuGkuRaW2A68w-1
+Received: by mail-vs1-f46.google.com with SMTP id i8so5469371vsv.4
+ for <dm-devel@redhat.com>; Thu, 13 Apr 2023 02:51:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1681379464; x=1683971464;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=5/1cCA7ARMmBDMVmrz4hr0FRe4hg+/OHyteC+tHS04g=;
+ b=ATywExTwo1DsAAs0SpzLdvTN4oSSEFn9LqoYCm7/tQE+ZV2Kdy/9fD7z3jvJpy5M6a
+ MSnCqfmIpgJjyBVDYiIwqo4nRw+cvK0L7sJPkzO30dTcymWND38i52HUk5Shp6X576QR
+ sY0xMJQ23jvoaI6bMnhjEJQPyZWfcFqpMeoDd2QTtPgfI2YpYHvwpsqV3h1s6g42Okhr
+ OGNufMbrZ2EbbfaTGdnWnNLckbz3cLInJL3nhlv3ebBTXosBK1WLxBe2tYXhxo+ugyqb
+ dTCl5mupwoVe/VGT64jnEwz9Ot6F4wTOqcIQCzcVxvw06uq754Fk9IgeWqDElYSxL9Iz
+ NUpQ==
+X-Gm-Message-State: AAQBX9e4funI8UDu3AkUTHb3n8csCOUsClspzs+Wa7iWB7iuSily9hJ2
+ 87LqNXcCEBb3w/VLPfokYzs33J88lWI3bPZ6yvYB6Q==
+X-Google-Smtp-Source: AKy350aPWg8QPSOy/2PHkhrh6sAkwuh8+NOSRnErraPKD6xHUPGtdIg/0oa13IGXGEwruNWS6Z0XHf1YhCtKpgAgMbc=
+X-Received: by 2002:a67:c30c:0:b0:42c:9c6e:a5d2 with SMTP id
+ r12-20020a67c30c000000b0042c9c6ea5d2mr913874vsj.1.1681379464384; Thu, 13 Apr
+ 2023 02:51:04 -0700 (PDT)
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: MW2PR12MB4667.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: da22d29b-b61f-40b7-acb1-08db3be84676
-X-MS-Exchange-CrossTenant-originalarrivaltime: 13 Apr 2023 06:28:20.3580 (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: iDTHKweywMDxgXELI23sGRCfPWYzHd3An4QwIAU1HZ3qIUTjtZ+qPLAdBQy82XZla/vQzN+FTCQwxd97842ZHw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR12MB7761
+References: <20230407200551.12660-1-michael.christie@oracle.com>
+ <20230412093617.285177-1-naresh.kamboju@linaro.org>
+ <CA+G9fYv2nEBe=kJK4veunkvXD9GvqyaPFQ7rUbMD1S4+0nUS3Q@mail.gmail.com>
+ <e85746b2-9736-9041-9327-1ad1299aa155@oracle.com>
+In-Reply-To: <e85746b2-9736-9041-9327-1ad1299aa155@oracle.com>
+From: Naresh Kamboju <naresh.kamboju@linaro.org>
+Date: Thu, 13 Apr 2023 15:20:53 +0530
+Message-ID: <CA+G9fYu5T3HwXzcU4ouNhYY0zOZhJgbc6AXFS0q1wHgV65AEDA@mail.gmail.com>
+To: Mike Christie <michael.christie@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -155,8 +93,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v9 9/9] null_blk: add support for copy offload
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Mailman-Approved-At: Fri, 14 Apr 2023 06:52:02 +0000
+Subject: Re: [dm-devel] [PATCH v6 00/18] Use block pr_ops in LIO
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -168,203 +107,78 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Vincent Fu <vincent.fu@samsung.com>,
- "bvanassche@acm.org" <bvanassche@acm.org>,
- "joshi.k@samsung.com" <joshi.k@samsung.com>,
- "gost.dev@samsung.com" <gost.dev@samsung.com>,
- "nitheshshetty@gmail.com" <nitheshshetty@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "ming.lei@redhat.com" <ming.lei@redhat.com>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "dlemoal@kernel.org" <dlemoal@kernel.org>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>,
- Nitesh Shetty <nj.shetty@samsung.com>
+Cc: shy828301@gmail.com, roman.gushchin@linux.dev,
+ linux-nvme@lists.infradead.org, james.bottomley@hansenpartnership.com,
+ dm-devel@redhat.com, target-devel@vger.kernel.org, hch@lst.de,
+ bvanassche@acm.org, linux-scsi@vger.kernel.org, willy@infradead.org,
+ chaitanyak@nvidia.com, ryan.roberts@arm.com, keescook@chromium.org,
+ snitzer@kernel.org, linux-block@vger.kernel.org, kbusch@kernel.org,
+ vbabka@suse.cz, yuzhao@google.com, axboe@kernel.dk, martin.petersen@oracle.com,
+ halbuer@sra.uni-hannover.de, mkoutny@suse.com, akpm@linux-foundation.org,
+ mgorman@techsingularity.net, zokeefe@google.com,
+ kirill.shutemov@linux.intel.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: nvidia.com
-Content-Language: en-US
-Content-ID: <92C70530638E9A4CBFBC230DEA5AF1D5@namprd12.prod.outlook.com>
+X-Mimecast-Originator: linaro.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On 4/11/23 01:10, Anuj Gupta wrote:
-> From: Nitesh Shetty <nj.shetty@samsung.com>
+On Wed, 12 Apr 2023 at 23:59, Mike Christie <michael.christie@oracle.com> wrote:
 >
-> Implementaion is based on existing read and write infrastructure.
-> copy_max_bytes: A new configfs and module parameter is introduced, which
-> can be used to set hardware/driver supported maximum copy limit.
+> On 4/12/23 5:25 AM, Naresh Kamboju wrote:
+> > On Wed, 12 Apr 2023 at 15:06, Naresh Kamboju <naresh.kamboju@linaro.org> wrote:
+> >>
+> >> [sorry for the adding you in CC]
+> >>
+> >> While running LTP controllers test suite on this patch set applied on top of
+> >> the next-20230406 and the following kernel panic noticed on qemu-i386.
+> >
+> > Also noticed on qemu-x86_64.
+> >
+> > Crash log link,
+> > ------------------
+> > - https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230404140835_25166-1-sergei_shtepa_veeam_com/testrun/16171908/suite/log-parser-test/test/check-kernel-panic/log
+> > - https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/build/lore_kernel_org_linux-block_20230404140835_25166-1-sergei_shtepa_veeam_com/testrun/16171908/suite/log-parser-test/tests/
 >
-> Suggested-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-> Signed-off-by: Anuj Gupta <anuj20.g@samsung.com>
-> Signed-off-by: Nitesh Shetty <nj.shetty@samsung.com>
-> Signed-off-by: Vincent Fu <vincent.fu@samsung.com>
-> ---
->   drivers/block/null_blk/main.c     | 101 ++++++++++++++++++++++++++++++
->   drivers/block/null_blk/null_blk.h |   8 +++
->   2 files changed, 109 insertions(+)
+> Can you point me to the original report? I don't think my patches are the cause of
+> the failure, or if they are there is a crazy bug.
 >
-> diff --git a/drivers/block/null_blk/main.c b/drivers/block/null_blk/main.c
-> index bc2c58724df3..e273e18ace74 100644
-> --- a/drivers/block/null_blk/main.c
-> +++ b/drivers/block/null_blk/main.c
-> @@ -157,6 +157,10 @@ static int g_max_sectors;
->   module_param_named(max_sectors, g_max_sectors, int, 0444);
->   MODULE_PARM_DESC(max_sectors, "Maximum size of a command (in 512B sectors)");
->   
-> +static int g_copy_max_bytes = COPY_MAX_BYTES;
+> Above, I think you pointed me to the wrong link above because it looks like that's
+> for a different patchset. Or did I misunderstand the testing and that link has my
+> patches included?
+>
+> I did see my patches tested:
+>
+> https://qa-reports.linaro.org/~anders.roxell/linux-mainline-patches/
+>
+> but they seem to fail in similar places as other failures that day, and the
+> failures don't seem related to my patches. It doesn't look like you are doing
+> anything nvme or block pr ioctl related and just failing on forks and OOM.
+> It looks like you are booting from a scsi device but I only touched the scsi
+> layer's code for persistent reservations and the tests don't seem to be
+> using that code.
 
-how about following ? matches nullb_device->copy_max_bytes type ..
+Thanks for the analysis on these reports.
+Since it is based on top of Linux next-20230306, I will re-validate the base
+and get back to you with my findings.
 
--static int g_copy_max_bytes = COPY_MAX_BYTES;
--module_param_named(copy_max_bytes, g_copy_max_bytes, int, 0444);
-+static unsigned long g_copy_max_bytes = COPY_MAX_BYTES;
-+module_param_named(copy_max_bytes, g_copy_max_bytes, ulong, 0444);
-
-[...]
-
-> @@ -631,6 +637,7 @@ static ssize_t memb_group_features_show(struct config_item *item, char *page)
->   			"badblocks,blocking,blocksize,cache_size,"
->   			"completion_nsec,discard,home_node,hw_queue_depth,"
->   			"irqmode,max_sectors,mbps,memory_backed,no_sched,"
-> +			"copy_max_bytes,"
->   			"poll_queues,power,queue_mode,shared_tag_bitmap,size,"
->   			"submit_queues,use_per_node_hctx,virt_boundary,zoned,"
->   			"zone_capacity,zone_max_active,zone_max_open,"
-
-why not ?
-
-@@ -637,11 +637,12 @@ static ssize_t memb_group_features_show(struct config_item *item, char *page)
-                         "badblocks,blocking,blocksize,cache_size,"
-                         "completion_nsec,discard,home_node,hw_queue_depth,"
-                         "irqmode,max_sectors,mbps,memory_backed,no_sched,"
--                       "copy_max_bytes,"
-                         "poll_queues,power,queue_mode,shared_tag_bitmap,size,"
-                         "submit_queues,use_per_node_hctx,virt_boundary,zoned,"
-                         "zone_capacity,zone_max_active,zone_max_open,"
--                       "zone_nr_conv,zone_offline,zone_readonly,zone_size\n");
-+                       "zone_nr_conv,zone_offline,zone_readonly,zone_size"
-+                       "copy_max_bytes\n");
-  }
-  
-[...]
-  
-+static inline int nullb_setup_copy_read(struct nullb *nullb,
-+		struct bio *bio)
-+{
-+	struct nullb_copy_token *token = bvec_kmap_local(&bio->bi_io_vec[0]);
-+
-+	memcpy(token->subsys, "nullb", 5);
-
-do you really need to use memcpy here ? can token->subsys be a pointer
-and use with assignment token->subsys = nullb ?
-
-+	token->sector_in = bio->bi_iter.bi_sector;
-+	token->nullb = nullb;
-+	token->sectors = bio->bi_iter.bi_size >> SECTOR_SHIFT;
-+
-+	return 0;
-+}
-+
-
-no point in return 0 , use local bool for fua instead of repeating
-expression and no need to fold line for nullb_setup_copy_read()
-makes is easy to read and removes extra lines and indentation see below :-
-
--static inline int nullb_setup_copy_read(struct nullb *nullb,
--               struct bio *bio)
-+static inline void nullb_setup_copy_read(struct nullb *nullb, struct bio *bio)
-  {
-         struct nullb_copy_token *token = bvec_kmap_local(&bio->bi_io_vec[0]);
-  
--       memcpy(token->subsys, "nullb", 5);
-+       token->subsys = "nullb;
-         token->sector_in = bio->bi_iter.bi_sector;
-         token->nullb = nullb;
-         token->sectors = bio->bi_iter.bi_size >> SECTOR_SHIFT;
--
--       return 0;
-  }
-  
-  static inline int nullb_setup_copy_write(struct nullb *nullb,
-@@ -1334,20 +1331,21 @@ static int null_handle_rq(struct nullb_cmd *cmd)
-         sector_t sector = blk_rq_pos(rq);
-         struct req_iterator iter;
-         struct bio_vec bvec;
-+       bool fua = rq->cmd_flags & REQ_FUA;
-  
-         if (rq->cmd_flags & REQ_COPY) {
-                 if (op_is_write(req_op(rq)))
--                       return nullb_setup_copy_write(nullb, rq->bio,
--                                               rq->cmd_flags & REQ_FUA);
--               return nullb_setup_copy_read(nullb, rq->bio);
-+                       return nullb_setup_copy_write(nullb, rq->bio, fua);
-+
-+               nullb_setup_copy_read(nullb, rq->bio);
-+               return 0;
-         }
-  
-         spin_lock_irq(&nullb->lock);
-         rq_for_each_segment(bvec, rq, iter) {
-                 len = bvec.bv_len;
-                 err = null_transfer(nullb, bvec.bv_page, len, bvec.bv_offset,
--                                    op_is_write(req_op(rq)), sector,
--                                    rq->cmd_flags & REQ_FUA);
-+                                    op_is_write(req_op(rq)), sector, fua);
-                 if (err) {
-                         spin_unlock_irq(&nullb->lock);
-                         return err;
-@@ -1368,12 +1366,13 @@ static int null_handle_bio(struct nullb_cmd *cmd)
-         sector_t sector = bio->bi_iter.bi_sector;
-         struct bio_vec bvec;
-         struct bvec_iter iter;
-+       bool fua = bio->bi_opf & REQ_FUA
-  
-         if (bio->bi_opf & REQ_COPY) {
-                 if (op_is_write(bio_op(bio)))
--                       return nullb_setup_copy_write(nullb, bio,
--                                                       bio->bi_opf & REQ_FUA);
--               return nullb_setup_copy_read(nullb, bio);
-+                       return nullb_setup_copy_write(nullb, bio, fua);
-+               nullb_setup_copy_read(nullb, bio);
-+               return 0;
-         }
-  
+- Naresh
 
 
-
-[...]
-  
-+struct nullb_copy_token {
-+	char subsys[5];
-+	struct nullb *nullb;
-+	u64 sector_in;
-+	u64 sectors;
-+};
-+
-
-why not use sector_t ?
-
-diff --git a/drivers/block/null_blk/null_blk.h b/drivers/block/null_blk/null_blk.h
-index c67c098d92fa..ffa4b6a6d19b 100644
---- a/drivers/block/null_blk/null_blk.h
-+++ b/drivers/block/null_blk/null_blk.h
-@@ -70,8 +70,8 @@ enum {
-  struct nullb_copy_token {
-         char subsys[5];
-         struct nullb *nullb;
--       u64 sector_in;
--       u64 sectors;
-+       sector_t sector_in;
-+       sector_t sectors;
-  };
-  
-
--ck
-
+>
+>
+>
+> >
+> > lore link,
+> > https://lore.kernel.org/linux-block/20230407200551.12660-1-michael.christie@oracle.com/
+> >
+> >
+> > --
+> > Linaro LKFT
+> > https://lkft.linaro.org
+>
 
 --
 dm-devel mailing list
