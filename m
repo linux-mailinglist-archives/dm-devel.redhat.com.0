@@ -2,78 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CDCE6E50FF
-	for <lists+dm-devel@lfdr.de>; Mon, 17 Apr 2023 21:33:16 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9854B6E5149
+	for <lists+dm-devel@lfdr.de>; Mon, 17 Apr 2023 21:56:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681759994;
+	s=mimecast20190719; t=1681761377;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=0Xi5muot8Y9L6c31Xnn2to78XprkgF67KN9bvEEO7Ek=;
-	b=eUQIV1DBqMOApeOnndnMidbddex6o9cbBO4IUIVCyoClCH76YHhcz573aJr25BrpQkasV2
-	hkyynlR093cGFH4LxV6dS0tbzZOhGF12Lw58LhsaL6auMYDkvCtSqYhH9muH20Fs5hy4rU
-	GSEcZ9ZmuSE1EtwQHsjMId7GgcPByPg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=/rpSkssCkzPJuop45azYTuY74e8eUJ81krHYEu1OOo0=;
+	b=bKzqz7yQrL9tQtKICkj3xgh8GsZ0px3GfXniMiuSk0xIay8NTUKw+VKTGGa9HPpld0UK6j
+	ahSIbF0uriiOfm8zDevgRYBHFloKXhsCTy4cCbycsRGCMPfjN7hjGfHiezvxZ+zR7FGvMp
+	/jagmhCatn+7miFN3JMZW8RA0fqpHks=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-100-vEB1pnOOO5iyxo-3wciv0A-1; Mon, 17 Apr 2023 15:33:12 -0400
-X-MC-Unique: vEB1pnOOO5iyxo-3wciv0A-1
+ us-mta-622-68hJKXZ9MFWhzecU9M7Xgw-1; Mon, 17 Apr 2023 15:56:15 -0400
+X-MC-Unique: 68hJKXZ9MFWhzecU9M7Xgw-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C34785530D;
-	Mon, 17 Apr 2023 19:33:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EC5073814976;
+	Mon, 17 Apr 2023 19:56:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DE2A62027044;
-	Mon, 17 Apr 2023 19:33:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 87D762027144;
+	Mon, 17 Apr 2023 19:56:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8F3A319465A4;
-	Mon, 17 Apr 2023 19:33:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 95E5719465A4;
+	Mon, 17 Apr 2023 19:56:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EAA631946587
- for <dm-devel@listman.corp.redhat.com>; Mon, 17 Apr 2023 19:33:05 +0000 (UTC)
+ ESMTP id 51C341946587
+ for <dm-devel@listman.corp.redhat.com>; Mon, 17 Apr 2023 19:56:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CD30740C20FA; Mon, 17 Apr 2023 19:33:05 +0000 (UTC)
+ id 16B8140C6E70; Mon, 17 Apr 2023 19:56:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C57DC40CE2D4
- for <dm-devel@redhat.com>; Mon, 17 Apr 2023 19:33:05 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC198382888C
- for <dm-devel@redhat.com>; Mon, 17 Apr 2023 19:33:05 +0000 (UTC)
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-237-wFu4hA1yMvuXMS4hMYzHXA-1; Mon,
- 17 Apr 2023 15:33:02 -0400
-X-MC-Unique: wFu4hA1yMvuXMS4hMYzHXA-1
-Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
- Hat Linux)) id 1poUas-00BcOu-8q; Mon, 17 Apr 2023 19:32:54 +0000
-Date: Mon, 17 Apr 2023 20:32:54 +0100
-From: Matthew Wilcox <willy@infradead.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <ZD2e5lw5CqueygSA@casper.infradead.org>
+Received: from file01.intranet.prod.int.rdu2.redhat.com
+ (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D7AA040C6E6E;
+ Mon, 17 Apr 2023 19:56:07 +0000 (UTC)
+Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
+ 33HJu7gX004333; Mon, 17 Apr 2023 15:56:07 -0400
+Received: from localhost (mpatocka@localhost)
+ by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
+ id 33HJu7dI004329; Mon, 17 Apr 2023 15:56:07 -0400
+X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
+ owned process doing -bs
+Date: Mon, 17 Apr 2023 15:56:07 -0400 (EDT)
+From: Mikulas Patocka <mpatocka@redhat.com>
+X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
+To: Matthew Wilcox <willy@infradead.org>
+In-Reply-To: <ZD2e5lw5CqueygSA@casper.infradead.org>
+Message-ID: <alpine.LRH.2.21.2304171533510.20290@file01.intranet.prod.int.rdu2.redhat.com>
 References: <alpine.LRH.2.21.2304171433370.17217@file01.intranet.prod.int.rdu2.redhat.com>
+ <ZD2e5lw5CqueygSA@casper.infradead.org>
+User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.21.2304171433370.17217@file01.intranet.prod.int.rdu2.redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 Subject: Re: [dm-devel] [PATCH] block: fix a crash when
  bio_for_each_folio_all iterates over an empty bio
 X-BeenThere: dm-devel@redhat.com
@@ -94,18 +85,53 @@ Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
-Content-Disposition: inline
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 17, 2023 at 03:11:57PM -0400, Mikulas Patocka wrote:
-> If we use bio_for_each_folio_all on an empty bio, it will access the first
-> bio vector unconditionally (it is uninitialized) and it may crash
-> depending on the uninitialized data.
 
-Wait, how do we have an empty bio in the first place?
 
+On Mon, 17 Apr 2023, Matthew Wilcox wrote:
+
+> On Mon, Apr 17, 2023 at 03:11:57PM -0400, Mikulas Patocka wrote:
+> > If we use bio_for_each_folio_all on an empty bio, it will access the first
+> > bio vector unconditionally (it is uninitialized) and it may crash
+> > depending on the uninitialized data.
+> 
+> Wait, how do we have an empty bio in the first place?
+
+dm-crypt (with the patch that you suggested here: 
+https://www.spinics.net/lists/kernel/msg4691572.html
+https://lore.kernel.org/linux-mm/alpine.LRH.2.21.2302161619430.5436@file01.intranet.prod.int.rdu2.redhat.com/T/
+) calls:
+
+gfp_t gfp_mask = GFP_NOWAIT | __GFP_HIGHMEM;
+...
+pages = mempool_alloc(&cc->page_pool, gfp_mask);
+if (!pages) {
+	crypt_free_buffer_pages(cc, clone);
+	bio_put(clone);
+	gfp_mask |= __GFP_DIRECT_RECLAIM;
+	order = 0;
+	goto retry;
+}
+
+If the mempool_alloc of the first page fails (it may happen because it 
+uses GFP_NOWAIT), crypt_free_buffer_pages will be called with an empty 
+bio.
+
+
+I also hit this bug when fixing a dm-flakey target - it is triggered by 
+this: 
+https://people.redhat.com/~mpatocka/patches/kernel/dm-flakey/dm-flakey-02-clone-pages.patch
+
+
+I think that this patch doesn't have to be backported to the stable 
+kernels (because there is currently no user that calls 
+bio_for_each_folio_all on an empty bio), but for the next merge window, 
+dm-crypt and dm-flakey is going to use it.
+
+Mikulas
 --
 dm-devel mailing list
 dm-devel@redhat.com
