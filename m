@@ -1,73 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C0C346E583D
-	for <lists+dm-devel@lfdr.de>; Tue, 18 Apr 2023 06:57:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4E6316E671E
+	for <lists+dm-devel@lfdr.de>; Tue, 18 Apr 2023 16:26:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681793859;
+	s=mimecast20190719; t=1681828002;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GT3nnntyeyHIZmUxEZkPNZDEtzUV6Jo+X1mOixxyTnc=;
-	b=W382BJMqXAU38IwWQArv0Qa7EnTcqjSsFbqwEiyu9I/S3toBnDK7xpFqb1TQBL6pqFJboa
-	caXkZHEv7vWcVJZDeppuzxL626g4YA9YwuqH+7vLz4cphkDsFw4nWTdFuVtufGdkIb+1Nh
-	W8Cy73J54A9TMcpe1uAcyYjVwChKkiI=
+	bh=VUGnkjqtSWA4UI6CHbmxOHt9w9pXTNjCOCUpPHWqOng=;
+	b=Xu+jJdZQb99iOwi6r2c+P/dfz8p6EYgtXUd8nps7h8q54E5/PXgBkBBMtnV0zl7OSE4ABF
+	dRTL3Q1T1LGFx6RkAc4/JkBmWbNRdYoYujbWbjAWAo/HJ2imYJ5ZbUcB9R5Zpec1twYjvX
+	cHPDi7CQUjEulBCukqMma5ee7My0MT4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-286-6kpalSS6OM6eDekMa53h5A-1; Tue, 18 Apr 2023 00:57:37 -0400
-X-MC-Unique: 6kpalSS6OM6eDekMa53h5A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-63-QNScq0LqPYqndtIr4EvmEQ-1; Tue, 18 Apr 2023 10:26:38 -0400
+X-MC-Unique: QNScq0LqPYqndtIr4EvmEQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0766C85A588;
-	Tue, 18 Apr 2023 04:57:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3E1385A588;
+	Tue, 18 Apr 2023 14:26:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 23736492B10;
-	Tue, 18 Apr 2023 04:57:29 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A8175C15BA0;
+	Tue, 18 Apr 2023 14:26:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 82CF019465A4;
-	Tue, 18 Apr 2023 04:57:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 64FC619465A8;
+	Tue, 18 Apr 2023 14:26:20 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9D0201946587
- for <dm-devel@listman.corp.redhat.com>; Tue, 18 Apr 2023 04:57:26 +0000 (UTC)
+ ESMTP id 9EFC6194658C
+ for <dm-devel@listman.corp.redhat.com>; Tue, 18 Apr 2023 08:57:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 726AE40C6E6F; Tue, 18 Apr 2023 04:57:26 +0000 (UTC)
+ id 8F1A640C83B6; Tue, 18 Apr 2023 08:57:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AF8B40C6E6E
- for <dm-devel@redhat.com>; Tue, 18 Apr 2023 04:57:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5397285C6E0
- for <dm-devel@redhat.com>; Tue, 18 Apr 2023 04:57:26 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-183-g3rHtrXoMX-fNLocxNbLdw-1; Tue, 18 Apr 2023 00:57:24 -0400
-X-MC-Unique: g3rHtrXoMX-fNLocxNbLdw-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id 0906C67373; Tue, 18 Apr 2023 06:57:20 +0200 (CEST)
-Date: Tue, 18 Apr 2023 06:57:19 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20230418045719.GA29490@lst.de>
-References: <alpine.LRH.2.21.2304171433370.17217@file01.intranet.prod.int.rdu2.redhat.com>
- <ZD2e5lw5CqueygSA@casper.infradead.org>
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 87D3D40C83A9
+ for <dm-devel@redhat.com>; Tue, 18 Apr 2023 08:57:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 384D93C11782
+ for <dm-devel@redhat.com>; Tue, 18 Apr 2023 08:57:25 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
+ [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-635-oKioRL7wMHC34Xj7q9Ja6A-1; Tue, 18 Apr 2023 04:57:23 -0400
+X-MC-Unique: oKioRL7wMHC34Xj7q9Ja6A-1
+Received: from dggpemm500011.china.huawei.com (unknown [7.185.36.110])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4Q0y332TYczsRFq;
+ Tue, 18 Apr 2023 16:37:19 +0800 (CST)
+Received: from huawei.com (10.175.127.227) by dggpemm500011.china.huawei.com
+ (7.185.36.110) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.23; Tue, 18 Apr
+ 2023 16:38:48 +0800
+From: Li Lingfeng <lilingfeng3@huawei.com>
+To: <dm-devel@redhat.com>
+Date: Tue, 18 Apr 2023 16:38:04 +0800
+Message-ID: <20230418083804.2548437-1-lilingfeng3@huawei.com>
 MIME-Version: 1.0
-In-Reply-To: <ZD2e5lw5CqueygSA@casper.infradead.org>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+X-Originating-IP: [10.175.127.227]
+X-ClientProxiedBy: dggems706-chm.china.huawei.com (10.3.19.183) To
+ dggpemm500011.china.huawei.com (7.185.36.110)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,9 +77,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH] block: fix a crash when
- bio_for_each_folio_all iterates over an empty bio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Mailman-Approved-At: Tue, 18 Apr 2023 14:26:19 +0000
+Subject: [dm-devel] [PATCH -next] dm: don't lock fs when the map is NULL in
+ process of resume
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,29 +92,89 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <msnitzer@redhat.com>,
- "Darrick J. Wong" <djwong@kernel.org>, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
- Christoph Hellwig <hch@lst.de>
+Cc: yi.zhang@huawei.com, snitzer@kernel.org, linux-kernel@vger.kernel.org,
+ houtao1@huawei.com, yukuai3@huawei.com, lilingfeng3@huawei.com, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: lst.de
-Content-Disposition: inline
+X-Mimecast-Originator: huawei.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Apr 17, 2023 at 08:32:54PM +0100, Matthew Wilcox wrote:
-> On Mon, Apr 17, 2023 at 03:11:57PM -0400, Mikulas Patocka wrote:
-> > If we use bio_for_each_folio_all on an empty bio, it will access the first
-> > bio vector unconditionally (it is uninitialized) and it may crash
-> > depending on the uninitialized data.
-> 
-> Wait, how do we have an empty bio in the first place?
+Commit fa247089de99 ("dm: requeue IO if mapping table not yet available")
+added a detection of whether the mapping table is available in the IO
+submission process. If the mapping table is unavailable, it returns
+BLK_STS_RESOURCE and requeues the IO.
+This can lead to the following deadlock problem:
 
-flush bios are always empty.  Not sure iterating over them makes much
-sense, though.
+dm create                                      mount
+ioctl(DM_DEV_CREATE_CMD)
+ioctl(DM_TABLE_LOAD_CMD)
+                               do_mount
+                                vfs_get_tree
+                                 ext4_get_tree
+                                  get_tree_bdev
+                                   sget_fc
+                                    alloc_super
+                                     // got &s->s_umount
+                                     down_write_nested(&s->s_umount, ...);
+                                   ext4_fill_super
+                                    ext4_load_super
+                                     ext4_read_bh
+                                      submit_bio
+                                      // submit and wait io end
+ioctl(DM_DEV_SUSPEND_CMD)
+dev_suspend
+ do_resume
+  dm_suspend
+   __dm_suspend
+    lock_fs
+     freeze_bdev
+      get_active_super
+       grab_super
+        // wait for &s->s_umount
+        down_write(&s->s_umount);
+  dm_swap_table
+   __bind
+    // set md->map(can't get here)
+
+IO will be continuously requeued while holding the lock since mapping
+table is null. At the same time, mapping table won't be set since the
+lock is not available.
+Like request-based DM, bio-based DM also has the same problem.
+
+It's not proper to just abort IO if the mapping table not available.
+So clear DM_SKIP_LOCKFS_FLAG when the mapping table is NULL.
+
+Fixes: fa247089de99 ("dm: requeue IO if mapping table not yet available")
+Signed-off-by: Li Lingfeng <lilingfeng3@huawei.com>
+---
+ drivers/md/dm-ioctl.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 50a1259294d1..48e5554e3b69 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1168,10 +1168,14 @@ static int do_resume(struct dm_ioctl *param)
+ 	/* Do we need to load a new map ? */
+ 	if (new_map) {
+ 		sector_t old_size, new_size;
++		int srcu_idx;
+ 
++		old_map = dm_get_live_table(md, &srcu_idx);
+ 		/* Suspend if it isn't already suspended */
+-		if (param->flags & DM_SKIP_LOCKFS_FLAG)
++		if ((param->flags & DM_SKIP_LOCKFS_FLAG) || !old_map)
+ 			suspend_flags &= ~DM_SUSPEND_LOCKFS_FLAG;
++		dm_put_live_table(md, srcu_idx);
++
+ 		if (param->flags & DM_NOFLUSH_FLAG)
+ 			suspend_flags |= DM_SUSPEND_NOFLUSH_FLAG;
+ 		if (!dm_suspended_md(md))
+-- 
+2.31.1
 
 --
 dm-devel mailing list
