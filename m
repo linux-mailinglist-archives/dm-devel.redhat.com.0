@@ -2,8 +2,8 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A5326E8AB2
-	for <lists+dm-devel@lfdr.de>; Thu, 20 Apr 2023 08:57:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0E6286E8AB1
+	for <lists+dm-devel@lfdr.de>; Thu, 20 Apr 2023 08:57:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1681973842;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,82 +12,82 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=os1hbude9J0T+iHrqHE24VyZe+Tu9d/zGaEoSXtAddc=;
-	b=cOLaMtWeWr/hVHt7b0Gj2SzEAYvQ1zj3V6A8AUQH10jyf+7vKZSBl785b+Sptc/GPsH7K9
-	DYk6Ff6vJHkq8I87BKalzsUkuOiYAV4okkS0X8NEmz65AnizW22OHGZLWx2Wcc9EYujSzv
-	5m+05Op3Y57brRpR6n9ton4vTWjfFT8=
+	bh=tlORFrx5JHqvgSw2TadGHkBABITFP4viI2lmWrI1DjY=;
+	b=XGR58zT0AE1S0QYBdlpjP+kq69gDmw1xz06UBBBQq6z8JJwD+EoYQU4ayTuLpEWUv/ZPet
+	/VJMM9uWmdhxoJbDcVTnA6qrn7Dkor8UIKFDrMEyW0bmhe/ArvTGj6K97M8SqNdZxfharR
+	LV4xx4OfgzMq8rsygufptWQhdACNo1w=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-408-AKlweDVRMxeXgWFvk6EUHQ-1; Thu, 20 Apr 2023 02:57:19 -0400
-X-MC-Unique: AKlweDVRMxeXgWFvk6EUHQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-522-s8-4yLYgMSmZtmefWDSMWw-1; Thu, 20 Apr 2023 02:57:19 -0400
+X-MC-Unique: s8-4yLYgMSmZtmefWDSMWw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 102061C0897C;
-	Thu, 20 Apr 2023 06:57:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC0081C0898B;
+	Thu, 20 Apr 2023 06:57:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6D9940BC79D;
-	Thu, 20 Apr 2023 06:57:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B17C11121325;
+	Thu, 20 Apr 2023 06:57:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 497AC19472C4;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AFC2619472E4;
 	Thu, 20 Apr 2023 06:57:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4FA4319465A0
+ ESMTP id BEACE19465A0
  for <dm-devel@listman.corp.redhat.com>; Wed, 19 Apr 2023 14:11:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3534C4020BF0; Wed, 19 Apr 2023 14:11:00 +0000 (UTC)
+ id A50162026D25; Wed, 19 Apr 2023 14:11:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2D1244020BEE
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9DA012026D16
  for <dm-devel@redhat.com>; Wed, 19 Apr 2023 14:11:00 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10FC4884343
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83DF83C10161
  for <dm-devel@redhat.com>; Wed, 19 Apr 2023 14:11:00 +0000 (UTC)
-Received: from mail-wr1-f44.google.com (mail-wr1-f44.google.com
- [209.85.221.44]) by relay.mimecast.com with ESMTP with STARTTLS
+Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com
+ [209.85.128.45]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-230-kNBuI6VvOdKNRGWS0NdxGg-1; Wed, 19 Apr 2023 10:10:55 -0400
-X-MC-Unique: kNBuI6VvOdKNRGWS0NdxGg-1
-Received: by mail-wr1-f44.google.com with SMTP id
- ffacd0b85a97d-2f4214b430aso2104060f8f.0; 
- Wed, 19 Apr 2023 07:10:54 -0700 (PDT)
+ us-mta-391-M66DBg0APsWhtwmM0o6BbA-1; Wed, 19 Apr 2023 10:10:56 -0400
+X-MC-Unique: M66DBg0APsWhtwmM0o6BbA-1
+Received: by mail-wm1-f45.google.com with SMTP id
+ 5b1f17b1804b1-3f173af665fso16675345e9.3; 
+ Wed, 19 Apr 2023 07:10:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681913453; x=1684505453;
+ d=1e100.net; s=20221208; t=1681913455; x=1684505455;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=u8TpFiJZXriCSIuX4H6qm/DmnDRMN3dAYFyNsYcZw7Y=;
- b=hbnuk549EyXP8tNoWBZBq9eNjvlzhUEu5XCHwzhS0KGSOf00sV0e1briFBdv8392EE
- O/tUnTwcwKoav8m95e01R/vUORXbUDp3X26uxAe7P9sX3XfvqT5ILYWVC1EPcW8g1KZ4
- Er7oVeUDwHctTPRgj95b/pncwj6TvGm91ESRJeDCdLvTf0YzLnL7MGN3BZTdXOQ2g0zD
- mWLtGrTjqIh5I8xNrJnRwILam1Zm/dJ8sD/PFkKi7Mbc8IXoMUVqzqiFijuwEu/fHKZY
- 0Er0nNprPpEPopvrUuZABYpRPG+LBsQZuGrcfNBonsC/S4zD29RlgjA+9bggGSlAS1Dj
- a9cQ==
-X-Gm-Message-State: AAQBX9eLjUt5aPKzq4EbRku6knhlsuAMr8WPf7XeVu+zbTTlvWNSvq9F
- PO/W2JqaPPI5TI+mt8TCloc=
-X-Google-Smtp-Source: AKy350YTktz+btoYf/lfmIpjxtv9Fic8XsjroznIk6ubZ5/gLPCuphxcjC60RHARQGdGgdBUYUfVfA==
-X-Received: by 2002:adf:e58a:0:b0:2ef:1c8c:1113 with SMTP id
- l10-20020adfe58a000000b002ef1c8c1113mr5538098wrm.9.1681913453067; 
- Wed, 19 Apr 2023 07:10:53 -0700 (PDT)
+ bh=6vsuN/DXTgv6nXT8tixf/9v37orpsS/ZRMb3IsbWCsU=;
+ b=fCszvhPddzQnwZnafS2FAZkoR5+7vfHbhqARsx08aGEcJH8jK1MmRE98waTqsJeQkr
+ D2TDWnAvWxH4haD3wnyweadv7/MwKQxH3TPTYktwgjA3YniSSk0xw6GUXRr9fKy2PonP
+ +IkTnu1AyBuhFMIj5ve4qutobBlAKi4+86rz7u80vuKvTezjxUxwsIGKnUljcrOTWIDd
+ WDlVYpFF7/BBuUAjWMH5DDxLnvvbqPi7p9uLmpdi7ymEVg/BOM1av6RPpLVSkC5iDlfT
+ DrXa2kBJUrSvuy4Dd3ET01tWvJ+iD2QXnqLMlyGVg/rXRROtNqFD/Aa43kHqXQp/PzjT
+ 7GyA==
+X-Gm-Message-State: AAQBX9fOjHDweeLnWQUIW2EMc9plhRu+ORKhMjEWRK1Y3S0jQUjtLtoT
+ mtTtEm9SiIXjHeZyeGnHa0g=
+X-Google-Smtp-Source: AKy350ZtqTfiMh/3xTzWhxaqnfC6KE+V7qat1q3S3ZwFV6mDgq1XPDVNE2nS1h2LUGMDwyBUmS7crw==
+X-Received: by 2002:a5d:4a0b:0:b0:2fb:ca40:e42c with SMTP id
+ m11-20020a5d4a0b000000b002fbca40e42cmr4564600wrq.6.1681913455062; 
+ Wed, 19 Apr 2023 07:10:55 -0700 (PDT)
 Received: from localhost.localdomain
  (aftr-62-216-205-204.dynamic.mnet-online.de. [62.216.205.204])
  by smtp.googlemail.com with ESMTPSA id
- q17-20020a5d61d1000000b002faaa9a1721sm7612089wrv.58.2023.04.19.07.10.50
+ q17-20020a5d61d1000000b002faaa9a1721sm7612089wrv.58.2023.04.19.07.10.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Apr 2023 07:10:52 -0700 (PDT)
+ Wed, 19 Apr 2023 07:10:54 -0700 (PDT)
 From: Johannes Thumshirn <jth@kernel.org>
 To: axboe@kernel.dk
-Date: Wed, 19 Apr 2023 16:09:25 +0200
-Message-Id: <20230419140929.5924-16-jth@kernel.org>
+Date: Wed, 19 Apr 2023 16:09:26 +0200
+Message-Id: <20230419140929.5924-17-jth@kernel.org>
 In-Reply-To: <20230419140929.5924-1-jth@kernel.org>
 References: <20230419140929.5924-1-jth@kernel.org>
 MIME-Version: 1.0
@@ -98,10 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Thu, 20 Apr 2023 06:57:04 +0000
-Subject: [dm-devel] [PATCH v3 15/19] md: check for failure when adding pages
- in alloc_behind_master_bio
+Subject: [dm-devel] [PATCH v3 16/19] md: raid1: use __bio_add_page for
+ adding single page to bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -123,7 +123,7 @@ Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, linux-mm@kvack.org,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
@@ -131,34 +131,34 @@ Content-Transfer-Encoding: 7bit
 
 From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 
-alloc_behind_master_bio() can possibly add multiple pages to a bio, but it
-is not checking for the return value of bio_add_page() if adding really
-succeeded.
+The sync request code uses bio_add_page() to add a page to a newly created bio.
+bio_add_page() can fail, but the return value is never checked.
 
-Check if the page adding succeeded and if not bail out.
+Use __bio_add_page() as adding a single page to a newly created bio is
+guaranteed to succeed.
+
+This brings us a step closer to marking bio_add_page() as __must_check.
 
 Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
+Acked-by: Song Liu <song@kernel.org>
 ---
- drivers/md/raid1.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/md/raid1.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/md/raid1.c b/drivers/md/raid1.c
-index 68a9e2d9985b..8283ef177f6c 100644
+index 8283ef177f6c..ff89839455ec 100644
 --- a/drivers/md/raid1.c
 +++ b/drivers/md/raid1.c
-@@ -1147,7 +1147,10 @@ static void alloc_behind_master_bio(struct r1bio *r1_bio,
- 		if (unlikely(!page))
- 			goto free_pages;
- 
--		bio_add_page(behind_bio, page, len, 0);
-+		if (!bio_add_page(behind_bio, page, len, 0)) {
-+			free_page(page);
-+			goto free_pages;
-+		}
- 
- 		size -= len;
- 		i++;
+@@ -2917,7 +2917,7 @@ static sector_t raid1_sync_request(struct mddev *mddev, sector_t sector_nr,
+ 				 * won't fail because the vec table is big
+ 				 * enough to hold all these pages
+ 				 */
+-				bio_add_page(bio, page, len, 0);
++				__bio_add_page(bio, page, len, 0);
+ 			}
+ 		}
+ 		nr_sectors += len>>9;
 -- 
 2.39.2
 
