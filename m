@@ -1,102 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 072D16E85CF
-	for <lists+dm-devel@lfdr.de>; Thu, 20 Apr 2023 01:21:36 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ED3E76E86DF
+	for <lists+dm-devel@lfdr.de>; Thu, 20 Apr 2023 02:49:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1681946495;
+	s=mimecast20190719; t=1681951761;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=SIAuKr9KQQQc2LXNVu5UpOmNFKGWG3sXqIvZckCAbxU=;
-	b=gggBhBOadrKZ3mmU2tL5dze4dmHZFRSylaESJk/P9OuJdMrYyFa5Tkz7FjUve9Wa2GjgGM
-	hm6lth807gem4G137O8EARTkUGwS+ngzHwZ7lrxJ5j+MaONTLmdI5o2j74p0s6FG2sN0Q0
-	4EcFBPQOxZIc1gvhGhiAAF8OaDlWPWU=
+	bh=cvIhMJQL1zocEToFH7vIp45OwihaX84KwhsH+Zq1d+E=;
+	b=DqYbTRglzMPtDLGAezSrvgTzhXgY3C8TxyO4X2VcSvvhIjkIpLahw5aHNr79pdwHpM7ZhT
+	MUXJnq9/7tbyPiFyCHf8yJA6OXor/6s+Dx4DMc1JMA9rwWNZHGhY3ZQdQmiZNsx9qRCn8c
+	kn0kyqnADSxoXPICJop9mKR02K7Fk0o=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-158-uNbsuK43N-Oj5JATCG3yfw-1; Wed, 19 Apr 2023 19:21:34 -0400
-X-MC-Unique: uNbsuK43N-Oj5JATCG3yfw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-611-r_IjAyhkOSe30VaHu8kgEQ-1; Wed, 19 Apr 2023 20:49:17 -0400
+X-MC-Unique: r_IjAyhkOSe30VaHu8kgEQ-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5FDA985A5A3;
-	Wed, 19 Apr 2023 23:21:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C1DFA8996E0;
+	Thu, 20 Apr 2023 00:49:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BC3B340C94A9;
-	Wed, 19 Apr 2023 23:21:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 414921410F20;
+	Thu, 20 Apr 2023 00:48:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5540E1946A47;
-	Wed, 19 Apr 2023 23:21:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2107E1946A47;
+	Thu, 20 Apr 2023 00:48:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 74C6019465B5
- for <dm-devel@listman.corp.redhat.com>; Wed, 19 Apr 2023 23:21:25 +0000 (UTC)
+ ESMTP id DC3D919465B5
+ for <dm-devel@listman.corp.redhat.com>; Thu, 20 Apr 2023 00:48:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 46E231410F1C; Wed, 19 Apr 2023 23:21:25 +0000 (UTC)
+ id 99B122166B34; Thu, 20 Apr 2023 00:48:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3EE9E140EBF4
- for <dm-devel@redhat.com>; Wed, 19 Apr 2023 23:21:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 241BD85A588
- for <dm-devel@redhat.com>; Wed, 19 Apr 2023 23:21:25 +0000 (UTC)
-Received: from mail-pg1-f175.google.com (mail-pg1-f175.google.com
- [209.85.215.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 91D3D2166B33
+ for <dm-devel@redhat.com>; Thu, 20 Apr 2023 00:48:57 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75EBF811E7C
+ for <dm-devel@redhat.com>; Thu, 20 Apr 2023 00:48:57 +0000 (UTC)
+Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
+ [209.85.214.180]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-399-XzN1GEdbPUS0gM9eEkZNCQ-1; Wed, 19 Apr 2023 19:21:23 -0400
-X-MC-Unique: XzN1GEdbPUS0gM9eEkZNCQ-1
-Received: by mail-pg1-f175.google.com with SMTP id
- 41be03b00d2f7-517ab9a4a13so304492a12.1
- for <dm-devel@redhat.com>; Wed, 19 Apr 2023 16:21:22 -0700 (PDT)
+ us-mta-594-i7UX843dPoOnH10iRa6Jdg-1; Wed, 19 Apr 2023 20:48:56 -0400
+X-MC-Unique: i7UX843dPoOnH10iRa6Jdg-1
+Received: by mail-pl1-f180.google.com with SMTP id
+ d9443c01a7336-1a80d827179so5289085ad.3
+ for <dm-devel@redhat.com>; Wed, 19 Apr 2023 17:48:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681946482; x=1684538482;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=O4EzLlnke++OBfC+QU/8848E+9V2OKTR6syW6axwlV8=;
- b=HCW8dEfwzsVvB260yrmABwXNzt4Iy9cDRo1AMhFNYgvj9XOnFL2j9u+49ypbkO46Bi
- K37FhRuqh37oId3134auPx2e4jhN90/a4rw98jBfIxmkQbU1UN8hSv9U5D0cgc7UgTfb
- 0WX2dLOUtHVtqyjeXln20pntmPEgiQJbpHojdyiNDJaRYyoUB1L5EH+V+nZLNAUYYSrN
- F1XrZOU42xSUO1d3MWK8C7XqkS9m5i/010xShFyW34QswRFZCVzds7hQb8q9aLrHA3GS
- DCJ+wVyoN9RsMX2TZhEUWo9q7wiQ5gJHEaYUetod5tRr007PzssZtnrH1vch8/YgTmOw
- DMqw==
-X-Gm-Message-State: AAQBX9dXWaVDm7vKCnZKQpow52fcWxye1eQmunBwk9SWyMB3l4gwtfI0
- 5WJA0c9QmqpxhN/gg+V7XTPWyg==
-X-Google-Smtp-Source: AKy350Z4u0R970I4rdGzZzRQmNJeDe7b2z6B1qSAUlPIrkwDXPChvEc+qQO8pUmxrKDtn7iIylQMpQ==
-X-Received: by 2002:a17:902:b089:b0:19d:611:2815 with SMTP id
- p9-20020a170902b08900b0019d06112815mr6659257plr.42.1681946481873; 
- Wed, 19 Apr 2023 16:21:21 -0700 (PDT)
-Received: from dread.disaster.area (pa49-180-41-174.pa.nsw.optusnet.com.au.
- [49.180.41.174]) by smtp.gmail.com with ESMTPSA id
- ja13-20020a170902efcd00b0019682e27995sm6226725plb.223.2023.04.19.16.21.21
+ d=1e100.net; s=20221208; t=1681951734; x=1684543734;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=rF9Var5VZaH4S5EIpXHW6R6bAqiZWgFJai0UoeyTkwE=;
+ b=Vd7/S2+AW84bYzLf9ML15LYqKRzIe6ZUqP+7TCBn/eglXphIVGvYF/h81e76BUX+TG
+ ZyN8MBNiD79L2QtYv1To7YLGCiZ6Z5L4u8E8hgJGUaaBJgd53tx9lffeySsQgxmvElgP
+ MO6j1oh1AGj2Re6juIqMtMLQNkdupv/zQPFpyC21RORo/Mj3dmIc3jVBFY7hFT5tP+7i
+ JsOc8EfNMwZqF0vLY80DwHdhQOdAwN3kjLBwJ/dSXMp2D3oIo/wbZaNZ9MkYsTdeomJG
+ +EVgXoaKAZnp4mlZB2VFUREZAdSydtcDKWLJpPmc+30xJJRTqgzLFjW3FQ2HW/phylvT
+ 43mw==
+X-Gm-Message-State: AAQBX9cnzu+qOT4AkvuUsQsjxEIGMUJuSlO2Pb0KRgjXFO+9XJ6ixXaM
+ efJ4oGFlpJE2Vl/06XwqrJ1IruZ0RgLahufIDtQ=
+X-Google-Smtp-Source: AKy350bnjW+rV3sEg0tC2tTj1Uiqplfmhzcjp9WRxYk7355tnhy27//NgU2Ws9tKNLyyUuU4hwqcAA==
+X-Received: by 2002:a17:902:b18b:b0:1a6:a327:67e1 with SMTP id
+ s11-20020a170902b18b00b001a6a32767e1mr6367289plr.57.1681951734635; 
+ Wed, 19 Apr 2023 17:48:54 -0700 (PDT)
+Received: from sarthakkukreti-glaptop.corp.google.com
+ ([2620:15c:9d:200:5113:a333:10ce:e2d])
+ by smtp.gmail.com with ESMTPSA id
+ io18-20020a17090312d200b001a65575c13asm74323plb.48.2023.04.19.17.48.53
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 19 Apr 2023 16:21:21 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.92.3)
- (envelope-from <david@fromorbit.com>)
- id 1ppH70-005RJM-QK; Thu, 20 Apr 2023 09:21:18 +1000
-Date: Thu, 20 Apr 2023 09:21:18 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Message-ID: <20230419232118.GL447837@dread.disaster.area>
+ Wed, 19 Apr 2023 17:48:54 -0700 (PDT)
+From: Sarthak Kukreti <sarthakkukreti@chromium.org>
+To: dm-devel@redhat.com, linux-block@vger.kernel.org,
+ linux-ext4@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
+Date: Wed, 19 Apr 2023 17:48:45 -0700
+Message-ID: <20230420004850.297045-1-sarthakkukreti@chromium.org>
+In-Reply-To: <20230414000219.92640-1-sarthakkukreti@chromium.org>
 References: <20230414000219.92640-1-sarthakkukreti@chromium.org>
- <20230418221207.244685-1-sarthakkukreti@chromium.org>
- <20230418221207.244685-2-sarthakkukreti@chromium.org>
- <20230419153611.GE360885@frogsfrogsfrogs>
- <ZEAUHnWqt9cIiJRb@redhat.com>
- <20230419172602.GE360881@frogsfrogsfrogs>
 MIME-Version: 1.0
-In-Reply-To: <20230419172602.GE360881@frogsfrogsfrogs>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -104,9 +99,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH v4 1/4] block: Introduce provisioning
- primitives
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH v5 0/5] Introduce block provisioning primitives
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,70 +112,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
- Theodore Ts'o <tytso@mit.edu>, Stefan Hajnoczi <stefanha@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, linux-block@vger.kernel.org, dm-devel@redhat.com,
+Cc: Jens Axboe <axboe@kernel.dk>, Theodore Ts'o <tytso@mit.edu>,
+ "Michael S. Tsirkin" <mst@redhat.com>, "Darrick J. Wong" <djwong@kernel.org>,
+ Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
+ Mike Snitzer <snitzer@kernel.org>, Christoph Hellwig <hch@infradead.org>,
  Andreas Dilger <adilger.kernel@dilger.ca>, Daniil Lunev <dlunev@google.com>,
- Sarthak Kukreti <sarthakkukreti@chromium.org>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, Brian Foster <bfoster@redhat.com>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
-Content-Disposition: inline
+X-Mimecast-Originator: chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Apr 19, 2023 at 10:26:02AM -0700, Darrick J. Wong wrote:
-> On Wed, Apr 19, 2023 at 12:17:34PM -0400, Mike Snitzer wrote:
-> > (And obviously needs fixing independent of this patchset)
-> > 
-> > Shouldn't mkfs first check that the underlying storage supports
-> > REQ_OP_PROVISION by verifying
-> > /sys/block/<dev>/queue/provision_max_bytes exists and is not 0?
-> > (Just saying, we need to add new features more defensively.. you just
-> > made the case based on this scenario's implications alone)
-> 
-> Not for fallocate -- for regular files, there's no way to check if the
-> filesystem actually supports the operation requested other than to try
-> it and see if it succeeds.  We probably should've defined a DRY_RUN flag
-> for that purpose back when it was introduced.
+Next revision of adding support for block provisioning requests.
 
-That ignores the fact that fallocate() was never intended to
-guarantee it will work in all contexts - it's an advisory interface
-at it's most basic level. If the call succeeds, then great, it does
-what is says on the box, but if it fails then it should have no
-visible effect on user data at all and the application still needs
-to perform whatever modification it needed done in some other way.
+Changes from v4:
+- Add fix for block devices invalidating pagecache if blkdev_fallocate()
+  is called with an invalid mode.
+- s/max_provision_sectors/provision_max_bytes in sysfs.
 
-IOWs, calling it one a block device without first checking if the
-block device supports that fallocate operation is exactly how it is
-supposed to be used. If the kernel can't handle this gracefully
-without corrupting data, then that's a kernel bug and not an
-application problem.
+Sarthak Kukreti (5):
+  block: Don't invalidate pagecache for invalid falloc modes
+  block: Introduce provisioning primitives
+  dm: Add block provisioning support
+  dm-thin: Add REQ_OP_PROVISION support
+  loop: Add support for provision requests
 
-> For fallocate calls to block devices, yes, the program can check the
-> queue limits in sysfs if fstat says the supplied path is a block device,
-> but I don't know that most programs are that thorough.  The fallocate(1)
-> CLI program does not check.
+ block/blk-core.c              |  5 +++
+ block/blk-lib.c               | 53 +++++++++++++++++++++++++
+ block/blk-merge.c             | 18 +++++++++
+ block/blk-settings.c          | 19 +++++++++
+ block/blk-sysfs.c             |  9 +++++
+ block/bounce.c                |  1 +
+ block/fops.c                  | 28 +++++++++-----
+ drivers/block/loop.c          | 42 ++++++++++++++++++++
+ drivers/md/dm-crypt.c         |  5 ++-
+ drivers/md/dm-linear.c        |  2 +
+ drivers/md/dm-snap.c          |  8 ++++
+ drivers/md/dm-table.c         | 23 +++++++++++
+ drivers/md/dm-thin.c          | 73 ++++++++++++++++++++++++++++++++---
+ drivers/md/dm.c               |  6 +++
+ include/linux/bio.h           |  6 ++-
+ include/linux/blk_types.h     |  5 ++-
+ include/linux/blkdev.h        | 16 ++++++++
+ include/linux/device-mapper.h | 17 ++++++++
+ 18 files changed, 318 insertions(+), 18 deletions(-)
 
-Right. fallocate() was intended to just do the right thing without
-the application having to jump thrown an unknown number of hoops to
-determine if fallocate() can be used or not in the context it is
-executing in.  The kernel implementation is supposed to abstract all that
-context-dependent behaviour away from the application; all the
-application has to do is implement the fallocate() fast path and a
-single generic "do the right thing the slow way" fallback when the
-fallocate() method it called is not supported...
-
--Dave.
 -- 
-Dave Chinner
-david@fromorbit.com
+2.40.0.634.g4ca3ef3211-goog
 
 --
 dm-devel mailing list
