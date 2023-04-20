@@ -1,107 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 46F2D6EA402
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Apr 2023 08:48:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AF2BE6E9961
+	for <lists+dm-devel@lfdr.de>; Thu, 20 Apr 2023 18:20:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1682059686;
+	s=mimecast20190719; t=1682007647;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=V5KAEgoAH3eED8c/MFZM8YfrAfMYS+WNFi37JIHsLzk=;
-	b=EUPu/+mWuJPwsl/oij9zq+9+ZuE4SaIb0dUTF3P5hOPjfcrbb4vQAjXLTEoB6Wdg/XNpAm
-	ratUhJViY+j/B9OTIubEoq5wfBoeFqA+DyaRdjNpj4Q9JoTgTfYoQQzbyhgwT7xPXQdE4B
-	opiENGs/h5gUpuQuzxukg2Hzaa8fTHA=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=OJp6E03/W8YwOb2ayBPM/6J0v/gBWDSIH6dHxKoCQbk=;
+	b=csgo8ShqBAQdgplak9QHTMF+Yt8CmnUhlxHOYAnUAdCmRTpZ37ZYDm2M9OoP/ox99OJG7B
+	Rhe9SYmu535w6M8tXu7End3e2Y5L6GRW2nBZJSH702avvP3kvnjRPh0K1u2VTnES6lpXzV
+	0fngHV95nTTjidLn/BWnziZv/jNRfoQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-657-ASsmpTYbNCewBg_2D2kR8w-1; Fri, 21 Apr 2023 02:48:03 -0400
-X-MC-Unique: ASsmpTYbNCewBg_2D2kR8w-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-306-IASNeEJIObG7DtnZzpLoaQ-1; Thu, 20 Apr 2023 12:20:45 -0400
+X-MC-Unique: IASNeEJIObG7DtnZzpLoaQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A971F3C10C77;
-	Fri, 21 Apr 2023 06:47:57 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8E7BA407D45A;
-	Fri, 21 Apr 2023 06:47:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25F1D185A78F;
+	Thu, 20 Apr 2023 16:20:43 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CB2B6C16026;
+	Thu, 20 Apr 2023 16:20:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6351C1946A51;
-	Fri, 21 Apr 2023 06:47:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 624CE1946A4D;
+	Thu, 20 Apr 2023 16:20:35 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 23E8B19472C4
- for <dm-devel@listman.corp.redhat.com>; Thu, 20 Apr 2023 10:06:34 +0000 (UTC)
+ ESMTP id C903819466DF
+ for <dm-devel@listman.corp.redhat.com>; Thu, 20 Apr 2023 16:20:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 624422024CDF; Thu, 20 Apr 2023 10:06:22 +0000 (UTC)
+ id BBD70C16026; Thu, 20 Apr 2023 16:20:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5AC152024CDE
- for <dm-devel@redhat.com>; Thu, 20 Apr 2023 10:06:22 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B3DE1C16024
+ for <dm-devel@redhat.com>; Thu, 20 Apr 2023 16:20:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EFD329A9CA5
- for <dm-devel@redhat.com>; Thu, 20 Apr 2023 10:06:22 +0000 (UTC)
-Received: from mail-wm1-f52.google.com (mail-wm1-f52.google.com
- [209.85.128.52]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96C0F101A553
+ for <dm-devel@redhat.com>; Thu, 20 Apr 2023 16:20:33 +0000 (UTC)
+Received: from mail-qk1-f174.google.com (mail-qk1-f174.google.com
+ [209.85.222.174]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-613-6Q6pQEx1MfSZ7MVyLQ4j-Q-1; Thu, 20 Apr 2023 06:06:18 -0400
-X-MC-Unique: 6Q6pQEx1MfSZ7MVyLQ4j-Q-1
-Received: by mail-wm1-f52.google.com with SMTP id
- 5b1f17b1804b1-3f1728c2a57so5546325e9.0; 
- Thu, 20 Apr 2023 03:06:17 -0700 (PDT)
+ us-mta-502-o2J08QmkOuOieyWHbTf90w-1; Thu, 20 Apr 2023 12:20:30 -0400
+X-MC-Unique: o2J08QmkOuOieyWHbTf90w-1
+Received: by mail-qk1-f174.google.com with SMTP id
+ af79cd13be357-74e2a00d146so61314985a.2
+ for <dm-devel@redhat.com>; Thu, 20 Apr 2023 09:20:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1681985176; x=1684577176;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=bdnAdvAKJlDAz7pM0pp8Diurpm3+TR0sCY4FonfaEe4=;
- b=cL/WWMv9Lp4ugbMMR8r3EOuBg8Xzl51v4nQsi4ylKbZVM0F9FYxXGWcsPQxWQZR/zx
- UmF6iV8neQxjLttbuVSAppCGimeadEXZl0tLlAyUu8auY3tq/FFY8M04Uf5H/Mb0Bpml
- pgDU7g1SedO2eseeANoZe4n3dbb+hFUj256VkrJcRsgsXiyyCx96wE7cmqP5u34RLJ69
- +zAQYouuE6sVvwhTargWkBvHvXUORfsYXz5VlSrki0MpjATGWbZLNl3BZSqrNbA2bWKH
- zhGiJTEYXLePgkoZnagf5ugaZrt+vSG2SCYLnFpX4MBnX4uYJKN9jVvHWI8Lup6NYLWl
- IX5Q==
-X-Gm-Message-State: AAQBX9e2xXOcQPtUh0k4cwLZ4jjZ64o5wEB2UH6YFSiVwIY8S8UVxxav
- MN+iQfGBqFsTW/NBGLR6YpA=
-X-Google-Smtp-Source: AKy350bs2gtzNI5cB6yEjD27bAOubU763Pln69XpJllBqakY/TYBXJ5mOXnM5tQ2B75UHodvDIFK3A==
-X-Received: by 2002:a5d:6dcc:0:b0:2fa:43e7:4a32 with SMTP id
- d12-20020a5d6dcc000000b002fa43e74a32mr694948wrz.66.1681985176558; 
- Thu, 20 Apr 2023 03:06:16 -0700 (PDT)
-Received: from localhost.localdomain
- (aftr-62-216-205-208.dynamic.mnet-online.de. [62.216.205.208])
- by smtp.googlemail.com with ESMTPSA id
- l11-20020a5d674b000000b0030276f42f08sm201410wrw.88.2023.04.20.03.06.15
+ d=1e100.net; s=20221208; t=1682007629; x=1684599629;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=mi8BRALKHs7eage0Q9/aKDKQbgLFo1rksVSh6HXojUM=;
+ b=YddoO/NB/+Tk9ZCQ9+1ze2FQRd1QKwksIZoWguVXJF7i/b2tL3k5ioIoCOk1rq7Xej
+ y/ZSIzJmjwKGqzTXO1h9k7GPDSTaiOouB5n2oRhBgppVD3VW4L12IyhvlZBDzDDqxjFR
+ Zggg8krZ7tIdTpYqJt456NLRt0Sp0GmIRYJyGcevzeIeTCl5JfnX5apaksJPiWRrgBOM
+ JAu6RDKxFWl5V2IJFj9RkPi+TskMUTr55Ffhm3Y0Amt0hBsdE+vSHAsM2b7cdhsguMbn
+ RNLR6Trva4Cfb3O8fp6iAw+ToTGyf0NoFnsq4VhBo8n7z2VLAnMb7VnT/t0oxPTR1GnF
+ Y9FA==
+X-Gm-Message-State: AAQBX9eVIpH9CfNjGXSKrV9IRW54gYVl1PcsAhDNKVqB6uoy0Gz4mN32
+ mrtSv4/p+re3K+xf8e6ILQBoQ5xsvJqjcgwWl/d1
+X-Google-Smtp-Source: AKy350ZdxFbx3P6KW7oGgzZkOdBts5SMHV3jmQ7iV4w8PdU+G+NU8GyRCb0ZtSnye0JdmMgLiXUHqw==
+X-Received: by 2002:a05:6214:1c4e:b0:5f0:23be:a301 with SMTP id
+ if14-20020a0562141c4e00b005f023bea301mr2999579qvb.5.1682007629560; 
+ Thu, 20 Apr 2023 09:20:29 -0700 (PDT)
+Received: from localhost ([37.19.196.135]) by smtp.gmail.com with ESMTPSA id
+ b17-20020a05620a271100b0074e034915d4sm539562qkp.73.2023.04.20.09.20.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 03:06:16 -0700 (PDT)
-From: Johannes Thumshirn <jth@kernel.org>
-To: axboe@kernel.dk
-Date: Thu, 20 Apr 2023 12:05:01 +0200
-Message-Id: <20230420100501.32981-23-jth@kernel.org>
-In-Reply-To: <20230420100501.32981-1-jth@kernel.org>
-References: <20230420100501.32981-1-jth@kernel.org>
+ Thu, 20 Apr 2023 09:20:28 -0700 (PDT)
+Date: Thu, 20 Apr 2023 12:20:27 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Sarthak Kukreti <sarthakkukreti@chromium.org>
+Message-ID: <ZEFmS9h81Wwlv9+/@redhat.com>
+References: <20230420004850.297045-2-sarthakkukreti@chromium.org>
+ <20230420014734.302304-1-sarthakkukreti@chromium.org>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mailman-Approved-At: Fri, 21 Apr 2023 06:47:49 +0000
-Subject: [dm-devel] [PATCH v4 22/22] block: mark bio_add_folio as
- __must_check
+In-Reply-To: <20230420014734.302304-1-sarthakkukreti@chromium.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH v5-fix 1/5] block: Don't invalidate pagecache
+ for invalid falloc modes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,46 +103,116 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-block@vger.kernel.org, damien.lemoal@wdc.com, kch@nvidia.com,
- agruenba@redhat.com, linux-mm@kvack.org, shaggy@kernel.org,
- johannes.thumshirn@wdc.com, snitzer@kernel.org,
- jfs-discussion@lists.sourceforge.net, willy@infradead.org, ming.lei@redhat.com,
- cluster-devel@redhat.com, linux-fsdevel@vger.kernel.org, dm-devel@redhat.com,
- dsterba@suse.com, linux-raid@vger.kernel.org, song@kernel.org, hch@lst.de,
- linux-btrfs@vger.kernel.org, rpeterso@redhat.com
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
+ Theodore Ts'o <tytso@mit.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, Jason Wang <jasowang@redhat.com>,
+ Bart Van Assche <bvanassche@google.com>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>, Daniil Lunev <dlunev@google.com>,
+ Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+On Wed, Apr 19 2023 at  9:47P -0400,
+Sarthak Kukreti <sarthakkukreti@chromium.org> wrote:
 
-Now that all callers of bio_add_folio() check the return value, mark it as
-__must_check.
+> Only call truncate_bdev_range() if the fallocate mode is
+> supported. This fixes a bug where data in the pagecache
+> could be invalidated if the fallocate() was called on the
+> block device with an invalid mode.
+> 
+> Fixes: 25f4c41415e5 ("block: implement (some of) fallocate for block devices")
 
-Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
----
- include/linux/bio.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+You should add:
 
-diff --git a/include/linux/bio.h b/include/linux/bio.h
-index 99fa832db836..36cfc091caed 100644
---- a/include/linux/bio.h
-+++ b/include/linux/bio.h
-@@ -466,7 +466,7 @@ void bio_reset(struct bio *bio, struct block_device *bdev, blk_opf_t opf);
- void bio_chain(struct bio *, struct bio *);
- 
- int __must_check bio_add_page(struct bio *, struct page *, unsigned len, unsigned off);
--bool bio_add_folio(struct bio *, struct folio *, size_t len, size_t off);
-+bool __must_check bio_add_folio(struct bio *, struct folio *, size_t len, size_t off);
- extern int bio_add_pc_page(struct request_queue *, struct bio *, struct page *,
- 			   unsigned int, unsigned int);
- int bio_add_zone_append_page(struct bio *bio, struct page *page,
--- 
-2.39.2
+Cc: stable@vger.kernel.org
+Reported-by: Darrick J. Wong <djwong@kernel.org>
+
+> Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+> ---
+>  block/fops.c | 37 ++++++++++++++++++++++++-------------
+>  1 file changed, 24 insertions(+), 13 deletions(-)
+> 
+> diff --git a/block/fops.c b/block/fops.c
+> index d2e6be4e3d1c..d359254c645d 100644
+> --- a/block/fops.c
+> +++ b/block/fops.c
+> @@ -648,26 +648,37 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
+>  
+>  	filemap_invalidate_lock(inode->i_mapping);
+>  
+> -	/* Invalidate the page cache, including dirty pages. */
+> -	error = truncate_bdev_range(bdev, file->f_mode, start, end);
+> -	if (error)
+> -		goto fail;
+> -
+
+You remove the only user of the 'fail' label.  But I think it'd be
+cleaner to keep using it below (reduces indentation churn too).
+
+> +	/*
+> +	 * Invalidate the page cache, including dirty pages, for valid
+> +	 * de-allocate mode calls to fallocate().
+> +	 */
+>  	switch (mode) {
+>  	case FALLOC_FL_ZERO_RANGE:
+>  	case FALLOC_FL_ZERO_RANGE | FALLOC_FL_KEEP_SIZE:
+> -		error = blkdev_issue_zeroout(bdev, start >> SECTOR_SHIFT,
+> -					     len >> SECTOR_SHIFT, GFP_KERNEL,
+> -					     BLKDEV_ZERO_NOUNMAP);
+> +		error = truncate_bdev_range(bdev, file->f_mode, start, end);
+> +		if (!error)
+> +			error = blkdev_issue_zeroout(bdev,
+> +						     start >> SECTOR_SHIFT,
+> +						     len >> SECTOR_SHIFT,
+> +						     GFP_KERNEL,
+> +						     BLKDEV_ZERO_NOUNMAP);
+>  		break;
+
+
+So:
+
+		error = truncate_bdev_range(bdev, file->f_mode, start, end);
+		if (error)
+		        goto fail;
+		...
+
+
+>  	case FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE:
+> -		error = blkdev_issue_zeroout(bdev, start >> SECTOR_SHIFT,
+> -					     len >> SECTOR_SHIFT, GFP_KERNEL,
+> -					     BLKDEV_ZERO_NOFALLBACK);
+> +		error = truncate_bdev_range(bdev, file->f_mode, start, end);
+> +		if (!error)
+> +			error = blkdev_issue_zeroout(bdev,
+> +						     start >> SECTOR_SHIFT,
+> +						     len >> SECTOR_SHIFT,
+> +						     GFP_KERNEL,
+> +						     BLKDEV_ZERO_NOFALLBACK);
+>  		break;
+
+Same.
+
+>  	case FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE | FALLOC_FL_NO_HIDE_STALE:
+> -		error = blkdev_issue_discard(bdev, start >> SECTOR_SHIFT,
+> -					     len >> SECTOR_SHIFT, GFP_KERNEL);
+> +		error = truncate_bdev_range(bdev, file->f_mode, start, end);
+> +		if (!error)
+> +			error = blkdev_issue_discard(bdev,
+> +						     start >> SECTOR_SHIFT,
+> +						     len >> SECTOR_SHIFT,
+> +						     GFP_KERNEL);
+>  		break;
+
+Same.
 
 --
 dm-devel mailing list
