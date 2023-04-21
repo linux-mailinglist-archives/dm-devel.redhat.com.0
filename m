@@ -1,96 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1C2CC6EA1E4
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Apr 2023 04:51:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 33EA86EC601
+	for <lists+dm-devel@lfdr.de>; Mon, 24 Apr 2023 08:04:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1682045473;
+	s=mimecast20190719; t=1682316257;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ve66uNqzyal7ZHAKwJjP3mkBKj147i/m3IvA/T/wMjQ=;
-	b=OvU6a83zX/155PLM3DhC1wLCXkF1W087aoea1iK27T7o7sjH8o0qVhO8XY+TJc1TdSNu3D
-	h3/TxULEOLM3mMqWeQTrhNG574fFxCXan4DV8FnWsWeJvZ5sglClB/CVG43MzmGwkxOs+C
-	okPKLTi6Ft9FdIL40xDlaXbh1gYHdoY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=B5ozoFbmwHGNcUi1ZWBIe045dVXGDpjG5YjhxaaZcl4=;
+	b=Pn5Ks8TJuHYGzXuMrXTCFuILFr2haHfTnkA9eJkTYsQ+j2RBZ8jlILB/WMefpGDjKQ7XRV
+	h2n2/OCChdqkaLego314L+zjSpac1huWluIuOSBng10cGAFtp4LSaWT1t0Gpj8OcQrOGGb
+	cvZUuF3NypWM2cugTuxKScukeV7dz/8=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-320-8GKZVpjCOLu0sulfDfvSyQ-1; Thu, 20 Apr 2023 22:51:12 -0400
-X-MC-Unique: 8GKZVpjCOLu0sulfDfvSyQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-121-GI7gU9Q-N9a91UP_ZdgS-Q-1; Mon, 24 Apr 2023 02:04:13 -0400
+X-MC-Unique: GI7gU9Q-N9a91UP_ZdgS-Q-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C029C1C0512B;
-	Fri, 21 Apr 2023 02:51:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 296A4857FB5;
+	Mon, 24 Apr 2023 06:04:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 31DFE1121315;
-	Fri, 21 Apr 2023 02:51:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 16DAE4E3C7;
+	Mon, 24 Apr 2023 06:04:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C19881946A4D;
-	Fri, 21 Apr 2023 02:51:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5D1C11946A50;
+	Mon, 24 Apr 2023 06:04:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6E1B919466DF
- for <dm-devel@listman.corp.redhat.com>; Fri, 21 Apr 2023 02:51:02 +0000 (UTC)
+ ESMTP id BC72B1946A40
+ for <dm-devel@listman.corp.redhat.com>; Fri, 21 Apr 2023 06:58:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5CAACC16026; Fri, 21 Apr 2023 02:51:02 +0000 (UTC)
+ id 98822492C14; Fri, 21 Apr 2023 06:57:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5428DC16024
- for <dm-devel@redhat.com>; Fri, 21 Apr 2023 02:51:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 389082A59563
- for <dm-devel@redhat.com>; Fri, 21 Apr 2023 02:51:02 +0000 (UTC)
-Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
- [209.85.215.174]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 912CB492C13
+ for <dm-devel@redhat.com>; Fri, 21 Apr 2023 06:57:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 74D28101A554
+ for <dm-devel@redhat.com>; Fri, 21 Apr 2023 06:57:58 +0000 (UTC)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-118-lEBZOECnPJO6MmkOlg8rYQ-1; Thu, 20 Apr 2023 22:50:59 -0400
-X-MC-Unique: lEBZOECnPJO6MmkOlg8rYQ-1
-Received: by mail-pg1-f174.google.com with SMTP id
- 41be03b00d2f7-518d325b8a2so1726248a12.0; 
- Thu, 20 Apr 2023 19:50:59 -0700 (PDT)
+ us-mta-471-LzbeR3XWOgyjXUsl_qux8A-1; Fri, 21 Apr 2023 02:57:56 -0400
+X-MC-Unique: LzbeR3XWOgyjXUsl_qux8A-1
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-63d4595d60fso12425913b3a.0
+ for <dm-devel@redhat.com>; Thu, 20 Apr 2023 23:57:56 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1682045458; x=1684637458;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:sender:x-gm-message-state:from
- :to:cc:subject:date:message-id:reply-to;
- bh=Kmxq/N/H4rwg524LDGOZfm1KVVcee8vyb3VSvQP8F5Y=;
- b=CEbY0EL+DJ2KFBajAQrIpacObY9qFDjdNOvPQx0FllOBw1ZIY/GxAx2f8sS++NmGlt
- aCXVNyfCgHAq3/afVpiotWyxjMCe/PjOt/FtM5l0qGBTMij12SaONCqCHr5WAwM2fq2Y
- CS3TO1+ZmSxkGetdhHbfLZOI8ZlfgAauD0r5VHRzsHFeaSkGnTfmgfLg43N6DEnVw7eE
- X9Ki8bVIpRRtk6CKvBRuAoIvMKectMTnXlsAAWhuG7Jzk/AGIw18x+Ai+0AIGVnTvcyW
- 4lR1/+wWGXY/4H9O0uGM6f7nF61XtifQoHnru6aaj3R8cct6ZUpiamz2TfLfF0ifmheP
- ni5g==
-X-Gm-Message-State: AAQBX9djIcZIvv2bIcdVWbOO3rJs60JetP7M3lqu/b7nvXj+93vJCODw
- GjcNHXxVmSE9s5a6cvHi0MU=
-X-Google-Smtp-Source: AKy350aqDpfwIiNBxQVsj/SwKpAWaUrT+Zg1S2t7A6JKHmkdLX6vogU3qmIOHjok4Zu0N2ZogY9SQg==
-X-Received: by 2002:a17:902:ceca:b0:19e:665b:2514 with SMTP id
- d10-20020a170902ceca00b0019e665b2514mr4741371plg.43.1682045458279; 
- Thu, 20 Apr 2023 19:50:58 -0700 (PDT)
-Received: from localhost
- (2603-800c-1a02-1bae-a7fa-157f-969a-4cde.res6.spectrum.com.
- [2603:800c:1a02:1bae:a7fa:157f:969a:4cde])
+ d=1e100.net; s=20221208; t=1682060276; x=1684652276;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iCQQOrDHvv7muofgTvhggno9gmpvYe5WVwBD+zXre78=;
+ b=dVD1Nnd3Ngfyd6AO2pqXOigEaBDBLwtMMpZKLMI1Cq7xps/T4T9fhLVRzBho40FPEE
+ Oxq8mf73ni9Ebqj3oVdwiLWCsePyV2lfYLqjQWWoBlbvc9eQdjDn/yCOIXAi7wnUI62p
+ JWt11sLp09No3lSw78w2yjaD9735lNYyIgm7qGZCuJzxJRJ1a7uooM2ZYvWfr/8bjRNU
+ ng/PWUXywkWePlJZVmOSSH5FfnuZQPOlF09k/Xd/6JPWK5uFTdHkAtlDU78eH6Tjt7I1
+ Yc11IoLu3zV8c5zrICWyf60yqorMmlr35mBVe2mCBE9jtoMt3WGCsW8IlIwVwWprgavD
+ E81A==
+X-Gm-Message-State: AAQBX9f1hpK8my9HnevuXAsumQl5r7VgIXNkGw9xdiR6hhjRIKWndgoc
+ KoJLKdUheSCYwOwqJjUlloTfLQ==
+X-Google-Smtp-Source: AKy350ZEEP/PrU7kYgyyZkKivdaMPHUVf5WGz+Wiu1WQ8mlkUVfjfkCNB7ZnxyH4DOCp4JsT1PbWNg==
+X-Received: by 2002:aa7:8554:0:b0:63d:40bb:a88b with SMTP id
+ y20-20020aa78554000000b0063d40bba88bmr8194787pfn.14.1682060275718; 
+ Thu, 20 Apr 2023 23:57:55 -0700 (PDT)
+Received: from google.com (KD124209188001.ppp-bb.dion.ne.jp. [124.209.188.1])
  by smtp.gmail.com with ESMTPSA id
- q92-20020a17090a756500b00246f73a994esm1767145pjk.32.2023.04.20.19.50.57
+ 136-20020a63008e000000b0051806da5cd6sm2038374pga.60.2023.04.20.23.57.49
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 20 Apr 2023 19:50:57 -0700 (PDT)
-From: Tejun Heo <tj@kernel.org>
-To: jiangshanlai@gmail.com
-Date: Thu, 20 Apr 2023 16:50:28 -1000
-Message-Id: <20230421025046.4008499-5-tj@kernel.org>
-In-Reply-To: <20230421025046.4008499-1-tj@kernel.org>
-References: <20230421025046.4008499-1-tj@kernel.org>
+ Thu, 20 Apr 2023 23:57:54 -0700 (PDT)
+Date: Fri, 21 Apr 2023 15:57:47 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Johannes Thumshirn <jth@kernel.org>
+Message-ID: <20230421065747.GB1496740@google.com>
+References: <20230420100501.32981-1-jth@kernel.org>
+ <20230420100501.32981-14-jth@kernel.org>
 MIME-Version: 1.0
+In-Reply-To: <20230420100501.32981-14-jth@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,9 +97,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [dm-devel] [PATCH 04/22] dm integrity: Use
- alloc_ordered_workqueue() to create ordered workqueues
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mailman-Approved-At: Mon, 24 Apr 2023 06:04:00 +0000
+Subject: Re: [dm-devel] [PATCH v4 13/22] zram: use __bio_add_page for adding
+ single page to bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,111 +112,43 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: kernel-team@meta.com, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, dm-devel@redhat.com, Tejun Heo <tj@kernel.org>,
- Alasdair Kergon <agk@redhat.com>
+Cc: shaggy@kernel.org, jfs-discussion@lists.sourceforge.net, linux-mm@kvack.org,
+ dm-devel@redhat.com, hch@lst.de, agruenba@redhat.com,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>, willy@infradead.org,
+ cluster-devel@redhat.com, kch@nvidia.com, snitzer@kernel.org,
+ ming.lei@redhat.com, linux-block@vger.kernel.org, rpeterso@redhat.com,
+ dsterba@suse.com, axboe@kernel.dk, linux-raid@vger.kernel.org,
+ damien.lemoal@wdc.com, song@kernel.org, johannes.thumshirn@wdc.com,
+ Minchan Kim <minchan@kernel.org>, linux-fsdevel@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: chromium.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-BACKGROUND
-==========
++ Minchan
 
-When multiple work items are queued to a workqueue, their execution order
-doesn't match the queueing order. They may get executed in any order and
-simultaneously. When fully serialized execution - one by one in the queueing
-order - is needed, an ordered workqueue should be used which can be created
-with alloc_ordered_workqueue().
+On (23/04/20 12:04), Johannes Thumshirn wrote:
+> 
+> From: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+> 
+> The zram writeback code uses bio_add_page() to add a page to a newly
+> created bio. bio_add_page() can fail, but the return value is never
+> checked.
+> 
+> Use __bio_add_page() as adding a single page to a newly created bio is
+> guaranteed to succeed.
+> 
+> This brings us a step closer to marking bio_add_page() as __must_check.
+> 
+> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+> Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
 
-However, alloc_ordered_workqueue() was a later addition. Before it, an
-ordered workqueue could be obtained by creating an UNBOUND workqueue with
-@max_active==1. This originally was an implementation side-effect which was
-broken by 4c16bd327c74 ("workqueue: restore WQ_UNBOUND/max_active==1 to be
-ordered"). Because there were users that depended on the ordered execution,
-5c0338c68706 ("workqueue: restore WQ_UNBOUND/max_active==1 to be ordered")
-made workqueue allocation path to implicitly promote UNBOUND workqueues w/
-@max_active==1 to ordered workqueues.
-
-While this has worked okay, overloading the UNBOUND allocation interface
-this way creates other issues. It's difficult to tell whether a given
-workqueue actually needs to be ordered and users that legitimately want a
-min concurrency level wq unexpectedly gets an ordered one instead. With
-planned UNBOUND workqueue updates to improve execution locality and more
-prevalence of chiplet designs which can benefit from such improvements, this
-isn't a state we wanna be in forever.
-
-This patch series audits all callsites that create an UNBOUND workqueue w/
-@max_active==1 and converts them to alloc_ordered_workqueue() as necessary.
-
-WHAT TO LOOK FOR
-================
-
-The conversions are from
-
-  alloc_workqueue(WQ_UNBOUND | flags, 1, args..)
-
-to
-
-  alloc_ordered_workqueue(flags, args...)
-
-which don't cause any functional changes. If you know that fully ordered
-execution is not ncessary, please let me know. I'll drop the conversion and
-instead add a comment noting the fact to reduce confusion while conversion
-is in progress.
-
-If you aren't fully sure, it's completely fine to let the conversion
-through. The behavior will stay exactly the same and we can always
-reconsider later.
-
-As there are follow-up workqueue core changes, I'd really appreciate if the
-patch can be routed through the workqueue tree w/ your acks. Thanks.
-
-Signed-off-by: Tejun Heo <tj@kernel.org>
-Cc: Alasdair Kergon <agk@redhat.com>
-Cc: Mike Snitzer <snitzer@kernel.org>
-Cc: dm-devel@redhat.com
-Cc: linux-kernel@vger.kernel.org
----
- drivers/md/dm-integrity.c | 4 ++--
- drivers/md/dm.c           | 2 +-
- 2 files changed, 3 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
-index b0d5057fbdd9..6b36554f9103 100644
---- a/drivers/md/dm-integrity.c
-+++ b/drivers/md/dm-integrity.c
-@@ -4268,10 +4268,10 @@ static int dm_integrity_ctr(struct dm_target *ti, unsigned int argc, char **argv
- 	}
- 
- 	/*
--	 * If this workqueue were percpu, it would cause bio reordering
-+	 * If this workqueue weren't ordered, it would cause bio reordering
- 	 * and reduced performance.
- 	 */
--	ic->wait_wq = alloc_workqueue("dm-integrity-wait", WQ_MEM_RECLAIM | WQ_UNBOUND, 1);
-+	ic->wait_wq = alloc_ordered_workqueue("dm-integrity-wait", WQ_MEM_RECLAIM);
- 	if (!ic->wait_wq) {
- 		ti->error = "Cannot allocate workqueue";
- 		r = -ENOMEM;
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index dfde0088147a..bd3342613e4c 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -207,7 +207,7 @@ static int __init local_init(void)
- 	if (r)
- 		return r;
- 
--	deferred_remove_workqueue = alloc_workqueue("kdmremove", WQ_UNBOUND, 1);
-+	deferred_remove_workqueue = alloc_ordered_workqueue("kdmremove", 0);
- 	if (!deferred_remove_workqueue) {
- 		r = -ENOMEM;
- 		goto out_uevent_exit;
--- 
-2.40.0
+Reviewed-by: Sergey Senozhatsky <senozhatsky@chromium.org>
 
 --
 dm-devel mailing list
