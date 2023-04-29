@@ -2,89 +2,82 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C79FF6EFF6A
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Apr 2023 04:43:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1DA5E6F250C
+	for <lists+dm-devel@lfdr.de>; Sat, 29 Apr 2023 16:28:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1682563424;
+	s=mimecast20190719; t=1682778508;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rzN0QzTsljUKWSB7YCQhEvHD6TFBfljE/EBajeZ9aRg=;
-	b=HTpRRJUV64eIG9nC8WAxuJHTVvwqLWBgyY8mlLOAKEJgu5zPxONYDWdxYo/DIZVXQNHp1u
-	r0xECHBXhYhjuHQ2Uvlrl+FzshEdaSIPCrSDPD3ldWJX/vDGkYA3LFHoLOTK+3yq2DfdAj
-	qzq4AOIkBZu0042l9NIOU/UXM2HOpZ0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=uzlhn7HkSKShaR0WWxlJozJF6Z6PRMXhOnQ3xEOc28M=;
+	b=bMgmvOhuaB+q5WEKiS/c0jgG9bMH1uXu5Bc3j96CSXpc5gJHF8uOzYQKrucXw19/4rpKaF
+	Me5lMYnv0TRRCFGaQZUGaCNg+qNq3jn9oTzkC1MZBfeTbY3pF8kIlRPnjYvDy4lyWBZp9P
+	P3ez/z3GbXdlm0/UAlzZyRTg2DxBxyw=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-562-cxuOMQXSMq2JkQBOyR7aSw-1; Wed, 26 Apr 2023 22:43:40 -0400
-X-MC-Unique: cxuOMQXSMq2JkQBOyR7aSw-1
+ us-mta-232-_0JyhfErOeWRm9R-Vv_upg-1; Sat, 29 Apr 2023 10:28:24 -0400
+X-MC-Unique: _0JyhfErOeWRm9R-Vv_upg-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD92E3C1484E;
-	Thu, 27 Apr 2023 02:43:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD1F8185A790;
+	Sat, 29 Apr 2023 14:28:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D6A901121314;
-	Thu, 27 Apr 2023 02:43:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 439131121314;
+	Sat, 29 Apr 2023 14:28:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 727601946A4C;
-	Thu, 27 Apr 2023 02:43:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EAFF41946A51;
+	Sat, 29 Apr 2023 14:28:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A728119465BD
- for <dm-devel@listman.corp.redhat.com>; Thu, 27 Apr 2023 02:43:31 +0000 (UTC)
+ ESMTP id 9EF831946586
+ for <dm-devel@listman.corp.redhat.com>; Sat, 29 Apr 2023 14:28:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 86B3D492B0F; Thu, 27 Apr 2023 02:43:31 +0000 (UTC)
+ id 3E2B851E3; Sat, 29 Apr 2023 14:28:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7F5FB492B03
- for <dm-devel@redhat.com>; Thu, 27 Apr 2023 02:43:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 36EF463F40
+ for <dm-devel@redhat.com>; Sat, 29 Apr 2023 14:28:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 64730185A78B
- for <dm-devel@redhat.com>; Thu, 27 Apr 2023 02:43:31 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
- [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-570-ZVRap-_KO_a4g2LsoXwmjA-1; Wed, 26 Apr 2023 22:43:20 -0400
-X-MC-Unique: ZVRap-_KO_a4g2LsoXwmjA-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4Q6KmL2PFFz4f3tDJ
- for <dm-devel@redhat.com>; Thu, 27 Apr 2023 10:43:14 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAHcLNC4UlkQGzvIA--.1778S4;
- Thu, 27 Apr 2023 10:43:16 +0800 (CST)
-From: Yu Kuai <yukuai1@huaweicloud.com>
-To: shinichiro@fastmail.com, snitzer@kernel.org, linux-block@vger.kernel.org,
- dm-devel@redhat.com
-Date: Thu, 27 Apr 2023 10:41:26 +0800
-Message-Id: <20230427024126.1417646-1-yukuai1@huaweicloud.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A163800B35
+ for <dm-devel@redhat.com>; Sat, 29 Apr 2023 14:28:10 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-340-4Pxcs1JKOqGBp09O311z6A-1; Sat, 29 Apr 2023 10:28:08 -0400
+X-MC-Unique: 4Pxcs1JKOqGBp09O311z6A-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10695"; a="346729450"
+X-IronPort-AV: E=Sophos;i="5.99,237,1677571200"; d="scan'208";a="346729450"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 29 Apr 2023 07:28:07 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10695"; a="697944304"
+X-IronPort-AV: E=Sophos;i="5.99,237,1677571200"; d="scan'208";a="697944304"
+Received: from lkp-server01.sh.intel.com (HELO 5bad9d2b7fcb) ([10.239.97.150])
+ by fmsmga007.fm.intel.com with ESMTP; 29 Apr 2023 07:28:05 -0700
+Received: from kbuild by 5bad9d2b7fcb with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1pslYS-0001CH-2G;
+ Sat, 29 Apr 2023 14:28:04 +0000
+Date: Sat, 29 Apr 2023 22:27:06 +0800
+From: kernel test robot <lkp@intel.com>
+To: Yu Kuai <yukuai1@huaweicloud.com>, shinichiro@fastmail.com,
+ snitzer@kernel.org, linux-block@vger.kernel.org, dm-devel@redhat.com
+Message-ID: <202304292230.Ai7aIFbo-lkp@intel.com>
+References: <20230427024126.1417646-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAHcLNC4UlkQGzvIA--.1778S4
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF1Uuw4kXw1DCF4ktw45Awb_yoW8AryUp3
- yUur1Ykrs2y3W7tFy3W3W7Xa4rAws7uF4UCr17Ww18Ary3Jw1UK3W7Kry7AryfXFZYqan3
- ZasYqa1rur48J3JanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUgKb4IE77IF4wAFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x
- 0267AKxVW0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG
- 6I80ewAv7VC0I7IYx2IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFV
- Cjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI48JMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCj
- c4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4
- CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1x
- MIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJVW8JwCI42IY6xAIw20EY4v20xvaj40_WFyUJV
- Cq3wCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBI
- daVFxhVjvjDU0xZFpf9x07UE-erUUUUU=
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+In-Reply-To: <20230427024126.1417646-1-yukuai1@huaweicloud.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -92,8 +85,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH blktests v2] tests/dm: add a regression test
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH blktests v2] tests/dm: add a regression test
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,92 +98,44 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Cc: oe-kbuild-all@lists.linux.dev
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huaweicloud.com
+X-Mimecast-Originator: intel.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Yu Kuai <yukuai3@huawei.com>
+Hi Yu,
 
-Verify that reload a dm with maps to itself will fail.
+kernel test robot noticed the following build warnings:
 
-Signed-off-by: Yu Kuai <yukuai3@huawei.com>
----
- tests/dm/001     | 29 +++++++++++++++++++++++++++++
- tests/dm/001.out |  2 ++
- tests/dm/rc      | 13 +++++++++++++
- 3 files changed, 44 insertions(+)
- create mode 100644 tests/dm/001
- create mode 100644 tests/dm/001.out
- create mode 100644 tests/dm/rc
+[auto build test WARNING on device-mapper-dm/for-next]
+[also build test WARNING on linus/master v6.3 next-20230428]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/tests/dm/001 b/tests/dm/001
-new file mode 100644
-index 0000000..6deab1f
---- /dev/null
-+++ b/tests/dm/001
-@@ -0,0 +1,29 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-3.0+
-+# Copyright (C) 2023 Yu Kuai
-+#
-+# Regression test for commit 077a4033541f ("block: don't allow a disk link
-+# holder to itself")
-+
-+. tests/dm/rc
-+
-+DESCRIPTION="reload a dm with maps to itself"
-+QUICK=1
-+
-+requires() {
-+	_have_kver 6 2
-+}
-+
-+test_device() {
-+	echo "Running ${TEST_NAME}"
-+
-+	dmsetup create test --table "0 8192 linear ${TEST_DEV} 0"
-+	dmsetup suspend test
-+	dmsetup reload test --table "0 8192 linear /dev/mapper/test 0" &> /dev/null
-+	if [ $? -eq 0 ]; then
-+		echo "reload a dm with maps to itself succeed."
-+	fi
-+	dmsetup remove test
-+
-+	echo "Test complete"
-+}
-diff --git a/tests/dm/001.out b/tests/dm/001.out
-new file mode 100644
-index 0000000..4bd2c08
---- /dev/null
-+++ b/tests/dm/001.out
-@@ -0,0 +1,2 @@
-+Running dm/001
-+Test complete
-diff --git a/tests/dm/rc b/tests/dm/rc
-new file mode 100644
-index 0000000..0486db0
---- /dev/null
-+++ b/tests/dm/rc
-@@ -0,0 +1,13 @@
-+#!/bin/bash
-+# SPDX-License-Identifier: GPL-3.0+
-+# Copyright (C) 2023 Yu Kuai
-+#
-+# Tests for device-mapper
-+
-+. common/rc
-+
-+group_requires() {
-+	_have_root
-+	_have_program dmsetup
-+	_have_driver dm-mod
-+}
+url:    https://github.com/intel-lab-lkp/linux/commits/Yu-Kuai/tests-dm-add-a-regression-test/20230427-104508
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
+patch link:    https://lore.kernel.org/r/20230427024126.1417646-1-yukuai1%40huaweicloud.com
+patch subject: [PATCH blktests v2] tests/dm: add a regression test
+reproduce:
+        scripts/spdxcheck.py
+
+If you fix the issue, kindly add following tag where applicable
+| Reported-by: kernel test robot <lkp@intel.com>
+| Link: https://lore.kernel.org/oe-kbuild-all/202304292230.Ai7aIFbo-lkp@intel.com/
+
+spdxcheck warnings: (new ones prefixed by >>)
+>> tests/dm/001: 2:27 Invalid License ID: GPL-3.0+
+>> tests/dm/rc: 2:27 Invalid License ID: GPL-3.0+
+
 -- 
-2.39.2
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests
 
 --
 dm-devel mailing list
