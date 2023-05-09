@@ -1,87 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F00506FBBCA
-	for <lists+dm-devel@lfdr.de>; Tue,  9 May 2023 02:03:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 745016FBBF6
+	for <lists+dm-devel@lfdr.de>; Tue,  9 May 2023 02:28:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683590616;
+	s=mimecast20190719; t=1683592090;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GMRIoEKwo7rUsvpE+/bWnGC54FCjYCMC0Dsbsroi/yA=;
-	b=gq/xCW/IONjdt12ruuPqnlSY5xBGDgOVMVcCQQvPpbO056AqpU86T9afq3VSAQGAbmbwE0
-	UEQ+PrYUP6wnpZUA4hnyvyb1KgW0aTzK2e30mz6gOvLfLhmFI2YEy26Si7sgm5R2yPXHyr
-	kbi1V0TXb+SX94EPUmLq01EfQF/BIYo=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=7lIoJ05+bFxjUAiSEEOItcWIS3o8deArGjyq4PdPsZ8=;
+	b=GJMKpEyETDxKiOHvr+JwiJEchuDUliT1rmPzqe7QGhjoKIcKG70DrwNTjD+ecmLz8SIK2M
+	exOjReDqT5VLwCbOd4SEADlo3byonIRLf0IkeQH3NkqBodcoJt2ra9H0+l2Q429EQ2Ff2O
+	xf02/QJ2fMzQRuRK8axXacuA0sCFif4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-44-9yprGN9YPoaFNdXp2-lI5w-1; Mon, 08 May 2023 20:03:33 -0400
-X-MC-Unique: 9yprGN9YPoaFNdXp2-lI5w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-561-B7-zFpicNR-6s9NJs15xkQ-1; Mon, 08 May 2023 20:28:06 -0400
+X-MC-Unique: B7-zFpicNR-6s9NJs15xkQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E479B1C05139;
-	Tue,  9 May 2023 00:03:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C0736185A790;
+	Tue,  9 May 2023 00:28:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 533E914171BD;
-	Tue,  9 May 2023 00:03:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 150FE40C2063;
+	Tue,  9 May 2023 00:28:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0882819451CF;
-	Tue,  9 May 2023 00:03:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1421D19452D1;
+	Tue,  9 May 2023 00:28:02 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B4EB81946595
- for <dm-devel@listman.corp.redhat.com>; Mon,  8 May 2023 21:57:34 +0000 (UTC)
+ ESMTP id ED5D119452C4
+ for <dm-devel@listman.corp.redhat.com>; Tue,  9 May 2023 00:28:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9464940C6F42; Mon,  8 May 2023 21:57:34 +0000 (UTC)
+ id 62B5840C6F42; Tue,  9 May 2023 00:28:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8CCDD40C6F41
- for <dm-devel@redhat.com>; Mon,  8 May 2023 21:57:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5ACD440C6F41
+ for <dm-devel@redhat.com>; Tue,  9 May 2023 00:28:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 71DCA85A5A3
- for <dm-devel@redhat.com>; Mon,  8 May 2023 21:57:34 +0000 (UTC)
-Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-604-oXoewXvzM8StYLO9iu4zkA-1; Mon, 08 May 2023 17:57:32 -0400
-X-MC-Unique: oXoewXvzM8StYLO9iu4zkA-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="377859373"
-X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="377859373"
-Received: from fmsmga003.fm.intel.com ([10.253.24.29])
- by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2023 14:56:29 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10704"; a="788274135"
-X-IronPort-AV: E=Sophos;i="5.99,259,1677571200"; d="scan'208";a="788274135"
-Received: from ahdamali-mobl.amr.corp.intel.com (HELO [10.212.29.166])
- ([10.212.29.166])
- by fmsmga003-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 08 May 2023 14:56:28 -0700
-Message-ID: <8748511c-cf9a-f3ce-e560-d0646dc3d108@intel.com>
-Date: Mon, 8 May 2023 14:56:27 -0700
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CE9A381D4C4
+ for <dm-devel@redhat.com>; Tue,  9 May 2023 00:28:00 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-124-1wmEhyaoNp6cecyyJBeRRQ-1; Mon, 08 May 2023 20:27:58 -0400
+X-MC-Unique: 1wmEhyaoNp6cecyyJBeRRQ-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 058A762F2B
+ for <dm-devel@redhat.com>; Tue,  9 May 2023 00:20:20 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6930AC433D2
+ for <dm-devel@redhat.com>; Tue,  9 May 2023 00:20:19 +0000 (UTC)
+Received: by mail-lj1-f176.google.com with SMTP id
+ 38308e7fff4ca-2ac82b07eb3so51229371fa.1
+ for <dm-devel@redhat.com>; Mon, 08 May 2023 17:20:19 -0700 (PDT)
+X-Gm-Message-State: AC+VfDz8ekcGATHoKVcaS3DSRw59VRcIr266ZpVSvtJBHtCUq6Wbpjhb
+ Mj3oYk8jzynnyftJCl9+8Ci+VpfSSP+Uifh/+KFo2VU=
+X-Google-Smtp-Source: ACHHUZ6XguvB359TJD5EVeTjXaiA2ucEsERS2+WbXhgo3pznKhng9msxWTb8gnB50Rzaq/efZNnWYP+FsScnG1YYBIM=
+X-Received: by 2002:a17:907:9808:b0:94f:4801:6d08 with SMTP id
+ ji8-20020a170907980800b0094f48016d08mr10822326ejc.71.1683591597081; Mon, 08
+ May 2023 17:19:57 -0700 (PDT)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.10.0
-To: "Chang S. Bae" <chang.seok.bae@intel.com>,
- Eric Biggers <ebiggers@kernel.org>
-References: <20220112211258.21115-1-chang.seok.bae@intel.com>
- <20230410225936.8940-1-chang.seok.bae@intel.com>
- <20230410225936.8940-8-chang.seok.bae@intel.com> <ZFWLoOZZTnBrid+7@gmail.com>
- <1b2eb485-2320-b33b-a0ac-53f7cb170adc@intel.com>
-From: Dave Hansen <dave.hansen@intel.com>
-In-Reply-To: <1b2eb485-2320-b33b-a0ac-53f7cb170adc@intel.com>
+References: <20230503183821.1473305-1-john.g.garry@oracle.com>
+ <20230503183821.1473305-2-john.g.garry@oracle.com>
+In-Reply-To: <20230503183821.1473305-2-john.g.garry@oracle.com>
+From: Mike Snitzer <snitzer@kernel.org>
+Date: Mon, 8 May 2023 20:19:46 -0400
+X-Gmail-Original-Message-ID: <CAH6w=ay1NNxh=9mQv5PCcDi3OY0mgvRXO_0VrmKBLAd1dcUQqQ@mail.gmail.com>
+Message-ID: <CAH6w=ay1NNxh=9mQv5PCcDi3OY0mgvRXO_0VrmKBLAd1dcUQqQ@mail.gmail.com>
+To: John Garry <john.g.garry@oracle.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -90,9 +89,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mailman-Approved-At: Tue, 09 May 2023 00:03:21 +0000
-Subject: Re: [dm-devel] [PATCH v6 07/12] x86/cpu/keylocker: Load an internal
- wrapping key at boot-time
+Subject: Re: [dm-devel] [PATCH RFC 01/16] block: Add atomic write operations
+ to request_queue limits
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,41 +102,47 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: x86@kernel.org, herbert@gondor.apana.org.au, ardb@kernel.org,
- dave.hansen@linux.intel.com, dan.j.williams@intel.com,
- linux-kernel@vger.kernel.org, mingo@kernel.org,
- lalithambika.krishnakumar@intel.com, dm-devel@redhat.com,
- Ingo Molnar <mingo@redhat.com>, Borislav Petkov <bp@alien8.de>,
- linux-crypto@vger.kernel.org, luto@kernel.org,
- "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com, tglx@linutronix.de,
- bp@suse.de, gmazyland@gmail.com, charishma1.gairuboyina@intel.com
+Cc: djwong@kernel.org, Himanshu Madhani <himanshu.madhani@oracle.com>,
+ linux-nvme@lists.infradead.org, dm-devel@redhat.com, hch@lst.de,
+ sagi@grimberg.me, linux-scsi@vger.kernel.org, jmorris@namei.org,
+ serge@hallyn.com, jejb@linux.ibm.com, linux-block@vger.kernel.org,
+ viro@zeniv.linux.org.uk, dchinner@redhat.com, kbusch@kernel.org,
+ paul@paul-moore.com, axboe@kernel.dk, brauner@kernel.org,
+ martin.petersen@oracle.com, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-security-module@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: intel.com
-Content-Language: en-US
+X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: base64
 
-T24gNS84LzIzIDExOjE4LCBDaGFuZyBTLiBCYWUgd3JvdGU6Cj4gT24gNS81LzIwMjMgNDowNSBQ
-TSwgRXJpYyBCaWdnZXJzIHdyb3RlOgo+PiBPbiBNb24sIEFwciAxMCwgMjAyMyBhdCAwMzo1OToz
-MVBNIC0wNzAwLCBDaGFuZyBTLiBCYWUgd3JvdGU6Cj4+PiDCoCArI2lmZGVmIENPTkZJR19YODZf
-S0VZTE9DS0VSCj4+PiArdm9pZCBzZXR1cF9rZXlsb2NrZXIoc3RydWN0IGNwdWluZm9feDg2ICpj
-KTsKPj4+ICt2b2lkIGRlc3Ryb3lfa2V5bG9ja2VyX2RhdGEodm9pZCk7Cj4+PiArI2Vsc2UKPj4+
-ICsjZGVmaW5lIHNldHVwX2tleWxvY2tlcihjKSBkbyB7IH0gd2hpbGUgKDApCj4+PiArI2RlZmlu
-ZSBkZXN0cm95X2tleWxvY2tlcl9kYXRhKCkgZG8geyB9IHdoaWxlICgwKQo+Pj4gKyNlbmRpZgo+
-Pgo+PiBTaG91bGRuJ3QgdGhlICFDT05GSUdfWDg2X0tFWUxPQ0tFUiBzdHVicyBiZSBzdGF0aWMg
-aW5saW5lIGZ1bmN0aW9ucwo+PiBpbnN0ZWFkIG9mCj4+IG1hY3Jvcywgc28gdGhhdCB0eXBlIGNo
-ZWNraW5nIHdvcmtzPwo+IAo+IEkgdGhpbmsgZWl0aGVyIHdheSB3b3JrcyBoZXJlLiBUaGlzIG1h
-Y3JvIGlzIGp1c3QgZm9yIG5vdGhpbmcuCgpDaGFuZywgSSBkbyBwcmVmZXIgdGhlICdzdGF0aWMg
-aW5saW5lJyBhcyBhIGdlbmVyYWwgcnVsZS4gIFRoaW5rIG9mIHRoaXM6CgpzdGF0aWMgaW5saW5l
-IHZvaWQgc2V0dXBfa2V5bG9ja2VyKHN0cnVjdCBjcHVpbmZvX3g4NiAqYykge30KCnZlcnN1czoK
-CiNkZWZpbmUgc2V0dXBfa2V5bG9ja2VyKGMpIGRvIHsgfSB3aGlsZSAoMCkKCkltYWdpbmUgc29t
-ZSBkb3BlIGRvZXM6CgoJY2hhciBjOwoJLi4uCglzZXR1cF9rZXlsb2NrZXIoYyk7CgpXaXRoIHRo
-ZSBtYWNybywgdGhleSdsbCBnZXQgbm8gdHlwZSB3YXJuaW5nLiAgVGhlIGlubGluZSBhY3R1YWxs
-eSBtYWtlcwppdCBlYXNpZXIgdG8gZmluZCBidWdzIGJlY2F1c2UgZm9sa3Mgd2lsbCBnZXQgX3Nv
-bWVfIHR5cGUgY2hlY2tpbmcgbm8KbWF0dGVyIGhvdyB0aGV5IGNvbXBpbGUgdGhlIGNvZGUuCgot
-LQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3Rt
-YW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+T24gV2VkLCBNYXkgMywgMjAyMyBhdCAyOjQw4oCvUE0gSm9obiBHYXJyeSA8am9obi5nLmdhcnJ5
+QG9yYWNsZS5jb20+IHdyb3RlOgo+Cj4gRnJvbTogSGltYW5zaHUgTWFkaGFuaSA8aGltYW5zaHUu
+bWFkaGFuaUBvcmFjbGUuY29tPgo+Cj4gQWRkIHRoZSBmb2xsb3dpbmcgbGltaXRzOgo+IC0gYXRv
+bWljX3dyaXRlX2JvdW5kYXJ5Cj4gLSBhdG9taWNfd3JpdGVfbWF4X2J5dGVzCj4gLSBhdG9taWNf
+d3JpdGVfdW5pdF9tYXgKPiAtIGF0b21pY193cml0ZV91bml0X21pbgo+Cj4gU2lnbmVkLW9mZi1i
+eTogSGltYW5zaHUgTWFkaGFuaSA8aGltYW5zaHUubWFkaGFuaUBvcmFjbGUuY29tPgo+IFNpZ25l
+ZC1vZmYtYnk6IEpvaG4gR2FycnkgPGpvaG4uZy5nYXJyeUBvcmFjbGUuY29tPgo+IC0tLQo+ICBE
+b2N1bWVudGF0aW9uL0FCSS9zdGFibGUvc3lzZnMtYmxvY2sgfCA0MiArKysrKysrKysrKysrKysr
+KysrKysKPiAgYmxvY2svYmxrLXNldHRpbmdzLmMgICAgICAgICAgICAgICAgIHwgNTYgKysrKysr
+KysrKysrKysrKysrKysrKysrKysrKwo+ICBibG9jay9ibGstc3lzZnMuYyAgICAgICAgICAgICAg
+ICAgICAgfCAzMyArKysrKysrKysrKysrKysrCj4gIGluY2x1ZGUvbGludXgvYmxrZGV2LmggICAg
+ICAgICAgICAgICB8IDIzICsrKysrKysrKysrKwo+ICA0IGZpbGVzIGNoYW5nZWQsIDE1NCBpbnNl
+cnRpb25zKCspCj4KCi4uLgoKPiBkaWZmIC0tZ2l0IGEvYmxvY2svYmxrLXNldHRpbmdzLmMgYi9i
+bG9jay9ibGstc2V0dGluZ3MuYwo+IGluZGV4IDg5NmI0NjU0YWIwMC4uZTIxNzMxNzE1YTEyIDEw
+MDY0NAo+IC0tLSBhL2Jsb2NrL2Jsay1zZXR0aW5ncy5jCj4gKysrIGIvYmxvY2svYmxrLXNldHRp
+bmdzLmMKPiBAQCAtNTksNiArNTksOSBAQCB2b2lkIGJsa19zZXRfZGVmYXVsdF9saW1pdHMoc3Ry
+dWN0IHF1ZXVlX2xpbWl0cyAqbGltKQo+ICAgICAgICAgbGltLT56b25lZCA9IEJMS19aT05FRF9O
+T05FOwo+ICAgICAgICAgbGltLT56b25lX3dyaXRlX2dyYW51bGFyaXR5ID0gMDsKPiAgICAgICAg
+IGxpbS0+ZG1hX2FsaWdubWVudCA9IDUxMTsKPiArICAgICAgIGxpbS0+YXRvbWljX3dyaXRlX3Vu
+aXRfbWluID0gbGltLT5hdG9taWNfd3JpdGVfdW5pdF9tYXggPSAxOwo+ICsgICAgICAgbGltLT5h
+dG9taWNfd3JpdGVfbWF4X2J5dGVzID0gNTEyOwo+ICsgICAgICAgbGltLT5hdG9taWNfd3JpdGVf
+Ym91bmRhcnkgPSAwOwo+ICB9CgpOb3Qgc2VlaW5nIHJlcXVpcmVkIGNoYW5nZXMgdG8gYmxrX3Nl
+dF9zdGFja2luZ19saW1pdHMoKSBub3IgYmxrX3N0YWNrX2xpbWl0cygpLgoKU29ycnkgdG8gcmVt
+aW5kIHlvdSBvZiBETSBhbmQgTUQgbGltaXRzIHN0YWNraW5nIHJlcXVpcmVtZW50cy4gOykKCk1p
+a2UKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8v
+bGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
