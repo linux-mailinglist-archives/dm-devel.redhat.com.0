@@ -2,72 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 40A246FF693
-	for <lists+dm-devel@lfdr.de>; Thu, 11 May 2023 17:58:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E4B9D6FF692
+	for <lists+dm-devel@lfdr.de>; Thu, 11 May 2023 17:58:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683820698;
+	s=mimecast20190719; t=1683820697;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=VyOEY17z+KmxUGVlPXM41ch5Khc22jf8eJxbp+8w0tE=;
-	b=VvZ0a0vjbZZa/It0JvVdoOSd+Y+C9KByaCPsccR44uPptTkt1Kt+n4bQBx+IyeuYOMhC9Y
-	nuiG0aPzA1xJ8sz8fSx1NJCjg/bIO1/IRp9Fekx98ei+R2Ervjr9K1oQtKm8kg9JXLUF7L
-	Tk0EEaro/i91i8yJPZo57hQbmPCwbXw=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=+s/RHC/rPD+RnMxGxdWy2ecdXaFu5AdjQF7bq90+AEg=;
+	b=dXpbCJ+0XN5jB9Nwu6WYGtTwA00S76EA1/nXNf1K0o0kyrUqKPQUFQsGFRBC6Fc1CQaqoW
+	Xejf3VfBEGeFdWbeTGk/AWzevrh1ulG63AIomJLlcyIbDudgvEw423W796Tp39ntS+r366
+	9gaS78XV2vz5syxp4ynKyCEE4DV4R6I=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-599-GR7IDvlINXK7Q5O4ojXl3w-1; Thu, 11 May 2023 11:58:16 -0400
-X-MC-Unique: GR7IDvlINXK7Q5O4ojXl3w-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-583-4n3rAT6-NUujJ00-GptAEQ-1; Thu, 11 May 2023 11:58:15 -0400
+X-MC-Unique: 4n3rAT6-NUujJ00-GptAEQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A3BAF80101C;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A36933813F46;
 	Thu, 11 May 2023 15:58:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 508E81410F23;
-	Thu, 11 May 2023 15:58:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 87D3A4078908;
+	Thu, 11 May 2023 15:58:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2D8CD19451E3;
-	Thu, 11 May 2023 15:58:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 25E6019451E9;
+	Thu, 11 May 2023 15:58:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EEF0719451C7
- for <dm-devel@listman.corp.redhat.com>; Thu, 11 May 2023 15:58:03 +0000 (UTC)
+ ESMTP id 78FB319451D3
+ for <dm-devel@listman.corp.redhat.com>; Thu, 11 May 2023 15:58:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C59564078907; Thu, 11 May 2023 15:58:03 +0000 (UTC)
+ id 5B8F64078908; Thu, 11 May 2023 15:58:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BE2A24078906
- for <dm-devel@redhat.com>; Thu, 11 May 2023 15:58:03 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 49CF44078907
+ for <dm-devel@redhat.com>; Thu, 11 May 2023 15:58:05 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F4693C02182
- for <dm-devel@redhat.com>; Thu, 11 May 2023 15:58:03 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 271DD8995A7
+ for <dm-devel@redhat.com>; Thu, 11 May 2023 15:58:05 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-604-FAIaS2CIMxCs_Lpd9vN-EQ-1; Thu, 11 May 2023 11:58:01 -0400
-X-MC-Unique: FAIaS2CIMxCs_Lpd9vN-EQ-1
+ us-mta-553-Lhf_kRUbPcqasjlM6L9NpA-1; Thu, 11 May 2023 11:58:03 -0400
+X-MC-Unique: Lhf_kRUbPcqasjlM6L9NpA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 44EDB64F65;
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8036D64F58;
+ Thu, 11 May 2023 15:52:58 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E65C433EF;
  Thu, 11 May 2023 15:52:57 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99BBFC433EF;
- Thu, 11 May 2023 15:52:56 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable-commits@vger.kernel.org,
-	akailash@google.com
-Date: Thu, 11 May 2023 11:52:55 -0400
-Message-Id: <20230511155255.575001-1-sashal@kernel.org>
+	youngjin.gil@samsung.com
+Date: Thu, 11 May 2023 11:52:56 -0400
+Message-Id: <20230511155257.575039-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
@@ -79,8 +79,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] Patch "dm verity: skip redundant verity_handle_err() on
- I/O errors" has been added to the 4.19-stable tree
+Subject: [dm-devel] Patch "dm verity: fix error handling for
+ check_at_most_once on FEC" has been added to the 4.19-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,7 +96,7 @@ Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
@@ -104,13 +104,13 @@ Content-Transfer-Encoding: 7bit
 
 This is a note to let you know that I've just added the patch titled
 
-    dm verity: skip redundant verity_handle_err() on I/O errors
+    dm verity: fix error handling for check_at_most_once on FEC
 
 to the 4.19-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     dm-verity-skip-redundant-verity_handle_err-on-i-o-er.patch
+     dm-verity-fix-error-handling-for-check_at_most_once-.patch
 and it can be found in the queue-4.19 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
@@ -118,61 +118,48 @@ please let <stable@vger.kernel.org> know about it.
 
 
 
-commit a1f9c2619550df502a352b6381051bf6d76774b6
-Author: Akilesh Kailash <akailash@google.com>
-Date:   Mon Sep 13 09:26:42 2021 +0000
+commit 62855527c9516c0831d62c5d5b35192538ac3764
+Author: Yeongjin Gil <youngjin.gil@samsung.com>
+Date:   Mon Mar 20 15:59:32 2023 +0900
 
-    dm verity: skip redundant verity_handle_err() on I/O errors
+    dm verity: fix error handling for check_at_most_once on FEC
     
-    [ Upstream commit 2c0468e054c0adb660ac055fc396622ec7235df9 ]
+    [ Upstream commit e8c5d45f82ce0c238a4817739892fe8897a3dcc3 ]
     
-    Without FEC, dm-verity won't call verity_handle_err() when I/O fails,
-    but with FEC enabled, it currently does even if an I/O error has
-    occurred.
+    In verity_end_io(), if bi_status is not BLK_STS_OK, it can be return
+    directly. But if FEC configured, it is desired to correct the data page
+    through verity_verify_io. And the return value will be converted to
+    blk_status and passed to verity_finish_io().
     
-    If there is an I/O error and FEC correction fails, return the error
-    instead of calling verity_handle_err() again.
+    BTW, when a bit is set in v->validated_blocks, verity_verify_io() skips
+    verification regardless of I/O error for the corresponding bio. In this
+    case, the I/O error could not be returned properly, and as a result,
+    there is a problem that abnormal data could be read for the
+    corresponding block.
     
-    Suggested-by: Sami Tolvanen <samitolvanen@google.com>
-    Signed-off-by: Akilesh Kailash <akailash@google.com>
-    Reviewed-by: Sami Tolvanen <samitolvanen@google.com>
-    Signed-off-by: Mike Snitzer <snitzer@redhat.com>
-    Stable-dep-of: e8c5d45f82ce ("dm verity: fix error handling for check_at_most_once on FEC")
+    To fix this problem, when an I/O error occurs, do not skip verification
+    even if the bit related is set in v->validated_blocks.
+    
+    Fixes: 843f38d382b1 ("dm verity: add 'check_at_most_once' option to only validate hashes once")
+    Cc: stable@vger.kernel.org
+    Reviewed-by: Sungjong Seo <sj1557.seo@samsung.com>
+    Signed-off-by: Yeongjin Gil <youngjin.gil@samsung.com>
+    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
     Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 36945030520a9..08a135f7ef431 100644
+index 08a135f7ef431..d116495a3445e 100644
 --- a/drivers/md/dm-verity-target.c
 +++ b/drivers/md/dm-verity-target.c
-@@ -471,6 +471,7 @@ static int verity_verify_io(struct dm_verity_io *io)
- 	struct bvec_iter start;
- 	unsigned b;
- 	struct crypto_wait wait;
-+	struct bio *bio = dm_bio_from_per_bio_data(io, v->ti->per_io_data_size);
+@@ -478,7 +478,7 @@ static int verity_verify_io(struct dm_verity_io *io)
+ 		sector_t cur_block = io->block + b;
+ 		struct ahash_request *req = verity_io_hash_req(v, io);
  
- 	for (b = 0; b < io->n_blocks; b++) {
- 		int r;
-@@ -525,9 +526,17 @@ static int verity_verify_io(struct dm_verity_io *io)
- 		else if (verity_fec_decode(v, io, DM_VERITY_BLOCK_TYPE_DATA,
- 					   cur_block, NULL, &start) == 0)
+-		if (v->validated_blocks &&
++		if (v->validated_blocks && bio->bi_status == BLK_STS_OK &&
+ 		    likely(test_bit(cur_block, v->validated_blocks))) {
+ 			verity_bv_skip_block(v, io, &io->iter);
  			continue;
--		else if (verity_handle_err(v, DM_VERITY_BLOCK_TYPE_DATA,
--					   cur_block))
--			return -EIO;
-+		else {
-+			if (bio->bi_status) {
-+				/*
-+				 * Error correction failed; Just return error
-+				 */
-+				return -EIO;
-+			}
-+			if (verity_handle_err(v, DM_VERITY_BLOCK_TYPE_DATA,
-+					      cur_block))
-+				return -EIO;
-+		}
- 	}
- 
- 	return 0;
 
 --
 dm-devel mailing list
