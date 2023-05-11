@@ -2,75 +2,85 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E4B9D6FF692
-	for <lists+dm-devel@lfdr.de>; Thu, 11 May 2023 17:58:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3FF8F6FF98C
+	for <lists+dm-devel@lfdr.de>; Thu, 11 May 2023 20:42:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1683820697;
+	s=mimecast20190719; t=1683830529;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 message-id:message-id:to:to:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+s/RHC/rPD+RnMxGxdWy2ecdXaFu5AdjQF7bq90+AEg=;
-	b=dXpbCJ+0XN5jB9Nwu6WYGtTwA00S76EA1/nXNf1K0o0kyrUqKPQUFQsGFRBC6Fc1CQaqoW
-	Xejf3VfBEGeFdWbeTGk/AWzevrh1ulG63AIomJLlcyIbDudgvEw423W796Tp39ntS+r366
-	9gaS78XV2vz5syxp4ynKyCEE4DV4R6I=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ukMm93Jt4d7/svxoAlzrWVky52KOZ0/r/rg0WxlTMJM=;
+	b=hXsqUCXI/BoNYSU55lxzMctE2PS8gBosRSJsJQkPATJ4RnzGbz/GNb4ysQsTz5d0djR5dp
+	uogZkPzYMPorI9o65gLanl1T5XoqpnbxiMYnaY43lqQsEvus3peyQn+dkP47Nrxqc26cnJ
+	YJVjNQqRB/i7mMEPkVNr6PP/NikmNhA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-583-4n3rAT6-NUujJ00-GptAEQ-1; Thu, 11 May 2023 11:58:15 -0400
-X-MC-Unique: 4n3rAT6-NUujJ00-GptAEQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-283-aOsTzmzxPyuV15VpL8CBiw-1; Thu, 11 May 2023 14:42:05 -0400
+X-MC-Unique: aOsTzmzxPyuV15VpL8CBiw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A36933813F46;
-	Thu, 11 May 2023 15:58:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D63C985A5A3;
+	Thu, 11 May 2023 18:42:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 87D3A4078908;
-	Thu, 11 May 2023 15:58:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DA769483EC4;
+	Thu, 11 May 2023 18:41:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 25E6019451E9;
-	Thu, 11 May 2023 15:58:07 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A625219451EB;
+	Thu, 11 May 2023 18:41:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 78FB319451D3
- for <dm-devel@listman.corp.redhat.com>; Thu, 11 May 2023 15:58:05 +0000 (UTC)
+ ESMTP id B0FF019451E3
+ for <dm-devel@listman.corp.redhat.com>; Thu, 11 May 2023 18:41:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5B8F64078908; Thu, 11 May 2023 15:58:05 +0000 (UTC)
+ id 9D27B4078907; Thu, 11 May 2023 18:41:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 49CF44078907
- for <dm-devel@redhat.com>; Thu, 11 May 2023 15:58:05 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 95D7B4078906
+ for <dm-devel@redhat.com>; Thu, 11 May 2023 18:41:54 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 271DD8995A7
- for <dm-devel@redhat.com>; Thu, 11 May 2023 15:58:05 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-553-Lhf_kRUbPcqasjlM6L9NpA-1; Thu, 11 May 2023 11:58:03 -0400
-X-MC-Unique: Lhf_kRUbPcqasjlM6L9NpA-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 8036D64F58;
- Thu, 11 May 2023 15:52:58 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3E65C433EF;
- Thu, 11 May 2023 15:52:57 +0000 (UTC)
-From: Sasha Levin <sashal@kernel.org>
-To: stable-commits@vger.kernel.org,
-	youngjin.gil@samsung.com
-Date: Thu, 11 May 2023 11:52:56 -0400
-Message-Id: <20230511155257.575039-1-sashal@kernel.org>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6556A3C0D858
+ for <dm-devel@redhat.com>; Thu, 11 May 2023 18:41:54 +0000 (UTC)
+Received: from mail-lf1-f48.google.com (mail-lf1-f48.google.com
+ [209.85.167.48]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-583-IEOVpn_bPcWxZRB5DQ5l4w-1; Thu, 11 May 2023 14:41:52 -0400
+X-MC-Unique: IEOVpn_bPcWxZRB5DQ5l4w-1
+Received: by mail-lf1-f48.google.com with SMTP id
+ 2adb3069b0e04-4f139de8cefso47889876e87.0
+ for <dm-devel@redhat.com>; Thu, 11 May 2023 11:41:52 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1683830510; x=1686422510;
+ h=to:subject:message-id:date:from:mime-version:x-gm-message-state
+ :from:to:cc:subject:date:message-id:reply-to;
+ bh=EXNpWcTP6H1pQM8htJN6FHOkN0yBSnC5c8yBeB4/Occ=;
+ b=UiBxf6QTxPqNKzzz/e/EjeZLouqpxxFz5TwKlWI2JU1k2B0yMCWBPduzrgq1Z2OJDP
+ 0R0Y6l95KYo09OrCJ+PdWA9AyxS6T1k6Z52+aiFFXQ4oxAELCqKkGSv9nhRMx+eHlGF2
+ 7zn8CR9HLsnpQnsZvgOxe9OZDtbGKDWxlEB+N1T/pciHssmW3uHW/IESIO/vJTBPhq1i
+ wFoJYlLAi6oKn9ljMMgYk0gIWRXKcrJiOpILt2G4L9AAnjTnZjSl3G43XRkHXUpDTwj6
+ qapeDx17ENSP3HVYfHC70M91D4MdQAP/L63N+k47z1UwWWpuSw8+PPQZ8UDPM7CnQiCC
+ NIQw==
+X-Gm-Message-State: AC+VfDxcAfCAc9QhnqofDFPWyXuElBeV0seUnId/7oT73CiHclA/MK8U
+ vYM9bommDiUaJ3L+XbhUkABikP1Jy+NQWL2WtVfF7ZgICZgAVeME
+X-Google-Smtp-Source: ACHHUZ7o0oOKCUABNRdGlAxQ9kBP3d4d/7n6FjW4MzdoT1kqIW8OzM/6yp+owA+77hHFSR6fbujzayqrigNTn6SUz0I=
+X-Received: by 2002:a2e:b907:0:b0:2ac:dd01:db90 with SMTP id
+ b7-20020a2eb907000000b002acdd01db90mr3262678ljb.10.1683830510350; Thu, 11 May
+ 2023 11:41:50 -0700 (PDT)
 MIME-Version: 1.0
-X-Patchwork-Hint: ignore
-X-stable: review
+From: Ming Lin <minggr@gmail.com>
+Date: Thu, 11 May 2023 11:41:39 -0700
+Message-ID: <CAF1ivSZJjVq313Zg9nBF0S3DOun=-Vw8saZGPU5cGrB_woM-8g@mail.gmail.com>
+To: device-mapper development <dm-devel@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,8 +89,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] Patch "dm verity: fix error handling for
- check_at_most_once on FEC" has been added to the 4.19-stable tree
+Subject: [dm-devel] Does dm-zoned support buffered write?
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,74 +101,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
- Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This is a note to let you know that I've just added the patch titled
+Hi list,
 
-    dm verity: fix error handling for check_at_most_once on FEC
+I have an application that needs to use buffered_io to access SMR disk
+for good performance.
 
-to the 4.19-stable tree which can be found at:
-    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+From "ZBD Support Restrictions" at https://zonedstorage.io/docs/linux/overview
+"
+Direct IO Writes The kernel page cache does not guarantee that cached
+dirty pages will be flushed to a block device in sequential sector
+order. This can lead to unaligned write errors if an application uses
+buffered writes to write to the sequential write required zones of a
+device. To avoid this pitfall, applications that directly use a zoned
+block device without a file system should always use direct I/O
+operations to write to the sequential write required zones of a
+host-managed disk (that is, they should issue write() system calls
+with a block device "file open" that uses the O_DIRECT flag).
+"
 
-The filename of the patch is:
-     dm-verity-fix-error-handling-for-check_at_most_once-.patch
-and it can be found in the queue-4.19 subdirectory.
+Raw zbd disk only supports direct_io.
 
-If you, or anyone else, feels it should not be added to the stable tree,
-please let <stable@vger.kernel.org> know about it.
+Does dm-zoned support buffered io (without O_DIRECT)?
 
-
-
-commit 62855527c9516c0831d62c5d5b35192538ac3764
-Author: Yeongjin Gil <youngjin.gil@samsung.com>
-Date:   Mon Mar 20 15:59:32 2023 +0900
-
-    dm verity: fix error handling for check_at_most_once on FEC
-    
-    [ Upstream commit e8c5d45f82ce0c238a4817739892fe8897a3dcc3 ]
-    
-    In verity_end_io(), if bi_status is not BLK_STS_OK, it can be return
-    directly. But if FEC configured, it is desired to correct the data page
-    through verity_verify_io. And the return value will be converted to
-    blk_status and passed to verity_finish_io().
-    
-    BTW, when a bit is set in v->validated_blocks, verity_verify_io() skips
-    verification regardless of I/O error for the corresponding bio. In this
-    case, the I/O error could not be returned properly, and as a result,
-    there is a problem that abnormal data could be read for the
-    corresponding block.
-    
-    To fix this problem, when an I/O error occurs, do not skip verification
-    even if the bit related is set in v->validated_blocks.
-    
-    Fixes: 843f38d382b1 ("dm verity: add 'check_at_most_once' option to only validate hashes once")
-    Cc: stable@vger.kernel.org
-    Reviewed-by: Sungjong Seo <sj1557.seo@samsung.com>
-    Signed-off-by: Yeongjin Gil <youngjin.gil@samsung.com>
-    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-    Signed-off-by: Sasha Levin <sashal@kernel.org>
-
-diff --git a/drivers/md/dm-verity-target.c b/drivers/md/dm-verity-target.c
-index 08a135f7ef431..d116495a3445e 100644
---- a/drivers/md/dm-verity-target.c
-+++ b/drivers/md/dm-verity-target.c
-@@ -478,7 +478,7 @@ static int verity_verify_io(struct dm_verity_io *io)
- 		sector_t cur_block = io->block + b;
- 		struct ahash_request *req = verity_io_hash_req(v, io);
- 
--		if (v->validated_blocks &&
-+		if (v->validated_blocks && bio->bi_status == BLK_STS_OK &&
- 		    likely(test_bit(cur_block, v->validated_blocks))) {
- 			verity_bv_skip_block(v, io, &io->iter);
- 			continue;
+Thanks,
+Ming
 
 --
 dm-devel mailing list
