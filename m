@@ -2,98 +2,61 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 05C96709B3E
-	for <lists+dm-devel@lfdr.de>; Fri, 19 May 2023 17:23:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 604E770A315
+	for <lists+dm-devel@lfdr.de>; Sat, 20 May 2023 01:02:31 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684509829;
+	s=mimecast20190719; t=1684537350;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=oNlZ+XPmL4O/l5aIbTvvxgJVnV4Ng4qxjbHV8CIC4h4=;
-	b=adOFtzassn0i+NflZ37Y4GldgCfQGNcsEZ5oAIyEpIcTyMdlS45r+mvaXkG+qjYsFoRFYp
-	AIaZVrkgLIZa9MMAUKpnmoSuO4rmTORA2QhUO5ptE1aVI3UfQihf+vOnj64vmd0mlWtmzr
-	37alqmAHdIbOT7CxksIwxzNCjDDl7HY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=41GjsS7S0Ww7B3gJbFMfsFz5eQK+od+uQgzP6Q2x1wQ=;
+	b=DeycjDCdDth5OZf/pv+VtuB34ia4+JUIpa085lfyd7AmwC2sTC4OVcCpEdEBUOlczQNqGo
+	Qs6ErrYcQAL7swr+49IwWAtIhTeDQY+57DAq7oeyi+dza4IBgL1a5XglErvyVKNVSt1H56
+	nO1K7VY2nL0PUBkdfceaRhnvFw+T6EY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-562-tz1yRlxTNOiR2r4wR3u_QQ-1; Fri, 19 May 2023 11:23:46 -0400
-X-MC-Unique: tz1yRlxTNOiR2r4wR3u_QQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-412-FfTYh8w8PgOqaxTwQ9T1nA-1; Fri, 19 May 2023 19:02:28 -0400
+X-MC-Unique: FfTYh8w8PgOqaxTwQ9T1nA-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8C18F3C0011F;
-	Fri, 19 May 2023 15:23:19 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 73AEF800B2A;
+	Fri, 19 May 2023 23:02:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D85EC0004B;
-	Fri, 19 May 2023 15:23:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 12D7E140E955;
+	Fri, 19 May 2023 23:02:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4425D19465BD;
-	Fri, 19 May 2023 15:23:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 396B019465BD;
+	Fri, 19 May 2023 23:02:16 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6294119465A4
- for <dm-devel@listman.corp.redhat.com>; Fri, 19 May 2023 15:23:16 +0000 (UTC)
+ ESMTP id 5EDAA19465A4
+ for <dm-devel@listman.corp.redhat.com>; Fri, 19 May 2023 23:02:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 517E340C6CCD; Fri, 19 May 2023 15:23:16 +0000 (UTC)
+ id 2D3E4140E955; Fri, 19 May 2023 23:02:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 48EB740C6CD1
- for <dm-devel@redhat.com>; Fri, 19 May 2023 15:23:16 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 29FA5800141
- for <dm-devel@redhat.com>; Fri, 19 May 2023 15:23:16 +0000 (UTC)
-Received: from mail-qt1-f170.google.com (mail-qt1-f170.google.com
- [209.85.160.170]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-266-yfZwcfonMve3TAsgFu8FFA-1; Fri, 19 May 2023 11:23:14 -0400
-X-MC-Unique: yfZwcfonMve3TAsgFu8FFA-1
-Received: by mail-qt1-f170.google.com with SMTP id
- d75a77b69052e-3f38e1142d0so16937061cf.2
- for <dm-devel@redhat.com>; Fri, 19 May 2023 08:23:14 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1684509794; x=1687101794;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=KQivtLqNJRG8EpR/lUW7uy3izlo40t0jANCAkNQxEPE=;
- b=QJ9C/Bs8P3LmUCneuQzI6IZRcyFechUHVyapCSlZzFzAHZfmY5zS1x3kWW5cNvHh4x
- AWs1YfZoky/shFKSlyHiUlv1gDG8v2H9m+Yh41p0TNS5gcVWQlUIueUhZH1lcF80V+ZE
- qNZuTneqYo8j4CwabZrJtgVIOS3gpnydRmST++wDqPgAiopvkqYtpetwlWgMp/ryK2PS
- h8KB+aREjQ2K6KGAMyWDFAa1DIa6sMJJjLlSQRg8legoCyVt2aOvQK/8HG0FbDXZ3X8v
- 41IoJzZrttl8Art1aCQecrIF77tEWPnTKsheZcik6yk3GMoehNiNHZhZVv+OAchHs6lQ
- fM9A==
-X-Gm-Message-State: AC+VfDwZXQ5apXL3UR2o/rlCQhxx8PoXXNIxYuT9gfjsVj/uFfSCgb8Q
- sppojK9c8zgQbg1Okf6H3YPDE50=
-X-Google-Smtp-Source: ACHHUZ5KZDF2WuE+iLnjFEJ4qmC2nD5mUZp17EvZzOJDdFPHVvmlXVoj6ey88vsNHzWaS5Y6xHhQeQ==
-X-Received: by 2002:a05:622a:192:b0:3f5:92b:eff9 with SMTP id
- s18-20020a05622a019200b003f5092beff9mr3992630qtw.46.1684509793876; 
- Fri, 19 May 2023 08:23:13 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- b28-20020a05620a127c00b0075941df3365sm1164925qkl.52.2023.05.19.08.23.13
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 19 May 2023 08:23:13 -0700 (PDT)
-Date: Fri, 19 May 2023 11:23:12 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: Sarthak Kukreti <sarthakkukreti@chromium.org>,
- Joe Thornber <ejt@redhat.com>
-Message-ID: <ZGeUYESOQsZkOQ1Q@redhat.com>
-References: <20230518223326.18744-1-sarthakkukreti@chromium.org>
- <20230518223326.18744-5-sarthakkukreti@chromium.org>
-MIME-Version: 1.0
-In-Reply-To: <20230518223326.18744-5-sarthakkukreti@chromium.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH v7 4/5] dm-thin: Add REQ_OP_PROVISION support
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D5733140E954;
+ Fri, 19 May 2023 23:02:14 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 34JN2DJc023073;
+ Fri, 19 May 2023 18:02:13 -0500
+Received: (from bmarzins@localhost)
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 34JN2Cqc023072;
+ Fri, 19 May 2023 18:02:12 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Fri, 19 May 2023 18:02:07 -0500
+Message-Id: <1684537332-23033-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] [PATCH 0/5] multipath: Add a group_by_tgp path grouping
+ policy
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,82 +68,56 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
- Theodore Ts'o <tytso@mit.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
- "Darrick J. Wong" <djwong@kernel.org>, Jason Wang <jasowang@redhat.com>,
- Bart Van Assche <bvanassche@google.com>, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
- Alasdair Kergon <agk@redhat.com>
+Cc: device-mapper development <dm-devel@redhat.com>,
+ Martin Wilck <Martin.Wilck@suse.com>
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Disposition: inline
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, May 18 2023 at  6:33P -0400,
-Sarthak Kukreti <sarthakkukreti@chromium.org> wrote:
+This patchset is adds a new path grouping policy that can be used with
+ALUA devices. The goal is to avoid the temporary incorrect path
+groupings that can happen when paths change priorities.
 
-> dm-thinpool uses the provision request to provision
-> blocks for a dm-thin device. dm-thinpool currently does not
-> pass through REQ_OP_PROVISION to underlying devices.
-> 
-> For shared blocks, provision requests will break sharing and copy the
-> contents of the entire block. Additionally, if 'skip_block_zeroing'
-> is not set, dm-thin will opt to zero out the entire range as a part
-> of provisioning.
-> 
-> Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
-> ---
->  drivers/md/dm-thin.c | 74 +++++++++++++++++++++++++++++++++++++++++---
->  1 file changed, 70 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/md/dm-thin.c b/drivers/md/dm-thin.c
-> index 2b13c949bd72..f1b68b558cf0 100644
-> --- a/drivers/md/dm-thin.c
-> +++ b/drivers/md/dm-thin.c
-> @@ -1245,8 +1247,8 @@ static int io_overlaps_block(struct pool *pool, struct bio *bio)
->  
->  static int io_overwrites_block(struct pool *pool, struct bio *bio)
->  {
-> -	return (bio_data_dir(bio) == WRITE) &&
-> -		io_overlaps_block(pool, bio);
-> +	return (bio_data_dir(bio) == WRITE) && io_overlaps_block(pool, bio) &&
-> +	       bio_op(bio) != REQ_OP_PROVISION;
->  }
->  
->  static void save_and_set_endio(struct bio *bio, bio_end_io_t **save,
-> @@ -1394,6 +1396,9 @@ static void schedule_zero(struct thin_c *tc, dm_block_t virt_block,
->  	m->data_block = data_block;
->  	m->cell = cell;
->  
-> +	if (bio && bio_op(bio) == REQ_OP_PROVISION)
-> +		m->bio = bio;
-> +
->  	/*
->  	 * If the whole block of data is being overwritten or we are not
->  	 * zeroing pre-existing data, we can issue the bio immediately.
+There is one thing that I'm not sure of.  Is there any possiblity of a
+path device changing the target port group it belongs to while it use?
+If so, then we would need code to check for this and reload the device
+if it occurs.
 
-This doesn't seem like the best way to address avoiding passdown of
-provision bios (relying on process_prepared_mapping's implementation
-that happens to do the right thing if m->bio set).  Doing so cascades
-into relying on complete_overwrite_bio() happening to _not_ actually
-being specific to "overwrite" bios.
+Benjamin Marzinski (5):
+  libmultipath: add group_by_tpg path_grouping_policy
+  libmultipath: don't copy pgpolicy string in get_pgpolicy_name
+  libmultipath: add ALUA tpg path wildcard
+  multipath-tools tests: add tests for group_by_tpg policy
+  libmultipath: add "detect_pgpolicy" config option
 
-I don't have a better suggestion yet but will look closer.  Just think
-this needs to be formalized a bit more rather than it happening to
-"just work".
+ libmultipath/config.c             |   2 +
+ libmultipath/config.h             |   2 +
+ libmultipath/configure.c          |   1 +
+ libmultipath/defaults.h           |   1 +
+ libmultipath/dict.c               |  17 ++-
+ libmultipath/discovery.c          |   1 +
+ libmultipath/hwtable.c            |   1 +
+ libmultipath/libmultipath.version |  10 +-
+ libmultipath/pgpolicies.c         |  42 ++++---
+ libmultipath/pgpolicies.h         |   6 +-
+ libmultipath/print.c              |   9 ++
+ libmultipath/prioritizers/alua.c  |   1 +
+ libmultipath/propsel.c            |  50 +++++++-
+ libmultipath/propsel.h            |   1 +
+ libmultipath/structs.c            |   1 +
+ libmultipath/structs.h            |  10 ++
+ multipath/main.c                  |   1 +
+ multipath/multipath.conf.5        |  16 +++
+ tests/pgpolicy.c                  | 201 ++++++++++++++++++++++++++++++
+ 19 files changed, 338 insertions(+), 35 deletions(-)
 
-Cc'ing Joe to see what he thinks too.  This is something we can clean
-up with a follow-on patch though, so not a show-stopper for this
-series.
-
-Mike
+-- 
+2.17.2
 
 --
 dm-devel mailing list
