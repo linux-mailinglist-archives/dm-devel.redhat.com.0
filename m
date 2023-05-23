@@ -1,77 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2969170E8AF
-	for <lists+dm-devel@lfdr.de>; Wed, 24 May 2023 00:15:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE2FB70E90D
+	for <lists+dm-devel@lfdr.de>; Wed, 24 May 2023 00:25:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684880104;
+	s=mimecast20190719; t=1684880719;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=A+vlqZtfTyXpIWCf0h54SVBUkjRJlaGVWRJe+rtqIc0=;
-	b=ghO5oBta3oPCn/eqNHVr2ivlWaYK0xtaUpjWkdVwQhxGJeAHIvBC24KIdY0Q9BU3CIiUfZ
-	MYy9knBbv4plJ7Oq+i+2sB2jmYn6WMC/zaY/dQhyVcgdGWfrzruM8sedxCns+soxe4fJgB
-	lR16AXAS64LcsAasjcxLCmOF7qx0cm4=
+	bh=fhpMkKEODKPkkKtOuj7VwxPgDK2KbAjj6kgJBsarW0w=;
+	b=NgMUP6tOD3EXsyBIxbEvz+889hvn5ZDLXb1Apc9NIADjZfWaQ7YZHTVaW1qCtUA6JIKTWi
+	fgyTl+Y1flr1Hd1+4EImZZPwJ2lqfhyfMzW/OaCG+0JhSqPENKDQMwNztSddl3zU6ko/Ds
+	rEqYs3hRCmZiAlepzA4Bh13ZPyeAfUI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-153-nePlGXM_NE--e1IOFtNiAw-1; Tue, 23 May 2023 18:14:56 -0400
-X-MC-Unique: nePlGXM_NE--e1IOFtNiAw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-488-c6BHETNvNGqWPgho15uohQ-1; Tue, 23 May 2023 18:25:18 -0400
+X-MC-Unique: c6BHETNvNGqWPgho15uohQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9981101A598;
-	Tue, 23 May 2023 22:14:53 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 59BB49D73;
-	Tue, 23 May 2023 22:14:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8786101A52C;
+	Tue, 23 May 2023 22:25:14 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D067B40C6CCF;
+	Tue, 23 May 2023 22:25:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CF98019465BB;
-	Tue, 23 May 2023 22:14:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C6B3019465BB;
+	Tue, 23 May 2023 22:25:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1BAF419465A8
- for <dm-devel@listman.corp.redhat.com>; Tue, 23 May 2023 22:14:52 +0000 (UTC)
+ ESMTP id 7C3B819465A0
+ for <dm-devel@listman.corp.redhat.com>; Tue, 23 May 2023 22:25:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E95F92166B26; Tue, 23 May 2023 22:14:51 +0000 (UTC)
+ id 5C1671121314; Tue, 23 May 2023 22:25:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E15E62166B25
- for <dm-devel@redhat.com>; Tue, 23 May 2023 22:14:51 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 541701121320
+ for <dm-devel@redhat.com>; Tue, 23 May 2023 22:25:10 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C86D0280AA7B
- for <dm-devel@redhat.com>; Tue, 23 May 2023 22:14:51 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 25B18101A53A
+ for <dm-devel@redhat.com>; Tue, 23 May 2023 22:25:10 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-299-4CoPrHfYPFaB7-p7REiIhQ-1; Tue, 23 May 2023 18:14:48 -0400
-X-MC-Unique: 4CoPrHfYPFaB7-p7REiIhQ-1
+ us-mta-651-rcLSyLRlPGGvaB_upUkodQ-1; Tue, 23 May 2023 18:25:03 -0400
+X-MC-Unique: rcLSyLRlPGGvaB_upUkodQ-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 39240627B5;
- Tue, 23 May 2023 22:14:47 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8BEDDC433D2;
- Tue, 23 May 2023 22:14:46 +0000 (UTC)
-Date: Tue, 23 May 2023 22:14:45 +0000
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 09E4761BE9;
+ Tue, 23 May 2023 22:25:03 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F6CC433EF;
+ Tue, 23 May 2023 22:25:02 +0000 (UTC)
+Date: Tue, 23 May 2023 22:25:01 +0000
 From: Eric Biggers <ebiggers@kernel.org>
-To: "J. corwin Coburn" <corwin@redhat.com>
-Message-ID: <20230523221445.GC888341@google.com>
+To: corwin <corwin@redhat.com>
+Message-ID: <20230523222501.GD888341@google.com>
 References: <20230523214539.226387-1-corwin@redhat.com>
- <20230523214539.226387-4-corwin@redhat.com>
+ <20230523214539.226387-3-corwin@redhat.com>
+ <20230523220618.GA888341@google.com>
+ <0d3d1835-d945-9fa2-f3b7-6a60aae3d1df@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20230523214539.226387-4-corwin@redhat.com>
+In-Reply-To: <0d3d1835-d945-9fa2-f3b7-6a60aae3d1df@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,8 +81,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v2 03/39] Add memory allocation utilities.
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH v2 02/39] Add the MurmurHash3 fast hashing
+ algorithm.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,26 +98,56 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: linux-block@vger.kernel.org, vdo-devel@redhat.com, dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, May 23, 2023 at 05:45:03PM -0400, J. corwin Coburn wrote:
-> diff --git a/drivers/md/dm-vdo/memory-alloc.c b/drivers/md/dm-vdo/memory-alloc.c
-> new file mode 100644
-> index 00000000000..00b992e96bd
-> --- /dev/null
-> +++ b/drivers/md/dm-vdo/memory-alloc.c
-> @@ -0,0 +1,447 @@
-> +// SPDX-License-Identifier: GPL-2.0-only
-> +/*
-> + * Copyright Red Hat
-> + */
+On Tue, May 23, 2023 at 06:13:08PM -0400, corwin wrote:
+> On 5/23/23 6:06 PM, Eric Biggers wrote:
+> > On Tue, May 23, 2023 at 05:45:02PM -0400, J. corwin Coburn wrote:
+> > > MurmurHash3 is a fast, non-cryptographic, 128-bit hash. It was originally
+> > > written by Austin Appleby and placed in the public domain. This version has
+> > > been modified to produce the same result on both big endian and little
+> > > endian processors, making it suitable for use in portable persistent data.
+> > > 
+> > > Signed-off-by: J. corwin Coburn <corwin@redhat.com>
+> > > ---
+> > >   drivers/md/dm-vdo/murmurhash3.c | 175 ++++++++++++++++++++++++++++++++
+> > >   drivers/md/dm-vdo/murmurhash3.h |  15 +++
+> > >   2 files changed, 190 insertions(+)
+> > >   create mode 100644 drivers/md/dm-vdo/murmurhash3.c
+> > >   create mode 100644 drivers/md/dm-vdo/murmurhash3.h
+> > 
+> > Do we really need yet another hash algorithm?
+> > 
+> > xxHash is another very fast non-cryptographic hash algorithm that is already
+> > available in the kernel (lib/xxhash.c).
+> > 
+> > - Eric
+> 
+> The main reason why vdo uses Murmur3 and not xxHash is that vdo has been in
+> deployment since 2013, and, if I am reading correctly, xxHash did not have a
+> 128 bit variant until 2019.
 
-Copyright statements need to include a year.
+Why do you need a 128-bit non-cryptographic hash algorithm?  What problem are
+you trying to solve?
+
+> 
+> It would certainly be possible to switch vdo to xxHash, but it would be
+> problematic for existing users.
+> 
+
+Well, this commit doesn't mention that the choice was forced for compatibility
+reasons.
+
+It sounds like the on-disk format (and presumably the UAPI, too?) for dm-vdo was
+already set in stone before it was ever sent out for review.
+
+That takes away some motivation to bother reviewing it, since many review
+comments will be met with "we won't change this"...
 
 - Eric
 
