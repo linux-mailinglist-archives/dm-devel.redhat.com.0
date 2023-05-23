@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9B6AD70D7F6
-	for <lists+dm-devel@lfdr.de>; Tue, 23 May 2023 10:55:49 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DD3870D7FE
+	for <lists+dm-devel@lfdr.de>; Tue, 23 May 2023 10:56:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684832148;
+	s=mimecast20190719; t=1684832189;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=s5LN7caAxNcFmBuiWinepb+Epa3Ppe71RCkDY0/ag/k=;
-	b=iYse38c3lBwsvkVCF5tBucGEgIGaJygXnOUmbTWbR4mzuvUuuvCL/lmkWXEPYMocKbZF+s
-	0/TXZk52tfQvGyjd0U2gms088BtSMTy57/TGBhbcWAP5kqYFJv74hOB7yZXZyF4xpoHOlN
-	gudKaDMzJKaU1LAvT55vxdp/WrVYX8U=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=N8RornZmP11j+4BMKedNXmjOO8S6/nsAeuIQxfmw2sk=;
+	b=YLFyTPycjc4OfwBvxCsjm9yi+uOvzhz10aBkvxLuZMTG7QNQ+gl6Y7sTM4iTDsQcYcLGLh
+	TmcdqIRowME9IIcN0OgqSIuq5hwcCk5P4VqT6sjYZPFt6pVzer8n/d7brGPwJSStTBvSCV
+	GlWMKKISe+UkgWgyViDs9mVdCuKAjM4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-311-GHi1yexyN9qKjIO5RjZ3HA-1; Tue, 23 May 2023 04:55:46 -0400
-X-MC-Unique: GHi1yexyN9qKjIO5RjZ3HA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-664-LJ_XpfmcNse5SJWlurbthw-1; Tue, 23 May 2023 04:56:27 -0400
+X-MC-Unique: LJ_XpfmcNse5SJWlurbthw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E1AA85A5BA;
-	Tue, 23 May 2023 08:55:44 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2A8B03C17C64;
+	Tue, 23 May 2023 08:56:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 82598140E961;
-	Tue, 23 May 2023 08:55:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 11BD4C1ED9B;
+	Tue, 23 May 2023 08:56:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 14A0019465BA;
-	Tue, 23 May 2023 08:55:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7C15B19465BA;
+	Tue, 23 May 2023 08:56:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5B3A51946595
- for <dm-devel@listman.corp.redhat.com>; Tue, 23 May 2023 08:55:41 +0000 (UTC)
+ ESMTP id C7D521946595
+ for <dm-devel@listman.corp.redhat.com>; Tue, 23 May 2023 08:56:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4F65320296C8; Tue, 23 May 2023 08:55:41 +0000 (UTC)
+ id B8FA32166B27; Tue, 23 May 2023 08:56:23 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 479C8200AE6F
- for <dm-devel@redhat.com>; Tue, 23 May 2023 08:55:41 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B0B512166B26
+ for <dm-devel@redhat.com>; Tue, 23 May 2023 08:56:23 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 143693804525
- for <dm-devel@redhat.com>; Tue, 23 May 2023 08:55:41 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 94C7F802A55
+ for <dm-devel@redhat.com>; Tue, 23 May 2023 08:56:23 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-583-ktEfzshMNMOQAI3GJPkQmQ-1; Tue, 23 May 2023 04:55:39 -0400
-X-MC-Unique: ktEfzshMNMOQAI3GJPkQmQ-1
+ us-mta-320-IZ6-OKUsNBKTFpkVt5m4yw-1; Tue, 23 May 2023 04:56:21 -0400
+X-MC-Unique: IZ6-OKUsNBKTFpkVt5m4yw-1
 Received: from [2001:4bb8:188:23b2:6ade:85c9:530f:6eb0] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q1Miy-009H91-2c; Tue, 23 May 2023 07:46:29 +0000
+ id 1q1Mj1-009HBv-1X; Tue, 23 May 2023 07:46:31 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue, 23 May 2023 09:45:29 +0200
-Message-Id: <20230523074535.249802-19-hch@lst.de>
+Date: Tue, 23 May 2023 09:45:30 +0200
+Message-Id: <20230523074535.249802-20-hch@lst.de>
 In-Reply-To: <20230523074535.249802-1-hch@lst.de>
 References: <20230523074535.249802-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,8 +76,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH 18/24] dm: open code dm_get_dev_t in dm_init_init
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH 19/24] dm: remove dm_get_dev_t
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,37 +99,72 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-dm_init_init is called from early boot code, and thus lookup_bdev
-will never succeed.  Just open code that call to early_lookup_bdev
-instead.
+Open code dm_get_dev_t in the only remaining caller, and propagate the
+exact error code from lookup_bdev and early_lookup_bdev.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/dm-init.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/md/dm-table.c         | 20 ++++----------------
+ include/linux/device-mapper.h |  2 --
+ 2 files changed, 4 insertions(+), 18 deletions(-)
 
-diff --git a/drivers/md/dm-init.c b/drivers/md/dm-init.c
-index d369457dbed0ed..2a71bcdba92d14 100644
---- a/drivers/md/dm-init.c
-+++ b/drivers/md/dm-init.c
-@@ -293,8 +293,10 @@ static int __init dm_init_init(void)
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 05aa16da43b0d5..e997f4322a9967 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -323,20 +323,6 @@ static int upgrade_mode(struct dm_dev_internal *dd, fmode_t new_mode,
+ 	return 0;
+ }
  
- 	for (i = 0; i < ARRAY_SIZE(waitfor); i++) {
- 		if (waitfor[i]) {
-+			dev_t dev;
-+
- 			DMINFO("waiting for device %s ...", waitfor[i]);
--			while (!dm_get_dev_t(waitfor[i]))
-+			while (early_lookup_bdev(waitfor[i], &dev))
- 				fsleep(5000);
- 		}
+-/*
+- * Convert the path to a device
+- */
+-dev_t dm_get_dev_t(const char *path)
+-{
+-	dev_t dev;
+-
+-	if (lookup_bdev(path, &dev) &&
+-	    early_lookup_bdev(path, &dev))
+-		return 0;
+-	return dev;
+-}
+-EXPORT_SYMBOL_GPL(dm_get_dev_t);
+-
+ /*
+  * Add a device to the list, or just increment the usage count if
+  * it's already present.
+@@ -359,8 +345,10 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+ 		if (MAJOR(dev) != major || MINOR(dev) != minor)
+ 			return -EOVERFLOW;
+ 	} else {
+-		dev = dm_get_dev_t(path);
+-		if (!dev)
++		r = lookup_bdev(path, &dev);
++		if (r)
++			r = early_lookup_bdev(path, &dev);
++		if (r)
+ 			return -ENODEV;
  	}
+ 	if (dev == disk_devt(t->md->disk))
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index a52d2b9a68460a..c27b84002d8382 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -170,8 +170,6 @@ struct dm_dev {
+ 	char name[16];
+ };
+ 
+-dev_t dm_get_dev_t(const char *path);
+-
+ /*
+  * Constructors should call these functions to ensure destination devices
+  * are opened/closed correctly.
 -- 
 2.39.2
 
