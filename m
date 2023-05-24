@@ -1,132 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 964D9710608
-	for <lists+dm-devel@lfdr.de>; Thu, 25 May 2023 09:13:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0546B71060E
+	for <lists+dm-devel@lfdr.de>; Thu, 25 May 2023 09:13:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1684998784;
+	s=mimecast20190719; t=1684998787;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=MXU+DB4agVrJ+W4yex1LlSJOPmHRyeIUn76DYRrlGlE=;
-	b=TkNpLJr6ATRkguHL1Xd1RJsZYSpedvUJaNWWpKbr4OrhDwrUnMfstlVXlwBlb7/euC4zoC
-	NYfY/+XyKhHWPCcoNW+t1xl6cnkkBsKlTu9Q1KXp0ZqCaTTJQIWwsJ0DcyOPu7qItrnz52
-	EDMGpXp1/D0JZ7uHIwXeiY5RQFvSu/8=
+	bh=WPCmS20U88f6m2E4Eju0Vn2X0L8Wee6sxUTAHaRJMIU=;
+	b=Cc2jeM+OdfD53LlcyaWrIfDhMcgP4xU+yeXwqMU389GOHxS5kyTlDN5fcMsdoVWPaTOGhq
+	ZUZ0E8SDlE+WVlOa7y4e9JrwR0lkWDPCk3GAMzTOhJPFDX0pK7H3DQfPosyNLT7EpLrwAb
+	ZOVzyWCaxqDrl8JmxlrYfuA7YNj2mNQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-648-JibNt344MyKKu0PZtXweJg-1; Thu, 25 May 2023 03:12:37 -0400
-X-MC-Unique: JibNt344MyKKu0PZtXweJg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-640-gzCgWnYtMl-KoEt8284r-g-1; Thu, 25 May 2023 03:12:36 -0400
+X-MC-Unique: gzCgWnYtMl-KoEt8284r-g-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D4911C060DD;
-	Thu, 25 May 2023 07:12:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA3DC3804061;
+	Thu, 25 May 2023 07:12:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 13451C154D1;
-	Thu, 25 May 2023 07:12:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6128440C1258;
+	Thu, 25 May 2023 07:12:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E7BD819465B9;
-	Thu, 25 May 2023 07:12:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7DF0719452C5;
+	Thu, 25 May 2023 07:12:28 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 378F819465A0
- for <dm-devel@listman.corp.redhat.com>; Wed, 24 May 2023 08:02:09 +0000 (UTC)
+ ESMTP id 9BD9C19465A0
+ for <dm-devel@listman.corp.redhat.com>; Wed, 24 May 2023 08:11:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1C389492B0B; Wed, 24 May 2023 08:02:09 +0000 (UTC)
+ id 8AE4F20296C8; Wed, 24 May 2023 08:11:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 150A8492B0A
- for <dm-devel@redhat.com>; Wed, 24 May 2023 08:02:09 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE7C23C17C65
- for <dm-devel@redhat.com>; Wed, 24 May 2023 08:02:08 +0000 (UTC)
-Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com
- [148.163.158.5]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-402-Ij3a5l9JMzWMs-vTYgKpqg-1; Wed, 24 May 2023 04:02:05 -0400
-X-MC-Unique: Ij3a5l9JMzWMs-vTYgKpqg-1
-Received: from pps.filterd (m0353724.ppops.net [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 34O7e0AX013338; Wed, 24 May 2023 08:02:04 GMT
-Received: from pps.reinject (localhost [127.0.0.1])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3qsde4t0rr-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 May 2023 08:02:04 +0000
-Received: from m0353724.ppops.net (m0353724.ppops.net [127.0.0.1])
- by pps.reinject (8.17.1.5/8.17.1.5) with ESMTP id 34O7gCE0021753;
- Wed, 24 May 2023 08:02:03 GMT
-Received: from ppma04ams.nl.ibm.com (63.31.33a9.ip4.static.sl-reverse.com
- [169.51.49.99])
- by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 3qsde4t0qm-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 May 2023 08:02:03 +0000
-Received: from pps.filterd (ppma04ams.nl.ibm.com [127.0.0.1])
- by ppma04ams.nl.ibm.com (8.17.1.19/8.17.1.19) with ESMTP id 34O5u5Dm032628;
- Wed, 24 May 2023 08:02:01 GMT
-Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
- by ppma04ams.nl.ibm.com (PPS) with ESMTPS id 3qppdk1u9u-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
- Wed, 24 May 2023 08:02:00 +0000
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com
- [10.20.54.101])
- by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id
- 34O81v6137028370
- (version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Wed, 24 May 2023 08:01:57 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id 5FB962004F;
- Wed, 24 May 2023 08:01:57 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
- by IMSVA (Postfix) with ESMTP id E22542004B;
- Wed, 24 May 2023 08:01:56 +0000 (GMT)
-Received: from [9.152.212.186] (unknown [9.152.212.186])
- by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTPS;
- Wed, 24 May 2023 08:01:56 +0000 (GMT)
-Message-ID: <2ee323bd-1205-4d3e-1ef1-906e206f1c4e@linux.ibm.com>
-Date: Wed, 24 May 2023 10:01:56 +0200
+Received: from localhost (unknown [10.39.192.9])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0182620296C6;
+ Wed, 24 May 2023 08:11:14 +0000 (UTC)
+From: Giuseppe Scrivano <gscrivan@redhat.com>
+To: Gao Xiang <hsiangkao@linux.alibaba.com>
+References: <9505927dabc3b6695d62dfe1be371b12f5bdebf7.1684491648.git.durui@linux.alibaba.com>
+ <ZGz32yw7ecKhW+lj@redhat.com>
+ <CAL7ro1FPEqXyOuX_WPMYdsT6rW-bD5EU=v=oWKsd6XscykLF6Q@mail.gmail.com>
+ <fd4d0429-4da3-8217-6c13-14fd8a198920@linux.alibaba.com>
+Date: Wed, 24 May 2023 10:11:13 +0200
+In-Reply-To: <fd4d0429-4da3-8217-6c13-14fd8a198920@linux.alibaba.com> (Gao
+ Xiang's message of "Wed, 24 May 2023 15:13:49 +0800")
+Message-ID: <87r0r6ywri.fsf@redhat.com>
+User-Agent: Gnus/5.13 (Gnus v5.13) Emacs/28.2 (gnu/linux)
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.8.0
-To: Bart Van Assche <bvanassche@acm.org>, Jens Axboe <axboe@kernel.dk>
-References: <20230522183845.354920-1-bvanassche@acm.org>
- <20230522183845.354920-8-bvanassche@acm.org>
-From: Vineeth Vijayan <vneethv@linux.ibm.com>
-In-Reply-To: <20230522183845.354920-8-bvanassche@acm.org>
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: ES7cL-B37BMHgQLCtlAxWJhnpPiNKtU1
-X-Proofpoint-ORIG-GUID: UoYM_nZvpDLRKXMqOtRwRUNJZ6PInr_W
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-05-24_03,2023-05-23_02,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- suspectscore=0 adultscore=0
- malwarescore=0 spamscore=0 mlxscore=0 impostorscore=0 mlxlogscore=861
- clxscore=1011 bulkscore=0 priorityscore=1501 phishscore=0
- lowpriorityscore=0 classifier=spam adjust=0 reason=mlx scancount=1
- engine=8.12.0-2304280000 definitions=main-2305240064
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Thu, 25 May 2023 07:12:27 +0000
-Subject: Re: [dm-devel] [PATCH v3 7/7] block: Inline blk_mq_{,
- delay_}kick_requeue_list()
+Subject: Re: [dm-devel] dm overlaybd: targets mapping OverlayBD image
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -138,60 +71,122 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Mike Snitzer <snitzer@kernel.org>, Ming Lei <ming.lei@redhat.com>,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Damien Le Moal <dlemoal@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Keith Busch <kbusch@kernel.org>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Alexander Gordeev <agordeev@linux.ibm.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
- Alasdair Kergon <agk@redhat.com>,
- =?UTF-8?Q?Roger_Pau_Monn=c3=a9?= <roger.pau@citrix.com>
+Cc: Du Rui <durui@linux.alibaba.com>, Mike Snitzer <snitzer@kernel.org>,
+ linux-kernel@vger.kernel.org, dm-devel@redhat.com,
+ Alexander Larsson <alexl@redhat.com>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.ibm.com
-Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-On 5/22/23 20:38, Bart Van Assche wrote:
-> Patch "block: Preserve the order of requeued requests" changed
-> blk_mq_kick_requeue_list() and blk_mq_delay_kick_requeue_list() into
-> blk_mq_run_hw_queues() and blk_mq_delay_run_hw_queues() calls
-> respectively. Inline blk_mq_{,delay_}kick_requeue_list() because these
-> functions are now too short to keep these as separate functions.
->
-> Cc: Christoph Hellwig <hch@lst.de>
-> Cc: Damien Le Moal <dlemoal@kernel.org>
-> Cc: Ming Lei <ming.lei@redhat.com>
-> Cc: Mike Snitzer <snitzer@kernel.org>
-> Signed-off-by: Bart Van Assche <bvanassche@acm.org>
-> ---
->   block/blk-flush.c            |  4 ++--
->   block/blk-mq-debugfs.c       |  2 +-
->   block/blk-mq.c               | 16 +---------------
->   drivers/block/ublk_drv.c     |  6 +++---
->   drivers/block/xen-blkfront.c |  1 -
->   drivers/md/dm-rq.c           |  6 +++---
->   drivers/nvme/host/core.c     |  2 +-
->   drivers/s390/block/scm_blk.c |  2 +-
->   drivers/scsi/scsi_lib.c      |  2 +-
->   include/linux/blk-mq.h       |  2 --
->   10 files changed, 13 insertions(+), 30 deletions(-)
-The scm_blk.c changes looks good to me. thanks.
-
-Acked-by: Vineeth Vijayan <vneethv@linux.ibm.com>
-
-...
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+R2FvIFhpYW5nIDxoc2lhbmdrYW9AbGludXguYWxpYmFiYS5jb20+IHdyaXRlczoKCj4gT24gMjAy
+My81LzI0IDIzOjQzLCBBbGV4YW5kZXIgTGFyc3NvbiB3cm90ZToKPj4gT24gVHVlLCBNYXkgMjMs
+IDIwMjMgYXQgNzoyOeKAr1BNIE1pa2UgU25pdHplciA8c25pdHplckBrZXJuZWwub3JnPiB3cm90
+ZToKPj4+Cj4+PiBPbiBGcmksIE1heSAxOSAyMDIzIGF0ICA2OjI3UCAtMDQwMCwKPj4+IER1IFJ1
+aSA8ZHVydWlAbGludXguYWxpYmFiYS5jb20+IHdyb3RlOgo+Pj4KPj4+PiBPdmVybGF5QkQgaXMg
+YSBub3ZlbCBsYXllcmluZyBibG9jay1sZXZlbCBpbWFnZSBmb3JtYXQsIHdoaWNoIGlzIGRlc2ln
+bgo+Pj4+IGZvciBjb250YWluZXIsIHNlY3VyZSBjb250YWluZXIgYW5kIGFwcGxpY2FibGUgdG8g
+dmlydHVhbCBtYWNoaW5lLAo+Pj4+IHB1Ymxpc2hlZCBpbiBVU0VOSVggQVRDICcyMAo+Pj4+IGh0
+dHBzOi8vd3d3LnVzZW5peC5vcmcvc3lzdGVtL2ZpbGVzL2F0YzIwLWxpLWh1aWJhLnBkZgo+Pj4+
+Cj4+Pj4gT3ZlcmxheUJEIGFscmVhZHkgaGFzIGEgQ29udGFpbmVyRCBub24tY29yZSBzdWItcHJv
+amVjdCBpbXBsZW1lbnRhdGlvbgo+Pj4+IGluIHVzZXJzcGFjZSwgYXMgYW4gYWNjZWxlcmF0ZWQg
+Y29udGFpbmVyIGltYWdlIHNlcnZpY2UKPj4+PiBodHRwczovL2dpdGh1Yi5jb20vY29udGFpbmVy
+ZC9hY2NlbGVyYXRlZC1jb250YWluZXItaW1hZ2UKPj4+Pgo+Pj4+IEl0IGNvdWxkIGJlIG11Y2gg
+bW9yZSBlZmZpY2llbnQgd2hlbiBkbyBkZWNvbXByZXNzaW5nIGFuZCBtYXBwaW5nIHdvcmtzCj4+
+Pj4gaW4gdGhlIGtlcm5lbCB3aXRoIHRoZSBmcmFtZXdvcmsgb2YgZGV2aWNlLW1hcHBlciwgaW4g
+bWFueSBjaXJjdW1zdGFuY2VzLAo+Pj4+IHN1Y2ggYXMgc2VjdXJlIGNvbnRhaW5lciBydW50aW1l
+LCBtb2JpbGUtZGV2aWNlcywgZXRjLgo+Pj4+Cj4+Pj4gVGhpcyBwYXRjaCBjb250YWlucyBhIG1v
+ZHVsZSwgZG0tb3ZlcmxheWJkLCBwcm92aWRlcyB0d28ga2luZHMgb2YgdGFyZ2V0cwo+Pj4+IGRt
+LXpmaWxlIGFuZCBkbS1sc210LCB0byBleHBvc2UgYSBncm91cCBvZiBibG9jay1kZXZpY2VzIGNv
+bnRhaW5zCj4+Pj4gT3ZlcmxheUJEIGltYWdlIGFzIGEgb3ZlcmxhaWQgcmVhZC1vbmx5IGJsb2Nr
+LWRldmljZS4KPj4+Pgo+Pj4+IFNpZ25lZC1vZmYtYnk6IER1IFJ1aSA8ZHVydWlAbGludXguYWxp
+YmFiYS5jb20+Cj4+Pgo+Pj4gPHNuaXAsIG9yaWdpbmFsIHBhdGNoIGhlcmU6IFsxXSA+Cj4+IEEg
+bG9uZyBsb25nIHRpbWUgYWdvIEkgd3JvdGUgYSBkb2NrZXIgY29udGFpbmVyIGltYWdlIGJhc2Vk
+IG9uCj4+IGRtLXNuYXBzaG90IHRoYXQgaXMgdmFndWVseSBzaW1pbGFyIHRvIHRoaXMgb25lLiBJ
+dCBpcyBzdGlsbAo+PiBhdmFpbGFibGUsIGJ1dCBub2JvZHkgcmVhbGx5IHVzZXMgaXQuIEl0IGhh
+cyBzZXZlcmFsIHdlYWtuZXNzZXMuIEZpcnN0Cj4+IG9mIGFsbCB0aGUgY29udGFpbmVyIGltYWdl
+IGlzIGFuIGFjdHVhbCBmaWxlc3lzdGVtLCBzbyB5b3UgbmVlZCB0bwo+PiBwcmUtYWxsb2NhdGUg
+YSBmaXhlZCBtYXggc2l6ZSBmb3IgaW1hZ2VzIGF0IGNvbnN0cnVjdGlvbiB0aW1lLgo+PiBTZWNv
+bmRseSwgYWxsIHRoZSBsdm0gdm9sdW1lIGNoYW5nZXMgYW5kIG1vdW50cyBkdXJpbmcgcnVudGlt
+ZSBjYXVzZWQKPj4gd2VpcmQgYmVoYXZpb3VyIChlc3BlY2lhbGx5IGF0IHNjYWxlKSB0aGF0IHdh
+cyBwYWluZnVsIHRvIG1hbmFnZSAoanVzdAo+PiBzZWFyY2ggdGhlIGRvY2tlciBpc3N1ZSB0cmFj
+a2VyIGZvciBkZXZtYXBwZXIgYmFja2VuZCkuIEluIHRoZSBlbmQKPj4gZXZlcnlvbmUgbW92ZWQg
+dG8gYSBmaWxlc3lzdGVtIGJhc2VkIGltcGxlbWVudGF0aW9uIChvdmVybGF5ZnMgYmFzZWQpLgo+
+Cj4gWWVhaCwgYW5kIEkgdGhpbmsgcmVwcm9kdWNpYmlsaXR5IGlzc3VlIGlzIGFub3RoZXIgcHJv
+YmxlbSwgd2hpY2ggbWVhbnMKPiBpdCdzIHF1aXRlIGhhcmQgdG8gc2VsZWN0IGEgcmFuZG9tIGZz
+IHdpdGhvdXQgc29tZSBjaGFuZ2UgdG8gZ2V0IHRoZQo+IGJlc3QgcmVzdWx0LiAgSSBkbyBmaW5k
+IHRoZXNlIGd1eXMgd29yayBvbiBlMmZzcHJvZ3MgYWdhaW4gYW5kIGFnYWluLgo+Cj4gSSd2ZSBh
+bHJlYWR5IHRvbGQgdGhlbSBpbnRlcm5hbGx5IGFnYWluIGFuZCBhZ2FpbiwgYnV0Li4gVGhleSBv
+bmx5IGZvY3VzCj4gb24gc29tZSBtaW5vciBwb2ludHMgc3VjaCBhcyBob3cgdG8gZG8gSS9PIGFu
+ZCBDUFUgcHJlZmV0Y2ggdG8gZ2V0Cj4gKHNvbWV3aGF0KSBiZXR0ZXIgcGVyZm9ybWFuY2UgYW5k
+IGJlYXQgRVJPRlMuICBJIGRvbid0IGtub3csIEkgaGF2ZSBubwo+IGVub3VnaCB0aW1lIHRvIGV2
+ZW4gbG9vayBpbnRvIHRoYXQgd2hldGhlciB0aGlzIG5ldyBrZXJuZWwgc3R1ZmZzIGlzCj4gZmlu
+ZTogYmVjYXVzZSBvZiBhIHZlcnkgc2ltcGxpc3QgaWRlYToKPgo+ICBzdGFja2VkIHN0b3JhZ2Ug
+b3ZlcmhlYWQgZ2VuZXJhbGx5IHRha2VzIGRvdWJsZSBydW50aW1lL21lbW9yeQo+IGZvb3Rwcmlu
+dHM6Cj4gICAgZmlsZXN5c3RlbSArIGJsb2NrIGRyaXZlcnMKPgo+PiAKPj4+IEkgYXBwcmVjaWF0
+ZSB0aGF0IHRoaXMgd29yayBpcyBiZWluZyBkb25lIHdpdGggYW4gZXllIHRvd2FyZAo+Pj4gY29u
+dGFpbmVyZCAiY29tbXVuaXR5IiBhbmQgc3RhbmRhcmRpemF0aW9uIGJ1dCBiYXNlZCBvbiBteSBs
+aW1pdGVkCj4+PiByZXNlYXJjaCBpdCBhcHBlYXJzIHRoYXQgdGhpcyBmb3JtYXQgb2YgT0NJIGlt
+YWdlIHN0b3JhZ2UvdXNlIGlzIG9ubHkKPj4+IHVzZWQgYnkgQWxpYmFiYT8gKGJ1dCBJIGNvdWxk
+IGJlIHdyb25nLi4uKQo+Pj4KPj4+IEJ1dCB5b3UnZCBkbyB3ZWxsIHRvIGV4cGxhaW4gd2h5IHRo
+ZSB1c2Vyc3BhY2Ugc29sdXRpb24gaXNuJ3QKPj4+IGFjY2VwdGFibGUuIEFyZSB0aGVyZSBzZWN1
+cml0eSBpc3N1ZXMgdGhhdCBtb3ZpbmcgdGhlIGltcGxlbWVudGF0aW9uCj4+PiB0byBrZXJuZWwg
+YWRkcmVzc2VzPwo+Pj4KPj4+IEkgYWxzbyBoYXZlIGRvdWJ0cyB0aGF0IHRoaXMgc29sdXRpb24g
+aXMgX2FjdHVhbGx5XyBtb3JlIHBlcmZvcm1hbnQKPj4+IHRoYW4gYSBwcm9wZXIgZmlsZXN5c3Rl
+bSBiYXNlZCBzb2x1dGlvbiB0aGF0IGFsbG93cyBwYWdlIGNhY2hlIHNoYXJpbmcKPj4+IG9mIGNv
+bnRhaW5lciBpbWFnZSBkYXRhIGFjcm9zcyBtdWx0aXBsZSBjb250YWluZXJzLgo+PiBUaGlzIHNv
+bHV0aW9uIGRvZXNuJ3QgZXZlbiBhbGxvdyBwYWdlIGNhY2hlIHNoYXJpbmcgYmV0d2VlbiBzaGFy
+ZWQKPj4gbGF5ZXJzIChsaWtlIGN1cnJlbnQgY29udGFpbmVycyBkbyksIG11Y2ggbGVzcyBiZXR3
+ZWVuIGluZGVwZW5kZW50Cj4+IGxheWVycy4KPj4gCj4+PiBUaGVyZSBpcyBhbiBhY3RpdmUgZGlz
+Y3Vzc2lvbiBhYm91dCwgYW5kIGFjdGl2ZSBkZXZlbG9wbWVudCBlZmZvcnQKPj4+IGZvciwgdXNp
+bmcgb3ZlcmxheWZzICsgZXJvZnMgZm9yIGNvbnRhaW5lciBpbWFnZXMuICBJJ20gcmVsdWN0YW50
+IHRvCj4+PiBtZXJnZSB0aGlzIERNIGJhc2VkIGNvbnRhaW5lciBpbWFnZSBhcHByb2FjaCB3aXRo
+b3V0IHdpZGVyIGNvbnNlbnN1cwo+Pj4gZnJvbSBvdGhlciBjb250YWluZXIgc3Rha2Vob2xkZXJz
+Lgo+Pj4KPj4+IEJ1dCBzaG9ydCBvZiByZWFjaGluZyB3aWRlciBjb25zZW5zdXMgb24gdGhlIG5l
+ZWQgZm9yIHRoZXNlIERNCj4+PiB0YXJnZXRzOiB0aGVyZSBpcyBub3RoaW5nIHByZXZlbnRpbmcg
+eW91IGZyb20gY2FycnlpbmcgdGhlc2UgY2hhbmdlcwo+Pj4gaW4geW91ciBhbGliYWJhIGtlcm5l
+bC4KPj4gRXJvZnMgYWxyZWFkeSBoYXMgc29tZSBibG9jay1sZXZlbCBzdXBwb3J0IGZvciBjb250
+YWluZXIgaW1hZ2VzCj4+ICh3aXRoCj4+IG55ZHVzKSwgYW5kIGNvbXBvc2VmcyB3b3JrcyB3aXRo
+IGN1cnJlbnQgaW4ta2VybmVsIEVST0ZTK292ZXJsYXlmcy4KPj4gQW5kIHRoaXMgbmV3IGFwcHJv
+YWNoIGRvZXNuJ3QgaGVscCBmb3IgdGhlIElNSE8gY3VycmVudCB3ZWFrIHNwb3Qgd2UKPj4gaGF2
+ZSwgd2hpY2ggaXMgdW5wcml2aWxlZ2VkIGNvbnRhaW5lciBpbWFnZXMuCj4+IEFsc28sIHdoaWxl
+IE9DSSBhcnRpZmFjdHMgY2FuIGJlIHVzZWQgdG8gc3RvcmUgYW55IGtpbmQgb2YgaW1hZ2UKPj4g
+Zm9ybWF0cyAob3IgYW55IG90aGVyIGtpbmQgb2YgZmlsZSkgSSB0aGluayBmb3IgYW4gYWN0dWFs
+IHN0YW5kYXJkaXplZAo+PiBuZXcgaW1hZ2UgZm9ybWF0IGl0IHdvdWxkIGJlIGJldHRlciB0byB3
+b3JrIHdpdGggdGhlIE9DSSBvcmcgdG8gY29tZQo+PiB1cCB3aXRoIGEgT0NJIHYyIHN0YW5kYXJk
+IGltYWdlIGZvcm1hdC4KPiBBZ3JlZWQsIEkgaG9wZSB5b3UgZ3V5cyBjb3VsZCBhY3R1YWxseSBz
+aXQgZG93biBhbmQgZXZhbHVhdGUgYSBwcm9wZXIKPiBzb2x1dGlvbiBvbiB0aGUgbmV4dCBPQ0kg
+djIsIGN1cnJlbnRseSBJIGtub3cgdGhlcmUgYXJlOgo+Cj4gIC0gQ29tcG9zZWZzCj4gIC0gKGUp
+c3Rhcmd6ICAgaHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcmQvc3Rhcmd6LXNuYXBzaG90dGVy
+Cj4gIC0gTnlkdXMgICAgICAgaHR0cHM6Ly9naXRodWIuY29tL2NvbnRhaW5lcmQvbnlkdXMtc25h
+cHNob3R0ZXIKPiAgLSBPdmVybGF5QkQgICBodHRwczovL2dpdGh1Yi5jb20vY29udGFpbmVyZC9h
+Y2NlbGVyYXRlZC1jb250YWluZXItaW1hZ2UKPiAgLSBTT0NJICAgICAgICBodHRwczovL2dpdGh1
+Yi5jb20vYXdzbGFicy9zb2NpLXNuYXBzaG90dGVyCj4gIC0gVGFyZnMKPiAgLSAobWF5YmUgZXZl
+biBtb3JlLi4pCj4KPiBIb25lc3RseSwgSSBkbyB0aGluayBPU1RyZWUvQ29tcG9zZWZzIGlzIHRo
+ZSBiZXN0IGFwcHJvYWNoIGZvciBub3cgZm9yCj4gZGVkdXBsaWNhdGlvbiBhbmQgcGFnZSBjYWNo
+ZSBzaGFyaW5nIChkdWUgdG8ga2VybmVsIGxpbWl0YXRpb24gb2YgcGFnZQo+IGNhY2hlIHNoYXJp
+bmcgYW5kIG92ZXJsYXlmcyBjb3B5dXAgbGltaXRhdGlvbikuICBJJ20gdG9vIHRpcmVkIG9mCj4g
+Y29udGFpbmVyIGltYWdlIHN0dWZmcyBob25lc3RseS4gIFRvbyBtdWNoIHVubmVjZXNzYXJ5IG1h
+bnBvd2VyIHdhc3RlLgoKZm9yIGEgZmlsZS1iYXNlZCBzdG9yYWdlIG1vZGVsLCBJIGFtIG5vdCBz
+dXJlIGEgbmV3IGZvcm1hdCB3b3VsZCByZWFsbHkKYnV5IHVzIG11Y2ggb3IgaXQgY2FuIGJlIHNp
+Z25pZmljYW50bHkgZGlmZmVyZW50LgoKV2l0aG91dCBhIHByb3BlciBzdXBwb3J0IGZyb20gdGhl
+IGtlcm5lbCwgYSBuZXcgZm9ybWF0IHdvdWxkIHN0aWxsIG5lZWQKdG8gY3JlYXRlIHRoZSBsYXlv
+dXQgb3ZlcmxheSBleHBlY3RzLCBzbyBpdCB3b24ndCBiZSBtdWNoIGRpZmZlcmVudCB0aGFuCndo
+YXQgd2UgaGF2ZSBub3cuCgpUaGUgY3VycmVudCBPQ0kgZm9ybWF0LCB3aXRoIHNvbWUgdHdlYWtz
+IGxpa2UgKGUpc3Rhcmd6IG9yIHpzdGQ6Y2h1bmtlZCwKYWxyZWFkeSBtYWtlIGl0cyBjb250ZW50
+IGFkZHJlc3NhYmxlIGFuZCBhIGNsaWVudCBjYW4gcmV0cmlldmUgb25seSB0aGUKc3Vic2V0IG9m
+IHRoZSBmaWxlcyB0aGF0IGFyZSBuZWVkZWQuICBBdCB0aGUgc2FtZSB0aW1lIHdlIG1haW50YWlu
+IHRoZQpzaW1wbGljaXR5IG9mIGEgdGFyYmFsbCBhbmQgaXQgd29uJ3QgYnJlYWsgZXhpc3Rpbmcg
+Y2xpZW50cy4KCklNTywgdGhlIG1vc3QgaW50ZXJlc3RpbmcgcHJvYmxlbSBpcyBob3cgdG8gc3Rv
+cmUgdGhlc2UgaW1hZ2VzIGxvY2FsbHkKYW5kIGhvdyB0aGUga2VybmVsIGNhbiBoZWxwIHdpdGgg
+dGhhdC4KClRoZSBpZGVhIGJlaGluZCBjb21wb3NlZnMgaXMgdG8gcmVwbGFjZSB0aGUgZXhpc3Rp
+bmcgc3RvcmFnZSBtb2RlbCB1c2VkCmZvciBvdmVybGF5LCB3aGVyZSBlYWNoIGxheWVyIGhhcyBp
+dHMgb3duIGRpcmVjdG9yeSwgd2l0aCBhIHNpbmdsZQpkaXJlY3Rvcnkgd2hlcmUgYWxsIHRoZSBm
+aWxlcyBhcmUgc3RvcmVkIGJ5IHRoZWlyIGNoZWNrc3VtLiAgVGhlCmV4cGVjdGVkIGxheW91dCB0
+aGVuIGlzIHJlY3JlYXRlZCBhdCBydW50aW1lLgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0t
+ZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3Rp
+bmZvL2RtLWRldmVsCg==
 
