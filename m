@@ -1,71 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2745E712110
-	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:35:04 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 148F771210A
+	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:34:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685086503;
+	s=mimecast20190719; t=1685086459;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rf5KumRxPtJgqo1xic4CtFZQrhBEZG+MJyt/caVpKBc=;
-	b=Pd9FizPBDWPwBwPag89DnwY5HKr13oXZTiT3p49K2kBlt2FmV+I9OcM/QtbQ3AtXrcnpzF
-	3pPWyRq+6/6+i+2KfWn1DJ9qyNm/H2sbxiu4VDHCe3AFEIqfrVCMuGxBc1hfE/uvezH+dE
-	i84CNYICDWJ0MhP9ZmnZScOSsckfIWs=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=7d5oUS6sLa6outalDlp67Iqjq6em62IVCr4sMj7H2rg=;
+	b=H6IXLSQX+tPze3BJ5J7RFtCi4F0qnnBdJEl7hetpzjaIYhoxEtTrbDNRGLD4XKD8sBrnxm
+	cUdwpCuU+jgwJPy6VUwXZk6t0O413aW4aiTBKqNoNKK1dKOYTyUWmJWfOT3Cp3qZ4Uekx6
+	CgDPFMl+PwxfkYAXLmeWbnS7TAbzA4A=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-482-UTHgDIPJMc6117yIfvaCeg-1; Fri, 26 May 2023 03:34:19 -0400
-X-MC-Unique: UTHgDIPJMc6117yIfvaCeg-1
+ us-mta-572-K3Gq30JgNUWY0NN2WH-fLQ-1; Fri, 26 May 2023 03:34:17 -0400
+X-MC-Unique: K3Gq30JgNUWY0NN2WH-fLQ-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF00281295A;
-	Fri, 26 May 2023 07:34:17 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1D40D8032F5;
+	Fri, 26 May 2023 07:34:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 41F5D40C6CCF;
-	Fri, 26 May 2023 07:34:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E08F840C1438;
+	Fri, 26 May 2023 07:34:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 27E9219452C7;
-	Fri, 26 May 2023 07:34:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EAF2D19465B9;
+	Fri, 26 May 2023 07:34:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5ABE919465B2
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:49 +0000 (UTC)
+ ESMTP id 50F5619465A0
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4B32840102D; Fri, 26 May 2023 07:33:49 +0000 (UTC)
+ id 98A4BC154D2; Fri, 26 May 2023 07:33:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 43288492B00
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:43 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F78EC154D1
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:47 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C0CB3C0D185
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:43 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6F31D811E8E
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:47 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-438-5SqW50m9MRG10WVyMhGHHA-1; Fri, 26 May 2023 03:33:39 -0400
-X-MC-Unique: 5SqW50m9MRG10WVyMhGHHA-1
+ us-mta-614-3l4FbPZCOg676_U7mr3Ujg-1; Fri, 26 May 2023 03:33:45 -0400
+X-MC-Unique: 3l4FbPZCOg676_U7mr3Ujg-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
- Hat Linux)) id 1q2RxA-001RdR-3D; Fri, 26 May 2023 07:33:37 +0000
+ Hat Linux)) id 1q2RxB-001RdT-0G; Fri, 26 May 2023 07:33:37 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
  philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
  christoph.boehmwalder@linbit.com, hch@infradead.org, djwong@kernel.org,
  minchan@kernel.org, senozhatsky@chromium.org
-Date: Fri, 26 May 2023 00:33:32 -0700
-Message-Id: <20230526073336.344543-2-mcgrof@kernel.org>
+Date: Fri, 26 May 2023 00:33:33 -0700
+Message-Id: <20230526073336.344543-3-mcgrof@kernel.org>
 In-Reply-To: <20230526073336.344543-1-mcgrof@kernel.org>
 References: <20230526073336.344543-1-mcgrof@kernel.org>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH v2 1/5] block: annotate bdev_disk_changed()
- deprecation with a symbol namespace
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH v2 2/5] drbd: use PAGE_SECTORS_SHIFT and
+ PAGE_SECTORS
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,68 +100,34 @@ Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-This ensures no other users pop up by mistake easily and provides
-us a with an easy vehicle to do the same with other routines should
-we need it later.
-
-Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
----
- block/partitions/core.c         | 6 +-----
- drivers/block/loop.c            | 2 ++
- drivers/s390/block/dasd_genhd.c | 2 ++
- 3 files changed, 5 insertions(+), 5 deletions(-)
-
-diff --git a/block/partitions/core.c b/block/partitions/core.c
-index 49e0496ff23c..6f18444be4fe 100644
---- a/block/partitions/core.c
-+++ b/block/partitions/core.c
-@@ -690,11 +690,7 @@ int bdev_disk_changed(struct gendisk *disk, bool invalidate)
- 
- 	return ret;
- }
--/*
-- * Only exported for loop and dasd for historic reasons.  Don't use in new
-- * code!
-- */
--EXPORT_SYMBOL_GPL(bdev_disk_changed);
-+EXPORT_SYMBOL_NS_GPL(bdev_disk_changed, BLOCK_DEPRECATED);
- 
- void *read_part_sector(struct parsed_partitions *state, sector_t n, Sector *p)
- {
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index bc31bb7072a2..50aa5b4c0c56 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -37,6 +37,8 @@
- #include <linux/spinlock.h>
- #include <uapi/linux/loop.h>
- 
-+MODULE_IMPORT_NS(BLOCK_DEPRECATED);
-+
- /* Possible states of device */
- enum {
- 	Lo_unbound,
-diff --git a/drivers/s390/block/dasd_genhd.c b/drivers/s390/block/dasd_genhd.c
-index 998a961e1704..5ea244aec534 100644
---- a/drivers/s390/block/dasd_genhd.c
-+++ b/drivers/s390/block/dasd_genhd.c
-@@ -25,6 +25,8 @@
- 
- #include "dasd_int.h"
- 
-+MODULE_IMPORT_NS(BLOCK_DEPRECATED);
-+
- static unsigned int queue_depth = 32;
- static unsigned int nr_hw_queues = 4;
- 
--- 
-2.39.2
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+UmVwbGFjZSBjb21tb24gY29uc3RhbnRzIHdpdGggZ2VuZXJpYyB2ZXJzaW9ucy4KVGhpcyBwcm9k
+dWNlcyBubyBmdW5jdGlvbmFsIGNoYW5nZXMuCgpBY2tlZC1ieTogQ2hyaXN0b3BoIELDtmhtd2Fs
+ZGVyIDxjaHJpc3RvcGguYm9laG13YWxkZXJAbGluYml0LmNvbT4KU2lnbmVkLW9mZi1ieTogTHVp
+cyBDaGFtYmVybGFpbiA8bWNncm9mQGtlcm5lbC5vcmc+Ci0tLQogZHJpdmVycy9ibG9jay9kcmJk
+L2RyYmRfYml0bWFwLmMgfCA0ICsrLS0KIDEgZmlsZSBjaGFuZ2VkLCAyIGluc2VydGlvbnMoKyks
+IDIgZGVsZXRpb25zKC0pCgpkaWZmIC0tZ2l0IGEvZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfYml0
+bWFwLmMgYi9kcml2ZXJzL2Jsb2NrL2RyYmQvZHJiZF9iaXRtYXAuYwppbmRleCA2YWM4YzU0YjQ0
+YzcuLmI1NTZlNjYzNGYxMyAxMDA2NDQKLS0tIGEvZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfYml0
+bWFwLmMKKysrIGIvZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfYml0bWFwLmMKQEAgLTEwMDAsNyAr
+MTAwMCw3IEBAIHN0YXRpYyB2b2lkIGJtX3BhZ2VfaW9fYXN5bmMoc3RydWN0IGRyYmRfYm1fYWlv
+X2N0eCAqY3R4LCBpbnQgcGFnZV9ucikgX19tdXN0X2hvCiAJdW5zaWduZWQgaW50IGxlbjsKIAog
+CWZpcnN0X2JtX3NlY3QgPSBkZXZpY2UtPmxkZXYtPm1kLm1kX29mZnNldCArIGRldmljZS0+bGRl
+di0+bWQuYm1fb2Zmc2V0OwotCW9uX2Rpc2tfc2VjdG9yID0gZmlyc3RfYm1fc2VjdCArICgoKHNl
+Y3Rvcl90KXBhZ2VfbnIpIDw8IChQQUdFX1NISUZULVNFQ1RPUl9TSElGVCkpOworCW9uX2Rpc2tf
+c2VjdG9yID0gZmlyc3RfYm1fc2VjdCArICgoKHNlY3Rvcl90KXBhZ2VfbnIpIDw8IFBBR0VfU0VD
+VE9SU19TSElGVCk7CiAKIAkvKiB0aGlzIG1pZ2h0IGhhcHBlbiB3aXRoIHZlcnkgc21hbGwKIAkg
+KiBmbGV4aWJsZSBleHRlcm5hbCBtZXRhIGRhdGEgZGV2aWNlLApAQCAtMTAwOCw3ICsxMDA4LDcg
+QEAgc3RhdGljIHZvaWQgYm1fcGFnZV9pb19hc3luYyhzdHJ1Y3QgZHJiZF9ibV9haW9fY3R4ICpj
+dHgsIGludCBwYWdlX25yKSBfX211c3RfaG8KIAlsYXN0X2JtX3NlY3QgPSBkcmJkX21kX2xhc3Rf
+Yml0bWFwX3NlY3RvcihkZXZpY2UtPmxkZXYpOwogCWlmIChmaXJzdF9ibV9zZWN0IDw9IG9uX2Rp
+c2tfc2VjdG9yICYmIGxhc3RfYm1fc2VjdCA+PSBvbl9kaXNrX3NlY3RvcikgewogCQlzZWN0b3Jf
+dCBsZW5fc2VjdCA9IGxhc3RfYm1fc2VjdCAtIG9uX2Rpc2tfc2VjdG9yICsgMTsKLQkJaWYgKGxl
+bl9zZWN0IDwgUEFHRV9TSVpFL1NFQ1RPUl9TSVpFKQorCQlpZiAobGVuX3NlY3QgPCBQQUdFX1NF
+Q1RPUlMpCiAJCQlsZW4gPSAodW5zaWduZWQgaW50KWxlbl9zZWN0KlNFQ1RPUl9TSVpFOwogCQll
+bHNlCiAJCQlsZW4gPSBQQUdFX1NJWkU7Ci0tIAoyLjM5LjIKCi0tCmRtLWRldmVsIG1haWxpbmcg
+bGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxt
+YW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
