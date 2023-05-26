@@ -1,68 +1,89 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 819E9712A6A
-	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 18:14:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6916B71437E
+	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 06:52:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685117676;
+	s=mimecast20190719; t=1685335924;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rv25N/wUC2OIZE8km7ZNSGDxPQvPS+zXU+pDPVcxw24=;
-	b=ft0en/ry8r5YlBfH8H+eotNRbtX32h44pYCeU6TWbE/IK6JN8SMjeRvDudz6XOHFAfvUtJ
-	d67Po2IKidgNuNOOWC05ddX6nojAj2GjNVSU8d8q8NUZgXQwufg87XkMm6GFDJmLGcpy1m
-	UkrWFs8cARAQoCI/T2ZnGtAwFsAj4iA=
+	bh=vOxGkbeGxd0js9BG6T95Qx+y8jyx/M9KLG3qLmLKuI8=;
+	b=Gchx7ciz85nai7hVJY20v2YQU9Gi11xsnDcJIMYSRhCsLHU4EGVOmqlU0vqou0wC+76YQj
+	0I5SQLjU/qgsFDNDwBcaftHZ/JIZ76w34x/RgStJHQAXo5FMu2tYKS0kATUQn1DZt/t1Rb
+	KaX2CP6lim/ijn1nCAMqg880aVMKMsc=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-352-Tm3FNyd8Og6LYMmn1p464A-1; Fri, 26 May 2023 12:14:32 -0400
-X-MC-Unique: Tm3FNyd8Og6LYMmn1p464A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-513-h94yg95mM66eMUa9d_8Zhg-1; Mon, 29 May 2023 00:52:02 -0400
+X-MC-Unique: h94yg95mM66eMUa9d_8Zhg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5F42C3803900;
-	Fri, 26 May 2023 16:14:30 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E1348492B00;
-	Fri, 26 May 2023 16:14:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6413B1C0A580;
+	Mon, 29 May 2023 04:52:00 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 71B55112132E;
+	Mon, 29 May 2023 04:51:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9161519465BA;
-	Fri, 26 May 2023 16:14:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D2B3819451CD;
+	Mon, 29 May 2023 04:51:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BE5C019465A0
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 16:14:25 +0000 (UTC)
+ ESMTP id CB13A19465A0
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 16:44:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 534741121315; Fri, 26 May 2023 16:14:25 +0000 (UTC)
+ id B7D4E2166B2B; Fri, 26 May 2023 16:44:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
- (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 422CF1121314;
- Fri, 26 May 2023 16:14:25 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
- 34QGEP2g007868; Fri, 26 May 2023 12:14:25 -0400
-Received: from localhost (mpatocka@localhost)
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
- id 34QGEPvk007864; Fri, 26 May 2023 12:14:25 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
- owned process doing -bs
-Date: Fri, 26 May 2023 12:14:25 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <msnitzer@redhat.com>
-Message-ID: <alpine.LRH.2.21.2305261211470.7777@file01.intranet.prod.int.rdu2.redhat.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+Received: from mimecast-mx02.redhat.com
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AF94E2166B2E
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 16:44:02 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E355101A55C
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 16:44:02 +0000 (UTC)
+Received: from out30-133.freemail.mail.aliyun.com
+ (out30-133.freemail.mail.aliyun.com [115.124.30.133]) by relay.mimecast.com
+ with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
+ id us-mta-623-DvZdxG1SMPe3uuJ0NEl3jA-1; Fri, 26 May 2023 12:43:58 -0400
+X-MC-Unique: DvZdxG1SMPe3uuJ0NEl3jA-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
+ DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
+ MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
+ TI=SMTPD_---0VjX7bdM_1685119431
+Received: from 192.168.2.5(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0VjX7bdM_1685119431) by smtp.aliyun-inc.com;
+ Sat, 27 May 2023 00:43:53 +0800
+Message-ID: <ac8519fd-85f4-e778-0c6c-b2e893a37628@linux.alibaba.com>
+Date: Sat, 27 May 2023 00:43:51 +0800
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [dm-devel] [PATCH] dm flakey: introduce the random_read_corrupt and
- random_write_corrupt options
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+To: Du Rui <durui@linux.alibaba.com>, alexl@redhat.com
+References: <CAL7ro1FPEqXyOuX_WPMYdsT6rW-bD5EU=v=oWKsd6XscykLF6Q@mail.gmail.com>
+ <20230526102633.31160-1-durui@linux.alibaba.com>
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+In-Reply-To: <20230526102633.31160-1-durui@linux.alibaba.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Mailman-Approved-At: Mon, 29 May 2023 04:51:50 +0000
+Subject: Re: [dm-devel] dm overlaybd: targets mapping OverlayBD image
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,282 +95,98 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com
+Cc: gscrivan@redhat.com, dm-devel@redhat.com, snitzer@kernel.org,
+ linux-kernel@vger.kernel.org, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
+X-Mimecast-Originator: linux.alibaba.com
 Content-Transfer-Encoding: 7bit
-
-Hi
-
-Here I'm sending a new dm-flakey patch. It fixes a bug that table was 
-incorrectly reported in STATUSTYPE_TABLE (the strings 
-"random_read_corrupt" and "random_write_corrupt" were missing).
-
-Mikulas
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
 
-From: Mikulas Patocka <mpatocka@redhat.com>
 
-The random_read_corrupt and random_write_corrupt options corrupt random
-byte in a bio with a given probability. The corruptions only happen in the
-"down" interval.
+On 2023/5/26 03:26, Du Rui wrote:
+> Hi Alexander,
+> 
+>> all the lvm volume changes and mounts during runtime caused
+>> weird behaviour (especially at scale) that was painful to manage (just
+>> search the docker issue tracker for devmapper backend). In the end
+>> everyone moved to a filesystem based implementation (overlayfs based).
+> 
+> Yes, we had exactly the same experience. This is another reason why
+> this proposal is for dm and lvm, not for container.
+> (BTW, we are using TCMU and ublk for overlaybd in production. They are awesome.)
+> 
+> 
+>> This solution doesn't even allow page cache sharing between shared
+>> layers (like current containers do), much less between independent
+>> layers.
+> 
+> Page cache sharing can be realized with DAX support of the dm targets
+> (and the inner file system), together with virtual pmem device backend.
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+First, here I'd suggest you could learn some kernel knowledge of what
+DAX is and what page cache is before you explain to a kernel mailing
+list.  For example, DAX memory cannot be reclaimed at all.
 
----
- Documentation/admin-guide/device-mapper/dm-flakey.rst |   10 +
- drivers/md/dm-flakey.c                                |  118 ++++++++++++++----
- 2 files changed, 108 insertions(+), 20 deletions(-)
+Block drivers has nothing to do on filesystem page cache stuffs, also
+currently your approach has nothing to do with pmem stuffs (If you must
+mention "DAX" to proposal your "page cache sharing", please _here_
+write down your detailed design first and explain how it could work to
+ours if you really want to do.)
 
-Index: linux-2.6/drivers/md/dm-flakey.c
-===================================================================
---- linux-2.6.orig/drivers/md/dm-flakey.c
-+++ linux-2.6/drivers/md/dm-flakey.c
-@@ -16,6 +16,8 @@
- 
- #define DM_MSG_PREFIX "flakey"
- 
-+#define PROBABILITY_BASE	1000000000
-+
- #define all_corrupt_bio_flags_match(bio, fc)	\
- 	(((bio)->bi_opf & (fc)->corrupt_bio_flags) == (fc)->corrupt_bio_flags)
- 
-@@ -34,6 +36,8 @@ struct flakey_c {
- 	unsigned int corrupt_bio_rw;
- 	unsigned int corrupt_bio_value;
- 	blk_opf_t corrupt_bio_flags;
-+	unsigned int random_read_corrupt;
-+	unsigned int random_write_corrupt;
- };
- 
- enum feature_flag_bits {
-@@ -54,10 +58,11 @@ static int parse_features(struct dm_arg_
- 	const char *arg_name;
- 
- 	static const struct dm_arg _args[] = {
--		{0, 7, "Invalid number of feature args"},
-+		{0, 11, "Invalid number of feature args"},
- 		{1, UINT_MAX, "Invalid corrupt bio byte"},
- 		{0, 255, "Invalid corrupt value to write into bio byte (0-255)"},
- 		{0, UINT_MAX, "Invalid corrupt bio flags mask"},
-+		{0, PROBABILITY_BASE, "Invalid random corrupt argument"},
- 	};
- 
- 	/* No feature arguments supplied. */
-@@ -170,6 +175,32 @@ static int parse_features(struct dm_arg_
- 			continue;
- 		}
- 
-+		if (!strcasecmp(arg_name, "random_read_corrupt")) {
-+			if (!argc) {
-+				ti->error = "Feature random_read_corrupt requires a parameter";
-+				return -EINVAL;
-+			}
-+			r = dm_read_arg(_args + 4, as, &fc->random_read_corrupt, &ti->error);
-+			if (r)
-+				return r;
-+			argc--;
-+
-+			continue;
-+		}
-+
-+		if (!strcasecmp(arg_name, "random_write_corrupt")) {
-+			if (!argc) {
-+				ti->error = "Feature random_write_corrupt requires a parameter";
-+				return -EINVAL;
-+			}
-+			r = dm_read_arg(_args + 4, as, &fc->random_write_corrupt, &ti->error);
-+			if (r)
-+				return r;
-+			argc--;
-+
-+			continue;
-+		}
-+
- 		ti->error = "Unrecognised flakey feature requested";
- 		return -EINVAL;
- 	}
-@@ -184,7 +215,8 @@ static int parse_features(struct dm_arg_
- 	}
- 
- 	if (!fc->corrupt_bio_byte && !test_bit(ERROR_READS, &fc->flags) &&
--	    !test_bit(DROP_WRITES, &fc->flags) && !test_bit(ERROR_WRITES, &fc->flags)) {
-+	    !test_bit(DROP_WRITES, &fc->flags) && !test_bit(ERROR_WRITES, &fc->flags) &&
-+	    !fc->random_read_corrupt && !fc->random_write_corrupt) {
- 		set_bit(ERROR_WRITES, &fc->flags);
- 		set_bit(ERROR_READS, &fc->flags);
- 	}
-@@ -306,28 +338,23 @@ static void flakey_map_bio(struct dm_tar
- 	bio->bi_iter.bi_sector = flakey_map_sector(ti, bio->bi_iter.bi_sector);
- }
- 
--static void corrupt_bio_data(struct bio *bio, struct flakey_c *fc)
-+static void corrupt_bio_common(struct bio *bio, unsigned int corrupt_bio_byte, unsigned char corrupt_bio_value)
- {
--	unsigned int corrupt_bio_byte = fc->corrupt_bio_byte - 1;
--
- 	struct bvec_iter iter;
- 	struct bio_vec bvec;
- 
--	if (!bio_has_data(bio))
--		return;
--
- 	/*
- 	 * Overwrite the Nth byte of the bio's data, on whichever page
- 	 * it falls.
- 	 */
- 	bio_for_each_segment(bvec, bio, iter) {
- 		if (bio_iter_len(bio, iter) > corrupt_bio_byte) {
--			char *segment = bvec_kmap_local(&bvec);
--			segment[corrupt_bio_byte] = fc->corrupt_bio_value;
-+			unsigned char *segment = bvec_kmap_local(&bvec);
-+			segment[corrupt_bio_byte] = corrupt_bio_value;
- 			kunmap_local(segment);
- 			DMDEBUG("Corrupting data bio=%p by writing %u to byte %u "
- 				"(rw=%c bi_opf=%u bi_sector=%llu size=%u)\n",
--				bio, fc->corrupt_bio_value, fc->corrupt_bio_byte,
-+				bio, corrupt_bio_value, corrupt_bio_byte,
- 				(bio_data_dir(bio) == WRITE) ? 'w' : 'r', bio->bi_opf,
- 				(unsigned long long)bio->bi_iter.bi_sector, bio->bi_iter.bi_size);
- 			break;
-@@ -336,6 +363,30 @@ static void corrupt_bio_data(struct bio
- 	}
- }
- 
-+static void corrupt_bio_data(struct bio *bio, struct flakey_c *fc)
-+{
-+	unsigned int corrupt_bio_byte = fc->corrupt_bio_byte - 1;
-+
-+	if (!bio_has_data(bio))
-+		return;
-+
-+	corrupt_bio_common(bio, corrupt_bio_byte, fc->corrupt_bio_value);
-+}
-+
-+static void corrupt_bio_random(struct bio *bio)
-+{
-+	unsigned int corrupt_byte;
-+	unsigned char corrupt_value;
-+
-+	if (!bio_has_data(bio))
-+		return;
-+
-+	corrupt_byte = get_random_u32() % bio->bi_iter.bi_size;
-+	corrupt_value = get_random_u8();
-+
-+	corrupt_bio_common(bio, corrupt_byte, corrupt_value);
-+}
-+
- static void clone_free(struct bio *clone)
- {
- 	struct folio_iter fi;
-@@ -436,6 +487,7 @@ static int flakey_map(struct dm_target *
- 	/* Are we alive ? */
- 	elapsed = (jiffies - fc->start_time) / HZ;
- 	if (elapsed % (fc->up_interval + fc->down_interval) >= fc->up_interval) {
-+		bool corrupt_fixed, corrupt_random;
- 		/*
- 		 * Flag this bio as submitted while down.
- 		 */
-@@ -465,16 +517,28 @@ static int flakey_map(struct dm_target *
- 		/*
- 		 * Corrupt matching writes.
- 		 */
-+		corrupt_fixed = false;
-+		corrupt_random = false;
- 		if (fc->corrupt_bio_byte && fc->corrupt_bio_rw == WRITE) {
--			if (all_corrupt_bio_flags_match(bio, fc)) {
--				struct bio *clone = clone_bio(ti, fc, bio);
--				if (clone) {
-+			if (all_corrupt_bio_flags_match(bio, fc))
-+				corrupt_fixed = true;
-+		}
-+		if (fc->random_write_corrupt) {
-+			u64 rnd = get_random_u64();
-+			u32 rem = do_div(rnd, PROBABILITY_BASE);
-+			if (rem < fc->random_write_corrupt)
-+				corrupt_random = true;
-+		}
-+		if (corrupt_fixed || corrupt_random) {
-+			struct bio *clone = clone_bio(ti, fc, bio);
-+			if (clone) {
-+				if (corrupt_fixed)
- 					corrupt_bio_data(clone, fc);
--					submit_bio(clone);
--					return DM_MAPIO_SUBMITTED;
--				}
-- 			}
-- 			goto map_bio;
-+				if (corrupt_random)
-+					corrupt_bio_random(clone);
-+				submit_bio(clone);
-+				return DM_MAPIO_SUBMITTED;
-+			}
- 		}
- 	}
- 
-@@ -503,6 +567,12 @@ static int flakey_end_io(struct dm_targe
- 				corrupt_bio_data(bio, fc);
- 			}
- 		}
-+		if (fc->random_read_corrupt) {
-+			u64 rnd = get_random_u64();
-+			u32 rem = do_div(rnd, PROBABILITY_BASE);
-+			if (rem < fc->random_read_corrupt)
-+				corrupt_bio_random(bio);
-+		}
- 		if (test_bit(ERROR_READS, &fc->flags)) {
- 			/*
- 			 * Error read during the down_interval if drop_writes
-@@ -535,7 +605,10 @@ static void flakey_status(struct dm_targ
- 		error_reads = test_bit(ERROR_READS, &fc->flags);
- 		drop_writes = test_bit(DROP_WRITES, &fc->flags);
- 		error_writes = test_bit(ERROR_WRITES, &fc->flags);
--		DMEMIT(" %u", error_reads + drop_writes + error_writes + (fc->corrupt_bio_byte > 0) * 5);
-+		DMEMIT(" %u", error_reads + drop_writes + error_writes +
-+			(fc->corrupt_bio_byte > 0) * 5 +
-+			(fc->random_read_corrupt > 0) * 2 +
-+			(fc->random_write_corrupt > 0) * 2);
- 
- 		if (error_reads)
- 			DMEMIT(" error_reads");
-@@ -550,6 +623,11 @@ static void flakey_status(struct dm_targ
- 			       (fc->corrupt_bio_rw == WRITE) ? 'w' : 'r',
- 			       fc->corrupt_bio_value, fc->corrupt_bio_flags);
- 
-+		if (fc->random_read_corrupt > 0)
-+			DMEMIT(" random_read_corrupt %u", fc->random_read_corrupt);
-+		if (fc->random_write_corrupt > 0)
-+			DMEMIT(" random_write_corrupt %u", fc->random_write_corrupt);
-+
- 		break;
- 
- 	case STATUSTYPE_IMA:
-Index: linux-2.6/Documentation/admin-guide/device-mapper/dm-flakey.rst
-===================================================================
---- linux-2.6.orig/Documentation/admin-guide/device-mapper/dm-flakey.rst
-+++ linux-2.6/Documentation/admin-guide/device-mapper/dm-flakey.rst
-@@ -67,6 +67,16 @@ Optional feature parameters:
- 	Perform the replacement only if bio->bi_opf has all the
- 	selected flags set.
- 
-+  random_read_corrupt <probability>
-+	During <down interval>, replace random byte in a read bio
-+	with a random value. probability is an integer between
-+	0 and 1000000000 meaning 0% to 100% probability of corruption.
-+
-+  random_write_corrupt <probability>
-+	During <down interval>, replace random byte in a write bio
-+	with a random value. probability is an integer between
-+	0 and 1000000000 meaning 0% to 100% probability of corruption.
-+
- Examples:
- 
- Replaces the 32nd byte of READ bios with the value 1::
+Apart from unable to share page cache among filesystems, even with
+your approach all I/Os are duplicated among your qcow2-like layers.
+
+For example, there are 3 qcow2-like layers: A, B, C:
+
+filesystem 1:  A + B
+filesystem 2:  A + B + C
+
+Filesystem 1 and 2 are runtimely independent filesystems and your block
+driver can do nothing help: both duplicated I/Os and page cache for any
+data and metadata of layer A, B.
+
+If those container layers are even more (dozens or hundreds), your
+approach is more inefficient on duplicated I/Os.
+
+You could implement some internal block cache, but block level cache is
+not flexible compared with page cache on kernel memory reclaim and page
+migration.
+
+> 
+>> Erofs already has some block-level support for container images
+> 
+> It is interesting. Erofs runs insider a block device in the first place,
+> like what many file systems do. But do you konw why it implements another
+> "some block-level support" by itself?
+> 
+
+That is funny honestly.  As for container image use cases, although OCI
+image tgz is unseekable but actually ext4 and btrfs images are seekable
+and on-demand load could be done with these raw images directly. In
+principle, you could dump your container image stuffs from tgz to raw
+ext4, btrfs, erofs, whatever.  Or if you like, you could dump to some
+"qcow2", "vhdx", "vmdx" wildly-used format, their ecosystem is more
+mature but all the above don't help on page cache sharing stuffs.
+
+Please don't say "I like erofs" and at the same time "why it implements
+another some block-level support" by itself".  Local filesystems must
+do their block-mapping theirselves: ext4 (extents or blockmap), XFS
+(extents), etc.
+
+I've explained internally to your team multiple times as a kernel
+developer, personally I don't want to repeat here again and again to
+your guys.
+
+Thanks,
+Gao Xiang
+
+>> And this new approach doesn't help
+> No. It is intended for dm and lvm.> 
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
