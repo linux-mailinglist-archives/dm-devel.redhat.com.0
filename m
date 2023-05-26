@@ -1,79 +1,104 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6916B71437E
-	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 06:52:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BA6267130CE
+	for <lists+dm-devel@lfdr.de>; Sat, 27 May 2023 02:09:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685335924;
+	s=mimecast20190719; t=1685146196;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vOxGkbeGxd0js9BG6T95Qx+y8jyx/M9KLG3qLmLKuI8=;
-	b=Gchx7ciz85nai7hVJY20v2YQU9Gi11xsnDcJIMYSRhCsLHU4EGVOmqlU0vqou0wC+76YQj
-	0I5SQLjU/qgsFDNDwBcaftHZ/JIZ76w34x/RgStJHQAXo5FMu2tYKS0kATUQn1DZt/t1Rb
-	KaX2CP6lim/ijn1nCAMqg880aVMKMsc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=uXJSZk8HuA+x0r8SVYO6hksUW9ND74be2QvpQeHDFzY=;
+	b=fS0YaEe+410/qKOH0K1TxfHZKw0C7QWYtz4OwyRr9rQa65kxOuzT3xPP91ccOYdN55ACq3
+	3Mo/jICWWsZlrAIr22HSGbV6NnZWKrFj9jrriZXrbwGP00IVg3yhQm/SSNOJBXx+Zy3lXu
+	e/St/8pVre9O70dh2V3GdK7fAgDqr4Y=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-h94yg95mM66eMUa9d_8Zhg-1; Mon, 29 May 2023 00:52:02 -0400
-X-MC-Unique: h94yg95mM66eMUa9d_8Zhg-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-288-ED2o5lyxPpCbuKdItEfVLg-1; Fri, 26 May 2023 20:09:54 -0400
+X-MC-Unique: ED2o5lyxPpCbuKdItEfVLg-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6413B1C0A580;
-	Mon, 29 May 2023 04:52:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9ABC38032EF;
+	Sat, 27 May 2023 00:09:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 71B55112132E;
-	Mon, 29 May 2023 04:51:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9B1CE492B0C;
+	Sat, 27 May 2023 00:09:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D2B3819451CD;
-	Mon, 29 May 2023 04:51:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 36C7719465BB;
+	Sat, 27 May 2023 00:09:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CB13A19465A0
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 16:44:02 +0000 (UTC)
+ ESMTP id 808B119465A0
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 23:45:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B7D4E2166B2B; Fri, 26 May 2023 16:44:02 +0000 (UTC)
+ id 700F4401024; Fri, 26 May 2023 23:45:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AF94E2166B2E
- for <dm-devel@redhat.com>; Fri, 26 May 2023 16:44:02 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 68163492B00
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 23:45:09 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E355101A55C
- for <dm-devel@redhat.com>; Fri, 26 May 2023 16:44:02 +0000 (UTC)
-Received: from out30-133.freemail.mail.aliyun.com
- (out30-133.freemail.mail.aliyun.com [115.124.30.133]) by relay.mimecast.com
- with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
- id us-mta-623-DvZdxG1SMPe3uuJ0NEl3jA-1; Fri, 26 May 2023 12:43:58 -0400
-X-MC-Unique: DvZdxG1SMPe3uuJ0NEl3jA-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R111e4; CH=green; DM=||false|;
- DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046060;
- MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=7; SR=0;
- TI=SMTPD_---0VjX7bdM_1685119431
-Received: from 192.168.2.5(mailfrom:hsiangkao@linux.alibaba.com
- fp:SMTPD_---0VjX7bdM_1685119431) by smtp.aliyun-inc.com;
- Sat, 27 May 2023 00:43:53 +0800
-Message-ID: <ac8519fd-85f4-e778-0c6c-b2e893a37628@linux.alibaba.com>
-Date: Sat, 27 May 2023 00:43:51 +0800
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B83D28237C1
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 23:45:09 +0000 (UTC)
+Received: from mail-pf1-f172.google.com (mail-pf1-f172.google.com
+ [209.85.210.172]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-569-RKaXNredOQ23rj62nyZASQ-1; Fri, 26 May 2023 19:45:07 -0400
+X-MC-Unique: RKaXNredOQ23rj62nyZASQ-1
+Received: by mail-pf1-f172.google.com with SMTP id
+ d2e1a72fcca58-64d24136663so1100085b3a.0
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 16:45:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685144706; x=1687736706;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CWzxmQ8QxCg8O8dff9yLq2U6+xkvzRDR890XcXfK3mg=;
+ b=d+ZknqqRmdqGXst1XieSj8W8bk5ViNL04P6wYpxvM+OKeVbj4XuHgtwIAqu5jtpcAT
+ fjfQS5mRjaxvZXxQE0vcnnC3NaM5BPme+cWc3hn1WW+c/CGu/vcR/IOeC1KVNwUb3+RF
+ goFfbHasmazPovAr5E7N9BwzNF9XnDjnLDtPWsi0gtZ5mVUVkIGMM2+W6PMuJojKZhdI
+ RuMmmubWaHdUXOY0uCXVxzc1l6Wk4DA+w8PRJp4OBQfir/8OVIBG7GHbHl4UHValGsdC
+ yUbSBD99ZRg54C4Ynut6Qc7xfyST6yZHmXHUjhv0TfAjiPI1YlZn/OvuuQ1gSzM3xNAR
+ VXtg==
+X-Gm-Message-State: AC+VfDzhoYaR65TvDhmCdwyw9BsZ+FFzFuwlENGH45viYdb1tV69F+c/
+ ScqyN1RRG0783z0C6YOfd0Mxng==
+X-Google-Smtp-Source: ACHHUZ4K3iebgteK6vCXrRpRxz8VUX6r/9jfq7BcWqxhVfO6CgyxLnisMFr2+io1W37C8mIwj9ZXTw==
+X-Received: by 2002:a05:6a00:2d88:b0:64c:ecf7:f49a with SMTP id
+ fb8-20020a056a002d8800b0064cecf7f49amr5438139pfb.21.1685144706285; 
+ Fri, 26 May 2023 16:45:06 -0700 (PDT)
+Received: from dread.disaster.area (pa49-179-0-188.pa.nsw.optusnet.com.au.
+ [49.179.0.188]) by smtp.gmail.com with ESMTPSA id
+ l11-20020a62be0b000000b0064f46570bb7sm3100448pff.167.2023.05.26.16.45.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 26 May 2023 16:45:05 -0700 (PDT)
+Received: from dave by dread.disaster.area with local (Exim 4.96)
+ (envelope-from <david@fromorbit.com>) id 1q2h7G-004Jsa-2r;
+ Sat, 27 May 2023 09:45:02 +1000
+Date: Sat, 27 May 2023 09:45:02 +1000
+From: Dave Chinner <david@fromorbit.com>
+To: Joe Thornber <thornber@redhat.com>
+Message-ID: <ZHFEfngPyUOqlthr@dread.disaster.area>
+References: <ZGb2Xi6O3i2pLam8@infradead.org> <ZGeKm+jcBxzkMXQs@redhat.com>
+ <ZGgBQhsbU9b0RiT1@dread.disaster.area>
+ <ZGu0LaQfREvOQO4h@redhat.com> <ZGzIJlCE2pcqQRFJ@bfoster>
+ <ZGzbGg35SqMrWfpr@redhat.com>
+ <ZG1dAtHmbQ53aOhA@dread.disaster.area> <ZG+KoxDMeyogq4J0@bfoster>
+ <ZHB954zGG1ag0E/t@dread.disaster.area>
+ <CAJ0trDbspRaDKzTzTjFdPHdB9n0Q9unfu1cEk8giTWoNu3jP8g@mail.gmail.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.10.0
-To: Du Rui <durui@linux.alibaba.com>, alexl@redhat.com
-References: <CAL7ro1FPEqXyOuX_WPMYdsT6rW-bD5EU=v=oWKsd6XscykLF6Q@mail.gmail.com>
- <20230526102633.31160-1-durui@linux.alibaba.com>
-From: Gao Xiang <hsiangkao@linux.alibaba.com>
-In-Reply-To: <20230526102633.31160-1-durui@linux.alibaba.com>
+In-Reply-To: <CAJ0trDbspRaDKzTzTjFdPHdB9n0Q9unfu1cEk8giTWoNu3jP8g@mail.gmail.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -81,9 +106,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-X-Mailman-Approved-At: Mon, 29 May 2023 04:51:50 +0000
-Subject: Re: [dm-devel] dm overlaybd: targets mapping OverlayBD image
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [dm-devel] [PATCH v7 0/5] Introduce provisioning primitives
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,97 +119,118 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: gscrivan@redhat.com, dm-devel@redhat.com, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, agk@redhat.com
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Stefan Hajnoczi <stefanha@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, "Darrick J. Wong" <djwong@kernel.org>,
+ Brian Foster <bfoster@redhat.com>, Bart Van Assche <bvanassche@google.com>,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ Joe Thornber <ejt@redhat.com>, Christoph Hellwig <hch@infradead.org>,
+ dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Sarthak Kukreti <sarthakkukreti@chromium.org>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Jason Wang <jasowang@redhat.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.alibaba.com
+X-Mimecast-Originator: fromorbit.com
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-
-
-On 2023/5/26 03:26, Du Rui wrote:
-> Hi Alexander,
+On Fri, May 26, 2023 at 12:04:02PM +0100, Joe Thornber wrote:
+> Here's my take:
 > 
->> all the lvm volume changes and mounts during runtime caused
->> weird behaviour (especially at scale) that was painful to manage (just
->> search the docker issue tracker for devmapper backend). In the end
->> everyone moved to a filesystem based implementation (overlayfs based).
+> I don't see why the filesystem cares if thinp is doing a reservation or
+> provisioning under the hood.  All that matters is that a future write
+> to that region will be honoured (barring device failure etc.).
 > 
-> Yes, we had exactly the same experience. This is another reason why
-> this proposal is for dm and lvm, not for container.
-> (BTW, we are using TCMU and ublk for overlaybd in production. They are awesome.)
+> I agree that the reservation/force mapped status needs to be inherited
+> by snapshots.
 > 
 > 
->> This solution doesn't even allow page cache sharing between shared
->> layers (like current containers do), much less between independent
->> layers.
+> One of the few strengths of thinp is the performance of taking a snapshot.
+> Most snapshots created are never activated.  Many other snapshots are
+> only alive for a brief period, and used read-only.  eg, blk-archive
+> (https://github.com/jthornber/blk-archive) uses snapshots to do very
+> fast incremental backups.  As such I'm strongly against any scheme that
+> requires provisioning as part of the snapshot operation.
 > 
-> Page cache sharing can be realized with DAX support of the dm targets
-> (and the inner file system), together with virtual pmem device backend.
-
-First, here I'd suggest you could learn some kernel knowledge of what
-DAX is and what page cache is before you explain to a kernel mailing
-list.  For example, DAX memory cannot be reclaimed at all.
-
-Block drivers has nothing to do on filesystem page cache stuffs, also
-currently your approach has nothing to do with pmem stuffs (If you must
-mention "DAX" to proposal your "page cache sharing", please _here_
-write down your detailed design first and explain how it could work to
-ours if you really want to do.)
-
-Apart from unable to share page cache among filesystems, even with
-your approach all I/Os are duplicated among your qcow2-like layers.
-
-For example, there are 3 qcow2-like layers: A, B, C:
-
-filesystem 1:  A + B
-filesystem 2:  A + B + C
-
-Filesystem 1 and 2 are runtimely independent filesystems and your block
-driver can do nothing help: both duplicated I/Os and page cache for any
-data and metadata of layer A, B.
-
-If those container layers are even more (dozens or hundreds), your
-approach is more inefficient on duplicated I/Os.
-
-You could implement some internal block cache, but block level cache is
-not flexible compared with page cache on kernel memory reclaim and page
-migration.
-
+> Hank and I are in the middle of the range tree work which requires a
+> metadata
+> change.  So now is a convenient time to piggyback other metadata changes to
+> support reservations.
 > 
->> Erofs already has some block-level support for container images
 > 
-> It is interesting. Erofs runs insider a block device in the first place,
-> like what many file systems do. But do you konw why it implements another
-> "some block-level support" by itself?
+> Given the above this is what I suggest:
 > 
+> 1) We have an api (ioctl, bio flag, whatever) that lets you
+> reserve/guarantee a region:
+> 
+>   int reserve_region(dev, sector_t begin, sector_t end);
 
-That is funny honestly.  As for container image use cases, although OCI
-image tgz is unseekable but actually ext4 and btrfs images are seekable
-and on-demand load could be done with these raw images directly. In
-principle, you could dump your container image stuffs from tgz to raw
-ext4, btrfs, erofs, whatever.  Or if you like, you could dump to some
-"qcow2", "vhdx", "vmdx" wildly-used format, their ecosystem is more
-mature but all the above don't help on page cache sharing stuffs.
+A C-based interface is not sufficient because the layer that must do
+provsioning is not guaranteed to be directly under the filesystem.
+We must be able to propagate the request down to the layers that
+need to provision storage, and that includes hardware devices.
 
-Please don't say "I like erofs" and at the same time "why it implements
-another some block-level support" by itself".  Local filesystems must
-do their block-mapping theirselves: ext4 (extents or blockmap), XFS
-(extents), etc.
+e.g. dm-thin would have to issue REQ_PROVISION on the LBA ranges it
+allocates in it's backing device to guarantee that the provisioned
+LBA range it allocates is also fully provisioned by the storage
+below it....
 
-I've explained internally to your team multiple times as a kernel
-developer, personally I don't want to repeat here again and again to
-your guys.
+>   This api should be used minimally, eg, critical FS metadata only.
 
-Thanks,
-Gao Xiang
+Keep in mind that "critical FS metadata" in this context is any
+metadata which could cause the filesystem to hang or enter a global
+error state if an unexpected ENOSPC error occurs during a metadata
+write IO.
 
->> And this new approach doesn't help
-> No. It is intended for dm and lvm.> 
+Which, in pretty much every journalling filesystem, equates to all
+metadata in the filesystem. For a typical root filesystem, that
+might be a in the range of a 1-200MB (depending on journal size).
+For larger filesytems with lots of files in them, it will be in the
+range of GBs of space.
+
+Plan for having to support tens of GBs of provisioned space in
+filesystems, not tens of MBs....
+
+[snip]
+
+> Now this is a lot of work.  As well as the kernel changes we'll need to
+> update the userland tools: thin_check, thin_ls, thin_metadata_unpack,
+> thin_rmap, thin_delta, thin_metadata_pack, thin_repair, thin_trim,
+> thin_dump, thin_metadata_size, thin_restore.  Are we confident that we
+> have buy in from the FS teams that this will be widely adopted?  Are users
+> asking for this?  I really don't want to do 6 months of work for nothing.
+
+I think there's a 2-3 solid days of coding to fully implement
+REQ_PROVISION support in XFS, including userspace tool support.
+Maybe a couple of weeks more to flush the bugs out before it's
+largely ready to go.
+
+So if there's buy in from the block layer and DM people for
+REQ_PROVISION as described, then I'll definitely have XFS support
+ready for you to test whenever dm-thinp is ready to go.
+
+I can't speak for other filesystems, I suspect the only one we care
+about is ext4.  btrfs and f2fs don't need dm-thinp and there aren't
+any other filesystems that are used in production on top of
+dm-thinp, so I think only XFS and ext4 matter at this point in time.
+
+I suspect that ext4 would be fairly easy to add support for as well.
+ext4 has a lot more fixed-place metadata than XFS has so much more
+of it's metadata is covered by mkfs-time provisioning. Limiting
+dynamic metadata to specific fully provisioned block groups and
+provisioning new block groups for metadata when they are near full
+would be equivalent to how I plan to provision metadata space in
+XFS. Hence the implementation for ext4 looks to be broadly similar
+in scope and complexity as XFS....
+
+-Dave.
+-- 
+Dave Chinner
+david@fromorbit.com
 
 --
 dm-devel mailing list
