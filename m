@@ -2,8 +2,8 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0FD86712108
-	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:34:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 44126712109
+	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:34:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1685086458;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
@@ -12,60 +12,60 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7cxbURMvEmxUrKN9xnGRSJMM2owpZFkLqbXi2cn7y3s=;
-	b=FG3EYjM1PzlMxKl8L82WsgyQMDjkV1Ml8uAqDorNpn2+ndvd2Dqvm+O81hmrZTnz8sxV5o
-	HSpuxE6anyVQQnaKyXuPFVOSZnkh8SvVblVt/HV0IY77mbO5cOW3GvgpUNvH1yn3xvYXkX
-	B+th00rqEpHSIfpIQ9xui/9VpbrXYmo=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=1S0xgGPN0+EiIky9/rsklTcpXzzQadbFF8kVAjWjAWw=;
+	b=QmsNtpO4yJDlniDZ5oeV6sWYmfduGuwpEvP/QEFKITszOp6Yz1MGnwGWmf9AnUTTo+Mu2i
+	/5IL7lokfQ6Z51au40/O/2GKpZAWHQytHaS+MCCVrQTZkjAQIX6E4/GZIoj3S0DVADOwA1
+	Iw0rtWuY6p0hksA1HIS/JH+GqT70AS8=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-375-Y760xC4iN16aNo3tCrKnkQ-1; Fri, 26 May 2023 03:34:16 -0400
-X-MC-Unique: Y760xC4iN16aNo3tCrKnkQ-1
+ us-mta-557-_S33rjfMNaSP0PnCQnSS5Q-1; Fri, 26 May 2023 03:34:16 -0400
+X-MC-Unique: _S33rjfMNaSP0PnCQnSS5Q-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DA1D1C01EAB;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B03E5185A78E;
 	Fri, 26 May 2023 07:34:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E0ABE1121319;
-	Fri, 26 May 2023 07:34:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9BEB11121314;
+	Fri, 26 May 2023 07:34:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7216D1946A45;
-	Fri, 26 May 2023 07:34:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F13B19451C2;
+	Fri, 26 May 2023 07:34:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 53B2F19465A4
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:51 +0000 (UTC)
+ ESMTP id 5D0A119465B3
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 607BA492B0B; Fri, 26 May 2023 07:33:51 +0000 (UTC)
+ id 838A5140E963; Fri, 26 May 2023 07:33:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5854B492B0A
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:45 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7C12E140E95D
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:49 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA4BB811E7F
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:44 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 497D5185A794
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:49 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-609-yJR8VGLgPNa3tkLH_mxJdg-1; Fri, 26 May 2023 03:33:40 -0400
-X-MC-Unique: yJR8VGLgPNa3tkLH_mxJdg-1
+ us-mta-232-jqHvUnUHOrWQRjEPJXV0cQ-1; Fri, 26 May 2023 03:33:46 -0400
+X-MC-Unique: jqHvUnUHOrWQRjEPJXV0cQ-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
- Hat Linux)) id 1q2RxB-001RdW-0P; Fri, 26 May 2023 07:33:37 +0000
+ Hat Linux)) id 1q2RxB-001RdY-0Z; Fri, 26 May 2023 07:33:37 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
  philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
  christoph.boehmwalder@linbit.com, hch@infradead.org, djwong@kernel.org,
  minchan@kernel.org, senozhatsky@chromium.org
-Date: Fri, 26 May 2023 00:33:34 -0700
-Message-Id: <20230526073336.344543-4-mcgrof@kernel.org>
+Date: Fri, 26 May 2023 00:33:35 -0700
+Message-Id: <20230526073336.344543-5-mcgrof@kernel.org>
 In-Reply-To: <20230526073336.344543-1-mcgrof@kernel.org>
 References: <20230526073336.344543-1-mcgrof@kernel.org>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH v2 3/5] iomap: simplify iomap_init() with
- PAGE_SECTORS
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] [PATCH v2 4/5] dm bufio: simplify by using
+ PAGE_SECTORS_SHIFT
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,27 +103,38 @@ X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Replace common constants with generic versions. This produces no
-functional changes.
+The PAGE_SHIFT - SECTOR_SHIFT constant be replaced with PAGE_SECTORS_SHIFT
+defined in linux/blt_types.h, which is included by linux/blkdev.h.
+
+This produces no functional changes.
 
 Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
 ---
- fs/iomap/buffered-io.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/md/dm-bufio.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
-index 915b448b8554..5641e696fb3f 100644
---- a/fs/iomap/buffered-io.c
-+++ b/fs/iomap/buffered-io.c
-@@ -1831,7 +1831,7 @@ EXPORT_SYMBOL_GPL(iomap_writepages);
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index eea977662e81..08c4730e1819 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -1152,7 +1152,7 @@ static void *alloc_buffer_data(struct dm_bufio_client *c, gfp_t gfp_mask,
+ 	    gfp_mask & __GFP_NORETRY) {
+ 		*data_mode = DATA_MODE_GET_FREE_PAGES;
+ 		return (void *)__get_free_pages(gfp_mask,
+-						c->sectors_per_block_bits - (PAGE_SHIFT - SECTOR_SHIFT));
++						c->sectors_per_block_bits - (PAGE_SECTORS_SHIFT));
+ 	}
  
- static int __init iomap_init(void)
- {
--	return bioset_init(&iomap_ioend_bioset, 4 * (PAGE_SIZE / SECTOR_SIZE),
-+	return bioset_init(&iomap_ioend_bioset, 4 * PAGE_SECTORS,
- 			   offsetof(struct iomap_ioend, io_inline_bio),
- 			   BIOSET_NEED_BVECS);
- }
+ 	*data_mode = DATA_MODE_VMALLOC;
+@@ -1190,7 +1190,7 @@ static void free_buffer_data(struct dm_bufio_client *c,
+ 
+ 	case DATA_MODE_GET_FREE_PAGES:
+ 		free_pages((unsigned long)data,
+-			   c->sectors_per_block_bits - (PAGE_SHIFT - SECTOR_SHIFT));
++			   c->sectors_per_block_bits - (PAGE_SECTORS_SHIFT));
+ 		break;
+ 
+ 	case DATA_MODE_VMALLOC:
 -- 
 2.39.2
 
