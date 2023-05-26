@@ -2,77 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BCE8D7120CE
-	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:23:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78AF1712112
+	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:35:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685085798;
+	s=mimecast20190719; t=1685086503;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=/SrU/xx7ZgMR6NdD7hKsWvnmyf5KTaqQrP1xuF06FIA=;
-	b=B2R/TCGTVCXhMyKZ7LBeYp+de4z0aMp3jhGOyIyISoQ5kcANTpgRuzUzYKFzJ7oUACb8Hi
-	Do3XzV+C70MZ24bSChjVO/LmTsgEbqUGSvjECZYbLnVLEK4zWsdrtRu2455GSuvwGRzJE2
-	+N9cMnZIQZ2/GE/N8c8uq+VGKNE7ZnA=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=d6fvd8msXMAqsM2gxbUaLeD62VLQBI7doXhYaomF1gY=;
+	b=MjKTKrJOiFEH6G/x/7TJutEpV8q2pkwUsgu7bdl45EhE3dfH4pSyfkwwDkKvPKWb2YGpno
+	9n/0745Esz27et2/j57ei0+UW9yjnPHDOQ79Yeuc87ZCUSBxs75I77BXYrI4nfqLXgvTMO
+	E8cURqzXmN3k1X5+bC3WOEg/qaGvYak=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-154-YMBEJDNvPgSiN5ioH3B9eg-1; Fri, 26 May 2023 03:23:17 -0400
-X-MC-Unique: YMBEJDNvPgSiN5ioH3B9eg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-563-CWahi3FFOTyD7UAMQDhL6w-1; Fri, 26 May 2023 03:34:19 -0400
+X-MC-Unique: CWahi3FFOTyD7UAMQDhL6w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB35D380350D;
-	Fri, 26 May 2023 07:23:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39556811E8F;
+	Fri, 26 May 2023 07:34:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F3A95492B00;
-	Fri, 26 May 2023 07:23:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 265981121314;
+	Fri, 26 May 2023 07:34:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C760819465B9;
-	Fri, 26 May 2023 07:23:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CBC6F19451D4;
+	Fri, 26 May 2023 07:34:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4889019465A0
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:23:09 +0000 (UTC)
+ ESMTP id 5615219465A8
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 64AF440102D; Fri, 26 May 2023 07:23:09 +0000 (UTC)
+ id 50204140E961; Fri, 26 May 2023 07:33:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5CC0A492B00
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:23:09 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 49019140E95D
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:46 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 41124800B2A
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:23:09 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-654-9CHbr5ScOb-v4EykyuGibw-1; Fri, 26 May 2023 03:23:05 -0400
-X-MC-Unique: 9CHbr5ScOb-v4EykyuGibw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E20B964ACA;
- Fri, 26 May 2023 07:23:04 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D370C433D2;
- Fri, 26 May 2023 07:23:03 +0000 (UTC)
-Date: Fri, 26 May 2023 00:23:01 -0700
-From: Eric Biggers <ebiggers@kernel.org>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Message-ID: <20230526072301.GC875@sol.localdomain>
-References: <20230410225936.8940-1-chang.seok.bae@intel.com>
- <20230524165717.14062-1-chang.seok.bae@intel.com>
- <20230524165717.14062-13-chang.seok.bae@intel.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B95C800B2A
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:46 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-375--LX4EZo2Nyeice74DmET_w-1; Fri, 26 May 2023 03:33:44 -0400
+X-MC-Unique: -LX4EZo2Nyeice74DmET_w-1
+Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
+ Hat Linux)) id 1q2RxA-001RdO-2w; Fri, 26 May 2023 07:33:36 +0000
+From: Luis Chamberlain <mcgrof@kernel.org>
+To: axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
+ philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
+ christoph.boehmwalder@linbit.com, hch@infradead.org, djwong@kernel.org,
+ minchan@kernel.org, senozhatsky@chromium.org
+Date: Fri, 26 May 2023 00:33:31 -0700
+Message-Id: <20230526073336.344543-1-mcgrof@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20230524165717.14062-13-chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -80,9 +73,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: Re: [dm-devel] [PATCH v7 12/12] crypto: x86/aes-kl - Implement the
- AES-XTS algorithm
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] [PATCH v2 0/5] block: simplify with PAGE_SECTORS_SHIFT
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,84 +86,51 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: x86@kernel.org, herbert@gondor.apana.org.au,
- "David S. Miller" <davem@davemloft.net>, ardb@kernel.org,
- dave.hansen@linux.intel.com, dan.j.williams@intel.com,
- linux-kernel@vger.kernel.org, charishma1.gairuboyina@intel.com,
- mingo@kernel.org, lalithambika.krishnakumar@intel.com, dm-devel@redhat.com,
- Ingo Molnar <mingo@redhat.com>, bp@alien8.de, linux-crypto@vger.kernel.org,
- luto@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com,
- tglx@linutronix.de, nhuck@google.com, gmazyland@gmail.com, elliott@hpe.com
+Cc: p.raghav@samsung.com, linux-xfs@vger.kernel.org, rohan.puri@samsung.com,
+ da.gomez@samsung.com, mcgrof@kernel.org, patches@lists.linux.dev,
+ willy@infradead.org, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-fsdevel@vger.kernel.org,
+ rpuri.linux@gmail.com, kbusch@kernel.org, drbd-dev@lists.linbit.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, May 24, 2023 at 09:57:17AM -0700, Chang S. Bae wrote:
-> == API Limitation ==
-> 
-> The setkey() function transforms an AES key into a handle. But, an
-> extended key is a usual outcome of setkey() in other AES cipher
-> implementations. For this reason, a setkey() failure does not fall
-> back to the other. So, expose AES-KL methods via synchronous
-> interfaces only.
+A bit of block drivers have their own incantations with
+PAGE_SHIFT - SECTOR_SHIFT. Just simplfy and use PAGE_SECTORS_SHIFT
+all over.
+                                                                                                                                                                                              
+Based on linux-next next-20230525.
 
-I don't understand what this paragraph is trying to say.
+Changes since v1:
 
-> +/*
-> + * The below wrappers for the encryption/decryption functions
-> + * incorporate the feature availability check:
-> + *
-> + * In the rare event of hardware failure, the wrapping key can be lost
-> + * after wake-up from a deep sleep state. Then, this check helps to
-> + * avoid any subsequent misuse with populating a proper error code.
-> + */
-> +
-> +static inline int aeskl_enc(const void *ctx, u8 *out, const u8 *in)
-> +{
-> +	if (!valid_keylocker())
-> +		return -ENODEV;
-> +
-> +	return __aeskl_enc(ctx, out, in);
-> +}
+ o keep iomap math visibly simple
+ o Add tags for Reviews/acks
+ o rebase onto next-20230525
 
-Is it not sufficient for the valid_keylocker() check to occur at the top level
-(in xts_encrypt() and xts_decrypt()), which would seem to be a better place to
-do it?  Is this because valid_keylocker() needs to be checked in every
-kernel_fpu_begin() section separately, to avoid a race condition?  If that's
-indeed the reason, can you explain that in the comment?
+Luis Chamberlain (5):
+  block: annotate bdev_disk_changed() deprecation with a symbol
+    namespace
+  drbd: use PAGE_SECTORS_SHIFT and PAGE_SECTORS
+  iomap: simplify iomap_init() with PAGE_SECTORS
+  dm bufio: simplify by using PAGE_SECTORS_SHIFT
+  zram: use generic PAGE_SECTORS and PAGE_SECTORS_SHIFT
 
-> +static inline int xts_keylen(struct skcipher_request *req, u32 *keylen)
-> +{
-> +	struct aes_xts_ctx *ctx = aes_xts_ctx(crypto_skcipher_reqtfm(req));
-> +
-> +	if (ctx->crypt_ctx.key_length != ctx->tweak_ctx.key_length)
-> +		return -EINVAL;
-> +
-> +	*keylen = ctx->crypt_ctx.key_length;
-> +	return 0;
-> +}
+ block/partitions/core.c          |  6 +-----
+ drivers/block/drbd/drbd_bitmap.c |  4 ++--
+ drivers/block/loop.c             |  2 ++
+ drivers/block/zram/zram_drv.c    | 12 ++++++------
+ drivers/block/zram/zram_drv.h    |  2 --
+ drivers/md/dm-bufio.c            |  4 ++--
+ drivers/s390/block/dasd_genhd.c  |  2 ++
+ fs/iomap/buffered-io.c           |  2 +-
+ 8 files changed, 16 insertions(+), 18 deletions(-)
 
-This is odd.  Why would the key lengths be different here?
-
-> +	err = simd_register_skciphers_compat(aeskl_skciphers, ARRAY_SIZE(aeskl_skciphers),
-> +					     aeskl_simd_skciphers);
-> +	if (err)
-> +		return err;
-> +
-> +	return 0;
-
-This can be simplified to:
-
-	return simd_register_skciphers_compat(aeskl_skciphers,
-					      ARRAY_SIZE(aeskl_skciphers),
-					      aeskl_simd_skciphers);
-
-- Eric
+-- 
+2.39.2
 
 --
 dm-devel mailing list
