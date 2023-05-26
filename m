@@ -1,70 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 78AF1712112
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2745E712110
 	for <lists+dm-devel@lfdr.de>; Fri, 26 May 2023 09:35:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1685086503;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=d6fvd8msXMAqsM2gxbUaLeD62VLQBI7doXhYaomF1gY=;
-	b=MjKTKrJOiFEH6G/x/7TJutEpV8q2pkwUsgu7bdl45EhE3dfH4pSyfkwwDkKvPKWb2YGpno
-	9n/0745Esz27et2/j57ei0+UW9yjnPHDOQ79Yeuc87ZCUSBxs75I77BXYrI4nfqLXgvTMO
-	E8cURqzXmN3k1X5+bC3WOEg/qaGvYak=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=rf5KumRxPtJgqo1xic4CtFZQrhBEZG+MJyt/caVpKBc=;
+	b=Pd9FizPBDWPwBwPag89DnwY5HKr13oXZTiT3p49K2kBlt2FmV+I9OcM/QtbQ3AtXrcnpzF
+	3pPWyRq+6/6+i+2KfWn1DJ9qyNm/H2sbxiu4VDHCe3AFEIqfrVCMuGxBc1hfE/uvezH+dE
+	i84CNYICDWJ0MhP9ZmnZScOSsckfIWs=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-CWahi3FFOTyD7UAMQDhL6w-1; Fri, 26 May 2023 03:34:19 -0400
-X-MC-Unique: CWahi3FFOTyD7UAMQDhL6w-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-482-UTHgDIPJMc6117yIfvaCeg-1; Fri, 26 May 2023 03:34:19 -0400
+X-MC-Unique: UTHgDIPJMc6117yIfvaCeg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39556811E8F;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF00281295A;
 	Fri, 26 May 2023 07:34:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 265981121314;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 41F5D40C6CCF;
 	Fri, 26 May 2023 07:34:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CBC6F19451D4;
-	Fri, 26 May 2023 07:34:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 27E9219452C7;
+	Fri, 26 May 2023 07:34:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5615219465A8
- for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:46 +0000 (UTC)
+ ESMTP id 5ABE919465B2
+ for <dm-devel@listman.corp.redhat.com>; Fri, 26 May 2023 07:33:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 50204140E961; Fri, 26 May 2023 07:33:46 +0000 (UTC)
+ id 4B32840102D; Fri, 26 May 2023 07:33:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 49019140E95D
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:46 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 43288492B00
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:43 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B95C800B2A
- for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:46 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C0CB3C0D185
+ for <dm-devel@redhat.com>; Fri, 26 May 2023 07:33:43 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-375--LX4EZo2Nyeice74DmET_w-1; Fri, 26 May 2023 03:33:44 -0400
-X-MC-Unique: -LX4EZo2Nyeice74DmET_w-1
+ us-mta-438-5SqW50m9MRG10WVyMhGHHA-1; Fri, 26 May 2023 03:33:39 -0400
+X-MC-Unique: 5SqW50m9MRG10WVyMhGHHA-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
- Hat Linux)) id 1q2RxA-001RdO-2w; Fri, 26 May 2023 07:33:36 +0000
+ Hat Linux)) id 1q2RxA-001RdR-3D; Fri, 26 May 2023 07:33:37 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
  philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
  christoph.boehmwalder@linbit.com, hch@infradead.org, djwong@kernel.org,
  minchan@kernel.org, senozhatsky@chromium.org
-Date: Fri, 26 May 2023 00:33:31 -0700
-Message-Id: <20230526073336.344543-1-mcgrof@kernel.org>
+Date: Fri, 26 May 2023 00:33:32 -0700
+Message-Id: <20230526073336.344543-2-mcgrof@kernel.org>
+In-Reply-To: <20230526073336.344543-1-mcgrof@kernel.org>
+References: <20230526073336.344543-1-mcgrof@kernel.org>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -73,8 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [dm-devel] [PATCH v2 0/5] block: simplify with PAGE_SECTORS_SHIFT
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH v2 1/5] block: annotate bdev_disk_changed()
+ deprecation with a symbol namespace
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,42 +97,66 @@ Cc: p.raghav@samsung.com, linux-xfs@vger.kernel.org, rohan.puri@samsung.com,
  rpuri.linux@gmail.com, kbusch@kernel.org, drbd-dev@lists.linbit.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-A bit of block drivers have their own incantations with
-PAGE_SHIFT - SECTOR_SHIFT. Just simplfy and use PAGE_SECTORS_SHIFT
-all over.
-                                                                                                                                                                                              
-Based on linux-next next-20230525.
+This ensures no other users pop up by mistake easily and provides
+us a with an easy vehicle to do the same with other routines should
+we need it later.
 
-Changes since v1:
+Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+---
+ block/partitions/core.c         | 6 +-----
+ drivers/block/loop.c            | 2 ++
+ drivers/s390/block/dasd_genhd.c | 2 ++
+ 3 files changed, 5 insertions(+), 5 deletions(-)
 
- o keep iomap math visibly simple
- o Add tags for Reviews/acks
- o rebase onto next-20230525
-
-Luis Chamberlain (5):
-  block: annotate bdev_disk_changed() deprecation with a symbol
-    namespace
-  drbd: use PAGE_SECTORS_SHIFT and PAGE_SECTORS
-  iomap: simplify iomap_init() with PAGE_SECTORS
-  dm bufio: simplify by using PAGE_SECTORS_SHIFT
-  zram: use generic PAGE_SECTORS and PAGE_SECTORS_SHIFT
-
- block/partitions/core.c          |  6 +-----
- drivers/block/drbd/drbd_bitmap.c |  4 ++--
- drivers/block/loop.c             |  2 ++
- drivers/block/zram/zram_drv.c    | 12 ++++++------
- drivers/block/zram/zram_drv.h    |  2 --
- drivers/md/dm-bufio.c            |  4 ++--
- drivers/s390/block/dasd_genhd.c  |  2 ++
- fs/iomap/buffered-io.c           |  2 +-
- 8 files changed, 16 insertions(+), 18 deletions(-)
-
+diff --git a/block/partitions/core.c b/block/partitions/core.c
+index 49e0496ff23c..6f18444be4fe 100644
+--- a/block/partitions/core.c
++++ b/block/partitions/core.c
+@@ -690,11 +690,7 @@ int bdev_disk_changed(struct gendisk *disk, bool invalidate)
+ 
+ 	return ret;
+ }
+-/*
+- * Only exported for loop and dasd for historic reasons.  Don't use in new
+- * code!
+- */
+-EXPORT_SYMBOL_GPL(bdev_disk_changed);
++EXPORT_SYMBOL_NS_GPL(bdev_disk_changed, BLOCK_DEPRECATED);
+ 
+ void *read_part_sector(struct parsed_partitions *state, sector_t n, Sector *p)
+ {
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index bc31bb7072a2..50aa5b4c0c56 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -37,6 +37,8 @@
+ #include <linux/spinlock.h>
+ #include <uapi/linux/loop.h>
+ 
++MODULE_IMPORT_NS(BLOCK_DEPRECATED);
++
+ /* Possible states of device */
+ enum {
+ 	Lo_unbound,
+diff --git a/drivers/s390/block/dasd_genhd.c b/drivers/s390/block/dasd_genhd.c
+index 998a961e1704..5ea244aec534 100644
+--- a/drivers/s390/block/dasd_genhd.c
++++ b/drivers/s390/block/dasd_genhd.c
+@@ -25,6 +25,8 @@
+ 
+ #include "dasd_int.h"
+ 
++MODULE_IMPORT_NS(BLOCK_DEPRECATED);
++
+ static unsigned int queue_depth = 32;
+ static unsigned int nr_hw_queues = 4;
+ 
 -- 
 2.39.2
 
