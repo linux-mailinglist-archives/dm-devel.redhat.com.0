@@ -2,75 +2,78 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1CB95714382
-	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 06:52:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1FF1371437F
+	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 06:52:07 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685335928;
+	s=mimecast20190719; t=1685335926;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=58er9yHHF8n3+/Sv9/TAr4zFrhGrfRcvhZ0tjAtENWs=;
-	b=UbDjBrw+hCPEHdqmyLxYFvfHjRzIiFy7Yroo/ERZfpOiu84dgq+44qSkqpZX45uX+MX/eq
-	IZDqp/odE9VVKKFOPkE5Hi81yL+uKaGHk6zzoMIK9cMs19EwU8l4F5wkLlhFNmuZSAtVRd
-	FN2Xxy0qTP9MP4rqVW3jZSWjWHhVSYw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=VS4Cwzc/dobWsuqxFrxjlp2vViVvX8yHNwNgrsih9VM=;
+	b=MfQoo5ZNXS1nsEruRZi1gHsYZHiI+DlEoptCbvWU+dJvrGAPxjAlcJmM8444Uk2ZcOq4oo
+	o/2Nq8l826UMfb4dWwEOgmsIVQEpMQ45ciyBomHfMzXYL+IcDwDNj8FcIaBQr4Jn8XzIXx
+	SqWjxWWDyEMhbm9Qov5cNfbPren21S0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-L9nkLuHpOiWe9Hm4Np7zKA-1; Mon, 29 May 2023 00:52:02 -0400
-X-MC-Unique: L9nkLuHpOiWe9Hm4Np7zKA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-41-lknVyPXSP12Wpo4MKfysrw-1; Mon, 29 May 2023 00:52:02 -0400
+X-MC-Unique: lknVyPXSP12Wpo4MKfysrw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 64BE329AA3B1;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63E8B185A78B;
 	Mon, 29 May 2023 04:52:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5A802492B00;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B5CE0400E118;
 	Mon, 29 May 2023 04:51:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D11F31946A41;
-	Mon, 29 May 2023 04:51:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 052A519452C3;
+	Mon, 29 May 2023 04:51:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DF8DC19465A0
- for <dm-devel@listman.corp.redhat.com>; Sat, 27 May 2023 03:13:29 +0000 (UTC)
+ ESMTP id 7273E19465A0
+ for <dm-devel@listman.corp.redhat.com>; Sat, 27 May 2023 04:12:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BC70A7AE4; Sat, 27 May 2023 03:13:29 +0000 (UTC)
+ id 166C440CFD01; Sat, 27 May 2023 04:12:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B47F853BB
- for <dm-devel@redhat.com>; Sat, 27 May 2023 03:13:29 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0EB2240CFD00
+ for <dm-devel@redhat.com>; Sat, 27 May 2023 04:12:40 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98056101A52C
- for <dm-devel@redhat.com>; Sat, 27 May 2023 03:13:29 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6A5A85A5A8
+ for <dm-devel@redhat.com>; Sat, 27 May 2023 04:12:39 +0000 (UTC)
 Received: from out30-132.freemail.mail.aliyun.com
  (out30-132.freemail.mail.aliyun.com [115.124.30.132]) by relay.mimecast.com
  with ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384)
- id us-mta-607-ykdCUkZwME6uihS71KOvkg-1; Fri, 26 May 2023 23:13:25 -0400
-X-MC-Unique: ykdCUkZwME6uihS71KOvkg-1
-X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R121e4; CH=green; DM=||false|;
+ id us-mta-182-naTs755jOYS-9Noid-ELHw-1; Sat, 27 May 2023 00:12:33 -0400
+X-MC-Unique: naTs755jOYS-9Noid-ELHw-1
+X-Alimail-AntiSpam: AC=PASS; BC=-1|-1; BR=01201311R721e4; CH=green; DM=||false|;
  DS=||; FP=0|-1|-1|-1|0|-1|-1|-1; HT=ay29a033018046051;
- MF=durui@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
- TI=SMTPD_---0VjYXb68_1685157200
-Received: from localhost(mailfrom:durui@linux.alibaba.com
- fp:SMTPD_---0VjYXb68_1685157200) by smtp.aliyun-inc.com;
- Sat, 27 May 2023 11:13:20 +0800
-From: Du Rui <durui@linux.alibaba.com>
-To: hsiangkao@linux.alibaba.com
-Date: Sat, 27 May 2023 11:13:19 +0800
-Message-Id: <20230527031319.92200-1-durui@linux.alibaba.com>
-In-Reply-To: <ac8519fd-85f4-e778-0c6c-b2e893a37628@linux.alibaba.com>
-References: <ac8519fd-85f4-e778-0c6c-b2e893a37628@linux.alibaba.com>
+ MF=hsiangkao@linux.alibaba.com; NM=1; PH=DS; RN=8; SR=0;
+ TI=SMTPD_---0VjYkMWT_1685160745
+Received: from 30.0.159.48(mailfrom:hsiangkao@linux.alibaba.com
+ fp:SMTPD_---0VjYkMWT_1685160745) by smtp.aliyun-inc.com;
+ Sat, 27 May 2023 12:12:28 +0800
+Message-ID: <11c1e59f-d05e-5479-fa6b-36d9a793c16e@linux.alibaba.com>
+Date: Sat, 27 May 2023 12:12:24 +0800
 MIME-Version: 1.0
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.10.0
+To: Du Rui <durui@linux.alibaba.com>
+References: <ac8519fd-85f4-e778-0c6c-b2e893a37628@linux.alibaba.com>
+ <20230527031319.92200-1-durui@linux.alibaba.com>
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
+In-Reply-To: <20230527031319.92200-1-durui@linux.alibaba.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,7 +81,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Mon, 29 May 2023 04:51:50 +0000
 Subject: Re: [dm-devel] dm overlaybd: targets mapping OverlayBD image
 X-BeenThere: dm-devel@redhat.com
@@ -92,33 +95,105 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: gscrivan@redhat.com, durui@linux.alibaba.com, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, dm-devel@redhat.com, alexl@redhat.com,
+Cc: gscrivan@redhat.com, snitzer@kernel.org, linux-kernel@vger.kernel.org,
+ dm-devel@redhat.com, alexl@redhat.com, Gao Xiang <xiang@kernel.org>,
  agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.alibaba.com
-Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-> Block drivers has nothing to do on filesystem page cache stuffs, also
-> currently your approach has nothing to do with pmem stuffs (If you must
-> mention "DAX" to proposal your "page cache sharing", please _here_
-> write down your detailed design first and explain how it could work to
-> ours if you really want to do.)
 
-We have already done experiments (by virtio pmem), to make virtual PMEM
-device in QEMU, make guest vm sharing only one memory mapping on host,
-with filesystem that supports DAX. In guest vm, fs keeps no page cache,
-maybe "sharing pagecache" is not such accurate description, but sharing
-memory pages on host can do prevent making duplicated pagecache pages in
-VMs.
 
-Please make sure that you have already understood that dm-overlaybd are
-for GENERIC purpose. It is NOT a special design for container, and have
-nothing related to filesystem implementations.
+On 2023/5/27 11:13, Du Rui wrote:
+>> Block drivers has nothing to do on filesystem page cache stuffs, also
+>> currently your approach has nothing to do with pmem stuffs (If you must
+>> mention "DAX" to proposal your "page cache sharing", please _here_
+>> write down your detailed design first and explain how it could work to
+>> ours if you really want to do.)
+> 
+> We have already done experiments (by virtio pmem), to make virtual PMEM
+> device in QEMU, make guest vm sharing only one memory mapping on host,
+> with filesystem that supports DAX. In guest vm, fs keeps no page cache,
+> maybe "sharing pagecache" is not such accurate description, but sharing
+> memory pages on host can do prevent making duplicated pagecache pages in
+> VMs.
+
+First, does virtio-pmem have some relationship with this kernel
+claim "dm / lvm" proposal" of yours?  Does your virtio-pmem work
+on bare matel or cloud server or runC (I mean without some host
+adaption)?
+
+Secondly, does your virtio-pmem have any relationship with this
+kernel approach? If not, why not directly using your userspace
+work on your specific use case? How does this kernel DM approach
+have any help to your "sharing pagecache"?
+
+Do you know how kernel FSDAX work and what type of memory of
+pmem is?  Could you give me your detailed kernel design to do
+in-kernel DM+pmem dax mapping?
+
+> 
+> Please make sure that you have already understood that dm-overlaybd are
+> for GENERIC purpose. It is NOT a special design for container, and have
+> nothing related to filesystem implementations.
+Previous dm-qcow2 is more generic (on-disk format friendly for
+read-write as well as qcow2 format with two-level l1/l2 indexes
+takes less runtime memory persistent footprint than your on-disk
+format which needs to load and parse your hardly-seekable on-disk
+lsmt+zfile layer indexes to some new in-memory represention which
+can be used for random accesses before any real I/Os and these
+in-memory indexes _cannot_ be _partially reclaimed_ from memory)
+and qcow2 has more wider ecosystem compared to your approach, but
+could you see the community tendency of this?
+
+ublk-qcow2: ublk-qcow2 is available:
+https://lore.kernel.org/r/Yza1u1KfKa7ycQm0@T590
+
+Second, I have to mention here your previous attempt including
+read (maybe later write) your DADI file stuffs in your
+in-kernel block driver, which I think that was really
+dangerous:
+
+see vfsfile.c of your previous codebase
+https://github.com/data-accelerator/dadi-kernel-mod/commit/ff12687f2c567ddf51a28df88b25dd2d0e3737a2
+
+static struct file *file_open(const char *path, int flags, int rights)
+{
+..
+	fp = filp_open(path, O_RDONLY, 0);
+..
+}
+
+static ssize_t file_read(struct file *file, void *buf, size_t count, loff_t pos)
+{
+..
+	vfs_fadvise(file, pos, count, POSIX_FADV_SEQUENTIAL);
+..
+		ret = kernel_read(file, buf, count, &lpos);
+..
+}
+
+In your current proposed patch, you still call it as "struct
+vfile" but use raw block device stuffs instead.
+
+But this raw block device use cases are limited (almost useless)
+for containers since as Alex said, almost all container users
+switch to filesystem-based approach (I don't want to repeat why).
+And your kernel approach is almost useless for virtual machine
+use cases (see how qcow2 works for VMs).
+
+In the end, Assume that if you *end up with* later upstreaming
+reading backing filesystem files directly under the block layer
+(for example, as your second step), that is really a not-go.
+
+Anyway, all the above is on behalf myself.
+
+Thanks,
+Gao Xiang
 
 --
 dm-devel mailing list
