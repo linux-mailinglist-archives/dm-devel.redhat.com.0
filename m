@@ -2,92 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7C42C716F38
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:55:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49C72714F2E
+	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 20:14:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480102;
+	s=mimecast20190719; t=1685384091;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QkijMHinjcs4Ijp8UEMjLJnuEfUx7wyW60FCsQp4yG4=;
-	b=ZoMwKHgYtCnMx9rmJLrQJGslW8GEItkDTPVnvYo8FcmUV/iluWCnpPk9BCfr4/qeeOQFSN
-	tQ0jRu7SFY56EDPC2P+mO7LuHmbx9TKPxtcPz+bxc13avVolC0SGmNy/kDcSHkNdmi9xv3
-	wYMOp0YNYCfQ2krXB2EiJKIsQfxPSbo=
+	bh=P9BuxiQ+y7MN9n4wm9t3kE726Xh4xHy2qYQ8/p5IDZo=;
+	b=Cljh+c20/gPABHS0hfqTuMjXCTQhNqfM0ict8oKeVpANDA2bJkGH74tG2C2s4oljp0i0s+
+	1T3UlfW97HUFsYZjfgkHTktnDgnquCAALw8VTi56zxb5yZHuxOp2St+vpYbJewSgDXTZ76
+	xfICIUewL6HnJ3V58+nZQpQLTtDwwIo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-648-oXFDyixqP2eE3XShOms6rw-1; Tue, 30 May 2023 16:54:49 -0400
-X-MC-Unique: oXFDyixqP2eE3XShOms6rw-1
+ us-mta-231-Ai5RO7_iNp2-LyyeWpeX7A-1; Mon, 29 May 2023 14:14:49 -0400
+X-MC-Unique: Ai5RO7_iNp2-LyyeWpeX7A-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 059AA8039C2;
-	Tue, 30 May 2023 20:54:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA89D101A531;
+	Mon, 29 May 2023 18:14:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E05E3112132E;
-	Tue, 30 May 2023 20:54:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 57169112132C;
+	Mon, 29 May 2023 18:14:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6EB53194F275;
-	Tue, 30 May 2023 20:54:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2078619465B7;
+	Mon, 29 May 2023 18:14:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D2868194658C
- for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 16:36:28 +0000 (UTC)
+ ESMTP id 1705F194658C
+ for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 18:14:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B6308420A8; Mon, 29 May 2023 16:36:28 +0000 (UTC)
+ id D902740CFD09; Mon, 29 May 2023 18:14:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AE24335443
- for <dm-devel@redhat.com>; Mon, 29 May 2023 16:36:28 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D17DB40CFD08
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 18:14:38 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9243F3806729
- for <dm-devel@redhat.com>; Mon, 29 May 2023 16:36:28 +0000 (UTC)
-Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
- [209.85.128.169]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-450-kZ9EtWj8OjmprUgd_6dOkQ-1; Mon, 29 May 2023 12:36:25 -0400
-X-MC-Unique: kZ9EtWj8OjmprUgd_6dOkQ-1
-Received: by mail-yw1-f169.google.com with SMTP id
- 00721157ae682-565e6beb7aaso26298947b3.2; 
- Mon, 29 May 2023 09:36:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685378184; x=1687970184;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=XGlmlfpGRhYW8HjfyI5EG9tKXwTbZGzHl2Gw/X6ax14=;
- b=VdKP/FkQWFCCQibrw9MI1VTsxbXXkbS/fix7YUNWTOl37Mkw45pT+mz+CgPMsRDObx
- pswAS01cReTDpu34RH3X9XjGZE/vCxBmY23m6AHERB4rm5BVWsLoqS1oT+jtIi5gOjjn
- p3AHm45kBn2FMCq7SyT+X+pnsSiBcfi94Mm8xHzXxSFnp1BeFXrarfMZ+tV+EQsQNoCM
- wdvxKJfVsLa0D1VlpeMBsYhREwSHJYTuUHD59Ih/oAvs6PcHN5GK0Tk9X5OPutJaYiGM
- 5NLFmG3iYLkztN0i9LkHCcASlMd/GkkToqY3+xgIjCnjg5N5B0sx1szYNdE83lJltA8M
- o/tA==
-X-Gm-Message-State: AC+VfDwwKl1xlreAShU/KfP+IPy1unxI6f6jNXLFRa1h45uvqAqoXmfD
- HaCpZ+iVedFbbXrfMS7AUCiFC5LjF/DLm52bIHejBfRCZCAL91bY
-X-Google-Smtp-Source: ACHHUZ7InCRLGF330bSJ+LMuRh4g/NfzTfd2m8OEywQty5+b+eU+JLZRKLHh0ktsR3qbMPwu4QSHwqAz7Ha/ifAXWSw=
-X-Received: by 2002:a0d:d88b:0:b0:565:bb04:53fa with SMTP id
- a133-20020a0dd88b000000b00565bb0453famr11663162ywe.10.1685378184319; Mon, 29
- May 2023 09:36:24 -0700 (PDT)
-MIME-Version: 1.0
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B291885A5AA
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 18:14:38 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-159-kQciQpCENSOCpaQztUZMMQ-1; Mon,
+ 29 May 2023 14:14:36 -0400
+X-MC-Unique: kQciQpCENSOCpaQztUZMMQ-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1q3h5K-005bSP-AT; Mon, 29 May 2023 17:55:10 +0000
+Date: Mon, 29 May 2023 18:55:10 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Nitesh Shetty <nj.shetty@samsung.com>
+Message-ID: <ZHTm/v1jTZhcpDei@casper.infradead.org>
 References: <20230522104146.2856-1-nj.shetty@samsung.com>
  <CGME20230522104536epcas5p23dd8108dd267ec588e5c36e8f9eb9fe8@epcas5p2.samsung.com>
  <20230522104146.2856-3-nj.shetty@samsung.com>
- <20230524154049.GD11607@frogsfrogsfrogs>
-In-Reply-To: <20230524154049.GD11607@frogsfrogsfrogs>
-From: Nitesh Shetty <nitheshshetty@gmail.com>
-Date: Mon, 29 May 2023 22:06:13 +0530
-Message-ID: <CAOSviJ2-=U+Y2vFOq6=8n=uHqXgoud3=7gaH7H7sw2jiPXtNPA@mail.gmail.com>
-To: "Darrick J. Wong" <djwong@kernel.org>
+MIME-Version: 1.0
+In-Reply-To: <20230522104146.2856-3-nj.shetty@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,8 +75,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 Subject: Re: [dm-devel] [PATCH v11 2/9] block: Add copy offload support
  infrastructure
 X-BeenThere: dm-devel@redhat.com
@@ -113,59 +92,30 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: linux-nvme@lists.infradead.org, James.Bottomley@hansenpartnership.com,
  linux-mm@kvack.org, dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
  Alasdair Kergon <agk@redhat.com>, Sagi Grimberg <sagi@grimberg.me>,
- linux-scsi@vger.kernel.org, gost.dev@samsung.com,
- James Smart <james.smart@broadcom.com>,
- "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
- Nitesh Shetty <nj.shetty@samsung.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ linux-scsi@vger.kernel.org, gost.dev@samsung.com, nitheshshetty@gmail.com,
+ James Smart <james.smart@broadcom.com>, Chaitanya Kulkarni <kch@nvidia.com>,
  anuj20.g@samsung.com, Mike Snitzer <snitzer@kernel.org>, ming.lei@redhat.com,
  linux-block@vger.kernel.org, dlemoal@kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, Keith Busch <kbusch@kernel.org>,
- bvanassche@acm.org, Jens Axboe <axboe@kernel.dk>,
- Christian Brauner <brauner@kernel.org>, joshi.k@samsung.com,
- martin.petersen@oracle.com, linux-kernel@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
+ Keith Busch <kbusch@kernel.org>, bvanassche@acm.org,
+ Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ joshi.k@samsung.com, martin.petersen@oracle.com, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ Alexander Viro <viro@zeniv.linux.org.uk>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
+X-Mimecast-Originator: infradead.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> > +/*
-> > + * @bdev_in: source block device
-> > + * @pos_in:  source offset
-> > + * @bdev_out:        destination block device
-> > + * @pos_out: destination offset
-> > + * @len:     length in bytes to be copied
-> > + * @endio:   endio function to be called on completion of copy operation,
-> > + *           for synchronous operation this should be NULL
-> > + * @private: endio function will be called with this private data, should be
-> > + *           NULL, if operation is synchronous in nature
-> > + * @gfp_mask:   memory allocation flags (for bio_alloc)
-> > + *
-> > + * Returns the length of bytes copied or error if encountered
-> > + *
-> > + * Description:
-> > + *   Copy source offset from source block device to destination block
-> > + *   device. Max total length of copy is limited to MAX_COPY_TOTAL_LENGTH
-> > + */
-> > +int blkdev_issue_copy(struct block_device *bdev_in, loff_t pos_in,
->
-> I'd have thought you'd return ssize_t here.  If the two block devices
-> are loopmounted xfs files, we can certainly reflink "copy" more than 2GB
-> at a time.
->
-> --D
->
+On Mon, May 22, 2023 at 04:11:33PM +0530, Nitesh Shetty wrote:
+> +		token = alloc_page(gfp_mask);
 
-Sure we will add this to make API future proof, but at present we do have
-a limit for copy. COPY_MAX_BYTES(=128MB) at present. This limit is based
-on our internal testing, we have plans to increase/remove with this
-limit in future phases.
-
-Thank you,
-Nitesh Shetty
+Why is PAGE_SIZE the right size for 'token'?  That seems quite unlikely.
+I could understand it being SECTOR_SIZE or something that's dependent on
+the device, but I cannot fathom it being dependent on the host' page size.
 
 --
 dm-devel mailing list
