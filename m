@@ -2,71 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23C93716F3C
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:55:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7024C71523C
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 01:13:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480105;
+	s=mimecast20190719; t=1685401984;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ulNFB46MG8xqnX3fvSEcx2OQkR0pQ/rYbNbgUv2To+s=;
-	b=RZjZtqFpBOPUUJ2gKvcioCXY8V5KE3Rdk0VGgPYPmYP4Qe+9Cmnh40ZmkXQFg/I/RFrlXx
-	6gWX2VBdc1bUZeqD0D0cJ5Hu8wnu+j3kG7yk9Rt9VMMXHq7FLnlcKXU2EeB8R6R+QwterB
-	ACwWqTfpnpUarmfkSXfUTvXMCq+J3o0=
+	bh=OUCwqP00fzR6j0aENJezuNA/yBnrNOkj928aAeGn5v4=;
+	b=Qy63YUjRATBbHIFHO/t6f9eKHbTZ1GxD2GIgswgfqT69EAeu0DkhO0WwTLj4PDdCpabC0C
+	+kacHw6GM2bunjt3bh7BN+i+2FrdSCOqAjEB1w5p+H7rCeqox3EUcVRh8ROO7nOZVOluil
+	dgjz/nMzi5vD0LRKJdSIsj51Mm7h/24=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-117-OGGJSZmrOWSAg1ylGrc3yA-1; Tue, 30 May 2023 16:54:46 -0400
-X-MC-Unique: OGGJSZmrOWSAg1ylGrc3yA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-15-qAgIGY8eMgmErmnAy9qUcw-1; Mon, 29 May 2023 19:13:03 -0400
+X-MC-Unique: qAgIGY8eMgmErmnAy9qUcw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D2D9E100F663;
-	Tue, 30 May 2023 20:54:35 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B1ADF140E956;
-	Tue, 30 May 2023 20:54:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C08DB811E78;
+	Mon, 29 May 2023 23:13:00 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 95BD2112132C;
+	Mon, 29 May 2023 23:12:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 40FB4194F26B;
-	Tue, 30 May 2023 20:54:28 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4988619465B7;
+	Mon, 29 May 2023 23:12:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CA85E194658C
- for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 21:51:09 +0000 (UTC)
+ ESMTP id BBA75194658C
+ for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 23:12:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 91B46140E954; Mon, 29 May 2023 21:51:09 +0000 (UTC)
+ id 8D73E112132D; Mon, 29 May 2023 23:12:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B395140E955
- for <dm-devel@redhat.com>; Mon, 29 May 2023 21:51:09 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 861F4112132C
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 23:12:51 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C033858EEB
- for <dm-devel@redhat.com>; Mon, 29 May 2023 21:51:09 +0000 (UTC)
-Received: from out-47.mta0.migadu.com (out-47.mta0.migadu.com
- [91.218.175.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 682F0811E7C
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 23:12:51 +0000 (UTC)
+Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
+ [209.85.210.176]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-358-ARWcOKxkNviqol00vsvMNA-1; Mon, 29 May 2023 17:51:06 -0400
-X-MC-Unique: ARWcOKxkNviqol00vsvMNA-1
-Date: Mon, 29 May 2023 17:43:53 -0400
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Kent Overstreet <kent.overstreet@linux.dev>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <ZHUcmeYrUmtytdDU@moria.home.lan>
+ us-mta-307-5H0145S6OMK6MLxWg8mxnw-1; Mon, 29 May 2023 19:12:49 -0400
+X-MC-Unique: 5H0145S6OMK6MLxWg8mxnw-1
+Received: by mail-pf1-f176.google.com with SMTP id
+ d2e1a72fcca58-64d30ab1f89so2527995b3a.3
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 16:12:49 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685401968; x=1687993968;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=CEb/q2oR2f3xfXECLF27YKQHP0Ck5BcAeCfMowWxLOI=;
+ b=kthYQT2VufRxJjMyJzVfxNRjjkBWduYB7HoDtyrIEt6m9OAlRMGMU6Pz3/7QRzqdnz
+ /knYX+LhqzBDOTYqqdBk/D6881qE9UZetvuxjK/nCBsGnBSIN3ob4+xCi+lV0mPXxf99
+ RwnCcbm61PDn37XdNJe1Tiw6zUpt1NzmLG8MbvsgTZXjXSL5fL/1Gt8lzGaEeS5P2rVe
+ 81s6EsvFnpzJR0xf/Gyu0K153AOdvWwq9vYPqLtjBIsamJ0EfimRAB2pNF2SoEiCKuxy
+ 85C5CoxOJXTtMPYogbNcC1n9LRZT931tToEDU/T4lWyrREqHr9WUHokBBJyxPwCNUoVi
+ BFGA==
+X-Gm-Message-State: AC+VfDx/kwt+nCLI7MrKh8Kvmr/NBCxKXW0HIfvqBzJ9Ef9geutz/Q7J
+ z7Aj2lHQQpgN+asiHXyMmTlVYA==
+X-Google-Smtp-Source: ACHHUZ7Q5mP843nhoE0+BC2QT5pCXDuq4Cdhm+ZbTapkVUOV3QG9I8B9Dc17Xb/SzUwDSi8xRONYzg==
+X-Received: by 2002:a05:6a20:a5a8:b0:10e:f1e3:8217 with SMTP id
+ bc40-20020a056a20a5a800b0010ef1e38217mr451730pzb.17.1685401968467; 
+ Mon, 29 May 2023 16:12:48 -0700 (PDT)
+Received: from dread.disaster.area (pa49-179-0-188.pa.nsw.optusnet.com.au.
+ [49.179.0.188]) by smtp.gmail.com with ESMTPSA id
+ j31-20020a63fc1f000000b00502e7115cbdsm7469726pgi.51.2023.05.29.16.12.47
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 29 May 2023 16:12:47 -0700 (PDT)
+Received: from dave by dread.disaster.area with local (Exim 4.96)
+ (envelope-from <david@fromorbit.com>) id 1q3m2e-005UaD-1Z;
+ Tue, 30 May 2023 09:12:44 +1000
+Date: Tue, 30 May 2023 09:12:44 +1000
+From: Dave Chinner <david@fromorbit.com>
+To: Matthew Wilcox <willy@infradead.org>
+Message-ID: <ZHUxbLh1P9yiq2c9@dread.disaster.area>
 References: <alpine.LRH.2.21.2305260915400.12513@file01.intranet.prod.int.rdu2.redhat.com>
+ <ZHUVy7jut1Ex1IGJ@casper.infradead.org>
 MIME-Version: 1.0
-In-Reply-To: <alpine.LRH.2.21.2305260915400.12513@file01.intranet.prod.int.rdu2.redhat.com>
-X-Migadu-Flow: FLOW_OUT
+In-Reply-To: <ZHUVy7jut1Ex1IGJ@casper.infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -74,8 +101,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 Subject: Re: [dm-devel] fuzzing bcachefs with dm-flakey
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -89,157 +115,73 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: linux-fsdevel@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- dm-devel@redhat.com
+ dm-devel@redhat.com, Kent Overstreet <kent.overstreet@linux.dev>,
+ Mikulas Patocka <mpatocka@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.dev
+X-Mimecast-Originator: fromorbit.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, May 29, 2023 at 04:59:40PM -0400, Mikulas Patocka wrote:
-> Hi
+On Mon, May 29, 2023 at 10:14:51PM +0100, Matthew Wilcox wrote:
+> On Mon, May 29, 2023 at 04:59:40PM -0400, Mikulas Patocka wrote:
+> > Hi
+> > 
+> > I improved the dm-flakey device mapper target, so that it can do random 
+> > corruption of read and write bios - I uploaded it here: 
+> > https://people.redhat.com/~mpatocka/testcases/bcachefs/dm-flakey.c
+> > 
+> > I set up dm-flakey, so that it corrupts 10% of read bios and 10% of write 
+> > bios with this command:
+> > dmsetup create flakey --table "0 `blockdev --getsize /dev/ram0` flakey /dev/ram0 0 0 1 4 random_write_corrupt 100000000 random_read_corrupt 100000000"
 > 
-> I improved the dm-flakey device mapper target, so that it can do random 
-> corruption of read and write bios - I uploaded it here: 
-> https://people.redhat.com/~mpatocka/testcases/bcachefs/dm-flakey.c
-> 
-> I set up dm-flakey, so that it corrupts 10% of read bios and 10% of write 
-> bios with this command:
-> dmsetup create flakey --table "0 `blockdev --getsize /dev/ram0` flakey /dev/ram0 0 0 1 4 random_write_corrupt 100000000 random_read_corrupt 100000000"
+> I'm not suggesting that any of the bugs you've found are invalid, but 10%
+> seems really high.  Is it reasonable to expect any filesystem to cope
+> with that level of broken hardware?  Can any of our existing ones cope
+> with that level of flakiness?  I mean, I've got some pretty shoddy USB
+> cables, but ...
 
-I've got some existing ktest tests for error injection:
-https://evilpiepirate.org/git/ktest.git/tree/tests/bcachefs/single_device.ktest#n200
-https://evilpiepirate.org/git/ktest.git/tree/tests/bcachefs/replication.ktest#n491
+It's realistic in that when you have lots of individual storage
+devices, load balanced over all of them, and then one fails
+completely we'll see an IO error rate like this. These are the sorts
+of setups I'd expect to be using erasure coding with bcachefs, so
+the IO failure rate should be able to head towards 20-30% before
+actual loss and/or corruption should start occurring.
 
-I haven't looked at dm-flakey before, I take it you're silently
-corrupting data instead of just failing the IOs like these tests do?
+In this situation, if the failures were isolated to an individual
+device, then I'd want the filesystem to kick that device out of the
+backing pool. Hence all the failures go away and then rebuild of the
+redundancy the erasure coding provides can take place. i.e. an IO
+failure rate this high should be a very short lived incident for a
+filesystem that directly manages individual devices.
 
-Let's add what you're doing to ktest, and see if we can merge it with
-the existing tests.
+But within a single, small device, it's not a particularly realistic
+scenario. If it's really corrupting this much active metadata, then
+the filesystem should be shutting down at the first
+uncorrectable/unrecoverable metadata error and every other IO error
+is then superfluous.
 
-> I created a bcachefs volume on a single disk (metadata and data checksums 
-> were turned off) and mounted it on dm-flakey. I got:
-> 
-> crash: https://people.redhat.com/~mpatocka/testcases/bcachefs/crash1.txt
-> deadlock: https://people.redhat.com/~mpatocka/testcases/bcachefs/crash2.txt
-> infinite loop: https://people.redhat.com/~mpatocka/testcases/bcachefs/crash3.txt
+Of course, bcachefs might be doing just that - cleanly shutting down
+an active filesystem is a very hard problem. XFS still has intricate
+and subtle issues with shutdown of active filesystems that can cause
+hangs and/or crashes, so I wouldn't expect bcachefs to be able to
+handle these scenarios completely cleanly at this stage of it's
+development....
 
-Fun!
+Perhaps it is worthwhile running the same tests on btrfs so we can
+something to compare the bcachefs behaviour to. I suspect that btrfs
+will fair little better on the single device, no checksums
+corruption test....
 
-> Here I uploaded an image that causes infnite loop when we run bcachefs 
-> fsck on it or when we attempt mount it:
-> https://people.redhat.com/~mpatocka/testcases/bcachefs/inf-loop.gz
-> 
-> 
-> I tried to run bcachefs on two block devices and fuzzing just one of them 
-> (checksums and replication were turned on - so bcachefs shold correct the 
-> corrupted data) - in this scenario, bcachefs doesn't return invalid data, 
-> but it sometimes returns errors and sometimes crashes.
-> 
-> This script will trigger an oops on unmount:
-> 	https://people.redhat.com/~mpatocka/testcases/bcachefs/crash4.txt
-> or nonsensical errors returned to userspace:
-> 	rm: cannot remove '/mnt/test/test/cmd_migrate.c': Unknown error 2206
-> or I/O errors returned to userspace:
-> 	diff: /mnt/test/test/rust-src/target/release/.fingerprint/bch_bindgen-f0bad16858ff0019/lib-bch_bindgen.json: Input/output error
-> 
-> #!/bin/sh -ex
-> umount /mnt/test || true
-> dmsetup remove_all || true
-> rmmod brd || true
-> SRC=/usr/src/git/bcachefs-tools
-> while true; do
->         modprobe brd rd_size=1048576
->         bcachefs format --replicas=2 /dev/ram0 /dev/ram1
->         dmsetup create flakey --table "0 `blockdev --getsize /dev/ram0` linear /dev/ram0 0"
->         mount -t bcachefs /dev/mapper/flakey:/dev/ram1 /mnt/test
->         dmsetup load flakey --table "0 `blockdev --getsize /dev/ram0` flakey /dev/ram0 0 0 1 4 random_write_corrupt 100000000 random_read_corrupt 100000000"
->         dmsetup suspend flakey
->         dmsetup resume flakey
->         cp -a "$SRC" /mnt/test/test
->         diff -r "$SRC" /mnt/test/test
->         echo 3 >/proc/sys/vm/drop_caches
->         diff -r "$SRC" /mnt/test/test
->         echo 3 >/proc/sys/vm/drop_caches
->         diff -r "$SRC" /mnt/test/test
->         echo 3 >/proc/sys/vm/drop_caches
->         rm -rf /mnt/test/test
->         echo 3 >/proc/sys/vm/drop_caches
->         cp -a "$SRC" /mnt/test/test
->         echo 3 >/proc/sys/vm/drop_caches
->         diff -r "$SRC" /mnt/test/test
->         umount /mnt/test
->         dmsetup remove flakey
->         rmmod brd
-> done
-> 
-> The oops happens in set_btree_iter_dontneed and it is caused by the fact 
-> that iter->path is NULL. The code in try_alloc_bucket is buggy because it 
-> sets "struct btree_iter iter = { NULL };" and then jumps to the "err" 
-> label that tries to dereference values in "iter".
+Cheers,
 
-Good catches on all of them. Darrick's been on me to get fuzz testing
-going, looks like it's definitely needed :)
-
-However, there's two things I want in place first before I put much
-effort into fuzz testing:
-
- - Code coverage analysis. ktest used to have integrated code coverage
-   analysis, where you'd tell it a subdirectory of the kernel tree
-   (doing code coverage analysis for the entire kernel is impossibly
-   slow) and it would run tests and then give you the lcov output.
-
-   However, several years ago something about kbuild changed, and the
-   method ktest was using for passing in build flags for a specific
-   subdir on the command line stopped working. I would like to track
-   down someone who understands kbuild and get this working again.
-
- - Fault injection
-
-   Years and years ago, when I was still at Google and this was just
-   bcache, we had fault injection that worked like dynamic debug: you
-   could call dynamic_fault("type of fault") anywhere in your code,
-   and it returned a bool indicating whether that fault had been enabled
-   - and faults were controllable at runtime via debugfs, we had tests
-   that iterated over e.g. faults in the initialization path, or memory
-   allocation failures, and flipped them on one by one and ran
-   $test_workload.
-
-   The memory allocation profiling stuff that Suren and I have been
-   working on includes code tagging, which is for (among other things) a
-   new and simplified implementation of dynamic fault injection, which
-   I'm going to push forward again once the memory allocation profiling
-   stuff gets merged.
-
-The reason I want this stuff is because fuzz testing tends to be a
-heavyweight, scattershot approach.
-
-I want to be able to look at the code coverage analysis first to e.g.
-work on a chunk of code at a time and make sure it's tested thoroughly,
-instead of jumping around in the code at random depending on what fuzz
-testing finds, and when we are fuzz testing I want to be able to add
-fault injection points and write unit tests so that we can have much
-more targeted, quicker to run tests going forward.
-
-Can I get you interested in either of those things? I'd really love to
-find someone to hand off or collaborate with on the fault injection
-stuff in particular.
-
-> Bcachefs gives not much usefull error messages, like "Fatal error: Unknown 
-> error 2184" or "Error in recovery: cannot allocate memory" or "mount(2) 
-> system call failed: Unknown error 2186." or "rm: cannot remove 
-> '/mnt/test/xfstests-dev/tools/fs-walk': Unknown error 2206".
-
-Those are mostly missing bch2_err_str()/bch2_err_class() calls:
- - bch2_err_str(), to print error string for our private error code
- - bch2_err_class(), to convert private error code to standard error
-   code before returning it to outside bcachefs code
-
-except error in recovery, cannot allocate memory - that's ancient code
-that still squashes to -ENOMEM
+Dave.
+-- 
+Dave Chinner
+david@fromorbit.com
 
 --
 dm-devel mailing list
