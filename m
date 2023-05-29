@@ -1,94 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F2DC714A46
-	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 15:26:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2EE77714A4C
+	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 15:26:36 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685366774;
+	s=mimecast20190719; t=1685366795;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=aPgRS6gpSZKrHGWH4IEaFZW1KQQCDggoqHJiEiZo7XM=;
-	b=c59639h4EdGDkl+DrKzcmjYluRHEMShGi+JT/KeSXnl0fsvenyrC9uG29ubhDSMf82GW3q
-	8kYa6GhbdZBKkLf14iDKFJLWegi/Oyp4nBKTJlsogOfdWahRYB6To792eJMTp0buo9gtwu
-	5VJ+sjosu402xbFIro0S4umop64bXho=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=KRIWh/0Gu+lHLbV0EqoIMRb86m8yXnwb1r36zA6VwUk=;
+	b=Wx/lArFMUpmP3ZyKLdiSW1kadSdbDYrBIX8x5WrM9Ku3mH74ntEkjYQh/6DEFRzsgEd00K
+	iVfF2OPDwAh7ByGa5+z/xd71EfeVvaCOK52x4YxDp36n6QPzSu9NAXRsXbwh0OogI8QPo4
+	ls7jUShTK9RWjmzfYamfo3duwO2fbI4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-226-Ym4PtdVMM8eJHEVAk-tN-A-1; Mon, 29 May 2023 09:26:13 -0400
-X-MC-Unique: Ym4PtdVMM8eJHEVAk-tN-A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-327-9zzDSyToNZ-7bftHzD03eA-1; Mon, 29 May 2023 09:26:33 -0400
+X-MC-Unique: 9zzDSyToNZ-7bftHzD03eA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 076A985A5B5;
-	Mon, 29 May 2023 13:26:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7E411C0ED08;
+	Mon, 29 May 2023 13:26:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DB0C6492B00;
-	Mon, 29 May 2023 13:26:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8C321421C5;
+	Mon, 29 May 2023 13:26:31 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3555E19451C0;
-	Mon, 29 May 2023 13:25:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A7FE719451D1;
+	Mon, 29 May 2023 13:25:35 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BF73719465A0
- for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 13:24:26 +0000 (UTC)
+ ESMTP id C3BF419465A8
+ for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 13:24:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F248A420A9; Mon, 29 May 2023 13:24:25 +0000 (UTC)
+ id 8FF2E2166B30; Mon, 29 May 2023 13:24:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EA0E5420A8
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 87E022166B2B
  for <dm-devel@redhat.com>; Mon, 29 May 2023 13:24:25 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CBB78185A78F
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68C75800B35
  for <dm-devel@redhat.com>; Mon, 29 May 2023 13:24:25 +0000 (UTC)
 Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
  [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-96-V-3qNHOcMv27cb5JbO8Gcw-1; Mon, 29 May 2023 09:24:23 -0400
-X-MC-Unique: V-3qNHOcMv27cb5JbO8Gcw-1
+ us-mta-631-85lOnXlTM629EXFida1jww-1; Mon, 29 May 2023 09:24:23 -0400
+X-MC-Unique: 85lOnXlTM629EXFida1jww-1
 Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QVGTD1Mtrz4f455H;
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QVGTD5z0Bz4f3w0h;
  Mon, 29 May 2023 21:24:16 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAHvbB9p3RkWVPoKQ--.23397S8;
- Mon, 29 May 2023 21:24:16 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgAHvbB9p3RkWVPoKQ--.23397S9;
+ Mon, 29 May 2023 21:24:17 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: guoqing.jiang@linux.dev, agk@redhat.com, snitzer@kernel.org,
  dm-devel@redhat.com, song@kernel.org
-Date: Mon, 29 May 2023 21:20:35 +0800
-Message-Id: <20230529132037.2124527-5-yukuai1@huaweicloud.com>
+Date: Mon, 29 May 2023 21:20:36 +0800
+Message-Id: <20230529132037.2124527-6-yukuai1@huaweicloud.com>
 In-Reply-To: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
 References: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAHvbB9p3RkWVPoKQ--.23397S8
-X-Coremail-Antispam: 1UD129KBjvJXoWxZr4xKr4xWF4DXF1kCF4kJFb_yoW7Jw4fp3
- yxtFn8Ar4UArW3ZrsrJ3Zrua4rZw109a9rtrW3ua4xAr1Sgr43tFn5uFy8ZFykAa9ayr4U
- Xw4rXayfuFWUWr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F
- 4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq
- 3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7
- IYx2IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4U
- M4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2
- kIc2xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E
- 14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
- kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVW8JVW5JwCI42IY6xIIjxv20xvEc7CjxVAF
- wI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
- 0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUA
- rcfUUUUU=
+X-CM-TRANSID: gCh0CgAHvbB9p3RkWVPoKQ--.23397S9
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jr1rKr4fKrWfZFW3GF4fAFb_yoWkuFX_WF
+ 9xZrWkXry7W39rKr1Yvw4SvrZ5tws8Ww1kZFyftFyjyFW5J348Jr93uw15Zwn3u3y7G34Y
+ krWj9FWfZrW5GjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUbq8FF20E14v26rWj6s0DM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28IrcIa0xkI8VA2jI8067AKxVWUAVCq3wA2048vs2
+ IY020Ec7CjxVAFwI0_Xr0E3s1l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28E
+ F7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJr0_Gc
+ Wl84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1l
+ e2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI
+ 8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwAC
+ jcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0x
+ kIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AK
+ xVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrx
+ kI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Gr0_Xr1lIxAIcVC0I7IYx2IY6xkF7I0E14v2
+ 6r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F
+ 4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUF18B
+ UUUUU
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -98,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [PATCH -next v2 4/6] md: refactor
- idle/frozen_sync_thread() to fix deadlock
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH -next v2 5/6] md: wake up 'resync_wait' at last
+ in md_reap_sync_thread()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,7 +116,7 @@ Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
  linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
@@ -124,155 +124,35 @@ Content-Transfer-Encoding: 7bit
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-Our test found a following deadlock in raid10:
+md_reap_sync_thread() is just replaced with wait_event(resync_wait, ...)
+from action_store(), just make sure action_store() will still wait for
+everything to be done in md_reap_sync_thread().
 
-1) Issue a normal write, and such write failed:
-
-  raid10_end_write_request
-   set_bit(R10BIO_WriteError, &r10_bio->state)
-   one_write_done
-    reschedule_retry
-
-  // later from md thread
-  raid10d
-   handle_write_completed
-    list_add(&r10_bio->retry_list, &conf->bio_end_io_list)
-
-  // later from md thread
-  raid10d
-   if (!test_bit(MD_SB_CHANGE_PENDING, &mddev->sb_flags))
-    list_move(conf->bio_end_io_list.prev, &tmp)
-    r10_bio = list_first_entry(&tmp, struct r10bio, retry_list)
-    raid_end_bio_io(r10_bio)
-
-Dependency chain 1: normal io is waiting for updating superblock
-
-2) Trigger a recovery:
-
-  raid10_sync_request
-   raise_barrier
-
-Dependency chain 2: sync thread is waiting for normal io
-
-3) echo idle/frozen to sync_action:
-
-  action_store
-   mddev_lock
-    md_unregister_thread
-     kthread_stop
-
-Dependency chain 3: drop 'reconfig_mutex' is waiting for sync thread
-
-4) md thread can't update superblock:
-
-  raid10d
-   md_check_recovery
-    if (mddev_trylock(mddev))
-     md_update_sb
-
-Dependency chain 4: update superblock is waiting for 'reconfig_mutex'
-
-Hence cyclic dependency exist, in order to fix the problem, we must
-break one of them. Dependency 1 and 2 can't be broken because they are
-foundation design. Dependency 4 may be possible if it can be guaranteed
-that no io can be inflight, however, this requires a new mechanism which
-seems complex. Dependency 3 is a good choice, because idle/frozen only
-requires sync thread to finish, which can be done asynchronously that is
-already implemented, and 'reconfig_mutex' is not needed anymore.
-
-This patch switch 'idle' and 'frozen' to wait sync thread to be done
-asynchronously, and this patch also add a sequence counter to record how
-many times sync thread is done, so that 'idle' won't keep waiting on new
-started sync thread.
-
-Noted that raid456 has similiar deadlock([1]), and it's verified[2] this
-deadlock can be fixed by this patch as well.
-
-[1] https://lore.kernel.org/linux-raid/5ed54ffc-ce82-bf66-4eff-390cb23bc1ac@molgen.mpg.de/T/#t
-[2] https://lore.kernel.org/linux-raid/e9067438-d713-f5f3-0d3d-9e6b0e9efa0e@huaweicloud.com/
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/md/md.c | 23 +++++++++++++++++++----
- drivers/md/md.h |  2 ++
- 2 files changed, 21 insertions(+), 4 deletions(-)
+ drivers/md/md.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 63a993b52cd7..7912de0e4d12 100644
+index 7912de0e4d12..f90226e6ddf8 100644
 --- a/drivers/md/md.c
 +++ b/drivers/md/md.c
-@@ -652,6 +652,7 @@ void mddev_init(struct mddev *mddev)
- 	timer_setup(&mddev->safemode_timer, md_safemode_timeout, 0);
- 	atomic_set(&mddev->active, 1);
- 	atomic_set(&mddev->openers, 0);
-+	atomic_set(&mddev->sync_seq, 0);
- 	spin_lock_init(&mddev->lock);
- 	atomic_set(&mddev->flush_pending, 0);
- 	init_waitqueue_head(&mddev->sb_wait);
-@@ -4776,19 +4777,27 @@ static void stop_sync_thread(struct mddev *mddev)
- 	if (work_pending(&mddev->del_work))
- 		flush_workqueue(md_misc_wq);
- 
--	if (mddev->sync_thread) {
--		set_bit(MD_RECOVERY_INTR, &mddev->recovery);
--		md_reap_sync_thread(mddev);
--	}
-+	set_bit(MD_RECOVERY_INTR, &mddev->recovery);
-+	/*
-+	 * Thread might be blocked waiting for metadata update which will now
-+	 * never happen
-+	 */
-+	md_wakeup_thread_directly(mddev->sync_thread);
- 
- 	mddev_unlock(mddev);
+@@ -9531,7 +9531,6 @@ void md_reap_sync_thread(struct mddev *mddev)
+ 	if (mddev_is_clustered(mddev) && is_reshaped
+ 				      && !test_bit(MD_CLOSING, &mddev->flags))
+ 		md_cluster_ops->update_size(mddev, old_dev_sectors);
+-	wake_up(&resync_wait);
+ 	/* flag recovery needed just to double check */
+ 	set_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
+ 	sysfs_notify_dirent_safe(mddev->sysfs_completed);
+@@ -9539,6 +9538,7 @@ void md_reap_sync_thread(struct mddev *mddev)
+ 	md_new_event();
+ 	if (mddev->event_work.func)
+ 		queue_work(md_misc_wq, &mddev->event_work);
++	wake_up(&resync_wait);
  }
+ EXPORT_SYMBOL(md_reap_sync_thread);
  
- static void idle_sync_thread(struct mddev *mddev)
- {
-+	int sync_seq = atomic_read(&mddev->sync_seq);
-+
- 	mutex_lock(&mddev->sync_mutex);
- 	clear_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
- 	stop_sync_thread(mddev);
-+
-+	wait_event(resync_wait, sync_seq != atomic_read(&mddev->sync_seq) ||
-+			!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery));
-+
- 	mutex_unlock(&mddev->sync_mutex);
- }
- 
-@@ -4797,6 +4806,10 @@ static void frozen_sync_thread(struct mddev *mddev)
- 	mutex_init(&mddev->delete_mutex);
- 	set_bit(MD_RECOVERY_FROZEN, &mddev->recovery);
- 	stop_sync_thread(mddev);
-+
-+	wait_event(resync_wait, mddev->sync_thread == NULL &&
-+			!test_bit(MD_RECOVERY_RUNNING, &mddev->recovery));
-+
- 	mutex_unlock(&mddev->sync_mutex);
- }
- 
-@@ -9472,6 +9485,8 @@ void md_reap_sync_thread(struct mddev *mddev)
- 
- 	/* resync has finished, collect result */
- 	md_unregister_thread(&mddev->sync_thread);
-+	atomic_inc(&mddev->sync_seq);
-+
- 	if (!test_bit(MD_RECOVERY_INTR, &mddev->recovery) &&
- 	    !test_bit(MD_RECOVERY_REQUESTED, &mddev->recovery) &&
- 	    mddev->degraded != mddev->raid_disks) {
-diff --git a/drivers/md/md.h b/drivers/md/md.h
-index 2fa903de5bd0..7cab9c7c45b8 100644
---- a/drivers/md/md.h
-+++ b/drivers/md/md.h
-@@ -539,6 +539,8 @@ struct mddev {
- 
- 	/* Used to synchronize idle and frozen for action_store() */
- 	struct mutex			sync_mutex;
-+	/* The sequence number for sync thread */
-+	atomic_t sync_seq;
- 
- 	bool	has_superblocks:1;
- 	bool	fail_last_dev:1;
 -- 
 2.39.2
 
