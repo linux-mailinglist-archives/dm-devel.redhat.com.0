@@ -2,95 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 80472714A49
-	for <lists+dm-devel@lfdr.de>; Mon, 29 May 2023 15:26:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 7C42C716F38
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:55:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685366787;
+	s=mimecast20190719; t=1685480102;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tv3pjYcpMPJ9FwERR7pxXTpzKA9minqq1DvURKzil/E=;
-	b=F9KSDW2itfC+7lxg0T8PfAhLMX6MHaonhQWqQAkmySPuXzEo7IXPHeuWxifz/vVUEBFDDo
-	GMWz+Ubdgh6rElCaiJxZCoR9mIjzRjzUzP0XposSytujHbHeAQ+6qlZAdNJcdBicQtG/2f
-	jmG0WoE4qjkkQrNDB7YW6mnNh1cDbhg=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=QkijMHinjcs4Ijp8UEMjLJnuEfUx7wyW60FCsQp4yG4=;
+	b=ZoMwKHgYtCnMx9rmJLrQJGslW8GEItkDTPVnvYo8FcmUV/iluWCnpPk9BCfr4/qeeOQFSN
+	tQ0jRu7SFY56EDPC2P+mO7LuHmbx9TKPxtcPz+bxc13avVolC0SGmNy/kDcSHkNdmi9xv3
+	wYMOp0YNYCfQ2krXB2EiJKIsQfxPSbo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-479-KL8j2NsoPLWkEu6NHKFj3A-1; Mon, 29 May 2023 09:26:25 -0400
-X-MC-Unique: KL8j2NsoPLWkEu6NHKFj3A-1
+ us-mta-648-oXFDyixqP2eE3XShOms6rw-1; Tue, 30 May 2023 16:54:49 -0400
+X-MC-Unique: oXFDyixqP2eE3XShOms6rw-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF73F3814956;
-	Mon, 29 May 2023 13:26:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 059AA8039C2;
+	Tue, 30 May 2023 20:54:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BA8DF112132C;
-	Mon, 29 May 2023 13:26:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E05E3112132E;
+	Tue, 30 May 2023 20:54:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 72C7519451CB;
-	Mon, 29 May 2023 13:25:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6EB53194F275;
+	Tue, 30 May 2023 20:54:30 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C19C219465A2
- for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 13:24:26 +0000 (UTC)
+ ESMTP id D2868194658C
+ for <dm-devel@listman.corp.redhat.com>; Mon, 29 May 2023 16:36:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B4D48140E956; Mon, 29 May 2023 13:24:26 +0000 (UTC)
+ id B6308420A8; Mon, 29 May 2023 16:36:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AD769140E954
- for <dm-devel@redhat.com>; Mon, 29 May 2023 13:24:26 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AE24335443
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 16:36:28 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F0B78007D9
- for <dm-devel@redhat.com>; Mon, 29 May 2023 13:24:26 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9243F3806729
+ for <dm-devel@redhat.com>; Mon, 29 May 2023 16:36:28 +0000 (UTC)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-92-E2102jXOOxacZEwcoyUX7Q-1; Mon, 29 May 2023 09:24:24 -0400
-X-MC-Unique: E2102jXOOxacZEwcoyUX7Q-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QVGTF29lhz4f3w0v;
- Mon, 29 May 2023 21:24:17 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAHvbB9p3RkWVPoKQ--.23397S10;
- Mon, 29 May 2023 21:24:18 +0800 (CST)
-From: Yu Kuai <yukuai1@huaweicloud.com>
-To: guoqing.jiang@linux.dev, agk@redhat.com, snitzer@kernel.org,
- dm-devel@redhat.com, song@kernel.org
-Date: Mon, 29 May 2023 21:20:37 +0800
-Message-Id: <20230529132037.2124527-7-yukuai1@huaweicloud.com>
-In-Reply-To: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
-References: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
+ us-mta-450-kZ9EtWj8OjmprUgd_6dOkQ-1; Mon, 29 May 2023 12:36:25 -0400
+X-MC-Unique: kZ9EtWj8OjmprUgd_6dOkQ-1
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-565e6beb7aaso26298947b3.2; 
+ Mon, 29 May 2023 09:36:24 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685378184; x=1687970184;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=XGlmlfpGRhYW8HjfyI5EG9tKXwTbZGzHl2Gw/X6ax14=;
+ b=VdKP/FkQWFCCQibrw9MI1VTsxbXXkbS/fix7YUNWTOl37Mkw45pT+mz+CgPMsRDObx
+ pswAS01cReTDpu34RH3X9XjGZE/vCxBmY23m6AHERB4rm5BVWsLoqS1oT+jtIi5gOjjn
+ p3AHm45kBn2FMCq7SyT+X+pnsSiBcfi94Mm8xHzXxSFnp1BeFXrarfMZ+tV+EQsQNoCM
+ wdvxKJfVsLa0D1VlpeMBsYhREwSHJYTuUHD59Ih/oAvs6PcHN5GK0Tk9X5OPutJaYiGM
+ 5NLFmG3iYLkztN0i9LkHCcASlMd/GkkToqY3+xgIjCnjg5N5B0sx1szYNdE83lJltA8M
+ o/tA==
+X-Gm-Message-State: AC+VfDwwKl1xlreAShU/KfP+IPy1unxI6f6jNXLFRa1h45uvqAqoXmfD
+ HaCpZ+iVedFbbXrfMS7AUCiFC5LjF/DLm52bIHejBfRCZCAL91bY
+X-Google-Smtp-Source: ACHHUZ7InCRLGF330bSJ+LMuRh4g/NfzTfd2m8OEywQty5+b+eU+JLZRKLHh0ktsR3qbMPwu4QSHwqAz7Ha/ifAXWSw=
+X-Received: by 2002:a0d:d88b:0:b0:565:bb04:53fa with SMTP id
+ a133-20020a0dd88b000000b00565bb0453famr11663162ywe.10.1685378184319; Mon, 29
+ May 2023 09:36:24 -0700 (PDT)
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAHvbB9p3RkWVPoKQ--.23397S10
-X-Coremail-Antispam: 1UD129KBjvJXoW7CF1DXF15WF4fCry5trW3Awb_yoW8CryUpF
- WfWas8GrW8ZFW3ZrW7Ka4DJayrAw40vayjyFy3Wa4rJF13ta129345uF1UAFWDAa9aq3WY
- y3W5JFs3Zry8Cw7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUP214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
- kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
- z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr1j6r
- xdM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0D
- M2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjx
- v20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1l
- F7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2
- IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAF
- wI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc4
- 0Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r4j6ryUMIIF0xvE2Ix0cI8IcVCY1x0267AK
- xVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JV
- WxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU17G
- YJUUUUU==
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+References: <20230522104146.2856-1-nj.shetty@samsung.com>
+ <CGME20230522104536epcas5p23dd8108dd267ec588e5c36e8f9eb9fe8@epcas5p2.samsung.com>
+ <20230522104146.2856-3-nj.shetty@samsung.com>
+ <20230524154049.GD11607@frogsfrogsfrogs>
+In-Reply-To: <20230524154049.GD11607@frogsfrogsfrogs>
+From: Nitesh Shetty <nitheshshetty@gmail.com>
+Date: Mon, 29 May 2023 22:06:13 +0530
+Message-ID: <CAOSviJ2-=U+Y2vFOq6=8n=uHqXgoud3=7gaH7H7sw2jiPXtNPA@mail.gmail.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,11 +95,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [dm-devel] [PATCH -next v2 6/6] md: enhance checking in
- md_check_recovery()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
+Subject: Re: [dm-devel] [PATCH v11 2/9] block: Add copy offload support
+ infrastructure
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,75 +110,62 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
- linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
+Cc: linux-nvme@lists.infradead.org, James.Bottomley@hansenpartnership.com,
+ linux-mm@kvack.org, dm-devel@redhat.com, Christoph Hellwig <hch@lst.de>,
+ Alasdair Kergon <agk@redhat.com>, Sagi Grimberg <sagi@grimberg.me>,
+ linux-scsi@vger.kernel.org, gost.dev@samsung.com,
+ James Smart <james.smart@broadcom.com>,
+ "Matthew Wilcox \(Oracle\)" <willy@infradead.org>,
+ Nitesh Shetty <nj.shetty@samsung.com>, Chaitanya Kulkarni <kch@nvidia.com>,
+ anuj20.g@samsung.com, Mike Snitzer <snitzer@kernel.org>, ming.lei@redhat.com,
+ linux-block@vger.kernel.org, dlemoal@kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Keith Busch <kbusch@kernel.org>,
+ bvanassche@acm.org, Jens Axboe <axboe@kernel.dk>,
+ Christian Brauner <brauner@kernel.org>, joshi.k@samsung.com,
+ martin.petersen@oracle.com, linux-kernel@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huaweicloud.com
+X-Mimecast-Originator: gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Yu Kuai <yukuai3@huawei.com>
+> > +/*
+> > + * @bdev_in: source block device
+> > + * @pos_in:  source offset
+> > + * @bdev_out:        destination block device
+> > + * @pos_out: destination offset
+> > + * @len:     length in bytes to be copied
+> > + * @endio:   endio function to be called on completion of copy operation,
+> > + *           for synchronous operation this should be NULL
+> > + * @private: endio function will be called with this private data, should be
+> > + *           NULL, if operation is synchronous in nature
+> > + * @gfp_mask:   memory allocation flags (for bio_alloc)
+> > + *
+> > + * Returns the length of bytes copied or error if encountered
+> > + *
+> > + * Description:
+> > + *   Copy source offset from source block device to destination block
+> > + *   device. Max total length of copy is limited to MAX_COPY_TOTAL_LENGTH
+> > + */
+> > +int blkdev_issue_copy(struct block_device *bdev_in, loff_t pos_in,
+>
+> I'd have thought you'd return ssize_t here.  If the two block devices
+> are loopmounted xfs files, we can certainly reflink "copy" more than 2GB
+> at a time.
+>
+> --D
+>
 
-For md_check_recovery():
+Sure we will add this to make API future proof, but at present we do have
+a limit for copy. COPY_MAX_BYTES(=128MB) at present. This limit is based
+on our internal testing, we have plans to increase/remove with this
+limit in future phases.
 
-1) if 'MD_RECOVERY_RUNING' is not set, register new sync_thread.
-2) if 'MD_RECOVERY_RUNING' is set:
- a) if 'MD_RECOVERY_DONE' is not set, don't do anything, wait for
-   md_do_sync() to be done.
- b) if 'MD_RECOVERY_DONE' is set, unregister sync_thread. Current code
-   expects that sync_thread is not NULL, otherwise new sync_thread will
-   be registered, which will corrupt the array.
-
-Make sure md_check_recovery() won't register new sync_thread if
-'MD_RECOVERY_RUNING' is still set, and a new WARN_ON_ONCE() is added for
-the above corruption,
-
-Signed-off-by: Yu Kuai <yukuai3@huawei.com>
----
- drivers/md/md.c | 22 +++++++++++++++-------
- 1 file changed, 15 insertions(+), 7 deletions(-)
-
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index f90226e6ddf8..9da0fc906bbd 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -9397,16 +9397,24 @@ void md_check_recovery(struct mddev *mddev)
- 		if (mddev->sb_flags)
- 			md_update_sb(mddev, 0);
- 
--		if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery) &&
--		    !test_bit(MD_RECOVERY_DONE, &mddev->recovery)) {
--			/* resync/recovery still happening */
--			clear_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
--			goto unlock;
--		}
--		if (mddev->sync_thread) {
-+		/*
-+		 * Never start a new sync thread if MD_RECOVERY_RUNNING is
-+		 * still set.
-+		 */
-+		if (test_bit(MD_RECOVERY_RUNNING, &mddev->recovery)) {
-+			if (!test_bit(MD_RECOVERY_DONE, &mddev->recovery)) {
-+				/* resync/recovery still happening */
-+				clear_bit(MD_RECOVERY_NEEDED, &mddev->recovery);
-+				goto unlock;
-+			}
-+
-+			if (WARN_ON_ONCE(!mddev->sync_thread))
-+				goto unlock;
-+
- 			md_reap_sync_thread(mddev);
- 			goto unlock;
- 		}
-+
- 		/* Set RUNNING before clearing NEEDED to avoid
- 		 * any transients in the value of "sync_action".
- 		 */
--- 
-2.39.2
+Thank you,
+Nitesh Shetty
 
 --
 dm-devel mailing list
