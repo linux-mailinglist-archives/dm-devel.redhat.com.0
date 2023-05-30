@@ -2,94 +2,99 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D504716F2C
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:50 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B1A2F7156B1
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 09:27:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480089;
+	s=mimecast20190719; t=1685431639;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=1qNn0DfyJ23tDihledjnRa8cETYPcl01aGfpjtA5ZNs=;
-	b=bvnowGC/jqof9gHQqaxxRDb0Zw8NuxNHhggZVYVoqY1Xd1kdDPcS4Tu0RYes/C9xTMU4Y7
-	P3CswqcnrzxwhH1rtLzlJqFmC/PZ2YSZwe8AoPtpbuMNTaRsMlxmyHhSgICsJeo5Kw/Fbz
-	ldq+BdkAQ6Z4z5rGgOvUWP3TDu+sO6Q=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=bo6wTfa2Yxm+USlg84I9axuM+qJCUb5Ir5F1HzU9YEk=;
+	b=W8sW8bcqpvwXEA9K0kHtUhnYg97J/qaqMP9Hzcr7fgHDksZbVfwQl62H56Hw5jyRKSgnyM
+	EO8zdui9oVJVC0Pzgjnap9mS23k3udCUxZLKpXV0f47UmPMgY1piDHBqoVQZee4P155U2j
+	qEnyeqC9QYJ0hpE6tVCTiI5kJmM2yYk=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-28-8tReHrOcPWSzLr2jbLNHUQ-1; Tue, 30 May 2023 16:54:46 -0400
-X-MC-Unique: 8tReHrOcPWSzLr2jbLNHUQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-70-qjFSz_mtNNa1pCwxW3H07Q-1; Tue, 30 May 2023 03:27:16 -0400
+X-MC-Unique: qjFSz_mtNNa1pCwxW3H07Q-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B62C41C05133;
-	Tue, 30 May 2023 20:54:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB348101A55C;
+	Tue, 30 May 2023 07:27:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A0C6320296C6;
-	Tue, 30 May 2023 20:54:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 49E9F40C6EC4;
+	Tue, 30 May 2023 07:27:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 07AF319452C5;
-	Tue, 30 May 2023 20:54:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E2B1919465B7;
+	Tue, 30 May 2023 07:27:07 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6A581194658C
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 06:14:15 +0000 (UTC)
+ ESMTP id 7895A194658C
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 07:27:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 49505421C3; Tue, 30 May 2023 06:14:15 +0000 (UTC)
+ id 359002166B26; Tue, 30 May 2023 07:27:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 408A4420A8
- for <dm-devel@redhat.com>; Tue, 30 May 2023 06:14:01 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2CEB72166B25
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 07:27:06 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B10D3803524
- for <dm-devel@redhat.com>; Tue, 30 May 2023 06:14:01 +0000 (UTC)
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-78-e5qLxzAzNhOovj045_HJBw-1; Tue, 30 May 2023 02:13:57 -0400
-X-MC-Unique: e5qLxzAzNhOovj045_HJBw-1
-X-QQ-mid: bizesmtp65t1685426547tmy4xja6
-Received: from localhost.localdomain ( [113.200.76.118])
- by bizesmtp.qq.com (ESMTP) with 
- id ; Tue, 30 May 2023 14:02:24 +0800 (CST)
-X-QQ-SSF: 01400000000000C0G000000A0000000
-X-QQ-FEAT: znfcQSa1hKaNoAA+Wu37XwpK1cksC/6aTghWFSS0JvJasQfz+eIO2zJLQRT6i
- rEM1DjNn+cMKUMmMkYKxNVhiJ/YaqYwyOdwJn8trVVHL4FwWqRIC1gXasm0tl2QcgbOhP2j
- LvZhKTr8+O0f7WbJ7aEKXPBecA76aTyilAsJsTVqnedMXbBhFAnGHPVXjv6vLMsjW6YvPyi
- i1gtBueSiPnfPmNzUzOGPtA6xO9BEI1yiGrXZ0be9XSQujkY1RIoTVJFJr5g/q5q1gPvFUS
- ZEKOIIEP+REIXrHWhBXhZbB8seLB4k9ZUsPfQMlMU4/yyaVrRkuBNBwcOqvR1A5Vgs91htm
- UZo1RdQcwSh9F4y0PRV2IDwcHtWLTFF1d191XBv6COHtM1tov3TE4c2SwkUPUQ1WWsDxlmz
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 6104239791662094715
-From: gouhao@uniontech.com
-To: johannes.thumshirn@wdc.com
-Date: Tue, 30 May 2023 14:02:22 +0800
-Message-Id: <20230530060222.14892-1-gouhao@uniontech.com>
-In-Reply-To: <20230502101934.24901-5-johannes.thumshirn@wdc.com>
-References: <20230502101934.24901-5-johannes.thumshirn@wdc.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C4CC101A53B
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 07:27:06 +0000 (UTC)
+Received: from mail-wr1-f69.google.com (mail-wr1-f69.google.com
+ [209.85.221.69]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-561-A116S1AWOv21odEz7vpSHw-1; Tue, 30 May 2023 03:27:04 -0400
+X-MC-Unique: A116S1AWOv21odEz7vpSHw-1
+Received: by mail-wr1-f69.google.com with SMTP id
+ ffacd0b85a97d-30ae8776c12so991038f8f.1
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 00:27:04 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685431623; x=1688023623;
+ h=cc:to:subject:message-id:date:from:in-reply-to:references
+ :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=8pS4XJS05t9e8Cv0v1TnfdKjXXEtonqfYdbK97XQxsM=;
+ b=B0gRqsCjViK7bammYKRWSxzH7g7mIXYOEpe6TbA7DrWo7nN+BnEtmxLDIvmvQpa7Q9
+ FgA0Eigj/Lg5i5hRy+11faGAFUBqfD/AkkGQsTpoCZaqmDWTo8iKpqAMyFP23thsL6YK
+ OlWQ94c3H5GPyIlg9wRNHHqduLpy6wmXesFKDUjlIlunGC0nP/kB88np6w1IIiesNOCd
+ H7VbDBoY2CMfiP94NXkcnp9IKgixCiVFQvjyD6Z6II+d7xvx1R1CPkoT23Ws9lBilF4O
+ cgVwPrGw4khELk+Vhl3N+a2QljsnvnYha8LDQNH0O4UDiWRwETDN66lwhokAW2xHsSNo
+ nz3Q==
+X-Gm-Message-State: AC+VfDzkdBGgV02IBC6vpygFmkE2DUCXUsJo5VTaEIGjbRtseJwdz0XD
+ HPq0AlfpJVRywcyyc8PrGXVM+VLfhyCLGz1HlgoEnJitG43xjpejG/TGc960OB9nyfaEcCt1adK
+ olD0b/F846HWXTYdbLW/AL/eMArXhXSg=
+X-Received: by 2002:a5d:6045:0:b0:306:3352:5b8c with SMTP id
+ j5-20020a5d6045000000b0030633525b8cmr1168616wrt.7.1685431623405; 
+ Tue, 30 May 2023 00:27:03 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ5tGO149vFlmdoQxZZS3RtGFogq06sbqVX6c0aVsYwiYx+muS2OzK8FxigO8RpUSVJfx4uvBwt+OUyVt7qv7U0=
+X-Received: by 2002:a5d:6045:0:b0:306:3352:5b8c with SMTP id
+ j5-20020a5d6045000000b0030633525b8cmr1168591wrt.7.1685431623191; Tue, 30 May
+ 2023 00:27:03 -0700 (PDT)
 MIME-Version: 1.0
-X-QQ-SENDSIZE: 520
-Feedback-ID: bizesmtp:uniontech.com:qybglogicsvrgz:qybglogicsvrgz7a-0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
-Subject: Re: [dm-devel] [PATCH v5 04/20] fs: buffer: use __bio_add_page to
- add single page to bio
+References: <ZGb2Xi6O3i2pLam8@infradead.org> <ZGeKm+jcBxzkMXQs@redhat.com>
+ <ZGgBQhsbU9b0RiT1@dread.disaster.area> <ZGu0LaQfREvOQO4h@redhat.com>
+ <ZGzIJlCE2pcqQRFJ@bfoster> <ZGzbGg35SqMrWfpr@redhat.com>
+ <ZG1dAtHmbQ53aOhA@dread.disaster.area>
+ <ZG+KoxDMeyogq4J0@bfoster> <ZHB954zGG1ag0E/t@dread.disaster.area>
+ <CAJ0trDbspRaDKzTzTjFdPHdB9n0Q9unfu1cEk8giTWoNu3jP8g@mail.gmail.com>
+ <ZHFEfngPyUOqlthr@dread.disaster.area>
+In-Reply-To: <ZHFEfngPyUOqlthr@dread.disaster.area>
+From: Joe Thornber <thornber@redhat.com>
+Date: Tue, 30 May 2023 08:27:04 +0100
+Message-ID: <CAJ0trDZJQwvAzngZLBJ1hB0XkQ1HRHQOdNQNTw9nK-U5i-0bLA@mail.gmail.com>
+To: Dave Chinner <david@fromorbit.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH v7 0/5] Introduce provisioning primitives
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,59 +106,143 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, damien.lemoal@wdc.com,
- kch@nvidia.com, agruenba@redhat.com, shaggy@kernel.org, song@kernel.org,
- damien.lemoal@opensource.wdc.com, snitzer@kernel.org,
- jfs-discussion@lists.sourceforge.net, willy@infradead.org, ming.lei@redhat.com,
- cluster-devel@redhat.com, linux-mm@kvack.org, dm-devel@redhat.com,
- linux-fsdevel@vger.kernel.org, linux-raid@vger.kernel.org, hch@lst.de,
- rpeterso@redhat.com
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ Theodore Ts'o <tytso@mit.edu>, Stefan Hajnoczi <stefanha@redhat.com>,
+ "Michael S. Tsirkin" <mst@redhat.com>, "Darrick J. Wong" <djwong@kernel.org>,
+ Brian Foster <bfoster@redhat.com>, Bart Van Assche <bvanassche@google.com>,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ Joe Thornber <ejt@redhat.com>, Christoph Hellwig <hch@infradead.org>,
+ dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
+ Sarthak Kukreti <sarthakkukreti@chromium.org>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Jason Wang <jasowang@redhat.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: uniontech.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed; boundary="===============8319042980980808329=="
 
-> 
-> The buffer_head submission code uses bio_add_page() to add a page to a
-> newly created bio. bio_add_page() can fail, but the return value is never
-> checked.
-> 
-> Use __bio_add_page() as adding a single page to a newly created bio is
-> guaranteed to succeed.
-> 
-> This brings us a step closer to marking bio_add_page() as __must_check.
-> 
-> Reviewed-by: Damien Le Moal <damien.lemoal@opensource.wdc.com>
-> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
-> ---
->  fs/buffer.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/fs/buffer.c b/fs/buffer.c
-> index a7fc561758b1..5abc26d8399d 100644
-> --- a/fs/buffer.c
-> +++ b/fs/buffer.c
-> @@ -2760,7 +2760,7 @@ static void submit_bh_wbc(blk_opf_t opf, struct buffer_head *bh,
->  
->  	bio->bi_iter.bi_sector = bh->b_blocknr * (bh->b_size >> 9);
->  
-> -	bio_add_page(bio, bh->b_page, bh->b_size, bh_offset(bh));
-> +	__bio_add_page(bio, bh->b_page, bh->b_size, bh_offset(bh));
->  	BUG_ON(bio->bi_iter.bi_size != bh->b_size);
-Can `BUG_ON` be deleted now ?
->  
->  	bio->bi_end_io = end_bio_bh_io_sync;
-> -- 
-> 2.40.0
---
-thanks,
-Gou Hao
+--===============8319042980980808329==
+Content-Type: multipart/alternative; boundary="000000000000319f8f05fce42177"
+
+--000000000000319f8f05fce42177
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+On Sat, May 27, 2023 at 12:45=E2=80=AFAM Dave Chinner <david@fromorbit.com>=
+ wrote:
+
+> On Fri, May 26, 2023 at 12:04:02PM +0100, Joe Thornber wrote:
+>
+> > 1) We have an api (ioctl, bio flag, whatever) that lets you
+> > reserve/guarantee a region:
+> >
+> >   int reserve_region(dev, sector_t begin, sector_t end);
+>
+> A C-based interface is not sufficient because the layer that must do
+> provsioning is not guaranteed to be directly under the filesystem.
+> We must be able to propagate the request down to the layers that
+> need to provision storage, and that includes hardware devices.
+>
+> e.g. dm-thin would have to issue REQ_PROVISION on the LBA ranges it
+> allocates in it's backing device to guarantee that the provisioned
+> LBA range it allocates is also fully provisioned by the storage
+> below it....
+>
+
+Fine, bio flag it is.
+
+
+>
+> >   This api should be used minimally, eg, critical FS metadata only.
+>
+>
+>
+> Plan for having to support tens of GBs of provisioned space in
+> filesystems, not tens of MBs....
+>
+
+Also fine.
+
+
+I think there's a 2-3 solid days of coding to fully implement
+> REQ_PROVISION support in XFS, including userspace tool support.
+> Maybe a couple of weeks more to flush the bugs out before it's
+> largely ready to go.
+>
+> So if there's buy in from the block layer and DM people for
+> REQ_PROVISION as described, then I'll definitely have XFS support
+> ready for you to test whenever dm-thinp is ready to go.
+>
+
+Great, this is what I wanted to hear.  I guess we need an ack from the
+block guys and
+then I'll get started.
+
+- Joe
+
+--000000000000319f8f05fce42177
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
+<div dir=3D"ltr" class=3D"gmail_attr">On Sat, May 27, 2023 at 12:45=E2=80=
+=AFAM Dave Chinner &lt;<a href=3D"mailto:david@fromorbit.com">david@fromorb=
+it.com</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"m=
+argin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left=
+:1ex">On Fri, May 26, 2023 at 12:04:02PM +0100, Joe Thornber wrote:<br><br>
+&gt; 1) We have an api (ioctl, bio flag, whatever) that lets you<br>
+&gt; reserve/guarantee a region:<br>
+&gt; <br>
+&gt;=C2=A0 =C2=A0int reserve_region(dev, sector_t begin, sector_t end);<br>
+<br>
+A C-based interface is not sufficient because the layer that must do<br>
+provsioning is not guaranteed to be directly under the filesystem.<br>
+We must be able to propagate the request down to the layers that<br>
+need to provision storage, and that includes hardware devices.<br>
+<br>
+e.g. dm-thin would have to issue REQ_PROVISION on the LBA ranges it<br>
+allocates in it&#39;s backing device to guarantee that the provisioned<br>
+LBA range it allocates is also fully provisioned by the storage<br>
+below it....<br></blockquote><div><br></div><div>Fine, bio flag it is.</div=
+><div>=C2=A0</div><blockquote class=3D"gmail_quote" style=3D"margin:0px 0px=
+ 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+&gt;=C2=A0 =C2=A0This api should be used minimally, eg, critical FS metadat=
+a only.<br>
+<br><br></blockquote><blockquote class=3D"gmail_quote" style=3D"margin:0px =
+0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1ex">
+<br>
+Plan for having to support tens of GBs of provisioned space in<br>
+filesystems, not tens of MBs....<br></blockquote><div><br></div><div>Also f=
+ine.=C2=A0</div><div><br></div><div><br></div><blockquote class=3D"gmail_qu=
+ote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,20=
+4);padding-left:1ex">I think there&#39;s a 2-3 solid days of coding to full=
+y implement<br>
+REQ_PROVISION support in XFS, including userspace tool support.<br>
+Maybe a couple of weeks more to flush the bugs out before it&#39;s<br>
+largely ready to go.<br>
+<br>
+So if there&#39;s buy in from the block layer and DM people for<br>
+REQ_PROVISION as described, then I&#39;ll definitely have XFS support<br>
+ready for you to test whenever dm-thinp is ready to go.<br></blockquote><di=
+v><br></div><div>Great, this is what I wanted to hear.=C2=A0 I guess we nee=
+d an ack from the block guys and</div><div>then I&#39;ll get started.</div>=
+<div>=C2=A0</div><div>- Joe</div></div></div>
+
+--000000000000319f8f05fce42177--
+
+--===============8319042980980808329==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============8319042980980808329==--
 
