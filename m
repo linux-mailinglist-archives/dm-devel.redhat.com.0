@@ -2,96 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 34FF2716F37
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 78634716F35
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480095;
+	s=mimecast20190719; t=1685480092;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=kAEReTeSIrC0RC5AmmpKIka/L+Rz5i1ma797N0w6/l4=;
-	b=H1fLUQppWpDSukbjk/b2FwGc81H1o348eExKsoROYZFbQpVSEXolXTZKEs203hNlQHx0Sf
-	B+LZkMLN/mlKVbz1Vfep6qIUxwnlInzDXOljmV175bdP43t4X0nRAYUs9aU9d60irly4Ch
-	cwgNTZHmjs9lhfkKsZ2aXLBhT99gX8k=
+	bh=3SWdfQ4BRWFId7zJB7i8VQVMfWXTSh4Kv9/2kx2/kUA=;
+	b=MWSskNtneRosBI+mAXlykKrxkWzrMKnpQq6rI9sTrO2dyqpPAzzA8mYQmGuXHoO86Fd0tT
+	edproKb7YeTDyVMSEs48Hs/lUgOM9k6ApMO8dCfSwVCijLQg3fenb05+ZDgMwTLkh3yAJn
+	ilD6Kujf3HrvhFTmNwTX4v1pfta95aE=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-348-Nyojw1mKMLmI5BMq0kV5hw-1; Tue, 30 May 2023 16:54:51 -0400
-X-MC-Unique: Nyojw1mKMLmI5BMq0kV5hw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-330-q7h4oQBXNgCgL6eYBLW-JQ-1; Tue, 30 May 2023 16:54:48 -0400
+X-MC-Unique: q7h4oQBXNgCgL6eYBLW-JQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C6EB1C01B2A;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BAEA28082A1;
 	Tue, 30 May 2023 20:54:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 647711121331;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7507E202696C;
 	Tue, 30 May 2023 20:54:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6E3C819465B9;
-	Tue, 30 May 2023 20:54:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 08D531946A44;
+	Tue, 30 May 2023 20:54:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A7ECB1946595
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:40:56 +0000 (UTC)
+ ESMTP id 7CAB71946595
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:46:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 87D23202696C; Tue, 30 May 2023 20:40:56 +0000 (UTC)
+ id 52C1F40C6CCC; Tue, 30 May 2023 20:46:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 80D5D2029F6E
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:56 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B76D40C6EC4
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:46:59 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 63384806014
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:56 +0000 (UTC)
-Received: from wout5-smtp.messagingengine.com
- (wout5-smtp.messagingengine.com [64.147.123.21]) by relay.mimecast.com with
- ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-298-Q6LBgvx3M9K7n6-p_Y8fCA-1; Tue, 30 May 2023 16:40:53 -0400
-X-MC-Unique: Q6LBgvx3M9K7n6-p_Y8fCA-1
-Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
- by mailout.west.internal (Postfix) with ESMTP id 0D022320096E;
- Tue, 30 May 2023 16:32:20 -0400 (EDT)
-Received: from mailfrontend1 ([10.202.2.162])
- by compute4.internal (MEProxy); Tue, 30 May 2023 16:32:21 -0400
-X-ME-Sender: <xms:VF12ZCx6LBtGDgihYZ-NBi1TQbMnT10K4M83ELm3G3ATfM8R279sSA>
- <xme:VF12ZOSoOZisX8Dh7PgaI1Br2VXmS17_-QQHdNrd8ODedLEjRJsiupF-ePxfF5-CL
- VIu0ou0rSk2fvk>
-X-ME-Received: <xmr:VF12ZEUZ2v-22K9HABN8joZIwupVm2l2OuN_SbATb71V0ubBkGLMjmuY97GOgzqwv3poc01Y0NU>
-X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetggdotefrod
- ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
- necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghm
- ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
- hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefg
- hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtne
- curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
- shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:VF12ZIgsEEnwHKmC43Kv9GxV7bH-i7tiH_PkAz1p_2nBYwSEAf6YrA>
- <xmx:VF12ZEDqiN37KhUgZoqxnScnVqOaHAYoy7GmY53oxQjsejR59koZOQ>
- <xmx:VF12ZJLZp0lEBhXhDlI94ziBRaLfrp4UJrXDlteRIEm9FlDD8PS34w>
- <xmx:VF12ZCA0rxPCrK0M9295LprgFjyNUobhbd0Xa629Rogk5JO32xfXOA>
-Feedback-ID: iac594737:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 May 2023 16:32:19 -0400 (EDT)
-From: Demi Marie Obenour <demi@invisiblethingslab.com>
-To: Jens Axboe <axboe@kernel.dk>,
- =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
- Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
- dm-devel@redhat.com
-Date: Tue, 30 May 2023 16:31:16 -0400
-Message-Id: <20230530203116.2008-17-demi@invisiblethingslab.com>
-In-Reply-To: <20230530203116.2008-1-demi@invisiblethingslab.com>
-References: <20230530203116.2008-1-demi@invisiblethingslab.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C358858F14
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:46:59 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-328-jmc7WPD0NRKYMjZAse595g-1; Tue, 30 May 2023 16:46:57 -0400
+X-MC-Unique: jmc7WPD0NRKYMjZAse595g-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 248DF62F78;
+ Tue, 30 May 2023 20:41:10 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81EDBC4339C;
+ Tue, 30 May 2023 20:41:09 +0000 (UTC)
+Received: by mail-lj1-f173.google.com with SMTP id
+ 38308e7fff4ca-2af189d323fso2841901fa.1; 
+ Tue, 30 May 2023 13:41:09 -0700 (PDT)
+X-Gm-Message-State: AC+VfDx3a7J3jJqB/NPRTwWcePPW4DY0HrB3Vk8Fz4oZjg1rXppIt/h4
+ SinK+Ft3pL506Fg/h10/3Tlrwe8SN0SIfx+Kqls=
+X-Google-Smtp-Source: ACHHUZ7vuf2vQNikh852gIOeYbs1mAspWrnHLpuRQ0WVk/9d/YVdWPAiSzLnXbcDRj80He113UbugMRuu4yM7AjsQxc=
+X-Received: by 2002:a2e:a222:0:b0:2af:18a9:782f with SMTP id
+ i2-20020a2ea222000000b002af18a9782fmr4570675ljm.0.1685479267531; Tue, 30 May
+ 2023 13:41:07 -0700 (PDT)
 MIME-Version: 1.0
+References: <cover.1685461490.git.johannes.thumshirn@wdc.com>
+ <d7cfd04d410accee4148d8c0e51230bcb8b4bb8f.1685461490.git.johannes.thumshirn@wdc.com>
+In-Reply-To: <d7cfd04d410accee4148d8c0e51230bcb8b4bb8f.1685461490.git.johannes.thumshirn@wdc.com>
+From: Song Liu <song@kernel.org>
+Date: Tue, 30 May 2023 13:40:55 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW6hZWx3Jx0UOc20mf06c5QS5vfDKF_nauzm0mLkr3Xhsw@mail.gmail.com>
+Message-ID: <CAPhsuW6hZWx3Jx0UOc20mf06c5QS5vfDKF_nauzm0mLkr3Xhsw@mail.gmail.com>
+To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -99,10 +89,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
-Subject: [dm-devel] [PATCH v2 16/16] xen-blkback: Inform userspace that
- device has been opened
+Subject: Re: [dm-devel] [PATCH v6 13/20] md: check for failure when adding
+ pages in alloc_behind_master_bio
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,105 +104,45 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
- linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
- =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
+ Damien Le Moal <damien.lemoal@wdc.com>, cluster-devel@redhat.com,
+ Chaitanya Kulkarni <kch@nvidia.com>, Andreas Gruenbacher <agruenba@redhat.com>,
+ Dave Kleikamp <shaggy@kernel.org>,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>, gouhao@uniontech.com,
+ Mike Snitzer <snitzer@kernel.org>, jfs-discussion@lists.sourceforge.net,
+ Matthew Wilcox <willy@infradead.org>, Ming Lei <ming.lei@redhat.com>,
+ linux-block@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Mikulas Patocka <mpatocka@redhat.com>, linux-fsdevel@vger.kernel.org,
+ Christoph Hellwig <hch@lst.de>, Bob Peterson <rpeterso@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: invisiblethingslab.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-Set "opened" to "0" before the hotplug script is called.  Once the
-device node has been opened, set "opened" to "1".
-
-"opened" is used exclusively by userspace.  It serves two purposes:
-
-1. It tells userspace that the diskseq Xenstore entry is supported.
-
-2. It tells userspace that it can wait for "opened" to be set to 1.
-   Once "opened" is 1, blkback has a reference to the device, so
-   userspace doesn't need to keep one.
-
-Together, these changes allow userspace to use block devices with
-delete-on-close behavior, such as loop devices with the autoclear flag
-set or device-mapper devices with the deferred-remove flag set.
-
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
- drivers/block/xen-blkback/xenbus.c | 35 ++++++++++++++++++++++++++++++
- 1 file changed, 35 insertions(+)
-
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 9c3eb148fbd802c74e626c3d7bcd69dcb09bd921..519a78aa9073d1faa1dce5c1b36e95ae58da534b 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -3,6 +3,20 @@
-     Copyright (C) 2005 Rusty Russell <rusty@rustcorp.com.au>
-     Copyright (C) 2005 XenSource Ltd
- 
-+In addition to the Xenstore nodes required by the Xen block device
-+specification, this implementation of blkback uses a new Xenstore
-+node: "opened".  blkback sets "opened" to "0" before the hotplug script
-+is called.  Once the device node has been opened, blkback sets "opened"
-+to "1".
-+
-+"opened" is read exclusively by userspace.  It serves two purposes:
-+
-+1. It tells userspace that diskseq@major:minor syntax for "physical-device" is
-+   supported.
-+
-+2. It tells userspace that it can wait for "opened" to be set to 1 after writing
-+   "physical-device".  Once "opened" is 1, blkback has a reference to the
-+   device, so userspace doesn't need to keep one.
- 
- */
- 
-@@ -699,6 +713,14 @@ static int xen_blkbk_probe(struct xenbus_device *dev,
- 	if (err)
- 		pr_warn("%s write out 'max-ring-page-order' failed\n", __func__);
- 
-+	/*
-+	 * This informs userspace that the "opened" node will be set to "1" when
-+	 * the device has been opened successfully.
-+	 */
-+	err = xenbus_write(XBT_NIL, dev->nodename, "opened", "0");
-+	if (err)
-+		goto fail;
-+
- 	err = xenbus_switch_state(dev, XenbusStateInitWait);
- 	if (err)
- 		goto fail;
-@@ -826,6 +848,19 @@ static void backend_changed(struct xenbus_watch *watch,
- 		goto fail;
- 	}
- 
-+	/*
-+	 * Tell userspace that the device has been opened and that blkback has a
-+	 * reference to it.  Userspace can then close the device or mark it as
-+	 * delete-on-close, knowing that blkback will keep the device open as
-+	 * long as necessary.
-+	 */
-+	err = xenbus_write(XBT_NIL, dev->nodename, "opened", "1");
-+	if (err) {
-+		xenbus_dev_fatal(dev, err, "%s: notifying userspace device has been opened",
-+				 dev->nodename);
-+		goto free_vbd;
-+	}
-+
- 	err = xenvbd_sysfs_addif(dev);
- 	if (err) {
- 		xenbus_dev_fatal(dev, err, "creating sysfs entries");
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gVHVlLCBNYXkgMzAsIDIwMjMgYXQgODo1MOKAr0FNIEpvaGFubmVzIFRodW1zaGlybgo8am9o
+YW5uZXMudGh1bXNoaXJuQHdkYy5jb20+IHdyb3RlOgo+Cj4gYWxsb2NfYmVoaW5kX21hc3Rlcl9i
+aW8oKSBjYW4gcG9zc2libHkgYWRkIG11bHRpcGxlIHBhZ2VzIHRvIGEgYmlvLCBidXQgaXQKPiBp
+cyBub3QgY2hlY2tpbmcgZm9yIHRoZSByZXR1cm4gdmFsdWUgb2YgYmlvX2FkZF9wYWdlKCkgaWYg
+YWRkaW5nIHJlYWxseQo+IHN1Y2NlZWRlZC4KPgo+IENoZWNrIGlmIHRoZSBwYWdlIGFkZGluZyBz
+dWNjZWVkZWQgYW5kIGlmIG5vdCBiYWlsIG91dC4KPgo+IFJldmlld2VkLWJ5OiBEYW1pZW4gTGUg
+TW9hbCA8ZGFtaWVuLmxlbW9hbEBvcGVuc291cmNlLndkYy5jb20+Cj4gU2lnbmVkLW9mZi1ieTog
+Sm9oYW5uZXMgVGh1bXNoaXJuIDxqb2hhbm5lcy50aHVtc2hpcm5Ad2RjLmNvbT4KCkFja2VkLWJ5
+OiBTb25nIExpdSA8c29uZ0BrZXJuZWwub3JnPgoKPiAtLS0KPiAgZHJpdmVycy9tZC9yYWlkMS5j
+IHwgNSArKysrLQo+ICAxIGZpbGUgY2hhbmdlZCwgNCBpbnNlcnRpb25zKCspLCAxIGRlbGV0aW9u
+KC0pCj4KPiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9yYWlkMS5jIGIvZHJpdmVycy9tZC9yYWlk
+MS5jCj4gaW5kZXggNjhhOWUyZDk5ODViLi44MjgzZWYxNzdmNmMgMTAwNjQ0Cj4gLS0tIGEvZHJp
+dmVycy9tZC9yYWlkMS5jCj4gKysrIGIvZHJpdmVycy9tZC9yYWlkMS5jCj4gQEAgLTExNDcsNyAr
+MTE0NywxMCBAQCBzdGF0aWMgdm9pZCBhbGxvY19iZWhpbmRfbWFzdGVyX2JpbyhzdHJ1Y3QgcjFi
+aW8gKnIxX2JpbywKPiAgICAgICAgICAgICAgICAgaWYgKHVubGlrZWx5KCFwYWdlKSkKPiAgICAg
+ICAgICAgICAgICAgICAgICAgICBnb3RvIGZyZWVfcGFnZXM7Cj4KPiAtICAgICAgICAgICAgICAg
+YmlvX2FkZF9wYWdlKGJlaGluZF9iaW8sIHBhZ2UsIGxlbiwgMCk7Cj4gKyAgICAgICAgICAgICAg
+IGlmICghYmlvX2FkZF9wYWdlKGJlaGluZF9iaW8sIHBhZ2UsIGxlbiwgMCkpIHsKPiArICAgICAg
+ICAgICAgICAgICAgICAgICBmcmVlX3BhZ2UocGFnZSk7Cj4gKyAgICAgICAgICAgICAgICAgICAg
+ICAgZ290byBmcmVlX3BhZ2VzOwo+ICsgICAgICAgICAgICAgICB9Cj4KPiAgICAgICAgICAgICAg
+ICAgc2l6ZSAtPSBsZW47Cj4gICAgICAgICAgICAgICAgIGkrKzsKPiAtLQo+IDIuNDAuMQo+Cgot
+LQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3Rt
+YW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
