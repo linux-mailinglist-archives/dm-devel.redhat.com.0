@@ -1,74 +1,105 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C183E716DCF
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 21:43:47 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59215716F34
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685475826;
+	s=mimecast20190719; t=1685480091;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=EYWMegiRydxsNbPE+xsMW/OfNqxP55bw/bH84BrrxF0=;
-	b=CuyjaVUHjWwwtjykGDO51EgiDgty78S5wrXIWlBo69WA8sYPSO4L73bhsN7cQvJUSbe7+c
-	pxFX6WKBKY74EbX0jVXCvZbwaCtVxLwx6vLcBtoeu5viRZOiZv4viedNkLhZJJhOYPf9+I
-	1L4lm1O4Vc2kQFn46GSX1fNrr1BSIVE=
+	bh=AAeaccJXBbKtujMm+YQLItIKj91bDhg18YYXNSOxRb0=;
+	b=TrB8Dj3hkBtVz15wwwEAHotuWMKbWq4qe5JWh0abm/5Fvj4tjmsMNVLXm1Ns//0BxCvABr
+	aEbkNowhnkfolGeGJuk75KXdLnTw6vYWZlsS2qSAw2wzUIndSemIdx8Uxks8+rEuNbuvwg
+	qUbBiRIxNLM7oMpHkVNyjzpSxm3Sblc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-206-1XLoC7SrMSCjAROb2Hs3Bg-1; Tue, 30 May 2023 15:43:45 -0400
-X-MC-Unique: 1XLoC7SrMSCjAROb2Hs3Bg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-279-jp1kRrFXMUqyeKbjQ1vyhw-1; Tue, 30 May 2023 16:54:47 -0400
+X-MC-Unique: jp1kRrFXMUqyeKbjQ1vyhw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60F1A811E7C;
-	Tue, 30 May 2023 19:43:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 11F85803C9C;
+	Tue, 30 May 2023 20:54:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6C04A140E956;
-	Tue, 30 May 2023 19:43:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EFA1020296C6;
+	Tue, 30 May 2023 20:54:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D33F519465B7;
-	Tue, 30 May 2023 19:43:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8F8E4194E11E;
+	Tue, 30 May 2023 20:54:26 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AC28A1946595
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 19:43:34 +0000 (UTC)
+ ESMTP id DB8CC1946595
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:40:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 933C72166B29; Tue, 30 May 2023 19:43:34 +0000 (UTC)
+ id CB9CD40C6CCC; Tue, 30 May 2023 20:40:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file01.intranet.prod.int.rdu2.redhat.com
- (file01.intranet.prod.int.rdu2.redhat.com [10.11.5.7])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5346B2166B25;
- Tue, 30 May 2023 19:43:34 +0000 (UTC)
-Received: from file01.intranet.prod.int.rdu2.redhat.com (localhost [127.0.0.1])
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4) with ESMTP id
- 34UJhY4b022142; Tue, 30 May 2023 15:43:34 -0400
-Received: from localhost (mpatocka@localhost)
- by file01.intranet.prod.int.rdu2.redhat.com (8.14.4/8.14.4/Submit) with ESMTP
- id 34UJhXMb022117; Tue, 30 May 2023 15:43:33 -0400
-X-Authentication-Warning: file01.intranet.prod.int.rdu2.redhat.com: mpatocka
- owned process doing -bs
-Date: Tue, 30 May 2023 15:43:33 -0400 (EDT)
-From: Mikulas Patocka <mpatocka@redhat.com>
-X-X-Sender: mpatocka@file01.intranet.prod.int.rdu2.redhat.com
-To: Mike Snitzer <snitzer@kernel.org>
-In-Reply-To: <ZHYbIYxGbcXbpvIK@redhat.com>
-Message-ID: <alpine.LRH.2.21.2305301527410.18906@file01.intranet.prod.int.rdu2.redhat.com>
-References: <20230502101934.24901-1-johannes.thumshirn@wdc.com>
- <20230502101934.24901-17-johannes.thumshirn@wdc.com>
- <alpine.LRH.2.21.2305301045220.3943@file01.intranet.prod.int.rdu2.redhat.com>
- <ZHYbIYxGbcXbpvIK@redhat.com>
-User-Agent: Alpine 2.21 (LRH 202 2017-01-01)
+Received: from mimecast-mx02.redhat.com
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C41CB40C6EC4
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:56 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A4CDD3C13517
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:56 +0000 (UTC)
+Received: from wout5-smtp.messagingengine.com
+ (wout5-smtp.messagingengine.com [64.147.123.21]) by relay.mimecast.com with
+ ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-225-1nmPtkV3MxqPOSuoUmCNYQ-1; Tue, 30 May 2023 16:40:55 -0400
+X-MC-Unique: 1nmPtkV3MxqPOSuoUmCNYQ-1
+Received: from compute4.internal (compute4.nyi.internal [10.202.2.44])
+ by mailout.west.internal (Postfix) with ESMTP id E6A0D3200906;
+ Tue, 30 May 2023 16:31:33 -0400 (EDT)
+Received: from mailfrontend1 ([10.202.2.162])
+ by compute4.internal (MEProxy); Tue, 30 May 2023 16:31:34 -0400
+X-ME-Sender: <xms:JV12ZKw_sleDe0CYhkOy1rfxDsKjpyELd-fxjymHbgcgq5lekwsKZA>
+ <xme:JV12ZGTAn57_8e1GFIsXL0ysKh0FpixwJKQ-TddPSbdxYp9ycPOiTVwaNOrltt2ad
+ ug8Bk31vxxSZPs>
+X-ME-Received: <xmr:JV12ZMUabxwRmIasWNcUfFJi1r8ayOF9Gz99yU6V6s-nhGY0G9ciErqgnlwdmTNxI5uZ2MoKV6c>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefhvfevufffkffogggtgfesthekredtredtjeenucfhrhhomhepffgvmhhi
+ ucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhihhngh
+ hslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhephfeggfeiiedtieejgedutdekgfet
+ geehheegteekvefhfefgudehtdevleegueegnecuvehluhhsthgvrhfuihiivgeptdenuc
+ frrghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhs
+ lhgrsgdrtghomh
+X-ME-Proxy: <xmx:JV12ZAjQ2rV9YCzr3z2bw2d41_MyNZJp_kvJGEi-trj6PoDKHYaXqQ>
+ <xmx:JV12ZMCHtfgQyZp2PZhX45i91mJDIhD_ys-ao3poTncETHRblZjImQ>
+ <xmx:JV12ZBLpJyOl-upuH58Tw1NYpbK7gxAD5Bx9jCgXSTOlNIObWkK6QA>
+ <xmx:JV12ZKAryiWCZk5crUODpJpFTwj0sB-WzC-8b4F9y9v0UR85ql4CiA>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
+ 30 May 2023 16:31:32 -0400 (EDT)
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Jens Axboe <axboe@kernel.dk>,
+ =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+ Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ dm-devel@redhat.com
+Date: Tue, 30 May 2023 16:31:00 -0400
+Message-Id: <20230530203116.2008-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v5 16/20] dm-crypt: check if adding pages to
- clone bio fails
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
+Subject: [dm-devel] [PATCH v2 00/16] Diskseq support in loop, device-mapper,
+ and blkback
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -80,67 +111,90 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "axboe @ kernel . dk" <axboe@kernel.dk>, shaggy@kernel.org,
- damien.lemoal@wdc.com, kch@nvidia.com, agruenba@redhat.com, song@kernel.org,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, linux-raid@vger.kernel.org,
- jfs-discussion@lists.sourceforge.net, willy@infradead.org, ming.lei@redhat.com,
- cluster-devel@redhat.com, linux-mm@kvack.org, dm-devel@redhat.com,
- linux-block@vger.kernel.org, rpeterso@redhat.com,
- linux-fsdevel@vger.kernel.org, hch@lst.de
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ linux-block@vger.kernel.org, xen-devel@lists.xenproject.org,
+ =?UTF-8?q?Marek=20Marczykowski-G=C3=B3recki?=
+ <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Mimecast-Originator: invisiblethingslab.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+This work aims to allow userspace to create and destroy block devices
+in a race-free way, and to allow them to be exposed to other Xen VMs via
+blkback without races.
 
+Changes since v1:
 
-On Tue, 30 May 2023, Mike Snitzer wrote:
+- Several device-mapper fixes added.
+- The diskseq is now a separate Xenstore node, rather than being part of
+  physical-device.
+- Potentially backwards-incompatible changes to device-mapper now
+  require userspace opt-in.
+- The code has been tested: I have a block script written in C that uses
+  these changes to successfully boot a Xen VM.
+- The core block layer is almost completely untouched.  Instead of
+  exposing a block device inode directly to userspace, device-mapper
+  ioctls that create a block device now return that device's diskseq.
+  Userspace can then use that diskseq to safely open the device.
+  Furthermore, ioctls that operate on an existing device-mapper device
+  now accept a diskseq parameter, which can be used to prevent races.
 
-> On Tue, May 30 2023 at 11:13P -0400,
-> Mikulas Patocka <mpatocka@redhat.com> wrote:
-> 
-> > Hi
-> > 
-> > I nack this. This just adds code that can't ever be executed.
-> > 
-> > dm-crypt already allocates enough entries in the vector (see "unsigned int 
-> > nr_iovecs = (size + PAGE_SIZE - 1) >> PAGE_SHIFT;"), so bio_add_page can't 
-> > fail.
-> > 
-> > If you want to add __must_check to bio_add_page, you should change the 
-> > dm-crypt code to:
-> > if (!bio_add_page(clone, page, len, 0)) {
-> > 	WARN(1, "this can't happen");
-> > 	return NULL;
-> > }
-> > and not write recovery code for a can't-happen case.
-> 
-> Thanks for the review Mikulas. But the proper way forward, in the
-> context of this patchset, is to simply change bio_add_page() to
-> __bio_add_page()
-> 
-> Subject becomes: "dm crypt: use __bio_add_page to add single page to clone bio"
-> 
-> And header can explain that "crypt_alloc_buffer() already allocates
-> enough entries in the clone bio's vector, so bio_add_page can't fail".
-> 
-> Mike
+There are a few changes that make device-mapper's table validation
+stricter.  Two of them are clear-cut fixes for memory safety bugs: one
+prevents a misaligned pointer dereference in the kernel, and the other
+prevents pointer arithmetic overflow that could cause the kernel to
+dereference a userspace pointer, especially on 32-bit systems.  One
+fixes a double-fetch bug that happens to be harmless right now, but
+would make distribution backports of subsequent patches unsafe.  The
+remaining fixes prevent totally nonsensical tables from being accepted.
+This includes parameter strings that overlap the subsequent target spec,
+and target specs that overlap the 'struct dm_ioctl' or each other.  I
+doubt there is any userspace extant that generates such tables.
 
-Yes, __bio_add_page would look nicer. But bio_add_page can merge adjacent 
-pages into a single bvec entry and __bio_add_page can't (I don't know how 
-often the merging happens or what is the performance implication of 
-non-merging).
+Finally, one patch forbids device-mapper devices to be named ".", "..",
+or "control".  Since device-mapper devices are often accessed via
+/dev/mapper/NAME, such names would likely greatly confuse userspace.  I
+consider this to be an extension of the existing check that prohibits
+device mapper names or UUIDs from containing '/'.
 
-I think that for the next merge window, we can apply this patch: 
-https://listman.redhat.com/archives/dm-devel/2023-May/054046.html
-which makes this discussion irrelevant. (you can change bio_add_page to 
-__bio_add_page in it)
+Demi Marie Obenour (16):
+  device-mapper: Check that target specs are sufficiently aligned
+  device-mapper: Avoid pointer arithmetic overflow
+  device-mapper: do not allow targets to overlap 'struct dm_ioctl'
+  device-mapper: Better error message for too-short target spec
+  device-mapper: Target parameters must not overlap next target spec
+  device-mapper: Avoid double-fetch of version
+  device-mapper: Allow userspace to opt-in to strict parameter checks
+  device-mapper: Allow userspace to provide expected diskseq
+  device-mapper: Allow userspace to suppress uevent generation
+  device-mapper: Refuse to create device named "control"
+  device-mapper: "." and ".." are not valid symlink names
+  device-mapper: inform caller about already-existing device
+  xen-blkback: Implement diskseq checks
+  block, loop: Increment diskseq when releasing a loop device
+  xen-blkback: Minor cleanups
+  xen-blkback: Inform userspace that device has been opened
 
-Mikukas
+ block/genhd.c                       |   1 +
+ drivers/block/loop.c                |   6 +
+ drivers/block/xen-blkback/blkback.c |   8 +-
+ drivers/block/xen-blkback/xenbus.c  | 147 ++++++++--
+ drivers/md/dm-core.h                |   2 +
+ drivers/md/dm-ioctl.c               | 432 ++++++++++++++++++++++------
+ drivers/md/dm.c                     |   5 +-
+ include/linux/device-mapper.h       |   2 +-
+ include/uapi/linux/dm-ioctl.h       |  67 ++++-
+ 9 files changed, 551 insertions(+), 119 deletions(-)
+
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
