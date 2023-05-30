@@ -1,71 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B040716F3A
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:55:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0C171716F28
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480104;
+	s=mimecast20190719; t=1685480087;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=CI8UCKup+jlcfHUyvRUMws9R13M5C3hUnTw1atyxqZo=;
-	b=Tpx0msR7YJ0ehBsF9w95K5ghcSwZFYdbfiwsSRfzBC6j2SC4nVVV7ryQvm1/5CqRm9bZbd
-	TA0uROLkz1eiLXCxPAKRLTNgeruWBhW1uTupnMBlPSUVxPMGg1ahOyMB36DWqx8VDjboIn
-	Mi7Qdnm/atVUmgnoJmtx+JZyCP0Ybxk=
+	bh=mUm8DDSoJfi2HHCvZt8bGIRQOQRly3mR2S9xZX6xFIM=;
+	b=F2GJOqUVi54ptff0hdICQelU70D0xoI/uT9VOKK66e/rmb5bLpxxN67gVZF19Tet9iFduu
+	uXEWyCp/QfIrgNleKrOrKz4w2UDSC1JjkSekEdDBJXTaNxIdhqCO5TdZhI2rAA+Ly3LjCo
+	Cemoqp0++yEAzzcrEkkuG4rw15W1zhk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611-v6cwSPNAOKarV5v4v9M85Q-1; Tue, 30 May 2023 16:54:45 -0400
-X-MC-Unique: v6cwSPNAOKarV5v4v9M85Q-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-427-SjwjflrHP7-dk8SPT7dKGA-1; Tue, 30 May 2023 16:54:41 -0400
+X-MC-Unique: SjwjflrHP7-dk8SPT7dKGA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EDDB101B43A;
-	Tue, 30 May 2023 20:54:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 570E280601F;
+	Tue, 30 May 2023 20:54:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 25497202696C;
-	Tue, 30 May 2023 20:54:34 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3F73E112132D;
+	Tue, 30 May 2023 20:54:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 39BE3194E006;
-	Tue, 30 May 2023 20:54:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C752719451DB;
+	Tue, 30 May 2023 20:54:25 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3409F19465B7
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:40:59 +0000 (UTC)
+ ESMTP id C529F1946595
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:35:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 140FE112132D; Tue, 30 May 2023 20:40:59 +0000 (UTC)
+ id A32EF140EBD7; Tue, 30 May 2023 20:35:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0CBE5112132C
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:59 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B9CC140EBB8
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:35:09 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E51A438117E3
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:58 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 72BB2296A600
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:35:09 +0000 (UTC)
 Received: from wout5-smtp.messagingengine.com
  (wout5-smtp.messagingengine.com [64.147.123.21]) by relay.mimecast.com with
  ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-671-rwqQMkW_OhKeRDDHLyRbwA-1; Tue, 30 May 2023 16:40:52 -0400
-X-MC-Unique: rwqQMkW_OhKeRDDHLyRbwA-1
+ us-mta-47-EEiphBbRPAmjXY_UvB16qA-1; Tue, 30 May 2023 16:32:52 -0400
+X-MC-Unique: EEiphBbRPAmjXY_UvB16qA-1
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 6EF803200934;
- Tue, 30 May 2023 16:32:12 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 4714F3200941;
+ Tue, 30 May 2023 16:32:15 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 30 May 2023 16:32:13 -0400
-X-ME-Sender: <xms:S112ZFgm3IeHFi6lKr5FpH5jvpfxwO-emQ2czS7Pq9uDlsy9Fog8-Q>
- <xme:S112ZKB_RZTgfN8gOc3Qt1yLL0BLazY40yQ4kW6JyaHmpwYd6le27kfuoY0HNPe8q
- Bg1QVfpKaNzuu4>
-X-ME-Received: <xmr:S112ZFFvIfFBGsSNVsyzjW3e8trWKGolRY9j-x5oH_a7oB_rpZIly3L0KUdHGO_X5tEjIbl3Z-4>
+ by compute1.internal (MEProxy); Tue, 30 May 2023 16:32:16 -0400
+X-ME-Sender: <xms:Tl12ZLCrjMwa5dd8nXInpbI80j8aks7WDHGQdC47Q6JkvDKgesheeg>
+ <xme:Tl12ZBhWW6gzbLQXIBx87Wn5FhMOV1Jmqe7Bu4LvPr1RNpfkJmMNYXM8yoX9-WtnK
+ KOwvl36hcRBn78>
+X-ME-Received: <xmr:Tl12ZGmQvePgFgiwvtACF3E10lqS1U8ApvlnKupnDUwSSod63Ptq06kbfUX7FZofZWiSkLg8hdg>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
@@ -75,20 +75,20 @@ X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetgg
  hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedvne
  curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
  shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:S112ZKSXztYWhNh1MQVCl3fCY8DiKab0iHLF3aayTdVK2LoubaYlsA>
- <xmx:S112ZCytp1E3O_qW43L1mXgjApcSM6g_XRGwrav4Xg9SVmX7n86Qkw>
- <xmx:S112ZA7gcLfxJIeXwgaFf_QMQGleyKUVRN_r2UoxT_a0-RDhxoexxg>
- <xmx:TF12ZNwxjvc_-0yaKFm8hnvtR3BECga_Ld9X_kRH4r-5lLJDCs-ZAw>
+X-ME-Proxy: <xmx:Tl12ZNw-JLuG8i_8xOIdX4SeeayTYC2T2NBU3vVW_z588mtnm1MNXQ>
+ <xmx:Tl12ZAQw_DXvdm36tgmR2p2Ev34IIuqgkFUOmqOOyl5qMY21MCCl5Q>
+ <xmx:Tl12ZAamGsz2l8le4BoAmD-xKUjEfjqYwtGU3y6fUVm9ndKsvfHsDw>
+ <xmx:Tl12ZFSWJmukln6Pasz6VSPEKly6NXMAjEHrAUW2zz3CBGO838Esww>
 Feedback-ID: iac594737:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 May 2023 16:32:11 -0400 (EDT)
+ 30 May 2023 16:32:14 -0400 (EDT)
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jens Axboe <axboe@kernel.dk>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
  Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
  dm-devel@redhat.com
-Date: Tue, 30 May 2023 16:31:13 -0400
-Message-Id: <20230530203116.2008-14-demi@invisiblethingslab.com>
+Date: Tue, 30 May 2023 16:31:14 -0400
+Message-Id: <20230530203116.2008-15-demi@invisiblethingslab.com>
 In-Reply-To: <20230530203116.2008-1-demi@invisiblethingslab.com>
 References: <20230530203116.2008-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
@@ -99,9 +99,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
-Subject: [dm-devel] [PATCH v2 13/16] xen-blkback: Implement diskseq checks
+Subject: [dm-devel] [PATCH v2 14/16] block,
+ loop: Increment diskseq when releasing a loop device
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -119,187 +120,68 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
  <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: invisiblethingslab.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This allows specifying a disk sequence number in XenStore.  If it does
-not match the disk sequence number of the underlying device, the device
-will not be exported and a warning will be logged.  Userspace can use
-this to eliminate race conditions due to major/minor number reuse.
-Old kernels do not support the new syntax, but a later patch will allow
-userspace to discover that the new syntax is supported.
+The previous patch for checking diskseq in blkback is not enough to
+prevent the following race:
+
+1. Program X opens a loop device
+2. Program X gets the diskseq of the loop device.
+3. Program X associates a file with the loop device.
+4. Program X passes the loop device major, minor, and diskseq to
+   something, such as Xen blkback.
+5. Program X exits.
+6. Program Y detaches the file from the loop device.
+7. Program Y attaches a different file to the loop device.
+8. Xen blkback finally gets around to opening the loop device and checks
+   that the diskseq is what it expects it to be.  Even though the
+   diskseq is the expected value, the result is that blkback is
+   accessing the wrong file.
+
+To prevent this race condition, increment the diskseq of a loop device
+when it is detached from its file descriptor.  This causes blkback (or
+any other program, for that matter) to fail at step 8.  Export the
+inc_diskseq() function to make this possible.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- drivers/block/xen-blkback/xenbus.c | 112 +++++++++++++++++++++++------
- 1 file changed, 89 insertions(+), 23 deletions(-)
+I considered destroying the loop device altogether instead of bumping
+its diskseq, but was not able to accomplish that.  Suggestions welcome.
+---
+ block/genhd.c        | 1 +
+ drivers/block/loop.c | 6 ++++++
+ 2 files changed, 7 insertions(+)
 
-diff --git a/drivers/block/xen-blkback/xenbus.c b/drivers/block/xen-blkback/xenbus.c
-index 4807af1d58059394d7a992335dabaf2bc3901721..9c3eb148fbd802c74e626c3d7bcd69dcb09bd921 100644
---- a/drivers/block/xen-blkback/xenbus.c
-+++ b/drivers/block/xen-blkback/xenbus.c
-@@ -24,6 +24,7 @@ struct backend_info {
- 	struct xenbus_watch	backend_watch;
- 	unsigned		major;
- 	unsigned		minor;
-+	unsigned long long	diskseq;
- 	char			*mode;
- };
- 
-@@ -479,7 +480,7 @@ static void xen_vbd_free(struct xen_vbd *vbd)
- 
- static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
- 			  unsigned major, unsigned minor, int readonly,
--			  int cdrom)
-+			  bool cdrom, u64 diskseq)
+diff --git a/block/genhd.c b/block/genhd.c
+index 1cb489b927d50ab06a84a4bfd6913ca8ba7318d4..c0ca2c387732171321555cd57565fbc606768505 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -1502,3 +1502,4 @@ void inc_diskseq(struct gendisk *disk)
  {
- 	struct xen_vbd *vbd;
- 	struct block_device *bdev;
-@@ -507,6 +508,26 @@ static int xen_vbd_create(struct xen_blkif *blkif, blkif_vdev_t handle,
- 		xen_vbd_free(vbd);
- 		return -ENOENT;
- 	}
-+
-+	if (diskseq) {
-+		struct gendisk *disk = bdev->bd_disk;
-+
-+		if (unlikely(disk == NULL)) {
-+			pr_err("%s: device %08x has no gendisk\n",
-+			       __func__, vbd->pdevice);
-+			xen_vbd_free(vbd);
-+			return -EFAULT;
-+		}
-+
-+		if (unlikely(disk->diskseq != diskseq)) {
-+			pr_warn("%s: device %08x has incorrect sequence "
-+				"number 0x%llx (expected 0x%llx)\n",
-+				__func__, vbd->pdevice, disk->diskseq, diskseq);
-+			xen_vbd_free(vbd);
-+			return -ENODEV;
-+		}
-+	}
-+
- 	vbd->size = vbd_sz(vbd);
- 
- 	if (cdrom || disk_to_cdi(vbd->bdev->bd_disk))
-@@ -707,6 +728,9 @@ static void backend_changed(struct xenbus_watch *watch,
- 	int cdrom = 0;
- 	unsigned long handle;
- 	char *device_type;
-+	char *diskseq_str = NULL;
-+	int diskseq_len;
-+	unsigned long long diskseq;
- 
- 	pr_debug("%s %p %d\n", __func__, dev, dev->otherend_id);
- 
-@@ -725,10 +749,46 @@ static void backend_changed(struct xenbus_watch *watch,
- 		return;
- 	}
- 
--	if (be->major | be->minor) {
--		if (be->major != major || be->minor != minor)
--			pr_warn("changing physical device (from %x:%x to %x:%x) not supported.\n",
--				be->major, be->minor, major, minor);
-+	diskseq_str = xenbus_read(XBT_NIL, dev->nodename, "diskseq", &diskseq_len);
-+	if (IS_ERR(diskseq_str)) {
-+		int err = PTR_ERR(diskseq_str);
-+		diskseq_str = NULL;
-+
-+		/*
-+		 * If this does not exist, it means legacy userspace that does not
-+		 * support diskseq.
-+		 */
-+		if (unlikely(!XENBUS_EXIST_ERR(err))) {
-+			xenbus_dev_fatal(dev, err, "reading diskseq");
-+			return;
-+		}
-+		diskseq = 0;
-+	} else if (diskseq_len <= 0) {
-+		xenbus_dev_fatal(dev, -EFAULT, "diskseq must not be empty");
-+		goto fail;
-+	} else if (diskseq_len > 16) {
-+		xenbus_dev_fatal(dev, -ERANGE, "diskseq too long: got %d but limit is 16",
-+				 diskseq_len);
-+		goto fail;
-+	} else if (diskseq_str[0] == '0') {
-+		xenbus_dev_fatal(dev, -ERANGE, "diskseq must not start with '0'");
-+		goto fail;
-+	} else {
-+		char *diskseq_end;
-+		diskseq = simple_strtoull(diskseq_str, &diskseq_end, 16);
-+		if (diskseq_end != diskseq_str + diskseq_len) {
-+			xenbus_dev_fatal(dev, -EINVAL, "invalid diskseq");
-+			goto fail;
-+		}
-+		kfree(diskseq_str);
-+		diskseq_str = NULL;
-+	}
-+
-+	if (be->major | be->minor | be->diskseq) {
-+		if (be->major != major || be->minor != minor || be->diskseq != diskseq)
-+			pr_warn("changing physical device (from %x:%x:%llx to %x:%x:%llx)"
-+				" not supported.\n",
-+				be->major, be->minor, be->diskseq, major, minor, diskseq);
- 		return;
- 	}
- 
-@@ -756,29 +816,35 @@ static void backend_changed(struct xenbus_watch *watch,
- 
- 	be->major = major;
- 	be->minor = minor;
-+	be->diskseq = diskseq;
- 
- 	err = xen_vbd_create(be->blkif, handle, major, minor,
--			     !strchr(be->mode, 'w'), cdrom);
--
--	if (err)
--		xenbus_dev_fatal(dev, err, "creating vbd structure");
--	else {
--		err = xenvbd_sysfs_addif(dev);
--		if (err) {
--			xen_vbd_free(&be->blkif->vbd);
--			xenbus_dev_fatal(dev, err, "creating sysfs entries");
--		}
--	}
-+			     !strchr(be->mode, 'w'), cdrom, diskseq);
- 
- 	if (err) {
--		kfree(be->mode);
--		be->mode = NULL;
--		be->major = 0;
--		be->minor = 0;
--	} else {
--		/* We're potentially connected now */
--		xen_update_blkif_status(be->blkif);
-+		xenbus_dev_fatal(dev, err, "creating vbd structure");
-+		goto fail;
- 	}
-+
-+	err = xenvbd_sysfs_addif(dev);
-+	if (err) {
-+		xenbus_dev_fatal(dev, err, "creating sysfs entries");
-+		goto free_vbd;
-+	}
-+
-+	/* We're potentially connected now */
-+	xen_update_blkif_status(be->blkif);
-+	return;
-+
-+free_vbd:
-+	xen_vbd_free(&be->blkif->vbd);
-+fail:
-+	kfree(diskseq_str);
-+	kfree(be->mode);
-+	be->mode = NULL;
-+	be->major = 0;
-+	be->minor = 0;
-+	be->diskseq = 0;
+ 	disk->diskseq = atomic64_inc_return(&diskseq);
  }
++EXPORT_SYMBOL(inc_diskseq);
+diff --git a/drivers/block/loop.c b/drivers/block/loop.c
+index bc31bb7072a2cb7294d32066f5d0aa14130349b4..05ea5fb41508b4106f184dd6b4c37942716bdcac 100644
+--- a/drivers/block/loop.c
++++ b/drivers/block/loop.c
+@@ -1205,6 +1205,12 @@ static void __loop_clr_fd(struct loop_device *lo, bool release)
+ 	if (!part_shift)
+ 		set_bit(GD_SUPPRESS_PART_SCAN, &lo->lo_disk->state);
+ 	mutex_lock(&lo->lo_mutex);
++
++	/*
++	 * Increment the disk sequence number, so that userspace knows this
++	 * device now points to something else.
++	 */
++	inc_diskseq(lo->lo_disk);
+ 	lo->lo_state = Lo_unbound;
+ 	mutex_unlock(&lo->lo_mutex);
  
- /*
 -- 
 Sincerely,
 Demi Marie Obenour (she/her/hers)
