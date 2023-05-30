@@ -1,94 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0C171716F28
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:47 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id A0F5D716F36
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480087;
+	s=mimecast20190719; t=1685480092;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=mUm8DDSoJfi2HHCvZt8bGIRQOQRly3mR2S9xZX6xFIM=;
-	b=F2GJOqUVi54ptff0hdICQelU70D0xoI/uT9VOKK66e/rmb5bLpxxN67gVZF19Tet9iFduu
-	uXEWyCp/QfIrgNleKrOrKz4w2UDSC1JjkSekEdDBJXTaNxIdhqCO5TdZhI2rAA+Ly3LjCo
-	Cemoqp0++yEAzzcrEkkuG4rw15W1zhk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=A4d/PYecyOLmiF2eJtIj95lZaI2aWCOhd6vohJUHG9M=;
+	b=LQbEhYslP7+sZY0aS+nvHX/74HTJYpaKUspXQWDeL9szWlVMEthI3/O8knoyob2pTdKWrh
+	wdnPzWFnl/GZpAw83SUTBAL/dys4cvYNM669ePVq6cabmW4Y4N/eNzEP1WL5CKRYk8Zn9r
+	YmpDqNy7B/hdPOAspmRjAXXe0q1rfrU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-427-SjwjflrHP7-dk8SPT7dKGA-1; Tue, 30 May 2023 16:54:41 -0400
-X-MC-Unique: SjwjflrHP7-dk8SPT7dKGA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-374-rf6FuMsANeKZEhiDqjjKlA-1; Tue, 30 May 2023 16:54:49 -0400
+X-MC-Unique: rf6FuMsANeKZEhiDqjjKlA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 570E280601F;
-	Tue, 30 May 2023 20:54:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95A961C02D3F;
+	Tue, 30 May 2023 20:54:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3F73E112132D;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DBE8F421D3;
 	Tue, 30 May 2023 20:54:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C752719451DB;
-	Tue, 30 May 2023 20:54:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 28248193F519;
+	Tue, 30 May 2023 20:54:26 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C529F1946595
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:35:09 +0000 (UTC)
+ ESMTP id 2821019465A0
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:40:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A32EF140EBD7; Tue, 30 May 2023 20:35:09 +0000 (UTC)
+ id 0C983492B00; Tue, 30 May 2023 20:40:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B9CC140EBB8
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:35:09 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0495048205E
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:54 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 72BB2296A600
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:35:09 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DD139101A531
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:54 +0000 (UTC)
 Received: from wout5-smtp.messagingengine.com
  (wout5-smtp.messagingengine.com [64.147.123.21]) by relay.mimecast.com with
  ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-47-EEiphBbRPAmjXY_UvB16qA-1; Tue, 30 May 2023 16:32:52 -0400
-X-MC-Unique: EEiphBbRPAmjXY_UvB16qA-1
+ us-mta-13-QM5_bhufOP-VBWuk9LR8vQ-1; Tue, 30 May 2023 16:40:53 -0400
+X-MC-Unique: QM5_bhufOP-VBWuk9LR8vQ-1
 Received: from compute1.internal (compute1.nyi.internal [10.202.2.41])
- by mailout.west.internal (Postfix) with ESMTP id 4714F3200941;
- Tue, 30 May 2023 16:32:15 -0400 (EDT)
+ by mailout.west.internal (Postfix) with ESMTP id 32CF03200962;
+ Tue, 30 May 2023 16:32:18 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute1.internal (MEProxy); Tue, 30 May 2023 16:32:16 -0400
-X-ME-Sender: <xms:Tl12ZLCrjMwa5dd8nXInpbI80j8aks7WDHGQdC47Q6JkvDKgesheeg>
- <xme:Tl12ZBhWW6gzbLQXIBx87Wn5FhMOV1Jmqe7Bu4LvPr1RNpfkJmMNYXM8yoX9-WtnK
- KOwvl36hcRBn78>
-X-ME-Received: <xmr:Tl12ZGmQvePgFgiwvtACF3E10lqS1U8ApvlnKupnDUwSSod63Ptq06kbfUX7FZofZWiSkLg8hdg>
+ by compute1.internal (MEProxy); Tue, 30 May 2023 16:32:18 -0400
+X-ME-Sender: <xms:UV12ZJsB7-6thDBOW04ZBm8dwA1w8OqPQmWsHPIsTD85Gotn6oCtAQ>
+ <xme:UV12ZCcND6TvIARXd8QOOkdba5asaIVOCge4bX4g8CQ5jmO5RYFcsdAxDLYUr6xpT
+ K7j0UTQ4KOSnXg>
+X-ME-Received: <xmr:UV12ZMz7jUkHkkTvC4PaB0pWjhII28OE1-d4VoJYh3Rk5KoK5polsbsvSHQ6A82D-keKTXHm8f0>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
- enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghm
- ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
- hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefg
- hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedvne
- curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
- shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Tl12ZNw-JLuG8i_8xOIdX4SeeayTYC2T2NBU3vVW_z588mtnm1MNXQ>
- <xmx:Tl12ZAQw_DXvdm36tgmR2p2Ev34IIuqgkFUOmqOOyl5qMY21MCCl5Q>
- <xmx:Tl12ZAamGsz2l8le4BoAmD-xKUjEfjqYwtGU3y6fUVm9ndKsvfHsDw>
- <xmx:Tl12ZFSWJmukln6Pasz6VSPEKly6NXMAjEHrAUW2zz3CBGO838Esww>
+ enucfjughrpefhvfevufffkffojghfgggtgfesthekredtredtjeenucfhrhhomhepffgv
+ mhhiucforghrihgvucfqsggvnhhouhhruceouggvmhhisehinhhvihhsihgslhgvthhhih
+ hnghhslhgrsgdrtghomheqnecuggftrfgrthhtvghrnhepkeefieekhfdtgeeuueelleeg
+ vdetieehgfejteduvedvvdejudetudelfedukefhnecuffhomhgrihhnpehinhguihhrvg
+ gtthdrnhhrpdhinhguihhrvggtthdrihgunecuvehluhhsthgvrhfuihiivgeptdenucfr
+ rghrrghmpehmrghilhhfrhhomhepuggvmhhisehinhhvihhsihgslhgvthhhihhnghhslh
+ grsgdrtghomh
+X-ME-Proxy: <xmx:UV12ZAPqoC6ugOyhqw12hilSeplCRnKjnOlJfmhYkOVrSOBnWerfZA>
+ <xmx:UV12ZJ8Zyv2sMdGJ8yUkzVbNcYb8OnOE3NDfnKK7_d4J77we3bDJpQ>
+ <xmx:UV12ZAVfjKO8vuRkhvcAjXEFakWAjuI2n5mclwt9ec30GFsNgGodag>
+ <xmx:UV12ZCMvAk4xGoCgzeqg5Gt0J8JIuCFJuktUAcqyZrosY5iMdZIIaw>
 Feedback-ID: iac594737:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 May 2023 16:32:14 -0400 (EDT)
+ 30 May 2023 16:32:16 -0400 (EDT)
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jens Axboe <axboe@kernel.dk>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
  Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
  dm-devel@redhat.com
-Date: Tue, 30 May 2023 16:31:14 -0400
-Message-Id: <20230530203116.2008-15-demi@invisiblethingslab.com>
+Date: Tue, 30 May 2023 16:31:15 -0400
+Message-Id: <20230530203116.2008-16-demi@invisiblethingslab.com>
 In-Reply-To: <20230530203116.2008-1-demi@invisiblethingslab.com>
 References: <20230530203116.2008-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
@@ -99,10 +100,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
-Subject: [dm-devel] [PATCH v2 14/16] block,
- loop: Increment diskseq when releasing a loop device
+Subject: [dm-devel] [PATCH v2 15/16] xen-blkback: Minor cleanups
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,75 +120,47 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
  <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: invisiblethingslab.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-The previous patch for checking diskseq in blkback is not enough to
-prevent the following race:
-
-1. Program X opens a loop device
-2. Program X gets the diskseq of the loop device.
-3. Program X associates a file with the loop device.
-4. Program X passes the loop device major, minor, and diskseq to
-   something, such as Xen blkback.
-5. Program X exits.
-6. Program Y detaches the file from the loop device.
-7. Program Y attaches a different file to the loop device.
-8. Xen blkback finally gets around to opening the loop device and checks
-   that the diskseq is what it expects it to be.  Even though the
-   diskseq is the expected value, the result is that blkback is
-   accessing the wrong file.
-
-To prevent this race condition, increment the diskseq of a loop device
-when it is detached from its file descriptor.  This causes blkback (or
-any other program, for that matter) to fail at step 8.  Export the
-inc_diskseq() function to make this possible.
-
-Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
----
-I considered destroying the loop device altogether instead of bumping
-its diskseq, but was not able to accomplish that.  Suggestions welcome.
----
- block/genhd.c        | 1 +
- drivers/block/loop.c | 6 ++++++
- 2 files changed, 7 insertions(+)
-
-diff --git a/block/genhd.c b/block/genhd.c
-index 1cb489b927d50ab06a84a4bfd6913ca8ba7318d4..c0ca2c387732171321555cd57565fbc606768505 100644
---- a/block/genhd.c
-+++ b/block/genhd.c
-@@ -1502,3 +1502,4 @@ void inc_diskseq(struct gendisk *disk)
- {
- 	disk->diskseq = atomic64_inc_return(&diskseq);
- }
-+EXPORT_SYMBOL(inc_diskseq);
-diff --git a/drivers/block/loop.c b/drivers/block/loop.c
-index bc31bb7072a2cb7294d32066f5d0aa14130349b4..05ea5fb41508b4106f184dd6b4c37942716bdcac 100644
---- a/drivers/block/loop.c
-+++ b/drivers/block/loop.c
-@@ -1205,6 +1205,12 @@ static void __loop_clr_fd(struct loop_device *lo, bool release)
- 	if (!part_shift)
- 		set_bit(GD_SUPPRESS_PART_SCAN, &lo->lo_disk->state);
- 	mutex_lock(&lo->lo_mutex);
-+
-+	/*
-+	 * Increment the disk sequence number, so that userspace knows this
-+	 * device now points to something else.
-+	 */
-+	inc_diskseq(lo->lo_disk);
- 	lo->lo_state = Lo_unbound;
- 	mutex_unlock(&lo->lo_mutex);
- 
--- 
-Sincerely,
-Demi Marie Obenour (she/her/hers)
-Invisible Things Lab
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+VGhpcyBhZGRzIGEgY291cGxlIG9mIEJVSUxEX0JVR19PTigpcyBhbmQgbW92ZXMgc29tZSBhcml0
+aG1ldGljIGFmdGVyCnRoZSB2YWxpZGF0aW9uIGNvZGUgdGhhdCBjaGVja3MgdGhlIGFyaXRobWV0
+aWPigJlzIHByZWNvbmRpdGlvbnMuICBUaGUKcHJldmlvdXMgY29kZSB3YXMgY29ycmVjdCBidXQg
+Y291bGQgcG90ZW50aWFsbHkgdHJpcCBzYW5pdGl6ZXJzIHRoYXQKY2hlY2sgZm9yIHVuc2lnbmVk
+IGludGVnZXIgd3JhcGFyb3VuZC4KClNpZ25lZC1vZmYtYnk6IERlbWkgTWFyaWUgT2Jlbm91ciA8
+ZGVtaUBpbnZpc2libGV0aGluZ3NsYWIuY29tPgotLS0KIGRyaXZlcnMvYmxvY2sveGVuLWJsa2Jh
+Y2svYmxrYmFjay5jIHwgOCArKysrKy0tLQogMSBmaWxlIGNoYW5nZWQsIDUgaW5zZXJ0aW9ucygr
+KSwgMyBkZWxldGlvbnMoLSkKCmRpZmYgLS1naXQgYS9kcml2ZXJzL2Jsb2NrL3hlbi1ibGtiYWNr
+L2Jsa2JhY2suYyBiL2RyaXZlcnMvYmxvY2sveGVuLWJsa2JhY2svYmxrYmFjay5jCmluZGV4IGMz
+NjJmNGFkODBhYjA3YmZiNThjYWZmMGVkN2RhMzdkYzE0ODRmYzUuLmFjNzYwYTA4ZDU1OTA4NWFi
+ODc1Nzg0ZjFjNThjZGYyZWFkOTVhNDMgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvYmxvY2sveGVuLWJs
+a2JhY2svYmxrYmFjay5jCisrKyBiL2RyaXZlcnMvYmxvY2sveGVuLWJsa2JhY2svYmxrYmFjay5j
+CkBAIC0xMzQyLDYgKzEzNDIsOCBAQCBzdGF0aWMgaW50IGRpc3BhdGNoX3J3X2Jsb2NrX2lvKHN0
+cnVjdCB4ZW5fYmxraWZfcmluZyAqcmluZywKIAluc2VnID0gcmVxLT5vcGVyYXRpb24gPT0gQkxL
+SUZfT1BfSU5ESVJFQ1QgPwogCSAgICAgICByZXEtPnUuaW5kaXJlY3QubnJfc2VnbWVudHMgOiBy
+ZXEtPnUucncubnJfc2VnbWVudHM7CiAKKwlCVUlMRF9CVUdfT04ob2Zmc2V0b2Yoc3RydWN0IGJs
+a2lmX3JlcXVlc3QsIHUucncuaWQpICE9IDgpOworCUJVSUxEX0JVR19PTihvZmZzZXRvZihzdHJ1
+Y3QgYmxraWZfcmVxdWVzdCwgdS5pbmRpcmVjdC5pZCkgIT0gOCk7CiAJaWYgKHVubGlrZWx5KG5z
+ZWcgPT0gMCAmJiBvcGVyYXRpb25fZmxhZ3MgIT0gUkVRX1BSRUZMVVNIKSB8fAogCSAgICB1bmxp
+a2VseSgocmVxLT5vcGVyYXRpb24gIT0gQkxLSUZfT1BfSU5ESVJFQ1QpICYmCiAJCSAgICAgKG5z
+ZWcgPiBCTEtJRl9NQVhfU0VHTUVOVFNfUEVSX1JFUVVFU1QpKSB8fApAQCAtMTM2NSwxMyArMTM2
+NywxMyBAQCBzdGF0aWMgaW50IGRpc3BhdGNoX3J3X2Jsb2NrX2lvKHN0cnVjdCB4ZW5fYmxraWZf
+cmluZyAqcmluZywKIAkJcHJlcS5zZWN0b3JfbnVtYmVyICAgICA9IHJlcS0+dS5ydy5zZWN0b3Jf
+bnVtYmVyOwogCQlmb3IgKGkgPSAwOyBpIDwgbnNlZzsgaSsrKSB7CiAJCQlwYWdlc1tpXS0+Z3Jl
+ZiA9IHJlcS0+dS5ydy5zZWdbaV0uZ3JlZjsKLQkJCXNlZ1tpXS5uc2VjID0gcmVxLT51LnJ3LnNl
+Z1tpXS5sYXN0X3NlY3QgLQotCQkJCXJlcS0+dS5ydy5zZWdbaV0uZmlyc3Rfc2VjdCArIDE7Ci0J
+CQlzZWdbaV0ub2Zmc2V0ID0gKHJlcS0+dS5ydy5zZWdbaV0uZmlyc3Rfc2VjdCA8PCA5KTsKIAkJ
+CWlmICgocmVxLT51LnJ3LnNlZ1tpXS5sYXN0X3NlY3QgPj0gKFhFTl9QQUdFX1NJWkUgPj4gOSkp
+IHx8CiAJCQkgICAgKHJlcS0+dS5ydy5zZWdbaV0ubGFzdF9zZWN0IDwKIAkJCSAgICAgcmVxLT51
+LnJ3LnNlZ1tpXS5maXJzdF9zZWN0KSkKIAkJCQlnb3RvIGZhaWxfcmVzcG9uc2U7CisJCQlzZWdb
+aV0ubnNlYyA9IHJlcS0+dS5ydy5zZWdbaV0ubGFzdF9zZWN0IC0KKwkJCQlyZXEtPnUucncuc2Vn
+W2ldLmZpcnN0X3NlY3QgKyAxOworCQkJc2VnW2ldLm9mZnNldCA9IChyZXEtPnUucncuc2VnW2ld
+LmZpcnN0X3NlY3QgPDwgOSk7CiAJCQlwcmVxLm5yX3NlY3RzICs9IHNlZ1tpXS5uc2VjOwogCQl9
+CiAJfSBlbHNlIHsKLS0gClNpbmNlcmVseSwKRGVtaSBNYXJpZSBPYmVub3VyIChzaGUvaGVyL2hl
+cnMpCkludmlzaWJsZSBUaGluZ3MgTGFiCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2
+ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZv
+L2RtLWRldmVsCg==
 
