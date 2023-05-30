@@ -1,94 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8FBB7716F2D
-	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:54:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 335A4716F39
+	for <lists+dm-devel@lfdr.de>; Tue, 30 May 2023 22:55:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685480089;
+	s=mimecast20190719; t=1685480104;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=KI3CEgfRFH6yoO/+/WXpbPzpwAT6EB6TjhxxDw99epM=;
-	b=GUyPqdX3aR0hrsElBR3z8ZrcoPS5G7XWEoXjzbfTwjtmol5pqXaJLjmYJGQlIzz9oQEAt8
-	GXOwQ+HZNUnRDSGA435C8/czUnbH621EcgPMTK3IJxp9/LlZxeusoxknUgFn4DfSHChx7G
-	d7B1fiianJpt+c5GZRI/0T+pfwiEKmo=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=wp589mau1NZN8aA9MNGtD0REbJcZayyqVTgGP3Sdz5Y=;
+	b=b7hxcJ/qhm+UHv11aQbDx9mEPgosI6zt4AI4XOfo+YzY44+mRMaG7XrU0Hsp0n21pPbD7M
+	xiEuouRrDD4zr2jhthlQo3PANIlTKMp1DcWCUfa5F/QqB5A787DV4RSavPngDtj9aUddTm
+	F3oIexDyck6QCxo0hpZMtXgi6IyMLHI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-142--e8rdZr8MRm8LDKtqXTN6A-1; Tue, 30 May 2023 16:54:47 -0400
-X-MC-Unique: -e8rdZr8MRm8LDKtqXTN6A-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-335-oZn3zQaiNuenqezIWuXLrQ-1; Tue, 30 May 2023 16:54:37 -0400
+X-MC-Unique: oZn3zQaiNuenqezIWuXLrQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EAD39857ABD;
-	Tue, 30 May 2023 20:54:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D83D382888E;
+	Tue, 30 May 2023 20:54:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BAD16111F3B6;
-	Tue, 30 May 2023 20:54:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2BAB4202696C;
+	Tue, 30 May 2023 20:54:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0781019451F1;
-	Tue, 30 May 2023 20:54:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BED841946A44;
+	Tue, 30 May 2023 20:54:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EFF3419465A0
- for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:40:54 +0000 (UTC)
+ ESMTP id ADA951946595
+ for <dm-devel@listman.corp.redhat.com>; Tue, 30 May 2023 20:41:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C4394400DFF; Tue, 30 May 2023 20:40:54 +0000 (UTC)
+ id A00F72166B26; Tue, 30 May 2023 20:41:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id BB8B2492B00
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:54 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 967D72166B28
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:41:14 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B5821C0150D
- for <dm-devel@redhat.com>; Tue, 30 May 2023 20:40:54 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C572E3C13500
+ for <dm-devel@redhat.com>; Tue, 30 May 2023 20:41:11 +0000 (UTC)
 Received: from wout5-smtp.messagingengine.com
  (wout5-smtp.messagingengine.com [64.147.123.21]) by relay.mimecast.com with
  ESMTP with STARTTLS (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-652-nFevvtGoM4WIzgRzcDcf7w-1; Tue, 30 May 2023 16:40:52 -0400
-X-MC-Unique: nFevvtGoM4WIzgRzcDcf7w-1
-Received: from compute2.internal (compute2.nyi.internal [10.202.2.46])
- by mailout.west.internal (Postfix) with ESMTP id F2B183200930;
- Tue, 30 May 2023 16:32:03 -0400 (EDT)
+ us-mta-659-HUcQe95uNJCidSjay2RruQ-1; Tue, 30 May 2023 16:40:58 -0400
+X-MC-Unique: HUcQe95uNJCidSjay2RruQ-1
+Received: from compute6.internal (compute6.nyi.internal [10.202.2.47])
+ by mailout.west.internal (Postfix) with ESMTP id C38563200948;
+ Tue, 30 May 2023 16:32:06 -0400 (EDT)
 Received: from mailfrontend1 ([10.202.2.162])
- by compute2.internal (MEProxy); Tue, 30 May 2023 16:32:04 -0400
-X-ME-Sender: <xms:Q112ZMJhVikC1UrX3Mb_HLcgL_u4cRjw7_2N3_37WA8f1GdiBc0pnw>
- <xme:Q112ZMIHatiw5Vza07l_H3J8Q5Jo6SiJ0JklzDq2oVq19WcxL7-SLcq2Z6xIGOn9e
- WudhjdY1xw9uGw>
-X-ME-Received: <xmr:Q112ZMvxVcJBiasn5UFXjTImzNzJJWI7pNevtYfQQmMTBB-b8IybX_PYolTn_jMKlOzP0fkNc-E>
+ by compute6.internal (MEProxy); Tue, 30 May 2023 16:32:07 -0400
+X-ME-Sender: <xms:Rl12ZAr9aQWa_Qa0egkowH06KsJYmTHtkA-E1EAvwWLgM4WfnS7R1g>
+ <xme:Rl12ZGrVpcCLx1UYJ8LeUhOzmhkSxM377BSRfIN9X1kgXYCC6gHdAwLxOekWNQZTl
+ c4d2H3hYG3E9y8>
+X-ME-Received: <xmr:Rl12ZFNycaVfEeQsS-3kpUA_-kT_bOrYQs8Q2OKWHBCjqSMutY820oVAFcuLdy_7KWZED9wrev0>
 X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeekjedgudeglecutefuodetggdotefrod
  ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
  necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
  enucfjughrpefhvfevufffkffojghfggfgsedtkeertdertddtnecuhfhrohhmpeffvghm
  ihcuofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinh
  hgshhlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpeejffejgffgueegudevvdejkefg
- hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedtne
+ hefghffhffejteekleeufeffteffhfdtudehteenucevlhhushhtvghrufhiiigvpedune
  curfgrrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhg
  shhlrggsrdgtohhm
-X-ME-Proxy: <xmx:Q112ZJbB2ysOiize_ujypULuG_R3Cn4Yq-9hscSDMSK5ll_YW10Haw>
- <xmx:Q112ZDb1CeOkQsN1ioyuZQeKryd91axJ67ADAgGmg8uxAd6cVc2vzw>
- <xmx:Q112ZFCIOgBVdd0gvdQPehRl4EuciVdHt2_LQ9qvpSUR9DQCv8tXpQ>
- <xmx:Q112ZH4GTf0whc09NpBt8a1c0iKBwD4CvlewH7ytbqUM7jnZPa7ciw>
+X-ME-Proxy: <xmx:Rl12ZH6rawH_UPbQ1nJIN6Dg0_P60CEXYxgPhsCW7h8JmvVTYQOPbQ>
+ <xmx:Rl12ZP78Vu93ETjN9w0f_BXL5M3BXAMEytqXeh_gjRJWPTkdz6CIeA>
+ <xmx:Rl12ZHiIZA4a_gkn5vv5uueUjEU59j_7sw1bIyolyLBtoEN5Hzqz5Q>
+ <xmx:Rl12ZCaON5yso2NsQujWogpPIv60NqpRS9-gP5P329739DVJCRA63A>
 Feedback-ID: iac594737:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 30 May 2023 16:32:02 -0400 (EDT)
+ 30 May 2023 16:32:05 -0400 (EDT)
 From: Demi Marie Obenour <demi@invisiblethingslab.com>
 To: Jens Axboe <axboe@kernel.dk>,
  =?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
  Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
  dm-devel@redhat.com
-Date: Tue, 30 May 2023 16:31:10 -0400
-Message-Id: <20230530203116.2008-11-demi@invisiblethingslab.com>
+Date: Tue, 30 May 2023 16:31:11 -0400
+Message-Id: <20230530203116.2008-12-demi@invisiblethingslab.com>
 In-Reply-To: <20230530203116.2008-1-demi@invisiblethingslab.com>
 References: <20230530203116.2008-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
@@ -99,10 +99,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 30 May 2023 20:54:23 +0000
-Subject: [dm-devel] [PATCH v2 10/16] device-mapper: Refuse to create device
- named "control"
+Subject: [dm-devel] [PATCH v2 11/16] device-mapper: "." and ".." are not
+ valid symlink names
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,37 +120,36 @@ Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
  <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: invisiblethingslab.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Typical userspace setups create a symlink under /dev/mapper with the
-name of the device, but /dev/mapper/control is reserved for the control
-device.  Therefore, trying to create such a device is almost certain to
-be a userspace bug.
+Using either of these is going to greatly confuse userspace, as they are
+not valid symlink names and so creating the usual /dev/mapper/NAME
+symlink will not be possible.  As creating a device with either of these
+names is almost certainly a userspace bug, just error out.
 
 Signed-off-by: Demi Marie Obenour <demi@invisiblethingslab.com>
 ---
- drivers/md/dm-ioctl.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/md/dm-ioctl.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 52aa5505d23b2f3d9c0faf6e8a91b74cd7845581..9ae00e3c1a72c19575814cf473774835b364320b 100644
+index 9ae00e3c1a72c19575814cf473774835b364320b..17ece816d490b6c40d019da131ade44c9a201dab 100644
 --- a/drivers/md/dm-ioctl.c
 +++ b/drivers/md/dm-ioctl.c
-@@ -771,7 +771,12 @@ static int get_target_version(struct file *filp, struct dm_ioctl *param, size_t
- static int check_name(const char *name)
- {
- 	if (strchr(name, '/')) {
--		DMERR("invalid device name");
-+		DMERR("device name cannot contain '/'");
-+		return -EINVAL;
-+	}
-+
-+	if (strcmp(name, DM_CONTROL_NODE) == 0) {
-+		DMERR("device name cannot be \"%s\"", DM_CONTROL_NODE);
+@@ -775,8 +775,10 @@ static int check_name(const char *name)
+ 		return -EINVAL;
+ 	}
+ 
+-	if (strcmp(name, DM_CONTROL_NODE) == 0) {
+-		DMERR("device name cannot be \"%s\"", DM_CONTROL_NODE);
++	if (strcmp(name, DM_CONTROL_NODE) == 0 ||
++	    strcmp(name, ".") == 0 ||
++	    strcmp(name, "..") == 0) {
++		DMERR("device name cannot be \"%s\", \".\", or \"..\"", DM_CONTROL_NODE);
  		return -EINVAL;
  	}
  
