@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E192071817A
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:23:35 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 95816718105
+	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:07:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685539414;
+	s=mimecast20190719; t=1685538452;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=p532KVVNd8/4eCAMQTn8PZfLt37IHcrsWueLmxfZeB0=;
-	b=JDQtc3Ct8bv4448uNoGp2EX5a5wzQ0CBB1gqxcxFD7fuMxMNyOL4fnp1iVsFIyvS1H4+zV
-	fHpVdP9uA0JEgTO0Q669HvL5L46+fezbVk3w8hAc6IK7zmU5ZPYNGQ/LyvclWce0Kghf9Y
-	gtaPUeDZIX0vKX2u2CjvLexMsu7vwhU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=VnAEXFxHuVaELg2Fu4K6FGuaFzoXTmFaHnoq/nLi7ss=;
+	b=gv9DqtbAYS6uEK6Xqtq84gp4/hQU5dgygSMvUnyz0ZEtWEpeaEWHN2pBEdVNzhve6o7OPh
+	iBkj0NhKv5FXUZQSzGhHXklznQOjUcDRbOR56+dUQyELS8Xr3KFP3o9OWb/0N/LtAxD+QI
+	uAPAFzCQS3FKF2p6XdG/imUYnuA1Dyo=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-520-LMkDFfcHPTKfQG317qZjyQ-1; Wed, 31 May 2023 09:23:33 -0400
-X-MC-Unique: LMkDFfcHPTKfQG317qZjyQ-1
+ us-mta-625-hwZf06ZtPAmk5DzF1pFoFg-1; Wed, 31 May 2023 09:07:30 -0400
+X-MC-Unique: hwZf06ZtPAmk5DzF1pFoFg-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38477811E85;
-	Wed, 31 May 2023 13:23:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 073033C1350E;
+	Wed, 31 May 2023 13:07:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 21BAA407DEC0;
-	Wed, 31 May 2023 13:23:30 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A8CC40CFD45;
+	Wed, 31 May 2023 13:07:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6B72A19465B7;
-	Wed, 31 May 2023 13:23:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE2CC19452C6;
+	Wed, 31 May 2023 13:06:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 42E3B1946595
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 12:57:11 +0000 (UTC)
+ ESMTP id 4C4CD19465A0
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 12:57:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2571140C6CD0; Wed, 31 May 2023 12:57:11 +0000 (UTC)
+ id 32BE740CFD46; Wed, 31 May 2023 12:57:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E51A40C6EC4
- for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:11 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2B00B40CFD45
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:18 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F05A78032EF
- for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:10 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EC72101A531
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:18 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-464-KLT08yQzPn-GafIUjTblGQ-1; Wed, 31 May 2023 08:57:09 -0400
-X-MC-Unique: KLT08yQzPn-GafIUjTblGQ-1
+ us-mta-581-FIXpiuesMDmlpQkL2um6Qw-1; Wed, 31 May 2023 08:57:15 -0400
+X-MC-Unique: FIXpiuesMDmlpQkL2um6Qw-1
 Received: from [2001:4bb8:182:6d06:2e49:a56:513a:92ee] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q4LNs-00HRiS-1L; Wed, 31 May 2023 12:57:01 +0000
+ id 1q4LNz-00HRoS-0G; Wed, 31 May 2023 12:57:08 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 31 May 2023 14:55:26 +0200
-Message-Id: <20230531125535.676098-16-hch@lst.de>
+Date: Wed, 31 May 2023 14:55:27 +0200
+Message-Id: <20230531125535.676098-17-hch@lst.de>
 In-Reply-To: <20230531125535.676098-1-hch@lst.de>
 References: <20230531125535.676098-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [PATCH 15/24] block: move the code to do early boot
- lookup of block devices to block/
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH 16/24] block: move more code to early-lookup.c
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,506 +105,255 @@ X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Create a new block/early-lookup.c to keep the early block device lookup
-code instead of having this code sit with the early mount code.
+blk_lookup_devt is only used by code in early-lookup.c, so move it
+there.
+
+printk_all_partitions and it's helper bdevt_str are only used by the
+early init code in init/do_mounts.c, so they should go there as well.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- .../admin-guide/kernel-parameters.txt         |   4 +-
- block/Makefile                                |   2 +-
- block/early-lookup.c                          | 224 ++++++++++++++++++
- init/do_mounts.c                              | 219 -----------------
- 4 files changed, 227 insertions(+), 222 deletions(-)
- create mode 100644 block/early-lookup.c
+ block/early-lookup.c   | 92 ++++++++++++++++++++++++++++++++++++++++++
+ block/genhd.c          | 92 ------------------------------------------
+ include/linux/blkdev.h |  1 -
+ 3 files changed, 92 insertions(+), 93 deletions(-)
 
-diff --git a/Documentation/admin-guide/kernel-parameters.txt b/Documentation/admin-guide/kernel-parameters.txt
-index a6bc31349cbb76..911c54829c7c59 100644
---- a/Documentation/admin-guide/kernel-parameters.txt
-+++ b/Documentation/admin-guide/kernel-parameters.txt
-@@ -5453,8 +5453,8 @@
- 
- 	root=		[KNL] Root filesystem
- 			Usually this a a block device specifier of some kind,
--			see the early_lookup_bdev comment in init/do_mounts.c
--			for details.
-+			see the early_lookup_bdev comment in
-+			block/early-lookup.c for details.
- 			Alternatively this can be "ram" for the legacy initial
- 			ramdisk, "nfs" and "cifs" for root on a network file
- 			system, or "mtd" and "ubi" for mounting from raw flash.
-diff --git a/block/Makefile b/block/Makefile
-index b31b05390749a1..46ada9dc8bbfe2 100644
---- a/block/Makefile
-+++ b/block/Makefile
-@@ -9,7 +9,7 @@ obj-y		:= bdev.o fops.o bio.o elevator.o blk-core.o blk-sysfs.o \
- 			blk-lib.o blk-mq.o blk-mq-tag.o blk-stat.o \
- 			blk-mq-sysfs.o blk-mq-cpumap.o blk-mq-sched.o ioctl.o \
- 			genhd.o ioprio.o badblocks.o partitions/ blk-rq-qos.o \
--			disk-events.o blk-ia-ranges.o
-+			disk-events.o blk-ia-ranges.o early-lookup.o
- 
- obj-$(CONFIG_BOUNCE)		+= bounce.o
- obj-$(CONFIG_BLK_DEV_BSG_COMMON) += bsg.o
 diff --git a/block/early-lookup.c b/block/early-lookup.c
-new file mode 100644
-index 00000000000000..9fc30d039508af
---- /dev/null
+index 9fc30d039508af..6016e781b6a0e2 100644
+--- a/block/early-lookup.c
 +++ b/block/early-lookup.c
-@@ -0,0 +1,224 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+/*
-+ * Code for looking up block devices in the early boot code before mounting the
-+ * root file system.  Unfortunately currently also abused in a few other places.
-+ */
-+#include <linux/blkdev.h>
-+#include <linux/ctype.h>
-+
-+struct uuidcmp {
-+	const char *uuid;
-+	int len;
-+};
-+
-+/**
-+ * match_dev_by_uuid - callback for finding a partition using its uuid
-+ * @dev:	device passed in by the caller
-+ * @data:	opaque pointer to the desired struct uuidcmp to match
-+ *
-+ * Returns 1 if the device matches, and 0 otherwise.
-+ */
-+static int match_dev_by_uuid(struct device *dev, const void *data)
+@@ -120,6 +120,35 @@ static int devt_from_partlabel(const char *label, dev_t *devt)
+ 	return 0;
+ }
+ 
++static dev_t blk_lookup_devt(const char *name, int partno)
 +{
-+	struct block_device *bdev = dev_to_bdev(dev);
-+	const struct uuidcmp *cmp = data;
-+
-+	if (!bdev->bd_meta_info ||
-+	    strncasecmp(cmp->uuid, bdev->bd_meta_info->uuid, cmp->len))
-+		return 0;
-+	return 1;
-+}
-+
-+/**
-+ * devt_from_partuuid - looks up the dev_t of a partition by its UUID
-+ * @uuid_str:	char array containing ascii UUID
-+ *
-+ * The function will return the first partition which contains a matching
-+ * UUID value in its partition_meta_info struct.  This does not search
-+ * by filesystem UUIDs.
-+ *
-+ * If @uuid_str is followed by a "/PARTNROFF=%d", then the number will be
-+ * extracted and used as an offset from the partition identified by the UUID.
-+ *
-+ * Returns the matching dev_t on success or 0 on failure.
-+ */
-+static int devt_from_partuuid(const char *uuid_str, dev_t *devt)
-+{
-+	struct uuidcmp cmp;
-+	struct device *dev = NULL;
-+	int offset = 0;
-+	char *slash;
-+
-+	cmp.uuid = uuid_str;
-+
-+	slash = strchr(uuid_str, '/');
-+	/* Check for optional partition number offset attributes. */
-+	if (slash) {
-+		char c = 0;
-+
-+		/* Explicitly fail on poor PARTUUID syntax. */
-+		if (sscanf(slash + 1, "PARTNROFF=%d%c", &offset, &c) != 1)
-+			goto out_invalid;
-+		cmp.len = slash - uuid_str;
-+	} else {
-+		cmp.len = strlen(uuid_str);
-+	}
-+
-+	if (!cmp.len)
-+		goto out_invalid;
-+
-+	dev = class_find_device(&block_class, NULL, &cmp, &match_dev_by_uuid);
-+	if (!dev)
-+		return -ENODEV;
-+
-+	if (offset) {
-+		/*
-+		 * Attempt to find the requested partition by adding an offset
-+		 * to the partition number found by UUID.
-+		 */
-+		*devt = part_devt(dev_to_disk(dev),
-+				  dev_to_bdev(dev)->bd_partno + offset);
-+	} else {
-+		*devt = dev->devt;
-+	}
-+
-+	put_device(dev);
-+	return 0;
-+
-+out_invalid:
-+	pr_err("VFS: PARTUUID= is invalid.\n"
-+	       "Expected PARTUUID=<valid-uuid-id>[/PARTNROFF=%%d]\n");
-+	return -EINVAL;
-+}
-+
-+/**
-+ * match_dev_by_label - callback for finding a partition using its label
-+ * @dev:	device passed in by the caller
-+ * @data:	opaque pointer to the label to match
-+ *
-+ * Returns 1 if the device matches, and 0 otherwise.
-+ */
-+static int match_dev_by_label(struct device *dev, const void *data)
-+{
-+	struct block_device *bdev = dev_to_bdev(dev);
-+	const char *label = data;
-+
-+	if (!bdev->bd_meta_info || strcmp(label, bdev->bd_meta_info->volname))
-+		return 0;
-+	return 1;
-+}
-+
-+static int devt_from_partlabel(const char *label, dev_t *devt)
-+{
++	dev_t devt = MKDEV(0, 0);
++	struct class_dev_iter iter;
 +	struct device *dev;
 +
-+	dev = class_find_device(&block_class, NULL, label, &match_dev_by_label);
-+	if (!dev)
-+		return -ENODEV;
-+	*devt = dev->devt;
-+	put_device(dev);
-+	return 0;
++	class_dev_iter_init(&iter, &block_class, NULL, &disk_type);
++	while ((dev = class_dev_iter_next(&iter))) {
++		struct gendisk *disk = dev_to_disk(dev);
++
++		if (strcmp(dev_name(dev), name))
++			continue;
++
++		if (partno < disk->minors) {
++			/* We need to return the right devno, even
++			 * if the partition doesn't exist yet.
++			 */
++			devt = MKDEV(MAJOR(dev->devt),
++				     MINOR(dev->devt) + partno);
++		} else {
++			devt = part_devt(disk, partno);
++			if (devt)
++				break;
++		}
++	}
++	class_dev_iter_exit(&iter);
++	return devt;
 +}
 +
-+static int devt_from_devname(const char *name, dev_t *devt)
+ static int devt_from_devname(const char *name, dev_t *devt)
+ {
+ 	int part;
+@@ -222,3 +251,66 @@ int early_lookup_bdev(const char *name, dev_t *devt)
+ 	return devt_from_devnum(name, devt);
+ }
+ EXPORT_SYMBOL_GPL(early_lookup_bdev);
++
++static char __init *bdevt_str(dev_t devt, char *buf)
 +{
-+	int part;
-+	char s[32];
-+	char *p;
++	if (MAJOR(devt) <= 0xff && MINOR(devt) <= 0xff) {
++		char tbuf[BDEVT_SIZE];
++		snprintf(tbuf, BDEVT_SIZE, "%02x%02x", MAJOR(devt), MINOR(devt));
++		snprintf(buf, BDEVT_SIZE, "%-9s", tbuf);
++	} else
++		snprintf(buf, BDEVT_SIZE, "%03x:%05x", MAJOR(devt), MINOR(devt));
 +
-+	if (strlen(name) > 31)
-+		return -EINVAL;
-+	strcpy(s, name);
-+	for (p = s; *p; p++) {
-+		if (*p == '/')
-+			*p = '!';
-+	}
-+
-+	*devt = blk_lookup_devt(s, 0);
-+	if (*devt)
-+		return 0;
-+
-+	/*
-+	 * Try non-existent, but valid partition, which may only exist after
-+	 * opening the device, like partitioned md devices.
-+	 */
-+	while (p > s && isdigit(p[-1]))
-+		p--;
-+	if (p == s || !*p || *p == '0')
-+		return -EINVAL;
-+
-+	/* try disk name without <part number> */
-+	part = simple_strtoul(p, NULL, 10);
-+	*p = '\0';
-+	*devt = blk_lookup_devt(s, part);
-+	if (*devt)
-+		return 0;
-+
-+	/* try disk name without p<part number> */
-+	if (p < s + 2 || !isdigit(p[-2]) || p[-1] != 'p')
-+		return -EINVAL;
-+	p[-1] = '\0';
-+	*devt = blk_lookup_devt(s, part);
-+	if (*devt)
-+		return 0;
-+	return -EINVAL;
-+}
-+
-+static int devt_from_devnum(const char *name, dev_t *devt)
-+{
-+	unsigned maj, min, offset;
-+	char *p, dummy;
-+
-+	if (sscanf(name, "%u:%u%c", &maj, &min, &dummy) == 2 ||
-+	    sscanf(name, "%u:%u:%u:%c", &maj, &min, &offset, &dummy) == 3) {
-+		*devt = MKDEV(maj, min);
-+		if (maj != MAJOR(*devt) || min != MINOR(*devt))
-+			return -EINVAL;
-+	} else {
-+		*devt = new_decode_dev(simple_strtoul(name, &p, 16));
-+		if (*p)
-+			return -EINVAL;
-+	}
-+
-+	return 0;
++	return buf;
 +}
 +
 +/*
-+ *	Convert a name into device number.  We accept the following variants:
-+ *
-+ *	1) <hex_major><hex_minor> device number in hexadecimal represents itself
-+ *         no leading 0x, for example b302.
-+ *	3) /dev/<disk_name> represents the device number of disk
-+ *	4) /dev/<disk_name><decimal> represents the device number
-+ *         of partition - device number of disk plus the partition number
-+ *	5) /dev/<disk_name>p<decimal> - same as the above, that form is
-+ *	   used when disk name of partitioned disk ends on a digit.
-+ *	6) PARTUUID=00112233-4455-6677-8899-AABBCCDDEEFF representing the
-+ *	   unique id of a partition if the partition table provides it.
-+ *	   The UUID may be either an EFI/GPT UUID, or refer to an MSDOS
-+ *	   partition using the format SSSSSSSS-PP, where SSSSSSSS is a zero-
-+ *	   filled hex representation of the 32-bit "NT disk signature", and PP
-+ *	   is a zero-filled hex representation of the 1-based partition number.
-+ *	7) PARTUUID=<UUID>/PARTNROFF=<int> to select a partition in relation to
-+ *	   a partition with a known unique id.
-+ *	8) <major>:<minor> major and minor number of the device separated by
-+ *	   a colon.
-+ *	9) PARTLABEL=<name> with name being the GPT partition label.
-+ *	   MSDOS partitions do not support labels!
-+ *
-+ *	If name doesn't have fall into the categories above, we return (0,0).
-+ *	block_class is used to check if something is a disk name. If the disk
-+ *	name contains slashes, the device name has them replaced with
-+ *	bangs.
++ * print a full list of all partitions - intended for places where the root
++ * filesystem can't be mounted and thus to give the victim some idea of what
++ * went wrong
 + */
-+int early_lookup_bdev(const char *name, dev_t *devt)
++void __init printk_all_partitions(void)
 +{
-+	if (strncmp(name, "PARTUUID=", 9) == 0)
-+		return devt_from_partuuid(name + 9, devt);
-+	if (strncmp(name, "PARTLABEL=", 10) == 0)
-+		return devt_from_partlabel(name + 10, devt);
-+	if (strncmp(name, "/dev/", 5) == 0)
-+		return devt_from_devname(name + 5, devt);
-+	return devt_from_devnum(name, devt);
++	struct class_dev_iter iter;
++	struct device *dev;
++
++	class_dev_iter_init(&iter, &block_class, NULL, &disk_type);
++	while ((dev = class_dev_iter_next(&iter))) {
++		struct gendisk *disk = dev_to_disk(dev);
++		struct block_device *part;
++		char devt_buf[BDEVT_SIZE];
++		unsigned long idx;
++
++		/*
++		 * Don't show empty devices or things that have been
++		 * suppressed
++		 */
++		if (get_capacity(disk) == 0 || (disk->flags & GENHD_FL_HIDDEN))
++			continue;
++
++		/*
++		 * Note, unlike /proc/partitions, I am showing the numbers in
++		 * hex - the same format as the root= option takes.
++		 */
++		rcu_read_lock();
++		xa_for_each(&disk->part_tbl, idx, part) {
++			if (!bdev_nr_sectors(part))
++				continue;
++			printk("%s%s %10llu %pg %s",
++			       bdev_is_partition(part) ? "  " : "",
++			       bdevt_str(part->bd_dev, devt_buf),
++			       bdev_nr_sectors(part) >> 1, part,
++			       part->bd_meta_info ?
++					part->bd_meta_info->uuid : "");
++			if (bdev_is_partition(part))
++				printk("\n");
++			else if (dev->parent && dev->parent->driver)
++				printk(" driver: %s\n",
++					dev->parent->driver->name);
++			else
++				printk(" (driver?)\n");
++		}
++		rcu_read_unlock();
++	}
++	class_dev_iter_exit(&iter);
 +}
-+EXPORT_SYMBOL_GPL(early_lookup_bdev);
-diff --git a/init/do_mounts.c b/init/do_mounts.c
-index 0b36a5f39ee8e2..780546a6cbfb6f 100644
---- a/init/do_mounts.c
-+++ b/init/do_mounts.c
-@@ -59,225 +59,6 @@ static int __init readwrite(char *str)
- __setup("ro", readonly);
- __setup("rw", readwrite);
+diff --git a/block/genhd.c b/block/genhd.c
+index 1cb489b927d50a..aa28f296fe391b 100644
+--- a/block/genhd.c
++++ b/block/genhd.c
+@@ -318,18 +318,6 @@ void blk_free_ext_minor(unsigned int minor)
+ 	ida_free(&ext_devt_ida, minor);
+ }
  
--#ifdef CONFIG_BLOCK
--struct uuidcmp {
--	const char *uuid;
--	int len;
--};
--
--/**
-- * match_dev_by_uuid - callback for finding a partition using its uuid
-- * @dev:	device passed in by the caller
-- * @data:	opaque pointer to the desired struct uuidcmp to match
-- *
-- * Returns 1 if the device matches, and 0 otherwise.
-- */
--static int match_dev_by_uuid(struct device *dev, const void *data)
+-static char *bdevt_str(dev_t devt, char *buf)
 -{
--	struct block_device *bdev = dev_to_bdev(dev);
--	const struct uuidcmp *cmp = data;
+-	if (MAJOR(devt) <= 0xff && MINOR(devt) <= 0xff) {
+-		char tbuf[BDEVT_SIZE];
+-		snprintf(tbuf, BDEVT_SIZE, "%02x%02x", MAJOR(devt), MINOR(devt));
+-		snprintf(buf, BDEVT_SIZE, "%-9s", tbuf);
+-	} else
+-		snprintf(buf, BDEVT_SIZE, "%03x:%05x", MAJOR(devt), MINOR(devt));
 -
--	if (!bdev->bd_meta_info ||
--	    strncasecmp(cmp->uuid, bdev->bd_meta_info->uuid, cmp->len))
--		return 0;
--	return 1;
+-	return buf;
 -}
 -
--/**
-- * devt_from_partuuid - looks up the dev_t of a partition by its UUID
-- * @uuid_str:	char array containing ascii UUID
-- *
-- * The function will return the first partition which contains a matching
-- * UUID value in its partition_meta_info struct.  This does not search
-- * by filesystem UUIDs.
-- *
-- * If @uuid_str is followed by a "/PARTNROFF=%d", then the number will be
-- * extracted and used as an offset from the partition identified by the UUID.
-- *
-- * Returns the matching dev_t on success or 0 on failure.
+ void disk_uevent(struct gendisk *disk, enum kobject_action action)
+ {
+ 	struct block_device *part;
+@@ -755,57 +743,6 @@ void blk_request_module(dev_t devt)
+ }
+ #endif /* CONFIG_BLOCK_LEGACY_AUTOLOAD */
+ 
+-/*
+- * print a full list of all partitions - intended for places where the root
+- * filesystem can't be mounted and thus to give the victim some idea of what
+- * went wrong
 - */
--static int devt_from_partuuid(const char *uuid_str, dev_t *devt)
+-void __init printk_all_partitions(void)
 -{
--	struct uuidcmp cmp;
--	struct device *dev = NULL;
--	int offset = 0;
--	char *slash;
--
--	cmp.uuid = uuid_str;
--
--	slash = strchr(uuid_str, '/');
--	/* Check for optional partition number offset attributes. */
--	if (slash) {
--		char c = 0;
--
--		/* Explicitly fail on poor PARTUUID syntax. */
--		if (sscanf(slash + 1, "PARTNROFF=%d%c", &offset, &c) != 1)
--			goto out_invalid;
--		cmp.len = slash - uuid_str;
--	} else {
--		cmp.len = strlen(uuid_str);
--	}
--
--	if (!cmp.len)
--		goto out_invalid;
--
--	dev = class_find_device(&block_class, NULL, &cmp, &match_dev_by_uuid);
--	if (!dev)
--		return -ENODEV;
--
--	if (offset) {
--		/*
--		 * Attempt to find the requested partition by adding an offset
--		 * to the partition number found by UUID.
--		 */
--		*devt = part_devt(dev_to_disk(dev),
--				  dev_to_bdev(dev)->bd_partno + offset);
--	} else {
--		*devt = dev->devt;
--	}
--
--	put_device(dev);
--	return 0;
--
--out_invalid:
--	pr_err("VFS: PARTUUID= is invalid.\n"
--	       "Expected PARTUUID=<valid-uuid-id>[/PARTNROFF=%%d]\n");
--	return -EINVAL;
--}
--
--/**
-- * match_dev_by_label - callback for finding a partition using its label
-- * @dev:	device passed in by the caller
-- * @data:	opaque pointer to the label to match
-- *
-- * Returns 1 if the device matches, and 0 otherwise.
-- */
--static int match_dev_by_label(struct device *dev, const void *data)
--{
--	struct block_device *bdev = dev_to_bdev(dev);
--	const char *label = data;
--
--	if (!bdev->bd_meta_info || strcmp(label, bdev->bd_meta_info->volname))
--		return 0;
--	return 1;
--}
--
--static int devt_from_partlabel(const char *label, dev_t *devt)
--{
+-	struct class_dev_iter iter;
 -	struct device *dev;
 -
--	dev = class_find_device(&block_class, NULL, label, &match_dev_by_label);
--	if (!dev)
--		return -ENODEV;
--	*devt = dev->devt;
--	put_device(dev);
--	return 0;
--}
+-	class_dev_iter_init(&iter, &block_class, NULL, &disk_type);
+-	while ((dev = class_dev_iter_next(&iter))) {
+-		struct gendisk *disk = dev_to_disk(dev);
+-		struct block_device *part;
+-		char devt_buf[BDEVT_SIZE];
+-		unsigned long idx;
 -
--static int devt_from_devname(const char *name, dev_t *devt)
--{
--	int part;
--	char s[32];
--	char *p;
+-		/*
+-		 * Don't show empty devices or things that have been
+-		 * suppressed
+-		 */
+-		if (get_capacity(disk) == 0 || (disk->flags & GENHD_FL_HIDDEN))
+-			continue;
 -
--	if (strlen(name) > 31)
--		return -EINVAL;
--	strcpy(s, name);
--	for (p = s; *p; p++) {
--		if (*p == '/')
--			*p = '!';
+-		/*
+-		 * Note, unlike /proc/partitions, I am showing the numbers in
+-		 * hex - the same format as the root= option takes.
+-		 */
+-		rcu_read_lock();
+-		xa_for_each(&disk->part_tbl, idx, part) {
+-			if (!bdev_nr_sectors(part))
+-				continue;
+-			printk("%s%s %10llu %pg %s",
+-			       bdev_is_partition(part) ? "  " : "",
+-			       bdevt_str(part->bd_dev, devt_buf),
+-			       bdev_nr_sectors(part) >> 1, part,
+-			       part->bd_meta_info ?
+-					part->bd_meta_info->uuid : "");
+-			if (bdev_is_partition(part))
+-				printk("\n");
+-			else if (dev->parent && dev->parent->driver)
+-				printk(" driver: %s\n",
+-					dev->parent->driver->name);
+-			else
+-				printk(" (driver?)\n");
+-		}
+-		rcu_read_unlock();
 -	}
--
--	*devt = blk_lookup_devt(s, 0);
--	if (*devt)
--		return 0;
--
--	/*
--	 * Try non-existent, but valid partition, which may only exist after
--	 * opening the device, like partitioned md devices.
--	 */
--	while (p > s && isdigit(p[-1]))
--		p--;
--	if (p == s || !*p || *p == '0')
--		return -EINVAL;
--
--	/* try disk name without <part number> */
--	part = simple_strtoul(p, NULL, 10);
--	*p = '\0';
--	*devt = blk_lookup_devt(s, part);
--	if (*devt)
--		return 0;
--
--	/* try disk name without p<part number> */
--	if (p < s + 2 || !isdigit(p[-2]) || p[-1] != 'p')
--		return -EINVAL;
--	p[-1] = '\0';
--	*devt = blk_lookup_devt(s, part);
--	if (*devt)
--		return 0;
--	return -EINVAL;
+-	class_dev_iter_exit(&iter);
 -}
 -
--static int devt_from_devnum(const char *name, dev_t *devt)
+ #ifdef CONFIG_PROC_FS
+ /* iterator */
+ static void *disk_seqf_start(struct seq_file *seqf, loff_t *pos)
+@@ -1339,35 +1276,6 @@ dev_t part_devt(struct gendisk *disk, u8 partno)
+ 	return devt;
+ }
+ 
+-dev_t blk_lookup_devt(const char *name, int partno)
 -{
--	unsigned maj, min, offset;
--	char *p, dummy;
+-	dev_t devt = MKDEV(0, 0);
+-	struct class_dev_iter iter;
+-	struct device *dev;
 -
--	if (sscanf(name, "%u:%u%c", &maj, &min, &dummy) == 2 ||
--	    sscanf(name, "%u:%u:%u:%c", &maj, &min, &offset, &dummy) == 3) {
--		*devt = MKDEV(maj, min);
--		if (maj != MAJOR(*devt) || min != MINOR(*devt))
--			return -EINVAL;
--	} else {
--		*devt = new_decode_dev(simple_strtoul(name, &p, 16));
--		if (*p)
--			return -EINVAL;
+-	class_dev_iter_init(&iter, &block_class, NULL, &disk_type);
+-	while ((dev = class_dev_iter_next(&iter))) {
+-		struct gendisk *disk = dev_to_disk(dev);
+-
+-		if (strcmp(dev_name(dev), name))
+-			continue;
+-
+-		if (partno < disk->minors) {
+-			/* We need to return the right devno, even
+-			 * if the partition doesn't exist yet.
+-			 */
+-			devt = MKDEV(MAJOR(dev->devt),
+-				     MINOR(dev->devt) + partno);
+-		} else {
+-			devt = part_devt(disk, partno);
+-			if (devt)
+-				break;
+-		}
 -	}
--
--	return 0;
+-	class_dev_iter_exit(&iter);
+-	return devt;
 -}
 -
--/*
-- *	Convert a name into device number.  We accept the following variants:
-- *
-- *	1) <hex_major><hex_minor> device number in hexadecimal represents itself
-- *         no leading 0x, for example b302.
-- *	3) /dev/<disk_name> represents the device number of disk
-- *	4) /dev/<disk_name><decimal> represents the device number
-- *         of partition - device number of disk plus the partition number
-- *	5) /dev/<disk_name>p<decimal> - same as the above, that form is
-- *	   used when disk name of partitioned disk ends on a digit.
-- *	6) PARTUUID=00112233-4455-6677-8899-AABBCCDDEEFF representing the
-- *	   unique id of a partition if the partition table provides it.
-- *	   The UUID may be either an EFI/GPT UUID, or refer to an MSDOS
-- *	   partition using the format SSSSSSSS-PP, where SSSSSSSS is a zero-
-- *	   filled hex representation of the 32-bit "NT disk signature", and PP
-- *	   is a zero-filled hex representation of the 1-based partition number.
-- *	7) PARTUUID=<UUID>/PARTNROFF=<int> to select a partition in relation to
-- *	   a partition with a known unique id.
-- *	8) <major>:<minor> major and minor number of the device separated by
-- *	   a colon.
-- *	9) PARTLABEL=<name> with name being the GPT partition label.
-- *	   MSDOS partitions do not support labels!
-- *
-- *	If name doesn't have fall into the categories above, we return (0,0).
-- *	block_class is used to check if something is a disk name. If the disk
-- *	name contains slashes, the device name has them replaced with
-- *	bangs.
-- */
--int early_lookup_bdev(const char *name, dev_t *devt)
--{
--	if (strncmp(name, "PARTUUID=", 9) == 0)
--		return devt_from_partuuid(name + 9, devt);
--	if (strncmp(name, "PARTLABEL=", 10) == 0)
--		return devt_from_partlabel(name + 10, devt);
--	if (strncmp(name, "/dev/", 5) == 0)
--		return devt_from_devname(name + 5, devt);
--	return devt_from_devnum(name, devt);
--}
--EXPORT_SYMBOL_GPL(early_lookup_bdev);
--#endif
--
- static int __init root_dev_setup(char *line)
+ struct gendisk *__alloc_disk_node(struct request_queue *q, int node_id,
+ 		struct lock_class_key *lkclass)
  {
- 	strscpy(saved_root_name, line, sizeof(saved_root_name));
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index 0bda6cb98d7eb8..0ce09ecfa3a7af 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -838,7 +838,6 @@ static inline void bd_unlink_disk_holder(struct block_device *bdev,
+ 
+ dev_t part_devt(struct gendisk *disk, u8 partno);
+ void inc_diskseq(struct gendisk *disk);
+-dev_t blk_lookup_devt(const char *name, int partno);
+ void blk_request_module(dev_t devt);
+ 
+ extern int blk_register_queue(struct gendisk *disk);
 -- 
 2.39.2
 
