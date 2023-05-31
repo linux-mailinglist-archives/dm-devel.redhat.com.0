@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E3BCF718106
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:07:39 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9B43A7181E8
+	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:30:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685538459;
+	s=mimecast20190719; t=1685539802;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dRWoqiCS7k6LBZxPO+TNJweHv7fl2VkGUBkKsSn/qZs=;
-	b=EMdSM+QTQhnVKmCKbQt5fdboh9WCX/1dRoWR4YKaudabAP5Bqc31oxrrEqLaR68cisYWpl
-	ZJuiOnRB8+hyVDwZ1dCPqDz99FTUUXupnYXQdRSNOctzhOVTG2hw/5kizg93Z50P+69O63
-	CAgCZQ4Tmfmvl6zywFpGxtAFmRTRTvo=
+	bh=gVWJ/HtgZ9E1bvYrrargGMzps8pBtoPmYd7ig55lL4A=;
+	b=Zux10v2oYX6Q6uOETs+h2rbevhQiuKUIMTHOAYvvWmunX5bOEcMj+OiE+dN3MUZ9zoQCrw
+	qBd+Vj4I1tlY2B2E4BaXDFD+BvYJF2FDz+u+vr4hLP3jSpjKtlMj25hpcecaSB5xBf8Hib
+	9lzD+R1uz9B7M2P4o5az5tpBZEp07+w=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-18-vCNgsYe0M3OOEBhd-_EEKQ-1; Wed, 31 May 2023 09:07:37 -0400
-X-MC-Unique: vCNgsYe0M3OOEBhd-_EEKQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-352-iXFG6Lm-OwOWTmxeocY2Sg-1; Wed, 31 May 2023 09:29:57 -0400
+X-MC-Unique: iXFG6Lm-OwOWTmxeocY2Sg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07A391019C87;
-	Wed, 31 May 2023 13:07:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B08CC101A53A;
+	Wed, 31 May 2023 13:29:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E675440C6EC4;
-	Wed, 31 May 2023 13:07:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D9E0848205E;
+	Wed, 31 May 2023 13:29:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A64A619451C8;
-	Wed, 31 May 2023 13:07:16 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7852319452C3;
+	Wed, 31 May 2023 13:29:51 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 703CC1946595
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 12:57:34 +0000 (UTC)
+ ESMTP id 6A2271946595
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 12:57:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 52B8040CFD45; Wed, 31 May 2023 12:57:34 +0000 (UTC)
+ id 57A16400DFF; Wed, 31 May 2023 12:57:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B86840CFD46
- for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:34 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FBA2492B00
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:38 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30C96101B041
- for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3186C101A531
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:38 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-588-FyOUiOHJPCWOO4FRJFB1yQ-1; Wed, 31 May 2023 08:57:32 -0400
-X-MC-Unique: FyOUiOHJPCWOO4FRJFB1yQ-1
+ us-mta-480-bG51V8XANRyT5vYBkkHPdA-1; Wed, 31 May 2023 08:57:36 -0400
+X-MC-Unique: bG51V8XANRyT5vYBkkHPdA-1
 Received: from [2001:4bb8:182:6d06:2e49:a56:513a:92ee] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q4LOF-00HS45-0A; Wed, 31 May 2023 12:57:23 +0000
+ id 1q4LOK-00HS6f-0D; Wed, 31 May 2023 12:57:29 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 31 May 2023 14:55:32 +0200
-Message-Id: <20230531125535.676098-22-hch@lst.de>
+Date: Wed, 31 May 2023 14:55:33 +0200
+Message-Id: <20230531125535.676098-23-hch@lst.de>
 In-Reply-To: <20230531125535.676098-1-hch@lst.de>
 References: <20230531125535.676098-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH 21/24] PM: hibernate: don't use early_lookup_bdev
- in resume_store
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH 22/24] mtd: block2mtd: factor the early block
+ device open logic into a helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,62 +100,103 @@ Cc: Loic Poulain <loic.poulain@linaro.org>,
  linux-mtd@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-resume_store is a sysfs attribute written during normal kernel runtime,
-and it should not use the early_lookup_bdev API that bypasses all normal
-path based permission checking, and might cause problems with certain
-container environments renaming devices.
+Simplify add_device a bit by splitting out the cumbersome early boot logic
+into a separate helper.
 
-Switch to lookup_bdev, which does a normal path lookup instead, and fall
-back to trying to parse a numeric dev_t just like early_lookup_bdev did.
-
-Note that this strictly speaking changes the kernel ABI as the PARTUUID=
-and PARTLABEL= style syntax is now not available during a running
-systems.  They never were intended for that, but this breaks things
-we'll have to figure out a way to make them available again.  But if
-avoidable in any way I'd rather avoid that.
-
-Fixes: 421a5fa1a6cf ("PM / hibernate: use name_to_dev_t to parse resume")
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Rafael J. Wysocki <rafael@kernel.org>
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- kernel/power/hibernate.c | 18 +++++++++++++++++-
- 1 file changed, 17 insertions(+), 1 deletion(-)
+ drivers/mtd/devices/block2mtd.c | 53 +++++++++++++++++++--------------
+ 1 file changed, 30 insertions(+), 23 deletions(-)
 
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index c52dedb9f7c8e8..7ae95ec72f9902 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -1178,7 +1178,23 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	if (!name)
- 		return -ENOMEM;
+diff --git a/drivers/mtd/devices/block2mtd.c b/drivers/mtd/devices/block2mtd.c
+index 4c21e9f13bead5..182eed68c75634 100644
+--- a/drivers/mtd/devices/block2mtd.c
++++ b/drivers/mtd/devices/block2mtd.c
+@@ -215,34 +215,18 @@ static void block2mtd_free_device(struct block2mtd_dev *dev)
+ 	kfree(dev);
+ }
  
--	error = early_lookup_bdev(name, &dev);
-+	error = lookup_bdev(name, &dev);
-+	if (error) {
-+		unsigned maj, min, offset;
-+		char *p, dummy;
-+
-+		if (sscanf(name, "%u:%u%c", &maj, &min, &dummy) == 2 ||
-+		    sscanf(name, "%u:%u:%u:%c", &maj, &min, &offset,
-+				&dummy) == 3) {
-+			dev = MKDEV(maj, min);
-+			if (maj != MAJOR(dev) || min != MINOR(dev))
-+				error = -EINVAL;
-+		} else {
-+			dev = new_decode_dev(simple_strtoul(name, &p, 16));
-+			if (*p)
-+				error = -EINVAL;
+-
+-static struct block2mtd_dev *add_device(char *devname, int erase_size,
+-		char *label, int timeout)
++static struct block_device *mdtblock_early_get_bdev(const char *devname,
++		fmode_t mode, int timeout, struct block2mtd_dev *dev)
+ {
++	struct block_device *bdev = ERR_PTR(-ENODEV);
+ #ifndef MODULE
+ 	int i;
+-#endif
+-	const fmode_t mode = FMODE_READ | FMODE_WRITE | FMODE_EXCL;
+-	struct block_device *bdev;
+-	struct block2mtd_dev *dev;
+-	char *name;
+-
+-	if (!devname)
+-		return NULL;
+-
+-	dev = kzalloc(sizeof(struct block2mtd_dev), GFP_KERNEL);
+-	if (!dev)
+-		return NULL;
+ 
+-	/* Get a handle on the device */
+-	bdev = blkdev_get_by_path(devname, mode, dev);
+-
+-#ifndef MODULE
+ 	/*
+ 	 * We might not have the root device mounted at this point.
+ 	 * Try to resolve the device name by other means.
+ 	 */
+-	for (i = 0; IS_ERR(bdev) && i <= timeout; i++) {
++	for (i = 0; i <= timeout; i++) {
+ 		dev_t devt;
+ 
+ 		if (i)
+@@ -254,12 +238,35 @@ static struct block2mtd_dev *add_device(char *devname, int erase_size,
+ 			msleep(1000);
+ 		wait_for_device_probe();
+ 
+-		if (early_lookup_bdev(devname, &devt))
+-			continue;
+-		bdev = blkdev_get_by_dev(devt, mode, dev);
++		if (!early_lookup_bdev(devname, &devt)) {
++			bdev = blkdev_get_by_dev(devt, mode, dev);
++			if (!IS_ERR(bdev))
++				break;
 +		}
-+	}
- 	kfree(name);
- 	if (error)
- 		return error;
+ 	}
+ #endif
++	return bdev;
++}
++
++static struct block2mtd_dev *add_device(char *devname, int erase_size,
++		char *label, int timeout)
++{
++	const fmode_t mode = FMODE_READ | FMODE_WRITE | FMODE_EXCL;
++	struct block_device *bdev;
++	struct block2mtd_dev *dev;
++	char *name;
+ 
++	if (!devname)
++		return NULL;
++
++	dev = kzalloc(sizeof(struct block2mtd_dev), GFP_KERNEL);
++	if (!dev)
++		return NULL;
++
++	/* Get a handle on the device */
++	bdev = blkdev_get_by_path(devname, mode, dev);
++	if (IS_ERR(bdev))
++		bdev = mdtblock_early_get_bdev(devname, mode, timeout, dev);
+ 	if (IS_ERR(bdev)) {
+ 		pr_err("error: cannot open device %s\n", devname);
+ 		goto err_free_block2mtd;
 -- 
 2.39.2
 
