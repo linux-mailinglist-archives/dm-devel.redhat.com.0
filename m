@@ -2,68 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5A7BC7181E9
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:31:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E3BCF718106
+	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:07:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685539887;
+	s=mimecast20190719; t=1685538459;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=439NkDslW1Xa31/L8A9kBro0iGM8arDw3jqi/BPfcX8=;
-	b=hNJDTBTSIr1IWDCwnKnavB3FCpp7tcgdPj5LH4rnEERs2ufOoGNsFnVVoB4iUS5ItMck1i
-	slaVUM/IbJok2NiQlBWkycwez6hCCpa1i42aZEPsPdeqNfvQ/I+RUsphOJM6Cgf98pWxpn
-	72k37h0bmx5gaojnrHJ98qwFNOnHDCQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=dRWoqiCS7k6LBZxPO+TNJweHv7fl2VkGUBkKsSn/qZs=;
+	b=EMdSM+QTQhnVKmCKbQt5fdboh9WCX/1dRoWR4YKaudabAP5Bqc31oxrrEqLaR68cisYWpl
+	ZJuiOnRB8+hyVDwZ1dCPqDz99FTUUXupnYXQdRSNOctzhOVTG2hw/5kizg93Z50P+69O63
+	CAgCZQ4Tmfmvl6zywFpGxtAFmRTRTvo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-602-3gjwf--9PGeznnBS2n4LZQ-1; Wed, 31 May 2023 09:31:22 -0400
-X-MC-Unique: 3gjwf--9PGeznnBS2n4LZQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-18-vCNgsYe0M3OOEBhd-_EEKQ-1; Wed, 31 May 2023 09:07:37 -0400
+X-MC-Unique: vCNgsYe0M3OOEBhd-_EEKQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8906B381D1FE;
-	Wed, 31 May 2023 13:31:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07A391019C87;
+	Wed, 31 May 2023 13:07:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3A72E407DEC6;
-	Wed, 31 May 2023 13:31:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E675440C6EC4;
+	Wed, 31 May 2023 13:07:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C9B3319465B6;
-	Wed, 31 May 2023 13:31:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A64A619451C8;
+	Wed, 31 May 2023 13:07:16 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CCAA619465BA
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 12:57:30 +0000 (UTC)
+ ESMTP id 703CC1946595
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 12:57:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B1B6C140E963; Wed, 31 May 2023 12:57:30 +0000 (UTC)
+ id 52B8040CFD45; Wed, 31 May 2023 12:57:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AA796140E962
- for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:30 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B86840CFD46
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:34 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5324C185A791
- for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:30 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30C96101B041
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 12:57:34 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-29-bAHeJSXfPvGN0jO1aYSUxA-1; Wed, 31 May 2023 08:57:28 -0400
-X-MC-Unique: bAHeJSXfPvGN0jO1aYSUxA-1
+ us-mta-588-FyOUiOHJPCWOO4FRJFB1yQ-1; Wed, 31 May 2023 08:57:32 -0400
+X-MC-Unique: FyOUiOHJPCWOO4FRJFB1yQ-1
 Received: from [2001:4bb8:182:6d06:2e49:a56:513a:92ee] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q4LOC-00HS1f-0T; Wed, 31 May 2023 12:57:20 +0000
+ id 1q4LOF-00HS45-0A; Wed, 31 May 2023 12:57:23 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 31 May 2023 14:55:31 +0200
-Message-Id: <20230531125535.676098-21-hch@lst.de>
+Date: Wed, 31 May 2023 14:55:32 +0200
+Message-Id: <20230531125535.676098-22-hch@lst.de>
 In-Reply-To: <20230531125535.676098-1-hch@lst.de>
 References: <20230531125535.676098-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [dm-devel] [PATCH 20/24] dm: only call early_lookup_bdev from early
- boot context
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH 21/24] PM: hibernate: don't use early_lookup_bdev
+ in resume_store
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,22 +100,19 @@ Cc: Loic Poulain <loic.poulain@linaro.org>,
  linux-mtd@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-early_lookup_bdev is supposed to only be called from the early boot
-code, but dm_get_device calls it as a general fallback when lookup_bdev
-fails, which is problematic because early_lookup_bdev bypasses all normal
+resume_store is a sysfs attribute written during normal kernel runtime,
+and it should not use the early_lookup_bdev API that bypasses all normal
 path based permission checking, and might cause problems with certain
 container environments renaming devices.
 
-Switch to only call early_lookup_bdev when dm is built-in and the system
-state in not running yet.  This means it is still available when tables
-are constructed by dm-init.c from the kernel command line, but not
-otherwise.
+Switch to lookup_bdev, which does a normal path lookup instead, and fall
+back to trying to parse a numeric dev_t just like early_lookup_bdev did.
 
 Note that this strictly speaking changes the kernel ABI as the PARTUUID=
 and PARTLABEL= style syntax is now not available during a running
@@ -123,41 +120,42 @@ systems.  They never were intended for that, but this breaks things
 we'll have to figure out a way to make them available again.  But if
 avoidable in any way I'd rather avoid that.
 
+Fixes: 421a5fa1a6cf ("PM / hibernate: use name_to_dev_t to parse resume")
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Mike Snitzer <snitzer@kernel.org>
+Acked-by: Rafael J. Wysocki <rafael@kernel.org>
 ---
- drivers/md/dm-table.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ kernel/power/hibernate.c | 18 +++++++++++++++++-
+ 1 file changed, 17 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
-index 1576b408768d4b..2fd5826bfce175 100644
---- a/drivers/md/dm-table.c
-+++ b/drivers/md/dm-table.c
-@@ -326,8 +326,11 @@ static int upgrade_mode(struct dm_dev_internal *dd, fmode_t new_mode,
- /*
-  * Add a device to the list, or just increment the usage count if
-  * it's already present.
-+ *
-+ * Note: the __ref annotation is because this function can call the __init
-+ * marked early_lookup_bdev when called during early boot code from dm-init.c.
-  */
--int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
-+int __ref dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
- 		  struct dm_dev **result)
- {
- 	int r;
-@@ -346,8 +349,10 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
- 			return -EOVERFLOW;
- 	} else {
- 		r = lookup_bdev(path, &dev);
--		if (r)
-+#ifndef MODULE
-+		if (r && system_state < SYSTEM_RUNNING)
- 			r = early_lookup_bdev(path, &dev);
-+#endif
- 		if (r)
- 			return r;
- 	}
+diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
+index c52dedb9f7c8e8..7ae95ec72f9902 100644
+--- a/kernel/power/hibernate.c
++++ b/kernel/power/hibernate.c
+@@ -1178,7 +1178,23 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
+ 	if (!name)
+ 		return -ENOMEM;
+ 
+-	error = early_lookup_bdev(name, &dev);
++	error = lookup_bdev(name, &dev);
++	if (error) {
++		unsigned maj, min, offset;
++		char *p, dummy;
++
++		if (sscanf(name, "%u:%u%c", &maj, &min, &dummy) == 2 ||
++		    sscanf(name, "%u:%u:%u:%c", &maj, &min, &offset,
++				&dummy) == 3) {
++			dev = MKDEV(maj, min);
++			if (maj != MAJOR(dev) || min != MINOR(dev))
++				error = -EINVAL;
++		} else {
++			dev = new_decode_dev(simple_strtoul(name, &p, 16));
++			if (*p)
++				error = -EINVAL;
++		}
++	}
+ 	kfree(name);
+ 	if (error)
+ 		return error;
 -- 
 2.39.2
 
