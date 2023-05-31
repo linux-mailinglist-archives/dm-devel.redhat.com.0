@@ -1,137 +1,138 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2B61571875A
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 18:28:52 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B45C97187C1
+	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 18:47:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685550531;
+	s=mimecast20190719; t=1685551629;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vCkQG1t1n7TVzxdRribMANB5MC8u5TJdNkNWxhd1zGE=;
-	b=XKTvzjOmNY3bwwu1vmoJW2dMsxIN1HAIQT0jRB6x1iuphSgRrwLcH3wUDwSsnQyDWzNdGz
-	AUudI0orZW/usB4ipVUxu490mPTOeI+U/qPYOJG81MHnI4n9aMxRLElfZQbJrsmVfGVcAk
-	TLqccf738uael4LrVG7Dd2UhKCd85Sc=
+	bh=RKTOkLF2GCYBTmcCW3PKVbs5fJFhC+OaNUokVccO/co=;
+	b=P/Pw3vaXziHXwQ2EQGNL90LChn1pT25XqCfZll6zAaTu4QS3fE6WzpppVxWBuQtkcHPMHE
+	XE1O8MWzqGEUOA1wJlee20r5MC31ObESbGlRfqjzRAndjURTSDyZ8xbc+8cKdqIH8oeqFd
+	GDGj2tUVxgiphlP1dQpiCkAqBnU1myc=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-553-2fPx-q1_NAqThY3yIWXdew-1; Wed, 31 May 2023 12:28:47 -0400
-X-MC-Unique: 2fPx-q1_NAqThY3yIWXdew-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-74-_F1S6HtwMhm7n0yNnzpt-A-1; Wed, 31 May 2023 12:47:07 -0400
+X-MC-Unique: _F1S6HtwMhm7n0yNnzpt-A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 066823C0F182;
-	Wed, 31 May 2023 16:28:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40614384952A;
+	Wed, 31 May 2023 16:47:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 52C6D492B0A;
-	Wed, 31 May 2023 16:28:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9FADA140E963;
+	Wed, 31 May 2023 16:47:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4BD5C19465BA;
-	Wed, 31 May 2023 16:28:38 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0125219465B9;
+	Wed, 31 May 2023 16:46:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 414E51946595
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 16:27:33 +0000 (UTC)
+ ESMTP id A107F1946595
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 16:27:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 25506202696C; Wed, 31 May 2023 16:27:33 +0000 (UTC)
+ id 73521492B0D; Wed, 31 May 2023 16:27:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1D96F20296C6
- for <dm-devel@redhat.com>; Wed, 31 May 2023 16:27:33 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6B201492B0B
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 16:27:37 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB76985A5BB
- for <dm-devel@redhat.com>; Wed, 31 May 2023 16:27:32 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 304F9185A791
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 16:27:37 +0000 (UTC)
 Received: from EUR04-VI1-obe.outbound.protection.outlook.com
- (mail-vi1eur04on2051.outbound.protection.outlook.com [40.107.8.51]) by
+ (mail-vi1eur04on2072.outbound.protection.outlook.com [40.107.8.72]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-304-MwJ_JpewNkuVG3O_HrGUHQ-1; Wed, 31 May 2023 12:27:29 -0400
-X-MC-Unique: MwJ_JpewNkuVG3O_HrGUHQ-1
+ us-mta-372-ANntB6ffNyC1nh-HDcSTXw-1; Wed, 31 May 2023 12:27:33 -0400
+X-MC-Unique: ANntB6ffNyC1nh-HDcSTXw-1
 Received: from AS8PR04MB8040.eurprd04.prod.outlook.com (2603:10a6:20b:2a9::22)
  by AS8PR04MB7493.eurprd04.prod.outlook.com (2603:10a6:20b:293::7)
  with Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Wed, 31 May
- 2023 16:27:26 +0000
+ 2023 16:27:30 +0000
 Received: from AS8PR04MB8040.eurprd04.prod.outlook.com
  ([fe80::2947:7809:4229:a8af]) by AS8PR04MB8040.eurprd04.prod.outlook.com
  ([fe80::2947:7809:4229:a8af%4]) with mapi id 15.20.6433.024; Wed, 31 May 2023
- 16:27:26 +0000
+ 16:27:30 +0000
 From: Martin Wilck <martin.wilck@suse.com>
 To: "bmarzins@redhat.com" <bmarzins@redhat.com>,
  "christophe.varoqui@opensvc.com" <christophe.varoqui@opensvc.com>
-Thread-Topic: [PATCH 3/5] multipathd: refresh all priorities if one has changed
-Thread-Index: AQHZjpZ1G8oSaoEUM0GGDORqDmb+r690nGIA
-Date: Wed, 31 May 2023 16:27:25 +0000
-Message-ID: <83a2e2ce4669e4c031a49ac9b9ebc064a25c42bd.camel@suse.com>
+Thread-Topic: [PATCH 4/5] multipathd: reload map if the path groups are out of
+ order
+Thread-Index: AQHZjpZ2q6vNqLfPoUixhg0FPwfDKa90nGiA
+Date: Wed, 31 May 2023 16:27:30 +0000
+Message-ID: <76217148d8069829795fb1d8608d5c5da60402e2.camel@suse.com>
 References: <1684970472-28669-1-git-send-email-bmarzins@redhat.com>
- <1684970472-28669-4-git-send-email-bmarzins@redhat.com>
-In-Reply-To: <1684970472-28669-4-git-send-email-bmarzins@redhat.com>
+ <1684970472-28669-5-git-send-email-bmarzins@redhat.com>
+In-Reply-To: <1684970472-28669-5-git-send-email-bmarzins@redhat.com>
 Accept-Language: en-US
 X-MS-Has-Attach: 
 X-MS-TNEF-Correlator: 
 user-agent: Evolution 3.48.1
 x-ms-publictraffictype: Email
 x-ms-traffictypediagnostic: AS8PR04MB8040:EE_|AS8PR04MB7493:EE_
-x-ms-office365-filtering-correlation-id: d373d493-6c20-4f73-181f-08db61f3eb7f
+x-ms-office365-filtering-correlation-id: 2a493894-908a-4e89-d3da-08db61f3ee66
 x-ms-exchange-senderadcheck: 1
 x-ms-exchange-antispam-relay: 0
 x-microsoft-antispam: BCL:0
-x-microsoft-antispam-message-info: Isco8p6mzcIJWZ0z+yvHfgqsnxCCdGWuTHNxkd3OlE1NEI1PV6ph6GaAxicU22PC8i8bIFfQs9t2JNq8/DhAWWqEzSnPxAx8WbMzk0vjIY7kZB1u4v4CguUiVg0yeMMonEuif4eYO0bdtKmFfTUk5J2L+mD6+aDU0uhCgtXxYeDwUk+45PT0tTKCCSbucHXVQTIXpktzhdzIxzz6mrYsWeN9X+32sdoNHo8vq7p3IKk7xstxNITalF7wLbqX+pxXHgPRLCiUWzW7Jhxs7cdDdCr+bnpcmlJWFaD9C+jHAWfdafpKylEUczKf8NpkhtLesJof/FdrazKhopCaklM04E8t5//8kXFYWv4kalC1ZmiE7uJLNYtZ9bYtUcy2iwW/lwbxeyGP9dMuzF/fNNcOA8U/LplYb7UCEYS8ayUsX7YXB8DZnbO4o8oj1UqtYWk3SkMmqSGAc3KMMnHbTWtqCz1SIonkgs1FDkmJkSUMo8NCDfwrnkRM6EUMNmktPE86gIkDPcEgmPF1CjSaQcfgK+YdvZaX7WH4plj/DajyyATx8WDPUxZeyWV8Sli7HwN9cKTMQY1luD4eIrHNtTsQuEfg5E2PdS3ye2LnMEUB0sNE6djKNB5/TuUB2bFW0ZKM
+x-microsoft-antispam-message-info: hvRJiFku8oWMrfDncailtXuDW0GjNnHmqBQGxaTP1g4Av88pfKLNfRzEMcu3FYaMsgfKQhzQ3/q3A/63CFij1Z+6KqX6ox8tzox9F74slR3NwRvl3XmYg3GimMvnGV5u6KL6fG6mr11sxMqEllL1NCYb4IyW4Fq9mqG2L41sbFYElbiBhH7JUmkBybKl4eFIlxjD9HorbQlgFbk776hz8PQciI11mAxDXvlx9hCRx+Xjd9BmjIEyW+h67lut/ExwglrYA7R01gHSYcWzIJ0zJRRh7vRfwBFIxbAsWvZrIGjJ2EmCb1OuODz8WbpUSz9HnSQGCRiPacIPrSnPTuXvpFHZVXYNZ43P+KWpnLweGEl1rQCO9T0iKBfxbCyZhClFlvBE5vCiP8uMrzBaJlvAnOpUoYdeOVFt8WbbIpoLh/MFBUDTfcot58woenMpc/qlL6Z8USS+DtCsxi/MfxqisRkgP9VvOg9bAXmaJ++gvF/RddKYf+ZSEFD6ffYmAUIMDbXuahq65PQe9JFv7z2WY72Hp/6bOLdgjmQ1DOLk+PKwIXZr754ffcUXC8VDb7U2mae2qgr/0WkWYDG6JPzjCtiSgESuXEO/rXETue3owJkvakI9tMHDzt4+CZXCufEB
 x-forefront-antispam-report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
  IPV:NLI; SFV:NSPM; H:AS8PR04MB8040.eurprd04.prod.outlook.com; PTR:; CAT:NONE;
  SFS:(13230028)(346002)(136003)(366004)(376002)(396003)(39860400002)(451199021)(186003)(2616005)(110136005)(6506007)(26005)(2906002)(6512007)(478600001)(44832011)(83380400001)(38070700005)(6486002)(86362001)(8676002)(38100700002)(8936002)(122000001)(41300700001)(5660300002)(316002)(76116006)(66946007)(66556008)(64756008)(66476007)(36756003)(66446008)(71200400001)(91956017)(4326008);
  DIR:OUT; SFP:1101
 x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?E1db+hbbaxlRNne/Beo4gNwXThRb0maMjehIfUWFI1BzO8OK6qTUI5Q5J?=
- =?iso-8859-15?Q?dELOD+x0ZhO94FJPgtlUjImdymo1Gb4ZVGnzoNvvyM8W0Q5N9Pdg2jEEj?=
- =?iso-8859-15?Q?Vj66Apsz/5um9JdLPaUNwtOenHXPYKqZdlR1/4EqTbKOnCQWgQufprbFD?=
- =?iso-8859-15?Q?5zlUX6Sr1Lfwg0U0ebkW9YWGHCgLOf/t/oRCCSfPeDJYJ+qzFmd09plWv?=
- =?iso-8859-15?Q?aGGKY+RG33Qj/06t7MjIujpNy6Ez09ZH5swlj+eat9X0oCsw7fK3ovILs?=
- =?iso-8859-15?Q?pVbiq9ECAa2UKJaikoSHR3eShqa5hTKUnIHPDSOX95dow1NiWfEHivo8o?=
- =?iso-8859-15?Q?gEITqzt0JjgV6/gqDAMI6eRAnXjPI5p4m4I7BvRlUuttevFjN2xSAJ+j8?=
- =?iso-8859-15?Q?1wureWxITjgeJm7vdDedTzSGYk+WTRPoRvnsQ+h8yCMfzZRfg/PBMAOgU?=
- =?iso-8859-15?Q?VnEAwm15KpnWJHdIXZAy+YhxPeFNk8Fimf5k49yK3c+I35yglEHxxD4/K?=
- =?iso-8859-15?Q?/bdD+CtXbyWvD0y37xcmSFPnBeAU6lNX7aA01A0SIaSTHP1AryB5Z6ri8?=
- =?iso-8859-15?Q?QGVQabx2bfKlUmlD7tWasDtOOB2BuXbKzUu3fPu2ZckonbRuJEJALUhPf?=
- =?iso-8859-15?Q?2fnonFefQhqgacvovRUjGNeCLEsUz8y3/m/5/tt2P1ZoO4WdRGKhFyiHE?=
- =?iso-8859-15?Q?b2uHp0uLbvHynwu99D7Teibpl9N1tBXt7p+9bJYhIKifPnqutoPYGvsb5?=
- =?iso-8859-15?Q?kDjxSNcv+mhyH1Hj4kVrC8lYRDJn88gv9NXVsDJRGHlOnasEx0n9PAvVy?=
- =?iso-8859-15?Q?hrmoxlNnVOhKqdpymOOSgzU6qImeCLN7AzkIupwYAmhUafLpsmkz2Nx4s?=
- =?iso-8859-15?Q?LXT96XpIstWp6GxSMySdyKsugqv4icCW58IP+RbJmNK05dmUZ3ickdvwU?=
- =?iso-8859-15?Q?mUJYoAdxzFTAaUup0eIOm1T+ZVzkLvY/57Kfgk+VGp2gWAQquSoASO5nV?=
- =?iso-8859-15?Q?QytuYgJ0lXoxZsEvWQTjYlbTWLY8a5cHIEyu48cD9Yz0DPzaN+YV0zPyF?=
- =?iso-8859-15?Q?8jKAJIVgVEHopP/bFBUd5rjYy/2S/2vL5fSgQ+74O83w9O540oC46tvsv?=
- =?iso-8859-15?Q?EI0pic4zqUYXbFGfIJvesh9cqDMVGEDxEAyYtFBwanmbyBQgqrmFZba0C?=
- =?iso-8859-15?Q?f8lyKPEXkwCIS3E2Or163OMt++BsVKMK3R+YaFDlyIjwMiOOBUBSh2sI0?=
- =?iso-8859-15?Q?mbhUzKr76Jm/aenhUgu1OMidMUd5id8BugNrLNXnBhOS1jXtbUllYsXVN?=
- =?iso-8859-15?Q?UbM/oNuuSMEwMWCMiOKxg/7eh+REWQTISJsrrgY2ND2Xo6gS3wqGssIeV?=
- =?iso-8859-15?Q?XPUell4qndJKvc33a2wdGxoGdq4aYbznGRSspWazk0CSidxNnyyINQIUl?=
- =?iso-8859-15?Q?hk2naDTs0fCGTD6D/XwBb/I2tpCkgZ+WA4OgGgmIGxL0IKc0vgk6BwHU3?=
- =?iso-8859-15?Q?v+48SCefYZA0RMdTvtVznQLzKiK3a61nJ+PC/KeXST8AI2XfdzDgAc89s?=
- =?iso-8859-15?Q?X+e32/jzWsXyI4r8uUj9ukaYApaI+kpzIzoqB3std/H56HpzmeRgYQwSn?=
- =?iso-8859-15?Q?TIS1OWJuWNSb2nZFvVCpFxLUPeU67u5tj8QPli8hqfFh/lcGsXK4Ra1KP?=
- =?iso-8859-15?Q?N/ca?=
+x-ms-exchange-antispam-messagedata-0: =?iso-8859-15?Q?SonJDheXbUJsWr2rRoZSS+FN+32haXMLDGWUelwO6prXLowOJI0SL0rzE?=
+ =?iso-8859-15?Q?XSaJRu0fvlfCM5UeqS21J/d/N6uKKxPHpkXa/S8rlLM1u/026eW4oJfYr?=
+ =?iso-8859-15?Q?M+gLPsdhTrpJfrLzxz/K9oKsnuTTJRnOPI0S1xZKZgxHOuKWvU6IVb3fc?=
+ =?iso-8859-15?Q?U+ENr9V1dXB4Q/rAwPlr2sHaj/Wvs99KttXNe4HGPPXNGTZB+Xh54ZpZ8?=
+ =?iso-8859-15?Q?nfrEUsLFI48GT5+AmMJC0XMw1n/tBT1XmuUwpE2KfH+hNIFMJeK0HoXPK?=
+ =?iso-8859-15?Q?SD6aaDEASUivMfuGknKVcXNChug38DgYd1N5sK9SzcUfBJaexQfy+Lwz7?=
+ =?iso-8859-15?Q?0JHkUVRZdD08CEaXfiTh4KwspNcbx2Upcusc0bn+Ask4hm1a4XPrD9WJZ?=
+ =?iso-8859-15?Q?9hGHGwHvbUHwX7PlfZlyS9WqRTlMzEx1VLejumHZ5yPD6/hme02FKDJXv?=
+ =?iso-8859-15?Q?9wQHS5sVQ3/tDZrQpei0iqJBAhx1NVttSC9auPdAD+U76DnDXwsBHk35O?=
+ =?iso-8859-15?Q?2AeL/JvqTM9gZO/8b4UfUJTMsqcum4T+BR3JXpLjOPmPGaLExU5bxBcX2?=
+ =?iso-8859-15?Q?SUYFMUZVtG8/kzPz4XMSLHyE78tfZ1bC75r28nlphBYyvBeWprybh1jAI?=
+ =?iso-8859-15?Q?OPBToPdaLn85A7CyWd/8FFu4eVl32WiGOPTpn5tvS+q+vszaQJnmMoFP8?=
+ =?iso-8859-15?Q?WhcWnQ57wDQHWGyPEA/d1COSX0ypwgCqCDFwgRauDIdCF2a62sfWcMfE8?=
+ =?iso-8859-15?Q?AVPT3kXWIriyz5Fqbysa1HKh6MidunyLKRpijYLqxAytGWrpqFnjBhucZ?=
+ =?iso-8859-15?Q?BaE1Ji1K0VH/AXxOcuLN+zjUp7mqiMNHEvqp78pzok36cX4aART3G06HO?=
+ =?iso-8859-15?Q?U4SGKxWZROweKTmzfx0CMn9fTU9lS6BBWz3lvEpbBc9Wk7wGij6O7rrx1?=
+ =?iso-8859-15?Q?bbtkTRm1tAtIN/HBFxDmwCM//ykoBXunmg+400q+regsVt05qFajGNI4Z?=
+ =?iso-8859-15?Q?tMC+8rK0vZxgMoJGKh1rdqRDo4sxQlykU3BhDpvCMOVeo664vm5yTCLIT?=
+ =?iso-8859-15?Q?Ktdzed3FbEEzGadGL5oy70XQ74o7rX11mgZ7IeReHnf5ccupj1b2NPQpE?=
+ =?iso-8859-15?Q?E9ldSqze55QhOvMcTX7cu8gGCeqp3Uy2k9rs6YHAi0+3uN3mQRxA+t5ok?=
+ =?iso-8859-15?Q?qVDKoMLi5Cd55TkSSavyCYcKdmcIg31l0w9H0vWnOKjkYNvBZMoNpsihS?=
+ =?iso-8859-15?Q?gzE5zXo1630JVUnVjMCg6uUAw1aK21Tld0CrP6PDuI9aXMMkf26ot6pGV?=
+ =?iso-8859-15?Q?EbzOcdYs5MngZo4SC0QgRIJpJf1NhJercYccJ0WvBC3tUFnYt2iDmFPrV?=
+ =?iso-8859-15?Q?ZEeNXaZMVePEIwd09Mv+KLeI31JS5iky6dyZvKFDWrrCbdXHmzeD5E8/h?=
+ =?iso-8859-15?Q?hmmbTC6vikJqNKnIc2DYqoazquPEf74J07A7YMSHcb/Zoh4atYWxBik2T?=
+ =?iso-8859-15?Q?M3DOWd7mEhKlI9ME4BX1B695PrhyGAOfZLyXjxj4H+L1uEtgj7ms/QScq?=
+ =?iso-8859-15?Q?3LkoShdlZhyJiHb92V2ke1cr0RwGW0kZTGxqoStKVpluUS36JvFOEhS8n?=
+ =?iso-8859-15?Q?ItXESNbXpBn6qhTbwtfCoxcAFzIpVi3ZUzt5rszfpLWUpucdT8XHDXjJz?=
+ =?iso-8859-15?Q?d0mn?=
 MIME-Version: 1.0
 X-OriginatorOrg: suse.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
 X-MS-Exchange-CrossTenant-AuthSource: AS8PR04MB8040.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: d373d493-6c20-4f73-181f-08db61f3eb7f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2023 16:27:25.8471 (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 2a493894-908a-4e89-d3da-08db61f3ee66
+X-MS-Exchange-CrossTenant-originalarrivaltime: 31 May 2023 16:27:30.7461 (UTC)
 X-MS-Exchange-CrossTenant-fromentityheader: Hosted
 X-MS-Exchange-CrossTenant-id: f7a17af6-1c5c-4a36-aa8b-f5be247aa4ba
 X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: PqslzcbZV8vl6OHe0xL2iAo+53aINX+7LA9I3+98gRXXwmFC4YMDh7fBueWKPDlJuZG3RN0mfMjgi/NQEhtGyA==
+X-MS-Exchange-CrossTenant-userprincipalname: agZcauq0qBuwAX9fZaaKXuiIqep7bihyChB4cPsJDYFAC5qOswmlf/6S/ChTr/au160PA743f0P0Gg3HpRXOIw==
 X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS8PR04MB7493
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -140,9 +141,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH 3/5] multipathd: refresh all priorities if
- one has changed
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH 4/5] multipathd: reload map if the path
+ groups are out of order
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -157,148 +158,296 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Language: en-US
-Content-ID: <D1B85C7003F964418E6F36F7DA887C9A@eurprd04.prod.outlook.com>
+Content-ID: <C4FCE891E3A4AB46BB9645EECF493A3A@eurprd04.prod.outlook.com>
 Content-Type: text/plain; charset="iso-8859-15"
 Content-Transfer-Encoding: quoted-printable
 
 On Wed, 2023-05-24 at 18:21 -0500, Benjamin Marzinski wrote:
-> For multipath devices with path group policies other than
-> group_by_prio,
-> multipathd wasn't updating all the paths' priorities when calling
-> need_switch_pathgroup(), even in cases where it likely was necessary.
-> When a path just becomes usable again, all paths' priorities get
-> updated
-> by update_prio().=A0 But if the priority changes on a path that is
-> already
-> up, the other paths' priorities only get updated if the multipath
-> device
-> uses the group_by_prio path_grouping_policy, otherwise
-> need_switch_pathgroup() is called with refresh set to 0. But if the
-> priority of the checked path has changed, then likely so have the
-> priorities of other paths. Since the pathgroup's priority is the
-> average
-> of its paths' priorities, changing the priority of just one path may
-> not
-> change the average enough to reorder the pathgroups.
+> need_switch_pathgroup() only checks if the currently used pathgroup
+> is
+> not the highest priority pathgroup. If it isn't, all multipathd does
+> is
+> instruct the kernel to switch to the correct pathgroup.=A0 However, the
+> kernel treats the pathgroups as if they were ordered by priority.
+> When
+> the kernel runs out of paths to use in the currently selected
+> pathgroup,
+> it will start checking the pathgroups in order until it finds one
+> with
+> usable paths.
 >=20
-> Instead, set refresh in need_switch_pathgroup() if the priorty has
-> changed to something other than PRIO_UNDEF (which usually means an
-> error
-> has occured) and the priorities of the other paths haven't already
-> been
-> updated by update_prio().
+> need_switch_pathgroup() should also check if the pathgroups are out
+> of
+> order, and if so, multipathd should reload the map to reorder them
+> correctly.
 >=20
 > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 > ---
-> =A0multipathd/main.c | 35 +++++++++++++++++++++--------------
-> =A01 file changed, 21 insertions(+), 14 deletions(-)
+> =A0libmultipath/libmultipath.version |=A0 5 ++++
+> =A0libmultipath/switchgroup.c=A0=A0=A0=A0=A0=A0=A0 | 27 +++++++++++++++++=
++++++
+> =A0libmultipath/switchgroup.h=A0=A0=A0=A0=A0=A0=A0 |=A0 1 +
+> =A0multipathd/main.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 | 38=
+ +++++++++++++++++++++--------
+> --
+> =A04 files changed, 59 insertions(+), 12 deletions(-)
 >=20
+> diff --git a/libmultipath/libmultipath.version
+> b/libmultipath/libmultipath.version
+> index 8f72c452..38074699 100644
+> --- a/libmultipath/libmultipath.version
+> +++ b/libmultipath/libmultipath.version
+> @@ -237,3 +237,8 @@ global:
+> =A0local:
+> =A0=A0=A0=A0=A0=A0=A0=A0*;
+> =A0};
+> +
+> +LIBMULTIPATH_19.1.0 {
+> +global:
+> +=A0=A0=A0=A0=A0=A0=A0path_groups_in_order;
+> +} LIBMULTIPATH_19.0.0;
+> diff --git a/libmultipath/switchgroup.c b/libmultipath/switchgroup.c
+> index b1e1f39b..b1180839 100644
+> --- a/libmultipath/switchgroup.c
+> +++ b/libmultipath/switchgroup.c
+> @@ -7,6 +7,33 @@
+> =A0#include "structs.h"
+> =A0#include "switchgroup.h"
+> =A0
+> +bool path_groups_in_order(struct multipath *mpp)
+> +{
+> +=A0=A0=A0=A0=A0=A0=A0int i;
+> +=A0=A0=A0=A0=A0=A0=A0struct pathgroup *pgp;
+> +=A0=A0=A0=A0=A0=A0=A0bool seen_marginal_pg =3D false;
+> +=A0=A0=A0=A0=A0=A0=A0int last_prio =3D INT_MAX;
+> +
+> +=A0=A0=A0=A0=A0=A0=A0if (VECTOR_SIZE(mpp->pg) < 2)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
+> +
+> +=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot(mpp->pg, pgp, i) {
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* skip pgs with PRIO_UNDEF=
+, since this is likely
+> temporary */
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (!pgp->paths || pgp->pri=
+ority =3D=3D PRIO_UNDEF)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0con=
+tinue;
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pgp->marginal && !seen_=
+marginal_pg) {
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0las=
+t_prio =3D INT_MAX;
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0con=
+tinue;
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (seen_marginal_pg && !pg=
+p->marginal)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret=
+urn false;
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pgp->priority > last_pr=
+io)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ret=
+urn false;
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0last_prio =3D pgp->priority=
+;
+> +=A0=A0=A0=A0=A0=A0=A0}
+> +=A0=A0=A0=A0=A0=A0=A0return true;
+> +}
+> +
+> =A0void path_group_prio_update(struct pathgroup *pgp)
+> =A0{
+> =A0=A0=A0=A0=A0=A0=A0=A0int i;
+> diff --git a/libmultipath/switchgroup.h b/libmultipath/switchgroup.h
+> index 9365e2e2..43dbb6c9 100644
+> --- a/libmultipath/switchgroup.h
+> +++ b/libmultipath/switchgroup.h
+> @@ -1,2 +1,3 @@
+> =A0void path_group_prio_update (struct pathgroup * pgp);
+> =A0int select_path_group (struct multipath * mpp);
+> +bool path_groups_in_order(struct multipath *mpp);
 > diff --git a/multipathd/main.c b/multipathd/main.c
-> index bdeffe76..e7c272ad 100644
+> index e7c272ad..2ea7c76b 100644
 > --- a/multipathd/main.c
 > +++ b/multipathd/main.c
-> @@ -2575,20 +2575,27 @@ check_path (struct vectors * vecs, struct
-> path * pp, unsigned int ticks)
+> @@ -396,7 +396,7 @@ void put_multipath_config(__attribute__((unused))
+> void *arg)
+> =A0}
 > =A0
-> =A0=A0=A0=A0=A0=A0=A0=A0if (marginal_changed)
-> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reload_and_sync_map(pp->m=
-pp, vecs, 1);
-> -=A0=A0=A0=A0=A0=A0=A0else if (update_prio(pp, new_path_up) &&
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 (pp->mpp->pgpolicyfn =3D=3D (pgpolicyfn *=
-)group_by_prio) &&
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->mpp->pgfailback =3D=3D -FAILBACK_I=
-MMEDIATE) {
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "%s: path priori=
-ties changed. reloading",
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp-=
->mpp->alias);
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reload_and_sync_map(pp->mpp=
-, vecs, !new_path_up);
-> -=A0=A0=A0=A0=A0=A0=A0} else if (need_switch_pathgroup(pp->mpp, 0)) {
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pp->mpp->pgfailback > 0=
- &&
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 (new_path_up || p=
-p->mpp->failback_tick <=3D 0))
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp-=
->mpp->failback_tick =3D
+> =A0static int
+> -need_switch_pathgroup (struct multipath * mpp, int refresh)
+> +need_switch_pathgroup (struct multipath * mpp, int refresh, bool
+> *need_reload)
+> =A0{
+> =A0=A0=A0=A0=A0=A0=A0=A0struct pathgroup * pgp;
+> =A0=A0=A0=A0=A0=A0=A0=A0struct path * pp;
+> @@ -404,6 +404,7 @@ need_switch_pathgroup (struct multipath * mpp,
+> int refresh)
+> =A0=A0=A0=A0=A0=A0=A0=A0struct config *conf;
+> =A0=A0=A0=A0=A0=A0=A0=A0int bestpg;
+> =A0
+> +=A0=A0=A0=A0=A0=A0=A0*need_reload =3D false;
+> =A0=A0=A0=A0=A0=A0=A0=A0if (!mpp)
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
+> =A0
+> @@ -430,10 +431,9 @@ need_switch_pathgroup (struct multipath * mpp,
+> int refresh)
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
+> =A0
+> =A0=A0=A0=A0=A0=A0=A0=A0mpp->bestpg =3D bestpg;
+> -=A0=A0=A0=A0=A0=A0=A0if (mpp->bestpg !=3D mpp->nextpg)
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 1;
+> +=A0=A0=A0=A0=A0=A0=A0*need_reload =3D !path_groups_in_order(mpp);
+
+This will start another loop over the path groups. Can we just
+integrate the path_groups_in_order() logic into the loop right here?
+
+
+
+> =A0
+> -=A0=A0=A0=A0=A0=A0=A0return 0;
+> +=A0=A0=A0=A0=A0=A0=A0return (*need_reload || mpp->bestpg !=3D mpp->nextp=
+g);
+> =A0}
+> =A0
+> =A0static void
+> @@ -1982,20 +1982,26 @@ ghost_delay_tick(struct vectors *vecs)
+> =A0}
+> =A0
+> =A0static void
+> -deferred_failback_tick (vector mpvec)
+> +deferred_failback_tick (struct vectors *vecs)
+> =A0{
+> =A0=A0=A0=A0=A0=A0=A0=A0struct multipath * mpp;
+> =A0=A0=A0=A0=A0=A0=A0=A0unsigned int i;
+> +=A0=A0=A0=A0=A0=A0=A0bool need_reload;
+> =A0
+> -=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot (mpvec, mpp, i) {
+> +=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot (vecs->mpvec, mpp, i) {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/*
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * deferred failback gett=
+ing sooner
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 */
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (mpp->pgfailback > 0 &=
+& mpp->failback_tick > 0) {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0m=
+pp->failback_tick--;
+> =A0
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if =
+(!mpp->failback_tick &&
+> need_switch_pathgroup(mpp, 1))
 > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0pp->mpp->pgfailback + 1;
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0else if (pp->mpp->pgfailbac=
-k =3D=3D -FAILBACK_IMMEDIATE
-> ||
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 (c=
-hkr_new_path_up &&
-> followover_should_failback(pp)))
-> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0swi=
-tch_pathgroup(pp->mpp);
-> +=A0=A0=A0=A0=A0=A0=A0else {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int prio_changed =3D update=
-_prio(pp, new_path_up);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0bool need_refresh =3D (!new=
-_path_up && prio_changed &&
+=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(mpp);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if =
+(!mpp->failback_tick &&
 > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->priority !=3D PRIO_UNDEF);
-> +
-
-I have always found it confusing that we recalculate the priorities in
-two functions (update_prio() and need_switch_pathgroup()), passing
-boolean flags back and forth. IMO we should move this logic to
-update_prio(), so that we don't need to refresh any priorities in
-need_switch_pathgroup() any more. after determining the prio of the
-"primary" path device, update_prio() has all the information
-it needs to figure out whether priorities of other paths must be
-refreshed.
-
-That would even make the code easier to understand, IMO.
-
-Regards
-Martin
-
-
-
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (prio_changed &&
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->mpp->pgpolicy=
-fn =3D=3D (pgpolicyfn
+=A0=A0 need_switch_pathgroup(mpp, 1,
+> &need_reload)) {
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0if (need_reload)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reload_and_sync_map(mpp,
+> vecs, 0);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0else
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(mpp);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0}
+> @@ -2579,6 +2585,7 @@ check_path (struct vectors * vecs, struct path
+> * pp, unsigned int ticks)
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int prio_changed =3D upda=
+te_prio(pp, new_path_up);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0bool need_refresh =3D (!n=
+ew_path_up && prio_changed &&
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->priority !=3D PRIO_UNDEF);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0bool need_reload;
+> =A0
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (prio_changed &&
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->mpp->pgpoli=
+cyfn =3D=3D (pgpolicyfn
 > *)group_by_prio &&
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->mpp->pgfailba=
-ck =3D=3D -FAILBACK_IMMEDIATE) {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0con=
-dlog(2, "%s: path priorities changed.
+> @@ -2586,15 +2593,22 @@ check_path (struct vectors * vecs, struct
+> path * pp, unsigned int ticks)
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0c=
+ondlog(2, "%s: path priorities changed.
 > reloading",
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0pp->mpp->alias);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0rel=
-oad_and_sync_map(pp->mpp, vecs,
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->alias);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0r=
+eload_and_sync_map(pp->mpp, vecs,
 > !new_path_up);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else if (need_switch_path=
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else if (need_switch_path=
 group(pp->mpp,
 > need_refresh)) {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if =
-(pp->mpp->pgfailback > 0 &&
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else if (need_switch_path=
+group(pp->mpp,
+> need_refresh,
 > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0 (new_path_up || pp->mpp->failback_tick <=3D
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 &need=
+_reload)) {
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0i=
+f (pp->mpp->pgfailback > 0 &&
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0 (new_path_up || pp->mpp->failback_tick <=3D
 > 0))
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0pp->mpp->failback_tick =3D
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->pgfailback + 1;
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0els=
-e if (pp->mpp->pgfailback =3D=3D -
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->failback_tick =3D
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->pgfailback + 1;
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0e=
+lse if (pp->mpp->pgfailback =3D=3D -
 > FAILBACK_IMMEDIATE ||
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0 (chkr_new_path_up &&
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 (chkr_new_path_up &&
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
 =A0=A0=A0=A0=A0=A0=A0=A0 followover_should_failback(pp)))
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
 =A0=A0=A0=A0=A0=A0=A0switch_pathgroup(pp->mpp);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0 followover_should_failback(pp))) {
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0if (need_reload)
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reload_and_sync_map(pp->mpp,
+> vecs,
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0
+> !need_refresh &&
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0
+> !new_path_up);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0else
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(pp->mpp);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
 > =A0=A0=A0=A0=A0=A0=A0=A0}
 > =A0=A0=A0=A0=A0=A0=A0=A0return 1;
-> =A0}
+> @@ -2720,7 +2734,7 @@ unlock:
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_push(clea=
+nup_lock, &vecs->lock);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0lock(&vecs->lock);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_testcancel();
+> -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0deferred_failback_tick(vecs=
+->mpvec);
+> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0deferred_failback_tick(vecs=
+);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0retry_count_tick(vecs->mp=
+vec);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0missing_uev_wait_tick(vec=
+s);
+> =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ghost_delay_tick(vecs);
+
+
 
 --
 dm-devel mailing list
