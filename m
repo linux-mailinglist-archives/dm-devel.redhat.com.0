@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A301B7184BA
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 16:21:47 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 912A87184F6
+	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 16:28:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685542906;
+	s=mimecast20190719; t=1685543332;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=GBEtUH1zZdUC3dxm7qaOZIuh8iEvDBgdXH8l4cl6DNM=;
-	b=EerQipDrD08YSSbZdVPdKn35sZpnqvV3LIj0du7X8Adm38pLHcj9f3S2O1N8VF9l39YTpb
-	8m34y3yUIfaXnwnwCD/TiZmne4gh4LZTnV33E8P3WbEzbszlI674r6cafVJjGmmKkCUP2l
-	C8JxtkZc1W3PLqlphUqoutps7AZZRSw=
+	bh=9Dwqyu0AllYzmdlwWH1ktWJJzePExTO1IjBpI71mtiA=;
+	b=d8Dqw44B1bkYcS7c62ljkP49Qt9gLQ4UfJD12JaW5TQ/yISr2YRgVmIDI+QD5xOQjTM9t8
+	8oiHeTp6nIAUxT1o3t0ppsZ3j0NAq3+zdBkG5vAtDyj7BAJH7GMqayXThd1eux5hq4fNPV
+	jkUoeU+njbZcU5Y8Zj+skEsw8FQaj38=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611-hV81qLxVPgS6KRqZ--aaTw-1; Wed, 31 May 2023 10:21:45 -0400
-X-MC-Unique: hV81qLxVPgS6KRqZ--aaTw-1
+ us-mta-644-t6LLms8fOIqLxCk02xqgZA-1; Wed, 31 May 2023 10:28:51 -0400
+X-MC-Unique: t6LLms8fOIqLxCk02xqgZA-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40D27280AA26;
-	Wed, 31 May 2023 14:21:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4A6061C08792;
+	Wed, 31 May 2023 14:28:48 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2AEAD200B68F;
-	Wed, 31 May 2023 14:21:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DF68020296C8;
+	Wed, 31 May 2023 14:28:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CCCA619452C4;
-	Wed, 31 May 2023 14:21:24 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 317C719465BA;
+	Wed, 31 May 2023 14:28:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 722E61946595
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 13:52:05 +0000 (UTC)
+ ESMTP id 166421946595
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 13:54:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 500C3112132E; Wed, 31 May 2023 13:52:05 +0000 (UTC)
+ id A521CC154D8; Wed, 31 May 2023 13:54:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 49160112132C
- for <dm-devel@redhat.com>; Wed, 31 May 2023 13:52:05 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D8E6C154D7
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 13:54:34 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E0943850558
- for <dm-devel@redhat.com>; Wed, 31 May 2023 13:52:05 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81D7280331C
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 13:54:34 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-96-nP1NJS0zP8enxFBHZTwTzA-1; Wed, 31 May 2023 09:52:03 -0400
-X-MC-Unique: nP1NJS0zP8enxFBHZTwTzA-1
+ us-mta-190-DvT1DxRPO666z1mJWMR7Ug-1; Wed, 31 May 2023 09:54:33 -0400
+X-MC-Unique: DvT1DxRPO666z1mJWMR7Ug-1
 Received: from [2001:4bb8:182:6d06:2e49:a56:513a:92ee] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q4LMx-00HR1a-1s; Wed, 31 May 2023 12:56:04 +0000
+ id 1q4LN0-00HR49-2P; Wed, 31 May 2023 12:56:07 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 31 May 2023 14:55:15 +0200
-Message-Id: <20230531125535.676098-5-hch@lst.de>
+Date: Wed, 31 May 2023 14:55:16 +0200
+Message-Id: <20230531125535.676098-6-hch@lst.de>
 In-Reply-To: <20230531125535.676098-1-hch@lst.de>
 References: <20230531125535.676098-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [dm-devel] [PATCH 04/24] PM: hibernate: move finding the resume
- device out of software_resume
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH 05/24] init: remove pointless Root_* values
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,142 +105,79 @@ X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-software_resume can be called either from an init call in the boot code,
-or from sysfs once the system has finished booting, and the two
-invocation methods this can't race with each other.
+Remove all unused defines, and just use the expanded versions for
+the SCSI disk majors.
 
-For the latter case we did just parse the suspend device manually, while
-the former might not have one.  Split software_resume so that the search
-only happens for the boot case, which also means the special lockdep
-nesting annotation can go away as the system transition mutex can be
-taken a little later and doesn't have the sysfs locking nest inside it.
+I've decided to keep Root_RAM0 even if it could be expanded as there
+is a lot of special casing for it in the init code.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Rafael J. Wysocki <rafael@kernel.org>
 ---
- kernel/power/hibernate.c | 80 ++++++++++++++++++++--------------------
- 1 file changed, 39 insertions(+), 41 deletions(-)
+ arch/alpha/kernel/setup.c               | 2 +-
+ arch/ia64/kernel/setup.c                | 2 +-
+ arch/powerpc/platforms/powermac/setup.c | 3 ++-
+ include/linux/root_dev.h                | 8 --------
+ 4 files changed, 4 insertions(+), 11 deletions(-)
 
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index 78696aa04f5ca3..45e24b02cd50b6 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -907,7 +907,7 @@ int hibernate_quiet_exec(int (*func)(void *data), void *data)
- }
- EXPORT_SYMBOL_GPL(hibernate_quiet_exec);
+diff --git a/arch/alpha/kernel/setup.c b/arch/alpha/kernel/setup.c
+index 33bf3a62700270..b650ff1cb022ee 100644
+--- a/arch/alpha/kernel/setup.c
++++ b/arch/alpha/kernel/setup.c
+@@ -658,7 +658,7 @@ setup_arch(char **cmdline_p)
+ #endif
  
--static int find_resume_device(void)
-+static int __init find_resume_device(void)
- {
- 	if (!strlen(resume_file))
- 		return -ENOENT;
-@@ -942,53 +942,16 @@ static int find_resume_device(void)
- 	return 0;
- }
+ 	/* Default root filesystem to sda2.  */
+-	ROOT_DEV = Root_SDA2;
++	ROOT_DEV = MKDEV(SCSI_DISK0_MAJOR, 2);
  
--/**
-- * software_resume - Resume from a saved hibernation image.
-- *
-- * This routine is called as a late initcall, when all devices have been
-- * discovered and initialized already.
-- *
-- * The image reading code is called to see if there is a hibernation image
-- * available for reading.  If that is the case, devices are quiesced and the
-- * contents of memory is restored from the saved image.
-- *
-- * If this is successful, control reappears in the restored target kernel in
-- * hibernation_snapshot() which returns to hibernate().  Otherwise, the routine
-- * attempts to recover gracefully and make the kernel return to the normal mode
-- * of operation.
-- */
- static int software_resume(void)
- {
- 	int error;
+ #ifdef CONFIG_EISA
+ 	/* FIXME:  only set this when we actually have EISA in this box? */
+diff --git a/arch/ia64/kernel/setup.c b/arch/ia64/kernel/setup.c
+index c0572804427275..becdb4f33c2195 100644
+--- a/arch/ia64/kernel/setup.c
++++ b/arch/ia64/kernel/setup.c
+@@ -627,7 +627,7 @@ setup_arch (char **cmdline_p)
+ 	 * is physical disk 1 partition 1 and the Linux root disk is
+ 	 * physical disk 1 partition 2.
+ 	 */
+-	ROOT_DEV = Root_SDA2;		/* default to second partition on first drive */
++	ROOT_DEV = MKDEV(SCSI_DISK0_MAJOR, 2);
  
--	/*
--	 * If the user said "noresume".. bail out early.
--	 */
--	if (noresume || !hibernation_available())
--		return 0;
--
--	/*
--	 * name_to_dev_t() below takes a sysfs buffer mutex when sysfs
--	 * is configured into the kernel. Since the regular hibernate
--	 * trigger path is via sysfs which takes a buffer mutex before
--	 * calling hibernate functions (which take system_transition_mutex)
--	 * this can cause lockdep to complain about a possible ABBA deadlock
--	 * which cannot happen since we're in the boot code here and
--	 * sysfs can't be invoked yet. Therefore, we use a subclass
--	 * here to avoid lockdep complaining.
--	 */
--	mutex_lock_nested(&system_transition_mutex, SINGLE_DEPTH_NESTING);
--
--	if (!swsusp_resume_device) {
--		error = find_resume_device();
--		if (error)
--			goto Unlock;
--	}
--
- 	pm_pr_dbg("Hibernation image partition %d:%d present\n",
- 		MAJOR(swsusp_resume_device), MINOR(swsusp_resume_device));
+ 	if (is_uv_system())
+ 		uv_setup(cmdline_p);
+diff --git a/arch/powerpc/platforms/powermac/setup.c b/arch/powerpc/platforms/powermac/setup.c
+index 193cc9c394221b..0c41f4b005bcf3 100644
+--- a/arch/powerpc/platforms/powermac/setup.c
++++ b/arch/powerpc/platforms/powermac/setup.c
+@@ -76,7 +76,8 @@ int pmac_newworld;
  
- 	pm_pr_dbg("Looking for hibernation image.\n");
-+
-+	mutex_lock(&system_transition_mutex);
- 	error = swsusp_check(false);
- 	if (error)
- 		goto Unlock;
-@@ -1035,7 +998,39 @@ static int software_resume(void)
- 	goto Finish;
- }
+ static int current_root_goodness = -1;
  
--late_initcall_sync(software_resume);
-+/**
-+ * software_resume_initcall - Resume from a saved hibernation image.
-+ *
-+ * This routine is called as a late initcall, when all devices have been
-+ * discovered and initialized already.
-+ *
-+ * The image reading code is called to see if there is a hibernation image
-+ * available for reading.  If that is the case, devices are quiesced and the
-+ * contents of memory is restored from the saved image.
-+ *
-+ * If this is successful, control reappears in the restored target kernel in
-+ * hibernation_snapshot() which returns to hibernate().  Otherwise, the routine
-+ * attempts to recover gracefully and make the kernel return to the normal mode
-+ * of operation.
-+ */
-+static int __init software_resume_initcall(void)
-+{
-+	/*
-+	 * If the user said "noresume".. bail out early.
-+	 */
-+	if (noresume || !hibernation_available())
-+		return 0;
-+
-+	if (!swsusp_resume_device) {
-+		int error = find_resume_device();
-+
-+		if (error)
-+			return error;
-+	}
-+
-+	return software_resume();
-+}
-+late_initcall_sync(software_resume_initcall);
+-#define DEFAULT_ROOT_DEVICE Root_SDA1	/* sda1 - slightly silly choice */
++/* sda1 - slightly silly choice */
++#define DEFAULT_ROOT_DEVICE	MKDEV(SCSI_DISK0_MAJOR, 1)
  
+ sys_ctrler_t sys_ctrler = SYS_CTRLER_UNKNOWN;
+ EXPORT_SYMBOL(sys_ctrler);
+diff --git a/include/linux/root_dev.h b/include/linux/root_dev.h
+index 4e78651371ba92..ed3ea8da642972 100644
+--- a/include/linux/root_dev.h
++++ b/include/linux/root_dev.h
+@@ -10,14 +10,6 @@ enum {
+ 	Root_NFS = MKDEV(UNNAMED_MAJOR, 255),
+ 	Root_CIFS = MKDEV(UNNAMED_MAJOR, 254),
+ 	Root_RAM0 = MKDEV(RAMDISK_MAJOR, 0),
+-	Root_RAM1 = MKDEV(RAMDISK_MAJOR, 1),
+-	Root_FD0 = MKDEV(FLOPPY_MAJOR, 0),
+-	Root_HDA1 = MKDEV(IDE0_MAJOR, 1),
+-	Root_HDA2 = MKDEV(IDE0_MAJOR, 2),
+-	Root_SDA1 = MKDEV(SCSI_DISK0_MAJOR, 1),
+-	Root_SDA2 = MKDEV(SCSI_DISK0_MAJOR, 2),
+-	Root_HDC1 = MKDEV(IDE1_MAJOR, 1),
+-	Root_SR0 = MKDEV(SCSI_CDROM_MAJOR, 0),
+ };
  
- static const char * const hibernation_modes[] = {
-@@ -1176,6 +1171,9 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	char *name;
- 	dev_t res;
- 
-+	if (!hibernation_available())
-+		return 0;
-+
- 	if (len && buf[len-1] == '\n')
- 		len--;
- 	name = kstrndup(buf, len, GFP_KERNEL);
+ extern dev_t ROOT_DEV;
 -- 
 2.39.2
 
