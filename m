@@ -2,98 +2,108 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7D5EC718B59
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 22:41:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id E8FEA718E9F
+	for <lists+dm-devel@lfdr.de>; Thu,  1 Jun 2023 00:37:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685565660;
+	s=mimecast20190719; t=1685572637;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UpK+pXFuBT6lzez0y9IzJASSpOvGXrz8W3K4aPs0bBw=;
-	b=LMYVJkQzlvlk93ccehs/BnH4tCQY6e7erI3MeJhaIfhyyPZbCtPeoDA2xS0g7oQv7EPSoc
-	XIyel5cHbn809+zqWDRhiIDeZwsont+rIYDJ73PQOMVldlAN0Tbp7b8z3WZtRCMf9/VGXW
-	izVvL+6Bu+B2wec9H4o3INBtj2P0n2Y=
+	bh=HibZZGEycNRwbSg5YYCgHkC1cCOz9XdyuIWrHQVxX9M=;
+	b=RYoXsPvSe+qVZVNhy7B1FUJVwwBJJT3XchM+HGQVKsQGAvXBrP02sHJk3dspyU5E5uBjt2
+	t8utnjUP2Qun3DDFxdVb5hbe1sdSA27Bf9hXvspufyOf/SfYBWh+FchIzy1nAISC71nxGm
+	V+G0FGDRzaxuMoRgBdnnnBkOOijR5go=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-613-kL3tRu7eMzSkxX9khb1HLA-1; Wed, 31 May 2023 16:40:59 -0400
-X-MC-Unique: kL3tRu7eMzSkxX9khb1HLA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-551-mvRsgBCVOS-G9SnZS2jEwQ-1; Wed, 31 May 2023 18:37:16 -0400
+X-MC-Unique: mvRsgBCVOS-G9SnZS2jEwQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 113603828887;
-	Wed, 31 May 2023 20:40:57 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 94BA62029F6D;
-	Wed, 31 May 2023 20:40:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2FB43C025B0;
+	Wed, 31 May 2023 22:37:13 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 864B440CFD46;
+	Wed, 31 May 2023 22:37:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 26A601946A42;
-	Wed, 31 May 2023 20:40:51 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8E21E1946A41;
+	Wed, 31 May 2023 22:37:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 567C119465B7
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 20:40:49 +0000 (UTC)
+ ESMTP id ADAE319465A4
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 22:37:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 105D040CFD09; Wed, 31 May 2023 20:40:49 +0000 (UTC)
+ id 9A46E492B0B; Wed, 31 May 2023 22:37:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 08A4840CFD08
- for <dm-devel@redhat.com>; Wed, 31 May 2023 20:40:48 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 930FF492B0C
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 22:37:04 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E4F63C11C69
- for <dm-devel@redhat.com>; Wed, 31 May 2023 20:40:48 +0000 (UTC)
-Received: from mail-qk1-f169.google.com (mail-qk1-f169.google.com
- [209.85.222.169]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78C2285A5AA
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 22:37:04 +0000 (UTC)
+Received: from mail-oi1-f169.google.com (mail-oi1-f169.google.com
+ [209.85.167.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-388-4PqNMADUNiy0vzGQfoiYMQ-1; Wed, 31 May 2023 16:40:46 -0400
-X-MC-Unique: 4PqNMADUNiy0vzGQfoiYMQ-1
-Received: by mail-qk1-f169.google.com with SMTP id
- af79cd13be357-75b0b2d0341so649766585a.3
- for <dm-devel@redhat.com>; Wed, 31 May 2023 13:40:46 -0700 (PDT)
+ us-mta-312-sUPsYy0aPeCHuD6_LzxuLg-1; Wed, 31 May 2023 18:37:02 -0400
+X-MC-Unique: sUPsYy0aPeCHuD6_LzxuLg-1
+Received: by mail-oi1-f169.google.com with SMTP id
+ 5614622812f47-3982f09df74so54377b6e.0
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 15:37:02 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685565646; x=1688157646;
+ d=1e100.net; s=20221208; t=1685572622; x=1688164622;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=H2MHMFRCtTpRq4HekvDMncZqof6fHitP/tkQ4Bwp4iw=;
- b=Pzmznpq5TUk7vVAiiK2+yroCgQcG9LwiJe5cAjudzKxEfjFezyLjoA0BSwF8RutiQB
- NZwbnEqPD9eJ/bXi4SfMRHHRrPd/22cRz9BFCEVEBsvfssdVJBQCcOqwMjJqp7k+z9Yg
- Kr+qW8sItcstFz5PTxk7b2lDgm7ss8t6me5Gba11HB/hydUv7lETfDD4W+0LgMBqC+sa
- L9DyiXAZ8uxGWHMvpkCNwpL8zwEvzSwEvuss7KpMJ6nAHn8KqoyoRHnWk4+P6UeliCB5
- Ekj3zsyvXh9zTiN0lgcJUcKIZwp++pQSOlBPPd2vuOwudV/iDphnrja4DOlRUFr5jirL
- e5oA==
-X-Gm-Message-State: AC+VfDw+/RpRg5PLVHoQVyO9nYpF8c8sxHFMmNdxsyCFJ3OnWdHCITp3
- D6lK+EHbo1KaJe+i9XoAEE0tgUs=
-X-Google-Smtp-Source: ACHHUZ5kdx7S499hJRV8/H2S3RWG6Tr6vcGeL7BQ9XuPUWxOMtGzpZSxerK1wVcQWCuUeme2JGtCZA==
-X-Received: by 2002:a05:6214:d85:b0:616:5f27:b96a with SMTP id
- e5-20020a0562140d8500b006165f27b96amr7207768qve.27.1685565645712; 
- Wed, 31 May 2023 13:40:45 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- s12-20020a05621412cc00b005fe4a301350sm6354991qvv.48.2023.05.31.13.40.44
+ bh=n3rg9Z09BIl1aIQXz+8gKGwERErjA3Juhruo9wqB2U8=;
+ b=XNSvsgFwjaaqKA+fhK5NLR/v2i/xI2h7mw0liVFJQVilOobng1mJIFBueCo5+3cjbe
+ mDk2pfOggQ+uvueBuNC3Z6q9TzKOwclqV47SYOWMXnRBddImnVfNZt27c2IYR6kSu26X
+ LPQOv2I241l1yPrq8DvhszvSTE+AxtLe7Tu/Yd71UYr6avc7yUqS0/O3iJeUUFRSk8Ax
+ Oa8aeU0iS4KT4j6InGjl66ZdIU2BbJjyuRM1rDRoa0BUJ0IcJdnadFWUQJ+0uCL/+PT4
+ YOm5Bz2RFoKk4n1dIfcalOk4QMR9ACTM6iIcx8AW5PjBzMLkP1zOsE68YC5D+rEq47ic
+ 8qvQ==
+X-Gm-Message-State: AC+VfDy3ZJDtKoaD5VpxiaypsFalezm9hiiUGEzn+SgL4BDrELu4dqe4
+ IcnjgP1Kbbw/c+knPjm/94m4qg==
+X-Google-Smtp-Source: ACHHUZ7R3wjvNkmWSbL60I9ylavOeUTJY88g1+p1PDiLJE+SHWNaI13IUYsVS+xjUDM8kOkAj2iUNQ==
+X-Received: by 2002:a05:6808:1496:b0:398:2f85:ff7f with SMTP id
+ e22-20020a056808149600b003982f85ff7fmr6512900oiw.50.1685572621938; 
+ Wed, 31 May 2023 15:37:01 -0700 (PDT)
+Received: from dread.disaster.area (pa49-179-0-188.pa.nsw.optusnet.com.au.
+ [49.179.0.188]) by smtp.gmail.com with ESMTPSA id
+ e12-20020a170902784c00b001b034fafaefsm1948337pln.38.2023.05.31.15.37.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Wed, 31 May 2023 13:40:45 -0700 (PDT)
-Date: Wed, 31 May 2023 16:40:44 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: Sarthak Kukreti <sarthakkukreti@chromium.org>, Jens Axboe <axboe@kernel.dk>
-Message-ID: <ZHewzOfOdXu+kN75@redhat.com>
-References: <20230518223326.18744-1-sarthakkukreti@chromium.org>
- <20230518223326.18744-2-sarthakkukreti@chromium.org>
+ Wed, 31 May 2023 15:37:01 -0700 (PDT)
+Received: from dave by dread.disaster.area with local (Exim 4.96)
+ (envelope-from <david@fromorbit.com>) id 1q4UR9-006HGI-0M;
+ Thu, 01 Jun 2023 08:36:59 +1000
+Date: Thu, 1 Jun 2023 08:36:59 +1000
+From: Dave Chinner <david@fromorbit.com>
+To: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Message-ID: <ZHfMC86ktyLtIxNb@dread.disaster.area>
+References: <cover.1685532726.git.johannes.thumshirn@wdc.com>
+ <58fa893c24c67340a63323f09a179fefdca07f2a.1685532726.git.johannes.thumshirn@wdc.com>
 MIME-Version: 1.0
-In-Reply-To: <20230518223326.18744-2-sarthakkukreti@chromium.org>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH v7 1/5] block: Don't invalidate pagecache for
- invalid falloc modes
+In-Reply-To: <58fa893c24c67340a63323f09a179fefdca07f2a.1685532726.git.johannes.thumshirn@wdc.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH v7 19/20] fs: iomap: use bio_add_folio_nofail
+ where possible
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,44 +115,85 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Christoph Hellwig <hch@infradead.org>, Theodore Ts'o <tytso@mit.edu>,
- "Michael S. Tsirkin" <mst@redhat.com>, "Darrick J. Wong" <djwong@kernel.org>,
- Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Andreas Dilger <adilger.kernel@dilger.ca>,
- Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
- linux-ext4@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
- Alasdair Kergon <agk@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
+ Damien Le Moal <damien.lemoal@wdc.com>, cluster-devel@redhat.com,
+ Chaitanya Kulkarni <kch@nvidia.com>, Andreas Gruenbacher <agruenba@redhat.com>,
+ Song Liu <song@kernel.org>, Dave Kleikamp <shaggy@kernel.org>,
+ Mike Snitzer <snitzer@kernel.org>, jfs-discussion@lists.sourceforge.net,
+ Matthew Wilcox <willy@infradead.org>, Ming Lei <ming.lei@redhat.com>,
+ linux-block@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ Mikulas Patocka <mpatocka@redhat.com>, linux-fsdevel@vger.kernel.org,
+ gouha7@uniontech.com, Christoph Hellwig <hch@lst.de>,
+ Bob Peterson <rpeterso@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: fromorbit.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, May 18 2023 at  6:33P -0400,
-Sarthak Kukreti <sarthakkukreti@chromium.org> wrote:
-
-> Only call truncate_bdev_range() if the fallocate mode is
-> supported. This fixes a bug where data in the pagecache
-> could be invalidated if the fallocate() was called on the
-> block device with an invalid mode.
+On Wed, May 31, 2023 at 04:50:42AM -0700, Johannes Thumshirn wrote:
+> When the iomap buffered-io code can't add a folio to a bio, it allocates a
+> new bio and adds the folio to that one. This is done using bio_add_folio(),
+> but doesn't check for errors.
 > 
-> Fixes: 25f4c41415e5 ("block: implement (some of) fallocate for block devices")
-> Cc: stable@vger.kernel.org
-> Reported-by: Darrick J. Wong <djwong@kernel.org>
-> Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+> As adding a folio to a newly created bio can't fail, use the newly
+> introduced bio_add_folio_nofail() function.
+> 
+> Reviewed-by: Christoph Hellwig <hch@lst.de>
+> Reviewed-by: Matthew Wilcox (Oracle) <willy@infradead.org>
+> Signed-off-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+> ---
+>  fs/iomap/buffered-io.c | 6 +++---
+>  1 file changed, 3 insertions(+), 3 deletions(-)
+> 
+> diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+> index 063133ec77f4..0edab9deae2a 100644
+> --- a/fs/iomap/buffered-io.c
+> +++ b/fs/iomap/buffered-io.c
+> @@ -312,7 +312,7 @@ static loff_t iomap_readpage_iter(const struct iomap_iter *iter,
+>  			ctx->bio->bi_opf |= REQ_RAHEAD;
+>  		ctx->bio->bi_iter.bi_sector = sector;
+>  		ctx->bio->bi_end_io = iomap_read_end_io;
+> -		bio_add_folio(ctx->bio, folio, plen, poff);
+> +		bio_add_folio_nofail(ctx->bio, folio, plen, poff);
+>  	}
+>  
+>  done:
+> @@ -539,7 +539,7 @@ static int iomap_read_folio_sync(loff_t block_start, struct folio *folio,
+>  
+>  	bio_init(&bio, iomap->bdev, &bvec, 1, REQ_OP_READ);
+>  	bio.bi_iter.bi_sector = iomap_sector(iomap, block_start);
+> -	bio_add_folio(&bio, folio, plen, poff);
+> +	bio_add_folio_nofail(&bio, folio, plen, poff);
+>  	return submit_bio_wait(&bio);
+>  }
+>  
+> @@ -1582,7 +1582,7 @@ iomap_add_to_ioend(struct inode *inode, loff_t pos, struct folio *folio,
+>  
+>  	if (!bio_add_folio(wpc->ioend->io_bio, folio, len, poff)) {
+>  		wpc->ioend->io_bio = iomap_chain_bio(wpc->ioend->io_bio);
+> -		bio_add_folio(wpc->ioend->io_bio, folio, len, poff);
+> +		bio_add_folio_nofail(wpc->ioend->io_bio, folio, len, poff);
+>  	}
 
-Reviewed-by: Mike Snitzer <snitzer@kernel.org>
+We lose adjacent page merging with this change.
 
-Jens, this one is independent of the rest of the patchset and should
-be ready to go upstream whenever you are able.
+We've had performance regressions in the past that have been
+attributed to either the page allocator not handing out sequential
+adjacent pages for sequential writes and/or bios not merging
+adjacent pages. Some hardware is much more performant when it only
+has to do a single large DMA instead of (potentially) hundreds of
+single page DMAs for the same amount of data...
 
-Thanks,
-Mike
+What performance regression testing has been done on this change?
+
+-Dave.
+-- 
+Dave Chinner
+david@fromorbit.com
 
 --
 dm-devel mailing list
