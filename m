@@ -1,69 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2902871812E
-	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 15:14:50 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4FE1F71843B
+	for <lists+dm-devel@lfdr.de>; Wed, 31 May 2023 16:08:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685538889;
+	s=mimecast20190719; t=1685542081;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=axVhMfZlIPTsnOTJ/V71tfEO7ekJhhvkXm0T7311fek=;
-	b=X95FKF6hprOlDOoY1U+/RZrYaGr72HuTpasvWLFU5bMWkr5vdLolnIjQWRBT+QPnu7mPnN
-	SYLXb+E4mXURXpopWImG0NVHCa6TeyZ7xBwSh5tBIVO3PlmB4+odNn8w53tqIcqnTpx+wT
-	9ZwiIgBS+NDmJt0yVcZnc+bJCxuiWtk=
+	bh=QbAOnljyCbThR57J1LEDhCUZRWwlcFropKTo+JhOEjw=;
+	b=Swwj264qo8PumgXiqz25N57T3inQoIVG7D7oczs194cZiqJCsHwLChqTJ1Z6VefhYWONCL
+	WswJEqlH+34+o9RT4UtO6BDeMBFEOVMdFj3wmUq+re7aw9mhzaTuizAD9zU+JsxBHoOIqT
+	G5z+tHsv2ccY+M1aS0J2rTWL8LWMBBY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-344-4uAwmeGMPU2BTxDLpo5VRg-1; Wed, 31 May 2023 09:14:45 -0400
-X-MC-Unique: 4uAwmeGMPU2BTxDLpo5VRg-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-33-bL1tddzPOzicTZS80oFPzw-1; Wed, 31 May 2023 10:07:58 -0400
+X-MC-Unique: bL1tddzPOzicTZS80oFPzw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 695DF185A78B;
-	Wed, 31 May 2023 13:14:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E402F800888;
+	Wed, 31 May 2023 14:07:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 592E8140E962;
-	Wed, 31 May 2023 13:14:40 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 08C8140C128F;
+	Wed, 31 May 2023 14:07:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6FBE819465B6;
-	Wed, 31 May 2023 13:14:39 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7E6C819465B7;
+	Wed, 31 May 2023 14:07:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A6F091946595
- for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 13:01:57 +0000 (UTC)
+ ESMTP id 767F11946595
+ for <dm-devel@listman.corp.redhat.com>; Wed, 31 May 2023 13:52:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7DAF048205E; Wed, 31 May 2023 13:01:47 +0000 (UTC)
+ id 36E1E421D7; Wed, 31 May 2023 13:52:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 7504140C5BE
- for <dm-devel@redhat.com>; Wed, 31 May 2023 13:01:47 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2F9EE421E0
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 13:52:21 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
  [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 553091C313CB
- for <dm-devel@redhat.com>; Wed, 31 May 2023 13:01:47 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 034458028B1
+ for <dm-devel@redhat.com>; Wed, 31 May 2023 13:52:21 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-43-Z1YmYa1qO9qijgJvzvnD2A-1; Wed, 31 May 2023 09:01:45 -0400
-X-MC-Unique: Z1YmYa1qO9qijgJvzvnD2A-1
+ us-mta-567-EcI-GO87MHa1RtGXUQA1oQ-1; Wed, 31 May 2023 09:52:19 -0400
+X-MC-Unique: EcI-GO87MHa1RtGXUQA1oQ-1
 Received: from [2001:4bb8:182:6d06:2e49:a56:513a:92ee] (helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q4LNS-00HRLT-2f; Wed, 31 May 2023 12:56:35 +0000
+ id 1q4LNX-00HRRM-1M; Wed, 31 May 2023 12:56:40 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Wed, 31 May 2023 14:55:21 +0200
-Message-Id: <20230531125535.676098-11-hch@lst.de>
+Date: Wed, 31 May 2023 14:55:22 +0200
+Message-Id: <20230531125535.676098-12-hch@lst.de>
 In-Reply-To: <20230531125535.676098-1-hch@lst.de>
 References: <20230531125535.676098-1-hch@lst.de>
 MIME-Version: 1.0
@@ -76,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH 10/24] init: handle ubi/mtd root mounting like
- all other root types
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [PATCH 11/24] init: factor the root_wait logic in
+ prepare_namespace into a helper
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -100,86 +100,70 @@ Cc: Loic Poulain <loic.poulain@linaro.org>,
  linux-mtd@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Assign a Root_Generic magic value for UBI/MTD root and handle the root
-mounting in mount_root like all other root types.  Besides making the
-code more clear this also means that UBI/MTD root can be used together
-with an initrd (not that anyone should care).
-
-Also factor parsing of the root name into a helper now that it can
-be easily done and will get more complicated with subsequent patches.
+The root_wait logic is a bit obsfucated right now.  Expand it and move it
+into a helper.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- include/linux/root_dev.h |  1 +
- init/do_mounts.c         | 23 ++++++++++++++---------
- 2 files changed, 15 insertions(+), 9 deletions(-)
+ init/do_mounts.c | 32 ++++++++++++++++++++++----------
+ 1 file changed, 22 insertions(+), 10 deletions(-)
 
-diff --git a/include/linux/root_dev.h b/include/linux/root_dev.h
-index ed3ea8da642972..847c9a06101b76 100644
---- a/include/linux/root_dev.h
-+++ b/include/linux/root_dev.h
-@@ -9,6 +9,7 @@
- enum {
- 	Root_NFS = MKDEV(UNNAMED_MAJOR, 255),
- 	Root_CIFS = MKDEV(UNNAMED_MAJOR, 254),
-+	Root_Generic = MKDEV(UNNAMED_MAJOR, 253),
- 	Root_RAM0 = MKDEV(RAMDISK_MAJOR, 0),
- };
- 
 diff --git a/init/do_mounts.c b/init/do_mounts.c
-index 74cc96bffbdd71..be6d14733ba02f 100644
+index be6d14733ba02f..d5c06c1546e82c 100644
 --- a/init/do_mounts.c
 +++ b/init/do_mounts.c
-@@ -591,6 +591,10 @@ void __init mount_root(char *root_device_name)
- 	case Root_CIFS:
- 		mount_cifs_root();
- 		break;
-+	case Root_Generic:
-+		mount_root_generic(root_device_name, root_device_name,
-+				   root_mountflags);
-+		break;
- 	case 0:
- 		if (root_device_name && root_fs_names &&
- 		    mount_nodev_root(root_device_name) == 0)
-@@ -602,6 +606,14 @@ void __init mount_root(char *root_device_name)
+@@ -606,6 +606,26 @@ void __init mount_root(char *root_device_name)
  	}
  }
  
-+static dev_t __init parse_root_device(char *root_device_name)
++/* wait for any asynchronous scanning to complete */
++static void __init wait_for_root(char *root_device_name)
 +{
-+	if (!strncmp(root_device_name, "mtd", 3) ||
-+	    !strncmp(root_device_name, "ubi", 3))
-+		return Root_Generic;
-+	return name_to_dev_t(root_device_name);
++	if (ROOT_DEV != 0)
++		return;
++
++	pr_info("Waiting for root device %s...\n", root_device_name);
++
++	for (;;) {
++		if (driver_probe_done()) {
++			ROOT_DEV = name_to_dev_t(root_device_name);
++			if (ROOT_DEV)
++				break;
++		}
++		msleep(5);
++	}
++	async_synchronize_full();
++
 +}
 +
- /*
-  * Prepare the namespace - decide what/where to mount, load ramdisks, etc.
-  */
-@@ -624,15 +636,8 @@ void __init prepare_namespace(void)
- 
- 	md_run_setup();
- 
--	if (saved_root_name[0]) {
--		if (!strncmp(saved_root_name, "mtd", 3) ||
--		    !strncmp(saved_root_name, "ubi", 3)) {
--			mount_root_generic(saved_root_name, saved_root_name,
--					   root_mountflags);
--			goto out;
--		}
--		ROOT_DEV = name_to_dev_t(saved_root_name);
--	}
-+	if (saved_root_name[0])
-+		ROOT_DEV = parse_root_device(saved_root_name);
- 
+ static dev_t __init parse_root_device(char *root_device_name)
+ {
+ 	if (!strncmp(root_device_name, "mtd", 3) ||
+@@ -642,16 +662,8 @@ void __init prepare_namespace(void)
  	if (initrd_load(saved_root_name))
  		goto out;
+ 
+-	/* wait for any asynchronous scanning to complete */
+-	if ((ROOT_DEV == 0) && root_wait) {
+-		printk(KERN_INFO "Waiting for root device %s...\n",
+-			saved_root_name);
+-		while (!driver_probe_done() ||
+-			(ROOT_DEV = name_to_dev_t(saved_root_name)) == 0)
+-			msleep(5);
+-		async_synchronize_full();
+-	}
+-
++	if (root_wait)
++		wait_for_root(saved_root_name);
+ 	mount_root(saved_root_name);
+ out:
+ 	devtmpfs_mount();
 -- 
 2.39.2
 
