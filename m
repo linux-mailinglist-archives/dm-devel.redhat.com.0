@@ -2,96 +2,100 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EF8ED71F2B8
-	for <lists+dm-devel@lfdr.de>; Thu,  1 Jun 2023 21:15:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D668971F4B3
+	for <lists+dm-devel@lfdr.de>; Thu,  1 Jun 2023 23:31:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685646937;
+	s=mimecast20190719; t=1685655075;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=++wnEBLydvmco7YG5vZEd3C1BpJfpRU9NsVFBdjWAuE=;
-	b=KAVQa0bBPaiWKJ0tKL8bBzVarDJrgkRyjRY1pDJa0aPr6kF3oVmPpfY0XJb6G12FCHHggF
-	yWCVqccPeiXqn7fIYiJV9YZFtwS60MjxYcY9vlrQBuYgVO9m4s2fgcDuWCb43MsCA9VgLL
-	UpVrhmzGpE0mLZ6KCCDoN3d8WKi8cqg=
+	bh=Rr0W1fHK0CnB10hUtCnWCHLewf/NRbXEn30QguClzI0=;
+	b=WDrwYuh7ih5Xz1GIhlRzVOE1X4S6g3kYnO5ACqHHyv6xQvsMWwMmFV1OLsSwi42K6G27TM
+	xOXOfjk+uiN3b3s3Lt/cMttVCWzSuME9EoiJXMG/s2j3tftJwXiXUiHkrvP9nJdSWqHvP/
+	K1m2g2i3pcpUHgPhAt3ksJh9sWoe9gM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-383-yA_GEJezOZ-sK_DI9eFzLA-1; Thu, 01 Jun 2023 15:15:25 -0400
-X-MC-Unique: yA_GEJezOZ-sK_DI9eFzLA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-609-sZMDfJQ-NcWE2m59kb2fWQ-1; Thu, 01 Jun 2023 17:31:12 -0400
+X-MC-Unique: sZMDfJQ-NcWE2m59kb2fWQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 53462811E78;
-	Thu,  1 Jun 2023 19:10:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A86C185A78B;
+	Thu,  1 Jun 2023 21:31:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0D3BD14171BC;
-	Thu,  1 Jun 2023 19:10:25 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E886F40D1B60;
+	Thu,  1 Jun 2023 21:31:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA25619465B2;
-	Thu,  1 Jun 2023 19:10:24 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CA5F819465B7;
+	Thu,  1 Jun 2023 21:31:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CE31B194658C
- for <dm-devel@listman.corp.redhat.com>; Thu,  1 Jun 2023 19:10:22 +0000 (UTC)
+ ESMTP id D9A1B194658C
+ for <dm-devel@listman.corp.redhat.com>; Thu,  1 Jun 2023 21:31:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B9F022166B27; Thu,  1 Jun 2023 19:10:22 +0000 (UTC)
+ id BC55B492B0B; Thu,  1 Jun 2023 21:31:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B19E32166B25
- for <dm-devel@redhat.com>; Thu,  1 Jun 2023 19:10:22 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B4C69492B0A
+ for <dm-devel@redhat.com>; Thu,  1 Jun 2023 21:31:03 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95438811E7F
- for <dm-devel@redhat.com>; Thu,  1 Jun 2023 19:10:22 +0000 (UTC)
-Received: from mail-qv1-f49.google.com (mail-qv1-f49.google.com
- [209.85.219.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 966DD293249E
+ for <dm-devel@redhat.com>; Thu,  1 Jun 2023 21:31:03 +0000 (UTC)
+Received: from out5-smtp.messagingengine.com (out5-smtp.messagingengine.com
+ [66.111.4.29]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-65-CWvZh6yZNoa8t-oz8OyAIA-1; Thu, 01 Jun 2023 15:10:20 -0400
-X-MC-Unique: CWvZh6yZNoa8t-oz8OyAIA-1
-Received: by mail-qv1-f49.google.com with SMTP id
- 6a1803df08f44-626195b4909so11056816d6.0
- for <dm-devel@redhat.com>; Thu, 01 Jun 2023 12:10:20 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685646620; x=1688238620;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=hm7Jjh9TF3Bsq+esRbEZ2y936YTbpq5qnxQF0w6eX7M=;
- b=AhnQGEdYydmVchOzNJ+RvChM8DE8n68O4wj2jj7/+nPIzOzXEGTu60iHdnWAteSIzR
- 5JPaIWD6g35spWIGFU7We/6bcEVePOkIHR4XMQPqcLyXN0iiiQHN9V1s2uuUkbyAfMdg
- 9XKwRqpq4XX1iypvhLgu/PwnonxQv6iQP64C2+UqxhTq3IksOS2rY77xRkcreDSmHhb5
- OyJdeDf+wCjFXIUS7QKoivh8Zz2IQlL6L6IGNb+zdb4z76zZL5MQ8HmMwbgzsqbAvVOc
- 6QKbY+ufJDifYYkmNVUFuWAil+ZkIRtf/Ngq1Wafvj7YfC6l43Aoklo7slbfkDr0opv7
- 33zg==
-X-Gm-Message-State: AC+VfDzGJ43Gj+9G1z6c9RkSgz349UKo65ZxSfXxWgr90lHYSpSHMnRH
- mqUqwMl68zvuaMplBlEnbqhEo4M=
-X-Google-Smtp-Source: ACHHUZ7bZ4cyi3vQcWjCBhem09VoTvBAo4ZBUsrNepalRX5b0TnPcFZq7rotFJybrs3TC5fTvPZnGQ==
-X-Received: by 2002:a05:6214:1bcb:b0:628:3e37:e175 with SMTP id
- m11-20020a0562141bcb00b006283e37e175mr6190986qvc.25.1685646620329; 
- Thu, 01 Jun 2023 12:10:20 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- mn6-20020a0562145ec600b0060530c942f4sm7830403qvb.46.2023.06.01.12.10.19
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 12:10:19 -0700 (PDT)
-Date: Thu, 1 Jun 2023 15:10:18 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <ZHjtGvf+gHxeV83V@redhat.com>
-References: <ZHhbL+SbWRnTW4b7@gondor.apana.org.au>
+ us-mta-638-1XiUdibGNCmzCErsuIJb0Q-1; Thu, 01 Jun 2023 17:31:02 -0400
+X-MC-Unique: 1XiUdibGNCmzCErsuIJb0Q-1
+Received: from compute5.internal (compute5.nyi.internal [10.202.2.45])
+ by mailout.nyi.internal (Postfix) with ESMTP id 1A4215C01BD;
+ Thu,  1 Jun 2023 17:25:13 -0400 (EDT)
+Received: from mailfrontend2 ([10.202.2.163])
+ by compute5.internal (MEProxy); Thu, 01 Jun 2023 17:25:13 -0400
+X-ME-Sender: <xms:uAx5ZEorR5uh5S82mapCbkteVGxsfNfzQgPbmETHb8AQHwWR74nQFg>
+ <xme:uAx5ZKoGYGpndiV7OJsVE0Z_rM5Eb_KTHVAsDXjtbRNFEd8ji0Za9Q7C3T4D6aOds
+ av8EBOZ-PhKzvk>
+X-ME-Received: <xmr:uAx5ZJPq9xiWmPAr5GldAXllT0ERcWFLPD1CPRs2ZWe0QR_5aTe93kCBRfK9wMZ11C13faYi7gI>
+X-ME-Proxy-Cause: gggruggvucftvghtrhhoucdtuddrgedvhedrfeeluddgudeiudcutefuodetggdotefrod
+ ftvfcurfhrohhfihhlvgemucfhrghsthforghilhdpqfgfvfdpuffrtefokffrpgfnqfgh
+ necuuegrihhlohhuthemuceftddtnecusecvtfgvtghiphhivghnthhsucdlqddutddtmd
+ enucfjughrpefhvfevufffkffoggfgsedtkeertdertddtnecuhfhrohhmpeffvghmihcu
+ ofgrrhhivgcuqfgsvghnohhurhcuoeguvghmihesihhnvhhishhisghlvghthhhinhhgsh
+ hlrggsrdgtohhmqeenucggtffrrghtthgvrhhnpedvfeegkedvkefgffegkefhieejtdff
+ keehhfelheefjeeutefgleeggfdtveeileenucevlhhushhtvghrufhiiigvpedtnecurf
+ grrhgrmhepmhgrihhlfhhrohhmpeguvghmihesihhnvhhishhisghlvghthhhinhhgshhl
+ rggsrdgtohhm
+X-ME-Proxy: <xmx:uAx5ZL5etlybPL6lKFpSm62GS08sCaBLNDvPNcFIsMimYQH-yWQvHQ>
+ <xmx:uAx5ZD7PMKrmXTwrViJnaCY22nz3SQ_y_by29spSWbJt1Ws2Mi305A>
+ <xmx:uAx5ZLiNCKOi3EbAzysfbnXdCGVOUWBYmHPTXRlvMkqceMZtcGR0eA>
+ <xmx:uQx5ZDFGw3Nx3Zhgv2A7uRMy77Fynnu1decOGHWcKPeIxLOsGDzTgg>
+Feedback-ID: iac594737:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 1 Jun 2023 17:25:12 -0400 (EDT)
+From: Demi Marie Obenour <demi@invisiblethingslab.com>
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
+ dm-devel@redhat.com
+Date: Thu,  1 Jun 2023 17:24:49 -0400
+Message-Id: <20230601212456.1533-1-demi@invisiblethingslab.com>
 MIME-Version: 1.0
-In-Reply-To: <ZHhbL+SbWRnTW4b7@gondor.apana.org.au>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] dm crypt: Avoid using MAX_CIPHER_BLOCKSIZE
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [dm-devel] [PATCH 0/6] Several device-mapper fixes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,97 +107,37 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com,
- Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
- Alasdair Kergon <agk@redhat.com>
+Cc: Demi Marie Obenour <demi@invisiblethingslab.com>,
+ linux-kernel@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Disposition: inline
+X-Mimecast-Originator: invisiblethingslab.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Jun 01 2023 at  4:47P -0400,
-Herbert Xu <herbert@gondor.apana.org.au> wrote:
+This series contains several miscellaneous fixes to input validation in
+device-mapper.  The only potentially controversial commits should be the
+last two, which prevent creating devices named ".", "..", or "control".
+The other patches fix input validation problems that have existed since
+at least the beginning of git history.
 
-> MAX_CIPHER_BLOCKSIZE is an internal implementation detail and should
-> not be relied on by users of the Crypto API.
-> 
-> Instead of storing the IV on the stack, allocate it together with
-> the crypto request.
-> 
-> Signed-off-by: Herbert Xu <herbert@gondor.apana.org.au>
-> ---
-> 
->  drivers/md/dm-crypt.c |   15 +++++++++++----
->  1 file changed, 11 insertions(+), 4 deletions(-)
-> 
-> diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-> index 40cb1719ae4d..0e7e443dde11 100644
-> --- a/drivers/md/dm-crypt.c
-> +++ b/drivers/md/dm-crypt.c
-> @@ -31,10 +31,10 @@
->  #include <asm/unaligned.h>
->  #include <crypto/hash.h>
->  #include <crypto/md5.h>
-> -#include <crypto/algapi.h>
->  #include <crypto/skcipher.h>
->  #include <crypto/aead.h>
->  #include <crypto/authenc.h>
-> +#include <crypto/utils.h>
->  #include <linux/rtnetlink.h> /* for struct rtattr and RTA macros only */
->  #include <linux/key-type.h>
->  #include <keys/user-type.h>
-> @@ -743,16 +743,23 @@ static int crypt_iv_eboiv_ctr(struct crypt_config *cc, struct dm_target *ti,
->  static int crypt_iv_eboiv_gen(struct crypt_config *cc, u8 *iv,
->  			    struct dm_crypt_request *dmreq)
->  {
-> -	u8 buf[MAX_CIPHER_BLOCKSIZE] __aligned(__alignof__(__le64));
-> +	struct crypto_skcipher *tfm = any_tfm(cc);
->  	struct skcipher_request *req;
->  	struct scatterlist src, dst;
->  	DECLARE_CRYPTO_WAIT(wait);
-> +	unsigned int reqsize;
->  	int err;
-> +	u8 *buf;
->  
-> -	req = skcipher_request_alloc(any_tfm(cc), GFP_NOIO);
-> +	reqsize = ALIGN(crypto_skcipher_reqsize(tfm), __alignof__(__le64));
-> +
-> +	req = kmalloc(reqsize + cc->iv_size, GFP_NOIO);
->  	if (!req)
->  		return -ENOMEM;
->  
-> +	skcipher_request_set_tfm(req, tfm);
-> +
-> +	buf = (u8 *)req + reqsize;
->  	memset(buf, 0, cc->iv_size);
->  	*(__le64 *)buf = cpu_to_le64(dmreq->iv_sector * cc->sector_size);
->  
-> @@ -761,7 +768,7 @@ static int crypt_iv_eboiv_gen(struct crypt_config *cc, u8 *iv,
->  	skcipher_request_set_crypt(req, &src, &dst, cc->iv_size, buf);
->  	skcipher_request_set_callback(req, 0, crypto_req_done, &wait);
->  	err = crypto_wait_req(crypto_skcipher_encrypt(req), &wait);
-> -	skcipher_request_free(req);
-> +	kfree_sensitive(req);
->  
->  	return err;
->  }
+Demi Marie Obenour (6):
+  device-mapper: Check that target specs are sufficiently aligned
+  device-mapper: Avoid pointer arithmetic overflow
+  device-mapper: structs and parameter strings must not overlap
+  device-mapper: Avoid double-fetch of version
+  device-mapper: Refuse to create device named "control"
+  device-mapper: "." and ".." are not valid symlink names
 
+ drivers/md/dm-ioctl.c | 75 ++++++++++++++++++++++++++++++++++++-------
+ 1 file changed, 63 insertions(+), 12 deletions(-)
 
-Strikes me as strange that open-coding skcipher_request_{alloc,free}
-is ideal, but dm-crypt is the only non-crypto consumer of
-MAX_CIPHER_BLOCKSIZE so really not worth standing up yet another
-interface wrapper.
-
-Anyway, this code is certainly better for dm-crypt's needs.  I'm happy
-with you applying this change via your crypto tree.
-
-Reviewed-by: Mike Snitzer <snitzer@kernel.org>
-
-Thanks.
+-- 
+Sincerely,
+Demi Marie Obenour (she/her/hers)
+Invisible Things Lab
 
 --
 dm-devel mailing list
