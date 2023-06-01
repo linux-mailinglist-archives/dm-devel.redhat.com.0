@@ -2,101 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A056C71F9AF
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Jun 2023 07:40:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2B7B47194D1
+	for <lists+dm-devel@lfdr.de>; Thu,  1 Jun 2023 09:57:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685684402;
+	s=mimecast20190719; t=1685606267;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ok4va3Ld1DNBD021zi3vA00cYgp7m1f9sk9MYtCiDf0=;
-	b=bTJwEVuoADeFh+c+zqpsK1Verju9GlKHi599lJ+qykzCIAhTqzykSMs7IRsbrxmzHSkhR5
-	2/zmSvbO+4EYExB8ZDvttLEwdTHLutCHc7ItXa1wdVhu4Acvwa+mAi0UEXzTFANyYxciSH
-	o5SOYY5UIKbj6tRGAZbtqiY4kLuwvdk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ZI6dqr/oB71ACl4s52IHdlz9jz2/V1cJYxLZzXuDOPI=;
+	b=OP4VqpPstvhIWRjVxChkvtQEKmtJ7qb07Y9Blokk8XrZ7QkX5CSIBiFWXLOFvtco1ONtrX
+	CnVvVF0pycD5icR9yww/pVmcvs9wq9MI/36hn0NJVYTjW1KaedW0Hf+AWniDm9m9sNfY7J
+	k415AB5pNCK2gwAcE+h1IIn4Kv/kmSs=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-395-57oofv7sPlC1UUPeSzon9A-1; Fri, 02 Jun 2023 01:39:43 -0400
-X-MC-Unique: 57oofv7sPlC1UUPeSzon9A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-265-P4OVvmDPMm-oKvns_Ruijw-1; Thu, 01 Jun 2023 03:57:45 -0400
+X-MC-Unique: P4OVvmDPMm-oKvns_Ruijw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E3A35101AA42;
-	Fri,  2 Jun 2023 05:39:40 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A1ED3855568;
+	Thu,  1 Jun 2023 07:57:43 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C57EA2023433;
-	Fri,  2 Jun 2023 05:39:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5F3DC2166B25;
+	Thu,  1 Jun 2023 07:57:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 128CE19465B7;
-	Fri,  2 Jun 2023 05:39:39 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 480B81949F07;
+	Thu,  1 Jun 2023 07:57:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6934D194343F
- for <dm-devel@listman.corp.redhat.com>; Thu,  1 Jun 2023 07:25:10 +0000 (UTC)
+ ESMTP id BBC8919451E5
+ for <dm-devel@listman.corp.redhat.com>; Thu,  1 Jun 2023 07:57:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4B84E112132D; Thu,  1 Jun 2023 07:25:10 +0000 (UTC)
+ id A5449407DEC3; Thu,  1 Jun 2023 07:57:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 43FD1112132C
- for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:25:09 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9D9A3407DEC0
+ for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:57:39 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 911C58032EF
- for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:25:09 +0000 (UTC)
-Received: from mail-pg1-f197.google.com (mail-pg1-f197.google.com
- [209.85.215.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E947185A78B
+ for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:57:39 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-480-8-1C3WkKOBmzBT6PKatJsg-1; Thu, 01 Jun 2023 03:25:08 -0400
-X-MC-Unique: 8-1C3WkKOBmzBT6PKatJsg-1
-Received: by mail-pg1-f197.google.com with SMTP id
- 41be03b00d2f7-53450fa3a18so579707a12.0
- for <dm-devel@redhat.com>; Thu, 01 Jun 2023 00:25:08 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685604307; x=1688196307;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=aefU4VwU8oFOQYKmAqFmOKJxhlCYs6WtVK98Xo9Ylw8=;
- b=kPghHeyYkBMreDXgwdTHI+5y1H3rW7r3Jwsq9J66ChET3OHIxUNzyKzkmCWUIjC4rp
- EftaZX3WOCR6brHFn7ToNgUB/aeivglcGVugBHJRE2T+tH2Quktltl4WIqLOSXXUTXcY
- NS+YLtSdA1e4TVNh3d2UV4PpwVtPi7goPsCo2+pLqylFEjGPl6TY6Y65YH7sBvYFz/O8
- RB+KQbvzarznHSmINUEMdqFYrMRPbWsgMH1Ei7mtNwvn5IkkJ72nezn5lzpQevMkBQiq
- YEOfNOeA7GyMN+2JisoJ6IZ7MFarJkSvPAyG4hYD2yPJNXE+s5silqM8g/QJ8Lt9ate5
- nE3A==
-X-Gm-Message-State: AC+VfDw2bvin5LhKKuaTFsanw3wTqBT7QroEmKYQzkyCDOTj6wC2tEDt
- iTunOOxfFYldfGR7e2c4GpG0310BVkKpDje7A8SnHbElBpkJkDqTvIgLfi0R7skwu6Iwzgoh2P0
- wTSJFP3oIGXx9At8=
-X-Received: by 2002:a05:6a21:998c:b0:10c:37ed:3e88 with SMTP id
- ve12-20020a056a21998c00b0010c37ed3e88mr8900720pzb.23.1685604307400; 
- Thu, 01 Jun 2023 00:25:07 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ63I95P8dhhdJ7s5jrMayaANp/DzsGmHfYS5azIKGpulSOOXmtAzsGrmoW2rz/wazIGcv1tqA==
-X-Received: by 2002:a05:6a21:998c:b0:10c:37ed:3e88 with SMTP id
- ve12-20020a056a21998c00b0010c37ed3e88mr8900696pzb.23.1685604307121; 
- Thu, 01 Jun 2023 00:25:07 -0700 (PDT)
-Received: from localhost ([43.228.180.230]) by smtp.gmail.com with ESMTPSA id
- y15-20020a17090322cf00b001ac5896e96esm2644901plg.207.2023.06.01.00.25.06
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 00:25:06 -0700 (PDT)
-From: Coiby Xu <coxu@redhat.com>
-To: kexec@lists.infradead.org
-Date: Thu,  1 Jun 2023 15:24:44 +0800
-Message-Id: <20230601072444.2033855-6-coxu@redhat.com>
-In-Reply-To: <20230601072444.2033855-1-coxu@redhat.com>
-References: <20230601072444.2033855-1-coxu@redhat.com>
+ us-mta-466-4mwYt7_tN4Of_t1ifYDJMg-1; Thu, 01 Jun 2023 03:57:37 -0400
+X-MC-Unique: 4mwYt7_tN4Of_t1ifYDJMg-1
+Received: from [2001:4bb8:182:6d06:35f3:1da0:1cc3:d86d] (helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1q4cjZ-002MKH-0R; Thu, 01 Jun 2023 07:28:33 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Thu,  1 Jun 2023 09:28:26 +0200
+Message-Id: <20230601072829.1258286-1-hch@lst.de>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-X-Mailman-Approved-At: Fri, 02 Jun 2023 05:39:36 +0000
-Subject: [dm-devel] [PATCH 5/5] x86/crash: make the page that stores the
- LUKS volume key inaccessible
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] enforce read-only state at the block layer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,61 +86,33 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Dave Hansen <dave.hansen@linux.intel.com>, "H. Peter Anvin" <hpa@zytor.com>,
- Baoquan He <bhe@redhat.com>, x86@kernel.org, dm-devel@redhat.com,
- Pingfan Liu <kernelfans@gmail.com>, linux-kernel@vger.kernel.org,
- Dave Hansen <dave.hansen@intel.com>, Kairui Song <ryncsn@gmail.com>,
- Ingo Molnar <mingo@redhat.com>, Thomas Gleixner <tglx@linutronix.de>,
- Jan Pazdziora <jpazdziora@redhat.com>, Thomas Staudt <tstaudt@de.ibm.com>,
- Borislav Petkov <bp@alien8.de>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Dave Young <dyoung@redhat.com>, Milan Broz <gmazyland@gmail.com>
+Cc: linux-block@vger.kernel.org, Mike Snitzer <snitzer@kernel.org>,
+ dm-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This adds an addition layer of protection for the saved copy of LUKS
-volume key. Trying to access the saved copy will cause page fault.
+Hi all,
 
-Suggested-by: Pingfan Liu <kernelfans@gmail.com>
-Signed-off-by: Coiby Xu <coxu@redhat.com>
----
- arch/x86/kernel/machine_kexec_64.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+I've recently got a report where a file system can write to a read-only
+block device, and while I've not found the root cause yet, it is very
+clear that we should not prevents writes to read-only at all.
 
-diff --git a/arch/x86/kernel/machine_kexec_64.c b/arch/x86/kernel/machine_kexec_64.c
-index 1a3e2c05a8a5..82d1ecb35827 100644
---- a/arch/x86/kernel/machine_kexec_64.c
-+++ b/arch/x86/kernel/machine_kexec_64.c
-@@ -546,9 +546,23 @@ static void kexec_mark_crashkres(bool protect)
- 	kexec_mark_range(control, crashk_res.end, protect);
- }
- 
-+static void kexec_mark_luks_volume_key_inaccessible(void)
-+{
-+	unsigned long start_paddr, end_paddr;
-+	unsigned int nr_pages;
-+
-+	if (kexec_crash_image->luks_volume_key_addr) {
-+		start_paddr = kexec_crash_image->luks_volume_key_addr;
-+		end_paddr = start_paddr + kexec_crash_image->luks_volume_key_sz - 1;
-+		nr_pages = (PAGE_ALIGN(end_paddr) - PAGE_ALIGN_DOWN(start_paddr))/PAGE_SIZE;
-+		set_memory_np((unsigned long)phys_to_virt(start_paddr), nr_pages);
-+	}
-+}
-+
- void arch_kexec_protect_crashkres(void)
- {
- 	kexec_mark_crashkres(true);
-+	kexec_mark_luks_volume_key_inaccessible();
- }
- 
- void arch_kexec_unprotect_crashkres(void)
--- 
-2.40.1
+This did in fact get fixed 5 years ago, but Linus reverted it as older
+lvm2 tools relying on this broken behavior.  This series tries to
+restore it, although I'm still worried about thee older lvm2 tools
+to be honest.  Question to the device mapper maintainers:  is the
+any good way to work around that behavior in device mapper if needed
+instead of leaving the core block layer and drivers exposed?
+
+Diffstat:
+ block/blk-core.c       |   20 ++++++++------------
+ include/linux/blkdev.h |    1 -
+ 2 files changed, 8 insertions(+), 13 deletions(-)
 
 --
 dm-devel mailing list
