@@ -1,102 +1,102 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 64FC671F9AE
-	for <lists+dm-devel@lfdr.de>; Fri,  2 Jun 2023 07:39:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D663871F9B0
+	for <lists+dm-devel@lfdr.de>; Fri,  2 Jun 2023 07:40:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685684387;
+	s=mimecast20190719; t=1685684403;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jIiWOFe5r2TV7/Wc5ie2VjTvWigp5Q0aiqLxD3FtBA8=;
-	b=X9kZe/iUfe8t6CttcgDH+cH25o1Q3wfHJjatjJIelet4srjbFGQugnqCv6DlzgcrspbN2P
-	r1TBpvIvpy/hXoqPBost/rW9tPN3y3w3ngJ49yBpj/YGljZejgQeAQVxyQOoOsoETlyW/+
-	Y6U1aj5SzXWFwpYmPywDymlY63CZJQY=
+	bh=jJr0BKhJD7NKurgXBm95SmDzb0kHkswOk8A9Y+AkY0w=;
+	b=VAtIJirT5SUgIMuaczvBhyMgSmXErMH0PlOTwKCV+aN38e2E7AQb+MSCoaG+gAoTNsf9W4
+	XKlNf9kiaG5iv2I9MgwkKRUhJ19ygf8s+i/S+PNGFnAgKzAnpRRpykXlMCIrEJV6/mu1G9
+	N2hhQNnyVI/6envUehdM2o88L5T4cUE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-222-WpMBRjSBOIut4vrGgOi64A-1; Fri, 02 Jun 2023 01:39:43 -0400
-X-MC-Unique: WpMBRjSBOIut4vrGgOi64A-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-212-2qKqIQ2sOm2AbFRa36iK8w-1; Fri, 02 Jun 2023 01:39:43 -0400
+X-MC-Unique: 2qKqIQ2sOm2AbFRa36iK8w-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E3EDB8032E4;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E2CCB185A78B;
 	Fri,  2 Jun 2023 05:39:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 64A90492B0D;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C1A4F40C6CD8;
 	Fri,  2 Jun 2023 05:39:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AF6E619465B2;
-	Fri,  2 Jun 2023 05:39:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 617E61946F01;
+	Fri,  2 Jun 2023 05:39:37 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E49D319451E5
- for <dm-devel@listman.corp.redhat.com>; Thu,  1 Jun 2023 07:24:59 +0000 (UTC)
+ ESMTP id 284C419451E5
+ for <dm-devel@listman.corp.redhat.com>; Thu,  1 Jun 2023 07:25:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C8AEB421C3; Thu,  1 Jun 2023 07:24:59 +0000 (UTC)
+ id 09194140E964; Thu,  1 Jun 2023 07:25:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C161D9D73
- for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:24:59 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 01402140E962
+ for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:25:02 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A1C443C0CEE9
- for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:24:59 +0000 (UTC)
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D0B302800C20
+ for <dm-devel@redhat.com>; Thu,  1 Jun 2023 07:25:02 +0000 (UTC)
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com
+ [209.85.210.198]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-615-uTriWEaaP5qwtvQDN_bwaw-1; Thu, 01 Jun 2023 03:24:56 -0400
-X-MC-Unique: uTriWEaaP5qwtvQDN_bwaw-1
-Received: by mail-qt1-f197.google.com with SMTP id
- d75a77b69052e-3f83058a849so5184731cf.0
- for <dm-devel@redhat.com>; Thu, 01 Jun 2023 00:24:56 -0700 (PDT)
+ us-mta-625-fP13d_1wOJqrfZixyKgLaA-1; Thu, 01 Jun 2023 03:25:01 -0400
+X-MC-Unique: fP13d_1wOJqrfZixyKgLaA-1
+Received: by mail-pf1-f198.google.com with SMTP id
+ d2e1a72fcca58-64d24df4852so254243b3a.2
+ for <dm-devel@redhat.com>; Thu, 01 Jun 2023 00:25:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685604296; x=1688196296;
+ d=1e100.net; s=20221208; t=1685604300; x=1688196300;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=AVNhkRwZAfrMBhKh//wi6Z59DrttLTByCXwnmuvQ7Sk=;
- b=iM9rzw2XVbjB3ijP3/O+DQZswl+OvrkUneoPtx5Pza1eWqgSkD+Lhi5cyG1Yi1N3fA
- PH6sB8HbFgq8Ff4UWgm+aWk/pHVi4h3WpoNz0Y30Gv6NrK46QIxSMzQGuY7MAYqdIOww
- Kyr+ryKooruZhPO5HW4jwU9djiJq9qIkZR8jeR1No0c6fu30SDWNI1UBAYWlpwBs2Nj2
- oD2eSz7HrFchJ6aCZWcCQNvIyv3erSDcOZGwqzTD2tvzh00BAZPc7vSDW2b1QHMys4Nz
- rVQsRBFa8g7qrdTwUo/hII1NuQRhqJ1FW4orQriB16Uw91Glyf6XaIK2lfy9S7oy0s3b
- nGQQ==
-X-Gm-Message-State: AC+VfDxZjBafC4As0jAATrsXOwnqvnIQPHZVOF72LDWiVRqkQNSfmZ2v
- VpPwYyemxYt3wrhj2jQnWhMQ+tvoKnzRvCMRpTt8WYSCeyo4wlJ/0niPHS/CN32/3GMR66AcDT2
- BIgKMdxee28Slxn4=
-X-Received: by 2002:a05:622a:3c7:b0:3f4:eb26:6d42 with SMTP id
- k7-20020a05622a03c700b003f4eb266d42mr7982588qtx.63.1685604295826; 
- Thu, 01 Jun 2023 00:24:55 -0700 (PDT)
-X-Google-Smtp-Source: ACHHUZ6UZAxm2RuiVCtGixZ0U45XGL7fm+89xCNa6kmGqARldADNGbnk+xAiazKcrMefCa2tIl3eZQ==
-X-Received: by 2002:a05:622a:3c7:b0:3f4:eb26:6d42 with SMTP id
- k7-20020a05622a03c700b003f4eb266d42mr7982558qtx.63.1685604295538; 
- Thu, 01 Jun 2023 00:24:55 -0700 (PDT)
+ bh=BSdEOOvVOvBHgbxdtA0aSxX16fM93R7Xrib46N4HMRQ=;
+ b=lfroMYhZr0nzil8qfMPjmyM49gEWF0zfmQZ1cMIYbbj1FjiW1umsMmQo9ZJmu9uV4K
+ NyhgzX6bigmFkzwV9jZFP/9MRKq+0BRxFWkoBWALnIj6FPe2+F2zJBQ0HguUweSvWtis
+ MAQMccNDYcQZGqcmChaz+msXTBzqdPbDnCXLeIR+cvTdx37t3Kfs28VzsTNIkOfV4TKP
+ LBOWt+Hm+1YTKN1XEcgRNwj17mP6zRYCj5linakHVdZryTTDavjhCxBdDmW74ntGYhXe
+ hMGXncmhcoJnCIkA9ZCtRR1drCqdfqgX7eLfCb7WCYfTIHmf695K4GfwUYpUNEfBy3q8
+ nQsA==
+X-Gm-Message-State: AC+VfDyq/hxHf/kviT9ddVkYH3MTjnFD3nT2CJx+QddGMYZLv6pjo2dd
+ T06fJB4mBe41Eruy34RIMfWBmHhaec5sQcxUgns+m5xmdOSrJoNVVzq/26NDPWBuxoB6+YydwrI
+ eiQANJcYpeMo+FA0=
+X-Received: by 2002:a05:6a00:1a51:b0:63b:5496:7af5 with SMTP id
+ h17-20020a056a001a5100b0063b54967af5mr7757655pfv.1.1685604300243; 
+ Thu, 01 Jun 2023 00:25:00 -0700 (PDT)
+X-Google-Smtp-Source: ACHHUZ7dvgVyrzGCsjuOATzcCkMb2NCswn1qLkQ0iET/24u8jgUcZoCb8ABgYZHVIPusFMkwCuiucw==
+X-Received: by 2002:a05:6a00:1a51:b0:63b:5496:7af5 with SMTP id
+ h17-20020a056a001a5100b0063b54967af5mr7757634pfv.1.1685604299873; 
+ Thu, 01 Jun 2023 00:24:59 -0700 (PDT)
 Received: from localhost ([43.228.180.230]) by smtp.gmail.com with ESMTPSA id
- i28-20020a63541c000000b0053efb8fae02sm2465297pgb.24.2023.06.01.00.24.54
+ f18-20020aa78b12000000b0064d27a28451sm4433388pfd.100.2023.06.01.00.24.58
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 01 Jun 2023 00:24:55 -0700 (PDT)
+ Thu, 01 Jun 2023 00:24:59 -0700 (PDT)
 From: Coiby Xu <coxu@redhat.com>
 To: kexec@lists.infradead.org
-Date: Thu,  1 Jun 2023 15:24:41 +0800
-Message-Id: <20230601072444.2033855-3-coxu@redhat.com>
+Date: Thu,  1 Jun 2023 15:24:42 +0800
+Message-Id: <20230601072444.2033855-4-coxu@redhat.com>
 In-Reply-To: <20230601072444.2033855-1-coxu@redhat.com>
 References: <20230601072444.2033855-1-coxu@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Fri, 02 Jun 2023 05:39:36 +0000
-Subject: [dm-devel] [PATCH 2/5] crash_dump: save the LUKS volume key
- temporarily
+Subject: [dm-devel] [PATCH 3/5] crash_dump: retrieve LUKS volume key in
+ kdump kernel
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,191 +116,183 @@ Cc: Baoquan He <bhe@redhat.com>, x86@kernel.org, dm-devel@redhat.com,
  Milan Broz <gmazyland@gmail.com>, Vivek Goyal <vgoyal@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-After having the volume key, crytpsetup/systemd-cryptsetup saves the
-volume key as a logon key to its thread keyring and this key is
-destroyed immediately with the terminated thread. So a temporary copy of
-the volume key is needed in order to later save it to kdump reserved
-memory when the crash kernel is loaded later.
-
-crytpsetup/systemd-cryptsetup will write the key description to
-/sys/kernel/crash_luks_volume_key so the kernel will read the logon key
-and save a temporary copy for later user. kdump has 1 hour at maximum to
-get the temporary copy before the key gets wiped. And after kdump
-retrieves the key, the key will be wiped immediately.
+Crash kernel will retrieve the LUKS volume key based on the
+luksvolumekey command line parameter. When libcryptsetup writes the key
+description to /sys/kernel/crash_luks_volume_key, crash kernel will
+create a thread keyring and add a logon key.
 
 Signed-off-by: Coiby Xu <coxu@redhat.com>
 ---
- include/linux/crash_core.h |  2 +
- kernel/Makefile            |  2 +-
- kernel/crash_dump_luks.c   | 90 ++++++++++++++++++++++++++++++++++++++
- kernel/ksysfs.c            | 19 ++++++++
- 4 files changed, 112 insertions(+), 1 deletion(-)
- create mode 100644 kernel/crash_dump_luks.c
+ include/linux/crash_dump.h |   2 +
+ kernel/crash_dump_luks.c   | 116 ++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 116 insertions(+), 2 deletions(-)
 
-diff --git a/include/linux/crash_core.h b/include/linux/crash_core.h
-index de62a722431e..596d83b8f362 100644
---- a/include/linux/crash_core.h
-+++ b/include/linux/crash_core.h
-@@ -83,5 +83,7 @@ int parse_crashkernel_high(char *cmdline, unsigned long long system_ram,
- 		unsigned long long *crash_size, unsigned long long *crash_base);
- int parse_crashkernel_low(char *cmdline, unsigned long long system_ram,
- 		unsigned long long *crash_size, unsigned long long *crash_base);
-+int crash_sysfs_luks_volume_key_write(const char *key_des, size_t count);
-+int crash_pass_temp_luks_volume_key(void **addr, unsigned long *sz);
+diff --git a/include/linux/crash_dump.h b/include/linux/crash_dump.h
+index 0f3a656293b0..bc848e058c64 100644
+--- a/include/linux/crash_dump.h
++++ b/include/linux/crash_dump.h
+@@ -15,6 +15,8 @@
+ extern unsigned long long elfcorehdr_addr;
+ extern unsigned long long elfcorehdr_size;
  
- #endif /* LINUX_CRASH_CORE_H */
-diff --git a/kernel/Makefile b/kernel/Makefile
-index b69c95315480..8412afa4a9f0 100644
---- a/kernel/Makefile
-+++ b/kernel/Makefile
-@@ -118,7 +118,7 @@ obj-$(CONFIG_PERF_EVENTS) += events/
- 
- obj-$(CONFIG_USER_RETURN_NOTIFIER) += user-return-notifier.o
- obj-$(CONFIG_PADATA) += padata.o
--obj-$(CONFIG_CRASH_DUMP) += crash_dump.o
-+obj-$(CONFIG_CRASH_DUMP) += crash_dump.o crash_dump_luks.o
- obj-$(CONFIG_JUMP_LABEL) += jump_label.o
- obj-$(CONFIG_CONTEXT_TRACKING) += context_tracking.o
- obj-$(CONFIG_TORTURE_TEST) += torture.o
++extern unsigned long long luks_volume_key_addr;
++
+ #ifdef CONFIG_CRASH_DUMP
+ extern int elfcorehdr_alloc(unsigned long long *addr, unsigned long long *size);
+ extern void elfcorehdr_free(unsigned long long addr);
 diff --git a/kernel/crash_dump_luks.c b/kernel/crash_dump_luks.c
-new file mode 100644
-index 000000000000..2d88b77a93f8
---- /dev/null
+index 2d88b77a93f8..63718db318c3 100644
+--- a/kernel/crash_dump_luks.c
 +++ b/kernel/crash_dump_luks.c
-@@ -0,0 +1,90 @@
-+// SPDX-License-Identifier: GPL-2.0-only
-+#include <keys/user-type.h>
-+#include <linux/crash_dump.h>
+@@ -1,7 +1,82 @@
+ // SPDX-License-Identifier: GPL-2.0-only
++#include <linux/key.h>
++#include <linux/keyctl.h>
+ #include <keys/user-type.h>
+ #include <linux/crash_dump.h>
+ 
++unsigned long long luks_volume_key_addr;
++EXPORT_SYMBOL_GPL(luks_volume_key_addr);
 +
-+static u8 *luks_volume_key;
-+static unsigned int luks_volume_key_size;
-+
-+void wipe_luks_volume_key(void)
++static int __init setup_luksvolumekey(char *arg)
 +{
-+	if (luks_volume_key) {
-+		memset(luks_volume_key, 0, luks_volume_key_size * sizeof(u8));
-+		kfree(luks_volume_key);
-+		luks_volume_key = NULL;
-+	}
-+}
++	char *end;
 +
-+static void _wipe_luks_volume_key(struct work_struct *dummy)
-+{
-+	wipe_luks_volume_key();
-+}
++	if (!arg)
++		return -EINVAL;
++	luks_volume_key_addr = memparse(arg, &end);
++	if (end > arg)
++		return 0;
 +
-+static DECLARE_DELAYED_WORK(wipe_luks_volume_key_work, _wipe_luks_volume_key);
-+
-+static unsigned __read_mostly wipe_key_delay = 3600; /* 1 hour */
-+
-+static int crash_save_temp_luks_volume_key(const char *key_desc, size_t count)
-+{
-+	const struct user_key_payload *ukp;
-+	struct key *key;
-+
-+
-+	if (luks_volume_key) {
-+		memset(luks_volume_key, 0, luks_volume_key_size * sizeof(u8));
-+		kfree(luks_volume_key);
-+	}
-+
-+	pr_debug("Requesting key %s", key_desc);
-+	key = request_key(&key_type_logon, key_desc, NULL);
-+
-+	if (IS_ERR(key)) {
-+		pr_debug("No such key %s", key_desc);
-+		return PTR_ERR(key);
-+	}
-+
-+	ukp = user_key_payload_locked(key);
-+	if (!ukp)
-+		return -EKEYREVOKED;
-+
-+	luks_volume_key = kmalloc(ukp->datalen, GFP_KERNEL);
-+	if (!luks_volume_key)
-+		return -ENOMEM;
-+	memcpy(luks_volume_key, ukp->data, ukp->datalen);
-+	luks_volume_key_size = ukp->datalen;
-+	pr_debug("LUKS master key (size=%u): %8ph\n", luks_volume_key_size, luks_volume_key);
-+	schedule_delayed_work(&wipe_luks_volume_key_work,
-+			      round_jiffies_relative(wipe_key_delay * HZ));
-+	return 0;
-+}
-+
-+int crash_sysfs_luks_volume_key_write(const char *key_desc, size_t count)
-+{
-+	if (!is_kdump_kernel())
-+		return crash_save_temp_luks_volume_key(key_desc, count);
++	luks_volume_key_addr = 0;
 +	return -EINVAL;
 +}
-+EXPORT_SYMBOL(crash_sysfs_luks_volume_key_write);
 +
-+int crash_pass_temp_luks_volume_key(void **addr, unsigned long *sz)
++early_param("luksvolumekey", setup_luksvolumekey);
++
++/*
++ * Architectures may override this function to read LUKS master key
++ */
++ssize_t __weak luks_key_read(char *buf, size_t count, u64 *ppos)
 +{
-+	unsigned long luks_key_sz;
-+	unsigned char *buf;
++	struct kvec kvec = { .iov_base = buf, .iov_len = count };
++	struct iov_iter iter;
++
++	iov_iter_kvec(&iter, READ, &kvec, 1, count);
++	return read_from_oldmem(&iter, count, ppos, false);
++}
++
++static int retrive_kdump_luks_volume_key(u8 *buffer, unsigned int *sz)
++{
++	unsigned int key_size;
++	size_t lukskeybuf_sz;
 +	unsigned int *size_ptr;
++	char *lukskeybuf;
++	u64 addr;
++	int r;
 +
-+	if (!luks_volume_key)
++	if (luks_volume_key_addr == 0) {
++		pr_debug("LUKS master key memory address inaccessible");
 +		return -EINVAL;
++	}
 +
-+	luks_key_sz = sizeof(unsigned int) + luks_volume_key_size * sizeof(u8);
++	addr = luks_volume_key_addr;
 +
-+	buf = vzalloc(luks_key_sz);
-+	if (!buf)
++	/* Read LUKS master key size */
++	r = luks_key_read((char *)&key_size, sizeof(unsigned int), &addr);
++
++	if (r < 0)
++		return r;
++
++	pr_debug("Retrieve LUKS master key: size=%u\n", key_size);
++	/* Read in LUKS maste rkey */
++	lukskeybuf_sz = sizeof(unsigned int) + key_size * sizeof(u8);
++	lukskeybuf = (void *)__get_free_pages(GFP_KERNEL | __GFP_ZERO,
++					      get_order(lukskeybuf_sz));
++	if (!lukskeybuf)
 +		return -ENOMEM;
 +
-+	size_ptr = (unsigned int *)buf;
-+	memcpy(size_ptr, &luks_volume_key_size, sizeof(unsigned int));
-+	memcpy(size_ptr + 1, luks_volume_key, luks_volume_key_size * sizeof(u8));
-+	*addr = buf;
-+	*sz = luks_key_sz;
-+	wipe_luks_volume_key();
-+	return 0;
-+}
-diff --git a/kernel/ksysfs.c b/kernel/ksysfs.c
-index aad7a3bfd846..cc64a895c334 100644
---- a/kernel/ksysfs.c
-+++ b/kernel/ksysfs.c
-@@ -165,6 +165,24 @@ static ssize_t vmcoreinfo_show(struct kobject *kobj,
- }
- KERNEL_ATTR_RO(vmcoreinfo);
- 
-+static ssize_t crash_luks_volume_key_show(struct kobject *kobj,
-+					  struct kobj_attribute *attr,
-+					  char *buf)
-+{
++	addr = luks_volume_key_addr;
++	r = luks_key_read((char *)lukskeybuf, lukskeybuf_sz, &addr);
++
++	if (r < 0)
++		return r;
++	size_ptr = (unsigned int *)lukskeybuf;
++	memcpy(buffer, size_ptr + 1, key_size * sizeof(u8));
++	pr_debug("Retrieve LUKS master key (size=%u): %48ph...\n", key_size, buffer);
++	*sz = key_size;
 +	return 0;
 +}
 +
-+static ssize_t crash_luks_volume_key_store(struct kobject *kobj,
-+					   struct kobj_attribute *attr,
-+					   const char *buf, size_t count)
+ static u8 *luks_volume_key;
+ static unsigned int luks_volume_key_size;
+ 
+@@ -23,12 +98,48 @@ static DECLARE_DELAYED_WORK(wipe_luks_volume_key_work, _wipe_luks_volume_key);
+ 
+ static unsigned __read_mostly wipe_key_delay = 3600; /* 1 hour */
+ 
++static int retore_luks_volume_key_to_thread_keyring(const char *key_desc)
 +{
++	key_ref_t keyring_ref, key_ref;
 +	int ret;
 +
-+	ret = crash_sysfs_luks_volume_key_write(buf, count);
-+	return ret < 0 ? ret : count;
-+}
-+KERNEL_ATTR_RW(crash_luks_volume_key);
++	/* find the target keyring (which must be writable) */
++	keyring_ref = lookup_user_key(KEY_SPEC_THREAD_KEYRING, 0x01, KEY_NEED_WRITE);
++	if (IS_ERR(keyring_ref)) {
++		pr_alert("Failed to get keyring");
++		return PTR_ERR(keyring_ref);
++	}
 +
- #endif /* CONFIG_CRASH_CORE */
++	luks_volume_key = kmalloc(128, GFP_KERNEL);
++	ret = retrive_kdump_luks_volume_key(luks_volume_key, &luks_volume_key_size);
++	if (ret) {
++		kfree(luks_volume_key);
++		return ret;
++	}
++
++	/* create or update the requested key and add it to the target keyring */
++	key_ref = key_create_or_update(keyring_ref, "logon", key_desc,
++				       luks_volume_key, luks_volume_key_size,
++				       KEY_PERM_UNDEF, KEY_ALLOC_IN_QUOTA);
++
++	if (!IS_ERR(key_ref)) {
++		ret = key_ref_to_ptr(key_ref)->serial;
++		key_ref_put(key_ref);
++		pr_alert("Success adding key %s", key_desc);
++	} else {
++		ret = PTR_ERR(key_ref);
++		pr_alert("Error when adding key");
++	}
++
++	key_ref_put(keyring_ref);
++	return ret;
++}
++
+ static int crash_save_temp_luks_volume_key(const char *key_desc, size_t count)
+ {
+ 	const struct user_key_payload *ukp;
+ 	struct key *key;
  
- /* whether file capabilities are enabled */
-@@ -255,6 +273,7 @@ static struct attribute * kernel_attrs[] = {
- #endif
- #ifdef CONFIG_CRASH_CORE
- 	&vmcoreinfo_attr.attr,
-+	&crash_luks_volume_key_attr.attr,
- #endif
- #ifndef CONFIG_TINY_RCU
- 	&rcu_expedited_attr.attr,
+-
+ 	if (luks_volume_key) {
+ 		memset(luks_volume_key, 0, luks_volume_key_size * sizeof(u8));
+ 		kfree(luks_volume_key);
+@@ -61,7 +172,8 @@ int crash_sysfs_luks_volume_key_write(const char *key_desc, size_t count)
+ {
+ 	if (!is_kdump_kernel())
+ 		return crash_save_temp_luks_volume_key(key_desc, count);
+-	return -EINVAL;
++	else
++		return retore_luks_volume_key_to_thread_keyring(key_desc);
+ }
+ EXPORT_SYMBOL(crash_sysfs_luks_volume_key_write);
+ 
 -- 
 2.40.1
 
