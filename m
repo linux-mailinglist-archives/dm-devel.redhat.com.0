@@ -2,105 +2,109 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CFC5E720FDF
-	for <lists+dm-devel@lfdr.de>; Sat,  3 Jun 2023 13:12:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F3C7721DCA
+	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 08:04:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685790755;
+	s=mimecast20190719; t=1685945056;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=H2vrqpAEOa2VyAKzxjEbe68QNIaUZvfso3k6sE49IcA=;
-	b=E8PFug0+P7fSvHnDRrQjYoOkyAxHc3InzYeFCJlaDTVFE/MY2hkPSSHwVGHwDXOq99bNP0
-	pMYXJZIHzrcjIDI3koccfo9KwnVOQQScVWomiLnpJ1uReJDdbU+YPiwJJQqWkE1N9VITB8
-	0ASZeWKxKWS1UDLJgFgVXqgyHW2vAcw=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=fPugwJ869EGOeFTu6tHO0MWJAdY5PbASQFy+v+vAqOU=;
+	b=H2sEnqd75IjLs25TUNWUgyaX+K8a5bEMFphheBVTi/GTQBRQMNPF+HqikA5gzgZkwmiFE+
+	X1ubTypWX/1EbuqBRJuB2vBAVbmsFHsD+Y1RJibditZ2JrSKyKW7JtnT7gZAu3vV7TAxB2
+	y11k2bQK7eeVKnQhkMPYWEieFzA66WA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-497-7mXzO1kcN5SZpxQAPY1Uiw-1; Sat, 03 Jun 2023 07:12:31 -0400
-X-MC-Unique: 7mXzO1kcN5SZpxQAPY1Uiw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-401-JKYwAQQENEu1z-DvPmb69w-1; Mon, 05 Jun 2023 02:04:13 -0400
+X-MC-Unique: JKYwAQQENEu1z-DvPmb69w-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC33829AA3B3;
-	Sat,  3 Jun 2023 11:12:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4D6E2A5956A;
+	Mon,  5 Jun 2023 06:04:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 61F7A40C6EC4;
-	Sat,  3 Jun 2023 11:12:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0A02A9E72;
+	Mon,  5 Jun 2023 06:04:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9C7E219465B5;
-	Sat,  3 Jun 2023 11:12:16 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6D8151946F04;
+	Mon,  5 Jun 2023 06:04:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 65B521946595
- for <dm-devel@listman.corp.redhat.com>; Sat,  3 Jun 2023 11:12:15 +0000 (UTC)
+ ESMTP id 8503B1946595
+ for <dm-devel@listman.corp.redhat.com>; Sat,  3 Jun 2023 12:46:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1FBD61121315; Sat,  3 Jun 2023 11:12:15 +0000 (UTC)
+ id 3799248205F; Sat,  3 Jun 2023 12:46:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 18C611121314
- for <dm-devel@redhat.com>; Sat,  3 Jun 2023 11:12:15 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 301DE401029
+ for <dm-devel@redhat.com>; Sat,  3 Jun 2023 12:46:07 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE9EC3C025B3
- for <dm-devel@redhat.com>; Sat,  3 Jun 2023 11:12:14 +0000 (UTC)
-Received: from mail-wr1-f43.google.com (mail-wr1-f43.google.com
- [209.85.221.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 11AE1185A78B
+ for <dm-devel@redhat.com>; Sat,  3 Jun 2023 12:46:07 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-484-l1jp36O1NUe_PaOoK8jAaA-1; Sat, 03 Jun 2023 07:12:13 -0400
-X-MC-Unique: l1jp36O1NUe_PaOoK8jAaA-1
-Received: by mail-wr1-f43.google.com with SMTP id
- ffacd0b85a97d-30ae61354fbso2834457f8f.3; 
- Sat, 03 Jun 2023 04:12:12 -0700 (PDT)
+ us-mta-561-O6O-AV2iOMuQlrsTqzKThg-1; Sat, 03 Jun 2023 08:46:02 -0400
+X-MC-Unique: O6O-AV2iOMuQlrsTqzKThg-1
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1b05e96dabbso18151625ad.2; 
+ Sat, 03 Jun 2023 05:46:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=gmail.com; s=20221208; t=1685796361; x=1688388361;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
+ bh=/kQXT/D1g1MKGoMUybziH35SAU5dVuYh1icWNGsyKOM=;
+ b=V94QgyD2dKQCZnm6sD3W746WsFl5C8Aw/flUOd+cgc5uU0Dh4xHHH7zNAVzOb3pWqV
+ Fc2tJdepsZL3Y53d6itz1klo05yf9lR6MCF6pmfAAOHwXP1AdBA5iqpzDvMbs9eoak1f
+ ZuM4onhy3IxnTWHTxsa2Hzb5FaVUWhgw8+XadQOA5kYXn+cEbernuL+kTwQRzaeKnmOD
+ 71v+zin4u0N4bGQqxHITCXUKtGWbfbWzliBBbzmSDJzImT/vYF+0fvR1Uy0VGZ5o/TtI
+ sPHVWsLOv9YwOMoxxfUeLZM/tdQmGNTSQOzqbMJeW/UWKir22PwjmBvX1FS19RNX3c+7
+ J5yQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685790732; x=1688382732;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=ihkMmQOYGbz7VgIDw4gmn+P+HLeTxRdmojf2ZtV0iV8=;
- b=FkNouOUHPyt4Jxq9wfMgYhumbT+gncR+t/+XQzvWQbNNulI4LXbV4mTEaz/jMn7FXm
- oGc85fQsZGQa/28qwCdyKBlAxrYOYL2aBYnzWfNBcGW5NcG3VU83vdHIfm5wkg4B/5o7
- 7HQICfwnpOXRZ93kQxfWYE6mSg8vBjR29SJUmeBOmgZTe+bAGgkbsjaQ641Uqo5F+x/7
- L13oKIuphCAVqPl6e98uql6poWC2M5/dAx++1Wr4uDA15hk0eiVsdDKj8qPal2lfJ3n9
- GSFMAVWbM/4LEIu1UDSx2xw1DYnSD7rLvUy5lvQXOF2Uyok5pd5xpXA+G2Xd2UddLbpb
- ahVw==
-X-Gm-Message-State: AC+VfDzU0faQksl+k0CQlDe8Qcu7k4pjugo3Eb65OgYGjhL8B+uZneDw
- 6XmfIi/GN3Ep56h6OuyUh7JyO2xI1A==
-X-Google-Smtp-Source: ACHHUZ4h4cfT1K3hsVTADqW/UGlFv1KTzfQSB5f70dfZOpKU5ZwJcMApzDxlQdlvwSPsBptIVM83SA==
-X-Received: by 2002:a5d:6304:0:b0:30a:ecf3:c9e9 with SMTP id
- i4-20020a5d6304000000b0030aecf3c9e9mr1857509wru.5.1685790731385; 
- Sat, 03 Jun 2023 04:12:11 -0700 (PDT)
-Received: from localhost (245.red-81-44-183.dynamicip.rima-tde.net.
- [81.44.183.245]) by smtp.gmail.com with ESMTPSA id
- q25-20020a7bce99000000b003f182a10106sm4740598wmj.8.2023.06.03.04.12.10
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 03 Jun 2023 04:12:10 -0700 (PDT)
-Message-ID: <8a1a8cb2-565c-6647-0424-548eaca34a78@gmail.com>
-Date: Sat, 3 Jun 2023 13:12:09 +0200
+ d=1e100.net; s=20221208; t=1685796361; x=1688388361;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=/kQXT/D1g1MKGoMUybziH35SAU5dVuYh1icWNGsyKOM=;
+ b=TmgQ82ktWv6yAm9du+rTu+gC4ajUzSfke923Is7vX6Q/Y9dyq9hT0krortaBp2fznm
+ bfW+fmKg3Rlo2c/oMrR2IftG/4qdtwAGcTlFfGrTO/Lc4jGahCq9QT5dAmHh4C64IjQH
+ oGrqe6znU6DSbqsBQF2/RJ+57ZN1nuM5RpAZ3EaJIihMb26OelmhNiLID7CunOIncIP4
+ 6eC9gGjjYWnPTyhMacpFBLWjaExl3A2ngwK+eDHTMiVdHeZH5eF59KtHSfYVF3lF2sZ0
+ tMHTIJN2s3sT+zOgvnwWW185lA+FEdueTcrx0Ez4g4GTiCMMQOxRWlcm/4R+icQ9uAUw
+ uiyA==
+X-Gm-Message-State: AC+VfDxgaDaoUPBmQLJF7VPhpSC6Qhp6gWyZj073FpFOCEiiE8gx6xvU
+ kMkPvPQ+ECkMcMTdxiHjpAX/cBE4UcquXA==
+X-Google-Smtp-Source: ACHHUZ7ul+2AjGHwv8RU2B7FQ6sTqG1EpxJS5Sa4Q6Il2hpdcn5WhfTnme1v+Di5r/la48egqoyLfQ==
+X-Received: by 2002:a17:902:ecc4:b0:1ad:8c8f:afb1 with SMTP id
+ a4-20020a170902ecc400b001ad8c8fafb1mr1653007plh.39.1685796360756; 
+ Sat, 03 Jun 2023 05:46:00 -0700 (PDT)
+Received: from debian.me (subs03-180-214-233-18.three.co.id. [180.214.233.18])
+ by smtp.gmail.com with ESMTPSA id
+ w12-20020a170902d3cc00b001ae6e270d8bsm3100571plb.131.2023.06.03.05.45.59
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 03 Jun 2023 05:46:00 -0700 (PDT)
+Received: by debian.me (Postfix, from userid 1000)
+ id 702F31069C9; Sat,  3 Jun 2023 19:45:56 +0700 (WIB)
+Date: Sat, 3 Jun 2023 19:45:56 +0700
+From: Bagas Sanjaya <bagasdotme@gmail.com>
+To: Russell Harmon <eatnumber1@gmail.com>, mpatocka@redhat.com,
+ snitzer@redhat.com, dm-devel@redhat.com
+Message-ID: <ZHs2BHGBrJ-YGd-v@debian.me>
+References: <20230530002032.15227-1-eatnumber1@gmail.com>
 MIME-Version: 1.0
-To: Martin Wilck <mwilck@suse.com>
-References: <20230531135713.13914-1-xose.vazquez@gmail.com>
- <38c4b77c419ca811a839f8eb24e6425d74eef1ab.camel@suse.com>
-From: Xose Vazquez Perez <xose.vazquez@gmail.com>
-In-Reply-To: <38c4b77c419ca811a839f8eb24e6425d74eef1ab.camel@suse.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH] multipath-tools: adapt HITACHI/OPEN- config
- to work with alua and multibus
+In-Reply-To: <20230530002032.15227-1-eatnumber1@gmail.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Mailman-Approved-At: Mon, 05 Jun 2023 06:04:03 +0000
+Subject: Re: [dm-devel] [PATCH] Improve the dm-integrity documentation.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,67 +116,181 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Matthias Rudolph <Matthias.Rudolph@hitachivantara.com>,
- DM-DEVEL ML <dm-devel@redhat.com>
+Cc: Linux Documentation <linux-doc@vger.kernel.org>
+Content-Type: multipart/mixed; boundary="===============8200849996881646521=="
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Language: en-US
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+
+
+--===============8200849996881646521==
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="PWdwoCEpVKy8qUSn"
+Content-Disposition: inline
+
+
+--PWdwoCEpVKy8qUSn
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+
+On Mon, May 29, 2023 at 05:20:32PM -0700, Russell Harmon wrote:
+> Documents the meaning of the "buffer", adds documentation of the current
+> defaults, and provides an example of how the tunables relate to each
+> other.
+
+What about splitting this patch into three-patch series, where each
+patch do one improv?
+
+Anyway, I'm reviewing the wording here.
+
+> diff --git a/Documentation/admin-guide/device-mapper/dm-integrity.rst b/D=
+ocumentation/admin-guide/device-mapper/dm-integrity.rst
+> index 8db172efa272..634a780d7c51 100644
+> --- a/Documentation/admin-guide/device-mapper/dm-integrity.rst
+> +++ b/Documentation/admin-guide/device-mapper/dm-integrity.rst
+> @@ -25,7 +25,7 @@ mode it calculates and verifies the integrity tag inter=
+nally. In this
+>  mode, the dm-integrity target can be used to detect silent data
+>  corruption on the disk or in the I/O path.
+> =20
+> -There's an alternate mode of operation where dm-integrity uses bitmap
+> +There's an alternate mode of operation where dm-integrity uses a bitmap
+
+OK.
+
+>  instead of a journal. If a bit in the bitmap is 1, the corresponding
+>  region's data and integrity tags are not synchronized - if the machine
+>  crashes, the unsynchronized regions will be recalculated. The bitmap mode
+> @@ -38,6 +38,15 @@ the device. But it will only format the device if the =
+superblock contains
+>  zeroes. If the superblock is neither valid nor zeroed, the dm-integrity
+>  target can't be loaded.
+> =20
+> +Accesses to the on-disk metadata area containing checksums (aka tags) is
+"Accesses to ... are ..."
+> +buffered using dm-bufio. When an access to any given metadata area
+> +occurs, each unique metadata area gets its own buffer(s). The buffer size
+> +is capped at the size of the metadata area, but may be smaller, thereby
+> +requiring multiple buffers to represent the full metadata area. A smaller
+> +buffer size will produce a smaller resulting read/write operation to the
+> +metadata area for small reads/writes. A full write to the data covered by
+> +a single buffer does *not* skip the read of the metadata.
+What about "The metadata is still read even in a full write to the data
+covered by a single buffer."?
+
+> +
+>  To use the target for the first time:
+> =20
+>  1. overwrite the superblock with zeroes
+> @@ -93,7 +102,7 @@ journal_sectors:number
+>  	device. If the device is already formatted, the value from the
+>  	superblock is used.
+> =20
+> -interleave_sectors:number
+> +interleave_sectors:number (default 32768)
+>  	The number of interleaved sectors. This values is rounded down to
+>  	a power of two. If the device is already formatted, the value from
+>  	the superblock is used.
+> @@ -102,20 +111,16 @@ meta_device:device
+>  	Don't interleave the data and metadata on the device. Use a
+>  	separate device for metadata.
+> =20
+> -buffer_sectors:number
+> -	The number of sectors in one buffer. The value is rounded down to
+> -	a power of two.
+> +buffer_sectors:number (default 128)
+> +	The number of sectors in one metadata buffer. The value is rounded
+> +	down to a power of two.
+> =20
+> -	The tag area is accessed using buffers, the buffer size is
+> -	configurable. The large buffer size means that the I/O size will
+> -	be larger, but there could be less I/Os issued.
+> -
+> -journal_watermark:number
+> +journal_watermark:number (default 50)
+>  	The journal watermark in percents. When the size of the journal
+>  	exceeds this watermark, the thread that flushes the journal will
+>  	be started.
+> =20
+> -commit_time:number
+> +commit_time:number (default 10000)
+>  	Commit time in milliseconds. When this time passes, the journal is
+>  	written. The journal is also written immediately if the FLUSH
+>  	request is received.
+> @@ -163,11 +168,10 @@ journal_mac:algorithm(:key)	(the key is optional)
+>  	the journal. Thus, modified sector number would be detected at
+>  	this stage.
+> =20
+> -block_size:number
+> -	The size of a data block in bytes.  The larger the block size the
+> +block_size:number (default 512)
+> +	The size of a data block in bytes. The larger the block size the
+>  	less overhead there is for per-block integrity metadata.
+> -	Supported values are 512, 1024, 2048 and 4096 bytes.  If not
+> -	specified the default block size is 512 bytes.
+> +	Supported values are 512, 1024, 2048 and 4096 bytes.
+> =20
+>  sectors_per_bit:number
+>  	In the bitmap mode, this parameter specifies the number of
+> @@ -209,6 +213,12 @@ table and swap the tables with suspend and resume). =
+The other arguments
+>  should not be changed when reloading the target because the layout of di=
+sk
+>  data depend on them and the reloaded target would be non-functional.
+> =20
+> +For example, on a device using the default interleave_sectors of 32768, a
+> +block_size of 512, and an internal_hash of crc32c with a tag size of 4
+> +bytes, it will take 128 KiB of tags to track a full data area, requiring
+> +256 sectors of metadata per data area. With the default buffer_sectors of
+> +128, that means there will be 2 buffers per metadata area, or 2 buffers
+> +per 16 MiB of data.
+
+OK.
+
+> =20
+>  Status line:
+> =20
+> @@ -285,8 +295,8 @@ The layout of the formatted block device:
+>  * one or more runs of interleaved tags and data.
+>      Each run contains:
+> =20
+> -	* tag area - it contains integrity tags. There is one tag for each
+> -	  sector in the data area
+> +	* tag area - it contains integrity tags. There is one tag for each sect=
+or in
+> +	  the data area. The size of this area is always 4KiB or greater.
+Corresponding sector in the data area?
+
+Thanks.
+
+--=20
+An old man doll... just what I always wanted! - Clara
+
+--PWdwoCEpVKy8qUSn
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZHs1/QAKCRD2uYlJVVFO
+o3sUAQDW3rmkdctzCygsLFvbfkCpt5czPdlpXyjZs+t1soVdeQEAtLmhK+CY2aJk
+cCjdkPt5kB6FLBq8BrGlzeva5BCGOAk=
+=II0O
+-----END PGP SIGNATURE-----
+
+--PWdwoCEpVKy8qUSn--
+
+
+--===============8200849996881646521==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-
-On 5/31/23 17:49, Martin Wilck wrote:
-
-> On Wed, 2023-05-31 at 15:57 +0200, Xose Vazquez Perez wrote:
->> ALUA is needed by Hitachi Global-Active Device (GAD):
->> https://knowledge.hitachivantara.com/Documents/Management_Software/SVOS/8.1/Global-Active_Device/Overview_of_global-active_device
-
-> Thanks, but where exactly did you find this information in the linked
-> document? I don't see ALUA mentioned. Unfortunately Hitachi chose to
-> use non-standard terminology... 
-
-No public info, personal e-mail from Matthias:
-
-"We have also a config for ALUA. It is used for hardware copy between two
-arrays and the server should only use the local paths:
-
-SLES 12 SP2 ALUA:
-
-device {
-            vendor               "HITACHI"
-            product              "OPEN-.*"
-            features             "0"
-            path_grouping_policy group_by_prio
-            prio                 alua
-            path_selector        "round-robin 0"
-            rr_weight            uniform
-            no_path_retry        1
-            rr_min_io            100
-            path_checker         directio
-            failback             immediate
-      }
-"
-
- > Is ALUA always active / supported in these arrays?
-
-Disable by default. And it is only needed with GAD setup:
-
-Array settings:
-"ALUA Mode" Enabled
-"Path Mode" ALUA
-"ALUA Permitted" YES
-"ALUA Settable" YES
-"Target Port Asymmetric Access State" Active/Optimized
-
-Same case as HUAWEI https://github.com/opensvc/multipath-tools/commit/9283fa6663ad908fd0419edcef4795fbbbe9f09d
-
-"no_path_retry 10" comes from: 
-https://knowledge.hitachivantara.com/Documents/Management_Software/SVOS/9.8.6/Volume_Management_-_VSP_5000_Series/Host_Attachment/05_Red_Hat_Linux_configuration_and_attachment#Device_Mapper_(DM)_Multipath_configuration.0D.0A____for_Red_Hat_Linux
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--===============8200849996881646521==--
 
