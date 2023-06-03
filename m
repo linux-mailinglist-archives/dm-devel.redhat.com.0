@@ -2,75 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1F858721148
-	for <lists+dm-devel@lfdr.de>; Sat,  3 Jun 2023 18:44:27 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 19030721298
+	for <lists+dm-devel@lfdr.de>; Sat,  3 Jun 2023 22:16:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685810666;
+	s=mimecast20190719; t=1685823384;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DtCKY38Ti3gZCaRuFiSUIbVgOwV5SJhMyYPM5hD1KAM=;
-	b=Yy1nAUB+ISsJqnBMNGld0tARNsfEg7wKbiEaNlUjfL7KCFhkjOuZrHb7a7WyX8q/S6vL3I
-	a4lMfsfdM7aUJrW0Omh8vWzInoTaBY7skfaI/BXjg3+SWEphrV+VEo44fSbdqxICUD8QX1
-	2uT3pK8prwc0uR0GgfYU1XCqYT4w5V8=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=RS8Xv91/QZIRrSG7jqj3g0Z08IqD8OfaI0QLBRq4KME=;
+	b=eNBQ0FdoaU4xB6fRgN4DIVKTRvlOx0sKfM4T689aF/H5o/rQu1ovuh5fhYNO9poedpPUws
+	0mNFz27ANNfV95Q5o1+NKVo7yun4wtVB5cuF3rRg4ylbLaYm6nQ2+5bDCkZ3rq+gG1I8rr
+	QfqL1qlXFb7uwvZdRjvW21fktZ26k+U=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-245-q45a25nlO6SqxYm8gmDESw-1; Sat, 03 Jun 2023 12:44:24 -0400
-X-MC-Unique: q45a25nlO6SqxYm8gmDESw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-3-76-KpdquN1Cjpwzkd7vKTg-1; Sat, 03 Jun 2023 16:16:20 -0400
+X-MC-Unique: 76-KpdquN1Cjpwzkd7vKTg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F3FF811E85;
-	Sat,  3 Jun 2023 16:44:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9A693806736;
+	Sat,  3 Jun 2023 20:16:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EE2FA1121314;
-	Sat,  3 Jun 2023 16:44:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B6A0C202701A;
+	Sat,  3 Jun 2023 20:16:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 44CE019465B5;
-	Sat,  3 Jun 2023 16:44:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 44D1719465B6;
+	Sat,  3 Jun 2023 20:16:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 28F571946595
- for <dm-devel@listman.corp.redhat.com>; Sat,  3 Jun 2023 16:44:15 +0000 (UTC)
+ ESMTP id 90C8F1946595
+ for <dm-devel@listman.corp.redhat.com>; Sat,  3 Jun 2023 20:16:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5B6017AE4; Sat,  3 Jun 2023 16:44:15 +0000 (UTC)
+ id 70FB440C6CCC; Sat,  3 Jun 2023 20:16:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 53F069E63
- for <dm-devel@redhat.com>; Sat,  3 Jun 2023 16:44:15 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6987F40C6EC4
+ for <dm-devel@redhat.com>; Sat,  3 Jun 2023 20:16:11 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35BEB3804061
- for <dm-devel@redhat.com>; Sat,  3 Jun 2023 16:44:15 +0000 (UTC)
-Received: from mail.skyhub.de (mail.skyhub.de [5.9.137.197]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-526-9i4K_NW7Mvm9nuaLwXGkUQ-1; Sat, 03 Jun 2023 12:44:13 -0400
-X-MC-Unique: 9i4K_NW7Mvm9nuaLwXGkUQ-1
-Received: from zn.tnic (pd9530d32.dip0.t-ipconnect.de [217.83.13.50])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mail.skyhub.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 61F651EC082E;
- Sat,  3 Jun 2023 18:37:56 +0200 (CEST)
-Date: Sat, 3 Jun 2023 18:37:51 +0200
-From: Borislav Petkov <bp@alien8.de>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Message-ID: <20230603163751.GBZHtsXwW5UUnsSbKX@fat_crate.local>
-References: <20230524165717.14062-1-chang.seok.bae@intel.com>
- <20230603152227.12335-1-chang.seok.bae@intel.com>
- <20230603152227.12335-10-chang.seok.bae@intel.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4EE9F3802278
+ for <dm-devel@redhat.com>; Sat,  3 Jun 2023 20:16:11 +0000 (UTC)
+Received: from mail-pj1-f46.google.com (mail-pj1-f46.google.com
+ [209.85.216.46]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-39-8TvQ_2MUOaCxntT6ltFQJg-1; Sat, 03 Jun 2023 16:16:07 -0400
+X-MC-Unique: 8TvQ_2MUOaCxntT6ltFQJg-1
+Received: by mail-pj1-f46.google.com with SMTP id
+ 98e67ed59e1d1-256e1d87998so2830201a91.3; 
+ Sat, 03 Jun 2023 13:16:07 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685823366; x=1688415366;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=t/RhT6metLrp+ds7LCGxqXYqhQlQZ5qHcKgxrBMCXnY=;
+ b=YnpgwVmCycsVIDhS/Byg2An7A0ff7taLh10mgdbdKuVviRhs1HAwsKb8Dj9FmEJL4r
+ QsdUn7CA6lVcB7CVhRpGuSFbwf30XY7vngc97F4OTlUsdLiuYv7c8sGwNSYtQaU/vgxS
+ cjlWJ7Ae99CYolAO8TYhH+PjPViDLK6QmneTXBYOphJZYSR5UhoCgIvqn7aKwVYnWeR0
+ Nz69WYn63v1UxYG2lAMirvmgCHKAL3OOCt2/ClcqcEdiaNEVf+VVjeBwdph/PL6nuVfG
+ mRKlu2/9KSDM8NOwqioCViho5MixNTLpLKK7t2wOMv5Uap8nVuWQWEcl2Z+2p509dHSD
+ VhYQ==
+X-Gm-Message-State: AC+VfDz++t8I2q1YIY5reEjhuCE62dhpiQd1NYWz6XDqe45CqxXuQV4c
+ hjsdU1rk01sEQNCNGyWPfKImjROt8Wy3Sw==
+X-Google-Smtp-Source: ACHHUZ4eGZOOtkk2IxrdjzfQqI8oWBtxgGF8oUbH7xMjjMVsm7FDPCZXmEFLeAg8ysxZiqqNgN0yag==
+X-Received: by 2002:a17:90b:b0d:b0:256:8fae:4d50 with SMTP id
+ bf13-20020a17090b0b0d00b002568fae4d50mr3590460pjb.21.1685823365977; 
+ Sat, 03 Jun 2023 13:16:05 -0700 (PDT)
+Received: from localhost.localdomain ([76.132.108.20])
+ by smtp.gmail.com with ESMTPSA id
+ u7-20020a17090a1d4700b00250bf8495b3sm5001691pju.39.2023.06.03.13.16.05
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Sat, 03 Jun 2023 13:16:05 -0700 (PDT)
+From: Russell Harmon <eatnumber1@gmail.com>
+To: bagasdotme@gmail.com
+Date: Sat,  3 Jun 2023 13:15:21 -0700
+Message-Id: <20230603201525.9409-1-eatnumber1@gmail.com>
+In-Reply-To: <ZHs2BHGBrJ-YGd-v@debian.me>
+References: <ZHs2BHGBrJ-YGd-v@debian.me>
 MIME-Version: 1.0
-In-Reply-To: <20230603152227.12335-10-chang.seok.bae@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,9 +97,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH v8 09/12] x86/cpu: Add a configuration and
- command line option for Key Locker
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH] Improve the dm-integrity documentation.
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,52 +110,19 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-doc@vger.kernel.org, dave.hansen@linux.intel.com,
- lalithambika.krishnakumar@intel.com, dm-devel@redhat.com,
- "H. Peter Anvin" <hpa@zytor.com>, nhuck@google.com, ardb@kernel.org,
- herbert@gondor.apana.org.au, Jonathan Corbet <corbet@lwn.net>, x86@kernel.org,
- mingo@kernel.org, ebiggers@kernel.org, Ingo Molnar <mingo@redhat.com>,
- gmazyland@gmail.com, elliott@hpe.com, luto@kernel.org,
- dan.j.williams@intel.com, charishma1.gairuboyina@intel.com,
- linux-kernel@vger.kernel.org, tglx@linutronix.de, linux-crypto@vger.kernel.org,
- bernie.keany@intel.com
+Cc: dm-devel@redhat.com, mpatocka@redhat.com, snitzer@redhat.com,
+ linux-doc@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: alien8.de
-Content-Disposition: inline
+X-Mimecast-Originator: gmail.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Jun 03, 2023 at 08:22:24AM -0700, Chang S. Bae wrote:
-> +static __init int x86_nokeylocker_setup(char *arg)
-> +{
-> +	/* Expect an exact match without trailing characters. */
-> +	if (strlen(arg))
-> +		return 0;
-> +
-> +	if (!cpu_feature_enabled(X86_FEATURE_KEYLOCKER))
-> +		return 1;
-> +
-> +	setup_clear_cpu_cap(X86_FEATURE_KEYLOCKER);
-> +	pr_info("x86/keylocker: Disabled by kernel command line.\n");
-> +	return 1;
-> +}
-> +__setup("nokeylocker", x86_nokeylocker_setup);
+Thanks for taking a look. Here's the multi-patch series plus the changes
+you suggested.
 
-Can we stop adding those just to remove them at some point later but
-simply do:
-
-clearcpuid=keylocker
-
-?
-
--- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
 
 --
 dm-devel mailing list
