@@ -1,77 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B7EB27210F7
-	for <lists+dm-devel@lfdr.de>; Sat,  3 Jun 2023 17:36:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 425D37210F8
+	for <lists+dm-devel@lfdr.de>; Sat,  3 Jun 2023 17:36:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685806562;
+	s=mimecast20190719; t=1685806564;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=TYAUsRCcVcKTyvhiElmaeq6W92esAt48D6bUlsSgQxw=;
-	b=YT/xvIaBzgV8fQGTJbvbZ3EwFBzsZ3p75HTxPB3bMpUQNAG4oBXZWnJFXxhlkoazzwkEAG
-	5uOu0nBrXqaR9K0Oh31KCDS/7zouR5HhKO4R4G3p48d7VMvw5HbbwRwpkYS0747unhcMKa
-	WqpcsSxQq946jLaTWGJS5AA0Zq6Nf74=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=284TncYNdq6O4vIlreQbTw3dFoJFdEdLDWhspS8ivfk=;
+	b=e4z9bukaHeKQxOYE8b/Vv0HlI+inMSd4QWxw5AGk7g2ynzxstH8GpAVj5iwVVHd0/e0VBe
+	cGSxRa3PauZ/YwSqBLudsP4fhfCwvB0GgtXkkx/Qh9kAcNfTTmHCMoQfbPXK8J/89Ut122
+	GN1+ciq64F7oubpmqElaIKsrFBB0470=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-411-hnijgp4XNPuNjx_eA5lVHQ-1; Sat, 03 Jun 2023 11:35:20 -0400
-X-MC-Unique: hnijgp4XNPuNjx_eA5lVHQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-28-eMRKpQN0NeSeV1aVa1572A-1; Sat, 03 Jun 2023 11:35:21 -0400
+X-MC-Unique: eMRKpQN0NeSeV1aVa1572A-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16A5F85A5BA;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 173E71C03D83;
 	Sat,  3 Jun 2023 15:35:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6F12C154DA;
-	Sat,  3 Jun 2023 15:35:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 592D21400AFC;
+	Sat,  3 Jun 2023 15:35:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1B2C91946F06;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 354F41946F0D;
 	Sat,  3 Jun 2023 15:35:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CDA8E19465B7
+ ESMTP id BCBD119465B6
  for <dm-devel@listman.corp.redhat.com>; Sat,  3 Jun 2023 15:35:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B135C407DEC3; Sat,  3 Jun 2023 15:35:08 +0000 (UTC)
+ id 9DCCA1410F25; Sat,  3 Jun 2023 15:35:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A949F407DEC0
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 92E52140E918
  for <dm-devel@redhat.com>; Sat,  3 Jun 2023 15:35:08 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8DC5C811E7F
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 741323C02584
  for <dm-devel@redhat.com>; Sat,  3 Jun 2023 15:35:08 +0000 (UTC)
 Received: from mga14.intel.com (mga14.intel.com [192.55.52.115]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-306-SSO38kyKNf-L6zzJ_-pCIQ-1; Sat, 03 Jun 2023 11:35:05 -0400
-X-MC-Unique: SSO38kyKNf-L6zzJ_-pCIQ-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10730"; a="356097322"
-X-IronPort-AV: E=Sophos;i="6.00,216,1681196400"; d="scan'208";a="356097322"
+ us-mta-306-Ppj-xFULP9-JOBJmseVwUQ-2; Sat, 03 Jun 2023 11:35:06 -0400
+X-MC-Unique: Ppj-xFULP9-JOBJmseVwUQ-2
+X-IronPort-AV: E=McAfee;i="6600,9927,10730"; a="356097334"
+X-IronPort-AV: E=Sophos;i="6.00,216,1681196400"; d="scan'208";a="356097334"
 Received: from orsmga007.jf.intel.com ([10.7.209.58])
  by fmsmga103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 03 Jun 2023 08:35:03 -0700
+ 03 Jun 2023 08:35:04 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10730"; a="702274235"
-X-IronPort-AV: E=Sophos;i="6.00,216,1681196400"; d="scan'208";a="702274235"
+X-IronPort-AV: E=McAfee;i="6600,9927,10730"; a="702274242"
+X-IronPort-AV: E=Sophos;i="6.00,216,1681196400"; d="scan'208";a="702274242"
 Received: from chang-linux-3.sc.intel.com ([172.25.66.173])
- by orsmga007.jf.intel.com with ESMTP; 03 Jun 2023 08:35:02 -0700
+ by orsmga007.jf.intel.com with ESMTP; 03 Jun 2023 08:35:03 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org, linux-crypto@vger.kernel.org,
  dm-devel@redhat.com
-Date: Sat,  3 Jun 2023 08:22:17 -0700
-Message-Id: <20230603152227.12335-3-chang.seok.bae@intel.com>
+Date: Sat,  3 Jun 2023 08:22:18 -0700
+Message-Id: <20230603152227.12335-4-chang.seok.bae@intel.com>
 In-Reply-To: <20230603152227.12335-1-chang.seok.bae@intel.com>
 References: <20230524165717.14062-1-chang.seok.bae@intel.com>
  <20230603152227.12335-1-chang.seok.bae@intel.com>
@@ -82,9 +82,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH v8 02/12] x86/cpufeature: Enumerate Key Locker
- feature
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] [PATCH v8 03/12] x86/insn: Add Key Locker instructions
+ to the opcode map
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -99,38 +99,65 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: x86@kernel.org, herbert@gondor.apana.org.au, ardb@kernel.org,
  chang.seok.bae@intel.com, dave.hansen@linux.intel.com,
  dan.j.williams@intel.com, mingo@kernel.org, ebiggers@kernel.org,
- lalithambika.krishnakumar@intel.com, Peter Zijlstra <peterz@infradead.org>,
- Ingo Molnar <mingo@redhat.com>, bp@alien8.de, charishma1.gairuboyina@intel.com,
- luto@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com,
- tglx@linutronix.de, nhuck@google.com, gmazyland@gmail.com, elliott@hpe.com
+ lalithambika.krishnakumar@intel.com, Ingo Molnar <mingo@redhat.com>,
+ bp@alien8.de, charishma1.gairuboyina@intel.com, luto@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com, tglx@linutronix.de,
+ nhuck@google.com, gmazyland@gmail.com, elliott@hpe.com
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Key Locker is a CPU feature to minimize exposure of clear-text key
-material. An encoded form, called 'key handle', is referenced for data
-encryption or decryption instead of accessing the clear text key.
+The x86 instruction decoder needs to know these new instructions that
+are going to be used in the crypto library as well as the x86 core
+code. Add the following:
 
-A wrapping key loaded in the CPU's software-inaccessible state is used
-to transform a user key into a key handle. On rarely unexpected
-hardware failure, the key could be lost.
+LOADIWKEY:
+	Load a CPU-internal wrapping key.
 
-Here enumerate this hardware capability. It will not be shown up in
-/proc/cpuinfo as userspace usage is not supported. This is because
-there is no ABI to coordinate the wrapping-key failure.
+ENCODEKEY128:
+	Wrap a 128-bit AES key to a key handle.
 
-The feature supports Advanced Encryption Standard (AES) cipher
-algorithm with new SIMD instruction set like its predecessor (AES-NI).
-Mark the feature depending on XMM2. The new AES implementation will be
-in the crypto library.
+ENCODEKEY256:
+	Wrap a 256-bit AES key to a key handle.
 
-Add X86_FEATURE_KEYLOCKER to the disabled features mask at the moment.
-It will be enabled under a new config option.
+AESENC128KL:
+	Encrypt a 128-bit block of data using a 128-bit AES key
+	indicated by a key handle.
+
+AESENC256KL:
+	Encrypt a 128-bit block of data using a 256-bit AES key
+	indicated by a key handle.
+
+AESDEC128KL:
+	Decrypt a 128-bit block of data using a 128-bit AES key
+	indicated by a key handle.
+
+AESDEC256KL:
+	Decrypt a 128-bit block of data using a 256-bit AES key
+	indicated by a key handle.
+
+AESENCWIDE128KL:
+	Encrypt 8 128-bit blocks of data using a 128-bit AES key
+	indicated by a key handle.
+
+AESENCWIDE256KL:
+	Encrypt 8 128-bit blocks of data using a 256-bit AES key
+	indicated by a key handle.
+
+AESDECWIDE128KL:
+	Decrypt 8 128-bit blocks of data using a 128-bit AES key
+	indicated by a key handle.
+
+AESDECWIDE256KL:
+	Decrypt 8 128-bit blocks of data using a 256-bit AES key
+	indicated by a key handle.
+
+The detail can be found in Intel Software Developer Manual.
 
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
 Reviewed-by: Dan Williams <dan.j.williams@intel.com>
@@ -139,89 +166,81 @@ Cc: Ingo Molnar <mingo@redhat.com>
 Cc: Borislav Petkov <bp@alien8.de>
 Cc: Dave Hansen <dave.hansen@linux.intel.com>
 Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
 Cc: x86@kernel.org
 Cc: linux-kernel@vger.kernel.org
 ---
 Changes from v6:
-* Massage the changelog -- re-organize the change descriptions
-
-Changes from RFC v2:
-* Do not publish the feature flag to userspace.
-* Update the changelog.
+* Massage the changelog -- add the reason a bit.
 
 Changes from RFC v1:
-* Updated the changelog.
+* Separated out the LOADIWKEY addition in a new patch.
+* Included AES instructions to avoid warning messages when the AES Key
+  Locker module is built.
 ---
- arch/x86/include/asm/cpufeatures.h          | 1 +
- arch/x86/include/asm/disabled-features.h    | 8 +++++++-
- arch/x86/include/uapi/asm/processor-flags.h | 2 ++
- arch/x86/kernel/cpu/cpuid-deps.c            | 1 +
- 4 files changed, 11 insertions(+), 1 deletion(-)
+ arch/x86/lib/x86-opcode-map.txt       | 11 +++++++----
+ tools/arch/x86/lib/x86-opcode-map.txt | 11 +++++++----
+ 2 files changed, 14 insertions(+), 8 deletions(-)
 
-diff --git a/arch/x86/include/asm/cpufeatures.h b/arch/x86/include/asm/cpufeatures.h
-index cb8ca46213be..4a12673df7e9 100644
---- a/arch/x86/include/asm/cpufeatures.h
-+++ b/arch/x86/include/asm/cpufeatures.h
-@@ -389,6 +389,7 @@
- #define X86_FEATURE_AVX512_VPOPCNTDQ	(16*32+14) /* POPCNT for vectors of DW/QW */
- #define X86_FEATURE_LA57		(16*32+16) /* 5-level page tables */
- #define X86_FEATURE_RDPID		(16*32+22) /* RDPID instruction */
-+#define X86_FEATURE_KEYLOCKER		(16*32+23) /* "" Key Locker */
- #define X86_FEATURE_BUS_LOCK_DETECT	(16*32+24) /* Bus Lock detect */
- #define X86_FEATURE_CLDEMOTE		(16*32+25) /* CLDEMOTE instruction */
- #define X86_FEATURE_MOVDIRI		(16*32+27) /* MOVDIRI instruction */
-diff --git a/arch/x86/include/asm/disabled-features.h b/arch/x86/include/asm/disabled-features.h
-index fafe9be7a6f4..eb841d694ed9 100644
---- a/arch/x86/include/asm/disabled-features.h
-+++ b/arch/x86/include/asm/disabled-features.h
-@@ -38,6 +38,12 @@
- # define DISABLE_OSPKE		(1<<(X86_FEATURE_OSPKE & 31))
- #endif /* CONFIG_X86_INTEL_MEMORY_PROTECTION_KEYS */
+diff --git a/arch/x86/lib/x86-opcode-map.txt b/arch/x86/lib/x86-opcode-map.txt
+index 5168ee0360b2..87e9696c47d2 100644
+--- a/arch/x86/lib/x86-opcode-map.txt
++++ b/arch/x86/lib/x86-opcode-map.txt
+@@ -800,11 +800,12 @@ cb: sha256rnds2 Vdq,Wdq | vrcp28ss/d Vx,Hx,Wx (66),(ev)
+ cc: sha256msg1 Vdq,Wdq | vrsqrt28ps/d Vx,Wx (66),(ev)
+ cd: sha256msg2 Vdq,Wdq | vrsqrt28ss/d Vx,Hx,Wx (66),(ev)
+ cf: vgf2p8mulb Vx,Wx (66)
++d8: AESENCWIDE128KL Qpi (F3),(000),(00B) | AESENCWIDE256KL Qpi (F3),(000),(10B) | AESDECWIDE128KL Qpi (F3),(000),(01B) | AESDECWIDE256KL Qpi (F3),(000),(11B)
+ db: VAESIMC Vdq,Wdq (66),(v1)
+-dc: vaesenc Vx,Hx,Wx (66)
+-dd: vaesenclast Vx,Hx,Wx (66)
+-de: vaesdec Vx,Hx,Wx (66)
+-df: vaesdeclast Vx,Hx,Wx (66)
++dc: vaesenc Vx,Hx,Wx (66) | LOADIWKEY Vx,Hx (F3) | AESENC128KL Vpd,Qpi (F3)
++dd: vaesenclast Vx,Hx,Wx (66) | AESDEC128KL Vpd,Qpi (F3)
++de: vaesdec Vx,Hx,Wx (66) | AESENC256KL Vpd,Qpi (F3)
++df: vaesdeclast Vx,Hx,Wx (66) | AESDEC256KL Vpd,Qpi (F3)
+ f0: MOVBE Gy,My | MOVBE Gw,Mw (66) | CRC32 Gd,Eb (F2) | CRC32 Gd,Eb (66&F2)
+ f1: MOVBE My,Gy | MOVBE Mw,Gw (66) | CRC32 Gd,Ey (F2) | CRC32 Gd,Ew (66&F2)
+ f2: ANDN Gy,By,Ey (v)
+@@ -814,6 +815,8 @@ f6: ADCX Gy,Ey (66) | ADOX Gy,Ey (F3) | MULX By,Gy,rDX,Ey (F2),(v) | WRSSD/Q My,
+ f7: BEXTR Gy,Ey,By (v) | SHLX Gy,Ey,By (66),(v) | SARX Gy,Ey,By (F3),(v) | SHRX Gy,Ey,By (F2),(v)
+ f8: MOVDIR64B Gv,Mdqq (66) | ENQCMD Gv,Mdqq (F2) | ENQCMDS Gv,Mdqq (F3)
+ f9: MOVDIRI My,Gy
++fa: ENCODEKEY128 Ew,Ew (F3)
++fb: ENCODEKEY256 Ew,Ew (F3)
+ EndTable
  
-+#ifdef CONFIG_X86_KEYLOCKER
-+# define DISABLE_KEYLOCKER	0
-+#else
-+# define DISABLE_KEYLOCKER	(1<<(X86_FEATURE_KEYLOCKER & 31))
-+#endif /* CONFIG_X86_KEYLOCKER */
-+
- #ifdef CONFIG_X86_5LEVEL
- # define DISABLE_LA57	0
- #else
-@@ -126,7 +132,7 @@
- #define DISABLED_MASK14	0
- #define DISABLED_MASK15	0
- #define DISABLED_MASK16	(DISABLE_PKU|DISABLE_OSPKE|DISABLE_LA57|DISABLE_UMIP| \
--			 DISABLE_ENQCMD)
-+			 DISABLE_ENQCMD|DISABLE_KEYLOCKER)
- #define DISABLED_MASK17	0
- #define DISABLED_MASK18	0
- #define DISABLED_MASK19	0
-diff --git a/arch/x86/include/uapi/asm/processor-flags.h b/arch/x86/include/uapi/asm/processor-flags.h
-index d898432947ff..262348aeaad1 100644
---- a/arch/x86/include/uapi/asm/processor-flags.h
-+++ b/arch/x86/include/uapi/asm/processor-flags.h
-@@ -128,6 +128,8 @@
- #define X86_CR4_PCIDE		_BITUL(X86_CR4_PCIDE_BIT)
- #define X86_CR4_OSXSAVE_BIT	18 /* enable xsave and xrestore */
- #define X86_CR4_OSXSAVE		_BITUL(X86_CR4_OSXSAVE_BIT)
-+#define X86_CR4_KEYLOCKER_BIT	19 /* enable Key Locker */
-+#define X86_CR4_KEYLOCKER	_BITUL(X86_CR4_KEYLOCKER_BIT)
- #define X86_CR4_SMEP_BIT	20 /* enable SMEP support */
- #define X86_CR4_SMEP		_BITUL(X86_CR4_SMEP_BIT)
- #define X86_CR4_SMAP_BIT	21 /* enable SMAP support */
-diff --git a/arch/x86/kernel/cpu/cpuid-deps.c b/arch/x86/kernel/cpu/cpuid-deps.c
-index f6748c8bd647..200c5e69f78c 100644
---- a/arch/x86/kernel/cpu/cpuid-deps.c
-+++ b/arch/x86/kernel/cpu/cpuid-deps.c
-@@ -81,6 +81,7 @@ static const struct cpuid_dep cpuid_deps[] = {
- 	{ X86_FEATURE_XFD,			X86_FEATURE_XSAVES    },
- 	{ X86_FEATURE_XFD,			X86_FEATURE_XGETBV1   },
- 	{ X86_FEATURE_AMX_TILE,			X86_FEATURE_XFD       },
-+	{ X86_FEATURE_KEYLOCKER,		X86_FEATURE_XMM2      },
- 	{}
- };
+ Table: 3-byte opcode 2 (0x0f 0x3a)
+diff --git a/tools/arch/x86/lib/x86-opcode-map.txt b/tools/arch/x86/lib/x86-opcode-map.txt
+index 5168ee0360b2..87e9696c47d2 100644
+--- a/tools/arch/x86/lib/x86-opcode-map.txt
++++ b/tools/arch/x86/lib/x86-opcode-map.txt
+@@ -800,11 +800,12 @@ cb: sha256rnds2 Vdq,Wdq | vrcp28ss/d Vx,Hx,Wx (66),(ev)
+ cc: sha256msg1 Vdq,Wdq | vrsqrt28ps/d Vx,Wx (66),(ev)
+ cd: sha256msg2 Vdq,Wdq | vrsqrt28ss/d Vx,Hx,Wx (66),(ev)
+ cf: vgf2p8mulb Vx,Wx (66)
++d8: AESENCWIDE128KL Qpi (F3),(000),(00B) | AESENCWIDE256KL Qpi (F3),(000),(10B) | AESDECWIDE128KL Qpi (F3),(000),(01B) | AESDECWIDE256KL Qpi (F3),(000),(11B)
+ db: VAESIMC Vdq,Wdq (66),(v1)
+-dc: vaesenc Vx,Hx,Wx (66)
+-dd: vaesenclast Vx,Hx,Wx (66)
+-de: vaesdec Vx,Hx,Wx (66)
+-df: vaesdeclast Vx,Hx,Wx (66)
++dc: vaesenc Vx,Hx,Wx (66) | LOADIWKEY Vx,Hx (F3) | AESENC128KL Vpd,Qpi (F3)
++dd: vaesenclast Vx,Hx,Wx (66) | AESDEC128KL Vpd,Qpi (F3)
++de: vaesdec Vx,Hx,Wx (66) | AESENC256KL Vpd,Qpi (F3)
++df: vaesdeclast Vx,Hx,Wx (66) | AESDEC256KL Vpd,Qpi (F3)
+ f0: MOVBE Gy,My | MOVBE Gw,Mw (66) | CRC32 Gd,Eb (F2) | CRC32 Gd,Eb (66&F2)
+ f1: MOVBE My,Gy | MOVBE Mw,Gw (66) | CRC32 Gd,Ey (F2) | CRC32 Gd,Ew (66&F2)
+ f2: ANDN Gy,By,Ey (v)
+@@ -814,6 +815,8 @@ f6: ADCX Gy,Ey (66) | ADOX Gy,Ey (F3) | MULX By,Gy,rDX,Ey (F2),(v) | WRSSD/Q My,
+ f7: BEXTR Gy,Ey,By (v) | SHLX Gy,Ey,By (66),(v) | SARX Gy,Ey,By (F3),(v) | SHRX Gy,Ey,By (F2),(v)
+ f8: MOVDIR64B Gv,Mdqq (66) | ENQCMD Gv,Mdqq (F2) | ENQCMDS Gv,Mdqq (F3)
+ f9: MOVDIRI My,Gy
++fa: ENCODEKEY128 Ew,Ew (F3)
++fb: ENCODEKEY256 Ew,Ew (F3)
+ EndTable
  
+ Table: 3-byte opcode 2 (0x0f 0x3a)
 -- 
 2.17.1
 
