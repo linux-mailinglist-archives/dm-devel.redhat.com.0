@@ -1,109 +1,109 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E56AA721DCC
-	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 08:04:17 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id AE45E721DCF
+	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 08:05:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685945057;
+	s=mimecast20190719; t=1685945104;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:in-reply-to:in-reply-to:
 	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=eF0mXYeVRZt7k7pEhgn1Z1MiXVn+SF/tBy9QyXtogl8=;
-	b=SDgCGHZ1PdbwJ9LmHa2tGjElh/QwDXwfcgmLFqcaf1cAdqdqsCAMClV0cDm2eM6RpSWqP4
-	qoKls7dls74V46/ZynXJOQ+PvWQ+adGb5u2AY5AAa09OFoYu100uj9h/fPrzpnjx5MGf4s
-	cPqE76lrSLE5sQQVvVOa0mPXZcuG+Jw=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 list-subscribe:list-post; bh=H+XNtv0SwLvP6mM9fqQHffm0p+tJ9lr1z/oHX9xpfUI=;
+	b=LIbQJErMAZrZxi1fkQWRs1pBDuxhcx+gH4GNrFHe5V5RGuKZHYpk/BrB2MjBXmblRMvWMf
+	sbHzLz5xQgqKFf8ccrCBWm+hBQFgKA2sQlu5hV6P1GOMG91AWcSUITDWhbIhDbBGhmvAUK
+	EQo1IUigYhM/G7Ysgqri0UF7bx+1uCo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-397-axL84w_CMNeWgoDkmrvJxw-1; Mon, 05 Jun 2023 02:04:14 -0400
-X-MC-Unique: axL84w_CMNeWgoDkmrvJxw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-542-V32lmLS7PbSqdLoz05VBJA-1; Mon, 05 Jun 2023 02:04:14 -0400
+X-MC-Unique: V32lmLS7PbSqdLoz05VBJA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C47D71C01E9B;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C1BF0811E7C;
 	Mon,  5 Jun 2023 06:04:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 325A340D0174;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8906C2026E03;
 	Mon,  5 Jun 2023 06:04:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D70411946F1E;
-	Mon,  5 Jun 2023 06:04:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 13A451946F27;
+	Mon,  5 Jun 2023 06:04:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 586EF1946595
- for <dm-devel@listman.corp.redhat.com>; Mon,  5 Jun 2023 03:05:15 +0000 (UTC)
+ ESMTP id 58D751946595
+ for <dm-devel@listman.corp.redhat.com>; Mon,  5 Jun 2023 03:08:06 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E90442026D6A; Mon,  5 Jun 2023 03:05:14 +0000 (UTC)
+ id E91D31410F25; Mon,  5 Jun 2023 03:08:05 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E16F92026D49
- for <dm-devel@redhat.com>; Mon,  5 Jun 2023 03:05:14 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DFDC31400AFC
+ for <dm-devel@redhat.com>; Mon,  5 Jun 2023 03:08:05 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAE7F3C01C2A
- for <dm-devel@redhat.com>; Mon,  5 Jun 2023 03:05:14 +0000 (UTC)
-Received: from mail-pg1-f176.google.com (mail-pg1-f176.google.com
- [209.85.215.176]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8368380671E
+ for <dm-devel@redhat.com>; Mon,  5 Jun 2023 03:08:05 +0000 (UTC)
+Received: from mail-oa1-f47.google.com (mail-oa1-f47.google.com
+ [209.85.160.47]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-660-3TiPAebRP0euWmTG-TQ9AA-1; Sun, 04 Jun 2023 23:05:11 -0400
-X-MC-Unique: 3TiPAebRP0euWmTG-TQ9AA-1
-Received: by mail-pg1-f176.google.com with SMTP id
- 41be03b00d2f7-51452556acdso2394497a12.2; 
- Sun, 04 Jun 2023 20:05:10 -0700 (PDT)
+ us-mta-665-GTOr-CorNfqe5e9RPMkjcg-1; Sun, 04 Jun 2023 23:08:02 -0400
+X-MC-Unique: GTOr-CorNfqe5e9RPMkjcg-1
+Received: by mail-oa1-f47.google.com with SMTP id
+ 586e51a60fabf-19f3550bcceso4028919fac.0; 
+ Sun, 04 Jun 2023 20:08:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685934309; x=1688526309;
+ d=gmail.com; s=20221208; t=1685934481; x=1688526481;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=s+SNS/Ez4V5YrkVuSk178SGGNvobB71usHfX95QcJcA=;
- b=VVMsaF21C3cO6D7tiqZrbqmS/iJ1KQYzuduhTxCIhtIK5EVbx/3FwI0l7/zn6Ddkrm
- 2wto5NYYhnkaXQnUwnPhXz4sV/jZ/kZg5AOJCZ9sN6zN38S/sAC/eFuq4Pp1bLh1ov8T
- 5ZlIUDPkk2ChuvsKtm9+zydlpTyYDkQjnPcEn+E0ljaWFQbEADoO3z1ahVm75blw1Az0
- PjvlE8TF1kBfA74T7un9Op1NYgC2/7ozwwvWsSvtmF98zkbik+lAmv75FHCOu/k9Pno7
- OL9J9e7WU8FoaT+j1vUanEzsgrPvj9TfZuonML8Bh6RVE4IWVdHihwK5Sblm9XxAY0pb
- TkbQ==
+ bh=HmucptkZoDu3+K08LKOsMYAoXOw3eVCfWImOiCZOdF8=;
+ b=X+TDiHxfgevZOeX20EHHhoXH2LvvAtjtpoG85idHqVCYPVuM/OgwXjMZ4NHjNJY86Z
+ GaQ11IlULLuCY3w1Gmw6vpbm1Z1HEmOf0SYMrWBhWSueRiw0vJkVMbUwfsftq6QSCRC6
+ Tx3S4muvvYff4VTGE67lUnpDgScieCAYX8wOGACR0IQxD+bl8RFcwl5u6S9BfU/q0/ym
+ pxYuvOuK97Gi2zavSuNFVgJl18kEIujAVrxr3oHASiYn481x6FfxDWJEqH5OHww4BN9Q
+ lP9evoAT37Mb64bWXI/e1uGMxM/2mzPZu2FBN5sgap9Bi8uKDmUlae/GHdIfcm4HbL27
+ FZ0g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685934309; x=1688526309;
+ d=1e100.net; s=20221208; t=1685934481; x=1688526481;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=s+SNS/Ez4V5YrkVuSk178SGGNvobB71usHfX95QcJcA=;
- b=af8s/pIRzO1VnXcf8PiPQXDK3AmwVV03TwpgGwtCOfbcg/U7Wc1B0kUjQ43MBvEu0f
- 2sFOQs9nM7EqUSV66HW7A6ta+2MXNaXMMYYmrb4XzeEbrKFjebMe6fRPZme/em18byVd
- FhZNh2nPn6xjo3tg8Ws6YDXZuh35Pmv46ahhCAiX/ePpE44ySn4LB8ByML4aNXN2DWNA
- AvaOvjBarJVulqDsu6aoYaURs5S1kfbHVbOlol8qgAkaLK4lPUh1ZkBoxBv27tmq+roR
- PSgV2TOWjTfBC2VvhtTRMawCR1t1K7QiHAhaAZqM68WuE2i6zBjhw2t2pY0y9vgJalwx
- iE0w==
-X-Gm-Message-State: AC+VfDwjh9PF5jH+Pal0IZv0fKuBT80ZHRqk/ewAIcXT1VIstAgWiFao
- aJOA+6hf1VfWBfX27qHbQMFkVuugbjtKQw==
-X-Google-Smtp-Source: ACHHUZ51HSuF7agss6dH0Air78er6+DFls6LF/iE9dOl0Rb5IaZm54LaOgUz1hLenDpw/WeylSIQPg==
-X-Received: by 2002:a05:6a21:9988:b0:10b:8a27:bb59 with SMTP id
- ve8-20020a056a21998800b0010b8a27bb59mr3325496pzb.47.1685934309515; 
- Sun, 04 Jun 2023 20:05:09 -0700 (PDT)
+ bh=HmucptkZoDu3+K08LKOsMYAoXOw3eVCfWImOiCZOdF8=;
+ b=kl1eBYOhJxjTcd1+Tq/Q9KD8gfjZJqqdrg3NbXSL/OOwmFcntZ2gMKyHKSQ056aZmn
+ /VMdo0DC5H8KdgAHtssVhKjHX6GTUHepASeh5O85mBKLJ42IO4R0sJ5cUdTLnGKJHJv3
+ DKVYRUUK6O5nyiJwOB3YLYMPDcfJ2bCzEe9V+Kz57pknbad6CpkleRdSj3ROkJ5OtXva
+ Z6WCHSuXCDuLgf9Lq6+T4TVWGhg63Bsbn5h8Vo4Pz1OXCVKgaYvoMCT3UUs1mskfpOh5
+ tgUKVriHN9XTqAdw06o08ZyQ2BvdB4qLL7qOFHoIip+nJ+o0VySXQ5GZz1Ug1cblkyCg
+ eQWw==
+X-Gm-Message-State: AC+VfDxOD5QsFBpwtm8n0i+ZfEWQARnoYSgHDCmgT1RTNUKuBw4zlmTg
+ OSDesG9bfl0wvWIKpWSfPRkP1N/TdL6gcQ==
+X-Google-Smtp-Source: ACHHUZ7m72Kp1UdoPnUIdV5YMJ3ZbM2ARYoaAbyUayvanFIB8zvJRCRnKJZXF5okiIpHRPeTIC+3Kw==
+X-Received: by 2002:a05:6870:98a6:b0:1a1:2939:3f13 with SMTP id
+ eg38-20020a05687098a600b001a129393f13mr8256009oab.24.1685934481111; 
+ Sun, 04 Jun 2023 20:08:01 -0700 (PDT)
 Received: from debian.me (subs03-180-214-233-4.three.co.id. [180.214.233.4])
  by smtp.gmail.com with ESMTPSA id
- s22-20020a170902989600b001b03b1bcf6bsm5271327plp.252.2023.06.04.20.05.08
+ c3-20020a656183000000b0053b92b26412sm4246493pgv.14.2023.06.04.20.08.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Jun 2023 20:05:08 -0700 (PDT)
+ Sun, 04 Jun 2023 20:08:00 -0700 (PDT)
 Received: by debian.me (Postfix, from userid 1000)
- id 820431061BF; Mon,  5 Jun 2023 10:05:06 +0700 (WIB)
-Date: Mon, 5 Jun 2023 10:05:06 +0700
+ id 0E7941061BF; Mon,  5 Jun 2023 10:07:57 +0700 (WIB)
+Date: Mon, 5 Jun 2023 10:07:57 +0700
 From: Bagas Sanjaya <bagasdotme@gmail.com>
 To: Russell Harmon <eatnumber1@gmail.com>
-Message-ID: <ZH1Q4n-1bCJLr9r-@debian.me>
+Message-ID: <ZH1RjWUfq3Af4fiB@debian.me>
 References: <CA+zrezTegR8jHQA3MNM6WnfFU_RP4=fiCuk6WgwJZsjZ2PYUSw@mail.gmail.com>
  <20230604190604.4800-1-eatnumber1@gmail.com>
  <20230604190604.4800-3-eatnumber1@gmail.com>
 MIME-Version: 1.0
 In-Reply-To: <20230604190604.4800-3-eatnumber1@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 05 Jun 2023 06:04:03 +0000
 Subject: Re: [dm-devel] [PATCH v3 2/4] Documents the meaning of "buffer" in
  dm-integrity.
@@ -120,56 +120,54 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: dm-devel@redhat.com, mpatocka@redhat.com, snitzer@redhat.com,
  linux-doc@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============4874856212566910235=="
+Content-Type: multipart/mixed; boundary="===============0103977891891471631=="
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 
 
---===============4874856212566910235==
+--===============0103977891891471631==
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="HgsTtJwVqSUW+qkf"
+	protocol="application/pgp-signature"; boundary="HSFYUBcIsEVvpXlP"
 Content-Disposition: inline
 
 
---HgsTtJwVqSUW+qkf
+--HSFYUBcIsEVvpXlP
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 On Sun, Jun 04, 2023 at 12:06:02PM -0700, Russell Harmon wrote:
-> +Accesses to the on-disk metadata area containing checksums (aka tags) are
-> +buffered using dm-bufio. When an access to any given metadata area
-> +occurs, each unique metadata area gets its own buffer(s). The buffer size
-> +is capped at the size of the metadata area, but may be smaller, thereby
-> +requiring multiple buffers to represent the full metadata area. A smaller
-> +buffer size will produce a smaller resulting read/write operation to the
-> +metadata area for small reads/writes. The metadata is still read even in
-> +a full write to the data covered by a single buffer.
-> +
+> "Buffers" are buffers of the metadata/checksum area of dm-integrity.
+> They are always at most as large as a single metadata area on-disk, but
+> may be smaller.
 
-LGTM, thanks!
+Hey, I forgot to mention below.
 
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
+Where is the subject prefix? The patch title should have been "Documentatio=
+n: dm-integrity: Document
+buffers".
+
+Thanks.
 
 --=20
 An old man doll... just what I always wanted! - Clara
 
---HgsTtJwVqSUW+qkf
+--HSFYUBcIsEVvpXlP
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZH1Q4gAKCRD2uYlJVVFO
-o7tHAQCS4G9fVnWvbe+hdX9Gke3Gy+4g3X66+S82pYomEa7KewEA5AtHtuc7/ZYT
-SlUoHPXalukvSbgIcnRyXU136buJ4QE=
-=3XVp
+iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZH1RjQAKCRD2uYlJVVFO
+o4s9AQDcc+iJrSPFyOxiVtNsDj14f0Sd9tDmnXoUZ7wDxKqPRAEAquh4m8KjN8Cx
+crwOHqbq0WwzkHlXZuPC2dSSz1XGmgs=
+=lfu6
 -----END PGP SIGNATURE-----
 
---HgsTtJwVqSUW+qkf--
+--HSFYUBcIsEVvpXlP--
 
 
---===============4874856212566910235==
+--===============0103977891891471631==
 Content-Type: text/plain; charset="us-ascii"
 MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
@@ -180,5 +178,5 @@ dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
 
---===============4874856212566910235==--
+--===============0103977891891471631==--
 
