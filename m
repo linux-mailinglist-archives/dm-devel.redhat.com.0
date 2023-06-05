@@ -2,111 +2,183 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AE2D721DCD
-	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 08:04:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1A7B0721D2E
+	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 06:42:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685945057;
+	s=mimecast20190719; t=1685940118;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=4lpKbYGd3UA17AH9S3Jri5003AhagH4igMJ25f9ALsA=;
-	b=A7v/ZVNSHv9da3fv8Pw45zS4Fyb0UT7o+IgtmSeg8fuC/PCBCwefbywygFWSG2kWnR21gQ
-	TIUu00XilsEuCiWOacP85eKg3NxLmMbCFXU7pVnrPpBakg0Bevi/7laAfKHwTx70cd8S6R
-	AVbDZ2C+QVh6iQqieizEyWnqJmw8p24=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=XQtMbuNWO3gK+jqXdy9Den+kS+YYpoQp8LdkTC0BMA4=;
+	b=biDBl4pxsA+OlNjwjMLJRrBL9GhufDGs2b2kOAmFn6yzIV1RmLUHSr5vIpn5YWtD/Q3KGM
+	wnMmEVms2FJmM9MaxAI74xl2vUVcAmbOh+oZbhZG5bB7tPGn16HvehP4W3+L/CamNAiYn6
+	CDeImKRTZ2xYC1TIDNtrcFEYk3lIS5Q=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-444-qjIKb0vHPIuzk2MxO_9vnw-1; Mon, 05 Jun 2023 02:04:14 -0400
-X-MC-Unique: qjIKb0vHPIuzk2MxO_9vnw-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-610-hVLlSMWwMNu5WOlz85Xqtg-1; Mon, 05 Jun 2023 00:41:56 -0400
+X-MC-Unique: hVLlSMWwMNu5WOlz85Xqtg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C40A7811E98;
-	Mon,  5 Jun 2023 06:04:10 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2F12140C6CCF;
-	Mon,  5 Jun 2023 06:04:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6808629A9D44;
+	Mon,  5 Jun 2023 04:41:53 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EAD5C2026D49;
+	Mon,  5 Jun 2023 04:41:45 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77F0B1946F35;
-	Mon,  5 Jun 2023 06:04:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A361619465B5;
+	Mon,  5 Jun 2023 04:41:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4D0751946595
- for <dm-devel@listman.corp.redhat.com>; Mon,  5 Jun 2023 03:17:52 +0000 (UTC)
+ ESMTP id 579F61946595
+ for <dm-devel@listman.corp.redhat.com>; Mon,  5 Jun 2023 04:41:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0ECBEC154D9; Mon,  5 Jun 2023 03:17:52 +0000 (UTC)
+ id 600152166B27; Mon,  5 Jun 2023 04:41:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0648DC154D7
- for <dm-devel@redhat.com>; Mon,  5 Jun 2023 03:17:51 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 56D862166B25
+ for <dm-devel@redhat.com>; Mon,  5 Jun 2023 04:41:41 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
  [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFDF81C0518F
- for <dm-devel@redhat.com>; Mon,  5 Jun 2023 03:17:51 +0000 (UTC)
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com
- [209.85.216.42]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-317-17GRFd4qMxWxpJY2wysAGw-1; Sun, 04 Jun 2023 23:17:48 -0400
-X-MC-Unique: 17GRFd4qMxWxpJY2wysAGw-1
-Received: by mail-pj1-f42.google.com with SMTP id
- 98e67ed59e1d1-25692ff86cdso3535122a91.2; 
- Sun, 04 Jun 2023 20:17:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1685935067; x=1688527067;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=5aMetwcrs//TXCNHEA0pW9fSv0jcazh9bmNTsbqRNkU=;
- b=lpHsgHSMlSoJ4GG7X1qZnwf+gVuTPcLa5LQnmnpg8Jr7IbJBLL0ORi5Rz+9yjuS9jY
- Xifh/+tQgf8wHJGGL9Pc7vK3y1ToM3okUwkl+Vpetc07Hz9i8uy6Eir1DTT2AGnXMEKj
- /hb62XW54LcRu7TPmxJa4usOYfMP1/sWz47jVocMnJ6tHEXUNP+0paLrg0I4jDM++qLM
- 0R65eVBsAPPcAnIhC//YAEfum9LV0/nP/KQ4YKvUio1q3nYrHGu33iox/RlRZa8/qX4r
- 9VX2LLmwn5H4wERGKtdpE4Gh9j91eXt21meZWcIifTkJvw0+ChKY8qeGhX4U86ji3Cc+
- 7EMQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1685935067; x=1688527067;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=5aMetwcrs//TXCNHEA0pW9fSv0jcazh9bmNTsbqRNkU=;
- b=ACkyAgKnvESb6rS595hNP6w/XmQUpaj8PVfIi72C8DP3ijqHJLEZH8Op7hkNJUYwng
- 4aJc2nQFmCu8mtMLNaHyg8ryU6oX1/VXXODJbYyHilWiF1Kro8Xva5tdIWcmQXbppyy7
- b+D3XxJiNbM4fHGD9N6woslD/s01KBvuVZkkMevEVvLuLw1cc3imKuBwIodHUvu51JAQ
- BwnUbLiZ0b2IQJOTZLST0VdluA5gX0sPMOAkQSyP3QuzBoU0/2+YXdm6jgrb9Bz3jii5
- ZMlTbn2Dt4aqU7E+g7xCOADpxPtS3igZBCrKNWrNymMHDvA4bTO8B1zfB0uIQK6UIJ7j
- BIgg==
-X-Gm-Message-State: AC+VfDw6UilEHagb+7CK63CIcQffoExqoDjYX+mWe3HRBfi1uHG2/uAm
- qSqKkePMY2mjMeC1WCE88xL8zpnz7wzJGg==
-X-Google-Smtp-Source: ACHHUZ7iRL6grHx8Dac+vN6c6jM+ap+mvvqPm/e4O0p1JmbMreSBJw6lZiZoP3S5Wg0TScQrYPx2WA==
-X-Received: by 2002:a17:90a:194:b0:259:43ec:1a6 with SMTP id
- 20-20020a17090a019400b0025943ec01a6mr2387419pjc.17.1685935066633; 
- Sun, 04 Jun 2023 20:17:46 -0700 (PDT)
-Received: from debian.me (subs03-180-214-233-4.three.co.id. [180.214.233.4])
- by smtp.gmail.com with ESMTPSA id
- j11-20020a17090a318b00b0025393752cd5sm14740556pjb.1.2023.06.04.20.17.45
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Sun, 04 Jun 2023 20:17:46 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id 0A53F106291; Mon,  5 Jun 2023 10:17:42 +0700 (WIB)
-Date: Mon, 5 Jun 2023 10:17:42 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Russell Harmon <eatnumber1@gmail.com>
-Message-ID: <ZH1T1hK1CzHhhNuo@debian.me>
-References: <CA+zrezTegR8jHQA3MNM6WnfFU_RP4=fiCuk6WgwJZsjZ2PYUSw@mail.gmail.com>
- <20230604190604.4800-1-eatnumber1@gmail.com>
- <20230604190604.4800-5-eatnumber1@gmail.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34CF529A9D4D
+ for <dm-devel@redhat.com>; Mon,  5 Jun 2023 04:41:41 +0000 (UTC)
+Received: from mga01.intel.com (mga01.intel.com [192.55.52.88]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-671-m756q_q4OienIw5syWOeag-1; Mon, 05 Jun 2023 00:41:37 -0400
+X-MC-Unique: m756q_q4OienIw5syWOeag-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10731"; a="384578252"
+X-IronPort-AV: E=Sophos;i="6.00,217,1681196400"; d="scan'208";a="384578252"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by fmsmga101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 04 Jun 2023 21:41:36 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10731"; a="711665423"
+X-IronPort-AV: E=Sophos;i="6.00,217,1681196400"; d="scan'208";a="711665423"
+Received: from orsmsx601.amr.corp.intel.com ([10.22.229.14])
+ by fmsmga007.fm.intel.com with ESMTP; 04 Jun 2023 21:41:35 -0700
+Received: from orsmsx612.amr.corp.intel.com (10.22.229.25) by
+ ORSMSX601.amr.corp.intel.com (10.22.229.14) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Sun, 4 Jun 2023 21:41:35 -0700
+Received: from orsmsx602.amr.corp.intel.com (10.22.229.15) by
+ ORSMSX612.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Sun, 4 Jun 2023 21:41:35 -0700
+Received: from orsedg603.ED.cps.intel.com (10.7.248.4) by
+ orsmsx602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23 via Frontend Transport; Sun, 4 Jun 2023 21:41:35 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.175)
+ by edgegateway.intel.com (134.134.137.100) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.23; Sun, 4 Jun 2023 21:41:35 -0700
+Received: from PH0PR11MB4855.namprd11.prod.outlook.com (2603:10b6:510:41::12)
+ by CY8PR11MB7731.namprd11.prod.outlook.com (2603:10b6:930:75::21)
+ with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Mon, 5 Jun
+ 2023 04:41:28 +0000
+Received: from PH0PR11MB4855.namprd11.prod.outlook.com
+ ([fe80::a41b:1b6c:8306:7644]) by PH0PR11MB4855.namprd11.prod.outlook.com
+ ([fe80::a41b:1b6c:8306:7644%6]) with mapi id 15.20.6455.030; Mon, 5 Jun 2023
+ 04:41:27 +0000
+Message-ID: <f1093780-cdda-35ec-3ef1-e5fab4139bef@intel.com>
+Date: Sun, 4 Jun 2023 21:41:25 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Eric Biggers <ebiggers@kernel.org>
+References: <20230524165717.14062-1-chang.seok.bae@intel.com>
+ <20230603152227.12335-1-chang.seok.bae@intel.com>
+ <20230603152227.12335-11-chang.seok.bae@intel.com>
+ <20230604153434.GA1212@quark.localdomain>
+ <0925dd9e-3588-38da-8dfb-0ac2ff568655@intel.com>
+ <20230605024623.GA4653@quark.localdomain>
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <20230605024623.GA4653@quark.localdomain>
+X-ClientProxiedBy: BY5PR17CA0027.namprd17.prod.outlook.com
+ (2603:10b6:a03:1b8::40) To PH0PR11MB4855.namprd11.prod.outlook.com
+ (2603:10b6:510:41::12)
 MIME-Version: 1.0
-In-Reply-To: <20230604190604.4800-5-eatnumber1@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mailman-Approved-At: Mon, 05 Jun 2023 06:04:03 +0000
-Subject: Re: [dm-devel] [PATCH v3 4/4] Document an example of how the
- tunables relate in dm-integrity.
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB4855:EE_|CY8PR11MB7731:EE_
+X-MS-Office365-Filtering-Correlation-Id: b7071bed-3015-48af-8b51-08db657f1fe3
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: Lp5gunYTerocIdJTvTnjHIUEPsL6s0dpmCq11AG2HlQbqcjffncEVqf2lNiACDbuLJa3vEs+o2xGxc0/MY+nqbcR9IokQ3mQIpdZHqe5mhnqe0cN6YUqQMbKRXOR6waI7Io2yqGkWNjr7Mu7ef2K7ITaU8GzDbphKGznVVnZBL75YZBez9zvV9rVIOhGcGsdL1kGZ86bXLpY9Cd2DailrED/MOpMUQkCsq6KRhp4XE1xHw1W7kS2p+1WLM79f6tXl9J4otYYv1+dfZBo8q5pUwAz8VFghGkGrR4/ep17S4hxedERTDQsjzRqa9J4fyNrSM/cClIdbzm5fzEoVclxpRD0p4qsbTER54ezJn+/acmUSnPPCZAyQe6Fu8zwc9CWtJqkZLPUwT8r96gV2+rVHEZzkK9becXjBCzzZpscqTnU6wOvaUJWAE8I1vjkPuKkMGOU3rH1ifwJfNWR0altwFT76hMAdEcwvwmh2yo+vz8+SniEd24BUer+j29eAww5NL75CpB2n/I3/afN8A8Dt5lIAf3HIxus3uG2x0Wb+jXjDV5ld/atYos223w9N9+ezqV7yU1j2TjMmbQluWnIy/Q3khXts5lZsaDlh9rMWFPvaAZHTHQ3FasJ/biODDNsiZmoXUZ0ya3j/GQt8gKuJw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB4855.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(366004)(346002)(136003)(376002)(396003)(39860400002)(451199021)(8936002)(8676002)(478600001)(54906003)(41300700001)(5660300002)(316002)(6486002)(26005)(7416002)(186003)(31686004)(4326008)(66556008)(66946007)(66476007)(6916009)(6512007)(53546011)(6506007)(2616005)(2906002)(4744005)(38100700002)(82960400001)(31696002)(86362001)(36756003)(43740500002)(45980500001);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?OXNwQmI2eHorVnM4NlhDenNkVExxYkVSK3ZMVEtXS0VFSS8wMEtyMk5ndDJO?=
+ =?utf-8?B?UnJXaUdFSTBJL2greFFzdkwwV2ttWWh6QjNodHZvRk91UkRIZEVGbU9paXZO?=
+ =?utf-8?B?VmJlYXlHemRaRUhWSXZBSGt0VlVOTmc3L1dqeGk5QTZRUS9hNE8zN0tDWXhT?=
+ =?utf-8?B?eUNrSytDcDNGcWg4c3hneEtGa0pWUCtZZ2ZKV0FkMVZJU2NOajhzbXRBVnNW?=
+ =?utf-8?B?dkpvRE8rUDNUYXhPYi8wZDNDa0lxR2YycWRjL3JZeW4vWkhlVFI1SFdXQ0pT?=
+ =?utf-8?B?ZmVhOVVsUEpjZHlDdytGYlpUSEZtak9KcWtsSk5PamVjc0Z2a0UrdVpDRXJz?=
+ =?utf-8?B?UDdlWUdkM090aE1LOGxnUnM4eWw1akFGOE1SRXkvM0ZxZ2N3S0FjSW5VaGFs?=
+ =?utf-8?B?VlhzWUhka3oxL3FUOFdZK21USjlvVHA5L0twOTBLWW9BMlpBeXFIeUNiYzEy?=
+ =?utf-8?B?UG9ra2NGa211UEU0azl3ZlQ4NUVqcklVVnV1YUE0QVFwVzZmYS91L1c1L1N2?=
+ =?utf-8?B?Q0M0TWZ1U3piUEd0Z3lKelZsSWluYmpuQnVjVzJaSWp6cnZ1Q0plSG9kMTNi?=
+ =?utf-8?B?YTAvZlBsOFZiZ1E0ZDBTZ1VrY1dFcFpINjVsRWcxRDR3RVFpcHoxdFZGTmk5?=
+ =?utf-8?B?SXFNYjNLUkRzYlZuQVNnK3hnaWRCNWt3NkUzY3F4R1REMFNpWHJpNTJvWExF?=
+ =?utf-8?B?RDVNYm5CbEwwbTRjSUtvWEtId2Fma2hjWnY5aXNvQVVnZ0RrZEFZd080U1Ez?=
+ =?utf-8?B?dzFkaTRaTTNlQ1VTd2s3QUFVcmdtVlFIWStYNDhZMWVMRHFZdjV4SjJBc3pp?=
+ =?utf-8?B?eFZQc1JtZnRvZjZKeitIelkwMjBvdUlKK05JTzBaRUhVQzNvN3YrRVV1c01w?=
+ =?utf-8?B?ZW0vU1FJelBTbXgrZmM4RVQzRU9ucVQ0d1cxakhXRXVjakloRTRvakFnNVhM?=
+ =?utf-8?B?SDY5MGVLaTRTQ3Q2cmVXanAxZ2hEcmYvL1dOV0paYXlIajJRM2VHbHBQdmhB?=
+ =?utf-8?B?anpUR2hTMnNrKzdhdVRzRFhEaUFqZ1lGdjdaOUpLd2xobkJVNGhhalhTTGUz?=
+ =?utf-8?B?UFJhdDNidWl4U0JjeUVGMm52Y2ZhOTlhZnU4VkVmOGtyTEora3A4R29HdHpw?=
+ =?utf-8?B?NFBVWmxKandENGgvWlhBeHl6U0lKL2twZm9LekJXL3ZYOHdrblp1ZkFFMWRO?=
+ =?utf-8?B?MjlpQjFOdURZZ0E1RWdlckI4bFc5aUQvbHdFWTZhbXVOQkdydFFQYmk4VUF3?=
+ =?utf-8?B?dmNzdFUwaHJNWXlpVURmS3AvRDRYZGw0UEUvbXIvSm9waFRNK1VJUnZOaStB?=
+ =?utf-8?B?djZFTitiMGRYbzRSeTdyaFVFbngzeWQ5dENWTStGTEltdzYwZ01jZklOTUM2?=
+ =?utf-8?B?bDFlUTVERlpsVXpSVVNrYUZsWHJnOXg1dWlXWXZKa01EY2NPTjZrOTduTmR3?=
+ =?utf-8?B?SlhyTzB0Z2k3alR4d0l3UFZsczU3YkNZT053Um0wSml2UXptd1ltMlY0TFVk?=
+ =?utf-8?B?RmpjVDY4SHQvQWp2WGNsWlFtVC9GSC91NzNoUWFra20rYnJKSGhFRnlDeEpZ?=
+ =?utf-8?B?cmlpanRuYW5Tc0hOZDdSSGcwMitMeTJuNzBzRTAzVFpVcitoNU9PbzZyTXdN?=
+ =?utf-8?B?UlBEY1AwdWFTMDNxYmxmRHlQeHdhRTJjSngrK3RsS0pmSnlqaWRkYmxocHVr?=
+ =?utf-8?B?MDdVai9SVm1Jb3ptdWYrMFBzZWo2ZXlIZEJhMTJ3dmgvQ3AzeCt5bEdHS1A0?=
+ =?utf-8?B?cTFSSUxDeXBMMkovZzBENXdXUE5rLzQ2R2RPd1RIOTFFQlFUM0lhTEY1TEZ4?=
+ =?utf-8?B?eGRTVGZoUmd2RWdma3BVZmtlTzhxMWNGS2phRk5QWnhvZXk2WnVITEJoT3VN?=
+ =?utf-8?B?RnVOTGpLNllqK0d2ZG1JMjJ1U1hxQURaN0hVV0l5djA5bDZubWI4UXBuZmF2?=
+ =?utf-8?B?U3VjSnB3eUwwSG5WZlJDbERwMFcrNDhaK0NTeTkxczAzU2IxMjRMYlJnbUFk?=
+ =?utf-8?B?S2dIMXNhMHpEZk03ZGhmNWhLbW5uWENCVTZzSjNLVURUS21mdVpMN1NxVXhP?=
+ =?utf-8?B?bjJLc25XTVhlSU5Bb2pybzdLRDdpd28wVVQ2bnpQdHlodTRMTjZJZW1hdm43?=
+ =?utf-8?B?NDQyNVRrYkRNdjVOK0NqQ3NzU0RCK0RsQXNwL2VOeU4rVnBpUTM3WDNpQ1lX?=
+ =?utf-8?B?MEE9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: b7071bed-3015-48af-8b51-08db657f1fe3
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB4855.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 05 Jun 2023 04:41:27.7072 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: VOwrTsNyYStPKItGk08MSpF5TMHgSGSbWn1cO7UEdPEGJXButayGnEslWuxJrAB1ZZhvnr+hoh7LS/1WCDomgzRxK+2n0VcEBMxIegqZyG8=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY8PR11MB7731
+X-OriginatorOrg: intel.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH v8 10/12] crypto: x86/aesni - Use the proper
+ data type in struct aesni_xts_ctx
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,62 +190,46 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, mpatocka@redhat.com, snitzer@redhat.com,
- linux-doc@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============3036850502735428774=="
+Cc: x86@kernel.org, herbert@gondor.apana.org.au,
+ "David S. Miller" <davem@davemloft.net>, ardb@kernel.org,
+ dave.hansen@linux.intel.com, dan.j.williams@intel.com,
+ linux-kernel@vger.kernel.org, charishma1.gairuboyina@intel.com,
+ mingo@kernel.org, lalithambika.krishnakumar@intel.com, dm-devel@redhat.com,
+ Ingo Molnar <mingo@redhat.com>, bp@alien8.de, linux-crypto@vger.kernel.org,
+ luto@kernel.org, "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com,
+ tglx@linutronix.de, nhuck@google.com, gmazyland@gmail.com, elliott@hpe.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-
-
---===============3036850502735428774==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="qoyQOOMAMXl/9xUL"
-Content-Disposition: inline
-
-
---qoyQOOMAMXl/9xUL
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Jun 04, 2023 at 12:06:04PM -0700, Russell Harmon wrote:
-> For example, on a device using the default interleave_sectors of 32768, a
-> block_size of 512, and an internal_hash of crc32c with a tag size of 4
-> bytes, it will take 128 KiB of tags to track a full data area, requiring
-> 256 sectors of metadata per data area. With the default buffer_sectors of
-> 128, that means there will be 2 buffers per metadata area, or 2 buffers
-> per 16 MiB of data.
-
-Again, the patch description duplicates diff content.
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---qoyQOOMAMXl/9xUL
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZH1T1gAKCRD2uYlJVVFO
-o3iyAQDwoPhoPAvgul4DiPijeirtGcmdlL0kovm9Uu1PDS11XQD6A5b3RZrZNq5i
-o/EK1clwCzBXe1Au9n0C5RC80JAp+wc=
-=rRde
------END PGP SIGNATURE-----
-
---qoyQOOMAMXl/9xUL--
-
-
---===============3036850502735428774==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: intel.com
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+
+On 6/4/2023 7:46 PM, Eric Biggers wrote:
+> 
+> IMO the issue is that your patch makes the code (including the XTS code)
+> inconsistent because it makes it use a mix of both approaches: it aligns each
+> field individually, *and* it aligns the ctx up-front. 
+
+But, the code did this already:
+
+common_rfc4106_set_key()
+-> aesni_rfc4106_gcm_ctx_get(aead) 	// align ->ctx
+-> aes_set_key_common()
+    -> aes_ctx()				// here, this aligns again
+
+And generic_gcmaes_set_key() as well.
+
+Hmm, maybe a separate patch can spell out this issue more clearly for 
+the record, no?
+
+Thanks,
+Chang
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============3036850502735428774==--
 
