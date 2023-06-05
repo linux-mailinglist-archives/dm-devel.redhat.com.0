@@ -1,71 +1,106 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 213E9722884
-	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 16:15:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 159B7722D8E
+	for <lists+dm-devel@lfdr.de>; Mon,  5 Jun 2023 19:22:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1685974520;
+	s=mimecast20190719; t=1685985739;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zgRgudOVGQIM6W2nqVQnEFKLeVYhoD+4aZwLCz3HxWY=;
-	b=adcaBW2gXLfTofg4SYxPyjyo1moafbaOkOodqYyIELx9VnsICN2sIJRuTd1I5SBbkQ5DCA
-	pjcRKUdrPjulAy6WV7TQSl3nWpQxNyTY1OFTJfIvClNAxKekRpE+VowMLNU7Pqrg40yLmI
-	1d281SWnaqQYWB7P+L+gxS4ECMXbeIg=
+	bh=rt4d4Mp0hkj262xErgszH+NihPXR19aypd3DVhONV+c=;
+	b=XswNqV/ybdMttT4nYvOnmKi2yfYkjqb//20rfPm4m+GBg9wUztsUgv9tlrLUqE4+0gXoJU
+	WKgWzeyxLzMmNp/FTviZiRx75Di1xqS6ynJCJbwIH0HEq3qvdjI8q0YGAeChPVpq2gK8sS
+	KYDGrigFVEZbKNTegGVrcEFY9VZSJl0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-520-f6w8gUZnPS6W6K3Vx2vlFQ-1; Mon, 05 Jun 2023 10:15:18 -0400
-X-MC-Unique: f6w8gUZnPS6W6K3Vx2vlFQ-1
+ us-mta-593-CmGzYVJ_O0CLkTsk7jkvAA-1; Mon, 05 Jun 2023 13:22:16 -0400
+X-MC-Unique: CmGzYVJ_O0CLkTsk7jkvAA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ECD998060BB;
-	Mon,  5 Jun 2023 14:15:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1667801585;
+	Mon,  5 Jun 2023 17:22:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D9BAE40D1B60;
-	Mon,  5 Jun 2023 14:15:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 049A640D1B61;
+	Mon,  5 Jun 2023 17:22:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C4D3219465B7;
-	Mon,  5 Jun 2023 14:14:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A12A519465B9;
+	Mon,  5 Jun 2023 17:22:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 540931946595
- for <dm-devel@listman.corp.redhat.com>; Mon,  5 Jun 2023 14:14:52 +0000 (UTC)
+ ESMTP id 9AD561946595
+ for <dm-devel@listman.corp.redhat.com>; Mon,  5 Jun 2023 17:22:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3398C2166B29; Mon,  5 Jun 2023 14:14:52 +0000 (UTC)
+ id 83731C16046; Mon,  5 Jun 2023 17:22:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1057A2166B2A;
- Mon,  5 Jun 2023 14:14:52 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 355EEnhT019187;
- Mon, 5 Jun 2023 09:14:49 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 355EEmlC019186;
- Mon, 5 Jun 2023 09:14:48 -0500
-Date: Mon, 5 Jun 2023 09:14:48 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <mwilck@suse.com>
-Message-ID: <20230605141448.GQ24096@octiron.msp.redhat.com>
-References: <1684537332-23033-1-git-send-email-bmarzins@redhat.com>
- <1684537332-23033-6-git-send-email-bmarzins@redhat.com>
- <a84a184d9e7624a6377ecfcab4d9f7c01d06d975.camel@suse.com>
- <20230601181718.GO24096@octiron.msp.redhat.com>
- <f574d942e8d4994689f3ca688cb2ee9bbe2b16fc.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 79011C16044
+ for <dm-devel@redhat.com>; Mon,  5 Jun 2023 17:22:08 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D4FB8007D9
+ for <dm-devel@redhat.com>; Mon,  5 Jun 2023 17:22:08 +0000 (UTC)
+Received: from mail-oi1-f181.google.com (mail-oi1-f181.google.com
+ [209.85.167.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-304-f20ftG8gNIuLLBybQAfwyw-1; Mon, 05 Jun 2023 13:22:05 -0400
+X-MC-Unique: f20ftG8gNIuLLBybQAfwyw-1
+Received: by mail-oi1-f181.google.com with SMTP id
+ 5614622812f47-39b349405d9so69722b6e.1
+ for <dm-devel@redhat.com>; Mon, 05 Jun 2023 10:22:05 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1685985725; x=1688577725;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=6XZ3PYFTW8wBOrcxa44gmTJZRL7p9p613s1N10mZMVY=;
+ b=U7fMAXTeEVQP0Q9cA2Q4/NoxxG+6XQD/22/ohPATR/e4XVMXHeLxaATSgE4CU+38+I
+ PJW5Y3hs9fUuQSw3AXgUAY9N6DA4Be0K0nJ8IHCdXR5apINU0w6YC/ZEuXzB3PQDWcFs
+ 7w7Wi3Jjx8cK3lodo6xskCds0raJjZLLSyRbZjkCfypiqI+qQh2irf7itMd6b2Zjue87
+ fDVVzElrjOTUsExWhmRrjQzokRZp+bEtoC21iQ6kmNq4JcNvrJrmuJjWBf2WClH+DPIS
+ fAjJxZVGteYwUw5GzbrmfYuIBNKHQz0kaL5gRErCshTtAroKEKn+oyvaK2LYrP0xA/yj
+ KX3g==
+X-Gm-Message-State: AC+VfDyaqOReAnCnp1J9xGNkYWwdkDRGRJJA14GbQeDvI1qc3LgeIe0Z
+ jRkc9LOlytVzutGAZ0fsUDfajA==
+X-Google-Smtp-Source: ACHHUZ55ijmtRxUtr2PJeE7u8S0QvWcKyGSmOe2wfBtgxRK6mvg8iopMfucIMuRB5AN9ZmOkwUXzHA==
+X-Received: by 2002:a05:6358:c401:b0:127:6a3c:2280 with SMTP id
+ ff1-20020a056358c40100b001276a3c2280mr4551121rwb.2.1685985724648; 
+ Mon, 05 Jun 2023 10:22:04 -0700 (PDT)
+Received: from [127.0.0.1] ([2600:380:c01c:32f0:eff8:7692:bf8a:abc6])
+ by smtp.gmail.com with ESMTPSA id
+ cl9-20020a17090af68900b0025643e5da99sm7993666pjb.37.2023.06.05.10.22.02
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 05 Jun 2023 10:22:03 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Christoph Hellwig <hch@lst.de>
+In-Reply-To: <20230531125535.676098-2-hch@lst.de>
+References: <20230531125535.676098-1-hch@lst.de>
+ <20230531125535.676098-2-hch@lst.de>
+Message-Id: <168598572280.2504.3952473013804137907.b4-ty@kernel.dk>
+Date: Mon, 05 Jun 2023 11:22:02 -0600
 MIME-Version: 1.0
-In-Reply-To: <f574d942e8d4994689f3ca688cb2ee9bbe2b16fc.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 5/5] libmultipath: add "detect_pgpolicy"
- config option
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH 01/24] driver core: return bool from
+ driver_probe_done
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,128 +112,86 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>,
- Xose Vazquez Perez <xose.vazquez@gmail.com>
+Cc: Loic Poulain <loic.poulain@linaro.org>,
+ Vignesh Raghavendra <vigneshr@ti.com>, "Rafael J. Wysocki" <rafael@kernel.org>,
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-pm@vger.kernel.org,
+ Joern Engel <joern@lazybastard.org>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ linux-mtd@lists.infradead.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: kernel.dk
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 02, 2023 at 06:16:08PM +0200, Martin Wilck wrote:
-> On Thu, 2023-06-01 at 13:17 -0500, Benjamin Marzinski wrote:
-> > On Wed, May 31, 2023 at 03:44:58PM +0000, Martin Wilck wrote:
-> > > On Fri, 2023-05-19 at 18:02 -0500, Benjamin Marzinski wrote:
-> > > > This allows configuations to use "group_by_tpg" if alua is
-> > > > autodetected
-> > > > and another policy if it isn't, so they can work with
-> > > > detect_prio.
-> > >=20
-> > > This is a bit confusing. We might have introduced this kind of
-> > > autodetection without group_by_tpg; using group_by_prio for arrays
-> > > with
-> > > ALUA support would have made quite a bit of sense.
-> >=20
-> > I guess that all depends on what the autodetection is for.=A0 If the
-> > goal
-> > for ALUA autodetection is to make it possible to write configs that
-> > support arrays which have an optional ALUA mode, then I don't think
-> > this
-> > is necessary.=A0 All those arrays should be configured with
-> > group_by_prio,
-> > regardless of whether or not they are in ALUA mode.
->=20
-> Hm, but are they, really? Xose has changed some defaults from multibus
-> to group_by_prio lately, but I am not sure if that covers all. If we
-> set group_by_prio automatically without ALUA, we'd probably end up
-> effectively with MULTIBUS always, as the prio would likely be constant.
-> But some arrays would prefer FAILOVER, I suppose, perhaps even some of
-> those with optional ALUA? I am not sure. But this is what really
-> matters: whether the array should work in active-active or active-
-> passive mode when there is no ALUA to detect it.
 
-There are no builtin device configs that set path grouping policy to
-FAILOVER. Out of all our builtin configs, the only SCSI one that doesn't
-specifically set the path grouping policy is the IBM 3303 NVDISK and I
-don't believe that one supports ALUA. I don't know of any vendor who
-wants to have a builtin device config for their array, but can't write
-an optimal one because they need a different pgpolicy depending on
-whether ALUA is or isn't present. So all I was saying is that I don't
-think having detect_pgplicy would enable us to add new builtin configs
-for arrays that we couldn't handle correctly in all cases before.=20
+On Wed, 31 May 2023 14:55:12 +0200, Christoph Hellwig wrote:
+> bool is the most sensible return value for a yes/no return.  Also
+> add __init as this funtion is only called from the early boot code.
+> 
+> 
 
-I do agree that there are likely people who don't bother to edit
-multipath.conf for their device, and multipath autodetects alua but
-still uses FAILOVER, when it would be better for it to use
-GROUP_BY_PRIO. That's why I think your proposal is a good one.
-=20
-> > But we've moved more towards adding autodetection to make multipath
-> > work
-> > correctly, even without a config for a specific array. In this case,
-> > yes, if we autodetect ALUA, if would be nice if we could
-> > automatically set group_by_prio.
-> >=20
-> > > What this patch really does is to make multipath-tools prefer
-> > > group_by_tpg over group_by_prio if it finds that ALUA is
-> > > supported.=A0
-> > > Should this be a separate option, perhaps?
-> > >=20
-> > > =A0- detect_pgpolicy: use an ALUA-based pgpolicy if available
-> > > =A0- detect_pgpolicy_prefer_tpg: prefer group_by_tpg over
-> > > group_by_prio
-> > > =A0=A0 for arrays supporting ALUA.
-> > >=20
-> > > This way users could benefit from ALUA autodetection without
-> > > switching
-> > > to the TPG algorithm automatically.
-> >=20
-> > Sure. Lets go with that. I'll respin this.
->=20
-> Perhaps you can come up with a better name than
-> "detect_pgpolicy_prefer_tpg" :-)
->=20
-> To make sure we're on the same boat:
->=20
->  - detect_pgpolicy defaults to ON
->  - detect_pgpolicy_prefer_tpg defaults to OFF for now.
->=20
-> Right?
->=20
+Applied, thanks!
 
-Right.
+[01/24] driver core: return bool from driver_probe_done
+        commit: aa5f6ed8c21ec1aa5fd688118d8d5cd87c5ffc1d
+[02/24] PM: hibernate: factor out a helper to find the resume device
+        commit: 02b42d58f3898134b900ff3030561099e38adb32
+[03/24] PM: hibernate: remove the global snapshot_test variable
+        commit: d6545e687271ab27472eebff770f2de6a5f1a464
+[04/24] PM: hibernate: move finding the resume device out of software_resume
+        commit: cc89c63e2fe37d476357c82390dfb12edcd41cdd
+[05/24] init: remove pointless Root_* values
+        commit: f5524c3fadba35c075a5131bad74e3041507a694
+[06/24] init: rename mount_block_root to mount_root_generic
+        commit: e3102722ffe77094ba9e7e46380792b3dd8a7abd
+[07/24] init: refactor mount_root
+        commit: a6a41d39c2d91ff2543d31b6cc6070f3957e3aea
+[08/24] init: pass root_device_name explicitly
+        commit: c8643c72bc42781fc169c6498a3902bec447099e
+[09/24] init: don't remove the /dev/ prefix from error messages
+        commit: 73231b58b1b496d631fa0ecf9fa7f64f5a07c6e3
+[10/24] init: handle ubi/mtd root mounting like all other root types
+        commit: 07d63cbb67cdb5e2a7720fdd8579b3be979c2d66
+[11/24] init: factor the root_wait logic in prepare_namespace into a helper
+        commit: 3701c600a3e735b9fbac6f7a73e4c086090c97ca
+[12/24] init: move the nfs/cifs/ram special cases out of name_to_dev_t
+        commit: c0c1a7dcb6f5db4500e6574294674213bc24940c
+[13/24] init: improve the name_to_dev_t interface
+        commit: cf056a43121559d3642419917d405c3237ded90a
+[14/24] init: clear root_wait on all invalid root= strings
+        commit: 079caa35f7863cd9958b4555ae873ea4d352a502
+[15/24] block: move the code to do early boot lookup of block devices to block/
+        commit: 702f3189e454b3c3c2f3c99dbf30acf41aab707c
+[16/24] block: move more code to early-lookup.c
+        commit: 7cadcaf1d82618852745e7206fffa2c72c17ce4b
+[17/24] dm-snap: simplify the origin_dev == cow_dev check in snapshot_ctr
+        commit: 26110d5afe8117d1b505fe735ac709bdf063f4da
+[18/24] dm: open code dm_get_dev_t in dm_init_init
+        commit: 49177377e910a8fd5cd1388c966d8fbb51075c3c
+[19/24] dm: remove dm_get_dev_t
+        commit: d4a28d7defe79006e59293a4b43d518ba8483fb0
+[20/24] dm: only call early_lookup_bdev from early boot context
+        commit: 7a126d5bf975f082281fb9b45d110cd49b7c3ee4
+[21/24] PM: hibernate: don't use early_lookup_bdev in resume_store
+        commit: 1e8c813b083c4122dfeaa5c3b11028331026e85d
+[22/24] mtd: block2mtd: factor the early block device open logic into a helper
+        commit: b2baa57475e3a24bb9ad27bb9047ea3be94627f5
+[23/24] mtd: block2mtd: don't call early_lookup_bdev after the system is running
+        commit: 8d03187ee7328af8e18ef1782289e0b034e75485
+[24/24] block: mark early_lookup_bdev as __init
+        commit: 2577f53f42947d8ca01666e3444bb7307319ea38
 
-> > > Or do we have good arguments that group_by_tpg is always "better"
-> > > than
-> > > group_by_prio if ALUA is supported? I guess it might be, but it
-> > > still
-> > > needs to prove its usefulness it practice.
-> >=20
-> > I would also rather it proved itself first. That's why I had it
-> > disabled
-> > by default. We can always switch the default later.
-> >=20
-> > > Also, if we add the auto-detection feature, I think it should
-> > > default
-> > > to ON, at least upstream.
-> >=20
-> > I don't know of any case where you would need FAILOVER, when you have
-> > an
-> > ALUA device.=A0 I can imagine someone wanting to be able to turn off
-> > load-balancing, but I think it makes sense to enable this by default
-> > upstream.
->=20
-> I expect that active-passive arrays would use STANDBY state for the
-> passive side, or at least NON-OPTIMIZED. This would effectively be a
-> failover mode. Anyway, it'll be possible to deactivate the
-> autodetection. That's kind of awkward for users, as we now from
-> detect_checker etc., but it works, and fits the way we did this for
-> other options.
->=20
-> Regards
-> Martin
+Best regards,
+-- 
+Jens Axboe
+
+
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
