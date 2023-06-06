@@ -2,70 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 51F94723AB0
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:54:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A2B98723A89
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:52:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686038083;
+	s=mimecast20190719; t=1686037935;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rIY9Bpm35FwVb/UgnRuK/UCJ4HjZdgLWYA5qermS+JY=;
-	b=N+6E+xiwfWXittK0pf+csu6qiV4evYP3zOVNNmQOOVoPgQLx+Optb8cfh0QKReLbVYdMPW
-	xVIwDsGqKAY1TWFsHntuos3DDv1xg0RBVKul7g/Z7ffH3gCK97W/jUUQq0VaeqeX91u2NG
-	zIXhE2cv+EheDTVKofzTLf8t6o0UH/I=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=bZeT83nYjWwVnFat3Yejf+H5+nwyGIkeXa9XAL5hXUE=;
+	b=DHH1Fs7AHCS8VXgQtrTEeq/pBq7W9BDwJMNgKtSjYKweTstK822/jrRyr8bViTh4gNVSkn
+	6h5QeWgOda7V7o4XvyAguMmUWfm/zXS8j+lZ8ZYwH9VYN0e/Y2bEXbdRsaImLaZtvW5uU7
+	UFh/2YHm2BVuGARSYJwg5OUF2bRIPk4=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-U1asqKBoP4S8lc2Qsvu78Q-1; Tue, 06 Jun 2023 03:54:41 -0400
-X-MC-Unique: U1asqKBoP4S8lc2Qsvu78Q-1
+ us-mta-10-uSiXIY_uMUOX0_-BKHx7bw-1; Tue, 06 Jun 2023 03:52:12 -0400
+X-MC-Unique: uSiXIY_uMUOX0_-BKHx7bw-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 30AF8811E96;
-	Tue,  6 Jun 2023 07:54:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95DB63C0F18F;
+	Tue,  6 Jun 2023 07:52:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 14FF340D1B6B;
-	Tue,  6 Jun 2023 07:54:38 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7EA3A40D1B68;
+	Tue,  6 Jun 2023 07:52:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DE5FA1946A45;
-	Tue,  6 Jun 2023 07:54:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3F6EB19465B9;
+	Tue,  6 Jun 2023 07:52:08 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E97EC1946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:54:34 +0000 (UTC)
+ ESMTP id 6C6E71946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:52:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DC2674A927E; Tue,  6 Jun 2023 07:54:34 +0000 (UTC)
+ id 5C76C40D1B69; Tue,  6 Jun 2023 07:52:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D4748400F4E
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:54:34 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 543A440D1B66
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:52:07 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A78081C01E85
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:54:34 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2B837801182
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:52:07 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-447-K7tzilfCMlWmwer4keRLbw-1; Tue, 06 Jun 2023 03:54:33 -0400
-X-MC-Unique: K7tzilfCMlWmwer4keRLbw-1
+ us-mta-624-N_2jkFt0OsmxFRIsnB3kUw-1; Tue, 06 Jun 2023 03:52:00 -0400
+X-MC-Unique: N_2jkFt0OsmxFRIsnB3kUw-1
 Received: from
  2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q6RIt-000Z8r-0R; Tue, 06 Jun 2023 07:40:31 +0000
+ id 1q6RIv-000ZBa-3D; Tue, 06 Jun 2023 07:40:34 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue,  6 Jun 2023 09:39:30 +0200
-Message-Id: <20230606073950.225178-12-hch@lst.de>
+Date: Tue,  6 Jun 2023 09:39:31 +0200
+Message-Id: <20230606073950.225178-13-hch@lst.de>
 In-Reply-To: <20230606073950.225178-1-hch@lst.de>
 References: <20230606073950.225178-1-hch@lst.de>
 MIME-Version: 1.0
@@ -78,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH 11/31] block: rename blkdev_close to
- blkdev_release
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH 12/31] swsusp: don't pass a stack address to
+ blkdev_get_by_path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,35 +115,43 @@ X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Make the function name match the method name.
+holder is just an on-stack pointer that can easily be reused by other calls,
+replace it with a static variable that doesn't change.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/fops.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ kernel/power/swap.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/block/fops.c b/block/fops.c
-index 6a3087b750a6cd..26af2b39c758e1 100644
---- a/block/fops.c
-+++ b/block/fops.c
-@@ -500,7 +500,7 @@ static int blkdev_open(struct inode *inode, struct file *filp)
- 	return 0;
+diff --git a/kernel/power/swap.c b/kernel/power/swap.c
+index 81aec3b2c60510..b03ff1a33c7f68 100644
+--- a/kernel/power/swap.c
++++ b/kernel/power/swap.c
+@@ -1510,6 +1510,8 @@ int swsusp_read(unsigned int *flags_p)
+ 	return error;
  }
  
--static int blkdev_close(struct inode *inode, struct file *filp)
-+static int blkdev_release(struct inode *inode, struct file *filp)
++static void *swsusp_holder;
++
+ /**
+  *      swsusp_check - Check for swsusp signature in the resume device
+  */
+@@ -1517,14 +1519,13 @@ int swsusp_read(unsigned int *flags_p)
+ int swsusp_check(bool snapshot_test)
  {
- 	struct block_device *bdev = filp->private_data;
+ 	int error;
+-	void *holder;
+ 	fmode_t mode = FMODE_READ;
  
-@@ -677,7 +677,7 @@ static long blkdev_fallocate(struct file *file, int mode, loff_t start,
+ 	if (snapshot_test)
+ 		mode |= FMODE_EXCL;
  
- const struct file_operations def_blk_fops = {
- 	.open		= blkdev_open,
--	.release	= blkdev_close,
-+	.release	= blkdev_release,
- 	.llseek		= blkdev_llseek,
- 	.read_iter	= blkdev_read_iter,
- 	.write_iter	= blkdev_write_iter,
+ 	hib_resume_bdev = blkdev_get_by_dev(swsusp_resume_device,
+-					    mode, &holder, NULL);
++					    mode, &swsusp_holder, NULL);
+ 	if (!IS_ERR(hib_resume_bdev)) {
+ 		set_blocksize(hib_resume_bdev, PAGE_SIZE);
+ 		clear_page(swsusp_header);
 -- 
 2.39.2
 
