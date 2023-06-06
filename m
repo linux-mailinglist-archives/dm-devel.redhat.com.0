@@ -1,97 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 48C5472488F
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 18:11:14 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id CF8F77248BA
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 18:14:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686067873;
+	s=mimecast20190719; t=1686068098;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xmlQOGY/+a7BmAijNXkCD+TDxzlGqHh4GhEWSMWJqbo=;
-	b=a1auV6nas3qFmsSUVCG2m9SoR4yNYMwEcFMnZDAGsuVsON6diP1ckPQNj/DssbZAps7LMs
-	Z6OumiGd24JiH4MvXFgFYLt3CyT2QRsG1qSJ1JRhhFqhZWrdWf6AFTmA8qS9qKxoaBfFAQ
-	Q+SU42M+Wqg+1kCGictyXJdDRdJBBtM=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=9hJKALK4MClNB/A2bmnEq5x7K5W+hF7d0g6AnFCM1Fs=;
+	b=exbWj6L66zMoTHpluxXoEgyMyGjrE2Q0tUm/TgSm8kEpVKF3j86oohfJpE+5qSK1UPO2Sj
+	eyixqP/udF+8h1TQeWmWPR1Z08bCCHVqmsPizbszxJOzlNrzW4tUO3dmMEZ2AIDVErOUGB
+	YZlKi+boCkd0Ss4gxckbjGuEwdYrr9M=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-256-eWdjcd-PP0u6BHYXsPnZUA-1; Tue, 06 Jun 2023 12:11:11 -0400
-X-MC-Unique: eWdjcd-PP0u6BHYXsPnZUA-1
+ us-mta-641-nlmYxjYqNreiUO_CGWnrMA-1; Tue, 06 Jun 2023 12:14:38 -0400
+X-MC-Unique: nlmYxjYqNreiUO_CGWnrMA-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4689811E7C;
-	Tue,  6 Jun 2023 16:11:08 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 560E62A2AD50;
+	Tue,  6 Jun 2023 16:13:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B248E40CFD46;
-	Tue,  6 Jun 2023 16:11:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D834B40CFD47;
+	Tue,  6 Jun 2023 16:13:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F78619452C4;
-	Tue,  6 Jun 2023 16:11:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4504D19452C4;
+	Tue,  6 Jun 2023 16:13:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6CEC019465BA
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
+ ESMTP id 1D4D619465BA
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 16:13:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 583272166B26; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
+ id EBFFB1121315; Tue,  6 Jun 2023 16:13:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FB6F2166B25
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E4B4C1121314
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 16:13:43 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2FABB3813F2B
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
-Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
- [209.85.160.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C63D03C0F22D
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 16:13:43 +0000 (UTC)
+Received: from mail-qv1-f41.google.com (mail-qv1-f41.google.com
+ [209.85.219.41]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-307-ntmvy6r3MIeXlJk6KLratw-1; Tue, 06 Jun 2023 12:11:02 -0400
-X-MC-Unique: ntmvy6r3MIeXlJk6KLratw-1
-Received: by mail-qt1-f181.google.com with SMTP id
- d75a77b69052e-3f6c0d651adso69128031cf.2
- for <dm-devel@redhat.com>; Tue, 06 Jun 2023 09:11:02 -0700 (PDT)
+ us-mta-205-4sLj8wNVO8W27-CXkeDKyg-1; Tue, 06 Jun 2023 12:13:42 -0400
+X-MC-Unique: 4sLj8wNVO8W27-CXkeDKyg-1
+Received: by mail-qv1-f41.google.com with SMTP id
+ 6a1803df08f44-626149fbc8eso62394396d6.3
+ for <dm-devel@redhat.com>; Tue, 06 Jun 2023 09:13:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686067862; x=1688659862;
+ d=1e100.net; s=20221208; t=1686068021; x=1688660021;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=c77FQ3Gb2vrcGihgJEF093Ohpu3iXSY3aGqHmmdBFIM=;
- b=HZrZXTc/uLprsjcJ3ON7Qp2xFySQqptdNKxMn3Q4ck8XNxfj4qhfE8yZrTLcrqt3wx
- n2wzcwwB144PQ8uPzKCRiCtMXGAAdMqmKVASkg+/WPwezrQMuF5nashv8BbcnOerGGV/
- jQheFItcbFnOzLqo0b62E99KZu+CXKDWlkZuIafWqlZqXWqRtOhf9pruKaIjw9585PgP
- EsPRiHbx8r5AMPJOaTrEjWuRBZNxF3W+QIolKeRjFpMT7y0OykO8JIO/KdY5db056JCG
- uqNF9m28rSz68yXD1UYEO6UdSWx2rQh5TUPYxTjNhE2MwNzIaKXdnG10teWUMiyEH6XR
- HXSw==
-X-Gm-Message-State: AC+VfDzQtnEnq/KgBCdcBQ0Z+Ar0NI5UnI5fSdzo2b0j5kf1XrxNLQ0C
- UXBReu+kF7JLC+ljJB3FAMEA3Ug=
-X-Google-Smtp-Source: ACHHUZ5i75dZP6S4D/vN4PsonNhq015+FVRez3l0K1i/H5iefxLOdjHeanpRg/gCpFGqtrMsWtSrvA==
-X-Received: by 2002:a05:622a:19a9:b0:3f8:6cf6:a412 with SMTP id
- u41-20020a05622a19a900b003f86cf6a412mr69476qtc.43.1686067862062; 
- Tue, 06 Jun 2023 09:11:02 -0700 (PDT)
+ bh=pvoMJuSZUTE86J2NoS1R2Wk8beN5EcZS9dtT2PpXBBE=;
+ b=Gt5zMv9rtdq4TKYHblkBTx5wFdbWLWofX/X/37qz5RlaO8PQj7a6wXpvJMrdvqTbeh
+ NjCvY94jyEeyDhxgYxiOSPPk0ybOoenCwsjY7e3kEB8l4t1Rac5ASBL+uNTwMwvS7O/s
+ KSiVVAduEGavqdDPZSm3cvKbcxmCrbqh+M2KN1hc68zAOixRxNYHJOYBjKbgjOPmKbqP
+ UnVCp1r9ndtLIycv6MowVz+Lb1hJUd68d8BNafSn40JMMAZPYYeR+YPEQRGBcPgIDVkE
+ iKZ8hJ2/l2C9wjNhsNtzlDpVVAtluGwkk6ggXo8fOJgO/BNuPVYhTooJyhFAOf8nyifg
+ 9CLw==
+X-Gm-Message-State: AC+VfDwMzjYVXaL6tyGLYjOAuB+0e8hKV0gu/Egi2IUBmIErELIqEGLg
+ 7pE1fywhSxWW9wjlHra9gWJAUC0=
+X-Google-Smtp-Source: ACHHUZ5qzOXOek98pMB0JPWvzatF/yDipaVz04OAtt6PZwHKRW9nr0BfKhp8DQ35Rjx+AlLCeBpRGg==
+X-Received: by 2002:a05:6214:2263:b0:625:aa49:9abc with SMTP id
+ gs3-20020a056214226300b00625aa499abcmr2762701qvb.64.1686068020628; 
+ Tue, 06 Jun 2023 09:13:40 -0700 (PDT)
 Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
  [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- g1-20020ac87d01000000b003f27719c179sm5620008qtb.69.2023.06.06.09.11.01
+ cc21-20020a05622a411500b003f6b32a1049sm3021766qtb.55.2023.06.06.09.13.40
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Tue, 06 Jun 2023 09:11:01 -0700 (PDT)
-Date: Tue, 6 Jun 2023 12:11:00 -0400
+ Tue, 06 Jun 2023 09:13:40 -0700 (PDT)
+Date: Tue, 6 Jun 2023 12:13:39 -0400
 From: Mike Snitzer <snitzer@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <ZH9alEbuNxHNwYYe@redhat.com>
+Message-ID: <ZH9bMx10optlZZlf@redhat.com>
 References: <20230601072829.1258286-1-hch@lst.de>
+ <20230601072829.1258286-4-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20230601072829.1258286-1-hch@lst.de>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] enforce read-only state at the block layer
+In-Reply-To: <20230601072829.1258286-4-hch@lst.de>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH 3/3] block: fail writes to read-only devices
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,30 +118,29 @@ Content-Transfer-Encoding: 7bit
 On Thu, Jun 01 2023 at  3:28P -0400,
 Christoph Hellwig <hch@lst.de> wrote:
 
-> Hi all,
+> Currently callers can happily submit writes to block devices that are
+> marked read-only, including to drivers that don't even support writes
+> and will crash when fed such bios.
 > 
-> I've recently got a report where a file system can write to a read-only
-> block device, and while I've not found the root cause yet, it is very
-> clear that we should not prevents writes to read-only at all.
+> While bio submitter should check for read-only devices, that's not a
+> very robust way of dealing with this.
 > 
-> This did in fact get fixed 5 years ago, but Linus reverted it as older
-> lvm2 tools relying on this broken behavior.  This series tries to
-> restore it, although I'm still worried about thee older lvm2 tools
-> to be honest.  Question to the device mapper maintainers:  is the
-> any good way to work around that behavior in device mapper if needed
-> instead of leaving the core block layer and drivers exposed?
+> Note that the last attempt to do this got reverted by Linus in commit
+> a32e236eb93e ("Partially revert "block: fail op_is_write() requests to
+> read-only partitions") because device mapper relyied on not enforcing
+> the read-only state when used together with older lvm-tools.
+> 
+> The lvm side got fixed in:
+> 
+>     https://sourceware.org/git/?p=lvm2.git;a=commit;h=a6fdb9d9d70f51c49ad11a87ab4243344e6701a3
+> 
+> but if people still have older lvm2 tools in use we probably need
+> to find a workaround for this in device mapper rather than lacking
+> the core block layer checks.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-Given the block core change (in patch 3) _and_ old lvm2 code: it'll
-obviously fail.
-
-Not sure of a crafty hack to workaround. Hopefully 5 year old lvm2
-remains tightly coupled to kernels of the same vintage and we get
-lucky moving forward.
-
-So I agree with Linus, worth trying this simple change again and
-seeing if there is fallout. Revert/worry about it again as needed.
-
-Mike
+Reviewed-by: Mike Snitzer <snitzer@kernel.org>
 
 --
 dm-devel mailing list
