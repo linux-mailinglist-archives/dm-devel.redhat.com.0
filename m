@@ -1,76 +1,88 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DA2FB7239B0
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:42:12 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 236477254B1
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 08:50:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686037331;
+	s=mimecast20190719; t=1686120602;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NdMkGkidkNmnwkAUVIsZ5TzVNxAJOdn/AQ8flLoorD0=;
-	b=V6hTtQxs3f2EMiiNuTFr2rRQN/xLiCAXXih6uxnMGGWLHpMVGib5PekfEqTEb0C1JKrnbt
-	AhxY8ufx6vVQMWvgaqANYQgytSQ/DOK3juRXP7O2aydJVr6mvSxPvZHsT5QcoC0ekuYbA/
-	+s4c/EuITvGxCjDIT03uhzGmEpWI3YQ=
+	bh=jeMpnE7bU7+4sFX9XlH9bx6wvvNg5nT5hWbFxahcjpw=;
+	b=O9OcvCE+HAE9gT76mY5ysUY1KEpfytODhbTE2FIQ9vihPFgdI78yI20QngAjjWWTAXP3vP
+	SVeW6rU9KmpnbiODD6BvpGwRDFpCydQSDm+ahkU4LFj27HMr1hRvgIE5SeudgzmHzl/Fyh
+	jKoGag/sF94QwEKyGKIu6pEoFjkcl0U=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-147-lx0NfnqvPZqGi0jActawEw-1; Tue, 06 Jun 2023 03:42:10 -0400
-X-MC-Unique: lx0NfnqvPZqGi0jActawEw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-447-3kLWWfhfOEi5bRL8c_TFNA-1; Wed, 07 Jun 2023 02:49:04 -0400
+X-MC-Unique: 3kLWWfhfOEi5bRL8c_TFNA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D5F08858280;
-	Tue,  6 Jun 2023 07:42:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3DCD5100F661;
+	Wed,  7 Jun 2023 06:49:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B1B2340CFD47;
-	Tue,  6 Jun 2023 07:42:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2584E1121315;
+	Wed,  7 Jun 2023 06:49:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 91CB519459F1;
-	Tue,  6 Jun 2023 07:42:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E7A8D19452CC;
+	Wed,  7 Jun 2023 06:49:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9004619452C4
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:41:57 +0000 (UTC)
+ ESMTP id 6CE831946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 08:29:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BFEB24021AC; Tue,  6 Jun 2023 07:41:57 +0000 (UTC)
+ id 51295400F4E; Tue,  6 Jun 2023 08:29:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B7E714021AB
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:57 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 490F3403367
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 08:29:49 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 906DD384708B
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:57 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-672-Xtx5JTV_N0ONtYSVIbX6lg-1; Tue, 06 Jun 2023 03:41:55 -0400
-X-MC-Unique: Xtx5JTV_N0ONtYSVIbX6lg-1
-Received: from
- 2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
- ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q6RJx-000aH6-0p; Tue, 06 Jun 2023 07:41:37 +0000
-From: Christoph Hellwig <hch@lst.de>
-To: Jens Axboe <axboe@kernel.dk>
-Date: Tue,  6 Jun 2023 09:39:50 +0200
-Message-Id: <20230606073950.225178-32-hch@lst.de>
-In-Reply-To: <20230606073950.225178-1-hch@lst.de>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED0B51C0A580
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 08:29:48 +0000 (UTC)
+Received: from lithops.sigma-star.at (lithops.sigma-star.at
+ [195.201.40.130]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-614-k4E0gbF5MKKvBTG2Nom9CQ-1; Tue, 06 Jun 2023 04:29:45 -0400
+X-MC-Unique: k4E0gbF5MKKvBTG2Nom9CQ-1
+Received: from localhost (localhost [127.0.0.1])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 89E7C63CC135;
+ Tue,  6 Jun 2023 10:20:47 +0200 (CEST)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+ by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10032)
+ with ESMTP id w2bdPD93IvhE; Tue,  6 Jun 2023 10:20:47 +0200 (CEST)
+Received: from localhost (localhost [127.0.0.1])
+ by lithops.sigma-star.at (Postfix) with ESMTP id 14A1D616B2CD;
+ Tue,  6 Jun 2023 10:20:47 +0200 (CEST)
+Received: from lithops.sigma-star.at ([127.0.0.1])
+ by localhost (lithops.sigma-star.at [127.0.0.1]) (amavisd-new, port 10026)
+ with ESMTP id X5LSD106M-YC; Tue,  6 Jun 2023 10:20:46 +0200 (CEST)
+Received: from lithops.sigma-star.at (lithops.sigma-star.at [195.201.40.130])
+ by lithops.sigma-star.at (Postfix) with ESMTP id D62D563CC135;
+ Tue,  6 Jun 2023 10:20:46 +0200 (CEST)
+Date: Tue, 6 Jun 2023 10:20:46 +0200 (CEST)
+From: Richard Weinberger <richard@nod.at>
+To: hch <hch@lst.de>
+Message-ID: <766259639.3687124.1686039646763.JavaMail.zimbra@nod.at>
+In-Reply-To: <20230606073950.225178-26-hch@lst.de>
 References: <20230606073950.225178-1-hch@lst.de>
+ <20230606073950.225178-26-hch@lst.de>
 MIME-Version: 1.0
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Originating-IP: [195.201.40.130]
+Thread-Topic: remove commented out code in ubd_open
+Thread-Index: XkjrL/wptcQ24bQlPJHDQOJLYTpcmQ==
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -78,8 +90,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH 31/31] fs: remove the now unused FMODE_* flags
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Mailman-Approved-At: Wed, 07 Jun 2023 06:49:00 +0000
+Subject: Re: [dm-devel] [PATCH 25/31] ubd: remove commented out code in
+ ubd_open
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,57 +108,45 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
  Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
- dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+ dm-devel <dm-devel@redhat.com>, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
  Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
  Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
- linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
- Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ linux-scsi@vger.kernel.org, linux-pm <linux-pm@vger.kernel.org>,
+ linux-um <linux-um@lists.infradead.org>, Josef Bacik <josef@toxicpanda.com>,
+ Coly Li <colyli@suse.de>, linux-block <linux-block@vger.kernel.org>,
+ linux-bcache@vger.kernel.org, Al Viro <viro@zeniv.linux.org.uk>,
+ David Sterba <dsterba@suse.com>, Jens Axboe <axboe@kernel.dk>,
  Christian Brauner <brauner@kernel.org>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
+ linux-f2fs-devel <linux-f2fs-devel@lists.sourceforge.net>,
+ linux-fsdevel <linux-fsdevel@vger.kernel.org>,
+ linux-mtd <linux-mtd@lists.infradead.org>,
+ linux-btrfs <linux-btrfs@vger.kernel.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: lst.de
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: nod.at
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-FMODE_NDELAY, FMODE_EXCL and FMODE_WRITE_IOCTL were only used for
-block internal purposed and are now entirely unused, so remove them.
-
-Signed-off-by: Christoph Hellwig <hch@lst.de>
----
- include/linux/fs.h | 7 -------
- 1 file changed, 7 deletions(-)
-
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index ad1d2c9afb3fa4..8045c7ef4000c2 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -119,13 +119,6 @@ typedef int (dio_iodone_t)(struct kiocb *iocb, loff_t offset,
- #define FMODE_PWRITE		((__force fmode_t)0x10)
- /* File is opened for execution with sys_execve / sys_uselib */
- #define FMODE_EXEC		((__force fmode_t)0x20)
--/* File is opened with O_NDELAY (only set for block devices) */
--#define FMODE_NDELAY		((__force fmode_t)0x40)
--/* File is opened with O_EXCL (only set for block devices) */
--#define FMODE_EXCL		((__force fmode_t)0x80)
--/* File is opened using open(.., 3, ..) and is writeable only for ioctls
--   (specialy hack for floppy.c) */
--#define FMODE_WRITE_IOCTL	((__force fmode_t)0x100)
- /* 32bit hashes as llseek() offset (for directories) */
- #define FMODE_32BITHASH         ((__force fmode_t)0x200)
- /* 64bit hashes as llseek() offset (for directories) */
--- 
-2.39.2
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+LS0tLS0gVXJzcHLDvG5nbGljaGUgTWFpbCAtLS0tLQo+IFZvbjogImhjaCIgPGhjaEBsc3QuZGU+
+Cj4gVGhpcyBjb2RlIGhhcyBiZWVuIGRlYWQgZm9yZXZlciwgbWFrZSBzdXJlIGl0IGRvZXNuJ3Qg
+c2hvdyB1cCBpbiBjb2RlCj4gc2VhcmNoZXMuCj4gCj4gU2lnbmVkLW9mZi1ieTogQ2hyaXN0b3Bo
+IEhlbGx3aWcgPGhjaEBsc3QuZGU+Cj4gLS0tCj4gYXJjaC91bS9kcml2ZXJzL3ViZF9rZXJuLmMg
+fCA3IC0tLS0tLS0KPiAxIGZpbGUgY2hhbmdlZCwgNyBkZWxldGlvbnMoLSkKPiAKPiBkaWZmIC0t
+Z2l0IGEvYXJjaC91bS9kcml2ZXJzL3ViZF9rZXJuLmMgYi9hcmNoL3VtL2RyaXZlcnMvdWJkX2tl
+cm4uYwo+IGluZGV4IDhiNzk1NTQ5NjhhZGRiLi4yMGMxYTE2MTk5YzUwMyAxMDA2NDQKPiAtLS0g
+YS9hcmNoL3VtL2RyaXZlcnMvdWJkX2tlcm4uYwo+ICsrKyBiL2FyY2gvdW0vZHJpdmVycy91YmRf
+a2Vybi5jCj4gQEAgLTExNzAsMTMgKzExNzAsNiBAQCBzdGF0aWMgaW50IHViZF9vcGVuKHN0cnVj
+dCBnZW5kaXNrICpkaXNrLCBmbW9kZV90IG1vZGUpCj4gCX0KPiAJdWJkX2Rldi0+Y291bnQrKzsK
+PiAJc2V0X2Rpc2tfcm8oZGlzaywgIXViZF9kZXYtPm9wZW5mbGFncy53KTsKPiAtCj4gLQkvKiBU
+aGlzIHNob3VsZCBubyBtb3JlIGJlIG5lZWRlZC4gQW5kIGl0IGRpZG4ndCB3b3JrIGFueXdheSB0
+byBleGNsdWRlCj4gLQkgKiByZWFkLXdyaXRlIHJlbW91bnRpbmcgb2YgZmlsZXN5c3RlbXMuKi8K
+PiAtCS8qaWYoKG1vZGUgJiBGTU9ERV9XUklURSkgJiYgIXViZF9kZXYtPm9wZW5mbGFncy53KXsK
+PiAtCSAgICAgICAgaWYoLS11YmRfZGV2LT5jb3VudCA9PSAwKSB1YmRfY2xvc2VfZGV2KHViZF9k
+ZXYpOwo+IC0JICAgICAgICBlcnIgPSAtRVJPRlM7Cj4gLQl9Ki8KCkFja2VkLWJ5OiBSaWNoYXJk
+IFdlaW5iZXJnZXIgPHJpY2hhcmRAbm9kLmF0PgoKVGhhbmtzLAovL3JpY2hhcmQKCi0tCmRtLWRl
+dmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRo
+YXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
