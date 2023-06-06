@@ -2,70 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9A439723AAF
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:54:41 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3E2C0723A80
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:51:56 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686038080;
+	s=mimecast20190719; t=1686037915;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=gSos/1DnX78LNmWV/1f7ulBR95w0MBD129C6QZeubj8=;
-	b=dKK8Llpbn/pQ4cI3z9BePoS6alH2jphEkgBa1PG3ULm1P8RBNCWsprADhePzXpCHmn2m99
-	NUS08sMPBCMAc7QMFL7FXswsi7AnpEKdnwKIgxPuGnotddlsiqumoWqNFEEv3mNKahsDBY
-	Sglg91lfQhZ+pqte6dYpDFfFZuiHZjk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ljwHkQ6KRAedhHAre7a6iRIcwVwH8lqMzOPwr19iyZo=;
+	b=ZFYeCjPhzI7IF6xCtIEXg1wX7GCCPnHa47dxEKYTTkTMxiRZfG9Lu/NqCRhlrreMMMoxlL
+	3zvEjXzYd7M3AvoCIMJlj0eKw263laj5UX3DmVDJOm3KR4szS7+g7njlAPD+LdrBZIFMDH
+	OqB+1/ewZnRzQCqb/T318Jng5n3eNoI=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-25-pism2OFjPcGRlc1ZKc40rw-1; Tue, 06 Jun 2023 03:54:39 -0400
-X-MC-Unique: pism2OFjPcGRlc1ZKc40rw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-411-l5kd_jvbM-q6K53SBb5BYQ-1; Tue, 06 Jun 2023 03:51:53 -0400
+X-MC-Unique: l5kd_jvbM-q6K53SBb5BYQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D61685A5BD;
-	Tue,  6 Jun 2023 07:54:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91F771C068C6;
+	Tue,  6 Jun 2023 07:51:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DDBA40CFD48;
-	Tue,  6 Jun 2023 07:54:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 44C0B2166B25;
+	Tue,  6 Jun 2023 07:51:42 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AEBC81946A42;
-	Tue,  6 Jun 2023 07:54:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DE64A1946A42;
+	Tue,  6 Jun 2023 07:51:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B55041946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:54:33 +0000 (UTC)
+ ESMTP id D1FF61946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:51:39 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 95DA79E8B; Tue,  6 Jun 2023 07:54:33 +0000 (UTC)
+ id 681DE40D1B66; Tue,  6 Jun 2023 07:51:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8E03D7AE4
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:54:33 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6037F40D1B69
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:51:39 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 634623C0F22D
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:54:33 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 370438027F5
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:51:39 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-70-cBbjXVNKNBCCSXEnKnEIyQ-1; Tue, 06 Jun 2023 03:54:31 -0400
-X-MC-Unique: cBbjXVNKNBCCSXEnKnEIyQ-1
+ us-mta-135-J8RZCL_BO8601GkInQTEtQ-1; Tue, 06 Jun 2023 03:51:37 -0400
+X-MC-Unique: J8RZCL_BO8601GkInQTEtQ-1
 Received: from
  2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q6RIK-000YaI-16; Tue, 06 Jun 2023 07:39:56 +0000
+ id 1q6RIN-000Yal-0r; Tue, 06 Jun 2023 07:39:59 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue,  6 Jun 2023 09:39:20 +0200
-Message-Id: <20230606073950.225178-2-hch@lst.de>
+Date: Tue,  6 Jun 2023 09:39:21 +0200
+Message-Id: <20230606073950.225178-3-hch@lst.de>
 In-Reply-To: <20230606073950.225178-1-hch@lst.de>
 References: <20230606073950.225178-1-hch@lst.de>
 MIME-Version: 1.0
@@ -78,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [PATCH 01/31] block: also call ->open for incremental
- partition opens
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH 02/31] cdrom: remove the unused bdev argument to
+ cdrom_open
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,65 +109,74 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-For whole devices ->open is called for each open, but for partitions it
-is only called on the first open of a partition.  This is problematic
-as various block drivers look at open flags and might not do all setup
-for ioctl only or NDELAY opens.
-
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- block/bdev.c | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+ drivers/cdrom/cdrom.c | 3 +--
+ drivers/cdrom/gdrom.c | 2 +-
+ drivers/scsi/sr.c     | 2 +-
+ include/linux/cdrom.h | 3 +--
+ 4 files changed, 4 insertions(+), 6 deletions(-)
 
-diff --git a/block/bdev.c b/block/bdev.c
-index 5c46ff10770638..981f6135795138 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -683,9 +683,6 @@ static int blkdev_get_part(struct block_device *part, fmode_t mode)
- 	struct gendisk *disk = part->bd_disk;
+diff --git a/drivers/cdrom/cdrom.c b/drivers/cdrom/cdrom.c
+index 416f723a2dbb33..e3eab319cb0474 100644
+--- a/drivers/cdrom/cdrom.c
++++ b/drivers/cdrom/cdrom.c
+@@ -1155,8 +1155,7 @@ int open_for_data(struct cdrom_device_info *cdi)
+  * is in their own interest: device control becomes a lot easier
+  * this way.
+  */
+-int cdrom_open(struct cdrom_device_info *cdi, struct block_device *bdev,
+-	       fmode_t mode)
++int cdrom_open(struct cdrom_device_info *cdi, fmode_t mode)
+ {
  	int ret;
  
--	if (atomic_read(&part->bd_openers))
--		goto done;
--
- 	ret = blkdev_get_whole(bdev_whole(part), mode);
- 	if (ret)
- 		return ret;
-@@ -694,9 +691,10 @@ static int blkdev_get_part(struct block_device *part, fmode_t mode)
- 	if (!bdev_nr_sectors(part))
- 		goto out_blkdev_put;
+diff --git a/drivers/cdrom/gdrom.c b/drivers/cdrom/gdrom.c
+index ceded5772aac6d..eaa2d5a90bc82f 100644
+--- a/drivers/cdrom/gdrom.c
++++ b/drivers/cdrom/gdrom.c
+@@ -481,7 +481,7 @@ static int gdrom_bdops_open(struct block_device *bdev, fmode_t mode)
+ 	bdev_check_media_change(bdev);
  
--	disk->open_partitions++;
--	set_init_blocksize(part);
--done:
-+	if (!atomic_read(&part->bd_openers)) {
-+		disk->open_partitions++;
-+		set_init_blocksize(part);
-+	}
- 	atomic_inc(&part->bd_openers);
- 	return 0;
- 
-@@ -709,10 +707,10 @@ static void blkdev_put_part(struct block_device *part, fmode_t mode)
- {
- 	struct block_device *whole = bdev_whole(part);
- 
--	if (!atomic_dec_and_test(&part->bd_openers))
--		return;
--	blkdev_flush_mapping(part);
--	whole->bd_disk->open_partitions--;
-+	if (atomic_dec_and_test(&part->bd_openers)) {
-+		blkdev_flush_mapping(part);
-+		whole->bd_disk->open_partitions--;
-+	}
- 	blkdev_put_whole(whole, mode);
+ 	mutex_lock(&gdrom_mutex);
+-	ret = cdrom_open(gd.cd_info, bdev, mode);
++	ret = cdrom_open(gd.cd_info, mode);
+ 	mutex_unlock(&gdrom_mutex);
+ 	return ret;
  }
+diff --git a/drivers/scsi/sr.c b/drivers/scsi/sr.c
+index 12869e6d4ebda8..61b83880e395a4 100644
+--- a/drivers/scsi/sr.c
++++ b/drivers/scsi/sr.c
+@@ -498,7 +498,7 @@ static int sr_block_open(struct block_device *bdev, fmode_t mode)
+ 		sr_revalidate_disk(cd);
  
+ 	mutex_lock(&cd->lock);
+-	ret = cdrom_open(&cd->cdi, bdev, mode);
++	ret = cdrom_open(&cd->cdi, mode);
+ 	mutex_unlock(&cd->lock);
+ 
+ 	scsi_autopm_put_device(sdev);
+diff --git a/include/linux/cdrom.h b/include/linux/cdrom.h
+index 67caa909e3e615..cc5717cb0fa8a8 100644
+--- a/include/linux/cdrom.h
++++ b/include/linux/cdrom.h
+@@ -101,8 +101,7 @@ int cdrom_read_tocentry(struct cdrom_device_info *cdi,
+ 		struct cdrom_tocentry *entry);
+ 
+ /* the general block_device operations structure: */
+-extern int cdrom_open(struct cdrom_device_info *cdi, struct block_device *bdev,
+-			fmode_t mode);
++int cdrom_open(struct cdrom_device_info *cdi, fmode_t mode);
+ extern void cdrom_release(struct cdrom_device_info *cdi, fmode_t mode);
+ extern int cdrom_ioctl(struct cdrom_device_info *cdi, struct block_device *bdev,
+ 		       fmode_t mode, unsigned int cmd, unsigned long arg);
 -- 
 2.39.2
 
