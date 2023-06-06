@@ -2,70 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D416723A94
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:53:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3517E7239AC
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:42:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686037984;
+	s=mimecast20190719; t=1686037323;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=e2XSZvTo/DgUCytZ5bc4j+4PjoiwJgNFl3Ly7Ipt7l4=;
-	b=ODQWWDibzuRpMP3vEj9ZSYZW2ib0Yukx+jEzAM4s9uenHG3K5Yt/oXqEvC6PqrwEbu9kw7
-	Ak5DnMARGi794LD7K3QiQJe3PejPB5Q1j/PYtfJ4j8oblbpTHUWKbzEtL6WKDnH08t0SUM
-	5zs+qBPpd4ARx0etD2Edp2pxMaPg8cA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=fxfNpD8Xt0M8F0Ww5U4V4+PFJ+G/pT62lY0lH7pptcE=;
+	b=RAaoJSa/Ch71y5A+6/wZRCi53hLL9gq/Hm+64jfO5p8QH1WlyDeW9mxI4jR0F1aHwit+Xl
+	xuq82hKDMZ9rjtOq0ibvfZxdqkAAPov7C918H8ueW+4i37sSLeVPnJ5q/4rdrltG75Y6/K
+	zO545iVbw/Z4Jhd6M6N93FVC5T8CM8c=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-609--rJGIHlQPCWhVlEp0thtyA-1; Tue, 06 Jun 2023 03:52:06 -0400
-X-MC-Unique: -rJGIHlQPCWhVlEp0thtyA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-534-nn8TBLFWM-yQxy0z9HXsxA-1; Tue, 06 Jun 2023 03:41:24 -0400
+X-MC-Unique: nn8TBLFWM-yQxy0z9HXsxA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AEA98038E8;
-	Tue,  6 Jun 2023 07:52:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EFA528135A1;
+	Tue,  6 Jun 2023 07:41:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2E22B2166B27;
-	Tue,  6 Jun 2023 07:52:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 82A4E1121314;
+	Tue,  6 Jun 2023 07:41:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A65721946A42;
-	Tue,  6 Jun 2023 07:52:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DFA831946A42;
+	Tue,  6 Jun 2023 07:41:15 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id EF8A71946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:52:00 +0000 (UTC)
+ ESMTP id 1D9521946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:41:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DC3CB1121319; Tue,  6 Jun 2023 07:52:00 +0000 (UTC)
+ id F18C89E8B; Tue,  6 Jun 2023 07:41:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D37D91121314
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:52:00 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E9BFF7AE4
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:14 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F7373C0F184
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:52:00 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDEB6811E78
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:14 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-223-BmLbXL4POeeYOwbBe2zfkA-1; Tue, 06 Jun 2023 03:51:58 -0400
-X-MC-Unique: BmLbXL4POeeYOwbBe2zfkA-1
+ us-mta-9-vF6CQGPIOji_rgb9TvZpUw-1; Tue, 06 Jun 2023 03:41:12 -0400
+X-MC-Unique: vF6CQGPIOji_rgb9TvZpUw-1
 Received: from
  2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q6RIy-000ZEq-1z; Tue, 06 Jun 2023 07:40:37 +0000
+ id 1q6RJ1-000ZIe-1I; Tue, 06 Jun 2023 07:40:39 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue,  6 Jun 2023 09:39:32 +0200
-Message-Id: <20230606073950.225178-14-hch@lst.de>
+Date: Tue,  6 Jun 2023 09:39:33 +0200
+Message-Id: <20230606073950.225178-15-hch@lst.de>
 In-Reply-To: <20230606073950.225178-1-hch@lst.de>
 References: <20230606073950.225178-1-hch@lst.de>
 MIME-Version: 1.0
@@ -78,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [dm-devel] [PATCH 13/31] bcache: don't pass a stack address to
- blkdev_get_by_path
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [PATCH 14/31] rnbd-srv: don't pass a holder for
+ non-exclusive blkdev_get_by_path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,34 +109,33 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-sb is just an on-stack pointer that can easily be reused by other calls.
-Switch to use the bcache-wide bcache_kobj instead as there is no need to
-claim per-bcache device anyway.
+Passing a holder to blkdev_get_by_path when FMODE_EXCL isn't set doesn't
+make sense, so pass NULL instead.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- drivers/md/bcache/super.c | 2 +-
+ drivers/block/rnbd/rnbd-srv.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/md/bcache/super.c b/drivers/md/bcache/super.c
-index 94b91c45c9e2a9..4a2aed047aec12 100644
---- a/drivers/md/bcache/super.c
-+++ b/drivers/md/bcache/super.c
-@@ -2560,7 +2560,7 @@ static ssize_t register_bcache(struct kobject *k, struct kobj_attribute *attr,
- 	err = "failed to open device";
- 	bdev = blkdev_get_by_path(strim(path),
- 				  FMODE_READ|FMODE_WRITE|FMODE_EXCL,
--				  sb, NULL);
-+				  bcache_kobj, NULL);
+diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.c
+index cec22bbae2f9a5..ce505e552f4d50 100644
+--- a/drivers/block/rnbd/rnbd-srv.c
++++ b/drivers/block/rnbd/rnbd-srv.c
+@@ -719,7 +719,7 @@ static int process_msg_open(struct rnbd_srv_session *srv_sess,
+ 		goto reject;
+ 	}
+ 
+-	bdev = blkdev_get_by_path(full_path, open_flags, THIS_MODULE, NULL);
++	bdev = blkdev_get_by_path(full_path, open_flags, NULL, NULL);
  	if (IS_ERR(bdev)) {
- 		if (bdev == ERR_PTR(-EBUSY)) {
- 			dev_t dev;
+ 		ret = PTR_ERR(bdev);
+ 		pr_err("Opening device '%s' on session %s failed, failed to open the block device, err: %d\n",
 -- 
 2.39.2
 
