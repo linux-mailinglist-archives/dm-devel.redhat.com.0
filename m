@@ -2,70 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74B8C723987
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:41:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8931D72398C
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:41:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686037289;
+	s=mimecast20190719; t=1686037292;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ZNvX5ItvblYI9q4poYa4bc1nln7/7DRcaTaNDFe4agA=;
-	b=T5RldP1NXpehamg8f67B+XVASFd2GKgVIF0Z+UtaQsI+bUrzuDXPAnZzKxI1HSW2d69neG
-	OiMEDRFglrCCOFSUXOgm1BKkHUG1rTjyXQUajDnXw0i2ncZqfJBJwQqbexNQEDNsyEleKS
-	JPd99+0oc10gJAmj6TbVkBpLhQ3xZ84=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=5owiRyjZQmg31dycLfP2x+R9Frnc/LgtVNp5PSNpBXg=;
+	b=HKt4r20bV+ruQGtEiIxaj+7s5651Do+B6ZN83nJ+Sc+PFHIO/F5ldPYX8G5azd8uTz9ecS
+	tkkL5GKvU5RX3iKJ8LbPkVf0YnDt4HL+UoGmJcyXfjLPfroYUYWGsMUrDR8+UAnaTMJPSs
+	Lhg6OEDhLxcPnlsdm0FoRMc6yvvCy0I=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-255-LlC8725GP2a3-o4nYMcwFw-1; Tue, 06 Jun 2023 03:41:25 -0400
-X-MC-Unique: LlC8725GP2a3-o4nYMcwFw-1
+ us-mta-385-ucSAHB99PoCVwKGZUmDT5g-1; Tue, 06 Jun 2023 03:41:30 -0400
+X-MC-Unique: ucSAHB99PoCVwKGZUmDT5g-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 902583847090;
-	Tue,  6 Jun 2023 07:41:20 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D745D80331C;
+	Tue,  6 Jun 2023 07:41:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7568B403367;
-	Tue,  6 Jun 2023 07:41:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C2F5C400F4E;
+	Tue,  6 Jun 2023 07:41:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4D7191946A42;
-	Tue,  6 Jun 2023 07:41:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A1941946A42;
+	Tue,  6 Jun 2023 07:41:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD8B41946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:41:18 +0000 (UTC)
+ ESMTP id 106F01946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:41:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AE8CB492B00; Tue,  6 Jun 2023 07:41:18 +0000 (UTC)
+ id 039192166B27; Tue,  6 Jun 2023 07:41:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A652E48205E
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:18 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EFF032166B25
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:21 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75F348032FF
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:18 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C524F80120A
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:41:21 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-639-VhYjIBdzNXS__oaQbkT2Uw-1; Tue, 06 Jun 2023 03:41:14 -0400
-X-MC-Unique: VhYjIBdzNXS__oaQbkT2Uw-1
+ us-mta-83-hrg3W1b1Mv-53ex66cEtWA-1; Tue, 06 Jun 2023 03:41:20 -0400
+X-MC-Unique: hrg3W1b1Mv-53ex66cEtWA-1
 Received: from
  2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q6RJE-000ZZD-1u; Tue, 06 Jun 2023 07:40:52 +0000
+ id 1q6RJH-000Zcn-32; Tue, 06 Jun 2023 07:40:56 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Tue,  6 Jun 2023 09:39:37 +0200
-Message-Id: <20230606073950.225178-19-hch@lst.de>
+Date: Tue,  6 Jun 2023 09:39:38 +0200
+Message-Id: <20230606073950.225178-20-hch@lst.de>
 In-Reply-To: <20230606073950.225178-1-hch@lst.de>
 References: <20230606073950.225178-1-hch@lst.de>
 MIME-Version: 1.0
@@ -78,8 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH 18/31] fs: remove sb->s_mode
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH 19/31] scsi: replace the fmode_t argument to
+ scsi_cmd_allowed with a simple bool
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,96 +115,96 @@ X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-There is no real need to store the open mode in the super_block now.
-It is only used by f2fs, which can easily recalculate it.
+Instead of passing a fmode_t and only checking it for FMODE_WRITE, pass
+a bool open_for_write to prepare for callers that won't have the fmode_t.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 ---
- fs/f2fs/super.c    | 10 ++++++----
- fs/nilfs2/super.c  |  1 -
- fs/super.c         |  2 --
- include/linux/fs.h |  1 -
- 4 files changed, 6 insertions(+), 8 deletions(-)
+ drivers/scsi/scsi_bsg.c   | 2 +-
+ drivers/scsi/scsi_ioctl.c | 8 ++++----
+ drivers/scsi/sg.c         | 2 +-
+ include/scsi/scsi_ioctl.h | 2 +-
+ 4 files changed, 7 insertions(+), 7 deletions(-)
 
-diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
-index a5adb1d316e331..5a764fecd1c7ef 100644
---- a/fs/f2fs/super.c
-+++ b/fs/f2fs/super.c
-@@ -3993,6 +3993,7 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
- 	struct f2fs_super_block *raw_super = F2FS_RAW_SUPER(sbi);
- 	unsigned int max_devices = MAX_DEVICES;
- 	unsigned int logical_blksize;
-+	fmode_t mode = sb_open_mode(sbi->sb->s_flags);
- 	int i;
+diff --git a/drivers/scsi/scsi_bsg.c b/drivers/scsi/scsi_bsg.c
+index 96ee35256a168f..12431f35f861e1 100644
+--- a/drivers/scsi/scsi_bsg.c
++++ b/drivers/scsi/scsi_bsg.c
+@@ -42,7 +42,7 @@ static int scsi_bsg_sg_io_fn(struct request_queue *q, struct sg_io_v4 *hdr,
+ 	if (copy_from_user(scmd->cmnd, uptr64(hdr->request), scmd->cmd_len))
+ 		goto out_put_request;
+ 	ret = -EPERM;
+-	if (!scsi_cmd_allowed(scmd->cmnd, mode))
++	if (!scsi_cmd_allowed(scmd->cmnd, mode & FMODE_WRITE))
+ 		goto out_put_request;
  
- 	/* Initialize single device information */
-@@ -4024,8 +4025,8 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
- 		if (max_devices == 1) {
- 			/* Single zoned block device mount */
- 			FDEV(0).bdev =
--				blkdev_get_by_dev(sbi->sb->s_bdev->bd_dev,
--					sbi->sb->s_mode, sbi->sb->s_type, NULL);
-+				blkdev_get_by_dev(sbi->sb->s_bdev->bd_dev, mode,
-+						  sbi->sb->s_type, NULL);
- 		} else {
- 			/* Multi-device mount */
- 			memcpy(FDEV(i).path, RDEV(i).path, MAX_PATH_LEN);
-@@ -4043,8 +4044,9 @@ static int f2fs_scan_devices(struct f2fs_sb_info *sbi)
- 					(FDEV(i).total_segments <<
- 					sbi->log_blocks_per_seg) - 1;
- 			}
--			FDEV(i).bdev = blkdev_get_by_path(FDEV(i).path,
--					sbi->sb->s_mode, sbi->sb->s_type, NULL);
-+			FDEV(i).bdev = blkdev_get_by_path(FDEV(i).path, mode,
-+							  sbi->sb->s_type,
-+							  NULL);
- 		}
- 		if (IS_ERR(FDEV(i).bdev))
- 			return PTR_ERR(FDEV(i).bdev);
-diff --git a/fs/nilfs2/super.c b/fs/nilfs2/super.c
-index a41fd84d4e28ab..15a5a1099427d8 100644
---- a/fs/nilfs2/super.c
-+++ b/fs/nilfs2/super.c
-@@ -1316,7 +1316,6 @@ nilfs_mount(struct file_system_type *fs_type, int flags,
- 		s_new = true;
+ 	ret = 0;
+diff --git a/drivers/scsi/scsi_ioctl.c b/drivers/scsi/scsi_ioctl.c
+index e3b31d32b6a92e..dda5468ca97f90 100644
+--- a/drivers/scsi/scsi_ioctl.c
++++ b/drivers/scsi/scsi_ioctl.c
+@@ -248,7 +248,7 @@ static int scsi_send_start_stop(struct scsi_device *sdev, int data)
+  * Only a subset of commands are allowed for unprivileged users. Commands used
+  * to format the media, update the firmware, etc. are not permitted.
+  */
+-bool scsi_cmd_allowed(unsigned char *cmd, fmode_t mode)
++bool scsi_cmd_allowed(unsigned char *cmd, bool open_for_write)
+ {
+ 	/* root can do any command. */
+ 	if (capable(CAP_SYS_RAWIO))
+@@ -338,7 +338,7 @@ bool scsi_cmd_allowed(unsigned char *cmd, fmode_t mode)
+ 	case GPCMD_SET_READ_AHEAD:
+ 	/* ZBC */
+ 	case ZBC_OUT:
+-		return (mode & FMODE_WRITE);
++		return open_for_write;
+ 	default:
+ 		return false;
+ 	}
+@@ -354,7 +354,7 @@ static int scsi_fill_sghdr_rq(struct scsi_device *sdev, struct request *rq,
+ 		return -EMSGSIZE;
+ 	if (copy_from_user(scmd->cmnd, hdr->cmdp, hdr->cmd_len))
+ 		return -EFAULT;
+-	if (!scsi_cmd_allowed(scmd->cmnd, mode))
++	if (!scsi_cmd_allowed(scmd->cmnd, mode & FMODE_WRITE))
+ 		return -EPERM;
+ 	scmd->cmd_len = hdr->cmd_len;
  
- 		/* New superblock instance created */
--		s->s_mode = mode;
- 		snprintf(s->s_id, sizeof(s->s_id), "%pg", sd.bdev);
- 		sb_set_blocksize(s, block_size(sd.bdev));
+@@ -554,7 +554,7 @@ static int sg_scsi_ioctl(struct request_queue *q, fmode_t mode,
+ 		goto error;
  
-diff --git a/fs/super.c b/fs/super.c
-index dc7f328398339d..86f40f8981989d 100644
---- a/fs/super.c
-+++ b/fs/super.c
-@@ -1308,7 +1308,6 @@ int get_tree_bdev(struct fs_context *fc,
- 		blkdev_put(bdev, fc->fs_type);
- 		down_write(&s->s_umount);
- 	} else {
--		s->s_mode = mode;
- 		snprintf(s->s_id, sizeof(s->s_id), "%pg", bdev);
- 		shrinker_debugfs_rename(&s->s_shrink, "sb-%s:%s",
- 					fc->fs_type->name, s->s_id);
-@@ -1382,7 +1381,6 @@ struct dentry *mount_bdev(struct file_system_type *fs_type,
- 		blkdev_put(bdev, fs_type);
- 		down_write(&s->s_umount);
- 	} else {
--		s->s_mode = mode;
- 		snprintf(s->s_id, sizeof(s->s_id), "%pg", bdev);
- 		shrinker_debugfs_rename(&s->s_shrink, "sb-%s:%s",
- 					fs_type->name, s->s_id);
-diff --git a/include/linux/fs.h b/include/linux/fs.h
-index 7b2053649820cc..ad1d2c9afb3fa4 100644
---- a/include/linux/fs.h
-+++ b/include/linux/fs.h
-@@ -1215,7 +1215,6 @@ struct super_block {
- 	uuid_t			s_uuid;		/* UUID */
+ 	err = -EPERM;
+-	if (!scsi_cmd_allowed(scmd->cmnd, mode))
++	if (!scsi_cmd_allowed(scmd->cmnd, mode & FMODE_WRITE))
+ 		goto error;
  
- 	unsigned int		s_max_links;
--	fmode_t			s_mode;
+ 	/* default.  possible overridden later */
+diff --git a/drivers/scsi/sg.c b/drivers/scsi/sg.c
+index 037f8c98a6d364..e49ea693d0b656 100644
+--- a/drivers/scsi/sg.c
++++ b/drivers/scsi/sg.c
+@@ -237,7 +237,7 @@ static int sg_allow_access(struct file *filp, unsigned char *cmd)
  
- 	/*
- 	 * The next field is for VFS *only*. No filesystems have any business
+ 	if (sfp->parentdp->device->type == TYPE_SCANNER)
+ 		return 0;
+-	if (!scsi_cmd_allowed(cmd, filp->f_mode))
++	if (!scsi_cmd_allowed(cmd, filp->f_mode & FMODE_WRITE))
+ 		return -EPERM;
+ 	return 0;
+ }
+diff --git a/include/scsi/scsi_ioctl.h b/include/scsi/scsi_ioctl.h
+index beac64e38b8746..914201a8cb947c 100644
+--- a/include/scsi/scsi_ioctl.h
++++ b/include/scsi/scsi_ioctl.h
+@@ -49,7 +49,7 @@ int scsi_ioctl(struct scsi_device *sdev, fmode_t mode, int cmd,
+ 		void __user *arg);
+ int get_sg_io_hdr(struct sg_io_hdr *hdr, const void __user *argp);
+ int put_sg_io_hdr(const struct sg_io_hdr *hdr, void __user *argp);
+-bool scsi_cmd_allowed(unsigned char *cmd, fmode_t mode);
++bool scsi_cmd_allowed(unsigned char *cmd, bool open_for_write);
+ 
+ #endif /* __KERNEL__ */
+ #endif /* _SCSI_IOCTL_H */
 -- 
 2.39.2
 
