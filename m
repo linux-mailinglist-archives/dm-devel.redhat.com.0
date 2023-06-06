@@ -1,112 +1,179 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 89244723802
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 08:46:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 36987723623
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 06:18:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686033964;
+	s=mimecast20190719; t=1686025112;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=cOVpSpQuEQB26k+kchgrAGPr5qbGVplWO54NafQXK+g=;
-	b=DCslSJNzo5MLuiPCep+VcEgfrxu8VovlXom3+c0gXGz75TIdpMhGK2tE1ulFmUWSK7BAG9
-	QTnRy6ZMQesiN05C53YwvlvJDymlu1zaDPhyI0HLs6wx87n1fkemHi22CSBeqMAlM6+6mO
-	hwfJ+AWhlJkF66Uh0c9aaNoxIC0EQQg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=+EdPTke6aKSztKW7HtUnZD9Rg89yONCFBlvU/U+q7GI=;
+	b=bFByOT+XpVr6ZHiwXParSNosAULpuOUqMgAD4+kXVGCa1VNYuSlJYRfOEPNfn9FO17Xu0U
+	4KlS55PdRvND9vXef8DwTedsWIvg3HepOa2IX0ctHVt/miTESjVZrimng2YWNC6r49Px82
+	64LHhfa/mOYLwcM5D8AEmpO/uD2Dpug=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-44-nC4Wc2akNWSdR5xQUuIWSw-1; Tue, 06 Jun 2023 02:45:12 -0400
-X-MC-Unique: nC4Wc2akNWSdR5xQUuIWSw-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-577-H0r39blhNwi6f7trxN8TUg-1; Tue, 06 Jun 2023 00:18:30 -0400
+X-MC-Unique: H0r39blhNwi6f7trxN8TUg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 39025185A78F;
-	Tue,  6 Jun 2023 06:45:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A268A29DD987;
+	Tue,  6 Jun 2023 04:18:28 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 475589E8E;
-	Tue,  6 Jun 2023 06:45:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 82C50140E955;
+	Tue,  6 Jun 2023 04:18:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 044001946595;
-	Tue,  6 Jun 2023 06:45:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6D91F1946A41;
+	Tue,  6 Jun 2023 04:18:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 08DF41946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 02:18:41 +0000 (UTC)
+ ESMTP id 77D721946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 04:18:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 98BB749BB98; Tue,  6 Jun 2023 02:18:41 +0000 (UTC)
+ id 48F37140E955; Tue,  6 Jun 2023 04:18:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 91277403174
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 02:18:41 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 40AD3140E954
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 04:18:21 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70E7629A9CA6
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 02:18:41 +0000 (UTC)
-Received: from mail-ot1-f44.google.com (mail-ot1-f44.google.com
- [209.85.210.44]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-299-wgJoaQvSNVmQFj6B-tvgEg-1; Mon, 05 Jun 2023 22:18:37 -0400
-X-MC-Unique: wgJoaQvSNVmQFj6B-tvgEg-1
-Received: by mail-ot1-f44.google.com with SMTP id
- 46e09a7af769-6af6f49e41cso5204165a34.2; 
- Mon, 05 Jun 2023 19:18:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686017917; x=1688609917;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=Pq85JV2SdkTWT1UykTpgwMJ7kQGul6RVMXpZztrA70k=;
- b=ALScxAXZfrT9BPJUTkAeH2f8cYqLzBXaTf/a3oKF9zKW9UtGYAPWsWq8eBVk3xUIcY
- Jd8t90JZdVk7gmx/cmuNhxlPjygWg+xXmkv8RMuHFPs6YxxDjyLml22nFlNKFeu2M7Mz
- QIUVRxqQbXpo853W/qRz3cjtet+cBVRChokpyvp5RQ9OcKIrGuYjjbeyPst5nikt833V
- eDyJ3hzO5QfxTBTIawravz1KwvPUNY+DjNNcjFw2JipI1pIrbaU1576h6PrDZisrnDeG
- x0g5sc38MrMte482vHPlMGF/cChPPaSDrQEnpdxZS3dYNyv0u07Vi7EK59I+bNpVcRM2
- vFKA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686017917; x=1688609917;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=Pq85JV2SdkTWT1UykTpgwMJ7kQGul6RVMXpZztrA70k=;
- b=HacP1Uz5Ntw0UoZGyE03KiWZzC/yQdEOs8/t04lnIW7SCOuqgvN1RNRkwvsmPDwiv+
- Xm5HIHT5UHxgUV4oV3uDubvH1rS3Ls7ziZcC5cU8GxDaHuqQgdsISH2Cs+Q5Eb8TnGz4
- 42UnlGPnI63YXD1WpF7s2IzUXeOQJ9+J7G2qqftatfvZr/4d6wkleVMibtBxT7PrC5Ro
- NLT2Xaxh7svlFh/RD0fzH+4llj0/pVYwvyVIWSFLN65YIm7vtKNb+1uIKiBN/xpe9CKU
- j4XJX5WBmU187BqwLZxNE1emO55NIDHQW9UfwlIsVNc8Tmn4Z9MzQcCQmElFCo5qgEJx
- VlKw==
-X-Gm-Message-State: AC+VfDx0MpoKyyMD+P+n3FbnNdZ0x4sxiA4lZZy78S5xy70O550b2/pt
- KNQrIcm4ruomHt4QTd0TY2dLPp5iEqI=
-X-Google-Smtp-Source: ACHHUZ73hfAfBiMqB9tqWPbU/FwVETl7ryRQhqynyRWcQRUNX7uwhnkiuU+pE67e3wnEXA/xLD7HVg==
-X-Received: by 2002:a05:6358:bb89:b0:129:cf4e:c0e1 with SMTP id
- df9-20020a056358bb8900b00129cf4ec0e1mr796577rwb.32.1686017916654; 
- Mon, 05 Jun 2023 19:18:36 -0700 (PDT)
-Received: from debian.me (subs32-116-206-28-36.three.co.id. [116.206.28.36])
- by smtp.gmail.com with ESMTPSA id
- q5-20020a17090a4f8500b002563e8a0225sm6890499pjh.48.2023.06.05.19.18.35
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jun 2023 19:18:36 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id 604CB1069FD; Tue,  6 Jun 2023 09:18:32 +0700 (WIB)
-Date: Tue, 6 Jun 2023 09:18:32 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Russell Harmon <eatnumber1@gmail.com>
-Message-ID: <ZH6XeM4Uir4zQMn6@debian.me>
-References: <20230604190604.4800-1-eatnumber1@gmail.com>
- <20230605050853.6240-1-eatnumber1@gmail.com>
- <20230605050853.6240-3-eatnumber1@gmail.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E49E801224
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 04:18:21 +0000 (UTC)
+Received: from mga11.intel.com (mga11.intel.com [192.55.52.93]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-612-JnM5MWT4O0-6JphcCyyuxg-1; Tue, 06 Jun 2023 00:18:17 -0400
+X-MC-Unique: JnM5MWT4O0-6JphcCyyuxg-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10732"; a="354052384"
+X-IronPort-AV: E=Sophos;i="6.00,219,1681196400"; d="scan'208";a="354052384"
+Received: from fmsmga005.fm.intel.com ([10.253.24.32])
+ by fmsmga102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jun 2023 21:18:15 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10732"; a="1039025039"
+X-IronPort-AV: E=Sophos;i="6.00,219,1681196400"; d="scan'208";a="1039025039"
+Received: from fmsmsx602.amr.corp.intel.com ([10.18.126.82])
+ by fmsmga005.fm.intel.com with ESMTP; 05 Jun 2023 21:18:15 -0700
+Received: from fmsmsx610.amr.corp.intel.com (10.18.126.90) by
+ fmsmsx602.amr.corp.intel.com (10.18.126.82) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23; Mon, 5 Jun 2023 21:18:15 -0700
+Received: from fmsedg602.ED.cps.intel.com (10.1.192.136) by
+ fmsmsx610.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.23 via Frontend Transport; Mon, 5 Jun 2023 21:18:15 -0700
+Received: from NAM12-DM6-obe.outbound.protection.outlook.com (104.47.59.173)
+ by edgegateway.intel.com (192.55.55.71) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.23; Mon, 5 Jun 2023 21:18:14 -0700
+Received: from PH0PR11MB4855.namprd11.prod.outlook.com (2603:10b6:510:41::12)
+ by DM4PR11MB5518.namprd11.prod.outlook.com (2603:10b6:5:39a::8) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.32; Tue, 6 Jun
+ 2023 04:18:12 +0000
+Received: from PH0PR11MB4855.namprd11.prod.outlook.com
+ ([fe80::a41b:1b6c:8306:7644]) by PH0PR11MB4855.namprd11.prod.outlook.com
+ ([fe80::a41b:1b6c:8306:7644%6]) with mapi id 15.20.6455.030; Tue, 6 Jun 2023
+ 04:18:12 +0000
+Message-ID: <0c32fc78-5755-09b8-4d2c-81101e33fdee@intel.com>
+Date: Mon, 5 Jun 2023 21:18:10 -0700
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Randy Dunlap <rdunlap@infradead.org>, <linux-kernel@vger.kernel.org>,
+ <linux-crypto@vger.kernel.org>, <dm-devel@redhat.com>
+References: <20230524165717.14062-1-chang.seok.bae@intel.com>
+ <20230603152227.12335-1-chang.seok.bae@intel.com>
+ <20230603152227.12335-2-chang.seok.bae@intel.com>
+ <32ffb593-c39c-c741-7b6f-6f1cbcb1d558@infradead.org>
+From: "Chang S. Bae" <chang.seok.bae@intel.com>
+In-Reply-To: <32ffb593-c39c-c741-7b6f-6f1cbcb1d558@infradead.org>
+X-ClientProxiedBy: BYAPR07CA0011.namprd07.prod.outlook.com
+ (2603:10b6:a02:bc::24) To PH0PR11MB4855.namprd11.prod.outlook.com
+ (2603:10b6:510:41::12)
 MIME-Version: 1.0
-In-Reply-To: <20230605050853.6240-3-eatnumber1@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-X-Mailman-Approved-At: Tue, 06 Jun 2023 06:45:04 +0000
-Subject: Re: [dm-devel] [PATCH v4 2/4] Documentation: dm-integrity: Document
- the meaning of "buffer".
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: PH0PR11MB4855:EE_|DM4PR11MB5518:EE_
+X-MS-Office365-Filtering-Correlation-Id: 928138a0-dcd2-4476-8676-08db66450aac
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: nlpH+S7yY6VXm3gAT2+Sbb/0VbEcqjWU8WaLy/fCRydGIzj3spyjERffY+tep8VB/x0oZGJn85/wv7Ke6LCt1MvG8KvYhBDv7Lk3Gh6/smvfdHhZp1UA0xN7kmhOm+W/gn+R2PHxfrU2/aDB7Wgk+w3ljQBwg0XJ+JZFJKn15ORcA8ASzkYtNi7ZxZIuPgQ7bnpx6u9/Bo+RLdFvBigVqFAi1Xlx7KcsRZPgzQXWlxdxMb2hya4RQmLwLhIOtP5b1KfSaBK0EMZYVccDq8D5FmF6iPYqm5IYJpPCg+5YYpRqA2UkXUM0MkNfofpzaAlNyiL+6I8h3bbmAb/TDjeKpXJ1SfkuQAqSthjkmDMWmI1v4uU1okfBHCU2UKoKEOTxKFj2zKzPEL82CMZXCQC9w2oB1BULaCBnw4NYtPi0nzp4CuGmttG4KQwi9WhSgoWZNY7cLh1Zb5mLohgL2qSDeAfrW4d2OyYR4Eo7Yx+q7JPvJlrb++bkVzWFklLURpyzxjd2yXATZQ8PcAZRFYYKn3g/Fx0/lXgjHTSU5pM+YX4vQemqh+SvLGRslZwBeruH7L1ODZV/Lm1qZbSIvsJj9vMVTWWZ2sIXyRTyUuspv9RQC1xNLUk6QTHJ4QUODGeeIWUY0LI57Axz3eixDGgGEw==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:PH0PR11MB4855.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230028)(346002)(136003)(376002)(396003)(39860400002)(366004)(451199021)(6506007)(186003)(26005)(6512007)(53546011)(2616005)(31686004)(83380400001)(7416002)(6486002)(36756003)(2906002)(4744005)(8676002)(8936002)(82960400001)(54906003)(478600001)(86362001)(5660300002)(31696002)(38100700002)(316002)(66476007)(41300700001)(4326008)(66556008)(66946007)(45980500001)(43740500002);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?SzlkSVZsRW1DOG1oU3NhRUFCS2Z6bGZRVSs5ZUllNkFEdEpBYXNQdFNtSXcw?=
+ =?utf-8?B?dlJFdUR2R3ZkdnJVdnc1Ym5jUWJwNlBMU3ZUbE9Hd1ZuU3ZhM2lEeFJjeWh3?=
+ =?utf-8?B?OU9FL2QzeWFGV1p2cmEyaTIvbWNJd3psVFdqYkQrWHAxRGkzZExvZ0lZT083?=
+ =?utf-8?B?MEh4UTRiQm93b2ZhR0xMb3hiTG9oWWo1a2xiM0lVUFd2bHloTHdqS3htSkRv?=
+ =?utf-8?B?ZkdyWjdSaHFyMTdJcDVQak1Pa0dacU1ZcWJaNEsyWVl6Y1JpWVBCMUh5SDdC?=
+ =?utf-8?B?cmNTOGJIWE1wT2N0My90VzU1by9wRDB4M1IwYWlkMVdUOUM1ejdqd0J3MTV2?=
+ =?utf-8?B?dFVwYldvamQrQnJvaFowamVjcFlFQWk3NjNxcTV3aExMcm5QdGcyYllqZzIw?=
+ =?utf-8?B?czlZN3NVMnhSZXJGdDhORU1sdDlsTHpSV0pBaXVoUzNQWHhCNFgwbnFLM1Vt?=
+ =?utf-8?B?bENZZDNNTFdibXg1RW1hdVNBNStxTlV2a0wzaVM5OU93OTU1amwrNXFySXRs?=
+ =?utf-8?B?b2tta0hJNUtJR1JRREY5L1hhZkN3NjYwZEsxanYrdE9OcXJTaXJBYllIMjk2?=
+ =?utf-8?B?dmVabEtUV3VoYTRYN0U5VldTaTlGeVZDZU5Sall3RHhoTWhuSldQcEdpMm9O?=
+ =?utf-8?B?Tit2RXh4Ty94dVBKenhFWFNOZXBFWi9zakZKN1pjMG9Ra3RpdDY5bXkyMUpn?=
+ =?utf-8?B?UFdESDBiQktyR1h6eHV4ZkxadjJCdnNHQ1VnSUhUUk1HOEplWVMvSG96TXdo?=
+ =?utf-8?B?Uy9JaXZNM3l3ck9idlk0aURxMmhmZzhJYldmeitUYTBmRy9pYVpKaTJHV2Vi?=
+ =?utf-8?B?aFp2UmdMMnYyL3hLMVVxOEx0VmhQRS9FVWIwLzFiU0lvZC9vTlNaaWdndmQz?=
+ =?utf-8?B?VjQ4eGdMV1JKdlZwYUVtQkpJUWpCcnlOdkxKb0VlU3JBUDFHSE8vL0tGZFht?=
+ =?utf-8?B?bGRzMjMzZGptbDZBUU5xRlpNWXdFeW4xbjJndWtxZWdscGxFMFdnR21LTkpX?=
+ =?utf-8?B?RFBqY3E1dkpoVnZDQzJoSEFkTkNOMlhPbExsV0Z3Qm13UjFPakQrcGtFb2gv?=
+ =?utf-8?B?RkxiU1QyUFhhNjlhNEF1aEtNQTB0K0U4ZEx0Z0xZYldKVzZMd3YzSUJXOGw1?=
+ =?utf-8?B?M3MvWDVTcDdaOTBvM2FRUit6QUFnUEFMQnpNS3EvZWdRUXNkYmdhSFYrQ3lK?=
+ =?utf-8?B?cUpCU3hmNnlqN3FnTEQ0N1QwS0FHeU5kTVJGbU5acVdsd2NFSU5TeVQ1dmtE?=
+ =?utf-8?B?M3lwbW44bTR3bjNid3VqUmMvNWx0UUMxWWVsUGVOTXJtTWZEWjVhWndZRFh5?=
+ =?utf-8?B?VFlqT3JOb29yVllCUFNZNy96cFBHWk12bm1hU3Y5dGd4aitZYWpESEtVcGc1?=
+ =?utf-8?B?cWRJVmpvSnRDWXg4dWpBVGI3OW5ibDhOUkhmYjEzTnA2YWprN3ZzV2hib1ZB?=
+ =?utf-8?B?aXFDVGJqeExSQ3VtUVdKbnRWOEcxYXBlUW1CMm5yOWFiRlRCMTRCWUE1Z3Fp?=
+ =?utf-8?B?SXNleFVNRGRyRFpCQ3ZVY2NVK2RNRTRlRDkwQmp6aFEzUHFqdjVFeGdrRDJx?=
+ =?utf-8?B?K3pqTStHaUh1TjRyM1Y5N0diNU9OaDhLaks1ZHE2MHpOUTZjVzlidS9JdHVT?=
+ =?utf-8?B?VTVZTytNMytMWHFhaml6VlNpbTVpRFZCVFhJOWEwVytucVM4QUZuKzBuazRJ?=
+ =?utf-8?B?MEJyTTA3ZWl4RzNycll2ZVNsTHF5UjBNVjFIYSswcEt4T1ZmYmgrMkhCSkNE?=
+ =?utf-8?B?UFRvN1AxVVlmQm9PdWZXQWZ4Yy9FdFNRT0hyZE5MdWpWMVZObnlNTUpFMFpy?=
+ =?utf-8?B?VG11T1NQc04wNGQ3OVkvN2hIcm1LbVlUaEVZU0ZZRys1UERpMmFTeW85L3Z2?=
+ =?utf-8?B?akhPNXR1RGVQeEVGV044blZvTExEanJuNEFMWGZOVDg5dEdnamJKQ2huVkZ5?=
+ =?utf-8?B?aGRWR3ZTNVB3VUxYbzRDS2NZV0xGYlhHbUlRRm5tM0NhMlJnY1N2QVdIUmx0?=
+ =?utf-8?B?NkI1T25yS3djdmxLM210bW1JSjNGMXFBVDZaWFBmUHFQa2YwdWdmYXk0Q0FH?=
+ =?utf-8?B?cEdCdGFjQXcvR2QvUzFvSVR0OFNoWkFSU3FNbWFRaUJYdEFkdkIrZW5nNlJR?=
+ =?utf-8?B?VnFyWVFDUURxZURFTHdXczh4VDN4aHRFRFQzdjdmaXBxVHhUZjdYN1RmTUhV?=
+ =?utf-8?B?V2c9PQ==?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 928138a0-dcd2-4476-8676-08db66450aac
+X-MS-Exchange-CrossTenant-AuthSource: PH0PR11MB4855.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 06 Jun 2023 04:18:12.3798 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: qS9EL/oh3Wz5fjILXR4yrRF46gEA70x4lDIeWiK91/bnmqBZ9G1rDXIIDKmdmyrXjLY9OXw+sgS0PfWgoafCABzXZGixD/chDpMUq5EWNbQ=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DM4PR11MB5518
+X-OriginatorOrg: intel.com
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [dm-devel] [PATCH v8 01/12] Documentation/x86: Document Key
+ Locker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,67 +185,49 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, mpatocka@redhat.com, snitzer@redhat.com,
- linux-doc@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============8100553598056294991=="
+Cc: x86@kernel.org, herbert@gondor.apana.org.au, linux-doc@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, ardb@kernel.org, dave.hansen@linux.intel.com,
+ dan.j.williams@intel.com, mingo@kernel.org, ebiggers@kernel.org,
+ lalithambika.krishnakumar@intel.com, Ingo Molnar <mingo@redhat.com>,
+ bp@alien8.de, charishma1.gairuboyina@intel.com, luto@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com, tglx@linutronix.de,
+ nhuck@google.com, gmazyland@gmail.com, elliott@hpe.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-
-
---===============8100553598056294991==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8dT9jEFPjY4b25Xy"
-Content-Disposition: inline
-
-
---8dT9jEFPjY4b25Xy
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Jun 04, 2023 at 10:08:51PM -0700, Russell Harmon wrote:
-> +Accesses to the on-disk metadata area containing checksums (aka tags) are
-> +buffered using dm-bufio. When an access to any given metadata area
-> +occurs, each unique metadata area gets its own buffer(s). The buffer size
-> +is capped at the size of the metadata area, but may be smaller, thereby
-> +requiring multiple buffers to represent the full metadata area. A smaller
-> +buffer size will produce a smaller resulting read/write operation to the
-> +metadata area for small reads/writes. The metadata is still read even in
-> +a full write to the data covered by a single buffer.
-> +
-
-LGTM, thanks!
-
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---8dT9jEFPjY4b25Xy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZH6XeAAKCRD2uYlJVVFO
-oxMmAQDQw+DyLg4djiSiS72ErEICH5CXhJavIm92BeL22KsbJgD9HON0Q4ehRfPA
-uydfE7iQ8VprJ9S5xNAHQXGHgGoIMAU=
-=Gs2+
------END PGP SIGNATURE-----
-
---8dT9jEFPjY4b25Xy--
-
-
---===============8100553598056294991==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: intel.com
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+
+On 6/5/2023 7:17 PM, Randy Dunlap wrote:
+> On 6/3/23 08:22, Chang S. Bae wrote:
+>> +
+>> +* AES-KL implements support for 128-bit and 256-bit keys, but there is no
+>> +  AES-KL instruction to process an 192-bit key. The AES-KL cipher
+>> +  implementation logs a warning message with a 192-bit key and then falls
+>> +  back to AES-NI. So, this 192-bit key-size limitation is only documented,
+> 
+> Is it logged anywhere?  i.e., a kernel log message?
+
+Yes, this is the relevant change in the last patch:
+
+ > +static int aeskl_setkey(struct crypto_tfm *tfm, void *raw_ctx, const 
+u8 *in_key,
+ > +			unsigned int keylen)
+ > +{
+...
+ > +	if (unlikely(keylen == AES_KEYSIZE_192)) {
+ > +		pr_warn_once("AES-KL does not support 192-bit key. Use AES-NI.\n");
+...
+ > +}
+
+Thanks,
+Chang
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============8100553598056294991==--
 
