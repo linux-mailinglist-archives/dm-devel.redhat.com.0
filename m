@@ -1,72 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1DD04724845
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 17:54:27 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 48C5472488F
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 18:11:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686066865;
+	s=mimecast20190719; t=1686067873;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=WH49pyERfdsW5fK16jl3Qvt4Wga72O5z0CHdXEc9etw=;
-	b=O4KK/fNEw766iG8oYvwpmMURI4maU4DWJaOF8U1uAdReteMrLf58EdFkh+oXZ1BunqkdJd
-	vAExwA1f41NR1k4z9uTBX8QFZ3UJ8q2Z8627hnfmkqdPG1ip9h5fdh0rDV5KgPl0P43Zgw
-	0Aq3T+mj1jGFIirZZF9GwDSzhMUtUC4=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=xmlQOGY/+a7BmAijNXkCD+TDxzlGqHh4GhEWSMWJqbo=;
+	b=a1auV6nas3qFmsSUVCG2m9SoR4yNYMwEcFMnZDAGsuVsON6diP1ckPQNj/DssbZAps7LMs
+	Z6OumiGd24JiH4MvXFgFYLt3CyT2QRsG1qSJ1JRhhFqhZWrdWf6AFTmA8qS9qKxoaBfFAQ
+	Q+SU42M+Wqg+1kCGictyXJdDRdJBBtM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-275-S5Kjj46wNByhOXRiadCoGw-1; Tue, 06 Jun 2023 11:54:24 -0400
-X-MC-Unique: S5Kjj46wNByhOXRiadCoGw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-256-eWdjcd-PP0u6BHYXsPnZUA-1; Tue, 06 Jun 2023 12:11:11 -0400
+X-MC-Unique: eWdjcd-PP0u6BHYXsPnZUA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3788C3C0ED52;
-	Tue,  6 Jun 2023 15:54:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B4689811E7C;
+	Tue,  6 Jun 2023 16:11:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5B319C154D1;
-	Tue,  6 Jun 2023 15:54:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B248E40CFD46;
+	Tue,  6 Jun 2023 16:11:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B826819452C4;
-	Tue,  6 Jun 2023 15:54:17 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F78619452C4;
+	Tue,  6 Jun 2023 16:11:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2A0ED19465BC
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 15:54:16 +0000 (UTC)
+ ESMTP id 6CEC019465BA
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 07BE02026D6A; Tue,  6 Jun 2023 15:54:11 +0000 (UTC)
+ id 583272166B26; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DDE2B2026D49;
- Tue,  6 Jun 2023 15:54:10 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 356Fs3uU027505;
- Tue, 6 Jun 2023 10:54:03 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 356Fs2Uv027504;
- Tue, 6 Jun 2023 10:54:02 -0500
-Date: Tue, 6 Jun 2023 10:54:02 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <martin.wilck@suse.com>
-Message-ID: <20230606155402.GY24096@octiron.msp.redhat.com>
-References: <1684970472-28669-1-git-send-email-bmarzins@redhat.com>
- <1684970472-28669-5-git-send-email-bmarzins@redhat.com>
- <76217148d8069829795fb1d8608d5c5da60402e2.camel@suse.com>
- <20230605190807.GT24096@octiron.msp.redhat.com>
- <20230606044215.GV24096@octiron.msp.redhat.com>
- <a9070100acf9c2a6ba479dd3ca840e3d61e522f7.camel@suse.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4FB6F2166B25
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2FABB3813F2B
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 16:11:04 +0000 (UTC)
+Received: from mail-qt1-f181.google.com (mail-qt1-f181.google.com
+ [209.85.160.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-307-ntmvy6r3MIeXlJk6KLratw-1; Tue, 06 Jun 2023 12:11:02 -0400
+X-MC-Unique: ntmvy6r3MIeXlJk6KLratw-1
+Received: by mail-qt1-f181.google.com with SMTP id
+ d75a77b69052e-3f6c0d651adso69128031cf.2
+ for <dm-devel@redhat.com>; Tue, 06 Jun 2023 09:11:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686067862; x=1688659862;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=c77FQ3Gb2vrcGihgJEF093Ohpu3iXSY3aGqHmmdBFIM=;
+ b=HZrZXTc/uLprsjcJ3ON7Qp2xFySQqptdNKxMn3Q4ck8XNxfj4qhfE8yZrTLcrqt3wx
+ n2wzcwwB144PQ8uPzKCRiCtMXGAAdMqmKVASkg+/WPwezrQMuF5nashv8BbcnOerGGV/
+ jQheFItcbFnOzLqo0b62E99KZu+CXKDWlkZuIafWqlZqXWqRtOhf9pruKaIjw9585PgP
+ EsPRiHbx8r5AMPJOaTrEjWuRBZNxF3W+QIolKeRjFpMT7y0OykO8JIO/KdY5db056JCG
+ uqNF9m28rSz68yXD1UYEO6UdSWx2rQh5TUPYxTjNhE2MwNzIaKXdnG10teWUMiyEH6XR
+ HXSw==
+X-Gm-Message-State: AC+VfDzQtnEnq/KgBCdcBQ0Z+Ar0NI5UnI5fSdzo2b0j5kf1XrxNLQ0C
+ UXBReu+kF7JLC+ljJB3FAMEA3Ug=
+X-Google-Smtp-Source: ACHHUZ5i75dZP6S4D/vN4PsonNhq015+FVRez3l0K1i/H5iefxLOdjHeanpRg/gCpFGqtrMsWtSrvA==
+X-Received: by 2002:a05:622a:19a9:b0:3f8:6cf6:a412 with SMTP id
+ u41-20020a05622a19a900b003f86cf6a412mr69476qtc.43.1686067862062; 
+ Tue, 06 Jun 2023 09:11:02 -0700 (PDT)
+Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
+ [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
+ g1-20020ac87d01000000b003f27719c179sm5620008qtb.69.2023.06.06.09.11.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Tue, 06 Jun 2023 09:11:01 -0700 (PDT)
+Date: Tue, 6 Jun 2023 12:11:00 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <ZH9alEbuNxHNwYYe@redhat.com>
+References: <20230601072829.1258286-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <a9070100acf9c2a6ba479dd3ca840e3d61e522f7.camel@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH 4/5] multipathd: reload map if the path
- groups are out of order
+In-Reply-To: <20230601072829.1258286-1-hch@lst.de>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] enforce read-only state at the block layer
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,239 +103,45 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
+ dm-devel@redhat.com, Linus Torvalds <torvalds@linux-foundation.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 06, 2023 at 02:55:27PM +0000, Martin Wilck wrote:
-> On Mon, 2023-06-05 at 23:42 -0500, Benjamin Marzinski wrote:
-> > On Mon, Jun 05, 2023 at 02:08:07PM -0500, Benjamin Marzinski wrote:
-> > > On Wed, May 31, 2023 at 04:27:30PM +0000, Martin Wilck wrote:
-> > > > On Wed, 2023-05-24 at 18:21 -0500, Benjamin Marzinski wrote:
-> > > > > need_switch_pathgroup() only checks if the currently used
-> > > > > pathgroup
-> > > > > is
-> > > > > not the highest priority pathgroup. If it isn't, all multipathd
-> > > > > does
-> > > > > is
-> > > > > instruct the kernel to switch to the correct pathgroup.=A0
-> > > > > However, the
-> > > > > kernel treats the pathgroups as if they were ordered by
-> > > > > priority.
-> > > > > When
-> > > > > the kernel runs out of paths to use in the currently selected
-> > > > > pathgroup,
-> > > > > it will start checking the pathgroups in order until it finds
-> > > > > one
-> > > > > with
-> > > > > usable paths.
-> > > > >=20
-> > > > > need_switch_pathgroup() should also check if the pathgroups are
-> > > > > out
-> > > > > of
-> > > > > order, and if so, multipathd should reload the map to reorder
-> > > > > them
-> > > > > correctly.
-> > > > >=20
-> > > > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > > > > ---
-> > > > > =A0libmultipath/libmultipath.version |=A0 5 ++++
-> > > > > =A0libmultipath/switchgroup.c=A0=A0=A0=A0=A0=A0=A0 | 27 +++++++++=
-+++++++++++++
-> > > > > =A0libmultipath/switchgroup.h=A0=A0=A0=A0=A0=A0=A0 |=A0 1 +
-> > > > > =A0multipathd/main.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0 | 38 +++++++++++++++++++++--
-> > > > > ------
-> > > > > --
-> > > > > =A04 files changed, 59 insertions(+), 12 deletions(-)
-> > > > >=20
-> > > > > diff --git a/libmultipath/libmultipath.version
-> > > > > b/libmultipath/libmultipath.version
-> > > > > index 8f72c452..38074699 100644
-> > > > > --- a/libmultipath/libmultipath.version
-> > > > > +++ b/libmultipath/libmultipath.version
-> > > > > @@ -237,3 +237,8 @@ global:
-> > > > > =A0local:
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0*;
-> > > > > =A0};
-> > > > > +
-> > > > > +LIBMULTIPATH_19.1.0 {
-> > > > > +global:
-> > > > > +=A0=A0=A0=A0=A0=A0=A0path_groups_in_order;
-> > > > > +} LIBMULTIPATH_19.0.0;
-> > > > > diff --git a/libmultipath/switchgroup.c
-> > > > > b/libmultipath/switchgroup.c
-> > > > > index b1e1f39b..b1180839 100644
-> > > > > --- a/libmultipath/switchgroup.c
-> > > > > +++ b/libmultipath/switchgroup.c
-> > > > > @@ -7,6 +7,33 @@
-> > > > > =A0#include "structs.h"
-> > > > > =A0#include "switchgroup.h"
-> > > > > =A0
-> > > > > +bool path_groups_in_order(struct multipath *mpp)
-> > > > > +{
-> > > > > +=A0=A0=A0=A0=A0=A0=A0int i;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0struct pathgroup *pgp;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0bool seen_marginal_pg =3D false;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0int last_prio =3D INT_MAX;
-> > > > > +
-> > > > > +=A0=A0=A0=A0=A0=A0=A0if (VECTOR_SIZE(mpp->pg) < 2)
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
-> > > > > +
-> > > > > +=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot(mpp->pg, pgp, i) {
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* skip pgs with PR=
-IO_UNDEF, since this is
-> > > > > likely
-> > > > > temporary */
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (!pgp->paths || =
-pgp->priority =3D=3D PRIO_UNDEF)
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0continue;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pgp->marginal &=
-& !seen_marginal_pg) {
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0last_prio =3D INT_MAX;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0continue;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (seen_marginal_p=
-g && !pgp->marginal)
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0return false;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pgp->priority >=
- last_prio)
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0return false;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0last_prio =3D pgp->=
-priority;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0}
-> > > > > +=A0=A0=A0=A0=A0=A0=A0return true;
-> > > > > +}
-> > > > > +
-> > > > > =A0void path_group_prio_update(struct pathgroup *pgp)
-> > > > > =A0{
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0int i;
-> > > > > diff --git a/libmultipath/switchgroup.h
-> > > > > b/libmultipath/switchgroup.h
-> > > > > index 9365e2e2..43dbb6c9 100644
-> > > > > --- a/libmultipath/switchgroup.h
-> > > > > +++ b/libmultipath/switchgroup.h
-> > > > > @@ -1,2 +1,3 @@
-> > > > > =A0void path_group_prio_update (struct pathgroup * pgp);
-> > > > > =A0int select_path_group (struct multipath * mpp);
-> > > > > +bool path_groups_in_order(struct multipath *mpp);
-> > > > > diff --git a/multipathd/main.c b/multipathd/main.c
-> > > > > index e7c272ad..2ea7c76b 100644
-> > > > > --- a/multipathd/main.c
-> > > > > +++ b/multipathd/main.c
-> > > > > @@ -396,7 +396,7 @@ void
-> > > > > put_multipath_config(__attribute__((unused))
-> > > > > void *arg)
-> > > > > =A0}
-> > > > > =A0
-> > > > > =A0static int
-> > > > > -need_switch_pathgroup (struct multipath * mpp, int refresh)
-> > > > > +need_switch_pathgroup (struct multipath * mpp, int refresh,
-> > > > > bool
-> > > > > *need_reload)
-> > > > > =A0{
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0struct pathgroup * pgp;
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0struct path * pp;
-> > > > > @@ -404,6 +404,7 @@ need_switch_pathgroup (struct multipath *
-> > > > > mpp,
-> > > > > int refresh)
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0struct config *conf;
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0int bestpg;
-> > > > > =A0
-> > > > > +=A0=A0=A0=A0=A0=A0=A0*need_reload =3D false;
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0if (!mpp)
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > > > > =A0
-> > > > > @@ -430,10 +431,9 @@ need_switch_pathgroup (struct multipath *
-> > > > > mpp,
-> > > > > int refresh)
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > > > > =A0
-> > > > > =A0=A0=A0=A0=A0=A0=A0=A0mpp->bestpg =3D bestpg;
-> > > > > -=A0=A0=A0=A0=A0=A0=A0if (mpp->bestpg !=3D mpp->nextpg)
-> > > > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 1;
-> > > > > +=A0=A0=A0=A0=A0=A0=A0*need_reload =3D !path_groups_in_order(mpp)=
-;
-> > > >=20
-> > > > This will start another loop over the path groups. Can we just
-> > > > integrate the path_groups_in_order() logic into the loop right
-> > > > here?
-> > > >=20
-> > >=20
-> > > Sure
-> >=20
-> > Actually, after looking into this more, pushing those two functions
-> > together makes the logic more confusing. Plus select_path_group() is
-> > used by multiple other functions that don't need to check if the path
-> > groups are out of order.
->=20
-> Hm. Can it happen at all that select_path_group() returns something
-> other than=A01 but path_groups_in_order() returns true?=A0
+On Thu, Jun 01 2023 at  3:28P -0400,
+Christoph Hellwig <hch@lst.de> wrote:
 
-Yes. It might even be the common case. Say a switch goes down and all
-the paths in the high priority pathgroup fail. The kernel will switch
-over to a lower priority pathgroup. As long as those paths work, it
-won't automatically switch back to the high priority pathgroup when we
-tell it that those failed paths have recovered. It's multipath's job to
-tell it when to proactively switch pathgroups. Since multipath doesn't
-update the priority of failed paths, the pathgroups should still look
-the same (unless you use group_by_prio and the path fails between
-checking the state and running the prioritizer, in which case you will
-likely get a PRIO_UNDEF and reconfigure the pathgroups, but that's the
-thing group_by_tpg is trying to resolve).=20
-=20
-> If we follow the mindset you layed out in your patch ("the kernel
-> treats the pathgroups as if they were ordered by priority")
-> consequently, just determining bestpg is not enough; we'd need to sort
-> the PGs every time (except for a user-triggered switchgroup command).
-> IMO whenever we reload the map anyway (e.g. in setup_map()) we should
-> make sure that the PGs are properly sorted. Using "switch_group"
-> instead of a full reload is just an optimization because the kernel
-> operation is more light-weight than a full reload. But as soon as we
-> have e.g. a marginal path group, reordering is probably a better idea
-> most of the time.
+> Hi all,
+> 
+> I've recently got a report where a file system can write to a read-only
+> block device, and while I've not found the root cause yet, it is very
+> clear that we should not prevents writes to read-only at all.
+> 
+> This did in fact get fixed 5 years ago, but Linus reverted it as older
+> lvm2 tools relying on this broken behavior.  This series tries to
+> restore it, although I'm still worried about thee older lvm2 tools
+> to be honest.  Question to the device mapper maintainers:  is the
+> any good way to work around that behavior in device mapper if needed
+> instead of leaving the core block layer and drivers exposed?
 
-We already do correctly order the paths in setup_map().
-setup_map() -> group_paths() -> sort_pathgroup().  Actually, looking at
-this, I don't see why we even bother to call select_path_group() in
-setup_map(). The answer will always be 1, since we just sorted them.
+Given the block core change (in patch 3) _and_ old lvm2 code: it'll
+obviously fail.
 
--Ben
-=20
-> I agree that that would be another patch set, but I think that
-> determining the best path group and checking whether the groups are
-> correctly ordered are very closely related tasks.
->=20
-> But it's not a religious matter to me, so proceed with what you
-> consider best at this time.
->=20
-> > There's no reason for path_groups_in_order to be in libmultipath,
-> > since
-> > it's only needed by multipathd. I'll fix that. But I would rather not
-> > join it with select_path_group(). Since we just loop over the
-> > pathgroups
-> > and not the paths within them, we will likely go through the loop a
-> > couple of times, and we don't actually perform any costly actions
-> > during
-> > the loops that would make combining them look more attractive. The
-> > performance gains for need_switch_pathgroup() aren't worth making the
-> > logic harder to follow (and the minor performance hits when we don't
-> > need to check the order), IMHO.=20
-> >=20
->=20
-> Regards,
-> Martin
+Not sure of a crafty hack to workaround. Hopefully 5 year old lvm2
+remains tightly coupled to kernels of the same vintage and we get
+lucky moving forward.
+
+So I agree with Linus, worth trying this simple change again and
+seeing if there is fallout. Revert/worry about it again as needed.
+
+Mike
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
