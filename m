@@ -2,111 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2E9E37237FD
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 08:45:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9C2F1723526
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 04:17:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686033917;
+	s=mimecast20190719; t=1686017874;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=9enzRQNWpEcbSEIzvZnFabp/kDctPig32q5LAL9jA0E=;
-	b=GeaqLxfc26D68a33tZDnY69ywGmzmvEPrnzyAgBb9cg0+qgQxi/HEcSvmobKJ64M2cadKA
-	gtL9DNlKr7zmiwTSlrm3TTrrVfzhSYDNKD6SPg+JidFEhyDA1Ji8f/k9mTfkEJ9EbN+xpI
-	n6QoTNqPElOIIz4XdgD4fP8EEKkJWUc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=hdN0q2EEMt7JCY5Fr/JkKCJcfo/lQQEwMJY00/JKkag=;
+	b=cYD3WdNAvN7AM8q6tHzpdt3ct85CDbQS4XYZfoh9g/EoqPEZ9nOmVrJWJ9WbIP2OHufj66
+	UuOajIlmXa0sVX6O48d8Gaz17YtAhZa/ORSZpI1DlbDag69Qh6NDp0daQ5xYhCSchm2nQ+
+	2eSV80O80T27CYterNH+VGZFn9cgzh0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-15-M7GB8oWqO2Ou-V0xsSdilQ-1; Tue, 06 Jun 2023 02:45:13 -0400
-X-MC-Unique: M7GB8oWqO2Ou-V0xsSdilQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-655-9irPNZlwPj-l_YMvskkMZg-1; Mon, 05 Jun 2023 22:17:53 -0400
+X-MC-Unique: 9irPNZlwPj-l_YMvskkMZg-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3CD4E3802281;
-	Tue,  6 Jun 2023 06:45:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D0358007D9;
+	Tue,  6 Jun 2023 02:17:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8046E40D1B66;
-	Tue,  6 Jun 2023 06:45:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6CE199E8B;
+	Tue,  6 Jun 2023 02:17:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3102419452D1;
-	Tue,  6 Jun 2023 06:45:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AEFC319465BD;
+	Tue,  6 Jun 2023 02:17:42 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 338971946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 02:17:30 +0000 (UTC)
+ ESMTP id 3E7411946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 02:17:41 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 20E8A2026D6A; Tue,  6 Jun 2023 02:17:30 +0000 (UTC)
+ id 2C045C0448F; Tue,  6 Jun 2023 02:17:41 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 197822026D49
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 02:17:30 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2463CC084BB
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 02:17:41 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 02F8238035CC
- for <dm-devel@redhat.com>; Tue,  6 Jun 2023 02:17:30 +0000 (UTC)
-Received: from mail-il1-f169.google.com (mail-il1-f169.google.com
- [209.85.166.169]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08AF58007D9
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 02:17:41 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-606-xeWupgDWMDC5yZc1l3Y6RQ-1; Mon, 05 Jun 2023 22:17:26 -0400
-X-MC-Unique: xeWupgDWMDC5yZc1l3Y6RQ-1
-Received: by mail-il1-f169.google.com with SMTP id
- e9e14a558f8ab-33b36a9fdf8so22270385ab.2; 
- Mon, 05 Jun 2023 19:17:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20221208; t=1686017845; x=1688609845;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=2vW14s+LE6Ttn8SPLTIyRZdmATyKiDyL2I8ox3trYy0=;
- b=rLjnkdmQI8PFiJOmi+wmXVBOgHPSrf1E9gnzGliRVqTVRZF3ub/OF0ETHszU/Hy7s9
- pkBvyRzTYzgYEifQ6CSnBaXnc5qRcGDYkGuA9T7sRszyqeYbojDC01Fh0XEDAQJxflSc
- A6Ffh23TeqN7at7Fbu7V7wXy8sY5eq4bFhQLrVPp27vYXMww5vIpZ/t9ZkcjSKhXSmik
- lXHAmExr/QuA7KKxrGgdm3tuwwevvwCrvT/T/UoxjLQrMVNtH3+hGK59kH38VlnjRTAf
- WQtw08AlWD9Qh1LQBojSCzXOWI7XpdMzPLo3taYfKuKaBNUeq/RCoNhiCWJkY5PPWoCm
- Jm/A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686017845; x=1688609845;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=2vW14s+LE6Ttn8SPLTIyRZdmATyKiDyL2I8ox3trYy0=;
- b=dL8mvP0e49Qj2jyatTU9aH8ThtMmsApXIJfsXWO/8NduXqs1D2xK3fGbaGFiR52+YG
- jL+ghPjQPRt0kTDPvhlp/sN12Sm02PlihKEfBq3WifLceJaR775Ajye889ylF6IlpMvI
- XtkOlER5W0ZJXqSak3SRMHGKd1wlT87t5s8oAZBJZbpSJnoViq8BG6NNb89N1WlMpkoX
- NJmalSP7eVXpDL1bgrJPFtwnhSXWW8JiJb1KDLIFqDCsCqn+PnNlgDNkB6AoLOwSHkOo
- S5h1m2kofH4oEYjDbeEsI/21QMobdj6x8tJsG3LTvgvfQNkF7m+7uezM05Y7GUlwSARu
- Ujbg==
-X-Gm-Message-State: AC+VfDwlU9cPATRtdNIfAqhHon77jik3QKDg3kE1y81t0db4RrLoS0Xt
- +SZUtqjyvqzhHZrxdUA8MRY=
-X-Google-Smtp-Source: ACHHUZ5ag2NMpKr6CzNSt35USmFRvJsmBb6gDSyagdHvLIlRmN8qXlHkiMLlWXIGM7cqZrhRC0fLVQ==
-X-Received: by 2002:a05:6e02:110:b0:328:c3ae:12be with SMTP id
- t16-20020a056e02011000b00328c3ae12bemr857519ilm.13.1686017845230; 
- Mon, 05 Jun 2023 19:17:25 -0700 (PDT)
-Received: from debian.me (subs32-116-206-28-36.three.co.id. [116.206.28.36])
- by smtp.gmail.com with ESMTPSA id
- c10-20020aa781ca000000b0062e0c39977csm5774737pfn.139.2023.06.05.19.17.24
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 05 Jun 2023 19:17:24 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id C822E1069FD; Tue,  6 Jun 2023 09:17:21 +0700 (WIB)
-Date: Tue, 6 Jun 2023 09:17:21 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Russell Harmon <eatnumber1@gmail.com>
-Message-ID: <ZH6XMbH7mocamzJA@debian.me>
-References: <20230604190604.4800-1-eatnumber1@gmail.com>
- <20230605050853.6240-1-eatnumber1@gmail.com>
- <20230605050853.6240-2-eatnumber1@gmail.com>
+ us-mta-57-exCgk-HOPEuTHkNM1sl6HA-1; Mon, 05 Jun 2023 22:17:38 -0400
+X-MC-Unique: exCgk-HOPEuTHkNM1sl6HA-1
+Received: from [2601:1c2:980:9ec0::2764]
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1q6MGN-00HQTW-0Y; Tue, 06 Jun 2023 02:17:35 +0000
+Message-ID: <32ffb593-c39c-c741-7b6f-6f1cbcb1d558@infradead.org>
+Date: Mon, 5 Jun 2023 19:17:34 -0700
 MIME-Version: 1.0
-In-Reply-To: <20230605050853.6240-2-eatnumber1@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-X-Mailman-Approved-At: Tue, 06 Jun 2023 06:45:04 +0000
-Subject: Re: [dm-devel] [PATCH v4 1/4] Documentation: dm-integrity: Fix
- minor grammatical error.
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.2
+To: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
+ linux-crypto@vger.kernel.org, dm-devel@redhat.com
+References: <20230524165717.14062-1-chang.seok.bae@intel.com>
+ <20230603152227.12335-1-chang.seok.bae@intel.com>
+ <20230603152227.12335-2-chang.seok.bae@intel.com>
+From: Randy Dunlap <rdunlap@infradead.org>
+In-Reply-To: <20230603152227.12335-2-chang.seok.bae@intel.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH v8 01/12] Documentation/x86: Document Key
+ Locker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,60 +93,154 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, mpatocka@redhat.com, snitzer@redhat.com,
- linux-doc@vger.kernel.org
-Content-Type: multipart/mixed; boundary="===============5505049169085177681=="
+Cc: x86@kernel.org, herbert@gondor.apana.org.au, linux-doc@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, ardb@kernel.org, dave.hansen@linux.intel.com,
+ dan.j.williams@intel.com, mingo@kernel.org, ebiggers@kernel.org,
+ lalithambika.krishnakumar@intel.com, Ingo Molnar <mingo@redhat.com>,
+ bp@alien8.de, charishma1.gairuboyina@intel.com, luto@kernel.org,
+ "H. Peter Anvin" <hpa@zytor.com>, bernie.keany@intel.com, tglx@linutronix.de,
+ nhuck@google.com, gmazyland@gmail.com, elliott@hpe.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-
-
---===============5505049169085177681==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="8f6GLla2tqI7Vmyw"
-Content-Disposition: inline
-
-
---8f6GLla2tqI7Vmyw
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Sun, Jun 04, 2023 at 10:08:50PM -0700, Russell Harmon wrote:
-> -There's an alternate mode of operation where dm-integrity uses bitmap
-> +There's an alternate mode of operation where dm-integrity uses a bitmap
-
-LGTM, thanks!
-
-Reviewed-by: Bagas Sanjaya <bagasdotme@gmail.com>
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---8f6GLla2tqI7Vmyw
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZH6XMQAKCRD2uYlJVVFO
-o6AhAQCVKdKDcVHOWjP95YAh/XZC8sTMIMLMrijBeuH4mlE0yAEAh0bCR3ECtBLx
-g4VuTvLrWIOODkGD9S1EoiMHmNWTBAM=
-=64qt
------END PGP SIGNATURE-----
-
---8f6GLla2tqI7Vmyw--
-
-
---===============5505049169085177681==
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: infradead.org
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+
+
+On 6/3/23 08:22, Chang S. Bae wrote:
+> Document the overview of the feature along with relevant consideration
+> when provisioning dm-crypt volumes with AES-KL instead of AES-NI.
+> 
+> ---
+> ---
+>  Documentation/arch/x86/index.rst     |  1 +
+>  Documentation/arch/x86/keylocker.rst | 97 ++++++++++++++++++++++++++++
+>  2 files changed, 98 insertions(+)
+>  create mode 100644 Documentation/arch/x86/keylocker.rst
+> 
+
+> diff --git a/Documentation/arch/x86/keylocker.rst b/Documentation/arch/x86/keylocker.rst
+> new file mode 100644
+> index 000000000000..5557b8d0659a
+> --- /dev/null
+> +++ b/Documentation/arch/x86/keylocker.rst
+> @@ -0,0 +1,97 @@
+> +.. SPDX-License-Identifier: GPL-2.0
+> +
+> +==============
+> +x86 Key Locker
+> +==============
+> +
+> +Introduction
+> +============
+> +
+> +Key Locker is a CPU feature to reduce key exfiltration opportunities
+> +while maintaining a programming interface similar to AES-NI. It
+> +converts the AES key into an encoded form, called the 'key handle'.
+> +The key handle is a wrapped version of the clear-text key where the
+> +wrapping key has limited exposure. Once converted, all subsequent data
+> +encryption using new AES instructions (AES-KL) uses this key handle,
+> +reducing the exposure of private key material in memory.
+> +
+> +CPU-internal Wrapping Key
+> +=========================
+> +
+> +The CPU-internal wrapping key is an entity in a software-invisible CPU
+> +state. On every system boot, a new key is loaded. So the key handle that
+> +was encoded by the old wrapping key is no longer usable on system shutdown
+> +or reboot.
+> +
+> +And the key may be lost on the following exceptional situation upon wakeup:
+> +
+> +Wrapping Key Restore Failure
+> +----------------------------
+> +
+> +The CPU state is volatile with the ACPI S3/4 sleep states. When the system
+> +supports those states, the key has to be backed up so that it is restored
+> +on wake up. The kernel saves the key in non-volatile media.
+> +
+> +The event of a wrapping key restore failure upon resume from suspend, all
+
+   Upon the event of a ...
+
+> +established key handles become invalid. In flight dm-crypt operations
+> +receive error results from pending operations. In the likely scenario that
+> +dm-crypt is hosting the root filesystem the recovery is identical to if a
+> +storage controller failed to resume from suspend, reboot. If the volume
+> +impacted by a wrapping key restore failure is a data-volume then it is
+
+                                                   data volume
+
+> +possible that I/O errors on that volume do not bring down the rest of the
+> +system. However, a reboot is still required because the kernel will have
+> +soft-disabled Key Locker. Upon the failure, the crypto library code will
+> +return -ENODEV on every AES-KL function call. The Key Locker implementation
+> +only loads a new wrapping key at initial boot, not any time after like
+> +resume from suspend.
+> +
+> +Use Case and Non-use Cases
+> +==========================
+> +
+> +Bare metal disk encryption is the only intended use case.
+> +
+> +Userspace usage is not supported because there is no ABI provided to
+> +communicate and coordinate wrapping-key restore failure to userspace. For
+> +now, key restore failures are only coordinated with kernel users. But the
+> +kernel can not prevent userspace from using the feature's AES instructions
+> +('AES-KL') when the feature has been enabled. So, the lack of userspace
+> +support is only documented, not actively enforced.
+> +
+> +Key Locker is not expected to be advertised to guest VMs and the kernel
+> +implementation ignores it even if the VMM enumerates the capability. The
+> +expectation is that a guest VM wants private wrapping key state, but the
+> +architecture does not provide that. An emulation of that capability, by
+> +caching per-VM wrapping keys in memory, defeats the purpose of Key Locker.
+> +The backup / restore facility is also not performant enough to be suitable
+> +for guest VM context switches.
+> +
+> +AES Instruction Set
+> +===================
+> +
+> +The feature accompanies a new AES instruction set. This instruction set is
+> +analogous to AES-NI. A set of AES-NI instructions can be mapped to an
+> +AES-KL instruction. For example, AESENC128KL is responsible for ten rounds
+> +of transformation, which is equivalent to nine times AESENC and one
+> +AESENCLAST in AES-NI.
+> +
+> +But they have some notable differences:
+> +
+> +* AES-KL provides a secure data transformation using an encrypted key.
+> +
+> +* If an invalid key handle is provided, e.g. a corrupted one or a handle
+> +  restriction failure, the instruction fails with setting RFLAGS.ZF. The
+> +  crypto library implementation includes the flag check to return -EINVAL.
+> +  Note that this flag is also set if the wrapping key is changed, e.g.,
+> +  because of the backup error.
+> +
+> +* AES-KL implements support for 128-bit and 256-bit keys, but there is no
+> +  AES-KL instruction to process an 192-bit key. The AES-KL cipher
+> +  implementation logs a warning message with a 192-bit key and then falls
+> +  back to AES-NI. So, this 192-bit key-size limitation is only documented,
+
+Is it logged anywhere?  i.e., a kernel log message?
+
+> +  not enforced. It means the key will remain in clear-text in memory. This
+> +  is to meet Linux crypto-cipher expectation that each implementation must
+> +  support all the AES-compliant key sizes.
+> +
+> +* Some AES-KL hardware implementation may have noticeable performance
+> +  overhead when compared with AES-NI instructions.
+> +
+
+-- 
+~Randy
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============5505049169085177681==--
 
