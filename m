@@ -1,70 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4587A723668
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 06:42:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7AF68723A85
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 09:52:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686026547;
+	s=mimecast20190719; t=1686037925;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Ol7/8hYckC11y8NIRqfsE5PC2e9mQ3Z+hDpwelU1zR4=;
-	b=Ugumgmnvz7XYqPATg5PZPS/LGHdGIuTJrZRDzLOKBkAylefMyxj3H122rGmKPh1JW/Qm0W
-	3j/mjsfRDYoAa2vvJrXBzlgckaIKd9XFlgluvhsY9PTmvLpWAfXVXCOb0H5zF2z4cXOQlf
-	XXmRJUPl1WM2d7uUg2epYNAWICDhV48=
+	bh=jPBGjl/PbcNWMytM4pxQsQ70Buzq89PxZUHDR8r+QBA=;
+	b=Ul5h/vJYul3PPl5kEM3p+AyjNydxyPyccvgnIbNYcaIXPXGmi1gUoB/5GtLeWSZ3V+xmGP
+	LKjKaIB6Ao8U05dFRaXrNhqpeudUDT1TesMu7PLBarZJzYIpEQWMMab5TxrNj9ZHaI/SqI
+	3dwr/IDoBfRWFpKQDmS1zlMsAS05izA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-329-Rmv5N5IwOC2lKk69Bvq8Og-1; Tue, 06 Jun 2023 00:42:25 -0400
-X-MC-Unique: Rmv5N5IwOC2lKk69Bvq8Og-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-595-SOJfJl89NiClDvp_TagDFw-1; Tue, 06 Jun 2023 03:52:01 -0400
+X-MC-Unique: SOJfJl89NiClDvp_TagDFw-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A50E0811E86;
-	Tue,  6 Jun 2023 04:42:23 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D98ED1121314;
-	Tue,  6 Jun 2023 04:42:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D945D1010429;
+	Tue,  6 Jun 2023 07:51:56 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C185D9E93;
+	Tue,  6 Jun 2023 07:51:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6586D1946A41;
-	Tue,  6 Jun 2023 04:42:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 493331946A41;
+	Tue,  6 Jun 2023 07:51:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 96D101946595
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 04:42:18 +0000 (UTC)
+ ESMTP id DBA1D1946595
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 07:51:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 82AA11121315; Tue,  6 Jun 2023 04:42:18 +0000 (UTC)
+ id BCF674021AA; Tue,  6 Jun 2023 07:51:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 60BAB1121314;
- Tue,  6 Jun 2023 04:42:18 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 3564gFcr023775;
- Mon, 5 Jun 2023 23:42:16 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 3564gFHC023774;
- Mon, 5 Jun 2023 23:42:15 -0500
-Date: Mon, 5 Jun 2023 23:42:15 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: Martin Wilck <martin.wilck@suse.com>
-Message-ID: <20230606044215.GV24096@octiron.msp.redhat.com>
-References: <1684970472-28669-1-git-send-email-bmarzins@redhat.com>
- <1684970472-28669-5-git-send-email-bmarzins@redhat.com>
- <76217148d8069829795fb1d8608d5c5da60402e2.camel@suse.com>
- <20230605190807.GT24096@octiron.msp.redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B47D0492B00
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:51:54 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8BF7B101A531
+ for <dm-devel@redhat.com>; Tue,  6 Jun 2023 07:51:54 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-619-PQtOUuNiOf2ABW6kCA_jMQ-1; Tue, 06 Jun 2023 03:51:52 -0400
+X-MC-Unique: PQtOUuNiOf2ABW6kCA_jMQ-1
+Received: from
+ 2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
+ ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1q6RIH-000Ya3-0f; Tue, 06 Jun 2023 07:39:53 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Tue,  6 Jun 2023 09:39:19 +0200
+Message-Id: <20230606073950.225178-1-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20230605190807.GT24096@octiron.msp.redhat.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH 4/5] multipathd: reload map if the path
- groups are out of order
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] decouple block open flags from fmode_t
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,332 +88,147 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: "dm-devel@redhat.com" <dm-devel@redhat.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
+ Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
+ dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+ Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
+ Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: lst.de
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-On Mon, Jun 05, 2023 at 02:08:07PM -0500, Benjamin Marzinski wrote:
-> On Wed, May 31, 2023 at 04:27:30PM +0000, Martin Wilck wrote:
-> > On Wed, 2023-05-24 at 18:21 -0500, Benjamin Marzinski wrote:
-> > > need_switch_pathgroup() only checks if the currently used pathgroup
-> > > is
-> > > not the highest priority pathgroup. If it isn't, all multipathd does
-> > > is
-> > > instruct the kernel to switch to the correct pathgroup.=A0 However, t=
-he
-> > > kernel treats the pathgroups as if they were ordered by priority.
-> > > When
-> > > the kernel runs out of paths to use in the currently selected
-> > > pathgroup,
-> > > it will start checking the pathgroups in order until it finds one
-> > > with
-> > > usable paths.
-> > >=20
-> > > need_switch_pathgroup() should also check if the pathgroups are out
-> > > of
-> > > order, and if so, multipathd should reload the map to reorder them
-> > > correctly.
-> > >=20
-> > > Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
-> > > ---
-> > > =A0libmultipath/libmultipath.version |=A0 5 ++++
-> > > =A0libmultipath/switchgroup.c=A0=A0=A0=A0=A0=A0=A0 | 27 +++++++++++++=
-+++++++++
-> > > =A0libmultipath/switchgroup.h=A0=A0=A0=A0=A0=A0=A0 |=A0 1 +
-> > > =A0multipathd/main.c=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 =
-| 38 +++++++++++++++++++++--------
-> > > --
-> > > =A04 files changed, 59 insertions(+), 12 deletions(-)
-> > >=20
-> > > diff --git a/libmultipath/libmultipath.version
-> > > b/libmultipath/libmultipath.version
-> > > index 8f72c452..38074699 100644
-> > > --- a/libmultipath/libmultipath.version
-> > > +++ b/libmultipath/libmultipath.version
-> > > @@ -237,3 +237,8 @@ global:
-> > > =A0local:
-> > > =A0=A0=A0=A0=A0=A0=A0=A0*;
-> > > =A0};
-> > > +
-> > > +LIBMULTIPATH_19.1.0 {
-> > > +global:
-> > > +=A0=A0=A0=A0=A0=A0=A0path_groups_in_order;
-> > > +} LIBMULTIPATH_19.0.0;
-> > > diff --git a/libmultipath/switchgroup.c b/libmultipath/switchgroup.c
-> > > index b1e1f39b..b1180839 100644
-> > > --- a/libmultipath/switchgroup.c
-> > > +++ b/libmultipath/switchgroup.c
-> > > @@ -7,6 +7,33 @@
-> > > =A0#include "structs.h"
-> > > =A0#include "switchgroup.h"
-> > > =A0
-> > > +bool path_groups_in_order(struct multipath *mpp)
-> > > +{
-> > > +=A0=A0=A0=A0=A0=A0=A0int i;
-> > > +=A0=A0=A0=A0=A0=A0=A0struct pathgroup *pgp;
-> > > +=A0=A0=A0=A0=A0=A0=A0bool seen_marginal_pg =3D false;
-> > > +=A0=A0=A0=A0=A0=A0=A0int last_prio =3D INT_MAX;
-> > > +
-> > > +=A0=A0=A0=A0=A0=A0=A0if (VECTOR_SIZE(mpp->pg) < 2)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
-> > > +
-> > > +=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot(mpp->pg, pgp, i) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/* skip pgs with PRIO_U=
-NDEF, since this is likely
-> > > temporary */
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (!pgp->paths || pgp-=
->priority =3D=3D PRIO_UNDEF)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0continue;
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pgp->marginal && !s=
-een_marginal_pg) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0last_prio =3D INT_MAX;
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0continue;
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (seen_marginal_pg &&=
- !pgp->marginal)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0return false;
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (pgp->priority > las=
-t_prio)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0return false;
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0last_prio =3D pgp->prio=
-rity;
-> > > +=A0=A0=A0=A0=A0=A0=A0}
-> > > +=A0=A0=A0=A0=A0=A0=A0return true;
-> > > +}
-> > > +
-> > > =A0void path_group_prio_update(struct pathgroup *pgp)
-> > > =A0{
-> > > =A0=A0=A0=A0=A0=A0=A0=A0int i;
-> > > diff --git a/libmultipath/switchgroup.h b/libmultipath/switchgroup.h
-> > > index 9365e2e2..43dbb6c9 100644
-> > > --- a/libmultipath/switchgroup.h
-> > > +++ b/libmultipath/switchgroup.h
-> > > @@ -1,2 +1,3 @@
-> > > =A0void path_group_prio_update (struct pathgroup * pgp);
-> > > =A0int select_path_group (struct multipath * mpp);
-> > > +bool path_groups_in_order(struct multipath *mpp);
-> > > diff --git a/multipathd/main.c b/multipathd/main.c
-> > > index e7c272ad..2ea7c76b 100644
-> > > --- a/multipathd/main.c
-> > > +++ b/multipathd/main.c
-> > > @@ -396,7 +396,7 @@ void put_multipath_config(__attribute__((unused))
-> > > void *arg)
-> > > =A0}
-> > > =A0
-> > > =A0static int
-> > > -need_switch_pathgroup (struct multipath * mpp, int refresh)
-> > > +need_switch_pathgroup (struct multipath * mpp, int refresh, bool
-> > > *need_reload)
-> > > =A0{
-> > > =A0=A0=A0=A0=A0=A0=A0=A0struct pathgroup * pgp;
-> > > =A0=A0=A0=A0=A0=A0=A0=A0struct path * pp;
-> > > @@ -404,6 +404,7 @@ need_switch_pathgroup (struct multipath * mpp,
-> > > int refresh)
-> > > =A0=A0=A0=A0=A0=A0=A0=A0struct config *conf;
-> > > =A0=A0=A0=A0=A0=A0=A0=A0int bestpg;
-> > > =A0
-> > > +=A0=A0=A0=A0=A0=A0=A0*need_reload =3D false;
-> > > =A0=A0=A0=A0=A0=A0=A0=A0if (!mpp)
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > > =A0
-> > > @@ -430,10 +431,9 @@ need_switch_pathgroup (struct multipath * mpp,
-> > > int refresh)
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> > > =A0
-> > > =A0=A0=A0=A0=A0=A0=A0=A0mpp->bestpg =3D bestpg;
-> > > -=A0=A0=A0=A0=A0=A0=A0if (mpp->bestpg !=3D mpp->nextpg)
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 1;
-> > > +=A0=A0=A0=A0=A0=A0=A0*need_reload =3D !path_groups_in_order(mpp);
-> >=20
-> > This will start another loop over the path groups. Can we just
-> > integrate the path_groups_in_order() logic into the loop right here?
-> >=20
->=20
-> Sure
+Hi all,
 
-Actually, after looking into this more, pushing those two functions
-together makes the logic more confusing. Plus select_path_group() is
-used by multiple other functions that don't need to check if the path
-groups are out of order.
+this series adds a new blk_mode_t for block open flags instead of abusing
+fmode_t.  The block open flags work very different from the normal use of
+fmode_t and only share the basic READ/WRITE flags with it.  None of the
+other normal FMODE_* flags is used, but instead there are three
+block-specific ones not used by anyone else, which can now be removed.
 
-There's no reason for path_groups_in_order to be in libmultipath, since
-it's only needed by multipathd. I'll fix that. But I would rather not
-join it with select_path_group(). Since we just loop over the pathgroups
-and not the paths within them, we will likely go through the loop a
-couple of times, and we don't actually perform any costly actions during
-the loops that would make combining them look more attractive. The
-performance gains for need_switch_pathgroup() aren't worth making the
-logic harder to follow (and the minor performance hits when we don't
-need to check the order), IMHO.=20
+Note that I've only CCed maintainers and lists for drivers and file systems
+that have non-trivial changes, as otherwise the series would spam literally
+everyone in the block and file system world.
 
--Ben
+Diffstat:
+ arch/um/drivers/ubd_kern.c          |   20 ++-----
+ arch/xtensa/platforms/iss/simdisk.c |    6 +-
+ block/bdev.c                        |   99 ++++++++++++++++++------------------
+ block/blk-zoned.c                   |   12 ++--
+ block/blk.h                         |   26 ++++++++-
+ block/bsg-lib.c                     |    2 
+ block/bsg.c                         |    8 +-
+ block/disk-events.c                 |   47 +++++++----------
+ block/fops.c                        |   54 ++++++++++++-------
+ block/genhd.c                       |   13 ++--
+ block/ioctl.c                       |   61 +++++++---------------
+ drivers/block/amiflop.c             |   20 +++----
+ drivers/block/aoe/aoeblk.c          |    8 +-
+ drivers/block/ataflop.c             |   43 +++++++--------
+ drivers/block/drbd/drbd_main.c      |   13 ++--
+ drivers/block/drbd/drbd_nl.c        |   23 +++++---
+ drivers/block/floppy.c              |   72 +++++++++++++-------------
+ drivers/block/loop.c                |   24 ++++----
+ drivers/block/mtip32xx/mtip32xx.c   |    4 -
+ drivers/block/nbd.c                 |   12 ++--
+ drivers/block/pktcdvd.c             |   36 ++++++-------
+ drivers/block/rbd.c                 |    6 +-
+ drivers/block/rnbd/rnbd-clt.c       |    8 +-
+ drivers/block/rnbd/rnbd-srv-sysfs.c |    3 -
+ drivers/block/rnbd/rnbd-srv.c       |   23 ++++----
+ drivers/block/rnbd/rnbd-srv.h       |    2 
+ drivers/block/sunvdc.c              |    2 
+ drivers/block/swim.c                |   24 ++++----
+ drivers/block/swim3.c               |   33 +++++-------
+ drivers/block/ublk_drv.c            |    4 -
+ drivers/block/xen-blkback/xenbus.c  |    4 -
+ drivers/block/xen-blkfront.c        |    2 
+ drivers/block/z2ram.c               |    8 +-
+ drivers/block/zram/zram_drv.c       |   21 +++----
+ drivers/cdrom/cdrom.c               |   36 +++----------
+ drivers/cdrom/gdrom.c               |   12 ++--
+ drivers/md/bcache/bcache.h          |    2 
+ drivers/md/bcache/request.c         |    4 -
+ drivers/md/bcache/super.c           |   25 ++++-----
+ drivers/md/dm-cache-target.c        |   12 ++--
+ drivers/md/dm-clone-target.c        |   10 +--
+ drivers/md/dm-core.h                |    7 +-
+ drivers/md/dm-era-target.c          |    6 +-
+ drivers/md/dm-ioctl.c               |   10 +--
+ drivers/md/dm-snap.c                |    4 -
+ drivers/md/dm-table.c               |   11 ++--
+ drivers/md/dm-thin.c                |    9 +--
+ drivers/md/dm-verity-fec.c          |    2 
+ drivers/md/dm-verity-target.c       |    6 +-
+ drivers/md/dm.c                     |   20 +++----
+ drivers/md/dm.h                     |    2 
+ drivers/md/md.c                     |   50 +++++++++---------
+ drivers/mmc/core/block.c            |   12 ++--
+ drivers/mtd/devices/block2mtd.c     |    6 +-
+ drivers/mtd/mtd_blkdevs.c           |    8 +-
+ drivers/mtd/mtdblock.c              |    2 
+ drivers/mtd/ubi/block.c             |    9 +--
+ drivers/nvme/host/core.c            |    6 +-
+ drivers/nvme/host/ioctl.c           |   66 +++++++++++++-----------
+ drivers/nvme/host/multipath.c       |    6 +-
+ drivers/nvme/host/nvme.h            |    4 -
+ drivers/nvme/target/io-cmd-bdev.c   |    4 -
+ drivers/s390/block/dasd.c           |   10 +--
+ drivers/s390/block/dasd_genhd.c     |    5 +
+ drivers/s390/block/dasd_int.h       |    3 -
+ drivers/s390/block/dasd_ioctl.c     |    2 
+ drivers/s390/block/dcssblk.c        |   11 +---
+ drivers/scsi/ch.c                   |    3 -
+ drivers/scsi/scsi_bsg.c             |    4 -
+ drivers/scsi/scsi_ioctl.c           |   38 ++++++-------
+ drivers/scsi/sd.c                   |   39 ++++++--------
+ drivers/scsi/sg.c                   |    7 +-
+ drivers/scsi/sr.c                   |   22 ++++----
+ drivers/scsi/st.c                   |    2 
+ drivers/target/target_core_iblock.c |    9 +--
+ drivers/target/target_core_pscsi.c  |   10 +--
+ fs/btrfs/dev-replace.c              |    6 +-
+ fs/btrfs/ioctl.c                    |   12 ++--
+ fs/btrfs/super.c                    |   21 ++-----
+ fs/btrfs/volumes.c                  |   55 +++++++++-----------
+ fs/btrfs/volumes.h                  |   11 +---
+ fs/erofs/super.c                    |    7 +-
+ fs/ext4/super.c                     |   11 +---
+ fs/f2fs/super.c                     |   12 ++--
+ fs/jfs/jfs_logmgr.c                 |    6 +-
+ fs/nfs/blocklayout/dev.c            |    9 +--
+ fs/nilfs2/super.c                   |   12 +---
+ fs/ocfs2/cluster/heartbeat.c        |    7 +-
+ fs/reiserfs/journal.c               |   19 +++---
+ fs/reiserfs/reiserfs.h              |    1 
+ fs/super.c                          |   33 ++++--------
+ fs/xfs/xfs_super.c                  |   15 ++---
+ include/linux/blkdev.h              |   68 +++++++++++-------------
+ include/linux/bsg.h                 |    2 
+ include/linux/cdrom.h               |   12 ++--
+ include/linux/device-mapper.h       |    8 +-
+ include/linux/fs.h                  |    8 --
+ include/linux/mtd/blktrans.h        |    2 
+ include/scsi/scsi_ioctl.h           |    4 -
+ kernel/power/hibernate.c            |   12 +---
+ kernel/power/power.h                |    2 
+ kernel/power/swap.c                 |   28 ++++------
+ mm/swapfile.c                       |    7 +-
+ 103 files changed, 796 insertions(+), 853 deletions(-)
 
-> -Ben
->=20
-> >=20
-> >=20
-> > > =A0
-> > > -=A0=A0=A0=A0=A0=A0=A0return 0;
-> > > +=A0=A0=A0=A0=A0=A0=A0return (*need_reload || mpp->bestpg !=3D mpp->n=
-extpg);
-> > > =A0}
-> > > =A0
-> > > =A0static void
-> > > @@ -1982,20 +1982,26 @@ ghost_delay_tick(struct vectors *vecs)
-> > > =A0}
-> > > =A0
-> > > =A0static void
-> > > -deferred_failback_tick (vector mpvec)
-> > > +deferred_failback_tick (struct vectors *vecs)
-> > > =A0{
-> > > =A0=A0=A0=A0=A0=A0=A0=A0struct multipath * mpp;
-> > > =A0=A0=A0=A0=A0=A0=A0=A0unsigned int i;
-> > > +=A0=A0=A0=A0=A0=A0=A0bool need_reload;
-> > > =A0
-> > > -=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot (mpvec, mpp, i) {
-> > > +=A0=A0=A0=A0=A0=A0=A0vector_foreach_slot (vecs->mpvec, mpp, i) {
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0/*
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * deferred failback =
-getting sooner
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 */
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (mpp->pgfailback >=
- 0 && mpp->failback_tick > 0) {
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0mpp->failback_tick--;
-> > > =A0
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0if (!mpp->failback_tick &&
-> > > need_switch_pathgroup(mpp, 1))
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(mpp);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0if (!mpp->failback_tick &&
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 need_switch_pathgroup(mpp, 1,
-> > > &need_reload)) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0if (need_reload)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reload_and_sync_map(mpp,
-> > > vecs, 0);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0else
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(mpp);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0}
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > > =A0=A0=A0=A0=A0=A0=A0=A0}
-> > > =A0}
-> > > @@ -2579,6 +2585,7 @@ check_path (struct vectors * vecs, struct path
-> > > * pp, unsigned int ticks)
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0int prio_changed =3D =
-update_prio(pp, new_path_up);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0bool need_refresh =3D=
- (!new_path_up && prio_changed &&
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->priority !=3D PRIO_UNDEF);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0bool need_reload;
-> > > =A0
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (prio_changed &&
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 pp->mpp->pg=
-policyfn =3D=3D (pgpolicyfn
-> > > *)group_by_prio &&
-> > > @@ -2586,15 +2593,22 @@ check_path (struct vectors * vecs, struct
-> > > path * pp, unsigned int ticks)
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0condlog(2, "%s: path priorities changed.
-> > > reloading",
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->alias);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0reload_and_sync_map(pp->mpp, vecs,
-> > > !new_path_up);
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else if (need_switch_=
-pathgroup(pp->mpp,
-> > > need_refresh)) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else if (need_switch_=
-pathgroup(pp->mpp,
-> > > need_refresh,
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
- &need_reload)) {
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0if (pp->mpp->pgfailback > 0 &&
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0 (new_path_up || pp->mpp->failback_tick <=3D
-> > > 0))
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->failback_tick =3D
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pp->mpp->pgfailback + 1;
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0else if (pp->mpp->pgfailback =3D=3D -
-> > > FAILBACK_IMMEDIATE ||
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0 (chkr_new_path_up &&
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 followover_should_failback(pp)))
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(pp->mpp);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 followover_should_failback(pp))) {
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0if (need_reload)
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0reload_and_sync_map(pp->=
-mpp,
-> > > vecs,
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
-> > > !need_refresh &&
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0
-> > > !new_path_up);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0else
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0switch_pathgroup(pp->mpp=
-);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0}
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
-> > > =A0=A0=A0=A0=A0=A0=A0=A0}
-> > > =A0=A0=A0=A0=A0=A0=A0=A0return 1;
-> > > @@ -2720,7 +2734,7 @@ unlock:
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_cleanup_push(=
-cleanup_lock, &vecs->lock);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0lock(&vecs->lock);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0pthread_testcancel();
-> > > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0deferred_failback_tick(=
-vecs->mpvec);
-> > > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0deferred_failback_tick(=
-vecs);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0retry_count_tick(vecs=
-->mpvec);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0missing_uev_wait_tick=
-(vecs);
-> > > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0ghost_delay_tick(vecs=
-);
-> >=20
-> >=20
-> --
-> dm-devel mailing list
-> dm-devel@redhat.com
-> https://listman.redhat.com/mailman/listinfo/dm-devel
 --
 dm-devel mailing list
 dm-devel@redhat.com
