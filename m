@@ -1,65 +1,65 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4D0F4724DC4
-	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 22:13:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BF48E724DC6
+	for <lists+dm-devel@lfdr.de>; Tue,  6 Jun 2023 22:13:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686082407;
+	s=mimecast20190719; t=1686082409;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=U8+5dgRAXlnfFn4s2XJyhTH7yCMLCHMJFNIAGMiLs3A=;
-	b=cP9b7So2VOaj0C6Eejrt/fMd/YJWcA484OgqdfTxvHB265xYEvA/+ecIBmVvqthzEpnNZF
-	0Sz9CmNYCC3f9LogT/PVGIzV7CSWj0oW/Pc6qmHBQwtWDJDt5WPxxm55LLnD7TE0+wE7MO
-	4wm0HHUOSrM9Te2IyFmJg6YvLhnIKGc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Q4DZOR46g8wL+A8Y4EYISL3B2VYQTprcQftcKC3lxoM=;
+	b=TjJCeBPJbILabpvnXmVyG0fuGhj+kNsL2fa7BzrMl1tXytKegaZeLix4GRruqSbVDjPQgH
+	TAsfipZn76LwsDjmpdq7oLR+43oW9hMUEnmwBCf9/zBgS030PFzKO0N/3tAs7XBWOzj+48
+	/KhKeRldjsPJdwZPagyswFMBBWFBAs8=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-615-IUjCyP8mPni27LrFLTijpw-1; Tue, 06 Jun 2023 16:13:25 -0400
-X-MC-Unique: IUjCyP8mPni27LrFLTijpw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-652-vagm-eHFOGq2zxJEek9Txg-1; Tue, 06 Jun 2023 16:13:26 -0400
+X-MC-Unique: vagm-eHFOGq2zxJEek9Txg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 07E51185A791;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 082563C0CEE8;
 	Tue,  6 Jun 2023 20:13:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F349F2026D49;
-	Tue,  6 Jun 2023 20:13:18 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0E7CC492B00;
+	Tue,  6 Jun 2023 20:13:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B234F19452CA;
-	Tue,  6 Jun 2023 20:13:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DCC9119452C8;
+	Tue,  6 Jun 2023 20:13:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 45A9919452C6
- for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 20:13:17 +0000 (UTC)
+ ESMTP id 6D86319465BD
+ for <dm-devel@listman.corp.redhat.com>; Tue,  6 Jun 2023 20:13:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2AF35477F61; Tue,  6 Jun 2023 20:13:17 +0000 (UTC)
+ id 5DA5440CFD48; Tue,  6 Jun 2023 20:13:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 02852403367;
- Tue,  6 Jun 2023 20:13:16 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3FF4940CFD46;
+ Tue,  6 Jun 2023 20:13:18 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 356KDE3M029252;
- Tue, 6 Jun 2023 15:13:14 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 356KDFrB029256;
+ Tue, 6 Jun 2023 15:13:15 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 356KDEvm029251;
- Tue, 6 Jun 2023 15:13:14 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 356KDFJL029255;
+ Tue, 6 Jun 2023 15:13:15 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Tue,  6 Jun 2023 15:13:01 -0500
-Message-Id: <1686082391-29210-2-git-send-email-bmarzins@redhat.com>
+Date: Tue,  6 Jun 2023 15:13:02 -0500
+Message-Id: <1686082391-29210-3-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1686082391-29210-1-git-send-email-bmarzins@redhat.com>
 References: <1686082391-29210-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH V2 01/11] libmultipath: add group_by_tpg
- path_grouping_policy
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH V2 02/11] libmultipath: don't copy pgpolicy
+ string in get_pgpolicy_name
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,247 +76,128 @@ Cc: device-mapper development <dm-devel@redhat.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-When we group paths by prio and the priority changes, paths can end up
-temporarily in the wrong path groups.  This usually happens when some
-paths are down, so their priority can't be updated. To avoid this for
-ALUA paths, group them by their target port group instead. The path
-groups chosen by this policy won't always match with those chosen by
-group_by_prio, since it is possible for multiple ALUA target port
-groups to have the same priority.
+copying the value into a passed in buffer doesn't help any of the
+callers of this function. It's just wasted work.
 
+Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/discovery.c         |  1 +
- libmultipath/pgpolicies.c        | 19 +++++++++++++++++++
- libmultipath/pgpolicies.h        |  4 +++-
- libmultipath/prioritizers/alua.c |  1 +
- libmultipath/propsel.c           | 27 +++++++++++++++++++++++++--
- libmultipath/structs.c           |  1 +
- libmultipath/structs.h           |  3 +++
- multipath/main.c                 |  1 +
- multipath/multipath.conf.5       |  4 ++++
- 9 files changed, 58 insertions(+), 3 deletions(-)
+ libmultipath/dict.c       |  6 +-----
+ libmultipath/pgpolicies.c | 27 ++++++++-------------------
+ libmultipath/pgpolicies.h |  2 +-
+ libmultipath/propsel.c    |  6 ++----
+ 4 files changed, 12 insertions(+), 29 deletions(-)
 
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 6865cd92..2dcafe5d 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -1051,6 +1051,7 @@ detect_alua(struct path * pp)
- 		return;
- 	}
- 	pp->tpgs = tpgs;
-+	pp->tpg_id = ret;
+diff --git a/libmultipath/dict.c b/libmultipath/dict.c
+index 2e9b45f9..dddd3cd6 100644
+--- a/libmultipath/dict.c
++++ b/libmultipath/dict.c
+@@ -1209,14 +1209,10 @@ set_pgpolicy(vector strvec, void *ptr, const char *file, int line_nr)
+ int
+ print_pgpolicy(struct strbuf *buff, long pgpolicy)
+ {
+-	char str[POLICY_NAME_SIZE];
+-
+ 	if (!pgpolicy)
+ 		return 0;
+ 
+-	get_pgpolicy_name(str, POLICY_NAME_SIZE, pgpolicy);
+-
+-	return append_strbuf_quoted(buff, str);
++	return append_strbuf_quoted(buff, get_pgpolicy_name(pgpolicy));
  }
  
- int path_get_tpgs(struct path *pp)
+ declare_def_handler(pgpolicy, set_pgpolicy)
 diff --git a/libmultipath/pgpolicies.c b/libmultipath/pgpolicies.c
-index 10b44d37..e14da8cc 100644
+index e14da8cc..edc3c611 100644
 --- a/libmultipath/pgpolicies.c
 +++ b/libmultipath/pgpolicies.c
-@@ -25,6 +25,8 @@ int get_pgpolicy_id(char * str)
- 		return GROUP_BY_PRIO;
- 	if (0 == strncmp(str, "group_by_node_name", 18))
- 		return GROUP_BY_NODE_NAME;
-+	if (0 == strncmp(str, "group_by_tpg", 12))
-+		return GROUP_BY_TPG;
- 
+@@ -31,34 +31,23 @@ int get_pgpolicy_id(char * str)
  	return IOPOLICY_UNDEF;
  }
-@@ -49,6 +51,9 @@ int get_pgpolicy_name(char * buff, int len, int id)
+ 
+-int get_pgpolicy_name(char * buff, int len, int id)
++const char *get_pgpolicy_name(int id)
+ {
+-	char * s;
+-
+ 	switch (id) {
+ 	case FAILOVER:
+-		s = "failover";
+-		break;
++		return "failover";
+ 	case MULTIBUS:
+-		s = "multibus";
+-		break;
++		return "multibus";
+ 	case GROUP_BY_SERIAL:
+-		s = "group_by_serial";
+-		break;
++		return "group_by_serial";
+ 	case GROUP_BY_PRIO:
+-		s = "group_by_prio";
+-		break;
++		return "group_by_prio";
  	case GROUP_BY_NODE_NAME:
- 		s = "group_by_node_name";
- 		break;
-+	case GROUP_BY_TPG:
-+		s = "group_by_tpg";
-+		break;
- 	default:
- 		s = "undefined";
- 		break;
-@@ -191,6 +196,12 @@ prios_match(struct path *pp1, struct path *pp2)
- 	return (pp1->priority == pp2->priority);
+-		s = "group_by_node_name";
+-		break;
++		return "group_by_node_name";
+ 	case GROUP_BY_TPG:
+-		s = "group_by_tpg";
+-		break;
+-	default:
+-		s = "undefined";
+-		break;
++		return "group_by_tpg";
+ 	}
+-	return snprintf(buff, len, "%s", s);
++	return "undefined"; /* IOPOLICY_UNDEF */
  }
  
-+bool
-+tpg_match(struct path *pp1, struct path *pp2)
-+{
-+	return (pp1->tpg_id == pp2->tpg_id);
-+}
-+
- int group_by_match(struct multipath * mp, vector paths,
- 		   bool (*path_match_fn)(struct path *, struct path *))
- {
-@@ -279,6 +290,14 @@ int group_by_prio(struct multipath *mp, vector paths)
- 	return group_by_match(mp, paths, prios_match);
- }
  
-+/*
-+ * One path group per alua target port group present in the path vector
-+ */
-+int group_by_tpg(struct multipath *mp, vector paths)
-+{
-+	return group_by_match(mp, paths, tpg_match);
-+}
-+
- int one_path_per_group(struct multipath *mp, vector paths)
- {
- 	int i;
 diff --git a/libmultipath/pgpolicies.h b/libmultipath/pgpolicies.h
-index 15927610..d3ab2f35 100644
+index d3ab2f35..9e4ddda2 100644
 --- a/libmultipath/pgpolicies.h
 +++ b/libmultipath/pgpolicies.h
-@@ -16,7 +16,8 @@ enum iopolicies {
- 	MULTIBUS,
- 	GROUP_BY_SERIAL,
- 	GROUP_BY_PRIO,
--	GROUP_BY_NODE_NAME
-+	GROUP_BY_NODE_NAME,
-+	GROUP_BY_TPG,
+@@ -21,7 +21,7 @@ enum iopolicies {
  };
  
  int get_pgpolicy_id(char *);
-@@ -30,5 +31,6 @@ int one_group(struct multipath *, vector);
- int group_by_serial(struct multipath *, vector);
- int group_by_prio(struct multipath *, vector);
- int group_by_node_name(struct multipath *, vector);
-+int group_by_tpg(struct multipath *, vector);
- 
- #endif
-diff --git a/libmultipath/prioritizers/alua.c b/libmultipath/prioritizers/alua.c
-index 0ab06e2b..4888a974 100644
---- a/libmultipath/prioritizers/alua.c
-+++ b/libmultipath/prioritizers/alua.c
-@@ -65,6 +65,7 @@ get_alua_info(struct path * pp, unsigned int timeout)
- 			return -ALUA_PRIO_NOT_SUPPORTED;
- 		return -ALUA_PRIO_RTPG_FAILED;
- 	}
-+	pp->tpg_id = tpg;
- 	condlog(3, "%s: reported target port group is %i", pp->dev, tpg);
- 	rc = get_asymmetric_access_state(pp, tpg, timeout);
- 	if (rc < 0) {
+-int get_pgpolicy_name (char *, int, int);
++const char *get_pgpolicy_name (int);
+ int group_paths(struct multipath *, int);
+ /*
+  * policies
 diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index a25cc921..841fa247 100644
+index 841fa247..d214281b 100644
 --- a/libmultipath/propsel.c
 +++ b/libmultipath/propsel.c
-@@ -35,7 +35,8 @@ pgpolicyfn *pgpolicies[] = {
- 	one_group,
- 	group_by_serial,
- 	group_by_prio,
--	group_by_node_name
-+	group_by_node_name,
-+	group_by_tpg,
- };
- 
- #define do_set(var, src, dest, msg)					\
-@@ -249,10 +250,26 @@ out:
- 	return 0;
- }
- 
-+static bool
-+verify_alua_prio(struct multipath *mp)
-+{
-+	int i;
-+	struct path *pp;
-+
-+	vector_foreach_slot(mp->paths, pp, i) {
-+		const char *name = prio_name(&pp->prio);
-+		if (strncmp(name, PRIO_ALUA, PRIO_NAME_LEN) &&
-+		    strncmp(name, PRIO_SYSFS, PRIO_NAME_LEN))
-+			 return false;
-+	}
-+	return true;
-+}
-+
+@@ -268,7 +268,6 @@ verify_alua_prio(struct multipath *mp)
  int select_pgpolicy(struct config *conf, struct multipath * mp)
  {
  	const char *origin;
- 	char buff[POLICY_NAME_SIZE];
-+	int log_prio = 3;
+-	char buff[POLICY_NAME_SIZE];
+ 	int log_prio = 3;
  
  	if (conf->pgpolicy_flag > 0) {
- 		mp->pgpolicy = conf->pgpolicy_flag;
-@@ -265,9 +282,15 @@ int select_pgpolicy(struct config *conf, struct multipath * mp)
- 	mp_set_conf(pgpolicy);
- 	mp_set_default(pgpolicy, DEFAULT_PGPOLICY);
- out:
-+	if (mp->pgpolicy == GROUP_BY_TPG && !verify_alua_prio(mp)) {
-+		mp->pgpolicy = DEFAULT_PGPOLICY;
-+		origin = "(setting: emergency fallback - not all paths use alua prio)";
-+		log_prio = 1;
-+	}
+@@ -288,9 +287,8 @@ out:
+ 		log_prio = 1;
+ 	}
  	mp->pgpolicyfn = pgpolicies[mp->pgpolicy];
- 	get_pgpolicy_name(buff, POLICY_NAME_SIZE, mp->pgpolicy);
--	condlog(3, "%s: path_grouping_policy = %s %s", mp->alias, buff, origin);
-+	condlog(log_prio, "%s: path_grouping_policy = %s %s", mp->alias, buff,
-+		origin);
+-	get_pgpolicy_name(buff, POLICY_NAME_SIZE, mp->pgpolicy);
+-	condlog(log_prio, "%s: path_grouping_policy = %s %s", mp->alias, buff,
+-		origin);
++	condlog(log_prio, "%s: path_grouping_policy = %s %s", mp->alias,
++		get_pgpolicy_name(mp->pgpolicy), origin);
  	return 0;
  }
  
-diff --git a/libmultipath/structs.c b/libmultipath/structs.c
-index 87e84d5d..39504dca 100644
---- a/libmultipath/structs.c
-+++ b/libmultipath/structs.c
-@@ -125,6 +125,7 @@ alloc_path (void)
- 		pp->sg_id.proto_id = PROTOCOL_UNSET;
- 		pp->fd = -1;
- 		pp->tpgs = TPGS_UNDEF;
-+		pp->tpg_id = GROUP_ID_UNDEF;
- 		pp->priority = PRIO_UNDEF;
- 		pp->checkint = CHECKINT_UNDEF;
- 		checker_clear(&pp->checker);
-diff --git a/libmultipath/structs.h b/libmultipath/structs.h
-index a1208751..0eea19b4 100644
---- a/libmultipath/structs.h
-+++ b/libmultipath/structs.h
-@@ -317,6 +317,8 @@ struct hd_geometry {
- };
- #endif
- 
-+#define GROUP_ID_UNDEF -1
-+
- struct path {
- 	char dev[FILE_NAME_SIZE];
- 	char dev_t[BLK_DEV_SIZE];
-@@ -372,6 +374,7 @@ struct path {
- 	/* configlet pointers */
- 	vector hwe;
- 	struct gen_path generic_path;
-+	int tpg_id;
- };
- 
- typedef int (pgpolicyfn) (struct multipath *, vector);
-diff --git a/multipath/main.c b/multipath/main.c
-index 90f940f1..b78f3162 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -157,6 +157,7 @@ usage (char * progname)
- 		"          . group_by_serial     one priority group per serial\n"
- 		"          . group_by_prio       one priority group per priority lvl\n"
- 		"          . group_by_node_name  one priority group per target node\n"
-+		"          . group_by_tpg        one priority group per ALUA target port group\n"
- 		"  -v lvl  verbosity level:\n"
- 		"          . 0 no output\n"
- 		"          . 1 print created devmap names only\n"
-diff --git a/multipath/multipath.conf.5 b/multipath/multipath.conf.5
-index b4dccd1b..b65a543d 100644
---- a/multipath/multipath.conf.5
-+++ b/multipath/multipath.conf.5
-@@ -233,6 +233,10 @@ per-multipath option in the configuration file.
- One priority group per target node name. Target node names are fetched
- in \fI/sys/class/fc_transport/target*/node_name\fR.
- .TP
-+.I group_by_tpg
-+One priority group per ALUA target port group. In order to use this policy,
-+all paths in the multipath device must have \fIprio\fR set to \fBalua\fR.
-+.TP
- The default is: \fBfailover\fR
- .RE
- .
 -- 
 2.17.2
 
