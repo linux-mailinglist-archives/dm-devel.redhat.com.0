@@ -2,86 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6E8F5725ED8
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 14:20:59 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 52C24725F43
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 14:25:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686140458;
+	s=mimecast20190719; t=1686140737;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=+8iVasfHCyEWo6B+cxPkM6rJQDoclhuv+MhhLQlVGDU=;
-	b=SrfMVHYZa5arqatFEliAVGJuRSTLulaJ9HPncYeCamHYt6pSI/bic1a7r7VpWO3id4PGy0
-	7NBvR5BR2Bn2ad40k/kKSTL/wwaCOMevbyK3aiexRTXPMkF+THKivzgBfVXOauyCDdgj0j
-	6+nedk9SuQ5JYUn/j20jXtFhtgmPIGY=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ST3mbRzsZmeMmjoJpjIGBQ1wkuQbj1zmXzp6k90q4oU=;
+	b=LJpkoJR5ZFyLlHrwdf3mI66h2Grb/PwfL4/hKCek0w98+zrR2eIhtCCioBfA75q1fYi0O6
+	89pCkt1OEdg4KZPhfYqQSCcGI3had+hq54mrefkSGYwxF6CTSz+KBSFvtaPmrFpOcFK1Sx
+	obNxIiRQo8k5Sa5P9mnIyqJRKcdTquQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-401-pUrflWpUPeKZcDxnjmBnKQ-1; Wed, 07 Jun 2023 08:20:56 -0400
-X-MC-Unique: pUrflWpUPeKZcDxnjmBnKQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-3-bRC5IhChMoGp2rFydubyNw-1; Wed, 07 Jun 2023 08:25:35 -0400
+X-MC-Unique: bRC5IhChMoGp2rFydubyNw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B46AE38184E8;
-	Wed,  7 Jun 2023 12:20:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF8F811761;
+	Wed,  7 Jun 2023 12:25:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9ED229E94;
-	Wed,  7 Jun 2023 12:20:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FB3F2166B26;
+	Wed,  7 Jun 2023 12:25:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A3F0A19451EC;
-	Wed,  7 Jun 2023 12:20:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1E4A419451CD;
+	Wed,  7 Jun 2023 12:24:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F230A19451C4
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
+ ESMTP id 0AC1C194F24B
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D1E7FC154D4; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
+ id 3A4C5477F61; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CA528C154D2
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 33B1C403176
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF9E01C09A65
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 184B18032FF
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-2cGXgKUbOhWvP6TC2Bsn6A-1; Wed,
- 07 Jun 2023 08:19:03 -0400
-X-MC-Unique: 2cGXgKUbOhWvP6TC2Bsn6A-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-75-QNaSPT_pMqeZXEiiykTsGQ-1; Wed,
+ 07 Jun 2023 08:19:38 -0400
+X-MC-Unique: QNaSPT_pMqeZXEiiykTsGQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 992EB219BF;
- Wed,  7 Jun 2023 12:19:00 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 0679A1FDAC;
+ Wed,  7 Jun 2023 12:19:37 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6987D13776;
- Wed,  7 Jun 2023 12:19:00 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7EEB13776;
+ Wed,  7 Jun 2023 12:19:36 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id ngODGbR1gGR3QAAAMHmgww
- (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 12:19:00 +0000
-Message-ID: <30183892-dce6-6946-2f7a-1bc693a657a2@suse.de>
-Date: Wed, 7 Jun 2023 14:19:00 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id LXmULNh1gGTYQAAAMHmgww
+ (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 12:19:36 +0000
+Message-ID: <9d7ae46b-f963-3412-cf5c-4d11c54eea58@suse.de>
+Date: Wed, 7 Jun 2023 14:19:36 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-9-hch@lst.de>
+ <20230606073950.225178-10-hch@lst.de>
 From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20230606073950.225178-9-hch@lst.de>
+In-Reply-To: <20230606073950.225178-10-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,9 +89,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH 08/31] block: share code between
- disk_check_media_change and disk_force_media_change
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH 09/31] block: pass a gendisk to ->open
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,7 +119,7 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.de
 Content-Language: en-US
@@ -128,60 +127,45 @@ Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
 On 6/6/23 09:39, Christoph Hellwig wrote:
-> Factor the common logic between disk_check_media_change and
-> disk_force_media_change into a helper.
+> ->open is only called on the whole device.  Make that explicit by
+> passing a gendisk instead of the block_device.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->   block/disk-events.c | 37 ++++++++++++++++---------------------
->   1 file changed, 16 insertions(+), 21 deletions(-)
+>   arch/um/drivers/ubd_kern.c          |  5 ++---
+>   arch/xtensa/platforms/iss/simdisk.c |  4 ++--
+>   block/bdev.c                        |  2 +-
+>   drivers/block/amiflop.c             |  8 ++++----
+>   drivers/block/aoe/aoeblk.c          |  4 ++--
+>   drivers/block/ataflop.c             | 16 +++++++--------
+>   drivers/block/drbd/drbd_main.c      |  6 +++---
+>   drivers/block/floppy.c              | 30 +++++++++++++++--------------
+>   drivers/block/nbd.c                 |  8 ++++----
+>   drivers/block/pktcdvd.c             |  6 +++---
+>   drivers/block/rbd.c                 |  4 ++--
+>   drivers/block/rnbd/rnbd-clt.c       |  4 ++--
+>   drivers/block/swim.c                | 10 +++++-----
+>   drivers/block/swim3.c               | 10 +++++-----
+>   drivers/block/ublk_drv.c            |  4 ++--
+>   drivers/block/z2ram.c               |  6 ++----
+>   drivers/block/zram/zram_drv.c       | 13 +++++--------
+>   drivers/cdrom/gdrom.c               |  4 ++--
+>   drivers/md/bcache/super.c           |  4 ++--
+>   drivers/md/dm.c                     |  4 ++--
+>   drivers/md/md.c                     |  6 +++---
+>   drivers/mmc/core/block.c            |  4 ++--
+>   drivers/mtd/mtd_blkdevs.c           |  4 ++--
+>   drivers/mtd/ubi/block.c             |  4 ++--
+>   drivers/nvme/host/core.c            |  4 ++--
+>   drivers/nvme/host/multipath.c       |  4 ++--
+>   drivers/s390/block/dasd.c           |  4 ++--
+>   drivers/s390/block/dcssblk.c        |  7 +++----
+>   drivers/scsi/sd.c                   | 12 ++++++------
+>   drivers/scsi/sr.c                   |  6 +++---
+>   include/linux/blkdev.h              |  2 +-
+>   31 files changed, 102 insertions(+), 107 deletions(-)
 > 
-> diff --git a/block/disk-events.c b/block/disk-events.c
-> index 8b1b63225738f8..06f325662b3494 100644
-> --- a/block/disk-events.c
-> +++ b/block/disk-events.c
-> @@ -262,6 +262,18 @@ static unsigned int disk_clear_events(struct gendisk *disk, unsigned int mask)
->   	return pending;
->   }
->   
-> +static bool __disk_check_media_change(struct gendisk *disk, unsigned int events)
-> +{
-> +	if (!(events & DISK_EVENT_MEDIA_CHANGE))
-> +		return false;
-> +
-> +	if (__invalidate_device(disk->part0, true))
-> +		pr_warn("VFS: busy inodes on changed media %s\n",
-> +			disk->disk_name);
-> +	set_bit(GD_NEED_PART_SCAN, &disk->state);
-> +	return true;
-> +}
-> +
->   /**
->    * disk_check_media_change - check if a removable media has been changed
->    * @disk: gendisk to check
-> @@ -274,18 +286,9 @@ static unsigned int disk_clear_events(struct gendisk *disk, unsigned int mask)
->    */
->   bool disk_check_media_change(struct gendisk *disk)
->   {
-> -	unsigned int events;
-> -
-> -	events = disk_clear_events(disk, DISK_EVENT_MEDIA_CHANGE |
-> -				   DISK_EVENT_EJECT_REQUEST);
-> -	if (!(events & DISK_EVENT_MEDIA_CHANGE))
-> -		return false;
-> -
-> -	if (__invalidate_device(disk->part0, true))
-> -		pr_warn("VFS: busy inodes on changed media %s\n",
-> -			disk->disk_name);
-> -	set_bit(GD_NEED_PART_SCAN, &disk->state);
-> -	return true;
-> +	return __disk_check_media_change(disk,
-> +			disk_clear_events(disk, DISK_EVENT_MEDIA_CHANGE |
-> +						DISK_EVENT_EJECT_REQUEST));
-
-Can you move the call to disk_clear_events() out of the call to 
-__disk_check_media_change()?
-I find this pattern hard to read.
+Reviewed-by: Hannes Reinecke <hare@suse.de>
 
 Cheers,
 
