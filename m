@@ -2,86 +2,73 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 52C24725F43
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 14:25:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 2182E725F44
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 14:25:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686140737;
+	s=mimecast20190719; t=1686140751;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ST3mbRzsZmeMmjoJpjIGBQ1wkuQbj1zmXzp6k90q4oU=;
-	b=LJpkoJR5ZFyLlHrwdf3mI66h2Grb/PwfL4/hKCek0w98+zrR2eIhtCCioBfA75q1fYi0O6
-	89pCkt1OEdg4KZPhfYqQSCcGI3had+hq54mrefkSGYwxF6CTSz+KBSFvtaPmrFpOcFK1Sx
-	obNxIiRQo8k5Sa5P9mnIyqJRKcdTquQ=
+	bh=abCPG/XQz0Ym3p928/fbQQUrmKOUASE7YFVZKdtlnFY=;
+	b=gIpxnXmumj7hf4KAXWttt+nOqqG04jrMLj9j3jpX7dafU9sofq7IZcy/F0UUSCavY/c9bc
+	2XMdsctQK782VdgB1ZeFdSIeLu2K8N7KLWZYwgzCAB9IUR/b/MbN/9XtzNaJdE0gA2T19K
+	8rjeSdx2Y/c6vwF5QRjGhcZ2tC50VY8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-3-bRC5IhChMoGp2rFydubyNw-1; Wed, 07 Jun 2023 08:25:35 -0400
-X-MC-Unique: bRC5IhChMoGp2rFydubyNw-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-617-n3KQT121NVOXRlXKiRtJXQ-1; Wed, 07 Jun 2023 08:25:50 -0400
+X-MC-Unique: n3KQT121NVOXRlXKiRtJXQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AF8F811761;
-	Wed,  7 Jun 2023 12:25:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D634B802355;
+	Wed,  7 Jun 2023 12:25:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FB3F2166B26;
-	Wed,  7 Jun 2023 12:25:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BFBC9C359A5;
+	Wed,  7 Jun 2023 12:25:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1E4A419451CD;
-	Wed,  7 Jun 2023 12:24:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B997C19451D0;
+	Wed,  7 Jun 2023 12:25:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0AC1C194F24B
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
+ ESMTP id 47C8619452C3
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 12:20:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3A4C5477F61; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
+ id 2AC45140E954; Wed,  7 Jun 2023 12:20:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 33B1C403176
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 235E1140E955
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:20:47 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 184B18032FF
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:40 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-75-QNaSPT_pMqeZXEiiykTsGQ-1; Wed,
- 07 Jun 2023 08:19:38 -0400
-X-MC-Unique: QNaSPT_pMqeZXEiiykTsGQ-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 0679A1FDAC;
- Wed,  7 Jun 2023 12:19:37 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B7EEB13776;
- Wed,  7 Jun 2023 12:19:36 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id LXmULNh1gGTYQAAAMHmgww
- (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 12:19:36 +0000
-Message-ID: <9d7ae46b-f963-3412-cf5c-4d11c54eea58@suse.de>
-Date: Wed, 7 Jun 2023 14:19:36 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
-To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD2ED1C0A582
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:20:47 +0000 (UTC)
+Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-523-QfKKTY0FO7uSkNutjgDrcg-1; Wed, 07 Jun 2023 08:20:46 -0400
+X-MC-Unique: QfKKTY0FO7uSkNutjgDrcg-1
+Received: by verein.lst.de (Postfix, from userid 2407)
+ id C229F6732D; Wed,  7 Jun 2023 14:20:41 +0200 (CEST)
+Date: Wed, 7 Jun 2023 14:20:41 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Hannes Reinecke <hare@suse.de>
+Message-ID: <20230607122041.GA14579@lst.de>
 References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-10-hch@lst.de>
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20230606073950.225178-10-hch@lst.de>
+ <20230606073950.225178-6-hch@lst.de>
+ <a7524776-f4c3-147a-cfa5-da92d2f877bb@suse.de>
+MIME-Version: 1.0
+In-Reply-To: <a7524776-f4c3-147a-cfa5-da92d2f877bb@suse.de>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,8 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [dm-devel] [PATCH 09/31] block: pass a gendisk to ->open
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [dm-devel] [PATCH 05/31] cdrom: track if a cdrom_device_info
+ was opened for data
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,69 +95,42 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
  dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
  Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
- linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
- Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Jack Wang <jinpu.wang@ionos.com>, Christoph Hellwig <hch@lst.de>,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ Richard Weinberger <richard@nod.at>, linux-pm@vger.kernel.org,
+ linux-um@lists.infradead.org, Josef Bacik <josef@toxicpanda.com>,
+ Coly Li <colyli@suse.de>, linux-block@vger.kernel.org,
+ linux-bcache@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
+ David Sterba <dsterba@suse.com>, Jens Axboe <axboe@kernel.dk>,
  Christian Brauner <brauner@kernel.org>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
  linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.de
-Content-Language: en-US
+X-Mimecast-Originator: lst.de
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 6/6/23 09:39, Christoph Hellwig wrote:
-> ->open is only called on the whole device.  Make that explicit by
-> passing a gendisk instead of the block_device.
-> 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->   arch/um/drivers/ubd_kern.c          |  5 ++---
->   arch/xtensa/platforms/iss/simdisk.c |  4 ++--
->   block/bdev.c                        |  2 +-
->   drivers/block/amiflop.c             |  8 ++++----
->   drivers/block/aoe/aoeblk.c          |  4 ++--
->   drivers/block/ataflop.c             | 16 +++++++--------
->   drivers/block/drbd/drbd_main.c      |  6 +++---
->   drivers/block/floppy.c              | 30 +++++++++++++++--------------
->   drivers/block/nbd.c                 |  8 ++++----
->   drivers/block/pktcdvd.c             |  6 +++---
->   drivers/block/rbd.c                 |  4 ++--
->   drivers/block/rnbd/rnbd-clt.c       |  4 ++--
->   drivers/block/swim.c                | 10 +++++-----
->   drivers/block/swim3.c               | 10 +++++-----
->   drivers/block/ublk_drv.c            |  4 ++--
->   drivers/block/z2ram.c               |  6 ++----
->   drivers/block/zram/zram_drv.c       | 13 +++++--------
->   drivers/cdrom/gdrom.c               |  4 ++--
->   drivers/md/bcache/super.c           |  4 ++--
->   drivers/md/dm.c                     |  4 ++--
->   drivers/md/md.c                     |  6 +++---
->   drivers/mmc/core/block.c            |  4 ++--
->   drivers/mtd/mtd_blkdevs.c           |  4 ++--
->   drivers/mtd/ubi/block.c             |  4 ++--
->   drivers/nvme/host/core.c            |  4 ++--
->   drivers/nvme/host/multipath.c       |  4 ++--
->   drivers/s390/block/dasd.c           |  4 ++--
->   drivers/s390/block/dcssblk.c        |  7 +++----
->   drivers/scsi/sd.c                   | 12 ++++++------
->   drivers/scsi/sr.c                   |  6 +++---
->   include/linux/blkdev.h              |  2 +-
->   31 files changed, 102 insertions(+), 107 deletions(-)
-> 
-Reviewed-by: Hannes Reinecke <hare@suse.de>
+On Wed, Jun 07, 2023 at 02:13:33PM +0200, Hannes Reinecke wrote:
+>> +++ b/include/linux/cdrom.h
+>> @@ -64,6 +64,7 @@ struct cdrom_device_info {
+>>   	int (*exit)(struct cdrom_device_info *);
+>>   	int mrw_mode_page;
+>>   	__s64 last_media_change_ms;
+>> +	bool opened_for_data;
+>>   };
+>>     struct cdrom_device_ops {
+>
+> Do we care about alignment here?
+> integer followed by a 64 bit value followed by a bool seems
+> like an automatic padding to me ...
 
-Cheers,
-
-Hannes
+I don't think the structure matter much here, but placing it before
+last_media_change_ms still seems better.  I'll change it.
 
 --
 dm-devel mailing list
