@@ -2,86 +2,86 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8D1C0726068
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 15:05:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AC17272606E
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 15:05:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686143106;
+	s=mimecast20190719; t=1686143156;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=72WjeosikNqnOsm0mlhYtrtUq+vkSGUA3wzn1bEy5Os=;
-	b=GhnpAYvgTjnxdAVitPgrtNT31L9PnU8UvH6CBp0uSKAO715jxbdpsC610wFp6rBWZDcRue
-	xjY/jSi123hIp3zidWB7OJS6SR6H2fyc3KzPGadRICF2bFvMI9wEuce2rmDlO/DcJug1/u
-	PRoyV3QUmAfuA14ijMS+xlAWkHJ9Zsc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=10mifJxFyaj7/ZO7yw2Ql5ZTIIOXYQrB54cWnl8eENg=;
+	b=QGFWI6KTsi9c5HLI4rTKDZKRppqvIz6zBNMhcHe8d757Ls4PT2XWYStE+Ud7JJNC9y7tOX
+	V7Axa4oXNNdlxdVKZdvbJYnpMnS5mwS7KoM4dZ4ibt6XReMii1VUgtWGDmZuZlEQXejzkp
+	JDEy68fP0h3tXhn56BmHzAaW+moPNUA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-118-Vr2gmcOUOUmFxCzcF9j1fg-1; Wed, 07 Jun 2023 09:05:04 -0400
-X-MC-Unique: Vr2gmcOUOUmFxCzcF9j1fg-1
+ us-mta-50-Aiiv2ppnMiuOaK0IY_UXKw-1; Wed, 07 Jun 2023 09:05:54 -0400
+X-MC-Unique: Aiiv2ppnMiuOaK0IY_UXKw-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 27E5A1C08783;
-	Wed,  7 Jun 2023 13:05:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04990101B044;
+	Wed,  7 Jun 2023 13:05:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CFAC71121314;
-	Wed,  7 Jun 2023 13:05:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E1F0A1121314;
+	Wed,  7 Jun 2023 13:05:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 36F5D19452D3;
-	Wed,  7 Jun 2023 13:04:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 90F6719452CC;
+	Wed,  7 Jun 2023 13:05:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 99E8219465BA
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 13:04:52 +0000 (UTC)
+ ESMTP id DEC1119465BA
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 13:05:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7AE749E8E; Wed,  7 Jun 2023 13:04:52 +0000 (UTC)
+ id BC76B40D1B68; Wed,  7 Jun 2023 13:05:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 72D129E8B
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 13:04:52 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B59B640D1B66
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 13:05:48 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 54A0F3C0F22A
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 13:04:52 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 998F3101B048
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 13:05:48 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-52-gBRDhQ0XMeWzmR23gQqu-g-1; Wed,
- 07 Jun 2023 09:04:50 -0400
-X-MC-Unique: gBRDhQ0XMeWzmR23gQqu-g-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-615-5VsNUcOoPkmoPZKVT2hm-g-1; Wed,
+ 07 Jun 2023 09:05:46 -0400
+X-MC-Unique: 5VsNUcOoPkmoPZKVT2hm-g-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 826B9219F8;
- Wed,  7 Jun 2023 13:04:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id EEFDA21A00;
+ Wed,  7 Jun 2023 13:05:44 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 429DE1346D;
- Wed,  7 Jun 2023 13:04:49 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id BB4031346D;
+ Wed,  7 Jun 2023 13:05:44 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 4Da0D3GAgGTxWgAAMHmgww
- (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 13:04:49 +0000
-Message-ID: <a11fb73b-6da2-ab25-ca7f-57f449b45d3f@suse.de>
-Date: Wed, 7 Jun 2023 15:04:48 +0200
+ by imap2.suse-dmz.suse.de with ESMTPSA id YVNqLaiAgGR2WwAAMHmgww
+ (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 13:05:44 +0000
+Message-ID: <99fc97ec-45ed-7dcf-e53f-e14c8831e678@suse.de>
+Date: Wed, 7 Jun 2023 15:05:44 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.11.0
 To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
 References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-21-hch@lst.de>
+ <20230606073950.225178-22-hch@lst.de>
 From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20230606073950.225178-21-hch@lst.de>
+In-Reply-To: <20230606073950.225178-22-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,9 +89,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH 20/31] scsi: replace the fmode_t argument to
- scsi_ioctl with a simple bool
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH 21/31] scsi: replace the fmode_t argument to
+ ->sg_io_fn with a simple bool
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -133,14 +133,11 @@ On 6/6/23 09:39, Christoph Hellwig wrote:
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
->   drivers/scsi/ch.c         |  3 ++-
->   drivers/scsi/scsi_ioctl.c | 34 +++++++++++++++++-----------------
->   drivers/scsi/sd.c         |  2 +-
->   drivers/scsi/sg.c         |  5 +++--
->   drivers/scsi/sr.c         |  2 +-
->   drivers/scsi/st.c         |  2 +-
->   include/scsi/scsi_ioctl.h |  2 +-
->   7 files changed, 26 insertions(+), 24 deletions(-)
+>   block/bsg-lib.c         | 2 +-
+>   block/bsg.c             | 8 +++++---
+>   drivers/scsi/scsi_bsg.c | 4 ++--
+>   include/linux/bsg.h     | 2 +-
+>   4 files changed, 9 insertions(+), 7 deletions(-)
 > 
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 
