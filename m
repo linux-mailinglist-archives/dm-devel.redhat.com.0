@@ -1,86 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DEBB37277B9
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 08:49:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 11F5F7264D3
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 17:39:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686206967;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1686152342;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=1I/hEbdJ9paqaOYCYa+LB5+m8cKhqv/sqkVCL1gppyE=;
-	b=VNgsHS9OOdkEaOWfrX4BCqBURwVNvdJmGGNrTywuBBXrF2driZuQEvtqblu4bEUbFUsrL+
-	NjowgX1fUb6xCoeKU09aMkVPK6iayB+UrRqTuiPgZuoNqlTHBStV2Q2YVJigSBbPaS5M3g
-	zFvR9as5+GCAN9CaGMSJh6ITu1Y7LdM=
+	bh=//RHmJTCYi2N5oWfQOV0GssYFmR2X06hER6neUOCjiw=;
+	b=C9ssz0UcJUAzcxDBtYbb0Hq0sMjiFUt8BqBv5XDdDX4VXradDyWaLDX/FDjrHgllbLh0Dl
+	wa6yv+xYGI/AeKZkfeuJO9J6cEJ4fKD6t6chqmpiVAX6IviVQbD7fZh6YZND9TS2tD+9Aj
+	tY6TQKixvG50a9acKZQA5yI5fXFwHsQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-626-tzt48mpXNEOQoKHFFSS47w-1; Thu, 08 Jun 2023 02:49:24 -0400
-X-MC-Unique: tzt48mpXNEOQoKHFFSS47w-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-567-dvTKRnawMSqU2I6svbGUbw-1; Wed, 07 Jun 2023 11:39:01 -0400
+X-MC-Unique: dvTKRnawMSqU2I6svbGUbw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 851C3802E58;
-	Thu,  8 Jun 2023 06:49:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A6B7811E7F;
+	Wed,  7 Jun 2023 15:38:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6AA2640CFD47;
-	Thu,  8 Jun 2023 06:49:12 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id F27EA140E955;
+	Wed,  7 Jun 2023 15:38:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 10C5C19543B8;
-	Thu,  8 Jun 2023 06:48:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2986719451C4;
+	Wed,  7 Jun 2023 15:38:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 32D1419465BA
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 15:56:21 +0000 (UTC)
+ ESMTP id E615719465BA
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 15:14:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EA4204021AB; Wed,  7 Jun 2023 15:56:20 +0000 (UTC)
+ id C6BC8C1603B; Wed,  7 Jun 2023 15:14:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E2627492B00
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 15:56:20 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BE2DBC0004B
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 15:14:55 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C52C480027F
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 15:56:20 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-126-fy4OQx0XOEeAjl0KOvgXyA-1; Wed,
- 07 Jun 2023 10:00:11 -0400
-X-MC-Unique: fy4OQx0XOEeAjl0KOvgXyA-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 5DD1A1FDAA;
- Wed,  7 Jun 2023 14:00:10 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D167113776;
- Wed,  7 Jun 2023 14:00:09 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id oAxvMmmNgGS7ewAAMHmgww
- (envelope-from <dsterba@suse.cz>); Wed, 07 Jun 2023 14:00:09 +0000
-Date: Wed, 7 Jun 2023 15:53:54 +0200
-From: David Sterba <dsterba@suse.cz>
-To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20230607135354.GP25292@twin.jikos.cz>
-References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-17-hch@lst.de>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF73F1C01EBF
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 15:14:17 +0000 (UTC)
+Received: from stravinsky.debian.org (stravinsky.debian.org [82.195.75.108])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-400-zfrwn0AMMj-KGlbX1yuI4Q-1; Wed,
+ 07 Jun 2023 11:12:23 -0400
+X-MC-Unique: zfrwn0AMMj-KGlbX1yuI4Q-1
+Received: from authenticated user by stravinsky.debian.org with esmtpsa
+ (TLS1.3:ECDHE_X25519__RSA_PSS_RSAE_SHA256__AES_256_GCM:256)
+ (Exim 4.94.2) (envelope-from <zeha@debian.org>)
+ id 1q6upf-004Siu-Sx; Wed, 07 Jun 2023 15:12:20 +0000
+Date: Wed, 7 Jun 2023 17:12:10 +0200
+From: Chris Hofstaedtler <zeha@debian.org>
+To: Martin Wilck <mwilck@suse.com>
+Message-ID: <zy7caef43nvpfetodg6sc7bhp5aj3scvkcg2p5jabnzhtetkq3@4aco3dd4kwrh>
+References: <a674434b-d365-1f07-2c6f-6a4ffa07578f@gmail.com>
+ <946fc11571491dd39971288b48095b6480f7914f.camel@suse.com>
+ <bjgxqic4umo4rk2srj4mqdgvvxntosb2xxo63fmymirulir7st@jduzswoyhupe>
+ <1f452452d8f0952d3fa704f6ad9861392c5b45f7.camel@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20230606073950.225178-17-hch@lst.de>
-User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+In-Reply-To: <1f452452d8f0952d3fa704f6ad9861392c5b45f7.camel@suse.com>
+X-Debian-User: zeha
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -88,10 +79,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Thu, 08 Jun 2023 06:48:45 +0000
-Subject: Re: [dm-devel] [PATCH 16/31] block: use the holder as indication
- for exclusive opens
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] multipath-tools: Debian patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,68 +92,88 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Reply-To: dsterba@suse.cz
-Cc: Vignesh Raghavendra <vigneshr@ti.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
- Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
- dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
- Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
- linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
- Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
+Cc: Xose Vazquez Perez <xose.vazquez@gmail.com>,
+ dm-devel mailing list <dm-devel@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.cz
+X-Mimecast-Originator: debian.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 06, 2023 at 09:39:35AM +0200, Christoph Hellwig wrote:
-> The current interface for exclusive opens is rather confusing as it
-> requires both the FMODE_EXCL flag and a holder.  Remove the need to pass
-> FMODE_EXCL and just key off the exclusive open off a non-NULL holder.
+* Martin Wilck <mwilck@suse.com> [230606 21:40]:
+> On Tue, 2023-06-06 at 18:48 +0200, Chris Hofstaedtler wrote:
+[..]
+> > > If Chris has followed the upstream discussion, he is probably aware
+> > > that we do care about the ABI. We don't keep the libmultipath ABI
+> > > stable, but track it using ABI versioning.
+> > 
+> > I was only vaguely aware of the changes in the <lib>.version files,
+> > and that all .so files are ".so.0".
+> > From a quick glance it looks like libmultipath.so.0 from 0.9.4
+> > exports a lot of symbols versioned @LIBMULTIPATH_17.0.0, but f.e.
+> > none versioned @LIBMULTIPATH_15.0.0, but the soname didn't change.
 > 
-> For blkdev_put this requires adding the holder argument, which provides
-> better debug checking that only the holder actually releases the hold,
-> but at the same time allows removing the now superfluous mode argument.
+> Maybe Debian enforces additional policies I'm unaware of, but
+> technically, the soname, or filename based library versioning, doesn't
+> matter if symbol versioning is used [1]. Symbol versioning can be used
+> in different ways. For libmultipath, we don't attempt to provide
+> multiple backward-compatible ABIs. We just want to avoid undefined
+> behavior which would result from an executable calling a library
+> routine with a different version of the ABI, and this is what our
+> library versioning scheme achieves. The idea is similar to the kernel's
+> symvers mechanism, which avoids loading binary-incompatible modules.
 > 
-> Signed-off-by: Christoph Hellwig <hch@lst.de>
-> ---
->  block/bdev.c                        | 37 ++++++++++++++++------------
->  block/fops.c                        |  6 +++--
->  block/genhd.c                       |  5 ++--
->  block/ioctl.c                       |  5 ++--
->  drivers/block/drbd/drbd_nl.c        | 23 ++++++++++-------
->  drivers/block/pktcdvd.c             | 13 +++++-----
->  drivers/block/rnbd/rnbd-srv.c       |  4 +--
->  drivers/block/xen-blkback/xenbus.c  |  2 +-
->  drivers/block/zram/zram_drv.c       |  8 +++---
->  drivers/md/bcache/super.c           | 15 ++++++------
->  drivers/md/dm.c                     |  6 ++---
->  drivers/md/md.c                     | 38 +++++++++++++++--------------
->  drivers/mtd/devices/block2mtd.c     |  4 +--
->  drivers/nvme/target/io-cmd-bdev.c   |  2 +-
->  drivers/s390/block/dasd_genhd.c     |  2 +-
->  drivers/target/target_core_iblock.c |  6 ++---
->  drivers/target/target_core_pscsi.c  |  8 +++---
+> > So - I'm not sure if, for a Debian library package, it is okay to do
+> > essentially drop symbols without a new soname.
+> 
+> I can't tell for Debian, but other distributions haven't complained so
+> far. I don't think that multipath-tools is the only project that uses
+> symbol versioning this way.
+> 
 
-For
+[..]
 
->  fs/btrfs/dev-replace.c              |  6 ++---
->  fs/btrfs/ioctl.c                    | 12 ++++-----
->  fs/btrfs/volumes.c                  | 28 ++++++++++-----------
->  fs/btrfs/volumes.h                  |  6 ++---
+> On rpm-based distributions,package management will be able to figure
+> out this kind of (in)compatibility, albeit in a more coarse-grained way
+> (e.g. the multipathd package requires
+> libmpathpersist.so.0(LIBMPATHPERSIST_2.1.0)(64bit), which must match
+> the provided features of the library package). I suppose something
+> similar exists in the Debian realm, too.
 
-Acked-by: David Sterba <dsterba@suse.com>
+Do you also rename the package that ships libpathmpersist.so.0 in
+this case?
+
+I.e. how do you make this example work:
+
+old libmpathpersist.so.0 provides ABI 1
+new libmpathpersist.so.0(?) provides ABI 2
+
+multipathd was linked against the new libmpathpersist.so.0 (ABI 2)
+qemu was linked against the old libmpathpersist.so.0 (ABI 1)
+
+I don't see how these can be co-installable if libmpathpersist.so.0
+is never renamed?
+
+Maybe other distributions do not need coinstallability, but Debian
+needs this, because a) on actual installs we support partial upgrades,
+and b) we do not rebuild all reverse-dependencies of a library the
+moment a new version of that lib is uploaded.
+
+
+I also wonder you get from symbol versioning if the old symbols just
+disappear. ISTM you could get the same effect - cannot by accident
+load the wrong library version - just by bumping the soname, and
+ignoring manual symbol versioning?
+
+
+I asked around a bit and got "this seems very unusual" as feedback.
+
+
+Thanks,
+Chris
 
 --
 dm-devel mailing list
