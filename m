@@ -2,64 +2,64 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D8710726E19
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 22:48:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id A64D5726E1A
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 22:48:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686170894;
+	s=mimecast20190719; t=1686170895;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cFlqEg2PRUwUP3UgzMBwcTJc/iP/CTsUYkDNG7dbzCo=;
-	b=JN6is3i1CpP8imisiN5dmWJntyFg4ruXNDT7dCVegrD3Bv+3tNeaxs/JTVywYUfTdBv5QC
-	NxoqIZlncCfixfNYeFAds/UiAQ4M3xmV07yFTVMdKfJsqxdgOUL9QyVnbLjgkS85jlC/F9
-	jsMOs7DhzWs/dQQWmJgIJwd20HlYbNk=
+	bh=spOCUSQplOWoM4RNJ7bjc8UAZrCJjYGuYLapQ2Ca37I=;
+	b=augLuxu1w+vBr01zvPVUy+YUwMq7Uem7GBHhHOyWG4jMDnpo3N8GCo3ouRZHspA+F/2feY
+	6tnzp+HQylpS/v9NDkJYUWihFSaNlokCqQm4mEcs2J4IenJXuRoFmzmuv9A+qiPDdw+9Sn
+	Mgsz0kVduoTbtMYH5tV3NacxApzLiG8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-393-FpRfUifkNP6V8kI8ay7lUw-1; Wed, 07 Jun 2023 16:48:13 -0400
-X-MC-Unique: FpRfUifkNP6V8kI8ay7lUw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-457-OXzNdh2SNSKZLSYTkfZZUQ-1; Wed, 07 Jun 2023 16:48:14 -0400
+X-MC-Unique: OXzNdh2SNSKZLSYTkfZZUQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 149078032EF;
-	Wed,  7 Jun 2023 20:48:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 181AD101A53B;
+	Wed,  7 Jun 2023 20:48:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EA5B12026D2F;
-	Wed,  7 Jun 2023 20:48:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 01E139E8B;
+	Wed,  7 Jun 2023 20:48:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 94E9619452D3;
-	Wed,  7 Jun 2023 20:48:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BD5B319452C3;
+	Wed,  7 Jun 2023 20:48:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 236CD19452C7
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 20:48:09 +0000 (UTC)
+ ESMTP id 6D19919465BA
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 20:48:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 13ADA492B00; Wed,  7 Jun 2023 20:48:09 +0000 (UTC)
+ id 5F5DEC1603B; Wed,  7 Jun 2023 20:48:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E2FBB4021AA;
- Wed,  7 Jun 2023 20:48:08 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 40450C16044;
+ Wed,  7 Jun 2023 20:48:10 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 357Km6Xr005829;
- Wed, 7 Jun 2023 15:48:06 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 357Km7cQ005833;
+ Wed, 7 Jun 2023 15:48:07 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 357Km5TS005828;
- Wed, 7 Jun 2023 15:48:05 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 357Km7A0005832;
+ Wed, 7 Jun 2023 15:48:07 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>
-Date: Wed,  7 Jun 2023 15:47:51 -0500
-Message-Id: <1686170873-5754-10-git-send-email-bmarzins@redhat.com>
+Date: Wed,  7 Jun 2023 15:47:52 -0500
+Message-Id: <1686170873-5754-11-git-send-email-bmarzins@redhat.com>
 In-Reply-To: <1686170873-5754-1-git-send-email-bmarzins@redhat.com>
 References: <1686170873-5754-1-git-send-email-bmarzins@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH V3 09/11] multipathd: only refresh priorities in
- update_prio()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH V3 10/11] multipathd: reload map if the path
+ groups are out of order
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,301 +76,164 @@ Cc: device-mapper development <dm-devel@redhat.com>,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Multipathd previously had various rules to update priorities in
-update_prio(), need_switch_pathgroup(), and reload_map(). Instead, only
-update the priority in update_prio().  To cover the cases where the
-priorities were getting updated in other functions, update_prio() now
-always updates all paths' priorities, if the priority on the path that
-it was called with changes.
+need_switch_pathgroup() only checks if the currently used pathgroup is
+not the highest priority pathgroup. If it isn't, all multipathd does is
+instruct the kernel to switch to the correct pathgroup.  However, the
+kernel treats the pathgroups as if they were ordered by priority. When
+the kernel runs out of paths to use in the currently selected pathgroup,
+it will start checking the pathgroups in order until it finds one with
+usable paths.
 
-Also, do not try to update a path's priority if it is down. Previously,
-when refreshing all the paths' priorities, a path could have its
-priority updated when it was in the PATH_DOWN state, as long as its
-priority was PRIO_UNDEF. But if a path is down, and the last time
-multipath tried to get its priority, it failed, it seems likely that the
-prioritizer will just fail again.
+need_switch_pathgroup() should also check if the pathgroups are out of
+order, and if so, multipathd should reload the map to reorder them
+correctly.
 
-Finally, skip updating all paths' priorities in
-deferred_failback_tick().  Now that all the paths' priorities will get
-updated when one changes before starting the deferred failback count,
-it's no longer necessary to update them all again when the failback
-timeout expires.  The checker loop will continue to update them
-correctly while the timeout is going on.
-
-Reviewed-by: Martin Wilck <mwilck@suse.com>
 Signed-off-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- multipathd/cli_handlers.c  |   8 +--
- multipathd/fpin_handlers.c |   4 +-
- multipathd/main.c          | 109 +++++++++++++------------------------
- multipathd/main.h          |   3 +-
- 4 files changed, 45 insertions(+), 79 deletions(-)
+ multipathd/main.c | 70 +++++++++++++++++++++++++++++++++++++++--------
+ 1 file changed, 58 insertions(+), 12 deletions(-)
 
-diff --git a/multipathd/cli_handlers.c b/multipathd/cli_handlers.c
-index 44bf43df..c9addfbb 100644
---- a/multipathd/cli_handlers.c
-+++ b/multipathd/cli_handlers.c
-@@ -810,7 +810,7 @@ cli_reload(void *v, struct strbuf *reply, void *data)
- 		return 1;
- 	}
- 
--	return reload_and_sync_map(mpp, vecs, 0);
-+	return reload_and_sync_map(mpp, vecs);
- }
- 
- static int resize_map(struct multipath *mpp, unsigned long long size,
-@@ -1449,7 +1449,7 @@ static int cli_set_marginal(void * v, struct strbuf *reply, void * data)
- 	}
- 	pp->marginal = 1;
- 
--	return reload_and_sync_map(pp->mpp, vecs, 0);
-+	return reload_and_sync_map(pp->mpp, vecs);
- }
- 
- static int cli_unset_marginal(void * v, struct strbuf *reply, void * data)
-@@ -1476,7 +1476,7 @@ static int cli_unset_marginal(void * v, struct strbuf *reply, void * data)
- 	}
- 	pp->marginal = 0;
- 
--	return reload_and_sync_map(pp->mpp, vecs, 0);
-+	return reload_and_sync_map(pp->mpp, vecs);
- }
- 
- static int cli_unset_all_marginal(void * v, struct strbuf *reply, void * data)
-@@ -1513,7 +1513,7 @@ static int cli_unset_all_marginal(void * v, struct strbuf *reply, void * data)
- 		vector_foreach_slot (pgp->paths, pp, j)
- 			pp->marginal = 0;
- 
--	return reload_and_sync_map(mpp, vecs, 0);
-+	return reload_and_sync_map(mpp, vecs);
- }
- 
- #define HANDLER(x) x
-diff --git a/multipathd/fpin_handlers.c b/multipathd/fpin_handlers.c
-index 8f464f04..aa0f63c9 100644
---- a/multipathd/fpin_handlers.c
-+++ b/multipathd/fpin_handlers.c
-@@ -127,7 +127,7 @@ empty:
- 	/* walk backwards because reload_and_sync_map() can remove mpp */
- 	vector_foreach_slot_backwards(vecs->mpvec, mpp, i) {
- 		if (mpp->fpin_must_reload) {
--			ret = reload_and_sync_map(mpp, vecs, 0);
-+			ret = reload_and_sync_map(mpp, vecs);
- 			if (ret == 2)
- 				condlog(2, "map removed during reload");
- 			else
-@@ -262,7 +262,7 @@ unref:
- 	/* walk backwards because reload_and_sync_map() can remove mpp */
- 	vector_foreach_slot_backwards(vecs->mpvec, mpp, i) {
- 		if (mpp->fpin_must_reload) {
--			ret = reload_and_sync_map(mpp, vecs, 0);
-+			ret = reload_and_sync_map(mpp, vecs);
- 			if (ret == 2)
- 				condlog(2, "map removed during reload");
- 			else
 diff --git a/multipathd/main.c b/multipathd/main.c
-index bdeffe76..f603d143 100644
+index f603d143..584be895 100644
 --- a/multipathd/main.c
 +++ b/multipathd/main.c
-@@ -396,32 +396,13 @@ void put_multipath_config(__attribute__((unused)) void *arg)
+@@ -395,11 +395,47 @@ void put_multipath_config(__attribute__((unused)) void *arg)
+ 	rcu_read_unlock();
  }
  
++/*
++ * The path group orderings that this function finds acceptible are different
++ * from now select_path_group determines the best pathgroup. The idea here is
++ * to only trigger a kernel reload when it is obvious that the pathgroups would
++ * be out of order, even if all the paths were usable. Thus pathgroups with
++ * PRIO_UNDEF are skipped, and the number of enabled paths doesn't matter here.
++ */
++bool path_groups_in_order(struct multipath *mpp)
++{
++	int i;
++	struct pathgroup *pgp;
++	bool seen_marginal_pg = false;
++	int last_prio = INT_MAX;
++
++	if (VECTOR_SIZE(mpp->pg) < 2)
++		return true;
++
++	vector_foreach_slot(mpp->pg, pgp, i) {
++		if (seen_marginal_pg && !pgp->marginal)
++			return false;
++		/* skip pgs with PRIO_UNDEF, since this is likely temporary */
++		if (!pgp->paths || pgp->priority == PRIO_UNDEF)
++			continue;
++		if (pgp->marginal && !seen_marginal_pg) {
++			seen_marginal_pg = true;
++			last_prio = pgp->priority;
++			continue;
++		}
++		if (pgp->priority > last_prio)
++			return false;
++		last_prio = pgp->priority;
++	}
++	return true;
++}
++
  static int
--need_switch_pathgroup (struct multipath * mpp, int refresh)
-+need_switch_pathgroup (struct multipath * mpp)
+-need_switch_pathgroup (struct multipath * mpp)
++need_switch_pathgroup (struct multipath * mpp, bool *need_reload)
  {
--	struct pathgroup * pgp;
--	struct path * pp;
--	unsigned int i, j;
--	struct config *conf;
  	int bestpg;
  
++	*need_reload = false;
  	if (!mpp)
  		return 0;
  
--	/*
--	 * Refresh path priority values
--	 */
--	if (refresh) {
--		vector_foreach_slot (mpp->pg, pgp, i) {
--			vector_foreach_slot (pgp->paths, pp, j) {
--				conf = get_multipath_config();
--				pthread_cleanup_push(put_multipath_config,
--						     conf);
--				pathinfo(pp, conf, DI_PRIO);
--				pthread_cleanup_pop(1);
--			}
--		}
--	}
--
- 	if (!mpp->pg || VECTOR_SIZE(mpp->paths) == 0)
+@@ -411,10 +447,9 @@ need_switch_pathgroup (struct multipath * mpp)
  		return 0;
  
-@@ -1594,7 +1575,7 @@ uev_update_path (struct uevent *uev, struct vectors * vecs)
- 			else {
- 				if (ro == 1)
- 					pp->mpp->force_readonly = 1;
--				retval = reload_and_sync_map(mpp, vecs, 0);
-+				retval = reload_and_sync_map(mpp, vecs);
- 				if (retval == 2)
- 					condlog(2, "%s: map removed during reload", pp->dev);
- 				else {
-@@ -1994,7 +1975,7 @@ deferred_failback_tick (vector mpvec)
+ 	mpp->bestpg = bestpg;
+-	if (mpp->bestpg != mpp->nextpg)
+-		return 1;
++	*need_reload = !path_groups_in_order(mpp);
+ 
+-	return 0;
++	return (*need_reload || mpp->bestpg != mpp->nextpg);
+ }
+ 
+ static void
+@@ -1963,20 +1998,26 @@ ghost_delay_tick(struct vectors *vecs)
+ }
+ 
+ static void
+-deferred_failback_tick (vector mpvec)
++deferred_failback_tick (struct vectors *vecs)
+ {
+ 	struct multipath * mpp;
+ 	unsigned int i;
++	bool need_reload;
+ 
+-	vector_foreach_slot (mpvec, mpp, i) {
++	vector_foreach_slot (vecs->mpvec, mpp, i) {
+ 		/*
+ 		 * deferred failback getting sooner
+ 		 */
  		if (mpp->pgfailback > 0 && mpp->failback_tick > 0) {
  			mpp->failback_tick--;
  
--			if (!mpp->failback_tick && need_switch_pathgroup(mpp, 1))
-+			if (!mpp->failback_tick && need_switch_pathgroup(mpp))
- 				switch_pathgroup(mpp);
+-			if (!mpp->failback_tick && need_switch_pathgroup(mpp))
+-				switch_pathgroup(mpp);
++			if (!mpp->failback_tick &&
++			    need_switch_pathgroup(mpp, &need_reload)) {
++				if (need_reload)
++					reload_and_sync_map(mpp, vecs);
++				else
++					switch_pathgroup(mpp);
++			}
  		}
  	}
-@@ -2051,54 +2032,40 @@ int update_prio(struct path *pp, int refresh_all)
- 	int i, j, changed = 0;
+ }
+@@ -2219,6 +2260,7 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
  	struct config *conf;
+ 	int marginal_pathgroups, marginal_changed = 0;
+ 	int ret;
++	bool need_reload;
  
--	if (refresh_all) {
--		vector_foreach_slot (pp->mpp->pg, pgp, i) {
--			vector_foreach_slot (pgp->paths, pp1, j) {
--				oldpriority = pp1->priority;
--				conf = get_multipath_config();
--				pthread_cleanup_push(put_multipath_config,
--						     conf);
--				pathinfo(pp1, conf, DI_PRIO);
--				pthread_cleanup_pop(1);
--				if (pp1->priority != oldpriority)
--					changed = 1;
--			}
--		}
--		return changed;
--	}
- 	oldpriority = pp->priority;
--	conf = get_multipath_config();
--	pthread_cleanup_push(put_multipath_config, conf);
--	if (pp->state != PATH_DOWN)
-+	if (pp->state != PATH_DOWN) {
-+		conf = get_multipath_config();
-+		pthread_cleanup_push(put_multipath_config, conf);
- 		pathinfo(pp, conf, DI_PRIO);
--	pthread_cleanup_pop(1);
-+		pthread_cleanup_pop(1);
-+	}
- 
--	if (pp->priority == oldpriority)
-+	if (pp->priority == oldpriority && !refresh_all)
- 		return 0;
--	return 1;
-+
-+	vector_foreach_slot (pp->mpp->pg, pgp, i) {
-+		vector_foreach_slot (pgp->paths, pp1, j) {
-+			if (pp1 == pp || pp1->state == PATH_DOWN)
-+				continue;
-+			oldpriority = pp1->priority;
-+			conf = get_multipath_config();
-+			pthread_cleanup_push(put_multipath_config, conf);
-+			pathinfo(pp1, conf, DI_PRIO);
-+			pthread_cleanup_pop(1);
-+			if (pp1->priority != oldpriority)
-+				changed = 1;
-+		}
-+	}
-+	return changed;
- }
- 
--static int reload_map(struct vectors *vecs, struct multipath *mpp, int refresh,
-+static int reload_map(struct vectors *vecs, struct multipath *mpp,
- 		      int is_daemon)
- {
- 	char *params __attribute__((cleanup(cleanup_charp))) = NULL;
--	struct path *pp;
--	int i, r;
-+	int r;
- 
- 	update_mpp_paths(mpp, vecs->pathvec);
--	if (refresh) {
--		vector_foreach_slot (mpp->paths, pp, i) {
--			struct config *conf = get_multipath_config();
--			pthread_cleanup_push(put_multipath_config, conf);
--			r = pathinfo(pp, conf, DI_PRIO);
--			pthread_cleanup_pop(1);
--			if (r) {
--				condlog(2, "%s: failed to refresh pathinfo",
--					mpp->alias);
--				return 1;
--			}
--		}
--	}
- 	if (setup_map(mpp, &params, vecs)) {
- 		condlog(0, "%s: failed to setup map", mpp->alias);
- 		return 1;
-@@ -2115,10 +2082,9 @@ static int reload_map(struct vectors *vecs, struct multipath *mpp, int refresh,
- 	return 0;
- }
- 
--int reload_and_sync_map(struct multipath *mpp,
--			struct vectors *vecs, int refresh)
-+int reload_and_sync_map(struct multipath *mpp, struct vectors *vecs)
- {
--	if (reload_map(vecs, mpp, refresh, 1))
-+	if (reload_map(vecs, mpp, 1))
- 		return 1;
- 	if (setup_multipath(vecs, mpp) != 0)
- 		return 2;
-@@ -2573,25 +2539,26 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
- 	 */
- 	condlog(4, "path prio refresh");
- 
--	if (marginal_changed)
--		reload_and_sync_map(pp->mpp, vecs, 1);
--	else if (update_prio(pp, new_path_up) &&
--	    (pp->mpp->pgpolicyfn == (pgpolicyfn *)group_by_prio) &&
--	     pp->mpp->pgfailback == -FAILBACK_IMMEDIATE) {
-+	if (marginal_changed) {
-+		update_prio(pp, 1);
-+		reload_and_sync_map(pp->mpp, vecs);
-+	} else if (update_prio(pp, new_path_up) &&
-+		   pp->mpp->pgpolicyfn == (pgpolicyfn *)group_by_prio &&
-+		   pp->mpp->pgfailback == -FAILBACK_IMMEDIATE) {
+ 	if (((pp->initialized == INIT_OK || pp->initialized == INIT_PARTIAL ||
+ 	      pp->initialized == INIT_REQUESTED_UDEV) && !pp->mpp) ||
+@@ -2548,13 +2590,17 @@ check_path (struct vectors * vecs, struct path * pp, unsigned int ticks)
  		condlog(2, "%s: path priorities changed. reloading",
  			pp->mpp->alias);
--		reload_and_sync_map(pp->mpp, vecs, !new_path_up);
--	} else if (need_switch_pathgroup(pp->mpp, 0)) {
-+		reload_and_sync_map(pp->mpp, vecs);
-+	} else if (need_switch_pathgroup(pp->mpp)) {
+ 		reload_and_sync_map(pp->mpp, vecs);
+-	} else if (need_switch_pathgroup(pp->mpp)) {
++	} else if (need_switch_pathgroup(pp->mpp, &need_reload)) {
  		if (pp->mpp->pgfailback > 0 &&
  		    (new_path_up || pp->mpp->failback_tick <= 0))
--			pp->mpp->failback_tick =
--				pp->mpp->pgfailback + 1;
-+			pp->mpp->failback_tick = pp->mpp->pgfailback + 1;
+ 			pp->mpp->failback_tick = pp->mpp->pgfailback + 1;
  		else if (pp->mpp->pgfailback == -FAILBACK_IMMEDIATE ||
- 			 (chkr_new_path_up && followover_should_failback(pp)))
- 			switch_pathgroup(pp->mpp);
+-			 (chkr_new_path_up && followover_should_failback(pp)))
+-			switch_pathgroup(pp->mpp);
++			 (chkr_new_path_up && followover_should_failback(pp))) {
++			if (need_reload)
++				reload_and_sync_map(pp->mpp, vecs);
++			else
++				switch_pathgroup(pp->mpp);
++		}
  	}
  	return 1;
  }
-+
- enum checker_state {
- 	CHECKER_STARTING,
- 	CHECKER_RUNNING,
-diff --git a/multipathd/main.h b/multipathd/main.h
-index e8bee8e6..a253d186 100644
---- a/multipathd/main.h
-+++ b/multipathd/main.h
-@@ -47,8 +47,7 @@ int __setup_multipath (struct vectors * vecs, struct multipath * mpp,
- 		       int reset);
- #define setup_multipath(vecs, mpp) __setup_multipath(vecs, mpp, 1)
- int update_multipath (struct vectors *vecs, char *mapname, int reset);
--int reload_and_sync_map(struct multipath *mpp, struct vectors *vecs,
--			int refresh);
-+int reload_and_sync_map(struct multipath *mpp, struct vectors *vecs);
- 
- void handle_path_wwid_change(struct path *pp, struct vectors *vecs);
- bool check_path_wwid_change(struct path *pp);
+@@ -2680,7 +2726,7 @@ unlock:
+ 		pthread_cleanup_push(cleanup_lock, &vecs->lock);
+ 		lock(&vecs->lock);
+ 		pthread_testcancel();
+-		deferred_failback_tick(vecs->mpvec);
++		deferred_failback_tick(vecs);
+ 		retry_count_tick(vecs->mpvec);
+ 		missing_uev_wait_tick(vecs);
+ 		ghost_delay_tick(vecs);
 -- 
 2.17.2
 
