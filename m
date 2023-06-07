@@ -1,74 +1,87 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ACDB27277A5
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 08:49:18 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6E8F5725ED8
+	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 14:20:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686206957;
+	s=mimecast20190719; t=1686140458;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zSve+Ihjl9g9fwhALXmxBnqJ82IN8InlfX7npBXQhyg=;
-	b=Dmr8YC6wiRtxm83ctF/KN12vPmgwlvAH70TJZs0mqe0y76EYomJZ/+exJenXQ4m6+yb0Eh
-	XYRF4EljaFOUVgkZr+1nJYewJvMEbtzxbkO3gZ/n/WLyz3IVnKSBxYofhiKYm8GUnzk5xN
-	IbPxe/Gzb2T7NcE074jnoNsJl7PIjco=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=+8iVasfHCyEWo6B+cxPkM6rJQDoclhuv+MhhLQlVGDU=;
+	b=SrfMVHYZa5arqatFEliAVGJuRSTLulaJ9HPncYeCamHYt6pSI/bic1a7r7VpWO3id4PGy0
+	7NBvR5BR2Bn2ad40k/kKSTL/wwaCOMevbyK3aiexRTXPMkF+THKivzgBfVXOauyCDdgj0j
+	6+nedk9SuQ5JYUn/j20jXtFhtgmPIGY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-646-UL9X08sOPsuhQ0fUld7gIw-1; Thu, 08 Jun 2023 02:49:16 -0400
-X-MC-Unique: UL9X08sOPsuhQ0fUld7gIw-1
+ us-mta-401-pUrflWpUPeKZcDxnjmBnKQ-1; Wed, 07 Jun 2023 08:20:56 -0400
+X-MC-Unique: pUrflWpUPeKZcDxnjmBnKQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 295E28007D9;
-	Thu,  8 Jun 2023 06:49:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B46AE38184E8;
+	Wed,  7 Jun 2023 12:20:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0DA509E93;
-	Thu,  8 Jun 2023 06:49:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9ED229E94;
+	Wed,  7 Jun 2023 12:20:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E2D4F19451CD;
-	Thu,  8 Jun 2023 06:48:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A3F0A19451EC;
+	Wed,  7 Jun 2023 12:20:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5650B19451CA
+ ESMTP id F230A19451C4
  for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CE3689E9E; Wed,  7 Jun 2023 12:18:56 +0000 (UTC)
+ id D1E7FC154D4; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C62639E9C
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:18:56 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CA528C154D2
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ABDC6811E92
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:18:56 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-57-iRcnD41gPqu1DTNBvxff2w-1; Wed, 07 Jun 2023 08:18:54 -0400
-X-MC-Unique: iRcnD41gPqu1DTNBvxff2w-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id AC1196732D; Wed,  7 Jun 2023 14:18:50 +0200 (CEST)
-Date: Wed, 7 Jun 2023 14:18:50 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Christian Brauner <brauner@kernel.org>
-Message-ID: <20230607121850.GA14396@lst.de>
-References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-31-hch@lst.de>
- <20230607-verjagen-weise-4fb3d76a6313@brauner>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF9E01C09A65
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 12:19:04 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-665-2cGXgKUbOhWvP6TC2Bsn6A-1; Wed,
+ 07 Jun 2023 08:19:03 -0400
+X-MC-Unique: 2cGXgKUbOhWvP6TC2Bsn6A-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 992EB219BF;
+ Wed,  7 Jun 2023 12:19:00 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6987D13776;
+ Wed,  7 Jun 2023 12:19:00 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id ngODGbR1gGR3QAAAMHmgww
+ (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 12:19:00 +0000
+Message-ID: <30183892-dce6-6946-2f7a-1bc693a657a2@suse.de>
+Date: Wed, 7 Jun 2023 14:19:00 +0200
 MIME-Version: 1.0
-In-Reply-To: <20230607-verjagen-weise-4fb3d76a6313@brauner>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
+ Thunderbird/102.11.0
+To: Christoph Hellwig <hch@lst.de>, Jens Axboe <axboe@kernel.dk>
+References: <20230606073950.225178-1-hch@lst.de>
+ <20230606073950.225178-9-hch@lst.de>
+From: Hannes Reinecke <hare@suse.de>
+In-Reply-To: <20230606073950.225178-9-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,10 +89,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Mailman-Approved-At: Thu, 08 Jun 2023 06:48:46 +0000
-Subject: Re: [dm-devel] [PATCH 30/31] block: store the holder in
- file->private_data
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH 08/31] block: share code between
+ disk_check_media_change and disk_force_media_change
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,13 +108,13 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
  dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
  Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Jack Wang <jinpu.wang@ionos.com>, Christoph Hellwig <hch@lst.de>,
- linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- Richard Weinberger <richard@nod.at>, linux-pm@vger.kernel.org,
- linux-um@lists.infradead.org, Josef Bacik <josef@toxicpanda.com>,
- Coly Li <colyli@suse.de>, linux-block@vger.kernel.org,
- linux-bcache@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- David Sterba <dsterba@suse.com>, Jens Axboe <axboe@kernel.dk>,
+ Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
+ Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Christian Brauner <brauner@kernel.org>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
  linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
@@ -110,28 +122,70 @@ Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: lst.de
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
+X-Mimecast-Originator: suse.de
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On Wed, Jun 07, 2023 at 11:24:55AM +0200, Christian Brauner wrote:
-> On Tue, Jun 06, 2023 at 09:39:49AM +0200, Christoph Hellwig wrote:
-> > Store the file struct used as the holder in file->private_data as an
-> > indicator that this file descriptor was opened exclusively to  remove
-> > the last use of FMODE_EXCL.
-> > 
-> > Signed-off-by: Christoph Hellwig <hch@lst.de>
-> > ---
+On 6/6/23 09:39, Christoph Hellwig wrote:
+> Factor the common logic between disk_check_media_change and
+> disk_force_media_change into a helper.
 > 
-> Feels a bit odd to store the object itself but anyway,
-> Acked-by: Christian Brauner <brauner@kernel.org>
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
+>   block/disk-events.c | 37 ++++++++++++++++---------------------
+>   1 file changed, 16 insertions(+), 21 deletions(-)
+> 
+> diff --git a/block/disk-events.c b/block/disk-events.c
+> index 8b1b63225738f8..06f325662b3494 100644
+> --- a/block/disk-events.c
+> +++ b/block/disk-events.c
+> @@ -262,6 +262,18 @@ static unsigned int disk_clear_events(struct gendisk *disk, unsigned int mask)
+>   	return pending;
+>   }
+>   
+> +static bool __disk_check_media_change(struct gendisk *disk, unsigned int events)
+> +{
+> +	if (!(events & DISK_EVENT_MEDIA_CHANGE))
+> +		return false;
+> +
+> +	if (__invalidate_device(disk->part0, true))
+> +		pr_warn("VFS: busy inodes on changed media %s\n",
+> +			disk->disk_name);
+> +	set_bit(GD_NEED_PART_SCAN, &disk->state);
+> +	return true;
+> +}
+> +
+>   /**
+>    * disk_check_media_change - check if a removable media has been changed
+>    * @disk: gendisk to check
+> @@ -274,18 +286,9 @@ static unsigned int disk_clear_events(struct gendisk *disk, unsigned int mask)
+>    */
+>   bool disk_check_media_change(struct gendisk *disk)
+>   {
+> -	unsigned int events;
+> -
+> -	events = disk_clear_events(disk, DISK_EVENT_MEDIA_CHANGE |
+> -				   DISK_EVENT_EJECT_REQUEST);
+> -	if (!(events & DISK_EVENT_MEDIA_CHANGE))
+> -		return false;
+> -
+> -	if (__invalidate_device(disk->part0, true))
+> -		pr_warn("VFS: busy inodes on changed media %s\n",
+> -			disk->disk_name);
+> -	set_bit(GD_NEED_PART_SCAN, &disk->state);
+> -	return true;
+> +	return __disk_check_media_change(disk,
+> +			disk_clear_events(disk, DISK_EVENT_MEDIA_CHANGE |
+> +						DISK_EVENT_EJECT_REQUEST));
 
-We could literally store anything we want.  The only reason I picked the
-file is because: a) we have it around and b) that allows passing it
-to blkdev_put without a branch in blkdev_release.
+Can you move the call to disk_clear_events() out of the call to 
+__disk_check_media_change()?
+I find this pattern hard to read.
 
-If you prefer something else I can change it.
+Cheers,
+
+Hannes
 
 --
 dm-devel mailing list
