@@ -1,8 +1,8 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1380C72779E
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D30B972779B
 	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 08:49:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1686206948;
@@ -12,66 +12,66 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7dJGgZStBrjEnq0DKq4hBZeZrxEvoEY5boivMhd0F9A=;
-	b=i1utx0R8ciGFxDzKwNXdeKEPcf/n0oR1DjQasFP6tHVig9GTs+D1Q1o5Dcicw+eSdPhdG1
-	u4m/PZJbJOqSZBmvdgQDV8z9Am4QX4hGcaL+YyWJqQ9MAQAFnjvO223nbu5DideK+LtX1/
-	g8Lleh9uMYFd0/qEFiSSdUsD7mvTpsE=
+	bh=0a9mCGpafAA0Sq3fLQT1kMYutsvWu3zpjlPiESWhzqg=;
+	b=UDrcLLt9e0dEAqGLO8pdUQBDho4n2g0VffMfXZm9kqckrF/UaU4bQJUgjk0IFtggmU7s7o
+	TIGLArF/pYM/lysXNb2MazAmcIKg3wgg55zWcC2lHB8r8IPqhhLcK88vKJGR6owoYZxMPU
+	EemEdqFhpvAokoLzd7126T60X3kb+/0=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-286-GeAO2yQ5Oleuq5LOJ1NdBg-1; Thu, 08 Jun 2023 02:49:07 -0400
-X-MC-Unique: GeAO2yQ5Oleuq5LOJ1NdBg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-439-V0YGgIJ2O7u0RCyZ-t9I0w-1; Thu, 08 Jun 2023 02:49:07 -0400
+X-MC-Unique: V0YGgIJ2O7u0RCyZ-t9I0w-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B930F381D1EA;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B910F1C09A44;
 	Thu,  8 Jun 2023 06:49:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5366ABC86;
-	Thu,  8 Jun 2023 06:48:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 20E0020268CA;
+	Thu,  8 Jun 2023 06:48:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0251A19451DB;
-	Thu,  8 Jun 2023 06:48:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1688019451C9;
+	Thu,  8 Jun 2023 06:48:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
  [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7073E19465BA
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 08:25:26 +0000 (UTC)
+ ESMTP id 43F0219465BA
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 08:27:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 345FB4021AA; Wed,  7 Jun 2023 08:25:26 +0000 (UTC)
+ id 2DBA74021AA; Wed,  7 Jun 2023 08:27:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2C6EB492B00
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:25:26 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 25AD048205E
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:27:02 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EB443C0C88F
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:25:26 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0ADDC8002BF
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:27:02 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-20-WH3hvQK8Pk2hGOsMi0BhkQ-1; Wed, 07 Jun 2023 04:25:24 -0400
-X-MC-Unique: WH3hvQK8Pk2hGOsMi0BhkQ-1
+ us-mta-173-63YrKapEOASyA7O7lrcM5A-1; Wed, 07 Jun 2023 04:27:00 -0400
+X-MC-Unique: 63YrKapEOASyA7O7lrcM5A-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 517B1615B0;
- Wed,  7 Jun 2023 08:25:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F50BC433EF;
- Wed,  7 Jun 2023 08:25:16 +0000 (UTC)
-Date: Wed, 7 Jun 2023 10:25:14 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id A02AE63C27;
+ Wed,  7 Jun 2023 08:26:59 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7CDFCC433D2;
+ Wed,  7 Jun 2023 08:26:53 +0000 (UTC)
+Date: Wed, 7 Jun 2023 10:26:50 +0200
 From: Christian Brauner <brauner@kernel.org>
 To: Christoph Hellwig <hch@lst.de>
-Message-ID: <20230607-chefsessel-angeordnet-269f0596f9b3@brauner>
+Message-ID: <20230607-abhielt-kirschen-288e7a9a9fe4@brauner>
 References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-8-hch@lst.de>
+ <20230606073950.225178-9-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20230606073950.225178-8-hch@lst.de>
+In-Reply-To: <20230606073950.225178-9-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -81,8 +81,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Thu, 08 Jun 2023 06:48:45 +0000
-Subject: Re: [dm-devel] [PATCH 07/31] block: pass a gendisk on
- bdev_check_media_change
+Subject: Re: [dm-devel] [PATCH 08/31] block: share code between
+ disk_check_media_change and disk_force_media_change
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -111,23 +111,21 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jun 06, 2023 at 09:39:26AM +0200, Christoph Hellwig wrote:
-> bdev_check_media_change should only ever be called for the whole device.
-> Pass a gendisk to make that explicit and rename the function to
-> disk_check_media_change.
+On Tue, Jun 06, 2023 at 09:39:27AM +0200, Christoph Hellwig wrote:
+> Factor the common logic between disk_check_media_change and
+> disk_force_media_change into a helper.
 > 
 > Signed-off-by: Christoph Hellwig <hch@lst.de>
 > ---
 
-Under the assumption it did only in fact ever only get called on the
-whole device so far,
+Looks good to me,
 Acked-by: Christian Brauner <brauner@kernel.org>
 
 --
