@@ -1,89 +1,86 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 23BB6726106
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 15:19:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D94C07277C7
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 08:50:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686143945;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1686207002;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jFnQPhN1Ts+1rEu7SPr2f7QG5MXSoQ55QuC+AJyX2Yg=;
-	b=RarTi91byledBOJEd9uI9mkPzJLdhuaygWHICG+rYo7CkRbUk/EeB3IuOltRNXiM9rSLZY
-	haeUG+RBPcF166OYRNoZjptHI5dkiRcitKbO6U2R+OE2qDTkj+r7QpmDTfUvztBzy1boje
-	JQJ66JS5SAk9MTRBiJJP771s5rBr/F8=
+	bh=myuTZVGXN34ZsvvVRSwXHfAvyttClad1aQfHtzH2c50=;
+	b=HmjmEc8Jr/dTje3rpjXNt9QewsRxSENN6EqsUMqwAIOqCagbx7cl0c9QuXGmUYzx8UOSQZ
+	zaNvf9TcZdsPoXLzsh2wF3DkN/oJoplbRo/BBPiOgD9jDjOoKzjLi25BNtq/6bC49niS36
+	+oLYuKGC3BDazP2GTxRtIOFbk835tVA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-619-MRUzUgXGPVyFeZ8Xa3a5lA-1; Wed, 07 Jun 2023 09:19:03 -0400
-X-MC-Unique: MRUzUgXGPVyFeZ8Xa3a5lA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-656-_NUGV5AlO5-iFL7i09HGkA-1; Thu, 08 Jun 2023 02:49:07 -0400
+X-MC-Unique: _NUGV5AlO5-iFL7i09HGkA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0C202814242;
-	Wed,  7 Jun 2023 13:19:00 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E65F8140E956;
-	Wed,  7 Jun 2023 13:18:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA5DE1C09A45;
+	Thu,  8 Jun 2023 06:49:02 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9C9789E93;
+	Thu,  8 Jun 2023 06:48:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5535219452D3;
-	Wed,  7 Jun 2023 13:18:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A048A19451C2;
+	Thu,  8 Jun 2023 06:48:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9072E19465BA
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 13:18:52 +0000 (UTC)
+ ESMTP id 88C7E19452C7
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 15:25:51 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 61D5040CF8F6; Wed,  7 Jun 2023 13:18:52 +0000 (UTC)
+ id 26EC59E90; Wed,  7 Jun 2023 15:25:51 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A42C40CF8E7
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 13:18:52 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FE079E8B
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 15:25:51 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EEDB857AA9
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 13:18:52 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B5DB1019C9E
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 15:25:36 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-160-QVRr4VrhONqZkySuSdXkvQ-1; Wed,
- 07 Jun 2023 09:18:50 -0400
-X-MC-Unique: QVRr4VrhONqZkySuSdXkvQ-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-77-KE0x2tWXNNmbTmwXVycrVA-1; Wed,
+ 07 Jun 2023 09:49:10 -0400
+X-MC-Unique: KE0x2tWXNNmbTmwXVycrVA-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 3B2C71FDAB;
- Wed,  7 Jun 2023 13:18:49 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id C1B66219B5;
+ Wed,  7 Jun 2023 13:39:09 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id D3BEE1346D;
- Wed,  7 Jun 2023 13:18:48 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1C3E41346D;
+ Wed,  7 Jun 2023 13:39:09 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id xHLBMriDgGQvYwAAMHmgww
- (envelope-from <hare@suse.de>); Wed, 07 Jun 2023 13:18:48 +0000
-Message-ID: <82a4143b-f800-09b9-98f2-6cda791877da@suse.de>
-Date: Wed, 7 Jun 2023 15:18:48 +0200
-MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.11.0
+ by imap2.suse-dmz.suse.de with ESMTPSA id AS4SBX2IgGQXbwAAMHmgww
+ (envelope-from <dsterba@suse.cz>); Wed, 07 Jun 2023 13:39:09 +0000
+Date: Wed, 7 Jun 2023 15:32:53 +0200
+From: David Sterba <dsterba@suse.cz>
 To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20230607133253.GO25292@twin.jikos.cz>
 References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-9-hch@lst.de>
- <30183892-dce6-6946-2f7a-1bc693a657a2@suse.de>
- <20230607122131.GB14579@lst.de>
-From: Hannes Reinecke <hare@suse.de>
-In-Reply-To: <20230607122131.GB14579@lst.de>
+ <20230606073950.225178-16-hch@lst.de>
+MIME-Version: 1.0
+In-Reply-To: <20230606073950.225178-16-hch@lst.de>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -91,9 +88,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH 08/31] block: share code between
- disk_check_media_change and disk_force_media_change
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mailman-Approved-At: Thu, 08 Jun 2023 06:48:45 +0000
+Subject: Re: [dm-devel] [PATCH 15/31] btrfs: don't pass a holder for
+ non-exclusive blkdev_get_by_path
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,6 +103,7 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
+Reply-To: dsterba@suse.cz
 Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
  Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
@@ -122,36 +121,24 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.de
-Content-Language: en-US
+X-Mimecast-Originator: suse.cz
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 6/7/23 14:21, Christoph Hellwig wrote:
-> On Wed, Jun 07, 2023 at 02:19:00PM +0200, Hannes Reinecke wrote:
->>> -	return true;
->>> +	return __disk_check_media_change(disk,
->>> +			disk_clear_events(disk, DISK_EVENT_MEDIA_CHANGE |
->>> +						DISK_EVENT_EJECT_REQUEST));
->>
->> Can you move the call to disk_clear_events() out of the call to
->> __disk_check_media_change()?
->> I find this pattern hard to read.
-> 
-> I suspect you've not done enough functional programming in your youth :)
+On Tue, Jun 06, 2023 at 09:39:34AM +0200, Christoph Hellwig wrote:
+> Passing a holder to blkdev_get_by_path when FMODE_EXCL isn't set doesn't
+> make sense, so pass NULL instead and remove the holder argument from the
+> call chains the only end up in non-FMODE_EXCL blkdev_get_by_path calls.
 
-That's why I said 'I find'; purely personal preference.
-If you're happy with:
+Please add
 
-Reviewed-by: Hannes Reinecke <hare@suse.de>
+"Exclusive mode for device scanning is not used since 50d281fc434c
+ ("btrfs: scan device in non-exclusive mode")."
 
-Cheers,
-
-Hannes
-(In my youth? One is tempted to quote Falco: "If you remember the '90s 
-you haven't experienced them...")
+Acked-by: David Sterba <dsterba@suse.com>
 
 --
 dm-devel mailing list
