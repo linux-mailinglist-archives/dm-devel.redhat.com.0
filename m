@@ -1,74 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 820767257C6
-	for <lists+dm-devel@lfdr.de>; Wed,  7 Jun 2023 10:34:01 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B0BBC7277C5
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 08:50:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686126840;
+	s=mimecast20190719; t=1686207002;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cub2xrTpwYecB+NAWDdZ/00CLGUmDiCk5Hz2OEXj9eE=;
-	b=Jk8GtWw1qRApHLBrJ/Et5Q/McBVwQYKNrjhMOibJ1VflX/3cVnRFvTp99VF2G/MkeyeRIk
-	mAB0uS1yTuQB54XqMFGgynbLylYpc79+NFS9vpmMyL0egHb7ghwbZBm8hDZ/QQZ3fzE4BP
-	u8J276penbU+gKsY84njsJhxNsGpxXA=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=nWNb1JfPl3zkCW3sEWiXLv0STHIFLxL+SqRFxy9Q+g4=;
+	b=bDBU5bZQ4AYNgRISmeUO83+dNR3QDQFXZST2y2/rMzfP+7z5EcE5y2zyYeOy3McfZxM26l
+	pO+YTVvwARNernUeSC9tUkEy2p7/9fQWdg1iO21W6dZ0imOfWOSVBNIdDClJCCpBwKZsMQ
+	KW++vuzW1ZU6gBJVCDQChdtcmPKPM5w=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-464-Tt1ARRYUPiiDyfxmXDrvzg-1; Wed, 07 Jun 2023 04:33:59 -0400
-X-MC-Unique: Tt1ARRYUPiiDyfxmXDrvzg-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-286-8G1Yzd7gPz2QhXMSqCiU6g-1; Thu, 08 Jun 2023 02:49:07 -0400
+X-MC-Unique: 8G1Yzd7gPz2QhXMSqCiU6g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C923802E58;
-	Wed,  7 Jun 2023 08:33:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BA3F429AA38A;
+	Thu,  8 Jun 2023 06:49:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 64DE6C1603B;
-	Wed,  7 Jun 2023 08:33:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6B5D648205E;
+	Thu,  8 Jun 2023 06:48:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BE3EE19452D1;
-	Wed,  7 Jun 2023 08:33:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 807B3193F51D;
+	Thu,  8 Jun 2023 06:48:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 60E8219465BA
- for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 08:33:01 +0000 (UTC)
+ ESMTP id 8393D19465BA
+ for <dm-devel@listman.corp.redhat.com>; Wed,  7 Jun 2023 08:34:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9EFCE403367; Wed,  7 Jun 2023 08:33:01 +0000 (UTC)
+ id 6260AC154D2; Wed,  7 Jun 2023 08:34:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 983EF477F61
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:33:01 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A255C154D1
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:34:18 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7E228811E86
- for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:33:01 +0000 (UTC)
-Received: from verein.lst.de (verein.lst.de [213.95.11.211]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-626-FiCsXNqyN_mORWEOK7sNDg-1; Wed, 07 Jun 2023 04:32:59 -0400
-X-MC-Unique: FiCsXNqyN_mORWEOK7sNDg-1
-Received: by verein.lst.de (Postfix, from userid 2407)
- id E15E86732D; Wed,  7 Jun 2023 10:32:53 +0200 (CEST)
-Date: Wed, 7 Jun 2023 10:32:53 +0200
-From: Christoph Hellwig <hch@lst.de>
-To: Christian Brauner <brauner@kernel.org>
-Message-ID: <20230607083253.GA29653@lst.de>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 404DD3801FF5
+ for <dm-devel@redhat.com>; Wed,  7 Jun 2023 08:34:18 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-422-C4ux-ef1Pq-Vc2lfxv1ziw-1; Wed, 07 Jun 2023 04:34:14 -0400
+X-MC-Unique: C4ux-ef1Pq-Vc2lfxv1ziw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 5FAAE63818;
+ Wed,  7 Jun 2023 08:34:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48A10C433D2;
+ Wed,  7 Jun 2023 08:34:07 +0000 (UTC)
+Date: Wed, 7 Jun 2023 10:34:04 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Christoph Hellwig <hch@lst.de>
+Message-ID: <20230607-einlieferung-beantragen-062729bc8f6c@brauner>
 References: <20230606073950.225178-1-hch@lst.de>
- <20230606073950.225178-2-hch@lst.de>
- <20230607-behelfen-abnormal-8ccf8e1e99c9@brauner>
+ <20230606073950.225178-10-hch@lst.de>
 MIME-Version: 1.0
-In-Reply-To: <20230607-behelfen-abnormal-8ccf8e1e99c9@brauner>
-User-Agent: Mutt/1.5.17 (2007-11-01)
+In-Reply-To: <20230606073950.225178-10-hch@lst.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [dm-devel] [PATCH 01/31] block: also call ->open for
- incremental partition opens
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Mailman-Approved-At: Thu, 08 Jun 2023 06:48:45 +0000
+Subject: Re: [dm-devel] [PATCH 09/31] block: pass a gendisk to ->open
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -95,55 +98,54 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
  dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
  Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Jack Wang <jinpu.wang@ionos.com>, Christoph Hellwig <hch@lst.de>,
- linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
- Richard Weinberger <richard@nod.at>, linux-pm@vger.kernel.org,
- linux-um@lists.infradead.org, Josef Bacik <josef@toxicpanda.com>,
- Coly Li <colyli@suse.de>, linux-block@vger.kernel.org,
- linux-bcache@vger.kernel.org, Alexander Viro <viro@zeniv.linux.org.uk>,
- David Sterba <dsterba@suse.com>, Jens Axboe <axboe@kernel.dk>,
+ Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
+ Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Jens Axboe <axboe@kernel.dk>,
  "Martin K. Petersen" <martin.petersen@oracle.com>,
  linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: lst.de
+X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 07, 2023 at 10:14:22AM +0200, Christian Brauner wrote:
-> This assumes that all drivers deal with additional ->open() calls for
-> each partition correctly which I assumed you checked so,
+On Tue, Jun 06, 2023 at 09:39:28AM +0200, Christoph Hellwig wrote:
+> ->open is only called on the whole device.  Make that explicit by
 
-They have to, because they already get the additional open for
-extra opens of the whole device.  The current behavior is:
+Ok, that answers my question in
+https://lore.kernel.org/all/20230607-chefsessel-angeordnet-269f0596f9b3@brauner
 
-open("/dev/vdb", ...)
-  ->open called
+> passing a gendisk instead of the block_device.
+> 
+> Signed-off-by: Christoph Hellwig <hch@lst.de>
+> ---
 
-open("/dev/vdb", ...)
-  ->open called
+> diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+> index a1688eba7e5e9a..1366eea881860e 100644
+> --- a/include/linux/blkdev.h
+> +++ b/include/linux/blkdev.h
+> @@ -1386,7 +1386,7 @@ struct block_device_operations {
+>  	void (*submit_bio)(struct bio *bio);
+>  	int (*poll_bio)(struct bio *bio, struct io_comp_batch *iob,
+>  			unsigned int flags);
+> -	int (*open) (struct block_device *, fmode_t);
+> +	int (*open)(struct gendisk *disk, fmode_t mode);
+>  	void (*release) (struct gendisk *, fmode_t);
+>  	int (*ioctl) (struct block_device *, fmode_t, unsigned, unsigned long);
+>  	int (*compat_ioctl) (struct block_device *, fmode_t, unsigned, unsigned long);
 
-----
+Looks good to me,
+Acked-by: Christian Brauner <brauner@kernel.org>
 
-open("/dev/vdb", ...)
-  ->open called
-
-open("/dev/vdb1", ...)
-  ->open called
-
-----
-
-open("/dev/vdb1", ...)
-  ->open called
-
-open("/dev/vdb1", ...)
-  ->open NOT called
-
-which is very inconsistent.
+(I didn't bother going through all the individual conversions.)
 
 --
 dm-devel mailing list
