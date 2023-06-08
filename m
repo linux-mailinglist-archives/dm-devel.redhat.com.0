@@ -1,104 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F17B3727D0D
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 12:39:53 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 25064727F89
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 13:58:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686220792;
+	s=mimecast20190719; t=1686225531;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5awsvnczSNuIZ2AH9gYUrO1EOyob7m+5cNgduODhBjU=;
-	b=dGZtIxhpOLFRG1G3F67kK7s5NEZcA3JK3yq6pnR3+V5JFCBiafoFxYVV/GGH+t+EnVH8AI
-	7NWl+Nr46CIq0a3tKkVLAUGVEpd0JRrNcRJS0/GtR/afKu7i0uv4PuGcDbt8gHdprpVPEi
-	saRxHzo2wcOcitomYQiqCuGcaJClxWc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=fFcLwHLHFgk/3PEnTZ1MEQXqopFy9YnPRPtRQwAsryQ=;
+	b=GvcPUEL1xuLejBQfamTbd3zlGJ/rAkaO0gnK5Mhd40iqJshDRKuZ77ubQKHnafpGuKCjMs
+	NL2kK1ZoNFZhSzFlwnp3cOC6gtg7woIMRPcgMaZskK2Byn+Z7je2VO1FLeT9b+zS5D3tgz
+	jJuDWMLuqifOCWwNDemUo2NQhqEqETw=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-20-3sPpR-2GMYmP0kFW1XkNqw-1; Thu, 08 Jun 2023 06:39:51 -0400
-X-MC-Unique: 3sPpR-2GMYmP0kFW1XkNqw-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-591-u-Xd0q_ENsWO4XePFMowew-1; Thu, 08 Jun 2023 07:58:50 -0400
+X-MC-Unique: u-Xd0q_ENsWO4XePFMowew-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA14A85A5AA;
-	Thu,  8 Jun 2023 10:39:48 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83C72280AA2D;
+	Thu,  8 Jun 2023 11:58:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 66AD5140E955;
-	Thu,  8 Jun 2023 10:39:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DBB340D1B66;
+	Thu,  8 Jun 2023 11:58:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 159AE19451C5;
-	Thu,  8 Jun 2023 10:39:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2526119451C6;
+	Thu,  8 Jun 2023 11:58:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7ECFE194658C
- for <dm-devel@listman.corp.redhat.com>; Thu,  8 Jun 2023 10:39:35 +0000 (UTC)
+ ESMTP id BEEDA194658C
+ for <dm-devel@listman.corp.redhat.com>; Thu,  8 Jun 2023 11:58:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 505C69E94; Thu,  8 Jun 2023 10:39:35 +0000 (UTC)
+ id A13C3140E956; Thu,  8 Jun 2023 11:58:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 47EE39E8B
- for <dm-devel@redhat.com>; Thu,  8 Jun 2023 10:39:35 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-2.mimecast.com
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 99AAD140E955
+ for <dm-devel@redhat.com>; Thu,  8 Jun 2023 11:58:45 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2BE24811E7C
- for <dm-devel@redhat.com>; Thu,  8 Jun 2023 10:39:35 +0000 (UTC)
-Received: from mail-ed1-f43.google.com (mail-ed1-f43.google.com
- [209.85.208.43]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C62C803DBC
+ for <dm-devel@redhat.com>; Thu,  8 Jun 2023 11:58:45 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-538-_ltwhb1WMBW94VKyPP2Yvg-1; Thu, 08 Jun 2023 06:39:31 -0400
-X-MC-Unique: _ltwhb1WMBW94VKyPP2Yvg-1
-Received: by mail-ed1-f43.google.com with SMTP id
- 4fb4d7f45d1cf-5147dce372eso661786a12.0; 
- Thu, 08 Jun 2023 03:39:30 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686220769; x=1688812769;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=8wgec4tfIWdnEhpMr6ykg9xNvcCtcxWUQ6Om3tn4cEU=;
- b=Y8C/NaaPLPg+sqv677aCjFiI22h11LwU8YJcvJDzDGTfnloVXYvPwM5LWiXfO0rjUQ
- kPecl4TgjNrSUyFM5g6F/uYh+gFIM7R+Ii0GomroDDW1TwdJ1MJWqaJ49VcAWVxLoRap
- vSidINJ8dVhqNC8TzbUHMy13+9vcpFdt7HWZ31XYtsPAKUHRf1ZCQix1hgkx4R0ezJIy
- a3TPPz5sVyOSKU3dBmLXle+1FHbWox2Fr4DNPkywM6dIgato8kYcPmIUP0sk+wvbWKGm
- xm9fwHVzRIQyLRY/fQRnZf2uqrlWqlY2FRAhpJrvIsZEbpdmL4ZE+dd06QCSbYuRrYOI
- gaNg==
-X-Gm-Message-State: AC+VfDx4+B+DaMC0vfG0+8Q8dytCQ6Zj0ila+5Cuv6DEhoZ6z7VIMAjm
- 0rfORWYRl3Cvipy8PNjsT+EyDUqHJfkfrA==
-X-Google-Smtp-Source: ACHHUZ4ytm/M/a+Iwv6nZciUDlVTlAht7v/lQ5uBsyjdfFH4TWUuLUvl3T6ueNXwjFKIgWOf3yY0ng==
-X-Received: by 2002:a05:6402:31ef:b0:514:8e14:7f1b with SMTP id
- dy15-20020a05640231ef00b005148e147f1bmr6910012edb.12.1686220768883; 
- Thu, 08 Jun 2023 03:39:28 -0700 (PDT)
-Received: from [147.251.42.107] (nbbroz2.fi.muni.cz. [147.251.42.107])
- by smtp.gmail.com with ESMTPSA id
- o11-20020aa7c50b000000b00516a1fa0e60sm384205edq.89.2023.06.08.03.39.27
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Thu, 08 Jun 2023 03:39:28 -0700 (PDT)
-Message-ID: <f7a1a20c-bee8-c7a4-4c49-b66415f556f9@gmail.com>
-Date: Thu, 8 Jun 2023 12:39:26 +0200
+ us-mta-120-pK2zOVNdM7qdIeEo1Mx_qg-1; Thu, 08 Jun 2023 07:58:44 -0400
+X-MC-Unique: pK2zOVNdM7qdIeEo1Mx_qg-1
+Received: from
+ 2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
+ ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
+ by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
+ id 1q7DPx-0091cI-1M; Thu, 08 Jun 2023 11:03:01 +0000
+From: Christoph Hellwig <hch@lst.de>
+To: Jens Axboe <axboe@kernel.dk>
+Date: Thu,  8 Jun 2023 13:02:28 +0200
+Message-Id: <20230608110258.189493-1-hch@lst.de>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Firefox/102.0 Thunderbird/102.11.0
-To: Coiby Xu <coxu@redhat.com>
-References: <20230601072444.2033855-1-coxu@redhat.com>
- <20230602213452.GC628@quark.localdomain>
- <f569a35a-bff9-9dbb-2ded-7e02ee060a9a@gmail.com>
- <36mz3gn764ceadfbuhhmoo2zaiqmzplpkdcnszha2hzhmb3i62@sm6hilxryzk4>
- <a5eaa21d-6551-5857-98cd-50578fe59566@gmail.com>
- <oosx274kf6kzasncdfdg5a53ut6wey3nlnbho5x3rql2df3zep@c6r6m4whphvh>
- <88581a3c-8bd3-f7b2-064c-c809a2152ed3@gmail.com>
- <maamg4udo7visvgzp4m4qkfcds6djyiga236lb2mwtjasi6pvj@zmqzb2lijegj>
-From: Milan Broz <gmazyland@gmail.com>
-In-Reply-To: <maamg4udo7visvgzp4m4qkfcds6djyiga236lb2mwtjasi6pvj@zmqzb2lijegj>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -106,9 +75,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH 0/5] Support kdump with LUKS encryption by
- reusing LUKS volume key
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] decouple block open flags from fmode_t v2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -120,72 +88,165 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Baoquan He <bhe@redhat.com>, Kairui Song <ryncsn@gmail.com>, x86@kernel.org,
- kexec@lists.infradead.org, linux-kernel@vger.kernel.org,
- Pingfan Liu <kernelfans@gmail.com>, Eric Biggers <ebiggers@kernel.org>,
- Dave Hansen <dave.hansen@intel.com>, dm-devel@redhat.com,
- Jan Pazdziora <jpazdziora@redhat.com>, Thomas Staudt <tstaudt@de.ibm.com>,
- Ondrej Kozina <okozina@redhat.com>, Vitaly Kuznetsov <vkuznets@redhat.com>,
- Dave Young <dyoung@redhat.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
+ Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
+ dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+ Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
+ Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Language: en-US
+X-Mimecast-Originator: lst.de
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 6/7/23 14:39, Coiby Xu wrote:
-...
->> I do not think you need any cryptsetup patches, all you need is to write
->> decrypted volume key from LUKS metadata with
->>   cryptsetup luksDump ---dump-volume-key -volume-key-file <out> <device>
->> (or any code equivalent with libcryptsetup), am I correct?
-> 
-> Correct me if I'm wrong, but I don't think there will be a safer way to
-> preserve key without patching cryptsetup. Actually the --dump-volume-key
-> approach has been proposed before and I agree with your conclusion [1]
-> on that approach i.e. "passing volume key this way is quite insecure".
-> Without patching cryptsetup, even if I save the volume key in the memory
-> reserved for the kdump kernel, I need to retrieve this key in the
-> userspace to unlock the LUKS device which may lead to quite a security
-> vulnerability.
+Hi all,
 
-Hm, where are the patches for cryptsetup, then? I am afraid we do not want
-to add such specific things there.
+this series adds a new blk_mode_t for block open flags instead of abusing
+fmode_t.  The block open flags work very different from the normal use of
+fmode_t and only share the basic READ/WRITE flags with it.  None of the
+other normal FMODE_* flags is used, but instead there are three
+block-specific ones not used by anyone else, which can now be removed.
 
-But we are just going to merge a patchset that changes how we use keyring
-where you can tell cryptsetup to store/link key under some specific name
-and to specific keyring
-(see https://gitlab.com/cryptsetup/cryptsetup/-/merge_requests/492)
-(Please talk to Red Hat cryptsetup maintainers for more info,
-I just mentioned this mail to them today.)
+Note that I've only CCed maintainers and lists for drivers and file systems
+that have non-trivial changes, as otherwise the series would spam literally
+everyone in the block and file system world.
 
-> I respect the efforts from you and the cryptsetup community to make LUKS
-> as secure as possible. And kdump is used in product environment. Kdump
-> is to a server as a black box is to an aircraft. So by no means I want
-> to reverse the used security measures and patching cryptsetup can allow
-> to keep the security measures. One concern raised by you against "FRC
-> v1" was a copy of the LUKS volume key for the kdump kernel creates an
-> attack vector. I took this feedback seriously and have sought advice
-> from my colleagues to implement the countermeasures ([PATCH 1/5] and
-> [Patch 4/5]).
-> 
-> [1] https://yhbt.net/lore/all/e5abd089-3398-fdb4-7991-0019be434b79@gmail.com/
+A git tree is available here:
 
-Yes, I appreciate that. And it is perfectly ok if your customers accept
-the trade-off and security risk of handling the key this way.
+    git://git.infradead.org/users/hch/block.git blk-open-release
 
-Anyway, I feel we are going in circles here, and as it seems to be my fault,
-I do not want to sound grumpy as I am perhaps missing some context.
+Gitweb:
 
-Could you please talk to internal RH cryptsetup maintainers first and discuss
-your solution? They know what we can do here can help to find an acceptable
-solution. (I added cc to Ondra.)
+    http://git.infradead.org/users/hch/block.git/shortlog/refs/heads/blk-open-release
 
-Thanks,
-Milan
+Changes since v1:
+ - drop "block: share code between disk_check_media_change and
+   disk_force_media_change" for now as it conflicts with a fix in
+   disk_force_media_change
+ - add a few missing fmode_t -> blk_mode_t conversions
+ - move the opened_for_data memeber in struct cdrom_device_info to a
+   place that creates less padding
+ - better document the magic floppy O_ACCMODE == O_WRONLY | O_RDWR case
+ - better document the new usage of file->private_data for block devices
+ - improve a few commit messages
+
+Diffstat:
+ arch/um/drivers/ubd_kern.c          |   20 ++-----
+ arch/xtensa/platforms/iss/simdisk.c |    6 +-
+ block/bdev.c                        |   99 ++++++++++++++++++------------------
+ block/blk-zoned.c                   |   12 ++--
+ block/blk.h                         |   26 ++++++++-
+ block/bsg-lib.c                     |    2 
+ block/bsg.c                         |    8 +-
+ block/disk-events.c                 |   18 +++---
+ block/fops.c                        |   60 ++++++++++++++-------
+ block/genhd.c                       |   13 ++--
+ block/ioctl.c                       |   61 +++++++---------------
+ drivers/block/amiflop.c             |   20 +++----
+ drivers/block/aoe/aoeblk.c          |    8 +-
+ drivers/block/ataflop.c             |   43 +++++++--------
+ drivers/block/drbd/drbd_main.c      |   13 ++--
+ drivers/block/drbd/drbd_nl.c        |   23 +++++---
+ drivers/block/floppy.c              |   72 +++++++++++++-------------
+ drivers/block/loop.c                |   24 ++++----
+ drivers/block/mtip32xx/mtip32xx.c   |    4 -
+ drivers/block/nbd.c                 |   12 ++--
+ drivers/block/pktcdvd.c             |   36 ++++++-------
+ drivers/block/rbd.c                 |    6 +-
+ drivers/block/rnbd/rnbd-clt.c       |    8 +-
+ drivers/block/rnbd/rnbd-srv-sysfs.c |    3 -
+ drivers/block/rnbd/rnbd-srv.c       |   23 ++++----
+ drivers/block/rnbd/rnbd-srv.h       |    2 
+ drivers/block/sunvdc.c              |    2 
+ drivers/block/swim.c                |   24 ++++----
+ drivers/block/swim3.c               |   33 +++++-------
+ drivers/block/ublk_drv.c            |    4 -
+ drivers/block/xen-blkback/xenbus.c  |    4 -
+ drivers/block/xen-blkfront.c        |    2 
+ drivers/block/z2ram.c               |    8 +-
+ drivers/block/zram/zram_drv.c       |   21 +++----
+ drivers/cdrom/cdrom.c               |   38 +++----------
+ drivers/cdrom/gdrom.c               |   12 ++--
+ drivers/md/bcache/bcache.h          |    2 
+ drivers/md/bcache/request.c         |    4 -
+ drivers/md/bcache/super.c           |   25 ++++-----
+ drivers/md/dm-cache-target.c        |   12 ++--
+ drivers/md/dm-clone-target.c        |   10 +--
+ drivers/md/dm-core.h                |    7 +-
+ drivers/md/dm-era-target.c          |    6 +-
+ drivers/md/dm-ioctl.c               |   10 +--
+ drivers/md/dm-snap.c                |    4 -
+ drivers/md/dm-table.c               |   11 ++--
+ drivers/md/dm-thin.c                |    9 +--
+ drivers/md/dm-verity-fec.c          |    2 
+ drivers/md/dm-verity-target.c       |    6 +-
+ drivers/md/dm.c                     |   20 +++----
+ drivers/md/dm.h                     |    2 
+ drivers/md/md.c                     |   50 +++++++++---------
+ drivers/mmc/core/block.c            |   12 ++--
+ drivers/mtd/devices/block2mtd.c     |    6 +-
+ drivers/mtd/mtd_blkdevs.c           |    8 +-
+ drivers/mtd/mtdblock.c              |    2 
+ drivers/mtd/ubi/block.c             |    9 +--
+ drivers/nvme/host/core.c            |    6 +-
+ drivers/nvme/host/ioctl.c           |   66 +++++++++++++-----------
+ drivers/nvme/host/multipath.c       |    6 +-
+ drivers/nvme/host/nvme.h            |    4 -
+ drivers/nvme/target/io-cmd-bdev.c   |    4 -
+ drivers/s390/block/dasd.c           |   10 +--
+ drivers/s390/block/dasd_genhd.c     |    5 +
+ drivers/s390/block/dasd_int.h       |    3 -
+ drivers/s390/block/dasd_ioctl.c     |    2 
+ drivers/s390/block/dcssblk.c        |   11 +---
+ drivers/scsi/ch.c                   |    3 -
+ drivers/scsi/scsi_bsg.c             |    4 -
+ drivers/scsi/scsi_ioctl.c           |   38 ++++++-------
+ drivers/scsi/sd.c                   |   39 ++++++--------
+ drivers/scsi/sg.c                   |    7 +-
+ drivers/scsi/sr.c                   |   22 ++++----
+ drivers/scsi/st.c                   |    2 
+ drivers/target/target_core_iblock.c |    9 +--
+ drivers/target/target_core_pscsi.c  |   10 +--
+ fs/btrfs/dev-replace.c              |    6 +-
+ fs/btrfs/ioctl.c                    |   12 ++--
+ fs/btrfs/super.c                    |   21 ++-----
+ fs/btrfs/volumes.c                  |   55 +++++++++-----------
+ fs/btrfs/volumes.h                  |   11 +---
+ fs/erofs/super.c                    |    7 +-
+ fs/ext4/super.c                     |   11 +---
+ fs/f2fs/super.c                     |   12 ++--
+ fs/jfs/jfs_logmgr.c                 |    6 +-
+ fs/nfs/blocklayout/dev.c            |    9 +--
+ fs/nilfs2/super.c                   |   12 +---
+ fs/ocfs2/cluster/heartbeat.c        |    7 +-
+ fs/reiserfs/journal.c               |   19 +++---
+ fs/reiserfs/reiserfs.h              |    1 
+ fs/super.c                          |   33 ++++--------
+ fs/xfs/xfs_super.c                  |   15 ++---
+ include/linux/blkdev.h              |   68 +++++++++++-------------
+ include/linux/bsg.h                 |    2 
+ include/linux/cdrom.h               |   12 ++--
+ include/linux/device-mapper.h       |    8 +-
+ include/linux/fs.h                  |    8 --
+ include/linux/mtd/blktrans.h        |    2 
+ include/scsi/scsi_ioctl.h           |    4 -
+ kernel/power/hibernate.c            |   12 +---
+ kernel/power/power.h                |    2 
+ kernel/power/swap.c                 |   28 ++++------
+ mm/swapfile.c                       |    7 +-
+ 103 files changed, 791 insertions(+), 837 deletions(-)
 
 --
 dm-devel mailing list
