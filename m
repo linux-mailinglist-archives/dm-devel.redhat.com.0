@@ -2,7 +2,7 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 838CC727DDA
+	by mail.lfdr.de (Postfix) with ESMTPS id 99F27727DDB
 	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 13:04:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1686222283;
@@ -12,60 +12,60 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vBOJjGfAQvgGke1hNVDnjkQJ4ZyIEWy5hRBaCXGPC0s=;
-	b=Z6FTsHwYElgNpKWl6058nlPLxk1gRR357lpX+6Xu2NML3eE1aJ4nIJayfWMrafkcD0yWiH
-	GRTPEjI0TbMvhMFlrTzUuHg3i1osqpPQ35Fc/3MTcQextXiCtkSuqU5noTzEwiusYie4Y7
-	NlRqSzXBYuuIMb/+odgWvtZ2BPn6L70=
+	bh=3NGZMaHMKqdW/pxl4Tb0sqPcu49iOI8YGMRi0CNVqzA=;
+	b=WUPot2PKgNGb4g47RUV18Wi0prJXK3ZcF02Hh4y7y3DWqlnrd8GDhKBuqPEjANenluN1vW
+	O1YF3uHC5r1M5BJYcbjt+wFKZw8XVcBxP0jIi+YPAF+4TwLSXHZ8BcdMZ6bky7wMsnpCs4
+	L7mg0awgeK1DtPJIyFmlc4l0cHvNZoE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-528-oF_KkMP6OLu4XN1UxwKaZQ-1; Thu, 08 Jun 2023 07:04:42 -0400
-X-MC-Unique: oF_KkMP6OLu4XN1UxwKaZQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-270-ZIIxknnlMmGrW5uSzq36PQ-1; Thu, 08 Jun 2023 07:04:42 -0400
+X-MC-Unique: ZIIxknnlMmGrW5uSzq36PQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B15E0811E7F;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 89F7A801585;
 	Thu,  8 Jun 2023 11:04:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9B119140E955;
-	Thu,  8 Jun 2023 11:04:39 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 07B409E8B;
+	Thu,  8 Jun 2023 11:04:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AC8DA19451D3;
-	Thu,  8 Jun 2023 11:04:37 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AD68119451CE;
+	Thu,  8 Jun 2023 11:04:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9964F19451C5
- for <dm-devel@listman.corp.redhat.com>; Thu,  8 Jun 2023 11:04:31 +0000 (UTC)
+ ESMTP id 376CD19452D3
+ for <dm-devel@listman.corp.redhat.com>; Thu,  8 Jun 2023 11:04:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8CE304021AA; Thu,  8 Jun 2023 11:04:31 +0000 (UTC)
+ id 1986E140E956; Thu,  8 Jun 2023 11:04:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 84E85492B00
- for <dm-devel@redhat.com>; Thu,  8 Jun 2023 11:04:31 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 12231140E955
+ for <dm-devel@redhat.com>; Thu,  8 Jun 2023 11:04:34 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 69093101A531
- for <dm-devel@redhat.com>; Thu,  8 Jun 2023 11:04:31 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E8A5E185A79B
+ for <dm-devel@redhat.com>; Thu,  8 Jun 2023 11:04:33 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-161-C2hF-odqObe6ARSuprzaAQ-1; Thu, 08 Jun 2023 07:04:29 -0400
-X-MC-Unique: C2hF-odqObe6ARSuprzaAQ-1
+ us-mta-536-wFU4bbrCP0CE0DDan1qpwA-1; Thu, 08 Jun 2023 07:04:32 -0400
+X-MC-Unique: wFU4bbrCP0CE0DDan1qpwA-1
 Received: from
  2a02-8389-2341-5b80-39d3-4735-9a3c-88d8.cable.dynamic.v6.surfer.at
  ([2a02:8389:2341:5b80:39d3:4735:9a3c:88d8] helo=localhost)
  by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1q7DR2-0092i9-2D; Thu, 08 Jun 2023 11:04:09 +0000
+ id 1q7DR5-0092kv-0m; Thu, 08 Jun 2023 11:04:11 +0000
 From: Christoph Hellwig <hch@lst.de>
 To: Jens Axboe <axboe@kernel.dk>
-Date: Thu,  8 Jun 2023 13:02:51 +0200
-Message-Id: <20230608110258.189493-24-hch@lst.de>
+Date: Thu,  8 Jun 2023 13:02:52 +0200
+Message-Id: <20230608110258.189493-25-hch@lst.de>
 In-Reply-To: <20230608110258.189493-1-hch@lst.de>
 References: <20230608110258.189493-1-hch@lst.de>
 MIME-Version: 1.0
@@ -78,9 +78,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH 23/30] rnbd-srv: replace sess->open_flags with a
- "bool readonly"
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: [dm-devel] [PATCH 24/30] ubd: remove commented out code in ubd_open
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,111 +108,41 @@ Cc: Vignesh Raghavendra <vigneshr@ti.com>,
  linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: lst.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Stop passing the fmode_t around and just use a simple bool to track if
-an export is read-only.
+This code has been dead forever, make sure it doesn't show up in code
+searches.
 
 Signed-off-by: Christoph Hellwig <hch@lst.de>
 Reviewed-by: Hannes Reinecke <hare@suse.de>
 Acked-by: Christian Brauner <brauner@kernel.org>
-Acked-by: Jack Wang <jinpu.wang@ionos.com>
+Acked-by: Richard Weinberger <richard@nod.at>
 ---
- drivers/block/rnbd/rnbd-srv-sysfs.c |  3 +--
- drivers/block/rnbd/rnbd-srv.c       | 15 +++++++--------
- drivers/block/rnbd/rnbd-srv.h       |  2 +-
- 3 files changed, 9 insertions(+), 11 deletions(-)
+ arch/um/drivers/ubd_kern.c | 7 -------
+ 1 file changed, 7 deletions(-)
 
-diff --git a/drivers/block/rnbd/rnbd-srv-sysfs.c b/drivers/block/rnbd/rnbd-srv-sysfs.c
-index d5d9267e1fa5e4..ebd95771c85ec7 100644
---- a/drivers/block/rnbd/rnbd-srv-sysfs.c
-+++ b/drivers/block/rnbd/rnbd-srv-sysfs.c
-@@ -88,8 +88,7 @@ static ssize_t read_only_show(struct kobject *kobj, struct kobj_attribute *attr,
- 
- 	sess_dev = container_of(kobj, struct rnbd_srv_sess_dev, kobj);
- 
--	return sysfs_emit(page, "%d\n",
--			  !(sess_dev->open_flags & FMODE_WRITE));
-+	return sysfs_emit(page, "%d\n", sess_dev->readonly);
- }
- 
- static struct kobj_attribute rnbd_srv_dev_session_ro_attr =
-diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.c
-index 29d560472d05ba..b680071342b898 100644
---- a/drivers/block/rnbd/rnbd-srv.c
-+++ b/drivers/block/rnbd/rnbd-srv.c
-@@ -222,7 +222,7 @@ void rnbd_destroy_sess_dev(struct rnbd_srv_sess_dev *sess_dev, bool keep_id)
- 	blkdev_put(sess_dev->bdev, NULL);
- 	mutex_lock(&sess_dev->dev->lock);
- 	list_del(&sess_dev->dev_list);
--	if (sess_dev->open_flags & FMODE_WRITE)
-+	if (!sess_dev->readonly)
- 		sess_dev->dev->open_write_cnt--;
- 	mutex_unlock(&sess_dev->dev->lock);
- 
-@@ -561,7 +561,7 @@ static void rnbd_srv_fill_msg_open_rsp(struct rnbd_msg_open_rsp *rsp,
- static struct rnbd_srv_sess_dev *
- rnbd_srv_create_set_sess_dev(struct rnbd_srv_session *srv_sess,
- 			      const struct rnbd_msg_open *open_msg,
--			      struct block_device *bdev, fmode_t open_flags,
-+			      struct block_device *bdev, bool readonly,
- 			      struct rnbd_srv_dev *srv_dev)
- {
- 	struct rnbd_srv_sess_dev *sdev = rnbd_sess_dev_alloc(srv_sess);
-@@ -576,7 +576,7 @@ rnbd_srv_create_set_sess_dev(struct rnbd_srv_session *srv_sess,
- 	sdev->bdev		= bdev;
- 	sdev->sess		= srv_sess;
- 	sdev->dev		= srv_dev;
--	sdev->open_flags	= open_flags;
-+	sdev->readonly		= readonly;
- 	sdev->access_mode	= open_msg->access_mode;
- 
- 	return sdev;
-@@ -681,13 +681,12 @@ static int process_msg_open(struct rnbd_srv_session *srv_sess,
- 	struct rnbd_srv_sess_dev *srv_sess_dev;
- 	const struct rnbd_msg_open *open_msg = msg;
- 	struct block_device *bdev;
--	fmode_t open_flags;
-+	fmode_t open_flags = FMODE_READ;
- 	char *full_path;
- 	struct rnbd_msg_open_rsp *rsp = data;
- 
- 	trace_process_msg_open(srv_sess, open_msg);
- 
--	open_flags = FMODE_READ;
- 	if (open_msg->access_mode != RNBD_ACCESS_RO)
- 		open_flags |= FMODE_WRITE;
- 
-@@ -736,9 +735,9 @@ static int process_msg_open(struct rnbd_srv_session *srv_sess,
- 		goto blkdev_put;
+diff --git a/arch/um/drivers/ubd_kern.c b/arch/um/drivers/ubd_kern.c
+index 8b79554968addb..20c1a16199c503 100644
+--- a/arch/um/drivers/ubd_kern.c
++++ b/arch/um/drivers/ubd_kern.c
+@@ -1170,13 +1170,6 @@ static int ubd_open(struct gendisk *disk, fmode_t mode)
  	}
- 
--	srv_sess_dev = rnbd_srv_create_set_sess_dev(srv_sess, open_msg,
--						     bdev, open_flags,
--						     srv_dev);
-+	srv_sess_dev = rnbd_srv_create_set_sess_dev(srv_sess, open_msg, bdev,
-+				open_msg->access_mode == RNBD_ACCESS_RO,
-+				srv_dev);
- 	if (IS_ERR(srv_sess_dev)) {
- 		pr_err("Opening device '%s' on session %s failed, creating sess_dev failed, err: %ld\n",
- 		       full_path, srv_sess->sessname, PTR_ERR(srv_sess_dev));
-diff --git a/drivers/block/rnbd/rnbd-srv.h b/drivers/block/rnbd/rnbd-srv.h
-index f5962fd31d62e4..76077a9db3dd55 100644
---- a/drivers/block/rnbd/rnbd-srv.h
-+++ b/drivers/block/rnbd/rnbd-srv.h
-@@ -52,7 +52,7 @@ struct rnbd_srv_sess_dev {
- 	struct kobject                  kobj;
- 	u32                             device_id;
- 	bool				keep_id;
--	fmode_t                         open_flags;
-+	bool				readonly;
- 	struct kref			kref;
- 	struct completion               *destroy_comp;
- 	char				pathname[NAME_MAX];
+ 	ubd_dev->count++;
+ 	set_disk_ro(disk, !ubd_dev->openflags.w);
+-
+-	/* This should no more be needed. And it didn't work anyway to exclude
+-	 * read-write remounting of filesystems.*/
+-	/*if((mode & FMODE_WRITE) && !ubd_dev->openflags.w){
+-	        if(--ubd_dev->count == 0) ubd_close_dev(ubd_dev);
+-	        err = -EROFS;
+-	}*/
+ out:
+ 	mutex_unlock(&ubd_mutex);
+ 	return err;
 -- 
 2.39.2
 
