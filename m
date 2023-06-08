@@ -1,189 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E606B7274B8
-	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 04:04:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 941C4727513
+	for <lists+dm-devel@lfdr.de>; Thu,  8 Jun 2023 04:41:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686189864;
+	s=mimecast20190719; t=1686192081;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Pn/XTKeKfoDpRtKfvYqequs/J47T31MYc2oIJkTXOvI=;
-	b=MveJuj9m3euOrjZ5YnlFQ51ZHvYKO72OZ+V0ZE7g3TMtQKEVTM5yWM+P956gfuMJ+hciPW
-	8VLU9FpnjtKNSaWkynpVop1xpAQCxIHBWFJP6HuRMQoahVyFCiAapwrF3rxuyQ78N5KRYP
-	kEFuK/Ru0FMrguZsjW4WdsdrEMUQeWY=
+	bh=fgv+5BeGoeoUWMq8nnbrXaAzd9ohZAO/226at7JohSE=;
+	b=YGleL8qvMToG7FEYqbkfVn45pv9auVCLv4+7dY/eCEp24g8np7P8CQmPOvvpHf2jNSSMNR
+	bAfvKVgEbF6ZVNBj1KnouVwFt1YOY8qy1/Lf0LcbM42e6V5ajDD2MSSKuawjkHdv9zcQhk
+	4+nlxauCqytLiwSkB0hrk2GGTFWGFYQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-611-LdQCTBpxPjajFfaYsqSd3A-1; Wed, 07 Jun 2023 22:04:21 -0400
-X-MC-Unique: LdQCTBpxPjajFfaYsqSd3A-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-454-4zoYDv6gNpqcRXrSeOcniQ-1; Wed, 07 Jun 2023 22:41:20 -0400
+X-MC-Unique: 4zoYDv6gNpqcRXrSeOcniQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CAF68032F5;
-	Thu,  8 Jun 2023 02:04:19 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D2AA0C154D3;
-	Thu,  8 Jun 2023 02:04:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 904C8185A78B;
+	Thu,  8 Jun 2023 02:41:17 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EB7C9492B00;
+	Thu,  8 Jun 2023 02:41:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4A32819451C0;
-	Thu,  8 Jun 2023 02:04:18 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75DA219451C0;
+	Thu,  8 Jun 2023 02:41:11 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 74B0419465BA
- for <dm-devel@listman.corp.redhat.com>; Thu,  8 Jun 2023 02:04:17 +0000 (UTC)
+ ESMTP id E8B7F19465BA
+ for <dm-devel@listman.corp.redhat.com>; Thu,  8 Jun 2023 02:41:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 509192026D6A; Thu,  8 Jun 2023 02:04:17 +0000 (UTC)
+ id 74C33140E954; Thu,  8 Jun 2023 02:41:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 472B72026D49
- for <dm-devel@redhat.com>; Thu,  8 Jun 2023 02:04:17 +0000 (UTC)
-Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6D474140E955
+ for <dm-devel@redhat.com>; Thu,  8 Jun 2023 02:41:10 +0000 (UTC)
+Received: from us-smtp-inbound-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2571E3C025D1
- for <dm-devel@redhat.com>; Thu,  8 Jun 2023 02:04:17 +0000 (UTC)
-Received: from mx0b-00069f02.pphosted.com (mx0b-00069f02.pphosted.com
- [205.220.177.32]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-400-wu4_4jPTM3G8ysr1-5TXpg-1; Wed, 07 Jun 2023 22:04:10 -0400
-X-MC-Unique: wu4_4jPTM3G8ysr1-5TXpg-1
-Received: from pps.filterd (m0246630.ppops.net [127.0.0.1])
- by mx0b-00069f02.pphosted.com (8.17.1.19/8.17.1.19) with ESMTP id
- 357Ndk2m017995; Thu, 8 Jun 2023 02:04:00 GMT
-Received: from phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com
- (phxpaimrmta01.appoci.oracle.com [138.1.114.2])
- by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 3r2a6ub46t-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 08 Jun 2023 02:04:00 +0000
-Received: from pps.filterd
- (phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com [127.0.0.1])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (8.17.1.19/8.17.1.19)
- with ESMTP id 357Ni37n015818; Thu, 8 Jun 2023 02:03:46 GMT
-Received: from nam10-mw2-obe.outbound.protection.outlook.com
- (mail-mw2nam10lp2103.outbound.protection.outlook.com [104.47.55.103])
- by phxpaimrmta01.imrmtpd1.prodappphxaev1.oraclevcn.com (PPS) with ESMTPS id
- 3r2a6mgp0j-1
- (version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
- Thu, 08 Jun 2023 02:03:46 +0000
-Received: from PH0PR10MB4759.namprd10.prod.outlook.com (2603:10b6:510:3d::12)
- by CH3PR10MB7413.namprd10.prod.outlook.com (2603:10b6:610:154::14)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6433.23; Thu, 8 Jun
- 2023 02:03:43 +0000
-Received: from PH0PR10MB4759.namprd10.prod.outlook.com
- ([fe80::b77c:5f48:7b34:39c0]) by PH0PR10MB4759.namprd10.prod.outlook.com
- ([fe80::b77c:5f48:7b34:39c0%6]) with mapi id 15.20.6455.030; Thu, 8 Jun 2023
- 02:03:43 +0000
-To: Dave Chinner <david@fromorbit.com>
-From: "Martin K. Petersen" <martin.petersen@oracle.com>
-Organization: Oracle Corporation
-Message-ID: <yq1sfb21zsa.fsf@ca-mkp.ca.oracle.com>
-References: <ZG1dAtHmbQ53aOhA@dread.disaster.area> <ZG+KoxDMeyogq4J0@bfoster>
- <ZHB954zGG1ag0E/t@dread.disaster.area>
- <CAJ0trDbspRaDKzTzTjFdPHdB9n0Q9unfu1cEk8giTWoNu3jP8g@mail.gmail.com>
- <ZHFEfngPyUOqlthr@dread.disaster.area>
- <CAJ0trDZJQwvAzngZLBJ1hB0XkQ1HRHQOdNQNTw9nK-U5i-0bLA@mail.gmail.com>
- <ZHYB/6l5Wi+xwkbQ@redhat.com>
- <CAJ0trDaUOevfiEpXasOESrLHTCcr=oz28ywJU+s+YOiuh7iWow@mail.gmail.com>
- <ZHYWAGmKhwwmTjW/@redhat.com>
- <CAG9=OMMnDfN++-bJP3jLmUD6O=Q_ApV5Dr392_5GqsPAi_dDkg@mail.gmail.com>
- <ZHqOvq3ORETQB31m@dread.disaster.area>
-Date: Wed, 07 Jun 2023 22:03:40 -0400
-In-Reply-To: <ZHqOvq3ORETQB31m@dread.disaster.area> (Dave Chinner's message of
- "Sat, 3 Jun 2023 10:52:14 +1000")
-X-ClientProxiedBy: DM6PR03CA0094.namprd03.prod.outlook.com
- (2603:10b6:5:333::27) To PH0PR10MB4759.namprd10.prod.outlook.com
- (2603:10b6:510:3d::12)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 52BBB185A791
+ for <dm-devel@redhat.com>; Thu,  8 Jun 2023 02:41:10 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
+ [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-619-WkAPLZlcNHC0iM54YykCMA-1; Wed, 07 Jun 2023 22:41:07 -0400
+X-MC-Unique: WkAPLZlcNHC0iM54YykCMA-1
+Received: from mail02.huawei.com (unknown [172.30.67.153])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Qc7kP6KJgz4f3tNj;
+ Thu,  8 Jun 2023 10:41:01 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP4 (Coremail) with SMTP id gCh0CgBH_rG9P4FkzBfHLA--.54104S3;
+ Thu, 08 Jun 2023 10:41:02 +0800 (CST)
+To: Yu Kuai <yukuai1@huaweicloud.com>, guoqing.jiang@linux.dev,
+ agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, song@kernel.org
+References: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <0a38ddc1-b47e-04e8-dbf5-25afcd13fff4@huaweicloud.com>
+Date: Thu, 8 Jun 2023 10:41:01 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR10MB4759:EE_|CH3PR10MB7413:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9e4959a4-414e-4f70-6701-08db67c4964d
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: 0u9PtSuEdA5DTQf+Uog0aC92BF2nw1I9yPelJUi4tNa0C4b4h60whrxjbvZ8fwIcpgZxJwbKcMEHhcmktLh1ALm543E5jb9/wDq1WCkCsaV1H6Q+CYwmjYDl75Gwi2pisSdumGbUKd1kE6+FWf4lBEfc+v35kEK0ZihRTfYkyow9G76MwTaZyOiu1ihkjNvNH16WF9tz1sn+voweNtRFok5ojpNP1t3nbA+xUkW1rJb0AAqzk0isA8JTyOKq9eCpzy0Vmfgh8Aihvbxw0b/WUUD/TKbDeuY6ZgX9M4+MINgjRnJ4E4SgUC0DUb5fs5jDTfLZOV+AqdLW7IXM11u4mcgzifcsr2FK5q69Y6Z3be95EUJFULJ7ekiGH5dG0x5eRauIIky+UOOOCfWzYO5MTjLDJ5Hs4f3cvHwhJuEu9Qo4/vdTdQ0n/Ty+XMcI1Zsu1vCrnwlda86dze0UdkKNCYF26loOU3bid6gOXvm7FC9tB3bq3PDaoAUM74n/z6T0nMEVcvoodXGCfhpPZN9gqkeOV+YtRSpRv3tVFGVq9oYuh5likXNYXyCUOar4UyX/
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:PH0PR10MB4759.namprd10.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(39860400002)(136003)(366004)(376002)(346002)(396003)(451199021)(5660300002)(83380400001)(7416002)(8936002)(86362001)(66946007)(41300700001)(6486002)(26005)(38100700002)(316002)(4326008)(6512007)(66476007)(36916002)(6916009)(54906003)(66556008)(478600001)(8676002)(186003)(6506007)(2906002)(4744005);
- DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?2P2wXqnA1AIc+D1BMU8uGjZFtmjmVBgm+uzTNY2UXFI4k3//fzxa32DulGK6?=
- =?us-ascii?Q?RyeIb5dgob2K1xb3q14j25kfG4KB68ZqRFkVUo6PHbY95z0ExbI/jHkTCwu5?=
- =?us-ascii?Q?TENUBrfsn0uuDXpqtUhdgOT+b2rxHNO+p11ppgvjBM+e+Lvo9Kktg50zcMee?=
- =?us-ascii?Q?T8L6ccUA9vMAGwLB6krsBq/VvtCA65bgebEXKLmS4UBgv4+TW1AobsYbeZAT?=
- =?us-ascii?Q?jA3W85woTaeUXWaHKqBP8fXU/VaDcFCqiPhpaYWLOaKT5a/qBPWHGzBUl/F0?=
- =?us-ascii?Q?JwzZoYaOAdQNayt4j4JqJprhZtBiyHAFdwHebpxhWqlbJaMfbqFwXr1LxG2u?=
- =?us-ascii?Q?972IMbI8jUi5I8EzTBWjBSI1w+bl6rdgLJm1kTHRhA5CPtUN1oANM8jaHuup?=
- =?us-ascii?Q?LIVjD+D2GEzjSVhFqp/cFkaBvpTO4IPSnLhvbTm6oRwT0fHzaGvPHIbyryDN?=
- =?us-ascii?Q?xLF88MY353cJ1jUC6AFz6MA/b02bAefwtyp6a5P9OoBTqZrob+7p63rlFLR3?=
- =?us-ascii?Q?nGs9y8w/GoOBVHSb6jFUhDa5UI5Jdpk1A7F6HobGXzdYnzo+vXR94wHmGNF+?=
- =?us-ascii?Q?9Dr+wmYpjw57ngOsBjmszLhNeyrdAe9mMDfS6jx/W6rT9RG6MvXCg3R/VUgj?=
- =?us-ascii?Q?TxLNeeObsmcArKG4nFz8I2/mon6cOtisPykA7/9ZdzSoBjJ/Sj6+Ycvyo/ly?=
- =?us-ascii?Q?/gdul+DpfXRAEVdn8VntVxUI1YK9Eqx7ViWNuHDFoQHaA04GXT8GzImPDCpz?=
- =?us-ascii?Q?37dD4a03rWm7P0bv7eNvbRtLM5qBtUtpsm8m7uBscQcH88QXov+JGLBKtEeb?=
- =?us-ascii?Q?upbEnsbkXwbNVudDWSQY7rnT1kxjHOySD2SdZrYDw0Pw4ABYptCXrj3zKk+S?=
- =?us-ascii?Q?gU4wEH8z2vb5kCIR5EIgkr6+AcqioopctUDSyyvV6rlcTdIzd0r4d6pJCS0Z?=
- =?us-ascii?Q?l6avi6CbycP3etAhUNokb0GyZvyfkMq3EVYB7S8J/1Fj4m80ZZmfVXy5N2IZ?=
- =?us-ascii?Q?8xIYM/jeIzYmdB36rQmmBihlGL24ckJaViK4m8+/FGOIam5sT+0RiCUrzuHm?=
- =?us-ascii?Q?hi1y304olneOZJbrKw3ahXsZq2b/2yCFpsmq+reoncOa6Yz6iBdahF82XkB2?=
- =?us-ascii?Q?n1mbZ8JDVSrR7jnf5wukWsj2fGJpUIMhY3jfD0yz40uf0WKi9OFYjOuSnoxf?=
- =?us-ascii?Q?/kPSzqKR8wCNNp2hYoyVOEGmyo35mo1Y/XaIORTFH8n73v6dS66h7YeJ6X5W?=
- =?us-ascii?Q?yPEXduOaoXSFuk+kMH4XGaycVJ/Shh3xgu8gmDN8LvtNC5EnnYnm9QEcq4Lm?=
- =?us-ascii?Q?ywDr88GPSP1iJmQkqf7vd2TvBtqwqgMacbumM7+TEDfAGJAglrexNF8sy/QM?=
- =?us-ascii?Q?eUHK6OQIlbz5N6Rd51/8C5sRNkqYuGRhQqWu/EgvkmBkX3HOTIWpfXFkCS0z?=
- =?us-ascii?Q?LUwpXFX0Gqi1KGN6Pm3W3Q8irIHVnJ6mYGwkq0Pti9xt+HmDVj1fZ39JXK07?=
- =?us-ascii?Q?3HzhtXew2/tvtZZfb00zuCogh7cSXhFvDD8FqfEmB/EHQVY1v1MgKhfMHSuP?=
- =?us-ascii?Q?c1BKfCLKr8EoNqpgQNAVNUlwakZ70Sn1OZskYbt9zjrjqWWfnQcpilwUAuyc?=
- =?us-ascii?Q?Xg=3D=3D?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?us-ascii?Q?IJlyDKGi1CSg5yvJc155/f0vdpShExEqnLUfXV4dkiJuVDs3FsBKZcGQI5p8?=
- =?us-ascii?Q?o8jlErEap2Bnaq7OWKmmm7BIwBcoU6QIfJ1+7AMYVjEnD91J9PbV100SiQs9?=
- =?us-ascii?Q?B9aneBbNIpfvzWenotLOTUkx9PJjC4lola3M8Bz9xfHWMZ04o3cJPb7Ic2C0?=
- =?us-ascii?Q?6hj9vHQR73FkMbvV/ygTkz32ZJehz2kkxd8/LumCo45vGr5m6bfLMEBa7Qyg?=
- =?us-ascii?Q?KNKZvOt7bxA0+1pOczzAUVJ1Q8caCSiegV8mK7Zm7S4ATHMrwEbVwzks9u68?=
- =?us-ascii?Q?gDcZK1m/7z1BenK00FloxuSjmZpDm16/vbb7IJOyas5ZCNB0ECkhtkdq6Rpj?=
- =?us-ascii?Q?O4E23Rkm5EwvF/NW2bwBKqNypgxnwEJaCqeRl3megMtKZD+Zy4PeaomKA4Q2?=
- =?us-ascii?Q?xyVY4i2jn5zKLuozLRcCzLRoj+yTanWHuU13GNkV6xASH+dcF1VJATWe6LPo?=
- =?us-ascii?Q?W+lhug4x852qajI4tWWAyQcgoE+PB5hN7ak7/yYjoYVJpQzWiMA4XZrhbo8w?=
- =?us-ascii?Q?iqSXCqtmq1EzOFoOhUVHarT+eDuHi+DMQTEj3WeRAm/0LUBXgD8p2H1+4G2L?=
- =?us-ascii?Q?V0l6DEw3iECDP23mGsWW5TYyy1Plmf1reIfEoDHdtIq9H4ZMmvtPohNE++Wc?=
- =?us-ascii?Q?m9pIyiW2T0VYd5w6Db7YsPvRy3QH/MQ0/ENI7+zq90OzT0GO9C8Rz6K+NY7U?=
- =?us-ascii?Q?EnVxWxkFugJpBpYlvWtHlorfnXUpHTwtvZ1DBHtnGLb5YQp1GxC3JE4vrvV9?=
- =?us-ascii?Q?fhYJRPycIWQo8vlLziTx3niJD6LlP1MbJZ9znaObLWA1HrhDSw4BIyCFLIbv?=
- =?us-ascii?Q?hmhPmjrQNnrUIQW85sKxLM5IscQ9WNC2dn61j88CNRmrjic5IqJQBqs7oUzw?=
- =?us-ascii?Q?6dYvd9bzgPH/Tres8XCr7iyqF8oMJTLeBPbwniXTPXY2qs95SB5CXh71rkuN?=
- =?us-ascii?Q?RKiM0hB8JH0tgnhtOutqFEtm+3ZipAE+2NG+c07l7Imv6ldYBcYkrijYPB8d?=
- =?us-ascii?Q?wjdw+C45ITg53lfMLm+WOFKWYg=3D=3D?=
-X-OriginatorOrg: oracle.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9e4959a4-414e-4f70-6701-08db67c4964d
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR10MB4759.namprd10.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 08 Jun 2023 02:03:43.7095 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: LDdyRby7cgI6L/SS63kqFxXOoQtDCgWdBK6byT6iAJ2hlgOuF/5wu3Bvu0JnAOxyGsymUOhcL6l6tMMq63vBR4/s3LHXUfJxxx/oRKoMdH8=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR10MB7413
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.254,Aquarius:18.0.957,Hydra:6.0.573,FMLib:17.11.176.26
- definitions=2023-06-07_13,2023-06-07_01,2023-05-22_02
-X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 mlxscore=0
- suspectscore=0 bulkscore=0
- spamscore=0 mlxlogscore=880 adultscore=0 phishscore=0 malwarescore=0
- classifier=spam adjust=0 reason=mlx scancount=1 engine=8.12.0-2305260000
- definitions=main-2306080015
-X-Proofpoint-GUID: qvEDSeu3ZiYVHl31NCVuM1rmGCKDqo6X
-X-Proofpoint-ORIG-GUID: qvEDSeu3ZiYVHl31NCVuM1rmGCKDqo6X
+In-Reply-To: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
+X-CM-TRANSID: gCh0CgBH_rG9P4FkzBfHLA--.54104S3
+X-Coremail-Antispam: 1UD129KBjvdXoW7GrWktr43Kr17Ww1fAFy3XFb_yoWkWFg_Wa
+ 4YkFy3Wr47GF15GFyDKrn8Z39rGFW5ur1DXFyrtayjvFyIgrnxCr1kuw43uw1YvFWjyr18
+ ArWUCayfAwsrWjkaLaAFLSUrUUUUUb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+ 9fnUUIcSsGvfJTRUUUb3xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+ 6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+ A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+ Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+ 0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+ jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+ 1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY
+ 04v7Mxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7
+ v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF
+ 1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIx
+ AIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVW3JVWrJr1l
+ IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+ C2KfnxnUUI43ZEXa7VU1a9aPUUUUU==
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -191,8 +99,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH v7 0/5] Introduce provisioning primitives
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [dm-devel] [PATCH -next v2 0/6] md: fix that
+ MD_RECOVERY_RUNNING can be cleared while sync_thread is still running
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -204,42 +113,37 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Joe Thornber <thornber@redhat.com>, Stefan Hajnoczi <stefanha@redhat.com>,
- "Michael S. Tsirkin" <mst@redhat.com>, Jason Wang <jasowang@redhat.com>,
- "Darrick J. Wong" <djwong@kernel.org>, Brian Foster <bfoster@redhat.com>,
- Bart Van Assche <bvanassche@google.com>, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
- dm-devel@redhat.com, Andreas Dilger <adilger.kernel@dilger.ca>,
- Sarthak Kukreti <sarthakkukreti@chromium.org>, linux-fsdevel@vger.kernel.org,
- Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org,
- Joe Thornber <ejt@redhat.com>, Alasdair Kergon <agk@redhat.com>
+Cc: linux-raid@vger.kernel.org, "yukuai \(C\)" <yukuai3@huawei.com>,
+ yangerkun@huawei.com, linux-kernel@vger.kernel.org, yi.zhang@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: oracle.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: huaweicloud.com
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="gbk"; Format="flowed"
 
-
-Dave,
-
-> Possibly unintentionally, I didn't call it REQ_OP_PROVISION but that's
-> what I intended - the operation does not contain data at all. It's an
-> operation like REQ_OP_DISCARD or REQ_OP_WRITE_ZEROS - it contains a
-> range of sectors that need to be provisioned (or discarded), and
-> nothing else.
-
-Yep. That's also how SCSI defines it. The act of provisioning a block
-range is done through an UNMAP command using a special flag. All it does
-is pin down those LBAs so future writes to them won't result in ENOSPC.
-
--- 
-Martin K. Petersen	Oracle Linux Engineering
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+SGksCgrU2iAyMDIzLzA1LzI5IDIxOjIwLCBZdSBLdWFpINC0tcA6Cj4gRnJvbTogWXUgS3VhaSA8
+eXVrdWFpM0BodWF3ZWkuY29tPgo+IAo+IENoYW5nZXMgaW4gdjI6Cj4gICAtIHJlYmFzZSBmb3Ig
+dGhlIGxhdGVzdCBtZC1uZXh0Cj4gCj4gUGF0Y2ggMSByZXZlcnQgdGhlIGNvbW1pdCBiZWNhdXNl
+IGl0IHdpbGwgY2F1c2UgTURfUkVDT1ZFUllfUlVOTklORyB0byBiZQo+IGNsZWFyZWQgd2hpbGUg
+c3luY190aHJlYWQgaXMgc3RpbGwgcnVubmluZy4gVGhlIGRlYWRsb2NrIHRoaXMgcGF0Y2ggdHJp
+ZXMKPiB0byBmaXggd2lsbCBiZSBmaXhlZCBieSBwYXRjaCAyLTUuCj4gCj4gUGF0Y2ggNiBlbmhh
+bmNlIGNoZWNraW5nIHRvIHByZXZlbnQgTURfUkVDT1ZFUllfUlVOTklORyB0byBiZSBjbGVhcmVk
+Cj4gd2hpbGUgc3luY190aHJlYWQgaXMgc3RpbGwgcnVubmluZy4KCkFueSBzdWdnZXN0aW9ucyBv
+biB0aGlzIHBhdGNoc2V0PyBJIGFscmVhZHkgc2VudCByZWdyZXNzaW9uIHRlc3QKZm9yIHRoZSBk
+ZWFkbG9jayBwcm9ibGVtIGZvciBib3RoIHJhaWQxMCBhbmQgcmFpZDQ1Ni4KClRoYW5rcywKS3Vh
+aQo+IAo+IFl1IEt1YWkgKDYpOgo+ICAgIFJldmVydCAibWQ6IHVubG9jayBtZGRldiBiZWZvcmUg
+cmVhcCBzeW5jX3RocmVhZCBpbiBhY3Rpb25fc3RvcmUiCj4gICAgbWQ6IHJlZmFjdG9yIGFjdGlv
+bl9zdG9yZSgpIGZvciAnaWRsZScgYW5kICdmcm96ZW4nCj4gICAgbWQ6IGFkZCBhIG11dGV4IHRv
+IHN5bmNocm9uaXplIGlkbGUgYW5kIGZyb3plbiBpbiBhY3Rpb25fc3RvcmUoKQo+ICAgIG1kOiBy
+ZWZhY3RvciBpZGxlL2Zyb3plbl9zeW5jX3RocmVhZCgpIHRvIGZpeCBkZWFkbG9jawo+ICAgIG1k
+OiB3YWtlIHVwICdyZXN5bmNfd2FpdCcgYXQgbGFzdCBpbiBtZF9yZWFwX3N5bmNfdGhyZWFkKCkK
+PiAgICBtZDogZW5oYW5jZSBjaGVja2luZyBpbiBtZF9jaGVja19yZWNvdmVyeSgpCj4gCj4gICBk
+cml2ZXJzL21kL2RtLXJhaWQuYyB8ICAgMSAtCj4gICBkcml2ZXJzL21kL21kLmMgICAgICB8IDEy
+NCArKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0tLS0tLS0tLS0tLS0tCj4gICBkcml2ZXJz
+L21kL21kLmggICAgICB8ICAgNSArKwo+ICAgMyBmaWxlcyBjaGFuZ2VkLCA4OCBpbnNlcnRpb25z
+KCspLCA0MiBkZWxldGlvbnMoLSkKPiAKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZl
+bEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8v
+ZG0tZGV2ZWwK
 
