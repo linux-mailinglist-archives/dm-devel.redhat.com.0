@@ -1,87 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 65CAC72A344
-	for <lists+dm-devel@lfdr.de>; Fri,  9 Jun 2023 21:39:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id DE5EB72A3F4
+	for <lists+dm-devel@lfdr.de>; Fri,  9 Jun 2023 22:00:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686339555;
+	s=mimecast20190719; t=1686340849;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=JQ99VQnkSgF2wc4DmlbVS1l++diN1/QNz7AX1K6EjDU=;
-	b=iRhGwkbuu6VwqI0EIa6aJDGb61USGBtgKRFUPk0rlcmjjd5FU7JVzgKnjNvx/Ij1piDUpz
-	MXcpRp8IaiJDRNXb3+LgAWNM/ghJJdQN2z4CNUq6zuATY2WJ7Be/WHODvVnFjz5QSjRnSc
-	Q7y8iHrMQe1TF6XdgopL1mTHhRRkYYY=
+	bh=esgDy0v2QpWCWs93YOxWMnHVWSS8ZWcKbgZP/LiVYyc=;
+	b=CcOZUrjmrv/wUqJUPplLwVmhlOn1bK3Pgm5UGYdkcJi+q7b80sCR1xAX7vLES2v7A/xKc2
+	gvSb7KyVyF2Syy11uq5y5L1WKzK3ihHuCyEKWfNIyR1uBg7l1ZSj7xKxRPgPULNSLTTQG8
+	wGoG4Q/+GH+dEZTuaEYuGqMqupKYexc=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-652-c0Oesl87PASKGJsqmCyNNQ-1; Fri, 09 Jun 2023 15:39:13 -0400
-X-MC-Unique: c0Oesl87PASKGJsqmCyNNQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-149-bFrIGjVuMBWiVshBr5tDQA-1; Fri, 09 Jun 2023 16:00:46 -0400
+X-MC-Unique: bFrIGjVuMBWiVshBr5tDQA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E4D5101A52C;
-	Fri,  9 Jun 2023 19:39:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0B5B885A5BA;
+	Fri,  9 Jun 2023 20:00:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id CEEA3492B00;
-	Fri,  9 Jun 2023 19:39:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3AD651121315;
+	Fri,  9 Jun 2023 20:00:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B6D4B19451CA;
-	Fri,  9 Jun 2023 19:39:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E258919451CA;
+	Fri,  9 Jun 2023 20:00:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6A026194658C
- for <dm-devel@listman.corp.redhat.com>; Fri,  9 Jun 2023 19:39:04 +0000 (UTC)
+ ESMTP id 8E8B4194658C
+ for <dm-devel@listman.corp.redhat.com>; Fri,  9 Jun 2023 20:00:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 167E22166B26; Fri,  9 Jun 2023 19:39:04 +0000 (UTC)
+ id 7F669140E959; Fri,  9 Jun 2023 20:00:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E6202166B25
- for <dm-devel@redhat.com>; Fri,  9 Jun 2023 19:39:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DCCE7101A53A
- for <dm-devel@redhat.com>; Fri,  9 Jun 2023 19:39:03 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-634-B8y-_DTNMhe9VoYdD-oVow-1; Fri, 09 Jun 2023 15:38:54 -0400
-X-MC-Unique: B8y-_DTNMhe9VoYdD-oVow-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 7DBF465B2E;
- Fri,  9 Jun 2023 19:38:53 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8656C433EF;
- Fri,  9 Jun 2023 19:38:52 +0000 (UTC)
-Date: Fri, 9 Jun 2023 12:38:52 -0700
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20230609193852.GI72224@frogsfrogsfrogs>
-References: <alpine.LRH.2.21.2305260915400.12513@file01.intranet.prod.int.rdu2.redhat.com>
- <20230602011355.GA16848@frogsfrogsfrogs>
- <7bf96e58-7151-a63d-317f-1ddedd4927ad@redhat.com>
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 77448140E958
+ for <dm-devel@redhat.com>; Fri,  9 Jun 2023 20:00:28 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5857D185A794
+ for <dm-devel@redhat.com>; Fri,  9 Jun 2023 20:00:28 +0000 (UTC)
+Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
+ [209.85.222.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-121-9y6pdRrSMnGHXtkj-_Ml7g-1; Fri, 09 Jun 2023 16:00:26 -0400
+X-MC-Unique: 9y6pdRrSMnGHXtkj-_Ml7g-1
+Received: by mail-qk1-f173.google.com with SMTP id
+ af79cd13be357-75efda265f8so52899185a.0
+ for <dm-devel@redhat.com>; Fri, 09 Jun 2023 13:00:26 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686340826; x=1688932826;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=XFxNC6AwIefC8h+OVa9YMEjCXThkDxxKP8p9zX4LNFY=;
+ b=kHUOibu5eW+QcjVGUzNwRWeqpF5bW4ChCWHpB776zGnS3rAJFp/RcVmCiwgdekmpXW
+ /8wPPnQnYgUt8QrFeyhYzFq3OnEdOCpkjJpyMWbVwgSeO9vXFG1Rc/Dj3nhv4Omz0wGC
+ zVY3OUqXcDnX/2xJZ3l53AGttTYo+BsIMNrfBMNIZV5RZuE18/Aofz7vikByYggMKOJG
+ VBBE2dODYFLnlW+oY+ZVXvmpOFLd/p7EDNHsITXatnxvQJYTq8ipCHQ32lRPrIQoUbcP
+ jJfCMThZpvtEy33p0pLcvtcjMqanQfE6sDs97bcd5YbrH3K8kfxZ7rXASWBjPNcB3/6K
+ nYvg==
+X-Gm-Message-State: AC+VfDzm7IdEzQUibEItv8y9pe/E0NqwYTXiWCrnA3kJ1cFPxA02eJpZ
+ 2pTj30BDGAhxK3rM2ODXLZediG0=
+X-Google-Smtp-Source: ACHHUZ6f5D0na1vDQSbLNkOIR7VVTt7ADDPvJzshNMQToGx2m/jPA4IIyjKZFD+hGnfTs+abIWzkWA==
+X-Received: by 2002:ac8:7e88:0:b0:3f8:6c15:c3a5 with SMTP id
+ w8-20020ac87e88000000b003f86c15c3a5mr3039832qtj.33.1686340826214; 
+ Fri, 09 Jun 2023 13:00:26 -0700 (PDT)
+Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
+ [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
+ d3-20020ac85343000000b003f740336bb9sm1418338qto.9.2023.06.09.13.00.25
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 09 Jun 2023 13:00:25 -0700 (PDT)
+Date: Fri, 9 Jun 2023 16:00:24 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: Sarthak Kukreti <sarthakkukreti@chromium.org>
+Message-ID: <ZIOE2ASeUAXxzpRO@redhat.com>
+References: <20230518223326.18744-1-sarthakkukreti@chromium.org>
+ <20230518223326.18744-3-sarthakkukreti@chromium.org>
 MIME-Version: 1.0
-In-Reply-To: <7bf96e58-7151-a63d-317f-1ddedd4927ad@redhat.com>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] fuzzing bcachefs with dm-flakey
+In-Reply-To: <20230518223326.18744-3-sarthakkukreti@chromium.org>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+Subject: Re: [dm-devel] [PATCH v7 2/5] block: Introduce provisioning
+ primitives
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,54 +104,74 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-fsdevel@vger.kernel.org, linux-bcachefs@vger.kernel.org,
- dm-devel@redhat.com, Kent Overstreet <kent.overstreet@linux.dev>
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
+ Theodore Ts'o <tytso@mit.edu>, "Michael S. Tsirkin" <mst@redhat.com>,
+ "Darrick J. Wong" <djwong@kernel.org>, Jason Wang <jasowang@redhat.com>,
+ Bart Van Assche <bvanassche@google.com>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>,
+ Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Brian Foster <bfoster@redhat.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri, Jun 09, 2023 at 08:56:37PM +0200, Mikulas Patocka wrote:
-> 
-> 
-> On Thu, 1 Jun 2023, Darrick J. Wong wrote:
-> 
-> > On Mon, May 29, 2023 at 04:59:40PM -0400, Mikulas Patocka wrote:
-> >
-> > > #!/bin/sh -ex
-> > > umount /mnt/test || true
-> > > dmsetup remove_all || true
-> > > rmmod brd || true
-> > > SRC=/usr/src/git/bcachefs-tools
-> > > while true; do
-> > >         modprobe brd rd_size=1048576
-> > >         bcachefs format --replicas=2 /dev/ram0 /dev/ram1
-> > >         dmsetup create flakey --table "0 `blockdev --getsize /dev/ram0` linear /dev/ram0 0"
-> > >         mount -t bcachefs /dev/mapper/flakey:/dev/ram1 /mnt/test
-> > >         dmsetup load flakey --table "0 `blockdev --getsize /dev/ram0` flakey /dev/ram0 0 0 1 4 random_write_corrupt 100000000 random_read_corrupt 100000000"
-> > 
-> > Hey, that's really neat!
-> > 
-> > Any chance you'd be willing to get the dm-flakey changes merged into
-> > upstream so that someone can write a recoveryloop fstest to test all the
-> > filesystems systematically?
-> > 
-> > :D
-> > 
-> > --D
-> 
-> Yes, we will merge improved dm-flakey in the next merge window.
+On Thu, May 18 2023 at  6:33P -0400,
+Sarthak Kukreti <sarthakkukreti@chromium.org> wrote:
 
-Thank you!
-
---D
-
-> Mikulas
+> Introduce block request REQ_OP_PROVISION. The intent of this request
+> is to request underlying storage to preallocate disk space for the given
+> block range. Block devices that support this capability will export
+> a provision limit within their request queues.
 > 
+> This patch also adds the capability to call fallocate() in mode 0
+> on block devices, which will send REQ_OP_PROVISION to the block
+> device for the specified range,
+> 
+> Signed-off-by: Sarthak Kukreti <sarthakkukreti@chromium.org>
+> ---
+...
+> diff --git a/block/blk-settings.c b/block/blk-settings.c
+> index 896b4654ab00..d303e6614c36 100644
+> --- a/block/blk-settings.c
+> +++ b/block/blk-settings.c
+> @@ -59,6 +59,7 @@ void blk_set_default_limits(struct queue_limits *lim)
+>  	lim->zoned = BLK_ZONED_NONE;
+>  	lim->zone_write_granularity = 0;
+>  	lim->dma_alignment = 511;
+> +	lim->max_provision_sectors = 0;
+>  }
+>  
+>  /**
+> @@ -82,6 +83,7 @@ void blk_set_stacking_limits(struct queue_limits *lim)
+>  	lim->max_dev_sectors = UINT_MAX;
+>  	lim->max_write_zeroes_sectors = UINT_MAX;
+>  	lim->max_zone_append_sectors = UINT_MAX;
+> +	lim->max_provision_sectors = UINT_MAX;
+>  }
+>  EXPORT_SYMBOL(blk_set_stacking_limits);
+>  
+> @@ -578,6 +594,9 @@ int blk_stack_limits(struct queue_limits *t, struct queue_limits *b,
+>  	t->max_segment_size = min_not_zero(t->max_segment_size,
+>  					   b->max_segment_size);
+>  
+> +	t->max_provision_sectors = min_not_zero(t->max_provision_sectors,
+> +						b->max_provision_sectors);
+> +
+
+This needs to use min() since max_provision_sectors also serves to
+indicate if the device supports REQ_OP_PROVISION.  Otherwise, if I set
+max_provision_sectors to 0 on a dm thin-pool the blk_stack_limits()
+will ignore my having set it to 0 (to disable) and it'll remain as
+UINT_MAX (thanks to blk_set_default_limits).
+
+Mike
 
 --
 dm-devel mailing list
