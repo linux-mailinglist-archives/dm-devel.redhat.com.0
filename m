@@ -1,107 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7617D728E98
-	for <lists+dm-devel@lfdr.de>; Fri,  9 Jun 2023 05:33:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D2D99728F22
+	for <lists+dm-devel@lfdr.de>; Fri,  9 Jun 2023 06:54:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686281601;
+	s=mimecast20190719; t=1686286454;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9FeHcFSpHbgMe9pQjzIuSQ3VGX6CjVL3VxqTiW202ls=;
-	b=cNOEhLjMxuBaz0ZVYUa3ZoW61ProG5UnG8rkAGNzRz9P3NKw7+yGPQq+dKmnCkC2SsEHjq
-	M2MDpdbugkq6yEHD/0q1nDGUuFYDp+FOnZIRAV11xmLzgjKGiRJQbjLlhqJZra207Z8h8d
-	I3y+q6F5JKNLDFI/l0WQG4GnSOeoclo=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=8qMNflpHbeG+x3r3S4cSL/dNSTI7e/7ZxzeHT9aOYkg=;
+	b=POxbK8+AauLcSaBdyceEEUWMQX6hzShqTxE8vBQ7rOxagfIrE7/TxfscYQVWcOCj6kfwHW
+	YzB/fT36xf622IbjKbzetFBxkcARg9Kyfm/Nya3yyFISRsfmKkryqstrqlvyk0pMBP/+6E
+	mfPZkj4PGpkH4suT9+syv2J0I6Sq/Dw=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-19-0ZGdQN9yPICao1vUHZTFfg-1; Thu, 08 Jun 2023 23:33:17 -0400
-X-MC-Unique: 0ZGdQN9yPICao1vUHZTFfg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-380-swb1W322Maiesqrvt8elzA-1; Fri, 09 Jun 2023 00:54:07 -0400
+X-MC-Unique: swb1W322Maiesqrvt8elzA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 926C33C0F192;
-	Fri,  9 Jun 2023 03:33:15 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BA0DA9E93;
-	Fri,  9 Jun 2023 03:33:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E6519811E7C;
+	Fri,  9 Jun 2023 04:54:04 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0B8931121314;
+	Fri,  9 Jun 2023 04:54:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C399119451C7;
-	Fri,  9 Jun 2023 03:33:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 96BD019451C7;
+	Fri,  9 Jun 2023 04:54:02 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
  [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C5B3E194658C
- for <dm-devel@listman.corp.redhat.com>; Fri,  9 Jun 2023 03:33:03 +0000 (UTC)
+ ESMTP id 1CED4194658C
+ for <dm-devel@listman.corp.redhat.com>; Fri,  9 Jun 2023 04:54:01 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 92B5E40D1B68; Fri,  9 Jun 2023 03:33:03 +0000 (UTC)
+ id DDDA540D1B68; Fri,  9 Jun 2023 04:54:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8B58540D1B66
- for <dm-devel@redhat.com>; Fri,  9 Jun 2023 03:33:03 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D6F0F40D1B66
+ for <dm-devel@redhat.com>; Fri,  9 Jun 2023 04:54:00 +0000 (UTC)
 Received: from us-smtp-inbound-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 701B2101A52C
- for <dm-devel@redhat.com>; Fri,  9 Jun 2023 03:33:03 +0000 (UTC)
-Received: from mail-ot1-f47.google.com (mail-ot1-f47.google.com
- [209.85.210.47]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B780C811E78
+ for <dm-devel@redhat.com>; Fri,  9 Jun 2023 04:54:00 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-594-Zq30qN1xOdSiZw_7Adg07g-1; Thu, 08 Jun 2023 23:33:01 -0400
-X-MC-Unique: Zq30qN1xOdSiZw_7Adg07g-1
-Received: by mail-ot1-f47.google.com with SMTP id
- 46e09a7af769-6b2bdca0884so303393a34.2
- for <dm-devel@redhat.com>; Thu, 08 Jun 2023 20:33:01 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686281580; x=1688873580;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=6iwigF78U3EwOQGn53e2UyWPNzHupFHtA26oaO3R2wc=;
- b=TzG4TvykoYqA+OfrI0Vo7O533qtoxv2US1ci8/K4CDdNMF4eb8o4bSDRSFUYgVWq70
- 9G/RWK/8r/GcrNEfHboZmE6zk0m34yRVZyYB2wzEs0oCUNdhiq9jKGDSvTJifEAVMb7c
- NtTk+zMq0f2QOn2oJbFYCyNIJYoaOzMq/tgeZCv6EeZXCRySOi9X7lwJxS05p7/B9XPb
- 8kOLAD9vUVudjndNLr8r73CHCRN4Y+96PlPt4YnzUIBhk5ZLO5Tr8Jh1rvN9D7YRiz+U
- Pmgk4phmqJ2DHIQY/2DlKDdhEMOiuDzjX73DvHyBr6Qj528nGaocDZ6kLwjulqn0c06K
- qM4g==
-X-Gm-Message-State: AC+VfDwQB5/iJBkf2xn1sU/JyKo8sph8mcCD/a4tJ340IpTtJfe/O9a1
- VdnOEN9ykk2kFliQq33a/X+48Q==
-X-Google-Smtp-Source: ACHHUZ4jpAKkv/P4I5GyogL5cyKUBbH9jdQo3rd8sW4sBbrGIyPOxPKXrqwUV/kK78Vqo7hkyQEMOA==
-X-Received: by 2002:a05:6830:3a0a:b0:6a6:6121:dc60 with SMTP id
- di10-20020a0568303a0a00b006a66121dc60mr317885otb.10.1686281580410; 
- Thu, 08 Jun 2023 20:33:00 -0700 (PDT)
-Received: from dread.disaster.area (pa49-179-79-151.pa.nsw.optusnet.com.au.
- [49.179.79.151]) by smtp.gmail.com with ESMTPSA id
- t1-20020aa79381000000b0064381853bfcsm1723703pfe.89.2023.06.08.20.32.59
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 08 Jun 2023 20:32:59 -0700 (PDT)
-Received: from dave by dread.disaster.area with local (Exim 4.96)
- (envelope-from <david@fromorbit.com>) id 1q7Srw-009XUr-2X;
- Fri, 09 Jun 2023 13:32:56 +1000
-Date: Fri, 9 Jun 2023 13:32:56 +1000
-From: Dave Chinner <david@fromorbit.com>
-To: Mike Snitzer <snitzer@kernel.org>
-Message-ID: <ZIKdaJNhSq9JfFDU@dread.disaster.area>
-References: <ZHFEfngPyUOqlthr@dread.disaster.area>
- <CAJ0trDZJQwvAzngZLBJ1hB0XkQ1HRHQOdNQNTw9nK-U5i-0bLA@mail.gmail.com>
- <ZHYB/6l5Wi+xwkbQ@redhat.com>
- <CAJ0trDaUOevfiEpXasOESrLHTCcr=oz28ywJU+s+YOiuh7iWow@mail.gmail.com>
- <ZHYWAGmKhwwmTjW/@redhat.com>
- <CAG9=OMMnDfN++-bJP3jLmUD6O=Q_ApV5Dr392_5GqsPAi_dDkg@mail.gmail.com>
- <ZHqOvq3ORETQB31m@dread.disaster.area>
- <ZHti/MLnX5xGw9b7@redhat.com>
- <ZH/k9ss2Cg9HYrEV@dread.disaster.area>
- <ZIEXwTd17z0iYW4s@redhat.com>
+ us-mta-539-HVGhCv99O2qnajE9eA6jPg-1; Fri, 09 Jun 2023 00:53:59 -0400
+X-MC-Unique: HVGhCv99O2qnajE9eA6jPg-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1q7Tfy-00BaXx-39; Fri, 09 Jun 2023 04:24:38 +0000
+Date: Thu, 8 Jun 2023 21:24:38 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Nitesh Shetty <nj.shetty@samsung.com>
+Message-ID: <ZIKphgDavKVPREnw@infradead.org>
+References: <20230605121732.28468-1-nj.shetty@samsung.com>
+ <CGME20230605122310epcas5p4aaebfc26fe5377613a36fe50423cf494@epcas5p4.samsung.com>
+ <20230605121732.28468-6-nj.shetty@samsung.com>
+ <ZH3mjUb+yqI11XD8@infradead.org>
+ <20230606113535.rjbhe6eqlyqk4pqq@green245>
+ <ZIAt7vL+/isPJEl5@infradead.org>
+ <20230608120817.jg4xb4jhg77mlksw@green245>
 MIME-Version: 1.0
-In-Reply-To: <ZIEXwTd17z0iYW4s@redhat.com>
+In-Reply-To: <20230608120817.jg4xb4jhg77mlksw@green245>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -110,7 +82,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH v7 0/5] Introduce provisioning primitives
+Subject: Re: [dm-devel] [PATCH v12 5/9] nvme: add copy offload support
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,43 +94,56 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-block@vger.kernel.org,
- Joe Thornber <thornber@redhat.com>,
- Sarthak Kukreti <sarthakkukreti@chromium.org>, dm-devel@redhat.com,
- "Michael S. Tsirkin" <mst@redhat.com>, "Darrick J. Wong" <djwong@kernel.org>,
- Jason Wang <jasowang@redhat.com>, Bart Van Assche <bvanassche@google.com>,
- linux-kernel@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
- Joe Thornber <ejt@redhat.com>, Andreas Dilger <adilger.kernel@dilger.ca>,
- Stefan Hajnoczi <stefanha@redhat.com>, linux-fsdevel@vger.kernel.org,
- Theodore Ts'o <tytso@mit.edu>, linux-ext4@vger.kernel.org,
- Brian Foster <bfoster@redhat.com>, Alasdair Kergon <agk@redhat.com>
+Cc: linux-doc@vger.kernel.org, djwong@kernel.org,
+ linux-nvme@lists.infradead.org, dm-devel@redhat.com,
+ Christoph Hellwig <hch@lst.de>, Alasdair Kergon <agk@redhat.com>,
+ Sagi Grimberg <sagi@grimberg.me>, linux-scsi@vger.kernel.org,
+ Jonathan Corbet <corbet@lwn.net>, gost.dev@samsung.com,
+ nitheshshetty@gmail.com, James Smart <james.smart@broadcom.com>,
+ willy@infradead.org, Christoph Hellwig <hch@infradead.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Anuj Gupta <anuj20.g@samsung.com>,
+ Mike Snitzer <snitzer@kernel.org>, ming.lei@redhat.com,
+ linux-block@vger.kernel.org, dlemoal@kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, Keith Busch <kbusch@kernel.org>,
+ bvanassche@acm.org, Jens Axboe <axboe@kernel.dk>,
+ Christian Brauner <brauner@kernel.org>, Kanchan Joshi <joshi.k@samsung.com>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-kernel@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ Javier =?iso-8859-1?Q?Gonz=E1lez?= <javier.gonz@samsung.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: fromorbit.com
+X-Mimecast-Originator: infradead.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jun 07, 2023 at 07:50:25PM -0400, Mike Snitzer wrote:
-> Do you think you're OK to scope out, and/or implement, the XFS changes
-> if you use v7 of this patchset as the starting point? (v8 should just
-> be v7 minus the dm-thin.c and dm-snap.c changes).  The thinp
-> support in v7 will work enough to allow XFS to issue REQ_OP_PROVISION
-> and/or fallocate (via mkfs.xfs) to dm-thin devices.
+On Thu, Jun 08, 2023 at 05:38:17PM +0530, Nitesh Shetty wrote:
+> Sure, we can do away with subsys and realign more on single namespace copy.
+> We are planning to use token to store source info, such as src sector,
+> len and namespace. Something like below,
+> 
+> struct nvme_copy_token {
+> 	struct nvme_ns *ns; // to make sure we are copying within same namespace
+> /* store source info during *IN operation, will be used by *OUT operation */
+> 	sector_t src_sector;
+> 	sector_t sectors;
+> };
+> Do you have any better way to handle this in mind ?
 
-Yup, XFS only needs blkdev_issue_provision() and
-bdev_max_provision_sectors() to be present.  filesystem code. The
-initial XFS provisioning detection and fallocate() support is just
-under 50 lines of new code...
+In general every time we tried to come up with a request payload that is
+not just data passed to the device it has been a nightmare.
 
-Cheers,
+So my gut feeling would be that bi_sector and bi_iter.bi_size are the
+ranges, with multiple bios being allowed to form the input data, similar
+to how we implement discard merging.
 
-Dave.
--- 
-Dave Chinner
-david@fromorbit.com
+The interesting part is how we'd match up these bios.  One idea would
+be that since copy by definition doesn't need integrity data we just
+add a copy_id that unions it, and use a simple per-gendisk copy I/D
+allocator, but I'm not entirely sure how well that interacts stacking
+drivers. 
 
 --
 dm-devel mailing list
