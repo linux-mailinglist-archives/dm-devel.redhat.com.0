@@ -1,102 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CF68A72B840
-	for <lists+dm-devel@lfdr.de>; Mon, 12 Jun 2023 08:45:56 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5FB5B72A2AC
+	for <lists+dm-devel@lfdr.de>; Fri,  9 Jun 2023 20:56:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686552355;
+	s=mimecast20190719; t=1686337010;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=H7NTOuX5wEg8zpSdn8OQfhheQed4XNrK7dodRiJOzew=;
-	b=T4Dngo5uxCik/7hceP4D8+Fcf7vWfT+G7v6wbqlNOU9f44EUdJpUJFTWb6KaY7tvRBN10i
-	DQ8BbqZWI9PijL9rmJRNiRd2DRdpNt29559lSaQSg7wVK+shnH/XSgkNbzYUmAH5JfPCR1
-	tZ+xH+3coRa/L2gsC2tboIe5rOkkIUM=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Cxm+uSupPcnOQVjN37bL9FrWuxKW20wCjWjRUWshPVQ=;
+	b=MY+usMbL8oez+62wtGS5oJvBGSf5/vYPMuuAuQxXBOQOCeI2g3m8MIC1kHHjxIaYhM7i7h
+	TVFbPEhEs0JxUL91hL82uBLwXvvEPhpkx21YQs+uzxIPhVQXMLK5rMlFxlCoqwShES5w5h
+	air1x2ohvFDVbuiFnelaUSZuw0Xf3Zs=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-461-5oG5kWFiPxW8N1yn6JNrOg-1; Mon, 12 Jun 2023 02:45:53 -0400
-X-MC-Unique: 5oG5kWFiPxW8N1yn6JNrOg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-132-L6p5Nw8APteICvu9cT6PGA-1; Fri, 09 Jun 2023 14:56:48 -0400
+X-MC-Unique: L6p5Nw8APteICvu9cT6PGA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75206803DC2;
-	Mon, 12 Jun 2023 06:45:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 31E903C13505;
+	Fri,  9 Jun 2023 18:56:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C4ED740B4CD6;
-	Mon, 12 Jun 2023 06:45:43 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3DB22492B00;
+	Fri,  9 Jun 2023 18:56:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 40E9F194658C;
-	Mon, 12 Jun 2023 06:45:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EC5F819451CA;
+	Fri,  9 Jun 2023 18:56:39 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5236C194658C
- for <dm-devel@listman.corp.redhat.com>; Fri,  9 Jun 2023 18:13:46 +0000 (UTC)
+ ESMTP id 2CD94194658C
+ for <dm-devel@listman.corp.redhat.com>; Fri,  9 Jun 2023 18:56:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2CECE515540; Fri,  9 Jun 2023 18:13:41 +0000 (UTC)
+ id E34A310BDF; Fri,  9 Jun 2023 18:56:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 24BF2492B00
- for <dm-devel@redhat.com>; Fri,  9 Jun 2023 18:13:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F31E83C0253A
- for <dm-devel@redhat.com>; Fri,  9 Jun 2023 18:13:40 +0000 (UTC)
-Received: from mail-ej1-f54.google.com (mail-ej1-f54.google.com
- [209.85.218.54]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-460-smhdSgOwOFGoiIJRjwQvPA-1; Fri, 09 Jun 2023 14:13:39 -0400
-X-MC-Unique: smhdSgOwOFGoiIJRjwQvPA-1
-Received: by mail-ej1-f54.google.com with SMTP id
- a640c23a62f3a-977c8baa86fso55322066b.0
- for <dm-devel@redhat.com>; Fri, 09 Jun 2023 11:13:38 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1686334418; x=1688926418;
- h=content-transfer-encoding:cc:to:subject:message-id:date:from
- :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=f2Xux0G0tFdJlDzvQzZhcAqUXfykTqTn9g16hyE21ys=;
- b=cS3CuXoKzG1GsRznvMQq6+126VM+EoxrM7BZSW8yPs+VOX6hrhznC9+BWJABolKKwq
- TRkMOFBsMrihc3HAJ9+3rKcwcy+yY1M4YjoX0pjaRZoIstpQmAkzQ7+VFBEI9OWCMGSk
- gxSLzl/D3Pigv56iyTt1cSsh+EIOCNVo2cWSGjB73CNB4ltxRKQUI6cXWVDH+FWHcf4P
- QHNQwl9nB4HbI+GgDJyK+Jnyo7aBi3qb9wSE/7ONKgu9ynoR9SAGlOaxxOrKyFniF9Yb
- YgJ3OGFyg7zkGPnDH/aWs0b960+uFlfJ5lU7+j6EwLclOn1oT4Y6aM7dHbKPZp13ifc/
- vnCg==
-X-Gm-Message-State: AC+VfDzqCqIzokmc7PGfgdUluJzf1T1UZQ/6F+tYlNY2iwn8V3e9WMZa
- Cd/djFMdorC8wauREsoy1xodiEewvqBktIpwQk0=
-X-Google-Smtp-Source: ACHHUZ7r7lbBrTdxRkyp2bTqJCFBDA6+Ddf+RviatN0r97z5LUsaxAu6Q2CxPlvVkZ/6P5sUxBvleBvx6ETeZa4XK48=
-X-Received: by 2002:a17:906:1049:b0:974:56cb:9dfc with SMTP id
- j9-20020a170906104900b0097456cb9dfcmr1993996ejj.1.1686334417837; Fri, 09 Jun
- 2023 11:13:37 -0700 (PDT)
+Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
+ [10.11.5.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D18E810ED7;
+ Fri,  9 Jun 2023 18:56:37 +0000 (UTC)
+Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
+ from userid 12668)
+ id C04E930C0502; Fri,  9 Jun 2023 18:56:37 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
+ BE97D3F7CF; Fri,  9 Jun 2023 20:56:37 +0200 (CEST)
+Date: Fri, 9 Jun 2023 20:56:37 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: "Darrick J. Wong" <djwong@kernel.org>
+In-Reply-To: <20230602011355.GA16848@frogsfrogsfrogs>
+Message-ID: <7bf96e58-7151-a63d-317f-1ddedd4927ad@redhat.com>
+References: <alpine.LRH.2.21.2305260915400.12513@file01.intranet.prod.int.rdu2.redhat.com>
+ <20230602011355.GA16848@frogsfrogsfrogs>
 MIME-Version: 1.0
-References: <20230608110258.189493-1-hch@lst.de>
- <20230608110258.189493-12-hch@lst.de>
-In-Reply-To: <20230608110258.189493-12-hch@lst.de>
-From: "Rafael J. Wysocki" <rafael@kernel.org>
-Date: Fri, 9 Jun 2023 20:13:23 +0200
-Message-ID: <CAJZ5v0h61q6=JxjeUjjMz5k05HuRGWVKp_rK+9N8rug58kU_VQ@mail.gmail.com>
-To: Christoph Hellwig <hch@lst.de>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Mon, 12 Jun 2023 06:45:41 +0000
-Subject: Re: [dm-devel] [PATCH 11/30] swsusp: don't pass a stack address to
- blkdev_get_by_path
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] fuzzing bcachefs with dm-flakey
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,55 +73,49 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>,
- "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
- Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
- dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
- Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
- Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
- linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
- Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
- Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
- linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
+Cc: linux-fsdevel@vger.kernel.org, linux-bcachefs@vger.kernel.org,
+ dm-devel@redhat.com, Kent Overstreet <kent.overstreet@linux.dev>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Mimecast-Originator: redhat.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gVGh1LCBKdW4gOCwgMjAyMyBhdCAxOjAz4oCvUE0gQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBs
-c3QuZGU+IHdyb3RlOgo+Cj4gaG9sZGVyIGlzIGp1c3QgYW4gb24tc3RhY2sgcG9pbnRlciB0aGF0
-IGNhbiBlYXNpbHkgYmUgcmV1c2VkIGJ5IG90aGVyIGNhbGxzLAo+IHJlcGxhY2UgaXQgd2l0aCBh
-IHN0YXRpYyB2YXJpYWJsZSB0aGF0IGRvZXNuJ3QgY2hhbmdlLgo+Cj4gU2lnbmVkLW9mZi1ieTog
-Q2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Cj4gUmV2aWV3ZWQtYnk6IEhhbm5lcyBSZWlu
-ZWNrZSA8aGFyZUBzdXNlLmRlPgoKQWNrZWQtYnk6IFJhZmFlbCBKLiBXeXNvY2tpIDxyYWZhZWxA
-a2VybmVsLm9yZz4KCj4gLS0tCj4gIGtlcm5lbC9wb3dlci9zd2FwLmMgfCA1ICsrKy0tCj4gIDEg
-ZmlsZSBjaGFuZ2VkLCAzIGluc2VydGlvbnMoKyksIDIgZGVsZXRpb25zKC0pCj4KPiBkaWZmIC0t
-Z2l0IGEva2VybmVsL3Bvd2VyL3N3YXAuYyBiL2tlcm5lbC9wb3dlci9zd2FwLmMKPiBpbmRleCA4
-MWFlYzNiMmM2MDUxMC4uYjAzZmYxYTMzYzdmNjggMTAwNjQ0Cj4gLS0tIGEva2VybmVsL3Bvd2Vy
-L3N3YXAuYwo+ICsrKyBiL2tlcm5lbC9wb3dlci9zd2FwLmMKPiBAQCAtMTUxMCw2ICsxNTEwLDgg
-QEAgaW50IHN3c3VzcF9yZWFkKHVuc2lnbmVkIGludCAqZmxhZ3NfcCkKPiAgICAgICAgIHJldHVy
-biBlcnJvcjsKPiAgfQo+Cj4gK3N0YXRpYyB2b2lkICpzd3N1c3BfaG9sZGVyOwo+ICsKPiAgLyoq
-Cj4gICAqICAgICAgc3dzdXNwX2NoZWNrIC0gQ2hlY2sgZm9yIHN3c3VzcCBzaWduYXR1cmUgaW4g
-dGhlIHJlc3VtZSBkZXZpY2UKPiAgICovCj4gQEAgLTE1MTcsMTQgKzE1MTksMTMgQEAgaW50IHN3
-c3VzcF9yZWFkKHVuc2lnbmVkIGludCAqZmxhZ3NfcCkKPiAgaW50IHN3c3VzcF9jaGVjayhib29s
-IHNuYXBzaG90X3Rlc3QpCj4gIHsKPiAgICAgICAgIGludCBlcnJvcjsKPiAtICAgICAgIHZvaWQg
-KmhvbGRlcjsKPiAgICAgICAgIGZtb2RlX3QgbW9kZSA9IEZNT0RFX1JFQUQ7Cj4KPiAgICAgICAg
-IGlmIChzbmFwc2hvdF90ZXN0KQo+ICAgICAgICAgICAgICAgICBtb2RlIHw9IEZNT0RFX0VYQ0w7
-Cj4KPiAgICAgICAgIGhpYl9yZXN1bWVfYmRldiA9IGJsa2Rldl9nZXRfYnlfZGV2KHN3c3VzcF9y
-ZXN1bWVfZGV2aWNlLAo+IC0gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgbW9kZSwgJmhvbGRlciwgTlVMTCk7Cj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBtb2RlLCAmc3dzdXNwX2hvbGRlciwgTlVMTCk7Cj4gICAgICAgICBpZiAo
-IUlTX0VSUihoaWJfcmVzdW1lX2JkZXYpKSB7Cj4gICAgICAgICAgICAgICAgIHNldF9ibG9ja3Np
-emUoaGliX3Jlc3VtZV9iZGV2LCBQQUdFX1NJWkUpOwo+ICAgICAgICAgICAgICAgICBjbGVhcl9w
-YWdlKHN3c3VzcF9oZWFkZXIpOwo+IC0tCj4gMi4zOS4yCj4KCi0tCmRtLWRldmVsIG1haWxpbmcg
-bGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxt
-YW4vbGlzdGluZm8vZG0tZGV2ZWwK
+
+
+On Thu, 1 Jun 2023, Darrick J. Wong wrote:
+
+> On Mon, May 29, 2023 at 04:59:40PM -0400, Mikulas Patocka wrote:
+>
+> > #!/bin/sh -ex
+> > umount /mnt/test || true
+> > dmsetup remove_all || true
+> > rmmod brd || true
+> > SRC=/usr/src/git/bcachefs-tools
+> > while true; do
+> >         modprobe brd rd_size=1048576
+> >         bcachefs format --replicas=2 /dev/ram0 /dev/ram1
+> >         dmsetup create flakey --table "0 `blockdev --getsize /dev/ram0` linear /dev/ram0 0"
+> >         mount -t bcachefs /dev/mapper/flakey:/dev/ram1 /mnt/test
+> >         dmsetup load flakey --table "0 `blockdev --getsize /dev/ram0` flakey /dev/ram0 0 0 1 4 random_write_corrupt 100000000 random_read_corrupt 100000000"
+> 
+> Hey, that's really neat!
+> 
+> Any chance you'd be willing to get the dm-flakey changes merged into
+> upstream so that someone can write a recoveryloop fstest to test all the
+> filesystems systematically?
+> 
+> :D
+> 
+> --D
+
+Yes, we will merge improved dm-flakey in the next merge window.
+
+Mikulas
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
