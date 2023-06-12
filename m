@@ -1,200 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2F91672E2AC
-	for <lists+dm-devel@lfdr.de>; Tue, 13 Jun 2023 14:18:06 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C799772C716
+	for <lists+dm-devel@lfdr.de>; Mon, 12 Jun 2023 16:12:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686658685;
+	s=mimecast20190719; t=1686579144;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xqW7oyTOCuFj2cy3syZf+3JqX68QAkmDKR0ialRldYA=;
-	b=byW700wHb9Seyzq1a034CDjz5XKyXv0egTR6luWbNl+Vrhxx+rw2MhZL+dyFzKrYIzwJx/
-	4JmyW6lOaLhKOoghgu+eLNIyo+Kb3puqoESRjq0cwLP/v6ox9EUdnrPiejJBByLDl4iIhb
-	gc2/4ERscBMJBxxWaDKLvCP+PeIq098=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=c71Xtqv3gDXikdu3WNCaehzU0J+bJRND+8hygWfxZds=;
+	b=Vxpp8QCsIHgR5oFIjaZpU/a2L+ch4wzVH08xE4dX/7vmFJ929FnrIFImhauKbRp/GJla+p
+	Xy4AXy9MnOZm/716kEu54xvCpcZRHidgy4C6+H7rGAXCfAHAokMYrrK9yNUPUvlqm7Wvqy
+	v7x19Bdt0SlflvMQX2mFMFqxbTS8nww=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-99-4qQTK8VqOfqy2_bwO3ANyw-1; Tue, 13 Jun 2023 08:18:02 -0400
-X-MC-Unique: 4qQTK8VqOfqy2_bwO3ANyw-1
+ us-mta-266-CJdgRBOePtOQKWZCs1kqAw-1; Mon, 12 Jun 2023 10:12:23 -0400
+X-MC-Unique: CJdgRBOePtOQKWZCs1kqAw-1
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A8FF801585;
-	Tue, 13 Jun 2023 12:17:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 72CC43C0DDA8;
+	Mon, 12 Jun 2023 14:12:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 96568141511A;
-	Tue, 13 Jun 2023 12:17:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8424D1415102;
+	Mon, 12 Jun 2023 14:12:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4E03C19452C2;
-	Tue, 13 Jun 2023 12:17:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2BC8F1946A41;
+	Mon, 12 Jun 2023 14:11:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 04E73194658C
- for <dm-devel@listman.corp.redhat.com>; Mon, 12 Jun 2023 08:09:53 +0000 (UTC)
+ ESMTP id 0DA03194658C
+ for <dm-devel@listman.corp.redhat.com>; Mon, 12 Jun 2023 14:11:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id D4F3B492C1B; Mon, 12 Jun 2023 08:09:53 +0000 (UTC)
+ id CFEA440C20F5; Mon, 12 Jun 2023 14:11:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CC955492C38
- for <dm-devel@redhat.com>; Mon, 12 Jun 2023 08:09:53 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C7CF240C20F4
+ for <dm-devel@redhat.com>; Mon, 12 Jun 2023 14:11:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE514101A53B
- for <dm-devel@redhat.com>; Mon, 12 Jun 2023 08:09:53 +0000 (UTC)
-Received: from esa6.hc3370-68.iphmx.com (esa6.hc3370-68.iphmx.com
- [216.71.155.175]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-623-yf-bDI3MMzGSx8UIPnqPfQ-1; Mon, 12 Jun 2023 04:09:51 -0400
-X-MC-Unique: yf-bDI3MMzGSx8UIPnqPfQ-1
-X-IronPort-RemoteIP: 104.47.74.48
-X-IronPort-MID: 111751997
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:Bnkjx6wIzIrPA2DKsjh6t+d0xirEfRIJ4+MujC+fZmUNrF6WrkUCx
- mNNW2uOPvyDZzTzLdhyYIu/8k4HsceDyIVgTVBs/iAxQypGp/SeCIXCJC8cHc8wwu7rFxs7s
- ppEOrEsCOhuExcwcz/0auCJQUFUjP3OHfykTrafYEidfCc8IA85kxVvhuUltYBhhNm9Emult
- Mj75sbSIzdJ4RYtWo4vw/zF8EsHUMja4mtC5QRgPKoT5TcyqlFOZH4hDfDpR5fHatE88t6SH
- 47r0Ly/92XFyBYhYvvNfmHTKxBirhb6ZGBiu1IOM0SQqkEqSh8ai87XAME0e0ZP4whlqvgqo
- Dl7WT5cfi9yVkHEsLx1vxC1iEiSN4UekFPMCSDXXcB+UyQq2pYjqhljJBheAGEWxgp4KX4V8
- +YHNCkEVxrAoMynnImGZ9Ns1tt2eaEHPKtH0p1h5RfwKK56BLrlE+DN79Ie2yosjMdTG/qYf
- 9AedTdkcBXHZVtIJ0sTD5U92uyvgxETcRUB8A7T+fVxvDSVkFwZPLvFabI5fvSQQspYhACAr
- 3/u9GXlGBAKcteYzFJp91r137aQwHqqCd16+LuQyeZMjGyNyDwqVRRJeVKRsMC/qGWzVIcKQ
- 6AT0m90xUQoz2SnQ9z8dxy+vn+fvxQYVsZQEus18wWEwOzf5APxLmEURDlMQN8rrsk7QXom1
- TehltzqLSZivL2cVTSW8bL8hSi0ODQHIHUqZiIeSwYBpd75r+kbgheKQtt9HaqdlND5GTjsh
- TuNqUAWgrwJiMcR2qaT/FbZgimtrJzEUg404ArMWmuvqAh+YeaNY42u9Eie5/JHJ4WxUFaMp
- j4HltKY4eRICouC/ASJQeMQDPSq6uyDPTn0n1FiBd8i+i6r9nrleppfiBluKUEsPssadDvBZ
- E7IpRgX9JJVJGGtb6J8f8S2EctC8ET7PdHsV/SRZNweZJF0LFOD5Hs2OR7W2H3xmk8xl615I
- Y2cbcunEXcdD+Jg0SayQOAel7Qsw0jS2F/ueHwy9Dz/uZL2WZJfYe1t3IemBgzh0J65nQ==
-IronPort-HdrOrdr: A9a23:UBBpDaPo6PrRL8BcTjejsMiBIKoaSvp037BK7S1MoNJuEvBw9v
- re+sjzsCWftN9/Yh4dcLy7VpVoBEmsl6KdgrNhWotKPjOW21dARbsKheffKn/bakjDH4Zmvp
- uIGJIObOEYY2IasS77ijPIbOrJwrO8gd6VbTG19QYdceloAZsQnzuQEmygYzRLrJEtP+tFKH
- KbjPA33waISDAsQemQIGIKZOTHr82jruObXfZXbyRXkzVnlFmTmcTHLyQ=
-X-Talos-CUID: 9a23:I5p+cGy0fFtgfcDh9MACBgULQcY/bWHExU7aYGiWGDpSdZCvSQ+PrfY=
-X-Talos-MUID: =?us-ascii?q?9a23=3AV72ZJw8aP7Cr3jMR9yWnZYmQf/hwxaifFk5dqMg?=
- =?us-ascii?q?P5OWNHz1JPRW2gTviFw=3D=3D?=
-X-IronPort-AV: E=Sophos;i="6.00,236,1681185600"; d="scan'208";a="111751997"
-Received: from mail-bn8nam04lp2048.outbound.protection.outlook.com (HELO
- NAM04-BN8-obe.outbound.protection.outlook.com) ([104.47.74.48])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 12 Jun 2023 04:09:48 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by SJ0PR03MB6327.namprd03.prod.outlook.com (2603:10b6:a03:399::13)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6455.46; Mon, 12 Jun
- 2023 08:09:46 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::3474:a81:a100:1529]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::3474:a81:a100:1529%6]) with mapi id 15.20.6455.043; Mon, 12 Jun 2023
- 08:09:45 +0000
-Date: Mon, 12 Jun 2023 10:09:39 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Message-ID: <ZIbSw44a8Te27BP3@Air-de-Roger>
-References: <20230530203116.2008-1-demi@invisiblethingslab.com>
- <20230530203116.2008-14-demi@invisiblethingslab.com>
- <ZH7tizoYl8YVFN9B@Air-de-Roger> <ZH9mZGbM32CDmKGF@itl-email>
- <ZIA9uBJxx2gqA4Cq@Air-de-Roger> <ZICs+WYCPYdu2yoI@itl-email>
- <ZIGRXrSGmgLF/07O@Air-de-Roger> <ZIH0yQCICZRpliSc@itl-email>
- <ZINBqToBZVdfmr0e@Air-de-Roger> <ZINZj8ubQj7yFxdR@itl-email>
-In-Reply-To: <ZINZj8ubQj7yFxdR@itl-email>
-X-ClientProxiedBy: LO4P123CA0305.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:196::22) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC3448007D9
+ for <dm-devel@redhat.com>; Mon, 12 Jun 2023 14:11:50 +0000 (UTC)
+Received: from mail-io1-f53.google.com (mail-io1-f53.google.com
+ [209.85.166.53]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-442-7779Sl2_PfKbiXYJnMWh8g-1; Mon, 12 Jun 2023 10:11:48 -0400
+X-MC-Unique: 7779Sl2_PfKbiXYJnMWh8g-1
+Received: by mail-io1-f53.google.com with SMTP id
+ ca18e2360f4ac-7747cc8bea0so36865839f.1
+ for <dm-devel@redhat.com>; Mon, 12 Jun 2023 07:11:48 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1686579108; x=1689171108;
+ h=content-transfer-encoding:mime-version:date:message-id:subject
+ :references:in-reply-to:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=4muTChvfXbyFleywXuJztp663UoDJyd/b1njxzLhqy8=;
+ b=WTRgkSXGRBpWK0ynOrM4Hz1/dWIjXFy+64jiZwqWbH1OzEy+ZY2/CCO4nDornG+Txj
+ 4aY6So4l8uY1+VQVUqXKYSRh+Y2DNIj2y7BrUvg+TYzDjkslw0lVjnQBrZ9k/DXcsnAG
+ d6osz67ng3rqlzgSrVuXkRzz2vRtqLeVEmTwBoTLerIC/ldwL1xYV3Xh6OI/oFsK+0QC
+ 9XH6jP5ICOyrFSw/Kio24FaSG+1yr98fidvvkM2A0BtcEqotVVzpBhvCrqk9o4ncfVHH
+ s/qVFpxfZ2tDvRw4t6pLNGfZotgq5Xt0RCBxL/4G20CrDIg8JZVPMFoIGJExVt4dj+EV
+ 4SZQ==
+X-Gm-Message-State: AC+VfDxSTEhPYGK68u9ZwSBtocLHl3lgwITofZ+5vt3CLkwIaGiR8VdT
+ HuWgfJ5juxf3yJ4MYR82AP4tKQ==
+X-Google-Smtp-Source: ACHHUZ7oss5Q4qEAESR1LIaLJkD7ZwONVfsRpFehVo9Ss1V9OTMOTrOh14yI7Krm7Ivy+/EbDcrm4g==
+X-Received: by 2002:a6b:690a:0:b0:77a:ee79:652 with SMTP id
+ e10-20020a6b690a000000b0077aee790652mr4231482ioc.1.1686579107952; 
+ Mon, 12 Jun 2023 07:11:47 -0700 (PDT)
+Received: from [127.0.0.1] ([96.43.243.2]) by smtp.gmail.com with ESMTPSA id
+ i19-20020a02cc53000000b0041408b79f1esm2793007jaq.111.2023.06.12.07.11.46
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 12 Jun 2023 07:11:47 -0700 (PDT)
+From: Jens Axboe <axboe@kernel.dk>
+To: Christoph Hellwig <hch@lst.de>
+In-Reply-To: <20230608110258.189493-1-hch@lst.de>
+References: <20230608110258.189493-1-hch@lst.de>
+Message-Id: <168657910650.933808.4041515037046679285.b4-ty@kernel.dk>
+Date: Mon, 12 Jun 2023 08:11:46 -0600
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|SJ0PR03MB6327:EE_
-X-MS-Office365-Filtering-Correlation-Id: a7ae785c-bbf3-438d-a45b-08db6b1c6253
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: 73vCY+kgJLnSULPHQ3Ip/by0SO51Du2Lr/Wxwh3J1e7AA9gqFQ4xRQFQrWJHV9xToFkpAQc7YJAelOyvHX3Pumgo7TZWhzckcycFcXnT3HW+NQPvXGb5NRNUIxszPidrIOzZBYbfnxOXorM1gLmrndLlQ2SdPvhzu7lUlkaSSyvYQABjjFA+x8SEyYDvXTBPV4VQwzVNoBuxunlF/sQUnzBmuVL6bckILLSw2wuMrpvVJejw5azwkVCKBG9AyqBwfyII1K9d6BGQxkYxAzwDikEqFMWW6rpo1f5g4RFcA1/zbhIIJFZ2CvEYmbKrU24xT1GLqHU2/+WKXqr4aqcszhvCvzKYAVcFOIcsMTS0jKtbQyIvXP0Tt7Rydi+INcirgjyUM53KYB0iTEcFCKbtb6sydWCpRrZb7s1wN4gjYisHw95QKTNGFrx14gvvpmgN00zLmJm2fO/eAv+XTqLdTtFLDUgBDSD/OJQfsZ01apHIAfB62026O+wAIRBcJRsiDQtU84lNUxQhKWgx/06GCeQi4xwmpVkkpnzNAG8N+cjg7aEwCDPXSSZK/I4ZvqFL
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR03MB6423.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(4636009)(7916004)(346002)(396003)(376002)(366004)(39860400002)(136003)(451199021)(86362001)(6486002)(316002)(8676002)(33716001)(41300700001)(82960400001)(83380400001)(5660300002)(26005)(38100700002)(85182001)(6512007)(9686003)(6506007)(6666004)(8936002)(66476007)(66556008)(4326008)(66946007)(6916009)(478600001)(186003)(2906002)(54906003);
- DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?NWVkU3FEeGFramQxZWZHZkdJSkFzT1kwNTk0U2FKdGUvazRHNmY0NW5LZ1No?=
- =?utf-8?B?dHJiQU1FdUxqRkwzR2pWVDNBbkw5aUp1eU5ZYm9LSmZxc05iQkVFRU5IdmJD?=
- =?utf-8?B?dUswU2YwaHYzRkl5aEx1VWszeUtGSjY1cFlRZmRlRmZRTXZpOVhabXltcnBa?=
- =?utf-8?B?SkFxbjAyTEJjSlMrTHRNRHlZdkMwU2hLWERleFJpWnFBTzNzUHlwSHNlbnNx?=
- =?utf-8?B?Q2hzMEdEQnppcEJTdjd6dG1iZTBaQ3ptR3NKbkpReTk1ZytzN3ZMZHoyR1F5?=
- =?utf-8?B?YVRpL2tSZ0l0QnVwMjVxUGtCeHNBL2hIWWhjelFBcFF5MUxMVGxkbjBnbVQx?=
- =?utf-8?B?QkFCZE1NWVlLTVlZbmJjZENkaktxVW0vZjU3RzliRkhPU3hUUGs4SmJyZVRQ?=
- =?utf-8?B?MWdQL1BaeXBkWkJ2VmlHQU9UUTVOb1BlbXNlampXcjQxclExMUNwZVNFaG00?=
- =?utf-8?B?bHlWL0RETmxtYmpwRDAvc0tTOUh2Z2xPVWNkS2V3dWhsOHZ3dmJ3OUZqazVE?=
- =?utf-8?B?ZW1lNStYaGRRQjJrZHpBdktmSEI3Tjg3VEtSV2VBcU1BTGNFNkRSSS8rT215?=
- =?utf-8?B?eHNueGQycEpOcDBJcmRjM3dNWjNheXpuaXQyRWxWSDdRV09lWTE2UHdSTUov?=
- =?utf-8?B?aXpzZXFEWHdPaFpXMm9ZdlRSTDlKS1k5M2Y5K1NMQlR0U3FXY3N2NVM1Sjhj?=
- =?utf-8?B?SjVVUmY2ZlQ3Z2pha1dVSlJmVy92dlVFdTNJNGI0NjNYZXE2MnFoNHF6RUxv?=
- =?utf-8?B?RG45SGRKWDZBQTA3TjVqVVo4Sy8vdVpWSm8xRXFuMjIxbzkxZmRGNUdaSzhu?=
- =?utf-8?B?UHdFU2lyK0ViRUZUc0k0b01pQWh3eTE0R1RRNzlXVTI2S2RwUjhNRnZVR3No?=
- =?utf-8?B?WXo3dm9YUjJNdDZDaExrVVovYk5XektrSmw2SDRTbEpYaVlwaWI4OU94bkpB?=
- =?utf-8?B?b28rcGhKN09vQm4wRVVJSnh2czNUczVEUXZuZ2E5VWl2NlU2emMzZWRvRGly?=
- =?utf-8?B?M0ZNc0cxUzg4U3ZLUVJIZ2FVSVJic1NVOEtSdGgrazNqTXZiYWQxdDVVbFQ5?=
- =?utf-8?B?L3pXQTUvelRQOFFHMnMxbVpuUFoyOU85Rkc0R2xEblhpYk40SWRIdzNRZ0ZF?=
- =?utf-8?B?VGl2Z01vWE5RMU1haDdwckhESW5DS0xETHNyNzVNaVJaNHNXMGJRdGtmU09i?=
- =?utf-8?B?SFhSTUV4VEMxdXExZHNyODJJQ29RNVZkRFVUbFYreXNSck9xRlhIM1htaXg4?=
- =?utf-8?B?clVvVXp1MUpUMklXL3NsZkVtWWtTckNRWnFiY0dGWnFLaHZBZm9va2RxT0cz?=
- =?utf-8?B?elcveXBrR1FIU3k1d3MyS2praStidlFmdm9JQm9pYVlOZEtIR1Z3TDJ2d2Iz?=
- =?utf-8?B?SmNoUkw5MVdXdGNNU2RPRTdEV21JL0Q4SVBYQ21Mcmp1VUVLMFk5SmJ3bGRF?=
- =?utf-8?B?OTFQK1FTbWJNNWxXdHRmdW9QWkxQYlp4S0g4bVh5UWJscGlJc3FwZytwQ3hj?=
- =?utf-8?B?aWI3anR0ejR3bERyc1hnTXdZbDlEUThjR2pialVRM2VrNnphOHFjYklwM05w?=
- =?utf-8?B?L3hDQ21GbS9qTDdxS2FhNzV0b1IwbEZmQVc1RlBPQ3V4VzVDdjRWVXphelNT?=
- =?utf-8?B?b3NBRDhaYUJzUkZraDkvcFZndVF0V3g2eUM1cXZLWlAxNko0M041V3JxUzIv?=
- =?utf-8?B?TDI5aHlCNVUwRnByaTFVOGs3SzgxaFJyUTNUQUEyMEttZzcxc1RCT3dMR1I1?=
- =?utf-8?B?ZnUvSk4xdUo3ZlB1YTFzTnR5bHQxMGVOSnNVWThoaW91L2NqQW9tZnNTWlEr?=
- =?utf-8?B?bWtkN2FmRzljRFpjQ2I4U0ZiRmJ2c3FyV05iTjk1MUwrY2Q5UWJYU1gvU0Ni?=
- =?utf-8?B?WCszVFVPVis5U1BkZFFGNThzK0JiQmovQjR5dmh0VzBZNXk1OXd1Mytudmx6?=
- =?utf-8?B?bFFvQUtiQURPVllxYmVZaGovak5EQ2lobFBVOWZhckZveHV1UlVqajJXNW1r?=
- =?utf-8?B?OTlMUlBsRTJOdGFyWnRCS2ZnSWR5QkdEeElIQ2JrNUJmekZoVVJCanZrYWI4?=
- =?utf-8?B?UWozU2ZXZzA5V21ZSk1pY0pXdnh1dVNSb0liNFhJQzZyaTRMS2gxblF4Vi8y?=
- =?utf-8?Q?/db9FsSJqxFD95oa2xYErsmKA?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?utf-8?B?aS9helZMUkd1L1BpOEFGYnZoYUpVTHN3bFhGOWZsVWt5RCtWdEI1WEZGZ2dV?=
- =?utf-8?B?QXJxNkEyN05Jd0p5S3c5U3RYbDZDNnNVK2hIbWVrTHN2QmEyQ0lHTDZ4aFpX?=
- =?utf-8?B?cnJkN01iNFlsTzNLZmZ0NkF3UDBCN25PdzhJWTloL0tPaHNEekt4cXlUVDdX?=
- =?utf-8?B?aGd5cENNZVNlbXlxbWVFQytBclBiSFNvWTFXUmlEUE03dTBTOHJTdzdMbmNZ?=
- =?utf-8?B?MUpyMi92VmNabWRsWWlOMFY2M0ROR1E5c0lZQ2tEWDRONVhFZkZLZmpjNUVI?=
- =?utf-8?B?ZUFURTExWFRNQkczTmxwSXRoZURlYXdsRTZtRnI0VzhvalZ5RjRCTks2ZFRW?=
- =?utf-8?B?cXBHcFRMWTZNOGh1WEtLdGI3Y1VQNU9IYTVySnY1VWtMT1lQTGh6dzlQVkRK?=
- =?utf-8?B?bUpYYVJyaDY0SVRuS3lkNGgzMCsweldYZ2hsZDBxWGRpWUh3Zkx5RExCRkd3?=
- =?utf-8?B?TFJlQndDdEZ0ZGUxUStYd1BqVnJ1ZlpTTEdBYmNYU3J2bkRMa0xEQlNPUlRE?=
- =?utf-8?B?WVFSZTQxQTE2WE5aNnBBMkRORXJ6NFArcTFVSUw3dGtZSjVxVkFqTjRkbnpT?=
- =?utf-8?B?QVpVUTRTTmpnbjBQR3pzT1Y0RURRQWZFclROb0hCeGVkOVRmdms3UkNLenp4?=
- =?utf-8?B?WTdvZHZ5dDJtMjE2VVRRWjh5SjNzSFgrTnUzbXRMTmhOSUVTM2J2bE9nc1pw?=
- =?utf-8?B?Z0d2QUkwdUx5bVBjL0EzQ1R2ODZoU1BrM1Vtdm02dWduRW11N0daZGpOaUZE?=
- =?utf-8?B?NHpVR1piYjFHbzNYN0ZQOTJ0ZlVmWTlsU205a0NRZ3BwbllJTjZCWHIwTjVv?=
- =?utf-8?B?Rzh4enF1dFNUNlFrczduWFVqNys5WGI2dklmT1B3WnIySzN6cnY2T2ovVjlG?=
- =?utf-8?B?c2hPcXhFeWQ3Z2NUUGNObWI4N1NVVGk2MVIzMG9kVzdWMUxBcWNlOEs5SnE3?=
- =?utf-8?B?ZTRXcGFUQnMxTm8vOWlSNXNpazc2TGtpTC9qSEZhaFpxMTZLSVg0QU12L09p?=
- =?utf-8?B?QmFrbkFDc1FGOGFPeTlyV0hGNFVmT3lydXJXN25TSUR3SUxKaUxYeG5wVlVB?=
- =?utf-8?B?U1FBWWZSSWV3bjhlcUJuNzNNOEhsY0J5R2hZZjNGdXQ0MldlZk11aVlYVnBG?=
- =?utf-8?B?TVR5Q3hoODFheUFaQW12YmphdzFRSmVwdzFOYlJVRGFZMGxiQ3ZRZjkwSCtM?=
- =?utf-8?B?clNzbUZHSjBwUlJTTnkraXZEOUdOYkZvb1Jvd2ZhSnR5dmRrMlF4VEhJZjNP?=
- =?utf-8?B?UUN2cXhUbm5KQlRqYlFzUE5uaDNEMEQzWHl3a284MTk5SmVZQT09?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: a7ae785c-bbf3-438d-a45b-08db6b1c6253
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 12 Jun 2023 08:09:45.8273 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: HGNvJOed2Ea3bOGcbPHjCYhswakBYpanlFDGxULTuALBdXegRFp5zY0XEv9nr8uJXomlhRA1lvz15CH+G7dksg==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ0PR03MB6327
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -202,10 +95,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-X-Mailman-Approved-At: Tue, 13 Jun 2023 12:17:46 +0000
-Subject: Re: [dm-devel] [PATCH v2 13/16] xen-blkback: Implement diskseq
- checks
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [dm-devel] decouple block open flags from fmode_t v2
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -217,97 +108,114 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Mike Snitzer <snitzer@kernel.org>,
- Marek =?utf-8?Q?Marczykowski-G=C3=B3recki?=
- <marmarek@invisiblethingslab.com>, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- xen-devel@lists.xenproject.org, Alasdair Kergon <agk@redhat.com>
+Cc: Vignesh Raghavendra <vigneshr@ti.com>,
+ "Rafael J. Wysocki" <rafael@kernel.org>, linux-nvme@lists.infradead.org,
+ Phillip Potter <phil@philpotter.co.uk>, Chris Mason <clm@fb.com>,
+ dm-devel@redhat.com, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+ Pavel Machek <pavel@ucw.cz>, Miquel Raynal <miquel.raynal@bootlin.com>,
+ Jack Wang <jinpu.wang@ionos.com>, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Richard Weinberger <richard@nod.at>,
+ linux-pm@vger.kernel.org, linux-um@lists.infradead.org,
+ Josef Bacik <josef@toxicpanda.com>, Coly Li <colyli@suse.de>,
+ linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Alexander Viro <viro@zeniv.linux.org.uk>, David Sterba <dsterba@suse.com>,
+ Christian Brauner <brauner@kernel.org>,
+ "Martin K. Petersen" <martin.petersen@oracle.com>,
+ linux-f2fs-devel@lists.sourceforge.net, linux-fsdevel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: citrix.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Mimecast-Originator: kernel.dk
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gRnJpLCBKdW4gMDksIDIwMjMgYXQgMTI6NTU6MzlQTSAtMDQwMCwgRGVtaSBNYXJpZSBPYmVu
-b3VyIHdyb3RlOgo+IE9uIEZyaSwgSnVuIDA5LCAyMDIzIGF0IDA1OjEzOjQ1UE0gKzAyMDAsIFJv
-Z2VyIFBhdSBNb25uw6kgd3JvdGU6Cj4gPiBPbiBUaHUsIEp1biAwOCwgMjAyMyBhdCAxMTozMzoy
-NkFNIC0wNDAwLCBEZW1pIE1hcmllIE9iZW5vdXIgd3JvdGU6Cj4gPiA+IE9uIFRodSwgSnVuIDA4
-LCAyMDIzIGF0IDEwOjI5OjE4QU0gKzAyMDAsIFJvZ2VyIFBhdSBNb25uw6kgd3JvdGU6Cj4gPiA+
-ID4gT24gV2VkLCBKdW4gMDcsIDIwMjMgYXQgMTI6MTQ6NDZQTSAtMDQwMCwgRGVtaSBNYXJpZSBP
-YmVub3VyIHdyb3RlOgo+ID4gPiA+ID4gT24gV2VkLCBKdW4gMDcsIDIwMjMgYXQgMTA6MjA6MDhB
-TSArMDIwMCwgUm9nZXIgUGF1IE1vbm7DqSB3cm90ZToKPiA+ID4gPiA+ID4gQ2FuIHlvdSBmZXRj
-aCBhIGRpc2sgdXNpbmcgYSBkaXNrc2VxIGlkZW50aWZpZXI/Cj4gPiA+ID4gPiAKPiA+ID4gPiA+
-IE5vdCB5ZXQsIGFsdGhvdWdoIEkgaGF2ZSBjb25zaWRlcmVkIGFkZGluZyB0aGlzIGFiaWxpdHku
-ICBJdCB3b3VsZCBiZQo+ID4gPiA+ID4gb25lIHN0ZXAgdG93YXJkcyBhIOKAnGRpc2tzZXFmc+KA
-nSB0aGF0IHVzZXJzcGFjZSBjb3VsZCB1c2UgdG8gb3BlbiBhIGRldmljZQo+ID4gPiA+ID4gYnkg
-ZGlza3NlcS4KPiA+ID4gPiA+IAo+ID4gPiA+ID4gPiBXaHkgSSB1bmRlcnN0YW5kIHRoYXQgdGhp
-cyBpcyBhbiBleHRyYSBzYWZldHkgY2hlY2sgaW4gb3JkZXIgdG8gYXNzZXJ0Cj4gPiA+ID4gPiA+
-IGJsa2JhY2sgaXMgb3BlbmluZyB0aGUgaW50ZW5kZWQgZGV2aWNlLCBpcyB0aGlzIGF0dGVtcHRp
-bmcgdG8gZml4IHNvbWUKPiA+ID4gPiA+ID4gZXhpc3RpbmcgaXNzdWU/Cj4gPiA+ID4gPiAKPiA+
-ID4gPiA+IFllcywgaXQgaXMuICBJIGhhdmUgYSBibG9jayBzY3JpcHQgKHdyaXR0ZW4gaW4gQykg
-dGhhdCB2YWxpZGF0ZXMgdGhlCj4gPiA+ID4gPiBkZXZpY2UgaXQgaGFzIG9wZW5lZCBiZWZvcmUg
-cGFzc2luZyB0aGUgaW5mb3JtYXRpb24gdG8gYmxrYmFjay4gIEl0IHVzZXMKPiA+ID4gPiA+IHRo
-ZSBkaXNrc2VxIHRvIGRvIHRoaXMsIGJ1dCBmb3IgdGhhdCBwcm90ZWN0aW9uIHRvIGJlIGNvbXBs
-ZXRlLCBibGtiYWNrCj4gPiA+ID4gPiBtdXN0IGFsc28gYmUgYXdhcmUgb2YgaXQuCj4gPiA+ID4g
-Cj4gPiA+ID4gQnV0IGlmIHlvdXIgYmxvY2sgc2NyaXB0IG9wZW5zIHRoZSBkZXZpY2UsIGFuZCBr
-ZWVwcyBpdCBvcGVuIHVudGlsCj4gPiA+ID4gYmxrYmFjayBoYXMgYWxzbyB0YWtlbiBhIHJlZmVy
-ZW5jZSB0byBpdCwgdGhlcmUncyBubyB3YXkgc3VjaCBkZXZpY2UKPiA+ID4gPiBjb3VsZCBiZSBy
-ZW1vdmVkIGFuZCByZWNyZWF0ZWQgaW4gdGhlIHdpbmRvdyB5b3UgcG9pbnQgb3V0IGFib3ZlLCBh
-cwo+ID4gPiA+IHRoZXJlJ3MgYWx3YXlzIGEgcmVmZXJlbmNlIG9uIGl0IHRha2VuPwo+ID4gPiAK
-PiA+ID4gVGhpcyBhc3N1bWVzIHRoYXQgdGhlIGJsb2NrIHNjcmlwdCBpcyBub3Qga2lsbGVkIGlu
-IHRoZSBtZWFudGltZSwKPiA+ID4gd2hpY2ggaXMgbm90IGEgc2FmZSBhc3N1bXB0aW9uIGR1ZSB0
-byB0aW1lb3V0cyBhbmQgdGhlIE9PTSBraWxsZXIuCj4gPiAKPiA+IERvZXNuJ3Qgc2VlbSB2ZXJ5
-IHJlbGlhYmxlIHRvIHVzZSB3aXRoIGRlbGV0ZS1vbi1jbG9zZSBlaXRoZXIgdGhlbi4KPiAKPiBU
-aGF04oCZcyBhY3R1YWxseSB0aGUgcHVycG9zZSBvZiBkZWxldGUtb24tY2xvc2UhICBJdCBlbnN1
-cmVzIHRoYXQgaWYgdGhlCj4gYmxvY2sgc2NyaXB0IGdldHMga2lsbGVkLCB0aGUgZGV2aWNlIGlz
-IGF1dG9tYXRpY2FsbHkgY2xlYW5lZCB1cC4KCkJsb2NrIHNjcmlwdCBhdHRhY2ggZ2V0dGluZyBr
-aWxsZWQgc2hvdWxkbid0IHByZXZlbnQgdGhlIHRvb2xzdGFjawpmcm9tIHBlcmZvcm1pbmcgZG9t
-YWluIGRlc3RydWN0aW9uLCBhbmQgdGh1cyByZW1vdmluZyB0aGUgc3RhbGUgYmxvY2sKZGV2aWNl
-LgoKT1RPSCBpZiB5b3VyIHRvb2xzdGFjayBnZXRzIGtpbGxlZCB0aGVuIHRoZXJlJ3Mgbm90IG11
-Y2ggdGhhdCBjYW4gYmUKZG9uZSwgYW5kIHRoZSBzeXN0ZW0gd2lsbCBuZWVkIGludGVydmVudGlv
-biBpbiBvcmRlciB0byBnZXQgYmFjayBpbnRvCmEgc2FuZSBzdGF0ZS4KCkhpdHRpbmcgT09NIGlu
-IHlvdXIgY29udHJvbCBkb21haW4gaG93ZXZlciBpcyB1bmxpa2VseSB0byBiZSBoYW5kbGVkCmdy
-YWNlZnVsbHksIGV2ZW4gd2l0aCBkZWxldGUtb24tY2xvc2UuCgo+ID4gPiA+IFRoZW4gdGhlIGJs
-b2NrIHNjcmlwdCB3aWxsIG9wZW4gdGhlIGRldmljZSBieSBkaXNrc2VxIGFuZCBwYXNzIHRoZQo+
-ID4gPiA+IG1ham9yOm1pbm9yIG51bWJlcnMgdG8gYmxrYmFjay4KPiA+ID4gCj4gPiA+IEFsdGVy
-bmF0aXZlbHksIHRoZSB0b29sc3RhY2sgY291bGQgd3JpdGUgYm90aCB0aGUgZGlza3NlcSBhbmQK
-PiA+ID4gbWFqb3I6bWlub3IgbnVtYmVycyBhbmQgYmUgY29uZmlkZW50IHRoYXQgaXQgaXMgcmVm
-ZXJyaW5nIHRvIHRoZQo+ID4gPiBjb3JyZWN0IGRldmljZSwgbm8gbWF0dGVyIGhvdyBsb25nIGFn
-byBpdCBnb3QgdGhhdCBpbmZvcm1hdGlvbi4KPiA+ID4gVGhpcyBjb3VsZCBiZSBxdWl0ZSB1c2Vm
-dWwgZm9yIGUuZy4gb25lIFZNIGV4cG9ydGluZyBhIGRldmljZSB0bwo+ID4gPiBhbm90aGVyIFZN
-IGJ5IGNhbGxpbmcgbG9zZXR1cCg4KSBhbmQgZXhwZWN0aW5nIGEgaHVtYW4gdG8gbWFrZSBhCj4g
-PiA+IGRlY2lzaW9uIGJhc2VkIG9uIHZhcmlvdXMgcHJvcGVydGllcyBhYm91dCB0aGUgZGV2aWNl
-LiAgSW4gdGhpcwo+ID4gPiBjYXNlIHRoZXJlIGlzIG5vIHVwcGVyIGJvdW5kIG9uIHRoZSByYWNl
-IHdpbmRvdy4KPiA+IAo+ID4gSW5zdGVhZCBvZiBwbGF5aW5nIHdpdGggeGVuc3RvcmUgbm9kZXMs
-IGl0IG1pZ2h0IGJlIGJldHRlciB0byBzaW1wbHkKPiA+IGhhdmUgYmxrYmFjayBleHBvcnQgb24g
-c3lzZnMgdGhlIGRpc2tzZXEgb2YgdGhlIG9wZW5lZCBkZXZpY2UsIGFuZCBsZXQKPiA+IHRoZSBi
-bG9jayBzY3JpcHQgY2hlY2sgd2hldGhlciB0aGF0J3MgY29ycmVjdCBvciBub3QuICBUaGF0IGlt
-cGxpZXMKPiA+IGxlc3MgY29kZSBpbiB0aGUga2VybmVsIHNpZGUsIGFuZCBkb2Vzbid0IHBvbGx1
-dGUgeGVuc3RvcmUuCj4gCj4gVGhpcyB3b3VsZCByZXF1aXJlIHRoYXQgYmxrYmFjayBkZWxheSBl
-eHBvc2luZyB0aGUgZGV2aWNlIHRvIHRoZQo+IGZyb250ZW5kIHVudGlsIHRoZSBibG9jayBzY3Jp
-cHQgaGFzIGNoZWNrZWQgdGhhdCB0aGUgZGlza3NlcSBpcyBjb3JyZWN0LgoKVGhpcyBkZXBlbmRz
-IG9uIHlvdXIgdG9vbHN0YWNrIGltcGxlbWVudGF0aW9uLiAgbGlieGwgd29uJ3Qgc3RhcnQgdGhl
-CmRvbWFpbiB1bnRpbCBibG9jayBzY3JpcHRzIGhhdmUgZmluaXNoZWQgZXhlY3V0aW9uLCBhbmQg
-aGVuY2UgdGhlCmJsb2NrIHNjcmlwdCB3YWl0aW5nIGZvciB0aGUgc3lzZnMgbm9kZSB0byBhcHBl
-YXIgYW5kIGNoZWNrIGl0IGFnYWluc3QKdGhlIGV4cGVjdGVkIHZhbHVlIHdvdWxkIGJlIGVub3Vn
-aC4KCj4gTXVjaCBzaW1wbGVyIGZvciB0aGUgYmxvY2sgc2NyaXB0IHRvIHByb3ZpZGUgdGhlIGRp
-c2tzZXEgaW4geGVuc3RvcmUuCj4gSWYgeW91IHdhbnQgdG8gYXZvaWQgYW4gZXh0cmEgeGVuc3Rv
-cmUgbm9kZSwgSSBjYW4gbWFrZSB0aGUgZGlza3NlcSBwYXJ0Cj4gb2YgdGhlIHBoeXNpY2FsLWRl
-dmljZSBub2RlLgoKSSdtIHRoaW5raW5nIHRoYXQgd2UgbWlnaHQgd2FudCB0byBpbnRyb2R1Y2Ug
-YSAicGh5c2ljYWwtZGV2aWNlLXV1aWQiCm5vZGUgYW5kIHVzZSB0aGF0IHRvIHByb3ZpZGUgdGhl
-IGRpc2tzZXEgdG8gdGhlIGJhY2tlbmVkLiAgVG9vbHN0YWNrcwoob3IgYmxvY2sgc2NyaXB0cykg
-d291bGQgbmVlZCB0byBiZSBzdXJlIHRoZSAicGh5c2ljYWwtZGV2aWNlLXV1aWQiCm5vZGUgaXMg
-cG9wdWxhdGVkIGJlZm9yZSBzZXR0aW5nICJwaHlzaWNhbC1kZXZpY2UiLCBhcyB3cml0ZXMgdG8K
-dGhhdCBub2RlIHdvdWxkIHN0aWxsIHRyaWdnZXIgYmxrYmFjayB3YXRjaC4gIEkgdGhpbmsgdXNp
-bmcgdHdvCmRpc3RpbmN0IHdhdGNoZXMgd291bGQganVzdCBtYWtlIHRoZSBsb2dpYyBpbiBibGti
-YWNrIHRvbwpjb21wbGljYXRlZC4KCk15IHByZWZlcmVuY2Ugd291bGQgYmUgZm9yIHRoZSBrZXJu
-ZWwgdG8gaGF2ZSBhIGZ1bmN0aW9uIGZvciBvcGVuaW5nIGEKZGV2aWNlIGlkZW50aWZpZWQgYnkg
-YSBkaXNrc2VxIChhcyBmZXRjaGVkIGZyb20KInBoeXNpY2FsLWRldmljZS11dWlkIiksIHNvIHRo
-YXQgd2UgZG9uJ3QgaGF2ZSB0byBvcGVuIHVzaW5nCm1ham9yOm1pbm9yIGFuZCB0aGVuIGNoZWNr
-IHRoZSBkaXNrc2VxLgoKVGhhbmtzLCBSb2dlci4KCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApk
-bS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlz
-dGluZm8vZG0tZGV2ZWwK
+
+On Thu, 08 Jun 2023 13:02:28 +0200, Christoph Hellwig wrote:
+> this series adds a new blk_mode_t for block open flags instead of abusing
+> fmode_t.  The block open flags work very different from the normal use of
+> fmode_t and only share the basic READ/WRITE flags with it.  None of the
+> other normal FMODE_* flags is used, but instead there are three
+> block-specific ones not used by anyone else, which can now be removed.
+> 
+> Note that I've only CCed maintainers and lists for drivers and file systems
+> that have non-trivial changes, as otherwise the series would spam literally
+> everyone in the block and file system world.
+> 
+> [...]
+
+Applied, thanks!
+
+[01/30] block: also call ->open for incremental partition opens
+        commit: 9d1c92872e7082f100f629a58b32fa0214aa1aec
+[02/30] cdrom: remove the unused bdev argument to cdrom_open
+        commit: 764b83100b9aff52f950e408539c22a37cdedae8
+[03/30] cdrom: remove the unused mode argument to cdrom_ioctl
+        commit: 473399b50de1fdc12606254351273c71d1786251
+[04/30] cdrom: remove the unused cdrom_close_write release code
+        commit: a4cec8bc14c02e15006a71f02b0e1bbc72b9f796
+[05/30] cdrom: track if a cdrom_device_info was opened for data
+        commit: 8cdf433e2b8e4fc6c7b4393deb93fb258175d537
+[06/30] cdrom: remove the unused mode argument to cdrom_release
+        commit: 7ae24fcee9929f9002b84d8121144b2b3590b58c
+[07/30] block: pass a gendisk on bdev_check_media_change
+        commit: 444aa2c58cb3b6cfe3b7cc7db6c294d73393a894
+[08/30] block: pass a gendisk to ->open
+        commit: d32e2bf83791727a84ad5d3e3d713e82f9adbe30
+[09/30] block: remove the unused mode argument to ->release
+        commit: ae220766d87cd6799dbf918fea10613ae14c0654
+[10/30] block: rename blkdev_close to blkdev_release
+        commit: 7ee34cbc291a28134b60683b246ba58b4b676ec3
+[11/30] swsusp: don't pass a stack address to blkdev_get_by_path
+        commit: c889d0793d9dc07e94a5fddcc05356157fab00b7
+[12/30] bcache: don't pass a stack address to blkdev_get_by_path
+        commit: 29499ab060fec044161be73fb0e448eab97b4813
+[13/30] rnbd-srv: don't pass a holder for non-exclusive blkdev_get_by_path
+        commit: 5ee607675debef509946f8a251d4c30a21493ec2
+[14/30] btrfs: don't pass a holder for non-exclusive blkdev_get_by_path
+        commit: 2ef789288afd365f4245ba97e56189062de5148e
+[15/30] block: use the holder as indication for exclusive opens
+        commit: 2736e8eeb0ccdc71d1f4256c9c9a28f58cc43307
+[16/30] block: add a sb_open_mode helper
+        commit: 3f0b3e785e8b54a40c530fa77b7ab37bec925c57
+[17/30] fs: remove sb->s_mode
+        commit: 81b1fb7d17c0110df839e13468ada9e99bb6e5f4
+[18/30] scsi: replace the fmode_t argument to scsi_cmd_allowed with a simple bool
+        commit: 5f4eb9d5413fdfc779c099fdaf0ff417eb163145
+[19/30] scsi: replace the fmode_t argument to scsi_ioctl with a simple bool
+        commit: 2e80089c18241699c41d0af0669cb93844ff0dc1
+[20/30] scsi: replace the fmode_t argument to ->sg_io_fn with a simple bool
+        commit: 1991299e49fa58c3ba7e91599932f84bf537d592
+[21/30] nvme: replace the fmode_t argument to the nvme ioctl handlers with a simple bool
+        commit: 7d9d7d59d44b7e9236d168472aa222b6543fae25
+[22/30] mtd: block: use a simple bool to track open for write
+        commit: 658afed19ceed54a52b9e9e69c0791c8868ff55d
+[23/30] rnbd-srv: replace sess->open_flags with a "bool readonly"
+        commit: 99b07780814e89f16bec2773c237eb25121f8502
+[24/30] ubd: remove commented out code in ubd_open
+        commit: bd6abfc8e7898ce2163a1ffdbb9ec71a0a081267
+[25/30] block: move a few internal definitions out of blkdev.h
+        commit: cfb425761c79b6056ae5bb73f8d400f03b513959
+[26/30] block: remove unused fmode_t arguments from ioctl handlers
+        commit: 5e4ea834676e3b8965344ca61d36e1ae236249eb
+[27/30] block: replace fmode_t with a block-specific type for block open flags
+        commit: 05bdb9965305bbfdae79b31d22df03d1e2cfcb22
+[28/30] block: always use I_BDEV on file->f_mapping->host to find the bdev
+        commit: 4e762d8623448bb9d32711832ce977a65ff7636a
+[29/30] block: store the holder in file->private_data
+        commit: ee3249a8ce78ef014a71b05157a43fba8dc764e3
+[30/30] fs: remove the now unused FMODE_* flags
+        commit: 0733ad8002916b9dbbbcfe6e92ad44d2657de1c1
+
+Best regards,
+-- 
+Jens Axboe
+
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
