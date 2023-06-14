@@ -1,92 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B70572F57C
-	for <lists+dm-devel@lfdr.de>; Wed, 14 Jun 2023 09:07:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 98ADE72F176
+	for <lists+dm-devel@lfdr.de>; Wed, 14 Jun 2023 03:15:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1686726440;
+	s=mimecast20190719; t=1686705340;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=NO5XGOKh/y1Kos7TC6HXc0OGzmEJqtzwRTzx8sa+lTk=;
-	b=O9WAlGi1cVWvOOCfm7XLLlugvxtbeqR/rCc7nGPTjEqHriw4TCTYsY4qSqXfCmB4lCs95G
-	/bhkRTHv0D99VoRo5VpCIs7cez7RM5y/9cOcFLHHYYN4teoEd9B9s5hxYQcaQNlX/eyylX
-	0PYFBVR8JOlLQiw5eE9wPjpR391mWEE=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=E6jyE/UhVBDIw2GUP2RTfLSC2niWxFbiC1FxI4LzPGY=;
+	b=LtJwLJJFDDFUYYsOwVnhQUNB4KyfgYzJQMpHKbYsSpSjpG0WWtPbUS2qlMuBZ3lBqQEbLG
+	c1ff05OgEnTcMX3pnWMT00ZCmvW10IW0XspPUJqQRqltHWo4LmCKRntCsI2Rbt+quviaqJ
+	qFFBt1skpCbZw/wQNjglelPQGcNDAlU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-601-dK9sZ0dhPaWmFtCfyv0Vvw-1; Wed, 14 Jun 2023 03:07:17 -0400
-X-MC-Unique: dK9sZ0dhPaWmFtCfyv0Vvw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-426-HdZQ4g1NPCKjSJjfepyxCw-1; Tue, 13 Jun 2023 21:15:36 -0400
+X-MC-Unique: HdZQ4g1NPCKjSJjfepyxCw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4650A3C0E200;
-	Wed, 14 Jun 2023 07:06:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4AED8805F3B;
+	Wed, 14 Jun 2023 01:15:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C80EF40C20F5;
-	Wed, 14 Jun 2023 07:06:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 24BDB492CA6;
+	Wed, 14 Jun 2023 01:15:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5A99E19451DA;
-	Wed, 14 Jun 2023 07:06:45 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AB15219452C9;
+	Wed, 14 Jun 2023 01:15:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D58C5194658C
- for <dm-devel@listman.corp.redhat.com>; Wed, 14 Jun 2023 01:04:34 +0000 (UTC)
+ ESMTP id 6549A194658C
+ for <dm-devel@listman.corp.redhat.com>; Wed, 14 Jun 2023 01:15:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 96B4640C6F5D; Wed, 14 Jun 2023 01:04:34 +0000 (UTC)
+ id 418A31C558; Wed, 14 Jun 2023 01:15:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8F63C40C6F5C
- for <dm-devel@redhat.com>; Wed, 14 Jun 2023 01:04:34 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 39F77178B4
+ for <dm-devel@redhat.com>; Wed, 14 Jun 2023 01:15:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75903185A78E
- for <dm-devel@redhat.com>; Wed, 14 Jun 2023 01:04:34 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DE24858F1E
+ for <dm-devel@redhat.com>; Wed, 14 Jun 2023 01:15:21 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
  [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-572-eN07ZP3fOim3weg6qIew6Q-1; Tue, 13 Jun 2023 21:04:31 -0400
-X-MC-Unique: eN07ZP3fOim3weg6qIew6Q-1
+ us-mta-220-_mcUI_PePb-UsS8DJu5Nig-1; Tue, 13 Jun 2023 21:15:13 -0400
+X-MC-Unique: _mcUI_PePb-UsS8DJu5Nig-1
 Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QgnJ95cWxz4f3jHb;
- Wed, 14 Jun 2023 09:04:25 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAHvbAYEolki8WaLg--.13805S4;
- Wed, 14 Jun 2023 09:04:26 +0800 (CST)
-From: linan666@huaweicloud.com
-To: agk@redhat.com,
-	snitzer@kernel.org,
-	dm-devel@redhat.com
-Date: Wed, 14 Jun 2023 08:59:55 +0800
-Message-Id: <20230614005955.939034-1-linan666@huaweicloud.com>
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QgnXW2pn9z4f3mVv;
+ Wed, 14 Jun 2023 09:15:07 +0800 (CST)
+Received: from [10.174.176.73] (unknown [10.174.176.73])
+ by APP4 (Coremail) with SMTP id gCh0CgAHcLOaFIlkEF+bLg--.21440S3;
+ Wed, 14 Jun 2023 09:15:08 +0800 (CST)
+To: Xiao Ni <xni@redhat.com>, Yu Kuai <yukuai1@huaweicloud.com>,
+ guoqing.jiang@linux.dev, agk@redhat.com, snitzer@kernel.org,
+ dm-devel@redhat.com, song@kernel.org
+References: <20230529132037.2124527-1-yukuai1@huaweicloud.com>
+ <20230529132037.2124527-4-yukuai1@huaweicloud.com>
+ <c96f2604-e1ef-c3ad-9d15-5e0efa5f222b@redhat.com>
+From: Yu Kuai <yukuai1@huaweicloud.com>
+Message-ID: <254fc651-aa75-074d-f567-49bafc437e9c@huaweicloud.com>
+Date: Wed, 14 Jun 2023 09:15:06 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
+ Thunderbird/60.8.0
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAHvbAYEolki8WaLg--.13805S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxCFyDAw1ftF15WF1UKF4rZrb_yoW5GrWkpF
- WDW34SyrWrWr4jga1Uu3yxu3WFka93Kry7ArW3A3yF9a1jyr90yr1UtFyYqrykJFZ7AFyI
- qF10kFZruayYkrUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUkGb4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k2
- 6cxKx2IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4
- vEj48ve4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7Cj
- xVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I
- 0E14v26rxl6s0DM2vYz4IE04k24VAvwVAKI4IrM2AIxVAIcxkEcVAq07x20xvEncxIr21l
- 5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67
- AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lw4CEc2x0rVAK
- j4xxMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI
- 0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y
- 0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxV
- WUJVW8JwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI42IY6I8E87Iv67AKxVWUJVW8
- JwCI42IY6I8E87Iv6xkF7I0E14v26r1j6r4UYxBIdaVFxhVjvjDU0xZFpf9x07UKoGdUUU
- UU=
-X-CM-SenderInfo: polqt0awwwqx5xdzvxpfor3voofrz/
+In-Reply-To: <c96f2604-e1ef-c3ad-9d15-5e0efa5f222b@redhat.com>
+X-CM-TRANSID: gCh0CgAHcLOaFIlkEF+bLg--.21440S3
+X-Coremail-Antispam: 1UD129KBjvJXoWxJw1kJrWfAr1xArW3JrWfGrg_yoW5CFWrpF
+ WktFWrArZ0yws3Xr1UJwsrZay5Xr18KayDKryfGa4UJF13Cr4qqF1jgF4j9FykC3y8Cr1U
+ tw18XFZ3ZF18Xr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvEwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka
+ 0xkIwI1lc7I2V7IY0VAS07AlzVAYIcxG8wCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+ kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+ 67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+ CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6rW3Jr0E
+ 3s1lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
+ sGvfC2KfnxnUUI43ZEXa7VUbXdbUUUUUU==
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -95,9 +101,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mailman-Approved-At: Wed, 14 Jun 2023 07:06:43 +0000
-Subject: [dm-devel] [PATCH v2] dm: Support turning off io stat accounting
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH -next v2 3/6] md: add a mutex to synchronize
+ idle and frozen in action_store()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,98 +115,68 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
- houtao1@huawei.com, yukuai3@huawei.com, linan122@huawei.com
+Cc: linux-raid@vger.kernel.org, "yukuai \(C\)" <yukuai3@huawei.com>,
+ yangerkun@huawei.com, linux-kernel@vger.kernel.org, yi.zhang@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-From: Li Nan <linan122@huawei.com>
-
-Commit bc59ba9468d9 ("block: add sysfs file for controlling io stats
-accounting") allowed user to turn off disk stat accounting completely by
-queue flag QUEUE_FLAG_IO_STAT. In dm, this flag is not set for BIO_BASED
-device, io stats is continuously counted and cannot be turn off.
-
-Support turning off io stat accounting for dm. Set QUEUE_FLAG_IO_STAT for
-dm request_queue. When the io starts, we account the io using DM_IO_STAT
-dm_io flag to avoid io stats disable in the middle of the io. DM statistics
-is independent of block io stat and remains unchanged.
-
-Signed-off-by: Li Nan <linan122@huawei.com>
----
-v2:
- - set QUEUE_FLAG_IO_STAT in dm_setup_md_queue()
- - get request_queue by md->queue
----
- drivers/md/dm-core.h |  3 ++-
- drivers/md/dm.c      | 16 +++++++++++-----
- 2 files changed, 13 insertions(+), 6 deletions(-)
-
-diff --git a/drivers/md/dm-core.h b/drivers/md/dm-core.h
-index aecab0c0720f..8b0af3e1331a 100644
---- a/drivers/md/dm-core.h
-+++ b/drivers/md/dm-core.h
-@@ -307,7 +307,8 @@ struct dm_io {
-  */
- enum {
- 	DM_IO_ACCOUNTED,
--	DM_IO_WAS_SPLIT
-+	DM_IO_WAS_SPLIT,
-+	DM_IO_STAT
- };
- 
- static inline bool dm_io_flagged(struct dm_io *io, unsigned int bit)
-diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index 3b694ba3a106..fee27ae4129e 100644
---- a/drivers/md/dm.c
-+++ b/drivers/md/dm.c
-@@ -511,11 +511,14 @@ static void dm_io_acct(struct dm_io *io, bool end)
- 	else
- 		sectors = io->sectors;
- 
--	if (!end)
--		bdev_start_io_acct(bio->bi_bdev, bio_op(bio), start_time);
--	else
--		bdev_end_io_acct(bio->bi_bdev, bio_op(bio), sectors,
--				 start_time);
-+	if (dm_io_flagged(io, DM_IO_STAT)) {
-+		if (!end)
-+			bdev_start_io_acct(bio->bi_bdev, bio_op(bio),
-+					   start_time);
-+		else
-+			bdev_end_io_acct(bio->bi_bdev, bio_op(bio),
-+					 sectors, start_time);
-+	}
- 
- 	if (static_branch_unlikely(&stats_enabled) &&
- 	    unlikely(dm_stats_used(&md->stats))) {
-@@ -592,6 +595,8 @@ static struct dm_io *alloc_io(struct mapped_device *md, struct bio *bio)
- 	spin_lock_init(&io->lock);
- 	io->start_time = jiffies;
- 	io->flags = 0;
-+	if (blk_queue_io_stat(md->queue))
-+		dm_io_set_flag(io, DM_IO_STAT);
- 
- 	if (static_branch_unlikely(&stats_enabled))
- 		dm_stats_record_start(&md->stats, &io->stats_aux);
-@@ -2341,6 +2346,7 @@ int dm_setup_md_queue(struct mapped_device *md, struct dm_table *t)
- 		break;
- 	case DM_TYPE_BIO_BASED:
- 	case DM_TYPE_DAX_BIO_BASED:
-+		blk_queue_flag_set(QUEUE_FLAG_IO_STAT, md->queue);
- 		break;
- 	case DM_TYPE_NONE:
- 		WARN_ON_ONCE(true);
--- 
-2.39.2
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+SGksCgrlnKggMjAyMy8wNi8xMyAyMjo0MywgWGlhbyBOaSDlhpnpgZM6Cj4gCj4g5ZyoIDIwMjMv
+NS8yOSDkuIvljYg5OjIwLCBZdSBLdWFpIOWGmemBkzoKPj4gRnJvbTogWXUgS3VhaSA8eXVrdWFp
+M0BodWF3ZWkuY29tPgo+Pgo+PiBDdXJyZW50bHksIGZvciBpZGxlIGFuZCBmcm96ZW4sIGFjdGlv
+bl9zdG9yZSB3aWxsIGhvbGQgJ3JlY29uZmlnX211dGV4Jwo+PiBhbmQgY2FsbCBtZF9yZWFwX3N5
+bmNfdGhyZWFkKCkgdG8gc3RvcCBzeW5jIHRocmVhZCwgaG93ZXZlciwgdGhpcyB3aWxsCj4+IGNh
+dXNlIGRlYWRsb2NrIChleHBsYWluZWQgaW4gdGhlIG5leHQgcGF0Y2gpLiBJbiBvcmRlciB0byBm
+aXggdGhlCj4+IHByb2JsZW0sIGZvbGxvd2luZyBwYXRjaCB3aWxsIHJlbGVhc2UgJ3JlY29uZmln
+X211dGV4JyBhbmQgd2FpdCBvbgo+PiAncmVzeW5jX3dhaXQnLCBsaWtlIG1kX3NldF9yZWFkb25s
+eSgpIGFuZCBkb19tZF9zdG9wKCkgZG9lcy4KPj4KPj4gQ29uc2lkZXIgdGhhdCBhY3Rpb25fc3Rv
+cmUoKSB3aWxsIHNldC9jbGVhciAnTURfUkVDT1ZFUllfRlJPWkVOJwo+PiB1bmNvbmRpdGlvbmFs
+bHksIHdoaWNoIG1pZ2h0IGNhdXNlIHVuZXhwZWN0ZWQgcHJvYmxlbXMsIGZvciBleGFtcGxlLAo+
+PiBmcm96ZW4ganVzdCBzZXQgJ01EX1JFQ09WRVJZX0ZST1pFTicgYW5kIGlzIHN0aWxsIGluIHBy
+b2dyZXNzLCB3aGlsZQo+PiAnaWRsZScgY2xlYXIgJ01EX1JFQ09WRVJZX0ZST1pFTicgYW5kIG5l
+dyBzeW5jIHRocmVhZCBpcyBzdGFydGVkLCB3aGljaAo+PiBtaWdodCBzdGFydmUgaW4gcHJvZ3Jl
+c3MgZnJvemVuLiBBIG11dGV4IGlzIGFkZGVkIHRvIHN5bmNocm9uaXplIGlkbGUKPj4gYW5kIGZy
+b3plbiBmcm9tIGFjdGlvbl9zdG9yZSgpLgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBZdSBLdWFpIDx5
+dWt1YWkzQGh1YXdlaS5jb20+Cj4+IC0tLQo+PiDCoCBkcml2ZXJzL21kL21kLmMgfCA1ICsrKysr
+Cj4+IMKgIGRyaXZlcnMvbWQvbWQuaCB8IDMgKysrCj4+IMKgIDIgZmlsZXMgY2hhbmdlZCwgOCBp
+bnNlcnRpb25zKCspCj4+Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL21kLmMgYi9kcml2ZXJz
+L21kL21kLmMKPj4gaW5kZXggMjNlOGU3ZWFlMDYyLi42M2E5OTNiNTJjZDcgMTAwNjQ0Cj4+IC0t
+LSBhL2RyaXZlcnMvbWQvbWQuYwo+PiArKysgYi9kcml2ZXJzL21kL21kLmMKPj4gQEAgLTY0NCw2
+ICs2NDQsNyBAQCB2b2lkIG1kZGV2X2luaXQoc3RydWN0IG1kZGV2ICptZGRldikKPj4gwqDCoMKg
+wqDCoCBtdXRleF9pbml0KCZtZGRldi0+b3Blbl9tdXRleCk7Cj4+IMKgwqDCoMKgwqAgbXV0ZXhf
+aW5pdCgmbWRkZXYtPnJlY29uZmlnX211dGV4KTsKPj4gwqDCoMKgwqDCoCBtdXRleF9pbml0KCZt
+ZGRldi0+ZGVsZXRlX211dGV4KTsKPj4gK8KgwqDCoCBtdXRleF9pbml0KCZtZGRldi0+c3luY19t
+dXRleCk7Cj4+IMKgwqDCoMKgwqAgbXV0ZXhfaW5pdCgmbWRkZXYtPmJpdG1hcF9pbmZvLm11dGV4
+KTsKPj4gwqDCoMKgwqDCoCBJTklUX0xJU1RfSEVBRCgmbWRkZXYtPmRpc2tzKTsKPj4gwqDCoMKg
+wqDCoCBJTklUX0xJU1RfSEVBRCgmbWRkZXYtPmFsbF9tZGRldnMpOwo+PiBAQCAtNDc4NSwxNCAr
+NDc4NiwxOCBAQCBzdGF0aWMgdm9pZCBzdG9wX3N5bmNfdGhyZWFkKHN0cnVjdCBtZGRldiAqbWRk
+ZXYpCj4+IMKgIHN0YXRpYyB2b2lkIGlkbGVfc3luY190aHJlYWQoc3RydWN0IG1kZGV2ICptZGRl
+dikKPj4gwqAgewo+PiArwqDCoMKgIG11dGV4X2xvY2soJm1kZGV2LT5zeW5jX211dGV4KTsKPj4g
+wqDCoMKgwqDCoCBjbGVhcl9iaXQoTURfUkVDT1ZFUllfRlJPWkVOLCAmbWRkZXYtPnJlY292ZXJ5
+KTsKPj4gwqDCoMKgwqDCoCBzdG9wX3N5bmNfdGhyZWFkKG1kZGV2KTsKPj4gK8KgwqDCoCBtdXRl
+eF91bmxvY2soJm1kZGV2LT5zeW5jX211dGV4KTsKPj4gwqAgfQo+PiDCoCBzdGF0aWMgdm9pZCBm
+cm96ZW5fc3luY190aHJlYWQoc3RydWN0IG1kZGV2ICptZGRldikKPj4gwqAgewo+PiArwqDCoMKg
+IG11dGV4X2luaXQoJm1kZGV2LT5kZWxldGVfbXV0ZXgpOwo+IAo+IAo+IHR5cG8gZXJyb3I/IEl0
+IHNob3VsZCBiZSBtdXRleF9sb2NrKCZtZGRldi0+c3luY19tdXRleCk7ID8KPiAKClllcywgYW5k
+IHRoYW5rcyBmb3Igc3BvdHRpbmcgdGhpcywgdGhpcyBsb29rcyBsaWtlIEkgZGlkIHRoaXMgd2hp
+bGUKcmViYXNpbmcuCgpUaGFua3MsCkt1YWkKPiBSZWdhcmRzCj4gCj4gWGlhbwo+IAo+PiDCoMKg
+wqDCoMKgIHNldF9iaXQoTURfUkVDT1ZFUllfRlJPWkVOLCAmbWRkZXYtPnJlY292ZXJ5KTsKPj4g
+wqDCoMKgwqDCoCBzdG9wX3N5bmNfdGhyZWFkKG1kZGV2KTsKPj4gK8KgwqDCoCBtdXRleF91bmxv
+Y2soJm1kZGV2LT5zeW5jX211dGV4KTsKPj4gwqAgfQo+PiDCoCBzdGF0aWMgc3NpemVfdAo+PiBk
+aWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9tZC5oIGIvZHJpdmVycy9tZC9tZC5oCj4+IGluZGV4IGJm
+ZDIzMDZiYzc1MC4uMmZhOTAzZGU1YmQwIDEwMDY0NAo+PiAtLS0gYS9kcml2ZXJzL21kL21kLmgK
+Pj4gKysrIGIvZHJpdmVycy9tZC9tZC5oCj4+IEBAIC01MzcsNiArNTM3LDkgQEAgc3RydWN0IG1k
+ZGV2IHsKPj4gwqDCoMKgwqDCoCAvKiBQcm90ZWN0IHRoZSBkZWxldGluZyBsaXN0ICovCj4+IMKg
+wqDCoMKgwqAgc3RydWN0IG11dGV4wqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBkZWxldGVfbXV0ZXg7
+Cj4+ICvCoMKgwqAgLyogVXNlZCB0byBzeW5jaHJvbml6ZSBpZGxlIGFuZCBmcm96ZW4gZm9yIGFj
+dGlvbl9zdG9yZSgpICovCj4+ICvCoMKgwqAgc3RydWN0IG11dGV4wqDCoMKgwqDCoMKgwqDCoMKg
+wqDCoCBzeW5jX211dGV4Owo+PiArCj4+IMKgwqDCoMKgwqAgYm9vbMKgwqDCoCBoYXNfc3VwZXJi
+bG9ja3M6MTsKPj4gwqDCoMKgwqDCoCBib29swqDCoMKgIGZhaWxfbGFzdF9kZXY6MTsKPj4gwqDC
+oMKgwqDCoCBib29swqDCoMKgIHNlcmlhbGl6ZV9wb2xpY3k6MTsKPiAKPiAuCj4gCgotLQpkbS1k
+ZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVk
+aGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
