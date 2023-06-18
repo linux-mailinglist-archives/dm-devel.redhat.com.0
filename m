@@ -1,74 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B484734693
-	for <lists+dm-devel@lfdr.de>; Sun, 18 Jun 2023 16:25:09 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C52EF734688
+	for <lists+dm-devel@lfdr.de>; Sun, 18 Jun 2023 16:18:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687098308;
+	s=mimecast20190719; t=1687097925;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=B+QtwqiRIuA/2+WnlJBPJ+JFvl5bA38KSyf30gmuF1I=;
-	b=A/o6OT8XUw+98qZAOssAgj9WyiXUjRlo4nBdGEMflJu2lYBPl9lZRfHCGbPJ29HJdy2szy
-	ddfClObNuRhWfm+kgDgLaY8IDxP9NGfcDrHdy1M5jKglFOvDxpqWMP8xY8aJa/EzRa3emh
-	fCy9xVs3w1jujIY7bZPI6cTcUdwYD7g=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=eaTAJJ4tQi9oIhF1gDkPuYHyu7YYdYVA/dkWn4bwAB4=;
+	b=ehf32GHRtoWa2SeKLj3fNkfvUGFvUn3xwP/WoIsPA9BT6VrOI+QUS5nnAMVppPo+PuI1Ro
+	yv5xyeU9XhKVE6iw/0uGzF771C9oFkk5Ezwb3rco5bbnTRODLhBr16odXmQefMRRIO4TCN
+	kGY9B+tPlOe/dpk1gsRL8H/WqCIyUxk=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-492-xblSlmKkNOWIeq5866Y0gQ-1; Sun, 18 Jun 2023 10:25:05 -0400
-X-MC-Unique: xblSlmKkNOWIeq5866Y0gQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-619-KQmsDgsPPyW4v2xWTLws-A-1; Sun, 18 Jun 2023 10:18:41 -0400
+X-MC-Unique: KQmsDgsPPyW4v2xWTLws-A-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A0FE3C025B3;
-	Sun, 18 Jun 2023 14:25:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99DD580013A;
+	Sun, 18 Jun 2023 14:18:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2257F112132C;
-	Sun, 18 Jun 2023 14:25:01 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2836D48FB01;
+	Sun, 18 Jun 2023 14:18:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE55F19465B1;
-	Sun, 18 Jun 2023 14:25:00 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9940719465A8;
+	Sun, 18 Jun 2023 14:18:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9977E1946589
- for <dm-devel@listman.corp.redhat.com>; Sun, 18 Jun 2023 14:24:59 +0000 (UTC)
+ ESMTP id BA20C1946589
+ for <dm-devel@listman.corp.redhat.com>; Sun, 18 Jun 2023 14:18:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 67B0F2026D6A; Sun, 18 Jun 2023 14:24:59 +0000 (UTC)
+ id 769F748FB02; Sun, 18 Jun 2023 14:18:22 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 608162026D20
- for <dm-devel@redhat.com>; Sun, 18 Jun 2023 14:24:42 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DFBCC800A15
- for <dm-devel@redhat.com>; Sun, 18 Jun 2023 14:24:42 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6E92448FB01
+ for <dm-devel@redhat.com>; Sun, 18 Jun 2023 14:18:22 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 535211C04B40
+ for <dm-devel@redhat.com>; Sun, 18 Jun 2023 14:18:22 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-390-0smmOn_3N1yEPde0eZaN1w-1; Sun, 18 Jun 2023 10:24:41 -0400
-X-MC-Unique: 0smmOn_3N1yEPde0eZaN1w-1
+ us-mta-511-A3mseszwPJ-eFb1XXhoWZA-1; Sun, 18 Jun 2023 10:18:18 -0400
+X-MC-Unique: A3mseszwPJ-eFb1XXhoWZA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 2F5F061280;
- Sun, 18 Jun 2023 14:14:52 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EB0E7C433C0;
- Sun, 18 Jun 2023 14:14:50 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 9EDB960C79;
+ Sun, 18 Jun 2023 14:18:17 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87F3BC433C0;
+ Sun, 18 Jun 2023 14:18:16 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable-commits@vger.kernel.org,
 	lilingfeng3@huawei.com
-Date: Sun, 18 Jun 2023 10:14:48 -0400
-Message-Id: <20230618141448.862368-1-sashal@kernel.org>
+Date: Sun, 18 Jun 2023 10:18:14 -0400
+Message-Id: <20230618141814.864905-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
@@ -79,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 Subject: [dm-devel] Patch "dm: don't lock fs when the map is NULL during
- suspend or resume" has been added to the 6.3-stable tree
+ suspend or resume" has been added to the 6.1-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,7 +96,7 @@ Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
@@ -107,19 +106,19 @@ This is a note to let you know that I've just added the patch titled
 
     dm: don't lock fs when the map is NULL during suspend or resume
 
-to the 6.3-stable tree which can be found at:
+to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
      dm-don-t-lock-fs-when-the-map-is-null-during-suspend.patch
-and it can be found in the queue-6.3 subdirectory.
+and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
 please let <stable@vger.kernel.org> know about it.
 
 
 
-commit 514e502e16b737ea99816066abc291911af330e7
+commit d095b9b6985baeff4e10308896522af93b8f8eb4
 Author: Li Lingfeng <lilingfeng3@huawei.com>
 Date:   Thu Jun 1 14:14:23 2023 +0800
 
@@ -143,10 +142,10 @@ Date:   Thu Jun 1 14:14:23 2023 +0800
     Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index cc77cf3d41092..7d5c9c582ed2d 100644
+index 83aecd9250ba6..6ae1c19b82433 100644
 --- a/drivers/md/dm-ioctl.c
 +++ b/drivers/md/dm-ioctl.c
-@@ -1168,13 +1168,10 @@ static int do_resume(struct dm_ioctl *param)
+@@ -1151,13 +1151,10 @@ static int do_resume(struct dm_ioctl *param)
  	/* Do we need to load a new map ? */
  	if (new_map) {
  		sector_t old_size, new_size;
@@ -162,10 +161,10 @@ index cc77cf3d41092..7d5c9c582ed2d 100644
  			suspend_flags |= DM_SUSPEND_NOFLUSH_FLAG;
  		if (!dm_suspended_md(md))
 diff --git a/drivers/md/dm.c b/drivers/md/dm.c
-index dfde0088147a1..0a10e94a6db17 100644
+index 24284d22f15bc..acf7e7551c941 100644
 --- a/drivers/md/dm.c
 +++ b/drivers/md/dm.c
-@@ -2795,6 +2795,10 @@ int dm_suspend(struct mapped_device *md, unsigned int suspend_flags)
+@@ -2801,6 +2801,10 @@ int dm_suspend(struct mapped_device *md, unsigned int suspend_flags)
  	}
  
  	map = rcu_dereference_protected(md->map, lockdep_is_held(&md->suspend_lock));
