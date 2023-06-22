@@ -2,69 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9D8E973AFD4
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:45 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BFADE73AFE2
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498004;
+	s=mimecast20190719; t=1687498013;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=U5ybF56s73T6jyvafxvYdP25B+Yn1XQ9FXjJe25C+zo=;
-	b=KCZFZ9DtVtrPf3oqNV9WGEvSdgzJxurfT5OCJa7KT1Ei2gElPnRQpTpOLedJUzmYMRmTRJ
-	hJPXFNqygPjq6utECfDmYwgheNax7fxVkcj/1avt055rXUAZrXzXnXMuPnw+oTywDF7w19
-	b1DM/9V4fgWmL+zT1L013O2Xclp7UGI=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=pQWkahGMKSlfz8togJnA1KbdbDqKE6fanOuppF8r0rQ=;
+	b=XlKTrIJ+2PoMFA2muDOVnC+pJNJT4//BzV7O8fmJB/th9LEJzogyooCEiFJmbjEGq2va4v
+	8SHcVOvjnGnSGLbFlQ4ooaprHIIYr60PusD4PoZ2vb+1a3i+xuCzngXd+w6lfd732VFoxj
+	BaG/LMLL5XEmx90COk1p+CIRk8jT2WA=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-633-LUNJ5sGVNDmnk2Z0WoAldA-1; Fri, 23 Jun 2023 01:26:34 -0400
-X-MC-Unique: LUNJ5sGVNDmnk2Z0WoAldA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-479-f-Emf-FqMPi_ApkPDQuM9A-1; Fri, 23 Jun 2023 01:26:50 -0400
+X-MC-Unique: f-Emf-FqMPi_ApkPDQuM9A-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ADB482808B34;
-	Fri, 23 Jun 2023 05:26:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B9658E44E0;
+	Fri, 23 Jun 2023 05:26:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DFF9DF5AD6;
-	Fri, 23 Jun 2023 05:25:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 842281121315;
+	Fri, 23 Jun 2023 05:26:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 795C21946A51;
-	Fri, 23 Jun 2023 05:25:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C3E451949765;
+	Fri, 23 Jun 2023 05:25:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0D8DD194658C
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:41:38 +0000 (UTC)
+ ESMTP id DF20A1946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:41:44 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EF50B40D1A4; Thu, 22 Jun 2023 08:41:37 +0000 (UTC)
+ id BD89240C2071; Thu, 22 Jun 2023 08:41:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C146C492C13
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:37 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B626340C2070
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:44 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A1B7185A791
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:37 +0000 (UTC)
-Received: from out-11.mta1.migadu.com (out-11.mta1.migadu.com
- [95.215.58.11]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-516-vwDtwt-DMxKVFWvc3VzINg-1; Thu, 22 Jun 2023 04:41:34 -0400
-X-MC-Unique: vwDtwt-DMxKVFWvc3VzINg-1
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9B794185A791
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:44 +0000 (UTC)
+Received: from out-5.mta1.migadu.com (out-5.mta1.migadu.com [95.215.58.5])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-562-ygg6Nw5aPv6-3XoLoy12eA-1; Thu,
+ 22 Jun 2023 04:41:42 -0400
+X-MC-Unique: ygg6Nw5aPv6-3XoLoy12eA-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:16 +0000
-Message-Id: <20230622083932.4090339-14-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 08:39:17 +0000
+Message-Id: <20230622083932.4090339-15-qi.zheng@linux.dev>
 In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
 References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
@@ -76,10 +76,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 13/29] ext4: dynamically allocate the ext4-es
- shrinker
+Subject: [dm-devel] [PATCH 14/29] jbd2,
+ ext4: dynamically allocate the jbd2-journal shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,7 +101,7 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -110,87 +110,101 @@ Content-Transfer-Encoding: 7bit
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the ext4-es shrinker,
+we need to dynamically allocate the jbd2-journal shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct ext4_sb_info.
+section when releasing the struct journal_s.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- fs/ext4/ext4.h           |  2 +-
- fs/ext4/extents_status.c | 21 ++++++++++++---------
- 2 files changed, 13 insertions(+), 10 deletions(-)
+ fs/jbd2/journal.c    | 32 +++++++++++++++++++-------------
+ include/linux/jbd2.h |  2 +-
+ 2 files changed, 20 insertions(+), 14 deletions(-)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 0a2d55faa095..1bd150d454f5 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1651,7 +1651,7 @@ struct ext4_sb_info {
- 	__u32 s_csum_seed;
- 
- 	/* Reclaim extents from extent status tree */
--	struct shrinker s_es_shrinker;
-+	struct shrinker *s_es_shrinker;
- 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
- 	long s_es_nr_inode;
- 	struct ext4_es_stats s_es_stats;
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 9b5b8951afb4..fea82339f4b4 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -1596,7 +1596,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
- 	unsigned long nr;
- 	struct ext4_sb_info *sbi;
- 
--	sbi = container_of(shrink, struct ext4_sb_info, s_es_shrinker);
-+	sbi = shrink->private_data;
- 	nr = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
- 	trace_ext4_es_shrink_count(sbi->s_sb, sc->nr_to_scan, nr);
- 	return nr;
-@@ -1605,8 +1605,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
- static unsigned long ext4_es_scan(struct shrinker *shrink,
- 				  struct shrink_control *sc)
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index eee3c0ae349a..92a2f4360b5f 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -1301,7 +1301,7 @@ static int jbd2_min_tag_size(void)
+ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ 					      struct shrink_control *sc)
  {
--	struct ext4_sb_info *sbi = container_of(shrink,
--					struct ext4_sb_info, s_es_shrinker);
-+	struct ext4_sb_info *sbi = shrink->private_data;
- 	int nr_to_scan = sc->nr_to_scan;
- 	int ret, nr_shrunk;
+-	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
++	journal_t *journal = shrink->private_data;
+ 	unsigned long nr_to_scan = sc->nr_to_scan;
+ 	unsigned long nr_shrunk;
+ 	unsigned long count;
+@@ -1327,7 +1327,7 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ static unsigned long jbd2_journal_shrink_count(struct shrinker *shrink,
+ 					       struct shrink_control *sc)
+ {
+-	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
++	journal_t *journal = shrink->private_data;
+ 	unsigned long count;
  
-@@ -1690,15 +1689,19 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
- 	if (err)
- 		goto err3;
+ 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
+@@ -1415,21 +1415,27 @@ static journal_t *journal_init_common(struct block_device *bdev,
+ 	journal->j_superblock = (journal_superblock_t *)bh->b_data;
  
--	sbi->s_es_shrinker.scan_objects = ext4_es_scan;
--	sbi->s_es_shrinker.count_objects = ext4_es_count;
--	sbi->s_es_shrinker.seeks = DEFAULT_SEEKS;
--	err = register_shrinker(&sbi->s_es_shrinker, "ext4-es:%s",
-+	sbi->s_es_shrinker = shrinker_alloc_and_init(ext4_es_count, ext4_es_scan,
-+						     0, DEFAULT_SEEKS, 0, sbi);
-+	if (!sbi->s_es_shrinker)
-+		goto err4;
+ 	journal->j_shrink_transaction = NULL;
+-	journal->j_shrinker.scan_objects = jbd2_journal_shrink_scan;
+-	journal->j_shrinker.count_objects = jbd2_journal_shrink_count;
+-	journal->j_shrinker.seeks = DEFAULT_SEEKS;
+-	journal->j_shrinker.batch = journal->j_max_transaction_buffers;
+ 
+ 	if (percpu_counter_init(&journal->j_checkpoint_jh_count, 0, GFP_KERNEL))
+ 		goto err_cleanup;
+ 
+-	if (register_shrinker(&journal->j_shrinker, "jbd2-journal:(%u:%u)",
+-			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev))) {
+-		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+-		goto err_cleanup;
+-	}
++	journal->j_shrinker = shrinker_alloc_and_init(jbd2_journal_shrink_count,
++						      jbd2_journal_shrink_scan,
++						      journal->j_max_transaction_buffers,
++						      DEFAULT_SEEKS, 0, journal);
++	if (!journal->j_shrinker)
++		goto err_shrinker;
 +
-+	err = register_shrinker(sbi->s_es_shrinker, "ext4-es:%s",
- 				sbi->s_sb->s_id);
- 	if (err)
--		goto err4;
-+		goto err5;
++	if (register_shrinker(journal->j_shrinker, "jbd2-journal:(%u:%u)",
++			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev)))
++		goto err_register;
++
+ 	return journal;
  
- 	return 0;
-+err5:
-+	shrinker_free(sbi->s_es_shrinker);
- err4:
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
- err3:
-@@ -1716,7 +1719,7 @@ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
--	unregister_shrinker(&sbi->s_es_shrinker);
-+	unregister_and_free_shrinker(sbi->s_es_shrinker);
- }
++err_register:
++	shrinker_free(journal->j_shrinker);
++err_shrinker:
++	percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+ err_cleanup:
+ 	brelse(journal->j_sb_buffer);
+ 	kfree(journal->j_wbuf);
+@@ -2190,9 +2196,9 @@ int jbd2_journal_destroy(journal_t *journal)
+ 		brelse(journal->j_sb_buffer);
+ 	}
  
- /*
+-	if (journal->j_shrinker.flags & SHRINKER_REGISTERED) {
++	if (journal->j_shrinker->flags & SHRINKER_REGISTERED) {
+ 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+-		unregister_shrinker(&journal->j_shrinker);
++		unregister_and_free_shrinker(journal->j_shrinker);
+ 	}
+ 	if (journal->j_proc_entry)
+ 		jbd2_stats_proc_exit(journal);
+diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
+index 44c298aa58d4..beb4c4586320 100644
+--- a/include/linux/jbd2.h
++++ b/include/linux/jbd2.h
+@@ -891,7 +891,7 @@ struct journal_s
+ 	 * Journal head shrinker, reclaim buffer's journal head which
+ 	 * has been written back.
+ 	 */
+-	struct shrinker		j_shrinker;
++	struct shrinker		*j_shrinker;
+ 
+ 	/**
+ 	 * @j_checkpoint_jh_count:
 -- 
 2.30.2
 
