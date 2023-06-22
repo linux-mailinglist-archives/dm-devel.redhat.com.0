@@ -2,92 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 97A4B73AFEB
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:00 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 43D7B73AFF9
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498019;
+	s=mimecast20190719; t=1687498022;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=d3XFzGyoc+1yUQFGNl5mpyNZU2MxwXQplnbhhbw32Q0=;
-	b=RI29Z8evtZSQYznKis6FrVvUEG/wPCzH8p4FvNR8xm1SsSQvl96uVtLWuaj/JHV8q6hIXD
-	OcDhFSweG0j6Y/oDTN3CDeY2X02FVvQLOLHKeZAiXLWTNFPiNPUNjPnzXs4jTlTf5rHCdq
-	VxsEvObYvQWvvt83QFcxG6fgZ7kiQLY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=YWeNSD+PxA7qp9XRsuWz9O6Mq+oETYfFNaRyUByxrTg=;
+	b=FcpzeKzr1yUzt1FQK3n/CuCxjR6DRBpxztgj26A4N6s3pEjFR+mxGiCAROQ/r7/GWrzLyT
+	ONcMXupCYeaIXaDWz6/CZt0Bizql5WCXaEdDpScVtk3b9+9V1HVVlHq8nS797F7D1uLhLn
+	9Rgoh8JNVnEDKOf5HHVAPZtyqc+WEHM=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-16-H8SVkXenN8-jBNTEgOCxEA-1; Fri, 23 Jun 2023 01:26:53 -0400
-X-MC-Unique: H8SVkXenN8-jBNTEgOCxEA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-323-r7ShdCtnNDevGCE3fkIrSQ-1; Fri, 23 Jun 2023 01:26:56 -0400
+X-MC-Unique: r7ShdCtnNDevGCE3fkIrSQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 147891064B11;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8B01A3C1CAE8;
 	Fri, 23 Jun 2023 05:26:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EC28CF41C8;
-	Fri, 23 Jun 2023 05:26:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6F19BC478C8;
+	Fri, 23 Jun 2023 05:26:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 75FA6194E119;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AAD9A194E12A;
 	Fri, 23 Jun 2023 05:25:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 14C811946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:57:03 +0000 (UTC)
+ ESMTP id C0BE31946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:57:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F368A207B2BD; Thu, 22 Jun 2023 08:57:02 +0000 (UTC)
+ id 9E8CCC1ED97; Thu, 22 Jun 2023 08:57:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E9A43200A3AD
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:57:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF42B1044591
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:57:02 +0000 (UTC)
-Received: from mail-pl1-f172.google.com (mail-pl1-f172.google.com
- [209.85.214.172]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 96633C1ED96
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:57:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C0D33C13512
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:57:10 +0000 (UTC)
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
+ [209.85.215.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-343-8wDuwU0oMkCF7-VglQaoAw-1; Thu, 22 Jun 2023 04:57:00 -0400
-X-MC-Unique: 8wDuwU0oMkCF7-VglQaoAw-1
-Received: by mail-pl1-f172.google.com with SMTP id
- d9443c01a7336-1b52418c25bso12035555ad.0
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:57:00 -0700 (PDT)
+ us-mta-440-IBd9Oo7NO_m-gSg4jFlCqw-1; Thu, 22 Jun 2023 04:57:08 -0400
+X-MC-Unique: IBd9Oo7NO_m-gSg4jFlCqw-1
+Received: by mail-pg1-f181.google.com with SMTP id
+ 41be03b00d2f7-54fd4a7ce25so1096460a12.0
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:57:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424219; x=1690016219;
+ d=1e100.net; s=20221208; t=1687424227; x=1690016227;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=kOpMuT1tSay47KCV2B0lCCsOSa7MUah7TRoPRzKvzWA=;
- b=eVHyy/Lsfv3zTTkuLDjs8xjRvChq9HEGhBH4qjsKIud/V0ogGQrqVoEZy2XPCEzxtX
- gduRWqwfY5i7kllsOUgIRvzmxX4MYWst4D1IBNVM/9BUmSwPddyVxoko+j/yZD1z6gtH
- 7V6E8f9lvLlsmwP5KjL9rvOr3WdjNQxKkfKAbhq3CumxWd5IU1RG/rl4W6wG+KDKKzkp
- ZYzU9jhQqjXjKQi3W/d1fDAnIzVOq6FdB5Adr291q9tU7qfeVgRg+aogTqLZ2OA1xHOn
- zJS8xDWQiRR8ln9SXTCKcXRckdULKVnTKZbqdoqLDIGVmhOcJODsLmATV6Bf+NjmE6ER
- svsA==
-X-Gm-Message-State: AC+VfDwhhz/ZUAUI7maXKvE7Fto8wB9Coyj1tWj6jkCjCxhLimaK+pON
- j1VCjIKwzdMNZpj08x82Pw56tg==
-X-Google-Smtp-Source: ACHHUZ7DqrxYhESUqlF1zio/fEoWG5nPFDtKmAeSV45runPF4798dCp+1eyZAVtYptcjl0nDKDsZDg==
-X-Received: by 2002:a17:903:230c:b0:1b3:ec39:f42c with SMTP id
- d12-20020a170903230c00b001b3ec39f42cmr21844690plh.5.1687424219648; 
- Thu, 22 Jun 2023 01:56:59 -0700 (PDT)
+ bh=ZsvVWwvjCNbIpzLWR+JMbRdqcPMoA6IncSRNtrMJjtk=;
+ b=RsySG8SKaiQCDH5SGRswElmECvt9eiudzvBSoblpkDctOEn04A8NuJFQQDlZTg+kdb
+ HLJXpqM4hBs+mQP6q5tFsiqaFn3nxqFZklnDEIXTVF/50yOm9e66C8SK35xH/1Vr1TOb
+ E1tECiV022JO2fcgSIORA9aPqdTKJh26OuTEKjAM9CIWxyTQDjnzqoX2ENmyaJYyuL2a
+ P/JRnDkf140weuZ1AT4lBU52RtwLDihO5BhRvDWy+zXn/cYEY50dxHKZXw+hRdcquTTv
+ ToJUay3HOO6q9kIiYzM0+vnX/dKrG2fFlgkwt4lOwVdyb8QioIQM6KBaWjIuoPpTm4gO
+ VSTQ==
+X-Gm-Message-State: AC+VfDy81NcUiMuMuSFIDdI5ja7JXdZxy1iCS9WQ8uzAcZW/aBSOl123
+ +atl4C/QuA2lJz+rePmWQSfTgQ==
+X-Google-Smtp-Source: ACHHUZ6IzlQYehvkbwm6qTB7qvbww6jKgEwXRnqs2X+ZAvHSdOqqO5hMcbKXrRtXSYnzqJ1v0JsE2A==
+X-Received: by 2002:a17:903:1105:b0:1b3:ebda:654e with SMTP id
+ n5-20020a170903110500b001b3ebda654emr20780380plh.5.1687424227653; 
+ Thu, 22 Jun 2023 01:57:07 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.56.52
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.57.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:56:59 -0700 (PDT)
+ Thu, 22 Jun 2023 01:57:07 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:28 +0800
-Message-Id: <20230622085335.77010-23-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 16:53:29 +0800
+Message-Id: <20230622085335.77010-24-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -98,9 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 22/29] drm/ttm: introduce pool_shrink_rwsem
+Subject: [dm-devel] [PATCH 23/29] mm: shrinker: add refcount and
+ completion_wait fields
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,115 +122,84 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Currently, the synchronize_shrinkers() is only used by TTM
-pool. It only requires that no shrinkers run in parallel.
+This commit introduces refcount and completion_wait
+fields to struct shrinker to manage the life cycle
+of shrinker instance.
 
-After we use RCU+refcount method to implement the lockless
-slab shrink, we can not use shrinker_rwsem or synchronize_rcu()
-to guarantee that all shrinker invocations have seen an update
-before freeing memory.
-
-So we introduce a new pool_shrink_rwsem to implement a private
-synchronize_shrinkers(), so as to achieve the same purpose.
+Just a preparation work for implementing the lockless
+slab shrink, no functional changes.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/gpu/drm/ttm/ttm_pool.c | 15 +++++++++++++++
- include/linux/shrinker.h       |  1 -
- mm/vmscan.c                    | 15 ---------------
- 3 files changed, 15 insertions(+), 16 deletions(-)
+ include/linux/shrinker.h | 11 +++++++++++
+ mm/vmscan.c              |  5 +++++
+ 2 files changed, 16 insertions(+)
 
-diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
-index cddb9151d20f..713b1c0a70e1 100644
---- a/drivers/gpu/drm/ttm/ttm_pool.c
-+++ b/drivers/gpu/drm/ttm/ttm_pool.c
-@@ -74,6 +74,7 @@ static struct ttm_pool_type global_dma32_uncached[MAX_ORDER + 1];
- static spinlock_t shrinker_lock;
- static struct list_head shrinker_list;
- static struct shrinker mm_shrinker;
-+static DECLARE_RWSEM(pool_shrink_rwsem);
- 
- /* Allocate pages of size 1 << order with the given gfp_flags */
- static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
-@@ -317,6 +318,7 @@ static unsigned int ttm_pool_shrink(void)
- 	unsigned int num_pages;
- 	struct page *p;
- 
-+	down_read(&pool_shrink_rwsem);
- 	spin_lock(&shrinker_lock);
- 	pt = list_first_entry(&shrinker_list, typeof(*pt), shrinker_list);
- 	list_move_tail(&pt->shrinker_list, &shrinker_list);
-@@ -329,6 +331,7 @@ static unsigned int ttm_pool_shrink(void)
- 	} else {
- 		num_pages = 0;
- 	}
-+	up_read(&pool_shrink_rwsem);
- 
- 	return num_pages;
- }
-@@ -572,6 +575,18 @@ void ttm_pool_init(struct ttm_pool *pool, struct device *dev,
- }
- EXPORT_SYMBOL(ttm_pool_init);
- 
-+/**
-+ * synchronize_shrinkers - Wait for all running shrinkers to complete.
-+ *
-+ * This is useful to guarantee that all shrinker invocations have seen an
-+ * update, before freeing memory, similar to rcu.
-+ */
-+static void synchronize_shrinkers(void)
-+{
-+	down_write(&pool_shrink_rwsem);
-+	up_write(&pool_shrink_rwsem);
-+}
-+
- /**
-  * ttm_pool_fini - Cleanup a pool
-  *
 diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-index 8e9ba6fa3fcc..4094e4c44e80 100644
+index 4094e4c44e80..7bfeb2f25246 100644
 --- a/include/linux/shrinker.h
 +++ b/include/linux/shrinker.h
-@@ -105,7 +105,6 @@ extern int __printf(2, 3) register_shrinker(struct shrinker *shrinker,
- 					    const char *fmt, ...);
- extern void unregister_shrinker(struct shrinker *shrinker);
- extern void free_prealloced_shrinker(struct shrinker *shrinker);
--extern void synchronize_shrinkers(void);
+@@ -4,6 +4,8 @@
  
- typedef unsigned long (*count_objects_cb)(struct shrinker *s,
- 					  struct shrink_control *sc);
+ #include <linux/atomic.h>
+ #include <linux/types.h>
++#include <linux/refcount.h>
++#include <linux/completion.h>
+ 
+ /*
+  * This struct is used to pass information from page reclaim to the shrinkers.
+@@ -70,6 +72,9 @@ struct shrinker {
+ 	int seeks;	/* seeks to recreate an obj */
+ 	unsigned flags;
+ 
++	refcount_t refcount;
++	struct completion completion_wait;
++
+ 	void *private_data;
+ 
+ 	/* These are for internal use */
+@@ -118,6 +123,12 @@ struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
+ void shrinker_free(struct shrinker *shrinker);
+ void unregister_and_free_shrinker(struct shrinker *shrinker);
+ 
++static inline void shrinker_put(struct shrinker *shrinker)
++{
++	if (refcount_dec_and_test(&shrinker->refcount))
++		complete(&shrinker->completion_wait);
++}
++
+ #ifdef CONFIG_SHRINKER_DEBUG
+ extern int shrinker_debugfs_add(struct shrinker *shrinker);
+ extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
 diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 64ff598fbad9..3a8d50ad6ff6 100644
+index 3a8d50ad6ff6..6f9c4750effa 100644
 --- a/mm/vmscan.c
 +++ b/mm/vmscan.c
-@@ -844,21 +844,6 @@ void unregister_and_free_shrinker(struct shrinker *shrinker)
- }
- EXPORT_SYMBOL(unregister_and_free_shrinker);
+@@ -740,6 +740,8 @@ void free_prealloced_shrinker(struct shrinker *shrinker)
+ void register_shrinker_prepared(struct shrinker *shrinker)
+ {
+ 	down_write(&shrinker_rwsem);
++	refcount_set(&shrinker->refcount, 1);
++	init_completion(&shrinker->completion_wait);
+ 	list_add_tail(&shrinker->list, &shrinker_list);
+ 	shrinker->flags |= SHRINKER_REGISTERED;
+ 	shrinker_debugfs_add(shrinker);
+@@ -794,6 +796,9 @@ void unregister_shrinker(struct shrinker *shrinker)
+ 	if (!(shrinker->flags & SHRINKER_REGISTERED))
+ 		return;
  
--/**
-- * synchronize_shrinkers - Wait for all running shrinkers to complete.
-- *
-- * This is equivalent to calling unregister_shrink() and register_shrinker(),
-- * but atomically and with less overhead. This is useful to guarantee that all
-- * shrinker invocations have seen an update, before freeing memory, similar to
-- * rcu.
-- */
--void synchronize_shrinkers(void)
--{
--	down_write(&shrinker_rwsem);
--	up_write(&shrinker_rwsem);
--}
--EXPORT_SYMBOL(synchronize_shrinkers);
--
- #define SHRINK_BATCH 128
- 
- static unsigned long do_shrink_slab(struct shrink_control *shrinkctl,
++	shrinker_put(shrinker);
++	wait_for_completion(&shrinker->completion_wait);
++
+ 	down_write(&shrinker_rwsem);
+ 	list_del(&shrinker->list);
+ 	shrinker->flags &= ~SHRINKER_REGISTERED;
 -- 
 2.30.2
 
