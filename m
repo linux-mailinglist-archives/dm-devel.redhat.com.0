@@ -2,72 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5AA6173AFF5
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id BD1FD73AFDB
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498021;
+	s=mimecast20190719; t=1687498008;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Sc4Lo2ibnsvwUGwHXFO09DJu2+WMVGTd963bz+xC3b8=;
-	b=ReVrje/r8PkvSeEGRXKVfk0bwzxdprKL4145DSVmlAlgNBVR3kI6LdexpLPVNbNgi1zfJd
-	XHppgRQMP/LRpOTa+4mhB4Da1nwRNZU3SudMQozL9tRm240VTMVQxbB5FNDCFvqBqUYwe2
-	XaGpJhX9PS67plNNyueI20/Z/nXKS1I=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ry/Py44SuHtTvKka/71Dj+3s6qL/UuaQYUDGNAYq2vQ=;
+	b=Na4EgGmWALxXF62XXOdvC64n3PpMk7pd08cidaf+1x7aBlNg0v6VkZEawNoIgc8uFepymO
+	NgfrR7pPoi9YaAeETrM8a2wpHaqT8I2xOQEzsXm7nmqvvZ0TW835VVXT7je37J7Q4a/K9A
+	oKBoxrlWeGnZQ5JV4jwGLTX/AWke0Js=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-192-cGjBWLYkNM6-HJXAAQwoQg-1; Fri, 23 Jun 2023 01:26:56 -0400
-X-MC-Unique: cGjBWLYkNM6-HJXAAQwoQg-1
+ us-mta-168-97Oqop__MUiYyRC0tzbqCg-1; Fri, 23 Jun 2023 01:26:38 -0400
+X-MC-Unique: 97Oqop__MUiYyRC0tzbqCg-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B26958E44FD;
-	Fri, 23 Jun 2023 05:26:22 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF4873C1C4C7;
+	Fri, 23 Jun 2023 05:26:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 94E02C478D0;
-	Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2081CC478D4;
+	Fri, 23 Jun 2023 05:25:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 495C3194F4B6;
-	Fri, 23 Jun 2023 05:25:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 847891946A54;
+	Fri, 23 Jun 2023 05:25:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F04E91946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
+ ESMTP id 989181946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:31:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DF8A4F5AC5; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
+ id A7117C1ED97; Thu, 22 Jun 2023 08:31:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D85A0440CB
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9F8CFC1ED96
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:31:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB4C688D542
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
-Received: from out-57.mta0.migadu.com (out-57.mta0.migadu.com
- [91.218.175.57]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 84E25385556F
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:31:50 +0000 (UTC)
+Received: from mail-oa1-f53.google.com (mail-oa1-f53.google.com
+ [209.85.160.53]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-652-jn24G3gJO76tk72s8-N70g-1; Thu, 22 Jun 2023 04:35:19 -0400
-X-MC-Unique: jn24G3gJO76tk72s8-N70g-1
-X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
- include these headers.
-From: Qi Zheng <qi.zheng@linux.dev>
-To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
- vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
- brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:24:27 +0000
-Message-Id: <20230622082454.4090236-3-qi.zheng@linux.dev>
-In-Reply-To: <20230622082454.4090236-1-qi.zheng@linux.dev>
-References: <20230622082454.4090236-1-qi.zheng@linux.dev>
+ us-mta-137-ggNDGcHLNkyQun8HLlQTFA-1; Thu, 22 Jun 2023 04:31:43 -0400
+X-MC-Unique: ggNDGcHLNkyQun8HLlQTFA-1
+Received: by mail-oa1-f53.google.com with SMTP id
+ 586e51a60fabf-1aa25c5cf0eso1108879fac.1
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:31:43 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687422703; x=1690014703;
+ h=content-transfer-encoding:in-reply-to:from:content-language
+ :references:cc:to:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=jRx5u0dIx9qFXm7I93dXe9q/QmQ9W+wUToPS3aLpk1M=;
+ b=BCgEi529vqyWgw7Z7B6dqkHM+Dt60U2/kOO2C4VnXI9WCUhbXgw6k/p2X7Q4v1NYbZ
+ IvVBdwTfq1Tj4UiZKUMW7JGl0i7J9ALFMqn6PzvcIQX24seG22u5sFVYuIMS+JlcSCcF
+ FzoLKOLKFR9R+8wqbbGVk8HRlkJH6qJK56nk/TDqXYFdSZtrgkjXs2CZYjlcMmnpFn2/
+ E6EjRxoXbStNRZjvgpdFM1XEGEdLZlNHCLrQUhwYwzclnn6J32YE2EC42zXGOD0K8nto
+ GtLSb/N8QpUp95Y+vFmvHWCbkX1aXqyCudMR26ZOjRLl/GNdhm0in+QXfKkZY8mdPYkz
+ X9rg==
+X-Gm-Message-State: AC+VfDwArujvNwCZ/PZtHH1U/8/6IGxFkEK/WYsTnHOgTiZfgTkr4/XB
+ N4X0mdG7WHA6kGLOTnkDxc/auQ==
+X-Google-Smtp-Source: ACHHUZ4rJo+IPtTRaPya+U1JdMgc+u3gA3krnJKF3F08hxGt0uoHrxZAqg1izlNZ+SOIkOa4AMphOQ==
+X-Received: by 2002:a05:6830:19c1:b0:6b1:6db4:556f with SMTP id
+ p1-20020a05683019c100b006b16db4556fmr10609999otp.3.1687422702698; 
+ Thu, 22 Jun 2023 01:31:42 -0700 (PDT)
+Received: from [10.4.168.167] ([139.177.225.254])
+ by smtp.gmail.com with ESMTPSA id
+ y17-20020a63e251000000b0050a0227a4bcsm4369684pgj.57.2023.06.22.01.31.24
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Thu, 22 Jun 2023 01:31:42 -0700 (PDT)
+Message-ID: <52bf599c-3c3a-7dfc-30b3-f3a2af5f29a8@bytedance.com>
+Date: Thu, 22 Jun 2023 16:31:22 +0800
 MIME-Version: 1.0
-X-Migadu-Flow: FLOW_OUT
+User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
+ Gecko/20100101 Thunderbird/102.12.0
+To: Qi Zheng <qi.zheng@linux.dev>, akpm@linux-foundation.org,
+ david@fromorbit.com, tkhai@ya.ru, vbabka@suse.cz, roman.gushchin@linux.dev,
+ djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+References: <20230622082454.4090236-1-qi.zheng@linux.dev>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+In-Reply-To: <20230622082454.4090236-1-qi.zheng@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -75,12 +101,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 02/29] mm: vmscan: introduce some helpers for
- dynamically allocating shrinker
+Subject: Re: [dm-devel] [External] [PATCH 00/29] use refcount+RCU method to
+ implement lockless slab shrink
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,8 +121,7 @@ Cc: mst@redhat.com, jasowang@redhat.com, dri-devel@lists.freedesktop.org,
  dm-devel@redhat.com, ray.huang@amd.com, namit@vmware.com,
  marijn.suijten@somainline.org, airlied@gmail.com, agk@redhat.com,
  robh@kernel.org, senozhatsky@chromium.org, david@redhat.com, clm@fb.com,
- steven.price@arm.com, alyssa.rosenzweig@collabora.com,
- Qi Zheng <zhengqi.arch@bytedance.com>, josef@toxicpanda.com,
+ steven.price@arm.com, alyssa.rosenzweig@collabora.com, josef@toxicpanda.com,
  linux-ext4@vger.kernel.org, kent.overstreet@gmail.com,
  xuanzhuo@linux.alibaba.com, linux-arm-msm@vger.kernel.org,
  intel-gfx@lists.freedesktop.org, snitzer@kernel.org, quic_abhinavk@quicinc.com,
@@ -115,108 +138,14 @@ Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.dev
-Content-Type: text/plain; charset="us-ascii"
+X-Mimecast-Originator: bytedance.com
+Content-Language: en-US
 Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-From: Qi Zheng <zhengqi.arch@bytedance.com>
+This patch set failed to send due to the following reasons, please ignore.
 
-Introduce some helpers for dynamically allocating shrinker instance,
-and their uses are as follows:
-
-1. shrinker_alloc_and_init()
-
-Used to allocate and initialize a shrinker instance, the priv_data
-parameter is used to pass the pointer of the previously embedded
-structure of the shrinker instance.
-
-2. shrinker_free()
-
-Used to free the shrinker instance when the registration of shrinker
-fails.
-
-3. unregister_and_free_shrinker()
-
-Used to unregister and free the shrinker instance, and the kfree()
-will be changed to kfree_rcu() later.
-
-Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
----
- include/linux/shrinker.h | 12 ++++++++++++
- mm/vmscan.c              | 35 +++++++++++++++++++++++++++++++++++
- 2 files changed, 47 insertions(+)
-
-diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-index 43e6fcabbf51..8e9ba6fa3fcc 100644
---- a/include/linux/shrinker.h
-+++ b/include/linux/shrinker.h
-@@ -107,6 +107,18 @@ extern void unregister_shrinker(struct shrinker *shrinker);
- extern void free_prealloced_shrinker(struct shrinker *shrinker);
- extern void synchronize_shrinkers(void);
- 
-+typedef unsigned long (*count_objects_cb)(struct shrinker *s,
-+					  struct shrink_control *sc);
-+typedef unsigned long (*scan_objects_cb)(struct shrinker *s,
-+					 struct shrink_control *sc);
-+
-+struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
-+					 scan_objects_cb scan, long batch,
-+					 int seeks, unsigned flags,
-+					 void *priv_data);
-+void shrinker_free(struct shrinker *shrinker);
-+void unregister_and_free_shrinker(struct shrinker *shrinker);
-+
- #ifdef CONFIG_SHRINKER_DEBUG
- extern int shrinker_debugfs_add(struct shrinker *shrinker);
- extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 45d17c7cc555..64ff598fbad9 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -809,6 +809,41 @@ void unregister_shrinker(struct shrinker *shrinker)
- }
- EXPORT_SYMBOL(unregister_shrinker);
- 
-+struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
-+					 scan_objects_cb scan, long batch,
-+					 int seeks, unsigned flags,
-+					 void *priv_data)
-+{
-+	struct shrinker *shrinker;
-+
-+	shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
-+	if (!shrinker)
-+		return NULL;
-+
-+	shrinker->count_objects = count;
-+	shrinker->scan_objects = scan;
-+	shrinker->batch = batch;
-+	shrinker->seeks = seeks;
-+	shrinker->flags = flags;
-+	shrinker->private_data = priv_data;
-+
-+	return shrinker;
-+}
-+EXPORT_SYMBOL(shrinker_alloc_and_init);
-+
-+void shrinker_free(struct shrinker *shrinker)
-+{
-+	kfree(shrinker);
-+}
-+EXPORT_SYMBOL(shrinker_free);
-+
-+void unregister_and_free_shrinker(struct shrinker *shrinker)
-+{
-+	unregister_shrinker(shrinker);
-+	kfree(shrinker);
-+}
-+EXPORT_SYMBOL(unregister_and_free_shrinker);
-+
- /**
-  * synchronize_shrinkers - Wait for all running shrinkers to complete.
-  *
--- 
-2.30.2
+	4.7.1 Error: too many recipients from 49.7.199.65
 
 --
 dm-devel mailing list
