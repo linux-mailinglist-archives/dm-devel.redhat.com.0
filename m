@@ -1,69 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1BD2B73AFD5
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:46 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EA1A973AFDA
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498005;
+	s=mimecast20190719; t=1687498008;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=CxcE1EaemCR5/R/y3/qwj0JV/P47LjGUKlerjotCnP0=;
-	b=AEGH4ScqeTg06iIgKMrd+j18FjiD0aR1OWcLLqk0LOjwEVI4wn34uRN4sYlLGZs79dDVTw
-	9EhW4BzlyFan+fVdhONi0UXY5rGjz0Zy8qWfru/LLlg9qWq7EHZiYzf+TIqQRHSnKerwcL
-	Ymqup350nWe0XM07igvklY5Uekhm0q0=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=uIYDD4P2Gvk7FxOEYasBngklav9eR4dlQn0DNSwGUQQ=;
+	b=UIS873yoeQtwceVMlUSZJJG03LbQWG4knTqN9e4JX4gWPUjcGLxx/U3BJrb04jjveTIYtj
+	N65ALT85QmW4GTDQrD/S61jEVlkxdGe6dyMCTNTqTHScfFg5/PKxDNqPT3X+W5aRaf5yjF
+	e73NknOH1stlGD8B3L5a/prsNPTXv1U=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-15-TaRhHEFNPc6auXAjDCNRgA-1; Fri, 23 Jun 2023 01:26:32 -0400
-X-MC-Unique: TaRhHEFNPc6auXAjDCNRgA-1
+ us-mta-502-RtePdAtOMfCIVOM7roQPSA-1; Fri, 23 Jun 2023 01:26:39 -0400
+X-MC-Unique: RtePdAtOMfCIVOM7roQPSA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC5BB384954E;
-	Fri, 23 Jun 2023 05:26:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEC391059442;
+	Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A01D5F41C8;
-	Fri, 23 Jun 2023 05:25:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B6683F5AE3;
+	Fri, 23 Jun 2023 05:25:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4505D194973F;
-	Fri, 23 Jun 2023 05:25:43 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9EC0F1949752;
+	Fri, 23 Jun 2023 05:25:44 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 223971946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:41:02 +0000 (UTC)
+ ESMTP id 7C10E1946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C88EE112132E; Thu, 22 Jun 2023 08:41:02 +0000 (UTC)
+ id 5BE2314682F8; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C163B112132C
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A42F18AB380
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:02 +0000 (UTC)
-Received: from out-39.mta1.migadu.com (out-39.mta1.migadu.com
- [95.215.58.39]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5456B14682F7
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33A1229AA381
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
+Received: from out-19.mta1.migadu.com (out-19.mta1.migadu.com
+ [95.215.58.19]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-257-kBkRh_SEPUCITWApHJcXNw-1; Thu, 22 Jun 2023 04:41:00 -0400
-X-MC-Unique: kBkRh_SEPUCITWApHJcXNw-1
+ us-mta-135-o4bAlfyUMDmunL0nLZLs6g-1; Thu, 22 Jun 2023 04:41:04 -0400
+X-MC-Unique: o4bAlfyUMDmunL0nLZLs6g-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:11 +0000
-Message-Id: <20230622083932.4090339-9-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 08:39:12 +0000
+Message-Id: <20230622083932.4090339-10-qi.zheng@linux.dev>
 In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
 References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
@@ -75,10 +76,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 08/29] md/raid5: dynamically allocate the
- md-raid5 shrinker
+Subject: [dm-devel] [PATCH 09/29] bcache: dynamically allocate the md-bcache
+ shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,100 +110,102 @@ Content-Transfer-Encoding: 7bit
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the md-raid5 shrinker,
+we need to dynamically allocate the md-bcache shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct r5conf.
+section when releasing the struct cache_set.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/md/raid5.c | 28 +++++++++++++++++-----------
- drivers/md/raid5.h |  2 +-
- 2 files changed, 18 insertions(+), 12 deletions(-)
+ drivers/md/bcache/bcache.h |  2 +-
+ drivers/md/bcache/btree.c  | 23 ++++++++++++++---------
+ drivers/md/bcache/sysfs.c  |  2 +-
+ 3 files changed, 16 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index f4eea1bbbeaf..4866cad1ad62 100644
---- a/drivers/md/raid5.c
-+++ b/drivers/md/raid5.c
-@@ -7391,7 +7391,7 @@ static void free_conf(struct r5conf *conf)
+diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
+index 700dc5588d5f..53c73b372e7a 100644
+--- a/drivers/md/bcache/bcache.h
++++ b/drivers/md/bcache/bcache.h
+@@ -541,7 +541,7 @@ struct cache_set {
+ 	struct bio_set		bio_split;
  
- 	log_exit(conf);
+ 	/* For the btree cache */
+-	struct shrinker		shrink;
++	struct shrinker		*shrink;
  
--	unregister_shrinker(&conf->shrinker);
-+	unregister_and_free_shrinker(conf->shrinker);
- 	free_thread_groups(conf);
- 	shrink_stripes(conf);
- 	raid5_free_percpu(conf);
-@@ -7439,7 +7439,7 @@ static int raid5_alloc_percpu(struct r5conf *conf)
- static unsigned long raid5_cache_scan(struct shrinker *shrink,
- 				      struct shrink_control *sc)
+ 	/* For the btree cache and anything allocation related */
+ 	struct mutex		bucket_lock;
+diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
+index 569f48958bde..1131ae91f62a 100644
+--- a/drivers/md/bcache/btree.c
++++ b/drivers/md/bcache/btree.c
+@@ -667,7 +667,7 @@ static int mca_reap(struct btree *b, unsigned int min_order, bool flush)
+ static unsigned long bch_mca_scan(struct shrinker *shrink,
+ 				  struct shrink_control *sc)
  {
--	struct r5conf *conf = container_of(shrink, struct r5conf, shrinker);
-+	struct r5conf *conf = shrink->private_data;
- 	unsigned long ret = SHRINK_STOP;
- 
- 	if (mutex_trylock(&conf->cache_size_mutex)) {
-@@ -7460,7 +7460,7 @@ static unsigned long raid5_cache_scan(struct shrinker *shrink,
- static unsigned long raid5_cache_count(struct shrinker *shrink,
- 				       struct shrink_control *sc)
+-	struct cache_set *c = container_of(shrink, struct cache_set, shrink);
++	struct cache_set *c = shrink->private_data;
+ 	struct btree *b, *t;
+ 	unsigned long i, nr = sc->nr_to_scan;
+ 	unsigned long freed = 0;
+@@ -734,7 +734,7 @@ static unsigned long bch_mca_scan(struct shrinker *shrink,
+ static unsigned long bch_mca_count(struct shrinker *shrink,
+ 				   struct shrink_control *sc)
  {
--	struct r5conf *conf = container_of(shrink, struct r5conf, shrinker);
-+	struct r5conf *conf = shrink->private_data;
+-	struct cache_set *c = container_of(shrink, struct cache_set, shrink);
++	struct cache_set *c = shrink->private_data;
  
- 	if (conf->max_nr_stripes < conf->min_nr_stripes)
- 		/* unlikely, but not impossible */
-@@ -7695,16 +7695,21 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	 * it reduces the queue depth and so can hurt throughput.
- 	 * So set it rather large, scaled by number of devices.
- 	 */
--	conf->shrinker.seeks = DEFAULT_SEEKS * conf->raid_disks * 4;
--	conf->shrinker.scan_objects = raid5_cache_scan;
--	conf->shrinker.count_objects = raid5_cache_count;
--	conf->shrinker.batch = 128;
--	conf->shrinker.flags = 0;
--	ret = register_shrinker(&conf->shrinker, "md-raid5:%s", mdname(mddev));
-+	conf->shrinker = shrinker_alloc_and_init(raid5_cache_count,
-+						 raid5_cache_scan, 128,
-+						 DEFAULT_SEEKS * conf->raid_disks * 4,
-+						 0, conf);
-+	if (!conf->shrinker) {
-+		pr_warn("md/raid:%s: couldn't allocate shrinker.\n",
-+			mdname(mddev));
-+		goto abort;
+ 	if (c->shrinker_disabled)
+ 		return 0;
+@@ -752,8 +752,8 @@ void bch_btree_cache_free(struct cache_set *c)
+ 
+ 	closure_init_stack(&cl);
+ 
+-	if (c->shrink.list.next)
+-		unregister_shrinker(&c->shrink);
++	if (c->shrink->list.next)
++		unregister_and_free_shrinker(c->shrink);
+ 
+ 	mutex_lock(&c->bucket_lock);
+ 
+@@ -828,14 +828,19 @@ int bch_btree_cache_alloc(struct cache_set *c)
+ 		c->verify_data = NULL;
+ #endif
+ 
+-	c->shrink.count_objects = bch_mca_count;
+-	c->shrink.scan_objects = bch_mca_scan;
+-	c->shrink.seeks = 4;
+-	c->shrink.batch = c->btree_pages * 2;
++	c->shrink = shrinker_alloc_and_init(bch_mca_count, bch_mca_scan,
++					    c->btree_pages * 2, 4, 0, c);
++	if (!c->shrink) {
++		pr_warn("bcache: %s: could not allocate shrinker\n",
++				__func__);
++		return -ENOMEM;
 +	}
-+
-+	ret = register_shrinker(conf->shrinker, "md-raid5:%s", mdname(mddev));
- 	if (ret) {
- 		pr_warn("md/raid:%s: couldn't register shrinker.\n",
- 			mdname(mddev));
--		goto abort;
-+		goto abort_shrinker;
+ 
+-	if (register_shrinker(&c->shrink, "md-bcache:%pU", c->set_uuid))
++	if (register_shrinker(c->shrink, "md-bcache:%pU", c->set_uuid)) {
+ 		pr_warn("bcache: %s: could not register shrinker\n",
+ 				__func__);
++		shrinker_free(c->shrink);
++	}
+ 
+ 	return 0;
+ }
+diff --git a/drivers/md/bcache/sysfs.c b/drivers/md/bcache/sysfs.c
+index c6f677059214..771577581f52 100644
+--- a/drivers/md/bcache/sysfs.c
++++ b/drivers/md/bcache/sysfs.c
+@@ -866,7 +866,7 @@ STORE(__bch_cache_set)
+ 
+ 		sc.gfp_mask = GFP_KERNEL;
+ 		sc.nr_to_scan = strtoul_or_return(buf);
+-		c->shrink.scan_objects(&c->shrink, &sc);
++		c->shrink->scan_objects(c->shrink, &sc);
  	}
  
- 	sprintf(pers_name, "raid%d", mddev->new_level);
-@@ -7717,7 +7722,8 @@ static struct r5conf *setup_conf(struct mddev *mddev)
- 	}
- 
- 	return conf;
--
-+abort_shrinker:
-+	shrinker_free(conf->shrinker);
-  abort:
- 	if (conf)
- 		free_conf(conf);
-diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
-index 6a92fafb0748..806f84681599 100644
---- a/drivers/md/raid5.h
-+++ b/drivers/md/raid5.h
-@@ -670,7 +670,7 @@ struct r5conf {
- 	wait_queue_head_t	wait_for_stripe;
- 	wait_queue_head_t	wait_for_overlap;
- 	unsigned long		cache_state;
--	struct shrinker		shrinker;
-+	struct shrinker		*shrinker;
- 	int			pool_size; /* number of disks in stripeheads in pool */
- 	spinlock_t		device_lock;
- 	struct disk_info	*disks;
+ 	sysfs_strtoul_clamp(congested_read_threshold_us,
 -- 
 2.30.2
 
