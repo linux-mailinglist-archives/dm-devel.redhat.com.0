@@ -2,93 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E02FB73AFD2
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:43 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BC2F73AFFF
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498002;
+	s=mimecast20190719; t=1687498023;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=h1IIK8MCWGMMkOnlqvKKgv7pF0Tn5oLhp/VYbHphoOs=;
-	b=a1U4JfsnEk7Bo1Qe4NlEOTWUUn0eswrPbGNaiMXyB/0iSkYnL2b5nJJ+c69PE7feE2AOXY
-	Jv274MWW78lTebBE8J+l9vdSV+uzFIRVhXTLl37neMkQdo6YLK8QKEa0Q8UQKDK03Jp42X
-	UtdaicmF31jrS6mFXYuGilziaEO3CyA=
+	bh=/KUNY2FAtutz9NNahifwi3DDrLTxNRQwB2lStK/xJkk=;
+	b=RFRsgn7ozKW6j2jhVTKsuabTK9+nr5ipSEx7Ly1EK931fT/2x0cAIbffv7cMhikOgLgXfS
+	uV5buCruSjMRWW1+iIawbUUPaCQgRCq6z6/1JA47zlOOAfWy345ipTCUvWG9zGsGsSnxEV
+	f9cEkkIarvGkL10dz+ROfz7t6y2CdAI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-605-pt_yLt6QPmO9TCKhAR9umA-1; Fri, 23 Jun 2023 01:26:34 -0400
-X-MC-Unique: pt_yLt6QPmO9TCKhAR9umA-1
+ us-mta-311-6ZaxAaXVPXWCnrOI5fBfBw-1; Fri, 23 Jun 2023 01:26:59 -0400
+X-MC-Unique: 6ZaxAaXVPXWCnrOI5fBfBw-1
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B0F55101A528;
-	Fri, 23 Jun 2023 05:26:06 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 564918E44F5;
+	Fri, 23 Jun 2023 05:26:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 77062C478C9;
-	Fri, 23 Jun 2023 05:25:53 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3B824C478C8;
+	Fri, 23 Jun 2023 05:26:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 849B019451E0;
-	Fri, 23 Jun 2023 05:25:42 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E4E7419452C4;
+	Fri, 23 Jun 2023 05:25:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3166E1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:56:07 +0000 (UTC)
+ ESMTP id 772231946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:56:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1E59E41EF82; Thu, 22 Jun 2023 08:56:07 +0000 (UTC)
+ id 5A1C514682F8; Thu, 22 Jun 2023 08:56:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 179B6492C13
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:56:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 52654140EBB8
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:56:15 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1671185A78F
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:56:06 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 355613C1350B
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:56:15 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-318-oM8aJGsnMbKZ9XpmPotXLQ-1; Thu, 22 Jun 2023 04:56:05 -0400
-X-MC-Unique: oM8aJGsnMbKZ9XpmPotXLQ-1
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1b52418c25bso12033695ad.0
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:56:04 -0700 (PDT)
+ us-mta-246-6lkF0CTlML2mpqGp6salIw-1; Thu, 22 Jun 2023 04:56:13 -0400
+X-MC-Unique: 6lkF0CTlML2mpqGp6salIw-1
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-54fd4a7ce25so1096253a12.0
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:56:12 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424164; x=1690016164;
+ d=1e100.net; s=20221208; t=1687424172; x=1690016172;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=FWRSgLiVxGu7by+bRdZCMSZgL2CmyzCgjcAmFywfg3g=;
- b=IuCIn58QgXWkFUrIfdO+nUQRtH1V0Q2TgcAk79OZfbqd15ULrDoEBbuiVOgFTbdhmB
- hz+s0pSsKh6BkWXdsOTqtf6P8Y6QSatuoyq/AEdpEz5QLWsZcfGtINBuwlHhmvywFhDG
- 1XAkXFlGq250tDkzKLUS8b1i9XMcktX2eVjn+uH3QdUJJpqk8M1NRpXK67zkFNPrIH8k
- lTlzy21SFquTNIh/rE5m4tHF7n7Vle2gHkzgfhKuh9Q+Atd/783HH1rXrw0w3sGXK4aK
- HF9th/61RrpCSQaiuGc2srX3wVtUvzgnsoRBtW3BabFQy2wBfNWKTFFzoOOl4ioOIlYE
- BkBQ==
-X-Gm-Message-State: AC+VfDzvuJsmrm1f7S+9XfOMYibQHHW5k/pjErtvAxBaG5GDCT3Mg86o
- 9a9vCcCZsn2bbi8PKAAYnCWcUw==
-X-Google-Smtp-Source: ACHHUZ4nYFfrGKqZLYUWSywLes9hZrkxqoQAJfwtv5FmoHmc5MLCqSR93ZcAMHhMn41B6ov+vpDAfw==
-X-Received: by 2002:a17:902:ea01:b0:1b0:4680:60 with SMTP id
- s1-20020a170902ea0100b001b046800060mr21968987plg.1.1687424164102; 
- Thu, 22 Jun 2023 01:56:04 -0700 (PDT)
+ bh=zUNTs2D5J+Px6+8NyTz0IGsKdVlRq3fVdCNXQo6zMeo=;
+ b=li4ReaivtHYHec6GHOOIVwvv6JnTpB9adUvOeHHZz7dTcL7oiW9+B+bcfkdculNXRw
+ 9S+aNN4soU0/SxdUb7JI/zMOFBYBIDZHoSj4CsGurGs9I8xCQ7bHfsDf9ugMTjnvmXkQ
+ eMVNyWZTvfY9K5heY71OxbsihRGMXmDuWdnP3DJ6PmEpcF90Eds8aUtGKyr1Z5DCZkxF
+ T8vydDL7EJ4EoOidZjuv0zmPvi58Po0U3dc1Ej7ocdXKlhBHoY3AO4jDADDsZlqPltmk
+ UEhbT3PP9TPzJwB2EyBiauc3uzx4cYlB5RZdpJbSD4fv4w2hiL2GArB9gNh5BRhmU/Cv
+ xgpA==
+X-Gm-Message-State: AC+VfDzmeWF9Nepy3XWKXZ94kBKG9HPa8WPyLUl7+MIF/YAt6UqXmaB+
+ NtcnJEUZV+AC4O+0ZDA1au9QNg==
+X-Google-Smtp-Source: ACHHUZ7RZPPxDHHt9nXlq48w0UysjH5yX+GnVgYNyQdTPpVzG1MBfOvOCSKK+16aR/H5lLV5H8OFJg==
+X-Received: by 2002:a17:902:f688:b0:1ad:e3a8:3c4 with SMTP id
+ l8-20020a170902f68800b001ade3a803c4mr20681104plg.4.1687424171977; 
+ Thu, 22 Jun 2023 01:56:11 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.55.56
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.56.04
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:56:03 -0700 (PDT)
+ Thu, 22 Jun 2023 01:56:11 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:21 +0800
-Message-Id: <20230622085335.77010-16-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 16:53:22 +0800
+Message-Id: <20230622085335.77010-17-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -99,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 15/29] NFSD: dynamically allocate the nfsd-client
+Subject: [dm-devel] [PATCH 16/29] NFSD: dynamically allocate the nfsd-reply
  shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -130,78 +129,108 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the nfsd-client shrinker,
+we need to dynamically allocate the nfsd-reply shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
 section when releasing the struct nfsd_net.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- fs/nfsd/netns.h     |  2 +-
- fs/nfsd/nfs4state.c | 20 ++++++++++++--------
- 2 files changed, 13 insertions(+), 9 deletions(-)
+ fs/nfsd/netns.h    |  2 +-
+ fs/nfsd/nfscache.c | 33 +++++++++++++++++++--------------
+ 2 files changed, 20 insertions(+), 15 deletions(-)
 
 diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
-index ec49b200b797..f669444d5336 100644
+index f669444d5336..ab303a8b77d5 100644
 --- a/fs/nfsd/netns.h
 +++ b/fs/nfsd/netns.h
-@@ -195,7 +195,7 @@ struct nfsd_net {
- 	int			nfs4_max_clients;
+@@ -177,7 +177,7 @@ struct nfsd_net {
+ 	/* size of cache when we saw the longest hash chain */
+ 	unsigned int             longest_chain_cachesize;
  
- 	atomic_t		nfsd_courtesy_clients;
--	struct shrinker		nfsd_client_shrinker;
-+	struct shrinker		*nfsd_client_shrinker;
- 	struct work_struct	nfsd_shrinker_work;
- };
+-	struct shrinker		nfsd_reply_cache_shrinker;
++	struct shrinker		*nfsd_reply_cache_shrinker;
  
-diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
-index 6e61fa3acaf1..a06184270548 100644
---- a/fs/nfsd/nfs4state.c
-+++ b/fs/nfsd/nfs4state.c
-@@ -4388,8 +4388,7 @@ static unsigned long
- nfsd4_state_shrinker_count(struct shrinker *shrink, struct shrink_control *sc)
+ 	/* tracking server-to-server copy mounts */
+ 	spinlock_t              nfsd_ssc_lock;
+diff --git a/fs/nfsd/nfscache.c b/fs/nfsd/nfscache.c
+index 041faa13b852..ec33de8e418b 100644
+--- a/fs/nfsd/nfscache.c
++++ b/fs/nfsd/nfscache.c
+@@ -173,19 +173,23 @@ int nfsd_reply_cache_init(struct nfsd_net *nn)
+ 	if (status)
+ 		goto out_nomem;
+ 
+-	nn->nfsd_reply_cache_shrinker.scan_objects = nfsd_reply_cache_scan;
+-	nn->nfsd_reply_cache_shrinker.count_objects = nfsd_reply_cache_count;
+-	nn->nfsd_reply_cache_shrinker.seeks = 1;
+-	status = register_shrinker(&nn->nfsd_reply_cache_shrinker,
+-				   "nfsd-reply:%s", nn->nfsd_name);
+-	if (status)
+-		goto out_stats_destroy;
+-
+ 	nn->drc_hashtbl = kvzalloc(array_size(hashsize,
+ 				sizeof(*nn->drc_hashtbl)), GFP_KERNEL);
+ 	if (!nn->drc_hashtbl)
++		goto out_stats_destroy;
++
++	nn->nfsd_reply_cache_shrinker =
++		shrinker_alloc_and_init(nfsd_reply_cache_count,
++					nfsd_reply_cache_scan,
++					0, 1, 0, nn);
++	if (!nn->nfsd_reply_cache_shrinker)
+ 		goto out_shrinker;
+ 
++	status = register_shrinker(nn->nfsd_reply_cache_shrinker,
++				   "nfsd-reply:%s", nn->nfsd_name);
++	if (status)
++		goto out_register;
++
+ 	for (i = 0; i < hashsize; i++) {
+ 		INIT_LIST_HEAD(&nn->drc_hashtbl[i].lru_head);
+ 		spin_lock_init(&nn->drc_hashtbl[i].cache_lock);
+@@ -193,8 +197,11 @@ int nfsd_reply_cache_init(struct nfsd_net *nn)
+ 	nn->drc_hashsize = hashsize;
+ 
+ 	return 0;
++
++out_register:
++	shrinker_free(nn->nfsd_reply_cache_shrinker);
+ out_shrinker:
+-	unregister_shrinker(&nn->nfsd_reply_cache_shrinker);
++	kvfree(nn->drc_hashtbl);
+ out_stats_destroy:
+ 	nfsd_reply_cache_stats_destroy(nn);
+ out_nomem:
+@@ -207,7 +214,7 @@ void nfsd_reply_cache_shutdown(struct nfsd_net *nn)
+ 	struct svc_cacherep	*rp;
+ 	unsigned int i;
+ 
+-	unregister_shrinker(&nn->nfsd_reply_cache_shrinker);
++	unregister_and_free_shrinker(nn->nfsd_reply_cache_shrinker);
+ 
+ 	for (i = 0; i < nn->drc_hashsize; i++) {
+ 		struct list_head *head = &nn->drc_hashtbl[i].lru_head;
+@@ -297,8 +304,7 @@ prune_cache_entries(struct nfsd_net *nn)
+ static unsigned long
+ nfsd_reply_cache_count(struct shrinker *shrink, struct shrink_control *sc)
  {
- 	int count;
 -	struct nfsd_net *nn = container_of(shrink,
--			struct nfsd_net, nfsd_client_shrinker);
+-				struct nfsd_net, nfsd_reply_cache_shrinker);
 +	struct nfsd_net *nn = shrink->private_data;
  
- 	count = atomic_read(&nn->nfsd_courtesy_clients);
- 	if (!count)
-@@ -8094,14 +8093,19 @@ static int nfs4_state_create_net(struct net *net)
- 	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
- 	get_net(net);
+ 	return atomic_read(&nn->num_drc_entries);
+ }
+@@ -306,8 +312,7 @@ nfsd_reply_cache_count(struct shrinker *shrink, struct shrink_control *sc)
+ static unsigned long
+ nfsd_reply_cache_scan(struct shrinker *shrink, struct shrink_control *sc)
+ {
+-	struct nfsd_net *nn = container_of(shrink,
+-				struct nfsd_net, nfsd_reply_cache_shrinker);
++	struct nfsd_net *nn = shrink->private_data;
  
--	nn->nfsd_client_shrinker.scan_objects = nfsd4_state_shrinker_scan;
--	nn->nfsd_client_shrinker.count_objects = nfsd4_state_shrinker_count;
--	nn->nfsd_client_shrinker.seeks = DEFAULT_SEEKS;
--
--	if (register_shrinker(&nn->nfsd_client_shrinker, "nfsd-client"))
-+	nn->nfsd_client_shrinker = shrinker_alloc_and_init(nfsd4_state_shrinker_count,
-+							   nfsd4_state_shrinker_scan,
-+							   0, DEFAULT_SEEKS, 0,
-+							   nn);
-+	if (!nn->nfsd_client_shrinker)
- 		goto err_shrinker;
-+
-+	if (register_shrinker(nn->nfsd_client_shrinker, "nfsd-client"))
-+		goto err_register;
- 	return 0;
- 
-+err_register:
-+	shrinker_free(nn->nfsd_client_shrinker);
- err_shrinker:
- 	put_net(net);
- 	kfree(nn->sessionid_hashtbl);
-@@ -8197,7 +8201,7 @@ nfs4_state_shutdown_net(struct net *net)
- 	struct list_head *pos, *next, reaplist;
- 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
- 
--	unregister_shrinker(&nn->nfsd_client_shrinker);
-+	unregister_and_free_shrinker(nn->nfsd_client_shrinker);
- 	cancel_work(&nn->nfsd_shrinker_work);
- 	cancel_delayed_work_sync(&nn->laundromat_work);
- 	locks_end_grace(&nn->nfsd4_manager);
+ 	return prune_cache_entries(nn);
+ }
 -- 
 2.30.2
 
