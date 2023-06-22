@@ -1,198 +1,70 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 425CA73B009
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:07 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 96A5A73AFD7
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:46 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498026;
+	s=mimecast20190719; t=1687498005;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2pu3Gfo5iSaJ11b0tHIas9TeBaEINsAtTqbGA//hYDw=;
-	b=cqxaDl2qxJqZ9QYiA0JS+EKhm6f//DcoWl33Uev3QMfjpacQhf087dLRjdjaZ65EwGMAQl
-	68c4ApMKWx3fq9zK1Y2eN8Mu0p1Wfno0E4fzve884FbGEYZFzfR7EO0VFVHfPYoBapRNI8
-	37stjUVIFrIc/FxPd0aoYh0vv+YjV44=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=s5JntsLd1wwOb9RmWmJiRvjfWJkZyC0oxwOIZVteMI8=;
+	b=FOCQRwDsEnQvwW8g7JVbrGxkrYRBij68OYH4qxfvMAZe80DTM+NX7u6YGVkibAl97z305u
+	Ndc5lVYRPD/1x7T8crAwW1XjBRQbZLhBvf0Z7BSlDA8bovMbCjUZEUPFg9gQFB737gLmLo
+	K5+mJDH8A7o8/1iSUNCmuErW0qisXBk=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-149-GwQScOfiPvCL1BB1mHkC_g-1; Fri, 23 Jun 2023 01:27:02 -0400
-X-MC-Unique: GwQScOfiPvCL1BB1mHkC_g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-178-9Y_mQ2iEN_GyDzcq2RlCiA-1; Fri, 23 Jun 2023 01:26:40 -0400
+X-MC-Unique: 9Y_mQ2iEN_GyDzcq2RlCiA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 005E690ED29;
-	Fri, 23 Jun 2023 05:26:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DAAA81C06EE2;
+	Fri, 23 Jun 2023 05:26:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D701E40C6CD1;
-	Fri, 23 Jun 2023 05:26:20 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B7239492B01;
+	Fri, 23 Jun 2023 05:25:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4F89919376E7;
-	Fri, 23 Jun 2023 05:25:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1895219451FF;
+	Fri, 23 Jun 2023 05:25:43 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F3E5C1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 07:31:43 +0000 (UTC)
+ ESMTP id BA4871946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B5F59112132E; Thu, 22 Jun 2023 07:31:43 +0000 (UTC)
+ id 96B63112132E; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ACF33112132C
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 07:31:43 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8657D28EA6E3
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 07:31:43 +0000 (UTC)
-Received: from esa5.hc3370-68.iphmx.com (esa5.hc3370-68.iphmx.com
- [216.71.155.168]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-175-AFcvpSp3NMOm04N1-HoGSA-1; Thu, 22 Jun 2023 03:31:40 -0400
-X-MC-Unique: AFcvpSp3NMOm04N1-HoGSA-1
-X-IronPort-RemoteIP: 104.47.55.176
-X-IronPort-MID: 112451314
-X-IronPort-Reputation: None
-X-IronPort-Listener: OutboundMail
-X-IronPort-SenderGroup: RELAY_O365
-X-IronPort-MailFlowPolicy: $RELAYED
-IronPort-Data: A9a23:QPteUKLU3kPtFWuqFE+RM5UlxSXFcZb7ZxGr2PjKsXjdYENSgjIGn
- GofDW2PbPqOamf8L9x/YIizoUMHvpPSmIUxSwtlqX01Q3x08seUXt7xwmUcnc+xBpaaEB84t
- ZV2hv3odp1coqr0/0/1WlTZhSAgk/rOHvykU7Ss1hlZHWdMUD0mhQ9oh9k3i4tphcnRKw6Ws
- Jb5rta31GWNglaYCUpKrfrbwP9TlK6q4mhA4AZkPaojUGL2zBH5MrpOfcldEFOgKmVkNrbSb
- /rOyri/4lTY838FYj9yuu+mGqGiaue60Tmm0hK6aYD76vRxjnVaPpIAHOgdcS9qZwChxLid/
- jnvWauYEm/FNoWU8AgUvoIx/ytWZcWq85efSZSzXFD6I+QrvBIAzt03ZHzaM7H09c4vMH1i5
- /xIKgkVRU+GheGszZ6JFbZF05FLwMnDZOvzu1lG5BSAV7MMZ8CGRK/Ho9hFwD03m8ZCW+7EY
- NYUYiZuaxKGZABTPlAQC9Q1m+LAanvXKmUE7g7K4/dqpTGMkmSd05C0WDbRUsaNSshP2F6Ru
- 0rN/njjAwFcP9uaodaA2iv13LOSxHiiBOr+EpWlpsRlv1LDyVc2K0Q9SUmjqMGDkUqhDoc3x
- 0s8v3BGQbIJ3Ea1R9/0RAazoHOstxUZHd1KHIUS4Q6K0KbZ7hixAmkCUy4HadYj8sQxQFQC2
- ViTt9foAyF/9ryfTDSW8bL8hTO5MAARLGkfdWkFRw5D6N7myKkohx3OZtl5Eau/g8f6XzT9q
- xiJpjUljLU7jsMR0ai/u1fdjFqEqp2MQgMr6wH/RG+p7gplIoWiYuSA4FfYxexNIIaQUh+Ku
- 31ss8qT7uomCZCLiTzLQe8IWrqu4p6tKybAiFRiG50g8TWF+HO5e41UpjZkKy9BKcAFZS3ke
- mfQtBlX6ZsVO2GlBYdyYoS+TcAnzID6GNjlX+ySZd1LCrB9cAKC+yhqTU2dxWbglA4ri65XE
- YmdfMuwDWgyDaVh0SrwRu0Yl7Qsw0gWxWjTbZTg01Kr3NK2YH+TVKdAOl+JZeMR8qyJukPW/
- sxZOs/MzA9QOMX3ciPQ/KYQIEoMIHx9CZOeg85YbOmYOSJ9BXosTfTWxNsJfoV/g6VT0P/F4
- nynQUJe4F3ljHbDJEOBbXULVV/0dZN2rHZ+Nyp8O1+tgiInedz2s/lZcIYrd7468uAl1eRzU
- /QOZ8SHBLJIVyjD/DMeK5L6qeSOaSiWuO5HBAL9CBBXQnKqb1ehFgPMFuc3yBQzMw==
-IronPort-HdrOrdr: A9a23:smDzPa9nch/kvRImwsVuk+DpI+orL9Y04lQ7vn2ZKCY4TiX8ra
- uTdZsguiMc5Ax+ZJhko6HkBEDjexPhHO9OgLX5VI3KNGOKhILrFvAH0WKI+UyCJ8SRzJ866Y
- 5QN4R4Fd3sHRxboK/BkXCF+15M+qjkzElwv5a480tQ
-X-Talos-CUID: 9a23:fXMUfW7Kd72qpY4onNssrH8INtIlIn/k1FyPJk27E2tFeuLKYArF
-X-Talos-MUID: 9a23:9/W5lgrNfJOXgXS1HuwezywyDshX7PShM2UuyL4aqdGNDRZrPyjI2Q==
-X-IronPort-AV: E=Sophos;i="6.00,263,1681185600"; d="scan'208";a="112451314"
-Received: from mail-bn8nam12lp2176.outbound.protection.outlook.com (HELO
- NAM12-BN8-obe.outbound.protection.outlook.com) ([104.47.55.176])
- by ob1.hc3370-68.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES128-GCM-SHA256;
- 22 Jun 2023 03:31:28 -0400
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com (2603:10b6:a03:38d::21)
- by BY5PR03MB4999.namprd03.prod.outlook.com (2603:10b6:a03:1e7::16)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6521.24; Thu, 22 Jun
- 2023 07:31:17 +0000
-Received: from SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::1c83:1877:a68b:8902]) by SJ0PR03MB6423.namprd03.prod.outlook.com
- ([fe80::1c83:1877:a68b:8902%6]) with mapi id 15.20.6521.020; Thu, 22 Jun 2023
- 07:31:17 +0000
-Date: Thu, 22 Jun 2023 09:31:10 +0200
-From: Roger Pau =?utf-8?B?TW9ubsOp?= <roger.pau@citrix.com>
-To: Bart Van Assche <bvanassche@acm.org>
-Message-ID: <ZJP4vq6uol+4dSI4@Air-de-Roger>
-References: <20230621201237.796902-1-bvanassche@acm.org>
- <20230621201237.796902-8-bvanassche@acm.org>
-In-Reply-To: <20230621201237.796902-8-bvanassche@acm.org>
-X-ClientProxiedBy: LO3P265CA0029.GBRP265.PROD.OUTLOOK.COM
- (2603:10a6:600:387::7) To SJ0PR03MB6423.namprd03.prod.outlook.com
- (2603:10b6:a03:38d::21)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8ED36112132C
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CC368AB381
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:35:21 +0000 (UTC)
+Received: from out-29.mta0.migadu.com (out-29.mta0.migadu.com
+ [91.218.175.29]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-65-uUdhUDN2MU-t3phkjw_vJA-1; Thu, 22 Jun 2023 04:35:19 -0400
+X-MC-Unique: uUdhUDN2MU-t3phkjw_vJA-1
+X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
+ include these headers.
+From: Qi Zheng <qi.zheng@linux.dev>
+To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
+ vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
+ brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
+Date: Thu, 22 Jun 2023 08:24:25 +0000
+Message-Id: <20230622082454.4090236-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ0PR03MB6423:EE_|BY5PR03MB4999:EE_
-X-MS-Office365-Filtering-Correlation-Id: ffd0e94e-8294-43b4-15e3-08db72f2aa0e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0
-X-Microsoft-Antispam-Message-Info: DwPpC4c6MYf5AK6Vvmpuxs9j47UfpKDsj87guNNbFVe6s2VV230i4KgBSWYy5M5JtFRXGAL25RuDBp6Y7DX50qQFlRgVV00RyD+zoRrpOz0XW0U2MrsewE7sWuGNgwQLTIxqOc+pGpEnn1YK6cwemeC/FZUtB8WhH+6OkdK35tOgvrNsInrvQaYlAVhk1ueFbNniXepMreAf96NNvPGZYuoftfTx8uRiG+oE/Uzu4zrGog7xfCDMbgCLNOHElLhFpTO/V0iEOsl58kq3iLs5kMjkIO0oJc7L9NXaxWQ58iz1HRFjOhztJLkT6g1fdoZVwojIzQdvlB6Bd84u+EWxCw7HiOiBqu0pQXTRsPQmVW9XBEqvdoOqKOzhKLFtACZAr2IMvKnyx5UoHm8M+PTqC6BMoQ2Q8LupCFZeRhDjYnuRwFiC0Ibjs8qwk4Of8KUGE0XLyKLv0r6mQdisbg4vMqai8oV3YaO8GtWeV7WCSRxOUNbb1JNg5JOaPtIt5epIsJo38DXL2Tbbl5ir7Jem1LA3r97nXDoWyXl/cQYenBIq3VU/za1t8vOmCPohsD0tsEHJ74CS/VV63tb2eTEfPNFMO52DLwWbowKkMU2EaQM=
-X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
- IPV:NLI; SFV:NSPM; H:SJ0PR03MB6423.namprd03.prod.outlook.com; PTR:; CAT:NONE;
- SFS:(13230028)(7916004)(4636009)(396003)(39860400002)(376002)(346002)(366004)(136003)(451199021)(316002)(83380400001)(41300700001)(7416002)(5660300002)(2906002)(4744005)(85182001)(8936002)(8676002)(38100700002)(26005)(6506007)(6512007)(9686003)(6666004)(186003)(6486002)(66476007)(6916009)(4326008)(66556008)(66946007)(33716001)(82960400001)(478600001)(54906003)(86362001)(67856001);
- DIR:OUT; SFP:1101
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bDgremlMM0wwa28rZDhNdnFsTU9tbXFabzVFM2xpMlcvMitEa0Z4TUJubEdS?=
- =?utf-8?B?elNPV0N6cjVqMHkzM0pqY25kNmpURC81S0ZuU2hLSmJHMlVjMytkUmFCdHZp?=
- =?utf-8?B?Z2RlL29PclRsbklKRnhLaWFmNjlqRS85cUNhdFk2MUlqNHcyWTEydSsyYThK?=
- =?utf-8?B?Y0NtUFJraDZDWVZ4MWI3UzNCb0dtWFovNm1TUDIzQzdhcVVtOVZ0emxZNWQv?=
- =?utf-8?B?cDJ1YVQ5VFN0cy81b2lIRnlMaTV0Z2ZUNDhTVlFWbzFOaTJyeDNkOVlwLytp?=
- =?utf-8?B?NnlMbUp2c3FsaW9nSzN5V1oxWEllTEwwNktRNm03TUp2VHpOSzB5bVJNNi9u?=
- =?utf-8?B?YUdoaHRPQThyK1lRR2N3T1VaRXdCbE9LVkk0OGV0aVcvdlE5TFY3N1o5MDJm?=
- =?utf-8?B?MnRvaklrTnZIMHRCWnJ4c0NCU2ZLc3ZzRTdReXRrdmVMbHhFWktlT0FGdU9G?=
- =?utf-8?B?ZDdIWUtwMzJaN3BTanFXZVB2dCtpSlhOTHdPRDk4ZHUzVXViQ2JBeHVaOFlB?=
- =?utf-8?B?czBmRlhmSS9IU0tvR0xQeHl0OUNZWlhuNjJibGg1TzZyd0hoVW1OeTlqZlpS?=
- =?utf-8?B?Q1FjZ1cwV1BpMDRxQmpTQzViTTRqREFvWDA0MEYyd2Ztb0pEUC8rMUQ4RnBM?=
- =?utf-8?B?ZnFHa3N2NmUwenUvU0VKV3FPNzFUbnppYVk3MEE1T1JOM3pJRGlQd3BONG5s?=
- =?utf-8?B?ais5dWhOQUxTeHFwaFEzb3BxUGljMVpXVTBYOGphNFJiZGp6VlZQa3NwUXM3?=
- =?utf-8?B?OURuQUpPbC9XcytDb2JRSjBpVCt6dXRoUDQ3ekxWaFpZQW40bi9NelpaZ0tY?=
- =?utf-8?B?eVlLMTFSUWdyMzczN0ZCTFlnQk55MDR5dHg0MkpzUkVJNS85WHJlaGc3cldm?=
- =?utf-8?B?S2cyQmJMRGp6L1hXdFQ3cS9lb0h3US9sRHlHRTdDbTBjU0FMTUc1OU9QdW9y?=
- =?utf-8?B?NUhKVXFFOStUWjJjYVdTUW50aDR5TEdidGJrdlF4ZDVjaTl3akRaRU9DZG42?=
- =?utf-8?B?QnpJOFBFZllSSjZBY2R0bTF3ZFNKTlNLckFWaVUwd0MzeDVrM1VncDZFaWlr?=
- =?utf-8?B?QVdKNy9sTFNjMGFFQ1ppWFZnN2JEdXZsL3NPeUtEeWJYVnIwMlZZNkNZSTFo?=
- =?utf-8?B?cXgyRm1WT3VZNStyNFZlSXdhWjUzVENHNEErVnN2WXlDVmVPZUNmV1gyT2dI?=
- =?utf-8?B?SVNmU0g2SEFibXNiTHhsWkFLY0NwZ2trQ0ZOellWTVArZWZ2bzhTR1VvRFkx?=
- =?utf-8?B?N2RlbGFsaHFFT2JhZ2pxQnF6c09meWt2UW1kbzR0UTUxUE9vN1B3VlR2VG5N?=
- =?utf-8?B?SmxZTzM0U25NM3FRS3hDVEdxMUU1OU05WEQwaEtBSGdKYUVvQW5YcEtwSTlI?=
- =?utf-8?B?eUJ2NjJMWFM5ZDhpTStkMDUrb1JjbXdkMXpIT2V1M1BQRFJQVit1RUVicjZU?=
- =?utf-8?B?RlBkcDk0SHpRV1lzNUpQSENjTVZrMlhKY2Z4ekhQcWFHeC9SeUtKMWFSWUFG?=
- =?utf-8?B?THBvRzBueEZBQkp4Rm0zaTM0KzNXNGh4TDA1dzVqTmxpN25tWC9HdUZsVDhK?=
- =?utf-8?B?cGF0MkNORzdrTGJjNGxOc2pEN3U4UkJOdUZBVS9UbFNSUDM2eGFrRG9BRWx1?=
- =?utf-8?B?Rnc2R0tmMGYvT05QTzZPbWoxT01zRmhSRXBFSEh0N0ZWdlhMdFhSNFhFSThO?=
- =?utf-8?B?MElHOUxmWU1GenNkb2txWXNLYTc5YWFML0RXM1RNZC9vbVNqU3cvOWlxbzJV?=
- =?utf-8?B?VUxmTHdVZ1Q0Zm9lVVkxcE5rVTZBRFFhVEFpNXB4dFdYL1JDSGZVcUxOL1ZF?=
- =?utf-8?B?RmR3VkwrSkZKYkVYU0EwN0NReWluSFFCZWxqVzNnQ3d0SmdpQXNZS0tLTGEz?=
- =?utf-8?B?Tk8zSVd1L3N2L3BUbzgzQlZ2cFJjTTd3bFpXS3FTOENuWWh5UXdweW9JOXRB?=
- =?utf-8?B?cUxxZk1YdzFvenpWd3c2dWV4V0ZQbEcyTDhrUmpNZDM0YXdXSS9wcmxCOE9n?=
- =?utf-8?B?YjRXNnlhbkNqZHBQSmROeTl0LzNWZFlZY2pTQjVYcFEvblBGNTFBTmVlWUE5?=
- =?utf-8?B?dWdHQU4yNlVxeFVjVVZkZG5Nb0I2aHVES2VVazVkd0dEd2dMRVo0dnZuNkY5?=
- =?utf-8?Q?DSKnrAImnazTbFzeKzkapBfaq?=
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0: =?utf-8?B?cXhvRm1jTzQ5ZlhLYlpScG55amFNUVYrQlhyY3RpVmtiOEVPMDR0RkJUamhp?=
- =?utf-8?B?aU8vL0ZRdVNLYjNtUE1VRTFnSkc0UmZxSk0xbWdra2YxQ2RzRGtxN0VGckxx?=
- =?utf-8?B?Q2JFRExKWmxXVHVpcFNvQU0ydkkwYzUwbEZFeTNhcWd6dG5yL1VQK1JEekFU?=
- =?utf-8?B?RmUwSnFXdEMvamZlWUN6S3A5cUVGK2liVVpIdXRuTmRYYU9mdVBmODRUSHg2?=
- =?utf-8?B?Z3p2NU1VUnQ0SFpJTlZtdkxnc1dCWWx3VWFsNVBsVE8rR0F6NW9UMGUvM2dl?=
- =?utf-8?B?dmJudVNRU1ByZlJSZXExUldqcDB3cHo3OE1JaEdBL04zNkhZS1ZleEs3UXZQ?=
- =?utf-8?B?R0l5SThHSjJiYThnOVBWd0dLR3NEbFA2c1FKb1UyTTQzUnBLRThGVlFmb1VY?=
- =?utf-8?B?OWZCNnlwVDl3S25LdzVVaEpLbEtxWUJpMWpud1ZVQlNrV1lUS0w3bXNjd3dm?=
- =?utf-8?B?NkxELzF5TWVOVWxva2FHSkcvTFA4MHVpYXRWL2JSM0dyL3Z0RURPSHpVL1ZS?=
- =?utf-8?B?cEZWend1eEpGMGpjVE9OcGJqVHppYlorUy9FdjQ5YTh5cENESzI3ZmZ3ZExX?=
- =?utf-8?B?ZkVJd2VMWS8wVmI1Q2hUV3dQdTA0b1lGODJPMytiaEluMU1ENGZYVnE2MU9y?=
- =?utf-8?B?dE5uaHNpOHVGZHpkYU84M3ZzOXRUaHFsdm5IN21mdnJBUnR3cUxSbGF1b0R1?=
- =?utf-8?B?WStpbFFzK0lLOVdGMkJQVUJvQk9pSkYxTUZhWmVmSDhlNXZ1SHdncHVqZTBu?=
- =?utf-8?B?ZVRmVjlEbU80bUNEak9UZHcvNzdLdW1aQnoxNFE2Z1hVQVFESFZxR3AwdXlQ?=
- =?utf-8?B?ZGxRczZYbXZDRWhwbUdHeUc2eGhMSWJRU1dTaFFLRFVyTWh2L1NSY3hVYS91?=
- =?utf-8?B?dG1oMXF0RWNoTkN2dWJiRTE4NzJFbEp2Uy9KOCt1WXhFc09jNHY0dkVOd2x4?=
- =?utf-8?B?N0ZYUEU2bFRMM0EyQTQyRCtQTy9WUnY5QW9nSUpEd0R4REY4ai9RcGRVMVJp?=
- =?utf-8?B?ajErTTZvSFlxaUdEL0hDNXRMcWVuU1Y2R3NPSDNsc1JYR2srVTZqNytmWXhm?=
- =?utf-8?B?MnhROWFTL29rQThBSTQ2bi9uWUtzNlppaUwvYWl0dFJyRHJpaEpyekM5VTRP?=
- =?utf-8?B?NVlsRkVmRld3c25iQWZCVE94c3pzWk52eUpydERnV0NqZ1YrdXR0ZkhIN1I0?=
- =?utf-8?B?RjA2RXdia0h0VzlNeCtEcW5TN3pObWE1V1I1NzlNSVhiTGlQZS9ja0JoZ3J0?=
- =?utf-8?B?VEJSNkFVc1hkamFJTHZua3E5NU1TSmVGMjl2M09uL25zVVFoVm9ybzRBOXZn?=
- =?utf-8?Q?r4+M2IXxCalrZCgnPMgH7iDZKAsmYWD9vY?=
-X-OriginatorOrg: citrix.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ffd0e94e-8294-43b4-15e3-08db72f2aa0e
-X-MS-Exchange-CrossTenant-AuthSource: SJ0PR03MB6423.namprd03.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Jun 2023 07:31:16.7964 (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 335836de-42ef-43a2-b145-348c2ee9ca5b
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: 5iHjjPlZYx7iQD3cl6lg9PDELSowqHR+6OOv8J7jFsirjw5TXTXHAJjd0VoNjRoAH0U2+Jw85Ed/Eoi/WD/8ww==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR03MB4999
+X-Migadu-Flow: FLOW_OUT
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -202,8 +74,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: Re: [dm-devel] [PATCH v4 7/7] block: Inline blk_mq_{,
- delay_}kick_requeue_list()
+Subject: [dm-devel] [PATCH 00/29] use refcount+RCU method to implement
+ lockless slab shrink
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -215,39 +87,338 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Juergen Gross <jgross@suse.com>,
- Stefano Stabellini <sstabellini@kernel.org>, Sagi Grimberg <sagi@grimberg.me>,
- Vasily Gorbik <gor@linux.ibm.com>, Heiko Carstens <hca@linux.ibm.com>,
- Mike Snitzer <snitzer@kernel.org>, Ming Lei <ming.lei@redhat.com>,
- linux-block@vger.kernel.org, dm-devel@redhat.com,
- Damien Le Moal <dlemoal@kernel.org>, Vineeth Vijayan <vneethv@linux.ibm.com>,
- "Martin K. Petersen" <martin.petersen@oracle.com>,
- Keith Busch <kbusch@kernel.org>, Alexander Gordeev <agordeev@linux.ibm.com>,
- "James E.J. Bottomley" <jejb@linux.ibm.com>, Christoph Hellwig <hch@lst.de>,
- Alasdair Kergon <agk@redhat.com>
+Cc: mst@redhat.com, jasowang@redhat.com, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org, song@kernel.org,
+ dm-devel@redhat.com, ray.huang@amd.com, namit@vmware.com,
+ marijn.suijten@somainline.org, airlied@gmail.com, agk@redhat.com,
+ robh@kernel.org, senozhatsky@chromium.org, david@redhat.com, clm@fb.com,
+ steven.price@arm.com, alyssa.rosenzweig@collabora.com,
+ Qi Zheng <zhengqi.arch@bytedance.com>, josef@toxicpanda.com,
+ linux-ext4@vger.kernel.org, kent.overstreet@gmail.com,
+ xuanzhuo@linux.alibaba.com, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, snitzer@kernel.org, quic_abhinavk@quicinc.com,
+ colyli@suse.de, linux-raid@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-bcache@vger.kernel.org, viro@zeniv.linux.org.uk, dsterba@suse.com,
+ sean@poorly.run, linux-nfs@vger.kernel.org, tomeu.vizoso@collabora.com,
+ kolga@netapp.com, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, minchan@kernel.org, robdclark@gmail.com,
+ chuck.lever@oracle.com, daniel@ffwll.ch, jack@suse.com,
+ dmitry.baryshkov@linaro.org, adilger.kernel@dilger.ca,
+ freedreno@lists.freedesktop.org, christian.koenig@amd.com,
+ linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: citrix.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Mimecast-Originator: linux.dev
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gV2VkLCBKdW4gMjEsIDIwMjMgYXQgMDE6MTI6MzRQTSAtMDcwMCwgQmFydCBWYW4gQXNzY2hl
-IHdyb3RlOgo+IFBhdGNoICJibG9jazogUHJlc2VydmUgdGhlIG9yZGVyIG9mIHJlcXVldWVkIHJl
-cXVlc3RzIiBjaGFuZ2VkCj4gYmxrX21xX2tpY2tfcmVxdWV1ZV9saXN0KCkgYW5kIGJsa19tcV9k
-ZWxheV9raWNrX3JlcXVldWVfbGlzdCgpIGludG8KPiBibGtfbXFfcnVuX2h3X3F1ZXVlcygpIGFu
-ZCBibGtfbXFfZGVsYXlfcnVuX2h3X3F1ZXVlcygpIGNhbGxzCj4gcmVzcGVjdGl2ZWx5LiBJbmxp
-bmUgYmxrX21xX3ssZGVsYXlffWtpY2tfcmVxdWV1ZV9saXN0KCkgYmVjYXVzZSB0aGVzZQo+IGZ1
-bmN0aW9ucyBhcmUgbm93IHRvbyBzaG9ydCB0byBrZWVwIHRoZXNlIGFzIHNlcGFyYXRlIGZ1bmN0
-aW9ucy4KPiAKPiBBY2tlZC1ieTogVmluZWV0aCBWaWpheWFuIDx2bmVldGh2QGxpbnV4LmlibS5j
-b20+IFsgZm9yIHRoZSBzMzkwIGNoYW5nZXMgXQo+IENjOiBDaHJpc3RvcGggSGVsbHdpZyA8aGNo
-QGxzdC5kZT4KPiBDYzogRGFtaWVuIExlIE1vYWwgPGRsZW1vYWxAa2VybmVsLm9yZz4KPiBDYzog
-TWluZyBMZWkgPG1pbmcubGVpQHJlZGhhdC5jb20+Cj4gQ2M6IE1pa2UgU25pdHplciA8c25pdHpl
-ckBrZXJuZWwub3JnPgo+IFNpZ25lZC1vZmYtYnk6IEJhcnQgVmFuIEFzc2NoZSA8YnZhbmFzc2No
-ZUBhY20ub3JnPgoKRm9yIHRoZSBibGtmcm9udCBjaGFuZ2U6CgpBY2tlZC1ieTogUm9nZXIgUGF1
-IE1vbm7DqSA8cm9nZXIucGF1QGNpdHJpeC5jb20+CgpUaGFua3MsIFJvZ2VyLgoKLS0KZG0tZGV2
-ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhh
-dC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+
+Hi all,
+
+1. Background
+=============
+
+We used to implement the lockless slab shrink with SRCU [1], but then kernel
+test robot reported -88.8% regression in stress-ng.ramfs.ops_per_sec test
+case [2], so we reverted it [3].
+
+This patch series aims to re-implement the lockless slab shrink using the
+refcount+RCU method proposed by Dave Chinner [4].
+
+[1]. https://lore.kernel.org/lkml/20230313112819.38938-1-zhengqi.arch@bytedance.com/
+[2]. https://lore.kernel.org/lkml/202305230837.db2c233f-yujie.liu@intel.com/
+[3]. https://lore.kernel.org/all/20230609081518.3039120-1-qi.zheng@linux.dev/
+[4]. https://lore.kernel.org/lkml/ZIJhou1d55d4H1s0@dread.disaster.area/
+
+2. Implementation
+=================
+
+Currently, the shrinker instances can be divided into the following three types:
+
+a) global shrinker instance statically defined in the kernel, such as
+   workingset_shadow_shrinker.
+
+b) global shrinker instance statically defined in the kernel modules, such as
+   mmu_shrinker in x86.
+
+c) shrinker instance embedded in other structures.
+
+For *case a*, the memory of shrinker instance is never freed. For *case b*, the
+memory of shrinker instance will be freed after the module is unloaded. But we
+will call synchronize_rcu() in free_module() to wait for RCU read-side critical
+section to exit. For *case c*, we need to dynamically allocate these shrinker
+instances, then the memory of shrinker instance can be dynamically freed alone
+by calling kfree_rcu(). Then we can use rcu_read_{lock,unlock}() to ensure that
+the shrinker instance is valid.
+
+The shrinker::refcount mechanism ensures that the shrinker instance will not be
+run again after unregistration. So the structure that records the pointer of
+shrinker instance can be safely freed without waiting for the RCU read-side
+critical section.
+
+In this way, while we implement the lockless slab shrink, we don't need to be
+blocked in unregister_shrinker() to wait RCU read-side critical section.
+
+PATCH 1 ~ 2: infrastructure for dynamically allocating shrinker instances
+PATCH 3 ~ 21: dynamically allocate the shrinker instances in case c
+PATCH 22: introduce pool_shrink_rwsem to implement private synchronize_shrinkers()
+PATCH 23 ~ 28: implement the lockless slab shrink
+PATCH 29: move shrinker-related code into a separate file
+
+3. Testing
+==========
+
+3.1 slab shrink stress test
+---------------------------
+
+We can reproduce the down_read_trylock() hotspot through the following script:
+
+```
+
+DIR="/root/shrinker/memcg/mnt"
+
+do_create()
+{
+    mkdir -p /sys/fs/cgroup/memory/test
+    mkdir -p /sys/fs/cgroup/perf_event/test
+    echo 4G > /sys/fs/cgroup/memory/test/memory.limit_in_bytes
+    for i in `seq 0 $1`;
+    do
+        mkdir -p /sys/fs/cgroup/memory/test/$i;
+        echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
+        echo $$ > /sys/fs/cgroup/perf_event/test/cgroup.procs;
+        mkdir -p $DIR/$i;
+    done
+}
+
+do_mount()
+{
+    for i in `seq $1 $2`;
+    do
+        mount -t tmpfs $i $DIR/$i;
+    done
+}
+
+do_touch()
+{
+    for i in `seq $1 $2`;
+    do
+        echo $$ > /sys/fs/cgroup/memory/test/$i/cgroup.procs;
+        echo $$ > /sys/fs/cgroup/perf_event/test/cgroup.procs;
+            dd if=/dev/zero of=$DIR/$i/file$i bs=1M count=1 &
+    done
+}
+
+case "$1" in
+  touch)
+    do_touch $2 $3
+    ;;
+  test)
+    do_create 4000
+    do_mount 0 4000
+    do_touch 0 3000
+    ;;
+  *)
+    exit 1
+    ;;
+esac
+```
+
+Save the above script, then run test and touch commands. Then we can use the
+following perf command to view hotspots:
+
+perf top -U -F 999 [-g]
+
+1) Before applying this patchset:
+
+  35.34%  [kernel]             [k] down_read_trylock
+  18.44%  [kernel]             [k] shrink_slab
+  15.98%  [kernel]             [k] pv_native_safe_halt
+  15.08%  [kernel]             [k] up_read
+   5.33%  [kernel]             [k] idr_find
+   2.71%  [kernel]             [k] _find_next_bit
+   2.21%  [kernel]             [k] shrink_node
+   1.29%  [kernel]             [k] shrink_lruvec
+   0.66%  [kernel]             [k] do_shrink_slab
+   0.33%  [kernel]             [k] list_lru_count_one
+   0.33%  [kernel]             [k] __radix_tree_lookup
+   0.25%  [kernel]             [k] mem_cgroup_iter
+
+-   82.19%    19.49%  [kernel]                  [k] shrink_slab
+   - 62.00% shrink_slab
+        36.37% down_read_trylock
+        15.52% up_read
+        5.48% idr_find
+        3.38% _find_next_bit
+      + 0.98% do_shrink_slab
+
+2) After applying this patchset:
+
+  46.83%  [kernel]           [k] shrink_slab
+  20.52%  [kernel]           [k] pv_native_safe_halt
+   8.85%  [kernel]           [k] do_shrink_slab
+   7.71%  [kernel]           [k] _find_next_bit
+   1.72%  [kernel]           [k] xas_descend
+   1.70%  [kernel]           [k] shrink_node
+   1.44%  [kernel]           [k] shrink_lruvec
+   1.43%  [kernel]           [k] mem_cgroup_iter
+   1.28%  [kernel]           [k] xas_load
+   0.89%  [kernel]           [k] super_cache_count
+   0.84%  [kernel]           [k] xas_start
+   0.66%  [kernel]           [k] list_lru_count_one
+
+-   65.50%    40.44%  [kernel]                  [k] shrink_slab
+   - 22.96% shrink_slab
+        13.11% _find_next_bit
+      - 9.91% do_shrink_slab
+         - 1.59% super_cache_count
+              0.92% list_lru_count_one
+
+We can see that the first perf hotspot becomes shrink_slab, which is what we
+expect.
+
+3.2 registeration and unregisteration stress test
+-------------------------------------------------
+
+Run the command below to test:
+
+stress-ng --timeout 60 --times --verify --metrics-brief --ramfs 9 &
+
+1) Before applying this patchset:
+
+ setting to a 60 second run per stressor
+ dispatching hogs: 9 ramfs
+ stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
+ ramfs            880623     60.02      7.71    226.93     14671.45        3753.09
+ ramfs:
+          1 System Management Interrupt
+ for a 60.03s run time:
+    5762.40s available CPU time
+       7.71s user time   (  0.13%)
+     226.93s system time (  3.94%)
+     234.64s total time  (  4.07%)
+ load average: 8.54 3.06 2.11
+ passed: 9: ramfs (9)
+ failed: 0
+ skipped: 0
+ successful run completed in 60.03s (1 min, 0.03 secs)
+
+2) After applying this patchset:
+
+ setting to a 60 second run per stressor
+ dispatching hogs: 9 ramfs
+ stressor       bogo ops real time  usr time  sys time   bogo ops/s     bogo ops/s
+                           (secs)    (secs)    (secs)   (real time) (usr+sys time)
+ ramfs            847562     60.02      7.44    230.22     14120.66        3566.23
+ ramfs:
+          4 System Management Interrupts
+ for a 60.12s run time:
+    5771.95s available CPU time
+       7.44s user time   (  0.13%)
+     230.22s system time (  3.99%)
+     237.66s total time  (  4.12%)
+ load average: 8.18 2.43 0.84
+ passed: 9: ramfs (9)
+ failed: 0
+ skipped: 0
+ successful run completed in 60.12s (1 min, 0.12 secs)
+
+We can see that the ops/s has hardly changed.
+
+This series is based on next-20230613.
+
+Comments and suggestions are welcome.
+
+Thanks,
+Qi.
+
+Qi Zheng (29):
+  mm: shrinker: add shrinker::private_data field
+  mm: vmscan: introduce some helpers for dynamically allocating shrinker
+  drm/i915: dynamically allocate the i915_gem_mm shrinker
+  drm/msm: dynamically allocate the drm-msm_gem shrinker
+  drm/panfrost: dynamically allocate the drm-panfrost shrinker
+  dm: dynamically allocate the dm-bufio shrinker
+  dm zoned: dynamically allocate the dm-zoned-meta shrinker
+  md/raid5: dynamically allocate the md-raid5 shrinker
+  bcache: dynamically allocate the md-bcache shrinker
+  vmw_balloon: dynamically allocate the vmw-balloon shrinker
+  virtio_balloon: dynamically allocate the virtio-balloon shrinker
+  mbcache: dynamically allocate the mbcache shrinker
+  ext4: dynamically allocate the ext4-es shrinker
+  jbd2,ext4: dynamically allocate the jbd2-journal shrinker
+  NFSD: dynamically allocate the nfsd-client shrinker
+  NFSD: dynamically allocate the nfsd-reply shrinker
+  xfs: dynamically allocate the xfs-buf shrinker
+  xfs: dynamically allocate the xfs-inodegc shrinker
+  xfs: dynamically allocate the xfs-qm shrinker
+  zsmalloc: dynamically allocate the mm-zspool shrinker
+  fs: super: dynamically allocate the s_shrink
+  drm/ttm: introduce pool_shrink_rwsem
+  mm: shrinker: add refcount and completion_wait fields
+  mm: vmscan: make global slab shrink lockless
+  mm: vmscan: make memcg slab shrink lockless
+  mm: shrinker: make count and scan in shrinker debugfs lockless
+  mm: vmscan: hold write lock to reparent shrinker nr_deferred
+  mm: shrinkers: convert shrinker_rwsem to mutex
+  mm: shrinker: move shrinker-related code into a separate file
+
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c  |  27 +-
+ drivers/gpu/drm/i915/i915_drv.h               |   3 +-
+ drivers/gpu/drm/msm/msm_drv.h                 |   2 +-
+ drivers/gpu/drm/msm/msm_gem_shrinker.c        |  25 +-
+ drivers/gpu/drm/panfrost/panfrost_device.h    |   2 +-
+ .../gpu/drm/panfrost/panfrost_gem_shrinker.c  |  24 +-
+ drivers/gpu/drm/ttm/ttm_pool.c                |  15 +
+ drivers/md/bcache/bcache.h                    |   2 +-
+ drivers/md/bcache/btree.c                     |  23 +-
+ drivers/md/bcache/sysfs.c                     |   2 +-
+ drivers/md/dm-bufio.c                         |  23 +-
+ drivers/md/dm-cache-metadata.c                |   2 +-
+ drivers/md/dm-thin-metadata.c                 |   2 +-
+ drivers/md/dm-zoned-metadata.c                |  25 +-
+ drivers/md/raid5.c                            |  28 +-
+ drivers/md/raid5.h                            |   2 +-
+ drivers/misc/vmw_balloon.c                    |  16 +-
+ drivers/virtio/virtio_balloon.c               |  26 +-
+ fs/btrfs/super.c                              |   2 +-
+ fs/ext4/ext4.h                                |   2 +-
+ fs/ext4/extents_status.c                      |  21 +-
+ fs/jbd2/journal.c                             |  32 +-
+ fs/kernfs/mount.c                             |   2 +-
+ fs/mbcache.c                                  |  39 +-
+ fs/nfsd/netns.h                               |   4 +-
+ fs/nfsd/nfs4state.c                           |  20 +-
+ fs/nfsd/nfscache.c                            |  33 +-
+ fs/proc/root.c                                |   2 +-
+ fs/super.c                                    |  40 +-
+ fs/xfs/xfs_buf.c                              |  25 +-
+ fs/xfs/xfs_buf.h                              |   2 +-
+ fs/xfs/xfs_icache.c                           |  27 +-
+ fs/xfs/xfs_mount.c                            |   4 +-
+ fs/xfs/xfs_mount.h                            |   2 +-
+ fs/xfs/xfs_qm.c                               |  24 +-
+ fs/xfs/xfs_qm.h                               |   2 +-
+ include/linux/fs.h                            |   2 +-
+ include/linux/jbd2.h                          |   2 +-
+ include/linux/shrinker.h                      |  35 +-
+ mm/Makefile                                   |   4 +-
+ mm/shrinker.c                                 | 750 ++++++++++++++++++
+ mm/shrinker_debug.c                           |  26 +-
+ mm/vmscan.c                                   | 702 ----------------
+ mm/zsmalloc.c                                 |  28 +-
+ 44 files changed, 1128 insertions(+), 953 deletions(-)
+ create mode 100644 mm/shrinker.c
+
+-- 
+2.30.2
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
