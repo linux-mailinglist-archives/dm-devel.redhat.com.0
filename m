@@ -2,92 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6778C73B001
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0791D73AFE7
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:59 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498024;
+	s=mimecast20190719; t=1687498019;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=3rdkDBS6MNAcMIl4tMXUvujO3MqrNocZ46LVgZme9jc=;
-	b=H1foQMLDYJwybEy9dlWjxn70d2OfFcnh6C/KXF/kDMC2vHiV+R8kJ/ltrd2fTX4ETwpTyV
-	3NWTT0XE7qRomlu25ZJJtgNTFk5dBbVCR8v6pVVCYQu+5quG2PzBpMWTddWBOQQ3WiPWLg
-	6cSXvkN2OfWGgHRPQ7tF2YuNP+gnbxQ=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=J48ExnqOQ415jfTUPugnM6p9TLyCbnkNh9BM3cIea+Q=;
+	b=BEAvUc+kAK1SXzMMCg1BrgP+aCtY5GhX1PlvXKpFoCI91/BbWOJJ2zHdNrJNJqLJ2t1P6t
+	FxDLMysRrL/+hbp/ijdqWUjK3h8Fdb8LXOo+SUSuaE1dB0uoVUAB5f1NMK72O8jHlwNTW2
+	MVRRuo7ZWKt0GBPcRBen8gz2uc9xX78=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-290-yzM4LpowOZq9lo0osp4dRQ-1; Fri, 23 Jun 2023 01:26:59 -0400
-X-MC-Unique: yzM4LpowOZq9lo0osp4dRQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-304-vIYTOrEbMcyKHEL0PONFHA-1; Fri, 23 Jun 2023 01:26:54 -0400
+X-MC-Unique: vIYTOrEbMcyKHEL0PONFHA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6E64490ED2B;
-	Fri, 23 Jun 2023 05:26:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D3133C1CCC6;
+	Fri, 23 Jun 2023 05:26:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 57BB11121314;
-	Fri, 23 Jun 2023 05:26:16 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 554C7440CB;
+	Fri, 23 Jun 2023 05:26:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D85FB193774A;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6D4F619543A6;
 	Fri, 23 Jun 2023 05:25:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 341891946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:55:03 +0000 (UTC)
+ ESMTP id 3B5361946588
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:55:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0DED5425356; Thu, 22 Jun 2023 08:55:03 +0000 (UTC)
+ id 208CD1121339; Thu, 22 Jun 2023 08:55:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0640340D1A4
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:55:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DEFAD8C5860
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:55:02 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 177B3112132C
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:55:09 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CCF67185A7A2
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:55:09 +0000 (UTC)
+Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
+ [209.85.210.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-15-Upfa1qKiPCqTi04s05aWkw-1; Thu, 22 Jun 2023 04:55:00 -0400
-X-MC-Unique: Upfa1qKiPCqTi04s05aWkw-1
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-1b5585e84b4so6827215ad.0
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:54:59 -0700 (PDT)
+ us-mta-516-8rGma7WVO3q4YwPbkIlk-g-1; Thu, 22 Jun 2023 04:55:07 -0400
+X-MC-Unique: 8rGma7WVO3q4YwPbkIlk-g-1
+Received: by mail-pf1-f170.google.com with SMTP id
+ d2e1a72fcca58-668842bc50dso866101b3a.1
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 01:55:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687424099; x=1690016099;
+ d=1e100.net; s=20221208; t=1687424107; x=1690016107;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=8pXD3DmjPUfWk2+jjA+m+4zKKy0fC+8AwUsZhq2lRmk=;
- b=UBmlm6wVigk5K5w+HSa+aHpH4GH8vfJ5+D0yU7L+6g+Nir8kxbkzhNIfJraIOtOfYV
- 877pp/kIapDZ0fAJ4AwBlt438lGwlBWEgo3Qh2fUMHco9XFJp1ZjOO5fsVhU3lwOOMEB
- aw5fwe1dZrZJNbGO0aRJajFUiw1o4Y3V9XIOvUDJ+zyM4hXju5f7IoDGdM/nXL8wThNK
- yXrZdB5/DKGtWXeNY2xxG7ydhgDhaLtuuLX0Xd5lDKp0esJ2TreB0L1v77r8tAXCzgt3
- PEx+syPU0qhu+PI1fOCDS77QD5p4gw8gSQzH6F1edZC7L13Vdz00hjaK3UOeSOt1QdNQ
- rwBA==
-X-Gm-Message-State: AC+VfDzaI88s9h1r/gqUQ0bZswkmOaHFP3mb9jDIqchd2yoIra/TzxOx
- zuF/SocSOhivprf/S1OnjyWVuQ==
-X-Google-Smtp-Source: ACHHUZ6uW4WhSYRgUY2aQCit4ogoH8R/r57rghu14Eyu6d6WG0AvLb+rcmWHNr1Voea08aO5tIYo3Q==
-X-Received: by 2002:a17:902:ecc6:b0:1ae:1364:6086 with SMTP id
- a6-20020a170902ecc600b001ae13646086mr21600250plh.2.1687424099018; 
- Thu, 22 Jun 2023 01:54:59 -0700 (PDT)
+ bh=VJl14vOz0XQFz+azMteX8g8XWQLmhD27loPyzQxCyWo=;
+ b=HwylJ8EJ/GdgJuvxNgP3+L8JnaMAMNlYSMaHf9ZR8Xh4+m5h8YAxNasVsen5Mq5pWN
+ UBuLF9lVZotxcYBG6VXOlXHL+4p0kuTrhnwBcDADnwi0rlzRd4qN1rnk4C7dD5qO3HBJ
+ 7VlZGETnrA2xRvEv0WVppW6aid+bABXuUiW2gqSYknJ4NVa+jrucskg/Fs62/K0oK0wf
+ TECyuNsCQPTgs2MgJCzr6WC1FO+KSHaC2yQ1cltFJ4ecP/FmLQMdlxc6Pk5zhm9JFlyc
+ ZZidEgK7DFgzNILO9pgMrx9fx3ModhBd6Rzo0DjfaNswUKWQJEMvxDSBMYrY8AopzhMY
+ w0ow==
+X-Gm-Message-State: AC+VfDyd2c0ZRp+SvgzUPGQqZAWOlkPOF5LHHEDYOafi6oUsb6Gnvuj3
+ Cx+cpxMfHcm1RXO9qZy7MhqIig==
+X-Google-Smtp-Source: ACHHUZ4GugeqE/IaG8xLwh4Bzf5woebFV8d7i9CEhVh9D6pBJJ8ySrAWkjhYmHqxBxnT9m8efiqyXQ==
+X-Received: by 2002:a17:902:c945:b0:1ac:40f7:8b5a with SMTP id
+ i5-20020a170902c94500b001ac40f78b5amr21000858pla.3.1687424106926; 
+ Thu, 22 Jun 2023 01:55:06 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.54.51
+ h2-20020a170902f7c200b001b549fce345sm4806971plw.230.2023.06.22.01.54.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 22 Jun 2023 01:54:58 -0700 (PDT)
+ Thu, 22 Jun 2023 01:55:06 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 16:53:13 +0800
-Message-Id: <20230622085335.77010-8-zhengqi.arch@bytedance.com>
+Date: Thu, 22 Jun 2023 16:53:14 +0800
+Message-Id: <20230622085335.77010-9-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -98,10 +99,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 07/29] dm zoned: dynamically allocate the
- dm-zoned-meta shrinker
+Subject: [dm-devel] [PATCH 08/29] md/raid5: dynamically allocate the
+ md-raid5 shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -122,100 +123,107 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-ext4@vger.kernel.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the dm-zoned-meta shrinker,
+we need to dynamically allocate the md-raid5 shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct dmz_metadata.
+section when releasing the struct r5conf.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/md/dm-zoned-metadata.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ drivers/md/raid5.c | 28 +++++++++++++++++-----------
+ drivers/md/raid5.h |  2 +-
+ 2 files changed, 18 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
-index 9d3cca8e3dc9..41b10ffb968a 100644
---- a/drivers/md/dm-zoned-metadata.c
-+++ b/drivers/md/dm-zoned-metadata.c
-@@ -187,7 +187,7 @@ struct dmz_metadata {
- 	struct rb_root		mblk_rbtree;
- 	struct list_head	mblk_lru_list;
- 	struct list_head	mblk_dirty_list;
--	struct shrinker		mblk_shrinker;
-+	struct shrinker		*mblk_shrinker;
+diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
+index f4eea1bbbeaf..4866cad1ad62 100644
+--- a/drivers/md/raid5.c
++++ b/drivers/md/raid5.c
+@@ -7391,7 +7391,7 @@ static void free_conf(struct r5conf *conf)
  
- 	/* Zone allocation management */
- 	struct mutex		map_lock;
-@@ -615,7 +615,7 @@ static unsigned long dmz_shrink_mblock_cache(struct dmz_metadata *zmd,
- static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
- 					       struct shrink_control *sc)
+ 	log_exit(conf);
+ 
+-	unregister_shrinker(&conf->shrinker);
++	unregister_and_free_shrinker(conf->shrinker);
+ 	free_thread_groups(conf);
+ 	shrink_stripes(conf);
+ 	raid5_free_percpu(conf);
+@@ -7439,7 +7439,7 @@ static int raid5_alloc_percpu(struct r5conf *conf)
+ static unsigned long raid5_cache_scan(struct shrinker *shrink,
+ 				      struct shrink_control *sc)
  {
--	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
-+	struct dmz_metadata *zmd = shrink->private_data;
+-	struct r5conf *conf = container_of(shrink, struct r5conf, shrinker);
++	struct r5conf *conf = shrink->private_data;
+ 	unsigned long ret = SHRINK_STOP;
  
- 	return atomic_read(&zmd->nr_mblks);
- }
-@@ -626,7 +626,7 @@ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
- static unsigned long dmz_mblock_shrinker_scan(struct shrinker *shrink,
- 					      struct shrink_control *sc)
+ 	if (mutex_trylock(&conf->cache_size_mutex)) {
+@@ -7460,7 +7460,7 @@ static unsigned long raid5_cache_scan(struct shrinker *shrink,
+ static unsigned long raid5_cache_count(struct shrinker *shrink,
+ 				       struct shrink_control *sc)
  {
--	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
-+	struct dmz_metadata *zmd = shrink->private_data;
- 	unsigned long count;
+-	struct r5conf *conf = container_of(shrink, struct r5conf, shrinker);
++	struct r5conf *conf = shrink->private_data;
  
- 	spin_lock(&zmd->mblk_lock);
-@@ -2936,17 +2936,22 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	if (conf->max_nr_stripes < conf->min_nr_stripes)
+ 		/* unlikely, but not impossible */
+@@ -7695,16 +7695,21 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 	 * it reduces the queue depth and so can hurt throughput.
+ 	 * So set it rather large, scaled by number of devices.
  	 */
- 	zmd->min_nr_mblks = 2 + zmd->nr_map_blocks + zmd->zone_nr_bitmap_blocks * 16;
- 	zmd->max_nr_mblks = zmd->min_nr_mblks + 512;
--	zmd->mblk_shrinker.count_objects = dmz_mblock_shrinker_count;
--	zmd->mblk_shrinker.scan_objects = dmz_mblock_shrinker_scan;
--	zmd->mblk_shrinker.seeks = DEFAULT_SEEKS;
-+
-+	zmd->mblk_shrinker = shrinker_alloc_and_init(dmz_mblock_shrinker_count,
-+						     dmz_mblock_shrinker_scan,
-+						     0, DEFAULT_SEEKS, 0, zmd);
-+	if (!zmd->mblk_shrinker) {
-+		dmz_zmd_err(zmd, "allocate metadata cache shrinker failed");
-+		goto err;
+-	conf->shrinker.seeks = DEFAULT_SEEKS * conf->raid_disks * 4;
+-	conf->shrinker.scan_objects = raid5_cache_scan;
+-	conf->shrinker.count_objects = raid5_cache_count;
+-	conf->shrinker.batch = 128;
+-	conf->shrinker.flags = 0;
+-	ret = register_shrinker(&conf->shrinker, "md-raid5:%s", mdname(mddev));
++	conf->shrinker = shrinker_alloc_and_init(raid5_cache_count,
++						 raid5_cache_scan, 128,
++						 DEFAULT_SEEKS * conf->raid_disks * 4,
++						 0, conf);
++	if (!conf->shrinker) {
++		pr_warn("md/raid:%s: couldn't allocate shrinker.\n",
++			mdname(mddev));
++		goto abort;
 +	}
- 
- 	/* Metadata cache shrinker */
--	ret = register_shrinker(&zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
-+	ret = register_shrinker(zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
- 				MAJOR(dev->bdev->bd_dev),
- 				MINOR(dev->bdev->bd_dev));
++
++	ret = register_shrinker(conf->shrinker, "md-raid5:%s", mdname(mddev));
  	if (ret) {
- 		dmz_zmd_err(zmd, "Register metadata cache shrinker failed");
--		goto err;
-+		goto err_shrinker;
+ 		pr_warn("md/raid:%s: couldn't register shrinker.\n",
+ 			mdname(mddev));
+-		goto abort;
++		goto abort_shrinker;
  	}
  
- 	dmz_zmd_info(zmd, "DM-Zoned metadata version %d", zmd->sb_version);
-@@ -2982,6 +2987,8 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
- 	*metadata = zmd;
+ 	sprintf(pers_name, "raid%d", mddev->new_level);
+@@ -7717,7 +7722,8 @@ static struct r5conf *setup_conf(struct mddev *mddev)
+ 	}
  
- 	return 0;
-+err_shrinker:
-+	shrinker_free(zmd->mblk_shrinker);
- err:
- 	dmz_cleanup_metadata(zmd);
- 	kfree(zmd);
-@@ -2995,7 +3002,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
-  */
- void dmz_dtr_metadata(struct dmz_metadata *zmd)
- {
--	unregister_shrinker(&zmd->mblk_shrinker);
-+	unregister_and_free_shrinker(zmd->mblk_shrinker);
- 	dmz_cleanup_metadata(zmd);
- 	kfree(zmd);
- }
+ 	return conf;
+-
++abort_shrinker:
++	shrinker_free(conf->shrinker);
+  abort:
+ 	if (conf)
+ 		free_conf(conf);
+diff --git a/drivers/md/raid5.h b/drivers/md/raid5.h
+index 6a92fafb0748..806f84681599 100644
+--- a/drivers/md/raid5.h
++++ b/drivers/md/raid5.h
+@@ -670,7 +670,7 @@ struct r5conf {
+ 	wait_queue_head_t	wait_for_stripe;
+ 	wait_queue_head_t	wait_for_overlap;
+ 	unsigned long		cache_state;
+-	struct shrinker		shrinker;
++	struct shrinker		*shrinker;
+ 	int			pool_size; /* number of disks in stripeheads in pool */
+ 	spinlock_t		device_lock;
+ 	struct disk_info	*disks;
 -- 
 2.30.2
 
