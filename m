@@ -2,69 +2,68 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A6D0D73B007
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:06 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8996673AFEA
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498025;
+	s=mimecast20190719; t=1687498019;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Sc4Lo2ibnsvwUGwHXFO09DJu2+WMVGTd963bz+xC3b8=;
-	b=UhDbLymEf5Zjis9PjT6lqYon+ObtVLhyUwzwhu3Yk571aJ9jO2AJAx4nQRE1a7WzrgQUjL
-	B/zoCQPNFWXQ0btHxTQEi0Y4v1lX/0NAFYWpr04mVGoLEahmeiz/ZYGmfzJL1McZzPzm39
-	6247PW1eno3KLRrVUzlTO1DO6M56tyo=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Kzkrshsx4TDqaXTMv8c9JV0hCRpdQECQAA/05cWrkTQ=;
+	b=WrV/RytWsSR7LC3R985KIGBTtsdXuxRTNQ7IrcOMNauJa25s0wywMXbPPtBPCK5JDSecn3
+	Bs+nu0/sARIhbkvDGFDiS1kb3EuC/NQkBrnhMJvVpynWR7O5uPzBN9EozT14eewNdJIWX9
+	z4DF0zyZIoR4IoBXdQEnanXwGX1z8gY=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-460-lUa9aummP0iqkcMrNvZCAQ-1; Fri, 23 Jun 2023 01:26:59 -0400
-X-MC-Unique: lUa9aummP0iqkcMrNvZCAQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-670-YHNc-D5LPsGKMHWbrjOoSg-1; Fri, 23 Jun 2023 01:26:57 -0400
+X-MC-Unique: YHNc-D5LPsGKMHWbrjOoSg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C17928CC219;
-	Fri, 23 Jun 2023 05:26:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0E7891C0758E;
+	Fri, 23 Jun 2023 05:26:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A4C9CC478C6;
-	Fri, 23 Jun 2023 05:26:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E664140C6CD1;
+	Fri, 23 Jun 2023 05:26:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A61B919376B6;
-	Fri, 23 Jun 2023 05:25:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0336C193F51C;
+	Fri, 23 Jun 2023 05:25:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2B0751946588
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:50:25 +0000 (UTC)
+ ESMTP id 712181946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:50:30 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 0EA7FF5AC5; Thu, 22 Jun 2023 08:50:25 +0000 (UTC)
+ id 4A83C112132E; Thu, 22 Jun 2023 08:50:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 07182440CB
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:50:24 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 43002112132C
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:50:25 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DDBBA1C06ECC
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:50:24 +0000 (UTC)
-Received: from out-60.mta1.migadu.com (out-60.mta1.migadu.com
- [95.215.58.60]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 211CF88D0F3
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:50:25 +0000 (UTC)
+Received: from out-33.mta1.migadu.com (out-33.mta1.migadu.com
+ [95.215.58.33]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-73-JXXr9Ll0MnCvcnXyeLlK3A-1; Thu, 22 Jun 2023 04:50:22 -0400
-X-MC-Unique: JXXr9Ll0MnCvcnXyeLlK3A-1
+ us-mta-122-imAZ4PCdN3GquEB7rX35fA-1; Thu, 22 Jun 2023 04:50:23 -0400
+X-MC-Unique: imAZ4PCdN3GquEB7rX35fA-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:05 +0000
-Message-Id: <20230622083932.4090339-3-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 08:39:06 +0000
+Message-Id: <20230622083932.4090339-4-qi.zheng@linux.dev>
 In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
 References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
@@ -76,12 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Mimecast-Bulk-Signature: yes
-X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 02/29] mm: vmscan: introduce some helpers for
- dynamically allocating shrinker
+Subject: [dm-devel] [PATCH 03/29] drm/i915: dynamically allocate the
+ i915_gem_mm shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +100,7 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -111,100 +108,98 @@ Content-Transfer-Encoding: 7bit
 
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
-Introduce some helpers for dynamically allocating shrinker instance,
-and their uses are as follows:
-
-1. shrinker_alloc_and_init()
-
-Used to allocate and initialize a shrinker instance, the priv_data
-parameter is used to pass the pointer of the previously embedded
-structure of the shrinker instance.
-
-2. shrinker_free()
-
-Used to free the shrinker instance when the registration of shrinker
-fails.
-
-3. unregister_and_free_shrinker()
-
-Used to unregister and free the shrinker instance, and the kfree()
-will be changed to kfree_rcu() later.
+In preparation for implementing lockless slab shrink,
+we need to dynamically allocate the i915_gem_mm shrinker,
+so that it can be freed asynchronously by using kfree_rcu().
+Then it doesn't need to wait for RCU read-side critical
+section when releasing the struct drm_i915_private.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- include/linux/shrinker.h | 12 ++++++++++++
- mm/vmscan.c              | 35 +++++++++++++++++++++++++++++++++++
- 2 files changed, 47 insertions(+)
+ drivers/gpu/drm/i915/gem/i915_gem_shrinker.c | 27 ++++++++++----------
+ drivers/gpu/drm/i915/i915_drv.h              |  3 ++-
+ 2 files changed, 16 insertions(+), 14 deletions(-)
 
-diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
-index 43e6fcabbf51..8e9ba6fa3fcc 100644
---- a/include/linux/shrinker.h
-+++ b/include/linux/shrinker.h
-@@ -107,6 +107,18 @@ extern void unregister_shrinker(struct shrinker *shrinker);
- extern void free_prealloced_shrinker(struct shrinker *shrinker);
- extern void synchronize_shrinkers(void);
+diff --git a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+index 214763942aa2..4dcdace26a08 100644
+--- a/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
++++ b/drivers/gpu/drm/i915/gem/i915_gem_shrinker.c
+@@ -284,8 +284,7 @@ unsigned long i915_gem_shrink_all(struct drm_i915_private *i915)
+ static unsigned long
+ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ {
+-	struct drm_i915_private *i915 =
+-		container_of(shrinker, struct drm_i915_private, mm.shrinker);
++	struct drm_i915_private *i915 = shrinker->private_data;
+ 	unsigned long num_objects;
+ 	unsigned long count;
  
-+typedef unsigned long (*count_objects_cb)(struct shrinker *s,
-+					  struct shrink_control *sc);
-+typedef unsigned long (*scan_objects_cb)(struct shrinker *s,
-+					 struct shrink_control *sc);
-+
-+struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
-+					 scan_objects_cb scan, long batch,
-+					 int seeks, unsigned flags,
-+					 void *priv_data);
-+void shrinker_free(struct shrinker *shrinker);
-+void unregister_and_free_shrinker(struct shrinker *shrinker);
-+
- #ifdef CONFIG_SHRINKER_DEBUG
- extern int shrinker_debugfs_add(struct shrinker *shrinker);
- extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
-diff --git a/mm/vmscan.c b/mm/vmscan.c
-index 45d17c7cc555..64ff598fbad9 100644
---- a/mm/vmscan.c
-+++ b/mm/vmscan.c
-@@ -809,6 +809,41 @@ void unregister_shrinker(struct shrinker *shrinker)
+@@ -302,8 +301,8 @@ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ 	if (num_objects) {
+ 		unsigned long avg = 2 * count / num_objects;
+ 
+-		i915->mm.shrinker.batch =
+-			max((i915->mm.shrinker.batch + avg) >> 1,
++		i915->mm.shrinker->batch =
++			max((i915->mm.shrinker->batch + avg) >> 1,
+ 			    128ul /* default SHRINK_BATCH */);
+ 	}
+ 
+@@ -313,8 +312,7 @@ i915_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+ static unsigned long
+ i915_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+ {
+-	struct drm_i915_private *i915 =
+-		container_of(shrinker, struct drm_i915_private, mm.shrinker);
++	struct drm_i915_private *i915 = shrinker->private_data;
+ 	unsigned long freed;
+ 
+ 	sc->nr_scanned = 0;
+@@ -422,12 +420,15 @@ i915_gem_shrinker_vmap(struct notifier_block *nb, unsigned long event, void *ptr
+ 
+ void i915_gem_driver_register__shrinker(struct drm_i915_private *i915)
+ {
+-	i915->mm.shrinker.scan_objects = i915_gem_shrinker_scan;
+-	i915->mm.shrinker.count_objects = i915_gem_shrinker_count;
+-	i915->mm.shrinker.seeks = DEFAULT_SEEKS;
+-	i915->mm.shrinker.batch = 4096;
+-	drm_WARN_ON(&i915->drm, register_shrinker(&i915->mm.shrinker,
+-						  "drm-i915_gem"));
++	i915->mm.shrinker = shrinker_alloc_and_init(i915_gem_shrinker_count,
++						    i915_gem_shrinker_scan,
++						    4096, DEFAULT_SEEKS, 0,
++						    i915);
++	if (i915->mm.shrinker &&
++	    register_shrinker(i915->mm.shrinker, "drm-i915_gem")) {
++		shrinker_free(i915->mm.shrinker);
++		drm_WARN_ON(&i915->drm, 1);
++	}
+ 
+ 	i915->mm.oom_notifier.notifier_call = i915_gem_shrinker_oom;
+ 	drm_WARN_ON(&i915->drm, register_oom_notifier(&i915->mm.oom_notifier));
+@@ -443,7 +444,7 @@ void i915_gem_driver_unregister__shrinker(struct drm_i915_private *i915)
+ 		    unregister_vmap_purge_notifier(&i915->mm.vmap_notifier));
+ 	drm_WARN_ON(&i915->drm,
+ 		    unregister_oom_notifier(&i915->mm.oom_notifier));
+-	unregister_shrinker(&i915->mm.shrinker);
++	unregister_and_free_shrinker(i915->mm.shrinker);
  }
- EXPORT_SYMBOL(unregister_shrinker);
  
-+struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
-+					 scan_objects_cb scan, long batch,
-+					 int seeks, unsigned flags,
-+					 void *priv_data)
-+{
+ void i915_gem_shrinker_taints_mutex(struct drm_i915_private *i915,
+diff --git a/drivers/gpu/drm/i915/i915_drv.h b/drivers/gpu/drm/i915/i915_drv.h
+index b4cf6f0f636d..06b04428596d 100644
+--- a/drivers/gpu/drm/i915/i915_drv.h
++++ b/drivers/gpu/drm/i915/i915_drv.h
+@@ -163,7 +163,8 @@ struct i915_gem_mm {
+ 
+ 	struct notifier_block oom_notifier;
+ 	struct notifier_block vmap_notifier;
+-	struct shrinker shrinker;
++
 +	struct shrinker *shrinker;
-+
-+	shrinker = kzalloc(sizeof(struct shrinker), GFP_KERNEL);
-+	if (!shrinker)
-+		return NULL;
-+
-+	shrinker->count_objects = count;
-+	shrinker->scan_objects = scan;
-+	shrinker->batch = batch;
-+	shrinker->seeks = seeks;
-+	shrinker->flags = flags;
-+	shrinker->private_data = priv_data;
-+
-+	return shrinker;
-+}
-+EXPORT_SYMBOL(shrinker_alloc_and_init);
-+
-+void shrinker_free(struct shrinker *shrinker)
-+{
-+	kfree(shrinker);
-+}
-+EXPORT_SYMBOL(shrinker_free);
-+
-+void unregister_and_free_shrinker(struct shrinker *shrinker)
-+{
-+	unregister_shrinker(shrinker);
-+	kfree(shrinker);
-+}
-+EXPORT_SYMBOL(unregister_and_free_shrinker);
-+
- /**
-  * synchronize_shrinkers - Wait for all running shrinkers to complete.
-  *
+ 
+ #ifdef CONFIG_MMU_NOTIFIER
+ 	/**
 -- 
 2.30.2
 
