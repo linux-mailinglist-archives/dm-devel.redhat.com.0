@@ -1,70 +1,69 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id EA1A973AFDA
-	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:26:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 3942973AFF7
+	for <lists+dm-devel@lfdr.de>; Fri, 23 Jun 2023 07:27:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687498008;
+	s=mimecast20190719; t=1687498022;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=uIYDD4P2Gvk7FxOEYasBngklav9eR4dlQn0DNSwGUQQ=;
-	b=UIS873yoeQtwceVMlUSZJJG03LbQWG4knTqN9e4JX4gWPUjcGLxx/U3BJrb04jjveTIYtj
-	N65ALT85QmW4GTDQrD/S61jEVlkxdGe6dyMCTNTqTHScfFg5/PKxDNqPT3X+W5aRaf5yjF
-	e73NknOH1stlGD8B3L5a/prsNPTXv1U=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=0zzFu1a5w+EYRKXeOOfz+W7Bx+t/dIt9CwGXL+1BCTI=;
+	b=WBuWjMM5lfa1RaVJYDMcdQeTbP8MVJjl8UrZxSv4sxutZul/cfUffmqY8LeBkt8NxUmceN
+	GKJSbkgwQxBe8FmMKnJVWrCPfJXm8BjztcZ8al7ZS6Gk3jExX0Q3GNddWSoAYD+avaLXo5
+	2GzWmubXO1vo419zYz/2ACsg8s5K+PA=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-502-RtePdAtOMfCIVOM7roQPSA-1; Fri, 23 Jun 2023 01:26:39 -0400
-X-MC-Unique: RtePdAtOMfCIVOM7roQPSA-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-625-_Emb8FiKP7CoVTjfnzgZpA-1; Fri, 23 Jun 2023 01:26:56 -0400
+X-MC-Unique: _Emb8FiKP7CoVTjfnzgZpA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEC391059442;
-	Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A55EB1C0897A;
+	Fri, 23 Jun 2023 05:26:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B6683F5AE3;
-	Fri, 23 Jun 2023 05:25:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8B0F8492B03;
+	Fri, 23 Jun 2023 05:26:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9EC0F1949752;
-	Fri, 23 Jun 2023 05:25:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 81DD01946A4E;
+	Fri, 23 Jun 2023 05:25:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7C10E1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
+ ESMTP id E7D721946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 22 Jun 2023 08:41:14 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5BE2314682F8; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
+ id A3845492C13; Thu, 22 Jun 2023 08:41:14 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5456B14682F7
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BC19425358
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:14 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33A1229AA381
- for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:07 +0000 (UTC)
-Received: from out-19.mta1.migadu.com (out-19.mta1.migadu.com
- [95.215.58.19]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7CEBF1C06ED2
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 08:41:14 +0000 (UTC)
+Received: from out-54.mta1.migadu.com (out-54.mta1.migadu.com
+ [95.215.58.54]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-135-o4bAlfyUMDmunL0nLZLs6g-1; Thu, 22 Jun 2023 04:41:04 -0400
-X-MC-Unique: o4bAlfyUMDmunL0nLZLs6g-1
+ us-mta-222-M4W_Q72UNe2kepyTu0MawA-1; Thu, 22 Jun 2023 04:41:11 -0400
+X-MC-Unique: M4W_Q72UNe2kepyTu0MawA-1
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Qi Zheng <qi.zheng@linux.dev>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
-Date: Thu, 22 Jun 2023 08:39:12 +0000
-Message-Id: <20230622083932.4090339-10-qi.zheng@linux.dev>
+Date: Thu, 22 Jun 2023 08:39:13 +0000
+Message-Id: <20230622083932.4090339-11-qi.zheng@linux.dev>
 In-Reply-To: <20230622083932.4090339-1-qi.zheng@linux.dev>
 References: <20230622083932.4090339-1-qi.zheng@linux.dev>
 MIME-Version: 1.0
@@ -76,10 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Fri, 23 Jun 2023 05:25:40 +0000
-Subject: [dm-devel] [PATCH 09/29] bcache: dynamically allocate the md-bcache
- shrinker
+Subject: [dm-devel] [PATCH 10/29] vmw_balloon: dynamically allocate the
+ vmw-balloon shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,7 +100,7 @@ Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -110,102 +109,61 @@ Content-Transfer-Encoding: 7bit
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 
 In preparation for implementing lockless slab shrink,
-we need to dynamically allocate the md-bcache shrinker,
+we need to dynamically allocate the vmw-balloon shrinker,
 so that it can be freed asynchronously using kfree_rcu().
 Then it doesn't need to wait for RCU read-side critical
-section when releasing the struct cache_set.
+section when releasing the struct vmballoon.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/md/bcache/bcache.h |  2 +-
- drivers/md/bcache/btree.c  | 23 ++++++++++++++---------
- drivers/md/bcache/sysfs.c  |  2 +-
- 3 files changed, 16 insertions(+), 11 deletions(-)
+ drivers/misc/vmw_balloon.c | 16 ++++++++++------
+ 1 file changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/md/bcache/bcache.h b/drivers/md/bcache/bcache.h
-index 700dc5588d5f..53c73b372e7a 100644
---- a/drivers/md/bcache/bcache.h
-+++ b/drivers/md/bcache/bcache.h
-@@ -541,7 +541,7 @@ struct cache_set {
- 	struct bio_set		bio_split;
+diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
+index 9ce9b9e0e9b6..2f86f666b476 100644
+--- a/drivers/misc/vmw_balloon.c
++++ b/drivers/misc/vmw_balloon.c
+@@ -380,7 +380,7 @@ struct vmballoon {
+ 	/**
+ 	 * @shrinker: shrinker interface that is used to avoid over-inflation.
+ 	 */
+-	struct shrinker shrinker;
++	struct shrinker *shrinker;
  
- 	/* For the btree cache */
--	struct shrinker		shrink;
-+	struct shrinker		*shrink;
- 
- 	/* For the btree cache and anything allocation related */
- 	struct mutex		bucket_lock;
-diff --git a/drivers/md/bcache/btree.c b/drivers/md/bcache/btree.c
-index 569f48958bde..1131ae91f62a 100644
---- a/drivers/md/bcache/btree.c
-+++ b/drivers/md/bcache/btree.c
-@@ -667,7 +667,7 @@ static int mca_reap(struct btree *b, unsigned int min_order, bool flush)
- static unsigned long bch_mca_scan(struct shrinker *shrink,
- 				  struct shrink_control *sc)
+ 	/**
+ 	 * @shrinker_registered: whether the shrinker was registered.
+@@ -1569,7 +1569,7 @@ static unsigned long vmballoon_shrinker_count(struct shrinker *shrinker,
+ static void vmballoon_unregister_shrinker(struct vmballoon *b)
  {
--	struct cache_set *c = container_of(shrink, struct cache_set, shrink);
-+	struct cache_set *c = shrink->private_data;
- 	struct btree *b, *t;
- 	unsigned long i, nr = sc->nr_to_scan;
- 	unsigned long freed = 0;
-@@ -734,7 +734,7 @@ static unsigned long bch_mca_scan(struct shrinker *shrink,
- static unsigned long bch_mca_count(struct shrinker *shrink,
- 				   struct shrink_control *sc)
- {
--	struct cache_set *c = container_of(shrink, struct cache_set, shrink);
-+	struct cache_set *c = shrink->private_data;
- 
- 	if (c->shrinker_disabled)
- 		return 0;
-@@ -752,8 +752,8 @@ void bch_btree_cache_free(struct cache_set *c)
- 
- 	closure_init_stack(&cl);
- 
--	if (c->shrink.list.next)
--		unregister_shrinker(&c->shrink);
-+	if (c->shrink->list.next)
-+		unregister_and_free_shrinker(c->shrink);
- 
- 	mutex_lock(&c->bucket_lock);
- 
-@@ -828,14 +828,19 @@ int bch_btree_cache_alloc(struct cache_set *c)
- 		c->verify_data = NULL;
- #endif
- 
--	c->shrink.count_objects = bch_mca_count;
--	c->shrink.scan_objects = bch_mca_scan;
--	c->shrink.seeks = 4;
--	c->shrink.batch = c->btree_pages * 2;
-+	c->shrink = shrinker_alloc_and_init(bch_mca_count, bch_mca_scan,
-+					    c->btree_pages * 2, 4, 0, c);
-+	if (!c->shrink) {
-+		pr_warn("bcache: %s: could not allocate shrinker\n",
-+				__func__);
-+		return -ENOMEM;
-+	}
- 
--	if (register_shrinker(&c->shrink, "md-bcache:%pU", c->set_uuid))
-+	if (register_shrinker(c->shrink, "md-bcache:%pU", c->set_uuid)) {
- 		pr_warn("bcache: %s: could not register shrinker\n",
- 				__func__);
-+		shrinker_free(c->shrink);
-+	}
- 
- 	return 0;
+ 	if (b->shrinker_registered)
+-		unregister_shrinker(&b->shrinker);
++		unregister_and_free_shrinker(b->shrinker);
+ 	b->shrinker_registered = false;
  }
-diff --git a/drivers/md/bcache/sysfs.c b/drivers/md/bcache/sysfs.c
-index c6f677059214..771577581f52 100644
---- a/drivers/md/bcache/sysfs.c
-+++ b/drivers/md/bcache/sysfs.c
-@@ -866,7 +866,7 @@ STORE(__bch_cache_set)
  
- 		sc.gfp_mask = GFP_KERNEL;
- 		sc.nr_to_scan = strtoul_or_return(buf);
--		c->shrink.scan_objects(&c->shrink, &sc);
-+		c->shrink->scan_objects(c->shrink, &sc);
- 	}
+@@ -1581,14 +1581,18 @@ static int vmballoon_register_shrinker(struct vmballoon *b)
+ 	if (!vmwballoon_shrinker_enable)
+ 		return 0;
  
- 	sysfs_strtoul_clamp(congested_read_threshold_us,
+-	b->shrinker.scan_objects = vmballoon_shrinker_scan;
+-	b->shrinker.count_objects = vmballoon_shrinker_count;
+-	b->shrinker.seeks = DEFAULT_SEEKS;
++	b->shrinker = shrinker_alloc_and_init(vmballoon_shrinker_count,
++					      vmballoon_shrinker_scan,
++					      0, DEFAULT_SEEKS, 0, b);
++	if (!b->shrinker)
++		return -ENOMEM;
+ 
+-	r = register_shrinker(&b->shrinker, "vmw-balloon");
++	r = register_shrinker(b->shrinker, "vmw-balloon");
+ 
+ 	if (r == 0)
+ 		b->shrinker_registered = true;
++	else
++		shrinker_free(b->shrinker);
+ 
+ 	return r;
+ }
 -- 
 2.30.2
 
