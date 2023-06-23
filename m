@@ -2,95 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3FCAE74BD14
-	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 11:23:56 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9A96374CD73
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688808235;
+	s=mimecast20190719; t=1688971634;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bSVQp3f54n5ix+avpN9EeLeW5+hpUvHPcWmeDA0Qj7U=;
-	b=NOhr1zXiiEkEDLyaCdRzTXbMdXk2m+p5U1lm31VEbg+1fBgwozTjUe7KL4foLXu0qKaHIQ
-	h1Jqt3WjYJLOzdZHBOxAf2iltrF2XW2bUT4p8tHHGG+Y8JVTMLXSckShlMtHLvCjjCW2l8
-	3lHBlJ4m7vIvhpTNy0d6vtgmzMH6Lyw=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Jpn7MqdpV3p0E8OBRhRCMqdDNNokITGh1M9jS2C351M=;
+	b=Ka4yx3aXCKSJ8VhFgfDzSbPCb7NiAnh+sQ+QYEtf+tmEVak975oevAV6j3hSvqrMKTXqkY
+	FedbKUKxQJThQitwnG+eSZ80zL/ctuGChzSsxvFVfHErw9ZJCpQx9ZPVHrRfWr/vIfDMtB
+	CAM8hYaEQLpErtWxUJaGlzIWVD0m7wU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-563-wVeVKqxVOpaQTxEbB600Mg-1; Sat, 08 Jul 2023 05:23:53 -0400
-X-MC-Unique: wVeVKqxVOpaQTxEbB600Mg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-441-PbvvnlhoO6OjkNXm63UWuQ-1; Mon, 10 Jul 2023 02:47:10 -0400
+X-MC-Unique: PbvvnlhoO6OjkNXm63UWuQ-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2009101A529;
-	Sat,  8 Jul 2023 09:23:50 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AF2BB1C47669;
+	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3C272207B313;
-	Sat,  8 Jul 2023 09:23:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 88D4CC575E2;
+	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0E98F19452D2;
-	Sat,  8 Jul 2023 09:23:33 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 18C94194973E;
+	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 222EB1946A7E
- for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 09:23:32 +0000 (UTC)
+ ESMTP id 6AFAA1949754
+ for <dm-devel@listman.corp.redhat.com>; Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 00A3C40C6CCD; Sat,  8 Jul 2023 09:23:32 +0000 (UTC)
+ id 56CB714682FB; Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ED9E040C6F5A
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 09:23:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CF6F680006E
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 09:23:31 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4E89E1400C35
+ for <dm-devel@redhat.com>; Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 33F2B3C1CAF3
+ for <dm-devel@redhat.com>; Fri, 23 Jun 2023 05:26:10 +0000 (UTC)
+Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
+ [209.85.214.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-575-NWBH2PY_Nz-rnVciFIMBVg-1; Sat, 08 Jul 2023 05:23:28 -0400
-X-MC-Unique: NWBH2PY_Nz-rnVciFIMBVg-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QylDn6smVz4f3m8P;
- Sat,  8 Jul 2023 17:23:21 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAHuKsHK6lkCfLwNQ--.65417S7;
- Sat, 08 Jul 2023 17:23:22 +0800 (CST)
-From: Yu Kuai <yukuai1@huaweicloud.com>
-To: pmenzel@molgen.mpg.de, agk@redhat.com, snitzer@kernel.org,
- dm-devel@redhat.com, song@kernel.org, heinzm@redhat.com, neilb@suse.de,
- jbrassow@redhat.com
-Date: Sat,  8 Jul 2023 17:21:53 +0800
-Message-Id: <20230708092153.1418570-4-yukuai1@huaweicloud.com>
-In-Reply-To: <20230708092153.1418570-1-yukuai1@huaweicloud.com>
-References: <20230708092153.1418570-1-yukuai1@huaweicloud.com>
+ us-mta-518-F9JTYVP-N6u11yVCkF6EvA-1; Fri, 23 Jun 2023 01:26:03 -0400
+X-MC-Unique: F9JTYVP-N6u11yVCkF6EvA-1
+Received: by mail-pl1-f170.google.com with SMTP id
+ d9443c01a7336-1b512309c86so2230575ad.1
+ for <dm-devel@redhat.com>; Thu, 22 Jun 2023 22:26:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687497961; x=1690089961;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=I74A3FzNlMiWSwenHJ0qW6K9Kk3RrnXa52gDQFbNI94=;
+ b=USpldR5VlnMfHouii+yPGCfEW4nMGZqmEtlHrz8ZCuC/VS7EBkFYxh4PxaQi95Q7G7
+ XDsidqzI3WxVmWS3ymyDoRmpuQVxxn7Q/TXq5lp91IMPmNTrEfCtZn8Zq+3KLlQrT/UM
+ CeJh7rouhTi6TKmYL3Cv5FAn72ap5/vPhC9XnUbSx055e0a8tPQCgdmOwXck7vw8NiKz
+ hetSHWoq2tyauMs9faUH2cY9VsoZK4DegDQKHWm5JE/bO0uqMMdy7yTb9RmWh6UbB49b
+ kJ+9TweouLm3PsMPlqe9Q8GGcoph+Pc+rgOePDy6rJM/8n96m8S136eQRrM9R+Khzk6J
+ 5kMg==
+X-Gm-Message-State: AC+VfDxHxLErS6fEPVf/Ri+6J/ds4FtuLHaq+mAQ4oo2dbEDGGf8xFy0
+ wOssqKaArSAna7xv8OWS9RX/6w==
+X-Google-Smtp-Source: ACHHUZ5sPbLx4vVXAJjIGembGjCJJyMTydKicDo1snyQX4c1P9pglVj/z3vqORh1yZ2I9l32bGJbWQ==
+X-Received: by 2002:a17:902:ecc6:b0:1ae:8fa:cd4c with SMTP id
+ a6-20020a170902ecc600b001ae08facd4cmr41235916plh.7.1687497961344; 
+ Thu, 22 Jun 2023 22:26:01 -0700 (PDT)
+Received: from google.com ([2401:fa00:8f:203:3383:b451:fa2:1538])
+ by smtp.gmail.com with ESMTPSA id
+ c1-20020a170902d48100b00192aa53a7d5sm6288753plg.8.2023.06.22.22.25.56
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 22 Jun 2023 22:26:00 -0700 (PDT)
+Date: Fri, 23 Jun 2023 14:25:54 +0900
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
+To: Qi Zheng <zhengqi.arch@bytedance.com>
+Message-ID: <20230623052554.GA11471@google.com>
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-30-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAHuKsHK6lkCfLwNQ--.65417S7
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4ktFyDGrykWw4rAF1rtFb_yoW8Gw15pr
- Z7Xry3Ar15X39rZa4DW3ykua45t3ZIgry0yr93Ca95Za429F43uan5KayUurWDJFy3K3ZF
- vF4UXwn8Wa48KwUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUPj14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JrWl82xGYIkIc2
- x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
- Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
- A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
- 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
- IY67AKxVWUGVWUXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
- Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
- xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
- 6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
- Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
- Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8Jw
- CI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUFfHUDUUU
- U
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+In-Reply-To: <20230622085335.77010-30-zhengqi.arch@bytedance.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,9 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [PATCH -next v2 3/3] md/dm-raid: protect md_stop() with
- 'reconfig_mutex'
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
+Subject: Re: [dm-devel] [PATCH 29/29] mm: shrinker: move shrinker-related
+ code into a separate file
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,68 +113,80 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
- linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
+Cc: djwong@kernel.org, roman.gushchin@linux.dev, david@fromorbit.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
+ paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
+ brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huaweicloud.com
+X-Mimecast-Originator: chromium.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Yu Kuai <yukuai3@huawei.com>
+On (23/06/22 16:53), Qi Zheng wrote:
+> +/*
+> + * Remove one
+> + */
+> +void unregister_shrinker(struct shrinker *shrinker)
+> +{
+> +	struct dentry *debugfs_entry;
+> +	int debugfs_id;
+> +
+> +	if (!(shrinker->flags & SHRINKER_REGISTERED))
+> +		return;
+> +
+> +	shrinker_put(shrinker);
+> +	wait_for_completion(&shrinker->completion_wait);
+> +
+> +	mutex_lock(&shrinker_mutex);
+> +	list_del_rcu(&shrinker->list);
 
-__md_stop_writes() and __md_stop() will modify many fields that is
-protected by 'reconfig_mutex', and all the callers will grab
-'reconfig_mtuex' expect for md_stop().
+Should this function wait for RCU grace period(s) before it goes
+touching shrinker fields?
 
-Fixes: 9d09e663d550 ("dm: raid456 basic support")
-Signed-off-by: Yu Kuai <yukuai3@huawei.com>
----
- drivers/md/dm-raid.c | 4 +++-
- drivers/md/md.c      | 2 ++
- 2 files changed, 5 insertions(+), 1 deletion(-)
+> +	shrinker->flags &= ~SHRINKER_REGISTERED;
+> +	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
+> +		unregister_memcg_shrinker(shrinker);
+> +	debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
+> +	mutex_unlock(&shrinker_mutex);
+> +
+> +	shrinker_debugfs_remove(debugfs_entry, debugfs_id);
+> +
+> +	kfree(shrinker->nr_deferred);
+> +	shrinker->nr_deferred = NULL;
+> +}
+> +EXPORT_SYMBOL(unregister_shrinker);
 
-diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index 33742f5e7ee5..5f9991765f27 100644
---- a/drivers/md/dm-raid.c
-+++ b/drivers/md/dm-raid.c
-@@ -3298,8 +3298,8 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	return 0;
- 
- bad_unlock:
--	mddev_unlock(&rs->md);
- 	md_stop(&rs->md);
-+	mddev_unlock(&rs->md);
- bad:
- 	raid_set_free(rs);
- 
-@@ -3310,7 +3310,9 @@ static void raid_dtr(struct dm_target *ti)
- {
- 	struct raid_set *rs = ti->private;
- 
-+	mddev_lock_nointr(&rs->md);
- 	md_stop(&rs->md);
-+	mddev_unlock(&rs->md);
- 	raid_set_free(rs);
- }
- 
-diff --git a/drivers/md/md.c b/drivers/md/md.c
-index a3d98273b295..ff40e362c927 100644
---- a/drivers/md/md.c
-+++ b/drivers/md/md.c
-@@ -6290,6 +6290,8 @@ static void __md_stop(struct mddev *mddev)
- 
- void md_stop(struct mddev *mddev)
- {
-+	lockdep_assert_held(&mddev->reconfig_mutex);
-+
- 	/* stop the array and free an attached data structures.
- 	 * This is called from dm-raid
- 	 */
--- 
-2.39.2
+[..]
+
+> +void shrinker_free(struct shrinker *shrinker)
+> +{
+> +	kfree(shrinker);
+> +}
+> +EXPORT_SYMBOL(shrinker_free);
+> +
+> +void unregister_and_free_shrinker(struct shrinker *shrinker)
+> +{
+> +	unregister_shrinker(shrinker);
+> +	kfree_rcu(shrinker, rcu);
+> +}
+
+Seems like this
+
+	unregister_shrinker();
+	shrinker_free();
+
+is not exact equivalent of this
+
+	unregister_and_free_shrinker();
 
 --
 dm-devel mailing list
