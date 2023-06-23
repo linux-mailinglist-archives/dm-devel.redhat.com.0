@@ -2,98 +2,100 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E46E74CD72
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:15 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 8727174CD93
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971634;
+	s=mimecast20190719; t=1688971643;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Oq0oiyqSUreQuwM7JbfqWpXl101SUrtE67WFbmc/fEQ=;
-	b=L+DNt3viPcX/bzQBQhsQkk4pkcS3bbUhAgzuTOEJyEKwsqVjGJ3YNMjfGev9q/Av+SNBh6
-	PKOCBFYtuvC4J5LSvjQL581jS4HtMsHfFdCV8OtjhptL4sO2OZK03pmkSTialLxTeJNOCV
-	zzCbQgzUr+wzVu7PwKc3TN319ic25Ag=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=9+pSyN2FRqI29YCSGQHazIIy9nuSIQQV+pOMuku44NE=;
+	b=JwoQy7a1kyMLpCHU05hjTCF78ka/QRWwl/grlhed4RZU0Pz4c20sTHO3bpuGBF0TG4mJyq
+	/RbLQ3ix98gbFYAa1+JwWM9jHVS4jmxLiLqhwDamwEXMumAIZRR9D0Zjym403/K6cQ8/uH
+	bLyd75xGgiF8UGSyV/wwLBRTIqxdq4M=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-15-ZsccyVcvNSqFv_Zd8-SE9w-1; Mon, 10 Jul 2023 02:47:09 -0400
-X-MC-Unique: ZsccyVcvNSqFv_Zd8-SE9w-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-1-V2r3DEEMP9eWkoixlLO0bQ-1; Mon, 10 Jul 2023 02:47:20 -0400
+X-MC-Unique: V2r3DEEMP9eWkoixlLO0bQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 653573C11A0B;
-	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7F41688D1A3;
+	Mon, 10 Jul 2023 06:47:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 54F0B4CD0CD;
-	Mon, 10 Jul 2023 06:46:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 61C5FF66B9;
+	Mon, 10 Jul 2023 06:47:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CF49C19451F1;
-	Mon, 10 Jul 2023 06:46:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7B25E19451DB;
+	Mon, 10 Jul 2023 06:47:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E38411946587
- for <dm-devel@listman.corp.redhat.com>; Fri, 23 Jun 2023 12:49:18 +0000 (UTC)
+ ESMTP id BCE491946587
+ for <dm-devel@listman.corp.redhat.com>; Fri, 23 Jun 2023 12:50:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C0A97F5AC5; Fri, 23 Jun 2023 12:49:18 +0000 (UTC)
+ id AB4891121314; Fri, 23 Jun 2023 12:50:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B8C1BF41C8
- for <dm-devel@redhat.com>; Fri, 23 Jun 2023 12:49:18 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A44CF1121315
+ for <dm-devel@redhat.com>; Fri, 23 Jun 2023 12:50:55 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 99C3480027F
- for <dm-devel@redhat.com>; Fri, 23 Jun 2023 12:49:18 +0000 (UTC)
-Received: from mail-pj1-f41.google.com (mail-pj1-f41.google.com
- [209.85.216.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5058F29AA3B6
+ for <dm-devel@redhat.com>; Fri, 23 Jun 2023 12:50:55 +0000 (UTC)
+Received: from mail-pf1-f171.google.com (mail-pf1-f171.google.com
+ [209.85.210.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-569-8lFhzKc6NOKEvw8GSA-kqw-1; Fri, 23 Jun 2023 08:49:16 -0400
-X-MC-Unique: 8lFhzKc6NOKEvw8GSA-kqw-1
-Received: by mail-pj1-f41.google.com with SMTP id
- 98e67ed59e1d1-25eabe8b5fcso128676a91.1
- for <dm-devel@redhat.com>; Fri, 23 Jun 2023 05:49:16 -0700 (PDT)
+ us-mta-564-dMRNUFctOBGJ_2FBrnIh_w-1; Fri, 23 Jun 2023 08:50:52 -0400
+X-MC-Unique: dMRNUFctOBGJ_2FBrnIh_w-1
+Received: by mail-pf1-f171.google.com with SMTP id
+ d2e1a72fcca58-66c2d4e507aso73141b3a.1
+ for <dm-devel@redhat.com>; Fri, 23 Jun 2023 05:50:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687524556; x=1690116556;
+ d=1e100.net; s=20221208; t=1687524651; x=1690116651;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N8pNNe3/2YXc1UbpwIO0yIQjjCMHlVzYoQIGO6mvjFk=;
- b=DS7kabWOSuFxm4DlvezqV8fQC0Fe3r1uadB0x6nqBh4wVTGg5IRwhaYvvwFh+GXuGh
- qxHG5UxY8pF/KfWt/rUAK/MLKiJ6q/ftKYwM4KehNC/53FJZBE9Q39l8vP89OY9BSRjD
- WE21lg/z4GE+XCP97LWzK75mlCSpeGOgRfIztg5suSymIhQFgfROGTky4iIf3GVUw0rF
- bCo+5vqsiZE43NH49y3+pte2vj73Jrc8vjGimQl9nmT2377PgEAbY7Kx8NU0M/C5fAKn
- XY6AJheW4g2DDBLlpcnuibuw+IudtykcaVsmBn0c92IKcZcqWXTvz+HFIlqNHNbtS25c
- yrSA==
-X-Gm-Message-State: AC+VfDz2GvwOJNOPU5a3ve8oPVsKBmeVPtbUZQmOde8gMfgwwWNJVkDd
- 8zsDV8zYHdCsh0s5qfm3deY02Q==
-X-Google-Smtp-Source: ACHHUZ6eQKAAK+mFZK9b/rl5yBeScp7LGUAVTtY7Qwt+jrMMbGjG/tQ037wkOBUmA1P5xX8mDtOLpg==
-X-Received: by 2002:a17:90b:350f:b0:258:d367:63c with SMTP id
- ls15-20020a17090b350f00b00258d367063cmr24920553pjb.1.1687524555690; 
- Fri, 23 Jun 2023 05:49:15 -0700 (PDT)
+ bh=3J6qedKH7rACUI+d8+QjoI1iru+7/a5M9lap7RdXq+s=;
+ b=Hb+8gspps8qGhDfS51URMkTMXKP+1zX9VSUbiS1zQo0eW2Ptkc6A1HUAPXEMA2XU+f
+ zoPl9RSqv4RT/IenMy8ET5ls3H6ho5CNiWg1VxydriVEbfIycGRUma54n6wDGggsd7ke
+ 3kYv/e+xdGp/sG700iRVt6M70f+PPsZgWrD7l6l/X2iuHCqXg80+IuON/+SpY7CPamtg
+ nOFCOwZWE87no1tT8GZSfaMmv96HCPUCOjoAlg/EkQZKiiGKN0rRnsPUtDrVGy4SZ1PM
+ C3pKlaSyXu5793B2w6z6X1kHvDf4o05Uau+RjNgZNpz5BplAOxkQ6AVn1FFT6oqWsUYS
+ n7PA==
+X-Gm-Message-State: AC+VfDzdm4PFjdXrDK0I5Xn+BpckB7z1euV2fhNktbMVsBjJu4nOtXLl
+ fnuJmHFjA9dwpyTmLVyYMDp6eA==
+X-Google-Smtp-Source: ACHHUZ6Fjrszr4MOiG7PTx+CVGVeY59XJZwzJifNOvY5NLzJaatECslqahuGwHQe8HJSyn0Dmf/QQQ==
+X-Received: by 2002:a05:6a00:3186:b0:668:7fe6:c220 with SMTP id
+ bj6-20020a056a00318600b006687fe6c220mr14325912pfb.3.1687524651198; 
+ Fri, 23 Jun 2023 05:50:51 -0700 (PDT)
 Received: from [10.4.168.167] ([139.177.225.254])
  by smtp.gmail.com with ESMTPSA id
- 30-20020a17090a001e00b0026135208e97sm1471795pja.19.2023.06.23.05.49.08
+ x21-20020aa79195000000b0063a04905379sm6063171pfa.137.2023.06.23.05.50.44
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Fri, 23 Jun 2023 05:49:15 -0700 (PDT)
-Message-ID: <d8632edc-5021-4dc8-b75a-3995a710f196@bytedance.com>
-Date: Fri, 23 Jun 2023 20:49:05 +0800
+ Fri, 23 Jun 2023 05:50:50 -0700 (PDT)
+Message-ID: <31d3f685-3017-25d8-5b0b-2795ed7049bc@bytedance.com>
+Date: Fri, 23 Jun 2023 20:50:41 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: Dave Chinner <david@fromorbit.com>
+To: Vlastimil Babka <vbabka@suse.cz>, akpm@linux-foundation.org,
+ david@fromorbit.com, tkhai@ya.ru, roman.gushchin@linux.dev,
+ djwong@kernel.org, brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-3-zhengqi.arch@bytedance.com>
- <ZJU3s8tyGsYTVS8f@dread.disaster.area>
+ <20230622085335.77010-2-zhengqi.arch@bytedance.com>
+ <b04a0191-fa27-f8dc-440c-ec363d9c0636@suse.cz>
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZJU3s8tyGsYTVS8f@dread.disaster.area>
+In-Reply-To: <b04a0191-fa27-f8dc-440c-ec363d9c0636@suse.cz>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,10 +103,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
-Subject: Re: [dm-devel] [PATCH 02/29] mm: vmscan: introduce some helpers for
- dynamically allocating shrinker
+Subject: Re: [dm-devel] [External] Re: [PATCH 01/29] mm: shrinker: add
+ shrinker::private_data field
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,157 +118,59 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: djwong@kernel.org, roman.gushchin@linux.dev,
+Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-nfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
- paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
- brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
+ linux-fsdevel@vger.kernel.org, linux-ext4@vger.kernel.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Dave,
+Hi Vlastimil,
 
-On 2023/6/23 14:12, Dave Chinner wrote:
-> On Thu, Jun 22, 2023 at 04:53:08PM +0800, Qi Zheng wrote:
->> Introduce some helpers for dynamically allocating shrinker instance,
->> and their uses are as follows:
->>
->> 1. shrinker_alloc_and_init()
->>
->> Used to allocate and initialize a shrinker instance, the priv_data
->> parameter is used to pass the pointer of the previously embedded
->> structure of the shrinker instance.
->>
->> 2. shrinker_free()
->>
->> Used to free the shrinker instance when the registration of shrinker
->> fails.
->>
->> 3. unregister_and_free_shrinker()
->>
->> Used to unregister and free the shrinker instance, and the kfree()
->> will be changed to kfree_rcu() later.
+On 2023/6/22 22:47, Vlastimil Babka wrote:
+> On 6/22/23 10:53, Qi Zheng wrote:
+>> To prepare for the dynamic allocation of shrinker instances
+>> embedded in other structures, add a private_data field to
+>> struct shrinker, so that we can use shrinker::private_data
+>> to record and get the original embedded structure.
 >>
 >> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> ---
->>   include/linux/shrinker.h | 12 ++++++++++++
->>   mm/vmscan.c              | 35 +++++++++++++++++++++++++++++++++++
->>   2 files changed, 47 insertions(+)
->>
->> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
->> index 43e6fcabbf51..8e9ba6fa3fcc 100644
->> --- a/include/linux/shrinker.h
->> +++ b/include/linux/shrinker.h
->> @@ -107,6 +107,18 @@ extern void unregister_shrinker(struct shrinker *shrinker);
->>   extern void free_prealloced_shrinker(struct shrinker *shrinker);
->>   extern void synchronize_shrinkers(void);
->>   
->> +typedef unsigned long (*count_objects_cb)(struct shrinker *s,
->> +					  struct shrink_control *sc);
->> +typedef unsigned long (*scan_objects_cb)(struct shrinker *s,
->> +					 struct shrink_control *sc);
->> +
->> +struct shrinker *shrinker_alloc_and_init(count_objects_cb count,
->> +					 scan_objects_cb scan, long batch,
->> +					 int seeks, unsigned flags,
->> +					 void *priv_data);
->> +void shrinker_free(struct shrinker *shrinker);
->> +void unregister_and_free_shrinker(struct shrinker *shrinker);
 > 
-> Hmmmm. Not exactly how I envisioned this to be done.
-> 
-> Ok, this will definitely work, but I don't think it is an
-> improvement. It's certainly not what I was thinking of when I
-> suggested dynamically allocating shrinkers.
-> 
-> The main issue is that this doesn't simplify the API - it expands it
-> and creates a minefield of old and new functions that have to be
-> used in exactly the right order for the right things to happen.
-> 
-> What I was thinking of was moving the entire shrinker setup code
-> over to the prealloc/register_prepared() algorithm, where the setup
-> is already separated from the activation of the shrinker.
-> 
-> That is, we start by renaming prealloc_shrinker() to
-> shrinker_alloc(), adding a flags field to tell it everything that it
-> needs to alloc (i.e. the NUMA/MEMCG_AWARE flags) and having it
-> returned a fully allocated shrinker ready to register. Initially
-> this also contains an internal flag to say the shrinker was
-> allocated so that unregister_shrinker() knows to free it.
-> 
-> The caller then fills out the shrinker functions, seeks, etc. just
-> like the do now, and then calls register_shrinker_prepared() to make
-> the shrinker active when it wants to turn it on.
-> 
-> When it is time to tear down the shrinker, no API needs to change.
-> unregister_shrinker() does all the shutdown and frees all the
-> internal memory like it does now. If the shrinker is also marked as
-> allocated, it frees the shrinker via RCU, too.
-> 
-> Once everything is converted to this API, we then remove
-> register_shrinker(), rename register_shrinker_prepared() to
-> shrinker_register(), rename unregister_shrinker to
-> shrinker_unregister(), get rid of the internal "allocated" flag
-> and always free the shrinker.
+> I would fold this to 02/29, less churn.
 
-IIUC, you mean that we also need to convert the original statically
-defined shrinker instances to dynamically allocated.
-
-I think this is a good idea, it helps to simplify the APIs and also
-remove special handling for case a and b (mentioned in cover letter).
-
-> 
-> At the end of the patchset, every shrinker should be set
-> up in a manner like this:
-> 
-> 
-> 	sb->shrinker = shrinker_alloc(SHRINKER_MEMCG_AWARE|SHRINKER_NUMA_AWARE,
-> 				"sb-%s", type->name);
-> 	if (!sb->shrinker)
-> 		return -ENOMEM;
-> 
-> 	sb->shrinker->count_objects = super_cache_count;
-> 	sb->shrinker->scan_objects = super_cache_scan;
-> 	sb->shrinker->batch = 1024;
-> 	sb->shrinker->private = sb;
-> 
-> 	.....
-> 
-> 	shrinker_register(sb->shrinker);
-> 
-> And teardown is just a call to shrinker_unregister(sb->shrinker)
-> as it is now.
-> 
-> i.e. the entire shrinker regsitration API is now just three
-> functions, down from the current four, and much simpler than the
-> the seven functions this patch set results in...
-> 
-> The other advantage of this is that it will break all the existing
-> out of tree code and third party modules using the old API and will
-> no longer work with a kernel using lockless slab shrinkers. They
-> need to break (both at the source and binary levels) to stop bad
-> things from happening due to using uncoverted shrinkers in the new
-> setup.
-
-Got it. And totally agree.
-
-I will do it in the v2.
+OK, I will fold this to 02/29 in the v2.
 
 Thanks,
 Qi
 
 > 
-> -Dave.
+>> ---
+>>   include/linux/shrinker.h | 2 ++
+>>   1 file changed, 2 insertions(+)
+>>
+>> diff --git a/include/linux/shrinker.h b/include/linux/shrinker.h
+>> index 224293b2dd06..43e6fcabbf51 100644
+>> --- a/include/linux/shrinker.h
+>> +++ b/include/linux/shrinker.h
+>> @@ -70,6 +70,8 @@ struct shrinker {
+>>   	int seeks;	/* seeks to recreate an obj */
+>>   	unsigned flags;
+>>   
+>> +	void *private_data;
+>> +
+>>   	/* These are for internal use */
+>>   	struct list_head list;
+>>   #ifdef CONFIG_MEMCG
+> 
 
 --
 dm-devel mailing list
