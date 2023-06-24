@@ -2,100 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1793D74CD77
+	by mail.lfdr.de (Postfix) with ESMTPS id 0BB7B74CD75
 	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971635;
+	s=mimecast20190719; t=1688971634;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=KOnR/tn+PTF7d0Lr5SaATFYIyBERpyshi9FFruJAB+I=;
-	b=Q4w+yJGc1hkdSVJQzzFhEInLJbCNl7vKbba+m3Losh3bNxEFSKtnIRsxZB1ECF8pcLCeVr
-	XjDVtnhMeZfvsbYblsnPt+Wvk2RrghfBf9Mk94o+Np7VqaiMOqHwCgpETEilqrNK0NrB7q
-	x+KKCM9CrjcWso7RU7LMWh5DfA7zOGs=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=IISo72FQpfQmNc9oHSyMSoUAZ2Tf1ljiFAlejWOVX68=;
+	b=K4vpKws/JP6t4v484w5tmvvvdGkc/7OozmLo5G4MMuPrAgC2PhFPa19pU3UPKOj9Jzd/rO
+	Lsw6faiFKwTseqCk5Ej21g/BW0nUTYcTG3JqIN1G5bTHu7h2diRHX79jUqctEmG5/OPcpN
+	y8br5A39DNEc/rh7hkIGBwgVu4ErvoU=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-628-futs9IcFPJSg5NeDAk9TJA-1; Mon, 10 Jul 2023 02:47:13 -0400
-X-MC-Unique: futs9IcFPJSg5NeDAk9TJA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-540-jxLcLJ8YOJq-bswKI-yOdw-1; Mon, 10 Jul 2023 02:47:11 -0400
+X-MC-Unique: jxLcLJ8YOJq-bswKI-yOdw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CFFB21044591;
-	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 055621C47679;
+	Mon, 10 Jul 2023 06:47:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AF0E6C478DF;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DD91640C2070;
 	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4867319452D1;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 790DC19451DF;
 	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 902A21946587
- for <dm-devel@listman.corp.redhat.com>; Sat, 24 Jun 2023 11:08:33 +0000 (UTC)
+ ESMTP id 34B471946587
+ for <dm-devel@listman.corp.redhat.com>; Sat, 24 Jun 2023 11:17:32 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 26F6F14682FB; Sat, 24 Jun 2023 11:08:33 +0000 (UTC)
+ id 112862166B32; Sat, 24 Jun 2023 11:17:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E320140EBB8
- for <dm-devel@redhat.com>; Sat, 24 Jun 2023 11:08:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 087DD2166B25
+ for <dm-devel@redhat.com>; Sat, 24 Jun 2023 11:17:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0023F80027F
- for <dm-devel@redhat.com>; Sat, 24 Jun 2023 11:08:33 +0000 (UTC)
-Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com
- [209.85.214.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E17338E44E8
+ for <dm-devel@redhat.com>; Sat, 24 Jun 2023 11:17:31 +0000 (UTC)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-606-5OSzMbYeMEaisjBKH2qNkw-1; Sat, 24 Jun 2023 07:08:30 -0400
-X-MC-Unique: 5OSzMbYeMEaisjBKH2qNkw-1
-Received: by mail-pl1-f175.google.com with SMTP id
- d9443c01a7336-1b693afe799so2529915ad.1
- for <dm-devel@redhat.com>; Sat, 24 Jun 2023 04:08:29 -0700 (PDT)
+ us-mta-142-JZgC3uirNb6vrdU2aiy3Pg-1; Sat, 24 Jun 2023 07:17:29 -0400
+X-MC-Unique: JZgC3uirNb6vrdU2aiy3Pg-1
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-1b5585e84b4so2535835ad.0
+ for <dm-devel@redhat.com>; Sat, 24 Jun 2023 04:17:29 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687604909; x=1690196909;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
+ d=1e100.net; s=20221208; t=1687605449; x=1690197449;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7tnz7s8ew6fhhs0dR9M9QnK0rlCy7+XAhEAWksz3vrg=;
- b=W2ulXVMgWKo1NYsZkmwsH1/obbtOSt6x0cylJ7rNcqCKAWBvJvxE5sEv63E0p09g58
- nsIgXfl1BFwyaM0TT9Nc6oagyM6h7I+BNxG7Ev0olLt5kCmQuYp72Oz1t64fsS5Ttv0R
- YLqxw6+Rh0ptddO9vmvv5PZE9wq+Gi60s7+GfhdBmx8yeebpA6n1+umzdpyG3OQenj4B
- xZuly+5nERgphFWYIBxjyDSI++EHJYuy9Ilpr3n7KKzSwA0PxLvfuOe9WgFFhIpk3eM0
- Ozgq07bydSc3HfCN/5LDY/OYxACeypAr385lTtgJWSBWHlgB3DKtpelB8RDkfczKG4D4
- Izig==
-X-Gm-Message-State: AC+VfDyB7Qwh42i5IGxPHikMlxQBnHqguSwCkmoPjrmuh6SSErKu+IRq
- Y3ONmR6lfdWTApAqe8HjgIzfeg==
-X-Google-Smtp-Source: ACHHUZ48xugwBy1Yb59MA7iADNA4mtjxjJVDK/TEG1GiFnnp8kgPq3uDjFXVnvd+Ayx9tItAR27KLA==
-X-Received: by 2002:a17:903:32c4:b0:1b3:e352:6d88 with SMTP id
- i4-20020a17090332c400b001b3e3526d88mr29305254plr.6.1687604908733; 
- Sat, 24 Jun 2023 04:08:28 -0700 (PDT)
+ bh=T15O6xQIwkBwwHtvfiEExn4sWPaOJ+WY8Ww0WTBtsp8=;
+ b=IsUqoJ87D1kG6dt8GNS7HGA1rgZwI3cbYWaUdAi5WjIrjVP63h86Y89yL7gALIoZwv
+ /b51vvH3bB3syFjZvNR0AEZQ68wvV7SZFq25lxTj2tqkJUV8+vYxMimk/xXvHzRu1Lp0
+ ROJmjOsLxm5xv1SWMk9ivvUPqXCpgq577477UL04oC8Aa5XXHPcoTR729MxRbluuKtGB
+ uv33K+TvVRMaZglAyXGXelSRYAtTJ/qQdws0+gUUSut3tAGZWRQeKqvHZVJB+Y/HpNt1
+ NMEopF1Ds3txwheoQ1DVdBceMqFonps7fRRCEHyF6FivA1H61iyIWgrrRrAH29WE+gL1
+ ZznQ==
+X-Gm-Message-State: AC+VfDy0z1rKsE/E4OWj3zGhTzHtQVWGI5OTKeXhWtfiEX1lHEYHAijZ
+ Tmr5EbHrYgS5I/raQ9tnLu7ckw==
+X-Google-Smtp-Source: ACHHUZ6FdOiaHAk7I6ISkFgljzCcZyK3aCzvXyKEVanrKS23oGi4259EOvC6Ypj8Kzv6/iuF/wHf7Q==
+X-Received: by 2002:a17:902:ecc6:b0:1ae:1364:6086 with SMTP id
+ a6-20020a170902ecc600b001ae13646086mr29288550plh.2.1687605448727; 
+ Sat, 24 Jun 2023 04:17:28 -0700 (PDT)
 Received: from [10.4.162.153] ([139.177.225.251])
  by smtp.gmail.com with ESMTPSA id
- bg6-20020a1709028e8600b001b3d0aff88fsm1021644plb.109.2023.06.24.04.08.21
+ c13-20020a170902d48d00b001ab0a30c895sm1034090plg.202.2023.06.24.04.17.20
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Jun 2023 04:08:28 -0700 (PDT)
-Message-ID: <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
-Date: Sat, 24 Jun 2023 19:08:18 +0800
+ Sat, 24 Jun 2023 04:17:28 -0700 (PDT)
+Message-ID: <8107f6d1-2f86-46f1-2b31-263928499ab6@bytedance.com>
+Date: Sat, 24 Jun 2023 19:17:17 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: Dave Chinner <david@fromorbit.com>, paulmck@kernel.org
+To: Chuck Lever <cel@kernel.org>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-25-zhengqi.arch@bytedance.com>
- <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
- <ZJU708VIyJ/3StAX@dread.disaster.area>
- <a21047bb-3b87-a50a-94a7-f3fa4847bc08@bytedance.com>
- <ZJYaYv4pACmCaBoT@dread.disaster.area>
+ <20230622085335.77010-16-zhengqi.arch@bytedance.com>
+ <ZJYTbnmRKF7j3CHW@manet.1015granger.net>
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZJYaYv4pACmCaBoT@dread.disaster.area>
+In-Reply-To: <ZJYTbnmRKF7j3CHW@manet.1015granger.net>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -103,10 +101,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
-Subject: Re: [dm-devel] [PATCH 24/29] mm: vmscan: make global slab shrink
- lockless
+Subject: Re: [dm-devel] [PATCH 15/29] NFSD: dynamically allocate the
+ nfsd-client shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,102 +116,120 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org, brauner@kernel.org,
- tytso@mit.edu, djwong@kernel.org, intel-gfx@lists.freedesktop.org,
- roman.gushchin@linux.dev, linux-kernel@vger.kernel.org,
+Cc: djwong@kernel.org, roman.gushchin@linux.dev, david@fromorbit.com,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- linux-btrfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
- Vlastimil Babka <vbabka@suse.cz>, tkhai@ya.ru
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
+ paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
+ brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
+ linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Language: en-US
 Content-Transfer-Encoding: 7bit
 Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-Hi Dave,
+Hi Chuck,
 
-On 2023/6/24 06:19, Dave Chinner wrote:
-> On Fri, Jun 23, 2023 at 09:10:57PM +0800, Qi Zheng wrote:
->> On 2023/6/23 14:29, Dave Chinner wrote:
->>> On Thu, Jun 22, 2023 at 05:12:02PM +0200, Vlastimil Babka wrote:
->>>> On 6/22/23 10:53, Qi Zheng wrote:
->>> Yes, I suggested the IDR route because radix tree lookups under RCU
->>> with reference counted objects are a known safe pattern that we can
->>> easily confirm is correct or not.  Hence I suggested the unification
->>> + IDR route because it makes the life of reviewers so, so much
->>> easier...
+On 2023/6/24 05:49, Chuck Lever wrote:
+> On Thu, Jun 22, 2023 at 04:53:21PM +0800, Qi Zheng wrote:
+>> In preparation for implementing lockless slab shrink,
+>> we need to dynamically allocate the nfsd-client shrinker,
+>> so that it can be freed asynchronously using kfree_rcu().
+>> Then it doesn't need to wait for RCU read-side critical
+>> section when releasing the struct nfsd_net.
 >>
->> In fact, I originally planned to try the unification + IDR method you
->> suggested at the beginning. But in the case of CONFIG_MEMCG disabled,
->> the struct mem_cgroup is not even defined, and root_mem_cgroup and
->> shrinker_info will not be allocated.  This required more code changes, so
->> I ended up keeping the shrinker_list and implementing the above pattern.
+>> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 > 
-> Yes. Go back and read what I originally said needed to be done
-> first. In the case of CONFIG_MEMCG=n, a dummy root memcg still needs
-> to exist that holds all of the global shrinkers. Then shrink_slab()
-> is only ever passed a memcg that should be iterated.
+> For 15/29 and 16/29 of this series:
 > 
-> Yes, it needs changes external to the shrinker code itself to be
-> made to work. And even if memcg's are not enabled, we can still use
-> the memcg structures to ensure a common abstraction is used for the
-> shrinker tracking infrastructure....
+> Acked-by: Chuck Lever <chuck.lever@oracle.com>
 
-Yeah, what I imagined before was to define a more concise struct
-mem_cgroup in the case of CONFIG_MEMCG=n, then allocate a dummy root
-memcg on system boot:
+Thanks for your review! :)
 
-#ifdef !CONFIG_MEMCG
-
-struct shrinker_info {
-	struct rcu_head rcu;
-	atomic_long_t *nr_deferred;
-	unsigned long *map;
-	int map_nr_max;
-};
-
-struct mem_cgroup_per_node {
-	struct shrinker_info __rcu	*shrinker_info;
-};
-
-struct mem_cgroup {
-	struct mem_cgroup_per_node *nodeinfo[];
-};
-
-#endif
-
-But I have a concern: if all global shrinkers are tracking with the
-info->map of root memcg, a shrinker->id needs to be assigned to them,
-which will cause info->map_nr_max to become larger than before, then
-making the traversal of info->map slower.
-
-> 
->> If the above pattern is not safe, I will go back to the unification +
->> IDR method.
-> 
-> And that is exactly how we got into this mess in the first place....
-
-I only found one similar pattern in the kernel:
-
-fs/smb/server/oplock.c:find_same_lease_key/smb_break_all_levII_oplock/lookup_lease_in_table
-
-But IIUC, the refcount here needs to be decremented after holding
-rcu lock as I did above.
-
-So regardless of whether we choose unification + IDR in the end, I still
-want to confirm whether the pattern I implemented above is safe. :)
+And I will implement the APIs suggested by Dave in 02/29 in
+the v2, so there will be some changes here, but it should
+not be much. So I will keep your Acked-bys in the v2.
 
 Thanks,
 Qi
 
 > 
-> -Dave
+> 
+>> ---
+>>   fs/nfsd/netns.h     |  2 +-
+>>   fs/nfsd/nfs4state.c | 20 ++++++++++++--------
+>>   2 files changed, 13 insertions(+), 9 deletions(-)
+>>
+>> diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+>> index ec49b200b797..f669444d5336 100644
+>> --- a/fs/nfsd/netns.h
+>> +++ b/fs/nfsd/netns.h
+>> @@ -195,7 +195,7 @@ struct nfsd_net {
+>>   	int			nfs4_max_clients;
+>>   
+>>   	atomic_t		nfsd_courtesy_clients;
+>> -	struct shrinker		nfsd_client_shrinker;
+>> +	struct shrinker		*nfsd_client_shrinker;
+>>   	struct work_struct	nfsd_shrinker_work;
+>>   };
+>>   
+>> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+>> index 6e61fa3acaf1..a06184270548 100644
+>> --- a/fs/nfsd/nfs4state.c
+>> +++ b/fs/nfsd/nfs4state.c
+>> @@ -4388,8 +4388,7 @@ static unsigned long
+>>   nfsd4_state_shrinker_count(struct shrinker *shrink, struct shrink_control *sc)
+>>   {
+>>   	int count;
+>> -	struct nfsd_net *nn = container_of(shrink,
+>> -			struct nfsd_net, nfsd_client_shrinker);
+>> +	struct nfsd_net *nn = shrink->private_data;
+>>   
+>>   	count = atomic_read(&nn->nfsd_courtesy_clients);
+>>   	if (!count)
+>> @@ -8094,14 +8093,19 @@ static int nfs4_state_create_net(struct net *net)
+>>   	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
+>>   	get_net(net);
+>>   
+>> -	nn->nfsd_client_shrinker.scan_objects = nfsd4_state_shrinker_scan;
+>> -	nn->nfsd_client_shrinker.count_objects = nfsd4_state_shrinker_count;
+>> -	nn->nfsd_client_shrinker.seeks = DEFAULT_SEEKS;
+>> -
+>> -	if (register_shrinker(&nn->nfsd_client_shrinker, "nfsd-client"))
+>> +	nn->nfsd_client_shrinker = shrinker_alloc_and_init(nfsd4_state_shrinker_count,
+>> +							   nfsd4_state_shrinker_scan,
+>> +							   0, DEFAULT_SEEKS, 0,
+>> +							   nn);
+>> +	if (!nn->nfsd_client_shrinker)
+>>   		goto err_shrinker;
+>> +
+>> +	if (register_shrinker(nn->nfsd_client_shrinker, "nfsd-client"))
+>> +		goto err_register;
+>>   	return 0;
+>>   
+>> +err_register:
+>> +	shrinker_free(nn->nfsd_client_shrinker);
+>>   err_shrinker:
+>>   	put_net(net);
+>>   	kfree(nn->sessionid_hashtbl);
+>> @@ -8197,7 +8201,7 @@ nfs4_state_shutdown_net(struct net *net)
+>>   	struct list_head *pos, *next, reaplist;
+>>   	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
+>>   
+>> -	unregister_shrinker(&nn->nfsd_client_shrinker);
+>> +	unregister_and_free_shrinker(nn->nfsd_client_shrinker);
+>>   	cancel_work(&nn->nfsd_shrinker_work);
+>>   	cancel_delayed_work_sync(&nn->laundromat_work);
+>>   	locks_end_grace(&nn->nfsd4_manager);
+>> -- 
+>> 2.30.2
+>>
 
 --
 dm-devel mailing list
