@@ -1,99 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0BB7B74CD75
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 8D1A174CD71
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971634;
+	s=mimecast20190719; t=1688971633;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=IISo72FQpfQmNc9oHSyMSoUAZ2Tf1ljiFAlejWOVX68=;
-	b=K4vpKws/JP6t4v484w5tmvvvdGkc/7OozmLo5G4MMuPrAgC2PhFPa19pU3UPKOj9Jzd/rO
-	Lsw6faiFKwTseqCk5Ej21g/BW0nUTYcTG3JqIN1G5bTHu7h2diRHX79jUqctEmG5/OPcpN
-	y8br5A39DNEc/rh7hkIGBwgVu4ErvoU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=0K/IjNj/XdDgqHV/tQ4bMpad+Ajr/ABTFB9v80fGB6c=;
+	b=Rtt7h/HZDyOwrxFRjntDbYzkEMquHkzGQ8iEGrWziE2Go8VYqO11H3ASNuhs7fOBpBJ+Vp
+	752NoCQYizXjD1Ob6ElHQuLQzyBk1MBT9MtwaL1Bo5blobxcZMcGeWNERmIa8I+1E/4AuQ
+	/elRS9ZXrGqVHXKE1EPGlTyMpIdenpE=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-540-jxLcLJ8YOJq-bswKI-yOdw-1; Mon, 10 Jul 2023 02:47:11 -0400
-X-MC-Unique: jxLcLJ8YOJq-bswKI-yOdw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-605-UO2guZxpNbuUVt8Ff5d_FA-1; Mon, 10 Jul 2023 02:47:09 -0400
+X-MC-Unique: UO2guZxpNbuUVt8Ff5d_FA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 055621C47679;
-	Mon, 10 Jul 2023 06:47:02 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DD91640C2070;
-	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 790DC19451DF;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A7F710504AF;
 	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6F6F2F66BB;
+	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 499B71949747;
+	Mon, 10 Jul 2023 06:46:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 34B471946587
- for <dm-devel@listman.corp.redhat.com>; Sat, 24 Jun 2023 11:17:32 +0000 (UTC)
+ ESMTP id 658E11946587
+ for <dm-devel@listman.corp.redhat.com>; Sun, 25 Jun 2023 03:15:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 112862166B32; Sat, 24 Jun 2023 11:17:32 +0000 (UTC)
+ id 4055214682F9; Sun, 25 Jun 2023 03:15:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 087DD2166B25
- for <dm-devel@redhat.com>; Sat, 24 Jun 2023 11:17:32 +0000 (UTC)
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 38B6D14682FB
+ for <dm-devel@redhat.com>; Sun, 25 Jun 2023 03:15:15 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E17338E44E8
- for <dm-devel@redhat.com>; Sat, 24 Jun 2023 11:17:31 +0000 (UTC)
-Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
- [209.85.214.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1BE7928040A6
+ for <dm-devel@redhat.com>; Sun, 25 Jun 2023 03:15:15 +0000 (UTC)
+Received: from mail-pf1-f169.google.com (mail-pf1-f169.google.com
+ [209.85.210.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-142-JZgC3uirNb6vrdU2aiy3Pg-1; Sat, 24 Jun 2023 07:17:29 -0400
-X-MC-Unique: JZgC3uirNb6vrdU2aiy3Pg-1
-Received: by mail-pl1-f173.google.com with SMTP id
- d9443c01a7336-1b5585e84b4so2535835ad.0
- for <dm-devel@redhat.com>; Sat, 24 Jun 2023 04:17:29 -0700 (PDT)
+ us-mta-631-Lq76TH86M3a250dx3mvqUw-1; Sat, 24 Jun 2023 23:15:11 -0400
+X-MC-Unique: Lq76TH86M3a250dx3mvqUw-1
+Received: by mail-pf1-f169.google.com with SMTP id
+ d2e1a72fcca58-6687b209e5aso495378b3a.0
+ for <dm-devel@redhat.com>; Sat, 24 Jun 2023 20:15:11 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687605449; x=1690197449;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ d=1e100.net; s=20221208; t=1687662910; x=1690254910;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=T15O6xQIwkBwwHtvfiEExn4sWPaOJ+WY8Ww0WTBtsp8=;
- b=IsUqoJ87D1kG6dt8GNS7HGA1rgZwI3cbYWaUdAi5WjIrjVP63h86Y89yL7gALIoZwv
- /b51vvH3bB3syFjZvNR0AEZQ68wvV7SZFq25lxTj2tqkJUV8+vYxMimk/xXvHzRu1Lp0
- ROJmjOsLxm5xv1SWMk9ivvUPqXCpgq577477UL04oC8Aa5XXHPcoTR729MxRbluuKtGB
- uv33K+TvVRMaZglAyXGXelSRYAtTJ/qQdws0+gUUSut3tAGZWRQeKqvHZVJB+Y/HpNt1
- NMEopF1Ds3txwheoQ1DVdBceMqFonps7fRRCEHyF6FivA1H61iyIWgrrRrAH29WE+gL1
- ZznQ==
-X-Gm-Message-State: AC+VfDy0z1rKsE/E4OWj3zGhTzHtQVWGI5OTKeXhWtfiEX1lHEYHAijZ
- Tmr5EbHrYgS5I/raQ9tnLu7ckw==
-X-Google-Smtp-Source: ACHHUZ6FdOiaHAk7I6ISkFgljzCcZyK3aCzvXyKEVanrKS23oGi4259EOvC6Ypj8Kzv6/iuF/wHf7Q==
-X-Received: by 2002:a17:902:ecc6:b0:1ae:1364:6086 with SMTP id
- a6-20020a170902ecc600b001ae13646086mr29288550plh.2.1687605448727; 
- Sat, 24 Jun 2023 04:17:28 -0700 (PDT)
-Received: from [10.4.162.153] ([139.177.225.251])
+ bh=TKI5JnbDIC0GxIDWgHq4O/cOoJK+mFi4lHzSLMfVTqU=;
+ b=MjW6ZOmV+28Ns4IqkMOEkTmg714VEvGqu0DYAMPwKXjxueR+WABKZ4mu6tlVEWkqKl
+ EJ11jnzdrvilIFsTt/6rprnqcAxCl4bkP2NUiYHbB5FwI8DQTKNyAlDduRHIJu73KJKu
+ YL5r2Bf+URv+p66uMbzANwoHhO9T956nM3pLUvQsXUdR5Alp1swBrEx+ZPG1DIEuly+5
+ MEu1KKKp3aa2vgxwnF6kVsNQJT2BfSEjMDAcGyirbBXUKmGIPpHmkZlXvTWoMzc4nkLs
+ aL18nloIEERwejTQwGvEbu97O3pMDqfj3Q6nDaO+p7ZlEHYP6Olhw8OLQe3kBPMZa4sh
+ +yWg==
+X-Gm-Message-State: AC+VfDxihBFU8P3K0FjQKvTnNNLNazxBiSP3UbMHU91mfWCd5+Lr/378
+ nWlLwji1RUQ170SZplnbiIbfQA==
+X-Google-Smtp-Source: ACHHUZ4cDGND46+rMO/jpoItKK6gyWoVPMpHTImOruhTgKiq3D9MdRMxw7KZsaNY9vtDgu3MtWReMw==
+X-Received: by 2002:a05:6a20:8426:b0:11f:7829:6d6c with SMTP id
+ c38-20020a056a20842600b0011f78296d6cmr28507253pzd.3.1687662910560; 
+ Sat, 24 Jun 2023 20:15:10 -0700 (PDT)
+Received: from [10.70.252.135] ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- c13-20020a170902d48d00b001ab0a30c895sm1034090plg.202.2023.06.24.04.17.20
+ r9-20020a62e409000000b0066642f95bc5sm1648412pfh.35.2023.06.24.20.15.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Sat, 24 Jun 2023 04:17:28 -0700 (PDT)
-Message-ID: <8107f6d1-2f86-46f1-2b31-263928499ab6@bytedance.com>
-Date: Sat, 24 Jun 2023 19:17:17 +0800
+ Sat, 24 Jun 2023 20:15:10 -0700 (PDT)
+Message-ID: <00641d5b-86a3-f5d1-02ee-13b4f815df75@bytedance.com>
+Date: Sun, 25 Jun 2023 11:15:01 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: Chuck Lever <cel@kernel.org>
-References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
- <20230622085335.77010-16-zhengqi.arch@bytedance.com>
- <ZJYTbnmRKF7j3CHW@manet.1015granger.net>
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZJYTbnmRKF7j3CHW@manet.1015granger.net>
+To: Dave Chinner <david@fromorbit.com>, paulmck@kernel.org
+References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
+ <20230622085335.77010-25-zhengqi.arch@bytedance.com>
+ <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
+ <ZJU708VIyJ/3StAX@dread.disaster.area>
+ <a21047bb-3b87-a50a-94a7-f3fa4847bc08@bytedance.com>
+ <ZJYaYv4pACmCaBoT@dread.disaster.area>
+ <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
+In-Reply-To: <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,10 +105,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
-Subject: Re: [dm-devel] [PATCH 15/29] NFSD: dynamically allocate the
- nfsd-client shrinker
+Subject: Re: [dm-devel] [PATCH 24/29] mm: vmscan: make global slab shrink
+ lockless
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,123 +120,80 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: djwong@kernel.org, roman.gushchin@linux.dev, david@fromorbit.com,
+Cc: djwong@kernel.org, roman.gushchin@linux.dev,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
  linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
- paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
- intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org, vbabka@suse.cz,
- brauner@kernel.org, tytso@mit.edu, linux-kernel@vger.kernel.org,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- akpm@linux-foundation.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ linux-arm-msm@vger.kernel.org, intel-gfx@lists.freedesktop.org,
+ linux-nfs@vger.kernel.org, RCU <rcu@vger.kernel.org>,
+ linux-bcache@vger.kernel.org, Vlastimil Babka <vbabka@suse.cz>,
+ linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
+ linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
+ linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-Hi Chuck,
-
-On 2023/6/24 05:49, Chuck Lever wrote:
-> On Thu, Jun 22, 2023 at 04:53:21PM +0800, Qi Zheng wrote:
->> In preparation for implementing lockless slab shrink,
->> we need to dynamically allocate the nfsd-client shrinker,
->> so that it can be freed asynchronously using kfree_rcu().
->> Then it doesn't need to wait for RCU read-side critical
->> section when releasing the struct nfsd_net.
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> For 15/29 and 16/29 of this series:
-> 
-> Acked-by: Chuck Lever <chuck.lever@oracle.com>
-
-Thanks for your review! :)
-
-And I will implement the APIs suggested by Dave in 02/29 in
-the v2, so there will be some changes here, but it should
-not be much. So I will keep your Acked-bys in the v2.
-
-Thanks,
-Qi
-
-> 
-> 
->> ---
->>   fs/nfsd/netns.h     |  2 +-
->>   fs/nfsd/nfs4state.c | 20 ++++++++++++--------
->>   2 files changed, 13 insertions(+), 9 deletions(-)
->>
->> diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
->> index ec49b200b797..f669444d5336 100644
->> --- a/fs/nfsd/netns.h
->> +++ b/fs/nfsd/netns.h
->> @@ -195,7 +195,7 @@ struct nfsd_net {
->>   	int			nfs4_max_clients;
->>   
->>   	atomic_t		nfsd_courtesy_clients;
->> -	struct shrinker		nfsd_client_shrinker;
->> +	struct shrinker		*nfsd_client_shrinker;
->>   	struct work_struct	nfsd_shrinker_work;
->>   };
->>   
->> diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
->> index 6e61fa3acaf1..a06184270548 100644
->> --- a/fs/nfsd/nfs4state.c
->> +++ b/fs/nfsd/nfs4state.c
->> @@ -4388,8 +4388,7 @@ static unsigned long
->>   nfsd4_state_shrinker_count(struct shrinker *shrink, struct shrink_control *sc)
->>   {
->>   	int count;
->> -	struct nfsd_net *nn = container_of(shrink,
->> -			struct nfsd_net, nfsd_client_shrinker);
->> +	struct nfsd_net *nn = shrink->private_data;
->>   
->>   	count = atomic_read(&nn->nfsd_courtesy_clients);
->>   	if (!count)
->> @@ -8094,14 +8093,19 @@ static int nfs4_state_create_net(struct net *net)
->>   	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
->>   	get_net(net);
->>   
->> -	nn->nfsd_client_shrinker.scan_objects = nfsd4_state_shrinker_scan;
->> -	nn->nfsd_client_shrinker.count_objects = nfsd4_state_shrinker_count;
->> -	nn->nfsd_client_shrinker.seeks = DEFAULT_SEEKS;
->> -
->> -	if (register_shrinker(&nn->nfsd_client_shrinker, "nfsd-client"))
->> +	nn->nfsd_client_shrinker = shrinker_alloc_and_init(nfsd4_state_shrinker_count,
->> +							   nfsd4_state_shrinker_scan,
->> +							   0, DEFAULT_SEEKS, 0,
->> +							   nn);
->> +	if (!nn->nfsd_client_shrinker)
->>   		goto err_shrinker;
->> +
->> +	if (register_shrinker(nn->nfsd_client_shrinker, "nfsd-client"))
->> +		goto err_register;
->>   	return 0;
->>   
->> +err_register:
->> +	shrinker_free(nn->nfsd_client_shrinker);
->>   err_shrinker:
->>   	put_net(net);
->>   	kfree(nn->sessionid_hashtbl);
->> @@ -8197,7 +8201,7 @@ nfs4_state_shutdown_net(struct net *net)
->>   	struct list_head *pos, *next, reaplist;
->>   	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
->>   
->> -	unregister_shrinker(&nn->nfsd_client_shrinker);
->> +	unregister_and_free_shrinker(nn->nfsd_client_shrinker);
->>   	cancel_work(&nn->nfsd_shrinker_work);
->>   	cancel_delayed_work_sync(&nn->laundromat_work);
->>   	locks_end_grace(&nn->nfsd4_manager);
->> -- 
->> 2.30.2
->>
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+CgpPbiAyMDIzLzYvMjQgMTk6MDgsIFFpIFpoZW5nIHdyb3RlOgo+IEhpIERhdmUsCj4gCj4gT24g
+MjAyMy82LzI0IDA2OjE5LCBEYXZlIENoaW5uZXIgd3JvdGU6Cj4+IE9uIEZyaSwgSnVuIDIzLCAy
+MDIzIGF0IDA5OjEwOjU3UE0gKzA4MDAsIFFpIFpoZW5nIHdyb3RlOgo+Pj4gT24gMjAyMy82LzIz
+IDE0OjI5LCBEYXZlIENoaW5uZXIgd3JvdGU6Cj4+Pj4gT24gVGh1LCBKdW4gMjIsIDIwMjMgYXQg
+MDU6MTI6MDJQTSArMDIwMCwgVmxhc3RpbWlsIEJhYmthIHdyb3RlOgo+Pj4+PiBPbiA2LzIyLzIz
+IDEwOjUzLCBRaSBaaGVuZyB3cm90ZToKPj4+PiBZZXMsIEkgc3VnZ2VzdGVkIHRoZSBJRFIgcm91
+dGUgYmVjYXVzZSByYWRpeCB0cmVlIGxvb2t1cHMgdW5kZXIgUkNVCj4+Pj4gd2l0aCByZWZlcmVu
+Y2UgY291bnRlZCBvYmplY3RzIGFyZSBhIGtub3duIHNhZmUgcGF0dGVybiB0aGF0IHdlIGNhbgo+
+Pj4+IGVhc2lseSBjb25maXJtIGlzIGNvcnJlY3Qgb3Igbm90LsKgIEhlbmNlIEkgc3VnZ2VzdGVk
+IHRoZSB1bmlmaWNhdGlvbgo+Pj4+ICsgSURSIHJvdXRlIGJlY2F1c2UgaXQgbWFrZXMgdGhlIGxp
+ZmUgb2YgcmV2aWV3ZXJzIHNvLCBzbyBtdWNoCj4+Pj4gZWFzaWVyLi4uCj4+Pgo+Pj4gSW4gZmFj
+dCwgSSBvcmlnaW5hbGx5IHBsYW5uZWQgdG8gdHJ5IHRoZSB1bmlmaWNhdGlvbiArIElEUiBtZXRo
+b2QgeW91Cj4+PiBzdWdnZXN0ZWQgYXQgdGhlIGJlZ2lubmluZy4gQnV0IGluIHRoZSBjYXNlIG9m
+IENPTkZJR19NRU1DRyBkaXNhYmxlZCwKPj4+IHRoZSBzdHJ1Y3QgbWVtX2Nncm91cCBpcyBub3Qg
+ZXZlbiBkZWZpbmVkLCBhbmQgcm9vdF9tZW1fY2dyb3VwIGFuZAo+Pj4gc2hyaW5rZXJfaW5mbyB3
+aWxsIG5vdCBiZSBhbGxvY2F0ZWQuwqAgVGhpcyByZXF1aXJlZCBtb3JlIGNvZGUgCj4+PiBjaGFu
+Z2VzLCBzbwo+Pj4gSSBlbmRlZCB1cCBrZWVwaW5nIHRoZSBzaHJpbmtlcl9saXN0IGFuZCBpbXBs
+ZW1lbnRpbmcgdGhlIGFib3ZlIHBhdHRlcm4uCj4+Cj4+IFllcy4gR28gYmFjayBhbmQgcmVhZCB3
+aGF0IEkgb3JpZ2luYWxseSBzYWlkIG5lZWRlZCB0byBiZSBkb25lCj4+IGZpcnN0LiBJbiB0aGUg
+Y2FzZSBvZiBDT05GSUdfTUVNQ0c9biwgYSBkdW1teSByb290IG1lbWNnIHN0aWxsIG5lZWRzCj4+
+IHRvIGV4aXN0IHRoYXQgaG9sZHMgYWxsIG9mIHRoZSBnbG9iYWwgc2hyaW5rZXJzLiBUaGVuIHNo
+cmlua19zbGFiKCkKPj4gaXMgb25seSBldmVyIHBhc3NlZCBhIG1lbWNnIHRoYXQgc2hvdWxkIGJl
+IGl0ZXJhdGVkLgo+Pgo+PiBZZXMsIGl0IG5lZWRzIGNoYW5nZXMgZXh0ZXJuYWwgdG8gdGhlIHNo
+cmlua2VyIGNvZGUgaXRzZWxmIHRvIGJlCj4+IG1hZGUgdG8gd29yay4gQW5kIGV2ZW4gaWYgbWVt
+Y2cncyBhcmUgbm90IGVuYWJsZWQsIHdlIGNhbiBzdGlsbCB1c2UKPj4gdGhlIG1lbWNnIHN0cnVj
+dHVyZXMgdG8gZW5zdXJlIGEgY29tbW9uIGFic3RyYWN0aW9uIGlzIHVzZWQgZm9yIHRoZQo+PiBz
+aHJpbmtlciB0cmFja2luZyBpbmZyYXN0cnVjdHVyZS4uLi4KPiAKPiBZZWFoLCB3aGF0IEkgaW1h
+Z2luZWQgYmVmb3JlIHdhcyB0byBkZWZpbmUgYSBtb3JlIGNvbmNpc2Ugc3RydWN0Cj4gbWVtX2Nn
+cm91cCBpbiB0aGUgY2FzZSBvZiBDT05GSUdfTUVNQ0c9biwgdGhlbiBhbGxvY2F0ZSBhIGR1bW15
+IHJvb3QKPiBtZW1jZyBvbiBzeXN0ZW0gYm9vdDoKPiAKPiAjaWZkZWYgIUNPTkZJR19NRU1DRwo+
+IAo+IHN0cnVjdCBzaHJpbmtlcl9pbmZvIHsKPiAgwqDCoMKgwqBzdHJ1Y3QgcmN1X2hlYWQgcmN1
+Owo+ICDCoMKgwqDCoGF0b21pY19sb25nX3QgKm5yX2RlZmVycmVkOwo+ICDCoMKgwqDCoHVuc2ln
+bmVkIGxvbmcgKm1hcDsKPiAgwqDCoMKgwqBpbnQgbWFwX25yX21heDsKPiB9Owo+IAo+IHN0cnVj
+dCBtZW1fY2dyb3VwX3Blcl9ub2RlIHsKPiAgwqDCoMKgwqBzdHJ1Y3Qgc2hyaW5rZXJfaW5mbyBf
+X3JjdcKgwqDCoCAqc2hyaW5rZXJfaW5mbzsKPiB9Owo+IAo+IHN0cnVjdCBtZW1fY2dyb3VwIHsK
+PiAgwqDCoMKgwqBzdHJ1Y3QgbWVtX2Nncm91cF9wZXJfbm9kZSAqbm9kZWluZm9bXTsKPiB9Owo+
+IAo+ICNlbmRpZgo+IAo+IEJ1dCBJIGhhdmUgYSBjb25jZXJuOiBpZiBhbGwgZ2xvYmFsIHNocmlu
+a2VycyBhcmUgdHJhY2tpbmcgd2l0aCB0aGUKPiBpbmZvLT5tYXAgb2Ygcm9vdCBtZW1jZywgYSBz
+aHJpbmtlci0+aWQgbmVlZHMgdG8gYmUgYXNzaWduZWQgdG8gdGhlbSwKPiB3aGljaCB3aWxsIGNh
+dXNlIGluZm8tPm1hcF9ucl9tYXggdG8gYmVjb21lIGxhcmdlciB0aGFuIGJlZm9yZSwgdGhlbgo+
+IG1ha2luZyB0aGUgdHJhdmVyc2FsIG9mIGluZm8tPm1hcCBzbG93ZXIuCgpCdXQgbW9zdCBvZiB0
+aGUgc3lzdGVtIGlzICdzYi14eHgnIHNocmlua2VyIGluc3RhbmNlcywgdGhleSBhbGwgaGF2ZQp0
+aGUgU0hSSU5LRVJfTUVNQ0dfQVdBUkUgZmxhZywgc28gaXQgc2hvdWxkIGhhdmUgbGl0dGxlIGlt
+cGFjdCBvbiB0aGUKc3BlZWQgb2YgdHJhdmVyc2luZyBpbmZvLT5tYXAuIDspCgo+IAo+Pgo+Pj4g
+SWYgdGhlIGFib3ZlIHBhdHRlcm4gaXMgbm90IHNhZmUsIEkgd2lsbCBnbyBiYWNrIHRvIHRoZSB1
+bmlmaWNhdGlvbiArCj4+PiBJRFIgbWV0aG9kLgo+Pgo+PiBBbmQgdGhhdCBpcyBleGFjdGx5IGhv
+dyB3ZSBnb3QgaW50byB0aGlzIG1lc3MgaW4gdGhlIGZpcnN0IHBsYWNlLi4uLgo+IAo+IEkgb25s
+eSBmb3VuZCBvbmUgc2ltaWxhciBwYXR0ZXJuIGluIHRoZSBrZXJuZWw6Cj4gCj4gZnMvc21iL3Nl
+cnZlci9vcGxvY2suYzpmaW5kX3NhbWVfbGVhc2Vfa2V5L3NtYl9icmVha19hbGxfbGV2SUlfb3Bs
+b2NrL2xvb2t1cF9sZWFzZV9pbl90YWJsZQo+IAo+IEJ1dCBJSVVDLCB0aGUgcmVmY291bnQgaGVy
+ZSBuZWVkcyB0byBiZSBkZWNyZW1lbnRlZCBhZnRlciBob2xkaW5nCj4gcmN1IGxvY2sgYXMgSSBk
+aWQgYWJvdmUuCj4gCj4gU28gcmVnYXJkbGVzcyBvZiB3aGV0aGVyIHdlIGNob29zZSB1bmlmaWNh
+dGlvbiArIElEUiBpbiB0aGUgZW5kLCBJIHN0aWxsCj4gd2FudCB0byBjb25maXJtIHdoZXRoZXIg
+dGhlIHBhdHRlcm4gSSBpbXBsZW1lbnRlZCBhYm92ZSBpcyBzYWZlLiA6KQoKQWxzbyArIFJDVSBt
+YWlsaW5nIGxpc3QuCgo+IAo+IFRoYW5rcywKPiBRaQo+IAo+Pgo+PiAtRGF2ZQoKLS0KZG0tZGV2
+ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhh
+dC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
 
