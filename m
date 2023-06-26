@@ -1,99 +1,98 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id CE3EC74CD81
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0F65374CD7B
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971639;
+	s=mimecast20190719; t=1688971637;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=uQcAozqCL+8UbhuIJ0u8LZD1YXhFD9KBlH9FV0dIjks=;
-	b=F/8GKjdOjJe+Br7RIhUOpmENC0NYw4qUYg6BiBIYzyAs4nTNJ86unkEZbCwzAtFTOQMHsm
-	YBQ9PJhk3Ku2L+lQPHNG9frf/cxkAL4dYIRplXV/DsYOtTm2jW3urs5Y9sruS+N1W00Wbo
-	41Z3BBZFwLFNe5W2Lm+0ivjomd0m1YU=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=Nbq9Xh14Q0owFEi1g+FUgFLi0Ne/Ud1xwthEPEVJIHk=;
+	b=Xa7+RFnXWMfFCK5f/r47Kq0Q2qGgqtdUM+gsvvsqw2rYQVn6FjX+u2rioluHBa5Dp6+3Vq
+	RsNqFESoXDswlRILlk3pJdeRo94/XEqAEwejGujmoMvbGA2rdFIWSuaDPBsGwodICvs0Fe
+	KqxVB1vILa0muo4OrVY0aZ1SXlnS7UM=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-141-Udr4BhFIN0Kv6SxKjLAmEw-1; Mon, 10 Jul 2023 02:47:16 -0400
-X-MC-Unique: Udr4BhFIN0Kv6SxKjLAmEw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-112-OwoQssh9PciamD9g8p-HvA-1; Mon, 10 Jul 2023 02:47:15 -0400
+X-MC-Unique: OwoQssh9PciamD9g8p-HvA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D3A12280D21C;
-	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4153B8065D2;
+	Mon, 10 Jul 2023 06:47:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BAB454CD0CF;
-	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 24D03F66BB;
+	Mon, 10 Jul 2023 06:47:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7CCAE19451D3;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BD3281949764;
 	Mon, 10 Jul 2023 06:46:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C4AEC1946587
- for <dm-devel@listman.corp.redhat.com>; Mon, 26 Jun 2023 15:20:02 +0000 (UTC)
+ ESMTP id 784071946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 26 Jun 2023 16:20:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AC1FF40C2071; Mon, 26 Jun 2023 15:20:02 +0000 (UTC)
+ id 8B0D92166B26; Mon, 26 Jun 2023 16:20:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A49C640C2063
- for <dm-devel@redhat.com>; Mon, 26 Jun 2023 15:20:02 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 832472166B27
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 16:20:31 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6BCDD3802263
- for <dm-devel@redhat.com>; Mon, 26 Jun 2023 15:20:02 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5AEC8185A7A8
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 16:20:31 +0000 (UTC)
 Received: from mout.web.de (mout.web.de [212.227.15.14]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-357-jg9Jk_cOOpuiNIwq8xq5Tw-1; Mon,
- 26 Jun 2023 11:20:00 -0400
-X-MC-Unique: jg9Jk_cOOpuiNIwq8xq5Tw-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-86-BZTy-1jRMYevktGoysRM6g-1; Mon,
+ 26 Jun 2023 12:20:25 -0400
+X-MC-Unique: BZTy-1jRMYevktGoysRM6g-1
 X-UI-Sender-Class: 814a7b36-bfc1-4dae-8640-3722d8ec6cd6
 Received: from [192.168.178.21] ([94.31.82.83]) by smtp.web.de (mrweb006
- [213.165.67.108]) with ESMTPSA (Nemesis) id 1N01di-1ptP2L0xj4-00wxYP; Mon, 26
- Jun 2023 17:19:55 +0200
-Message-ID: <70bb2301-6120-a374-6103-f8d1a4c68631@web.de>
-Date: Mon, 26 Jun 2023 17:19:54 +0200
+ [213.165.67.108]) with ESMTPSA (Nemesis) id 1N2BMA-1q4MSn2Hug-013X0X; Mon, 26
+ Jun 2023 18:20:15 +0200
+Message-ID: <1c1cd489-6d59-00ed-a1f5-497ca532c08d@web.de>
+Date: Mon, 26 Jun 2023 18:20:14 +0200
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
  Thunderbird/102.12.0
-To: Dan Carpenter <dan.carpenter@linaro.org>
+To: Dan Carpenter <dan.carpenter@linaro.org>,
+ Demi Marie Obenour <demi@invisiblethingslab.com>
 References: <20230624230950.2272-3-demi@invisiblethingslab.com>
  <3241078c-2318-fe1b-33cc-7c33db71b1a6@web.de> <ZJh73z2CsgHEJ4iv@itl-email>
  <e42e8115-6f75-447e-9955-ca4ad43ed406@kadam.mountain>
- <c1b84520-94d2-2c5c-6eed-2a0697c086a4@web.de>
- <79fdecc7-138f-476f-bc40-3603aac408ad@kadam.mountain>
 From: Markus Elfring <Markus.Elfring@web.de>
-In-Reply-To: <79fdecc7-138f-476f-bc40-3603aac408ad@kadam.mountain>
-X-Provags-ID: V03:K1:RvYo1RbYdvVSMn/vSNZFVdcN29J2r4+0g+y0MedYQjPfI4M8G4b
- oyg43fNQ2cEmhSbNOHj52OpJQavxVVX34ywY4DrmclkNO3pdXNCMYkH7RTb5tTh0itChEpl
- cqpfV7x7Nw+SjJ15y/R+4d+bnLFhFzktz+pGvmL8eh4EP+4XYblABqoaHbfZRUlcWJkAHrO
- 73Y0r+BbJpxGGo0eyLa0g==
+In-Reply-To: <e42e8115-6f75-447e-9955-ca4ad43ed406@kadam.mountain>
+X-Provags-ID: V03:K1:7kb9UXr+SWFMPITRu36W/qBQb60QuzsKT10LUpMlxNEmJrZD1li
+ 9OLemY/qY/17OehY6EF/pfgFBBLcLgBKVAcEzuN+Qiy1E7WYuHAf2Bawi2IIJfDPa1UYO1l
+ l0nHb+AE12M1mcl/s5jutfMm4BsRu5NN5yvBhFNfPVHY1SMYrm+i09vDZuIc9mHLH0yfbtz
+ r76DSeJ3riB+jTENObhOg==
 X-Spam-Flag: NO
-UI-OutboundReport: notjunk:1;M01:P0:NJWg+wZAZbw=;98/grzqENcdBtmMCAmkM5k3Zal1
- ZRJy9Cl1lUHivxASqJBWd/Umuxe8FhJHGDoCpcISKFl+qyMa/Pd/R+0LHRNoFC57e6SIeaDcS
- hQMDlMHPBmiW6Mh76+KfeLlnkGmYUOthIj4du7NsgSHlOmkN+3zizF/rCpJd5F0kmZnWlcwwK
- //iFLnWmdzyRml8L8reXt1o3nvXJsaxVcL67ede4vEuqXekvDIS+LOWpZ5yckJc3E5vdMoq6H
- kSD1g3cPcn9OPv0IQTcrGwWrNCYYCjeL4AmjFJIDjaPPrO32uMY5vhlHX79qk3BDZZ64HRYMF
- DKKhv6b2JS4GlpmsfcPXWpo0zNpB28EAvfAdX3mBW390CAk2hclQE7uL4mUVkRPpVxUNKSCSs
- tJbapUr6Q9Bti/jWHS1i15F8iF7xZnlQQNEAchmq81lg77KNzl0asyrI9BLVgE0hcaAQtUTEc
- Bb6kScGeVqkDni2flEeW4NI8OH57CkVTujVPOpU+ql1djRzdIcNf96/TuFpgMR6Xnwlkl/5gq
- 4j4eALnoGdkq3cBh7lINn54S3b54ZPBbxl444LxKmM7YXIYrejU1+JAokJQCLGcYp7BdZi1qH
- SZk3JsBSZEwYh/Kdr8y+WCjrL9nocaJBLP0e7cYIDzCKomoR5dK+USFcnssF78H+g9zE83Zvc
- NdudN8XhNjuIFJsZ6t8UdkW23ClTNhhO3FhytFx11eIqUyIZ8boxaTSlUJUAZtLtwKi9GoB48
- sevzIoWZ35RADYZRw7Uewf2B0DvXrvevFfmJ9pkSyQe69j6RZytfVRawibKjCX4gFFAQuiOrS
- jGP/296FxtzmIeQTPxn66HBWbJYYKDj350sX6NsQBhA/TZPpEBy0sPYdw3SEjyefsKvPt3Eke
- vG/TJtZMuTb816Eu91RQZOR0o8CjVKr1u/Fw6sj7RXJD6VpX8vnE27Ddjg/qwAdrymRTIRiUU
- PDQ5DEV5q+/ug5nrwzcifvHjY1Q=
+UI-OutboundReport: notjunk:1;M01:P0:nSDa1yPxkD8=;4jzlYJUjpT+S6BpOWOBHQHk4MVZ
+ AnWjMzbtYp8N9EJkwsjIRwvIlEI859mydN2XX4xj/l1fnARib1eDEFQON1D2h5IHqMLBC5hzK
+ ZJMkC5SRyMdlRwgS1aswnhBGNr8dOuZ/rnyLcg5aI9OMgFnbl6BcpTzlyPO/zeqtiYeg54uZq
+ uewHxCbevITk1v0zxOZbNDxROQvc6NRJDcJuSOkm181dgVSboH23F8zGILT/EyUUjwd94vR3s
+ 3bsy/1mP9uQbzzFtv1v0roMApTN+KD4KxpVLvHAITkTeSaduyh4eYpKpef7QNAsLxQpA28kAT
+ IUr+ZbpY7nxLwsvII1TtPXqWzXzgVZUq8GOEute49uJ8eZUEQsxtrhJWCp3VCt2XlwvTdp777
+ I1dH394HguG3hv2nHC/aBOZFFPxHMlbuBbLYKdjf+OOM08eEvhKzWsWC4ZU0WyTQ7s4pgFXYQ
+ hRyGZOWDxQd0f/fawIkO8uB/SLwMpJuWdF4d9LHGmchyetDE3BaLR0Ao/aKS9FxOFgikoimx9
+ E5WfEDF43zVmfbdLujOg1lVhVKTLj72nqz21v25xMGUF64EUxB9MPP9i8Ot1WJ35DzKN8xnpe
+ naOSSrlOGCSffyn7Q/D6Dr7a+BGtnnOEBHHLR3x4RUEnPphtPG2LRpwucav6FNjbdsi4OASEd
+ ROT5eK3sWlqOPoenaZ0NdSbOrCveaKV9Gt94wwtIkhh02uadBkq+VfIbAVQZfoyZbvDH0XPoi
+ Iy+6EAeAG56U1LuA8aVs8BLALL+NVYDAmSETnrH6vi98KVxJMxNGd/YdIwX8t3BgTMjYURxa9
+ sDPeZQ5Q/YzXymZ+rMh9grA+VDB9wiZnoh1Hww994BYuRq26Ljj4XITREWhbsWxrrm/MoVmdS
+ m56theq36JXkOwVCERz4bbQOZ/M7G3xW16KMksxN1uab8TaMq6hIDo214sAPqAbrzQ9KFjaQB
+ 8VRDbQhgAny8jQdaR1oW5vLiNyM=
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,9 +100,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
-Subject: Re: [dm-devel] [v2 2/4] dm ioctl: Allow userspace to provide
+Subject: Re: [dm-devel] [PATCH v2 2/4] dm ioctl: Allow userspace to provide
  expected diskseq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -116,54 +115,24 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: kernel-janitors@vger.kernel.org, Mike Snitzer <snitzer@kernel.org>,
- LKML <linux-kernel@vger.kernel.org>, dm-devel@redhat.com,
- Demi Marie Obenour <demi@invisiblethingslab.com>,
+Cc: Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
+ kernel-janitors@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>,
  Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: web.de
 Content-Language: en-GB
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-> The reason why Markus was banned was because he doesn't listen to feedback.
-
-I tend to listen to some feedback.
-
-We came along items which might look worthwhile for changes
-in different ways.
-
-
-> I've told him several times in the past week to stop bothering people
-
-It seems that some contributors can cope better with recurring advices
-also from known patch review processes.
-
-
-> who are trying to work
-
-Corresponding approaches will evolve further.
-
-
-> but he is not going to listen.
-
-I came to other conclusions for remaining communication difficulties.
-
-
-> Meanwhile, I have seen Markus fix bugs so if he wanted to focus on
-> fixing bugs he probably could.
-
-The change acceptance is evolving, isn't it?
-https://git.kernel.org/pub/scm/linux/kernel/git/next/linux-next.git/log/?qt=grep&q=Elfring
-
-Regards,
-Markus
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+PiDigKYsIHN0b3AgYm90aGVyaW5nIHBlb3BsZSBhYm91dCB0cml2aWFsIG5vbnNlbnNlLiDigKYK
+ClNlZSBhbHNvIGFub3RoZXIgYml0IG9mIGJhY2tncm91bmQgaW5mb3JtYXRpb24gb25jZSBtb3Jl
+OgpbUEFUQ0ggdjJdIGNlcnRzL2V4dHJhY3QtY2VydDogRml4IGNoZWNrcGF0Y2ggaXNzdWVzCjIw
+MjMtMDYtMDkKaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcva2VybmVsLWphbml0b3JzL2M0NjRjNGVl
+LTAzOGMtNDdiZi04NTdhLWIxMWE4OTY4MGU4MkBrYWRhbS5tb3VudGFpbi8KaHR0cHM6Ly9sa21s
+Lm9yZy9sa21sLzIwMjMvNi85Lzg3OQoKUmVnYXJkcywKTWFya3VzCgotLQpkbS1kZXZlbCBtYWls
+aW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9t
+YWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
 
