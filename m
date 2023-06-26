@@ -1,95 +1,97 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6BB1374070C
-	for <lists+dm-devel@lfdr.de>; Wed, 28 Jun 2023 02:07:55 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 4B30C74070E
+	for <lists+dm-devel@lfdr.de>; Wed, 28 Jun 2023 02:07:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687910874;
+	s=mimecast20190719; t=1687910877;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ct+FgJvRJkA5LSHZ/XPvKv08NyWkOMAdpOTqk57vaWA=;
-	b=MCsVKajkqguWpYunpOAg4NoaWfHxzjQogHoIUrld0lpHXqiF2pqC1GWzt+onaEwwM+ZIzi
-	KuaCKdW1Q7vJtI+MP40ml752tyqUt8PuxmdJvZtPdmgEuDZ3WgdE66KbVXc5TYwvYzH2cj
-	vcHKKl0vUUH0Mg6K+uAfl1SU0umpg6I=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=LEUaL4eXbnhOt883pWnRI9HPOYh8VP3oL1OzRRxv//s=;
+	b=K2d/7WFNfjIoCsGPXemm0hXnXhj1V5iRf50wcvJvgIfL5/dQgXffVsPr4MIg/gYByUqD6P
+	Yq5swmHbGXh1xho/gCQ8xHaEAbC/rHPhz1izCKtF0atsTITNRJkFnRoKjUYD+kmdkQVJr2
+	typSIHL4HRUZPoNSDZbKIg40R4yqycQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-263-m_mIvdRuMBqdo8JjkpIBtQ-1; Tue, 27 Jun 2023 20:07:52 -0400
-X-MC-Unique: m_mIvdRuMBqdo8JjkpIBtQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-572-Jgw_mRBSPMeSn_m4vMcmoA-1; Tue, 27 Jun 2023 20:07:52 -0400
+X-MC-Unique: Jgw_mRBSPMeSn_m4vMcmoA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C35528ED624;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC3243C0FCA9;
 	Wed, 28 Jun 2023 00:07:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B126C9E9C;
-	Wed, 28 Jun 2023 00:07:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2C82C4087C6B;
+	Wed, 28 Jun 2023 00:07:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1410B19465A8;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3E34619465BD;
 	Wed, 28 Jun 2023 00:07:31 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 42A4E1946587
- for <dm-devel@listman.corp.redhat.com>; Mon, 26 Jun 2023 12:59:34 +0000 (UTC)
+ ESMTP id E6DFD1946587
+ for <dm-devel@listman.corp.redhat.com>; Mon, 26 Jun 2023 14:51:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DC35340C6CCD; Mon, 26 Jun 2023 12:59:33 +0000 (UTC)
+ id B91B9200B680; Mon, 26 Jun 2023 14:51:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D556240C6F5A
- for <dm-devel@redhat.com>; Mon, 26 Jun 2023 12:59:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BABA51C03D9D
- for <dm-devel@redhat.com>; Mon, 26 Jun 2023 12:59:33 +0000 (UTC)
-Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
- [209.85.128.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B1A1D200B677
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 14:51:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9834B88CC42
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 14:51:37 +0000 (UTC)
+Received: from mail-lf1-f49.google.com (mail-lf1-f49.google.com
+ [209.85.167.49]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-270-itba1tmBOZSAIikdUgs79w-1; Mon, 26 Jun 2023 08:59:31 -0400
-X-MC-Unique: itba1tmBOZSAIikdUgs79w-1
-Received: by mail-wm1-f51.google.com with SMTP id
- 5b1f17b1804b1-3fa99f6a4a1so7065965e9.3
- for <dm-devel@redhat.com>; Mon, 26 Jun 2023 05:59:31 -0700 (PDT)
+ us-mta-263-clkqJuT8OW-Fg28VFkWkgw-1; Mon, 26 Jun 2023 10:51:34 -0400
+X-MC-Unique: clkqJuT8OW-Fg28VFkWkgw-1
+Received: by mail-lf1-f49.google.com with SMTP id
+ 2adb3069b0e04-4f76a0a19d4so4527463e87.2
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 07:51:32 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1687784370; x=1690376370;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=apk70vZy4KhYcnG84Q1wffo81Dl8DaLTVZRWL3wj6Xs=;
- b=jtWNzylj6s0A9U94AogwjkLKKFMUML5r1495bYBMisFOCd7ghE1LQInv+wbm/Lzm1U
- 8v4tKOkjr4NEqOa/DSQWNbL/qmf4VbM8m8c8vXGIh3JyBdRexD/+I9bWNUlRbvBVbOY9
- HdbKSOBwe6YxNgedVHrSRaAdJeK8MF0DjamYe0mD2yjk3XVZIyeAFWObaPtx8xRgZJar
- TwRqfWnYAC/Zjekucvuw9ijIqiLOQMrCgQVX9Dfx12FxjL/iaBoexlF4Jz3N1i6/0ha9
- EaO4TXOxlxQqLYtmrZkJJrv7b6P2eUM7tifNVDo60VFppBk1Lt76N72KM3s741gjXacn
- mITg==
-X-Gm-Message-State: AC+VfDy6Os69+UvSDqdezx46j7Sl/bMHJJdugCj3Oc4plzp55OvDgXYz
- LyPxL/Kqs/DYVt42pprbWcOP4g==
-X-Google-Smtp-Source: ACHHUZ6cBlNtxq75cN4Re6BcQmPh/298izmROOMzkk3aoy5z+JpobqagrTiu+DwsCmdHdbox+wHzaQ==
-X-Received: by 2002:a05:600c:2942:b0:3f8:efc5:3382 with SMTP id
- n2-20020a05600c294200b003f8efc53382mr24739064wmd.31.1687784370379; 
- Mon, 26 Jun 2023 05:59:30 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1687791091; x=1690383091;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=9gU1jNjcV6TD928B0r4atzgfh+TbbilOvGXXldqDgK0=;
+ b=Aprhkb2BhEi2PZWJS3DPDm1aILEtwgYB+6PC2A6t+q4TM3j2P8t1Z3tfEB+VPS/X04
+ cYUIJbjHaQDRPeRFuFYEkrS9AvNOxBQ/UDI6YZT9BJknD0JkPm27OKWOhMR4M/0a3XWs
+ orE9gQmMwyXs4AZEaGuDvSlrCzHeHUZ4TcSyH6jphY1YCazJ0hOnCIKpHOehOF2dUm/e
+ AZGIgAFV3N46ULE4cc6HHvVGbuzV1qXuLjur82oM1n2UZNsUIhl5Ey7RffRTWW/KssOB
+ 7lC67GtwigmLpRasPS7fE6WfNQsCeyHRkQF5nQmBjBSj/r5Dl24DTIgrvrAn3uuJBQ0e
+ VxLA==
+X-Gm-Message-State: AC+VfDwpPqgE3G4bKKYxAbBf+S05mCWAxXcy7qieAyXEdadLC0hWU5yZ
+ 4Snykziq3dHZU3fKMYmNmya5Ww==
+X-Google-Smtp-Source: ACHHUZ6CgCGY0Hct7p+o+Enwx0beOYHQwNpJ6fFz/NAiG9n54W1RtKHH9zAN0ucOoL1tyevnuFlEkQ==
+X-Received: by 2002:a05:6512:3b95:b0:4f9:5d2a:e0f5 with SMTP id
+ g21-20020a0565123b9500b004f95d2ae0f5mr12257430lfv.19.1687791090735; 
+ Mon, 26 Jun 2023 07:51:30 -0700 (PDT)
 Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
- k5-20020a5d6e85000000b003063a92bbf5sm7386241wrz.70.2023.06.26.05.59.27
+ m8-20020adffe48000000b002c71b4d476asm7611864wrs.106.2023.06.26.07.51.28
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 26 Jun 2023 05:59:28 -0700 (PDT)
-Date: Mon, 26 Jun 2023 15:59:25 +0300
+ Mon, 26 Jun 2023 07:51:29 -0700 (PDT)
+Date: Mon, 26 Jun 2023 17:51:26 +0300
 From: Dan Carpenter <dan.carpenter@linaro.org>
-To: Demi Marie Obenour <demi@invisiblethingslab.com>
-Message-ID: <e42e8115-6f75-447e-9955-ca4ad43ed406@kadam.mountain>
+To: Markus Elfring <Markus.Elfring@web.de>
+Message-ID: <79fdecc7-138f-476f-bc40-3603aac408ad@kadam.mountain>
 References: <20230624230950.2272-3-demi@invisiblethingslab.com>
  <3241078c-2318-fe1b-33cc-7c33db71b1a6@web.de>
  <ZJh73z2CsgHEJ4iv@itl-email>
+ <e42e8115-6f75-447e-9955-ca4ad43ed406@kadam.mountain>
+ <c1b84520-94d2-2c5c-6eed-2a0697c086a4@web.de>
 MIME-Version: 1.0
-In-Reply-To: <ZJh73z2CsgHEJ4iv@itl-email>
+In-Reply-To: <c1b84520-94d2-2c5c-6eed-2a0697c086a4@web.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -97,9 +99,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mailman-Approved-At: Wed, 28 Jun 2023 00:07:30 +0000
-Subject: Re: [dm-devel] [PATCH v2 2/4] dm ioctl: Allow userspace to provide
+Subject: Re: [dm-devel] [v2 2/4] dm ioctl: Allow userspace to provide
  expected diskseq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -112,31 +114,32 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Mike Snitzer <snitzer@kernel.org>, kernel-janitors@vger.kernel.org,
+Cc: kernel-janitors@vger.kernel.org, Mike Snitzer <snitzer@kernel.org>,
  LKML <linux-kernel@vger.kernel.org>, dm-devel@redhat.com,
- Markus Elfring <Markus.Elfring@web.de>, Alasdair Kergon <agk@redhat.com>
+ Demi Marie Obenour <demi@invisiblethingslab.com>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linaro.org
 Content-Disposition: inline
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gU3VuLCBKdW4gMjUsIDIwMjMgYXQgMDE6Mzk6NDBQTSAtMDQwMCwgRGVtaSBNYXJpZSBPYmVu
-b3VyIHdyb3RlOgo+IE9uIFN1biwgSnVuIDI1LCAyMDIzIGF0IDAxOjIzOjQwUE0gKzAyMDAsIE1h
-cmt1cyBFbGZyaW5nIHdyb3RlOgo+ID4gPiBUaGlzIGNhbiBiZSB1c2VkIHRvIGF2b2lkIHJhY2Ug
-Y29uZGl0aW9ucyBpbiB3aGljaCBhIGRldmljZSBpcyBkZXN0cm95ZWQKPiA+ID4gYW5kIHJlY3Jl
-YXRlZCB3aXRoIHRoZSBzYW1lIG1ham9yL21pbm9yLCBuYW1lLCBvciBVVUlELiDigKYKPiA+IAo+
-ID4gUGxlYXNlIGFkZCBhbiBpbXBlcmF0aXZlIGNoYW5nZSBzdWdnZXN0aW9uLgo+IAo+IFdpbGwg
-Zml4IGluIHYzLgoKWW91IGRvbid0IGhhdmUgdG8gbGlzdGVuIHRvIE1hcmt1cy4gIE1vc3Qgb2Yg
-dXMgY2FuJ3Qgc2VlIE1hcmt1cydzCmVtYWlscyBiZWNhdXNlIGhlJ3MgYmFubmVkIGZyb20gdGhl
-IHZnZXIgbWFpbGluZyBsaXN0cy4KCk1hcmt1cywgc3RvcCBib3RoZXJpbmcgcGVvcGxlIGFib3V0
-IHRyaXZpYWwgbm9uc2Vuc2UuICBJJ3ZlIHNhaWQgdGhpcwp0byB5b3UgYmVmb3JlLCB0aGF0IGlm
-IHlvdSBzcG90IGEgYnVnIGluIGEgcGF0Y2ggdGhhdCdzIHdlbGNvbWUgZmVlZGJhY2sKYnV0IGlm
-IHlvdSBqdXN0IGhhdmUgY29tbWVudHMgYWJvdXQgZ3JhbW1hciB0aGVuIG5vIG9uZSB3YW50cyB0
-aGF0LgoKcmVnYXJkcywKZGFuIGNhcnBlbnRlcgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRt
-LWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0
-aW5mby9kbS1kZXZlbAo=
+The reason why Markus was banned was because he doesn't listen to
+feedback.  I've told him several times in the past week to stop
+bothering people who are trying to work but he is not going to listen.
+
+Meanwhile, I have seen Markus fix bugs so if he wanted to focus on
+fixing bugs he probably could.
+
+regards,
+dan carpenter
+
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
