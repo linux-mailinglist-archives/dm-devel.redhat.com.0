@@ -2,73 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5D420740012
-	for <lists+dm-devel@lfdr.de>; Tue, 27 Jun 2023 17:50:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6BB1374070C
+	for <lists+dm-devel@lfdr.de>; Wed, 28 Jun 2023 02:07:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1687881035;
+	s=mimecast20190719; t=1687910874;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=2KxA6CvGk7i3yJlfDSqf7ZNtCGPU3fbEBNNFN0Jg7WA=;
-	b=dw5dnKzxQoMdFmGE7yWd7Bl1bYj6OHIb1a3CLsPj3N6FEqlrN5OQUIFP8k52TpYFkB1/y4
-	0tcY1SDnDnt9DWDR71pcuhALkHlJ2uQX0gfx/zY7KXwNmpFM5USTYEBqFpENifNAqN8krc
-	dYlwUgTW3cnj6JNRLHr7ao5pc5SmQ0g=
+	bh=ct+FgJvRJkA5LSHZ/XPvKv08NyWkOMAdpOTqk57vaWA=;
+	b=MCsVKajkqguWpYunpOAg4NoaWfHxzjQogHoIUrld0lpHXqiF2pqC1GWzt+onaEwwM+ZIzi
+	KuaCKdW1Q7vJtI+MP40ml752tyqUt8PuxmdJvZtPdmgEuDZ3WgdE66KbVXc5TYwvYzH2cj
+	vcHKKl0vUUH0Mg6K+uAfl1SU0umpg6I=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-373-mlCY3oXYNx2AK718Iv1Iqg-1; Tue, 27 Jun 2023 11:50:32 -0400
-X-MC-Unique: mlCY3oXYNx2AK718Iv1Iqg-1
+ us-mta-263-m_mIvdRuMBqdo8JjkpIBtQ-1; Tue, 27 Jun 2023 20:07:52 -0400
+X-MC-Unique: m_mIvdRuMBqdo8JjkpIBtQ-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 08601854C24;
-	Tue, 27 Jun 2023 15:50:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C35528ED624;
+	Wed, 28 Jun 2023 00:07:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 96C40F5CDF;
-	Tue, 27 Jun 2023 15:50:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B126C9E9C;
+	Wed, 28 Jun 2023 00:07:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CA88419465B1;
-	Tue, 27 Jun 2023 15:50:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1410B19465A8;
+	Wed, 28 Jun 2023 00:07:31 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 525291946587
- for <dm-devel@listman.corp.redhat.com>; Tue, 27 Jun 2023 15:50:01 +0000 (UTC)
+ ESMTP id 42A4E1946587
+ for <dm-devel@listman.corp.redhat.com>; Mon, 26 Jun 2023 12:59:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3ACF040BB4D; Tue, 27 Jun 2023 15:50:01 +0000 (UTC)
+ id DC35340C6CCD; Mon, 26 Jun 2023 12:59:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 322BA40D1A4
- for <dm-devel@redhat.com>; Tue, 27 Jun 2023 15:50:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D556240C6F5A
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 12:59:33 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 14B193813F45
- for <dm-devel@redhat.com>; Tue, 27 Jun 2023 15:50:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BABA51C03D9D
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 12:59:33 +0000 (UTC)
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com
+ [209.85.128.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-384-juR5mG5iNjKPy6LOvkl54g-1; Tue, 27 Jun 2023 11:49:55 -0400
-X-MC-Unique: juR5mG5iNjKPy6LOvkl54g-1
-Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qEAx0-00DZ76-0y; Tue, 27 Jun 2023 15:49:54 +0000
-Date: Tue, 27 Jun 2023 08:49:54 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <ZJsFIkpj/+CdrQ1W@infradead.org>
-References: <1a33ace-57f9-9ef9-b967-d6617ca33089@redhat.com>
- <f9e830ef-adf7-4196-a46f-ba4e65cbb54d@redhat.com>
+ us-mta-270-itba1tmBOZSAIikdUgs79w-1; Mon, 26 Jun 2023 08:59:31 -0400
+X-MC-Unique: itba1tmBOZSAIikdUgs79w-1
+Received: by mail-wm1-f51.google.com with SMTP id
+ 5b1f17b1804b1-3fa99f6a4a1so7065965e9.3
+ for <dm-devel@redhat.com>; Mon, 26 Jun 2023 05:59:31 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1687784370; x=1690376370;
+ h=in-reply-to:content-transfer-encoding:content-disposition
+ :mime-version:references:message-id:subject:cc:to:from:date
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=apk70vZy4KhYcnG84Q1wffo81Dl8DaLTVZRWL3wj6Xs=;
+ b=jtWNzylj6s0A9U94AogwjkLKKFMUML5r1495bYBMisFOCd7ghE1LQInv+wbm/Lzm1U
+ 8v4tKOkjr4NEqOa/DSQWNbL/qmf4VbM8m8c8vXGIh3JyBdRexD/+I9bWNUlRbvBVbOY9
+ HdbKSOBwe6YxNgedVHrSRaAdJeK8MF0DjamYe0mD2yjk3XVZIyeAFWObaPtx8xRgZJar
+ TwRqfWnYAC/Zjekucvuw9ijIqiLOQMrCgQVX9Dfx12FxjL/iaBoexlF4Jz3N1i6/0ha9
+ EaO4TXOxlxQqLYtmrZkJJrv7b6P2eUM7tifNVDo60VFppBk1Lt76N72KM3s741gjXacn
+ mITg==
+X-Gm-Message-State: AC+VfDy6Os69+UvSDqdezx46j7Sl/bMHJJdugCj3Oc4plzp55OvDgXYz
+ LyPxL/Kqs/DYVt42pprbWcOP4g==
+X-Google-Smtp-Source: ACHHUZ6cBlNtxq75cN4Re6BcQmPh/298izmROOMzkk3aoy5z+JpobqagrTiu+DwsCmdHdbox+wHzaQ==
+X-Received: by 2002:a05:600c:2942:b0:3f8:efc5:3382 with SMTP id
+ n2-20020a05600c294200b003f8efc53382mr24739064wmd.31.1687784370379; 
+ Mon, 26 Jun 2023 05:59:30 -0700 (PDT)
+Received: from localhost ([102.36.222.112]) by smtp.gmail.com with ESMTPSA id
+ k5-20020a5d6e85000000b003063a92bbf5sm7386241wrz.70.2023.06.26.05.59.27
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Mon, 26 Jun 2023 05:59:28 -0700 (PDT)
+Date: Mon, 26 Jun 2023 15:59:25 +0300
+From: Dan Carpenter <dan.carpenter@linaro.org>
+To: Demi Marie Obenour <demi@invisiblethingslab.com>
+Message-ID: <e42e8115-6f75-447e-9955-ca4ad43ed406@kadam.mountain>
+References: <20230624230950.2272-3-demi@invisiblethingslab.com>
+ <3241078c-2318-fe1b-33cc-7c33db71b1a6@web.de>
+ <ZJh73z2CsgHEJ4iv@itl-email>
 MIME-Version: 1.0
-In-Reply-To: <f9e830ef-adf7-4196-a46f-ba4e65cbb54d@redhat.com>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
- bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <ZJh73z2CsgHEJ4iv@itl-email>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -76,8 +97,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [dm-devel] [PATCH] block: flush the disk cache on BLKFLSBUF
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Mailman-Approved-At: Wed, 28 Jun 2023 00:07:30 +0000
+Subject: Re: [dm-devel] [PATCH v2 2/4] dm ioctl: Allow userspace to provide
+ expected diskseq
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,44 +112,31 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Christoph Hellwig <hch@infradead.org>, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Marc Smith <msmith626@gmail.com>,
- Jens Axboe <axboe@kernel.dk>
+Cc: Mike Snitzer <snitzer@kernel.org>, kernel-janitors@vger.kernel.org,
+ LKML <linux-kernel@vger.kernel.org>, dm-devel@redhat.com,
+ Markus Elfring <Markus.Elfring@web.de>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
+X-Mimecast-Originator: linaro.org
 Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Tue, Jun 27, 2023 at 05:31:12PM +0200, Mikulas Patocka wrote:
-> Marc Smith reported a bug where he wrote to the dm-writecache target using 
-> O_DIRECT, then reset the machine without proper shutdown and the freshly 
-> written data were lost. It turned out that he didn't use the fsync or 
-> fdatasync syscall (and dm-writecache makes its metadata persistent on a 
-> FLUSH bio).
-
-Which so far is expected.  Even with O_DIRECT you need O_(D)SYNC or
-fsync/fdatasync to persist data.
-
-> When I was analyzing this issue, it turned out that there is no easy way 
-> how to send the FLUSH bio to a block device from a command line.
-
-xfs_io -c fsync /dev/foo
-
-> The "blockdev --flushbufs" command also doesn't send the FLUSH bio, but I 
-> would expect it to send it. Without sending the FLUSH bio, "blockdev 
-> --flushbufs" doesn't really guarantee anything.
-
-I wouldn't expect it.  It's a really weird legacy thing that calls
-back up into the file system, but only if it sets s_bdev to this
-device.  I don't think we should add new users of it that overload the
-semantics.
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gU3VuLCBKdW4gMjUsIDIwMjMgYXQgMDE6Mzk6NDBQTSAtMDQwMCwgRGVtaSBNYXJpZSBPYmVu
+b3VyIHdyb3RlOgo+IE9uIFN1biwgSnVuIDI1LCAyMDIzIGF0IDAxOjIzOjQwUE0gKzAyMDAsIE1h
+cmt1cyBFbGZyaW5nIHdyb3RlOgo+ID4gPiBUaGlzIGNhbiBiZSB1c2VkIHRvIGF2b2lkIHJhY2Ug
+Y29uZGl0aW9ucyBpbiB3aGljaCBhIGRldmljZSBpcyBkZXN0cm95ZWQKPiA+ID4gYW5kIHJlY3Jl
+YXRlZCB3aXRoIHRoZSBzYW1lIG1ham9yL21pbm9yLCBuYW1lLCBvciBVVUlELiDigKYKPiA+IAo+
+ID4gUGxlYXNlIGFkZCBhbiBpbXBlcmF0aXZlIGNoYW5nZSBzdWdnZXN0aW9uLgo+IAo+IFdpbGwg
+Zml4IGluIHYzLgoKWW91IGRvbid0IGhhdmUgdG8gbGlzdGVuIHRvIE1hcmt1cy4gIE1vc3Qgb2Yg
+dXMgY2FuJ3Qgc2VlIE1hcmt1cydzCmVtYWlscyBiZWNhdXNlIGhlJ3MgYmFubmVkIGZyb20gdGhl
+IHZnZXIgbWFpbGluZyBsaXN0cy4KCk1hcmt1cywgc3RvcCBib3RoZXJpbmcgcGVvcGxlIGFib3V0
+IHRyaXZpYWwgbm9uc2Vuc2UuICBJJ3ZlIHNhaWQgdGhpcwp0byB5b3UgYmVmb3JlLCB0aGF0IGlm
+IHlvdSBzcG90IGEgYnVnIGluIGEgcGF0Y2ggdGhhdCdzIHdlbGNvbWUgZmVlZGJhY2sKYnV0IGlm
+IHlvdSBqdXN0IGhhdmUgY29tbWVudHMgYWJvdXQgZ3JhbW1hciB0aGVuIG5vIG9uZSB3YW50cyB0
+aGF0LgoKcmVnYXJkcywKZGFuIGNhcnBlbnRlcgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRt
+LWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0
+aW5mby9kbS1kZXZlbAo=
 
