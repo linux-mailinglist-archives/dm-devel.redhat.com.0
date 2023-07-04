@@ -1,87 +1,73 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 53BE374CD79
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:16 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 402B274CD95
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971635;
+	s=mimecast20190719; t=1688971644;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=fm9o8vwJ/v5OkCszD4ccrBNjFbevbm0zoC6clMT47s0=;
-	b=LpQhpzb8qatpy41KxJgQWKbvTyaGYqxU1ae9GViG6fr3hEPb3dsNRcd3LqaepVGkyzhud1
-	2O8XV6ln05vYU/5xl9PdsKjz0p/za3xbz1vt4K1lTDiEpTF3e/ndPfevlGRO1/JRtPrfkz
-	pVuWG19jUiHH7qyJW4RJEC05jq4DU5g=
+	bh=diHreZwXo5CHlpcr3EBni/LHNK1V6te1i/XOXW91ouw=;
+	b=HdpbCrY2CA9emvrl52Jy6NxwclGQsneWUSpw/tbjYlXEqIKdIfarV1IB8gQ/nlcECuuEhi
+	Yuz8QZI3f5InKqrRpK1+c8b0ilAt1qeXDFUsbX71JqjTRif+kDDkr+YupHuDMd9+209cZR
+	bMyXIGvrmNsV5OXSrx8prsrCq2adkYw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-353-Q7fMtFCRPjOcDUMWNWIHIA-1; Mon, 10 Jul 2023 02:47:11 -0400
-X-MC-Unique: Q7fMtFCRPjOcDUMWNWIHIA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-584-wv0ozI5rNrqaYe3fqg_b-g-1; Mon, 10 Jul 2023 02:47:20 -0400
+X-MC-Unique: wv0ozI5rNrqaYe3fqg_b-g-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D958F10504DC;
-	Mon, 10 Jul 2023 06:47:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96185830DB5;
+	Mon, 10 Jul 2023 06:47:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B30804087C81;
-	Mon, 10 Jul 2023 06:47:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7AF9C48FB07;
+	Mon, 10 Jul 2023 06:47:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 51FDD19451E8;
-	Mon, 10 Jul 2023 06:46:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6C45C1946586;
+	Mon, 10 Jul 2023 06:47:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E64221946588
- for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 13:04:00 +0000 (UTC)
+ ESMTP id 56F591946589
+ for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 16:14:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 80A0F15230A7; Tue,  4 Jul 2023 13:04:00 +0000 (UTC)
+ id 24D6F492C13; Tue,  4 Jul 2023 16:14:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 78EE115230A0
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 13:04:00 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1CE834CD0C9
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 16:14:19 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5DFA4101A528
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 13:04:00 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 011DA8022EF
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 16:14:19 +0000 (UTC)
+Received: from casper.infradead.org (casper.infradead.org [90.155.50.34]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-314-_iQxl_kcNhW0EK0WZ-8pww-1; Tue,
- 04 Jul 2023 09:03:58 -0400
-X-MC-Unique: _iQxl_kcNhW0EK0WZ-8pww-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id F0F5F20573;
- Tue,  4 Jul 2023 13:03:56 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DC3001346D;
- Tue,  4 Jul 2023 13:03:56 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id kueeNbwYpGTARwAAMHmgww
- (envelope-from <jack@suse.cz>); Tue, 04 Jul 2023 13:03:56 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 6B4A7A0722; Tue,  4 Jul 2023 15:03:56 +0200 (CEST)
-Date: Tue, 4 Jul 2023 15:03:56 +0200
-From: Jan Kara <jack@suse.cz>
-To: Matthew Wilcox <willy@infradead.org>
-Message-ID: <20230704130356.xwdlxvgvi4l6sruc@quack3>
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-12-Km3YYTYMPpuueZBG149JHg-1; Tue,
+ 04 Jul 2023 12:14:16 -0400
+X-MC-Unique: Km3YYTYMPpuueZBG149JHg-1
+Received: from willy by casper.infradead.org with local (Exim 4.94.2 #2 (Red
+ Hat Linux)) id 1qGifB-009I83-IW; Tue, 04 Jul 2023 16:14:01 +0000
+Date: Tue, 4 Jul 2023 17:14:01 +0100
+From: Matthew Wilcox <willy@infradead.org>
+To: Bart Van Assche <bvanassche@acm.org>
+Message-ID: <ZKRFSZQglwCba9/i@casper.infradead.org>
 References: <20230629165206.383-1-jack@suse.cz>
  <20230704122224.16257-1-jack@suse.cz>
- <ZKQUB4rU8Gebhq6R@casper.infradead.org>
+ <bb91e76b-0bd8-a949-f8b9-868f919ebcb9@acm.org>
 MIME-Version: 1.0
-In-Reply-To: <ZKQUB4rU8Gebhq6R@casper.infradead.org>
+In-Reply-To: <bb91e76b-0bd8-a949-f8b9-868f919ebcb9@acm.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,7 +75,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
 Subject: Re: [dm-devel] [PATCH 01/32] block: Provide blkdev_get_handle_*
  functions
@@ -133,44 +119,26 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.cz
+X-Mimecast-Originator: infradead.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue 04-07-23 13:43:51, Matthew Wilcox wrote:
-> On Tue, Jul 04, 2023 at 02:21:28PM +0200, Jan Kara wrote:
-> > +struct bdev_handle *blkdev_get_handle_by_dev(dev_t dev, blk_mode_t mode,
-> > +		void *holder, const struct blk_holder_ops *hops)
-> > +{
-> > +	struct bdev_handle *handle = kmalloc(sizeof(struct bdev_handle),
-> > +					     GFP_KERNEL);
+On Tue, Jul 04, 2023 at 07:06:26AM -0700, Bart Van Assche wrote:
+> On 7/4/23 05:21, Jan Kara wrote:
+> > +struct bdev_handle {
 > > +	struct block_device *bdev;
-> > +
-> > +	if (!handle)
-> > +		return ERR_PTR(-ENOMEM);
-> > +	bdev = blkdev_get_by_dev(dev, mode, holder, hops);
-> > +	if (IS_ERR(bdev))
-> > +		return ERR_CAST(bdev);
+> > +	void *holder;
+> > +};
 > 
-> Would we be better off with a handle->error (and a NULL return from this
-> function means "we couldn't allocate a handle")?  I have no objection
-> to what you've done here, just wondering if it might end up nicer for
-> the users.
+> Please explain in the patch description why a holder pointer is introduced
+> in struct bdev_handle and how it relates to the bd_holder pointer in struct
+> block_device. Is one of the purposes of this patch series perhaps to add
+> support for multiple holders per block device?
 
-Hum, I've checked a couple of users and it seems it would be more
-complicated for the users to handle this convention than the one I've
-chosen. And that one is also pretty standard so I think by the principle of
-least surprise it is also better.
-
-								Honza
-
-> 
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+That is all in patch 0/32.  Why repeat it?
 
 --
 dm-devel mailing list
