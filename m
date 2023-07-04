@@ -2,90 +2,93 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D031374715B
+	by mail.lfdr.de (Postfix) with ESMTPS id 9424B747159
 	for <lists+dm-devel@lfdr.de>; Tue,  4 Jul 2023 14:29:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1688473754;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qxh4tu4FuVfxfjFO4pq53q+Vf4Pg1zPseXw3cMuV00M=;
-	b=ESbGaLlRpnJrj7dXRNmq/x63Lazo0L2Xz6yWFMtcLhQ8vvF4HXBF5xwSdOfkJb+jLDMWxf
-	2HrtMhnrLXkWBuFeYGqknfF+IybYa7sRExBipYjW0CyAIXgPFhjF2lW2rFVW9wKvII0vjd
-	twUiaVc36OfaP5znIhW9w40GD8nfwJY=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=9bX25jb/MmCulbF+Vk6Ffuj0tdc13uURIkF86AbbDgk=;
+	b=CK0ZLjZLlrgngoRSjf2lWt4rgo+pRpD+N8NiLSMp8rVECb4h0fk+D0ccGOsbZgdtbTh7uE
+	I3qudA2FoCPGWXYKapHJNay+MXXJcMyxDXogO7CjHtxTCOoWTGC+VKgREty5Wf5qG3Moq3
+	9pDBZgV226u0nJPnAFitVyTqFZ3n52c=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-674-giGDrDG8PjetkqzS8Vqqog-1; Tue, 04 Jul 2023 08:29:13 -0400
-X-MC-Unique: giGDrDG8PjetkqzS8Vqqog-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-6-Y2_nn1CVO2GFEHL-03xtww-1; Tue, 04 Jul 2023 08:29:12 -0400
+X-MC-Unique: Y2_nn1CVO2GFEHL-03xtww-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D752856F66;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50FF12A59546;
 	Tue,  4 Jul 2023 12:29:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D80EC00049;
-	Tue,  4 Jul 2023 12:28:57 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 09106492B01;
+	Tue,  4 Jul 2023 12:28:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 52F9F1946586;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 61A5D1946587;
 	Tue,  4 Jul 2023 12:28:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3A95B1946586
+ ESMTP id 69CD81946586
  for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1C1E64021522; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
+ id 5D15EF5CE6; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 15133402152F
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 56037F6434
  for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA8FD185A78B
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:55 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3284E185A78B
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-103-G260LjjTOFuM7QzdOJ0LXg-1; Tue,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-203-RjvViukbMY6OYzaKwZywMw-1; Tue,
  04 Jul 2023 08:28:54 -0400
-X-MC-Unique: G260LjjTOFuM7QzdOJ0LXg-1
+X-MC-Unique: RjvViukbMY6OYzaKwZywMw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 37C1422864;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5D9E422868;
  Tue,  4 Jul 2023 12:22:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D4941346D;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 433C713A97;
  Tue,  4 Jul 2023 12:22:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id j8gfBwEPpGQFMAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id fiTSDwEPpGQQMAAAMHmgww
  (envelope-from <jack@suse.cz>); Tue, 04 Jul 2023 12:22:25 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 915DAA0722; Tue,  4 Jul 2023 14:22:24 +0200 (CEST)
+ id 97B9EA0763; Tue,  4 Jul 2023 14:22:24 +0200 (CEST)
 From: Jan Kara <jack@suse.cz>
 To: <linux-block@vger.kernel.org>
-Date: Tue,  4 Jul 2023 14:21:27 +0200
-Message-Id: <20230629165206.383-1-jack@suse.cz>
+Date: Tue,  4 Jul 2023 14:21:28 +0200
+Message-Id: <20230704122224.16257-1-jack@suse.cz>
+In-Reply-To: <20230629165206.383-1-jack@suse.cz>
+References: <20230629165206.383-1-jack@suse.cz>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2471; i=jack@suse.cz;
- h=from:subject:message-id; bh=ceZQTtdZjpsFiBb9Fva7YX0lOa2i6Zx53n9hl/3+KQM=;
- b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBkpA7DYrlV/5vfqjK0juEsCaKDoUZ39z4YDWexB9PO
- aQyP7ZaJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCZKQOwwAKCRCcnaoHP2RA2S48B/
- 476l3pggtn8igKmRoHswxXv63Ks68g/08HDzIZqCtDPA84BSKd93Nq0m/Wn76G+ubHQpfg8PMw5+DG
- uV+DOTR+NEYKAToQQ8YzmS6RAGasKKWUg3k1pr7jK23l+wcq16ImmBXmWM3nr2j85QcDZeB+vpUKHh
- bdQJQsBOqKsA+qlImgVwvMS+V4UTLQcIYQo2bDBl0TIbJB0UiXYMYHcvrEkwNZWybXBs+wfERrXuF1
- XlXO6rWvLyW94kkpvaZTvPY+yZd7tOLd+W8gsz2uBFG9QJg57aDkZxf6NA+Qxf2O8uwfWiyb1XXBN8
- I1wYA/sSduibCw4tF4sYb/wERvIAO+
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5599; i=jack@suse.cz;
+ h=from:subject; bh=repJSb0/C5PfG8Cx5q/n/kNJZOabhc2tYWxiICNNTtg=;
+ b=owGbwMvMwME4Z+4qdvsUh5uMp9WSGFKW8J3uuK2gorZt+knOzhX81snTGX/57phWXzfXM3w+50Xl
+ rfb7OxmNWRgYORhkxRRZVkde1L42z6hra6iGDMwgViaQKQxcnAIwERsLDobphetsJoi99quKYIut26
+ wgv/K+lUS+secym02t85epsOp8rtu3acJMN1WFRiX1irKCnSu+LXh+rVyp65RAEGttl+XcP32mOR0n
+ ZJYFm7orF8YFnhVftYzZjm2Rva3I0oqXdap/bUJr8qNjVVfHnBRiFEv0Ocgpck1jlTHfEWUu71NrKu
+ 8EXrbnsfD7wm1qKHDqnnnD21y1n9OFHn8/7qJz4O19panPLvMxrOrNn970IcH6rnhQsq0ZS1v6JUfN
+ RS5ah5XMXNI/c14+vVlVkPVI9n2HQNZlEfdsO13VFx17Z7f0vKnN9UZZ3Zii6WbsWS81/qefFs1Ljl
+ +dK1sZIpSRdXfx+jksz9T4il4AAA==
 X-Developer-Key: i=jack@suse.cz; a=openpgp;
  fpr=93C6099A142276A28BBE35D815BC833443038D8C
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -95,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [PATCH RFC 0/32] block: Make blkdev_get_by_*() return
- handle
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [PATCH 01/32] block: Provide blkdev_get_handle_*
+ functions
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,29 +140,17 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hello,
-
-this patch series implements the idea of blkdev_get_by_*() calls returning
-bdev_handle which is then passed to blkdev_put() [1]. This makes the get
-and put calls for bdevs more obviously matching and allows us to propagate
-context from get to put without having to modify all the users (again!).
-In particular I need to propagate used open flags to blkdev_put() to be able
-count writeable opens and add support for blocking writes to mounted block
-devices. I'll send that series separately.
-
-The series is based on Linus' tree as of yesterday + two bcache fixes which are
-in the block tree. Patches have passed some basic testing, I plan to test more
-users once we agree this is the right way to go.
-
-								Honza
-
-[1] https://lore.kernel.org/all/ZJGNsVDhZx0Xgs2H@infradead.org
+Create struct bdev_handle that contains all parameters that need to be
+passed to blkdev_put() and provide blkdev_get_handle_* functions that
+return this structure instead of plain bdev pointer. This will
+eventually allow us to pass one more argument to blkdev_put() without
+too much hassle.
 
 CC: Alasdair Kergon <agk@redhat.com>
 CC: Andrew Morton <akpm@linux-foundation.org>
@@ -206,6 +197,115 @@ CC: target-devel@vger.kernel.org
 CC: Ted Tso <tytso@mit.edu>
 CC: Trond Myklebust <trond.myklebust@hammerspace.com>
 CC: xen-devel@lists.xenproject.org
+Signed-off-by: Jan Kara <jack@suse.cz>
+---
+ block/bdev.c           | 47 ++++++++++++++++++++++++++++++++++++++++++
+ include/linux/blkdev.h | 10 +++++++++
+ 2 files changed, 57 insertions(+)
+
+diff --git a/block/bdev.c b/block/bdev.c
+index 979e28a46b98..c75de5cac2bc 100644
+--- a/block/bdev.c
++++ b/block/bdev.c
+@@ -846,6 +846,24 @@ struct block_device *blkdev_get_by_dev(dev_t dev, blk_mode_t mode, void *holder,
+ }
+ EXPORT_SYMBOL(blkdev_get_by_dev);
+ 
++struct bdev_handle *blkdev_get_handle_by_dev(dev_t dev, blk_mode_t mode,
++		void *holder, const struct blk_holder_ops *hops)
++{
++	struct bdev_handle *handle = kmalloc(sizeof(struct bdev_handle),
++					     GFP_KERNEL);
++	struct block_device *bdev;
++
++	if (!handle)
++		return ERR_PTR(-ENOMEM);
++	bdev = blkdev_get_by_dev(dev, mode, holder, hops);
++	if (IS_ERR(bdev))
++		return ERR_CAST(bdev);
++	handle->bdev = bdev;
++	handle->holder = holder;
++	return handle;
++}
++EXPORT_SYMBOL(blkdev_get_handle_by_dev);
++
+ /**
+  * blkdev_get_by_path - open a block device by name
+  * @path: path to the block device to open
+@@ -884,6 +902,28 @@ struct block_device *blkdev_get_by_path(const char *path, blk_mode_t mode,
+ }
+ EXPORT_SYMBOL(blkdev_get_by_path);
+ 
++struct bdev_handle *blkdev_get_handle_by_path(const char *path, blk_mode_t mode,
++		void *holder, const struct blk_holder_ops *hops)
++{
++	struct bdev_handle *handle;
++	dev_t dev;
++	int error;
++
++	error = lookup_bdev(path, &dev);
++	if (error)
++		return ERR_PTR(error);
++
++	handle = blkdev_get_handle_by_dev(dev, mode, holder, hops);
++	if (!IS_ERR(handle) && (mode & BLK_OPEN_WRITE) &&
++	    bdev_read_only(handle->bdev)) {
++		blkdev_handle_put(handle);
++		return ERR_PTR(-EACCES);
++	}
++
++	return handle;
++}
++EXPORT_SYMBOL(blkdev_get_handle_by_path);
++
+ void blkdev_put(struct block_device *bdev, void *holder)
+ {
+ 	struct gendisk *disk = bdev->bd_disk;
+@@ -920,6 +960,13 @@ void blkdev_put(struct block_device *bdev, void *holder)
+ }
+ EXPORT_SYMBOL(blkdev_put);
+ 
++void blkdev_handle_put(struct bdev_handle *handle)
++{
++	blkdev_put(handle->bdev, handle->holder);
++	kfree(handle);
++}
++EXPORT_SYMBOL(blkdev_handle_put);
++
+ /**
+  * lookup_bdev() - Look up a struct block_device by name.
+  * @pathname: Name of the block device in the filesystem.
+diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
+index ed44a997f629..a910e9997ddd 100644
+--- a/include/linux/blkdev.h
++++ b/include/linux/blkdev.h
+@@ -1471,14 +1471,24 @@ struct blk_holder_ops {
+ #define sb_open_mode(flags) \
+ 	(BLK_OPEN_READ | (((flags) & SB_RDONLY) ? 0 : BLK_OPEN_WRITE))
+ 
++struct bdev_handle {
++	struct block_device *bdev;
++	void *holder;
++};
++
+ struct block_device *blkdev_get_by_dev(dev_t dev, blk_mode_t mode, void *holder,
+ 		const struct blk_holder_ops *hops);
+ struct block_device *blkdev_get_by_path(const char *path, blk_mode_t mode,
+ 		void *holder, const struct blk_holder_ops *hops);
++struct bdev_handle *blkdev_get_handle_by_dev(dev_t dev, blk_mode_t mode,
++		void *holder, const struct blk_holder_ops *hops);
++struct bdev_handle *blkdev_get_handle_by_path(const char *path, blk_mode_t mode,
++		void *holder, const struct blk_holder_ops *hops);
+ int bd_prepare_to_claim(struct block_device *bdev, void *holder,
+ 		const struct blk_holder_ops *hops);
+ void bd_abort_claiming(struct block_device *bdev, void *holder);
+ void blkdev_put(struct block_device *bdev, void *holder);
++void blkdev_handle_put(struct bdev_handle *handle);
+ 
+ /* just for blk-cgroup, don't use elsewhere */
+ struct block_device *blkdev_get_no_open(dev_t dev);
+-- 
+2.35.3
 
 --
 dm-devel mailing list
