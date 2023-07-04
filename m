@@ -2,100 +2,102 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 16ADC74CD85
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:21 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 73FBE74CD7E
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971639;
+	s=mimecast20190719; t=1688971637;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6VcubtN2Nt1bWKMc5t6CCPDmjm5AsjlQNkkxwuzOoLs=;
-	b=YiGDAmR9l90OoDC8Om5ErqyScr/Iw8mFct0s8Mdqt1edgf2ABdgetVWjs9Typv97mXPs/f
-	llU8GWQtbKG/6RUIBfZPmrmCabHvXBF4NnbgBErVBapccFrm3V7hpdISsAGzSB3oMNLiyU
-	ad7FnFRl9WEvpYtX4KafnHXH1jzqZNo=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=qMO78/xcvFDkxhdFPijFdysbyaNzhRcvA7/00OYCEUY=;
+	b=e1csXWW/RYlQPbN6vQ6cHgqij+ss94P3AQfblJ/41HxThCXn28FDHJPiHwrYl2HZxAmpvL
+	IgnWisdCPMlWCY8kfISnTaRS5l9ow4jN1T7Oc7WhGt1+9kck2Pi35sJxmeKOHdObyFtb74
+	oYht6fFbkeqaHOq1twZgUU1Rolm0GOI=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-346-QY19jFVKNSWEb3KOHqeKdA-1; Mon, 10 Jul 2023 02:47:16 -0400
-X-MC-Unique: QY19jFVKNSWEb3KOHqeKdA-1
+ us-mta-142-5fw-NAVPPsmZes9YUBnMSA-1; Mon, 10 Jul 2023 02:47:15 -0400
+X-MC-Unique: 5fw-NAVPPsmZes9YUBnMSA-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ABD1B1C4767B;
-	Mon, 10 Jul 2023 06:47:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51282894EE5;
+	Mon, 10 Jul 2023 06:47:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 89555492CAC;
-	Mon, 10 Jul 2023 06:47:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3B627492CAC;
+	Mon, 10 Jul 2023 06:47:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9224319451E1;
-	Mon, 10 Jul 2023 06:47:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4525A1946A7E;
+	Mon, 10 Jul 2023 06:47:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 02E4B1946586
- for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 03:45:31 +0000 (UTC)
+ ESMTP id 40C041946586
+ for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 04:20:57 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E48ED1121315; Tue,  4 Jul 2023 03:45:30 +0000 (UTC)
+ id 0F449F641E; Tue,  4 Jul 2023 04:20:57 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DD0571121314
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 03:45:30 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 071D1F6419
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 04:20:56 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BABD43811F26
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 03:45:30 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A25FB3C11C61
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 04:20:56 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-608-Pfn9mRsgO4-XyYC7ga_Oww-1; Mon, 03 Jul 2023 23:45:29 -0400
-X-MC-Unique: Pfn9mRsgO4-XyYC7ga_Oww-1
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1b7e0904a3aso5922925ad.0
- for <dm-devel@redhat.com>; Mon, 03 Jul 2023 20:45:28 -0700 (PDT)
+ us-mta-252-K5GZo77yMLSiNb4jYyOsLw-1; Tue, 04 Jul 2023 00:20:51 -0400
+X-MC-Unique: K5GZo77yMLSiNb4jYyOsLw-1
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1b7dfb95761so8348905ad.1
+ for <dm-devel@redhat.com>; Mon, 03 Jul 2023 21:20:51 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688442328; x=1691034328;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ d=1e100.net; s=20221208; t=1688444450; x=1691036450;
+ h=content-transfer-encoding:in-reply-to:references:cc:to:from
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=MFeBrddeuJ5VLdpmCCc9Ly4sKMWZlJ9dQaH0OIDXyXU=;
- b=jjIXz+YJioyEkBJLwXgP7RMQm9nRRGo0CqPDC7Cx9Q+T1rzUuPcFjODTnWgi7dmHdm
- cRXgIaCvmKzuJeXw2AuM+0rprCgnCaSSv+rlHWSRo505cBJ8C1vHUDqJm3K6y0BWVDoX
- Y62blMxZVvMaKo52bTv+SnRlorq43Da/mCstNKndMpJYMfEHrRjA41OrZyRX9YJSvamP
- 8LMQgjH3Jqe4AuxL0sRQwuPPhqkGR7V0K3WuaJMJk9k624fq779iBY7XWXDYfb6RDpnP
- 9NZkebO7GbQ7YaLNriIVPg5c+hnqfPWZ5XqqtblVSygGRR8mPEDAi6ObpMfVz2CI/ygy
- ivtg==
-X-Gm-Message-State: ABy/qLZfGfsWFrOYcREk7srz7CbHO87hf1k1LxO+dcnKIUaGS7HHs1ji
- aET31ZIQscCfcuwV9MZvOhqyNQ==
-X-Google-Smtp-Source: APBJJlF81QfMj+OzGuweGT/AC35DngvuObAYHLJM7qqWJeHFGWrQw9pznSu7LGwsdhDNw+giWeybWA==
-X-Received: by 2002:a17:902:b20b:b0:1ae:4567:2737 with SMTP id
- t11-20020a170902b20b00b001ae45672737mr12710934plr.2.1688442328020; 
- Mon, 03 Jul 2023 20:45:28 -0700 (PDT)
+ bh=GQygWmEkN5we1RDXz7pkswh4Aib1XAu/CfaGHRydgSY=;
+ b=aUEfiCDUmuq8Qt6Q+82ylYF+NmrNwvFiu1+YPOo9FFkjEy3XXDuutVCP0D6EcZ+O0n
+ TuyyQWcKO/HYKsiBa6fAsh9j6JWGRBH6WLtEPXDuxtcIjf/rA/YowuDGBqgGRGk4cy7M
+ lhTl/6vzUEDD76erugGDHDgwCrGaLvSflOKElow91q9M7YNViOSswfU4IB0IxUY2T9jD
+ pY3IfydtasO1FYBJUM+A/hQf68kZ8CclTCMT5HJSxp5BZA//RU0K0t7AnTWjRKkqPaxq
+ lusVSl6IX3h6K995Vxdl4YzhYa1KV17mHRoqqI9quz1feJbao5OsFrCsVe4EIetlMrjE
+ +kWA==
+X-Gm-Message-State: ABy/qLaPE7dpmEzmV1wbHKQ3182adaPw86DLQ8OKmhlVxYw5jST/oscK
+ QPdj2bInvmxZVwmkE9r4BdvWkA==
+X-Google-Smtp-Source: APBJJlGoap5rgOO/5AFt7nvyzJipf1m4SqVj/7RLWlsyusW9U2QREChVOt6WzCmgKb9akbjSddWJzw==
+X-Received: by 2002:a17:903:94:b0:1ac:40f7:8b5a with SMTP id
+ o20-20020a170903009400b001ac40f78b5amr12672869pld.3.1688444450336; 
+ Mon, 03 Jul 2023 21:20:50 -0700 (PDT)
 Received: from [10.70.252.135] ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- az10-20020a170902a58a00b001b1866f7b5csm15891733plb.138.2023.07.03.20.45.19
+ j6-20020a170902c3c600b001b8918da8d1sm3233936plj.80.2023.07.03.21.20.43
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 03 Jul 2023 20:45:27 -0700 (PDT)
-Message-ID: <3efa68e0-b04f-5c11-4fe2-2db0784064fc@bytedance.com>
-Date: Tue, 4 Jul 2023 11:45:16 +0800
+ Mon, 03 Jul 2023 21:20:49 -0700 (PDT)
+Message-ID: <38b14080-4ce5-d300-8a0a-c630bca6806b@bytedance.com>
+Date: Tue, 4 Jul 2023 12:20:41 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: paulmck@kernel.org, Dave Chinner <david@fromorbit.com>
+From: Qi Zheng <zhengqi.arch@bytedance.com>
+To: Dave Chinner <david@fromorbit.com>
 References: <20230622085335.77010-1-zhengqi.arch@bytedance.com>
  <20230622085335.77010-25-zhengqi.arch@bytedance.com>
  <cf0d9b12-6491-bf23-b464-9d01e5781203@suse.cz>
  <ZJU708VIyJ/3StAX@dread.disaster.area>
- <cc894c77-717a-4e9f-b649-48bab40e7c60@paulmck-laptop>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <cc894c77-717a-4e9f-b649-48bab40e7c60@paulmck-laptop>
+ <a21047bb-3b87-a50a-94a7-f3fa4847bc08@bytedance.com>
+ <ZJYaYv4pACmCaBoT@dread.disaster.area>
+ <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
+In-Reply-To: <a7baf44a-1eb8-d4e1-d112-93cf9cdb7beb@bytedance.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -103,7 +105,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
 Subject: Re: [dm-devel] [PATCH 24/29] mm: vmscan: make global slab shrink
  lockless
@@ -118,217 +120,150 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-bcache@vger.kernel.org, linux-xfs@vger.kernel.org, brauner@kernel.org,
- tytso@mit.edu, djwong@kernel.org, intel-gfx@lists.freedesktop.org,
- roman.gushchin@linux.dev, linux-kernel@vger.kernel.org,
+Cc: djwong@kernel.org, roman.gushchin@linux.dev,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-raid@vger.kernel.org, linux-mm@kvack.org, dm-devel@redhat.com,
- linux-btrfs@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-ext4@vger.kernel.org,
+ paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
+ intel-gfx@lists.freedesktop.org, linux-nfs@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+ Vlastimil Babka <vbabka@suse.cz>, brauner@kernel.org, tytso@mit.edu,
+ linux-kernel@vger.kernel.org, linux-xfs@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-ext4@vger.kernel.org, linux-nfs@vger.kernel.org,
- Vlastimil Babka <vbabka@suse.cz>, tkhai@ya.ru
+ linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-
-
-On 2023/7/4 00:39, Paul E. McKenney wrote:
-> On Fri, Jun 23, 2023 at 04:29:39PM +1000, Dave Chinner wrote:
->> On Thu, Jun 22, 2023 at 05:12:02PM +0200, Vlastimil Babka wrote:
->>> On 6/22/23 10:53, Qi Zheng wrote:
->>>> @@ -1067,33 +1068,27 @@ static unsigned long shrink_slab(gfp_t gfp_mask, int nid,
->>>>   	if (!mem_cgroup_disabled() && !mem_cgroup_is_root(memcg))
->>>>   		return shrink_slab_memcg(gfp_mask, nid, memcg, priority);
->>>>   
->>>> -	if (!down_read_trylock(&shrinker_rwsem))
->>>> -		goto out;
->>>> -
->>>> -	list_for_each_entry(shrinker, &shrinker_list, list) {
->>>> +	rcu_read_lock();
->>>> +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
->>>>   		struct shrink_control sc = {
->>>>   			.gfp_mask = gfp_mask,
->>>>   			.nid = nid,
->>>>   			.memcg = memcg,
->>>>   		};
->>>>   
->>>> +		if (!shrinker_try_get(shrinker))
->>>> +			continue;
->>>> +		rcu_read_unlock();
->>>
->>> I don't think you can do this unlock?
-> 
-> Sorry to be slow to respond here, this one fell through the cracks.
-> And thank you to Qi for reminding me!
-> 
-> If you do this unlock, you had jolly well better nail down the current
-> element (the one referenced by shrinker), for example, by acquiring an
-> explicit reference count on the object.  And presumably this is exactly
-> what shrinker_try_get() is doing.  And a look at your 24/29 confirms this,
-> at least assuming that shrinker->refcount is set to zero before the call
-> to synchronize_rcu() in free_module() *and* that synchronize_rcu() doesn't
-> start until *after* shrinker_put() calls complete().  Plus, as always,
-> the object must be removed from the list before the synchronize_rcu()
-> starts.  (On these parts of the puzzle, I defer to those more familiar
-> with this code path.  And I strongly suggest carefully commenting this
-> type of action-at-a-distance design pattern.)
-
-Yeah, I think I've done it like above. A more detailed timing diagram is
-below.
-
-> 
-> Why is this important?  Because otherwise that object might be freed
-> before you get to the call to rcu_read_lock() at the end of this loop.
-> And if that happens, list_for_each_entry_rcu() will be walking the
-> freelist, which is quite bad for the health and well-being of your kernel.
-> 
-> There are a few other ways to make this sort of thing work:
-> 
-> 1.	Defer the shrinker_put() to the beginning of the loop.
-> 	You would need a flag initially set to zero, and then set to
-> 	one just before (or just after) the rcu_read_lock() above.
-> 	You would also need another shrinker_old pointer to track the
-> 	old pointer.  Then at the top of the loop, if the flag is set,
-> 	invoke shrinker_put() on shrinker_old.	This ensures that the
-> 	previous shrinker structure stays around long enough to allow
-> 	the loop to find the next shrinker structure in the list.
-> 
-> 	This approach is attractive when the removal code path
-> 	can invoke shrinker_put() after the grace period ends.
-> 
-> 2.	Make shrinker_put() invoke call_rcu() when ->refcount reaches
-> 	zero, and have the callback function free the object.  This of
-> 	course requires adding an rcu_head structure to the shrinker
-> 	structure, which might or might not be a reasonable course of
-> 	action.  If adding that rcu_head is reasonable, this simplifies
-> 	the logic quite a bit.
-> 
-> 3.	For the shrinker-structure-removal code path, remove the shrinker
-> 	structure, then remove the initial count from ->refcount,
-> 	and then keep doing grace periods until ->refcount is zero,
-> 	then do one more.  Of course, if the result of removing the
-> 	initial count was zero, then only a single additional grace
-> 	period is required.
-> 
-> 	This would need to be carefully commented, as it is a bit
-> 	unconventional.
-
-Thanks for such a detailed addition!
-
-> 
-> There are probably many other ways, but just to give an idea of a few
-> other ways to do this.
-> 
->>>> +
->>>>   		ret = do_shrink_slab(&sc, shrinker, priority);
->>>>   		if (ret == SHRINK_EMPTY)
->>>>   			ret = 0;
->>>>   		freed += ret;
->>>> -		/*
->>>> -		 * Bail out if someone want to register a new shrinker to
->>>> -		 * prevent the registration from being stalled for long periods
->>>> -		 * by parallel ongoing shrinking.
->>>> -		 */
->>>> -		if (rwsem_is_contended(&shrinker_rwsem)) {
->>>> -			freed = freed ? : 1;
->>>> -			break;
->>>> -		}
->>>> -	}
->>>>   
->>>> -	up_read(&shrinker_rwsem);
->>>> -out:
->>>> +		rcu_read_lock();
->>>
->>> That new rcu_read_lock() won't help AFAIK, the whole
->>> list_for_each_entry_rcu() needs to be under the single rcu_read_lock() to be
->>> safe.
->>
->> Yeah, that's the pattern we've been taught and the one we can look
->> at and immediately say "this is safe".
->>
->> This is a different pattern, as has been explained bi Qi, and I
->> think it *might* be safe.
->>
->> *However.*
->>
->> Right now I don't have time to go through a novel RCU list iteration
->> pattern it one step at to determine the correctness of the
->> algorithm. I'm mostly worried about list manipulations that can
->> occur outside rcu_read_lock() section bleeding into the RCU
->> critical section because rcu_read_lock() by itself is not a memory
->> barrier.
->>
->> Maybe Paul has seen this pattern often enough he could simply tell
->> us what conditions it is safe in. But for me to work that out from
->> first principles? I just don't have the time to do that right now.
-> 
-> If the code does just the right sequence of things on the removal path
-> (remove, decrement reference, wait for reference to go to zero, wait for
-> grace period, free), then it would work.  If this is what is happening,
-> I would argue for more comments.  ;-)
-
-The order of the removal path is slightly different from this:
-
-     shrink_slab                 unregister_shrinker
-     ===========                 ===================
-		
-    shrinker_try_get()
-    rcu_read_unlock()		
-                                 1. decrement initial reference
-				shrinker_put()
-				2. wait for reference to go to zero
-				wait_for_completion()
-    rcu_read_lock()
-
-    shrinker_put()
-				3. remove the shrinker from list
-				list_del_rcu()
-                                 4. wait for grace period
-				kfree_rcu()/synchronize_rcu()
-
-
-    list_for_each_entry()
-
-    shrinker_try_get()
-    rcu_read_unlock()
-				5. free the shrinker
-
-So the order is: decrement reference, wait for reference to go to zero,
-remove, wait for grace period, free.
-
-I think this can work. And we can only do the *step 3* after we hold the
-RCU read lock again, right? Please let me know if I missed something.
-
-Thanks,
-Qi
-
-> 
-> 							Thanx, Paul
-> 
->>> IIUC this is why Dave in [4] suggests unifying shrink_slab() with
->>> shrink_slab_memcg(), as the latter doesn't iterate the list but uses IDR.
->>
->> Yes, I suggested the IDR route because radix tree lookups under RCU
->> with reference counted objects are a known safe pattern that we can
->> easily confirm is correct or not.  Hence I suggested the unification
->> + IDR route because it makes the life of reviewers so, so much
->> easier...
->>
->> Cheers,
->>
->> Dave.
->> -- 
->> Dave Chinner
->> david@fromorbit.com
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+SGkgRGF2ZSwKCk9uIDIwMjMvNi8yNCAxOTowOCwgUWkgWmhlbmcgd3JvdGU6Cj4gSGkgRGF2ZSwK
+PiAKPiBPbiAyMDIzLzYvMjQgMDY6MTksIERhdmUgQ2hpbm5lciB3cm90ZToKPj4gT24gRnJpLCBK
+dW4gMjMsIDIwMjMgYXQgMDk6MTA6NTdQTSArMDgwMCwgUWkgWmhlbmcgd3JvdGU6Cj4+PiBPbiAy
+MDIzLzYvMjMgMTQ6MjksIERhdmUgQ2hpbm5lciB3cm90ZToKPj4+PiBPbiBUaHUsIEp1biAyMiwg
+MjAyMyBhdCAwNToxMjowMlBNICswMjAwLCBWbGFzdGltaWwgQmFia2Egd3JvdGU6Cj4+Pj4+IE9u
+IDYvMjIvMjMgMTA6NTMsIFFpIFpoZW5nIHdyb3RlOgo+Pj4+IFllcywgSSBzdWdnZXN0ZWQgdGhl
+IElEUiByb3V0ZSBiZWNhdXNlIHJhZGl4IHRyZWUgbG9va3VwcyB1bmRlciBSQ1UKPj4+PiB3aXRo
+IHJlZmVyZW5jZSBjb3VudGVkIG9iamVjdHMgYXJlIGEga25vd24gc2FmZSBwYXR0ZXJuIHRoYXQg
+d2UgY2FuCj4+Pj4gZWFzaWx5IGNvbmZpcm0gaXMgY29ycmVjdCBvciBub3QuwqAgSGVuY2UgSSBz
+dWdnZXN0ZWQgdGhlIHVuaWZpY2F0aW9uCj4+Pj4gKyBJRFIgcm91dGUgYmVjYXVzZSBpdCBtYWtl
+cyB0aGUgbGlmZSBvZiByZXZpZXdlcnMgc28sIHNvIG11Y2gKPj4+PiBlYXNpZXIuLi4KPj4+Cj4+
+PiBJbiBmYWN0LCBJIG9yaWdpbmFsbHkgcGxhbm5lZCB0byB0cnkgdGhlIHVuaWZpY2F0aW9uICsg
+SURSIG1ldGhvZCB5b3UKPj4+IHN1Z2dlc3RlZCBhdCB0aGUgYmVnaW5uaW5nLiBCdXQgaW4gdGhl
+IGNhc2Ugb2YgQ09ORklHX01FTUNHIGRpc2FibGVkLAo+Pj4gdGhlIHN0cnVjdCBtZW1fY2dyb3Vw
+IGlzIG5vdCBldmVuIGRlZmluZWQsIGFuZCByb290X21lbV9jZ3JvdXAgYW5kCj4+PiBzaHJpbmtl
+cl9pbmZvIHdpbGwgbm90IGJlIGFsbG9jYXRlZC7CoCBUaGlzIHJlcXVpcmVkIG1vcmUgY29kZSAK
+Pj4+IGNoYW5nZXMsIHNvCj4+PiBJIGVuZGVkIHVwIGtlZXBpbmcgdGhlIHNocmlua2VyX2xpc3Qg
+YW5kIGltcGxlbWVudGluZyB0aGUgYWJvdmUgcGF0dGVybi4KPj4KPj4gWWVzLiBHbyBiYWNrIGFu
+ZCByZWFkIHdoYXQgSSBvcmlnaW5hbGx5IHNhaWQgbmVlZGVkIHRvIGJlIGRvbmUKPj4gZmlyc3Qu
+IEluIHRoZSBjYXNlIG9mIENPTkZJR19NRU1DRz1uLCBhIGR1bW15IHJvb3QgbWVtY2cgc3RpbGwg
+bmVlZHMKPj4gdG8gZXhpc3QgdGhhdCBob2xkcyBhbGwgb2YgdGhlIGdsb2JhbCBzaHJpbmtlcnMu
+IFRoZW4gc2hyaW5rX3NsYWIoKQo+PiBpcyBvbmx5IGV2ZXIgcGFzc2VkIGEgbWVtY2cgdGhhdCBz
+aG91bGQgYmUgaXRlcmF0ZWQuCj4+Cj4+IFllcywgaXQgbmVlZHMgY2hhbmdlcyBleHRlcm5hbCB0
+byB0aGUgc2hyaW5rZXIgY29kZSBpdHNlbGYgdG8gYmUKPj4gbWFkZSB0byB3b3JrLiBBbmQgZXZl
+biBpZiBtZW1jZydzIGFyZSBub3QgZW5hYmxlZCwgd2UgY2FuIHN0aWxsIHVzZQo+PiB0aGUgbWVt
+Y2cgc3RydWN0dXJlcyB0byBlbnN1cmUgYSBjb21tb24gYWJzdHJhY3Rpb24gaXMgdXNlZCBmb3Ig
+dGhlCj4+IHNocmlua2VyIHRyYWNraW5nIGluZnJhc3RydWN0dXJlLi4uLgo+IAo+IFllYWgsIHdo
+YXQgSSBpbWFnaW5lZCBiZWZvcmUgd2FzIHRvIGRlZmluZSBhIG1vcmUgY29uY2lzZSBzdHJ1Y3QK
+PiBtZW1fY2dyb3VwIGluIHRoZSBjYXNlIG9mIENPTkZJR19NRU1DRz1uLCB0aGVuIGFsbG9jYXRl
+IGEgZHVtbXkgcm9vdAo+IG1lbWNnIG9uIHN5c3RlbSBib290Ogo+IAo+ICNpZmRlZiAhQ09ORklH
+X01FTUNHCj4gCj4gc3RydWN0IHNocmlua2VyX2luZm8gewo+ICDCoMKgwqDCoHN0cnVjdCByY3Vf
+aGVhZCByY3U7Cj4gIMKgwqDCoMKgYXRvbWljX2xvbmdfdCAqbnJfZGVmZXJyZWQ7Cj4gIMKgwqDC
+oMKgdW5zaWduZWQgbG9uZyAqbWFwOwo+ICDCoMKgwqDCoGludCBtYXBfbnJfbWF4Owo+IH07Cj4g
+Cj4gc3RydWN0IG1lbV9jZ3JvdXBfcGVyX25vZGUgewo+ICDCoMKgwqDCoHN0cnVjdCBzaHJpbmtl
+cl9pbmZvIF9fcmN1wqDCoMKgICpzaHJpbmtlcl9pbmZvOwo+IH07Cj4gCj4gc3RydWN0IG1lbV9j
+Z3JvdXAgewo+ICDCoMKgwqDCoHN0cnVjdCBtZW1fY2dyb3VwX3Blcl9ub2RlICpub2RlaW5mb1td
+Owo+IH07Cj4gCj4gI2VuZGlmCgpUaGVzZSBkYXlzIEkgdHJpZWQgZG9pbmcgdGhpczoKCjEuIENP
+TkZJR19NRU1DRyAmJiAhbWVtX2Nncm91cF9kaXNhYmxlZCgpCgogICAgdHJhY2sgYWxsIGdsb2Jh
+bCBzaHJpbmtlcnMgd2l0aCByb290X21lbV9jZ3JvdXAuCgoyLiBDT05GSUdfTUVNQ0cgJiYgbWVt
+X2Nncm91cF9kaXNhYmxlZCgpCgogICAgdGhlIHJvb3RfbWVtX2Nncm91cCBpcyBhbHNvIGFsbG9j
+YXRlZCBpbiB0aGlzIGNhc2UsIHNvIHN0aWxsIHVzZQogICAgcm9vdF9tZW1fY2dyb3VwIHRvIHRy
+YWNrIGFsbCBnbG9iYWwgc2hyaW5rZXJzLgoKMy4gIUNPTkZJR19NRU1DRwoKICAgIGFsbG9jYXRl
+IGEgZHVtbXkgbWVtY2cgZHVyaW5nIHN5c3RlbSBzdGFydHVwIChhZnRlciBjZ3JvdXBfaW5pdCgp
+KQogICAgYW5kIHVzZSBpdCB0byB0cmFjayBhbGwgZ2xvYmFsIHNocmlua2VycwoKVGhpcyB3b3Jr
+cywgYnV0IG5lZWRzIHRvIG1vZGlmeSB0aGUgc3RhcnR1cCBvcmRlciBvZiBzb21lIHN1YnN5c3Rl
+bXMsCmJlY2F1c2Ugc29tZSBzaHJpbmtlcnMgd2lsbCBiZSByZWdpc3RlcmVkIGJlZm9yZSByb290
+X21lbV9jZ3JvdXAgaXMKYWxsb2NhdGVkLCBzdWNoIGFzOgoKMS4gcmN1LWtmcmVlIHNocmlua2Vy
+IGluIHJjdV9pbml0KCkKMi4gc3VwZXIgYmxvY2sgc2hyaW5rZXJzIGluIHZmc19jYWNoZXNfaW5p
+dCgpCgpBbmQgY2dyb3VwX2luaXQoKSBhbHNvIGRlcGVuZHMgb24gc29tZSBmaWxlIHN5c3RlbSBp
+bmZyYXN0cnVjdHVyZSwgc28KSSBtYWRlIHNvbWUgY2hhbmdlcyAocm91Z2ggYW5kIHVub3JnYW5p
+emVkKToKCmRpZmYgLS1naXQgYS9mcy9uYW1lc3BhY2UuYyBiL2ZzL25hbWVzcGFjZS5jCmluZGV4
+IGUxNTdlZmM1NDAyMy4uNmExMmQzZDAwNjRlIDEwMDY0NAotLS0gYS9mcy9uYW1lc3BhY2UuYwor
+KysgYi9mcy9uYW1lc3BhY2UuYwpAQCAtNDcwNiw3ICs0NzA2LDcgQEAgc3RhdGljIHZvaWQgX19p
+bml0IGluaXRfbW91bnRfdHJlZSh2b2lkKQoKICB2b2lkIF9faW5pdCBtbnRfaW5pdCh2b2lkKQog
+IHsKLSAgICAgICBpbnQgZXJyOworICAgICAgIC8vaW50IGVycjsKCiAgICAgICAgIG1udF9jYWNo
+ZSA9IGttZW1fY2FjaGVfY3JlYXRlKCJtbnRfY2FjaGUiLCBzaXplb2Yoc3RydWN0IG1vdW50KSwK
+ICAgICAgICAgICAgICAgICAgICAgICAgIDAsIFNMQUJfSFdDQUNIRV9BTElHTnxTTEFCX1BBTklD
+fFNMQUJfQUNDT1VOVCwgCk5VTEwpOwpAQCAtNDcyNSwxNSArNDcyNSw3IEBAIHZvaWQgX19pbml0
+IG1udF9pbml0KHZvaWQpCiAgICAgICAgIGlmICghbW91bnRfaGFzaHRhYmxlIHx8ICFtb3VudHBv
+aW50X2hhc2h0YWJsZSkKICAgICAgICAgICAgICAgICBwYW5pYygiRmFpbGVkIHRvIGFsbG9jYXRl
+IG1vdW50IGhhc2ggdGFibGVcbiIpOwoKLSAgICAgICBrZXJuZnNfaW5pdCgpOwotCi0gICAgICAg
+ZXJyID0gc3lzZnNfaW5pdCgpOwotICAgICAgIGlmIChlcnIpCi0gICAgICAgICAgICAgICBwcmlu
+dGsoS0VSTl9XQVJOSU5HICIlczogc3lzZnNfaW5pdCBlcnJvcjogJWRcbiIsCi0gICAgICAgICAg
+ICAgICAgICAgICAgIF9fZnVuY19fLCBlcnIpOwotICAgICAgIGZzX2tvYmogPSBrb2JqZWN0X2Ny
+ZWF0ZV9hbmRfYWRkKCJmcyIsIE5VTEwpOwotICAgICAgIGlmICghZnNfa29iaikKLSAgICAgICAg
+ICAgICAgIHByaW50ayhLRVJOX1dBUk5JTkcgIiVzOiBrb2JqIGNyZWF0ZSBlcnJvclxuIiwgX19m
+dW5jX18pOwogICAgICAgICBzaG1lbV9pbml0KCk7CiAgICAgICAgIGluaXRfcm9vdGZzKCk7CiAg
+ICAgICAgIGluaXRfbW91bnRfdHJlZSgpOwpkaWZmIC0tZ2l0IGEvaW5jbHVkZS9saW51eC9yY3Vw
+ZGF0ZS5oIGIvaW5jbHVkZS9saW51eC9yY3VwZGF0ZS5oCmluZGV4IDdkOWMyYTYzYjdjZC4uZDg3
+YzY3ZjZmNjZlIDEwMDY0NAotLS0gYS9pbmNsdWRlL2xpbnV4L3JjdXBkYXRlLmgKKysrIGIvaW5j
+bHVkZS9saW51eC9yY3VwZGF0ZS5oCkBAIC0xMTksNiArMTE5LDcgQEAgc3RhdGljIGlubGluZSB2
+b2lkIGNhbGxfcmN1X2h1cnJ5KHN0cnVjdCByY3VfaGVhZCAKKmhlYWQsIHJjdV9jYWxsYmFja190
+IGZ1bmMpCgogIC8qIEludGVybmFsIHRvIGtlcm5lbCAqLwogIHZvaWQgcmN1X2luaXQodm9pZCk7
+Cit2b2lkIHJjdV9zaHJpbmtlcl9pbml0KHZvaWQpOwogIGV4dGVybiBpbnQgcmN1X3NjaGVkdWxl
+cl9hY3RpdmU7CiAgdm9pZCByY3Vfc2NoZWRfY2xvY2tfaXJxKGludCB1c2VyKTsKICB2b2lkIHJj
+dV9yZXBvcnRfZGVhZCh1bnNpZ25lZCBpbnQgY3B1KTsKZGlmZiAtLWdpdCBhL2luaXQvbWFpbi5j
+IGIvaW5pdC9tYWluLmMKaW5kZXggYWQ5MjBmYWMzMjVjLi40MTkwZmM2ZDEwYWQgMTAwNjQ0Ci0t
+LSBhL2luaXQvbWFpbi5jCisrKyBiL2luaXQvbWFpbi5jCkBAIC0xMDQ5LDE0ICsxMDQ5LDIyIEBA
+IHZvaWQgc3RhcnRfa2VybmVsKHZvaWQpCiAgICAgICAgIHNlY3VyaXR5X2luaXQoKTsKICAgICAg
+ICAgZGJnX2xhdGVfaW5pdCgpOwogICAgICAgICBuZXRfbnNfaW5pdCgpOworICAgICAgIGtlcm5m
+c19pbml0KCk7CisgICAgICAgaWYgKHN5c2ZzX2luaXQoKSkKKyAgICAgICAgICAgICAgIHByaW50
+ayhLRVJOX1dBUk5JTkcgIiVzOiBzeXNmc19pbml0IGVycm9yXG4iLAorICAgICAgICAgICAgICAg
+ICAgICAgICBfX2Z1bmNfXyk7CisgICAgICAgZnNfa29iaiA9IGtvYmplY3RfY3JlYXRlX2FuZF9h
+ZGQoImZzIiwgTlVMTCk7CisgICAgICAgaWYgKCFmc19rb2JqKQorICAgICAgICAgICAgICAgcHJp
+bnRrKEtFUk5fV0FSTklORyAiJXM6IGtvYmogY3JlYXRlIGVycm9yXG4iLCBfX2Z1bmNfXyk7Cisg
+ICAgICAgcHJvY19yb290X2luaXQoKTsKKyAgICAgICBjZ3JvdXBfaW5pdCgpOwogICAgICAgICB2
+ZnNfY2FjaGVzX2luaXQoKTsKICAgICAgICAgcGFnZWNhY2hlX2luaXQoKTsKICAgICAgICAgc2ln
+bmFsc19pbml0KCk7CiAgICAgICAgIHNlcV9maWxlX2luaXQoKTsKLSAgICAgICBwcm9jX3Jvb3Rf
+aW5pdCgpOwogICAgICAgICBuc2ZzX2luaXQoKTsKICAgICAgICAgY3B1c2V0X2luaXQoKTsKLSAg
+ICAgICBjZ3JvdXBfaW5pdCgpOworICAgICAgIHJjdV9zaHJpbmtlcl9pbml0KCk7CiAgICAgICAg
+IHRhc2tzdGF0c19pbml0X2Vhcmx5KCk7CiAgICAgICAgIGRlbGF5YWNjdF9pbml0KCk7CgpkaWZm
+IC0tZ2l0IGEva2VybmVsL3JjdS90cmVlLmMgYi9rZXJuZWwvcmN1L3RyZWUuYwppbmRleCBkMDY4
+Y2UzNTY3ZmMuLjcxYTA0YWU4ZGVmYiAxMDA2NDQKLS0tIGEva2VybmVsL3JjdS90cmVlLmMKKysr
+IGIva2VybmVsL3JjdS90cmVlLmMKQEAgLTQ5NTMsNyArNDk1MywxMCBAQCBzdGF0aWMgdm9pZCBf
+X2luaXQga2ZyZWVfcmN1X2JhdGNoX2luaXQodm9pZCkKICAgICAgICAgICAgICAgICBJTklUX0RF
+TEFZRURfV09SSygma3JjcC0+cGFnZV9jYWNoZV93b3JrLCAKZmlsbF9wYWdlX2NhY2hlX2Z1bmMp
+OwogICAgICAgICAgICAgICAgIGtyY3AtPmluaXRpYWxpemVkID0gdHJ1ZTsKICAgICAgICAgfQor
+fQoKK3ZvaWQgX19pbml0IHJjdV9zaHJpbmtlcl9pbml0KHZvaWQpCit7CiAgICAgICAgIGtmcmVl
+X3JjdV9zaHJpbmtlciA9IHNocmlua2VyX2FsbG9jKDAsICJyY3Uta2ZyZWUiKTsKICAgICAgICAg
+aWYgKCFrZnJlZV9yY3Vfc2hyaW5rZXIpIHsKICAgICAgICAgICAgICAgICBwcl9lcnIoIkZhaWxl
+ZCB0byBhbGxvY2F0ZSBrZnJlZV9yY3UoKSBzaHJpbmtlciFcbiIpOwoKSSBhZGp1c3RlZCBpdCBz
+dGVwIGJ5IHN0ZXAgYWNjb3JkaW5nIHRvIHRoZSBlcnJvcnMgcmVwb3J0ZWQsIGFuZCB0aGVyZQpt
+YXkgYmUgaGlkZGVuIHByb2JsZW1zIChuZWVkcyBtb3JlIHJldmlldyBhbmQgdGVzdGluZykuCgpJ
+biBhZGRpdGlvbiwgdW5pZnlpbmcgdGhlIHByb2Nlc3Npbmcgb2YgZ2xvYmFsIGFuZCBtZW1jZyBz
+bGFiIHNocmluawpkb2VzIGhhdmUgbWFueSBiZW5lZml0czoKCjEuIHNocmlua2VyOjpucl9kZWZl
+cnJlZCBjYW4gYmUgcmVtb3ZlZAoyLiBzaHJpbmtlcl9saXN0IGNhbiBiZSByZW1vdmVkCjMuIHNp
+bXBsaWZpZXMgdGhlIGV4aXN0aW5nIGNvZGUgbG9naWMgYW5kIHN1YnNlcXVlbnQgbG9ja2xlc3Mg
+cHJvY2Vzc2luZwoKQnV0IEknbSBzdGlsbCBhIGJpdCBhcHByZWhlbnNpdmUgYWJvdXQgbW9kaWZ5
+aW5nIHRoZSBib290IG9yZGVyLiA6KAoKV2hhdCBkbyB5b3UgdGhpbmsgYWJvdXQgdGhpcz8KClRo
+YW5rcywKUWkKCgo+IAo+IEJ1dCBJIGhhdmUgYSBjb25jZXJuOiBpZiBhbGwgZ2xvYmFsIHNocmlu
+a2VycyBhcmUgdHJhY2tpbmcgd2l0aCB0aGUKPiBpbmZvLT5tYXAgb2Ygcm9vdCBtZW1jZywgYSBz
+aHJpbmtlci0+aWQgbmVlZHMgdG8gYmUgYXNzaWduZWQgdG8gdGhlbSwKPiB3aGljaCB3aWxsIGNh
+dXNlIGluZm8tPm1hcF9ucl9tYXggdG8gYmVjb21lIGxhcmdlciB0aGFuIGJlZm9yZSwgdGhlbgo+
+IG1ha2luZyB0aGUgdHJhdmVyc2FsIG9mIGluZm8tPm1hcCBzbG93ZXIuCj4gCj4+Cj4+PiBJZiB0
+aGUgYWJvdmUgcGF0dGVybiBpcyBub3Qgc2FmZSwgSSB3aWxsIGdvIGJhY2sgdG8gdGhlIHVuaWZp
+Y2F0aW9uICsKPj4+IElEUiBtZXRob2QuCj4+Cj4+IEFuZCB0aGF0IGlzIGV4YWN0bHkgaG93IHdl
+IGdvdCBpbnRvIHRoaXMgbWVzcyBpbiB0aGUgZmlyc3QgcGxhY2UuLi4uCj4gCj4gSSBvbmx5IGZv
+dW5kIG9uZSBzaW1pbGFyIHBhdHRlcm4gaW4gdGhlIGtlcm5lbDoKPiAKPiBmcy9zbWIvc2VydmVy
+L29wbG9jay5jOmZpbmRfc2FtZV9sZWFzZV9rZXkvc21iX2JyZWFrX2FsbF9sZXZJSV9vcGxvY2sv
+bG9va3VwX2xlYXNlX2luX3RhYmxlCj4gCj4gQnV0IElJVUMsIHRoZSByZWZjb3VudCBoZXJlIG5l
+ZWRzIHRvIGJlIGRlY3JlbWVudGVkIGFmdGVyIGhvbGRpbmcKPiByY3UgbG9jayBhcyBJIGRpZCBh
+Ym92ZS4KPiAKPiBTbyByZWdhcmRsZXNzIG9mIHdoZXRoZXIgd2UgY2hvb3NlIHVuaWZpY2F0aW9u
+ICsgSURSIGluIHRoZSBlbmQsIEkgc3RpbGwKPiB3YW50IHRvIGNvbmZpcm0gd2hldGhlciB0aGUg
+cGF0dGVybiBJIGltcGxlbWVudGVkIGFib3ZlIGlzIHNhZmUuIDopCj4gCj4gVGhhbmtzLAo+IFFp
+Cj4gCj4+Cj4+IC1EYXZlCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0
+LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVs
+Cg==
 
