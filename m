@@ -1,94 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9424B747159
-	for <lists+dm-devel@lfdr.de>; Tue,  4 Jul 2023 14:29:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EE465747158
+	for <lists+dm-devel@lfdr.de>; Tue,  4 Jul 2023 14:29:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688473754;
+	s=mimecast20190719; t=1688473753;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9bX25jb/MmCulbF+Vk6Ffuj0tdc13uURIkF86AbbDgk=;
-	b=CK0ZLjZLlrgngoRSjf2lWt4rgo+pRpD+N8NiLSMp8rVECb4h0fk+D0ccGOsbZgdtbTh7uE
-	I3qudA2FoCPGWXYKapHJNay+MXXJcMyxDXogO7CjHtxTCOoWTGC+VKgREty5Wf5qG3Moq3
-	9pDBZgV226u0nJPnAFitVyTqFZ3n52c=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=w0U53YWJfvCFWZU9KVGcxx6RSA7ah/BG7nx3VnhRsBw=;
+	b=PfJiLQXXjdS4xDpVfKbt0wGMqDryoaFlrG7uRWvQXUAl+Oe+rQioXraX+pTaXdCB3VULVQ
+	eOubxz0LtEoWn6QSi/JQy6NhikTjpcJr17jlx9ShcQhaFxskoRnKEbYFAnkr63EE5Y7ioX
+	mtz/yvRUG3dq0vXAU+Cy22/WFk4fKLk=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-6-Y2_nn1CVO2GFEHL-03xtww-1; Tue, 04 Jul 2023 08:29:12 -0400
-X-MC-Unique: Y2_nn1CVO2GFEHL-03xtww-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-577-SDQmynogOKaTGDmExCy8rw-1; Tue, 04 Jul 2023 08:29:12 -0400
+X-MC-Unique: SDQmynogOKaTGDmExCy8rw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50FF12A59546;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4E58180269A;
 	Tue,  4 Jul 2023 12:29:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 09106492B01;
-	Tue,  4 Jul 2023 12:28:58 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AA50C2166B31;
+	Tue,  4 Jul 2023 12:28:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 61A5D1946587;
-	Tue,  4 Jul 2023 12:28:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 176561946597;
+	Tue,  4 Jul 2023 12:28:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 69CD81946586
- for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
+ ESMTP id A25F01946586
+ for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 12:28:48 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5D15EF5CE6; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
+ id 3B9B74CD0C9; Tue,  4 Jul 2023 12:28:48 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 56037F6434
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3284E185A78B
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 344C0492C13
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:48 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 16D181C07822
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:48 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-203-RjvViukbMY6OYzaKwZywMw-1; Tue,
- 04 Jul 2023 08:28:54 -0400
-X-MC-Unique: RjvViukbMY6OYzaKwZywMw-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-648-qRkGSFJpMGiupX7GRAbpRQ-1; Tue,
+ 04 Jul 2023 08:28:46 -0400
+X-MC-Unique: qRkGSFJpMGiupX7GRAbpRQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 5D9E422868;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id E8EBF20564;
  Tue,  4 Jul 2023 12:22:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 433C713A97;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id CBB8013A97;
  Tue,  4 Jul 2023 12:22:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id fiTSDwEPpGQQMAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id icy1MQEPpGQnMAAAMHmgww
  (envelope-from <jack@suse.cz>); Tue, 04 Jul 2023 12:22:25 +0000
 Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 97B9EA0763; Tue,  4 Jul 2023 14:22:24 +0200 (CEST)
+ id D0754A076D; Tue,  4 Jul 2023 14:22:24 +0200 (CEST)
 From: Jan Kara <jack@suse.cz>
 To: <linux-block@vger.kernel.org>
-Date: Tue,  4 Jul 2023 14:21:28 +0200
-Message-Id: <20230704122224.16257-1-jack@suse.cz>
+Date: Tue,  4 Jul 2023 14:21:38 +0200
+Message-Id: <20230704122224.16257-11-jack@suse.cz>
 In-Reply-To: <20230629165206.383-1-jack@suse.cz>
 References: <20230629165206.383-1-jack@suse.cz>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5599; i=jack@suse.cz;
- h=from:subject; bh=repJSb0/C5PfG8Cx5q/n/kNJZOabhc2tYWxiICNNTtg=;
- b=owGbwMvMwME4Z+4qdvsUh5uMp9WSGFKW8J3uuK2gorZt+knOzhX81snTGX/57phWXzfXM3w+50Xl
- rfb7OxmNWRgYORhkxRRZVkde1L42z6hra6iGDMwgViaQKQxcnAIwERsLDobphetsJoi99quKYIut26
- wgv/K+lUS+secym02t85epsOp8rtu3acJMN1WFRiX1irKCnSu+LXh+rVyp65RAEGttl+XcP32mOR0n
- ZJYFm7orF8YFnhVftYzZjm2Rva3I0oqXdap/bUJr8qNjVVfHnBRiFEv0Ocgpck1jlTHfEWUu71NrKu
- 8EXrbnsfD7wm1qKHDqnnnD21y1n9OFHn8/7qJz4O19panPLvMxrOrNn970IcH6rnhQsq0ZS1v6JUfN
- RS5ah5XMXNI/c14+vVlVkPVI9n2HQNZlEfdsO13VFx17Z7f0vKnN9UZZ3Zii6WbsWS81/qefFs1Ljl
- +dK1sZIpSRdXfx+jksz9T4il4AAA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2807; i=jack@suse.cz;
+ h=from:subject; bh=XeDjEIT1p9+MdDtB0DyCNgxyoNTaPF7DUrlNzaXtSIM=;
+ b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBkpA7UHFKsSVynaLOp/FheWju2iEmpkghUNeLrh2gQ
+ MFkgdDKJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCZKQO1AAKCRCcnaoHP2RA2ST4CA
+ C9agmaJLWVzqIJPzboONp8Xr/aw4rXGvMeHGLqgMuoAr3T0E26qyrSfkGrdgPfs2tHAzNJFXHMc/wa
+ XgV1DUzYSYWD/s/n9w2wbRF16GvqWxbvL8PGYce+A1xyK8QbbnhmoREk0dOOZc/Mja+mASR8d/T9L/
+ d0LtJfeK7tdMWr9fu51au5tj5ie6tS1O8eka/XhXuEpG39sVgP34wd6WSnCLxxfEqiKokKVfFextol
+ YAlMeYvfbTIFsp90fa15NkTR8QJd8gq6IQnbop8RKTL7XkZRsudtLs4b6iPtH4kS4hMqayRl3icuOY
+ cHj1ndGNo2WYi+0RkDM70LbDgZ00/z
 X-Developer-Key: i=jack@suse.cz; a=openpgp;
  fpr=93C6099A142276A28BBE35D815BC833443038D8C
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -98,9 +99,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [PATCH 01/32] block: Provide blkdev_get_handle_*
- functions
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [dm-devel] [PATCH 11/32] dm: Convert to blkdev_get_handle_by_dev()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,198 +112,104 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
- Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- linux-nvme@lists.infradead.org, Joseph Qi <joseph.qi@linux.alibaba.com>,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Jack Wang <jinpu.wang@ionos.com>,
- Alasdair Kergon <agk@redhat.com>, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
- Gao Xiang <xiang@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Kent Overstreet <kent.overstreet@gmail.com>,
- Sven Schnelle <svens@linux.ibm.com>, linux-pm@vger.kernel.org,
- Mike Snitzer <snitzer@kernel.org>, Chao Yu <chao@kernel.org>,
- Joern Engel <joern@lazybastard.org>, reiserfs-devel@vger.kernel.org,
- linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
- David Sterba <dsterba@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Jens Axboe <axboe@kernel.dk>, linux-nfs@vger.kernel.org,
- linux-ext4@vger.kernel.org, Ted Tso <tytso@mit.edu>, linux-mm@kvack.org,
- Song Liu <song@kernel.org>, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
- ocfs2-devel@oss.oracle.com, Anna Schumaker <anna@kernel.org>,
- linux-fsdevel@vger.kernel.org, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, Jan Kara <jack@suse.cz>,
+ Mike Snitzer <snitzer@kernel.org>, Christoph Hellwig <hch@infradead.org>,
+ dm-devel@redhat.com, linux-fsdevel@vger.kernel.org,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Create struct bdev_handle that contains all parameters that need to be
-passed to blkdev_put() and provide blkdev_get_handle_* functions that
-return this structure instead of plain bdev pointer. This will
-eventually allow us to pass one more argument to blkdev_put() without
-too much hassle.
+Convert device mapper to use blkdev_get_handle_by_dev() and pass the
+handle around.
 
 CC: Alasdair Kergon <agk@redhat.com>
-CC: Andrew Morton <akpm@linux-foundation.org>
-CC: Anna Schumaker <anna@kernel.org>
-CC: Chao Yu <chao@kernel.org>
-CC: Christian Borntraeger <borntraeger@linux.ibm.com>
-CC: Coly Li <colyli@suse.de
-CC: "Darrick J. Wong" <djwong@kernel.org>
-CC: Dave Kleikamp <shaggy@kernel.org>
-CC: David Sterba <dsterba@suse.com>
-CC: dm-devel@redhat.com
-CC: drbd-dev@lists.linbit.com
-CC: Gao Xiang <xiang@kernel.org>
-CC: Jack Wang <jinpu.wang@ionos.com>
-CC: Jaegeuk Kim <jaegeuk@kernel.org>
-CC: jfs-discussion@lists.sourceforge.net
-CC: Joern Engel <joern@lazybastard.org>
-CC: Joseph Qi <joseph.qi@linux.alibaba.com>
-CC: Kent Overstreet <kent.overstreet@gmail.com>
-CC: linux-bcache@vger.kernel.org
-CC: linux-btrfs@vger.kernel.org
-CC: linux-erofs@lists.ozlabs.org
-CC: <linux-ext4@vger.kernel.org>
-CC: linux-f2fs-devel@lists.sourceforge.net
-CC: linux-mm@kvack.org
-CC: linux-mtd@lists.infradead.org
-CC: linux-nfs@vger.kernel.org
-CC: linux-nilfs@vger.kernel.org
-CC: linux-nvme@lists.infradead.org
-CC: linux-pm@vger.kernel.org
-CC: linux-raid@vger.kernel.org
-CC: linux-s390@vger.kernel.org
-CC: linux-scsi@vger.kernel.org
-CC: linux-xfs@vger.kernel.org
-CC: "Md. Haris Iqbal" <haris.iqbal@ionos.com>
 CC: Mike Snitzer <snitzer@kernel.org>
-CC: Minchan Kim <minchan@kernel.org>
-CC: ocfs2-devel@oss.oracle.com
-CC: reiserfs-devel@vger.kernel.org
-CC: Sergey Senozhatsky <senozhatsky@chromium.org>
-CC: Song Liu <song@kernel.org>
-CC: Sven Schnelle <svens@linux.ibm.com>
-CC: target-devel@vger.kernel.org
-CC: Ted Tso <tytso@mit.edu>
-CC: Trond Myklebust <trond.myklebust@hammerspace.com>
-CC: xen-devel@lists.xenproject.org
+CC: dm-devel@redhat.com
 Signed-off-by: Jan Kara <jack@suse.cz>
 ---
- block/bdev.c           | 47 ++++++++++++++++++++++++++++++++++++++++++
- include/linux/blkdev.h | 10 +++++++++
- 2 files changed, 57 insertions(+)
+ drivers/md/dm.c               | 20 +++++++++++---------
+ include/linux/device-mapper.h |  1 +
+ 2 files changed, 12 insertions(+), 9 deletions(-)
 
-diff --git a/block/bdev.c b/block/bdev.c
-index 979e28a46b98..c75de5cac2bc 100644
---- a/block/bdev.c
-+++ b/block/bdev.c
-@@ -846,6 +846,24 @@ struct block_device *blkdev_get_by_dev(dev_t dev, blk_mode_t mode, void *holder,
- }
- EXPORT_SYMBOL(blkdev_get_by_dev);
- 
-+struct bdev_handle *blkdev_get_handle_by_dev(dev_t dev, blk_mode_t mode,
-+		void *holder, const struct blk_holder_ops *hops)
-+{
-+	struct bdev_handle *handle = kmalloc(sizeof(struct bdev_handle),
-+					     GFP_KERNEL);
-+	struct block_device *bdev;
-+
-+	if (!handle)
-+		return ERR_PTR(-ENOMEM);
-+	bdev = blkdev_get_by_dev(dev, mode, holder, hops);
-+	if (IS_ERR(bdev))
-+		return ERR_CAST(bdev);
-+	handle->bdev = bdev;
-+	handle->holder = holder;
-+	return handle;
-+}
-+EXPORT_SYMBOL(blkdev_get_handle_by_dev);
-+
- /**
-  * blkdev_get_by_path - open a block device by name
-  * @path: path to the block device to open
-@@ -884,6 +902,28 @@ struct block_device *blkdev_get_by_path(const char *path, blk_mode_t mode,
- }
- EXPORT_SYMBOL(blkdev_get_by_path);
- 
-+struct bdev_handle *blkdev_get_handle_by_path(const char *path, blk_mode_t mode,
-+		void *holder, const struct blk_holder_ops *hops)
-+{
-+	struct bdev_handle *handle;
-+	dev_t dev;
-+	int error;
-+
-+	error = lookup_bdev(path, &dev);
-+	if (error)
-+		return ERR_PTR(error);
-+
-+	handle = blkdev_get_handle_by_dev(dev, mode, holder, hops);
-+	if (!IS_ERR(handle) && (mode & BLK_OPEN_WRITE) &&
-+	    bdev_read_only(handle->bdev)) {
-+		blkdev_handle_put(handle);
-+		return ERR_PTR(-EACCES);
-+	}
-+
-+	return handle;
-+}
-+EXPORT_SYMBOL(blkdev_get_handle_by_path);
-+
- void blkdev_put(struct block_device *bdev, void *holder)
+diff --git a/drivers/md/dm.c b/drivers/md/dm.c
+index f0f118ab20fa..d73905149bef 100644
+--- a/drivers/md/dm.c
++++ b/drivers/md/dm.c
+@@ -742,7 +742,7 @@ static struct table_device *open_table_device(struct mapped_device *md,
+ 		dev_t dev, blk_mode_t mode)
  {
- 	struct gendisk *disk = bdev->bd_disk;
-@@ -920,6 +960,13 @@ void blkdev_put(struct block_device *bdev, void *holder)
- }
- EXPORT_SYMBOL(blkdev_put);
+ 	struct table_device *td;
+-	struct block_device *bdev;
++	struct bdev_handle *bdev_handle;
+ 	u64 part_off;
+ 	int r;
  
-+void blkdev_handle_put(struct bdev_handle *handle)
-+{
-+	blkdev_put(handle->bdev, handle->holder);
-+	kfree(handle);
-+}
-+EXPORT_SYMBOL(blkdev_handle_put);
-+
- /**
-  * lookup_bdev() - Look up a struct block_device by name.
-  * @pathname: Name of the block device in the filesystem.
-diff --git a/include/linux/blkdev.h b/include/linux/blkdev.h
-index ed44a997f629..a910e9997ddd 100644
---- a/include/linux/blkdev.h
-+++ b/include/linux/blkdev.h
-@@ -1471,14 +1471,24 @@ struct blk_holder_ops {
- #define sb_open_mode(flags) \
- 	(BLK_OPEN_READ | (((flags) & SB_RDONLY) ? 0 : BLK_OPEN_WRITE))
+@@ -751,9 +751,9 @@ static struct table_device *open_table_device(struct mapped_device *md,
+ 		return ERR_PTR(-ENOMEM);
+ 	refcount_set(&td->count, 1);
  
-+struct bdev_handle {
-+	struct block_device *bdev;
-+	void *holder;
-+};
-+
- struct block_device *blkdev_get_by_dev(dev_t dev, blk_mode_t mode, void *holder,
- 		const struct blk_holder_ops *hops);
- struct block_device *blkdev_get_by_path(const char *path, blk_mode_t mode,
- 		void *holder, const struct blk_holder_ops *hops);
-+struct bdev_handle *blkdev_get_handle_by_dev(dev_t dev, blk_mode_t mode,
-+		void *holder, const struct blk_holder_ops *hops);
-+struct bdev_handle *blkdev_get_handle_by_path(const char *path, blk_mode_t mode,
-+		void *holder, const struct blk_holder_ops *hops);
- int bd_prepare_to_claim(struct block_device *bdev, void *holder,
- 		const struct blk_holder_ops *hops);
- void bd_abort_claiming(struct block_device *bdev, void *holder);
- void blkdev_put(struct block_device *bdev, void *holder);
-+void blkdev_handle_put(struct bdev_handle *handle);
+-	bdev = blkdev_get_by_dev(dev, mode, _dm_claim_ptr, NULL);
+-	if (IS_ERR(bdev)) {
+-		r = PTR_ERR(bdev);
++	bdev_handle = blkdev_get_handle_by_dev(dev, mode, _dm_claim_ptr, NULL);
++	if (IS_ERR(bdev_handle)) {
++		r = PTR_ERR(bdev_handle);
+ 		goto out_free_td;
+ 	}
  
- /* just for blk-cgroup, don't use elsewhere */
- struct block_device *blkdev_get_no_open(dev_t dev);
+@@ -763,20 +763,22 @@ static struct table_device *open_table_device(struct mapped_device *md,
+ 	 * called.
+ 	 */
+ 	if (md->disk->slave_dir) {
+-		r = bd_link_disk_holder(bdev, md->disk);
++		r = bd_link_disk_holder(bdev_handle->bdev, md->disk);
+ 		if (r)
+ 			goto out_blkdev_put;
+ 	}
+ 
+ 	td->dm_dev.mode = mode;
+-	td->dm_dev.bdev = bdev;
+-	td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev, &part_off, NULL, NULL);
++	td->dm_dev.bdev = bdev_handle->bdev;
++	td->dm_dev.bdev_handle = bdev_handle;
++	td->dm_dev.dax_dev = fs_dax_get_by_bdev(bdev_handle->bdev, &part_off,
++						NULL, NULL);
+ 	format_dev_t(td->dm_dev.name, dev);
+ 	list_add(&td->list, &md->table_devices);
+ 	return td;
+ 
+ out_blkdev_put:
+-	blkdev_put(bdev, _dm_claim_ptr);
++	blkdev_handle_put(bdev_handle);
+ out_free_td:
+ 	kfree(td);
+ 	return ERR_PTR(r);
+@@ -789,7 +791,7 @@ static void close_table_device(struct table_device *td, struct mapped_device *md
+ {
+ 	if (md->disk->slave_dir)
+ 		bd_unlink_disk_holder(td->dm_dev.bdev, md->disk);
+-	blkdev_put(td->dm_dev.bdev, _dm_claim_ptr);
++	blkdev_handle_put(td->dm_dev.bdev_handle);
+ 	put_dax(td->dm_dev.dax_dev);
+ 	list_del(&td->list);
+ 	kfree(td);
+diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+index 69d0435c7ebb..772ab4d74d94 100644
+--- a/include/linux/device-mapper.h
++++ b/include/linux/device-mapper.h
+@@ -165,6 +165,7 @@ void dm_error(const char *message);
+ 
+ struct dm_dev {
+ 	struct block_device *bdev;
++	struct bdev_handle *bdev_handle;
+ 	struct dax_device *dax_dev;
+ 	blk_mode_t mode;
+ 	char name[16];
 -- 
 2.35.3
 
