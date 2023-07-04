@@ -1,81 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2D819746E44
-	for <lists+dm-devel@lfdr.de>; Tue,  4 Jul 2023 12:08:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D031374715B
+	for <lists+dm-devel@lfdr.de>; Tue,  4 Jul 2023 14:29:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688465338;
+	s=mimecast20190719; t=1688473754;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wsVOAG/TvA52nv+9Jcet78JKtEt/eOdNPapVZGHmvTQ=;
-	b=YU7sIYQ+0C/ayWzhVW9AucoNRh1jgnknhWQFbrSrm53ihLFkMiYIQ7YNkMmdVWqncEdaYh
-	whVIJXBv2/ccy/s3fVfxSyCU7GoaI9sGmY3kd7GB59pBvHlb06VLkmBWfM6dkQje6nZQSB
-	BvHs3a++GwZalfiJmK0O0i27pLYrBqE=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=qxh4tu4FuVfxfjFO4pq53q+Vf4Pg1zPseXw3cMuV00M=;
+	b=ESbGaLlRpnJrj7dXRNmq/x63Lazo0L2Xz6yWFMtcLhQ8vvF4HXBF5xwSdOfkJb+jLDMWxf
+	2HrtMhnrLXkWBuFeYGqknfF+IybYa7sRExBipYjW0CyAIXgPFhjF2lW2rFVW9wKvII0vjd
+	twUiaVc36OfaP5znIhW9w40GD8nfwJY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-253-bHtSXnohM4S3zDGwqQIyfA-1; Tue, 04 Jul 2023 06:08:52 -0400
-X-MC-Unique: bHtSXnohM4S3zDGwqQIyfA-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-674-giGDrDG8PjetkqzS8Vqqog-1; Tue, 04 Jul 2023 08:29:13 -0400
+X-MC-Unique: giGDrDG8PjetkqzS8Vqqog-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 10FF43C18FE2;
-	Tue,  4 Jul 2023 10:08:49 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B7D4315230A0;
-	Tue,  4 Jul 2023 10:08:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D752856F66;
+	Tue,  4 Jul 2023 12:29:10 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D80EC00049;
+	Tue,  4 Jul 2023 12:28:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 015F11946595;
-	Tue,  4 Jul 2023 10:08:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 52F9F1946586;
+	Tue,  4 Jul 2023 12:28:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3F0F11946586
- for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 10:08:25 +0000 (UTC)
+ ESMTP id 3A95B1946586
+ for <dm-devel@listman.corp.redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1D02E40C206F; Tue,  4 Jul 2023 10:08:25 +0000 (UTC)
+ id 1C1E64021522; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 14FCE40C2063
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 10:08:25 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 15133402152F
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:56 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E87FA38149A3
- for <dm-devel@redhat.com>; Tue,  4 Jul 2023 10:08:24 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA8FD185A78B
+ for <dm-devel@redhat.com>; Tue,  4 Jul 2023 12:28:55 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-517-ehdX-F9EPv-gPeHBDJL9jg-1; Tue,
- 04 Jul 2023 06:08:23 -0400
-X-MC-Unique: ehdX-F9EPv-gPeHBDJL9jg-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-103-G260LjjTOFuM7QzdOJ0LXg-1; Tue,
+ 04 Jul 2023 08:28:54 -0400
+X-MC-Unique: G260LjjTOFuM7QzdOJ0LXg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 39623204A9;
- Tue,  4 Jul 2023 10:08:22 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 37C1422864;
+ Tue,  4 Jul 2023 12:22:25 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0964A1346D;
- Tue,  4 Jul 2023 10:08:22 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 1D4941346D;
+ Tue,  4 Jul 2023 12:22:25 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id Rq6SAJbvo2TQYwAAMHmgww
- (envelope-from <mwilck@suse.com>); Tue, 04 Jul 2023 10:08:22 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Benjamin Marzinski <bmarzins@redhat.com>
-Date: Tue,  4 Jul 2023 12:08:18 +0200
-Message-ID: <20230704100818.30263-1-mwilck@suse.com>
+ by imap2.suse-dmz.suse.de with ESMTPSA id j8gfBwEPpGQFMAAAMHmgww
+ (envelope-from <jack@suse.cz>); Tue, 04 Jul 2023 12:22:25 +0000
+Received: by quack3.suse.cz (Postfix, from userid 1000)
+ id 915DAA0722; Tue,  4 Jul 2023 14:22:24 +0200 (CEST)
+From: Jan Kara <jack@suse.cz>
+To: <linux-block@vger.kernel.org>
+Date: Tue,  4 Jul 2023 14:21:27 +0200
+Message-Id: <20230629165206.383-1-jack@suse.cz>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2471; i=jack@suse.cz;
+ h=from:subject:message-id; bh=ceZQTtdZjpsFiBb9Fva7YX0lOa2i6Zx53n9hl/3+KQM=;
+ b=owEBbQGS/pANAwAIAZydqgc/ZEDZAcsmYgBkpA7DYrlV/5vfqjK0juEsCaKDoUZ39z4YDWexB9PO
+ aQyP7ZaJATMEAAEIAB0WIQSrWdEr1p4yirVVKBycnaoHP2RA2QUCZKQOwwAKCRCcnaoHP2RA2S48B/
+ 476l3pggtn8igKmRoHswxXv63Ks68g/08HDzIZqCtDPA84BSKd93Nq0m/Wn76G+ubHQpfg8PMw5+DG
+ uV+DOTR+NEYKAToQQ8YzmS6RAGasKKWUg3k1pr7jK23l+wcq16ImmBXmWM3nr2j85QcDZeB+vpUKHh
+ bdQJQsBOqKsA+qlImgVwvMS+V4UTLQcIYQo2bDBl0TIbJB0UiXYMYHcvrEkwNZWybXBs+wfERrXuF1
+ XlXO6rWvLyW94kkpvaZTvPY+yZd7tOLd+W8gsz2uBFG9QJg57aDkZxf6NA+Qxf2O8uwfWiyb1XXBN8
+ I1wYA/sSduibCw4tF4sYb/wERvIAO+
+X-Developer-Key: i=jack@suse.cz; a=openpgp;
+ fpr=93C6099A142276A28BBE35D815BC833443038D8C
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,9 +95,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH] Fixup "libmultipath: fix dev_loss_tmo even if
- not set in configuration"
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH RFC 0/32] block: Make blkdev_get_by_*() return
+ handle
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,53 +109,103 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
+ Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
+ linux-nvme@lists.infradead.org, Joseph Qi <joseph.qi@linux.alibaba.com>,
+ dm-devel@redhat.com, target-devel@vger.kernel.org,
+ linux-mtd@lists.infradead.org, Jack Wang <jinpu.wang@ionos.com>,
+ Alasdair Kergon <agk@redhat.com>, drbd-dev@lists.linbit.com,
+ linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
+ linux-scsi@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
+ Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
+ Gao Xiang <xiang@kernel.org>,
+ Christian Borntraeger <borntraeger@linux.ibm.com>,
+ Kent Overstreet <kent.overstreet@gmail.com>,
+ Sven Schnelle <svens@linux.ibm.com>, linux-pm@vger.kernel.org,
+ Mike Snitzer <snitzer@kernel.org>, Chao Yu <chao@kernel.org>,
+ Joern Engel <joern@lazybastard.org>, reiserfs-devel@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-bcache@vger.kernel.org,
+ David Sterba <dsterba@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
+ Trond Myklebust <trond.myklebust@hammerspace.com>,
+ Jens Axboe <axboe@kernel.dk>, linux-nfs@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Ted Tso <tytso@mit.edu>, linux-mm@kvack.org,
+ Song Liu <song@kernel.org>, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, Minchan Kim <minchan@kernel.org>,
+ ocfs2-devel@oss.oracle.com, Anna Schumaker <anna@kernel.org>,
+ linux-fsdevel@vger.kernel.org, "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
+ linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.com
+X-Mimecast-Originator: suse.cz
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+Hello,
 
-My previous patch "libmultipath: fix dev_loss_tmo even if not set in
-configuration" implicitly assumed that DEV_LOSS_TMO is 0, which is true
-but unclean. Make the intention of the code more explicit.
+this patch series implements the idea of blkdev_get_by_*() calls returning
+bdev_handle which is then passed to blkdev_put() [1]. This makes the get
+and put calls for bdevs more obviously matching and allows us to propagate
+context from get to put without having to modify all the users (again!).
+In particular I need to propagate used open flags to blkdev_put() to be able
+count writeable opens and add support for blocking writes to mounted block
+devices. I'll send that series separately.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
+The series is based on Linus' tree as of yesterday + two bcache fixes which are
+in the block tree. Patches have passed some basic testing, I plan to test more
+users once we agree this is the right way to go.
 
----
-Ben: If you ack this, I'll squash it into the previous patch.
-     Also, please have a look at https://listman.redhat.com/archives/dm-devel/2023-June/055113.html
-     (I know the commit message is truncated, will fix).
-     If this passes, I'd like to submit to Christophe this week.
+								Honza
 
----
- libmultipath/discovery.c | 6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
+[1] https://lore.kernel.org/all/ZJGNsVDhZx0Xgs2H@infradead.org
 
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index 285cbd6..5626d48 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -895,9 +895,11 @@ sysfs_set_scsi_tmo (struct config *conf, struct multipath *mpp)
- 			continue;
- 		}
- 
--		if (pp->dev_loss < min_dev_loss) {
--			warn_dev_loss = (pp->dev_loss != DEV_LOSS_TMO_UNSET);
-+		if (pp->dev_loss == DEV_LOSS_TMO_UNSET)
- 			pp->dev_loss = min_dev_loss;
-+		else if (pp->dev_loss < min_dev_loss) {
-+			pp->dev_loss = min_dev_loss;
-+			warn_dev_loss = true;
- 		}
- 		if (pp->dev_loss != DEV_LOSS_TMO_UNSET &&
- 		    pp->fast_io_fail > 0 &&
--- 
-2.41.0
+CC: Alasdair Kergon <agk@redhat.com>
+CC: Andrew Morton <akpm@linux-foundation.org>
+CC: Anna Schumaker <anna@kernel.org>
+CC: Chao Yu <chao@kernel.org>
+CC: Christian Borntraeger <borntraeger@linux.ibm.com>
+CC: Coly Li <colyli@suse.de
+CC: "Darrick J. Wong" <djwong@kernel.org>
+CC: Dave Kleikamp <shaggy@kernel.org>
+CC: David Sterba <dsterba@suse.com>
+CC: dm-devel@redhat.com
+CC: drbd-dev@lists.linbit.com
+CC: Gao Xiang <xiang@kernel.org>
+CC: Jack Wang <jinpu.wang@ionos.com>
+CC: Jaegeuk Kim <jaegeuk@kernel.org>
+CC: jfs-discussion@lists.sourceforge.net
+CC: Joern Engel <joern@lazybastard.org>
+CC: Joseph Qi <joseph.qi@linux.alibaba.com>
+CC: Kent Overstreet <kent.overstreet@gmail.com>
+CC: linux-bcache@vger.kernel.org
+CC: linux-btrfs@vger.kernel.org
+CC: linux-erofs@lists.ozlabs.org
+CC: <linux-ext4@vger.kernel.org>
+CC: linux-f2fs-devel@lists.sourceforge.net
+CC: linux-mm@kvack.org
+CC: linux-mtd@lists.infradead.org
+CC: linux-nfs@vger.kernel.org
+CC: linux-nilfs@vger.kernel.org
+CC: linux-nvme@lists.infradead.org
+CC: linux-pm@vger.kernel.org
+CC: linux-raid@vger.kernel.org
+CC: linux-s390@vger.kernel.org
+CC: linux-scsi@vger.kernel.org
+CC: linux-xfs@vger.kernel.org
+CC: "Md. Haris Iqbal" <haris.iqbal@ionos.com>
+CC: Mike Snitzer <snitzer@kernel.org>
+CC: Minchan Kim <minchan@kernel.org>
+CC: ocfs2-devel@oss.oracle.com
+CC: reiserfs-devel@vger.kernel.org
+CC: Sergey Senozhatsky <senozhatsky@chromium.org>
+CC: Song Liu <song@kernel.org>
+CC: Sven Schnelle <svens@linux.ibm.com>
+CC: target-devel@vger.kernel.org
+CC: Ted Tso <tytso@mit.edu>
+CC: Trond Myklebust <trond.myklebust@hammerspace.com>
+CC: xen-devel@lists.xenproject.org
 
 --
 dm-devel mailing list
