@@ -2,76 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0551E748EA2
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Jul 2023 22:12:38 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 457FE748EB7
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Jul 2023 22:18:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688587957;
+	s=mimecast20190719; t=1688588332;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=s+YMkbjaShu2JvWnq9UV7HvNHfsKIEtWTvjrc6Vu5eQ=;
-	b=O2GNwULJZ09R4MxSd44aBmT2rw3/WT7E3Lf+npnhzEjwjbrScw0h71W+0Zrr9Vca+JvOr5
-	uKEdQpd8eTD5URUwLemjzfXMMqzCyLYd9ax3K2NOqHt6XZ/eUu5UhlRjssk7xlJNZHQnzE
-	UEiCLUW+8JUm0SUETdQCLvB+V1VWHfI=
+	bh=Yhtio7T5zJnE4WtvvhE4gwoalNCZmBAO2PQWApxEwRg=;
+	b=GBr/+Vh55S0UatbDwdsjg4zODpyPHbKTiEy+P4RDTxvLSb8KLc/ypue9ZewS4GCgvEDdH2
+	w6Lk/FF5kfNmmq/NJDpTbgrBLNIkBhkqxVGn40BF2u+cvrT9JZ62Hp37LqouwAO4sEmL/M
+	/j8W6nri5HsiB47cISriRoqpr4UEhfQ=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-161-WIdcTw9gMkSAt3YUu2dWNg-1; Wed, 05 Jul 2023 16:12:35 -0400
-X-MC-Unique: WIdcTw9gMkSAt3YUu2dWNg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-297-cczCvvjDP_SpL0bHVaJ8mQ-1; Wed, 05 Jul 2023 16:18:38 -0400
+X-MC-Unique: cczCvvjDP_SpL0bHVaJ8mQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D8AA23C02583;
-	Wed,  5 Jul 2023 20:12:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD4DD1C31C43;
+	Wed,  5 Jul 2023 20:18:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9CDAF207B313;
-	Wed,  5 Jul 2023 20:12:17 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AE347492C13;
+	Wed,  5 Jul 2023 20:18:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EA38E19465BB;
-	Wed,  5 Jul 2023 20:12:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B219119465BC;
+	Wed,  5 Jul 2023 20:18:20 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D989C1946588
- for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 20:12:10 +0000 (UTC)
+ ESMTP id 4A2821946588
+ for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 20:18:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 9ADA6F640B; Wed,  5 Jul 2023 20:12:10 +0000 (UTC)
+ id 1944640C6CCD; Wed,  5 Jul 2023 20:18:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9396EF5CFA
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 20:12:10 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 120B540C6F5A
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 20:18:19 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7577629AA2C6
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 20:12:10 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EFE0101A529
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 20:18:19 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-484-a-8p55wsPaCnVgE1gwmoCg-1; Wed, 05 Jul 2023 16:12:09 -0400
-X-MC-Unique: a-8p55wsPaCnVgE1gwmoCg-1
+ us-mta-142-94Nio12ROK2_QDAqpaAWPw-1; Wed, 05 Jul 2023 16:18:15 -0400
+X-MC-Unique: 94Nio12ROK2_QDAqpaAWPw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 120B7616E4;
- Wed,  5 Jul 2023 20:12:08 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 03D87C433C7;
- Wed,  5 Jul 2023 20:12:06 +0000 (UTC)
-Date: Wed, 5 Jul 2023 13:12:05 -0700
+ by dfw.source.kernel.org (Postfix) with ESMTPS id E3289615E6;
+ Wed,  5 Jul 2023 20:18:14 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4630C433C7;
+ Wed,  5 Jul 2023 20:18:13 +0000 (UTC)
+Date: Wed, 5 Jul 2023 13:18:12 -0700
 From: Eric Biggers <ebiggers@kernel.org>
 To: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Message-ID: <20230705201205.GA866@sol.localdomain>
+Message-ID: <20230705201812.GB866@sol.localdomain>
 References: <20230705164009.58351-1-giovanni.cabiddu@intel.com>
- <20230705164009.58351-2-giovanni.cabiddu@intel.com>
+ <20230705164009.58351-3-giovanni.cabiddu@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20230705164009.58351-2-giovanni.cabiddu@intel.com>
+In-Reply-To: <20230705164009.58351-3-giovanni.cabiddu@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,8 +79,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [PATCH 1/3] dm integrity: do not filter algos with
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH 2/3] crypto: api - adjust meaning of
  CRYPTO_ALG_ALLOCATES_MEMORY
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -101,45 +101,44 @@ Cc: Fiona Trahe <fiona.trahe@intel.com>, herbert@gondor.apana.org.au,
  agk@redhat.com, V.Sethi@nxp.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 05, 2023 at 05:40:07PM +0100, Giovanni Cabiddu wrote:
-> The flag CRYPTO_ALG_ALLOCATES_MEMORY indicates that an algorithm might
-> allocate memory in the datapath and therefore sleep.
-> Dm-integrity is filtering out implementations of skcipher algorithms
-> that have this flag set. However, in the same function it does
-> allocations with GFP_KERNEL.
+On Wed, Jul 05, 2023 at 05:40:08PM +0100, Giovanni Cabiddu wrote:
 
-Which function is the above referring to?  The actual encryption/decryption
-happens in crypt_journal(), and I don't see any memory allocations there.
+> Algorithms that do not set this flag will guarantee
 
-> As dm-integrity is re-entrant and capable of handling sleeps that could
-> occur during allocations with GFP_KERNEL, then it is also capable of
-> using skcipher algorithm implementations that have
-> CRYPTO_ALG_ALLOCATES_MEMORY set.
-> 
-> Remove the filtering of skcipher implementations with the flag
-> CRYPTO_ALG_ALLOCATES_MEMORY set.
+"will guarantee" => "guarantee"
+ 
+> that memory is not allocated during request processing, except in
+> the avoidable exception cases described below.
 
-What about the use of CRYPTO_ALG_ALLOCATES_MEMORY in get_mac()?
+"avoidable exception cases" => "exception cases"
 
-> 
-> Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
-> Link: https://lore.kernel.org/linux-crypto/ZILvtASXQKLG43y9@gondor.apana.org.au/
-> Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-> Reviewed-by: Fiona Trahe <fiona.trahe@intel.com>
+Whether they are avoidable depends on the user.
 
-This needs:
+> * Users can request an algorithm with this flag unset if they can't handle
+> * memory allocation failures or sleeping during request processing.
 
-    Fixes: a7a10bce8a04 ("dm integrity: don't use drivers that have CRYPTO_ALG_ALLOCATES_MEMORY")
-    Cc: stable@vger.kernel.org
+Why add the "sleeping during request processing" part?  Isn't that controlled on
+a per-request basis by CRYPTO_TFM_REQ_MAY_SLEEP which is a separate thing?
 
-But, are you 100% sure the explanation in commit a7a10bce8a04 was incorrect?
+> * They should also follow the constraints below.
+
+"should" => "must"
+
+> + *	- The input and output scatterlists must have no more than 4 entries.
+> + *	  If the scatterlists contain more than 4 entries, the algorithm may
+> + *	  allocate memory.
+
+"If the scatterlists contains" => "If either scatterlist contains"
+
+Otherwise it is unclear whether this is talking about the length of each
+scatterlist individually, or the sum of their lengths.
 
 - Eric
 
