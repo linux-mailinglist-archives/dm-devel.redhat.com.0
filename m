@@ -2,87 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9931C74CD89
+	by mail.lfdr.de (Postfix) with ESMTPS id 7311674CD87
 	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1688971640;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dxWkqt6nAEyWYaaKBwfjNfp4NTw+JAD2jy232CxAk58=;
-	b=BKevXyqYtXi7HRMLSJa0ob/mXWJUGv9fcPeL7M+DgP4l+fueHGRKIbx1ox7KRKPOqBiB28
-	jCF5WGjgbFqazqEol1zf2XV7PBUohT77g3pQoFBW+9JdyQysa89099EmGnTRcg7Zx5w1AJ
-	gohdJYMO0RKSIUpwdcuRHJyewiPgnjA=
+	bh=hISBtFcLpkV7fCiwDCRHxMhsTAHaMr5vJyiKgCYMkWI=;
+	b=LfOBl5HizZYnrAN6BMYG0mvMMRoiP8ZDjSDAt0GO+EE1wS5R4N1sttS2+2REyKENm2Ifua
+	653ZRzS7HQj323SV2814j0cKwfaY4mphBbhzESndRYxJ5OTpIYVl7rmvQ20XT0oBorvi9S
+	sqNvzlm2ndyHX3kzV7bbXergr27IoDo=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-395-X91XKCsJOseHVmpSb3CiHA-1; Mon, 10 Jul 2023 02:47:16 -0400
-X-MC-Unique: X91XKCsJOseHVmpSb3CiHA-1
+ us-mta-625-9Tsu588lPjuu3Rcc9QG9Xg-1; Mon, 10 Jul 2023 02:47:08 -0400
+X-MC-Unique: 9Tsu588lPjuu3Rcc9QG9Xg-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A512280D20E;
-	Mon, 10 Jul 2023 06:47:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66350280D216;
+	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 41A39446243;
-	Mon, 10 Jul 2023 06:47:09 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CB4D4492B01;
+	Mon, 10 Jul 2023 06:46:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 324181946A79;
-	Mon, 10 Jul 2023 06:47:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 447B619451CF;
+	Mon, 10 Jul 2023 06:46:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4CA4B1946588
- for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 16:12:30 +0000 (UTC)
+ ESMTP id 1F1E31946588
+ for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 16:41:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2B97E492C13; Wed,  5 Jul 2023 16:12:30 +0000 (UTC)
+ id 0019EC478DE; Wed,  5 Jul 2023 16:41:40 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 23FB84CD0C8
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:12:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04F46858290
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:12:30 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-168-zf-SOEbONn-GkzWQEfSj1A-1; Wed,
- 05 Jul 2023 12:12:28 -0400
-X-MC-Unique: zf-SOEbONn-GkzWQEfSj1A-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id CB46921E20;
- Wed,  5 Jul 2023 16:12:25 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A8D5D134F3;
- Wed,  5 Jul 2023 16:12:25 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id p7ssKWmWpWRbQAAAMHmgww
- (envelope-from <jack@suse.cz>); Wed, 05 Jul 2023 16:12:25 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id 1C3A6A0707; Wed,  5 Jul 2023 18:12:25 +0200 (CEST)
-Date: Wed, 5 Jul 2023 18:12:25 +0200
-From: Jan Kara <jack@suse.cz>
-To: Bart Van Assche <bvanassche@acm.org>
-Message-ID: <20230705161225.cwig5a3mo6oz7lew@quack3>
-References: <20230629165206.383-1-jack@suse.cz>
- <20230704122224.16257-1-jack@suse.cz>
- <bb91e76b-0bd8-a949-f8b9-868f919ebcb9@acm.org>
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ECC06C478DD
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:41:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CDED1800B35
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:41:39 +0000 (UTC)
+Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-575-s_hUJOSQO7axERtTaVPlRA-1; Wed, 05 Jul 2023 12:41:36 -0400
+X-MC-Unique: s_hUJOSQO7axERtTaVPlRA-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="362258233"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="362258233"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 05 Jul 2023 09:40:28 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="893241756"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="893241756"
+Received: from silpixa00400314.ir.intel.com (HELO
+ silpixa00400314.ger.corp.intel.com) ([10.237.222.216])
+ by orsmga005.jf.intel.com with ESMTP; 05 Jul 2023 09:40:24 -0700
+From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+To: herbert@gondor.apana.org.au,
+	agk@redhat.com,
+	snitzer@kernel.org
+Date: Wed,  5 Jul 2023 17:40:06 +0100
+Message-Id: <20230705164009.58351-1-giovanni.cabiddu@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <bb91e76b-0bd8-a949-f8b9-868f919ebcb9@acm.org>
+Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
+ Collinstown Industrial Park, Leixlip, County Kildare - Ireland
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -90,10 +82,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
-Subject: Re: [dm-devel] [PATCH 01/32] block: Provide blkdev_get_handle_*
- functions
+Subject: [dm-devel] [PATCH 0/3] crypto: adjust meaning of
+ CRYPTO_ALG_ALLOCATES_MEMORY
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,77 +97,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
- Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- linux-nvme@lists.infradead.org, Joseph Qi <joseph.qi@linux.alibaba.com>,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Jack Wang <jinpu.wang@ionos.com>,
- Alasdair Kergon <agk@redhat.com>, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
- Gao Xiang <xiang@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Kent Overstreet <kent.overstreet@gmail.com>,
- Sven Schnelle <svens@linux.ibm.com>, linux-pm@vger.kernel.org,
- Mike Snitzer <snitzer@kernel.org>, Chao Yu <chao@kernel.org>,
- Joern Engel <joern@lazybastard.org>, reiserfs-devel@vger.kernel.org,
- linux-block@vger.kernel.org, linux-bcache@vger.kernel.org,
- David Sterba <dsterba@suse.com>, Jaegeuk Kim <jaegeuk@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>,
- Jens Axboe <axboe@kernel.dk>, linux-raid@vger.kernel.org,
- linux-nfs@vger.kernel.org, linux-ext4@vger.kernel.org, Ted Tso <tytso@mit.edu>,
- linux-mm@kvack.org, Song Liu <song@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- Minchan Kim <minchan@kernel.org>, ocfs2-devel@oss.oracle.com,
- Anna Schumaker <anna@kernel.org>, linux-fsdevel@vger.kernel.org,
- "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
+Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>, horia.geanta@nxp.com,
+ pankaj.gupta@nxp.com, gaurav.jain@nxp.com, heinzm@redhat.com,
+ qat-linux@intel.com, linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ iuliana.prodan@nxp.com, dm-devel@redhat.com, meenakshi.aggarwal@nxp.com,
+ linux-crypto@vger.kernel.org, davem@davemloft.net, V.Sethi@nxp.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.cz
-Content-Disposition: inline
+X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue 04-07-23 07:06:26, Bart Van Assche wrote:
-> On 7/4/23 05:21, Jan Kara wrote:
-> > +struct bdev_handle {
-> > +	struct block_device *bdev;
-> > +	void *holder;
-> > +};
-> 
-> Please explain in the patch description why a holder pointer is introduced
-> in struct bdev_handle and how it relates to the bd_holder pointer in struct
-> block_device. Is one of the purposes of this patch series perhaps to add
-> support for multiple holders per block device?
+Commit fbb6cda44190 introduced the flag CRYPTO_ALG_ALLOCATES_MEMORY.
+This allows to mark algorithms that allocate memory during the datapath
+so they are not used for disk encryption.
+Following that, cd74693870fb limited dm-crypt to use only
+implementations that don't set that flag.
 
-No. The reason for adding holder to struct bdev_handle is that it is an
-argument blkdev_put() needs. Currently, every user of blkdev_put() has to
-remember what it has passed as 'holder' to blkdev_get_by_*() call and pass
-that to blkdev_put(). With struct bdev_handle this will happen
-automatically. This is already explained in the changelog of this patch:
+After discussions in the crypto mailing list [1][2][3] about how we
+could re-enable algorithms to be used by dm-crypt, we came to the
+conclusion that we can change slightly the meaning of the flag
+!CRYPTO_ALG_ALLOCATES_MEMORY. If an algorithm does not allocate
+memory for requests with a scatterlist of 4 or less entries
+(the typical case for dm-crypt), then it can avoid marking the
+implementation with the flag CRYPTO_ALG_ALLOCATES_MEMORY.
 
-"Create struct bdev_handle that contains all parameters that need to be
-passed to blkdev_put()..."
+This set adjusts the meaning of CRYPTO_ALG_ALLOCATES_MEMORY in the
+documentation, removes the filtering for algorithms that do not
+allocate memory in dm-integrity and removes the
+CRYPTO_ALG_ALLOCATES_MEMORY from the algorithms registered in the QAT
+driver as this is not allocating memory in the datapath for requests
+with 4 or less entries in the source and destination scatterlists.
 
-If it was only about holder, the intrusive patches would not be warranted
-but as the description also says:
+[1] https://lore.kernel.org/linux-crypto/20200722072932.GA27544@gondor.apana.org.au/
+[2] https://lore.kernel.org/linux-crypto/20230523165503.GA864814@google.com/
+[3] https://lore.kernel.org/linux-crypto/Ysw9E2Az2oK4jfCf@lucas-Virtual-Machine/
 
-"This will eventually allow us to pass one more argument to blkdev_put()
-without too much hassle."
+Giovanni Cabiddu (3):
+  dm integrity: do not filter algos with CRYPTO_ALG_ALLOCATES_MEMORY
+  crypto: api - adjust meaning of CRYPTO_ALG_ALLOCATES_MEMORY
+  crypto: qat - remove CRYPTO_ALG_ALLOCATES_MEMORY flag
 
-Because we will additionaly need to propagate the 'mode' argument used at
-open to blkdev_put().
-
-								Honza
+ drivers/crypto/intel/qat/qat_common/qat_algs.c | 13 ++++++-------
+ .../intel/qat/qat_common/qat_comp_algs.c       |  2 +-
+ drivers/md/dm-integrity.c                      |  2 +-
+ include/linux/crypto.h                         | 18 ++++++++++++++++--
+ 4 files changed, 24 insertions(+), 11 deletions(-)
 
 -- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+2.40.1
 
 --
 dm-devel mailing list
