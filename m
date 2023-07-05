@@ -2,76 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 457FE748EB7
-	for <lists+dm-devel@lfdr.de>; Wed,  5 Jul 2023 22:18:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id EC264748FEC
+	for <lists+dm-devel@lfdr.de>; Wed,  5 Jul 2023 23:33:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688588332;
+	s=mimecast20190719; t=1688592834;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Yhtio7T5zJnE4WtvvhE4gwoalNCZmBAO2PQWApxEwRg=;
-	b=GBr/+Vh55S0UatbDwdsjg4zODpyPHbKTiEy+P4RDTxvLSb8KLc/ypue9ZewS4GCgvEDdH2
-	w6Lk/FF5kfNmmq/NJDpTbgrBLNIkBhkqxVGn40BF2u+cvrT9JZ62Hp37LqouwAO4sEmL/M
-	/j8W6nri5HsiB47cISriRoqpr4UEhfQ=
+	bh=NgEy9jOhm/XClNxWxjihrCRnGaAuXbLDLeQafBXH20k=;
+	b=TZKXNUrJL6IlJT9zESBI1M1nK43/AIuTGjv7ny4qbtsnTO2zLpzDXNxDxFza/voWjidO5A
+	jV4kemK4UjQ2xhmmvXi2Ua0NXdrxph6AsqoJ/I0ShgSVWm70hrpnc1u3VcV+pUViHVN/GV
+	EKQCpEjmKdZaFCexkKkNpgcOVeCRNVg=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-297-cczCvvjDP_SpL0bHVaJ8mQ-1; Wed, 05 Jul 2023 16:18:38 -0400
-X-MC-Unique: cczCvvjDP_SpL0bHVaJ8mQ-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-631-AZlsky9sPGy9fP_wdXydug-1; Wed, 05 Jul 2023 17:33:53 -0400
+X-MC-Unique: AZlsky9sPGy9fP_wdXydug-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD4DD1C31C43;
-	Wed,  5 Jul 2023 20:18:34 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AE347492C13;
-	Wed,  5 Jul 2023 20:18:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2931F381494E;
+	Wed,  5 Jul 2023 21:33:51 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5754E15230A7;
+	Wed,  5 Jul 2023 21:33:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B219119465BC;
-	Wed,  5 Jul 2023 20:18:20 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AB7C419465BD;
+	Wed,  5 Jul 2023 21:33:31 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4A2821946588
- for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 20:18:20 +0000 (UTC)
+ ESMTP id 1EA5B1946588
+ for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 21:33:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1944640C6CCD; Wed,  5 Jul 2023 20:18:20 +0000 (UTC)
+ id F20A840C206F; Wed,  5 Jul 2023 21:33:30 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 120B540C6F5A
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 20:18:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3EFE0101A529
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 20:18:19 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id EA64040C2063
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 21:33:30 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE7FD104458F
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 21:33:30 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-142-94Nio12ROK2_QDAqpaAWPw-1; Wed, 05 Jul 2023 16:18:15 -0400
-X-MC-Unique: 94Nio12ROK2_QDAqpaAWPw-1
+ us-mta-53-jV5N8KsvOjiWvdAR6bv5Wg-1; Wed, 05 Jul 2023 17:33:29 -0400
+X-MC-Unique: jV5N8KsvOjiWvdAR6bv5Wg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id E3289615E6;
- Wed,  5 Jul 2023 20:18:14 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4630C433C7;
- Wed,  5 Jul 2023 20:18:13 +0000 (UTC)
-Date: Wed, 5 Jul 2023 13:18:12 -0700
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 88E0B6144C;
+ Wed,  5 Jul 2023 21:33:28 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF0B9C433C8;
+ Wed,  5 Jul 2023 21:33:27 +0000 (UTC)
+Date: Wed, 5 Jul 2023 14:33:26 -0700
 From: Eric Biggers <ebiggers@kernel.org>
-To: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Message-ID: <20230705201812.GB866@sol.localdomain>
-References: <20230705164009.58351-1-giovanni.cabiddu@intel.com>
- <20230705164009.58351-3-giovanni.cabiddu@intel.com>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <20230705213326.GC866@sol.localdomain>
+References: <20230610061139.212085-1-ebiggers@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20230705164009.58351-3-giovanni.cabiddu@intel.com>
+In-Reply-To: <20230610061139.212085-1-ebiggers@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +78,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH 2/3] crypto: api - adjust meaning of
- CRYPTO_ALG_ALLOCATES_MEMORY
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH] blk-crypto: use dynamic lock class for
+ blk_crypto_profile::lock
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,52 +92,34 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Fiona Trahe <fiona.trahe@intel.com>, herbert@gondor.apana.org.au,
- horia.geanta@nxp.com, pankaj.gupta@nxp.com, gaurav.jain@nxp.com,
- heinzm@redhat.com, snitzer@kernel.org, linux-kernel@vger.kernel.org,
- qat-linux@intel.com, iuliana.prodan@nxp.com, dm-devel@redhat.com,
- meenakshi.aggarwal@nxp.com, linux-crypto@vger.kernel.org, davem@davemloft.net,
- agk@redhat.com, V.Sethi@nxp.com
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Bart Van Assche <bvanassche@acm.org>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Jul 05, 2023 at 05:40:08PM +0100, Giovanni Cabiddu wrote:
+On Fri, Jun 09, 2023 at 11:11:39PM -0700, Eric Biggers wrote:
+> From: Eric Biggers <ebiggers@google.com>
+> 
+> When a device-mapper device is passing through the inline encryption
+> support of an underlying device, calls to blk_crypto_evict_key() take
+> the blk_crypto_profile::lock of the device-mapper device, then take the
+> blk_crypto_profile::lock of the underlying device (nested).  This isn't
+> a real deadlock, but it causes a lockdep report because there is only
+> one lock class for all instances of this lock.
+> 
+> Lockdep subclasses don't really work here because the hierarchy of block
+> devices is dynamic and could have more than 2 levels.
+> 
+> Instead, register a dynamic lock class for each blk_crypto_profile, and
+> associate that with the lock.
 
-> Algorithms that do not set this flag will guarantee
-
-"will guarantee" => "guarantee"
- 
-> that memory is not allocated during request processing, except in
-> the avoidable exception cases described below.
-
-"avoidable exception cases" => "exception cases"
-
-Whether they are avoidable depends on the user.
-
-> * Users can request an algorithm with this flag unset if they can't handle
-> * memory allocation failures or sleeping during request processing.
-
-Why add the "sleeping during request processing" part?  Isn't that controlled on
-a per-request basis by CRYPTO_TFM_REQ_MAY_SLEEP which is a separate thing?
-
-> * They should also follow the constraints below.
-
-"should" => "must"
-
-> + *	- The input and output scatterlists must have no more than 4 entries.
-> + *	  If the scatterlists contain more than 4 entries, the algorithm may
-> + *	  allocate memory.
-
-"If the scatterlists contains" => "If either scatterlist contains"
-
-Otherwise it is unclear whether this is talking about the length of each
-scatterlist individually, or the sum of their lengths.
+Jens, can you apply this?
 
 - Eric
 
