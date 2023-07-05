@@ -2,77 +2,77 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4A7F674CD7C
-	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 447CA74CD96
+	for <lists+dm-devel@lfdr.de>; Mon, 10 Jul 2023 08:47:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688971637;
+	s=mimecast20190719; t=1688971645;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wetnkyCxhusiEbrqDQEXP+mNR/xuEOxVAKft4uS51JA=;
-	b=X6yBIA3KVEy0Z/LI4wGDiP6RgKOeB54A1W8yjGaFXzbYxwalynZJAJm0Z1o/zLQE81gLh0
-	tONNydYqomXBP2kUaDz4VwWGeLbjYksNHcRBSb17ZhdVofUNtgF4B5PurrjmjGficpi+vf
-	fFZpFu02DH3jbOJXU60Lr39MRw8dZ/o=
+	bh=oa2DXqcNmu8dZeHD3BqrovzcBdsa83kza1c0ek1gQhA=;
+	b=MA0tguIDoHJKnxM/bBD9w8ariDaa9IyEIRirEEduekagSU58VSVaXtPiKHllwv92BXTifr
+	jQ2K2LpjAbS1FwpeiRMfsxtAQUCBb0unwJhb/JnYvLymZQHKJCqTTi4urbLFwLyRMfwIVR
+	pRmXSftMiHDyqgy+hU0YSODfEtLNYwE=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-141-MgMBXH_QO0iJDxx7U5JwFA-1; Mon, 10 Jul 2023 02:47:15 -0400
-X-MC-Unique: MgMBXH_QO0iJDxx7U5JwFA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-25-MqVRfhIcOIGq78KalQQqfQ-1; Mon, 10 Jul 2023 02:47:19 -0400
+X-MC-Unique: MqVRfhIcOIGq78KalQQqfQ-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DE12E280D21E;
-	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6753D3815F81;
+	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BADE14087C76;
-	Mon, 10 Jul 2023 06:46:59 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 50E0940C206F;
+	Mon, 10 Jul 2023 06:47:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D37D1949754;
-	Mon, 10 Jul 2023 06:46:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DDA01193F51A;
+	Mon, 10 Jul 2023 06:46:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 71F3B1946588
- for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 16:41:41 +0000 (UTC)
+ ESMTP id 8B8471946588
+ for <dm-devel@listman.corp.redhat.com>; Wed,  5 Jul 2023 16:41:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 52F004CD0C8; Wed,  5 Jul 2023 16:41:41 +0000 (UTC)
+ id 7B3BB1401C2F; Wed,  5 Jul 2023 16:41:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 4B3FD492C13
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:41:41 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 73B7B1401C20
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:41:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2D64F88D542
- for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:41:41 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F4A43C100AA
+ for <dm-devel@redhat.com>; Wed,  5 Jul 2023 16:41:47 +0000 (UTC)
 Received: from mga04.intel.com (mga04.intel.com [192.55.52.120]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-359-ROTbjrT3OYqzxlNIcUOWpg-1; Wed, 05 Jul 2023 12:41:39 -0400
-X-MC-Unique: ROTbjrT3OYqzxlNIcUOWpg-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="362258285"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="362258285"
+ us-mta-359-RHIWcSjaMd60B8BLa54Pdg-2; Wed, 05 Jul 2023 12:41:43 -0400
+X-MC-Unique: RHIWcSjaMd60B8BLa54Pdg-2
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="362258308"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="362258308"
 Received: from orsmga005.jf.intel.com ([10.7.209.41])
  by fmsmga104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 05 Jul 2023 09:40:36 -0700
+ 05 Jul 2023 09:40:40 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="893241766"
-X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="893241766"
+X-IronPort-AV: E=McAfee;i="6600,9927,10762"; a="893241782"
+X-IronPort-AV: E=Sophos;i="6.01,183,1684825200"; d="scan'208";a="893241782"
 Received: from silpixa00400314.ir.intel.com (HELO
  silpixa00400314.ger.corp.intel.com) ([10.237.222.216])
- by orsmga005.jf.intel.com with ESMTP; 05 Jul 2023 09:40:32 -0700
+ by orsmga005.jf.intel.com with ESMTP; 05 Jul 2023 09:40:36 -0700
 From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
 To: herbert@gondor.apana.org.au,
 	agk@redhat.com,
 	snitzer@kernel.org
-Date: Wed,  5 Jul 2023 17:40:08 +0100
-Message-Id: <20230705164009.58351-3-giovanni.cabiddu@intel.com>
+Date: Wed,  5 Jul 2023 17:40:09 +0100
+Message-Id: <20230705164009.58351-4-giovanni.cabiddu@intel.com>
 In-Reply-To: <20230705164009.58351-1-giovanni.cabiddu@intel.com>
 References: <20230705164009.58351-1-giovanni.cabiddu@intel.com>
 MIME-Version: 1.0
@@ -85,10 +85,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 10 Jul 2023 06:46:55 +0000
-Subject: [dm-devel] [PATCH 2/3] crypto: api - adjust meaning of
- CRYPTO_ALG_ALLOCATES_MEMORY
+Subject: [dm-devel] [PATCH 3/3] crypto: qat - remove
+ CRYPTO_ALG_ALLOCATES_MEMORY flag
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,86 +103,102 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
  Fiona Trahe <fiona.trahe@intel.com>, horia.geanta@nxp.com,
  pankaj.gupta@nxp.com, gaurav.jain@nxp.com, heinzm@redhat.com,
- Eric Biggers <ebiggers@google.com>, qat-linux@intel.com,
- linux-kernel@vger.kernel.org, ebiggers@kernel.org, iuliana.prodan@nxp.com,
- dm-devel@redhat.com, meenakshi.aggarwal@nxp.com, linux-crypto@vger.kernel.org,
- davem@davemloft.net, V.Sethi@nxp.com
+ qat-linux@intel.com, linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ iuliana.prodan@nxp.com, dm-devel@redhat.com, meenakshi.aggarwal@nxp.com,
+ linux-crypto@vger.kernel.org, davem@davemloft.net, V.Sethi@nxp.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The CRYPTO_ALG_ALLOCATES_MEMORY flag doesn't allow to distinguish
-between implementations which don't allocate memory for scatterlists
-with 4 or less entries (the typical case for dm-crypt) and those that
-do.
-The flag's meaning is adjusted based on the ML discussion below.
+Remove the CRYPTO_ALG_ALLOCATES_MEMORY flag from the aead, skcipher
+and acomp alg structures since the driver does not allocate memory in
+the request processing for scatterlists with 4 or less entries.
 
-This patch removes the need to set the flag if the implementation can
-handle scatterlists up to 4 entries without allocating memory.
-The documentation is updated accordingly, with an extra clarification
-regarding sleeping.
+This allows the QAT driver to be used by dm-crypt.
 
-Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
-Suggested-by: Eric Biggers <ebiggers@google.com>
-Link: https://lore.kernel.org/linux-crypto/20200722072932.GA27544@gondor.apana.org.au/
-Link: https://lore.kernel.org/linux-crypto/20230523165503.GA864814@google.com/
 Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
 Reviewed-by: Fiona Trahe <fiona.trahe@intel.com>
 ---
- include/linux/crypto.h | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/crypto/intel/qat/qat_common/qat_algs.c      | 13 ++++++-------
+ drivers/crypto/intel/qat/qat_common/qat_comp_algs.c |  2 +-
+ 2 files changed, 7 insertions(+), 8 deletions(-)
 
-diff --git a/include/linux/crypto.h b/include/linux/crypto.h
-index 31f6fee0c36c..15884790a3d0 100644
---- a/include/linux/crypto.h
-+++ b/include/linux/crypto.h
-@@ -87,8 +87,13 @@
- 
- /*
-  * The algorithm may allocate memory during request processing, i.e. during
-- * encryption, decryption, or hashing.  Users can request an algorithm with this
-- * flag unset if they can't handle memory allocation failures.
-+ * encryption, decryption, or hashing. Algorithms that do not set this flag will
-+ * guarantee that memory is not allocated during request processing, except in
-+ * the avoidable exception cases described below.
-+ *
-+ * Users can request an algorithm with this flag unset if they can't handle
-+ * memory allocation failures or sleeping during request processing. They should
-+ * also follow the constraints below.
-  *
-  * This flag is currently only implemented for algorithms of type "skcipher",
-  * "aead", "ahash", "shash", and "cipher".  Algorithms of other types might not
-@@ -102,6 +107,9 @@
-  *	- If the data were to be divided into chunks of size
-  *	  crypto_skcipher_walksize() (with any remainder going at the end), no
-  *	  chunk can cross a page boundary or a scatterlist element boundary.
-+ *	- The input and output scatterlists must have no more than 4 entries.
-+ *	  If the scatterlists contain more than 4 entries, the algorithm may
-+ *	  allocate memory.
-  *    aead:
-  *	- The IV buffer and all scatterlist elements must be aligned to the
-  *	  algorithm's alignmask.
-@@ -110,10 +118,16 @@
-  *	- If the plaintext/ciphertext were to be divided into chunks of size
-  *	  crypto_aead_walksize() (with the remainder going at the end), no chunk
-  *	  can cross a page boundary or a scatterlist element boundary.
-+ *	- The input and output scatterlists must have no more than 4 entries.
-+ *	  If the scatterlists contain more than 4 entries, the algorithm may
-+ *	  allocate memory.
-  *    ahash:
-  *	- The result buffer must be aligned to the algorithm's alignmask.
-  *	- crypto_ahash_finup() must not be used unless the algorithm implements
-  *	  ->finup() natively.
-+ *	- The input and output scatterlists must have no more than 4 entries.
-+ *	  If the scatterlists contain more than 4 entries, the algorithm may
-+ *	  allocate memory.
-  */
- #define CRYPTO_ALG_ALLOCATES_MEMORY	0x00010000
- 
+diff --git a/drivers/crypto/intel/qat/qat_common/qat_algs.c b/drivers/crypto/intel/qat/qat_common/qat_algs.c
+index 3c4bba4a8779..a7a6ac33052a 100644
+--- a/drivers/crypto/intel/qat/qat_common/qat_algs.c
++++ b/drivers/crypto/intel/qat/qat_common/qat_algs.c
+@@ -1278,7 +1278,7 @@ static struct aead_alg qat_aeads[] = { {
+ 		.cra_name = "authenc(hmac(sha1),cbc(aes))",
+ 		.cra_driver_name = "qat_aes_cbc_hmac_sha1",
+ 		.cra_priority = 4001,
+-		.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY,
++		.cra_flags = CRYPTO_ALG_ASYNC,
+ 		.cra_blocksize = AES_BLOCK_SIZE,
+ 		.cra_ctxsize = sizeof(struct qat_alg_aead_ctx),
+ 		.cra_module = THIS_MODULE,
+@@ -1295,7 +1295,7 @@ static struct aead_alg qat_aeads[] = { {
+ 		.cra_name = "authenc(hmac(sha256),cbc(aes))",
+ 		.cra_driver_name = "qat_aes_cbc_hmac_sha256",
+ 		.cra_priority = 4001,
+-		.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY,
++		.cra_flags = CRYPTO_ALG_ASYNC,
+ 		.cra_blocksize = AES_BLOCK_SIZE,
+ 		.cra_ctxsize = sizeof(struct qat_alg_aead_ctx),
+ 		.cra_module = THIS_MODULE,
+@@ -1312,7 +1312,7 @@ static struct aead_alg qat_aeads[] = { {
+ 		.cra_name = "authenc(hmac(sha512),cbc(aes))",
+ 		.cra_driver_name = "qat_aes_cbc_hmac_sha512",
+ 		.cra_priority = 4001,
+-		.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY,
++		.cra_flags = CRYPTO_ALG_ASYNC,
+ 		.cra_blocksize = AES_BLOCK_SIZE,
+ 		.cra_ctxsize = sizeof(struct qat_alg_aead_ctx),
+ 		.cra_module = THIS_MODULE,
+@@ -1330,7 +1330,7 @@ static struct skcipher_alg qat_skciphers[] = { {
+ 	.base.cra_name = "cbc(aes)",
+ 	.base.cra_driver_name = "qat_aes_cbc",
+ 	.base.cra_priority = 4001,
+-	.base.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY,
++	.base.cra_flags = CRYPTO_ALG_ASYNC,
+ 	.base.cra_blocksize = AES_BLOCK_SIZE,
+ 	.base.cra_ctxsize = sizeof(struct qat_alg_skcipher_ctx),
+ 	.base.cra_alignmask = 0,
+@@ -1348,7 +1348,7 @@ static struct skcipher_alg qat_skciphers[] = { {
+ 	.base.cra_name = "ctr(aes)",
+ 	.base.cra_driver_name = "qat_aes_ctr",
+ 	.base.cra_priority = 4001,
+-	.base.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY,
++	.base.cra_flags = CRYPTO_ALG_ASYNC,
+ 	.base.cra_blocksize = 1,
+ 	.base.cra_ctxsize = sizeof(struct qat_alg_skcipher_ctx),
+ 	.base.cra_alignmask = 0,
+@@ -1366,8 +1366,7 @@ static struct skcipher_alg qat_skciphers[] = { {
+ 	.base.cra_name = "xts(aes)",
+ 	.base.cra_driver_name = "qat_aes_xts",
+ 	.base.cra_priority = 4001,
+-	.base.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_NEED_FALLBACK |
+-			  CRYPTO_ALG_ALLOCATES_MEMORY,
++	.base.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_NEED_FALLBACK,
+ 	.base.cra_blocksize = AES_BLOCK_SIZE,
+ 	.base.cra_ctxsize = sizeof(struct qat_alg_skcipher_ctx),
+ 	.base.cra_alignmask = 0,
+diff --git a/drivers/crypto/intel/qat/qat_common/qat_comp_algs.c b/drivers/crypto/intel/qat/qat_common/qat_comp_algs.c
+index b533984906ec..bd1383da1c4a 100644
+--- a/drivers/crypto/intel/qat/qat_common/qat_comp_algs.c
++++ b/drivers/crypto/intel/qat/qat_common/qat_comp_algs.c
+@@ -442,7 +442,7 @@ static struct acomp_alg qat_acomp[] = { {
+ 		.cra_name = "deflate",
+ 		.cra_driver_name = "qat_deflate",
+ 		.cra_priority = 4001,
+-		.cra_flags = CRYPTO_ALG_ASYNC | CRYPTO_ALG_ALLOCATES_MEMORY,
++		.cra_flags = CRYPTO_ALG_ASYNC,
+ 		.cra_ctxsize = sizeof(struct qat_compression_ctx),
+ 		.cra_module = THIS_MODULE,
+ 	},
 -- 
 2.40.1
 
