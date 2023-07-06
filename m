@@ -1,70 +1,72 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AD4E74A191
-	for <lists+dm-devel@lfdr.de>; Thu,  6 Jul 2023 17:52:32 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id BDF1C74A140
+	for <lists+dm-devel@lfdr.de>; Thu,  6 Jul 2023 17:39:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688658751;
+	s=mimecast20190719; t=1688657954;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=QaXpa0mDnZocUGic+bsNQGfT3L8Y761sCJFIVsD0LEI=;
-	b=ewqS0Sxe0ThdtdOowj0wdAq1faXqX0LVv991cxfXiRvA40UmMpxI/VYeylwMdgbqdWOTIi
-	D78nmOE1Uh12E96m/18HChksWgMUpa9gaPzhhWs7KJFjAqhht7SBPz1yqeBU9YoRgfjpIo
-	4q1i0+4NytPz5g4TO1sKP0+qzrG2SEQ=
+	bh=nUzDd02CSE1TZ3bgA3jHgN6TAwLO0E8iumVyMUYPpdY=;
+	b=ZBk0avwUx372juPi0WKlQBEoP9ZkF1axUT9cKS7t0TpopMcbdPkpRc7dZBaGsu3LmzQUfO
+	zFfnp5OQC9Ku3/TL2G6e6fmbtHRSFiea42R8WPz8DqaVbESs3qaqxLBPZ8hwH6vflx2qjR
+	tjDoZxpTxpjJ40cXucq48f6b1oX8sEQ=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-648-eZ0ix3BMMfW544-o6VqrtQ-1; Thu, 06 Jul 2023 11:52:27 -0400
-X-MC-Unique: eZ0ix3BMMfW544-o6VqrtQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-461-P3ES-oGVNE6uQCe4dTurRA-1; Thu, 06 Jul 2023 11:39:12 -0400
+X-MC-Unique: P3ES-oGVNE6uQCe4dTurRA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C316388CC49;
-	Thu,  6 Jul 2023 15:52:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E8DB3873238;
+	Thu,  6 Jul 2023 15:39:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3C5F6492B02;
-	Thu,  6 Jul 2023 15:52:10 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A6FBCC09A09;
+	Thu,  6 Jul 2023 15:38:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1EDF91946A46;
-	Thu,  6 Jul 2023 15:52:10 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BD1D41946A42;
+	Thu,  6 Jul 2023 15:38:51 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A5A931946589
- for <dm-devel@listman.corp.redhat.com>; Thu,  6 Jul 2023 15:52:09 +0000 (UTC)
+ ESMTP id 7F0CB1946589
+ for <dm-devel@listman.corp.redhat.com>; Thu,  6 Jul 2023 15:38:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7BED540C6CD2; Thu,  6 Jul 2023 15:52:09 +0000 (UTC)
+ id 5A4DB2166B25; Thu,  6 Jul 2023 15:38:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 73B9540C6CD0
- for <dm-devel@redhat.com>; Thu,  6 Jul 2023 15:52:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 574D9185A7B5
- for <dm-devel@redhat.com>; Thu,  6 Jul 2023 15:52:09 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 52C8C2166B26
+ for <dm-devel@redhat.com>; Thu,  6 Jul 2023 15:38:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 34992185A793
+ for <dm-devel@redhat.com>; Thu,  6 Jul 2023 15:38:50 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-45-QY8Bgp3nNuyqUiP-YY2rhQ-1; Thu, 06 Jul 2023 11:52:06 -0400
-X-MC-Unique: QY8Bgp3nNuyqUiP-YY2rhQ-1
+ us-mta-53-z6WqxPI6MUSiWDcfZnNHaQ-1; Thu, 06 Jul 2023 11:38:46 -0400
+X-MC-Unique: z6WqxPI6MUSiWDcfZnNHaQ-1
 Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qHQNf-001vuf-2T; Thu, 06 Jul 2023 14:54:51 +0000
-Date: Thu, 6 Jul 2023 07:54:51 -0700
+ Linux)) id 1qHR44-0021w3-0C; Thu, 06 Jul 2023 15:38:40 +0000
+Date: Thu, 6 Jul 2023 08:38:40 -0700
 From: Christoph Hellwig <hch@infradead.org>
 To: Jan Kara <jack@suse.cz>
-Message-ID: <ZKbVuyn0jELh8UDM@infradead.org>
+Message-ID: <ZKbgAG5OoHVyUKOG@infradead.org>
 References: <20230629165206.383-1-jack@suse.cz>
+ <20230704122224.16257-1-jack@suse.cz>
 MIME-Version: 1.0
-In-Reply-To: <20230629165206.383-1-jack@suse.cz>
+In-Reply-To: <20230704122224.16257-1-jack@suse.cz>
 X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
  bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -74,9 +76,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: Re: [dm-devel] [PATCH RFC 0/32] block: Make blkdev_get_by_*()
- return handle
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH 01/32] block: Provide blkdev_get_handle_*
+ functions
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,31 +119,33 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: infradead.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Tue, Jul 04, 2023 at 02:21:27PM +0200, Jan Kara wrote:
-> Hello,
-> 
-> this patch series implements the idea of blkdev_get_by_*() calls returning
-> bdev_handle which is then passed to blkdev_put() [1]. This makes the get
-> and put calls for bdevs more obviously matching and allows us to propagate
-> context from get to put without having to modify all the users (again!).
-> In particular I need to propagate used open flags to blkdev_put() to be able
-> count writeable opens and add support for blocking writes to mounted block
-> devices. I'll send that series separately.
-> 
-> The series is based on Linus' tree as of yesterday + two bcache fixes which are
-> in the block tree. Patches have passed some basic testing, I plan to test more
-> users once we agree this is the right way to go.
+On Tue, Jul 04, 2023 at 02:21:28PM +0200, Jan Kara wrote:
+> Create struct bdev_handle that contains all parameters that need to be
+> passed to blkdev_put() and provide blkdev_get_handle_* functions that
+> return this structure instead of plain bdev pointer. This will
+> eventually allow us to pass one more argument to blkdev_put() without
+> too much hassle.
 
-Can you post a link to a git branch for this and the follow up series?
-Especially with a fairly unstable base it's kinda hard to look at the
-result otherwise.
+Can we use the opportunity to come up with better names?  blkdev_get_*
+was always a rather horrible naming convention for something that
+ends up calling into ->open.
+
+What about:
+
+struct bdev_handle *bdev_open_by_dev(dev_t dev, blk_mode_t mode, void *holder,
+		const struct blk_holder_ops *hops);
+struct bdev_handle *bdev_open_by_path(dev_t dev, blk_mode_t mode,
+		void *holder, const struct blk_holder_ops *hops);
+void bdev_release(struct bdev_handle *handle);
+
+?
 
 --
 dm-devel mailing list
