@@ -1,88 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0E2A974962B
-	for <lists+dm-devel@lfdr.de>; Thu,  6 Jul 2023 09:18:17 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 67D8874962D
+	for <lists+dm-devel@lfdr.de>; Thu,  6 Jul 2023 09:18:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1688627897;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bpKKmyQxkVlRWq790YnYTFAayF6laC0rvdpas8Y82m4=;
-	b=KAIFMCuOubbqxDD/BJFWQbdRj8n8N+ZthQtuEZE3C/5BWNeGPSVyug9SOPE4un4jBJrTnB
-	x6ykMiJH92libdDkXCEK1puc1d2ZOO6yoM6PGEZNieXkoMw+KnHj1b/DN8h4c6Hcc/Xbis
-	QZatjviGoAJR6mYtiUC0YEyy0ptihT0=
+	bh=JA0GqRiUyhj4nCFiQcvT32HvHrO9FngE/9juVE/R7GQ=;
+	b=SBDxQEil/c7ALwDWuyZhisonm4SfwuEaPQ4hk8p6Z4zm3H3Bvc12yj1shQRqZFLnGIGdRk
+	cJghJfrNceusnboN2J81YPc9oBzQKt764TBnH0ajai8+RUgExgS1Ss4fgNae+dZN7O+Xue
+	oE3DWCVlVBnne4BZatefmYew4xN6wCA=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-441-EMuPdTlbMpaXDNwRACsUDA-1; Thu, 06 Jul 2023 03:18:15 -0400
-X-MC-Unique: EMuPdTlbMpaXDNwRACsUDA-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-32-uQCIyXvkOMuUXYogcUvkBg-1; Thu, 06 Jul 2023 03:18:15 -0400
+X-MC-Unique: uQCIyXvkOMuUXYogcUvkBg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B4573C0DDAB;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C1862834768;
 	Thu,  6 Jul 2023 07:18:13 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4E4BEC478DD;
-	Thu,  6 Jul 2023 07:17:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B7EB9492B01;
+	Thu,  6 Jul 2023 07:17:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 100C21946A47;
-	Thu,  6 Jul 2023 07:17:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6DC5C1946A44;
+	Thu,  6 Jul 2023 07:17:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D007E1946588
- for <dm-devel@listman.corp.redhat.com>; Thu,  6 Jul 2023 07:17:51 +0000 (UTC)
+ ESMTP id 52BB21946594
+ for <dm-devel@listman.corp.redhat.com>; Thu,  6 Jul 2023 07:17:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8ABC44087C6C; Thu,  6 Jul 2023 07:17:51 +0000 (UTC)
+ id 2731A492CAD; Thu,  6 Jul 2023 07:17:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 83C834087C6B
- for <dm-devel@redhat.com>; Thu,  6 Jul 2023 07:17:51 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E9E4492CB1
+ for <dm-devel@redhat.com>; Thu,  6 Jul 2023 07:17:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68B93185A78F
- for <dm-devel@redhat.com>; Thu,  6 Jul 2023 07:17:51 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F31443C0D848
+ for <dm-devel@redhat.com>; Thu,  6 Jul 2023 07:17:53 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
+ [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-453-Ud3F2YaNMo-N_1tF7SsqoQ-1; Thu, 06 Jul 2023 03:17:49 -0400
-X-MC-Unique: Ud3F2YaNMo-N_1tF7SsqoQ-1
+ us-mta-134-TTaTw-ArMDex4llBLNVepA-1; Thu, 06 Jul 2023 03:17:49 -0400
+X-MC-Unique: TTaTw-ArMDex4llBLNVepA-1
 Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QxSXk5cSmz4f3kK5;
- Thu,  6 Jul 2023 15:17:42 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4QxSXj67H7z4f3jY9;
+ Thu,  6 Jul 2023 15:17:41 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgCnD7OVaqZkZ3pMNQ--.43123S4;
- Thu, 06 Jul 2023 15:17:43 +0800 (CST)
+ by APP4 (Coremail) with SMTP id gCh0CgCnD7OVaqZkZ3pMNQ--.43123S5;
+ Thu, 06 Jul 2023 15:17:44 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, song@kernel.org,
  heinzm@redhat.com, neilb@suse.de, jbrassow@redhat.com
-Date: Thu,  6 Jul 2023 15:16:19 +0800
-Message-Id: <20230706071622.563073-1-yukuai1@huaweicloud.com>
+Date: Thu,  6 Jul 2023 15:16:20 +0800
+Message-Id: <20230706071622.563073-2-yukuai1@huaweicloud.com>
+In-Reply-To: <20230706071622.563073-1-yukuai1@huaweicloud.com>
+References: <20230706071622.563073-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgCnD7OVaqZkZ3pMNQ--.43123S4
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
- VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYc7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
- 6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
- kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8I
- cVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87
- Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE
- 6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72
- CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7
- M4IIrI8v6xkF7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
- 1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
- b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
- vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_WFyUJVCq3wCI
- 42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWI
- evJa73UjIFyTuYvjfUoOJ5UUUUU
+X-CM-TRANSID: gCh0CgCnD7OVaqZkZ3pMNQ--.43123S5
+X-Coremail-Antispam: 1UD129KBjvJXoW7tr18GrW8tF43uF45Xr4xJFb_yoW8GFy5pa
+ 9ag3y5tr18X39IgF4vvw1DWFyrKas5XryayrZrCayfZw4Y9r43Ww1rWFWYqr1UJFWfJa4Y
+ yF1UArWUXFWjkaUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUBE14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_Jr4l82xGYIkIc2
+ x26xkF7I0E14v26r4j6ryUM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2z4x0
+ Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJw
+ A2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oVCq3wAS
+ 0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2
+ IY67AKxVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0
+ Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2
+ xKxwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v2
+ 6r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2
+ Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_
+ Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r1j6r4UMI
+ IF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxhVjvjDU0xZFpf9x0JU4T5dUUUUU
+ =
 X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
 X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -92,8 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [PATCH -next 0/3] dm-raid: minor fixes
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: [dm-devel] [PATCH -next 1/3] md/dm-raid: fix that 'reconfig_mutex'
+ is not released from error path in raid_ctr()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,7 +116,7 @@ Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
  linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
@@ -117,19 +124,49 @@ Content-Transfer-Encoding: 7bit
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-This patchset fix two straightforward and easy problems that is found by
-code review, please consider it for the next merge window.
+In the error path 'bad_stripe_cache' and 'bad_check_reshape',
+'reconfig_mutex' is still held after raid_ctr() returns.
 
-Yu Kuai (3):
-  md/dm-raid: fix that 'reconfig_mutex' is not released from error path
-    in raid_ctr()
-  md/dm-raid: cleanup multiple equivalent goto tags from raid_ctr()
-  md/dm-raid: protect md_stop() with 'reconfig_mutex'
+Fixes: 9dbd1aa3a81c ("dm raid: add reshaping support to the target")
+Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+---
+ drivers/md/dm-raid.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
- drivers/md/dm-raid.c | 20 +++++++++-----------
- drivers/md/md.c      |  2 ++
- 2 files changed, 11 insertions(+), 11 deletions(-)
-
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index 1f22bef27841..4c819d5f93fd 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3271,15 +3271,19 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	/* Try to adjust the raid4/5/6 stripe cache size to the stripe size */
+ 	if (rs_is_raid456(rs)) {
+ 		r = rs_set_raid456_stripe_cache(rs);
+-		if (r)
++		if (r) {
++			mddev_unlock(&rs->md);
+ 			goto bad_stripe_cache;
++		}
+ 	}
+ 
+ 	/* Now do an early reshape check */
+ 	if (test_bit(RT_FLAG_RESHAPE_RS, &rs->runtime_flags)) {
+ 		r = rs_check_reshape(rs);
+-		if (r)
++		if (r) {
++			mddev_unlock(&rs->md);
+ 			goto bad_check_reshape;
++		}
+ 
+ 		/* Restore new, ctr requested layout to perform check */
+ 		rs_config_restore(rs, &rs_layout);
+@@ -3288,6 +3292,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 			r = rs->md.pers->check_reshape(&rs->md);
+ 			if (r) {
+ 				ti->error = "Reshape check failed";
++				mddev_unlock(&rs->md);
+ 				goto bad_check_reshape;
+ 			}
+ 		}
 -- 
 2.39.2
 
