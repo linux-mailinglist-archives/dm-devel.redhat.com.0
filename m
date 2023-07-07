@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id BBFD974AEB3
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Jul 2023 12:26:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 77E8774AED8
+	for <lists+dm-devel@lfdr.de>; Fri,  7 Jul 2023 12:41:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688725568;
+	s=mimecast20190719; t=1688726501;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=10it4ZqjpQziW5/pbQ7IUnG9XS0Kd1Cmq7R4UDXWGp4=;
-	b=gDyL8yLPTne8z5D/NB3XiYa6g9EKMcPJFy7z+l/eUc5Oufd43DIXNgCyXV1C3Xu+0j9RaG
-	5HMiDJWZEDx2pExBl01l0nL1KhN+Y0Xs8VMyL3DZlkvFh+waBLMzKGyXiWt7jXuWVkEIsN
-	xoU25RsHS5AbUNM1kslNV7FJ05WVoi0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=hKI7XCEj0FL23XfOYw7coThBDK237KwynGS2qc7Io2o=;
+	b=icQx/APZ8naGYTCln1DhhPGyAyOcSD+F1FaLt54D0FwPuirQLtz1MUDzeIG2Z+UkTgdny+
+	TtW+zzACNfExcHKs1+6VIICl7vITPEahe0Rr+ZGu+tIxBVSm0NMGAHJGcNAQdwZ3dLgkbt
+	Wve0o3LJxhmh6navKJe9wqYuI85O3qc=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-647-sk3kXgK0NUaz8VJ6K74ztQ-1; Fri, 07 Jul 2023 06:26:05 -0400
-X-MC-Unique: sk3kXgK0NUaz8VJ6K74ztQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-257-LFw2Qu-nPCOZNobRDytKnA-1; Fri, 07 Jul 2023 06:41:40 -0400
+X-MC-Unique: LFw2Qu-nPCOZNobRDytKnA-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5A90A88D584;
-	Fri,  7 Jul 2023 10:26:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0224E29A9D3D;
+	Fri,  7 Jul 2023 10:41:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D3F6A40C206F;
-	Fri,  7 Jul 2023 10:25:45 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7A348C09A09;
+	Fri,  7 Jul 2023 10:41:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7CDE91946A4A;
-	Fri,  7 Jul 2023 10:25:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2276C1946A4C;
+	Fri,  7 Jul 2023 10:41:21 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AC9321946589
- for <dm-devel@listman.corp.redhat.com>; Fri,  7 Jul 2023 10:25:42 +0000 (UTC)
+ ESMTP id 6CE2A1946589
+ for <dm-devel@listman.corp.redhat.com>; Fri,  7 Jul 2023 10:41:19 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 794762166B26; Fri,  7 Jul 2023 10:25:42 +0000 (UTC)
+ id 3C332F6424; Fri,  7 Jul 2023 10:41:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
  [10.11.5.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A3F52166B25;
- Fri,  7 Jul 2023 10:25:42 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1F4B6F640B;
+ Fri,  7 Jul 2023 10:41:19 +0000 (UTC)
 Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
  from userid 12668)
- id 3D2B830C0457; Fri,  7 Jul 2023 10:25:42 +0000 (UTC)
+ id 0A67530C0457; Fri,  7 Jul 2023 10:41:19 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
  by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
- 378983FB76; Fri,  7 Jul 2023 12:25:42 +0200 (CEST)
-Date: Fri, 7 Jul 2023 12:25:42 +0200 (CEST)
+ 06C5A3FB76; Fri,  7 Jul 2023 12:41:19 +0200 (CEST)
+Date: Fri, 7 Jul 2023 12:41:19 +0200 (CEST)
 From: Mikulas Patocka <mpatocka@redhat.com>
 To: Eric Biggers <ebiggers@kernel.org>
-In-Reply-To: <20230705201205.GA866@sol.localdomain>
-Message-ID: <6388bd2-8342-d08-5b4b-7a37e8f8b323@redhat.com>
+In-Reply-To: <20230705201812.GB866@sol.localdomain>
+Message-ID: <daf1c4c8-292f-4954-9bde-b6d891a832dc@redhat.com>
 References: <20230705164009.58351-1-giovanni.cabiddu@intel.com>
- <20230705164009.58351-2-giovanni.cabiddu@intel.com>
- <20230705201205.GA866@sol.localdomain>
+ <20230705164009.58351-3-giovanni.cabiddu@intel.com>
+ <20230705201812.GB866@sol.localdomain>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 1/3] dm integrity: do not filter algos with
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH 2/3] crypto: api - adjust meaning of
  CRYPTO_ALG_ALLOCATES_MEMORY
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -84,63 +84,64 @@ Cc: Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
  agk@redhat.com, V.Sethi@nxp.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Hi
-
-If you allocate memory in crypto processing in dm-integrity, you risk the 
-low-memory deadlock when swapping to dm-integrity.
-
-I.e. the machine runs out of memory, it needs to swap out pages to free 
-some memory, the swap-out bio goes to dm-integrity and dm-integrity calls 
-the crypto API and tries to allocate more memory => deadlock.
-
 
 
 On Wed, 5 Jul 2023, Eric Biggers wrote:
 
-> On Wed, Jul 05, 2023 at 05:40:07PM +0100, Giovanni Cabiddu wrote:
-> > The flag CRYPTO_ALG_ALLOCATES_MEMORY indicates that an algorithm might
-> > allocate memory in the datapath and therefore sleep.
-> > Dm-integrity is filtering out implementations of skcipher algorithms
-> > that have this flag set. However, in the same function it does
-> > allocations with GFP_KERNEL.
-
-It's OK to use GFP_KERNEL in the device mapper target constructor (because 
-at this point there is no I/O going to the device). But it's not OK to use 
-it for individual bio processing.
-
-> Which function is the above referring to?  The actual encryption/decryption
-> happens in crypt_journal(), and I don't see any memory allocations there.
+> On Wed, Jul 05, 2023 at 05:40:08PM +0100, Giovanni Cabiddu wrote:
 > 
-> > As dm-integrity is re-entrant and capable of handling sleeps that could
-> > occur during allocations with GFP_KERNEL, then it is also capable of
-> > using skcipher algorithm implementations that have
-> > CRYPTO_ALG_ALLOCATES_MEMORY set.
-> > 
-> > Remove the filtering of skcipher implementations with the flag
-> > CRYPTO_ALG_ALLOCATES_MEMORY set.
+> > Algorithms that do not set this flag will guarantee
 > 
-> What about the use of CRYPTO_ALG_ALLOCATES_MEMORY in get_mac()?
+> "will guarantee" => "guarantee"
+>  
+> > that memory is not allocated during request processing, except in
+> > the avoidable exception cases described below.
 > 
-> > 
-> > Suggested-by: Herbert Xu <herbert@gondor.apana.org.au>
-> > Link: https://lore.kernel.org/linux-crypto/ZILvtASXQKLG43y9@gondor.apana.org.au/
-> > Signed-off-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-> > Reviewed-by: Fiona Trahe <fiona.trahe@intel.com>
+> "avoidable exception cases" => "exception cases"
 > 
-> This needs:
+> Whether they are avoidable depends on the user.
 > 
->     Fixes: a7a10bce8a04 ("dm integrity: don't use drivers that have CRYPTO_ALG_ALLOCATES_MEMORY")
->     Cc: stable@vger.kernel.org
+> > * Users can request an algorithm with this flag unset if they can't handle
+> > * memory allocation failures or sleeping during request processing.
 > 
-> But, are you 100% sure the explanation in commit a7a10bce8a04 was incorrect?
+> Why add the "sleeping during request processing" part?  Isn't that controlled on
+> a per-request basis by CRYPTO_TFM_REQ_MAY_SLEEP which is a separate thing?
+> 
+> > * They should also follow the constraints below.
+> 
+> "should" => "must"
+> 
+> > + *	- The input and output scatterlists must have no more than 4 entries.
+> > + *	  If the scatterlists contain more than 4 entries, the algorithm may
+> > + *	  allocate memory.
+> 
+> "If the scatterlists contains" => "If either scatterlist contains"
+> 
+> Otherwise it is unclear whether this is talking about the length of each
+> scatterlist individually, or the sum of their lengths.
 > 
 > - Eric
+
+Hi
+
+I wouldn't change the meaning of CRYPTO_ALG_ALLOCATES_MEMORY (because 
+people will forget about this subtle change anyway).
+
+Also note that dm-integrity allocates arbitrarily large sg-lists when 
+encrypting the journal, so if you change the meaning of 
+CRYPTO_ALG_ALLOCATES_MEMORY, there would be no flag left for dm-integrity 
+to test.
+
+I would introduce a new flag, something like 
+CRYPTO_ALG_ALLOCATES_MEMORY_FOR_5_OR_MORE_SG_ENTRIES. dm-crypt can then 
+filter the algorithms based on this flag - and the rest of the kernel code 
+may stay unchanged.
 
 Mikulas
 --
