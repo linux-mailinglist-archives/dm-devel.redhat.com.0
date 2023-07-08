@@ -1,93 +1,91 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3D04774BC12
-	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 07:37:25 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B848F74BD13
+	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 11:23:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688794644;
+	s=mimecast20190719; t=1688808234;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sqeJUVH+7eOae5JtNp9/BLkgEmw05MZpA6YpifTPwe8=;
-	b=DFetWV783ytgwqfUWwzRQLVmlOHySxXxLCgt0soW58Audk26fNHI4aXL/ZdXEU+0yfdRUT
-	XpVkcbAxsldyO6lZB9H77w9oEsu98HX32jkFKlA4ZiRYsULbw2ZwO/tofTGxbXZCtuBiqW
-	ek83Lo6VMqvLUALoJrgITs/T1MmuHWI=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=E4hqoUu0RJyyJpnASJYMVlXlqj7WHkmLttIQKTQ538c=;
+	b=ekAa0j6XX8sNyycH3Xz+/JOvgKb4VbtjyIo53kcFubNktm59WkZRPftLXTytMKabSzSo0z
+	EpPF63UQyazxOsnzVdrUfyFK5CwSTqyvptQIgXRflN1t3LNme3qUStCQomN9HI0+G67xD5
+	b8T8y98j5kleGJq+Qtj5cNzYpf3rz6o=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-58-TX9dUy_xMk6nQZPfTBH4ew-1; Sat, 08 Jul 2023 01:37:20 -0400
-X-MC-Unique: TX9dUy_xMk6nQZPfTBH4ew-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-283-LymjgfzFOe-WfrSvbYRR-g-1; Sat, 08 Jul 2023 05:23:53 -0400
+X-MC-Unique: LymjgfzFOe-WfrSvbYRR-g-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 449592A59542;
-	Sat,  8 Jul 2023 05:37:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C2541101A54E;
+	Sat,  8 Jul 2023 09:23:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2C3A5200B402;
-	Sat,  8 Jul 2023 05:37:06 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id AD9B01121333;
+	Sat,  8 Jul 2023 09:23:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F382A19452C8;
-	Sat,  8 Jul 2023 05:37:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5C8AC19452CF;
+	Sat,  8 Jul 2023 09:23:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1869019451C4
- for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 05:37:05 +0000 (UTC)
+ ESMTP id 04B5E19452CF
+ for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 09:23:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EEA242166B25; Sat,  8 Jul 2023 05:37:04 +0000 (UTC)
+ id DCF3240C2070; Sat,  8 Jul 2023 09:23:32 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E67FB2166B26
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 05:37:04 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAA0B3C0ED5C
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 05:37:04 +0000 (UTC)
-Received: from mail-qv1-f52.google.com (mail-qv1-f52.google.com
- [209.85.219.52]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D57DE40C206F
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 09:23:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B6547101A529
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 09:23:32 +0000 (UTC)
+Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
+ [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-369-_-2trn8OMNOPl0mzJOnAMA-2; Sat, 08 Jul 2023 01:37:03 -0400
-X-MC-Unique: _-2trn8OMNOPl0mzJOnAMA-2
-Received: by mail-qv1-f52.google.com with SMTP id
- 6a1803df08f44-636274ce31eso17013546d6.1
- for <dm-devel@redhat.com>; Fri, 07 Jul 2023 22:37:03 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688794623; x=1691386623;
- h=in-reply-to:references:subject:cc:to:from:message-id:date
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=+Hz3LNSJIA32LS0w6BjIcScwNW8naJ0tmp1lMEgiYII=;
- b=Sn+6komwamuzN3sReBYLSdYIVSoobAj1ovDlyTs3xm6tu1JSiHqWDI07xAlPP5HVXt
- cfl1W6zYltVZlibegVGzDmS6v/oDaz/bsr9mzalZ9HIukGnJuEyEJ8tPU2vB4KCoNJWd
- nyAD15CX5dlG8rZwMZ+pRYCOfKYi8LAJ9a64MWexYA791KZBxEPVFNVDuGFAB6ODnqLM
- JChlONscK0ZjCGO/1EfUj2z5t1dJ9ZmXeuHhnwGqtZC7xydIy0ZxG9uILdSc5/mErlTl
- 55HoHn5zDBQK4khnYu3UUhvFw62RArjI/yBBtOS5O89yAJ0bH4m9hZ5GQq8v9eQuHcFT
- 4QRw==
-X-Gm-Message-State: ABy/qLbRWvV0Fe0qKzGRTOy5UrI3aqduNpdE52dOvtwdkmBmC+Qs+poC
- RQT/YVa01ZpVP9Dtu46ERqu8
-X-Google-Smtp-Source: APBJJlGE5kRrswBX0Y9fpwcc9M53MKX/WP5JEebgbuewEsG3HG+C8bw51ha3b43wJWNhFgxWAHSXSg==
-X-Received: by 2002:a0c:9a06:0:b0:631:e696:7b6 with SMTP id
- p6-20020a0c9a06000000b00631e69607b6mr6291591qvd.53.1688794622811; 
- Fri, 07 Jul 2023 22:37:02 -0700 (PDT)
-Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
- a6-20020a0cca86000000b0062df126ca11sm2943746qvk.21.2023.07.07.22.37.02
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 22:37:02 -0700 (PDT)
-Date: Sat, 08 Jul 2023 01:37:02 -0400
-Message-ID: <f1e5890316985ff642d17201e28e9d11.paul@paul-moore.com>
-From: Paul Moore <paul@paul-moore.com>
-To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
- jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
- axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com
-References: <1687986571-16823-13-git-send-email-wufan@linux.microsoft.com>
-In-Reply-To: <1687986571-16823-13-git-send-email-wufan@linux.microsoft.com>
+ us-mta-33-tXFygDY-NVWUS8rbRQ18iw-1; Sat, 08 Jul 2023 05:23:26 -0400
+X-MC-Unique: tXFygDY-NVWUS8rbRQ18iw-1
+Received: from mail02.huawei.com (unknown [172.30.67.153])
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4QylDm1YHHz4f3lfq;
+ Sat,  8 Jul 2023 17:23:20 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.104.67])
+ by APP4 (Coremail) with SMTP id gCh0CgAHuKsHK6lkCfLwNQ--.65417S4;
+ Sat, 08 Jul 2023 17:23:20 +0800 (CST)
+From: Yu Kuai <yukuai1@huaweicloud.com>
+To: pmenzel@molgen.mpg.de, agk@redhat.com, snitzer@kernel.org,
+ dm-devel@redhat.com, song@kernel.org, heinzm@redhat.com, neilb@suse.de,
+ jbrassow@redhat.com
+Date: Sat,  8 Jul 2023 17:21:50 +0800
+Message-Id: <20230708092153.1418570-1-yukuai1@huaweicloud.com>
+MIME-Version: 1.0
+X-CM-TRANSID: gCh0CgAHuKsHK6lkCfLwNQ--.65417S4
+X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
+ VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUY27AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
+ 6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
+ kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVW7JVWDJwA2z4x0Y4vE2Ix0cI8I
+ cVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87
+ Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE
+ 6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWUJVW8JwAm72
+ CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7
+ M4IIrI8v6xkF7I0E8cxan2IY04v7MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r
+ 1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CE
+ b7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0x
+ vE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Zr0_Wr1UMIIF
+ 0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIdaVFxh
+ VjvjDU0xZFpf9x0JUZa9-UUUUU=
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,9 +93,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH RFC v10 12/17] ipe: add support for dm-verity
- as a trust provider
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [PATCH -next v2 0/3] dm-raid: minor fixes
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -109,113 +106,36 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
- Deven Bowers <deven.desai@linux.microsoft.com>, roberto.sassu@huawei.com,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, audit@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, Fan Wu <wufan@linux.microsoft.com>,
- linux-integrity@vger.kernel.org
-MIME-Version: 1.0
+Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
+ linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: paul-moore.com
+X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
-> 
-> Allows author of IPE policy to indicate trust for a singular dm-verity
-> volume, identified by roothash, through "dmverity_roothash" and all
-> signed dm-verity volumes, through "dmverity_signature".
-> 
-> Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
-> Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
-> ---
->  security/ipe/Kconfig         |  18 +++++
->  security/ipe/Makefile        |   1 +
->  security/ipe/audit.c         |  25 ++++++
->  security/ipe/digest.c        | 142 +++++++++++++++++++++++++++++++++++
->  security/ipe/digest.h        |  26 +++++++
->  security/ipe/eval.c          | 101 ++++++++++++++++++++++++-
->  security/ipe/eval.h          |  13 ++++
->  security/ipe/hooks.c         |  51 +++++++++++++
->  security/ipe/hooks.h         |   8 ++
->  security/ipe/ipe.c           |  15 ++++
->  security/ipe/ipe.h           |   4 +
->  security/ipe/policy.h        |   3 +
->  security/ipe/policy_parser.c |  21 ++++++
->  13 files changed, 427 insertions(+), 1 deletion(-)
->  create mode 100644 security/ipe/digest.c
->  create mode 100644 security/ipe/digest.h
+From: Yu Kuai <yukuai3@huawei.com>
 
-...
+Changes in v2:
+ - improve title and commit message for patch 2
 
-> diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
-> index 6f94f5c8a0c3..9651e582791e 100644
-> --- a/security/ipe/hooks.c
-> +++ b/security/ipe/hooks.c
-> @@ -192,3 +195,51 @@ void ipe_sb_free_security(struct super_block *mnt_sb)
->  {
->  	ipe_invalidate_pinned_sb(mnt_sb);
->  }
-> +
-> +#ifdef CONFIG_IPE_PROP_DM_VERITY
-> +/**
-> + * ipe_bdev_free_security - free IPE's LSM blob of block_devices.
-> + * @bdev: Supplies a pointer to a block_device that contains the structure
-> + *	  to free.
-> + */
-> +void ipe_bdev_free_security(struct block_device *bdev)
-> +{
-> +	struct ipe_bdev *blob = ipe_bdev(bdev);
-> +
-> +	kfree(blob->digest);
-> +	kfree(blob->digest_algo);
-> +}
-> +
-> +/**
-> + * ipe_bdev_setsecurity - save data from a bdev to IPE's LSM blob.
-> + * @bdev: Supplies a pointer to a block_device that contains the LSM blob.
-> + * @key: Supplies the string key that uniquely identifies the value.
-> + * @value: Supplies the value to store.
-> + * @len: The length of @value.
-> + */
-> +int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
-> +			 const void *value, size_t len)
-> +{
-> +	struct ipe_bdev *blob = ipe_bdev(bdev);
+This patchset fix two straightforward and easy problems that is found by
+code review, please consider it for the next merge window.
 
-Before you can interpret the @key value, you need to first determine
-which type of block device you have been handed.  It is possible that
-multiple block device types could share the same key with very
-different meanings for that key, yes?
+Yu Kuai (3):
+  md/dm-raid: fix that 'reconfig_mutex' is not released from error path
+    in raid_ctr()
+  md/dm-raid: clean up multiple equivalent goto tags from raid_ctr()
+  md/dm-raid: protect md_stop() with 'reconfig_mutex'
 
-> +	if (!strcmp(key, DM_VERITY_ROOTHASH_SEC_NAME)) {
-> +		const struct dm_verity_digest *digest = value;
-> +
-> +		blob->digest = kmemdup(digest->digest, digest->digest_len, GFP_KERNEL);
-> +		if (!blob->digest)
-> +			return -ENOMEM;
-> +
-> +		blob->digest_algo = kstrdup_const(digest->algo, GFP_KERNEL);
-> +		if (!blob->digest_algo)
-> +			return -ENOMEM;
-> +
-> +		blob->digest_len = digest->digest_len;
-> +		return 0;
-> +	} else if (!strcmp(key, DM_VERITY_SIGNATURE_SEC_NAME)) {
-> +		blob->dm_verity_signed = true;
-> +		return 0;
-> +	}
-> +
-> +	return -EOPNOTSUPP;
-> +}
-> +#endif /* CONFIG_IPE_PROP_DM_VERITY */
+ drivers/md/dm-raid.c | 20 +++++++++-----------
+ drivers/md/md.c      |  2 ++
+ 2 files changed, 11 insertions(+), 11 deletions(-)
 
---
-paul-moore.com
+-- 
+2.39.2
 
 --
 dm-devel mailing list
