@@ -2,93 +2,92 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7025874BBBA
-	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 06:23:30 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 21C7974BBC0
+	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 06:24:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688790209;
+	s=mimecast20190719; t=1688790244;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=cMVwz5o5fapIMYJVAC5ftdQH5dCA0MedteKkxvs+Xxw=;
-	b=A8vm0UuNjzd9FrS0MHJLGXKxcTmpKvJriYogxABHjqjvM8D+i/WC1E5nmqQqKAsIoJSCGu
-	47SNb6Rzl3eTQ1rcxupwurKqyy+7LLp9wy1wUS5uoetr62aKKB1TJIZTRazNmzy+8qU8IF
-	LLO0cvkNwecHxzVvYSG9biBjeXUVLRc=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=sqeJUVH+7eOae5JtNp9/BLkgEmw05MZpA6YpifTPwe8=;
+	b=BbsbEvkJRZgRaQIP7hsyoZGmwmhecMmUrosYh/dhslokFvdNBROtqnCBxvIuzez9wh+Qdl
+	eCoTE6umN8J48mhiTAv+5OzggTslFsax/Mjre081WkhrdZjd+lgMZAoM+Gi05mYe8fgEXg
+	LUB9qqYT+3g/1MvmZ1k3vuwpbjujAy8=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-346--aK81ScHOdiKQU3UeZw5YA-1; Sat, 08 Jul 2023 00:23:27 -0400
-X-MC-Unique: -aK81ScHOdiKQU3UeZw5YA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-171-lgo0Aq1uNfKijN3-_mEFFw-1; Sat, 08 Jul 2023 00:23:26 -0400
+X-MC-Unique: lgo0Aq1uNfKijN3-_mEFFw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C8D8E28237D2;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA8C5881B27;
 	Sat,  8 Jul 2023 04:23:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 830C44CD0C8;
-	Sat,  8 Jul 2023 04:23:11 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C0343C09A09;
+	Sat,  8 Jul 2023 04:23:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 36B551946A5A;
-	Sat,  8 Jul 2023 04:23:11 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5F83B19452C6;
+	Sat,  8 Jul 2023 04:23:12 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 00C101946A5A
+ ESMTP id E0BD11946A5A
  for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 04:23:10 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CAF8640C2070; Sat,  8 Jul 2023 04:23:09 +0000 (UTC)
+ id B5E231121339; Sat,  8 Jul 2023 04:23:10 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C3F0740C206F
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:09 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AA36738041C3
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:09 +0000 (UTC)
-Received: from mail-qk1-f180.google.com (mail-qk1-f180.google.com
- [209.85.222.180]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AE80F1121333
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:10 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 950B9830F46
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:10 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-142-Wy848HlQP7q8eY3UKXBXbg-1; Sat, 08 Jul 2023 00:23:07 -0400
-X-MC-Unique: Wy848HlQP7q8eY3UKXBXbg-1
-Received: by mail-qk1-f180.google.com with SMTP id
- af79cd13be357-765a4ff26cdso231847385a.0
- for <dm-devel@redhat.com>; Fri, 07 Jul 2023 21:23:07 -0700 (PDT)
+ us-mta-629-MR0equXNPKuT7fXLh8W8sQ-1; Sat, 08 Jul 2023 00:23:08 -0400
+X-MC-Unique: MR0equXNPKuT7fXLh8W8sQ-1
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-40292285362so19791091cf.3
+ for <dm-devel@redhat.com>; Fri, 07 Jul 2023 21:23:08 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688790187; x=1691382187;
+ d=1e100.net; s=20221208; t=1688790188; x=1691382188;
  h=in-reply-to:references:subject:cc:to:from:message-id:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Z6/SL5QIc9OziszvZ8u03wi1DZHVgI7E++JsfeAk1ow=;
- b=g2lpVCbGnU7fQ12Vc2WSUwAw9eViJurl0irTb+jIGnrQJWS/1y+z7HDW912v1QtoCn
- md6blacDcpQaq/GXehy/dQC1Y8G1xcgxaoSIju6SltDgIPb3bYWx1SdGkKxYd4KfOFRJ
- 0BN7NX0P/QPuVrrdtKHffeU0SH7+zdYwXmceLWNk+wZ5mANN6MpwXp1VFFYl9wCGABbS
- mjT4pV8TO8izk/sH7w5OaQhlMbUSqWmf+MoP5465B3O/ExNJjfQwD1od6BB5ivs+5Obi
- iwhbKTcPekdOqwfOJj9ogitnXRZqPCjRBGzZCsj3u7y2IQ5jLRnUVuVeoYApWi5hApAh
- TA0g==
-X-Gm-Message-State: ABy/qLaM7An5FBDCri16vY5IzaRqZJdm34qQxrxLD/9H9Bkg+r+//YLa
- 0wlb33HhW3ZINKAbCytryOuy
-X-Google-Smtp-Source: APBJJlGBU7jGG1CWYNfQQdkZOwJX1Q2nFxF2McDYsSdlhd79CumcUIJdzJ+DgJfCmy4Fo7EWLssA6A==
-X-Received: by 2002:a05:620a:2697:b0:767:7a6:8085 with SMTP id
- c23-20020a05620a269700b0076707a68085mr7521457qkp.31.1688790187201; 
+ bh=+Hz3LNSJIA32LS0w6BjIcScwNW8naJ0tmp1lMEgiYII=;
+ b=RMaoZitVeDws6lSuCg9WV+n/Up4FD8bBjeOZ++DbchHkMSoDanlCLmuKGP9op68Q7G
+ 1KMxzgHLW06YhTzyZvcrbKkJHDbjWpF+cKjiPuHSrSfMaK/uwFOx7d6Tv3zSOOUB0R65
+ exwmCoEuvx8Av/JWjNURbocEFBlrTmM0KrTkyosK8Rh5xoZJqmWNhyXfUm5qHLXxAOQG
+ eBJRcy4/d4EynQ/bK2//2k9hwCmdHVERHTTc/mIjb9BlGOmb8w9B1I26YYkdEoEpDlS4
+ I30+ExKalMQ5QjGaFUM4gsgOpNmSq+KDD4+pcVbCiyHcScTuV3h3HSsEWDE6SYj2QDV2
+ mWaQ==
+X-Gm-Message-State: ABy/qLZOuZXNOOQjihQV1Yw97fz1wFOgRF3PAK1ETgcFpReN7B+8BAJl
+ UDQif6pe5gKpM2DTcMtgfKJL
+X-Google-Smtp-Source: APBJJlF7ZdvOpye5Bi9nBRtHP5gbHB7zedNeZ207ssI0QYjswYk8C3ybGJ8VmbiZKLdIlvHd08nvYQ==
+X-Received: by 2002:a05:622a:1010:b0:3f9:efa3:9e6f with SMTP id
+ d16-20020a05622a101000b003f9efa39e6fmr9400841qte.27.1688790187997; 
  Fri, 07 Jul 2023 21:23:07 -0700 (PDT)
 Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
- v10-20020a05620a122a00b00767291640e8sm2445749qkj.90.2023.07.07.21.23.06
+ z23-20020ac81017000000b003f9efa2ddb4sm2383994qti.66.2023.07.07.21.23.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 21:23:06 -0700 (PDT)
-Date: Sat, 08 Jul 2023 00:23:06 -0400
-Message-ID: <85af33c02638ebb501b40fd0f3785b12.paul@paul-moore.com>
+ Fri, 07 Jul 2023 21:23:07 -0700 (PDT)
+Date: Sat, 08 Jul 2023 00:23:07 -0400
+Message-ID: <1160e6ccbc06a59f243c3e4580f34194.paul@paul-moore.com>
 From: Paul Moore <paul@paul-moore.com>
 To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
  jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
  axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com,
-References: <1687986571-16823-10-git-send-email-wufan@linux.microsoft.com>
-In-Reply-To: <1687986571-16823-10-git-send-email-wufan@linux.microsoft.com>
+References: <1687986571-16823-13-git-send-email-wufan@linux.microsoft.com>
+In-Reply-To: <1687986571-16823-13-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -96,8 +95,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH RFC v10 9/17] ipe: add permissive toggle
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: Re: [dm-devel] [PATCH RFC v10 12/17] ipe: add support for dm-verity
+ as a trust provider
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,7 +118,7 @@ Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: paul-moore.com
 Content-Type: text/plain; charset="us-ascii"
@@ -126,85 +126,93 @@ Content-Transfer-Encoding: 7bit
 
 On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
 > 
-> IPE, like SELinux, supports a permissive mode. This mode allows policy
-> authors to test and evaluate IPE policy without it effecting their
-> programs. When the mode is changed, a 1404 AUDIT_MAC_STATUS
-> be reported.
-> 
-> This patch adds the following audit records:
-> 
->     audit: MAC_STATUS enforcing=0 old_enforcing=1 auid=4294967295
->       ses=4294967295 enabled=1 old-enabled=1 lsm=ipe res=1
->     audit: MAC_STATUS enforcing=1 old_enforcing=0 auid=4294967295
->       ses=4294967295 enabled=1 old-enabled=1 lsm=ipe res=1
-> 
-> The audit record only emit when the value from the user input is
-> different from the current enforce value.
+> Allows author of IPE policy to indicate trust for a singular dm-verity
+> volume, identified by roothash, through "dmverity_roothash" and all
+> signed dm-verity volumes, through "dmverity_signature".
 > 
 > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
 > ---
->  security/ipe/audit.c | 22 ++++++++++++++
->  security/ipe/audit.h |  1 +
->  security/ipe/eval.c  |  9 ++++++
->  security/ipe/eval.h  |  1 +
->  security/ipe/fs.c    | 69 ++++++++++++++++++++++++++++++++++++++++++++
->  5 files changed, 102 insertions(+)
+>  security/ipe/Kconfig         |  18 +++++
+>  security/ipe/Makefile        |   1 +
+>  security/ipe/audit.c         |  25 ++++++
+>  security/ipe/digest.c        | 142 +++++++++++++++++++++++++++++++++++
+>  security/ipe/digest.h        |  26 +++++++
+>  security/ipe/eval.c          | 101 ++++++++++++++++++++++++-
+>  security/ipe/eval.h          |  13 ++++
+>  security/ipe/hooks.c         |  51 +++++++++++++
+>  security/ipe/hooks.h         |   8 ++
+>  security/ipe/ipe.c           |  15 ++++
+>  security/ipe/ipe.h           |   4 +
+>  security/ipe/policy.h        |   3 +
+>  security/ipe/policy_parser.c |  21 ++++++
+>  13 files changed, 427 insertions(+), 1 deletion(-)
+>  create mode 100644 security/ipe/digest.c
+>  create mode 100644 security/ipe/digest.h
 
 ...
 
-> diff --git a/security/ipe/fs.c b/security/ipe/fs.c
-> index 6bd2aa84831b..1761d39e4d04 100644
-> --- a/security/ipe/fs.c
-> +++ b/security/ipe/fs.c
-> @@ -16,6 +16,7 @@ static struct dentry *np __ro_after_init;
->  static struct dentry *root __ro_after_init;
->  struct dentry *policy_root __ro_after_init;
->  static struct dentry *audit_node __ro_after_init;
-> +static struct dentry *enforce_node __ro_after_init;
->  
->  /**
->   * setaudit - Write handler for the securityfs node, "ipe/success_audit"
-> @@ -68,6 +69,61 @@ static ssize_t getaudit(struct file *f, char __user *data,
->  	return simple_read_from_buffer(data, len, offset, result, 1);
+> diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
+> index 6f94f5c8a0c3..9651e582791e 100644
+> --- a/security/ipe/hooks.c
+> +++ b/security/ipe/hooks.c
+> @@ -192,3 +195,51 @@ void ipe_sb_free_security(struct super_block *mnt_sb)
+>  {
+>  	ipe_invalidate_pinned_sb(mnt_sb);
 >  }
->  
+> +
+> +#ifdef CONFIG_IPE_PROP_DM_VERITY
 > +/**
-> + * setenforce - Write handler for the securityfs node, "ipe/enforce"
-> + * @f: Supplies a file structure representing the securityfs node.
-> + * @data: Supplies a buffer passed to the write syscall.
-> + * @len: Supplies the length of @data.
-> + * @offset: unused.
-> + *
-> + * Return:
-> + * * >0	- Success, Length of buffer written
-> + * * <0	- Error
+> + * ipe_bdev_free_security - free IPE's LSM blob of block_devices.
+> + * @bdev: Supplies a pointer to a block_device that contains the structure
+> + *	  to free.
 > + */
-> +static ssize_t setenforce(struct file *f, const char __user *data,
-> +			  size_t len, loff_t *offset)
+> +void ipe_bdev_free_security(struct block_device *bdev)
 > +{
-> +	int rc = 0;
-> +	bool new_value, old_value;
+> +	struct ipe_bdev *blob = ipe_bdev(bdev);
 > +
-> +	if (!file_ns_capable(f, &init_user_ns, CAP_MAC_ADMIN))
-> +		return -EPERM;
+> +	kfree(blob->digest);
+> +	kfree(blob->digest_algo);
+> +}
 > +
-> +	old_value = READ_ONCE(enforce);
-> +	new_value = old_value;
+> +/**
+> + * ipe_bdev_setsecurity - save data from a bdev to IPE's LSM blob.
+> + * @bdev: Supplies a pointer to a block_device that contains the LSM blob.
+> + * @key: Supplies the string key that uniquely identifies the value.
+> + * @value: Supplies the value to store.
+> + * @len: The length of @value.
+> + */
+> +int ipe_bdev_setsecurity(struct block_device *bdev, const char *key,
+> +			 const void *value, size_t len)
+> +{
+> +	struct ipe_bdev *blob = ipe_bdev(bdev);
 
-Why set @new_value equal to @old_value here?
+Before you can interpret the @key value, you need to first determine
+which type of block device you have been handed.  It is possible that
+multiple block device types could share the same key with very
+different meanings for that key, yes?
 
-> +	rc = kstrtobool_from_user(data, len, &new_value);
-> +	if (rc)
-> +		return rc;
+> +	if (!strcmp(key, DM_VERITY_ROOTHASH_SEC_NAME)) {
+> +		const struct dm_verity_digest *digest = value;
 > +
-> +	if (new_value != old_value) {
-> +		ipe_audit_enforce(new_value, old_value);
-> +		WRITE_ONCE(enforce, new_value);
+> +		blob->digest = kmemdup(digest->digest, digest->digest_len, GFP_KERNEL);
+> +		if (!blob->digest)
+> +			return -ENOMEM;
+> +
+> +		blob->digest_algo = kstrdup_const(digest->algo, GFP_KERNEL);
+> +		if (!blob->digest_algo)
+> +			return -ENOMEM;
+> +
+> +		blob->digest_len = digest->digest_len;
+> +		return 0;
+> +	} else if (!strcmp(key, DM_VERITY_SIGNATURE_SEC_NAME)) {
+> +		blob->dm_verity_signed = true;
+> +		return 0;
 > +	}
 > +
-> +	return len;
+> +	return -EOPNOTSUPP;
 > +}
+> +#endif /* CONFIG_IPE_PROP_DM_VERITY */
 
 --
 paul-moore.com
