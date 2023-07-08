@@ -1,94 +1,93 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id ADD2F74BBBF
-	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 06:24:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0575774BBC1
+	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 06:24:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688790242;
+	s=mimecast20190719; t=1688790253;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=U1QgRKTl9+H5IbIpjqfYPrXaUsObrH9w3pqEy+DSBh4=;
-	b=YcCI/o/bQ6kwbvvPmqNmHKuTX9O2jEy2huUuIIVscPGGU04sUJW0Fi4xomg1s0+GDQcZtf
-	bsY7x40tZzI5SuqnYqXRDJ27MnsqvhaoPjbVHHJlzQXQt+uHYqjuXAegiYH7IRb4NG8icn
-	awxZpFSrze9nBZEdqbsCaahH4aGHtlg=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=jLLv/DU/8BJh+xIlOnjMJ5HHRUbflNn62M0sctRgwGY=;
+	b=YTYhC1euzdPatVBvwSjmZWvNEQcvzeZiOUJozJ9qQB2oksoAwjtOWFWV1Pj8FFAVA8RW2E
+	dSVsHbY8GEsVEHKLp2ANnLgCixpJDTp8TZxb9N5d9xL4KlwQYM+FgP9tZcS6URpKCUwiuQ
+	jDUmQIymysB1JxPcNlYS+JrNB3emKMQ=
+Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
+ [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-483-nh8scrkyM6SJtLHWeLZBvA-1; Sat, 08 Jul 2023 00:23:26 -0400
-X-MC-Unique: nh8scrkyM6SJtLHWeLZBvA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-171-1g5-2Cr-MMSKNCJMkbgaqg-1; Sat, 08 Jul 2023 00:23:26 -0400
+X-MC-Unique: 1g5-2Cr-MMSKNCJMkbgaqg-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9367800CAE;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ACEA53803925;
 	Sat,  8 Jul 2023 04:23:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B778B207B314;
-	Sat,  8 Jul 2023 04:23:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 37482492B01;
+	Sat,  8 Jul 2023 04:23:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D217C1946A78;
-	Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0837419459FC;
+	Sat,  8 Jul 2023 04:23:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3F5781946A54
- for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
+ ESMTP id 01D0A1946A79
+ for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 04:23:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C192840C2070; Sat,  8 Jul 2023 04:23:02 +0000 (UTC)
+ id E5DDF200BA8B; Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B94EA40C206F
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:02 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DE90D200B402
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9D71A86F124
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:02 +0000 (UTC)
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
- [209.85.222.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AABF585A58A
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com
+ [209.85.160.179]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-354-epHVXdQpPmy_eWvFNkkgYw-1; Sat, 08 Jul 2023 00:23:00 -0400
-X-MC-Unique: epHVXdQpPmy_eWvFNkkgYw-1
-Received: by mail-qk1-f170.google.com with SMTP id
- af79cd13be357-76731802203so230158185a.3
- for <dm-devel@redhat.com>; Fri, 07 Jul 2023 21:23:00 -0700 (PDT)
+ us-mta-424-ubBSAsyENriY29Hri9ofgg-1; Sat, 08 Jul 2023 00:23:01 -0400
+X-MC-Unique: ubBSAsyENriY29Hri9ofgg-1
+Received: by mail-qt1-f179.google.com with SMTP id
+ d75a77b69052e-4039f7e1d3aso7334431cf.0
+ for <dm-devel@redhat.com>; Fri, 07 Jul 2023 21:23:01 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688790180; x=1691382180;
+ d=1e100.net; s=20221208; t=1688790181; x=1691382181;
  h=in-reply-to:references:subject:cc:to:from:message-id:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=/6X+3H1ljfy7IjsbLjk8teqFst7rLlyJv0xIACsaZ2M=;
- b=CI0vAzgKxqxU56NoQP2ayjUZRnQgOoE+tvzRAH4mgiDKvsJt2rZneOgjMbsuWFky7P
- 7qihcC1V6RHFgYR5ctYRSlVzGIoeOsCi/OsBDk76Cqo/x+vmdXDpo0OMuEU+dIXT8MVb
- spqwIH7q+bCsJuv6CZe/+inmKKpt2lPpxj+28KubM9Lbi02lKgBdXVU42g8CiDgiZDWX
- eEKWjAz6YuBZKjSzdSfJMEhHcz7uj+7vKHPXlkZdlqPxZ0pt9hSt89mYYEZoutI42d6S
- YnA8SOLRfQ9L6ddXbPs/KN9oYCuRVliQUu6G2mdtbnRSjk6UwdWZq/kx2OZsjjkTVgIO
- 1ELw==
-X-Gm-Message-State: ABy/qLbOA3lpUniJByvyjKBV//UBs6j3cLDfn2+OLtqdL2p3f+VBiGNW
- egIySgcv+/0RssrXWQyfQk7C
-X-Google-Smtp-Source: APBJJlER2eVRcX7fuVHlqo9yFV2ClV/AALrEglrEX6whX1lHkiw8pxz2SyI0fKw25p10g/4AwBpuSg==
-X-Received: by 2002:a37:b645:0:b0:75d:4e8b:9d19 with SMTP id
- g66-20020a37b645000000b0075d4e8b9d19mr7532555qkf.26.1688790180266; 
- Fri, 07 Jul 2023 21:23:00 -0700 (PDT)
+ bh=8vhWvQ+HIeKxtbu9t/iKboGRzIGP6y7RZUqn4rd0xJo=;
+ b=ge/03gBPvHMmw2sMyCnUldiKsXzvjB72u84RbB8nDyhryzy52Fnf5IEfaRdyTUPHvC
+ /BiVoF+fxzGDzfZIDPMIugv0ESCGSJP21/AK5GSW6gjxr+SWMfu9mJrxv6QWe5pbuO2u
+ UMcoJ2SZJJJso/dSzcAzqGVNuLt+gn5wdbp9UljX4QJFHchlu1Hozm0/3YUPsuAVoCIp
+ 8LzQQXPYZ7Z3wbnsP5meKodRqTwmjxor6C/LLIB2bF3i+A2Ai9QYR+gqXbVQfy/w7h3a
+ v5uA2i/P5oO67NZ8e2kX2Nqri3EWvdQ6nlGAo97alj/kVOku0kMH9GMpdCkcNYRMG8mG
+ 8mZw==
+X-Gm-Message-State: ABy/qLbwh5+ePVltPG+/VNcadpTda0FRRq1v68Gsvqf4+kDrBPl5oz5v
+ Cgqw5lP2Hn/GexLCMpbftEAT
+X-Google-Smtp-Source: APBJJlGIMET/avUZ/1Hj1MXlRo2x/7nDUq20vL9caDtSjlm0bIsCTvu6kP2vo8wrSi2XxC1lmQFRuQ==
+X-Received: by 2002:ac8:5a95:0:b0:402:cc2c:d980 with SMTP id
+ c21-20020ac85a95000000b00402cc2cd980mr7968274qtc.41.1688790181145; 
+ Fri, 07 Jul 2023 21:23:01 -0700 (PDT)
 Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
- w17-20020a0cb551000000b006369e619438sm2909594qvd.32.2023.07.07.21.22.59
+ x5-20020ac87305000000b00400ab8e97basm2390039qto.95.2023.07.07.21.23.00
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 21:22:59 -0700 (PDT)
-Date: Sat, 08 Jul 2023 00:22:59 -0400
-Message-ID: <ffd5c67f4a9bf45df0ce95a8fe0932a3.paul@paul-moore.com>
+ Fri, 07 Jul 2023 21:23:00 -0700 (PDT)
+Date: Sat, 08 Jul 2023 00:23:00 -0400
+Message-ID: <b2abfd3883dce682ee911413fea2ec66.paul@paul-moore.com>
 From: Paul Moore <paul@paul-moore.com>
 To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
  jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
  axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com,
-References: <1687986571-16823-2-git-send-email-wufan@linux.microsoft.com>
-In-Reply-To: <1687986571-16823-2-git-send-email-wufan@linux.microsoft.com>
+References: <1687986571-16823-3-git-send-email-wufan@linux.microsoft.com>
+In-Reply-To: <1687986571-16823-3-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -96,8 +95,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH RFC v10 1/17] security: add ipe lsm
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [dm-devel] [PATCH RFC v10 2/17] ipe: add policy parser
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,7 +117,7 @@ Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: paul-moore.com
 Content-Type: text/plain; charset="us-ascii"
@@ -126,118 +125,323 @@ Content-Transfer-Encoding: 7bit
 
 On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
 > 
-> Integrity Policy Enforcement (IPE) is an LSM that provides an
-> complimentary approach to Mandatory Access Control than existing LSMs
-> today.
+> IPE's interpretation of the what the user trusts is accomplished through
+> its policy. IPE's design is to not provide support for a single trust
+> provider, but to support multiple providers to enable the end-user to
+> choose the best one to seek their needs.
 > 
-> Existing LSMs have centered around the concept of access to a resource
-> should be controlled by the current user's credentials. IPE's approach,
-> is that access to a resource should be controlled by the system's trust
-> of a current resource.
-> 
-> The basis of this approach is defining a global policy to specify which
-> resource can be trusted.
+> This requires the policy to be rather flexible and modular so that
+> integrity providers, like fs-verity, dm-verity, dm-integrity, or
+> some other system, can plug into the policy with minimal code changes.
 > 
 > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
 > ---
->  MAINTAINERS           |  7 +++++++
->  security/Kconfig      | 11 ++++++-----
->  security/Makefile     |  1 +
->  security/ipe/Kconfig  | 17 +++++++++++++++++
->  security/ipe/Makefile | 10 ++++++++++
->  security/ipe/ipe.c    | 37 +++++++++++++++++++++++++++++++++++++
->  security/ipe/ipe.h    | 16 ++++++++++++++++
->  7 files changed, 94 insertions(+), 5 deletions(-)
->  create mode 100644 security/ipe/Kconfig
->  create mode 100644 security/ipe/Makefile
->  create mode 100644 security/ipe/ipe.c
->  create mode 100644 security/ipe/ipe.h
+>  security/ipe/Makefile        |   2 +
+>  security/ipe/policy.c        |  97 +++++++
+>  security/ipe/policy.h        |  83 ++++++
+>  security/ipe/policy_parser.c | 488 +++++++++++++++++++++++++++++++++++
+>  security/ipe/policy_parser.h |  11 +
+>  5 files changed, 681 insertions(+)
+>  create mode 100644 security/ipe/policy.c
+>  create mode 100644 security/ipe/policy.h
+>  create mode 100644 security/ipe/policy_parser.c
+>  create mode 100644 security/ipe/policy_parser.h
 
 ...
 
-> diff --git a/MAINTAINERS b/MAINTAINERS
-> index a82795114ad4..ad00887d38ea 100644
-> --- a/MAINTAINERS
-> +++ b/MAINTAINERS
-> @@ -10278,6 +10278,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git
->  F:	security/integrity/
->  F:	security/integrity/ima/
->  
-> +INTEGRITY POLICY ENFORCEMENT (IPE)
-> +M:	Fan Wu <wufan@linux.microsoft.com>
-> +L:	linux-security-module@vger.kernel.org
-> +S:	Supported
-> +T:	git git://github.com/microsoft/ipe.git
-
-Using the raw git protocol doesn't seem to work with GH, I think you
-need to refernce the git/https URL:
-
- https://github.com/microsoft/ipe.git
-
-> +F:	security/ipe/
-> +
->  INTEL 810/815 FRAMEBUFFER DRIVER
->  M:	Antonino Daplas <adaplas@gmail.com>
->  L:	linux-fbdev@vger.kernel.org
-> diff --git a/security/Kconfig b/security/Kconfig
-> index 97abeb9b9a19..daa4626ea99c 100644
-> --- a/security/Kconfig
-> +++ b/security/Kconfig
-> @@ -202,6 +202,7 @@ source "security/yama/Kconfig"
->  source "security/safesetid/Kconfig"
->  source "security/lockdown/Kconfig"
->  source "security/landlock/Kconfig"
-> +source "security/ipe/Kconfig"
->  
->  source "security/integrity/Kconfig"
->  
-> @@ -241,11 +242,11 @@ endchoice
->  
->  config LSM
->  	string "Ordered list of enabled LSMs"
-> -	default "landlock,lockdown,yama,loadpin,safesetid,smack,selinux,tomoyo,apparmor,bpf" if DEFAULT_SECURITY_SMACK
-> -	default "landlock,lockdown,yama,loadpin,safesetid,apparmor,selinux,smack,tomoyo,bpf" if DEFAULT_SECURITY_APPARMOR
-> -	default "landlock,lockdown,yama,loadpin,safesetid,tomoyo,bpf" if DEFAULT_SECURITY_TOMOYO
-> -	default "landlock,lockdown,yama,loadpin,safesetid,bpf" if DEFAULT_SECURITY_DAC
-> -	default "landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,bpf"
-> +	default "landlock,lockdown,yama,loadpin,safesetid,smack,selinux,tomoyo,apparmor,bpf,ipe" if DEFAULT_SECURITY_SMACK
-> +	default "landlock,lockdown,yama,loadpin,safesetid,apparmor,selinux,smack,tomoyo,bpf,ipe" if DEFAULT_SECURITY_APPARMOR
-> +	default "landlock,lockdown,yama,loadpin,safesetid,tomoyo,bpf,ipe" if DEFAULT_SECURITY_TOMOYO
-> +	default "landlock,lockdown,yama,loadpin,safesetid,bpf,ipe" if DEFAULT_SECURITY_DAC
-> +	default "landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,bpf,ipe"
-
-Generally speaking the BPF LSM should be the last entry in the LSM
-list to help prevent issues caused by a BPF LSM returning an improper
-error and shortcutting a LSM after it.
-
->  	help
->  	  A comma-separated list of LSMs, in initialization order.
->  	  Any LSMs left off this list, except for those with order
-
-...
-
-> diff --git a/security/ipe/Makefile b/security/ipe/Makefile
+> diff --git a/security/ipe/policy.c b/security/ipe/policy.c
 > new file mode 100644
-> index 000000000000..571648579991
+> index 000000000000..4069ff075093
 > --- /dev/null
-> +++ b/security/ipe/Makefile
-> @@ -0,0 +1,10 @@
-> +# SPDX-License-Identifier: GPL-2.0
-> +#
-> +# Copyright (C) Microsoft Corporation. All rights reserved.
-> +#
-> +# Makefile for building the IPE module as part of the kernel tree.
-> +#
+> +++ b/security/ipe/policy.c
+> @@ -0,0 +1,97 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) Microsoft Corporation. All rights reserved.
+> + */
 > +
-> +obj-$(CONFIG_SECURITY_IPE) += \
-> +	hooks.o \
-> +	ipe.o \
+> +#include <linux/errno.h>
+> +#include <linux/verification.h>
+> +
+> +#include "ipe.h"
+> +#include "policy.h"
+> +#include "policy_parser.h"
+> +
+> +/**
+> + * ipe_free_policy - Deallocate a given IPE policy.
+> + * @p: Supplies the policy to free.
+> + *
+> + * Safe to call on IS_ERR/NULL.
+> + */
+> +void ipe_free_policy(struct ipe_policy *p)
+> +{
+> +	if (IS_ERR_OR_NULL(p))
+> +		return;
+> +
+> +	free_parsed_policy(p->parsed);
+> +	if (!p->pkcs7)
+> +		kfree(p->text);
 
-It doesn't look like security/ipe/hook.c is included in this patch.
+Since it's safe to kfree(NULL), you could kfree(p->text) without
+having to check if p->pkcs7 was non-NULL, correct?
 
-It is important to ensure that each patch compiles after it is
-applied.
+> +	kfree(p->pkcs7);
+> +	kfree(p);
+> +}
+
+...
+
+> diff --git a/security/ipe/policy.h b/security/ipe/policy.h
+> new file mode 100644
+> index 000000000000..113a037f0d71
+> --- /dev/null
+> +++ b/security/ipe/policy.h
+> @@ -0,0 +1,83 @@
+> +/* SPDX-License-Identifier: GPL-2.0 */
+> +/*
+> + * Copyright (C) Microsoft Corporation. All rights reserved.
+> + */
+> +#ifndef _IPE_POLICY_H
+> +#define _IPE_POLICY_H
+> +
+> +#include <linux/list.h>
+> +#include <linux/types.h>
+> +
+> +enum ipe_op_type {
+> +	__IPE_OP_EXEC = 0,
+> +	__IPE_OP_FIRMWARE,
+> +	__IPE_OP_KERNEL_MODULE,
+> +	__IPE_OP_KEXEC_IMAGE,
+> +	__IPE_OP_KEXEC_INITRAMFS,
+> +	__IPE_OP_IMA_POLICY,
+> +	__IPE_OP_IMA_X509,
+> +	__IPE_OP_MAX
+> +};
+
+Thanks for capitalizing the enums, that helps make IPE consistent with
+the majority of the kernel.  However, when I talked about using
+underscores for "__IPE_OP_MAX", I was talking about *only*
+"__IPE_OP_MAX" to help indicate it is a sentinel value and not an enum
+value that would normally be used by itself.
+
+Here is what I was intending:
+
+enum ipe_op_type {
+  IPE_OP_EXEC = 0,
+  IPE_OP_FIRMWARE,
+  ...
+  IPE_OP_IMA_X509,
+  __IPE_OP_MAX
+};
+
+> +#define __IPE_OP_INVALID __IPE_OP_MAX
+
+Similarly, I would remove the underscores from "__IPE_OP_INVALID":
+
+#define IPE_OP_INVALID __IPE_OP_MAX
+
+Both of these comments would apply to the other IPE enums as well.
+
+> diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
+> new file mode 100644
+> index 000000000000..27e5767480b0
+> --- /dev/null
+> +++ b/security/ipe/policy_parser.c
+> @@ -0,0 +1,488 @@
+
+...
+
+> +/**
+> + * parse_header - Parse policy header information.
+> + * @line: Supplies header line to be parsed.
+> + * @p: Supplies the partial parsed policy.
+> + *
+> + * Return:
+> + * * 0	- OK
+> + * * !0	- Standard errno
+> + */
+> +static int parse_header(char *line, struct ipe_parsed_policy *p)
+> +{
+> +	int rc = 0;
+> +	char *t, *ver = NULL;
+> +	substring_t args[MAX_OPT_ARGS];
+> +	size_t idx = 0;
+> +
+> +	while ((t = strsep(&line, " \t")) != NULL) {
+
+It might be nice to define a macro to help reinforce that " \t" are
+the IPE policy delimiters, how about IPE_POLICY_DELIM?
+
+#define IPE_POLICY_DELIM " \t"
+
+> +		int token;
+> +
+> +		if (*t == '\0')
+> +			continue;
+
+Why would you want to continue if you run into a NUL byte?  You would
+only run into a NUL byte if the line was trimmed due to comments or
+whitespace, correct?  If that is the case, wouldn't you want to
+break out of this loop when hitting a NUL byte?
+
+> +		if (idx >= __IPE_HEADER_MAX) {
+> +			rc = -EBADMSG;
+> +			goto err;
+> +		}
+> +
+> +		token = match_token(t, header_tokens, args);
+> +		if (token != idx) {
+> +			rc = -EBADMSG;
+> +			goto err;
+> +		}
+> +
+> +		switch (token) {
+> +		case __IPE_HEADER_POLICY_NAME:
+> +			p->name = match_strdup(&args[0]);
+> +			if (!p->name)
+> +				rc = -ENOMEM;
+> +			break;
+> +		case __IPE_HEADER_POLICY_VERSION:
+> +			ver = match_strdup(&args[0]);
+> +			if (!ver) {
+> +				rc = -ENOMEM;
+> +				break;
+> +			}
+> +			rc = parse_version(ver, p);
+> +			break;
+> +		default:
+> +			rc = -EBADMSG;
+> +		}
+> +		if (rc)
+> +			goto err;
+> +		++idx;
+> +	}
+> +
+> +	if (idx != __IPE_HEADER_MAX) {
+> +		rc = -EBADMSG;
+> +		goto err;
+> +	}
+> +
+> +out:
+> +	kfree(ver);
+> +	return rc;
+> +err:
+> +	kfree(p->name);
+> +	p->name = NULL;
+> +	goto out;
+
+Do we need to worry about ipe_parsed_policy::name here?  If we are
+returning an error the caller will call free_parsed_policy() for us,
+right?  This would allow us to get rid of the 'err' jump label and
+simply use 'out' for both success and failure.
+
+> +}
+
+...
+
+> +/**
+> + * parse_rule - parse a policy rule line.
+> + * @line: Supplies rule line to be parsed.
+> + * @p: Supplies the partial parsed policy.
+> + *
+> + * Return:
+> + * * !IS_ERR	- OK
+> + * * -ENOMEM	- Out of memory
+> + * * -EBADMSG	- Policy syntax error
+> + */
+> +static int parse_rule(char *line, struct ipe_parsed_policy *p)
+> +{
+> +	int rc = 0;
+> +	bool first_token = true, is_default_rule = false;
+> +	bool op_parsed = false;
+> +	enum ipe_op_type op = __IPE_OP_INVALID;
+> +	enum ipe_action_type action = __IPE_ACTION_INVALID;
+> +	struct ipe_rule *r = NULL;
+> +	char *t;
+> +
+> +	r = kzalloc(sizeof(*r), GFP_KERNEL);
+> +	if (!r)
+> +		return -ENOMEM;
+> +
+> +	INIT_LIST_HEAD(&r->next);
+> +	INIT_LIST_HEAD(&r->props);
+> +
+> +	while (t = strsep(&line, " \t"), line) {
+
+See my previous comment about IPE_POLICY_DELIM.
+
+> +		if (*t == '\0')
+> +			continue;
+
+I still wonder why continuing here is the desired behavior, can you
+help me understand?
+
+> +		if (first_token && token_default(t)) {
+> +			is_default_rule = true;
+> +		} else {
+> +			if (!op_parsed) {
+> +				op = parse_operation(t);
+> +				if (op == __IPE_OP_INVALID)
+> +					rc = -EBADMSG;
+> +				else
+> +					op_parsed = true;
+> +			} else {
+> +				rc = parse_property(t, r);
+> +			}
+> +		}
+> +
+> +		if (rc)
+> +			goto err;
+> +		first_token = false;
+> +	}
+> +
+> +	action = parse_action(t);
+> +	if (action == __IPE_ACTION_INVALID) {
+> +		rc = -EBADMSG;
+> +		goto err;
+> +	}
+> +
+> +	if (is_default_rule) {
+> +		if (!list_empty(&r->props)) {
+> +			rc = -EBADMSG;
+> +		} else if (op == __IPE_OP_INVALID) {
+> +			if (p->global_default_action != __IPE_ACTION_INVALID)
+> +				rc = -EBADMSG;
+> +			else
+> +				p->global_default_action = action;
+> +		} else {
+> +			if (p->rules[op].default_action != __IPE_ACTION_INVALID)
+> +				rc = -EBADMSG;
+> +			else
+> +				p->rules[op].default_action = action;
+> +		}
+> +	} else if (op != __IPE_OP_INVALID && action != __IPE_ACTION_INVALID) {
+> +		r->op = op;
+> +		r->action = action;
+> +	} else {
+> +		rc = -EBADMSG;
+> +	}
+> +
+> +	if (rc)
+> +		goto err;
+> +	if (!is_default_rule)
+> +		list_add_tail(&r->next, &p->rules[op].rules);
+> +	else
+> +		free_rule(r);
+> +
+> +out:
+> +	return rc;
+> +err:
+> +	free_rule(r);
+> +	goto out;
+
+In keeping with the rule of not jumping to a label only to
+immediately return, and considering that the only place where we jump
+to 'out' is in the 'err' code, let's get rid of the 'out' label and
+have 'err' "return rc" instead of "goto out".
+
+> +}
 
 --
 paul-moore.com
