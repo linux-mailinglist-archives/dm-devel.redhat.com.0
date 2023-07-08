@@ -1,100 +1,103 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1B32D74B66A
-	for <lists+dm-devel@lfdr.de>; Fri,  7 Jul 2023 20:38:24 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id ADD2F74BBBF
+	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 06:24:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688755103;
+	s=mimecast20190719; t=1688790242;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Y86cXJCo06OvCinY0GvW7PBS3apJ0LPPBXPGB62Jyio=;
-	b=eAlb/jPSiky2Khn4HjuwH2xY3cu1ssb/rsuiq7MaIICKYvMbI6Tfn+5qIFHLgOgFnOGa53
-	CQkMTVBRCP2doUWLae3RA4seN0rftXMYZzsp0upRTqpcQ2+vQmPJBwJZMOvQLs3Rn/qCT8
-	ZRekFG+MtjUNFw4cDyMgpb/Qi8JngJQ=
-Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
- [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=U1QgRKTl9+H5IbIpjqfYPrXaUsObrH9w3pqEy+DSBh4=;
+	b=YcCI/o/bQ6kwbvvPmqNmHKuTX9O2jEy2huUuIIVscPGGU04sUJW0Fi4xomg1s0+GDQcZtf
+	bsY7x40tZzI5SuqnYqXRDJ27MnsqvhaoPjbVHHJlzQXQt+uHYqjuXAegiYH7IRb4NG8icn
+	awxZpFSrze9nBZEdqbsCaahH4aGHtlg=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-440-ucLeF36bPU-tYQaVy7YL5g-1; Fri, 07 Jul 2023 14:38:19 -0400
-X-MC-Unique: ucLeF36bPU-tYQaVy7YL5g-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-483-nh8scrkyM6SJtLHWeLZBvA-1; Sat, 08 Jul 2023 00:23:26 -0400
+X-MC-Unique: nh8scrkyM6SJtLHWeLZBvA-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AAFA13C11A14;
-	Fri,  7 Jul 2023 18:38:16 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D35A62166B25;
-	Fri,  7 Jul 2023 18:37:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9367800CAE;
+	Sat,  8 Jul 2023 04:23:24 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B778B207B314;
+	Sat,  8 Jul 2023 04:23:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BD6D71946A73;
-	Fri,  7 Jul 2023 18:37:50 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D217C1946A78;
+	Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3A0E21946A54
- for <dm-devel@listman.corp.redhat.com>; Fri,  7 Jul 2023 18:37:42 +0000 (UTC)
+ ESMTP id 3F5781946A54
+ for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 04:23:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 271D91121333; Fri,  7 Jul 2023 18:37:42 +0000 (UTC)
+ id C192840C2070; Sat,  8 Jul 2023 04:23:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1FA631121330
- for <dm-devel@redhat.com>; Fri,  7 Jul 2023 18:37:42 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B94EA40C206F
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:02 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 058E686F122
- for <dm-devel@redhat.com>; Fri,  7 Jul 2023 18:37:42 +0000 (UTC)
-Received: from mail-vs1-f51.google.com (mail-vs1-f51.google.com
- [209.85.217.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9D71A86F124
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 04:23:02 +0000 (UTC)
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com
+ [209.85.222.170]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-653-4tG13jt7MZagyhYlUoV40w-1; Fri, 07 Jul 2023 14:37:40 -0400
-X-MC-Unique: 4tG13jt7MZagyhYlUoV40w-1
-Received: by mail-vs1-f51.google.com with SMTP id
- ada2fe7eead31-440c5960b58so826414137.3
- for <dm-devel@redhat.com>; Fri, 07 Jul 2023 11:37:40 -0700 (PDT)
+ us-mta-354-epHVXdQpPmy_eWvFNkkgYw-1; Sat, 08 Jul 2023 00:23:00 -0400
+X-MC-Unique: epHVXdQpPmy_eWvFNkkgYw-1
+Received: by mail-qk1-f170.google.com with SMTP id
+ af79cd13be357-76731802203so230158185a.3
+ for <dm-devel@redhat.com>; Fri, 07 Jul 2023 21:23:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1688755059; x=1691347059;
- h=in-reply-to:content-transfer-encoding:content-disposition
- :mime-version:references:message-id:subject:cc:to:from:date
+ d=1e100.net; s=20221208; t=1688790180; x=1691382180;
+ h=in-reply-to:references:subject:cc:to:from:message-id:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=s5VQRxAtZoQOFfcY5O7yoeSpUtRetqA9PpARHALtgIE=;
- b=KlMzWUTGgxNzfuTiDLZdLH0v2T1NN6CjsHbIRfDc8+FTBVSW8iWagPLdQj5r8ifIRg
- uNXp89Nq4qYQBmQ1buq7zSEww+m6L9tcnNMa6T+a5GMluu5QwywD3jHYvkvkDjDPCIN4
- Wt/VLotDgzTED1+Rc1Hos3j/pnZoSwbQAT2uY/Cb11hWxD3XljHN9Kvn3rSnLMsz3Ycf
- IWOY0gxRLVKCkcNyZ8gvvy0kKZsMEDTu9fqwI65ZzFsXQtoOR8teIMt7r4nmSt2nKOzQ
- tRiC4RaxbgQZLtIkjCchqpoAEIkRn2LxSzw/u++va5rDz5O1qVepE5XawpG0pzRXXgvp
- Zisw==
-X-Gm-Message-State: ABy/qLbb+5s9ioiVDILESuG7JAeqQJOaJ5Siz40fcdfGLY+pGaa0+EA5
- XGsPxLu8BFPcSOOb/7IHy0yD/cVpwBT0YlJmPfmL
-X-Google-Smtp-Source: APBJJlGhU0NSW5iPep+oH7ztVAprEQ+j5C2IVA5AfofApGhaq54VIdejRQk4pjeEIM2iILNwWKG9zw==
-X-Received: by 2002:a67:ed10:0:b0:444:57aa:571 with SMTP id
- l16-20020a67ed10000000b0044457aa0571mr3690137vsp.15.1688755059625; 
- Fri, 07 Jul 2023 11:37:39 -0700 (PDT)
-Received: from localhost (pool-68-160-166-30.bstnma.fios.verizon.net.
- [68.160.166.30]) by smtp.gmail.com with ESMTPSA id
- x1-20020a05620a12a100b00767177a5bebsm2067186qki.56.2023.07.07.11.37.38
+ bh=/6X+3H1ljfy7IjsbLjk8teqFst7rLlyJv0xIACsaZ2M=;
+ b=CI0vAzgKxqxU56NoQP2ayjUZRnQgOoE+tvzRAH4mgiDKvsJt2rZneOgjMbsuWFky7P
+ 7qihcC1V6RHFgYR5ctYRSlVzGIoeOsCi/OsBDk76Cqo/x+vmdXDpo0OMuEU+dIXT8MVb
+ spqwIH7q+bCsJuv6CZe/+inmKKpt2lPpxj+28KubM9Lbi02lKgBdXVU42g8CiDgiZDWX
+ eEKWjAz6YuBZKjSzdSfJMEhHcz7uj+7vKHPXlkZdlqPxZ0pt9hSt89mYYEZoutI42d6S
+ YnA8SOLRfQ9L6ddXbPs/KN9oYCuRVliQUu6G2mdtbnRSjk6UwdWZq/kx2OZsjjkTVgIO
+ 1ELw==
+X-Gm-Message-State: ABy/qLbOA3lpUniJByvyjKBV//UBs6j3cLDfn2+OLtqdL2p3f+VBiGNW
+ egIySgcv+/0RssrXWQyfQk7C
+X-Google-Smtp-Source: APBJJlER2eVRcX7fuVHlqo9yFV2ClV/AALrEglrEX6whX1lHkiw8pxz2SyI0fKw25p10g/4AwBpuSg==
+X-Received: by 2002:a37:b645:0:b0:75d:4e8b:9d19 with SMTP id
+ g66-20020a37b645000000b0075d4e8b9d19mr7532555qkf.26.1688790180266; 
+ Fri, 07 Jul 2023 21:23:00 -0700 (PDT)
+Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
+ w17-20020a0cb551000000b006369e619438sm2909594qvd.32.2023.07.07.21.22.59
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 11:37:39 -0700 (PDT)
-Date: Fri, 7 Jul 2023 14:37:38 -0400
-From: Mike Snitzer <snitzer@kernel.org>
-To: yangerkun <yangerkun@huaweicloud.com>
-Message-ID: <ZKhbclN3V8taEStt@redhat.com>
-References: <20230301032904.3561641-1-yangerkun@huaweicloud.com>
- <b96155f3-0f6c-273d-4e0a-24fe05bb618a@huaweicloud.com>
- <7f1f7798-dd56-919f-cd59-22cfcafae342@huaweicloud.com>
-MIME-Version: 1.0
-In-Reply-To: <7f1f7798-dd56-919f-cd59-22cfcafae342@huaweicloud.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH v2] dm-crypt: reexport sysfs of kcryptd
- workqueue
+ Fri, 07 Jul 2023 21:22:59 -0700 (PDT)
+Date: Sat, 08 Jul 2023 00:22:59 -0400
+Message-ID: <ffd5c67f4a9bf45df0ce95a8fe0932a3.paul@paul-moore.com>
+From: Paul Moore <paul@paul-moore.com>
+To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
+ jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
+ axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com,
+References: <1687986571-16823-2-git-send-email-wufan@linux.microsoft.com>
+In-Reply-To: <1687986571-16823-2-git-send-email-wufan@linux.microsoft.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH RFC v10 1/17] security: add ipe lsm
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -106,109 +109,141 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: tj@kernel.org, dm-devel@redhat.com, mpatocka@redhat.com,
- jefflexu@linux.alibaba.com, yukuai3@huawei.com, agk@redhat.com
+Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
+ Deven Bowers <deven.desai@linux.microsoft.com>, roberto.sassu@huawei.com,
+ linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, audit@vger.kernel.org,
+ linux-fscrypt@vger.kernel.org, Fan Wu <wufan@linux.microsoft.com>,
+ linux-integrity@vger.kernel.org
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Disposition: inline
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Mimecast-Originator: paul-moore.com
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-W3RvcC1wb3N0aW5nIGJlY2F1c2Ugb2YgYWxsIHRoZSBwcmV2aW91cyB0b3AtcG9zdGluZ10KCkhp
-LAoKSSBjZXJ0YWlubHkgd291bGQgbGlrZSB0aGUgYWJpbGl0eSB0byBhbGxvdyBjb250cm9sIG92
-ZXIgdGhlCndvcmtxdWV1ZXMgdXNpbmcgV1FfU1lTRlMuICBCdXQgd2l0aCBUZWp1bidzIGxhdGVz
-dCBXUV9VTkJPVU5EIGNoYW5nZXMKKGp1c3QgbWVyZ2VkIGR1cmluZyA2LjUgbWVyZ2Ugd2luZG93
-KSBJIHRoaW5rIHdlJ2QgZG8gd2VsbCB0byBhdWRpdAp0aGUgZmxhZ3Mgd2UncmUgdXNpbmcuCgpU
-ZWp1biBvZmZlcmVkIHRoaXMgbm90ZSBpbiBoaXMgc3VtbWFyeSBwYXRjaCBoZWFkZXIgZm9yIGhp
-cyA2LjUgY2hhbmdlczoKIkFsYXNkYWlyIEtlcmdvbiwgTWlrZSBTbml0emVyLCBETSBmb2xrcwot
-LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0KCkkgcmFuIGZpbyBvbiB0b3Ag
-b2YgZG0tY3J5cHQgdG8gY29tcGFyZSBwZXJmb3JtYW5jZSBvZiBkaWZmZXJlbnQKY29uZmlndXJh
-dGlvbnMuIEl0IG1vc3RseSBiZWhhdmVkIGFzIGV4cGVjdGVkIGJ1dCBwbGVhc2UgbGV0IG1lIGtu
-b3cgaWYKYW55dGhpbmcgZG9lbnMndCBsb29rIHJpZ2h0LiBBbHNvLCBETV9DUllQVF9TQU1FX0NQ
-VSBjYW4gbm93IGJlIGltcGxlbWVudGVkCmJ5IGFwcGx5aW5nIHN0cmljdCAiY3B1IiBzY29wZSBv
-biB0aGUgdW5ib3VuZCB3b3JrcXVldWUgYW5kIGl0IHdvdWxkIG1ha2UKc2Vuc2UgdG8gYWRkIFdR
-X1NZU0ZTIHRvIHRoZSBrY3J5cHRkIHdvcmtxdWV1ZSBzbyB0aGF0IHVzZXJzIGNhbiB0dW5lIHRo
-ZQpzZXR0aW5ncyBvbiB0aGUgZmx5LiIKCkFueXdheSwgSSdkIHdlbGNvbWUgeW91IHJlYmFzaW5n
-IHlvdXIgcGF0Y2ggb250b3Agb2YgTGludXMncyBsYXRlc3QKbGludXguZ2l0LiAgVGhlbiB3ZSAo
-TWlrdWxhcywgeW91LCBhbmQvb3IgSSkgY2FuIHRha2UgYSBjbG9zZXIgbG9vayBhdAphZGRyZXNz
-aW5nIFRlanVuJ3MgRE1fQ1JZUFRfU0FNRV9DUFUgc3VnZ2VzdGlvbi4KClRoYW5rcywKTWlrZQoK
-T24gTW9uLCBKdW4gMjYgMjAyMyBhdCAgNDo0M1AgLTA0MDAsCnlhbmdlcmt1biA8eWFuZ2Vya3Vu
-QGh1YXdlaWNsb3VkLmNvbT4gd3JvdGU6Cgo+IEhpLCBNaWtlLAo+IAo+IFNvcnJ5IGZvciB0aGUg
-bm9pc2UuIFRoaXMgcGF0Y2ggaGFzIGJlZW4gcHJvcG9zZWQgZm9yIGEgbG9uZyB0aW1lLiBJIHdv
-bmRlcgo+IGRvZXMgdGhlcmUgYW55IHN1Z2dlc3Rpb24gZm9yIHRoZSBwYXRjaC4gTG9va2luZyBm
-b3J3YXJkIHRvIHlvdXIgcmVwbHkhCj4gCj4gVGhhbmtzLAo+IFlhbmcgRXJrdW4uCj4gCj4g5Zyo
-IDIwMjMvMy8yNSA5OjAxLCB5YW5nZXJrdW4g5YaZ6YGTOgo+ID4gUGluZy4uLgo+ID4gCj4gPiDl
-nKggMjAyMy8zLzEgMTE6MjksIHlhbmdlcmt1biDlhpnpgZM6Cj4gPiA+IEZyb206IHlhbmdlcmt1
-biA8eWFuZ2Vya3VuQGh1YXdlaS5jb20+Cj4gPiA+IAo+ID4gPiBPbmNlIHRoZXJlIGlzIGEgaGVh
-dnkgSU8gbG9hZCwgc28gbWFueSBlbmNyeXB0L2RlY3J5cHQgd29yayB3aWxsIG9jY3VweQo+ID4g
-PiBhbGwgb2YgdGhlIGNwdSwgd2hpY2ggbWF5IGxlYWQgdGhlIHBvb3IgcGVyZm9ybWFuY2UgZm9y
-IG90aGVyIHNlcnZpY2UuCj4gPiA+IFNvIHRoZSBpZGVhIGxpa2UgJ2EyYjhiMmQ5NzU2NyAoImRt
-IGNyeXB0OiBleHBvcnQgc3lzZnMgb2Yga2NyeXB0ZAo+ID4gPiB3b3JrcXVldWUiKScgc2FpZCBz
-ZWVtcyBuZWNlc3NhcnkuIFdlIGNhbiBleHBvcnQgImtjcnlwdGQiIHdvcmtxdWV1ZQo+ID4gPiBz
-eXNmcywgdGhlIGVudHJ5IGxpa2UgY3B1bWFzay9tYXhfYWN0aXZlIGFuZCBzbyBvbiBjYW4gaGVs
-cCB1cyB0byBsaW1pdAo+ID4gPiB0aGUgdXNhZ2UgZm9yIGVuY3J5cHQvZGVjcnlwdCB3b3JrLgo+
-ID4gPiAKPiA+ID4gSG93ZXZlciwgdGhhdCBjb21taXQgZG9lcyBub3QgY29uc2lkZXIgdGhlIHJl
-bG9hZCB0YWJsZSB3aWxsIGNhbGwgLmN0cgo+ID4gPiBiZWZvcmUgLmR0ciwgc28gdGhlIHJlbG9h
-ZCBmb3IgZG0tY3J5cHQgd2lsbCBmYWlsIHNpbmNlIHRoZSBzYW1lIHN5c2ZzCj4gPiA+IHByb2Js
-ZW0sIGFuZCB0aGVuIHdlIHJldmVydCB0aGF0IGNvbW1pdCgnNDhiMDc3N2NkOTNkICgiUmV2ZXJ0
-ICJkbQo+ID4gPiBjcnlwdDogZXhwb3J0IHN5c2ZzIG9mIGtjcnlwdGQgd29ya3F1ZXVlIiIpJyku
-Cj4gPiA+IAo+ID4gPiBBY3R1YWxseSwgd2hhdCB3ZSBzaG91bGQgZG8gaXMgZ2l2ZSBhIHVuaXF1
-ZSBuYW1lIG9uY2Ugd2UgdHJ5IHJlbG9hZAo+ID4gPiB0YWJsZSwgd2UgY2FuIHVzZSBpZGEgdG8g
-Zml4IHRoZSBwcm9ibGVtLgo+ID4gPiAKPiA+ID4gU2lnbmVkLW9mZi1ieTogeWFuZ2Vya3VuIDx5
-YW5nZXJrdW5AaHVhd2VpLmNvbT4KPiA+ID4gLS0tCj4gPiA+IMKgIGRyaXZlcnMvbWQvZG0tY3J5
-cHQuYyB8IDI4ICsrKysrKysrKysrKysrKysrKysrKysrLS0tLS0KPiA+ID4gwqAgMSBmaWxlIGNo
-YW5nZWQsIDIzIGluc2VydGlvbnMoKyksIDUgZGVsZXRpb25zKC0pCj4gPiA+IAo+ID4gPiB2MS0+
-djI6Cj4gPiA+IHJld3JpdHRlbiB0aGUgY29tbWl0IG1zZwo+ID4gPiAKPiA+ID4gZGlmZiAtLWdp
-dCBhL2RyaXZlcnMvbWQvZG0tY3J5cHQuYyBiL2RyaXZlcnMvbWQvZG0tY3J5cHQuYwo+ID4gPiBp
-bmRleCA0MGNiMTcxOWFlNGQuLjk0OGQxZTExZDA2NCAxMDA2NDQKPiA+ID4gLS0tIGEvZHJpdmVy
-cy9tZC9kbS1jcnlwdC5jCj4gPiA+ICsrKyBiL2RyaXZlcnMvbWQvZG0tY3J5cHQuYwo+ID4gPiBA
-QCAtNDcsNiArNDcsOCBAQAo+ID4gPiDCoCAjZGVmaW5lIERNX01TR19QUkVGSVggImNyeXB0Igo+
-ID4gPiArc3RhdGljIERFRklORV9JREEoY3J5cHRfcXVldWVfaWRhKTsKPiA+ID4gKwo+ID4gPiDC
-oCAvKgo+ID4gPiDCoMKgICogY29udGV4dCBob2xkaW5nIHRoZSBjdXJyZW50IHN0YXRlIG9mIGEg
-bXVsdGktcGFydCBjb252ZXJzaW9uCj4gPiA+IMKgwqAgKi8KPiA+ID4gQEAgLTE4MCw2ICsxODIs
-NyBAQCBzdHJ1Y3QgY3J5cHRfY29uZmlnIHsKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVj
-dCBjcnlwdG9fYWVhZCAqKnRmbXNfYWVhZDsKPiA+ID4gwqDCoMKgwqDCoCB9IGNpcGhlcl90Zm07
-Cj4gPiA+IMKgwqDCoMKgwqAgdW5zaWduZWQgaW50IHRmbXNfY291bnQ7Cj4gPiA+ICvCoMKgwqAg
-aW50IGNyeXB0X3F1ZXVlX2lkOwo+ID4gPiDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgY2lwaGVy
-X2ZsYWdzOwo+ID4gPiDCoMKgwqDCoMKgIC8qCj4gPiA+IEBAIC0yNzA0LDYgKzI3MDcsOSBAQCBz
-dGF0aWMgdm9pZCBjcnlwdF9kdHIoc3RydWN0IGRtX3RhcmdldCAqdGkpCj4gPiA+IMKgwqDCoMKg
-wqAgaWYgKGNjLT5jcnlwdF9xdWV1ZSkKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgIGRlc3Ryb3lf
-d29ya3F1ZXVlKGNjLT5jcnlwdF9xdWV1ZSk7Cj4gPiA+ICvCoMKgwqAgaWYgKGNjLT5jcnlwdF9x
-dWV1ZV9pZCkKPiA+ID4gK8KgwqDCoMKgwqDCoMKgIGlkYV9mcmVlKCZjcnlwdF9xdWV1ZV9pZGEs
-IGNjLT5jcnlwdF9xdWV1ZV9pZCk7Cj4gPiA+ICsKPiA+ID4gwqDCoMKgwqDCoCBjcnlwdF9mcmVl
-X3RmbXMoY2MpOwo+ID4gPiDCoMKgwqDCoMKgIGJpb3NldF9leGl0KCZjYy0+YnMpOwo+ID4gPiBA
-QCAtMzM0MCwxMiArMzM0NiwyNCBAQCBzdGF0aWMgaW50IGNyeXB0X2N0cihzdHJ1Y3QgZG1fdGFy
-Z2V0ICp0aSwKPiA+ID4gdW5zaWduZWQgaW50IGFyZ2MsIGNoYXIgKiphcmd2KQo+ID4gPiDCoMKg
-wqDCoMKgIH0KPiA+ID4gwqDCoMKgwqDCoCBpZiAodGVzdF9iaXQoRE1fQ1JZUFRfU0FNRV9DUFUs
-ICZjYy0+ZmxhZ3MpKQo+ID4gPiAtwqDCoMKgwqDCoMKgwqAgY2MtPmNyeXB0X3F1ZXVlID0gYWxs
-b2Nfd29ya3F1ZXVlKCJrY3J5cHRkLyVzIiwKPiA+ID4gV1FfQ1BVX0lOVEVOU0lWRSB8IFdRX01F
-TV9SRUNMQUlNLAo+ID4gPiArwqDCoMKgwqDCoMKgwqAgY2MtPmNyeXB0X3F1ZXVlID0gYWxsb2Nf
-d29ya3F1ZXVlKCJrY3J5cHRkLSVzIiwKPiA+ID4gV1FfQ1BVX0lOVEVOU0lWRSB8IFdRX01FTV9S
-RUNMQUlNLAo+ID4gPiDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqAgMSwgZGV2bmFtZSk7Cj4gPiA+IC3CoMKgwqAgZWxzZQo+ID4gPiAtwqDCoMKg
-wqDCoMKgwqAgY2MtPmNyeXB0X3F1ZXVlID0gYWxsb2Nfd29ya3F1ZXVlKCJrY3J5cHRkLyVzIiwK
-PiA+ID4gLcKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKg
-IFdRX0NQVV9JTlRFTlNJVkUgfCBXUV9NRU1fUkVDTEFJTSB8Cj4gPiA+IFdRX1VOQk9VTkQsCj4g
-PiA+IC3CoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBu
-dW1fb25saW5lX2NwdXMoKSwgZGV2bmFtZSk7Cj4gPiA+ICvCoMKgwqAgZWxzZSB7Cj4gPiA+ICvC
-oMKgwqDCoMKgwqDCoCBpbnQgaWQgPSBpZGFfYWxsb2NfbWluKCZjcnlwdF9xdWV1ZV9pZGEsIDEs
-IEdGUF9LRVJORUwpOwo+ID4gPiArCj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBpZiAoaWQgPCAwKSB7
-Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHRpLT5lcnJvciA9ICJDb3VsZG4ndCBnZXQg
-a2NyeXB0ZCBxdWV1ZSBpZCI7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHJldCA9IGlk
-Owo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGJhZDsKPiA+ID4gK8KgwqDCoMKg
-wqDCoMKgIH0KPiA+ID4gKwo+ID4gPiArwqDCoMKgwqDCoMKgwqAgY2MtPmNyeXB0X3F1ZXVlX2lk
-ID0gaWQ7Cj4gPiA+ICvCoMKgwqDCoMKgwqDCoCBjYy0+Y3J5cHRfcXVldWUgPSBhbGxvY193b3Jr
-cXVldWUoImtjcnlwdGQtJXMtJWQiLAo+ID4gPiArwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgV1FfQ1BVX0lOVEVOU0lWRSB8IFdRX01FTV9SRUNMQUlN
-IHwKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgIFdRX1VOQk9VTkQgfCBXUV9TWVNGUywKPiA+ID4gK8KgwqDCoMKgwqDCoMKgwqDCoMKgwqDC
-oMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIG51bV9vbmxpbmVfY3B1cygpLCBkZXZuYW1lLCBp
-ZCk7Cj4gPiA+ICvCoMKgwqAgfQo+ID4gPiArCj4gPiA+IMKgwqDCoMKgwqAgaWYgKCFjYy0+Y3J5
-cHRfcXVldWUpIHsKPiA+ID4gwqDCoMKgwqDCoMKgwqDCoMKgIHRpLT5lcnJvciA9ICJDb3VsZG4n
-dCBjcmVhdGUga2NyeXB0ZCBxdWV1ZSI7Cj4gPiA+IMKgwqDCoMKgwqDCoMKgwqDCoCBnb3RvIGJh
-ZDsKPiA+IAo+IAoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20K
-aHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
+On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
+> 
+> Integrity Policy Enforcement (IPE) is an LSM that provides an
+> complimentary approach to Mandatory Access Control than existing LSMs
+> today.
+> 
+> Existing LSMs have centered around the concept of access to a resource
+> should be controlled by the current user's credentials. IPE's approach,
+> is that access to a resource should be controlled by the system's trust
+> of a current resource.
+> 
+> The basis of this approach is defining a global policy to specify which
+> resource can be trusted.
+> 
+> Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
+> Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
+> ---
+>  MAINTAINERS           |  7 +++++++
+>  security/Kconfig      | 11 ++++++-----
+>  security/Makefile     |  1 +
+>  security/ipe/Kconfig  | 17 +++++++++++++++++
+>  security/ipe/Makefile | 10 ++++++++++
+>  security/ipe/ipe.c    | 37 +++++++++++++++++++++++++++++++++++++
+>  security/ipe/ipe.h    | 16 ++++++++++++++++
+>  7 files changed, 94 insertions(+), 5 deletions(-)
+>  create mode 100644 security/ipe/Kconfig
+>  create mode 100644 security/ipe/Makefile
+>  create mode 100644 security/ipe/ipe.c
+>  create mode 100644 security/ipe/ipe.h
+
+...
+
+> diff --git a/MAINTAINERS b/MAINTAINERS
+> index a82795114ad4..ad00887d38ea 100644
+> --- a/MAINTAINERS
+> +++ b/MAINTAINERS
+> @@ -10278,6 +10278,13 @@ T:	git git://git.kernel.org/pub/scm/linux/kernel/git/zohar/linux-integrity.git
+>  F:	security/integrity/
+>  F:	security/integrity/ima/
+>  
+> +INTEGRITY POLICY ENFORCEMENT (IPE)
+> +M:	Fan Wu <wufan@linux.microsoft.com>
+> +L:	linux-security-module@vger.kernel.org
+> +S:	Supported
+> +T:	git git://github.com/microsoft/ipe.git
+
+Using the raw git protocol doesn't seem to work with GH, I think you
+need to refernce the git/https URL:
+
+ https://github.com/microsoft/ipe.git
+
+> +F:	security/ipe/
+> +
+>  INTEL 810/815 FRAMEBUFFER DRIVER
+>  M:	Antonino Daplas <adaplas@gmail.com>
+>  L:	linux-fbdev@vger.kernel.org
+> diff --git a/security/Kconfig b/security/Kconfig
+> index 97abeb9b9a19..daa4626ea99c 100644
+> --- a/security/Kconfig
+> +++ b/security/Kconfig
+> @@ -202,6 +202,7 @@ source "security/yama/Kconfig"
+>  source "security/safesetid/Kconfig"
+>  source "security/lockdown/Kconfig"
+>  source "security/landlock/Kconfig"
+> +source "security/ipe/Kconfig"
+>  
+>  source "security/integrity/Kconfig"
+>  
+> @@ -241,11 +242,11 @@ endchoice
+>  
+>  config LSM
+>  	string "Ordered list of enabled LSMs"
+> -	default "landlock,lockdown,yama,loadpin,safesetid,smack,selinux,tomoyo,apparmor,bpf" if DEFAULT_SECURITY_SMACK
+> -	default "landlock,lockdown,yama,loadpin,safesetid,apparmor,selinux,smack,tomoyo,bpf" if DEFAULT_SECURITY_APPARMOR
+> -	default "landlock,lockdown,yama,loadpin,safesetid,tomoyo,bpf" if DEFAULT_SECURITY_TOMOYO
+> -	default "landlock,lockdown,yama,loadpin,safesetid,bpf" if DEFAULT_SECURITY_DAC
+> -	default "landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,bpf"
+> +	default "landlock,lockdown,yama,loadpin,safesetid,smack,selinux,tomoyo,apparmor,bpf,ipe" if DEFAULT_SECURITY_SMACK
+> +	default "landlock,lockdown,yama,loadpin,safesetid,apparmor,selinux,smack,tomoyo,bpf,ipe" if DEFAULT_SECURITY_APPARMOR
+> +	default "landlock,lockdown,yama,loadpin,safesetid,tomoyo,bpf,ipe" if DEFAULT_SECURITY_TOMOYO
+> +	default "landlock,lockdown,yama,loadpin,safesetid,bpf,ipe" if DEFAULT_SECURITY_DAC
+> +	default "landlock,lockdown,yama,loadpin,safesetid,selinux,smack,tomoyo,apparmor,bpf,ipe"
+
+Generally speaking the BPF LSM should be the last entry in the LSM
+list to help prevent issues caused by a BPF LSM returning an improper
+error and shortcutting a LSM after it.
+
+>  	help
+>  	  A comma-separated list of LSMs, in initialization order.
+>  	  Any LSMs left off this list, except for those with order
+
+...
+
+> diff --git a/security/ipe/Makefile b/security/ipe/Makefile
+> new file mode 100644
+> index 000000000000..571648579991
+> --- /dev/null
+> +++ b/security/ipe/Makefile
+> @@ -0,0 +1,10 @@
+> +# SPDX-License-Identifier: GPL-2.0
+> +#
+> +# Copyright (C) Microsoft Corporation. All rights reserved.
+> +#
+> +# Makefile for building the IPE module as part of the kernel tree.
+> +#
+> +
+> +obj-$(CONFIG_SECURITY_IPE) += \
+> +	hooks.o \
+> +	ipe.o \
+
+It doesn't look like security/ipe/hook.c is included in this patch.
+
+It is important to ensure that each patch compiles after it is
+applied.
+
+--
+paul-moore.com
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
