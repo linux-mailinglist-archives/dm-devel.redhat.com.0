@@ -1,93 +1,94 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 08E6F74BC0C
-	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 07:37:21 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B8E8574BC0F
+	for <lists+dm-devel@lfdr.de>; Sat,  8 Jul 2023 07:37:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1688794640;
+	s=mimecast20190719; t=1688794642;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bPk8xVjn1efRjSLGIBfWJ1FbJo+Rpf9HGvH1i7SG+G8=;
-	b=RcWZqCrnRUM+KN3oywRB56RMNsVlAER4WEZlfKJjRBMvpbPI1/uvRzzDV2hCYE33TG53Lg
-	WLqc2GZ84M20W9sQXUUjhVnjyLjadGRZk6RZ41v8IhRN7jUg6dcTKTt4NA2NQbnt1OTtGc
-	tweisjDZrafHAmKOlje44FbW0JdxNNM=
+	bh=uRaMGEhvDmUt/KnFXGhha+n+lqfwmlZQBcA11O11hoA=;
+	b=gidEBRlYMMx67W8QUFEY3ql9S/9HYobwQ238JlRrhgRYi0UBFHkgfH9A+2l4OCRdhdS/H2
+	7IHLNIeJIT1ENf/iBYTvrWWNY5B/Nb/oKYM9uFdOnf4GnP9kMGZEYwj0xzRvrIWuOqjGtk
+	8dPDsSI0XJ1UIxAVezoosOgTrD8Bifs=
 Received: from mimecast-mx02.redhat.com (mx3-rdu2.redhat.com
  [66.187.233.73]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-367-ALLrApLhOMeGUniqmGpjqA-1; Sat, 08 Jul 2023 01:37:19 -0400
-X-MC-Unique: ALLrApLhOMeGUniqmGpjqA-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-558-byH-4IilMyO96XMbXAA7Ng-1; Sat, 08 Jul 2023 01:37:19 -0400
+X-MC-Unique: byH-4IilMyO96XMbXAA7Ng-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 755413C0F694;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 77DE03C0F695;
 	Sat,  8 Jul 2023 05:37:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 69DA6492CA6;
-	Sat,  8 Jul 2023 05:37:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 237D92166B28;
+	Sat,  8 Jul 2023 05:37:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DAE3919451C0;
-	Sat,  8 Jul 2023 05:37:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F95F1946A61;
+	Sat,  8 Jul 2023 05:37:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
  [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6A98A19452CF
- for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 05:37:01 +0000 (UTC)
+ ESMTP id 2FA4019452CB
+ for <dm-devel@listman.corp.redhat.com>; Sat,  8 Jul 2023 05:37:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5B3852166B28; Sat,  8 Jul 2023 05:37:01 +0000 (UTC)
+ id 13C902166B26; Sat,  8 Jul 2023 05:37:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 516A42166B27
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 05:37:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0B3222166B25
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 05:37:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E63238041D5
- for <dm-devel@redhat.com>; Sat,  8 Jul 2023 05:37:01 +0000 (UTC)
-Received: from mail-qk1-f173.google.com (mail-qk1-f173.google.com
- [209.85.222.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E4F13185A78B
+ for <dm-devel@redhat.com>; Sat,  8 Jul 2023 05:36:59 +0000 (UTC)
+Received: from mail-qv1-f43.google.com (mail-qv1-f43.google.com
+ [209.85.219.43]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-370-_G2UroppPvqXLD-VMr1Npg-1; Sat, 08 Jul 2023 01:36:59 -0400
-X-MC-Unique: _G2UroppPvqXLD-VMr1Npg-1
-Received: by mail-qk1-f173.google.com with SMTP id
- af79cd13be357-765942d497fso241660585a.1
- for <dm-devel@redhat.com>; Fri, 07 Jul 2023 22:36:59 -0700 (PDT)
+ us-mta-240-GTPOnHsEOhyvHJ7cGS4LRA-1; Sat, 08 Jul 2023 01:36:58 -0400
+X-MC-Unique: GTPOnHsEOhyvHJ7cGS4LRA-1
+Received: by mail-qv1-f43.google.com with SMTP id
+ 6a1803df08f44-635eb3a1d93so18781076d6.1
+ for <dm-devel@redhat.com>; Fri, 07 Jul 2023 22:36:58 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
  d=1e100.net; s=20221208; t=1688794618; x=1691386618;
  h=in-reply-to:references:subject:cc:to:from:message-id:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=dLpzT15vthbUVO0k71raasVu18kKS27blTVJmNCp9qw=;
- b=chq9Ipp3ZCjITn5F8DMo0/9QfpZKfnu+zZJbk1lR+yazwELDYeac/Kc+bAhVwlD7dt
- HtqKVF0103d3RgEGY59vbXpvEE3ebMBwedNmaxdUC6fwfmlnjUSAlZOjxzDBEZbkjt4P
- s+LOVKNSVLyhbZ1zGbm/X3mq8/mOv0BANVIAzsAol9syYsccQDeg8HHzGfJdqksnn1UL
- GGeVy1wTjmau7RKmJxqmzY6hV93e5wjn+gBZ0yKO+mm0+FHL0BYuOiMB4CzVlIZuJq9o
- ETqmQF8JYtxgqYRgjziI7MGpjfBx1wSkItdxUELgc/2HITlq9h4x+KLnI1FdgZ2QFH1Z
- Xkkg==
-X-Gm-Message-State: ABy/qLY8fnfpatAaVWQa60xi2lsyvDut2qstYSL05AEH7EfFVSh5Kc6x
- be7kSVe8UPYUacOwO5lPjOWm
-X-Google-Smtp-Source: APBJJlGlLmfhTVjB4mohkDIyT1aO06AiFpA+DVrG9bmKubtLHJbdM9WNxESZ9ZiNvJziNKwf2PnzYA==
-X-Received: by 2002:a0c:df07:0:b0:635:dfe1:c203 with SMTP id
- g7-20020a0cdf07000000b00635dfe1c203mr6459539qvl.64.1688794618672; 
- Fri, 07 Jul 2023 22:36:58 -0700 (PDT)
+ bh=v2wkHCwd4vm+IEtkc2nWyRw52RwR9sbRYqSY91RfFRQ=;
+ b=HvOWhny6xPYa9Lg70GDVPB2GMCpy2qJmOQGj7EnW27/HqIcOsvQFJivDnmQJqqvW6D
+ zXoI+KYKCRHvUzI00MT4fohS/sMcC95tDmUhG9ZAD0hs19TUehVGeeBpd17DZ5fzNf/9
+ +lphkMUOVTGmzQn2SGB/9VyAgZgIuvzFuBjdI390FGEf0iMKO2dIstjIrWOKj4cH1V0R
+ eaSddE+MPYmRNFvpX96vq2YMJ9E4zb7EBDSSTlBwJLO+Tzrpa576ndv84USJ+0o5L5lE
+ QX4OkTl0Jnr5LY3QqSQWNoDhd9JQHXW8NHHSU72cH33Dr5shWqvNwEpVoMN6I4OsscNH
+ WwZg==
+X-Gm-Message-State: ABy/qLYdn2DS4AYieXyMfaKEn97K2rqkDYe4GBxJtZpplt/j/4h0lNhv
+ chsLvnFQHIwg3uonsHY7FhTI
+X-Google-Smtp-Source: APBJJlENhuCNF416DPzzrczcaxPIqtcSiA8/0DJvKcPv9Rl2z24HcHNBuekQRsoH+kaIbBJgTJf8+w==
+X-Received: by 2002:a0c:b24a:0:b0:635:abf1:e93e with SMTP id
+ k10-20020a0cb24a000000b00635abf1e93emr5908682qve.29.1688794617762; 
+ Fri, 07 Jul 2023 22:36:57 -0700 (PDT)
 Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
- o20-20020a0cf4d4000000b0063007ccaf42sm2971617qvm.57.2023.07.07.22.36.58
+ y12-20020a0c8ecc000000b006360778f314sm2940646qvb.105.2023.07.07.22.36.57
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Fri, 07 Jul 2023 22:36:58 -0700 (PDT)
+ Fri, 07 Jul 2023 22:36:57 -0700 (PDT)
 Date: Sat, 08 Jul 2023 01:36:57 -0400
-Message-ID: <2308135fa59ff970ca88649872acf35d.paul@paul-moore.com>
+Message-ID: <007992aec442cda5d5866e89b0ed5c69.paul@paul-moore.com>
 From: Paul Moore <paul@paul-moore.com>
 To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
  jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
  axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com
-References: <1687986571-16823-6-git-send-email-wufan@linux.microsoft.com>
-In-Reply-To: <1687986571-16823-6-git-send-email-wufan@linux.microsoft.com>
+References: <1687986571-16823-5-git-send-email-wufan@linux.microsoft.com>
+In-Reply-To: <1687986571-16823-5-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -96,8 +97,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH RFC v10 5/17] ipe: introduce 'boot_verified'
- as a trust provider
+Subject: Re: [dm-devel] [PATCH RFC v10 4/17] ipe: add LSM hooks on execution
+ and kernel read
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -118,7 +119,7 @@ Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: paul-moore.com
 Content-Type: text/plain; charset="us-ascii"
@@ -126,102 +127,149 @@ Content-Transfer-Encoding: 7bit
 
 On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
 > 
-> IPE is designed to provide system level trust guarantees, this usually
-> implies that trust starts from bootup with a hardware root of trust,
-> which validates the bootloader. After this, the bootloader verifies the
-> kernel and the initramfs.
-> 
-> As there's no currently supported integrity method for initramfs, and
-> it's typically already verified by the bootloader, introduce a property
-> that causes the first superblock to have an execution to be "pinned",
-> which is typically initramfs.
-> 
-> When the "pinned" device is unmounted, it will be "unpinned" and
-> `boot_verified` property will always evaluate to false afterward.
-> 
-> We use a pointer with a spin_lock to "pin" the device instead of rcu
-> because rcu synchronization may sleep, which is not allowed when
-> unmounting a device.
+> IPE's initial goal is to control both execution and the loading of
+> kernel modules based on the system's definition of trust. It
+> accomplishes this by plugging into the security hooks for
+> bprm_check_security, file_mprotect, mmap_file, kernel_load_data,
+> and kernel_read_data.
 > 
 > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
 > ---
->  security/ipe/eval.c          | 72 +++++++++++++++++++++++++++++++++++-
->  security/ipe/eval.h          |  2 +
->  security/ipe/hooks.c         | 12 ++++++
->  security/ipe/hooks.h         |  2 +
->  security/ipe/ipe.c           |  1 +
->  security/ipe/policy.h        |  2 +
->  security/ipe/policy_parser.c | 37 +++++++++++++++++-
->  7 files changed, 126 insertions(+), 2 deletions(-)
+>  security/ipe/eval.c  |  14 ++++
+>  security/ipe/eval.h  |   1 +
+>  security/ipe/hooks.c | 182 +++++++++++++++++++++++++++++++++++++++++++
+>  security/ipe/hooks.h |  25 ++++++
+>  security/ipe/ipe.c   |   6 ++
+>  5 files changed, 228 insertions(+)
+>  create mode 100644 security/ipe/hooks.c
+>  create mode 100644 security/ipe/hooks.h
 
-The compilation errors continue into this patch.
+Adding the 'hooks.h' header allows for much of code added in the
+previous patches to finally compile and there are a number of errors,
+too many to include here.  Please fix those and ensure that each
+point in the patchset compiles cleanly.
 
-> diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
-> index 27e5767480b0..28c14adfe6d2 100644
-> --- a/security/ipe/policy_parser.c
-> +++ b/security/ipe/policy_parser.c
-> @@ -265,6 +265,12 @@ static enum ipe_action_type parse_action(char *t)
->  	return match_token(t, action_tokens, args);
->  }
->  
-> +static const match_table_t property_tokens = {
-> +	{__IPE_PROP_BOOT_VERIFIED_FALSE,	"boot_verified=FALSE"},
-> +	{__IPE_PROP_BOOT_VERIFIED_TRUE,		"boot_verified=TRUE"},
-> +	{__IPE_PROP_INVALID,			NULL}
-> +};
+> diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
+> new file mode 100644
+> index 000000000000..d896a5a474bc
+> --- /dev/null
+> +++ b/security/ipe/hooks.c
+> @@ -0,0 +1,182 @@
+> +// SPDX-License-Identifier: GPL-2.0
+> +/*
+> + * Copyright (C) Microsoft Corporation. All rights reserved.
+> + */
 > +
->  /**
->   * parse_property - Parse the property type given a token string.
->   * @t: Supplies the token string to be parsed.
-> @@ -277,7 +283,36 @@ static enum ipe_action_type parse_action(char *t)
->   */
->  static int parse_property(char *t, struct ipe_rule *r)
->  {
-> -	return -EBADMSG;
-> +	substring_t args[MAX_OPT_ARGS];
-> +	struct ipe_prop *p = NULL;
-> +	int rc = 0;
-> +	int token;
+> +#include <linux/fs.h>
+> +#include <linux/types.h>
+> +#include <linux/binfmts.h>
+> +#include <linux/mman.h>
 > +
-> +	p = kzalloc(sizeof(*p), GFP_KERNEL);
-> +	if (!p)
-> +		return -ENOMEM;
+> +#include "ipe.h"
+> +#include "hooks.h"
+> +#include "eval.h"
 > +
-> +	token = match_token(t, property_tokens, args);
-> +
-> +	switch (token) {
-> +	case __IPE_PROP_BOOT_VERIFIED_FALSE:
-> +	case __IPE_PROP_BOOT_VERIFIED_TRUE:
-> +		p->type = token;
-> +		break;
-> +	case __IPE_PROP_INVALID:
+> +/**
+> + * ipe_bprm_check_security - ipe security hook function for bprm check.
+> + * @bprm: Supplies a pointer to a linux_binprm structure to source the file
+> + *	  being evaluated.
+> + *
+> + * This LSM hook is called when a binary is loaded through the exec
+> + * family of system calls.
+> + * Return:
+> + * *0	- OK
+> + * *!0	- Error
+> + */
+> +int ipe_bprm_check_security(struct linux_binprm *bprm)
+> +{
+> +	struct ipe_eval_ctx ctx = { 0 };
 
-You generally don't need to explicitly specify a case if the code
-immediately falls through to 'default'.
+It's up to you, but when you have a fequently used initializer like
+this it is often wrapped in a macro:
 
-> +	default:
-> +		rc = -EBADMSG;
-> +		break;
+  #define IPE_EVAL_CTX_INIT ((struct ipe_eval_ctx){ 0 })
+
+... so that you can write the variable decalaration like this:
+
+  struct ipe_eval_ctx ctx = IPE_EVAL_CTX_INIT;
+
+It's not a requirement, it just tends to look a little cleaner and
+should you ever need to change the initializer it makes your life
+a lot easier.
+
+> +	build_eval_ctx(&ctx, bprm->file, __IPE_OP_EXEC);
+> +	return ipe_evaluate_event(&ctx);
+> +}
+> +
+> +/**
+> + * ipe_mmap_file - ipe security hook function for mmap check.
+> + * @f: File being mmap'd. Can be NULL in the case of anonymous memory.
+> + * @reqprot: The requested protection on the mmap, passed from usermode.
+> + * @prot: The effective protection on the mmap, resolved from reqprot and
+> + *	  system configuration.
+> + * @flags: Unused.
+> + *
+> + * This hook is called when a file is loaded through the mmap
+> + * family of system calls.
+> + *
+> + * Return:
+> + * * 0	- OK
+> + * * !0	- Error
+> + */
+> +int ipe_mmap_file(struct file *f, unsigned long reqprot, unsigned long prot,
+> +		  unsigned long flags)
+
+Since @reqprot is always going to be unused in this function, you
+might want to mark it as such to help prevent compiler
+warnings/errors, for example:
+
+ unsigned long reqprot __always_unused
+
+> +{
+> +	struct ipe_eval_ctx ctx = { 0 };
+> +
+> +	if (prot & PROT_EXEC) {
+> +		build_eval_ctx(&ctx, f, __IPE_OP_EXEC);
+> +		return ipe_evaluate_event(&ctx);
 > +	}
-> +	if (rc)
-> +		goto err;
-> +	list_add_tail(&p->next, &r->props);
 > +
-> +out:
-> +	return rc;
-> +err:
-> +	kfree(p);
-> +	goto out;
+> +	return 0;
+> +}
+> +
+> +/**
+> + * ipe_file_mprotect - ipe security hook function for mprotect check.
+> + * @vma: Existing virtual memory area created by mmap or similar.
+> + * @reqprot: The requested protection on the mmap, passed from usermode.
+> + * @prot: The effective protection on the mmap, resolved from reqprot and
+> + *	  system configuration.
+> + *
+> + * This LSM hook is called when a mmap'd region of memory is changing
+> + * its protections via mprotect.
+> + *
+> + * Return:
+> + * * 0	- OK
+> + * * !0	- Error
+> + */
+> +int ipe_file_mprotect(struct vm_area_struct *vma, unsigned long reqprot,
 
-Once again, don't use a goto when the jump destination simply does a
-return, do the return directly.
+See my comment above about @reqprot.
 
->  }
->  
->  /**
-> -- 
-> 2.25.1
+> +		      unsigned long prot)
+> +{
+> +	struct ipe_eval_ctx ctx = { 0 };
+> +
+> +	/* Already Executable */
+> +	if (vma->vm_flags & VM_EXEC)
+> +		return 0;
+> +
+> +	if (prot & PROT_EXEC) {
+> +		build_eval_ctx(&ctx, vma->vm_file, __IPE_OP_EXEC);
+> +		return ipe_evaluate_event(&ctx);
+> +	}
+> +
+> +	return 0;
+> +}
 
 --
 paul-moore.com
