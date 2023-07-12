@@ -2,92 +2,72 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2A0E474E6FE
-	for <lists+dm-devel@lfdr.de>; Tue, 11 Jul 2023 08:13:51 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 27B2174FDF3
+	for <lists+dm-devel@lfdr.de>; Wed, 12 Jul 2023 05:43:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689056029;
+	s=mimecast20190719; t=1689133423;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=bsEv+oWTx+bGUVQK8ltI4CYD+52QT7bV8dHn52fu0SU=;
-	b=UrzdRyX1fAbKoDAiFBNb34aPH2pZXrLORFEiRP7+ka84pbLvvRq32hSpQaVkcEa5qdKLkd
-	tHFuYvRJ2pvw1J7R+sLSoV6/A61wBt/ocEgpV+MEM6kBtUnG6JvHytqwbUbpzkiopNMHZD
-	otToR1W7F7VASQqhKKbNBBrTTMW0BRU=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-672-NS1Jjz1FPNW9JcfIOUEuwA-1; Tue, 11 Jul 2023 02:13:46 -0400
-X-MC-Unique: NS1Jjz1FPNW9JcfIOUEuwA-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	bh=jDqv9oGSbABF89DT8tCpI5Pmrnob2xHlv66GpZHqOQ8=;
+	b=evJtbHXZbMtGy9owcwLCbCuN3UbnVPTtT8HawcgyYNVzMdxx7ImLJKZG+IdKCEXQOM1inf
+	XKky8plkxjXKosnHKqprG1YOkcDxp1eM/FfHxDgCWCOUqRIZ68EVA+FgjiwYTofLQ5E3jD
+	Pc3ZNvDpaRizvwzFe2gl9eIXm0Pz5BA=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-144-tpQN_pk3PnyFWn46n8EyPw-1; Tue, 11 Jul 2023 23:43:40 -0400
+X-MC-Unique: tpQN_pk3PnyFWn46n8EyPw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37CCE8631DB;
-	Tue, 11 Jul 2023 06:13:43 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 430A02166B26;
-	Tue, 11 Jul 2023 06:13:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 803393C108C5;
+	Wed, 12 Jul 2023 03:43:35 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2CA6B200AD6E;
+	Wed, 12 Jul 2023 03:43:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 630E519451D4;
-	Tue, 11 Jul 2023 06:13:33 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 13CE81946A42;
+	Wed, 12 Jul 2023 03:43:25 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 245E219465B8
- for <dm-devel@listman.corp.redhat.com>; Tue, 11 Jul 2023 06:13:31 +0000 (UTC)
+ ESMTP id B7587194658D
+ for <dm-devel@listman.corp.redhat.com>; Wed, 12 Jul 2023 03:43:23 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C7FE3C54FB3; Tue, 11 Jul 2023 06:13:30 +0000 (UTC)
+ id C9BFE4067A02; Wed, 12 Jul 2023 02:17:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C06BDC478DE
- for <dm-devel@redhat.com>; Tue, 11 Jul 2023 06:13:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C22C04067A00
+ for <dm-devel@redhat.com>; Wed, 12 Jul 2023 02:17:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 87EBB3C0E440
- for <dm-devel@redhat.com>; Tue, 11 Jul 2023 06:13:30 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
- [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-611-m4z5yANrMb2xVT-_4TxLgQ-1; Tue, 11 Jul 2023 02:13:24 -0400
-X-MC-Unique: m4z5yANrMb2xVT-_4TxLgQ-1
-Received: from mail02.huawei.com (unknown [172.30.67.153])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4R0Vt43QmFz4f3kG1;
- Tue, 11 Jul 2023 14:13:16 +0800 (CST)
-Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP2 (Coremail) with SMTP id Syh0CgD3nOrx8qxkokOANg--.52214S4;
- Tue, 11 Jul 2023 14:13:18 +0800 (CST)
-From: yangerkun <yangerkun@huaweicloud.com>
-To: snitzer@kernel.org,
-	mpatocka@redhat.com,
-	agk@redhat.com,
-	tj@kernel.org
-Date: Tue, 11 Jul 2023 14:11:29 +0800
-Message-Id: <20230711061129.2706759-1-yangerkun@huaweicloud.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60B161C05143
+ for <dm-devel@redhat.com>; Wed, 12 Jul 2023 03:43:23 +0000 (UTC)
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
+ relay.mimecast.com with ESMTP id us-mta-54-YkOnIBpQMUCqa8eM6eT8AA-1; Tue,
+ 11 Jul 2023 23:43:21 -0400
+X-MC-Unique: YkOnIBpQMUCqa8eM6eT8AA-1
+Received: by linux.microsoft.com (Postfix, from userid 1052)
+ id D850A21C4255; Tue, 11 Jul 2023 20:43:19 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com D850A21C4255
+Date: Tue, 11 Jul 2023 20:43:19 -0700
+From: Fan Wu <wufan@linux.microsoft.com>
+To: Mike Snitzer <snitzer@kernel.org>
+Message-ID: <20230712034319.GA17642@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <1687986571-16823-1-git-send-email-wufan@linux.microsoft.com>
+ <1687986571-16823-12-git-send-email-wufan@linux.microsoft.com>
+ <ZKgm+ffQbdDTxrg9@redhat.com>
 MIME-Version: 1.0
-X-CM-TRANSID: Syh0CgD3nOrx8qxkokOANg--.52214S4
-X-Coremail-Antispam: 1UD129KBjvJXoWxCrW5trykuF1fKF4xAw13urg_yoW5Wr4UpF
- W5Jr13Gws5Kr47Kr90yr18Ja9xGF18GF9xCrWxZ343Cw15WryFqF12yF48XrWkAF95Ja1U
- ZFWkJa1qkFyFy3DanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
- 9KBjDU0xBIdaVrnRJUUUyG14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
- rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
- 1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
- JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
- CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
- 2Ix0cI8IcVAFwI0_JrI_JrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
- W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1l42xK82IYc2Ij64vI
- r41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8Gjc
- xK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0
- cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r1j6r4UMIIF0xvE42xK8V
- AvwI8IcIk0rVWrZr1j6s0DMIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7Cj
- xVAFwI0_Jr0_GrUvcSsGvfC2KfnxnUUI43ZEXa7VU1a9aPUUUUU==
-X-CM-SenderInfo: 51dqwvhunx0q5kxd4v5lfo033gof0z/
-X-CFilter-Loop: Reflected
+In-Reply-To: <ZKgm+ffQbdDTxrg9@redhat.com>
+User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -95,8 +75,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: [dm-devel] [PATCH v3] dm-crypt: reexport sysfs of kcryptd workqueue
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [RFC PATCH v10 11/17] dm-verity: consume root hash
+ digest and signature data via LSM hook
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,107 +89,152 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yukuai3@huawei.com, dm-devel@redhat.com, yangerkun@huawei.com,
- yangerkun@huaweicloud.com
+Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
+ paul@paul-moore.com, dm-devel@redhat.com, corbet@lwn.net,
+ Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
+ roberto.sassu@huawei.com, jmorris@namei.org, zohar@linux.ibm.com,
+ linux-kernel@vger.kernel.org, ebiggers@kernel.org, audit@vger.kernel.org,
+ linux-security-module@vger.kernel.org, eparis@redhat.com,
+ linux-fscrypt@vger.kernel.org, linux-integrity@vger.kernel.org, agk@redhat.com,
+ serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huaweicloud.com
+X-Mimecast-Originator: linux.microsoft.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: yangerkun <yangerkun@huawei.com>
+On Fri, Jul 07, 2023 at 10:53:45AM -0400, Mike Snitzer wrote:
+Thanks for the review!
 
-Once there is a heavy IO load, so many encrypt/decrypt work will occupy
-all of the cpu, which may lead the poor performance for other service.
-So the idea like 'a2b8b2d97567 ("dm crypt: export sysfs of kcryptd
-workqueue")' said seems necessary. We can export "kcryptd" workqueue
-sysfs, the entry like cpumask/max_active and so on can help us to limit
-the usage for encrypt/decrypt work.
+> On Wed, Jun 28 2023 at  5:09P -0400,
+> Fan Wu <wufan@linux.microsoft.com> wrote:
+> 
+> > From: Deven Bowers <deven.desai@linux.microsoft.com>
+> > 
+> > dm-verity provides a strong guarantee of a block device's integrity. As
+> > a generic way to check the integrity of a block device, it provides
+> > those integrity guarantees to its higher layers, including the filesystem
+> > level.
+> > 
+> > An LSM that control access to a resource on the system based on the
+> > available integrity claims can use this transitive property of
+> > dm-verity, by querying the underlying block_device of a particular
+> > file.
+> > 
+> > The digest and signature information need to be stored in the block
+> > device to fulfill the next requirement of authorization via LSM policy.
+> > This will enable the LSM to perform revocation of devices that are still
+> > mounted, prohibiting execution of files that are no longer authorized
+> > by the LSM in question.
+> > 
+> > This patch added two security hook calls in dm-verity to save the
+> > dm-verity roothash and the roothash signature to LSM blobs.
+> > 
+> > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
+> > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
+> > ---
+...
+> > diff --git a/drivers/md/dm-verity-verify-sig.c b/drivers/md/dm-verity-verify-sig.c
+> > index 4836508ea50c..33165dd7470f 100644
+> > --- a/drivers/md/dm-verity-verify-sig.c
+> > +++ b/drivers/md/dm-verity-verify-sig.c
+> > @@ -9,6 +9,9 @@
+> >  #include <linux/verification.h>
+> >  #include <keys/user-type.h>
+> >  #include <linux/module.h>
+> > +#include <linux/security.h>
+> > +#include <linux/dm-verity.h>
+> > +#include "dm-core.h"
+> 
+> Why are you including dm-core.h here?
+This is used to get the complete definition of struct mapped_device to extract
+the struct block_device from it.
 
-However, that commit does not consider the reload table will call .ctr
-before .dtr, so the reload for dm-crypt will fail since the same sysfs
-problem, and then we revert that commit('48b0777cd93d ("Revert "dm
-crypt: export sysfs of kcryptd workqueue"")').
+> 
+> >  #include "dm-verity.h"
+> >  #include "dm-verity-verify-sig.h"
+> >  
+> > @@ -97,14 +100,17 @@ int verity_verify_sig_parse_opt_args(struct dm_arg_set *as,
+> >   * verify_verify_roothash - Verify the root hash of the verity hash device
+> >   *			     using builtin trusted keys.
+> >   *
+> > + * @bdev: block_device representing the device-mapper created block device.
+> > + *	  Used by the security hook, to set information about the block_device.
+> >   * @root_hash: For verity, the roothash/data to be verified.
+> >   * @root_hash_len: Size of the roothash/data to be verified.
+> >   * @sig_data: The trusted signature that verifies the roothash/data.
+> >   * @sig_len: Size of the signature.
+> >   *
+> >   */
+> > -int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
+> > -			    const void *sig_data, size_t sig_len)
+> > +int verity_verify_root_hash(struct block_device *bdev, const void *root_hash,
+> > +			    size_t root_hash_len, const void *sig_data,
+> > +			    size_t sig_len)
+> >  {
+> >  	int ret;
+> >  
+> > @@ -126,8 +132,12 @@ int verity_verify_root_hash(const void *root_hash, size_t root_hash_len,
+> >  				NULL,
+> >  #endif
+> >  				VERIFYING_UNSPECIFIED_SIGNATURE, NULL, NULL);
+> > +	if (ret)
+> > +		return ret;
+> >  
+> > -	return ret;
+> > +	return security_bdev_setsecurity(bdev,
+> > +					 DM_VERITY_SIGNATURE_SEC_NAME,
+> > +					 sig_data, sig_len);
+> >  }
+> >  
+> >  void verity_verify_sig_opts_cleanup(struct dm_verity_sig_opts *sig_opts)
+> 
+> Both of your calls to security_bdev_setsecurity() to set your blobs in
+> the bdev are suspect because you're doing so from the verity_ctr().
+> The mapped_device has 2 dm_table slots (active and inactive).  The
+> verity_ctr() becomes part of the inactive slot, there is an extra step
+> to bind the inactive table to the active table.
+> 
+> This leads to you changing the blobs in the global bdev _before_ the
+> table is actually active.  It is possible that the inactive table will
+> simply be removed and the DM verity device put back in service;
+> leaving your blob(s) in the bdev inconsistent.
+> 
+> This issue has parallels to how we need to defer changing the global
+> queue_limits associated with a request_queue until _after_ all table
+> loading is settled and then the update is done just before resuming
+> the DM device (mapped_device) -- see dm_table_set_restrictions().
+> 
+> Unfortunately, this feels like it may require a new hook in the
+> target_type struct (e.g. ->finalize())
+> 
+> Mike
+Thanks for pointing out this issue. We were calling security_bdev_setsecurity()
+because the roothash signature data is only available in verity_ctr()
+and it is discarded after verity_ctr() finishes.
+After digging deeper into the table_load, I realized that we were indeed
+wrong here.
 
-Actually, what we should do is give a unique name once we try reload
-table, we can use ida to fix the problem.
+Based on my understanding of your suggestion, it seems that the correct
+approach would be to save the roothash signature into the struct dm_target
+and then invoke security_bdev_setsecurity() before activating
+the inactive table in the __bind function (where dm_table_set_restrictions is called).
 
-Signed-off-by: yangerkun <yangerkun@huawei.com>
----
- drivers/md/dm-crypt.c | 28 +++++++++++++++++++++++-----
- 1 file changed, 23 insertions(+), 5 deletions(-)
+To facilitate this process, it seems appropriate to introduce a new hook
+called finalize() within the struct target_type. This hook would enable
+targets to define tasks that need to be completed before activating
+a new table.
 
-v1->v2:
-rewrite the commit msg
+In our specific case, we would add a finalize hook to the dm-verity module,
+allowing us to call security_bdev_setsecurity() and associate the roothash
+information in the struct dm_target with the struct block_device of
+the struct mapped_device. Is this correct?
 
-v2->v3:
-no logical change, just rebase to latest linux kernel
-
-diff --git a/drivers/md/dm-crypt.c b/drivers/md/dm-crypt.c
-index 1dc6227d353e..f4678eb71322 100644
---- a/drivers/md/dm-crypt.c
-+++ b/drivers/md/dm-crypt.c
-@@ -47,6 +47,8 @@
- 
- #define DM_MSG_PREFIX "crypt"
- 
-+static DEFINE_IDA(crypt_queue_ida);
-+
- /*
-  * context holding the current state of a multi-part conversion
-  */
-@@ -182,6 +184,7 @@ struct crypt_config {
- 		struct crypto_aead **tfms_aead;
- 	} cipher_tfm;
- 	unsigned int tfms_count;
-+	int crypt_queue_id;
- 	unsigned long cipher_flags;
- 
- 	/*
-@@ -2735,6 +2738,9 @@ static void crypt_dtr(struct dm_target *ti)
- 	if (cc->crypt_queue)
- 		destroy_workqueue(cc->crypt_queue);
- 
-+	if (cc->crypt_queue_id)
-+		ida_free(&crypt_queue_ida, cc->crypt_queue_id);
-+
- 	crypt_free_tfms(cc);
- 
- 	bioset_exit(&cc->bs);
-@@ -3371,12 +3377,24 @@ static int crypt_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	}
- 
- 	if (test_bit(DM_CRYPT_SAME_CPU, &cc->flags))
--		cc->crypt_queue = alloc_workqueue("kcryptd/%s", WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
-+		cc->crypt_queue = alloc_workqueue("kcryptd-%s", WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM,
- 						  1, devname);
--	else
--		cc->crypt_queue = alloc_workqueue("kcryptd/%s",
--						  WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM | WQ_UNBOUND,
--						  num_online_cpus(), devname);
-+	else {
-+		int id = ida_alloc_min(&crypt_queue_ida, 1, GFP_KERNEL);
-+
-+		if (id < 0) {
-+			ti->error = "Couldn't get kcryptd queue id";
-+			ret = id;
-+			goto bad;
-+		}
-+
-+		cc->crypt_queue_id = id;
-+		cc->crypt_queue = alloc_workqueue("kcryptd-%s-%d",
-+						  WQ_CPU_INTENSIVE | WQ_MEM_RECLAIM |
-+						  WQ_UNBOUND | WQ_SYSFS,
-+						  num_online_cpus(), devname, id);
-+	}
-+
- 	if (!cc->crypt_queue) {
- 		ti->error = "Couldn't create kcryptd queue";
- 		goto bad;
--- 
-2.39.2
+Thanks,
+- Fan
 
 --
 dm-devel mailing list
