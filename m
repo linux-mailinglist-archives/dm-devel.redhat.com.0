@@ -1,89 +1,91 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A10517518BE
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Jul 2023 08:25:05 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id F02FD7518C0
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Jul 2023 08:25:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689229504;
+	s=mimecast20190719; t=1689229510;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=WY9mBIhFnjjg44RHb09jBeYbtz1lU0JjTPMD0/y7jHc=;
-	b=atKb6GXQMKIVAZalIyHJoZZk38ciV0hACS6lZtiM2xslvHouml4HUNRsf1YZ7A6cGghi4h
-	yiT3u7Z6QlS+2y7dENmnt/wtJO8azPp3c6fI0oLFZCVF2/w5XckY3TAklEi2FD+0/ZWiYh
-	tEKI5TcdPgcALadmlhQwdx26trgRZHU=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-597-wFwSO7H3MzS5K8jKUzS5dQ-1; Thu, 13 Jul 2023 02:25:00 -0400
-X-MC-Unique: wFwSO7H3MzS5K8jKUzS5dQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=NzMvGkt5pQXjQep5H0Y/UUT6MVmHBNvjKKFRcrTqpf8=;
+	b=VAmtogTYtGVuKz0g15JEhVKtDyPXdEkFGGcbp2+NBzk0dt82j1tjtBVSG1rDVJK3pG5FCN
+	eD+k/5R06Y6aDrodF5D+/FcJWf/nF69U85w11PFEFX0NkBZhxkvTWlN65aXZQ2WMrK2iE3
+	c8d28qU7LOUhkf414pnTWewNjgSnCuY=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-662-MvOIayUYOEePWv3QKVUvnw-1; Thu, 13 Jul 2023 02:25:00 -0400
+X-MC-Unique: MvOIayUYOEePWv3QKVUvnw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 86A061C03D84;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 874FC185A791;
 	Thu, 13 Jul 2023 06:24:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D2EFA40462B4;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id BEF594CD0D1;
 	Thu, 13 Jul 2023 06:24:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2CBB81946A4C;
-	Thu, 13 Jul 2023 06:24:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CF90119465B9;
+	Thu, 13 Jul 2023 06:24:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
  [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 57DDD19465B6
- for <dm-devel@listman.corp.redhat.com>; Wed, 12 Jul 2023 13:39:33 +0000 (UTC)
+ ESMTP id F26E71946594
+ for <dm-devel@listman.corp.redhat.com>; Wed, 12 Jul 2023 16:06:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 381F54CD0CD; Wed, 12 Jul 2023 13:39:33 +0000 (UTC)
+ id B05D24CD0CD; Wed, 12 Jul 2023 16:06:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 308AB4CD0C6
- for <dm-devel@redhat.com>; Wed, 12 Jul 2023 13:39:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A8AA2492C13
+ for <dm-devel@redhat.com>; Wed, 12 Jul 2023 16:06:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EDA5A8EBBB8
- for <dm-devel@redhat.com>; Wed, 12 Jul 2023 13:39:32 +0000 (UTC)
-Received: from mail-lf1-f41.google.com (mail-lf1-f41.google.com
- [209.85.167.41]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 88B5D93B762
+ for <dm-devel@redhat.com>; Wed, 12 Jul 2023 16:06:49 +0000 (UTC)
+Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com
+ [209.85.167.50]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-38-kDKhS_0TOcOj0-2LcExUkg-1; Wed, 12 Jul 2023 09:39:30 -0400
-X-MC-Unique: kDKhS_0TOcOj0-2LcExUkg-1
-Received: by mail-lf1-f41.google.com with SMTP id
- 2adb3069b0e04-4fbf1f6c771so1813824e87.1
- for <dm-devel@redhat.com>; Wed, 12 Jul 2023 06:39:22 -0700 (PDT)
+ us-mta-657-8LnhhxU2N_quUkpa23Lrww-1; Wed, 12 Jul 2023 12:06:47 -0400
+X-MC-Unique: 8LnhhxU2N_quUkpa23Lrww-1
+Received: by mail-lf1-f50.google.com with SMTP id
+ 2adb3069b0e04-4fb96e2b573so11506602e87.3
+ for <dm-devel@redhat.com>; Wed, 12 Jul 2023 09:06:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1689169161; x=1691761161;
- h=cc:to:subject:message-id:date:from:in-reply-to:references
- :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
- :reply-to;
- bh=+evqX27DGBiWJkyZnqGeEHQI9QcDiX7JHwbrqFd6EpQ=;
- b=ZZxXIEK6/u3JNIQPnSXn4pNsJrNjQ11u6YPoVkuLa4l/UEtD/ot/VCxe8cD4+KtvmB
- V0vpkV0TX4zxRJQbqycNlnlHfdzUHPHA3k9wDKGUc+8U6k6jvp+qq0BOhDdQ06qD8oGo
- R1s1yiRbO0+V7YGBDrXtWtS4utPRWjfo//31iHVLtUs1GUbvD3mpX45COn9EBq52wiJF
- GVEdkGjQtBMOGmMyru105nKB+gSFUmGz6suDPBcs/LESQUFXnPUQqDzQ8vr6K8CRKM2R
- roV/DIO6n/SbXK2mOggDB6Lv8CTMJP7am2yM/ySHY7iUiHPC/3wdQCvl1COcqAKBfRkR
- PYWQ==
-X-Gm-Message-State: ABy/qLYXCzWNVp9L1hWIRSINNatJapl52y97NlsNWC+KnNO+BWPrGq0g
- UpCubvZ6yiJYlSH5JpLyGZleLtcq8fUEZPLUvZUgjw==
-X-Google-Smtp-Source: APBJJlEI1gyVFA9e0vzN1OZw8HqZ9LgUDYjdSVkcc/YNKBWyCbO3ruOl1C16YRvIxaIjAxVOOIhj+dxwF3VF9wwHpIo=
-X-Received: by 2002:a05:6512:34cd:b0:4fb:82ac:9d23 with SMTP id
- w13-20020a05651234cd00b004fb82ac9d23mr13814794lfr.36.1689169161029; Wed, 12
- Jul 2023 06:39:21 -0700 (PDT)
+ d=1e100.net; s=20221208; t=1689178006; x=1691770006;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=8X6ArMXh62A5UxRR3ZN+q1CvObhoeb8ltfmXU1xj+zw=;
+ b=dwxAzPlTtwLHXKqcgFVyt7c0A7Gdyo9J8gTVtavoL0nslT9xZ8GA74OwqFqjA4RJ6Q
+ p768ja64MPI6LHgaGhsdb34Q0teiZfE+1wgUPD05ndga5nT14WG3wiN2K9zyJiud8Foq
+ 6GdQr8wRxtxGY6m2UivT/7HGAnk2YT1SMqwy6jG/KdDeWf9SAkqZd7+nwprntwsTuxOg
+ 5ZZhlKQvGhrhYgytnUHtx3SUtT1T7pZMBfqtkvarKx8Gviv0vEpcu8fFNUUcBMAIrx4z
+ vwskjIpBpyjRnEtEz2oY8fN9QpCuoIAdUAJaDQzAZ4SaNi+YO2v1PIL5oMxDNJcVn0Hq
+ quOA==
+X-Gm-Message-State: ABy/qLa5vWp+VNRF6FR2NYTpa0liixU7gtQ0yA81VphYTBz3RzOCzefZ
+ dTkI32rlOEseIx80vpovY/1zwGOgo6YDEhmBBXVuww==
+X-Google-Smtp-Source: APBJJlHjPtNIqZNhhKZT3JSG1orBAozCwd3+TwwvFjulJuToD7D5iIrA7grwKZQU8Z67qc0UJ0oDxWof6WbkdfMRi3A=
+X-Received: by 2002:ac2:5b1d:0:b0:4fb:7a90:1abe with SMTP id
+ v29-20020ac25b1d000000b004fb7a901abemr15797051lfn.49.1689178006211; Wed, 12
+ Jul 2023 09:06:46 -0700 (PDT)
 MIME-Version: 1.0
 References: <20230629165206.383-1-jack@suse.cz>
  <20230704122224.16257-1-jack@suse.cz>
  <ZKbgAG5OoHVyUKOG@infradead.org>
 In-Reply-To: <ZKbgAG5OoHVyUKOG@infradead.org>
 From: Haris Iqbal <haris.iqbal@ionos.com>
-Date: Wed, 12 Jul 2023 15:39:09 +0200
-Message-ID: <CAJpMwyhKW23zEfMcsGrBG6Bq0Md40vZ4qj-PgDkR6KWPv8+7PQ@mail.gmail.com>
+Date: Wed, 12 Jul 2023 18:06:35 +0200
+Message-ID: <CAJpMwyiUcw+mH0sZa8f8UJsaSZ7NSE65s2gZDEia+pASyP_gJQ@mail.gmail.com>
 To: Christoph Hellwig <hch@infradead.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -134,106 +136,33 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: ionos.com
-Content-Type: multipart/mixed; boundary="===============6215059131314035413=="
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
---===============6215059131314035413==
-Content-Type: multipart/alternative; boundary="000000000000cf1dc906004a5728"
-
---000000000000cf1dc906004a5728
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Jul 6, 2023 at 5:38=E2=80=AFPM Christoph Hellwig <hch@infradead.org=
-> wrote:
-
-> On Tue, Jul 04, 2023 at 02:21:28PM +0200, Jan Kara wrote:
-> > Create struct bdev_handle that contains all parameters that need to be
-> > passed to blkdev_put() and provide blkdev_get_handle_* functions that
-> > return this structure instead of plain bdev pointer. This will
-> > eventually allow us to pass one more argument to blkdev_put() without
-> > too much hassle.
->
-> Can we use the opportunity to come up with better names?  blkdev_get_*
-> was always a rather horrible naming convention for something that
-> ends up calling into ->open.
->
-> What about:
->
-> struct bdev_handle *bdev_open_by_dev(dev_t dev, blk_mode_t mode, void
-> *holder,
->                 const struct blk_holder_ops *hops);
-> struct bdev_handle *bdev_open_by_path(dev_t dev, blk_mode_t mode,
->                 void *holder, const struct blk_holder_ops *hops);
-> void bdev_release(struct bdev_handle *handle);
->
-
-+1 to this.
-Also, if we are removing "handle" from the function, should the name of the
-structure it returns also change? Would something like bdev_ctx be better?
-
-
->
-> ?
->
-
---000000000000cf1dc906004a5728
-Content-Type: text/html; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-
-<div dir=3D"ltr"><div dir=3D"ltr"><br></div><br><div class=3D"gmail_quote">=
-<div dir=3D"ltr" class=3D"gmail_attr">On Thu, Jul 6, 2023 at 5:38=E2=80=AFP=
-M Christoph Hellwig &lt;<a href=3D"mailto:hch@infradead.org">hch@infradead.=
-org</a>&gt; wrote:<br></div><blockquote class=3D"gmail_quote" style=3D"marg=
-in:0px 0px 0px 0.8ex;border-left:1px solid rgb(204,204,204);padding-left:1e=
-x">On Tue, Jul 04, 2023 at 02:21:28PM +0200, Jan Kara wrote:<br>
-&gt; Create struct bdev_handle that contains all parameters that need to be=
-<br>
-&gt; passed to blkdev_put() and provide blkdev_get_handle_* functions that<=
-br>
-&gt; return this structure instead of plain bdev pointer. This will<br>
-&gt; eventually allow us to pass one more argument to blkdev_put() without<=
-br>
-&gt; too much hassle.<br>
-<br>
-Can we use the opportunity to come up with better names?=C2=A0 blkdev_get_*=
-<br>
-was always a rather horrible naming convention for something that<br>
-ends up calling into -&gt;open.<br>
-<br>
-What about:<br>
-<br>
-struct bdev_handle *bdev_open_by_dev(dev_t dev, blk_mode_t mode, void *hold=
-er,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 const struct blk_ho=
-lder_ops *hops);<br>
-struct bdev_handle *bdev_open_by_path(dev_t dev, blk_mode_t mode,<br>
-=C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 =C2=A0 void *holder, const=
- struct blk_holder_ops *hops);<br>
-void bdev_release(struct bdev_handle *handle);<br></blockquote><div><br></d=
-iv><div>+1 to this.</div><div>Also, if we are removing &quot;handle&quot; f=
-rom the function, should the name of the structure it returns also change? =
-Would something like bdev_ctx be better?<br></div><div>=C2=A0</div><blockqu=
-ote class=3D"gmail_quote" style=3D"margin:0px 0px 0px 0.8ex;border-left:1px=
- solid rgb(204,204,204);padding-left:1ex">
-<br>
-?<br>
-</blockquote></div></div>
-
---000000000000cf1dc906004a5728--
-
---===============6215059131314035413==
-Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
-Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============6215059131314035413==--
+T24gVGh1LCBKdWwgNiwgMjAyMyBhdCA1OjM44oCvUE0gQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBp
+bmZyYWRlYWQub3JnPiB3cm90ZToKPgo+IE9uIFR1ZSwgSnVsIDA0LCAyMDIzIGF0IDAyOjIxOjI4
+UE0gKzAyMDAsIEphbiBLYXJhIHdyb3RlOgo+ID4gQ3JlYXRlIHN0cnVjdCBiZGV2X2hhbmRsZSB0
+aGF0IGNvbnRhaW5zIGFsbCBwYXJhbWV0ZXJzIHRoYXQgbmVlZCB0byBiZQo+ID4gcGFzc2VkIHRv
+IGJsa2Rldl9wdXQoKSBhbmQgcHJvdmlkZSBibGtkZXZfZ2V0X2hhbmRsZV8qIGZ1bmN0aW9ucyB0
+aGF0Cj4gPiByZXR1cm4gdGhpcyBzdHJ1Y3R1cmUgaW5zdGVhZCBvZiBwbGFpbiBiZGV2IHBvaW50
+ZXIuIFRoaXMgd2lsbAo+ID4gZXZlbnR1YWxseSBhbGxvdyB1cyB0byBwYXNzIG9uZSBtb3JlIGFy
+Z3VtZW50IHRvIGJsa2Rldl9wdXQoKSB3aXRob3V0Cj4gPiB0b28gbXVjaCBoYXNzbGUuCj4KPiBD
+YW4gd2UgdXNlIHRoZSBvcHBvcnR1bml0eSB0byBjb21lIHVwIHdpdGggYmV0dGVyIG5hbWVzPyAg
+YmxrZGV2X2dldF8qCj4gd2FzIGFsd2F5cyBhIHJhdGhlciBob3JyaWJsZSBuYW1pbmcgY29udmVu
+dGlvbiBmb3Igc29tZXRoaW5nIHRoYXQKPiBlbmRzIHVwIGNhbGxpbmcgaW50byAtPm9wZW4uCj4K
+PiBXaGF0IGFib3V0Ogo+Cj4gc3RydWN0IGJkZXZfaGFuZGxlICpiZGV2X29wZW5fYnlfZGV2KGRl
+dl90IGRldiwgYmxrX21vZGVfdCBtb2RlLCB2b2lkICpob2xkZXIsCj4gICAgICAgICAgICAgICAg
+IGNvbnN0IHN0cnVjdCBibGtfaG9sZGVyX29wcyAqaG9wcyk7Cj4gc3RydWN0IGJkZXZfaGFuZGxl
+ICpiZGV2X29wZW5fYnlfcGF0aChkZXZfdCBkZXYsIGJsa19tb2RlX3QgbW9kZSwKPiAgICAgICAg
+ICAgICAgICAgdm9pZCAqaG9sZGVyLCBjb25zdCBzdHJ1Y3QgYmxrX2hvbGRlcl9vcHMgKmhvcHMp
+Owo+IHZvaWQgYmRldl9yZWxlYXNlKHN0cnVjdCBiZGV2X2hhbmRsZSAqaGFuZGxlKTsKCisxIHRv
+IHRoaXMuCkFsc28sIGlmIHdlIGFyZSByZW1vdmluZyAiaGFuZGxlIiBmcm9tIHRoZSBmdW5jdGlv
+biwgc2hvdWxkIHRoZSBuYW1lCm9mIHRoZSBzdHJ1Y3R1cmUgaXQgcmV0dXJucyBhbHNvIGNoYW5n
+ZT8gV291bGQgc29tZXRoaW5nIGxpa2UgYmRldl9jdHgKYmUgYmV0dGVyPwoKKEFwb2xvZ2llcyBm
+b3IgdGhlIHByZXZpb3VzIG5vbi1wbGFpbnRleHQgZW1haWwpCgo+Cj4gPwoKLS0KZG0tZGV2ZWwg
+bWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5j
+b20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
 
