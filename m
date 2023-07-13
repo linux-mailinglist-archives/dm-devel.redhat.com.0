@@ -2,94 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id AA4CA7518BF
-	for <lists+dm-devel@lfdr.de>; Thu, 13 Jul 2023 08:25:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5177E7524DD
+	for <lists+dm-devel@lfdr.de>; Thu, 13 Jul 2023 16:15:48 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689229504;
+	s=mimecast20190719; t=1689257747;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BDLMNlVC7cRuUQyj0t/VSaExo0Tk+kzPLx1auAG5NvM=;
-	b=jT5suVr1h2LMIKkBEPyNfd4/hdwndbTeR3axzVR2acXMFQcrvUc82QSF9Pq9OQzDxsDIfT
-	WGIUtRgqnb1YeSjqMsJtcX8wJXr/SDQ/MN5g6UyfMVzy6xf1m4QD/KWhJP6bpD9vyjSJyC
-	W6or+IfMA4caCs2w4cxJJwEhOwuGjfM=
+	bh=Mv7Yrmc2iAQuVb7Ii4BNb1/2K/1QQLAmSDqU3L2Q1C4=;
+	b=ANDd77zFmYnKzi0CGoR/SSKgYw+EwRsn27/qEPUXVVwTLXkf8cyf1F3K4f+X/b8Eet8ZPR
+	oL1ZQBjJ6Vvcjya1BadITRHXHt0iUe6cMDVDfn4koVhepkm2QFBoW5DenXtdSLejTAXURh
+	l2y8bC1Kv4I2jTycyqZ8HkTtg104CUk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-dYsjl08RMlS1oP7FHjRFhg-1; Thu, 13 Jul 2023 02:25:00 -0400
-X-MC-Unique: dYsjl08RMlS1oP7FHjRFhg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-202-bsRHh6SYN3O6rm8yfHmQfA-1; Thu, 13 Jul 2023 10:14:51 -0400
+X-MC-Unique: bsRHh6SYN3O6rm8yfHmQfA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 86EFD100BAA7;
-	Thu, 13 Jul 2023 06:24:58 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD6D295F365;
+	Thu, 13 Jul 2023 14:09:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BEF274CD0CD;
-	Thu, 13 Jul 2023 06:24:49 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 673BF492B01;
+	Thu, 13 Jul 2023 14:09:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 01F191946A43;
-	Thu, 13 Jul 2023 06:24:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D9FD0193761A;
+	Thu, 13 Jul 2023 14:06:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ACC211946589
- for <dm-devel@listman.corp.redhat.com>; Thu, 13 Jul 2023 06:13:55 +0000 (UTC)
+ ESMTP id A7B4A1946589
+ for <dm-devel@listman.corp.redhat.com>; Thu, 13 Jul 2023 12:53:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AEBD440C2070; Thu, 13 Jul 2023 06:13:55 +0000 (UTC)
+ id CB00D492C13; Thu, 13 Jul 2023 12:53:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A683340C2063
- for <dm-devel@redhat.com>; Thu, 13 Jul 2023 06:13:55 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C3B914CD0CE
+ for <dm-devel@redhat.com>; Thu, 13 Jul 2023 12:53:27 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 70CA82823807
- for <dm-devel@redhat.com>; Thu, 13 Jul 2023 06:13:55 +0000 (UTC)
-Received: from mailgw01.mediatek.com (mailgw01.mediatek.com
- [60.244.123.138]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E835104458F
+ for <dm-devel@redhat.com>; Thu, 13 Jul 2023 12:53:27 +0000 (UTC)
+Received: from bombadil.infradead.org (bombadil.infradead.org
+ [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-31-Pu-vTVj9OSCTnbal6b845g-1; Thu, 13 Jul 2023 02:13:51 -0400
-X-MC-Unique: Pu-vTVj9OSCTnbal6b845g-1
-X-UUID: 53382e3e214211ee9cb5633481061a41-20230713
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.28, REQID:7eafe7a2-2856-4ca2-bb0b-83f63bdac10f, IP:0,
- U
- RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:-5
-X-CID-META: VersionHash:176cd25, CLOUDID:1f782e0e-c22b-45ab-8a43-3004e9216b56,
- B
- ulkID:nil,BulkQuantity:0,Recheck:0,SF:102,TC:nil,Content:0,EDM:-3,IP:nil,U
- RL:0,File:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,
- DKR:0,DKP:0
-X-CID-BVR: 0,NGT
-X-CID-BAS: 0,NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-UUID: 53382e3e214211ee9cb5633481061a41-20230713
-Received: from mtkmbs11n1.mediatek.inc [(172.21.101.185)] by
- mailgw01.mediatek.com (envelope-from <mark-pk.tsai@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 953533169; Thu, 13 Jul 2023 13:58:44 +0800
-Received: from mtkmbs11n2.mediatek.inc (172.21.101.187) by
- mtkmbs13n1.mediatek.inc (172.21.101.193) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Thu, 13 Jul 2023 13:58:43 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n2.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Thu, 13 Jul 2023 13:58:43 +0800
-From: Mark-PK Tsai <mark-pk.tsai@mediatek.com>
-To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@redhat.com>,
- <dm-devel@redhat.com>, Jonathan Corbet <corbet@lwn.net>, Matthias Brugger
- <matthias.bgg@gmail.com>
-Date: Thu, 13 Jul 2023 13:58:37 +0800
-Message-ID: <20230713055841.24815-1-mark-pk.tsai@mediatek.com>
+ us-mta-530-r1R8LvC5PMWvw3koPg3ZxQ-1; Thu, 13 Jul 2023 08:53:20 -0400
+X-MC-Unique: r1R8LvC5PMWvw3koPg3ZxQ-1
+Received: from hch by bombadil.infradead.org with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1qJulF-003872-2u; Thu, 13 Jul 2023 11:45:29 +0000
+Date: Thu, 13 Jul 2023 04:45:29 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <ZK/j2URSDt4nwSvk@infradead.org>
+References: <alpine.LRH.2.02.2209201350470.26058@file01.intranet.prod.int.rdu2.redhat.com>
+ <alpine.LRH.2.02.2209201358120.26535@file01.intranet.prod.int.rdu2.redhat.com>
+ <ace0451f-b979-be13-cf47-a8cb3656c72e@huaweicloud.com>
+ <4b6788d2-c6e1-948-22d-dbb7cbba657d@redhat.com>
+ <2ade2716-d875-5e4c-82ce-c4c7f00f1bbc@kernel.dk>
 MIME-Version: 1.0
-X-MTK: N
+In-Reply-To: <2ade2716-d875-5e4c-82ce-c4c7f00f1bbc@kernel.dk>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by
+ bombadil.infradead.org. See http://www.infradead.org/rpr.html
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -97,10 +79,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-X-Mailman-Approved-At: Thu, 13 Jul 2023 06:24:47 +0000
-Subject: [dm-devel] [PATCH 5.15] dm init: add dm-mod.waitfor to wait for
- asynchronously probed block devices
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH v2 3/4] brd: enable discard
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -112,137 +92,25 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Peter Korsgaard <peter@korsgaard.com>, linux-doc@vger.kernel.org,
- yj.chiang@mediatek.com, Mike Snitzer <snitzer@kernel.org>,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- linux-mediatek@lists.infradead.org, linux-arm-kernel@lists.infradead.org,
- Mark-PK Tsai <mark-pk.tsai@mediatek.com>
+Cc: linux-block@vger.kernel.org, Christoph Hellwig <hch@infradead.org>,
+ Li Nan <linan666@huaweicloud.com>, dm-devel@redhat.com,
+ Mikulas Patocka <mpatocka@redhat.com>, Zdenek Kabelac <zkabelac@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: mediatek.com
+X-Mimecast-Originator: infradead.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Peter Korsgaard <peter@korsgaard.com>
+On Mon, Jul 10, 2023 at 01:05:00PM -0600, Jens Axboe wrote:
+> When a series is posted and reviewers comment on required changes, I
+> always wait for a respin of that series with those addressed. That
+> didn't happen, so this didn't get applied.
 
-Just calling wait_for_device_probe() is not enough to ensure that
-asynchronously probed block devices are available (E.G. mmc, usb), so
-add a "dm-mod.waitfor=<device1>[,..,<deviceN>]" parameter to get
-dm-init to explicitly wait for specific block devices before
-initializing the tables with logic similar to the rootwait logic that
-was introduced with commit  cc1ed7542c8c ("init: wait for
-asynchronously scanned block devices").
-
-E.G. with dm-verity on mmc using:
-dm-mod.waitfor="PARTLABEL=hash-a,PARTLABEL=root-a"
-
-[    0.671671] device-mapper: init: waiting for all devices to be available before creating mapped devices
-[    0.671679] device-mapper: init: waiting for device PARTLABEL=hash-a ...
-[    0.710695] mmc0: new HS200 MMC card at address 0001
-[    0.711158] mmcblk0: mmc0:0001 004GA0 3.69 GiB
-[    0.715954] mmcblk0boot0: mmc0:0001 004GA0 partition 1 2.00 MiB
-[    0.722085] mmcblk0boot1: mmc0:0001 004GA0 partition 2 2.00 MiB
-[    0.728093] mmcblk0rpmb: mmc0:0001 004GA0 partition 3 512 KiB, chardev (249:0)
-[    0.738274]  mmcblk0: p1 p2 p3 p4 p5 p6 p7
-[    0.751282] device-mapper: init: waiting for device PARTLABEL=root-a ...
-[    0.751306] device-mapper: init: all devices available
-[    0.751683] device-mapper: verity: sha256 using implementation "sha256-generic"
-[    0.759344] device-mapper: ioctl: dm-0 (vroot) is ready
-[    0.766540] VFS: Mounted root (squashfs filesystem) readonly on device 254:0.
-
-Signed-off-by: Peter Korsgaard <peter@korsgaard.com>
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-Cc: stable@vger.kernel.org
-Signed-off-by: Mark-PK Tsai <mark-pk.tsai@mediatek.com>
----
- .../admin-guide/device-mapper/dm-init.rst     |  8 +++++++
- drivers/md/dm-init.c                          | 22 ++++++++++++++++++-
- 2 files changed, 29 insertions(+), 1 deletion(-)
-
-diff --git a/Documentation/admin-guide/device-mapper/dm-init.rst b/Documentation/admin-guide/device-mapper/dm-init.rst
-index e5242ff17e9b..981d6a907699 100644
---- a/Documentation/admin-guide/device-mapper/dm-init.rst
-+++ b/Documentation/admin-guide/device-mapper/dm-init.rst
-@@ -123,3 +123,11 @@ Other examples (per target):
-     0 1638400 verity 1 8:1 8:2 4096 4096 204800 1 sha256
-     fb1a5a0f00deb908d8b53cb270858975e76cf64105d412ce764225d53b8f3cfd
-     51934789604d1b92399c52e7cb149d1b3a1b74bbbcb103b2a0aaacbed5c08584
-+
-+For setups using device-mapper on top of asynchronously probed block
-+devices (MMC, USB, ..), it may be necessary to tell dm-init to
-+explicitly wait for them to become available before setting up the
-+device-mapper tables. This can be done with the "dm-mod.waitfor="
-+module parameter, which takes a list of devices to wait for::
-+
-+  dm-mod.waitfor=<device1>[,..,<deviceN>]
-diff --git a/drivers/md/dm-init.c b/drivers/md/dm-init.c
-index b0c45c6ebe0b..dc4381d68313 100644
---- a/drivers/md/dm-init.c
-+++ b/drivers/md/dm-init.c
-@@ -8,6 +8,7 @@
-  */
- 
- #include <linux/ctype.h>
-+#include <linux/delay.h>
- #include <linux/device.h>
- #include <linux/device-mapper.h>
- #include <linux/init.h>
-@@ -18,12 +19,17 @@
- #define DM_MAX_DEVICES 256
- #define DM_MAX_TARGETS 256
- #define DM_MAX_STR_SIZE 4096
-+#define DM_MAX_WAITFOR 256
- 
- static char *create;
- 
-+static char *waitfor[DM_MAX_WAITFOR];
-+
- /*
-  * Format: dm-mod.create=<name>,<uuid>,<minor>,<flags>,<table>[,<table>+][;<name>,<uuid>,<minor>,<flags>,<table>[,<table>+]+]
-  * Table format: <start_sector> <num_sectors> <target_type> <target_args>
-+ * Block devices to wait for to become available before setting up tables:
-+ * dm-mod.waitfor=<device1>[,..,<deviceN>]
-  *
-  * See Documentation/admin-guide/device-mapper/dm-init.rst for dm-mod.create="..." format
-  * details.
-@@ -266,7 +272,7 @@ static int __init dm_init_init(void)
- 	struct dm_device *dev;
- 	LIST_HEAD(devices);
- 	char *str;
--	int r;
-+	int i, r;
- 
- 	if (!create)
- 		return 0;
-@@ -286,6 +292,17 @@ static int __init dm_init_init(void)
- 	DMINFO("waiting for all devices to be available before creating mapped devices");
- 	wait_for_device_probe();
- 
-+	for (i = 0; i < ARRAY_SIZE(waitfor); i++) {
-+		if (waitfor[i]) {
-+			DMINFO("waiting for device %s ...", waitfor[i]);
-+			while (!dm_get_dev_t(waitfor[i]))
-+				msleep(5);
-+		}
-+	}
-+
-+	if (waitfor[0])
-+		DMINFO("all devices available");
-+
- 	list_for_each_entry(dev, &devices, list) {
- 		if (dm_early_create(&dev->dmi, dev->table,
- 				    dev->target_args_array))
-@@ -301,3 +318,6 @@ late_initcall(dm_init_init);
- 
- module_param(create, charp, 0);
- MODULE_PARM_DESC(create, "Create a mapped device in early boot");
-+
-+module_param_array(waitfor, charp, NULL, 0);
-+MODULE_PARM_DESC(waitfor, "Devices to wait for before setting up tables");
--- 
-2.18.0
+... independent of that any software that assumes all block devices
+can discard data is simply broken. 
 
 --
 dm-devel mailing list
