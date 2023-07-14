@@ -2,70 +2,71 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 74394754584
-	for <lists+dm-devel@lfdr.de>; Sat, 15 Jul 2023 01:57:19 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 9BAE075458B
+	for <lists+dm-devel@lfdr.de>; Sat, 15 Jul 2023 01:59:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689379038;
+	s=mimecast20190719; t=1689379154;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=E40AaAU3YpKOdQgtAENr7ymRuFaAjSabduFk9geStHY=;
-	b=He09eVNR9sj9Y3a8mGRHwpVzHLqNXxJFBqsg7kFvjrFJH9lcb6bEPMYL056lUrjcO2BeYf
-	0w8J1Q4kOD1qxfCd3HPA+mgaudQHtXU+pSCliPdVNvBF89QJJTAtbJroui2QQj5QtjIzsd
-	fR+PcqYlYLJ9IwF3egwo1gnWgkz/ytk=
+	bh=WtmXuz5vBXCELUl0kVHHY4IVxyGZhNXs7VLAtSnPkeM=;
+	b=gJqVoSKj6i9X0TAbWUGyMvSMe2GcpCChS/E/kst+NSQurQtXGVGjBqzMbXyc/TUGFUKkB2
+	PnD1NoWPAlVbe6eNh9p9ukPHzwnXE36YCYkwyR0pqmWzIoR+Wfll22k7/7wkdb8OJlu+rL
+	aKxBlt8tyg5EfBFnYUFRt6C8M4xiYwE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-257-vTLPtuNBNRq2Rg_eOkxBBQ-1; Fri, 14 Jul 2023 19:57:16 -0400
-X-MC-Unique: vTLPtuNBNRq2Rg_eOkxBBQ-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-413-VfD1U_1-OdeiEkHSOli9zA-1; Fri, 14 Jul 2023 19:59:13 -0400
+X-MC-Unique: VfD1U_1-OdeiEkHSOli9zA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51E1C800193;
-	Fri, 14 Jul 2023 23:57:12 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C9546185A791;
+	Fri, 14 Jul 2023 23:59:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 057A41454142;
-	Fri, 14 Jul 2023 23:57:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 755592166B25;
+	Fri, 14 Jul 2023 23:59:10 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 42B4719465B1;
-	Fri, 14 Jul 2023 23:57:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C7BAB19465B1;
+	Fri, 14 Jul 2023 23:59:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1F79C1946587
- for <dm-devel@listman.corp.redhat.com>; Fri, 14 Jul 2023 23:57:02 +0000 (UTC)
+ ESMTP id 3FFAB1946587
+ for <dm-devel@listman.corp.redhat.com>; Fri, 14 Jul 2023 23:59:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CE675C2C857; Fri, 14 Jul 2023 23:57:01 +0000 (UTC)
+ id D0F592166B26; Fri, 14 Jul 2023 23:59:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C57B1C2C856
- for <dm-devel@redhat.com>; Fri, 14 Jul 2023 23:57:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C987D2166B25
+ for <dm-devel@redhat.com>; Fri, 14 Jul 2023 23:59:07 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A958B3C0C4AC
- for <dm-devel@redhat.com>; Fri, 14 Jul 2023 23:57:01 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A3B9101134D
+ for <dm-devel@redhat.com>; Fri, 14 Jul 2023 23:59:07 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-56-7rj7PiwvMEuExUfPjQmgxg-1; Fri,
- 14 Jul 2023 19:56:58 -0400
-X-MC-Unique: 7rj7PiwvMEuExUfPjQmgxg-1
+ relay.mimecast.com with ESMTP id us-mta-356-ql09o5atP-2IAxUnc99b0Q-1; Fri,
+ 14 Jul 2023 19:59:03 -0400
+X-MC-Unique: ql09o5atP-2IAxUnc99b0Q-1
 Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 7335221C4688; Fri, 14 Jul 2023 16:56:56 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 7335221C4688
-Date: Fri, 14 Jul 2023 16:56:56 -0700
+ id 8332121C4688; Fri, 14 Jul 2023 16:59:01 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 8332121C4688
+Date: Fri, 14 Jul 2023 16:59:01 -0700
 From: Fan Wu <wufan@linux.microsoft.com>
 To: Paul Moore <paul@paul-moore.com>
-Message-ID: <20230714235656.GD15267@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <1687986571-16823-6-git-send-email-wufan@linux.microsoft.com>
- <7b0f16fd49fb3490af1018eba986d0e4.paul@paul-moore.com>
+Message-ID: <20230714235901.GE15267@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
+References: <1687986571-16823-7-git-send-email-wufan@linux.microsoft.com>
+ <80ae988288d2ac277a4429e85524a9bb.paul@paul-moore.com>
 MIME-Version: 1.0
-In-Reply-To: <7b0f16fd49fb3490af1018eba986d0e4.paul@paul-moore.com>
+In-Reply-To: <80ae988288d2ac277a4429e85524a9bb.paul@paul-moore.com>
 User-Agent: Mutt/1.5.21 (2010-09-15)
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -74,9 +75,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH RFC v10 5/17] ipe: introduce 'boot_verified'
- as a trust provider
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [PATCH RFC v10 6/17] security: add new securityfs
+ delete function
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -90,125 +91,95 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
  dm-devel@redhat.com, corbet@lwn.net, roberto.sassu@huawei.com,
- Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
- snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
- linux-kernel@vger.kernel.org, ebiggers@kernel.org, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, eparis@redhat.com,
- linux-fscrypt@vger.kernel.org, linux-integrity@vger.kernel.org, agk@redhat.com,
- serge@hallyn.com
+ linux-doc@vger.kernel.org, snitzer@kernel.org, jmorris@namei.org,
+ zohar@linux.ibm.com, linux-kernel@vger.kernel.org, ebiggers@kernel.org,
+ audit@vger.kernel.org, linux-security-module@vger.kernel.org,
+ eparis@redhat.com, linux-fscrypt@vger.kernel.org,
+ linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.microsoft.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Jul 08, 2023 at 12:23:02AM -0400, Paul Moore wrote:
+On Sat, Jul 08, 2023 at 12:23:03AM -0400, Paul Moore wrote:
 > On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
 > > 
-> > IPE is designed to provide system level trust guarantees, this usually
-> > implies that trust starts from bootup with a hardware root of trust,
-> > which validates the bootloader. After this, the bootloader verifies the
-> > kernel and the initramfs.
+> > When deleting a directory in the security file system, the existing
+> > securityfs_remove requires the directory to be empty, otherwise
+> > it will do nothing. This leads to a potential risk that the security
+> > file system might be in an unclean state when the intentded deletion
+> > did not happen.
 > > 
-> > As there's no currently supported integrity method for initramfs, and
-> > it's typically already verified by the bootloader, introduce a property
-> > that causes the first superblock to have an execution to be "pinned",
-> > which is typically initramfs.
+> > This commit introduces a new function securityfs_recursive_remove
+> > to recursively delete a directory without leaving an unclean state.
 > > 
-> > When the "pinned" device is unmounted, it will be "unpinned" and
-> > `boot_verified` property will always evaluate to false afterward.
-> > 
-> > We use a pointer with a spin_lock to "pin" the device instead of rcu
-> > because rcu synchronization may sleep, which is not allowed when
-> > unmounting a device.
-> > 
-> > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
+> > Co-developed-by: "Christian Brauner (Microsoft)" <brauner@kernel.org>
 > > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
 > > ---
-> >  security/ipe/eval.c          | 72 +++++++++++++++++++++++++++++++++++-
-> >  security/ipe/eval.h          |  2 +
-> >  security/ipe/hooks.c         | 12 ++++++
-> >  security/ipe/hooks.h         |  2 +
-> >  security/ipe/ipe.c           |  1 +
-> >  security/ipe/policy.h        |  2 +
-> >  security/ipe/policy_parser.c | 37 +++++++++++++++++-
-> >  7 files changed, 126 insertions(+), 2 deletions(-)
-> 
-> The compilation errors continue into this patch.
-> 
-Sorry again for the header file problem.
-
-> > diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
-> > index 27e5767480b0..28c14adfe6d2 100644
-> > --- a/security/ipe/policy_parser.c
-> > +++ b/security/ipe/policy_parser.c
-> > @@ -265,6 +265,12 @@ static enum ipe_action_type parse_action(char *t)
-> >  	return match_token(t, action_tokens, args);
-> >  }
+> >  include/linux/security.h |  1 +
+> >  security/inode.c         | 25 +++++++++++++++++++++++++
+> >  2 files changed, 26 insertions(+)
+> > 
+> > diff --git a/include/linux/security.h b/include/linux/security.h
+> > index e2734e9e44d5..a88076ebc7b1 100644
+> > --- a/include/linux/security.h
+> > +++ b/include/linux/security.h
+> > @@ -1971,6 +1971,7 @@ struct dentry *securityfs_create_symlink(const char *name,
+> >  					 const char *target,
+> >  					 const struct inode_operations *iops);
+> >  extern void securityfs_remove(struct dentry *dentry);
+> > +extern void securityfs_recursive_remove(struct dentry *dentry);
 > >  
-> > +static const match_table_t property_tokens = {
-> > +	{__IPE_PROP_BOOT_VERIFIED_FALSE,	"boot_verified=FALSE"},
-> > +	{__IPE_PROP_BOOT_VERIFIED_TRUE,		"boot_verified=TRUE"},
-> > +	{__IPE_PROP_INVALID,			NULL}
-> > +};
+> >  #else /* CONFIG_SECURITYFS */
+> >  
+> > diff --git a/security/inode.c b/security/inode.c
+> > index 6c326939750d..13358e8547e8 100644
+> > --- a/security/inode.c
+> > +++ b/security/inode.c
+> > @@ -313,6 +313,31 @@ void securityfs_remove(struct dentry *dentry)
+> >  }
+> >  EXPORT_SYMBOL_GPL(securityfs_remove);
+> >  
+> > +static void remove_one(struct dentry *victim)
+> > +{
+> > +	simple_release_fs(&mount, &mount_count);
+> > +}
 > > +
-> >  /**
-> >   * parse_property - Parse the property type given a token string.
-> >   * @t: Supplies the token string to be parsed.
-> > @@ -277,7 +283,36 @@ static enum ipe_action_type parse_action(char *t)
-> >   */
-> >  static int parse_property(char *t, struct ipe_rule *r)
-> >  {
-> > -	return -EBADMSG;
-> > +	substring_t args[MAX_OPT_ARGS];
-> > +	struct ipe_prop *p = NULL;
-> > +	int rc = 0;
-> > +	int token;
-> > +
-> > +	p = kzalloc(sizeof(*p), GFP_KERNEL);
-> > +	if (!p)
-> > +		return -ENOMEM;
-> > +
-> > +	token = match_token(t, property_tokens, args);
-> > +
-> > +	switch (token) {
-> > +	case __IPE_PROP_BOOT_VERIFIED_FALSE:
-> > +	case __IPE_PROP_BOOT_VERIFIED_TRUE:
-> > +		p->type = token;
-> > +		break;
-> > +	case __IPE_PROP_INVALID:
+> > +/**
+> > + * securityfs_recursive_remove - recursively removes a file or directory from the securityfs filesystem
 > 
-> You generally don't need to explicitly specify a case if the code
-> immediately falls through to 'default'.
+> I really want to see lines less than or equal to 80 characters; I
+> would suggest this:
 > 
-Got it, I will remove this line.
-
-> > +	default:
-> > +		rc = -EBADMSG;
-> > +		break;
-> > +	}
-> > +	if (rc)
-> > +		goto err;
-> > +	list_add_tail(&p->next, &r->props);
-> > +
-> > +out:
-> > +	return rc;
-> > +err:
-> > +	kfree(p);
-> > +	goto out;
+> "securityfs_recursive_remove - recursively removes a file or directory"
 > 
-> Once again, don't use a goto when the jump destination simply does a
-> return, do the return directly.
-> 
-Sure, I will replace the goto with return.
+Thanks for the suggestion, I will make the change accordingly.
 
 -Fan
-> >  }
-> >  
-> >  /**
+> > + * @dentry: a pointer to a the dentry of the file or directory to be removed.
+> > + *
+> > + * This function recursively removes a file or directory in securityfs that was
+> > + * previously created with a call to another securityfs function (like
+> > + * securityfs_create_file() or variants thereof.)
+> > + */
+> > +void securityfs_recursive_remove(struct dentry *dentry)
+> > +{
+> > +	if (IS_ERR_OR_NULL(dentry))
+> > +		return;
+> > +
+> > +	simple_pin_fs(&fs_type, &mount, &mount_count);
+> > +	simple_recursive_removal(dentry, remove_one);
+> > +	simple_release_fs(&mount, &mount_count);
+> > +}
+> > +EXPORT_SYMBOL_GPL(securityfs_recursive_remove);
+> > +
+> >  #ifdef CONFIG_SECURITY
+> >  static struct dentry *lsm_dentry;
+> >  static ssize_t lsm_read(struct file *filp, char __user *buf, size_t count,
 > > -- 
 > > 2.25.1
 > 
