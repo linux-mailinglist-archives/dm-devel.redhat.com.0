@@ -2,71 +2,76 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D75607543C1
-	for <lists+dm-devel@lfdr.de>; Fri, 14 Jul 2023 22:29:02 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id AACA97543F4
+	for <lists+dm-devel@lfdr.de>; Fri, 14 Jul 2023 22:54:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689366541;
+	s=mimecast20190719; t=1689368061;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=M13XOx0GzMqwiO267jlcxb+Y7RDRGQei1UqMK1CXqiI=;
-	b=TVY62/ou3ghYVPImL906gjmgfZryjN7Yko4MH46ODLn05QC2VBS68/Tga5rrDba28RRFle
-	xaIgRenD2UWC2oPTQd/ZQLshS9d8nXtbpGJgcrRjPdId9EwrWlZJ/E8+K7KlLf5kumvOuf
-	W5WrKfiDKFcB4BBALSOZXwH2Wl3mXBE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-283-HtdXH8ldNDeL6cLgem1fCg-1; Fri, 14 Jul 2023 16:29:00 -0400
-X-MC-Unique: HtdXH8ldNDeL6cLgem1fCg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+	bh=Ue+8F+bENBVhYJiA7fTfjYD1ys5wsF+RQWLeMVhj2uw=;
+	b=XUMR7Pc6O8yNbzGirjNFA6hHKgwj5tSJqlS9KNDdh1naKVEb8fMcLc+LN3SqdkbPGqXnr2
+	4bEmpPeU4QnA1TdLvy4n4e5e0nXpV6eL0DGECvg3MCDgrv8O0pv5NYaIStMXLVDDgq3UxK
+	770CfL4hku4i04G3OQKF5nfFdsjbNMI=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-471-TzvHYKQsMF2KlTGwa2ebfg-1; Fri, 14 Jul 2023 16:54:19 -0400
+X-MC-Unique: TzvHYKQsMF2KlTGwa2ebfg-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A02018D1681;
-	Fri, 14 Jul 2023 20:28:57 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18DA229AA39A;
+	Fri, 14 Jul 2023 20:54:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3E6F410C95;
-	Fri, 14 Jul 2023 20:28:50 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 64A5A4087C62;
+	Fri, 14 Jul 2023 20:54:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4DFE219465B9;
-	Fri, 14 Jul 2023 20:28:49 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 56E9B1946A41;
+	Fri, 14 Jul 2023 20:54:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CA511194658F
- for <dm-devel@listman.corp.redhat.com>; Fri, 14 Jul 2023 20:28:48 +0000 (UTC)
+ ESMTP id 56A1E194658F
+ for <dm-devel@listman.corp.redhat.com>; Fri, 14 Jul 2023 20:54:08 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 888E91121339; Fri, 14 Jul 2023 20:28:48 +0000 (UTC)
+ id 4179EC57964; Fri, 14 Jul 2023 20:54:08 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 808B41121333
- for <dm-devel@redhat.com>; Fri, 14 Jul 2023 20:28:48 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 390C0C57963
+ for <dm-devel@redhat.com>; Fri, 14 Jul 2023 20:54:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 65361800969
- for <dm-devel@redhat.com>; Fri, 14 Jul 2023 20:28:48 +0000 (UTC)
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-396-ZhVfORMdNJSpaOmgMR9-PQ-1; Fri,
- 14 Jul 2023 16:28:46 -0400
-X-MC-Unique: ZhVfORMdNJSpaOmgMR9-PQ-1
-Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 353B820ABD64; Fri, 14 Jul 2023 13:28:45 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 353B820ABD64
-Date: Fri, 14 Jul 2023 13:28:45 -0700
-From: Fan Wu <wufan@linux.microsoft.com>
-To: Paul Moore <paul@paul-moore.com>
-Message-ID: <20230714202845.GB15267@linuxonhyperv3.guj3yctzbm1etfxqx2vob5hsef.xx.internal.cloudapp.net>
-References: <1687986571-16823-4-git-send-email-wufan@linux.microsoft.com>
- <309cfd62a474a7e93be6a0886a3d5aa8.paul@paul-moore.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 045278D1681
+ for <dm-devel@redhat.com>; Fri, 14 Jul 2023 20:54:02 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-399-pSUBSUvIOZKi_F52kl9NLw-1; Fri, 14 Jul 2023 16:53:57 -0400
+X-MC-Unique: pSUBSUvIOZKi_F52kl9NLw-1
+Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ (No client certificate requested)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id B4EBB61D9C;
+ Fri, 14 Jul 2023 20:53:56 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 82138C433C7;
+ Fri, 14 Jul 2023 20:53:55 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable-commits@vger.kernel.org,
+	heinzm@redhat.com
+Date: Fri, 14 Jul 2023 16:53:52 -0400
+Message-Id: <20230714205353.1301754-1-sashal@kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <309cfd62a474a7e93be6a0886a3d5aa8.paul@paul-moore.com>
-User-Agent: Mutt/1.5.21 (2010-09-15)
+X-Patchwork-Hint: ignore
+X-stable: review
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -74,8 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH RFC v10 3/17] ipe: add evaluation loop
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] Patch "dm: fix undue/missing spaces" has been added to
+ the 6.1-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -87,193 +93,183 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: axboe@kernel.dk, linux-block@vger.kernel.org, tytso@mit.edu,
- dm-devel@redhat.com, corbet@lwn.net, roberto.sassu@huawei.com,
- Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
- snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
- linux-kernel@vger.kernel.org, ebiggers@kernel.org, audit@vger.kernel.org,
- linux-security-module@vger.kernel.org, eparis@redhat.com,
- linux-fscrypt@vger.kernel.org, linux-integrity@vger.kernel.org, agk@redhat.com,
- serge@hallyn.com
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: linux.microsoft.com
-Content-Disposition: inline
+X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Sat, Jul 08, 2023 at 12:23:01AM -0400, Paul Moore wrote:
-> On Jun 28, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
-> > 
-> > IPE must have a centralized function to evaluate incoming callers
-> > against IPE's policy. This iteration of the policy for against the rules
-> > for that specific caller is known as the evaluation loop.
-> 
-> Can you rewrite that second sentence, it reads a bit awkward and I'm
-> unclear as to the meaning.
-> 
-Sure, it is indeed not clear, I might rewrite the whole message in the next version.
+This is a note to let you know that I've just added the patch titled
 
-> > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
-> > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
-> > ---
-> >  security/ipe/Makefile |  1 +
-> >  security/ipe/eval.c   | 94 +++++++++++++++++++++++++++++++++++++++++++
-> >  security/ipe/eval.h   | 25 ++++++++++++
-> >  3 files changed, 120 insertions(+)
-> >  create mode 100644 security/ipe/eval.c
-> >  create mode 100644 security/ipe/eval.h
-> 
-> ...
-> 
-> > diff --git a/security/ipe/eval.c b/security/ipe/eval.c
-> > new file mode 100644
-> > index 000000000000..59144b2ecdda
-> > --- /dev/null
-> > +++ b/security/ipe/eval.c
-> > @@ -0,0 +1,94 @@
-> > +// SPDX-License-Identifier: GPL-2.0
-> > +/*
-> > + * Copyright (C) Microsoft Corporation. All rights reserved.
-> > + */
-> > +
-> > +#include <linux/fs.h>
-> > +#include <linux/types.h>
-> > +#include <linux/slab.h>
-> > +#include <linux/file.h>
-> > +#include <linux/sched.h>
-> > +#include <linux/rcupdate.h>
-> > +
-> > +#include "ipe.h"
-> > +#include "eval.h"
-> > +#include "hooks.h"
-> 
-> There is no "hooks.h" at this point in the patchset.
-> 
-> In order for 'git bisect' to remain useful (and it can be a very handy
-> tool), we need to ensure that each point in the patchset compiles
-> cleanly.
-> 
-Sorry for the mistake here, I will avoid this kind of problems in the future.
+    dm: fix undue/missing spaces
 
-> > +#include "policy.h"
-> > +
-> > +struct ipe_policy __rcu *ipe_active_policy;
-> > +
-> > +/**
-> > + * evaluate_property - Analyze @ctx against a property.
-> > + * @ctx: Supplies a pointer to the context to be evaluated.
-> > + * @p: Supplies a pointer to the property to be evaluated.
-> > + *
-> > + * Return:
-> > + * * true	- The current @ctx match the @p
-> > + * * false	- The current @ctx doesn't match the @p
-> > + */
-> > +static bool evaluate_property(const struct ipe_eval_ctx *const ctx,
-> > +			      struct ipe_prop *p)
-> > +{
-> > +	return false;
-> > +}
-> > +
-> > +/**
-> > + * ipe_evaluate_event - Analyze @ctx against the current active policy.
-> > + * @ctx: Supplies a pointer to the context to be evaluated.
-> > + *
-> > + * This is the loop where all policy evaluation happens against IPE policy.
-> > + *
-> > + * Return:
-> > + * * 0		- OK
-> > + * * -EACCES	- @ctx did not pass evaluation.
-> > + * * !0		- Error
-> > + */
-> > +int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx)
-> > +{
-> > +	int rc = 0;
-> > +	bool match = false;
-> > +	enum ipe_action_type action;
-> > +	struct ipe_policy *pol = NULL;
-> > +	const struct ipe_rule *rule = NULL;
-> > +	const struct ipe_op_table *rules = NULL;
-> > +	struct ipe_prop *prop = NULL;
-> > +
-> > +	rcu_read_lock();
-> > +
-> > +	pol = rcu_dereference(ipe_active_policy);
-> > +	if (!pol) {
-> > +		rcu_read_unlock();
-> > +		return 0;
-> > +	}
-> > +
-> > +	if (ctx->op == __IPE_OP_INVALID) {
-> > +		action = pol->parsed->global_default_action;
-> > +		goto eval;
-> 
-> It looks like you are missing a rcu_read_unlock() in this case.
-> 
-Thanks for pointing that out. I will add the unlock. 
-> Also, given how simplistic the evaluation is in this case, why not
-> just do it here, saving the assignment, jump, etc.?
-> 
->   if (ctx->op == INVALID) {
->     rcu_read_unlock()
->     if (global_action == DENY)
->       return -EACCES;
->     return 0;
->   }
-> 
-The jump is actually for auditing the decision in the next patch, while
-it does make more sense to not jump when the auditing is not introduced. 
-I will make the return here then switch to jump in the auditing patch.
+to the 6.1-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
-> > +	}
-> > +
-> > +	rules = &pol->parsed->rules[ctx->op];
-> > +
-> > +	list_for_each_entry(rule, &rules->rules, next) {
-> > +		match = true;
-> > +
-> > +		list_for_each_entry(prop, &rule->props, next)
-> > +			match = match && evaluate_property(ctx, prop);
-> 
-> Why not break from this loop once evaluate_property() returns false?
-> 
-Yes we can break when one property evals to false, thanks for the advice.
+The filename of the patch is:
+     dm-fix-undue-missing-spaces.patch
+and it can be found in the queue-6.1 subdirectory.
 
-> > +
-> > +		if (match)
-> > +			break;
-> > +	}
-> > +
-> > +	if (match)
-> > +		action = rule->action;
-> > +	else if (rules->default_action != __IPE_ACTION_INVALID)
-> > +		action = rules->default_action;
-> > +	else
-> > +		action = pol->parsed->global_default_action;
-> > +
-> > +	rcu_read_unlock();
-> > +eval:
-> > +	if (action == __IPE_ACTION_DENY)
-> > +		rc = -EACCES;
-> > +
-> > +	return rc;
-> 
-> This can just be 'return 0;' right?
-> 
-For this patch, if we just return on error, then yes the end of the function
-could just return 0. But when auditing(audit rc) and permissive switch(overwrite rc)
-are introduced then return on error might not be the clean way. So I kept
-the rc variable in this patch. I can change the style in this patch then
-switch to use rc when auditing and permissive switch are introduced.
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
 
--Fan
 
-> > +}
-> 
-> --
-> paul-moore.com
+
+commit c48635352f2ae2859fa3de2e494ecfa079af65cc
+Author: Heinz Mauelshagen <heinzm@redhat.com>
+Date:   Mon Jan 30 21:43:57 2023 +0100
+
+    dm: fix undue/missing spaces
+    
+    [ Upstream commit 43be9c743c2553519c2093d1798b542f28095a51 ]
+    
+    Signed-off-by: Heinz Mauelshagen <heinzm@redhat.com>
+    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+    Stable-dep-of: 249bed821b4d ("dm ioctl: Avoid double-fetch of version")
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index 6ae1c19b82433..9fc4a5d51b3fc 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -1572,7 +1572,7 @@ static void retrieve_deps(struct dm_table *table,
+ 	/*
+ 	 * Count the devices.
+ 	 */
+-	list_for_each (tmp, dm_table_get_devices(table))
++	list_for_each(tmp, dm_table_get_devices(table))
+ 		count++;
+ 
+ 	/*
+@@ -1589,7 +1589,7 @@ static void retrieve_deps(struct dm_table *table,
+ 	 */
+ 	deps->count = count;
+ 	count = 0;
+-	list_for_each_entry (dd, dm_table_get_devices(table), list)
++	list_for_each_entry(dd, dm_table_get_devices(table), list)
+ 		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
+ 
+ 	param->data_size = param->data_start + needed;
+diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+index 91c25ad8eed84..66032ab3c4e92 100644
+--- a/drivers/md/dm-mpath.c
++++ b/drivers/md/dm-mpath.c
+@@ -1086,7 +1086,7 @@ static int parse_hw_handler(struct dm_arg_set *as, struct multipath *m)
+ 			goto fail;
+ 		}
+ 		j = sprintf(p, "%d", hw_argc - 1);
+-		for (i = 0, p+=j+1; i <= hw_argc - 2; i++, p+=j+1)
++		for (i = 0, p += j + 1; i <= hw_argc - 2; i++, p += j + 1)
+ 			j = sprintf(p, "%s", as->argv[i]);
+ 	}
+ 	dm_consume_args(as, hw_argc - 1);
+diff --git a/drivers/md/dm-ps-service-time.c b/drivers/md/dm-ps-service-time.c
+index 84d26234dc053..eba2293be6864 100644
+--- a/drivers/md/dm-ps-service-time.c
++++ b/drivers/md/dm-ps-service-time.c
+@@ -127,8 +127,7 @@ static int st_add_path(struct path_selector *ps, struct dm_path *path,
+ 	 * 			The valid range: 0-<ST_MAX_RELATIVE_THROUGHPUT>
+ 	 *			If not given, minimum value '1' is used.
+ 	 *			If '0' is given, the path isn't selected while
+-	 * 			other paths having a positive value are
+-	 * 			available.
++	 *			other paths having a positive value are	available.
+ 	 */
+ 	if (argc > 2) {
+ 		*error = "service-time ps: incorrect number of arguments";
+diff --git a/drivers/md/dm-snap.c b/drivers/md/dm-snap.c
+index c64d987c544d7..cb80d03b37370 100644
+--- a/drivers/md/dm-snap.c
++++ b/drivers/md/dm-snap.c
+@@ -388,7 +388,7 @@ static struct origin *__lookup_origin(struct block_device *origin)
+ 	struct origin *o;
+ 
+ 	ol = &_origins[origin_hash(origin)];
+-	list_for_each_entry (o, ol, hash_list)
++	list_for_each_entry(o, ol, hash_list)
+ 		if (bdev_equal(o->bdev, origin))
+ 			return o;
+ 
+@@ -407,7 +407,7 @@ static struct dm_origin *__lookup_dm_origin(struct block_device *origin)
+ 	struct dm_origin *o;
+ 
+ 	ol = &_dm_origins[origin_hash(origin)];
+-	list_for_each_entry (o, ol, hash_list)
++	list_for_each_entry(o, ol, hash_list)
+ 		if (bdev_equal(o->dev->bdev, origin))
+ 			return o;
+ 
+@@ -2446,7 +2446,7 @@ static int __origin_write(struct list_head *snapshots, sector_t sector,
+ 	chunk_t chunk;
+ 
+ 	/* Do all the snapshots on this origin */
+-	list_for_each_entry (snap, snapshots, list) {
++	list_for_each_entry(snap, snapshots, list) {
+ 		/*
+ 		 * Don't make new exceptions in a merging snapshot
+ 		 * because it has effectively been deleted
+diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+index 3acded2f976db..337e667323c4a 100644
+--- a/drivers/md/dm-table.c
++++ b/drivers/md/dm-table.c
+@@ -211,7 +211,7 @@ static struct dm_dev_internal *find_device(struct list_head *l, dev_t dev)
+ {
+ 	struct dm_dev_internal *dd;
+ 
+-	list_for_each_entry (dd, l, list)
++	list_for_each_entry(dd, l, list)
+ 		if (dd->dm_dev->bdev->bd_dev == dev)
+ 			return dd;
+ 
+diff --git a/drivers/md/dm-uevent.h b/drivers/md/dm-uevent.h
+index 2c9ba561fd8e9..12a5d4fb7d441 100644
+--- a/drivers/md/dm-uevent.h
++++ b/drivers/md/dm-uevent.h
+@@ -3,7 +3,7 @@
+  * Device Mapper Uevent Support
+  *
+  * Copyright IBM Corporation, 2007
+- * 	Author: Mike Anderson <andmike@linux.vnet.ibm.com>
++ *	Author: Mike Anderson <andmike@linux.vnet.ibm.com>
+  */
+ #ifndef DM_UEVENT_H
+ #define DM_UEVENT_H
+diff --git a/drivers/md/dm-writecache.c b/drivers/md/dm-writecache.c
+index 431c84595ddb7..c6ff43a8f0b25 100644
+--- a/drivers/md/dm-writecache.c
++++ b/drivers/md/dm-writecache.c
+@@ -85,12 +85,12 @@ struct wc_entry {
+ 	unsigned short wc_list_contiguous;
+ 	bool write_in_progress
+ #if BITS_PER_LONG == 64
+-		:1
++		: 1
+ #endif
+ 	;
+ 	unsigned long index
+ #if BITS_PER_LONG == 64
+-		:47
++		: 47
+ #endif
+ 	;
+ 	unsigned long age;
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index c795ea7da7917..13070c25adc3d 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -1013,7 +1013,7 @@ static int dmz_check_sb(struct dmz_metadata *zmd, struct dmz_sb *dsb,
+ 	}
+ 
+ 	sb_block = le64_to_cpu(sb->sb_block);
+-	if (sb_block != (u64)dsb->zone->id << zmd->zone_nr_blocks_shift ) {
++	if (sb_block != (u64)dsb->zone->id << zmd->zone_nr_blocks_shift) {
+ 		dmz_dev_err(dev, "Invalid superblock position "
+ 			    "(is %llu expected %llu)",
+ 			    sb_block,
 
 --
 dm-devel mailing list
