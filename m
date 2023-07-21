@@ -2,66 +2,62 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A3B1E75C82D
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Jul 2023 15:48:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 86E7E75C82E
+	for <lists+dm-devel@lfdr.de>; Fri, 21 Jul 2023 15:48:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689947283;
+	s=mimecast20190719; t=1689947337;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Dl89lnQ17hukWvZbTG/xj6M9HL3ijgTNxpBuC8Bl2pU=;
-	b=Zk6NFJgHdDwIWu9u0Bl0nfl0MqQNEqQILa0pVJmJZHfwShr8irPX7aTDJmW8+S7trSAJBh
-	VhC+96QIbCbhIesTLDiMO2CtWY9SgtMKsDmuvtjjx/wKDiR7s74R8s+AXn3tnMDPTGKE8X
-	Fov7dOBh/W0CJRd6sVrpR2dybG3oeZM=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-464-dTmXave9NE6kzXbrftauEQ-1; Fri, 21 Jul 2023 09:47:18 -0400
-X-MC-Unique: dTmXave9NE6kzXbrftauEQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=VY1qINL8Wk371FJtsN3lyKmz0h3NDhwFPpVJfDftOm4=;
+	b=Y+jZ8O5NugrBwi3sGWf5L9YSkEBtenTwEznQh1fziToH7SdfY2u1ndJdOMQzTMoXr4cSEu
+	ACEl7Nk5PbaEKkqJMEne/2/KN8LGbas1m66ZXrx3HTUM/bl7DDOcSkK6mj6N/l6HAcXOHt
+	zhWY45co2E86AsQ6iBRTqWH9kpoxDqM=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-493-hjT_KBwpPcyql9UplLZJ6A-1; Fri, 21 Jul 2023 09:48:56 -0400
+X-MC-Unique: hjT_KBwpPcyql9UplLZJ6A-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6CFA2104458F;
-	Fri, 21 Jul 2023 13:47:10 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 95B02299E754;
+	Fri, 21 Jul 2023 13:48:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BB3BA4094DC0;
-	Fri, 21 Jul 2023 13:47:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 41DD6C57969;
+	Fri, 21 Jul 2023 13:48:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2232E19452C5;
-	Fri, 21 Jul 2023 13:47:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EB8341946586;
+	Fri, 21 Jul 2023 13:48:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9BB771946A74
- for <dm-devel@listman.corp.redhat.com>; Fri, 21 Jul 2023 13:47:00 +0000 (UTC)
+ ESMTP id 2E9AA1946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 21 Jul 2023 13:48:52 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 815CB2166B26; Fri, 21 Jul 2023 13:46:50 +0000 (UTC)
+ id 14CDD4CD0F5; Fri, 21 Jul 2023 13:48:52 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
  [10.11.5.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6FD4A2166B25;
- Fri, 21 Jul 2023 13:46:50 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F14E3492C13;
+ Fri, 21 Jul 2023 13:48:51 +0000 (UTC)
 Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
  from userid 12668)
- id 6940230C0457; Fri, 21 Jul 2023 13:46:50 +0000 (UTC)
+ id DFC4A30C0457; Fri, 21 Jul 2023 13:48:51 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
  by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
- 66E1D3FB76; Fri, 21 Jul 2023 15:46:50 +0200 (CEST)
-Date: Fri, 21 Jul 2023 15:46:50 +0200 (CEST)
+ DB56A3FB76; Fri, 21 Jul 2023 15:48:51 +0200 (CEST)
+Date: Fri, 21 Jul 2023 15:48:51 +0200 (CEST)
 From: Mikulas Patocka <mpatocka@redhat.com>
-To: Chaitanya Kulkarni <chaitanyak@nvidia.com>
-In-Reply-To: <a38eaa35-efc9-48e2-7aaf-9eed83589103@nvidia.com>
-Message-ID: <244e8f58-15b9-447b-a280-56dd15467f7e@redhat.com>
-References: <73c46137-c06e-348f-3d37-8c305ad4c4f3@redhat.com>
- <a38eaa35-efc9-48e2-7aaf-9eed83589103@nvidia.com>
+To: Jens Axboe <axboe@kernel.dk>
+Message-ID: <9933f5df-dd43-3447-dce3-f513368578@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 3/3] brd: implement write zeroes
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [dm-devel] [PATCH v2 0/3] brd discard patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,93 +69,18 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- Li Nan <linan666@huaweicloud.com>, "dm-devel@redhat.com" <dm-devel@redhat.com>,
- Zdenek Kabelac <zkabelac@redhat.com>
+Cc: linux-block@vger.kernel.org, Chaitanya Kulkarni <chaitanyak@nvidia.com>,
+ Christoph Hellwig <hch@infradead.org>, Li Nan <linan666@huaweicloud.com>,
+ dm-devel@redhat.com, Zdenek Kabelac <zkabelac@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-
-
-On Thu, 20 Jul 2023, Chaitanya Kulkarni wrote:
-
-> > Index: linux-2.6/drivers/block/brd.c
-> > ===================================================================
-> > --- linux-2.6.orig/drivers/block/brd.c
-> > +++ linux-2.6/drivers/block/brd.c
-> > @@ -272,7 +272,8 @@ out:
-> >   
-> >   void brd_do_discard(struct brd_device *brd, struct bio *bio)
-> >   {
-> > -	sector_t sector, len, front_pad;
-> > +	bool zero_padding = bio_op(bio) == REQ_OP_WRITE_ZEROES;
-> > +	sector_t sector, len, front_pad, end_pad;
-> >   
-> >   	if (unlikely(!discard)) {
-> >   		bio->bi_status = BLK_STS_NOTSUPP;
-> > @@ -282,11 +283,22 @@ void brd_do_discard(struct brd_device *b
-> >   	sector = bio->bi_iter.bi_sector;
-> >   	len = bio_sectors(bio);
-> >   	front_pad = -sector & (PAGE_SECTORS - 1);
-> > +
-> > +	if (zero_padding && unlikely(front_pad != 0))
-> > +		copy_to_brd(brd, page_address(ZERO_PAGE(0)),
-> > +			    sector, min(len, front_pad) << SECTOR_SHIFT);
-> > +
-> 
-> Is it possible to create different interface for discard and write
-> zeroes ? I think it is a lot of logic adding on one function if everyone
-> else is okay please discard my comment ..
-
-Copying code is anti-pattern - it increases code size and it makes it 
-harder to modify code in the future.
-
-Discard and write-zeroes perform almost the same operation, the only 
-difference is that write-zeroes needs to zero trailing and leading parts 
-of boundary pages.
-
-Therefore I think that making one function that performs both discard and 
-write zeroes is ok.
-
-> > -	if (bio_op(bio) == REQ_OP_DISCARD) {
-> > +	if (bio_op(bio) == REQ_OP_DISCARD ||
-> > +	    bio_op(bio) == REQ_OP_WRITE_ZEROES) {
-> >   		brd_do_discard(brd, bio);
-> >   		goto endio;
-> >   	}
-> 
-> can we please use switch ? unless there is a strong need for if
-> which I failed to understand ...
-
-Yes, I can do this change.
-
-> > @@ -355,7 +368,7 @@ MODULE_PARM_DESC(max_part, "Num Minors t
-> >   
-> >   static bool discard = false;
-> >   module_param(discard, bool, 0444);
-> > -MODULE_PARM_DESC(discard, "Support discard");
-> > +MODULE_PARM_DESC(discard, "Support discard and write zeroes");
-> >  
-> 
-> write-zeroes and discards are both different req_op and they should have
-> a separate module parameter ...
-> 
-> above should be moved to new module parameter write_zeroes, unless there
-> is a reason to use one module parameter for both req_op...
-
-Is there some reason why the user might want discard and not want 
-write-zeroes or vice versa?
-
-What do Christoph and Jens think? Do you think that there should be two 
-separate parameters too?
-
-Mikulas
+This is a new version of the brd discard patches.
 --
 dm-devel mailing list
 dm-devel@redhat.com
