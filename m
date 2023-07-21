@@ -1,63 +1,104 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7B4EB75C84B
-	for <lists+dm-devel@lfdr.de>; Fri, 21 Jul 2023 15:50:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B3F3C75C8D0
+	for <lists+dm-devel@lfdr.de>; Fri, 21 Jul 2023 16:00:58 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1689947442;
+	s=mimecast20190719; t=1689948057;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DWabTIE3w1Ea1Pmqq0dUIQ5VCmLsZcj8LUtIK6LH1lQ=;
-	b=AIkr/dlpoSRKM0GQT6jEI6eqkUm5f6nkz0mbfMbQhDFjr9QlnZHF1vvN1MaseI0WrRbdaP
-	0dpAKQM2L2NTToeUvtsbvpqzXRcuLATXT2UmX2iUvaAd3wdMVqJtlckiZj/6JnN+2P/Rh1
-	+GjBS6xVfpBEg/HO5s4c6MUxOaCyBOQ=
+	bh=YMGC0g5rdTGsDF7vUBvvLpbEQZNfuuz71vMoz47X7Ec=;
+	b=Kx7vSJ5JUaEC0k+5q1t/emsq/+eI/mZddmrkbBjBe2R15f0vPX72EILNu2zMsMcqkJGJ9l
+	+wa23ZfwtDOak5jm0ZyRNAyu6f5dj0LenNe7tGliGiEKnFIGgkCXHKqgdpi084x4xyep3L
+	ujxwE5lqn4Id9II6zrTMVhydMIIBmJo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-189-dAXZ4NX0OECwVZ679L1XeA-1; Fri, 21 Jul 2023 09:50:40 -0400
-X-MC-Unique: dAXZ4NX0OECwVZ679L1XeA-1
+ us-mta-280-4iA4pl5TOOSxNhIStTFd4Q-1; Fri, 21 Jul 2023 10:00:55 -0400
+X-MC-Unique: 4iA4pl5TOOSxNhIStTFd4Q-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BFDB8F1854;
-	Fri, 21 Jul 2023 13:50:37 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8837E185A78B;
+	Fri, 21 Jul 2023 14:00:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4FD724094DC1;
-	Fri, 21 Jul 2023 13:50:37 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 96AC84094DC0;
+	Fri, 21 Jul 2023 14:00:50 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CCC5C1946A72;
-	Fri, 21 Jul 2023 13:50:36 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 23D9A1946A72;
+	Fri, 21 Jul 2023 14:00:49 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BF44A1946A43
- for <dm-devel@listman.corp.redhat.com>; Fri, 21 Jul 2023 13:50:35 +0000 (UTC)
+ ESMTP id 0B3A01946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 21 Jul 2023 14:00:47 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AF938492B03; Fri, 21 Jul 2023 13:50:35 +0000 (UTC)
+ id 8F312C5796B; Fri, 21 Jul 2023 14:00:47 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
- [10.11.5.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A158F492B02;
- Fri, 21 Jul 2023 13:50:35 +0000 (UTC)
-Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
- from userid 12668)
- id D2BD730C0458; Fri, 21 Jul 2023 13:50:29 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
- D1D5C3FB76; Fri, 21 Jul 2023 15:50:29 +0200 (CEST)
-Date: Fri, 21 Jul 2023 15:50:29 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Jens Axboe <axboe@kernel.dk>
-Message-ID: <3bcf643-5eef-9537-6def-17de279f1e4e@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E2B9C5796A
+ for <dm-devel@redhat.com>; Fri, 21 Jul 2023 14:00:47 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 64087892245
+ for <dm-devel@redhat.com>; Fri, 21 Jul 2023 14:00:47 +0000 (UTC)
+Received: from mail-io1-f44.google.com (mail-io1-f44.google.com
+ [209.85.166.44]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-613-25DDEsXtPLSkRLI9rOO0uw-1; Fri, 21 Jul 2023 10:00:45 -0400
+X-MC-Unique: 25DDEsXtPLSkRLI9rOO0uw-1
+Received: by mail-io1-f44.google.com with SMTP id
+ ca18e2360f4ac-760dff4b701so28477139f.0
+ for <dm-devel@redhat.com>; Fri, 21 Jul 2023 07:00:44 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1689948044; x=1690552844;
+ h=content-transfer-encoding:in-reply-to:from:references:cc:to
+ :content-language:subject:user-agent:mime-version:date:message-id
+ :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
+ bh=yowB+SDYz3WsGB5u3KbSB7coFl3FEU+ho0O0+py0Ukc=;
+ b=L7fxWjgNK1s3nD/+aBi9JCQspNjaNhAuOhMTdja33wNteaCTunaFQTT2yUYcvzSKAr
+ E5hREfPAXbEExkQyPzbL5OA6Iai5+hyQ0X3bmFGgU7yrfwXY8tYb5AZLocVvBdOs2F9U
+ 3KY9Y1A8LmLR8Ta9H2f054ouwkhETqrR1YCry5SqHr/hUzmJM5owcbVlh49pzSmcNJuT
+ bNn0Lso7bbY+n2VNbDV0ZORRWizGGSa6f6PXYmYOG4MfpAgucPQuJhuzNSAqY9EitXvO
+ c4Ai3zfk6XF6YSF+UK72J1X483LutJ02UQCi1Etv9DFkh4HHJge80ygqh7Xh6X8W/146
+ 9+tA==
+X-Gm-Message-State: ABy/qLbqzKFRuSoURPHMhVOPmxD7q46IPHrP8XGIStbrxkiNpJhLc7dm
+ y8FVDx0iXqgPqFPtRNo1w+sBUA==
+X-Google-Smtp-Source: APBJJlHMT+rxz7f5suX2hWoG4yc3KEkLf1UJ5Q0KxS+wamMFFlkkxKHrGWKDrLBg9z5MlQwuTgUyMQ==
+X-Received: by 2002:a6b:b789:0:b0:787:1926:54ed with SMTP id
+ h131-20020a6bb789000000b00787192654edmr1799444iof.1.1689948044181; 
+ Fri, 21 Jul 2023 07:00:44 -0700 (PDT)
+Received: from [192.168.1.94] ([96.43.243.2]) by smtp.gmail.com with ESMTPSA id
+ b10-20020a5ea70a000000b0078337cd3b3csm1065191iod.54.2023.07.21.07.00.43
+ (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+ Fri, 21 Jul 2023 07:00:43 -0700 (PDT)
+Message-ID: <6f0b9cbb-6752-6dd8-c184-10798533dfed@kernel.dk>
+Date: Fri, 21 Jul 2023 08:00:42 -0600
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [PATCH v2 3/3] brd: implement write zeroes
+User-Agent: Mozilla/5.0 (X11; Linux aarch64; rv:102.0) Gecko/20100101
+ Thunderbird/102.13.0
+To: Mikulas Patocka <mpatocka@redhat.com>
+References: <9933f5df-dd43-3447-dce3-f513368578@redhat.com>
+From: Jens Axboe <axboe@kernel.dk>
+In-Reply-To: <9933f5df-dd43-3447-dce3-f513368578@redhat.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: Re: [dm-devel] [PATCH v2 0/3] brd discard patches
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -76,148 +117,24 @@ Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Mimecast-Originator: kernel.dk
+Content-Language: en-US
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-This patch implements REQ_OP_WRITE_ZEROES on brd. Write zeroes will free
-the pages just like discard, but the difference is that it writes zeroes
-to the preceding and following page if the range is not aligned on page
-boundary.
+On 7/21/23 7:48?AM, Mikulas Patocka wrote:
+> This is a new version of the brd discard patches.
 
-Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Can you please:
 
----
- drivers/block/brd.c |   78 +++++++++++++++++++++++++++++++++-------------------
- 1 file changed, 50 insertions(+), 28 deletions(-)
+1) Ensure that your postings thread properly, it's all separate emails
+   and the patches don't nest under the cover letter parent.
 
-Index: linux-2.6/drivers/block/brd.c
-===================================================================
---- linux-2.6.orig/drivers/block/brd.c
-+++ linux-2.6/drivers/block/brd.c
-@@ -301,7 +301,8 @@ out:
- void brd_do_discard(struct brd_device *brd, struct bio *bio)
- {
- 	struct free_page_batch *batch = NULL;
--	sector_t sector, len, front_pad;
-+	bool zero_padding = bio_op(bio) == REQ_OP_WRITE_ZEROES;
-+	sector_t sector, len, front_pad, end_pad;
- 
- 	if (unlikely(!discard)) {
- 		bio->bi_status = BLK_STS_NOTSUPP;
-@@ -311,11 +312,22 @@ void brd_do_discard(struct brd_device *b
- 	sector = bio->bi_iter.bi_sector;
- 	len = bio_sectors(bio);
- 	front_pad = -sector & (PAGE_SECTORS - 1);
-+
-+	if (zero_padding && unlikely(front_pad != 0))
-+		copy_to_brd(brd, page_address(ZERO_PAGE(0)),
-+			    sector, min(len, front_pad) << SECTOR_SHIFT);
-+
- 	sector += front_pad;
- 	if (unlikely(len <= front_pad))
- 		return;
- 	len -= front_pad;
--	len = round_down(len, PAGE_SECTORS);
-+
-+	end_pad = len & (PAGE_SECTORS - 1);
-+	if (zero_padding && unlikely(end_pad != 0))
-+		copy_to_brd(brd, page_address(ZERO_PAGE(0)),
-+			    sector + len - end_pad, end_pad << SECTOR_SHIFT);
-+	len -= end_pad;
-+
- 	while (len) {
- 		brd_free_page(brd, sector, &batch);
- 		sector += PAGE_SECTORS;
-@@ -333,34 +345,42 @@ static void brd_submit_bio(struct bio *b
- 	struct bio_vec bvec;
- 	struct bvec_iter iter;
- 
--	if (bio_op(bio) == REQ_OP_DISCARD) {
--		brd_do_discard(brd, bio);
--		goto endio;
--	}
--
--	sector = bio->bi_iter.bi_sector;
--	bio_for_each_segment(bvec, bio, iter) {
--		unsigned int len = bvec.bv_len;
--		int err;
--
--		/* Don't support un-aligned buffer */
--		WARN_ON_ONCE((bvec.bv_offset & (SECTOR_SIZE - 1)) ||
--				(len & (SECTOR_SIZE - 1)));
--
--		err = brd_do_bvec(brd, bvec.bv_page, len, bvec.bv_offset,
--				  bio->bi_opf, sector);
--		if (err) {
--			if (err == -ENOMEM && bio->bi_opf & REQ_NOWAIT) {
--				bio_wouldblock_error(bio);
--				return;
-+	switch (bio_op(bio)) {
-+		case REQ_OP_DISCARD:
-+		case REQ_OP_WRITE_ZEROES:
-+			brd_do_discard(brd, bio);
-+			break;
-+
-+		case REQ_OP_READ:
-+		case REQ_OP_WRITE:
-+			sector = bio->bi_iter.bi_sector;
-+			bio_for_each_segment(bvec, bio, iter) {
-+				unsigned int len = bvec.bv_len;
-+				int err;
-+
-+				/* Don't support un-aligned buffer */
-+				WARN_ON_ONCE((bvec.bv_offset & (SECTOR_SIZE - 1)) ||
-+						(len & (SECTOR_SIZE - 1)));
-+
-+				err = brd_do_bvec(brd, bvec.bv_page, len, bvec.bv_offset,
-+						  bio->bi_opf, sector);
-+				if (err) {
-+					if (err == -ENOMEM && bio->bi_opf & REQ_NOWAIT) {
-+						bio_wouldblock_error(bio);
-+						return;
-+					}
-+					bio_io_error(bio);
-+					return;
-+				}
-+				sector += len >> SECTOR_SHIFT;
- 			}
--			bio_io_error(bio);
--			return;
--		}
--		sector += len >> SECTOR_SHIFT;
-+			break;
-+
-+		default:
-+			bio->bi_status = BLK_STS_NOTSUPP;
-+			break;
- 	}
- 
--endio:
- 	bio_endio(bio);
- }
- 
-@@ -378,9 +398,11 @@ static void brd_set_discard_limits(struc
- 	if (discard) {
- 		queue->limits.discard_granularity = PAGE_SIZE;
- 		blk_queue_max_discard_sectors(queue, round_down(UINT_MAX, PAGE_SECTORS));
-+		blk_queue_max_write_zeroes_sectors(queue, round_down(UINT_MAX, PAGE_SECTORS));
- 	} else {
- 		queue->limits.discard_granularity = 0;
- 		blk_queue_max_discard_sectors(queue, 0);
-+		blk_queue_max_write_zeroes_sectors(queue, 0);
- 	}
- }
- 
-@@ -420,7 +442,7 @@ MODULE_PARM_DESC(max_part, "Num Minors t
- 
- static bool discard = false;
- module_param_cb(discard, &discard_ops, &discard, 0644);
--MODULE_PARM_DESC(discard, "Support discard");
-+MODULE_PARM_DESC(discard, "Support discard and write zeroes");
- 
- MODULE_LICENSE("GPL");
- MODULE_ALIAS_BLOCKDEV_MAJOR(RAMDISK_MAJOR);
+2) Include a changelog. What changed since v1?
+
+-- 
+Jens Axboe
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
