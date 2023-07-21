@@ -1,8 +1,8 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2CDF175EB8B
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E972175EB8C
 	for <lists+dm-devel@lfdr.de>; Mon, 24 Jul 2023 08:34:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1690180467;
@@ -12,89 +12,65 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=8cNASHEW0RXQcKwHhL8Pv/iJ2a3JmG3jWVF490FIEbM=;
-	b=ORW0xxy2XONNct/Av6SFLSpSS54atdnT5i7jQfmYRTBEd1cXWrEiuuwSVitbERBZy668Sr
-	71DGUAiLNoliHH64MWmukWLvNbAP0pjv9lFd2LqPPdyKi9n3oGt8pbwX3JJ/WMcSuSJfI2
-	B5ttbCIVmRb2S/UATBFYKnyTKsVSDcw=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-325-b_NaoKxyP5qPaD18h_-MDg-1; Mon, 24 Jul 2023 02:34:23 -0400
-X-MC-Unique: b_NaoKxyP5qPaD18h_-MDg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=LlgTVAvlVdRsmttCNRaPfu+XQHDIgRzv4uR8ILmL9Hw=;
+	b=aKzQqB7slxwY/CZtr26coyyjMOfeNsu1WdhJ9D64Hi0QvL96briz3z8gFmvGpItWL7uGvv
+	U63N5kNzuMB2OOZG1GiKAFcScdGqF/vJhLwWv2hy54rJt26cKtDk3hSTtaJGlWg6QRulNm
+	qgffznhjOsDuo7UEW7as4Pl3vXcT5k4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-260-LniGHO0EO4GZD2P4XqSUfA-1; Mon, 24 Jul 2023 02:34:23 -0400
+X-MC-Unique: LniGHO0EO4GZD2P4XqSUfA-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F0A823810D26;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE803185A78B;
 	Mon, 24 Jul 2023 06:34:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5098F40C6CCC;
-	Mon, 24 Jul 2023 06:34:13 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 50A9646A3A7;
+	Mon, 24 Jul 2023 06:34:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 00C3519451DA;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3072419451FB;
 	Mon, 24 Jul 2023 06:34:13 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A1FEA19465BD
- for <dm-devel@listman.corp.redhat.com>; Fri, 21 Jul 2023 06:38:57 +0000 (UTC)
+ ESMTP id 9B1EF1946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 21 Jul 2023 14:51:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8E7E31454142; Fri, 21 Jul 2023 06:38:57 +0000 (UTC)
+ id 85D344CD0E6; Fri, 21 Jul 2023 14:51:37 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 85A9B1401C2E
- for <dm-devel@redhat.com>; Fri, 21 Jul 2023 06:38:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7E215492C13
+ for <dm-devel@redhat.com>; Fri, 21 Jul 2023 14:51:37 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 69DB7185A78F
- for <dm-devel@redhat.com>; Fri, 21 Jul 2023 06:38:57 +0000 (UTC)
-Received: from mailgw02.mediatek.com (mailgw02.mediatek.com [210.61.82.184])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-64-wUiGeQ-cNJi7yJhP6s0DzA-1; Fri,
- 21 Jul 2023 02:38:55 -0400
-X-MC-Unique: wUiGeQ-cNJi7yJhP6s0DzA-1
-X-UUID: 3e495f7a279111eeb20a276fd37b9834-20230721
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.1.28, REQID:a0b583cf-ccaf-4ea2-9228-4d07a966f9ee, IP:0,
- U
- RL:0,TC:0,Content:0,EDM:0,RT:0,SF:51,FILE:0,BULK:0,RULE:Release_Ham,ACTION
- :release,TS:51
-X-CID-INFO: VERSION:1.1.28, REQID:a0b583cf-ccaf-4ea2-9228-4d07a966f9ee, IP:0,
- URL
- :0,TC:0,Content:0,EDM:0,RT:0,SF:51,FILE:0,BULK:0,RULE:Release_Ham,ACTION:r
- elease,TS:51
-X-CID-META: VersionHash:176cd25, CLOUDID:7066eb8e-7caa-48c2-8dbb-206f0389473c,
- B
- ulkID:230721015801HF79PBWC,BulkQuantity:6,Recheck:0,SF:17|19|48|29|28|102,
- TC:nil,Content:0|-5,EDM:-3,IP:nil,URL:0,File:nil,Bulk:40,QS:nil,BEC:nil,CO
- L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0
-X-CID-BVR: 1,FCT|NGT
-X-CID-BAS: 1,FCT|NGT,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_SDM,TF_CID_SPAM_FAS,TF_CID_SPAM_FSD
-X-UUID: 3e495f7a279111eeb20a276fd37b9834-20230721
-Received: from mtkmbs14n2.mediatek.inc [(172.21.101.76)] by
- mailgw02.mediatek.com (envelope-from <mark-pk.tsai@mediatek.com>)
- (Generic MTA with TLSv1.2 ECDHE-RSA-AES256-GCM-SHA384 256/256)
- with ESMTP id 1478981683; Fri, 21 Jul 2023 14:38:46 +0800
-Received: from mtkmbs11n1.mediatek.inc (172.21.101.185) by
- mtkmbs13n2.mediatek.inc (172.21.101.108) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.1118.26; Fri, 21 Jul 2023 14:38:45 +0800
-Received: from mtksdccf07.mediatek.inc (172.21.84.99) by
- mtkmbs11n1.mediatek.inc (172.21.101.73) with Microsoft SMTP Server id
- 15.2.1118.26 via Frontend Transport; Fri, 21 Jul 2023 14:38:45 +0800
-From: Mark-PK Tsai <mark-pk.tsai@mediatek.com>
-To: <gregkh@linuxfoundation.org>
-Date: Fri, 21 Jul 2023 14:38:45 +0800
-Message-ID: <20230721063845.11676-1-mark-pk.tsai@mediatek.com>
-In-Reply-To: <2023072033-hedge-buffing-8862@gregkh>
-References: <2023072033-hedge-buffing-8862@gregkh>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 67960936D25
+ for <dm-devel@redhat.com>; Fri, 21 Jul 2023 14:51:37 +0000 (UTC)
+Received: from mail.lichtvoll.de (luna.lichtvoll.de [194.150.191.11]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-616-4lkw_eFePRGuh-4aLbea6A-1; Fri,
+ 21 Jul 2023 10:51:34 -0400
+X-MC-Unique: 4lkw_eFePRGuh-4aLbea6A-1
+Received: from 127.0.0.1 (localhost [127.0.0.1])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (secp384r1) server-digest SHA384)
+ (No client certificate requested)
+ by mail.lichtvoll.de (Postfix) with ESMTPSA id E2FE274C065;
+ Fri, 21 Jul 2023 16:51:31 +0200 (CEST)
+From: Martin Steigerwald <martin@lichtvoll.de>
+To: Theodore Ts'o <tytso@mit.edu>
+Date: Fri, 21 Jul 2023 16:51:31 +0200
+Message-ID: <4918028.0VBMTVartN@lichtvoll.de>
+In-Reply-To: <20230721133526.GF5764@mit.edu>
+References: <20230717075035.GA9549@tomerius.de>
+ <38426448.10thIPus4b@lichtvoll.de> <20230721133526.GF5764@mit.edu>
 MIME-Version: 1.0
-X-MTK: N
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -102,10 +78,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Mon, 24 Jul 2023 06:34:11 +0000
-Subject: Re: [dm-devel] [PATCH 5.15] dm init: add dm-mod.waitfor to wait for
- asynchronously probed block devices
+Subject: Re: [dm-devel] Nobarrier mount option (was: Re: File system
+ robustness)
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,141 +93,39 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: peter@korsgaard.com, snitzer@redhat.com, linux-doc@vger.kernel.org,
- yj.chiang@mediatek.com, corbet@lwn.net, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, dm-devel@redhat.com,
- linux-mediatek@lists.infradead.org, agk@redhat.com, matthias.bgg@gmail.com,
- mark-pk.tsai@mediatek.com, linux-arm-kernel@lists.infradead.org
+Cc: linux-embedded@vger.kernel.org, dm-devel@redhat.com,
+ Kai Tomerius <kai@tomerius.de>,
+ =?ISO-8859-1?Q?Bj=F8rn?= Forsman <bjorn.forsman@gmail.com>,
+ Ext4 Developers List <linux-ext4@vger.kernel.org>,
+ "Alan C. Assis" <acassis@gmail.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: mediatek.com
+X-Mimecast-Originator: lichtvoll.de
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-> On Mon, Jul 17, 2023 at 09:57:28AM +0800, Mark-PK Tsai wrote:
-> > > On Sun, Jul 16, 2023, 11:16 AM Greg KH <gregkh@linuxfoundation.org> wrote:
-> > > 
-> > > > On Thu, Jul 13, 2023 at 01:58:37PM +0800, Mark-PK Tsai wrote:
-> > > > > From: Peter Korsgaard <peter@korsgaard.com>
-> > > > > 
-> > > > > Just calling wait_for_device_probe() is not enough to ensure that
-> > > > > asynchronously probed block devices are available (E.G. mmc, usb), so
-> > > > > add a "dm-mod.waitfor=<device1>[,..,<deviceN>]" parameter to get
-> > > > > dm-init to explicitly wait for specific block devices before
-> > > > > initializing the tables with logic similar to the rootwait logic that
-> > > > > was introduced with commit  cc1ed7542c8c ("init: wait for
-> > > > > asynchronously scanned block devices").
-> > > > > 
-> > > > > E.G. with dm-verity on mmc using:
-> > > > > dm-mod.waitfor="PARTLABEL=hash-a,PARTLABEL=root-a"
-> > > > > 
-> > > > > [    0.671671] device-mapper: init: waiting for all devices to be 
-> > > > available before creating mapped devices
-> > > > > [    0.671679] device-mapper: init: waiting for device PARTLABEL=hash-a 
-> > > > ...
-> > > > > [    0.710695] mmc0: new HS200 MMC card at address 0001
-> > > > > [    0.711158] mmcblk0: mmc0:0001 004GA0 3.69 GiB
-> > > > > [    0.715954] mmcblk0boot0: mmc0:0001 004GA0 partition 1 2.00 MiB
-> > > > > [    0.722085] mmcblk0boot1: mmc0:0001 004GA0 partition 2 2.00 MiB
-> > > > > [    0.728093] mmcblk0rpmb: mmc0:0001 004GA0 partition 3 512 KiB, 
-> > > > chardev (249:0)
-> > > > > [    0.738274]  mmcblk0: p1 p2 p3 p4 p5 p6 p7
-> > > > > [    0.751282] device-mapper: init: waiting for device PARTLABEL=root-a 
-> > > > ...
-> > > > > [    0.751306] device-mapper: init: all devices available
-> > > > > [    0.751683] device-mapper: verity: sha256 using implementation 
-> > > > "sha256-generic"
-> > > > > [    0.759344] device-mapper: ioctl: dm-0 (vroot) is ready
-> > > > > [    0.766540] VFS: Mounted root (squashfs filesystem) readonly on 
-> > > > device 254:0.
-> > > > > 
-> > > > > Signed-off-by: Peter Korsgaard <peter@korsgaard.com>
-> > > > > Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-> > > > > Cc: stable@vger.kernel.org
-> > > > > Signed-off-by: Mark-PK Tsai <mark-pk.tsai@mediatek.com>
-> > > > > ---
-> > > > >  .../admin-guide/device-mapper/dm-init.rst     |  8 +++++++
-> > > > >  drivers/md/dm-init.c                          | 22 ++++++++++++++++++-
-> > > > >  2 files changed, 29 insertions(+), 1 deletion(-)
-> > > >
-> > > > What is the git commit id of this change in Linus's tree?
-> > > >
-> > > > thanks,
-> > > >
-> > > > greg k-h
-> > > >
-> > > >
-> > > 
-> > > Hey Greg,
-> > > 
-> > > This change shouldn't be backported to stable@. It is a feature, if
-> > > Mark-PK feels they need it older kernels they need to carry the change
-> > > in their own tree. Or at a minimum they need to explain why this
-> > > change is warranted in stable@.
-> > 
-> > Thanks for your comment.
-> > The reason why we think this should be backported to stable kernel is
-> > that it actually fix the potential race condition when make block
-> > device probe async in stable kernel.
-> > And we'd like to fix this upstream rather than just take it in
-> > our custom tree.
+Theodore Ts'o - 21.07.23, 15:35:26 CEST:
+> > At least that is what I thought was the background for not doing the
+> > "nobarrier" thing anymore: Let the storage below decide whether it
+> > is safe to basically ignore cache flushes by answering them (almost)
+> > immediately.
 > 
-> Potential race condition, is this actually able to be hit in real life?
+> The problem is that the storage below (e.g., the HDD) has no idea that
+> all of this redundancy exists.  Only the system adminsitrator who is
+> configuring the file sysetm will know.  And if you are runninig a
+> hyper-scale cloud system, this kind of custom made system will be
+> much, MUCH, cheaper than buying a huge number of $$$ EMC storage
+> arrays.
 
-Yes it hanppened, and it can lead the kernel init process stuck in
-the root wait loop.
+Okay, that is reasonable.
 
-Below is the log.
-(I add 20 seconds delay in mtk_mci probe to quick reproduce it.)
+Thanks for explaining.
 
-* Before apply this pactch
-[    0.368594][    T1] device-mapper: init: waiting for all devices to be available before creating mapped devices
-[   21.673047][   T45] probe of 1c660000.mtk-mmc-fcie returned 0 after 21541020 usecs
-[   21.673061][   T45] mtk_mci 1c660000.mtk-mmc-fcie: driver mtk_mci async attach completed: 0
-[   21.680006][    T1] device-mapper: table: 254:0: verity: Data device lookup failed <--------------- start after mtk_mci probe done
-[   21.680012][    T1] device-mapper: ioctl: error adding target to table <--------------------------- won't create /dev/dm-0
-[   21.680067][   T67] mmc0: new HS400 Enhanced strobe MMC card at address 0001
-[   21.680184][   T67] bus: 'mmc': __driver_probe_device: matched device mmc0:0001 with driver mmcblk
-[   21.680192][   T67] bus: 'mmc': really_probe: probing driver mmcblk with device mmc0:0001
-[   21.680500][   T67] mmcblk0: mmc0:0001 016G01 14.5 GiB 
-[   21.683404][   T67]  mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29
-[   21.686152][   T67] mmcblk0boot0: mmc0:0001 016G01 8.00 MiB 
-[   21.687166][   T67] mmcblk0boot1: mmc0:0001 016G01 8.00 MiB 
-[   21.687955][   T67] mmcblk0rpmb: mmc0:0001 016G01 4.00 MiB, chardev (238:0)
-[   21.687977][   T67] driver: 'mmcblk': driver_bound: bound to device 'mmc0:0001'
-[   21.688004][   T67] bus: 'mmc': really_probe: bound device mmc0:0001 to driver mmcblk
-[   21.688010][   T67] probe of mmc0:0001 returned 0 after 7819 usecs
-[   21.688166][    T1] Waiting for root device /dev/dm-0...
-[   41.023192][    T1] driver_probe_done: probe_count = 0
-... can't exit from the root wait loop
+-- 
+Martin
 
-* After apply this patch and add dm-mod.waitfor="PARTLABEL=rootfs"
-[    0.368417][    T1] device-mapper: init: waiting for all devices to be available before creating mapped devices
-[   21.672749][   T45] probe of 1c660000.mtk-mmc-fcie returned 0 after 21540992 usecs
-[   21.672767][   T45] mtk_mci 1c660000.mtk-mmc-fcie: driver mtk_mci async attach completed: 0
-[   21.672774][    T1] device-mapper: init: waiting for device PARTLABEL=rootfs ...
-[   21.672869][   T43] mtk_mci 1c660000.mtk-mmc-fcie: eMMC: HS400 5.1 200MHz
-[   21.679743][   T43] mmc0: new HS400 Enhanced strobe MMC card at address 0001
-[   21.679852][   T43] bus: 'mmc': __driver_probe_device: matched device mmc0:0001 with driver mmcblk
-[   21.679858][   T43] bus: 'mmc': really_probe: probing driver mmcblk with device mmc0:0001
-[   21.680204][   T43] mmcblk0: mmc0:0001 016G01 14.5 GiB 
-[   21.682866][   T43]  mmcblk0: p1 p2 p3 p4 p5 p6 p7 p8 p9 p10 p11 p12 p13 p14 p15 p16 p17 p18 p19 p20 p21 p22 p23 p24 p25 p26 p27 p28 p29
-[   21.685579][   T43] mmcblk0boot0: mmc0:0001 016G01 8.00 MiB 
-[   21.686631][   T43] mmcblk0boot1: mmc0:0001 016G01 8.00 MiB 
-[   21.687533][   T43] mmcblk0rpmb: mmc0:0001 016G01 4.00 MiB, chardev (238:0)
-[   21.687559][   T43] driver: 'mmcblk': driver_bound: bound to device 'mmc0:0001'
-[   21.687585][   T43] bus: 'mmc': really_probe: bound device mmc0:0001 to driver mmcblk
-[   21.687591][   T43] probe of mmc0:0001 returned 0 after 7732 usecs
-[   21.687838][    T1] device-mapper: init: all devices available <---------------------------------- start after PARTLABEL=rootfs is ready
-[   21.688155][    T1] device-mapper: verity: sha1 using implementation "sha1-generic"
-[   21.688975][    T1] device-mapper: ioctl: dm-0 (dm-verity) is ready
-
-> 
-> thanks,
-> 
-> greg k-h
 
 --
 dm-devel mailing list
