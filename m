@@ -1,95 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 457C9760A82
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:18 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 55833760AA2
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690267397;
+	s=mimecast20190719; t=1690267407;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ncjCy3ATSA8RDn4L7AhBv7EKBap7OxBvXXeL1P9vzPQ=;
-	b=aQ/X0HqBchM/biICHI3gv999s0y67o9mV3Hg2iIouDoy+SSjhiGpRBecN86hmYeDi2l7G4
-	aPyx4r4Fx0Ihasmlsn0sDdT2cGvbWOe4HKFxOTXQCm4y/Cg32Exhiow1PPvm0kf8Or8kd0
-	UAcXFNrQuRd50w9lxJ8ESNYiP7h2bC4=
+	bh=P6GU+aI7NjE2dV8ZaT8nYPgl18+EKL7yk32cKpZng6M=;
+	b=gXxMrOn9sKGgelxH7xlWfp/pWuB50KwPrkQToYCMHlBrGa/xdxzv/0z/98h0vmcrhtTdTs
+	UhDUQs2EUe6dkIFIVbEw5a+X6QtNnWEBx9gK16tPqMsgLSSKRtxBPu1yPMF2RMMkUak5k6
+	XqvIpfLcAm8Lx7TF/pqRh4nhQUC/uHU=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-658-a2digQysNlaOpRIqk7KqwQ-1; Tue, 25 Jul 2023 02:43:10 -0400
-X-MC-Unique: a2digQysNlaOpRIqk7KqwQ-1
+ us-mta-417-2EJ-1q54PXOKwvuNfjJPvw-1; Tue, 25 Jul 2023 02:43:24 -0400
+X-MC-Unique: 2EJ-1q54PXOKwvuNfjJPvw-1
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC8001C06ED2;
-	Tue, 25 Jul 2023 06:42:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9C70129AB459;
+	Tue, 25 Jul 2023 06:42:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DC85F201EC58;
-	Tue, 25 Jul 2023 06:42:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7C92C207B315;
+	Tue, 25 Jul 2023 06:42:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E4B7F195439F;
-	Tue, 25 Jul 2023 06:42:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C6010194E00F;
+	Tue, 25 Jul 2023 06:42:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
  [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6B9EA1946588
- for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:51:33 +0000 (UTC)
+ ESMTP id 4E0401946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:51:46 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4D3E440C2063; Mon, 24 Jul 2023 09:51:33 +0000 (UTC)
+ id 3E53940C206F; Mon, 24 Jul 2023 09:51:46 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 439FC40C2070
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:51:33 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 36CF440C2063
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:51:46 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2422281DB6C
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:51:33 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB1EC803470
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:51:45 +0000 (UTC)
+Received: from mail-pg1-f174.google.com (mail-pg1-f174.google.com
+ [209.85.215.174]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-218-qV9O9ZsHNleQoUgNCxF1WQ-1; Mon, 24 Jul 2023 05:51:31 -0400
-X-MC-Unique: qV9O9ZsHNleQoUgNCxF1WQ-1
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1b8c364ad3bso8864005ad.1
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:51:30 -0700 (PDT)
+ us-mta-682-jXJ-6nKYO4-6G4GFQQmSaQ-1; Mon, 24 Jul 2023 05:51:42 -0400
+X-MC-Unique: jXJ-6nKYO4-6G4GFQQmSaQ-1
+Received: by mail-pg1-f174.google.com with SMTP id
+ 41be03b00d2f7-51f64817809so328248a12.1
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:51:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690192290; x=1690797090;
+ d=1e100.net; s=20221208; t=1690192302; x=1690797102;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=oXR+qbQ7FZSOf8H8/XKWyl6GGcPr2+dTjVkbZb7uW4E=;
- b=i+/Y/BaI5u3yA4uTRp2FVkVLHjCNI+0YY4gX1IuDRxKRhLPBesRhduSbFTyFXZMHHQ
- eLIp3GJiaCquoMfybnSce+EJMGmZMShpB/4aDO5IkUaZiCkn8NxKxTbbLESE0M+Zn65r
- vW+ptP8ky+3TocsrxgLvZcexM3NsEc2wfpzuav4C7NhRN1/v8wPhH3vVUW4/Jodgbpbs
- kcmdsg2dPUc7tM478QSFniAlhI42Bguh++AXmcyWK53y1QehoCchojeeBW/wEE6ESAUF
- bMswwwgAjXVgHJp6wUmvVXMa6nvuNZTCixd7XhnUgsnpGo2aX1q6kQa+whC7RgxYZJLe
- rLmw==
-X-Gm-Message-State: ABy/qLaqisHP924AsBKL6f1gzCee4mb9TayITQm8qh088OPI3c/sox7P
- dIZLpJdhRBlCIl8sD6wqKEiSEg==
-X-Google-Smtp-Source: APBJJlFC05XpXuobjW4LsGQFjmg3Q9TZDeGvX5MkKK/m+2sDEjZkN7MidhVsDpGMtrBJxCeRn4k3XA==
-X-Received: by 2002:a17:903:22ce:b0:1b8:2ba0:c9a8 with SMTP id
- y14-20020a17090322ce00b001b82ba0c9a8mr12484346plg.2.1690192289977; 
- Mon, 24 Jul 2023 02:51:29 -0700 (PDT)
+ bh=GawUpWYlbps61zw2RmUByoW60pYFIoQHHGKJRm38EOk=;
+ b=P9zeutssPsCk80Io+VHD5/vvPXhByl2eH+D+bLRMLtIWyHJu5Kk9NQ8rVeqcdB8/rU
+ uZxBg+/8Y7qMxgw58/lAVtrBnTWcJTIFhvJ9rwwQ0Us3LDRorlSInY9X99KhFru0cxbs
+ KJPSqsJLX+srLfUh3hBq/xGYRzEGkM6tAVCZgQN+aLjcqf0JeYh2budtmgWHnrkut74i
+ bxL17aGX1Zyv9YOt5oWXUBkftC+E47x81HP9Kjoi/xRLlq/192CZGIgub6GHkD6/ylhl
+ HiXlSOfp9jAWCcyEfRL3ANvZJF9aklEEvidqm5iEKoGnkwofT1R73axo/WnQD0GnVd4j
+ xl1A==
+X-Gm-Message-State: ABy/qLZA1EO9k2yNfYeLlQiqKL97zgsqA3vD3g6l4G6IyQf5wK9eb8T/
+ Jx+KSU+f9WrQXA0uq5NQtFNtNA==
+X-Google-Smtp-Source: APBJJlEU/vgKmw8Um+e668RIawiv+P3qp/KwZZ/g6Y9wgpINkkaMr3bzWEnObMTDhnOi0EmMOvkuLQ==
+X-Received: by 2002:a17:903:41cd:b0:1bb:9e6e:a9f3 with SMTP id
+ u13-20020a17090341cd00b001bb9e6ea9f3mr4118075ple.4.1690192301770; 
+ Mon, 24 Jul 2023 02:51:41 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.51.18
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.51.30
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:51:29 -0700 (PDT)
+ Mon, 24 Jul 2023 02:51:41 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Mon, 24 Jul 2023 17:43:39 +0800
-Message-Id: <20230724094354.90817-33-zhengqi.arch@bytedance.com>
+Date: Mon, 24 Jul 2023 17:43:40 +0800
+Message-Id: <20230724094354.90817-34-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -104,8 +104,8 @@ X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Tue, 25 Jul 2023 06:42:42 +0000
-Subject: [dm-devel] [PATCH v2 32/47] ext4: dynamically allocate the ext4-es
- shrinker
+Subject: [dm-devel] [PATCH v2 33/47] jbd2,
+ ext4: dynamically allocate the jbd2-journal shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,85 +136,96 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the ext4-es shrinker, so that it can be freed
+dynamically allocate the jbd2-journal shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct ext4_sb_info.
+read-side critical section when releasing the struct journal_s.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- fs/ext4/ext4.h           |  2 +-
- fs/ext4/extents_status.c | 22 ++++++++++++----------
- 2 files changed, 13 insertions(+), 11 deletions(-)
+ fs/jbd2/journal.c    | 27 +++++++++++++++++----------
+ include/linux/jbd2.h |  2 +-
+ 2 files changed, 18 insertions(+), 11 deletions(-)
 
-diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
-index 0a2d55faa095..1bd150d454f5 100644
---- a/fs/ext4/ext4.h
-+++ b/fs/ext4/ext4.h
-@@ -1651,7 +1651,7 @@ struct ext4_sb_info {
- 	__u32 s_csum_seed;
- 
- 	/* Reclaim extents from extent status tree */
--	struct shrinker s_es_shrinker;
-+	struct shrinker *s_es_shrinker;
- 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
- 	long s_es_nr_inode;
- 	struct ext4_es_stats s_es_stats;
-diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
-index 9b5b8951afb4..8d4a959dd32f 100644
---- a/fs/ext4/extents_status.c
-+++ b/fs/ext4/extents_status.c
-@@ -1596,7 +1596,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
- 	unsigned long nr;
- 	struct ext4_sb_info *sbi;
- 
--	sbi = container_of(shrink, struct ext4_sb_info, s_es_shrinker);
-+	sbi = shrink->private_data;
- 	nr = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
- 	trace_ext4_es_shrink_count(sbi->s_sb, sc->nr_to_scan, nr);
- 	return nr;
-@@ -1605,8 +1605,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
- static unsigned long ext4_es_scan(struct shrinker *shrink,
- 				  struct shrink_control *sc)
+diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
+index fbce16fedaa4..a7d555ea06e3 100644
+--- a/fs/jbd2/journal.c
++++ b/fs/jbd2/journal.c
+@@ -1301,7 +1301,7 @@ static int jbd2_min_tag_size(void)
+ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ 					      struct shrink_control *sc)
  {
--	struct ext4_sb_info *sbi = container_of(shrink,
--					struct ext4_sb_info, s_es_shrinker);
-+	struct ext4_sb_info *sbi = shrink->private_data;
- 	int nr_to_scan = sc->nr_to_scan;
- 	int ret, nr_shrunk;
+-	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
++	journal_t *journal = shrink->private_data;
+ 	unsigned long nr_to_scan = sc->nr_to_scan;
+ 	unsigned long nr_shrunk;
+ 	unsigned long count;
+@@ -1327,7 +1327,7 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
+ static unsigned long jbd2_journal_shrink_count(struct shrinker *shrink,
+ 					       struct shrink_control *sc)
+ {
+-	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
++	journal_t *journal = shrink->private_data;
+ 	unsigned long count;
  
-@@ -1690,14 +1689,17 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
- 	if (err)
- 		goto err3;
+ 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
+@@ -1415,19 +1415,26 @@ static journal_t *journal_init_common(struct block_device *bdev,
+ 	journal->j_superblock = (journal_superblock_t *)bh->b_data;
  
--	sbi->s_es_shrinker.scan_objects = ext4_es_scan;
--	sbi->s_es_shrinker.count_objects = ext4_es_count;
--	sbi->s_es_shrinker.seeks = DEFAULT_SEEKS;
--	err = register_shrinker(&sbi->s_es_shrinker, "ext4-es:%s",
--				sbi->s_sb->s_id);
--	if (err)
-+	sbi->s_es_shrinker = shrinker_alloc(0, "ext4-es:%s", sbi->s_sb->s_id);
-+	if (!sbi->s_es_shrinker)
- 		goto err4;
+ 	journal->j_shrink_transaction = NULL;
+-	journal->j_shrinker.scan_objects = jbd2_journal_shrink_scan;
+-	journal->j_shrinker.count_objects = jbd2_journal_shrink_count;
+-	journal->j_shrinker.seeks = DEFAULT_SEEKS;
+-	journal->j_shrinker.batch = journal->j_max_transaction_buffers;
  
-+	sbi->s_es_shrinker->scan_objects = ext4_es_scan;
-+	sbi->s_es_shrinker->count_objects = ext4_es_count;
-+	sbi->s_es_shrinker->seeks = DEFAULT_SEEKS;
-+	sbi->s_es_shrinker->private_data = sbi;
+ 	if (percpu_counter_init(&journal->j_checkpoint_jh_count, 0, GFP_KERNEL))
+ 		goto err_cleanup;
+ 
+-	if (register_shrinker(&journal->j_shrinker, "jbd2-journal:(%u:%u)",
+-			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev))) {
++	journal->j_shrinker = shrinker_alloc(0, "jbd2-journal:(%u:%u)",
++					     MAJOR(bdev->bd_dev),
++					     MINOR(bdev->bd_dev));
++	if (!journal->j_shrinker) {
+ 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+ 		goto err_cleanup;
+ 	}
 +
-+	shrinker_register(sbi->s_es_shrinker);
++	journal->j_shrinker->scan_objects = jbd2_journal_shrink_scan;
++	journal->j_shrinker->count_objects = jbd2_journal_shrink_count;
++	journal->j_shrinker->seeks = DEFAULT_SEEKS;
++	journal->j_shrinker->batch = journal->j_max_transaction_buffers;
++	journal->j_shrinker->private_data = journal;
 +
- 	return 0;
- err4:
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
-@@ -1716,7 +1718,7 @@ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
- 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
--	unregister_shrinker(&sbi->s_es_shrinker);
-+	shrinker_unregister(sbi->s_es_shrinker);
- }
++	shrinker_register(journal->j_shrinker);
++
+ 	return journal;
  
- /*
+ err_cleanup:
+@@ -2190,9 +2197,9 @@ int jbd2_journal_destroy(journal_t *journal)
+ 		brelse(journal->j_sb_buffer);
+ 	}
+ 
+-	if (journal->j_shrinker.flags & SHRINKER_REGISTERED) {
++	if (journal->j_shrinker) {
+ 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
+-		unregister_shrinker(&journal->j_shrinker);
++		shrinker_unregister(journal->j_shrinker);
+ 	}
+ 	if (journal->j_proc_entry)
+ 		jbd2_stats_proc_exit(journal);
+diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
+index d860499e15e4..9fdc02565c24 100644
+--- a/include/linux/jbd2.h
++++ b/include/linux/jbd2.h
+@@ -897,7 +897,7 @@ struct journal_s
+ 	 * Journal head shrinker, reclaim buffer's journal head which
+ 	 * has been written back.
+ 	 */
+-	struct shrinker		j_shrinker;
++	struct shrinker		*j_shrinker;
+ 
+ 	/**
+ 	 * @j_checkpoint_jh_count:
 -- 
 2.30.2
 
