@@ -2,95 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8831F760A7A
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:14 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 97FBC760AA9
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:29 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690267393;
+	s=mimecast20190719; t=1690267408;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xj2hOVmKqOe5RfqAcfny0nT9L7QWz1geHH792Km1osg=;
-	b=aGo4YoqAZ6i+sJaXqGsIbg9UkfF2XRx3eKh5+wcI+klQ1yZo4hu3U0CvazMO+9n7uzHdaI
-	HsG5YuRGVlKceCVZCZlV8XMUFDivRi39tmLqEAkRCpE8yql1Wz2PJktGbX7rpHjadZBT0G
-	OdyKxW3d92OyofOH2+YTCth74v3J1kE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-473-1OpA8PlaNlqrgHAWf6NtkA-1; Tue, 25 Jul 2023 02:43:10 -0400
-X-MC-Unique: 1OpA8PlaNlqrgHAWf6NtkA-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=6VpO6s+38mQUcjCojF0kUJt6uFAB5d8M6MFUO20Q23w=;
+	b=IMZ9JchqoXxlbVBARPxXunqtzBHjGh76bojLXfOH9bYV2flzEh0YNFumfTRloQ6gocOJ6J
+	JMjpX3HidBvD6aD1kzcQlMQf1Qbs6ZuSa+7VjXUfyb9lSLuC5kbEcNVVOnCagDL32R0pnP
+	x1H1O+A54BZp4oHlcmachZZk6IQQHdA=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-659-0aky8sEFObun4RqlJ4Gxlw-1; Tue, 25 Jul 2023 02:43:22 -0400
+X-MC-Unique: 0aky8sEFObun4RqlJ4Gxlw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C8BE89F50C;
-	Tue, 25 Jul 2023 06:42:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C25E01C0757D;
+	Tue, 25 Jul 2023 06:42:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5457F2014F88;
-	Tue, 25 Jul 2023 06:42:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A6F284A9004;
+	Tue, 25 Jul 2023 06:42:54 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 112BD1937689;
-	Tue, 25 Jul 2023 06:42:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A374F1954394;
+	Tue, 25 Jul 2023 06:42:48 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 703C31946588
- for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:49:58 +0000 (UTC)
+ ESMTP id E46B21946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:50:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 28EC246A3A7; Mon, 24 Jul 2023 09:49:58 +0000 (UTC)
+ id C6E53C2C856; Mon, 24 Jul 2023 09:50:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 207B4492C13
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:49:58 +0000 (UTC)
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BF086C2C7D3
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:50:09 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05699185A793
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:49:58 +0000 (UTC)
-Received: from mail-pl1-f177.google.com (mail-pl1-f177.google.com
- [209.85.214.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F7F93C0C485
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:50:09 +0000 (UTC)
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com
+ [209.85.214.174]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-400-rXW7HSj7MsKXh8SMIn4u_A-1; Mon, 24 Jul 2023 05:49:56 -0400
-X-MC-Unique: rXW7HSj7MsKXh8SMIn4u_A-1
-Received: by mail-pl1-f177.google.com with SMTP id
- d9443c01a7336-1b8c364ad3bso8862025ad.1
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:49:55 -0700 (PDT)
+ us-mta-378-tSxji7oSM26NB7Kgf3Nufg-1; Mon, 24 Jul 2023 05:50:08 -0400
+X-MC-Unique: tSxji7oSM26NB7Kgf3Nufg-1
+Received: by mail-pl1-f174.google.com with SMTP id
+ d9443c01a7336-1bb91c20602so2230905ad.0
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:50:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690192195; x=1690796995;
+ d=1e100.net; s=20221208; t=1690192207; x=1690797007;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=9Za/Hz+nmH3G3JzZh25LzFiu0ZOWgA3znFTLEp4oxTw=;
- b=M76yyvpnD7w0dG/oCCEZOIkoGPa+ceENVQ0VJY94NfzCzCGzUM+dWHVMyFie48nvsY
- gce5geH2DLw6TjU0ueX8CGAL+BZzRcZ5iD8uRrvkb0wMl+oF7JoCp8DI6VlBsAGuUxa+
- ZFStN3hAf+rdNIC82A6F0+pSum4plebiMoYLTT36dPbAqQIPlehOs93gC6tYsSJh57ZC
- AyoQwj8dGH/38DhTv/uAQ0WdJ3Cs1Nd/4Qg6p3FjLO/m3OuBdJ4oP3D0FQYnZgVYx9rl
- r8WNDQLZFYf4NKV9T8c5ZuSPdOwABDNduLwKhXvCy3BHCdbJ04ym2stQBxvYxHFs+031
- hF7g==
-X-Gm-Message-State: ABy/qLZrGT3zTfE1s/5PGo5pAOMicsTMPR4k0aa1Q4yj0Sk1Yel/OI5y
- ogiExnas0LFFfOidxzdcAfmoVw==
-X-Google-Smtp-Source: APBJJlFYiQjYsesoLBIGYzIbaqvqBpGNnPrMVt+9gbe/8vvXchqG9OkxYsLP3NQiA5NgJtO6rGDrrQ==
-X-Received: by 2002:a17:902:e80a:b0:1b8:50a9:6874 with SMTP id
- u10-20020a170902e80a00b001b850a96874mr12325717plg.5.1690192194956; 
- Mon, 24 Jul 2023 02:49:54 -0700 (PDT)
+ bh=5tyryk3a6lKy52HCDJ7LTSnMns1BMfalny9tATaKfF4=;
+ b=VVysDwyeC5KaUtCixibR4NbV/6j23B9SK7pizKBlh9tCnSbDpu1egqe5zusCceMaPP
+ gGbLlGsTI4mkf0xaWWQRfdh0MSNWAceHONFhpyOccrLAViVk9aVH1gMcpOCksb8ydorU
+ dQBQ/UalOMB7yGB5bs/fKoIfyCxTS0BEtSOMVIcn+Xx8cy01jK36L92EZpOFnQm4DlW5
+ 6AyKRd12TYolQqaU7hYcDvCEmtYU161Xcyx/MuI7GHehUsA+y1aNRTZ5O8kkuVTIsCku
+ xYWU9o5LF5yjJrYkfgirqImYVv3AJmw+lOwBAJ6VSJHZA2zPDNaGLEO1zk4wtP5K6Fui
+ A+Kg==
+X-Gm-Message-State: ABy/qLZ7npDGxEF4tZPTZGe5scNRAB0enJPb8NNR1jVWOHH9OuQXBW2M
+ UGdXIv7LGF/CaWoNfPIVNvqrTw==
+X-Google-Smtp-Source: APBJJlGNSrKSFiHfBgDCDwymx1T6XElAyTc+fmhNn0a9fde+MwuOtWNaHmnJx2SRiMlK6zefGJ37qA==
+X-Received: by 2002:a17:902:f682:b0:1b3:ec39:f42c with SMTP id
+ l2-20020a170902f68200b001b3ec39f42cmr12377411plg.5.1690192206827; 
+ Mon, 24 Jul 2023 02:50:06 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.49.42
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.49.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:49:54 -0700 (PDT)
+ Mon, 24 Jul 2023 02:50:06 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Mon, 24 Jul 2023 17:43:31 +0800
-Message-Id: <20230724094354.90817-25-zhengqi.arch@bytedance.com>
+Date: Mon, 24 Jul 2023 17:43:32 +0800
+Message-Id: <20230724094354.90817-26-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -103,10 +103,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 25 Jul 2023 06:42:42 +0000
-Subject: [dm-devel] [PATCH v2 24/47] drm/panfrost: dynamically allocate the
- drm-panfrost shrinker
+Subject: [dm-devel] [PATCH v2 25/47] dm: dynamically allocate the dm-bufio
+ shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,135 +130,89 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the drm-panfrost shrinker, so that it can be freed
+dynamically allocate the dm-bufio shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct panfrost_device.
+read-side critical section when releasing the struct dm_bufio_client.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/gpu/drm/panfrost/panfrost_device.h    |  2 +-
- drivers/gpu/drm/panfrost/panfrost_drv.c       |  6 +++-
- drivers/gpu/drm/panfrost/panfrost_gem.h       |  2 +-
- .../gpu/drm/panfrost/panfrost_gem_shrinker.c  | 32 ++++++++++++-------
- 4 files changed, 27 insertions(+), 15 deletions(-)
+ drivers/md/dm-bufio.c | 26 +++++++++++++++-----------
+ 1 file changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/gpu/drm/panfrost/panfrost_device.h b/drivers/gpu/drm/panfrost/panfrost_device.h
-index b0126b9fbadc..e667e5689353 100644
---- a/drivers/gpu/drm/panfrost/panfrost_device.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_device.h
-@@ -118,7 +118,7 @@ struct panfrost_device {
+diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
+index bc309e41d074..028e30a4b2d0 100644
+--- a/drivers/md/dm-bufio.c
++++ b/drivers/md/dm-bufio.c
+@@ -963,7 +963,7 @@ struct dm_bufio_client {
  
- 	struct mutex shrinker_lock;
- 	struct list_head shrinker_list;
+ 	sector_t start;
+ 
 -	struct shrinker shrinker;
 +	struct shrinker *shrinker;
+ 	struct work_struct shrink_work;
+ 	atomic_long_t need_shrink;
  
- 	struct panfrost_devfreq pfdevfreq;
- };
-diff --git a/drivers/gpu/drm/panfrost/panfrost_drv.c b/drivers/gpu/drm/panfrost/panfrost_drv.c
-index bbada731bbbd..f705bbdea360 100644
---- a/drivers/gpu/drm/panfrost/panfrost_drv.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_drv.c
-@@ -598,10 +598,14 @@ static int panfrost_probe(struct platform_device *pdev)
- 	if (err < 0)
- 		goto err_out1;
- 
--	panfrost_gem_shrinker_init(ddev);
-+	err = panfrost_gem_shrinker_init(ddev);
-+	if (err)
-+		goto err_out2;
- 
- 	return 0;
- 
-+err_out2:
-+	drm_dev_unregister(ddev);
- err_out1:
- 	pm_runtime_disable(pfdev->dev);
- 	panfrost_device_fini(pfdev);
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem.h b/drivers/gpu/drm/panfrost/panfrost_gem.h
-index ad2877eeeccd..863d2ec8d4f0 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem.h
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem.h
-@@ -81,7 +81,7 @@ panfrost_gem_mapping_get(struct panfrost_gem_object *bo,
- void panfrost_gem_mapping_put(struct panfrost_gem_mapping *mapping);
- void panfrost_gem_teardown_mappings_locked(struct panfrost_gem_object *bo);
- 
--void panfrost_gem_shrinker_init(struct drm_device *dev);
-+int panfrost_gem_shrinker_init(struct drm_device *dev);
- void panfrost_gem_shrinker_cleanup(struct drm_device *dev);
- 
- #endif /* __PANFROST_GEM_H__ */
-diff --git a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-index bf0170782f25..9a90dfb5301f 100644
---- a/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-+++ b/drivers/gpu/drm/panfrost/panfrost_gem_shrinker.c
-@@ -18,8 +18,7 @@
- static unsigned long
- panfrost_gem_shrinker_count(struct shrinker *shrinker, struct shrink_control *sc)
+@@ -2368,7 +2368,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
  {
--	struct panfrost_device *pfdev =
--		container_of(shrinker, struct panfrost_device, shrinker);
-+	struct panfrost_device *pfdev = shrinker->private_data;
- 	struct drm_gem_shmem_object *shmem;
- 	unsigned long count = 0;
+ 	struct dm_bufio_client *c;
  
-@@ -65,8 +64,7 @@ static bool panfrost_gem_purge(struct drm_gem_object *obj)
- static unsigned long
- panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
+-	c = container_of(shrink, struct dm_bufio_client, shrinker);
++	c = shrink->private_data;
+ 	atomic_long_add(sc->nr_to_scan, &c->need_shrink);
+ 	queue_work(dm_bufio_wq, &c->shrink_work);
+ 
+@@ -2377,7 +2377,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
+ 
+ static unsigned long dm_bufio_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
  {
--	struct panfrost_device *pfdev =
--		container_of(shrinker, struct panfrost_device, shrinker);
-+	struct panfrost_device *pfdev = shrinker->private_data;
- 	struct drm_gem_shmem_object *shmem, *tmp;
- 	unsigned long freed = 0;
+-	struct dm_bufio_client *c = container_of(shrink, struct dm_bufio_client, shrinker);
++	struct dm_bufio_client *c = shrink->private_data;
+ 	unsigned long count = cache_total(&c->cache);
+ 	unsigned long retain_target = get_retain_buffers(c);
+ 	unsigned long queued_for_cleanup = atomic_long_read(&c->need_shrink);
+@@ -2490,15 +2490,19 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
+ 	INIT_WORK(&c->shrink_work, shrink_work);
+ 	atomic_long_set(&c->need_shrink, 0);
  
-@@ -97,13 +95,24 @@ panfrost_gem_shrinker_scan(struct shrinker *shrinker, struct shrink_control *sc)
-  *
-  * This function registers and sets up the panfrost shrinker.
-  */
--void panfrost_gem_shrinker_init(struct drm_device *dev)
-+int panfrost_gem_shrinker_init(struct drm_device *dev)
- {
- 	struct panfrost_device *pfdev = dev->dev_private;
--	pfdev->shrinker.count_objects = panfrost_gem_shrinker_count;
--	pfdev->shrinker.scan_objects = panfrost_gem_shrinker_scan;
--	pfdev->shrinker.seeks = DEFAULT_SEEKS;
--	WARN_ON(register_shrinker(&pfdev->shrinker, "drm-panfrost"));
-+
-+	pfdev->shrinker = shrinker_alloc(0, "drm-panfrost");
-+	if (!pfdev->shrinker) {
-+		WARN_ON(1);
-+		return -ENOMEM;
-+	}
-+
-+	pfdev->shrinker->count_objects = panfrost_gem_shrinker_count;
-+	pfdev->shrinker->scan_objects = panfrost_gem_shrinker_scan;
-+	pfdev->shrinker->seeks = DEFAULT_SEEKS;
-+	pfdev->shrinker->private_data = pfdev;
-+
-+	shrinker_register(pfdev->shrinker);
-+
-+	return 0;
- }
+-	c->shrinker.count_objects = dm_bufio_shrink_count;
+-	c->shrinker.scan_objects = dm_bufio_shrink_scan;
+-	c->shrinker.seeks = 1;
+-	c->shrinker.batch = 0;
+-	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
+-			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
+-	if (r)
++	c->shrinker = shrinker_alloc(0, "dm-bufio:(%u:%u)",
++				     MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
++	if (!c->shrinker)
+ 		goto bad;
  
- /**
-@@ -116,7 +125,6 @@ void panfrost_gem_shrinker_cleanup(struct drm_device *dev)
- {
- 	struct panfrost_device *pfdev = dev->dev_private;
++	c->shrinker->count_objects = dm_bufio_shrink_count;
++	c->shrinker->scan_objects = dm_bufio_shrink_scan;
++	c->shrinker->seeks = 1;
++	c->shrinker->batch = 0;
++	c->shrinker->private_data = c;
++
++	shrinker_register(c->shrinker);
++
+ 	mutex_lock(&dm_bufio_clients_lock);
+ 	dm_bufio_client_count++;
+ 	list_add(&c->client_list, &dm_bufio_all_clients);
+@@ -2537,7 +2541,7 @@ void dm_bufio_client_destroy(struct dm_bufio_client *c)
  
--	if (pfdev->shrinker.nr_deferred) {
--		unregister_shrinker(&pfdev->shrinker);
--	}
-+	if (pfdev->shrinker)
-+		shrinker_unregister(pfdev->shrinker);
- }
+ 	drop_buffers(c);
+ 
+-	unregister_shrinker(&c->shrinker);
++	shrinker_unregister(c->shrinker);
+ 	flush_work(&c->shrink_work);
+ 
+ 	mutex_lock(&dm_bufio_clients_lock);
 -- 
 2.30.2
 
