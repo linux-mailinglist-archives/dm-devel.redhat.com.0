@@ -2,95 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3BDC0760AA1
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:28 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 01BF5760A7D
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690267407;
+	s=mimecast20190719; t=1690267395;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=pE+vpfQL8KiKeQFC3OzlFDBt8yTMrGYVDUlVi66nEEc=;
-	b=QTq2tCb48ZZ3H+3Vp7nRp9w2mBv4TWi3Vp3cWzGCfhSeduZN3QWeIZS3z1IVoMVnOBRUTF
-	/01Jpq2zdZywnLKYONHK4InAkJChxd5Ox5IwrPjOYpAtQwKwbVPKFIQWBtDAPTwBD672x/
-	DpvNxD7svc+/d7OoK8Xl2ilXfsO0lqs=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-452-npAJZNGoPtiPxc-ZYEuDXw-1; Tue, 25 Jul 2023 02:43:23 -0400
-X-MC-Unique: npAJZNGoPtiPxc-ZYEuDXw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=Yr+pcIA3vZo3P+srhoaGG8FqnfVCQBWst1/mGFC1exg=;
+	b=SlRPgcpuRm0Gdp17Rvvy2I/8yUjoRAo5AN0g6AX35SbNoWVvQv69a7ib1FHQym5s2+bIZE
+	gt4j7fvKJcT03n7+4BkJARafX4s4H7TUeH32+6a21b/EDwEk3P6FER9Jx/9TOoSRvImlj6
+	atEKcKRngS98vaJFsI48QZ9p9m58iI0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-460-5a7L7FVMN0eUTQZvSGUjmg-1; Tue, 25 Jul 2023 02:43:08 -0400
+X-MC-Unique: 5a7L7FVMN0eUTQZvSGUjmg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7120299E743;
-	Tue, 25 Jul 2023 06:42:54 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE8CB10504BC;
+	Tue, 25 Jul 2023 06:42:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8BAE7207B352;
-	Tue, 25 Jul 2023 06:42:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EE068C57963;
+	Tue, 25 Jul 2023 06:42:49 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 71DBF194E125;
-	Tue, 25 Jul 2023 06:42:48 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3E83819543B6;
+	Tue, 25 Jul 2023 06:42:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 172D4194658D
- for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:47:50 +0000 (UTC)
+ ESMTP id C39B41946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:47:58 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id CBFDF1121315; Mon, 24 Jul 2023 09:47:49 +0000 (UTC)
+ id B5AD2C2C856; Mon, 24 Jul 2023 09:47:58 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C4BB11121318
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:47:49 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A9505803FEF
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:47:49 +0000 (UTC)
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com
- [209.85.214.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id ADB9BC2C7D3
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:47:58 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9183B1C0904B
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:47:58 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-466-wlptsI7dPI2TimSUK-vFPw-1; Mon, 24 Jul 2023 05:47:43 -0400
-X-MC-Unique: wlptsI7dPI2TimSUK-vFPw-1
-Received: by mail-pl1-f181.google.com with SMTP id
- d9443c01a7336-1b8c364ad3bso8858825ad.1
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:47:43 -0700 (PDT)
+ us-mta-311-HF0oIcGNNqO6SQySqh0ITg-1; Mon, 24 Jul 2023 05:47:55 -0400
+X-MC-Unique: HF0oIcGNNqO6SQySqh0ITg-1
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-1bb85ed352bso2234905ad.0
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:47:55 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690192062; x=1690796862;
+ d=1e100.net; s=20221208; t=1690192074; x=1690796874;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=rzRsL3uPXf8EtZhij3twpf+iuH9MzH4dVPBmPqsS5Og=;
- b=HZyGYBwe2XJCwOv7fLwmiV/5PdTYg+/pVZskoz0buswhbJpggyPyGBDV9WzIDNc8IV
- /4KUZNL18hD6vqfMq8n2GrKUy8WvHW9ibH2SAJwDufY7Ys7H54QxXNnSSr11TfN5ZIYH
- 26LfmLO1BvGgAUR3Sl4V4xleqKDuWCC9ZIrkRvBkznMpOfTR0g2jlblux00OJQCgon6E
- OeS7XcGvz6sDpFsl8Gp7YJxUkPSQNq5RnfiuzIRrwPsQ4zsKKTZwEUr1D70jKaXjigUm
- SeWY1mLGh5sZVfCyhZSEg9WRJ8W4W8XfbSgdiGwN9PJQaP4xZRxGcWBXMjznn14Sdgex
- fP9g==
-X-Gm-Message-State: ABy/qLYbQ63jxe1S+NZY7CyX65q6L7nJKithFCDYUbk3mpI3q+afhv+8
- 3I510vQc3tnCBew9MA1chVxj+w==
-X-Google-Smtp-Source: APBJJlE2hlcoboYUdUaSOoRiDnmiId7r6Wv5DYfSEbrHd1JPgB9nwdB4ObCAMGW7eL9gTiY+r7GrFA==
-X-Received: by 2002:a17:902:d508:b0:1a6:6bdb:b548 with SMTP id
- b8-20020a170902d50800b001a66bdbb548mr12141350plg.1.1690192062448; 
- Mon, 24 Jul 2023 02:47:42 -0700 (PDT)
+ bh=qReDjbjFz0xyiV7re04rgbBc1uubNDIxQ7QKRYWZSRs=;
+ b=cL4GiEHmriPo7t02Z0hsf05FTNTDOwuOq+WdC1j7Mlo39wywK6dgueY9SGYcumkhCz
+ 21NogZ7qrzbB5xT392wzHcVeOCpDWTqeHZTu4hTwo9H7Ve7vqSeLGJLRAuomNyPJQgod
+ B7cuQ1+AKyXnRS5KRtfrooy8RwmYQ8T8PdrIgTx7eVaSbohe9VyZMxafNy/TChKHumh/
+ avuerEua1WJIA/plFksjSejjswL/AnQkAFHLFdSm7GILhfEbJS5EGENeLxAKdMoBs2Ii
+ pTFchZqtwCl2ij68U8pAUY9dJdLilnr6pyf0bjZSoCvKxqmVclFRV8x1aeZXlv4USYKv
+ jl9w==
+X-Gm-Message-State: ABy/qLbk4RfiyrSv703dsVt/O1RU7pfnXSWSnHXDpwZy6n0F1/BH2rsN
+ jBU+6CrvmwKrKHl6Qetz+vFO2A==
+X-Google-Smtp-Source: APBJJlFmRr0YS7/80cQjb3Wv0/ryy4A2Bv0/hjBc48SsvJ3Rmt9/pUa2TTT24oRtgj6qJ02D1OEnuA==
+X-Received: by 2002:a17:902:dacf:b0:1b8:9215:9163 with SMTP id
+ q15-20020a170902dacf00b001b892159163mr12197474plx.6.1690192074491; 
+ Mon, 24 Jul 2023 02:47:54 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.47.31
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.47.42
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:47:42 -0700 (PDT)
+ Mon, 24 Jul 2023 02:47:54 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Mon, 24 Jul 2023 17:43:20 +0800
-Message-Id: <20230724094354.90817-14-zhengqi.arch@bytedance.com>
+Date: Mon, 24 Jul 2023 17:43:21 +0800
+Message-Id: <20230724094354.90817-15-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -103,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 25 Jul 2023 06:42:42 +0000
-Subject: [dm-devel] [PATCH v2 13/47] nfs: dynamically allocate the nfs-acl
- shrinker
+Subject: [dm-devel] [PATCH v2 14/47] nfsd: dynamically allocate the
+ nfsd-filecache shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,65 +129,76 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the nfs-acl shrinker.
+Use new APIs to dynamically allocate the nfsd-filecache shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- fs/nfs/super.c | 20 ++++++++++++--------
- 1 file changed, 12 insertions(+), 8 deletions(-)
+ fs/nfsd/filecache.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/fs/nfs/super.c b/fs/nfs/super.c
-index 2284f749d892..a90b12593383 100644
---- a/fs/nfs/super.c
-+++ b/fs/nfs/super.c
-@@ -129,11 +129,7 @@ static void nfs_ssc_unregister_ops(void)
+diff --git a/fs/nfsd/filecache.c b/fs/nfsd/filecache.c
+index ee9c923192e0..50216768d408 100644
+--- a/fs/nfsd/filecache.c
++++ b/fs/nfsd/filecache.c
+@@ -521,11 +521,7 @@ nfsd_file_lru_scan(struct shrinker *s, struct shrink_control *sc)
+ 	return ret;
  }
- #endif /* CONFIG_NFS_V4_2 */
  
--static struct shrinker acl_shrinker = {
--	.count_objects	= nfs_access_cache_count,
--	.scan_objects	= nfs_access_cache_scan,
--	.seeks		= DEFAULT_SEEKS,
+-static struct shrinker	nfsd_file_shrinker = {
+-	.scan_objects = nfsd_file_lru_scan,
+-	.count_objects = nfsd_file_lru_count,
+-	.seeks = 1,
 -};
-+static struct shrinker *acl_shrinker;
++static struct shrinker *nfsd_file_shrinker;
  
- /*
-  * Register the NFS filesystems
-@@ -153,9 +149,17 @@ int __init register_nfs_fs(void)
- 	ret = nfs_register_sysctl();
- 	if (ret < 0)
- 		goto error_2;
--	ret = register_shrinker(&acl_shrinker, "nfs-acl");
--	if (ret < 0)
+ /**
+  * nfsd_file_cond_queue - conditionally unhash and queue a nfsd_file
+@@ -746,12 +742,18 @@ nfsd_file_cache_init(void)
+ 		goto out_err;
+ 	}
+ 
+-	ret = register_shrinker(&nfsd_file_shrinker, "nfsd-filecache");
+-	if (ret) {
+-		pr_err("nfsd: failed to register nfsd_file_shrinker: %d\n", ret);
++	nfsd_file_shrinker = shrinker_alloc(0, "nfsd-filecache");
++	if (!nfsd_file_shrinker) {
++		pr_err("nfsd: failed to allocate nfsd_file_shrinker\n");
+ 		goto out_lru;
+ 	}
+ 
++	nfsd_file_shrinker->count_objects = nfsd_file_lru_count;
++	nfsd_file_shrinker->scan_objects = nfsd_file_lru_scan;
++	nfsd_file_shrinker->seeks = 1;
 +
-+	acl_shrinker = shrinker_alloc(0, "nfs-acl");
-+	if (!acl_shrinker)
- 		goto error_3;
++	shrinker_register(nfsd_file_shrinker);
 +
-+	acl_shrinker->count_objects = nfs_access_cache_count;
-+	acl_shrinker->scan_objects = nfs_access_cache_scan;
-+	acl_shrinker->seeks = DEFAULT_SEEKS;
-+
-+	shrinker_register(acl_shrinker);
-+
- #ifdef CONFIG_NFS_V4_2
- 	nfs_ssc_register_ops();
- #endif
-@@ -175,7 +179,7 @@ int __init register_nfs_fs(void)
-  */
- void __exit unregister_nfs_fs(void)
- {
--	unregister_shrinker(&acl_shrinker);
-+	shrinker_unregister(acl_shrinker);
- 	nfs_unregister_sysctl();
- 	unregister_nfs4_fs();
- #ifdef CONFIG_NFS_V4_2
+ 	ret = lease_register_notifier(&nfsd_file_lease_notifier);
+ 	if (ret) {
+ 		pr_err("nfsd: unable to register lease notifier: %d\n", ret);
+@@ -774,7 +776,7 @@ nfsd_file_cache_init(void)
+ out_notifier:
+ 	lease_unregister_notifier(&nfsd_file_lease_notifier);
+ out_shrinker:
+-	unregister_shrinker(&nfsd_file_shrinker);
++	shrinker_unregister(nfsd_file_shrinker);
+ out_lru:
+ 	list_lru_destroy(&nfsd_file_lru);
+ out_err:
+@@ -891,7 +893,7 @@ nfsd_file_cache_shutdown(void)
+ 		return;
+ 
+ 	lease_unregister_notifier(&nfsd_file_lease_notifier);
+-	unregister_shrinker(&nfsd_file_shrinker);
++	shrinker_unregister(nfsd_file_shrinker);
+ 	/*
+ 	 * make sure all callers of nfsd_file_lru_cb are done before
+ 	 * calling nfsd_file_cache_purge
 -- 
 2.30.2
 
