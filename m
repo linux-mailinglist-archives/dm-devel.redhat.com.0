@@ -2,7 +2,7 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 41DF9760A85
+	by mail.lfdr.de (Postfix) with ESMTPS id 7BE93760A87
 	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1690267398;
@@ -12,85 +12,84 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5I6tOMXUcK8YfIqyGGUc6/BqoizTKvgAAn82cJnswiI=;
-	b=esmRSw2DySMrBDTkvGScnNzLBeZ7t6UcHZ5NAh6cXUQw2PtjNQ0qrfzaMbIQNnYbFyccpX
-	5E7pUnoxZyLQxQYqZ/CnWKfnzrMcAxmR67AcXOXGCfr/6d2i1oZYsIFSKwnVUv+zZnTt9x
-	YnjX0xmdz88VF3rXL4GbaZklZMdNjao=
+	bh=9jNa/Wmq0QZ5v2XmuIC/7WGQpoJKQ5TKuRMNUkTdoYw=;
+	b=O2eqF2vPaW+VMv35goeEnqcwwUpVr8P3toXdhGWAp42nr0v5R1XW+BlghFR+aj/bfuVWSR
+	N3G6ZUQqpGpfKqoCP5DHoTEkb+fLsLsfZ1cQaF88DQSoJ4OruPjK7MF163IzM/J+GVri93
+	QxOQP+0ZKTEz1DYofSxGU7JC9H7o2+g=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-230-UwRawzS1MyW8qYFQGn6v0A-1; Tue, 25 Jul 2023 02:43:08 -0400
-X-MC-Unique: UwRawzS1MyW8qYFQGn6v0A-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-552-j6XhpujUPcaZxE87NRevXQ-1; Tue, 25 Jul 2023 02:43:13 -0400
+X-MC-Unique: j6XhpujUPcaZxE87NRevXQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC01B1C06ED0;
-	Tue, 25 Jul 2023 06:42:51 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3745F3C100B7;
+	Tue, 25 Jul 2023 06:42:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1F913207B31F;
-	Tue, 25 Jul 2023 06:42:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id DAEA42166B25;
+	Tue, 25 Jul 2023 06:42:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9BFB41946A50;
-	Tue, 25 Jul 2023 06:42:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77119193761A;
+	Tue, 25 Jul 2023 06:42:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9A3711946588
- for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:45:58 +0000 (UTC)
+ ESMTP id 716521946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 78E1BC2C856; Mon, 24 Jul 2023 09:45:58 +0000 (UTC)
+ id 5D6B41121318; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 711D0C2C7D3
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:45:58 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5581C1121315
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50C761C09042
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:45:58 +0000 (UTC)
-Received: from mail-pl1-f170.google.com (mail-pl1-f170.google.com
- [209.85.214.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A50180027F
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
+Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
+ [209.85.214.179]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-614-bBkNfT4hPymBwmkHoJbX3A-1; Mon, 24 Jul 2023 05:45:56 -0400
-X-MC-Unique: bBkNfT4hPymBwmkHoJbX3A-1
-Received: by mail-pl1-f170.google.com with SMTP id
- d9443c01a7336-1b8c364ad3bso8855595ad.1
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:45:55 -0700 (PDT)
+ us-mta-26-BDJWrso3PSqZfwgqGfrANg-1; Mon, 24 Jul 2023 05:46:07 -0400
+X-MC-Unique: BDJWrso3PSqZfwgqGfrANg-1
+Received: by mail-pl1-f179.google.com with SMTP id
+ d9443c01a7336-1b8c364ad3bso8856155ad.1
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:46:07 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690191955; x=1690796755;
+ d=1e100.net; s=20221208; t=1690191967; x=1690796767;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=jmPwAlPL0TnDBmalzCzATtOPmfxfqu3Q+7XaFZclAtg=;
- b=Qff9yF+g9zzwMb5fVfqSY3hAgMRi75g9qsFyDLogABdBRkUW/1H+80TrW6yYKBdW87
- lI4ZrPgz9nSVW7jDRtTZv/hOe8BA+8ORFxf5FkomFAPewaGv5vqesRVPZLpz4ClViVnY
- AbGsDkZGnLy4TdTHDoD2tNsIlCwziu7BTzP95rCVmgqmHIQVBq7f3+fzpN3nXGZATeF/
- q5KJGrpIJC3m0ilbE9YnMYsuHc3BJkkvOgDTjGYDNDr9rOGmBTbOwjQnH2u+DoHI9pq7
- msuR8Heh+nnLdogodfgofMq61Bmatr7zy5TV51TtTMWxQRiBu2DUpKt8gi3Ktv57qgqP
- N6sg==
-X-Gm-Message-State: ABy/qLbTyZWkWJe8i9ZG2LkyGulXPG0cwRTWpc+/AJrrwkKPpEFIv/eQ
- tD5gPcFHa74dAMZyJtS2N04RhQ==
-X-Google-Smtp-Source: APBJJlHDY1qhgSa+H4mr70oj6h44PLP3QUTUzXb3MsGg4I77oDNLLFWrtOaIhBAmIAnOXFQDdEVBFw==
-X-Received: by 2002:a17:902:d4cb:b0:1b1:9272:55e2 with SMTP id
- o11-20020a170902d4cb00b001b1927255e2mr12365119plg.3.1690191954835; 
- Mon, 24 Jul 2023 02:45:54 -0700 (PDT)
+ bh=vu9DfqGDIkVtY7CS+mn/8y6VlhAfp+/Q2ofuaCWar5Q=;
+ b=JUS7OPz1uj7LiXoWDmH8hTpoVLDvy8Pl4QL42HQU9IcB1m8VmCzQ+obD+fsdMi0uvv
+ aDJvSH2JcOSNVbg+FtMeXfSUI/TdmzeT6orFd1PM09ZKHLxnI1ZuuHuHLSAX1vPPH5zT
+ qqzFyK5keJi89btBhQzvGnepfRZ75YxGHuBTJM7ttPdlW75xJVSa5ghgq614kV+6gDVh
+ 49WCvBQQb1phFTNdkGkZOaBq5ef6HyS6upoko2ZFVZsrYH6iYCmEN4mZkMxf2YiH66Tx
+ lUjfgWvGVYpziDLP+M3f8mOHq69A70nzFyQJFZVlo8B87TRorLZyKOmreeyZnyiXbiUx
+ CAng==
+X-Gm-Message-State: ABy/qLYR5IFnPd1x3zYodIiUA+SRP4CnHxv1WXByTrHhBEiP3eSUZRbs
+ CuUOJTJ5wKupFWcI5rAD/xp1Cw==
+X-Google-Smtp-Source: APBJJlGrsdFKJ71ukJT79kDa1W+M4ztJszdSUa3mf2ArYfnWEb5YwD/wtpSbLXe4wEi7ibAUftTBwg==
+X-Received: by 2002:a17:902:ecd2:b0:1b8:b4f6:1327 with SMTP id
+ a18-20020a170902ecd200b001b8b4f61327mr12288935plh.6.1690191966684; 
+ Mon, 24 Jul 2023 02:46:06 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.45.43
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.45.55
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:45:54 -0700 (PDT)
+ Mon, 24 Jul 2023 02:46:06 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Mon, 24 Jul 2023 17:43:11 +0800
-Message-Id: <20230724094354.90817-5-zhengqi.arch@bytedance.com>
+Date: Mon, 24 Jul 2023 17:43:12 +0800
+Message-Id: <20230724094354.90817-6-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -103,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Tue, 25 Jul 2023 06:42:42 +0000
-Subject: [dm-devel] [PATCH v2 04/47] kvm: mmu: dynamically allocate the
- x86-mmu shrinker
+Subject: [dm-devel] [PATCH v2 05/47] binder: dynamically allocate the
+ android-binder shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,64 +129,74 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the x86-mmu shrinker.
+Use new APIs to dynamically allocate the android-binder shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- arch/x86/kvm/mmu/mmu.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ drivers/android/binder_alloc.c | 31 +++++++++++++++++++------------
+ 1 file changed, 19 insertions(+), 12 deletions(-)
 
-diff --git a/arch/x86/kvm/mmu/mmu.c b/arch/x86/kvm/mmu/mmu.c
-index ec169f5c7dce..ab405e0a8954 100644
---- a/arch/x86/kvm/mmu/mmu.c
-+++ b/arch/x86/kvm/mmu/mmu.c
-@@ -6847,11 +6847,7 @@ static unsigned long mmu_shrink_count(struct shrinker *shrink,
- 	return percpu_counter_read_positive(&kvm_total_used_mmu_pages);
+diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
+index e3db8297095a..019981d65e1e 100644
+--- a/drivers/android/binder_alloc.c
++++ b/drivers/android/binder_alloc.c
+@@ -1053,11 +1053,7 @@ binder_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
+ 			    NULL, sc->nr_to_scan);
  }
  
--static struct shrinker mmu_shrinker = {
--	.count_objects = mmu_shrink_count,
--	.scan_objects = mmu_shrink_scan,
--	.seeks = DEFAULT_SEEKS * 10,
+-static struct shrinker binder_shrinker = {
+-	.count_objects = binder_shrink_count,
+-	.scan_objects = binder_shrink_scan,
+-	.seeks = DEFAULT_SEEKS,
 -};
-+static struct shrinker *mmu_shrinker;
++static struct shrinker *binder_shrinker;
  
- static void mmu_destroy_caches(void)
+ /**
+  * binder_alloc_init() - called by binder_open() for per-proc initialization
+@@ -1077,19 +1073,30 @@ void binder_alloc_init(struct binder_alloc *alloc)
+ 
+ int binder_alloc_shrinker_init(void)
  {
-@@ -6984,10 +6980,16 @@ int kvm_mmu_vendor_module_init(void)
- 	if (percpu_counter_init(&kvm_total_used_mmu_pages, 0, GFP_KERNEL))
- 		goto out;
+-	int ret = list_lru_init(&binder_alloc_lru);
++	int ret;
  
--	ret = register_shrinker(&mmu_shrinker, "x86-mmu");
--	if (ret)
-+	mmu_shrinker = shrinker_alloc(0, "x86-mmu");
-+	if (!mmu_shrinker)
- 		goto out_shrinker;
- 
-+	mmu_shrinker->count_objects = mmu_shrink_count;
-+	mmu_shrinker->scan_objects = mmu_shrink_scan;
-+	mmu_shrinker->seeks = DEFAULT_SEEKS * 10;
+-	if (ret == 0) {
+-		ret = register_shrinker(&binder_shrinker, "android-binder");
+-		if (ret)
+-			list_lru_destroy(&binder_alloc_lru);
++	ret = list_lru_init(&binder_alloc_lru);
++	if (ret)
++		return ret;
 +
-+	shrinker_register(mmu_shrinker);
++	binder_shrinker = shrinker_alloc(0, "android-binder");
++	if (!binder_shrinker) {
++		list_lru_destroy(&binder_alloc_lru);
++		return -ENOMEM;
+ 	}
+-	return ret;
 +
- 	return 0;
- 
- out_shrinker:
-@@ -7009,7 +7011,7 @@ void kvm_mmu_vendor_module_exit(void)
- {
- 	mmu_destroy_caches();
- 	percpu_counter_destroy(&kvm_total_used_mmu_pages);
--	unregister_shrinker(&mmu_shrinker);
-+	shrinker_unregister(mmu_shrinker);
++	binder_shrinker->count_objects = binder_shrink_count;
++	binder_shrinker->scan_objects = binder_shrink_scan;
++	binder_shrinker->seeks = DEFAULT_SEEKS;
++
++	shrinker_register(binder_shrinker);
++
++	return 0;
  }
  
- /*
+ void binder_alloc_shrinker_exit(void)
+ {
+-	unregister_shrinker(&binder_shrinker);
++	shrinker_unregister(binder_shrinker);
+ 	list_lru_destroy(&binder_alloc_lru);
+ }
+ 
 -- 
 2.30.2
 
