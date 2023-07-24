@@ -1,95 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7BE93760A87
-	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 84515760A79
+	for <lists+dm-devel@lfdr.de>; Tue, 25 Jul 2023 08:43:14 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690267398;
+	s=mimecast20190719; t=1690267393;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9jNa/Wmq0QZ5v2XmuIC/7WGQpoJKQ5TKuRMNUkTdoYw=;
-	b=O2eqF2vPaW+VMv35goeEnqcwwUpVr8P3toXdhGWAp42nr0v5R1XW+BlghFR+aj/bfuVWSR
-	N3G6ZUQqpGpfKqoCP5DHoTEkb+fLsLsfZ1cQaF88DQSoJ4OruPjK7MF163IzM/J+GVri93
-	QxOQP+0ZKTEz1DYofSxGU7JC9H7o2+g=
+	bh=TjVklA7eLVov7Y36fkXjlqyp+hdXFX/HXIQvQBW5DeQ=;
+	b=S10MTRqaQmKE+C/s87gfdWNbi8CNDayOt0MBl5pxqhjyHFrVIoHKAaorqNc9roiAVmJAr0
+	TSL7vkBH2Ow6Tydp7Nqv868IXPzFmMdjzbcNth9n2sgDNDtWxEtBWY0PFxYTPTcezi8byD
+	0DwyUdXT21ZJUmfc8HOIc/XGqRmMLkA=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-552-j6XhpujUPcaZxE87NRevXQ-1; Tue, 25 Jul 2023 02:43:13 -0400
-X-MC-Unique: j6XhpujUPcaZxE87NRevXQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-85-So-DHuS2ML6O_b6JmqP1QQ-1; Tue, 25 Jul 2023 02:43:08 -0400
+X-MC-Unique: So-DHuS2ML6O_b6JmqP1QQ-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3745F3C100B7;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 55BB31C07275;
 	Tue, 25 Jul 2023 06:42:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id DAEA42166B25;
-	Tue, 25 Jul 2023 06:42:52 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FAD7492C13;
+	Tue, 25 Jul 2023 06:42:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 77119193761A;
-	Tue, 25 Jul 2023 06:42:46 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 954B21949748;
+	Tue, 25 Jul 2023 06:42:47 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 716521946588
- for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
+ ESMTP id BEC311946588
+ for <dm-devel@listman.corp.redhat.com>; Mon, 24 Jul 2023 09:46:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5D6B41121318; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
+ id ACE811121318; Mon, 24 Jul 2023 09:46:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5581C1121315
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A56491121315
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:46:24 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3A50180027F
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:46:11 +0000 (UTC)
-Received: from mail-pl1-f179.google.com (mail-pl1-f179.google.com
- [209.85.214.179]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 899AF8030AC
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 09:46:24 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-26-BDJWrso3PSqZfwgqGfrANg-1; Mon, 24 Jul 2023 05:46:07 -0400
-X-MC-Unique: BDJWrso3PSqZfwgqGfrANg-1
-Received: by mail-pl1-f179.google.com with SMTP id
- d9443c01a7336-1b8c364ad3bso8856155ad.1
- for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:46:07 -0700 (PDT)
+ us-mta-153-4Pl-41xZPE-3phZNE7XEkg-1; Mon, 24 Jul 2023 05:46:19 -0400
+X-MC-Unique: 4Pl-41xZPE-3phZNE7XEkg-1
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-1bb85ed352bso2229885ad.0
+ for <dm-devel@redhat.com>; Mon, 24 Jul 2023 02:46:19 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690191967; x=1690796767;
+ d=1e100.net; s=20221208; t=1690191978; x=1690796778;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=vu9DfqGDIkVtY7CS+mn/8y6VlhAfp+/Q2ofuaCWar5Q=;
- b=JUS7OPz1uj7LiXoWDmH8hTpoVLDvy8Pl4QL42HQU9IcB1m8VmCzQ+obD+fsdMi0uvv
- aDJvSH2JcOSNVbg+FtMeXfSUI/TdmzeT6orFd1PM09ZKHLxnI1ZuuHuHLSAX1vPPH5zT
- qqzFyK5keJi89btBhQzvGnepfRZ75YxGHuBTJM7ttPdlW75xJVSa5ghgq614kV+6gDVh
- 49WCvBQQb1phFTNdkGkZOaBq5ef6HyS6upoko2ZFVZsrYH6iYCmEN4mZkMxf2YiH66Tx
- lUjfgWvGVYpziDLP+M3f8mOHq69A70nzFyQJFZVlo8B87TRorLZyKOmreeyZnyiXbiUx
- CAng==
-X-Gm-Message-State: ABy/qLYR5IFnPd1x3zYodIiUA+SRP4CnHxv1WXByTrHhBEiP3eSUZRbs
- CuUOJTJ5wKupFWcI5rAD/xp1Cw==
-X-Google-Smtp-Source: APBJJlGrsdFKJ71ukJT79kDa1W+M4ztJszdSUa3mf2ArYfnWEb5YwD/wtpSbLXe4wEi7ibAUftTBwg==
-X-Received: by 2002:a17:902:ecd2:b0:1b8:b4f6:1327 with SMTP id
- a18-20020a170902ecd200b001b8b4f61327mr12288935plh.6.1690191966684; 
- Mon, 24 Jul 2023 02:46:06 -0700 (PDT)
+ bh=YJ34aDXYlHmjcWHNnO8BUtZL0Yf5ZszuCt3/FkcxObI=;
+ b=gebVenT512chGjtVsiD2zj8KMn69VpFQoZmKUSofBP0nVzqz9XWp+CsteqXCYLFNyF
+ ofuex888cmeEAGvbS2CtBQHM0/Fk3IDZu82OqjIyfDL1tGiTm3tU2bRUpB7NhY6uzABW
+ fN+Jm1maptS9qD4zuPUKUmXg1ur7NQYEoGLBm/aGw50lKAtS4Spwpz73GdZTHgSNDCY7
+ nfj0VZ0xXCiROUs9zN9VHml+DIXbWuat/3838tKjLPYgfm9meyCbk/33EgrBH55IF5n6
+ eYcF0U8BDN+MUmkvMTQfiZPeS93Gp13b7A+sDUbn/yxBU0E6lU12cybRfdCekSv/1INs
+ MM2Q==
+X-Gm-Message-State: ABy/qLa/bM99zjyxYlBgyfWa/O6bfMjSN0qgseRIe3pOqhwKeoLWFJu5
+ bxShoAph1lYbrVNhw2AGTk216w==
+X-Google-Smtp-Source: APBJJlGS+SYk55mAAJOUNGx8fxUIn0OJAQvX8pDu/8/ugt1o28j6t6h3zVeppHUSF07Rw5MgS0vxBA==
+X-Received: by 2002:a17:902:d484:b0:1b8:a27d:f591 with SMTP id
+ c4-20020a170902d48400b001b8a27df591mr12255719plg.5.1690191978640; 
+ Mon, 24 Jul 2023 02:46:18 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.45.55
+ d5-20020a170902c18500b001bb20380bf2sm8467233pld.13.2023.07.24.02.46.07
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 24 Jul 2023 02:46:06 -0700 (PDT)
+ Mon, 24 Jul 2023 02:46:18 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Mon, 24 Jul 2023 17:43:12 +0800
-Message-Id: <20230724094354.90817-6-zhengqi.arch@bytedance.com>
+Date: Mon, 24 Jul 2023 17:43:13 +0800
+Message-Id: <20230724094354.90817-7-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -104,8 +105,8 @@ X-Mimecast-Bulk-Signature: yes
 X-Mimecast-Spam-Signature: bulk
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Tue, 25 Jul 2023 06:42:42 +0000
-Subject: [dm-devel] [PATCH v2 05/47] binder: dynamically allocate the
- android-binder shrinker
+Subject: [dm-devel] [PATCH v2 06/47] drm/ttm: dynamically allocate the
+ drm-ttm_pool shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,74 +130,73 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the android-binder shrinker.
+Use new APIs to dynamically allocate the drm-ttm_pool shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- drivers/android/binder_alloc.c | 31 +++++++++++++++++++------------
- 1 file changed, 19 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/ttm/ttm_pool.c | 23 +++++++++++++++--------
+ 1 file changed, 15 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/android/binder_alloc.c b/drivers/android/binder_alloc.c
-index e3db8297095a..019981d65e1e 100644
---- a/drivers/android/binder_alloc.c
-+++ b/drivers/android/binder_alloc.c
-@@ -1053,11 +1053,7 @@ binder_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
- 			    NULL, sc->nr_to_scan);
- }
+diff --git a/drivers/gpu/drm/ttm/ttm_pool.c b/drivers/gpu/drm/ttm/ttm_pool.c
+index cddb9151d20f..e1eb73d0b72a 100644
+--- a/drivers/gpu/drm/ttm/ttm_pool.c
++++ b/drivers/gpu/drm/ttm/ttm_pool.c
+@@ -73,7 +73,7 @@ static struct ttm_pool_type global_dma32_uncached[MAX_ORDER + 1];
  
--static struct shrinker binder_shrinker = {
--	.count_objects = binder_shrink_count,
--	.scan_objects = binder_shrink_scan,
--	.seeks = DEFAULT_SEEKS,
--};
-+static struct shrinker *binder_shrinker;
+ static spinlock_t shrinker_lock;
+ static struct list_head shrinker_list;
+-static struct shrinker mm_shrinker;
++static struct shrinker *mm_shrinker;
  
- /**
-  * binder_alloc_init() - called by binder_open() for per-proc initialization
-@@ -1077,19 +1073,30 @@ void binder_alloc_init(struct binder_alloc *alloc)
+ /* Allocate pages of size 1 << order with the given gfp_flags */
+ static struct page *ttm_pool_alloc_page(struct ttm_pool *pool, gfp_t gfp_flags,
+@@ -734,8 +734,8 @@ static int ttm_pool_debugfs_shrink_show(struct seq_file *m, void *data)
+ 	struct shrink_control sc = { .gfp_mask = GFP_NOFS };
  
- int binder_alloc_shrinker_init(void)
- {
--	int ret = list_lru_init(&binder_alloc_lru);
-+	int ret;
+ 	fs_reclaim_acquire(GFP_KERNEL);
+-	seq_printf(m, "%lu/%lu\n", ttm_pool_shrinker_count(&mm_shrinker, &sc),
+-		   ttm_pool_shrinker_scan(&mm_shrinker, &sc));
++	seq_printf(m, "%lu/%lu\n", ttm_pool_shrinker_count(mm_shrinker, &sc),
++		   ttm_pool_shrinker_scan(mm_shrinker, &sc));
+ 	fs_reclaim_release(GFP_KERNEL);
  
--	if (ret == 0) {
--		ret = register_shrinker(&binder_shrinker, "android-binder");
--		if (ret)
--			list_lru_destroy(&binder_alloc_lru);
-+	ret = list_lru_init(&binder_alloc_lru);
-+	if (ret)
-+		return ret;
-+
-+	binder_shrinker = shrinker_alloc(0, "android-binder");
-+	if (!binder_shrinker) {
-+		list_lru_destroy(&binder_alloc_lru);
+ 	return 0;
+@@ -779,10 +779,17 @@ int ttm_pool_mgr_init(unsigned long num_pages)
+ 			    &ttm_pool_debugfs_shrink_fops);
+ #endif
+ 
+-	mm_shrinker.count_objects = ttm_pool_shrinker_count;
+-	mm_shrinker.scan_objects = ttm_pool_shrinker_scan;
+-	mm_shrinker.seeks = 1;
+-	return register_shrinker(&mm_shrinker, "drm-ttm_pool");
++	mm_shrinker = shrinker_alloc(0, "drm-ttm_pool");
++	if (!mm_shrinker)
 +		return -ENOMEM;
- 	}
--	return ret;
 +
-+	binder_shrinker->count_objects = binder_shrink_count;
-+	binder_shrinker->scan_objects = binder_shrink_scan;
-+	binder_shrinker->seeks = DEFAULT_SEEKS;
++	mm_shrinker->count_objects = ttm_pool_shrinker_count;
++	mm_shrinker->scan_objects = ttm_pool_shrinker_scan;
++	mm_shrinker->seeks = 1;
 +
-+	shrinker_register(binder_shrinker);
++	shrinker_register(mm_shrinker);
 +
 +	return 0;
  }
  
- void binder_alloc_shrinker_exit(void)
- {
--	unregister_shrinker(&binder_shrinker);
-+	shrinker_unregister(binder_shrinker);
- 	list_lru_destroy(&binder_alloc_lru);
- }
+ /**
+@@ -802,6 +809,6 @@ void ttm_pool_mgr_fini(void)
+ 		ttm_pool_type_fini(&global_dma32_uncached[i]);
+ 	}
  
+-	unregister_shrinker(&mm_shrinker);
++	shrinker_unregister(mm_shrinker);
+ 	WARN_ON(!list_empty(&shrinker_list));
+ }
 -- 
 2.30.2
 
