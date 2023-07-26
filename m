@@ -1,71 +1,71 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 599CD7646C8
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 08:23:41 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 739BE7646CA
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 08:24:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690439020;
+	s=mimecast20190719; t=1690439041;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=sXzLzDCoCrHl3IwYf62U0VjdFsCumRkAylQajLQn4HY=;
-	b=ejIH6SbTLnIKeZRHEUGhDbksj5KQh/vUAmjOut18r6xV/8hUw89yeYw0kcwP6G5A3GpQ5N
-	GfO8LH13qHOQcIzjsDsFstVKLuSdhFOiSThENrWqpDxn2Zl/taVHdE6YJX3UYbaXBqIloP
-	UFURtyNwRlgEN1nyJpIaBQ6IBojSo6c=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-690-f33I9auVO1CUzgVP5A7pSA-1; Thu, 27 Jul 2023 02:23:37 -0400
-X-MC-Unique: f33I9auVO1CUzgVP5A7pSA-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+	bh=vfHrIGYFwaQSkYQGV/+H7IRLXYlooNilvyLYYH+BenI=;
+	b=Usre5zKlzmObIXgMpCU0o0us+oeSIk7R2tF+dEUdQYfOB2ZQNufN8Hsh1pCvYlcI1Y6NL4
+	tIFLWpMacmYXjEaRuG3/6ov2Tk6zU2k/P9X1btnCOHZqlhd9sDuvhGhpcR2WHsLZZM7O34
+	AKDpFhkte0y8vNQdxcAD4BauMpzKrto=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-115-FYWzN90aPAeOFonDgbwKZg-1; Thu, 27 Jul 2023 02:23:37 -0400
+X-MC-Unique: FYWzN90aPAeOFonDgbwKZg-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AAAA488D120;
-	Thu, 27 Jul 2023 06:23:34 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0F6B83C11CDF;
+	Thu, 27 Jul 2023 06:23:35 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5AC5E492C13;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ED3A3C2C859;
 	Thu, 27 Jul 2023 06:23:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8B4E2193F504;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E3EBD194E119;
 	Thu, 27 Jul 2023 06:23:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E8711946589
- for <dm-devel@listman.corp.redhat.com>; Wed, 26 Jul 2023 07:43:31 +0000 (UTC)
+ ESMTP id 1F7A51946589
+ for <dm-devel@listman.corp.redhat.com>; Wed, 26 Jul 2023 07:43:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5EE2240C206F; Wed, 26 Jul 2023 07:43:31 +0000 (UTC)
+ id E453A1120AC7; Wed, 26 Jul 2023 07:43:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 578ED40C2063
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 07:43:31 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DC89D1121339
+ for <dm-devel@redhat.com>; Wed, 26 Jul 2023 07:43:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2353F809F8F
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 07:43:31 +0000 (UTC)
-Received: from out-37.mta0.migadu.com (out-37.mta0.migadu.com
- [91.218.175.37]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD3518825FB
+ for <dm-devel@redhat.com>; Wed, 26 Jul 2023 07:43:54 +0000 (UTC)
+Received: from out-20.mta0.migadu.com (out-20.mta0.migadu.com
+ [91.218.175.20]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-161-tN6krF8fP-KTZ563zLfJKw-1; Wed, 26 Jul 2023 03:43:26 -0400
-X-MC-Unique: tN6krF8fP-KTZ563zLfJKw-1
+ us-mta-520-nxYjhXPANH2okI2POKEjSA-1; Wed, 26 Jul 2023 03:43:53 -0400
+X-MC-Unique: nxYjhXPANH2okI2POKEjSA-1
 MIME-Version: 1.0
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20230724094354.90817-38-zhengqi.arch@bytedance.com>
-Date: Wed, 26 Jul 2023 15:42:45 +0800
-Message-Id: <FB641EED-655F-4F87-83DC-1B2B30ECCC24@linux.dev>
+In-Reply-To: <20230724094354.90817-39-zhengqi.arch@bytedance.com>
+Date: Wed, 26 Jul 2023 15:43:12 +0800
+Message-Id: <99BAA621-E9B3-4D87-A1DD-D5242D0BC483@linux.dev>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-38-zhengqi.arch@bytedance.com>
+ <20230724094354.90817-39-zhengqi.arch@bytedance.com>
 To: Qi Zheng <zhengqi.arch@bytedance.com>
 X-Migadu-Flow: FLOW_OUT
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -75,10 +75,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Thu, 27 Jul 2023 06:20:49 +0000
-Subject: Re: [dm-devel] [PATCH v2 37/47] xfs: dynamically allocate the
- xfs-inodegc shrinker
+Subject: Re: [dm-devel] [PATCH v2 38/47] xfs: dynamically allocate the
+ xfs-qm shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,12 +102,12 @@ Cc: kvm@vger.kernel.org, djwong@kernel.org,
  linux-raid@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
  tytso@mit.edu, gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
  linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- Sergey Senozhatsky <senozhatsky@chromium.org>, netdev@vger.kernel.org,
+ senozhatsky@chromium.org, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -118,9 +118,9 @@ Content-Transfer-Encoding: 7bit
 > On Jul 24, 2023, at 17:43, Qi Zheng <zhengqi.arch@bytedance.com> wrote:
 > 
 > In preparation for implementing lockless slab shrink, use new APIs to
-> dynamically allocate the xfs-inodegc shrinker, so that it can be freed
+> dynamically allocate the xfs-qm shrinker, so that it can be freed
 > asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-> read-side critical section when releasing the struct xfs_mount.
+> read-side critical section when releasing the struct xfs_quotainfo.
 > 
 > Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
