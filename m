@@ -2,98 +2,98 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F3AF7646C4
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 08:23:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1F82F7646C1
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 08:22:42 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690438982;
+	s=mimecast20190719; t=1690438960;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=jNJ08xevVY2sWSoI4fYviOdxivgvhh831N+i/vba52o=;
-	b=gZP/wMPVox4gi/gPbewJMWjrN/r2F5EJSQOozglpTK3eb8XS2HE3YfWYc4UTd7531LgRhb
-	WKB1hftWdc8WiZoZzzCwFYy2fGcpp6ntOGEDvjFu97XhmqpNNLsdmNIiiS98azaGMEUgLy
-	AQrH4T3b2ngyNw+QLJ1PF4+56jGdtNg=
+	bh=qC5ej69gqXhpKdFar8buqIf3BEOhjiQeIkPNbuXxVEE=;
+	b=QWuMLmV8tiUnqgXtCj7qyidOpbtSuDVsPGmTazlGqGAnprRmyi9WIy0vzQdTj+VTKboa0v
+	zcOOpd4i6G94lxHuHVHYTGrOXQvB9DN9fpr3rZYp9B7P8ODC8HCYIB/FKHkfq51rXUJbI9
+	4lf5aCypNdQaQuyUaWg1G2g3ai8ATLE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-593-W9bRCqbONj245PzKjgEy-A-1; Thu, 27 Jul 2023 02:22:11 -0400
-X-MC-Unique: W9bRCqbONj245PzKjgEy-A-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-375-fjWGlrNQNxSuX1U2SKq2qg-1; Thu, 27 Jul 2023 02:22:38 -0400
+X-MC-Unique: fjWGlrNQNxSuX1U2SKq2qg-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 65D20185A7AF;
-	Thu, 27 Jul 2023 06:22:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 82A1E185A7B5;
+	Thu, 27 Jul 2023 06:22:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id EAB14492B01;
-	Thu, 27 Jul 2023 06:22:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 57A9F145415A;
+	Thu, 27 Jul 2023 06:22:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3319D194E00F;
-	Thu, 27 Jul 2023 06:22:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 45914194E12A;
+	Thu, 27 Jul 2023 06:22:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 9E2CF1946A69
- for <dm-devel@listman.corp.redhat.com>; Wed, 26 Jul 2023 09:21:07 +0000 (UTC)
+ ESMTP id 96A3B1946A69
+ for <dm-devel@listman.corp.redhat.com>; Wed, 26 Jul 2023 09:22:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 44856201EE6E; Wed, 26 Jul 2023 09:21:07 +0000 (UTC)
+ id 54B9A4094DC5; Wed, 26 Jul 2023 09:22:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3CB0E201F11C
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 09:21:07 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.120])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4CF244094DC2
+ for <dm-devel@redhat.com>; Wed, 26 Jul 2023 09:22:18 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B3DA8022EF
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 09:21:07 +0000 (UTC)
-Received: from mail-io1-f48.google.com (mail-io1-f48.google.com
- [209.85.166.48]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2E7C3185A78B
+ for <dm-devel@redhat.com>; Wed, 26 Jul 2023 09:22:18 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-37-0R74X2dPOA-hvcnI6TKn3Q-1; Wed, 26 Jul 2023 05:21:05 -0400
-X-MC-Unique: 0R74X2dPOA-hvcnI6TKn3Q-1
-Received: by mail-io1-f48.google.com with SMTP id
- ca18e2360f4ac-77dcff76e35so80533639f.1
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 02:21:04 -0700 (PDT)
+ us-mta-184-h4-xqcj1MeW32t_6PVNeeg-1; Wed, 26 Jul 2023 05:22:16 -0400
+X-MC-Unique: h4-xqcj1MeW32t_6PVNeeg-1
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-66d6a9851f3so1487685b3a.0
+ for <dm-devel@redhat.com>; Wed, 26 Jul 2023 02:22:16 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690363264; x=1690968064;
+ d=1e100.net; s=20221208; t=1690363335; x=1690968135;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=7Vnbbe8QuBX5IRYOyrvoqHk8WWyxAnIOQvNq7rt3Y5Y=;
- b=DFr/KVFEXEsiqiFEurmFIIT2LWyWISAPmT77qofU/cMGMeEaxMtSiUmpXM3urnDhII
- /bQdR8zZ+ijQZkkzAbEeCCCcsgyI5+sR7vntLyO0oy37Dt/QQGz7dD7AW9NaXUxeunn6
- vscadXub6+01cbbkYyzoHiiwUA/PxQpMjUqckBKnwneHH3+k7XOoYPqv/XyKrVBTIV25
- 0VsWxshKBybJKBlyqYRDG9njaXFO6+9eXetOtPC+fXu+HRHRSYOd9Oe5hCUJ+hk097xH
- NoAUmQ/xL5RujMPzfpZLbM8BBc6zdpMK3k0cEjhPZYCg6VyPQJ7ALbjhMr9xh4VIkPV+
- M3kg==
-X-Gm-Message-State: ABy/qLaLrvCd3Bz1ExDtw/OI0BpodqSHj0HV20Mj9OvQmsnkJGU92W+d
- /YJ7Q2uf6FSBrm3R/6Ers9vwOg==
-X-Google-Smtp-Source: APBJJlFD+0JL20cmcfz8xSZcxHSPSuKA9am5rBHzXLXGZAWVolxxOeef+bBAtrNC9deWoQ1MX3gUWg==
-X-Received: by 2002:a6b:3b44:0:b0:787:1926:54ed with SMTP id
- i65-20020a6b3b44000000b00787192654edmr1450699ioa.1.1690363264233; 
- Wed, 26 Jul 2023 02:21:04 -0700 (PDT)
+ bh=xHFf+qIXuXcHU2hnpeM9isQldhnSqSauyHf1oBu4R8I=;
+ b=Apf8PK+DMLpK3W7FXZjzEi2oV2MZmSUjHOjk7jGg/1O1rdVXVafu/fMzW8iT6kFfej
+ G5a0YdHDAH1FpKvLarDHM9lF3BoQzQ0IPT5wfLxoGBG8m8lyrGLCcidXxrn8nK5WGfWW
+ lk6RyENhQZsLyJxpx+WUf++xbolqOs27XAoPIAS8a9sbb6wcEtJB6Z2em6fzPeyDzKo5
+ WF7RuMvh8hA8mvcmcmSPhNRVmg9YDb7Jk4RulvPkOhZgkhU8wcOBlRyNUXn0KTnCas/6
+ kasLy7yiDFbs1Bl9vNNbhklSYFEi08I290gr3qWq2ivS0Id8YT84jq0uMF+zof+t5pDt
+ qdBg==
+X-Gm-Message-State: ABy/qLb1mWRH3qtAqNJn/YVHt0nl1+f79JFnZ0LIiad3VGCkxYAMZbnD
+ QuJJKx1gefD80jVfJ99HSzP9Rg==
+X-Google-Smtp-Source: APBJJlGzKLkoeooTK7rnc1fJ6mfD6dUCrzzNETRC7Ci4c1Yh8zXhisYlXfajH5gn3qqQbLizO8XVQA==
+X-Received: by 2002:a05:6a20:729a:b0:100:b92b:e8be with SMTP id
+ o26-20020a056a20729a00b00100b92be8bemr1779967pzk.2.1690363335131; 
+ Wed, 26 Jul 2023 02:22:15 -0700 (PDT)
 Received: from [10.70.252.135] ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- j1-20020a63b601000000b005638a70110bsm9005279pgf.65.2023.07.26.02.20.52
+ k11-20020aa790cb000000b006827c26f147sm10955045pfk.138.2023.07.26.02.22.03
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jul 2023 02:21:03 -0700 (PDT)
-Message-ID: <0caf10e8-e54b-3c1b-7df5-d95adc757ba7@bytedance.com>
-Date: Wed, 26 Jul 2023 17:20:49 +0800
+ Wed, 26 Jul 2023 02:22:14 -0700 (PDT)
+Message-ID: <d96777ce-be8a-1665-dd00-1e696e5575a8@bytedance.com>
+Date: Wed, 26 Jul 2023 17:22:02 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: Dave Chinner <david@fromorbit.com>
+To: Muchun Song <muchun.song@linux.dev>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-4-zhengqi.arch@bytedance.com>
- <ZMDKjBCZH6+OP5gW@dread.disaster.area>
+ <20230724094354.90817-12-zhengqi.arch@bytedance.com>
+ <e7204276-9de5-17eb-90ae-e51657d73ef4@linux.dev>
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZMDKjBCZH6+OP5gW@dread.disaster.area>
+In-Reply-To: <e7204276-9de5-17eb-90ae-e51657d73ef4@linux.dev>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,10 +101,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Thu, 27 Jul 2023 06:20:49 +0000
-Subject: Re: [dm-devel] [PATCH v2 03/47] mm: shrinker: add infrastructure
- for dynamically allocating shrinker
+Subject: Re: [dm-devel] [PATCH v2 11/47] gfs2: dynamically allocate the
+ gfs2-qd shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,118 +117,86 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
- cel@kernel.org, x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
+ david@fromorbit.com, dri-devel@lists.freedesktop.org,
+ virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
+ dm-devel@redhat.com, linux-mtd@lists.infradead.org, cel@kernel.org,
+ x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
  xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org, paulmck@kernel.org,
- linux-arm-msm@vger.kernel.org, linux-nfs@vger.kernel.org, rcu@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, brauner@kernel.org, rcu@vger.kernel.org,
  linux-bcache@vger.kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
- linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
- gregkh@linuxfoundation.org, muchun.song@linux.dev,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, senozhatsky@chromium.org, netdev@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, tytso@mit.edu,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ senozhatsky@chromium.org, gregkh@linuxfoundation.org,
  linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Language: en-US
-Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="utf-8"; Format="flowed"
 
-Hi Dave,
-
-On 2023/7/26 15:26, Dave Chinner wrote:
-> On Mon, Jul 24, 2023 at 05:43:10PM +0800, Qi Zheng wrote:
->> Currently, the shrinker instances can be divided into the following three
->> types:
->>
->> a) global shrinker instance statically defined in the kernel, such as
->>     workingset_shadow_shrinker.
->>
->> b) global shrinker instance statically defined in the kernel modules, such
->>     as mmu_shrinker in x86.
->>
->> c) shrinker instance embedded in other structures.
->>
->> For case a, the memory of shrinker instance is never freed. For case b,
->> the memory of shrinker instance will be freed after synchronize_rcu() when
->> the module is unloaded. For case c, the memory of shrinker instance will
->> be freed along with the structure it is embedded in.
->>
->> In preparation for implementing lockless slab shrink, we need to
->> dynamically allocate those shrinker instances in case c, then the memory
->> can be dynamically freed alone by calling kfree_rcu().
->>
->> So this commit adds the following new APIs for dynamically allocating
->> shrinker, and add a private_data field to struct shrinker to record and
->> get the original embedded structure.
->>
->> 1. shrinker_alloc()
->>
->> Used to allocate shrinker instance itself and related memory, it will
->> return a pointer to the shrinker instance on success and NULL on failure.
->>
->> 2. shrinker_free_non_registered()
->>
->> Used to destroy the non-registered shrinker instance.
-> 
-> This is a bit nasty
-> 
->>
->> 3. shrinker_register()
->>
->> Used to register the shrinker instance, which is same as the current
->> register_shrinker_prepared().
->>
->> 4. shrinker_unregister()
-> 
-> rename this "shrinker_free()" and key the two different freeing
-> cases on the SHRINKER_REGISTERED bit rather than mostly duplicating
-> the two.
-
-OK, will do in the next version.
-
-> 
-> void shrinker_free(struct shrinker *shrinker)
-> {
-> 	struct dentry *debugfs_entry = NULL;
-> 	int debugfs_id;
-> 
-> 	if (!shrinker)
-> 		return;
-> 
-> 	down_write(&shrinker_rwsem);
-> 	if (shrinker->flags & SHRINKER_REGISTERED) {
-> 		list_del(&shrinker->list);
-> 		debugfs_entry = shrinker_debugfs_detach(shrinker, &debugfs_id);
-> 	} else if (IS_ENABLED(CONFIG_SHRINKER_DEBUG)) {
-> 		kfree_const(shrinker->name);
-> 	}
-> 
-> 	if (shrinker->flags & SHRINKER_MEMCG_AWARE)
-> 		unregister_memcg_shrinker(shrinker);
-> 	up_write(&shrinker_rwsem);
-> 
-> 	if (debugfs_entry)
-> 		shrinker_debugfs_remove(debugfs_entry, debugfs_id);
-> 
-> 	kfree(shrinker->nr_deferred);
-> 	kfree(shrinker);
-> }
-> EXPORT_SYMBOL_GPL(shrinker_free);
-
-Ah, I will change all new APIs to use EXPORT_SYMBOL_GPL().
-
-Thanks,
-Qi
-
-> 
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+CgpPbiAyMDIzLzcvMjYgMTQ6NDksIE11Y2h1biBTb25nIHdyb3RlOgo+IAo+IAo+IE9uIDIwMjMv
+Ny8yNCAxNzo0MywgUWkgWmhlbmcgd3JvdGU6Cj4+IFVzZSBuZXcgQVBJcyB0byBkeW5hbWljYWxs
+eSBhbGxvY2F0ZSB0aGUgZ2ZzMi1xZCBzaHJpbmtlci4KPj4KPj4gU2lnbmVkLW9mZi1ieTogUWkg
+WmhlbmcgPHpoZW5ncWkuYXJjaEBieXRlZGFuY2UuY29tPgo+PiAtLS0KPj4gwqAgZnMvZ2ZzMi9t
+YWluLmPCoCB8wqAgNiArKystLS0KPj4gwqAgZnMvZ2ZzMi9xdW90YS5jIHwgMjYgKysrKysrKysr
+KysrKysrKysrKystLS0tLS0KPj4gwqAgZnMvZ2ZzMi9xdW90YS5oIHzCoCAzICsrLQo+PiDCoCAz
+IGZpbGVzIGNoYW5nZWQsIDI1IGluc2VydGlvbnMoKyksIDEwIGRlbGV0aW9ucygtKQo+Pgo+PiBk
+aWZmIC0tZ2l0IGEvZnMvZ2ZzMi9tYWluLmMgYi9mcy9nZnMyL21haW4uYwo+PiBpbmRleCBhZmNi
+MzI4NTRmMTQuLmU0N2IxY2M3OWY1OSAxMDA2NDQKPj4gLS0tIGEvZnMvZ2ZzMi9tYWluLmMKPj4g
+KysrIGIvZnMvZ2ZzMi9tYWluLmMKPj4gQEAgLTE0Nyw3ICsxNDcsNyBAQCBzdGF0aWMgaW50IF9f
+aW5pdCBpbml0X2dmczJfZnModm9pZCkKPj4gwqDCoMKgwqDCoCBpZiAoIWdmczJfdHJhbnNfY2Fj
+aGVwKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgZ290byBmYWlsX2NhY2hlcDg7Cj4+IC3CoMKgwqAg
+ZXJyb3IgPSByZWdpc3Rlcl9zaHJpbmtlcigmZ2ZzMl9xZF9zaHJpbmtlciwgImdmczItcWQiKTsK
+Pj4gK8KgwqDCoCBlcnJvciA9IGdmczJfcWRfc2hyaW5rZXJfaW5pdCgpOwo+PiDCoMKgwqDCoMKg
+IGlmIChlcnJvcikKPj4gwqDCoMKgwqDCoMKgwqDCoMKgIGdvdG8gZmFpbF9zaHJpbmtlcjsKPj4g
+QEAgLTE5Niw3ICsxOTYsNyBAQCBzdGF0aWMgaW50IF9faW5pdCBpbml0X2dmczJfZnModm9pZCkK
+Pj4gwqAgZmFpbF93cTI6Cj4+IMKgwqDCoMKgwqAgZGVzdHJveV93b3JrcXVldWUoZ2ZzX3JlY292
+ZXJ5X3dxKTsKPj4gwqAgZmFpbF93cTE6Cj4+IC3CoMKgwqAgdW5yZWdpc3Rlcl9zaHJpbmtlcigm
+Z2ZzMl9xZF9zaHJpbmtlcik7Cj4+ICvCoMKgwqAgZ2ZzMl9xZF9zaHJpbmtlcl9leGl0KCk7Cj4+
+IMKgIGZhaWxfc2hyaW5rZXI6Cj4+IMKgwqDCoMKgwqAga21lbV9jYWNoZV9kZXN0cm95KGdmczJf
+dHJhbnNfY2FjaGVwKTsKPj4gwqAgZmFpbF9jYWNoZXA4Ogo+PiBAQCAtMjI5LDcgKzIyOSw3IEBA
+IHN0YXRpYyBpbnQgX19pbml0IGluaXRfZ2ZzMl9mcyh2b2lkKQo+PiDCoCBzdGF0aWMgdm9pZCBf
+X2V4aXQgZXhpdF9nZnMyX2ZzKHZvaWQpCj4+IMKgIHsKPj4gLcKgwqDCoCB1bnJlZ2lzdGVyX3No
+cmlua2VyKCZnZnMyX3FkX3Nocmlua2VyKTsKPj4gK8KgwqDCoCBnZnMyX3FkX3Nocmlua2VyX2V4
+aXQoKTsKPj4gwqDCoMKgwqDCoCBnZnMyX2dsb2NrX2V4aXQoKTsKPj4gwqDCoMKgwqDCoCBnZnMy
+X3VucmVnaXN0ZXJfZGVidWdmcygpOwo+PiDCoMKgwqDCoMKgIHVucmVnaXN0ZXJfZmlsZXN5c3Rl
+bSgmZ2ZzMl9mc190eXBlKTsKPj4gZGlmZiAtLWdpdCBhL2ZzL2dmczIvcXVvdGEuYyBiL2ZzL2dm
+czIvcXVvdGEuYwo+PiBpbmRleCA3MDQxOTJiNzM2MDUuLmJjOTg4M2NlYTg0NyAxMDA2NDQKPj4g
+LS0tIGEvZnMvZ2ZzMi9xdW90YS5jCj4+ICsrKyBiL2ZzL2dmczIvcXVvdGEuYwo+PiBAQCAtMTg2
+LDEzICsxODYsMjcgQEAgc3RhdGljIHVuc2lnbmVkIGxvbmcgZ2ZzMl9xZF9zaHJpbmtfY291bnQo
+c3RydWN0IAo+PiBzaHJpbmtlciAqc2hyaW5rLAo+PiDCoMKgwqDCoMKgIHJldHVybiB2ZnNfcHJl
+c3N1cmVfcmF0aW8obGlzdF9scnVfc2hyaW5rX2NvdW50KCZnZnMyX3FkX2xydSwgc2MpKTsKPj4g
+wqAgfQo+PiAtc3RydWN0IHNocmlua2VyIGdmczJfcWRfc2hyaW5rZXIgPSB7Cj4+IC3CoMKgwqAg
+LmNvdW50X29iamVjdHMgPSBnZnMyX3FkX3Nocmlua19jb3VudCwKPj4gLcKgwqDCoCAuc2Nhbl9v
+YmplY3RzID0gZ2ZzMl9xZF9zaHJpbmtfc2NhbiwKPj4gLcKgwqDCoCAuc2Vla3MgPSBERUZBVUxU
+X1NFRUtTLAo+PiAtwqDCoMKgIC5mbGFncyA9IFNIUklOS0VSX05VTUFfQVdBUkUsCj4+IC19Owo+
+PiArc3RhdGljIHN0cnVjdCBzaHJpbmtlciAqZ2ZzMl9xZF9zaHJpbmtlcjsKPj4gKwo+PiAraW50
+IGdmczJfcWRfc2hyaW5rZXJfaW5pdCh2b2lkKQo+IAo+IEl0J3MgYmV0dGVyIHRvIGRlY2xhcmUg
+dGhpcyBhcyBfX2luaXQuCgpPSywgV2lsbCBkby4KCj4gCj4+ICt7Cj4+ICvCoMKgwqAgZ2ZzMl9x
+ZF9zaHJpbmtlciA9IHNocmlua2VyX2FsbG9jKFNIUklOS0VSX05VTUFfQVdBUkUsICJnZnMyLXFk
+Iik7Cj4+ICvCoMKgwqAgaWYgKCFnZnMyX3FkX3Nocmlua2VyKQo+PiArwqDCoMKgwqDCoMKgwqAg
+cmV0dXJuIC1FTk9NRU07Cj4+ICsKPj4gK8KgwqDCoCBnZnMyX3FkX3Nocmlua2VyLT5jb3VudF9v
+YmplY3RzID0gZ2ZzMl9xZF9zaHJpbmtfY291bnQ7Cj4+ICvCoMKgwqAgZ2ZzMl9xZF9zaHJpbmtl
+ci0+c2Nhbl9vYmplY3RzID0gZ2ZzMl9xZF9zaHJpbmtfc2NhbjsKPj4gK8KgwqDCoCBnZnMyX3Fk
+X3Nocmlua2VyLT5zZWVrcyA9IERFRkFVTFRfU0VFS1M7Cj4+ICsKPj4gK8KgwqDCoCBzaHJpbmtl
+cl9yZWdpc3RlcihnZnMyX3FkX3Nocmlua2VyKTsKPj4gK8KgwqDCoCByZXR1cm4gMDsKPj4gK30K
+Pj4gKwo+PiArdm9pZCBnZnMyX3FkX3Nocmlua2VyX2V4aXQodm9pZCkKPj4gK3sKPj4gK8KgwqDC
+oCBzaHJpbmtlcl91bnJlZ2lzdGVyKGdmczJfcWRfc2hyaW5rZXIpOwo+PiArfQo+PiDCoCBzdGF0
+aWMgdTY0IHFkMmluZGV4KHN0cnVjdCBnZnMyX3F1b3RhX2RhdGEgKnFkKQo+PiDCoCB7Cj4+IGRp
+ZmYgLS1naXQgYS9mcy9nZnMyL3F1b3RhLmggYi9mcy9nZnMyL3F1b3RhLmgKPj4gaW5kZXggMjFh
+ZGEzMzJkNTU1Li5mOWNiODYzMzczZjcgMTAwNjQ0Cj4+IC0tLSBhL2ZzL2dmczIvcXVvdGEuaAo+
+PiArKysgYi9mcy9nZnMyL3F1b3RhLmgKPj4gQEAgLTU5LDcgKzU5LDggQEAgc3RhdGljIGlubGlu
+ZSBpbnQgZ2ZzMl9xdW90YV9sb2NrX2NoZWNrKHN0cnVjdCAKPj4gZ2ZzMl9pbm9kZSAqaXAsCj4+
+IMKgIH0KPj4gwqAgZXh0ZXJuIGNvbnN0IHN0cnVjdCBxdW90YWN0bF9vcHMgZ2ZzMl9xdW90YWN0
+bF9vcHM7Cj4+IC1leHRlcm4gc3RydWN0IHNocmlua2VyIGdmczJfcWRfc2hyaW5rZXI7Cj4+ICtp
+bnQgZ2ZzMl9xZF9zaHJpbmtlcl9pbml0KHZvaWQpOwo+PiArdm9pZCBnZnMyX3FkX3Nocmlua2Vy
+X2V4aXQodm9pZCk7Cj4+IMKgIGV4dGVybiBzdHJ1Y3QgbGlzdF9scnUgZ2ZzMl9xZF9scnU7Cj4+
+IMKgIGV4dGVybiB2b2lkIF9faW5pdCBnZnMyX3F1b3RhX2hhc2hfaW5pdCh2b2lkKTsKPiAKCi0t
+CmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1h
+bi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
