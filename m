@@ -1,99 +1,100 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D0B6E7646B8
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 08:22:28 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id B4A617646CE
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 08:24:49 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690438947;
+	s=mimecast20190719; t=1690439088;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6T+RHYayaV1CZa/9Bqc1yUijiofmK3unYVk0S5nUtQM=;
-	b=R+c12/VZREoV9y6hqKTrkS8ot7NBj8U+q3kocUHWgrE8UUb+7WlsXTwStWU8cXyiuvfED+
-	a8Zs/iZOlNANKiP51+R76w1Ty2Q9WfR8dRFCAD9pISyTdWafwo/1LmW89cGw+yFk+S+oIn
-	Sz0zV5g7g2OwscjXrpBK5Q6CwqWs8Pg=
+	bh=2P3k4MQtomqeI2P+8LdiSn5SWDeH3K0/JQYaJ1Ug1HU=;
+	b=RyZKBOYizc87QA4hRYrlcFAgjgY46K3IEFtdVRw/A0LRBI9V0iEeAQHPxgZC6q4E8kSR/6
+	pcsOIIcg5rmCuOtDY4ZFwAmiYPrGhupyeFOYHDqBV7rd3R24lfEWtY6VnetwVvu3lnTHHM
+	OKohvjxv/IAZyH5xoHPtnU0SJXAtF+w=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-155-yag9XQbNN3-Fzgc8jkX44w-1; Thu, 27 Jul 2023 02:22:26 -0400
-X-MC-Unique: yag9XQbNN3-Fzgc8jkX44w-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-198-5rN5I_JvOgy68LL-0aPX4Q-1; Thu, 27 Jul 2023 02:24:44 -0400
+X-MC-Unique: 5rN5I_JvOgy68LL-0aPX4Q-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CE78428088C3;
-	Thu, 27 Jul 2023 06:22:23 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED3643C11CCC;
+	Thu, 27 Jul 2023 06:24:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B2A7C492CAC;
-	Thu, 27 Jul 2023 06:22:23 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A1C2FC33164;
+	Thu, 27 Jul 2023 06:24:41 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 02531194E11C;
-	Thu, 27 Jul 2023 06:22:23 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 30DFB1946A7A;
+	Thu, 27 Jul 2023 06:24:41 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 109CA1946A69
- for <dm-devel@listman.corp.redhat.com>; Wed, 26 Jul 2023 09:33:53 +0000 (UTC)
+ ESMTP id D78841946A6E
+ for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 03:34:49 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E267A2166B25; Wed, 26 Jul 2023 09:33:52 +0000 (UTC)
+ id AB090492CAC; Thu, 27 Jul 2023 03:34:49 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D9EC52166B27
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 09:33:52 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BDF2B3C13504
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 09:33:52 +0000 (UTC)
-Received: from mail-pl1-f180.google.com (mail-pl1-f180.google.com
- [209.85.214.180]) by relay.mimecast.com with ESMTP with STARTTLS
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 89D2F492B01
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 03:34:49 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 60EFE3C0C4A0
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 03:34:49 +0000 (UTC)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-690-n3_ttl1hPOeKkojewvDtKQ-1; Wed, 26 Jul 2023 05:33:51 -0400
-X-MC-Unique: n3_ttl1hPOeKkojewvDtKQ-1
-Received: by mail-pl1-f180.google.com with SMTP id
- d9443c01a7336-1b7dfb95761so8911905ad.1
- for <dm-devel@redhat.com>; Wed, 26 Jul 2023 02:33:50 -0700 (PDT)
+ us-mta-35-4C797wRoNjC3Ic5JIDb-lg-1; Wed, 26 Jul 2023 23:34:47 -0400
+X-MC-Unique: 4C797wRoNjC3Ic5JIDb-lg-1
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-686f6231bdeso51620b3a.1
+ for <dm-devel@redhat.com>; Wed, 26 Jul 2023 20:34:47 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690364030; x=1690968830;
+ d=1e100.net; s=20221208; t=1690428886; x=1691033686;
  h=content-transfer-encoding:in-reply-to:from:references:cc:to
  :content-language:subject:user-agent:mime-version:date:message-id
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=0oULOTnWb1HIc+jcDQkyDbPD+ewEuK6cRZsxNFZBJHs=;
- b=Drv/dK3af8w3hcDBvPu7k+GnjjOp+BNw6BBX2+sbLjB0OzrK2LfdsQQ2qlPQMM71ty
- VwxqhXO6YQZtKg1lr57N+SSs13Sep01ZaAhyd1PqNgHBA6htH4CAQHB9F9yKAzGItU7i
- E2XMO0F1MDc6UTi/iyWUP9TgsI+7+T/ugywnYVGSc2zuER13HBh7MjQuZ+jl2HBnNRCT
- XI7jgFHW969ijie16ho3t3YJdEe8XboN1PVJxKihUQo6/0XEkpov67c6z3mkptu4k7ET
- yfRSjagq826ruZO8yhGxa+SOFlfW75ZWS+fsEb7Nwkr8QkAq1UMJ5IYb9Lv4qyvMY5xr
- BvHw==
-X-Gm-Message-State: ABy/qLb7h/UfbdtWuxD06Acn2odAfV6NpWIw3ofl/s+A8vHOUOKT80sM
- GPWZ9qI1hQr0wnE/VOsI30F2iw==
-X-Google-Smtp-Source: APBJJlG8LKe8O0SB++JE7Hsj6dMankp6b2TdGG8KZmgQCX7ZvwrXNm6kysx08G1J6PXDjDRRJyafNA==
-X-Received: by 2002:a17:903:32c9:b0:1b8:5827:8763 with SMTP id
- i9-20020a17090332c900b001b858278763mr2037984plr.4.1690364030014; 
- Wed, 26 Jul 2023 02:33:50 -0700 (PDT)
+ bh=pSHiqW/1Kwa6XMfrutppYGKtzk0jA+6GZMwxRhGaywI=;
+ b=Otf0f+pLvUHwp9r+b7dGhgoNLt9V4G/m1c5sJjE3or/TItlvWqqqb/c/s5KlWVb+xZ
+ MqcwGk0axrLEq06YmOSnznpB5WKXCkIwhY3mJqAgTG48XMeyl7zRBcJQxuDd//i4vhLu
+ OIrVD98yIYW4XeKYsx5XlUL5ZVHiXb6l1bRLL+DjGbEhsnybIgsD2DL0hJnEdjALyuRi
+ aIDuZIjW2MigQ3yhO3DoG2H+KH0I1xSfVhXMJUttzKCIMnBkY0sQvNeK8Fu7RRmoxK7P
+ od93OFsNOjqvBdaF3XnZ6CcP7SzQSyUfdKftHCHrvDOUcXrpE1UeSVp2KXE4rAZOSvQV
+ JeXQ==
+X-Gm-Message-State: ABy/qLau2ohEpRbHxonp+SESo6fKFyS01kVHA+Ypy8ZaDtHC/iP/hvsA
+ /3oM81spl+/jqNX3etgO8oY33w==
+X-Google-Smtp-Source: APBJJlGnfHXNUKtpZ8goterp0kPe1+GeF2c87BsTqhWXyrNp01VQ9DDS/+17IDHKN7LAqAttouOeag==
+X-Received: by 2002:a05:6a21:339b:b0:137:4fd0:e2e6 with SMTP id
+ yy27-20020a056a21339b00b001374fd0e2e6mr5017607pzb.6.1690428886364; 
+ Wed, 26 Jul 2023 20:34:46 -0700 (PDT)
 Received: from [10.70.252.135] ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- n5-20020a170902d2c500b001b89466a5f4sm12582766plc.105.2023.07.26.02.33.38
+ z25-20020aa791d9000000b006828ee9fa69sm328803pfa.206.2023.07.26.20.34.35
  (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 26 Jul 2023 02:33:49 -0700 (PDT)
-Message-ID: <0f12022e-5dd2-fb1c-f018-05f8ff0303ae@bytedance.com>
-Date: Wed, 26 Jul 2023 17:33:36 +0800
+ Wed, 26 Jul 2023 20:34:46 -0700 (PDT)
+Message-ID: <c942e424-276d-4df7-4917-d61063ab8502@bytedance.com>
+Date: Thu, 27 Jul 2023 11:34:30 +0800
 MIME-Version: 1.0
 User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
  Gecko/20100101 Thunderbird/102.12.0
-To: Muchun Song <muchun.song@linux.dev>
+To: Dave Chinner <david@fromorbit.com>
 References: <20230724094354.90817-1-zhengqi.arch@bytedance.com>
- <20230724094354.90817-29-zhengqi.arch@bytedance.com>
- <4ee26da4-314e-0517-5d9a-31fb107368ef@linux.dev>
+ <20230724094354.90817-45-zhengqi.arch@bytedance.com>
+ <ZMDUkoIXUlTkCSYL@dread.disaster.area>
+ <19ad6d06-8a14-6102-5eae-2134dc2c5061@bytedance.com>
+ <ZMGnthZAh48JF+eV@dread.disaster.area>
 From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <4ee26da4-314e-0517-5d9a-31fb107368ef@linux.dev>
+In-Reply-To: <ZMGnthZAh48JF+eV@dread.disaster.area>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Thu, 27 Jul 2023 06:20:49 +0000
-Subject: Re: [dm-devel] [PATCH v2 28/47] bcache: dynamically allocate the
- md-bcache shrinker
+Subject: Re: [dm-devel] [PATCH v2 44/47] mm: shrinker: make global slab
+ shrink lockless
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,108 +118,305 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
- david@fromorbit.com, dri-devel@lists.freedesktop.org,
- virtualization@lists.linux-foundation.org, linux-mm@kvack.org,
- dm-devel@redhat.com, linux-mtd@lists.infradead.org, cel@kernel.org,
- x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
+ dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
+ cel@kernel.org, x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
  xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org, paulmck@kernel.org,
- linux-arm-msm@vger.kernel.org, brauner@kernel.org, rcu@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, linux-nfs@vger.kernel.org, rcu@vger.kernel.org,
  linux-bcache@vger.kernel.org, yujie.liu@intel.com, vbabka@suse.cz,
- linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, tytso@mit.edu,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- senozhatsky@chromium.org, gregkh@linuxfoundation.org,
+ linux-raid@vger.kernel.org, brauner@kernel.org, tytso@mit.edu,
+ gregkh@linuxfoundation.org, muchun.song@linux.dev,
+ linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
+ linux-xfs@vger.kernel.org, senozhatsky@chromium.org, netdev@vger.kernel.org,
  linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Language: en-US
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-CgpPbiAyMDIzLzcvMjYgMTU6MzIsIE11Y2h1biBTb25nIHdyb3RlOgo+IAo+IAo+IE9uIDIwMjMv
-Ny8yNCAxNzo0MywgUWkgWmhlbmcgd3JvdGU6Cj4+IEluIHByZXBhcmF0aW9uIGZvciBpbXBsZW1l
-bnRpbmcgbG9ja2xlc3Mgc2xhYiBzaHJpbmssIHVzZSBuZXcgQVBJcyB0bwo+PiBkeW5hbWljYWxs
-eSBhbGxvY2F0ZSB0aGUgbWQtYmNhY2hlIHNocmlua2VyLCBzbyB0aGF0IGl0IGNhbiBiZSBmcmVl
-ZAo+PiBhc3luY2hyb25vdXNseSB1c2luZyBrZnJlZV9yY3UoKS4gVGhlbiBpdCBkb2Vzbid0IG5l
-ZWQgdG8gd2FpdCBmb3IgUkNVCj4+IHJlYWQtc2lkZSBjcml0aWNhbCBzZWN0aW9uIHdoZW4gcmVs
-ZWFzaW5nIHRoZSBzdHJ1Y3QgY2FjaGVfc2V0Lgo+Pgo+PiBTaWduZWQtb2ZmLWJ5OiBRaSBaaGVu
-ZyA8emhlbmdxaS5hcmNoQGJ5dGVkYW5jZS5jb20+Cj4+IC0tLQo+PiDCoCBkcml2ZXJzL21kL2Jj
-YWNoZS9iY2FjaGUuaCB8wqAgMiArLQo+PiDCoCBkcml2ZXJzL21kL2JjYWNoZS9idHJlZS5jwqAg
-fCAyNyArKysrKysrKysrKysrKysrLS0tLS0tLS0tLS0KPj4gwqAgZHJpdmVycy9tZC9iY2FjaGUv
-c3lzZnMuY8KgIHzCoCAzICsrLQo+PiDCoCAzIGZpbGVzIGNoYW5nZWQsIDE5IGluc2VydGlvbnMo
-KyksIDEzIGRlbGV0aW9ucygtKQo+Pgo+PiBkaWZmIC0tZ2l0IGEvZHJpdmVycy9tZC9iY2FjaGUv
-YmNhY2hlLmggYi9kcml2ZXJzL21kL2JjYWNoZS9iY2FjaGUuaAo+PiBpbmRleCA1YTc5YmIzYzI3
-MmYuLmM2MjJiYzUwZjgxYiAxMDA2NDQKPj4gLS0tIGEvZHJpdmVycy9tZC9iY2FjaGUvYmNhY2hl
-LmgKPj4gKysrIGIvZHJpdmVycy9tZC9iY2FjaGUvYmNhY2hlLmgKPj4gQEAgLTU0MSw3ICs1NDEs
-NyBAQCBzdHJ1Y3QgY2FjaGVfc2V0IHsKPj4gwqDCoMKgwqDCoCBzdHJ1Y3QgYmlvX3NldMKgwqDC
-oMKgwqDCoMKgIGJpb19zcGxpdDsKPj4gwqDCoMKgwqDCoCAvKiBGb3IgdGhlIGJ0cmVlIGNhY2hl
-ICovCj4+IC3CoMKgwqAgc3RydWN0IHNocmlua2VywqDCoMKgwqDCoMKgwqAgc2hyaW5rOwo+PiAr
-wqDCoMKgIHN0cnVjdCBzaHJpbmtlcsKgwqDCoMKgwqDCoMKgICpzaHJpbms7Cj4+IMKgwqDCoMKg
-wqAgLyogRm9yIHRoZSBidHJlZSBjYWNoZSBhbmQgYW55dGhpbmcgYWxsb2NhdGlvbiByZWxhdGVk
-ICovCj4+IMKgwqDCoMKgwqAgc3RydWN0IG11dGV4wqDCoMKgwqDCoMKgwqAgYnVja2V0X2xvY2s7
-Cj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL2JjYWNoZS9idHJlZS5jIGIvZHJpdmVycy9tZC9i
-Y2FjaGUvYnRyZWUuYwo+PiBpbmRleCBmZDEyMWE2MWYxN2MuLmMxNzZjN2ZjNzdkOSAxMDA2NDQK
-Pj4gLS0tIGEvZHJpdmVycy9tZC9iY2FjaGUvYnRyZWUuYwo+PiArKysgYi9kcml2ZXJzL21kL2Jj
-YWNoZS9idHJlZS5jCj4+IEBAIC02NjcsNyArNjY3LDcgQEAgc3RhdGljIGludCBtY2FfcmVhcChz
-dHJ1Y3QgYnRyZWUgKmIsIHVuc2lnbmVkIGludCAKPj4gbWluX29yZGVyLCBib29sIGZsdXNoKQo+
-PiDCoCBzdGF0aWMgdW5zaWduZWQgbG9uZyBiY2hfbWNhX3NjYW4oc3RydWN0IHNocmlua2VyICpz
-aHJpbmssCj4+IMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIHN0cnVjdCBz
-aHJpbmtfY29udHJvbCAqc2MpCj4+IMKgIHsKPj4gLcKgwqDCoCBzdHJ1Y3QgY2FjaGVfc2V0ICpj
-ID0gY29udGFpbmVyX29mKHNocmluaywgc3RydWN0IGNhY2hlX3NldCwgCj4+IHNocmluayk7Cj4+
-ICvCoMKgwqAgc3RydWN0IGNhY2hlX3NldCAqYyA9IHNocmluay0+cHJpdmF0ZV9kYXRhOwo+PiDC
-oMKgwqDCoMKgIHN0cnVjdCBidHJlZSAqYiwgKnQ7Cj4+IMKgwqDCoMKgwqAgdW5zaWduZWQgbG9u
-ZyBpLCBuciA9IHNjLT5ucl90b19zY2FuOwo+PiDCoMKgwqDCoMKgIHVuc2lnbmVkIGxvbmcgZnJl
-ZWQgPSAwOwo+PiBAQCAtNzM0LDcgKzczNCw3IEBAIHN0YXRpYyB1bnNpZ25lZCBsb25nIGJjaF9t
-Y2Ffc2NhbihzdHJ1Y3Qgc2hyaW5rZXIgCj4+ICpzaHJpbmssCj4+IMKgIHN0YXRpYyB1bnNpZ25l
-ZCBsb25nIGJjaF9tY2FfY291bnQoc3RydWN0IHNocmlua2VyICpzaHJpbmssCj4+IMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqDCoMKgwqAgc3RydWN0IHNocmlua19jb250cm9sICpz
-YykKPj4gwqAgewo+PiAtwqDCoMKgIHN0cnVjdCBjYWNoZV9zZXQgKmMgPSBjb250YWluZXJfb2Yo
-c2hyaW5rLCBzdHJ1Y3QgY2FjaGVfc2V0LCAKPj4gc2hyaW5rKTsKPj4gK8KgwqDCoCBzdHJ1Y3Qg
-Y2FjaGVfc2V0ICpjID0gc2hyaW5rLT5wcml2YXRlX2RhdGE7Cj4+IMKgwqDCoMKgwqAgaWYgKGMt
-PnNocmlua2VyX2Rpc2FibGVkKQo+PiDCoMKgwqDCoMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IEBA
-IC03NTIsOCArNzUyLDggQEAgdm9pZCBiY2hfYnRyZWVfY2FjaGVfZnJlZShzdHJ1Y3QgY2FjaGVf
-c2V0ICpjKQo+PiDCoMKgwqDCoMKgIGNsb3N1cmVfaW5pdF9zdGFjaygmY2wpOwo+PiAtwqDCoMKg
-IGlmIChjLT5zaHJpbmsubGlzdC5uZXh0KQo+PiAtwqDCoMKgwqDCoMKgwqAgdW5yZWdpc3Rlcl9z
-aHJpbmtlcigmYy0+c2hyaW5rKTsKPj4gK8KgwqDCoCBpZiAoYy0+c2hyaW5rKQo+PiArwqDCoMKg
-wqDCoMKgwqAgc2hyaW5rZXJfdW5yZWdpc3RlcihjLT5zaHJpbmspOwo+PiDCoMKgwqDCoMKgIG11
-dGV4X2xvY2soJmMtPmJ1Y2tldF9sb2NrKTsKPj4gQEAgLTgyOCwxNCArODI4LDE5IEBAIGludCBi
-Y2hfYnRyZWVfY2FjaGVfYWxsb2Moc3RydWN0IGNhY2hlX3NldCAqYykKPj4gwqDCoMKgwqDCoMKg
-wqDCoMKgIGMtPnZlcmlmeV9kYXRhID0gTlVMTDsKPj4gwqAgI2VuZGlmCj4+IC3CoMKgwqAgYy0+
-c2hyaW5rLmNvdW50X29iamVjdHMgPSBiY2hfbWNhX2NvdW50Owo+PiAtwqDCoMKgIGMtPnNocmlu
-ay5zY2FuX29iamVjdHMgPSBiY2hfbWNhX3NjYW47Cj4+IC3CoMKgwqAgYy0+c2hyaW5rLnNlZWtz
-ID0gNDsKPj4gLcKgwqDCoCBjLT5zaHJpbmsuYmF0Y2ggPSBjLT5idHJlZV9wYWdlcyAqIDI7Cj4+
-ICvCoMKgwqAgYy0+c2hyaW5rID0gc2hyaW5rZXJfYWxsb2MoMCwgIm1kLWJjYWNoZTolcFUiLCBj
-LT5zZXRfdXVpZCk7Cj4+ICvCoMKgwqAgaWYgKCFjLT5zaHJpbmspIHsKPj4gK8KgwqDCoMKgwqDC
-oMKgIHByX3dhcm4oImJjYWNoZTogJXM6IGNvdWxkIG5vdCBhbGxvY2F0ZSBzaHJpbmtlclxuIiwg
-X19mdW5jX18pOwo+PiArwqDCoMKgwqDCoMKgwqAgcmV0dXJuIC1FTk9NRU07Cj4gCj4gU2VlbXMg
-eW91IGhhdmUgY2hlYW5nZWQgdGhlIHNlbWFudGljIG9mIHRoaXMuIEluIHRoZSBwYXN0LAo+IGl0
-IGlzIGJldHRlciB0byBoYXZlIGEgc2hyaW5rZXIsIGJ1dCBub3cgaXQgYmVjb21lcyBhIG1hbmRh
-dG9yeS4KPiBSaWdodD8gSSBkb24ndCBrbm93IGlmIGl0IGlzIGFjY2VwdGFibGUuIEZyb20gbXkg
-cG9pbnQgb2YgdmlldywKPiBqdXN0IGRvIHRoZSBjbGVhbnVwLCBkb24ndCBjaGFuZ2UgYW55IGJl
-aGF2aW91ci4KCk9oLCBzaG91bGQgcmV0dXJuIDAgaGVyZSwgd2lsbCBkby4KCj4gCj4+ICvCoMKg
-wqAgfQo+PiArCj4+ICvCoMKgwqAgYy0+c2hyaW5rLT5jb3VudF9vYmplY3RzID0gYmNoX21jYV9j
-b3VudDsKPj4gK8KgwqDCoCBjLT5zaHJpbmstPnNjYW5fb2JqZWN0cyA9IGJjaF9tY2Ffc2NhbjsK
-Pj4gK8KgwqDCoCBjLT5zaHJpbmstPnNlZWtzID0gNDsKPj4gK8KgwqDCoCBjLT5zaHJpbmstPmJh
-dGNoID0gYy0+YnRyZWVfcGFnZXMgKiAyOwo+PiArwqDCoMKgIGMtPnNocmluay0+cHJpdmF0ZV9k
-YXRhID0gYzsKPj4gLcKgwqDCoCBpZiAocmVnaXN0ZXJfc2hyaW5rZXIoJmMtPnNocmluaywgIm1k
-LWJjYWNoZTolcFUiLCBjLT5zZXRfdXVpZCkpCj4+IC3CoMKgwqDCoMKgwqDCoCBwcl93YXJuKCJi
-Y2FjaGU6ICVzOiBjb3VsZCBub3QgcmVnaXN0ZXIgc2hyaW5rZXJcbiIsCj4+IC3CoMKgwqDCoMKg
-wqDCoMKgwqDCoMKgwqDCoMKgwqAgX19mdW5jX18pOwo+PiArwqDCoMKgIHNocmlua2VyX3JlZ2lz
-dGVyKGMtPnNocmluayk7Cj4+IMKgwqDCoMKgwqAgcmV0dXJuIDA7Cj4+IMKgIH0KPj4gZGlmZiAt
-LWdpdCBhL2RyaXZlcnMvbWQvYmNhY2hlL3N5c2ZzLmMgYi9kcml2ZXJzL21kL2JjYWNoZS9zeXNm
-cy5jCj4+IGluZGV4IDBlMmMxODgwZjYwYi4uNDVkOGFmNzU1ZGU2IDEwMDY0NAo+PiAtLS0gYS9k
-cml2ZXJzL21kL2JjYWNoZS9zeXNmcy5jCj4+ICsrKyBiL2RyaXZlcnMvbWQvYmNhY2hlL3N5c2Zz
-LmMKPj4gQEAgLTg2Niw3ICs4NjYsOCBAQCBTVE9SRShfX2JjaF9jYWNoZV9zZXQpCj4+IMKgwqDC
-oMKgwqDCoMKgwqDCoCBzYy5nZnBfbWFzayA9IEdGUF9LRVJORUw7Cj4+IMKgwqDCoMKgwqDCoMKg
-wqDCoCBzYy5ucl90b19zY2FuID0gc3RydG91bF9vcl9yZXR1cm4oYnVmKTsKPj4gLcKgwqDCoMKg
-wqDCoMKgIGMtPnNocmluay5zY2FuX29iamVjdHMoJmMtPnNocmluaywgJnNjKTsKPj4gK8KgwqDC
-oMKgwqDCoMKgIGlmIChjLT5zaHJpbmspCj4+ICvCoMKgwqDCoMKgwqDCoMKgwqDCoMKgIGMtPnNo
-cmluay0+c2Nhbl9vYmplY3RzKGMtPnNocmluaywgJnNjKTsKPj4gwqDCoMKgwqDCoCB9Cj4+IMKg
-wqDCoMKgwqAgc3lzZnNfc3RydG91bF9jbGFtcChjb25nZXN0ZWRfcmVhZF90aHJlc2hvbGRfdXMs
-Cj4gCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczov
-L2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+Hi Dave,
+
+On 2023/7/27 07:09, Dave Chinner wrote:
+> On Wed, Jul 26, 2023 at 05:14:09PM +0800, Qi Zheng wrote:
+>> On 2023/7/26 16:08, Dave Chinner wrote:
+>>> On Mon, Jul 24, 2023 at 05:43:51PM +0800, Qi Zheng wrote:
+>>>> @@ -122,6 +126,13 @@ void shrinker_free_non_registered(struct shrinker *shrinker);
+>>>>    void shrinker_register(struct shrinker *shrinker);
+>>>>    void shrinker_unregister(struct shrinker *shrinker);
+>>>> +static inline bool shrinker_try_get(struct shrinker *shrinker)
+>>>> +{
+>>>> +	return READ_ONCE(shrinker->registered) &&
+>>>> +	       refcount_inc_not_zero(&shrinker->refcount);
+>>>> +}
+>>>
+>>> Why do we care about shrinker->registered here? If we don't set
+>>> the refcount to 1 until we have fully initialised everything, then
+>>> the shrinker code can key entirely off the reference count and
+>>> none of the lookup code needs to care about whether the shrinker is
+>>> registered or not.
+>>
+>> The purpose of checking shrinker->registered here is to stop running
+>> shrinker after calling shrinker_free(), which can prevent the following
+>> situations from happening:
+>>
+>> CPU 0                 CPU 1
+>>
+>> shrinker_try_get()
+>>
+>>                         shrinker_try_get()
+>>
+>> shrinker_put()
+>> shrinker_try_get()
+>>                         shrinker_put()
+> 
+> I don't see any race here? What is wrong with having multiple active
+> users at once?
+
+Maybe I'm overthinking. What I think is that if there are multiple users
+at once, it may cause the above-mentioned livelock, which will cause
+shrinker_free() to wait for a long time. But this probability should be
+very low.
+
+> 
+>>>
+>>> This should use a completion, then it is always safe under
+>>> rcu_read_lock().  This also gets rid of the shrinker_lock spin lock,
+>>> which only exists because we can't take a blocking lock under
+>>> rcu_read_lock(). i.e:
+>>>
+>>>
+>>> void shrinker_put(struct shrinker *shrinker)
+>>> {
+>>> 	if (refcount_dec_and_test(&shrinker->refcount))
+>>> 		complete(&shrinker->done);
+>>> }
+>>>
+>>> void shrinker_free()
+>>> {
+>>> 	.....
+>>> 	refcount_dec(&shrinker->refcount);
+>>
+>> I guess what you mean is shrinker_put(), because here may be the last
+>> refcount.
+> 
+> Yes, I did.
+> 
+>>> 	wait_for_completion(&shrinker->done);
+>>> 	/*
+>>> 	 * lookups on the shrinker will now all fail as refcount has
+>>> 	 * fallen to zero. We can now remove it from the lists and
+>>> 	 * free it.
+>>> 	 */
+>>> 	down_write(shrinker_rwsem);
+>>> 	list_del_rcu(&shrinker->list);
+>>> 	up_write(&shrinker_rwsem);
+>>> 	call_rcu(shrinker->rcu_head, shrinker_free_rcu_cb);
+>>> }
+>>>
+>>> ....
+>>>
+>>>> @@ -686,11 +711,14 @@ EXPORT_SYMBOL(shrinker_free_non_registered);
+>>>>    void shrinker_register(struct shrinker *shrinker)
+>>>>    {
+>>>> -	down_write(&shrinker_rwsem);
+>>>> -	list_add_tail(&shrinker->list, &shrinker_list);
+>>>> -	shrinker->flags |= SHRINKER_REGISTERED;
+>>>> +	refcount_set(&shrinker->refcount, 1);
+>>>> +
+>>>> +	spin_lock(&shrinker_lock);
+>>>> +	list_add_tail_rcu(&shrinker->list, &shrinker_list);
+>>>> +	spin_unlock(&shrinker_lock);
+>>>> +
+>>>>    	shrinker_debugfs_add(shrinker);
+>>>> -	up_write(&shrinker_rwsem);
+>>>> +	WRITE_ONCE(shrinker->registered, true);
+>>>>    }
+>>>>    EXPORT_SYMBOL(shrinker_register);
+>>>
+>>> This just looks wrong - you are trying to use WRITE_ONCE() as a
+>>> release barrier to indicate that the shrinker is now set up fully.
+>>> That's not necessary - the refcount is an atomic and along with the
+>>> rcu locks they should provides all the barriers we need. i.e.
+>>
+>> The reason I used WRITE_ONCE() here is because the shrinker->registered
+>> will be read and written concurrently (read in shrinker_try_get() and
+>> written in shrinker_free()), which is why I added shrinker::registered
+>> field instead of using SHRINKER_REGISTERED flag (this can reduce the
+>> addition of WRITE_ONCE()/READ_ONCE()).
+> 
+> Using WRITE_ONCE/READ_ONCE doesn't provide memory barriers needed to
+> use the field like this. You need release/acquire memory ordering
+> here. i.e. smp_store_release()/smp_load_acquire().
+> 
+> As it is, the refcount_inc_not_zero() provides a control dependency,
+> as documented in include/linux/refcount.h, refcount_dec_and_test()
+> provides release memory ordering. The only thing I think we may need
+> is a write barrier before refcount_set(), such that if
+> refcount_inc_not_zero() sees a non-zero value, it is guaranteed to
+> see an initialised structure...
+> 
+> i.e. refcounts provide all the existence and initialisation
+> guarantees. Hence I don't see the need to use shrinker->registered
+> like this and it can remain a bit flag protected by the
+> shrinker_rwsem().
+
+Ah, I didn't consider the memory order with refcount when I added
+WRITE_ONCE/READ_ONCE to shrinker->registered, just didn't want KCSAN
+to complain (there are multiple visitors at the same time, one of which
+is a writer).
+
+And the livelock case mentioned above is indeed unlikely to happen, so
+I will delete shrinker->registered in the next version.
+
+> 
+> 
+>>> void shrinker_register(struct shrinker *shrinker)
+>>> {
+>>> 	down_write(&shrinker_rwsem);
+>>> 	list_add_tail_rcu(&shrinker->list, &shrinker_list);
+>>> 	shrinker->flags |= SHRINKER_REGISTERED;
+>>> 	shrinker_debugfs_add(shrinker);
+>>> 	up_write(&shrinker_rwsem);
+>>>
+>>> 	/*
+>>> 	 * now the shrinker is fully set up, take the first
+>>> 	 * reference to it to indicate that lookup operations are
+>>> 	 * now allowed to use it via shrinker_try_get().
+>>> 	 */
+>>> 	refcount_set(&shrinker->refcount, 1);
+>>> }
+>>>
+>>>> diff --git a/mm/shrinker_debug.c b/mm/shrinker_debug.c
+>>>> index f1becfd45853..c5573066adbf 100644
+>>>> --- a/mm/shrinker_debug.c
+>>>> +++ b/mm/shrinker_debug.c
+>>>> @@ -5,6 +5,7 @@
+>>>>    #include <linux/seq_file.h>
+>>>>    #include <linux/shrinker.h>
+>>>>    #include <linux/memcontrol.h>
+>>>> +#include <linux/rculist.h>
+>>>>    /* defined in vmscan.c */
+>>>>    extern struct rw_semaphore shrinker_rwsem;
+>>>> @@ -161,17 +162,21 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
+>>>>    {
+>>>>    	struct dentry *entry;
+>>>>    	char buf[128];
+>>>> -	int id;
+>>>> -
+>>>> -	lockdep_assert_held(&shrinker_rwsem);
+>>>> +	int id, ret = 0;
+>>>>    	/* debugfs isn't initialized yet, add debugfs entries later. */
+>>>>    	if (!shrinker_debugfs_root)
+>>>>    		return 0;
+>>>> +	down_write(&shrinker_rwsem);
+>>>> +	if (shrinker->debugfs_entry)
+>>>> +		goto fail;
+>>>> +
+>>>>    	id = ida_alloc(&shrinker_debugfs_ida, GFP_KERNEL);
+>>>> -	if (id < 0)
+>>>> -		return id;
+>>>> +	if (id < 0) {
+>>>> +		ret = id;
+>>>> +		goto fail;
+>>>> +	}
+>>>>    	shrinker->debugfs_id = id;
+>>>>    	snprintf(buf, sizeof(buf), "%s-%d", shrinker->name, id);
+>>>> @@ -180,7 +185,8 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
+>>>>    	entry = debugfs_create_dir(buf, shrinker_debugfs_root);
+>>>>    	if (IS_ERR(entry)) {
+>>>>    		ida_free(&shrinker_debugfs_ida, id);
+>>>> -		return PTR_ERR(entry);
+>>>> +		ret = PTR_ERR(entry);
+>>>> +		goto fail;
+>>>>    	}
+>>>>    	shrinker->debugfs_entry = entry;
+>>>> @@ -188,7 +194,10 @@ int shrinker_debugfs_add(struct shrinker *shrinker)
+>>>>    			    &shrinker_debugfs_count_fops);
+>>>>    	debugfs_create_file("scan", 0220, entry, shrinker,
+>>>>    			    &shrinker_debugfs_scan_fops);
+>>>> -	return 0;
+>>>> +
+>>>> +fail:
+>>>> +	up_write(&shrinker_rwsem);
+>>>> +	return ret;
+>>>>    }
+>>>>    int shrinker_debugfs_rename(struct shrinker *shrinker, const char *fmt, ...)
+>>>> @@ -243,6 +252,11 @@ struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
+>>>>    	shrinker->name = NULL;
+>>>>    	*debugfs_id = entry ? shrinker->debugfs_id : -1;
+>>>> +	/*
+>>>> +	 * Ensure that shrinker->registered has been set to false before
+>>>> +	 * shrinker->debugfs_entry is set to NULL.
+>>>> +	 */
+>>>> +	smp_wmb();
+>>>>    	shrinker->debugfs_entry = NULL;
+>>>>    	return entry;
+>>>> @@ -266,14 +280,26 @@ static int __init shrinker_debugfs_init(void)
+>>>>    	shrinker_debugfs_root = dentry;
+>>>>    	/* Create debugfs entries for shrinkers registered at boot */
+>>>> -	down_write(&shrinker_rwsem);
+>>>> -	list_for_each_entry(shrinker, &shrinker_list, list)
+>>>> +	rcu_read_lock();
+>>>> +	list_for_each_entry_rcu(shrinker, &shrinker_list, list) {
+>>>> +		if (!shrinker_try_get(shrinker))
+>>>> +			continue;
+>>>> +		rcu_read_unlock();
+>>>> +
+>>>>    		if (!shrinker->debugfs_entry) {
+>>>> -			ret = shrinker_debugfs_add(shrinker);
+>>>> -			if (ret)
+>>>> -				break;
+>>>> +			/* Paired with smp_wmb() in shrinker_debugfs_detach() */
+>>>> +			smp_rmb();
+>>>> +			if (READ_ONCE(shrinker->registered))
+>>>> +				ret = shrinker_debugfs_add(shrinker);
+>>>>    		}
+>>>> -	up_write(&shrinker_rwsem);
+>>>> +
+>>>> +		rcu_read_lock();
+>>>> +		shrinker_put(shrinker);
+>>>> +
+>>>> +		if (ret)
+>>>> +			break;
+>>>> +	}
+>>>> +	rcu_read_unlock();
+>>>>    	return ret;
+>>>>    }
+>>>
+>>> And all this churn and complexity can go away because the
+>>> shrinker_rwsem is still used to protect shrinker_register()
+>>> entirely....
+>>
+>> My consideration is that during this process, there may be a
+>> driver probe failure and then shrinker_free() is called (the
+>> shrinker_debugfs_init() is called in late_initcall stage). In
+>> this case, we need to use RCU+refcount to ensure that the shrinker
+>> is not freed.
+> 
+> Yeah, you're trying to work around the lack of a
+> wait_for_completion() call in shrinker_free().
+> 
+> With that, this doesn't need RCU at all, and the iteration can be
+> done fully under the shrinker_rwsem() safely and so none of this
+> code needs to change.
+
+Oh, indeed, here does not need to be changed.
+
+Thanks,
+Qi
+
+> 
+> Cheers,
+> 
+> Dave.
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
