@@ -2,94 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F3E03765ADA
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:31 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 68229765ACD
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690480531;
+	s=mimecast20190719; t=1690480523;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Vkq1y9E7RnfQein2AYcjfHG9/EEJU7ejBdaPWr7IZPE=;
-	b=XXESx6fv2F8rCLzgx70ROi6TpdBJlRJvIrmFQqm3gN7EkDfiNPaz3WMnxwsA0H6/98V8PX
-	kwWMNjf1exGMtzJM39KtvHIFs+ztpAg3W6oUfSvL8fQ4kC6t32g7YSEjIOPv8AYs2HZEpo
-	hv5HwWLboJ3R0ufmRvt7j3TIWizeuoc=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-630-PAdnJGllM9ilWpymIZivnQ-1; Thu, 27 Jul 2023 13:55:24 -0400
-X-MC-Unique: PAdnJGllM9ilWpymIZivnQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+	bh=gJGrzSDdB4wgOAy4DYplaF9tuniGU0xBlB/wtlhlsgw=;
+	b=LV/DXoCJJNY7IfAoHT1tRbhVyY1ioQED47bYyWpCEjSkBwhGCTdSvbPUhHd/4/rAhM0eT2
+	9tdTGjtuYg84sPDTmba5uc0QHiJawF6nx4ma+P2b6/yhg5krRBuXJZkFO9NkWSWimuwWEz
+	CVex2HV1LtUAPWnyXgqChHB8iPsC6h0=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-350-Ojl5WFOMPNCTpS15k8CB9A-1; Thu, 27 Jul 2023 13:55:16 -0400
+X-MC-Unique: Ojl5WFOMPNCTpS15k8CB9A-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D1C5E3C108D6;
-	Thu, 27 Jul 2023 17:55:04 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B940DC57965;
-	Thu, 27 Jul 2023 17:55:04 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C6A0319451C4;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B151805BC3;
 	Thu, 27 Jul 2023 17:55:03 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 354DE40C206F;
+	Thu, 27 Jul 2023 17:55:03 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E42F2194E122;
+	Thu, 27 Jul 2023 17:54:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 6F4C71946A6C
- for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:09:32 +0000 (UTC)
+ ESMTP id 9A4C61946A6C
+ for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:09:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 5A36FC2C857; Thu, 27 Jul 2023 08:09:32 +0000 (UTC)
+ id 716EBC2C857; Thu, 27 Jul 2023 08:09:45 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 52AFAC2C856
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:09:32 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A354C2C856
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:09:45 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3799910504AD
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:09:32 +0000 (UTC)
-Received: from mail-pf1-f174.google.com (mail-pf1-f174.google.com
- [209.85.210.174]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 50EDF801CF8
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:09:45 +0000 (UTC)
+Received: from mail-pf1-f180.google.com (mail-pf1-f180.google.com
+ [209.85.210.180]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-554-3N75r01cOr20CSn062i0PA-2; Thu, 27 Jul 2023 04:09:30 -0400
-X-MC-Unique: 3N75r01cOr20CSn062i0PA-2
-Received: by mail-pf1-f174.google.com with SMTP id
- d2e1a72fcca58-682ae5d4184so170931b3a.1
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:09:29 -0700 (PDT)
+ us-mta-681-Ho5cfPDTMiC1X-M_gdaCvg-1; Thu, 27 Jul 2023 04:09:42 -0400
+X-MC-Unique: Ho5cfPDTMiC1X-M_gdaCvg-1
+Received: by mail-pf1-f180.google.com with SMTP id
+ d2e1a72fcca58-66d6a9851f3so167942b3a.0
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:09:42 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690445369; x=1691050169;
+ d=1e100.net; s=20221208; t=1690445381; x=1691050181;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=et7oKjMo2RpAm9eGe6PO8KzXkO6yMET8jj6KuxhxE1o=;
- b=AUlG4zk+evVa7YabHS7em8cXXTs0bsAi9c6rds53WUbBjCD57bi3bG1FBf42rQ0P9R
- dvj49IqMiybHPPee8JVnPX0BM7yCo8n+/iHPlzk0QPidZ77n6onyTah3oq5TheSKASAl
- iOl7vxpTw71U4ersl8rREmHR/6Iofa13pZosvubHkeZmkYNkfdz9H6kjSEglD+b5qfwA
- NS7ZKFlJjB0QIDQSoTmQueg9L9zMJf3YyTrJWwCNMSLNd5u209OxR6URTI3HhvmrNh0N
- U2ndosyxs8kY3ntgMKNTGHsgOYoUjZuprZuty3gW7qwFBcu1JOeYSYkh5x66ftw0SCmv
- 2lpg==
-X-Gm-Message-State: ABy/qLbntnRPGVs0ypIzk1quKLzwrd7AzFZH3P0OTmLfBrQLeB54widn
- j2LSpL/Sx2RSDNmYe5b8+Q0xdQ==
-X-Google-Smtp-Source: APBJJlGUbAM65UTyBU06poLXl/mtaX6EX5YDf65AxeW9rsxnsdAR4xxA054nRzBMt6Eu4ihj5O0Oaw==
-X-Received: by 2002:a05:6a20:7da5:b0:137:3941:17b3 with SMTP id
- v37-20020a056a207da500b00137394117b3mr5573135pzj.6.1690445369382; 
- Thu, 27 Jul 2023 01:09:29 -0700 (PDT)
+ bh=GSWsN00ewH1CUxuL2on0amogNZtYjpfZMPk3tXk1MLc=;
+ b=Ya0rRT03XEY/0qxDK+H6o3I3aYhoD3/YrVBjb1TVqWqUcW/84InwcLzTHME193KQ3I
+ MRTPW6Dv0kYwkzycLa0hvpVhSPmFTArOh2852sqANeOO17cYZx2VRCHLdVYQH/6ZwShs
+ BpM6o+vmEG7bh0ZoEcYtbYGqfI6Pjnqdk1VAykueqdHXpbL7otCV432HNYkzeAextvsL
+ qGzD+x3cYM5+qt6g+VjEF3Kbc0pAS7pSex6uL6/bx+hqAhtwZB9VzmGEIsounz2kGVGH
+ PDQ4MixRGq9yomGlMg13xkNSXcpIWZRib9pvVJn0Iv6mRWuVdq0T8JkyvCrcIh7oK+Qd
+ DxCA==
+X-Gm-Message-State: ABy/qLYsu3s9nr4exudQHe4GTlxmuDverwET7Lj841O1jjGIdvo65gYV
+ nHkVxuV4EcpfV/LzcFbBvVulFA==
+X-Google-Smtp-Source: APBJJlHVjyqYSo1ak3Z7chV1yhtxMPzG2+b/e8BLYdWQhXdIbtZlkhi04HlfYJAG9z5TWY/X++2RBQ==
+X-Received: by 2002:a05:6a20:729a:b0:100:b92b:e8be with SMTP id
+ o26-20020a056a20729a00b00100b92be8bemr5576237pzk.2.1690445381598; 
+ Thu, 27 Jul 2023 01:09:41 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.09.17
+ j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.09.29
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 01:09:28 -0700 (PDT)
+ Thu, 27 Jul 2023 01:09:41 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Thu, 27 Jul 2023 16:04:31 +0800
-Message-Id: <20230727080502.77895-19-zhengqi.arch@bytedance.com>
+Date: Thu, 27 Jul 2023 16:04:32 +0800
+Message-Id: <20230727080502.77895-20-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -102,8 +103,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Thu, 27 Jul 2023 17:54:53 +0000
-Subject: [dm-devel] [PATCH v3 18/49] ubifs: dynamically allocate the
- ubifs-slab shrinker
+Subject: [dm-devel] [PATCH v3 19/49] rcu: dynamically allocate the rcu-lazy
+ shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,90 +122,70 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  cluster-devel@redhat.com, xen-devel@lists.xenproject.org,
  linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org, rcu@vger.kernel.org,
  linux-bcache@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
- Muchun Song <songmuchun@bytedance.com>, linux-raid@vger.kernel.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
  linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
  linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the ubifs-slab shrinker.
+Use new APIs to dynamically allocate the rcu-lazy shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- fs/ubifs/super.c | 22 ++++++++++++----------
- 1 file changed, 12 insertions(+), 10 deletions(-)
+ kernel/rcu/tree_nocb.h | 20 +++++++++++---------
+ 1 file changed, 11 insertions(+), 9 deletions(-)
 
-diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
-index b08fb28d16b5..c690782388a8 100644
---- a/fs/ubifs/super.c
-+++ b/fs/ubifs/super.c
-@@ -54,11 +54,7 @@ module_param_cb(default_version, &ubifs_default_version_ops, &ubifs_default_vers
- static struct kmem_cache *ubifs_inode_slab;
+diff --git a/kernel/rcu/tree_nocb.h b/kernel/rcu/tree_nocb.h
+index 5598212d1f27..e1c59c33738a 100644
+--- a/kernel/rcu/tree_nocb.h
++++ b/kernel/rcu/tree_nocb.h
+@@ -1396,13 +1396,6 @@ lazy_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
  
- /* UBIFS TNC shrinker description */
--static struct shrinker ubifs_shrinker_info = {
--	.scan_objects = ubifs_shrink_scan,
--	.count_objects = ubifs_shrink_count,
+ 	return count ? count : SHRINK_STOP;
+ }
+-
+-static struct shrinker lazy_rcu_shrinker = {
+-	.count_objects = lazy_rcu_shrink_count,
+-	.scan_objects = lazy_rcu_shrink_scan,
+-	.batch = 0,
 -	.seeks = DEFAULT_SEEKS,
 -};
-+static struct shrinker *ubifs_shrinker_info;
+ #endif // #ifdef CONFIG_RCU_LAZY
  
- /**
-  * validate_inode - validate inode.
-@@ -2373,7 +2369,7 @@ static void inode_slab_ctor(void *obj)
+ void __init rcu_init_nohz(void)
+@@ -1410,6 +1403,7 @@ void __init rcu_init_nohz(void)
+ 	int cpu;
+ 	struct rcu_data *rdp;
+ 	const struct cpumask *cpumask = NULL;
++	struct shrinker * __maybe_unused lazy_rcu_shrinker;
  
- static int __init ubifs_init(void)
- {
--	int err;
-+	int err = -ENOMEM;
+ #if defined(CONFIG_NO_HZ_FULL)
+ 	if (tick_nohz_full_running && !cpumask_empty(tick_nohz_full_mask))
+@@ -1436,8 +1430,16 @@ void __init rcu_init_nohz(void)
+ 		return;
  
- 	BUILD_BUG_ON(sizeof(struct ubifs_ch) != 24);
- 
-@@ -2439,10 +2435,16 @@ static int __init ubifs_init(void)
- 	if (!ubifs_inode_slab)
- 		return -ENOMEM;
- 
--	err = register_shrinker(&ubifs_shrinker_info, "ubifs-slab");
--	if (err)
-+	ubifs_shrinker_info = shrinker_alloc(0, "ubifs-slab");
-+	if (!ubifs_shrinker_info)
- 		goto out_slab;
- 
-+	ubifs_shrinker_info->count_objects = ubifs_shrink_count;
-+	ubifs_shrinker_info->scan_objects = ubifs_shrink_scan;
-+	ubifs_shrinker_info->seeks = DEFAULT_SEEKS;
+ #ifdef CONFIG_RCU_LAZY
+-	if (register_shrinker(&lazy_rcu_shrinker, "rcu-lazy"))
+-		pr_err("Failed to register lazy_rcu shrinker!\n");
++	lazy_rcu_shrinker = shrinker_alloc(0, "rcu-lazy");
++	if (!lazy_rcu_shrinker) {
++		pr_err("Failed to allocate lazy_rcu shrinker!\n");
++	} else {
++		lazy_rcu_shrinker->count_objects = lazy_rcu_shrink_count;
++		lazy_rcu_shrinker->scan_objects = lazy_rcu_shrink_scan;
++		lazy_rcu_shrinker->seeks = DEFAULT_SEEKS;
 +
-+	shrinker_register(ubifs_shrinker_info);
-+
- 	err = ubifs_compressors_init();
- 	if (err)
- 		goto out_shrinker;
-@@ -2467,7 +2469,7 @@ static int __init ubifs_init(void)
- 	dbg_debugfs_exit();
- 	ubifs_compressors_exit();
- out_shrinker:
--	unregister_shrinker(&ubifs_shrinker_info);
-+	shrinker_free(ubifs_shrinker_info);
- out_slab:
- 	kmem_cache_destroy(ubifs_inode_slab);
- 	return err;
-@@ -2483,7 +2485,7 @@ static void __exit ubifs_exit(void)
- 	dbg_debugfs_exit();
- 	ubifs_sysfs_exit();
- 	ubifs_compressors_exit();
--	unregister_shrinker(&ubifs_shrinker_info);
-+	shrinker_free(ubifs_shrinker_info);
++		shrinker_register(lazy_rcu_shrinker);
++	}
+ #endif // #ifdef CONFIG_RCU_LAZY
  
- 	/*
- 	 * Make sure all delayed rcu free inodes are flushed before we
+ 	if (!cpumask_subset(rcu_nocb_mask, cpu_possible_mask)) {
 -- 
 2.30.2
 
