@@ -1,96 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B09AF765AEA
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6314E765AC7
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:21 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690480538;
+	s=mimecast20190719; t=1690480520;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=yniIZoXdAi1tdkI5FZDzeSqHBavSQctRJEZQ+z7u4wI=;
-	b=TbRtSsvlnJejJ0YLWlYkon4+/SIS2Wqtnhp8blx8cqgEJFwaRaK84tlyf6q5+yFXE1exB5
-	BB2UBUPgDFlNl3/JsG9dAOXoFBaidu40kLWFR1bOvgwyBuSdxrccpykBb/68AWnb/AjsnY
-	un6yAcLQdzw6AoZpTFvHe5M2JN/bGU8=
+	bh=L92NdSYJjeDbz0tVe63Bp923a0aJjtPKFdttKe/SD/8=;
+	b=Slcf2UeFCQWWu5lKm+bjHVi6WGOEWNvOUJAEvCi8gR+Fnx+KL8n5jyYhAi+oQpnWqD73e5
+	tIU6PA2oa0TtqX2kz3oWAmg3jKquHIQyNgolp6bVizfb8X2Rbhi5meDOr1TyEQEwaYOEM/
+	UVJHcb0XHB2Trx0o0O5h2fyKXg62LQg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-381-Xwst_TjyOBqBVVFKP-hcNQ-1; Thu, 27 Jul 2023 13:55:28 -0400
-X-MC-Unique: Xwst_TjyOBqBVVFKP-hcNQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-96-NgQH3erOOj-zMXcleEXEYw-1; Thu, 27 Jul 2023 13:55:15 -0400
+X-MC-Unique: NgQH3erOOj-zMXcleEXEYw-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2868E1C3A076;
-	Thu, 27 Jul 2023 17:55:02 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 819B2830EFF;
+	Thu, 27 Jul 2023 17:54:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1258CC57964;
-	Thu, 27 Jul 2023 17:55:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E9EA44094DC1;
+	Thu, 27 Jul 2023 17:54:55 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ED86A19376EC;
-	Thu, 27 Jul 2023 17:54:57 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7EA8C19452C5;
+	Thu, 27 Jul 2023 17:54:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C8B7A1946A6C
- for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:11:21 +0000 (UTC)
+ ESMTP id BE5221946A74
+ for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:11:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B5E124094DC0; Thu, 27 Jul 2023 08:11:21 +0000 (UTC)
+ id AA24A40C2071; Thu, 27 Jul 2023 08:11:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AE9AE4094DC1
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:11:21 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A033540C2063
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:11:33 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9452838149AE
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:11:21 +0000 (UTC)
-Received: from mail-pf1-f177.google.com (mail-pf1-f177.google.com
- [209.85.210.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6014A830DB4
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:11:33 +0000 (UTC)
+Received: from mail-pf1-f181.google.com (mail-pf1-f181.google.com
+ [209.85.210.181]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-627-sV_on4vvOdSXItp196JxSQ-1; Thu, 27 Jul 2023 04:11:18 -0400
-X-MC-Unique: sV_on4vvOdSXItp196JxSQ-1
-Received: by mail-pf1-f177.google.com with SMTP id
- d2e1a72fcca58-686f74a8992so78037b3a.1
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:11:18 -0700 (PDT)
+ us-mta-101-IMs63sTdO0ehpFur36W8UQ-1; Thu, 27 Jul 2023 04:11:31 -0400
+X-MC-Unique: IMs63sTdO0ehpFur36W8UQ-1
+Received: by mail-pf1-f181.google.com with SMTP id
+ d2e1a72fcca58-682eef7d752so204430b3a.0
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:11:31 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690445477; x=1691050277;
+ d=1e100.net; s=20221208; t=1690445490; x=1691050290;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=/uDURfJnJhgp6SdQN0dR835bsVpn4QFEXgmrOE/fnW4=;
- b=dNmjdc0K8Hpeof8Gbclo426Q923e2U1YDOi1uqJrT8rbUSDUmSOH3HgXrcdrzse+rT
- bYZT+Z6RbuWZCNsB4qaCa+aJSsstGOsPdpvLdQjIATGKamxhCJbYnz1mSgZJWBj0+uXQ
- E2L+1uNPP1E7RgLXjvPEdVpRuVbafo18ktcvQZzgMVaRCr8K5f1MekSGFzi7xScYLsLS
- pIRwLm/dP1e7UhdteZYY/DcWvjxXG1kdm1KjAhpsd1tVx9qEtR90ylmJ7X1KqRKU+lYt
- 279wm4x74GOP0t9Pdx4yV4H1mJb2XajF4oFmN+dnr/O9ztpdN++44h5wMWbVyaavBDAT
- Z4Yw==
-X-Gm-Message-State: ABy/qLbW0bGda5o0d30HA+FJ9PkCTkS+ji90fYbrJsWEL/2jrtcQ8enJ
- zeqqaAAkZZbf1XKvSnUe6mrbbg==
-X-Google-Smtp-Source: APBJJlG87NINI+/+i4SJ1KgSTM1EJ+JwVd/Dy5o7cICQ6coQ1cuBExOC2izM/xbO/Jy48XOYsOKRHA==
-X-Received: by 2002:a05:6a00:2b90:b0:67d:308b:97ef with SMTP id
- dv16-20020a056a002b9000b0067d308b97efmr4590349pfb.2.1690445477689; 
- Thu, 27 Jul 2023 01:11:17 -0700 (PDT)
+ bh=ze2BfjPj3zI6XK14aBXxwpj9cG5VKS+QoT9VkWxAsig=;
+ b=T5CXLcOun8oe5burMZmQMIq4Wy4a3WRMfdvRK/HG5KvSZyclcFngsLXnDickuB2wzD
+ yoBGZjUTnaM2RKzCnN7ImP/CM8wGmW67bzYp1r99AyYrLhx50S0qHIk2mCdU7cHwWI4w
+ SGfArCaPobS8xvIMN4udUwVnuJWA2rcdFaXQxZzBhY2Sjst11gzeTSLStrvK6t0E7Ohl
+ etqp9n3EpyuhA3BT1eacO73UDcxtuh5yuekOrI3QN62BFwNhkRDQq4g1RZQmSqebD53V
+ 4LuOTod/ORUFKGpbKPVDJ+XsdXeODwU3TEnzN7TuEHQ2OJLEHXnauMwUzdAACldJEsGP
+ edPQ==
+X-Gm-Message-State: ABy/qLbHGIK8xvwCI5ZrHeH4IuZRFo8QbExeb51vd7gj5NLxKjcPMZhA
+ cH/DxmRmyt2LY9AXU4j6T0BHcg==
+X-Google-Smtp-Source: APBJJlFMZtECqV3NWJubuagzux89byKCTiavknA18umD2w/BadGADzl49oXppHX8YppKwxO9L0rdOg==
+X-Received: by 2002:a05:6a00:1586:b0:67f:8ef5:2643 with SMTP id
+ u6-20020a056a00158600b0067f8ef52643mr5208150pfk.2.1690445490190; 
+ Thu, 27 Jul 2023 01:11:30 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.11.06
+ j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.11.18
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 01:11:17 -0700 (PDT)
+ Thu, 27 Jul 2023 01:11:29 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Thu, 27 Jul 2023 16:04:40 +0800
-Message-Id: <20230727080502.77895-28-zhengqi.arch@bytedance.com>
+Date: Thu, 27 Jul 2023 16:04:41 +0800
+Message-Id: <20230727080502.77895-29-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -101,10 +101,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mailman-Approved-At: Thu, 27 Jul 2023 17:54:53 +0000
-Subject: [dm-devel] [PATCH v3 27/49] dm: dynamically allocate the dm-bufio
- shrinker
+Subject: [dm-devel] [PATCH v3 28/49] dm zoned: dynamically allocate the
+ dm-zoned-meta shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,90 +129,95 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the dm-bufio shrinker, so that it can be freed
+dynamically allocate the dm-zoned-meta shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct dm_bufio_client.
+read-side critical section when releasing the struct dmz_metadata.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- drivers/md/dm-bufio.c | 26 +++++++++++++++-----------
- 1 file changed, 15 insertions(+), 11 deletions(-)
+ drivers/md/dm-zoned-metadata.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/md/dm-bufio.c b/drivers/md/dm-bufio.c
-index bc309e41d074..5a9124b83d53 100644
---- a/drivers/md/dm-bufio.c
-+++ b/drivers/md/dm-bufio.c
-@@ -963,7 +963,7 @@ struct dm_bufio_client {
+diff --git a/drivers/md/dm-zoned-metadata.c b/drivers/md/dm-zoned-metadata.c
+index 9d3cca8e3dc9..0bcb26a43578 100644
+--- a/drivers/md/dm-zoned-metadata.c
++++ b/drivers/md/dm-zoned-metadata.c
+@@ -187,7 +187,7 @@ struct dmz_metadata {
+ 	struct rb_root		mblk_rbtree;
+ 	struct list_head	mblk_lru_list;
+ 	struct list_head	mblk_dirty_list;
+-	struct shrinker		mblk_shrinker;
++	struct shrinker		*mblk_shrinker;
  
- 	sector_t start;
- 
--	struct shrinker shrinker;
-+	struct shrinker *shrinker;
- 	struct work_struct shrink_work;
- 	atomic_long_t need_shrink;
- 
-@@ -2368,7 +2368,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
+ 	/* Zone allocation management */
+ 	struct mutex		map_lock;
+@@ -615,7 +615,7 @@ static unsigned long dmz_shrink_mblock_cache(struct dmz_metadata *zmd,
+ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
+ 					       struct shrink_control *sc)
  {
- 	struct dm_bufio_client *c;
+-	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
++	struct dmz_metadata *zmd = shrink->private_data;
  
--	c = container_of(shrink, struct dm_bufio_client, shrinker);
-+	c = shrink->private_data;
- 	atomic_long_add(sc->nr_to_scan, &c->need_shrink);
- 	queue_work(dm_bufio_wq, &c->shrink_work);
- 
-@@ -2377,7 +2377,7 @@ static unsigned long dm_bufio_shrink_scan(struct shrinker *shrink, struct shrink
- 
- static unsigned long dm_bufio_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
+ 	return atomic_read(&zmd->nr_mblks);
+ }
+@@ -626,7 +626,7 @@ static unsigned long dmz_mblock_shrinker_count(struct shrinker *shrink,
+ static unsigned long dmz_mblock_shrinker_scan(struct shrinker *shrink,
+ 					      struct shrink_control *sc)
  {
--	struct dm_bufio_client *c = container_of(shrink, struct dm_bufio_client, shrinker);
-+	struct dm_bufio_client *c = shrink->private_data;
- 	unsigned long count = cache_total(&c->cache);
- 	unsigned long retain_target = get_retain_buffers(c);
- 	unsigned long queued_for_cleanup = atomic_long_read(&c->need_shrink);
-@@ -2490,15 +2490,19 @@ struct dm_bufio_client *dm_bufio_client_create(struct block_device *bdev, unsign
- 	INIT_WORK(&c->shrink_work, shrink_work);
- 	atomic_long_set(&c->need_shrink, 0);
+-	struct dmz_metadata *zmd = container_of(shrink, struct dmz_metadata, mblk_shrinker);
++	struct dmz_metadata *zmd = shrink->private_data;
+ 	unsigned long count;
  
--	c->shrinker.count_objects = dm_bufio_shrink_count;
--	c->shrinker.scan_objects = dm_bufio_shrink_scan;
--	c->shrinker.seeks = 1;
--	c->shrinker.batch = 0;
--	r = register_shrinker(&c->shrinker, "dm-bufio:(%u:%u)",
--			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
--	if (r)
-+	c->shrinker = shrinker_alloc(0, "dm-bufio:(%u:%u)",
-+				     MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev));
-+	if (!c->shrinker)
- 		goto bad;
+ 	spin_lock(&zmd->mblk_lock);
+@@ -2936,19 +2936,23 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+ 	 */
+ 	zmd->min_nr_mblks = 2 + zmd->nr_map_blocks + zmd->zone_nr_bitmap_blocks * 16;
+ 	zmd->max_nr_mblks = zmd->min_nr_mblks + 512;
+-	zmd->mblk_shrinker.count_objects = dmz_mblock_shrinker_count;
+-	zmd->mblk_shrinker.scan_objects = dmz_mblock_shrinker_scan;
+-	zmd->mblk_shrinker.seeks = DEFAULT_SEEKS;
  
-+	c->shrinker->count_objects = dm_bufio_shrink_count;
-+	c->shrinker->scan_objects = dm_bufio_shrink_scan;
-+	c->shrinker->seeks = 1;
-+	c->shrinker->batch = 0;
-+	c->shrinker->private_data = c;
+ 	/* Metadata cache shrinker */
+-	ret = register_shrinker(&zmd->mblk_shrinker, "dm-zoned-meta:(%u:%u)",
+-				MAJOR(dev->bdev->bd_dev),
+-				MINOR(dev->bdev->bd_dev));
+-	if (ret) {
+-		dmz_zmd_err(zmd, "Register metadata cache shrinker failed");
++	zmd->mblk_shrinker = shrinker_alloc(0,  "dm-zoned-meta:(%u:%u)",
++					    MAJOR(dev->bdev->bd_dev),
++					    MINOR(dev->bdev->bd_dev));
++	if (!zmd->mblk_shrinker) {
++		dmz_zmd_err(zmd, "Allocate metadata cache shrinker failed");
+ 		goto err;
+ 	}
+ 
++	zmd->mblk_shrinker->count_objects = dmz_mblock_shrinker_count;
++	zmd->mblk_shrinker->scan_objects = dmz_mblock_shrinker_scan;
++	zmd->mblk_shrinker->seeks = DEFAULT_SEEKS;
++	zmd->mblk_shrinker->private_data = zmd;
 +
-+	shrinker_register(c->shrinker);
++	shrinker_register(zmd->mblk_shrinker);
 +
- 	mutex_lock(&dm_bufio_clients_lock);
- 	dm_bufio_client_count++;
- 	list_add(&c->client_list, &dm_bufio_all_clients);
-@@ -2537,7 +2541,7 @@ void dm_bufio_client_destroy(struct dm_bufio_client *c)
- 
- 	drop_buffers(c);
- 
--	unregister_shrinker(&c->shrinker);
-+	shrinker_free(c->shrinker);
- 	flush_work(&c->shrink_work);
- 
- 	mutex_lock(&dm_bufio_clients_lock);
+ 	dmz_zmd_info(zmd, "DM-Zoned metadata version %d", zmd->sb_version);
+ 	for (i = 0; i < zmd->nr_devs; i++)
+ 		dmz_print_dev(zmd, i);
+@@ -2995,7 +2999,7 @@ int dmz_ctr_metadata(struct dmz_dev *dev, int num_dev,
+  */
+ void dmz_dtr_metadata(struct dmz_metadata *zmd)
+ {
+-	unregister_shrinker(&zmd->mblk_shrinker);
++	shrinker_free(zmd->mblk_shrinker);
+ 	dmz_cleanup_metadata(zmd);
+ 	kfree(zmd);
+ }
 -- 
 2.30.2
 
