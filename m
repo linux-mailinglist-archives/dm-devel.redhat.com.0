@@ -1,95 +1,95 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 315B0765AF4
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C2E8B765AD3
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690480542;
+	s=mimecast20190719; t=1690480527;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9sP0aK/B1JJrchj+18vVQ9A5Turkm2RKxFFbp/6q25U=;
-	b=CW7pHPgutonoiRu82XxtmtJuSf7mqkynnV1NZi2zwp239gxCEyDX0HxKtH08sYCsnl0gag
-	Iv/VDsT8CBb6qo2wRqgxNeq+iJNE9cWRql5PzckINgGrYxbqAVb70I8+54NYgWjNwS5UdZ
-	fqXiamEsf3KjeVebx6QeeI4BugbwQL0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-317-W5GeC7nyPWaVaVdCeyBszQ-1; Thu, 27 Jul 2023 13:55:37 -0400
-X-MC-Unique: W5GeC7nyPWaVaVdCeyBszQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+	bh=Pb/xuzVeQQ+L9AqEblKGVmZ9UPtHcgQqPhe1WwAmyiU=;
+	b=OiTKBNfBSi8KkmVcuq11Dmf6r99MxznP4q1kJ+h47BlUe7ixZc+q8CnF5r93mTC7EeC7ey
+	1VAzfnBhsn6RQw4xhvKQJb0aNQ6LirwbKKU1np8Jlcf6mVlYJFqEAlLtIqL4LpPlzdV9uf
+	3ajt1Yfo3ZzazlR6XxuVpRpCAkhgHog=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-554-of2wRpN8NJeFbv02SIyXTA-1; Thu, 27 Jul 2023 13:55:23 -0400
+X-MC-Unique: of2wRpN8NJeFbv02SIyXTA-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8522888712A;
-	Thu, 27 Jul 2023 17:55:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1428E3C11A12;
+	Thu, 27 Jul 2023 17:55:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E064492B02;
-	Thu, 27 Jul 2023 17:55:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id ED4E540C2079;
+	Thu, 27 Jul 2023 17:55:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE41119378C3;
-	Thu, 27 Jul 2023 17:54:56 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C4AE419451C1;
+	Thu, 27 Jul 2023 17:55:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5EC2F1946A6C
- for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:13:02 +0000 (UTC)
+ ESMTP id 8F10B1946A6C
+ for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:13:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4345840C2063; Thu, 27 Jul 2023 08:13:02 +0000 (UTC)
+ id 80340492B03; Thu, 27 Jul 2023 08:13:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id CFB4D40C2073
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:13:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B40A538149B7
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:13:01 +0000 (UTC)
-Received: from mail-pf1-f178.google.com (mail-pf1-f178.google.com
- [209.85.210.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 78DFC492B01
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:13:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D73188D0F7
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:13:11 +0000 (UTC)
+Received: from mail-pf1-f175.google.com (mail-pf1-f175.google.com
+ [209.85.210.175]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-696-Mgl8LvDjMDCfN7QAzSI6dg-1; Thu, 27 Jul 2023 04:12:57 -0400
-X-MC-Unique: Mgl8LvDjMDCfN7QAzSI6dg-1
-Received: by mail-pf1-f178.google.com with SMTP id
- d2e1a72fcca58-682b1768a0bso175641b3a.0
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:12:56 -0700 (PDT)
+ us-mta-271-3cQ-yYO0M--OjFBTcMnXRQ-1; Thu, 27 Jul 2023 04:13:09 -0400
+X-MC-Unique: 3cQ-yYO0M--OjFBTcMnXRQ-1
+Received: by mail-pf1-f175.google.com with SMTP id
+ d2e1a72fcca58-686f74a8992so78288b3a.1
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:13:09 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690445576; x=1691050376;
+ d=1e100.net; s=20221208; t=1690445588; x=1691050388;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=48waxWZGd1WUnLYaDrTSxvJywKXLcopaiUkWgt7j5Rg=;
- b=ax/BBrZJgDU/4xKMEoKau9P4wGLUv2qFH3gZUCjtfqJZ/GArB6704qzAyBULSsu1i/
- oJigbmsDoExpY3XE1ef4IwK6U/zb/YMtFtytENbjIuzySQnQj5mN+7IgiwJZhVOkkTqr
- NfD7Q4tkpa0nV08HsFndd+FB0fRBgK28m4WV9IUby4KtT1yWdjLMDRDUjhdrFK9eRVx9
- MCAGvxiNqRQuXPwPQz66j0/pJwB1R0E3hlFUVoRHkCufr8RzM5IzXWOV6Bw+w8m5FDmM
- 8+/4jMKp/zm0GLEwMBrkK5XDkqW5Wj+tmPnxJFjvb6dFVB/j1fkIlKjz5b7yP3ioh+GT
- LJqQ==
-X-Gm-Message-State: ABy/qLYRaepPhnJ8d9N05kGaxfLZmb+KDsEJZZ8n6x+9FPIvhmKIda6/
- 2vjAtvp/Mfr2cmWYNAiUc4bHxw==
-X-Google-Smtp-Source: APBJJlGlNC1VbP/jxEyWXSRyFxMRuhVQW95Y9Ngz7T3+dCe8qyleorovPEoXgtcixk5kZ4l7rZv1Dg==
-X-Received: by 2002:a05:6a00:4a10:b0:686:b990:560f with SMTP id
- do16-20020a056a004a1000b00686b990560fmr4386534pfb.2.1690445576006; 
- Thu, 27 Jul 2023 01:12:56 -0700 (PDT)
+ bh=SQyM2U1mZ/Gwc1nAOvYev1L9XLZmdJlRT0RgZ5HuwGo=;
+ b=gV0RDp/A/DSU+2ZIMS9Du0H1R8elwnDTPcUmG0vmWPuhhD0JdMaFgqX6uxWH8SlpfM
+ PTrrFYRtjkFkLQFNEi+7Zlxz5H02uSefmPAemsm+gBpeHhsVyFQ1D+pqE7p6NBbCaQPu
+ ccQ2fszFOas6KZVtr6Tzsd9wa9t8Vzk+Dafl82a1VEkpZDkMEyrvURkKVCCAPKYmD7C4
+ BddjgXVhq2G9pxvhcC8Z92tUYt9brf8sRIUV7TCYENCxT+g8Jk2mSDIbaYgfOdfVsoxB
+ xXkSFWukCa9cxc4glacx/COd4VH93mqeFiIsMnQwqgZVeRcxFQ3WJnjkI7/fPxc6wHUO
+ 62vw==
+X-Gm-Message-State: ABy/qLb9pcnEKBFyXgxKV2OMIWRVAVHHy1vjSFs5REBjEkUxzpnCVcEJ
+ SibVuAjOtPUTRqcksYC15bFHug==
+X-Google-Smtp-Source: APBJJlGx3t3etMepgJMVu+n+Us77oI88lCmbMpzaxwGd8c6y1MJ13X5vnrHVztpBTHVV1RS/gpzzOQ==
+X-Received: by 2002:a05:6a21:3281:b0:137:514a:982d with SMTP id
+ yt1-20020a056a21328100b00137514a982dmr6062167pzb.6.1690445588272; 
+ Thu, 27 Jul 2023 01:13:08 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.12.43
+ j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.12.56
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 01:12:55 -0700 (PDT)
+ Thu, 27 Jul 2023 01:13:07 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Thu, 27 Jul 2023 16:04:48 +0800
-Message-Id: <20230727080502.77895-36-zhengqi.arch@bytedance.com>
+Date: Thu, 27 Jul 2023 16:04:49 +0800
+Message-Id: <20230727080502.77895-37-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -100,10 +100,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Thu, 27 Jul 2023 17:54:53 +0000
-Subject: [dm-devel] [PATCH v3 35/49] jbd2,
- ext4: dynamically allocate the jbd2-journal shrinker
+Subject: [dm-devel] [PATCH v3 36/49] nfsd: dynamically allocate the
+ nfsd-client shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -121,111 +121,91 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  cluster-devel@redhat.com, xen-devel@lists.xenproject.org,
  linux-ext4@vger.kernel.org, linux-arm-msm@vger.kernel.org, rcu@vger.kernel.org,
  linux-bcache@vger.kernel.org, Qi Zheng <zhengqi.arch@bytedance.com>,
- Muchun Song <songmuchun@bytedance.com>, linux-raid@vger.kernel.org,
- linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ linux-raid@vger.kernel.org, linux-nfs@vger.kernel.org, netdev@vger.kernel.org,
+ Jeff Layton <jlayton@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ Chuck Lever <chuck.lever@oracle.com>, linux-fsdevel@vger.kernel.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the jbd2-journal shrinker, so that it can be freed
+dynamically allocate the nfsd-client shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct journal_s.
+read-side critical section when releasing the struct nfsd_net.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-Reviewed-by: Muchun Song <songmuchun@bytedance.com>
+Acked-by: Chuck Lever <chuck.lever@oracle.com>
+Acked-by: Jeff Layton <jlayton@kernel.org>
 ---
- fs/jbd2/journal.c    | 27 +++++++++++++++++----------
- include/linux/jbd2.h |  2 +-
- 2 files changed, 18 insertions(+), 11 deletions(-)
+ fs/nfsd/netns.h     |  2 +-
+ fs/nfsd/nfs4state.c | 20 ++++++++++++--------
+ 2 files changed, 13 insertions(+), 9 deletions(-)
 
-diff --git a/fs/jbd2/journal.c b/fs/jbd2/journal.c
-index 1b5a45ab62b0..4c421da03fee 100644
---- a/fs/jbd2/journal.c
-+++ b/fs/jbd2/journal.c
-@@ -1298,7 +1298,7 @@ static int jbd2_min_tag_size(void)
- static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
- 					      struct shrink_control *sc)
+diff --git a/fs/nfsd/netns.h b/fs/nfsd/netns.h
+index ec49b200b797..f669444d5336 100644
+--- a/fs/nfsd/netns.h
++++ b/fs/nfsd/netns.h
+@@ -195,7 +195,7 @@ struct nfsd_net {
+ 	int			nfs4_max_clients;
+ 
+ 	atomic_t		nfsd_courtesy_clients;
+-	struct shrinker		nfsd_client_shrinker;
++	struct shrinker		*nfsd_client_shrinker;
+ 	struct work_struct	nfsd_shrinker_work;
+ };
+ 
+diff --git a/fs/nfsd/nfs4state.c b/fs/nfsd/nfs4state.c
+index ef7118ebee00..75334a43ded4 100644
+--- a/fs/nfsd/nfs4state.c
++++ b/fs/nfsd/nfs4state.c
+@@ -4388,8 +4388,7 @@ static unsigned long
+ nfsd4_state_shrinker_count(struct shrinker *shrink, struct shrink_control *sc)
  {
--	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
-+	journal_t *journal = shrink->private_data;
- 	unsigned long nr_to_scan = sc->nr_to_scan;
- 	unsigned long nr_shrunk;
- 	unsigned long count;
-@@ -1324,7 +1324,7 @@ static unsigned long jbd2_journal_shrink_scan(struct shrinker *shrink,
- static unsigned long jbd2_journal_shrink_count(struct shrinker *shrink,
- 					       struct shrink_control *sc)
- {
--	journal_t *journal = container_of(shrink, journal_t, j_shrinker);
-+	journal_t *journal = shrink->private_data;
- 	unsigned long count;
+ 	int count;
+-	struct nfsd_net *nn = container_of(shrink,
+-			struct nfsd_net, nfsd_client_shrinker);
++	struct nfsd_net *nn = shrink->private_data;
  
- 	count = percpu_counter_read_positive(&journal->j_checkpoint_jh_count);
-@@ -1412,19 +1412,26 @@ static journal_t *journal_init_common(struct block_device *bdev,
- 	journal->j_superblock = (journal_superblock_t *)bh->b_data;
+ 	count = atomic_read(&nn->nfsd_courtesy_clients);
+ 	if (!count)
+@@ -8123,12 +8122,17 @@ static int nfs4_state_create_net(struct net *net)
+ 	INIT_WORK(&nn->nfsd_shrinker_work, nfsd4_state_shrinker_worker);
+ 	get_net(net);
  
- 	journal->j_shrink_transaction = NULL;
--	journal->j_shrinker.scan_objects = jbd2_journal_shrink_scan;
--	journal->j_shrinker.count_objects = jbd2_journal_shrink_count;
--	journal->j_shrinker.seeks = DEFAULT_SEEKS;
--	journal->j_shrinker.batch = journal->j_max_transaction_buffers;
- 
- 	if (percpu_counter_init(&journal->j_checkpoint_jh_count, 0, GFP_KERNEL))
- 		goto err_cleanup;
- 
--	if (register_shrinker(&journal->j_shrinker, "jbd2-journal:(%u:%u)",
--			      MAJOR(bdev->bd_dev), MINOR(bdev->bd_dev))) {
-+	journal->j_shrinker = shrinker_alloc(0, "jbd2-journal:(%u:%u)",
-+					     MAJOR(bdev->bd_dev),
-+					     MINOR(bdev->bd_dev));
-+	if (!journal->j_shrinker) {
- 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
- 		goto err_cleanup;
- 	}
+-	nn->nfsd_client_shrinker.scan_objects = nfsd4_state_shrinker_scan;
+-	nn->nfsd_client_shrinker.count_objects = nfsd4_state_shrinker_count;
+-	nn->nfsd_client_shrinker.seeks = DEFAULT_SEEKS;
+-
+-	if (register_shrinker(&nn->nfsd_client_shrinker, "nfsd-client"))
++	nn->nfsd_client_shrinker = shrinker_alloc(0, "nfsd-client");
++	if (!nn->nfsd_client_shrinker)
+ 		goto err_shrinker;
 +
-+	journal->j_shrinker->scan_objects = jbd2_journal_shrink_scan;
-+	journal->j_shrinker->count_objects = jbd2_journal_shrink_count;
-+	journal->j_shrinker->seeks = DEFAULT_SEEKS;
-+	journal->j_shrinker->batch = journal->j_max_transaction_buffers;
-+	journal->j_shrinker->private_data = journal;
++	nn->nfsd_client_shrinker->scan_objects = nfsd4_state_shrinker_scan;
++	nn->nfsd_client_shrinker->count_objects = nfsd4_state_shrinker_count;
++	nn->nfsd_client_shrinker->seeks = DEFAULT_SEEKS;
++	nn->nfsd_client_shrinker->private_data = nn;
 +
-+	shrinker_register(journal->j_shrinker);
++	shrinker_register(nn->nfsd_client_shrinker);
 +
- 	return journal;
+ 	return 0;
  
- err_cleanup:
-@@ -2187,9 +2194,9 @@ int jbd2_journal_destroy(journal_t *journal)
- 		brelse(journal->j_sb_buffer);
- 	}
+ err_shrinker:
+@@ -8226,7 +8230,7 @@ nfs4_state_shutdown_net(struct net *net)
+ 	struct list_head *pos, *next, reaplist;
+ 	struct nfsd_net *nn = net_generic(net, nfsd_net_id);
  
--	if (journal->j_shrinker.flags & SHRINKER_REGISTERED) {
-+	if (journal->j_shrinker) {
- 		percpu_counter_destroy(&journal->j_checkpoint_jh_count);
--		unregister_shrinker(&journal->j_shrinker);
-+		shrinker_free(journal->j_shrinker);
- 	}
- 	if (journal->j_proc_entry)
- 		jbd2_stats_proc_exit(journal);
-diff --git a/include/linux/jbd2.h b/include/linux/jbd2.h
-index 44c298aa58d4..beb4c4586320 100644
---- a/include/linux/jbd2.h
-+++ b/include/linux/jbd2.h
-@@ -891,7 +891,7 @@ struct journal_s
- 	 * Journal head shrinker, reclaim buffer's journal head which
- 	 * has been written back.
- 	 */
--	struct shrinker		j_shrinker;
-+	struct shrinker		*j_shrinker;
- 
- 	/**
- 	 * @j_checkpoint_jh_count:
+-	unregister_shrinker(&nn->nfsd_client_shrinker);
++	shrinker_free(nn->nfsd_client_shrinker);
+ 	cancel_work(&nn->nfsd_shrinker_work);
+ 	cancel_delayed_work_sync(&nn->laundromat_work);
+ 	locks_end_grace(&nn->nfsd4_manager);
 -- 
 2.30.2
 
