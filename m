@@ -1,96 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 43908765AE4
-	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:37 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 5F61B765AEB
+	for <lists+dm-devel@lfdr.de>; Thu, 27 Jul 2023 19:55:40 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690480536;
+	s=mimecast20190719; t=1690480539;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=S4DOXg+WRwm8Y558iads1UCOSIBkHlrC1UkyYnOQWGM=;
-	b=cJa0m5r7h8eb3DwrM9vdT/aNE0bkW6K04bFLTsNBKXB0lw39SIroBnMfw0a8c8tcdf97WK
-	7hXXDQ/UesezSF3sYSTmNhsLza8Td09mpWbRMBX0a1D6ZFbHZnNhWpuk4EPzBj25TG1m/n
-	ktOKnXrl0GHJ8cqvE/nLstp7QYUYUMc=
+	bh=yf23lfOg/9QX5Vjvdp66uj+XLu/bHJNxB/5qwpYiYUQ=;
+	b=cfx6DfSPVWgQ8XFi+SL8ViihMIsxbwy9SS37b0GsDICNrgTwErHkiX2MlkZ+pmbQpmBtZd
+	KX35pWCg/W1WCalYGqfCUTd2wTgqq8y92+SVzJIfz+6xIHPO0J9kaLBVVPnJaye2diA86F
+	V4rLXyHOARI1ay2gN3057J/Giz1NrMw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-583-g7GOFE4sNRKAVorVCBckZQ-1; Thu, 27 Jul 2023 13:55:29 -0400
-X-MC-Unique: g7GOFE4sNRKAVorVCBckZQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-260-qdQ-tQqRPKu73s8baHE6TA-1; Thu, 27 Jul 2023 13:55:24 -0400
+X-MC-Unique: qdQ-tQqRPKu73s8baHE6TA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 702D3185A7AF;
-	Thu, 27 Jul 2023 17:55:03 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 059988A7F4C;
+	Thu, 27 Jul 2023 17:55:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 58A6A200B409;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D708FF7846;
 	Thu, 27 Jul 2023 17:55:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F28691937610;
-	Thu, 27 Jul 2023 17:54:58 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5167D19375FF;
+	Thu, 27 Jul 2023 17:54:59 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 55E9B1946A6C
- for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:12:09 +0000 (UTC)
+ ESMTP id 395121946A6C
+ for <dm-devel@listman.corp.redhat.com>; Thu, 27 Jul 2023 08:12:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2CCAF40C206F; Thu, 27 Jul 2023 08:12:09 +0000 (UTC)
+ id 1D8A146A3A9; Thu, 27 Jul 2023 08:12:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1E85C40C2063
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:12:09 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 158A2492C13
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:12:21 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04A49887115
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:12:09 +0000 (UTC)
-Received: from mail-pf1-f170.google.com (mail-pf1-f170.google.com
- [209.85.210.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E9E4E10504B4
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 08:12:20 +0000 (UTC)
+Received: from mail-pf1-f179.google.com (mail-pf1-f179.google.com
+ [209.85.210.179]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-38-zg4rqfTYMguhVB14B_gPyQ-1; Thu, 27 Jul 2023 04:12:07 -0400
-X-MC-Unique: zg4rqfTYMguhVB14B_gPyQ-1
-Received: by mail-pf1-f170.google.com with SMTP id
- d2e1a72fcca58-682ae5d4184so171389b3a.1
- for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:12:06 -0700 (PDT)
+ us-mta-110-zWZlwwUXOG6YlDxgjJA5lQ-2; Thu, 27 Jul 2023 04:12:18 -0400
+X-MC-Unique: zWZlwwUXOG6YlDxgjJA5lQ-2
+Received: by mail-pf1-f179.google.com with SMTP id
+ d2e1a72fcca58-682eef7d752so204690b3a.0
+ for <dm-devel@redhat.com>; Thu, 27 Jul 2023 01:12:18 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1690445526; x=1691050326;
+ d=1e100.net; s=20221208; t=1690445538; x=1691050338;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=2n4eBW/y496rw0R30jGqgr9PaTd+TyGx4MFgxeJTY98=;
- b=HzjCNxWGmCOxBgya6xB3qE0xgD60ZeDZcofxXE910ncAHIdaM+o7VcQySzmaL4imN7
- EQ4Tl3Cc3Tdg9gln6zf46+uEeiagy4Jggiy/zEZ7IAyHYBzPHvSjAC5FrA6SmoiFK8UF
- qYYk/0UksIvs2sWo66kOGSu1Y0SU859UU+v65vKv8yfYWtRZfP5kUecpdnPb09TqDq2B
- bRcvvUBxMRF8QzGDX4dsn9yxErnEMFoGiqBeydLSgpcfRnJzsGsK3XGv41cNkZ17TFoO
- s0I1dNe01sUQKBC/qV/xWOBUppJLDmWy4toZVXlDeun0pin1FHSvQajJmT0A3jGRR1SU
- NvSg==
-X-Gm-Message-State: ABy/qLYY/XIkO9cLJo4/DdQ68T2hBTnF/QYzKM0OodFv2gPG3rRHNBRD
- i0idIBmbXdlfbao2vpRUaSq7zg==
-X-Google-Smtp-Source: APBJJlHcYWOCpFnX36R6RazQvm5Mh7k9Kqh4ud2Oospjm3wjIj4ouKJfJr17R2K3rHFvQEDvt90Syw==
-X-Received: by 2002:a05:6a00:4685:b0:675:8521:ddc7 with SMTP id
- de5-20020a056a00468500b006758521ddc7mr4426362pfb.0.1690445525874; 
- Thu, 27 Jul 2023 01:12:05 -0700 (PDT)
+ bh=nhs5C6wYTK112tB0Y3rKeCsMBEmGx3fQoCnqZ3HCCLA=;
+ b=gUnAa+OC4UVsQSUKwLaxaeJvuMF7rE/s6f4nCKj4HNrBeMqvf/CqbYi3fbAFxdyYG1
+ UpQLAvZB1JvX9sncQIJ6IvQloUEVF4fJ1TtN22v963IhDIf6xY4NYQ/agtEeVqUbWyhv
+ /cDCoFRpFPbMXFN3sImGzm+ZtS9s/ariMgoapoj1WN5UNVGMTRxhxUXt0Q8rQ6xOMC3+
+ HdMu45LWJSStEwdJZarS4KUFFVajenElmBJYeKtA6bzFFqjpcXdx9x/oMCAP5QAP4SsW
+ bLPxmj5yzmZ5ir2QBaMz1q9E+iOql8ynwA7Mm5H0JxKNeg51ruvbTTf8VPl+Nb6SX+To
+ Bepw==
+X-Gm-Message-State: ABy/qLZKRkC6I47UhGKICBrICKZMCO9ErQrHmvTlmw4dr7AcrDYnaHcp
+ pB9epOQVGcqayhOxfcvCC/ZLlw==
+X-Google-Smtp-Source: APBJJlELYJ+VP3jkb44itFX28rq7UhufR3zr/NDN3xCao+bv4nVfpqzapahZiZsalg40ZmAEO1GP5Q==
+X-Received: by 2002:a05:6a00:13a3:b0:676:2a5c:7bc5 with SMTP id
+ t35-20020a056a0013a300b006762a5c7bc5mr5236670pfg.1.1690445537850; 
+ Thu, 27 Jul 2023 01:12:17 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.147])
  by smtp.gmail.com with ESMTPSA id
- j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.11.54
+ j8-20020aa78d08000000b006828e49c04csm885872pfe.75.2023.07.27.01.12.06
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 27 Jul 2023 01:12:05 -0700 (PDT)
+ Thu, 27 Jul 2023 01:12:17 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
  brauner@kernel.org, paulmck@kernel.org, tytso@mit.edu,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev
-Date: Thu, 27 Jul 2023 16:04:44 +0800
-Message-Id: <20230727080502.77895-32-zhengqi.arch@bytedance.com>
+Date: Thu, 27 Jul 2023 16:04:45 +0800
+Message-Id: <20230727080502.77895-33-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 References: <20230727080502.77895-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -101,10 +101,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mailman-Approved-At: Thu, 27 Jul 2023 17:54:53 +0000
-Subject: [dm-devel] [PATCH v3 31/49] vmw_balloon: dynamically allocate the
- vmw-balloon shrinker
+Subject: [dm-devel] [PATCH v3 32/49] virtio_balloon: dynamically allocate
+ the virtio-balloon shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -129,107 +129,85 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the vmw-balloon shrinker, so that it can be freed
+dynamically allocate the virtio-balloon shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct vmballoon.
-
-And we can simply exit vmballoon_init() when registering the shrinker
-fails. So the shrinker_registered indication is redundant, just remove it.
+read-side critical section when releasing the struct virtio_balloon.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- drivers/misc/vmw_balloon.c | 38 ++++++++++++--------------------------
- 1 file changed, 12 insertions(+), 26 deletions(-)
+ drivers/virtio/virtio_balloon.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/misc/vmw_balloon.c b/drivers/misc/vmw_balloon.c
-index 9ce9b9e0e9b6..ac2cdb6cdf74 100644
---- a/drivers/misc/vmw_balloon.c
-+++ b/drivers/misc/vmw_balloon.c
-@@ -380,16 +380,7 @@ struct vmballoon {
- 	/**
- 	 * @shrinker: shrinker interface that is used to avoid over-inflation.
- 	 */
+diff --git a/drivers/virtio/virtio_balloon.c b/drivers/virtio/virtio_balloon.c
+index 5b15936a5214..82e6087073a9 100644
+--- a/drivers/virtio/virtio_balloon.c
++++ b/drivers/virtio/virtio_balloon.c
+@@ -111,7 +111,7 @@ struct virtio_balloon {
+ 	struct virtio_balloon_stat stats[VIRTIO_BALLOON_S_NR];
+ 
+ 	/* Shrinker to return free pages - VIRTIO_BALLOON_F_FREE_PAGE_HINT */
 -	struct shrinker shrinker;
--
--	/**
--	 * @shrinker_registered: whether the shrinker was registered.
--	 *
--	 * The shrinker interface does not handle gracefully the removal of
--	 * shrinker that was not registered before. This indication allows to
--	 * simplify the unregistration process.
--	 */
--	bool shrinker_registered;
 +	struct shrinker *shrinker;
- };
  
- static struct vmballoon balloon;
-@@ -1568,29 +1559,27 @@ static unsigned long vmballoon_shrinker_count(struct shrinker *shrinker,
- 
- static void vmballoon_unregister_shrinker(struct vmballoon *b)
+ 	/* OOM notifier to deflate on OOM - VIRTIO_BALLOON_F_DEFLATE_ON_OOM */
+ 	struct notifier_block oom_nb;
+@@ -816,8 +816,7 @@ static unsigned long shrink_free_pages(struct virtio_balloon *vb,
+ static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
+ 						  struct shrink_control *sc)
  {
--	if (b->shrinker_registered)
--		unregister_shrinker(&b->shrinker);
--	b->shrinker_registered = false;
-+	shrinker_free(b->shrinker);
+-	struct virtio_balloon *vb = container_of(shrinker,
+-					struct virtio_balloon, shrinker);
++	struct virtio_balloon *vb = shrinker->private_data;
+ 
+ 	return shrink_free_pages(vb, sc->nr_to_scan);
+ }
+@@ -825,8 +824,7 @@ static unsigned long virtio_balloon_shrinker_scan(struct shrinker *shrinker,
+ static unsigned long virtio_balloon_shrinker_count(struct shrinker *shrinker,
+ 						   struct shrink_control *sc)
+ {
+-	struct virtio_balloon *vb = container_of(shrinker,
+-					struct virtio_balloon, shrinker);
++	struct virtio_balloon *vb = shrinker->private_data;
+ 
+ 	return vb->num_free_page_blocks * VIRTIO_BALLOON_HINT_BLOCK_PAGES;
+ }
+@@ -847,16 +845,23 @@ static int virtio_balloon_oom_notify(struct notifier_block *nb,
+ 
+ static void virtio_balloon_unregister_shrinker(struct virtio_balloon *vb)
+ {
+-	unregister_shrinker(&vb->shrinker);
++	shrinker_free(vb->shrinker);
  }
  
- static int vmballoon_register_shrinker(struct vmballoon *b)
+ static int virtio_balloon_register_shrinker(struct virtio_balloon *vb)
  {
--	int r;
--
- 	/* Do nothing if the shrinker is not enabled */
- 	if (!vmwballoon_shrinker_enable)
- 		return 0;
- 
--	b->shrinker.scan_objects = vmballoon_shrinker_scan;
--	b->shrinker.count_objects = vmballoon_shrinker_count;
--	b->shrinker.seeks = DEFAULT_SEEKS;
-+	b->shrinker = shrinker_alloc(0, "vmw-balloon");
-+	if (!b->shrinker)
+-	vb->shrinker.scan_objects = virtio_balloon_shrinker_scan;
+-	vb->shrinker.count_objects = virtio_balloon_shrinker_count;
+-	vb->shrinker.seeks = DEFAULT_SEEKS;
++	vb->shrinker = shrinker_alloc(0, "virtio-balloon");
++	if (!vb->shrinker)
 +		return -ENOMEM;
  
--	r = register_shrinker(&b->shrinker, "vmw-balloon");
-+	b->shrinker->scan_objects = vmballoon_shrinker_scan;
-+	b->shrinker->count_objects = vmballoon_shrinker_count;
-+	b->shrinker->seeks = DEFAULT_SEEKS;
-+	b->shrinker->private_data = b;
- 
--	if (r == 0)
--		b->shrinker_registered = true;
-+	shrinker_register(b->shrinker);
- 
--	return r;
+-	return register_shrinker(&vb->shrinker, "virtio-balloon");
++	vb->shrinker->scan_objects = virtio_balloon_shrinker_scan;
++	vb->shrinker->count_objects = virtio_balloon_shrinker_count;
++	vb->shrinker->seeks = DEFAULT_SEEKS;
++	vb->shrinker->private_data = vb;
++
++	shrinker_register(vb->shrinker);
++
 +	return 0;
  }
  
- /*
-@@ -1883,7 +1872,7 @@ static int __init vmballoon_init(void)
- 
- 	error = vmballoon_register_shrinker(&balloon);
- 	if (error)
--		goto fail;
-+		return error;
- 
- 	/*
- 	 * Initialization of compaction must be done after the call to
-@@ -1905,9 +1894,6 @@ static int __init vmballoon_init(void)
- 	vmballoon_debugfs_init(&balloon);
- 
- 	return 0;
--fail:
--	vmballoon_unregister_shrinker(&balloon);
--	return error;
- }
- 
- /*
+ static int virtballoon_probe(struct virtio_device *vdev)
 -- 
 2.30.2
 
