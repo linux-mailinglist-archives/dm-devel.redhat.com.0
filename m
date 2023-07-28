@@ -2,96 +2,60 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D9BDE7675A4
-	for <lists+dm-devel@lfdr.de>; Fri, 28 Jul 2023 20:39:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 49991767604
+	for <lists+dm-devel@lfdr.de>; Fri, 28 Jul 2023 21:06:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690569592;
+	s=mimecast20190719; t=1690571186;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xpKopf3Fh5crZ4MTllL+Mz7cKaK6IT6WR7D0kJfkwbY=;
-	b=I/O0e4grknmMmBCf2nV6BCiVLOP9i+4dIC4h2DbZKK2ZfDX0IS7c+ztab+SmFRwRVuY6qt
-	gECXtiTyHSqUJpGwpgZdEVdUhhbFpsZzAVnKCSv9DaHtsJWUtEFrKN/EtzkaCjIfyBRXKL
-	NJ7KhDgS6RqzbjdC0S8GTTxrj0QcAoQ=
+	bh=N8Sff32ng12etZxNQPEOkhzb4vCpqxjV1Ym9OcgjZJk=;
+	b=BMiYL3LK13yfjXUTlCOYt8nO1KoW9JGCMbObtMjlbFm3oUaZZG76CRDn6B2lTICxWg1Hxm
+	HN+PHgcA/GQ8xQ9/qI4QLxl43JP7rCSgB4Iyc2al4eJiPInMkjWwTP8mFOn2QzZwUqa3A1
+	Z8lVyxdRnQ25+8II+1FGKNjt2C7faJY=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-528-oabU4SAtPIqyKazZPjTEvQ-1; Fri, 28 Jul 2023 14:39:49 -0400
-X-MC-Unique: oabU4SAtPIqyKazZPjTEvQ-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-640-Qca_P5EpNI61bcfQx8A0Pw-1; Fri, 28 Jul 2023 15:06:23 -0400
+X-MC-Unique: Qca_P5EpNI61bcfQx8A0Pw-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0C0781C08983;
-	Fri, 28 Jul 2023 18:39:45 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 086A0299E764;
+	Fri, 28 Jul 2023 19:06:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 40AD2F77D3;
-	Fri, 28 Jul 2023 18:39:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 122FF40C2063;
+	Fri, 28 Jul 2023 19:06:08 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9935119452CF;
-	Fri, 28 Jul 2023 18:39:34 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2938D19452CF;
+	Fri, 28 Jul 2023 19:06:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BD4EE194658C
- for <dm-devel@listman.corp.redhat.com>; Fri, 28 Jul 2023 18:39:33 +0000 (UTC)
+ ESMTP id 9843C194658C
+ for <dm-devel@listman.corp.redhat.com>; Fri, 28 Jul 2023 19:06:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 98D1CC57965; Fri, 28 Jul 2023 18:39:33 +0000 (UTC)
+ id 1F05C40C206F; Fri, 28 Jul 2023 19:06:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 912D6C57964
- for <dm-devel@redhat.com>; Fri, 28 Jul 2023 18:39:33 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 760AF29AB3EB
- for <dm-devel@redhat.com>; Fri, 28 Jul 2023 18:39:33 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-68-Bc4H88MWOIGlSVvnb4wkeg-1; Fri, 28 Jul 2023 14:39:26 -0400
-X-MC-Unique: Bc4H88MWOIGlSVvnb4wkeg-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
- (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 88E2F621D1;
- Fri, 28 Jul 2023 18:39:25 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPS id E6659C433C8;
- Fri, 28 Jul 2023 18:39:24 +0000 (UTC)
-Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
- (localhost.localdomain [127.0.0.1])
- by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
- D2661C43169; Fri, 28 Jul 2023 18:39:24 +0000 (UTC)
-From: pr-tracker-bot@kernel.org
-In-Reply-To: <ZMLWgk816vYI3j11@redhat.com>
-References: <ZMLWgk816vYI3j11@redhat.com>
-X-PR-Tracked-List-Id: <linux-block.vger.kernel.org>
-X-PR-Tracked-Message-Id: <ZMLWgk816vYI3j11@redhat.com>
-X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
- tags/for-6.5/dm-fixes
-X-PR-Tracked-Commit-Id: 1e4ab7b4c881cf26c1c72b3f56519e03475486fb
-X-PR-Merge-Tree: torvalds/linux.git
-X-PR-Merge-Refname: refs/heads/master
-X-PR-Merge-Commit-Id: c75981a1be350f14dbfca56e62bea077dafdad96
-Message-Id: <169056956485.21363.11768008607343065923.pr-tracker-bot@kernel.org>
-Date: Fri, 28 Jul 2023 18:39:24 +0000
-To: Mike Snitzer <snitzer@kernel.org>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [dm-devel] [git pull] device mapper fixes for 6.5-rc4
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DFB6F40C2063;
+ Fri, 28 Jul 2023 19:06:03 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 36SJ5wU4008321;
+ Fri, 28 Jul 2023 14:05:58 -0500
+Received: (from bmarzins@localhost)
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 36SJ5uWo008320;
+ Fri, 28 Jul 2023 14:05:56 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>
+Date: Fri, 28 Jul 2023 14:05:51 -0500
+Message-Id: <1690571155-8283-1-git-send-email-bmarzins@redhat.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [RFC PATCH 0/4] Make prio timeouts work like checkers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,31 +67,44 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Joe Thornber <ejt@redhat.com>, linux-block@vger.kernel.org,
- dm-devel@redhat.com, Mikulas Patocka <mpatocka@redhat.com>,
- Yu Kuai <yukuai3@huawei.com>, Linus Torvalds <torvalds@linux-foundation.org>,
- Alasdair G Kergon <agk@redhat.com>
+Cc: device-mapper development <dm-devel@redhat.com>,
+ Martin Wilck <Martin.Wilck@suse.com>
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-The pull request you sent on Thu, 27 Jul 2023 16:41:38 -0400:
+This patchset changes how prioritizers set their timeouts, to make them
+match how the checker functions work, and also cleans up some minor
+timeout issues. I did this to make out timeouts consistent, but if
+someone has a good reason to object to that, I don't feel
+strongly that it's necessary, and I can resend just the bugfixes.
 
-> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-6.5/dm-fixes
+Benjamin Marzinski (4):
+  libmultipath: don't bother to reset default timeout value
+  libmultipath: make prioritizer timeouts work like checker timeouts
+  libmultipath: fix timeouts for detect_alua()
+  libmultipath: fix timeouts for path_latency prioritizer
 
-has been merged into torvalds/linux.git:
-https://git.kernel.org/torvalds/c/c75981a1be350f14dbfca56e62bea077dafdad96
-
-Thank you!
+ libmultipath/discovery.c                 | 13 +++++++------
+ libmultipath/prio.c                      | 14 +++++++++-----
+ libmultipath/prio.h                      |  3 +--
+ libmultipath/prioritizers/alua.c         |  2 +-
+ libmultipath/prioritizers/alua_rtpg.c    |  5 ++---
+ libmultipath/prioritizers/emc.c          |  5 +++--
+ libmultipath/prioritizers/hds.c          |  4 ++--
+ libmultipath/prioritizers/hp_sw.c        |  4 ++--
+ libmultipath/prioritizers/ontap.c        |  7 +++----
+ libmultipath/prioritizers/path_latency.c |  5 +++--
+ libmultipath/prioritizers/rdac.c         |  4 ++--
+ 11 files changed, 35 insertions(+), 31 deletions(-)
 
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/prtracker.html
+2.17.2
 
 --
 dm-devel mailing list
