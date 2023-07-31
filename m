@@ -1,87 +1,77 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DBB6A767E40
-	for <lists+dm-devel@lfdr.de>; Sat, 29 Jul 2023 12:40:20 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 01D897689C5
+	for <lists+dm-devel@lfdr.de>; Mon, 31 Jul 2023 04:03:03 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690627219;
+	s=mimecast20190719; t=1690768982;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=KqThqixEL3F1MxMSrL6AZGwwxEN4tMlajuL2GrbuojI=;
-	b=PBHvRD1bTzIoB1aSeEstdJR4xHyyDd2E/xsinpHIDXHViJiPYkyQMu2VZmCykION9+lJKm
-	CYzsb1YfgLPvGw5EHE8ObGLSExBq0tPgOjbehwjDb7Mclb6TWzYOPvnXUKYI2YEtqW5XA6
-	wDiaBdYWNJyLkSH5YAV75wYbScRPGUw=
+	bh=Z2RsX57r7rPC6salgMsS1UvifnWyLkPHx6bS8VEXj9U=;
+	b=hT7psx4o2Mt8wP5Rx66dEybAIh0tpMho2sg5qD+HiCDGG8Nd+5RTX/vjUHOnLznQcxFkos
+	+A+JLUyADhMp23DftrhxnPL2nNSWBEtvgiUMJGFDlYqaYF7Gu/ehXjZp9GCyJoyZkv17Yr
+	1S9EuOFtAlbXdvyS1d3bzUwnGS+X/NM=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-358-QYx0ihDlMwmX1YkKZziYPw-1; Sat, 29 Jul 2023 06:40:17 -0400
-X-MC-Unique: QYx0ihDlMwmX1YkKZziYPw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-383-MYWgQGmqPJu98ZAD-3uXPA-1; Sun, 30 Jul 2023 22:02:59 -0400
+X-MC-Unique: MYWgQGmqPJu98ZAD-3uXPA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB9141C0515D;
-	Sat, 29 Jul 2023 10:40:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 180B42A59552;
+	Mon, 31 Jul 2023 02:02:57 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id F3156C57965;
-	Sat, 29 Jul 2023 10:40:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5BDC340D283A;
+	Mon, 31 Jul 2023 02:02:44 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4EF3119452D8;
-	Sat, 29 Jul 2023 10:40:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CD8611946A4B;
+	Mon, 31 Jul 2023 02:02:43 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 57ADD194658C
- for <dm-devel@listman.corp.redhat.com>; Sat, 29 Jul 2023 10:40:03 +0000 (UTC)
+ ESMTP id 459271946587
+ for <dm-devel@listman.corp.redhat.com>; Mon, 31 Jul 2023 02:02:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EA2D2400F45; Sat, 29 Jul 2023 10:40:02 +0000 (UTC)
+ id 2FDDC1121315; Mon, 31 Jul 2023 02:02:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E2750400F36
- for <dm-devel@redhat.com>; Sat, 29 Jul 2023 10:40:02 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 279C51121314
+ for <dm-devel@redhat.com>; Mon, 31 Jul 2023 02:02:41 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C361E1C05122
- for <dm-devel@redhat.com>; Sat, 29 Jul 2023 10:40:02 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6768B1C0513F
+ for <dm-devel@redhat.com>; Mon, 31 Jul 2023 02:02:41 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-284-YO9R40c0NyCgcA904UEWgg-1; Sat, 29 Jul 2023 06:40:01 -0400
-X-MC-Unique: YO9R40c0NyCgcA904UEWgg-1
+ us-mta-61-qLxCX2XgM9KpkV7oIhMbLg-1; Sun, 30 Jul 2023 22:02:39 -0400
+X-MC-Unique: qLxCX2XgM9KpkV7oIhMbLg-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 3F56A60B7A;
- Sat, 29 Jul 2023 10:33:05 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98B2AC433C7;
- Sat, 29 Jul 2023 10:33:04 +0000 (UTC)
-Received: by mail-lf1-f44.google.com with SMTP id
- 2adb3069b0e04-4fe1c285690so3670598e87.3; 
- Sat, 29 Jul 2023 03:33:04 -0700 (PDT)
-X-Gm-Message-State: ABy/qLY7UZ2/UeWC1hyHQYv1KtC9KKIYeX2rIQLmRaha7w4brxli1WKQ
- qY+153zHeVfsv3VY1ClRUo1o4bVFwwKgUIRFPmQ=
-X-Google-Smtp-Source: APBJJlGeYb8hNy/oFr34uGXpmibjsARwkGDXhWuL5vf6q6/6EGpONGXt7KE18g1UWMPfQfNjEFd/fv4w/7as5tTqYDA=
-X-Received: by 2002:a05:6512:2391:b0:4f8:6e6e:4100 with SMTP id
- c17-20020a056512239100b004f86e6e4100mr4600338lfv.52.1690626782624; Sat, 29
- Jul 2023 03:33:02 -0700 (PDT)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 8F8CA60E0B;
+ Mon, 31 Jul 2023 02:02:38 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 748B8C433C8;
+ Mon, 31 Jul 2023 02:02:37 +0000 (UTC)
+From: Sasha Levin <sashal@kernel.org>
+To: stable-commits@vger.kernel.org,
+	yukuai3@huawei.com
+Date: Sun, 30 Jul 2023 22:02:35 -0400
+Message-Id: <20230731020235.3804553-1-sashal@kernel.org>
 MIME-Version: 1.0
-References: <20230708092153.1418570-1-yukuai1@huaweicloud.com>
-In-Reply-To: <20230708092153.1418570-1-yukuai1@huaweicloud.com>
-From: Song Liu <song@kernel.org>
-Date: Sat, 29 Jul 2023 18:32:49 +0800
-X-Gmail-Original-Message-ID: <CAPhsuW5cBipY=JT8nRvJptyU9uePVYgqQ5ZaTtL7KnNO97K9BQ@mail.gmail.com>
-Message-ID: <CAPhsuW5cBipY=JT8nRvJptyU9uePVYgqQ5ZaTtL7KnNO97K9BQ@mail.gmail.com>
-To: Yu Kuai <yukuai1@huaweicloud.com>
+X-Patchwork-Hint: ignore
+X-stable: review
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,8 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [dm-devel] [PATCH -next v2 0/3] dm-raid: minor fixes
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] Patch "dm raid: fix missing reconfig_mutex unlock in
+ raid_ctr() error paths" has been added to the 6.4-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,32 +93,85 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: pmenzel@molgen.mpg.de, yi.zhang@huawei.com, heinzm@redhat.com,
- yangerkun@huawei.com, snitzer@kernel.org, linux-kernel@vger.kernel.org,
- linux-raid@vger.kernel.org, dm-devel@redhat.com, yukuai3@huawei.com,
- agk@redhat.com
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-T24gU2F0LCBKdWwgOCwgMjAyMyBhdCA1OjIz4oCvUE0gWXUgS3VhaSA8eXVrdWFpMUBodWF3ZWlj
-bG91ZC5jb20+IHdyb3RlOgo+Cj4gRnJvbTogWXUgS3VhaSA8eXVrdWFpM0BodWF3ZWkuY29tPgo+
-Cj4gQ2hhbmdlcyBpbiB2MjoKPiAgLSBpbXByb3ZlIHRpdGxlIGFuZCBjb21taXQgbWVzc2FnZSBm
-b3IgcGF0Y2ggMgo+Cj4gVGhpcyBwYXRjaHNldCBmaXggdHdvIHN0cmFpZ2h0Zm9yd2FyZCBhbmQg
-ZWFzeSBwcm9ibGVtcyB0aGF0IGlzIGZvdW5kIGJ5Cj4gY29kZSByZXZpZXcsIHBsZWFzZSBjb25z
-aWRlciBpdCBmb3IgdGhlIG5leHQgbWVyZ2Ugd2luZG93Lgo+Cj4gWXUgS3VhaSAoMyk6Cj4gICBt
-ZC9kbS1yYWlkOiBmaXggdGhhdCAncmVjb25maWdfbXV0ZXgnIGlzIG5vdCByZWxlYXNlZCBmcm9t
-IGVycm9yIHBhdGgKPiAgICAgaW4gcmFpZF9jdHIoKQo+ICAgbWQvZG0tcmFpZDogY2xlYW4gdXAg
-bXVsdGlwbGUgZXF1aXZhbGVudCBnb3RvIHRhZ3MgZnJvbSByYWlkX2N0cigpCj4gICBtZC9kbS1y
-YWlkOiBwcm90ZWN0IG1kX3N0b3AoKSB3aXRoICdyZWNvbmZpZ19tdXRleCcKCkZvciB0aGUgc2V0
-OgoKUmV2aWV3ZWQtYnk6IFNvbmcgTGl1IDxzb25nQGtlcm5lbC5vcmc+Cgo+Cj4gIGRyaXZlcnMv
-bWQvZG0tcmFpZC5jIHwgMjAgKysrKysrKysrLS0tLS0tLS0tLS0KPiAgZHJpdmVycy9tZC9tZC5j
-ICAgICAgfCAgMiArKwo+ICAyIGZpbGVzIGNoYW5nZWQsIDExIGluc2VydGlvbnMoKyksIDExIGRl
-bGV0aW9ucygtKQo+Cj4gLS0KPiAyLjM5LjIKPgoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRt
-LWRldmVsQHJlZGhhdC5jb20KaHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0
-aW5mby9kbS1kZXZlbAo=
+This is a note to let you know that I've just added the patch titled
+
+    dm raid: fix missing reconfig_mutex unlock in raid_ctr() error paths
+
+to the 6.4-stable tree which can be found at:
+    http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
+
+The filename of the patch is:
+     dm-raid-fix-missing-reconfig_mutex-unlock-in-raid_ct.patch
+and it can be found in the queue-6.4 subdirectory.
+
+If you, or anyone else, feels it should not be added to the stable tree,
+please let <stable@vger.kernel.org> know about it.
+
+
+
+commit e319a059d3f903393af2557cc7f75d6ac4643647
+Author: Yu Kuai <yukuai3@huawei.com>
+Date:   Sat Jul 8 17:21:51 2023 +0800
+
+    dm raid: fix missing reconfig_mutex unlock in raid_ctr() error paths
+    
+    [ Upstream commit bae3028799dc4f1109acc4df37c8ff06f2d8f1a0 ]
+    
+    In the error paths 'bad_stripe_cache' and 'bad_check_reshape',
+    'reconfig_mutex' is still held after raid_ctr() returns.
+    
+    Fixes: 9dbd1aa3a81c ("dm raid: add reshaping support to the target")
+    Signed-off-by: Yu Kuai <yukuai3@huawei.com>
+    Signed-off-by: Mike Snitzer <snitzer@kernel.org>
+    Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index c8821fcb82998..85221a94c2073 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -3271,15 +3271,19 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 	/* Try to adjust the raid4/5/6 stripe cache size to the stripe size */
+ 	if (rs_is_raid456(rs)) {
+ 		r = rs_set_raid456_stripe_cache(rs);
+-		if (r)
++		if (r) {
++			mddev_unlock(&rs->md);
+ 			goto bad_stripe_cache;
++		}
+ 	}
+ 
+ 	/* Now do an early reshape check */
+ 	if (test_bit(RT_FLAG_RESHAPE_RS, &rs->runtime_flags)) {
+ 		r = rs_check_reshape(rs);
+-		if (r)
++		if (r) {
++			mddev_unlock(&rs->md);
+ 			goto bad_check_reshape;
++		}
+ 
+ 		/* Restore new, ctr requested layout to perform check */
+ 		rs_config_restore(rs, &rs_layout);
+@@ -3288,6 +3292,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
+ 			r = rs->md.pers->check_reshape(&rs->md);
+ 			if (r) {
+ 				ti->error = "Reshape check failed";
++				mddev_unlock(&rs->md);
+ 				goto bad_check_reshape;
+ 			}
+ 		}
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
