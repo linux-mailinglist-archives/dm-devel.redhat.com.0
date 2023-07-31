@@ -1,74 +1,74 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35A6F7689C8
-	for <lists+dm-devel@lfdr.de>; Mon, 31 Jul 2023 04:04:36 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 008B57689C9
+	for <lists+dm-devel@lfdr.de>; Mon, 31 Jul 2023 04:04:44 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1690769074;
+	s=mimecast20190719; t=1690769083;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6XTjwcRFHTi1a5b0ly/D+uErx8svfFz4oJXsiK15uAM=;
-	b=fBRVJKuOk8pK8vzmTt97cgV+5vb5mJLZpt1A8yCG2O7sIUgu6kPeK6fhFeJcWy7B3I+JMP
-	k8Zzq5gikSNEdQePcTIUT0BTJ3LcRz0UH79aOfom9/YQ+oBOl7aWZoJV4wQRVXbFPim4QC
-	z5RZmyDLRJNSb00tuQ9KgwO7dKwoI0I=
+	bh=WQke0l5E9534QC0Qsf2DDdeKHrdCvRAv0Kge2AR8lks=;
+	b=WrQsqtYdg42RlJ6XIapvwjKfokSbBDX9BE085iKpMg5LYQcjIsngOpUgY2fX4SeP9swjXZ
+	b1Hx6J1w9WI8lgNWpklxSC0yrfmQQ2uTYTub1KaY0yw+RBPC+oWAbmjxQKT3MksVDAJbYD
+	0tK7kV+t+7GNw5gC4LW1I+tRZUuZDEI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-318-UkndDKuRO0KyqPHTaXwHQw-1; Sun, 30 Jul 2023 22:04:30 -0400
-X-MC-Unique: UkndDKuRO0KyqPHTaXwHQw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-489-1A7ESZZxNRCIPpVTB6Mewg-1; Sun, 30 Jul 2023 22:04:40 -0400
+X-MC-Unique: 1A7ESZZxNRCIPpVTB6Mewg-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6D2EE81DA29;
-	Mon, 31 Jul 2023 02:04:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8DCC98564EF;
+	Mon, 31 Jul 2023 02:04:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 176BF401061;
-	Mon, 31 Jul 2023 02:04:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7920C40C206F;
+	Mon, 31 Jul 2023 02:04:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9732D1946A4B;
-	Mon, 31 Jul 2023 02:04:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 08EBF1946A4C;
+	Mon, 31 Jul 2023 02:04:37 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A69C61946587
- for <dm-devel@listman.corp.redhat.com>; Mon, 31 Jul 2023 02:04:26 +0000 (UTC)
+ ESMTP id C63D11946587
+ for <dm-devel@listman.corp.redhat.com>; Mon, 31 Jul 2023 02:04:34 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 87A03F784E; Mon, 31 Jul 2023 02:04:26 +0000 (UTC)
+ id A85861121315; Mon, 31 Jul 2023 02:04:34 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 801F5F7849
- for <dm-devel@redhat.com>; Mon, 31 Jul 2023 02:04:26 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A06821121314
+ for <dm-devel@redhat.com>; Mon, 31 Jul 2023 02:04:34 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 62BB0800159
- for <dm-devel@redhat.com>; Mon, 31 Jul 2023 02:04:26 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8492E858290
+ for <dm-devel@redhat.com>; Mon, 31 Jul 2023 02:04:34 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-68-SFcWXyBKNSONHgRCk2018A-1; Sun, 30 Jul 2023 22:04:24 -0400
-X-MC-Unique: SFcWXyBKNSONHgRCk2018A-1
+ us-mta-620-gak-w3J9Ni6YALRjkyw5sA-1; Sun, 30 Jul 2023 22:04:27 -0400
+X-MC-Unique: gak-w3J9Ni6YALRjkyw5sA-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 6A3D360DE7;
- Mon, 31 Jul 2023 02:04:23 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4DE1DC433C7;
- Mon, 31 Jul 2023 02:04:22 +0000 (UTC)
+ by dfw.source.kernel.org (Postfix) with ESMTPS id 86FFF60E26;
+ Mon, 31 Jul 2023 02:04:26 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42751C433C8;
+ Mon, 31 Jul 2023 02:04:25 +0000 (UTC)
 From: Sasha Levin <sashal@kernel.org>
 To: stable-commits@vger.kernel.org,
 	yukuai3@huawei.com
-Date: Sun, 30 Jul 2023 22:04:20 -0400
-Message-Id: <20230731020420.3805826-1-sashal@kernel.org>
+Date: Sun, 30 Jul 2023 22:04:23 -0400
+Message-Id: <20230731020423.3805864-1-sashal@kernel.org>
 MIME-Version: 1.0
 X-Patchwork-Hint: ignore
 X-stable: review
@@ -79,9 +79,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] Patch "dm raid: clean up four equivalent goto tags in
- raid_ctr()" has been added to the 6.1-stable tree
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] Patch "dm raid: protect md_stop() with 'reconfig_mutex'"
+ has been added to the 6.1-stable tree
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,11 +93,11 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
- Alasdair Kergon <agk@redhat.com>
+Cc: Song Liu <song@kernel.org>, dm-devel@redhat.com,
+ Mike Snitzer <snitzer@kernel.org>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Type: text/plain; charset="us-ascii"
@@ -105,13 +105,13 @@ Content-Transfer-Encoding: 7bit
 
 This is a note to let you know that I've just added the patch titled
 
-    dm raid: clean up four equivalent goto tags in raid_ctr()
+    dm raid: protect md_stop() with 'reconfig_mutex'
 
 to the 6.1-stable tree which can be found at:
     http://www.kernel.org/git/?p=linux/kernel/git/stable/stable-queue.git;a=summary
 
 The filename of the patch is:
-     dm-raid-clean-up-four-equivalent-goto-tags-in-raid_c.patch
+     dm-raid-protect-md_stop-with-reconfig_mutex.patch
 and it can be found in the queue-6.1 subdirectory.
 
 If you, or anyone else, feels it should not be added to the stable tree,
@@ -119,96 +119,63 @@ please let <stable@vger.kernel.org> know about it.
 
 
 
-commit c6be6491a6e7834b610917cb0fe282a6b69946ce
+commit a3ba1c6ff60afeadfd99ae71f470fb29671d6d06
 Author: Yu Kuai <yukuai3@huawei.com>
-Date:   Sat Jul 8 17:21:52 2023 +0800
+Date:   Sat Jul 8 17:21:53 2023 +0800
 
-    dm raid: clean up four equivalent goto tags in raid_ctr()
+    dm raid: protect md_stop() with 'reconfig_mutex'
     
-    [ Upstream commit e74c874eabe2e9173a8fbdad616cd89c70eb8ffd ]
+    [ Upstream commit 7d5fff8982a2199d49ec067818af7d84d4f95ca0 ]
     
-    There are four equivalent goto tags in raid_ctr(), clean them up to
-    use just one.
+    __md_stop_writes() and __md_stop() will modify many fields that are
+    protected by 'reconfig_mutex', and all the callers will grab
+    'reconfig_mutex' except for md_stop().
     
-    There is no functional change and this is preparation to fix
-    raid_ctr()'s unprotected md_stop().
+    Also, update md_stop() to make certain 'reconfig_mutex' is held using
+    lockdep_assert_held().
     
+    Fixes: 9d09e663d550 ("dm: raid456 basic support")
     Signed-off-by: Yu Kuai <yukuai3@huawei.com>
     Signed-off-by: Mike Snitzer <snitzer@kernel.org>
-    Stable-dep-of: 7d5fff8982a2 ("dm raid: protect md_stop() with 'reconfig_mutex'")
     Signed-off-by: Sasha Levin <sashal@kernel.org>
 
 diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
-index bd0da5bbd57b0..c3736d1f72310 100644
+index c3736d1f72310..4b7528dc2fd08 100644
 --- a/drivers/md/dm-raid.c
 +++ b/drivers/md/dm-raid.c
-@@ -3254,8 +3254,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	r = md_start(&rs->md);
- 	if (r) {
- 		ti->error = "Failed to start raid array";
--		mddev_unlock(&rs->md);
--		goto bad_md_start;
-+		goto bad_unlock;
- 	}
- 
- 	/* If raid4/5/6 journal mode explicitly requested (only possible with journal dev) -> set it */
-@@ -3263,8 +3262,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 		r = r5c_journal_mode_set(&rs->md, rs->journal_dev.mode);
- 		if (r) {
- 			ti->error = "Failed to set raid4/5/6 journal mode";
--			mddev_unlock(&rs->md);
--			goto bad_journal_mode_set;
-+			goto bad_unlock;
- 		}
- 	}
- 
-@@ -3274,19 +3272,15 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	/* Try to adjust the raid4/5/6 stripe cache size to the stripe size */
- 	if (rs_is_raid456(rs)) {
- 		r = rs_set_raid456_stripe_cache(rs);
--		if (r) {
--			mddev_unlock(&rs->md);
--			goto bad_stripe_cache;
--		}
-+		if (r)
-+			goto bad_unlock;
- 	}
- 
- 	/* Now do an early reshape check */
- 	if (test_bit(RT_FLAG_RESHAPE_RS, &rs->runtime_flags)) {
- 		r = rs_check_reshape(rs);
--		if (r) {
--			mddev_unlock(&rs->md);
--			goto bad_check_reshape;
--		}
-+		if (r)
-+			goto bad_unlock;
- 
- 		/* Restore new, ctr requested layout to perform check */
- 		rs_config_restore(rs, &rs_layout);
-@@ -3295,8 +3289,7 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 			r = rs->md.pers->check_reshape(&rs->md);
- 			if (r) {
- 				ti->error = "Reshape check failed";
--				mddev_unlock(&rs->md);
--				goto bad_check_reshape;
-+				goto bad_unlock;
- 			}
- 		}
- 	}
-@@ -3307,10 +3300,8 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
- 	mddev_unlock(&rs->md);
+@@ -3301,8 +3301,8 @@ static int raid_ctr(struct dm_target *ti, unsigned int argc, char **argv)
  	return 0;
  
--bad_md_start:
--bad_journal_mode_set:
--bad_stripe_cache:
--bad_check_reshape:
-+bad_unlock:
-+	mddev_unlock(&rs->md);
+ bad_unlock:
+-	mddev_unlock(&rs->md);
  	md_stop(&rs->md);
++	mddev_unlock(&rs->md);
  bad:
  	raid_set_free(rs);
+ 
+@@ -3313,7 +3313,9 @@ static void raid_dtr(struct dm_target *ti)
+ {
+ 	struct raid_set *rs = ti->private;
+ 
++	mddev_lock_nointr(&rs->md);
+ 	md_stop(&rs->md);
++	mddev_unlock(&rs->md);
+ 	raid_set_free(rs);
+ }
+ 
+diff --git a/drivers/md/md.c b/drivers/md/md.c
+index 829e1bd9bcbf9..45daba0eb9310 100644
+--- a/drivers/md/md.c
++++ b/drivers/md/md.c
+@@ -6269,6 +6269,8 @@ static void __md_stop(struct mddev *mddev)
+ 
+ void md_stop(struct mddev *mddev)
+ {
++	lockdep_assert_held(&mddev->reconfig_mutex);
++
+ 	/* stop the array and free an attached data structures.
+ 	 * This is called from dm-raid
+ 	 */
 
 --
 dm-devel mailing list
