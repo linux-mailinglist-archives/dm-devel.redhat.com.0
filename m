@@ -2,87 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E141277387E
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:54:01 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 32BA877386D
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:55 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477641;
+	s=mimecast20190719; t=1691477634;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=HWjpnrBWXwUZod04hP3csiwnl3dNr3sK55xWzGvKKUc=;
-	b=RrgVIbd6q8Q3IUfMMVBD2xThBOmraSnkAG9fW4CS0TczO+dr7DFcdlQZrf81JeLDvRVLBQ
-	/C/4MvVcAIu1Sg2toZa9zP4+cco9ikGVo4xW7CNkucKy5xd5FCWq+2I1k9b5dRIYP5ZXk0
-	eD5wnkw0R220hIvcY/dYyV39vl5XTlA=
-Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-64-CtaT4im8M8OXXUbMbDhJaA-1; Tue, 08 Aug 2023 02:53:35 -0400
-X-MC-Unique: CtaT4im8M8OXXUbMbDhJaA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+	bh=v1UG1OmbQc+FRIhgZneXMv/p/QYeOF/vVhKE6qmxiIc=;
+	b=VI9ViApOyp4Z3ASND7Nn44zBV5ucWN22+w6c1Pzpsifv9YTfRgFPV/dpzpEYm0+uuO4EAQ
+	Hp2NPIqI9COTbdEyw/Lamta62uVpNbBfpUQebJbBSDlNODdYHRNh/LbVh30u9xaW0QTLRk
+	5qLrEAdRL+cUxbVPVgqbQL8DEEI+caw=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-279-v0EzkdTqPIWg2dQqWfvvPw-1; Tue, 08 Aug 2023 02:53:49 -0400
+X-MC-Unique: v0EzkdTqPIWg2dQqWfvvPw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F11713C100B1;
-	Tue,  8 Aug 2023 06:53:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04C49830D4D;
+	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9447040C2079;
-	Tue,  8 Aug 2023 06:53:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D29B9C09A0D;
+	Tue,  8 Aug 2023 06:53:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 68FCD1946A6D;
-	Tue,  8 Aug 2023 06:53:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 288B01946A7E;
+	Tue,  8 Aug 2023 06:53:30 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4F4D41946586
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:11:55 +0000 (UTC)
+ ESMTP id B99DE1946586
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:12:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 212264050068; Mon,  7 Aug 2023 11:11:55 +0000 (UTC)
+ id A9258C15BAD; Mon,  7 Aug 2023 11:12:07 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 19AFD4050067
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:11:55 +0000 (UTC)
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id A1C8CC15BAE
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:12:07 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F38703C147E0
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:11:54 +0000 (UTC)
-Received: from mail-pl1-f169.google.com (mail-pl1-f169.google.com
- [209.85.214.169]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 83182805AF6
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:12:07 +0000 (UTC)
+Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
+ [209.85.215.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-633-sJJWElLcOVW2Re_LM2efVQ-1; Mon, 07 Aug 2023 07:11:53 -0400
-X-MC-Unique: sJJWElLcOVW2Re_LM2efVQ-1
-Received: by mail-pl1-f169.google.com with SMTP id
- d9443c01a7336-1bba9539a23so9296645ad.1
- for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:11:53 -0700 (PDT)
+ us-mta-630--P7OaoyhMRmxK5mT_hKHbw-1; Mon, 07 Aug 2023 07:12:05 -0400
+X-MC-Unique: -P7OaoyhMRmxK5mT_hKHbw-1
+Received: by mail-pg1-f173.google.com with SMTP id
+ 41be03b00d2f7-51f64817809so360171a12.1
+ for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:12:05 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691406712; x=1692011512;
+ d=1e100.net; s=20221208; t=1691406725; x=1692011525;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=ubpyp4SIhGXjO6/VTKiZvWjlRzyN8ANvKHVN5xSGnIw=;
- b=hqTibcX5g2I9IOSA9oa/ZVjoWgt44jhg44ERn5Av4M+lkM6/5ua1HpgzWCkNubn4dB
- 8h/yCh8rjmJaD3FlA+Alcf3PpsTo4R6OXn6YYUqd+ukR8Q6kc8VN7EBa53I1Zl6zJar5
- mEwe6i9A/1pRT7KrW6BXeNnYTfYnUWbPHPfrG4jR+QTbANN/Bxvo9CA8NKAh+Moeg0s2
- QMpEalXLB/+Insdo1rRr1Rwn+9o7lK32rhuZO3Xg/brJmWZuRCW6lA9n9NHhYGoKjHLO
- thIK/F8YA9F6+DerDDIqVpdZby6qplmBipReQdrMg1ww4+mEfy6LVJ0FY6NLcSubFzJ9
- OAPw==
-X-Gm-Message-State: ABy/qLaOTBNLlhSysQWo5WBBjv1fPINex52rDHy97BrXSOTXgxxmUZv5
- viWPrTEo1o6w6b4sofTBYBmukg==
-X-Google-Smtp-Source: APBJJlGAdl0ewhYUg6UhJdRJKXIwq0U3XoR/AJshcbF16xE0A4mgQC4Umc8PgwnpC/Hq6tl8ikCZEw==
-X-Received: by 2002:a17:902:ea04:b0:1b8:17e8:547e with SMTP id
- s4-20020a170902ea0400b001b817e8547emr32460173plg.1.1691406712196; 
- Mon, 07 Aug 2023 04:11:52 -0700 (PDT)
+ bh=2qNGhCyBYRkIC+KqhUj1bienmPbnCoyI88yux10rL0c=;
+ b=FNW66h62szPTAl3wFRcdrXodidqxl7UZ5rgmzuoRkBjc64Jq7USt+gtDXlctsFQMK8
+ hj3DtqEeo9UvB2udQYCbKAFiGcPc+FuFEUZLCdaoGf3RobSEOyTBdAu76j1p8SSDUEO9
+ J+G3oEmklsWS7TZNkidhc4SPCMR1NXhR4S8NGfkfsuDoKhitaEInIf19pckdELb00PRe
+ gB+DA8jI9zY8V4V7JCr6yaD7ZSVJNgHXDkUJkSPB11SYjrqcOpHYsN23PPZj25MEjamq
+ V6HPs84KhWBTwlE5TBymv2LiOa4qVO/GX5jXr2dVmWaFUt8ZzAqymc+Pm+d5iwvx83zb
+ 6obg==
+X-Gm-Message-State: AOJu0Yz4JZWHh6j5ib3hdj4t4vRNupSMwOwFde9hBKd2gOjHNCIddpgq
+ qhCnjW4b/qSzZKt99DLrcBprzQ==
+X-Google-Smtp-Source: AGHT+IH0i+Trkswf5ZN/Zo/hyk0nSAkeHBCb5cnTJePkF3I+vCqNyDS8fjeM0LPIBtSn2h3E1rmPDQ==
+X-Received: by 2002:a17:90a:2909:b0:269:5bf7:d79c with SMTP id
+ g9-20020a17090a290900b002695bf7d79cmr2210453pjd.1.1691406724771; 
+ Mon, 07 Aug 2023 04:12:04 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.11.39
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.11.52
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:11:51 -0700 (PDT)
+ Mon, 07 Aug 2023 04:12:04 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
@@ -90,8 +90,8 @@ To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
  simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:08:57 +0800
-Message-Id: <20230807110936.21819-10-zhengqi.arch@bytedance.com>
+Date: Mon,  7 Aug 2023 19:08:58 +0800
+Message-Id: <20230807110936.21819-11-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -102,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: [dm-devel] [PATCH v4 09/48] erofs: dynamically allocate the
- erofs-shrinker
+Subject: [dm-devel] [PATCH v4 10/48] f2fs: dynamically allocate the
+ f2fs-shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -130,57 +130,84 @@ Cc: kvm@vger.kernel.org, dri-devel@lists.freedesktop.org,
  linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the erofs-shrinker.
+Use new APIs to dynamically allocate the f2fs-shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- fs/erofs/utils.c | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
+ fs/f2fs/super.c | 32 ++++++++++++++++++++++++--------
+ 1 file changed, 24 insertions(+), 8 deletions(-)
 
-diff --git a/fs/erofs/utils.c b/fs/erofs/utils.c
-index cc6fb9e98899..6e1a828e6ca3 100644
---- a/fs/erofs/utils.c
-+++ b/fs/erofs/utils.c
-@@ -270,19 +270,25 @@ static unsigned long erofs_shrink_scan(struct shrinker *shrink,
- 	return freed;
- }
+diff --git a/fs/f2fs/super.c b/fs/f2fs/super.c
+index aa1f9a3a8037..9092310582aa 100644
+--- a/fs/f2fs/super.c
++++ b/fs/f2fs/super.c
+@@ -83,11 +83,27 @@ void f2fs_build_fault_attr(struct f2fs_sb_info *sbi, unsigned int rate,
+ #endif
  
--static struct shrinker erofs_shrinker_info = {
--	.scan_objects = erofs_shrink_scan,
--	.count_objects = erofs_shrink_count,
+ /* f2fs-wide shrinker description */
+-static struct shrinker f2fs_shrinker_info = {
+-	.scan_objects = f2fs_shrink_scan,
+-	.count_objects = f2fs_shrink_count,
 -	.seeks = DEFAULT_SEEKS,
 -};
-+static struct shrinker *erofs_shrinker_info;
- 
- int __init erofs_init_shrinker(void)
- {
--	return register_shrinker(&erofs_shrinker_info, "erofs-shrinker");
-+	erofs_shrinker_info = shrinker_alloc(0, "erofs-shrinker");
-+	if (!erofs_shrinker_info)
++static struct shrinker *f2fs_shrinker_info;
++
++static int __init f2fs_init_shrinker(void)
++{
++	f2fs_shrinker_info = shrinker_alloc(0, "f2fs-shrinker");
++	if (!f2fs_shrinker_info)
 +		return -ENOMEM;
 +
-+	erofs_shrinker_info->count_objects = erofs_shrink_count;
-+	erofs_shrinker_info->scan_objects = erofs_shrink_scan;
-+	erofs_shrinker_info->seeks = DEFAULT_SEEKS;
++	f2fs_shrinker_info->count_objects = f2fs_shrink_count;
++	f2fs_shrinker_info->scan_objects = f2fs_shrink_scan;
++	f2fs_shrinker_info->seeks = DEFAULT_SEEKS;
 +
-+	shrinker_register(erofs_shrinker_info);
++	shrinker_register(f2fs_shrinker_info);
 +
 +	return 0;
- }
++}
++
++static void f2fs_exit_shrinker(void)
++{
++	shrinker_free(f2fs_shrinker_info);
++}
  
- void erofs_exit_shrinker(void)
- {
--	unregister_shrinker(&erofs_shrinker_info);
-+	shrinker_free(erofs_shrinker_info);
- }
- #endif	/* !CONFIG_EROFS_FS_ZIP */
+ enum {
+ 	Opt_gc_background,
+@@ -4940,7 +4956,7 @@ static int __init init_f2fs_fs(void)
+ 	err = f2fs_init_sysfs();
+ 	if (err)
+ 		goto free_garbage_collection_cache;
+-	err = register_shrinker(&f2fs_shrinker_info, "f2fs-shrinker");
++	err = f2fs_init_shrinker();
+ 	if (err)
+ 		goto free_sysfs;
+ 	err = register_filesystem(&f2fs_fs_type);
+@@ -4985,7 +5001,7 @@ static int __init init_f2fs_fs(void)
+ 	f2fs_destroy_root_stats();
+ 	unregister_filesystem(&f2fs_fs_type);
+ free_shrinker:
+-	unregister_shrinker(&f2fs_shrinker_info);
++	f2fs_exit_shrinker();
+ free_sysfs:
+ 	f2fs_exit_sysfs();
+ free_garbage_collection_cache:
+@@ -5017,7 +5033,7 @@ static void __exit exit_f2fs_fs(void)
+ 	f2fs_destroy_post_read_processing();
+ 	f2fs_destroy_root_stats();
+ 	unregister_filesystem(&f2fs_fs_type);
+-	unregister_shrinker(&f2fs_shrinker_info);
++	f2fs_exit_shrinker();
+ 	f2fs_exit_sysfs();
+ 	f2fs_destroy_garbage_collection_cache();
+ 	f2fs_destroy_extent_cache();
 -- 
 2.30.2
 
