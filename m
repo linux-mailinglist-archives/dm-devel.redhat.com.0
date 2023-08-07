@@ -2,86 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 181CE773864
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D695C77385F
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477633;
+	s=mimecast20190719; t=1691477631;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=gaikSNkdfVr2ScCHlHQOYmjQt6UlLD/vYW40d66Y+Iw=;
-	b=FNlMo4zzwkypybLZqwiuOGoJmDJId5Fi1W/cZiXupnh0/K+e7zipvrbzEyzX0mR0K2G2YM
-	bmIjNWAN8WaW2ooeGE/FF8l65PKqGbgWA0enrDlFpf5W853g+/2SGV2+cchVtLdooxUXZR
-	eVJAAYHhrU+Cytd+0Ax6dNd+rYxpnsc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-225-H-UWD6k2OKKv2j1apuAgjQ-1; Tue, 08 Aug 2023 02:53:48 -0400
-X-MC-Unique: H-UWD6k2OKKv2j1apuAgjQ-1
+	bh=Vkq1y9E7RnfQein2AYcjfHG9/EEJU7ejBdaPWr7IZPE=;
+	b=OligoJOES7po3GlY9tz/K0yfQ3lAQ8xgVVujEvOTVdFq6nP4GZrHGMZo+jLjC0+wWYqyzg
+	8OD9hBrgGr+vFvc5qmK8JXcXKXvOLOik8ikEn0R+gopNEY5N1p7IizCxKaGP8BiEUwpNfn
+	Dq9+8mLTLHssU6B6MVlKLqKfmYK5C3E=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-209-b1d2BpBnNKu1kRcC9SJYxw-1; Tue, 08 Aug 2023 02:53:49 -0400
+X-MC-Unique: b1d2BpBnNKu1kRcC9SJYxw-1
 Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 66A1B103942C;
-	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EB36E1C31C43;
+	Tue,  8 Aug 2023 06:53:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A79540C207A;
-	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id CFE8040C2079;
+	Tue,  8 Aug 2023 06:53:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 644B2194720D;
-	Tue,  8 Aug 2023 06:53:30 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 82230194723F;
+	Tue,  8 Aug 2023 06:53:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 0CEFF1946586
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:13:27 +0000 (UTC)
+ ESMTP id 225D71946586
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:13:40 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id F33BD2026D68; Mon,  7 Aug 2023 11:13:26 +0000 (UTC)
+ id E7A01140E962; Mon,  7 Aug 2023 11:13:39 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id EB37F2026D4B
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:13:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BBB6D1C068D0
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:13:26 +0000 (UTC)
-Received: from mail-io1-f50.google.com (mail-io1-f50.google.com
- [209.85.166.50]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id DF6BA140E950
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:13:39 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A6F6229AB3E8
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:13:39 +0000 (UTC)
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com
+ [209.85.214.176]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-139-RkgGMZsHMzOQO2C-LwAy4g-1; Mon, 07 Aug 2023 07:13:24 -0400
-X-MC-Unique: RkgGMZsHMzOQO2C-LwAy4g-1
-Received: by mail-io1-f50.google.com with SMTP id
- ca18e2360f4ac-790b9d7d643so44487239f.1
- for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:13:24 -0700 (PDT)
+ us-mta-47-h5UyABLQMtCA6cpZ_EfAmw-1; Mon, 07 Aug 2023 07:13:37 -0400
+X-MC-Unique: h5UyABLQMtCA6cpZ_EfAmw-1
+Received: by mail-pl1-f176.google.com with SMTP id
+ d9443c01a7336-1bc76cdf0cbso595295ad.1
+ for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:13:37 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691406804; x=1692011604;
+ d=1e100.net; s=20221208; t=1691406816; x=1692011616;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=4VJlLpDqVGiuvI83ez+3bl7yR5bVuWalBgtTU2vfBLE=;
- b=IFRSo6SJA3xdwmqwjcaYZLcEQsYzAoMan/yT14kTMiZONg8CpyASXQmxzxe0iPF59i
- DZ2FQxEkA5iTOE0BoAciAseORClYPB4/3Ii/+DFsL5Cp7EiMrXIYoP4fg9J/+OU00PHi
- Ite9lwM8JJWNaFlk7zz5JqMisKpJZX9Gnyk/ArZfq50f3o/8j+0OKAGecSYIqDjuQ5wP
- Rg44gc2DF4cRDtQVp7ekZDN29Nvsm+XRXS6ArqabTYQfGDWR7A9voOqu4I3jUQBHovRz
- COeXr4oCKB9bLdUPtm/Jv7wyZXCnpx2TpOtakgyoIggmUueJnDSU9wNsXbIpaMTT6+Bc
- ZVRQ==
-X-Gm-Message-State: ABy/qLYX9Jv/pyp4DpaCPw2rC90958A7lB1b5CQY5LvXjxZptUBGVl05
- dBv3BIh1w4vhksyZcv3sUSAzHw==
-X-Google-Smtp-Source: APBJJlG6KxjpSP18cuDMGPLwCal+2Q6XOYkRmOlR+93TSEU+QOz0TNU1VRvfHZPrdEq648UTFq+gsw==
-X-Received: by 2002:a92:d944:0:b0:349:3c78:fd14 with SMTP id
- l4-20020a92d944000000b003493c78fd14mr13499018ilq.1.1691406803912; 
- Mon, 07 Aug 2023 04:13:23 -0700 (PDT)
+ bh=et7oKjMo2RpAm9eGe6PO8KzXkO6yMET8jj6KuxhxE1o=;
+ b=XRutl3dBhoWQWa2E+EEHBH4VxZr7AKwxH/9a1lSv5l1HalbTNse1CBSRBDs70kwhfq
+ 8XfcJQSCIV7zP1l7z1Z7bneeEz+nCt+1E1ZzdJq2LIvMtSFm8TBua7AOE23MyhL3QdC7
+ Z2fM4L7r3bhSsQiFYVRPltnChKFbfrj2YMTqZX2VnbL/21JEybSj3k+StvvQzQmgo8ry
+ XpgiIYhPiplq0Vsk4exvRIS2G3w2+FzjAtgKS21FhhGuu4M7al43cRAvDle+1SDcDJ3H
+ 49s3kDec9QyJfVbHXpQLapUFSLRTH40+hp6i0TsVRWDLRxy2QEzX2PKD6tLybiwv5lTp
+ UNuQ==
+X-Gm-Message-State: ABy/qLbMT6rD4rZW2wfvUCfxw+bw678MZ2+culmQhrrYLN9uDmiPFSON
+ kUAXzLQqjRkYC4e1N7lzu+bIRw==
+X-Google-Smtp-Source: APBJJlF9QaWRkA2HFZAXDPGIksSZq6NqNIS7MDluuBXjMUyGz8OacRKwa0/I1dCKrdRRT8VidP2X/g==
+X-Received: by 2002:a17:902:ea04:b0:1b8:a27d:f591 with SMTP id
+ s4-20020a170902ea0400b001b8a27df591mr32781910plg.5.1691406816716; 
+ Mon, 07 Aug 2023 04:13:36 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.13.11
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.13.24
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:13:23 -0700 (PDT)
+ Mon, 07 Aug 2023 04:13:36 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
@@ -89,8 +90,8 @@ To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
  simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:09:04 +0800
-Message-Id: <20230807110936.21819-17-zhengqi.arch@bytedance.com>
+Date: Mon,  7 Aug 2023 19:09:05 +0800
+Message-Id: <20230807110936.21819-18-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -101,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: [dm-devel] [PATCH v4 16/48] quota: dynamically allocate the
- dquota-cache shrinker
+Subject: [dm-devel] [PATCH v4 17/48] ubifs: dynamically allocate the
+ ubifs-slab shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,57 +136,77 @@ X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the dquota-cache shrinker.
+Use new APIs to dynamically allocate the ubifs-slab shrinker.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- fs/quota/dquot.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ fs/ubifs/super.c | 22 ++++++++++++----------
+ 1 file changed, 12 insertions(+), 10 deletions(-)
 
-diff --git a/fs/quota/dquot.c b/fs/quota/dquot.c
-index 9e72bfe8bbad..c303cffdf433 100644
---- a/fs/quota/dquot.c
-+++ b/fs/quota/dquot.c
-@@ -791,12 +791,6 @@ dqcache_shrink_count(struct shrinker *shrink, struct shrink_control *sc)
- 	percpu_counter_read_positive(&dqstats.counter[DQST_FREE_DQUOTS]));
- }
+diff --git a/fs/ubifs/super.c b/fs/ubifs/super.c
+index b08fb28d16b5..c690782388a8 100644
+--- a/fs/ubifs/super.c
++++ b/fs/ubifs/super.c
+@@ -54,11 +54,7 @@ module_param_cb(default_version, &ubifs_default_version_ops, &ubifs_default_vers
+ static struct kmem_cache *ubifs_inode_slab;
  
--static struct shrinker dqcache_shrinker = {
--	.count_objects = dqcache_shrink_count,
--	.scan_objects = dqcache_shrink_scan,
+ /* UBIFS TNC shrinker description */
+-static struct shrinker ubifs_shrinker_info = {
+-	.scan_objects = ubifs_shrink_scan,
+-	.count_objects = ubifs_shrink_count,
 -	.seeks = DEFAULT_SEEKS,
 -};
--
- /*
-  * Safely release dquot and put reference to dquot.
-  */
-@@ -2956,6 +2950,7 @@ static int __init dquot_init(void)
++static struct shrinker *ubifs_shrinker_info;
+ 
+ /**
+  * validate_inode - validate inode.
+@@ -2373,7 +2369,7 @@ static void inode_slab_ctor(void *obj)
+ 
+ static int __init ubifs_init(void)
  {
- 	int i, ret;
- 	unsigned long nr_hash, order;
-+	struct shrinker *dqcache_shrinker;
+-	int err;
++	int err = -ENOMEM;
  
- 	printk(KERN_NOTICE "VFS: Disk quotas %s\n", __DQUOT_VERSION__);
+ 	BUILD_BUG_ON(sizeof(struct ubifs_ch) != 24);
  
-@@ -2990,8 +2985,15 @@ static int __init dquot_init(void)
- 	pr_info("VFS: Dquot-cache hash table entries: %ld (order %ld,"
- 		" %ld bytes)\n", nr_hash, order, (PAGE_SIZE << order));
+@@ -2439,10 +2435,16 @@ static int __init ubifs_init(void)
+ 	if (!ubifs_inode_slab)
+ 		return -ENOMEM;
  
--	if (register_shrinker(&dqcache_shrinker, "dquota-cache"))
--		panic("Cannot register dquot shrinker");
-+	dqcache_shrinker = shrinker_alloc(0, "dquota-cache");
-+	if (!dqcache_shrinker)
-+		panic("Cannot allocate dquot shrinker");
+-	err = register_shrinker(&ubifs_shrinker_info, "ubifs-slab");
+-	if (err)
++	ubifs_shrinker_info = shrinker_alloc(0, "ubifs-slab");
++	if (!ubifs_shrinker_info)
+ 		goto out_slab;
+ 
++	ubifs_shrinker_info->count_objects = ubifs_shrink_count;
++	ubifs_shrinker_info->scan_objects = ubifs_shrink_scan;
++	ubifs_shrinker_info->seeks = DEFAULT_SEEKS;
 +
-+	dqcache_shrinker->count_objects = dqcache_shrink_count;
-+	dqcache_shrinker->scan_objects = dqcache_shrink_scan;
-+	dqcache_shrinker->seeks = DEFAULT_SEEKS;
++	shrinker_register(ubifs_shrinker_info);
 +
-+	shrinker_register(dqcache_shrinker);
+ 	err = ubifs_compressors_init();
+ 	if (err)
+ 		goto out_shrinker;
+@@ -2467,7 +2469,7 @@ static int __init ubifs_init(void)
+ 	dbg_debugfs_exit();
+ 	ubifs_compressors_exit();
+ out_shrinker:
+-	unregister_shrinker(&ubifs_shrinker_info);
++	shrinker_free(ubifs_shrinker_info);
+ out_slab:
+ 	kmem_cache_destroy(ubifs_inode_slab);
+ 	return err;
+@@ -2483,7 +2485,7 @@ static void __exit ubifs_exit(void)
+ 	dbg_debugfs_exit();
+ 	ubifs_sysfs_exit();
+ 	ubifs_compressors_exit();
+-	unregister_shrinker(&ubifs_shrinker_info);
++	shrinker_free(ubifs_shrinker_info);
  
- 	return 0;
- }
+ 	/*
+ 	 * Make sure all delayed rcu free inodes are flushed before we
 -- 
 2.30.2
 
