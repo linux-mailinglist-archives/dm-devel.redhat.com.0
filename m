@@ -2,81 +2,89 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 8625A77386B
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 1EC9D773877
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477633;
+	s=mimecast20190719; t=1691477636;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=PdjdYZE1W4uqQT328EVW+hq9M3T/ooojdsmAPluKGDA=;
-	b=h3i+oMA3PpJENXAxsxfYtNP2u70nRmjIER8DQOz4IRJay3aWQTdqXrzajb2UTkzlk2as+/
-	uQQb7tOMywPLN+985W754sPu4DpFZs6OJRmw7R2edGRlLB5/OJThu7OD3GLPPPFy4pH6Ye
-	jUEtT88fRAFHmCn13GP4jXURjk59Hds=
+	bh=dEpDo8x6jbBxiSJS+qFHY/xhTK91lmAIo7/EIQkzBDE=;
+	b=I7621Uvn8O9wBslC34KA8uCz2j2HwC0icP6fnye19v6rthK9jBG3+Wx1hYh+VyajERusJo
+	fnv14akANF6BdUQOVfrIyqwgQZW8LDwljs3u6Kwa6f/KMFUVhDHNtShGdJmiB9b4eLfkfz
+	2myvHVGRTkxq634YY6BOBT19Zg/xL2U=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-477-xhxjKBmiPfSM7KOIlp2vTw-1; Tue, 08 Aug 2023 02:53:49 -0400
-X-MC-Unique: xhxjKBmiPfSM7KOIlp2vTw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-73-FDwrbzCzNoaWd_JtlfYW0g-1; Tue, 08 Aug 2023 02:53:53 -0400
+X-MC-Unique: FDwrbzCzNoaWd_JtlfYW0g-1
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EC3E8057AB;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3798085CD06;
 	Tue,  8 Aug 2023 06:53:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E679B112131B;
-	Tue,  8 Aug 2023 06:53:36 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2025A40C2076;
+	Tue,  8 Aug 2023 06:53:37 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BA31D1947224;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D2F5A1947218;
 	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E0A781946587
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 08:34:15 +0000 (UTC)
+ ESMTP id A8E741946586
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 09:42:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E564FC15BAE; Mon,  7 Aug 2023 08:34:14 +0000 (UTC)
+ id DDB3C2166B26; Mon,  7 Aug 2023 09:42:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DD791C15BAD
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 08:34:14 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D4E512166B25
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 09:42:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BD33B3813F21
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 08:34:14 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-156-lelvwH_GMA-y9XIwwyR-ew-1; Mon,
- 07 Aug 2023 04:34:12 -0400
-X-MC-Unique: lelvwH_GMA-y9XIwwyR-ew-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 44AAB218A9;
- Mon,  7 Aug 2023 08:34:11 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 0F71013487;
- Mon,  7 Aug 2023 08:34:11 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 9RkuA4Os0GTCBwAAMHmgww
- (envelope-from <vbabka@suse.cz>); Mon, 07 Aug 2023 08:34:11 +0000
-From: Vlastimil Babka <vbabka@suse.cz>
-To: "Rafael J . Wysocki" <rafael@kernel.org>, Pavel Machek <pavel@ucw.cz>,
- Jens Axboe <axboe@kernel.dk>
-Date: Mon,  7 Aug 2023 10:33:57 +0200
-Message-ID: <20230807083356.19222-2-vbabka@suse.cz>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A49458DC671
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 09:42:16 +0000 (UTC)
+Received: from mail-oo1-f42.google.com (mail-oo1-f42.google.com
+ [209.85.161.42]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-571-npzud2JzMKmK-JsTTwHBcQ-1; Mon, 07 Aug 2023 05:42:14 -0400
+X-MC-Unique: npzud2JzMKmK-JsTTwHBcQ-1
+Received: by mail-oo1-f42.google.com with SMTP id
+ 006d021491bc7-56d0deeca09so655534eaf.0
+ for <dm-devel@redhat.com>; Mon, 07 Aug 2023 02:42:14 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20221208; t=1691401333; x=1692006133;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=IK5JqTcazrnzFQkUb1pgAiTMlQXrShoQJmEX5JHWXhU=;
+ b=Iuz8XWV5pwnMQsYUn+xIi3iEgkWZu/Ti/owQdVuX6VDjP6Ll4oURvHZTUaqu7q0bjO
+ aGcVi5qvjxs988PATmxcI+NC70hchMCW5qDrcAJ8qmh0cOIYvRNt7p7hFxwIrbmTGvQb
+ hgOnQ6jvqHMS+Zq417iO9x5wqYVI7szAOQ2A5cS8chzikkIYJLacQ0gitHtA/Ym8uHtC
+ 3TvR2S+vxnQoU1B/nuo5+xV5b16U9YC+p3zo4KP1XV1OE+XWyKTGrO1JnyuTbOGSPt+P
+ xM96VxOQZSEiHO2JR2QjiWNaXIhA4Qm3pNUDxH/KfxLR1NW/7THAOdTmeTbr3cZQNrME
+ jcAQ==
+X-Gm-Message-State: ABy/qLYZF/MP+8L4qkZTRnDd6Sqr3CvAEWhn37kzWkkDG1s8SB6pV4Zg
+ 9fhUg4z+mUD7THeSmKbBdhz8lt1usoJLovBk0sQ=
+X-Google-Smtp-Source: APBJJlEb7O2dGAF/f7fTBx/HAisyhbmiTj3PawRftJoMI15JdDVqSBYI20CfGwr14y35bjypNJI9KK+xc439zbfSIBc=
+X-Received: by 2002:a4a:cf14:0:b0:569:a08a:d9c5 with SMTP id
+ l20-20020a4acf14000000b00569a08ad9c5mr19679264oos.0.1691401333651; Mon, 07
+ Aug 2023 02:42:13 -0700 (PDT)
 MIME-Version: 1.0
+References: <20230807083356.19222-2-vbabka@suse.cz>
+In-Reply-To: <20230807083356.19222-2-vbabka@suse.cz>
+From: "Rafael J. Wysocki" <rafael@kernel.org>
+Date: Mon, 7 Aug 2023 11:41:58 +0200
+Message-ID: <CAJZ5v0g_OjHSdM_oi515KQUrFZvZH4hNgCy4xknosQC+81GYhw@mail.gmail.com>
+To: Vlastimil Babka <vbabka@suse.cz>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -84,9 +92,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: [dm-devel] [PATCH for 6.5 regression] PM: hibernate: fix
+Subject: Re: [dm-devel] [PATCH for 6.5 regression] PM: hibernate: fix
  resume_store() return value when hibernation not available
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -99,68 +107,57 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: loic.poulain@linaro.org, regressions@lists.linux.dev,
- linux-pm@vger.kernel.org, snitzer@kernel.org, gregkh@linuxfoundation.org,
+Cc: Jens Axboe <axboe@kernel.dk>, loic.poulain@linaro.org,
+ regressions@lists.linux.dev, "Rafael J . Wysocki" <rafael@kernel.org>,
+ snitzer@kernel.org, gregkh@linuxfoundation.org, linux-pm@vger.kernel.org,
  joern@lazybastard.org, linux-kernel@vger.kernel.org,
  linux-block@vger.kernel.org, richard@nod.at, dm-devel@redhat.com,
- linux-mtd@lists.infradead.org, miquel.raynal@bootlin.com, hch@lst.de,
- Vlastimil Babka <vbabka@suse.cz>, vigneshr@ti.com
+ linux-mtd@lists.infradead.org, Pavel Machek <pavel@ucw.cz>,
+ miquel.raynal@bootlin.com, hch@lst.de, vigneshr@ti.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.cz
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On a laptop with hibernation set up but not actively used, and with
-secure boot and lockdown enabled kernel, 6.5-rc1 gets stuck on boot with
-the following repeated messages:
-
-  A start job is running for Resume from hibernation using device /dev/system/swap (24s / no limit)
-  lockdown_is_locked_down: 25311154 callbacks suppressed
-  Lockdown: systemd-hiberna: hibernation is restricted; see man kernel_lockdown.7
-  ...
-
-Checking the resume code leads to commit cc89c63e2fe3 ("PM: hibernate:
-move finding the resume device out of software_resume") which
-inadvertently changed the return value from resume_store() to 0 when
-!hibernation_available(). This apparently translates to userspace
-write() returning 0 as in number of bytes written, and userspace looping
-indefinitely in the attempt to write the intended value.
-
-Fix this by returning the full number of bytes that were to be written,
-as that's what was done before the commit.
-
-Fixes: cc89c63e2fe3 ("PM: hibernate: move finding the resume device out of software_resume")
-Signed-off-by: Vlastimil Babka <vbabka@suse.cz>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Acked-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
-Resend with review/ack tags added and not buried in the thread.
-Link: https://lore.kernel.org/all/2cfa5f55-1d68-8a4f-d049-13f42e0d1484@suse.cz/
-
- kernel/power/hibernate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/power/hibernate.c b/kernel/power/hibernate.c
-index e1b4bfa938dd..2b4a946a6ff5 100644
---- a/kernel/power/hibernate.c
-+++ b/kernel/power/hibernate.c
-@@ -1166,7 +1166,7 @@ static ssize_t resume_store(struct kobject *kobj, struct kobj_attribute *attr,
- 	int error;
- 
- 	if (!hibernation_available())
--		return 0;
-+		return n;
- 
- 	if (len && buf[len-1] == '\n')
- 		len--;
--- 
-2.41.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gTW9uLCBBdWcgNywgMjAyMyBhdCAxMDozNOKAr0FNIFZsYXN0aW1pbCBCYWJrYSA8dmJhYmth
+QHN1c2UuY3o+IHdyb3RlOgo+Cj4gT24gYSBsYXB0b3Agd2l0aCBoaWJlcm5hdGlvbiBzZXQgdXAg
+YnV0IG5vdCBhY3RpdmVseSB1c2VkLCBhbmQgd2l0aAo+IHNlY3VyZSBib290IGFuZCBsb2NrZG93
+biBlbmFibGVkIGtlcm5lbCwgNi41LXJjMSBnZXRzIHN0dWNrIG9uIGJvb3Qgd2l0aAo+IHRoZSBm
+b2xsb3dpbmcgcmVwZWF0ZWQgbWVzc2FnZXM6Cj4KPiAgIEEgc3RhcnQgam9iIGlzIHJ1bm5pbmcg
+Zm9yIFJlc3VtZSBmcm9tIGhpYmVybmF0aW9uIHVzaW5nIGRldmljZSAvZGV2L3N5c3RlbS9zd2Fw
+ICgyNHMgLyBubyBsaW1pdCkKPiAgIGxvY2tkb3duX2lzX2xvY2tlZF9kb3duOiAyNTMxMTE1NCBj
+YWxsYmFja3Mgc3VwcHJlc3NlZAo+ICAgTG9ja2Rvd246IHN5c3RlbWQtaGliZXJuYTogaGliZXJu
+YXRpb24gaXMgcmVzdHJpY3RlZDsgc2VlIG1hbiBrZXJuZWxfbG9ja2Rvd24uNwo+ICAgLi4uCj4K
+PiBDaGVja2luZyB0aGUgcmVzdW1lIGNvZGUgbGVhZHMgdG8gY29tbWl0IGNjODljNjNlMmZlMyAo
+IlBNOiBoaWJlcm5hdGU6Cj4gbW92ZSBmaW5kaW5nIHRoZSByZXN1bWUgZGV2aWNlIG91dCBvZiBz
+b2Z0d2FyZV9yZXN1bWUiKSB3aGljaAo+IGluYWR2ZXJ0ZW50bHkgY2hhbmdlZCB0aGUgcmV0dXJu
+IHZhbHVlIGZyb20gcmVzdW1lX3N0b3JlKCkgdG8gMCB3aGVuCj4gIWhpYmVybmF0aW9uX2F2YWls
+YWJsZSgpLiBUaGlzIGFwcGFyZW50bHkgdHJhbnNsYXRlcyB0byB1c2Vyc3BhY2UKPiB3cml0ZSgp
+IHJldHVybmluZyAwIGFzIGluIG51bWJlciBvZiBieXRlcyB3cml0dGVuLCBhbmQgdXNlcnNwYWNl
+IGxvb3BpbmcKPiBpbmRlZmluaXRlbHkgaW4gdGhlIGF0dGVtcHQgdG8gd3JpdGUgdGhlIGludGVu
+ZGVkIHZhbHVlLgo+Cj4gRml4IHRoaXMgYnkgcmV0dXJuaW5nIHRoZSBmdWxsIG51bWJlciBvZiBi
+eXRlcyB0aGF0IHdlcmUgdG8gYmUgd3JpdHRlbiwKPiBhcyB0aGF0J3Mgd2hhdCB3YXMgZG9uZSBi
+ZWZvcmUgdGhlIGNvbW1pdC4KPgo+IEZpeGVzOiBjYzg5YzYzZTJmZTMgKCJQTTogaGliZXJuYXRl
+OiBtb3ZlIGZpbmRpbmcgdGhlIHJlc3VtZSBkZXZpY2Ugb3V0IG9mIHNvZnR3YXJlX3Jlc3VtZSIp
+Cj4gU2lnbmVkLW9mZi1ieTogVmxhc3RpbWlsIEJhYmthIDx2YmFia2FAc3VzZS5jej4KPiBSZXZp
+ZXdlZC1ieTogQ2hyaXN0b3BoIEhlbGx3aWcgPGhjaEBsc3QuZGU+Cj4gQWNrZWQtYnk6IEdyZWcg
+S3JvYWgtSGFydG1hbiA8Z3JlZ2toQGxpbnV4Zm91bmRhdGlvbi5vcmc+Cj4gLS0tCj4gUmVzZW5k
+IHdpdGggcmV2aWV3L2FjayB0YWdzIGFkZGVkIGFuZCBub3QgYnVyaWVkIGluIHRoZSB0aHJlYWQu
+Cj4gTGluazogaHR0cHM6Ly9sb3JlLmtlcm5lbC5vcmcvYWxsLzJjZmE1ZjU1LTFkNjgtOGE0Zi1k
+MDQ5LTEzZjQyZTBkMTQ4NEBzdXNlLmN6Lwo+Cj4gIGtlcm5lbC9wb3dlci9oaWJlcm5hdGUuYyB8
+IDIgKy0KPiAgMSBmaWxlIGNoYW5nZWQsIDEgaW5zZXJ0aW9uKCspLCAxIGRlbGV0aW9uKC0pCj4K
+PiBkaWZmIC0tZ2l0IGEva2VybmVsL3Bvd2VyL2hpYmVybmF0ZS5jIGIva2VybmVsL3Bvd2VyL2hp
+YmVybmF0ZS5jCj4gaW5kZXggZTFiNGJmYTkzOGRkLi4yYjRhOTQ2YTZmZjUgMTAwNjQ0Cj4gLS0t
+IGEva2VybmVsL3Bvd2VyL2hpYmVybmF0ZS5jCj4gKysrIGIva2VybmVsL3Bvd2VyL2hpYmVybmF0
+ZS5jCj4gQEAgLTExNjYsNyArMTE2Niw3IEBAIHN0YXRpYyBzc2l6ZV90IHJlc3VtZV9zdG9yZShz
+dHJ1Y3Qga29iamVjdCAqa29iaiwgc3RydWN0IGtvYmpfYXR0cmlidXRlICphdHRyLAo+ICAgICAg
+ICAgaW50IGVycm9yOwo+Cj4gICAgICAgICBpZiAoIWhpYmVybmF0aW9uX2F2YWlsYWJsZSgpKQo+
+IC0gICAgICAgICAgICAgICByZXR1cm4gMDsKPiArICAgICAgICAgICAgICAgcmV0dXJuIG47Cj4K
+PiAgICAgICAgIGlmIChsZW4gJiYgYnVmW2xlbi0xXSA9PSAnXG4nKQo+ICAgICAgICAgICAgICAg
+ICBsZW4tLTsKPiAtLQoKQXBwbGllZCBhcyA2LjUtcmMgbWF0ZXJpYWwsIHRoYW5rcyEKCi0tCmRt
+LWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29tCmh0dHBzOi8vbGlzdG1hbi5y
+ZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
