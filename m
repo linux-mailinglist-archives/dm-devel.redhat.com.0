@@ -1,87 +1,88 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id C3E66773852
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C52EE773881
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:54:06 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477623;
+	s=mimecast20190719; t=1691477645;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Vjw6m2n85rbmgoz/yZhe1kVDb+pM0trY46ApgH4UXTE=;
-	b=cQFMLK3WDINK4IQz8hDQZyG71yrhxG0BGOtXtdGodMS80voKAX0OF8G8uFQ/TTQ7E4Jkqk
-	IP7PzTJsw0itOdsDysLmIlRR4+SsNi7CVwiqUe0fn7t9y8XF4/hIc11wfJUqgodI7fAfEZ
-	usPr8bYRKW9Z/0bzq+ffo6d+RufBJsM=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-303-Y7rn09gGPny6tBlZnskHJg-1; Tue, 08 Aug 2023 02:53:39 -0400
-X-MC-Unique: Y7rn09gGPny6tBlZnskHJg-1
+	bh=o4nrX896Vr7xJEhB3GZMG5xmnJt4xAqLdzXaFiiGyhE=;
+	b=b0oT2vURWSSNhKi2mc+H6J1O/s2OPwChCgcaboBp+Rl9Ah2dx15FN3ZjPv+QTKa4MkA8xm
+	pX4jRa/AMvY35xSYGn1Pv2IHDfmCjAJj6fGeu06AwPpMydN4dixyLk+Vq761EmwvAKrKTW
+	I1ugmTI4nJfSHo34w4cpf3hDdbrN9SU=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-203-2fdL7pXlNCK94tEC7gGZiw-1; Tue, 08 Aug 2023 02:53:51 -0400
+X-MC-Unique: 2fdL7pXlNCK94tEC7gGZiw-1
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F0C1F823D68;
-	Tue,  8 Aug 2023 06:53:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4C3B31C2C5B9;
+	Tue,  8 Aug 2023 06:53:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 5E7D71121319;
-	Tue,  8 Aug 2023 06:53:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 28270111F3C7;
+	Tue,  8 Aug 2023 06:53:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0656B1946A46;
-	Tue,  8 Aug 2023 06:53:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0F5151946A7E;
+	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D44FD1946586
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:18:19 +0000 (UTC)
+ ESMTP id 1B5621946586
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:18:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B3588440C7; Mon,  7 Aug 2023 11:18:19 +0000 (UTC)
+ id 0CD864050068; Mon,  7 Aug 2023 11:18:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id ABE6A1759C
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:18:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E5C61C0690B
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:18:19 +0000 (UTC)
-Received: from mail-pg1-f173.google.com (mail-pg1-f173.google.com
- [209.85.215.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 04CD34050067
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:18:32 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D97683810D25
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:18:32 +0000 (UTC)
+Received: from mail-pj1-f53.google.com (mail-pj1-f53.google.com
+ [209.85.216.53]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-189-ZEP-70caM2Wpm9Y8PO4Hgg-1; Mon, 07 Aug 2023 07:18:17 -0400
-X-MC-Unique: ZEP-70caM2Wpm9Y8PO4Hgg-1
-Received: by mail-pg1-f173.google.com with SMTP id
- 41be03b00d2f7-564670fad4bso390971a12.1
- for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:18:17 -0700 (PDT)
+ us-mta-587-9kZobuFlPby4Onk8LPbRKA-1; Mon, 07 Aug 2023 07:18:31 -0400
+X-MC-Unique: 9kZobuFlPby4Onk8LPbRKA-1
+Received: by mail-pj1-f53.google.com with SMTP id
+ 98e67ed59e1d1-268f6ba57b5so625447a91.1
+ for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:18:30 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691407097; x=1692011897;
+ d=1e100.net; s=20221208; t=1691407110; x=1692011910;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=NbTnBXz1rftevvtnrJnbyUTbBXZHNhmRyJT9VBuSKEk=;
- b=RARzeJvvE/x9OK3tjpW1IfeNUD428oUdezpb8VozllmHENOyNwjVQkaqEfLPsAaprq
- rkot/07gW2Obv8Ivmc3tvOmRt2N6Ec8SssUD9zrbOKciLxa7VKeIU1YEGn4xfTdgBnju
- /9/7sTVA4x8LhBst4W2jyqMDnjsvzLB+FfSz5SuEtoNYwppKeNdft5mVf0e8GIqOlOku
- LAulP/NLJkZYLUeZaQtRBbw6dHnkcwaTCG5a11ZgAkgCaNVqNA4Uz0JlH7D3CC+K1fSZ
- aE1H8rusw5jA6V0RPlCSn8eOT0bWn/iSevAwGC8GpjBPiId+8jS7LYjzeIvjPGD0EAtO
- +Zqw==
-X-Gm-Message-State: ABy/qLYY1S3+KuDmQC4Z4OwPIg7slfZ5tZumJTexOQyrGO3ZZzflVQ3c
- 3dNh2Hi4Rd0/hlc/or/tcLQJBA==
-X-Google-Smtp-Source: APBJJlHEA3k+axkYWIvy1nHuTMRTEcDAAx3CbSXEmipYg83y/9axHDl54yrvmY4ExsXdwismqiSLfg==
+ bh=WPvD0YF4yF0E/V3NMttF7YVdRMfLZcl9Qmy2whUD9jE=;
+ b=YoRn16dHxwbPnFVCospFx6YXqBvB4ZEYPlzpm/GCtpwTCKZWdXZLNRFQceS2UnI3F/
+ eLW+HZPpsNYQuM81lsYzw2jJW41VY+4stU8PXTu+W9xivpyxuhYRAGn8ZF9GfAjL6aVY
+ NL0HWOuCgWBTG8vMWubBtqtMp0h/IwrVWkEh4Y7fCj8plXqbPgaehlUhKp++7lNnF5c5
+ L+Sasn3gBpED3e3cIkrOnViAqmJI3I9BfWc+abG/F6XQmFcvnXhZ7vBz2VsacSgAq+XI
+ 4yeWNrUVR/uEaYdalOeTReXRkQBQgEo9f9NizZbs8yPGqexcCttU04w8S2IfzsWSM92t
+ HQEw==
+X-Gm-Message-State: ABy/qLZuxNhX2ochUvTXnL0p7tRX0p2ZAZ4XHpneP6u28zvZ8I6e7YBQ
+ pXLL7bS8SYBVF8W8t7K66m4MOw==
+X-Google-Smtp-Source: APBJJlFnoOazdp9TvNa1Sdutczsv0h+KjLn+q+TQByEK163E+9f/k1cC7rmChP+7R75WsTDRsF4HxQ==
 X-Received: by 2002:a17:90a:901:b0:268:3a31:3e4d with SMTP id
- n1-20020a17090a090100b002683a313e4dmr23078546pjn.2.1691407096844; 
- Mon, 07 Aug 2023 04:18:16 -0700 (PDT)
+ n1-20020a17090a090100b002683a313e4dmr23078917pjn.2.1691407109946; 
+ Mon, 07 Aug 2023 04:18:29 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.18.04
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.18.17
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:18:16 -0700 (PDT)
+ Mon, 07 Aug 2023 04:18:29 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
@@ -89,8 +90,8 @@ To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
  simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:09:27 +0800
-Message-Id: <20230807110936.21819-40-zhengqi.arch@bytedance.com>
+Date: Mon,  7 Aug 2023 19:09:28 +0800
+Message-Id: <20230807110936.21819-41-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -101,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: [dm-devel] [PATCH v4 39/48] xfs: dynamically allocate the xfs-qm
- shrinker
+Subject: [dm-devel] [PATCH v4 40/48] zsmalloc: dynamically allocate the
+ mm-zspool shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,91 +137,81 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the xfs-qm shrinker, so that it can be freed
+dynamically allocate the mm-zspool shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct xfs_quotainfo.
+read-side critical section when releasing the struct zs_pool.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- fs/xfs/xfs_qm.c | 28 +++++++++++++++-------------
- fs/xfs/xfs_qm.h |  2 +-
- 2 files changed, 16 insertions(+), 14 deletions(-)
+ mm/zsmalloc.c | 28 ++++++++++++++++------------
+ 1 file changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
-index 6abcc34fafd8..15ba23f11271 100644
---- a/fs/xfs/xfs_qm.c
-+++ b/fs/xfs/xfs_qm.c
-@@ -504,8 +504,7 @@ xfs_qm_shrink_scan(
- 	struct shrinker		*shrink,
- 	struct shrink_control	*sc)
- {
--	struct xfs_quotainfo	*qi = container_of(shrink,
--					struct xfs_quotainfo, qi_shrinker);
-+	struct xfs_quotainfo	*qi = shrink->private_data;
- 	struct xfs_qm_isolate	isol;
- 	unsigned long		freed;
- 	int			error;
-@@ -539,8 +538,7 @@ xfs_qm_shrink_count(
- 	struct shrinker		*shrink,
- 	struct shrink_control	*sc)
- {
--	struct xfs_quotainfo	*qi = container_of(shrink,
--					struct xfs_quotainfo, qi_shrinker);
-+	struct xfs_quotainfo	*qi = shrink->private_data;
+diff --git a/mm/zsmalloc.c b/mm/zsmalloc.c
+index b58f957429f0..1909234bb345 100644
+--- a/mm/zsmalloc.c
++++ b/mm/zsmalloc.c
+@@ -229,7 +229,7 @@ struct zs_pool {
+ 	struct zs_pool_stats stats;
  
- 	return list_lru_shrink_count(&qi->qi_lru, sc);
+ 	/* Compact classes */
+-	struct shrinker shrinker;
++	struct shrinker *shrinker;
+ 
+ #ifdef CONFIG_ZSMALLOC_STAT
+ 	struct dentry *stat_dentry;
+@@ -2086,8 +2086,7 @@ static unsigned long zs_shrinker_scan(struct shrinker *shrinker,
+ 		struct shrink_control *sc)
+ {
+ 	unsigned long pages_freed;
+-	struct zs_pool *pool = container_of(shrinker, struct zs_pool,
+-			shrinker);
++	struct zs_pool *pool = shrinker->private_data;
+ 
+ 	/*
+ 	 * Compact classes and calculate compaction delta.
+@@ -2105,8 +2104,7 @@ static unsigned long zs_shrinker_count(struct shrinker *shrinker,
+ 	int i;
+ 	struct size_class *class;
+ 	unsigned long pages_to_free = 0;
+-	struct zs_pool *pool = container_of(shrinker, struct zs_pool,
+-			shrinker);
++	struct zs_pool *pool = shrinker->private_data;
+ 
+ 	for (i = ZS_SIZE_CLASSES - 1; i >= 0; i--) {
+ 		class = pool->size_class[i];
+@@ -2121,18 +2119,24 @@ static unsigned long zs_shrinker_count(struct shrinker *shrinker,
+ 
+ static void zs_unregister_shrinker(struct zs_pool *pool)
+ {
+-	unregister_shrinker(&pool->shrinker);
++	shrinker_free(pool->shrinker);
  }
-@@ -680,15 +678,19 @@ xfs_qm_init_quotainfo(
- 	if (XFS_IS_PQUOTA_ON(mp))
- 		xfs_qm_set_defquota(mp, XFS_DQTYPE_PROJ, qinf);
  
--	qinf->qi_shrinker.count_objects = xfs_qm_shrink_count;
--	qinf->qi_shrinker.scan_objects = xfs_qm_shrink_scan;
--	qinf->qi_shrinker.seeks = DEFAULT_SEEKS;
--	qinf->qi_shrinker.flags = SHRINKER_NUMA_AWARE;
--
--	error = register_shrinker(&qinf->qi_shrinker, "xfs-qm:%s",
--				  mp->m_super->s_id);
--	if (error)
-+	qinf->qi_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE, "xfs-qm:%s",
-+					   mp->m_super->s_id);
-+	if (!qinf->qi_shrinker) {
-+		error = -ENOMEM;
- 		goto out_free_inos;
-+	}
+ static int zs_register_shrinker(struct zs_pool *pool)
+ {
+-	pool->shrinker.scan_objects = zs_shrinker_scan;
+-	pool->shrinker.count_objects = zs_shrinker_count;
+-	pool->shrinker.batch = 0;
+-	pool->shrinker.seeks = DEFAULT_SEEKS;
++	pool->shrinker = shrinker_alloc(0, "mm-zspool:%s", pool->name);
++	if (!pool->shrinker)
++		return -ENOMEM;
 +
-+	qinf->qi_shrinker->count_objects = xfs_qm_shrink_count;
-+	qinf->qi_shrinker->scan_objects = xfs_qm_shrink_scan;
-+	qinf->qi_shrinker->seeks = DEFAULT_SEEKS;
-+	qinf->qi_shrinker->private_data = qinf;
++	pool->shrinker->scan_objects = zs_shrinker_scan;
++	pool->shrinker->count_objects = zs_shrinker_count;
++	pool->shrinker->batch = 0;
++	pool->shrinker->seeks = DEFAULT_SEEKS;
++	pool->shrinker->private_data = pool;
+ 
+-	return register_shrinker(&pool->shrinker, "mm-zspool:%s",
+-				 pool->name);
++	shrinker_register(pool->shrinker);
 +
-+	shrinker_register(qinf->qi_shrinker);
++	return 0;
+ }
  
- 	return 0;
- 
-@@ -718,7 +720,7 @@ xfs_qm_destroy_quotainfo(
- 	qi = mp->m_quotainfo;
- 	ASSERT(qi != NULL);
- 
--	unregister_shrinker(&qi->qi_shrinker);
-+	shrinker_free(qi->qi_shrinker);
- 	list_lru_destroy(&qi->qi_lru);
- 	xfs_qm_destroy_quotainos(qi);
- 	mutex_destroy(&qi->qi_tree_lock);
-diff --git a/fs/xfs/xfs_qm.h b/fs/xfs/xfs_qm.h
-index 9683f0457d19..d5c9fc4ba591 100644
---- a/fs/xfs/xfs_qm.h
-+++ b/fs/xfs/xfs_qm.h
-@@ -63,7 +63,7 @@ struct xfs_quotainfo {
- 	struct xfs_def_quota	qi_usr_default;
- 	struct xfs_def_quota	qi_grp_default;
- 	struct xfs_def_quota	qi_prj_default;
--	struct shrinker		qi_shrinker;
-+	struct shrinker		*qi_shrinker;
- 
- 	/* Minimum and maximum quota expiration timestamp values. */
- 	time64_t		qi_expiry_min;
+ static int calculate_zspage_chain_size(int class_size)
 -- 
 2.30.2
 
