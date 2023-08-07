@@ -2,87 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 5C8A4773868
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:54 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D89B677385D
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:51 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477633;
+	s=mimecast20190719; t=1691477630;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=p6o0Kn/W1aRaw/jasN7ylhru28AR0rdsE/Dewmz3Dp4=;
-	b=C2yxfi6TggBq9CLb5TRtrhNhnRvQqOrlBVgT3P8r2jD3mOr7R/HRAzJ5V27vDVIWMpXXty
-	jGLsM2qknEusgFZqM4lB1FdGMMlJ7dY+s2FBrELf55WPVmzmZjDb6UQ97olOExCF9eXGEx
-	nN8MH4SX6AlFh5DfnR3t6lGqyWWCQ20=
+	bh=a2Rg8E9VGbLB9tIpW5idnmPQTFdZkoblL6XuklIPNRo=;
+	b=dc1KccsRyfUhIlzT+T35rNnt0Sl4UD7WlZSTRwVjUh9Jz1elmrJ+G0XaJxNNGOTcK/oGnP
+	rgOZaAm3jOxJx7FbFr9vizORZ0cLc0MsE2jDrzu2A157l4XDvKbUeT+D6E3RYGOQN7Anuo
+	D/wNPBYw1E27z+xiBu7wJIVe9Lcl+m8=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-175-6EANPyRROvu4gSGlyzlcYA-1; Tue, 08 Aug 2023 02:53:49 -0400
-X-MC-Unique: 6EANPyRROvu4gSGlyzlcYA-1
+ us-mta-225-Jf2mw_MWPW6S8h7eQCLhag-1; Tue, 08 Aug 2023 02:53:44 -0400
+X-MC-Unique: Jf2mw_MWPW6S8h7eQCLhag-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4A8F018E52E7;
-	Tue,  8 Aug 2023 06:53:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43585805585;
+	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2B09340C6F53;
-	Tue,  8 Aug 2023 06:53:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2750D40D283D;
+	Tue,  8 Aug 2023 06:53:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A4CD61946A4D;
-	Tue,  8 Aug 2023 06:53:29 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5606F194720A;
+	Tue,  8 Aug 2023 06:53:30 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 963C91946586
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:14:04 +0000 (UTC)
+ ESMTP id 1A5BE1946586
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:14:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 74F44140E963; Mon,  7 Aug 2023 11:14:04 +0000 (UTC)
+ id 099031121318; Mon,  7 Aug 2023 11:14:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 6C386140E950
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:14:04 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 01A321121314
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:14:16 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DC9E3C0E461
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:14:04 +0000 (UTC)
-Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com
- [209.85.215.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DB91D3C0E442
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:14:16 +0000 (UTC)
+Received: from mail-pl1-f182.google.com (mail-pl1-f182.google.com
+ [209.85.214.182]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-360-6X99Ac42NjGisH0JvLsHnw-1; Mon, 07 Aug 2023 07:14:02 -0400
-X-MC-Unique: 6X99Ac42NjGisH0JvLsHnw-1
-Received: by mail-pg1-f181.google.com with SMTP id
- 41be03b00d2f7-55b5a37acb6so362192a12.0
- for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:14:02 -0700 (PDT)
+ us-mta-294-R1lfP4IMMOieONFtCD91Xw-1; Mon, 07 Aug 2023 07:14:15 -0400
+X-MC-Unique: R1lfP4IMMOieONFtCD91Xw-1
+Received: by mail-pl1-f182.google.com with SMTP id
+ d9443c01a7336-1bba9539a23so9299955ad.1
+ for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:14:14 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691406841; x=1692011641;
+ d=1e100.net; s=20221208; t=1691406854; x=1692011654;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=a0ijFA9s9bGVMHT4vLgTYS12L8yx2Rc7o6TjM9ZoJx8=;
- b=M0z9jQzJa/p0lgmnsjs1uGfXyvNlNWDSh0oJR7TjR2KAQ9LHAjwzHVtkMIYbsB/Bmf
- FHqleysSJ33j0OuuMTpfgn9qYVP+yw8e2dUZXv88rnCZ3Z9tbf+VBrl5p5BRfPkjboGZ
- FVc6imO+ZSEDr6/wAanj7NmWwk6T+epkyVvoB0XUOpWltpnzrd19PE3VthjaRyGXt4AS
- OnYIZ11R7ZJnBNiJ3/Exn/99RmBAsy768c+cyL8aSU4CeRpz1J7OYCB3vdRqXssXv2xe
- xcQ3OBThaSOdxgS4y5MmxrE1LV6Tiq9uMuubpcQl0JnDCG+dAiWxGPczK6Fos9lE/uQs
- 9Iiw==
-X-Gm-Message-State: AOJu0YwIOSV1NmiykyCRGxdoCtf+qlEKR3nJk31Lrud/Sb8Xdy5JuXum
- oUu+J3wH8SN3CnqWlwIvElWJ/w==
-X-Google-Smtp-Source: AGHT+IELWLhV4Bj40lkko/D2F7gtSRcHKPclt9k8JlXsq8dyT7OdoG/0VZRRAUzfMJnehzLNwTS/oA==
-X-Received: by 2002:a17:90a:2909:b0:269:5bf7:d79c with SMTP id
- g9-20020a17090a290900b002695bf7d79cmr2214416pjd.1.1691406841328; 
- Mon, 07 Aug 2023 04:14:01 -0700 (PDT)
+ bh=UfFRGPeE2ZLo8C9JFiR7wWvNCzDdrS4O9P7I0rwozQE=;
+ b=MunLUOoDHWtnoZoQbOUA5BHNMZo2JNah4jIgt6g/2yA4NaKaG5N5UEQVNvEZ04I7T0
+ Kd5cGgCbgftJSFrzg9U5IyLz9lbwsvjP7ZzOQ1u1NNS53k8+LRhb1q2o5zhZ5sjy1PHZ
+ 3eoIU2cLMCdcQo2dtxslkOKirnJtThFlVxet3h+NwDh7xgdAZv4t8LEvrMTTLTOKlNMY
+ pJY2u+tOcBkhOXK0QhdBvU/IWKVeDkWFYAj68G5ktrDgY4g4/FQznnXyydPpWFRLLC9S
+ tZAlbT6SWbK/PGb5Y34Zu/vPyi+UZ/HPlsms4g4FZJXcgNxf9nKuhocdhp2qRLolNnTA
+ JKwA==
+X-Gm-Message-State: ABy/qLYW2cO0byfotsUmumZmTihvEFRleD/fSUMUp3etwk1OLbf/vrUR
+ Afq4qFuypZw+15oqf9mue+FT0A==
+X-Google-Smtp-Source: APBJJlFKEuLPG6rXvjHQ/xhYlF3mJA1G+qTCCufEjWmHi053bG2lxjJC7FtDeUsrnl72QxE+YEuj1g==
+X-Received: by 2002:a17:902:d503:b0:1bb:83ec:832 with SMTP id
+ b3-20020a170902d50300b001bb83ec0832mr32625772plg.2.1691406854020; 
+ Mon, 07 Aug 2023 04:14:14 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.13.49
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.14.01
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:14:01 -0700 (PDT)
+ Mon, 07 Aug 2023 04:14:13 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
@@ -90,8 +90,8 @@ To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
  simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:09:07 +0800
-Message-Id: <20230807110936.21819-20-zhengqi.arch@bytedance.com>
+Date: Mon,  7 Aug 2023 19:09:08 +0800
+Message-Id: <20230807110936.21819-21-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -102,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: [dm-devel] [PATCH v4 19/48] rcu: dynamically allocate the rcu-kfree
- shrinker
+Subject: [dm-devel] [PATCH v4 20/48] mm: thp: dynamically allocate the
+ thp-related shrinkers
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -135,60 +135,137 @@ X-Mimecast-Originator: bytedance.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use new APIs to dynamically allocate the rcu-kfree shrinker.
+Use new APIs to dynamically allocate the thp-zero and thp-deferred_split
+shrinkers.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 ---
- kernel/rcu/tree.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ mm/huge_memory.c | 69 +++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 45 insertions(+), 24 deletions(-)
 
-diff --git a/kernel/rcu/tree.c b/kernel/rcu/tree.c
-index 7c79480bfaa0..3b20fc46c514 100644
---- a/kernel/rcu/tree.c
-+++ b/kernel/rcu/tree.c
-@@ -3449,13 +3449,6 @@ kfree_rcu_shrink_scan(struct shrinker *shrink, struct shrink_control *sc)
- 	return freed == 0 ? SHRINK_STOP : freed;
+diff --git a/mm/huge_memory.c b/mm/huge_memory.c
+index 947001a7cd42..5d0c7a0b651c 100644
+--- a/mm/huge_memory.c
++++ b/mm/huge_memory.c
+@@ -65,7 +65,11 @@ unsigned long transparent_hugepage_flags __read_mostly =
+ 	(1<<TRANSPARENT_HUGEPAGE_DEFRAG_KHUGEPAGED_FLAG)|
+ 	(1<<TRANSPARENT_HUGEPAGE_USE_ZERO_PAGE_FLAG);
+ 
+-static struct shrinker deferred_split_shrinker;
++static struct shrinker *deferred_split_shrinker;
++static unsigned long deferred_split_count(struct shrinker *shrink,
++					  struct shrink_control *sc);
++static unsigned long deferred_split_scan(struct shrinker *shrink,
++					 struct shrink_control *sc);
+ 
+ static atomic_t huge_zero_refcount;
+ struct page *huge_zero_page __read_mostly;
+@@ -229,11 +233,7 @@ static unsigned long shrink_huge_zero_page_scan(struct shrinker *shrink,
+ 	return 0;
  }
  
--static struct shrinker kfree_rcu_shrinker = {
--	.count_objects = kfree_rcu_shrink_count,
--	.scan_objects = kfree_rcu_shrink_scan,
--	.batch = 0,
+-static struct shrinker huge_zero_page_shrinker = {
+-	.count_objects = shrink_huge_zero_page_count,
+-	.scan_objects = shrink_huge_zero_page_scan,
 -	.seeks = DEFAULT_SEEKS,
 -};
--
- void __init kfree_rcu_scheduler_running(void)
- {
- 	int cpu;
-@@ -4931,6 +4924,7 @@ static void __init kfree_rcu_batch_init(void)
- {
- 	int cpu;
- 	int i, j;
-+	struct shrinker *kfree_rcu_shrinker;
++static struct shrinker *huge_zero_page_shrinker;
  
- 	/* Clamp it to [0:100] seconds interval. */
- 	if (rcu_delay_page_cache_fill_msec < 0 ||
-@@ -4962,8 +4956,18 @@ static void __init kfree_rcu_batch_init(void)
- 		INIT_DELAYED_WORK(&krcp->page_cache_work, fill_page_cache_func);
- 		krcp->initialized = true;
- 	}
--	if (register_shrinker(&kfree_rcu_shrinker, "rcu-kfree"))
--		pr_err("Failed to register kfree_rcu() shrinker!\n");
+ #ifdef CONFIG_SYSFS
+ static ssize_t enabled_show(struct kobject *kobj,
+@@ -454,6 +454,40 @@ static inline void hugepage_exit_sysfs(struct kobject *hugepage_kobj)
+ }
+ #endif /* CONFIG_SYSFS */
+ 
++static int __init thp_shrinker_init(void)
++{
++	huge_zero_page_shrinker = shrinker_alloc(0, "thp-zero");
++	if (!huge_zero_page_shrinker)
++		return -ENOMEM;
 +
-+	kfree_rcu_shrinker = shrinker_alloc(0, "rcu-kfree");
-+	if (!kfree_rcu_shrinker) {
-+		pr_err("Failed to allocate kfree_rcu() shrinker!\n");
-+		return;
++	deferred_split_shrinker = shrinker_alloc(SHRINKER_NUMA_AWARE |
++						 SHRINKER_MEMCG_AWARE |
++						 SHRINKER_NONSLAB,
++						 "thp-deferred_split");
++	if (!deferred_split_shrinker) {
++		shrinker_free(huge_zero_page_shrinker);
++		return -ENOMEM;
 +	}
 +
-+	kfree_rcu_shrinker->count_objects = kfree_rcu_shrink_count;
-+	kfree_rcu_shrinker->scan_objects = kfree_rcu_shrink_scan;
-+	kfree_rcu_shrinker->seeks = DEFAULT_SEEKS;
++	huge_zero_page_shrinker->count_objects = shrink_huge_zero_page_count;
++	huge_zero_page_shrinker->scan_objects = shrink_huge_zero_page_scan;
++	huge_zero_page_shrinker->seeks = DEFAULT_SEEKS;
++	shrinker_register(huge_zero_page_shrinker);
 +
-+	shrinker_register(kfree_rcu_shrinker);
++	deferred_split_shrinker->count_objects = deferred_split_count;
++	deferred_split_shrinker->scan_objects = deferred_split_scan;
++	deferred_split_shrinker->seeks = DEFAULT_SEEKS;
++	shrinker_register(deferred_split_shrinker);
++
++	return 0;
++}
++
++static void __init thp_shrinker_exit(void)
++{
++	shrinker_free(huge_zero_page_shrinker);
++	shrinker_free(deferred_split_shrinker);
++}
++
+ static int __init hugepage_init(void)
+ {
+ 	int err;
+@@ -482,12 +516,9 @@ static int __init hugepage_init(void)
+ 	if (err)
+ 		goto err_slab;
+ 
+-	err = register_shrinker(&huge_zero_page_shrinker, "thp-zero");
+-	if (err)
+-		goto err_hzp_shrinker;
+-	err = register_shrinker(&deferred_split_shrinker, "thp-deferred_split");
++	err = thp_shrinker_init();
+ 	if (err)
+-		goto err_split_shrinker;
++		goto err_shrinker;
+ 
+ 	/*
+ 	 * By default disable transparent hugepages on smaller systems,
+@@ -505,10 +536,8 @@ static int __init hugepage_init(void)
+ 
+ 	return 0;
+ err_khugepaged:
+-	unregister_shrinker(&deferred_split_shrinker);
+-err_split_shrinker:
+-	unregister_shrinker(&huge_zero_page_shrinker);
+-err_hzp_shrinker:
++	thp_shrinker_exit();
++err_shrinker:
+ 	khugepaged_destroy();
+ err_slab:
+ 	hugepage_exit_sysfs(hugepage_kobj);
+@@ -2834,7 +2863,7 @@ void deferred_split_folio(struct folio *folio)
+ #ifdef CONFIG_MEMCG
+ 		if (memcg)
+ 			set_shrinker_bit(memcg, folio_nid(folio),
+-					 deferred_split_shrinker.id);
++					 deferred_split_shrinker->id);
+ #endif
+ 	}
+ 	spin_unlock_irqrestore(&ds_queue->split_queue_lock, flags);
+@@ -2908,14 +2937,6 @@ static unsigned long deferred_split_scan(struct shrinker *shrink,
+ 	return split;
  }
  
- void __init rcu_init(void)
+-static struct shrinker deferred_split_shrinker = {
+-	.count_objects = deferred_split_count,
+-	.scan_objects = deferred_split_scan,
+-	.seeks = DEFAULT_SEEKS,
+-	.flags = SHRINKER_NUMA_AWARE | SHRINKER_MEMCG_AWARE |
+-		 SHRINKER_NONSLAB,
+-};
+-
+ #ifdef CONFIG_DEBUG_FS
+ static void split_huge_pages_all(void)
+ {
 -- 
 2.30.2
 
