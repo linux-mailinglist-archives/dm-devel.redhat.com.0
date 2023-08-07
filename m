@@ -2,87 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 35B9D77385E
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:52 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 359D677384D
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477631;
+	s=mimecast20190719; t=1691477620;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BS9WPBvzExd9uyMp3XKTVL5g6ga4sFvII8coUblGwFo=;
-	b=Y9k03Rv7YN31hIZ2Clvs7l/7qunLXjnSI/wTKxWwKB9gSIkhtB44t3VxpXcEiuM/cvc4Lt
-	IkHRKkMeeUCLVtoVBps3WOszdsRqPXU0Lq9vPYbXbybqwbEkDMu1xne0GvPoDs727w0dbM
-	g5yj1pt8NiV+UWtUy2nMs+UHilTUQMo=
+	bh=k9PAXqz2+fKh6r5vPS76sMsPI7eHjblmbgCDeqL+IsE=;
+	b=MCHX57RQjfjj5quuXpBOJgDHpGhqr4241Qi7pzE+WZtjkJ4FaPpXHEFQn0Dd4iM7RXhFc+
+	635OBl2rRu8tjmA87AHnKs4e/yqgr1e4DojCMVWjNfzopS8lAwAbW8acWPvnalhgPwmYhI
+	bBUv+RSrYJWILk8Iy5UZc1yQFjOPf/U=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-481-hb1ktttcP5GrGmFaqGrh9Q-1; Tue, 08 Aug 2023 02:53:48 -0400
-X-MC-Unique: hb1ktttcP5GrGmFaqGrh9Q-1
+ us-mta-303-RfSStLZOMhetAYmq_gEUow-1; Tue, 08 Aug 2023 02:53:34 -0400
+X-MC-Unique: RfSStLZOMhetAYmq_gEUow-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D9792382C981;
-	Tue,  8 Aug 2023 06:53:35 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F2AF83C100B2;
+	Tue,  8 Aug 2023 06:53:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B9065400DE98;
-	Tue,  8 Aug 2023 06:53:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2F2B840D2839;
+	Tue,  8 Aug 2023 06:53:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A90A219465BA;
-	Tue,  8 Aug 2023 06:53:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CE37519465BA;
+	Tue,  8 Aug 2023 06:53:24 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 490EF1946586
- for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:16:50 +0000 (UTC)
+ ESMTP id F1D021946586
+ for <dm-devel@listman.corp.redhat.com>; Mon,  7 Aug 2023 11:17:02 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1F95D40316A; Mon,  7 Aug 2023 11:16:50 +0000 (UTC)
+ id D88AD140E964; Mon,  7 Aug 2023 11:17:02 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 17154403168
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:16:50 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D0374140E950
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:17:02 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EA04E85CCE2
- for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:16:49 +0000 (UTC)
-Received: from mail-pj1-f49.google.com (mail-pj1-f49.google.com
- [209.85.216.49]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91B33802A7D
+ for <dm-devel@redhat.com>; Mon,  7 Aug 2023 11:17:02 +0000 (UTC)
+Received: from mail-pj1-f52.google.com (mail-pj1-f52.google.com
+ [209.85.216.52]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-686-1u9-WeSaMy-npTKWW8qEoQ-1; Mon, 07 Aug 2023 07:16:48 -0400
-X-MC-Unique: 1u9-WeSaMy-npTKWW8qEoQ-1
-Received: by mail-pj1-f49.google.com with SMTP id
- 98e67ed59e1d1-265c94064b8so593088a91.0
- for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:16:48 -0700 (PDT)
+ us-mta-349-TOBj4EBWMquEnb4FMF-CJQ-2; Mon, 07 Aug 2023 07:17:00 -0400
+X-MC-Unique: TOBj4EBWMquEnb4FMF-CJQ-2
+Received: by mail-pj1-f52.google.com with SMTP id
+ 98e67ed59e1d1-268663fb09cso631784a91.0
+ for <dm-devel@redhat.com>; Mon, 07 Aug 2023 04:17:00 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691407007; x=1692011807;
+ d=1e100.net; s=20221208; t=1691407020; x=1692011820;
  h=content-transfer-encoding:mime-version:references:in-reply-to
  :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
  :subject:date:message-id:reply-to;
- bh=xVRvDV5EwClRaurogoo7jeCmWiPiam6NNimoVigpYsU=;
- b=DGxjMqMabJm/qQNZlnSBJ5oxIPRKiulwB1yUebw/KOJ0eW90GySw4bV3ejSKBbOYoL
- jetzwWMiKv9pX6HPMHlpn3P3+xErS7rx3Oo7q2Nv32zx1Nz4Zp8WteFUotYCcT4a5qI2
- tfmQIousUEX73w260ccLJNVIrx+GTxk36KRiGc4kfChlB8wFxRJ3Gn59NZg+iTRNmR1T
- d2QSnNfxv0FpNXIIh8GIBC2sQy4ImdlEW+tnaEPLwVKiM/F8G30yk9375vXdrD3tr5jR
- hQcbJ/DYy/aIRobwI0Nm/KdSnwvZ5BzqzdoVqon6xaziA5SStd79V/+3o1m7YfXPcK1x
- D5MA==
-X-Gm-Message-State: ABy/qLZq7I6P1dV96qdquYQ9yPSCk8pvV796eABiXSF+2DcSexLWHhyn
- 1f282+G8ROVGOMWI1S8PkEaUXQ==
-X-Google-Smtp-Source: APBJJlGBV531Fc0h3gGTcYh+GrDchiBvn4r3DyO1GlE79UVq2Tiyx2gaPN4S9h+mnuBR5bsUMtGvYQ==
-X-Received: by 2002:a17:90a:ac2:b0:268:f977:848c with SMTP id
- r2-20020a17090a0ac200b00268f977848cmr15219032pje.2.1691407007341; 
- Mon, 07 Aug 2023 04:16:47 -0700 (PDT)
+ bh=EIUP2Z+Njo4a1BEj4icZmHsMWaHOvZz2gypuwwXx0Do=;
+ b=ACxe8JJtd54YTH4JJV9yl9N9qt6dPL6PCUbApJtcxZJZ/g403FlmvB9chkIRfe/O8Y
+ 4nPCAWy1wZ7fBY7RYPKdOh6aZHBEMD8eKT0HpqCoyoo5CaTgYVLthDq4HITZcAL0aSHw
+ ZikBqBSHAl1p4hXroloZleh6xcLBqVPBPSfJ6FlHHB2RDY1drJwTMieKTJfDuwmo/TEC
+ 50oe98Og3J8oYJTQdz2xayNXlmAWZ5HYbxCpHQrj6bmx47ksE8y8XKxHKl8gof7RnQbL
+ tm9Ojno4cWg3Yf/jjvMv3vRVA1VSlaOc9btn7ACee/Mt9N621OgiAZfcBBuE2qagCMs8
+ N6zg==
+X-Gm-Message-State: AOJu0Yxgz3UQmQjg52+zrCZvrhb+kZ+aazTF6fh1kOt1/cS14V1I8ITS
+ zr/sF+XHhSIBYi9mQfND+a/QZA==
+X-Google-Smtp-Source: AGHT+IGL/1gBIk2C+QwkMNr6hEGRZG4q+xpVeUoXNA4D2kibZqrKnrVjY0bqX283iYX9eWQrJAN/xA==
+X-Received: by 2002:a17:90a:6701:b0:269:32c7:24dc with SMTP id
+ n1-20020a17090a670100b0026932c724dcmr6036278pjj.0.1691407020016; 
+ Mon, 07 Aug 2023 04:17:00 -0700 (PDT)
 Received: from C02DW0BEMD6R.bytedance.net ([203.208.167.146])
  by smtp.gmail.com with ESMTPSA id
- y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.16.35
+ y13-20020a17090aca8d00b0025be7b69d73sm5861191pjt.12.2023.08.07.04.16.47
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 07 Aug 2023 04:16:47 -0700 (PDT)
+ Mon, 07 Aug 2023 04:16:59 -0700 (PDT)
 From: Qi Zheng <zhengqi.arch@bytedance.com>
 To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  vbabka@suse.cz, roman.gushchin@linux.dev, djwong@kernel.org,
@@ -90,8 +90,8 @@ To: akpm@linux-foundation.org, david@fromorbit.com, tkhai@ya.ru,
  steven.price@arm.com, cel@kernel.org, senozhatsky@chromium.org,
  yujie.liu@intel.com, gregkh@linuxfoundation.org, muchun.song@linux.dev,
  simon.horman@corigine.com, dlemoal@kernel.org
-Date: Mon,  7 Aug 2023 19:09:20 +0800
-Message-Id: <20230807110936.21819-33-zhengqi.arch@bytedance.com>
+Date: Mon,  7 Aug 2023 19:09:21 +0800
+Message-Id: <20230807110936.21819-34-zhengqi.arch@bytedance.com>
 In-Reply-To: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
 MIME-Version: 1.0
@@ -102,10 +102,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: [dm-devel] [PATCH v4 32/48] mbcache: dynamically allocate the
- mbcache shrinker
+Subject: [dm-devel] [PATCH v4 33/48] ext4: dynamically allocate the ext4-es
+ shrinker
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -137,83 +137,87 @@ Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 In preparation for implementing lockless slab shrink, use new APIs to
-dynamically allocate the mbcache shrinker, so that it can be freed
+dynamically allocate the ext4-es shrinker, so that it can be freed
 asynchronously using kfree_rcu(). Then it doesn't need to wait for RCU
-read-side critical section when releasing the struct mb_cache.
+read-side critical section when releasing the struct ext4_sb_info.
 
 Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
 ---
- fs/mbcache.c | 23 +++++++++++++----------
- 1 file changed, 13 insertions(+), 10 deletions(-)
+ fs/ext4/ext4.h           |  2 +-
+ fs/ext4/extents_status.c | 24 ++++++++++++++----------
+ 2 files changed, 15 insertions(+), 11 deletions(-)
 
-diff --git a/fs/mbcache.c b/fs/mbcache.c
-index 2a4b8b549e93..0d1e24e9a5e3 100644
---- a/fs/mbcache.c
-+++ b/fs/mbcache.c
-@@ -37,7 +37,7 @@ struct mb_cache {
- 	struct list_head	c_list;
- 	/* Number of entries in cache */
- 	unsigned long		c_entry_count;
--	struct shrinker		c_shrink;
-+	struct shrinker		*c_shrink;
- 	/* Work for shrinking when the cache has too many entries */
- 	struct work_struct	c_shrink_work;
- };
-@@ -293,8 +293,7 @@ EXPORT_SYMBOL(mb_cache_entry_touch);
- static unsigned long mb_cache_count(struct shrinker *shrink,
- 				    struct shrink_control *sc)
+diff --git a/fs/ext4/ext4.h b/fs/ext4/ext4.h
+index 481491e892df..48baf03eb1a6 100644
+--- a/fs/ext4/ext4.h
++++ b/fs/ext4/ext4.h
+@@ -1657,7 +1657,7 @@ struct ext4_sb_info {
+ 	__u32 s_csum_seed;
+ 
+ 	/* Reclaim extents from extent status tree */
+-	struct shrinker s_es_shrinker;
++	struct shrinker *s_es_shrinker;
+ 	struct list_head s_es_list;	/* List of inodes with reclaimable extents */
+ 	long s_es_nr_inode;
+ 	struct ext4_es_stats s_es_stats;
+diff --git a/fs/ext4/extents_status.c b/fs/ext4/extents_status.c
+index 9b5b8951afb4..0532a81a7669 100644
+--- a/fs/ext4/extents_status.c
++++ b/fs/ext4/extents_status.c
+@@ -1596,7 +1596,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
+ 	unsigned long nr;
+ 	struct ext4_sb_info *sbi;
+ 
+-	sbi = container_of(shrink, struct ext4_sb_info, s_es_shrinker);
++	sbi = shrink->private_data;
+ 	nr = percpu_counter_read_positive(&sbi->s_es_stats.es_stats_shk_cnt);
+ 	trace_ext4_es_shrink_count(sbi->s_sb, sc->nr_to_scan, nr);
+ 	return nr;
+@@ -1605,8 +1605,7 @@ static unsigned long ext4_es_count(struct shrinker *shrink,
+ static unsigned long ext4_es_scan(struct shrinker *shrink,
+ 				  struct shrink_control *sc)
  {
--	struct mb_cache *cache = container_of(shrink, struct mb_cache,
--					      c_shrink);
-+	struct mb_cache *cache = shrink->private_data;
+-	struct ext4_sb_info *sbi = container_of(shrink,
+-					struct ext4_sb_info, s_es_shrinker);
++	struct ext4_sb_info *sbi = shrink->private_data;
+ 	int nr_to_scan = sc->nr_to_scan;
+ 	int ret, nr_shrunk;
  
- 	return cache->c_entry_count;
- }
-@@ -333,8 +332,7 @@ static unsigned long mb_cache_shrink(struct mb_cache *cache,
- static unsigned long mb_cache_scan(struct shrinker *shrink,
- 				   struct shrink_control *sc)
- {
--	struct mb_cache *cache = container_of(shrink, struct mb_cache,
--					      c_shrink);
-+	struct mb_cache *cache = shrink->private_data;
- 	return mb_cache_shrink(cache, sc->nr_to_scan);
- }
+@@ -1690,13 +1689,18 @@ int ext4_es_register_shrinker(struct ext4_sb_info *sbi)
+ 	if (err)
+ 		goto err3;
  
-@@ -377,15 +375,20 @@ struct mb_cache *mb_cache_create(int bucket_bits)
- 	for (i = 0; i < bucket_count; i++)
- 		INIT_HLIST_BL_HEAD(&cache->c_hash[i]);
- 
--	cache->c_shrink.count_objects = mb_cache_count;
--	cache->c_shrink.scan_objects = mb_cache_scan;
--	cache->c_shrink.seeks = DEFAULT_SEEKS;
--	if (register_shrinker(&cache->c_shrink, "mbcache-shrinker")) {
-+	cache->c_shrink = shrinker_alloc(0, "mbcache-shrinker");
-+	if (!cache->c_shrink) {
- 		kfree(cache->c_hash);
- 		kfree(cache);
- 		goto err_out;
- 	}
- 
-+	cache->c_shrink->count_objects = mb_cache_count;
-+	cache->c_shrink->scan_objects = mb_cache_scan;
-+	cache->c_shrink->seeks = DEFAULT_SEEKS;
-+	cache->c_shrink->private_data = cache;
+-	sbi->s_es_shrinker.scan_objects = ext4_es_scan;
+-	sbi->s_es_shrinker.count_objects = ext4_es_count;
+-	sbi->s_es_shrinker.seeks = DEFAULT_SEEKS;
+-	err = register_shrinker(&sbi->s_es_shrinker, "ext4-es:%s",
+-				sbi->s_sb->s_id);
+-	if (err)
++	sbi->s_es_shrinker = shrinker_alloc(0, "ext4-es:%s", sbi->s_sb->s_id);
++	if (!sbi->s_es_shrinker) {
++		err = -ENOMEM;
+ 		goto err4;
++	}
 +
-+	shrinker_register(cache->c_shrink);
++	sbi->s_es_shrinker->scan_objects = ext4_es_scan;
++	sbi->s_es_shrinker->count_objects = ext4_es_count;
++	sbi->s_es_shrinker->seeks = DEFAULT_SEEKS;
++	sbi->s_es_shrinker->private_data = sbi;
 +
- 	INIT_WORK(&cache->c_shrink_work, mb_cache_shrink_worker);
++	shrinker_register(sbi->s_es_shrinker);
  
- 	return cache;
-@@ -406,7 +409,7 @@ void mb_cache_destroy(struct mb_cache *cache)
- {
- 	struct mb_cache_entry *entry, *next;
+ 	return 0;
+ err4:
+@@ -1716,7 +1720,7 @@ void ext4_es_unregister_shrinker(struct ext4_sb_info *sbi)
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_cache_misses);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_all_cnt);
+ 	percpu_counter_destroy(&sbi->s_es_stats.es_stats_shk_cnt);
+-	unregister_shrinker(&sbi->s_es_shrinker);
++	shrinker_free(sbi->s_es_shrinker);
+ }
  
--	unregister_shrinker(&cache->c_shrink);
-+	shrinker_free(cache->c_shrink);
- 
- 	/*
- 	 * We don't bother with any locking. Cache must not be used at this
+ /*
 -- 
 2.30.2
 
