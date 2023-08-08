@@ -1,110 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 31F28773853
-	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 08:53:44 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2F8687746EB
+	for <lists+dm-devel@lfdr.de>; Tue,  8 Aug 2023 21:07:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691477623;
+	s=mimecast20190719; t=1691521636;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=sxKQpv41SFQPN++1pmG6Ho7V53G8D0Lw7n4LIaPPtyI=;
-	b=PTScbvyK8qfx2Cg6u8+Ojc9uVkwK5HgWgVfbdRv73jmfymlUvxErspCz9ZHzOJ6hvWvfeV
-	r6GMpsNIfXYr1QvMcRQnGUcheIM7ii5hD6VS+xvd/1M4O7fC6jhc5+izyZsvDwFcVFwx2p
-	ILdi51fLzMLQluuv1vZaylwlc3xhQng=
+	 content-type:content-type:in-reply-to:in-reply-to:
+	 references:references:list-id:list-help:list-unsubscribe:
+	 list-subscribe:list-post; bh=BlrOMFJUyVo0lYE6OE1DV/gXju55RPnsjS1HbdkBufI=;
+	b=DJbAJpr2+uYVhdqjFbsW1NUoYizojr94XPNAxvsI4nofWsALMeVtTy9e93VcOBuAH6I0vS
+	XVFMnYtMxbXOjzYmwZAd657+E/y2S8RyPFGx0s0C3zYiiDsF3aP1z2CK+uP7dYg62xRsi6
+	k8mX5sRxSyMQP3h+5cYpqkVZiib3QOY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-19-vGX_rdYCPgis8o8C4JQ5dw-1; Tue, 08 Aug 2023 02:53:40 -0400
-X-MC-Unique: vGX_rdYCPgis8o8C4JQ5dw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-668-eLMa5arsOSa8NBEAH8hjLw-1; Tue, 08 Aug 2023 15:07:11 -0400
+X-MC-Unique: eLMa5arsOSa8NBEAH8hjLw-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C963823DF8;
-	Tue,  8 Aug 2023 06:53:31 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 09A5280559E;
+	Tue,  8 Aug 2023 19:06:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6250840C207A;
-	Tue,  8 Aug 2023 06:53:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1E478492C13;
+	Tue,  8 Aug 2023 19:06:47 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B9C5919451C4;
-	Tue,  8 Aug 2023 06:53:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5ECA919465A3;
+	Tue,  8 Aug 2023 19:06:46 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 413221946586
- for <dm-devel@listman.corp.redhat.com>; Tue,  8 Aug 2023 06:33:15 +0000 (UTC)
+ ESMTP id 1E9591946586
+ for <dm-devel@listman.corp.redhat.com>; Tue,  8 Aug 2023 19:06:45 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 301F21121314; Tue,  8 Aug 2023 06:33:15 +0000 (UTC)
+ id B9B5D40BC782; Tue,  8 Aug 2023 19:06:44 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 27E2F1121315
- for <dm-devel@redhat.com>; Tue,  8 Aug 2023 06:33:15 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EBCEF2999B33
- for <dm-devel@redhat.com>; Tue,  8 Aug 2023 06:33:14 +0000 (UTC)
-Received: from mail-pf1-f176.google.com (mail-pf1-f176.google.com
- [209.85.210.176]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507-nqCdLfqIOzm4i8IRd99RGQ-1; Tue, 08 Aug 2023 02:33:13 -0400
-X-MC-Unique: nqCdLfqIOzm4i8IRd99RGQ-1
-Received: by mail-pf1-f176.google.com with SMTP id
- d2e1a72fcca58-6873f64a290so1465089b3a.0
- for <dm-devel@redhat.com>; Mon, 07 Aug 2023 23:33:12 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1691476392; x=1692081192;
- h=content-transfer-encoding:in-reply-to:from:content-language
- :references:cc:to:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=m1STCrinczuq8FuoUgLs8N4vldOealvmees85dm6MPY=;
- b=bu/wBAt71u+14PFVGMj17QoTlymoAfBknFtHN5wMJAs3JPh+k3UzXMRla7ShFpNeMN
- mZRxYBbgnfWYLqOHdSJCXnXdYZ3PjhTwYYD7r/l7Se2CBnVi67SnL/usk2MMkdwkgNqn
- Kgw6ojpQ85JvP3mA/GWtEGNSHXJSlRvcDbMd+QqM+27fyEDls2J2HDmxuV/PGdWkigfz
- NbcrNbtBGrp+Di650nxagVkRX66yQkuvPGrus8zFlF7a030pGrcTJfVa8GiCr9MsTJ+e
- isr/VGOPm0UXGVY5HaKyiohkmuuYSUf6S8BV/LagCrKbRp4n8Nq1llN1aluzDHKw5vO7
- UpiA==
-X-Gm-Message-State: ABy/qLZcqMU47vB6u3PjJs+SHYfa1PlWpQCOQ1EC9yKj5fAnMhsP4HCu
- l26H7OoJqV7duvk2pmFWUtahpQ==
-X-Google-Smtp-Source: APBJJlEAHd7r+M3vyCUQDMAxEjMveuzSqb/Q6wUuSUNAB0Ns9zs1qKL/YECIY4J9DtcJjA3HpA/s7A==
-X-Received: by 2002:a05:6a21:998c:b0:13d:1ebf:5dfc with SMTP id
- ve12-20020a056a21998c00b0013d1ebf5dfcmr38062815pzb.5.1691476391828; 
- Mon, 07 Aug 2023 23:33:11 -0700 (PDT)
-Received: from [10.70.252.135] ([203.208.167.146])
- by smtp.gmail.com with ESMTPSA id
- ff12-20020a056a002f4c00b0067f2f7eccdcsm7204570pfb.193.2023.08.07.23.32.59
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Mon, 07 Aug 2023 23:33:11 -0700 (PDT)
-Message-ID: <0e7b16ce-19f9-0c70-4a94-f05cbfee613a@bytedance.com>
-Date: Tue, 8 Aug 2023 14:32:55 +0800
+Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
+ [10.11.5.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B892D40C6F53;
+ Tue,  8 Aug 2023 19:06:43 +0000 (UTC)
+Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
+ from userid 12668)
+ id E5D1730F66DC; Tue,  8 Aug 2023 19:06:18 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
+ D707377D7F; Tue,  8 Aug 2023 21:06:18 +0200 (CEST)
+Date: Tue, 8 Aug 2023 21:06:18 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Mike Snitzer <snitzer@kernel.org>
+In-Reply-To: <ZMqFVGX/ZbVABDJ6@redhat.com>
+Message-ID: <a508359-734b-35c9-a393-42c27870a1fa@redhat.com>
+References: <20221010144123.252329-1-luomeng@huaweicloud.com>
+ <Y02zebNyn73/MN1d@redhat.com>
+ <eb9e1d80-c62c-c62f-4fc2-5be21fc75472@huawei.com>
+ <ZMqFVGX/ZbVABDJ6@redhat.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-To: Dave Chinner <david@fromorbit.com>
-References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
- <20230807110936.21819-45-zhengqi.arch@bytedance.com>
- <ZNGkcp3Dh8hOiFpk@dread.disaster.area>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <ZNGkcp3Dh8hOiFpk@dread.disaster.area>
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-X-Mailman-Approved-At: Tue, 08 Aug 2023 06:53:24 +0000
-Subject: Re: [dm-devel] [PATCH v4 44/48] mm: shrinker: add a secondary array
- for shrinker_info::{map, nr_deferred}
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [dm-devel resend] dm mpath: fix UAF in
+ multipath_message()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,361 +74,363 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: kvm@vger.kernel.org, djwong@kernel.org, roman.gushchin@linux.dev,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- linux-mm@kvack.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
- cel@kernel.org, x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
- simon.horman@corigine.com, xen-devel@lists.xenproject.org,
- linux-ext4@vger.kernel.org, paulmck@kernel.org, linux-arm-msm@vger.kernel.org,
- linux-nfs@vger.kernel.org, rcu@vger.kernel.org, linux-bcache@vger.kernel.org,
- dlemoal@kernel.org, Muchun Song <songmuchun@bytedance.com>,
- yujie.liu@intel.com, vbabka@suse.cz, linux-raid@vger.kernel.org,
- brauner@kernel.org, tytso@mit.edu, gregkh@linuxfoundation.org,
- muchun.song@linux.dev, linux-kernel@vger.kernel.org,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- senozhatsky@chromium.org, netdev@vger.kernel.org,
- linux-fsdevel@vger.kernel.org, akpm@linux-foundation.org,
- linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
+Cc: ejt@redhat.com, Luo Meng <luomeng@huaweicloud.com>, dm-devel@redhat.com,
+ luomeng12@huawei.com, yukuai3@huawei.com,
+ "lilingfeng \(A\)" <lilingfeng3@huawei.com>, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: bytedance.com
-Content-Language: en-US
+X-Mimecast-Originator: redhat.com
+Content-Type: multipart/mixed;
+ boundary="185210117-676874237-1691521578=:167887"
+
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
+--185210117-676874237-1691521578=:167887
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8BIT
+
+
+
+On Wed, 2 Aug 2023, Mike Snitzer wrote:
+
+> On Thu, May 18 2023 at  8:11P -0400,
+> lilingfeng (A) <lilingfeng3@huawei.com> wrote:
+> 
+> > 
+> > 在 2022/10/18 3:56, Mike Snitzer 写道:
+> > > On Mon, Oct 10 2022 at 10:41P -0400,
+> > > Luo Meng <luomeng@huaweicloud.com> wrote:
+> > > 
+> > > > From: Luo Meng <luomeng12@huawei.com>
+> > > > 
+> > > > If dm_get_device() create dd in multipath_message(),
+> > > > and then call table_deps() after dm_put_table_device(),
+> > > > it will lead to concurrency UAF bugs.
+> > > > 
+> > > > One of the concurrency UAF can be shown as below:
+> > > > 
+> > > >           (USE)                        |    (FREE)
+> > > >                                        |  target_message
+> > > >                                        |    multipath_message
+> > > >                                        |      dm_put_device
+> > > >                                        |        dm_put_table_device #
+> > > >                                        |          kfree(td)  # table_device *td
+> > > > ioctl # DM_TABLE_DEPS_CMD             |         ...
+> > > >    table_deps                          |         ...
+> > > >    dm_get_live_or_inactive_table       |         ...
+> > > >      retrieve_dep                      |         ...
+> > > >      list_for_each_entry               |         ...
+> > > >        deps->dev[count++] =            |         ...
+> > > >            huge_encode_dev             |         ...
+> > > >            (dd->dm_dev->bdev->bd_dev)  |        list_del(&dd->list)
+> > > >                                        |        kfree(dd) # dm_dev_internal
+> > > > 
+> > > > The root cause of UAF bugs is that find_device() failed in
+> > > > dm_get_device() and will create dd and refcount set 1, kfree()
+> > > > in dm_put_table() is not protected. When td, which there are
+> > > > still pointers point to, is released, the concurrency UAF bug
+> > > > will happen.
+> > > > 
+> > > > This patch add a flag to determine whether to create a new dd.
+> > > > 
+> > > > Fixes: 8215d6ec5fee(dm table: remove unused dm_get_device range parameters)
+> > > > Signed-off-by: Luo Meng <luomeng12@huawei.com>
+> > > > ---
+> > > >   drivers/md/dm-mpath.c         |  2 +-
+> > > >   drivers/md/dm-table.c         | 43 +++++++++++++++++++++--------------
+> > > >   include/linux/device-mapper.h |  2 ++
+> > > >   3 files changed, 29 insertions(+), 18 deletions(-)
+> > > > 
+> > > > diff --git a/drivers/md/dm-mpath.c b/drivers/md/dm-mpath.c
+> > > > index 0e325469a252..1f51059520ac 100644
+> > > > --- a/drivers/md/dm-mpath.c
+> > > > +++ b/drivers/md/dm-mpath.c
+> > > > @@ -2001,7 +2001,7 @@ static int multipath_message(struct dm_target *ti, unsigned argc, char **argv,
+> > > >   		goto out;
+> > > >   	}
+> > > > -	r = dm_get_device(ti, argv[1], dm_table_get_mode(ti->table), &dev);
+> > > > +	r = __dm_get_device(ti, argv[1], dm_table_get_mode(ti->table), &dev, false);
+> > > >   	if (r) {
+> > > >   		DMWARN("message: error getting device %s",
+> > > >   		       argv[1]);
+> > > > diff --git a/drivers/md/dm-table.c b/drivers/md/dm-table.c
+> > > > index d8034ff0cb24..ad18a41f1608 100644
+> > > > --- a/drivers/md/dm-table.c
+> > > > +++ b/drivers/md/dm-table.c
+> > > > @@ -338,12 +338,8 @@ dev_t dm_get_dev_t(const char *path)
+> > > >   }
+> > > >   EXPORT_SYMBOL_GPL(dm_get_dev_t);
+> > > > -/*
+> > > > - * Add a device to the list, or just increment the usage count if
+> > > > - * it's already present.
+> > > > - */
+> > > > -int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > > -		  struct dm_dev **result)
+> > > > +int __dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > > +		    struct dm_dev **result, bool create_dd)
+> > > >   {
+> > > >   	int r;
+> > > >   	dev_t dev;
+> > > > @@ -367,19 +363,21 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > >   	dd = find_device(&t->devices, dev);
+> > > >   	if (!dd) {
+> > > > -		dd = kmalloc(sizeof(*dd), GFP_KERNEL);
+> > > > -		if (!dd)
+> > > > -			return -ENOMEM;
+> > > > -
+> > > > -		if ((r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev))) {
+> > > > -			kfree(dd);
+> > > > -			return r;
+> > > > -		}
+> > > > +		if (create_dd) {
+> > > > +			dd = kmalloc(sizeof(*dd), GFP_KERNEL);
+> > > > +			if (!dd)
+> > > > +				return -ENOMEM;
+> > > > -		refcount_set(&dd->count, 1);
+> > > > -		list_add(&dd->list, &t->devices);
+> > > > -		goto out;
+> > > > +			if ((r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev))) {
+> > > > +				kfree(dd);
+> > > > +				return r;
+> > > > +			}
+> > > > +			refcount_set(&dd->count, 1);
+> > > > +			list_add(&dd->list, &t->devices);
+> > > > +			goto out;
+> > > > +		} else
+> > > > +			return -ENODEV;
+> > > >   	} else if (dd->dm_dev->mode != (mode | dd->dm_dev->mode)) {
+> > > >   		r = upgrade_mode(dd, mode, t->md);
+> > > >   		if (r)
+> > > > @@ -390,6 +388,17 @@ int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > >   	*result = dd->dm_dev;
+> > > >   	return 0;
+> > > >   }
+> > > > +EXPORT_SYMBOL(__dm_get_device);
+> > > > +
+> > > > +/*
+> > > > + * Add a device to the list, or just increment the usage count if
+> > > > + * it's already present.
+> > > > + */
+> > > > +int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > > +		  struct dm_dev **result)
+> > > > +{
+> > > > +	return __dm_get_device(ti, path, mode, result, true);
+> > > > +}
+> > > >   EXPORT_SYMBOL(dm_get_device);
+> > > >   static int dm_set_device_limits(struct dm_target *ti, struct dm_dev *dev,
+> > > > diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
+> > > > index 04c6acf7faaa..ef4031a844b6 100644
+> > > > --- a/include/linux/device-mapper.h
+> > > > +++ b/include/linux/device-mapper.h
+> > > > @@ -178,6 +178,8 @@ dev_t dm_get_dev_t(const char *path);
+> > > >   int dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > >   		  struct dm_dev **result);
+> > > >   void dm_put_device(struct dm_target *ti, struct dm_dev *d);
+> > > > +int __dm_get_device(struct dm_target *ti, const char *path, fmode_t mode,
+> > > > +		    struct dm_dev **result, bool create_dd);
+> > > >   /*
+> > > >    * Information about a target type
+> > > > -- 
+> > > > 2.31.1
+> > > > 
+> > > This patch is treating the one multipath case like it is only consumer
+> > > of dm_get_device() that might have this issue. It feels too focused on
+> > > an instance where dm_get_device()'s side-effect of creating the device
+> > > is unwelcome. Feels like you're treating the symptom rather than the
+> > > problem (e.g. that the "kfree() in dm_put_table() is not protected"?)
+> > > 
+> > > Mike
+> > 
+> > In other cases, kfree() in dm_put_table() is protected by srcu.
+> > For example:
+> >           USE                              FREE
+> > table_deps                            dev_remove
+> >  dm_get_live_or_inactive_table         dm_sync_table
+> >   // lock
+> >   srcu_read_lock(&md->io_barrier)
+> >                                         // wait for unlock
+> >                                         synchronize_srcu(&md->io_barrier)
+> >   retrieve_deps
+> >  dm_put_live_table
+> >   // unlock
+> >   srcu_read_unlock(&md->io_barrier...)
+> >                                        dm_table_destroy
+> >                                         linear_dtr
+> >                                          dm_put_device
+> >                                           dm_put_table_device
+> > 
+> > However, in multipath_message(), the dm_dev is created and destroyed
+> > under srcu_read_lock, which means destroying dm_dev in this process
+> > and using dm_dev in other process will happen at same time since both
+> > of them hold srcu_read_lock.
+> > 
+> > target_message
+> >  dm_get_live_table // lock
+> >   multipath_message
+> >    dm_get_device // created
+> >     // may be got by other processes
+> >    dm_put_device // destroyed
+> >     // may be used by other processes
+> >  dm_put_live_table // unlock
+> > 
+> > We figured out some other solutions:
+> > 1) Judge refcount of dd under some lock before using dm_dev;
+> > 2) Get dd from list and use dm_dev under rcu;
+> > 3) Implement dm_get_device_xxx() with reference to dm_get_device()
+> > for dm-mpath to avoid creating dd when find_device() failed.
+> > 
+> > Compared to solutions above, Luo Meng's patch may be more appropriate.
+> > Any suggestions will be appreciated.
+> > 
+> > Li
+> 
+> [Cc'ing Mikulas so he can take a look at this too.]
+
+Hi
+
+I suggest this patch (but it's only compile-tested, so please run some 
+testsuite on it).
+
+Mikulas
+
+
+From: Mikulas Patocka <mpatocka@redhat.com>
+Subject: [PATCH] dm: fix a race condition in retrieve_deps
+
+There's a race condition in the multipath target when retrieve_deps races
+with multipath_message. multipath_message opens and closes a device using
+dm_get_device and dm_put_device; retrieve_deps walks the list of open
+devices without holding any lock. The end result may be memory corruption
+or use-after-free memory access.
+
+multipath_message already holds a mutex that prevents two
+multipath_messages from running concurrently - in order to fix this race
+condition, we modify retrieve_deps, so that it grabs and frees this mutex
+too.
+
+We add an entry "devices_mutex" to "struct dm_table" and we introduce a 
+function "dm_table_set_devices_mutex" that sets it. The mutex is set in 
+the multipath target contructor.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+
+---
+ drivers/md/dm-core.h          |    5 +++++
+ drivers/md/dm-ioctl.c         |    9 ++++++++-
+ drivers/md/dm-mpath.c         |    2 ++
+ drivers/md/dm-table.c         |    6 ++++++
+ include/linux/device-mapper.h |    5 +++++
+ 5 files changed, 26 insertions(+), 1 deletion(-)
+
+Index: linux-2.6/drivers/md/dm-core.h
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-core.h
++++ linux-2.6/drivers/md/dm-core.h
+@@ -214,6 +214,11 @@ struct dm_table {
+ 
+ 	/* a list of devices used by this table */
+ 	struct list_head devices;
++	/*
++	 * The mutex should be set if the target modifies the "devices" list
++	 * outside of the constructor and destructor.
++	 */
++	struct mutex *devices_mutex;
+ 
+ 	/* events get handed up using this callback */
+ 	void (*event_fn)(void *data);
+Index: linux-2.6/drivers/md/dm-table.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-table.c
++++ linux-2.6/drivers/md/dm-table.c
+@@ -2034,6 +2034,12 @@ struct list_head *dm_table_get_devices(s
+ 	return &t->devices;
+ }
+ 
++void dm_table_set_devices_mutex(struct dm_table *t, struct mutex *m)
++{
++	t->devices_mutex = m;
++}
++EXPORT_SYMBOL(dm_table_set_devices_mutex);
++
+ blk_mode_t dm_table_get_mode(struct dm_table *t)
+ {
+ 	return t->mode;
+Index: linux-2.6/drivers/md/dm-ioctl.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-ioctl.c
++++ linux-2.6/drivers/md/dm-ioctl.c
+@@ -1630,6 +1630,9 @@ static void retrieve_deps(struct dm_tabl
+ 	struct dm_dev_internal *dd;
+ 	struct dm_target_deps *deps;
+ 
++	if (table->devices_mutex)
++		mutex_lock(table->devices_mutex);
++
+ 	deps = get_result_buffer(param, param_size, &len);
+ 
+ 	/*
+@@ -1644,7 +1647,7 @@ static void retrieve_deps(struct dm_tabl
+ 	needed = struct_size(deps, dev, count);
+ 	if (len < needed) {
+ 		param->flags |= DM_BUFFER_FULL_FLAG;
+-		return;
++		goto ret;
+ 	}
+ 
+ 	/*
+@@ -1656,6 +1659,10 @@ static void retrieve_deps(struct dm_tabl
+ 		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
+ 
+ 	param->data_size = param->data_start + needed;
++
++ret:
++	if (table->devices_mutex)
++		mutex_unlock(table->devices_mutex);
+ }
+ 
+ static int table_deps(struct file *filp, struct dm_ioctl *param, size_t param_size)
+Index: linux-2.6/drivers/md/dm-mpath.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-mpath.c
++++ linux-2.6/drivers/md/dm-mpath.c
+@@ -1268,6 +1268,8 @@ static int multipath_ctr(struct dm_targe
+ 	else
+ 		ti->per_io_data_size = sizeof(struct dm_mpath_io);
+ 
++	dm_table_set_devices_mutex(ti->table, &m->work_mutex);
++
+ 	return 0;
+ 
+  bad:
+Index: linux-2.6/include/linux/device-mapper.h
+===================================================================
+--- linux-2.6.orig/include/linux/device-mapper.h
++++ linux-2.6/include/linux/device-mapper.h
+@@ -177,6 +177,11 @@ struct dm_dev {
+ int dm_get_device(struct dm_target *ti, const char *path, blk_mode_t mode,
+ 		  struct dm_dev **result);
+ void dm_put_device(struct dm_target *ti, struct dm_dev *d);
++/*
++ * The mutex must be set if we use dm_get_device or dm_put_device outside
++ * of the constructor and destructor.
++ */
++void dm_table_set_devices_mutex(struct dm_table *t, struct mutex *m);
+ 
+ /*
+  * Information about a target type
+--185210117-676874237-1691521578=:167887
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
-
-Hi Dave,
-
-On 2023/8/8 10:12, Dave Chinner wrote:
-> On Mon, Aug 07, 2023 at 07:09:32PM +0800, Qi Zheng wrote:
->> Currently, we maintain two linear arrays per node per memcg, which are
->> shrinker_info::map and shrinker_info::nr_deferred. And we need to resize
->> them when the shrinker_nr_max is exceeded, that is, allocate a new array,
->> and then copy the old array to the new array, and finally free the old
->> array by RCU.
->>
->> For shrinker_info::map, we do set_bit() under the RCU lock, so we may set
->> the value into the old map which is about to be freed. This may cause the
->> value set to be lost. The current solution is not to copy the old map when
->> resizing, but to set all the corresponding bits in the new map to 1. This
->> solves the data loss problem, but bring the overhead of more pointless
->> loops while doing memcg slab shrink.
->>
->> For shrinker_info::nr_deferred, we will only modify it under the read lock
->> of shrinker_rwsem, so it will not run concurrently with the resizing. But
->> after we make memcg slab shrink lockless, there will be the same data loss
->> problem as shrinker_info::map, and we can't work around it like the map.
->>
->> For such resizable arrays, the most straightforward idea is to change it
->> to xarray, like we did for list_lru [1]. We need to do xa_store() in the
->> list_lru_add()-->set_shrinker_bit(), but this will cause memory
->> allocation, and the list_lru_add() doesn't accept failure. A possible
->> solution is to pre-allocate, but the location of pre-allocation is not
->> well determined.
-> 
-> So you implemented a two level array that preallocates leaf
-> nodes to work around it? It's remarkable complex for what it does,
-
-Yes, here I have implemented a two level array like the following:
-
-+---------------+--------+--------+-----+
-| shrinker_info | unit 0 | unit 1 | ... | (secondary array)
-+---------------+--------+--------+-----+
-                      ^
-                      |
-                 +---------------+-----+
-                 | nr_deferred[] | map | (leaf array)
-                 +---------------+-----+
-                 (shrinker_info_unit)
-
-The leaf array is never freed unless the memcg is destroyed. The
-secondary array will be resized every time the shrinker id exceeds
-shrinker_nr_max.
-
-> I can't help but think a radix tree using a special holder for
-> nr_deferred values of zero would end up being simpler...
-
-I tried. If the shrinker uses list_lru, then we can preallocate
-xa node where list_lru_one is pre-allocated. But for other types of
-shrinkers, the location of pre-allocation is not easy to determine
-(Such as deferred_split_shrinker). And we can't force all memcg aware
-shrinkers to use list_lru, so I gave up using xarray and implemented the 
-above two-level array.
-
-> 
->> Therefore, this commit chooses to introduce a secondary array for
->> shrinker_info::{map, nr_deferred}, so that we only need to copy this
->> secondary array every time the size is resized. Then even if we get the
->> old secondary array under the RCU lock, the found map and nr_deferred are
->> also true, so no data is lost.
-> 
-> I don't understand what you are trying to describe here. If we get
-> the old array, then don't we get either a stale nr_deferred value,
-> or the update we do gets lost because the next shrinker lookup will
-> find the new array and os the deferred value stored to the old one
-> is never seen again?
-
-As shown above, the leaf array will not be freed when shrinker_info is
-expanded, so the shrinker_info_unit can be indexed from both the old
-and the new shrinker_info->unit[x]. So the updated nr_deferred and map
-will not be lost.
-
-> 
->>
->> [1]. https://lore.kernel.org/all/20220228122126.37293-13-songmuchun@bytedance.com/
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
->> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
->> ---
-> .....
->> diff --git a/mm/shrinker.c b/mm/shrinker.c
->> index a27779ed3798..1911c06b8af5 100644
->> --- a/mm/shrinker.c
->> +++ b/mm/shrinker.c
->> @@ -12,15 +12,50 @@ DECLARE_RWSEM(shrinker_rwsem);
->>   #ifdef CONFIG_MEMCG
->>   static int shrinker_nr_max;
->>   
->> -/* The shrinker_info is expanded in a batch of BITS_PER_LONG */
->> -static inline int shrinker_map_size(int nr_items)
->> +static inline int shrinker_unit_size(int nr_items)
->>   {
->> -	return (DIV_ROUND_UP(nr_items, BITS_PER_LONG) * sizeof(unsigned long));
->> +	return (DIV_ROUND_UP(nr_items, SHRINKER_UNIT_BITS) * sizeof(struct shrinker_info_unit *));
->>   }
->>   
->> -static inline int shrinker_defer_size(int nr_items)
->> +static inline void shrinker_unit_free(struct shrinker_info *info, int start)
->>   {
->> -	return (round_up(nr_items, BITS_PER_LONG) * sizeof(atomic_long_t));
->> +	struct shrinker_info_unit **unit;
->> +	int nr, i;
->> +
->> +	if (!info)
->> +		return;
->> +
->> +	unit = info->unit;
->> +	nr = DIV_ROUND_UP(info->map_nr_max, SHRINKER_UNIT_BITS);
->> +
->> +	for (i = start; i < nr; i++) {
->> +		if (!unit[i])
->> +			break;
->> +
->> +		kvfree(unit[i]);
->> +		unit[i] = NULL;
->> +	}
->> +}
->> +
->> +static inline int shrinker_unit_alloc(struct shrinker_info *new,
->> +				       struct shrinker_info *old, int nid)
->> +{
->> +	struct shrinker_info_unit *unit;
->> +	int nr = DIV_ROUND_UP(new->map_nr_max, SHRINKER_UNIT_BITS);
->> +	int start = old ? DIV_ROUND_UP(old->map_nr_max, SHRINKER_UNIT_BITS) : 0;
->> +	int i;
->> +
->> +	for (i = start; i < nr; i++) {
->> +		unit = kvzalloc_node(sizeof(*unit), GFP_KERNEL, nid);
-> 
-> A unit is 576 bytes. Why is this using kvzalloc_node()?
-
-Ah, will use kzalloc_node() in the next version.
-
-> 
->> +		if (!unit) {
->> +			shrinker_unit_free(new, start);
->> +			return -ENOMEM;
->> +		}
->> +
->> +		new->unit[i] = unit;
->> +	}
->> +
->> +	return 0;
->>   }
->>   
->>   void free_shrinker_info(struct mem_cgroup *memcg)
->> @@ -32,6 +67,7 @@ void free_shrinker_info(struct mem_cgroup *memcg)
->>   	for_each_node(nid) {
->>   		pn = memcg->nodeinfo[nid];
->>   		info = rcu_dereference_protected(pn->shrinker_info, true);
->> +		shrinker_unit_free(info, 0);
->>   		kvfree(info);
->>   		rcu_assign_pointer(pn->shrinker_info, NULL);
->>   	}
-> 
-> Why is this safe? The info and maps are looked up by RCU, so why is
-> freeing them without a RCU grace period expiring safe?
-
-The free_shrinker_info() will be called in alloc_shrinker_info() and
-mem_cgroup_css_free().
-
-In alloc_shrinker_info(), it will only be called in the error path, so
-shrinker_info_unit and shrinker_info can be safely freed.
-
-In mem_cgroup_css_free(), when we get here, the traversal of this memcg
-has ended and will not be found again. That is to say, the corresponding
-shrink_slab() is also over, so shrinker_info_unit and shrinker_info can
-also be safely freed here.
-
-> 
-> Yes, it was safe to do this when it was all under a semaphore, but
-> now the lookup and use is under RCU, so this freeing isn't
-> serialised against lookups anymore...
-> 
-> 
->> @@ -40,28 +76,27 @@ void free_shrinker_info(struct mem_cgroup *memcg)
->>   int alloc_shrinker_info(struct mem_cgroup *memcg)
->>   {
->>   	struct shrinker_info *info;
->> -	int nid, size, ret = 0;
->> -	int map_size, defer_size = 0;
->> +	int nid, ret = 0;
->> +	int array_size = 0;
->>   
->>   	down_write(&shrinker_rwsem);
->> -	map_size = shrinker_map_size(shrinker_nr_max);
->> -	defer_size = shrinker_defer_size(shrinker_nr_max);
->> -	size = map_size + defer_size;
->> +	array_size = shrinker_unit_size(shrinker_nr_max);
->>   	for_each_node(nid) {
->> -		info = kvzalloc_node(sizeof(*info) + size, GFP_KERNEL, nid);
->> -		if (!info) {
->> -			free_shrinker_info(memcg);
->> -			ret = -ENOMEM;
->> -			break;
->> -		}
->> -		info->nr_deferred = (atomic_long_t *)(info + 1);
->> -		info->map = (void *)info->nr_deferred + defer_size;
->> +		info = kvzalloc_node(sizeof(*info) + array_size, GFP_KERNEL, nid);
->> +		if (!info)
->> +			goto err;
->>   		info->map_nr_max = shrinker_nr_max;
->> +		if (shrinker_unit_alloc(info, NULL, nid))
->> +			goto err;
-> 
-> That's going to now do a lot of small memory allocation when we have
-> lots of shrinkers active....
-> 
->> @@ -150,17 +175,34 @@ static int expand_shrinker_info(int new_id)
->>   	return ret;
->>   }
->>   
->> +static inline int shriner_id_to_index(int shrinker_id)
-> 
-> shrinker_id_to_index
-
-Will fix.
-
-> 
->> +{
->> +	return shrinker_id / SHRINKER_UNIT_BITS;
->> +}
->> +
->> +static inline int shriner_id_to_offset(int shrinker_id)
-> 
-> shrinker_id_to_offset
-
-Will fix.
-
-> 
->> +{
->> +	return shrinker_id % SHRINKER_UNIT_BITS;
->> +}
-> 
-> ....
->> @@ -209,26 +251,31 @@ static long xchg_nr_deferred_memcg(int nid, struct shrinker *shrinker,
->>   				   struct mem_cgroup *memcg)
->>   {
->>   	struct shrinker_info *info;
->> +	struct shrinker_info_unit *unit;
->>   
->>   	info = shrinker_info_protected(memcg, nid);
->> -	return atomic_long_xchg(&info->nr_deferred[shrinker->id], 0);
->> +	unit = info->unit[shriner_id_to_index(shrinker->id)];
->> +	return atomic_long_xchg(&unit->nr_deferred[shriner_id_to_offset(shrinker->id)], 0);
->>   }
->>   
->>   static long add_nr_deferred_memcg(long nr, int nid, struct shrinker *shrinker,
->>   				  struct mem_cgroup *memcg)
->>   {
->>   	struct shrinker_info *info;
->> +	struct shrinker_info_unit *unit;
->>   
->>   	info = shrinker_info_protected(memcg, nid);
->> -	return atomic_long_add_return(nr, &info->nr_deferred[shrinker->id]);
->> +	unit = info->unit[shriner_id_to_index(shrinker->id)];
->> +	return atomic_long_add_return(nr, &unit->nr_deferred[shriner_id_to_offset(shrinker->id)]);
->>   }
->>   
->>   void reparent_shrinker_deferred(struct mem_cgroup *memcg)
->>   {
->> -	int i, nid;
->> +	int nid, index, offset;
->>   	long nr;
->>   	struct mem_cgroup *parent;
->>   	struct shrinker_info *child_info, *parent_info;
->> +	struct shrinker_info_unit *child_unit, *parent_unit;
->>   
->>   	parent = parent_mem_cgroup(memcg);
->>   	if (!parent)
->> @@ -239,9 +286,13 @@ void reparent_shrinker_deferred(struct mem_cgroup *memcg)
->>   	for_each_node(nid) {
->>   		child_info = shrinker_info_protected(memcg, nid);
->>   		parent_info = shrinker_info_protected(parent, nid);
->> -		for (i = 0; i < child_info->map_nr_max; i++) {
->> -			nr = atomic_long_read(&child_info->nr_deferred[i]);
->> -			atomic_long_add(nr, &parent_info->nr_deferred[i]);
->> +		for (index = 0; index < shriner_id_to_index(child_info->map_nr_max); index++) {
->> +			child_unit = child_info->unit[index];
->> +			parent_unit = parent_info->unit[index];
->> +			for (offset = 0; offset < SHRINKER_UNIT_BITS; offset++) {
->> +				nr = atomic_long_read(&child_unit->nr_deferred[offset]);
->> +				atomic_long_add(nr, &parent_unit->nr_deferred[offset]);
->> +			}
->>   		}
->>   	}
->>   	up_read(&shrinker_rwsem);
->> @@ -407,7 +458,7 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
->>   {
->>   	struct shrinker_info *info;
->>   	unsigned long ret, freed = 0;
->> -	int i;
->> +	int offset, index = 0;
->>   
->>   	if (!mem_cgroup_online(memcg))
->>   		return 0;
->> @@ -419,56 +470,63 @@ static unsigned long shrink_slab_memcg(gfp_t gfp_mask, int nid,
->>   	if (unlikely(!info))
->>   		goto unlock;
->>   
->> -	for_each_set_bit(i, info->map, info->map_nr_max) {
->> -		struct shrink_control sc = {
->> -			.gfp_mask = gfp_mask,
->> -			.nid = nid,
->> -			.memcg = memcg,
->> -		};
->> -		struct shrinker *shrinker;
->> +	for (; index < shriner_id_to_index(info->map_nr_max); index++) {
->> +		struct shrinker_info_unit *unit;
-> 
-> This adds another layer of indent to shrink_slab_memcg(). Please
-> factor it first so that the code ends up being readable. Doing that
-> first as a separate patch will also make the actual algorithm
-> changes in this patch be much more obvious - this huge hunk of
-> diff is pretty much impossible to review...
-
-OK, I will send this patch together with PATCH v4 01/02/03/43 as
-a single cleanup patchset.
-
-Thanks,
-Qi
-
-> 
-> -Dave.
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+--185210117-676874237-1691521578=:167887--
 
