@@ -2,87 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F318E775334
-	for <lists+dm-devel@lfdr.de>; Wed,  9 Aug 2023 08:50:12 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0A607775750
+	for <lists+dm-devel@lfdr.de>; Wed,  9 Aug 2023 12:44:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691563811;
+	s=mimecast20190719; t=1691577877;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=CzEA2dYj74WAN4l3KoLE7P0DDI37EEGBZGzYixtLUbw=;
-	b=U6ORaO6FxDjUh8pf+nRV+rvShHMVy4w7dB3aMnrlySmBW0s374di4Vdc04/lyuAM+uCmyp
-	l/ezJU0AQYOYbu8Nl8z8dy5DbuH3jkeVV3wFlELYF3Dv2aQMzkSqrZT6GWI5JckHs3HM0+
-	ecBmhBng0ZtCWFmPzybuEj/inm+PUN8=
+	bh=CP7oKyTvBkXtp8SUaa4R7WYBzW/6jSLpZTp4QgD9MI8=;
+	b=X7om8X10wAVu91IZKmILxwfmH3aYjuJb78KNN/5PtjE9vjH91FcG87QrBObFtQuatpR6Ey
+	0PI3b0wX+3sZ1cZzV8BWfYqF77l9oPhJf/zrJjypf13zfmfYGtnBQWd8TO3xIYi4uIb8cZ
+	YfJYi/j0Gq/rUwQAIhC2qNAbmBsRWKc=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-613-HSVno0dVN4-ilmjyfuUIbg-1; Wed, 09 Aug 2023 02:50:09 -0400
-X-MC-Unique: HSVno0dVN4-ilmjyfuUIbg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-671-rjjbrSnyPNGnLcen5h0xGA-1; Wed, 09 Aug 2023 06:44:35 -0400
+X-MC-Unique: rjjbrSnyPNGnLcen5h0xGA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 524D23810D46;
-	Wed,  9 Aug 2023 06:50:07 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 194133C0F67B;
+	Wed,  9 Aug 2023 10:44:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (unknown [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 45E884A9004;
-	Wed,  9 Aug 2023 06:50:03 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0763D492C3E;
+	Wed,  9 Aug 2023 10:44:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 408051946A50;
-	Wed,  9 Aug 2023 06:50:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 625CD19465A4;
+	Wed,  9 Aug 2023 10:44:26 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
  [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 60E7B1946586
- for <dm-devel@listman.corp.redhat.com>; Wed,  9 Aug 2023 03:06:30 +0000 (UTC)
+ ESMTP id 702731946588
+ for <dm-devel@listman.corp.redhat.com>; Wed,  9 Aug 2023 10:44:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 400EEC15BB8; Wed,  9 Aug 2023 03:06:30 +0000 (UTC)
+ id 0B970C15BB8; Wed,  9 Aug 2023 10:44:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 37B01C15BAE
- for <dm-devel@redhat.com>; Wed,  9 Aug 2023 03:06:30 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1DB51185A78B
- for <dm-devel@redhat.com>; Wed,  9 Aug 2023 03:06:30 +0000 (UTC)
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
- [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-513-Jv9W8TuvPRmAhBDjEnTszQ-1; Tue, 08 Aug 2023 23:06:26 -0400
-X-MC-Unique: Jv9W8TuvPRmAhBDjEnTszQ-1
-Received: from canpemm500007.china.huawei.com (unknown [172.30.72.55])
- by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RLFH058THztS6p;
- Wed,  9 Aug 2023 11:02:52 +0800 (CST)
-Received: from localhost (10.174.179.215) by canpemm500007.china.huawei.com
- (7.192.104.62) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id 15.1.2507.27; Wed, 9 Aug
- 2023 11:06:21 +0800
-From: Yue Haibing <yuehaibing@huawei.com>
-To: <agk@redhat.com>, <snitzer@kernel.org>, <dm-devel@redhat.com>,
- <heinzm@redhat.com>
-Date: Wed, 9 Aug 2023 11:06:08 +0800
-Message-ID: <20230809030608.9528-1-yuehaibing@huawei.com>
+Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
+ [10.11.5.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AB99AC15BAE;
+ Wed,  9 Aug 2023 10:44:24 +0000 (UTC)
+Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
+ from userid 12668)
+ id E7C7230B9C07; Wed,  9 Aug 2023 10:44:21 +0000 (UTC)
+Received: from localhost (localhost [127.0.0.1])
+ by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
+ 65A673F7CF; Wed,  9 Aug 2023 12:44:21 +0200 (CEST)
+Date: Wed, 9 Aug 2023 12:44:20 +0200 (CEST)
+From: Mikulas Patocka <mpatocka@redhat.com>
+To: Mike Snitzer <snitzer@kernel.org>
+In-Reply-To: <a508359-734b-35c9-a393-42c27870a1fa@redhat.com>
+Message-ID: <a8a3f458-d7d1-e5b6-d672-45c8a8c072ad@redhat.com>
+References: <20221010144123.252329-1-luomeng@huaweicloud.com>
+ <Y02zebNyn73/MN1d@redhat.com>
+ <eb9e1d80-c62c-c62f-4fc2-5be21fc75472@huawei.com>
+ <ZMqFVGX/ZbVABDJ6@redhat.com>
+ <a508359-734b-35c9-a393-42c27870a1fa@redhat.com>
 MIME-Version: 1.0
-X-Originating-IP: [10.174.179.215]
-X-ClientProxiedBy: dggems701-chm.china.huawei.com (10.3.19.178) To
- canpemm500007.china.huawei.com (7.192.104.62)
-X-CFilter-Loop: Reflected
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-X-Mailman-Approved-At: Wed, 09 Aug 2023 06:49:58 +0000
-Subject: [dm-devel] [PATCH v2 -next] dm: Remove unused declaration
- dm_get_rq_mapinfo()
+Subject: Re: [dm-devel] [dm-devel resend] dm mpath: fix UAF in
+ multipath_message()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -94,40 +77,200 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yuehaibing@huawei.com, linux-kernel@vger.kernel.org, hugo@hugovil.com
+Cc: ejt@redhat.com, Luo Meng <luomeng@huaweicloud.com>, dm-devel@redhat.com,
+ luomeng12@huawei.com, yukuai3@huawei.com,
+ "lilingfeng \(A\)" <lilingfeng3@huawei.com>, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huawei.com
+X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Commit ae6ad75e5c3c ("dm: remove unused dm_get_rq_mapinfo()")
-removed the implementation but not the declaration.
 
-Signed-off-by: Yue Haibing <yuehaibing@huawei.com>
----
-v2: revise commit log
----
- include/linux/device-mapper.h | 1 -
- 1 file changed, 1 deletion(-)
 
-diff --git a/include/linux/device-mapper.h b/include/linux/device-mapper.h
-index 69d0435c7ebb..5bc69c6a64e0 100644
---- a/include/linux/device-mapper.h
-+++ b/include/linux/device-mapper.h
-@@ -502,7 +502,6 @@ int dm_post_suspending(struct dm_target *ti);
- int dm_noflush_suspending(struct dm_target *ti);
- void dm_accept_partial_bio(struct bio *bio, unsigned int n_sectors);
- void dm_submit_bio_remap(struct bio *clone, struct bio *tgt_clone);
--union map_info *dm_get_rq_mapinfo(struct request *rq);
+On Tue, 8 Aug 2023, Mikulas Patocka wrote:
+
+> On Wed, 2 Aug 2023, Mike Snitzer wrote:
+> 
+> > [Cc'ing Mikulas so he can take a look at this too.]
+> 
+> Hi
+> 
+> I suggest this patch (but it's only compile-tested, so please run some 
+> testsuite on it).
+> 
+> Mikulas
+
+I self-nack that patch - it doesn't work if there are multiple targets 
+calling dm_table_set_devices_mutex in the same table. This is not an issue 
+for multipath, but it will be a problem if other targets use this 
+functionality.
+
+Here I'm sending a better patch that doesn't need any modification to the 
+targets at all.
+
+Mikulas
+
+
+
+From: Mikulas Patocka <mpatocka at redhat.com>
+Subject: [PATCH] dm: fix a race condition in retrieve_deps
+
+There's a race condition in the multipath target when retrieve_deps races
+with multipath_message calling dm_get_device and dm_put_device.
+retrieve_deps walks the list of open devices without holding any lock but
+multipath may add or remove devices to the list while it is running. The
+end result may be memory corruption or use-after-free memory access.
+
+Fix this bug by introducing a new rw semaphore "devices_lock". We grab
+devices_lock for read in retrieve_deps and we grab it for write in
+dm_get_device and dm_put_device.
+
+Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+Cc: stable@vger.kernel.org
+
+---
+ drivers/md/dm-core.h  |    1 +
+ drivers/md/dm-ioctl.c |    7 ++++++-
+ drivers/md/dm-table.c |   32 ++++++++++++++++++++++++--------
+ 3 files changed, 31 insertions(+), 9 deletions(-)
+
+Index: linux-2.6/drivers/md/dm-core.h
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-core.h
++++ linux-2.6/drivers/md/dm-core.h
+@@ -214,6 +214,7 @@ struct dm_table {
  
- #ifdef CONFIG_BLK_DEV_ZONED
- struct dm_report_zones_args {
--- 
-2.34.1
-
+ 	/* a list of devices used by this table */
+ 	struct list_head devices;
++	struct rw_semaphore devices_lock;
+ 
+ 	/* events get handed up using this callback */
+ 	void (*event_fn)(void *data);
+Index: linux-2.6/drivers/md/dm-ioctl.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-ioctl.c
++++ linux-2.6/drivers/md/dm-ioctl.c
+@@ -1630,6 +1630,8 @@ static void retrieve_deps(struct dm_tabl
+ 	struct dm_dev_internal *dd;
+ 	struct dm_target_deps *deps;
+ 
++	down_read(&table->devices_lock);
++
+ 	deps = get_result_buffer(param, param_size, &len);
+ 
+ 	/*
+@@ -1644,7 +1646,7 @@ static void retrieve_deps(struct dm_tabl
+ 	needed = struct_size(deps, dev, count);
+ 	if (len < needed) {
+ 		param->flags |= DM_BUFFER_FULL_FLAG;
+-		return;
++		goto out;
+ 	}
+ 
+ 	/*
+@@ -1656,6 +1658,9 @@ static void retrieve_deps(struct dm_tabl
+ 		deps->dev[count++] = huge_encode_dev(dd->dm_dev->bdev->bd_dev);
+ 
+ 	param->data_size = param->data_start + needed;
++
++out:
++	up_read(&table->devices_lock);
+ }
+ 
+ static int table_deps(struct file *filp, struct dm_ioctl *param, size_t param_size)
+Index: linux-2.6/drivers/md/dm-table.c
+===================================================================
+--- linux-2.6.orig/drivers/md/dm-table.c
++++ linux-2.6/drivers/md/dm-table.c
+@@ -135,6 +135,7 @@ int dm_table_create(struct dm_table **re
+ 		return -ENOMEM;
+ 
+ 	INIT_LIST_HEAD(&t->devices);
++	init_rwsem(&t->devices_lock);
+ 
+ 	if (!num_targets)
+ 		num_targets = KEYS_PER_NODE;
+@@ -359,16 +360,20 @@ int __ref dm_get_device(struct dm_target
+ 	if (dev == disk_devt(t->md->disk))
+ 		return -EINVAL;
+ 
++	down_write(&t->devices_lock);
++
+ 	dd = find_device(&t->devices, dev);
+ 	if (!dd) {
+ 		dd = kmalloc(sizeof(*dd), GFP_KERNEL);
+-		if (!dd)
+-			return -ENOMEM;
++		if (!dd) {
++			r = -ENOMEM;
++			goto unlock_ret_r;
++		}
+ 
+ 		r = dm_get_table_device(t->md, dev, mode, &dd->dm_dev);
+ 		if (r) {
+ 			kfree(dd);
+-			return r;
++			goto unlock_ret_r;
+ 		}
+ 
+ 		refcount_set(&dd->count, 1);
+@@ -378,12 +383,17 @@ int __ref dm_get_device(struct dm_target
+ 	} else if (dd->dm_dev->mode != (mode | dd->dm_dev->mode)) {
+ 		r = upgrade_mode(dd, mode, t->md);
+ 		if (r)
+-			return r;
++			goto unlock_ret_r;
+ 	}
+ 	refcount_inc(&dd->count);
+ out:
++	up_write(&t->devices_lock);
+ 	*result = dd->dm_dev;
+ 	return 0;
++
++unlock_ret_r:
++	up_write(&t->devices_lock);
++	return r;
+ }
+ EXPORT_SYMBOL(dm_get_device);
+ 
+@@ -419,9 +429,12 @@ static int dm_set_device_limits(struct d
+ void dm_put_device(struct dm_target *ti, struct dm_dev *d)
+ {
+ 	int found = 0;
+-	struct list_head *devices = &ti->table->devices;
++	struct dm_table *t = ti->table;
++	struct list_head *devices = &t->devices;
+ 	struct dm_dev_internal *dd;
+ 
++	down_write(&t->devices_lock);
++
+ 	list_for_each_entry(dd, devices, list) {
+ 		if (dd->dm_dev == d) {
+ 			found = 1;
+@@ -430,14 +443,17 @@ void dm_put_device(struct dm_target *ti,
+ 	}
+ 	if (!found) {
+ 		DMERR("%s: device %s not in table devices list",
+-		      dm_device_name(ti->table->md), d->name);
+-		return;
++		      dm_device_name(t->md), d->name);
++		goto unlock_ret;
+ 	}
+ 	if (refcount_dec_and_test(&dd->count)) {
+-		dm_put_table_device(ti->table->md, d);
++		dm_put_table_device(t->md, d);
+ 		list_del(&dd->list);
+ 		kfree(dd);
+ 	}
++
++unlock_ret:
++	up_write(&t->devices_lock);
+ }
+ EXPORT_SYMBOL(dm_put_device);
+ 
 --
 dm-devel mailing list
 dm-devel@redhat.com
