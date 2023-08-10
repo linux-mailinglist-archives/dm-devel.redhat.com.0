@@ -1,67 +1,67 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 38F9477756C
-	for <lists+dm-devel@lfdr.de>; Thu, 10 Aug 2023 12:08:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id EC486777570
+	for <lists+dm-devel@lfdr.de>; Thu, 10 Aug 2023 12:09:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1691662127;
+	s=mimecast20190719; t=1691662162;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Z2a/NVbURatZzjQLlx5PHuTaVTqs3VlKc/ShrKSXEjg=;
-	b=gcduIM7BjmTACms8DoHvAvWUi5kDQqHv/OAjhsx/HPyRUDZFrMONeA4mnghguvYhv4afW5
-	ruVuuuqPeNvow8GFjsF9yNspMnBy4ycuaUTGx9lEd1VhvPfPgEKvlEy/eKclVYlE7PuKmQ
-	anScGORHBhfqd7aTDQ8uQcvnwbwhV7s=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-491-loA5Yr_dNN-hZcNu53z49g-1; Thu, 10 Aug 2023 06:08:44 -0400
-X-MC-Unique: loA5Yr_dNN-hZcNu53z49g-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=8d9wODn5kqvHcOnXUkfFDcVW+UE/9QDcRff5t6Hdsds=;
+	b=PdNQTcbnvI2tc0lvpx4/ukhh3MRyn7jAWFxBnj1tbprYoLA1etV8Rxgy5qj432lHDfO7EE
+	jIFaqa4vbwL+pvkDHu9z0JWygHMJczZR+CfKFt9r2wvOA7DS05Nin2vWQkWjjHv6mjT4Pw
+	ep11QPYWYlywpqN9O8qHuO/oVjoC1P0=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-178-n5kvygDyNziLgHGcyXA5rA-1; Thu, 10 Aug 2023 06:09:18 -0400
+X-MC-Unique: n5kvygDyNziLgHGcyXA5rA-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD0DC101B42B;
-	Thu, 10 Aug 2023 10:08:42 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A7107380226C;
+	Thu, 10 Aug 2023 10:09:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 404D840BC71C;
-	Thu, 10 Aug 2023 10:08:42 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D8072166B27;
+	Thu, 10 Aug 2023 10:09:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8449C19465A4;
-	Thu, 10 Aug 2023 10:08:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D598219465A4;
+	Thu, 10 Aug 2023 10:09:13 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id F09781946588
- for <dm-devel@listman.corp.redhat.com>; Thu, 10 Aug 2023 10:08:40 +0000 (UTC)
+ ESMTP id 580A81946588
+ for <dm-devel@listman.corp.redhat.com>; Thu, 10 Aug 2023 10:09:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BEE3E40C6F53; Thu, 10 Aug 2023 10:08:40 +0000 (UTC)
+ id 372DFC15BBA; Thu, 10 Aug 2023 10:09:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
  [10.11.5.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B020940C6F4E;
- Thu, 10 Aug 2023 10:08:40 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2488DC15BAE;
+ Thu, 10 Aug 2023 10:09:12 +0000 (UTC)
 Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
  from userid 12668)
- id C53AC30B9C07; Thu, 10 Aug 2023 10:08:39 +0000 (UTC)
+ id 17FD730B9C07; Thu, 10 Aug 2023 10:09:12 +0000 (UTC)
 Received: from localhost (localhost [127.0.0.1])
  by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
- BABF33F7CF; Thu, 10 Aug 2023 12:08:39 +0200 (CEST)
-Date: Thu, 10 Aug 2023 12:08:39 +0200 (CEST)
+ 14B933F7CF; Thu, 10 Aug 2023 12:09:12 +0200 (CEST)
+Date: Thu, 10 Aug 2023 12:09:11 +0200 (CEST)
 From: Mikulas Patocka <mpatocka@redhat.com>
 To: Jens Axboe <axboe@kernel.dk>
 In-Reply-To: <2dacc73-854-e71c-1746-99b017401c9a@redhat.com>
-Message-ID: <ee59ce87-9e5-c725-8040-80c5e0fd48f@redhat.com>
+Message-ID: <2ae7f7aa-add7-a7f5-e73e-443fc97a0d9@redhat.com>
 References: <2dacc73-854-e71c-1746-99b017401c9a@redhat.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-Subject: [dm-devel] [PATCH v3 1/4] brd: use a switch statement in
- brd_submit_bio
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH v3 2/4] brd: extend the rcu regions to cover read
+ and write
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -78,81 +78,84 @@ Cc: linux-block@vger.kernel.org, Chaitanya Kulkarni <chaitanyak@nvidia.com>,
  dm-devel@redhat.com, Zdenek Kabelac <zkabelac@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Use a switch statement in brd_submit_bio, so that the code will look
-better when we add support for more bio operations.
+This patch extends the rcu regions, so that lookup followed by a read or
+write of a page is done inside rcu read lock. This is needed for the
+following patch that enables discard.
 
 Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
 
 ---
- drivers/block/brd.c |   43 ++++++++++++++++++++++++++-----------------
- 1 file changed, 26 insertions(+), 17 deletions(-)
+ drivers/block/brd.c |    8 ++++++++
+ 1 file changed, 8 insertions(+)
 
 Index: linux-2.6/drivers/block/brd.c
 ===================================================================
 --- linux-2.6.orig/drivers/block/brd.c
 +++ linux-2.6/drivers/block/brd.c
-@@ -243,29 +243,38 @@ out:
- static void brd_submit_bio(struct bio *bio)
- {
- 	struct brd_device *brd = bio->bi_bdev->bd_disk->private_data;
--	sector_t sector = bio->bi_iter.bi_sector;
-+	sector_t sector;
- 	struct bio_vec bvec;
- 	struct bvec_iter iter;
+@@ -150,23 +150,27 @@ static void copy_to_brd(struct brd_devic
+ 	size_t copy;
  
--	bio_for_each_segment(bvec, bio, iter) {
--		unsigned int len = bvec.bv_len;
--		int err;
-+	switch (bio_op(bio)) {
-+		case REQ_OP_READ:
-+		case REQ_OP_WRITE:
-+			sector = bio->bi_iter.bi_sector;
-+			bio_for_each_segment(bvec, bio, iter) {
-+				unsigned int len = bvec.bv_len;
-+				int err;
+ 	copy = min_t(size_t, n, PAGE_SIZE - offset);
++	rcu_read_lock();
+ 	page = brd_lookup_page(brd, sector);
+ 	BUG_ON(!page);
  
--		/* Don't support un-aligned buffer */
--		WARN_ON_ONCE((bvec.bv_offset & (SECTOR_SIZE - 1)) ||
--				(len & (SECTOR_SIZE - 1)));
-+				/* Don't support un-aligned buffer */
-+				WARN_ON_ONCE((bvec.bv_offset & (SECTOR_SIZE - 1)) ||
-+						(len & (SECTOR_SIZE - 1)));
+ 	dst = kmap_atomic(page);
+ 	memcpy(dst + offset, src, copy);
+ 	kunmap_atomic(dst);
++	rcu_read_unlock();
  
--		err = brd_do_bvec(brd, bvec.bv_page, len, bvec.bv_offset,
--				  bio->bi_opf, sector);
--		if (err) {
--			if (err == -ENOMEM && bio->bi_opf & REQ_NOWAIT) {
--				bio_wouldblock_error(bio);
--				return;
-+				err = brd_do_bvec(brd, bvec.bv_page, len, bvec.bv_offset,
-+						  bio->bi_opf, sector);
-+				if (err) {
-+					if (err == -ENOMEM && bio->bi_opf & REQ_NOWAIT) {
-+						bio_wouldblock_error(bio);
-+						return;
-+					}
-+					bio_io_error(bio);
-+					return;
-+				}
-+				sector += len >> SECTOR_SHIFT;
- 			}
--			bio_io_error(bio);
--			return;
--		}
--		sector += len >> SECTOR_SHIFT;
-+			break;
-+		default:
-+			bio->bi_status = BLK_STS_NOTSUPP;
-+			break;
+ 	if (copy < n) {
+ 		src += copy;
+ 		sector += copy >> SECTOR_SHIFT;
+ 		copy = n - copy;
++		rcu_read_lock();
+ 		page = brd_lookup_page(brd, sector);
+ 		BUG_ON(!page);
+ 
+ 		dst = kmap_atomic(page);
+ 		memcpy(dst, src, copy);
+ 		kunmap_atomic(dst);
++		rcu_read_unlock();
  	}
+ }
  
- 	bio_endio(bio);
+@@ -182,6 +186,7 @@ static void copy_from_brd(void *dst, str
+ 	size_t copy;
+ 
+ 	copy = min_t(size_t, n, PAGE_SIZE - offset);
++	rcu_read_lock();
+ 	page = brd_lookup_page(brd, sector);
+ 	if (page) {
+ 		src = kmap_atomic(page);
+@@ -189,11 +194,13 @@ static void copy_from_brd(void *dst, str
+ 		kunmap_atomic(src);
+ 	} else
+ 		memset(dst, 0, copy);
++	rcu_read_unlock();
+ 
+ 	if (copy < n) {
+ 		dst += copy;
+ 		sector += copy >> SECTOR_SHIFT;
+ 		copy = n - copy;
++		rcu_read_lock();
+ 		page = brd_lookup_page(brd, sector);
+ 		if (page) {
+ 			src = kmap_atomic(page);
+@@ -201,6 +208,7 @@ static void copy_from_brd(void *dst, str
+ 			kunmap_atomic(src);
+ 		} else
+ 			memset(dst, 0, copy);
++		rcu_read_unlock();
+ 	}
+ }
+ 
 
 --
 dm-devel mailing list
