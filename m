@@ -1,8 +1,8 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 99EF177D3DC
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 59E4877D3DB
 	for <lists+dm-devel@lfdr.de>; Tue, 15 Aug 2023 22:04:25 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1692129864;
@@ -12,59 +12,59 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=BeLMhRCh4fTCl2VKo0w0bPYrX6yYEm8xrDEYTljaLns=;
-	b=BtxWt0pcvEIgqoUzEPHXzJmcElVP4HywmwbF1OVFZT7pbP0a9R4cLoj7KEEVMohyPTIIrN
-	EUG/VdAk7OjUcZ3ryScEGGOKwZ7+4ml2ds+FHkqPg/M29az8h2VhOTn2EKWwQt1HcGytAc
-	HZpFvSdNEGmJ4LFzXIMNVEnXfkUvrPA=
+	bh=UJxGRCFzIQI6royzRHuycEYc2vA/W1FYNiHSWWuUkqc=;
+	b=UFbx2TxTPMlL6WNpRQMpdgZ658PfRx/2jM3c0IPkiboP/KjPCJX+2cmE5AhvA3OXPN7Dao
+	A0BHv/h+19lBIumfNO0GRFF3BzY+AkAP9o+J0Zwyon+kA7FIIs5euWKIHDH8/ajgkg32au
+	WaWcVg++kngz4AHEKNX04HaG451Ki+0=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-556-Jxc8m4hAO3mzfW3iB2OvyQ-1; Tue, 15 Aug 2023 16:04:22 -0400
-X-MC-Unique: Jxc8m4hAO3mzfW3iB2OvyQ-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-595-1-lHWnEqN2WIgbL4DK2vsQ-1; Tue, 15 Aug 2023 16:04:21 -0400
+X-MC-Unique: 1-lHWnEqN2WIgbL4DK2vsQ-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BC1461C09A42;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB1D83C13514;
 	Tue, 15 Aug 2023 20:04:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6683492C13;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 5738540D283C;
 	Tue, 15 Aug 2023 20:04:15 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 18CD119465B6;
-	Tue, 15 Aug 2023 20:04:09 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7A3941946A45;
+	Tue, 15 Aug 2023 20:04:10 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id CECD71946586
- for <dm-devel@listman.corp.redhat.com>; Tue, 15 Aug 2023 08:37:09 +0000 (UTC)
+ ESMTP id 074371946587
+ for <dm-devel@listman.corp.redhat.com>; Tue, 15 Aug 2023 08:45:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id AB421492C14; Tue, 15 Aug 2023 08:37:09 +0000 (UTC)
+ id A2E2E63F71; Tue, 15 Aug 2023 08:45:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A3B86492C13
- for <dm-devel@redhat.com>; Tue, 15 Aug 2023 08:37:09 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9BCCA5CC09
+ for <dm-devel@redhat.com>; Tue, 15 Aug 2023 08:45:11 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 867111C06ECC
- for <dm-devel@redhat.com>; Tue, 15 Aug 2023 08:37:09 +0000 (UTC)
-Received: from out-18.mta0.migadu.com (out-18.mta0.migadu.com
- [91.218.175.18]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7C0DD101A53C
+ for <dm-devel@redhat.com>; Tue, 15 Aug 2023 08:45:11 +0000 (UTC)
+Received: from out-11.mta1.migadu.com (out-11.mta1.migadu.com
+ [95.215.58.11]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-577-n-07tE_ONFuazwJiW8WKsg-1; Tue, 15 Aug 2023 04:37:07 -0400
-X-MC-Unique: n-07tE_ONFuazwJiW8WKsg-1
+ us-mta-685-0T4i3KgbPpaHtUKYxxk0Aw-1; Tue, 15 Aug 2023 04:45:09 -0400
+X-MC-Unique: 0T4i3KgbPpaHtUKYxxk0Aw-1
 MIME-Version: 1.0
 X-Report-Abuse: Please report any abuse attempt to abuse@migadu.com and
  include these headers.
 From: Muchun Song <muchun.song@linux.dev>
-In-Reply-To: <20230807110936.21819-2-zhengqi.arch@bytedance.com>
-Date: Tue, 15 Aug 2023 16:36:31 +0800
-Message-Id: <FC3AE898-443D-4ACB-BCB4-0F8F2F48CDD0@linux.dev>
+In-Reply-To: <20230807110936.21819-3-zhengqi.arch@bytedance.com>
+Date: Tue, 15 Aug 2023 16:44:21 +0800
+Message-Id: <BEE5622B-8E74-405C-9A5B-0CF410F8344E@linux.dev>
 References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
- <20230807110936.21819-2-zhengqi.arch@bytedance.com>
+ <20230807110936.21819-3-zhengqi.arch@bytedance.com>
 To: Qi Zheng <zhengqi.arch@bytedance.com>
 X-Migadu-Flow: FLOW_OUT
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -74,10 +74,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mailman-Approved-At: Tue, 15 Aug 2023 20:04:08 +0000
-Subject: Re: [dm-devel] [PATCH v4 01/48] mm: move some shrinker-related
- function declarations to mm/internal.h
+Subject: Re: [dm-devel] [PATCH v4 02/48] mm: vmscan: move shrinker-related
+ code into a separate file
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -92,23 +92,22 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: kvm@vger.kernel.org, djwong@kernel.org,
  Roman Gushchin <roman.gushchin@linux.dev>, david@fromorbit.com,
  dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Linux-MM <linux-mm@kvack.org>, dm-devel@redhat.com,
- linux-mtd@lists.infradead.org, cel@kernel.org, x86@kernel.org,
- steven.price@arm.com, cluster-devel@redhat.com, simon.horman@corigine.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- "Paul E. McKenney" <paulmck@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-nfs@vger.kernel.org, rcu@vger.kernel.org, linux-bcache@vger.kernel.org,
- dlemoal@kernel.org, yujie.liu@intel.com, Vlastimil Babka <vbabka@suse.cz>,
- linux-raid@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
- tytso@mit.edu, Greg KH <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
- netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org, tkhai@ya.ru
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-mtd@lists.infradead.org,
+ cel@kernel.org, x86@kernel.org, steven.price@arm.com, cluster-devel@redhat.com,
+ simon.horman@corigine.com, xen-devel@lists.xenproject.org,
+ linux-ext4@vger.kernel.org, "Paul E. McKenney" <paulmck@kernel.org>,
+ linux-arm-msm@vger.kernel.org, linux-nfs@vger.kernel.org, rcu@vger.kernel.org,
+ linux-bcache@vger.kernel.org, dlemoal@kernel.org, yujie.liu@intel.com,
+ Vlastimil Babka <vbabka@suse.cz>, linux-raid@vger.kernel.org,
+ Christian Brauner <brauner@kernel.org>, tytso@mit.edu,
+ gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
+ senozhatsky@chromium.org, netdev@vger.kernel.org,
+ linux-fsdevel@vger.kernel.org, Andrew Morton <akpm@linux-foundation.org>,
+ linux-erofs@lists.ozlabs.org, linux-btrfs@vger.kernel.org, tkhai@ya.ru
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.dev
 Content-Type: text/plain; charset="us-ascii"
@@ -118,57 +117,12 @@ Content-Transfer-Encoding: 7bit
 
 > On Aug 7, 2023, at 19:08, Qi Zheng <zhengqi.arch@bytedance.com> wrote:
 > 
-> The following functions are only used inside the mm subsystem, so it's
-> better to move their declarations to the mm/internal.h file.
-> 
-> 1. shrinker_debugfs_add()
-> 2. shrinker_debugfs_detach()
-> 3. shrinker_debugfs_remove()
+> The mm/vmscan.c file is too large, so separate the shrinker-related
+> code from it into a separate file. No functional changes.
 > 
 > Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
 
 Reviewed-by: Muchun Song <songmuchun@bytedance.com>
-
-One nit bellow.
-
-[...]
-
-> +
-> +/*
-> + * shrinker related functions
-> + */
-
-This is a multi-comment format. "/* shrinker related functions. */" is
-the right one-line format of comment.
-
-> +
-> +#ifdef CONFIG_SHRINKER_DEBUG
-> +extern int shrinker_debugfs_add(struct shrinker *shrinker);
-> +extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
-> +      int *debugfs_id);
-> +extern void shrinker_debugfs_remove(struct dentry *debugfs_entry,
-> +    int debugfs_id);
-> +#else /* CONFIG_SHRINKER_DEBUG */
-> +static inline int shrinker_debugfs_add(struct shrinker *shrinker)
-> +{
-> +	return 0;
-> +}
-> +static inline struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
-> +     int *debugfs_id)
-> +{
-> +	*debugfs_id = -1;
-> +	return NULL;
-> +}
-> +static inline void shrinker_debugfs_remove(struct dentry *debugfs_entry,
-> +	int debugfs_id)
-> +{
-> +}
-> +#endif /* CONFIG_SHRINKER_DEBUG */
-> +
-> #endif /* __MM_INTERNAL_H */
-> -- 
-> 2.30.2
-> 
 
 --
 dm-devel mailing list
