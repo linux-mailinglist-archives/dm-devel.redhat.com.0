@@ -2,98 +2,108 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 06BB077D3DA
-	for <lists+dm-devel@lfdr.de>; Tue, 15 Aug 2023 22:04:24 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id CFB4678024D
+	for <lists+dm-devel@lfdr.de>; Fri, 18 Aug 2023 02:00:24 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1692129863;
+	s=mimecast20190719; t=1692316823;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=z8yZ3RNoUwBL8KHZSBx81hSn/u8QjU+xBCHUQCpvjdM=;
-	b=DfkI/yTVwpDaNGl0lOz+O9mDjF1716w867fBjAehtK43QyFLKRZI/CXIcJvaLgmR2UZsCA
-	+0gqIedjooXVmmw7I9Sg4hkEB53Lp+UrH4+3GoCpMkLWHM8C46VzOz3+B4seFahay9NfIS
-	Vu/Ir6iTOKfJai78wiH4Ip9s5BBnAHk=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-595-Em2zcgckOO-g62Kr90XyNw-1; Tue, 15 Aug 2023 16:04:21 -0400
-X-MC-Unique: Em2zcgckOO-g62Kr90XyNw-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+	bh=qFrrvTaBGC3xNYDyE+4HeRTKuQ7A2lljxiAMQJ3qO4s=;
+	b=TxhXKtegS0qQuA6JxsKIOKKprv/CmpvB60v67fiNwIVaH1J3pPTGFmOMpxza9SR/FFyyL7
+	qjeeAzIklKzqvLq/L234hOKpdfVjoMjCL7H9Hb/84TDvJhBTfNPHena7oG6p93MTQKhKkw
+	lDuO6C0H0t6GMUCbS0sdbCP82GmCTss=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-53-WRsVQnDmPambbsIs0oG2RA-1; Thu, 17 Aug 2023 20:00:20 -0400
+X-MC-Unique: WRsVQnDmPambbsIs0oG2RA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BB764101A53C;
-	Tue, 15 Aug 2023 20:04:18 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B473E3C0E203;
+	Fri, 18 Aug 2023 00:00:17 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 25B521121319;
-	Tue, 15 Aug 2023 20:04:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7483D40D283A;
+	Fri, 18 Aug 2023 00:00:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BC47119465A0;
-	Tue, 15 Aug 2023 20:04:08 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A8FEE1946597;
+	Fri, 18 Aug 2023 00:00:05 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 018CE194658C
- for <dm-devel@listman.corp.redhat.com>; Tue, 15 Aug 2023 09:15:04 +0000 (UTC)
+ ESMTP id 44FEF1946587
+ for <dm-devel@listman.corp.redhat.com>; Fri, 18 Aug 2023 00:00:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E3EB1492C18; Tue, 15 Aug 2023 09:15:04 +0000 (UTC)
+ id 1C4AE1121318; Fri, 18 Aug 2023 00:00:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id DB923492C13
- for <dm-devel@redhat.com>; Tue, 15 Aug 2023 09:15:04 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1437C1121314
+ for <dm-devel@redhat.com>; Fri, 18 Aug 2023 00:00:04 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AED823801BE5
- for <dm-devel@redhat.com>; Tue, 15 Aug 2023 09:15:04 +0000 (UTC)
-Received: from mail-pl1-f178.google.com (mail-pl1-f178.google.com
- [209.85.214.178]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EBD411C06EE0
+ for <dm-devel@redhat.com>; Fri, 18 Aug 2023 00:00:03 +0000 (UTC)
+Received: from mail-pl1-f173.google.com (mail-pl1-f173.google.com
+ [209.85.214.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-191-al4nyJXkOcKpR4KeX3M40Q-1; Tue, 15 Aug 2023 05:15:02 -0400
-X-MC-Unique: al4nyJXkOcKpR4KeX3M40Q-1
-Received: by mail-pl1-f178.google.com with SMTP id
- d9443c01a7336-1bb91c20602so9096575ad.0
- for <dm-devel@redhat.com>; Tue, 15 Aug 2023 02:15:02 -0700 (PDT)
+ us-mta-464-UIEVtwXtPXWuP_cN6NXEHw-1; Thu, 17 Aug 2023 19:59:59 -0400
+X-MC-Unique: UIEVtwXtPXWuP_cN6NXEHw-1
+Received: by mail-pl1-f173.google.com with SMTP id
+ d9443c01a7336-1bbc87ded50so2971935ad.1
+ for <dm-devel@redhat.com>; Thu, 17 Aug 2023 16:59:59 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20221208; t=1692090901; x=1692695701;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=N6UPah3rxy6GE+IW6hhaEXFukV19/RQgo9PDGSDaxjc=;
- b=MzCzTY/TCYwFXmyOTaVFrRWKjl8FlofemJD4q3/4CxU9LuhQx6xfUBDnWxrowsKEeL
- 7XWCKJTbzbkPfoGTW9WqjUiTWfu6LZJ6UYXO2tIW0UrrqSHZpbMbFG6RftaJqy0ORaSj
- 4jceMLjLKJSlQwm0KUQJ4qjrh0b7Q8HpI4E/KQX1S5uWRwqcoolQCHUY6cUDEqiw4GHh
- 1JIbZcylkLoVKuDuVGBhDAjSwbvj6+MGzlHj+kEwHLEKhNcvz9309pJ44xcb/EtiRMj0
- AL+Nb6KnGsnyNfOCXedHRgFyUruo2yrzdteV48XoV7/xyCxr8Oy7t9oMwE3BT/t0PkIZ
- Z/9Q==
-X-Gm-Message-State: AOJu0YxJAkBcRU2/O1lurzPcwIVND40T8rQMf3ymBqgv7ygdb+9Tl8dN
- o/2yjB/UklU0NNq2TnOlEOuXXw==
-X-Google-Smtp-Source: AGHT+IGKaQyK0d17VyjHV7p/Fr8yAF+2JMAJsl65uoihXD9UcmAUSi1eF134pFnOBdZUKl9ThFMr5Q==
-X-Received: by 2002:a17:902:e5c8:b0:1bb:83ec:832 with SMTP id
- u8-20020a170902e5c800b001bb83ec0832mr13866844plf.2.1692090901535; 
- Tue, 15 Aug 2023 02:15:01 -0700 (PDT)
-Received: from ?IPV6:fdbd:ff1:ce00:1c25:884:3ed:e1db:b610?
- ([240e:694:e21:b::2]) by smtp.gmail.com with ESMTPSA id
- io13-20020a17090312cd00b001b39ffff838sm10630843plb.25.2023.08.15.02.14.43
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Tue, 15 Aug 2023 02:15:01 -0700 (PDT)
-Message-ID: <4f64cd2d-90e8-7902-7ef7-1ac58d51b2a8@bytedance.com>
-Date: Tue, 15 Aug 2023 17:14:40 +0800
+ d=1e100.net; s=20221208; t=1692316799; x=1692921599;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=FlZwTjULNXL0MSeceST2nTPY5dYfoFRLbfS9U1Zv9es=;
+ b=GTCUXPT3nn0hhlJYmSCkcdlCHfB6bsT/WotmpwZVtkN8wWujqV+Qr2/bRQ2R3k6cic
+ mDkqcCAeltzg98BUYegLNpVabZFKfByGMlG2tri7VJjm0nE5a/qBD6EkOHATvEizznv2
+ uRyurTgLQpC1Jq7PyU4yanSDBMIkAyk9/phQ+Kzmfm5swPud33A6yrofawjplIFe8XBS
+ jQUeyH5p7Ikdr+SFnsdrOsIFvhJyEXSa9xYSJuXO22ILv0aqAtaEDbcys7uTWnVuwR5t
+ tsFZ4nBdtYG/t1FLOZa8RcLyPenKcAjfEj0rACM2NmzY8UfWOBMwuLa6QP6Sg6d6Zqik
+ uhcw==
+X-Gm-Message-State: AOJu0Yygt3cWpArcG7QgkuiY1GMLkBsn6INaRnuO95DRyd4nd0j1FNX0
+ WU5bVw7rM6JbZ0BYjEPbib24nA==
+X-Google-Smtp-Source: AGHT+IEZN0eiMgoFeTiDuL98J12BoFQXzUyH1iR9WfEu30+aZRIx+2aMlLrOvoBZVZz8HJbKs8MMbw==
+X-Received: by 2002:a17:903:247:b0:1bb:1523:b2d7 with SMTP id
+ j7-20020a170903024700b001bb1523b2d7mr1064631plh.14.1692316798858; 
+ Thu, 17 Aug 2023 16:59:58 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ b10-20020a170902bd4a00b001bba669a7eesm348680plx.52.2023.08.17.16.59.58
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 17 Aug 2023 16:59:58 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: linux-hardening@vger.kernel.org
+Date: Thu, 17 Aug 2023 16:59:56 -0700
+Message-Id: <20230817235955.never.762-kees@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:102.0)
- Gecko/20100101 Thunderbird/102.14.0
-To: Muchun Song <muchun.song@linux.dev>
-References: <20230807110936.21819-1-zhengqi.arch@bytedance.com>
- <20230807110936.21819-2-zhengqi.arch@bytedance.com>
- <FC3AE898-443D-4ACB-BCB4-0F8F2F48CDD0@linux.dev>
-From: Qi Zheng <zhengqi.arch@bytedance.com>
-In-Reply-To: <FC3AE898-443D-4ACB-BCB4-0F8F2F48CDD0@linux.dev>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2198; i=keescook@chromium.org; 
+ h=from:subject:message-id;
+ bh=TlZvULm9TYJxvzYvyHtGp79eQ9cs52J2eowJQXxaQlQ=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBk3rR8Jpb6jYCE1H2Z7r1VdMRPlT4IoaSG9P+6O
+ TraiYv2JDeJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZN60fAAKCRCJcvTf3G3A
+ JjIHD/44aHrnkkewA1A9a8OG6hGVMYANzESYfUGAA9dl8IaTcUf5hz6awlrlkNt19soLhhGXaxf
+ 6zZZK3951OIkAIYfKrjp48XoTFOKI47ha4xWcryisDbf/lBUlQ6K2ALIFp2ZBobJko9KmWFRxEu
+ r6rBph5S6FqVIJVZPG2xFFxsd4lYyuD2jXO/1O8xnS6ismHiTUMbYOUcRgg9nwR+iZmHYFYMDNa
+ S2MZ/a7mqLSK3+rg8Ffsq0D8hTy0DP/fSQLLiZ73LWFe2Un8IvI78NYawzPNoBV6prHXxLdJphU
+ DSjmWKtlrOmsJO7mEk9ipaIDkC0bnBkXv9TzXjvtwSpy0RrHgPmIr9VEou5TwHceriaF/OwIrc3
+ aSGyVXXILMWSq7cvXiAiPkJFxpQgVmYN1aHl2rb4O2hlQ34EphuiDLTOJriwowTTCcd81btCfpg
+ ue37gNf40o92kdqIkxIeg2BWmyuWCKVsCeH67+FgE3jIOFn8eqq31yhYwA1qy7+ZJz+UDJkWKrx
+ r42QK0aS3ebKJ6Kt0oal+a0ZsPp6bhhU2ticTpo0kKWKmpsZZg5v9leTKD1TOciwblKRJCERaYC
+ 2YuuoTR0bS+GC/8nQOg9/q76Mny1hU02LM69MiCaJwH1oNPqJGyCm95eW1Sm3G/ONjIa1Cks+BO
+ UK26fPZ LQjP69ig==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,10 +111,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Tue, 15 Aug 2023 20:04:08 +0000
-Subject: Re: [dm-devel] [PATCH v4 01/48] mm: move some shrinker-related
- function declarations to mm/internal.h
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [PATCH] LoadPin: Annotate struct
+ dm_verity_loadpin_trusted_root_digest with __counted_by
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,97 +125,82 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: kvm@vger.kernel.org, djwong@kernel.org,
- Roman Gushchin <roman.gushchin@linux.dev>, david@fromorbit.com,
- dri-devel@lists.freedesktop.org, virtualization@lists.linux-foundation.org,
- Linux-MM <linux-mm@kvack.org>, dm-devel@redhat.com,
- linux-mtd@lists.infradead.org, cel@kernel.org, x86@kernel.org,
- steven.price@arm.com, cluster-devel@redhat.com, simon.horman@corigine.com,
- xen-devel@lists.xenproject.org, linux-ext4@vger.kernel.org,
- "Paul E. McKenney" <paulmck@kernel.org>, linux-arm-msm@vger.kernel.org,
- linux-nfs@vger.kernel.org, rcu@vger.kernel.org, linux-bcache@vger.kernel.org,
- dlemoal@kernel.org, yujie.liu@intel.com, Vlastimil Babka <vbabka@suse.cz>,
- linux-raid@vger.kernel.org, Christian Brauner <brauner@kernel.org>,
- tytso@mit.edu, Greg KH <gregkh@linuxfoundation.org>,
- LKML <linux-kernel@vger.kernel.org>, linux-f2fs-devel@lists.sourceforge.net,
- linux-xfs@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
- netdev@vger.kernel.org, linux-fsdevel@vger.kernel.org,
- Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org, tkhai@ya.ru
+Cc: linux-security-module@vger.kernel.org, Kees Cook <keescook@chromium.org>,
+ Nick Desaulniers <ndesaulniers@google.com>, llvm@lists.linux.dev,
+ Mike Snitzer <snitzer@kernel.org>, James Morris <jmorris@namei.org>,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ dm-devel@redhat.com, Tom Rix <trix@redhat.com>,
+ "Serge E. Hallyn" <serge@hallyn.com>, Alasdair Kergon <agk@redhat.com>,
+ Paul Moore <paul@paul-moore.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: bytedance.com
-Content-Language: en-US
+X-Mimecast-Originator: chromium.org
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
+Prepare for the coming implementation by GCC and Clang of the __counted_by
+attribute. Flexible array members annotated with __counted_by can have
+their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
+(for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+functions).
 
+As found with Coccinelle[1], add __counted_by for struct dm_verity_loadpin_trusted_root_digest.
+Additionally, since the element count member must be set before accessing
+the annotated flexible array member, move its initialization earlier.
 
-On 2023/8/15 16:36, Muchun Song wrote:
-> 
-> 
->> On Aug 7, 2023, at 19:08, Qi Zheng <zhengqi.arch@bytedance.com> wrote:
->>
->> The following functions are only used inside the mm subsystem, so it's
->> better to move their declarations to the mm/internal.h file.
->>
->> 1. shrinker_debugfs_add()
->> 2. shrinker_debugfs_detach()
->> 3. shrinker_debugfs_remove()
->>
->> Signed-off-by: Qi Zheng <zhengqi.arch@bytedance.com>
-> 
-> Reviewed-by: Muchun Song <songmuchun@bytedance.com>
-> 
-> One nit bellow.
-> 
-> [...]
-> 
->> +
->> +/*
->> + * shrinker related functions
->> + */
-> 
-> This is a multi-comment format. "/* shrinker related functions. */" is
-> the right one-line format of comment.
+[1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 
-Will do.
+Cc: Alasdair Kergon <agk@redhat.com>
+Cc: Mike Snitzer <snitzer@kernel.org>
+Cc: dm-devel@redhat.com
+Cc: Paul Moore <paul@paul-moore.com>
+Cc: James Morris <jmorris@namei.org>
+Cc: "Serge E. Hallyn" <serge@hallyn.com>
+Cc: linux-security-module@vger.kernel.org
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ include/linux/dm-verity-loadpin.h | 2 +-
+ security/loadpin/loadpin.c        | 3 +--
+ 2 files changed, 2 insertions(+), 3 deletions(-)
 
-Thanks,
-Qi
-
-> 
->> +
->> +#ifdef CONFIG_SHRINKER_DEBUG
->> +extern int shrinker_debugfs_add(struct shrinker *shrinker);
->> +extern struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
->> +      int *debugfs_id);
->> +extern void shrinker_debugfs_remove(struct dentry *debugfs_entry,
->> +    int debugfs_id);
->> +#else /* CONFIG_SHRINKER_DEBUG */
->> +static inline int shrinker_debugfs_add(struct shrinker *shrinker)
->> +{
->> +	return 0;
->> +}
->> +static inline struct dentry *shrinker_debugfs_detach(struct shrinker *shrinker,
->> +     int *debugfs_id)
->> +{
->> +	*debugfs_id = -1;
->> +	return NULL;
->> +}
->> +static inline void shrinker_debugfs_remove(struct dentry *debugfs_entry,
->> +	int debugfs_id)
->> +{
->> +}
->> +#endif /* CONFIG_SHRINKER_DEBUG */
->> +
->> #endif /* __MM_INTERNAL_H */
->> -- 
->> 2.30.2
->>
-> 
+diff --git a/include/linux/dm-verity-loadpin.h b/include/linux/dm-verity-loadpin.h
+index 552b817ab102..3ac6dbaeaa37 100644
+--- a/include/linux/dm-verity-loadpin.h
++++ b/include/linux/dm-verity-loadpin.h
+@@ -12,7 +12,7 @@ extern struct list_head dm_verity_loadpin_trusted_root_digests;
+ struct dm_verity_loadpin_trusted_root_digest {
+ 	struct list_head node;
+ 	unsigned int len;
+-	u8 data[];
++	u8 data[] __counted_by(len);
+ };
+ 
+ #if IS_ENABLED(CONFIG_SECURITY_LOADPIN_VERITY)
+diff --git a/security/loadpin/loadpin.c b/security/loadpin/loadpin.c
+index ebae964f7cc9..a9d40456a064 100644
+--- a/security/loadpin/loadpin.c
++++ b/security/loadpin/loadpin.c
+@@ -336,6 +336,7 @@ static int read_trusted_verity_root_digests(unsigned int fd)
+ 			rc = -ENOMEM;
+ 			goto err;
+ 		}
++		trd->len = len;
+ 
+ 		if (hex2bin(trd->data, d, len)) {
+ 			kfree(trd);
+@@ -343,8 +344,6 @@ static int read_trusted_verity_root_digests(unsigned int fd)
+ 			goto err;
+ 		}
+ 
+-		trd->len = len;
+-
+ 		list_add_tail(&trd->node, &dm_verity_loadpin_trusted_root_digests);
+ 	}
+ 
+-- 
+2.34.1
 
 --
 dm-devel mailing list
