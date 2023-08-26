@@ -2,7 +2,7 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7616678A603
+	by mail.lfdr.de (Postfix) with ESMTPS id 73A8C78A602
 	for <lists+dm-devel@lfdr.de>; Mon, 28 Aug 2023 08:46:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1693205181;
@@ -12,76 +12,61 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DWVNTUhZeUNk5mjY/NEPFojC0DdLK7OJGGWnmIUxhGk=;
-	b=eUFQwIDkwJltQ/wUspSLTEnvxK/XOyscZYnDYOe/VdKlv/V8oRXiWOpRLWpaV88+BZ2QMd
-	xOv5+UstFb0LjiPSIl9scscSnBDVpOXuULvDvjkD+ZH9iSbRiukZ6L/9tA71CAxXDCBncd
-	0rsCSZHqGCuf9FBoC8eZbaq7VZyqj84=
+	bh=uYrIzdMzhxwGbjXbCOWjYCwycyE98eA+8WwJAoEGRj0=;
+	b=CkS0Ad6upPLZSlwl4xsUXHFUosdu+C9o7Ijs67aS8ENJ6oS95VBc4mnz+IeHrfWoebQTFb
+	Ra9cZE0Zi2VTxF+2m9TGDalevwtZD8h1I056r88893Bt0kapgLpLtajH00XuwEs58GL8ZD
+	8hTMD2XXRsuhiP96VjXdr+gcXubM2Lg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-683-mFmlKJ-5O8CHoWVvzK-BdA-1; Mon, 28 Aug 2023 02:46:18 -0400
-X-MC-Unique: mFmlKJ-5O8CHoWVvzK-BdA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-683-k6m4Qv0zNQCQDhgI37t7JQ-1; Mon, 28 Aug 2023 02:46:18 -0400
+X-MC-Unique: k6m4Qv0zNQCQDhgI37t7JQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B5A73101CC60;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B630C185A78F;
 	Mon, 28 Aug 2023 06:46:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 47B4440C2070;
-	Mon, 28 Aug 2023 06:46:08 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 458F2492C14;
+	Mon, 28 Aug 2023 06:46:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C3F001946A4A;
-	Mon, 28 Aug 2023 06:46:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id F2D281946A42;
+	Mon, 28 Aug 2023 06:46:08 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4AC0919465A8
- for <dm-devel@listman.corp.redhat.com>; Fri, 25 Aug 2023 13:48:01 +0000 (UTC)
+ ESMTP id 3889119465A8
+ for <dm-devel@listman.corp.redhat.com>; Sat, 26 Aug 2023 02:29:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 37C8CC1602E; Fri, 25 Aug 2023 13:48:01 +0000 (UTC)
+ id EC3CD140E962; Sat, 26 Aug 2023 02:29:16 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2FF0BC1602B
- for <dm-devel@redhat.com>; Fri, 25 Aug 2023 13:48:01 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E4F10140E950
+ for <dm-devel@redhat.com>; Sat, 26 Aug 2023 02:29:16 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 151A78D40A7
- for <dm-devel@redhat.com>; Fri, 25 Aug 2023 13:48:01 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8FB583C0252E
+ for <dm-devel@redhat.com>; Sat, 26 Aug 2023 02:29:16 +0000 (UTC)
+Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-292-dr6yBh74PEaJj522NGQFXw-1; Fri,
- 25 Aug 2023 09:47:58 -0400
-X-MC-Unique: dr6yBh74PEaJj522NGQFXw-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 49AEC21F79;
- Fri, 25 Aug 2023 13:47:57 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 28033138F9;
- Fri, 25 Aug 2023 13:47:57 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id UJRbCQ2x6GQZAwAAMHmgww
- (envelope-from <jack@suse.cz>); Fri, 25 Aug 2023 13:47:57 +0000
-Received: by quack3.suse.cz (Postfix, from userid 1000)
- id A432FA0774; Fri, 25 Aug 2023 15:47:56 +0200 (CEST)
-Date: Fri, 25 Aug 2023 15:47:56 +0200
-From: Jan Kara <jack@suse.cz>
-To: Al Viro <viro@zeniv.linux.org.uk>
-Message-ID: <20230825134756.o3wpq6bogndukn53@quack3>
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-606-lRWZFOprMOOxmVvZKBndfA-1; Fri,
+ 25 Aug 2023 22:29:14 -0400
+X-MC-Unique: lRWZFOprMOOxmVvZKBndfA-1
+Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
+ Linux)) id 1qZj2i-0010QB-1S; Sat, 26 Aug 2023 02:28:52 +0000
+Date: Sat, 26 Aug 2023 03:28:52 +0100
+From: Al Viro <viro@zeniv.linux.org.uk>
+To: Jan Kara <jack@suse.cz>
+Message-ID: <20230826022852.GO3390869@ZenIV>
 References: <20230810171429.31759-1-jack@suse.cz>
  <20230825015843.GB95084@ZenIV>
+ <20230825134756.o3wpq6bogndukn53@quack3>
 MIME-Version: 1.0
-In-Reply-To: <20230825015843.GB95084@ZenIV>
+In-Reply-To: <20230825134756.o3wpq6bogndukn53@quack3>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -89,7 +74,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 28 Aug 2023 06:46:05 +0000
 Subject: Re: [dm-devel] [PATCH v2 0/29] block: Make blkdev_get_by_*() return
  handle
@@ -105,13 +90,13 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
- Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- linux-nvme@lists.infradead.org, Joseph Qi <joseph.qi@linux.alibaba.com>,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Jack Wang <jinpu.wang@ionos.com>,
- Alasdair Kergon <agk@redhat.com>, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
+ "Darrick J. Wong" <djwong@kernel.org>, linux-nvme@lists.infradead.org,
+ Joseph Qi <joseph.qi@linux.alibaba.com>, dm-devel@redhat.com,
+ target-devel@vger.kernel.org, linux-mtd@lists.infradead.org,
+ Jack Wang <jinpu.wang@ionos.com>, Alasdair Kergon <agk@redhat.com>,
+ drbd-dev@lists.linbit.com, linux-s390@vger.kernel.org,
+ linux-nilfs@vger.kernel.org, linux-scsi@vger.kernel.org,
+ Sergey Senozhatsky <senozhatsky@chromium.org>,
  Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
  Gao Xiang <xiang@kernel.org>,
  Christian Borntraeger <borntraeger@linux.ibm.com>,
@@ -134,71 +119,86 @@ Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.cz
+X-Mimecast-Originator: zeniv.linux.org.uk
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Fri 25-08-23 02:58:43, Al Viro wrote:
-> On Fri, Aug 11, 2023 at 01:04:31PM +0200, Jan Kara wrote:
-> > Hello,
-> > 
-> > this is a v2 of the patch series which implements the idea of blkdev_get_by_*()
-> > calls returning bdev_handle which is then passed to blkdev_put() [1]. This
-> > makes the get and put calls for bdevs more obviously matching and allows us to
-> > propagate context from get to put without having to modify all the users
-> > (again!).  In particular I need to propagate used open flags to blkdev_put() to
-> > be able count writeable opens and add support for blocking writes to mounted
-> > block devices. I'll send that series separately.
-> > 
-> > The series is based on Christian's vfs tree as of yesterday as there is quite
-> > some overlap. Patches have passed some reasonable testing - I've tested block
-> > changes, md, dm, bcache, xfs, btrfs, ext4, swap. This obviously doesn't cover
-> > everything so I'd like to ask respective maintainers to review / test their
-> > changes. Thanks! I've pushed out the full branch to:
-> > 
-> > git://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs.git bdev_handle
-> > 
-> > to ease review / testing.
-> 
-> Hmm...  Completely Insane Idea(tm): how about turning that thing inside out and
-> having your bdev_open_by... return an actual opened struct file?
-> 
-> After all, we do that for sockets and pipes just fine and that's a whole lot
-> hotter area.
-> 
-> Suppose we leave blkdev_open()/blkdev_release() as-is.  No need to mess with
-> what we have for normal opened files for block devices.  And have block_open_by_dev()
-> that would find bdev, etc., same yours does and shove it into anon file.
-> 
-> Paired with plain fput() - no need to bother with new primitives for closing.
-> With a helper returning I_BDEV(bdev_file_inode(file)) to get from those to bdev.
-> 
-> NOTE: I'm not suggesting replacing ->s_bdev with struct file * if we do that -
-> we want that value cached, obviously.  Just store both...
-> 
-> Not saying it's a good idea, but... might be interesting to look into.
-> Comments?
+On Fri, Aug 25, 2023 at 03:47:56PM +0200, Jan Kara wrote:
 
-I can see the appeal of not having to introduce the new bdev_handle type
-and just using struct file which unifies in-kernel and userspace block
-device opens. But I can see downsides too - the last fput() happening from
-task work makes me a bit nervous whether it will not break something
-somewhere with exclusive bdev opens. Getting from struct file to bdev is
-somewhat harder but I guess a helper like F_BDEV() would solve that just
-fine.
+> I can see the appeal of not having to introduce the new bdev_handle type
+> and just using struct file which unifies in-kernel and userspace block
+> device opens. But I can see downsides too - the last fput() happening from
+> task work makes me a bit nervous whether it will not break something
+> somewhere with exclusive bdev opens. Getting from struct file to bdev is
+> somewhat harder but I guess a helper like F_BDEV() would solve that just
+> fine.
+> 
+> So besides my last fput() worry about I think this could work and would be
+> probably a bit nicer than what I have. But before going and redoing the whole
+> series let me gather some more feedback so that we don't go back and forth.
+> Christoph, Christian, Jens, any opinion?
 
-So besides my last fput() worry about I think this could work and would be
-probably a bit nicer than what I have. But before going and redoing the whole
-series let me gather some more feedback so that we don't go back and forth.
-Christoph, Christian, Jens, any opinion?
+Redoing is not an issue - it can be done on top of your series just
+as well.  Async behaviour of fput() might be, but...  need to look
+through the actual users; for a lot of them it's perfectly fine.
 
-								Honza
--- 
-Jan Kara <jack@suse.com>
-SUSE Labs, CR
+FWIW, from a cursory look there appears to be a missing primitive: take
+an opened bdev (or bdev_handle, with your variant, or opened file if we
+go that way eventually) and claim it.
+
+I mean, look at claim_swapfile() for example:
+                p->bdev = blkdev_get_by_dev(inode->i_rdev,
+                                   FMODE_READ | FMODE_WRITE | FMODE_EXCL, p);
+                if (IS_ERR(p->bdev)) {
+                        error = PTR_ERR(p->bdev);
+                        p->bdev = NULL;
+                        return error;
+                }
+                p->old_block_size = block_size(p->bdev);
+                error = set_blocksize(p->bdev, PAGE_SIZE);
+                if (error < 0)
+                        return error;
+we already have the file opened, and we keep it opened all the way until
+the swapoff(2); here we have noticed that it's a block device and we
+	* open the fucker again (by device number), this time claiming
+it with our swap_info_struct as holder, to be closed at swapoff(2) time
+(just before we close the file)
+	* flip the block size to PAGE_SIZE, to be reverted at swapoff(2)
+time That really looks like it ought to be
+	* take the opened file, see that it's a block device
+	* try to claim it with that holder
+	* on success, flip the block size
+with close_filp() in the swapoff(2) (or failure exit path in swapon(2))
+doing what it would've done for an O_EXCL opened block device.
+The only difference from O_EXCL userland open is that here we would
+end up with holder pointing not to struct file in question, but to our
+swap_info_struct.  It will do the right thing.
+
+This extra open is entirely due to "well, we need to claim it and the
+primitive that does that happens to be tied to opening"; feels rather
+counter-intuitive.
+
+For that matter, we could add an explicit "unclaim" primitive - might
+be easier to follow.  That would add another example where that could
+be used - in blkdev_bszset() we have an opened block device (it's an
+ioctl, after all), we want to change block size and we *really* don't
+want to have that happen under a mounted filesystem.  So if it's not
+opened exclusive, we do a temporary exclusive open of own and act on
+that instead.   Might as well go for a temporary claim...
+
+BTW, what happens if two threads call ioctl(fd, BLKBSZSET, &n)
+for the same descriptor that happens to have been opened O_EXCL?
+Without O_EXCL they would've been unable to claim the sucker at the same
+time - the holder we are using is the address of a function argument,
+i.e. something that points to kernel stack of the caller.  Those would
+conflict and we either get set_blocksize() calls fully serialized, or
+one of the callers would eat -EBUSY.  Not so in "opened with O_EXCL"
+case - they can very well overlap and IIRC set_blocksize() does *not*
+expect that kind of crap...  It's all under CAP_SYS_ADMIN, so it's not
+as if it was a meaningful security hole anyway, but it does look fishy.
 
 --
 dm-devel mailing list
