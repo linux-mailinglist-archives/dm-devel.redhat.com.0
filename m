@@ -1,79 +1,79 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4C95478A42A
-	for <lists+dm-devel@lfdr.de>; Mon, 28 Aug 2023 04:05:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 0500178A459
+	for <lists+dm-devel@lfdr.de>; Mon, 28 Aug 2023 04:06:05 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693188314;
+	s=mimecast20190719; t=1693188365;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=UtJO4nsynOCF2hDdO84SzZsxeSyppBDMFsFx6yKgjgE=;
-	b=QlzDB1wzcwKzEjEo6TCBzX500qXgNwWQWCFvE3+rT7GB7uKy+dHQ7KvIAsiz1b1Dg0w4Hl
-	wAghubU7chxDHqrYDVejkTWuk9Od2p7ezEGFQxfHuQkVQ9GtNdVzSRmDAUPxftQCEvGpMK
-	wLGWDM2cqg07HCkr9oKgFgmgsZQmtt0=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-551-3oFQI1AFPE6bFa15xZGpFQ-1; Sun, 27 Aug 2023 22:05:11 -0400
-X-MC-Unique: 3oFQI1AFPE6bFa15xZGpFQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=kMWiWwtH+XoAsawnb/4knGvN0tHFZtGyk/HUrDb0qiw=;
+	b=DYdez3MRX9qSlJGLxBFnL+XdJBk4O0UMViDDqRcdxoY/JaIcBrcjkqUXAmn9LNYe1r+bUg
+	A1s5UCFAWw3FbO19EYPhHlHOpJbT7dRe1g08AmChT2XFolMPkgfkcbZrBqxkOk1PGIQvL9
+	dMuT/VPZWnHTlZTVWB8+L7BIXpVf/CY=
+Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-230-MXK9C4DfNJmaBcdaQgdbRA-1; Sun, 27 Aug 2023 22:05:12 -0400
+X-MC-Unique: MXK9C4DfNJmaBcdaQgdbRA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F36E805595;
-	Mon, 28 Aug 2023 02:05:05 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 136372026D76;
-	Mon, 28 Aug 2023 02:05:05 +0000 (UTC)
-Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 077391946A7F;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B7D0E1C0758D;
 	Mon, 28 Aug 2023 02:05:04 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E120A492C18;
+	Mon, 28 Aug 2023 02:04:56 +0000 (UTC)
+Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1B1891946A42;
+	Mon, 28 Aug 2023 02:04:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id D01461946A41
- for <dm-devel@listman.corp.redhat.com>; Mon, 28 Aug 2023 02:04:57 +0000 (UTC)
+ ESMTP id C3B591946A46
+ for <dm-devel@listman.corp.redhat.com>; Mon, 28 Aug 2023 02:04:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id BF7E0112131B; Mon, 28 Aug 2023 02:04:57 +0000 (UTC)
+ id AA0FD6B2B4; Mon, 28 Aug 2023 02:04:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B7E741121319
- for <dm-devel@redhat.com>; Mon, 28 Aug 2023 02:04:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9E9D66B59A
+ for <dm-devel@redhat.com>; Mon, 28 Aug 2023 02:04:54 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9D9F938149A4
- for <dm-devel@redhat.com>; Mon, 28 Aug 2023 02:04:57 +0000 (UTC)
-Received: from dggsgout12.his.huawei.com (dggsgout12.his.huawei.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78AE4185A78B
+ for <dm-devel@redhat.com>; Mon, 28 Aug 2023 02:04:54 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
  [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-634-QdE3q-0GNluqOav-F43fnw-1; Sun, 27 Aug 2023 22:04:51 -0400
-X-MC-Unique: QdE3q-0GNluqOav-F43fnw-1
+ us-mta-586-WpyYOZoVNJKXhKfa0BIsSw-1; Sun, 27 Aug 2023 22:04:52 -0400
+X-MC-Unique: WpyYOZoVNJKXhKfa0BIsSw-1
 Received: from mail02.huawei.com (unknown [172.30.67.169])
- by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4RYv575kLZz4f3nqR;
- Mon, 28 Aug 2023 10:04:43 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4RYv582Ph4z4f3nqb;
+ Mon, 28 Aug 2023 10:04:44 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAnBai7AOxk9qcCBw--.25880S9;
+ by APP4 (Coremail) with SMTP id gCh0CgAnBai7AOxk9qcCBw--.25880S10;
  Mon, 28 Aug 2023 10:04:47 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, song@kernel.org,
  xni@redhat.com
-Date: Mon, 28 Aug 2023 09:59:58 +0800
-Message-Id: <20230828020021.2489641-6-yukuai1@huaweicloud.com>
+Date: Mon, 28 Aug 2023 09:59:59 +0800
+Message-Id: <20230828020021.2489641-7-yukuai1@huaweicloud.com>
 In-Reply-To: <20230828020021.2489641-1-yukuai1@huaweicloud.com>
 References: <20230828020021.2489641-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAnBai7AOxk9qcCBw--.25880S9
-X-Coremail-Antispam: 1UD129KBjvJXoWrZFW8ur1UKr15KFyUCw4rKrg_yoW8JF15pF
- 4IqayfXr1jyry3Xr1DXa1vkFy5Gw17KrWqyrZruw1kGa4xJw13Wr1furnYqry09a4fGFn8
- Jw45G3W8ZF4UG37anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: gCh0CgAnBai7AOxk9qcCBw--.25880S10
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF4DuF45urW7Zw1kAr4DXFb_yoW8Gr17pa
+ 1xKFZ5Gr1jv3yfXr1UGa1kCa45Jw48KrWqkrZrZwn7ZF1xXrZrWa1ruFs8XFy0va4fAr45
+ Jw45Ja4rXrW8GaDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUPF14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
  kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
@@ -97,9 +97,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [dm-devel] [PATCH -next v2 05/28] md: use new apis to suspend array
- for suspend_lo/hi_store()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [PATCH -next v2 06/28] md: use new apis to suspend array
+ for level_store()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,7 +115,7 @@ Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
  linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
@@ -125,51 +125,50 @@ From: Yu Kuai <yukuai3@huawei.com>
 
 Convert to use new apis, the old apis will be removed eventually.
 
+This is not hot path, so performance is not concerned.
+
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/md/md.c | 18 ++++--------------
- 1 file changed, 4 insertions(+), 14 deletions(-)
+ drivers/md/md.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/md/md.c b/drivers/md/md.c
-index 6236e2e395c1..84d077110174 100644
+index 84d077110174..03b83b56fe16 100644
 --- a/drivers/md/md.c
 +++ b/drivers/md/md.c
-@@ -5268,15 +5268,10 @@ suspend_lo_store(struct mddev *mddev, const char *buf, size_t len)
- 	if (new != (sector_t)new)
+@@ -3997,7 +3997,7 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 	if (slen == 0 || slen >= sizeof(clevel))
  		return -EINVAL;
  
--	err = mddev_lock(mddev);
--	if (err)
--		return err;
--
+-	rv = mddev_lock(mddev);
++	rv = mddev_suspend_and_lock(mddev);
+ 	if (rv)
+ 		return rv;
+ 
+@@ -4090,7 +4090,6 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 	}
+ 
+ 	/* Looks like we have a winner */
 -	mddev_suspend(mddev);
-+	__mddev_suspend(mddev);
- 	WRITE_ONCE(mddev->suspend_lo, new);
+ 	mddev_detach(mddev);
+ 
+ 	spin_lock(&mddev->lock);
+@@ -4176,14 +4175,13 @@ level_store(struct mddev *mddev, const char *buf, size_t len)
+ 	blk_set_stacking_limits(&mddev->queue->limits);
+ 	pers->run(mddev);
+ 	set_bit(MD_SB_CHANGE_DEVS, &mddev->sb_flags);
 -	mddev_resume(mddev);
-+	__mddev_resume(mddev);
- 
+ 	if (!mddev->thread)
+ 		md_update_sb(mddev, 1);
+ 	sysfs_notify_dirent_safe(mddev->sysfs_level);
+ 	md_new_event();
+ 	rv = len;
+ out_unlock:
 -	mddev_unlock(mddev);
- 	return len;
++	mddev_unlock_and_resume(mddev);
+ 	return rv;
  }
- static struct md_sysfs_entry md_suspend_lo =
-@@ -5301,15 +5296,10 @@ suspend_hi_store(struct mddev *mddev, const char *buf, size_t len)
- 	if (new != (sector_t)new)
- 		return -EINVAL;
  
--	err = mddev_lock(mddev);
--	if (err)
--		return err;
--
--	mddev_suspend(mddev);
-+	__mddev_suspend(mddev);
- 	WRITE_ONCE(mddev->suspend_hi, new);
--	mddev_resume(mddev);
-+	__mddev_resume(mddev);
- 
--	mddev_unlock(mddev);
- 	return len;
- }
- static struct md_sysfs_entry md_suspend_hi =
 -- 
 2.39.2
 
