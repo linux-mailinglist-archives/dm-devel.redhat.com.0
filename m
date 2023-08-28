@@ -2,78 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B3E5E78A457
-	for <lists+dm-devel@lfdr.de>; Mon, 28 Aug 2023 04:06:05 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0EF0778A426
+	for <lists+dm-devel@lfdr.de>; Mon, 28 Aug 2023 04:05:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693188364;
+	s=mimecast20190719; t=1693188312;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=45qo64oLa5OMvcSHJoxq7eUfZOoVGQrz9FVrwezRmo0=;
-	b=YZ/G7MeAk+C/Lbh50eGiLjs45RZ550SjpnGhHvm88FADOQ0byxiLoGeI/XPy2ODC2Bo7wu
-	gd3L3d9Zfvqj0rCIfWzXit/pRmr9wIjtFZ+IsP+bDwGLYmz7Yyv2bjNxmp/GBa7GtaH/Mc
-	61OW3/S2U7iqbCihWrVyWcyU8vzBEZY=
+	bh=gg/nKLeI2UeExFKT5ztvYYr/UXjlU99R2X9hUmCTmVs=;
+	b=SoMelpniKOKgzd+kofDDd+4J0bXMy1VdtcIHdYiolTBJ360AXqb79I1qxnG6KWX3CtHL3S
+	vfcntjAjUTQLEP/dnPMI+F5JofbSiALngzep3YzznCyAbc1F2Fm9X+TKV2bF75uo1V8THV
+	NwW35lSznD30Qr4xCCBR8NoMDIn5ROA=
 Received: from mimecast-mx02.redhat.com (66.187.233.73 [66.187.233.73]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-680-qNUkfHPtMYGD8EpIOUqg3A-1; Sun, 27 Aug 2023 22:05:08 -0400
-X-MC-Unique: qNUkfHPtMYGD8EpIOUqg3A-1
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
+ us-mta-230-gmn9UiOpOhKgYH610ErEPw-1; Sun, 27 Aug 2023 22:05:10 -0400
+X-MC-Unique: gmn9UiOpOhKgYH610ErEPw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B93223803924;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B99883C0DDAC;
 	Mon, 28 Aug 2023 02:05:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 03358140E962;
-	Mon, 28 Aug 2023 02:05:02 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 7B39A40282C;
+	Mon, 28 Aug 2023 02:05:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1C7B21946A40;
-	Mon, 28 Aug 2023 02:05:01 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7657E1946A66;
+	Mon, 28 Aug 2023 02:05:03 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id A87E619465A8
+ ESMTP id EC4E819465A8
  for <dm-devel@listman.corp.redhat.com>; Mon, 28 Aug 2023 02:04:59 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 7B69C4021B9; Mon, 28 Aug 2023 02:04:59 +0000 (UTC)
+ id D9CB52026D2A; Mon, 28 Aug 2023 02:04:59 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 733AA401051
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id D25A52026D76
  for <dm-devel@redhat.com>; Mon, 28 Aug 2023 02:04:59 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B91038149CE
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B90E91C07587
  for <dm-devel@redhat.com>; Mon, 28 Aug 2023 02:04:59 +0000 (UTC)
 Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
  [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-503-yxAuwmsBMZ6NhO1mCMJOjA-1; Sun, 27 Aug 2023 22:04:56 -0400
-X-MC-Unique: yxAuwmsBMZ6NhO1mCMJOjA-1
+ us-mta-556-r4tXnXRiOxK8qn5WyYdZog-1; Sun, 27 Aug 2023 22:04:57 -0400
+X-MC-Unique: r4tXnXRiOxK8qn5WyYdZog-1
 Received: from mail02.huawei.com (unknown [172.30.67.169])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4RYv5H5NG0z4f3kpR;
- Mon, 28 Aug 2023 10:04:51 +0800 (CST)
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4RYv5J1P6Xz4f3knx;
+ Mon, 28 Aug 2023 10:04:52 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAnBai7AOxk9qcCBw--.25880S20;
+ by APP4 (Coremail) with SMTP id gCh0CgAnBai7AOxk9qcCBw--.25880S21;
  Mon, 28 Aug 2023 10:04:52 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com, song@kernel.org,
  xni@redhat.com
-Date: Mon, 28 Aug 2023 10:00:09 +0800
-Message-Id: <20230828020021.2489641-17-yukuai1@huaweicloud.com>
+Date: Mon, 28 Aug 2023 10:00:10 +0800
+Message-Id: <20230828020021.2489641-18-yukuai1@huaweicloud.com>
 In-Reply-To: <20230828020021.2489641-1-yukuai1@huaweicloud.com>
 References: <20230828020021.2489641-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAnBai7AOxk9qcCBw--.25880S20
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF4DuF4rCw4UKrW8KFyDJrb_yoW8ur48pa
- nI9as3ur1Uury5Xryjya1DKFy8Jw17KrZ7KrW7Xws3X3Wft34xGFyrXrZrWry8Aa4fJ345
- Ja15K3W8CF4UJrJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: gCh0CgAnBai7AOxk9qcCBw--.25880S21
+X-Coremail-Antispam: 1UD129KBjvJXoWxWFykZr18Cry7tr1kGFWfZrb_yoW5Xr4Dpw
+ s0gFsrXr4UWF9xu34DZa1kWFyrK3yUKrWkKryxW39Yva47Gr4kurWfJw45ZFy7G34FyFs7
+ t3y5J34kZFWvqrDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUPI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
  kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
@@ -97,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: [dm-devel] [PATCH -next v2 16/28] md/raid5: use new apis to suspend
- array for raid5_change_consistency_policy()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: [dm-devel] [PATCH -next v2 17/28] md/raid5: replace suspend with
+ quiesce() callback
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,7 +116,7 @@ Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
  linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
@@ -123,78 +124,76 @@ Content-Transfer-Encoding: 7bit
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-Convert to use new apis, the old apis will be removed eventually.
+raid5 is the only personality to suspend array in check_reshape() and
+start_reshape() callback, suspend and quiesce() callback can both wait
+for all normal io to be done, and prevent new io to be dispatched, the
+difference is that suspend is implemented in common layer, and quiesce()
+callback is implemented in raid5.
 
-This is not hot path, so performance is not concerned.
+In order to cleanup all the usage of mddev_suspend(), the new apis
+__mddev_suspend() need to be called before 'reconfig_mutex' is held,
+and it's not good to affect all the personalities in common layer just
+for raid5. Hence replace suspend with quiesce() callaback, prepare to
+reomove all the users of mddev_suspend().
 
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/md/raid5.c | 19 ++++++-------------
- 1 file changed, 6 insertions(+), 13 deletions(-)
+ drivers/md/raid5.c | 18 +++++++++---------
+ 1 file changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/drivers/md/raid5.c b/drivers/md/raid5.c
-index 8060d29e99d2..e6b8c0145648 100644
+index e6b8c0145648..d6de084a85e5 100644
 --- a/drivers/md/raid5.c
 +++ b/drivers/md/raid5.c
-@@ -8967,12 +8967,12 @@ static int raid5_change_consistency_policy(struct mddev *mddev, const char *buf)
- 	struct r5conf *conf;
- 	int err;
+@@ -70,6 +70,8 @@ MODULE_PARM_DESC(devices_handle_discard_safely,
+ 		 "Set to Y if all devices in each array reliably return zeroes on reads from discarded regions");
+ static struct workqueue_struct *raid5_wq;
  
--	err = mddev_lock(mddev);
-+	err = mddev_suspend_and_lock(mddev);
- 	if (err)
- 		return err;
- 	conf = mddev->private;
- 	if (!conf) {
--		mddev_unlock(mddev);
-+		mddev_unlock_and_resume(mddev);
- 		return -ENODEV;
++static void raid5_quiesce(struct mddev *mddev, int quiesce);
++
+ static inline struct hlist_head *stripe_hash(struct r5conf *conf, sector_t sect)
+ {
+ 	int hash = (sect >> RAID5_STRIPE_SHIFT(conf)) & HASH_MASK;
+@@ -2492,15 +2494,12 @@ static int resize_chunks(struct r5conf *conf, int new_disks, int new_sectors)
+ 	unsigned long cpu;
+ 	int err = 0;
+ 
+-	/*
+-	 * Never shrink. And mddev_suspend() could deadlock if this is called
+-	 * from raid5d. In that case, scribble_disks and scribble_sectors
+-	 * should equal to new_disks and new_sectors
+-	 */
++	/* Never shrink. */
+ 	if (conf->scribble_disks >= new_disks &&
+ 	    conf->scribble_sectors >= new_sectors)
+ 		return 0;
+-	mddev_suspend(conf->mddev);
++
++	raid5_quiesce(conf->mddev, true);
+ 	cpus_read_lock();
+ 
+ 	for_each_present_cpu(cpu) {
+@@ -2514,7 +2513,8 @@ static int resize_chunks(struct r5conf *conf, int new_disks, int new_sectors)
  	}
  
-@@ -8982,19 +8982,14 @@ static int raid5_change_consistency_policy(struct mddev *mddev, const char *buf)
- 			err = log_init(conf, NULL, true);
- 			if (!err) {
- 				err = resize_stripes(conf, conf->pool_size);
--				if (err) {
--					mddev_suspend(mddev);
-+				if (err)
- 					log_exit(conf);
--					mddev_resume(mddev);
--				}
- 			}
- 		} else
- 			err = -EINVAL;
- 	} else if (strncmp(buf, "resync", 6) == 0) {
- 		if (raid5_has_ppl(conf)) {
--			mddev_suspend(mddev);
- 			log_exit(conf);
--			mddev_resume(mddev);
- 			err = resize_stripes(conf, conf->pool_size);
- 		} else if (test_bit(MD_HAS_JOURNAL, &conf->mddev->flags) &&
- 			   r5l_log_disk_error(conf)) {
-@@ -9007,11 +9002,9 @@ static int raid5_change_consistency_policy(struct mddev *mddev, const char *buf)
- 					break;
- 				}
+ 	cpus_read_unlock();
+-	mddev_resume(conf->mddev);
++	raid5_quiesce(conf->mddev, false);
++
+ 	if (!err) {
+ 		conf->scribble_disks = new_disks;
+ 		conf->scribble_sectors = new_sectors;
+@@ -8551,8 +8551,8 @@ static int raid5_start_reshape(struct mddev *mddev)
+ 	 * the reshape wasn't running - like Discard or Read - have
+ 	 * completed.
+ 	 */
+-	mddev_suspend(mddev);
+-	mddev_resume(mddev);
++	raid5_quiesce(mddev, true);
++	raid5_quiesce(mddev, false);
  
--			if (!journal_dev_exists) {
--				mddev_suspend(mddev);
-+			if (!journal_dev_exists)
- 				clear_bit(MD_HAS_JOURNAL, &mddev->flags);
--				mddev_resume(mddev);
--			} else  /* need remove journal device first */
-+			else  /* need remove journal device first */
- 				err = -EBUSY;
- 		} else
- 			err = -EINVAL;
-@@ -9022,7 +9015,7 @@ static int raid5_change_consistency_policy(struct mddev *mddev, const char *buf)
- 	if (!err)
- 		md_update_sb(mddev, 1);
- 
--	mddev_unlock(mddev);
-+	mddev_unlock_and_resume(mddev);
- 
- 	return err;
- }
+ 	/* Add some new drives, as many as will fit.
+ 	 * We know there are enough to make the newly sized array work.
 -- 
 2.39.2
 
