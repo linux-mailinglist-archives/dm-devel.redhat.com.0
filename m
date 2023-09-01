@@ -1,82 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DE49A7901D5
-	for <lists+dm-devel@lfdr.de>; Fri,  1 Sep 2023 20:03:40 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D69A67901D1
+	for <lists+dm-devel@lfdr.de>; Fri,  1 Sep 2023 20:03:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693591419;
+	s=mimecast20190719; t=1693591418;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=hWaZ6gA6n+H/pb1zNYAUXFmGuM9855BQOiEYwi0/itw=;
-	b=hXfQYA+pvPaJXgXvFD5f+6zTobELXW/bB1Rjm3tEdOXKTC+pHn3Ev2/Qv8yxL3/zTDZtp1
-	d9+i2i7Y4ZfWEf3bkg2PmGKvJG83L8nFGw4QcBZm9wz54Br2q8NbFoXqsPUwGdFX6z+jot
-	HvAVfQDrpdFm1xFjlghxWrXqWF2gFUY=
+	bh=YqradqieUeyyS36hjN+rqQ5NgWjmOnFaDspqtQv0WAc=;
+	b=GFP2bHivaVtyH920NnZo6EEqioi2WNdKPu3KhNvlA9zmHz/mYRZgw31KTH6bIkcnmxALRt
+	M7vmRcNIkRvByNla8WzioWgAsz4DsNNGy3HfD8EO7+QnrS3WP2nfonA+VucLFdiM1hxPJ6
+	zw5ncIQLdfhZuoOCbuGZobG1xytckBA=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-433-_1U_443pNDOlW-RsWJoGcA-1; Fri, 01 Sep 2023 14:03:31 -0400
-X-MC-Unique: _1U_443pNDOlW-RsWJoGcA-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+ us-mta-342-MzXwYEgmPzqrQAkWnm-zlw-1; Fri, 01 Sep 2023 14:03:33 -0400
+X-MC-Unique: MzXwYEgmPzqrQAkWnm-zlw-1
+Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com [10.11.54.7])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 37F23381DC85;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3769629DD99B;
 	Fri,  1 Sep 2023 18:03:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D79341005B8D;
-	Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4A18F1460FF2;
+	Fri,  1 Sep 2023 18:03:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7F39B19472AB;
-	Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 104AF19472B5;
+	Fri,  1 Sep 2023 18:03:23 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AD46F19465B7
- for <dm-devel@listman.corp.redhat.com>; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
+ ESMTP id 8096219472AD
+ for <dm-devel@listman.corp.redhat.com>; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 909011402C0A; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
+ id 7021F1460FE7; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 888151460FE7
- for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 699DC1402C0A
+ for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4F9931817907
- for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DF7610264FA
+ for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-396-lIcnhm-SOCSFBOkZe1I8Rg-1; Fri,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-635-qLFsq1_sOKWx0zaV32HuhQ-1; Fri,
  01 Sep 2023 14:03:17 -0400
-X-MC-Unique: lIcnhm-SOCSFBOkZe1I8Rg-1
+X-MC-Unique: qLFsq1_sOKWx0zaV32HuhQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 315BD21862;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A0B2E21865;
  Fri,  1 Sep 2023 18:03:16 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E98E013582;
- Fri,  1 Sep 2023 18:03:15 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 4304713582;
+ Fri,  1 Sep 2023 18:03:16 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id GIYWN2Mn8mTpRQAAMHmgww
- (envelope-from <mwilck@suse.com>); Fri, 01 Sep 2023 18:03:15 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id ANGeDWQn8mTpRQAAMHmgww
+ (envelope-from <mwilck@suse.com>); Fri, 01 Sep 2023 18:03:16 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri,  1 Sep 2023 20:02:14 +0200
-Message-ID: <20230901180235.23980-2-mwilck@suse.com>
+Date: Fri,  1 Sep 2023 20:02:15 +0200
+Message-ID: <20230901180235.23980-3-mwilck@suse.com>
 In-Reply-To: <20230901180235.23980-1-mwilck@suse.com>
 References: <20230901180235.23980-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -88,8 +88,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: [dm-devel] [PATCH 01/21] libmultipath: sysfs_set_scsi_tmo: do
- nothing for ACT_DRY_RUN
+Subject: [dm-devel] [PATCH 02/21] libmultipath: add alias_already_taken()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -101,11 +100,11 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Jehan Singh <jehan.singh@suse.com>,
- Martin Wilck <mwilck@suse.com>
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>,
+ David Bond <dbond@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -113,50 +112,75 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-"multipath -d" might change sysfs timeouts of SCSI devices.
-Make sure it doesn't.
+Factor out a trivial helper function.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
-Cc: Jehan Singh <jehan.singh@suse.com>
+Cc: David Bond <dbond@suse.com>
 ---
- libmultipath/configure.c | 4 ++--
- libmultipath/discovery.c | 3 +++
- 2 files changed, 5 insertions(+), 2 deletions(-)
+ libmultipath/alias.c | 34 ++++++++++++++++++++--------------
+ 1 file changed, 20 insertions(+), 14 deletions(-)
 
-diff --git a/libmultipath/configure.c b/libmultipath/configure.c
-index 9513baa..029fbbd 100644
---- a/libmultipath/configure.c
-+++ b/libmultipath/configure.c
-@@ -1193,13 +1193,13 @@ int coalesce_paths (struct vectors *vecs, vector mpvec, char *refwwid,
+diff --git a/libmultipath/alias.c b/libmultipath/alias.c
+index c0139a2..abde08c 100644
+--- a/libmultipath/alias.c
++++ b/libmultipath/alias.c
+@@ -8,6 +8,7 @@
+ #include <string.h>
+ #include <limits.h>
+ #include <stdio.h>
++#include <stdbool.h>
  
- 		if (cmpp)
- 			mpp->queue_mode = cmpp->queue_mode;
-+		if (cmd == CMD_DRY_RUN && mpp->action == ACT_UNDEF)
-+			mpp->action = ACT_DRY_RUN;
- 		if (setup_map(mpp, &params, vecs)) {
- 			remove_map(mpp, vecs->pathvec, NULL);
- 			continue;
- 		}
+ #include "debug.h"
+ #include "util.h"
+@@ -109,8 +110,24 @@ scan_devname(const char *alias, const char *prefix)
+ 	return n;
+ }
  
--		if (cmd == CMD_DRY_RUN)
--			mpp->action = ACT_DRY_RUN;
- 		if (mpp->action == ACT_UNDEF)
- 			select_action(mpp, curmp,
- 				      force_reload == FORCE_RELOAD_YES ? 1 : 0);
-diff --git a/libmultipath/discovery.c b/libmultipath/discovery.c
-index e4de48e..84ce5fe 100644
---- a/libmultipath/discovery.c
-+++ b/libmultipath/discovery.c
-@@ -857,6 +857,9 @@ sysfs_set_scsi_tmo (struct config *conf, struct multipath *mpp)
- 	bool warn_dev_loss = false;
- 	bool warn_fast_io_fail = false;
- 
-+	if (mpp->action == ACT_DRY_RUN || mpp->action == ACT_REJECT)
-+		return 0;
+-static int
+-id_already_taken(int id, const char *prefix, const char *map_wwid)
++static bool alias_already_taken(const char *alias, const char *map_wwid)
++{
 +
- 	if (mpp->no_path_retry > 0) {
- 		uint64_t no_path_retry_tmo =
- 			(uint64_t)mpp->no_path_retry * conf->checkint;
++	if (dm_map_present(alias)) {
++		char wwid[WWID_SIZE];
++
++		/* If both the name and the wwid match, then it's fine.*/
++		if (dm_get_uuid(alias, wwid, sizeof(wwid)) == 0 &&
++		    strncmp(map_wwid, wwid, sizeof(wwid)) == 0)
++			return false;
++		condlog(3, "%s: alias '%s' already taken, but not in bindings file. reselecting alias",
++			map_wwid, alias);
++		return true;
++	}
++	return false;
++}
++
++static bool id_already_taken(int id, const char *prefix, const char *map_wwid)
+ {
+ 	STRBUF_ON_STACK(buf);
+ 	const char *alias;
+@@ -120,20 +137,9 @@ id_already_taken(int id, const char *prefix, const char *map_wwid)
+ 		return 0;
+ 
+ 	alias = get_strbuf_str(&buf);
+-	if (dm_map_present(alias)) {
+-		char wwid[WWID_SIZE];
+-
+-		/* If both the name and the wwid match, then it's fine.*/
+-		if (dm_get_uuid(alias, wwid, sizeof(wwid)) == 0 &&
+-		    strncmp(map_wwid, wwid, sizeof(wwid)) == 0)
+-			return 0;
+-		condlog(3, "%s: alias '%s' already taken, but not in bindings file. reselecting alias", map_wwid, alias);
+-		return 1;
+-	}
+-	return 0;
++	return alias_already_taken(alias, map_wwid);
+ }
+ 
+-
+ /*
+  * Returns: 0   if matching entry in WWIDs file found
+  *         -1   if an error occurs
 -- 
 2.41.0
 
