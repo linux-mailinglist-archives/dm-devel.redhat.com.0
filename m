@@ -2,81 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id F28227901DE
-	for <lists+dm-devel@lfdr.de>; Fri,  1 Sep 2023 20:04:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6CF2C7901CB
+	for <lists+dm-devel@lfdr.de>; Fri,  1 Sep 2023 20:03:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693591444;
+	s=mimecast20190719; t=1693591417;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=EZgwwZqbMcd4xe45dp4JTdgrR9S4/644wrd+/iX9QRA=;
-	b=baipkOCX9Fp9/P71FPdyUpZgmmzMNAsNEFUPLzutMNULNRpzT+6GHv6VGfMzuIgq5cR1vG
-	I20J00+Uo7QHYHym29CBSiDqilN1NSMqrKo9vGNM0up7cUallhve89GzWYEvaiS7jMaFlg
-	wC0N/eCWvrOlyLSv8eqvseO/bmW2wOA=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-669-MXnGud8qPEG5Up3AHeBz8g-1; Fri, 01 Sep 2023 14:03:34 -0400
-X-MC-Unique: MXnGud8qPEG5Up3AHeBz8g-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+	bh=fVTofy/GE26BoZ46iNBTKBO3MnFugZ8nRx62ktSN2Uw=;
+	b=YJUUPIVahqBxn7Xsmdm7Z9KJWDEtdj6vUpWE48H9jua89eP/ew8VEoUHeZGw6T9v5BjkEm
+	p95zp9GQNVk6CbawFB7hlEcx0QBQ5rSZc12uX5j3mevs+bAj3PIHJ6tZqpouef9oTUJKvi
+	ifyGs4bosFXi0nTWZh2wALiLzMavyaU=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-54-SKmQ8dfUMY2Z0Z0mK7c8Qw-1; Fri, 01 Sep 2023 14:03:33 -0400
+X-MC-Unique: SKmQ8dfUMY2Z0Z0mK7c8Qw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 382801C29782;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 381BE181790A;
 	Fri,  1 Sep 2023 18:03:26 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 2FD6F1005B8E;
-	Fri,  1 Sep 2023 18:03:22 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 13923493113;
+	Fri,  1 Sep 2023 18:03:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AC3EA19472B2;
-	Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D86B619472AF;
+	Fri,  1 Sep 2023 18:03:22 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 15A8D19465B7
- for <dm-devel@listman.corp.redhat.com>; Fri,  1 Sep 2023 18:03:20 +0000 (UTC)
+ ESMTP id 8066219472AC
+ for <dm-devel@listman.corp.redhat.com>; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EA53140C84A6; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
+ id 70F27200A86A; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E337840C84A5
- for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6A40321D4F3D
+ for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C549492ACE3
- for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:19 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4D175897F6A
+ for <dm-devel@redhat.com>; Fri,  1 Sep 2023 18:03:21 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-652-GlwMz_AUOCOWgsqMLqEjKw-1; Fri,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-686-QlobgJM6NACM-2_GOoEwIA-1; Fri,
  01 Sep 2023 14:03:18 -0400
-X-MC-Unique: GlwMz_AUOCOWgsqMLqEjKw-1
+X-MC-Unique: QlobgJM6NACM-2_GOoEwIA-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 069F02186C;
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 4C2BD1F45E;
  Fri,  1 Sep 2023 18:03:17 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id AD60013582;
- Fri,  1 Sep 2023 18:03:16 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 16C7113582;
+ Fri,  1 Sep 2023 18:03:17 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +EeXKGQn8mTpRQAAMHmgww
- (envelope-from <mwilck@suse.com>); Fri, 01 Sep 2023 18:03:16 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id 4C2AA2Un8mTpRQAAMHmgww
+ (envelope-from <mwilck@suse.com>); Fri, 01 Sep 2023 18:03:17 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri,  1 Sep 2023 20:02:16 +0200
-Message-ID: <20230901180235.23980-4-mwilck@suse.com>
+Date: Fri,  1 Sep 2023 20:02:17 +0200
+Message-ID: <20230901180235.23980-5-mwilck@suse.com>
 In-Reply-To: <20230901180235.23980-1-mwilck@suse.com>
 References: <20230901180235.23980-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,9 +86,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH 03/21] libmultipath: unify use_existing_alias()
- and get_user_friendly_alias()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH 04/21] libmultipath: never allocate an alias
+ that's already taken
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,7 +104,7 @@ Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>,
  David Bond <dbond@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -113,206 +112,104 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-These functions are only called from select_alias(). The logic
-is more obvious when unified in a single function.
+If the bindings file is changed in a way that multipathd can't handle
+(e.g. by swapping the aliases of two maps), multipathd must not try
+to re-use an alias that is already used by another map. Creating
+or renaming a map with such an alias will fail. We already avoid
+this for some cases, but not for all. Fix it.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 Cc: David Bond <dbond@suse.com>
 ---
- libmultipath/alias.c   | 82 ++++++++++++------------------------------
- libmultipath/alias.h   |  9 ++---
- libmultipath/propsel.c | 19 +++++-----
- 3 files changed, 34 insertions(+), 76 deletions(-)
+ libmultipath/alias.c | 36 +++++++++++++++++++++++++++++++-----
+ tests/alias.c        |  2 +-
+ 2 files changed, 32 insertions(+), 6 deletions(-)
 
 diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-index abde08c..9b9b789 100644
+index 9b9b789..f7834d1 100644
 --- a/libmultipath/alias.c
 +++ b/libmultipath/alias.c
-@@ -329,13 +329,13 @@ allocate_binding(int fd, const char *wwid, int id, const char *prefix)
- 	return alias;
- }
- 
--char *
--use_existing_alias (const char *wwid, const char *file, const char *alias_old,
--		    const char *prefix, int bindings_read_only)
-+char *get_user_friendly_alias(const char *wwid, const char *file, const char *alias_old,
-+			      const char *prefix, bool bindings_read_only)
- {
- 	char *alias = NULL;
- 	int id = 0;
- 	int fd, can_write;
-+	bool new_binding = false;
- 	char buff[WWID_SIZE];
- 	FILE *f;
- 
-@@ -349,6 +349,10 @@ use_existing_alias (const char *wwid, const char *file, const char *alias_old,
- 		close(fd);
- 		return NULL;
+@@ -120,7 +120,7 @@ static bool alias_already_taken(const char *alias, const char *map_wwid)
+ 		if (dm_get_uuid(alias, wwid, sizeof(wwid)) == 0 &&
+ 		    strncmp(map_wwid, wwid, sizeof(wwid)) == 0)
+ 			return false;
+-		condlog(3, "%s: alias '%s' already taken, but not in bindings file. reselecting alias",
++		condlog(3, "%s: alias '%s' already taken, reselecting alias",
+ 			map_wwid, alias);
+ 		return true;
  	}
-+
-+	if (!strlen(alias_old))
-+		goto new_alias;
-+
- 	/* lookup the binding. if it exists, the wwid will be in buff
- 	 * either way, id contains the id for the alias
- 	 */
-@@ -358,14 +362,14 @@ use_existing_alias (const char *wwid, const char *file, const char *alias_old,
- 		/* if buff is our wwid, it's already
+@@ -363,28 +363,54 @@ char *get_user_friendly_alias(const char *wwid, const char *file, const char *al
  		 * allocated correctly
  		 */
--		if (strcmp(buff, wwid) == 0)
-+		if (strcmp(buff, wwid) == 0) {
- 			alias = strdup(alias_old);
--		else {
--			alias = NULL;
-+			goto out;
-+		} else {
+ 		if (strcmp(buff, wwid) == 0) {
+-			alias = strdup(alias_old);
++			if (!alias_already_taken(alias_old, wwid))
++				alias = strdup(alias_old);
++			else
++				condlog(0, "ERROR: old alias [%s] for wwid [%s] is used by other map",
++					alias_old, wwid);
+ 			goto out;
++
+ 		} else {
  			condlog(0, "alias %s already bound to wwid %s, cannot reuse",
  				alias_old, buff);
-+			goto new_alias;
+-			goto new_alias;
++			goto new_alias;		     ;
  		}
--		goto out;
  	}
  
++	/*
++	 * Look for an existing alias in the bindings file.
++	 * Pass prefix = NULL, so lookup_binding() won't try to allocate a new id.
++	 */
  	id = lookup_binding(f, wwid, &alias, NULL, 0);
-@@ -377,8 +381,15 @@ use_existing_alias (const char *wwid, const char *file, const char *alias_old,
+ 	if (alias) {
+-		condlog(3, "Use existing binding [%s] for WWID [%s]",
+-			alias, wwid);
++		if (alias_already_taken(alias, wwid)) {
++			free(alias);
++			alias = NULL;
++		} else
++			condlog(3, "Use existing binding [%s] for WWID [%s]",
++				alias, wwid);
+ 		goto out;
+ 	}
  
  	/* allocate the existing alias in the bindings file */
  	id = scan_devname(alias_old, prefix);
--	if (id <= 0)
--		goto out;
-+
-+new_alias:
-+	if (id <= 0) {
-+		id = lookup_binding(f, wwid, &alias, prefix, 1);
-+		if (id <= 0)
-+			goto out;
-+		else
-+			new_binding = true;
++	if (id > 0 && id_already_taken(id, prefix, wwid)) {
++		condlog(0, "ERROR: old alias [%s] for wwid [%s] is used by other map",
++			alias_old, wwid);
++		goto out;
 +	}
  
- 	if (fflush(f) != 0) {
- 		condlog(0, "cannot fflush bindings file stream : %s",
-@@ -388,8 +399,9 @@ use_existing_alias (const char *wwid, const char *file, const char *alias_old,
- 
- 	if (can_write && !bindings_read_only) {
- 		alias = allocate_binding(fd, wwid, id, prefix);
--		condlog(0, "Allocated existing binding [%s] for WWID [%s]",
--			alias, wwid);
-+		if (alias && !new_binding)
-+			condlog(2, "Allocated existing binding [%s] for WWID [%s]",
-+				alias, wwid);
- 	}
- 
- out:
-@@ -399,54 +411,6 @@ out:
- 	return alias;
+ new_alias:
+ 	if (id <= 0) {
++		/*
++		 * no existing alias was provided, or allocating it
++		 * failed. Try a new one.
++		 */
+ 		id = lookup_binding(f, wwid, &alias, prefix, 1);
++		if (id == 0 && alias_already_taken(alias, wwid)) {
++			free(alias);
++			alias = NULL;
++		}
+ 		if (id <= 0)
+ 			goto out;
+ 		else
+diff --git a/tests/alias.c b/tests/alias.c
+index 3ca6c28..11f209e 100644
+--- a/tests/alias.c
++++ b/tests/alias.c
+@@ -398,7 +398,7 @@ static void mock_self_alias(const char *alias, const char *wwid)
+ 	will_return(__wrap_dm_get_uuid, wwid);
  }
  
--char *
--get_user_friendly_alias(const char *wwid, const char *file, const char *prefix,
--			int bindings_read_only)
--{
--	char *alias;
--	int fd, id;
--	FILE *f;
--	int can_write;
--
--	if (!wwid || *wwid == '\0') {
--		condlog(3, "Cannot find binding for empty WWID");
--		return NULL;
--	}
--
--	fd = open_file(file, &can_write, bindings_file_header);
--	if (fd < 0)
--		return NULL;
--
--	f = fdopen(fd, "r");
--	if (!f) {
--		condlog(0, "cannot fdopen on bindings file descriptor : %s",
--			strerror(errno));
--		close(fd);
--		return NULL;
--	}
--
--	id = lookup_binding(f, wwid, &alias, prefix, 1);
--	if (id < 0) {
--		fclose(f);
--		return NULL;
--	}
--
--	pthread_cleanup_push(free, alias);
--
--	if (fflush(f) != 0) {
--		condlog(0, "cannot fflush bindings file stream : %s",
--			strerror(errno));
--		free(alias);
--		alias = NULL;
--	} else if (can_write && !bindings_read_only && !alias)
--		alias = allocate_binding(fd, wwid, id, prefix);
--
--	fclose(f);
--
--	pthread_cleanup_pop(0);
--	return alias;
--}
--
- int
- get_user_friendly_wwid(const char *alias, char *buff, const char *file)
+-#define USED_STR(alias_str, wwid_str) wwid_str ": alias '" alias_str "' already taken, but not in bindings file. reselecting alias\n"
++#define USED_STR(alias_str, wwid_str) wwid_str ": alias '" alias_str "' already taken, reselecting alias\n"
+ 
+ static void mock_failed_alias(const char *alias, char *msg)
  {
-diff --git a/libmultipath/alias.h b/libmultipath/alias.h
-index dbc950c..fa33223 100644
---- a/libmultipath/alias.h
-+++ b/libmultipath/alias.h
-@@ -2,13 +2,10 @@
- #define _ALIAS_H
- 
- int valid_alias(const char *alias);
--char *get_user_friendly_alias(const char *wwid, const char *file,
--			      const char *prefix,
--			      int bindings_readonly);
- int get_user_friendly_wwid(const char *alias, char *buff, const char *file);
--char *use_existing_alias (const char *wwid, const char *file,
--			  const char *alias_old,
--			  const char *prefix, int bindings_read_only);
-+char *get_user_friendly_alias(const char *wwid, const char *file,
-+			      const char *alias_old,
-+			      const char *prefix, bool bindings_read_only);
- 
- struct config;
- int check_alias_settings(const struct config *);
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index d6bce12..354e883 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -401,19 +401,16 @@ int select_alias(struct config *conf, struct multipath * mp)
- 
- 	select_alias_prefix(conf, mp);
- 
--	if (strlen(mp->alias_old) > 0) {
--		mp->alias = use_existing_alias(mp->wwid, conf->bindings_file,
--				mp->alias_old, mp->alias_prefix,
--				conf->bindings_read_only);
--		memset (mp->alias_old, 0, WWID_SIZE);
--		origin = "(setting: using existing alias)";
--	}
-+	mp->alias = get_user_friendly_alias(mp->wwid, conf->bindings_file,
-+					    mp->alias_old, mp->alias_prefix,
-+					    conf->bindings_read_only);
- 
--	if (mp->alias == NULL) {
--		mp->alias = get_user_friendly_alias(mp->wwid,
--				conf->bindings_file, mp->alias_prefix, conf->bindings_read_only);
-+	if (mp->alias && !strncmp(mp->alias, mp->alias_old, WWID_SIZE))
-+		origin = "(setting: using existing alias)";
-+	else if (mp->alias)
- 		origin = "(setting: user_friendly_name)";
--	}
-+	memset (mp->alias_old, 0, WWID_SIZE);
-+
- out:
- 	if (mp->alias == NULL) {
- 		mp->alias = strdup(mp->wwid);
 -- 
 2.41.0
 
