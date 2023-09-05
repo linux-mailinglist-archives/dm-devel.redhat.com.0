@@ -1,82 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 61CED79031B
-	for <lists+dm-devel@lfdr.de>; Fri,  1 Sep 2023 23:24:59 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id E74F57920FC
+	for <lists+dm-devel@lfdr.de>; Tue,  5 Sep 2023 10:25:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1693603498;
+	s=mimecast20190719; t=1693902316;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=uuffIhdedEQpHYwSOg8DXoJq8GaJ2oIblHPJX2mu344=;
-	b=LjC94fzXAN0XZJR+HTcGiUatl8wWUtUbHv8Mkv8crFAhr4GKT1pdb84IFE9yKaQj5qsxlp
-	WzTU4aTc3AXk+++m90w1Rabm03egWB7Fzcjdg6wseXpmr12fU9GyoVT2MlL6DCtKucDMhh
-	evSA9LVbomojyY1NIm05t5tFsyLU1Gc=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-172-y0soX_6XMge2vucl1JrHjw-1; Fri, 01 Sep 2023 17:24:54 -0400
-X-MC-Unique: y0soX_6XMge2vucl1JrHjw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=hceFt4EvYIIDTvEOM3CED3FzvkoQV0lhcr86JyzRcJA=;
+	b=cXr+FS9UWJw5Czlh7gtmJYvfPO7/YZ0LGNpNKYFOJmSA5nMO1ysSUx0dkXX+bGUlBlMN4E
+	9lO5hGhX92MkIVdcpEf7z/X11x+bC7NrPe95T7hr9KZ2xtJDH8WJyCljdq9oKEIL95T1sf
+	7ht76uUxp3+88lRoqBsu1dk+tacLJFw=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-223-uCSXjnVLPWKBodj8CwL3Dw-1; Tue, 05 Sep 2023 04:25:14 -0400
+X-MC-Unique: uCSXjnVLPWKBodj8CwL3Dw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 291711817903;
-	Fri,  1 Sep 2023 21:24:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 633D728EC100;
+	Tue,  5 Sep 2023 08:25:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 00AAC200BA73;
-	Fri,  1 Sep 2023 21:24:48 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 36F00C4F800;
+	Tue,  5 Sep 2023 08:25:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4CB5719472A4;
-	Fri,  1 Sep 2023 21:24:47 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8589D1946A4A;
+	Tue,  5 Sep 2023 08:25:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id E7E9B19465B7
- for <dm-devel@listman.corp.redhat.com>; Fri,  1 Sep 2023 21:24:45 +0000 (UTC)
+ ESMTP id 98D7A19465A2
+ for <dm-devel@listman.corp.redhat.com>; Tue,  5 Sep 2023 08:25:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A7D03404754A; Fri,  1 Sep 2023 21:24:45 +0000 (UTC)
+ id 51E8C404119; Tue,  5 Sep 2023 08:25:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A067E4069775
- for <dm-devel@redhat.com>; Fri,  1 Sep 2023 21:24:45 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 81A8990A7E3
- for <dm-devel@redhat.com>; Fri,  1 Sep 2023 21:24:45 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-410-Nvn9iknwMvuBQ9qrjwyS2g-1; Fri,
- 01 Sep 2023 17:24:44 -0400
-X-MC-Unique: Nvn9iknwMvuBQ9qrjwyS2g-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 667CA1F74B;
- Fri,  1 Sep 2023 21:24:42 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 347F01358B;
- Fri,  1 Sep 2023 21:24:42 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id gWgRC5pW8mRwEwAAMHmgww
- (envelope-from <mwilck@suse.com>); Fri, 01 Sep 2023 21:24:42 +0000
-From: mwilck@suse.com
-To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
- Benjamin Marzinski <bmarzins@redhat.com>
-Date: Fri,  1 Sep 2023 23:24:39 +0200
-Message-ID: <20230901212439.11880-1-mwilck@suse.com>
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4AF5749310E
+ for <dm-devel@redhat.com>; Tue,  5 Sep 2023 08:25:00 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2F5BF9423C9
+ for <dm-devel@redhat.com>; Tue,  5 Sep 2023 08:25:00 +0000 (UTC)
+Received: from szxga01-in.huawei.com (szxga01-in.huawei.com
+ [45.249.212.187]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-627-JyHMrBcrM5O64ljMpUtrIA-1; Tue, 05 Sep 2023 04:24:57 -0400
+X-MC-Unique: JyHMrBcrM5O64ljMpUtrIA-1
+Received: from kwepemm600010.china.huawei.com (unknown [172.30.72.53])
+ by szxga01-in.huawei.com (SkyGuard) with ESMTP id 4RfyfQ5n2TzhZJn;
+ Tue,  5 Sep 2023 16:02:38 +0800 (CST)
+Received: from [10.174.177.197] (10.174.177.197) by
+ kwepemm600010.china.huawei.com (7.193.23.86) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.31; Tue, 5 Sep 2023 16:06:36 +0800
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>, Benjamin Marzinski
+ <bmarzins@redhat.com>, Martin Wilck <mwilck@suse.com>, dm-devel mailing list
+ <dm-devel@redhat.com>
+From: Li Xiao Keng <lixiaokeng@huawei.com>
+Message-ID: <d2aa5abb-4d73-f733-fa3c-e52a9bbf4dfc@huawei.com>
+Date: Tue, 5 Sep 2023 16:06:35 +0800
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:68.0) Gecko/20100101
+ Thunderbird/68.10.0
 MIME-Version: 1.0
+X-Originating-IP: [10.174.177.197]
+X-ClientProxiedBy: dggems702-chm.china.huawei.com (10.3.19.179) To
+ kwepemm600010.china.huawei.com (7.193.23.86)
+X-CFilter-Loop: Reflected
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -84,9 +82,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH] Fix hwtable test after "libmultipath: don't
- bother to recheck timeout"
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: [dm-devel] [QUESTION] Is there checker to detect PDL?
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -98,45 +95,23 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
+Cc: louhongxiang@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.com
+X-Mimecast-Originator: huawei.com
+Content-Language: en-GB
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Martin Wilck <mwilck@suse.com>
+Hello:
+   Wmware has PDL test(https://kb.vmware.com/s/article/2004684).
+Is there has same function in multipath-tools? If not, can the
+same function be achieved?
 
-The previous patch  "libmultipath: don't bother to recheck timeout"
-causes sysfs_get_timeout() to be called less frequently. Adapt the
-tests.
-
-Signed-off-by: Martin Wilck <mwilck@suse.com>
----
- tests/test-lib.c | 6 ------
- 1 file changed, 6 deletions(-)
-
-diff --git a/tests/test-lib.c b/tests/test-lib.c
-index 0bc49d5..f75ea31 100644
---- a/tests/test-lib.c
-+++ b/tests/test-lib.c
-@@ -342,12 +342,6 @@ void mock_pathinfo(int mask, const struct mocked_path *mp)
- 			    mp->wwid);
- 	}
- 
--	if (mask & DI_CHECKER) {
--		/* get_state -> sysfs_get_timeout  */
--		will_return(__wrap_udev_device_get_subsystem, "scsi");
--		will_return(__wrap_udev_device_get_sysattr_value, "180");
--	}
--
- 	if (mask & DI_PRIO && mp->flags & NEED_SELECT_PRIO) {
- 
- 		/* sysfs_get_timeout, again (!?) */
--- 
-2.41.0
+Regards,
+Lixiaokeng
 
 --
 dm-devel mailing list
