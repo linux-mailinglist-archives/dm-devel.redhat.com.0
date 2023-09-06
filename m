@@ -2,73 +2,87 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D08797941E4
-	for <lists+dm-devel@lfdr.de>; Wed,  6 Sep 2023 19:10:46 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D05ED7945DF
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Sep 2023 00:02:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694020245;
+	s=mimecast20190719; t=1694037751;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=O84LOzY0bdAz/gscTMKeF2DXsxfe8OPww6slqBO4kbs=;
-	b=Oo+KBfMvM3dACKY7w9JJIMHfPpBPzG2+Y3vE68VRCNFSL6EebJ30hO99vFWEYPFTFf10HU
-	Od01fgYKDW36zbrXmDP47dvt1CDiATnIzYkcoPxiGmN2B/f+RerVMh0bKKny6t5rspGuzL
-	1CjmcUU6igsBgZZkqDN4wEM7aZf+Y3w=
+	bh=sAfqDMZlnNfFRv51w/cys+V7VlkkUMfhkx3kkWaUmr8=;
+	b=f2k3yYepLjXwbCJ7/pRc/byKjHZy1GcvM/++bt8bkRYQseCRJenBz5+IUf4nuE+ZUNDDT0
+	XQR7zoQz5ObzL+0nx4abQQQ3gleARd6hByzOd7VY7Bo9oBTHCdW1GZ/hajZhveglLcfm9Z
+	SlQ/NePCuF9EKGmpnN1xR7tTnCrXrfs=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-99-G9K5r5CsMZSJoztIIQ4Ihw-1; Wed, 06 Sep 2023 13:10:39 -0400
-X-MC-Unique: G9K5r5CsMZSJoztIIQ4Ihw-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-427-MUCxM3m2PjuBMxuEfeJz-w-1; Wed, 06 Sep 2023 18:02:28 -0400
+X-MC-Unique: MUCxM3m2PjuBMxuEfeJz-w-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1E6E993ED6B;
-	Wed,  6 Sep 2023 17:10:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D4BD4101F5A1;
+	Wed,  6 Sep 2023 22:02:25 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C0FE72026D4B;
-	Wed,  6 Sep 2023 17:10:31 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id E1CD21121314;
+	Wed,  6 Sep 2023 22:02:20 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 575C019465B3;
-	Wed,  6 Sep 2023 17:10:31 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0B29419465B2;
+	Wed,  6 Sep 2023 22:02:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
  [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AA8DC194658C
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Sep 2023 17:10:29 +0000 (UTC)
+ ESMTP id A1D9A194658C
+ for <dm-devel@listman.corp.redhat.com>; Wed,  6 Sep 2023 22:02:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 890111121318; Wed,  6 Sep 2023 17:10:29 +0000 (UTC)
+ id 7C37F1121318; Wed,  6 Sep 2023 22:02:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 80C641121314
- for <dm-devel@redhat.com>; Wed,  6 Sep 2023 17:10:29 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
- bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 671241C09A48
- for <dm-devel@redhat.com>; Wed,  6 Sep 2023 17:10:29 +0000 (UTC)
-Received: from zeniv.linux.org.uk (zeniv.linux.org.uk [62.89.141.173]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-661-dLLutiznOL6OkgdSC5py0Q-1; Wed,
- 06 Sep 2023 13:10:25 -0400
-X-MC-Unique: dLLutiznOL6OkgdSC5py0Q-1
-Received: from viro by zeniv.linux.org.uk with local (Exim 4.96 #2 (Red Hat
- Linux)) id 1qdw2q-0040cT-0x; Wed, 06 Sep 2023 17:10:24 +0000
-Date: Wed, 6 Sep 2023 18:10:24 +0100
-From: Al Viro <viro@zeniv.linux.org.uk>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20230906171024.GB800259@ZenIV>
-References: <59b54cc3-b98b-aff9-14fc-dc25c61111c6@redhat.com>
- <20230906-launenhaft-kinder-118ea59706c8@brauner>
- <f5d63867-5b3e-294b-d1f5-a128817cfc7@redhat.com>
- <20230906-aufheben-hagel-9925501b7822@brauner>
- <60f244be-803b-fa70-665e-b5cba15212e@redhat.com>
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 743EF1121314
+ for <dm-devel@redhat.com>; Wed,  6 Sep 2023 22:02:17 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 588B180D75F
+ for <dm-devel@redhat.com>; Wed,  6 Sep 2023 22:02:17 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.151]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-92-JarzhXkTPkyMUcgw9LO-0w-1; Wed, 06 Sep 2023 18:02:13 -0400
+X-MC-Unique: JarzhXkTPkyMUcgw9LO-0w-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="357507878"
+X-IronPort-AV: E=Sophos;i="6.02,233,1688454000"; d="scan'208";a="357507878"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by fmsmga107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 06 Sep 2023 15:02:11 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10825"; a="718438474"
+X-IronPort-AV: E=Sophos;i="6.02,233,1688454000"; d="scan'208";a="718438474"
+Received: from lkp-server01.sh.intel.com (HELO 59b3c6e06877) ([10.239.97.150])
+ by orsmga006.jf.intel.com with ESMTP; 06 Sep 2023 15:02:06 -0700
+Received: from kbuild by 59b3c6e06877 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qe0b6-0000d2-00;
+ Wed, 06 Sep 2023 22:02:04 +0000
+Date: Thu, 7 Sep 2023 06:01:50 +0800
+From: kernel test robot <lkp@intel.com>
+To: Nitesh Shetty <nj.shetty@samsung.com>, Jens Axboe <axboe@kernel.dk>,
+ Jonathan Corbet <corbet@lwn.net>, Alasdair Kergon <agk@redhat.com>,
+ Mike Snitzer <snitzer@kernel.org>, dm-devel@redhat.com,
+ Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni <kch@nvidia.com>,
+ Alexander Viro <viro@zeniv.linux.org.uk>,
+ Christian Brauner <brauner@kernel.org>
+Message-ID: <202309070542.P9utuu9p-lkp@intel.com>
+References: <20230906163844.18754-13-nj.shetty@samsung.com>
 MIME-Version: 1.0
-In-Reply-To: <60f244be-803b-fa70-665e-b5cba15212e@redhat.com>
+In-Reply-To: <20230906163844.18754-13-nj.shetty@samsung.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -77,7 +91,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: Re: [dm-devel] [PATCH] fix writing to the filesystem after unmount
+Subject: Re: [dm-devel] [PATCH v15 12/12] null_blk: add support for copy
+ offload
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -89,27 +104,99 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
- linux-kernel@vger.kernel.org, dm-devel@redhat.com,
- Zdenek Kabelac <zkabelac@redhat.com>, linux-fsdevel@vger.kernel.org,
- Christoph Hellwig <hch@lst.de>
+Cc: Anuj Gupta <anuj20.g@samsung.com>, Vincent Fu <vincent.fu@samsung.com>,
+ martin.petersen@oracle.com, linux-doc@vger.kernel.org, gost.dev@samsung.com,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>, llvm@lists.linux.dev,
+ linux-kernel@vger.kernel.org, linux-nvme@lists.infradead.org,
+ linux-block@vger.kernel.org, mcgrof@kernel.org, oe-kbuild-all@lists.linux.dev,
+ linux-fsdevel@vger.kernel.org, Nitesh Shetty <nj.shetty@samsung.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: zeniv.linux.org.uk
+X-Mimecast-Originator: intel.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 06, 2023 at 06:01:06PM +0200, Mikulas Patocka wrote:
+Hi Nitesh,
 
-> Perhaps we could distinguish between FIFREEZE-initiated freezes and 
-> device-mapper initiated freezes as well. And we could change the logic to 
-> return -EBUSY if the freeze was initiated by FIFREEZE and to wait for 
-> unfreeze if it was initiated by the device-mapper.
+kernel test robot noticed the following build warnings:
 
-By the time you get to cleanup_mnt() it's far too late to return -EBUSY.
+[auto build test WARNING on c50216cfa084d5eb67dc10e646a3283da1595bb6]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Nitesh-Shetty/block-Introduce-queue-limits-and-sysfs-for-copy-offload-support/20230907-015817
+base:   c50216cfa084d5eb67dc10e646a3283da1595bb6
+patch link:    https://lore.kernel.org/r/20230906163844.18754-13-nj.shetty%40samsung.com
+patch subject: [PATCH v15 12/12] null_blk: add support for copy offload
+config: arm-randconfig-001-20230907 (https://download.01.org/0day-ci/archive/20230907/202309070542.P9utuu9p-lkp@intel.com/config)
+compiler: clang version 14.0.6 (https://github.com/llvm/llvm-project.git f28c006a5895fc0e329fe15fead81e37457cb1d1)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230907/202309070542.P9utuu9p-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309070542.P9utuu9p-lkp@intel.com/
+
+All warnings (new ones prefixed by >>):
+
+   In file included from drivers/block/null_blk/main.c:15:
+   In file included from drivers/block/null_blk/./trace.h:104:
+   In file included from include/trace/define_trace.h:102:
+   In file included from include/trace/trace_events.h:237:
+>> drivers/block/null_blk/./trace.h:94:34: warning: format specifies type 'unsigned long' but the argument has type 'size_t' (aka 'unsigned int') [-Wformat]
+                             __entry->dst, __entry->src, __entry->len)
+                             ~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~
+   include/trace/stages/stage3_trace_output.h:6:17: note: expanded from macro '__entry'
+   #define __entry field
+                   ^
+   include/trace/stages/stage3_trace_output.h:9:43: note: expanded from macro 'TP_printk'
+   #define TP_printk(fmt, args...) fmt "\n", args
+                                   ~~~       ^
+   include/trace/trace_events.h:45:16: note: expanded from macro 'TRACE_EVENT'
+                                PARAMS(print));                   \
+                                ~~~~~~~^~~~~~~
+   include/linux/tracepoint.h:107:25: note: expanded from macro 'PARAMS'
+   #define PARAMS(args...) args
+                           ^~~~
+   include/trace/trace_events.h:203:27: note: expanded from macro 'DECLARE_EVENT_CLASS'
+           trace_event_printf(iter, print);                                \
+                                    ^~~~~
+   1 warning generated.
+
+
+vim +94 drivers/block/null_blk/./trace.h
+
+    72	
+    73	TRACE_EVENT(nullb_copy_op,
+    74			TP_PROTO(struct request *req,
+    75				 sector_t dst, sector_t src, size_t len),
+    76			TP_ARGS(req, dst, src, len),
+    77			TP_STRUCT__entry(
+    78					 __array(char, disk, DISK_NAME_LEN)
+    79					 __field(enum req_op, op)
+    80					 __field(sector_t, dst)
+    81					 __field(sector_t, src)
+    82					 __field(size_t, len)
+    83			),
+    84			TP_fast_assign(
+    85				       __entry->op = req_op(req);
+    86				       __assign_disk_name(__entry->disk, req->q->disk);
+    87				       __entry->dst = dst;
+    88				       __entry->src = src;
+    89				       __entry->len = len;
+    90			),
+    91			TP_printk("%s req=%-15s: dst=%llu, src=%llu, len=%lu",
+    92				  __print_disk_name(__entry->disk),
+    93				  blk_op_str(__entry->op),
+  > 94				  __entry->dst, __entry->src, __entry->len)
+    95	);
+    96	#endif /* _TRACE_NULLB_H */
+    97	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
 --
 dm-devel mailing list
