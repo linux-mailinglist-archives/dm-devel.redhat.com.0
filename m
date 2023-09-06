@@ -2,7 +2,7 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 328AB797048
+	by mail.lfdr.de (Postfix) with ESMTPS id 37847797049
 	for <lists+dm-devel@lfdr.de>; Thu,  7 Sep 2023 08:27:43 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1694068062;
@@ -12,69 +12,70 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=9d/2o9Yj4+AhzDFxwMtLqZ85TgJadhNyYRF3+Vlg1og=;
-	b=gSsnc3HKhanLzJKF9iuwXIQNWwFg3GJjLRYwQRjJV/kTsSz6uoi0KxRaHyVsP9aQx+dmaj
-	q4+Uci/oCrgUpgrDsUgRQuCVJTbRaj4LxLXIwjXltyBF8jpMnpt/TUXFlUnTnujCqZTGan
-	l2uc9+hfn/PMtBORrNWeKiW0EVIEEcI=
+	bh=qkJcAC47wGP+4ZBaYIkcYNyQEKWKGJx+gicuycVG7bM=;
+	b=eW4ZhSaPicSsPcwNbtAF3timh34vY1q9myhOOhCtZ/t3DuEZB2FzXZIxQ9UbItuoWIOOoy
+	FpWpiK9TxYQAWjmPqj/qLqktWHPSA1n5nau2PDnITXW5UxikkPMvGUrD9pUzkaj8HLFVMJ
+	trjAPsMQPY/frvl8bAhjvQuYY4d4Jiw=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-8-zzIsEQuiPuqJ1S-vG3uMTQ-1; Thu, 07 Sep 2023 02:27:39 -0400
-X-MC-Unique: zzIsEQuiPuqJ1S-vG3uMTQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-8-tEDpD5nuOFGtUV9hE-0OrQ-1; Thu, 07 Sep 2023 02:27:39 -0400
+X-MC-Unique: tEDpD5nuOFGtUV9hE-0OrQ-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A05B1802A6E;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0A6E181792B;
 	Thu,  7 Sep 2023 06:27:36 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id C7459C4F860;
-	Thu,  7 Sep 2023 06:27:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 901F3493110;
+	Thu,  7 Sep 2023 06:27:33 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 98AF719465BC;
-	Thu,  7 Sep 2023 06:27:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6AC171946A41;
+	Thu,  7 Sep 2023 06:27:32 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 31313194658D
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Sep 2023 15:58:27 +0000 (UTC)
+ ESMTP id 3CB71194658C
+ for <dm-devel@listman.corp.redhat.com>; Wed,  6 Sep 2023 16:19:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 22AEF2026D4B; Wed,  6 Sep 2023 15:58:27 +0000 (UTC)
+ id 2540740C105A; Wed,  6 Sep 2023 16:19:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B5FB2026D76
- for <dm-devel@redhat.com>; Wed,  6 Sep 2023 15:58:27 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [205.139.110.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DD07400F26A
+ for <dm-devel@redhat.com>; Wed,  6 Sep 2023 16:19:11 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 008CA10487A6
- for <dm-devel@redhat.com>; Wed,  6 Sep 2023 15:58:27 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F34C192BB67
+ for <dm-devel@redhat.com>; Wed,  6 Sep 2023 16:19:10 +0000 (UTC)
 Received: from dfw.source.kernel.org (dfw.source.kernel.org
  [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-394-0ubss0IxMhaP7l-IXIBqzw-1; Wed, 06 Sep 2023 11:58:25 -0400
-X-MC-Unique: 0ubss0IxMhaP7l-IXIBqzw-1
+ us-mta-507-43oDozaIPC6Qyj-kyl7lyw-1; Wed, 06 Sep 2023 12:19:07 -0400
+X-MC-Unique: 43oDozaIPC6Qyj-kyl7lyw-1
 Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits))
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id 566C361149;
- Wed,  6 Sep 2023 15:58:24 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB4BCC433C8;
- Wed,  6 Sep 2023 15:58:21 +0000 (UTC)
-Date: Wed, 6 Sep 2023 17:58:18 +0200
+ by dfw.source.kernel.org (Postfix) with ESMTPS id BF98561152;
+ Wed,  6 Sep 2023 16:19:06 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C8EC433C8;
+ Wed,  6 Sep 2023 16:19:04 +0000 (UTC)
+Date: Wed, 6 Sep 2023 18:19:01 +0200
 From: Christian Brauner <brauner@kernel.org>
 To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20230906-echtheit-dezent-6f3621821cf2@brauner>
+Message-ID: <20230906-aufkam-bareinlage-6e7d06d58e90@brauner>
 References: <59b54cc3-b98b-aff9-14fc-dc25c61111c6@redhat.com>
  <20230906-launenhaft-kinder-118ea59706c8@brauner>
  <f5d63867-5b3e-294b-d1f5-a128817cfc7@redhat.com>
  <20230906-aufheben-hagel-9925501b7822@brauner>
+ <60f244be-803b-fa70-665e-b5cba15212e@redhat.com>
 MIME-Version: 1.0
-In-Reply-To: <20230906-aufheben-hagel-9925501b7822@brauner>
+In-Reply-To: <60f244be-803b-fa70-665e-b5cba15212e@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -82,7 +83,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Thu, 07 Sep 2023 06:27:31 +0000
 Subject: Re: [dm-devel] [PATCH] fix writing to the filesystem after unmount
 X-BeenThere: dm-devel@redhat.com
@@ -96,73 +97,119 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- linux-kernel@vger.kernel.org, dm-devel@redhat.com,
+Cc: Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, dm-devel@redhat.com,
  Alexander Viro <viro@zeniv.linux.org.uk>, Zdenek Kabelac <zkabelac@redhat.com>,
  linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 06, 2023 at 05:33:32PM +0200, Christian Brauner wrote:
-> > Currently, if we freeze a filesystem with "fsfreeze" and unmount it, the 
-> > mount point is removed, but the filesystem stays active and it is leaked. 
-> > You can't unfreeze it with "fsfreeze --unfreeze" because the mount point 
-> > is gone. (the only way how to recover it is "echo j>/proc/sysrq-trigger").
+On Wed, Sep 06, 2023 at 06:01:06PM +0200, Mikulas Patocka wrote:
 > 
-> You can of course always remount and unfreeze it.
 > 
-> > > IOW, you'd also hang on any umount of a bind-mount. IOW, every
-> > > single container making use of this filesystems via bind-mounts would
-> > > hang on umount and shutdown.
+> On Wed, 6 Sep 2023, Christian Brauner wrote:
+> 
+> > > > IOW, you'd also hang on any umount of a bind-mount. IOW, every
+> > > > single container making use of this filesystems via bind-mounts would
+> > > > hang on umount and shutdown.
+> > > 
+> > > bind-mount doesn't modify "s->s_writers.frozen", so the patch does nothing 
+> > > in this case. I tried unmounting bind-mounts and there was no deadlock.
 > > 
-> > bind-mount doesn't modify "s->s_writers.frozen", so the patch does nothing 
-> > in this case. I tried unmounting bind-mounts and there was no deadlock.
+> > With your patch what happens if you do the following?
+> > 
+> > #!/bin/sh -ex
+> > modprobe brd rd_size=4194304
+> > vgcreate vg /dev/ram0
+> > lvcreate -L 16M -n lv vg
+> > mkfs.ext4 /dev/vg/lv
+> > 
+> > mount -t ext4 /dev/vg/lv /mnt/test
+> > mount --bind /mnt/test /opt
+> > mount --make-private /opt
+> > 
+> > dmsetup suspend /dev/vg/lv
+> > (sleep 1; dmsetup resume /dev/vg/lv) &
+> > 
+> > umount /opt # I'd expect this to hang
+> > 
+> > md5sum /dev/vg/lv
+> > md5sum /dev/vg/lv
+> > dmsetup remove_all
+> > rmmod brd
 > 
-> With your patch what happens if you do the following?
-> 
-> #!/bin/sh -ex
-> modprobe brd rd_size=4194304
-> vgcreate vg /dev/ram0
-> lvcreate -L 16M -n lv vg
-> mkfs.ext4 /dev/vg/lv
-> 
-> mount -t ext4 /dev/vg/lv /mnt/test
-> mount --bind /mnt/test /opt
-> mount --make-private /opt
-> 
-> dmsetup suspend /dev/vg/lv
-> (sleep 1; dmsetup resume /dev/vg/lv) &
-> 
-> umount /opt # I'd expect this to hang
-> 
-> md5sum /dev/vg/lv
-> md5sum /dev/vg/lv
-> dmsetup remove_all
-> rmmod brd
-> 
-> > BTW. what do you think that unmount of a frozen filesystem should properly 
-> > do? Fail with -EBUSY? Or, unfreeze the filesystem and unmount it? Or 
-> > something else?
-> 
-> In my opinion we should refuse to unmount frozen filesystems and log an
-> error that the filesystem is frozen. Waiting forever isn't a good idea
-> in my opinion.
-> 
-> But this is a significant uapi change afaict so this would need to be
-> hidden behind a config option, a sysctl, or it would have to be a new
-> flag to umount2() MNT_UNFROZEN which would allow an administrator to use
-> this flag to not unmount a frozen filesystems.
+> "umount /opt" doesn't hang. It waits one second (until dmsetup resume is 
+> called) and then proceeds.
 
-That's probably too careful. I think we could risk starting to return an
-error when trying to unmount a frozen filesystem. And if that causes
-regressions we could go and look at another option like MNT_UNFROZEN or
-whatever.
+So unless I'm really misreading the code - entirely possible - the
+umount of the bind-mount now waits until the filesystem is resumed with
+your patch. And if that's the case that's a bug.
+
+If at all, then only the last umount, the one that destroys the
+superblock, should wait for the filesystem to become unfrozen.
+
+A bind-mount shouldn't as there are still active mounts of the
+filesystem (e.g., /mnt/test).
+
+So you should see this with (unless I really misread things):
+
+#!/bin/sh -ex
+modprobe brd rd_size=4194304
+vgcreate vg /dev/ram0
+lvcreate -L 16M -n lv vg
+mkfs.ext4 /dev/vg/lv
+
+mount -t ext4 /dev/vg/lv /mnt/test
+mount --bind /mnt/test /opt
+mount --make-private /opt
+
+dmsetup suspend /dev/vg/lv
+
+umount /opt # This will hang with your patch?
+
+> 
+> Then, it fails with "rmmod: ERROR: Module brd is in use" because the 
+> script didn't unmount /mnt/test.
+> 
+> > > BTW. what do you think that unmount of a frozen filesystem should properly 
+> > > do? Fail with -EBUSY? Or, unfreeze the filesystem and unmount it? Or 
+> > > something else?
+> > 
+> > In my opinion we should refuse to unmount frozen filesystems and log an
+> > error that the filesystem is frozen. Waiting forever isn't a good idea
+> > in my opinion.
+> 
+> But lvm may freeze filesystems anytime - so we'd get randomly returned 
+> errors then.
+
+So? Or you might hang at anytime.
+
+> 
+> > But this is a significant uapi change afaict so this would need to be
+> > hidden behind a config option, a sysctl, or it would have to be a new
+> > flag to umount2() MNT_UNFROZEN which would allow an administrator to use
+> > this flag to not unmount a frozen filesystems.
+> 
+> The kernel currently distinguishes between kernel-initiated freeze (that 
+> is used by the XFS scrub) and userspace-initiated freeze (that is used by 
+> the FIFREEZE ioctl and by device-mapper initiated freeze through 
+> freeze_bdev).
+
+Yes, I'm aware.
+
+> 
+> Perhaps we could distinguish between FIFREEZE-initiated freezes and 
+> device-mapper initiated freezes as well. And we could change the logic to 
+> return -EBUSY if the freeze was initiated by FIFREEZE and to wait for 
+> unfreeze if it was initiated by the device-mapper.
+
+For device mapper initiated freezes you can unfreeze independent of any
+filesystem mountpoint via dm ioctls.
 
 --
 dm-devel mailing list
