@@ -1,81 +1,87 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 37847797049
-	for <lists+dm-devel@lfdr.de>; Thu,  7 Sep 2023 08:27:43 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D99AA79707D
+	for <lists+dm-devel@lfdr.de>; Thu,  7 Sep 2023 09:25:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694068062;
+	s=mimecast20190719; t=1694071509;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=qkJcAC47wGP+4ZBaYIkcYNyQEKWKGJx+gicuycVG7bM=;
-	b=eW4ZhSaPicSsPcwNbtAF3timh34vY1q9myhOOhCtZ/t3DuEZB2FzXZIxQ9UbItuoWIOOoy
-	FpWpiK9TxYQAWjmPqj/qLqktWHPSA1n5nau2PDnITXW5UxikkPMvGUrD9pUzkaj8HLFVMJ
-	trjAPsMQPY/frvl8bAhjvQuYY4d4Jiw=
+	bh=n+FY50vLqy/YJxn5kHQe1DyoJLOaJh0+5hNQpD55ldQ=;
+	b=P1PhMByqu+B5hcvLfcmHYh9lOxPrTX0oF/OezNyLw3PNBy6gNjUTLtZokkHr1Z1hGWoG5o
+	cbbzclxcrxGqIJChUhXIEROBICSKLd8+/YZqo7kAxsbyXgm/w5Pa6MKDoHp5AC1e11hMi/
+	mich9LZ0gutyc+D/hR0awjeaHlnheUg=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-8-tEDpD5nuOFGtUV9hE-0OrQ-1; Thu, 07 Sep 2023 02:27:39 -0400
-X-MC-Unique: tEDpD5nuOFGtUV9hE-0OrQ-1
+ us-mta-435-XCMREKdWMuSbJz9llMxXQg-1; Thu, 07 Sep 2023 03:25:06 -0400
+X-MC-Unique: XCMREKdWMuSbJz9llMxXQg-1
 Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher AECDH-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A0A6E181792B;
-	Thu,  7 Sep 2023 06:27:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40688101CA83;
+	Thu,  7 Sep 2023 07:25:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 901F3493110;
-	Thu,  7 Sep 2023 06:27:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 40DAE493110;
+	Thu,  7 Sep 2023 07:24:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6AC171946A41;
-	Thu,  7 Sep 2023 06:27:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4949419465B3;
+	Thu,  7 Sep 2023 07:24:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3CB71194658C
- for <dm-devel@listman.corp.redhat.com>; Wed,  6 Sep 2023 16:19:11 +0000 (UTC)
+ ESMTP id 89840194658C
+ for <dm-devel@listman.corp.redhat.com>; Thu,  7 Sep 2023 07:24:50 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2540740C105A; Wed,  6 Sep 2023 16:19:11 +0000 (UTC)
+ id 729E852572D; Thu,  7 Sep 2023 07:24:50 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1DD07400F26A
- for <dm-devel@redhat.com>; Wed,  6 Sep 2023 16:19:11 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
+ (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 6AA4552572C
+ for <dm-devel@redhat.com>; Thu,  7 Sep 2023 07:24:50 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F34C192BB67
- for <dm-devel@redhat.com>; Wed,  6 Sep 2023 16:19:10 +0000 (UTC)
-Received: from dfw.source.kernel.org (dfw.source.kernel.org
- [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-507-43oDozaIPC6Qyj-kyl7lyw-1; Wed, 06 Sep 2023 12:19:07 -0400
-X-MC-Unique: 43oDozaIPC6Qyj-kyl7lyw-1
-Received: from smtp.kernel.org (relay.kernel.org [52.25.139.140])
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 454B8281294C
+ for <dm-devel@redhat.com>; Thu,  7 Sep 2023 07:24:50 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-227--6sUsRuHO6-USfZp7W1fPQ-1; Thu,
+ 07 Sep 2023 03:24:48 -0400
+X-MC-Unique: -6sUsRuHO6-USfZp7W1fPQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature RSA-PSS (2048 bits))
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by dfw.source.kernel.org (Postfix) with ESMTPS id BF98561152;
- Wed,  6 Sep 2023 16:19:06 +0000 (UTC)
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 58C8EC433C8;
- Wed,  6 Sep 2023 16:19:04 +0000 (UTC)
-Date: Wed, 6 Sep 2023 18:19:01 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Mikulas Patocka <mpatocka@redhat.com>
-Message-ID: <20230906-aufkam-bareinlage-6e7d06d58e90@brauner>
-References: <59b54cc3-b98b-aff9-14fc-dc25c61111c6@redhat.com>
- <20230906-launenhaft-kinder-118ea59706c8@brauner>
- <f5d63867-5b3e-294b-d1f5-a128817cfc7@redhat.com>
- <20230906-aufheben-hagel-9925501b7822@brauner>
- <60f244be-803b-fa70-665e-b5cba15212e@redhat.com>
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5035821863;
+ Thu,  7 Sep 2023 07:24:47 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 255EA138F9;
+ Thu,  7 Sep 2023 07:24:47 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id 0LyZB796+WS/DAAAMHmgww
+ (envelope-from <mwilck@suse.com>); Thu, 07 Sep 2023 07:24:47 +0000
+Message-ID: <9948d7855eba709714b5b487240e44a309288f07.camel@suse.com>
+From: Martin Wilck <mwilck@suse.com>
+To: Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 07 Sep 2023 09:24:46 +0200
+In-Reply-To: <20230906224248.GO7412@octiron.msp.redhat.com>
+References: <20230901180235.23980-1-mwilck@suse.com>
+ <20230901180235.23980-5-mwilck@suse.com>
+ <20230906224248.GO7412@octiron.msp.redhat.com>
+User-Agent: Evolution 3.48.4
 MIME-Version: 1.0
-In-Reply-To: <60f244be-803b-fa70-665e-b5cba15212e@redhat.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -83,9 +89,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-X-Mailman-Approved-At: Thu, 07 Sep 2023 06:27:31 +0000
-Subject: Re: [dm-devel] [PATCH] fix writing to the filesystem after unmount
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+Subject: Re: [dm-devel] [PATCH 04/21] libmultipath: never allocate an alias
+ that's already taken
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,119 +103,168 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Jan Kara <jack@suse.cz>, linux-kernel@vger.kernel.org, dm-devel@redhat.com,
- Alexander Viro <viro@zeniv.linux.org.uk>, Zdenek Kabelac <zkabelac@redhat.com>,
- linux-fsdevel@vger.kernel.org, Christoph Hellwig <hch@lst.de>
+Cc: dm-devel@redhat.com, David Bond <dbond@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: suse.com
+Content-Type: text/plain; charset="iso-8859-15"
+Content-Transfer-Encoding: quoted-printable
 
-On Wed, Sep 06, 2023 at 06:01:06PM +0200, Mikulas Patocka wrote:
-> 
-> 
-> On Wed, 6 Sep 2023, Christian Brauner wrote:
-> 
-> > > > IOW, you'd also hang on any umount of a bind-mount. IOW, every
-> > > > single container making use of this filesystems via bind-mounts would
-> > > > hang on umount and shutdown.
-> > > 
-> > > bind-mount doesn't modify "s->s_writers.frozen", so the patch does nothing 
-> > > in this case. I tried unmounting bind-mounts and there was no deadlock.
-> > 
-> > With your patch what happens if you do the following?
-> > 
-> > #!/bin/sh -ex
-> > modprobe brd rd_size=4194304
-> > vgcreate vg /dev/ram0
-> > lvcreate -L 16M -n lv vg
-> > mkfs.ext4 /dev/vg/lv
-> > 
-> > mount -t ext4 /dev/vg/lv /mnt/test
-> > mount --bind /mnt/test /opt
-> > mount --make-private /opt
-> > 
-> > dmsetup suspend /dev/vg/lv
-> > (sleep 1; dmsetup resume /dev/vg/lv) &
-> > 
-> > umount /opt # I'd expect this to hang
-> > 
-> > md5sum /dev/vg/lv
-> > md5sum /dev/vg/lv
-> > dmsetup remove_all
-> > rmmod brd
-> 
-> "umount /opt" doesn't hang. It waits one second (until dmsetup resume is 
-> called) and then proceeds.
+On Wed, 2023-09-06 at 17:42 -0500, Benjamin Marzinski wrote:
+> On Fri, Sep 01, 2023 at 08:02:17PM +0200, mwilck@suse.com=A0wrote:
+> > From: Martin Wilck <mwilck@suse.com>
+> >=20
+> > If the bindings file is changed in a way that multipathd can't
+> > handle
+> > (e.g. by swapping the aliases of two maps), multipathd must not try
+> > to re-use an alias that is already used by another map. Creating
+> > or renaming a map with such an alias will fail. We already avoid
+> > this for some cases, but not for all. Fix it.
+> >=20
+> > Signed-off-by: Martin Wilck <mwilck@suse.com>
+> > Cc: David Bond <dbond@suse.com>
+> > ---
+> > =A0libmultipath/alias.c | 36 +++++++++++++++++++++++++++++++-----
+> > =A0tests/alias.c=A0=A0=A0=A0=A0=A0=A0 |=A0 2 +-
+> > =A02 files changed, 32 insertions(+), 6 deletions(-)
+> >=20
+> > diff --git a/libmultipath/alias.c b/libmultipath/alias.c
+> > index 9b9b789..f7834d1 100644
+> > --- a/libmultipath/alias.c
+> > +++ b/libmultipath/alias.c
+> > @@ -120,7 +120,7 @@ static bool alias_already_taken(const char
+> > *alias, const char *map_wwid)
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (dm_get_uuid(alias, =
+wwid, sizeof(wwid)) =3D=3D 0 &&
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 strncmp(map_w=
+wid, wwid, sizeof(wwid)) =3D=3D 0)
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0return false;
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: alias '%s=
+' already taken, but not
+> > in bindings file. reselecting alias",
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "%s: alias '%s=
+' already taken,
+> > reselecting alias",
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0map_wwid, alias);
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return true;
+> > =A0=A0=A0=A0=A0=A0=A0=A0}
+> > @@ -363,28 +363,54 @@ char *get_user_friendly_alias(const char
+> > *wwid, const char *file, const char *al
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 * allocated correctly
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 */
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (strcmp(buff, wwid) =
+=3D=3D 0) {
+>=20
+> I'm confused about this. We should only have alias_old set if there
+> already exists a device that matches this WWID, right? That's what I
+> though alias_old means. Am I missing some way that alias_old could
+> get
+> set to something other than the alias of an already existing device
+> with
+> a matching WWID? Otherwise, once we verify that that this mapping
+> also
+> exists in the bindings file, we should be fine to use it?
+>=20
 
-So unless I'm really misreading the code - entirely possible - the
-umount of the bind-mount now waits until the filesystem is resumed with
-your patch. And if that's the case that's a bug.
+This is mainly meant as an additional consistency check, to make sure
+that the logic in get_user_friendly_alias() is correct, no matter how
+"alias_old" was set by the caller.=A0Note that alias_old is ab^H^Hreused
+by the ACT_RENAME action; it is not immediately obvious that alias_old
+can never be set to an invalid value in get_user_friendly_alias().
 
-If at all, then only the last umount, the one that destroys the
-superblock, should wait for the filesystem to become unfrozen.
+condlog() prints "ERROR" here because it's a condition that shouldn't
+occur.
 
-A bind-mount shouldn't as there are still active mounts of the
-filesystem (e.g., /mnt/test).
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0a=
+lias =3D strdup(alias_old);
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0i=
+f (!alias_already_taken(alias_old, wwid))
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0alias =3D strdup(alias_old);
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0e=
+lse
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0condlog(0, "ERROR: old alias [%s]
+> > for wwid [%s] is used by other map",
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0alias_old, wwid);
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0goto out;
+> > +
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else {
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0condlog(0, "alias %s already bound to wwid
+> > %s, cannot reuse",
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0=A0alias_old, buff);
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0g=
+oto new_alias;
+>=20
+> extra semicolon.
+>=20
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0g=
+oto new_alias;=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0 ;
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0}
+> > =A0=A0=A0=A0=A0=A0=A0=A0}
+> > =A0
+> > +=A0=A0=A0=A0=A0=A0=A0/*
+> > +=A0=A0=A0=A0=A0=A0=A0 * Look for an existing alias in the bindings fil=
+e.
+> > +=A0=A0=A0=A0=A0=A0=A0 * Pass prefix =3D NULL, so lookup_binding() won'=
+t try to
+> > allocate a new id.
+> > +=A0=A0=A0=A0=A0=A0=A0 */
+>=20
+> There's no point in saving the return value here. We don't use if for
+> anything.
+>=20
+> > =A0=A0=A0=A0=A0=A0=A0=A0id =3D lookup_binding(f, wwid, &alias, NULL, 0)=
+;
+> > =A0=A0=A0=A0=A0=A0=A0=A0if (alias) {
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(3, "Use existing =
+binding [%s] for WWID
+> > [%s]",
+> > -=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0a=
+lias, wwid);
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0if (alias_already_taken(a=
+lias, wwid)) {
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0f=
+ree(alias);
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0a=
+lias =3D NULL;
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0} else
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0c=
+ondlog(3, "Use existing binding [%s] for
+> > WWID [%s]",
+> > +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
+=A0=A0=A0=A0=A0=A0=A0=A0alias, wwid);
+> > =A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0goto out;
+> > =A0=A0=A0=A0=A0=A0=A0=A0}
+> > =A0
+> > =A0=A0=A0=A0=A0=A0=A0=A0/* allocate the existing alias in the bindings =
+file */
+> > =A0=A0=A0=A0=A0=A0=A0=A0id =3D scan_devname(alias_old, prefix);
+>=20
+> Again, unless I'm overlooking something, I don't think we need to
+> check if the alias is already taken here. Since we know that a device
+> already exists with alias_old and the correct WWID, as long as
+> alias_old
+> is a valid user_friendly_name we can just use it.
 
-So you should see this with (unless I really misread things):
+Similar reasoning as above. We could perhaps remove these checks, but
+we'd need to replace them by comments explaining why this condition
+can't occur.
 
-#!/bin/sh -ex
-modprobe brd rd_size=4194304
-vgcreate vg /dev/ram0
-lvcreate -L 16M -n lv vg
-mkfs.ext4 /dev/vg/lv
+We could (and maybe should) move the call to find_existing_alias() from
+add_map_with_path() to get_user_friendly_alias(), so that we have the
+entire alias logic in a single place. The mpp->alias_old field would
+then only be used for ACT_RENAME.
 
-mount -t ext4 /dev/vg/lv /mnt/test
-mount --bind /mnt/test /opt
-mount --make-private /opt
-
-dmsetup suspend /dev/vg/lv
-
-umount /opt # This will hang with your patch?
-
-> 
-> Then, it fails with "rmmod: ERROR: Module brd is in use" because the 
-> script didn't unmount /mnt/test.
-> 
-> > > BTW. what do you think that unmount of a frozen filesystem should properly 
-> > > do? Fail with -EBUSY? Or, unfreeze the filesystem and unmount it? Or 
-> > > something else?
-> > 
-> > In my opinion we should refuse to unmount frozen filesystems and log an
-> > error that the filesystem is frozen. Waiting forever isn't a good idea
-> > in my opinion.
-> 
-> But lvm may freeze filesystems anytime - so we'd get randomly returned 
-> errors then.
-
-So? Or you might hang at anytime.
-
-> 
-> > But this is a significant uapi change afaict so this would need to be
-> > hidden behind a config option, a sysctl, or it would have to be a new
-> > flag to umount2() MNT_UNFROZEN which would allow an administrator to use
-> > this flag to not unmount a frozen filesystems.
-> 
-> The kernel currently distinguishes between kernel-initiated freeze (that 
-> is used by the XFS scrub) and userspace-initiated freeze (that is used by 
-> the FIFREEZE ioctl and by device-mapper initiated freeze through 
-> freeze_bdev).
-
-Yes, I'm aware.
-
-> 
-> Perhaps we could distinguish between FIFREEZE-initiated freezes and 
-> device-mapper initiated freezes as well. And we could change the logic to 
-> return -EBUSY if the freeze was initiated by FIFREEZE and to wait for 
-> unfreeze if it was initiated by the device-mapper.
-
-For device mapper initiated freezes you can unfreeze independent of any
-filesystem mountpoint via dm ioctls.
+Martin
 
 --
 dm-devel mailing list
