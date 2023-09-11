@@ -2,80 +2,80 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id E2F6179AA43
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:53 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 76E2779C721
+	for <lists+dm-devel@lfdr.de>; Tue, 12 Sep 2023 08:47:09 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694450392;
+	s=mimecast20190719; t=1694501228;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ClzfUZJCL/E/LskH1tLLNN4zLlGMfQjeBhSCZgcQKsM=;
-	b=ah5/C4HbhUAGxsSk0Wy4+JUZYRLXTNo2yTy/IDcYz1iYhwW9K+C4eLTo6U+71E/K002iFr
-	l4Tqg7DAcsRVEELDFlP67J1jFIatBiuDjAiwKLnWpnQcEUE/+gxfkKpdB2vbTxTYg6a7BX
-	zUwXawNcpyh0reP3fdcCvgrWqzvAfqw=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-126-tK4CYVQ9MEymUIlje8GIug-1; Mon, 11 Sep 2023 12:39:49 -0400
-X-MC-Unique: tK4CYVQ9MEymUIlje8GIug-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+	bh=meGRM5SPB8ekmoVoOo0ZUYXZ4JiIyoS5iZIVCmyEal8=;
+	b=VSUMdRtE+xhtAWmYfCfH9dpGuR7QfM+vx/MyzVIvd950K/nEjDNfSCzMaCWoASr8jTKB0v
+	YakINNdJF+UrYpRUFjLMGX8MTmRoSSwTitf6yuw6jhbRl6BTC/J6+Os2iMmi5z0L6zKVZ5
+	mt5mr5EyYiuGPErHdvj3jJL3RmWlj7k=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-462-1DufcXsWMCileNq3HU3gjQ-1; Tue, 12 Sep 2023 02:47:06 -0400
+X-MC-Unique: 1DufcXsWMCileNq3HU3gjQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AC9A629DD9B7;
-	Mon, 11 Sep 2023 16:39:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 806158AA1E4;
+	Tue, 12 Sep 2023 06:47:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8C21040C200B;
-	Mon, 11 Sep 2023 16:39:32 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9608A2026D4B;
+	Tue, 12 Sep 2023 06:46:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 564BC19465BB;
-	Mon, 11 Sep 2023 16:39:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1D72819465B7;
+	Tue, 12 Sep 2023 06:46:57 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id BA40519465B8
- for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:30 +0000 (UTC)
+ ESMTP id 7E86819465BA
+ for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A02F82024CD5; Mon, 11 Sep 2023 16:39:30 +0000 (UTC)
+ id 709094405A; Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9876A2024CAE
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:30 +0000 (UTC)
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 69B2044029
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-1.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6C8741C06ECA
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:30 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4880B816526
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-661-KF1hSJkWMX-_gxgRqp06Dg-1; Mon,
- 11 Sep 2023 12:39:26 -0400
-X-MC-Unique: KF1hSJkWMX-_gxgRqp06Dg-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-649-LtoF0y5iMjCDmUdi6JfTug-1; Mon,
+ 11 Sep 2023 12:39:23 -0400
+X-MC-Unique: LtoF0y5iMjCDmUdi6JfTug-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 2C54C1F8B3;
- Mon, 11 Sep 2023 16:39:24 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id A6DE521863;
+ Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E7043139CC;
- Mon, 11 Sep 2023 16:39:23 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6B44C139CC;
+ Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id sKDINrtC/2RzEAAAMHmgww
- (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:23 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id aDBtGLlC/2RzEAAAMHmgww
+ (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:21 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 11 Sep 2023 18:38:46 +0200
-Message-ID: <20230911163846.27197-38-mwilck@suse.com>
+Date: Mon, 11 Sep 2023 18:38:36 +0200
+Message-ID: <20230911163846.27197-28-mwilck@suse.com>
 In-Reply-To: <20230911163846.27197-1-mwilck@suse.com>
 References: <20230911163846.27197-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -86,9 +86,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH v2 37/37] libmultipath: deprecate bindings_file,
- wwids_file, prkeys_file
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Mailman-Approved-At: Tue, 12 Sep 2023 06:46:55 +0000
+Subject: [dm-devel] [PATCH v2 27/37] multipathd: watch bindings file with
+ inotify + timestamp
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -111,892 +112,600 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-The options bindings_file, wwids_file, and prkeys_file have been
-deprecated since cb4d6db ("libmultipath: deprecate file and directory config
-options") (multipath-tools 0.8.8). Deprecate and ignore them now.
+Since "libmultipath: keep bindings in memory", we don't re-read the
+bindings file after every modification. Add a notification mechanism
+that makes multipathd aware of changes to the bindings file. Because
+multipathd itself will change the bindings file, it must compare
+timestamps in order to avoid reading the file repeatedly.
+
+Because select_alias() can be called from multiple thread contexts (uxlsnr,
+uevent handler), we need to add locking for the bindings file. The
+timestamp must also be protected by a lock, because it can't be read
+or written atomically.
+
+Note: The notification mechanism expects the bindings file to be
+atomically replaced by rename(2). Changes must be made in a temporary file and
+applied using rename(2), as in update_bindings_file(). The inotify
+mechanism deliberately does not listen to close-after-write events
+that would be generated by editing the bindings file directly. This
+
+Note also: new bindings will only be read from add_map_with_path(),
+i.e. either during reconfigure(), or when a new map is created during
+runtime. Existing maps will not be renamed if the binding file changes,
+unless the user runs "multipathd reconfigure". This is not a change
+wrt the previous code, but it should be mentioned anyway.
+
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+
+libmultipath: protect global_bindings with a mutex
+
+Signed-off-by: Martin Wilck <mwilck@suse.com>
+
+libmultipath: check timestamp of bindings file before reading it
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libmultipath/alias.c              | 43 +++++++++----------
- libmultipath/alias.h              |  3 +-
- libmultipath/config.c             | 18 --------
- libmultipath/config.h             |  3 --
- libmultipath/dict.c               | 39 +++---------------
- libmultipath/libmultipath.version |  8 +---
- libmultipath/prkey.c              |  7 ++--
- libmultipath/prkey.h              |  7 ++--
- libmultipath/propsel.c            |  5 +--
- libmultipath/wwids.c              | 18 ++------
- multipath/main.c                  |  2 +-
- multipath/multipath.conf.5.in     | 23 +++++------
- multipathd/uxlsnr.c               | 17 +++-----
- tests/alias.c                     | 68 +++++++++++++++----------------
- 14 files changed, 90 insertions(+), 171 deletions(-)
+ libmultipath/alias.c              | 250 +++++++++++++++++++++++++-----
+ libmultipath/alias.h              |   3 +-
+ libmultipath/libmultipath.version |   5 +
+ multipathd/uxlsnr.c               |  36 ++++-
+ tests/alias.c                     |   3 +
+ 5 files changed, 252 insertions(+), 45 deletions(-)
 
 diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-index 76ed62d..11130e6 100644
+index 66e34e3..76ed62d 100644
 --- a/libmultipath/alias.c
 +++ b/libmultipath/alias.c
-@@ -55,6 +55,8 @@
- /* uatomic access only */
- static int bindings_file_changed = 1;
+@@ -10,6 +10,7 @@
+ #include <stdio.h>
+ #include <stdbool.h>
+ #include <assert.h>
++#include <sys/inotify.h>
  
-+static const char bindings_file_path[] = DEFAULT_BINDINGS_FILE;
+ #include "debug.h"
+ #include "util.h"
+@@ -22,6 +23,7 @@
+ #include "config.h"
+ #include "devmapper.h"
+ #include "strbuf.h"
++#include "time-util.h"
+ 
+ /*
+  * significant parts of this file were taken from iscsi-bindings.c of the
+@@ -50,6 +52,12 @@
+ "# alias wwid\n" \
+ "#\n"
+ 
++/* uatomic access only */
++static int bindings_file_changed = 1;
 +
- static pthread_mutex_t timestamp_mutex = PTHREAD_MUTEX_INITIALIZER;
- static struct timespec bindings_last_updated;
- 
-@@ -273,7 +275,6 @@ static int write_bindings_file(const Bindings *bindings, int fd,
- 
- void handle_bindings_file_inotify(const struct inotify_event *event)
- {
--	struct config *conf;
- 	const char *base;
- 	bool changed = false;
- 	struct stat st;
-@@ -283,12 +284,9 @@ void handle_bindings_file_inotify(const struct inotify_event *event)
- 	if (!(event->mask & IN_MOVED_TO))
- 		return;
- 
--	conf = get_multipath_config();
--	base = strrchr(conf->bindings_file, '/');
--	changed = base && base > conf->bindings_file &&
--		!strcmp(base + 1, event->name);
--	ret = stat(conf->bindings_file, &st);
--	put_multipath_config(conf);
-+	base = strrchr(bindings_file_path, '/');
-+	changed = base && !strcmp(base + 1, event->name);
-+	ret = stat(bindings_file_path, &st);
- 
- 	if (!changed)
- 		return;
-@@ -309,8 +307,7 @@ void handle_bindings_file_inotify(const struct inotify_event *event)
- 			__func__, (long)ts.tv_sec, (long)ts.tv_nsec / 1000);
- }
- 
--static int update_bindings_file(const Bindings *bindings,
--				const char *bindings_file)
-+static int update_bindings_file(const Bindings *bindings)
- {
- 	int rc;
- 	int fd = -1;
-@@ -318,7 +315,7 @@ static int update_bindings_file(const Bindings *bindings,
- 	mode_t old_umask;
- 	struct timespec ts;
- 
--	if (safe_sprintf(tempname, "%s.XXXXXX", bindings_file))
-+	if (safe_sprintf(tempname, "%s.XXXXXX", bindings_file_path))
- 		return -1;
- 	/* coverity: SECURE_TEMP */
- 	old_umask = umask(0077);
-@@ -335,10 +332,10 @@ static int update_bindings_file(const Bindings *bindings,
- 		unlink(tempname);
- 		return rc;
- 	}
--	if ((rc = rename(tempname, bindings_file)) == -1)
-+	if ((rc = rename(tempname, bindings_file_path)) == -1)
- 		condlog(0, "%s: rename: %m", __func__);
- 	else {
--		condlog(1, "updated bindings file %s", bindings_file);
-+		condlog(1, "updated bindings file %s", bindings_file_path);
- 		pthread_mutex_lock(&timestamp_mutex);
- 		bindings_last_updated = ts;
- 		pthread_mutex_unlock(&timestamp_mutex);
-@@ -473,7 +470,7 @@ int get_free_id(const Bindings *bindings, const char *prefix, const char *map_ww
- 
- /* Called with binding_mutex held */
- static char *
--allocate_binding(const char *filename, const char *wwid, int id, const char *prefix)
-+allocate_binding(const char *wwid, int id, const char *prefix)
- {
- 	STRBUF_ON_STACK(buf);
++static pthread_mutex_t timestamp_mutex = PTHREAD_MUTEX_INITIALIZER;
++static struct timespec bindings_last_updated;
++
+ struct binding {
  	char *alias;
-@@ -497,7 +494,7 @@ allocate_binding(const char *filename, const char *wwid, int id, const char *pre
- 		return NULL;
- 	}
- 
--	if (update_bindings_file(&global_bindings, filename) == -1) {
-+	if (update_bindings_file(&global_bindings) == -1) {
- 		condlog(1, "%s: deleting binding %s for %s", __func__, alias, wwid);
- 		delete_binding(&global_bindings, wwid);
- 		free(alias);
-@@ -564,7 +561,7 @@ static void read_bindings_file(void)
-  *    that the mpvec corrcectly represents kernel state.
+ 	char *wwid;
+@@ -60,6 +68,9 @@ struct binding {
+  * an abstract type.
   */
+ typedef struct _vector Bindings;
++
++/* Protect global_bindings */
++static pthread_mutex_t bindings_mutex = PTHREAD_MUTEX_INITIALIZER;
+ static Bindings global_bindings = { .allocated = 0 };
  
--char *get_user_friendly_alias(const char *wwid, const char *file, const char *alias_old,
-+char *get_user_friendly_alias(const char *wwid, const char *alias_old,
- 			      const char *prefix, bool bindings_read_only)
+ enum {
+@@ -78,6 +89,26 @@ static void _free_binding(struct binding *bdg)
+ 	free(bdg);
+ }
+ 
++static void free_bindings(Bindings *bindings)
++{
++	struct binding *bdg;
++	int i;
++
++	vector_foreach_slot(bindings, bdg, i)
++		_free_binding(bdg);
++	vector_reset(bindings);
++}
++
++static void set_global_bindings(Bindings *bindings)
++{
++	Bindings old_bindings = global_bindings;
++
++	pthread_mutex_lock(&bindings_mutex);
++	global_bindings = *bindings;
++	pthread_mutex_unlock(&bindings_mutex);
++	free_bindings(&old_bindings);
++}
++
+ static const struct binding *get_binding_for_alias(const Bindings *bindings,
+ 						   const char *alias)
  {
- 	char *alias = NULL;
-@@ -621,7 +618,7 @@ new_alias:
- 	}
+@@ -199,7 +230,8 @@ static int delete_binding(Bindings *bindings, const char *wwid)
+ 	return BINDING_DELETED;
+ }
  
- 	if (!bindings_read_only && id > 0)
--		alias = allocate_binding(file, wwid, id, prefix);
-+		alias = allocate_binding(wwid, id, prefix);
- 
- 	if (alias && !new_binding)
- 		condlog(2, "Allocated existing binding [%s] for WWID [%s]",
-@@ -713,12 +710,12 @@ static int _check_bindings_file(const struct config *conf, FILE *file,
- 	if (fread(header, sizeof(BINDINGS_FILE_HEADER) - 1, 1, file)
- 	    < sizeof(BINDINGS_FILE_HEADER)  - 1) {
- 		condlog(2, "%s: failed to read header from %s", __func__,
--			conf->bindings_file);
-+			bindings_file_path);
- 		fseek(file, 0, SEEK_SET);
- 		rc = -1;
- 	} else if (strcmp(header, BINDINGS_FILE_HEADER)) {
- 		condlog(2, "%s: invalid header in %s", __func__,
--			conf->bindings_file);
-+			bindings_file_path);
- 		fseek(file, 0, SEEK_SET);
- 		rc = -1;
- 	}
-@@ -785,13 +782,13 @@ static int _read_bindings_file(const struct config *conf, Bindings *bindings,
+-static int write_bindings_file(const Bindings *bindings, int fd)
++static int write_bindings_file(const Bindings *bindings, int fd,
++			       struct timespec *ts)
+ {
+ 	struct binding *bnd;
+ 	STRBUF_ON_STACK(content);
+@@ -227,9 +259,56 @@ static int write_bindings_file(const Bindings *bindings, int fd)
  		}
+ 		len -= n;
  	}
- 
--	fd = open_file(conf->bindings_file, &can_write, BINDINGS_FILE_HEADER);
-+	fd = open_file(bindings_file_path, &can_write, BINDINGS_FILE_HEADER);
- 	if (fd == -1)
- 		return BINDINGS_FILE_ERROR;
- 
- 	file = fdopen(fd, "r");
- 	if (file != NULL) {
--		condlog(3, "%s: reading %s", __func__, conf->bindings_file);
-+		condlog(3, "%s: reading %s", __func__, bindings_file_path);
- 
- 		pthread_cleanup_push(cleanup_fclose, file);
- 		ret = _check_bindings_file(conf, file, bindings);
-@@ -810,20 +807,20 @@ static int _read_bindings_file(const struct config *conf, Bindings *bindings,
- 			bindings_last_updated = ts;
- 			pthread_mutex_unlock(&timestamp_mutex);
- 		} else if (ret == -1 && can_write && !conf->bindings_read_only) {
--			ret = update_bindings_file(bindings, conf->bindings_file);
-+			ret = update_bindings_file(bindings);
- 			if (ret == 0)
- 				rc = BINDINGS_FILE_READ;
- 			else
- 				rc = BINDINGS_FILE_BAD;
- 		} else if (ret == -1) {
- 			condlog(0, "ERROR: bad settings in read-only bindings file %s",
--				conf->bindings_file);
-+				bindings_file_path);
- 			rc = BINDINGS_FILE_BAD;
- 		}
- 		pthread_cleanup_pop(1);
- 	} else {
- 		condlog(1, "failed to fdopen %s: %m",
--			conf->bindings_file);
-+			bindings_file_path);
- 		close(fd);
- 		rc = BINDINGS_FILE_ERROR;
- 	}
-diff --git a/libmultipath/alias.h b/libmultipath/alias.h
-index ca8911f..629e8d5 100644
---- a/libmultipath/alias.h
-+++ b/libmultipath/alias.h
-@@ -3,8 +3,7 @@
- 
- int valid_alias(const char *alias);
- int get_user_friendly_wwid(const char *alias, char *buff);
--char *get_user_friendly_alias(const char *wwid, const char *file,
--			      const char *alias_old,
-+char *get_user_friendly_alias(const char *wwid, const char *alias_old,
- 			      const char *prefix, bool bindings_read_only);
- 
- struct config;
-diff --git a/libmultipath/config.c b/libmultipath/config.c
-index 7b20759..b7dbc6f 100644
---- a/libmultipath/config.c
-+++ b/libmultipath/config.c
-@@ -752,15 +752,6 @@ static void _uninit_config(struct config *conf)
- 	if (conf->hwhandler)
- 		free(conf->hwhandler);
- 
--	if (conf->bindings_file)
--		free(conf->bindings_file);
--
--	if (conf->wwids_file)
--		free(conf->wwids_file);
--
--	if (conf->prkeys_file)
--		free(conf->prkeys_file);
--
- 	if (conf->prio_name)
- 		free(conf->prio_name);
- 
-@@ -922,9 +913,6 @@ int _init_config (const char *file, struct config *conf)
- 	 * internal defaults
- 	 */
- 	get_sys_max_fds(&conf->max_fds);
--	conf->bindings_file = set_default(DEFAULT_BINDINGS_FILE);
--	conf->wwids_file = set_default(DEFAULT_WWIDS_FILE);
--	conf->prkeys_file = set_default(DEFAULT_PRKEYS_FILE);
- 	conf->attribute_flags = 0;
- 	conf->reassign_maps = DEFAULT_REASSIGN_MAPS;
- 	conf->checkint = CHECKINT_UNDEF;
-@@ -1078,12 +1066,6 @@ int _init_config (const char *file, struct config *conf)
- 	merge_blacklist(conf->elist_wwid);
- 	merge_blacklist_device(conf->elist_device);
- 
--	if (conf->bindings_file == NULL)
--		conf->bindings_file = set_default(DEFAULT_BINDINGS_FILE);
--
--	if (!conf->bindings_file || !conf->wwids_file || !conf->prkeys_file)
--		goto out;
--
- 	libmp_verbosity = conf->verbosity;
- 	return 0;
- out:
-diff --git a/libmultipath/config.h b/libmultipath/config.h
-index 0a2c297..8c22ce7 100644
---- a/libmultipath/config.h
-+++ b/libmultipath/config.h
-@@ -207,9 +207,6 @@ struct config {
- 	char * uid_attribute;
- 	char * features;
- 	char * hwhandler;
--	char * bindings_file;
--	char * wwids_file;
--	char * prkeys_file;
- 	char * prio_name;
- 	char * prio_args;
- 	char * checker_name;
-diff --git a/libmultipath/dict.c b/libmultipath/dict.c
-index dace343..044067a 100644
---- a/libmultipath/dict.c
-+++ b/libmultipath/dict.c
-@@ -168,27 +168,6 @@ fail:
++	fsync(fd);
++	if (ts) {
++		struct stat st;
++
++		if (fstat(fd, &st) == 0)
++			*ts = st.st_mtim;
++		else
++			clock_gettime(CLOCK_REALTIME_COARSE, ts);
++	}
  	return 0;
  }
  
--static int
--set_path(vector strvec, void *ptr, const char *file, int line_nr)
--{
--	char **str_ptr = (char **)ptr;
--	char *old_str = *str_ptr;
--
--	*str_ptr = set_value(strvec);
--	if (!*str_ptr) {
--		free(old_str);
--		return 1;
++void handle_bindings_file_inotify(const struct inotify_event *event)
++{
++	struct config *conf;
++	const char *base;
++	bool changed = false;
++	struct stat st;
++	struct timespec ts = { 0 };
++	int ret;
++
++	if (!(event->mask & IN_MOVED_TO))
++		return;
++
++	conf = get_multipath_config();
++	base = strrchr(conf->bindings_file, '/');
++	changed = base && base > conf->bindings_file &&
++		!strcmp(base + 1, event->name);
++	ret = stat(conf->bindings_file, &st);
++	put_multipath_config(conf);
++
++	if (!changed)
++		return;
++
++	pthread_mutex_lock(&timestamp_mutex);
++	if (ret == 0) {
++		ts = st.st_mtim;
++		changed = timespeccmp(&ts, &bindings_last_updated) > 0;
++	}
++	pthread_mutex_unlock(&timestamp_mutex);
++
++	if (changed) {
++		uatomic_xchg(&bindings_file_changed, 1);
++		condlog(3, "%s: bindings file must be re-read, new timestamp: %ld.%06ld",
++			__func__, (long)ts.tv_sec, (long)ts.tv_nsec / 1000);
++	} else
++		condlog(3, "%s: bindings file is up-to-date, timestamp: %ld.%06ld",
++			__func__, (long)ts.tv_sec, (long)ts.tv_nsec / 1000);
++}
++
+ static int update_bindings_file(const Bindings *bindings,
+ 				const char *bindings_file)
+ {
+@@ -237,6 +316,7 @@ static int update_bindings_file(const Bindings *bindings,
+ 	int fd = -1;
+ 	char tempname[PATH_MAX];
+ 	mode_t old_umask;
++	struct timespec ts;
+ 
+ 	if (safe_sprintf(tempname, "%s.XXXXXX", bindings_file))
+ 		return -1;
+@@ -248,7 +328,7 @@ static int update_bindings_file(const Bindings *bindings,
+ 	}
+ 	umask(old_umask);
+ 	pthread_cleanup_push(cleanup_fd_ptr, &fd);
+-	rc = write_bindings_file(bindings, fd);
++	rc = write_bindings_file(bindings, fd, &ts);
+ 	pthread_cleanup_pop(1);
+ 	if (rc == -1) {
+ 		condlog(1, "failed to write new bindings file");
+@@ -257,8 +337,12 @@ static int update_bindings_file(const Bindings *bindings,
+ 	}
+ 	if ((rc = rename(tempname, bindings_file)) == -1)
+ 		condlog(0, "%s: rename: %m", __func__);
+-	else
++	else {
+ 		condlog(1, "updated bindings file %s", bindings_file);
++		pthread_mutex_lock(&timestamp_mutex);
++		bindings_last_updated = ts;
++		pthread_mutex_unlock(&timestamp_mutex);
++	}
+ 	return rc;
+ }
+ 
+@@ -387,6 +471,7 @@ int get_free_id(const Bindings *bindings, const char *prefix, const char *map_ww
+ 	return id;
+ }
+ 
++/* Called with binding_mutex held */
+ static char *
+ allocate_binding(const char *filename, const char *wwid, int id, const char *prefix)
+ {
+@@ -423,6 +508,30 @@ allocate_binding(const char *filename, const char *wwid, int id, const char *pre
+ 	return alias;
+ }
+ 
++enum {
++	BINDINGS_FILE_UP2DATE,
++	BINDINGS_FILE_READ,
++	BINDINGS_FILE_ERROR,
++	BINDINGS_FILE_BAD,
++};
++
++static int _read_bindings_file(const struct config *conf, Bindings *bindings,
++			       bool force);
++
++static void read_bindings_file(void)
++{
++	struct config *conf;
++	Bindings bindings = {.allocated = 0, };
++	int rc;
++
++	conf = get_multipath_config();
++	pthread_cleanup_push(put_multipath_config, conf);
++	rc = _read_bindings_file(conf, &bindings, false);
++	pthread_cleanup_pop(1);
++	if (rc == BINDINGS_FILE_READ)
++		set_global_bindings(&bindings);
++}
++
+ /*
+  * get_user_friendly_alias() action table
+  *
+@@ -463,6 +572,11 @@ char *get_user_friendly_alias(const char *wwid, const char *file, const char *al
+ 	bool new_binding = false;
+ 	const struct binding *bdg;
+ 
++	read_bindings_file();
++
++	pthread_mutex_lock(&bindings_mutex);
++	pthread_cleanup_push(cleanup_mutex, &bindings_mutex);
++
+ 	if (!*alias_old)
+ 		goto new_alias;
+ 
+@@ -514,40 +628,38 @@ new_alias:
+ 			alias, wwid);
+ 
+ out:
++	/* unlock bindings_mutex */
++	pthread_cleanup_pop(1);
+ 	return alias;
+ }
+ 
+ int get_user_friendly_wwid(const char *alias, char *buff)
+ {
+ 	const struct binding *bdg;
++	int rc = -1;
+ 
+ 	if (!alias || *alias == '\0') {
+ 		condlog(3, "Cannot find binding for empty alias");
+ 		return -1;
+ 	}
+ 
++	pthread_mutex_lock(&bindings_mutex);
++	pthread_cleanup_push(cleanup_mutex, &bindings_mutex);
+ 	bdg = get_binding_for_alias(&global_bindings, alias);
+-	if (!bdg) {
++	if (bdg) {
++		strlcpy(buff, bdg->wwid, WWID_SIZE);
++		rc = 0;
++	} else
+ 		*buff = '\0';
+-		return -1;
 -	}
--	if ((*str_ptr)[0] != '/'){
--		condlog(1, "%s line %d, %s is not an absolute path. Ignoring",
--			file, line_nr, *str_ptr);
--		free(*str_ptr);
--		*str_ptr = old_str;
--	} else
--		free(old_str);
+-	strlcpy(buff, bdg->wwid, WWID_SIZE);
 -	return 0;
 -}
 -
- static int
- set_str_noslash(vector strvec, void *ptr, const char *file, int line_nr)
+-static void free_bindings(Bindings *bindings)
+-{
+-	struct binding *bdg;
+-	int i;
+-
+-	vector_foreach_slot(bindings, bdg, i)
+-		_free_binding(bdg);
+-	vector_reset(bindings);
++	pthread_cleanup_pop(1);
++	return rc;
+ }
+ 
+ void cleanup_bindings(void)
  {
-@@ -831,15 +810,6 @@ declare_hw_snprint(user_friendly_names, print_yes_no_undef)
- declare_mp_handler(user_friendly_names, set_yes_no_undef)
- declare_mp_snprint(user_friendly_names, print_yes_no_undef)
++	pthread_mutex_lock(&bindings_mutex);
+ 	free_bindings(&global_bindings);
++	pthread_mutex_unlock(&bindings_mutex);
+ }
  
--declare_def_warn_handler(bindings_file, set_path)
--declare_def_snprint(bindings_file, print_str)
--
--declare_def_warn_handler(wwids_file, set_path)
--declare_def_snprint(wwids_file, print_str)
--
--declare_def_warn_handler(prkeys_file, set_path)
--declare_def_snprint(prkeys_file, print_str)
--
- declare_def_handler(retain_hwhandler, set_yes_no_undef)
- declare_def_snprint_defint(retain_hwhandler, print_yes_no_undef,
- 			   DEFAULT_RETAIN_HWHANDLER)
-@@ -2064,6 +2034,9 @@ declare_deprecated_handler(disable_changed_wwids, "yes")
- declare_deprecated_handler(getuid_callout, "(not set)")
- declare_deprecated_handler(multipath_dir, MULTIPATH_DIR)
- declare_deprecated_handler(pg_timeout, "(not set)")
-+declare_deprecated_handler(bindings_file, DEFAULT_BINDINGS_FILE)
-+declare_deprecated_handler(wwids_file, DEFAULT_WWIDS_FILE)
-+declare_deprecated_handler(prkeys_file, DEFAULT_PRKEYS_FILE)
+ enum {
+@@ -595,7 +707,21 @@ static int _check_bindings_file(const struct config *conf, FILE *file,
+ 	char *line = NULL;
+ 	size_t line_len = 0;
+ 	ssize_t n;
++	char header[sizeof(BINDINGS_FILE_HEADER)];
  
++	header[sizeof(BINDINGS_FILE_HEADER) - 1] = '\0';
++	if (fread(header, sizeof(BINDINGS_FILE_HEADER) - 1, 1, file)
++	    < sizeof(BINDINGS_FILE_HEADER)  - 1) {
++		condlog(2, "%s: failed to read header from %s", __func__,
++			conf->bindings_file);
++		fseek(file, 0, SEEK_SET);
++		rc = -1;
++	} else if (strcmp(header, BINDINGS_FILE_HEADER)) {
++		condlog(2, "%s: invalid header in %s", __func__,
++			conf->bindings_file);
++		fseek(file, 0, SEEK_SET);
++		rc = -1;
++	}
+ 	pthread_cleanup_push(cleanup_free_ptr, &line);
+ 	while ((n = getline(&line, &line_len, file)) >= 0) {
+ 		char *alias, *wwid;
+@@ -643,6 +769,68 @@ static int mp_alias_compar(const void *p1, const void *p2)
+ 			    &((*(struct mpentry * const *)p2)->alias));
+ }
+ 
++static int _read_bindings_file(const struct config *conf, Bindings *bindings,
++			       bool force)
++{
++	int can_write;
++	int rc = 0, ret, fd;
++	FILE *file;
++	struct stat st;
++	int has_changed = uatomic_xchg(&bindings_file_changed, 0);
++
++	if (!force) {
++		if (!has_changed) {
++			condlog(4, "%s: bindings are unchanged", __func__);
++			return BINDINGS_FILE_UP2DATE;
++		}
++	}
++
++	fd = open_file(conf->bindings_file, &can_write, BINDINGS_FILE_HEADER);
++	if (fd == -1)
++		return BINDINGS_FILE_ERROR;
++
++	file = fdopen(fd, "r");
++	if (file != NULL) {
++		condlog(3, "%s: reading %s", __func__, conf->bindings_file);
++
++		pthread_cleanup_push(cleanup_fclose, file);
++		ret = _check_bindings_file(conf, file, bindings);
++		if (ret == 0) {
++			struct timespec ts;
++
++			rc = BINDINGS_FILE_READ;
++			ret = fstat(fd, &st);
++			if (ret == 0)
++				ts = st.st_mtim;
++			else {
++				condlog(1, "%s: fstat failed (%m), using current time", __func__);
++				clock_gettime(CLOCK_REALTIME_COARSE, &ts);
++			}
++			pthread_mutex_lock(&timestamp_mutex);
++			bindings_last_updated = ts;
++			pthread_mutex_unlock(&timestamp_mutex);
++		} else if (ret == -1 && can_write && !conf->bindings_read_only) {
++			ret = update_bindings_file(bindings, conf->bindings_file);
++			if (ret == 0)
++				rc = BINDINGS_FILE_READ;
++			else
++				rc = BINDINGS_FILE_BAD;
++		} else if (ret == -1) {
++			condlog(0, "ERROR: bad settings in read-only bindings file %s",
++				conf->bindings_file);
++			rc = BINDINGS_FILE_BAD;
++		}
++		pthread_cleanup_pop(1);
++	} else {
++		condlog(1, "failed to fdopen %s: %m",
++			conf->bindings_file);
++		close(fd);
++		rc = BINDINGS_FILE_ERROR;
++	}
++
++	return rc;
++}
++
  /*
-  * If you add or remove a keyword also update multipath/multipath.conf.5
-@@ -2106,9 +2079,9 @@ init_keywords(vector keywords)
- 	install_keyword("fast_io_fail_tmo", &def_fast_io_fail_handler, &snprint_def_fast_io_fail);
- 	install_keyword("dev_loss_tmo", &def_dev_loss_handler, &snprint_def_dev_loss);
- 	install_keyword("eh_deadline", &def_eh_deadline_handler, &snprint_def_eh_deadline);
--	install_keyword("bindings_file", &def_bindings_file_handler, &snprint_def_bindings_file);
--	install_keyword("wwids_file", &def_wwids_file_handler, &snprint_def_wwids_file);
--	install_keyword("prkeys_file", &def_prkeys_file_handler, &snprint_def_prkeys_file);
-+	install_keyword("bindings_file", &deprecated_bindings_file_handler, &snprint_deprecated);
-+	install_keyword("wwids_file", &deprecated_wwids_file_handler, &snprint_deprecated);
-+	install_keyword("prkeys_file", &deprecated_prkeys_file_handler, &snprint_deprecated);
- 	install_keyword("log_checker_err", &def_log_checker_err_handler, &snprint_def_log_checker_err);
- 	install_keyword("reservation_key", &def_reservation_key_handler, &snprint_def_reservation_key);
- 	install_keyword("all_tg_pt", &def_all_tg_pt_handler, &snprint_def_all_tg_pt);
+  * check_alias_settings(): test for inconsistent alias configuration
+  *
+@@ -661,8 +849,7 @@ static int mp_alias_compar(const void *p1, const void *p2)
+  */
+ int check_alias_settings(const struct config *conf)
+ {
+-	int can_write;
+-	int rc = 0, i, fd;
++	int i, rc;
+ 	Bindings bindings = {.allocated = 0, };
+ 	vector mptable = NULL;
+ 	struct mpentry *mpe;
+@@ -695,27 +882,12 @@ int check_alias_settings(const struct config *conf)
+ 	pthread_cleanup_pop(1);
+ 	pthread_cleanup_pop(1);
+ 
+-	fd = open_file(conf->bindings_file, &can_write, BINDINGS_FILE_HEADER);
+-	if (fd != -1) {
+-		FILE *file = fdopen(fd, "r");
++	rc = _read_bindings_file(conf, &bindings, true);
+ 
+-		if (file != NULL) {
+-			pthread_cleanup_push(cleanup_fclose, file);
+-			rc = _check_bindings_file(conf, file, &bindings);
+-			pthread_cleanup_pop(1);
+-			if (rc == -1 && can_write && !conf->bindings_read_only)
+-				rc = update_bindings_file(&bindings, conf->bindings_file);
+-			else if (rc == -1)
+-				condlog(0, "ERROR: bad settings in read-only bindings file %s",
+-					conf->bindings_file);
+-		} else {
+-			condlog(1, "failed to fdopen %s: %m",
+-				conf->bindings_file);
+-			close(fd);
+-		}
++	if (rc == BINDINGS_FILE_READ) {
++		set_global_bindings(&bindings);
++		rc = 0;
+ 	}
+ 
+-	cleanup_bindings();
+-	global_bindings = bindings;
+ 	return rc;
+ }
+diff --git a/libmultipath/alias.h b/libmultipath/alias.h
+index 5ef6720..ca8911f 100644
+--- a/libmultipath/alias.h
++++ b/libmultipath/alias.h
+@@ -10,5 +10,6 @@ char *get_user_friendly_alias(const char *wwid, const char *file,
+ struct config;
+ int check_alias_settings(const struct config *);
+ void cleanup_bindings(void);
+-
++struct inotify_event;
++void handle_bindings_file_inotify(const struct inotify_event *event);
+ #endif /* _ALIAS_H */
 diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-index 57e50c1..8368ef7 100644
+index ddd302f..57e50c1 100644
 --- a/libmultipath/libmultipath.version
 +++ b/libmultipath/libmultipath.version
-@@ -43,7 +43,7 @@ LIBMPATHCOMMON_1.0.0 {
- 	put_multipath_config;
- };
- 
--LIBMULTIPATH_20.0.0 {
-+LIBMULTIPATH_21.0.0 {
- global:
- 	/* symbols referenced by multipath and multipathd */
- 	add_foreign;
-@@ -121,6 +121,7 @@ global:
- 	get_used_hwes;
- 	get_vpd_sgio;
- 	group_by_prio;
-+	handle_bindings_file_inotify;
- 	has_dm_info;
- 	init_checkers;
- 	init_config;
-@@ -238,8 +239,3 @@ global:
+@@ -238,3 +238,8 @@ global:
  local:
  	*;
  };
--
--LIBMULTIPATH_20.1.0 {
--global:
--	handle_bindings_file_inotify;
--};
-diff --git a/libmultipath/prkey.c b/libmultipath/prkey.c
-index a215499..c66d293 100644
---- a/libmultipath/prkey.c
-+++ b/libmultipath/prkey.c
-@@ -157,8 +157,7 @@ static int do_prkey(int fd, char *wwid, char *keystr, int cmd)
- 	return 0;
- }
- 
--int get_prkey(struct config *conf, struct multipath *mpp, uint64_t *prkey,
--	      uint8_t *sa_flags)
-+int get_prkey(struct multipath *mpp, uint64_t *prkey, uint8_t *sa_flags)
- {
- 	int fd;
- 	int unused;
-@@ -168,7 +167,7 @@ int get_prkey(struct config *conf, struct multipath *mpp, uint64_t *prkey,
- 	if (!strlen(mpp->wwid))
- 		goto out;
- 
--	fd = open_file(conf->prkeys_file, &unused, PRKEYS_FILE_HEADER);
-+	fd = open_file(DEFAULT_PRKEYS_FILE, &unused, PRKEYS_FILE_HEADER);
- 	if (fd < 0)
- 		goto out;
- 	ret = do_prkey(fd, mpp->wwid, keystr, PRKEY_READ);
-@@ -201,7 +200,7 @@ int set_prkey(struct config *conf, struct multipath *mpp, uint64_t prkey,
- 		sa_flags &= MPATH_F_APTPL_MASK;
- 	}
- 
--	fd = open_file(conf->prkeys_file, &can_write, PRKEYS_FILE_HEADER);
-+	fd = open_file(DEFAULT_PRKEYS_FILE, &can_write, PRKEYS_FILE_HEADER);
- 	if (fd < 0)
- 		goto out;
- 	if (!can_write) {
-diff --git a/libmultipath/prkey.h b/libmultipath/prkey.h
-index a16de10..43afd5e 100644
---- a/libmultipath/prkey.h
-+++ b/libmultipath/prkey.h
-@@ -16,9 +16,8 @@
- int print_reservation_key(struct strbuf *buff,
- 			  struct be64 key, uint8_t flags, int source);
- int parse_prkey_flags(const char *ptr, uint64_t *prkey, uint8_t *flags);
--int set_prkey(struct config *conf, struct multipath *mpp, uint64_t prkey,
--	      uint8_t sa_flags);
--int get_prkey(struct config *conf, struct multipath *mpp, uint64_t *prkey,
--	      uint8_t *sa_flags);
-+int set_prkey(struct config *conf, struct multipath *mpp,
-+	      uint64_t prkey, uint8_t sa_flags);
-+int get_prkey(struct multipath *mpp, uint64_t *prkey, uint8_t *sa_flags);
- 
- #endif /* _PRKEY_H */
-diff --git a/libmultipath/propsel.c b/libmultipath/propsel.c
-index 354e883..44241e2 100644
---- a/libmultipath/propsel.c
-+++ b/libmultipath/propsel.c
-@@ -401,8 +401,7 @@ int select_alias(struct config *conf, struct multipath * mp)
- 
- 	select_alias_prefix(conf, mp);
- 
--	mp->alias = get_user_friendly_alias(mp->wwid, conf->bindings_file,
--					    mp->alias_old, mp->alias_prefix,
-+	mp->alias = get_user_friendly_alias(mp->wwid, mp->alias_old, mp->alias_prefix,
- 					    conf->bindings_read_only);
- 
- 	if (mp->alias && !strncmp(mp->alias, mp->alias_old, WWID_SIZE))
-@@ -992,7 +991,7 @@ int select_reservation_key(struct config *conf, struct multipath *mp)
- out:
- 	if (mp->prkey_source == PRKEY_SOURCE_FILE) {
- 		from_file = " (from prkeys file)";
--		if (get_prkey(conf, mp, &prkey, &mp->sa_flags) != 0)
-+		if (get_prkey(mp, &prkey, &mp->sa_flags) != 0)
- 			put_be64(mp->reservation_key, 0);
- 		else
- 			put_be64(mp->reservation_key, prkey);
-diff --git a/libmultipath/wwids.c b/libmultipath/wwids.c
-index 89bb60c..591cd09 100644
---- a/libmultipath/wwids.c
-+++ b/libmultipath/wwids.c
-@@ -94,12 +94,8 @@ replace_wwids(vector mp)
- 	struct multipath * mpp;
- 	size_t len;
- 	int ret = -1;
--	struct config *conf;
- 
--	conf = get_multipath_config();
--	pthread_cleanup_push(put_multipath_config, conf);
--	fd = open_file(conf->wwids_file, &can_write, WWIDS_FILE_HEADER);
--	pthread_cleanup_pop(1);
-+	fd = open_file(DEFAULT_WWIDS_FILE, &can_write, WWIDS_FILE_HEADER);
- 	if (fd < 0)
- 		goto out;
- 
-@@ -200,7 +196,6 @@ remove_wwid(char *wwid) {
- 	int len, can_write;
- 	char *str;
- 	int ret = -1;
--	struct config *conf;
- 
- 	len = strlen(wwid) + 4; /* two slashes the newline and a zero byte */
- 	str = malloc(len);
-@@ -216,10 +211,7 @@ remove_wwid(char *wwid) {
- 		goto out;
- 	}
- 	condlog(3, "removing line '%s' from wwids file", str);
--	conf = get_multipath_config();
--	pthread_cleanup_push(put_multipath_config, conf);
--	fd = open_file(conf->wwids_file, &can_write, WWIDS_FILE_HEADER);
--	pthread_cleanup_pop(1);
-+	fd = open_file(DEFAULT_WWIDS_FILE, &can_write, WWIDS_FILE_HEADER);
- 
- 	if (fd < 0) {
- 		ret = -1;
-@@ -244,12 +236,8 @@ check_wwids_file(char *wwid, int write_wwid)
- {
- 	int fd, can_write, found, ret;
- 	FILE *f;
--	struct config *conf;
- 
--	conf = get_multipath_config();
--	pthread_cleanup_push(put_multipath_config, conf);
--	fd = open_file(conf->wwids_file, &can_write, WWIDS_FILE_HEADER);
--	pthread_cleanup_pop(1);
-+	fd = open_file(DEFAULT_WWIDS_FILE, &can_write, WWIDS_FILE_HEADER);
- 	if (fd < 0)
- 		return -1;
- 
-diff --git a/multipath/main.c b/multipath/main.c
-index b91289e..9e1c505 100644
---- a/multipath/main.c
-+++ b/multipath/main.c
-@@ -856,7 +856,7 @@ main (int argc, char *argv[])
- 			libmp_verbosity = atoi(optarg);
- 			break;
- 		case 'b':
--			conf->bindings_file = strdup(optarg);
-+			condlog(1, "option -b ignored");
- 			break;
- 		case 'B':
- 			conf->bindings_read_only = 1;
-diff --git a/multipath/multipath.conf.5.in b/multipath/multipath.conf.5.in
-index 20df223..d320a88 100644
---- a/multipath/multipath.conf.5.in
-+++ b/multipath/multipath.conf.5.in
-@@ -794,35 +794,28 @@ The default is: \fB<unset>\fR
- .
- .TP
- .B bindings_file
--(Deprecated) This option is deprecated, and will be removed in a future release.
--The full pathname of the binding file to be used when the user_friendly_names
--option is set.
-+(Deprecated) This option is not supported any more, and will be ignored.
- .RS
- .TP
--The default is: \fB@STATE_DIR@/bindings\fR
-+The compiled-in value is: \fB@STATE_DIR@/bindings\fR
- .RE
- .
- .
- .TP
- .B wwids_file
--(Deprecated) This option is deprecated, and will be removed in a future release.
--The full pathname of the WWIDs file, which is used by multipath to keep track
--of the WWIDs for LUNs it has created multipath devices on in the past.
-+(Deprecated) This option is not supported any more, and will be ignored.
- .RS
- .TP
--The default is: \fB@STATE_DIR@/wwids\fR
-+The compiled-in value is: \fB@STATE_DIR@/wwids\fR
- .RE
- .
- .
- .TP
- .B prkeys_file
--(Deprecated) This option is deprecated, and will be removed in a future release.
--The full pathname of the prkeys file, which is used by multipathd to keep
--track of the persistent reservation key used for a specific WWID, when
--\fIreservation_key\fR is set to \fBfile\fR.
-+(Deprecated) This option is not supported any more, and will be ignored.
- .RS
- .TP
--The default is: \fB@STATE_DIR@/prkeys\fR
-+The compiled-in value is: \fB@STATE_DIR@/prkeys\fR
- .RE
- .
- .
-@@ -989,6 +982,10 @@ The default is: \fB<unset>\fR
- .TP
- .B config_dir
- (Deprecated) This option is not supported any more, and the value is ignored.
-+.RS
-+.TP
-+The compiled-in value is: \fB@CONFIGDIR@\fR
-+.RE
- .
- .
- .TP
++
++LIBMULTIPATH_20.1.0 {
++global:
++	handle_bindings_file_inotify;
++};
 diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-index d1f8f23..4d6f258 100644
+index 02e89fb..d1f8f23 100644
 --- a/multipathd/uxlsnr.c
 +++ b/multipathd/uxlsnr.c
-@@ -203,7 +203,6 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
+@@ -41,6 +41,7 @@
+ #include "cli.h"
+ #include "uxlsnr.h"
+ #include "strbuf.h"
++#include "alias.h"
+ 
+ /* state of client connection */
+ enum {
+@@ -190,6 +191,7 @@ void wakeup_cleanup(void *arg)
+ struct watch_descriptors {
+ 	int conf_wd;
+ 	int dir_wd;
++	int mp_wd; /* /etc/multipath; for bindings file */
+ };
+ 
+ /* failing to set the watch descriptor is o.k. we just miss a warning
+@@ -200,6 +202,8 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
+ 	struct config *conf;
  	int dir_reset = 0;
  	int conf_reset = 0;
- 	int mp_reset = 0;
--	char *bindings_file __attribute__((cleanup(cleanup_charp))) = NULL;
++	int mp_reset = 0;
++	char *bindings_file __attribute__((cleanup(cleanup_charp))) = NULL;
  
  	if (notify_fd == -1)
  		return;
-@@ -221,7 +220,6 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
- 		if (wds->mp_wd == -1)
- 			mp_reset = 1;
+@@ -214,7 +218,10 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
+ 			conf_reset = 1;
+ 		if (wds->dir_wd == -1)
+ 			dir_reset = 1;
++		if (wds->mp_wd == -1)
++			mp_reset = 1;
  	}
--	bindings_file = strdup(conf->bindings_file);
++	bindings_file = strdup(conf->bindings_file);
  	put_multipath_config(conf);
  
  	if (dir_reset) {
-@@ -242,17 +240,12 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
+@@ -235,7 +242,18 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
  		if (wds->conf_wd == -1)
  			condlog(3, "didn't set up notifications on /etc/multipath.conf: %m");
  	}
--	if (mp_reset && bindings_file) {
--		char *slash = strrchr(bindings_file, '/');
--
--		if (slash && slash > bindings_file) {
--			*slash = '\0';
--			wds->mp_wd = inotify_add_watch(notify_fd, bindings_file,
--						       IN_MOVED_TO|IN_ONLYDIR);
--			if (wds->mp_wd == -1)
-+	if (mp_reset) {
-+		wds->mp_wd = inotify_add_watch(notify_fd, STATE_DIR,
-+					       IN_MOVED_TO|IN_ONLYDIR);
-+		if (wds->mp_wd == -1)
- 				condlog(3, "didn't set up notifications on %s: %m",
--					bindings_file);
--		}
-+					STATE_DIR);
- 	}
+-	return;
++	if (mp_reset && bindings_file) {
++		char *slash = strrchr(bindings_file, '/');
++
++		if (slash && slash > bindings_file) {
++			*slash = '\0';
++			wds->mp_wd = inotify_add_watch(notify_fd, bindings_file,
++						       IN_MOVED_TO|IN_ONLYDIR);
++			if (wds->mp_wd == -1)
++				condlog(3, "didn't set up notifications on %s: %m",
++					bindings_file);
++		}
++	}
  }
  
+ static void handle_inotify(int fd, struct watch_descriptors *wds)
+@@ -256,12 +274,13 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
+ 					inotify_rm_watch(fd, wds->conf_wd);
+ 				if (wds->dir_wd != -1)
+ 					inotify_rm_watch(fd, wds->dir_wd);
+-				wds->conf_wd = wds->dir_wd = -1;
++				if (wds->mp_wd != -1)
++					inotify_rm_watch(fd, wds->mp_wd);
++				wds->conf_wd = wds->dir_wd = wds->mp_wd = -1;
+ 			}
+ 			break;
+ 		}
+ 
+-		got_notify = 1;
+ 		for (ptr = buff; ptr < buff + len;
+ 		     ptr += sizeof(struct inotify_event) + event->len) {
+ 			event = (const struct inotify_event *) ptr;
+@@ -273,7 +292,13 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
+ 					wds->conf_wd = inotify_add_watch(notify_fd, DEFAULT_CONFIGFILE, IN_CLOSE_WRITE);
+ 				else if (wds->dir_wd == event->wd)
+ 					wds->dir_wd = -1;
++				else if (wds->mp_wd == event->wd)
++					wds->mp_wd = -1;
+ 			}
++			if (wds->mp_wd != -1 && wds->mp_wd == event->wd)
++				handle_bindings_file_inotify(event);
++			else
++				got_notify = 1;
+ 		}
+ 	}
+ 	if (got_notify)
+@@ -599,7 +624,7 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
+ 	int max_pfds = MIN_POLLS + POLLFDS_BASE;
+ 	/* conf->sequence_nr will be 1 when uxsock_listen is first called */
+ 	unsigned int sequence_nr = 0;
+-	struct watch_descriptors wds = { .conf_wd = -1, .dir_wd = -1 };
++	struct watch_descriptors wds = { .conf_wd = -1, .dir_wd = -1, .mp_wd = -1, };
+ 	struct vectors *vecs = trigger_data;
+ 
+ 	condlog(3, "uxsock: startup listener");
+@@ -666,7 +691,8 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
+ 
+ 		reset_watch(notify_fd, &wds, &sequence_nr);
+ 		polls[POLLFD_NOTIFY].fd = notify_fd;
+-		if (notify_fd == -1 || (wds.conf_wd == -1 && wds.dir_wd == -1))
++		if (notify_fd == -1 || (wds.conf_wd == -1 && wds.dir_wd == -1
++					&& wds.mp_wd == -1))
+ 			polls[POLLFD_NOTIFY].events = 0;
+ 		else
+ 			polls[POLLFD_NOTIFY].events = POLLIN;
 diff --git a/tests/alias.c b/tests/alias.c
-index 962c158..feca325 100644
+index 2e765fb..872b1fc 100644
 --- a/tests/alias.c
 +++ b/tests/alias.c
-@@ -1264,10 +1264,10 @@ static void al_a(void **state)
- 	will_return(__wrap_write, ln);
- 	will_return(__wrap_write, strlen(BINDINGS_FILE_HEADER) + strlen(ln));
- 	will_return(__wrap_rename, 0);
--	expect_condlog(1, "updated bindings file foo");
-+	expect_condlog(1, "updated bindings file " DEFAULT_BINDINGS_FILE);
- 	expect_condlog(3, NEW_STR("MPATHa", "WWIDa"));
+@@ -1954,6 +1954,9 @@ int main(void)
+ 	int ret = 0;
+ 	init_test_verbosity(3);
  
--	alias = allocate_binding("foo", "WWIDa", 1, "MPATH");
-+	alias = allocate_binding("WWIDa", 1, "MPATH");
- 	assert_ptr_not_equal(alias, NULL);
- 	assert_string_equal(alias, "MPATHa");
- 	check_bindings_size(1);
-@@ -1283,10 +1283,10 @@ static void al_zz(void **state)
- 	will_return(__wrap_write, ln);
- 	will_return(__wrap_write, strlen(BINDINGS_FILE_HEADER) + strlen(ln));
- 	will_return(__wrap_rename, 0);
--	expect_condlog(1, "updated bindings file foo");
-+	expect_condlog(1, "updated bindings file " DEFAULT_BINDINGS_FILE);
- 	expect_condlog(3, NEW_STR("MPATHzz", "WWIDzz"));
- 
--	alias = allocate_binding("foo", "WWIDzz", 26*26 + 26, "MPATH");
-+	alias = allocate_binding("WWIDzz", 26*26 + 26, "MPATH");
- 	assert_ptr_not_equal(alias, NULL);
- 	assert_string_equal(alias, "MPATHzz");
- 	check_bindings_size(1);
-@@ -1298,7 +1298,7 @@ static void al_0(void **state)
- 	char *alias;
- 
- 	expect_condlog(0, "allocate_binding: cannot allocate new binding for id 0\n");
--	alias = allocate_binding(0, "WWIDa", 0, "MPATH");
-+	alias = allocate_binding("WWIDa", 0, "MPATH");
- 	assert_ptr_equal(alias, NULL);
- 	check_bindings_size(0);
- }
-@@ -1308,7 +1308,7 @@ static void al_m2(void **state)
- 	char *alias;
- 
- 	expect_condlog(0, "allocate_binding: cannot allocate new binding for id -2\n");
--	alias = allocate_binding(0, "WWIDa", -2, "MPATH");
-+	alias = allocate_binding("WWIDa", -2, "MPATH");
- 	assert_ptr_equal(alias, NULL);
- 	check_bindings_size(0);
- }
-@@ -1325,10 +1325,10 @@ static void al_write_partial(void **state)
- 	will_return(__wrap_write, ln + sizeof(ln) - 2);
- 	will_return(__wrap_write, 1);
- 	will_return(__wrap_rename, 0);
--	expect_condlog(1, "updated bindings file foo");
-+	expect_condlog(1, "updated bindings file " DEFAULT_BINDINGS_FILE);
- 	expect_condlog(3, "Created new binding [MPATHa] for WWID [WWIDa]\n");
- 
--	alias = allocate_binding("foo", "WWIDa", 1, "MPATH");
-+	alias = allocate_binding("WWIDa", 1, "MPATH");
- 	assert_ptr_not_equal(alias, NULL);
- 	assert_string_equal(alias, "MPATHa");
- 	check_bindings_size(1);
-@@ -1350,7 +1350,7 @@ static void al_write_short(void **state)
- 	expect_condlog(1, "failed to write new bindings file");
- 	expect_condlog(1, "allocate_binding: deleting binding MPATHa for WWIDa");
- 
--	alias = allocate_binding("foo", "WWIDa", 1, "MPATH");
-+	alias = allocate_binding("WWIDa", 1, "MPATH");
- 	assert_ptr_equal(alias, NULL);
- 	check_bindings_size(0);
- }
-@@ -1366,7 +1366,7 @@ static void al_write_err(void **state)
- 	expect_condlog(1, "failed to write new bindings file");
- 	expect_condlog(1, "allocate_binding: deleting binding MPATHa for WWIDa");
- 
--	alias = allocate_binding("foo", "WWIDa", 1, "MPATH");
-+	alias = allocate_binding("WWIDa", 1, "MPATH");
- 	assert_ptr_equal(alias, NULL);
- 	check_bindings_size(0);
- }
-@@ -1383,7 +1383,7 @@ static void al_rename_err(void **state)
- 
- 	expect_condlog(0, "update_bindings_file: rename: Read-only file system");
- 	expect_condlog(1, "allocate_binding: deleting binding MPATHa for WWIDa");
--	alias = allocate_binding("foo", "WWIDa", 1, "MPATH");
-+	alias = allocate_binding("WWIDa", 1, "MPATH");
- 	assert_ptr_equal(alias, NULL);
- 	check_bindings_size(0);
- }
-@@ -1415,7 +1415,7 @@ static int test_allocate_binding(void)
- 			    strlen(BINDINGS_FILE_HEADER) + (len) + strlen(ln)); \
- 		will_return(__wrap_rename, err);			\
- 		if (err == 0) {						\
--			expect_condlog(1, "updated bindings file x\n");	\
-+			expect_condlog(1, "updated bindings file " DEFAULT_BINDINGS_FILE);	\
- 			expect_condlog(3, NEW_STR(alias, wwid));	\
- 		} else {						\
- 			expect_condlog(0, "update_bindings_file: rename: " msg "\n"); \
-@@ -1441,7 +1441,7 @@ static void gufa_empty_new_rw(void **state) {
- 	expect_condlog(3, NOMATCH_WWID_STR("WWID0"));
- 
- 	mock_allocate_binding("MPATHa", "WWID0");
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHa");
- 	free(alias);
- }
-@@ -1454,7 +1454,7 @@ static void gufa_empty_new_ro_1(void **state) {
- 	expect_condlog(3, NOMATCH_WWID_STR("WWID0"));
- 	mock_allocate_binding_err("MPATHa", "WWID0", -EROFS, "Read-only file system");
- 
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", false);
- 	assert_ptr_equal(alias, NULL);
- }
- 
-@@ -1465,7 +1465,7 @@ static void gufa_empty_new_ro_2(void **state) {
- 	expect_condlog(3, NOMATCH_WWID_STR("WWID0"));
- 	mock_unused_alias("MPATHa");
- 
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", true);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", true);
- 	assert_ptr_equal(alias, NULL);
- }
- 
-@@ -1477,7 +1477,7 @@ static void gufa_match_a_unused(void **state) {
- 	mock_unused_alias("MPATHa");
- 	expect_condlog(3, EXISTING_STR("MPATHa", "WWID0"));
- 
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", true);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", true);
- 	assert_string_equal(alias, "MPATHa");
- 	free(alias);
- }
-@@ -1490,7 +1490,7 @@ static void gufa_match_a_self(void **state) {
- 	mock_self_alias("MPATHa", "WWID0");
- 	expect_condlog(3, EXISTING_STR("MPATHa", "WWID0"));
- 
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", true);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", true);
- 	assert_string_equal(alias, "MPATHa");
- 	free(alias);
- }
-@@ -1503,7 +1503,7 @@ static void gufa_match_a_used(void **state) {
- 	expect_condlog(3, FOUND_STR("MPATHa", "WWID0"));
- 	mock_used_alias("MPATHa", "WWID0");
- 
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", true);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", true);
- 	assert_ptr_equal(alias, NULL);
- }
- 
-@@ -1518,7 +1518,7 @@ static void gufa_nomatch_a_c(void **state) {
- 
- 	mock_allocate_binding_len("MPATHb", "WWID1", strlen(bindings));
- 
--	alias = get_user_friendly_alias("WWID1", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID1", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHb");
- 	free(alias);
- }
-@@ -1534,7 +1534,7 @@ static void gufa_nomatch_c_a(void **state) {
- 
- 	mock_allocate_binding_len("MPATHb", "WWID1", sizeof(bindings) - 1);
- 
--	alias = get_user_friendly_alias("WWID1", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID1", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHb");
- 	free(alias);
- }
-@@ -1550,7 +1550,7 @@ static void gufa_nomatch_c_b(void **state) {
- 
- 	mock_allocate_binding_len("MPATHa", "WWID0", sizeof(bindings) - 1);
- 
--	alias = get_user_friendly_alias("WWID0", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHa");
- 	free(alias);
- }
-@@ -1567,7 +1567,7 @@ static void gufa_nomatch_c_b_used(void **state) {
- 
- 	mock_allocate_binding_len("MPATHd", "WWID4", sizeof(bindings) - 1);
- 
--	alias = get_user_friendly_alias("WWID4", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID4", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHd");
- 	free(alias);
- }
-@@ -1584,7 +1584,7 @@ static void gufa_nomatch_b_f_a(void **state) {
- 
- 	mock_allocate_binding_len("MPATHc", "WWID7", sizeof(bindings) - 1);
- 
--	alias = get_user_friendly_alias("WWID7", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID7", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHc");
- 	free(alias);
- }
-@@ -1599,7 +1599,7 @@ static void gufa_nomatch_b_aa_a(void **state) {
- 	mock_unused_alias("MPATHab");
- 	mock_allocate_binding_len("MPATHab", "WWID28", get_strbuf_len(&buf));
- 
--	alias = get_user_friendly_alias("WWID28", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID28", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHab");
- 	free(alias);
- }
-@@ -1616,7 +1616,7 @@ static void gufa_nomatch_b_f_a_sorted(void **state) {
- 
- 	mock_allocate_binding_len("MPATHc", "WWID7", sizeof(bindings) - 1);
- 
--	alias = get_user_friendly_alias("WWID7", "x", "", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID7", "", "MPATH", false);
- 	assert_string_equal(alias, "MPATHc");
- 	free(alias);
- }
-@@ -1632,7 +1632,7 @@ static void gufa_old_empty(void **state) {
- 	mock_allocate_binding("MPATHz", "WWID0");
- 	expect_condlog(2, ALLOC_STR("MPATHz", "WWID0"));
- 
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHz");
- 	free(alias);
- }
-@@ -1644,7 +1644,7 @@ static void gufa_old_match(void **state) {
- 			   "MPATHz WWID0");
- 	expect_condlog(3, FOUND_ALIAS_STR("MPATHz", "WWID0"));
- 
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHz");
- 	free(alias);
- }
-@@ -1661,7 +1661,7 @@ static void gufa_old_match_other(void **state) {
- 
- 	mock_allocate_binding_len("MPATHa", "WWID0", sizeof(bindings) - 1);
- 
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHa");
- 	free(alias);
- }
-@@ -1678,7 +1678,7 @@ static void gufa_old_match_other_used(void **state) {
- 	mock_unused_alias("MPATHb");
- 
- 	mock_allocate_binding_len("MPATHb", "WWID0", sizeof(bindings) - 1);
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHb");
- 	free(alias);
- }
-@@ -1695,7 +1695,7 @@ static void gufa_old_match_other_wwidmatch(void **state) {
- 	mock_unused_alias("MPATHc");
- 	expect_condlog(3, EXISTING_STR("MPATHc", "WWID2"));
- 
--	alias = get_user_friendly_alias("WWID2", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID2", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHc");
- 	free(alias);
- }
-@@ -1711,7 +1711,7 @@ static void gufa_old_match_other_wwidmatch_used(void **state) {
- 	expect_condlog(3, FOUND_STR("MPATHc", "WWID2"));
- 	mock_used_alias("MPATHc", "WWID2");
- 
--	alias = get_user_friendly_alias("WWID2", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID2", "MPATHz", "MPATH", false);
- 	assert_ptr_equal(alias, NULL);
- }
- 
-@@ -1725,7 +1725,7 @@ static void gufa_old_nomatch_wwidmatch(void **state) {
- 	mock_unused_alias("MPATHa");
- 	expect_condlog(3, EXISTING_STR("MPATHa", "WWID0"));
- 
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHa");
- 	free(alias);
- }
-@@ -1739,7 +1739,7 @@ static void gufa_old_nomatch_wwidmatch_used(void **state) {
- 	expect_condlog(3, FOUND_STR("MPATHa", "WWID0"));
- 	mock_used_alias("MPATHa", "WWID0");
- 
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_ptr_equal(alias, NULL);
- }
- 
-@@ -1754,7 +1754,7 @@ static void gufa_old_nomatch_nowwidmatch(void **state) {
- 	mock_allocate_binding_len("MPATHz", "WWID0", sizeof(bindings) - 1);
- 	expect_condlog(2, ALLOC_STR("MPATHz", "WWID0"));
- 
--	alias = get_user_friendly_alias("WWID0", "x", "MPATHz", "MPATH", false);
-+	alias = get_user_friendly_alias("WWID0", "MPATHz", "MPATH", false);
- 	assert_string_equal(alias, "MPATHz");
- 	free(alias);
- }
++	/* avoid open_file() call in _read_bindings_file */
++	bindings_file_changed = 0;
++
+ 	ret += test_format_devname();
+ 	ret += test_scan_devname();
+ 	ret += test_lookup_binding();
 -- 
 2.42.0
 
