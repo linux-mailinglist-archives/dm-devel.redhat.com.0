@@ -1,82 +1,82 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2925079AA47
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:57 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D571779AA3F
+	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694450396;
+	s=mimecast20190719; t=1694450389;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=a6LI0FhMHkYqwIB/3Ke8k2soEVYsfyzHL7SPNJwQFQU=;
-	b=SMSA91F1nVNlNiakCtN6WG98XnbAR3IbDBYkm5pR6WC59itwT4Zcj6yMOWJms1PpZdftT5
-	6jatnauOkzd7t+LAc2HYOofR2DKlzWcQDqjFrji5asRuWHmUFq7wtZs0VDx0MVLxf+wbpk
-	9a2PVDFDDJYyTaXcSKSxJGCc+6Su8jY=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-190-2UM9V_PBPyamdMUlDbQZbQ-1; Mon, 11 Sep 2023 12:39:51 -0400
-X-MC-Unique: 2UM9V_PBPyamdMUlDbQZbQ-1
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
+	bh=1vSj0+T2SOSdS99wOaDOXDNMnCuaqGZMOPdwpHI9jl0=;
+	b=WQwyxLsGwHQGvHj3lRF50xpBcFLs4ylm6RZA86iZVkfgN0FQeL4HtfCqlOhpzefPm06DbE
+	EsxImhS9CxsD6Yj8m9y1/d2ThDIy8dxrKoh3lmtl8UWSXdKaGJobU03WKtiuT8eagjQJ07
+	IoyF0CXf4rQ6welLGSFA4e18uWNIU/Y=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-335-eLjo2ssEPaGfziNvSg4rhQ-1; Mon, 11 Sep 2023 12:39:45 -0400
+X-MC-Unique: eLjo2ssEPaGfziNvSg4rhQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 96D413815EF3;
-	Mon, 11 Sep 2023 16:39:29 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1ACBE8030B1;
+	Mon, 11 Sep 2023 16:39:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 7B2821054FC1;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0064D2027019;
 	Mon, 11 Sep 2023 16:39:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4DA2B19465B3;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CF6C019465BA;
 	Mon, 11 Sep 2023 16:39:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4DBC619465B7
- for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+ ESMTP id 5BC6819465A2
+ for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:28 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2E10C2027046; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+ id 3F3BB40C6EA8; Mon, 11 Sep 2023 16:39:28 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 269D52027045
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-inbound-delivery-1.mimecast.com
- [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3823640C6EC0
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:28 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0A652381494E
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 198C6181A719
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:28 +0000 (UTC)
 Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-544-9JZt5eVKOZCXECJo47EiTw-1; Mon,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-219-fFkM_rd1M5SyOJE8a_iaMg-1; Mon,
  11 Sep 2023 12:39:24 -0400
-X-MC-Unique: 9JZt5eVKOZCXECJo47EiTw-1
+X-MC-Unique: fFkM_rd1M5SyOJE8a_iaMg-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id DB6C61F8C1;
- Mon, 11 Sep 2023 16:39:22 +0000 (UTC)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 2059E1F8C3;
+ Mon, 11 Sep 2023 16:39:23 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id A31FE139CC;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id E6648139CC;
  Mon, 11 Sep 2023 16:39:22 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id 2GM+JrpC/2RzEAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id OG+VNrpC/2RzEAAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:22 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 11 Sep 2023 18:38:41 +0200
-Message-ID: <20230911163846.27197-33-mwilck@suse.com>
+Date: Mon, 11 Sep 2023 18:38:42 +0200
+Message-ID: <20230911163846.27197-34-mwilck@suse.com>
 In-Reply-To: <20230911163846.27197-1-mwilck@suse.com>
 References: <20230911163846.27197-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,9 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH v2 32/37] libdmmp/Makefile: fix bug in install
- section
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH v2 33/37] multipath-tools: README.md: improve
+ documentation for compile-time options
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -114,22 +114,71 @@ From: Martin Wilck <mwilck@suse.com>
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 ---
- libdmmp/Makefile | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ README.md | 38 ++++++++++++++++++++++++++------------
+ 1 file changed, 26 insertions(+), 12 deletions(-)
 
-diff --git a/libdmmp/Makefile b/libdmmp/Makefile
-index 078eca8..172ba04 100644
---- a/libdmmp/Makefile
-+++ b/libdmmp/Makefile
-@@ -44,7 +44,7 @@ install:
- 		$(DESTDIR)$(pkgconfdir)/$(PKGFILE)
- 	$(Q)sed -i 's|__INCLUDEDIR__|$(includedir)|g' \
- 		$(DESTDIR)$(pkgconfdir)/$(PKGFILE)
--	$(Q)$(INSTALL_PROGRAM) -d 755 $(DESTDIR)$(mandir)/man3
-+	$(Q)$(INSTALL_PROGRAM) -m 755 -d $(DESTDIR)$(mandir)/man3
- 	$(Q)$(INSTALL_PROGRAM) -m 644 -t $(DESTDIR)$(mandir)/man3 docs/man/*.3
+diff --git a/README.md b/README.md
+index a7f994a..679e55b 100644
+--- a/README.md
++++ b/README.md
+@@ -89,9 +89,17 @@ The following variables can be passed to the `make` command line:
+  * `plugindir="/some/path"`: directory where libmultipath plugins (path
+    checkers, prioritizers, and foreign multipath support) will be looked up.
+    This used to be the run-time option `multipath_dir` in earlier versions.
+- * `configdir="/some/path"` : directory to search for configuration files.
++   The default is `$(prefix)/$(LIB)/multipath`, where `$(LIB)` is `lib64` on
++   systems that have `/lib64`, and `lib` otherwise.
++ * `configfile="/some/path`": The path to the main configuration file.
++    The defalt is `$(etc_prefix)/etc/multipath.conf`.
++ * `configdir="/some/path"` : directory to search for additional configuration files.
+     This used to be the run-time option `config_dir` in earlier versions.
+-	The default is `/etc/multipath/conf.d`.
++	The default is `$(etc_prefix)/etc/multipath/conf.d`.
++ * `statedir="/some/path"`: The path of the directory where multipath-tools
++    stores run-time settings that need persist between reboots, such as known
++	WWIDs, user-friendly names, and persistent reservation keys.
++	The default is `$(etc_prefix)/etc/multipath`.
+  * `READLINE=libedit` or `READLINE=libreadline`: enable command line history
+     and TAB completion in the interactive mode *(which is entered with `multipathd -k` or `multipathc`)*.
+     The respective development package will be required for building.
+@@ -119,21 +127,27 @@ The following variables can be passed to the `make` command line:
+ ### Installation Paths
  
- uninstall:
+  * `prefix`: The directory prefix for (almost) all files to be installed.
+-   Distributions may want to set this to `/usr`.
+-   **Note**: for multipath-tools, unlike many other packages, `prefix`
+-   defaults to the empty string, which resolves to the root directory (`/`).
++   "Usr-merged" distributions[^systemd] may want to set this to `/usr`. The
++   default is empty (`""`).
+  * `usr_prefix`: where to install those parts of the code that aren't necessary
+-   for booting. You may want to set this to `/usr` if `prefix` is empty.
+- * `systemd_prefix`: Prefix for systemd-related files. It defaults to `/usr`.
+-   Some systemd installations use separate `prefix` and `rootprefix`. On such
+-   a distribution, set `prefix`, and override `unitdir` to use systemd's
+-   `rootprefix`.
++   for booting. Non-usr-merged distributions[^systemd] may want to set this to
++   `/usr`. The default is `$(prefix)`.
++ * `systemd_prefix`: Prefix for systemd-related files[^systemd]. The default is `/usr`.
++ * `etc_prefix`: The prefix for configuration files. "Usr-merged"
++   distributions with immutable `/usr`[^systemd] may want to set this to
++   `/etc`. The default is `$(prefix)`.
+  * `LIB`: the subdirectory under `prefix` where shared libraries will be
+    installed. By default, the makefile uses `/lib64` if this directory is
+    found on the build system, and `/lib` otherwise.
+    
+-See also `configdir` and `plugindir` above. See `Makefile.inc` for more
+-fine-grained control.
++The options `configdir`, `plugindir`, `configfile`, and `statedir` above can
++be used for setting indvidual paths where the `prefix` variables don't provide
++sufficient control. See `Makefile.inc` for even more fine-grained control.
++
++[^systemd]: Some systemd installations use separate `prefix` and `rootprefix`. 
++	On such a distribution, set `prefix`, and override `unitdir` to use systemd's
++   `rootprefix`. Recent systemd releases generally require everything to be
++	installed under `/usr` (so-called "usr-merged" distribution). On "usr-
+ 
+ ### Compiler Options
+ 
 -- 
 2.42.0
 
