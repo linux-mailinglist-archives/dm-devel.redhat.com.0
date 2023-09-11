@@ -1,81 +1,81 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 70B0F79AA34
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:48 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2DDC079AA48
+	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:57 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694450387;
+	s=mimecast20190719; t=1694450396;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=FjUQLO3WYpbNTU34IKy1plm0822u9TuvJclrmLm3veU=;
-	b=Lyye/UP0kaK0eZGUlEmFqRoE31DYUsxa9l15gp+IobfVUOvLBCmGylpZ1m5uTtaIyhTdSo
-	N9Fk1h6dioRKgu4jZX+ZGyiooMhpGRt3ztUFMpaDfLIYCI5op3kv7ctqtJYz2GX0RCtm+j
-	P+RZJFF6X8BFM+SSPcTUHHjIYo18iuw=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-403-uE2AzBrWOnS98TWF7mizIg-1; Mon, 11 Sep 2023 12:39:38 -0400
-X-MC-Unique: uE2AzBrWOnS98TWF7mizIg-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=2Kd2HuqH76UMYRQH2gn84U4jhVE6Z7VCmB7FHrynx2k=;
+	b=UVUDKTxQ1r1Pywd6+rS2vZo776l/Gk4PqFOJK7ztHPh3a0GofylVzbqFCPwoWbTBIgK3Iw
+	UW/4t8XWW2czDUnwjjlZFwWbPPWqL3fTE/etrneXMmRBQQxdqXoaxqxlKh5aYELGRncMJ6
+	1IwMSzT+JyTVVP2CsUAnxZWL4kSAZH8=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-198-OAnBieiyOCyLSy0jSND05Q-1; Mon, 11 Sep 2023 12:39:47 -0400
+X-MC-Unique: OAnBieiyOCyLSy0jSND05Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2C97710264FD;
-	Mon, 11 Sep 2023 16:39:28 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BE9541C06912;
+	Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0DD0C2027045;
-	Mon, 11 Sep 2023 16:39:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 99A0F215670B;
+	Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 70DD61946A54;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 11D0E1946A48;
 	Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
  [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 96D1919465A2
+ ESMTP id 5DCAC19465A3
  for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6753F2022EBE; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
+ id 4CE362024CD5; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5F4092023466
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4512820268C8
  for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
  bits)) (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40DB429DD991
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2788929DD993
  for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
 Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-597-SD0FEZ-_OGew-dtfscNXsA-1; Mon,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-677-a1BVh0ySPoqUvSl69uusIQ-1; Mon,
  11 Sep 2023 12:39:23 -0400
-X-MC-Unique: SD0FEZ-_OGew-dtfscNXsA-1
+X-MC-Unique: a1BVh0ySPoqUvSl69uusIQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id E12C321875;
- Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 26EBA21882;
+ Mon, 11 Sep 2023 16:39:22 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id B2731139CC;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id ECCCD139CC;
  Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id aN7kKblC/2RzEAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id cGsZOLlC/2RzEAAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:21 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 11 Sep 2023 18:38:37 +0200
-Message-ID: <20230911163846.27197-29-mwilck@suse.com>
+Date: Mon, 11 Sep 2023 18:38:38 +0200
+Message-ID: <20230911163846.27197-30-mwilck@suse.com>
 In-Reply-To: <20230911163846.27197-1-mwilck@suse.com>
 References: <20230911163846.27197-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,8 +87,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH v2 28/37] multipath-tools tests: mock
- pthread_mutex_{lock, unlock}
+Subject: [dm-devel] [PATCH v2 29/37] multipath-tools Makefile: sanitize
+ paths for configuration files
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -103,7 +103,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -111,101 +111,69 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-If some test fails with a lock held, cmocka doesn't deal well with
-pthread_cleanup_pop(). Such tests can cause deadlock with the locking
-primitives in the alias code, because locks don't get properly unlocked.  Just
-mock the lock/unlock functions and generate an error if they weren't paired at
-the end of the test.
+Make the path to multipath.conf configurable, and use the same prefix
+by default for multipath.conf and multipath/conf.d. For "usr-merged"
+distributions with immutable /usr, we'll want to have the configuration
+under a different prefix. This can be achieved by using e.g.
 
-Signed-off-by: Martin Wilck <mwilck@suse.com>
+    make prefix=/usr etc_prefix=""
+
+Note that with prefix=/usr, before this patch the code would use
+/usr/etc/multipath/conf.d, but /etc/multipath.conf. If this (rather
+inconsistent) behavior is desired, use the following command line:
+
+    make prefix=/usr configfile=/etc/multipath.conf
 ---
- tests/Makefile |  1 +
- tests/alias.c  | 46 ++++++++++++++++++++++++++++++++++++++++++++++
- 2 files changed, 47 insertions(+)
+ Makefile.inc            | 9 ++++++---
+ libmultipath/defaults.h | 1 -
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/tests/Makefile b/tests/Makefile
-index c777d07..7dac8a8 100644
---- a/tests/Makefile
-+++ b/tests/Makefile
-@@ -52,6 +52,7 @@ blacklist-test_LIBDEPS := -ludev
- vpd-test_OBJDEPS :=  $(multipathdir)/discovery.o
- vpd-test_LIBDEPS := -ludev -lpthread -ldl
- alias-test_TESTDEPS := test-log.o
-+alias-test_OBJDEPS := $(mpathutildir)/util.o
- alias-test_LIBDEPS := -lpthread -ldl
- valid-test_OBJDEPS := $(multipathdir)/valid.o $(multipathdir)/discovery.o
- valid-test_LIBDEPS := -lmount -ludev -lpthread -ldl
-diff --git a/tests/alias.c b/tests/alias.c
-index 872b1fc..962c158 100644
---- a/tests/alias.c
-+++ b/tests/alias.c
-@@ -89,6 +89,47 @@ int __wrap_dm_get_uuid(const char *name, char *uuid, int uuid_len)
- 	return ret;
- }
- 
-+static int lock_errors;
-+static int bindings_locked;
-+static int timestamp_locked;
-+int __wrap_pthread_mutex_lock(pthread_mutex_t *mutex)
-+{
-+	if (mutex == &bindings_mutex) {
-+		if (bindings_locked) {
-+			fprintf(stderr, "%s: bindings_mutex LOCKED\n", __func__);
-+			lock_errors++;
-+		}
-+		bindings_locked = 1;
-+	}  else if (mutex == &timestamp_mutex) {
-+		if (timestamp_locked) {
-+			fprintf(stderr, "%s: timestamp_mutex LOCKED\n", __func__);
-+			lock_errors++;
-+		}
-+		timestamp_locked = 1;
-+	} else
-+		  fprintf(stderr, "%s called for unknown mutex %p\n", __func__, mutex);
-+	return 0;
-+}
-+
-+int __wrap_pthread_mutex_unlock(pthread_mutex_t *mutex)
-+{
-+	if (mutex == &bindings_mutex) {
-+		if (!bindings_locked) {
-+			fprintf(stderr, "%s: bindings_mutex UNLOCKED\n", __func__);
-+			lock_errors++;
-+		}
-+		bindings_locked = 0;
-+	}  else if (mutex == &timestamp_mutex) {
-+		if (!timestamp_locked) {
-+			fprintf(stderr, "%s: timestamp_mutex UNLOCKED\n", __func__);
-+			lock_errors++;
-+		}
-+		timestamp_locked = 0;
-+	} else
-+		  fprintf(stderr, "%s called for unknown mutex %p\n", __func__, mutex);
-+	return 0;
-+}
-+
- #define TEST_FDNO 1234
- #define TEST_FPTR ((FILE *) 0xaffe)
- 
-@@ -1718,6 +1759,10 @@ static void gufa_old_nomatch_nowwidmatch(void **state) {
- 	free(alias);
- }
- 
-+static void gufa_check_locking(void **state) {
-+	assert_int_equal(lock_errors, 0);
-+}
-+
- static int test_get_user_friendly_alias()
- {
- 	const struct CMUnitTest tests[] = {
-@@ -1743,6 +1788,7 @@ static int test_get_user_friendly_alias()
- 		cmocka_unit_test_teardown(gufa_old_nomatch_wwidmatch, teardown_bindings),
- 		cmocka_unit_test_teardown(gufa_old_nomatch_wwidmatch_used, teardown_bindings),
- 		cmocka_unit_test_teardown(gufa_old_nomatch_nowwidmatch, teardown_bindings),
-+		cmocka_unit_test(gufa_check_locking),
- 	};
- 
- 	return cmocka_run_group_tests(tests, NULL, NULL);
+diff --git a/Makefile.inc b/Makefile.inc
+index 502cd0f..39972d9 100644
+--- a/Makefile.inc
++++ b/Makefile.inc
+@@ -37,6 +37,8 @@ prefix		:=
+ exec_prefix	:= $(prefix)
+ # Prefix for non-essential libraries (libdmmp)
+ usr_prefix	:= $(prefix)
++# Prefix for configfuration files (multipath.conf)
++etc_prefix	:= $(prefix)
+ # Where to install systemd-related files. systemd is usually installed under /usr
+ # Note: some systemd installations use separate "prefix" and "rootprefix".
+ # In this case, override only unitdir to use systemd's "rootprefix" instead of $(systemd_prefix)
+@@ -54,7 +56,8 @@ usrlibdir	:= $(usr_prefix)/$(LIB)
+ includedir	:= $(usr_prefix)/include
+ pkgconfdir	:= $(usrlibdir)/pkgconfig
+ plugindir       := $(prefix)/$(LIB)/multipath
+-configdir       := $(prefix)/etc/multipath/conf.d
++configdir       := $(etc_prefix)/etc/multipath/conf.d
++configfile      := $(etc_prefix)/etc/multipath.conf
+ runtimedir      := $(if $(shell test -L /var/run -o ! -d /var/run && echo 1),/run,/var/run)
+ devmapper_incdir := $(or $(shell $(PKG_CONFIG) --variable=includedir devmapper),/usr/include)
+ libudev_incdir	:= $(or $(shell $(PKG_CONFIG) --variable=includedir libudev),/usr/include)
+@@ -84,8 +87,8 @@ WARNFLAGS	:= -Werror -Wall -Wextra -Wformat=2 $(WFORMATOVERFLOW) -Werror=implici
+ 		  $(WNOCLOBBERED) -Werror=cast-qual $(ERROR_DISCARDED_QUALIFIERS) $(W_URCU_TYPE_LIMITS)
+ CPPFLAGS	:= $(FORTIFY_OPT) $(CPPFLAGS) \
+ 		   -DBIN_DIR=\"$(bindir)\" -DMULTIPATH_DIR=\"$(plugindir)\" \
+-		   -DRUNTIME_DIR=\"$(runtimedir)\" \
+-		   -DCONFIG_DIR=\"$(configdir)\" -DEXTRAVERSION=\"$(EXTRAVERSION)\" -MMD -MP
++		   -DRUNTIME_DIR=\"$(runtimedir)\" -DCONFIG_DIR=\"$(configdir)\" \
++		   -DDEFAULT_CONFIGFILE=\"$(configfile)\" -DEXTRAVERSION=\"$(EXTRAVERSION)\" -MMD -MP
+ CFLAGS		:= --std=gnu99 $(CFLAGS) $(OPTFLAGS) $(WARNFLAGS) -pipe
+ BIN_CFLAGS	:= -fPIE -DPIE
+ LIB_CFLAGS	:= -fPIC
+diff --git a/libmultipath/defaults.h b/libmultipath/defaults.h
+index b3f11d4..bc2d638 100644
+--- a/libmultipath/defaults.h
++++ b/libmultipath/defaults.h
+@@ -66,7 +66,6 @@
+ #define MAX_DEV_LOSS_TMO	UINT_MAX
+ #define DEFAULT_PIDFILE		RUNTIME_DIR "/multipathd.pid"
+ #define DEFAULT_SOCKET		"/org/kernel/linux/storage/multipathd"
+-#define DEFAULT_CONFIGFILE	"/etc/multipath.conf"
+ #define DEFAULT_BINDINGS_FILE	"/etc/multipath/bindings"
+ #define DEFAULT_WWIDS_FILE	"/etc/multipath/wwids"
+ #define DEFAULT_PRKEYS_FILE    "/etc/multipath/prkeys"
 -- 
 2.42.0
 
