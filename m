@@ -2,81 +2,81 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 621B479AA31
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:47 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 50FF979AA44
+	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:54 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694450386;
+	s=mimecast20190719; t=1694450393;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ejlfXJuAq/JC4YIlYEUCUR/eLfPJ9sY46EbLMxmpqak=;
-	b=RDxbis0m0rHpW0ZA4GD4B+al5y4Im5vrF7YdnYZPP//ewmyGTzPVy8SHclvYbaPulNZ7rO
-	kX7y7kUFFT9/Tbn2zilnSA4vQ9dW/l4X5jBjEMu+YkHkOlfFRBWk0RCEfEqjfqzht/wMq4
-	x6wyHIAjKjmwX7MWfwhwlqStma+e9QY=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-673-rYbEIQMROFOCO_LfLTEUTg-1; Mon, 11 Sep 2023 12:39:38 -0400
-X-MC-Unique: rYbEIQMROFOCO_LfLTEUTg-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	bh=fJDKY3wnl6A+gESFARyZDD4WLFTqorBr6z6Y9og8wlU=;
+	b=MqmLLBId/Xr4HF0TZ9kO1F2D2BFjjd3DBIpcI/FYNN/KNrt6mgYif6ps18hvmaxPGgM3iO
+	aLMIGE7e2vYplkBYVQd3KrgtoJ+QA5CFyTi8C3OvrpK/kxCWeHBedHHR1CcIlNJMOqVz2i
+	Xmp0xiXCSsqfwwzD3HNNQdTVFnizMlo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-381-kWJ87RnaPIeMXCqXvKjsOg-1; Mon, 11 Sep 2023 12:39:49 -0400
+X-MC-Unique: kWJ87RnaPIeMXCqXvKjsOg-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 167401C068EA;
-	Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B954D93374C;
+	Mon, 11 Sep 2023 16:39:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id B7B9E21B2415;
-	Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6C5CF20235BC;
+	Mon, 11 Sep 2023 16:39:32 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 707D71946A40;
-	Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 4773019465B9;
+	Mon, 11 Sep 2023 16:39:32 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 618B419466DF
- for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:23 +0000 (UTC)
+ ESMTP id 0334E19465B3
+ for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:22 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 433052156711; Mon, 11 Sep 2023 16:39:23 +0000 (UTC)
+ id E9CA644069; Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C36D215670B
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:23 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E24AD4405A
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ (us-smtp-inbound-delivery-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 215AF928B84
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:23 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C4F1C933721
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:21 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-106-VsWX3DzsNsO5Fhb1uC1sgQ-1; Mon,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-452-0EwF3fNnM3elezgInJ3PVw-1; Mon,
  11 Sep 2023 12:39:19 -0400
-X-MC-Unique: VsWX3DzsNsO5Fhb1uC1sgQ-1
+X-MC-Unique: 0EwF3fNnM3elezgInJ3PVw-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 657F11F8B3;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 9DBC621860;
  Mon, 11 Sep 2023 16:39:18 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 34DDA139CC;
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 706B0139CC;
  Mon, 11 Sep 2023 16:39:18 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id yAhCC7ZC/2RzEAAAMHmgww
+ by imap2.suse-dmz.suse.de with ESMTPSA id yKTOGbZC/2RzEAAAMHmgww
  (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:18 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 11 Sep 2023 18:38:24 +0200
-Message-ID: <20230911163846.27197-16-mwilck@suse.com>
+Date: Mon, 11 Sep 2023 18:38:25 +0200
+Message-ID: <20230911163846.27197-17-mwilck@suse.com>
 In-Reply-To: <20230911163846.27197-1-mwilck@suse.com>
 References: <20230911163846.27197-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,9 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH v2 15/37] libmultipath: update_bindings_file: use
- a single write()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [PATCH v2 16/37] libmultipath: update_bindings_file:
+ don't log temp file name
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -112,59 +112,29 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-Save code and syscalls by assembling the content in memory first.
-write() may return less bytes written than expected. Deal with it.
+The name of the temp file is unlikely to be helpful for users,
+and hard to predict in the unit test. Omit it.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
 Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/alias.c | 26 +++++++++++++++++---------
- 1 file changed, 17 insertions(+), 9 deletions(-)
+ libmultipath/alias.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-index ae7bbd2..bd34466 100644
+index bd34466..de21f52 100644
 --- a/libmultipath/alias.c
 +++ b/libmultipath/alias.c
-@@ -118,22 +118,30 @@ static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
- static int write_bindings_file(const Bindings *bindings, int fd)
- {
- 	struct binding *bnd;
--	STRBUF_ON_STACK(line);
-+	STRBUF_ON_STACK(content);
- 	int i;
-+	size_t len;
- 
--	if (write(fd, BINDINGS_FILE_HEADER, sizeof(BINDINGS_FILE_HEADER) - 1)
--	    != sizeof(BINDINGS_FILE_HEADER) - 1)
-+	if (__append_strbuf_str(&content, BINDINGS_FILE_HEADER,
-+				sizeof(BINDINGS_FILE_HEADER) - 1) == -1)
- 		return -1;
- 
- 	vector_foreach_slot(bindings, bnd, i) {
--		int len;
-+		if (print_strbuf(&content, "%s %s\n",
-+					bnd->alias, bnd->wwid) < 0)
-+			return -1;
-+	}
-+	len = get_strbuf_len(&content);
-+	while (len > 0) {
-+		ssize_t n = write(fd, get_strbuf_str(&content), len);
- 
--		if ((len = print_strbuf(&line, "%s %s\n",
--					bnd->alias, bnd->wwid)) < 0)
-+		if (n < 0)
-+			return n;
-+		else if (n == 0) {
-+			condlog(2, "%s: short write", __func__);
- 			return -1;
--		if (write(fd, get_strbuf_str(&line), len) != len)
--			return -1;
--		truncate_strbuf(&line, 0);
-+		}
-+		len -= n;
+@@ -167,8 +167,7 @@ static int update_bindings_file(const Bindings *bindings,
+ 	rc = write_bindings_file(bindings, fd);
+ 	pthread_cleanup_pop(1);
+ 	if (rc == -1) {
+-		condlog(1, "failed to write new bindings file %s",
+-			tempname);
++		condlog(1, "failed to write new bindings file");
+ 		unlink(tempname);
+ 		return rc;
  	}
- 	return 0;
- }
 -- 
 2.42.0
 
