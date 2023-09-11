@@ -1,8 +1,8 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 55CD079AA3B
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D4CE879AA3E
 	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 18:39:50 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	s=mimecast20190719; t=1694450389;
@@ -12,71 +12,71 @@ DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=6F4ZH4rHmHcIzfQFlDMJkwxNY/QIWTLU96N/Xjiwm6M=;
-	b=Z80TS4wY8uV6PajuPol3dt7PiMmDHNeqeNi1RDAqW8VZSBA1KwvP0IRAxuqqLjcIjJrpVm
-	f6MkW05f3929Wyonm8Z2Ptna+4uzBSOGmY5IFTnqRxOvpjWT1BzK670kDeE/HFnmms6DXm
-	OaMXCoZT1f6IMXjjSweitFPAM9sTdHE=
+	bh=/VZJpo+0BefmtxVapXRxXHaGGaYL0nrY46GhwKNAWtc=;
+	b=MWDDPB90416bGkk2hEDD9oOQ3QqTSUuUtP23HY17urza4Z5po3M0+SqsqNAw54w5Rjit00
+	4OJfjMIUCfNyFNAwOzUYHKhvV24ECTVLvwX8GBlLSIkvChSxiGxvPB5ylVE+qMyDJdI5dF
+	tEreWnRNdOb4E7iyqTqTNbXIpQfER3k=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-467-85o8J8PANfqt3iYhtOT57A-1; Mon, 11 Sep 2023 12:39:44 -0400
-X-MC-Unique: 85o8J8PANfqt3iYhtOT57A-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-484-BFWgiAjlOwG9hjtaKDyD1A-1; Mon, 11 Sep 2023 12:39:44 -0400
+X-MC-Unique: BFWgiAjlOwG9hjtaKDyD1A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7A370181A6EB;
-	Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DA54A928B98;
+	Mon, 11 Sep 2023 16:39:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6053B40C6EA8;
-	Mon, 11 Sep 2023 16:39:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id B8B812027019;
+	Mon, 11 Sep 2023 16:39:29 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DBB1D1946A62;
-	Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A2CD119465B2;
+	Mon, 11 Sep 2023 16:39:29 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 561AA19465A2
- for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
+ ESMTP id DA4EE1946A61
+ for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2941A2027019; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
+ id BFAF840C6ECA; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 2039F2027045
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B7CAC40C6EA8
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
 Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
  [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05753101FAA9
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:25 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9808090F842
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 16:39:26 +0000 (UTC)
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-642-EHyR-5zNNOOp9-mUqwf6-g-1; Mon,
- 11 Sep 2023 12:39:21 -0400
-X-MC-Unique: EHyR-5zNNOOp9-mUqwf6-g-1
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-558-zVbqZIPVMgGs1PXXt7VObQ-1; Mon,
+ 11 Sep 2023 12:39:23 -0400
+X-MC-Unique: zVbqZIPVMgGs1PXXt7VObQ-1
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 1D4E21F8BB;
+ by smtp-out1.suse.de (Postfix) with ESMTPS id 5775C21847;
  Mon, 11 Sep 2023 16:39:20 +0000 (UTC)
 Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
  (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id DDE7F139CC;
- Mon, 11 Sep 2023 16:39:19 +0000 (UTC)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 28FA0139CC;
+ Mon, 11 Sep 2023 16:39:20 +0000 (UTC)
 Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id +BZsNLdC/2RzEAAAMHmgww
- (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:19 +0000
+ by imap2.suse-dmz.suse.de with ESMTPSA id mM5eCLhC/2RzEAAAMHmgww
+ (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 16:39:20 +0000
 From: mwilck@suse.com
 To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
  Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 11 Sep 2023 18:38:30 +0200
-Message-ID: <20230911163846.27197-22-mwilck@suse.com>
+Date: Mon, 11 Sep 2023 18:38:31 +0200
+Message-ID: <20230911163846.27197-23-mwilck@suse.com>
 In-Reply-To: <20230911163846.27197-1-mwilck@suse.com>
 References: <20230911163846.27197-1-mwilck@suse.com>
 MIME-Version: 1.0
@@ -87,9 +87,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: [dm-devel] [PATCH v2 21/37] libmultipath: adapt to new semantics of
- dm_get_uuid()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH v2 22/37] libmultipath: sort aliases by length
+ and strcmp
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -104,7 +104,7 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
@@ -112,157 +112,97 @@ Content-Transfer-Encoding: 7bit
 
 From: Martin Wilck <mwilck@suse.com>
 
-dm_get_uuid() will return 1 for non-existing maps. Thus we don't need
-to call dm_map_present() any more in alias_already_taken(). This changes
-our semantics: previously we'd avoid using an alias for which dm_get_uuid()
-had failed. Now we treat failure in dm_get_uuid() as indication that the
-map doesn't exist. This is not dangerous because dm_task_get_uuid() cannot
-fail, and thus the modified dm_get_uuid() will fail if and only if
-dm_map_present() would return false.
-
-This makes the "failed alias" test mostly obsolete, as "failed" is now
-treated as "unused".
+The current sort order of aliases is alphabetical, which is does not match
+the actual order of aliases, where "mpathaa" > "mpathz". Change the ordering as
+follows: first sort by string length, then alphabetically. This will make
+sure that for aliases with the same prefix, alias order is correct ("mpathaaa"
+will be sorted after "mpathzz", etc). Even for mixed prefixes, the alias
+order will be correct for every individual prefix, even though aliases with
+different prefixes may alternate in the file.
 
 Signed-off-by: Martin Wilck <mwilck@suse.com>
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 ---
- libmultipath/alias.c | 23 ++++++++++++-----------
- tests/alias.c        | 32 +++++++-------------------------
- 2 files changed, 19 insertions(+), 36 deletions(-)
+ libmultipath/alias.c | 45 +++++++++++++++++++++++++++++++++-----------
+ 1 file changed, 34 insertions(+), 11 deletions(-)
 
 diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-index d656374..58436ec 100644
+index 58436ec..af6565b 100644
 --- a/libmultipath/alias.c
 +++ b/libmultipath/alias.c
-@@ -295,18 +295,19 @@ scan_devname(const char *alias, const char *prefix)
- static bool alias_already_taken(const char *alias, const char *map_wwid)
- {
+@@ -117,6 +117,35 @@ static const struct binding *get_binding_for_wwid(const Bindings *bindings,
+ 	return NULL;
+ }
  
--	if (dm_map_present(alias)) {
--		char wwid[WWID_SIZE];
-+	char wwid[WWID_SIZE];
- 
--		/* If both the name and the wwid match, then it's fine.*/
--		if (dm_get_uuid(alias, wwid, sizeof(wwid)) == 0 &&
--		    strncmp(map_wwid, wwid, sizeof(wwid)) == 0)
--			return false;
--		condlog(3, "%s: alias '%s' already taken, reselecting alias",
--			map_wwid, alias);
--		return true;
--	}
--	return false;
-+	/* If the map doesn't exist, it's fine */
-+	if (dm_get_uuid(alias, wwid, sizeof(wwid)) != 0)
-+		return false;
++/*
++ * Sort order for aliases.
++ *
++ * The "numeric" ordering of aliases for a given prefix P is
++ * Pa, ..., Pz, Paa, ..., Paz, Pba, ... , Pzz, Paaa, ..., Pzzz, Paaaa, ...
++ * We use the fact that for equal prefix, longer strings are always
++ * higher than shorter ones. Strings of equal length are sorted alphabetically.
++ * This is achieved by sorting be length first, then using strcmp().
++ * If multiple prefixes are in use, the aliases with a given prefix will
++ * not necessarily be in a contiguous range of the vector, but they will
++ * be ordered such that for a given prefix, numercally higher aliases will
++ * always be sorted after lower ones.
++ */
++static int alias_compar(const void *p1, const void *p2)
++{
++	const char *alias1 = *((char * const *)p1);
++	const char *alias2 = *((char * const *)p2);
 +
-+	/* If both the name and the wwid match, it's fine.*/
-+	if (strncmp(map_wwid, wwid, sizeof(wwid)) == 0)
-+		return false;
++	if (alias1 && alias2) {
++		ssize_t ldif = strlen(alias1) - strlen(alias2);
 +
-+	condlog(3, "%s: alias '%s' already taken, reselecting alias",
-+		map_wwid, alias);
-+	return true;
- }
- 
- static bool id_already_taken(int id, const char *prefix, const char *map_wwid)
-diff --git a/tests/alias.c b/tests/alias.c
-index 50a21ec..d1cc487 100644
---- a/tests/alias.c
-+++ b/tests/alias.c
-@@ -73,12 +73,6 @@ int __wrap_mkstemp(char *template)
- 	return 10;
- }
- 
--int __wrap_dm_map_present(const char * str)
--{
--	check_expected(str);
--	return mock_type(int);
--}
--
- int __wrap_dm_get_uuid(const char *name, char *uuid, int uuid_len)
++		if (ldif)
++			return ldif;
++		return strcmp(alias1, alias2);
++	} else
++		/* Move NULL alias to the end */
++		return alias1 ? -1 : alias2 ? 1 : 0;
++}
++
+ static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
  {
- 	int ret;
-@@ -398,14 +392,13 @@ static int test_scan_devname(void)
- 
- static void mock_unused_alias(const char *alias)
- {
--	expect_string(__wrap_dm_map_present, str, alias);
--	will_return(__wrap_dm_map_present, 0);
-+	expect_string(__wrap_dm_get_uuid, name, alias);
-+	expect_value(__wrap_dm_get_uuid, uuid_len, WWID_SIZE);
-+	will_return(__wrap_dm_get_uuid, 1);
- }
- 
- static void mock_self_alias(const char *alias, const char *wwid)
- {
--	expect_string(__wrap_dm_map_present, str, alias);
--	will_return(__wrap_dm_map_present, 1);
- 	expect_string(__wrap_dm_get_uuid, name, alias);
- 	expect_value(__wrap_dm_get_uuid, uuid_len, WWID_SIZE);
- 	will_return(__wrap_dm_get_uuid, 0);
-@@ -432,18 +425,13 @@ static void mock_self_alias(const char *alias, const char *wwid)
- 
- #define mock_failed_alias(alias, wwid)					\
- 	do {								\
--		expect_string(__wrap_dm_map_present, str, alias);	\
--		will_return(__wrap_dm_map_present, 1);			\
- 		expect_string(__wrap_dm_get_uuid, name, alias);		\
- 		expect_value(__wrap_dm_get_uuid, uuid_len, WWID_SIZE);	\
- 		will_return(__wrap_dm_get_uuid, 1);			\
--		expect_condlog(3, USED_STR(alias, wwid));		\
- 	} while (0)
- 
- #define mock_used_alias(alias, wwid)					\
- 	do {								\
--		expect_string(__wrap_dm_map_present, str, alias);	\
--		will_return(__wrap_dm_map_present, 1);			\
- 		expect_string(__wrap_dm_get_uuid, name, alias);		\
- 		expect_value(__wrap_dm_get_uuid, uuid_len, WWID_SIZE);	\
- 		will_return(__wrap_dm_get_uuid, 0);			\
-@@ -566,9 +554,8 @@ static void lb_empty_failed(void **state)
- 	mock_bindings_file("");
- 	expect_condlog(3, NOMATCH_WWID_STR("WWID0"));
- 	mock_failed_alias("MPATHa", "WWID0");
--	mock_unused_alias("MPATHb");
- 	rc = lookup_binding(NULL, "WWID0", &alias, "MPATH", 1);
--	assert_int_equal(rc, 2);
-+	assert_int_equal(rc, 1);
- 	assert_ptr_equal(alias, NULL);
- 	free(alias);
- }
-@@ -666,9 +653,8 @@ static void lb_nomatch_a_3_used_failed_self(void **state)
- 	mock_used_alias("MPATHc", "WWID1");
- 	mock_used_alias("MPATHd", "WWID1");
- 	mock_failed_alias("MPATHe", "WWID1");
--	mock_self_alias("MPATHf", "WWID1");
- 	rc = lookup_binding(NULL, "WWID1", &alias, "MPATH", 1);
--	assert_int_equal(rc, 6);
-+	assert_int_equal(rc, 5);
- 	assert_ptr_equal(alias, NULL);
- }
- 
-@@ -940,7 +926,7 @@ static void lb_nomatch_b_a_aa(void **state)
- 
- static void lb_nomatch_b_a_aa_zz(void **state)
- {
--	int rc, i;
-+	int rc;
- 	char *alias;
- 	STRBUF_ON_STACK(buf);
- 
-@@ -949,11 +935,7 @@ static void lb_nomatch_b_a_aa_zz(void **state)
- 	 * lookup_binding finds MPATHaaa as next free entry, because MPATHaa is
- 	 * found before MPATHb, and MPATHzz was in the bindings, too.
+ 	struct binding *bdg;
+@@ -128,7 +157,7 @@ static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
+ 	 * sorted already.
  	 */
--	for (i = 0; i <= 26; i++) {
--		print_strbuf(&buf,  "MPATH");
--		format_devname(&buf, i + 1);
--		print_strbuf(&buf,  " WWID%d\n", i);
--	}
-+	fill_bindings(&buf, 0, 26);
- 	print_strbuf(&buf, "MPATHzz WWID676\n");
- 	mock_bindings_file(get_strbuf_str(&buf));
- 	expect_condlog(3, NOMATCH_WWID_STR("WWID703"));
+ 	vector_foreach_slot_backwards(bindings, bdg, i) {
+-		if ((cmp = strcmp(bdg->alias, alias)) <= 0)
++		if ((cmp = alias_compar(&bdg->alias, &alias)) <= 0)
+ 			break;
+ 	}
+ 
+@@ -657,16 +686,10 @@ static int _check_bindings_file(const struct config *conf, FILE *file,
+ 	return rc;
+ }
+ 
+-static int alias_compar(const void *p1, const void *p2)
++static int mp_alias_compar(const void *p1, const void *p2)
+ {
+-	const char *alias1 = (*(struct mpentry * const *)p1)->alias;
+-	const char *alias2 = (*(struct mpentry * const *)p2)->alias;
+-
+-	if (alias1 && alias2)
+-		return strcmp(alias1, alias2);
+-	else
+-		/* Move NULL alias to the end */
+-		return alias1 ? -1 : alias2 ? 1 : 0;
++	return alias_compar(&((*(struct mpentry * const *)p1)->alias),
++			    &((*(struct mpentry * const *)p2)->alias));
+ }
+ 
+ /*
+@@ -700,7 +723,7 @@ int check_alias_settings(const struct config *conf)
+ 	pthread_cleanup_push_cast(free_bindings, &bindings);
+ 	pthread_cleanup_push(cleanup_vector_free, mptable);
+ 
+-	vector_sort(mptable, alias_compar);
++	vector_sort(mptable, mp_alias_compar);
+ 	vector_foreach_slot(mptable, mpe, i) {
+ 		if (!mpe->alias)
+ 			/*
 -- 
 2.42.0
 
