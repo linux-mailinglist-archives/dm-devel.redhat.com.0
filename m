@@ -1,92 +1,136 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 0B8E279A375
-	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 08:25:30 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694413529;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
-	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
-	 list-unsubscribe:list-subscribe:list-post;
-	bh=QEgHYkCcRcR4l2FlpRhzoncY7Gu5VMIjQiXz0zkabyo=;
-	b=dSE8GH2olMQguuAufa1ErSKa2tS5BJxEubnt9CH8xqm7JtJvyqzA+4k4b6xTbiVl2Z1RnM
-	fpKD/SXjZ4Zw4q67dPbZpbhWM3pwMS3NLjViM+3tae+7l9nTxf9XWfPJdrplt+i2PrXN95
-	suT1hAMrwmPO7ugc2cY6ZRha79fn+28=
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 286E879A472
+	for <lists+dm-devel@lfdr.de>; Mon, 11 Sep 2023 09:28:39 +0200 (CEST)
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-618-k8MKe0deN12M1LDpJPM_sg-1; Mon, 11 Sep 2023 02:25:26 -0400
-X-MC-Unique: k8MKe0deN12M1LDpJPM_sg-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-441-sAcZ51hSPY-7fnN4RAE2Aw-1; Mon, 11 Sep 2023 03:28:30 -0400
+X-MC-Unique: sAcZ51hSPY-7fnN4RAE2Aw-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4FE021C0432A;
-	Mon, 11 Sep 2023 06:25:24 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EE8E23C02B61;
+	Mon, 11 Sep 2023 07:28:27 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E6A3B492B05;
-	Mon, 11 Sep 2023 06:25:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 931FD2156701;
+	Mon, 11 Sep 2023 07:28:19 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 20E8319465B2;
-	Mon, 11 Sep 2023 06:25:13 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 926C019465B3;
+	Mon, 11 Sep 2023 07:28:18 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
- [10.11.54.10])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id DF8E31946595
- for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 06:25:11 +0000 (UTC)
+ ESMTP id 6F6551946597
+ for <dm-devel@listman.corp.redhat.com>; Mon, 11 Sep 2023 07:28:17 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B779E492B05; Mon, 11 Sep 2023 06:25:11 +0000 (UTC)
+ id 4B10440C2009; Mon, 11 Sep 2023 07:28:17 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B03B8492C37
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 06:25:11 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 439D540C2064
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 07:28:17 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8A62A3C02B64
- for <dm-devel@redhat.com>; Mon, 11 Sep 2023 06:25:11 +0000 (UTC)
-Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-7-4GpF3dwnPKuVNBNm2EmOSw-1; Mon,
- 11 Sep 2023 02:25:08 -0400
-X-MC-Unique: 4GpF3dwnPKuVNBNm2EmOSw-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out2.suse.de (Postfix) with ESMTPS id 8E1461F460;
- Mon, 11 Sep 2023 06:25:06 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 6717213780;
- Mon, 11 Sep 2023 06:25:06 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id MzeBF8Ky/mSNRAAAMHmgww
- (envelope-from <mwilck@suse.com>); Mon, 11 Sep 2023 06:25:06 +0000
-Message-ID: <3bfcf097c6c1f770da4ba0d80d2a06a2d131fd79.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Benjamin Marzinski <bmarzins@redhat.com>
-Date: Mon, 11 Sep 2023 08:25:05 +0200
-In-Reply-To: <20230908172215.GI7412@octiron.msp.redhat.com>
-References: <20230901180235.23980-1-mwilck@suse.com>
- <20230901180235.23980-19-mwilck@suse.com>
- <20230906224708.GC7412@octiron.msp.redhat.com>
- <5cef84987794cc449028055a63c522c1ea690738.camel@suse.com>
- <20230907191404.GG7412@octiron.msp.redhat.com>
- <20230907200257.GH7412@octiron.msp.redhat.com>
- <97ae2fd39a6f927441ebb861bf62d2e1a3223b9b.camel@suse.com>
- <20230908172215.GI7412@octiron.msp.redhat.com>
-User-Agent: Evolution 3.48.4
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E09311C060C4
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 07:28:16 +0000 (UTC)
+Received: from mailout1.samsung.com (mailout1.samsung.com [203.254.224.24])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-117-LK0S_ybTPlGnDXQjRdJ6nA-1; Mon, 11 Sep 2023 03:28:14 -0400
+X-MC-Unique: LK0S_ybTPlGnDXQjRdJ6nA-1
+Received: from epcas5p1.samsung.com (unknown [182.195.41.39])
+ by mailout1.samsung.com (KnoxPortal) with ESMTP id
+ 20230911072811epoutp013875042c69db5d03b5dce8106e46f989~Dx4ybALWy2979229792epoutp013
+ for <dm-devel@redhat.com>; Mon, 11 Sep 2023 07:28:11 +0000 (GMT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 mailout1.samsung.com
+ 20230911072811epoutp013875042c69db5d03b5dce8106e46f989~Dx4ybALWy2979229792epoutp013
+Received: from epsnrtp4.localdomain (unknown [182.195.42.165]) by
+ epcas5p1.samsung.com (KnoxPortal) with ESMTP id
+ 20230911072810epcas5p1d562705d89cfbb6478ca8b261932bcdc~Dx4x02aCc0929309293epcas5p1H;
+ Mon, 11 Sep 2023 07:28:10 +0000 (GMT)
+Received: from epsmgec5p1-new.samsung.com (unknown [182.195.38.180]) by
+ epsnrtp4.localdomain (Postfix) with ESMTP id 4Rkdbs5Kl4z4x9Q2; Mon, 11 Sep
+ 2023 07:28:09 +0000 (GMT)
+Received: from epcas5p2.samsung.com ( [182.195.41.40]) by
+ epsmgec5p1-new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 20.82.19094.981CEF46; Mon, 11 Sep 2023 16:28:09 +0900 (KST)
+Received: from epsmtrp1.samsung.com (unknown [182.195.40.13]) by
+ epcas5p3.samsung.com (KnoxPortal) with ESMTPA id
+ 20230911071326epcas5p3600b9cef197147920fe1e3b4ab2779eb~Dxr5xvs_B1633516335epcas5p3e;
+ Mon, 11 Sep 2023 07:13:26 +0000 (GMT)
+Received: from epsmgms1p2new.samsung.com (unknown [182.195.42.42]) by
+ epsmtrp1.samsung.com (KnoxPortal) with ESMTP id
+ 20230911071326epsmtrp14b58900234d6bef91d34adefe1eac313~Dxr5wxixP1320513205epsmtrp1d;
+ Mon, 11 Sep 2023 07:13:26 +0000 (GMT)
+X-AuditID: b6c32a50-39fff70000004a96-19-64fec189d7e9
+Received: from epsmtip1.samsung.com ( [182.195.34.30]) by
+ epsmgms1p2new.samsung.com (Symantec Messaging Gateway) with SMTP id
+ 8A.B4.08788.51EBEF46; Mon, 11 Sep 2023 16:13:25 +0900 (KST)
+Received: from green245 (unknown [107.99.41.245]) by epsmtip1.samsung.com
+ (KnoxPortal) with ESMTPA id
+ 20230911071323epsmtip1e24502945ef6ea5aa939e28947e74d3d~Dxr3KQ5gg0358803588epsmtip1M;
+ Mon, 11 Sep 2023 07:13:23 +0000 (GMT)
+Date: Mon, 11 Sep 2023 12:37:24 +0530
+From: Nitesh Shetty <nj.shetty@samsung.com>
+To: Hannes Reinecke <hare@suse.de>
+Message-ID: <20230911070724.GA28177@green245>
 MIME-Version: 1.0
+In-Reply-To: <cb767dc9-1732-4e31-bcc6-51c187750d66@suse.de>
+User-Agent: Mutt/1.9.4 (2018-02-28)
+X-Brightmail-Tracker: H4sIAAAAAAAAA02Te0xTdxTH/d3bXi5snZcK4wdMJdds4bEC1bZeHMwpzF0jMsYiCSamdPSO
+ EqBt+hjilsDmgOCDhyCZ5SGCgMACoyUElQ4sShUkBpUWms1XAANkMJiIi4Ot5cLif59zzvf8
+ zjm/k4Oj/FXMD09T6hiNUpZBYh6crv6gQEHhjVV5eK41kGofHECp1t+LMWq2fxFQE30FgDLP
+ VXKp8b6rCNVTdw6hmltvIdQ5iw1Qk6MGhDI7QqhL+Zc5VI/5Dod6cK0Koy42TrpRTdZVhBor
+ mQRU2+w8h7rt8KfurVi5n3jR9x51cOgHw3ra2FKI0abLOfT18VyMri8q49JnT85h9MKkg0PP
+ /zqK0UWdLYA2DX1L/2XcRhsn/kDieUfTIxWMTM5oAhhlikqepkyNIg99KY2WiiXhQoEwgtpN
+ BihlmUwUGRMbLziQluEclQz4Rpahd7riZVotGfZxpEal1zEBCpVWF0UyanmGWqQO1coytXpl
+ aqiS0e0RhofvFDuFyemK0vt2VF3ucXykdBzLBVfxU8Adh4QIzt9aRk4BD5xP9AA4/eonwBqL
+ AM7bO1GXik+8BLDd+tZGRsU/Z9YzzACuvDZxWWMKwBHTojOC4xziffh3ZZYLMSIEDv27Vs2L
+ IOFCgcXNJUeJJxxYarSjLs0WYi9ctnm5kEcI4PP8d11yHuEJ71yY4LjYnfgIGrv7MBd7Eztg
+ X5d1rQVIlLnD0WcNa89AIgY+MtJsm1vgjLXTjWU/OF2cv85ZsLn8Csbm/gigwW4AbGAvzBss
+ XpsXJRTQUXYXZf1b4fnBNoT1vwPPvp5AWD8Pdtds8A74c3stxrIvtC1/v840rF9+yGG/ZwHA
+ geE5tARsN7wxnOGNeix/CGuvL2IG5zwo4Q+bVnEWg2D7tbBawG0Bfoxam5nKpIjVQoGSyfp/
+ 3ymqTCNYO4Tg+G7Q+stKqAUgOLAAiKOkF09nWZHzeXJZ9glGo5Jq9BmM1gLEzlWVon7eKSrn
+ JSl1UqEoIlwkkUhEEbskQtKHN5tXLecTqTIdk84wakazkYfg7n65yOkTFO29K3HrjKLmSY8p
+ WvBVZNhJTz6v48yUcD5bX1pUnEN/UHEj7kh/QWPaxeeKzRFNV967f3Ppi98+hfurZmxD+xIa
+ /XwTG4aRu53KbP+3b8fZY7+rloJNWNzx6P7sEBhcXDF95GjXq6WxsN6XJTVtUYk/iBPq8c/D
+ bpqbljxikyXnI5pnv/Z8kaQXdU/t7tvjSAp8WumVNFejr86KET3uB73ArgtyVBw+FjPTEV3e
+ qxzO+4w7MpN1ANv5+IW4cO6Q9bB1KvlYbOX2P+PHa8wJ9px90s22noPWugubmvgO8zatT9zT
+ /AbkIHm67mG0pWK000dcMuY7YErCqi7Zng2THK1CJgxGNVrZf9JDBzmRBAAA
+X-Brightmail-Tracker: H4sIAAAAAAAAA+NgFtrPIsWRmVeSWpSXmKPExsWy7bCSnK7ovn8pBi+XW1usP3WM2WL13X42
+ i9eHPzFaPDnQzmix991sVoubB3YyWexZNInJYuXqo0wWkw5dY7R4enUWk8XeW9oWC9uWsFjs
+ 2XuSxeLyrjlsFvOXPWW3WH78H5PFjQlPGS3WvX7PYnHilrTF+b/HWR1EPM7f28jicflsqcem
+ VZ1sHpuX1HvsvtnA5rG4bzKrR2/zOzaPj09vsXi833eVzaNvyypGj82nqz0+b5Lz2PTkLVMA
+ bxSXTUpqTmZZapG+XQJXRtOlXuaCK+wVPT+esTcwTmLrYuTkkBAwkZj2p4epi5GLQ0hgN6PE
+ v5N9TBAJSYllf48wQ9jCEiv/PWeHKHrCKLHr4xKgBAcHi4CqxM/Z5SAmm4C2xOn/HCDlIgJK
+ Eh/bD4GVMws8YZGY+/chWLmwgL3E92siICavgK7E8zYxiIkfGSV+d+5gBenlFRCUODnzCQuI
+ zSygJXHj30smkHpmAWmJ5f/AxnMKWEts2nEA7HxRAWWJA9uOM01gFJyFpHsWku5ZCN0LGJlX
+ MUqmFhTnpucWGxYY5aWW6xUn5haX5qXrJefnbmIEx7GW1g7GPas+6B1iZOJgPMQowcGsJMJb
+ cuhvihBvSmJlVWpRfnxRaU5q8SFGaQ4WJXHeb697U4QE0hNLUrNTUwtSi2CyTBycUg1MudXf
+ 4ktYwhKj5qterlRYYhkj3PjHIPCe35bvPAaHbr6K+FfIqGbOuCNXuf1nnJdamsLGgzeVTjm7
+ qzM2G9pEmIptakhznnjafEE0/+qTfqd6NSqeKLaV/XK8bvvj5pIdO06um6Z8Y8LzoKTAN5a3
+ I+Pif5jERwaezDAQ67T1P3RS2qz32eqsd9kv3nCVB25zfyla+uJ92mrPkB3mh6K9lGc1HZDo
+ OVWw5LXHi8xz9RVrSu1vdcyMTpNuY5gcXRMRXXyk94Tdz70pQTby0QH7tVgTu6YGv1hy/uyT
+ ljNaimdeva+5Zqh7rEN1/pWEy66lXzat/H17nq3e6tpfrTN3XmZamv5O4MwlzQCWyOtKLMUZ
+ iYZazEXFiQBBrOgmUgMAAA==
+X-CMS-MailID: 20230911071326epcas5p3600b9cef197147920fe1e3b4ab2779eb
+X-Msg-Generator: CA
+X-Sendblock-Type: REQ_APPROVE
+CMS-TYPE: 105P
+DLP-Filter: Pass
+X-CFilter-Loop: Reflected
+X-CMS-RootMailID: 20230906164407epcas5p3f9e9f33e15d7648fd1381cdfb97d11f2
+References: <20230906163844.18754-1-nj.shetty@samsung.com>
+ <CGME20230906164407epcas5p3f9e9f33e15d7648fd1381cdfb97d11f2@epcas5p3.samsung.com>
+ <20230906163844.18754-10-nj.shetty@samsung.com>
+ <cb767dc9-1732-4e31-bcc6-51c187750d66@suse.de>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -94,8 +138,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
-Subject: Re: [dm-devel] [PATCH 18/21] libmultipath: keep bindings in memory
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: Re: [dm-devel] [PATCH v15 09/12] dm: Add support for copy offload
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -107,67 +151,65 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com
+Cc: Jens Axboe <axboe@kernel.dk>, Christian Brauner <brauner@kernel.org>,
+ Chaitanya Kulkarni <kch@nvidia.com>, Sagi Grimberg <sagi@grimberg.me>,
+ martin.petersen@oracle.com, Jonathan Corbet <corbet@lwn.net>,
+ gost.dev@samsung.com, linux-doc@vger.kernel.org,
+ Mike Snitzer <snitzer@kernel.org>, mcgrof@kernel.org,
+ linux-nvme@lists.infradead.org, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, linux-fsdevel@vger.kernel.org,
+ dm-devel@redhat.com, Alexander Viro <viro@zeniv.linux.org.uk>,
+ Keith Busch <kbusch@kernel.org>, Christoph Hellwig <hch@lst.de>,
+ Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: samsung.com
+Content-Type: multipart/mixed;
+ boundary="----EkYAGCX2vluH006HpQv8E927.wBqYttzOq6t00vxo_cq_k4p=_daab9_"
 
-On Fri, 2023-09-08 at 12:22 -0500, Benjamin Marzinski wrote:
-> On Thu, Sep 07, 2023 at 10:43:27PM +0200, Martin Wilck wrote:=A0
-> > Our bindings list is now partially sorted, which is an improvement
-> > wrt
-> > the previous situation. "missing the gap" is not really an awful
-> > problem [*]. Perhaps we could postpone this for after this patch
-> > set,
-> > and give it some more time to sink in?
->=20
-> Yep. I'm fine with going ahead with this patchset as it is. Both
-> sorting
-> the bindings in alias order and updating the bindings if
-> /etc/multipath/bindings has changed are things that can get looked at
-> afterwards. And I'm fine with doing this work, if you want.
+------EkYAGCX2vluH006HpQv8E927.wBqYttzOq6t00vxo_cq_k4p=_daab9_
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
 
-It so happens that, by sudden inspiration, I've found an elegant
-solution to this problem (I think). We can take advantage of the fact
-that, for any given prefix, aliases with shorter string length will be
-sorted before longer ones ("mpathz" < "mpathaa"). By sorting the
-aliases by string length, and use alphabetical sorting only for strings
-of equal length, we obtain total ordering for any given prefix. This
-works for any number of different prefixes, and even if some prefixes
-are substrings of others. In the ordered list, the aliases with a given
-prefix will not necessarily be in a contiguous block, but that doesn't
-matter.=A0For every prefix, the sub-list of aliases starting with that
-prefix is cleanly ordered. This way we avoid the complexity to have to
-parse or compare configured prefixes.
+On Fri, Sep 08, 2023 at 08:13:37AM +0200, Hannes Reinecke wrote:
+> On 9/6/23 18:38, Nitesh Shetty wrote:
+> > Before enabling copy for dm target, check if underlying devices and
+> > dm target support copy. Avoid split happening inside dm target.
+> > Fail early if the request needs split, currently splitting copy
+> > request is not supported.
+> > 
+> And here is where I would have expected the emulation to take place;
+> didn't you have it in one of the earlier iterations?
 
-I'll post a new patch set with this ordering scheme hopefully later
-today.
+No, but it was the other way round.
+In dm-kcopyd we used device offload, if that was possible, before using default
+dm-mapper copy. It was dropped in the current series,
+to streamline the patches and make the series easier to review.
 
-Regards,
-Martin
+> After all, device-mapper already has the infrastructure for copying
+> data between devices, so adding a copy-offload emulation for device-mapper
+> should be trivial.
+I did not understand this, can you please elaborate ?
 
->=20
-> -Ben
-> =A0
-> > Martin
-> >=20
-> > [*] I admit that with my patch, we _know_ now that the bindings
-> > list
-> > will be sub-optimally sorted as soon as mpathaa is reached, whereas
-> > before the ordering might be perfect even with a large number of
-> > aliases, depending on the history of the bindings file. That's not
-> > a
-> > change for the better; it will cause the gap to be missed in some
-> > situations where we don't miss it now. I am not sure how bad this
-> > is.
->=20
+Thank you,
+Nitesh Shetty
+
+------EkYAGCX2vluH006HpQv8E927.wBqYttzOq6t00vxo_cq_k4p=_daab9_
+Content-Type: text/plain; charset="utf-8"
+
+
+------EkYAGCX2vluH006HpQv8E927.wBqYttzOq6t00vxo_cq_k4p=_daab9_
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Content-Disposition: inline
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
+
+------EkYAGCX2vluH006HpQv8E927.wBqYttzOq6t00vxo_cq_k4p=_daab9_--
 
