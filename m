@@ -2,67 +2,67 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6AC3179DC55
-	for <lists+dm-devel@lfdr.de>; Wed, 13 Sep 2023 01:01:07 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6C1DF79DC58
+	for <lists+dm-devel@lfdr.de>; Wed, 13 Sep 2023 01:01:47 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694559666;
+	s=mimecast20190719; t=1694559706;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=ZbZEwuZMN++h+rBtetkr0xR/W1WYhuFOCGzXwm/EhEA=;
-	b=Pc7EAStP4o1dAkojzhqdR2Zv3yLP2uoCHV46K6BS8XjDN1e3Yw3HbcGKB+HIb6izcqQEKO
-	aUdSVdTc/sL0Hn9YvIkzwvKdCAuqWQPMTD1VvE1QahkAd+uKBZUxh+5sjH67ysc2696Vjq
-	HwYxcc8AUvH7Q9LNgOCbIpVVwXGb0IU=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-130-75vCFo9LMuyBPWYcQu5Z9A-1; Tue, 12 Sep 2023 19:01:03 -0400
-X-MC-Unique: 75vCFo9LMuyBPWYcQu5Z9A-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	bh=qS7b1v+tke8rx9eIqgrj1j5kyZJ8m+wECNGyDaUVNR4=;
+	b=KY8EBXHGSQ3gJ7ei8xTOeRSur4ZxlbgSskHum5xJINKwuho667SrHuUb4+ZK3hJ7ZVivtO
+	al6xiwUUfUPnj6+w4gT3BiPdEv4QbDJ2/erz6igvAGFh2rfJQNleh03lyYgcvKJ7TvmcYL
+	zPiG0j3QqMhHDYMWh23N9Rtm6Uro2Wo=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-306-EpzuVOb7PbiO3KffBDMuuA-1; Tue, 12 Sep 2023 19:01:43 -0400
+X-MC-Unique: EpzuVOb7PbiO3KffBDMuuA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B4703C13A6D;
-	Tue, 12 Sep 2023 23:01:00 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F081F868035;
+	Tue, 12 Sep 2023 23:01:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0E40621CAC76;
-	Tue, 12 Sep 2023 23:01:00 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 783AB44029;
+	Tue, 12 Sep 2023 23:01:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F3A919465B8;
-	Tue, 12 Sep 2023 23:00:59 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D489D19465B8;
+	Tue, 12 Sep 2023 23:01:39 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 05140194658D
- for <dm-devel@listman.corp.redhat.com>; Tue, 12 Sep 2023 23:00:57 +0000 (UTC)
+ ESMTP id 9CB66194658D
+ for <dm-devel@listman.corp.redhat.com>; Tue, 12 Sep 2023 23:01:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E4FEE40C200A; Tue, 12 Sep 2023 23:00:57 +0000 (UTC)
+ id 7D66340C6EBF; Tue, 12 Sep 2023 23:01:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id C53F140C2009;
- Tue, 12 Sep 2023 23:00:57 +0000 (UTC)
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 66F5640C6EA8;
+ Tue, 12 Sep 2023 23:01:11 +0000 (UTC)
 Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 38CN0nHm031067;
- Tue, 12 Sep 2023 18:00:49 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 38CN13CT031196;
+ Tue, 12 Sep 2023 18:01:03 -0500
 Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 38CN0nXs031066;
- Tue, 12 Sep 2023 18:00:49 -0500
-Date: Tue, 12 Sep 2023 18:00:48 -0500
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 38CN12NW031195;
+ Tue, 12 Sep 2023 18:01:02 -0500
+Date: Tue, 12 Sep 2023 18:01:02 -0500
 From: Benjamin Marzinski <bmarzins@redhat.com>
 To: mwilck@suse.com
-Message-ID: <20230912230048.GR7412@octiron.msp.redhat.com>
+Message-ID: <20230912230102.GS7412@octiron.msp.redhat.com>
 References: <20230911163846.27197-1-mwilck@suse.com>
- <20230911163846.27197-23-mwilck@suse.com>
+ <20230911163846.27197-24-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20230911163846.27197-23-mwilck@suse.com>
+In-Reply-To: <20230911163846.27197-24-mwilck@suse.com>
 User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: Re: [dm-devel] [PATCH v2 22/37] libmultipath: sort aliases by
- length and strcmp
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH v2 23/37] multipath-tools tests: fix alias
+ test after sort order change
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -77,115 +77,100 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: redhat.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 11, 2023 at 06:38:31PM +0200, mwilck@suse.com wrote:
+On Mon, Sep 11, 2023 at 06:38:32PM +0200, mwilck@suse.com wrote:
 > From: Martin Wilck <mwilck@suse.com>
 > 
-> The current sort order of aliases is alphabetical, which is does not match
-> the actual order of aliases, where "mpathaa" > "mpathz". Change the ordering as
-> follows: first sort by string length, then alphabetically. This will make
-> sure that for aliases with the same prefix, alias order is correct ("mpathaaa"
-> will be sorted after "mpathzz", etc). Even for mixed prefixes, the alias
-> order will be correct for every individual prefix, even though aliases with
-> different prefixes may alternate in the file.
-> 
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
 > Signed-off-by: Martin Wilck <mwilck@suse.com>
 > ---
->  libmultipath/alias.c | 45 +++++++++++++++++++++++++++++++++-----------
->  1 file changed, 34 insertions(+), 11 deletions(-)
+>  tests/alias.c | 30 ++++++++++++------------------
+>  1 file changed, 12 insertions(+), 18 deletions(-)
 > 
-> diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-> index 58436ec..af6565b 100644
-> --- a/libmultipath/alias.c
-> +++ b/libmultipath/alias.c
-> @@ -117,6 +117,35 @@ static const struct binding *get_binding_for_wwid(const Bindings *bindings,
->  	return NULL;
->  }
+> diff --git a/tests/alias.c b/tests/alias.c
+> index d1cc487..8ed95d7 100644
+> --- a/tests/alias.c
+> +++ b/tests/alias.c
+> @@ -932,16 +932,15 @@ static void lb_nomatch_b_a_aa_zz(void **state)
 >  
-> +/*
-> + * Sort order for aliases.
-> + *
-> + * The "numeric" ordering of aliases for a given prefix P is
-> + * Pa, ..., Pz, Paa, ..., Paz, Pba, ... , Pzz, Paaa, ..., Pzzz, Paaaa, ...
-> + * We use the fact that for equal prefix, longer strings are always
-> + * higher than shorter ones. Strings of equal length are sorted alphabetically.
-> + * This is achieved by sorting be length first, then using strcmp().
-> + * If multiple prefixes are in use, the aliases with a given prefix will
-> + * not necessarily be in a contiguous range of the vector, but they will
-> + * be ordered such that for a given prefix, numercally higher aliases will
-> + * always be sorted after lower ones.
-> + */
-> +static int alias_compar(const void *p1, const void *p2)
-> +{
-
-I'm confused as to why we need to pass p1 and p2 and pointers to
-pointers to chars, instead of simply as pointers to chars. We always
-derefence them immediately, and only use the dereferenced pointers. Am I
-missing something?
-
--Ben
-
-> +	const char *alias1 = *((char * const *)p1);
-> +	const char *alias2 = *((char * const *)p2);
-> +
-> +	if (alias1 && alias2) {
-> +		ssize_t ldif = strlen(alias1) - strlen(alias2);
-> +
-> +		if (ldif)
-> +			return ldif;
-> +		return strcmp(alias1, alias2);
-> +	} else
-> +		/* Move NULL alias to the end */
-> +		return alias1 ? -1 : alias2 ? 1 : 0;
-> +}
-> +
->  static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
->  {
->  	struct binding *bdg;
-> @@ -128,7 +157,7 @@ static int add_binding(Bindings *bindings, const char *alias, const char *wwid)
->  	 * sorted already.
+>  	/*
+>  	 * add_bindings() sorts alphabetically. ("a", "aa", "ab", "b", "c", ...)
+> -	 * lookup_binding finds MPATHaaa as next free entry, because MPATHaa is
+> -	 * found before MPATHb, and MPATHzz was in the bindings, too.
+> +	 * lookup_binding finds MPATHab as next free entry.
 >  	 */
->  	vector_foreach_slot_backwards(bindings, bdg, i) {
-> -		if ((cmp = strcmp(bdg->alias, alias)) <= 0)
-> +		if ((cmp = alias_compar(&bdg->alias, &alias)) <= 0)
->  			break;
->  	}
->  
-> @@ -657,16 +686,10 @@ static int _check_bindings_file(const struct config *conf, FILE *file,
->  	return rc;
+>  	fill_bindings(&buf, 0, 26);
+>  	print_strbuf(&buf, "MPATHzz WWID676\n");
+>  	mock_bindings_file(get_strbuf_str(&buf));
+>  	expect_condlog(3, NOMATCH_WWID_STR("WWID703"));
+> -	mock_unused_alias("MPATHaaa");
+> +	mock_unused_alias("MPATHab");
+>  	rc = lookup_binding(NULL, "WWID703", &alias, "MPATH", 1);
+> -	assert_int_equal(rc, 703);
+> +	assert_int_equal(rc, 28);
+>  	assert_ptr_equal(alias, NULL);
 >  }
 >  
-> -static int alias_compar(const void *p1, const void *p2)
-> +static int mp_alias_compar(const void *p1, const void *p2)
->  {
-> -	const char *alias1 = (*(struct mpentry * const *)p1)->alias;
-> -	const char *alias2 = (*(struct mpentry * const *)p2)->alias;
-> -
-> -	if (alias1 && alias2)
-> -		return strcmp(alias1, alias2);
-> -	else
-> -		/* Move NULL alias to the end */
-> -		return alias1 ? -1 : alias2 ? 1 : 0;
-> +	return alias_compar(&((*(struct mpentry * const *)p1)->alias),
-> +			    &((*(struct mpentry * const *)p2)->alias));
->  }
+> @@ -998,13 +997,8 @@ static void lb_nomatch_b_a_3_used(void **state)
 >  
+>  #ifdef MPATH_ID_INT_MAX
 >  /*
-> @@ -700,7 +723,7 @@ int check_alias_settings(const struct config *conf)
->  	pthread_cleanup_push_cast(free_bindings, &bindings);
->  	pthread_cleanup_push(cleanup_vector_free, mptable);
+> - * The bindings will be sorted by alias, alphabetically, which is not
+> - * the same as the "numeric" sort order for user-friendly aliases.
+> - * get_free_id() selects the highest used ID + 1 if an unsorted entry
+> - * is encountered in the bindings table and it's id is equal to the
+> - * next "expected" id. This happens if all IDs from "a" to "aa" are
+> - * in the table. If the INT_MAX entry is in the table, too, it will
+> - * overflow.
+> + * The bindings will be sorted by alias. Therefore we have no chance to
+> + * simulate a "full" table.
+>   */
+>  static void lb_nomatch_int_max(void **state)
+>  {
+> @@ -1016,9 +1010,9 @@ static void lb_nomatch_int_max(void **state)
+>  	print_strbuf(&buf, "MPATH%s WWIDMAX\n", MPATH_ID_INT_MAX);
+>  	mock_bindings_file(get_strbuf_str(&buf));
+>  	expect_condlog(3, NOMATCH_WWID_STR("WWIDNOMORE"));
+> -	expect_condlog(0, NOMORE_STR);
+> +	mock_unused_alias("MPATHab");
+>  	rc = lookup_binding(NULL, "WWIDNOMORE", &alias, "MPATH", 1);
+> -	assert_int_equal(rc, -1);
+> +	assert_int_equal(rc, 28);
+>  	assert_ptr_equal(alias, NULL);
+>  }
 >  
-> -	vector_sort(mptable, alias_compar);
-> +	vector_sort(mptable, mp_alias_compar);
->  	vector_foreach_slot(mptable, mpe, i) {
->  		if (!mpe->alias)
->  			/*
+> @@ -1049,9 +1043,9 @@ static void lb_nomatch_int_max_m1(void **state)
+>  	print_strbuf(&buf, "MPATH%s WWIDMAXM1\n", MPATH_ID_INT_MAX_m1);
+>  	mock_bindings_file(get_strbuf_str(&buf));
+>  	expect_condlog(3, NOMATCH_WWID_STR("WWIDMAX"));
+> -	mock_unused_alias("MPATH" MPATH_ID_INT_MAX);
+> +	mock_unused_alias("MPATHab");
+>  	rc = lookup_binding(NULL, "WWIDMAX", &alias, "MPATH", 1);
+> -	assert_int_equal(rc, INT_MAX);
+> +	assert_int_equal(rc, 28);
+>  	assert_ptr_equal(alias, NULL);
+>  }
+>  
+> @@ -1065,10 +1059,10 @@ static void lb_nomatch_int_max_m1_used(void **state)
+>  	print_strbuf(&buf, "MPATH%s WWIDMAXM1\n", MPATH_ID_INT_MAX_m1);
+>  	mock_bindings_file(get_strbuf_str(&buf));
+>  	expect_condlog(3, NOMATCH_WWID_STR("WWIDMAX"));
+> -	mock_used_alias("MPATH" MPATH_ID_INT_MAX, "WWIDMAX");
+> -	expect_condlog(0, NOMORE_STR);
+> +	mock_used_alias("MPATHab", "WWIDMAX");
+> +	mock_unused_alias("MPATHac");
+>  	rc = lookup_binding(NULL, "WWIDMAX", &alias, "MPATH", 1);
+> -	assert_int_equal(rc, -1);
+> +	assert_int_equal(rc, 29);
+>  	assert_ptr_equal(alias, NULL);
+>  }
+>  
 > -- 
 > 2.42.0
 --
