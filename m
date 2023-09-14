@@ -1,69 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 6F2AE79FBDD
-	for <lists+dm-devel@lfdr.de>; Thu, 14 Sep 2023 08:26:46 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id D72BF7A07F4
+	for <lists+dm-devel@lfdr.de>; Thu, 14 Sep 2023 16:53:52 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694672805;
+	s=mimecast20190719; t=1694703231;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7KMRvFNieR2NeHy0EsG7+UgcbVp5r7Co8ghj/jsV1hw=;
-	b=T+B08TQcTr4VRj74qinFLSDm6+7XcRWmv+9l16/rDAEX20yNKJoZ3M2Xd1um2ROZ7h1WDt
-	WYJ0tcvx5YPGlG7YvtKFTNtXItAVsDqYieQF++2ENoUvnpZsKMwZaesp3tQXuWlU+wHeXX
-	V0N4kgXFhbCH6l1sqM9w1Q9zFfkEv5A=
+	bh=AuEDGKiXOuX7yiiDdTo9Dzig/j1A4/rYULQs9JFTzpQ=;
+	b=fljO/AQDwLKePK1MdUFAAO2x7bQZoMxdRtegsnuX1W96pwvCR4sJeB5WW39Rjny8qic3xs
+	q2nN2fts2ilO6r+h5cbiKh76ljS7jMH0MQmGHDBxs2w9SKuTIda/ySnIZ5PDVW6Qf2NI5W
+	SHQUlk1cn1yBMRQN1FHUi1x9P6dzQ70=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-328-PsrlHUWKOriIxAJLhsrnrQ-1; Thu, 14 Sep 2023 02:26:41 -0400
-X-MC-Unique: PsrlHUWKOriIxAJLhsrnrQ-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-605-U1eEMOeWPMWe-6XiHOtb-A-1; Thu, 14 Sep 2023 10:53:49 -0400
+X-MC-Unique: U1eEMOeWPMWe-6XiHOtb-A-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 43B95857A9A;
-	Thu, 14 Sep 2023 06:26:38 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1B6DF80523C;
+	Thu, 14 Sep 2023 14:53:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0CA9B40C200B;
-	Thu, 14 Sep 2023 06:26:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6E0362026D68;
+	Thu, 14 Sep 2023 14:53:39 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 732A819465BC;
-	Thu, 14 Sep 2023 06:26:27 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3F89919466EF;
+	Thu, 14 Sep 2023 14:53:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 893EF19465B1
- for <dm-devel@listman.corp.redhat.com>; Wed, 13 Sep 2023 22:07:37 +0000 (UTC)
+ ESMTP id 01FAC19466E7
+ for <dm-devel@listman.corp.redhat.com>; Thu, 14 Sep 2023 14:53:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 3978B7B62; Wed, 13 Sep 2023 22:07:37 +0000 (UTC)
+ id CA32A21B2419; Thu, 14 Sep 2023 14:53:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0134363F9D;
- Wed, 13 Sep 2023 22:07:36 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 38DM7Swt004446;
- Wed, 13 Sep 2023 17:07:28 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 38DM7S9V004445;
- Wed, 13 Sep 2023 17:07:28 -0500
-Date: Wed, 13 Sep 2023 17:07:27 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: mwilck@suse.com
-Message-ID: <20230913220727.GX7412@octiron.msp.redhat.com>
-References: <20230911163846.27197-1-mwilck@suse.com>
- <20230911163846.27197-28-mwilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id C396521B2417
+ for <dm-devel@redhat.com>; Thu, 14 Sep 2023 14:53:12 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A507C81D7A6
+ for <dm-devel@redhat.com>; Thu, 14 Sep 2023 14:53:12 +0000 (UTC)
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.220.29]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-169-NUmF7QRKMuySosrMLsLPOQ-1; Thu,
+ 14 Sep 2023 10:53:08 -0400
+X-MC-Unique: NUmF7QRKMuySosrMLsLPOQ-1
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by smtp-out2.suse.de (Postfix) with ESMTPS id 550EA1F88F;
+ Thu, 14 Sep 2023 14:53:07 +0000 (UTC)
+Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
+ (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+ key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
+ (No client certificate requested)
+ by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 24480139DB;
+ Thu, 14 Sep 2023 14:53:07 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([192.168.254.65])
+ by imap2.suse-dmz.suse.de with ESMTPSA id OfsSB1MeA2UHAgAAMHmgww
+ (envelope-from <mwilck@suse.com>); Thu, 14 Sep 2023 14:53:07 +0000
+From: mwilck@suse.com
+To: Christophe Varoqui <christophe.varoqui@opensvc.com>,
+ Benjamin Marzinski <bmarzins@redhat.com>
+Date: Thu, 14 Sep 2023 16:51:28 +0200
+Message-ID: <20230914145131.15165-1-mwilck@suse.com>
 MIME-Version: 1.0
-In-Reply-To: <20230911163846.27197-28-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-X-Mailman-Approved-At: Thu, 14 Sep 2023 06:26:25 +0000
-Subject: Re: [dm-devel] [PATCH v2 27/37] multipathd: watch bindings file
- with inotify + timestamp
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: [dm-devel] [PATCH v3 00/38] multipath-tools: user-friendly names
+ rework
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -75,650 +98,174 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com
+Cc: dm-devel@redhat.com, Martin Wilck <mwilck@suse.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Disposition: inline
+X-Mimecast-Originator: suse.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Sep 11, 2023 at 06:38:36PM +0200, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
-> 
-> Since "libmultipath: keep bindings in memory", we don't re-read the
-> bindings file after every modification. Add a notification mechanism
-> that makes multipathd aware of changes to the bindings file. Because
-> multipathd itself will change the bindings file, it must compare
-> timestamps in order to avoid reading the file repeatedly.
-> 
-> Because select_alias() can be called from multiple thread contexts (uxlsnr,
-> uevent handler), we need to add locking for the bindings file. The
-> timestamp must also be protected by a lock, because it can't be read
-> or written atomically.
-> 
-> Note: The notification mechanism expects the bindings file to be
-> atomically replaced by rename(2). Changes must be made in a temporary file and
-> applied using rename(2), as in update_bindings_file(). The inotify
-> mechanism deliberately does not listen to close-after-write events
-> that would be generated by editing the bindings file directly. This
-> 
-> Note also: new bindings will only be read from add_map_with_path(),
-> i.e. either during reconfigure(), or when a new map is created during
-> runtime. Existing maps will not be renamed if the binding file changes,
-> unless the user runs "multipathd reconfigure". This is not a change
-> wrt the previous code, but it should be mentioned anyway.
-> 
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> 
-> libmultipath: protect global_bindings with a mutex
-> 
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> 
-> libmultipath: check timestamp of bindings file before reading it
-> 
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> ---
->  libmultipath/alias.c              | 250 +++++++++++++++++++++++++-----
->  libmultipath/alias.h              |   3 +-
->  libmultipath/libmultipath.version |   5 +
->  multipathd/uxlsnr.c               |  36 ++++-
->  tests/alias.c                     |   3 +
->  5 files changed, 252 insertions(+), 45 deletions(-)
-> 
-> diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-> index 66e34e3..76ed62d 100644
-> --- a/libmultipath/alias.c
-> +++ b/libmultipath/alias.c
-> @@ -10,6 +10,7 @@
->  #include <stdio.h>
->  #include <stdbool.h>
->  #include <assert.h>
-> +#include <sys/inotify.h>
->  
->  #include "debug.h"
->  #include "util.h"
-> @@ -22,6 +23,7 @@
->  #include "config.h"
->  #include "devmapper.h"
->  #include "strbuf.h"
-> +#include "time-util.h"
->  
->  /*
->   * significant parts of this file were taken from iscsi-bindings.c of the
-> @@ -50,6 +52,12 @@
->  "# alias wwid\n" \
->  "#\n"
->  
-> +/* uatomic access only */
-> +static int bindings_file_changed = 1;
-> +
-> +static pthread_mutex_t timestamp_mutex = PTHREAD_MUTEX_INITIALIZER;
-> +static struct timespec bindings_last_updated;
-> +
->  struct binding {
->  	char *alias;
->  	char *wwid;
-> @@ -60,6 +68,9 @@ struct binding {
->   * an abstract type.
->   */
->  typedef struct _vector Bindings;
+From: Martin Wilck <mwilck@suse.com>
 
-I'm pretty sure that the global_bindings is only ever accessed with the
-vecs lock held, so it doesn't really need it's own lock. On the
-otherhand, I understand the desire to not keep adding things that the
-vecs lock is protecting, so I'm fine with this.
+This patch set contains a two-step rework of the user-friendly
+names code. Patch 2-5 change the current code such that it (well, almost)
+never attempts to use an alias that is currently in use by another
+map. We already have some checks for this, but they don't cover all
+possible scenarios. Patch 6-10 add some units tests for
+get_user_friendly_alias(), and restructure the unit tests somewhat.
 
-> +
-> +/* Protect global_bindings */
-> +static pthread_mutex_t bindings_mutex = PTHREAD_MUTEX_INITIALIZER;
->  static Bindings global_bindings = { .allocated = 0 };
->  
->  enum {
-> @@ -78,6 +89,26 @@ static void _free_binding(struct binding *bdg)
->  	free(bdg);
->  }
->  
-> +static void free_bindings(Bindings *bindings)
-> +{
-> +	struct binding *bdg;
-> +	int i;
-> +
-> +	vector_foreach_slot(bindings, bdg, i)
-> +		_free_binding(bdg);
-> +	vector_reset(bindings);
-> +}
-> +
-> +static void set_global_bindings(Bindings *bindings)
-> +{
+In the second part of the set, Patch 11-18 restructure the alias code such
+that we don't read the bindings file every time an alias is
+requested. Instead, we just use a memory cache of the current bindings, and
+re-write the file only if a new binding is added.  This reduces the number of
+system calls and simplifies the code.
 
-However, if we are acting like the vecs lock isn't protecting
-global_bindings, then we should move this to inside the bindings mutex
-below.  Otherwise, if it was possible for another thread to modify
-global_bindings after setting old_bindings but before grabbing the
-mutex, it could add a binding, making old_binding->allocated and
-old_binding->slot incorrect, so we'd be freeing random memory below.
+Patch 19 applies the changes to the unit tests that become
+necessary because of the previous patches. Patch 20/21 add another
+optimization for the alias_already_taken() test.
 
-> +	Bindings old_bindings = global_bindings;
-> +
-> +	pthread_mutex_lock(&bindings_mutex);
-> +	global_bindings = *bindings;
-> +	pthread_mutex_unlock(&bindings_mutex);
-> +	free_bindings(&old_bindings);
-> +}
-> +
->  static const struct binding *get_binding_for_alias(const Bindings *bindings,
->  						   const char *alias)
->  {
-> @@ -199,7 +230,8 @@ static int delete_binding(Bindings *bindings, const char *wwid)
->  	return BINDING_DELETED;
->  }
->  
-> -static int write_bindings_file(const Bindings *bindings, int fd)
-> +static int write_bindings_file(const Bindings *bindings, int fd,
-> +			       struct timespec *ts)
->  {
->  	struct binding *bnd;
->  	STRBUF_ON_STACK(content);
-> @@ -227,9 +259,56 @@ static int write_bindings_file(const Bindings *bindings, int fd)
->  		}
->  		len -= n;
->  	}
-> +	fsync(fd);
-> +	if (ts) {
-> +		struct stat st;
-> +
-> +		if (fstat(fd, &st) == 0)
-> +			*ts = st.st_mtim;
-> +		else
-> +			clock_gettime(CLOCK_REALTIME_COARSE, ts);
-> +	}
->  	return 0;
->  }
->  
-> +void handle_bindings_file_inotify(const struct inotify_event *event)
-> +{
-> +	struct config *conf;
-> +	const char *base;
-> +	bool changed = false;
-> +	struct stat st;
-> +	struct timespec ts = { 0 };
-> +	int ret;
-> +
-> +	if (!(event->mask & IN_MOVED_TO))
-> +		return;
-> +
-> +	conf = get_multipath_config();
-> +	base = strrchr(conf->bindings_file, '/');
-> +	changed = base && base > conf->bindings_file &&
-> +		!strcmp(base + 1, event->name);
-> +	ret = stat(conf->bindings_file, &st);
-> +	put_multipath_config(conf);
-> +
-> +	if (!changed)
-> +		return;
-> +
-> +	pthread_mutex_lock(&timestamp_mutex);
-I'm not sure if we should assert that the file has changed if we can't stat() it.
-> +	if (ret == 0) {
-> +		ts = st.st_mtim;
-> +		changed = timespeccmp(&ts, &bindings_last_updated) > 0;
-> +	}
-> +	pthread_mutex_unlock(&timestamp_mutex);
-> +
-> +	if (changed) {
-> +		uatomic_xchg(&bindings_file_changed, 1);
-> +		condlog(3, "%s: bindings file must be re-read, new timestamp: %ld.%06ld",
-> +			__func__, (long)ts.tv_sec, (long)ts.tv_nsec / 1000);
-> +	} else
-> +		condlog(3, "%s: bindings file is up-to-date, timestamp: %ld.%06ld",
-> +			__func__, (long)ts.tv_sec, (long)ts.tv_nsec / 1000);
-> +}
-> +
->  static int update_bindings_file(const Bindings *bindings,
->  				const char *bindings_file)
->  {
-> @@ -237,6 +316,7 @@ static int update_bindings_file(const Bindings *bindings,
->  	int fd = -1;
->  	char tempname[PATH_MAX];
->  	mode_t old_umask;
-> +	struct timespec ts;
->  
->  	if (safe_sprintf(tempname, "%s.XXXXXX", bindings_file))
->  		return -1;
-> @@ -248,7 +328,7 @@ static int update_bindings_file(const Bindings *bindings,
->  	}
->  	umask(old_umask);
->  	pthread_cleanup_push(cleanup_fd_ptr, &fd);
-> -	rc = write_bindings_file(bindings, fd);
-> +	rc = write_bindings_file(bindings, fd, &ts);
->  	pthread_cleanup_pop(1);
->  	if (rc == -1) {
->  		condlog(1, "failed to write new bindings file");
-> @@ -257,8 +337,12 @@ static int update_bindings_file(const Bindings *bindings,
->  	}
+Patch 22-23 introduce a solution for the problem discussed in the review
+of v1 of this patch set, the partial ordering of aliases in memory.
+By sorting first be string length, and then alphabetically, we obtain
+a total "numeric" ordering for every given alias prefix. This ordering
+allows simplifying the search for "gaps" in the list of aliases, which
+is done in patch 24-26.
 
-Isn't there a race where we rename the file and then update the
-timestamp.  If we respond to the inotify event between when we rename
-and when we lock the timestamp_mutex, we will trigger a reread based on
-our own changes.  Perhaps we should set the timestamp before renaming
-the file. If the rename fails, it's not clear what we want to do anyway,
-since we have bindings that didn't make it into the file, and if we
-reread the file, we lose them.
+As discussed in the opening letter of the v1 patch series, the patch
+series has the effect that the bindings file is not re-read every time
+a new binding is attempted. Patch 28 and 29 introduce a notification
+mechanism for multipathd which causes the bindings to be re-read
+when the bindings file has been updated.
 
->  	if ((rc = rename(tempname, bindings_file)) == -1)
->  		condlog(0, "%s: rename: %m", __func__);
-> -	else
-> +	else {
->  		condlog(1, "updated bindings file %s", bindings_file);
-> +		pthread_mutex_lock(&timestamp_mutex);
-> +		bindings_last_updated = ts;
-> +		pthread_mutex_unlock(&timestamp_mutex);
-> +	}
->  	return rc;
->  }
->  
-> @@ -387,6 +471,7 @@ int get_free_id(const Bindings *bindings, const char *prefix, const char *map_ww
->  	return id;
->  }
->  
-> +/* Called with binding_mutex held */
->  static char *
->  allocate_binding(const char *filename, const char *wwid, int id, const char *prefix)
->  {
-> @@ -423,6 +508,30 @@ allocate_binding(const char *filename, const char *wwid, int id, const char *pre
->  	return alias;
->  }
->  
-> +enum {
-> +	BINDINGS_FILE_UP2DATE,
-> +	BINDINGS_FILE_READ,
-> +	BINDINGS_FILE_ERROR,
-> +	BINDINGS_FILE_BAD,
-> +};
-> +
-> +static int _read_bindings_file(const struct config *conf, Bindings *bindings,
-> +			       bool force);
-> +
-> +static void read_bindings_file(void)
-> +{
-> +	struct config *conf;
-> +	Bindings bindings = {.allocated = 0, };
-> +	int rc;
-> +
-> +	conf = get_multipath_config();
-> +	pthread_cleanup_push(put_multipath_config, conf);
-> +	rc = _read_bindings_file(conf, &bindings, false);
-> +	pthread_cleanup_pop(1);
-> +	if (rc == BINDINGS_FILE_READ)
-> +		set_global_bindings(&bindings);
-> +}
-> +
->  /*
->   * get_user_friendly_alias() action table
->   *
-> @@ -463,6 +572,11 @@ char *get_user_friendly_alias(const char *wwid, const char *file, const char *al
->  	bool new_binding = false;
->  	const struct binding *bdg;
->  
-> +	read_bindings_file();
-> +
-> +	pthread_mutex_lock(&bindings_mutex);
-> +	pthread_cleanup_push(cleanup_mutex, &bindings_mutex);
-> +
->  	if (!*alias_old)
->  		goto new_alias;
->  
-> @@ -514,40 +628,38 @@ new_alias:
->  			alias, wwid);
->  
->  out:
-> +	/* unlock bindings_mutex */
-> +	pthread_cleanup_pop(1);
->  	return alias;
->  }
->  
->  int get_user_friendly_wwid(const char *alias, char *buff)
->  {
->  	const struct binding *bdg;
-> +	int rc = -1;
->  
->  	if (!alias || *alias == '\0') {
->  		condlog(3, "Cannot find binding for empty alias");
->  		return -1;
->  	}
+Patch 30-36 are a series of minor fixes for the build system and the
+documentation. Most imporantly, the man pages will now show the correct
+paths for various built-in defaults.
 
-Don't we want to call read_bindings_file() here as well?
+Finally, patch 37 (which is deliberately kept separate and at the end of the
+series, in order to allow downstream integrators to skip it) eventually
+deprecates the runtime configuration options for bindings_file, wwids_file,
+and prkeys_file.
 
-> +	pthread_mutex_lock(&bindings_mutex);
-> +	pthread_cleanup_push(cleanup_mutex, &bindings_mutex);
->  	bdg = get_binding_for_alias(&global_bindings, alias);
-> -	if (!bdg) {
-> +	if (bdg) {
-> +		strlcpy(buff, bdg->wwid, WWID_SIZE);
-> +		rc = 0;
-> +	} else
->  		*buff = '\0';
-> -		return -1;
-> -	}
-> -	strlcpy(buff, bdg->wwid, WWID_SIZE);
-> -	return 0;
-> -}
-> -
-> -static void free_bindings(Bindings *bindings)
-> -{
-> -	struct binding *bdg;
-> -	int i;
-> -
-> -	vector_foreach_slot(bindings, bdg, i)
-> -		_free_binding(bdg);
-> -	vector_reset(bindings);
-> +	pthread_cleanup_pop(1);
-> +	return rc;
->  }
->  
->  void cleanup_bindings(void)
->  {
-> +	pthread_mutex_lock(&bindings_mutex);
->  	free_bindings(&global_bindings);
-> +	pthread_mutex_unlock(&bindings_mutex);
->  }
->  
->  enum {
-> @@ -595,7 +707,21 @@ static int _check_bindings_file(const struct config *conf, FILE *file,
->  	char *line = NULL;
->  	size_t line_len = 0;
->  	ssize_t n;
-> +	char header[sizeof(BINDINGS_FILE_HEADER)];
->  
-> +	header[sizeof(BINDINGS_FILE_HEADER) - 1] = '\0';
-> +	if (fread(header, sizeof(BINDINGS_FILE_HEADER) - 1, 1, file)
+Patch 1 is a separate, independent fix.
 
-I'm pretty sure fread returns the number of items read, in this case 1.
+NOTE: my main test bed is currently unavailable, therefore this set has
+yet reveived less testing than usual. I have tested this to the extent
+I currently can, but further testing will be highly appreciated.
 
-> +	    < sizeof(BINDINGS_FILE_HEADER)  - 1) {
-> +		condlog(2, "%s: failed to read header from %s", __func__,
-> +			conf->bindings_file);
-> +		fseek(file, 0, SEEK_SET);
-> +		rc = -1;
-> +	} else if (strcmp(header, BINDINGS_FILE_HEADER)) {
-> +		condlog(2, "%s: invalid header in %s", __func__,
-> +			conf->bindings_file);
-> +		fseek(file, 0, SEEK_SET);
-> +		rc = -1;
-> +	}
->  	pthread_cleanup_push(cleanup_free_ptr, &line);
->  	while ((n = getline(&line, &line_len, file)) >= 0) {
->  		char *alias, *wwid;
-> @@ -643,6 +769,68 @@ static int mp_alias_compar(const void *p1, const void *p2)
->  			    &((*(struct mpentry * const *)p2)->alias));
->  }
->  
-> +static int _read_bindings_file(const struct config *conf, Bindings *bindings,
-> +			       bool force)
-> +{
-> +	int can_write;
-> +	int rc = 0, ret, fd;
-> +	FILE *file;
-> +	struct stat st;
-> +	int has_changed = uatomic_xchg(&bindings_file_changed, 0);
-> +
-> +	if (!force) {
-> +		if (!has_changed) {
-> +			condlog(4, "%s: bindings are unchanged", __func__);
-> +			return BINDINGS_FILE_UP2DATE;
-> +		}
-> +	}
-> +
-> +	fd = open_file(conf->bindings_file, &can_write, BINDINGS_FILE_HEADER);
-> +	if (fd == -1)
-> +		return BINDINGS_FILE_ERROR;
-> +
-> +	file = fdopen(fd, "r");
-> +	if (file != NULL) {
-> +		condlog(3, "%s: reading %s", __func__, conf->bindings_file);
-> +
-> +		pthread_cleanup_push(cleanup_fclose, file);
-> +		ret = _check_bindings_file(conf, file, bindings);
-> +		if (ret == 0) {
-> +			struct timespec ts;
-> +
-> +			rc = BINDINGS_FILE_READ;
-> +			ret = fstat(fd, &st);
-> +			if (ret == 0)
-> +				ts = st.st_mtim;
-> +			else {
-> +				condlog(1, "%s: fstat failed (%m), using current time", __func__);
-> +				clock_gettime(CLOCK_REALTIME_COARSE, &ts);
-> +			}
-> +			pthread_mutex_lock(&timestamp_mutex);
-> +			bindings_last_updated = ts;
-> +			pthread_mutex_unlock(&timestamp_mutex);
-> +		} else if (ret == -1 && can_write && !conf->bindings_read_only) {
-> +			ret = update_bindings_file(bindings, conf->bindings_file);
-> +			if (ret == 0)
-> +				rc = BINDINGS_FILE_READ;
-> +			else
-> +				rc = BINDINGS_FILE_BAD;
+To avoid spam, I'm not re-posting the patches that already got Ben's
+"Reviewed-by:" tag.
 
-I don't think _read_bindings_file() can return a value other than 0 or
--1, and we already know it didn't return 0 here.
+Reviews and comments welcome.
 
--Ben
+# Changes v1 -> v2:
 
-> +		} else if (ret == -1) {
-> +			condlog(0, "ERROR: bad settings in read-only bindings file %s",
-> +				conf->bindings_file);
-> +			rc = BINDINGS_FILE_BAD;
-> +		}
-> +		pthread_cleanup_pop(1);
-> +	} else {
-> +		condlog(1, "failed to fdopen %s: %m",
-> +			conf->bindings_file);
-> +		close(fd);
-> +		rc = BINDINGS_FILE_ERROR;
-> +	}
-> +
-> +	return rc;
-> +}
-> +
->  /*
->   * check_alias_settings(): test for inconsistent alias configuration
->   *
-> @@ -661,8 +849,7 @@ static int mp_alias_compar(const void *p1, const void *p2)
->   */
->  int check_alias_settings(const struct config *conf)
->  {
-> -	int can_write;
-> -	int rc = 0, i, fd;
-> +	int i, rc;
->  	Bindings bindings = {.allocated = 0, };
->  	vector mptable = NULL;
->  	struct mpentry *mpe;
-> @@ -695,27 +882,12 @@ int check_alias_settings(const struct config *conf)
->  	pthread_cleanup_pop(1);
->  	pthread_cleanup_pop(1);
->  
-> -	fd = open_file(conf->bindings_file, &can_write, BINDINGS_FILE_HEADER);
-> -	if (fd != -1) {
-> -		FILE *file = fdopen(fd, "r");
-> +	rc = _read_bindings_file(conf, &bindings, true);
->  
-> -		if (file != NULL) {
-> -			pthread_cleanup_push(cleanup_fclose, file);
-> -			rc = _check_bindings_file(conf, file, &bindings);
-> -			pthread_cleanup_pop(1);
-> -			if (rc == -1 && can_write && !conf->bindings_read_only)
-> -				rc = update_bindings_file(&bindings, conf->bindings_file);
-> -			else if (rc == -1)
-> -				condlog(0, "ERROR: bad settings in read-only bindings file %s",
-> -					conf->bindings_file);
-> -		} else {
-> -			condlog(1, "failed to fdopen %s: %m",
-> -				conf->bindings_file);
-> -			close(fd);
-> -		}
-> +	if (rc == BINDINGS_FILE_READ) {
-> +		set_global_bindings(&bindings);
-> +		rc = 0;
->  	}
->  
-> -	cleanup_bindings();
-> -	global_bindings = bindings;
->  	return rc;
->  }
-> diff --git a/libmultipath/alias.h b/libmultipath/alias.h
-> index 5ef6720..ca8911f 100644
-> --- a/libmultipath/alias.h
-> +++ b/libmultipath/alias.h
-> @@ -10,5 +10,6 @@ char *get_user_friendly_alias(const char *wwid, const char *file,
->  struct config;
->  int check_alias_settings(const struct config *);
->  void cleanup_bindings(void);
-> -
-> +struct inotify_event;
-> +void handle_bindings_file_inotify(const struct inotify_event *event);
->  #endif /* _ALIAS_H */
-> diff --git a/libmultipath/libmultipath.version b/libmultipath/libmultipath.version
-> index ddd302f..57e50c1 100644
-> --- a/libmultipath/libmultipath.version
-> +++ b/libmultipath/libmultipath.version
-> @@ -238,3 +238,8 @@ global:
->  local:
->  	*;
->  };
-> +
-> +LIBMULTIPATH_20.1.0 {
-> +global:
-> +	handle_bindings_file_inotify;
-> +};
-> diff --git a/multipathd/uxlsnr.c b/multipathd/uxlsnr.c
-> index 02e89fb..d1f8f23 100644
-> --- a/multipathd/uxlsnr.c
-> +++ b/multipathd/uxlsnr.c
-> @@ -41,6 +41,7 @@
->  #include "cli.h"
->  #include "uxlsnr.h"
->  #include "strbuf.h"
-> +#include "alias.h"
->  
->  /* state of client connection */
->  enum {
-> @@ -190,6 +191,7 @@ void wakeup_cleanup(void *arg)
->  struct watch_descriptors {
->  	int conf_wd;
->  	int dir_wd;
-> +	int mp_wd; /* /etc/multipath; for bindings file */
->  };
->  
->  /* failing to set the watch descriptor is o.k. we just miss a warning
-> @@ -200,6 +202,8 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
->  	struct config *conf;
->  	int dir_reset = 0;
->  	int conf_reset = 0;
-> +	int mp_reset = 0;
-> +	char *bindings_file __attribute__((cleanup(cleanup_charp))) = NULL;
->  
->  	if (notify_fd == -1)
->  		return;
-> @@ -214,7 +218,10 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
->  			conf_reset = 1;
->  		if (wds->dir_wd == -1)
->  			dir_reset = 1;
-> +		if (wds->mp_wd == -1)
-> +			mp_reset = 1;
->  	}
-> +	bindings_file = strdup(conf->bindings_file);
->  	put_multipath_config(conf);
->  
->  	if (dir_reset) {
-> @@ -235,7 +242,18 @@ static void reset_watch(int notify_fd, struct watch_descriptors *wds,
->  		if (wds->conf_wd == -1)
->  			condlog(3, "didn't set up notifications on /etc/multipath.conf: %m");
->  	}
-> -	return;
-> +	if (mp_reset && bindings_file) {
-> +		char *slash = strrchr(bindings_file, '/');
-> +
-> +		if (slash && slash > bindings_file) {
-> +			*slash = '\0';
-> +			wds->mp_wd = inotify_add_watch(notify_fd, bindings_file,
-> +						       IN_MOVED_TO|IN_ONLYDIR);
-> +			if (wds->mp_wd == -1)
-> +				condlog(3, "didn't set up notifications on %s: %m",
-> +					bindings_file);
-> +		}
-> +	}
->  }
->  
->  static void handle_inotify(int fd, struct watch_descriptors *wds)
-> @@ -256,12 +274,13 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
->  					inotify_rm_watch(fd, wds->conf_wd);
->  				if (wds->dir_wd != -1)
->  					inotify_rm_watch(fd, wds->dir_wd);
-> -				wds->conf_wd = wds->dir_wd = -1;
-> +				if (wds->mp_wd != -1)
-> +					inotify_rm_watch(fd, wds->mp_wd);
-> +				wds->conf_wd = wds->dir_wd = wds->mp_wd = -1;
->  			}
->  			break;
->  		}
->  
-> -		got_notify = 1;
->  		for (ptr = buff; ptr < buff + len;
->  		     ptr += sizeof(struct inotify_event) + event->len) {
->  			event = (const struct inotify_event *) ptr;
-> @@ -273,7 +292,13 @@ static void handle_inotify(int fd, struct watch_descriptors *wds)
->  					wds->conf_wd = inotify_add_watch(notify_fd, DEFAULT_CONFIGFILE, IN_CLOSE_WRITE);
->  				else if (wds->dir_wd == event->wd)
->  					wds->dir_wd = -1;
-> +				else if (wds->mp_wd == event->wd)
-> +					wds->mp_wd = -1;
->  			}
-> +			if (wds->mp_wd != -1 && wds->mp_wd == event->wd)
-> +				handle_bindings_file_inotify(event);
-> +			else
-> +				got_notify = 1;
->  		}
->  	}
->  	if (got_notify)
-> @@ -599,7 +624,7 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  	int max_pfds = MIN_POLLS + POLLFDS_BASE;
->  	/* conf->sequence_nr will be 1 when uxsock_listen is first called */
->  	unsigned int sequence_nr = 0;
-> -	struct watch_descriptors wds = { .conf_wd = -1, .dir_wd = -1 };
-> +	struct watch_descriptors wds = { .conf_wd = -1, .dir_wd = -1, .mp_wd = -1, };
->  	struct vectors *vecs = trigger_data;
->  
->  	condlog(3, "uxsock: startup listener");
-> @@ -666,7 +691,8 @@ void *uxsock_listen(long ux_sock, void *trigger_data)
->  
->  		reset_watch(notify_fd, &wds, &sequence_nr);
->  		polls[POLLFD_NOTIFY].fd = notify_fd;
-> -		if (notify_fd == -1 || (wds.conf_wd == -1 && wds.dir_wd == -1))
-> +		if (notify_fd == -1 || (wds.conf_wd == -1 && wds.dir_wd == -1
-> +					&& wds.mp_wd == -1))
->  			polls[POLLFD_NOTIFY].events = 0;
->  		else
->  			polls[POLLFD_NOTIFY].events = POLLIN;
-> diff --git a/tests/alias.c b/tests/alias.c
-> index 2e765fb..872b1fc 100644
-> --- a/tests/alias.c
-> +++ b/tests/alias.c
-> @@ -1954,6 +1954,9 @@ int main(void)
->  	int ret = 0;
->  	init_test_verbosity(3);
->  
-> +	/* avoid open_file() call in _read_bindings_file */
-> +	bindings_file_changed = 0;
-> +
->  	ret += test_format_devname();
->  	ret += test_scan_devname();
->  	ret += test_lookup_binding();
-> -- 
-> 2.42.0
+* Patch 03: skipped superfluous test for the case where a map already
+  has an alias (Ben Marzinski)
+* Patch 07: removed invalid tests for the case where the already assigned
+  alias of a given map is assigned to a different wwid (Ben Marzinski)
+* Patch 09/10: moved some macro-usage fixes from 10 to 09
+* Patch 18:
+  - skipped superfluous tests like in patch 03 (Ben Marzinski)
+  - fix bug in get_user_friendly_wwid() (Ben Marzinski)
+* Added patch 22 ff. (see above).
+
+# Changes v2 -> v3:
+
+* Patch 26: avoid negative array index (Ben Marzinski)
+* Patch 27:
+  - assign old_bindings under bindings_mutex (Ben Marzinski)
+  - move condlog after timestamp update in update_bindings_file() (Ben, me)
+  - add read_bindings_file() call in get_user_friendly_wwid() (Ben)
+  - fix return value check of fread() (Ben)
+  - remove superfluous test in _read_bindings_file() (Ben)
+  - avoid compilation error on Jessie for initialization of struct timespec (me)
+* Patch 38: added to fix a compilation error with gcc 12 and liburcu < 0.14
+
+Martin Wilck (38):
+  libmultipath: sysfs_set_scsi_tmo: do nothing for ACT_DRY_RUN
+  libmultipath: add alias_already_taken()
+  libmultipath: unify use_existing_alias() and get_user_friendly_alias()
+  libmultipath: never allocate an alias that's already taken
+  libmultipath: lookup_binding: add comment about the algorithm
+  multipath-tools test: simplify debugging for condlog mismatch
+  multipath-tools tests: add tests for get_user_friendly_alias()
+  multipath-tools test: consistent use of macros in alias test
+  multipath-tools tests: convert mock_{failed,used}_alias to macros
+  multipath-tools test: use mock_bindings_file() consistently
+  libmultipath: add global variable for current bindings
+  libmultipath: rename fix_bindings_file() to update_bindings_file()
+  libmultipath: alias.c: move bindings related code up
+  libmultipath: update_bindings_file: take filename argument
+  libmultipath: update_bindings_file: use a single write()
+  libmultipath: update_bindings_file: don't log temp file name
+  libmultipath: alias.c: factor out read_binding()
+  libmultipath: keep bindings in memory
+  multipath-tools tests: fix alias tests
+  libmultipath: dm_get_uuid(): return emtpy UUID for non-existing maps
+  libmultipath: adapt to new semantics of dm_get_uuid()
+  libmultipath: sort aliases by length and strcmp
+  multipath-tools tests: fix alias test after sort order change
+  libmultipath: simplify get_free_id() assuming total ordering
+  multipath-tools tests: adapt alias tests for total ordering
+  multipath-tools tests: add test for ordering of bindings
+  multipathd: watch bindings file with inotify + timestamp
+  multipath-tools tests: mock pthread_mutex_{lock,unlock}
+  multipath-tools Makefile: sanitize paths for configuration files
+  multipath-tools: add compile time configuration for "/etc/multipath"
+  multipath-tools man pages: generate with correct paths
+  libdmmp/Makefile: fix bug in install section
+  multipath-tools: README.md: improve documentation for compile-time
+    options
+  libmultipath: print built-in values for deprecated options
+  multipath: add a missing newline
+  multipath-tools: allow prefixes with and w/o trailing slash
+  libmultipath: deprecate bindings_file, wwids_file, prkeys_file
+  libmultipath: avoid -Warray-bounds error in uatomic operations
+
+ .gitignore                                    |    4 +
+ Makefile.inc                                  |   45 +-
+ README.md                                     |   38 +-
+ create-config.mk                              |    5 +
+ libdmmp/Makefile                              |    2 +-
+ libmultipath/alias.c                          | 1043 +++++++-----
+ libmultipath/alias.h                          |   14 +-
+ libmultipath/config.c                         |   18 -
+ libmultipath/config.h                         |    3 -
+ libmultipath/configure.c                      |    7 +-
+ libmultipath/defaults.h                       |    7 +-
+ libmultipath/devmapper.c                      |   10 +-
+ libmultipath/dict.c                           |   55 +-
+ libmultipath/discovery.c                      |    3 +
+ libmultipath/libmultipath.version             |    4 +-
+ libmultipath/lock.h                           |   23 +-
+ libmultipath/prkey.c                          |    7 +-
+ libmultipath/prkey.h                          |    7 +-
+ libmultipath/propsel.c                        |   20 +-
+ libmultipath/wwids.c                          |   18 +-
+ mpathpersist/Makefile                         |    5 +-
+ .../{mpathpersist.8 => mpathpersist.8.in}     |    2 +-
+ multipath/Makefile                            |   13 +-
+ multipath/main.c                              |    6 +-
+ multipath/{multipath.8 => multipath.8.in}     |   10 +-
+ .../{multipath.conf.5 => multipath.conf.5.in} |   44 +-
+ multipathd/Makefile                           |   11 +-
+ multipathd/main.c                             |    1 +
+ multipathd/{multipathd.8 => multipathd.8.in}  |    8 +-
+ multipathd/uxlsnr.c                           |   29 +-
+ tests/Makefile                                |    1 +
+ tests/alias.c                                 | 1491 +++++++++++++----
+ tests/test-log.c                              |    4 +-
+ 33 files changed, 1983 insertions(+), 975 deletions(-)
+ rename mpathpersist/{mpathpersist.8 => mpathpersist.8.in} (99%)
+ rename multipath/{multipath.8 => multipath.8.in} (97%)
+ rename multipath/{multipath.conf.5 => multipath.conf.5.in} (98%)
+ rename multipathd/{multipathd.8 => multipathd.8.in} (97%)
+
+-- 
+2.42.0
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
