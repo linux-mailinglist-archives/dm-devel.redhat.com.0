@@ -1,99 +1,68 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2622A7A0E22
-	for <lists+dm-devel@lfdr.de>; Thu, 14 Sep 2023 21:20:02 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 065957A0FCE
+	for <lists+dm-devel@lfdr.de>; Thu, 14 Sep 2023 23:26:02 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694719201;
+	s=mimecast20190719; t=1694726762;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=rZ6BPwuZNb/28GpmK2iPTvlHUvrzLMjVDDBYrVDEckE=;
-	b=SaSUhQc5d1lI2k2Wg9qPDvHRUmB+wdbDqMNKGMGT90BqdRFc5247pdPi3msZAL5Gr1mcPR
-	SsoSytZ0c4XKcq1hW+gQ91o7RcpGu+sl+ftbwj/8zhtCir9BfGRzntjGJxsTQqgn/fKIRO
-	wiGIyFO70cWZmKWTrX4xnZZfN1tHfXE=
+	bh=TxAloisra0zPDp+jGlKnVcorzadkORXFBfvYJmDtpjg=;
+	b=IN/o4R4wFqPAUudsO+gVNeDGG0HcIGtKSMYIrGp5fkquR5HcRubAA8XFKx9mpeRJJp7vzv
+	13AxMzxamrws9GFbTvvVEvjMfy6f9Lzpbv8pbmEf9PLXdJhibMmDDnWfrmvap7ri4kSMC6
+	rlEXabWcy1EFojor4U71ErYyljiMoMY=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-619-mNh_Ix6PNjaV0whVu8Zojw-1; Thu, 14 Sep 2023 15:19:58 -0400
-X-MC-Unique: mNh_Ix6PNjaV0whVu8Zojw-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-186-NfU1zH78OIisZ0q_Gza9BA-1; Thu, 14 Sep 2023 17:25:59 -0400
+X-MC-Unique: NfU1zH78OIisZ0q_Gza9BA-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id C599E81DBE6;
-	Thu, 14 Sep 2023 19:19:55 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5C6C88E6B83;
+	Thu, 14 Sep 2023 21:25:56 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id AF1F440C2070;
-	Thu, 14 Sep 2023 19:19:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C027E9A;
+	Thu, 14 Sep 2023 21:25:52 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B191719452F7;
-	Thu, 14 Sep 2023 19:18:41 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 421B619466DF;
+	Thu, 14 Sep 2023 21:25:45 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1B43D19451F4
- for <dm-devel@listman.corp.redhat.com>; Thu, 14 Sep 2023 19:18:03 +0000 (UTC)
+ ESMTP id 96C671946588
+ for <dm-devel@listman.corp.redhat.com>; Thu, 14 Sep 2023 21:25:43 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id E96C421B2414; Thu, 14 Sep 2023 19:17:57 +0000 (UTC)
+ id 761A740C6EBF; Thu, 14 Sep 2023 21:25:43 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E1EC621B2413
- for <dm-devel@redhat.com>; Thu, 14 Sep 2023 19:17:57 +0000 (UTC)
-Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
- [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id A2116185A78E
- for <dm-devel@redhat.com>; Thu, 14 Sep 2023 19:17:57 +0000 (UTC)
-Received: from mail-ot1-f54.google.com (mail-ot1-f54.google.com
- [209.85.210.54]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-605-YrRnJL-OPROBT40li3MK0Q-1; Thu, 14 Sep 2023 15:17:56 -0400
-X-MC-Unique: YrRnJL-OPROBT40li3MK0Q-1
-Received: by mail-ot1-f54.google.com with SMTP id
- 46e09a7af769-6c0d6fef60cso751995a34.1
- for <dm-devel@redhat.com>; Thu, 14 Sep 2023 12:17:56 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1694719075; x=1695323875;
- h=content-transfer-encoding:mime-version:references:in-reply-to
- :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
- :subject:date:message-id:reply-to;
- bh=tnEGgRA+cTyW+H/NWndh0ud7Va2YMirfEMgHkOBzJVs=;
- b=S+7QVWJntUzkwHYOCHYhmfXujXd0Cw1QfIJATsoDdgW5P4sPohoU7k+R146zE44/py
- My5ZoYmlUcNUT/BfUHWHbD1P23vl9+B36L45O7XeRmHtr653eP+o6LgMLUrAtf1nOCc/
- 0EfRs7+CN9nuVsFovIXHEaaPJPTcBCntJ4lm4ubkz0oGb/d/sWjWi86IZ/seunNxLno/
- ZIrD5TrXnba5ulvd80vgdpz1B/GUtqyqPLd2cUSFAZ1pEIE/UU0UBwsX9m44a/lnh/mB
- rqcQbj12/kheZ+962T1LtBNsAOU87+x3ceLhAOWC6hA6qLAq+4DatuaC30XrNRhKRBVy
- VvpQ==
-X-Gm-Message-State: AOJu0YyuFDmXaOj6y+XeY3a7CKPc0LDlYpX+y7LtWW6BLmNZSzu4VAaQ
- hbL0uB5UWGjvXHVCnIIqPWi0SPrDxrECA4/CE1zZApwKancLaA9UD47NRKcfTa3oOBT5sjoyEbK
- YXmV6fLZp8xl6wqoJDrmLHWaDBF0kCRqW6rfR96d12ZiyidglUtscEvLYbaJB1p2+utyx9wwV
-X-Google-Smtp-Source: AGHT+IF+rvzBYNXsR18wRoIyYxIeGkZYtnovxaAAVKifplaCuCSVG3H5+D5ONaoGSGpLhahckE8mjw==
-X-Received: by 2002:a05:6358:9306:b0:139:d24c:ed28 with SMTP id
- x6-20020a056358930600b00139d24ced28mr8051874rwa.12.1694719074951; 
- Thu, 14 Sep 2023 12:17:54 -0700 (PDT)
-Received: from localhost (pool-68-160-141-91.bstnma.fios.verizon.net.
- [68.160.141.91]) by smtp.gmail.com with ESMTPSA id
- n14-20020a0ce48e000000b00655e52b0eb9sm666051qvl.29.2023.09.14.12.17.54
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 14 Sep 2023 12:17:54 -0700 (PDT)
-From: Mike Snitzer <snitzer@kernel.org>
-To: dm-devel@redhat.com
-Date: Thu, 14 Sep 2023 15:16:35 -0400
-Message-Id: <20230914191635.39805-40-snitzer@kernel.org>
-In-Reply-To: <20230914191635.39805-1-snitzer@kernel.org>
-References: <20230914191635.39805-1-snitzer@kernel.org>
+Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 3C8AF40C6EA8;
+ Thu, 14 Sep 2023 21:25:43 +0000 (UTC)
+Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
+ by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 38ELPY6p011269;
+ Thu, 14 Sep 2023 16:25:34 -0500
+Received: (from bmarzins@localhost)
+ by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 38ELPYIN011268;
+ Thu, 14 Sep 2023 16:25:34 -0500
+Date: Thu, 14 Sep 2023 16:25:33 -0500
+From: Benjamin Marzinski <bmarzins@redhat.com>
+To: mwilck@suse.com
+Message-ID: <20230914212533.GL7412@octiron.msp.redhat.com>
+References: <20230914145131.15165-1-mwilck@suse.com>
+ <20230914145131.15165-2-mwilck@suse.com>
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH v3 39/39] dm vdo: enable configuration and
- building of dm-vdo
+In-Reply-To: <20230914145131.15165-2-mwilck@suse.com>
+User-Agent: Mutt/1.5.23 (2014-03-12)
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH v3 26/38] multipath-tools tests: add test for
+ ordering of bindings
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,87 +74,290 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Matthew Sakai <msakai@redhat.com>
+Cc: dm-devel@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.org
+X-Mimecast-Originator: redhat.com
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-From: Matthew Sakai <msakai@redhat.com>
-
-The dm-vdo target is not supported for 32-bit configurations. A vdo
-target typically requires 1 to 1.5 GB of memory at any given time,
-which is likely a large fraction of the addressable memory of a 32-bit
-system. At the same time, the amount of addressable storage attached
-to a 32-bit system may not be large enough for deduplication to
-provide much benefit. Thus 32-bit platforms are deemed unlikely to be
-good candidates for benefiting from a vdo target, and thus dm-vdo is
-targeted only at 64-bit platforms.
-
-Co-developed-by: J. corwin Coburn <corwin@hurlbutnet.net>
-Signed-off-by: J. corwin Coburn <corwin@hurlbutnet.net>
-Co-developed-by: John Wiele <jwiele@redhat.com>
-Signed-off-by: John Wiele <jwiele@redhat.com>
-Signed-off-by: Matthew Sakai <msakai@redhat.com>
-Signed-off-by: Mike Snitzer <snitzer@kernel.org>
----
- drivers/md/Kconfig  | 16 ++++++++++++++++
- drivers/md/Makefile |  2 ++
- 2 files changed, 18 insertions(+)
-
-diff --git a/drivers/md/Kconfig b/drivers/md/Kconfig
-index b0a22e99bade..9fa9dec10292 100644
---- a/drivers/md/Kconfig
-+++ b/drivers/md/Kconfig
-@@ -521,6 +521,22 @@ config DM_FLAKEY
- 	help
- 	 A target that intermittently fails I/O for debugging purposes.
- 
-+config DM_VDO
-+	tristate "VDO: deduplication and compression target"
-+	depends on 64BIT
-+	depends on BLK_DEV_DM
-+	select DM_BUFIO
-+	select LZ4_COMPRESS
-+	select LZ4_DECOMPRESS
-+	help
-+	  This device mapper target presents a block device with
-+	  deduplication, compression and thin-provisioning.
-+
-+	  To compile this code as a module, choose M here: the module will
-+	  be called dm-vdo.
-+
-+	  If unsure, say N.
-+
- config DM_VERITY
- 	tristate "Verity target support"
- 	depends on BLK_DEV_DM
-diff --git a/drivers/md/Makefile b/drivers/md/Makefile
-index 84291e38dca8..47444b393abb 100644
---- a/drivers/md/Makefile
-+++ b/drivers/md/Makefile
-@@ -25,6 +25,7 @@ dm-ebs-y	+= dm-ebs-target.o
- dm-era-y	+= dm-era-target.o
- dm-clone-y	+= dm-clone-target.o dm-clone-metadata.o
- dm-verity-y	+= dm-verity-target.o
-+dm-vdo-y	+= dm-vdo-target.o $(patsubst drivers/md/dm-vdo/%.c,dm-vdo/%.o,$(wildcard $(src)/dm-vdo/*.c))
- dm-zoned-y	+= dm-zoned-target.o dm-zoned-metadata.o dm-zoned-reclaim.o
- 
- md-mod-y	+= md.o md-bitmap.o
-@@ -74,6 +75,7 @@ obj-$(CONFIG_DM_ZERO)		+= dm-zero.o
- obj-$(CONFIG_DM_RAID)		+= dm-raid.o
- obj-$(CONFIG_DM_THIN_PROVISIONING) += dm-thin-pool.o
- obj-$(CONFIG_DM_VERITY)		+= dm-verity.o
-+obj-$(CONFIG_DM_VDO)            += dm-vdo.o
- obj-$(CONFIG_DM_CACHE)		+= dm-cache.o
- obj-$(CONFIG_DM_CACHE_SMQ)	+= dm-cache-smq.o
- obj-$(CONFIG_DM_EBS)		+= dm-ebs.o
--- 
-2.40.0
-
+On Thu, Sep 14, 2023 at 04:51:29PM +0200, mwilck@suse.com wrote:
+> From: Martin Wilck <mwilck@suse.com>
+> 
+> As the assignment of free aliases now relies on the bindings being
+> properly sorted, add some unit tests to make sure the sorting algorithm
+> works.
+> 
+Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
+> Signed-off-by: Martin Wilck <mwilck@suse.com>
+> ---
+>  tests/alias.c | 212 +++++++++++++++++++++++++++++++++++++++++++++++++-
+>  1 file changed, 209 insertions(+), 3 deletions(-)
+> 
+> diff --git a/tests/alias.c b/tests/alias.c
+> index dff5f93..4d0adba 100644
+> --- a/tests/alias.c
+> +++ b/tests/alias.c
+> @@ -13,6 +13,9 @@
+>  #include "globals.c"
+>  #include "../libmultipath/alias.c"
+>  
+> +/* For verbose printing of all aliases in the ordering tests */
+> +#define ALIAS_DEBUG 0
+> +
+>  #if INT_MAX == 0x7fffffff
+>  /* user_friendly_name for map #INT_MAX */
+>  #define MPATH_ID_INT_MAX "fxshrxw"
+> @@ -439,11 +442,12 @@ static void mock_self_alias(const char *alias, const char *wwid)
+>  		expect_condlog(3, USED_STR(alias, wwid));		\
+>  	} while(0)
+>  
+> -static void __mock_bindings_file(const char *content)
+> +static void __mock_bindings_file(const char *content, bool conflict_ok)
+>  {
+>  	char *cnt __attribute__((cleanup(cleanup_charp))) = NULL;
+>  	char *token, *savep = NULL;
+>  	int i;
+> +	uintmax_t values[] = { BINDING_ADDED, BINDING_CONFLICT };
+>  
+>  	cnt = strdup(content);
+>  	assert_ptr_not_equal(cnt, NULL);
+> @@ -459,12 +463,12 @@ static void __mock_bindings_file(const char *content)
+>  			continue;
+>  
+>  		rc = add_binding(&global_bindings, alias, wwid);
+> -		assert_int_equal(rc, BINDING_ADDED);
+> +		assert_in_set(rc, values, conflict_ok ? 2 : 1);
+>  	}
+>  }
+>  
+>  static void mock_bindings_file(const char *content) {
+> -	return __mock_bindings_file(content);
+> +	return __mock_bindings_file(content, false);
+>  }
+>  
+>  static int teardown_bindings(void **state)
+> @@ -1744,6 +1748,207 @@ static int test_get_user_friendly_alias()
+>  	return cmocka_run_group_tests(tests, NULL, NULL);
+>  }
+>  
+> +/* Numbers 1-1000, randomly shuffled */
+> +static int random_numbers[1000] = {
+> +	694, 977, 224, 178, 841, 818, 914, 549, 831, 942, 263, 834, 919, 800,
+> +	111, 517, 719, 297, 988, 98, 332, 516, 754, 772, 495, 488, 331, 529,
+> +	142, 747, 848, 618, 375, 624, 74, 753, 782, 944, 623, 468, 862, 997,
+> +	417, 258, 298, 774, 673, 904, 883, 766, 867, 400, 11, 950, 14, 784,
+> +	655, 155, 396, 9, 743, 93, 651, 245, 968, 306, 785, 581, 880, 486,
+> +	168, 631, 203, 4, 663, 294, 702, 762, 619, 684, 48, 181, 21, 443, 643,
+> +	863, 1000, 327, 26, 126, 382, 765, 586, 76, 49, 925, 319, 865, 797,
+> +	876, 693, 334, 433, 243, 419, 901, 854, 326, 985, 347, 874, 527, 282,
+> +	290, 380, 167, 95, 3, 257, 936, 60, 426, 227, 345, 577, 492, 467, 580,
+> +	967, 422, 823, 718, 610, 64, 700, 412, 163, 288, 506, 828, 432, 51,
+> +	356, 348, 539, 478, 17, 945, 602, 123, 450, 660, 429, 113, 310, 358,
+> +	512, 758, 508, 19, 542, 304, 286, 446, 918, 723, 333, 603, 731, 978,
+> +	230, 697, 109, 872, 175, 853, 947, 965, 121, 222, 101, 811, 117, 601,
+> +	191, 752, 384, 415, 938, 278, 915, 715, 240, 552, 912, 838, 150, 840,
+> +	627, 29, 636, 464, 861, 481, 992, 249, 934, 82, 368, 724, 807, 593,
+> +	157, 147, 199, 637, 41, 62, 902, 505, 621, 342, 174, 260, 729, 961,
+> +	219, 311, 629, 789, 81, 739, 860, 712, 223, 165, 741, 981, 485, 363,
+> +	346, 709, 125, 369, 279, 634, 399, 162, 193, 769, 149, 314, 868, 612,
+> +	524, 675, 341, 343, 476, 606, 388, 613, 850, 264, 903, 451, 908, 779,
+> +	453, 148, 497, 46, 132, 43, 885, 955, 269, 395, 72, 128, 767, 989,
+> +	929, 423, 742, 55, 13, 79, 924, 182, 295, 563, 668, 169, 974, 154,
+> +	970, 54, 674, 52, 437, 570, 550, 531, 554, 793, 678, 218, 367, 105,
+> +	197, 315, 958, 892, 86, 47, 284, 37, 561, 522, 198, 689, 817, 573,
+> +	877, 201, 803, 501, 881, 546, 530, 523, 780, 579, 953, 135, 23, 620,
+> +	84, 698, 303, 656, 357, 323, 494, 58, 131, 913, 995, 120, 70, 1, 195,
+> +	365, 210, 25, 898, 173, 307, 239, 77, 418, 952, 963, 92, 455, 425, 12,
+> +	536, 161, 328, 933, 401, 251, 735, 725, 362, 322, 557, 681, 302, 53,
+> +	786, 801, 391, 946, 748, 133, 717, 851, 7, 372, 993, 387, 906, 373,
+> +	667, 33, 670, 389, 209, 611, 896, 652, 69, 999, 344, 845, 633, 36,
+> +	487, 192, 180, 45, 640, 427, 707, 805, 188, 152, 905, 217, 30, 252,
+> +	386, 665, 299, 541, 410, 787, 5, 857, 751, 392, 44, 595, 146, 745,
+> +	641, 957, 866, 773, 806, 815, 659, 102, 704, 430, 106, 296, 129, 847,
+> +	130, 990, 669, 236, 225, 680, 159, 213, 438, 189, 447, 600, 232, 594,
+> +	32, 56, 390, 647, 855, 428, 330, 714, 738, 706, 666, 461, 469, 482,
+> +	558, 814, 559, 177, 575, 538, 309, 383, 261, 156, 420, 761, 630, 893,
+> +	10, 116, 940, 844, 71, 377, 662, 312, 520, 244, 143, 759, 119, 186,
+> +	592, 909, 864, 376, 768, 254, 265, 394, 511, 760, 574, 6, 436, 514,
+> +	59, 226, 644, 956, 578, 825, 548, 145, 736, 597, 378, 821, 987, 897,
+> +	354, 144, 722, 895, 589, 503, 826, 498, 543, 617, 763, 231, 808, 528,
+> +	89, 479, 607, 737, 170, 404, 371, 65, 103, 340, 283, 141, 313, 858,
+> +	289, 124, 971, 687, 954, 732, 39, 926, 176, 100, 267, 519, 890, 535,
+> +	276, 448, 27, 457, 899, 385, 184, 275, 770, 544, 614, 449, 160, 658,
+> +	259, 973, 108, 604, 24, 207, 562, 757, 744, 324, 444, 962, 591, 480,
+> +	398, 409, 998, 253, 325, 445, 979, 8, 35, 118, 73, 683, 208, 85, 190,
+> +	791, 408, 871, 657, 179, 18, 556, 496, 475, 20, 894, 484, 775, 889,
+> +	463, 241, 730, 57, 907, 551, 859, 943, 185, 416, 870, 590, 435, 471,
+> +	932, 268, 381, 626, 502, 565, 273, 534, 672, 778, 292, 473, 566, 104,
+> +	172, 285, 832, 411, 329, 628, 397, 472, 271, 910, 711, 690, 969, 585,
+> +	809, 941, 923, 555, 228, 685, 242, 94, 96, 211, 140, 61, 922, 795,
+> +	869, 34, 255, 38, 984, 676, 15, 560, 632, 434, 921, 355, 582, 351,
+> +	212, 200, 819, 960, 649, 852, 75, 771, 361, 996, 238, 316, 720, 671,
+> +	462, 112, 569, 171, 664, 625, 588, 405, 553, 270, 533, 353, 842, 114,
+> +	972, 83, 937, 63, 194, 237, 537, 980, 802, 916, 959, 688, 839, 350,
+> +	917, 650, 545, 615, 151, 352, 686, 726, 266, 509, 439, 491, 935, 608,
+> +	518, 653, 339, 609, 277, 635, 836, 88, 407, 440, 642, 927, 229, 727,
+> +	360, 477, 846, 413, 454, 616, 28, 598, 567, 540, 790, 424, 247, 317,
+> +	746, 911, 798, 321, 547, 248, 734, 829, 220, 138, 756, 500, 691, 196,
+> +	740, 930, 843, 733, 221, 827, 50, 813, 949, 525, 349, 474, 134, 875,
+> +	695, 513, 414, 515, 638, 99, 366, 490, 975, 246, 465, 206, 281, 583,
+> +	256, 587, 749, 2, 951, 679, 215, 364, 458, 402, 646, 991, 335, 982,
+> +	835, 300, 900, 703, 994, 983, 234, 888, 532, 804, 584, 305, 792, 442,
+> +	291, 964, 158, 370, 452, 250, 521, 166, 948, 812, 794, 272, 699, 205,
+> +	183, 507, 301, 920, 781, 233, 824, 137, 489, 833, 887, 966, 856, 78,
+> +	830, 153, 359, 696, 526, 216, 66, 701, 403, 891, 849, 571, 308, 483,
+> +	164, 293, 928, 677, 320, 837, 441, 639, 564, 510, 648, 274, 336, 661,
+> +	878, 777, 816, 976, 493, 810, 67, 87, 91, 187, 882, 986, 80, 22, 499,
+> +	90, 705, 139, 136, 122, 708, 716, 886, 572, 127, 40, 721, 764, 16,
+> +	379, 692, 645, 456, 710, 460, 783, 97, 776, 713, 884, 115, 466, 596,
+> +	374, 406, 110, 568, 68, 214, 622, 470, 107, 504, 682, 31, 421, 576,
+> +	654, 605, 788, 799, 280, 338, 931, 873, 204, 287, 459, 755, 939, 599,
+> +	431, 796, 235, 42, 750, 262, 318, 393, 202, 822, 879, 820, 728, 337,
+> +};
+> +
+> +static void fill_bindings_random(struct strbuf *buf, int start, int end,
+> +				 const char *prefix)
+> +{
+> +	int i;
+> +
+> +	for (i = start; i < end; i++) {
+> +		print_strbuf(buf,  "%s", prefix);
+> +		format_devname(buf, random_numbers[i]);
+> +		print_strbuf(buf,  " WWID%d\n", random_numbers[i]);
+> +	}
+> +}
+> +
+> +struct random_aliases {
+> +	int start;
+> +	int end;
+> +	const char *prefix;
+> +};
+> +
+> +static void order_test(int n, struct random_aliases ra[], bool conflict_ok)
+> +{
+> +	STRBUF_ON_STACK(buf);
+> +	int i, j, prev, curr, tmp;
+> +	struct binding *bdg;
+> +	Bindings *bindings = &global_bindings;
+> +
+> +	for (j = 0; j < n; j++)
+> +		fill_bindings_random(&buf, ra[j].start, ra[j].end, ra[j].prefix);
+> +	__mock_bindings_file(get_strbuf_str(&buf), conflict_ok);
+> +
+> +	for (j = 0; j < n; j++) {
+> +		bdg = VECTOR_SLOT(bindings, 0);
+> +		if (ALIAS_DEBUG && j == 0)
+> +			printf("%d: %s\n", 0, bdg->alias);
+> +		prev = scan_devname(bdg->alias, ra[j].prefix);
+> +		i = 1;
+> +		vector_foreach_slot_after(bindings, bdg, i) {
+> +			if (ALIAS_DEBUG && j == 0)
+> +				printf("%d: %s\n", i, bdg->alias);
+> +			tmp = scan_devname(bdg->alias, ra[j].prefix);
+> +			if (tmp == -1)
+> +				continue;
+> +			curr = tmp;
+> +			if (prev > 0) {
+> +				if (curr <= prev)
+> +					printf("ERROR: %d (%s) %d >= %d\n",
+> +					       i, bdg->alias, prev, curr);
+> +				assert_true(curr > prev);
+> +			}
+> +			prev = curr;
+> +		}
+> +	}
+> +}
+> +
+> +static void order_01(void **state)
+> +{
+> +	struct random_aliases ra[] = {
+> +		{  0, 1000, "MPATH" },
+> +	};
+> +
+> +	order_test(ARRAY_SIZE(ra), ra, false);
+> +}
+> +
+> +static void order_02(void **state)
+> +{
+> +	struct random_aliases ra[] = {
+> +		{   0, 500, "MPATH" },
+> +		{ 200, 700, "mpath" },
+> +	};
+> +	order_test(ARRAY_SIZE(ra), ra, false);
+> +}
+> +
+> +static void order_03(void **state)
+> +{
+> +	struct random_aliases ra[] = {
+> +		{  500, 1000, "MPTH" },
+> +		{    0,  500, "MPATH" },
+> +	};
+> +	order_test(ARRAY_SIZE(ra), ra, false);
+> +}
+> +
+> +static void order_04(void **state)
+> +{
+> +	struct random_aliases ra[] = {
+> +		{   0, 500, "mpa" },
+> +		{ 250, 750, "mp" },
+> +	};
+> +	order_test(ARRAY_SIZE(ra), ra, true);
+> +}
+> +
+> +static void order_05(void **state)
+> +{
+> +	struct random_aliases ra[] = {
+> +		{  0, 100, "A" },
+> +		{  0, 100, "B" },
+> +		{  0, 100, "C" },
+> +		{  0, 100, "D" },
+> +	};
+> +	order_test(ARRAY_SIZE(ra), ra, false);
+> +}
+> +
+> +static void order_06(void **state)
+> +{
+> +	struct random_aliases ra[] = {
+> +		{  0, 100, "" },
+> +		{  0, 100, "a" },
+> +		{  0, 100, "aa" },
+> +		{  0, 100, "ab" },
+> +		{  0, 100, "aaa" },
+> +	};
+> +	order_test(ARRAY_SIZE(ra), ra, true);
+> +}
+> +
+> +static int test_bindings_order()
+> +{
+> +	const struct CMUnitTest tests[] = {
+> +		cmocka_unit_test_teardown(order_01, teardown_bindings),
+> +		cmocka_unit_test_teardown(order_02, teardown_bindings),
+> +		cmocka_unit_test_teardown(order_03, teardown_bindings),
+> +		cmocka_unit_test_teardown(order_04, teardown_bindings),
+> +		cmocka_unit_test_teardown(order_05, teardown_bindings),
+> +		cmocka_unit_test_teardown(order_06, teardown_bindings),
+> +	};
+> +
+> +	return cmocka_run_group_tests(tests, NULL, NULL);
+> +}
+> +
+>  int main(void)
+>  {
+>  	int ret = 0;
+> @@ -1755,6 +1960,7 @@ int main(void)
+>  	ret += test_rlookup_binding();
+>  	ret += test_allocate_binding();
+>  	ret += test_get_user_friendly_alias();
+> +	ret += test_bindings_order();
+>  
+>  	return ret;
+>  }
+> -- 
+> 2.42.0
 --
 dm-devel mailing list
 dm-devel@redhat.com
