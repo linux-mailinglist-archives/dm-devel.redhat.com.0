@@ -1,79 +1,109 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 422537A2772
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 21:53:03 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 2ED567A278F
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 22:04:11 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694807582;
+	s=mimecast20190719; t=1694808250;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=t9qUaUb1Jkxh9Ts7bjtv2ReI1DzeZJjuNLWpR/3jOG0=;
-	b=VnHp0KdZC/k1r6j/QcTFCaIqA+p1yke7hIHAwET4cGiR+iTbIwNluAUGdSBTanQbO91RZi
-	CMIfUGTOBt8+ENmcU6F5gaGhQV8TAdBe2dRgPLRQtpTBWAz6ylAH6DCdia/5EhH3Cg3YSL
-	w412xxQMS3D2BSC9YZKo8rgdZMqBpdM=
+	bh=PM1lVnbiQMvPMcvrDSbUQinfcHgD+tfdtUfLcQd9eGo=;
+	b=GX9PglzMYE3OnO8miV6eguEUVrLUsvVh10gutX4G6qLBxRd3gX2y+TRAO4xqNigc1XMi3Y
+	QpcumXAbXGniigCUQbQ2gg1NOw4TGRfqsLohfX4paIAJ92HRdMcmvNR++lJQITe/wLs/9r
+	pfEv6Qki7Fk9oHRBxzcmaNEp3Hf91Ss=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-613-mgKXmn6tN0yNNNRnnCUasA-1; Fri, 15 Sep 2023 15:52:58 -0400
-X-MC-Unique: mgKXmn6tN0yNNNRnnCUasA-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-648-HyotnkzjNOSXa5Vcayq7ZQ-1; Fri, 15 Sep 2023 16:04:07 -0400
+X-MC-Unique: HyotnkzjNOSXa5Vcayq7ZQ-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B643D811E86;
-	Fri, 15 Sep 2023 19:52:56 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id DF8E2810BD2;
+	Fri, 15 Sep 2023 20:04:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E1DD9409AFC3;
-	Fri, 15 Sep 2023 19:52:54 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A3BD21054F83;
+	Fri, 15 Sep 2023 20:04:00 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 158FC19465B8;
-	Fri, 15 Sep 2023 19:52:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3845219465BB;
+	Fri, 15 Sep 2023 20:03:49 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 1878A19465B7
- for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 19:51:16 +0000 (UTC)
+ ESMTP id 8787F1946588
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 20:03:42 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id DAC5E1CBC8; Fri, 15 Sep 2023 19:51:15 +0000 (UTC)
+ id 61FFF1054F83; Fri, 15 Sep 2023 20:03:42 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id D44F21D0AD
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 19:51:15 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 5A2821054F81
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 20:03:41 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-delivery-1.mimecast.com
+ [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B62C6185A79C
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 19:51:15 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-230-f83pcdDmOjispvY9NP87_g-1; Fri, 15 Sep 2023 15:51:13 -0400
-X-MC-Unique: f83pcdDmOjispvY9NP87_g-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="364381158"
-X-IronPort-AV: E=Sophos;i="6.02,150,1688454000"; d="scan'208";a="364381158"
-Received: from fmsmga005.fm.intel.com ([10.253.24.32])
- by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 15 Sep 2023 12:51:12 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="1075888780"
-X-IronPort-AV: E=Sophos;i="6.02,150,1688454000"; d="scan'208";a="1075888780"
-Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
- by fmsmga005.fm.intel.com with ESMTP; 15 Sep 2023 12:51:10 -0700
-Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qhEqC-0003La-31;
- Fri, 15 Sep 2023 19:51:07 +0000
-Date: Sat, 16 Sep 2023 03:49:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Joe Thornber <ejt@redhat.com>
-Message-ID: <202309160312.k1ou4uxF-lkp@intel.com>
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AE172811E88
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 20:03:41 +0000 (UTC)
+Received: from mail-pf1-f173.google.com (mail-pf1-f173.google.com
+ [209.85.210.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-628-zHhumgEHMWi0RcDh7Ufx2w-1; Fri, 15 Sep 2023 16:03:39 -0400
+X-MC-Unique: zHhumgEHMWi0RcDh7Ufx2w-1
+Received: by mail-pf1-f173.google.com with SMTP id
+ d2e1a72fcca58-68fbbea0dfeso2136591b3a.0
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 13:03:38 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694808218; x=1695413018;
+ h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+ :to:from:x-gm-message-state:from:to:cc:subject:date:message-id
+ :reply-to;
+ bh=3EcXc4p/OZvjhpZjniZGrlHnagHBjkD/G1KmRx4RQEY=;
+ b=j6hWeF5XtHO2GxZcCwAQUvh9AX5gDbMklHeTWKshAZ2Cp27cHs6l0PkbraUOtrnmHU
+ Y4gNHWTBwJAdsayF5zxSxgM2V7lltkjlLXhauRcevKGXdyu9harI2b2MHlA0WUjxEGa0
+ Oi40k4kppcKEsroC/Xg9Iy6TkCkIkDCgR7yR3YRkD2MN4nTRpEXcC5ymgwBqOxDKZhld
+ RczupVLk/hejR9rKu7MFTHF+1TnxrB+js3gFqyQnYcEZme68YQ4yDirZzcogIB/xuKNH
+ 3AyL70pl64rYfJk4+sbZBJf0Za56dRjvx8b9KbkkzUyn2YcTXA62B5ho1HOcXnVQreQo
+ KHSQ==
+X-Gm-Message-State: AOJu0YwCV7dWP6Hde/NiO0X0Si8i4KBBGm0T6Ki6FhvmNNhsCykYFJaW
+ gA8V1qgc8ar0hJV/Ta5/YyRefw==
+X-Google-Smtp-Source: AGHT+IHzIIRXAsC49F/G94cgVOd9c2WBf+CMYStzd0rWb8+BhqsZLM2DtQPyl2+9IiDNZBy2vC9pbA==
+X-Received: by 2002:a05:6a00:c90:b0:68f:e0f0:85f4 with SMTP id
+ a16-20020a056a000c9000b0068fe0f085f4mr2391932pfv.25.1694808218030; 
+ Fri, 15 Sep 2023 13:03:38 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ q15-20020a62e10f000000b00682c1db7551sm3307074pfh.49.2023.09.15.13.03.37
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 15 Sep 2023 13:03:37 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: Alasdair Kergon <agk@redhat.com>
+Date: Fri, 15 Sep 2023 13:03:36 -0700
+Message-Id: <20230915200335.never.098-kees@kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1112; i=keescook@chromium.org; 
+ h=from:subject:message-id;
+ bh=3ZvYiEsZZa56aKWu6y0PnTbRMpo38Aw/L94IEjhb4Tc=; 
+ b=owEBbQKS/ZANAwAKAYly9N/cbcAmAcsmYgBlBLiYTyy1xh5VON0ySJo9kFErTAbQFWQI95vz1
+ 9vW2hZ7e5yJAjMEAAEKAB0WIQSlw/aPIp3WD3I+bhOJcvTf3G3AJgUCZQS4mAAKCRCJcvTf3G3A
+ JplJD/9wyOg+Xy09KCd38SWSRoERMIlg+91bNOk9bfpY2aBh3lv91ulrX53nyRunUA02GCG0EfT
+ KAEZKI/2vR7K3DBBGzndXE8/eZki/GOdVUVAeIotscDIQCswSFeVrPWcOV3gTKNHmwDOJNqOhae
+ PXNwG5Fgv7FNEY68jEyyJq4BJdATKz4lEL2woZ62IGNRNGGyUT3Q6evSPpB9naGIxdq7i7gJLHa
+ gmgONPB6bRaS7U+Q5O3fAbI/UjYhNV6MUMaAZ/6yxpkewG6Hb5yTuQ2/YXGsq+XrBOs39PS5vNe
+ CQHDFiZIzLg+vEWzFlW91THnSxrlYY2q6TLb0Me7nkxnaPKsKFuFzwL9rq25nET6JP8hINETJqP
+ sKfWeuhy321LLzTGS0XNBrP4VFsDkLPcCtHrp7CfWyeiXBKQrr42xZF+wKEuBTjbW0PEgo7bQjl
+ bT6fQJjM95fDf2EJQOHoz5ttA5z/PHK5QF973oyfgK6eq7AzwKyj9oFFf4Y4GF9wu+Z/PNq04hS
+ D2n58sWCRuH4/7eJMNIl5O5bAZATtf3lObXLRtL5OJXZq58zG/uMp1o40da7W/RtbTMPq3Hc2uT
+ XGJPSvkjpqXA3X/A86g6vAHjsFuoJZce8yvX4diqSLCWDA+NivlRwzcXDgEyaPnbMxxonfsAsaT
+ K5u/Ioo p9oiGWzQ==
+X-Developer-Key: i=keescook@chromium.org; a=openpgp;
+ fpr=A5C3F68F229DD60F723E6E138972F4DFDC6DC026
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -81,10 +111,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [device-mapper-dm:for-next 2/4]
- drivers/md/persistent-data/dm-extent-allocator.c:373: undefined reference
- to `__udivdi3'
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [PATCH] dm raid: Annotate struct raid_set with
+ __counted_by
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -96,67 +125,52 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
- oe-kbuild-all@lists.linux.dev
+Cc: Kees Cook <keescook@chromium.org>, Mike Snitzer <snitzer@kernel.org>,
+ llvm@lists.linux.dev, Nick Desaulniers <ndesaulniers@google.com>,
+ linux-kernel@vger.kernel.org, Nathan Chancellor <nathan@kernel.org>,
+ dm-devel@redhat.com, linux-hardening@vger.kernel.org,
+ Tom Rix <trix@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: intel.com
-Content-Disposition: inline
+X-Mimecast-Originator: chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
-head:   785f3bb19d40050d0f40c07cbe6345e361acdcae
-commit: b97bcee4b9999c9f5aadc06317ade18c5cbe37f6 [2/4] dm persistent data: Introduce extent allocator
-config: i386-randconfig-013-20230915 (https://download.01.org/0day-ci/archive/20230916/202309160312.k1ou4uxF-lkp@intel.com/config)
-compiler: gcc-12 (Debian 12.2.0-14) 12.2.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230916/202309160312.k1ou4uxF-lkp@intel.com/reproduce)
+Prepare for the coming implementation by GCC and Clang of the __counted_by
+attribute. Flexible array members annotated with __counted_by can have
+their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
+(for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+functions).
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309160312.k1ou4uxF-lkp@intel.com/
+As found with Coccinelle[1], add __counted_by for struct raid_set.
 
-All errors (new ones prefixed by >>):
+[1] https://github.com/kees/kernel-tools/blob/trunk/coccinelle/examples/counted_by.cocci
 
-   ld: drivers/md/persistent-data/dm-extent-allocator.o: in function `__select_child':
->> drivers/md/persistent-data/dm-extent-allocator.c:373: undefined reference to `__udivdi3'
->> ld: drivers/md/persistent-data/dm-extent-allocator.c:374: undefined reference to `__udivdi3'
->> ld: drivers/md/persistent-data/dm-extent-allocator.c:374: undefined reference to `__udivdi3'
->> ld: drivers/md/persistent-data/dm-extent-allocator.c:373: undefined reference to `__udivdi3'
+Cc: Alasdair Kergon <agk@redhat.com>
+Cc: Mike Snitzer <snitzer@kernel.org>
+Cc: dm-devel@redhat.com
+Signed-off-by: Kees Cook <keescook@chromium.org>
+---
+ drivers/md/dm-raid.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-
-vim +373 drivers/md/persistent-data/dm-extent-allocator.c
-
-   359	
-   360	/**
-   361	 * __select_child - Selects the best child node to allocate from in the extent allocator.
-   362	 * @ea: Pointer to the extent allocator.
-   363	 * @left: left child node.
-   364	 * @right: right child node.
-   365	 *
-   366	 * The best child is the one with the highest ratio of free blocks to holders. If the
-   367	 * ratios are equal, the left child is preferred.
-   368	 */
-   369	static struct node **__select_child(struct dm_extent_allocator *ea, struct node **left, struct node **right)
-   370	{
-   371		uint64_t left_score, right_score;
-   372	
- > 373		left_score = __nr_free_blocks(*left) / ((*left)->nr_holders + 1);
- > 374		right_score = __nr_free_blocks(*right) / ((*right)->nr_holders + 1);
-   375	
-   376		if (left_score >= right_score)
-   377			return left;
-   378		else
-   379			return right;
-   380	}
-   381	
-
+diff --git a/drivers/md/dm-raid.c b/drivers/md/dm-raid.c
+index 5f9991765f27..9755788e8b78 100644
+--- a/drivers/md/dm-raid.c
++++ b/drivers/md/dm-raid.c
+@@ -254,7 +254,7 @@ struct raid_set {
+ 		int mode;
+ 	} journal_dev;
+ 
+-	struct raid_dev dev[];
++	struct raid_dev dev[] __counted_by(raid_disks);
+ };
+ 
+ static void rs_config_backup(struct raid_set *rs, struct rs_layout *l)
 -- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+2.34.1
 
 --
 dm-devel mailing list
