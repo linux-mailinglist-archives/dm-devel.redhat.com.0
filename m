@@ -2,70 +2,70 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id DDF057A2A9E
-	for <lists+dm-devel@lfdr.de>; Sat, 16 Sep 2023 00:44:22 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 34A6D7A2A9A
+	for <lists+dm-devel@lfdr.de>; Sat, 16 Sep 2023 00:44:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694817861;
+	s=mimecast20190719; t=1694817855;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Z3kGkkFNBP5QisPLoWSIq0SBPLMci++cSKDje8gMss0=;
-	b=V2Hlv07XUKerLdDhLkqfeo9RfdKmC+DNH9f7kQqd1MGV6rx9opj9oJdktroGMV0lfMCYGf
-	N5vaTXqpx7r8Z6nnhq+J7CtYBEA2oK+Hyv0qSJM7xT5ziFs9UceYsLRJcmHShL58TEmeMm
-	ASxRr3jM5GuJgktl82L9w3THSbY2uYE=
+	bh=Eeb268LoVws4ujrMYZWwbEB9t9jh3FpHrGJ88j5uoFI=;
+	b=hf1hGJkXPCgALFUD/k9DNAGU9G/xLGvwG9cwW+xU8QZzFR5huYTbuO/y6WMzq/WeuQRQPG
+	ua4EgILnHPwOcLA3uL4A3GaMEfpTscI1EEDP4QIYBKrNgwX5A9UG495325PmogiE9RXal4
+	t8kMDSGr7ExAr+J/dgi5oUFjWdyFyBA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-31-Nggyl-PZNKWPMGsSQQyxFg-1; Fri, 15 Sep 2023 18:44:16 -0400
-X-MC-Unique: Nggyl-PZNKWPMGsSQQyxFg-1
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
+ us-mta-9-Z9057adAMVK5p8DrkIOyzg-1; Fri, 15 Sep 2023 18:44:12 -0400
+X-MC-Unique: Z9057adAMVK5p8DrkIOyzg-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 36FF3817074;
-	Fri, 15 Sep 2023 22:44:14 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 04DE0811E96;
+	Fri, 15 Sep 2023 22:44:01 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 205681D0B0;
-	Fri, 15 Sep 2023 22:44:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 3F82F1054FC3;
+	Fri, 15 Sep 2023 22:43:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 5CC1819466E6;
-	Fri, 15 Sep 2023 22:44:02 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id EE79C19466EB;
+	Fri, 15 Sep 2023 22:43:56 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 863AC1946588
+ ESMTP id F0FC31946588
  for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 22:43:55 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 59ACB1CBC1; Fri, 15 Sep 2023 22:43:50 +0000 (UTC)
+ id C686310F1BEA; Fri, 15 Sep 2023 22:43:55 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 51933176C3
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 22:43:50 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id BEE5210F1BE9
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 22:43:55 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C3EA817053
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 22:43:50 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9F91385A5BA
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 22:43:55 +0000 (UTC)
 Received: from bombadil.infradead.org (bombadil.infradead.org
  [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-149-3ezBNUmDOk28NJx_VREwTQ-1; Fri, 15 Sep 2023 18:43:47 -0400
-X-MC-Unique: 3ezBNUmDOk28NJx_VREwTQ-1
+ us-mta-157-uMPCtbM8MwGelqGlS3If3A-1; Fri, 15 Sep 2023 18:43:53 -0400
+X-MC-Unique: uMPCtbM8MwGelqGlS3If3A-1
 Received: from mcgrof by bombadil.infradead.org with local (Exim 4.96 #2 (Red
- Hat Linux)) id 1qhHXM-00BUtM-2g; Fri, 15 Sep 2023 22:43:44 +0000
+ Hat Linux)) id 1qhHXM-00BUtO-2p; Fri, 15 Sep 2023 22:43:44 +0000
 From: Luis Chamberlain <mcgrof@kernel.org>
 To: axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org,
  philipp.reisner@linbit.com, lars.ellenberg@linbit.com,
  christoph.boehmwalder@linbit.com, hch@infradead.org, djwong@kernel.org,
  minchan@kernel.org, senozhatsky@chromium.org
-Date: Fri, 15 Sep 2023 15:43:40 -0700
-Message-Id: <20230915224343.2740317-2-mcgrof@kernel.org>
+Date: Fri, 15 Sep 2023 15:43:41 -0700
+Message-Id: <20230915224343.2740317-3-mcgrof@kernel.org>
 In-Reply-To: <20230915224343.2740317-1-mcgrof@kernel.org>
 References: <20230915224343.2740317-1-mcgrof@kernel.org>
 MIME-Version: 1.0
@@ -76,8 +76,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: [dm-devel] [PATCH v3 1/4] drbd: use PAGE_SECTORS_SHIFT and
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [PATCH v3 2/4] iomap: simplify iomap_init() with
  PAGE_SECTORS
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
@@ -93,43 +93,44 @@ List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
 Cc: p.raghav@samsung.com, linux-xfs@vger.kernel.org, rohan.puri@samsung.com,
  da.gomez@samsung.com, mcgrof@kernel.org, patches@lists.linux.dev,
  willy@infradead.org, linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-mm@kvack.org, dm-devel@redhat.com,
- Johannes Thumshirn <johannes.thumshirn@wdc.com>, linux-fsdevel@vger.kernel.org,
- rpuri.linux@gmail.com, kbusch@kernel.org, drbd-dev@lists.linbit.com
+ linux-mm@kvack.org, dm-devel@redhat.com, linux-fsdevel@vger.kernel.org,
+ rpuri.linux@gmail.com, Christoph Hellwig <hch@lst.de>, kbusch@kernel.org,
+ drbd-dev@lists.linbit.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: kernel.org
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-UmVwbGFjZSBjb21tb24gY29uc3RhbnRzIHdpdGggZ2VuZXJpYyB2ZXJzaW9ucy4KVGhpcyBwcm9k
-dWNlcyBubyBmdW5jdGlvbmFsIGNoYW5nZXMuCgpBY2tlZC1ieTogQ2hyaXN0b3BoIELDtmhtd2Fs
-ZGVyIDxjaHJpc3RvcGguYm9laG13YWxkZXJAbGluYml0LmNvbT4KUmV2aWV3ZWQtYnk6IEpvaGFu
-bmVzIFRodW1zaGlybiA8am9oYW5uZXMudGh1bXNoaXJuQHdkYy5jb20+ClNpZ25lZC1vZmYtYnk6
-IEx1aXMgQ2hhbWJlcmxhaW4gPG1jZ3JvZkBrZXJuZWwub3JnPgotLS0KIGRyaXZlcnMvYmxvY2sv
-ZHJiZC9kcmJkX2JpdG1hcC5jIHwgNCArKy0tCiAxIGZpbGUgY2hhbmdlZCwgMiBpbnNlcnRpb25z
-KCspLCAyIGRlbGV0aW9ucygtKQoKZGlmZiAtLWdpdCBhL2RyaXZlcnMvYmxvY2svZHJiZC9kcmJk
-X2JpdG1hcC5jIGIvZHJpdmVycy9ibG9jay9kcmJkL2RyYmRfYml0bWFwLmMKaW5kZXggODVjYTAw
-MGEwNTY0Li4xYTE3ODJmNTVlNjEgMTAwNjQ0Ci0tLSBhL2RyaXZlcnMvYmxvY2svZHJiZC9kcmJk
-X2JpdG1hcC5jCisrKyBiL2RyaXZlcnMvYmxvY2svZHJiZC9kcmJkX2JpdG1hcC5jCkBAIC0xMDAw
-LDcgKzEwMDAsNyBAQCBzdGF0aWMgdm9pZCBibV9wYWdlX2lvX2FzeW5jKHN0cnVjdCBkcmJkX2Jt
-X2Fpb19jdHggKmN0eCwgaW50IHBhZ2VfbnIpIF9fbXVzdF9obwogCXVuc2lnbmVkIGludCBsZW47
-CiAKIAlmaXJzdF9ibV9zZWN0ID0gZGV2aWNlLT5sZGV2LT5tZC5tZF9vZmZzZXQgKyBkZXZpY2Ut
-PmxkZXYtPm1kLmJtX29mZnNldDsKLQlvbl9kaXNrX3NlY3RvciA9IGZpcnN0X2JtX3NlY3QgKyAo
-KChzZWN0b3JfdClwYWdlX25yKSA8PCAoUEFHRV9TSElGVC1TRUNUT1JfU0hJRlQpKTsKKwlvbl9k
-aXNrX3NlY3RvciA9IGZpcnN0X2JtX3NlY3QgKyAoKChzZWN0b3JfdClwYWdlX25yKSA8PCBQQUdF
-X1NFQ1RPUlNfU0hJRlQpOwogCiAJLyogdGhpcyBtaWdodCBoYXBwZW4gd2l0aCB2ZXJ5IHNtYWxs
-CiAJICogZmxleGlibGUgZXh0ZXJuYWwgbWV0YSBkYXRhIGRldmljZSwKQEAgLTEwMDgsNyArMTAw
-OCw3IEBAIHN0YXRpYyB2b2lkIGJtX3BhZ2VfaW9fYXN5bmMoc3RydWN0IGRyYmRfYm1fYWlvX2N0
-eCAqY3R4LCBpbnQgcGFnZV9ucikgX19tdXN0X2hvCiAJbGFzdF9ibV9zZWN0ID0gZHJiZF9tZF9s
-YXN0X2JpdG1hcF9zZWN0b3IoZGV2aWNlLT5sZGV2KTsKIAlpZiAoZmlyc3RfYm1fc2VjdCA8PSBv
-bl9kaXNrX3NlY3RvciAmJiBsYXN0X2JtX3NlY3QgPj0gb25fZGlza19zZWN0b3IpIHsKIAkJc2Vj
-dG9yX3QgbGVuX3NlY3QgPSBsYXN0X2JtX3NlY3QgLSBvbl9kaXNrX3NlY3RvciArIDE7Ci0JCWlm
-IChsZW5fc2VjdCA8IFBBR0VfU0laRS9TRUNUT1JfU0laRSkKKwkJaWYgKGxlbl9zZWN0IDwgUEFH
-RV9TRUNUT1JTKQogCQkJbGVuID0gKHVuc2lnbmVkIGludClsZW5fc2VjdCpTRUNUT1JfU0laRTsK
-IAkJZWxzZQogCQkJbGVuID0gUEFHRV9TSVpFOwotLSAKMi4zOS4yCgotLQpkbS1kZXZlbCBtYWls
-aW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9t
-YWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+Replace common constants with generic versions. This produces no
+functional changes.
+
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Luis Chamberlain <mcgrof@kernel.org>
+---
+ fs/iomap/buffered-io.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/fs/iomap/buffered-io.c b/fs/iomap/buffered-io.c
+index ae8673ce08b1..1a16c0e5d190 100644
+--- a/fs/iomap/buffered-io.c
++++ b/fs/iomap/buffered-io.c
+@@ -1985,7 +1985,7 @@ EXPORT_SYMBOL_GPL(iomap_writepages);
+ 
+ static int __init iomap_init(void)
+ {
+-	return bioset_init(&iomap_ioend_bioset, 4 * (PAGE_SIZE / SECTOR_SIZE),
++	return bioset_init(&iomap_ioend_bioset, 4 * PAGE_SECTORS,
+ 			   offsetof(struct iomap_ioend, io_inline_bio),
+ 			   BIOSET_NEED_BVECS);
+ }
+-- 
+2.39.2
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
