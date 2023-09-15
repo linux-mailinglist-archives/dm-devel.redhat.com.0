@@ -2,67 +2,89 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 898697A1102
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 00:31:58 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id B88E07A1411
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 04:55:39 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694730717;
+	s=mimecast20190719; t=1694746538;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=Mojpuf2aKmLUj7ETet2/HKn9tRxgzLSrL1sQw3xXROo=;
-	b=UyU0t4kEOMKRzCnI6TAEChwAsgatVHuXXe0jvkXYiT4Qw3D7XFcE0NQgBqFwB5bzoNX2jC
-	SL6q6EXu4GYZlb2LnSKDCGKIH67swri3lEno+UHvzbtToa4f/H3QB2H0e94MZX45PWeKc4
-	dkhkt/P0YFFbOsFnEli3sr3FFz+27eQ=
+	bh=G/F6Lpxz/TEHTtjUtCTkSKU1Ek2OBBXvxrfqK/TuYbM=;
+	b=fEfiHp42K88P6ek5QsPC46sSGQwQNCJpm3NXoHBz/qI2REKEKIN/99lze7Xtjb6guoCMpM
+	s9lAn9Pa1ZllZCc4p+iz60fUs6Y6a2liqKf4Yhv2Nrc346K8SUArU1MCr/xHH52KgsxpH7
+	/L5UkuOf6FF+aN4p33LEnktGoY7IHsI=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-325-5efB7cCwPCegfMMhV0J-gg-1; Thu, 14 Sep 2023 18:31:54 -0400
-X-MC-Unique: 5efB7cCwPCegfMMhV0J-gg-1
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com [10.11.54.1])
+ us-mta-155-rz6_iTAzN9iYM7cPlGCAjA-1; Thu, 14 Sep 2023 22:55:35 -0400
+X-MC-Unique: rz6_iTAzN9iYM7cPlGCAjA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 18239805B3E;
-	Thu, 14 Sep 2023 22:31:52 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40B8D102F22C;
+	Fri, 15 Sep 2023 02:55:30 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 0561E40C2070;
-	Thu, 14 Sep 2023 22:31:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 4926040C6ECE;
+	Fri, 15 Sep 2023 02:55:24 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 2852A19466DF;
-	Thu, 14 Sep 2023 22:31:35 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 51D3519466E5;
+	Fri, 15 Sep 2023 02:55:19 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 179E61946588
- for <dm-devel@listman.corp.redhat.com>; Thu, 14 Sep 2023 22:31:33 +0000 (UTC)
+ ESMTP id AB517194658C
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id C9B842156A27; Thu, 14 Sep 2023 22:31:33 +0000 (UTC)
+ id 8F58010069B4; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from octiron.msp.redhat.com (octiron.msp.redhat.com [10.15.80.209])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id A488D21B2413;
- Thu, 14 Sep 2023 22:31:33 +0000 (UTC)
-Received: from octiron.msp.redhat.com (localhost.localdomain [127.0.0.1])
- by octiron.msp.redhat.com (8.14.9/8.14.9) with ESMTP id 38EMVP2h011522;
- Thu, 14 Sep 2023 17:31:25 -0500
-Received: (from bmarzins@localhost)
- by octiron.msp.redhat.com (8.14.9/8.14.9/Submit) id 38EMVOTQ011521;
- Thu, 14 Sep 2023 17:31:24 -0500
-Date: Thu, 14 Sep 2023 17:31:24 -0500
-From: Benjamin Marzinski <bmarzins@redhat.com>
-To: mwilck@suse.com
-Message-ID: <20230914223124.GN7412@octiron.msp.redhat.com>
-References: <20230914145131.15165-1-mwilck@suse.com>
- <20230914145131.15165-4-mwilck@suse.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8717210F1BE7
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68250101CC82
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-49-8p0ZxG3WO0eFaIjD49H3kA-1; Thu, 14 Sep 2023 22:55:15 -0400
+X-MC-Unique: 8p0ZxG3WO0eFaIjD49H3kA-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="443202129"
+X-IronPort-AV: E=Sophos;i="6.02,147,1688454000"; d="scan'208";a="443202129"
+Received: from orsmga006.jf.intel.com ([10.7.209.51])
+ by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 14 Sep 2023 19:55:13 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="721513511"
+X-IronPort-AV: E=Sophos;i="6.02,147,1688454000"; d="scan'208";a="721513511"
+Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
+ by orsmga006.jf.intel.com with ESMTP; 14 Sep 2023 19:55:12 -0700
+Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qgyz7-0002LP-2n;
+ Fri, 15 Sep 2023 02:55:09 +0000
+Date: Fri, 15 Sep 2023 10:54:53 +0800
+From: kernel test robot <lkp@intel.com>
+To: Joe Thornber <ejt@redhat.com>
+Message-ID: <202309151023.QPBCNoCN-lkp@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20230914145131.15165-4-mwilck@suse.com>
-User-Agent: Mutt/1.5.23 (2014-03-12)
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH v3 38/38] libmultipath: avoid -Warray-bounds
- error in uatomic operations
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [device-mapper-dm:for-next 2/4]
+ drivers/md/persistent-data/dm-extent-allocator.c:530:24: error: expected ';
+ ' after expression
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -74,175 +96,72 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com
+Cc: dm-devel@redhat.com, llvm@lists.linux.dev,
+ Mike Snitzer <snitzer@kernel.org>, oe-kbuild-all@lists.linux.dev
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
+X-Mimecast-Originator: intel.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 14, 2023 at 04:51:31PM +0200, mwilck@suse.com wrote:
-> From: Martin Wilck <mwilck@suse.com>
-> 
-> The use of uatomic_xchg() in alias.c causes a -Warray-bounds error
-> on distributions using gcc 12, such as Fedora 37. This is a similar
-> error to 2534c4f ("libmultipath: avoid -Warray-bounds error with gcc
-> 12 and musl libc"). This happens only with liburcu 0.13 and earlier,
-> and only with certain gcc versions. See liburcu commit 835b9ab
-> ("Fix: x86 and s390 uatomic: __hp() macro warning with gcc 11").
-> 
-> Enhance the fix for 2534c4f by a adding a workaround for uatomic_xchg(),
-> and introduce the macro URCU_VERSION (originally only used for multipathd)
-> globally.
-> 
-Reviewed-by: Benjamin Marzinski <bmarzins@redhat.com>
-> Signed-off-by: Martin Wilck <mwilck@suse.com>
-> ---
->  Makefile.inc         |  2 +-
->  create-config.mk     |  5 +++++
->  libmultipath/alias.c |  5 +++--
->  libmultipath/lock.h  | 23 ++++++++++++++---------
->  multipathd/Makefile  |  2 --
->  5 files changed, 23 insertions(+), 14 deletions(-)
-> 
-> diff --git a/Makefile.inc b/Makefile.inc
-> index 6e384e6..04bfa56 100644
-> --- a/Makefile.inc
-> +++ b/Makefile.inc
-> @@ -95,7 +95,7 @@ OPTFLAGS	:= -O2 -g $(STACKPROT) --param=ssp-buffer-size=4
->  WARNFLAGS	:= -Werror -Wall -Wextra -Wformat=2 $(WFORMATOVERFLOW) -Werror=implicit-int \
->  		  -Werror=implicit-function-declaration -Werror=format-security \
->  		  $(WNOCLOBBERED) -Werror=cast-qual $(ERROR_DISCARDED_QUALIFIERS) $(W_URCU_TYPE_LIMITS)
-> -CPPFLAGS	:= $(FORTIFY_OPT) $(CPPFLAGS) \
-> +CPPFLAGS	:= $(FORTIFY_OPT) $(CPPFLAGS) $(D_URCU_VERSION) \
->  		   -DBIN_DIR=\"$(bindir)\" -DMULTIPATH_DIR=\"$(plugindir)\" \
->  		   -DRUNTIME_DIR=\"$(runtimedir)\" -DCONFIG_DIR=\"$(configdir)\" \
->  		   -DDEFAULT_CONFIGFILE=\"$(configfile)\" -DSTATE_DIR=\"$(statedir)\" \
-> diff --git a/create-config.mk b/create-config.mk
-> index d125597..4d318b9 100644
-> --- a/create-config.mk
-> +++ b/create-config.mk
-> @@ -73,6 +73,10 @@ TEST_URCU_TYPE_LIMITS = $(shell \
->  		$(CC) -c -Werror=type-limits -o /dev/null -xc - 2>/dev/null  \
->  	|| echo -Wno-type-limits )
->  
-> +URCU_VERSION = $(shell \
-> +	$(PKG_CONFIG) --modversion liburcu 2>/dev/null | \
-> +			awk -F. '{ printf("-DURCU_VERSION=0x%06x", 256 * ( 256 * $$1 + $$2) + $$3); }')
-> +
->  DEFINES :=
->  
->  ifneq ($(call check_func,dm_task_no_flush,$(devmapper_incdir)/libdevmapper.h),0)
-> @@ -168,6 +172,7 @@ $(TOPDIR)/config.mk:	$(multipathdir)/autoconfig.h
->  	@echo creating $@
->  	@echo "FPIN_SUPPORT := $(FPIN_SUPPORT)" >$@
->  	@echo "FORTIFY_OPT := $(FORTIFY_OPT)" >>$@
-> +	@echo "D_URCU_VERSION := $(call URCU_VERSION)" >>$@
->  	@echo "SYSTEMD := $(SYSTEMD)" >>$@
->  	@echo "ANA_SUPPORT := $(ANA_SUPPORT)" >>$@
->  	@echo "STACKPROT := $(call TEST_CC_OPTION,-fstack-protector-strong,-fstack-protector)" >>$@
-> diff --git a/libmultipath/alias.c b/libmultipath/alias.c
-> index e5d3f15..74431f3 100644
-> --- a/libmultipath/alias.c
-> +++ b/libmultipath/alias.c
-> @@ -24,6 +24,7 @@
->  #include "devmapper.h"
->  #include "strbuf.h"
->  #include "time-util.h"
-> +#include "lock.h"
->  
->  /*
->   * significant parts of this file were taken from iscsi-bindings.c of the
-> @@ -300,7 +301,7 @@ void handle_bindings_file_inotify(const struct inotify_event *event)
->  	pthread_mutex_unlock(&timestamp_mutex);
->  
->  	if (changed) {
-> -		uatomic_xchg(&bindings_file_changed, 1);
-> +		uatomic_xchg_int(&bindings_file_changed, 1);
->  		condlog(3, "%s: bindings file must be re-read, new timestamp: %ld.%06ld",
->  			__func__, (long)ts.tv_sec, (long)ts.tv_nsec / 1000);
->  	} else
-> @@ -775,7 +776,7 @@ static int _read_bindings_file(const struct config *conf, Bindings *bindings,
->  	int rc = 0, ret, fd;
->  	FILE *file;
->  	struct stat st;
-> -	int has_changed = uatomic_xchg(&bindings_file_changed, 0);
-> +	int has_changed = uatomic_xchg_int(&bindings_file_changed, 0);
->  
->  	if (!force) {
->  		if (!has_changed) {
-> diff --git a/libmultipath/lock.h b/libmultipath/lock.h
-> index 9814be7..ac80d1d 100644
-> --- a/libmultipath/lock.h
-> +++ b/libmultipath/lock.h
-> @@ -13,17 +13,22 @@ struct mutex_lock {
->  	int waiters; /* uatomic access only */
->  };
->  
-> -#if !defined(__GLIBC__) && defined(__GNUC__) && __GNUC__ == 12
-> -#pragma GCC diagnostic push
-> -#pragma GCC diagnostic ignored "-Warray-bounds"
-> -#endif
-> -
->  static inline void init_lock(struct mutex_lock *a)
->  {
->  	pthread_mutex_init(&a->mutex, NULL);
->  	uatomic_set(&a->waiters, 0);
->  }
->  
-> +#if defined(__GNUC__) && __GNUC__ == 12 && URCU_VERSION < 0xe00
-> +#pragma GCC diagnostic push
-> +#pragma GCC diagnostic ignored "-Warray-bounds"
-> +#endif
-> +
-> +static inline int uatomic_xchg_int(int *ptr, int val)
-> +{
-> +	return uatomic_xchg(ptr, val);
-> +}
-> +
->  static inline void lock(struct mutex_lock *a)
->  {
->  	uatomic_inc(&a->waiters);
-> @@ -31,6 +36,10 @@ static inline void lock(struct mutex_lock *a)
->  	uatomic_dec(&a->waiters);
->  }
->  
-> +#if defined(__GNUC__) && __GNUC__ == 12 && URCU_VERSION < 0xe00
-> +#pragma GCC diagnostic pop
-> +#endif
-> +
->  static inline int trylock(struct mutex_lock *a)
->  {
->  	return pthread_mutex_trylock(&a->mutex);
-> @@ -51,10 +60,6 @@ static inline bool lock_has_waiters(struct mutex_lock *a)
->  	return (uatomic_read(&a->waiters) > 0);
->  }
->  
-> -#if !defined(__GLIBC__) && defined(__GNUC__) && __GNUC__ == 12
-> -#pragma GCC diagnostic pop
-> -#endif
-> -
->  #define lock_cleanup_pop(a) pthread_cleanup_pop(1)
->  
->  void cleanup_lock (void * data);
-> diff --git a/multipathd/Makefile b/multipathd/Makefile
-> index cdba3db..0ba6ecb 100644
-> --- a/multipathd/Makefile
-> +++ b/multipathd/Makefile
-> @@ -5,8 +5,6 @@ CLI      := multipathc
->  MANPAGES := multipathd.8
->  
->  CPPFLAGS += -I$(multipathdir) -I$(mpathutildir) -I$(mpathpersistdir) -I$(mpathcmddir) -I$(thirdpartydir) \
-> -	$(shell $(PKG_CONFIG) --modversion liburcu 2>/dev/null | \
-> -		awk -F. '{ printf("-DURCU_VERSION=0x%06x", 256 * ( 256 * $$1 + $$2) + $$3); }') \
->  	-DBINDIR='"$(bindir)"' $(SYSTEMD_CPPFLAGS)
->  
->  #
-> -- 
-> 2.42.0
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
+head:   edcabec81f12dfc9b86b05084bba3232efdc5e4e
+commit: 59d814674dd66fc64ba229605174bfe0b8e566d5 [2/4] dm persistent data: Introduce extent allocator
+config: x86_64-rhel-8.3-rust (https://download.01.org/0day-ci/archive/20230915/202309151023.QPBCNoCN-lkp@intel.com/config)
+compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230915/202309151023.QPBCNoCN-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309151023.QPBCNoCN-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+>> drivers/md/persistent-data/dm-extent-allocator.c:530:24: error: expected ';' after expression
+           spin_unlock(&ea->lock)
+                                 ^
+                                 ;
+   drivers/md/persistent-data/dm-extent-allocator.c:544:24: error: expected ';' after expression
+           spin_unlock(&ea->lock)
+                                 ^
+                                 ;
+   2 errors generated.
+
+
+vim +530 drivers/md/persistent-data/dm-extent-allocator.c
+
+   511	
+   512	void dm_alloc_context_get(struct dm_extent_allocator *ea,
+   513				  struct dm_alloc_context *ac)
+   514	{
+   515		spin_lock(&ea->lock);
+   516		ac->ea = ea;
+   517	
+   518		ea->nr_allocation_contexts++;
+   519	
+   520		/*
+   521		 * We try and maintain a couple of nodes per alloc context to avoid sharing.
+   522		 * If allocation fails it's no big deal; we'll just get more fragmentation.
+   523		 */
+   524		if (ea->nr_preallocated_nodes < ea->nr_allocation_contexts * 2)
+   525			__prealloc_nodes(ea, 2, GFP_NOIO);
+   526	
+   527		list_add(&ac->list, &ea->allocation_contexts);
+   528		INIT_LIST_HEAD(&ac->holders_list);
+   529		ac->leaf = NULL;
+ > 530		spin_unlock(&ea->lock)
+   531	}
+   532	EXPORT_SYMBOL_GPL(dm_alloc_context_get);
+   533	
+
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
+
 --
 dm-devel mailing list
 dm-devel@redhat.com
