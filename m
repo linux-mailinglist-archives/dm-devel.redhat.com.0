@@ -1,85 +1,78 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 654167A1DA7
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 13:47:00 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 06E1A7A1EA8
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 14:26:10 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694778419;
+	s=mimecast20190719; t=1694780769;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=FZLS6MnwsfpvGxqWUtAnAF+Y1iDOTO74IYozG7ky/w0=;
-	b=aYLf/pdQCePv2cB67lNADXxioaxpIPa2hDsfcQCa375M4nQLeJb4j9oBG7LiftvN0KrufF
-	1OSTY0wPgMdVfaXYtwWMDKly9zt45JVZaG+9nCeSJHhW/B0us2y1R4jlDAYc/4r3yvCvB3
-	oASbOYx+v7tdawcv5PPq7JlsWbuScZs=
+	bh=PCdemlXhRRWVnMmt38e4O4IsF3xtAqbLVXDBKWlVSUw=;
+	b=bVlyJ7SZYKAyzP4DGL3ChM6x2kdyqOdbRMcunn7fspLWfPKtWYqqIptiwe/9f47IVYM8mO
+	cXxKs+RNcDLQN/2cm50Z5BF57II0Ma53sAmsSXq2lhx1+LcYQX3m0nPewZh0Oc6Hqwdudv
+	m8RgU1/em5wfg4TbKaRpPY4RG+iMbZk=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-264-jBGARXKuNHi_SYO8pj52ag-1; Fri, 15 Sep 2023 07:46:56 -0400
-X-MC-Unique: jBGARXKuNHi_SYO8pj52ag-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-657-6gJd3ii0OSO84NwDSvgkFw-1; Fri, 15 Sep 2023 08:26:07 -0400
+X-MC-Unique: 6gJd3ii0OSO84NwDSvgkFw-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 98F151875048;
-	Fri, 15 Sep 2023 11:46:53 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7B09101A53B;
+	Fri, 15 Sep 2023 12:26:04 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 6111F200BC7F;
-	Fri, 15 Sep 2023 11:46:44 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 1A7042026D76;
+	Fri, 15 Sep 2023 12:26:02 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 22AB919466DF;
-	Fri, 15 Sep 2023 11:46:15 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 6B5CE19465BB;
+	Fri, 15 Sep 2023 12:26:01 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
- [10.11.54.4])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5423A1946588
- for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 11:44:09 +0000 (UTC)
+ ESMTP id 820CA1946588
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 12:26:00 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1CC5E2026D68; Fri, 15 Sep 2023 11:43:59 +0000 (UTC)
+ id 537BA176C3; Fri, 15 Sep 2023 12:26:00 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1524A2026D4B
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 11:43:53 +0000 (UTC)
+ (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 4C5D628FB
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 12:26:00 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
  [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id B83B8811E7E
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 11:43:53 +0000 (UTC)
-Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.220.28]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-17-RnVcur5RMlOvk4-rrd1fbQ-1; Fri,
- 15 Sep 2023 07:43:52 -0400
-X-MC-Unique: RnVcur5RMlOvk4-rrd1fbQ-1
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by smtp-out1.suse.de (Postfix) with ESMTPS id 750DC21865;
- Fri, 15 Sep 2023 11:43:50 +0000 (UTC)
-Received: from imap2.suse-dmz.suse.de (imap2.suse-dmz.suse.de [192.168.254.74])
- (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
- key-exchange X25519 server-signature ECDSA (P-521) server-digest SHA512)
- (No client certificate requested)
- by imap2.suse-dmz.suse.de (Postfix) with ESMTPS id 3FECD13251;
- Fri, 15 Sep 2023 11:43:50 +0000 (UTC)
-Received: from dovecot-director2.suse.de ([192.168.254.65])
- by imap2.suse-dmz.suse.de with ESMTPSA id SmyADXZDBGXEKQAAMHmgww
- (envelope-from <mwilck@suse.com>); Fri, 15 Sep 2023 11:43:50 +0000
-Message-ID: <3e3992fede771bd4ac30ab3aa8d061fce3d80486.camel@suse.com>
-From: Martin Wilck <mwilck@suse.com>
-To: Muneendra Kumar <muneendra.kumar@broadcom.com>, dm-devel@redhat.com, 
- bmarzins@redhat.com
-Date: Fri, 15 Sep 2023 13:43:49 +0200
-In-Reply-To: <20230914215546.2875790-1-muneendra.kumar@broadcom.com>
-References: <20230914215546.2875790-1-muneendra.kumar@broadcom.com>
-User-Agent: Evolution 3.48.4
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 28C65805B29
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 12:26:00 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [192.55.52.136]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-481-MJWZSkrtPo-CPSh0AbCfQA-1; Fri, 15 Sep 2023 08:25:58 -0400
+X-MC-Unique: MJWZSkrtPo-CPSh0AbCfQA-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="358650460"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="358650460"
+Received: from orsmga005.jf.intel.com ([10.7.209.41])
+ by fmsmga106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 15 Sep 2023 05:25:56 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10834"; a="918637894"
+X-IronPort-AV: E=Sophos;i="6.02,149,1688454000"; d="scan'208";a="918637894"
+Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
+ by orsmga005.jf.intel.com with ESMTP; 15 Sep 2023 05:25:55 -0700
+Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
+ (envelope-from <lkp@intel.com>) id 1qh7tQ-0002xV-2i;
+ Fri, 15 Sep 2023 12:25:52 +0000
+Date: Fri, 15 Sep 2023 20:25:33 +0800
+From: kernel test robot <lkp@intel.com>
+To: Joe Thornber <ejt@redhat.com>
+Message-ID: <202309152007.7euOF5Fr-lkp@intel.com>
 MIME-Version: 1.0
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
@@ -88,9 +81,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
-Subject: Re: [dm-devel] [PATCH] multipathd: Added support to handle FPIN-Li
- events for FC-NVMe
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: [dm-devel] [device-mapper-dm:for-next 2/4]
+ dm-extent-allocator.c:undefined reference to `__udivdi3'
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -102,166 +95,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: mkumar@redhat.com
+Cc: dm-devel@redhat.com, Mike Snitzer <snitzer@kernel.org>,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: suse.com
-Content-Type: text/plain; charset="iso-8859-15"
-Content-Transfer-Encoding: quoted-printable
+X-Mimecast-Originator: intel.com
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-Hello Muneendra,
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
+head:   df3f51f6ca53e525420cd4cf4c7d9f5cabe9a29e
+commit: b97bcee4b9999c9f5aadc06317ade18c5cbe37f6 [2/4] dm persistent data: Introduce extent allocator
+config: i386-buildonly-randconfig-004-20230915 (https://download.01.org/0day-ci/archive/20230915/202309152007.7euOF5Fr-lkp@intel.com/config)
+compiler: gcc-7 (Ubuntu 7.5.0-6ubuntu2) 7.5.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230915/202309152007.7euOF5Fr-lkp@intel.com/reproduce)
 
-On Thu, 2023-09-14 at 14:55 -0700, Muneendra Kumar wrote:
-> From: Muneendra <muneendra.kumar@broadcom.com>
->=20
-> This patch adds the support to handle FPIN-Li for FC-NVMe.
-> On receiving the FPIN-Li events this patch moves the devices paths
-> which are affected due to link integrity to marginal path groups.
-> The paths which are set to marginal path group will be unset
-> on receiving the RSCN events
->=20
-> Signed-off-by: Muneendra <muneendra.kumar@broadcom.com>
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202309152007.7euOF5Fr-lkp@intel.com/
 
-Thanks! This looks mostly good to me, some comments below.
+All errors (new ones prefixed by >>):
 
+   ld: drivers/md/persistent-data/dm-extent-allocator.o: in function `dm_alloc_context_alloc':
+>> dm-extent-allocator.c:(.text+0x773): undefined reference to `__udivdi3'
+>> ld: dm-extent-allocator.c:(.text+0x791): undefined reference to `__udivdi3'
 
-> ---
-> =A0multipathd/fpin_handlers.c | 177 ++++++++++++++++++++++++++++-------
-> --
-> =A01 file changed, 136 insertions(+), 41 deletions(-)
->=20
-> diff --git a/multipathd/fpin_handlers.c b/multipathd/fpin_handlers.c
-> index aa0f63c9..94f390ec 100644
-> --- a/multipathd/fpin_handlers.c
-> +++ b/multipathd/fpin_handlers.c
-> @@ -203,61 +203,153 @@ fpin_add_marginal_dev_info(uint32_t host_num,
-> char *devname)
-> =A0}
-> =A0
-> =A0/*
-> - * This function goes through the vecs->pathvec, and for
-> - * each path, check that the host=A0 number,
-> - * the target WWPN associated with the path matches
-> - * with the els wwpn and sets the path and port state to
-> + * This function compares Transport Address Controller Port pn,
-> + * Host Transport Address Controller Port pn with the els wwpn
-> ,attached_wwpn
-> + * and return 0 on success
-> + */
-> +static int=A0 extract_nvme_addresses_chk_path_pwwn(const char
-> *address,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0uint64_t els_wwpn, uint64_t=
- els_attached_wwpn)
-> +
-> +{
-> +=A0=A0=A0=A0=A0=A0=A0uint64_t traddr;
-> +=A0=A0=A0=A0=A0=A0=A0uint64_t host_traddr;
-> +
-> +=A0=A0=A0=A0=A0=A0=A0/*
-> +=A0=A0=A0=A0=A0=A0=A0 *=A0 Find the position of "traddr=3D" and "host_tr=
-addr=3D"
-> +=A0=A0=A0=A0=A0=A0=A0 *=A0 and the address will be in the below format
-> +=A0=A0=A0=A0=A0=A0=A0 *=A0 "traddr=3Dnn-0x200400110dff9400:pn-0x20040011=
-0dff9400,
-> +=A0=A0=A0=A0=A0=A0=A0 *=A0 host_traddr=3Dnn-0x200400110dff9400:pn-0x2004=
-00110dff9400"
-> +=A0=A0=A0=A0=A0=A0=A0 */
-> +=A0=A0=A0=A0=A0=A0=A0const char *traddr_start =3D strstr(address, "tradd=
-r=3D");
-> +=A0=A0=A0=A0=A0=A0=A0const char *host_traddr_start =3D strstr(address,
-> "host_traddr=3D");
-> +
-> +=A0=A0=A0=A0=A0=A0=A0if (!traddr_start || !host_traddr_start)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return -EINVAL;
-> +
-> +=A0=A0=A0=A0=A0=A0=A0/* Extract traddr pn */
-> +=A0=A0=A0=A0=A0=A0=A0if (sscanf(traddr_start, "traddr=3Dnn-%*[^:]:pn-%" =
-SCNx64,
-> &traddr) !=3D 1)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return -EINVAL;
-> +
-> +=A0=A0=A0=A0=A0=A0=A0/* Extract host_traddr pn*/
-> +=A0=A0=A0=A0=A0=A0=A0if (sscanf(host_traddr_start, "host_traddr=3Dnn-%*[=
-^:]:pn-%"
-> SCNx64,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=
-=A0=A0=A0=A0=A0=A0=A0&host_traddr) !=3D 1)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return -EINVAL;
-> +=A0=A0=A0=A0=A0=A0=A0condlog(4, "traddr 0x%lx hosttraddr 0x%lx els_wwpn =
-0x%lx
-> els_host_traddr 0x%lx",
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0tra=
-ddr, host_traddr,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0els=
-_wwpn, els_attached_wwpn);
-> +=A0=A0=A0=A0=A0=A0=A0if ((host_traddr =3D=3D els_attached_wwpn) && (trad=
-dr =3D=3D
-> els_wwpn))
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return 0;
-> +=A0=A0=A0=A0=A0=A0=A0return -EINVAL;
-
-Please don't return -EINVAL to indicate that the addresses don't match.
-The function should return 1 (match) or 0 (no match) or a negative
-error code if something is actually wrong.
-
-
-> +}
-> +
-> +/*
-> + * This function check that the Transport Address Controller Port
-> pn,
-> + * Host Transport Address Controller Port pn associated with the
-> path matches
-> + * with the els wwpn ,attached_wwpn and sets the path state to
-> =A0 * Marginal
-> =A0 */
-> -static int=A0 fpin_chk_wwn_setpath_marginal(uint16_t host_num,=A0 struct
-> vectors *vecs,
-> +static void fpin_check_set_nvme_path_marginal(uint16_t host_num,
-> struct path *pp,
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0uint64_t els_wwpn, uint64_t=
- attached_wwpn)
-> +{
-> +=A0=A0=A0=A0=A0=A0=A0struct udev_device *ctl =3D NULL;
-> +=A0=A0=A0=A0=A0=A0=A0const char *address =3D NULL;
-> +=A0=A0=A0=A0=A0=A0=A0int ret =3D 0;
-> +
-> +=A0=A0=A0=A0=A0=A0=A0ctl =3D udev_device_get_parent_with_subsystem_devty=
-pe(pp->udev,
-> "nvme", NULL);
-> +=A0=A0=A0=A0=A0=A0=A0if (ctl =3D=3D NULL) {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "%s: No parent d=
-evice for ", pp->dev);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> +=A0=A0=A0=A0=A0=A0=A0}
-> +=A0=A0=A0=A0=A0=A0=A0address =3D udev_device_get_sysattr_value(ctl, "add=
-ress");
-> +=A0=A0=A0=A0=A0=A0=A0if (!address) {
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0condlog(2, "%s: unable to g=
-et the address ", pp-
-> >dev);
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> +=A0=A0=A0=A0=A0=A0=A0}
-> +=A0=A0=A0=A0=A0=A0=A0condlog(4, "\n address %s: dev :%s\n", address, pp-=
->dev);
-> +=A0=A0=A0=A0=A0=A0=A0ret =3D extract_nvme_addresses_chk_path_pwwn(addres=
-s, els_wwpn,
-> attached_wwpn);
-> +=A0=A0=A0=A0=A0=A0=A0if (ret < 0)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> +=A0=A0=A0=A0=A0=A0=A0ret =3D fpin_path_setmarginal(pp);
-> +=A0=A0=A0=A0=A0=A0=A0if (ret < 0)
-> +=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0=A0return;
-> +=A0=A0=A0=A0=A0=A0=A0fpin_add_marginal_dev_info(host_num, pp->dev);
-
-I think that you should call fpin_add_marginal_dev_info() first, and
-only set the path to marginal state if it has succeeded.
-I realize the same applies to the SCSI code flow.
-
-Regards,
-Martin
+-- 
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
 
 --
 dm-devel mailing list
