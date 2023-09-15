@@ -1,88 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id B88E07A1411
-	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 04:55:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 83D9F7A146D
+	for <lists+dm-devel@lfdr.de>; Fri, 15 Sep 2023 05:34:30 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1694746538;
+	s=mimecast20190719; t=1694748869;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=G/F6Lpxz/TEHTtjUtCTkSKU1Ek2OBBXvxrfqK/TuYbM=;
-	b=fEfiHp42K88P6ek5QsPC46sSGQwQNCJpm3NXoHBz/qI2REKEKIN/99lze7Xtjb6guoCMpM
-	s9lAn9Pa1ZllZCc4p+iz60fUs6Y6a2liqKf4Yhv2Nrc346K8SUArU1MCr/xHH52KgsxpH7
-	/L5UkuOf6FF+aN4p33LEnktGoY7IHsI=
+	bh=+oKTd2fx3I05+CSZSAzPIohYh69k8dEB6vV1HWr1+cQ=;
+	b=GSLdZ+kImQDReSn3p1LQqIyEKMsocsSjUC8FrwlR99f7ZY0NfkJpiPcfQZwgFcnecCgS1a
+	reN8W1V5HpbgYCz0FLGbsMt5gGdM8VfOeP5NBtr0LPXEYFGhTXLzPplwlOzEl9CZD6yFR0
+	Dbk+txTddBJMpyS3NfX44qOOCFfRXt0=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-155-rz6_iTAzN9iYM7cPlGCAjA-1; Thu, 14 Sep 2023 22:55:35 -0400
-X-MC-Unique: rz6_iTAzN9iYM7cPlGCAjA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-654-sEp8WPcDN42BHWoJrgU9ag-1; Thu, 14 Sep 2023 23:34:25 -0400
+X-MC-Unique: sEp8WPcDN42BHWoJrgU9ag-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 40B8D102F22C;
-	Fri, 15 Sep 2023 02:55:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8918E90636A;
+	Fri, 15 Sep 2023 03:34:23 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 4926040C6ECE;
-	Fri, 15 Sep 2023 02:55:24 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id C393E2026D4B;
+	Fri, 15 Sep 2023 03:34:12 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 51D3519466E5;
-	Fri, 15 Sep 2023 02:55:19 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C50E819465BC;
+	Fri, 15 Sep 2023 03:34:06 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.4])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AB517194658C
- for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
+ ESMTP id 114621946588
+ for <dm-devel@listman.corp.redhat.com>; Fri, 15 Sep 2023 03:34:05 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 8F58010069B4; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
+ id F17112026D68; Fri, 15 Sep 2023 03:34:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 8717210F1BE7
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
- (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
- (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 68250101CC82
- for <dm-devel@redhat.com>; Fri, 15 Sep 2023 02:55:18 +0000 (UTC)
-Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.31]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-49-8p0ZxG3WO0eFaIjD49H3kA-1; Thu, 14 Sep 2023 22:55:15 -0400
-X-MC-Unique: 8p0ZxG3WO0eFaIjD49H3kA-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="443202129"
-X-IronPort-AV: E=Sophos;i="6.02,147,1688454000"; d="scan'208";a="443202129"
-Received: from orsmga006.jf.intel.com ([10.7.209.51])
- by orsmga104.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 14 Sep 2023 19:55:13 -0700
-X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10833"; a="721513511"
-X-IronPort-AV: E=Sophos;i="6.02,147,1688454000"; d="scan'208";a="721513511"
-Received: from lkp-server02.sh.intel.com (HELO 9ef86b2655e5) ([10.239.97.151])
- by orsmga006.jf.intel.com with ESMTP; 14 Sep 2023 19:55:12 -0700
-Received: from kbuild by 9ef86b2655e5 with local (Exim 4.96)
- (envelope-from <lkp@intel.com>) id 1qgyz7-0002LP-2n;
- Fri, 15 Sep 2023 02:55:09 +0000
-Date: Fri, 15 Sep 2023 10:54:53 +0800
-From: kernel test robot <lkp@intel.com>
-To: Joe Thornber <ejt@redhat.com>
-Message-ID: <202309151023.QPBCNoCN-lkp@intel.com>
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E9F172026D4B
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 03:34:04 +0000 (UTC)
+Received: from us-smtp-1.mimecast.com (us-smtp-2.mimecast.com [207.211.31.81])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256
+ bits)) (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CACF288B7A1
+ for <dm-devel@redhat.com>; Fri, 15 Sep 2023 03:34:04 +0000 (UTC)
+Received: from mail-qv1-f45.google.com (mail-qv1-f45.google.com
+ [209.85.219.45]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-629-EtBW6rP7NmyXceqv4pZ6pw-1; Thu, 14 Sep 2023 23:34:02 -0400
+X-MC-Unique: EtBW6rP7NmyXceqv4pZ6pw-1
+Received: by mail-qv1-f45.google.com with SMTP id
+ 6a1803df08f44-65627d499e1so5678106d6.0
+ for <dm-devel@redhat.com>; Thu, 14 Sep 2023 20:34:02 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=1e100.net; s=20230601; t=1694748842; x=1695353642;
+ h=in-reply-to:content-disposition:mime-version:references:message-id
+ :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
+ :message-id:reply-to;
+ bh=iaRpWeQBHF9xrScwEaYmj1hDO7gFWhFOcR6aMt6yIR4=;
+ b=vAx97C9LAy9Yiv7n1Zu8EyMNmsjr95oRB17roh7sO4X2IkYz4C1xhPPNuOsZdkNWU7
+ sHaS143MVF65UsQu1Mt6VeqBL8EyxaaXx4XzNclItZ9Be3GVZ6YGktddmJRnhQS+Lvtt
+ bc2wVnfxvNtfiCrfR0qzpYnr/7GBl42MBxBVBxDU0Wp2SUUsEEXLNt1lWPO84jDR0xbW
+ tsSpuw8It6LWZvOkbAeCWmITYkEdiCbqzBzKmOg8GEWSSXeDxKR4y0AWOmljaXdozpKw
+ 389kVfmuVxtE2E69JiCVyj8hwfaOOrqTIscM8mvKbCPzymQqz5sjcxl3cSz4rYEPXqWG
+ mRsQ==
+X-Gm-Message-State: AOJu0YyfZeA1j3xBhhN1QjUF1eT7dHQixA4Cyujz0vDY7+unqoi4dcGq
+ 5cCfHpaR2YXy8MNRZ/922G3AbmI=
+X-Google-Smtp-Source: AGHT+IEBEYKRA2Zo7KXzkVVYdgYjkcKhhHD3gv62cQKEjoTRsB89tTRb5JOZnctFnGbpqENER6tIsg==
+X-Received: by 2002:a0c:b4c9:0:b0:635:f899:660b with SMTP id
+ h9-20020a0cb4c9000000b00635f899660bmr523466qvf.36.1694748842373; 
+ Thu, 14 Sep 2023 20:34:02 -0700 (PDT)
+Received: from localhost (pool-68-160-141-91.bstnma.fios.verizon.net.
+ [68.160.141.91]) by smtp.gmail.com with ESMTPSA id
+ e3-20020ad44183000000b0063d30c10f1esm781581qvp.70.2023.09.14.20.34.01
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Thu, 14 Sep 2023 20:34:01 -0700 (PDT)
+Date: Thu, 14 Sep 2023 23:34:00 -0400
+From: Mike Snitzer <snitzer@kernel.org>
+To: kernel test robot <lkp@intel.com>
+Message-ID: <ZQPQqCzlu3AUtumF@redhat.com>
+References: <202309151023.QPBCNoCN-lkp@intel.com>
 MIME-Version: 1.0
-X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
- Definition; Similar Internal Domain=false;
- Similar Monitored External Domain=false; Custom External Domain=false;
- Mimecast External Domain=false; Newly Observed Domain=false;
- Internal User Name=false; Custom Display Name List=false;
- Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
- Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
-Subject: [dm-devel] [device-mapper-dm:for-next 2/4]
+In-Reply-To: <202309151023.QPBCNoCN-lkp@intel.com>
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+Subject: Re: [dm-devel] [device-mapper-dm:for-next 2/4]
  drivers/md/persistent-data/dm-extent-allocator.c:530:24: error: expected ';
  ' after expression
 X-BeenThere: dm-devel@redhat.com
@@ -96,71 +104,46 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, llvm@lists.linux.dev,
- Mike Snitzer <snitzer@kernel.org>, oe-kbuild-all@lists.linux.dev
+Cc: Joe Thornber <ejt@redhat.com>, llvm@lists.linux.dev, dm-devel@redhat.com,
+ oe-kbuild-all@lists.linux.dev
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: intel.com
+X-Mimecast-Originator: kernel.org
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
-head:   edcabec81f12dfc9b86b05084bba3232efdc5e4e
-commit: 59d814674dd66fc64ba229605174bfe0b8e566d5 [2/4] dm persistent data: Introduce extent allocator
-config: x86_64-rhel-8.3-rust (https://download.01.org/0day-ci/archive/20230915/202309151023.QPBCNoCN-lkp@intel.com/config)
-compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230915/202309151023.QPBCNoCN-lkp@intel.com/reproduce)
+On Thu, Sep 14 2023 at 10:54P -0400,
+kernel test robot <lkp@intel.com> wrote:
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202309151023.QPBCNoCN-lkp@intel.com/
+> tree:   https://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git for-next
+> head:   edcabec81f12dfc9b86b05084bba3232efdc5e4e
+> commit: 59d814674dd66fc64ba229605174bfe0b8e566d5 [2/4] dm persistent data: Introduce extent allocator
+> config: x86_64-rhel-8.3-rust (https://download.01.org/0day-ci/archive/20230915/202309151023.QPBCNoCN-lkp@intel.com/config)
+> compiler: clang version 16.0.4 (https://github.com/llvm/llvm-project.git ae42196bc493ffe877a7e3dff8be32035dea4d07)
+> reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20230915/202309151023.QPBCNoCN-lkp@intel.com/reproduce)
+> 
+> If you fix the issue in a separate patch/commit (i.e. not just a new version of
+> the same patch/commit), kindly add following tags
+> | Reported-by: kernel test robot <lkp@intel.com>
+> | Closes: https://lore.kernel.org/oe-kbuild-all/202309151023.QPBCNoCN-lkp@intel.com/
+> 
+> All errors (new ones prefixed by >>):
+> 
+> >> drivers/md/persistent-data/dm-extent-allocator.c:530:24: error: expected ';' after expression
+>            spin_unlock(&ea->lock)
+>                                  ^
+>                                  ;
+>    drivers/md/persistent-data/dm-extent-allocator.c:544:24: error: expected ';' after expression
+>            spin_unlock(&ea->lock)
+>                                  ^
+>                                  ;
+>    2 errors generated.
 
-All errors (new ones prefixed by >>):
 
->> drivers/md/persistent-data/dm-extent-allocator.c:530:24: error: expected ';' after expression
-           spin_unlock(&ea->lock)
-                                 ^
-                                 ;
-   drivers/md/persistent-data/dm-extent-allocator.c:544:24: error: expected ';' after expression
-           spin_unlock(&ea->lock)
-                                 ^
-                                 ;
-   2 errors generated.
-
-
-vim +530 drivers/md/persistent-data/dm-extent-allocator.c
-
-   511	
-   512	void dm_alloc_context_get(struct dm_extent_allocator *ea,
-   513				  struct dm_alloc_context *ac)
-   514	{
-   515		spin_lock(&ea->lock);
-   516		ac->ea = ea;
-   517	
-   518		ea->nr_allocation_contexts++;
-   519	
-   520		/*
-   521		 * We try and maintain a couple of nodes per alloc context to avoid sharing.
-   522		 * If allocation fails it's no big deal; we'll just get more fragmentation.
-   523		 */
-   524		if (ea->nr_preallocated_nodes < ea->nr_allocation_contexts * 2)
-   525			__prealloc_nodes(ea, 2, GFP_NOIO);
-   526	
-   527		list_add(&ac->list, &ea->allocation_contexts);
-   528		INIT_LIST_HEAD(&ac->holders_list);
-   529		ac->leaf = NULL;
- > 530		spin_unlock(&ea->lock)
-   531	}
-   532	EXPORT_SYMBOL_GPL(dm_alloc_context_get);
-   533	
-
--- 
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+These were my fault.. Fixed, sorry about the noise.
 
 --
 dm-devel mailing list
