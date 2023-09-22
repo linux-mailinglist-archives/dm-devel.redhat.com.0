@@ -2,128 +2,156 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 419827ADF12
-	for <lists+dm-devel@lfdr.de>; Mon, 25 Sep 2023 20:37:03 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id F07607ADF0B
+	for <lists+dm-devel@lfdr.de>; Mon, 25 Sep 2023 20:36:27 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695667022;
-	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1695666987;
+	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=tjccJVIvP+8FsXa0kVMlCZPNvyUQ/2Hulu9xnCZWDCA=;
-	b=MFFQvK7/YZl2TqNXcw+DStOERrpuQCAh8fFUYVJ107hPFcBfnUgIzaXlKR+kze9yz9b1KA
-	ck2xZ6CPZoMgP94eDh/9ZVkz78J9dgBuRg1oVOU1av8H19O7cJrCKFLiXBc9kMnk/kqi6q
-	zjkJSJHtSP8aEDKCXMZ4+0jKi0njPbA=
+	bh=LZkqoaAo5MtI6z7W87r9KXHs8bn+rm4gIuwC9miel5I=;
+	b=dWEhIr5IEKnxRrWtA91qXcaOw2JVH78Kfd1WFj6yP+Li5leuhhEtsil3dkWu/AmAvbGsVN
+	eKF3B/deGR7Sl357qFmuu2dEi2g6dn6Kfmvn6eNcd4Mp723EXelTGb87xrRHmb03aUUws5
+	7aNabrdXeDHKsX6vmhCNAuwgax621p0=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-15-knZPx4j1PHmcf9RaiwHeYQ-1; Mon, 25 Sep 2023 14:36:11 -0400
-X-MC-Unique: knZPx4j1PHmcf9RaiwHeYQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+ us-mta-172-jK7xBLykNjansSA2-VBlYA-1; Mon, 25 Sep 2023 14:36:10 -0400
+X-MC-Unique: jK7xBLykNjansSA2-VBlYA-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 77C1E3C23FE3;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 787CC1C06518;
 	Mon, 25 Sep 2023 18:36:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id BCECE21CAC76;
-	Mon, 25 Sep 2023 18:36:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 03AB41005E28;
+	Mon, 25 Sep 2023 18:36:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 8510519466FE;
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BB9901946A50;
 	Mon, 25 Sep 2023 18:36:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
 Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
  [10.11.54.7])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 74BD11946586
- for <dm-devel@listman.corp.redhat.com>; Fri, 22 Sep 2023 13:08:24 +0000 (UTC)
+ ESMTP id 34FC71946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 22 Sep 2023 15:15:03 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4002914171CA; Fri, 22 Sep 2023 13:08:24 +0000 (UTC)
+ id 21874140E962; Fri, 22 Sep 2023 15:15:03 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
  (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3835314171B6
- for <dm-devel@redhat.com>; Fri, 22 Sep 2023 13:08:24 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 196C5140E950
+ for <dm-devel@redhat.com>; Fri, 22 Sep 2023 15:15:03 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
  [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E816D800962
- for <dm-devel@redhat.com>; Fri, 22 Sep 2023 13:08:23 +0000 (UTC)
-Received: from mailout3.samsung.com (mailout3.samsung.com [203.254.224.33])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D7D778032F6
+ for <dm-devel@redhat.com>; Fri, 22 Sep 2023 15:15:02 +0000 (UTC)
+Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.24]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-16--xW8sb4rPrSHB-BPdPNpyg-1; Fri, 22 Sep 2023 09:08:21 -0400
-X-MC-Unique: -xW8sb4rPrSHB-BPdPNpyg-1
-Received: from epcas2p3.samsung.com (unknown [182.195.41.55])
- by mailout3.samsung.com (KnoxPortal) with ESMTP id
- 20230922130818epoutp0355541006ea020ceb7a77192ddce87bde~HOn4ztzew1205812058epoutp03p
- for <dm-devel@redhat.com>; Fri, 22 Sep 2023 13:08:18 +0000 (GMT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 mailout3.samsung.com
- 20230922130818epoutp0355541006ea020ceb7a77192ddce87bde~HOn4ztzew1205812058epoutp03p
-Received: from epsnrtp2.localdomain (unknown [182.195.42.163]) by
- epcas2p3.samsung.com (KnoxPortal) with ESMTP id
- 20230922130816epcas2p33d271a48d44365bb0a9300ff2edff03a~HOn3V3NrS2769427694epcas2p33;
- Fri, 22 Sep 2023 13:08:16 +0000 (GMT)
-Received: from epsmges2p1.samsung.com (unknown [182.195.36.102]) by
- epsnrtp2.localdomain (Postfix) with ESMTP id 4RsXdD20k3z4x9Pv; Fri, 22 Sep
- 2023 13:08:16 +0000 (GMT)
-X-AuditID: b6c32a45-84fff700000025dd-6f-650d91c036dc
-Received: from epcas2p3.samsung.com ( [182.195.41.55]) by
- epsmges2p1.samsung.com (Symantec Messaging Gateway) with SMTP id
- 87.06.09693.0C19D056; Fri, 22 Sep 2023 22:08:16 +0900 (KST)
-Mime-Version: 1.0
-From: Jinyoung Choi <j-young.choi@samsung.com>
-To: Nitesh Jagadeesh Shetty <nj.shetty@samsung.com>, Jens Axboe
- <axboe@kernel.dk>, Jonathan Corbet <corbet@lwn.net>, Alasdair Kergon
- <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, "dm-devel@redhat.com"
- <dm-devel@redhat.com>, Keith Busch <kbusch@kernel.org>, Christoph Hellwig
- <hch@lst.de>, Sagi Grimberg <sagi@grimberg.me>, Chaitanya Kulkarni
- <kch@nvidia.com>, Alexander Viro <viro@zeniv.linux.org.uk>, Christian
- Brauner <brauner@kernel.org>
-X-Priority: 3
-X-Content-Kind-Code: NORMAL
-In-Reply-To: <20230920080756.11919-5-nj.shetty@samsung.com>
-X-CPGS-Detection: blocking_info_exchange
-X-Drm-Type: N,general
-X-Msg-Generator: Mail
-X-Msg-Type: PERSONAL
-X-Reply-Demand: N
-Message-ID: <20230922130815epcms2p631fc5fc5ebe634cc948fef1992f83a38@epcms2p6>
-Date: Fri, 22 Sep 2023 22:08:15 +0900
-X-CMS-MailID: 20230922130815epcms2p631fc5fc5ebe634cc948fef1992f83a38
-X-Sendblock-Type: AUTO_CONFIDENTIAL
-CMS-TYPE: 102P
-X-CPGSPASS: Y
-X-CPGSPASS: Y
-X-Brightmail-Tracker: H4sIAAAAAAAAA22Tf1DTZRzHe/b9sg1q3NcJ+DTO4oYZPwI2gu2RoCOk+OaPg4o778hz7dg3
- 4Bjb2nezMlwoCogHgZzlTQlHHMQwYfzcJDgaIJgSJUFBinlscDYRhEATsGCD7I/+ez3ve38+
- 7+fzee5hY9x8Fo+dodBQaoVUzmd64K3dgeKQrlIOJbDMeaD67y9j6P7CEo6OlqxgqO7mZ0zk
- 6J4DyNaVD9AdayDquHfWDY12WRiotq6XgU5ZRwCyD+sZqGMsGBnyqnD0bccVHA1dOsdEFdV2
- Fjr5i5mJavoeM9CvJXaAzLYjALUuVWDoomMGR/1jvmjiZAFAgyt9brE80qK/ySIHx004OTSg
- JRuNJ5hkU9WnZPtoDpP8qrjMjSzKvcck79vHcHKmc5hJFjcbATnf+BzZaJtmJHFSMqPTKamM
- UvtRilSlLEORFsPf/Y5kpyRSJBCGCHcgMd9PIc2iYvjxe5JC3siQry6C73dQKteuSklSmuaH
- vRqtVmo1lF+6ktbE8CmVTK4Sq0JpaRatVaSFKihNlFAgCI9cNb6XmV7eY2OpmkUf2a0NIAc8
- iCgE7mxIRMCf7prcCoEHm0uYAXQMzmOFgM3mEJvginnzmmczEQ2banvc1phL8OEPF/TApQvg
- sd/y8DVmEqHQPNXOWuvjRVzFoPnv22DtgBF9bnB4cYjhSuPAM/l23MW+sK2mxdnJnXgFnrPm
- rusB8GF1EeZibzhaN83a4JnLFcDFXvD4+MC6ZxP8/a/2df1ZaLUuMNcGgIQSNnS95ZKzYd6j
- mXV7GBwpMDmjOMReeKFc79Rx4gVY8WP/+hXiYW1xuTMWI4JhtcHh3AlGBML6S2Gu7v6wZwx3
- OTxhQfcKa2PAHNPS/7L5SxvDVbodVh4NLwH++id71v8nSv8k6jzAjMCHUtFZaRQdrhL++7Sp
- yqxG4PwRQa+bQdn0bKgVMNjACiAb43txUuc8KC5HJv34EKVWStRaOUVbQeTqkKUYzztVufql
- FBqJMGKHIEIkEorDIwVi/hbO+PFyGZdIk2qoTIpSUeqNOgbbnZfDGKjZL3zgOzsg+eDluMRR
- +/B3vTfaSggldq1Sx/MPSBYFjyQvBeg0p7bGGujOd5sPXDny/OyuFI/9px/deSYv8VbGiabg
- ea8Ex9lrukrjVSzp/aBJoHiJ3rLk2Ne7V5J9aGqiNda0LOuPuNjSGGj0DH1x67G66+Yzp+0Z
- 1IER2i/5oOdCFGpfvLXt8+HdH4rL34yfsSXM9AVl1SjTE0UPHy+PGhKSUt11nO2W27zzdKf2
- 6z99TAOTOoO38nBx8cTPi0+buK8Vtdzt5Rs+EW+Li6rKTYl8Kns5bjE86I+CXJ/rmgaeMtry
- dnSrJSZGXrlvak+boH7yxi6j7psyefbhUuMXOB+n06XCIExNS/8BGm04MpoEAAA=
-DLP-Filter: Pass
-X-CFilter-Loop: Reflected
-X-CMS-RootMailID: 20230920081458epcas5p3a3e12d8b5661b5d6f4420316630b02e1
-References: <20230920080756.11919-5-nj.shetty@samsung.com>
- <20230920080756.11919-1-nj.shetty@samsung.com>
- <CGME20230920081458epcas5p3a3e12d8b5661b5d6f4420316630b02e1@epcms2p6>
+ us-mta-584-gYcZaKCkN8uISd9VCA302g-1; Fri, 22 Sep 2023 11:15:00 -0400
+X-MC-Unique: gYcZaKCkN8uISd9VCA302g-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="383601171"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="383601171"
+Received: from fmsmga007.fm.intel.com ([10.253.24.52])
+ by orsmga102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
+ 22 Sep 2023 08:13:57 -0700
+X-ExtLoop1: 1
+X-IronPort-AV: E=McAfee;i="6600,9927,10841"; a="750873091"
+X-IronPort-AV: E=Sophos;i="6.03,167,1694761200"; d="scan'208";a="750873091"
+Received: from orsmsx602.amr.corp.intel.com ([10.22.229.15])
+ by fmsmga007.fm.intel.com with ESMTP/TLS/AES256-GCM-SHA384;
+ 22 Sep 2023 08:13:57 -0700
+Received: from orsmsx603.amr.corp.intel.com (10.22.229.16) by
+ ORSMSX602.amr.corp.intel.com (10.22.229.15) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32; Fri, 22 Sep 2023 08:13:56 -0700
+Received: from ORSEDG601.ED.cps.intel.com (10.7.248.6) by
+ orsmsx603.amr.corp.intel.com (10.22.229.16) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.1.2507.32 via Frontend Transport; Fri, 22 Sep 2023 08:13:56 -0700
+Received: from NAM12-BN8-obe.outbound.protection.outlook.com (104.47.55.169)
+ by edgegateway.intel.com (134.134.137.102) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.1.2507.32; Fri, 22 Sep 2023 08:13:56 -0700
+Received: from CY5PR11MB6366.namprd11.prod.outlook.com (2603:10b6:930:3a::8)
+ by CY5PR11MB6282.namprd11.prod.outlook.com (2603:10b6:930:22::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.20.6792.24; Fri, 22 Sep
+ 2023 15:13:53 +0000
+Received: from CY5PR11MB6366.namprd11.prod.outlook.com
+ ([fe80::4c02:d735:4942:ad0c]) by CY5PR11MB6366.namprd11.prod.outlook.com
+ ([fe80::4c02:d735:4942:ad0c%4]) with mapi id 15.20.6813.017; Fri, 22 Sep 2023
+ 15:13:53 +0000
+Date: Fri, 22 Sep 2023 16:13:40 +0100
+From: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
+To: Mikulas Patocka <mpatocka@redhat.com>
+Message-ID: <ZQ2vJNs/7ZzY44z1@gcabiddu-mobl1.ger.corp.intel.com>
+References: <af9581e2-58f9-cc19-428f-6f18f1f83d54@redhat.com>
+In-Reply-To: <af9581e2-58f9-cc19-428f-6f18f1f83d54@redhat.com>
+Organization: Intel Research and Development Ireland Ltd - Co. Reg. #308263 -
+ Collinstown Industrial Park, Leixlip, County Kildare - Ireland
+X-ClientProxiedBy: DU2P251CA0010.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:10:230::25) To CY5PR11MB6366.namprd11.prod.outlook.com
+ (2603:10b6:930:3a::8)
+MIME-Version: 1.0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: CY5PR11MB6366:EE_|CY5PR11MB6282:EE_
+X-MS-Office365-Filtering-Correlation-Id: 0c124889-06dc-47ea-9763-08dbbb7e8882
+X-LD-Processed: 46c98d88-e344-4ed4-8496-4ed7712e255d,ExtAddr
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0
+X-Microsoft-Antispam-Message-Info: zJETZFPiMHpQM7tP1gKzyt3X8DcMbwJ8i2ogHcO2oL/DN+bgU2r1fRyA8BKhpX4soxBxOFaPUUuzFbQZ8APowiOz3N+GgCKIasfgWmEL+IHGMfN58eARegkyjpcOPS+6OV2R9kpIcHhDEKVoumFWoC1bFo0pzkUKQFb9+0ziFFqTtVipcVux47XktwBJ4l2aCIAabKzmyY+f1rwFVzJPFsvs92Zf1qb0quSjHInFBCYvHyOLb9pXhG/8DMNIE/YrdxZPR3tBA2Ler/4Dbchm1n83NXOZlNrBxKmXZW1Iocl7l8tq/7djvEo2ABCtBJ0ikHk9nkGdGgsri/DiiHIQ6jWOclXX1GV0pUOxbgO/41nGfPAinjOGt//R7vevXoq0E/3yveMEzX+o9sumhzZ4siSmII4jZ0ZLdVW+r9iy24v1w+K4dzt5xkRIUKl97PGmtQCdElzEtlOU5vivKXy9cSKvTClGo9dAFc0q6AkZxuFgGC92CSozfWDKKr+dIJJmfVHCnRnV59icVysopcGP6bj5waJvoQO+Bwgv3bNnoYySeEx331pi/tmMFLoLEPfGDSKiak1bD6NKS4mTr9Eg6A==
+X-Forefront-Antispam-Report: CIP:255.255.255.255; CTRY:; LANG:en; SCL:1; SRV:;
+ IPV:NLI; SFV:NSPM; H:CY5PR11MB6366.namprd11.prod.outlook.com; PTR:; CAT:NONE;
+ SFS:(13230031)(39860400002)(346002)(376002)(136003)(366004)(396003)(451199024)(186009)(1800799009)(966005)(6486002)(86362001)(5660300002)(44832011)(36916002)(6506007)(38100700002)(66476007)(66556008)(6512007)(54906003)(41300700001)(66946007)(6666004)(478600001)(316002)(84970400001)(6916009)(8936002)(82960400001)(8676002)(26005)(2906002)(4326008)(83380400001);
+ DIR:OUT; SFP:1102
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?us-ascii?Q?Kdv7ou9WzeFoQbPoy3Ov5PA8VrAkIBjHNiLhlaz3zYy9gt/fWmOCij+cQ8bB?=
+ =?us-ascii?Q?gEtIWca180e9nowvjfVcWmvc5nYTYSwIr2+/kP035DQqGQGMBdwC1K9uSavW?=
+ =?us-ascii?Q?TqXPj19YBKG1ETn44b15ZBbHQE0IqgmGwgeR1kcQRck2m1WBfCOkvNH5Rb6+?=
+ =?us-ascii?Q?q6zJ1rU6iTQRLC53S4q40j6XxuqNMnOCS31+YGra6OnskXa1DvSKhP/YHF8T?=
+ =?us-ascii?Q?66sMm9+7nRLDjQ6oJapNEl6cxXshNGTg6ItdKDw5n/2IIbYZfoeCK/LY/GrV?=
+ =?us-ascii?Q?+5kIiJnb5//onf23Wo7sLQ2R657ZgAGyTtv46cUAJA6TfGdwjE/mty7rBnVM?=
+ =?us-ascii?Q?Rn/mIo9Kh5oBxoeQLgHlH/Shguv+mn26MOfggRt4LTWcaro08aYT6yXHsoQy?=
+ =?us-ascii?Q?Fe8PvSPMoGMV6gJASIN7h8STpjAhtYDd9dxBXchMaPdt0ke5ARGPsKdUz/cY?=
+ =?us-ascii?Q?Lo5IFD1XfqscjaC32w2/3gcxA+Z70rcFc9fYF0QnwO7cOZhiT8y6MDSmbMze?=
+ =?us-ascii?Q?qI0R5pZq8GWx47cw/81SggMGzSnbCfRYRGXppNE1EmEgVcKWCKCTU9sRpmRs?=
+ =?us-ascii?Q?hELqW80Y+0wCJpt8mT6YnfCINmQerk7K2thfxp5lHNZNVa35erEien122JWQ?=
+ =?us-ascii?Q?OmXUlh/+RatuQrKKhhhHp/ZobvIJnXDcuvLyBhUrwbLCipuf0d9ISJfcAVvJ?=
+ =?us-ascii?Q?239fJnhVZXWhOrkXiKuTKpMAE4Es+zpsGYmrE7M+04kjh9yztXdTJeJm6OPJ?=
+ =?us-ascii?Q?/JKumxu8DHb6TI+/mVDRSAORO+YtE/HrCxMyyVciSmGfODwBxxpmbpC9FMLZ?=
+ =?us-ascii?Q?jNpAwL/kXBlLEDlWI4lTAtxUMveOSN8BqkxyvjRFpQevj4t6DTRTPetreMB1?=
+ =?us-ascii?Q?RDqsz5erxvZWfqyB1cRYedxpw/kS+eWLjvNw80w6emdNo4eOUZflnsNY/J8+?=
+ =?us-ascii?Q?pJIeZ0IlaxNkucw3xHfYPlBVvxGgfM4BimYDSTOqI0KXGAw6D3qJbqoWTP30?=
+ =?us-ascii?Q?PA3gt626f/HBYrliEUvgaiwpGPUekYnc5TfoF+I8QpJHG++EaPUjV1/k93R6?=
+ =?us-ascii?Q?9RNDdACVs7exLLS5x8ysybj88NN0Meo2V1tiCNmolPz0YcE/T9APRQJMD4k/?=
+ =?us-ascii?Q?z15vYxWQt7b2rIQiM71GeWSafjF0lORAA/yvdR0rc2Q6PFHW173UakxnfNgM?=
+ =?us-ascii?Q?J5RHjK2YKDxGIjdnk4aLHS1W0O8wnN5cjUx25zPSgmYyaxIM33WcIfOD4qbj?=
+ =?us-ascii?Q?0zFvCDJvg+VZP84+SHEQIL/VJxrhmxxvhv4altwPDarjMOfSozPz97FSRVoY?=
+ =?us-ascii?Q?qq0p2575UxX90jr+vI+eKmQCwbhX1wviwhiBq23I1EsJhhV0Ajz/T7LaF0Cz?=
+ =?us-ascii?Q?ADJP+1FTRBHKV5Wos9Oj8wBK1GIdfRQ2ZDdVtUukJVPY5y+/fY17E0rwOPWp?=
+ =?us-ascii?Q?qou69GbqZShJ/L+X5kJv5+OtjslW7eYS3bKw4aryUAMP/1FvM4JN3HJIB9rA?=
+ =?us-ascii?Q?SLQ5zPIc+OSmBYLmeelS58xtU0t8A/JP2pppxnUwENfJ6ZJr/f1Z3NPByso0?=
+ =?us-ascii?Q?AnJT8c77vmVCqBiofb5oy1DjyqORrN/tHwtsyiNjYJd2QVgNO+UloSiDS3Gs?=
+ =?us-ascii?Q?1Q=3D=3D?=
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0c124889-06dc-47ea-9763-08dbbb7e8882
+X-MS-Exchange-CrossTenant-AuthSource: CY5PR11MB6366.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 22 Sep 2023 15:13:53.6204 (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: WyTw61UEIyyDowd/LNbwgI1kKAn61dOH+TKeAF/+rVmz9/UdMXtMmGog6rpjN3iz0xLNmHh7jjmCr/6fMo/m878XGfXnmWYC5knG2jGxoP0=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR11MB6282
+X-OriginatorOrg: intel.com
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -133,7 +161,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
 X-Mailman-Approved-At: Mon, 25 Sep 2023 18:36:03 +0000
-Subject: Re: [dm-devel] [PATCH v16 04/12] block: add emulation for copy
+Subject: Re: [dm-devel] [PATCH] qat: fix deadlock in backlog processing
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -145,89 +173,130 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Reply-To: j-young.choi@samsung.com
-Cc: Vincent Kang Fu <vincent.fu@samsung.com>,
- "anuj1072538@gmail.com" <anuj1072538@gmail.com>,
- "martin.petersen@oracle.com" <martin.petersen@oracle.com>,
- "linux-scsi@vger.kernel.org" <linux-scsi@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- SSDR Gost Dev <gost.dev@samsung.com>,
- "nitheshshetty@gmail.com" <nitheshshetty@gmail.com>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- "linux-nvme@lists.infradead.org" <linux-nvme@lists.infradead.org>,
- "linux-block@vger.kernel.org" <linux-block@vger.kernel.org>,
- "mcgrof@kernel.org" <mcgrof@kernel.org>,
- "linux-fsdevel@vger.kernel.org" <linux-fsdevel@vger.kernel.org>,
- Anuj Gupta <anuj20.g@samsung.com>
+Cc: Herbert Xu <herbert@gondor.apana.org.au>,
+ Michael Hrivnak <mhrivnak@redhat.com>, qat-linux@intel.com,
+ dm-devel@redhat.com, linux-crypto@vger.kernel.org,
+ "David S. Miller" <davem@davemloft.net>, Eric Garver <egarver@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-X-Mimecast-Spam-Score: 1
-X-Mimecast-Originator: samsung.com
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: intel.com
+Content-Disposition: inline
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-PiArc3RhdGljIHZvaWQgYmxrZGV2X2NvcHlfZW11bGF0aW9uX3dvcmsoc3RydWN0IHdvcmtfc3Ry
-dWN0ICp3b3JrKQo+ICt7Cj4gK8KgIMKgIMKgIMKgIHN0cnVjdCBibGtkZXZfY29weV9lbXVsYXRp
-b25faW8gKmVtdWxhdGlvbl9pbyA9IGNvbnRhaW5lcl9vZih3b3JrLAo+ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBzdHJ1Y3QgYmxrZGV2X2NvcHlfZW11bGF0aW9uX2lvLCBl
-bXVsYXRpb25fd29yayk7Cj4gK8KgIMKgIMKgIMKgIHN0cnVjdCBibGtkZXZfY29weV9pbyAqY2lv
-ID0gZW11bGF0aW9uX2lvLT5jaW87Cj4gK8KgIMKgIMKgIMKgIHN0cnVjdCBiaW8gKnJlYWRfYmlv
-LCAqd3JpdGVfYmlvOwo+ICvCoCDCoCDCoCDCoCBsb2ZmX3QgcG9zX2luID0gZW11bGF0aW9uX2lv
-LT5wb3NfaW4sIHBvc19vdXQgPSBlbXVsYXRpb25faW8tPnBvc19vdXQ7Cj4gK8KgIMKgIMKgIMKg
-IHNzaXplX3QgcmVtLCBjaHVuazsKPiArwqAgwqAgwqAgwqAgaW50IHJldCA9IDA7Cj4gKwo+ICvC
-oCDCoCDCoCDCoCBmb3IgKHJlbSA9IGVtdWxhdGlvbl9pby0+bGVuOyByZW0gPiAwOyByZW0gLT0g
-Y2h1bmspIHsKPiArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgY2h1bmsgPSBtaW5fdChpbnQsIGVt
-dWxhdGlvbl9pby0+YnVmX2xlbiwgcmVtKTsKPiArCj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IHJlYWRfYmlvID0gYmlvX21hcF9idWYoZW11bGF0aW9uX2lvLT5idWYsCj4gK8KgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgZW11bGF0aW9u
-X2lvLT5idWZfbGVuLAo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCDCoCDCoCDCoGVtdWxhdGlvbl9pby0+Z2ZwKTsKPiArwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgaWYgKElTX0VSUihyZWFkX2JpbykpIHsKPiArwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgcmV0ID0gUFRSX0VSUihyZWFkX2Jpbyk7Cj4gK8KgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIMKgIMKgIMKgIGJyZWFrOwo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB9
-Cj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHJlYWRfYmlvLT5iaV9vcGYgPSBSRVFfT1BfUkVB
-RCB8IFJFUV9TWU5DOwo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBiaW9fc2V0X2RldihyZWFk
-X2JpbywgZW11bGF0aW9uX2lvLT5iZGV2X2luKTsKPiArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAg
-cmVhZF9iaW8tPmJpX2l0ZXIuYmlfc2VjdG9yID0gcG9zX2luID4+IFNFQ1RPUl9TSElGVDsKPiAr
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmVhZF9iaW8tPmJpX2l0ZXIuYmlfc2l6ZSA9IGNodW5r
-Owo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCByZXQgPSBzdWJtaXRfYmlvX3dhaXQocmVhZF9i
-aW8pOwo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBrZnJlZShyZWFkX2Jpbyk7CgpIaSwgTml0
-ZXNoLAoKYmxrX21xX21hcF9iaW9fcHV0KHJlYWRfYmlvKT8Kb3IgYmlvX3VuaW5pdChyZWFkX2Jp
-byk7IGtmcmVlKHJlYWRfYmlvKT8KCj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGlmIChyZXQp
-Cj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIGJyZWFrOwo+ICsKPiArwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgd3JpdGVfYmlvID0gYmlvX21hcF9idWYoZW11bGF0aW9uX2lv
-LT5idWYsCj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIMKgIMKgIMKgIGVtdWxhdGlvbl9pby0+YnVmX2xlbiwKPiArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgZW11bGF0aW9uX2lvLT5n
-ZnApOwo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBpZiAoSVNfRVJSKHdyaXRlX2JpbykpIHsK
-PiArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgcmV0ID0gUFRSX0VSUih3cml0
-ZV9iaW8pOwo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBicmVhazsKPiAr
-wqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgfQo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB3cml0
-ZV9iaW8tPmJpX29wZiA9IFJFUV9PUF9XUklURSB8IFJFUV9TWU5DOwo+ICvCoCDCoCDCoCDCoCDC
-oCDCoCDCoCDCoCBiaW9fc2V0X2Rldih3cml0ZV9iaW8sIGVtdWxhdGlvbl9pby0+YmRldl9vdXQp
-Owo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCB3cml0ZV9iaW8tPmJpX2l0ZXIuYmlfc2VjdG9y
-ID0gcG9zX291dCA+PiBTRUNUT1JfU0hJRlQ7Cj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHdy
-aXRlX2Jpby0+YmlfaXRlci5iaV9zaXplID0gY2h1bms7Cj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKg
-IMKgIHJldCA9IHN1Ym1pdF9iaW9fd2FpdCh3cml0ZV9iaW8pOwo+ICvCoCDCoCDCoCDCoCDCoCDC
-oCDCoCDCoCBrZnJlZSh3cml0ZV9iaW8pOwoKYmxrX21xX21hcF9iaW9fcHV0KHdyaXRlX2Jpbykg
-PwpvciBiaW9fdW5pbml0KHdyaXRlX2Jpbyk7IGtmcmVlKHdyaXRlX2Jpbyk/CgpobW0uLi4gCkl0
-IGNvbnRpbnVvdXNseSBhbGxvY2F0ZXMgYW5kIHJlbGVhc2VzIG1lbW9yeSBmb3IgYmlvLApXaHkg
-ZG9uJ3QgeW91IGp1c3QgYWxsb2NhdGUgYW5kIHJldXNlIGJpbyBvdXRzaWRlIHRoZSBsb29wPwoK
-PiArwqAgwqAgwqAgwqAgwqAgwqAgwqAgwqAgaWYgKHJldCkKPiArwqAgwqAgwqAgwqAgwqAgwqAg
-wqAgwqAgwqAgwqAgwqAgwqAgYnJlYWs7Cj4gKwo+ICvCoCDCoCDCoCDCoCDCoCDCoCDCoCDCoCBw
-b3NfaW4gKz0gY2h1bms7Cj4gK8KgIMKgIMKgIMKgIMKgIMKgIMKgIMKgIHBvc19vdXQgKz0gY2h1
-bms7Cj4gK8KgIMKgIMKgIMKgIH0KPiArwqAgwqAgwqAgwqAgY2lvLT5zdGF0dXMgPSByZXQ7Cj4g
-K8KgIMKgIMKgIMKgIGt2ZnJlZShlbXVsYXRpb25faW8tPmJ1Zik7Cj4gK8KgIMKgIMKgIMKgIGtm
-cmVlKGVtdWxhdGlvbl9pbyk7CgpJIGhhdmUgbm90IHVzdWFsbHkgc2VlbiBhbiBpbXBsZW1lbnRh
-dGlvbiB0aGF0IHJlbGVhc2VzIG1lbW9yeSBmb3IKaXRzZWxmIHdoaWxlIHBlcmZvcm1pbmcgYSB3
-b3JrZXIuICggSSBkb24ndCBrbm93IHdoYXQncyByaWdodC4gOikgKQoKU2luY2UgYmxrZGV2X2Nv
-cHlfZW11bGF0aW9uKCkgYWxsb2NhdGVzIG1lbW9yeSBmb3IgdGhlIGVtdWxhdGlvbiAKYW5kIHdh
-aXRzIGZvciBpdCB0byBiZSBjb21wbGV0ZWQsIHdvdWxkbid0IGl0IGJlIGJldHRlciB0byBwcm9j
-ZWVkCndpdGggdGhlIG1lbW9yeSByZWxlYXNlIGZvciBpdCBpbiB0aGUgc2FtZSBjb250ZXh0PwoK
-VGhhdCBpcywgSU1PLCB3b3VsZG4ndCBpdCBiZSBiZXR0ZXIgdG8gZnJlZSB0aGUgbWVtb3J5IHJl
-bGF0ZWQgdG8KZW11bGF0aW9uIGluIGJsa2Rldl9jb3B5X3dhaXRfaW9fY29tcGxldGlvbigpPwoK
-QmVzdCBSZWdhcmRzLApKaW55b3VuZy4KCgoKCgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0t
-ZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xpc3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3Rp
-bmZvL2RtLWRldmVsCg==
+Hi Mikulas,
+
+many thanks for reporting this issue and finding a solution.
+
+On Thu, Sep 21, 2023 at 10:53:55PM +0200, Mikulas Patocka wrote:
+> I was evaluating whether it is feasible to use QAT with dm-crypt (the 
+> answer is that it is not - QAT is slower than AES-NI for this type of 
+> workload; QAT starts to be benefical for encryption requests longer than 
+> 64k).
+Correct. Is there anything that we can do to batch requests in a single
+call?
+
+Sometime ago there was some work done to build a geniv template cipher
+and optimize dm-crypt to encrypt larger block sizes in a single call,
+see [1][2]. Don't know if that work was completed.
+
+>And I got some deadlocks.
+Ouch!
+
+> The reason for the deadlocks is this: suppose that one of the "if"
+> conditions in "qat_alg_send_message_maybacklog" is true and we jump to the
+> "enqueue" label. At this point, an interrupt comes in and clears all
+> pending messages. Now, the interrupt returns, we grab backlog->lock, add
+> the message to the backlog, drop backlog->lock - and there is no one to
+> remove the backlogged message out of the list and submit it.
+Makes sense. In my testing I wasn't able to reproduce this condition.
+
+> I fixed it with this patch - with this patch, the test passes and there
+> are no longer any deadlocks. I didn't want to add a spinlock to the hot
+> path, so I take it only if some of the condition suggests that queuing may
+> be required.
+> 
+> Signed-off-by: Mikulas Patocka <mpatocka@redhat.com>
+> Cc: stable@vger.kernel.org
+The commit message requires a bit of rework to describe the change.
+Also, deserves a fixes tag.
+
+> 
+> ---
+>  drivers/crypto/intel/qat/qat_common/qat_algs_send.c |   31 ++++++++++++--------
+>  1 file changed, 20 insertions(+), 11 deletions(-)
+> 
+> Index: linux-2.6/drivers/crypto/intel/qat/qat_common/qat_algs_send.c
+> ===================================================================
+> --- linux-2.6.orig/drivers/crypto/intel/qat/qat_common/qat_algs_send.c
+> +++ linux-2.6/drivers/crypto/intel/qat/qat_common/qat_algs_send.c
+> @@ -40,16 +40,6 @@ void qat_alg_send_backlog(struct qat_ins
+>  	spin_unlock_bh(&backlog->lock);
+>  }
+>  
+> -static void qat_alg_backlog_req(struct qat_alg_req *req,
+> -				struct qat_instance_backlog *backlog)
+> -{
+> -	INIT_LIST_HEAD(&req->list);
+Is the initialization of an element no longer needed?
+
+> -
+> -	spin_lock_bh(&backlog->lock);
+> -	list_add_tail(&req->list, &backlog->list);
+> -	spin_unlock_bh(&backlog->lock);
+> -}
+> -
+>  static int qat_alg_send_message_maybacklog(struct qat_alg_req *req)
+>  {
+>  	struct qat_instance_backlog *backlog = req->backlog;
+> @@ -71,8 +61,27 @@ static int qat_alg_send_message_maybackl
+>  	return -EINPROGRESS;
+>  
+>  enqueue:
+> -	qat_alg_backlog_req(req, backlog);
+> +	spin_lock_bh(&backlog->lock);
+> +
+> +	/* If any request is already backlogged, then add to backlog list */
+> +	if (!list_empty(&backlog->list))
+> +		goto enqueue2;
+>  
+> +	/* If ring is nearly full, then add to backlog list */
+> +	if (adf_ring_nearly_full(tx_ring))
+> +		goto enqueue2;
+> +
+> +	/* If adding request to HW ring fails, then add to backlog list */
+> +	if (adf_send_message(tx_ring, fw_req))
+> +		goto enqueue2;
+In a nutshell, you are re-doing the same steps taking the backlog lock.
+
+It should be possible to re-write it so that there is a function that
+attempts enqueuing and if it fails, then the same is called again taking
+the lock.
+If you want I can rework it and resubmit.
+
+> +
+> +	spin_unlock_bh(&backlog->lock);
+> +	return -EINPROGRESS;
+> +
+> +enqueue2:
+> +	list_add_tail(&req->list, &backlog->list);
+> +
+> +	spin_unlock_bh(&backlog->lock);
+>  	return -EBUSY;
+>  }
+
+[1] https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1276510.html
+[2] https://www.mail-archive.com/linux-kernel@vger.kernel.org/msg1428293.html
+
+Regards,
+
+-- 
+Giovanni
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
