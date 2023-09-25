@@ -1,96 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 1E4DD7ADF08
-	for <lists+dm-devel@lfdr.de>; Mon, 25 Sep 2023 20:36:15 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 04EAB7ADF05
+	for <lists+dm-devel@lfdr.de>; Mon, 25 Sep 2023 20:36:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695666974;
+	s=mimecast20190719; t=1695666972;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=5hydBUz03Ve40+RFZJF7mo3xMeGULo0KeVGoSH/JXbk=;
-	b=G3Ex8dQ1oTpGqkE3srapAGOomzFcugjinO3yAxQgpsoB9JwbW6LAcvFzk/FiJjDqDysfuI
-	cgd/164cV5+u/wBCLVttsEbhoaxqtwp7k2oRWNHbVrUjhxS4vDNXQ8A/8j310eHQx96v3v
-	MDZU86YwpZapJ9tSvrBb/Z6BUOf30cE=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-418-XqK9dIFtOEqVpb1LiXOm1Q-1; Mon, 25 Sep 2023 14:36:11 -0400
-X-MC-Unique: XqK9dIFtOEqVpb1LiXOm1Q-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	bh=Xb/Tgpw5lQXwancYd+/tgtRsRHQ2COCrka423MXikZM=;
+	b=JFLG6R2ykp7Rm2JkORA7HTFLvrPqSYNUWBB/jsCNljHbCh2Lv9spWCrolJ1xCNfKU9LJ6b
+	gYyyb5FlBJrHgDmDFiD9dKufe3vclaiYVmeYUHPf3HFtLQYG1sLpZqWe0CN5Ws+k5be0wr
+	J+7XeFB7ODLjSxMqk3rXcfqRnTFFirQ=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-15-K8li6oEYNiiIdiQ_CsfaHw-1; Mon, 25 Sep 2023 14:36:10 -0400
+X-MC-Unique: K8li6oEYNiiIdiQ_CsfaHw-1
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id EFADF811E88;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75A9629ABA04;
 	Mon, 25 Sep 2023 18:36:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id D94EC21CAC6B;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 163BEC15BB8;
 	Mon, 25 Sep 2023 18:36:07 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E794819465BA;
-	Mon, 25 Sep 2023 18:36:05 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id C66BE1946A52;
+	Mon, 25 Sep 2023 18:36:04 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 7E74B194658C
- for <dm-devel@listman.corp.redhat.com>; Mon, 25 Sep 2023 06:54:55 +0000 (UTC)
+ ESMTP id 9B68C194658C
+ for <dm-devel@listman.corp.redhat.com>; Mon, 25 Sep 2023 07:06:09 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 66A19711293; Mon, 25 Sep 2023 06:54:55 +0000 (UTC)
+ id 82B7940C6E76; Mon, 25 Sep 2023 07:06:09 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5EA1F711291
- for <dm-devel@redhat.com>; Mon, 25 Sep 2023 06:54:55 +0000 (UTC)
+ (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7B85640C6EA8
+ for <dm-devel@redhat.com>; Mon, 25 Sep 2023 07:06:09 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B3CD101A550
- for <dm-devel@redhat.com>; Mon, 25 Sep 2023 06:54:55 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5B1B485A5BF
+ for <dm-devel@redhat.com>; Mon, 25 Sep 2023 07:06:09 +0000 (UTC)
 Received: from mail-yb1-f202.google.com (mail-yb1-f202.google.com
  [209.85.219.202]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-183-ovfdhROQOjSEzdq3BNK90g-1; Mon, 25 Sep 2023 02:54:53 -0400
-X-MC-Unique: ovfdhROQOjSEzdq3BNK90g-1
+ us-mta-318-y-Q-8iccPyKL48b0vrxBkw-1; Mon, 25 Sep 2023 03:06:06 -0400
+X-MC-Unique: y-Q-8iccPyKL48b0vrxBkw-1
 Received: by mail-yb1-f202.google.com with SMTP id
- 3f1490d57ef6-d852a6749bcso8296006276.0
- for <dm-devel@redhat.com>; Sun, 24 Sep 2023 23:54:53 -0700 (PDT)
+ 3f1490d57ef6-d81646fcf3eso8856430276.0
+ for <dm-devel@redhat.com>; Mon, 25 Sep 2023 00:06:06 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695624892; x=1696229692;
+ d=1e100.net; s=20230601; t=1695625566; x=1696230366;
  h=cc:to:from:subject:message-id:mime-version:date:x-gm-message-state
  :from:to:cc:subject:date:message-id:reply-to;
- bh=4qgvAyWUZmvKSaJjAnRidu6a0XvqHy58yVMteTj637s=;
- b=E2/mmuyQSmHvz2f/IBciWlkzmAKvalQX43UOMxQgM5rwHZptIYlJbRNkjxYKM9rwpd
- QugFDpeCmrdC54QIpQxSDy4rfxbMhglmvonp6KWpro1BE97TVJNrZgou3W4NSd6YVOND
- LLSsyknklQbKKmv/MDkf1xyqKkm3pebt0jnkkcrkYvMu8UexvUDSo0svoAWouMWC7c01
- QTTDiE3IHErxFRQrIDP6gn8cptjUOF6IRtR0N1fnMU4I99Ma/p85y5i5nlsWIJM9YNxX
- z+qDEvVoCZ8nDvugkbf8G47CkgIjH5RuYl9Mw1Uo4yrafFk4aKsDVF0Z+Dyta59f73iZ
- FbGw==
-X-Gm-Message-State: AOJu0Yy9X47MRCEoTH4jiIFmlRCbqThINcvIGUy13WKq6b93Uq3vLlii
- 89LuoaXva6mNsSmoc4vU8TLSR3wMjJuqzPW+xA==
-X-Google-Smtp-Source: AGHT+IHh3Z2bhRl8t+p0wMHkCiMSmYA+8DreMQdFY+BpQD4KVns1eJVE9TT9Fv/XfJ0JWH6G9aD58bYeO2ylB6HfLQ==
+ bh=qo6OQpCE04pWWcsadpkT68s/JdHKPH3Fz0vzZ7bj3RM=;
+ b=sXEaQ6ObuS64uJP3+d9snx3xUQ7HrpArjw73xhjs8T71GUhYgF7cMRD6TVA5oUY87u
+ HSOLFgAWGvEjNZ+p5bm1FCXOgAa78EMIphP2rbYC0O+mKu2WZ/Zkph2kfBHB2X7Tdzvs
+ ofcf+G/2DckjvIxDNELj7ZAj0IEgxcHT8kxDQQbWV657p4qs1CT8AQrY7RKUN986Eotz
+ 1qT36I9A5pLI5JZYF1QQ8X1YtHMzrqDiR7opO/euN0mtkHBmnIi2iZAvWaonivTuq+BM
+ L4lIMsny8oOcizLMMB85FAuPEJIhdFDCoiH+D5G9a9sql6X3pVPLIZoANO1qhzptcPuc
+ b1FA==
+X-Gm-Message-State: AOJu0YwztbD9ETe/R8mDPR4D9AlfG17XxDVL7ocxiDcrskKsoB2Jnfbl
+ ECA0XE21lt+nd5hJNsRg1hgkRDZcZqW2y2QGzQ==
+X-Google-Smtp-Source: AGHT+IFL6RcLEbqF4P22oc8KJthtgJZ9I4gjnelF8DLVDruqhPbX4JycAc0dVu2g6PwkxJz9KG5Vnb8BbiVa784GOQ==
 X-Received: from jstitt-linux1.c.googlers.com
  ([fda3:e722:ac3:cc00:2b:ff92:c0a8:23b5])
- (user=justinstitt job=sendgmr) by 2002:a25:abac:0:b0:d81:fc08:29ea with SMTP
- id v41-20020a25abac000000b00d81fc0829eamr50788ybi.2.1695624892658; Sun, 24
- Sep 2023 23:54:52 -0700 (PDT)
-Date: Mon, 25 Sep 2023 06:54:51 +0000
+ (user=justinstitt job=sendgmr) by 2002:a25:abac:0:b0:d7a:c85c:725b with SMTP
+ id v41-20020a25abac000000b00d7ac85c725bmr50744ybi.7.1695625565925; Mon, 25
+ Sep 2023 00:06:05 -0700 (PDT)
+Date: Mon, 25 Sep 2023 07:06:03 +0000
 Mime-Version: 1.0
-X-B4-Tracking: v=1; b=H4sIALouEWUC/x3MQQqEMAwAwK9Izgbaiqj7lcWDpFEDWiUR2UX8u
- 8XjXOYCYxU2+BQXKJ9isqUMXxZA85AmRonZEFyoXBdqtEMT7X+MKier4RoxrigbHQsS8lCTd9w
- 0XeshH7vyKL/3//b3/QDRb0d9bwAAAA==
+X-B4-Tracking: v=1; b=H4sIAFoxEWUC/x3NwQ6CMAyA4VchPdsEhwvMVzEe5lqwiYylRaIhv
+ LuLx//y/TsYq7DBtdlBeROTJdc4nxpIz5gnRqHa4FrXtcF5tFVzKl8klY3VcCakGV/LhO9KWYm
+ J8RGNMeHge98HCkN3GaGCRXmUz392ux/HD7dkJu58AAAA
 X-Developer-Key: i=justinstitt@google.com; a=ed25519;
  pk=tC3hNkJQTpNX/gLKxTNQKDmiQl6QjBNCGKJINqAdJsE=
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1695624891; l=2033;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1695625564; l=1779;
  i=justinstitt@google.com; s=20230717; h=from:subject:message-id;
- bh=Xzkm/GfG5TixyIwt6w7TZiwEMeENCaF2BkA9N23/JYw=;
- b=Pll71UQQ271YXI/KDgT1SxB3YKLk0+/ZGgantJ+FeHwnT8xz+5ogZmc5HFnm704SlWm1akCpq
- lljdGZ0RX37DLGe4jPvoXlZJ0ncg6zPG3SltsZPVIXUsB9kS4PDBH/N
-Message-ID: <20230925-strncpy-drivers-md-dm-ioctl-c-v1-1-f0bfa093ef14@google.com>
+ bh=/oJWFABMzt7p+74DCkUM9oNwgT1wgj/iJtocYZ9umPE=;
+ b=aJltci5reHJ/m8Bl/fua5gmnn3LHr/vrCoxC6FkKpLlZloqYPwsgN7m+WzQ/bTCl2oTwryUfE
+ 4vAxdwy5r4MB2/Vog4MR9HvDyl+0FGAW4WZIsC/HKj48oacyV+kqUry
+Message-ID: <20230925-strncpy-drivers-md-dm-log-userspace-base-c-v1-1-030d7bcf1004@google.com>
 From: Justin Stitt <justinstitt@google.com>
 To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>,
  dm-devel@redhat.com
@@ -101,10 +101,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Mon, 25 Sep 2023 18:36:03 +0000
-Subject: [dm-devel] [PATCH] dm ioctl: replace deprecated strncpy with
- strscpy_pad
+Subject: [dm-devel] [PATCH] dm log userspace: replace deprecated strncpy
+ with strscpy
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -117,10 +117,10 @@ List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
 Cc: Justin Stitt <justinstitt@google.com>, linux-kernel@vger.kernel.org,
- linux-hardening@vger.kernel.org
+ Kees Cook <keescook@chromium.org>, linux-hardening@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: google.com
 Content-Type: text/plain; charset="us-ascii"
@@ -130,52 +130,46 @@ Content-Transfer-Encoding: 7bit
 [1] and as such we should prefer more robust and less ambiguous string
 interfaces.
 
-We expect `spec->target_type` to be NUL-terminated based on its use with
-a format string after `dm_table_add_target()` is called
-| 	r = dm_table_add_target(table, spec->target_type,
-| 				(sector_t) spec->sector_start,
-| 				(sector_t) spec->length,
-| 				target_params);
-... wherein `spec->target_type` is passed as parameter `type` and later
-printed with DMERR:
-|       DMERR("%s: %s: unknown target type", dm_device_name(t->md), type);
+`lc` is already zero-allocated:
+|       lc = kzalloc(sizeof(*lc), GFP_KERNEL);
+... as such, any future NUL-padding is superfluous.
 
-It appears that `spec` is not zero-allocated and thus NUL-padding may be
-required in this ioctl context.
+A suitable replacement is `strscpy` [2] due to the fact that it
+guarantees NUL-termination on the destination buffer without
+unnecessarily NUL-padding.
 
-Considering the above, a suitable replacement is `strscpy_pad` due to
-the fact that it guarantees NUL-termination whilst maintaining the
-NUL-padding behavior that strncpy provides.
+Let's also go with the more idiomatic `dest, src, sizeof(dest)` pattern
+for destination buffers that the compiler can calculate the size for.
 
 Link: https://www.kernel.org/doc/html/latest/process/deprecated.html#strncpy-on-nul-terminated-strings [1]
+Link: https://manpages.debian.org/testing/linux-manual-4.8/strscpy.9.en.html [2]
 Link: https://github.com/KSPP/linux/issues/90
 Cc: linux-hardening@vger.kernel.org
+Cc: Kees Cook <keescook@chromium.org>
 Signed-off-by: Justin Stitt <justinstitt@google.com>
 ---
 Note: build-tested only.
 ---
- drivers/md/dm-ioctl.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/md/dm-log-userspace-base.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index 21ebb6c39394..e65058e0ed06 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -1295,8 +1295,8 @@ static void retrieve_status(struct dm_table *table,
- 		spec->status = 0;
- 		spec->sector_start = ti->begin;
- 		spec->length = ti->len;
--		strncpy(spec->target_type, ti->type->name,
--			sizeof(spec->target_type) - 1);
-+		strscpy_pad(spec->target_type, ti->type->name,
-+			sizeof(spec->target_type));
+diff --git a/drivers/md/dm-log-userspace-base.c b/drivers/md/dm-log-userspace-base.c
+index 5aace6ee6d47..7e4f27e86150 100644
+--- a/drivers/md/dm-log-userspace-base.c
++++ b/drivers/md/dm-log-userspace-base.c
+@@ -224,7 +224,7 @@ static int userspace_ctr(struct dm_dirty_log *log, struct dm_target *ti,
  
- 		outptr += sizeof(struct dm_target_spec);
- 		remaining = len - (outptr - outbuf);
+ 	lc->usr_argc = argc;
+ 
+-	strncpy(lc->uuid, argv[0], DM_UUID_LEN);
++	strscpy(lc->uuid, argv[0], sizeof(lc->uuid));
+ 	argc--;
+ 	argv++;
+ 	spin_lock_init(&lc->flush_lock);
 
 ---
 base-commit: 6465e260f48790807eef06b583b38ca9789b6072
-change-id: 20230925-strncpy-drivers-md-dm-ioctl-c-ea5c10e77981
+change-id: 20230925-strncpy-drivers-md-dm-log-userspace-base-c-857579d9834f
 
 Best regards,
 --
