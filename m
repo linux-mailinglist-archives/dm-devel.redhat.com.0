@@ -1,80 +1,80 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7A3127B134C
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 08:46:39 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id CEE757B12CF
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 08:26:04 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695883598;
+	s=mimecast20190719; t=1695882363;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=nIWhErLHTpRoOPXzuTQ2Lb6nhCxqAQzI5OcVL8LrqpU=;
-	b=WXTNT6k2x4ij/tSrlh2zwW0L5VQVGC5mYxnPEl1oAJYTDipy7HUje1BPEkITaPVemIqYJS
-	WRWwlYlFcODphbR4YV7G43gjSphUCwcyXzJcC4HPXcyL50HfyFlxyHHqUv4Efds3FC0DpQ
-	DUq94h3XTPMBbCUGkUIh19DQqDQv6B4=
+	bh=t8N+NFyYvhtJwnxJ8OVRJ+eCk3+BZ1bpdaX2gCJR/xI=;
+	b=FYMho27QojFPK45xNCmVyf/W58OEMzOwCf4M1/Y4SATQkB2cE5yE9up+XWjsCjbf1zXDFI
+	2cORqUYLh73NMs9bBPz/99gmEpKlhWhJ5VYQRaHsnfW3tQO0mSgBX4vjFcD6CY49t1cOlu
+	ezx4pGXdRI3ZE+H4ALyOXsWbG3zE2jo=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-135-8syI07T6PGC7Q2brmdbeOg-1; Thu, 28 Sep 2023 02:46:35 -0400
-X-MC-Unique: 8syI07T6PGC7Q2brmdbeOg-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+ us-mta-625-YWHcG8uuPoCrFYiianZ-lw-1; Thu, 28 Sep 2023 02:25:21 -0400
+X-MC-Unique: YWHcG8uuPoCrFYiianZ-lw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8D502101AA70;
-	Thu, 28 Sep 2023 06:46:33 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AB52F8039C8;
+	Thu, 28 Sep 2023 06:25:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 3FEB040C6E76;
-	Thu, 28 Sep 2023 06:46:33 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 9063C10EE402;
+	Thu, 28 Sep 2023 06:25:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9792F19465B2;
-	Thu, 28 Sep 2023 06:46:32 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9F73F19466E6;
+	Thu, 28 Sep 2023 06:25:17 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.8])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5592E1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
+ ESMTP id C53DC1946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 06:22:11 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 38841215670B; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
+ id B6BF9C154CA; Thu, 28 Sep 2023 06:22:11 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 30A8A2156702
- for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id AE8C8C15BB8
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:11 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [207.211.31.120])
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F3481101A550
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9051B185A79B
  for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:11 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
+Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
  [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-39-Lw3LmpsfOW2ycFzSUFca2g-1; Thu, 28 Sep 2023 02:22:06 -0400
-X-MC-Unique: Lw3LmpsfOW2ycFzSUFca2g-1
+ us-mta-271-i0C1CQcGPc2p629wzVUIZg-1; Thu, 28 Sep 2023 02:22:07 -0400
+X-MC-Unique: i0C1CQcGPc2p629wzVUIZg-1
 Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Rx3Kg0G1jz4f3lgN;
- Thu, 28 Sep 2023 14:21:59 +0800 (CST)
+ by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Rx3Kh4f7tz4f3jqX;
+ Thu, 28 Sep 2023 14:22:00 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAnvdyCGxVl3v1WBg--.22861S15;
+ by APP4 (Coremail) with SMTP id gCh0CgAnvdyCGxVl3v1WBg--.22861S16;
  Thu, 28 Sep 2023 14:22:01 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: xni@redhat.com, agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com,
  song@kernel.org
-Date: Thu, 28 Sep 2023 14:15:29 +0800
-Message-Id: <20230928061543.1845742-12-yukuai1@huaweicloud.com>
+Date: Thu, 28 Sep 2023 14:15:30 +0800
+Message-Id: <20230928061543.1845742-13-yukuai1@huaweicloud.com>
 In-Reply-To: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
 References: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAnvdyCGxVl3v1WBg--.22861S15
-X-Coremail-Antispam: 1UD129KBjvJXoW7WF4ftw43ZF1fCF4xGF48WFg_yoW8GF1Upa
- 1IqayFvr48uFyFva1UGrWDGFyrGa10g392kF9rWan5ZayrZryxG3WrXryUtrykAFyfZFsx
- Jw45tw1UAr18trUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: gCh0CgAnvdyCGxVl3v1WBg--.22861S16
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cr1fWr4rArWkGF15Ar15CFg_yoW8Gr43pa
+ nFgayru3409rWrA3WkXFWDuF95J3y8KrZF9r9xC3Z3uay5Xr17Gr1FgFyUWr92vFyfGa13
+ Jw4UJ3WkC348tr7anT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUPI14x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
  kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
@@ -98,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [PATCH -next v3 11/25] md/raid5-cache: use new apis to
- suspend array for r5c_disable_writeback_async()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+Subject: [dm-devel] [PATCH -next v3 12/25] md/raid5-cache: use new apis to
+ suspend array for r5c_journal_mode_store()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,7 +116,7 @@ Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
  linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
@@ -124,43 +124,42 @@ Content-Transfer-Encoding: 7bit
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-Convert to use new apis, the old apis will be removed eventually.
+r5c_journal_mode_set() will suspend array and it has only 2 caller, the
+other caller raid_ctl() already suspend the array with new apis.
+
+This is not hot path, so performance is not concerned.
 
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/md/raid5-cache.c | 13 ++++++-------
- 1 file changed, 6 insertions(+), 7 deletions(-)
+ drivers/md/raid5-cache.c | 6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
 diff --git a/drivers/md/raid5-cache.c b/drivers/md/raid5-cache.c
-index 889bba60d6ff..01d33e5c19c1 100644
+index 01d33e5c19c1..9909110262ee 100644
 --- a/drivers/md/raid5-cache.c
 +++ b/drivers/md/raid5-cache.c
-@@ -686,7 +686,6 @@ static void r5c_disable_writeback_async(struct work_struct *work)
- 					   disable_writeback_work);
- 	struct mddev *mddev = log->rdev->mddev;
- 	struct r5conf *conf = mddev->private;
--	int locked = 0;
+@@ -2585,9 +2585,7 @@ int r5c_journal_mode_set(struct mddev *mddev, int mode)
+ 	    mode == R5C_JOURNAL_MODE_WRITE_BACK)
+ 		return -EINVAL;
  
- 	if (log->r5c_journal_mode == R5C_JOURNAL_MODE_WRITE_THROUGH)
- 		return;
-@@ -696,13 +695,13 @@ static void r5c_disable_writeback_async(struct work_struct *work)
- 	/* wait superblock change before suspend */
- 	wait_event(mddev->sb_wait,
- 		   !READ_ONCE(conf->log) ||
--		   (!test_bit(MD_SB_CHANGE_PENDING, &mddev->sb_flags) &&
--		    (locked = mddev_trylock(mddev))));
--	if (locked) {
--		mddev_suspend(mddev);
-+		   !test_bit(MD_SB_CHANGE_PENDING, &mddev->sb_flags));
-+
-+	log = READ_ONCE(conf->log);
-+	if (log) {
-+		__mddev_suspend(mddev, false);
- 		log->r5c_journal_mode = R5C_JOURNAL_MODE_WRITE_THROUGH;
--		mddev_resume(mddev);
--		mddev_unlock(mddev);
-+		__mddev_resume(mddev);
- 	}
+-	mddev_suspend(mddev);
+ 	conf->log->r5c_journal_mode = mode;
+-	mddev_resume(mddev);
+ 
+ 	pr_debug("md/raid:%s: setting r5c cache mode to %d: %s\n",
+ 		 mdname(mddev), mode, r5c_journal_mode_str[mode]);
+@@ -2612,11 +2610,11 @@ static ssize_t r5c_journal_mode_store(struct mddev *mddev,
+ 		if (strlen(r5c_journal_mode_str[mode]) == len &&
+ 		    !strncmp(page, r5c_journal_mode_str[mode], len))
+ 			break;
+-	ret = mddev_lock(mddev);
++	ret = mddev_suspend_and_lock(mddev);
+ 	if (ret)
+ 		return ret;
+ 	ret = r5c_journal_mode_set(mddev, mode);
+-	mddev_unlock(mddev);
++	mddev_unlock_and_resume(mddev);
+ 	return ret ?: length;
  }
  
 -- 
