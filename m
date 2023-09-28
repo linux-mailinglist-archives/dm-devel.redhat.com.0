@@ -2,79 +2,79 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 9AE517B1387
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 09:05:44 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 45E4D7B12C8
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 08:25:26 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695884743;
+	s=mimecast20190719; t=1695882325;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=wbuvBdU/lQL1GNf4c+pI5s9TWVBbDeTgBnw1/sdbxXg=;
-	b=WoIi6uMgGTEcoRdEzXJ573JiP9ilrdWFtiSXilZqQupN5eBlGt29QVwvtjR/gJEo91mubq
-	RND7fRFIqkJjJCroN5FmwZXRGd856xo5R94FSMbw1FGj23bnudjYbagAgCWTy5SO+OxIcn
-	OLj3BsEY3E8z9FZ02P8axdduMfB53Ao=
+	bh=yxR0FyOLXXKTrEyl4v9fMquwiEH0BZVRdPS7kGNnsSI=;
+	b=iCfYApy+w9DB3DCt8lrxO1v7A8sh7MEwST01vR0t6LVqYAQM8OVbg03bpV9l3vX3VuqHqA
+	V0OJa+Dq1FwA9MqcFwOmKBasRZplVSMtNPMtejPRpxHwtfI7+3DopOOVkewrUaCrRWDs4R
+	p71g0riaqqKjdLHIbF5XEKzxkqzlcK4=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-662-nMrxCtc5N5OHw5WLYzOiUQ-1; Thu, 28 Sep 2023 03:05:40 -0400
-X-MC-Unique: nMrxCtc5N5OHw5WLYzOiUQ-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+ us-mta-440-zOrT5ru_MfygQxAW27PojQ-1; Thu, 28 Sep 2023 02:25:22 -0400
+X-MC-Unique: zOrT5ru_MfygQxAW27PojQ-1
+Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 51BE5101A529;
-	Thu, 28 Sep 2023 07:05:36 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id AD34C80CDB9;
+	Thu, 28 Sep 2023 06:25:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 57373C15BB8;
-	Thu, 28 Sep 2023 07:05:35 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 909622026D4B;
+	Thu, 28 Sep 2023 06:25:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CBF7E1946589;
-	Thu, 28 Sep 2023 07:05:33 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id B046419466EC;
+	Thu, 28 Sep 2023 06:25:17 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5B84A1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 06:22:14 +0000 (UTC)
+ ESMTP id BF9AF1946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 4FBE340C2064; Thu, 28 Sep 2023 06:22:14 +0000 (UTC)
+ id A209D40C6E77; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 488EA40C2070
- for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:14 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 9B41E40C6E76
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2DA013811715
- for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:14 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (hwsga01-in.huaweimarine.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 7736A185A797
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:12 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
+ [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-502-G88_kAUuOe6o-bpJJmgaAw-1; Thu, 28 Sep 2023 02:22:09 -0400
-X-MC-Unique: G88_kAUuOe6o-bpJJmgaAw-1
+ us-mta-486-q2IZ7iIUMuedWH6-CXrIrw-1; Thu, 28 Sep 2023 02:22:10 -0400
+X-MC-Unique: q2IZ7iIUMuedWH6-CXrIrw-1
 Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4Rx3Kl1DLwz4f3m7L;
- Thu, 28 Sep 2023 14:22:03 +0800 (CST)
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4Rx3Kj1NFpz4f3jMD;
+ Thu, 28 Sep 2023 14:22:01 +0800 (CST)
 Received: from huaweicloud.com (unknown [10.175.104.67])
- by APP4 (Coremail) with SMTP id gCh0CgAnvdyCGxVl3v1WBg--.22861S24;
+ by APP4 (Coremail) with SMTP id gCh0CgAnvdyCGxVl3v1WBg--.22861S25;
  Thu, 28 Sep 2023 14:22:05 +0800 (CST)
 From: Yu Kuai <yukuai1@huaweicloud.com>
 To: xni@redhat.com, agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com,
  song@kernel.org
-Date: Thu, 28 Sep 2023 14:15:38 +0800
-Message-Id: <20230928061543.1845742-21-yukuai1@huaweicloud.com>
+Date: Thu, 28 Sep 2023 14:15:39 +0800
+Message-Id: <20230928061543.1845742-22-yukuai1@huaweicloud.com>
 In-Reply-To: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
 References: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-X-CM-TRANSID: gCh0CgAnvdyCGxVl3v1WBg--.22861S24
-X-Coremail-Antispam: 1UD129KBjvJXoW3Ar45Jr1xGr4rGry3KF45KFg_yoW7Ww1xpr
- s3Ka4fWrWUX343Jw1UZan7uFy5Jw18KrZrtry7Xa4fu3W3XwnxGr4FgFy5Jr1v9as5JF15
- Ja15Ww4kAry8GFJanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID: gCh0CgAnvdyCGxVl3v1WBg--.22861S25
+X-Coremail-Antispam: 1UD129KBjvJXoW3GryUCw1UZrWUKFy8CFy8Zrb_yoWxtr1fpw
+ 4aqa4rWr4UZ3y5Ww1UCayDG3WYvw1ktrZ7try3u3yfXw43twn3KF1rWa45tr98Zas5Ar1U
+ X3WUur4kCr1fKFUanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
  9KBjDU0xBIdaVrnRJUUUP214x267AKxVWrJVCq3wAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
  rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2048vs2IY020E87I2jVAFwI0_JF0E3s1l82xGYI
  kIc2x26xkF7I0E14v26ryj6s0DM28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8wA2
@@ -98,9 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
-Subject: [dm-devel] [PATCH -next v3 20/25] md: use new apis to suspend array
- before mddev_create/destroy_serial_pool
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [PATCH -next v3 21/25] md: cleanup
+ mddev_create/destroy_serial_pool()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,7 +116,7 @@ Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
  linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: huaweicloud.com
 Content-Type: text/plain; charset="us-ascii"
@@ -124,163 +124,194 @@ Content-Transfer-Encoding: 7bit
 
 From: Yu Kuai <yukuai3@huawei.com>
 
-mddev_create/destroy_serial_pool() will be called from several places
-where mddev_suspend() will be called later.
-
-Prepare to remove the mddev_suspend() from
-mddev_create/destroy_serial_pool().
+Now that except for stopping the array, all the callers already suspend
+the array, there is no need to suspend anymore, hence remove the second
+parameter.
 
 Signed-off-by: Yu Kuai <yukuai3@huawei.com>
 ---
- drivers/md/md-autodetect.c |  4 ++--
- drivers/md/md-bitmap.c     |  8 ++++----
- drivers/md/md.c            | 22 ++++++++++++----------
- 3 files changed, 18 insertions(+), 16 deletions(-)
+ drivers/md/md-bitmap.c |  8 ++++----
+ drivers/md/md.c        | 33 ++++++++++-----------------------
+ drivers/md/md.h        |  7 +++----
+ 3 files changed, 17 insertions(+), 31 deletions(-)
 
-diff --git a/drivers/md/md-autodetect.c b/drivers/md/md-autodetect.c
-index 6eaa0eab40f9..4b80165afd23 100644
---- a/drivers/md/md-autodetect.c
-+++ b/drivers/md/md-autodetect.c
-@@ -175,7 +175,7 @@ static void __init md_setup_drive(struct md_setup_args *args)
- 		return;
- 	}
- 
--	err = mddev_lock(mddev);
-+	err = mddev_suspend_and_lock(mddev);
- 	if (err) {
- 		pr_err("md: failed to lock array %s\n", name);
- 		goto out_mddev_put;
-@@ -221,7 +221,7 @@ static void __init md_setup_drive(struct md_setup_args *args)
- 	if (err)
- 		pr_warn("md: starting %s failed\n", name);
- out_unlock:
--	mddev_unlock(mddev);
-+	mddev_unlock_and_resume(mddev);
- out_mddev_put:
- 	mddev_put(mddev);
- }
 diff --git a/drivers/md/md-bitmap.c b/drivers/md/md-bitmap.c
-index 7d21e2a5b06e..b3d701c5c461 100644
+index b3d701c5c461..9672f75c3050 100644
 --- a/drivers/md/md-bitmap.c
 +++ b/drivers/md/md-bitmap.c
-@@ -2537,7 +2537,7 @@ backlog_store(struct mddev *mddev, const char *buf, size_t len)
- 	if (backlog > COUNTER_MAX)
- 		return -EINVAL;
+@@ -1861,7 +1861,7 @@ void md_bitmap_destroy(struct mddev *mddev)
  
--	rv = mddev_lock(mddev);
-+	rv = mddev_suspend_and_lock(mddev);
- 	if (rv)
- 		return rv;
+ 	md_bitmap_wait_behind_writes(mddev);
+ 	if (!mddev->serialize_policy)
+-		mddev_destroy_serial_pool(mddev, NULL, true);
++		mddev_destroy_serial_pool(mddev, NULL);
  
-@@ -2562,16 +2562,16 @@ backlog_store(struct mddev *mddev, const char *buf, size_t len)
+ 	mutex_lock(&mddev->bitmap_info.mutex);
+ 	spin_lock(&mddev->lock);
+@@ -1977,7 +1977,7 @@ int md_bitmap_load(struct mddev *mddev)
+ 		goto out;
+ 
+ 	rdev_for_each(rdev, mddev)
+-		mddev_create_serial_pool(mddev, rdev, true);
++		mddev_create_serial_pool(mddev, rdev);
+ 
+ 	if (mddev_is_clustered(mddev))
+ 		md_cluster_ops->load_bitmaps(mddev, mddev->bitmap_info.nodes);
+@@ -2562,11 +2562,11 @@ backlog_store(struct mddev *mddev, const char *buf, size_t len)
  	if (!backlog && mddev->serial_info_pool) {
  		/* serial_info_pool is not needed if backlog is zero */
  		if (!mddev->serialize_policy)
--			mddev_destroy_serial_pool(mddev, NULL, false);
-+			mddev_destroy_serial_pool(mddev, NULL, true);
+-			mddev_destroy_serial_pool(mddev, NULL, true);
++			mddev_destroy_serial_pool(mddev, NULL);
  	} else if (backlog && !mddev->serial_info_pool) {
  		/* serial_info_pool is needed since backlog is not zero */
  		rdev_for_each(rdev, mddev)
--			mddev_create_serial_pool(mddev, rdev, false);
-+			mddev_create_serial_pool(mddev, rdev, true);
+-			mddev_create_serial_pool(mddev, rdev, true);
++			mddev_create_serial_pool(mddev, rdev);
  	}
  	if (old_mwb != backlog)
  		md_bitmap_update_sb(mddev->bitmap);
- 
--	mddev_unlock(mddev);
-+	mddev_unlock_and_resume(mddev);
- 	return len;
- }
- 
 diff --git a/drivers/md/md.c b/drivers/md/md.c
-index c5fb75b066b5..f8d92d745105 100644
+index f8d92d745105..c3a51d309063 100644
 --- a/drivers/md/md.c
 +++ b/drivers/md/md.c
-@@ -2557,7 +2557,7 @@ static int bind_rdev_to_array(struct md_rdev *rdev, struct mddev *mddev)
+@@ -206,8 +206,7 @@ static int rdev_need_serial(struct md_rdev *rdev)
+  * 1. rdev is the first device which return true from rdev_enable_serial.
+  * 2. rdev is NULL, means we want to enable serialization for all rdevs.
+  */
+-void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+-			      bool is_suspend)
++void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev)
+ {
+ 	int ret = 0;
+ 
+@@ -215,15 +214,12 @@ void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+ 	    !test_bit(CollisionCheck, &rdev->flags))
+ 		return;
+ 
+-	if (!is_suspend)
+-		mddev_suspend(mddev);
+-
+ 	if (!rdev)
+ 		ret = rdevs_init_serial(mddev);
+ 	else
+ 		ret = rdev_init_serial(rdev);
+ 	if (ret)
+-		goto abort;
++		return;
+ 
+ 	if (mddev->serial_info_pool == NULL) {
+ 		/*
+@@ -238,10 +234,6 @@ void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+ 			pr_err("can't alloc memory pool for serialization\n");
+ 		}
+ 	}
+-
+-abort:
+-	if (!is_suspend)
+-		mddev_resume(mddev);
+ }
+ 
+ /*
+@@ -250,8 +242,7 @@ void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+  * 2. when bitmap is destroyed while policy is not enabled.
+  * 3. for disable policy, the pool is destroyed only when no rdev needs it.
+  */
+-void mddev_destroy_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+-			       bool is_suspend)
++void mddev_destroy_serial_pool(struct mddev *mddev, struct md_rdev *rdev)
+ {
+ 	if (rdev && !test_bit(CollisionCheck, &rdev->flags))
+ 		return;
+@@ -260,8 +251,6 @@ void mddev_destroy_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+ 		struct md_rdev *temp;
+ 		int num = 0; /* used to track if other rdevs need the pool */
+ 
+-		if (!is_suspend)
+-			mddev_suspend(mddev);
+ 		rdev_for_each(temp, mddev) {
+ 			if (!rdev) {
+ 				if (!mddev->serialize_policy ||
+@@ -283,8 +272,6 @@ void mddev_destroy_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+ 			mempool_destroy(mddev->serial_info_pool);
+ 			mddev->serial_info_pool = NULL;
+ 		}
+-		if (!is_suspend)
+-			mddev_resume(mddev);
+ 	}
+ }
+ 
+@@ -2557,7 +2544,7 @@ static int bind_rdev_to_array(struct md_rdev *rdev, struct mddev *mddev)
  	pr_debug("md: bind<%s>\n", b);
  
  	if (mddev->raid_disks)
--		mddev_create_serial_pool(mddev, rdev, false);
-+		mddev_create_serial_pool(mddev, rdev, true);
+-		mddev_create_serial_pool(mddev, rdev, true);
++		mddev_create_serial_pool(mddev, rdev);
  
  	if ((err = kobject_add(&rdev->kobj, &mddev->kobj, "dev-%s", b)))
  		goto fail;
-@@ -3077,11 +3077,11 @@ state_store(struct md_rdev *rdev, const char *buf, size_t len)
+@@ -2610,7 +2597,7 @@ static void md_kick_rdev_from_array(struct md_rdev *rdev)
+ 	bd_unlink_disk_holder(rdev->bdev, rdev->mddev->gendisk);
+ 	list_del_rcu(&rdev->same_set);
+ 	pr_debug("md: unbind<%pg>\n", rdev->bdev);
+-	mddev_destroy_serial_pool(rdev->mddev, rdev, false);
++	mddev_destroy_serial_pool(rdev->mddev, rdev);
+ 	rdev->mddev = NULL;
+ 	sysfs_remove_link(&rdev->kobj, "block");
+ 	sysfs_put(rdev->sysfs_state);
+@@ -3077,11 +3064,11 @@ state_store(struct md_rdev *rdev, const char *buf, size_t len)
  		}
  	} else if (cmd_match(buf, "writemostly")) {
  		set_bit(WriteMostly, &rdev->flags);
--		mddev_create_serial_pool(rdev->mddev, rdev, false);
-+		mddev_create_serial_pool(rdev->mddev, rdev, true);
+-		mddev_create_serial_pool(rdev->mddev, rdev, true);
++		mddev_create_serial_pool(rdev->mddev, rdev);
  		need_update_sb = true;
  		err = 0;
  	} else if (cmd_match(buf, "-writemostly")) {
--		mddev_destroy_serial_pool(rdev->mddev, rdev, false);
-+		mddev_destroy_serial_pool(rdev->mddev, rdev, true);
+-		mddev_destroy_serial_pool(rdev->mddev, rdev, true);
++		mddev_destroy_serial_pool(rdev->mddev, rdev);
  		clear_bit(WriteMostly, &rdev->flags);
  		need_update_sb = true;
  		err = 0;
-@@ -3707,7 +3707,9 @@ rdev_attr_store(struct kobject *kobj, struct attribute *attr,
- 	if (entry->store == state_store) {
- 		if (cmd_match(page, "remove"))
- 			kn = sysfs_break_active_protection(kobj, attr);
--		if (cmd_match(page, "remove") || cmd_match(page, "re-add"))
-+		if (cmd_match(page, "remove") || cmd_match(page, "re-add") ||
-+		    cmd_match(page, "writemostly") ||
-+		    cmd_match(page, "-writemostly"))
- 			suspend = true;
+@@ -5588,9 +5575,9 @@ serialize_policy_store(struct mddev *mddev, const char *buf, size_t len)
  	}
  
-@@ -4681,7 +4683,7 @@ new_dev_store(struct mddev *mddev, const char *buf, size_t len)
- 	    minor != MINOR(dev))
- 		return -EOVERFLOW;
- 
--	err = mddev_lock(mddev);
-+	err = mddev_suspend_and_lock(mddev);
- 	if (err)
- 		return err;
- 	if (mddev->persistent) {
-@@ -4702,14 +4704,14 @@ new_dev_store(struct mddev *mddev, const char *buf, size_t len)
- 		rdev = md_import_device(dev, -1, -1);
- 
- 	if (IS_ERR(rdev)) {
--		mddev_unlock(mddev);
-+		mddev_unlock_and_resume(mddev);
- 		return PTR_ERR(rdev);
+ 	if (value)
+-		mddev_create_serial_pool(mddev, NULL, true);
++		mddev_create_serial_pool(mddev, NULL);
+ 	else
+-		mddev_destroy_serial_pool(mddev, NULL, true);
++		mddev_destroy_serial_pool(mddev, NULL);
+ 	mddev->serialize_policy = value;
+ unlock:
+ 	mddev_unlock_and_resume(mddev);
+@@ -6356,7 +6343,7 @@ static void __md_stop_writes(struct mddev *mddev)
  	}
- 	err = bind_rdev_to_array(rdev, mddev);
-  out:
- 	if (err)
- 		export_rdev(rdev, mddev);
--	mddev_unlock(mddev);
-+	mddev_unlock_and_resume(mddev);
- 	if (!err)
- 		md_new_event();
- 	return err ? err : len;
-@@ -6646,13 +6648,13 @@ static void autorun_devices(int part)
- 		if (IS_ERR(mddev))
- 			break;
+ 	/* disable policy to guarantee rdevs free resources for serialization */
+ 	mddev->serialize_policy = 0;
+-	mddev_destroy_serial_pool(mddev, NULL, true);
++	mddev_destroy_serial_pool(mddev, NULL);
+ }
  
--		if (mddev_lock(mddev))
-+		if (mddev_suspend_and_lock(mddev))
- 			pr_warn("md: %s locked, cannot run\n", mdname(mddev));
- 		else if (mddev->raid_disks || mddev->major_version
- 			 || !list_empty(&mddev->disks)) {
- 			pr_warn("md: %s already running, cannot run %pg\n",
- 				mdname(mddev), rdev0->bdev);
--			mddev_unlock(mddev);
-+			mddev_unlock_and_resume(mddev);
- 		} else {
- 			pr_debug("md: created %s\n", mdname(mddev));
- 			mddev->persistent = 1;
-@@ -6662,7 +6664,7 @@ static void autorun_devices(int part)
- 					export_rdev(rdev, mddev);
- 			}
- 			autorun_array(mddev);
--			mddev_unlock(mddev);
-+			mddev_unlock_and_resume(mddev);
- 		}
- 		/* on success, candidates will be empty, on error
- 		 * it won't...
+ void md_stop_writes(struct mddev *mddev)
+diff --git a/drivers/md/md.h b/drivers/md/md.h
+index 5c8f3f045e78..63b4c393b1ee 100644
+--- a/drivers/md/md.h
++++ b/drivers/md/md.h
+@@ -817,10 +817,9 @@ extern void __mddev_resume(struct mddev *mddev);
+ 
+ extern void md_reload_sb(struct mddev *mddev, int raid_disk);
+ extern void md_update_sb(struct mddev *mddev, int force);
+-extern void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+-				     bool is_suspend);
+-extern void mddev_destroy_serial_pool(struct mddev *mddev, struct md_rdev *rdev,
+-				      bool is_suspend);
++extern void mddev_create_serial_pool(struct mddev *mddev, struct md_rdev *rdev);
++extern void mddev_destroy_serial_pool(struct mddev *mddev,
++				      struct md_rdev *rdev);
+ struct md_rdev *md_find_rdev_nr_rcu(struct mddev *mddev, int nr);
+ struct md_rdev *md_find_rdev_rcu(struct mddev *mddev, dev_t dev);
+ 
 -- 
 2.39.2
 
