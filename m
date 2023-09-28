@@ -2,66 +2,94 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 2297C7B15DF
-	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 10:18:40 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 383807B21DB
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 17:57:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695889119;
+	s=mimecast20190719; t=1695916637;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=dZjor0OBppk2+4wbyPPFGOxqEUraA/kxKmbCRBk6g4M=;
-	b=MZkfOM1tTJOmrzchUAh/u8uQJfG2ncQsPPlq4CBfCVzreMFWoEAL76QEBQyR+DC7coa6Ck
-	uohlnt6pDpCu0NozGzJdMDgXEPnmxqs2JFsiVolSOtXAkFXXt1NO314jsRLTSMvjB9J8yq
-	lIuY4k1zMtstZn0CfSrWEdm6uoBuLQo=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-237-gjJb9OwQMRSgx2oELazrOw-1; Thu, 28 Sep 2023 04:18:35 -0400
-X-MC-Unique: gjJb9OwQMRSgx2oELazrOw-1
+	bh=E1Q40B8PS3EVWbEtli95zgoc2K4XmgIldhIYaEDnSA8=;
+	b=RdA+sDae75sDb2nsnMUYOIMyzo3kjdNldRqk6Jm2Mv6/t5lE/aUbhWQxvY5w3n0S/ntGDK
+	wh/09XdEmHgHEmDlFHajyy8Xai8G6CHDxTwyIjb7Bew/6fwYSPIsxO+5Umj2stgPyvXms2
+	+g8OL4kHHQnugVA4iAoI5jFPnl3uOMo=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-209-Y2k0fdaLPoee4FXw5Jr6yA-1; Thu, 28 Sep 2023 11:57:14 -0400
+X-MC-Unique: Y2k0fdaLPoee4FXw5Jr6yA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 21032803DBD;
-	Thu, 28 Sep 2023 08:18:32 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5D7DF1E441F9;
+	Thu, 28 Sep 2023 15:56:58 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 988251678B;
-	Thu, 28 Sep 2023 08:18:26 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D4E5C167F8;
+	Thu, 28 Sep 2023 15:56:51 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 526EC19465B2;
-	Thu, 28 Sep 2023 08:18:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 31D0719465B5;
+	Thu, 28 Sep 2023 15:56:50 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 4091F1946587
- for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 07:50:08 +0000 (UTC)
+ ESMTP id 55E601946588
+ for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 15:54:27 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1F7A2215670B; Thu, 28 Sep 2023 07:50:08 +0000 (UTC)
+ id 35C25176E4; Thu, 28 Sep 2023 15:54:27 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
-Received: from file1-rdu.file-001.prod.rdu2.dc.redhat.com (unknown
- [10.11.5.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id B67B32156702;
- Thu, 28 Sep 2023 07:50:07 +0000 (UTC)
-Received: by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix,
- from userid 12668)
- id A104730C1C0A; Thu, 28 Sep 2023 07:50:07 +0000 (UTC)
-Received: from localhost (localhost [127.0.0.1])
- by file1-rdu.file-001.prod.rdu2.dc.redhat.com (Postfix) with ESMTP id
- 981B63FD4B; Thu, 28 Sep 2023 09:50:07 +0200 (CEST)
-Date: Thu, 28 Sep 2023 09:50:07 +0200 (CEST)
-From: Mikulas Patocka <mpatocka@redhat.com>
-To: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <3c25ec6f-cd33-9445-a76f-6ec2c30755f5@redhat.com>
-Message-ID: <86e7f97a-ac6b-873d-93b2-1121a464989a@redhat.com>
-References: <20230315113133.11326-1-kirill.shutemov@linux.intel.com>
- <3c25ec6f-cd33-9445-a76f-6ec2c30755f5@redhat.com>
+Received: from mimecast-mx02.redhat.com
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 2E71A28FE
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 15:54:27 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+ (No client certificate requested)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4715780610B
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 15:54:23 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-68-9p4klYxfPpCFf-96oU2pyA-1; Thu, 28 Sep 2023 11:54:18 -0400
+X-MC-Unique: 9p4klYxfPpCFf-96oU2pyA-1
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id E788261BC5;
+ Thu, 28 Sep 2023 15:54:16 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99021C433C9;
+ Thu, 28 Sep 2023 15:54:16 +0000 (UTC)
+Received: by mail-lf1-f45.google.com with SMTP id
+ 2adb3069b0e04-504b84d59cbso2856227e87.3; 
+ Thu, 28 Sep 2023 08:54:16 -0700 (PDT)
+X-Gm-Message-State: AOJu0YyYQQpyTlz7D+E8+u3ATGEerkRkhdidFcjIupSnL3uH+tBmHsr1
+ S22qld6cQwEf3fOwKsjxShWCRCdQ4u3qeE1JwU4=
+X-Google-Smtp-Source: AGHT+IEFVO/hg/PaKGBPZ3PqAJvJdpHC85BEs/x41TCJ51mvcCeENmSCWHHD1AbaeO30TlabyaCKiL8f7JBOcLjICYU=
+X-Received: by 2002:a19:8c43:0:b0:4fe:1681:9377 with SMTP id
+ i3-20020a198c43000000b004fe16819377mr1438879lfj.44.1695916454807; Thu, 28 Sep
+ 2023 08:54:14 -0700 (PDT)
 MIME-Version: 1.0
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: Re: [dm-devel] [PATCH 00/10] Fix confusion around MAX_ORDER
+References: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
+ <20230928061543.1845742-2-yukuai1@huaweicloud.com>
+In-Reply-To: <20230928061543.1845742-2-yukuai1@huaweicloud.com>
+From: Song Liu <song@kernel.org>
+Date: Thu, 28 Sep 2023 08:54:02 -0700
+X-Gmail-Original-Message-ID: <CAPhsuW7-Kq_bFpXtDUpiWtmBTFajewv=Uv4_GZR4zcoB9m1dBg@mail.gmail.com>
+Message-ID: <CAPhsuW7-Kq_bFpXtDUpiWtmBTFajewv=Uv4_GZR4zcoB9m1dBg@mail.gmail.com>
+To: Yu Kuai <yukuai1@huaweicloud.com>
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH -next v3 01/25] md: use READ_ONCE/WRITE_ONCE
+ for 'suspend_lo' and 'suspend_hi'
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -73,47 +101,24 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, quic_jhugo@quicinc.com,
- "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
- David Hildenbrand <david@redhat.com>, snitzer@kernel.org,
- linux-kernel@vger.kernel.org, linux-mm@kvack.org, dm <dm-devel@redhat.com>,
- Mel Gorman <mgorman@suse.de>, Andrew Morton <akpm@linux-foundation.org>,
- Vlastimil Babka <vbabka@suse.cz>
+Cc: yi.zhang@huawei.com, yangerkun@huawei.com, snitzer@kernel.org,
+ dm-devel@redhat.com, linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
+ xni@redhat.com, yukuai3@huawei.com, agk@redhat.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
 X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-
-
-On Wed, 27 Sep 2023, Paolo Bonzini wrote:
-
-> On 3/15/23 12:31, Kirill A. Shutemov wrote:
-> > MAX_ORDER currently defined as number of orders page allocator supports:
-> > user can ask buddy allocator for page order between 0 and MAX_ORDER-1.
-> > 
-> > This definition is counter-intuitive and lead to number of bugs all over
-> > the kernel.
-> > 
-> > Fix the bugs and then change the definition of MAX_ORDER to be
-> > inclusive: the range of orders user can ask from buddy allocator is
-> > 0..MAX_ORDER now.
-
-I think that exclusive MAX_ORDER is more intuitive in the C language - 
-i.e. if you write "for (i = 0; i < MAX_ORDER; i++)", you are supposed to 
-loop over all allowed values. If you declare an array "void 
-*array[MAX_ORDER];" you are supposed to hold a value for each allowed 
-order.
-
-Pascal has for loops and array dimensions with inclusive ranges - and it 
-is more prone to off-by-one errors.
-
-Mikulas
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gV2VkLCBTZXAgMjcsIDIwMjMgYXQgMTE6MjLigK9QTSBZdSBLdWFpIDx5dWt1YWkxQGh1YXdl
+aWNsb3VkLmNvbT4gd3JvdGU6Cj4KPiBGcm9tOiBZdSBLdWFpIDx5dWt1YWkzQGh1YXdlaS5jb20+
+Cj4KPiBCZWNhdXNlIHJlYWRpbmcgJ3N1c3BlbmRfbG8nIGFuZCAnc3VzcGVuZF9oaScgZnJvbSBt
+ZF9oYW5kbGVfcmVxdWVzdCgpCj4gaXMgbm90IHByb3RlY3RlZCwgdXNlIFJFQURfT05DRS9XUklU
+RV9PTkNFIHRvIHByZXZlbnQgcmVhZGluZyBhYm5vcm1hbAo+IHZhbHVlLgoKSSByZXBocmFzZSB0
+aGlzIGEgYml0OgoKUHJvdGVjdCAnc3VzcGVuZF9sbycgYW5kICdzdXNwZW5kX2hpJyB3aXRoIFJF
+QURfT05DRS9XUklURV9PTkNFIHRvIHByZXZlbnQKcmVhZGluZyBhYm5vcm1hbCB2YWx1ZXMuCgpU
+aGFua3MsClNvbmcKCi0tCmRtLWRldmVsIG1haWxpbmcgbGlzdApkbS1kZXZlbEByZWRoYXQuY29t
+Cmh0dHBzOi8vbGlzdG1hbi5yZWRoYXQuY29tL21haWxtYW4vbGlzdGluZm8vZG0tZGV2ZWwK
 
