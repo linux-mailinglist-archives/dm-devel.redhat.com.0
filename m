@@ -2,107 +2,101 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F1997B0B25
-	for <lists+dm-devel@lfdr.de>; Wed, 27 Sep 2023 19:34:36 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3A6527B1309
+	for <lists+dm-devel@lfdr.de>; Thu, 28 Sep 2023 08:32:18 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695836075;
+	s=mimecast20190719; t=1695882737;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 content-transfer-encoding:content-transfer-encoding:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=DAG9t+HaLKeqfEWh16glpFV8tbWg6qpPSqzs+ceiG30=;
-	b=J0x7fz5aedXyDSNsV30860dFt3IKmnxoZ8SbuOjFoLDf2Y825q/gVF58g2qTJFGrbyB7Az
-	xpzsLnNYMMkoenFaccPi07ASxFBziLjIeAAueIMa/2QKcUcH87eJdk9fAbAADT8RBOwslf
-	bKciHJuQ25rFC6VRP4JA8c50PJjpgKo=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-347-kIMLvuk_NJ6BSQlnIAeASQ-1; Wed, 27 Sep 2023 13:34:32 -0400
-X-MC-Unique: kIMLvuk_NJ6BSQlnIAeASQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+	bh=nkyI5PR0Fmrn0JWgJYM8Muot2V50ymvRudwNjr5qTVg=;
+	b=W/lVRZheaVf4hyYPSyA/vnBhmY0v3XSo/JDxeqmFsTAL4d50448RkyjkPymdze95FxuAwq
+	kox/E544HLL6qgcv0F+i+urMmHr6dIulPJz71QVIHWnSddPGNyAfL6GKeZf9SSpX1nbcGq
+	VEpGMGxDFz02yN64w58tdH44xElckr4=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-81-f2YMNlriMuuZRaVrL-3maA-1; Thu, 28 Sep 2023 02:32:13 -0400
+X-MC-Unique: f2YMNlriMuuZRaVrL-3maA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3524B381170E;
-	Wed, 27 Sep 2023 17:34:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 2CE83858F1D;
+	Thu, 28 Sep 2023 06:32:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id A18782026D4B;
-	Wed, 27 Sep 2023 17:34:28 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 0209B40C6E76;
+	Thu, 28 Sep 2023 06:32:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id BE1A119465A2;
-	Wed, 27 Sep 2023 17:34:12 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9944819465A8;
+	Thu, 28 Sep 2023 06:32:08 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx07.intmail.prod.int.rdu2.redhat.com
- [10.11.54.7])
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.3])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3BB1A194658F
- for <dm-devel@listman.corp.redhat.com>; Wed, 27 Sep 2023 17:11:48 +0000 (UTC)
+ ESMTP id A51F41946587
+ for <dm-devel@listman.corp.redhat.com>; Thu, 28 Sep 2023 06:22:04 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 16B6F14027BB; Wed, 27 Sep 2023 17:11:48 +0000 (UTC)
+ id 8B99210D14C7; Thu, 28 Sep 2023 06:22:04 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 0E41114027B9
- for <dm-devel@redhat.com>; Wed, 27 Sep 2023 17:11:48 +0000 (UTC)
+ (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 8301D10EE6C9
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:04 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E1CEB3C0D184
- for <dm-devel@redhat.com>; Wed, 27 Sep 2023 17:11:47 +0000 (UTC)
-Received: from mail-lf1-f72.google.com (mail-lf1-f72.google.com
- [209.85.167.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 35E2A1C0CCB7
+ for <dm-devel@redhat.com>; Thu, 28 Sep 2023 06:22:04 +0000 (UTC)
+Received: from dggsgout12.his.huawei.com (hwsga02-in.huaweimarine.com
+ [45.249.212.56]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-111-1fDgPCyRMZuTN-ZYF6wH2A-1; Wed, 27 Sep 2023 13:11:45 -0400
-X-MC-Unique: 1fDgPCyRMZuTN-ZYF6wH2A-1
-Received: by mail-lf1-f72.google.com with SMTP id
- 2adb3069b0e04-504319087d9so16491574e87.1
- for <dm-devel@redhat.com>; Wed, 27 Sep 2023 10:11:45 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695834704; x=1696439504;
- h=content-transfer-encoding:in-reply-to:from:references:cc:to
- :content-language:subject:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=26ZECuIzAzrHSPBpB0H3QfUZnnLT0zZT0ILMAOLj/qo=;
- b=m4K11Xmv2xbrW2bJ9+1TuhcQIqW5Rc9zCRSXofMI5XG08ucNSDR4dZJkMvmT3khaoU
- u8RfZ3EyM4PAOH9Kz6M+3L2QRyFUHXeOyQpadnF46MicsQ2LTZC1smLyV9V2LwtvlUEy
- ELQwrmOwP4c4HDD/lWjHi6C/In0SLYa6nnf/bzYAAcLvNnamJUtisNsddmntuE7YQuMO
- qeuaENW5yjiY9R9AcuWUG7Vabt4+UjvGHYWlbguBOjIBWgaIALYtUDO4/I/f/hl5h0T7
- AzM0q2GaeuoNHSN7fvMmffOKanebIJFyoqjL3K8k2arTf27Y+f6BBCS+OyEGdFyaHHLs
- /5uA==
-X-Gm-Message-State: AOJu0YyXZtmPLWhES2B8CtyEcuYregaYcxsrGiu4bBMrrD4QXA752+Yt
- KyBnl/PrbYxLAYsp7C35Z7CUfj0wqgRixVgc4yNn0/dNwztDAXWLQiXDIHkStErXYoGY0Wu4b7L
- NUt5B2xGjVfJzF7g=
-X-Received: by 2002:a05:6512:2350:b0:502:fe11:a694 with SMTP id
- p16-20020a056512235000b00502fe11a694mr2554996lfu.45.1695834704177; 
- Wed, 27 Sep 2023 10:11:44 -0700 (PDT)
-X-Google-Smtp-Source: AGHT+IHLwBPlXrmnb4AHD26hUp4ZPo2eKW8J8eyw+zBWId4dlPqrr3HlDYhpvIRYNLY7H1Jl/xXg5g==
-X-Received: by 2002:a05:6512:2350:b0:502:fe11:a694 with SMTP id
- p16-20020a056512235000b00502fe11a694mr2554982lfu.45.1695834703656; 
- Wed, 27 Sep 2023 10:11:43 -0700 (PDT)
-Received: from ?IPV6:2001:b07:6468:f312:9af8:e5f5:7516:fa89?
- ([2001:b07:6468:f312:9af8:e5f5:7516:fa89])
- by smtp.googlemail.com with ESMTPSA id
- ck15-20020a0564021c0f00b005342fa19070sm3665635edb.89.2023.09.27.10.11.41
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Sep 2023 10:11:42 -0700 (PDT)
-Message-ID: <3c25ec6f-cd33-9445-a76f-6ec2c30755f5@redhat.com>
-Date: Wed, 27 Sep 2023 19:11:37 +0200
+ us-mta-296-Goo_au8JN62j0zpeSFO7OA-1; Thu, 28 Sep 2023 02:22:00 -0400
+X-MC-Unique: Goo_au8JN62j0zpeSFO7OA-1
+Received: from mail02.huawei.com (unknown [172.30.67.143])
+ by dggsgout12.his.huawei.com (SkyGuard) with ESMTP id 4Rx3KW3rlKz4f3jMF;
+ Thu, 28 Sep 2023 14:21:51 +0800 (CST)
+Received: from huaweicloud.com (unknown [10.175.104.67])
+ by APP4 (Coremail) with SMTP id gCh0CgAnvdyCGxVl3v1WBg--.22861S4;
+ Thu, 28 Sep 2023 14:21:56 +0800 (CST)
+From: Yu Kuai <yukuai1@huaweicloud.com>
+To: xni@redhat.com, agk@redhat.com, snitzer@kernel.org, dm-devel@redhat.com,
+ song@kernel.org
+Date: Thu, 28 Sep 2023 14:15:18 +0800
+Message-Id: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
 MIME-Version: 1.0
-User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:102.0) Gecko/20100101
- Thunderbird/102.13.0
-To: "Kirill A. Shutemov" <kirill.shutemov@linux.intel.com>,
- Andrew Morton <akpm@linux-foundation.org>, Mel Gorman <mgorman@suse.de>,
- Vlastimil Babka <vbabka@suse.cz>, David Hildenbrand <david@redhat.com>,
- quic_jhugo@quicinc.com, snitzer@kernel.org, dm <dm-devel@redhat.com>,
- Mikulas Patocka <mpatocka@redhat.com>
-References: <20230315113133.11326-1-kirill.shutemov@linux.intel.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-In-Reply-To: <20230315113133.11326-1-kirill.shutemov@linux.intel.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.7
-Subject: Re: [dm-devel] [PATCH 00/10] Fix confusion around MAX_ORDER
+X-CM-TRANSID: gCh0CgAnvdyCGxVl3v1WBg--.22861S4
+X-Coremail-Antispam: 1UD129KBjvJXoWxAFy7Xw47tF45tryfAFyrZwb_yoWrJw4Dp3
+ 9FqFZIvw48JFy5Ar4xX34DWF93Jw4FkrZFkr9xWw4rC3W3GryrCrW8Jr98Xr9YkFyfAr9r
+ Ja48Xw1rCr18AFDanT9S1TB71UUUUUUqnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+ 9KBjDU0xBIdaVrnRJUUUvF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+ rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+ 1l84ACjcxK6xIIjxv20xvE14v26w1j6s0DM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+ JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+ CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+ 2Ix0cI8IcVAFwI0_Jr0_Jr4lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
+ W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+ Y2ka0xkIwI1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+ xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
+ MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I
+ 0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AK
+ xVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvj
+ fUoOJ5UUUUU
+X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
+X-CFilter-Loop: Reflected
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+Subject: [dm-devel] [PATCH -next v3 00/25] md: synchronize io with array
+ reconfiguration
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,136 +108,115 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-arch@vger.kernel.org, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org
+Cc: yi.zhang@huawei.com, yangerkun@huawei.com, linux-kernel@vger.kernel.org,
+ linux-raid@vger.kernel.org, yukuai1@huaweicloud.com, yukuai3@huawei.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: redhat.com
-Content-Language: en-US
+X-Mimecast-Originator: huaweicloud.com
+Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
-Content-Type: text/plain; charset="us-ascii"; Format="flowed"
 
-On 3/15/23 12:31, Kirill A. Shutemov wrote:
-> MAX_ORDER currently defined as number of orders page allocator supports:
-> user can ask buddy allocator for page order between 0 and MAX_ORDER-1.
-> 
-> This definition is counter-intuitive and lead to number of bugs all over
-> the kernel.
-> 
-> Fix the bugs and then change the definition of MAX_ORDER to be
-> inclusive: the range of orders user can ask from buddy allocator is
-> 0..MAX_ORDER now.
+From: Yu Kuai <yukuai3@huawei.com>
 
-Looks like this crossed with three changes that introduced new
-uses of MAX_ORDER:
+Changes in v3:
+ - rebase with latest md-next;
+ - remove patch 2 from v2, and replace it with a new patch;
+ - fix a null-ptr-derefrence in rdev_attr_store() that mddev is used
+ before checking;
+ - merge patch 20-22 from v1 into one patch;
+ - mddev_lock() used to be called first and can be interruptted, allow new
+ api, which is called before mddev_lock() now, to be interruptted as well;
+ - improve some comments and coding;
 
-drivers/accel/qaic/qaic_data.c:         max_order = min(MAX_ORDER - 1, get_order(size));
-drivers/md/dm-crypt.c:  unsigned int order = MAX_ORDER - 1;
-drivers/md/dm-flakey.c: order = MAX_ORDER - 1;
+Changes in v2:
+ - rebase with latest md-next;
+ - remove some follow up cleanup patches, these patches will be sent
+ later after this patchset.
 
-The bugs are all benign, MAX_ORDER - 1 can simply be changed
-to MAX_ORDER to be consistent with the new world order.
+After previous four patchset of preparatory work, this patchset impelement
+a new version of mddev_suspend(), the new apis:
+ - reconfig_mutex is not required;
+ - the weird logical that suspend array hold 'reconfig_mutex' for
+   mddev_check_recovery() to update superblock is not needed;
+ - the special handling, 'pers->prepare_suspend', for raid456 is not
+   needed;
+ - It's safe to be called at any time once mddev is allocated, and it's
+   designed to be used from slow path where array configuration is changed;
 
-CCing relevant maintainers...
+And use the new api to replace:
 
-Paolo
+mddev_lock
+mddev_suspend or not
+// array reconfiguration
+mddev_resume or not
+mddev_unlock
 
-> Kirill A. Shutemov (10):
->    sparc/mm: Fix MAX_ORDER usage in tsb_grow()
->    um: Fix MAX_ORDER usage in linux_main()
->    floppy: Fix MAX_ORDER usage
->    drm/i915: Fix MAX_ORDER usage in i915_gem_object_get_pages_internal()
->    genwqe: Fix MAX_ORDER usage
->    perf/core: Fix MAX_ORDER usage in rb_alloc_aux_page()
->    mm/page_reporting: Fix MAX_ORDER usage in page_reporting_register()
->    mm/slub: Fix MAX_ORDER usage in calculate_order()
->    iommu: Fix MAX_ORDER usage in __iommu_dma_alloc_pages()
->    mm, treewide: Redefine MAX_ORDER sanely
-> 
->   .../admin-guide/kdump/vmcoreinfo.rst          |  2 +-
->   .../admin-guide/kernel-parameters.txt         |  2 +-
->   arch/arc/Kconfig                              |  4 +-
->   arch/arm/Kconfig                              |  9 ++---
->   arch/arm/configs/imx_v6_v7_defconfig          |  2 +-
->   arch/arm/configs/milbeaut_m10v_defconfig      |  2 +-
->   arch/arm/configs/oxnas_v6_defconfig           |  2 +-
->   arch/arm/configs/pxa_defconfig                |  2 +-
->   arch/arm/configs/sama7_defconfig              |  2 +-
->   arch/arm/configs/sp7021_defconfig             |  2 +-
->   arch/arm64/Kconfig                            | 27 ++++++-------
->   arch/arm64/include/asm/sparsemem.h            |  2 +-
->   arch/arm64/kvm/hyp/include/nvhe/gfp.h         |  2 +-
->   arch/arm64/kvm/hyp/nvhe/page_alloc.c          | 10 ++---
->   arch/csky/Kconfig                             |  2 +-
->   arch/ia64/Kconfig                             |  8 ++--
->   arch/ia64/include/asm/sparsemem.h             |  4 +-
->   arch/ia64/mm/hugetlbpage.c                    |  2 +-
->   arch/loongarch/Kconfig                        | 15 +++-----
->   arch/m68k/Kconfig.cpu                         |  5 +--
->   arch/mips/Kconfig                             | 19 ++++------
->   arch/nios2/Kconfig                            |  7 +---
->   arch/powerpc/Kconfig                          | 27 ++++++-------
->   arch/powerpc/configs/85xx/ge_imp3a_defconfig  |  2 +-
->   arch/powerpc/configs/fsl-emb-nonhw.config     |  2 +-
->   arch/powerpc/mm/book3s64/iommu_api.c          |  2 +-
->   arch/powerpc/mm/hugetlbpage.c                 |  2 +-
->   arch/powerpc/platforms/powernv/pci-ioda.c     |  2 +-
->   arch/sh/configs/ecovec24_defconfig            |  2 +-
->   arch/sh/mm/Kconfig                            | 17 ++++-----
->   arch/sparc/Kconfig                            |  5 +--
->   arch/sparc/kernel/pci_sun4v.c                 |  2 +-
->   arch/sparc/kernel/traps_64.c                  |  2 +-
->   arch/sparc/mm/tsb.c                           |  4 +-
->   arch/xtensa/Kconfig                           |  5 +--
->   drivers/base/regmap/regmap-debugfs.c          |  8 ++--
->   drivers/block/floppy.c                        |  2 +-
->   drivers/crypto/ccp/sev-dev.c                  |  2 +-
->   drivers/crypto/hisilicon/sgl.c                |  6 +--
->   .../gpu/drm/i915/gem/selftests/huge_pages.c   |  2 +-
->   drivers/gpu/drm/ttm/ttm_pool.c                | 22 +++++------
->   drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h   |  2 +-
->   drivers/iommu/dma-iommu.c                     |  4 +-
->   drivers/irqchip/irq-gic-v3-its.c              |  4 +-
->   drivers/md/dm-bufio.c                         |  2 +-
->   drivers/misc/genwqe/card_utils.c              |  2 +-
->   .../net/ethernet/hisilicon/hns3/hns3_enet.c   |  2 +-
->   drivers/net/ethernet/ibm/ibmvnic.h            |  2 +-
->   drivers/video/fbdev/hyperv_fb.c               |  4 +-
->   drivers/video/fbdev/vermilion/vermilion.c     |  2 +-
->   drivers/virtio/virtio_balloon.c               |  2 +-
->   drivers/virtio/virtio_mem.c                   | 12 +++---
->   fs/ramfs/file-nommu.c                         |  2 +-
->   include/drm/ttm/ttm_pool.h                    |  2 +-
->   include/linux/hugetlb.h                       |  2 +-
->   include/linux/mmzone.h                        | 10 ++---
->   include/linux/pageblock-flags.h               |  4 +-
->   include/linux/slab.h                          |  6 +--
->   kernel/crash_core.c                           |  2 +-
->   kernel/dma/pool.c                             |  6 +--
->   mm/Kconfig                                    |  6 +--
->   mm/compaction.c                               |  8 ++--
->   mm/debug_vm_pgtable.c                         |  4 +-
->   mm/huge_memory.c                              |  2 +-
->   mm/hugetlb.c                                  |  4 +-
->   mm/kmsan/init.c                               |  6 +--
->   mm/memblock.c                                 |  2 +-
->   mm/memory_hotplug.c                           |  4 +-
->   mm/page_alloc.c                               | 38 +++++++++----------
->   mm/page_isolation.c                           | 12 +++---
->   mm/page_owner.c                               |  6 +--
->   mm/page_reporting.c                           |  4 +-
->   mm/shuffle.h                                  |  2 +-
->   mm/slab.c                                     |  2 +-
->   mm/slub.c                                     |  4 +-
->   mm/vmscan.c                                   |  2 +-
->   mm/vmstat.c                                   | 14 +++----
->   net/smc/smc_ib.c                              |  2 +-
->   security/integrity/ima/ima_crypto.c           |  2 +-
->   tools/testing/memblock/linux/mmzone.h         |  6 +--
->   80 files changed, 210 insertions(+), 240 deletions(-)
-> 
+With:
+
+mddev_suspend
+mddev_lock
+// array reconfiguration
+mddev_unlock
+mddev_resume
+
+However, the above change is not possible for raid5 and raid-cluster in
+some corner cases, and mddev_suspend/resume() is replaced with quiesce()
+callback, which will suspend the array as well.
+
+This patchset is tested in my VM with mdadm testsuite with loop device
+except for 10ddf tests(they always fail before this patchset).
+
+A lot of cleanups will be started after this patchset.
+
+Yu Kuai (25):
+  md: use READ_ONCE/WRITE_ONCE for 'suspend_lo' and 'suspend_hi'
+  md: replace is_md_suspended() with 'mddev->suspended' in
+    md_check_recovery()
+  md: add new helpers to suspend/resume array
+  md: add new helpers to suspend/resume and lock/unlock array
+  md: use new apis to suspend array for suspend_lo/hi_store()
+  md: use new apis to suspend array for level_store()
+  md: use new apis to suspend array for serialize_policy_store()
+  md/dm-raid: use new apis to suspend array
+  md/md-bitmap: use new apis to suspend array for location_store()
+  md/raid5-cache: use READ_ONCE/WRITE_ONCE for 'conf->log'
+  md/raid5-cache: use new apis to suspend array for
+    r5c_disable_writeback_async()
+  md/raid5-cache: use new apis to suspend array for
+    r5c_journal_mode_store()
+  md/raid5: use new apis to suspend array for raid5_store_stripe_size()
+  md/raid5: use new apis to suspend array for raid5_store_skip_copy()
+  md/raid5: use new apis to suspend array for
+    raid5_store_group_thread_cnt()
+  md/raid5: use new apis to suspend array for
+    raid5_change_consistency_policy()
+  md/raid5: replace suspend with quiesce() callback
+  md: use new apis to suspend array for ioctls involed array
+    reconfiguration
+  md: use new apis to suspend array for adding/removing rdev from
+    state_store()
+  md: use new apis to suspend array before
+    mddev_create/destroy_serial_pool
+  md: cleanup mddev_create/destroy_serial_pool()
+  md/md-linear: cleanup linear_add()
+  md: suspend array in md_start_sync() if array need reconfiguration
+  md: remove old apis to suspend the array
+  md: rename __mddev_suspend/resume() back to mddev_suspend/resume()
+
+ drivers/md/dm-raid.c       |  10 +-
+ drivers/md/md-autodetect.c |   4 +-
+ drivers/md/md-bitmap.c     |  18 ++-
+ drivers/md/md-linear.c     |   2 -
+ drivers/md/md.c            | 233 ++++++++++++++++++++-----------------
+ drivers/md/md.h            |  43 +++++--
+ drivers/md/raid5-cache.c   |  64 +++++-----
+ drivers/md/raid5.c         |  56 ++++-----
+ 8 files changed, 226 insertions(+), 204 deletions(-)
+
+-- 
+2.39.2
 
 --
 dm-devel mailing list
