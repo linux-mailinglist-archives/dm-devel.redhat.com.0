@@ -2,95 +2,95 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 593EF7B2CC9
-	for <lists+dm-devel@lfdr.de>; Fri, 29 Sep 2023 09:03:18 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 3634F7B3AB1
+	for <lists+dm-devel@lfdr.de>; Fri, 29 Sep 2023 21:29:00 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1695970997;
+	s=mimecast20190719; t=1696015739;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xv3iyk1diuSknaOPAUdj1UJr+JmQ4IJVAfG5qf6pkJA=;
-	b=RvVgqes7z5nSeBntVuGlbl7UowJc574oy7S9Px3/lxPGc/eC1FJQ1EucuxmOxC+oymKLUQ
-	XOVLSVSQKxzwcLrA+oVN7CwlbI9A+QSb07ZGDiljgqQDHvrWk/9KzBHz1cTXOInf76T0Dx
-	6TehR5n8SEv4HDgEydB1eslbjmPjcuY=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-573-d9CMp6ALM_uV_4Mq5_kfzw-1; Fri, 29 Sep 2023 03:03:14 -0400
-X-MC-Unique: d9CMp6ALM_uV_4Mq5_kfzw-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+	bh=doGrTHOcwVJwR5DpT0H4yP5GqWYQ0jlNVJ/beS8/+cw=;
+	b=NE7BTiSMFgGkyhDUvKEnTuqhsMK7hFbUBEVSmtfP6cI7gqKF0WO10Mc+wEh1H9vHLeslCY
+	cSBQKpxqJxq+BZsYmem37doPGWtUQbGUJmYE9bTGaiQAkEMJ6ov5aOLO9hYsEfvRddYzPf
+	dLzh80ECSskUYIGzmFz2EaG5ATN50MQ=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-221-k1p9fyG2N--EERUMBwTxSQ-1; Fri, 29 Sep 2023 15:28:56 -0400
+X-MC-Unique: k1p9fyG2N--EERUMBwTxSQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id D500D38125AB;
-	Fri, 29 Sep 2023 07:03:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 38118101A58B;
+	Fri, 29 Sep 2023 19:28:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 29B0AC185EE;
-	Fri, 29 Sep 2023 07:03:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 065682156702;
+	Fri, 29 Sep 2023 19:28:53 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7D08D19465BA;
-	Fri, 29 Sep 2023 07:03:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7E9031946589;
+	Fri, 29 Sep 2023 19:28:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 33C3A1946587
- for <dm-devel@listman.corp.redhat.com>; Wed, 27 Sep 2023 14:19:48 +0000 (UTC)
+ ESMTP id 132531946586
+ for <dm-devel@listman.corp.redhat.com>; Fri, 29 Sep 2023 19:21:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 05ED8492B16; Wed, 27 Sep 2023 14:19:43 +0000 (UTC)
+ id 05DD640C6EC1; Fri, 29 Sep 2023 19:21:20 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id F30F3400E89
- for <dm-devel@redhat.com>; Wed, 27 Sep 2023 14:19:42 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F311A40C6EBF
+ for <dm-devel@redhat.com>; Fri, 29 Sep 2023 19:21:19 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
  (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9E112280AA20
- for <dm-devel@redhat.com>; Wed, 27 Sep 2023 14:19:42 +0000 (UTC)
-Received: from mail-lj1-f177.google.com (mail-lj1-f177.google.com
- [209.85.208.177]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CC033382134F
+ for <dm-devel@redhat.com>; Fri, 29 Sep 2023 19:21:19 +0000 (UTC)
+Received: from mail-pl1-f171.google.com (mail-pl1-f171.google.com
+ [209.85.214.171]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-355-KDAbKwXcM0-K9TtwhccTIA-1; Wed, 27 Sep 2023 10:19:40 -0400
-X-MC-Unique: KDAbKwXcM0-K9TtwhccTIA-1
-Received: by mail-lj1-f177.google.com with SMTP id
- 38308e7fff4ca-2bfe9447645so40486371fa.0
- for <dm-devel@redhat.com>; Wed, 27 Sep 2023 07:19:40 -0700 (PDT)
+ us-mta-269-9gB43Lf9OSKFV1wNJWkV0A-1; Fri, 29 Sep 2023 15:21:15 -0400
+X-MC-Unique: 9gB43Lf9OSKFV1wNJWkV0A-1
+Received: by mail-pl1-f171.google.com with SMTP id
+ d9443c01a7336-1c364fb8a4cso130989705ad.1
+ for <dm-devel@redhat.com>; Fri, 29 Sep 2023 12:21:15 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1695824379; x=1696429179;
- h=content-transfer-encoding:in-reply-to:content-language:references
- :cc:to:subject:from:user-agent:mime-version:date:message-id
- :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=Wwk46okUDVQfnnelgDDAXJI2PyNHcNwKe3ka13udWbU=;
- b=PLFeVQTIYypDccWJZE6gE+MfcZ+hhoirEs8zLd6FVXq7WBKY3ESjUZM3T+ukfsTAha
- WgfE+qDRcEo8FTvBt0GIFdcCet+oO1p6OnY9DVUnoy04fSqyl4Eyoa0ePH3mxbTW6KTd
- 6fvEbPWIukjluXvxwXnKjihh7LESHGIHWoWPVYR+DDZ4YjTS6yq6zwxSBmdA8QEFtjKO
- hiNKzlbAzQVlMS1ML1W0o0x+nFfGBtiSdQH+cLwj4PbDSkvD77XV1VkJpHEzOADFmCby
- X/vkiILGXD7zFa+ix7PjGMQ7/bpHe5jnEVbB/YNyPW+/Bth/49ZiO8/RkpncDRzuj1OG
- xGzg==
-X-Gm-Message-State: AOJu0Yw8E2hQo5HapcSPlIRxl05oRZUTFl27RL40LOdZ+njMhJghttHA
- XSc5Ll3YDRnl2P+gVyJUwFIzaQ==
-X-Google-Smtp-Source: AGHT+IExVCqrFIxKzo43T8FMa/9T5rz6/xdccYRyI4cqxFk27k3RqgKqbk6x0v1Y5TMyg8NtKFdEkg==
-X-Received: by 2002:a05:651c:3cf:b0:2b6:cd7f:5ea8 with SMTP id
- f15-20020a05651c03cf00b002b6cd7f5ea8mr1801740ljp.1.1695824378667; 
- Wed, 27 Sep 2023 07:19:38 -0700 (PDT)
-Received: from [172.20.13.88] ([45.147.210.162])
- by smtp.gmail.com with ESMTPSA id
- mh2-20020a170906eb8200b00992b2c55c67sm9370253ejb.156.2023.09.27.07.19.36
- (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
- Wed, 27 Sep 2023 07:19:37 -0700 (PDT)
-Message-ID: <9cc59d88-4b77-4e56-ae54-737baca1d435@kernel.dk>
-Date: Wed, 27 Sep 2023 08:19:36 -0600
+ d=1e100.net; s=20230601; t=1696015274; x=1696620074;
+ h=content-transfer-encoding:mime-version:references:in-reply-to
+ :message-id:date:subject:cc:to:from:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=Lm/Ps7g202MOlVqh0mV3HRz4xTXb5X6yozpQbIPIl6I=;
+ b=aeSp+i9A0/BVN/+Gg2gCJ0UhJ+aEMQJ6X2W7cdw0nq0gdODfwM03qQHciSV0eWtGyf
+ AMCsiSg2EhTU4IUn2mgw2jnuKtpXUI/78MYH0+6xH7WGEoj5DORfKAKio3s4s00R8dt4
+ 5qKHuYYOLX0NunS8Cr+yK8bxSHFmsN57fG2D0F6UOv0zXGbZIjKeZ0E8HKlH1RGyIszU
+ ILODVFGid8eKM9Q2DYZ23YtG8e36qLnrs8ym4CsZhc5k5bZdg2tvxPVMzq3RugN8eCM7
+ gB+hcZuZzckoltp6MTfllROy89wCMC7RMO8DP+X8EemzZwc+YjZAsxYH6fNYiY/qIGfO
+ WXgg==
+X-Gm-Message-State: AOJu0Yy+s0IBejQXXHTOsBTRKMxLq173lL9tqUoijr+GuZZm+c5eegr/
+ GNvBQADLVbBh1nclQgsZMSHdwA==
+X-Google-Smtp-Source: AGHT+IHzxuvEn9JIX48urjncDPYH9dBw31tAucVspB19q62Zql14kwcg7Iwk6ubcIA4im2QxAPeqyA==
+X-Received: by 2002:a17:903:230b:b0:1c3:4565:22f with SMTP id
+ d11-20020a170903230b00b001c34565022fmr5848461plh.21.1696015274330; 
+ Fri, 29 Sep 2023 12:21:14 -0700 (PDT)
+Received: from www.outflux.net (198-0-35-241-static.hfc.comcastbusiness.net.
+ [198.0.35.241]) by smtp.gmail.com with ESMTPSA id
+ je15-20020a170903264f00b001ab39cd875csm13499524plb.133.2023.09.29.12.21.13
+ (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+ Fri, 29 Sep 2023 12:21:13 -0700 (PDT)
+From: Kees Cook <keescook@chromium.org>
+To: Alasdair Kergon <agk@redhat.com>,
+	Kees Cook <keescook@chromium.org>
+Date: Fri, 29 Sep 2023 12:21:03 -0700
+Message-Id: <169601526975.3013632.7773910905391133937.b4-ty@chromium.org>
+In-Reply-To: <20230915200407.never.611-kees@kernel.org>
+References: <20230915200407.never.611-kees@kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-From: Jens Axboe <axboe@kernel.dk>
-To: Jan Kara <jack@suse.cz>
-References: <20230818123232.2269-1-jack@suse.cz>
-In-Reply-To: <20230818123232.2269-1-jack@suse.cz>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,10 +98,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Fri, 29 Sep 2023 06:56:50 +0000
-Subject: Re: [dm-devel] [PATCH v4 0/29] block: Make blkdev_get_by_*() return
- handle
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: Re: [dm-devel] [PATCH] dm: Annotate struct dm_bio_prison with
+ __counted_by
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,74 +112,38 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Dave Kleikamp <shaggy@kernel.org>, jfs-discussion@lists.sourceforge.net,
- Jan Kara <jack@suse.cz>, "Darrick J. Wong" <djwong@kernel.org>,
- linux-nvme@lists.infradead.org, Joseph Qi <joseph.qi@linux.alibaba.com>,
- dm-devel@redhat.com, target-devel@vger.kernel.org,
- linux-mtd@lists.infradead.org, Jack Wang <jinpu.wang@ionos.com>,
- Alasdair Kergon <agk@redhat.com>, drbd-dev@lists.linbit.com,
- linux-s390@vger.kernel.org, linux-nilfs@vger.kernel.org,
- linux-scsi@vger.kernel.org, Sergey Senozhatsky <senozhatsky@chromium.org>,
- Christoph Hellwig <hch@infradead.org>, xen-devel@lists.xenproject.org,
- Gao Xiang <xiang@kernel.org>,
- Christian Borntraeger <borntraeger@linux.ibm.com>,
- Kent Overstreet <kent.overstreet@gmail.com>,
- Sven Schnelle <svens@linux.ibm.com>, linux-pm@vger.kernel.org,
- Mike Snitzer <snitzer@kernel.org>, Chao Yu <chao@kernel.org>,
- Joern Engel <joern@lazybastard.org>, linux-nfs@vger.kernel.org,
- reiserfs-devel@vger.kernel.org, linux-block@vger.kernel.org,
- linux-bcache@vger.kernel.org, David Sterba <dsterba@suse.com>,
- Jaegeuk Kim <jaegeuk@kernel.org>,
- Trond Myklebust <trond.myklebust@hammerspace.com>, linux-raid@vger.kernel.org,
- Christian Brauner <brauner@kernel.org>, linux-ext4@vger.kernel.org,
- Ted Tso <tytso@mit.edu>, linux-mm@kvack.org, Song Liu <song@kernel.org>,
- linux-f2fs-devel@lists.sourceforge.net, linux-xfs@vger.kernel.org,
- Minchan Kim <minchan@kernel.org>, ocfs2-devel@oss.oracle.com,
- Anna Schumaker <anna@kernel.org>, linux-fsdevel@vger.kernel.org,
- "Md. Haris Iqbal" <haris.iqbal@ionos.com>,
- Andrew Morton <akpm@linux-foundation.org>, linux-erofs@lists.ozlabs.org,
- linux-btrfs@vger.kernel.org
+Cc: Mike Snitzer <snitzer@kernel.org>, llvm@lists.linux.dev,
+ Nick Desaulniers <ndesaulniers@google.com>, linux-kernel@vger.kernel.org,
+ Nathan Chancellor <nathan@kernel.org>, dm-devel@redhat.com,
+ linux-hardening@vger.kernel.org, Tom Rix <trix@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: kernel.dk
-Content-Language: en-US
+X-Mimecast-Originator: chromium.org
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 27, 2023 at 3:34?AM Jan Kara <jack@suse.cz> wrote:
->
-> Hello,
->
-> this is a v3 of the patch series which implements the idea of blkdev_get_by_*()
+On Fri, 15 Sep 2023 13:04:08 -0700, Kees Cook wrote:
+> Prepare for the coming implementation by GCC and Clang of the __counted_by
+> attribute. Flexible array members annotated with __counted_by can have
+> their accesses bounds-checked at run-time checking via CONFIG_UBSAN_BOUNDS
+> (for array indexing) and CONFIG_FORTIFY_SOURCE (for strcpy/memcpy-family
+> functions).
+> 
+> As found with Coccinelle[1], add __counted_by for struct dm_bio_prison.
+> 
+> [...]
 
-v4?
+Applied to for-next/hardening, thanks!
 
-> calls returning bdev_handle which is then passed to blkdev_put() [1]. This
-> makes the get and put calls for bdevs more obviously matching and allows us to
-> propagate context from get to put without having to modify all the users
-> (again!). In particular I need to propagate used open flags to blkdev_put() to
-> be able count writeable opens and add support for blocking writes to mounted
-> block devices. I'll send that series separately.
->
-> The series is based on Btrfs tree's for-next branch [2] as of today as the
-> series depends on Christoph's changes to btrfs device handling.  Patches have
-> passed some reasonable testing - I've tested block changes, md, dm, bcache,
-> xfs, btrfs, ext4, swap. More testing or review is always welcome. Thanks! I've
-> pushed out the full branch to:
->
-> git://git.kernel.org/pub/scm/linux/kernel/git/jack/linux-fs.git bdev_handle
->
-> to ease review / testing. Christian, can you pull the patches to your tree
-> to get some exposure in linux-next as well? Thanks!
+[1/1] dm: Annotate struct dm_bio_prison with __counted_by
+      https://git.kernel.org/kees/c/1eb1f6b6c911
 
-For the block bits:
-
-Acked-by: Jens Axboe <axboe@kernel.dk>
+Take care,
 
 -- 
-Jens Axboe
+Kees Cook
 
 --
 dm-devel mailing list
