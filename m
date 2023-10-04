@@ -2,69 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 4B00F7B973F
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Oct 2023 00:15:35 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 040387B9742
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Oct 2023 00:15:41 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696457734;
+	s=mimecast20190719; t=1696457741;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=zTtwWWldDN/AmmwjSPAnozi/FKOYY7/WwhE0inZkyfA=;
-	b=DKy+4NHGMDTp30f9p2+jcf8TDv1N8IxP2MVBKH+xUssSeTaHIBak1Gjgfw8AhcQeYx2sKX
-	757GSEC98fmSolKs4rMagZp/yom+6pGHsQJG5ReVliUrKF/YWg7mUDXqUdHBdst/jrLAYZ
-	SLDX0WHVuIjjrVpIdk52ElmN+1Mg1Gg=
+	bh=OjsWtbpFLAq21zikicwBIPZ0giRUurauUvgwGN1KH/w=;
+	b=BEYCg7AkO1FEZ0CSR9xHTSCxE03+SL4dLMynFhP/bHOhfLbfnwD5YHa0ciGUAE6J/v8tU6
+	sGvrYNn1qAHEIkV/z7YSKjahQMdIDYAVC/CIKmeMzxyXhSiy1p59pVjbuohv/423v6C3Rg
+	rjkLSLwpUgFo7M5TxsFaynQoaxlFKR0=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-32-shl85qsTMKeUPTzOn3oqPw-1; Wed, 04 Oct 2023 18:15:27 -0400
-X-MC-Unique: shl85qsTMKeUPTzOn3oqPw-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-490-SMVFy1ZgPqaCtGw1Qy6TXA-1; Wed, 04 Oct 2023 18:15:37 -0400
+X-MC-Unique: SMVFy1ZgPqaCtGw1Qy6TXA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 91DC03C14AA6;
-	Wed,  4 Oct 2023 22:15:21 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 863932825EAF;
+	Wed,  4 Oct 2023 22:15:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 361C2400F0F;
-	Wed,  4 Oct 2023 22:15:15 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 6DC6340C6EA8;
+	Wed,  4 Oct 2023 22:15:34 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 71E1B1946A51;
-	Wed,  4 Oct 2023 22:15:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 3D30019466F9;
+	Wed,  4 Oct 2023 22:15:34 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C01CC19465A3
- for <dm-devel@listman.corp.redhat.com>; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
+ ESMTP id 503671946597
+ for <dm-devel@listman.corp.redhat.com>; Wed,  4 Oct 2023 22:15:33 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A27E5215671F; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
+ id 3B93340C6EC0; Wed,  4 Oct 2023 22:15:33 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 99CE42156711
- for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 32DCB40C6EA8
+ for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:33 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
  [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 78BD281D785
- for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 11417185A78E
+ for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:33 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-623-EFZKE5zrPFqsX8r3DA2EdQ-3; Wed,
+ relay.mimecast.com with ESMTP id us-mta-509-evIT_bBmMTGT2bYjh3vuzQ-1; Wed,
  04 Oct 2023 18:15:10 -0400
-X-MC-Unique: EFZKE5zrPFqsX8r3DA2EdQ-3
+X-MC-Unique: evIT_bBmMTGT2bYjh3vuzQ-1
 Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 5E46A20B74C8; Wed,  4 Oct 2023 15:09:50 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 5E46A20B74C8
+ id 6BFDF20B74CA; Wed,  4 Oct 2023 15:09:50 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 6BFDF20B74CA
 From: Fan Wu <wufan@linux.microsoft.com>
 To: corbet@lwn.net, zohar@linux.ibm.com, jmorris@namei.org, serge@hallyn.com,
  tytso@mit.edu, ebiggers@kernel.org, axboe@kernel.dk, agk@redhat.com,
  snitzer@kernel.org, eparis@redhat.com, paul@paul-moore.com
-Date: Wed,  4 Oct 2023 15:09:31 -0700
-Message-Id: <1696457386-3010-5-git-send-email-wufan@linux.microsoft.com>
+Date: Wed,  4 Oct 2023 15:09:32 -0700
+Message-Id: <1696457386-3010-6-git-send-email-wufan@linux.microsoft.com>
 In-Reply-To: <1696457386-3010-1-git-send-email-wufan@linux.microsoft.com>
 References: <1696457386-3010-1-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -74,9 +74,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
-Subject: [dm-devel] [RFC PATCH v11 04/19] ipe: add LSM hooks on execution
- and kernel read
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+Subject: [dm-devel] [RFC PATCH v11 05/19] ipe: introduce 'boot_verified' as
+ a trust provider
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -97,7 +97,7 @@ Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
 MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: linux.microsoft.com
 Content-Type: text/plain; charset="us-ascii"
@@ -105,375 +105,304 @@ Content-Transfer-Encoding: 7bit
 
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-IPE's initial goal is to control both execution and the loading of
-kernel modules based on the system's definition of trust. It
-accomplishes this by plugging into the security hooks for
-bprm_check_security, file_mprotect, mmap_file, kernel_load_data,
-and kernel_read_data.
+IPE is designed to provide system level trust guarantees, this usually
+implies that trust starts from bootup with a hardware root of trust,
+which validates the bootloader. After this, the bootloader verifies the
+kernel and the initramfs.
+
+As there's no currently supported integrity method for initramfs, and
+it's typically already verified by the bootloader, introduce a property
+that causes the first superblock to have an execution to be "pinned",
+which is typically initramfs.
+
+When the "pinned" device is unmounted, it will be "unpinned" and
+`boot_verified` property will always evaluate to false afterward.
+
+We use a pointer with a spin_lock to "pin" the device instead of rcu
+because rcu synchronization may sleep, which is not allowed when
+unmounting a device.
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
+
 ---
 v2:
-  + Split evaluation loop, access control hooks,
-    and evaluation loop from policy parser and userspace
-    interface to pass mailing list character limit
+  +No Changes
 
 v3:
-  + Move ipe_load_properties to patch 04.
-  + Remove useless 0-initializations
-  + Prefix extern variables with ipe_
-  + Remove kernel module parameters, as these are
-    exposed through sysctls.
-  + Add more prose to the IPE base config option
-    help text.
-  + Use GFP_KERNEL for audit_log_start.
-  + Remove unnecessary caching system.
-  + Remove comments from headers
-  + Use rcu_access_pointer for rcu-pointer null check
-  + Remove usage of reqprot; use prot only.
-  + Move policy load and activation audit event to 03/12
+  + Remove useless caching system
+  + Move ipe_load_properties to this match
+  + Minor changes from checkpatch --strict warnings
 
 v4:
-  + Remove sysctls in favor of securityfs nodes
-  + Re-add kernel module parameters, as these are now
-    exposed through securityfs.
-  + Refactor property audit loop to a separate function.
+  + Remove comments from headers that was missed previously.
+  + Grammatical corrections.
 
 v5:
-  + fix minor grammatical errors
-  + do not group rule by curly-brace in audit record,
-    reconstruct the exact rule.
+  + No significant changes
 
 v6:
   + No changes
 
 v7:
-  + Further split lsm creation, the audit system, the evaluation loop
-    and access control hooks into separate commits.
+  + Reword and refactor patch 04/12 to [09/16], based on changes in the underlying system.
+  + Add common audit function for boolean values
+  + Use common audit function as implementation.
 
 v8:
-  + Rename hook functions to follow the lsmname_hook_name convention
-  + Remove ipe_hook enumeration, can be derived from correlation with
-    syscall audit record.
+  + No changes
 
 v9:
-  + Minor changes for adapting to the new parser
+  + No changes
 
 v10:
-  + Remove @reqprot part
+  + Replace struct file with struct super_block
 
 v11:
   + Fix code style issues
 ---
- security/ipe/Makefile |   1 +
- security/ipe/eval.c   |  14 ++++
- security/ipe/eval.h   |   3 +
- security/ipe/hooks.c  | 183 ++++++++++++++++++++++++++++++++++++++++++
- security/ipe/hooks.h  |  25 ++++++
- security/ipe/ipe.c    |   6 ++
- 6 files changed, 232 insertions(+)
- create mode 100644 security/ipe/hooks.c
- create mode 100644 security/ipe/hooks.h
+ security/ipe/eval.c          | 72 +++++++++++++++++++++++++++++++++++-
+ security/ipe/eval.h          |  2 +
+ security/ipe/hooks.c         | 12 ++++++
+ security/ipe/hooks.h         |  2 +
+ security/ipe/ipe.c           |  1 +
+ security/ipe/policy.h        |  2 +
+ security/ipe/policy_parser.c | 35 +++++++++++++++++-
+ 7 files changed, 124 insertions(+), 2 deletions(-)
 
-diff --git a/security/ipe/Makefile b/security/ipe/Makefile
-index 57fe922cf1fc..d7f2870d7c09 100644
---- a/security/ipe/Makefile
-+++ b/security/ipe/Makefile
-@@ -7,6 +7,7 @@
- 
- obj-$(CONFIG_SECURITY_IPE) += \
- 	eval.o \
-+	hooks.o \
- 	ipe.o \
- 	policy.o \
- 	policy_parser.o \
 diff --git a/security/ipe/eval.c b/security/ipe/eval.c
-index 5533c359bbeb..8a8bcc5c7d7f 100644
+index 8a8bcc5c7d7f..bdac4abc0ddb 100644
 --- a/security/ipe/eval.c
 +++ b/security/ipe/eval.c
-@@ -16,6 +16,20 @@
+@@ -9,6 +9,7 @@
+ #include <linux/file.h>
+ #include <linux/sched.h>
+ #include <linux/rcupdate.h>
++#include <linux/spinlock.h>
+ 
+ #include "ipe.h"
+ #include "eval.h"
+@@ -16,6 +17,44 @@
  
  struct ipe_policy __rcu *ipe_active_policy;
  
++static const struct super_block *pinned_sb;
++static DEFINE_SPINLOCK(pin_lock);
++#define FILE_SUPERBLOCK(f) ((f)->f_path.mnt->mnt_sb)
++
 +/**
-+ * build_eval_ctx - Build an evaluation context.
-+ * @ctx: Supplies a pointer to the context to be populdated.
-+ * @file: Supplies a pointer to the file to associated with the evaluation.
-+ * @op: Supplies the IPE policy operation associated with the evaluation.
++ * pin_sb - Pin the underlying superblock of @f, marking it as trusted.
++ * @sb: Supplies a super_block structure to be pinned.
 + */
-+void build_eval_ctx(struct ipe_eval_ctx *ctx,
-+		    const struct file *file,
-+		    enum ipe_op_type op)
++static void pin_sb(const struct super_block *sb)
 +{
-+	ctx->file = file;
-+	ctx->op = op;
++	if (!sb)
++		return;
++	spin_lock(&pin_lock);
++	if (!pinned_sb)
++		pinned_sb = sb;
++	spin_unlock(&pin_lock);
++}
++
++/**
++ * from_pinned - Determine whether @sb is the pinned super_block.
++ * @sb: Supplies a super_block to check against the pinned super_block.
++ *
++ * Return:
++ * * true	- @sb is the pinned super_block
++ * * false	- @sb is not the pinned super_block
++ */
++static bool from_pinned(const struct super_block *sb)
++{
++	bool rv;
++
++	if (!sb)
++		return false;
++	spin_lock(&pin_lock);
++	rv = !IS_ERR_OR_NULL(pinned_sb) && pinned_sb == sb;
++	spin_unlock(&pin_lock);
++	return rv;
 +}
 +
  /**
-  * evaluate_property - Analyze @ctx against a property.
-  * @ctx: Supplies a pointer to the context to be evaluated.
+  * build_eval_ctx - Build an evaluation context.
+  * @ctx: Supplies a pointer to the context to be populdated.
+@@ -26,8 +65,14 @@ void build_eval_ctx(struct ipe_eval_ctx *ctx,
+ 		    const struct file *file,
+ 		    enum ipe_op_type op)
+ {
++	if (op == IPE_OP_EXEC && file)
++		pin_sb(FILE_SUPERBLOCK(file));
++
+ 	ctx->file = file;
+ 	ctx->op = op;
++
++	if (file)
++		ctx->from_init_sb = from_pinned(FILE_SUPERBLOCK(file));
+ }
+ 
+ /**
+@@ -42,7 +87,14 @@ void build_eval_ctx(struct ipe_eval_ctx *ctx,
+ static bool evaluate_property(const struct ipe_eval_ctx *const ctx,
+ 			      struct ipe_prop *p)
+ {
+-	return false;
++	switch (p->type) {
++	case IPE_PROP_BOOT_VERIFIED_FALSE:
++		return !ctx->from_init_sb;
++	case IPE_PROP_BOOT_VERIFIED_TRUE:
++		return ctx->from_init_sb;
++	default:
++		return false;
++	}
+ }
+ 
+ /**
+@@ -108,3 +160,21 @@ int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx)
+ 
+ 	return 0;
+ }
++
++/**
++ * ipe_invalidate_pinned_sb - invalidate the ipe pinned super_block.
++ * @mnt_sb: super_block to check against the pinned super_block.
++ *
++ * This function is called a super_block like the initramfs's is freed,
++ * if the super_block is currently pinned by ipe it will be invalided,
++ * so ipe won't consider the block device is boot verified afterward.
++ */
++void ipe_invalidate_pinned_sb(const struct super_block *mnt_sb)
++{
++	spin_lock(&pin_lock);
++
++	if (mnt_sb == pinned_sb)
++		pinned_sb = ERR_PTR(-EIO);
++
++	spin_unlock(&pin_lock);
++}
 diff --git a/security/ipe/eval.h b/security/ipe/eval.h
-index 6b434515968f..cfdf3c8dfe8a 100644
+index cfdf3c8dfe8a..9769da42c65f 100644
 --- a/security/ipe/eval.h
 +++ b/security/ipe/eval.h
-@@ -11,6 +11,8 @@
+@@ -19,9 +19,11 @@ struct ipe_eval_ctx {
+ 	enum ipe_op_type op;
  
- #include "policy.h"
- 
-+#define IPE_EVAL_CTX_INIT ((struct ipe_eval_ctx){ 0 })
-+
- extern struct ipe_policy __rcu *ipe_active_policy;
- 
- struct ipe_eval_ctx {
-@@ -19,6 +21,7 @@ struct ipe_eval_ctx {
  	const struct file *file;
++	bool from_init_sb;
  };
  
-+void build_eval_ctx(struct ipe_eval_ctx *ctx, const struct file *file, enum ipe_op_type op);
+ void build_eval_ctx(struct ipe_eval_ctx *ctx, const struct file *file, enum ipe_op_type op);
  int ipe_evaluate_event(const struct ipe_eval_ctx *const ctx);
++void ipe_invalidate_pinned_sb(const struct super_block *mnt_sb);
  
  #endif /* _IPE_EVAL_H */
 diff --git a/security/ipe/hooks.c b/security/ipe/hooks.c
-new file mode 100644
-index 000000000000..6164a9b53361
---- /dev/null
+index 6164a9b53361..e9386762a597 100644
+--- a/security/ipe/hooks.c
 +++ b/security/ipe/hooks.c
-@@ -0,0 +1,183 @@
-+// SPDX-License-Identifier: GPL-2.0
-+/*
-+ * Copyright (C) Microsoft Corporation. All rights reserved.
-+ */
-+
-+#include <linux/fs.h>
-+#include <linux/types.h>
-+#include <linux/binfmts.h>
-+#include <linux/mman.h>
-+
-+#include "ipe.h"
-+#include "hooks.h"
-+#include "eval.h"
+@@ -181,3 +181,15 @@ int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents)
+ 	build_eval_ctx(&ctx, NULL, op);
+ 	return ipe_evaluate_event(&ctx);
+ }
 +
 +/**
-+ * ipe_bprm_check_security - ipe security hook function for bprm check.
-+ * @bprm: Supplies a pointer to a linux_binprm structure to source the file
-+ *	  being evaluated.
++ * ipe_sb_free_security - ipe security hook function for super_block.
++ * @mnt_sb: Supplies a pointer to a super_block is about to be freed.
 + *
-+ * This LSM hook is called when a binary is loaded through the exec
-+ * family of system calls.
-+ * Return:
-+ * *0	- OK
-+ * *!0	- Error
++ * IPE does not have any structures with mnt_sb, but uses this hook to
++ * invalidate a pinned super_block.
 + */
-+int ipe_bprm_check_security(struct linux_binprm *bprm)
++void ipe_sb_free_security(struct super_block *mnt_sb)
 +{
-+	struct ipe_eval_ctx ctx = IPE_EVAL_CTX_INIT;
-+
-+	build_eval_ctx(&ctx, bprm->file, IPE_OP_EXEC);
-+	return ipe_evaluate_event(&ctx);
-+}
-+
-+/**
-+ * ipe_mmap_file - ipe security hook function for mmap check.
-+ * @f: File being mmap'd. Can be NULL in the case of anonymous memory.
-+ * @reqprot: The requested protection on the mmap, passed from usermode.
-+ * @prot: The effective protection on the mmap, resolved from reqprot and
-+ *	  system configuration.
-+ * @flags: Unused.
-+ *
-+ * This hook is called when a file is loaded through the mmap
-+ * family of system calls.
-+ *
-+ * Return:
-+ * * 0	- OK
-+ * * !0	- Error
-+ */
-+int ipe_mmap_file(struct file *f, unsigned long reqprot __always_unused,
-+		  unsigned long prot, unsigned long flags)
-+{
-+	struct ipe_eval_ctx ctx = IPE_EVAL_CTX_INIT;
-+
-+	if (prot & PROT_EXEC) {
-+		build_eval_ctx(&ctx, f, IPE_OP_EXEC);
-+		return ipe_evaluate_event(&ctx);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * ipe_file_mprotect - ipe security hook function for mprotect check.
-+ * @vma: Existing virtual memory area created by mmap or similar.
-+ * @reqprot: The requested protection on the mmap, passed from usermode.
-+ * @prot: The effective protection on the mmap, resolved from reqprot and
-+ *	  system configuration.
-+ *
-+ * This LSM hook is called when a mmap'd region of memory is changing
-+ * its protections via mprotect.
-+ *
-+ * Return:
-+ * * 0	- OK
-+ * * !0	- Error
-+ */
-+int ipe_file_mprotect(struct vm_area_struct *vma,
-+		      unsigned long reqprot __always_unused,
-+		      unsigned long prot)
-+{
-+	struct ipe_eval_ctx ctx = IPE_EVAL_CTX_INIT;
-+
-+	/* Already Executable */
-+	if (vma->vm_flags & VM_EXEC)
-+		return 0;
-+
-+	if (prot & PROT_EXEC) {
-+		build_eval_ctx(&ctx, vma->vm_file, IPE_OP_EXEC);
-+		return ipe_evaluate_event(&ctx);
-+	}
-+
-+	return 0;
-+}
-+
-+/**
-+ * ipe_kernel_read_file - ipe security hook function for kernel read.
-+ * @file: Supplies a pointer to the file structure being read in from disk.
-+ * @id: Supplies the enumeration identifying the purpose of the read.
-+ * @contents: Unused.
-+ *
-+ * This LSM hook is called when a file is being read in from disk from
-+ * the kernel.
-+ *
-+ * Return:
-+ * 0 - OK
-+ * !0 - Error
-+ */
-+int ipe_kernel_read_file(struct file *file, enum kernel_read_file_id id,
-+			 bool contents)
-+{
-+	enum ipe_op_type op;
-+	struct ipe_eval_ctx ctx = IPE_EVAL_CTX_INIT;
-+
-+	switch (id) {
-+	case READING_FIRMWARE:
-+		op = IPE_OP_FIRMWARE;
-+		break;
-+	case READING_MODULE:
-+		op = IPE_OP_KERNEL_MODULE;
-+		break;
-+	case READING_KEXEC_INITRAMFS:
-+		op = IPE_OP_KEXEC_INITRAMFS;
-+		break;
-+	case READING_KEXEC_IMAGE:
-+		op = IPE_OP_KEXEC_IMAGE;
-+		break;
-+	case READING_POLICY:
-+		op = IPE_OP_IMA_POLICY;
-+		break;
-+	case READING_X509_CERTIFICATE:
-+		op = IPE_OP_IMA_X509;
-+		break;
-+	default:
-+		op = IPE_OP_INVALID;
-+		WARN(op == IPE_OP_INVALID, "no rule setup for enum %d", id);
-+	}
-+
-+	build_eval_ctx(&ctx, file, op);
-+	return ipe_evaluate_event(&ctx);
-+}
-+
-+/**
-+ * ipe_kernel_load_data - ipe security hook function for kernel load data.
-+ * @id: Supplies the enumeration identifying the purpose of the read.
-+ * @contents: Unused.
-+ *
-+ * This LSM hook is called when a buffer is being read in from disk.
-+ *
-+ * Return:
-+ * * 0	- OK
-+ * * !0	- Error
-+ */
-+int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents)
-+{
-+	enum ipe_op_type op;
-+	struct ipe_eval_ctx ctx = IPE_EVAL_CTX_INIT;
-+
-+	switch (id) {
-+	case LOADING_FIRMWARE:
-+		op = IPE_OP_FIRMWARE;
-+		break;
-+	case LOADING_MODULE:
-+		op = IPE_OP_KERNEL_MODULE;
-+		break;
-+	case LOADING_KEXEC_INITRAMFS:
-+		op = IPE_OP_KEXEC_INITRAMFS;
-+		break;
-+	case LOADING_KEXEC_IMAGE:
-+		op = IPE_OP_KEXEC_IMAGE;
-+		break;
-+	case LOADING_POLICY:
-+		op = IPE_OP_IMA_POLICY;
-+		break;
-+	case LOADING_X509_CERTIFICATE:
-+		op = IPE_OP_IMA_X509;
-+		break;
-+	default:
-+		op = IPE_OP_INVALID;
-+		WARN(op == IPE_OP_INVALID, "no rule setup for enum %d", id);
-+	}
-+
-+	build_eval_ctx(&ctx, NULL, op);
-+	return ipe_evaluate_event(&ctx);
++	ipe_invalidate_pinned_sb(mnt_sb);
 +}
 diff --git a/security/ipe/hooks.h b/security/ipe/hooks.h
-new file mode 100644
-index 000000000000..23205452f758
---- /dev/null
+index 23205452f758..ac0cdfd9877f 100644
+--- a/security/ipe/hooks.h
 +++ b/security/ipe/hooks.h
-@@ -0,0 +1,25 @@
-+/* SPDX-License-Identifier: GPL-2.0 */
-+/*
-+ * Copyright (C) Microsoft Corporation. All rights reserved.
-+ */
-+#ifndef _IPE_HOOKS_H
-+#define _IPE_HOOKS_H
+@@ -22,4 +22,6 @@ int ipe_kernel_read_file(struct file *file, enum kernel_read_file_id id,
+ 
+ int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents);
+ 
++void ipe_sb_free_security(struct super_block *mnt_sb);
 +
-+#include <linux/fs.h>
-+#include <linux/binfmts.h>
-+#include <linux/security.h>
-+
-+int ipe_bprm_check_security(struct linux_binprm *bprm);
-+
-+int ipe_mmap_file(struct file *f, unsigned long reqprot, unsigned long prot,
-+		  unsigned long flags);
-+
-+int ipe_file_mprotect(struct vm_area_struct *vma, unsigned long reqprot,
-+		      unsigned long prot);
-+
-+int ipe_kernel_read_file(struct file *file, enum kernel_read_file_id id,
-+			 bool contents);
-+
-+int ipe_kernel_load_data(enum kernel_load_data_id id, bool contents);
-+
-+#endif /* _IPE_HOOKS_H */
+ #endif /* _IPE_HOOKS_H */
 diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-index ba5526f9d527..77c950459810 100644
+index 77c950459810..06da94a58aba 100644
 --- a/security/ipe/ipe.c
 +++ b/security/ipe/ipe.c
-@@ -4,11 +4,17 @@
+@@ -15,6 +15,7 @@ static struct security_hook_list ipe_hooks[] __ro_after_init = {
+ 	LSM_HOOK_INIT(file_mprotect, ipe_file_mprotect),
+ 	LSM_HOOK_INIT(kernel_read_file, ipe_kernel_read_file),
+ 	LSM_HOOK_INIT(kernel_load_data, ipe_kernel_load_data),
++	LSM_HOOK_INIT(sb_free_security, ipe_sb_free_security),
+ };
+ 
+ /**
+diff --git a/security/ipe/policy.h b/security/ipe/policy.h
+index 77aa91f2b953..45704465dc01 100644
+--- a/security/ipe/policy.h
++++ b/security/ipe/policy.h
+@@ -30,6 +30,8 @@ enum ipe_action_type {
+ #define IPE_ACTION_INVALID __IPE_ACTION_MAX
+ 
+ enum ipe_prop_type {
++	IPE_PROP_BOOT_VERIFIED_FALSE,
++	IPE_PROP_BOOT_VERIFIED_TRUE,
+ 	__IPE_PROP_MAX
+ };
+ 
+diff --git a/security/ipe/policy_parser.c b/security/ipe/policy_parser.c
+index c09458bd348d..ee7646de72ed 100644
+--- a/security/ipe/policy_parser.c
++++ b/security/ipe/policy_parser.c
+@@ -265,6 +265,12 @@ static enum ipe_action_type parse_action(char *t)
+ 	return match_token(t, action_tokens, args);
+ }
+ 
++static const match_table_t property_tokens = {
++	{IPE_PROP_BOOT_VERIFIED_FALSE,	"boot_verified=FALSE"},
++	{IPE_PROP_BOOT_VERIFIED_TRUE,	"boot_verified=TRUE"},
++	{IPE_PROP_INVALID,		NULL}
++};
++
+ /**
+  * parse_property - Parse the property type given a token string.
+  * @t: Supplies the token string to be parsed.
+@@ -277,7 +283,34 @@ static enum ipe_action_type parse_action(char *t)
   */
- 
- #include "ipe.h"
-+#include "hooks.h"
- 
- static struct lsm_blob_sizes ipe_blobs __ro_after_init = {
- };
- 
- static struct security_hook_list ipe_hooks[] __ro_after_init = {
-+	LSM_HOOK_INIT(bprm_check_security, ipe_bprm_check_security),
-+	LSM_HOOK_INIT(mmap_file, ipe_mmap_file),
-+	LSM_HOOK_INIT(file_mprotect, ipe_file_mprotect),
-+	LSM_HOOK_INIT(kernel_read_file, ipe_kernel_read_file),
-+	LSM_HOOK_INIT(kernel_load_data, ipe_kernel_load_data),
- };
+ static int parse_property(char *t, struct ipe_rule *r)
+ {
+-	return -EBADMSG;
++	substring_t args[MAX_OPT_ARGS];
++	struct ipe_prop *p = NULL;
++	int rc = 0;
++	int token;
++
++	p = kzalloc(sizeof(*p), GFP_KERNEL);
++	if (!p)
++		return -ENOMEM;
++
++	token = match_token(t, property_tokens, args);
++
++	switch (token) {
++	case IPE_PROP_BOOT_VERIFIED_FALSE:
++	case IPE_PROP_BOOT_VERIFIED_TRUE:
++		p->type = token;
++		break;
++	default:
++		rc = -EBADMSG;
++		break;
++	}
++	if (rc)
++		goto err;
++	list_add_tail(&p->next, &r->props);
++
++	return rc;
++err:
++	kfree(p);
++	return rc;
+ }
  
  /**
 -- 
