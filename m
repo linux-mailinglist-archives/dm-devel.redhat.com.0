@@ -2,69 +2,69 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 11D907B9746
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Oct 2023 00:16:04 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 5CE5B7B9737
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Oct 2023 00:15:32 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696457764;
+	s=mimecast20190719; t=1696457731;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=EZxpgRS/K9LbT/y9gXjNez4cU14dLvCCHNOIwZSyQpY=;
-	b=I8vmnNDpqC7Q5UT8VLqSYcPcFd8YA+GlLu0oel9ZSWGC4t0WWN0N7zmimvfm+IK8lbfs01
-	nt9RKaV7ixIm+vzWJIwIVEc7VdrArDjJmBZQ1zB7CtSAfDVnC/FT8cLsnUqivd5V0cEV0e
-	+JyKsV19083zru64AqNsOubZ1w+bWiQ=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-572-WGu6QBdzMImV-UiROJ02yA-1; Wed, 04 Oct 2023 18:15:30 -0400
-X-MC-Unique: WGu6QBdzMImV-UiROJ02yA-1
+	bh=RkPWHtPCWYW/cBOCOxw7nXkJIWgUKlrAhXMF0k/73dc=;
+	b=g2jJcZ+UrHgGSMjsCeUhWrVAJccrphiMowI8OabUq5f79b4J3+iCp8j1ivcc+O1AT0T2DW
+	bn1Plf9utih0toGQxNTKGt2AQGHTuYbT5u6H6Wlu+DBa0+FO8mGOsx6OUNBC8RX6yjjUwz
+	Y2J6jeAuAYmwdowIk4u11t/AcERYk9M=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-610-ShZJyd7VPXSKdtFmVj_hUA-1; Wed, 04 Oct 2023 18:15:29 -0400
+X-MC-Unique: ShZJyd7VPXSKdtFmVj_hUA-1
 Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 92BC62815E2B;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9299A101B045;
 	Wed,  4 Oct 2023 22:15:21 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8D45D47CD2;
-	Wed,  4 Oct 2023 22:15:14 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 45D4263F48;
+	Wed,  4 Oct 2023 22:15:16 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 14D0319466EE;
-	Wed,  4 Oct 2023 22:15:14 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id AA61A1946A47;
+	Wed,  4 Oct 2023 22:15:15 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.1])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 328AB19465A2
- for <dm-devel@listman.corp.redhat.com>; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
+ ESMTP id E2776194658F
+ for <dm-devel@listman.corp.redhat.com>; Wed,  4 Oct 2023 22:15:12 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 2069947AD4A; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
+ id D193F40C2017; Wed,  4 Oct 2023 22:15:12 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1609A43532A
- for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:13 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id CA13940C2015
+ for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:12 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
  (us-smtp-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E71FC1C05AA7
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8F065380391B
  for <dm-devel@redhat.com>; Wed,  4 Oct 2023 22:15:12 +0000 (UTC)
 Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182]) by
- relay.mimecast.com with ESMTP id us-mta-443-2cDTKRe_ONeSH-do0px-PA-1; Wed,
- 04 Oct 2023 18:15:09 -0400
-X-MC-Unique: 2cDTKRe_ONeSH-do0px-PA-1
+ relay.mimecast.com with ESMTP id us-mta-607-yFypdLesPXKQCU8lBRa29g-1; Wed,
+ 04 Oct 2023 18:15:10 -0400
+X-MC-Unique: yFypdLesPXKQCU8lBRa29g-1
 Received: by linux.microsoft.com (Postfix, from userid 1052)
- id 2889120B74E1; Wed,  4 Oct 2023 15:09:50 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 2889120B74E1
+ id 3715C20B74E3; Wed,  4 Oct 2023 15:09:50 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 3715C20B74E3
 From: Fan Wu <wufan@linux.microsoft.com>
 To: corbet@lwn.net, zohar@linux.ibm.com, jmorris@namei.org, serge@hallyn.com,
  tytso@mit.edu, ebiggers@kernel.org, axboe@kernel.dk, agk@redhat.com,
  snitzer@kernel.org, eparis@redhat.com, paul@paul-moore.com
-Date: Wed,  4 Oct 2023 15:09:44 -0700
-Message-Id: <1696457386-3010-18-git-send-email-wufan@linux.microsoft.com>
+Date: Wed,  4 Oct 2023 15:09:45 -0700
+Message-Id: <1696457386-3010-19-git-send-email-wufan@linux.microsoft.com>
 In-Reply-To: <1696457386-3010-1-git-send-email-wufan@linux.microsoft.com>
 References: <1696457386-3010-1-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
@@ -74,9 +74,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-Subject: [dm-devel] [RFC PATCH v11 17/19] scripts: add boot policy
- generation program
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.1
+Subject: [dm-devel] [RFC PATCH v11 18/19] ipe: kunit test for parser
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -105,384 +104,375 @@ Content-Transfer-Encoding: 7bit
 
 From: Deven Bowers <deven.desai@linux.microsoft.com>
 
-Enables an IPE policy to be enforced from kernel start, enabling access
-control based on trust from kernel startup. This is accomplished by
-transforming an IPE policy indicated by CONFIG_IPE_BOOT_POLICY into a
-c-string literal that is parsed at kernel startup as an unsigned policy.
+Add various happy/unhappy unit tests for both IPE's parser.
 
 Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
+
 ---
-v2:
-  + No Changes
-
-v3:
-  + No Changes
-
-v4:
-  + No Changes
-
-v5:
-  + No Changes
-
-v6:
-  + No Changes
+v1-v6:
+  + Not present
 
 v7:
-  + Move from 01/11 to 14/16
-  + Don't return errno directly.
-  + Make output of script more user-friendly
-  + Add escaping for tab and '?'
-  + Mark argv pointer const
-  + Invert return code check in the boot policy parsing code path.
+  Introduced
 
 v8:
-  + No significant changes.
+  + Remove the kunit tests with respect to the fsverity digest, as these
+    require significant changes to work with the new method of acquiring
+    the digest at runtime.
 
 v9:
-  + No changes
+  + Remove the kunit tests related to ipe_context
 
 v10:
-  + Update the init part code for rcu changes in the eval loop patch
+  + No changes
 
 v11:
-  + Fix code style issues
+  + No changes
 ---
- MAINTAINERS                   |   1 +
- scripts/Makefile              |   1 +
- scripts/ipe/Makefile          |   2 +
- scripts/ipe/polgen/.gitignore |   1 +
- scripts/ipe/polgen/Makefile   |   6 ++
- scripts/ipe/polgen/polgen.c   | 145 ++++++++++++++++++++++++++++++++++
- security/ipe/.gitignore       |   1 +
- security/ipe/Kconfig          |  10 +++
- security/ipe/Makefile         |  11 +++
- security/ipe/fs.c             |   8 ++
- security/ipe/ipe.c            |  12 +++
- 11 files changed, 198 insertions(+)
- create mode 100644 scripts/ipe/Makefile
- create mode 100644 scripts/ipe/polgen/.gitignore
- create mode 100644 scripts/ipe/polgen/Makefile
- create mode 100644 scripts/ipe/polgen/polgen.c
- create mode 100644 security/ipe/.gitignore
+ security/ipe/Kconfig        |  17 +++
+ security/ipe/Makefile       |   3 +
+ security/ipe/policy_tests.c | 294 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 314 insertions(+)
+ create mode 100644 security/ipe/policy_tests.c
 
-diff --git a/MAINTAINERS b/MAINTAINERS
-index b898f2f8f9c4..18b1aeea6306 100644
---- a/MAINTAINERS
-+++ b/MAINTAINERS
-@@ -10394,6 +10394,7 @@ M:	Fan Wu <wufan@linux.microsoft.com>
- L:	linux-security-module@vger.kernel.org
- S:	Supported
- T:	git https://github.com/microsoft/ipe.git
-+F:	scripts/ipe/
- F:	security/ipe/
+diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
+index a6c5d48dd0a3..ac04a9974297 100644
+--- a/security/ipe/Kconfig
++++ b/security/ipe/Kconfig
+@@ -55,4 +55,21 @@ config IPE_PROP_FS_VERITY
  
- INTEL 810/815 FRAMEBUFFER DRIVER
-diff --git a/scripts/Makefile b/scripts/Makefile
-index 576cf64be667..1dbaf3a49aef 100644
---- a/scripts/Makefile
-+++ b/scripts/Makefile
-@@ -50,6 +50,7 @@ targets += module.lds
- subdir-$(CONFIG_GCC_PLUGINS) += gcc-plugins
- subdir-$(CONFIG_MODVERSIONS) += genksyms
- subdir-$(CONFIG_SECURITY_SELINUX) += selinux
-+subdir-$(CONFIG_SECURITY_IPE) += ipe
+ endmenu
  
- # Let clean descend into subdirs
- subdir-	+= basic dtc gdb kconfig mod
-diff --git a/scripts/ipe/Makefile b/scripts/ipe/Makefile
-new file mode 100644
-index 000000000000..e87553fbb8d6
---- /dev/null
-+++ b/scripts/ipe/Makefile
-@@ -0,0 +1,2 @@
-+# SPDX-License-Identifier: GPL-2.0-only
-+subdir-y := polgen
-diff --git a/scripts/ipe/polgen/.gitignore b/scripts/ipe/polgen/.gitignore
-new file mode 100644
-index 000000000000..80f32f25d200
---- /dev/null
-+++ b/scripts/ipe/polgen/.gitignore
-@@ -0,0 +1 @@
-+polgen
-diff --git a/scripts/ipe/polgen/Makefile b/scripts/ipe/polgen/Makefile
-new file mode 100644
-index 000000000000..066060c22b4a
---- /dev/null
-+++ b/scripts/ipe/polgen/Makefile
-@@ -0,0 +1,6 @@
-+# SPDX-License-Identifier: GPL-2.0
-+hostprogs-always-y	:= polgen
-+HOST_EXTRACFLAGS += \
-+	-I$(srctree)/include \
-+	-I$(srctree)/include/uapi \
++config SECURITY_IPE_KUNIT_TEST
++	bool "Build KUnit tests for IPE" if !KUNIT_ALL_TESTS
++	depends on KUNIT=y
++	default KUNIT_ALL_TESTS
++	help
++	  This builds the IPE KUnit tests.
 +
-diff --git a/scripts/ipe/polgen/polgen.c b/scripts/ipe/polgen/polgen.c
++	  KUnit tests run during boot and output the results to the debug log
++	  in TAP format (https://testanything.org/). Only useful for kernel devs
++	  running KUnit test harness and are not for inclusion into a
++	  production build.
++
++	  For more information on KUnit and unit tests in general please refer
++	  to the KUnit documentation in Documentation/dev-tools/kunit/.
++
++	  If unsure, say N.
++
+ endif
+diff --git a/security/ipe/Makefile b/security/ipe/Makefile
+index ce23101b66ba..def674e09e84 100644
+--- a/security/ipe/Makefile
++++ b/security/ipe/Makefile
+@@ -26,3 +26,6 @@ obj-$(CONFIG_SECURITY_IPE) += \
+ 	audit.o \
+ 
+ clean-files := boot-policy.c \
++
++obj-$(CONFIG_SECURITY_IPE_KUNIT_TEST) += \
++	policy_tests.o \
+diff --git a/security/ipe/policy_tests.c b/security/ipe/policy_tests.c
 new file mode 100644
-index 000000000000..40b6fe07f47b
+index 000000000000..d67c42c9ca59
 --- /dev/null
-+++ b/scripts/ipe/polgen/polgen.c
-@@ -0,0 +1,145 @@
++++ b/security/ipe/policy_tests.c
+@@ -0,0 +1,294 @@
 +// SPDX-License-Identifier: GPL-2.0
 +/*
 + * Copyright (C) Microsoft Corporation. All rights reserved.
 + */
 +
-+#include <stdlib.h>
-+#include <stddef.h>
-+#include <stdio.h>
-+#include <unistd.h>
-+#include <errno.h>
++#include <linux/slab.h>
++#include <linux/types.h>
++#include <linux/list.h>
++#include <kunit/test.h>
++#include "policy.h"
++struct policy_case {
++	const char *const policy;
++	int errno;
++	const char *const desc;
++};
 +
-+static void usage(const char *const name)
++static const struct policy_case policy_cases[] = {
++	{
++		"policy_name=allowall policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW",
++		0,
++		"basic",
++	},
++	{
++		"policy_name=trailing_comment policy_version=152.0.0 #This is comment\n"
++		"DEFAULT action=ALLOW",
++		0,
++		"trailing comment",
++	},
++	{
++		"policy_name=allowallnewline policy_version=0.2.0\n"
++		"DEFAULT action=ALLOW\n"
++		"\n",
++		0,
++		"trailing newline",
++	},
++	{
++		"policy_name=carriagereturnlinefeed policy_version=0.0.1\n"
++		"DEFAULT action=ALLOW\n"
++		"\r\n",
++		0,
++		"clrf newline",
++	},
++	{
++		"policy_name=whitespace policy_version=0.0.0\n"
++		"DEFAULT\taction=ALLOW\n"
++		"     \t     DEFAULT \t    op=EXECUTE      action=DENY\n"
++		"op=EXECUTE boot_verified=TRUE action=ALLOW\n"
++		"# this is a\tcomment\t\t\t\t\n"
++		"DEFAULT \t op=KMODULE\t\t\t  action=DENY\r\n"
++		"op=KMODULE boot_verified=TRUE action=ALLOW\n",
++		0,
++		"various whitespaces and nested default",
++	},
++	{
++		"policy_name=boot_verified policy_version=-1236.0.0\n"
++		"DEFAULT\taction=ALLOW\n",
++		-EINVAL,
++		"negative version",
++	},
++	{
++		"policy_name=$@!*&^%%\\:;{}() policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW",
++		0,
++		"special characters",
++	},
++	{
++		"policy_name=test policy_version=999999.0.0\n"
++		"DEFAULT action=ALLOW",
++		-ERANGE,
++		"overflow version",
++	},
++	{
++		"policy_name=test policy_version=255.0\n"
++		"DEFAULT action=ALLOW",
++		-EBADMSG,
++		"incomplete version",
++	},
++	{
++		"policy_name=test policy_version=111.0.0.0\n"
++		"DEFAULT action=ALLOW",
++		-EBADMSG,
++		"extra version",
++	},
++	{
++		"",
++		-EBADMSG,
++		"0-length policy",
++	},
++	{
++		"policy_name=test\0policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW",
++		-EBADMSG,
++		"random null in header",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"\0DEFAULT action=ALLOW",
++		-EBADMSG,
++		"incomplete policy from NULL",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=DENY\n\0"
++		"op=EXECUTE dmverity_signature=TRUE action=ALLOW\n",
++		0,
++		"NULL truncates policy",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=EXECUTE dmverity_signature=abc action=ALLOW",
++		-EBADMSG,
++		"invalid property type",
++	},
++	{
++		"DEFAULT action=ALLOW",
++		-EBADMSG,
++		"missing policy header",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n",
++		-EBADMSG,
++		"missing default definition",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"dmverity_signature=TRUE op=EXECUTE action=ALLOW",
++		-EBADMSG,
++		"invalid rule ordering"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"action=ALLOW op=EXECUTE dmverity_signature=TRUE",
++		-EBADMSG,
++		"invalid rule ordering (2)",
++	},
++	{
++		"policy_name=test policy_version=0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=EXECUTE dmverity_signature=TRUE action=ALLOW",
++		-EBADMSG,
++		"invalid version",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=UNKNOWN dmverity_signature=TRUE action=ALLOW",
++		-EBADMSG,
++		"unknown operation",
++	},
++	{
++		"policy_name=asdvpolicy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n",
++		-EBADMSG,
++		"missing space after policy name",
++	},
++	{
++		"policy_name=test\xFF\xEF policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=EXECUTE dmverity_signature=TRUE action=ALLOW",
++		0,
++		"expanded ascii",
++	},
++	{
++		"policy_name=test\xFF\xEF policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=EXECUTE dmverity_roothash=GOOD_DOG action=ALLOW",
++		-EBADMSG,
++		"invalid property value (2)",
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"policy_name=test policy_version=0.1.0\n"
++		"DEFAULT action=ALLOW",
++		-EBADMSG,
++		"double header"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"DEFAULT action=ALLOW\n",
++		-EBADMSG,
++		"double default"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"DEFAULT op=EXECUTE action=DENY\n"
++		"DEFAULT op=EXECUTE action=ALLOW\n",
++		-EBADMSG,
++		"double operation default"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"DEFAULT op=EXECUTE action=DEN\n",
++		-EBADMSG,
++		"invalid action value"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"DEFAULT op=EXECUTE action\n",
++		-EBADMSG,
++		"invalid action value (2)"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"UNKNOWN value=true\n",
++		-EBADMSG,
++		"unrecognized statement"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=EXECUTE dmverity_roothash=1c0d7ee1f8343b7fbe418378e8eb22c061d7dec7 action=DENY\n",
++		-EBADMSG,
++		"old-style digest"
++	},
++	{
++		"policy_name=test policy_version=0.0.0\n"
++		"DEFAULT action=ALLOW\n"
++		"op=EXECUTE fsverity_digest=1c0d7ee1f8343b7fbe418378e8eb22c061d7dec7 action=DENY\n",
++		-EBADMSG,
++		"old-style digest"
++	}
++};
++
++static void pol_to_desc(const struct policy_case *c, char *desc)
 +{
-+	printf("Usage: %s OutputFile (PolicyFile)\n", name);
-+	exit(EINVAL);
++	strscpy(desc, c->desc, KUNIT_PARAM_DESC_SIZE);
 +}
 +
-+static int policy_to_buffer(const char *pathname, char **buffer, size_t *size)
++KUNIT_ARRAY_PARAM(ipe_policies, policy_cases, pol_to_desc);
++
++/**
++ * ipe_parser_unsigned_test - Test the parser by passing unsigned policies.
++ * @test: Supplies a pointer to a kunit structure.
++ *
++ * This is called by the kunit harness. This test does not check the correctness
++ * of the policy, but ensures that errors are handled correctly.
++ */
++static void ipe_parser_unsigned_test(struct kunit *test)
 +{
-+	int rc = 0;
-+	FILE *fd;
-+	char *lbuf;
-+	size_t fsize;
-+	size_t read;
++	const struct policy_case *p = test->param_value;
++	struct ipe_policy *pol = ipe_new_policy(p->policy, strlen(p->policy), NULL, 0);
 +
-+	fd = fopen(pathname, "r");
-+	if (!fd) {
-+		rc = errno;
-+		goto out;
++	if (p->errno) {
++		KUNIT_EXPECT_EQ(test, PTR_ERR(pol), p->errno);
++		return;
 +	}
 +
-+	fseek(fd, 0, SEEK_END);
-+	fsize = ftell(fd);
-+	rewind(fd);
++	KUNIT_ASSERT_NOT_ERR_OR_NULL(test, pol);
++	KUNIT_EXPECT_NOT_ERR_OR_NULL(test, pol->parsed);
++	KUNIT_EXPECT_STREQ(test, pol->text, p->policy);
++	KUNIT_EXPECT_PTR_EQ(test, NULL, pol->pkcs7);
++	KUNIT_EXPECT_EQ(test, 0, pol->pkcs7len);
 +
-+	lbuf = malloc(fsize);
-+	if (!lbuf) {
-+		rc = ENOMEM;
-+		goto out_close;
-+	}
-+
-+	read = fread((void *)lbuf, sizeof(*lbuf), fsize, fd);
-+	if (read != fsize) {
-+		rc = -1;
-+		goto out_free;
-+	}
-+
-+	*buffer = lbuf;
-+	*size = fsize;
-+	fclose(fd);
-+
-+	return rc;
-+
-+out_free:
-+	free(lbuf);
-+out_close:
-+	fclose(fd);
-+out:
-+	return rc;
++	ipe_free_policy(pol);
 +}
 +
-+static int write_boot_policy(const char *pathname, const char *buf, size_t size)
++/**
++ * ipe_parser_widestring_test - Ensure parser fail on a wide string policy.
++ * @test: Supplies a pointer to a kunit structure.
++ *
++ * This is called by the kunit harness.
++ */
++static void ipe_parser_widestring_test(struct kunit *test)
 +{
-+	int rc = 0;
-+	FILE *fd;
-+	size_t i;
++	struct ipe_policy *pol = NULL;
++	const unsigned short policy[] = L"policy_name=Test policy_version=0.0.0\n"
++					L"DEFAULT action=ALLOW";
 +
-+	fd = fopen(pathname, "w");
-+	if (!fd) {
-+		rc = errno;
-+		goto err;
-+	}
++	pol = ipe_new_policy((const char *)policy, (ARRAY_SIZE(policy) - 1) * 2, NULL, 0);
++	KUNIT_EXPECT_TRUE(test, IS_ERR_OR_NULL(pol));
 +
-+	fprintf(fd, "/* This file is automatically generated.");
-+	fprintf(fd, " Do not edit. */\n");
-+	fprintf(fd, "#include <linux/stddef.h>\n");
-+	fprintf(fd, "\nextern const char *const ipe_boot_policy;\n\n");
-+	fprintf(fd, "const char *const ipe_boot_policy =\n");
-+
-+	if (!buf || size == 0) {
-+		fprintf(fd, "\tNULL;\n");
-+		fclose(fd);
-+		return 0;
-+	}
-+
-+	fprintf(fd, "\t\"");
-+
-+	for (i = 0; i < size; ++i) {
-+		switch (buf[i]) {
-+		case '"':
-+			fprintf(fd, "\\\"");
-+			break;
-+		case '\'':
-+			fprintf(fd, "'");
-+			break;
-+		case '\n':
-+			fprintf(fd, "\\n\"\n\t\"");
-+			break;
-+		case '\\':
-+			fprintf(fd, "\\\\");
-+			break;
-+		case '\t':
-+			fprintf(fd, "\\t");
-+			break;
-+		case '\?':
-+			fprintf(fd, "\\?");
-+			break;
-+		default:
-+			fprintf(fd, "%c", buf[i]);
-+		}
-+	}
-+	fprintf(fd, "\";\n");
-+	fclose(fd);
-+
-+	return 0;
-+
-+err:
-+	if (fd)
-+		fclose(fd);
-+	return rc;
++	ipe_free_policy(pol);
 +}
 +
-+int main(int argc, const char *const argv[])
-+{
-+	int rc = 0;
-+	size_t len = 0;
-+	char *policy = NULL;
++static struct kunit_case ipe_parser_test_cases[] = {
++	KUNIT_CASE_PARAM(ipe_parser_unsigned_test, ipe_policies_gen_params),
++	KUNIT_CASE(ipe_parser_widestring_test),
++};
 +
-+	if (argc < 2)
-+		usage(argv[0]);
++static struct kunit_suite ipe_parser_test_suite = {
++	.name = "ipe-parser",
++	.test_cases = ipe_parser_test_cases,
++};
 +
-+	if (argc > 2) {
-+		rc = policy_to_buffer(argv[2], &policy, &len);
-+		if (rc != 0)
-+			goto cleanup;
-+	}
-+
-+	rc = write_boot_policy(argv[1], policy, len);
-+cleanup:
-+	if (policy)
-+		free(policy);
-+	if (rc != 0)
-+		perror("An error occurred during policy conversion: ");
-+	return rc;
-+}
-diff --git a/security/ipe/.gitignore b/security/ipe/.gitignore
-new file mode 100644
-index 000000000000..eca22ad5ed22
---- /dev/null
-+++ b/security/ipe/.gitignore
-@@ -0,0 +1 @@
-+boot-policy.c
-\ No newline at end of file
-diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
-index 9dd5c4769d79..a6c5d48dd0a3 100644
---- a/security/ipe/Kconfig
-+++ b/security/ipe/Kconfig
-@@ -18,6 +18,16 @@ menuconfig SECURITY_IPE
- 	  If unsure, answer N.
- 
- if SECURITY_IPE
-+config IPE_BOOT_POLICY
-+	string "Integrity policy to apply on system startup"
-+	help
-+	  This option specifies a filepath to a IPE policy that is compiled
-+	  into the kernel. This policy will be enforced until a policy update
-+	  is deployed via the $securityfs/ipe/policies/$policy_name/active
-+	  interface.
-+
-+	  If unsure, leave blank.
-+
- menu "IPE Trust Providers"
- 
- config IPE_PROP_DM_VERITY
-diff --git a/security/ipe/Makefile b/security/ipe/Makefile
-index 66de53687d11..ce23101b66ba 100644
---- a/security/ipe/Makefile
-+++ b/security/ipe/Makefile
-@@ -5,7 +5,16 @@
- # Makefile for building the IPE module as part of the kernel tree.
- #
- 
-+quiet_cmd_polgen = IPE_POL $(2)
-+      cmd_polgen = scripts/ipe/polgen/polgen security/ipe/boot-policy.c $(2)
-+
-+targets += boot-policy.c
-+
-+$(obj)/boot-policy.c: scripts/ipe/polgen/polgen $(CONFIG_IPE_BOOT_POLICY) FORCE
-+	$(call if_changed,polgen,$(CONFIG_IPE_BOOT_POLICY))
-+
- obj-$(CONFIG_SECURITY_IPE) += \
-+	boot-policy.o \
- 	digest.o \
- 	eval.o \
- 	hooks.o \
-@@ -15,3 +24,5 @@ obj-$(CONFIG_SECURITY_IPE) += \
- 	policy_fs.o \
- 	policy_parser.o \
- 	audit.o \
-+
-+clean-files := boot-policy.c \
-diff --git a/security/ipe/fs.c b/security/ipe/fs.c
-index 0a1838432bd0..58584c5f3ee4 100644
---- a/security/ipe/fs.c
-+++ b/security/ipe/fs.c
-@@ -190,6 +190,7 @@ static const struct file_operations enforce_fops = {
- static int __init ipe_init_securityfs(void)
- {
- 	int rc = 0;
-+	struct ipe_policy *ap;
- 
- 	if (!ipe_enabled)
- 		return -EOPNOTSUPP;
-@@ -220,6 +221,13 @@ static int __init ipe_init_securityfs(void)
- 		goto err;
- 	}
- 
-+	ap = rcu_access_pointer(ipe_active_policy);
-+	if (ap) {
-+		rc = ipe_new_policyfs_node(ap);
-+		if (rc)
-+			goto err;
-+	}
-+
- 	np = securityfs_create_file("new_policy", 0200, root, NULL, &np_fops);
- 	if (IS_ERR(np)) {
- 		rc = PTR_ERR(np);
-diff --git a/security/ipe/ipe.c b/security/ipe/ipe.c
-index e789f1db6f66..3d672dd57b32 100644
---- a/security/ipe/ipe.c
-+++ b/security/ipe/ipe.c
-@@ -7,6 +7,7 @@
- #include "hooks.h"
- #include "eval.h"
- 
-+extern const char *const ipe_boot_policy;
- bool ipe_enabled;
- 
- static struct lsm_blob_sizes ipe_blobs __ro_after_init = {
-@@ -60,9 +61,20 @@ static struct security_hook_list ipe_hooks[] __ro_after_init = {
-  */
- static int __init ipe_init(void)
- {
-+	struct ipe_policy *p = NULL;
-+
- 	security_add_hooks(ipe_hooks, ARRAY_SIZE(ipe_hooks), "ipe");
- 	ipe_enabled = true;
- 
-+	if (ipe_boot_policy) {
-+		p = ipe_new_policy(ipe_boot_policy, strlen(ipe_boot_policy),
-+				   NULL, 0);
-+		if (IS_ERR(p))
-+			return PTR_ERR(p);
-+
-+		rcu_assign_pointer(ipe_active_policy, p);
-+	}
-+
- 	return 0;
- }
- 
++kunit_test_suite(ipe_parser_test_suite);
 -- 
 2.25.1
 
