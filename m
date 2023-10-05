@@ -1,77 +1,75 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id D17747B9947
-	for <lists+dm-devel@lfdr.de>; Thu,  5 Oct 2023 02:34:19 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 6F6387B99F6
+	for <lists+dm-devel@lfdr.de>; Thu,  5 Oct 2023 04:34:20 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696466058;
+	s=mimecast20190719; t=1696473259;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=a/0qBSXitZdnLnxdXlGPFnyaGF4123GltAbkyEd6zDI=;
-	b=aLaXQnpACw2kluxAQY9QFvODFIUfY9/+1SWoAC1PVayu4a5TgNm2hYqKAIo4//wtsEXQX1
-	33jb0UB3mrMUozNOg4WySrPYftH109OvchOtvdQ+A/KdgHXcLJKwNtuL9r7x+tMRquEb8i
-	COmtxFiBhb09uo4OQ1mwlHyeGI2ownY=
+	bh=EblJceMOzEQO1ELtPj93EUiiSxG4BRAI1CkPYl3+c5I=;
+	b=aayTI4Gb4TKlyUQNu4z1tvXVowMaFKmrfkH52SVMXm3GPfm7S+clMM8mqujk6Pt78ZUt03
+	XkRzWf7ZzSvQ+pmKl1ei/2HBhHhCYIwZ0ZYmQtm56xIvgVrbnv6PBj3gT3RY03A0hkiVkr
+	tTNuEenT855PQ9b8bhOAJq9mfdACTN8=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-167-I7RzJV8nMoeZi-Vza8G0EQ-1; Wed, 04 Oct 2023 20:34:14 -0400
-X-MC-Unique: I7RzJV8nMoeZi-Vza8G0EQ-1
-Received: from smtp.corp.redhat.com (int-mx04.intmail.prod.int.rdu2.redhat.com [10.11.54.4])
+ us-mta-508-Kijh5rV7NBieMklig4NXuA-1; Wed, 04 Oct 2023 22:34:16 -0400
+X-MC-Unique: Kijh5rV7NBieMklig4NXuA-1
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1C4653800BAB;
-	Thu,  5 Oct 2023 00:34:11 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 0EFCB1C04B5F;
+	Thu,  5 Oct 2023 02:34:14 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 61E0D2026D4B;
-	Thu,  5 Oct 2023 00:34:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id D55F640C6EC0;
+	Thu,  5 Oct 2023 02:34:09 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 1BF9E19465B8;
-	Thu,  5 Oct 2023 00:34:04 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CA6AD19465B8;
+	Thu,  5 Oct 2023 02:34:08 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
- [10.11.54.5])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3BDF7194658F
- for <dm-devel@listman.corp.redhat.com>; Thu,  5 Oct 2023 00:34:02 +0000 (UTC)
+ ESMTP id 8ABB7194658F
+ for <dm-devel@listman.corp.redhat.com>; Thu,  5 Oct 2023 02:34:07 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 23B0A5CC01; Thu,  5 Oct 2023 00:34:02 +0000 (UTC)
+ id F13904026FC; Thu,  5 Oct 2023 02:34:06 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 1B7F347CD2
- for <dm-devel@redhat.com>; Thu,  5 Oct 2023 00:34:02 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.81])
+ (mimecast03.extmail.prod.ext.rdu2.redhat.com [10.11.55.19])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E9C92442CAD
+ for <dm-devel@redhat.com>; Thu,  5 Oct 2023 02:34:06 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
+ [207.211.31.81])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id ED12685A5BD
- for <dm-devel@redhat.com>; Thu,  5 Oct 2023 00:34:01 +0000 (UTC)
-Received: from bombadil.infradead.org (bombadil.infradead.org
- [198.137.202.133]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-501-zpPcNcRWNm2stm7Uq3OOMw-1; Wed, 04 Oct 2023 20:34:00 -0400
-X-MC-Unique: zpPcNcRWNm2stm7Uq3OOMw-1
-Received: from [50.53.46.231] (helo=[192.168.254.15])
- by bombadil.infradead.org with esmtpsa (Exim 4.96 #2 (Red Hat Linux))
- id 1qoBlI-00182U-0V; Wed, 04 Oct 2023 23:58:40 +0000
-Message-ID: <7cecea3f-aaca-4df5-9595-324137c3627e@infradead.org>
-Date: Wed, 4 Oct 2023 16:58:38 -0700
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
- jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
- axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com,
- paul@paul-moore.com
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA2D7811E88
+ for <dm-devel@redhat.com>; Thu,  5 Oct 2023 02:34:06 +0000 (UTC)
+Received: from sin.source.kernel.org (sin.source.kernel.org [145.40.73.55])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-663-mFRT540fO6GLkH2GtwLIQw-1; Wed,
+ 04 Oct 2023 22:34:03 -0400
+X-MC-Unique: mFRT540fO6GLkH2GtwLIQw-1
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by sin.source.kernel.org (Postfix) with ESMTP id A7593CE1FF1;
+ Thu,  5 Oct 2023 02:27:13 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3366AC433C7;
+ Thu,  5 Oct 2023 02:27:10 +0000 (UTC)
+Date: Wed, 4 Oct 2023 22:27:07 -0400
+From: Eric Biggers <ebiggers@kernel.org>
+To: Fan Wu <wufan@linux.microsoft.com>
+Message-ID: <20231005022707.GA1688@quark.localdomain>
 References: <1696457386-3010-1-git-send-email-wufan@linux.microsoft.com>
- <1696457386-3010-17-git-send-email-wufan@linux.microsoft.com>
-From: Randy Dunlap <rdunlap@infradead.org>
-In-Reply-To: <1696457386-3010-17-git-send-email-wufan@linux.microsoft.com>
+ <1696457386-3010-16-git-send-email-wufan@linux.microsoft.com>
+MIME-Version: 1.0
+In-Reply-To: <1696457386-3010-16-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -79,9 +77,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
-Subject: Re: [dm-devel] [RFC PATCH v11 16/19] ipe: enable support for
- fs-verity as a trust provider
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+Subject: Re: [dm-devel] [RFC PATCH v11 15/19] fsverity: consume builtin
+ signature via LSM hook
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -93,58 +91,36 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
- Deven Bowers <deven.desai@linux.microsoft.com>, roberto.sassu@huawei.com,
- linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-block@vger.kernel.org, audit@vger.kernel.org,
- linux-fscrypt@vger.kernel.org, linux-integrity@vger.kernel.org
+Cc: axboe@kernel.dk, tytso@mit.edu, paul@paul-moore.com, dm-devel@redhat.com,
+ corbet@lwn.net, roberto.sassu@huawei.com,
+ Deven Bowers <deven.desai@linux.microsoft.com>, linux-doc@vger.kernel.org,
+ snitzer@kernel.org, jmorris@namei.org, zohar@linux.ibm.com,
+ linux-kernel@vger.kernel.org, linux-block@vger.kernel.org,
+ audit@vger.kernel.org, linux-security-module@vger.kernel.org,
+ eparis@redhat.com, linux-fscrypt@vger.kernel.org,
+ linux-integrity@vger.kernel.org, agk@redhat.com, serge@hallyn.com
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.4
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: infradead.org
-Content-Language: en-US
+X-Mimecast-Originator: kernel.org
+Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
+On Wed, Oct 04, 2023 at 03:09:42PM -0700, Fan Wu wrote:
+> +#ifdef CONFIG_FS_VERITY_BUILTIN_SIGNATURES
+> +static int fsverity_inode_setsecurity(struct inode *inode,
+> +				      struct fsverity_descriptor *desc)
+> +{
+> +	return security_inode_setsecurity(inode, FS_VERITY_INODE_SEC_NAME,
+> +					  desc->signature,
+> +					  le32_to_cpu(desc->sig_size), 0);
+> +}
 
+Why isn't the type of the second argument 'const struct fsverity_descriptor *'?
 
-On 10/4/23 15:09, Fan Wu wrote:
-
-| diff --git a/security/ipe/Kconfig b/security/ipe/Kconfig
-| index 7afb1ce0cb99..9dd5c4769d79 100644
-| --- a/security/ipe/Kconfig
-| +++ b/security/ipe/Kconfig
-| @@ -30,6 +30,19 @@ config IPE_PROP_DM_VERITY
-|  	  that was mounted with a signed root-hash or the volume's
-|  	  root hash matches the supplied value in the policy.
-|  
-| +	  If unsure, answer Y.
-| +
-| +config IPE_PROP_FS_VERITY
-| +	bool "Enable property for fs-verity files"
-| +	depends on FS_VERITY && FS_VERITY_BUILTIN_SIGNATURES
-| +	help
-| +	  This option enables the usage of properties "fsverity_signature"
-| +	  and "fsverity_digest". These properties evaluates to TRUE when
-
-	                                          evaluate
-
-| +	  a file is fsverity enabled and with a signed digest or its
-| +	  diegst matches the supplied value in the policy.
-
-	  digest
-
-| +
-| +	  if unsure, answer Y.
-| +
-|  endmenu
-|  
-|  endif
-
-
--- 
-~Randy
+- Eric
 
 --
 dm-devel mailing list
