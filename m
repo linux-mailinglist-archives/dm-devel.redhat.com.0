@@ -2,109 +2,89 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 15CDB7BB1D5
-	for <lists+dm-devel@lfdr.de>; Fri,  6 Oct 2023 08:59:37 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 0CF807BC19F
+	for <lists+dm-devel@lfdr.de>; Fri,  6 Oct 2023 23:57:23 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696575575;
-	h=from:from:sender:sender:reply-to:subject:subject:date:date:
+	s=mimecast20190719; t=1696629443;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
-	 content-type:content-type:in-reply-to:in-reply-to:
-	 references:references:list-id:list-help:list-unsubscribe:
-	 list-subscribe:list-post; bh=U0vOmeN5lxU7dAdisORN5j91pGWWo4vYuSJDXYBeQQA=;
-	b=f5Ei1lc/PvalgZKWFhmL4+Kv3hKNDFcZLXEQnlPM+MKyrwsjFVzMkq4fyWIv4B3XMtDD1e
-	HVpBFPZTA+PpnN5ayQJLsnna7ghpRlKdqX2RUi52qYHo4Qv5rmqU9jJAKTXSyzHBhlqijZ
-	D/VxAzXOUy4Bl/7xxnyiWFhBl8wKLyk=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-584-b3UqGDiOPWu7dQZ2pNK8PA-1; Fri, 06 Oct 2023 02:59:33 -0400
-X-MC-Unique: b3UqGDiOPWu7dQZ2pNK8PA-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references:list-id:list-help:
+	 list-unsubscribe:list-subscribe:list-post;
+	bh=pU7ihj/4uI+129a53I8uavXWX6ApTdLx2599tDD0BcI=;
+	b=czk6VmepmbSIU+w2iOm04gC+VMk6HVzsw90F5dGkGXxPQViMW/lwomJCUoozSejZKbYs2I
+	HyEuFjp9txSQSTKiN8md6BFihjyqaaNJZsw74MK0oYsRZZ3vvSM7694c8UmGCfg3IPXcix
+	UM3V0I7rKfxdyWTL3zv57BZUv+oiZ3w=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-696-7QC50DJsMJOPr83cMRmsXw-1; Fri, 06 Oct 2023 17:57:20 -0400
+X-MC-Unique: 7QC50DJsMJOPr83cMRmsXw-1
+Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com [10.11.54.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id BF6141C0433D;
-	Fri,  6 Oct 2023 06:59:30 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 22C6C185A78E;
+	Fri,  6 Oct 2023 21:57:18 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1E6FD40C6EA8;
-	Fri,  6 Oct 2023 06:59:27 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 92E8210D14C7;
+	Fri,  6 Oct 2023 21:57:11 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id D57C31946586;
-	Fri,  6 Oct 2023 06:59:25 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CB78519465B9;
+	Fri,  6 Oct 2023 21:57:09 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
- [10.11.54.9])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id ED7B0194658F
- for <dm-devel@listman.corp.redhat.com>; Fri,  6 Oct 2023 01:04:41 +0000 (UTC)
+ ESMTP id EFF191946586
+ for <dm-devel@listman.corp.redhat.com>; Fri,  6 Oct 2023 08:39:31 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id B61DB42485F; Fri,  6 Oct 2023 01:04:41 +0000 (UTC)
+ id C1A5E492B05; Fri,  6 Oct 2023 08:39:31 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id AE339442CB1
- for <dm-devel@redhat.com>; Fri,  6 Oct 2023 01:04:41 +0000 (UTC)
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id B9B4B492C37
+ for <dm-devel@redhat.com>; Fri,  6 Oct 2023 08:39:31 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 8E0C33C0ED4A
- for <dm-devel@redhat.com>; Fri,  6 Oct 2023 01:04:41 +0000 (UTC)
-Received: from mail-oi1-f170.google.com (mail-oi1-f170.google.com
- [209.85.167.170]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4DCA93821360
+ for <dm-devel@redhat.com>; Fri,  6 Oct 2023 08:39:31 +0000 (UTC)
+Received: from wp530.webpack.hosteurope.de (wp530.webpack.hosteurope.de
+ [80.237.130.52]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-Xbca4E_oNKOvK86Glrj9mg-1; Thu, 05 Oct 2023 21:04:23 -0400
-X-MC-Unique: Xbca4E_oNKOvK86Glrj9mg-1
-Received: by mail-oi1-f170.google.com with SMTP id
- 5614622812f47-3af86819ba9so999635b6e.3; 
- Thu, 05 Oct 2023 18:04:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=gmail.com; s=20230601; t=1696554263; x=1697159063; darn=redhat.com;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:from:to:cc:subject:date:message-id:reply-to;
- bh=xbWXVkPufIc/8Du+zQCnrHClPnWAOU4FcdQfVWLhTPM=;
- b=lRAbk5MWCbfQZR8rIKd+mm8sA/WLDu4YzxHM2nvWMi6RppqgTJTleL/36biVtFGkM2
- 7pR+NhYXCu/U5baxXA7QtZWC8jOGsI0pUZUVBCyUcbpx4jhAZ6aguMXEoI0du5KriRMK
- fve6ScPbWHMKw5qpc+J95mn0xgU1Qyit/BPZ7Fs9yxAXC9yi2MyealWi7BXfZCbtyT+f
- E4wjvVBGFy8v+amFVZijj0JIUpa2KWK9fWCtBG9EmkbxLARXeKy8KE/6ETWPBORDQyso
- ik9qF0d6thnWZjv+kh1vLmbm54wDA9g7E0E0DxJYpdMX7OfBhJPvtvAPjyitHWshn84u
- sEqA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696554263; x=1697159063;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=xbWXVkPufIc/8Du+zQCnrHClPnWAOU4FcdQfVWLhTPM=;
- b=dixxYzmv2upOEv2paL46X0eTC+a0UcVPBrOxXOMAT6ROVDISEPFQEUW0M+tIwGeg+U
- JPxNFdTrbMiOgMo6dT5wNejPCZIJGHU7JOYJBN9XUhfaGAW0ZTu/n0s/RHsj8ZYO0vDg
- qOd0IEkMwJaetddZJ9nQYtUhaDBs99xdn6m5pp2xjitjboA8PwMHfwhTiErPQlZuJzRK
- cwcZl4pXta2QEVBpKY0BDg8FkhiUlgh3L7zlNdzxaDsFjcv/8gRvcsshwqAKpDzO7wi4
- DxlM6yGgr8/zw1AmggoSQLgibTWfd+scJ1GibyMh0xcZfTBf1Z8RJMy7zafXDDUy6Zuo
- 6JnQ==
-X-Gm-Message-State: AOJu0Yx6IfS7YhRwefzV7B/VhzlRmQDpsY0Gdfm1XmPjP7R+/eNb0/Zj
- j9PDpCG40MLgdkfjdR+BVRo=
-X-Google-Smtp-Source: AGHT+IFh2w6zzhV5IY1apER8J1+pgvye6XXqvRnnMvh23W1RQguKILS+24Zm9m4xUzHHHEty7//QLg==
-X-Received: by 2002:a05:6808:138a:b0:3a7:1d15:28fe with SMTP id
- c10-20020a056808138a00b003a71d1528femr7789531oiw.56.1696554262692; 
- Thu, 05 Oct 2023 18:04:22 -0700 (PDT)
-Received: from debian.me ([103.131.18.64]) by smtp.gmail.com with ESMTPSA id
- g2-20020a63ad02000000b00584d035c08asm2083377pgf.24.2023.10.05.18.04.21
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Thu, 05 Oct 2023 18:04:22 -0700 (PDT)
-Received: by debian.me (Postfix, from userid 1000)
- id 777638209CB9; Fri,  6 Oct 2023 08:04:18 +0700 (WIB)
-Date: Fri, 6 Oct 2023 08:04:18 +0700
-From: Bagas Sanjaya <bagasdotme@gmail.com>
-To: Tatu =?utf-8?B?SGVpa2tpbMOk?= <tatu.heikkila@gmail.com>,
- Herbert Xu <herbert@gondor.apana.org.au>
-Message-ID: <ZR9dEiXhQv-wBVA2@debian.me>
-References: <f1b8d8f5-2079-537e-9d0f-d58da166fe50@gmail.com>
+ us-mta-56-h7gbq-nYOKugrDxEUq4Pag-1; Fri, 06 Oct 2023 04:39:29 -0400
+X-MC-Unique: h7gbq-nYOKugrDxEUq4Pag-1
+Received: from [2a02:8108:8980:2478:8cde:aa2c:f324:937e]; authenticated
+ by wp530.webpack.hosteurope.de running ExIM with esmtpsa
+ (TLS1.3:ECDHE_RSA_AES_128_GCM_SHA256:128)
+ id 1qog4t-0006XM-43; Fri, 06 Oct 2023 10:20:55 +0200
+Message-ID: <9ffdce44-c1ca-4587-bcae-4bd1ebb52f61@leemhuis.info>
+Date: Fri, 6 Oct 2023 10:20:54 +0200
 MIME-Version: 1.0
-In-Reply-To: <f1b8d8f5-2079-537e-9d0f-d58da166fe50@gmail.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
-X-Mailman-Approved-At: Fri, 06 Oct 2023 06:59:25 +0000
-Subject: Re: [dm-devel] (Bisected) Accessing opened Bitlocker partition
- leads to memory fault and kernel panic on Imac8, 1
+User-Agent: Mozilla Thunderbird
+To: Herbert Xu <herbert@gondor.apana.org.au>, Mike Snitzer <snitzer@kernel.org>
+References: <f1b8d8f5-2079-537e-9d0f-d58da166fe50@gmail.com>
+ <ZR9dEiXhQv-wBVA2@debian.me> <ZR9l446ndB4n1Xl4@gondor.apana.org.au>
+ <ZR9wRq7Rkz+LocDX@redhat.com> <ZR9x6ifhd6axh5Ki@gondor.apana.org.au>
+From: "Linux regression tracking (Thorsten Leemhuis)"
+ <regressions@leemhuis.info>
+In-Reply-To: <ZR9x6ifhd6axh5Ki@gondor.apana.org.au>
+X-bounce-key: webpack.hosteurope.de; regressions@leemhuis.info; 1696581569;
+ 3d56b62a
+X-HE-SMSGID: 1qog4t-0006XM-43
+X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
+ Definition; Similar Internal Domain=false;
+ Similar Monitored External Domain=false; Custom External Domain=false;
+ Mimecast External Domain=false; Newly Observed Domain=false;
+ Internal User Name=false; Custom Display Name List=false;
+ Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
+ Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Mailman-Approved-At: Fri, 06 Oct 2023 21:57:07 +0000
+Subject: Re: [dm-devel] dm crypt: Fix reqsize in crypt_iv_eboiv_gen
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -116,120 +96,48 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: Linux Device Mapper <dm-devel@redhat.com>,
- Mike Snitzer <snitzer@kernel.org>,
+Reply-To: Linux regressions mailing list <regressions@lists.linux.dev>
+Cc: Linux Regressions <regressions@lists.linux.dev>,
+ =?UTF-8?Q?Tatu_Heikkil=C3=A4?= <tatu.heikkila@gmail.com>,
  Linux Kernel Mailing List <linux-kernel@vger.kernel.org>,
- Alasdair Kergon <agk@redhat.com>,
- Linux Regressions <regressions@lists.linux.dev>
-Content-Type: multipart/mixed; boundary="===============5521025675137748195=="
+ Linux Device Mapper <dm-devel@redhat.com>,
+ Linux Crypto Mailing List <linux-crypto@vger.kernel.org>,
+ Bagas Sanjaya <bagasdotme@gmail.com>, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
-
-
---===============5521025675137748195==
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="Jb5IqaSpz/f9tNpy"
-Content-Disposition: inline
-
-
---Jb5IqaSpz/f9tNpy
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-
-On Thu, Oct 05, 2023 at 08:15:43PM +0300, Tatu Heikkil=C3=A4 wrote:
-> Hello,
-> I think you and the lists are right recipients, forgive me if not, I've
-> never reported kernel bugs before. Naively this seems a crypto issue and
-> Herbert Xu from crypto maintainers made the buggy commit, but it edits
-> drivers/md/dm_crypt.c maintained by dm-devel people per MAINTAINERS, so I=
-'m
-> going by that.
->=20
-> At the center of the issue is my Imac8,1 and an external 2TB SSD with 5
-> partitions: an EFI+MBR portable Arch Linux install with LUKS encrypted ex=
-t4
-> /home, and a 1.7TB exFAT encrypted with Bitlocker.
->=20
-> Mounting the LUKS partition works fine on all my 4 computers (Imac8,1,
-> Imac12,2, two generic Intels; Fedora's GNOME gvfs volume monitor often
-> crashes on mount using this drive), and mounting the Bitlocker partition
-> works on all other computers, but my Imac8,1. On my other computers, I can
-> boot into the portable install which automounts the Bitlocker partition
-> fine. However, on my Imac8,1, regardless if I boot into the external driv=
-e's
-> portable Arch Linux install, or use the Imac's own internal Debian testing
-> install, any post-6.4 kernel reliably panics (50+ times so far, 100% of t=
-he
-> time) when accessing the unlocked Bitlocker volume:
->=20
-> # cryptsetup open /dev/sdb5 --type bitlk crucial
-> Enter passphrase for /dev/sdb5:
-> # mount /dev/mapper/crucial temp [kernel immediately panics if I try to
-> tab-complete the mount point, making the shell also access the decrypted
-> device I assume, or try to run the command]
->=20
-> I originally ran into this when mounting using XFCE's Thunar implementati=
-on.
-> Using it, the mount fails with "Operation was cancelled" and the system
-> crashes within a minute.
->=20
-> Git bisect lead me to:
-> # first bad commit: [e3023094dffb41540330fb0c74cd3a019cd525c2] dm crypt:
-> Avoid using MAX_CIPHER_BLOCKSIZE
->=20
-> If I git revert e3023094dffb41540330fb0c74cd3a019cd525c2 on current Linus'
-> git master, the issue goes away. So I'm personally not all that affected
-> anymore (if I'm ready to compile my kernels from now on), and I understand
-> that you have no clear way to reproduce this as it seems strongly bound to
-> hardware, but seems like this could point to a potentially serious securi=
-ty
-> issue since it involves both crypto and undefined behaviour.
->=20
-> Kdump dmesg logs (the error output is not completely consistent between
-> panics) & .config can be found in a dummy Bugzilla report
-> https://bugzilla.kernel.org/show_bug.cgi?id=3D217982
->=20
-> Please let me know if I can help you in any way. I don't mind using this =
-as
-> a gateway to learn more about kernel debugging etc.
->=20
-
-Thanks for the regression report. I'm adding it to regzbot:
-
-#regzbot ^introduced: e3023094dffb41
-#regzbot title: kernel panic when accessing opened bitlocker partition due =
-to avoiding MAX_CIPHER_BLOCKSIZE
-#regzbot link: https://bugzilla.kernel.org/show_bug.cgi?id=3D217982
-
---=20
-An old man doll... just what I always wanted! - Clara
-
---Jb5IqaSpz/f9tNpy
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iHUEABYKAB0WIQSSYQ6Cy7oyFNCHrUH2uYlJVVFOowUCZR9dDAAKCRD2uYlJVVFO
-oz5dAQCMP/K95ZXJESKmwYJsaJzV2PzQpaGweREO01xriKlshQD9FfLS/rj+AhM0
-sYS2+qls+vEXoyzp5laVX3fWeL1l1Ao=
-=7sAU
------END PGP SIGNATURE-----
-
---Jb5IqaSpz/f9tNpy--
-
-
---===============5521025675137748195==
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Mimecast-Spam-Score: 0
+X-Mimecast-Originator: leemhuis.info
+Content-Language: en-US, de-DE
 Content-Type: text/plain; charset="us-ascii"
-MIME-Version: 1.0
 Content-Transfer-Encoding: 7bit
-Content-Disposition: inline
+
+On 06.10.23 04:33, Herbert Xu wrote:
+> On Thu, Oct 05, 2023 at 10:26:14PM -0400, Mike Snitzer wrote:
+
+BTW, Herbert, thx for taking care of this quickly!
+
+>> Sure, please do.  Shouldn't your header Cc: stable given that the
+>> Fixes commit implies v6.5 needs this fix?
+> 
+> Sure I'll add it although it will be picked up automatically due
+> to the Fixes header.
+
+FWIW, as some people don't know this: that might be the case, but there
+is no guarantee, hence it's better to add it:
+
+https://lore.kernel.org/all/2023060703-colony-shakily-3514@gregkh/
+
+>  I'll also fix the reporter's name.
+
+Side note: a Link: or Closes: tag to the report
+(https://lore.kernel.org/all/f1b8d8f5-2079-537e-9d0f-d58da166fe50@gmail.com/
+) would be nice as well.
+
+Thx again. Ciao, Thorsten
 
 --
 dm-devel mailing list
 dm-devel@redhat.com
 https://listman.redhat.com/mailman/listinfo/dm-devel
-
---===============5521025675137748195==--
 
