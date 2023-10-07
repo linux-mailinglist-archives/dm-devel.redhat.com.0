@@ -2,98 +2,84 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 901437BC445
-	for <lists+dm-devel@lfdr.de>; Sat,  7 Oct 2023 04:50:20 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 245B27BC986
+	for <lists+dm-devel@lfdr.de>; Sat,  7 Oct 2023 20:12:53 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696647019;
+	s=mimecast20190719; t=1696702372;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=7wJqBtqpCKHymRyiUlAdRiuHYuAD1x29ii4lUWA5EFQ=;
-	b=bAJr6tr5qflw5NA6mCjaYp0vOygXDWm5uw37KCfQEhVML80sVkkyieCaiT1d7O/top3+/9
-	YUbKFjjERUsYU9h9p/E7qamgT7qcNxWWaBWLsVuknNf2KCIZqJTUgZxk4npCD/PoyeLbnF
-	+i0FpCJ6mLtYSoPtxDPEzLAtdMKIN0c=
-Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
- [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-209-hdofhKaGOXWCwkF2Kx5Bag-1; Fri, 06 Oct 2023 22:50:15 -0400
-X-MC-Unique: hdofhKaGOXWCwkF2Kx5Bag-1
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com [10.11.54.8])
+	bh=69udHkGFl47NqMSahl+W9mMnLt/xCGOhg18WwoDd6W4=;
+	b=fLoKqZTP1xfCoqMAwn1Wq+o45EYh2r6nkamUG8xf+nOVXwQ3V2owcDu1c+04T8SVULk+16
+	rYp7zrljNaDsK5y8vSeDG/5yll8DXuk4c3PtlYfGZDivKzW9Y9SOSVWIHBzWMbmYGB5cSU
+	jPH8t8DdFhorn2kyOJLIExXgXOdssHU=
+Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
+ by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-567-lRb2_bmqMFWFPIIDvy-0aQ-1; Sat, 07 Oct 2023 14:12:49 -0400
+X-MC-Unique: lRb2_bmqMFWFPIIDvy-0aQ-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9072A85A5BA;
-	Sat,  7 Oct 2023 02:50:09 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CEA3B1C0432D;
+	Sat,  7 Oct 2023 18:12:46 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 9A099C15BB8;
-	Sat,  7 Oct 2023 02:50:07 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 2A5D6215670B;
+	Sat,  7 Oct 2023 18:12:40 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 454D419466E5;
-	Sat,  7 Oct 2023 02:50:06 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 9C82519465B9;
+	Sat,  7 Oct 2023 18:12:39 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx08.intmail.prod.int.rdu2.redhat.com
- [10.11.54.8])
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.6])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id C09F81946588
- for <dm-devel@listman.corp.redhat.com>; Sat,  7 Oct 2023 02:50:04 +0000 (UTC)
+ ESMTP id 792DD1946587
+ for <dm-devel@listman.corp.redhat.com>; Sat,  7 Oct 2023 18:12:37 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 67440C158BA; Sat,  7 Oct 2023 02:50:04 +0000 (UTC)
+ id EFC592156711; Sat,  7 Oct 2023 18:12:36 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5FBEBC15BB8
- for <dm-devel@redhat.com>; Sat,  7 Oct 2023 02:50:04 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast06.extmail.prod.ext.rdu2.redhat.com [10.11.55.22])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E87BB215670B
+ for <dm-devel@redhat.com>; Sat,  7 Oct 2023 18:12:36 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3D31585A5A8
- for <dm-devel@redhat.com>; Sat,  7 Oct 2023 02:50:04 +0000 (UTC)
-Received: from dggsgout11.his.huawei.com (dggsgout11.his.huawei.com
- [45.249.212.51]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CB24C185A78E
+ for <dm-devel@redhat.com>; Sat,  7 Oct 2023 18:12:36 +0000 (UTC)
+Received: from dfw.source.kernel.org (dfw.source.kernel.org
+ [139.178.84.217]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-533-DpQDNgSONDC03mEuH_bhyg-1; Fri, 06 Oct 2023 22:50:02 -0400
-X-MC-Unique: DpQDNgSONDC03mEuH_bhyg-1
-Received: from mail02.huawei.com (unknown [172.30.67.143])
- by dggsgout11.his.huawei.com (SkyGuard) with ESMTP id 4S2VBL5RLDz4f3kjc;
- Sat,  7 Oct 2023 10:49:30 +0800 (CST)
-Received: from [10.174.176.73] (unknown [10.174.176.73])
- by APP4 (Coremail) with SMTP id gCh0CgAXrt06xyBlfdFPCQ--.31163S3;
- Sat, 07 Oct 2023 10:49:32 +0800 (CST)
-To: Song Liu <song@kernel.org>, Yu Kuai <yukuai1@huaweicloud.com>
-References: <20230928061543.1845742-1-yukuai1@huaweicloud.com>
- <CAPhsuW5cUgqy9fqj+Z4nGPQrAok-eQ=NipNxb0TL_kuCFaPMcw@mail.gmail.com>
- <f59cbb99-33dd-c427-2e43-5a07ab9fbf51@huaweicloud.com>
- <CAPhsuW7TRODsR_N95AmXJCZvpTuSKgbOjnYGxMGAWtmt3x9Vkw@mail.gmail.com>
- <eb4ea24d-f7b4-899b-9259-2d48dc83e48f@huaweicloud.com>
- <CAPhsuW72zSALeSk96QAdq4cHf=y_n13MOBmxH-dTUKjkbc_jig@mail.gmail.com>
-From: Yu Kuai <yukuai1@huaweicloud.com>
-Message-ID: <9ce30c2f-bc45-6072-b454-aca154b779ce@huaweicloud.com>
-Date: Sat, 7 Oct 2023 10:49:30 +0800
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:60.0) Gecko/20100101
- Thunderbird/60.8.0
-MIME-Version: 1.0
-In-Reply-To: <CAPhsuW72zSALeSk96QAdq4cHf=y_n13MOBmxH-dTUKjkbc_jig@mail.gmail.com>
-X-CM-TRANSID: gCh0CgAXrt06xyBlfdFPCQ--.31163S3
-X-Coremail-Antispam: 1UD129KBjDUn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7v73
- VFW2AGmfu7bjvjm3AaLaJ3UjIYCTnIWjp_UUUYk7AC8VAFwI0_Gr0_Xr1l1xkIjI8I6I8E
- 6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AEw4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28Cjx
- kF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2IY67AKxVWDJVCq3wA2z4x0Y4vE2Ix0cI8I
- cVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87
- Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE
- 6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72
- CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IY64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4II
- rI8v6xkF7I0E8cxan2IY04v7Mxk0xIA0c2IEe2xFo4CEbIxvr21l42xK82IYc2Ij64vIr4
- 1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK
- 67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI
- 8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAv
- wI8IcIk0rVWrJr0_WFyUJwCI42IY6I8E87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I
- 0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUoOJ5UUUUU
-X-CM-SenderInfo: 51xn3trlr6x35dzhxuhorxvhhfrp/
-X-CFilter-Loop: Reflected
+ us-mta-66-EqWsYsi4M5Op2b2m-rGjFg-1; Sat, 07 Oct 2023 14:12:34 -0400
+X-MC-Unique: EqWsYsi4M5Op2b2m-rGjFg-1
+Received: from smtp.kernel.org (transwarp.subspace.kernel.org [100.75.92.58])
+ by dfw.source.kernel.org (Postfix) with ESMTP id 2125B60ADC;
+ Sat,  7 Oct 2023 18:12:33 +0000 (UTC)
+Received: by smtp.kernel.org (Postfix) with ESMTPS id B2416C433C8;
+ Sat,  7 Oct 2023 18:12:32 +0000 (UTC)
+Received: from aws-us-west-2-korg-oddjob-1.ci.codeaurora.org
+ (localhost.localdomain [127.0.0.1])
+ by aws-us-west-2-korg-oddjob-1.ci.codeaurora.org (Postfix) with ESMTP id
+ 942F3C41671; Sat,  7 Oct 2023 18:12:32 +0000 (UTC)
+From: pr-tracker-bot@kernel.org
+In-Reply-To: <ZSCVUa3D4BAKGsLL@redhat.com>
+References: <ZSCVUa3D4BAKGsLL@redhat.com>
+X-PR-Tracked-List-Id: device-mapper development <dm-devel.redhat.com>
+X-PR-Tracked-Message-Id: <ZSCVUa3D4BAKGsLL@redhat.com>
+X-PR-Tracked-Remote: git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git
+ tags/for-6.6/dm-fixes-2
+X-PR-Tracked-Commit-Id: 3da5d2de92387a8322965c7fb1365f7cae690e5a
+X-PR-Merge-Tree: torvalds/linux.git
+X-PR-Merge-Refname: refs/heads/master
+X-PR-Merge-Commit-Id: 4aef108a4d60bb52bf4e8e2ed9444afe2cdfe6a9
+Message-Id: <169670235249.17141.917993586452703729.pr-tracker-bot@kernel.org>
+Date: Sat, 07 Oct 2023 18:12:32 +0000
+To: Mike Snitzer <snitzer@kernel.org>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -101,9 +87,8 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
-Subject: Re: [dm-devel] [PATCH -next v3 00/25] md: synchronize io with array
- reconfiguration
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+Subject: Re: [dm-devel] [git pull] device mapper fixes for 6.6-rc5
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -115,25 +100,33 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: yi.zhang@huawei.com, yangerkun@huawei.com, snitzer@kernel.org,
- dm-devel@redhat.com, linux-kernel@vger.kernel.org, linux-raid@vger.kernel.org,
- xni@redhat.com, "yukuai \(C\)" <yukuai3@huawei.com>, agk@redhat.com
+Cc: linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Linus Torvalds <torvalds@linux-foundation.org>,
+ Fedor Pchelkin <pchelkin@ispras.ru>, Alasdair G Kergon <agk@redhat.com>
+MIME-Version: 1.0
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.8
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: huaweicloud.com
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset="utf-8"; Format="flowed"
+X-Mimecast-Originator: kernel.org
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: 7bit
 
-SGksCgrlnKggMjAyMy8xMC8wNyAxMDo0MCwgU29uZyBMaXUg5YaZ6YGTOgo+PiBDYW4geW91IHRh
-a2UgYSBsb29rIGFib3V0IHRoaXMgbmV3IGNvdmVyIGxldHRlcj8KPiAKPiBJIGRvbid0IGhhdmUg
-dGltZSByaWdodCBub3cgdG8gbG9vayBpbnRvIGFsbCB0aGUgZGV0YWlscywgYnV0IGl0IGxvb2tz
-Cj4gZ3JlYXQgYXQgZmlyc3QgZ2xhbmNlLiBXZSBjYW4gc3RpbGwgZWRpdCBpdCBhIGxpdHRsZSBi
-aXQgd2hlbiBhcHBseWluZyB0aGUKPiBwYXRjaHNldCwgYnV0IHRoYXQgbWF5IG5vdCBiZSBuZWNl
-c3NhcnkuCgpZZWFoLCBpdCdzIG5vdCB1cmdlbnQgc28geW91IGNhbiB0YWtlIGl0IHNsb3csIEkg
-anVzdCB3YW50IHRvIG1ha2Ugc3VyZQp0aGF0IHlvdSdyZSBnb29kIHdpdGggaXQuIEknbGwgZWRp
-dCB0aGlzIGNvdmVyIGxldHRlciBhIGJpdCBhbmQgc2VuZCB2NApzb29uLgoKVGhhbmtzLApLdWFp
-CgotLQpkbS1kZXZlbCBtYWlsaW5nIGxpc3QKZG0tZGV2ZWxAcmVkaGF0LmNvbQpodHRwczovL2xp
-c3RtYW4ucmVkaGF0LmNvbS9tYWlsbWFuL2xpc3RpbmZvL2RtLWRldmVsCg==
+The pull request you sent on Fri, 6 Oct 2023 19:16:33 -0400:
+
+> git://git.kernel.org/pub/scm/linux/kernel/git/device-mapper/linux-dm.git tags/for-6.6/dm-fixes-2
+
+has been merged into torvalds/linux.git:
+https://git.kernel.org/torvalds/c/4aef108a4d60bb52bf4e8e2ed9444afe2cdfe6a9
+
+Thank you!
+
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/prtracker.html
+
+--
+dm-devel mailing list
+dm-devel@redhat.com
+https://listman.redhat.com/mailman/listinfo/dm-devel
 
