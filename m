@@ -1,96 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 7E5487BF3B1
-	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:22 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id C27827BF3AD
+	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:19 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696921401;
+	s=mimecast20190719; t=1696921398;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4iylYSA7vlAoElZXwlDb2rfSyNhVHfzDnXSRWonbkpA=;
-	b=eYOKJmiBQS7fBC4biHCRXPtF+i3v3c4wLnbX2c303RLcJOen26UeggFjbM2wqSBe7XKRWR
-	GYvJKxqsR7hh/iEbw8tlbiUizNN9qdQfDgB5/3dLtPnJ0clTAeWmw4i8SRQH4Xa/gWJ6zY
-	F5AHhtWj8AGjTi5agJJgJRecCph+mwk=
+	bh=QIGOiQPchDzlceSblMKE8m9c74luFnUem1aCtFeRzq4=;
+	b=WFjGWygUtyJ9EN3hIaAHyZgZuDR/C2Mk+Tp08xczw6y38nCKJ3l7xRMafAmmQgjiNiwAuh
+	tfoBtJbWe/LxsS4Sby0eRr+yqsDSVqEXf8gxpH3D32rfsm82Eg0TMKrdFf1UxVg/BHuiFE
+	VuwJCHZfPqsUUs4W/tO/XWRTG0IatXA=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-60-GlZVtSguMHqp3KVxTSrdAw-1; Tue, 10 Oct 2023 03:03:16 -0400
-X-MC-Unique: GlZVtSguMHqp3KVxTSrdAw-1
-Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
+ us-mta-503-iD7ihxCUMMWkD-122LXNbA-1; Tue, 10 Oct 2023 03:03:13 -0400
+X-MC-Unique: iD7ihxCUMMWkD-122LXNbA-1
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A77781B545;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 319BF188119C;
 	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 839674A9B0C;
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 17CC1442CB6;
 	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 11F3719466DF;
-	Tue, 10 Oct 2023 07:02:55 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 7EFB219466ED;
+	Tue, 10 Oct 2023 07:02:53 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
- [10.11.54.2])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 2BA0719465A0
- for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 16:31:20 +0000 (UTC)
+ ESMTP id 102DA19465A0
+ for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 16:35:24 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id EDFB040C6EBF; Mon,  9 Oct 2023 16:31:19 +0000 (UTC)
+ id 872F4492B16; Mon,  9 Oct 2023 16:35:24 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id E6ED940C6EA8
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:31:19 +0000 (UTC)
+ (mimecast04.extmail.prod.ext.rdu2.redhat.com [10.11.55.20])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 7FDF047AD4A
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:35:24 +0000 (UTC)
 Received: from us-smtp-inbound-delivery-1.mimecast.com
  (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA88D3C23FC3
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:31:19 +0000 (UTC)
-Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
- [209.85.128.173]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 639A5101AA70
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:35:24 +0000 (UTC)
+Received: from mail-yw1-f169.google.com (mail-yw1-f169.google.com
+ [209.85.128.169]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-262-Rkc1kC7YMTGrXmIo1_k9uw-1; Mon, 09 Oct 2023 12:31:17 -0400
-X-MC-Unique: Rkc1kC7YMTGrXmIo1_k9uw-1
-Received: by mail-yw1-f173.google.com with SMTP id
- 00721157ae682-5a7af45084eso4405707b3.0
- for <dm-devel@redhat.com>; Mon, 09 Oct 2023 09:31:17 -0700 (PDT)
+ us-mta-154-YsiTGm_-OkWDQgng36ZHPg-1; Mon, 09 Oct 2023 12:35:22 -0400
+X-MC-Unique: YsiTGm_-OkWDQgng36ZHPg-1
+Received: by mail-yw1-f169.google.com with SMTP id
+ 00721157ae682-59f6492b415so40738937b3.0
+ for <dm-devel@redhat.com>; Mon, 09 Oct 2023 09:35:22 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696869077; x=1697473877;
+ d=1e100.net; s=20230601; t=1696869322; x=1697474122;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=ZwJG0ZcdADOiEPsRD1fp8I+0b5ih4BdS68Cgas4xJ7g=;
- b=tjz8Dzz0q25ecIiZIePK3rNCGsmmhG8U3xaxpC8dmIKvqRn5KEXNvD0MvSInGV99Nx
- hz74oAaAzkd46Brw83NSeaKiySxyhZu2+IFxaDAWvEIFqn8djZiVGhUAgGkzLWpPPMyP
- RJSY4qcrg9eKwmq721tHVlaNkIGxhgrgPqgYMJiYIOCdKdWcswS8whQibBFUTZOhGQdp
- 6D7TPyV8EI3nNQhRAowL12siqDd0MOUnXNQv58thpeZ8hAp/6SXABL67EEkzGecApBZp
- ZVs8hcRnTdGkeI8OMpIMS1/QGPlU+rPGyCtynHfxtFHOjVyXMlCIRUtAAnI9rkTgw3u3
- r/fg==
-X-Gm-Message-State: AOJu0YxRT4jrka7gjXhxLDPkMnhncVS4UiYuTxFITdKwd8W75sU5LvMp
- Ji34w4QRZADjZfYZZxIhAFo=
-X-Google-Smtp-Source: AGHT+IEXYlVGR26h67lZ0CQFtDdopC6qPtwRiCX8u/eS0Le2sSi4IxhnE11TM3OyRpNoFH8rv8Esgw==
-X-Received: by 2002:a81:7b8a:0:b0:59b:c805:de60 with SMTP id
- w132-20020a817b8a000000b0059bc805de60mr15386292ywc.45.1696869076997; 
- Mon, 09 Oct 2023 09:31:16 -0700 (PDT)
+ bh=RsC4B5mELowhLCBdNvaIf+LwPDrz+keu3BL55c6ZynM=;
+ b=G5BjZC5+wOp4nD7nztLcZUi8GqFxO8yvn/PdLyGU5wGL+5dzF0TbbsB3xiwGpI18gm
+ Khv/m2zwZLdhRy5S6cLJ5LlItOWHw/KB/AK50j0SJpr2xyUMn9phSN9mzaRcadVcz0s8
+ 46dDWAQYRvVEBpQS6XWf4rOks02/Oq+wB6w2zU/L4CznEyvh2Wh8gx4Ax5VwOgP01p8/
+ l+NiBessC/LCu8w9vubaxm/gXrNbZdLSyOKVBs0MNwfFxELYmE1RoKk+GZZ83s5deckt
+ 8LzCv0ukcOY5WE2fK0gHOlaS6X6gksOaGsjZ9E+Dgr/GzOgRDDqlcHMzEeQC6xvYEWib
+ xk+w==
+X-Gm-Message-State: AOJu0YwIhRo/4we9gXiytxlIK/bW0tQVdkSBCHtDrYwvDwu6mo+Qeq75
+ 7eq7v2YhKs27fg+VCFDXD1cLHRiI5tIYGw==
+X-Google-Smtp-Source: AGHT+IFsvzJ6MeZI8r2v1L+4g/jHEVPfPdzddzGB/p3atEyZSUf9/4/r7GGX68WKl3pdJXGPfRRxWA==
+X-Received: by 2002:a81:a1c2:0:b0:5a4:dde3:6db5 with SMTP id
+ y185-20020a81a1c2000000b005a4dde36db5mr8226753ywg.10.1696869321805; 
+ Mon, 09 Oct 2023 09:35:21 -0700 (PDT)
 Received: from localhost ([2607:fb90:be22:da0:a050:8c3a:c782:514b])
  by smtp.gmail.com with ESMTPSA id
- g139-20020a0ddd91000000b00589a999038asm3797246ywe.77.2023.10.09.09.31.16
+ s7-20020a817707000000b005707fb5110bsm3798669ywc.58.2023.10.09.09.35.21
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 09:31:16 -0700 (PDT)
-Date: Mon, 9 Oct 2023 09:31:15 -0700
+ Mon, 09 Oct 2023 09:35:21 -0700 (PDT)
+Date: Mon, 9 Oct 2023 09:35:20 -0700
 From: Yury Norov <yury.norov@gmail.com>
 To: Alexander Lobakin <aleksander.lobakin@intel.com>
-Message-ID: <ZSQq02A9mTireK71@yury-ThinkPad>
+Message-ID: <ZSQryML6+uySSQ55@yury-ThinkPad>
 References: <20231009151026.66145-1-aleksander.lobakin@intel.com>
- <20231009151026.66145-10-aleksander.lobakin@intel.com>
+ <20231009151026.66145-6-aleksander.lobakin@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20231009151026.66145-10-aleksander.lobakin@intel.com>
+In-Reply-To: <20231009151026.66145-6-aleksander.lobakin@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,10 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Tue, 10 Oct 2023 07:02:51 +0000
-Subject: Re: [dm-devel] [PATCH 09/14] bitmap: extend bitmap_{get,
- set}_value8() to bitmap_{get, set}_bits()
+Subject: Re: [dm-devel] [PATCH 05/14] s390/cio: rename bitmap_size() ->
+ idset_bitmap_size()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,136 +124,73 @@ Cc: linux-s390@vger.kernel.org, ntfs3@lists.linux.dev,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-+ Alexander Potapenko <glider@google.com>
+On Mon, Oct 09, 2023 at 05:10:17PM +0200, Alexander Lobakin wrote:
+> bitmap_size() is a pretty generic name and one may want to use it for
+> a generic bitmap API function. At the same time, its logic is not
+> "generic", i.e. it's not just `nbits -> size of bitmap in bytes`
+> converter as it would be expected from its name.
+> Add the prefix 'idset_' used throughout the file where the function
+> resides.
 
-On Mon, Oct 09, 2023 at 05:10:21PM +0200, Alexander Lobakin wrote:
-> Sometimes there's need to get a 8/16/...-bit piece of a bitmap at a
-> particular offset. Currently, there are only bitmap_{get,set}_value8()
-> to do that for 8 bits and that's it.
+At the first glance, this custom implementation just duplicates the
+generic one that you introduce in the following patch. If so, why
+don't you switch idset to just use generic bitmap_size()?
 
-And also a series from Alexander Potapenko, which I really hope will
-get into the -next really soon. It introduces bitmap_read/write which
-can set up to BITS_PER_LONG at once, with no limitations on alignment
-of position and length:
-
-https://lore.kernel.org/linux-arm-kernel/ZRXbOoKHHafCWQCW@yury-ThinkPad/T/#mc311037494229647088b3a84b9f0d9b50bf227cb
-
-Can you consider building your series on top of it?
-
-> Instead of introducing a separate pair for u16 and so on, which doesn't
-> scale well, extend the existing functions to be able to pass the wanted
-> value width. Make both offset and width arbitrary, but in order to not
-> over complicate the current logic and keep the helpers as optimized as
-> the current ones, require the width to be a pow-2 value and the offset
-> to be a multiple of the width, while the target piece should not cross
-> a %BITS_PER_LONG boundary and stay within one long.
-> Avoid adjusting all the already existing callsites by defining oneliner
-> wrapper macros named after the former functions. bloat-o-meter shows
-> almost no difference (+1-2 bytes in a couple of places), meaning the
-> new helpers get optimized just nicely.
 > 
 > Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 > Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
 > ---
->  include/linux/bitmap.h | 51 ++++++++++++++++++++++++++++++------------
->  1 file changed, 37 insertions(+), 14 deletions(-)
+> idset_new() really wants its vmalloc() + memset() pair to be replaced
+> with vzalloc().
+> ---
+>  drivers/s390/cio/idset.c | 10 ++++++----
+>  1 file changed, 6 insertions(+), 4 deletions(-)
 > 
-> diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
-> index 63e422f8ba3d..9c010a7fa331 100644
-> --- a/include/linux/bitmap.h
-> +++ b/include/linux/bitmap.h
-> @@ -6,8 +6,10 @@
+> diff --git a/drivers/s390/cio/idset.c b/drivers/s390/cio/idset.c
+> index 45f9c0736be4..0a1105a483bf 100644
+> --- a/drivers/s390/cio/idset.c
+> +++ b/drivers/s390/cio/idset.c
+> @@ -16,7 +16,7 @@ struct idset {
+>  	unsigned long bitmap[];
+>  };
 >  
->  #include <linux/align.h>
->  #include <linux/bitops.h>
-> +#include <linux/bug.h>
->  #include <linux/find.h>
->  #include <linux/limits.h>
-> +#include <linux/log2.h>
->  #include <linux/string.h>
->  #include <linux/types.h>
->  
-> @@ -569,38 +571,59 @@ static inline void bitmap_from_u64(unsigned long *dst, u64 mask)
->  }
->  
->  /**
-> - * bitmap_get_value8 - get an 8-bit value within a memory region
-> + * bitmap_get_bits - get a 8/16/32/64-bit value within a memory region
->   * @map: address to the bitmap memory region
-> - * @start: bit offset of the 8-bit value; must be a multiple of 8
-> + * @start: bit offset of the value; must be a multiple of @len
-> + * @len: bit width of the value; must be a power of two
->   *
-> - * Returns the 8-bit value located at the @start bit offset within the @src
-> - * memory region.
-> + * Return: the 8/16/32/64-bit value located at the @start bit offset within
-> + * the @src memory region. Its position (@start + @len) can't cross
-> + * a ``BITS_PER_LONG`` boundary.
->   */
-> -static inline unsigned long bitmap_get_value8(const unsigned long *map,
-> -					      unsigned long start)
-> +static inline unsigned long bitmap_get_bits(const unsigned long *map,
-> +					    unsigned long start, size_t len)
+> -static inline unsigned long bitmap_size(int num_ssid, int num_id)
+> +static inline unsigned long idset_bitmap_size(int num_ssid, int num_id)
 >  {
->  	const size_t index = BIT_WORD(start);
->  	const unsigned long offset = start % BITS_PER_LONG;
->  
-> -	return (map[index] >> offset) & 0xFF;
-> +	if (WARN_ON_ONCE(!is_power_of_2(len) || offset % len ||
-> +			 offset + len > BITS_PER_LONG))
-> +		return 0;
-> +
-> +	return (map[index] >> offset) & GENMASK(len - 1, 0);
+>  	return BITS_TO_LONGS(num_ssid * num_id) * sizeof(unsigned long);
 >  }
->  
->  /**
-> - * bitmap_set_value8 - set an 8-bit value within a memory region
-> + * bitmap_set_bits - set a 8/16/32/64-bit value within a memory region
->   * @map: address to the bitmap memory region
-> - * @value: the 8-bit value; values wider than 8 bits may clobber bitmap
-> - * @start: bit offset of the 8-bit value; must be a multiple of 8
-> + * @start: bit offset of the value; must be a multiple of @len
-> + * @value: new value to set
-> + * @len: bit width of the value; must be a power of two
-> + *
-> + * Replaces the 8/16/32/64-bit value located at the @start bit offset within
-> + * the @src memory region with the new @value. Its position (@start + @len)
-> + * can't cross a ``BITS_PER_LONG`` boundary.
->   */
-> -static inline void bitmap_set_value8(unsigned long *map, unsigned long value,
-> -				     unsigned long start)
-> +static inline void bitmap_set_bits(unsigned long *map, unsigned long start,
-> +				   unsigned long value, size_t len)
+> @@ -25,11 +25,12 @@ static struct idset *idset_new(int num_ssid, int num_id)
 >  {
->  	const size_t index = BIT_WORD(start);
->  	const unsigned long offset = start % BITS_PER_LONG;
-> +	unsigned long mask = GENMASK(len - 1, 0);
+>  	struct idset *set;
 >  
-> -	map[index] &= ~(0xFFUL << offset);
-> -	map[index] |= value << offset;
-> +	if (WARN_ON_ONCE(!is_power_of_2(len) || offset % len ||
-> +			 offset + len > BITS_PER_LONG))
-> +		return;
-> +
-> +	map[index] &= ~(mask << offset);
-> +	map[index] |= (value & mask) << offset;
+> -	set = vmalloc(sizeof(struct idset) + bitmap_size(num_ssid, num_id));
+> +	set = vmalloc(sizeof(struct idset) +
+> +		      idset_bitmap_size(num_ssid, num_id));
+>  	if (set) {
+>  		set->num_ssid = num_ssid;
+>  		set->num_id = num_id;
+> -		memset(set->bitmap, 0, bitmap_size(num_ssid, num_id));
+> +		memset(set->bitmap, 0, idset_bitmap_size(num_ssid, num_id));
+>  	}
+>  	return set;
+>  }
+> @@ -41,7 +42,8 @@ void idset_free(struct idset *set)
+>  
+>  void idset_fill(struct idset *set)
+>  {
+> -	memset(set->bitmap, 0xff, bitmap_size(set->num_ssid, set->num_id));
+> +	memset(set->bitmap, 0xff,
+> +	       idset_bitmap_size(set->num_ssid, set->num_id));
 >  }
 >  
-> +#define bitmap_get_value8(map, start)				\
-> +	bitmap_get_bits(map, start, BITS_PER_BYTE)
-> +#define bitmap_set_value8(map, value, start)			\
-> +	bitmap_set_bits(map, start, value, BITS_PER_BYTE)
-> +
->  #endif /* __ASSEMBLY__ */
->  
->  #endif /* __LINUX_BITMAP_H */
+>  static inline void idset_add(struct idset *set, int ssid, int id)
 > -- 
 > 2.41.0
 
