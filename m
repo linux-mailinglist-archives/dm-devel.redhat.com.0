@@ -1,96 +1,96 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 69CE87BF3A9
-	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:17 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id 7E5487BF3B1
+	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696921396;
+	s=mimecast20190719; t=1696921401;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=4xGldyT1eg//Pg/jossEXb4WEXB6br1BaZLMjSwecXQ=;
-	b=QQGOGYRLAJ4YMgH6sYwvQrz1+O2fCa+crBIOdLeszsYkqzARNhOUdFam/VFcHNhEpPSoas
-	lMUuJUPVEkdDcKVmB/jD9xhMMHO3GmO1iFeXFROQiy9dKbJmbRcc4vJzR1xtkc7bhgoTUk
-	ZXFVNFy6vihGdRNrzv3gP/J32iWavPI=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-97-yurK2biMNQSDN2OWqS17JQ-1; Tue, 10 Oct 2023 03:03:14 -0400
-X-MC-Unique: yurK2biMNQSDN2OWqS17JQ-1
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
+	bh=4iylYSA7vlAoElZXwlDb2rfSyNhVHfzDnXSRWonbkpA=;
+	b=eYOKJmiBQS7fBC4biHCRXPtF+i3v3c4wLnbX2c303RLcJOen26UeggFjbM2wqSBe7XKRWR
+	GYvJKxqsR7hh/iEbw8tlbiUizNN9qdQfDgB5/3dLtPnJ0clTAeWmw4i8SRQH4Xa/gWJ6zY
+	F5AHhtWj8AGjTi5agJJgJRecCph+mwk=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ us-mta-60-GlZVtSguMHqp3KVxTSrdAw-1; Tue, 10 Oct 2023 03:03:16 -0400
+X-MC-Unique: GlZVtSguMHqp3KVxTSrdAw-1
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 05FA138116F7;
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9A77781B545;
 	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id E2E9421CAC6B;
-	Tue, 10 Oct 2023 07:03:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 839674A9B0C;
+	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 575F319465BB;
-	Tue, 10 Oct 2023 07:02:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 11F3719466DF;
+	Tue, 10 Oct 2023 07:02:55 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.2])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 5562819465A0
- for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 16:18:45 +0000 (UTC)
+ ESMTP id 2BA0719465A0
+ for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 16:31:20 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 41620215670B; Mon,  9 Oct 2023 16:18:45 +0000 (UTC)
+ id EDFB040C6EBF; Mon,  9 Oct 2023 16:31:19 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast09.extmail.prod.ext.rdu2.redhat.com [10.11.55.25])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 3AB562156711
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:18:45 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [205.139.110.61])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id E6ED940C6EA8
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:31:19 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 1A21F29ABA03
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:18:45 +0000 (UTC)
-Received: from mail-yw1-f175.google.com (mail-yw1-f175.google.com
- [209.85.128.175]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CA88D3C23FC3
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 16:31:19 +0000 (UTC)
+Received: from mail-yw1-f173.google.com (mail-yw1-f173.google.com
+ [209.85.128.173]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-422-aYN2NLbiN2CDiyt3mpvzQg-1; Mon, 09 Oct 2023 12:18:43 -0400
-X-MC-Unique: aYN2NLbiN2CDiyt3mpvzQg-1
-Received: by mail-yw1-f175.google.com with SMTP id
- 00721157ae682-5a7a7e9357eso6060947b3.0
- for <dm-devel@redhat.com>; Mon, 09 Oct 2023 09:18:43 -0700 (PDT)
+ us-mta-262-Rkc1kC7YMTGrXmIo1_k9uw-1; Mon, 09 Oct 2023 12:31:17 -0400
+X-MC-Unique: Rkc1kC7YMTGrXmIo1_k9uw-1
+Received: by mail-yw1-f173.google.com with SMTP id
+ 00721157ae682-5a7af45084eso4405707b3.0
+ for <dm-devel@redhat.com>; Mon, 09 Oct 2023 09:31:17 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696868323; x=1697473123;
+ d=1e100.net; s=20230601; t=1696869077; x=1697473877;
  h=in-reply-to:content-disposition:mime-version:references:message-id
  :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
  :message-id:reply-to;
- bh=+v0P6uduPxkDwct3qYcLQFv77ucBxF1TcIWjbvekveU=;
- b=l6MKZNaHESf9DZw3sOFBbkylVN5yKt3oQj2ixjEOYzg55d3eUTFpFaPE8V4JghcZDW
- q8dagmKFTFpLBjcl9PxOBFc4s2M/OmYIfHm1ehC6kKN40ykS/rXaFvZImUy7dYShJbXz
- fOAVeWHlazsN5UuzoV03uOTJVpWIwQNZbYpm2oWWpr5UYYlSBp8Kv+7B3DN6N6Vbewoe
- l80HhgShkZ/2+6xQTo1wIums8elAf88IJ6em5zntAQ2IEAKxHAHTJUVjTl9KcirmMmf0
- Yi00gUdWpeHlXRv/LVHnC/tP5GVEmhi75j0IRkdMrxGwx9rVnPH0P1RjGftz/mgwbW2R
- OH+w==
-X-Gm-Message-State: AOJu0YwFKblainJokX8C3UCPJtGNHWGPhMJYvJoSzFIqYF7ISTqjXTt0
- DecqBGCTZAPH11+UQPgMyrk=
-X-Google-Smtp-Source: AGHT+IHB8jMCMIkYIOrWoj2aAnwZpAx6vHscHjQQzqKGazLmHofK5EelcUbictbWaOs9tL3UCKSfcQ==
-X-Received: by 2002:a81:6e41:0:b0:598:bad6:8e67 with SMTP id
- j62-20020a816e41000000b00598bad68e67mr16343283ywc.30.1696868322609; 
- Mon, 09 Oct 2023 09:18:42 -0700 (PDT)
+ bh=ZwJG0ZcdADOiEPsRD1fp8I+0b5ih4BdS68Cgas4xJ7g=;
+ b=tjz8Dzz0q25ecIiZIePK3rNCGsmmhG8U3xaxpC8dmIKvqRn5KEXNvD0MvSInGV99Nx
+ hz74oAaAzkd46Brw83NSeaKiySxyhZu2+IFxaDAWvEIFqn8djZiVGhUAgGkzLWpPPMyP
+ RJSY4qcrg9eKwmq721tHVlaNkIGxhgrgPqgYMJiYIOCdKdWcswS8whQibBFUTZOhGQdp
+ 6D7TPyV8EI3nNQhRAowL12siqDd0MOUnXNQv58thpeZ8hAp/6SXABL67EEkzGecApBZp
+ ZVs8hcRnTdGkeI8OMpIMS1/QGPlU+rPGyCtynHfxtFHOjVyXMlCIRUtAAnI9rkTgw3u3
+ r/fg==
+X-Gm-Message-State: AOJu0YxRT4jrka7gjXhxLDPkMnhncVS4UiYuTxFITdKwd8W75sU5LvMp
+ Ji34w4QRZADjZfYZZxIhAFo=
+X-Google-Smtp-Source: AGHT+IEXYlVGR26h67lZ0CQFtDdopC6qPtwRiCX8u/eS0Le2sSi4IxhnE11TM3OyRpNoFH8rv8Esgw==
+X-Received: by 2002:a81:7b8a:0:b0:59b:c805:de60 with SMTP id
+ w132-20020a817b8a000000b0059bc805de60mr15386292ywc.45.1696869076997; 
+ Mon, 09 Oct 2023 09:31:16 -0700 (PDT)
 Received: from localhost ([2607:fb90:be22:da0:a050:8c3a:c782:514b])
  by smtp.gmail.com with ESMTPSA id
- u206-20020a8147d7000000b0059b4e981fe6sm3728032ywa.102.2023.10.09.09.18.41
+ g139-20020a0ddd91000000b00589a999038asm3797246ywe.77.2023.10.09.09.31.16
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 09:18:42 -0700 (PDT)
-Date: Mon, 9 Oct 2023 09:18:40 -0700
+ Mon, 09 Oct 2023 09:31:16 -0700 (PDT)
+Date: Mon, 9 Oct 2023 09:31:15 -0700
 From: Yury Norov <yury.norov@gmail.com>
 To: Alexander Lobakin <aleksander.lobakin@intel.com>
-Message-ID: <ZSQn4Mppz9aJgFib@yury-ThinkPad>
+Message-ID: <ZSQq02A9mTireK71@yury-ThinkPad>
 References: <20231009151026.66145-1-aleksander.lobakin@intel.com>
- <20231009151026.66145-4-aleksander.lobakin@intel.com>
+ <20231009151026.66145-10-aleksander.lobakin@intel.com>
 MIME-Version: 1.0
-In-Reply-To: <20231009151026.66145-4-aleksander.lobakin@intel.com>
+In-Reply-To: <20231009151026.66145-10-aleksander.lobakin@intel.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,10 +98,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
 X-Mailman-Approved-At: Tue, 10 Oct 2023 07:02:51 +0000
-Subject: Re: [dm-devel] [PATCH 03/14] bitops: let the compiler optimize
- __assign_bit()
+Subject: Re: [dm-devel] [PATCH 09/14] bitmap: extend bitmap_{get,
+ set}_value8() to bitmap_{get, set}_bits()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -124,94 +124,136 @@ Cc: linux-s390@vger.kernel.org, ntfs3@lists.linux.dev,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.10
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: gmail.com
 Content-Disposition: inline
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-On Mon, Oct 09, 2023 at 05:10:15PM +0200, Alexander Lobakin wrote:
-> Since commit b03fc1173c0c ("bitops: let optimize out non-atomic bitops
-> on compile-time constants"), the compilers are able to expand inline
-> bitmap operations to compile-time initializers when possible.
-> However, during the round of replacement if-__set-else-__clear with
-> __assign_bit() as per Andy's advice, bloat-o-meter showed +1024 bytes
-> difference in object code size for one module (even one function),
-> where the pattern:
-> 
-> 	DECLARE_BITMAP(foo) = { }; // on the stack, zeroed
-> 
-> 	if (a)
-> 		__set_bit(const_bit_num, foo);
-> 	if (b)
-> 		__set_bit(another_const_bit_num, foo);
-> 	...
-> 
-> is heavily used, although there should be no difference: the bitmap is
-> zeroed, so the second half of __assign_bit() should be compiled-out as
-> a no-op.
-> I either missed the fact that __assign_bit() has bitmap pointer marked
-> as `volatile` (as we usually do for bitmaps) or was hoping that the
++ Alexander Potapenko <glider@google.com>
 
-No, we usually don't. Atomic ops on individual bits is a notable exception
-for bitmaps, as the comment for generic_test_bit() says, for example:
-         /*
-          * Unlike the bitops with the '__' prefix above, this one *is* atomic,
-          * so `volatile` must always stay here with no cast-aways. See
-          * `Documentation/atomic_bitops.txt` for the details.
-          */
+On Mon, Oct 09, 2023 at 05:10:21PM +0200, Alexander Lobakin wrote:
+> Sometimes there's need to get a 8/16/...-bit piece of a bitmap at a
+> particular offset. Currently, there are only bitmap_{get,set}_value8()
+> to do that for 8 bits and that's it.
 
-For non-atomic single-bit operations and all multi-bit ops, volatile is
-useless, and generic___test_and_set_bit() in the same file casts the 
-*addr to a plain 'unsigned long *'.
+And also a series from Alexander Potapenko, which I really hope will
+get into the -next really soon. It introduces bitmap_read/write which
+can set up to BITS_PER_LONG at once, with no limitations on alignment
+of position and length:
 
-> compilers would at least try to look past the `volatile` for
-> __always_inline functions. Anyhow, due to that attribute, the compilers
-> were always compiling the whole expression and no mentioned compile-time
-> optimizations were working.
+https://lore.kernel.org/linux-arm-kernel/ZRXbOoKHHafCWQCW@yury-ThinkPad/T/#mc311037494229647088b3a84b9f0d9b50bf227cb
+
+Can you consider building your series on top of it?
+
+> Instead of introducing a separate pair for u16 and so on, which doesn't
+> scale well, extend the existing functions to be able to pass the wanted
+> value width. Make both offset and width arbitrary, but in order to not
+> over complicate the current logic and keep the helpers as optimized as
+> the current ones, require the width to be a pow-2 value and the offset
+> to be a multiple of the width, while the target piece should not cross
+> a %BITS_PER_LONG boundary and stay within one long.
+> Avoid adjusting all the already existing callsites by defining oneliner
+> wrapper macros named after the former functions. bloat-o-meter shows
+> almost no difference (+1-2 bytes in a couple of places), meaning the
+> new helpers get optimized just nicely.
 > 
-> Convert __assign_bit() to a macro since it's a very simple if-else and
-> all of the checks are performed inside __set_bit() and __clear_bit(),
-> thus that wrapper has to be as transparent as possible. After that
-> change, despite it showing only -20 bytes change for vmlinux (due to
-> that it's still relatively unpopular), no drastic code size changes
-> happen when replacing if-set-else-clear for onstack bitmaps with
-> __assign_bit(), meaning the compiler now expands them to the actual
-> operations will all the expected optimizations.
-> 
-> Cc: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 > Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 > Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
 > ---
->  include/linux/bitops.h | 10 ++--------
->  1 file changed, 2 insertions(+), 8 deletions(-)
+>  include/linux/bitmap.h | 51 ++++++++++++++++++++++++++++++------------
+>  1 file changed, 37 insertions(+), 14 deletions(-)
 > 
-> diff --git a/include/linux/bitops.h b/include/linux/bitops.h
-> index e0cd09eb91cd..f98f4fd1047f 100644
-> --- a/include/linux/bitops.h
-> +++ b/include/linux/bitops.h
-> @@ -284,14 +284,8 @@ static __always_inline void assign_bit(long nr, volatile unsigned long *addr,
->  		clear_bit(nr, addr);
+> diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
+> index 63e422f8ba3d..9c010a7fa331 100644
+> --- a/include/linux/bitmap.h
+> +++ b/include/linux/bitmap.h
+> @@ -6,8 +6,10 @@
+>  
+>  #include <linux/align.h>
+>  #include <linux/bitops.h>
+> +#include <linux/bug.h>
+>  #include <linux/find.h>
+>  #include <linux/limits.h>
+> +#include <linux/log2.h>
+>  #include <linux/string.h>
+>  #include <linux/types.h>
+>  
+> @@ -569,38 +571,59 @@ static inline void bitmap_from_u64(unsigned long *dst, u64 mask)
 >  }
 >  
-> -static __always_inline void __assign_bit(long nr, volatile unsigned long *addr,
-> -					 bool value)
-> -{
-> -	if (value)
-> -		__set_bit(nr, addr);
-> -	else
-> -		__clear_bit(nr, addr);
-> -}
-> +#define __assign_bit(nr, addr, value)				\
-> +	((value) ? __set_bit(nr, addr) : __clear_bit(nr, addr))
-
-Can you protect nr and addr with braces just as well?
-Can you convert the atomic version too, to keep them synchronized ?
-
+>  /**
+> - * bitmap_get_value8 - get an 8-bit value within a memory region
+> + * bitmap_get_bits - get a 8/16/32/64-bit value within a memory region
+>   * @map: address to the bitmap memory region
+> - * @start: bit offset of the 8-bit value; must be a multiple of 8
+> + * @start: bit offset of the value; must be a multiple of @len
+> + * @len: bit width of the value; must be a power of two
+>   *
+> - * Returns the 8-bit value located at the @start bit offset within the @src
+> - * memory region.
+> + * Return: the 8/16/32/64-bit value located at the @start bit offset within
+> + * the @src memory region. Its position (@start + @len) can't cross
+> + * a ``BITS_PER_LONG`` boundary.
+>   */
+> -static inline unsigned long bitmap_get_value8(const unsigned long *map,
+> -					      unsigned long start)
+> +static inline unsigned long bitmap_get_bits(const unsigned long *map,
+> +					    unsigned long start, size_t len)
+>  {
+>  	const size_t index = BIT_WORD(start);
+>  	const unsigned long offset = start % BITS_PER_LONG;
+>  
+> -	return (map[index] >> offset) & 0xFF;
+> +	if (WARN_ON_ONCE(!is_power_of_2(len) || offset % len ||
+> +			 offset + len > BITS_PER_LONG))
+> +		return 0;
+> +
+> +	return (map[index] >> offset) & GENMASK(len - 1, 0);
+>  }
 >  
 >  /**
->   * __ptr_set_bit - Set bit in a pointer's value
+> - * bitmap_set_value8 - set an 8-bit value within a memory region
+> + * bitmap_set_bits - set a 8/16/32/64-bit value within a memory region
+>   * @map: address to the bitmap memory region
+> - * @value: the 8-bit value; values wider than 8 bits may clobber bitmap
+> - * @start: bit offset of the 8-bit value; must be a multiple of 8
+> + * @start: bit offset of the value; must be a multiple of @len
+> + * @value: new value to set
+> + * @len: bit width of the value; must be a power of two
+> + *
+> + * Replaces the 8/16/32/64-bit value located at the @start bit offset within
+> + * the @src memory region with the new @value. Its position (@start + @len)
+> + * can't cross a ``BITS_PER_LONG`` boundary.
+>   */
+> -static inline void bitmap_set_value8(unsigned long *map, unsigned long value,
+> -				     unsigned long start)
+> +static inline void bitmap_set_bits(unsigned long *map, unsigned long start,
+> +				   unsigned long value, size_t len)
+>  {
+>  	const size_t index = BIT_WORD(start);
+>  	const unsigned long offset = start % BITS_PER_LONG;
+> +	unsigned long mask = GENMASK(len - 1, 0);
+>  
+> -	map[index] &= ~(0xFFUL << offset);
+> -	map[index] |= value << offset;
+> +	if (WARN_ON_ONCE(!is_power_of_2(len) || offset % len ||
+> +			 offset + len > BITS_PER_LONG))
+> +		return;
+> +
+> +	map[index] &= ~(mask << offset);
+> +	map[index] |= (value & mask) << offset;
+>  }
+>  
+> +#define bitmap_get_value8(map, start)				\
+> +	bitmap_get_bits(map, start, BITS_PER_BYTE)
+> +#define bitmap_set_value8(map, value, start)			\
+> +	bitmap_set_bits(map, start, value, BITS_PER_BYTE)
+> +
+>  #endif /* __ASSEMBLY__ */
+>  
+>  #endif /* __LINUX_BITMAP_H */
 > -- 
 > 2.41.0
 
