@@ -2,75 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 54A127BF3A0
-	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:09 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id 6FA517BF3AA
+	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:17 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696921388;
+	s=mimecast20190719; t=1696921396;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=vZMzZTFT/aNS1NGd49v7n4xAVXhAGjq+EBmrC7YvyGk=;
-	b=E1HJ5T35Ba5OiojglcIezQa1lrxBYLP3Y/TrOBpRNWNBHn3aj/0MZXtdJmwus7vNZkDwYx
-	zLRgN6byM5ZuQt8BzrjkMcDVi88A5CFg0xR7s/de8fLzCv9ZvrFtmxTdJNMUzV3hcpiSJC
-	3ovsmK45c2z+MgH0O0zbHmWDpp3/0G0=
+	bh=mnTZw+8oZ5UghAJV+SEDIrxdltX1DZ3HO7Z5/wsbgRM=;
+	b=P1ImwrvWWprDclCvosGZt7CaYPCoFDUDl5Ivr6dmIdrdbUsJBqdMzjxy2ncGpxqYPycAxI
+	thCBp4uoomrlWC7B+ljnhlcfeAMzs9WRF3FyIdIarIdSYY5U0MkW39467z3cWWHNkLejpY
+	kv55737ItvK9oxCHTy//fn1Cj+5vuiM=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-183-EYqSvMdANQCyhzC8pQPAdg-1; Tue, 10 Oct 2023 03:03:01 -0400
-X-MC-Unique: EYqSvMdANQCyhzC8pQPAdg-1
-Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com [10.11.54.9])
+ us-mta-500-4tA5KsrIPq-6tle4P9Rt9Q-1; Tue, 10 Oct 2023 03:03:12 -0400
+X-MC-Unique: 4tA5KsrIPq-6tle4P9Rt9Q-1
+Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com [10.11.54.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 23957858F1D;
-	Tue, 10 Oct 2023 07:02:59 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 4B72E857AAB;
+	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 80EF440D1A6;
-	Tue, 10 Oct 2023 07:02:55 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 30B082156720;
+	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0211D19466FA;
-	Tue, 10 Oct 2023 07:02:52 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id ACC3119452F9;
+	Tue, 10 Oct 2023 07:02:54 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 8735819465A0
- for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 15:14:33 +0000 (UTC)
+ ESMTP id 3325B19465A0
+ for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 15:14:54 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 6555536F0; Mon,  9 Oct 2023 15:14:33 +0000 (UTC)
+ id 11F5E4026FB; Mon,  9 Oct 2023 15:14:54 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast05.extmail.prod.ext.rdu2.redhat.com [10.11.55.21])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 5E16B3C54
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:14:33 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast07.extmail.prod.ext.rdu2.redhat.com [10.11.55.23])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 0A8C540D1BC
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:14:54 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-inbound-delivery-1.mimecast.com [205.139.110.61])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 3B8188002B2
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:14:33 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E20063C170A9
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:14:53 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-663-4OROW6guPeKzSKlpIh6Ktg-1; Mon, 09 Oct 2023 11:14:25 -0400
-X-MC-Unique: 4OROW6guPeKzSKlpIh6Ktg-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="369232119"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="369232119"
+ us-mta-134-ZazYzXxQP_2BS9fxNnZ25w-1; Mon, 09 Oct 2023 11:14:32 -0400
+X-MC-Unique: ZazYzXxQP_2BS9fxNnZ25w-1
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="369232168"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="369232168"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 08:13:21 -0700
+ 09 Oct 2023 08:13:25 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869287992"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="869287992"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869288023"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="869288023"
 Received: from newjersey.igk.intel.com ([10.102.20.203])
- by fmsmga002.fm.intel.com with ESMTP; 09 Oct 2023 08:13:18 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 09 Oct 2023 08:13:22 -0700
 From: Alexander Lobakin <aleksander.lobakin@intel.com>
 To: Yury Norov <yury.norov@gmail.com>
-Date: Mon,  9 Oct 2023 17:10:17 +0200
-Message-ID: <20231009151026.66145-6-aleksander.lobakin@intel.com>
+Date: Mon,  9 Oct 2023 17:10:18 +0200
+Message-ID: <20231009151026.66145-7-aleksander.lobakin@intel.com>
 In-Reply-To: <20231009151026.66145-1-aleksander.lobakin@intel.com>
 References: <20231009151026.66145-1-aleksander.lobakin@intel.com>
 MIME-Version: 1.0
@@ -81,10 +81,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Tue, 10 Oct 2023 07:02:51 +0000
-Subject: [dm-devel] [PATCH 05/14] s390/cio: rename bitmap_size() ->
- idset_bitmap_size()
+Subject: [dm-devel] [PATCH 06/14] fs/ntfs3: rename bitmap_size() ->
+ ntfs3_bitmap_size()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -108,66 +108,126 @@ Cc: linux-s390@vger.kernel.org, ntfs3@lists.linux.dev,
  linux-btrfs@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.6
 X-Mimecast-Spam-Score: 0
 X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
 bitmap_size() is a pretty generic name and one may want to use it for
-a generic bitmap API function. At the same time, its logic is not
-"generic", i.e. it's not just `nbits -> size of bitmap in bytes`
-converter as it would be expected from its name.
-Add the prefix 'idset_' used throughout the file where the function
-resides.
+a generic bitmap API function. At the same time, its logic is
+NTFS-specific, as it aligns to the sizeof(u64), not the sizeof(long)
+(although it uses ideologically right ALIGN() instead of division).
+Add the prefix 'ntfs3_' used for that FS (not just 'ntfs_' to not mix
+it with the legacy module).
 
 Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
 ---
-idset_new() really wants its vmalloc() + memset() pair to be replaced
-with vzalloc().
----
- drivers/s390/cio/idset.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ fs/ntfs3/bitmap.c  |  4 ++--
+ fs/ntfs3/fsntfs.c  |  2 +-
+ fs/ntfs3/index.c   | 11 ++++++-----
+ fs/ntfs3/ntfs_fs.h |  2 +-
+ fs/ntfs3/super.c   |  2 +-
+ 5 files changed, 11 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/s390/cio/idset.c b/drivers/s390/cio/idset.c
-index 45f9c0736be4..0a1105a483bf 100644
---- a/drivers/s390/cio/idset.c
-+++ b/drivers/s390/cio/idset.c
-@@ -16,7 +16,7 @@ struct idset {
- 	unsigned long bitmap[];
- };
+diff --git a/fs/ntfs3/bitmap.c b/fs/ntfs3/bitmap.c
+index 107e808e06ea..a2e18f13e93a 100644
+--- a/fs/ntfs3/bitmap.c
++++ b/fs/ntfs3/bitmap.c
+@@ -653,7 +653,7 @@ int wnd_init(struct wnd_bitmap *wnd, struct super_block *sb, size_t nbits)
+ 	wnd->total_zeroes = nbits;
+ 	wnd->extent_max = MINUS_ONE_T;
+ 	wnd->zone_bit = wnd->zone_end = 0;
+-	wnd->nwnd = bytes_to_block(sb, bitmap_size(nbits));
++	wnd->nwnd = bytes_to_block(sb, ntfs3_bitmap_size(nbits));
+ 	wnd->bits_last = nbits & (wbits - 1);
+ 	if (!wnd->bits_last)
+ 		wnd->bits_last = wbits;
+@@ -1345,7 +1345,7 @@ int wnd_extend(struct wnd_bitmap *wnd, size_t new_bits)
+ 		return -EINVAL;
  
--static inline unsigned long bitmap_size(int num_ssid, int num_id)
-+static inline unsigned long idset_bitmap_size(int num_ssid, int num_id)
- {
- 	return BITS_TO_LONGS(num_ssid * num_id) * sizeof(unsigned long);
- }
-@@ -25,11 +25,12 @@ static struct idset *idset_new(int num_ssid, int num_id)
- {
- 	struct idset *set;
+ 	/* Align to 8 byte boundary. */
+-	new_wnd = bytes_to_block(sb, bitmap_size(new_bits));
++	new_wnd = bytes_to_block(sb, ntfs3_bitmap_size(new_bits));
+ 	new_last = new_bits & (wbits - 1);
+ 	if (!new_last)
+ 		new_last = wbits;
+diff --git a/fs/ntfs3/fsntfs.c b/fs/ntfs3/fsntfs.c
+index 33afee0f5559..7a14d2347f27 100644
+--- a/fs/ntfs3/fsntfs.c
++++ b/fs/ntfs3/fsntfs.c
+@@ -522,7 +522,7 @@ static int ntfs_extend_mft(struct ntfs_sb_info *sbi)
+ 	ni->mi.dirty = true;
  
--	set = vmalloc(sizeof(struct idset) + bitmap_size(num_ssid, num_id));
-+	set = vmalloc(sizeof(struct idset) +
-+		      idset_bitmap_size(num_ssid, num_id));
- 	if (set) {
- 		set->num_ssid = num_ssid;
- 		set->num_id = num_id;
--		memset(set->bitmap, 0, bitmap_size(num_ssid, num_id));
-+		memset(set->bitmap, 0, idset_bitmap_size(num_ssid, num_id));
+ 	/* Step 2: Resize $MFT::BITMAP. */
+-	new_bitmap_bytes = bitmap_size(new_mft_total);
++	new_bitmap_bytes = ntfs3_bitmap_size(new_mft_total);
+ 
+ 	err = attr_set_size(ni, ATTR_BITMAP, NULL, 0, &sbi->mft.bitmap.run,
+ 			    new_bitmap_bytes, &new_bitmap_bytes, true, NULL);
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+index 124c6e822623..ab53a4b6ddf8 100644
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -1453,8 +1453,8 @@ static int indx_create_allocate(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 
+ 	alloc->nres.valid_size = alloc->nres.data_size = cpu_to_le64(data_size);
+ 
+-	err = ni_insert_resident(ni, bitmap_size(1), ATTR_BITMAP, in->name,
+-				 in->name_len, &bitmap, NULL, NULL);
++	err = ni_insert_resident(ni, ntfs3_bitmap_size(1), ATTR_BITMAP,
++				 in->name, in->name_len, &bitmap, NULL, NULL);
+ 	if (err)
+ 		goto out2;
+ 
+@@ -1515,8 +1515,9 @@ static int indx_add_allocate(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	if (bmp) {
+ 		/* Increase bitmap. */
+ 		err = attr_set_size(ni, ATTR_BITMAP, in->name, in->name_len,
+-				    &indx->bitmap_run, bitmap_size(bit + 1),
+-				    NULL, true, NULL);
++				    &indx->bitmap_run,
++				    ntfs3_bitmap_size(bit + 1), NULL, true,
++				    NULL);
+ 		if (err)
+ 			goto out1;
  	}
- 	return set;
- }
-@@ -41,7 +42,8 @@ void idset_free(struct idset *set)
+@@ -2089,7 +2090,7 @@ static int indx_shrink(struct ntfs_index *indx, struct ntfs_inode *ni,
+ 	if (in->name == I30_NAME)
+ 		ni->vfs_inode.i_size = new_data;
  
- void idset_fill(struct idset *set)
+-	bpb = bitmap_size(bit);
++	bpb = ntfs3_bitmap_size(bit);
+ 	if (bpb * 8 == nbits)
+ 		return 0;
+ 
+diff --git a/fs/ntfs3/ntfs_fs.h b/fs/ntfs3/ntfs_fs.h
+index 629403ede6e5..93333156aac6 100644
+--- a/fs/ntfs3/ntfs_fs.h
++++ b/fs/ntfs3/ntfs_fs.h
+@@ -961,7 +961,7 @@ static inline bool run_is_empty(struct runs_tree *run)
+ }
+ 
+ /* NTFS uses quad aligned bitmaps. */
+-static inline size_t bitmap_size(size_t bits)
++static inline size_t ntfs3_bitmap_size(size_t bits)
  {
--	memset(set->bitmap, 0xff, bitmap_size(set->num_ssid, set->num_id));
-+	memset(set->bitmap, 0xff,
-+	       idset_bitmap_size(set->num_ssid, set->num_id));
+ 	return ALIGN((bits + 7) >> 3, 8);
  }
+diff --git a/fs/ntfs3/super.c b/fs/ntfs3/super.c
+index cfec5e0c7f66..b1fb6efe7084 100644
+--- a/fs/ntfs3/super.c
++++ b/fs/ntfs3/super.c
+@@ -1285,7 +1285,7 @@ static int ntfs_fill_super(struct super_block *sb, struct fs_context *fc)
  
- static inline void idset_add(struct idset *set, int ssid, int id)
+ 	/* Check bitmap boundary. */
+ 	tt = sbi->used.bitmap.nbits;
+-	if (inode->i_size < bitmap_size(tt)) {
++	if (inode->i_size < ntfs3_bitmap_size(tt)) {
+ 		ntfs_err(sb, "$Bitmap is corrupted.");
+ 		err = -EINVAL;
+ 		goto put_inode_out;
 -- 
 2.41.0
 
