@@ -2,75 +2,75 @@ Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id A762D7BF3B4
-	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:33 +0200 (CEST)
+	by mail.lfdr.de (Postfix) with ESMTPS id D3BD57BF3A5
+	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:16 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696921412;
+	s=mimecast20190719; t=1696921395;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=y7qvFURmKJU7SNOe3jJR8JqgVJMRnCt2QJMnpcX7rxw=;
-	b=KkrzBWuu5Yq/0mJPSTV2SmPLMK22qRBjd/pfEld/bzI9nH1UQAjM5Dq3UYV5PKuRpygMYx
-	UbQqqR9XOUG2al8J9jwIMnb2c7U3If3Fw9EzrT/8PZfFbBpSicd0AjQ29XF1UNOcp+bbSr
-	HZzwGCiEXuWmQwmMfVKJi7NsnUPlnHQ=
+	bh=YosvzrYn+B23hW+5zpv8rxvd8LzQLDToJ2GTKrwHMos=;
+	b=MJ5EC7TcBqJz4p8ubr7bS/ULhAMu4IZ7aoLI7OjsysSAh5gtR9ty4yPVrOnJ09G7qhazU8
+	GLA8esnXUBeP0RYT6lKYCECg9gYHkYkVaDv7SYgZWSBSAgrr74gBLDLMxsRoMUS3LZ8xJf
+	71u2Yl2ynVuzOP3bW6dKjmdEfjA3pno=
 Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
  by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-396-XnleKcbQNQW1wC8EO5vsow-1; Tue, 10 Oct 2023 03:03:15 -0400
-X-MC-Unique: XnleKcbQNQW1wC8EO5vsow-1
+ us-mta-266-DdHVjs3YOFyqCB2gb7fm6g-1; Tue, 10 Oct 2023 03:03:11 -0400
+X-MC-Unique: DdHVjs3YOFyqCB2gb7fm6g-1
 Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com [10.11.54.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 6FCB73C0E442;
-	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 529C23800A15;
+	Tue, 10 Oct 2023 07:03:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 525E1401038;
-	Tue, 10 Oct 2023 07:03:05 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id 36D514A9B0A;
+	Tue, 10 Oct 2023 07:03:03 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id DAD1519451C2;
-	Tue, 10 Oct 2023 07:02:54 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id A0EC91946A7E;
+	Tue, 10 Oct 2023 07:02:52 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx03.intmail.prod.int.rdu2.redhat.com
- [10.11.54.3])
+Received: from smtp.corp.redhat.com (int-mx09.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.9])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id 3A43219465A0
- for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 15:15:00 +0000 (UTC)
+ ESMTP id 27AA519465A0
+ for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 15:15:15 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 1A212100651E; Mon,  9 Oct 2023 15:15:00 +0000 (UTC)
+ id 05FAA4026FB; Mon,  9 Oct 2023 15:15:15 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast10.extmail.prod.ext.rdu2.redhat.com [10.11.55.26])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 122A61006B6F
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:15:00 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
- [205.139.110.61])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id F2D8640D1BC
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:15:14 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-inbound-delivery-1.mimecast.com [207.211.31.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id E70131C0758C
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:14:59 +0000 (UTC)
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CAFA5803497
+ for <dm-devel@redhat.com>; Mon,  9 Oct 2023 15:15:14 +0000 (UTC)
 Received: from mgamail.intel.com (mgamail.intel.com [134.134.136.126]) by
  relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-80-TljmyxnfOsq0s8A1_T-_kA-1; Mon, 09 Oct 2023 11:14:58 -0400
-X-MC-Unique: TljmyxnfOsq0s8A1_T-_kA-1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="369232506"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="369232506"
+ us-mta-341-QeyHCSJNOFCPufBiG3nRAQ-3; Mon, 09 Oct 2023 11:15:12 -0400
+X-MC-Unique: QeyHCSJNOFCPufBiG3nRAQ-3
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="369232537"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="369232537"
 Received: from fmsmga002.fm.intel.com ([10.253.24.26])
  by orsmga106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384;
- 09 Oct 2023 08:13:48 -0700
+ 09 Oct 2023 08:13:52 -0700
 X-ExtLoop1: 1
-X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869288163"
-X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="869288163"
+X-IronPort-AV: E=McAfee;i="6600,9927,10858"; a="869288197"
+X-IronPort-AV: E=Sophos;i="6.03,210,1694761200"; d="scan'208";a="869288197"
 Received: from newjersey.igk.intel.com ([10.102.20.203])
- by fmsmga002.fm.intel.com with ESMTP; 09 Oct 2023 08:13:45 -0700
+ by fmsmga002.fm.intel.com with ESMTP; 09 Oct 2023 08:13:48 -0700
 From: Alexander Lobakin <aleksander.lobakin@intel.com>
 To: Yury Norov <yury.norov@gmail.com>
-Date: Mon,  9 Oct 2023 17:10:24 +0200
-Message-ID: <20231009151026.66145-13-aleksander.lobakin@intel.com>
+Date: Mon,  9 Oct 2023 17:10:25 +0200
+Message-ID: <20231009151026.66145-14-aleksander.lobakin@intel.com>
 In-Reply-To: <20231009151026.66145-1-aleksander.lobakin@intel.com>
 References: <20231009151026.66145-1-aleksander.lobakin@intel.com>
 MIME-Version: 1.0
@@ -81,10 +81,10 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.3
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.9
 X-Mailman-Approved-At: Tue, 10 Oct 2023 07:02:51 +0000
-Subject: [dm-devel] [PATCH 12/14] lib/bitmap: add compile-time test for
- __assign_bit() optimization
+Subject: [dm-devel] [PATCH 13/14] lib/bitmap: add tests for bitmap_{get,
+ set}_bits()
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -114,58 +114,117 @@ X-Mimecast-Originator: intel.com
 Content-Type: text/plain; charset="us-ascii"
 Content-Transfer-Encoding: 7bit
 
-Commit dc34d5036692 ("lib: test_bitmap: add compile-time
-optimization/evaluations assertions") initially missed __assign_bit(),
-which led to that quite a time passed before I realized it doesn't get
-optimized at compilation time. Now that it does, add test for that just
-to make sure nothing will break one day.
-To make things more interesting, use bitmap_complement() and
-bitmap_full(), thus checking their compile-time evaluation as well. And
-remove the misleading comment mentioning the workaround removed recently
-in favor of adding the whole file to GCov exceptions.
+bitmap_{get,set}_value8() is now bitmap_{get,set}_bits(). The former
+didn't have any dedicated tests in the bitmap test suite.
+Add a pack of test cases with variable offset, width, and value to set
+(for _set_bits()), randomly generated with the only limitation:
+``offset % 32 + width <= 32``, to make sure the tests won't fail or
+trigger kernel warnings on 32-bit platforms. For _get_bits(), compare
+the return values with the expected ones, calculated and saved manually.
+For _set_bit(), do several modifications of the source bitmap and then
+compare against the expected resulting one, also pre-calculated.
 
 Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
 Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
 ---
- lib/test_bitmap.c | 18 ++++++++++--------
- 1 file changed, 10 insertions(+), 8 deletions(-)
+ lib/test_bitmap.c | 77 +++++++++++++++++++++++++++++++++++++++++++++++
+ 1 file changed, 77 insertions(+)
 
 diff --git a/lib/test_bitmap.c b/lib/test_bitmap.c
-index f2ea9f30c7c5..cbf1b9611616 100644
+index cbf1b9611616..6037b66fd30a 100644
 --- a/lib/test_bitmap.c
 +++ b/lib/test_bitmap.c
-@@ -1181,14 +1181,7 @@ static void __init test_bitmap_const_eval(void)
- 	 * in runtime.
- 	 */
- 
--	/*
--	 * Equals to `unsigned long bitmap[1] = { GENMASK(6, 5), }`.
--	 * Clang on s390 optimizes bitops at compile-time as intended, but at
--	 * the same time stops treating @bitmap and @bitopvar as compile-time
--	 * constants after regular test_bit() is executed, thus triggering the
--	 * build bugs below. So, call const_test_bit() there directly until
--	 * the compiler is fixed.
--	 */
-+	/* Equals to `unsigned long bitmap[1] = { GENMASK(6, 5), }` */
- 	bitmap_clear(bitmap, 0, BITS_PER_LONG);
- 	if (!test_bit(7, bitmap))
- 		bitmap_set(bitmap, 5, 2);
-@@ -1220,6 +1213,15 @@ static void __init test_bitmap_const_eval(void)
- 	/* ~BIT(25) */
- 	BUILD_BUG_ON(!__builtin_constant_p(~var));
- 	BUILD_BUG_ON(~var != ~BIT(25));
-+
-+	/* ~BIT(25) | BIT(25) == ~0UL */
-+	bitmap_complement(&var, &var, BITS_PER_LONG);
-+	__assign_bit(25, &var, true);
-+
-+	/* !(~(~0UL)) == 1 */
-+	res = bitmap_full(&var, BITS_PER_LONG);
-+	BUILD_BUG_ON(!__builtin_constant_p(res));
-+	BUILD_BUG_ON(!res);
+@@ -1161,6 +1161,82 @@ static void __init test_bitmap_print_buf(void)
+ 	}
  }
  
- static void __init selftest(void)
++struct getset_test {
++	u16	offset;
++	u16	width;
++	union {
++		u32	expect;
++		u32	value;
++	};
++};
++
++#define GETSET_TEST(o, w, v) {	\
++	.offset	= (o),		\
++	.width	= (w),		\
++	.value	= (v),		\
++}
++
++static const unsigned long getset_src[] __initconst = {
++	BITMAP_FROM_U64(0x4329c918b472468eULL),
++	BITMAP_FROM_U64(0xb2c20a622474a119ULL),
++	BITMAP_FROM_U64(0x3a08cb5591cea40dULL),
++	BITMAP_FROM_U64(0xc9a7550384e145f8ULL),
++};
++
++static const struct getset_test get_bits_test[] __initconst = {
++	GETSET_TEST(208, 16, 0x84e1),
++	GETSET_TEST(104, 8, 0xa),
++	GETSET_TEST(224, 32, 0xc9a75503),
++	GETSET_TEST(64, 16, 0xa119),
++	GETSET_TEST(169, 1, 0x1),
++	GETSET_TEST(144, 8, 0xce),
++	GETSET_TEST(80, 4, 0x4),
++	GETSET_TEST(24, 4, 0x4),
++};
++
++static const struct getset_test set_bits_test[] __initconst = {
++	GETSET_TEST(56, 4, 0xa),
++	GETSET_TEST(80, 16, 0xb17a),
++	GETSET_TEST(112, 8, 0x1b),
++	GETSET_TEST(0, 32, 0xe8a555f2),
++	GETSET_TEST(16, 2, 0),
++	GETSET_TEST(72, 8, 0x7d),
++	GETSET_TEST(47, 1, 0),
++	GETSET_TEST(160, 16, 0x1622),
++};
++
++static const unsigned long getset_out[] __initconst = {
++	BITMAP_FROM_U64(0x4a294918e8a455f2ULL),
++	BITMAP_FROM_U64(0xb21b0a62b17a7d19ULL),
++	BITMAP_FROM_U64(0x3a08162291cea40dULL),
++	BITMAP_FROM_U64(0xc9a7550384e145f8ULL),
++};
++
++#define GETSET_TEST_BITS	BYTES_TO_BITS(sizeof(getset_out))
++
++static void __init test_bitmap_getset_bits(void)
++{
++	DECLARE_BITMAP(out, GETSET_TEST_BITS);
++
++	for (u32 i = 0; i < ARRAY_SIZE(get_bits_test); i++) {
++		const struct getset_test *test = &get_bits_test[i];
++		u32 val;
++
++		val = bitmap_get_bits(getset_src, test->offset, test->width);
++		expect_eq_uint(test->expect, val);
++	}
++
++	bitmap_copy(out, getset_src, GETSET_TEST_BITS);
++
++	for (u32 i = 0; i < ARRAY_SIZE(set_bits_test); i++) {
++		const struct getset_test *test = &set_bits_test[i];
++
++		bitmap_set_bits(out, test->offset, test->value, test->width);
++	}
++
++	expect_eq_bitmap(getset_out, out, GETSET_TEST_BITS);
++}
++
+ /*
+  * FIXME: Clang breaks compile-time evaluations when KASAN and GCOV are enabled.
+  * To workaround it, GCOV is force-disabled in Makefile for this configuration.
+@@ -1238,6 +1314,7 @@ static void __init selftest(void)
+ 	test_mem_optimisations();
+ 	test_bitmap_cut();
+ 	test_bitmap_print_buf();
++	test_bitmap_getset_bits();
+ 	test_bitmap_const_eval();
+ 
+ 	test_find_nth_bit();
 -- 
 2.41.0
 
