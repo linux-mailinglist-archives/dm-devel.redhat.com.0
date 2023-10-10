@@ -1,96 +1,92 @@
 Return-Path: <dm-devel-bounces@redhat.com>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	by mail.lfdr.de (Postfix) with ESMTPS id 17BE27BF3B2
-	for <lists+dm-devel@lfdr.de>; Tue, 10 Oct 2023 09:03:23 +0200 (CEST)
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	by mail.lfdr.de (Postfix) with ESMTPS id CBD2D7C446C
+	for <lists+dm-devel@lfdr.de>; Wed, 11 Oct 2023 00:43:13 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1696921402;
+	s=mimecast20190719; t=1696977792;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
 	 content-type:content-type:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=xOz2sk8fHHEwmgeTRdBY4xU+RS5otamsdkmC05DWz9Y=;
-	b=PEHTPD9tZFLqQzaskKFS8UOnzfECuxT1W/H7e7MEjYUHAiagcjc+jCnh6ChcjuiP21PSU3
-	U/0cdOokksHEvMt1W+8tHMiBIDejuB4Ld1lwjHm7aUly6tD+6Q6vgnwT51i7Be/GP73PJF
-	wPlPKLr+a7ScQqYzK/lo0TyCpePWdDg=
+	bh=RDIFCz2SjVEaUy1Z5yhgmHZe+sxSQJzNNZHCdxYmeKU=;
+	b=SzfbgNCS4x0k8H7X1+iRZjB/4qqyOPueWcsnqr2wf9GF4otEphqw26CgdM3ztbarDs2XOG
+	NmnSRFP2JuouZ1j2gci/zzDEltPFFou/9Gsm9XkgG5OUz5uNeN2PHHOCDratMPMzBBqW/n
+	M6w1q8+EpvBvb7+xoY8m+JcEsbbZVgE=
 Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
  [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- us-mta-306-q6rlQE26OPywwRQ_4HzT4g-1; Tue, 10 Oct 2023 03:03:18 -0400
-X-MC-Unique: q6rlQE26OPywwRQ_4HzT4g-1
+ us-mta-593-pIYcGXxtObmaJzW8gm-BdA-1; Tue, 10 Oct 2023 18:43:10 -0400
+X-MC-Unique: pIYcGXxtObmaJzW8gm-BdA-1
 Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 9BACA187506F;
-	Tue, 10 Oct 2023 07:03:04 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id CD6F8887E42;
+	Tue, 10 Oct 2023 22:43:06 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 8397440C6EC0;
-	Tue, 10 Oct 2023 07:03:04 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id A246E40C6CA0;
+	Tue, 10 Oct 2023 22:42:59 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 0C11E19452DD;
-	Tue, 10 Oct 2023 07:02:53 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id 36F7919466EA;
+	Tue, 10 Oct 2023 22:42:58 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx01.intmail.prod.int.rdu2.redhat.com
- [10.11.54.1])
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.5])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id AE0BC19465A0
- for <dm-devel@listman.corp.redhat.com>; Mon,  9 Oct 2023 17:04:31 +0000 (UTC)
+ ESMTP id 9D0121946597
+ for <dm-devel@listman.corp.redhat.com>; Tue, 10 Oct 2023 22:42:56 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id 79EFE36E5; Mon,  9 Oct 2023 17:04:31 +0000 (UTC)
+ id 794FD9A; Tue, 10 Oct 2023 22:42:56 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast01.extmail.prod.ext.rdu2.redhat.com [10.11.55.17])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 731FA36E1
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 17:04:31 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-2.mimecast.com
- [207.211.31.81])
+ (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 712B463F45
+ for <dm-devel@redhat.com>; Tue, 10 Oct 2023 22:42:56 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com
+ (us-smtp-delivery-1.mimecast.com [205.139.110.120])
  (using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 506F585A5BD
- for <dm-devel@redhat.com>; Mon,  9 Oct 2023 17:04:31 +0000 (UTC)
-Received: from mail-yw1-f182.google.com (mail-yw1-f182.google.com
- [209.85.128.182]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 5481F3816D84
+ for <dm-devel@redhat.com>; Tue, 10 Oct 2023 22:42:56 +0000 (UTC)
+Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com
+ [209.85.218.52]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-21-6vorhGhGM1SclFHgoXQMWw-1; Mon, 09 Oct 2023 13:04:19 -0400
-X-MC-Unique: 6vorhGhGM1SclFHgoXQMWw-1
-Received: by mail-yw1-f182.google.com with SMTP id
- 00721157ae682-5a7ba0828efso996797b3.3
- for <dm-devel@redhat.com>; Mon, 09 Oct 2023 10:04:19 -0700 (PDT)
+ us-mta-220-rs5KqZZPMICwGsGwlyc5jQ-1; Tue, 10 Oct 2023 18:42:52 -0400
+X-MC-Unique: rs5KqZZPMICwGsGwlyc5jQ-1
+Received: by mail-ej1-f52.google.com with SMTP id
+ a640c23a62f3a-9b27bc8b65eso1037625066b.0
+ for <dm-devel@redhat.com>; Tue, 10 Oct 2023 15:42:52 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1696871059; x=1697475859;
- h=in-reply-to:content-disposition:mime-version:references:message-id
- :subject:cc:to:from:date:x-gm-message-state:from:to:cc:subject:date
- :message-id:reply-to;
- bh=GrtA6lKuYWUe++j58BXstURMH0ObpUyX8a0STO/sotc=;
- b=kfRKMwrkennofnzLmYFH7N/qOagkNi8v3cCj/rwylT1EA8KokxfTKt6A+HPGuzzEu9
- qqp9Y8K+g+Jcp54cDpbtRLhb0U93rnUx3asgZTbdZeHjEmyKGstkZBtA3XiMhv4radzu
- Cr4LNy/NPWBFxq0FveASdiobzxZhyXvtQDiZ25a8s/WvYns/WSkVPuyWH8duXQd6bk2j
- 9MEjTTDzVSKsVLijJ1jFI1NLQFG5IRwuJNEWXvUzvgMerb86Rb8erH++9gzzly26dVma
- k7FYxijdHi4aIEHYx9L4J9LbwZlXLE/Aoio7VzhBIQhlztHA6t5ng/SmJfMYrF2MNBuJ
- S6vg==
-X-Gm-Message-State: AOJu0YyEhMBuMDz1nupqi26iD+vyWlxZQte8KdXuAb1BnTMZ2hW5qjNb
- U4emqQMEH45o8aG9ssuVbzs=
-X-Google-Smtp-Source: AGHT+IFCaKLUIQtaVFO6RZQ7mzNkB38jHP0WXbG7WaO+K53JI2BYGR30cn9swjnv1mxH93LfVRqHVw==
-X-Received: by 2002:a0d:f542:0:b0:59f:5361:d18c with SMTP id
- e63-20020a0df542000000b0059f5361d18cmr15848023ywf.41.1696871058634; 
- Mon, 09 Oct 2023 10:04:18 -0700 (PDT)
-Received: from localhost ([2607:fb90:be22:da0:a050:8c3a:c782:514b])
- by smtp.gmail.com with ESMTPSA id
- g192-20020a0dddc9000000b0054bfc94a10dsm3799789ywe.47.2023.10.09.10.04.17
- (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 09 Oct 2023 10:04:18 -0700 (PDT)
-Date: Mon, 9 Oct 2023 10:04:16 -0700
-From: Yury Norov <yury.norov@gmail.com>
-To: Alexander Lobakin <aleksander.lobakin@intel.com>
-Message-ID: <ZSQykJtkemZTiYHP@yury-ThinkPad>
-References: <20231009151026.66145-1-aleksander.lobakin@intel.com>
- <20231009151026.66145-9-aleksander.lobakin@intel.com>
+ d=1e100.net; s=20230601; t=1696977771; x=1697582571;
+ h=content-transfer-encoding:cc:to:subject:message-id:date:from
+ :in-reply-to:references:mime-version:x-gm-message-state:from:to:cc
+ :subject:date:message-id:reply-to;
+ bh=tb9bykOj2PFr0JPtI/2Jn1spETOn70fv/I2YmNILcfw=;
+ b=OsVhIjnZ6f4IzP36BORdE8kk3sy/hETWEWxX++xeT0ZBFouMYG0p/GnkEd6xXmyNiD
+ vpN55VQ19cATHGF35w0mdQRS66dKeN9xoginErNXipcTFV8CayMdpQ2YYI+t2CQohX1a
+ 2BUfuauSz+GTXkodyxUUJG2T3Iv967vck7iSbhKBp9W2JQuvmQEaL5pfQN3sVmyWuuc5
+ V/SgAnvEjMnkJJEf9xDRd3uv5RQC0sWAko3G3e0cllk7IzTt3AwNMfCHV9WATqjUTKem
+ gmAmYANuRw1T75tRUiO+rdz7F1RJtIrRwItpLBsZTkkzkmfenozqlctep4bkvMXyRXPK
+ +fGg==
+X-Gm-Message-State: AOJu0Yxs4+p1zUscIvci1dSfE9gYCtu8aUELd0RjXoWsXpbgHIbs3w8e
+ z9YzAbCRClmFWNSIHpgntYisZp9J74SbJIKt//5hgg==
+X-Google-Smtp-Source: AGHT+IHovl1AnfLJUnwNPKM37IAziJkKti9gYfE82FUNcROx92edpN/rECBAy7Ui9Lg+Iqjm2+QUlHjRja83n7tAqZI=
+X-Received: by 2002:a17:906:9a:b0:9b2:b149:b818 with SMTP id
+ 26-20020a170906009a00b009b2b149b818mr17960595ejc.70.1696977771190; Tue, 10
+ Oct 2023 15:42:51 -0700 (PDT)
 MIME-Version: 1.0
-In-Reply-To: <20231009151026.66145-9-aleksander.lobakin@intel.com>
+References: <20231007012817.3052558-1-sarthakkukreti@chromium.org>
+ <20231007012817.3052558-6-sarthakkukreti@chromium.org>
+ <ZSM64EOTVyKNkc/X@dread.disaster.area>
+In-Reply-To: <ZSM64EOTVyKNkc/X@dread.disaster.area>
+From: Sarthak Kukreti <sarthakkukreti@chromium.org>
+Date: Tue, 10 Oct 2023 15:42:39 -0700
+Message-ID: <CAG9=OMP_YbfCyjJGGwoZfgwxO-FmR55F5zv3DO8c2-=YzY8iwA@mail.gmail.com>
+To: Dave Chinner <david@fromorbit.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -98,10 +94,9 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.1
-X-Mailman-Approved-At: Tue, 10 Oct 2023 07:02:51 +0000
-Subject: Re: [dm-devel] [PATCH 08/14] bitmap: introduce generic optimized
- bitmap_size()
+X-Scanned-By: MIMEDefang 3.1 on 10.11.54.5
+Subject: Re: [dm-devel] [PATCH v8 5/5] block: Pass unshare intent via
+ REQ_OP_PROVISION
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -113,198 +108,75 @@ List-Post: <mailto:dm-devel@redhat.com>
 List-Help: <mailto:dm-devel-request@redhat.com?subject=help>
 List-Subscribe: <https://listman.redhat.com/mailman/listinfo/dm-devel>,
  <mailto:dm-devel-request@redhat.com?subject=subscribe>
-Cc: linux-s390@vger.kernel.org, ntfs3@lists.linux.dev,
- Przemek Kitszel <przemyslaw.kitszel@intel.com>,
- David Ahern <dsahern@kernel.org>, Rasmus Villemoes <linux@rasmusvillemoes.dk>,
- dm-devel@redhat.com, linux-kernel@vger.kernel.org,
- Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org,
- Alexander Potapenko <glider@google.com>,
- Simon Horman <simon.horman@corigine.com>, Jakub Kicinski <kuba@kernel.org>,
- Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
- linux-btrfs@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, Christoph Hellwig <hch@infradead.org>,
+ Theodore Ts'o <tytso@mit.edu>, "Darrick J. Wong" <djwong@kernel.org>,
+ Brian Foster <bfoster@redhat.com>, Bart Van Assche <bvanassche@google.com>,
+ Mike Snitzer <snitzer@kernel.org>, linux-kernel@vger.kernel.org,
+ linux-block@vger.kernel.org, dm-devel@redhat.com,
+ Andreas Dilger <adilger.kernel@dilger.ca>, linux-fsdevel@vger.kernel.org,
+ linux-ext4@vger.kernel.org, Alasdair Kergon <agk@redhat.com>
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
 X-Mimecast-Spam-Score: 0
-X-Mimecast-Originator: gmail.com
-Content-Disposition: inline
-Content-Type: text/plain; charset="us-ascii"
-Content-Transfer-Encoding: 7bit
+X-Mimecast-Originator: chromium.org
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 
-On Mon, Oct 09, 2023 at 05:10:20PM +0200, Alexander Lobakin wrote:
-> The number of times yet another open coded
-> `BITS_TO_LONGS(nbits) * sizeof(long)` can be spotted is huge.
-> Some generic helper is long overdue.
-
-OK, I see your point. Indeed, opencoding this again and again may be
-annoying. 
-
-Acked-by: Yury Norov <yury.norov@gmail.com>
- 
-> Add one, bitmap_size(), but with one detail.
-> BITS_TO_LONGS() uses DIV_ROUND_UP(). The latter works well when both
-> divident and divisor are compile-time constants or when the divisor
-> is not a pow-of-2. When it is however, the compilers sometimes tend
-> to generate suboptimal code (GCC 13):
-> 
-> 48 83 c0 3f          	add    $0x3f,%rax
-> 48 c1 e8 06          	shr    $0x6,%rax
-> 48 8d 14 c5 00 00 00 00	lea    0x0(,%rax,8),%rdx
-> 
-> %BITS_PER_LONG is always a pow-2 (either 32 or 64), but GCC still does
-> full division of `nbits + 63` by it and then multiplication by 8.
-> Instead of BITS_TO_LONGS(), use ALIGN() and then divide by 8. GCC:
-> 
-> 8d 50 3f             	lea    0x3f(%rax),%edx
-> c1 ea 03             	shr    $0x3,%edx
-> 81 e2 f8 ff ff 1f    	and    $0x1ffffff8,%edx
-> 
-> Now it divides `nbits + 63` by 8 and then masks bits[2:0].
-> bloat-o-meter:
-> 
-> add/remove: 0/0 grow/shrink: 20/133 up/down: 156/-773 (-617)
-> 
-> Clang does it better and generates the same code before/after starting
-> from -O1, except that with the ALIGN() approach it uses %edx and thus
-> still saves some bytes:
-> 
-> add/remove: 0/0 grow/shrink: 9/133 up/down: 18/-538 (-520)
-> 
-> Note that we can't expand DIV_ROUND_UP() by adding a check and using
-> this approach there, as it's used in array declarations where
-> expressions are not allowed.
-> Add this helper to tools/ as well.
-> 
-> Reviewed-by: Przemek Kitszel <przemyslaw.kitszel@intel.com>
-> Signed-off-by: Alexander Lobakin <aleksander.lobakin@intel.com>
-> ---
->  drivers/md/dm-clone-metadata.c | 5 -----
->  include/linux/bitmap.h         | 8 +++++---
->  include/linux/cpumask.h        | 2 +-
->  lib/math/prime_numbers.c       | 2 --
->  tools/include/linux/bitmap.h   | 8 +++++---
->  5 files changed, 11 insertions(+), 14 deletions(-)
-> 
-> diff --git a/drivers/md/dm-clone-metadata.c b/drivers/md/dm-clone-metadata.c
-> index c43d55672bce..47c1fa7aad8b 100644
-> --- a/drivers/md/dm-clone-metadata.c
-> +++ b/drivers/md/dm-clone-metadata.c
-> @@ -465,11 +465,6 @@ static void __destroy_persistent_data_structures(struct dm_clone_metadata *cmd)
->  
->  /*---------------------------------------------------------------------------*/
->  
-> -static size_t bitmap_size(unsigned long nr_bits)
-> -{
-> -	return BITS_TO_LONGS(nr_bits) * sizeof(long);
-> -}
-> -
->  static int __dirty_map_init(struct dirty_map *dmap, unsigned long nr_words,
->  			    unsigned long nr_regions)
->  {
-> diff --git a/include/linux/bitmap.h b/include/linux/bitmap.h
-> index 03644237e1ef..63e422f8ba3d 100644
-> --- a/include/linux/bitmap.h
-> +++ b/include/linux/bitmap.h
-> @@ -237,9 +237,11 @@ extern int bitmap_print_list_to_buf(char *buf, const unsigned long *maskp,
->  #define BITMAP_FIRST_WORD_MASK(start) (~0UL << ((start) & (BITS_PER_LONG - 1)))
->  #define BITMAP_LAST_WORD_MASK(nbits) (~0UL >> (-(nbits) & (BITS_PER_LONG - 1)))
->  
-> +#define bitmap_size(nbits)	(ALIGN(nbits, BITS_PER_LONG) / BITS_PER_BYTE)
-> +
->  static inline void bitmap_zero(unsigned long *dst, unsigned int nbits)
->  {
-> -	unsigned int len = BITS_TO_LONGS(nbits) * sizeof(unsigned long);
-> +	unsigned int len = bitmap_size(nbits);
->  
->  	if (small_const_nbits(nbits))
->  		*dst = 0;
-> @@ -249,7 +251,7 @@ static inline void bitmap_zero(unsigned long *dst, unsigned int nbits)
->  
->  static inline void bitmap_fill(unsigned long *dst, unsigned int nbits)
->  {
-> -	unsigned int len = BITS_TO_LONGS(nbits) * sizeof(unsigned long);
-> +	unsigned int len = bitmap_size(nbits);
->  
->  	if (small_const_nbits(nbits))
->  		*dst = ~0UL;
-> @@ -260,7 +262,7 @@ static inline void bitmap_fill(unsigned long *dst, unsigned int nbits)
->  static inline void bitmap_copy(unsigned long *dst, const unsigned long *src,
->  			unsigned int nbits)
->  {
-> -	unsigned int len = BITS_TO_LONGS(nbits) * sizeof(unsigned long);
-> +	unsigned int len = bitmap_size(nbits);
->  
->  	if (small_const_nbits(nbits))
->  		*dst = *src;
-> diff --git a/include/linux/cpumask.h b/include/linux/cpumask.h
-> index f10fb87d49db..dbdbf1451cad 100644
-> --- a/include/linux/cpumask.h
-> +++ b/include/linux/cpumask.h
-> @@ -821,7 +821,7 @@ static inline int cpulist_parse(const char *buf, struct cpumask *dstp)
->   */
->  static inline unsigned int cpumask_size(void)
->  {
-> -	return BITS_TO_LONGS(large_cpumask_bits) * sizeof(long);
-> +	return bitmap_size(large_cpumask_bits);
->  }
->  
->  /*
-> diff --git a/lib/math/prime_numbers.c b/lib/math/prime_numbers.c
-> index d42cebf7407f..d3b64b10da1c 100644
-> --- a/lib/math/prime_numbers.c
-> +++ b/lib/math/prime_numbers.c
-> @@ -6,8 +6,6 @@
->  #include <linux/prime_numbers.h>
->  #include <linux/slab.h>
->  
-> -#define bitmap_size(nbits) (BITS_TO_LONGS(nbits) * sizeof(unsigned long))
-> -
->  struct primes {
->  	struct rcu_head rcu;
->  	unsigned long last, sz;
-> diff --git a/tools/include/linux/bitmap.h b/tools/include/linux/bitmap.h
-> index f3566ea0f932..81a2299ace15 100644
-> --- a/tools/include/linux/bitmap.h
-> +++ b/tools/include/linux/bitmap.h
-> @@ -2,6 +2,7 @@
->  #ifndef _TOOLS_LINUX_BITMAP_H
->  #define _TOOLS_LINUX_BITMAP_H
->  
-> +#include <linux/align.h>
->  #include <string.h>
->  #include <linux/bitops.h>
->  #include <linux/find.h>
-> @@ -25,13 +26,14 @@ bool __bitmap_intersects(const unsigned long *bitmap1,
->  #define BITMAP_FIRST_WORD_MASK(start) (~0UL << ((start) & (BITS_PER_LONG - 1)))
->  #define BITMAP_LAST_WORD_MASK(nbits) (~0UL >> (-(nbits) & (BITS_PER_LONG - 1)))
->  
-> +#define bitmap_size(nbits)	(ALIGN(nbits, BITS_PER_LONG) / BITS_PER_BYTE)
-> +
->  static inline void bitmap_zero(unsigned long *dst, unsigned int nbits)
->  {
->  	if (small_const_nbits(nbits))
->  		*dst = 0UL;
->  	else {
-> -		int len = BITS_TO_LONGS(nbits) * sizeof(unsigned long);
-> -		memset(dst, 0, len);
-> +		memset(dst, 0, bitmap_size(nbits));
->  	}
->  }
->  
-> @@ -83,7 +85,7 @@ static inline void bitmap_or(unsigned long *dst, const unsigned long *src1,
->   */
->  static inline unsigned long *bitmap_zalloc(int nbits)
->  {
-> -	return calloc(1, BITS_TO_LONGS(nbits) * sizeof(unsigned long));
-> +	return calloc(1, bitmap_size(nbits));
->  }
->  
->  /*
-> -- 
-> 2.41.0
-
---
-dm-devel mailing list
-dm-devel@redhat.com
-https://listman.redhat.com/mailman/listinfo/dm-devel
+T24gU3VuLCBPY3QgOCwgMjAyMyBhdCA0OjI34oCvUE0gRGF2ZSBDaGlubmVyIDxkYXZpZEBmcm9t
+b3JiaXQuY29tPiB3cm90ZToKPgo+IE9uIEZyaSwgT2N0IDA2LCAyMDIzIGF0IDA2OjI4OjE3UE0g
+LTA3MDAsIFNhcnRoYWsgS3VrcmV0aSB3cm90ZToKPiA+IEFsbG93IFJFUV9PUF9QUk9WSVNJT04g
+dG8gcGFzcyBpbiBhbiBleHRyYSBSRVFfVU5TSEFSRSBiaXQgdG8KPiA+IGFubm90YXRlIHVuc2hh
+cmUgcmVxdWVzdHMgdG8gdW5kZXJseWluZyBsYXllcnMuIExheWVycyB0aGF0IHN1cHBvcnQKPiA+
+IEZBTExPQ19GTF9VTlNIQVJFIHdpbGwgYmUgYWJsZSB0byB1c2UgdGhpcyBhcyBhbiBpbmRpY2F0
+b3Igb2Ygd2hpY2gKPiA+IGZhbGxvY2F0ZSgpIG1vZGUgdG8gdXNlLgo+ID4KPiA+IFN1Z2dlc3Rl
+ZC1ieTogRGFycmljayBKLiBXb25nIDxkandvbmdAa2VybmVsLm9yZz4KPiA+IFNpZ25lZC1vZmYt
+Ynk6IFNhcnRoYWsgS3VrcmV0aSA8c2FydGhha2t1a3JldGlAY2hyb21pdW0ub3JnPgo+ID4gLS0t
+Cj4gPiAgYmxvY2svYmxrLWxpYi5jICAgICAgICAgICB8ICA2ICsrKysrLQo+ID4gIGJsb2NrL2Zv
+cHMuYyAgICAgICAgICAgICAgfCAgNiArKysrLS0KPiA+ICBkcml2ZXJzL2Jsb2NrL2xvb3AuYyAg
+ICAgIHwgMzUgKysrKysrKysrKysrKysrKysrKysrKysrKysrKystLS0tLS0KPiA+ICBpbmNsdWRl
+L2xpbnV4L2Jsa190eXBlcy5oIHwgIDMgKysrCj4gPiAgaW5jbHVkZS9saW51eC9ibGtkZXYuaCAg
+ICB8ICAzICsrLQo+ID4gIDUgZmlsZXMgY2hhbmdlZCwgNDMgaW5zZXJ0aW9ucygrKSwgMTAgZGVs
+ZXRpb25zKC0pCj4KPiBJIGhhdmUgbm8gaWRlYSBob3cgZmlsZXN5c3RlbXMgKG9yIGV2ZW4gdXNl
+cnNwYWNlIGFwcGxpY2F0aW9ucywgZm9yCj4gdGhhdCBtYXR0ZXIpIGFyZSBzdXBwb3NlZCB0byB1
+c2UgdGhpcyAtIHRoZXkgaGF2ZSBubyBpZGVhIGlmIHRoZQo+IHVuZGVybHlpbmcgYmxvY2sgZGV2
+aWNlIGhhcyBzaGFyZWQgYmxvY2tzIGZvciBMQkEgcmFuZ2VzIGl0IGFscmVhZHkKPiBoYXMgYWxs
+b2NhdGVkIGFuZCBwcm92aXNpb25lZC4gSU9XcywgSSBkb24ndCBrbm93IHdhaHQgdGhlIHNlbWFu
+dGljcwo+IG9mIHRoaXMgZnVuY3Rpb24gaXMsIGl0IGlzIG5vdCBkb2N1bWVudGVkIGFueXdoZXJl
+LCBhbmQgdGhlcmUgaXMgbm8KPiB1c2UgY2FzZSBwcmVzZW50IHRoYXQgdGVsbHMgbWUgaG93IGl0
+IG1pZ2h0IGdldCB1c2VkLgo+Cj4gWWVzLCB1bnNoYXJlIGF0IHRoZSBmaWxlIGxldmVsIG1lYW5z
+IHRoZSBmaWxlc3lzdGVtIHRyaWVzIHRvIGJyZWFrCj4gaW50ZXJuYWwgZGF0YSBleHRlbnQgc2hh
+cmluZywgYnV0IGlmIHRoZSBibG9jayBsYXllcnMgb3IgYmFja2luZwo+IGRldmljZXMgYXJlIGRv
+aW5nIGRlZHVwbGljYXRpb24gYW5kIHNoYXJpbmcgdW5rbm93biB0byB0aGUKPiBhcHBsaWNhdGlv
+biBvciBmaWxlc3lzdGVtLCBob3cgZG8gdGhleSBldmVyIGtub3cgdGhhdCB0aGlzIG9wZXJhdGlv
+bgo+IG1pZ2h0IG5lZWQgdG8gYmUgcGVyZm9ybWVkPyBJbiB3aGF0IGNhc2VzIGRvIHdlIG5lZWQg
+dG8gYmUgYWJsZSB0bwo+IHVuc2hhcmUgYmxvY2sgZGV2aWNlIHJhbmdlcywgYW5kIGhvdyBpcyB0
+aGF0IGRpZmZlcmVudCB0byB0aGUKPiBndWFyYW50ZWVzIHRoYXQgUkVRX1BST1ZJU0lPTiBpcyBh
+bHJlYWR5IHN1cHBvc2VkIHRvIGdpdmUgZm9yCj4gcHJvdmlzaW9uZWQgcmFuZ2VzIHRoYXQgYXJl
+IHRoZW4gc3Vic2VxdWVudGx5IHNoYXJlZCBieSB0aGUgYmxvY2sKPiBkZXZpY2UgKGUuZy4gYnkg
+c25hcHNob3RzKT8KPgo+IEFsc28sIGZyb20gYW4gQVBJIHBlcnNwZWN0aXZlLCB0aGlzIGlzIGFu
+ICJ1bnNoYXJlIiBkYXRhIG9wZXJhdGlvbiwKPiBub3QgYSAicHJvdmlzaW9uIiBvcGVyYXRpb24u
+IEhlbmNlIEknZCBzdWdnZXN0IHRoYXQgdGhlIEFQSSBzaG91bGQKPiBiZSBibGtkZXZfaXNzdWVf
+dW5zaGFyZSgpIHJhdGhlciB0aGFuIG9wdGlvbmFsIGJlaGF2aW91ciB0bwo+IF9wcm92aXNpb24o
+KSB3aGljaCAtIGJlZm9yZSB0aGlzIHBhdGNoIC0gaGFkIGNsZWFyIGFuZCB3ZWxsIGRlZmluZWQK
+PiBtZWFuaW5nLi4uLgo+CkZhaXIgcG9pbnRzLCB0aGUgaW50ZW50IGZyb20gdGhlIGNvbnZlcnNh
+dGlvbiB3aXRoIERhcnJpY2sgd2FzIHRoZQphZGRpdGlvbiBvZiBzdXBwb3J0IGZvciBGQUxMT0Nf
+RkxfVU5TSEFSRV9SQU5HRSBpbiBwYXRjaCAyIG9mIHY0CihvcmlnaW5hbGx5IHN1Z2dlc3RlZCBi
+eSBCcmlhbiBGb3JzdGVyIGluIFsxXSk6IGlmIHdlIGFsbG93CmZhbGxvY2F0ZShVTlNIQVJFX1JB
+TkdFKSBvbiBhIGxvb3AgZGV2aWNlIChleC4gZm9yIGNyZWF0aW5nIGEKc25hcHNob3QsIHNpbWls
+YXIgaW4gbmF0dXJlIHRvIHRoZSBGSUNMT05FIGV4YW1wbGUgeW91IG1lbnRpb25lZCBvbgp0aGUg
+bG9vcCBwYXRjaCksIHdlJ2QgKGlkZWFsbHkpIHdhbnQgdG8gcGFzcyBpdCB0aHJvdWdoIHRvIHRo
+ZQp1bmRlcmx5aW5nIGxheWVycyBhbmQgbGV0IHRoZW0gZmlndXJlIG91dCB3aGF0IHRvIGRvIHdp
+dGggaXQuIEJ1dCBpdAppcyBvbmx5IGZvciBzaXR1YXRpb25zIHdoZXJlIHdlIGFyZSBleHBsaWNp
+dGx5IGtub3cgd2hhdCB0aGUKdW5kZXJseWluZyBsYXllcnMgYXJlIGFuZCB3aGF0J3MgdGhlIG1l
+Y2hhCgpJIGFncmVlIHRob3VnaCB0aGF0IGl0IGNsb3VkcyB0aGUgQVBJIGEgYml0IGFuZCBJIGRv
+bid0IHRoaW5rIGl0Cm5lY2Vzc2FyaWx5IG5lZWRzIHRvIGJlIGEgcGFydCBvZiB0aGUgaW5pdGlh
+bCBwYXRjaCBzZXJpZXM6IGZvciBub3csIEkKcHJvcG9zZSBrZWVwaW5nIGp1c3QgbW9kZSB6ZXJv
+IChhbmQgRkFMTE9DX0ZMX0tFRVBfU0laRSkgaGFuZGxpbmcgaW4KdGhlIGJsb2NrIHNlcmllcyBw
+YXRjaCBhbmQgZHJvcCB0aGlzIHBhdGNoIGZvciBub3cuIFdEWVQ/CgpCZXN0ClNhcnRoYWsKClsx
+XSBodHRwczovL3BhdGNod29yay5vemxhYnMub3JnL3Byb2plY3QvbGludXgtZXh0NC9wYXRjaC8y
+MDIzMDQxNDAwMDIxOS45MjY0MC0yLXNhcnRoYWtrdWtyZXRpQGNocm9taXVtLm9yZy8jMzA5Nzc0
+NgoKCgoKPiBDaGVlcnMsCj4KPiBEYXZlLgo+IC0tCj4gRGF2ZSBDaGlubmVyCj4gZGF2aWRAZnJv
+bW9yYml0LmNvbQoKLS0KZG0tZGV2ZWwgbWFpbGluZyBsaXN0CmRtLWRldmVsQHJlZGhhdC5jb20K
+aHR0cHM6Ly9saXN0bWFuLnJlZGhhdC5jb20vbWFpbG1hbi9saXN0aW5mby9kbS1kZXZlbAo=
 
