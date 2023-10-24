@@ -1,114 +1,114 @@
-Return-Path: <dm-devel+bounces-79-lists+dm-devel=lfdr.de@lists.linux.dev>
+Return-Path: <dm-devel+bounces-75-lists+dm-devel=lfdr.de@lists.linux.dev>
 X-Original-To: lists+dm-devel@lfdr.de
 Delivered-To: lists+dm-devel@lfdr.de
-Received: from sy.mirrors.kernel.org (sy.mirrors.kernel.org [147.75.48.161])
-	by mail.lfdr.de (Postfix) with ESMTPS id 3F0AB7D465D
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Oct 2023 05:53:11 +0200 (CEST)
+Received: from sv.mirrors.kernel.org (sv.mirrors.kernel.org [139.178.88.99])
+	by mail.lfdr.de (Postfix) with ESMTPS id 898977D4655
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Oct 2023 05:53:00 +0200 (CEST)
 Received: from smtp.subspace.kernel.org (wormhole.subspace.kernel.org [52.25.139.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by sy.mirrors.kernel.org (Postfix) with ESMTPS id D36A6B20D29
-	for <lists+dm-devel@lfdr.de>; Tue, 24 Oct 2023 03:53:08 +0000 (UTC)
+	by sv.mirrors.kernel.org (Postfix) with ESMTPS id 393AA28196A
+	for <lists+dm-devel@lfdr.de>; Tue, 24 Oct 2023 03:52:59 +0000 (UTC)
 Received: from localhost.localdomain (localhost.localdomain [127.0.0.1])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1BEC2882B;
-	Tue, 24 Oct 2023 03:52:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 4D0101094B;
+	Tue, 24 Oct 2023 03:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eOZU7Z+V"
+	dkim=fail reason="signature verification failed" (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="AYRtXJk8"
 X-Original-To: dm-devel@lists.linux.dev
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 810B65396
-	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 40F0C101E3
+	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=paul-moore.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1698119575;
+	s=mimecast20190719; t=1698119560;
 	h=from:from:sender:sender:reply-to:subject:subject:date:date:
 	 message-id:message-id:to:to:cc:cc:content-type:content-type:
 	 in-reply-to:in-reply-to:references:references:list-id:list-help:
 	 list-unsubscribe:list-subscribe:list-post;
-	bh=SJeWgPJnFP9SHHxUPbKsetSyEOFGY5VrSBabMhJS80Q=;
-	b=eOZU7Z+VeRolKR/YwxOIw1+hYUtLtmcBWCjqFdRSMpVeFmgILK3iScjXZQVCLAj1eH1d5X
-	yMqli+ZrBazxohjKryzCz1xd6RBpU2Un6ZdZxMtxlGwR1bQuJqhsIL7yZkivvy73f0cq+l
-	6624jjZMcbpawyIDBqlYy3chL/t6MAo=
-Received: from mimecast-mx02.redhat.com (mx-ext.redhat.com [66.187.233.73])
- by relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-600-Wy-PiChpNIyCgv3rKzrLmQ-1; Mon,
- 23 Oct 2023 23:52:49 -0400
-X-MC-Unique: Wy-PiChpNIyCgv3rKzrLmQ-1
-Received: from smtp.corp.redhat.com (int-mx02.intmail.prod.int.rdu2.redhat.com [10.11.54.2])
+	bh=55ZRJ15k5rlJjmFui052IxveaRjJKA9VJGl0uzNotB8=;
+	b=AYRtXJk8AUxxg+m7dpD4sDn23RpJUSLjwNkWnRtYbUJJqo0y74hQ3DhdEzKo6qoPyz60l3
+	z7RDRIuoGiGbAcOrFqpjlqea3Qh1OHIpnSoVSqFXLjRijutpnpIqn15snB/4CBO3/26tt2
+	t1U7GU4rn7b9MsPNlEvAOT+LS2Y/998=
+Received: from mimecast-mx02.redhat.com (mimecast-mx02.redhat.com
+ [66.187.233.88]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-94-LdVciSaiPtGqTjZTBnyAqQ-1; Mon, 23 Oct 2023 23:52:39 -0400
+X-MC-Unique: LdVciSaiPtGqTjZTBnyAqQ-1
+Received: from smtp.corp.redhat.com (int-mx05.intmail.prod.int.rdu2.redhat.com [10.11.54.5])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
 	(No client certificate requested)
-	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 24E8C1C04B41
-	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:49 +0000 (UTC)
+	by mimecast-mx02.redhat.com (Postfix) with ESMTPS id F1473857CF6
+	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com [10.30.29.100])
-	by smtp.corp.redhat.com (Postfix) with ESMTP id 1DAEB40C6F7B
-	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:46 +0000 (UTC)
+	by smtp.corp.redhat.com (Postfix) with ESMTP id EA7E48C0B
+	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
 Received: from mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (localhost [IPv6:::1])
-	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id E6A48194658C
-	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:44 +0000 (UTC)
+	by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with ESMTP id CC43C1946589
+	for <dm-devel@lists.linux.dev>; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
 X-Original-To: dm-devel@listman.corp.redhat.com
 Delivered-To: dm-devel@listman.corp.redhat.com
-Received: from smtp.corp.redhat.com (int-mx06.intmail.prod.int.rdu2.redhat.com
- [10.11.54.6])
+Received: from smtp.corp.redhat.com (int-mx10.intmail.prod.int.rdu2.redhat.com
+ [10.11.54.10])
  by mm-prod-listman-01.mail-001.prod.us-east-1.aws.redhat.com (Postfix) with
- ESMTP id B38E71946588
- for <dm-devel@listman.corp.redhat.com>; Tue, 24 Oct 2023 03:52:43 +0000 (UTC)
+ ESMTP id 47C651946588
+ for <dm-devel@listman.corp.redhat.com>; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
 Received: by smtp.corp.redhat.com (Postfix)
- id A10052166B27; Tue, 24 Oct 2023 03:52:43 +0000 (UTC)
+ id 2A75C492BFC; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
 Delivered-To: dm-devel@redhat.com
 Received: from mimecast-mx02.redhat.com
- (mimecast08.extmail.prod.ext.rdu2.redhat.com [10.11.55.24])
- by smtp.corp.redhat.com (Postfix) with ESMTPS id 9A0A62166B26
- for <dm-devel@redhat.com>; Tue, 24 Oct 2023 03:52:43 +0000 (UTC)
-Received: from us-smtp-inbound-delivery-1.mimecast.com
- (us-smtp-delivery-1.mimecast.com [205.139.110.120])
+ (mimecast02.extmail.prod.ext.rdu2.redhat.com [10.11.55.18])
+ by smtp.corp.redhat.com (Postfix) with ESMTPS id 22F81492BFB
+ for <dm-devel@redhat.com>; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
+Received: from us-smtp-inbound-delivery-1.mimecast.com (us-smtp-1.mimecast.com
+ [207.211.31.81])
  (using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
  key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
  (No client certificate requested)
- by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 75AB238143A3
- for <dm-devel@redhat.com>; Tue, 24 Oct 2023 03:52:43 +0000 (UTC)
-Received: from mail-qk1-f181.google.com (mail-qk1-f181.google.com
- [209.85.222.181]) by relay.mimecast.com with ESMTP with STARTTLS
+ by mimecast-mx02.redhat.com (Postfix) with ESMTPS id 023A880F8F6
+ for <dm-devel@redhat.com>; Tue, 24 Oct 2023 03:52:38 +0000 (UTC)
+Received: from mail-qk1-f175.google.com (mail-qk1-f175.google.com
+ [209.85.222.175]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-694-7rCnADEWM62qnkxzYA8Otw-1; Mon, 23 Oct 2023 23:52:41 -0400
-X-MC-Unique: 7rCnADEWM62qnkxzYA8Otw-1
-Received: by mail-qk1-f181.google.com with SMTP id
- af79cd13be357-777754138bdso268474785a.1
- for <dm-devel@redhat.com>; Mon, 23 Oct 2023 20:52:34 -0700 (PDT)
+ us-mta-695-AZStu4RVNLuKdBB075gOcQ-2; Mon, 23 Oct 2023 23:52:36 -0400
+X-MC-Unique: AZStu4RVNLuKdBB075gOcQ-2
+Received: by mail-qk1-f175.google.com with SMTP id
+ af79cd13be357-7788fb06997so282735585a.0
+ for <dm-devel@redhat.com>; Mon, 23 Oct 2023 20:52:35 -0700 (PDT)
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
- d=1e100.net; s=20230601; t=1698119554; x=1698724354;
+ d=1e100.net; s=20230601; t=1698119555; x=1698724355;
  h=in-reply-to:references:subject:cc:to:from:message-id:date
  :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to;
- bh=SJeWgPJnFP9SHHxUPbKsetSyEOFGY5VrSBabMhJS80Q=;
- b=vk+gKtMNrgg3E8yWV44aLKtLwlh0b1AnUajgNW+xZBBC57wF0CqZEHfNkDRXsN0Uqt
- C8K9TiJdRSec5te7gtT6itYp70vuADmQzbH0vEPXT5dOlen9zOp9SdGha6BFEvrC/W6q
- ctrrT/XLBc9qeNClGgalsvC86bpGiLrKkITBbNl5RP3NqO67oJk+ThsFpElaeUojTv2R
- +x9zmjRmMxU6Ezc7+lvcRh4S64qPLUd/+4wpHlozmsA9KVsbJrravgbnWBiJW6MbeE1v
- 0tvXgA6opLDQultzc9FrA6Ak7myCJckf1pxtiu2Tido4CIn/ISUYMfCdyqnbbeRB+Dcw
- dItw==
-X-Gm-Message-State: AOJu0Yxxhf7+M9OhlQcxcR6vE35sXIMhMkI/LNEZgBcObIOqCqwwva5g
- c/fWB5qv8N+KNjqZ2umExhLU
-X-Google-Smtp-Source: AGHT+IH2nCw7lcCJOC1jGaMBVsqfLXNVaAdsff3fbIwOETvTCI7/MGjJFVZyviKRDzofuJU8klNdDQ==
-X-Received: by 2002:a05:620a:2907:b0:778:b78b:3338 with SMTP id
- m7-20020a05620a290700b00778b78b3338mr7760648qkp.10.1698119554427; 
- Mon, 23 Oct 2023 20:52:34 -0700 (PDT)
+ bh=55ZRJ15k5rlJjmFui052IxveaRjJKA9VJGl0uzNotB8=;
+ b=DvmPCvz9zIYEEo2JLdNjw6slo8YJJpedBj6x6+s293+tLmailv40lA7uvG/Tdb5wFr
+ 9BTW+b5GvxWM+Xxwaj/KDYd+oSCUIRB3fMJWjlFqI4COG08I5LnDrLjkqcCZEncMDlXz
+ kn7lVyuTEgAkL+rISI9rXEpL4IOSLTmmSpSpYlcY5jDV0TphRaD2vguTaglvUniyrPJo
+ 3GoXA+DjskmSz+UHT2/N+hGOb0256IQT9P12REKJM7MWIjBHvW6XTsx8s+6nqfD/sQ5t
+ I3nFHqD3mMWyFJaC6zuVlJkzL3jdZuFR8F04IvdilMBci3tEbGdwpbWmM/LwfA4mrJgC
+ kdSg==
+X-Gm-Message-State: AOJu0Yyb771gC5yM77cgh8d6rXXv7pmbd9I8U2jq883cCCyTCqv/VVjk
+ n3vGs9lolLffpMRjiA9s6odA
+X-Google-Smtp-Source: AGHT+IFhehT5SBIN3u4k21hQKcqd9tt3cVRe5RSL6o1ZuOBt7dfMcEzUGFp3iEoi8dzbbuQJKBLFmg==
+X-Received: by 2002:a05:6214:626:b0:66d:5dec:6099 with SMTP id
+ a6-20020a056214062600b0066d5dec6099mr11383093qvx.41.1698119555528; 
+ Mon, 23 Oct 2023 20:52:35 -0700 (PDT)
 Received: from localhost ([70.22.175.108]) by smtp.gmail.com with ESMTPSA id
- i6-20020a05620a404600b007742c6823a3sm3143889qko.108.2023.10.23.20.52.33
+ ee3-20020a0562140a4300b0065b260eafd9sm3357598qvb.87.2023.10.23.20.52.34
  (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
- Mon, 23 Oct 2023 20:52:33 -0700 (PDT)
-Date: Mon, 23 Oct 2023 23:52:33 -0400
-Message-ID: <6efb7a80ba0eb3e02b3ae7a5c0a210f3.paul@paul-moore.com>
+ Mon, 23 Oct 2023 20:52:34 -0700 (PDT)
+Date: Mon, 23 Oct 2023 23:52:34 -0400
+Message-ID: <c2a88a9292a6ce1e301ec2244657f385.paul@paul-moore.com>
 From: Paul Moore <paul@paul-moore.com>
 To: Fan Wu <wufan@linux.microsoft.com>, corbet@lwn.net, zohar@linux.ibm.com,
  jmorris@namei.org, serge@hallyn.com, tytso@mit.edu, ebiggers@kernel.org,
  axboe@kernel.dk, agk@redhat.com, snitzer@kernel.org, eparis@redhat.com
-Subject: Re: [PATCH RFC v11 15/19] fsverity: consume builtin signature via LSM
- hook
-References: <1696457386-3010-16-git-send-email-wufan@linux.microsoft.com>
-In-Reply-To: <1696457386-3010-16-git-send-email-wufan@linux.microsoft.com>
+Subject: Re: [PATCH RFC v11 16/19] ipe: enable support for fs-verity as a
+ trust provider
+References: <1696457386-3010-17-git-send-email-wufan@linux.microsoft.com>
+In-Reply-To: <1696457386-3010-17-git-send-email-wufan@linux.microsoft.com>
 X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Definition; Similar Internal Domain=false;
  Similar Monitored External Domain=false; Custom External Domain=false;
@@ -116,7 +116,7 @@ X-Mimecast-Impersonation-Protect: Policy=CLT - Impersonation Protection
  Internal User Name=false; Custom Display Name List=false;
  Reply-to Address Mismatch=false; Targeted Threat Dictionary=false;
  Mimecast Threat Dictionary=false; Custom Threat Dictionary=false
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.6
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.10
 X-BeenThere: dm-devel@redhat.com
 X-Mailman-Version: 2.1.29
 Precedence: list
@@ -136,7 +136,7 @@ Cc: dm-devel@redhat.com, linux-doc@vger.kernel.org,
  linux-integrity@vger.kernel.org
 Errors-To: dm-devel-bounces@redhat.com
 Sender: "dm-devel" <dm-devel-bounces@redhat.com>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.2
+X-Scanned-By: MIMEDefang 3.4.1 on 10.11.54.5
 X-Mimecast-Spam-Score: 2
 X-Mimecast-Originator: paul-moore.com
 Content-Type: text/plain; charset="US-ASCII"; x-default=true
@@ -148,25 +148,25 @@ List-Unsubscribe: <mailto:dm-devel+unsubscribe@lists.linux.dev>
 
 On Oct  4, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
 > 
-> fsverity represents a mechanism to support both integrity and
-> authenticity protection of a file, supporting both signed and unsigned
-> digests.
+> Enable IPE policy authors to indicate trust for a singular fsverity
+> file, identified by the digest information, through "fsverity_digest"
+> and all files using fsverity's builtin signatures via
+> "fsverity_signature".
 > 
-> An LSM which controls access to a resource based on authenticity and
-> integrity of said resource, can then use this data to make an informed
-> decision on the authorization (provided by the LSM's policy) of said
-> claim.
+> This enables file-level integrity claims to be expressed in IPE,
+> allowing individual files to be authorized, giving some flexibility
+> for policy authors. Such file-level claims are important to be expressed
+> for enforcing the integrity of packages, as well as address some of the
+> scalability issues in a sole dm-verity based solution (# of loop back
+> devices, etc).
 > 
-> This effectively allows the extension of a policy enforcement layer in
-> LSM for fsverity, allowing for more granular control of how a
-> particular authenticity claim can be used. For example, "all (built-in)
-> signed fsverity files should be allowed to execute, but only these
-> hashes are allowed to be loaded as kernel modules".
-> 
-> This enforcement must be done in kernel space, as a userspace only
-> solution would fail a simple litmus test: Download a self-contained
-> malicious binary that never touches the userspace stack. This
-> binary would still be able to execute.
+> This solution cannot be done in userspace as the minimum threat that
+> IPE should mitigate is an attacker downloads malicious payload with
+> all required dependencies. These dependencies can lack the userspace
+> check, bypassing the protection entirely. A similar attack succeeds if
+> the userspace component is replaced with a version that does not
+> perform the check. As a result, this can only be done in the common
+> entry point - the kernel.
 > 
 > Signed-off-by: Deven Bowers <deven.desai@linux.microsoft.com>
 > Signed-off-by: Fan Wu <wufan@linux.microsoft.com>
@@ -178,117 +178,129 @@ On Oct  4, 2023 Fan Wu <wufan@linux.microsoft.com> wrote:
 >   Introduced
 > 
 > v8:
->   + Split fs/verity/ changes and security/ changes into separate patches
->   + Change signature of fsverity_create_info to accept non-const inode
->   + Change signature of fsverity_verify_signature to accept non-const inode
->   + Don't cast-away const from inode.
->   + Digest functionality dropped in favor of:
->     ("fs-verity: define a function to return the integrity protected
->       file digest")
->   + Reworded commit description and title to match changes.
->   + Fix a bug wherein no LSM implements the particular fsverity @name
->     (or LSM is disabled), and returns -EOPNOTSUPP, causing errors.
+>   * Undo squash of 08/12, 10/12 - separating drivers/md/ from security/
+>   * Use common-audit function for fsverity_signature.
+>   + Change fsverity implementation to use fsverity_get_digest
+>   + prevent unnecessary copy of fs-verity signature data, instead
+>     just check for presence of signature data.
+>   + Remove free_inode_security hook, as the digest is now acquired
+>     at runtime instead of via LSM blob.
 > 
 > v9:
->   + No changes
+>   + Adapt to the new parser
 > 
 > v10:
->   + Rename the signature blob key
->   + Cleanup redundant code
->   + Make the hook call depends on CONFIG_FS_VERITY_BUILTIN_SIGNATURES
+>   + Update the fsverity get digest call
 > 
 > v11:
 >   + No changes
 > ---
->  fs/verity/fsverity_private.h |  2 +-
->  fs/verity/open.c             | 26 +++++++++++++++++++++++++-
->  include/linux/fsverity.h     |  2 ++
->  3 files changed, 28 insertions(+), 2 deletions(-)
+>  security/ipe/Kconfig         |  13 +++++
+>  security/ipe/audit.c         |  23 ++++++++
+>  security/ipe/eval.c          | 110 +++++++++++++++++++++++++++++++++++
+>  security/ipe/eval.h          |  10 ++++
+>  security/ipe/hooks.c         |  30 ++++++++++
+>  security/ipe/hooks.h         |   7 +++
+>  security/ipe/ipe.c           |  13 +++++
+>  security/ipe/ipe.h           |   3 +
+>  security/ipe/policy.h        |   3 +
+>  security/ipe/policy_parser.c |   8 +++
+>  10 files changed, 220 insertions(+)
 
-We need an ACK from some VFS folks on this.
+...
 
-> diff --git a/fs/verity/fsverity_private.h b/fs/verity/fsverity_private.h
-> index d071a6e32581..4a82716e852f 100644
-> --- a/fs/verity/fsverity_private.h
-> +++ b/fs/verity/fsverity_private.h
-> @@ -108,7 +108,7 @@ int fsverity_init_merkle_tree_params(struct merkle_tree_params *params,
->  				     unsigned int log_blocksize,
->  				     const u8 *salt, size_t salt_size);
->  
-> -struct fsverity_info *fsverity_create_info(const struct inode *inode,
-> +struct fsverity_info *fsverity_create_info(struct inode *inode,
->  					   struct fsverity_descriptor *desc);
->  
->  void fsverity_set_info(struct inode *inode, struct fsverity_info *vi);
-> diff --git a/fs/verity/open.c b/fs/verity/open.c
-> index 6c31a871b84b..5b48e2c39086 100644
-> --- a/fs/verity/open.c
-> +++ b/fs/verity/open.c
-> @@ -8,6 +8,7 @@
->  #include "fsverity_private.h"
->  
->  #include <linux/mm.h>
-> +#include <linux/security.h>
->  #include <linux/slab.h>
->  
->  static struct kmem_cache *fsverity_info_cachep;
-> @@ -172,12 +173,28 @@ static int compute_file_digest(const struct fsverity_hash_alg *hash_alg,
->  	return err;
->  }
->  
-> +#ifdef CONFIG_FS_VERITY_BUILTIN_SIGNATURES
-> +static int fsverity_inode_setsecurity(struct inode *inode,
-> +				      struct fsverity_descriptor *desc)
-> +{
-> +	return security_inode_setsecurity(inode, FS_VERITY_INODE_SEC_NAME,
-> +					  desc->signature,
-> +					  le32_to_cpu(desc->sig_size), 0);
-> +}
-> +#else
-> +static inline int fsverity_inode_setsecurity(struct inode *inode,
-> +					     struct fsverity_descriptor *desc)
-> +{
-> +	return 0;
-> +}
-> +#endif /* CONFIG_IPE_PROP_FS_VERITY*/
-> +
->  /*
->   * Create a new fsverity_info from the given fsverity_descriptor (with optional
->   * appended builtin signature), and check the signature if present.  The
->   * fsverity_descriptor must have already undergone basic validation.
->   */
-> -struct fsverity_info *fsverity_create_info(const struct inode *inode,
-> +struct fsverity_info *fsverity_create_info(struct inode *inode,
->  					   struct fsverity_descriptor *desc)
->  {
->  	struct fsverity_info *vi;
-> @@ -242,6 +259,13 @@ struct fsverity_info *fsverity_create_info(const struct inode *inode,
->  		spin_lock_init(&vi->hash_page_init_lock);
+> diff --git a/security/ipe/audit.c b/security/ipe/audit.c
+> index b5c58655ac74..e3a8552a76a4 100644
+> --- a/security/ipe/audit.c
+> +++ b/security/ipe/audit.c
+> @@ -79,6 +100,8 @@ static void audit_rule(struct audit_buffer *ab, const struct ipe_rule *r)
+>  		audit_log_format(ab, "%s", audit_prop_names[ptr->type]);
+>  		if (ptr->type == IPE_PROP_DMV_ROOTHASH)
+>  			audit_dmv_roothash(ab, ptr->value);
+> +		if (ptr->type == IPE_PROP_FSV_DIGEST)
+> +			audit_fsv_digest(ab, ptr->value);
+
+My comments on audit_dmv_roothash() also apply here.
+
+>  		audit_log_format(ab, " ");
 >  	}
->  
-> +	err = fsverity_inode_setsecurity(inode, desc);
-> +	if (err == -EOPNOTSUPP)
-> +		err = 0;
-> +
-> +	if (err)
-> +		goto fail;
-> +
->  	return vi;
->  
->  fail:
-> diff --git a/include/linux/fsverity.h b/include/linux/fsverity.h
-> index 1eb7eae580be..9666721baf15 100644
-> --- a/include/linux/fsverity.h
-> +++ b/include/linux/fsverity.h
-> @@ -319,4 +319,6 @@ static inline int fsverity_prepare_setattr(struct dentry *dentry,
->  	return 0;
+> diff --git a/security/ipe/eval.c b/security/ipe/eval.c
+> index 82ad48d7aa3d..f0194b0ca2ff 100644
+> --- a/security/ipe/eval.c
+> +++ b/security/ipe/eval.c
+> @@ -172,6 +191,91 @@ static bool evaluate_dmv_sig_true(const struct ipe_eval_ctx *const ctx,
 >  }
+>  #endif /* CONFIG_IPE_PROP_DM_VERITY */
 >  
-> +#define FS_VERITY_INODE_SEC_NAME "fsverity.builtin-sig"
+> +#ifdef CONFIG_IPE_PROP_FS_VERITY
+> +/**
+> + * evaluate_fsv_digest - Analyze @ctx against a fsv digest property.
+> + * @ctx: Supplies a pointer to the context being evaluated.
+> + * @p: Supplies a pointer to the property being evaluated.
+> + *
+> + * Return:
+> + * * true	- The current @ctx match the @p
+> + * * false	- The current @ctx doesn't match the @p
+> + */
+> +static bool evaluate_fsv_digest(const struct ipe_eval_ctx *const ctx,
+> +				struct ipe_prop *p)
+> +{
+> +	enum hash_algo alg;
+> +	u8 digest[FS_VERITY_MAX_DIGEST_SIZE];
 > +
->  #endif	/* _LINUX_FSVERITY_H */
-> -- 
-> 2.25.1
+> +	if (!ctx->ino)
+> +		return false;
+> +	if (!fsverity_get_digest((struct inode *)ctx->ino,
+> +				 digest,
+> +				 NULL,
+> +				 &alg))
+> +		return false;
+> +
+> +	return ipe_digest_eval(p->value,
+> +			       digest,
+> +			       hash_digest_size[alg],
+> +			       hash_algo_name[alg]);
+> +}
+> +
+> +/**
+> + * evaluate_fsv_sig_false - Analyze @ctx against a fsv sig false property.
+> + * @ctx: Supplies a pointer to the context being evaluated.
+> + * @p: Supplies a pointer to the property being evaluated.
+> + *
+> + * Return:
+> + * * true	- The current @ctx match the @p
+> + * * false	- The current @ctx doesn't match the @p
+> + */
+> +static bool evaluate_fsv_sig_false(const struct ipe_eval_ctx *const ctx,
+> +				   struct ipe_prop *p)
+> +{
+> +	return !ctx->ino ||
+> +	       !IS_VERITY(ctx->ino) ||
+> +	       !ctx->ipe_inode ||
+> +	       !ctx->ipe_inode->fs_verity_signed;
+> +}
+> +
+> +/**
+> + * evaluate_fsv_sig_true - Analyze @ctx against a fsv sig true property.
+> + * @ctx: Supplies a pointer to the context being evaluated.
+> + * @p: Supplies a pointer to the property being evaluated.
+> + *
+> + * Return:
+> + * * true - The current @ctx match the @p
+> + * * false - The current @ctx doesn't match the @p
+> + */
+> +static bool evaluate_fsv_sig_true(const struct ipe_eval_ctx *const ctx,
+> +				  struct ipe_prop *p)
+> +{
+> +	return ctx->ino &&
+> +	       IS_VERITY(ctx->ino) &&
+> +	       ctx->ipe_inode &&
+> +	       ctx->ipe_inode->fs_verity_signed;
+> +}
+
+See my previous comments about the false/true functions.
+
+> +#else
 
 --
 paul-moore.com
